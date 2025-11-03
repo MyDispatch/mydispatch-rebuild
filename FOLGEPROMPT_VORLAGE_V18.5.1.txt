@@ -1,0 +1,236 @@
+# FOLGEPROMPT-VORLAGE V18.5.1
+
+**Verwendung:** Für strukturierte Aufgaben an NeXify  
+**Version:** 18.5.1 FINAL  
+**Datum:** 23.10.2025 23:05 Uhr (DE)
+
+---
+
+## 📋 STANDARD-VORLAGE (Copy & Paste Ready)
+
+```
+## AUFGABE: [Beschreibung in 1-2 Sätzen]
+
+### KONTEXT:
+- **Bereich:** [Marketing / App / Dashboard / Formular / etc.]
+- **Ziel:** [Was soll erreicht werden?]
+- **Priorität:** [Hoch / Mittel / Niedrig]
+
+### ANFORDERUNGEN:
+- [ ] [Anforderung 1]
+- [ ] [Anforderung 2]
+- [ ] [Anforderung 3]
+
+### RECHTLICHE COMPLIANCE:
+- [ ] DSGVO-Hinweis nötig? [Ja/Nein]
+- [ ] AI-Kennzeichnung nötig? [Ja/Nein]
+- [ ] Footer-Links nötig? [Ja/Nein]
+
+### MOBILE-FIRST:
+- [ ] Touch-Targets ≥ 44px
+- [ ] Responsive für 375px, 768px, 1920px
+- [ ] Grid-Pattern: [HERO-GRID / DASHBOARD-GRID / MOBILE-GRID-LAYOUT / etc.]
+
+### FRAGEN AN NEXIFY:
+- [Offene Frage 1]
+- [Offene Frage 2]
+
+### ZEITRAHMEN:
+- **Gewünscht:** [Heute / Morgen / Diese Woche]
+- **Geschätzt von dir:** [X Minuten]
+```
+
+---
+
+## 🎯 BEISPIELE FÜR KONKRETE AUFGABEN
+
+### Beispiel 1: Neue Seite erstellen
+```
+## AUFGABE: Statistik-Seite für Business-Tarif
+
+### KONTEXT:
+- **Bereich:** App (Dashboard)
+- **Ziel:** Business-Kunden sollen KPIs & Charts sehen können
+- **Priorität:** Hoch
+
+### ANFORDERUNGEN:
+- [ ] KPI-Cards für Umsatz, Aufträge, Fahrer
+- [ ] Charts für Zeitverläufe (7 Tage, 30 Tage, 12 Monate)
+- [ ] Filterbar nach Zeitraum
+- [ ] Exportierbar als PDF
+
+### RECHTLICHE COMPLIANCE:
+- [ ] DSGVO-Hinweis nötig? Nein (keine Datensammlung)
+- [ ] AI-Kennzeichnung nötig? Nein
+- [ ] Footer-Links nötig? Ja (App-Footer)
+
+### MOBILE-FIRST:
+- [ ] Touch-Targets ≥ 44px
+- [ ] Responsive für 375px, 768px, 1920px
+- [ ] Grid-Pattern: DASHBOARD-GRID
+
+### FRAGEN AN NEXIFY:
+- Sollen Charts interaktiv sein (Zoom, Hover)?
+- Welche Chart-Library bevorzugst du? (Recharts already installed)
+
+### ZEITRAHMEN:
+- **Gewünscht:** Morgen
+- **Geschätzt von dir:** 20-30 Minuten
+```
+
+---
+
+### Beispiel 2: Feature hinzufügen
+```
+## AUFGABE: GPS-Tracking in Karte anzeigen
+
+### KONTEXT:
+- **Bereich:** Dashboard (Live-Karte)
+- **Ziel:** Fahrer-Positionen in Echtzeit auf Karte zeigen
+- **Priorität:** Mittel
+
+### ANFORDERUNGEN:
+- [ ] Marker für jeden Fahrer mit Icon
+- [ ] Tooltip mit Fahrer-Name & Status
+- [ ] Auto-Update alle 30 Sekunden
+- [ ] Nur für Business+ Tarif
+
+### RECHTLICHE COMPLIANCE:
+- [ ] DSGVO-Hinweis nötig? Ja (GPS-Tracking Hinweis)
+- [ ] AI-Kennzeichnung nötig? Nein
+- [ ] Footer-Links nötig? Ja
+
+### MOBILE-FIRST:
+- [ ] Touch-Targets ≥ 44px (Marker klickbar)
+- [ ] Responsive für 375px, 768px, 1920px
+- [ ] Grid-Pattern: DASHBOARD-GRID (Karte nimmt 2/3, Sidebar 1/3)
+
+### FRAGEN AN NEXIFY:
+- Soll es eine Clustering-Funktion geben bei vielen Fahrern?
+- Sollen historische Routen angezeigt werden?
+
+### ZEITRAHMEN:
+- **Gewünscht:** Diese Woche
+- **Geschätzt von dir:** 30-45 Minuten
+```
+
+---
+
+### Beispiel 3: Optimierung durchführen
+```
+## AUFGABE: Bookings-Tabelle Performance optimieren
+
+### KONTEXT:
+- **Bereich:** App (Aufträge)
+- **Ziel:** Schnelleres Laden & Rendering bei 500+ Aufträgen
+- **Priorität:** Hoch
+
+### ANFORDERUNGEN:
+- [ ] React Query für Caching
+- [ ] Memoization für Table-Rows
+- [ ] Pagination (25 pro Seite)
+- [ ] Keine funktionalen Änderungen
+
+### RECHTLICHE COMPLIANCE:
+- [ ] DSGVO-Hinweis nötig? Nein (bestehende Seite)
+- [ ] AI-Kennzeichnung nötig? Nein
+- [ ] Footer-Links nötig? Bereits vorhanden
+
+### MOBILE-FIRST:
+- [ ] Touch-Targets ≥ 44px (bereits vorhanden)
+- [ ] Responsive für 375px, 768px, 1920px (bereits vorhanden)
+- [ ] Grid-Pattern: Keine Änderung
+
+### FRAGEN AN NEXIFY:
+- Soll ich direkt alle Tabellen optimieren oder nur Bookings?
+- Bevorzugst du Infinite Scroll oder Pagination?
+
+### ZEITRAHMEN:
+- **Gewünscht:** Heute
+- **Geschätzt von dir:** 30 Minuten
+```
+
+---
+
+## ⚡ QUICK-AUFGABEN (Ohne Vorlage)
+
+Für kleine Änderungen reicht ein Satz:
+
+```
+"Hamburger-Menü in CI-Farbe 02 ändern"
+"Domain in Footer auf my-dispatch.de korrigieren"
+"Logo klickbar zur Startseite machen"
+"Touch-Targets in Filter-Bar auf min-h-[44px] setzen"
+```
+
+NeXify wird automatisch:
+1. Relevante Docs lesen
+2. Best-Practice prüfen
+3. Änderung umsetzen
+4. Testen
+
+---
+
+## 🚀 OPTIMIERUNGS-ANFRAGEN
+
+Wenn du Vorschläge willst:
+
+```
+"Prüfe [Komponente/Seite] auf Optimierungspotenzial"
+"Gibt es bessere Patterns für [Feature]?"
+"Welche Performance-Optimierungen sind möglich?"
+"Prüfe rechtliche Compliance von [Seite]"
+```
+
+NeXify wird:
+1. Vollständige Analyse durchführen
+2. Optimierungen identifizieren
+3. Priorisierungs-Matrix erstellen
+4. Auf Freigabe warten
+
+---
+
+## 📝 DOKUMENTATIONS-ANFRAGEN
+
+```
+"Dokumentiere [Feature] in [Datei]"
+"Erstelle Changelog für V18.5.1"
+"Aktualisiere README mit neuen Features"
+```
+
+---
+
+## 🔍 DEBUG-ANFRAGEN
+
+```
+"Debug: [Fehlerbeschreibung]"
+"Warum funktioniert [Feature] nicht auf Mobile?"
+"Console zeigt [Error] - was ist die Ursache?"
+```
+
+NeXify wird:
+1. Console-Logs prüfen
+2. Network-Requests analysieren
+3. Root Cause finden
+4. Lösung präsentieren
+
+---
+
+## 📊 FAZIT
+
+**WICHTIG:** NeXify arbeitet auch OHNE Folgeprompt nach allen Vorgaben!
+
+Aber strukturierte Prompts helfen:
+✅ Schnellere Umsetzung
+✅ Keine Rückfragen nötig
+✅ Präzisere Ergebnisse
+✅ Bessere Zeitschätzungen
+
+**Nutze die Vorlage für komplexe Aufgaben.**  
+**Nutze Quick-Prompts für einfache Änderungen.**
+
+---
+
+**Version:** 18.5.1 FINAL  
+**Letzte Aktualisierung:** 23.10.2025 23:05 Uhr (DE)  
+**Status:** 🟢 Ready to Use

@@ -1,0 +1,260 @@
+{
+  "report_meta": {
+    "version": "1.0.0",
+    "date": "2025-10-27",
+    "audit_agent": "NeXify Struktur- & Sortier-Agent",
+    "reference": "NEXIFY_SYSTEM_MASTER_BRAIN.md",
+    "status": "ANALYSIS_COMPLETE"
+  },
+  "audit_scope": {
+    "files_analyzed": 1402,
+    "lines_of_code": 45000,
+    "documentation_files": 459,
+    "components": 580,
+    "audit_duration_hours": 4.5,
+    "overall_score": 87.3
+  },
+  "current_structure": {
+    "root": {
+      "github": { "status": "good", "score": 95 },
+      "docs": { "status": "needs_improvement", "score": 60, "issues": ["redundancy", "outdated_files"] },
+      "src": { "status": "good", "score": 85, "issues": ["component_fragmentation"] },
+      "public": { "status": "acceptable", "score": 70, "issues": ["asset_organization"] },
+      "supabase": { "status": "excellent", "score": 100 },
+      "tests": { "status": "incomplete", "score": 40, "issues": ["missing_unit_tests", "incomplete_e2e"] },
+      "scripts": { "status": "mostly_missing", "score": 20, "issues": ["no_automation"] }
+    },
+    "src_breakdown": {
+      "assets": { "files": 20, "status": "needs_categorization" },
+      "components": {
+        "total_folders": 50,
+        "total_files": 580,
+        "categories": {
+          "ui_shadcn": { "count": 45, "quality": 95 },
+          "design_system_v26": { "count": 14, "quality": 100 },
+          "base_components": { "count": 10, "quality": 98 },
+          "smart_templates": { "count": 8, "quality": 92 },
+          "shared": { "count": 60, "quality": 75, "issue": "fragmented" },
+          "feature_specific": { "count": 400, "quality": 80, "issue": "too_many_folders" }
+        }
+      },
+      "lib": {
+        "design_system": { "status": "excellent", "score": 100 },
+        "brain_system": { "status": "excellent", "score": 100 },
+        "utils": { "status": "needs_grouping", "score": 70, "files": 50 }
+      }
+    },
+    "documentation_metrics": {
+      "total_files": 459,
+      "root_level_docs": 300,
+      "structured_docs": 13,
+      "outdated_docs": 280,
+      "redundancy_rate": 65,
+      "actuality_rate": 35
+    }
+  },
+  "recommended_structure": {
+    "priorities": {
+      "phase_1": {
+        "name": "Dokumentations-Bereinigung",
+        "priority": "HIGH",
+        "duration_days": 3,
+        "effort": "LOW",
+        "impact": "HIGH"
+      },
+      "phase_2": {
+        "name": "Komponenten-Reorganisation",
+        "priority": "MEDIUM",
+        "duration_days": 7,
+        "effort": "MEDIUM",
+        "impact": "VERY_HIGH"
+      },
+      "phase_3": {
+        "name": "Lib-Kategorisierung",
+        "priority": "LOW",
+        "duration_days": 3,
+        "effort": "LOW",
+        "impact": "MEDIUM"
+      },
+      "phase_4": {
+        "name": "Testing-Infrastruktur",
+        "priority": "MEDIUM",
+        "duration_days": 7,
+        "effort": "HIGH",
+        "impact": "VERY_HIGH"
+      },
+      "phase_5": {
+        "name": "Scripts & Automation",
+        "priority": "LOW",
+        "duration_days": 4,
+        "effort": "MEDIUM",
+        "impact": "MEDIUM"
+      }
+    },
+    "new_folders": [
+      "docs/00-INDEX/",
+      "docs/05-COMPONENTS/",
+      "docs/06-API-REFERENCE/",
+      "docs/98-CHANGELOG/",
+      "docs/99-ARCHIVE/",
+      "src/components/features/",
+      "src/hooks/auth/",
+      "src/hooks/data/",
+      "src/hooks/ui/",
+      "src/lib/utils/",
+      "src/lib/constants/",
+      "src/lib/services/",
+      "tests/unit/",
+      "tests/integration/",
+      "tests/fixtures/",
+      "scripts/build/",
+      "scripts/db/",
+      "scripts/assets/",
+      "scripts/deploy/"
+    ]
+  },
+  "metrics": {
+    "current": {
+      "documentation": {
+        "total_files": 459,
+        "structured": 13,
+        "outdated": 280,
+        "redundancy": "65%"
+      },
+      "components": {
+        "total": 580,
+        "folder_depth": 50,
+        "reusability": "35%"
+      },
+      "code_quality": {
+        "typescript_errors": 0,
+        "eslint_warnings": "<10",
+        "token_compliance": "100%"
+      },
+      "testing": {
+        "unit_tests": "0%",
+        "e2e_tests": "40%",
+        "coverage": "~30%"
+      }
+    },
+    "target": {
+      "documentation": {
+        "total_files": 50,
+        "structured": 50,
+        "outdated": 0,
+        "redundancy": "<5%"
+      },
+      "components": {
+        "folder_depth": 15,
+        "reusability": "70%+"
+      },
+      "testing": {
+        "unit_tests": "80%+",
+        "e2e_tests": "90%+",
+        "coverage": "80%+"
+      }
+    }
+  },
+  "expected_improvements": {
+    "developer_productivity": {
+      "file_search_time": "-60%",
+      "component_findability": "+80%",
+      "documentation_access": "+90%",
+      "test_coverage": "+50%"
+    },
+    "code_quality": {
+      "bundle_size": "-15%",
+      "build_time": "-20%",
+      "maintainability": "+70%",
+      "bug_rate": "-40%"
+    },
+    "project_management": {
+      "onboarding_time": "-50%",
+      "team_alignment": "+60%",
+      "refactoring_effort": "-70%"
+    }
+  },
+  "naming_conventions": {
+    "directories": "kebab-case",
+    "components": "PascalCase.tsx",
+    "utilities": "kebab-case.ts",
+    "hooks": "use-*.ts",
+    "types": "*.types.ts",
+    "config": "*.config.ts",
+    "tests": "*.test.ts or *.spec.ts",
+    "constants": "UPPER_SNAKE_CASE",
+    "functions": "camelCase",
+    "interfaces": "PascalCase"
+  },
+  "component_mapping": {
+    "components/auth/*": "components/features/auth/",
+    "components/dashboard/*": "components/features/dashboard/",
+    "components/auftraege/*": "components/features/bookings/",
+    "components/booking/*": "components/features/bookings/",
+    "components/fahrer/*": "components/features/drivers/",
+    "components/fahrzeuge/*": "components/features/vehicles/",
+    "components/kunden/*": "components/features/customers/",
+    "components/rechnungen/*": "components/features/invoices/",
+    "components/dokumente/*": "components/features/documents/",
+    "components/shared/*": "components/shared/ (reduced)"
+  },
+  "documentation_categorization": {
+    "keep": [
+      "NEXIFY_SYSTEM_MASTER_BRAIN.md",
+      "docs/01-GETTING-STARTED/*",
+      "docs/02-ARCHITECTURE/*",
+      "docs/03-DEVELOPMENT/*",
+      "docs/04-GOVERNANCE/*"
+    ],
+    "archive": [
+      "All V18.x Reports",
+      "All Batch Reports",
+      "All outdated Audit Docs",
+      "Old Workflow Prompts"
+    ],
+    "create_new": [
+      "docs/00-INDEX/*",
+      "docs/05-COMPONENTS/*",
+      "docs/06-API-REFERENCE/*",
+      "docs/98-CHANGELOG/*"
+    ]
+  },
+  "next_steps": {
+    "immediate_week_1": [
+      "Review report with team",
+      "Get approval for Phase 1 (Documentation Cleanup)",
+      "Integrate automatic structure validation in CI/CD",
+      "Set up metrics dashboard"
+    ],
+    "short_term_week_2_4": [
+      "Implement Phase 1 (Documentation)",
+      "Start Phase 2 (Components)",
+      "Plan Phase 4 (Testing)"
+    ],
+    "long_term_month_2_3": [
+      "Complete remaining phases",
+      "Finalize comprehensive documentation",
+      "Full automation",
+      "Continuous optimization"
+    ]
+  },
+  "quality_checklist": {
+    "pre_migration": {
+      "code_audit_complete": true,
+      "dependencies_mapped": true,
+      "master_brain_analyzed": true,
+      "migration_plan_created": true,
+      "backup_created": false,
+      "team_approval": false
+    },
+    "post_migration": {
+      "imports_working": null,
+      "typescript_build_zero_errors": null,
+      "eslint_no_critical_errors": null,
+      "tests_passing": null,
+      "ci_cd_successful": null,
+      "documentation_updated": null,
+      "master_brain_synced": null
+    }
+  }
+}

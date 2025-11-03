@@ -1,0 +1,113 @@
+/* ==================================================================================
+   CHAT STYLES V40.10 - CONDITIONAL CHAT COLORS
+   ==================================================================================
+   CVA-Alternative: CSS-Variablen für conditional styles
+   ================================================================================== */
+
+/* Avatar Fallback States */
+.chat-avatar-fallback {
+  @apply text-xs border-2;
+}
+
+.chat-avatar-fallback--own-message {
+  background-color: rgba(234, 222, 189, 0.1);
+  color: hsl(var(--dunkelblau));
+  border-color: rgba(234, 222, 189, 0.2);
+}
+
+.chat-avatar-fallback--other-message {
+  background-color: hsl(var(--canvas));
+  color: hsl(var(--text-secondary));
+  border-color: hsl(var(--border-neutral));
+}
+
+/* Message Bubble Styles */
+.chat-message-bubble {
+  @apply rounded-lg p-3 border-2;
+}
+
+.chat-message-bubble--own {
+  background-color: rgba(234, 222, 189, 0.1);
+  border-color: rgba(234, 222, 189, 0.2);
+  color: hsl(var(--text-primary));
+}
+
+.chat-message-bubble--other {
+  background-color: hsl(var(--canvas));
+  border-color: hsl(var(--border-neutral));
+  color: hsl(var(--text-primary));
+}
+
+/* Conversation Item States */
+.conversation-item {
+  @apply transition-all p-3 rounded-md cursor-pointer;
+}
+
+.conversation-item--solo {
+  @apply cursor-not-allowed opacity-60;
+}
+
+.conversation-item--active {
+  background-color: hsl(var(--dunkelblau));
+  color: hsl(var(--weiss));
+}
+
+.conversation-item--inactive {
+  background-color: transparent;
+  color: hsl(var(--text-primary));
+}
+
+.conversation-item--inactive:hover {
+  background-color: rgba(234, 222, 189, 0.1);
+}
+
+/* Conversation Avatar States */
+.conversation-avatar-fallback {
+  @apply border-2;
+}
+
+.conversation-avatar-fallback--solo {
+  background-color: hsl(var(--canvas));
+  color: hsl(var(--text-secondary));
+  border-color: hsl(var(--border-neutral));
+}
+
+.conversation-avatar-fallback--active {
+  background-color: rgba(234, 222, 189, 0.1);
+  color: hsl(var(--dunkelblau));
+  border-color: rgba(234, 222, 189, 0.2);
+}
+
+/* Text Colors in Active State */
+.conversation-item--active .conversation-text-time {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.conversation-item--active .conversation-text-message {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.conversation-item--inactive .conversation-text-time,
+.conversation-item--inactive .conversation-text-message {
+  color: hsl(var(--text-secondary));
+}
+
+/* Unread Badge */
+.conversation-unread-badge {
+  @apply ml-2 text-xs h-5 min-w-[20px] flex items-center justify-center;
+  background-color: hsl(var(--dunkelblau));
+  color: hsl(var(--weiss));
+}
+
+/* Info Card */
+.chat-info-card {
+  @apply mb-6 p-3 rounded-lg border-2;
+  background-color: rgba(234, 222, 189, 0.1);
+  border-color: rgba(234, 222, 189, 0.2);
+}
+
+/* Link Styles */
+.chat-link {
+  @apply text-xs hover:opacity-80 underline flex items-center gap-1;
+  color: hsl(var(--dunkelblau));
+}

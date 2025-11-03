@@ -1,0 +1,373 @@
+project_id = "vsbqyqhzxmwezlhzdmfd"
+
+[functions.ai-auto-fix-generator]
+verify_jwt = false
+
+[functions.ai-chat-example]
+verify_jwt = false
+
+[functions.ai-code-analyzer]
+verify_jwt = false
+
+[functions.ai-code-guardian]
+verify_jwt = false
+
+[functions.ai-code-migrator]
+verify_jwt = false
+
+[functions.ai-code-review]
+verify_jwt = false
+
+[functions.ai-code-validator]
+verify_jwt = false
+
+[functions.ai-demand-prediction]
+verify_jwt = false
+
+[functions.ai-doc-gap-analyzer]
+verify_jwt = false
+
+[functions.ai-doc-parser]
+verify_jwt = false
+
+[functions.ai-document-ocr]
+verify_jwt = false
+
+[functions.ai-error-analysis]
+verify_jwt = false
+
+[functions.ai-error-predictor]
+verify_jwt = false
+
+[functions.ai-forecast]
+verify_jwt = false
+
+[functions.ai-knowledge-query]
+verify_jwt = false
+
+[functions.ai-migration-orchestrator]
+verify_jwt = false
+
+[functions.ai-orchestrator]
+verify_jwt = false
+
+[functions.ai-premium-graphics]
+verify_jwt = false
+
+[functions.ai-self-healer]
+verify_jwt = false
+
+[functions.ai-self-report-generator]
+verify_jwt = false
+
+[functions.ai-smart-assignment]
+verify_jwt = false
+
+[functions.ai-support-chat]
+verify_jwt = false
+
+[functions.ai-visual-analysis]
+verify_jwt = false
+
+[functions.ai-visual-validator]
+verify_jwt = false
+
+[functions.alert-manager]
+verify_jwt = false
+
+[functions.api-connection-manager]
+verify_jwt = false
+
+[functions.auto-doc-updater]
+verify_jwt = false
+
+[functions.auto-healer]
+verify_jwt = false
+
+[functions.auto-learn-from-actions]
+verify_jwt = false
+
+[functions.auto-validate]
+verify_jwt = false
+
+[functions.bot-webhook]
+verify_jwt = false
+
+[functions.brain-auto-fix]
+verify_jwt = false
+
+[functions.brain-full-system-scan]
+verify_jwt = false
+
+[functions.brain-qa-check]
+verify_jwt = false
+
+[functions.brain-query]
+verify_jwt = false
+
+[functions.brain-system]
+verify_jwt = false
+
+[functions.bulk-export-pdf]
+verify_jwt = true
+
+[functions.bulk-send-email]
+verify_jwt = true
+
+[functions.central-brain]
+verify_jwt = false
+
+[functions.check-design-consistency]
+verify_jwt = false
+
+[functions.check-document-expiry]
+verify_jwt = false
+
+[functions.check-subscription]
+verify_jwt = true
+
+[functions.ci-cd-pattern-optimizer]
+verify_jwt = false
+
+[functions.classify-components]
+verify_jwt = false
+
+[functions.clean-old-booking-data]
+verify_jwt = false
+
+[functions.cleanup-gps-positions]
+verify_jwt = false
+
+[functions.clear-cache]
+verify_jwt = true
+
+[functions.code-checker]
+verify_jwt = false
+
+[functions.configure-auth-security]
+verify_jwt = true
+
+[functions.confirm-chat-consent]
+verify_jwt = true
+
+[functions.create-checkout]
+verify_jwt = true
+
+[functions.create-daily-room]
+verify_jwt = true
+
+[functions.create-public-booking]
+verify_jwt = false
+
+[functions.customer-portal]
+verify_jwt = true
+
+[functions.daily-ci-cd-monitor]
+verify_jwt = false
+
+[functions.dashboard-ai-assistant]
+verify_jwt = true
+
+[functions.datadoc-sync]
+verify_jwt = false
+
+[functions.db-query-agent]
+verify_jwt = true
+
+[functions.doc-ai-sync]
+verify_jwt = false
+
+[functions.enhanced-knowledge-query]
+verify_jwt = false
+
+[functions.export-shift-pdf]
+verify_jwt = true
+
+[functions.export-user-data]
+verify_jwt = true
+
+[functions.extract-component-props]
+verify_jwt = false
+
+[functions.extract-page-design-specs]
+verify_jwt = false
+
+[functions.generate-ai-self-report]
+verify_jwt = false
+
+[functions.generate-dependency-graph]
+verify_jwt = false
+
+[functions.generate-hero-image]
+verify_jwt = false
+
+[functions.generate-test-data]
+verify_jwt = true
+
+[functions.genesis-audit]
+verify_jwt = true
+
+[functions.geocode-address]
+verify_jwt = false
+
+[functions.geocode-company-address]
+verify_jwt = false
+
+[functions.get-analytics-data]
+verify_jwt = true
+
+[functions.get-deployment-status]
+verify_jwt = true
+
+[functions.get-google-maps-key]
+verify_jwt = false
+
+[functions.get-here-api-key]
+verify_jwt = false
+
+[functions.get-system-logs]
+verify_jwt = true
+
+[functions.get-traffic]
+verify_jwt = false
+
+[functions.get-weather]
+verify_jwt = false
+
+[functions.gps-tracker-webhook]
+verify_jwt = false
+
+[functions.health-check]
+verify_jwt = false
+
+[functions.here-autosuggest]
+verify_jwt = false
+
+[functions.kronos-code-generator]
+verify_jwt = false
+
+[functions.kronos-executor]
+verify_jwt = false
+
+[functions.manage-docs]
+verify_jwt = false
+
+[functions.mandatory-knowledge-check]
+verify_jwt = false
+
+[functions.master-chat]
+verify_jwt = true
+
+[functions.migrate-critical-docs]
+verify_jwt = false
+
+[functions.n8n-workflow-management]
+verify_jwt = true
+
+[functions.phase-2-validation]
+verify_jwt = true
+
+[functions.phase-3-go-live]
+verify_jwt = true
+
+[functions.portal-create-booking]
+verify_jwt = false
+
+[functions.pre-go-live-validation]
+verify_jwt = true
+
+[functions.roadmap-auto-checker]
+verify_jwt = true
+
+[functions.roadmap-weekly-report]
+verify_jwt = true
+
+[functions.run-security-scan]
+verify_jwt = true
+
+[functions.self-reflection]
+verify_jwt = false
+
+[functions.send-booking-email]
+verify_jwt = true
+
+[functions.send-chat-consent-email]
+verify_jwt = false
+
+[functions.send-contact-email]
+verify_jwt = false
+
+[functions.send-customer-credentials]
+verify_jwt = true
+
+[functions.send-demo-request]
+verify_jwt = false
+
+[functions.send-driver-invitation]
+verify_jwt = true
+
+[functions.send-launch-email]
+verify_jwt = true
+
+[functions.send-nexify-contact]
+verify_jwt = false
+
+[functions.send-password-reset]
+verify_jwt = false
+
+[functions.send-template-email]
+verify_jwt = true
+
+[functions.send-termination-email]
+verify_jwt = true
+
+[functions.sync-docs-to-knowledge-base]
+verify_jwt = false
+
+[functions.sync-form-fields-to-knowledge-base]
+verify_jwt = false
+
+[functions.sync-layout-standards]
+verify_jwt = false
+
+[functions.sync-pricing-tariffs]
+verify_jwt = false
+
+[functions.sync-tariff-system]
+verify_jwt = false
+
+[functions.sync-tariff-to-stripe]
+verify_jwt = false
+
+[functions.system-audit]
+verify_jwt = false
+
+[functions.tavily-best-practice-search]
+verify_jwt = false
+
+[functions.tavily-code-validator]
+verify_jwt = false
+
+[functions.trigger-db-backup]
+verify_jwt = true
+
+[functions.validate-marketing-claims]
+verify_jwt = false
+
+[functions.validate-new-solution]
+verify_jwt = false
+
+[functions.watchdog-monitor]
+verify_jwt = false
+
+[functions.weekly-self-review]
+verify_jwt = false
+
+[functions.wiki-auto-sync]
+verify_jwt = false
+
+[functions.wiki-knowledge-graph]
+verify_jwt = false
+
+[functions.wiki-to-yaml-parser]
+verify_jwt = false

@@ -1,0 +1,23 @@
+# ============================================================================
+# TERRAFORM VARIABLES - EXAMPLE
+# ============================================================================
+# Copy this file to terraform.tfvars and fill in your values
+# NEVER commit terraform.tfvars to git!
+# ============================================================================
+
+environment = "production"
+
+# Supabase Configuration
+supabase_access_token = "sbp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+supabase_org_id       = "org_xxxxxxxxxxxxxxxx"
+supabase_region       = "eu-central-1"
+database_password     = "secure-password-min-16-chars"
+
+# Vercel Configuration
+vercel_api_token = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+github_repo      = "your-username/mydispatch"
+site_url         = "https://mydispatch.app"
+
+# Backup Configuration
+backup_retention_days = 30
+backup_bucket         = "mydispatch-backups"

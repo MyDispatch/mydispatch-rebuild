@@ -1,0 +1,110 @@
+# ==================================================================================
+# PAGE SCHEMA - KRONOS V18.0
+# ==================================================================================
+# Schema für maschinenlesbare Page-Definitionen
+# Wird vom Wiki-Parser generiert und vom KRONOS Executor konsumiert
+# ==================================================================================
+
+type: object
+required:
+  - entity
+  - name
+  - route
+  - template
+
+properties:
+  entity:
+    type: string
+    const: "Page"
+    description: "Entity type identifier"
+  
+  name:
+    type: string
+    description: "Page component name (e.g., CustomersPage, BookingDetailPage)"
+    pattern: "^[A-Z][a-zA-Z]+Page$"
+  
+  route:
+    type: string
+    description: "Route path (e.g., /customers, /bookings/:id)"
+    pattern: "^/[a-z0-9/:_-]*$"
+  
+  template:
+    type: string
+    enum:
+      - "StandardListPage"
+      - "StandardDetailPage"
+      - "StandardFormPage"
+      - "Dashboard"
+      - "Custom"
+    description: "Page template to use"
+  
+  api_hooks:
+    type: array
+    description: "Required API hooks (dependencies)"
+    items:
+      type: string
+      description: "Hook name (e.g., useCustomers, useBooking)"
+  
+  components:
+    type: array
+    description: "Required V28 components (dependencies)"
+    items:
+      type: string
+      description: "Component ID in format 'UI-Component:ComponentName'"
+  
+  auth_required:
+    type: boolean
+    description: "Whether authentication is required"
+    default: true
+  
+  features:
+    type: object
+    properties:
+      kpis:
+        type: boolean
+        default: true
+      quickActions:
+        type: boolean
+        default: true
+      bulkActions:
+        type: boolean
+        default: true
+      filters:
+        type: boolean
+        default: true
+      search:
+        type: boolean
+        default: true
+  
+  layout:
+    type: object
+    properties:
+      sidebar:
+        type: boolean
+        default: true
+      header:
+        type: boolean
+        default: true
+      footer:
+        type: boolean
+        default: true
+
+examples:
+  - entity: "Page"
+    name: "CustomersPage"
+    route: "/customers"
+    template: "StandardListPage"
+    api_hooks:
+      - "useCustomers"
+      - "useCustomer"
+    components:
+      - "UI-Component:V28DataTable"
+      - "UI-Component:V28Card"
+      - "UI-Component:V28Button"
+    auth_required: true
+    features:
+      kpis: true
+      quickActions: true
+      bulkActions: true
+      filters: true
+      search: true

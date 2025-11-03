@@ -1,0 +1,35 @@
+{
+  "driver": {
+    "dashboard": "لوحة التحكم",
+    "upcomingBookings": "الطلبات القادمة",
+    "today": "اليوم",
+    "week": "الأسبوع",
+    "rides": "الرحلات",
+    "online": "متصل",
+    "offline": "غير متصل",
+    "pickup": "الاستلام",
+    "destination": "الوجهة",
+    "details": "التفاصيل",
+    "navigation": "الملاحة",
+    "accept": "قبول",
+    "decline": "رفض",
+    "performance": "أدائك",
+    "completionRate": "معدل الإكمال",
+    "rating": "التقييم",
+    "confirmed": "مؤكد",
+    "pending": "قيد الانتظار",
+    "noConnection": "لا يوجد اتصال بالإنترنت",
+    "connectionRestored": "تم استعادة الاتصال",
+    "swipeHint": "← اسحب للرفض | اقبل بالسحب →"
+  },
+  "common": {
+    "loading": "جار التحميل...",
+    "error": "خطأ",
+    "success": "نجاح",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "close": "إغلاق"
+  }
+}

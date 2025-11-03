@@ -1,0 +1,35 @@
+{
+  "driver": {
+    "dashboard": "Tablou de bord",
+    "upcomingBookings": "Comenzi viitoare",
+    "today": "Astăzi",
+    "week": "Săptămână",
+    "rides": "Călătorii",
+    "online": "Online",
+    "offline": "Offline",
+    "pickup": "Ridicare",
+    "destination": "Destinație",
+    "details": "Detalii",
+    "navigation": "Navigare",
+    "accept": "Acceptă",
+    "decline": "Refuză",
+    "performance": "Performanța dvs.",
+    "completionRate": "Rata de finalizare",
+    "rating": "Evaluare",
+    "confirmed": "Confirmat",
+    "pending": "În așteptare",
+    "noConnection": "Fără conexiune la internet",
+    "connectionRestored": "Conexiune restabilită",
+    "swipeHint": "← Glisați pentru a refuza | Acceptați glisând →"
+  },
+  "common": {
+    "loading": "Se încarcă...",
+    "error": "Eroare",
+    "success": "Succes",
+    "cancel": "Anulează",
+    "save": "Salvează",
+    "delete": "Șterge",
+    "edit": "Editează",
+    "close": "Închide"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "driver": {
+    "dashboard": "Gösterge Paneli",
+    "upcomingBookings": "Yaklaşan Siparişler",
+    "today": "Bugün",
+    "week": "Hafta",
+    "rides": "Yolculuklar",
+    "online": "Çevrimiçi",
+    "offline": "Çevrimdışı",
+    "pickup": "Alış",
+    "destination": "Hedef",
+    "details": "Detaylar",
+    "navigation": "Navigasyon",
+    "accept": "Kabul Et",
+    "decline": "Reddet",
+    "performance": "Performansınız",
+    "completionRate": "Tamamlanma Oranı",
+    "rating": "Değerlendirme",
+    "confirmed": "Onaylandı",
+    "pending": "Beklemede",
+    "noConnection": "İnternet bağlantısı yok",
+    "connectionRestored": "Bağlantı yeniden kuruldu",
+    "swipeHint": "← Reddetmek için kaydırın | Kabul etmek için kaydırın →"
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "close": "Kapat"
+  }
+}

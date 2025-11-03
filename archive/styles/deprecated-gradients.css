@@ -1,0 +1,38 @@
+/* ==================================================================================
+   DEPRECATED GRADIENT UTILITIES (V32.0)
+   ==================================================================================
+   Archiviert am: 2025-10-31
+   Grund: Nur Tailwind-native Utilities erlaubt
+   ================================================================================== */
+
+/* Radial Gradient Helper */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* Gradient Text */
+.text-gradient {
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hero Overlay (Doppelte Definition) */
+.hero-dark-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+}
+
+.hero-dark-overlay {
+  background: linear-gradient(
+    180deg, 
+    rgba(0, 0, 0, 0.40) 0%, 
+    rgba(0, 0, 0, 0.50) 50%, 
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}

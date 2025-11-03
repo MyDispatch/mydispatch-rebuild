@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    
+    <!-- KRITISCH V18.5.2: Aggressive Cache-Control + Build Version -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="build-version" content="v6.0.8-pre-login-complete-1730430000000" />
+    
+    <title>MyDispatch - Moderne Dispositionslösung für Taxi & Mietwagen</title>
+    <meta name="description" content="Professionelle Dispositionssoftware für Taxi- und Mietwagenunternehmen. Auftragsverwaltung, Flottenmanagement & mehr. DSGVO-konform." />
+    <meta name="author" content="MyDispatch" />
+    <meta name="theme-color" content="#323D5E" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    
+    <!-- DNS prefetch and preconnect for external resources -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Phase 2.3: Preconnect to Google Maps API -->
+    <link rel="preconnect" href="https://maps.googleapis.com" />
+    <link rel="dns-prefetch" href="https://maps.googleapis.com" />
+    
+    <!-- Preconnect to Supabase (Critical API) -->
+    <link rel="preconnect" href="https://ygpwuiygivxoqtyoigtg.supabase.co" crossorigin />
+    <link rel="dns-prefetch" href="https://ygpwuiygivxoqtyoigtg.supabase.co" />
+    
+    <!-- Critical inline CSS for instant rendering -->
+    <style>
+      :root {
+        --background: 40 8% 95%;
+        --foreground: 225 31% 28%;
+        --primary: 40 31% 88%;
+        --primary-foreground: 225 31% 28%;
+        --muted-foreground: 225 31% 28% / 0.6;
+      }
+      
+      /* KRITISCH: Verhindere horizontale Scrollbars + Footer-Whitespace V18.3.25 */
+      * { 
+        box-sizing: border-box; 
+      }
+      
+      html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden; /* Horizontal scroll verbieten */
+        overflow-y: auto; /* Vertical scroll erlauben */
+      }
+      
+      body { 
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        min-height: 100%; /* Nicht 100vh! */
+        overflow-x: hidden;
+        font-family: Inter, system-ui, -apple-system, sans-serif;
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        display: flex;
+        flex-direction: column;
+      }
+      
+      #root { 
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 100vh;
+      }
+      
+      /* Critical LCP element styles */
+      .text-muted-foreground {
+        color: hsl(var(--muted-foreground));
+      }
+      .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
+      .text-base { font-size: 1rem; line-height: 1.5rem; }
+      .flex { display: flex; }
+      .flex-1 { flex: 1 1 0%; }
+      .rounded-lg { border-radius: 0.5rem; }
+      
+      /* Critical layout styles for above-the-fold */
+      header { 
+        position: fixed; 
+        top: 0; 
+        width: 100%; 
+        height: 60px;
+        z-index: 50;
+        background: hsl(225 31% 28%);
+      }
+      
+      main { 
+        padding-top: 60px;
+      }
+      
+      .container { 
+        max-width: 80rem; 
+        margin: 0 auto; 
+        padding-left: 1rem; 
+        padding-right: 1rem; 
+      }
+      
+      button {
+        cursor: pointer;
+        border: none;
+        outline: none;
+      }
+      
+      @media (min-width: 640px) {
+        .sm\:text-base { font-size: 1rem; line-height: 1.5rem; }
+      }
+    </style>
+    
+    <!-- Google Fonts - Inter (preload + async for non-blocking) -->
+    <link 
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" 
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    </noscript>
+    
+    <!-- Google Maps API wird dynamisch geladen -->
+
+    <meta property="og:title" content="MyDispatch - Professionelle Taxi & Mietwagen Disposition" />
+    <meta property="og:description" content="Moderne Dispositionssoftware für Taxi- und Mietwagenunternehmen. Auftragsverwaltung, GPS-Tracking & mehr." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/icon-512.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@mydispatch" />
+    <meta name="twitter:image" content="/icon-512.png" />
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

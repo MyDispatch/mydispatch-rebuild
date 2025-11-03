@@ -1,0 +1,35 @@
+{
+  "driver": {
+    "dashboard": "Dashboard",
+    "upcomingBookings": "Anstehende Aufträge",
+    "today": "Heute",
+    "week": "Woche",
+    "rides": "Fahrten",
+    "online": "Online",
+    "offline": "Offline",
+    "pickup": "Abholung",
+    "destination": "Ziel",
+    "details": "Details",
+    "navigation": "Navigation",
+    "accept": "Annehmen",
+    "decline": "Ablehnen",
+    "performance": "Ihre Leistung",
+    "completionRate": "Abschlussrate",
+    "rating": "Bewertung",
+    "confirmed": "Bestätigt",
+    "pending": "Ausstehend",
+    "noConnection": "Keine Internetverbindung",
+    "connectionRestored": "Verbindung wiederhergestellt",
+    "swipeHint": "← Wischen zum Ablehnen | Annehmen zum Wischen →"
+  },
+  "common": {
+    "loading": "Lädt...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen"
+  }
+}

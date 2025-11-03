@@ -1,0 +1,138 @@
+# ==================================================================================
+# API-MODULE SCHEMA - KRONOS V18.0
+# ==================================================================================
+# Schema für maschinenlesbare API-Module-Definitionen
+# Wird vom Wiki-Parser generiert und vom KRONOS Executor konsumiert
+# ==================================================================================
+
+type: object
+required:
+  - entity
+  - name
+  - table
+
+properties:
+  entity:
+    type: string
+    const: "API-Module"
+    description: "Entity type identifier"
+  
+  name:
+    type: string
+    description: "Module name (usually the table name)"
+    pattern: "^[a-z_]+$"
+  
+  table:
+    type: string
+    description: "Supabase table name"
+    pattern: "^[a-z_]+$"
+  
+  path:
+    type: string
+    description: "File path for the hooks module"
+    pattern: "^src/lib/api/.*-hooks\\.ts$"
+  
+  hooks:
+    type: array
+    description: "React hooks to generate"
+    items:
+      type: object
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          description: "Hook name (e.g., useCustomers)"
+        type:
+          type: string
+          enum:
+            - "list"
+            - "single"
+            - "create"
+            - "update"
+            - "delete"
+            - "custom"
+        queryKey:
+          type: string
+          description: "TanStack Query key"
+  
+  methods:
+    type: array
+    description: "CRUD methods to implement"
+    items:
+      type: string
+      enum:
+        - "list"
+        - "get"
+        - "create"
+        - "update"
+        - "delete"
+        - "search"
+  
+  filters:
+    type: array
+    description: "Available filters for list queries"
+    items:
+      type: object
+      properties:
+        field:
+          type: string
+        type:
+          type: string
+          enum:
+            - "text"
+            - "select"
+            - "date"
+            - "number"
+  
+  relationships:
+    type: array
+    description: "Foreign key relationships"
+    items:
+      type: object
+      properties:
+        table:
+          type: string
+        field:
+          type: string
+        type:
+          type: string
+          enum:
+            - "one-to-many"
+            - "many-to-one"
+            - "many-to-many"
+
+examples:
+  - entity: "API-Module"
+    name: "customers"
+    table: "customers"
+    path: "src/lib/api/customers-hooks.ts"
+    hooks:
+      - name: "useCustomers"
+        type: "list"
+        queryKey: "customers"
+      - name: "useCustomer"
+        type: "single"
+        queryKey: "customer"
+      - name: "useCreateCustomer"
+        type: "create"
+      - name: "useUpdateCustomer"
+        type: "update"
+      - name: "useDeleteCustomer"
+        type: "delete"
+    methods:
+      - "list"
+      - "get"
+      - "create"
+      - "update"
+      - "delete"
+    filters:
+      - field: "name"
+        type: "text"
+      - field: "status"
+        type: "select"
+    relationships:
+      - table: "bookings"
+        field: "customer_id"
+        type: "one-to-many"

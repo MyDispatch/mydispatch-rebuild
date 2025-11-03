@@ -1,0 +1,27 @@
+# MyDispatch Robots.txt - SEO-Optimiert
+# Erlaubt Crawling aller öffentlichen Seiten
+
+User-agent: *
+Allow: /
+Disallow: /auth
+Disallow: /auftraege
+Disallow: /angebote
+Disallow: /rechnungen
+Disallow: /kunden
+Disallow: /fahrer
+Disallow: /fahrzeuge
+Disallow: /partner
+Disallow: /schichtzettel
+Disallow: /kommunikation
+Disallow: /office
+Disallow: /dokumente
+Disallow: /statistiken
+Disallow: /kostenstellen
+Disallow: /unternehmen
+Disallow: /unternehmensuebersicht
+Disallow: /einstellungen
+Disallow: /master-dashboard
+Crawl-delay: 1
+
+# Sitemap
+Sitemap: https://my-dispatch.de/sitemap.xml

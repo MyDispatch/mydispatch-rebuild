@@ -1,0 +1,79 @@
+/* ==================================================================================
+   DASHBOARD PROGRESS BARS - CSS-basierte dynamische Widths
+   ==================================================================================
+   Pattern: CSS Custom Properties für dynamische Breiten
+   Usage: <div className="progress-bar" style={{ '--progress': '75%' }}>
+   ================================================================================== */
+
+.dashboard-progress-bar {
+  @apply relative h-2 bg-muted/30 rounded-full overflow-hidden;
+}
+
+.dashboard-progress-bar--thin {
+  @apply h-1.5;
+}
+
+.dashboard-progress-bar--medium {
+  @apply h-2;
+}
+
+.dashboard-progress-bar--thick {
+  @apply h-2.5;
+}
+
+.dashboard-progress-bar__fill {
+  @apply h-full rounded-full transition-all duration-500 ease-out;
+  width: var(--progress, 0%);
+}
+
+/* Status-basierte Farben */
+.dashboard-progress-bar__fill--success {
+  @apply bg-status-success;
+}
+
+.dashboard-progress-bar__fill--warning {
+  @apply bg-status-warning;
+}
+
+.dashboard-progress-bar__fill--error {
+  @apply bg-status-error;
+}
+
+.dashboard-progress-bar__fill--primary {
+  @apply bg-primary;
+}
+
+.dashboard-progress-bar__fill--secondary {
+  @apply bg-secondary;
+}
+
+/* Revenue Breakdown - spezifische Farben (per custom property) */
+.dashboard-progress-bar__fill--custom {
+  background-color: var(--fill-color);
+}
+
+/* Chart Progress Bars (RevenueChart.tsx) */
+.chart-progress-bar {
+  @apply h-full rounded-full transition-all duration-300;
+  width: var(--progress, 0%);
+}
+
+.chart-progress-bar--0 {
+  @apply bg-primary;
+}
+
+.chart-progress-bar--1 {
+  @apply bg-secondary;
+}
+
+.chart-progress-bar--2 {
+  @apply bg-muted-foreground;
+}
+
+.chart-progress-bar--3 {
+  @apply bg-status-success;
+}
+
+.chart-progress-bar--4 {
+  @apply bg-status-warning;
+}

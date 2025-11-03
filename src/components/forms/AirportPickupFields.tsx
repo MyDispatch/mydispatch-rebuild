@@ -1,0 +1,91 @@
+import { Label } from '@/components/ui/label';
+import { Input } from '@/lib/compat';
+import { Checkbox } from '@/components/ui/checkbox';
+
+interface AirportPickupFieldsProps {
+  formData: {
+    flight_number: string;
+    terminal: string;
+    arrival_time: string;
+    wait_time: string;
+    meet_and_greet: boolean;
+    name_sign: string;
+  };
+  onChange: (formData: any) => void;
+}
+
+export function AirportPickupFields({ formData, onChange }: AirportPickupFieldsProps) {
+  const handleFieldChange = (field: string, value: string | boolean) => {
+    onChange({ ...formData, [field]: value });
+  };
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pl-6 border-l-2 border-primary/30">
+      <div className="space-y-2">
+        <Label htmlFor="flight_number">Flugnummer</Label>
+        <Input
+          id="flight_number"
+          value={formData.flight_number}
+          onChange={(e) => handleFieldChange('flight_number', e.target.value)}
+          placeholder="z.B. LH123"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="terminal">Terminal</Label>
+        <Input
+          id="terminal"
+          value={formData.terminal}
+          onChange={(e) => handleFieldChange('terminal', e.target.value)}
+          placeholder="z.B. Terminal 1"
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="arrival_time">Ankunftszeit</Label>
+        <Input
+          id="arrival_time"
+          type="time"
+          value={formData.arrival_time}
+          onChange={(e) => handleFieldChange('arrival_time', e.target.value)}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="wait_time">Wartezeit (Minuten)</Label>
+        <Input
+          id="wait_time"
+          type="number"
+          min="0"
+          value={formData.wait_time}
+          onChange={(e) => handleFieldChange('wait_time', e.target.value)}
+        />
+      </div>
+
+      <div className="sm:col-span-2 space-y-4">
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="meet_and_greet"
+            checked={formData.meet_and_greet}
+            onCheckedChange={(checked) => handleFieldChange('meet_and_greet', !!checked)}
+          />
+          <Label htmlFor="meet_and_greet" className="cursor-pointer">
+            Meet & Greet Service
+          </Label>
+        </div>
+
+        {formData.meet_and_greet && (
+          <div className="space-y-2 pl-6">
+            <Label htmlFor="name_sign">Namensschild</Label>
+            <Input
+              id="name_sign"
+              value={formData.name_sign}
+              onChange={(e) => handleFieldChange('name_sign', e.target.value)}
+              placeholder="Name für Abholschild"
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

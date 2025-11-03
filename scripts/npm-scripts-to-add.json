@@ -1,0 +1,33 @@
+{
+  "instructions": "Add these scripts to package.json manually (package.json is read-only for AI)",
+  "scripts": {
+    "generate:page": "hygen page new",
+    "generate:component": "hygen component new",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,md}\"",
+    "test:unit": "vitest",
+    "test:unit:watch": "vitest --watch",
+    "test:unit:coverage": "vitest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:compliance": "playwright test tests/e2e/compliance",
+    "test:visual": "playwright test tests/e2e/visual",
+    "test:flows": "playwright test tests/e2e/flows",
+    "test:mobile:iphone": "playwright test --project='iPhone 12'",
+    "test:mobile:ipad": "playwright test --project='iPad'",
+    "test:screenshots": "playwright test tests/e2e/visual/screenshots.spec.ts",
+    "test:performance": "playwright test tests/e2e/performance",
+    "quality:full": "npm run lint && npm run format:check && npm run test:unit && npm run build",
+    "quality:fast": "npm run lint && npm run format:check",
+    "migrate:tokens": "tsx scripts/migrate-design-tokens.ts",
+    "migrate:buttons": "tsx scripts/migrate-buttons.ts",
+    "validate:design-lock": "tsx scripts/validate-design-lock.ts",
+    "validate:templates": "tsx scripts/validate-golden-templates.ts",
+    "validate:all": "bash scripts/master-validation.sh",
+    "ai:visual": "node scripts/ai-visual-analysis.js",
+    "check:rls": "node scripts/check-rls-coverage.js",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "note": "After adding these scripts, run: npm run prepare (to setup Husky)"
+}

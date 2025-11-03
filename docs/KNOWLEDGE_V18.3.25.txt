@@ -1,0 +1,275 @@
+# 📚 KNOWLEDGE V18.3.25 - ZENTRALE VORGABEN
+
+## 🎯 ZWECK
+Diese Datei ist die zentrale Referenz für alle Arbeitsabläufe und Vorgaben.
+Sie wird in Lovable Project Settings -> Knowledge referenziert und ist bei jedem Request verfügbar.
+
+---
+
+## 📋 DOKUMENTATIONS-HIERARCHIE
+
+### **HAUPT-DOKUMENTE (IMMER BEFOLGEN)**
+
+1. **AUTONOMOUS_AGENT_MODE_V18.3.25.md**
+   - Autonomer Workflow (Phase -2 bis 5)
+   - Proaktive Recherche BEVOR User gefragt wird
+   - Systematische Vollständigkeits-Checks
+   - Pattern-Detection & Selbst-Verbesserung
+   - ➡️ `docs/AUTONOMOUS_AGENT_MODE_V18.3.25.md`
+
+2. **META_GUIDELINES_V18.3.25.md**
+   - Detaillierter Workflow für jeden Work-Step
+   - Design System Vorgaben (Farben, Layout, Typography)
+   - Protected Layout System (Header, Sidebar, Footer)
+   - Zentrale Utils & Hooks
+   - Security & Localization
+   - Quality Gates
+   - ➡️ `docs/META_GUIDELINES_V18.3.25.md`
+
+2b. **VERWALTUNGS_SEITEN_DESIGN_VORGABEN_V18.3.26.md** 🆕
+   - Design- und Layout-Vorgaben für interne Seiten
+   - Referenz: Index.tsx (Dashboard) & Auftraege.tsx
+   - StandardPageLayout Mandatory
+   - DIALOG_LAYOUT Mandatory
+   - Touch-Targets, Icons, Typography
+   - ➡️ `docs/VERWALTUNGS_SEITEN_DESIGN_VORGABEN_V18.3.26.md`
+
+3. **OPTIMIERUNG_MYDISPATCH_V18.3.25.md** 🆕
+   - Qualitätssicherungs-Strategien
+   - Performance Optimierungen
+   - Testing & CI/CD Pipeline
+   - Monitoring & Observability
+   - Developer Experience Verbesserungen
+   - ➡️ `docs/OPTIMIERUNG_MYDISPATCH_V18.3.25.md`
+
+4. **ERROR_DATABASE_V18.3.25.md**
+   - Vollständige Fehleranalyse
+   - Priorisierter Behebungsplan
+   - Lessons Learned
+   - ➡️ `docs/ERROR_DATABASE_V18.3.25.md`
+
+---
+
+## 🔄 AUTONOMER AGENT MODE - KURZFASSUNG
+
+### **KERNPRINZIP**
+```
+ERST RECHERCHIEREN (5+ Min) → DANN HANDELN → NUR WENN UNKLAR: FRAGEN
+```
+
+### **RECHERCHE-REIHENFOLGE**
+```
+1. KNOWLEDGE_V18.3.25.txt (Diese Datei)
+2. META_GUIDELINES_V18.3.25.md
+3. AUTONOMOUS_AGENT_MODE_V18.3.25.md
+4. Sprint-Reports & Completion-Reports
+5. Code Search (Bestehende Patterns)
+6. Lovable-Dokumentation (useful-context)
+7. Web-Search (Nur wenn wirklich nötig)
+```
+
+### **VOLLSTÄNDIGKEITS-CHECK BEI JEDER ÄNDERUNG**
+```
+✅ Zentrale Lösung verwendet?
+✅ ALLE betroffenen Dateien gefunden? (Search-Tool!)
+✅ Design-System aktualisiert? (index.css, tailwind.config.ts)
+✅ Anti-Patterns dokumentiert?
+✅ Tests durchgeführt?
+✅ Breaking Changes verhindert?
+```
+
+---
+
+## 🎨 DESIGN SYSTEM - KRITISCHE REGELN
+
+### **FARBEN**
+```
+❌ VERBOTEN: accent, accent-foreground
+✅ VERWENDEN: primary, primary-foreground, foreground, muted, etc.
+
+❌ NIEMALS: text-white, bg-white, text-black, bg-black
+✅ IMMER: Semantic Tokens aus index.css
+```
+
+### **DIALOG LAYOUT**
+```
+❌ VERBOTEN: <Separator /> in Dialogs
+❌ VERBOTEN: Manuelle className für Dialog-Layout
+✅ VERWENDEN: DIALOG_LAYOUT Utils aus dialog-layout-utils.ts
+```
+
+### **PROTECTED LAYOUT DIMENSIONS**
+```
+Header:  h-14 (3.5rem / 56px)
+Sidebar: w-64 (16rem / 256px)
+Footer:  h-16 (4rem / 64px)
+```
+
+---
+
+## 🔧 ZENTRALE UTILS & PATTERNS
+
+### **FORMATTING**
+- `formatCurrency()` - Währung formatieren
+- `formatDate()` - Datum formatieren
+- `formatDateTime()` - Datum & Zeit formatieren
+- ➡️ Alle in entsprechenden Utils-Dateien
+
+### **DIALOG LAYOUT**
+- `DIALOG_LAYOUT.content` - Dialog Content Wrapper
+- `DIALOG_LAYOUT.header` - Header mit Titel & Beschreibung
+- `DIALOG_LAYOUT.body` - Scrollbarer Body-Bereich
+- `DIALOG_LAYOUT.footer` - Fixed Footer mit Actions
+- ➡️ `src/lib/utils/dialog-layout-utils.ts`
+
+### **VALIDATION**
+- Email, Telefon, Postleitzahl, etc.
+- ➡️ Zentrale Validation-Utils verwenden
+
+### **AGENT DEBUG SYSTEM** 🆕
+- `AgentDebugSystem` - Automatische Fehleranalyse
+- `DesignSystemScanner` - Design-System Violations
+- `AccessibilityScanner` - A11y Issues
+- `PerformanceScanner` - Performance Problems
+- `IconScanner`, `TypographyScanner`, `SpacingScanner`
+- ➡️ `src/lib/agent-debug-system.ts`
+
+---
+
+## ⚠️ ANTI-PATTERNS (NIEMALS TUN)
+
+### **CODE-LEVEL**
+```
+❌ accent Color verwenden
+❌ <Separator /> in Dialogs
+❌ Manuelle Dialog-Layout className
+❌ Inline Formatierung (Currency, Date)
+❌ text-white, bg-white, text-black, bg-black
+❌ Horizontales Scrollen
+❌ Ungeschützte Layout-Dimensionen ändern
+```
+
+### **WORKFLOW-LEVEL**
+```
+❌ User fragen ohne vorherige Recherche (5+ Min)
+❌ Teilweise Implementation (Dependencies vergessen)
+❌ Sequenzielle Tool-Calls (wenn parallel möglich)
+❌ Veraltete Patterns verwenden
+❌ Breaking Changes ohne Tests
+❌ Code schreiben ohne File-Kontext
+```
+
+---
+
+## 🚀 AKTUELLER STATUS (V18.3.25)
+
+### **LETZTE ÄNDERUNGEN**
+- ✅ Autonomous Agent Mode aktiviert
+- ✅ Dialog Layout Utils systematisch implementiert
+- ✅ Accent Color Migration: 84/84 behoben (100%) ⭐
+- ✅ Agent Debug System erweitert (15 Scanner-Typen)
+- ✅ ERROR_DATABASE erstellt & aktualisiert
+- ✅ OPTIMIERUNG_MYDISPATCH erstellt
+- ✅ VERWALTUNGS_SEITEN_DESIGN_VORGABEN_V18.3.26.md erstellt 🆕
+- ✅ Referenz-Seiten definiert: Index.tsx, Auftraege.tsx, Kostenstellen.tsx
+- ✅ Kostenstellen V18.3.26 finalisiert (UI-Spec + Fixes)
+
+### **BEKANNTE ISSUES**
+- ~24 Direct Color Violations verbleibend (Driver-App)
+- ~10 Responsive Violations verbleibend
+- Testing Suite noch nicht implementiert
+- CI/CD Pipeline noch nicht konfiguriert
+
+---
+
+## 📊 MIGRATIONS-STATUS
+
+### **PHASE 1: FOUNDATION** ✅
+- Auth.tsx ✅ (15 violations → 100% compliant)
+- Portal.tsx ✅ (45 violations → 100% compliant)
+- Agent Debug System ✅ (erweitert auf 6 Scanner)
+- ERROR_DATABASE ✅ (vollständige Dokumentation)
+
+### **PHASE 2: DRIVER-APP** ⏳
+- DriverDashboard.tsx (10 violations) - NEXT
+- DriverRegister.tsx (5 violations)
+- DriverLogin.tsx (2 violations)
+- DriverWelcome.tsx (2 violations)
+- DriverForgotPassword.tsx (1 violation)
+- DriverVerifyEmail.tsx (1 violation)
+- DriverSplash.tsx ✅ (accent behoben)
+
+### **PHASE 3: PORTAL AUTH & PUBLIC** ⏳
+- PortalAuth.tsx (accent behoben, Migration pending)
+- Terms.tsx ✅ (accent behoben)
+- Unternehmer.tsx (1 violation)
+- Home.tsx (Verifizierung pending)
+
+### **PHASE 4: DASHBOARD PAGES** ⏳
+- Dashboard.tsx, Aufträge.tsx, Kunden.tsx, Fahrer.tsx, Fahrzeuge.tsx
+- ~30+ Dialogs zu migrieren
+
+---
+
+## 🎓 KRITISCHE LERN-PATTERNS
+
+### **HÄUFIGE FEHLER**
+1. Dependencies vergessen (Search-Tool nutzen!)
+2. Accent Color übersehen (Systematisch suchen!)
+3. Separator in Dialogs (DIALOG_LAYOUT verwenden!)
+4. User zu früh fragen (5+ Min selbst recherchieren!)
+5. Master Components nicht genutzt (HeroSection, KPICard, QuickActions)
+6. Leere Elements nach Migration (CardHeader, etc. entfernen!)
+
+### **ERFOLGS-METRIKEN**
+```
+✅ 0 User-Rückfragen wegen fehlender Recherche
+✅ 0 Vergessene Dependencies
+✅ 0 Breaking Changes
+✅ 100% Pattern-Konsistenz
+✅ Max Parallelisierung bei Tool-Calls
+✅ 68% Design-System Compliance (↑ von 50%)
+✅ 50/74 Violations behoben
+```
+
+### **NEUE BEST PRACTICES V18.3.25**
+```
+✅ Agent Debug System bei jeder Änderung nutzen
+✅ ERROR_DATABASE vor jedem Task konsultieren
+✅ OPTIMIERUNG_MYDISPATCH für Verbesserungsvorschläge
+✅ Parallel Tool-Calls IMMER nutzen (min. 3-5 gleichzeitig)
+✅ Testing automatisieren (Playwright, Jest)
+✅ CI/CD Pipeline für Quality Gates
+```
+
+---
+
+## 🔄 SELBST-OPTIMIERUNG
+
+Diese Datei wird kontinuierlich aktualisiert durch:
+- Pattern-Detection (Gleicher Fehler >1x → Update)
+- User-Feedback (Unklarheiten → Dokumentation erweitern)
+- Neue Features (Neue Utils → Hier dokumentieren)
+- Meta-Learning (Erfolgreiche Patterns → Best Practices)
+
+**LETZTE AKTUALISIERUNG:** Sprint 47 - V18.3.25
+**NÄCHSTE REVIEW:** Nach Abschluss der Accent-Migration
+
+---
+
+## 📞 SUPPORT & FRAGEN
+
+Bei Unklarheiten IMMER ZUERST:
+1. Diese Datei lesen (KNOWLEDGE_V18.3.25.txt)
+2. META_GUIDELINES_V18.3.25.md konsultieren
+3. AUTONOMOUS_AGENT_MODE_V18.3.25.md prüfen
+4. Code Search durchführen
+5. Sprint-Reports checken
+
+**NUR DANN** User fragen - mit Kontext was bereits geprüft wurde!
+
+---
+
+*Diese Datei ist selbstoptimierend und wird kontinuierlich verbessert.*
+*Version: 18.3.25*
+*Status: AKTIV*

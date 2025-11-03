@@ -1,0 +1,4 @@
+# Netlify/Lovable Cloud SPA Fallback
+# Ensures all routes (including query parameters) map to index.html
+# Prevents 404 errors on direct access to routes
+/*    /index.html   200

@@ -1,0 +1,107 @@
+# ==================================================================================
+# UI-COMPONENT SCHEMA - KRONOS V18.0
+# ==================================================================================
+# Schema für maschinenlesbare UI-Component-Definitionen
+# Wird vom Wiki-Parser generiert und vom KRONOS Executor konsumiert
+# ==================================================================================
+
+type: object
+required:
+  - entity
+  - name
+  - path
+
+properties:
+  entity:
+    type: string
+    const: "UI-Component"
+    description: "Entity type identifier"
+  
+  name:
+    type: string
+    description: "Component name (e.g., V28Button, V28DataTable)"
+    pattern: "^V28[A-Z][a-zA-Z]+$"
+  
+  path:
+    type: string
+    description: "File path relative to project root"
+    pattern: "^src/components/design-system/.*\\.tsx$"
+  
+  props:
+    type: array
+    description: "Component props definition"
+    items:
+      type: object
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        defaultValue:
+          type: string
+        required:
+          type: boolean
+          default: false
+  
+  variants:
+    type: array
+    description: "Component variants (e.g., primary, secondary)"
+    items:
+      type: string
+  
+  dependencies:
+    type: array
+    description: "Dependencies on other components"
+    items:
+      type: string
+      description: "Dependency ID in format 'UI-Component:ComponentName'"
+  
+  storybook:
+    type: boolean
+    description: "Whether to generate Storybook story"
+    default: true
+  
+  tests:
+    type: array
+    description: "Test cases to generate"
+    items:
+      type: string
+  
+  accessibility:
+    type: object
+    properties:
+      ariaLabel:
+        type: boolean
+        default: true
+      keyboardNav:
+        type: boolean
+        default: true
+      touchTarget:
+        type: string
+        default: "min-h-[44px]"
+
+examples:
+  - entity: "UI-Component"
+    name: "V28Button"
+    path: "src/components/design-system/V28Button.tsx"
+    props:
+      - name: "variant"
+        type: "'primary' | 'secondary' | 'destructive'"
+        defaultValue: "'primary'"
+        required: false
+      - name: "size"
+        type: "'small' | 'medium' | 'large'"
+        defaultValue: "'medium'"
+    variants:
+      - "primary"
+      - "secondary"
+      - "destructive"
+    dependencies: []
+    storybook: true
+    tests:
+      - "Renders with default props"
+      - "Applies correct styles for 'destructive' variant"
+      - "Is not clickable when disabled"

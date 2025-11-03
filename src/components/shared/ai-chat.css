@@ -1,0 +1,127 @@
+/* ==================================================================================
+   INTELLIGENT AI-CHAT SYSTEM - CSS-basierte V26.0 Styles (KORRIGIERT)
+   ==================================================================================
+   Pattern: CSS Custom Properties mit Design-Token-Integration
+   KRITISCH: Verwendet NUR existierende CSS-Variablen aus index.css
+   ================================================================================== */
+
+/* Minimized Chat Button */
+.ai-chat-minimized-btn {
+  @apply fixed shadow-lg z-40 rounded-full transition-all duration-300 font-semibold;
+  @apply bg-[hsl(var(--dunkelblau))] text-[hsl(var(--beige))];
+  border: 2px solid hsl(var(--beige) / 0.2);
+  box-shadow: 0 0 20px hsl(var(--beige) / 0.3);
+}
+
+.ai-chat-minimized-btn:hover {
+  background-color: hsl(var(--secondary-hover));
+  box-shadow: 0 0 30px hsl(var(--beige) / 0.4);
+}
+
+.ai-chat-minimized-btn--mobile {
+  @apply bottom-20 right-4 h-14 w-14;
+}
+
+.ai-chat-minimized-btn--desktop {
+  @apply bottom-6 right-6 h-14 px-6;
+}
+
+/* Chat Card Container */
+.ai-chat-card {
+  @apply fixed z-50 flex flex-col shadow-2xl transition-all duration-300 overflow-hidden;
+  background-color: hsl(var(--weiss));
+  border: 2px solid hsl(var(--beige) / 0.2);
+  box-shadow: 0 0 40px hsl(var(--dunkelblau) / 0.3);
+}
+
+.ai-chat-card--mobile {
+  @apply top-14 left-0 right-0 bottom-20 rounded-none;
+}
+
+.ai-chat-card--fullscreen {
+  @apply inset-4 rounded-lg;
+}
+
+.ai-chat-card--normal {
+  @apply bottom-6 right-6 rounded-lg;
+  width: 480px;
+  height: 600px;
+}
+
+/* Chat Header */
+.ai-chat-header {
+  @apply flex items-center justify-between shrink-0 border-b;
+  background: linear-gradient(135deg, hsl(var(--dunkelblau)) 0%, hsl(var(--secondary-hover)) 100%);
+  color: hsl(var(--beige));
+  border-bottom: 1px solid hsl(var(--beige) / 0.2);
+}
+
+.ai-chat-header--mobile {
+  @apply px-3 py-2.5 rounded-t-none;
+}
+
+.ai-chat-header--desktop {
+  @apply px-4 py-3 rounded-t-lg;
+}
+
+.ai-chat-header__subtitle {
+  color: hsl(var(--beige) / 0.8);
+}
+
+.ai-chat-header__btn {
+  color: hsl(var(--beige));
+}
+
+.ai-chat-header__btn:hover {
+  background-color: hsl(var(--weiss) / 0.1);
+}
+
+/* Loading Animation Dots */
+.ai-chat-loading-dot {
+  @apply bg-muted-foreground/60 rounded-full animate-bounce;
+}
+
+.ai-chat-loading-dot--0 {
+  animation-delay: 0ms;
+}
+
+.ai-chat-loading-dot--1 {
+  animation-delay: 150ms;
+}
+
+.ai-chat-loading-dot--2 {
+  animation-delay: 300ms;
+}
+
+/* Input Container */
+.ai-chat-input-container {
+  @apply shrink-0 bg-background/95 backdrop-blur-sm;
+  border-top: 2px solid hsl(var(--beige) / 0.2);
+}
+
+/* Input Field */
+.ai-chat-input {
+  border-radius: var(--radius);
+  border: 2px solid hsl(var(--beige) / 0.2);
+}
+
+/* Send Button */
+.ai-chat-send-btn {
+  @apply shrink-0 transition-all min-h-[44px] min-w-[44px];
+  background-color: hsl(var(--dunkelblau));
+  color: hsl(var(--beige));
+  border-radius: var(--radius);
+}
+
+.ai-chat-send-btn:hover:not(:disabled) {
+  background-color: hsl(var(--secondary-hover));
+}
+
+.ai-chat-send-btn:disabled {
+  @apply opacity-50;
+}
+
+/* Tip Text */
+.ai-chat-tip {
+  color: hsl(var(--muted-foreground));
+}

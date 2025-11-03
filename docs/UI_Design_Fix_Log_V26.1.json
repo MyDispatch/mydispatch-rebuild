@@ -1,0 +1,253 @@
+{
+  "version": "1.0",
+  "generated": "2025-10-27T14:00:00Z",
+  "authority": "NEXIFY_SYSTEM_MASTER_BRAIN.md",
+  "scope": "COMPLETE_SYSTEM",
+  "summary": {
+    "total_violations": 671,
+    "auto_fixable": 437,
+    "manual_review_required": 234,
+    "fixed": 0,
+    "remaining": 671,
+    "progress": 0.0
+  },
+  "categories": [
+    {
+      "category": "dashboard_widgets",
+      "priority": "CRITICAL",
+      "total_violations": 180,
+      "files": 100,
+      "auto_fixable": 125,
+      "manual_required": 55,
+      "status": "PENDING",
+      "eta_hours": 8
+    },
+    {
+      "category": "layout_components",
+      "priority": "CRITICAL",
+      "total_violations": 95,
+      "files": 90,
+      "auto_fixable": 65,
+      "manual_required": 30,
+      "status": "PENDING",
+      "eta_hours": 6
+    },
+    {
+      "category": "mobile_components",
+      "priority": "HIGH",
+      "total_violations": 50,
+      "files": 40,
+      "auto_fixable": 35,
+      "manual_required": 15,
+      "status": "PENDING",
+      "eta_hours": 4
+    },
+    {
+      "category": "marketing_pages",
+      "priority": "HIGH",
+      "total_violations": 110,
+      "files": 80,
+      "auto_fixable": 75,
+      "manual_required": 35,
+      "status": "PENDING",
+      "eta_hours": 6
+    },
+    {
+      "category": "misc_components",
+      "priority": "MEDIUM",
+      "total_violations": 236,
+      "files": 191,
+      "auto_fixable": 137,
+      "manual_required": 99,
+      "status": "PENDING",
+      "eta_hours": 10
+    }
+  ],
+  "top_offenders": [
+    {
+      "rank": 1,
+      "file": "src/components/layout/AppSidebar.tsx",
+      "violations": 20,
+      "auto_fixable": 15,
+      "issues": [
+        "Inline backgroundColor (8x)",
+        "Inline color (7x)",
+        "Custom shadows (3x)",
+        "Hardcoded transitions (2x)"
+      ],
+      "reference": "NEXIFY_SYSTEM_MASTER_BRAIN.md Section 4.1"
+    },
+    {
+      "rank": 2,
+      "file": "src/components/dashboard/ResourceStatusWidget.tsx",
+      "violations": 15,
+      "auto_fixable": 12,
+      "issues": [
+        "CSS custom properties for progress (5x)",
+        "Inline padding (4x)",
+        "Direct color usage (3x)",
+        "Custom shadows (3x)"
+      ],
+      "reference": "UNIFIED_DESIGN_TOKENS.spacing"
+    },
+    {
+      "rank": 3,
+      "file": "src/components/dashboard/RevenueBreakdownWidget.tsx",
+      "violations": 12,
+      "auto_fixable": 10,
+      "issues": [
+        "Inline backgroundColor (5x)",
+        "Custom progress bars (4x)",
+        "Hardcoded spacing (3x)"
+      ]
+    },
+    {
+      "rank": 4,
+      "file": "src/components/layout/MainLayout.tsx",
+      "violations": 12,
+      "auto_fixable": 8,
+      "issues": [
+        "Inline paddingBottom (4x)",
+        "Custom transitions (4x)",
+        "Hardcoded widths (4x)"
+      ]
+    },
+    {
+      "rank": 5,
+      "file": "src/components/dashboard/TrafficWidget.tsx",
+      "violations": 10,
+      "auto_fixable": 8,
+      "issues": [
+        "CSS custom properties (4x)",
+        "Inline colors (3x)",
+        "Custom animations (3x)"
+      ]
+    }
+  ],
+  "auto_fix_patterns": [
+    {
+      "pattern_id": "inline_bg_color_dunkelblau",
+      "regex": "style=\\{\\{\\s*backgroundColor:\\s*['\"]#323D5E['\"]\\s*\\}\\}",
+      "replacement": "className=\"v26-bg-dunkelblau\"",
+      "affected_files": 43,
+      "confidence": "HIGH"
+    },
+    {
+      "pattern_id": "inline_bg_color_beige",
+      "regex": "style=\\{\\{\\s*backgroundColor:\\s*['\"]#EADEBD['\"]\\s*\\}\\}",
+      "replacement": "className=\"v26-bg-beige\"",
+      "affected_files": 31,
+      "confidence": "HIGH"
+    },
+    {
+      "pattern_id": "inline_padding_12px",
+      "regex": "style=\\{\\{\\s*padding:\\s*['\"]12px['\"]\\s*\\}\\}",
+      "replacement": "className=\"p-3\"",
+      "affected_files": 67,
+      "confidence": "HIGH"
+    },
+    {
+      "pattern_id": "inline_gap_12px",
+      "regex": "style=\\{\\{\\s*gap:\\s*['\"]12px['\"]\\s*\\}\\}",
+      "replacement": "className=\"gap-3\"",
+      "affected_files": 54,
+      "confidence": "HIGH"
+    },
+    {
+      "pattern_id": "unified_tokens_spacing_md",
+      "regex": "style=\\{\\{\\s*gap:\\s*UNIFIED_DESIGN_TOKENS\\.spacing\\.md\\s*\\}\\}",
+      "replacement": "className=\"gap-3\"",
+      "affected_files": 38,
+      "confidence": "HIGH"
+    },
+    {
+      "pattern_id": "custom_shadow_card",
+      "regex": "boxShadow:\\s*['\"]0 4px 12px rgba\\(0,0,0,0\\.08\\)['\"]",
+      "replacement": "className=\"v26-shadow-card-standard\"",
+      "affected_files": 29,
+      "confidence": "MEDIUM"
+    }
+  ],
+  "manual_review_cases": [
+    {
+      "case_id": "conditional_styles",
+      "description": "Styles that depend on props/state",
+      "count": 87,
+      "example": "style={{ backgroundColor: isActive ? '#323D5E' : '#EADEBD' }}",
+      "solution": "Create CSS classes with state modifiers (e.g., .v26-card--active)",
+      "reference": "dashboard-v26-styles.css pattern"
+    },
+    {
+      "case_id": "css_custom_properties",
+      "description": "CSS variables for dynamic values",
+      "count": 45,
+      "example": "style={{ '--progress': `${percentage}%` }}",
+      "solution": "Keep as-is (legitimate use case)",
+      "reference": "NEXIFY_SYSTEM_MASTER_BRAIN.md Section 5.2"
+    },
+    {
+      "case_id": "gradient_backgrounds",
+      "description": "Complex gradients",
+      "count": 23,
+      "example": "linear-gradient(135deg, ...)",
+      "solution": "Use UNIFIED_DESIGN_TOKENS.gradients",
+      "reference": "unified-design-tokens.ts GRADIENTS_SYSTEM"
+    },
+    {
+      "case_id": "hover_states_js",
+      "description": "JavaScript-based hover handling",
+      "count": 34,
+      "example": "onMouseEnter={(e) => e.target.style.backgroundColor = ...}",
+      "solution": "Replace with CSS :hover pseudo-class",
+      "reference": "V40.12 migration pattern"
+    },
+    {
+      "case_id": "animation_delays",
+      "description": "Staggered animation delays",
+      "count": 19,
+      "example": "style={{ animationDelay: '0.2s' }}",
+      "solution": "Create CSS classes .v26-delay-{n}",
+      "reference": "v26-design-tokens.css V2.0"
+    }
+  ],
+  "fixes_applied": [],
+  "next_actions": [
+    {
+      "action": "start_phase_1_batch_1",
+      "description": "Dashboard Widgets Migration",
+      "priority": "CRITICAL",
+      "files": [
+        "src/components/dashboard/ResourceStatusWidget.tsx",
+        "src/components/dashboard/RevenueBreakdownWidget.tsx",
+        "src/components/dashboard/TrafficWidget.tsx",
+        "src/components/dashboard/PerformanceMonitoringWidget.tsx",
+        "src/components/dashboard/PredictiveDemandWidget.tsx"
+      ],
+      "estimated_violations": 52,
+      "eta_hours": 3,
+      "automated": true
+    },
+    {
+      "action": "create_dashboard_widgets_css",
+      "description": "Create dashboard-widgets-v26-styles.css",
+      "priority": "CRITICAL",
+      "dependencies": ["start_phase_1_batch_1"],
+      "eta_hours": 1,
+      "automated": true
+    },
+    {
+      "action": "visual_validation",
+      "description": "Screenshot all dashboard pages",
+      "priority": "CRITICAL",
+      "dependencies": ["start_phase_1_batch_1"],
+      "eta_hours": 0.5,
+      "automated": true
+    }
+  ],
+  "references": {
+    "master_brain": "docs/NEXIFY_SYSTEM_MASTER_BRAIN.md",
+    "design_tokens": "src/lib/design-system/unified-design-tokens.ts",
+    "current_session": "docs/NeXify_Current_Session_Context.md",
+    "component_library": "docs/V26_COMPONENT_LIBRARY.md"
+  }
+}

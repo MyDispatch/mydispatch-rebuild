@@ -1,0 +1,27 @@
+# HYPERION PHASE 4: Local Development Stack
+version: '3.8'
+
+services:
+  # ==================================================================================
+  # MyDispatch Frontend
+  # ==================================================================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - VITE_SUPABASE_URL=${VITE_SUPABASE_URL}
+      - VITE_SUPABASE_PUBLISHABLE_KEY=${VITE_SUPABASE_PUBLISHABLE_KEY}
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
+    networks:
+      - mydispatch-network
+    restart: unless-stopped
+
+networks:
+  mydispatch-network:
+    driver: bridge

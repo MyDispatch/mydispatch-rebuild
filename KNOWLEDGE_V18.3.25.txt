@@ -1,0 +1,618 @@
+🚀 MYDISPATCH KNOWLEDGE V18.3.25 - SELBSTOPTIMIERENDE VORGABEN
+Datum: 18.01.2025
+Version: V18.3.25 PRODUCTION
+Status: 🟢 AKTIV & SELBSTOPTIMIEREND
+
+═══════════════════════════════════════════════════════════════════════════════
+🧠 TEIL 0: SELBSTOPTIMIERENDER META-PROMPT
+═══════════════════════════════════════════════════════════════════════════════
+
+## PHASE -1: LOGISCHES DENKEN (VOR ALLEM ANDEREN)
+
+Vor JEDER Aktion ZWINGEND durchführen:
+
+### 1. KRITISCHES HINTERFRAGEN
+- Was will der User WIRKLICH? (nicht was ich denke)
+- Gibt es bereits eine Lösung im Codebase?
+- Welche Abhängigkeiten existieren?
+- Welche anderen Bereiche sind betroffen?
+
+### 2. VOLLSTÄNDIGKEITS-CHECK
+- Ist die Anfrage vollständig lösbar?
+- Fehlen Informationen/Dateien?
+- Muss ich weitere Dateien lesen?
+- Gibt es versteckte Dependencies?
+
+### 3. SYSTEM-ANALYSE
+- Suche ALLE Stellen mit gleichem Pattern (lov-search-files)
+- Identifiziere Root-Cause (nicht nur Symptom)
+- Mappe alle Abhängigkeiten
+- Prüfe auf Breaking-Changes
+
+### 4. PROAKTIVES ARBEITEN
+- Fixe ALLE betroffenen Stellen (nicht nur eine)
+- Erstelle zentrale Lösungen wenn Pattern >2x vorkommt
+- Verhindere Zukunfts-Fehler durch Validation/Types
+- Update Dokumentation automatisch
+
+## PHASE 0: SELBSTREFLEXION & META-LEARNING
+
+Nach JEDEM abgeschlossenen Task:
+
+### A) FEHLER-DETECTION
+```typescript
+// Aus Conversation-History lernen
+if (user_says === "nicht behoben" || "auch hier" || "überall") {
+  → Pattern wurde übersehen
+  → Root-Cause war falsch
+  → Abhängigkeiten nicht erkannt
+  → UPDATE: Meta-Vorgaben + Anti-Pattern-Liste
+}
+```
+
+### B) PATTERN-ERKENNUNG
+- Gleicher Fehler >2x? → Systematisches Problem
+- User korrigiert mich? → Meine Annahme war falsch
+- Breaking-Changes? → Dependency-Check war unvollständig
+- Tests failed? → Validation war insufficient
+
+### C) OPTIMIZATION-TRIGGER
+```typescript
+// Auto-Update Trigger für Meta-Vorgaben
+TRIGGER_CONDITIONS = {
+  error_pattern_repeated: ≥2,        // Fehler wiederholt sich
+  anti_pattern_found: true,          // Neues Anti-Pattern erkannt
+  dependency_missed: true,           // Abhängigkeit übersehen
+  breaking_change_introduced: true,  // Breaking-Change verursacht
+  central_solution_needed: ≥3        // Pattern ≥3x im Codebase
+}
+
+if (ANY_TRIGGER_TRUE) {
+  1. Speichere in semantic-memory.ts
+  2. Update META_GUIDELINES.md
+  3. Füge zu Anti-Pattern-Liste hinzu
+  4. Erstelle zentrale Lösung (Utils/Hooks)
+  5. Dokumentiere Learning
+}
+```
+
+### D) KONTINUIERLICHE VERBESSERUNG
+```
+🔁 SELF-IMPROVEMENT LOOP
+┌──────────────────────────────────────────────────┐
+│ 1. User-Feedback → Analysiere Fehler-Pattern    │
+│ 2. Pattern erkannt → Suche Root-Cause           │
+│ 3. Root-Cause → Erstelle Regel/Util/Validation  │
+│ 4. Regel erstellt → Update Meta-Vorgaben        │
+│ 5. Meta updated → Teste systemweit              │
+│ 6. Tests OK → Dokumentiere Learning             │
+│ 7. Dokumentiert → Speichere in semantic-memory  │
+│ 8. Loop → Zurück zu 1                           │
+└──────────────────────────────────────────────────┘
+```
+
+═══════════════════════════════════════════════════════════════════════════════
+🔴 TEIL 1: ABSOLUTE REGELN (NIEMALS ÄNDERN)
+═══════════════════════════════════════════════════════════════════════════════
+
+## 1.1 CI-FARBEN (V18.3.25 - ACCENT ENTFERNT!)
+
+### PRIMARY COLORS (EINZIGE ERLAUBTE)
+```css
+--primary: 40 31% 88%        /* #EADEBD - Beige/Gold (Hauptfarbe) */
+--foreground: 225 31% 28%    /* #323D5E - Dunkelblau (Text) */
+```
+
+### AMPEL-SYSTEM (NUR für Status/Badges)
+```css
+--status-success: 142 71% 45%   /* #22c55e - Grün */
+--status-warning: 48 96% 53%    /* #eab308 - Gelb */
+--status-error: 0 84% 60%       /* #ef4444 - Rot */
+```
+
+### ❌ VERBOTEN: accent-Farbe ist DEPRECATED!
+```typescript
+// ❌ FALSCH - accent existiert nicht mehr!
+className="bg-accent"
+className="text-accent"
+
+// ✅ RICHTIG - Verwende primary
+className="bg-primary"
+className="text-primary"
+```
+
+## 1.2 ICON-FARBEN (KRITISCH!)
+
+### ✅ IMMER: text-foreground
+```tsx
+// ✅ RICHTIG
+<Plus className="h-4 w-4 text-foreground" />
+<Users className="h-5 w-5 text-foreground" />
+```
+
+### ❌ NIEMALS: Ampelfarben auf Icons
+```tsx
+// ❌ FALSCH - VERBOTEN!
+<Plus className="h-4 w-4 text-status-success" />
+<AlertCircle className="h-4 w-4 text-status-error" />
+```
+
+### ✅ Ampelfarben NUR für:
+- `<Badge variant="success|warning|destructive" />`
+- `<StatusIndicator status="..." />`
+- `<Alert variant="destructive" />`
+
+## 1.3 DIALOG-LAYOUT (NEU V18.3.25!)
+
+### ZWINGEND: DIALOG_LAYOUT Utils verwenden
+```tsx
+import { DIALOG_LAYOUT } from '@/lib/dialog-layout-utils';
+
+<Dialog>
+  <DialogContent className={DIALOG_LAYOUT.content}> {/* max-h-[90vh] */}
+    <DialogHeader className={DIALOG_LAYOUT.header}> {/* flex-shrink-0 */}
+      <DialogTitle>Titel</DialogTitle>
+    </DialogHeader>
+
+    {/* Body - EMPFOHLEN: Native Scroll */}
+    <div className={DIALOG_LAYOUT.body}> {/* flex-1 overflow-y-auto */}
+      {/* Content */}
+    </div>
+
+    <div className={DIALOG_LAYOUT.footer}> {/* flex-shrink-0 */}
+      <Button>OK</Button>
+    </div>
+  </DialogContent>
+</Dialog>
+```
+
+### ❌ VERBOTEN: ScrollArea in Dialogs
+```tsx
+// ❌ FALSCH - funktioniert nicht mit Flexbox!
+<ScrollArea className="flex-1">
+  <div className="space-y-4">
+    {/* Content */}
+  </div>
+</ScrollArea>
+
+// ✅ RICHTIG - Native Scroll
+<div className={DIALOG_LAYOUT.body}>
+  <div className="space-y-4">
+    {/* Content */}
+  </div>
+</div>
+```
+
+## 1.4 SEPARATOR-VERBOT (NEU V18.3.25!)
+
+### ❌ NIEMALS: Separators in ScrollAreas/Dialogs
+```tsx
+// ❌ FALSCH - Verursacht visuelle Artefakte!
+<ScrollArea>
+  <div>Content 1</div>
+  <Separator /> {/* VERBOTEN! */}
+  <div>Content 2</div>
+</ScrollArea>
+
+// ✅ RICHTIG - Border statt Separator
+<div className={DIALOG_LAYOUT.body}>
+  <div className="pb-4">Content 1</div>
+  <div className="pt-4 border-t">Content 2</div>
+</div>
+```
+
+## 1.5 SCROLLBAR-SYSTEM (NEU V18.3.25!)
+
+### Systemweite Regeln (index.css)
+```css
+/* ❌ VERBOTEN: Horizontale Scrollbars */
+* {
+  overflow-x: hidden !important;
+}
+
+/* ✅ ERLAUBT: Vertikale Scrollbars (unsichtbar) */
+*::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.2);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.4);
+}
+```
+
+### ✅ RICHTIG: Nur vertikales Scrollen
+```tsx
+// ✅ Vertikales Scrollen erlaubt
+<div className="overflow-y-auto max-h-[500px]">
+  {/* Content */}
+</div>
+
+// ❌ Horizontales Scrollen VERBOTEN
+<div className="overflow-x-auto"> {/* NIEMALS! */}
+  {/* Content */}
+</div>
+```
+
+## 1.6 LAYOUT-FREEZE (GESCHÜTZT!)
+
+### NIEMALS ändern:
+```typescript
+// Header
+height: 60px (h-16)
+background: hsl(var(--primary))
+
+// Sidebar
+width: 64px (collapsed) / 240px (expanded)
+
+// Footer
+padding: py-2
+background: hsl(var(--primary))
+```
+
+### Geschützte Dateien:
+- `src/components/layout/Header.tsx`
+- `src/components/layout/Footer.tsx`
+- `src/components/layout/AppSidebar.tsx`
+- `src/components/layout/MainLayout.tsx`
+- `src/components/layout/DashboardLayout.tsx`
+
+**Erlaubt**: Funktionale Erweiterungen, Daten-Enrichment  
+**Verboten**: Layout-Änderungen, CI-Farben ändern, Border-System ändern
+
+## 1.7 MULTI-TENANT SECURITY
+
+### ZWINGEND: company_id Filter
+```typescript
+// ✅ IMMER company_id filtern
+const { data } = await supabase
+  .from('bookings')
+  .select('*')
+  .eq('company_id', profile.company_id) // ZWINGEND!
+  .eq('archived', false);
+
+// ❌ NIEMALS ohne company_id
+const { data } = await supabase
+  .from('bookings')
+  .select('*'); // FALSCH!
+```
+
+## 1.8 ARCHIVING (NIEMALS DELETE!)
+
+### ✅ RICHTIG: Archivieren
+```typescript
+// ✅ Archivieren statt löschen
+await supabase
+  .from('bookings')
+  .update({ 
+    archived: true, 
+    archived_at: new Date().toISOString() 
+  })
+  .eq('id', bookingId);
+
+// Queries filtern archived
+.eq('archived', false)
+```
+
+### ❌ VERBOTEN: DELETE verwenden
+```typescript
+// ❌ NIEMALS DELETE!
+await supabase
+  .from('bookings')
+  .delete()
+  .eq('id', bookingId); // VERBOTEN!
+```
+
+═══════════════════════════════════════════════════════════════════════════════
+📦 TEIL 2: ZENTRALE LÖSUNGEN & UTILS
+═══════════════════════════════════════════════════════════════════════════════
+
+## 2.1 DIALOG-LAYOUT-UTILS (V18.3.25)
+
+### Verwendung:
+```typescript
+import { DIALOG_LAYOUT } from '@/lib/dialog-layout-utils';
+
+// Alle Klassen verfügbar:
+DIALOG_LAYOUT.content  // "flex flex-col max-h-[90vh]"
+DIALOG_LAYOUT.header   // "flex-shrink-0"
+DIALOG_LAYOUT.body     // "flex-1 overflow-y-auto px-1"
+DIALOG_LAYOUT.footer   // "flex-shrink-0 pt-4 border-t"
+```
+
+### Template:
+```tsx
+<Dialog>
+  <DialogContent className={DIALOG_LAYOUT.content}>
+    <DialogHeader className={DIALOG_LAYOUT.header}>
+      <DialogTitle>Titel</DialogTitle>
+    </DialogHeader>
+    
+    <div className={DIALOG_LAYOUT.body}>
+      {/* Scrollbarer Content */}
+    </div>
+    
+    <div className={DIALOG_LAYOUT.footer}>
+      <Button>Aktion</Button>
+    </div>
+  </DialogContent>
+</Dialog>
+```
+
+## 2.2 FORMATIERUNGS-UTILS
+
+### Währung (DIN 5008)
+```typescript
+import { formatCurrency } from '@/lib/format-utils';
+
+formatCurrency(1234.56); // "1.234,56 €"
+```
+
+### Datum
+```typescript
+import { formatDate, formatDateTime, formatTime } from '@/lib/format-utils';
+
+formatDate(new Date());       // "18.01.2025"
+formatDateTime(new Date());   // "18.01.2025 14:30"
+formatTime(new Date());       // "14:30"
+```
+
+### Status-Labels
+```typescript
+import { formatBookingStatus, formatInvoiceStatus } from '@/lib/format-utils';
+
+formatBookingStatus('confirmed');  // "Bestätigt"
+formatInvoiceStatus('paid');       // "Bezahlt"
+```
+
+## 2.3 WICHTIGE HOOKS
+
+### useAuth() - User & Company
+```typescript
+const { user, profile, company } = useAuth();
+```
+
+### useDeviceType() - Mobile Detection
+```typescript
+const { isMobile } = useDeviceType();
+```
+
+### useDashboardStats() - Live KPIs
+```typescript
+const { data: stats } = useDashboardStats();
+```
+
+═══════════════════════════════════════════════════════════════════════════════
+✅ TEIL 3: ERWEITERTE QUALITY-GATES (V18.3.25)
+═══════════════════════════════════════════════════════════════════════════════
+
+## PRE-COMMIT CHECKLIST
+
+### A) DESIGN-SYSTEM ✓
+- [ ] Keine `accent`-Referenzen (deprecated!)
+- [ ] Icons verwenden `text-foreground`
+- [ ] Keine Ampelfarben auf Icons
+- [ ] Nur `primary` und `foreground` für CI
+- [ ] Keine Separators in Dialogs/ScrollAreas
+
+### B) DIALOG-LAYOUT ✓
+- [ ] `DIALOG_LAYOUT` Utils verwendet?
+- [ ] Kein Content-Clipping?
+- [ ] Native `overflow-y-auto` statt `ScrollArea`?
+- [ ] Header/Footer mit `flex-shrink-0`?
+- [ ] Body mit `flex-1`?
+
+### C) SCROLLBAR-SYSTEM ✓
+- [ ] Keine horizontalen Scrollbars?
+- [ ] Unsichtbare vertikale Scrollbars?
+- [ ] `overflow-x: hidden` auf Container?
+- [ ] Responsive ohne horizontales Scrollen?
+
+### D) SECURITY ✓
+- [ ] `company_id` Filter bei allen Queries?
+- [ ] Archiving statt DELETE?
+- [ ] RLS Policies aktiv?
+- [ ] Input-Validation (Zod)?
+
+### E) SYSTEMWEITE KONSISTENZ ✓
+- [ ] Alle ähnlichen Patterns auch gefixed?
+- [ ] Keine Duplikationen eingeführt?
+- [ ] Abhängigkeiten berücksichtigt?
+- [ ] Breaking-Changes vermieden?
+- [ ] Zentrale Lösung erstellt bei Pattern ≥3x?
+
+### F) LOKALISIERUNG ✓
+- [ ] Deutsche Formatierung (formatCurrency, formatDate)?
+- [ ] Deutsche Labels/Texte?
+- [ ] Neue Deutsche Rechtschreibung?
+- [ ] Anrede-System korrekt (Herr/Frau/Divers)?
+
+═══════════════════════════════════════════════════════════════════════════════
+❌ TEIL 4: ANTI-PATTERNS (NIEMALS TUN!)
+═══════════════════════════════════════════════════════════════════════════════
+
+## CODE-LEVEL ANTI-PATTERNS
+
+```typescript
+// 1. ❌ NIEMALS: accent-Farbe verwenden (deprecated!)
+className="bg-accent text-accent border-accent"
+
+// 2. ❌ NIEMALS: Ampelfarben auf Icons
+<Plus className="text-status-success" />
+
+// 3. ❌ NIEMALS: DELETE verwenden
+await supabase.from('table').delete()
+
+// 4. ❌ NIEMALS: Queries ohne company_id
+.from('bookings').select('*') // Fehlt: .eq('company_id', ...)
+
+// 5. ❌ NIEMALS: US-Formate
+"12/31/2024"  // ✅ Richtig: "31.12.2024"
+"$1,234.56"   // ✅ Richtig: "1.234,56 €"
+
+// 6. ❌ NIEMALS: Layout-Änderungen an geschützten Komponenten
+<Header className="h-20" /> // ✅ Richtig: h-16 (fixiert)
+
+// 7. ❌ NIEMALS: Separators in ScrollAreas
+<ScrollArea>
+  <Separator /> {/* VERBOTEN! */}
+</ScrollArea>
+
+// 8. ❌ NIEMALS: ScrollArea mit Flexbox
+<ScrollArea className="flex-1"> {/* Funktioniert nicht! */}
+
+// 9. ❌ NIEMALS: Horizontale Scrollbars
+<div className="overflow-x-auto"> {/* VERBOTEN! */}
+
+// 10. ❌ NIEMALS: Inline-Formatierung
+value.toFixed(2) + " €" // ✅ Richtig: formatCurrency(value)
+```
+
+## DOKUMENTATIONS-LEVEL ANTI-PATTERNS
+
+```typescript
+// 1. ❌ NIEMALS: Nur lokale Fixes (stattdessen systemweit)
+// 2. ❌ NIEMALS: Duplikationen übersehen
+// 3. ❌ NIEMALS: Abhängigkeiten ignorieren
+// 4. ❌ NIEMALS: Breaking-Changes einführen
+// 5. ❌ NIEMALS: Zentrale Lösung ignorieren wenn Pattern ≥3x
+```
+
+═══════════════════════════════════════════════════════════════════════════════
+🔄 TEIL 5: SELBSTOPTIMIERUNGS-PROTOKOLL
+═══════════════════════════════════════════════════════════════════════════════
+
+## WANN UPDATE ICH MEINE VORGABEN?
+
+### Trigger-Bedingungen:
+```typescript
+const SHOULD_UPDATE_META = (
+  error_pattern_repeated >= 2 ||          // Gleicher Fehler wiederholt
+  user_says_not_fixed ||                  // User sagt "nicht behoben"
+  user_says_everywhere ||                 // User sagt "überall"
+  anti_pattern_found ||                   // Neues Anti-Pattern erkannt
+  dependency_missed ||                    // Abhängigkeit übersehen
+  breaking_change_introduced ||           // Breaking-Change verursacht
+  central_solution_needed >= 3            // Pattern ≥3x im Codebase
+);
+
+if (SHOULD_UPDATE_META) {
+  1. Analysiere Root-Cause
+  2. Speichere in semantic-memory.ts
+  3. Update META_GUIDELINES.md
+  4. Erstelle zentrale Lösung (Utils/Hook)
+  5. Füge zu Anti-Pattern-Liste hinzu
+  6. Dokumentiere Learning
+  7. Teste systemweit
+}
+```
+
+## WAS LERNE ICH?
+
+### Aus User-Feedback:
+- "nicht behoben" → Pattern wurde übersehen → Verbessere Dependency-Check
+- "auch hier" → Systemweite Analyse war unvollständig → Verbessere search-files
+- "überall" → Zentrale Lösung fehlt → Erstelle Utils/Hook
+- "das ist noch da" → Anti-Pattern nicht erkannt → Füge zu Liste hinzu
+
+### Aus Code-Patterns:
+- Gleiches Pattern ≥3x → Erstelle zentrale Lösung
+- Breaking-Changes → Verbessere Dependency-Analyse
+- Tests failed → Verbessere Validation
+- Performance-Issues → Optimiere Algorithmus
+
+## WIE OPTIMIERE ICH MICH?
+
+```typescript
+// 1. DETECT: Erkenne Problem-Pattern
+const pattern = detectRepeatedIssue(conversationHistory);
+
+// 2. ANALYZE: Root-Cause finden
+const rootCause = analyzeRootCause(pattern);
+
+// 3. SOLVE: Zentrale Lösung erstellen
+const solution = createCentralSolution(rootCause);
+
+// 4. DOCUMENT: Learning dokumentieren
+storeInsight(
+  context: pattern.description,
+  action: solution.implementation,
+  metadata: { rootCause, affectedFiles, impact: 'high' }
+);
+
+// 5. UPDATE: Meta-Vorgaben aktualisieren
+updateMetaGuidelines({
+  newRule: solution.rule,
+  antiPattern: pattern.antiPattern,
+  centralUtil: solution.util
+});
+
+// 6. TEST: Systemweit testen
+testSystemWide(solution);
+
+// 7. VERIFY: User-Feedback einholen (implizit durch nächsten Task)
+```
+
+═══════════════════════════════════════════════════════════════════════════════
+📚 TEIL 6: DOKUMENTATIONS-HIERARCHIE
+═══════════════════════════════════════════════════════════════════════════════
+
+## PRIORITÄT BEI KONFLIKTEN:
+
+1. **META_GUIDELINES_V18.3.24.md** (höchste Priorität)
+2. **KNOWLEDGE_V18.3.25.txt** (diese Datei)
+3. **MASTER_VORGABEN_CHECKLISTE_V18.3.24.md**
+4. Spezifische Dokumentationen (z.B. DIALOG_LAYOUT, SCROLLBAR_SYSTEM)
+5. Code-Kommentare in Utils
+
+## BEI WIDERSPRÜCHEN:
+
+Wenn Vorgaben sich widersprechen:
+1. Prüfe META_GUIDELINES.md
+2. Prüfe diese KNOWLEDGE-Datei
+3. Frage User bei Unsicherheit
+4. Update alle widersprüchlichen Docs nach Klärung
+
+═══════════════════════════════════════════════════════════════════════════════
+🎯 TEIL 7: ZUSAMMENFASSUNG - DIE 15 GOLDENEN REGELN
+═══════════════════════════════════════════════════════════════════════════════
+
+1. **DENKE LOGISCH** vor jeder Aktion (Phase -1)
+2. **LERNE KONTINUIERLICH** aus User-Feedback (Phase 0)
+3. **PRIMARY/FOREGROUND** sind die einzigen CI-Farben (kein accent!)
+4. **text-foreground** auf ALLEN Icons (nie Ampelfarben)
+5. **DIALOG_LAYOUT Utils** ZWINGEND für alle Dialogs
+6. **KEINE Separators** in ScrollAreas/Dialogs
+7. **KEINE horizontalen** Scrollbars (nur vertikal, unsichtbar)
+8. **company_id Filter** bei ALLEN Queries
+9. **Archiving statt DELETE** (immer!)
+10. **Deutsche Formatierung** (1.234,56 €, DD.MM.YYYY)
+11. **Systemweite Fixes** (nicht nur lokal)
+12. **Zentrale Lösungen** bei Pattern ≥3x
+13. **Abhängigkeiten prüfen** vor jeder Änderung
+14. **Breaking-Changes vermeiden** durch Tests
+15. **Meta-Vorgaben updaten** bei neuen Patterns
+
+═══════════════════════════════════════════════════════════════════════════════
+📅 CHANGELOG
+═══════════════════════════════════════════════════════════════════════════════
+
+## V18.3.25 (18.01.2025)
+- ✅ Selbstoptimierenden Meta-Prompt hinzugefügt
+- ✅ accent-Farbe komplett entfernt (deprecated)
+- ✅ DIALOG_LAYOUT Utils als Standard definiert
+- ✅ Separator-Verbot in ScrollAreas/Dialogs
+- ✅ Scrollbar-System dokumentiert (horizontal verboten)
+- ✅ Erweiterte Quality-Gates (15 statt 10 Checks)
+- ✅ Anti-Pattern-Liste erweitert (10 Code + 5 Docs)
+- ✅ Selbstoptimierungs-Protokoll implementiert
+- ✅ Meta-Learning-System integriert
+
+═══════════════════════════════════════════════════════════════════════════════
+Ende der KNOWLEDGE V18.3.25
+═══════════════════════════════════════════════════════════════════════════════

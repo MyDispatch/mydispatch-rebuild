@@ -1,0 +1,1097 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbar Hide Utility */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ==================================================================================
+   TYPOGRAPHY & LINE-BREAK SYSTEM V18.5.1
+   ==================================================================================
+   Globale Standards für harmonische Text-Umbrüche
+   ================================================================================== */
+
+@layer base {
+  /* Global Typography Defaults */
+  :root {
+    word-break: normal;
+    overflow-wrap: break-word;
+    hyphens: manual;
+  }
+
+  /* German Language Support - Automatische Silbentrennung */
+  :lang(de) {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+  }
+
+  /* English - No Auto Hyphenation */
+  :lang(en) {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+  }
+
+  /* Prose Container für optimale Lesbarkeit */
+  .prose {
+    max-width: 65ch; /* Optimal: 45-75 Zeichen pro Zeile */
+    line-height: 1.625;
+    hyphens: auto;
+    word-break: break-word;
+  }
+
+  .prose-narrow {
+    max-width: 45ch;
+  }
+
+  .prose-wide {
+    max-width: 80ch;
+  }
+}
+
+@layer utilities {
+  /* ==================================================================================
+     V28.1 SCROLLBAR SYSTEM - UNSICHTBARE SCROLLBARS
+     ==================================================================================
+     ✅ KRITISCHE REGEL: Scrollbars MÜSSEN unsichtbar sein
+     ✅ Seitliche Scrollbars sind NIEMALS erlaubt
+     ✅ Mobile-First Lösungen für Tabellen
+     ================================================================================== */
+  
+  /* Unsichtbare Scrollbars - Systemweit */
+  .scrollbar-invisible {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  
+  .scrollbar-invisible::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  /* Alternative: Scrollbar in Background-Farbe (falls nötig) */
+  .scrollbar-hidden {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  
+  .scrollbar-hidden::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+  
+  .scrollbar-hidden::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-hidden::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+  
+  /* ==================================================================================
+     DASHBOARD SIDEBAR SCROLLBAR (V28.1 PREMIUM DESIGN - SCROLLBAR-LOS)
+     ==================================================================================
+     ✅ VOLLSTÄNDIG UNSICHTBAR (0px, display: none)
+     ✅ V28.1 Premium Design Konform
+     ✅ Scrolling funktioniert einwandfrei
+     ================================================================================== */
+  
+  /* Webkit (Chrome, Safari, Opera) */
+  aside[data-sidebar]::-webkit-scrollbar {
+    display: none; /* Vollständig unsichtbar */
+  }
+  
+  /* Firefox */
+  aside[data-sidebar] {
+    scrollbar-width: none; /* Keine Scrollbar */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  
+  /* ==================================================================================
+     MAIN CONTENT SCROLLBAR (V28.1 PREMIUM DESIGN - SCROLLBAR-LOS)
+     ==================================================================================
+     ✅ Main Content Area ebenfalls scrollbar-los
+     ✅ Konsistent mit Dashboard Sidebar
+     ================================================================================== */
+  
+  main::-webkit-scrollbar {
+    display: none; /* Vollständig unsichtbar */
+  }
+
+  /* ==================================================================================
+     3D HERO BACKGROUND ANIMATIONS - V28.1 PARALLAX SYSTEM
+     ==================================================================================
+     ✅ Float-Vertical: Subtile vertikale Bewegung
+     ✅ Float-Horizontal: Subtile horizontale Bewegung
+     ✅ Rotate-Slow: Langsame 360°-Rotation
+     ✅ Parallax-Layer: Performance-optimiert
+     ================================================================================== */
+  
+  /* Floating Animations */
+  @keyframes float-vertical {
+    0%, 100% { 
+      transform: translateY(0px); 
+    }
+    50% { 
+      transform: translateY(-20px); 
+    }
+  }
+
+  @keyframes float-horizontal {
+    0%, 100% { 
+      transform: translateX(0px); 
+    }
+    50% { 
+      transform: translateX(15px); 
+    }
+  }
+
+  @keyframes rotate-slow {
+    0% { 
+      transform: rotate(0deg); 
+    }
+    100% { 
+      transform: rotate(360deg); 
+    }
+  }
+
+  /* Parallax Layer Classes */
+  .parallax-layer {
+    will-change: transform;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: transform 0.1s ease-out;
+  }
+
+  .animate-float-vertical {
+    animation: float-vertical 8s ease-in-out infinite;
+  }
+
+  .animate-float-horizontal {
+    animation: float-horizontal 12s ease-in-out infinite;
+  }
+
+  .animate-rotate-slow {
+    animation: rotate-slow 60s linear infinite;
+  }
+
+  /* Reduced Motion Support - Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .parallax-layer {
+      animation: none !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    
+    .animate-float-vertical,
+    .animate-float-horizontal,
+    .animate-rotate-slow {
+      animation: none !important;
+    }
+  }
+  
+  /* ==================================================================================
+     TEXT UTILITIES - V28.1 SLATE SYSTEM
+     ==================================================================================
+     ✅ Text Fade Gradient für expandable text
+     ✅ V28.1 konform - verwendet --background Token
+     ================================================================================== */
+  
+  /* Text Fade Gradient (für expandable text) */
+  .text-fade-gradient {
+    position: relative;
+    overflow: hidden;
+    max-height: 6rem; /* ~3 lines */
+  }
+
+  .text-fade-gradient::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2rem;
+    background: linear-gradient(to bottom, transparent, hsl(var(--background)));
+    pointer-events: none;
+  }
+
+  /* ==================================================================================
+     Z-INDEX STACK - GLOBAL SINGLE SOURCE OF TRUTH
+     ==================================================================================
+     ✅ Verhindert Z-Index-Konflikte systemweit
+     ✅ Konsistente Layer-Hierarchie
+     ✅ Touch-optimierte Overlays
+     ================================================================================== */
+  
+  :root {
+    --z-index-dropdown: 1000;
+    --z-index-sticky: 1010;
+    --z-index-fixed: 1020;
+    --z-index-sidebar: 1030;
+    --z-index-dashboard-sidebar: 1035;
+    --z-index-infoboard: 1040;
+    --z-index-modal-backdrop: 1050;
+    --z-index-modal: 1060;
+    --z-index-popover: 1070;
+    --z-index-tooltip: 1080;
+    --z-index-toast: 1090;
+  }
+}
+
+/* ==================================================================================
+   MyDispatch Design System V18.5.0 - PRODUCTION-READY PREMIUM
+   ==================================================================================
+   VOLLSTÄNDIG HARMONISIERT & PERFEKTIONIERT:
+   - 100% HSL-basiertes Farbsystem (WCAG 2.1 AA Konform)
+   - Premium Typografie (Inter - Corporate Design)
+   - Fluid Responsive Design (Mobile-First)
+   - Professionelle Animationen & Transitions
+   - Perfekte Farbharmonie (CI: #EADEBD, #323D5E, #856d4b)
+   - Konsistente Spacing & Layout-Systeme
+   - Optimierte Kontraste für maximale Lesbarkeit
+   ================================================================================== */
+
+@layer base {
+  :root {
+    /* =========================================================================
+       V28.1 SLATE COLOR SYSTEM - PROFESSIONAL GRAY-BLUE PALETTE
+       =========================================================================
+       ✅ 100% V28.1 Konform - Keine Dunkelblau/Beige Legacy Colors
+       ✅ Slate-Palette (slate-50 bis slate-900)
+       ✅ Professional Gray-Blue Design
+       ========================================================================= */
+    
+    /* Basis-Farben (Hintergründe & Text) */
+    --background: 0 0% 100%;                /* Reinweiß - Haupthintergrund */
+    --foreground: 215 25% 27%;              /* slate-700 - Professional Dark */
+    
+    /* Primary = Slate-700 (Professional Gray-Blue) */
+    --primary: 215 25% 27%;                 /* slate-700 - Primary Actions */
+    --primary-foreground: 0 0% 100%;        /* White - Text auf Primary */
+    
+    /* Secondary = Slate-100 (Light Background) */
+    --secondary: 210 40% 96%;               /* slate-100 - Secondary Background */
+    --secondary-foreground: 215 25% 27%;    /* slate-700 - Text auf Secondary */
+    
+    /* Muted (Deaktiviert/Subtil) */
+    --muted: 214 32% 91%;                   /* slate-200 - Muted Background */
+    --muted-foreground: 215 20% 65%;        /* slate-500 - Muted Text */
+    
+    /* Card/Container-Farben */
+    --card: 0 0% 100%;                      /* White - Cards auf weißem Hintergrund */
+    --card-foreground: 215 25% 27%;         /* slate-700 - Text auf Cards */
+
+    /* Popover/Dropdown-Farben */
+    --popover: 0 0% 100%;                   /* White - Popover-Hintergrund */
+    --popover-foreground: 215 25% 27%;      /* slate-700 - Popover-Text */
+
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders & Inputs */
+    --border: 214 32% 91%;                  /* slate-200 - Borders */
+    --input: 214 32% 91%;                   /* slate-200 - Input Borders */
+    --ring: 215 25% 27%;                    /* slate-700 - Focus Rings */
+
+    --radius: 0.5rem;
+
+    /* =========================================================================
+       STATUS-FARBEN (Ampel-System - WCAG AA Konform)
+       ========================================================================= */
+    
+    /* Success (Grün - Ampel) */
+    --status-success: 142 76% 36%;          /* Echtes Ampel-Grün */
+    --status-success-foreground: 0 0% 100%; /* Weiß - hoher Kontrast */
+    --status-success-hover: 142 76% 32%;    /* Dunkleres Grün bei Hover */
+    
+    /* Warning (Gelb - Ampel) */
+    --status-warning: 48 96% 53%;           /* Echtes Ampel-Gelb */
+    --status-warning-foreground: 0 0% 0%;   /* Schwarz - maximaler Kontrast */
+    --status-warning-hover: 48 96% 48%;     /* Dunkleres Gelb bei Hover */
+    
+    /* Error/Destructive (Rot - Ampel) */
+    --status-error: 0 84% 60%;              /* Echtes Ampel-Rot */
+    --status-error-foreground: 0 0% 100%;   /* Weiß - hoher Kontrast */
+    --status-error-hover: 0 84% 55%;        /* Dunkleres Rot bei Hover */
+
+    /* Portal-Spezifische Farben */
+    --portal-fahrer: 210 40% 98%;           /* Helles Slate für Fahrer-Portal */
+    --portal-fahrer-foreground: 215 25% 27%;
+    
+    --portal-kunde: 210 40% 98%;            /* Helles Slate für Kunden-Portal */
+    --portal-kunde-foreground: 215 25% 27%;
+    
+    --portal-public: 0 0% 100%;             /* Weiß für öffentliche Landingpages */
+    --portal-public-foreground: 215 25% 27%;
+
+    /* Video-Call Interface */
+    --video-background: 215 25% 16%;        /* Dunkles Slate für Video */
+    --video-foreground: 0 0% 100%;
+
+    /* Sidebar - V28.1 Slate System */
+    --sidebar-background: 210 40% 98%;      /* slate-50 - Light Background */
+    --sidebar-foreground: 215 25% 27%;      /* slate-700 - Text */
+    --sidebar-primary: 215 25% 27%;         /* slate-700 - Primary */
+    --sidebar-primary-foreground: 0 0% 100%; /* White - Text auf Primary */
+    --sidebar-border: 214 32% 91%;          /* slate-200 - Border */
+    --sidebar-ring: 215 25% 27%;            /* slate-700 - Focus Ring */
+
+    /* Chart Colors - Slate-Based */
+    --chart-primary: 215 25% 45%;           /* slate-600 - Primary Line */
+    --chart-secondary: 215 20% 65%;         /* slate-500 - Secondary Line */
+    --chart-tertiary: 215 16% 47%;          /* slate-600 variant - Tertiary */
+    --chart-grid: 214 32% 91%;              /* slate-200 - Grid Lines */
+
+    /* =========================================================================
+       PREMIUM SHADOWS V28.1 (Slate-Based Professional Shadows)
+       ========================================================================= */
+    
+    /* Basis-Schatten: Slate-basiert für Konsistenz */
+    --shadow-xs: 0 1px 2px 0 rgba(51, 65, 85, 0.05);
+    --shadow-sm: 0 1px 3px 0 rgba(51, 65, 85, 0.12), 0 1px 2px -1px rgba(51, 65, 85, 0.08);
+    --shadow-md: 0 4px 6px -1px rgba(51, 65, 85, 0.14), 0 2px 4px -2px rgba(51, 65, 85, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(51, 65, 85, 0.14), 0 4px 6px -4px rgba(51, 65, 85, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(51, 65, 85, 0.14), 0 8px 10px -6px rgba(51, 65, 85, 0.08);
+    --shadow-2xl: 0 25px 50px -12px rgba(51, 65, 85, 0.28);
+    
+    /* Special Effects */
+    --shadow-elegant: 0 10px 30px -10px rgba(51, 65, 85, 0.35);
+    --shadow-card: 0 2px 8px -2px rgba(51, 65, 85, 0.1);
+    --shadow-card-hover: 0 8px 24px -4px rgba(51, 65, 85, 0.16);
+    --shadow-sharp: 0 4px 8px 0 rgba(51, 65, 85, 0.18);
+    --shadow-crisp: 0 2px 4px 0 rgba(51, 65, 85, 0.12);
+
+    /* V28.1 Kontrast-Regeln */
+    --text-on-dark: 0 0% 100%;              /* White auf dunklen Hintergründen */
+    --text-on-light: 215 25% 27%;           /* slate-700 auf hellen Hintergründen */
+    
+    /* Fluid Typography */
+    --font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); /* 12px → 14px */
+    --font-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem); /* 14px → 16px */
+    --font-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); /* 16px → 18px */
+    --font-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem); /* 18px → 20px */
+    --font-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem); /* 20px → 24px */
+    --font-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem); /* 24px → 30px */
+    --font-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.25rem); /* 30px → 36px */
+    --font-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem); /* 36px → 48px */
+    --font-5xl: clamp(3rem, 2.55rem + 2.25vw, 4rem); /* 48px → 64px */
+
+    /* Transitions */
+    --transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .dark {
+    --background: 215 25% 16%;              /* slate-900 equivalent */
+    --foreground: 210 40% 98%;              /* slate-50 equivalent */
+
+    --card: 215 25% 20%;                    /* Slightly lighter slate */
+    --card-foreground: 210 40% 98%;
+
+    --popover: 215 25% 20%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 215 25% 27%;                 /* slate-700 */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 215 25% 25%;               /* Darker slate */
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 215 25% 25%;
+    --muted-foreground: 215 20% 70%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 25% 30%;
+    --input: 215 25% 30%;
+    --ring: 215 25% 27%;
+
+    /* Portal-Farben Dark Mode */
+    --portal-fahrer: 215 25% 20%;
+    --portal-fahrer-foreground: 210 40% 98%;
+    
+    --portal-kunde: 215 25% 18%;
+    --portal-kunde-foreground: 210 40% 98%;
+    
+    --portal-public: 215 25% 16%;
+    --portal-public-foreground: 210 40% 98%;
+
+    /* Video-Call (Dark Mode) */
+    --video-background: 215 25% 16%;
+    --video-foreground: 0 0% 100%;
+
+    /* Sidebar Dark Mode */
+    --sidebar-background: 215 25% 20%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 210 40% 98%;
+    --sidebar-primary-foreground: 215 25% 27%;
+    --sidebar-border: 215 25% 30%;
+    --sidebar-ring: 215 25% 27%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  /* KRITISCH: Horizontale Scrollbars systemweit verhindern */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
+    
+    /* V28.3: RETINA-OPTIMIZED FONT RENDERING */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-smooth: always;
+    -webkit-text-size-adjust: 100%;
+    
+    /* Subpixel-Rendering für LCD-Displays */
+    font-smoothing: antialiased;
+    -webkit-font-feature-settings: "kern" 1;
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    
+    /* SYSTEMWEITE TEXTUMBRUCH-OPTIMIERUNG V18.3.25 */
+    /* Deutsche Silbentrennung (DIN 5008) für professionelle Umbrüche */
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphenate-limit-chars: 6 3 3; /* Min. 6 Zeichen, mind. 3 vor/nach Trennung */
+    
+    /* Wortumbruch-Regeln für lange Wörter */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: normal; /* NICHT break-all! Behält Wortgrenzen */
+    
+    /* Zeilenumbruch-Kontrolle */
+    line-break: auto; /* Browser-optimiert */
+    
+    /* PREMIUM-OPTIMIERUNG: Erhöhte Klarheit */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
+  /* TYPOGRAFIE-SPEZIFISCHE UMBRUCH-REGELN */
+  h1, h2, h3, h4, h5, h6 {
+    /* Headlines: Keine Silbentrennung für bessere Lesbarkeit */
+    hyphens: none;
+    -webkit-hyphens: none;
+    word-break: normal;
+    overflow-wrap: break-word; /* Nur bei sehr langen Wörtern */
+  }
+  
+  p, li, td, th {
+    /* Fließtext: Optimierte Silbentrennung */
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphenate-limit-chars: 6 3 3;
+    text-align: left; /* Links für bessere Lesbarkeit (nicht justify) */
+  }
+  
+  code, pre, kbd, samp {
+    /* Code: Niemals Silbentrennung, aber Wortumbruch erlauben */
+    hyphens: none;
+    -webkit-hyphens: none;
+    word-break: break-all; /* Code darf überall umbrechen */
+    white-space: pre-wrap; /* Leerzeichen erhalten */
+  }
+  
+  /* URL/Email-Umbruch */
+  a {
+    word-break: break-word; /* URLs können überall umbrechen */
+    overflow-wrap: break-word;
+  }
+  
+  /* Tabellen: Kein automatischer Umbruch */
+  table {
+    word-break: normal;
+    hyphens: none;
+  }
+  
+  /* SYSTEMWEITE UTILITY-KLASSEN FÜR TEXTUMBRÜCHE V18.3.25 */
+  
+  /* Hero-Text: Keine Silbentrennung, natürliche Wortumbrüche an Leerzeichen */
+  .hero-text-no-hyphens {
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    /* Umbruch nur an natürlichen Wortgrenzen (Leerzeichen, Bindestriche) */
+  }
+  
+  /* Marketing-Text: Sanfte Silbentrennung (weniger aggressiv als Standard) */
+  .marketing-text-soft-hyphens {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphenate-limit-chars: 8 4 4; /* Längere Wörter, mehr Zeichen vor/nach */
+  }
+  
+  /* Fließtext: Standard-Silbentrennung (DIN 5008) */
+  .body-text-hyphens {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphenate-limit-chars: 6 3 3;
+  }
+  
+  /* Keine Umbrüche: Für wichtige Phrasen die zusammenbleiben sollen */
+  .text-nowrap-important {
+    white-space: nowrap !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  /* Balance: Gleichmäßige Zeilenverteilung für kurze Texte */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Pretty: Verhindert Witwen/Waisen in Texten */
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    
+    /* PREMIUM HEADLINE-RENDERING: Maximale Schärfe */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-smooth: always;
+  }
+
+  /* PREMIUM SCROLLBAR STYLES V18.3.24 - Modern & Unsichtbar */
+  /* REGEL: Horizontale Scrollbars VERBOTEN (overflow-x: hidden) */
+  /* REGEL: Vertikale Scrollbars modern, unauffällig (6px, transparent) */
+  
+  /* Horizontale Scrollbars systemweit verbieten */
+  body, html {
+    overflow-x: hidden !important;
+  }
+  
+  /* Webkit (Chrome, Safari, Edge) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 0px; /* Horizontal verboten */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 3px;
+    transition: background 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.3);
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  /* Smooth Scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Sidebar-Scrollbar (noch unauffälliger) */
+  aside::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  aside::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.1);
+  }
+
+  aside::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.25);
+  }
+
+  /* Sichtbare Scrollbar für spezielle Bereiche (z.B. Auftrags-Übersicht) */
+  .scrollbar-visible::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .scrollbar-visible::-webkit-scrollbar-track {
+    background: hsl(var(--muted) / 0.5);
+    border-radius: 4px;
+  }
+
+  .scrollbar-visible::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.5);
+    border-radius: 4px;
+  }
+
+  .scrollbar-visible::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.7);
+  }
+
+  /* Firefox: Sichtbare Scrollbar */
+  .scrollbar-visible {
+    scrollbar-width: auto;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.5) hsl(var(--muted) / 0.5);
+  }
+}
+
+@layer utilities {
+  /* Typography Utilities */
+  .text-display {
+    font-size: var(--font-5xl);
+    line-height: 1.1;
+    font-weight: 800;
+  }
+
+  .text-heading-1 {
+    font-size: var(--font-4xl);
+    line-height: 1.2;
+    font-weight: 700;
+  }
+
+  .text-heading-2 {
+    font-size: var(--font-3xl);
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .text-heading-3 {
+    font-size: var(--font-2xl);
+    line-height: 1.3;
+    font-weight: 600;
+  }
+
+  .text-body-lg {
+    font-size: var(--font-lg);
+    line-height: 1.6;
+  }
+
+  .text-body {
+    font-size: var(--font-base);
+    line-height: 1.6;
+  }
+
+  .text-body-sm {
+    font-size: var(--font-sm);
+    line-height: 1.5;
+  }
+
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  /* Premium Shadows */
+  .shadow-elegant {
+    box-shadow: var(--shadow-elegant);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Smooth Hover Effects */
+  .hover-lift {
+    transition: var(--transition-base);
+  }
+
+  /* ==================================================================================
+     HERO ANIMATIONS - Staggered Fade-In mit Slide-Up
+     ================================================================================== */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in-up 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+    opacity: 0;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+
+  /* ==================================================================================
+     HERO-SPECIFIC STYLES (Marketing Landing Pages) V18.5.0
+     ================================================================================== */
+
+  .hero-headline-primary {
+    color: hsl(var(--primary));
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    font-weight: 800;
+  }
+
+  .hero-headline-secondary {
+    color: hsl(0 0% 100%);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+    font-weight: 700;
+  }
+
+  .hero-subtext {
+    color: hsl(0 0% 95%);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    font-weight: 400;
+  }
+
+  .hero-icon {
+    color: hsl(var(--primary-foreground));
+  }
+
+  /* Hero CTA Buttons */
+  .hero-cta-primary {
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hero-cta-primary:hover {
+    background: hsl(var(--primary-glow));
+    box-shadow: var(--shadow-glow);
+    transform: scale(1.02);
+  }
+
+  .hero-cta-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    color: hsl(0 0% 100%);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hero-cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: scale(1.02);
+  }
+
+  /* ==================================================================================
+     SCROLLBAR UTILITIES - V20.0.0 FINAL
+     ==================================================================================
+     Macht Scrollbars in der Sidebar sichtbar und styled
+     ================================================================================== */
+  .scrollbar-visible {
+    scrollbar-width: thin;
+    scrollbar-color: #E5E7EB transparent;
+  }
+
+  .scrollbar-visible::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-visible::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-visible::-webkit-scrollbar-thumb {
+    background-color: #E5E7EB;
+    border-radius: 3px;
+  }
+
+  .scrollbar-visible::-webkit-scrollbar-thumb:hover {
+    background-color: #D1D5DB;
+  }
+
+  .hover-scale {
+    transition: var(--transition-base);
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.02);
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* Interactive Button Hover Effects */
+  .interactive-hover {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .interactive-hover:hover {
+    background-color: hsl(var(--primary) / 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .interactive-hover:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Smooth Background Transitions */
+  .smooth-hover {
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+  }
+
+  .smooth-hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: hsl(var(--primary) / 0);
+    border-radius: inherit;
+    transition: background 0.3s ease;
+  }
+
+  .smooth-hover:hover::before {
+    background: hsl(var(--primary) / 0.15);
+  }
+
+  /* Subtle Scale + Shadow on Hover */
+  .card-hover {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* ==================================================================================
+   MOBILE-FIRST OPTIMIERUNGEN V18.3
+   ================================================================================== */
+
+@media (max-width: 767px) {
+  /* Kompaktere Abstände auf Mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Touch-optimierte Buttons */
+  button, a[role="button"] {
+    min-height: 44px; /* Apple HIG */
+    touch-action: manipulation;
+  }
+  
+  /* Full-Width Dialogs auf Mobile */
+  [role="dialog"] {
+    width: calc(100vw - 2rem) !important;
+    max-width: none !important;
+  }
+  
+  /* Scrollbar ausblenden (Touch-basiert) */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Safe Area für Bottom Navigation (iOS) */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Touch-friendly tap targets */
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Checkerboard pattern for transparent backgrounds */
+  .bg-checkerboard {
+    background-image: 
+      linear-gradient(45deg, hsl(var(--muted)) 25%, transparent 25%),
+      linear-gradient(-45deg, hsl(var(--muted)) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, hsl(var(--muted)) 75%),
+      linear-gradient(-45deg, transparent 75%, hsl(var(--muted)) 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  }
+}
+
+/* ==================================================================================
+   DESIGN-SYSTEM V32.0: COLOR SYSTEM LOCKED
+   ==================================================================================
+   ✅ NUR slate-50 bis slate-900
+   ❌ KEINE blue-*, green-*, violet-* Farben
+   ❌ KEINE Custom Gradients (.bg-gradient-radial, .text-gradient entfernt)
+   ================================================================================== */
+
+@layer components {
+  /* Hero Headline - Primary (Beige/Gold #EADEBD) */
+  .hero-headline-primary {
+    color: hsl(var(--primary)) !important;
+    text-shadow: 0 2px 12px rgba(234, 222, 189, 0.6), 0 0 20px rgba(234, 222, 189, 0.4);
+  }
+
+  /* Hero Headline - Secondary (Weiß auf dunklem Hintergrund) */
+  .hero-headline-secondary {
+    color: white !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  }
+
+  /* Hero Subtext (Weiß mit reduzierter Opacity) */
+  .hero-subtext {
+    color: white !important;
+    opacity: 0.9;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Hero CTA Primary Button (Beige #EADEBD mit dunkler Schrift #323D5E) */
+  .hero-cta-primary {
+    background-color: hsl(var(--primary)) !important;
+    color: hsl(var(--foreground)) !important;
+    border: none !important;
+  }
+
+  .hero-cta-primary:hover {
+    background-color: hsl(var(--primary-glow)) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(234, 222, 189, 0.5);
+  }
+
+  /* Hero CTA Secondary Button (Weiß Outline auf dunklem Hintergrund) */
+  .hero-cta-secondary {
+    color: white !important;
+    border: 2px solid white !important;
+    background-color: transparent !important;
+  }
+
+  .hero-cta-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  /* Hero Icons */
+  .hero-cta-primary .hero-icon {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .hero-cta-secondary .hero-icon {
+    color: white !important;
+  }
+  
+  /* ==================================================================================
+     GLASMORPHISM & PREMIUM ANIMATIONS V18.5.2
+     ================================================================================== */
+  
+  /* Shimmer Animation für Premium-Buttons */
+  @keyframes shimmer {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+  
+  .animate-shimmer {
+    animation: shimmer 2s infinite;
+  }
+  
+  /* ==================================================================================
+     GLOBAL SCROLLBAR GOVERNANCE V28.1 - ENHANCED
+     ==================================================================================
+     ✅ Horizontal VERBOTEN systemweit
+     ✅ Vertikale Scrollbars unauffällig (6px, Slate)
+     ✅ Sidebar extra unauffällig (4px)
+     ✅ Smooth Scrolling überall
+     ================================================================================== */
+  
+  /* Horizontal VERBOTEN - Global Enforcement */
+  html,
+  body {
+    overflow-x: hidden !important;
+    max-width: 100vw;
+  }
+  
+  /* Vertikal unauffällig - Webkit (Chrome, Safari, Edge) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 0px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 3px;
+    transition: background 0.2s ease;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.3);
+  }
+  
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  
+  /* Sidebar extra unauffällig */
+  aside::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  aside::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.1);
+  }
+  
+  aside::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.25);
+  }
+  
+  /* Smooth Scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+

@@ -1,0 +1,110 @@
+# ==================================================================================
+# ARTILLERY LOAD-TESTING CONFIG - P2-OPTIMIERUNG V18.3.24
+# ==================================================================================
+# Tests für >500 Fahrzeuge (50 req/s für 60s = 3000 requests)
+# Ziel: >95% Success-Rate, <2s Response Time
+# ==================================================================================
+
+config:
+  target: "https://532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b.lovableproject.com"
+  phases:
+    # Phase 1: Warmup (10s)
+    - duration: 10
+      arrivalRate: 5
+      name: "Warmup"
+    
+    # Phase 2: Ramp-up (30s)
+    - duration: 30
+      arrivalRate: 10
+      rampTo: 50
+      name: "Ramp-up"
+    
+    # Phase 3: Peak Load (60s) - 500 Fahrzeuge = 50 req/s
+    - duration: 60
+      arrivalRate: 50
+      name: "Peak Load (500 Vehicles)"
+    
+    # Phase 4: Sustained Load (120s)
+    - duration: 120
+      arrivalRate: 30
+      name: "Sustained Load"
+    
+    # Phase 5: Cooldown (30s)
+    - duration: 30
+      arrivalRate: 5
+      name: "Cooldown"
+  
+  # Performance Thresholds
+  ensure:
+    p95: 2000  # 95th percentile < 2s
+    p99: 3000  # 99th percentile < 3s
+    maxErrorRate: 5  # Max 5% Fehlerrate
+  
+  # HTTP Settings
+  http:
+    timeout: 10
+    pool: 50  # Connection-Pool
+  
+  # Payload Variables
+  variables:
+    companyId: "7c841959-bcf6-4949-9d54-61aa2449b0f6"
+
+scenarios:
+  # Scenario 1: Dashboard Load (Most Common)
+  - name: "Dashboard Requests"
+    weight: 40
+    flow:
+      - get:
+          url: "/dashboard"
+          headers:
+            Accept: "text/html"
+          capture:
+            - json: "$.stats.bookings_today"
+              as: "bookingsToday"
+
+  # Scenario 2: Booking List (Heavy Query)
+  - name: "Booking List Queries"
+    weight: 30
+    flow:
+      - get:
+          url: "/auftraege"
+          headers:
+            Accept: "application/json"
+          expect:
+            - statusCode: 200
+            - contentType: json
+
+  # Scenario 3: GPS-Position Update (Realtime)
+  - name: "GPS Position Updates"
+    weight: 20
+    flow:
+      - post:
+          url: "{{ $processEnvironment.VITE_SUPABASE_URL }}/functions/v1/gps-tracker-webhook"
+          json:
+            device_id: "DEVICE-{{ $randomNumber(1000, 9999) }}"
+            latitude: "{{ $randomNumber(4800, 4900) / 100 }}"
+            longitude: "{{ $randomNumber(1150, 1200) / 100 }}"
+            timestamp: "{{ $timestamp }}"
+          headers:
+            Content-Type: "application/json"
+
+  # Scenario 4: Live-Map (HERE API)
+  - name: "Live-Map Traffic/Weather"
+    weight: 10
+    flow:
+      - get:
+          url: "{{ $processEnvironment.VITE_SUPABASE_URL }}/functions/v1/get-traffic"
+          json:
+            latitude: 48.1351
+            longitude: 11.5820
+            radius: 5000
+          headers:
+            Content-Type: "application/json"
+          expect:
+            - statusCode: [200, 429]  # 429 = Rate-Limit OK
+
+# Plugins für Monitoring
+plugins:
+  expect: {}
+  metrics-by-endpoint:
+    stripQueryString: true
