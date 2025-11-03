@@ -183,7 +183,7 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY}`,
         },
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });

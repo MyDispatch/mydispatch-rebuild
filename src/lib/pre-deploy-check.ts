@@ -57,7 +57,7 @@ class PreDeploymentHealthCheck {
   private async checkEnvironmentVariables(): Promise<void> {
     const requiredVars = [
       'VITE_SUPABASE_URL',
-      'VITE_SUPABASE_PUBLISHABLE_KEY',
+      'VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY',
       'VITE_SUPABASE_PROJECT_ID',
     ];
 
@@ -89,7 +89,7 @@ class PreDeploymentHealthCheck {
         passed: true,
         category: 'Environment',
         check: 'Deprecated vars',
-        message: 'VITE_SUPABASE_ANON_KEY is deprecated, use VITE_SUPABASE_PUBLISHABLE_KEY',
+        message: 'VITE_SUPABASE_ANON_KEY is deprecated, use VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY',
         severity: 'warning',
       });
     }

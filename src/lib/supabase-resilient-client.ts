@@ -17,7 +17,7 @@ export function getSupabasePool() {
   if (!poolInstance) {
     poolInstance = createClient<Database>(
       import.meta.env.VITE_SUPABASE_URL,
-      import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+      import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY,
       {
         auth: {
           storage: localStorage,

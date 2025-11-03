@@ -119,7 +119,7 @@ export function MasterChatEmbedded() {
       const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/master-chat`;
       const response = await fetch(CHAT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}` },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY}` },
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
 
