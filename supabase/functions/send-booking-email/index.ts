@@ -1,110 +1,217 @@
-/* ==================================================================================
-   Edge Function: send-booking-email
-   ==================================================================================
-   Sendet E-Mails für Auftragsbestätigungen
-   - An Kunden und/oder Fahrer
-   - Authentifiziert
-   - Multi-Tenant
-   ================================================================================== */
+// ==================================================================================
+// SEND BOOKING EMAIL - Email-Versand für Buchungen (Resend)
+// ==================================================================================
+// Erstellt: 2025-01-31
+// Zweck: Email-Benachrichtigungen für Buchungen
+// Autor: NeXify AI MASTER
+// Best Practices: Error Handling, Type Safety, Email Templates, Resend Integration
+// ==================================================================================
 
-import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
-import { Resend } from "https://esm.sh/resend@4.0.0";
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.75.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+interface SendBookingEmailInput {
+  booking_id: string;
+  company_id: string;
+  email_type: "confirmation" | "update" | "cancellation" | "reminder";
+  recipient_email?: string;
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
+    return new Response("ok", { headers: corsHeaders });
   }
 
   try {
-    const supabaseClient = createClient(
-      Deno.env.get("SUPABASE_URL") ?? "",
-      Deno.env.get("SUPABASE_ANON_KEY") ?? ""
-    );
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const authHeader = req.headers.get("Authorization")!;
-    const token = authHeader.replace("Bearer ", "");
-    const { data } = await supabaseClient.auth.getUser(token);
-    const user = data.user;
-    if (!user) throw new Error("Nicht authentifiziert");
+    const input: SendBookingEmailInput = await req.json();
 
-    const { bookingId, recipientType } = await req.json();
-
-    if (!bookingId || !recipientType) {
-      throw new Error("bookingId und recipientType erforderlich");
+    // Input Validation
+    if (!input.booking_id || !input.company_id || !input.email_type) {
+      return new Response(
+        JSON.stringify({ error: "booking_id, company_id, and email_type are required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
-    // Hole Auftragsdaten
-    const { data: booking, error: bookingError } = await supabaseClient
-      .from('bookings')
+    console.log("[SEND-BOOKING-EMAIL] Sending email for booking:", input.booking_id);
+
+    // 1. Get Booking Details
+    const { data: booking, error: bookingError } = await supabase
+      .from("bookings")
       .select(`
         *,
-        customers(first_name, last_name, email),
-        drivers(first_name, last_name, email),
-        vehicles(license_plate),
-        companies(name, email)
+        customer:customers(*),
+        driver:drivers(*),
+        company:companies(*)
       `)
-      .eq('id', bookingId)
+      .eq("id", input.booking_id)
+      .eq("company_id", input.company_id)
+      .eq("archived", false)
       .single();
 
-    if (bookingError) throw bookingError;
-
-    const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
-    const resendDomain = Deno.env.get("RESEND_DOMAIN") || "onboarding@resend.dev";
-
-    let recipientEmail = '';
-    let recipientName = '';
-
-    if (recipientType === 'customer' && booking.customers) {
-      recipientEmail = booking.customers.email;
-      recipientName = `${booking.customers.first_name} ${booking.customers.last_name}`;
-    } else if (recipientType === 'driver' && booking.drivers) {
-      recipientEmail = booking.drivers.email;
-      recipientName = `${booking.drivers.first_name} ${booking.drivers.last_name}`;
+    if (bookingError || !booking) {
+      console.error("[SEND-BOOKING-EMAIL] Booking not found:", bookingError);
+      return new Response(
+        JSON.stringify({ error: "Booking not found" }),
+        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
+
+    // 2. Determine Recipient Email
+    const recipientEmail = input.recipient_email || 
+      (booking.customer && booking.customer.email) ||
+      (booking.company && booking.company.email);
 
     if (!recipientEmail) {
-      throw new Error("Keine E-Mail-Adresse gefunden");
+      return new Response(
+        JSON.stringify({ error: "Recipient email not found" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
-    const pickupTime = new Date(booking.pickup_time).toLocaleString('de-DE');
-    const price = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(booking.price || 0);
+    // 3. Get Resend API Key
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
+    const resendDomain = Deno.env.get("RESEND_DOMAIN") || "mydispatch.com";
+    
+    if (!resendApiKey) {
+      console.error("[SEND-BOOKING-EMAIL] Resend API Key not found");
+      return new Response(
+        JSON.stringify({ error: "Email service not configured" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
 
-    await resend.emails.send({
-      from: `${booking.companies.name} <${resendDomain}>`,
-      to: [recipientEmail],
-      subject: `Auftragsbestätigung - ${booking.pickup_address}`,
-      html: `
-        <h2>Auftragsbestätigung</h2>
-        <p>Hallo ${recipientName},</p>
-        <p>Ihr Auftrag wurde bestätigt:</p>
-        <hr>
-        <p><strong>Von:</strong> ${booking.pickup_address}</p>
-        <p><strong>Nach:</strong> ${booking.dropoff_address}</p>
-        <p><strong>Abholung:</strong> ${pickupTime}</p>
-        <p><strong>Preis:</strong> ${price}</p>
-        <p><strong>Status:</strong> ${booking.status}</p>
-        ${booking.vehicles ? `<p><strong>Fahrzeug:</strong> ${booking.vehicles.license_plate}</p>` : ''}
-        <hr>
-        <p>Vielen Dank für Ihr Vertrauen!</p>
-        <p><em>${booking.companies.name}</em></p>
-      `,
+    // 4. Generate Email Content
+    const emailContent = generateEmailContent(booking, input.email_type);
+
+    // 5. Send Email via Resend
+    const resendResponse = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${resendApiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: `MyDispatch <noreply@${resendDomain}>`,
+        to: recipientEmail,
+        subject: emailContent.subject,
+        html: emailContent.html,
+        text: emailContent.text,
+      }),
     });
 
+    if (!resendResponse.ok) {
+      const errorData = await resendResponse.json();
+      console.error("[SEND-BOOKING-EMAIL] Resend error:", errorData);
+      throw new Error(`Resend API error: ${resendResponse.status}`);
+    }
+
+    const resendData = await resendResponse.json();
+
+    // 6. Log Email Sent
+    await supabase
+      .from("email_logs")
+      .insert({
+        company_id: input.company_id,
+        booking_id: input.booking_id,
+        recipient_email: recipientEmail,
+        email_type: input.email_type,
+        sent_at: new Date().toISOString(),
+        resend_id: resendData.id,
+      });
+
+    console.log("[SEND-BOOKING-EMAIL] Email sent successfully:", resendData.id);
+
     return new Response(
-      JSON.stringify({ message: 'E-Mail erfolgreich versendet' }),
+      JSON.stringify({
+        success: true,
+        email_id: resendData.id,
+        recipient: recipientEmail,
+        email_type: input.email_type,
+      }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
     );
-  } catch (error: any) {
-    console.error('Fehler beim E-Mail-Versand:', error);
+  } catch (error) {
+    console.error("[SEND-BOOKING-EMAIL] Error:", error);
     return new Response(
       JSON.stringify({ error: error.message }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });
+
+// Generate Email Content
+function generateEmailContent(booking: any, emailType: string): { subject: string; html: string; text: string } {
+  const bookingNumber = booking.booking_number || booking.id.slice(0, 8);
+  const pickupAddress = booking.pickup_address || "N/A";
+  const dropoffAddress = booking.dropoff_address || "N/A";
+  const bookingDate = booking.pickup_time ? new Date(booking.pickup_time).toLocaleDateString("de-DE") : "N/A";
+
+  let subject = "";
+  let html = "";
+  let text = "";
+
+  switch (emailType) {
+    case "confirmation":
+      subject = `Buchungsbestätigung #${bookingNumber}`;
+      html = `
+        <h2>Buchungsbestätigung</h2>
+        <p>Ihre Buchung wurde erfolgreich erstellt:</p>
+        <ul>
+          <li><strong>Buchungsnummer:</strong> #${bookingNumber}</li>
+          <li><strong>Abholort:</strong> ${pickupAddress}</li>
+          <li><strong>Zielort:</strong> ${dropoffAddress}</li>
+          <li><strong>Datum:</strong> ${bookingDate}</li>
+        </ul>
+      `;
+      text = `Buchungsbestätigung #${bookingNumber}\n\nAbholort: ${pickupAddress}\nZielort: ${dropoffAddress}\nDatum: ${bookingDate}`;
+      break;
+
+    case "update":
+      subject = `Buchungsaktualisierung #${bookingNumber}`;
+      html = `
+        <h2>Buchung wurde aktualisiert</h2>
+        <p>Ihre Buchung #${bookingNumber} wurde aktualisiert.</p>
+        <ul>
+          <li><strong>Abholort:</strong> ${pickupAddress}</li>
+          <li><strong>Zielort:</strong> ${dropoffAddress}</li>
+          <li><strong>Datum:</strong> ${bookingDate}</li>
+        </ul>
+      `;
+      text = `Buchungsaktualisierung #${bookingNumber}\n\nAbholort: ${pickupAddress}\nZielort: ${dropoffAddress}\nDatum: ${bookingDate}`;
+      break;
+
+    case "cancellation":
+      subject = `Buchungsstornierung #${bookingNumber}`;
+      html = `
+        <h2>Buchung wurde storniert</h2>
+        <p>Ihre Buchung #${bookingNumber} wurde storniert.</p>
+      `;
+      text = `Buchungsstornierung #${bookingNumber}`;
+      break;
+
+    case "reminder":
+      subject = `Erinnerung: Buchung #${bookingNumber}`;
+      html = `
+        <h2>Erinnerung</h2>
+        <p>Erinnerung an Ihre bevorstehende Buchung:</p>
+        <ul>
+          <li><strong>Buchungsnummer:</strong> #${bookingNumber}</li>
+          <li><strong>Datum:</strong> ${bookingDate}</li>
+        </ul>
+      `;
+      text = `Erinnerung: Buchung #${bookingNumber}\n\nDatum: ${bookingDate}`;
+      break;
+  }
+
+  return { subject, html, text };
+}

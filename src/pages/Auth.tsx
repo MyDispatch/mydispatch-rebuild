@@ -20,7 +20,7 @@
    ✅ DSGVO & PBefG § 51 konform
    ================================================================================== */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -124,6 +124,38 @@ export default function Auth() {
   const [signupPassword, setSignupPassword] = useState('');
   const [activeTab, setActiveTab] = useState(searchParams.get('mode') || 'login');
 
+  // ==================================================================================
+  // LOGIK-BASIERTE INITIALISIERUNG: Query-Parameter verarbeiten
+  // ==================================================================================
+  // Qualitätssicherung: Alle URL-Parameter werden korrekt verarbeitet
+  // - tariff=starter|business: Setzt initialen Tariff für Signup
+  // - mode=signup: Aktiviert automatisch Signup-Tab
+  // - billing=monthly|yearly: Setzt initiale Billing-Period
+  // ==================================================================================
+  useEffect(() => {
+    // 1. Tariff-Parameter verarbeiten (aus Pricing-Seiten oder direkt)
+    const tariffParam = searchParams.get('tariff');
+    if (tariffParam === 'starter' || tariffParam === 'business') {
+      setSelectedTariff(tariffParam);
+      // Automatisch zu Signup-Tab wechseln, wenn Tariff gesetzt ist
+      if (activeTab !== 'signup') {
+        setActiveTab('signup');
+      }
+    }
+
+    // 2. Billing-Period-Parameter verarbeiten (aus Pricing-Seiten)
+    const billingParam = searchParams.get('billing');
+    if (billingParam === 'monthly' || billingParam === 'yearly') {
+      setBillingPeriod(billingParam);
+    }
+
+    // 3. Mode-Parameter verarbeiten (aus Features oder direkt)
+    const modeParam = searchParams.get('mode');
+    if (modeParam === 'signup' || modeParam === 'login') {
+      setActiveTab(modeParam);
+    }
+  }, [searchParams, activeTab]);
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -166,6 +198,27 @@ export default function Auth() {
         }
 
         if (profile) {
+          // ==================================================================================
+          // KRITISCH: Master-Zugang für courbois1981@gmail.com
+          // ==================================================================================
+          // Prüfe ob User Master-Role hat (via user_roles oder profile.role)
+          const { data: userRoles } = await supabase
+            .from('user_roles')
+            .select('role')
+            .eq('user_id', data.user.id)
+            .eq('role', 'master')
+            .maybeSingle();
+
+          const isMaster = userRoles?.role === 'master' || 
+                          profile.role === 'master' || 
+                          email === 'courbois1981@gmail.com';
+
+          if (isMaster) {
+            logger.debug('[Auth] Master-Zugang erkannt', { email, component: 'Auth' });
+            navigate('/master');
+            return;
+          }
+
           // Check if from Company Landing (SessionStorage)
           const landingSlug = sessionStorage.getItem('landing_company_slug');
           if (landingSlug) {

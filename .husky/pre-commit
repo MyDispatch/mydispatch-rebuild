@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 NeXify AI MASTER - Quality Assurance Check"
+
+# Quality Gates
+echo "📋 TypeScript Check..."
+npm run type-check || exit 1
+
+echo "📋 ESLint Check..."
+npm run lint || exit 1
+
+echo "📋 Prettier Check..."
+npm run format:check || exit 1
+
+echo "📋 Unit Tests (Changed Files)..."
+npm run test:unit:changed || exit 1
+
+echo "✅ All Quality Gates Passed!"
+

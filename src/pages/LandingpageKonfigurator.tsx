@@ -29,6 +29,7 @@ import { toast } from 'sonner';
 import { PRODUCT_IDS, isBusinessTier } from '@/lib/subscription-utils';
 import { handleError, handleSuccess } from '@/lib/error-handler';
 import { DEFAULT_PORTAL_THEME, isValidHexColor } from '@/lib/portal-theme';
+import { FeatureGate } from '@/components/shared/FeatureGate';
 
 export default function LandingpageKonfigurator() {
   const { profile, company } = useAuth();
@@ -191,7 +192,8 @@ export default function LandingpageKonfigurator() {
         description="Gestalten Sie Ihre öffentliche Unternehmens-Landingpage"
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <FeatureGate requiredTariff="Business" feature="Landingpage-Konfigurator">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Settings Panel */}
         <Card className="p-6 space-y-6">
           <div className="flex items-center justify-between">
@@ -528,6 +530,7 @@ export default function LandingpageKonfigurator() {
           </div>
         </Card>
       </div>
+      </FeatureGate>
     </>
   );
 }

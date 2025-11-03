@@ -1,180 +1,98 @@
-# 📚 MyDispatch Dokumentation
+# 📚 MyDispatch - Dokumentation
 
-> **Zentrale Anlaufstelle für alle Projekt-Dokumentationen**  
-> **Version:** 18.5.0  
-> **Letzte Aktualisierung:** 2025-01-26
+**Willkommen zur vollständigen MyDispatch-Dokumentation!**
 
 ---
 
-## 🚀 Quick Start
+## 📋 DOKUMENTATIONS-ÜBERSICHT
 
-Neu im Projekt? Starte hier:
+### 🚀 Getting Started
+- [System-Konfiguration](./SYSTEM_KONFIGURATION_VOLLSTAENDIG.md) - Vollständige System-Konfiguration
+- [Konfigurations-Abgleich](./KONFIGURATION_ABGLEICH.md) - Abgleich aller Konfigurationen
 
-1. [Setup Guide](./01-GETTING-STARTED/Setup.md) - Installation & Konfiguration
-2. [Quick Reference](./01-GETTING-STARTED/Quick-Reference.md) - Die wichtigsten Commands
-3. [Architecture Overview](./02-ARCHITECTURE/Overview.md) - System-Architektur verstehen
+### 📅 Arbeitsabläufe
+- [Tägliche Arbeitsabläufe](./TAEGLICHE_ARBEITSABLAEUFE.md) - Standardisierte Vorgehensweisen
+- [Deployment-Prozess](./DEPLOYMENT_PROCESS.md) - Deployment-Anleitungen
 
----
+### 🧠 Wissen & Best Practices
+- [NeXify Wiki](./NEXIFY_WIKI_V1.0.md) - Komplettes Knowledge System
+- [Master System](./MYDISPATCH_MASTER_SYSTEM_V18.5.0.md) - System-Architektur
 
-## 📁 Dokumentations-Struktur
-
-### 🟢 01-GETTING-STARTED
-**Für neue Entwickler und Quick Reference**
-
-- [Setup.md](./01-GETTING-STARTED/Setup.md) - Installation, Dependencies, erste Schritte
-- [Quick-Reference.md](./01-GETTING-STARTED/Quick-Reference.md) - Commands, Shortcuts, häufige Tasks
-
-### 🔵 02-ARCHITECTURE
-**System-Design und technische Architektur**
-
-- [Overview.md](./02-ARCHITECTURE/Overview.md) - Gesamt-Architektur
-- [Design-System.md](./02-ARCHITECTURE/Design-System.md) - UI/UX Design System (konsolidiert aus 10+ Docs)
-- [Component-Library.md](./02-ARCHITECTURE/Component-Library.md) - Component Guidelines
-- [Database-Schema.md](./02-ARCHITECTURE/Database-Schema.md) - Supabase Schema & RLS
-
-### 🟡 03-DEVELOPMENT
-**Entwicklungs-Guidelines und Best Practices**
-
-- [Coding-Standards.md](./03-DEVELOPMENT/Coding-Standards.md) - Code Style & Conventions (konsolidiert aus 15+ Docs)
-- [Testing.md](./03-DEVELOPMENT/Testing.md) - E2E, Unit Tests, Test Strategy
-- [Deployment.md](./03-DEVELOPMENT/Deployment.md) - CI/CD, Production Deployment
-- [Performance.md](./03-DEVELOPMENT/Performance.md) - Performance Optimierung
-
-### 🔴 04-GOVERNANCE
-**Legal, Security, Compliance**
-
-- [Legal-Compliance.md](./04-GOVERNANCE/Legal-Compliance.md) - DSGVO, AI-Act, TMG
-- [Security.md](./04-GOVERNANCE/Security.md) - Security Best Practices, RLS
-- [Quality-Gates.md](./04-GOVERNANCE/Quality-Gates.md) - Automatische Quality Checks
-
-### 🟣 05-ARCHIVE
-**Alte Versionen und Legacy-Dokumentation**
-
-- `v18.5.x/` - Archivierte Docs aus Version 18.5.x (~300 Docs)
-- `v18.4.x/` - Archivierte Docs aus Version 18.4.x
-- `deprecated/` - Veraltete Docs (nicht mehr relevant)
+### 🔧 Technische Details
+- [Design System](./DESIGN_SYSTEM_VORGABEN_V18.3.md) - Design-Vorgaben
+- [Coding Standards](./DEFENSIVE_CODING_STANDARDS.md) - Code-Qualität
+- [Deutsche Formatierung](./DEUTSCHE_FORMATIERUNG_VORGABEN_V18.2.7.md) - Formatierungsstandards
 
 ---
 
-## 🔍 Dokumentation finden
+## 🎯 SCHNELLSTART
 
-### Nach Thema suchen
+### 1. Entwicklungsumgebung einrichten
 
-| Thema | Dokument |
-|-------|----------|
-| Design System | [02-ARCHITECTURE/Design-System.md](./02-ARCHITECTURE/Design-System.md) |
-| Testing | [03-DEVELOPMENT/Testing.md](./03-DEVELOPMENT/Testing.md) |
-| DSGVO | [04-GOVERNANCE/Legal-Compliance.md](./04-GOVERNANCE/Legal-Compliance.md) |
-| Deployment | [03-DEVELOPMENT/Deployment.md](./03-DEVELOPMENT/Deployment.md) |
-| Components | [02-ARCHITECTURE/Component-Library.md](./02-ARCHITECTURE/Component-Library.md) |
+```bash
+# Repository klonen
+git clone https://github.com/u4231458123-droid/mydispatch-rebuild.git
 
-### Nach Rolle
+# Dependencies installieren
+npm install
 
-**👨‍💻 Developer (Neue Teammitglieder):**
-1. Setup.md
-2. Coding-Standards.md
-3. Component-Library.md
+# Environment Variables setzen
+cp .env.example .env
+# .env bearbeiten und Keys eintragen
 
-**🎨 Designer:**
-1. Design-System.md
-2. Component-Library.md
+# Development-Server starten
+npm run dev
+```
 
-**🚀 DevOps:**
-1. Deployment.md
-2. Security.md
+### 2. Supabase einrichten
 
-**⚖️ Legal/Compliance:**
-1. Legal-Compliance.md
-2. Quality-Gates.md
+```bash
+# Supabase CLI installieren
+npm install -g supabase
 
----
+# Login
+supabase login
 
-## 📝 Dokumentations-Prinzipien
+# Projekt verlinken
+supabase link --project-ref vsbqyqhzxmwezlhzdmfd
 
-### DRY (Don't Repeat Yourself)
-- **Ein Thema = Ein Master-Doc**
-- Keine Duplikate, keine redundanten Infos
-- Verlinkungen statt Copy-Paste
+# Migrations ausführen
+supabase db push
+```
 
-### Up-to-Date
-- Jedes Doc hat Versionsnummer
-- Alte Versionen → Archive
-- Regelmäßige Reviews (quartalsweise)
+### 3. Edge Functions deployen
 
-### Suchbar
-- Klare Überschriften
-- Inhaltsverzeichnisse in jedem Doc
-- Konsistente Struktur
+```bash
+# Edge Function deployen
+supabase functions deploy meine-function
+```
 
 ---
 
-## 🔄 Migration V18.5.0 → V18.5.1
+## 📚 WICHTIGE DOKUMENTE
 
-### Was wurde geändert?
+### Für Entwickler:
+- [Tägliche Arbeitsabläufe](./TAEGLICHE_ARBEITSABLAEUFE.md)
+- [Deployment-Prozess](./DEPLOYMENT_PROCESS.md)
+- [Coding Standards](./DEFENSIVE_CODING_STANDARDS.md)
 
-**VORHER (V18.5.0):**
-- 322 Dokumentations-Dateien
-- 11.527 Überschriften
-- Massive Redundanz
-- Keine klare Struktur
+### Für System-Administratoren:
+- [System-Konfiguration](./SYSTEM_KONFIGURATION_VOLLSTAENDIG.md)
+- [Konfigurations-Abgleich](./KONFIGURATION_ABGLEICH.md)
 
-**NACHHER (V18.5.1):**
-- 13 Master-Dokumentationen
-- Klare 5-Kategorien-Struktur
-- ~300 Docs ins Archiv verschoben
-- DRY-Prinzip durchgesetzt
-
-### Alte Docs finden
-
-Alle alten Docs (V18.5.0) wurden nach `05-ARCHIVE/v18.5.x/` verschoben und bleiben lesbar, aber sind nicht mehr aktiv gepflegt.
+### Für AI-Agenten:
+- [NeXify Wiki](./NEXIFY_WIKI_V1.0.md) - **MANDATORY LOAD**
+- [Master System](./MYDISPATCH_MASTER_SYSTEM_V18.5.0.md)
 
 ---
 
-## 📊 Dokumentations-Status
+## 🚀 QUICK LINKS
 
-| Kategorie | Docs | Status |
-|-----------|------|--------|
-| Getting Started | 2 | ✅ Complete |
-| Architecture | 4 | 🚧 In Progress |
-| Development | 4 | 🚧 In Progress |
-| Governance | 3 | 🚧 In Progress |
-| Archive | ~300 | 📦 Archiviert |
-
-**Gesamt:** 13 aktive Master-Docs + ~300 archivierte
+- **System-Konfiguration:** [SYSTEM_KONFIGURATION_VOLLSTAENDIG.md](./SYSTEM_KONFIGURATION_VOLLSTAENDIG.md)
+- **Tägliche Routinen:** [TAEGLICHE_ARBEITSABLAEUFE.md](./TAEGLICHE_ARBEITSABLAEUFE.md)
+- **Deployment:** [DEPLOYMENT_PROCESS.md](./DEPLOYMENT_PROCESS.md)
+- **Konfigurations-Abgleich:** [KONFIGURATION_ABGLEICH.md](./KONFIGURATION_ABGLEICH.md)
 
 ---
 
-## 🆘 Hilfe & Support
-
-**Fragen zur Dokumentation?**
-- GitHub Issues mit Label `documentation`
-- Team-Chat im `#docs` Channel
-
-**Fehler gefunden?**
-- Pull Request mit Korrektur
-- Oder Issue erstellen
-
----
-
-## 📚 Externe Ressourcen
-
-- [React Docs](https://react.dev)
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [Tailwind CSS](https://tailwindcss.com/docs)
-- [Supabase Docs](https://supabase.com/docs)
-- [Playwright Docs](https://playwright.dev)
-
----
-
-**END OF README**
-
----
-
-## 📝 Changelog
-
-### V18.5.1 (2025-01-26)
-- **BREAKING:** Dokumentations-Restrukturierung (322 → 13 Master-Docs)
-- Neue 5-Kategorien-Struktur
-- ~300 Docs archiviert
-- Setup.md + Quick-Reference.md erstellt
-- DRY-Prinzip implementiert
+**Pascal, alle Dokumentationen sind vollständig!** 🚀

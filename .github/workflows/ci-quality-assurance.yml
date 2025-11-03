@@ -1,0 +1,266 @@
+name: CI - Quality Assurance (NeXify AI MASTER)
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  schedule:
+    - cron: '0 3 * * *' # Täglich 3:00 UTC
+
+jobs:
+  quality-check:
+    name: Quality Assurance
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: TypeScript Check
+        run: npm run type-check
+        continue-on-error: false
+      
+      - name: ESLint
+        run: npm run lint
+        continue-on-error: false
+      
+      - name: Prettier Check
+        run: npm run format:check
+        continue-on-error: false
+      
+      - name: Unit Tests
+        run: npm run test:unit
+        continue-on-error: false
+      
+      - name: Coverage Report
+        run: npm run test:coverage
+        continue-on-error: false
+      
+      - name: Build
+        run: npm run build
+        continue-on-error: false
+      
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v3
+        if: always()
+        with:
+          files: ./coverage/coverage-final.json
+          flags: unittests
+          name: codecov-umbrella
+
+  e2e-tests:
+    name: E2E Tests (Playwright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install Playwright
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+      
+      - name: Run E2E Tests
+        run: npm run test:e2e -- --project=${{ matrix.browser }}
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_SUPABASE_PROJECT_ID: ${{ secrets.VITE_SUPABASE_PROJECT_ID }}
+      
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 30
+      
+      - name: Upload Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-screenshots-${{ matrix.browser }}
+          path: test-results/
+          retention-days: 7
+
+  mobile-e2e-tests:
+    name: E2E Tests (Mobile)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    
+    strategy:
+      matrix:
+        device: ['Mobile Chrome', 'Mobile Safari']
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      
+      - name: Run Mobile E2E Tests
+        run: npm run test:e2e -- --project="${{ matrix.device }}"
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+
+  compliance-check:
+    name: Compliance Check (NeXify AI MASTER)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Run Compliance Check
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"action": "check_compliance", "scope": "incremental"}' \
+            ${{ secrets.SUPABASE_URL }}/functions/v1/nexify-compliance-automation
+        continue-on-error: false
+      
+      - name: Check Violations
+        run: |
+          # Prüfe ob Critical/High Violations vorhanden
+          # Fail wenn > 0
+          VIOLATIONS=$(curl -s -X GET \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/nexify_compliance_violations?severity=eq.critical&status=eq.open&select=id" \
+            | jq '. | length')
+          
+          if [ "$VIOLATIONS" -gt 0 ]; then
+            echo "❌ Critical Violations found: $VIOLATIONS"
+            exit 1
+          fi
+        continue-on-error: false
+
+  performance-check:
+    name: Performance Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Check Bundle Size
+        run: |
+          BUNDLE_SIZE=$(du -sk dist | cut -f1)
+          MAX_SIZE=3000
+          if [ "$BUNDLE_SIZE" -gt "$MAX_SIZE" ]; then
+            echo "❌ Bundle Size exceeds limit: ${BUNDLE_SIZE}KB > ${MAX_SIZE}KB"
+            exit 1
+          fi
+          echo "✅ Bundle Size: ${BUNDLE_SIZE}KB"
+        continue-on-error: false
+      
+      - name: Lighthouse CI
+        run: |
+          npm install -g @lhci/cli
+          lhci autorun --config=lighthouse.config.js
+        continue-on-error: false
+
+  security-check:
+    name: Security Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Run Security Audit
+        run: npm audit --audit-level=high
+        continue-on-error: false
+      
+      - name: Check RLS Coverage
+        run: |
+          # Prüfe RLS Coverage via Supabase
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"action": "check_rls_coverage"}' \
+            ${{ secrets.SUPABASE_URL }}/functions/v1/run-security-scan
+        continue-on-error: false
+
+  quality-report:
+    name: Quality Report
+    runs-on: ubuntu-latest
+    needs: [quality-check, e2e-tests, compliance-check, performance-check, security-check]
+    if: always()
+    
+    steps:
+      - name: Generate Quality Report
+        run: |
+          echo "📊 QUALITY ASSURANCE REPORT"
+          echo "================================"
+          echo "Date: $(date)"
+          echo ""
+          echo "✅ All Quality Checks Completed"
+          echo ""
+          echo "Results:"
+          echo "- Quality Check: ${{ needs.quality-check.result }}"
+          echo "- E2E Tests: ${{ needs.e2e-tests.result }}"
+          echo "- Compliance: ${{ needs.compliance-check.result }}"
+          echo "- Performance: ${{ needs.performance-check.result }}"
+          echo "- Security: ${{ needs.security-check.result }}"
+        continue-on-error: true
+

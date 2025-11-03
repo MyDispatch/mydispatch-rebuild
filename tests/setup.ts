@@ -1,63 +1,49 @@
-/* ==================================================================================
-   PLAYWRIGHT TEST SETUP
-   ==================================================================================
-   Global setup und utilities für E2E Tests
-   ================================================================================== */
+import { expect, afterEach, vi } from 'vitest';
+import { cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom/vitest';
 
-import { test as base, expect } from '@playwright/test';
-
-// Extend basic test with custom fixtures
-export const test = base.extend({
-  // Auto-login fixture for authenticated tests
-  authenticatedPage: async ({ page }, use) => {
-    // Navigate to login
-    await page.goto('/auth');
-    
-    // Fill login form (adjust selectors based on your implementation)
-    await page.fill('input[type="email"]', 'test@mydispatch.de');
-    await page.fill('input[type="password"]', 'test123456');
-    await page.click('button[type="submit"]');
-    
-    // Wait for redirect to dashboard
-    await page.waitForURL('/dashboard');
-    
-    await use(page);
-  },
+// Cleanup after each test
+afterEach(() => {
+  cleanup();
 });
 
-export { expect };
+// Mock IntersectionObserver
+global.IntersectionObserver = class IntersectionObserver {
+  constructor() {}
+  disconnect() {}
+  observe() {}
+  takeRecords() {
+    return [];
+  }
+  unobserve() {}
+} as any;
 
-// Custom matchers
-expect.extend({
-  /**
-   * Check if element has minimum touch target size (44px)
-   */
-  async toHaveMinTouchTarget(element: any) {
-    const box = await element.boundingBox();
-    const pass = box ? box.height >= 44 && box.width >= 44 : false;
-    
-    return {
-      message: () =>
-        pass
-          ? `expected element to NOT have min 44px touch target`
-          : `expected element to have min 44px touch target, but was ${box?.width}x${box?.height}px`,
-      pass,
-    };
-  },
+// Mock ResizeObserver
+global.ResizeObserver = class ResizeObserver {
+  constructor() {}
+  disconnect() {}
+  observe() {}
+  unobserve() {}
+} as any;
 
-  /**
-   * Check if text is responsive (has breakpoint classes)
-   */
-  toHaveResponsiveText(element: any) {
-    const classes = element.getAttribute('class');
-    const hasResponsive = /text-(sm|base|lg|xl)/.test(classes) && /(sm|md|lg):text-/.test(classes);
-    
-    return {
-      message: () =>
-        hasResponsive
-          ? `expected element to NOT have responsive text classes`
-          : `expected element to have responsive text classes (e.g., text-sm sm:text-base)`,
-      pass: hasResponsive,
-    };
-  },
+// Mock window.matchMedia
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: vi.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
 });
+
+// Suppress console errors in tests (optional)
+// global.console = {
+//   ...console,
+//   error: vi.fn(),
+//   warn: vi.fn(),
+// };

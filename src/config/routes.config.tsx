@@ -309,6 +309,15 @@ export const routes: RouteConfig[] = [
     },
   },
   {
+    path: '/kontakt',
+    component: lazy(() => import('@/pages/Contact')),
+    layout: 'none',
+    meta: {
+      title: 'Kontakt',
+      description: 'Kontaktieren Sie das MyDispatch-Team',
+    },
+  },
+  {
     path: '/about',
     component: lazy(() => import('@/pages/About')),
     layout: 'none',
