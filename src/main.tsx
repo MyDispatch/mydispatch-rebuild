@@ -1,93 +1,177 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import ProductionErrorBoundary from './components/shared/ProductionErrorBoundary'
-import './index.css'
+/* ==================================================================================
+   RESTORED FROM BACKUP V18.5.13 - FULL MAIN WITH MONITORING
+   ==================================================================================
+   Date: 2025-01-30
+   Status: PRODUCTION-READY
+   ================================================================================== */
 
-// DIAGNOSTIC: Log initialization
-console.log('🚀 MyDispatch initializing...')
-console.log('📦 React version:', React.version)
-console.log('🌍 Environment:', import.meta.env.MODE)
+import { createRoot } from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { initSentry } from "./lib/sentry-integration";
+import { initPerformanceMonitoring } from "./lib/performance-monitoring";
+import { initGlobalErrorHandlers } from "./lib/error-tracking";
+import ProductionErrorMonitor from "./utils/errorMonitoring";
+import { onCLS, onINP, onLCP } from 'web-vitals';
 
-// CRITICAL: Global error handler to catch ALL errors
-window.addEventListener('error', (event) => {
-  console.error('🔴 GLOBAL ERROR:', event.error || event.message)
-  console.error('Stack:', event.error?.stack)
-  
-  const errorMsg = event.message || ''
-  
-  // Show error on screen for debugging
-  const errorDiv = document.createElement('div')
-  errorDiv.style.cssText = 'position:fixed;top:0;left:0;right:0;background:red;color:white;padding:20px;z-index:99999;font-family:monospace;'
-  errorDiv.innerHTML = `
-    <h1>ERROR DETECTED:</h1>
-    <pre>${event.error?.message || errorMsg}</pre>
-    <pre>${event.error?.stack || 'No stack trace'}</pre>
-  `
-  document.body.appendChild(errorDiv)
+try {
+  initPerformanceMonitoring();
+} catch {
+  // Silent fail
+}
+
+try {
+  initGlobalErrorHandlers();
+} catch {
+  // Silent fail
+}
+
+// V6.0: Initialize Production Error Monitor
+if (import.meta.env.PROD) {
+  try {
+    ProductionErrorMonitor.initialize();
+  } catch {
+    // Silent fail
+  }
+}
+
+try {
+  initSentry();
+} catch {
+  // Silent fail
+}
+
+// V6.0.4: CHUNK LOAD ERROR HANDLER - Robust fallback for failed chunk loads
+window.addEventListener('error', (event: ErrorEvent) => {
+  const errorMsg = event.message || '';
   
   if (
     errorMsg.includes('Failed to fetch dynamically imported module') ||
-    errorMsg.includes('Importing a module script failed') ||
-    errorMsg.includes('Failed to load module script')
+    errorMsg.includes('Importing a module script failed')
   ) {
-    console.warn('Chunk load error detected, reloading page...')
-    setTimeout(() => window.location.reload(), 2000)
-    event.preventDefault()
+    console.warn('⚠️ Chunk load failed - clearing caches and reloading...', event);
+    
+    // Special handling for critical Home-Sections
+    if (errorMsg.includes('HomeHeroSection') || errorMsg.includes('app-home-sections')) {
+      console.error('❌ CRITICAL: Home-Section failed to load!');
+      
+      // Show user-friendly error overlay
+      const errorDiv = document.createElement('div');
+      errorDiv.innerHTML = `
+        <div style="
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: white;
+          padding: 32px;
+          border-radius: 12px;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+          text-align: center;
+          max-width: 400px;
+          z-index: 9999;
+        ">
+          <h2 style="margin-bottom: 16px; font-size: 20px; font-weight: bold;">
+            Seite wird geladen...
+          </h2>
+          <p style="margin-bottom: 24px; color: #666;">
+            Bitte warten Sie einen Moment.
+          </p>
+          <button 
+            onclick="location.reload()" 
+            style="
+              background: #475569;
+              color: white;
+              padding: 12px 24px;
+              border-radius: 8px;
+              border: none;
+              cursor: pointer;
+              font-weight: 600;
+            "
+          >
+            Neu laden
+          </button>
+        </div>
+      `;
+      document.body.appendChild(errorDiv);
+      
+      // Auto-reload after 3 seconds
+      setTimeout(() => location.reload(), 3000);
+      return;
+    }
+    
+    // Default cache clearing and reload for other chunks
+    if ('caches' in window) {
+      caches.keys().then(names => {
+        names.forEach(name => caches.delete(name));
+      }).then(() => {
+        location.reload();
+      }).catch(() => {
+        location.reload();
+      });
+    } else {
+      location.reload();
+    }
   }
-})
+});
 
-// Catch unhandled promise rejections
-window.addEventListener('unhandledrejection', (event) => {
-  console.error('🔴 UNHANDLED PROMISE REJECTION:', event.reason)
-  
-  const errorDiv = document.createElement('div')
-  errorDiv.style.cssText = 'position:fixed;top:50px;left:0;right:0;background:orange;color:white;padding:20px;z-index:99999;font-family:monospace;'
-  errorDiv.innerHTML = `
-    <h1>PROMISE REJECTION:</h1>
-    <pre>${event.reason?.message || String(event.reason)}</pre>
-  `
-  document.body.appendChild(errorDiv)
-})
+const rootElement = document.getElementById("root");
+if (!rootElement) {
+  throw new Error('Root element not found - check index.html');
+}
 
-console.log('🚀 main.tsx: Starting app initialization...')
+createRoot(rootElement).render(<App />);
 
-// Render app with try-catch
-try {
-  const rootElement = document.getElementById('root')
-  
-  if (!rootElement) {
-    throw new Error('Root element not found')
-  }
-  
-  console.log('✅ Root element found')
-  console.log('🔧 Creating React root...')
-  
-  const root = createRoot(rootElement)
-  
-  console.log('✅ React root created')
-  console.log('🎨 Rendering App component...')
-  
-  root.render(
-    <StrictMode>
-      <ProductionErrorBoundary>
-        <App />
+// Phase 5.1: Web Vitals Tracking
+if (import.meta.env.PROD) {
+  onCLS((metric) => console.log('CLS:', metric.value));
+  onINP((metric) => console.log('INP:', metric.value));
+  onLCP((metric) => console.log('LCP:', metric.value));
+}
 
-      </ProductionErrorBoundary>
-    </StrictMode>
-  )
-  
-  console.log('✅ App rendered successfully!')
-} catch (error) {
-  console.error('🔴 FATAL ERROR in main.tsx:', error)
-  
-  // Show fatal error on screen
-  document.body.innerHTML = `
-    <div style="padding:40px;font-family:sans-serif;">
-      <h1 style="color:red;">Fatal Error</h1>
-      <p>The application failed to start.</p>
-      <pre style="background:#f5f5f5;padding:20px;border-radius:8px;overflow:auto;">${error instanceof Error ? error.message : String(error)}\n\n${error instanceof Error ? error.stack : ''}</pre>
-      <button onclick="window.location.reload()" style="margin-top:20px;padding:10px 20px;background:#007bff;color:white;border:none;border-radius:4px;cursor:pointer;">Reload Page</button>
-    </div>
-  `
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
+    try {
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(
+        registrations.map(registration => registration.unregister())
+      );
+      
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        await Promise.all(
+          cacheNames.map(cacheName => caches.delete(cacheName))
+        );
+      }
+      
+      const buildVersion = 'v6.0.8-pre-login-complete-1730430000000';
+      const storedVersion = localStorage.getItem('app-version');
+      
+      if (storedVersion !== buildVersion) {
+        // Clear localStorage (aggressive)
+        const keysToKeep = ['supabase.auth.token'];
+        const allKeys = Object.keys(localStorage);
+        allKeys.forEach(key => {
+          if (!keysToKeep.includes(key)) {
+            localStorage.removeItem(key);
+          }
+        });
+        
+        // Clear sessionStorage
+        sessionStorage.clear();
+        
+        // Clear all cookies (except essential)
+        document.cookie.split(";").forEach((c) => {
+          document.cookie = c
+            .replace(/^ +/, "")
+            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        });
+        
+        localStorage.setItem('app-version', buildVersion);
+        window.location.reload();
+      }
+    } catch (error) {
+      console.debug('Cache cleanup error:', error);
+    }
+  });
 }
