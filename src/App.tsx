@@ -21,12 +21,13 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { PortalRoute } from "@/components/PortalRoute";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { LoadingFallback } from "@/components/shared/LoadingFallback";
-import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { PageErrorBoundary } from "@/components/shared/PageErrorBoundary";
 import { GlobalErrorBoundary } from "@/components/debug/GlobalErrorBoundary";
 import { LovableBuildGuard, HydrationErrorGuard, PerformanceGuard } from "@/components/ErrorGuards";
 import { GlobalSearchDialog } from "@/components/search/GlobalSearchDialog";
 import { IntelligentAIChat } from "@/components/shared/IntelligentAIChat";
+import { PWAInstallButton } from "@/components/shared/PWAInstallButton";
 import { AppSplash } from "@/components/shared/AppSplash";
 import { routes, type RouteConfig } from "@/config/routes.config";
 import { usePricingValidation } from "@/hooks/use-pricing-validation";
@@ -181,6 +182,7 @@ const App = () => {
                     <Route path="*" element={<Suspense fallback={<LoadingFallback />}><NotFound /></Suspense>} />
                   </Routes>
 
+                  <PWAInstallButton />
                   {isChatOpen && (
                     <IntelligentAIChat 
                       isPublicLanding={false}

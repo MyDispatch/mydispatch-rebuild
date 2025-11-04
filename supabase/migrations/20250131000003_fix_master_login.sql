@@ -112,3 +112,8 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 COMMENT ON FUNCTION ensure_master_user() IS 'Stellt sicher dass courbois1981@gmail.com Master-Zugang hat';
 COMMENT ON FUNCTION is_master_user(TEXT) IS 'Prüft ob User Master-Role hat';
 
+
+
+
+
+

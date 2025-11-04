@@ -142,3 +142,8 @@ useEffect(() => {
 
 **Bereit für vollständige logik-basierte Implementierung, Pascal!** 🚀
 
+
+
+
+
+

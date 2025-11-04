@@ -1,8 +1,16 @@
-# MyDispatch - Taxi & Mietwagen Management
+# MyDispatch - Taxi & Mietwagen Management System
+
+**Status:** ✅ PRODUCTION-READY  
+**Version:** V32.5  
+**Datum:** 2025-01-31  
+**Entwickelt von:** NeXify (Pascal)  
+**Betreuung:** NeXify - Dauerhafte Entwicklung & Support
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b
+**Website:** https://my-dispatch.de  
+**URL**: https://lovable.dev/projects/532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b  
+**Supabase Projekt-ID:** `vsbqyqhzxmwezlhzdmfd`
 
 ## 🚀 Quick Start
 
@@ -66,11 +74,50 @@ npm run validate:hero
 
 ## Technologies
 
-- **Frontend**: React, TypeScript, Vite
-- **UI**: shadcn-ui, Tailwind CSS
-- **Backend**: Lovable Cloud (Supabase)
-- **Maps**: HERE Maps API
+- **Frontend**: React 18, TypeScript, Vite
+- **UI**: shadcn-ui (42+ Components), Tailwind CSS
+- **Design System**: V28.1 (PRODUCTION)
+- **Backend**: Supabase (PostgreSQL, Auth, Realtime, Storage)
+- **Maps**: HERE Maps API (Routing, Geocoding)
 - **Payments**: Stripe
+- **Testing**: Vitest, Playwright
+- **Monitoring**: Sentry, Web Vitals
+
+## Project Structure
+
+```
+mydispatch-rebuild/
+├── src/
+│   ├── components/          # UI Components
+│   │   ├── design-system/   # V28.1 Design System
+│   │   ├── pricing/         # V28.1 Pricing Components
+│   │   ├── layout/          # Layout Components (FROZEN)
+│   │   └── ui/              # shadcn/ui Components
+│   ├── pages/               # Application Pages
+│   ├── lib/                 # Utilities & Helpers
+│   ├── hooks/               # React Hooks
+│   └── integrations/        # External Integrations
+├── docs/                    # Dokumentation
+│   ├── NEXIFY_WIKI_V1.0.md  # Haupt-Wiki
+│   ├── COMPONENT_REGISTRY_V28.1.md
+│   ├── FORGET_PROOF_SYSTEM_V1.0.md
+│   └── MYDISPATCH_VOLLSTAENDIGE_ANALYSE_V1.0.md
+├── supabase/                # Supabase Config
+│   ├── migrations/          # Database Migrations
+│   └── functions/          # Edge Functions
+└── PROTECTION.md            # Repository Protection Rules
+```
+
+## Repository Protection
+
+**⚠️ WICHTIG:** Dieses Repository ist durch Schutz-Regeln geschützt!
+
+- ✅ Design System V28.1 - IMMER VERWENDEN
+- ✅ Layout System - FROZEN (keine Änderungen ohne Genehmigung)
+- ✅ Hero System V31.5 - MANDATORY (`backgroundVariant="3d-premium"`)
+- ✅ Component Registry - MANDATORY CHECK vor jeder neuen Component
+
+**Details:** Siehe [`PROTECTION.md`](./PROTECTION.md)
 
 ## Development
 

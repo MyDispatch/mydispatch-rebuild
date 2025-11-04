@@ -2,10 +2,12 @@
    TARIFF CALCULATOR - LIVE FARE CALCULATION
    ==================================================================================
    Phase 3.1: Taxi-Spezifische Features
-   - Google Distance Matrix API Integration
+   - HERE Maps API Integration (Distance Calculation)
    - Echtzeit-Preisberechnung
-   - Tarif-Regeln basierend auf Zeit/Distanz
+   - Tarif-Regeln basierend auf Zeit/Distanz (Supabase)
    ================================================================================== */
+
+import { supabase } from '@/integrations/supabase/client';
 
 interface TariffRules {
   basePrice: number;
@@ -65,14 +67,62 @@ export const calculateFare = async (
 };
 
 /**
- * Get Distance using Google Distance Matrix API
+ * Get Distance using HERE Maps API (Routing v8)
+ * Falls API nicht verfügbar, wird Mock Data verwendet
  */
 const getDistance = async (
   pickup: string,
   destination: string
 ): Promise<DistanceData> => {
-  // TODO: Replace with actual Google Distance Matrix API call
-  // For now, return mock data
+  try {
+    const HERE_API_KEY = import.meta.env.VITE_HERE_API_KEY;
+    
+    if (!HERE_API_KEY) {
+      console.warn('HERE API Key nicht gefunden, verwende Mock Data');
+      return getMockDistance();
+    }
+
+    // HERE Routing API v8 - Calculate Route
+    const response = await fetch(
+      `https://router.hereapi.com/v8/routes?` +
+      `transportMode=car&` +
+      `origin=${encodeURIComponent(pickup)}&` +
+      `destination=${encodeURIComponent(destination)}&` +
+      `return=summary&` +
+      `apikey=${HERE_API_KEY}`
+    );
+
+    if (!response.ok) {
+      throw new Error(`HERE API Error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (data.routes && data.routes.length > 0) {
+      const route = data.routes[0];
+      const summary = route.sections[0]?.summary;
+      
+      if (summary) {
+        return {
+          km: summary.length / 1000, // Convert meters to km
+          minutes: summary.duration / 60 // Convert seconds to minutes
+        };
+      }
+    }
+
+    // Fallback to mock data if route not found
+    return getMockDistance();
+  } catch (error) {
+    console.error('Distance calculation error:', error);
+    // Fallback to mock data on error
+    return getMockDistance();
+  }
+};
+
+/**
+ * Mock Distance Data (Fallback)
+ */
+const getMockDistance = (): DistanceData => {
   const mockDistanceKm = Math.random() * 20 + 5; // 5-25km
   const mockMinutes = Math.round(mockDistanceKm * 2.5); // ~2.5 min per km
   
@@ -80,31 +130,51 @@ const getDistance = async (
     km: mockDistanceKm,
     minutes: mockMinutes
   };
-  
-  /* PRODUCTION IMPLEMENTATION:
-  const response = await fetch(
-    `https://maps.googleapis.com/maps/api/distancematrix/json?` +
-    `origins=${encodeURIComponent(pickup)}&` +
-    `destinations=${encodeURIComponent(destination)}&` +
-    `key=${GOOGLE_MAPS_API_KEY}`
-  );
-  
-  const data = await response.json();
-  const element = data.rows[0].elements[0];
-  
-  return {
-    km: element.distance.value / 1000,
-    minutes: element.duration.value / 60
-  };
-  */
 };
 
 /**
  * Get Tariff Rules from Supabase
+ * Falls keine Tarife gefunden werden, wird Default-Tarif verwendet
  */
 const getTariffRules = async (companyId: string): Promise<TariffRules> => {
-  // TODO: Fetch from Supabase tariff_definitions table
-  // For now, return default tariff
+  try {
+    const { data, error } = await supabase
+      .from('tariff_definitions')
+      .select('*')
+      .eq('company_id', companyId)
+      .eq('is_active', true)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (error) {
+      console.warn('Tariff fetch error, using default:', error);
+      return getDefaultTariff();
+    }
+
+    if (data) {
+      return {
+        basePrice: data.base_price || 3.50,
+        pricePerKm: data.price_per_km || 2.20,
+        pricePerMinute: data.price_per_minute || 0.50,
+        waitingTimePerMinute: data.waiting_time_per_minute,
+        nightSurcharge: data.night_surcharge || 5.00,
+        weekendSurcharge: data.weekend_surcharge || 2.50
+      };
+    }
+
+    // No tariff found, return default
+    return getDefaultTariff();
+  } catch (error) {
+    console.error('Tariff rules error:', error);
+    return getDefaultTariff();
+  }
+};
+
+/**
+ * Default Tariff (Fallback)
+ */
+const getDefaultTariff = (): TariffRules => {
   return {
     basePrice: 3.50,
     pricePerKm: 2.20,
@@ -112,24 +182,6 @@ const getTariffRules = async (companyId: string): Promise<TariffRules> => {
     nightSurcharge: 5.00,
     weekendSurcharge: 2.50
   };
-  
-  /* PRODUCTION IMPLEMENTATION:
-  const { data, error } = await supabase
-    .from('tariff_definitions')
-    .select('*')
-    .eq('company_id', companyId)
-    .single();
-  
-  if (error) throw error;
-  
-  return {
-    basePrice: data.base_price,
-    pricePerKm: data.price_per_km,
-    pricePerMinute: data.price_per_minute,
-    nightSurcharge: data.night_surcharge,
-    weekendSurcharge: data.weekend_surcharge
-  };
-  */
 };
 
 /**

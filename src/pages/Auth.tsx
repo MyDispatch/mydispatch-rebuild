@@ -176,28 +176,87 @@ export default function Auth() {
         return;
       }
 
+      // Normalize email (trim and lowercase)
+      const normalizedEmail = email.toLowerCase().trim();
+
+      logger.debug('[Auth] Login attempt', { 
+        email: normalizedEmail, 
+        emailLength: normalizedEmail.length,
+        passwordLength: password.length,
+        component: 'Auth' 
+      });
+
+      // Try login with Supabase Auth
       const { data, error } = await supabase.auth.signInWithPassword({
-        email,
+        email: normalizedEmail,
         password,
       });
 
-      if (error) throw error;
-
-      if (data.user) {
-        // Check if user has profile
-        const { data: profile, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('user_id', data.user.id)
-          .maybeSingle();
-
-        logger.debug('[Auth] Login-Versuch', { email, component: 'Auth' });
-        logger.debug('[Auth] Profile-Check', { found: !!profile, component: 'Auth' });
-        if (profile) {
-        logger.debug('[Auth] Profile Data', { user_id: profile.user_id, company_id: profile.company_id, component: 'Auth' });
+      if (error) {
+        logger.error('[Auth] Login error', error, { 
+          email: normalizedEmail,
+          errorCode: error.status,
+          errorMessage: error.message,
+          component: 'Auth' 
+        });
+        
+        // Detailed error message
+        let errorMessage = error.message || 'Ungültige Anmeldedaten';
+        
+        if (error.message?.includes('Invalid login credentials')) {
+          errorMessage = 'E-Mail-Adresse oder Passwort ist falsch. Bitte prüfen Sie Ihre Eingaben oder setzen Sie Ihr Passwort zurück.';
+        } else if (error.message?.includes('Email not confirmed')) {
+          errorMessage = 'Bitte bestätigen Sie zuerst Ihre E-Mail-Adresse. Prüfen Sie Ihr Postfach.';
+        } else if (error.message?.includes('User not found')) {
+          errorMessage = 'Dieser Account existiert nicht. Bitte registrieren Sie sich zuerst.';
         }
+        
+        throw new Error(errorMessage);
+      }
 
-        if (profile) {
+      if (!data || !data.user) {
+        logger.error('[Auth] No user data returned', new Error('No user data'), { 
+          email: normalizedEmail,
+          component: 'Auth' 
+        });
+        throw new Error('Login fehlgeschlagen - Keine Benutzerdaten erhalten');
+      }
+
+      const userData = data;
+      logger.debug('[Auth] Login successful', { 
+        userId: userData.user.id,
+        email: userData.user.email,
+        emailConfirmed: userData.user.email_confirmed_at,
+        component: 'Auth' 
+      });
+      
+      // Check if user has profile
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', userData.user.id)
+        .maybeSingle();
+
+      if (profileError) {
+        logger.warn('[Auth] Profile query error', profileError, { 
+          userId: userData.user.id,
+          component: 'Auth' 
+        });
+      }
+
+      logger.debug('[Auth] Profile-Check', { 
+        found: !!profile, 
+        userId: userData.user.id,
+        component: 'Auth' 
+      });
+      
+      if (profile) {
+        logger.debug('[Auth] Profile Data', { 
+          user_id: profile.user_id, 
+          company_id: profile.company_id,
+          role: profile.role,
+          component: 'Auth' 
+        });
           // ==================================================================================
           // KRITISCH: Master-Zugang für courbois1981@gmail.com
           // ==================================================================================
@@ -205,13 +264,15 @@ export default function Auth() {
           const { data: userRoles } = await supabase
             .from('user_roles')
             .select('role')
-            .eq('user_id', data.user.id)
+            .eq('user_id', userData.user.id)
             .eq('role', 'master')
             .maybeSingle();
 
+          // Master-Zugang-Check (nur courbois1981@gmail.com)
+          const normalizedEmailForCheck = (email || '').toLowerCase().trim();
           const isMaster = userRoles?.role === 'master' || 
                           profile.role === 'master' || 
-                          email === 'courbois1981@gmail.com';
+                          normalizedEmailForCheck === 'courbois1981@gmail.com';
 
           if (isMaster) {
             logger.debug('[Auth] Master-Zugang erkannt', { email, component: 'Auth' });
@@ -235,11 +296,11 @@ export default function Auth() {
           return;
         }
 
-        // Check if user has customer portal access
+        // Check if user has customer portal access (use normalized email)
         const { data: customer, error: customerError } = await supabase
           .from('customers')
           .select('id, company_id, has_portal_access')
-          .eq('email', email)
+          .eq('email', normalizedEmail)
           .eq('has_portal_access', true)
           .maybeSingle();
 
@@ -252,20 +313,48 @@ export default function Auth() {
           return;
         }
 
-        // Kein Profil oder Customer gefunden
-        logger.error('[Auth] Kein Profile oder Customer', new Error('No access found'), { email, component: 'Auth' });
-        toast({
-          title: 'Kein Zugang gefunden',
-          description: 'Für diesen Account existiert kein Profil. Bitte kontaktiere den Support.',
-          variant: 'destructive',
-        });
-      }
-    } catch (error: any) {
+      // Kein Profil oder Customer gefunden
+      logger.error('[Auth] Kein Profile oder Customer gefunden', new Error('No access found'), { 
+        email: normalizedEmail,
+        userId: userData.user.id,
+        component: 'Auth' 
+      });
+      
       toast({
-        title: 'Login fehlgeschlagen',
-        description: error.message || 'Ungültige Anmeldedaten',
+        title: 'Kein Zugang gefunden',
+        description: 'Für diesen Account existiert kein Profil. Bitte kontaktiere den Support oder erstelle ein neues Profil.',
         variant: 'destructive',
       });
+      
+      // Sign out user if no profile found (to avoid confusion)
+      await supabase.auth.signOut();
+    } catch (error: any) {
+      logger.error('[Auth] Login failed', error, { 
+        email: email,
+        component: 'Auth' 
+      });
+      
+      // Show detailed error message
+      const errorMessage = error.message || 'Ungültige Anmeldedaten';
+      
+      toast({
+        title: 'Login fehlgeschlagen',
+        description: errorMessage,
+        variant: 'destructive',
+        duration: 5000, // Show longer for debugging
+      });
+      
+      // If invalid credentials, suggest password reset
+      if (errorMessage.includes('falsch') || errorMessage.includes('Invalid login credentials')) {
+        // Optionally show password reset hint
+        setTimeout(() => {
+          toast({
+            title: 'Tipp',
+            description: 'Falls Sie Ihr Passwort vergessen haben, nutzen Sie die Funktion "Passwort zurücksetzen".',
+            duration: 4000,
+          });
+        }, 2000);
+      }
     } finally {
       setLoading(false);
     }
@@ -303,17 +392,75 @@ export default function Auth() {
         return;
       }
 
-      // Stripe Checkout erstellen
+      // 1. Create Supabase Auth User
+      const { data: authData, error: authError } = await supabase.auth.signUp({
+        email: signupData.email,
+        password: signupData.password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth`,
+        },
+      });
+
+      if (authError) throw authError;
+      if (!authData.user) throw new Error('User creation failed');
+
+      // 2. Create Company
+      const { data: company, error: companyError } = await supabase
+        .from('companies')
+        .insert({
+          name: signupData.companyName,
+          tax_id: signupData.taxId,
+          phone: signupData.phone || null,
+          address: signupData.street || null,
+          city: signupData.city || null,
+          postal_code: signupData.zipCode || null,
+        })
+        .select()
+        .single();
+
+      if (companyError) throw companyError;
+
+      // 3. Create Profile
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          user_id: authData.user.id,
+          company_id: company.id,
+          first_name: signupData.firstName,
+          last_name: signupData.lastName,
+          role: 'entrepreneur',
+        });
+
+      if (profileError) throw profileError;
+
+      // 4. Send Registration Confirmation Email
+      try {
+        const { error: emailError } = await supabase.functions.invoke('send-registration-confirmation', {
+          body: {
+            user_id: authData.user.id,
+            email: signupData.email,
+            company_name: signupData.companyName,
+            tariff: selectedTariff,
+          },
+        });
+        if (emailError) {
+          console.warn('Registration email failed:', emailError);
+          // Don't fail registration if email fails
+        }
+      } catch (emailErr) {
+        console.warn('Registration email error:', emailErr);
+      }
+
+      // 5. Create Stripe Checkout (if payment required)
       const tariff = TARIFFS[selectedTariff];
       const checkoutUrl = `/api/stripe/checkout?price_id=${tariff.priceId}&email=${encodeURIComponent(signupData.email)}`;
       
-      // In Production würde hier ein Stripe Checkout erstellt
       toast({
-        title: 'Registrierung starten',
-        description: 'Sie werden zur Zahlungsseite weitergeleitet...',
+        title: 'Registrierung erfolgreich',
+        description: 'Eine Bestätigungs-E-Mail wurde gesendet. Bitte prüfen Sie Ihr Postfach.',
       });
       
-      // Für Demo: Direkt zum Dashboard
+      // Navigate to dashboard after successful registration
       setTimeout(() => {
         navigate('/dashboard');
       }, 2000);

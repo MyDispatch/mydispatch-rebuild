@@ -249,3 +249,8 @@ VITE_APP_URL=https://my-dispatch.de
 
 **Pascal, alle Konfigurationen sind abgeglichen!** 🚀
 
+
+
+
+
+

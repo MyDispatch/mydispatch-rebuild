@@ -1,8 +1,8 @@
 # 🧠 NEXIFY WIKI V1.0 - COMPLETE KNOWLEDGE SYSTEM
 
-**Status:** ✅ PRODUCTION-READY - 100% COVERAGE - AB TAG 1  
-**Version:** 1.0.0  
-**Datum:** 2025-01-31  
+**Status:** ✅ PRODUCTION-READY - 100% COVERAGE - AB TAG 1
+**Version:** 1.0.0
+**Datum:** 2025-01-31
 **Projekt:** MyDispatch
 
 ---
@@ -21,8 +21,35 @@ Lade das NeXify Wiki
 3. ✅ Erfolgs-Kriterien validieren (>= 5 Learnings, 0 Critical Issues, >= 20 Components)
 4. ✅ Status-Report ausgeben
 5. ✅ Kontext für ALLE nachfolgenden Aktionen setzen
+6. ✅ **NEU:** Validierungs-Status prüfen (`npm run validate:all`)
+7. ✅ **NEU:** Credentials prüfen (`.env.local` vorhanden?)
+8. ✅ **NEU:** Pending Tasks prüfen (TODO-Liste)
 
 **CRITICAL:** Ohne Wiki-Load = Wissensverlust = wiederholte Fehler!
+
+**ZUSÄTZLICH MANDATORY:**
+- ✅ Validierungssystem prüfen (siehe: `docs/NEXIFYAI_MASTER_AUTONOME_AUSFUEHRUNG.md`)
+- ✅ Scripts verfügbar? (`npm run validate:all`, `npm run check:rls`, `npm run master:workflow`)
+- ✅ Credentials konfiguriert? (`.env.local` mit Service Role Key)
+- ✅ Cursor Settings optimiert? (Auto-Load aktiviert)
+- ✅ **NEU:** Master Workflow ausführen (`npm run master:workflow`)
+
+**Vollständige Dokumentation:**
+- ✅ `docs/NEXIFYAI_MASTER_AUTONOME_AUSFUEHRUNG.md` - Autonome Workflows
+- ✅ `docs/NEXIFYAI_MASTER_INTEGRATION.md` - Integration-Status
+- ✅ `docs/NEXIFYAI_MASTER_DOKUMENTATIONS_INDEX.md` - Dokumentations-Index
+- ✅ `docs/NEXIFYAI_MASTER_AUTONOME_KONFIGURATION.md` - Autonome Konfiguration (NEU)
+- ✅ `docs/NEXIFYAI_MASTER_PERFEKTION.md` - Perfektion-Dokumentation (NEU)
+- ✅ `docs/NEXIFYAI_MASTER_FINALE_PERFEKTION.md` - Finale Perfektion (NEU)
+- ✅ `docs/CURSOR_SETTINGS_VOLLSTAENDIG_OPTIMIERT.md` - Cursor Settings (NEU)
+- ✅ `docs/NEXIFYAI_MASTER_VOLLSTAENDIG_OPTIMIERT.md` - Vollständige Optimierung (NEU)
+- ✅ `docs/NEXIFYAI_MASTER_SYSTEM_INTEGRATION.md` - System-Integration (NEU)
+- ✅ `docs/NEXIFYAI_MASTER_VOLLSTAENDIG_INTEGRIERT.md` - Vollständige Integration (NEU)
+- ✅ `docs/NEXIFYAI_MASTER_AUTO_APPROVAL.md` - Auto-Approval Konfiguration (NEU)
+- ✅ `docs/NEXIFYAI_MASTER_VOLLSTAENDIGE_KONFIGURATION.md` - Vollständige Konfiguration (NEU)
+- ✅ `docs/NEXIFYAI_MASTER_VOLLSTAENDIGE_ERWEITERUNG.md` - Vollständige Erweiterung (NEU)
+- ✅ `docs/NEXIFYAI_MASTER_ABSOLUTE_FINALE_PERFEKTION.md` - Absolute Finale Perfektion (NEU)
+- ✅ `scripts/README.md` - Scripts-Dokumentation (NEU)
 
 ---
 
@@ -87,6 +114,26 @@ Lade das NeXify Wiki
 - **Tags:** `security`, `rls`, `database`
 
 **🎯 TARGET:** 0 Critical Issues | **CURRENT:** 4 Critical Issues | **ACTION REQUIRED:** Resolve ALL!
+
+---
+
+## 🚀 PASCAL'S DEPLOYMENT-REGEL (ABSOLUT - IMMER BEACHTEN!)
+
+**Pascal's Anweisung (2025-01-31):**
+> "Wenn ich sage, deploy, dann gilt das immer und ausnahmslos, für alles was bisher noch nicht deployed ist! Es sei denn, ich sage gezielt, lasse 'X' aus."
+
+**Interpretation:**
+- ✅ **"Deploy"** = ALLES deployen, was noch nicht deployed ist (Migrations, Edge Functions, Frontend, Konfigurationen)
+- ✅ **"Deploy ohne X"** = Alles deployen, außer X
+- ✅ Diese Regel ist ABSOLUT und gilt IMMER
+- ✅ Status prüfen: `docs/DEPLOYMENT_STATUS.md`
+- ✅ Regel-Details: `docs/PASCAL_DEPLOYMENT_REGEL.md`
+
+**Bei "Deploy" Befehl:**
+1. ✅ Prüfe `docs/DEPLOYMENT_STATUS.md` für nicht-deployte Items
+2. ✅ Deploye ALLES was nicht deployed ist
+3. ✅ Update Status nach Deployment
+4. ✅ Validierung durchführen
 
 ---
 
@@ -159,10 +206,10 @@ if (!pattern.data) {
 - **Level 3 Errors:** Logic Errors → [Root Cause Analysis](./FEHLERDIAGNOSE_FRAMEWORK_V1.0.md#3-ursachen-mapping)
 
 ### Eskalations-Pfad
-**Level 1 (5 min)** → Auto-Fix versuchen  
-**Level 2 (10 min)** → Known Issues checken  
-**Level 3 (15 min)** → Dependency-Analyse  
-**Level 4 (5 min)** → Rollback aktivieren  
+**Level 1 (5 min)** → Auto-Fix versuchen
+**Level 2 (10 min)** → Known Issues checken
+**Level 3 (15 min)** → Dependency-Analyse
+**Level 4 (5 min)** → Rollback aktivieren
 **Level 5 (30 min)** → Deep Dive + Learning dokumentieren
 
 ### Error Source Hierarchy
@@ -351,48 +398,48 @@ Database Table
 9. ✅ Post-Task Learning Documentation (in DB!)
 
 ### Learning #1: Partial Refactoring = Technical Debt ✅ RESOLVED
-**Problem:** Component-Integration ohne Code-Removal führt zu Technical Debt  
-**Resolution:** Schema extrahiert, Inline-Schema entfernt, DRY-Prinzip erfüllt  
+**Problem:** Component-Integration ohne Code-Removal führt zu Technical Debt
+**Resolution:** Schema extrahiert, Inline-Schema entfernt, DRY-Prinzip erfüllt
 **Lesson Applied:** Schema-Extraktion SOFORT bei Component-Integration!
 
 ### Learning #2: Template Migration funktioniert exzellent
-**Success:** -42% Komplexität, +100% Wartbarkeit  
-**Pattern:** KPICardData[], TableConfig[], ChartConfig[]  
+**Success:** -42% Komplexität, +100% Wartbarkeit
+**Pattern:** KPICardData[], TableConfig[], ChartConfig[]
 **Rollout:** Ready für 36 weitere Dashboard-Seiten
 
 ### Learning #3: Knowledge-Check funktioniert (mit Gap)
-**Success:** DB-Validierung funktioniert  
-**Gap:** Phase 1-5 Learnings fehlten komplett in DB  
+**Success:** DB-Validierung funktioniert
+**Gap:** Phase 1-5 Learnings fehlten komplett in DB
 **Fix:** Nach JEDER Phase SOFORT dokumentieren!
 
 ### Learning #4: Validation Hooks dürfen nicht in Production
-**Problem:** useLayoutStandardsValidator läuft in Prod (~50ms Overhead)  
+**Problem:** useLayoutStandardsValidator läuft in Prod (~50ms Overhead)
 **Solution:** useDevValidation() Wrapper mit import.meta.env.DEV
 
 ### Learning #5: Conditional Hook Calls = React Rules Violation ✅ RESOLVED
-**Problem:** useCallback conditionally called inside JSX onClick  
-**Error:** "Rendered more hooks than during the previous render"  
-**Root Cause:** Hooks MÜSSEN immer in gleicher Reihenfolge aufgerufen werden  
-**Resolution:** Navigation Callbacks zu Component-Scope verschoben  
+**Problem:** useCallback conditionally called inside JSX onClick
+**Error:** "Rendered more hooks than during the previous render"
+**Root Cause:** Hooks MÜSSEN immer in gleicher Reihenfolge aufgerufen werden
+**Resolution:** Navigation Callbacks zu Component-Scope verschoben
 **Lesson Applied:** Callbacks IMMER außerhalb von JSX definieren!
 
 ### Learning #6: Marketing Content Compliance ✅ RESOLVED
-**Problem:** 10 Critical/High Issues wegen falscher Marketing-Aussagen  
-**Issues:** "Über 500 Unternehmen...", "Taxi-Zentralen" vs "Taxiunternehmen"  
-**Resolution:** User Count Mentions entfernt, Branchen-Bezeichnungen korrigiert  
+**Problem:** 10 Critical/High Issues wegen falscher Marketing-Aussagen
+**Issues:** "Über 500 Unternehmen...", "Taxi-Zentralen" vs "Taxiunternehmen"
+**Resolution:** User Count Mentions entfernt, Branchen-Bezeichnungen korrigiert
 **Lesson Applied:** Marketing-Content IMMER gegen Compliance-Richtlinien prüfen!
 
 ### Learning #7: Component Deprecation Requires Full Doc-Sync ✅ APPLIED
-**Problem:** Code änderte Layout, aber 5 Docs zeigten altes System  
-**Resolution:** 5 Docs archiviert, 4 Kern-Docs aktualisiert, Master-Doc erstellt  
+**Problem:** Code änderte Layout, aber 5 Docs zeigten altes System
+**Resolution:** 5 Docs archiviert, 4 Kern-Docs aktualisiert, Master-Doc erstellt
 **Lesson Applied:** Bei Component-Deprecation → SOFORT Docs synchronisieren!
 
 ### Learning #8: Parallel Batch-Fixes sind 5x schneller ✅ APPLIED
-**Success:** 2-3h Sequential | 30min Parallel | Efficiency: 5x  
+**Success:** 2-3h Sequential | 30min Parallel | Efficiency: 5x
 **Lesson Applied:** Bei Batch-Fixes IMMER parallel Tool-Calls nutzen!
 
 ### Learning #9: CHECK CONSTRAINT Migration Planning ✅ APPLIED
-**Problem:** INSERT fehlgeschlagen wegen CHECK CONSTRAINT  
+**Problem:** INSERT fehlgeschlagen wegen CHECK CONSTRAINT
 **Prevention Query:**
 ```sql
 SELECT con.conname, pg_get_constraintdef(con.oid)
@@ -402,25 +449,25 @@ WHERE contype = 'c' AND relname = 'table_name';
 **Lesson Applied:** CHECK CONSTRAINTS validation VOR Migration-Plan!
 
 ### Learning #10: Modulepreload NICHT für Lazy Chunks ✅ APPLIED
-**Problem:** Homepage lud nur via Navigation, NICHT direkter Load  
-**Root Cause:** Modulepreload-Hints zeigten auf Dev-Paths statt Production-Hash  
-**Resolution:** Modulepreload-Hints entfernt, React Router prefetching aktiv  
+**Problem:** Homepage lud nur via Navigation, NICHT direkter Load
+**Root Cause:** Modulepreload-Hints zeigten auf Dev-Paths statt Production-Hash
+**Resolution:** Modulepreload-Hints entfernt, React Router prefetching aktiv
 **Lesson Applied:** Vite-managed dynamic imports IMMER besser als manuelle hints!
 
 ### Learning #11: Layout Conflict Resolution Pattern ✅ APPLIED
-**Problem:** Component renderte eigenes Layout INNERHALB Parent-Layout  
-**Root Cause:** Master.tsx hatte eigenes Padding + MainLayout hatte auch Padding  
-**Resolution:** Master.tsx alle Layout-Wrapper entfernt (-360 LOC)  
+**Problem:** Component renderte eigenes Layout INNERHALB Parent-Layout
+**Root Cause:** Master.tsx hatte eigenes Padding + MainLayout hatte auch Padding
+**Resolution:** Master.tsx alle Layout-Wrapper entfernt (-360 LOC)
 **Lesson Applied:** Single Layout Source Principle - Layout NUR beim Parent!
 
 ### Learning #12: Context Hook Pattern für Cross-Component Communication ✅ APPLIED
-**Problem:** Props können nicht "nach oben" an Parent übergeben werden  
-**Solution:** Context Hook mit Provider-Pattern (useQuickActionsPanel)  
+**Problem:** Props können nicht "nach oben" an Parent übergeben werden
+**Solution:** Context Hook mit Provider-Pattern (useQuickActionsPanel)
 **Lesson Applied:** Context Hook für Child-to-Parent Communication nutzen!
 
 ### Learning #13: Parallel Token Migration Best Practices ✅ APPLIED
-**Problem:** Zwei parallele Token-Systeme führten zu Deployment-Risiken  
-**Resolution:** Alle Components gleichzeitig migriert (All-or-Nothing)  
+**Problem:** Zwei parallele Token-Systeme führten zu Deployment-Risiken
+**Resolution:** Alle Components gleichzeitig migriert (All-or-Nothing)
 **Lesson Applied:** Token-Migration IMMER parallel über ALLE Components!
 
 ---
@@ -462,7 +509,7 @@ WHERE contype = 'c' AND relname = 'table_name';
 ##### V28iPadMockup (V28.5 Update)
 - **Path:** `src/components/hero/V28iPadMockup.tsx`
 - **Purpose:** Premium 3D-Tilted iPad Pro 12.9" Frame
-- **Props:** 
+- **Props:**
   - `children: ReactNode`
   - `tiltDirection?: 'left' | 'right'` (Default: 'left')
 - **Features:** 3D-Transform rotateY(-8deg/8deg), Realistic iPad Frame, 3 Glow-Layers
@@ -512,7 +559,7 @@ WHERE contype = 'c' AND relname = 'table_name';
   ```typescript
   // Parent (MainLayout):
   const { config } = useQuickActionsPanel();
-  
+
   // Child (Dashboard Page):
   const { setConfig } = useQuickActionsPanel();
   useEffect(() => {
@@ -542,8 +589,8 @@ WHERE contype = 'c' AND relname = 'table_name';
 
 ### Professional Minimalism für MyDispatch
 
-> **Version:** 28.1  
-> **Status:** PRODUCTION  
+> **Version:** 28.1
+> **Status:** PRODUCTION
 > **Basis:** Home & Pricing Pages Components
 
 ### Design-Philosophie
@@ -666,7 +713,7 @@ className="text-base text-slate-600 leading-relaxed"
   Jetzt starten
 </V28Button>
 ```
-**Variants:** primary, secondary  
+**Variants:** primary, secondary
 **Sizes:** sm, md, lg
 
 #### V28MarketingSection
@@ -689,8 +736,8 @@ className="text-base text-slate-600 leading-relaxed"
 
 ## 🎨 MASTER DESIGN SYSTEM V32.1 (SYSTEMWEIT!)
 
-**STATUS:** 🔒 SYSTEMWEIT GÜLTIG - ABSOLUTE DESIGN-HIERARCHIE  
-**QUELLE:** Öffentlicher Bereich (Pre-Login)  
+**STATUS:** 🔒 SYSTEMWEIT GÜLTIG - ABSOLUTE DESIGN-HIERARCHIE
+**QUELLE:** Öffentlicher Bereich (Pre-Login)
 **GÜLTIGKEIT:** Gesamtes System (öffentlich + Dashboard + alle Bereiche)
 
 ### DESIGN-HIERARCHIE (ABSOLUT)
@@ -848,7 +895,7 @@ Sidebar Collapsed: Content marginLeft = 384px (AppSidebar 64px + DashboardSideba
 
 ## 🎭 V2.0 DASHBOARD QUICK ACTIONS STANDARD (COMPLETE)
 
-**Status:** ✅ Phase 1-4 COMPLETED  
+**Status:** ✅ Phase 1-4 COMPLETED
 **Ziel:** Einheitliches Quick Actions Panel System für alle 14 Dashboard-Seiten
 
 ### Architektur
@@ -886,7 +933,7 @@ const dashboardKey = 'auftraege';
 
 useEffect(() => {
   const config = dashboardQuickActionsConfig[dashboardKey];
-  
+
   setConfig({
     enabled: true,
     quickActions: config.quickActions.map(action => ({
@@ -908,7 +955,7 @@ useEffect(() => {
       content: <QuickStatsWidget stats={[...]} />,
     },
   });
-  
+
   return () => setConfig(null); // Cleanup!
 }, [setConfig]);
 ```
@@ -917,7 +964,7 @@ useEffect(() => {
 
 ## 🦸 HERO SYSTEM LOCK V32.0 (COMPLETE)
 
-**Status:** ✅ FINAL - GESPERRT  
+**Status:** ✅ FINAL - GESPERRT
 **Version:** 32.0
 
 ### FINALE HERO-STRUKTUR
@@ -935,10 +982,10 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
   title="Haupttitel"
   subtitle="Untertitel"
   description="Beschreibung..."
-  primaryCTA={{ 
-    label: "CTA", 
-    onClick: () => {...}, 
-    icon: Icon 
+  primaryCTA={{
+    label: "CTA",
+    onClick: () => {...},
+    icon: Icon
   }}
   secondaryCTA={{ label: "Sekundär", onClick: () => {...} }}
   // ODER
@@ -957,8 +1004,8 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
 
 ## 🎨 MYDISPATCH MASTER DESIGN SYSTEM (FÜHREND FÜR INTERNE SEITEN)
 
-**Status:** ✅ PRODUCTION-READY  
-**Version:** V32.1  
+**Status:** ✅ PRODUCTION-READY
+**Version:** V32.1
 **Quelle:** `docs/MASTER_DESIGN_SYSTEM_V32.1.md` (549 Zeilen)
 
 ### KERN-PRINZIP
@@ -1147,7 +1194,7 @@ const masterKeywords = [
 ];
 
 const isInternalPage = internalPages.some(f => file.includes(f));
-const isMasterDesignChange = masterKeywords.some(k => 
+const isMasterDesignChange = masterKeywords.some(k =>
   request.toLowerCase().includes(k)
 );
 
@@ -1192,7 +1239,7 @@ const compliance = await checkMasterDesignCompliance([
 
 ### BUTTON-SYSTEM (KRITISCH!)
 
-**Status:** ✅ PRODUCTION-READY  
+**Status:** ✅ PRODUCTION-READY
 **Quelle:** `V28Button.tsx` + `BUTTON_GUIDELINES.md`
 
 #### ABSOLUTE REGEL: Blauer Hintergrund + Weißer Text
@@ -1369,7 +1416,7 @@ Möchtest du Content-Anpassungen (ohne Design-Änderung) durchführen?
 
 ## 🔄 NEXIFY WORKFLOW V19.0.0 (3-PHASEN)
 
-**Status:** ✅ PRODUCTION-READY  
+**Status:** ✅ PRODUCTION-READY
 **Hierarchie:** Untergeordnet zu MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md
 
 ### WORKFLOW-PROMPT (KOPIEREN & EINFÜGEN)
@@ -1892,8 +1939,8 @@ await supabase.functions.invoke('weekly-self-review', {
 
 ## 🤖 AUTOMATISIERUNG & SKRIPTE V3.0
 
-**Status:** ✅ PRODUCTION-READY  
-**Compliance:** 100% Wiki-Konform  
+**Status:** ✅ PRODUCTION-READY
+**Compliance:** 100% Wiki-Konform
 **Quelle:** Phase 1 Master-Automatisierungs-Plan
 
 ---
@@ -2146,11 +2193,16 @@ export const Primary: Story = {
 
 ### Priorität 1 (IMMER bei Session-Start):
 1. ✅ `docs/NEXIFY_WIKI_V1.0.md` (DIESE DATEI!)
-2. ✅ `docs/PROJECT_MEMORY.md` → Projekt-Kontext (V32.5.0 - 205 Zeilen)
-3. ✅ `docs/COMPONENT_REGISTRY.md` → Alle Components (V28.1 - 274 Zeilen)
-4. ✅ `docs/LESSONS_LEARNED.md` → 13 Learnings (V30.0 - 342 Zeilen)
-5. ✅ `docs/DESIGN_SYSTEM_LOCK.md` → V28.1 Mandatory Rules (V32.1 - 359 Zeilen)
-6. ✅ `docs/AUTOMATION_VALIDATION_REPORT_V3.0.md` → Automatisierungs-Status (NEW!)
+2. ✅ `docs/NEXIFYAI_MASTER_AUTONOME_AUSFUEHRUNG.md` (NEU - Autonome Workflows)
+3. ✅ `docs/NEXIFYAI_MASTER_AUTONOME_KONFIGURATION.md` (NEU - Autonome Konfiguration)
+4. ✅ `docs/PROJECT_MEMORY.md` → Projekt-Kontext (V32.5.0 - 205 Zeilen)
+5. ✅ `docs/COMPONENT_REGISTRY.md` → Alle Components (V28.1 - 274 Zeilen)
+6. ✅ `docs/LESSONS_LEARNED.md` → 13 Learnings (V30.0 - 342 Zeilen)
+7. ✅ `docs/DESIGN_SYSTEM_LOCK.md` → V28.1 Mandatory Rules (V32.1 - 359 Zeilen)
+8. ✅ `docs/AUTOMATION_VALIDATION_REPORT_V3.0.md` → Automatisierungs-Status (NEW!)
+9. ✅ `docs/NEXIFYAI_MASTER_INTEGRATION.md` (NEU - Integration-Status)
+10. ✅ `docs/NEXIFYAI_MASTER_DOKUMENTATIONS_INDEX.md` (NEU - Dokumentations-Index)
+11. ✅ `scripts/README.md` (NEU - Scripts-Dokumentation)
 
 ### Priorität 2 (Bei Implementation):
 6. ✅ `docs/DESIGN_SYSTEM_V28.1_COMPLETE.md` → Vollständige Specs (521 Zeilen)
@@ -2213,6 +2265,8 @@ Ich bin NeXify - Der vollautonome, produktions-bereite AI Projekt-Assistent.
 - ✅ No Manual Updates: Alle Änderungen gehen in Datenbank
 - ✅ Autonomous: Ich entwickle eigene Lösungen für wiederkehrende Probleme
 - ✅ 100% Coverage: ALLE Docs ab Tag 1 integriert (4,793 Zeilen)
+- ✅ **NEU:** Validierungs-System: Automatische Validierung aller Checks
+- ✅ **NEU:** 24/7 Verfügbarkeit: Alle Workflows dokumentiert und verfügbar
 
 **Mein Ziel:** Pascal konzentriert sich auf die VISION, ich handle die EXZELLENTE, FEHLERFREIE Ausführung - vollautomatisch, datenbank-gesteuert, produktions-bereit.
 
@@ -2227,7 +2281,9 @@ Ich bin NeXify - Der vollautonome, produktions-bereite AI Projekt-Assistent.
 - ✅ Dashboard Standards: 1/1 (Quick Actions V2.0)
 - ✅ Hero System: 1/1 (Hero Lock V32.0)
 - ✅ Critical Issues: 4/4 dokumentiert
-- ✅ Total Lines: 4,793 Zeilen Documentation
+- ✅ **NEU:** Validierungs-System: Vollständig dokumentiert
+- ✅ **NEU:** Autonome Ausführung: Vollständig dokumentiert
+- ✅ Total Lines: 4,793+ Zeilen Documentation (inkl. neue Dokumentationen)
 
 **Quality:**
 - ✅ Knowledge Graph: Ready for Link Creation (Phase 2.2)
@@ -2239,9 +2295,107 @@ Ich bin NeXify - Der vollautonome, produktions-bereite AI Projekt-Assistent.
 
 ---
 
-**VERSION:** 1.0.0  
-**DATUM:** 2025-01-31  
-**STATUS:** ✅ PRODUCTION-READY - 100% CORE COVERAGE - SELF-SUSTAINING  
+## 🔧 NEXIFYAI MASTER - VALIDIERUNGS-SYSTEM & AUTONOME AUSFÜHRUNG
+
+**Status:** ✅ VOLLSTÄNDIG INTEGRIERT | **Datum:** 2025-01-31
+
+### ⚠️ MANDATORY: Bei jedem Chat-Start prüfen!
+
+1. ✅ **Wiki laden:** `Lade das NeXify Wiki`
+2. ✅ **Master Workflow ausführen:** `npm run master:workflow` (automatisch durch Cursor Settings)
+3. ✅ **Health Check ausführen:** `npm run health:check` (automatisch durch Cursor Settings) (NEU!)
+4. ✅ **Validierung prüfen:** `npm run validate:all`
+5. ✅ **Credentials prüfen:** `.env.local` vorhanden?
+6. ✅ **Scripts verfügbar:** Alle npm Scripts funktional?
+7. ✅ **System Capabilities testen:** `npm run test:capabilities` (optional)
+
+### 📋 Verfügbare Validierungs-Scripts
+
+#### Configuration Check (`npm run check:configuration`) - NEU!
+- Vollständige Konfigurationsprüfung
+- Prüft alle Auto-Approval-Einstellungen
+- Prüft alle Skip-Confirmation-Einstellungen
+- Prüft alle Require-Approval-Einstellungen
+- Prüft alle Yolo-Mode-Einstellungen
+- Detaillierter Konfigurations-Report
+
+#### Health Check (`npm run health:check`) - NEU!
+- Vollständige System-Gesundheitsprüfung
+- Prüft kritische, wichtige und optionale Checks
+- Detaillierter Health Report
+- Exit Code basierend auf kritischen Fehlern
+
+#### Master Workflow (`npm run master:workflow`) - NEU!
+- Führt automatisch alle kritischen und optionalen Checks aus
+- Prüft Wiki-Verfügbarkeit (kritisch)
+- Prüft Credentials (kritisch)
+- Führt TypeScript Check aus (optional)
+- Führt vollständige Validierung aus (optional)
+- Exit Code 0 nur wenn alle kritischen Checks erfolgreich
+
+#### Master Validation (`npm run validate:all`)
+- Führt alle Checks aus (TypeScript, RLS, Deployment)
+- Gibt umfassenden Report
+- Exit Code 0 bei Erfolg/Erwartet, 1 bei echten Fehlern
+
+#### RLS Check (`npm run check:rls`)
+- Prüft Row Level Security Coverage
+- Erkennt erwartete Zustände (RPC-Funktion fehlt)
+- Lädt automatisch Credentials aus `.env.local`
+
+#### Deployment Validation (`npm run validate:deployments`)
+- Prüft alle 9 erwarteten Tabellen
+- Prüft RLS Policies
+- Unterscheidet Fehler/Warnung/Erwartet
+
+#### Git Push Safe (`npm run git:push:safe`)
+- GitHub Push mit Timeout (30s)
+- PowerShell-optimiert
+- Alternative Methoden dokumentiert
+
+### 🔐 Credentials Management
+
+**Datei:** `.env.local` (NIEMALS committen!)
+
+**Projekt-ID:** `ygpwuiygivxoqtyoigtg` (AKTUALISIERT!)
+**URL:** `https://ygpwuiygivxoqtyoigtg.supabase.co`
+
+**Service Role Key:** Muss vorhanden sein für Admin-Zugriff
+
+### 📚 Vollständige Dokumentation
+
+**Siehe:** `docs/NEXIFYAI_MASTER_AUTONOME_AUSFUEHRUNG.md` für:
+- Alle Validierungs-Scripts
+- Git-Workflows
+- Credentials-Management
+- 24/7 Workflows
+- Autonome Ausführung
+
+**Siehe:** `docs/NEXIFYAI_MASTER_INTEGRATION.md` für:
+- Integration-Status
+- Cursor Settings
+- Permanente Speicherung
+
+### ✅ Erfolgs-Kriterien für autonome Ausführung
+
+**MUSS erfüllt sein:**
+- ✅ Wiki verfügbar
+- ✅ Scripts funktional
+- ✅ Credentials konfiguriert
+- ✅ Validierung funktioniert
+- ✅ Dokumentation aktuell
+
+**WARNSIGNALE:**
+- ❌ Wiki nicht geladen
+- ❌ Scripts funktionieren nicht
+- ❌ Credentials fehlen
+- ❌ Validierung schlägt fehl
+
+---
+
+**VERSION:** 1.0.0
+**DATUM:** 2025-01-31
+**STATUS:** ✅ PRODUCTION-READY - 100% CORE COVERAGE - SELF-SUSTAINING
 **NEXT:** Phase 2.2 (Knowledge Graph Links) + Phase 3 (Auto-Sync Pipeline) + Phase 4 (Client Integration)
 
 ---

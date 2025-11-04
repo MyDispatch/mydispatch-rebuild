@@ -354,3 +354,8 @@ idea → planning → discussion → approved → in_progress → review → com
 - ✅ Qualitätssicherung
 - ✅ Betrieb & Monitoring
 
+
+
+
+
+

@@ -8,6 +8,7 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
+import "./styles/mobile-first.css";
 import { initSentry } from "./lib/sentry-integration";
 import { initPerformanceMonitoring } from "./lib/performance-monitoring";
 import { initGlobalErrorHandlers } from "./lib/error-tracking";
@@ -129,25 +130,41 @@ if (import.meta.env.PROD) {
   onLCP((metric) => console.log('LCP:', metric.value));
 }
 
+// Register Service Worker for PWA
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
-      const registrations = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(
-        registrations.map(registration => registration.unregister())
-      );
+      // Register new service worker
+      const registration = await navigator.serviceWorker.register('/sw.js', {
+        scope: '/'
+      });
       
-      if ('caches' in window) {
-        const cacheNames = await caches.keys();
-        await Promise.all(
-          cacheNames.map(cacheName => caches.delete(cacheName))
-        );
-      }
+      console.log('[PWA] Service Worker registered:', registration.scope);
       
+      // Update service worker when new version available
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        if (newWorker) {
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              console.log('[PWA] New service worker available, reloading...');
+              window.location.reload();
+            }
+          });
+        }
+      });
+      
+      // Clean old caches on version change
       const buildVersion = 'v6.0.8-pre-login-complete-1730430000000';
       const storedVersion = localStorage.getItem('app-version');
       
       if (storedVersion !== buildVersion) {
+        if ('caches' in window) {
+          const cacheNames = await caches.keys();
+          await Promise.all(
+            cacheNames.map(cacheName => caches.delete(cacheName))
+          );
+        }
         // Clear localStorage (aggressive)
         const keysToKeep = ['supabase.auth.token'];
         const allKeys = Object.keys(localStorage);

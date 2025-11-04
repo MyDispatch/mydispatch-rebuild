@@ -369,3 +369,8 @@ COMMENT ON TABLE nexify_task_executions IS 'Task-Execution - Einzelne Tasks für
 COMMENT ON TABLE nexify_operational_status IS 'Betrieb & Monitoring - Post-Implementation Status';
 COMMENT ON TABLE nexify_master_sessions IS 'NeXify AI MASTER Session Logs - Alle Interaktionen mit Pascal';
 
+
+
+
+
+

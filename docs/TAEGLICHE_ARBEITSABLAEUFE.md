@@ -497,3 +497,8 @@ npm run test:e2e
 
 **Pascal, alle täglichen Arbeitsabläufe sind dokumentiert!** 🚀
 
+
+
+
+
+

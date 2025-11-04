@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "tavily": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-tavily"
+      ],
+      "env": {
+        "TAVILY_API_KEY": "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"
+      }
+    },
+    "tavily-remote": {
+      "url": "https://mcp.tavily.com/mcp/?tavilyApiKey=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"
+    }
+  }
+}
+

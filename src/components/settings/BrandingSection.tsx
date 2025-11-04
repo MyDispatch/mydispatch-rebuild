@@ -11,6 +11,7 @@ import { Input } from '@/lib/compat';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useSettings } from '@/contexts/SettingsContext';
 import { LogoUpload } from './LogoUpload';
+import { LetterheadUpload } from './LetterheadUpload';
 import { Info } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { V28Button } from '@/components/design-system/V28Button';
@@ -38,6 +39,15 @@ export function BrandingSection() {
               companyId={companyData.id}
               currentLogoUrl={companyData.logo_url || undefined}
               onUploadComplete={(url) => setCompanyData({ ...companyData, logo_url: url })}
+            />
+          </div>
+
+          {/* Briefpapier-Upload */}
+          <div className="space-y-2">
+            <LetterheadUpload
+              companyId={companyData.id}
+              currentLetterheadUrl={companyData.letterhead_url || undefined}
+              onUploadComplete={(url) => setCompanyData({ ...companyData, letterhead_url: url })}
             />
           </div>
 

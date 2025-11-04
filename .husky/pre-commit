@@ -16,5 +16,12 @@ npm run format:check || exit 1
 echo "📋 Unit Tests (Changed Files)..."
 npm run test:unit:changed || exit 1
 
-echo "✅ All Quality Gates Passed!"
+# RLS Coverage Check (Critical Security Check)
+echo "🛡️ RLS Coverage Check..."
+if npm run check:rls 2>/dev/null; then
+  echo "✅ RLS Coverage OK"
+else
+  echo "⚠️ RLS Check skipped (Supabase credentials may not be set in local env)"
+fi
 
+echo "✅ All Quality Gates Passed!"

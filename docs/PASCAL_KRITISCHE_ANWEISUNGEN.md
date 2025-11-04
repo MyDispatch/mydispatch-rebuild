@@ -125,3 +125,8 @@ Ich sollte:
 
 **Pascal, diese Anweisungen sind jetzt ABSOLUTE VORGABE für alle meine Arbeiten!** ✅
 
+
+
+
+
+

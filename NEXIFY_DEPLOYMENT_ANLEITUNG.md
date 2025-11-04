@@ -173,3 +173,8 @@ supabase functions list
 
 **Pascal, alle Fixes sind implementiert und bereit für Deployment!** 🚀
 
+
+
+
+
+

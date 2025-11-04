@@ -13,6 +13,8 @@ import { formatCurrency } from '@/lib/format-utils';
 import { SwipeableBookingCard } from '@/components/driver/SwipeableBookingCard';
 import { isOnline, setupOfflineListener } from '@/lib/offline-manager';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
+import { handleError } from '@/lib/error-handler';
 
 export default function DriverDashboard() {
   const [isDriverOnline, setIsDriverOnline] = useState(false);
@@ -71,14 +73,44 @@ export default function DriverDashboard() {
     return cleanup;
   }, []);
 
-  const handleAcceptBooking = (bookingId: string) => {
-    toast.success('Auftrag angenommen');
-    // TODO: Supabase update
+  const handleAcceptBooking = async (bookingId: string) => {
+    try {
+      const { error } = await supabase
+        .from('bookings')
+        .update({ 
+          status: 'accepted',
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', bookingId);
+
+      if (error) throw error;
+
+      toast.success('Auftrag angenommen');
+      // Optionally reload bookings or update local state
+    } catch (error) {
+      handleError(error, 'Fehler beim Annehmen des Auftrags');
+      toast.error('Auftrag konnte nicht angenommen werden');
+    }
   };
 
-  const handleDeclineBooking = (bookingId: string) => {
-    toast.info('Auftrag abgelehnt');
-    // TODO: Supabase update
+  const handleDeclineBooking = async (bookingId: string) => {
+    try {
+      const { error } = await supabase
+        .from('bookings')
+        .update({ 
+          status: 'declined',
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', bookingId);
+
+      if (error) throw error;
+
+      toast.info('Auftrag abgelehnt');
+      // Optionally reload bookings or update local state
+    } catch (error) {
+      handleError(error, 'Fehler beim Ablehnen des Auftrags');
+      toast.error('Auftrag konnte nicht abgelehnt werden');
+    }
   };
 
   return (

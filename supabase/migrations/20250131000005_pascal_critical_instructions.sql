@@ -134,3 +134,8 @@ ON CONFLICT (agent_id, memory_key) DO UPDATE SET
 -- Kommentar
 COMMENT ON TABLE nexify_master_memory IS 'Pascal''s kritische Anweisungen sind in Master Memory gespeichert mit importance_score = 1.0';
 
+
+
+
+
+

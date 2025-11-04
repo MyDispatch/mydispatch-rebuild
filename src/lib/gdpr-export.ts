@@ -66,8 +66,13 @@ export const exportCustomerData = async (
       return exportData;
     }
 
-    // 6. If PDF, generate PDF (TODO: Implement PDF generation)
-    // For now, return JSON
+    // 6. If PDF, generate PDF (using jsPDF)
+    if (format === 'PDF') {
+      // PDF generation will be handled by Edge Function
+      // For now, return JSON (PDF will be sent via email)
+      return exportData;
+    }
+
     return exportData;
   } catch (error) {
     console.error('Customer data export failed:', error);
@@ -90,6 +95,34 @@ export const downloadDataExport = (data: CustomerDataExport, filename: string = 
   link.click();
   document.body.removeChild(link);
   URL.revokeObjectURL(url);
+};
+
+/**
+ * Send Data Export via Email (DSGVO Art. 15)
+ */
+export const sendDataExportEmail = async (
+  customerId: string,
+  companyId: string,
+  format: 'JSON' | 'PDF' = 'JSON',
+  recipientEmail?: string
+): Promise<boolean> => {
+  try {
+    const { data, error } = await supabase.functions.invoke('send-data-export', {
+      body: {
+        customer_id: customerId,
+        company_id: companyId,
+        format,
+        recipient_email: recipientEmail,
+      },
+    });
+
+    if (error) throw error;
+
+    return data?.success === true;
+  } catch (error) {
+    console.error('Send data export email failed:', error);
+    return false;
+  }
 };
 
 /**

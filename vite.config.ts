@@ -16,8 +16,8 @@ export default defineConfig({
   
   build: {
     target: 'esnext',
-    minify: false, // NO MINIFICATION
-    cssCodeSplit: false,
+    minify: 'terser', // PRODUCTION MINIFICATION
+    cssCodeSplit: true,
     sourcemap: true,
     
     rollupOptions: {

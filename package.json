@@ -26,7 +26,17 @@
     "test:e2e:headed": "playwright test --headed",
     "test:all": "npm run test:unit && npm run test:e2e",
     "quality:check": "npm run type-check && npm run lint && npm run format:check && npm run test:unit",
-    "quality:full": "npm run quality:check && npm run test:e2e && npm run build"
+    "quality:full": "npm run quality:check && npm run test:e2e && npm run build",
+    "check:rls": "node scripts/check-rls-coverage.js",
+    "git:push:safe": "node scripts/git-push-safe.js",
+    "validate:deployments": "node scripts/validate-deployments.js",
+    "validate:all": "node scripts/validate-all.js",
+    "master:workflow": "node scripts/master-workflow.js",
+    "auto:init": "node scripts/auto-init.js",
+    "test:supabase": "node scripts/test-supabase-connection.js",
+    "test:capabilities": "node scripts/test-system-capabilities.js",
+    "health:check": "node scripts/health-check.js",
+    "check:configuration": "node scripts/check-configuration.js"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.11.0",
@@ -135,6 +145,7 @@
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
-    "vite": "^5.4.19"
+    "vite": "^5.4.19",
+    "dotenv": "^16.4.5"
   }
 }
