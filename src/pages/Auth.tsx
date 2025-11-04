@@ -7,8 +7,8 @@
    VERBOTEN: Design-Änderungen, Layout-Anpassungen, neue UI-Features
    MOBILE-FIRST: Touch-Targets ≥48px, Responsive Breakpoints (sm/md/lg)
    LETZTE FREIGABE: 2025-01-30
-   ================================================================================== 
-   
+   ==================================================================================
+
    AUTH PAGE V28.1 - PROFESSIONAL MINIMALISM
    ==================================================================================
    ✅ MarketingLayout (Header & Footer integriert!)
@@ -111,11 +111,11 @@ export default function Auth() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  
+
   // Company Context for Branding
   const companySlug = searchParams.get('company');
   const { data: tenantCompany } = usePublicCompany(companySlug, null);
-  
+
   const [loading, setLoading] = useState(false);
   const [selectedTariff, setSelectedTariff] = useState<'starter' | 'business'>('starter');
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
@@ -179,11 +179,11 @@ export default function Auth() {
       // Normalize email (trim and lowercase)
       const normalizedEmail = email.toLowerCase().trim();
 
-      logger.debug('[Auth] Login attempt', { 
-        email: normalizedEmail, 
+      logger.debug('[Auth] Login attempt', {
+        email: normalizedEmail,
         emailLength: normalizedEmail.length,
         passwordLength: password.length,
-        component: 'Auth' 
+        component: 'Auth'
       });
 
       // Try login with Supabase Auth
@@ -193,16 +193,16 @@ export default function Auth() {
       });
 
       if (error) {
-        logger.error('[Auth] Login error', error, { 
+        logger.error('[Auth] Login error', error, {
           email: normalizedEmail,
           errorCode: error.status,
           errorMessage: error.message,
-          component: 'Auth' 
+          component: 'Auth'
         });
-        
+
         // Detailed error message
         let errorMessage = error.message || 'Ungültige Anmeldedaten';
-        
+
         if (error.message?.includes('Invalid login credentials')) {
           errorMessage = 'E-Mail-Adresse oder Passwort ist falsch. Bitte prüfen Sie Ihre Eingaben oder setzen Sie Ihr Passwort zurück.';
         } else if (error.message?.includes('Email not confirmed')) {
@@ -210,26 +210,26 @@ export default function Auth() {
         } else if (error.message?.includes('User not found')) {
           errorMessage = 'Dieser Account existiert nicht. Bitte registrieren Sie sich zuerst.';
         }
-        
+
         throw new Error(errorMessage);
       }
 
       if (!data || !data.user) {
-        logger.error('[Auth] No user data returned', new Error('No user data'), { 
+        logger.error('[Auth] No user data returned', new Error('No user data'), {
           email: normalizedEmail,
-          component: 'Auth' 
+          component: 'Auth'
         });
         throw new Error('Login fehlgeschlagen - Keine Benutzerdaten erhalten');
       }
 
       const userData = data;
-      logger.debug('[Auth] Login successful', { 
+      logger.debug('[Auth] Login successful', {
         userId: userData.user.id,
         email: userData.user.email,
         emailConfirmed: userData.user.email_confirmed_at,
-        component: 'Auth' 
+        component: 'Auth'
       });
-      
+
       // Check if user has profile
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
@@ -238,24 +238,24 @@ export default function Auth() {
         .maybeSingle();
 
       if (profileError) {
-        logger.warn('[Auth] Profile query error', profileError, { 
+        logger.warn('[Auth] Profile query error', profileError, {
           userId: userData.user.id,
-          component: 'Auth' 
+          component: 'Auth'
         });
       }
 
-      logger.debug('[Auth] Profile-Check', { 
-        found: !!profile, 
+      logger.debug('[Auth] Profile-Check', {
+        found: !!profile,
         userId: userData.user.id,
-        component: 'Auth' 
+        component: 'Auth'
       });
-      
+
       if (profile) {
-        logger.debug('[Auth] Profile Data', { 
-          user_id: profile.user_id, 
+        logger.debug('[Auth] Profile Data', {
+          user_id: profile.user_id,
           company_id: profile.company_id,
           role: profile.role,
-          component: 'Auth' 
+          component: 'Auth'
         });
           // ==================================================================================
           // KRITISCH: Master-Zugang für courbois1981@gmail.com
@@ -268,10 +268,12 @@ export default function Auth() {
             .eq('role', 'master')
             .maybeSingle();
 
-          // Master-Zugang-Check (nur courbois1981@gmail.com)
+          // Master-Zugang-Check (Pascal und andere Master-User)
           const normalizedEmailForCheck = (email || '').toLowerCase().trim();
-          const isMaster = userRoles?.role === 'master' || 
-                          profile.role === 'master' || 
+          const isMaster = userRoles?.role === 'master' ||
+                          profile.role === 'master' ||
+                          normalizedEmailForCheck === 'pascal@nexify.ai' ||
+                          normalizedEmailForCheck === 'master@nexify.ai' ||
                           normalizedEmailForCheck === 'courbois1981@gmail.com';
 
           if (isMaster) {
@@ -288,7 +290,7 @@ export default function Auth() {
             navigate(`/${landingSlug}`);
             return;
           }
-          
+
           // Otherwise: Use standard redirect logic
           const redirectRoute = getLoginRedirectRoute('entrepreneur', searchParams);
           logger.debug('[Auth] Navigation', { redirectRoute, component: 'Auth' });
@@ -314,36 +316,36 @@ export default function Auth() {
         }
 
       // Kein Profil oder Customer gefunden
-      logger.error('[Auth] Kein Profile oder Customer gefunden', new Error('No access found'), { 
+      logger.error('[Auth] Kein Profile oder Customer gefunden', new Error('No access found'), {
         email: normalizedEmail,
         userId: userData.user.id,
-        component: 'Auth' 
+        component: 'Auth'
       });
-      
+
       toast({
         title: 'Kein Zugang gefunden',
         description: 'Für diesen Account existiert kein Profil. Bitte kontaktiere den Support oder erstelle ein neues Profil.',
         variant: 'destructive',
       });
-      
+
       // Sign out user if no profile found (to avoid confusion)
       await supabase.auth.signOut();
     } catch (error: any) {
-      logger.error('[Auth] Login failed', error, { 
+      logger.error('[Auth] Login failed', error, {
         email: email,
-        component: 'Auth' 
+        component: 'Auth'
       });
-      
+
       // Show detailed error message
       const errorMessage = error.message || 'Ungültige Anmeldedaten';
-      
+
       toast({
         title: 'Login fehlgeschlagen',
         description: errorMessage,
         variant: 'destructive',
         duration: 5000, // Show longer for debugging
       });
-      
+
       // If invalid credentials, suggest password reset
       if (errorMessage.includes('falsch') || errorMessage.includes('Invalid login credentials')) {
         // Optionally show password reset hint
@@ -454,12 +456,12 @@ export default function Auth() {
       // 5. Create Stripe Checkout (if payment required)
       const tariff = TARIFFS[selectedTariff];
       const checkoutUrl = `/api/stripe/checkout?price_id=${tariff.priceId}&email=${encodeURIComponent(signupData.email)}`;
-      
+
       toast({
         title: 'Registrierung erfolgreich',
         description: 'Eine Bestätigungs-E-Mail wurde gesendet. Bitte prüfen Sie Ihr Postfach.',
       });
-      
+
       // Navigate to dashboard after successful registration
       setTimeout(() => {
         navigate('/dashboard');
@@ -534,8 +536,8 @@ export default function Auth() {
             {/* Company Logo (wenn von Landing) */}
             {tenantCompany && tenantCompany.logo_url && (
               <div className="flex items-center justify-center mb-6">
-                <img 
-                  src={tenantCompany.logo_url} 
+                <img
+                  src={tenantCompany.logo_url}
                   alt={tenantCompany.name}
                   className="h-12 object-contain"
                 />
@@ -545,7 +547,7 @@ export default function Auth() {
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               {/* Tabs Navigation - Mobile-First Touch-Friendly */}
               <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 bg-slate-100 border-slate-200 gap-0 z-40 relative">
-                <TabsTrigger 
+                <TabsTrigger
                   value="login"
                   className="min-h-[52px] text-sm sm:text-base px-3 sm:px-4 py-3 data-[state=active]:bg-slate-700 data-[state=active]:text-white data-[state=inactive]:hover:bg-slate-200"
                   style={activeTab === 'login' && tenantCompany?.primary_color ? {
@@ -554,7 +556,7 @@ export default function Auth() {
                 >
                   Login
                 </TabsTrigger>
-                <TabsTrigger 
+                <TabsTrigger
                   value="signup"
                   className="min-h-[52px] text-sm sm:text-base px-3 sm:px-4 py-3 data-[state=active]:bg-slate-700 data-[state=active]:text-white data-[state=inactive]:hover:bg-slate-200"
                   style={activeTab === 'signup' && tenantCompany?.primary_color ? {
@@ -563,7 +565,7 @@ export default function Auth() {
                 >
                   Registrierung
                 </TabsTrigger>
-                <TabsTrigger 
+                <TabsTrigger
                   value="reset"
                   className="min-h-[52px] text-xs sm:text-base px-2 sm:px-4 py-3 leading-tight data-[state=active]:bg-slate-700 data-[state=active]:text-white data-[state=inactive]:hover:bg-slate-200"
                   style={activeTab === 'reset' && tenantCompany?.primary_color ? {
@@ -651,7 +653,7 @@ export default function Auth() {
                       <h2 className="text-lg sm:text-xl font-semibold text-slate-900 mb-3 sm:mb-4">
                         1. Tarif wählen
                       </h2>
-                      
+
                       {/* Billing Period Toggle */}
                       <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 py-3">
                         <span className={cn(
@@ -706,11 +708,11 @@ export default function Auth() {
 
                       {/* Fleet & Driver Add-On (nur bei Starter) */}
                       {selectedTariff === 'starter' && (
-                        <div 
+                        <div
                           className={cn(
                             "mt-6 relative overflow-hidden rounded-2xl border-2 transition-all duration-300 group",
-                            fleetAddonEnabled 
-                              ? "border-slate-400 bg-slate-50 shadow-lg" 
+                            fleetAddonEnabled
+                              ? "border-slate-400 bg-slate-50 shadow-lg"
                               : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-md"
                           )}
                         >
@@ -728,8 +730,8 @@ export default function Auth() {
                           <div className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 p-4 sm:p-6">
                             {/* Icon/Image */}
                             <div className="shrink-0">
-                              <img 
-                                src={fleetDriverIcon} 
+                              <img
+                                src={fleetDriverIcon}
                                 alt="Fleet & Driver Extension"
                                 className="w-16 h-16 sm:w-20 sm:h-20 object-contain"
                               />
@@ -743,7 +745,7 @@ export default function Auth() {
                                 </h3>
                                 <V28Badge variant="primary" className="shrink-0">Empfohlen</V28Badge>
                               </div>
-                              
+
                               <p className="text-sm text-slate-600 mb-3 leading-relaxed">
                                 {FLEET_ADDON.description}
                               </p>

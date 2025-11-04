@@ -9,6 +9,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import "./styles/mobile-first.css";
+import "./styles/mobile-optimized.css";
 import { initSentry } from "./lib/sentry-integration";
 import { initPerformanceMonitoring } from "./lib/performance-monitoring";
 import { initGlobalErrorHandlers } from "./lib/error-tracking";
@@ -45,17 +46,17 @@ try {
 // V6.0.4: CHUNK LOAD ERROR HANDLER - Robust fallback for failed chunk loads
 window.addEventListener('error', (event: ErrorEvent) => {
   const errorMsg = event.message || '';
-  
+
   if (
     errorMsg.includes('Failed to fetch dynamically imported module') ||
     errorMsg.includes('Importing a module script failed')
   ) {
     console.warn('⚠️ Chunk load failed - clearing caches and reloading...', event);
-    
+
     // Special handling for critical Home-Sections
     if (errorMsg.includes('HomeHeroSection') || errorMsg.includes('app-home-sections')) {
       console.error('❌ CRITICAL: Home-Section failed to load!');
-      
+
       // Show user-friendly error overlay
       const errorDiv = document.createElement('div');
       errorDiv.innerHTML = `
@@ -78,8 +79,8 @@ window.addEventListener('error', (event: ErrorEvent) => {
           <p style="margin-bottom: 24px; color: #666;">
             Bitte warten Sie einen Moment.
           </p>
-          <button 
-            onclick="location.reload()" 
+          <button
+            onclick="location.reload()"
             style="
               background: #475569;
               color: white;
@@ -95,12 +96,12 @@ window.addEventListener('error', (event: ErrorEvent) => {
         </div>
       `;
       document.body.appendChild(errorDiv);
-      
+
       // Auto-reload after 3 seconds
       setTimeout(() => location.reload(), 3000);
       return;
     }
-    
+
     // Default cache clearing and reload for other chunks
     if ('caches' in window) {
       caches.keys().then(names => {
@@ -138,9 +139,9 @@ if ('serviceWorker' in navigator) {
       const registration = await navigator.serviceWorker.register('/sw.js', {
         scope: '/'
       });
-      
+
       console.log('[PWA] Service Worker registered:', registration.scope);
-      
+
       // Update service worker when new version available
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
@@ -153,11 +154,11 @@ if ('serviceWorker' in navigator) {
           });
         }
       });
-      
+
       // Clean old caches on version change
       const buildVersion = 'v6.0.8-pre-login-complete-1730430000000';
       const storedVersion = localStorage.getItem('app-version');
-      
+
       if (storedVersion !== buildVersion) {
         if ('caches' in window) {
           const cacheNames = await caches.keys();
@@ -173,17 +174,17 @@ if ('serviceWorker' in navigator) {
             localStorage.removeItem(key);
           }
         });
-        
+
         // Clear sessionStorage
         sessionStorage.clear();
-        
+
         // Clear all cookies (except essential)
         document.cookie.split(";").forEach((c) => {
           document.cookie = c
             .replace(/^ +/, "")
             .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         });
-        
+
         localStorage.setItem('app-version', buildVersion);
         window.location.reload();
       }
