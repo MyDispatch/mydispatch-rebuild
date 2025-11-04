@@ -36,7 +36,10 @@
     "test:supabase": "node scripts/test-supabase-connection.js",
     "test:capabilities": "node scripts/test-system-capabilities.js",
     "health:check": "node scripts/health-check.js",
-    "check:configuration": "node scripts/check-configuration.js"
+    "check:configuration": "node scripts/check-configuration.js",
+    "deploy:complete": "node scripts/deploy-complete-system.js",
+    "deploy:migrations": "supabase db push",
+    "deploy:functions": "supabase functions deploy"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.11.0",
