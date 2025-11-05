@@ -16,7 +16,7 @@ interface ErrorLog {
   error_stack?: string;
   error_category: string;
   severity: 'low' | 'medium' | 'high' | 'critical';
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
   component?: string;
   url?: string;
 }
@@ -26,7 +26,7 @@ interface LearningPattern {
   learnings: string;
   success: boolean;
   confidence: number;
-  context?: Record<string, any>;
+  context?: Record<string, unknown>;
 }
 
 interface UseErrorLoggingReturn {

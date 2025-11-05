@@ -42,7 +42,7 @@ export function useHeroImageGenerator() {
       });
 
       return data;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       logger.error('[useHeroImageGenerator] Error', error, { 
         component: 'useHeroImageGenerator',
         page: options.page 

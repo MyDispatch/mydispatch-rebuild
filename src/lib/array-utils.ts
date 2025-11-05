@@ -29,7 +29,7 @@ export function compact<T>(array: (T | null | undefined | false | '' | 0)[]): T[
   return array.filter(Boolean) as T[];
 }
 
-export function filterByKeys<T extends Record<string, any>>(
+export function filterByKeys<T extends Record<string, unknown>>(
   array: T[],
   searchTerm: string,
   keys: (keyof T)[]

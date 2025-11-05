@@ -11,8 +11,8 @@ import { supabase } from '@/integrations/supabase/client';
 
 interface CustomerDataExport {
   personal_data: any;
-  bookings: any[];
-  invoices: any[];
+  bookings: unknown[];
+  invoices: unknown[];
   export_date: string;
   format: 'JSON' | 'PDF';
 }

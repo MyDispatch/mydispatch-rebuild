@@ -4,7 +4,7 @@
    DASHBOARD GENERATOR V6.1
    ==================================================================================
    Automatische Generierung von Dashboard-Pages basierend auf Konfiguration
-   
+
    Features:
    - Auto-generates complete dashboard page
    - Integrates UniversalMasterDashboardTemplate
@@ -13,7 +13,7 @@
    - Creates route configuration
    - Generates Playwright tests
    - Validates against Component Registry
-   
+
    Usage:
    npm run generate:dashboard -- --name="Auftraege" --title="Aufträge" --table="bookings"
    ================================================================================== */
@@ -30,10 +30,10 @@ interface DashboardConfig {
   name: string; // Component name (e.g., "Auftraege")
   title: string; // Display title (e.g., "Aufträge")
   route: string; // Route path (e.g., "/auftraege")
-  
+
   // Data
   supabaseTable: string; // Main table (e.g., "bookings")
-  
+
   // KPIs
   kpis: Array<{
     label: string;
@@ -42,12 +42,12 @@ interface DashboardConfig {
     customQuery?: string; // For custom calculations
     icon: string; // Lucide icon name
   }>;
-  
+
   // Features
   hasQuickActions: boolean;
   hasExport: boolean;
   hasFilters: boolean;
-  
+
   // Related Tables (for JOINs)
   relatedTables?: string[];
 }
@@ -57,7 +57,7 @@ const TEMPLATE = `/* ===========================================================
    ==================================================================================
    Generated: {{TIMESTAMP}}
    Config: {{CONFIG_JSON}}
-   
+
    DO NOT EDIT MANUALLY - Use npm run generate:dashboard to regenerate
    ================================================================================== */
 
@@ -74,34 +74,34 @@ export default function {{NAME}}() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [data, setData] = useState<any[]>([]);
-  
+
   // KPI States
   {{KPI_STATES}}
-  
+
   // Fetch Data
   useEffect(() => {
     if (!profile?.company_id) return;
     fetchData();
   }, [profile?.company_id]);
-  
+
   const fetchData = async () => {
     try {
       setLoading(true);
-      
+
       const { data: fetchedData, error: fetchError } = await supabase
         .from('{{SUPABASE_TABLE}}')
         .select('*')
         .eq('company_id', profile?.company_id)
         .eq('archived', false)
         .order('created_at', { ascending: false });
-      
+
       if (fetchError) throw fetchError;
-      
+
       setData(fetchedData || []);
-      
+
       // Calculate KPIs
       {{KPI_CALCULATIONS}}
-      
+
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Unknown error'));
       console.error('[{{NAME}}] Error:', err);
@@ -109,17 +109,17 @@ export default function {{NAME}}() {
       setLoading(false);
     }
   };
-  
+
   // KPI Configuration
   const kpis: KPIConfig[] = [
     {{KPIS_CONFIG}}
   ];
-  
+
   // Quick Actions
   const quickActions: QuickActionConfig[] = [
     {{QUICK_ACTIONS_CONFIG}}
   ];
-  
+
   return (
     <UniversalMasterDashboardTemplate
       pageTitle="{{TITLE}} - MyDispatch"
@@ -146,7 +146,7 @@ export default function {{NAME}}() {
 
 function generateDashboard(config: DashboardConfig): string {
   const timestamp = new Date().toISOString();
-  
+
   // Extract all icon names
   const allIcons = new Set<string>();
   config.kpis.forEach(kpi => allIcons.add(kpi.icon));
@@ -155,12 +155,12 @@ function generateDashboard(config: DashboardConfig): string {
     allIcons.add('FileDown');
     allIcons.add('Upload');
   }
-  
+
   // Generate KPI States
   const kpiStates = config.kpis
     .map((kpi, i) => `  const [kpi${i}Value, setKpi${i}Value] = useState<number>(0);`)
     .join('\n');
-  
+
   // Generate KPI Calculations
   const kpiCalculations = config.kpis
     .map((kpi, i) => {
@@ -178,7 +178,7 @@ function generateDashboard(config: DashboardConfig): string {
       }
     })
     .join('\n');
-  
+
   // Generate KPIs Config
   const kpisConfig = config.kpis
     .map((kpi, i) => `    {
@@ -187,7 +187,7 @@ function generateDashboard(config: DashboardConfig): string {
       icon: ${kpi.icon},
     }`)
     .join(',\n');
-  
+
   // Generate Quick Actions
   const quickActionsConfig = config.hasQuickActions
     ? `    {
@@ -209,7 +209,7 @@ function generateDashboard(config: DashboardConfig): string {
       tooltip: 'Daten exportieren',
     }`
     : '';
-  
+
   // Generate Export Config
   const exportConfig = config.hasExport
     ? `showExport={true}
@@ -219,7 +219,7 @@ function generateDashboard(config: DashboardConfig): string {
         onExport: (format) => toast.success(\`Export als \${format.toUpperCase()} gestartet\`),
       }}`
     : '';
-  
+
   // Generate Filter Config
   const filterConfig = config.hasFilters
     ? `showFilters={true}
@@ -238,9 +238,9 @@ function generateDashboard(config: DashboardConfig): string {
         ],
       }}`
     : '';
-  
+
   // Replace placeholders
-  let output = TEMPLATE
+  const output = TEMPLATE
     .replace(/{{NAME}}/g, config.name)
     .replace(/{{TITLE}}/g, config.title)
     .replace(/{{TIMESTAMP}}/g, timestamp)
@@ -253,23 +253,23 @@ function generateDashboard(config: DashboardConfig): string {
     .replace(/{{QUICK_ACTIONS_CONFIG}}/g, quickActionsConfig)
     .replace(/{{EXPORT_CONFIG}}/g, exportConfig)
     .replace(/{{FILTER_CONFIG}}/g, filterConfig);
-  
+
   return output;
 }
 
 // CLI Interface
 async function main() {
   const args = process.argv.slice(2);
-  
+
   if (args.length === 0 || args.includes('--help')) {
     console.log(`
 📦 Dashboard Generator V6.1
 
 Usage:
   npm run generate:dashboard -- --config=<path-to-config.json>
-  
+
   OR
-  
+
   npm run generate:dashboard -- --name="Auftraege" --title="Aufträge" --table="bookings"
 
 Options:
@@ -296,9 +296,9 @@ Example Config (dashboard-config.json):
     `);
     return;
   }
-  
+
   let config: DashboardConfig;
-  
+
   // Parse arguments
   const argMap = new Map<string, string>();
   args.forEach(arg => {
@@ -307,7 +307,7 @@ Example Config (dashboard-config.json):
       argMap.set(key.slice(2), value);
     }
   });
-  
+
   if (argMap.has('config')) {
     // Load from config file
     const configPath = path.resolve(process.cwd(), argMap.get('config')!);
@@ -317,12 +317,12 @@ Example Config (dashboard-config.json):
     const name = argMap.get('name');
     const title = argMap.get('title');
     const table = argMap.get('table');
-    
+
     if (!name || !title || !table) {
       console.error('❌ Error: --name, --title, and --table are required');
       process.exit(1);
     }
-    
+
     config = {
       name,
       title,
@@ -336,28 +336,28 @@ Example Config (dashboard-config.json):
       hasFilters: false,
     };
   }
-  
+
   console.log('🚀 Generating Dashboard:', config.name);
-  
+
   // Generate dashboard code
   const dashboardCode = generateDashboard(config);
-  
+
   // Write to file
   const outputPath = path.resolve(
     __dirname,
     '../src/pages',
     `${config.name}.tsx`
   );
-  
+
   fs.writeFileSync(outputPath, dashboardCode, 'utf-8');
-  
+
   console.log(`✅ Dashboard generated: ${outputPath}`);
   console.log(`📝 Route: ${config.route}`);
   console.log(`📊 KPIs: ${config.kpis.length}`);
   console.log(`🎬 Quick Actions: ${config.hasQuickActions ? 'Yes' : 'No'}`);
   console.log(`📤 Export: ${config.hasExport ? 'Yes' : 'No'}`);
   console.log(`🔍 Filters: ${config.hasFilters ? 'Yes' : 'No'}`);
-  
+
   console.log('\n⚠️  TODO:');
   console.log('  1. Add route to src/App.tsx');
   console.log('  2. Add to sidebar navigation');

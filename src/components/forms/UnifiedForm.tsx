@@ -44,7 +44,7 @@ export interface FieldGroup {
   label: string;
   fields: string[]; // Field names
   component?: React.ComponentType<any>; // Custom group component (e.g. AddressInput)
-  props?: Record<string, any>; // Props for custom component
+  props?: Record<string, unknown>; // Props for custom component
   gridSpan?: 1 | 2;
 }
 
@@ -58,7 +58,7 @@ export interface InlineAction {
 interface UnifiedFormProps {
   form: UseFormReturn<any>;
   fields: FormField[];
-  onSubmit: (data: any) => Promise<void>;
+  onSubmit: (data: unknown) => Promise<void>;
   submitLabel?: string;
   cancelLabel?: string;
   onCancel?: () => void;
@@ -180,7 +180,7 @@ export function UnifiedForm({
   };
 
   // Enhanced Submit Handler mit Success-Handling
-  const handleFormSubmit = async (data: any) => {
+  const handleFormSubmit = async (data: unknown) => {
     setIsSubmitting(true);
     try {
       await onSubmit(data);

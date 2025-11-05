@@ -10,7 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 interface QueryOptions {
   table: string;
   columns?: string;
-  filters?: Record<string, any>;
+  filters?: Record<string, unknown>;
   limit?: number;
 }
 
@@ -75,7 +75,7 @@ export function useDbQueryAgent() {
       };
       setResult(successResult);
       return successResult;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       const errorResult = {
         data: null,
         error: error.message || 'Unbekannter Fehler',

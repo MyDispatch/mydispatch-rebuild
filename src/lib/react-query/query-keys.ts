@@ -16,7 +16,7 @@ export const queryKeys = {
   bookings: {
     all: ['bookings'] as const,
     lists: () => [...queryKeys.bookings.all, 'list'] as const,
-    list: (filters?: Record<string, any>) => 
+    list: (filters?: Record<string, unknown>) => 
       [...queryKeys.bookings.lists(), { filters }] as const,
     details: () => [...queryKeys.bookings.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.bookings.details(), id] as const,
@@ -26,7 +26,7 @@ export const queryKeys = {
   drivers: {
     all: ['drivers'] as const,
     lists: () => [...queryKeys.drivers.all, 'list'] as const,
-    list: (filters?: Record<string, any>) => 
+    list: (filters?: Record<string, unknown>) => 
       [...queryKeys.drivers.lists(), { filters }] as const,
     details: () => [...queryKeys.drivers.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.drivers.details(), id] as const,
@@ -36,7 +36,7 @@ export const queryKeys = {
   vehicles: {
     all: ['vehicles'] as const,
     lists: () => [...queryKeys.vehicles.all, 'list'] as const,
-    list: (filters?: Record<string, any>) => 
+    list: (filters?: Record<string, unknown>) => 
       [...queryKeys.vehicles.lists(), { filters }] as const,
     details: () => [...queryKeys.vehicles.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.vehicles.details(), id] as const,
@@ -46,7 +46,7 @@ export const queryKeys = {
   customers: {
     all: ['customers'] as const,
     lists: () => [...queryKeys.customers.all, 'list'] as const,
-    list: (filters?: Record<string, any>) => 
+    list: (filters?: Record<string, unknown>) => 
       [...queryKeys.customers.lists(), { filters }] as const,
     details: () => [...queryKeys.customers.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.customers.details(), id] as const,
@@ -56,7 +56,7 @@ export const queryKeys = {
   invoices: {
     all: ['invoices'] as const,
     lists: () => [...queryKeys.invoices.all, 'list'] as const,
-    list: (filters?: Record<string, any>) => 
+    list: (filters?: Record<string, unknown>) => 
       [...queryKeys.invoices.lists(), { filters }] as const,
     details: () => [...queryKeys.invoices.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.invoices.details(), id] as const,
@@ -66,7 +66,7 @@ export const queryKeys = {
   partners: {
     all: ['partners'] as const,
     lists: () => [...queryKeys.partners.all, 'list'] as const,
-    list: (filters?: Record<string, any>) => 
+    list: (filters?: Record<string, unknown>) => 
       [...queryKeys.partners.lists(), { filters }] as const,
     details: () => [...queryKeys.partners.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.partners.details(), id] as const,
@@ -76,7 +76,7 @@ export const queryKeys = {
   costCenters: {
     all: ['cost_centers'] as const,
     lists: () => [...queryKeys.costCenters.all, 'list'] as const,
-    list: (filters?: Record<string, any>) => 
+    list: (filters?: Record<string, unknown>) => 
       [...queryKeys.costCenters.lists(), { filters }] as const,
     details: () => [...queryKeys.costCenters.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.costCenters.details(), id] as const,
@@ -86,7 +86,7 @@ export const queryKeys = {
   shifts: {
     all: ['shifts'] as const,
     lists: () => [...queryKeys.shifts.all, 'list'] as const,
-    list: (filters?: Record<string, any>) => 
+    list: (filters?: Record<string, unknown>) => 
       [...queryKeys.shifts.lists(), { filters }] as const,
     details: () => [...queryKeys.shifts.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.shifts.details(), id] as const,
@@ -96,7 +96,7 @@ export const queryKeys = {
   documents: {
     all: ['documents'] as const,
     lists: () => [...queryKeys.documents.all, 'list'] as const,
-    list: (filters?: Record<string, any>) => 
+    list: (filters?: Record<string, unknown>) => 
       [...queryKeys.documents.lists(), { filters }] as const,
     details: () => [...queryKeys.documents.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.documents.details(), id] as const,
@@ -154,7 +154,7 @@ export const queryKeys = {
   // Audit Logs (NEW)
   auditLogs: {
     all: ['audit-logs'] as const,
-    list: (filters?: Record<string, any>) => 
+    list: (filters?: Record<string, unknown>) => 
       [...queryKeys.auditLogs.all, 'list', { filters }] as const,
   },
 

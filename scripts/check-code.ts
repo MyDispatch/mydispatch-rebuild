@@ -6,12 +6,12 @@
    - Lokale Code-Prüfung via Claude 4.5
    - CI/CD Integration (GitHub Actions)
    - Exit-Code für Pipeline-Steuerung
-   
+
    📊 USAGE:
    - npm run check:code [files...]
    - npm run check:db
    - npm run check:full
-   
+
    🔐 REQUIREMENTS:
    - SUPABASE_URL (env)
    - SUPABASE_SERVICE_ROLE_KEY (env)
@@ -53,7 +53,7 @@ async function checkCode(files?: string[]): Promise<CheckResult> {
   console.log('🔍 Running Code Check...');
 
   let codeContent = '';
-  
+
   if (files && files.length > 0) {
     // Read specific files
     for (const file of files) {
@@ -72,7 +72,7 @@ async function checkCode(files?: string[]): Promise<CheckResult> {
       'src/components/checker/CodeCheckerTrigger.tsx',
       'src/hooks/use-auto-healer.tsx',
     ];
-    
+
     for (const file of keyFiles) {
       const filePath = path.resolve(process.cwd(), file);
       if (fs.existsSync(filePath)) {
@@ -148,14 +148,14 @@ function printResults(result: CheckResult): number {
   console.log('\n' + '='.repeat(60));
   console.log('📊 CHECK RESULTS');
   console.log('='.repeat(60));
-  
+
   if (result.issuesFound === 0) {
     console.log('✅ No issues found! Code quality is excellent.');
     return 0;
   }
 
   console.log(`\n⚠️  Found ${result.issuesFound} issues\n`);
-  
+
   if (result.summary) {
     console.log('📝 Summary:');
     console.log(result.summary);
@@ -163,7 +163,7 @@ function printResults(result: CheckResult): number {
 
   if (result.data?.issues && result.data.issues.length > 0) {
     console.log('\n🔍 Top Issues:\n');
-    
+
     const topIssues = result.data.issues.slice(0, 5);
     topIssues.forEach((issue, idx) => {
       console.log(`${idx + 1}. [${issue.severity.toUpperCase()}] ${issue.type}`);
@@ -184,7 +184,7 @@ function printResults(result: CheckResult): number {
   console.log(`\n📋 Report ID: ${result.reportId}\n`);
 
   // Exit code based on severity
-  const hasCritical = result.data?.issues.some(i => 
+  const hasCritical = result.data?.issues.some(i =>
     i.severity === 'critical' || i.severity === 'high'
   );
 
@@ -206,19 +206,22 @@ async function main() {
 
   switch (command) {
     case 'db':
-    case 'database':
+    case 'database': {
       result = await checkDatabase();
       break;
-    
-    case 'full':
+    }
+
+    case 'full': {
       result = await checkFull();
       break;
-    
+    }
+
     case 'code':
-    default:
+    default: {
       const files = command === 'code' ? args.slice(1) : args;
       result = await checkCode(files.length > 0 ? files : undefined);
       break;
+    }
   }
 
   const exitCode = printResults(result);

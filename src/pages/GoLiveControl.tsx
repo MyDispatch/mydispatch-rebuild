@@ -106,7 +106,7 @@ export default function GoLiveControl() {
         });
       }
 
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       clearInterval(pollInterval);
       logger.error('[Go-Live] Execution failed', error, { component: 'GoLiveControl' });
       toast({

@@ -12,7 +12,7 @@ import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 
 interface AuthFormProps {
   form: UseFormReturn<any>;
-  onSubmit: (data: any) => Promise<void>;
+  onSubmit: (data: unknown) => Promise<void>;
   mode: 'login' | 'signup' | 'reset';
   portal?: 'entrepreneur' | 'customer' | 'driver';
   loading?: boolean;

@@ -113,7 +113,7 @@ export function HeatmapLayer({
     // Cleanup alte Objekte
     heatmapObjects.forEach(obj => mapInstance.removeObject(obj));
 
-    const newObjects: any[] = [];
+    const newObjects: unknown[] = [];
 
     hotspots.forEach((hotspot) => {
       // Farbe basierend auf Intensity

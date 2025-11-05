@@ -26,7 +26,7 @@ interface MobileScrollTableProps<T> {
   className?: string;
 }
 
-export function MobileScrollTable<T extends Record<string, any>>({
+export function MobileScrollTable<T extends Record<string, unknown>>({
   columns,
   data,
   onRowClick,

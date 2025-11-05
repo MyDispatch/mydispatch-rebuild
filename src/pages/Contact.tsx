@@ -74,7 +74,7 @@ const Contact = () => {
       });
       
       form.reset();
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       toast({
         title: 'Fehler',
         description: error.message || 'Nachricht konnte nicht gesendet werden.',

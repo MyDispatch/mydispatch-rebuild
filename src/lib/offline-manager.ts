@@ -9,7 +9,7 @@
 
 interface DriverData {
   driverId: string;
-  bookings: any[];
+  bookings: unknown[];
   stats: any;
   cachedAt: string;
 }

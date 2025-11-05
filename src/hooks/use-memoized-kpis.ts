@@ -76,7 +76,7 @@ export function useMemoizedKPIs<T>(
  * }), [bookings]);
  * ```
  */
-export function useMemoizedStats<T extends Record<string, any>>(
+export function useMemoizedStats<T extends Record<string, unknown>>(
   calculateFn: () => T,
   deps: DependencyList
 ): T {

@@ -31,7 +31,7 @@ interface Metric {
 
 interface Event {
   type: string;
-  data: Record<string, any>;
+  data: Record<string, unknown>;
   timestamp?: string;
 }
 
@@ -153,7 +153,7 @@ export class DatadocClient {
   async trackInteraction(
     action: string,
     component: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<void> {
     await this.logEvent({
       type: 'user.interaction',
@@ -171,7 +171,7 @@ export class DatadocClient {
   async trackError(
     errorType: string,
     component: string,
-    metadata?: Record<string, any>
+    metadata?: Record<string, unknown>
   ): Promise<void> {
     await this.logEvent({
       type: 'error.occurred',
@@ -241,7 +241,7 @@ export class DatadocClient {
   /**
    * Remove PII from data (DSGVO compliance)
    */
-  private sanitizeData(data: Record<string, any>): Record<string, any> {
+  private sanitizeData(data: Record<string, unknown>): Record<string, unknown> {
     const sanitized = { ...data };
     const piiFields = ['email', 'phone', 'name', 'firstName', 'lastName', 'address'];
 

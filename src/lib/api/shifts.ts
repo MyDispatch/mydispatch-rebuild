@@ -44,7 +44,7 @@ export function createShiftsApi(supabase: TypedSupabaseClient): ShiftsApi {
           .select('*')
           .order('shift_start_time', { ascending: false });
 
-        const conditions: any[] = [];
+        const conditions: unknown[] = [];
         
         if (filters.driver_id) conditions.push(['driver_id', 'eq', filters.driver_id]);
         if (filters.date_from) conditions.push(['shift_start_time', 'gte', filters.date_from]);

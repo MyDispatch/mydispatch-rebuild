@@ -6,7 +6,7 @@ interface RoadmapAutoCheckConfig {
   current_task: string;
   affected_files?: string[];
   affected_pages?: string[];
-  onOpportunisticTasksFound?: (tasks: any[]) => void;
+  onOpportunisticTasksFound?: (tasks: unknown[]) => void;
 }
 
 /**

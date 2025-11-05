@@ -174,7 +174,7 @@ export class PreActionAudit {
         driverSchema.parse(context.payload);
       }
       // Weitere Entities...
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       result.isValid = false;
       if (error instanceof z.ZodError) {
         result.errors = error.errors.map(e => `${e.path.join('.')}: ${e.message}`);

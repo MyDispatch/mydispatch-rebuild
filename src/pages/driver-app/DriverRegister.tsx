@@ -61,7 +61,7 @@ export default function DriverRegister() {
       });
       
       navigate('/driver/verify-email');
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       toast({
         title: 'Registrierung fehlgeschlagen',
         description: error?.message || 'Bitte versuchen Sie es erneut',

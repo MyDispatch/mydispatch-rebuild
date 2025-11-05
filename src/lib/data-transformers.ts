@@ -240,7 +240,7 @@ export function parseCSV(csv: string): string[][] {
 /**
  * Convert array of objects to CSV string
  */
-export function arrayToCSV<T extends Record<string, any>>(
+export function arrayToCSV<T extends Record<string, unknown>>(
   data: T[],
   headers: (keyof T)[]
 ): string {

@@ -78,7 +78,7 @@ export function initSentry() {
  */
 export async function sendErrorToN8n(
   error: Error,
-  context: Record<string, any> = {}
+  context: Record<string, unknown> = {}
 ): Promise<void> {
   try {
     // Nur bei >10% Error-Rate oder Critical Severity
@@ -130,7 +130,7 @@ async function getErrorRate(): Promise<number> {
  */
 export async function captureError(
   error: Error,
-  context: Record<string, any> = {}
+  context: Record<string, unknown> = {}
 ): Promise<void> {
   // Log zu Sentry
   Sentry.captureException(error, {

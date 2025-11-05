@@ -8,7 +8,7 @@ import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 
 interface ContactFormProps {
   form: UseFormReturn<any>;
-  onSubmit: (data: any) => Promise<void>;
+  onSubmit: (data: unknown) => Promise<void>;
   loading?: boolean;
 }
 

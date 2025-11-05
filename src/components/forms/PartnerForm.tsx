@@ -59,7 +59,7 @@ export function PartnerForm({ partner, onSuccess, onCancel }: PartnerFormProps) 
       }
 
       onSuccess();
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Partner konnte nicht gespeichert werden');
     }
   };

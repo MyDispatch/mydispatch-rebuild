@@ -164,7 +164,7 @@ export default function Portal() {
 
       if (error) throw error;
       setBookings(data || []);
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Aufträge konnten nicht geladen werden');
     }
   };
@@ -221,7 +221,7 @@ export default function Portal() {
       setIsNewBookingOpen(false);
       await fetchBookings(customer.id);
       bookingForm.reset();
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       logger.error('[Portal] Booking error', error, { component: 'Portal' });
       toast({
         title: 'Fehler',

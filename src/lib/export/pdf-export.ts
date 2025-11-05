@@ -27,7 +27,7 @@ export interface PDFExportOptions {
  * @returns PDF blob
  */
 export async function exportToPDF(
-  data: any[],
+  data: unknown[],
   options: PDFExportOptions = {}
 ): Promise<Blob> {
   if (!Array.isArray(data) || data.length === 0) {

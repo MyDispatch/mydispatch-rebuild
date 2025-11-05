@@ -52,7 +52,7 @@ export function useDocSync(enabled: boolean = false) {
     phase: string;
     status: string;
     completedTasks: string[];
-    metrics: Record<string, any>;
+    metrics: Record<string, unknown>;
   }) => {
     if (!enabled) return;
 

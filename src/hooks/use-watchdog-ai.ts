@@ -16,7 +16,7 @@ interface WatchdogScanResult {
   critical_count: number;
   warning_count: number;
   info_count: number;
-  results: any[];
+  results: unknown[];
 }
 
 interface AgentStatus {
@@ -24,7 +24,7 @@ interface AgentStatus {
   status: 'idle' | 'working' | 'syncing' | 'error';
   current_task?: string;
   last_sync_at?: string;
-  data: Record<string, any>;
+  data: Record<string, unknown>;
   version: string;
 }
 
@@ -57,7 +57,7 @@ export function useWatchdogAI() {
       }
 
       return result;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       logger.error('[useWatchdogAI] Scan failed', error, { component: 'useWatchdogAI' });
       toast.error(`Scan fehlgeschlagen: ${error.message}`);
       return null;
@@ -86,7 +86,7 @@ export function useWatchdogAI() {
       }
 
       return result;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       logger.error('[useWatchdogAI] Sync failed', error, { component: 'useWatchdogAI' });
       toast.error(`Synchronisierung fehlgeschlagen: ${error.message}`);
       return null;
@@ -107,7 +107,7 @@ export function useWatchdogAI() {
       if (error) throw error;
 
       return data.result;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       logger.error('[useWatchdogAI] Get status failed', error, { component: 'useWatchdogAI' });
       toast.error(`Status-Abfrage fehlgeschlagen: ${error.message}`);
       return null;
@@ -118,7 +118,7 @@ export function useWatchdogAI() {
     agent_name: string,
     status: 'idle' | 'working' | 'syncing' | 'error',
     current_task?: string,
-    data?: Record<string, any>
+    data?: Record<string, unknown>
   ): Promise<boolean> => {
     try {
       const { error } = await supabase.functions.invoke('central-brain', {
@@ -132,7 +132,7 @@ export function useWatchdogAI() {
       if (error) throw error;
 
       return true;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       logger.error('[useWatchdogAI] Update status failed', error, { component: 'useWatchdogAI' });
       toast.error(`Status-Update fehlgeschlagen: ${error.message}`);
       return false;

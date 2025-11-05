@@ -23,7 +23,7 @@ interface CallState {
   isConnecting: boolean;
   isConnected: boolean;
   roomUrl: string | null;
-  participants: any[];
+  participants: unknown[];
   localParticipant: any | null;
   error: string | null;
 }
@@ -91,7 +91,7 @@ export function useDailyCall(options: DailyCallOptions) {
       if (!data?.success) throw new Error(data?.error || 'Failed to create room');
 
       return data.room.url;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       const errorMsg = error.message || 'Fehler beim Erstellen des Raums';
       handleError(error, errorMsg);
       setCallState(prev => ({ ...prev, error: errorMsg, isConnecting: false }));
@@ -176,7 +176,7 @@ export function useDailyCall(options: DailyCallOptions) {
       await callFrame.join({ url: roomUrl });
 
       setCallState(prev => ({ ...prev, roomUrl }));
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Fehler beim Beitritt: ' + error.message);
       setCallState(prev => ({
         ...prev,
@@ -194,7 +194,7 @@ export function useDailyCall(options: DailyCallOptions) {
         await callFrameRef.current.destroy();
         callFrameRef.current = null;
       }
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Fehler beim Verlassen des Anrufs');
     }
   }, []);
@@ -204,7 +204,7 @@ export function useDailyCall(options: DailyCallOptions) {
     try {
       const localVideo = callFrameRef.current.localVideo();
       await callFrameRef.current.setLocalVideo(!localVideo);
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Fehler beim Umschalten des Videos', { showToast: false });
     }
   }, []);
@@ -214,7 +214,7 @@ export function useDailyCall(options: DailyCallOptions) {
     try {
       const localAudio = callFrameRef.current.localAudio();
       await callFrameRef.current.setLocalAudio(!localAudio);
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Fehler beim Umschalten des Audios', { showToast: false });
     }
   }, []);
@@ -224,7 +224,7 @@ export function useDailyCall(options: DailyCallOptions) {
     try {
       await callFrameRef.current.startScreenShare();
       handleSuccess('Bildschirmfreigabe gestartet');
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Bildschirmfreigabe fehlgeschlagen');
     }
   }, []);
@@ -234,7 +234,7 @@ export function useDailyCall(options: DailyCallOptions) {
     try {
       await callFrameRef.current.stopScreenShare();
       handleInfo('Bildschirmfreigabe beendet');
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Fehler beim Beenden der Bildschirmfreigabe');
     }
   }, []);

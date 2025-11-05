@@ -196,7 +196,7 @@ export function UniversalDownload({
 /**
  * Export Data to CSV (Internal - renamed to avoid conflict)
  */
-async function exportToCSVInternal(data: any[]): Promise<Blob> {
+async function exportToCSVInternal(data: unknown[]): Promise<Blob> {
   if (!Array.isArray(data) || data.length === 0) {
     throw new Error('Keine Daten zum Exportieren');
   }
@@ -232,7 +232,7 @@ async function exportToCSVInternal(data: any[]): Promise<Blob> {
 /**
  * Export Data to JSON
  */
-async function exportToJSON(data: any): Promise<Blob> {
+async function exportToJSON(data: unknown): Promise<Blob> {
   const jsonString = JSON.stringify(data, null, 2);
   return new Blob([jsonString], { type: 'application/json' });
 }

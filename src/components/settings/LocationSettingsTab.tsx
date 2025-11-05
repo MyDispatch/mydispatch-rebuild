@@ -133,7 +133,7 @@ export function LocationSettingsTab() {
   };
 
   // Callback für AddressInput
-  const handleAddressChange = (data: any) => {
+  const handleAddressChange = (data: unknown) => {
     if (data.street) setStreet(data.street);
     if (data.houseNumber) setStreetNumber(data.houseNumber);
     if (data.postalCode) setPostalCode(data.postalCode);

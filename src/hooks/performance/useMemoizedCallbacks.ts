@@ -15,7 +15,7 @@ import { logger } from '@/lib/logger';
  *   [deleteItem]
  * );
  */
-export const useMemoizedCallback = <T extends (...args: any[]) => any>(
+export const useMemoizedCallback = <T extends (...args: unknown[]) => any>(
   callback: T,
   deps: React.DependencyList
 ): T => {

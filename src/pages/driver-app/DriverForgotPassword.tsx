@@ -32,7 +32,7 @@ export default function DriverForgotPassword() {
       });
       
       // Don't navigate automatically - user should click link in email
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       toast({
         title: 'Fehler',
         description: error?.message || 'E-Mail konnte nicht versendet werden',

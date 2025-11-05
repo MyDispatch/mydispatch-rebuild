@@ -75,3 +75,7 @@ logs/
 .eslintcache
 .stylelintcache
 
+
+# NeXify AI MASTER Workspace
+.nexify/
+*.nexify.json

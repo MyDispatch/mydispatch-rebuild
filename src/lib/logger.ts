@@ -51,7 +51,7 @@ class Logger {
     return this.levels[level] >= this.levels[this.config.minLevel];
   }
 
-  private formatMessage(level: LogLevel, message: string, ...args: any[]): any[] {
+  private formatMessage(level: LogLevel, message: string, ...args: unknown[]): unknown[] {
     const prefix = this.config.prefix ? `[${this.config.prefix}]` : '';
     const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
     
@@ -65,28 +65,28 @@ class Logger {
     return [`${emoji} ${timestamp} ${prefix} ${message}`, ...args];
   }
 
-  debug(message: string | any, ...args: any[]): void {
+  debug(message: string | any, ...args: unknown[]): void {
     if (this.shouldLog('debug')) {
       const msg = typeof message === 'string' ? message : JSON.stringify(message);
       console.log(...this.formatMessage('debug', msg, ...args));
     }
   }
 
-  info(message: string | any, ...args: any[]): void {
+  info(message: string | any, ...args: unknown[]): void {
     if (this.shouldLog('info')) {
       const msg = typeof message === 'string' ? message : JSON.stringify(message);
       console.info(...this.formatMessage('info', msg, ...args));
     }
   }
 
-  warn(message: string | any, ...args: any[]): void {
+  warn(message: string | any, ...args: unknown[]): void {
     if (this.shouldLog('warn')) {
       const msg = typeof message === 'string' ? message : JSON.stringify(message);
       console.warn(...this.formatMessage('warn', msg, ...args));
     }
   }
 
-  error(message: string | any, ...args: any[]): void {
+  error(message: string | any, ...args: unknown[]): void {
     if (this.shouldLog('error')) {
       const msg = typeof message === 'string' ? message : JSON.stringify(message);
       console.error(...this.formatMessage('error', msg, ...args));
@@ -122,10 +122,10 @@ export const logger = new Logger();
 export const createLogger = (prefix: string) => logger.scope(prefix);
 
 // Legacy exports for backward compatibility
-export const logDebug = (message: string | any, ...args: any[]) => logger.debug(message, ...args);
-export const logInfo = (message: string | any, ...args: any[]) => logger.info(message, ...args);
-export const logWarning = (message: string | any, ...args: any[]) => logger.warn(message, ...args);
-export const logError = (message: string | any, ...args: any[]) => logger.error(message, ...args);
+export const logDebug = (message: string | any, ...args: unknown[]) => logger.debug(message, ...args);
+export const logInfo = (message: string | any, ...args: unknown[]) => logger.info(message, ...args);
+export const logWarning = (message: string | any, ...args: unknown[]) => logger.warn(message, ...args);
+export const logError = (message: string | any, ...args: unknown[]) => logger.error(message, ...args);
 
 // Example usage:
 // import { logger, createLogger, logDebug } from '@/lib/logger';

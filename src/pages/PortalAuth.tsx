@@ -95,7 +95,7 @@ export default function PortalAuth() {
 
       if (error) throw error;
       setCompany(data);
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Fehler beim Laden der Firmendaten', { showToast: false });
     } finally {
       setBrandingLoading(false);
@@ -143,7 +143,7 @@ export default function PortalAuth() {
       });
       
       navigate('/portal');
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       toast({
         title: 'Anmeldefehler',
         description: error.message || 'Bitte überprüfen Sie Ihre Anmeldedaten.',
@@ -206,7 +206,7 @@ export default function PortalAuth() {
       // Tab auf Login setzen und Form reset
       setActiveTab('login');
       registerForm.reset();
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       toast({
         title: 'Registrierungsfehler',
         description: error.message || 'Registrierung fehlgeschlagen.',
@@ -241,7 +241,7 @@ export default function PortalAuth() {
         title: 'E-Mail gesendet!',
         description: 'Bitte überprüfen Sie Ihr Postfach für den Passwort-Reset-Link.',
       });
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       toast({
         title: 'Fehler',
         description: error.message || 'Passwort-Reset fehlgeschlagen.',

@@ -65,7 +65,7 @@ export function useSystemAudit() {
       }
 
       return auditResult;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       logger.error('[useSystemAudit] Error', error, { component: 'useSystemAudit' });
       toast.error('System-Audit fehlgeschlagen', {
         description: error.message,

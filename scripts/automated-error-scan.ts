@@ -6,10 +6,10 @@
    Generiert detaillierten Report + Auto-Fix-Vorschläge
    ================================================================================== */
 
-import { agentDebugSystem } from '../src/lib/agent-debug-system';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { glob } from 'glob';
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
+import { agentDebugSystem } from '../src/lib/agent-debug-system';
 
 interface ScanOptions {
   includePatterns: string[];
@@ -17,6 +17,23 @@ interface ScanOptions {
   outputDir: string;
   generateFixes: boolean;
   verbose: boolean;
+}
+
+interface ErrorDetail {
+  id: string;
+  category: string;
+  severity: 'critical' | 'high' | 'medium' | 'low';
+  message: string;
+  line?: number;
+  column?: number;
+  autoFixable?: boolean;
+}
+
+interface BatchFix {
+  category: string;
+  affectedFiles: string[];
+  fixScript?: string;
+  estimatedTime: string;
 }
 
 interface ScanReport {
@@ -29,10 +46,10 @@ interface ScanReport {
   criticalFiles: string[];
   files: Array<{
     path: string;
-    errors: any[];
+    errors: ErrorDetail[];
     errorCount: number;
   }>;
-  batchFixes?: any;
+  batchFixes?: BatchFix[];
   estimatedFixTime: string;
 }
 
@@ -51,7 +68,7 @@ async function scanCodebase(options: ScanOptions): Promise<ScanReport> {
 
   console.log(`📁 Found ${files.length} files to scan\n`);
 
-  const allErrors: any[] = [];
+  const allErrors: ErrorDetail[] = [];
   const scanResults: ScanReport = {
     timestamp: new Date().toISOString(),
     totalFiles: files.length,
@@ -70,9 +87,9 @@ async function scanCodebase(options: ScanOptions): Promise<ScanReport> {
   for (const file of files) {
     try {
       const content = readFileSync(file, 'utf-8');
-      const result = await agentDebugSystem.scanFiles([{ 
-        path: file, 
-        content 
+      const result = await agentDebugSystem.scanFiles([{
+        path: file,
+        content
       }]);
 
       if (result.totalErrors > 0) {
@@ -111,9 +128,9 @@ async function scanCodebase(options: ScanOptions): Promise<ScanReport> {
 
   // Group by category
   allErrors.forEach(error => {
-    scanResults.byCategory[error.category] = 
+    scanResults.byCategory[error.category] =
       (scanResults.byCategory[error.category] || 0) + 1;
-    scanResults.bySeverity[error.severity] = 
+    scanResults.bySeverity[error.severity] =
       (scanResults.bySeverity[error.severity] || 0) + 1;
   });
 
@@ -163,7 +180,7 @@ function generateBatchFixes(errors: any[], files: any[]) {
     if (error.autoFixable && error.fix) {
       const category = error.category;
       if (!batches[category]) batches[category] = [];
-      
+
       batches[category].push({
         type: error.type,
         file: error.file,
@@ -277,13 +294,13 @@ scanCodebase(options).then(results => {
   console.log(`📊 Total Errors: ${results.totalErrors}`);
   console.log(`✨ Auto-Fixable: ${results.autoFixable} (${Math.round(results.autoFixable / results.totalErrors * 100)}%)`);
   console.log(`⏱️  Estimated Fix Time: ${results.estimatedFixTime}\n`);
-  
+
   console.log('By Severity:');
   Object.entries(results.bySeverity).forEach(([severity, count]) => {
     const emoji = { critical: '🔴', high: '🟠', medium: '🟡', low: '🔵' }[severity] || '⚪';
     console.log(`  ${emoji} ${severity}: ${count}`);
   });
-  
+
   console.log('\nBy Category (Top 5):');
   Object.entries(results.byCategory)
     .sort((a, b) => b[1] - a[1])

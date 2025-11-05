@@ -1062,7 +1062,7 @@ export class AgentDebugSystem {
 
   public async scanFiles(files: Array<{ path: string; content: string }>): Promise<PageScanResult> {
     const startTime = performance.now();
-    let allErrors: DebugError[] = [];
+    const allErrors: DebugError[] = [];
 
     for (const file of files) {
       const errors = this.scanFile(file.path, file.content);

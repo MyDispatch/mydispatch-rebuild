@@ -70,7 +70,7 @@ export function useExtendedStatistics() {
       if (error) throw error;
 
       // Aggregiere Daten pro Fahrer
-      const driverStats = data.reduce((acc: Record<string, any>, booking) => {
+      const driverStats = data.reduce((acc: Record<string, unknown>, booking) => {
         if (!booking.driver_id || !booking.drivers) return acc;
 
         const driverId = booking.driver_id;
@@ -135,7 +135,7 @@ export function useExtendedStatistics() {
       const partnerMap = new Map(partners?.map(p => [p.id, p]) || []);
 
       // Step 4: Aggregiere Daten pro Partner (letzte 30 Tage vs. vorherige 30 Tage)
-      const partnerStats = bookings.reduce((acc: Record<string, any>, booking) => {
+      const partnerStats = bookings.reduce((acc: Record<string, unknown>, booking) => {
         if (!booking.partner_id) return acc;
 
         const partnerId = booking.partner_id;

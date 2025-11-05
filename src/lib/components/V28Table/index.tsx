@@ -21,7 +21,7 @@ export interface V28TableProps<T> {
   emptyMessage?: string;
 }
 
-export function V28Table<T extends Record<string, any>>({
+export function V28Table<T extends Record<string, unknown>>({
   columns,
   data,
   onRowClick,

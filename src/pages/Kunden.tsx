@@ -538,7 +538,7 @@ function CustomerForm({ customer, companyId, onSuccess, onCancel }: CustomerForm
     },
   });
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: unknown) => {
     const customerData: Partial<CustomerInsert> = {
       first_name: data.first_name,
       last_name: data.last_name,

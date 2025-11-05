@@ -108,7 +108,7 @@ export function PartnerRequestDialog({
       setMessage('');
       onOpenChange(false);
       onSuccess?.();
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Partner-Anfrage konnte nicht gesendet werden');
     } finally {
       setLoading(false);

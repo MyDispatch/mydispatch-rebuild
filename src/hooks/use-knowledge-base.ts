@@ -34,7 +34,7 @@ interface DocParserResponse {
   inserted_count: number;
   updated_count: number;
   skipped_count: number;
-  entries: any[];
+  entries: unknown[];
   skipped_duplicates: string[];
 }
 

@@ -10,7 +10,7 @@ import { SearchableSelect } from '@/components/ui/SearchableSelect';
 
 interface ShiftFormProps {
   form: UseFormReturn<any>;
-  onSubmit: (data: any) => Promise<void>;
+  onSubmit: (data: unknown) => Promise<void>;
   mode?: 'inline' | 'dialog';
   dialogOpen?: boolean;
   onDialogOpenChange?: (open: boolean) => void;

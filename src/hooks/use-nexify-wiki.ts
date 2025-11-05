@@ -15,10 +15,10 @@ import { supabase } from '@/integrations/supabase/client';
 import { logger } from '@/lib/logger';
 
 export interface WikiLoadResult {
-  recentLearnings: any[];
-  criticalIssues: any[];
-  knownComponents: any[];
-  bestPractices: any[];
+  recentLearnings: unknown[];
+  criticalIssues: unknown[];
+  knownComponents: unknown[];
+  bestPractices: unknown[];
   lastSelfReport: any | null;
   knowledgeGraphCoverage: number;
   totalDocs: number;

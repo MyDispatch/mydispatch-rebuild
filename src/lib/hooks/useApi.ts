@@ -44,7 +44,7 @@ export const useCreateBooking = () => {
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
       toast.success('Buchung erfolgreich erstellt');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -58,7 +58,7 @@ export const useUpdateBooking = () => {
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
       toast.success('Buchung aktualisiert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -72,7 +72,7 @@ export const useDeleteBooking = () => {
       queryClient.invalidateQueries({ queryKey: ['bookings'] });
       toast.success('Buchung gelöscht');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -106,7 +106,7 @@ export const useCreateDriver = () => {
       queryClient.invalidateQueries({ queryKey: ['drivers'] });
       toast.success('Fahrer erstellt');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -120,7 +120,7 @@ export const useUpdateDriver = () => {
       queryClient.invalidateQueries({ queryKey: ['drivers'] });
       toast.success('Fahrer aktualisiert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -154,7 +154,7 @@ export const useCreateVehicle = () => {
       queryClient.invalidateQueries({ queryKey: ['vehicles'] });
       toast.success('Fahrzeug erstellt');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -168,7 +168,7 @@ export const useUpdateVehicle = () => {
       queryClient.invalidateQueries({ queryKey: ['vehicles'] });
       toast.success('Fahrzeug aktualisiert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -202,7 +202,7 @@ export const useCreateCustomer = () => {
       queryClient.invalidateQueries({ queryKey: ['customers'] });
       toast.success('Kunde erstellt');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -216,7 +216,7 @@ export const useUpdateCustomer = () => {
       queryClient.invalidateQueries({ queryKey: ['customers'] });
       toast.success('Kunde aktualisiert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -250,7 +250,7 @@ export const useCreatePartner = () => {
       queryClient.invalidateQueries({ queryKey: ['partners'] });
       toast.success('Partner erstellt');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -264,7 +264,7 @@ export const useUpdatePartner = () => {
       queryClient.invalidateQueries({ queryKey: ['partners'] });
       toast.success('Partner aktualisiert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -298,7 +298,7 @@ export const useCreateShift = () => {
       queryClient.invalidateQueries({ queryKey: ['shifts'] });
       toast.success('Schicht erstellt');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -312,7 +312,7 @@ export const useUpdateShift = () => {
       queryClient.invalidateQueries({ queryKey: ['shifts'] });
       toast.success('Schicht aktualisiert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -326,7 +326,7 @@ export const useDeleteShift = () => {
       queryClient.invalidateQueries({ queryKey: ['shifts'] });
       toast.success('Schicht gelöscht');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -360,7 +360,7 @@ export const useUpdateCompany = () => {
       queryClient.invalidateQueries({ queryKey: ['companies'] });
       toast.success('Unternehmen aktualisiert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -394,7 +394,7 @@ export const useCreateInvoice = () => {
       queryClient.invalidateQueries({ queryKey: ['invoices'] });
       toast.success('Rechnung erstellt');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -408,7 +408,7 @@ export const useUpdateInvoice = () => {
       queryClient.invalidateQueries({ queryKey: ['invoices'] });
       toast.success('Rechnung aktualisiert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -422,7 +422,7 @@ export const useDeleteInvoice = () => {
       queryClient.invalidateQueries({ queryKey: ['invoices'] });
       toast.success('Rechnung gelöscht');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -456,7 +456,7 @@ export const useCreateDocument = () => {
       queryClient.invalidateQueries({ queryKey: ['documents'] });
       toast.success('Dokument erstellt');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -470,7 +470,7 @@ export const useUpdateDocument = () => {
       queryClient.invalidateQueries({ queryKey: ['documents'] });
       toast.success('Dokument aktualisiert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -484,7 +484,7 @@ export const useDeleteDocument = () => {
       queryClient.invalidateQueries({ queryKey: ['documents'] });
       toast.success('Dokument gelöscht');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });
@@ -526,7 +526,7 @@ export const useUpdateProfile = () => {
       queryClient.invalidateQueries({ queryKey: ['profiles'] });
       toast.success('Profil aktualisiert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       toast.error(`Fehler: ${error.message}`);
     },
   });

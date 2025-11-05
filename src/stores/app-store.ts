@@ -41,7 +41,7 @@ interface AppState {
   };
   
   // Filters Slice (global filters for tables)
-  filters: Record<string, any>;
+  filters: Record<string, unknown>;
   
   // Selection Slice (multi-select states für bulk actions)
   selection: Map<string, Set<string>>;
@@ -61,7 +61,7 @@ interface AppState {
   };
   
   // ✅ HYPERION Phase 1: Page States (pro Seite isolierter State)
-  pageStates: Record<string, any>;
+  pageStates: Record<string, unknown>;
 }
 
 interface AppActions {

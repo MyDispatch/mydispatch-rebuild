@@ -89,7 +89,7 @@ export default function Partner() {
 
       if (error) throw error;
       setPendingRequests(data || []);
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Fehler beim Laden der Anfragen');
     }
   };
@@ -128,7 +128,7 @@ export default function Partner() {
 
       handleSuccess('Partner-Anfrage angenommen');
       fetchPendingRequests();
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Anfrage konnte nicht angenommen werden');
     }
   };
@@ -144,7 +144,7 @@ export default function Partner() {
 
       handleSuccess('Partner-Anfrage abgelehnt');
       fetchPendingRequests();
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Anfrage konnte nicht abgelehnt werden');
     }
   };

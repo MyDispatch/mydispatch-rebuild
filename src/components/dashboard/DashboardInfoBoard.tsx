@@ -35,7 +35,7 @@ export interface DashboardInfoBoardProps {
   kpis?: KPIData[];
   quickActions?: QuickAction[];
   chartData?: any;
-  currentData?: any[];
+  currentData?: unknown[];
 }
 
 export function DashboardInfoBoard({

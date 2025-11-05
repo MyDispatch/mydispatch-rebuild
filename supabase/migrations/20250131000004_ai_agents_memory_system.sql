@@ -277,3 +277,8 @@ COMMENT ON FUNCTION save_shared_memory IS 'Speichert Shared Memory für mehrere 
 
 
 
+
+
+
+
+

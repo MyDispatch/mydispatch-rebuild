@@ -117,3 +117,8 @@ COMMENT ON FUNCTION is_master_user(TEXT) IS 'Prüft ob User Master-Role hat';
 
 
 
+
+
+
+
+

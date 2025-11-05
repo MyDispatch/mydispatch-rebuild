@@ -5,14 +5,14 @@ interface MainStore {
   isAuthenticated: boolean;
   sidebarExpanded: boolean;
   theme: 'light' | 'dark';
-  filters: Record<string, any>;
+  filters: Record<string, unknown>;
   searchQuery: string;
   
   setUser: (user: any) => void;
   logout: () => void;
   toggleSidebar: () => void;
   setTheme: (theme: 'light' | 'dark') => void;
-  setFilters: (filters: Record<string, any>) => void;
+  setFilters: (filters: Record<string, unknown>) => void;
   clearFilters: () => void;
   setSearchQuery: (query: string) => void;
   reset: () => void;

@@ -12,7 +12,7 @@ import { PERSON_FIELDS } from '@/config/form-fields-registry';
 
 interface PersonFormProps {
   form: UseFormReturn<any>;
-  onSubmit: (data: any) => Promise<void>;
+  onSubmit: (data: unknown) => Promise<void>;
   mode?: 'inline' | 'dialog';
   
   // Customization

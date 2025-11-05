@@ -75,7 +75,7 @@ export function PartnerConnectionList({ currentCompanyId }: PartnerConnectionLis
       );
 
       setConnections(connectionsWithPartner);
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Partner-Verbindungen konnten nicht geladen werden', { showToast: false });
     } finally {
       setLoading(false);
@@ -130,7 +130,7 @@ export function PartnerConnectionList({ currentCompanyId }: PartnerConnectionLis
       fetchConnections();
       setDeleteDialogOpen(false);
       setSelectedConnection(null);
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Verbindung konnte nicht archiviert werden');
     } finally {
       setDeleting(false);

@@ -234,7 +234,7 @@ const Rechnungen = () => {
   };
 
   const getInvoiceStatusType = (status: string) => {
-    const statusMap: Record<string, any> = {
+    const statusMap: Record<string, unknown> = {
       paid: 'success',
       pending: 'warning',
       overdue: 'error',

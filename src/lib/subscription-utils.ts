@@ -57,7 +57,7 @@ export function hasFeatureModule(productId: string | null | undefined, module: s
 }
 
 // Temporärer Import-Wrapper (wird durch tariff-definitions ersetzt)
-const ALL_TARIFFS: any[] = [];
+const ALL_TARIFFS: unknown[] = [];
 
 export function getFeaturesByTier(tierId: 'starter' | 'business' | 'enterprise') {
   // Wird durch tariff-definitions.ts verwaltet

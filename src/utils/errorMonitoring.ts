@@ -16,7 +16,7 @@ interface ErrorReport {
   error_stack?: string;
   error_category: string;
   severity: 'low' | 'medium' | 'high' | 'critical';
-  context: Record<string, any>;
+  context: Record<string, unknown>;
   timestamp: number;
 }
 
@@ -215,7 +215,7 @@ export class ProductionErrorMonitor {
   static reportError(
     error: Error | string,
     category: string = 'manual_report',
-    context: Record<string, any> = {}
+    context: Record<string, unknown> = {}
   ): void {
     const errorReport: ErrorReport = {
       error_message: error instanceof Error ? error.message : error,

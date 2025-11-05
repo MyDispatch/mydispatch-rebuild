@@ -52,8 +52,8 @@ type DocumentFormValues = z.infer<typeof documentSchema>;
 interface DocumentUploadFormProps {
   onSuccess: () => void;
   onCancel: () => void;
-  entities?: { drivers: any[]; vehicles: any[]; customers: any[] };
-  onUploadComplete?: (extractedData?: Record<string, any>) => void;
+  entities?: { drivers: unknown[]; vehicles: unknown[]; customers: unknown[] };
+  onUploadComplete?: (extractedData?: Record<string, unknown>) => void;
 }
 
 export function DocumentUploadForm({ onSuccess, onCancel, entities, onUploadComplete }: DocumentUploadFormProps) {
@@ -208,7 +208,7 @@ export function DocumentUploadForm({ onSuccess, onCancel, entities, onUploadComp
 
       form.reset();
       onSuccess();
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Dokument konnte nicht hochgeladen werden.', { title: 'Fehler beim Hochladen' });
     } finally {
       setUploading(false);

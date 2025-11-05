@@ -59,7 +59,7 @@ class GoLiveOrchestrator {
     for (let i = 0; i < attempts; i++) {
       try {
         return await fn();
-      } catch (error: any) {
+      } catch (error: Error | unknown) {
         if (import.meta.env.DEV) {
           logger.debug(`[${stepName}] Attempt ${i + 1}/${attempts} failed`, { 
             component: 'GoLiveOrchestrator', 
@@ -146,7 +146,7 @@ class GoLiveOrchestrator {
       );
 
       return true;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       this.updateStep('Pre-Flight Checks', {
         status: 'error',
         message: error.message
@@ -195,7 +195,7 @@ class GoLiveOrchestrator {
       );
 
       return data;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       this.updateStep('Phase 3 Validation', {
         status: 'error',
         message: `Validation failed: ${error.message}`
@@ -243,7 +243,7 @@ class GoLiveOrchestrator {
       );
 
       return data;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       this.updateStep('Launch Email Dispatch', {
         status: 'error',
         message: `Email dispatch failed: ${error.message}`
@@ -291,7 +291,7 @@ class GoLiveOrchestrator {
       );
 
       return allActive;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       this.updateStep('Monitoring Activation', {
         status: 'error',
         message: `Monitoring activation failed: ${error.message}`
@@ -322,7 +322,7 @@ class GoLiveOrchestrator {
       });
 
       return allPassed;
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       this.updateStep('Post-Launch Verification', {
         status: 'error',
         message: `Verification failed: ${error.message}`
@@ -384,7 +384,7 @@ class GoLiveOrchestrator {
         status: 'success',
         message: 'Execution logged to ai_actions_log'
       });
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       this.updateStep('AI Actions Log Finalization', {
         status: 'error',
         message: `Logging failed: ${error.message}`
@@ -417,7 +417,7 @@ class GoLiveOrchestrator {
       // Step 6: Finalize AI Actions Log
       await this.finalizeAIActionsLog();
 
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       logger.error('[Go-Live Orchestrator] Critical error', error, { component: 'GoLiveOrchestrator' });
       this.orchestration.overallStatus = 'error';
       this.orchestration.endTime = new Date().toISOString();

@@ -50,7 +50,7 @@ serve(async (req) => {
 
     for (const task of checkableTasks || []) {
       let matchScore = 0;
-      let matchReasons: string[] = [];
+      const matchReasons: string[] = [];
 
       // 1. File-Overlap Check
       if (task.affected_files && affected_files.length > 0) {

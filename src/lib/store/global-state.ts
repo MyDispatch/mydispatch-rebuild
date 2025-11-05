@@ -116,14 +116,14 @@ export const useNotificationsStore = create<NotificationsState>()(
 // ============================================================================
 
 interface DataCacheState {
-  bookings: any[];
-  drivers: any[];
-  vehicles: any[];
-  customers: any[];
-  setBookings: (bookings: any[]) => void;
-  setDrivers: (drivers: any[]) => void;
-  setVehicles: (vehicles: any[]) => void;
-  setCustomers: (customers: any[]) => void;
+  bookings: unknown[];
+  drivers: unknown[];
+  vehicles: unknown[];
+  customers: unknown[];
+  setBookings: (bookings: unknown[]) => void;
+  setDrivers: (drivers: unknown[]) => void;
+  setVehicles: (vehicles: unknown[]) => void;
+  setCustomers: (customers: unknown[]) => void;
   clearCache: () => void;
 }
 

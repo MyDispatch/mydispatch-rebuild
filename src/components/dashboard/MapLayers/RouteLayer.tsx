@@ -158,7 +158,7 @@ export function RouteLayer({
     // Cleanup alte Objekte
     routeObjects.forEach(obj => mapInstance.removeObject(obj));
 
-    const newObjects: any[] = [];
+    const newObjects: unknown[] = [];
 
     routes.forEach((route) => {
       try {

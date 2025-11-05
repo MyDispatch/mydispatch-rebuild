@@ -162,7 +162,7 @@ export class CompanyQuery<T> {
     return this;
   }
 
-  in(column: string, values: any[]) {
+  in(column: string, values: unknown[]) {
     this.query = this.query.in(column, values);
     return this;
   }
@@ -236,7 +236,7 @@ export const exists = async (
 export const count = async (
   table: any,
   companyId: string,
-  filters?: Record<string, any>
+  filters?: Record<string, unknown>
 ): Promise<number> => {
   try {
     let query = (supabase as any)

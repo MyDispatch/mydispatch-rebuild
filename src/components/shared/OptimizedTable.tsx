@@ -39,7 +39,7 @@ interface OptimizedTableProps<T> {
   emptyMessage?: string;
 }
 
-function OptimizedTableInner<T extends Record<string, any>>({
+function OptimizedTableInner<T extends Record<string, unknown>>({
   data,
   columns,
   keyExtractor,

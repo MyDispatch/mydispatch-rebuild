@@ -330,7 +330,7 @@ export default function Auth() {
 
       // Sign out user if no profile found (to avoid confusion)
       await supabase.auth.signOut();
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       logger.error('[Auth] Login failed', error, {
         email: email,
         component: 'Auth'
@@ -467,7 +467,7 @@ export default function Auth() {
         navigate('/dashboard');
       }, 2000);
 
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       toast({
         title: 'Registrierung fehlgeschlagen',
         description: error.message || 'Ein Fehler ist aufgetreten',
@@ -506,7 +506,7 @@ export default function Auth() {
         title: 'E-Mail versendet',
         description: 'Bitte prüfen Sie Ihr Postfach.',
       });
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       toast({
         title: 'Fehler',
         description: error.message,

@@ -164,7 +164,7 @@ export interface UnifiedPageTemplateProps<T = any> {
     customFilters?: FilterConfig[];
     onSearchChange?: (value: string) => void;
     onTabChange?: (tabId: string) => void;
-    onFilterChange?: (filters: Record<string, any>) => void;
+    onFilterChange?: (filters: Record<string, unknown>) => void;
   };
   
   // Content Configuration

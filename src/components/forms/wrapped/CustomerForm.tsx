@@ -9,7 +9,7 @@ import { AddressInput } from '../AddressInput';
 
 interface CustomerFormProps {
   form: UseFormReturn<any>;
-  onSubmit: (data: any) => Promise<void>;
+  onSubmit: (data: unknown) => Promise<void>;
   mode?: 'inline' | 'dialog';
   portal?: 'entrepreneur' | 'customer' | 'driver';
   dialogOpen?: boolean;

@@ -118,7 +118,7 @@ export async function resilientQuery<T>(
 /**
  * Check if error is retryable (network errors, timeouts)
  */
-function isRetryableError(error: any): boolean {
+function isRetryableError(error: Error | unknown): boolean {
   if (!error) return false;
 
   const retryableCodes = [

@@ -14,7 +14,7 @@ export interface AlertLog {
   alert_type: "critical" | "warning" | "info";
   severity: "critical" | "warning" | "info";
   message: string;
-  details: Record<string, any>;
+  details: Record<string, unknown>;
   source: string;
   email_sent: boolean;
   email_recipients: string[];
@@ -151,7 +151,7 @@ export function useResolveAlert() {
 export async function triggerManualAlert(
   alertType: "critical" | "warning" | "info",
   message: string,
-  details?: Record<string, any>
+  details?: Record<string, unknown>
 ) {
   const { data, error } = await supabase.functions.invoke("alert-manager", {
     body: {

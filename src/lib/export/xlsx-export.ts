@@ -23,7 +23,7 @@ export interface XLSXExportOptions {
  * @returns XLSX blob
  */
 export async function exportToXLSX(
-  data: any[] | Record<string, any[]>,
+  data: unknown[] | Record<string, any[]>,
   options: XLSXExportOptions = {}
 ): Promise<Blob> {
   const {
@@ -94,7 +94,7 @@ export async function exportToXLSX(
  * @returns CSV blob
  */
 export async function exportToCSV(
-  data: any[],
+  data: unknown[],
   options: { filename?: string } = {}
 ): Promise<Blob> {
   if (!Array.isArray(data) || data.length === 0) {

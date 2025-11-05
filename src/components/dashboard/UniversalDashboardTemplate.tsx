@@ -42,7 +42,7 @@ interface UniversalDashboardTemplateProps {
   
   // Export (optional)
   exportConfig?: {
-    data: any[];
+    data: unknown[];
     filename: string; // ohne Extension
   };
   

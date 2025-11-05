@@ -37,7 +37,7 @@ export default function DriverLogin() {
       });
       
       navigate('/driver/dashboard');
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       toast({
         title: 'Anmeldung fehlgeschlagen',
         description: error?.message || 'Bitte überprüfen Sie Ihre Zugangsdaten',

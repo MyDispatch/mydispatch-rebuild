@@ -154,7 +154,7 @@ export function InlineDocumentUpload({
       setExpiryDate(undefined);
 
       onUploadSuccess?.();
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Dokument konnte nicht hochgeladen werden.', { title: 'Upload-Fehler' });
     } finally {
       setUploading(false);
@@ -177,7 +177,7 @@ export function InlineDocumentUpload({
       setUploadedDocs((prev) => prev.filter((d) => d.id !== docId));
 
       handleSuccess('Dokument wurde entfernt.', 'Erfolgreich');
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       handleError(error, 'Dokument konnte nicht entfernt werden.', { title: 'Fehler' });
     }
   };

@@ -83,7 +83,7 @@ export class DashboardStatsCalculator {
   /**
    * Kunden-Statistiken
    */
-  static customers(customers: any[]) {
+  static customers(customers: unknown[]) {
     const total = customers.filter((c) => !c.archived).length;
     const portalAccess = customers.filter((c) => !c.archived && c.has_portal_access).length;
     const openInvoices = customers.filter(
@@ -105,7 +105,7 @@ export class DashboardStatsCalculator {
   /**
    * Auftrags-Statistiken
    */
-  static bookings(bookings: any[]) {
+  static bookings(bookings: unknown[]) {
     const today = new Date().toISOString().split('T')[0];
     
     const open = bookings.filter((b) => !b.archived && b.status === 'pending').length;
@@ -135,7 +135,7 @@ export class DashboardStatsCalculator {
   /**
    * Fahrer-Statistiken
    */
-  static drivers(drivers: any[]) {
+  static drivers(drivers: unknown[]) {
     const total = drivers.filter((d) => !d.archived).length;
     const active = drivers.filter(
       (d) => !d.archived && ['on_duty', 'available'].includes(d.shift_status)
@@ -154,7 +154,7 @@ export class DashboardStatsCalculator {
   /**
    * Fahrzeug-Statistiken
    */
-  static vehicles(vehicles: any[]) {
+  static vehicles(vehicles: unknown[]) {
     const total = vehicles.filter((v) => !v.archived).length;
     const available = vehicles.filter((v) => !v.archived && v.status === 'available').length;
     const maintenance = vehicles.filter((v) => !v.archived && v.status === 'maintenance').length;
@@ -171,7 +171,7 @@ export class DashboardStatsCalculator {
   /**
    * Rechnungs-Statistiken
    */
-  static invoices(invoices: any[]) {
+  static invoices(invoices: unknown[]) {
     const open = invoices.filter((i) => !i.archived && i.status === 'sent');
     const overdue = invoices.filter((i) => !i.archived && i.status === 'overdue');
     
@@ -197,7 +197,7 @@ export class DashboardStatsCalculator {
   /**
    * Partner-Statistiken
    */
-  static partners(partners: any[], bookings: any[]) {
+  static partners(partners: unknown[], bookings: unknown[]) {
     const total = partners.filter((p) => !p.archived).length;
     const active = partners.filter((p) => !p.archived && p.status === 'active').length;
     

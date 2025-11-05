@@ -18,7 +18,7 @@ type ErrorLogInsert = Database['public']['Tables']['error_logs']['Insert'];
 export async function logError(
   error: Error | string,
   componentName?: string,
-  additionalInfo?: Record<string, any>
+  additionalInfo?: Record<string, unknown>
 ) {
   try {
     if (import.meta.env.DEV) {
@@ -81,7 +81,7 @@ export async function logError(
 export async function logWarning(
   message: string,
   componentName?: string,
-  additionalInfo?: Record<string, any>
+  additionalInfo?: Record<string, unknown>
 ) {
   try {
     if (import.meta.env.DEV) {

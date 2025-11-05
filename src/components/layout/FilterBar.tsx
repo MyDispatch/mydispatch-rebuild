@@ -19,7 +19,7 @@ interface FilterBarProps {
   customFilters?: FilterConfig[];
   onSearchChange?: (value: string) => void;
   onTabChange?: (tabId: string) => void;
-  onFilterChange?: (filters: Record<string, any>) => void;
+  onFilterChange?: (filters: Record<string, unknown>) => void;
 }
 
 export function FilterBar({ 

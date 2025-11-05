@@ -374,3 +374,8 @@ COMMENT ON TABLE nexify_master_sessions IS 'NeXify AI MASTER Session Logs - Alle
 
 
 
+
+
+
+
+

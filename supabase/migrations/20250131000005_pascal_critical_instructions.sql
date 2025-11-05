@@ -139,3 +139,8 @@ COMMENT ON TABLE nexify_master_memory IS 'Pascal''s kritische Anweisungen sind i
 
 
 
+
+
+
+
+

@@ -101,7 +101,7 @@ export default function Demo() {
       });
 
       form.reset();
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       toast({
         title: 'Fehler',
         description: error.message || 'Demo-Anfrage konnte nicht gesendet werden.',

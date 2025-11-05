@@ -118,7 +118,7 @@ export function AddressInput({
           setSuggestions([]);
           setShowDropdown(false);
         }
-      } catch (error: any) {
+      } catch (error: Error | unknown) {
         if (error.name !== 'AbortError') {
           handleError(error, 'Adresssuche fehlgeschlagen', { 
             title: 'Autosuggest Fehler',

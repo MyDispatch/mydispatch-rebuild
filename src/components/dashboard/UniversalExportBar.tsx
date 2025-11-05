@@ -10,7 +10,7 @@ import { UniversalDownload } from '@/components/shared/UniversalDownload';
 import { cn } from '@/lib/utils';
 
 interface UniversalExportBarProps {
-  data: any[];
+  data: unknown[];
   filename: string; // z.B. "kunden-2025-01-31" (ohne Extension)
   
   // Control welche Export-Formate angezeigt werden

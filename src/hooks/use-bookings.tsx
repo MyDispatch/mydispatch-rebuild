@@ -82,7 +82,7 @@ export const useBookings = () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.stats(profile!.company_id!) });
       handleSuccess('Auftrag erfolgreich erstellt');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       logger.error('Fehler beim Erstellen des Auftrags', error, {
         component: 'useBookings',
         action: 'createMutation',
@@ -129,7 +129,7 @@ export const useBookings = () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.stats(profile!.company_id!) });
       handleSuccess('Auftrag erfolgreich aktualisiert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       logger.error('Fehler beim Aktualisieren des Auftrags', error, {
         component: 'useBookings',
         action: 'updateMutation',
@@ -165,7 +165,7 @@ export const useBookings = () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.stats(profile!.company_id!) });
       handleSuccess('Auftrag archiviert');
     },
-    onError: (error: any) => {
+    onError: (error: Error | unknown) => {
       logger.error('Fehler beim Archivieren des Auftrags', error, {
         component: 'useBookings',
         action: 'archiveMutation',

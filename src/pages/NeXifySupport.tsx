@@ -94,7 +94,7 @@ export default function NeXifySupport() {
       
       setFormData({ name: '', email: '', phone: '', company: '', service: '', message: '' });
 
-    } catch (error: any) {
+    } catch (error: Error | unknown) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
         error.errors.forEach((err) => {

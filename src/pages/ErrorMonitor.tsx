@@ -55,7 +55,7 @@ const ErrorMonitor = () => {
   };
 
   const getCategoryIcon = (category: string) => {
-    const icons: Record<string, any> = {
+    const icons: Record<string, unknown> = {
       runtime: AlertCircle,
       api: TrendingUp,
       network: RefreshCw,

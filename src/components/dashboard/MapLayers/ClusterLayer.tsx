@@ -133,7 +133,7 @@ export function ClusterLayer({
     // Cleanup alte Cluster
     clusterObjects.forEach(obj => mapInstance.removeObject(obj));
 
-    const newObjects: any[] = [];
+    const newObjects: unknown[] = [];
 
     clusters.forEach((cluster) => {
       // Cluster-Icon (Circle mit Count)
