@@ -23,15 +23,9 @@ interface BatchFix {
 }
 
 interface FixResult {
-  success: boolean;
-  filesModified: string[];
+  fixedCount: number;
+  filesChanged: number;
   errors: string[];
-}
-
-interface BatchConfig {
-  category: string;
-  pattern: RegExp | string;
-  replacement: string | ((match: string) => string);
 }
 
 const BACKUP_DIR = '.lovable/backups';
@@ -41,13 +35,13 @@ if (!existsSync(BACKUP_DIR)) {
   mkdirSync(BACKUP_DIR, { recursive: true });
 }
 
-async function runBatchFix(config: BatchConfig): Promise<FixResult> {
+async function runBatchFix(batch: BatchFix, dryRun: boolean = false): Promise<FixResult> {
   console.log(`\n${'━'.repeat(70)}`);
-  console.log(`🔧 ${config.category}`);
-  console.log(`   Category: ${config.category} | Priority: ${config.priority}`);
+  console.log(`🔧 ${batch.name}`);
+  console.log(`   Category: ${batch.category} | Priority: ${batch.priority}`);
   console.log(`${'━'.repeat(70)}`);
 
-  const files = await glob(config.files, {
+  const files = await glob(batch.files, {
     ignore: ['**/node_modules/**', '**/dist/**', '**/.lovable/**']
   });
 
@@ -61,19 +55,19 @@ async function runBatchFix(config: BatchConfig): Promise<FixResult> {
       const originalContent = content;
 
       // Apply fix
-      content = content.replace(config.pattern as RegExp, config.replacement as string);
+      content = content.replace(batch.pattern, batch.replacement as string);
 
       // Skip if no change
       if (content === originalContent) continue;
 
       // Verify if specified
-      if (config.verify && !config.verify(content)) {
+      if (batch.verify && !batch.verify(content)) {
         errors.push(`Verification failed for ${file}`);
         continue;
       }
 
       // Count fixes
-      const matches = originalContent.match(config.pattern as RegExp);
+      const matches = originalContent.match(batch.pattern);
       const count = matches?.length || 0;
       fixedCount += count;
 
@@ -98,7 +92,7 @@ async function runBatchFix(config: BatchConfig): Promise<FixResult> {
     }
   }
 
-  return { success: true, filesModified: files, errors };
+  return { fixedCount, filesChanged, errors };
 }
 
 // ============================================================================

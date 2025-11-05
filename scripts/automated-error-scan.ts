@@ -20,12 +20,16 @@ interface ScanOptions {
 }
 
 interface ErrorDetail {
-  id: string;
+  type: string;
   category: string;
   severity: 'critical' | 'high' | 'medium' | 'low';
   message: string;
+  description: string;
+  file: string;
   line?: number;
   column?: number;
+  code?: string;
+  fix?: string;
   autoFixable?: boolean;
 }
 
@@ -101,7 +105,7 @@ async function scanCodebase(options: ScanOptions): Promise<ScanReport> {
         allErrors.push(...result.errors);
 
         // Track critical files
-        const criticalErrors = result.errors.filter((e: any) => e.severity === 'critical');
+        const criticalErrors = result.errors.filter((e: ErrorDetail) => e.severity === 'critical');
         if (criticalErrors.length > 0) {
           scanResults.criticalFiles.push(file);
         }
@@ -166,8 +170,17 @@ async function scanCodebase(options: ScanOptions): Promise<ScanReport> {
   return scanResults;
 }
 
-function generateBatchFixes(errors: any[], files: any[]) {
-  const batches: Record<string, any[]> = {
+interface FixData {
+  type: string;
+  file: string;
+  line?: number;
+  pattern: string;
+  replacement: string;
+  description: string;
+}
+
+function generateBatchFixes(errors: ErrorDetail[], files: ScanReport['files']): BatchFix[] {
+  const batches: Record<string, FixData[]> = {
     'design-system': [],
     'mobile-first': [],
     'security': [],
@@ -177,7 +190,7 @@ function generateBatchFixes(errors: any[], files: any[]) {
   };
 
   errors.forEach(error => {
-    if (error.autoFixable && error.fix) {
+    if (error.autoFixable && error.fix && error.code) {
       const category = error.category;
       if (!batches[category]) batches[category] = [];
 
@@ -192,7 +205,13 @@ function generateBatchFixes(errors: any[], files: any[]) {
     }
   });
 
-  return batches;
+  // Convert to BatchFix array
+  return Object.entries(batches).map(([category, fixes]) => ({
+    category,
+    affectedFiles: fixes.map(f => f.file),
+    fixScript: fixes.map(f => `${f.pattern} → ${f.replacement}`).join('\n'),
+    estimatedTime: `${Math.ceil(fixes.length * 0.5)}m`
+  }));
 }
 
 function generateTextSummary(report: ScanReport): string {
