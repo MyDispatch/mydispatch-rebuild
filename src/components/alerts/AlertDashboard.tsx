@@ -4,7 +4,6 @@
 // Purpose: Real-Time Alert Monitoring & Management
 // ==================================================================================
 
-import React from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/lib/compat";
 import { Badge } from "@/lib/compat";
 import { V28Button } from "@/components/design-system/V28Button";

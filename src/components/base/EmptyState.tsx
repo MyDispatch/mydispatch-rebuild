@@ -8,7 +8,6 @@
    NUTZUNG: <EmptyState icon={FileText} title="Keine Aufträge" />
    ================================================================================== */
 
-import React from 'react';
 import { LucideIcon } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { SafeIcon } from './SafeIcon';
@@ -43,19 +42,19 @@ export function EmptyState({
   variant = 'section',
   className,
 }: EmptyStateProps) {
-  
+
   const variantStyles = {
     page: 'min-h-[400px] py-16',
     section: 'py-12',
     inline: 'py-8',
   };
-  
+
   const iconSize = {
     page: 'xl' as const,
     section: 'lg' as const,
     inline: 'md' as const,
   };
-  
+
   return (
     <div
       className={cn(
@@ -74,19 +73,19 @@ export function EmptyState({
           />
         </div>
       )}
-      
+
       {/* Title */}
       <Heading level={variant === 'page' ? 2 : 3} className="mb-2">
         {title}
       </Heading>
-      
+
       {/* Description */}
       {description && (
         <Body className="text-muted-foreground max-w-md mb-6">
           {description}
         </Body>
       )}
-      
+
       {/* Action Button */}
       {action && (
         <V28Button onClick={action.onClick} variant="primary">
@@ -122,11 +121,11 @@ export function EmptyTableState({
           <SafeIcon icon={icon} size="lg" color="text-muted-foreground" />
         </div>
       )}
-      
+
       <p className="text-sm text-muted-foreground mb-4">
         {message}
       </p>
-      
+
       {action && (
         <V28Button onClick={action.onClick} size="sm" variant="primary">
           {action.label}

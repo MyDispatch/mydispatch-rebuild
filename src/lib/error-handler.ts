@@ -85,3 +85,12 @@ export const handleWarning = (message: string, title = 'Warnung') => {
     duration: 5000,
   });
 };
+
+export const handleAsyncError = async (promise: Promise<any>) => {
+  try {
+    return await promise;
+  } catch (error) {
+    console.error('Async Error:', error);
+    throw error;
+  }
+};

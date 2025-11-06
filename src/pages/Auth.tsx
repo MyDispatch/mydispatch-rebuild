@@ -20,36 +20,32 @@
    ✅ DSGVO & PBefG § 51 konform
    ================================================================================== */
 
-import { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
-import { Loader2, Rocket, Building2, Plus, CheckCircle2, AlertCircle } from 'lucide-react';
-import { z } from 'zod';
-import { getLoginRedirectRoute } from '@/lib/navigation-helpers';
-import { logger } from '@/lib/logger';
-import { AuthPageLayout } from '@/components/layout/AuthPageLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { Grid } from '@/components/ui/layout/Grid';
+import fleetDriverIcon from '@/assets/fleet-driver-addon-icon-v2.png';
+import { PasswordStrengthIndicator } from '@/components/auth/PasswordStrengthIndicator';
 import { V28AuthCard } from '@/components/design-system/V28AuthCard';
 import { V28AuthInput } from '@/components/design-system/V28AuthInput';
-import { V28TariffCard } from '@/components/design-system/V28TariffCard';
+import { V28Badge } from '@/components/design-system/V28Badge';
 import { V28Button } from '@/components/design-system/V28Button';
 import { V28Select } from '@/components/design-system/V28Select';
-import { V28Badge } from '@/components/design-system/V28Badge';
-import { PasswordStrengthIndicator } from '@/components/auth/PasswordStrengthIndicator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import fleetDriverIcon from '@/assets/fleet-driver-addon-icon-v2.png';
+import { V28TariffCard } from '@/components/design-system/V28TariffCard';
+import { AuthPageLayout } from '@/components/layout/AuthPageLayout';
+import { SEOHead } from '@/components/shared/SEOHead';
 import { Checkbox } from '@/components/ui/checkbox';
-import { LoginSchema, EmailSchema } from '@/lib/validation';
-import { validateSecurePassword, getPasswordErrorMessage } from '@/lib/password-validation';
-import { ADD_ONS } from '@/lib/pricing/single-source';
-import { STARTER_TARIFF, BUSINESS_TARIFF, ADDON_FLEET_EXTENSION } from '@/lib/tariff/tariff-definitions';
-import { AddressInput } from '@/components/forms/AddressInput';
-import { Zap } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Grid } from '@/components/ui/layout/Grid';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { usePublicCompany } from '@/hooks/use-public-company';
-import { Link } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { logger } from '@/lib/logger';
+import { getLoginRedirectRoute } from '@/lib/navigation-helpers';
+import { getPasswordErrorMessage, validateSecurePassword } from '@/lib/password-validation';
+import { ADDON_FLEET_EXTENSION, BUSINESS_TARIFF, STARTER_TARIFF } from '@/lib/tariff/tariff-definitions';
+import { cn } from '@/lib/utils';
+import { EmailSchema, LoginSchema } from '@/lib/validation';
+import { AlertCircle, Building2, Loader2, Zap } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { z } from 'zod';
 
 // Tariff Definitions (from centralized definitions)
 const TARIFFS = [

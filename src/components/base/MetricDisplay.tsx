@@ -11,7 +11,7 @@
 import React from 'react';
 import { LucideIcon } from 'lucide-react';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
-import { TYPOGRAPHY, SPACING } from '@/lib/design-system';
+import { TYPOGRAPHY } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { SafeIcon } from './SafeIcon';
 
@@ -43,7 +43,7 @@ export function MetricDisplay({
   size = 'medium',
   className,
 }: MetricDisplayProps) {
-  
+
   // Size Mapping
   const sizeMap = {
     small: {
@@ -62,37 +62,37 @@ export function MetricDisplay({
       icon: 'xl' as const,
     },
   };
-  
+
   const styles = sizeMap[size];
-  
+
   // Trend Icon & Color
   const getTrendIcon = () => {
     if (!trend) return null;
-    
+
     const icons = {
       up: TrendingUp,
       down: TrendingDown,
       neutral: Minus,
     };
-    
+
     return icons[trend.direction];
   };
-  
+
   const getTrendColor = () => {
     if (!trend) return '';
-    
+
     // NUR hier dürfen Ampelfarben verwendet werden (für Trend-Status)
     const colors = {
       up: 'text-status-success',
       down: 'text-status-error',
       neutral: 'text-muted-foreground',
     };
-    
+
     return colors[trend.direction];
   };
-  
+
   const TrendIcon = getTrendIcon();
-  
+
   return (
     <div className={cn('flex flex-col gap-1', className)}>
       {/* Icon + Value */}
@@ -100,14 +100,14 @@ export function MetricDisplay({
         {icon && <SafeIcon icon={icon} size={styles.icon} />}
         <span className={styles.value}>{value}</span>
       </div>
-      
+
       {/* Label */}
       {label && (
         <span className={cn(styles.label, 'text-muted-foreground')}>
           {label}
         </span>
       )}
-      
+
       {/* Trend */}
       {trend && TrendIcon && (
         <div className={cn('flex items-center gap-1', getTrendColor())}>
@@ -137,7 +137,7 @@ export function MetricGrid({ children, columns = 4, className }: MetricGridProps
     3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
     4: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-4',
   };
-  
+
   return (
     <div className={cn(
       'grid gap-4',

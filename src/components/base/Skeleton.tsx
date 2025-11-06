@@ -8,8 +8,6 @@
    NUTZUNG: <Skeleton variant="card" />
    ================================================================================== */
 
-import React from 'react';
-import { ANIMATIONS } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 
 // ==================================================================================
@@ -33,7 +31,7 @@ export function Skeleton({
   height,
   className,
 }: SkeletonProps) {
-  
+
   const variantStyles = {
     text: 'h-4 w-full rounded',
     card: 'h-48 w-full rounded-lg',
@@ -41,7 +39,7 @@ export function Skeleton({
     button: 'h-10 w-24 rounded-md',
     custom: '',
   };
-  
+
   return (
     <div
       className={cn(
@@ -49,7 +47,7 @@ export function Skeleton({
         variantStyles[variant],
         className
       )}
-      style={width || height ? { 
+      style={width || height ? {
         ...(width && { width }),
         ...(height && { height })
       } : undefined}
@@ -99,13 +97,13 @@ export function SkeletonCard({ hasImage, hasFooter, className }: SkeletonCardPro
         <Skeleton variant="text" width="40%" />
         <Skeleton variant="text" width="80%" />
       </div>
-      
+
       {/* Image (optional) */}
       {hasImage && <Skeleton variant="card" />}
-      
+
       {/* Content */}
       <SkeletonGroup lines={3} />
-      
+
       {/* Footer (optional) */}
       {hasFooter && (
         <div className="flex gap-2 pt-4">
@@ -136,7 +134,7 @@ export function SkeletonTable({ rows = 5, columns = 4, className }: SkeletonTabl
           <Skeleton key={i} variant="text" width="80%" />
         ))}
       </div>
-      
+
       {/* Rows */}
       {Array.from({ length: rows }).map((_, rowIndex) => (
         <div

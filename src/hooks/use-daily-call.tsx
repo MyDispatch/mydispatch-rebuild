@@ -4,10 +4,10 @@
    React Hook für Daily.co WebRTC-Integration
    ================================================================================== */
 
-import * as React from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { handleError, handleSuccess, handleInfo } from '@/lib/error-handler';
+import { handleError, handleInfo, handleSuccess } from '@/lib/error-handler';
 import { logger } from '@/lib/logger';
+import * as React from 'react';
 
 interface DailyCallOptions {
   conversationId: string;

@@ -1,38 +1,29 @@
-import js from "@eslint/js";
-import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
+// @ts-check
+
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import prettierPlugin from 'eslint-plugin-prettier';
+import prettierConfig from 'eslint-config-prettier';
 
 export default tseslint.config(
-  { ignores: ["dist"] },
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-    },
     plugins: {
-      "react-hooks": reactHooks,
-      "react-refresh": reactRefresh,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+      'prettier': prettierPlugin,
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
-      "@typescript-eslint/no-unused-vars": "off",
-      "no-restricted-imports": ["error", {
-        "patterns": [
-          {
-            "group": ["**/unified-design-tokens*"],
-            "message": "⛔ UNIFIED_DESIGN_TOKENS ist deprecated!\n   Nutze Tailwind slate-* classes.\n   Migration Guide: docs/V28_MIGRATION_GUIDE.md"
-          },
-          {
-            "group": ["**/*V26*", "**/*v26*"],
-            "message": "⛔ V26-Components sind deprecated!\n   Nutze V28-Components aus @/components/ui/*.\n   Ausnahme nur für explizite Backward Compatibility.\n   Migration Guide: docs/V28_MIGRATION_GUIDE.md"
-          }
-        ]
-      }]
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
+      'react-refresh/only-export-components': 'warn',
+      '@typescript-eslint/no-explicit-any': 'off',
+      'prettier/prettier': 'warn', // Prettier-Fehler als Warnungen anzeigen
     },
   },
+  // Diese Konfiguration muss ZULETZT kommen, um widersprüchliche Regeln zu deaktivieren
+  prettierConfig
 );

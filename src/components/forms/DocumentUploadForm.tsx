@@ -4,6 +4,7 @@ import * as z from 'zod';
 import { useAuth } from '@/hooks/use-auth';
 import { useDocuments } from '@/hooks/use-documents';
 import { supabase } from '@/integrations/supabase/client';
+import type { Database } from '@/types/db';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Input } from '@/lib/compat';
 import { handleError, handleSuccess } from '@/lib/error-handler';
@@ -52,7 +53,7 @@ type DocumentFormValues = z.infer<typeof documentSchema>;
 interface DocumentUploadFormProps {
   onSuccess: () => void;
   onCancel: () => void;
-  entities?: { drivers: unknown[]; vehicles: unknown[]; customers: unknown[] };
+  entities?: { drivers: Database['public']['Tables']['drivers']['Row'][]; vehicles: Database['public']['Tables']['vehicles']['Row'][]; customers: Database['public']['Tables']['customers']['Row'][]; };
   onUploadComplete?: (extractedData?: Record<string, unknown>) => void;
 }
 
@@ -398,3 +399,5 @@ export function DocumentUploadForm({ onSuccess, onCancel, entities, onUploadComp
     </Form>
   );
 }
+
+

@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import officialLogo from '@/assets/mydispatch-logo-official.png';
 import { V28Button } from '@/components/design-system/V28Button';
+import { SEOHead } from '@/components/shared/SEOHead';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ArrowLeft, Mail } from 'lucide-react';
-import officialLogo from '@/assets/mydispatch-logo-official.png';
-import { SEOHead } from '@/components/shared/SEOHead';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { ArrowLeft, Mail } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function DriverForgotPassword() {
   const navigate = useNavigate();
@@ -25,12 +25,12 @@ export default function DriverForgotPassword() {
       });
 
       if (error) throw error;
-      
+
       toast({
         title: 'E-Mail versendet',
         description: 'Bitte überprüfen Sie Ihr Postfach für weitere Anweisungen'
       });
-      
+
       // Don't navigate automatically - user should click link in email
     } catch (error: Error | unknown) {
       toast({
@@ -60,9 +60,9 @@ export default function DriverForgotPassword() {
           >
             <ArrowLeft className="h-5 w-5 text-foreground" />
           </V28Button>
-          <img 
-            src={officialLogo} 
-            alt="MyDispatch Logo" 
+          <img
+            src={officialLogo}
+            alt="MyDispatch Logo"
             className="h-10 w-auto object-contain"
           />
           <div className="w-10" />

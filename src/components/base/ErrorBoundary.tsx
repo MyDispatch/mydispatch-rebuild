@@ -8,7 +8,7 @@
    NUTZUNG: <ErrorBoundary><YourComponent /></ErrorBoundary>
    ================================================================================== */
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import { AlertCircle, RefreshCw } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { EnhancedCard } from './EnhancedCard';
@@ -52,11 +52,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Log Error
-    logger.error('ErrorBoundary caught error', error, { 
+    logger.error('ErrorBoundary caught error', error, {
       component: 'ErrorBoundary',
-      componentStack: errorInfo.componentStack 
+      componentStack: errorInfo.componentStack
     });
-    
+
     // Custom Error Handler
     if (this.props.onError) {
       this.props.onError(error, errorInfo);

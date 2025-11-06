@@ -18,7 +18,8 @@ export const bookingsKeys = {
   list: (filters?: any) => [...bookingsKeys.lists(), filters] as const,
   details: () => [...bookingsKeys.all, 'detail'] as const,
   detail: (id: string) => [...bookingsKeys.details(), id] as const,
-  byStatus: (status: string) => [...bookingsKeys.all, 'status', status] as const,
+  byStatus: (status: string) =>
+    [...bookingsKeys.all, 'status', status] as const,
 };
 
 /**
@@ -27,7 +28,7 @@ export const bookingsKeys = {
 export const useBookings = (options?: any) => {
   return useQuery({
     queryKey: bookingsKeys.list(options),
-    queryFn: () => bookingsApi.getAll(options),
+    queryFn: () => bookingsApi.getBookings(options),
   });
 };
 
@@ -37,7 +38,7 @@ export const useBookings = (options?: any) => {
 export const useBooking = (id: string) => {
   return useQuery({
     queryKey: bookingsKeys.detail(id),
-    queryFn: () => bookingsApi.getById(id),
+    queryFn: () => bookingsApi.getBookingById(id),
     enabled: !!id,
   });
 };
@@ -48,7 +49,7 @@ export const useBooking = (id: string) => {
 export const useBookingsByStatus = (status: Booking['status']) => {
   return useQuery({
     queryKey: bookingsKeys.byStatus(status),
-    queryFn: () => bookingsApi.getByStatus(status),
+    queryFn: () => bookingsApi.getBookings({ filters: { status } }),
     enabled: !!status,
   });
 };
@@ -59,8 +60,17 @@ export const useBookingsByStatus = (status: Booking['status']) => {
 export const useCreateBooking = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: (booking: BookingInsert) => bookingsApi.create(booking),
+  return useMutation<Booking, Error, BookingInsert>({
+    mutationFn: async (booking: BookingInsert) => {
+      const result = await bookingsApi.createBooking(booking);
+      if (result.error) {
+        throw new Error(result.error.message);
+      }
+      if (!result.data) {
+        throw new Error('No data returned from create booking');
+      }
+      return result.data as Booking;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: bookingsKeys.lists() });
       toast.success('Buchung erfolgreich erstellt');
@@ -77,9 +87,23 @@ export const useCreateBooking = () => {
 export const useUpdateBooking = () => {
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: ({ id, updates }: { id: string; updates: BookingUpdate }) =>
-      bookingsApi.update(id, updates),
+  return useMutation<Booking, Error, { id: string; updates: BookingUpdate }>({
+    mutationFn: async ({
+      id,
+      updates,
+    }: {
+      id: string;
+      updates: BookingUpdate;
+    }) => {
+      const result = await bookingsApi.updateBooking(id, updates);
+      if (result.error) {
+        throw new Error(result.error.message);
+      }
+      if (!result.data) {
+        throw new Error('No data returned from update booking');
+      }
+      return result.data as Booking;
+    },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: bookingsKeys.lists() });
       queryClient.invalidateQueries({ queryKey: bookingsKeys.detail(data.id) });
@@ -98,7 +122,13 @@ export const useDeleteBooking = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (id: string) => bookingsApi.delete(id),
+    mutationFn: async (id: string) => {
+      const result = await bookingsApi.archiveBooking(id);
+      if (result.error) {
+        throw new Error(result.error.message);
+      }
+      return result;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: bookingsKeys.lists() });
       toast.success('Buchung erfolgreich archiviert');

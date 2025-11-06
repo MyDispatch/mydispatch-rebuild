@@ -7,77 +7,43 @@
    ================================================================================== */
 
 import { supabase } from '@/integrations/supabase/client';
-import { handleSupabaseError } from './base';
+import { CostCenter } from '@/types/db'; // Annahme, dass dieser Typ existiert
+import { handleSupabaseQuery } from './base';
 
-export interface CostCenter {
-  id?: string;
-  company_id?: string;
-  name: string;
-  description?: string | null;
-  active?: boolean | null;
-  created_at?: string | null;
-  updated_at?: string | null;
-}
-
-export const costCentersAPI = {
-  async getAll(companyId: string): Promise<CostCenter[]> {
-    const { data, error } = await supabase
-      .from('cost_centers')
-      .select('*')
-      .eq('company_id', companyId)
-      .eq('active', true)
-      .order('name', { ascending: true });
-
-    if (error) throw handleSupabaseError(error);
-    return data || [];
+export const costCentersApi = {
+  /**
+   * Fetch all cost centers for a company
+   */
+  async getCostCenters(companyId: string) {
+    return handleSupabaseQuery(
+      supabase.from('cost_centers').select('*').eq('company_id', companyId)
+    );
   },
 
-  async getById(id: string, companyId: string): Promise<CostCenter> {
-    const { data, error } = await supabase
-      .from('cost_centers')
-      .select('*')
-      .eq('id', id)
-      .eq('company_id', companyId)
-      .single();
-
-    if (error) throw handleSupabaseError(error);
-    return data;
+  /**
+   * Create a new cost center
+   */
+  async createCostCenter(costCenterData: Omit<CostCenter, 'id' | 'created_at' | 'updated_at'>) {
+    return handleSupabaseQuery(
+      supabase.from('cost_centers').insert(costCenterData as any)
+    );
   },
 
-  async create(costCenter: Omit<CostCenter, 'id'>, companyId: string): Promise<CostCenter> {
-    const { data, error } = await supabase
-      .from('cost_centers')
-      .insert({
-        ...costCenter,
-        company_id: companyId,
-      })
-      .select()
-      .single();
-
-    if (error) throw handleSupabaseError(error);
-    return data;
+  /**
+   * Update a cost center
+   */
+  async updateCostCenter(id: string, updates: Partial<CostCenter>) {
+    return handleSupabaseQuery(
+      supabase.from('cost_centers').update(updates as any).eq('id', id)
+    );
   },
 
-  async update(id: string, updates: Partial<CostCenter>, companyId: string): Promise<CostCenter> {
-    const { data, error } = await supabase
-      .from('cost_centers')
-      .update(updates)
-      .eq('id', id)
-      .eq('company_id', companyId)
-      .select()
-      .single();
-
-    if (error) throw handleSupabaseError(error);
-    return data;
-  },
-
-  async archive(id: string, companyId: string): Promise<void> {
-    const { error } = await supabase
-      .from('cost_centers')
-      .update({ active: false })
-      .eq('id', id)
-      .eq('company_id', companyId);
-
-    if (error) throw handleSupabaseError(error);
+  /**
+   * Deactivate a cost center
+   */
+  async deactivateCostCenter(id: string) {
+    return handleSupabaseQuery(
+      supabase.from('cost_centers').update({ active: false } as any).eq('id', id)
+    );
   },
 };

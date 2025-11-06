@@ -1,6 +1,6 @@
 /**
  * HYPERION PHASE 2: Bookings API Module
- * 
+ *
  * Alle CRUD-Operationen für Buchungen.
  * Kein direkter Supabase-Zugriff mehr in Hooks!
  */
@@ -13,7 +13,9 @@ export type BookingStatus = Enums<'booking_status'>;
 export type PaymentStatus = Enums<'payment_status'>;
 
 // ✅ HYPERION: Extended type with relations for frontend consumption
-export interface BookingWithRelations extends Booking {
+// TypeScript sometimes has issues with interface extension from type aliases
+// So we use intersection type instead to ensure all properties are available
+export type BookingWithRelations = Booking & {
   customer?: {
     id: string;
     first_name: string;
@@ -34,7 +36,7 @@ export interface BookingWithRelations extends Booking {
     id: string;
     name: string;
   } | null;
-}
+};
 
 export interface BookingFilters {
   status?: BookingStatus;

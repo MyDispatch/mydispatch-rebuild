@@ -32,8 +32,10 @@
     "cursor.errors.autoReportCritical": true,
     "cursor.errors.autoLogActions": true,
     "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.codeActionsOnSave": {
       "source.fixAll": "explicit",
+      "source.fixAll.eslint": "explicit",
       "source.organizeImports": "explicit"
     },
     "files.autoSave": "afterDelay",
@@ -48,7 +50,139 @@
     "workbench.localization": "de",
     "window.restoreWindows": "all",
     "window.openFoldersInNewWindow": "off",
-    "window.openFilesInNewWindow": "off"
+    "window.openFilesInNewWindow": "off",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.suggest.autoImports": true,
+    "javascript.suggest.autoImports": true,
+    "typescript.inlayHints.parameterNames.enabled": "all",
+    "typescript.inlayHints.functionLikeReturnTypes.enabled": true,
+    "eslint.enable": true,
+    "eslint.format.enable": true,
+    "eslint.lintTask.enable": true,
+    "tailwindCSS.experimental.classRegex": [
+      [
+        "cva\\(([^)]*)\\)",
+        "[\"'`]([^\"'`]*).*?[\"'`]"
+      ],
+      [
+        "cn\\(([^)]*)\\)",
+        "(?:'|\"|`)([^']*)(?:'|\"|`)"
+      ]
+    ],
+    "tailwindCSS.includeLanguages": {
+      "typescript": "javascript",
+      "typescriptreact": "javascript"
+    },
+    "tailwindCSS.validate": true,
+    "css.validate": true,
+    "path-intellisense.mappings": {
+      "@": "${workspaceFolder}/src"
+    },
+    "search.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/.git": true,
+      "**/build": true,
+      "**/.next": true
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "esbenp.prettier-vscode",
+      "dbaeumer.vscode-eslint",
+      "bradlc.vscode-tailwindcss",
+      "usernamehw.errorlens",
+      "ms-vscode.vscode-typescript-next",
+      "christian-kohler.path-intellisense",
+      "streetsidesoftware.code-spell-checker",
+      "streetsidesoftware.code-spell-checker-german",
+      "eamodio.gitlens",
+      "github.vscode-pull-request-github",
+      "ms-playwright.playwright",
+      "vitest.explorer"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "chrome",
+        "request": "launch",
+        "name": "Launch Chrome against localhost",
+        "url": "http://localhost:5173",
+        "webRoot": "${workspaceFolder}/src",
+        "sourceMaps": true,
+        "sourceMapPathOverrides": {
+          "webpack:///./*": "${webRoot}/*"
+        }
+      },
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Vitest Tests",
+        "runtimeExecutable": "npm",
+        "runtimeArgs": [
+          "run",
+          "test"
+        ],
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen"
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Dev Server",
+        "type": "npm",
+        "script": "dev",
+        "problemMatcher": [],
+        "isBackground": true
+      },
+      {
+        "label": "Build Production",
+        "type": "npm",
+        "script": "build",
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": [
+          "$tsc"
+        ]
+      },
+      {
+        "label": "Run Tests",
+        "type": "npm",
+        "script": "test",
+        "group": {
+          "kind": "test",
+          "isDefault": true
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "Lint",
+        "type": "npm",
+        "script": "lint",
+        "problemMatcher": [
+          "$eslint-stylish"
+        ]
+      }
+    ]
   }
 }
-

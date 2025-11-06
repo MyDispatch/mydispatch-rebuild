@@ -9,7 +9,7 @@
    ================================================================================== */
 
 import React from 'react';
-import { CARD_STYLES, SPACING } from '@/lib/design-system';
+import { CARD_STYLES } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 
 // ==================================================================================
@@ -67,7 +67,7 @@ export function EnhancedCard({
     hover: CARD_STYLES.hover,
     interactive: CARD_STYLES.interactive,
   }[variant];
-  
+
   return (
     <div
       className={cn(
@@ -89,7 +89,7 @@ export function EnhancedCard({
 // SUB-COMPONENTS
 // ==================================================================================
 
-export function EnhancedCardHeader({ children, compact = false, className }: CardHeaderProps) {
+export function EnhancedCardHeader({ children, compact, className }: CardHeaderProps) {
   return (
     <div className={cn(
       compact ? CARD_STYLES.headerCompact : CARD_STYLES.header,

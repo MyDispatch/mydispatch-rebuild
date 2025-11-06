@@ -7,28 +7,28 @@
    🔄 Build Cache Clear Trigger - 2025-01-30
    ================================================================================== */
 
-import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Phone, MapPin, Clock, Mail, MessageSquare } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { contactPageSchema } from '@/lib/schema-org';
-import { z } from 'zod';
-import { supabase } from '@/integrations/supabase/client';
-import { OpeningHours } from '@/components/office/OpeningHours';
-import { V28HeroPremium } from '@/components/hero';
 import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
 import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28HeroPremium } from '@/components/hero';
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { OpeningHours } from '@/components/office/OpeningHours';
+import { SEOHead } from '@/components/shared/SEOHead';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { contactPageSchema } from '@/lib/schema-org';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Clock, Mail, MapPin, MessageSquare, Phone } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { z } from 'zod';
 const contactSchema = z.object({
   salutation: z.string().min(1, 'Anrede ist erforderlich'),
   title: z.string().optional(),
@@ -44,7 +44,7 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 const Contact = () => {
   const { toast } = useToast();
-  
+
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -65,14 +65,14 @@ const Contact = () => {
       const { error } = await supabase.functions.invoke('send-contact-email', {
         body: data
       });
-      
+
       if (error) throw new Error(error.message || 'E-Mail konnte nicht gesendet werden');
-      
+
       toast({
         title: 'Nachricht gesendet!',
         description: 'Wir melden uns schnellstmöglich bei Ihnen.'
       });
-      
+
       form.reset();
     } catch (error: Error | unknown) {
       toast({
@@ -84,7 +84,7 @@ const Contact = () => {
   };
   return <MarketingLayout currentPage="contact">
       <SEOHead title="Kontakt" description="Kontaktieren Sie MyDispatch. Telefon: +49 170 8004423, E-Mail: info@my-dispatch.de. Wir helfen Ihnen gerne weiter." canonical="/contact" schema={contactPageSchema} keywords={['MyDispatch Kontakt', 'Taxi Software Support', 'MyDispatch Telefon', 'Dispositionssoftware Ansprechpartner', 'MyDispatch E-Mail']} />
-      
+
       {/* Hero Section - V32.0 PREMIUM DASHBOARD */}
       <V28HeroPremium
         variant="demo"
@@ -233,9 +233,9 @@ const Contact = () => {
                             Name <span className="text-red-600">*</span>
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              placeholder="Max Mustermann" 
+                            <Input
+                              {...field}
+                              placeholder="Max Mustermann"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -253,10 +253,10 @@ const Contact = () => {
                             E-Mail <span className="text-red-600">*</span>
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              type="email" 
-                              placeholder="max@example.com" 
+                            <Input
+                              {...field}
+                              type="email"
+                              placeholder="max@example.com"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -275,10 +275,10 @@ const Contact = () => {
                         <FormItem>
                           <FormLabel className="font-sans text-sm font-medium text-slate-700">Telefon</FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              type="tel" 
-                              placeholder="+49 123 456789" 
+                            <Input
+                              {...field}
+                              type="tel"
+                              placeholder="+49 123 456789"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -294,9 +294,9 @@ const Contact = () => {
                         <FormItem>
                           <FormLabel className="font-sans text-sm font-medium text-slate-700">Unternehmen</FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              placeholder="Musterfirma GmbH" 
+                            <Input
+                              {...field}
+                              placeholder="Musterfirma GmbH"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -344,9 +344,9 @@ const Contact = () => {
                           Nachricht <span className="text-red-600">*</span>
                         </FormLabel>
                         <FormControl>
-                          <Textarea 
-                            {...field} 
-                            placeholder="Ihre Nachricht..." 
+                          <Textarea
+                            {...field}
+                            placeholder="Ihre Nachricht..."
                             rows={5}
                             className="border-slate-300 focus:border-slate-500 focus:ring-slate-500 resize-none"
                           />

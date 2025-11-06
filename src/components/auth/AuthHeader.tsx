@@ -7,7 +7,7 @@
    VERBOTEN: Design-Änderungen, Layout-Anpassungen
    LETZTE FREIGABE: 2025-01-30
    ==================================================================================
-   
+
    AUTH-HEADER V28.1 - PROFESSIONAL MINIMALISM
    ==================================================================================
    ✅ V28.1 Professional Gray-Blue Design
@@ -21,15 +21,11 @@ import { getHomeRoute } from '@/lib/navigation-helpers';
 import { Logo } from '@/components/shared/Logo';
 
 interface AuthHeaderProps {
-  companyName?: string;
-  logoUrl?: string;
   className?: string;
 }
 
-export function AuthHeader({ 
-  companyName = 'MyDispatch', 
-  logoUrl,
-  className 
+export function AuthHeader({
+  className
 }: AuthHeaderProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -41,7 +37,7 @@ export function AuthHeader({
   };
 
   return (
-    <header 
+    <header
       className={cn(
         "fixed top-0 left-0 right-0 z-30 bg-gradient-to-b from-white to-slate-50 border-b border-slate-200 shadow-md h-16",
         className
@@ -57,7 +53,7 @@ export function AuthHeader({
           >
             <Logo />
           </button>
-          
+
           {/* CTA Button */}
           <button
             onClick={handleNavigateHome}

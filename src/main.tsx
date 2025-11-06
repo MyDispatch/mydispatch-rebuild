@@ -5,16 +5,23 @@
    Status: PRODUCTION-READY
    ================================================================================== */
 
+import * as Sentry from '@sentry/react';
 import { createRoot } from "react-dom/client";
+import { onCLS, onINP, onLCP } from 'web-vitals';
 import App from "./App.tsx";
 import "./index.css";
+import { initGlobalErrorHandlers } from "./lib/error-tracking";
+import { initPerformanceMonitoring } from "./lib/performance-monitoring";
+import { initSentry } from "./lib/sentry-integration";
 import "./styles/mobile-first.css";
 import "./styles/mobile-optimized.css";
-import { initSentry } from "./lib/sentry-integration";
-import { initPerformanceMonitoring } from "./lib/performance-monitoring";
-import { initGlobalErrorHandlers } from "./lib/error-tracking";
 import ProductionErrorMonitor from "./utils/errorMonitoring";
-import { onCLS, onINP, onLCP } from 'web-vitals';
+
+Sentry.init({
+  dsn: import.meta.env.VITE_SENTRY_DSN,
+  integrations: [new Sentry.BrowserTracing()],
+  tracesSampleRate: 1.0,
+});
 
 try {
   initPerformanceMonitoring();

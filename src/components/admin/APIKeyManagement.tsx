@@ -6,17 +6,16 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { 
-  Key, 
-  Eye, 
-  EyeOff, 
-  Save, 
-  Trash2, 
-  CheckCircle, 
+import {
+  Key,
+  Eye,
+  EyeOff,
+  Save,
+  Trash2,
+  CheckCircle,
   XCircle,
   RefreshCw,
-  Shield,
-  AlertTriangle
+  Shield
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -75,16 +74,16 @@ export function APIKeyManagement() {
   const groupKeysByService = (): ServiceGroup[] => {
     const groups = new Map<string, ServiceGroup>();
 
-    apiKeys.forEach(key => {
-      if (!groups.has(key.service_name)) {
-        groups.set(key.service_name, {
-          name: key.service_name,
-          displayName: formatServiceName(key.service_name),
-          icon: getServiceIcon(key.service_name),
+    apiKeys.forEach(apiKey => {
+      if (!groups.has(apiKey.service_name)) {
+        groups.set(apiKey.service_name, {
+          name: apiKey.service_name,
+          displayName: formatServiceName(apiKey.service_name),
+          icon: getServiceIcon(apiKey.service_name),
           keys: [],
         });
       }
-      groups.get(key.service_name)!.keys.push(key);
+      groups.get(apiKey.service_name)!.keys.push(apiKey);
     });
 
     return Array.from(groups.values());

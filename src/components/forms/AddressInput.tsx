@@ -118,8 +118,8 @@ export function AddressInput({
           setSuggestions([]);
           setShowDropdown(false);
         }
-      } catch (error: Error | unknown) {
-        if (error.name !== 'AbortError') {
+      } catch (error: unknown) {
+        if (error instanceof Error && error.name !== 'AbortError') {
           handleError(error, 'Adresssuche fehlgeschlagen', { 
             title: 'Autosuggest Fehler',
             showToast: false,
@@ -300,3 +300,4 @@ export function AddressInput({
     </div>
   );
 }
+

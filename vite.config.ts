@@ -3,10 +3,9 @@ import path from "path";
 import { defineConfig } from "vite";
 import { VitePWA } from 'vite-plugin-pwa';
 
-// DEBUG CONFIG: NO optimizations, NO minification
+// PRODUCTION CONFIG: Optimized build with minification
 export default defineConfig({
   base: '/',
-
   plugins: [
     react(),
     VitePWA({
@@ -15,44 +14,58 @@ export default defineConfig({
       manifest: {
         name: 'MyDispatch',
         short_name: 'MyDispatch',
-        description: 'Führende Software für Taxi- & Mietwagenunternehmen',
-        theme_color: '#334155',
+        description: 'Professionelle Disposition & Auftragsverwaltung',
+        theme_color: '#856d4b',
+        background_color: '#ffffff',
+        display: 'standalone',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: '/icon-192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
           },
           {
-            src: 'pwa-512x512.png',
+            src: '/icon-512.png',
             sizes: '512x512',
-            type: 'image/png'
-          }
-        ]
-      }
-    })
+            type: 'image/png',
+          },
+        ],
+      },
+    }),
   ],
-
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-
   build: {
-    target: 'esnext',
-    minify: 'terser', // PRODUCTION MINIFICATION
-    cssCodeSplit: true,
-    sourcemap: true,
-
-    rollupOptions: {
-      output: {
-        format: 'es',
-        // Keep everything readable
-        compact: false,
-        // No mangling
-        preserveModules: false,
+    outDir: 'dist',
+    sourcemap: process.env.NODE_ENV === 'development',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.logs in production
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+      },
+      format: {
+        comments: false, // Remove comments
       },
     },
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+          supabase: ['@supabase/supabase-js'],
+        },
+      },
+    },
+    chunkSizeWarningLimit: 1000, // Warn if chunk > 1MB
+  },
+  server: {
+    port: 5173,
+    strictPort: false,
+    host: true,
   },
 });

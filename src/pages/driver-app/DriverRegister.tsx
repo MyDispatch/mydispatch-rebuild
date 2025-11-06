@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import officialLogo from '@/assets/mydispatch-logo-official.png';
 import { V28Button } from '@/components/design-system/V28Button';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
-import { ArrowLeft, Eye, EyeOff, Mail, Lock, User, Phone } from 'lucide-react';
-import officialLogo from '@/assets/mydispatch-logo-official.png';
-import { SEOHead } from '@/components/shared/SEOHead';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { ArrowLeft, Eye, EyeOff, Lock, Mail, Phone, User } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function DriverRegister() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function DriverRegister() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.acceptedTerms || !formData.acceptedPrivacy) {
       toast({
         title: 'Zustimmung erforderlich',
@@ -54,12 +54,12 @@ export default function DriverRegister() {
       });
 
       if (error) throw error;
-      
+
       toast({
         title: 'Registrierung erfolgreich',
         description: 'Bitte überprüfen Sie Ihre E-Mail für den Bestätigungscode'
       });
-      
+
       navigate('/driver/verify-email');
     } catch (error: Error | unknown) {
       toast({
@@ -89,9 +89,9 @@ export default function DriverRegister() {
           >
             <ArrowLeft className="h-5 w-5 text-foreground" />
           </V28Button>
-          <img 
-            src={officialLogo} 
-            alt="MyDispatch Logo" 
+          <img
+            src={officialLogo}
+            alt="MyDispatch Logo"
             className="h-10 w-auto object-contain"
           />
           <div className="w-10" />
@@ -224,7 +224,7 @@ export default function DriverRegister() {
                   <Checkbox
                     id="terms"
                     checked={formData.acceptedTerms}
-                    onCheckedChange={(checked) => 
+                    onCheckedChange={(checked) =>
                       setFormData({ ...formData, acceptedTerms: checked as boolean })
                     }
                     className="mt-1"
@@ -238,7 +238,7 @@ export default function DriverRegister() {
                   <Checkbox
                     id="privacy"
                     checked={formData.acceptedPrivacy}
-                    onCheckedChange={(checked) => 
+                    onCheckedChange={(checked) =>
                       setFormData({ ...formData, acceptedPrivacy: checked as boolean })
                     }
                     className="mt-1"

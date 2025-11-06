@@ -58,9 +58,13 @@ export function DashboardInfoPanel({ sidebarExpanded }: DashboardInfoPanelProps)
   }), [vehicles]);
 
   // Memoized 10 aktuellste Aufträge
-  const recentBookings = useMemo(() => 
+  const recentBookings = useMemo(() =>
     bookings
-      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+      .sort((a, b) => {
+        const aCreated = a.created_at || '';
+        const bCreated = b.created_at || '';
+        return new Date(bCreated).getTime() - new Date(aCreated).getTime();
+      })
       .slice(0, 10),
     [bookings]
   );
@@ -103,7 +107,7 @@ export function DashboardInfoPanel({ sidebarExpanded }: DashboardInfoPanelProps)
               <div className="flex items-center gap-1.5">
                 {Object.entries(vehicleStats).map(([status, count]) => (
                   <div key={status} className="flex items-center gap-1">
-                    <div 
+                    <div
                       className={`w-2 h-2 rounded-full ${getStatusColorClass(status)} shadow-sm`}
                     />
                     <span className="text-xs font-bold tabular-nums text-slate-900">
@@ -173,7 +177,7 @@ export function DashboardInfoPanel({ sidebarExpanded }: DashboardInfoPanelProps)
                     Aufträge
                   </span>
                 </div>
-                {recentBookings.length > 0 && (
+                {recentBookings.length > 0 && recentBookings[0].created_at && (
                   <span className="text-[10px] font-medium text-slate-600">
                     Zuletzt: {format(new Date(recentBookings[0].created_at), 'HH:mm')}
                   </span>

@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import officialLogo from '@/assets/mydispatch-logo-official.png';
 import { V28Button } from '@/components/design-system/V28Button';
+import { SEOHead } from '@/components/shared/SEOHead';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { ArrowLeft, Eye, EyeOff, Mail, Lock } from 'lucide-react';
-import officialLogo from '@/assets/mydispatch-logo-official.png';
-import { SEOHead } from '@/components/shared/SEOHead';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { ArrowLeft, Eye, EyeOff, Lock, Mail } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function DriverLogin() {
   const navigate = useNavigate();
@@ -30,12 +30,12 @@ export default function DriverLogin() {
       });
 
       if (error) throw error;
-      
+
       toast({
         title: 'Anmeldung erfolgreich',
         description: 'Willkommen zurück!'
       });
-      
+
       navigate('/driver/dashboard');
     } catch (error: Error | unknown) {
       toast({
@@ -65,9 +65,9 @@ export default function DriverLogin() {
           >
             <ArrowLeft className="h-5 w-5 text-foreground" />
           </V28Button>
-          <img 
-            src={officialLogo} 
-            alt="MyDispatch Logo" 
+          <img
+            src={officialLogo}
+            alt="MyDispatch Logo"
             className="h-10 w-auto object-contain"
           />
           <div className="w-10" /> {/* Spacer */}
@@ -180,9 +180,9 @@ export default function DriverLogin() {
         {/* Decorative Wave */}
         <div className="fixed bottom-0 left-0 right-0 pointer-events-none">
           <svg viewBox="0 0 375 150" fill="none" className="w-full">
-            <path 
-              d="M0 80 Q 93.75 40, 187.5 80 T 375 80 V 150 H 0 Z" 
-              fill="hsl(var(--primary))" 
+            <path
+              d="M0 80 Q 93.75 40, 187.5 80 T 375 80 V 150 H 0 Z"
+              fill="hsl(var(--primary))"
               opacity="0.1"
             />
           </svg>

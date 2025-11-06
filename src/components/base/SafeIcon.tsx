@@ -10,7 +10,7 @@
 
 import React from 'react';
 import { LucideIcon } from 'lucide-react';
-import { ICON_COLORS, isValidIconColor } from '@/lib/design-system';
+import { isValidIconColor } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { logger } from '@/lib/logger';
 
@@ -18,9 +18,9 @@ import { logger } from '@/lib/logger';
 // TYPES
 // ==================================================================================
 
-type AllowedIconColor = 
-  | 'text-foreground' 
-  | 'text-muted-foreground' 
+type AllowedIconColor =
+  | 'text-foreground'
+  | 'text-muted-foreground'
   | 'default'    // Alias für text-foreground
   | 'muted';     // Alias für text-muted-foreground
 
@@ -55,7 +55,7 @@ export function SafeIcon({
   className,
   onClick,
 }: SafeIconProps) {
-  
+
   // Map aliases to full class names
   const colorMap: Record<AllowedIconColor, string> = {
     'default': 'text-foreground',
@@ -63,9 +63,9 @@ export function SafeIcon({
     'muted': 'text-muted-foreground',
     'text-muted-foreground': 'text-muted-foreground',
   };
-  
+
   const mappedColor = colorMap[color] || 'text-foreground';
-  
+
   // Validierung: Prüfe ob Farbe erlaubt ist (DEV-only)
   if (import.meta.env.DEV && !isValidIconColor(color)) {
     logger.warn(
@@ -73,7 +73,7 @@ export function SafeIcon({
       { allowedColors: ['default', 'muted', 'text-foreground', 'text-muted-foreground'] }
     );
   }
-  
+
   // Prüfe ob className verbotene Farben enthält (DEV-only)
   if (import.meta.env.DEV && className) {
     const forbiddenColors = [
@@ -85,11 +85,11 @@ export function SafeIcon({
       'text-yellow-',
       'text-blue-',
     ];
-    
-    const hasForbiddenColor = forbiddenColors.some(forbidden => 
+
+    const hasForbiddenColor = forbiddenColors.some(forbidden =>
       className.includes(forbidden)
     );
-    
+
     if (hasForbiddenColor) {
       logger.warn(
         `SafeIcon: Verbotene Farbe in className`,
@@ -97,7 +97,7 @@ export function SafeIcon({
       );
     }
   }
-  
+
   return (
     <Icon
       className={cn(
@@ -128,7 +128,7 @@ export const createSafeIcon = (icon: LucideIcon, size: SafeIconProps['size'] = '
  */
 export const validateIconElement = (element: React.ReactElement): boolean => {
   const className = element.props?.className || '';
-  
+
   const forbiddenColors = [
     'text-status-success',
     'text-status-error',
@@ -138,6 +138,6 @@ export const validateIconElement = (element: React.ReactElement): boolean => {
     'text-yellow-',
     'text-blue-',
   ];
-  
+
   return !forbiddenColors.some(forbidden => className.includes(forbidden));
 };

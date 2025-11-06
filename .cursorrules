@@ -1,140 +1,201 @@
 # MyDispatch - Cursor Rules
+
 # AUTO-APPROVAL: Alle Änderungen werden automatisch ausgeführt
+
 # Keine Bestätigungs-Dialoge erforderlich
+
 # AUTO-LOAD: Alle wichtigen Dokumente werden bei Chatbeginn automatisch geladen
 
 ## AUTO-LOAD BEI CHATBEGINN (OBLIGATORISCH)
-# Diese Dateien werden bei jedem Chatbeginn automatisch geladen:
-# 
-# HAUPT-WIKI (IMMER ZUERST):
+
+# Diese Dateien werden bei jedem Chatbeginn automatisch geladen
+
+#
+
+# HAUPT-WIKI (IMMER ZUERST)
+
 # 1. docs/NEXIFY_WIKI_V1.0.md (Haupt-Wiki - IMMER ZUERST LADEN!)
+
 #
-# PROJEKT-KONTEXT:
+
+# PROJEKT-KONTEXT
+
 # 2. docs/PROJECT_MEMORY_V32.5.0.md (Projekt-Gedächtnis)
+
 # 3. docs/COMPONENT_REGISTRY_V28.1.md (Component-Registry)
+
 # 4. docs/LESSONS_LEARNED_V30.0.md (Lessons Learned)
+
 #
-# PASCAL'S ANWEISUNGEN:
+
+# PASCAL'S ANWEISUNGEN
+
 # 5. docs/PASCAL_KRITISCHE_ANWEISUNGEN.md (Pascal's Anweisungen)
+
 # 6. docs/PASCAL_DEPLOYMENT_REGEL.md (Deployment-Regel)
+
 # 7. docs/PASCAL_ZEIGE_MIR_REGEL.md (Zeige-Mir-Regel)
+
 #
-# OFFENE PUNKTE:
+
+# OFFENE PUNKTE
+
 # 8. docs/OFFENE_PUNKTE_VOLLSTAENDIG.md (Offene Punkte)
+
 #
-# NEXIFY MASTER SYSTEM (ZUSAMMENARBEIT):
+
+# NEXIFY MASTER SYSTEM (ZUSAMMENARBEIT)
+
 # 9. docs/NEXIFY_MASTER_SYSTEM_V1.0.md (Master System Konzept)
+
 # 10. docs/NEXIFY_MASTER_SYSTEM_USAGE.md (Master System Usage)
+
 # 11. docs/NEXIFY_CRM_SYSTEM_V1.0.md (CRM System)
+
 # 12. docs/FORGET_PROOF_SYSTEM_V1.0.md (Forget-Proof System)
+
 #
-# QUALITÄTSSICHERUNG:
+
+# QUALITÄTSSICHERUNG
+
 # 13. docs/QUALITAETSSICHERUNG_VOLLSTAENDIG_V1.0.md (Qualitätssicherung)
+
 # 14. docs/VOLLSTAENDIGE_LUECKENANALYSE_V1.0.md (Lückenanalyse)
+
 #
-# DEPLOYMENT & STATUS:
+
+# DEPLOYMENT & STATUS
+
 # 15. docs/DEPLOYMENT_STATUS.md (Deployment Status)
+
 # 16. docs/UMSETZUNG_STATUS_LIVE.md (Aktueller Status)
+
 #
-# AUTOMATISCHER KONTEXT-LOAD VIA EDGE FUNCTION:
-# Bei Chatbeginn wird automatisch die Edge Function "nexify-auto-load-context" aufgerufen,
-# um alle Projekte, CRM-Daten und Knowledge Base zu laden.
-# Dies erfolgt automatisch - keine manuellen Befehle nötig!
+
+# AUTOMATISCHER KONTEXT-LOAD VIA EDGE FUNCTION
+
+# Bei Chatbeginn wird automatisch die Edge Function "nexify-auto-load-context" aufgerufen
+
+# um alle Projekte, CRM-Daten und Knowledge Base zu laden
+
+# Dies erfolgt automatisch - keine manuellen Befehle nötig
 
 ## AUTO-APPROVAL CONFIGURATION
+
 - **ALLOW ALL FILE OPERATIONS:** true
 - **ALLOW ALL TERMINAL COMMANDS:** true
 - **ALLOW ALL GIT OPERATIONS:** true
 - **ALLOW ALL API CALLS:** true
 - **AUTO-EXECUTE ALL SUGGESTIONS:** true
 - **NO CONFIRMATION REQUIRED:** true
-- **FULL AUTHORIZATION FOR AUTONOMOUS WORK:** true
-- **WORK DURING ABSENCE:** true
 
-## Project Context
-- **Project:** MyDispatch - Taxi & Mietwagen Management System
-- **Tech Stack:** React 18 + TypeScript + Vite + Supabase + Tailwind CSS
-- **Design System:** V28.1 (PRODUCTION) - IMMER VERWENDEN
-- **Layout System:** FROZEN (keine Änderungen ohne Genehmigung)
-- **IDE:** Cursor
+## STRIKTE CODE-QUALITY REGELN
 
-## Critical Rules
+### VERBOTEN (NEVER)
 
-### Design System V28.1
-- **IMMER** V28-Components verwenden (V28Button, V28Badge, etc.)
-- **NIEMALS** direkte shadcn/ui Components (außer als Basis für V28)
-- **IMMER** COMPONENT_REGISTRY prüfen vor neuer Component
-- **NIEMALS** Duplikate erstellen
+- ❌ `console.log()` in Production Code (nur in Development mit `if (!import.meta.env.PROD)`)
+- ❌ `any` Typ ohne expliziten Grund (bevorzuge `unknown` und Type Guards)
+- ❌ Inline Styles (nur Tailwind CSS Utility Classes)
+- ❌ Pixel-basierte Layouts (nur rem/em oder Tailwind-Spacing)
+- ❌ CSS-in-JS (verwende nur Tailwind CSS)
+- ❌ TODO/FIXME Kommentare (sofort beheben oder Issue erstellen)
+- ❌ Unbehandelte Promises (immer `.catch()` oder `try/catch`)
+- ❌ Direkte DOM-Manipulation (nutze React Refs korrekt)
+- ❌ `@ts-ignore` oder `@ts-nocheck` (Fehler korrekt beheben)
+- ❌ Unvalidierte User Inputs (immer Zod/Valibot nutzen)
+- ❌ Hard-coded Credentials (nur Environment Variables)
+- ❌ Deprecated APIs (regelmäßig prüfen und migrieren)
 
-### Layout System
-- **FROZEN:** MainLayout, MarketingLayout, AppSidebar, DashboardSidebar
-- **NUR** Bugfixes erlaubt (mit Dokumentation)
-- **NUR** Performance-Optimierungen erlaubt
+### PFLICHT (ALWAYS)
 
-### Hero System V31.5
-- **MANDATORY:** `backgroundVariant="3d-premium"`
-- **NIEMALS** andere Variants
+- ✅ TypeScript Strict Mode (`strict: true` in `tsconfig.json`)
+- ✅ Error Boundaries um alle Route-Komponenten
+- ✅ Suspense Boundaries für lazy-loaded Components
+- ✅ Proper Type Definitions (keine impliziten `any`)
+- ✅ Defensive Coding (null checks, optional chaining)
+- ✅ Semantic HTML (korrekte Tags für Accessibility)
+- ✅ ARIA Labels für interaktive Elemente
+- ✅ Loading States für alle async Operations
+- ✅ Error States für alle API Calls
+- ✅ Optimistic UI Updates wo sinnvoll
+- ✅ Deutsche Fehlermeldungen (User-facing)
+- ✅ Englische Code-Kommentare (Developer-facing)
+- ✅ JSDoc für alle exported Functions/Components
+- ✅ Prop Validation mit TypeScript Interfaces
+- ✅ Memoization für teure Berechnungen (`useMemo`, `useCallback`)
+- ✅ Code Splitting für große Routes
+- ✅ Lazy Loading für Components über Viewport-Grenze
+- ✅ Image Optimization (WebP/AVIF + srcSet)
+- ✅ Responsive Design (Mobile First, alle Breakpoints)
 
-### Code Standards
-- TypeScript: Schrittweise zu Strict Mode
-- ESLint: Strictere Rules
-- Prettier: Format on Save
-- **NIEMALS** `any` Types (außer Legacy)
-- **IMMER** Error Handling für async Operations
+### DESIGN SYSTEM (V28.1)
 
-### Knowledge Base
-- **IMMER** NEXIFY_WIKI_V1.0.md bei Session-Start laden
-- **IMMER** FORGET_PROOF_SYSTEM_V1.0.md beachten
-- **IMMER** COMPONENT_REGISTRY prüfen
-- **IMMER** PROJECT_MEMORY für Kontext
+- ✅ Nur V28.x Components verwenden (keine V26/V27 mehr)
+- ✅ Tailwind CSS Utilities bevorzugen
+- ✅ Corporate Design Manual einhalten (Farben, Fonts, Spacing)
+- ✅ Grid-System: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`
+- ✅ Spacing: Tailwind-Spacing (4px = 1 unit)
+- ✅ Breakpoints: `sm:640px`, `md:768px`, `lg:1024px`, `xl:1280px`, `2xl:1536px`
 
-### Supabase
-- **IMMER** Supabase Client aus `@/integrations/supabase/client`
-- **IMMER** RLS aktivieren bei neuen Tables
-- **IMMER** Error Handling
-- **NIEMALS** Service Role Key im Frontend
+### SUPABASE INTEGRATION
 
-### E-Mail System
-- **IMMER** Edge Functions für E-Mail-Versand
-- **IMMER** Resend API verwenden
-- **IMMER** Email Logs in `email_logs` Table
+- ✅ Immer RLS Policies prüfen
+- ✅ Nie direkte SQL-Abfragen im Frontend (nur via API/Edge Functions)
+- ✅ Auth-Status immer validieren
+- ✅ Realtime Subscriptions korrekt aufräumen (cleanup in `useEffect`)
+- ✅ Error Handling für alle Supabase Calls
+- ✅ Typed Supabase Client (`Database` aus `database.types.ts`)
 
-## File Structure
-- Components: `src/components/`
-  - Design System: `src/components/design-system/`
-  - Pricing: `src/components/pricing/`
-  - Layout: `src/components/layout/` (FROZEN)
-- Pages: `src/pages/`
-- Utils: `src/lib/`
-- Hooks: `src/hooks/`
-- Types: `src/types/`
-- Docs: `docs/`
+### TESTING
 
-## Master Account
-- Email: `courbois1981@gmail.com` (NUR diese!)
-- Role: `master`
-- Navigation: `/master`
+- ✅ Vitest für Unit Tests
+- ✅ Playwright für E2E Tests
+- ✅ Minimum 80% Code Coverage
+- ✅ Tests für alle kritischen User Flows
+- ✅ Accessibility Tests (WCAG 2.1 AA)
 
-## Best Practices
-- **IMMER** Component Registry Check vor neuer Component
-- **IMMER** Code Snippets Check vor neuem Code
-- **IMMER** Known Issues Check vor Implementation
-- **IMMER** Best Practices Check vor Pattern-Nutzung
-- **NIEMALS** aus dem Gedächtnis coden - IMMER validieren!
+### DEPLOYMENT
 
-## Protection Rules
-- Siehe `PROTECTION.md` für vollständige Regeln
-- Repository ist geschützt gegen fehlerhafte Eingriffe
+- ✅ Immer via Vercel (nie manuell)
+- ✅ Preview Deployments für alle PRs
+- ✅ Environment Variables in Vercel konfigurieren
+- ✅ Build-Fehler VOR Commit beheben
+- ✅ CI/CD Pipeline muss grün sein
 
-## Autonomous Work Authorization
-- **FULL AUTHORIZATION:** Aktiviert
-- **WORK DURING ABSENCE:** Aktiviert
-- **AUTO-CONTINUE TASKS:** Aktiviert
-- **AUTO-REPORT PROGRESS:** Aktiviert (täglich in docs/PROGRESS_REPORT.md)
+### GIT WORKFLOW
 
-## NeXify Master System Integration
-- **AUTO-LOAD CONTEXT:** Bei Chatbeginn wird automatisch "nexify-auto-load-context" Edge Function aufgerufen
-- **PROJECT CONTEXT:** Alle Projekte werden automatisch geladen
-- **CRM CONTEXT:** Alle CRM-Daten werden automatisch geladen
-- **KNOWLEDGE BASE:** Knowledge Base wird automatisch geladen
-- **KEINE MANUELLEN BEFEHLE NÖTIG:** Alles läuft automatisch!
+- ✅ Feature Branch Pattern: `feature/nexify-*`
+- ✅ Commit Messages auf Deutsch
+- ✅ Semantic Commits: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`
+- ✅ Niemals force-push auf `main` oder `master`
+- ✅ Pull Requests mit aussagekräftiger Beschreibung
+- ✅ Code Review VOR Merge (wenn Team vorhanden)
+
+### PERFORMANCE
+
+- ✅ Lighthouse Score > 90 (alle Kategorien)
+- ✅ LCP < 2s, FID < 100ms, CLS < 0.1
+- ✅ Bundle Size < 500KB (initial)
+- ✅ Tree Shaking aktiviert
+- ✅ Code Splitting implementiert
+- ✅ Image Lazy Loading
+- ✅ Font Optimization (Font Display: swap)
+
+### SECURITY
+
+- ✅ Content Security Policy (CSP) Header
+- ✅ HTTPS Everywhere
+- ✅ Secure Cookies (httpOnly, secure, sameSite)
+- ✅ Input Sanitization
+- ✅ SQL Injection Prevention (via Supabase RLS)
+- ✅ XSS Prevention (React automatisch + zusätzliche Validierung)
+
+## NEXIFY AI MASTER - INTEGRATION
+
+- ✅ Alle Änderungen werden automatisch ins CRM-System geloggt
+- ✅ Lessons Learned werden automatisch gespeichert
+- ✅ Project Memory wird kontinuierlich aktualisiert
+- ✅ Forget-Proof System verhindert wiederholte Fehler
+- ✅ Auto-Context-Load lädt relevante Dokumente automatisch
+
+## ENDE DER CURSOR RULES

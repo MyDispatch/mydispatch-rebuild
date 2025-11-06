@@ -1,0 +1,39 @@
+# Build outputs
+dist
+build
+.next
+out
+
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+.nyc_output
+test-results
+
+# Cache
+.cache
+.turbo
+.vercel
+.vite
+
+# Misc
+*.log
+*.lock
+*.lockb
+.DS_Store
+.env
+.env.local
+.env.*.local
+
+# Generated files
+*.d.ts
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# Documentation (preserve formatting)
+CHANGELOG.md
+*.prompt.md

@@ -1,67 +1,66 @@
 /* ==================================================================================
-   API BASE - CENTRAL API CONFIGURATION
-   ==================================================================================
-   Single source of truth for all API calls
+   API BASE & ERROR HANDLER - V3.0
    ================================================================================== */
 
 import { supabase } from '@/integrations/supabase/client';
+import { ProductionErrorMonitor } from '@/utils/errorMonitoring';
+import { PostgrestError } from '@supabase/supabase-js';
 
 /**
- * Base API error class
+ * Formatiert einen unbekannten Fehler in ein PostgrestError-Objekt.
+ * @param error - Der unbekannte Fehler.
+ * @returns Ein formatiertes PostgrestError-Objekt.
  */
-export class ApiError extends Error {
-  constructor(
-    message: string,
-    public code?: string,
-    public statusCode?: number
-  ) {
-    super(message);
-    this.name = 'ApiError';
+function formatToPostgrestError(error: unknown): PostgrestError {
+  if (error && typeof error === 'object' && 'message' in error) {
+    const err = error as Partial<PostgrestError>;
+    return {
+      message: err.message || 'An unknown error occurred',
+      details: err.details || '',
+      hint: err.hint || '',
+      code: err.code || '500',
+      name: 'PostgrestError', // Default name
+    };
+  }
+  return {
+    message: 'An unexpected error occurred',
+    details: String(error),
+    hint: '',
+    code: '500',
+    name: 'PostgrestError',
+  };
+}
+
+/**
+ * Ein generischer Wrapper für Supabase-Abfragen, der Fehler behandelt.
+ * @param query - Die Supabase-Abfrage als Promise.
+ * @returns Ein Objekt mit `data` und `error`.
+ */
+export async function handleSupabaseQuery<T>(
+  query: PromiseLike<{ data: T; error: PostgrestError | null }>
+): Promise<{ data: T | null; error: PostgrestError | null }> {
+  try {
+    const { data, error } = await query;
+    if (error) {
+      throw error;
+    }
+    return { data, error: null };
+  } catch (error: unknown) {
+    const formattedError = formatToPostgrestError(error);
+    ProductionErrorMonitor.reportError(formattedError, 'supabase_query');
+    return {
+      data: null,
+      error: formattedError,
+    };
   }
 }
 
 /**
- * Standard API response wrapper
- */
-export interface ApiResponse<T> {
-  data: T | null;
-  error: ApiError | null;
-}
-
-/**
- * Query options for list endpoints
- */
-export interface QueryOptions {
-  limit?: number;
-  offset?: number;
-  orderBy?: string;
-  ascending?: boolean;
-}
-
-/**
- * Handle Supabase errors consistently
- */
-export function handleSupabaseError<T = any>(error: Error | unknown): ApiResponse<T> {
-  const apiError = new ApiError(
-    error.message || 'An unknown error occurred',
-    error.code,
-    error.status
-  );
-  return { data: null, error: apiError };
-}
-
-/**
- * Base API configuration
- * All API modules should import from here
+ * Die zentrale API-Instanz.
  */
 export const api = {
-  supabase, // Direct access when needed (migrations)
-  
-  // Placeholder for future API modules
-  // bookings: bookingsApi,
-  // customers: customersApi,
-  // drivers: driversApi,
-  // vehicles: vehiclesApi,
+  supabase,
 };
 
 export default api;
+

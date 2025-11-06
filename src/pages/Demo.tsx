@@ -8,29 +8,34 @@
    ✅ SEO-optimiert mit Schema.org
    ================================================================================== */
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
+import { V28Button } from '@/components/design-system/V28Button';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
 import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
 import { V28DashboardPreview } from '@/components/home/V28DashboardPreview';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { V28Button } from '@/components/design-system/V28Button';
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  Video, Users, Clock, CheckCircle2, Calendar,
-  Phone, Mail, Building2, MessageSquare
+    Calendar,
+    CheckCircle2,
+    Clock,
+    Mail,
+    Phone,
+    Users,
+    Video
 } from 'lucide-react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 
 const demoSchema = z.object({
   name: z.string().trim().min(2, 'Name muss mindestens 2 Zeichen lang sein').max(100),
