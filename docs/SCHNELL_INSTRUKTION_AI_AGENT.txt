@@ -1,0 +1,40 @@
+# ⚡ SCHNELL-INSTRUKTION FÜR SUPABASE AI AGENT
+
+**Copy & Paste diese Nachricht:**
+
+---
+
+Hallo Supabase AI Agent,
+
+bitte führe das Master-User Setup aus:
+
+**SCHRITT 1 - Secret setzen:**
+```
+Secret Name: FUNCTION_ADMIN_TOKEN
+Secret Value: b5a0e33b-1335-4153-b585-38cb7f7bb94d
+Dashboard: https://supabase.com/dashboard/project/ygpwuiygivxoqtyoigtg/settings/vault/secrets
+```
+
+**SCHRITT 2 - Master-Users erstellen:**
+```
+POST https://ygpwuiygivxoqtyoigtg.supabase.co/functions/v1/setup-master-users
+Header: Authorization: Bearer b5a0e33b-1335-4153-b585-38cb7f7bb94d
+Header: Content-Type: application/json
+
+Body:
+{
+  "users": [
+    { "email": "courbois1981@gmail.com", "password": "1def!xO2022!!", "email_confirm": true },
+    { "email": "pascal@nexify.ai", "password": "1def!xO2022!!", "email_confirm": true },
+    { "email": "master@nexify.ai", "password": "1def!xO2022!!", "email_confirm": true }
+  ]
+}
+```
+
+**VALIDIERUNG:**
+Prüfe Auth Users: https://supabase.com/dashboard/project/ygpwuiygivxoqtyoigtg/auth/users
+→ 3 User mit app_metadata.is_master = true sollten existieren
+
+Bei Fragen siehe: `docs/AI_AGENT_ANLEITUNG.md`
+
+Danke! 🚀
