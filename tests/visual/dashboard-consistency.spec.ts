@@ -112,7 +112,7 @@ test.describe('Dashboard Consistency Tests', () => {
     await page.goto('/kunden');
     await page.waitForLoadState('networkidle');
 
-    let infoBoard = page.locator('[data-testid="dashboard-infoboard"]');
+    const infoBoard = page.locator('[data-testid="dashboard-infoboard"]');
     await expect(infoBoard).toBeVisible();
 
     // Test tablet view

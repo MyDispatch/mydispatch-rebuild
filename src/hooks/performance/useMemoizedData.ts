@@ -34,7 +34,7 @@ export const useFilteredList = <T>(
   list: T[],
   predicate: (item: T) => boolean
 ): T[] => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   return useMemo(() => list.filter(predicate), [list, predicate]);
 };
 
@@ -51,7 +51,7 @@ export const useSortedList = <T>(
   list: T[],
   compareFn: (a: T, b: T) => number
 ): T[] => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   return useMemo(() => [...list].sort(compareFn), [list, compareFn]);
 };
 
@@ -68,7 +68,7 @@ export const useGroupedData = <T, K extends string | number>(
   list: T[],
   keyFn: (item: T) => K
 ): Record<K, T[]> => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   return useMemo(() => {
     return list.reduce((acc, item) => {
       const key = keyFn(item);

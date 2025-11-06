@@ -133,7 +133,7 @@ serve(async (req) => {
     );
 
     // Lade letzte Session (falls vorhanden)
-    let lastSession = null;
+    const lastSession = null;
     if (user_email) {
       // TODO: Implementiere Session-Resume wenn nexify_master_sessions existiert
     }

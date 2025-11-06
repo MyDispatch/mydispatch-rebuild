@@ -264,7 +264,7 @@ Deno.serve(async (req) => {
 
     const results = [];
     let migrated = 0;
-    let skipped = 0;
+    const skipped = 0;
 
     // Insert or update each document
     for (const doc of criticalDocs) {

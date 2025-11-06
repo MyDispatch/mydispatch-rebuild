@@ -10,13 +10,12 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) {
-  // CRITICAL V18.3.30: Defensive Auth Hook Call with Error Boundary
-  let authState;
-  try {
-    authState = useAuth();
-  } catch (error) {
-    // Fallback: Redirect to login if AuthProvider missing
-    logger.error('[ProtectedRoute] useAuth failed', error as Error, { component: 'ProtectedRoute' });
+  // CRITICAL V18.3.30: Auth hook must be called unconditionally
+  const authState = useAuth();
+  
+  // Handle case where auth state might be incomplete
+  if (!authState) {
+    logger.error('[ProtectedRoute] useAuth returned null/undefined', new Error('Invalid auth state'), { component: 'ProtectedRoute' });
     return <Navigate to="/auth" replace />;
   }
   
