@@ -226,6 +226,42 @@ export default function Auth() {
         component: 'Auth'
       });
 
+      // ==================================================================================
+      // KRITISCH: Master-Zugang-Check ZUERST (vor Profile-Check!)
+      // ==================================================================================
+      // Master-User können auch OHNE Profile einloggen (z.B. frisch via Edge Function erstellt)
+      const normalizedEmailForCheck = (email || '').toLowerCase().trim();
+      
+      // Prüfe user_roles Tabelle
+      const { data: userRoles } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', userData.user.id)
+        .eq('role', 'master')
+        .maybeSingle();
+
+      // Prüfe app_metadata (von Edge Functions gesetzt)
+      const appMetadata = userData.user.app_metadata || {};
+      const isMasterFromMetadata = appMetadata.is_master === true;
+
+      // Master-Check: user_roles ODER app_metadata ODER Email-Whitelist
+      const isMaster = userRoles?.role === 'master' ||
+                      isMasterFromMetadata ||
+                      normalizedEmailForCheck === 'pascal@nexify.ai' ||
+                      normalizedEmailForCheck === 'master@nexify.ai' ||
+                      normalizedEmailForCheck === 'courbois1981@gmail.com';
+
+      if (isMaster) {
+        logger.debug('[Auth] Master-Zugang erkannt', { 
+          email: normalizedEmailForCheck, 
+          viaUserRoles: !!userRoles,
+          viaAppMetadata: isMasterFromMetadata,
+          component: 'Auth' 
+        });
+        navigate('/master');
+        return;
+      }
+
       // Check if user has profile
       const { data: profile, error: profileError } = await supabase
         .from('profiles')
@@ -253,63 +289,39 @@ export default function Auth() {
           role: profile.role,
           component: 'Auth'
         });
-          // ==================================================================================
-          // KRITISCH: Master-Zugang für courbois1981@gmail.com
-          // ==================================================================================
-          // Prüfe ob User Master-Role hat (via user_roles oder profile.role)
-          const { data: userRoles } = await supabase
-            .from('user_roles')
-            .select('role')
-            .eq('user_id', userData.user.id)
-            .eq('role', 'master')
-            .maybeSingle();
 
-          // Master-Zugang-Check (Pascal und andere Master-User)
-          const normalizedEmailForCheck = (email || '').toLowerCase().trim();
-          const isMaster = userRoles?.role === 'master' ||
-                          profile.role === 'master' ||
-                          normalizedEmailForCheck === 'pascal@nexify.ai' ||
-                          normalizedEmailForCheck === 'master@nexify.ai' ||
-                          normalizedEmailForCheck === 'courbois1981@gmail.com';
-
-          if (isMaster) {
-            logger.debug('[Auth] Master-Zugang erkannt', { email, component: 'Auth' });
-            navigate('/master');
-            return;
-          }
-
-          // Check if from Company Landing (SessionStorage)
-          const landingSlug = sessionStorage.getItem('landing_company_slug');
-          if (landingSlug) {
-            sessionStorage.removeItem('landing_company_slug');
-            sessionStorage.removeItem('landing_company_id');
-            navigate(`/${landingSlug}`);
-            return;
-          }
-
-          // Otherwise: Use standard redirect logic
-          const redirectRoute = getLoginRedirectRoute('entrepreneur', searchParams);
-          logger.debug('[Auth] Navigation', { redirectRoute, component: 'Auth' });
-          navigate(redirectRoute);
+        // Check if from Company Landing (SessionStorage)
+        const landingSlug = sessionStorage.getItem('landing_company_slug');
+        if (landingSlug) {
+          sessionStorage.removeItem('landing_company_slug');
+          sessionStorage.removeItem('landing_company_id');
+          navigate(`/${landingSlug}`);
           return;
         }
 
-        // Check if user has customer portal access (use normalized email)
-        const { data: customer, error: customerError } = await supabase
-          .from('customers')
-          .select('id, company_id, has_portal_access')
-          .eq('email', normalizedEmail)
-          .eq('has_portal_access', true)
-          .maybeSingle();
+        // Otherwise: Use standard redirect logic
+        const redirectRoute = getLoginRedirectRoute('entrepreneur', searchParams);
+        logger.debug('[Auth] Navigation', { redirectRoute, component: 'Auth' });
+        navigate(redirectRoute);
+        return;
+      }
 
-        if (customer) {
-          logger.debug('[Auth] Customer Portal Access gefunden', { component: 'Auth' });
-          sessionStorage.setItem('portal_mode', 'true');
-          sessionStorage.setItem('portal_customer_id', customer.id);
-          sessionStorage.setItem('portal_company_id', customer.company_id);
-          navigate('/portal');
-          return;
-        }
+      // Check if user has customer portal access (use normalized email)
+      const { data: customer, error: customerError } = await supabase
+        .from('customers')
+        .select('id, company_id, has_portal_access')
+        .eq('email', normalizedEmail)
+        .eq('has_portal_access', true)
+        .maybeSingle();
+
+      if (customer) {
+        logger.debug('[Auth] Customer Portal Access gefunden', { component: 'Auth' });
+        sessionStorage.setItem('portal_mode', 'true');
+        sessionStorage.setItem('portal_customer_id', customer.id);
+        sessionStorage.setItem('portal_company_id', customer.company_id);
+        navigate('/portal');
+        return;
+      }
 
       // Kein Profil oder Customer gefunden
       logger.error('[Auth] Kein Profile oder Customer gefunden', new Error('No access found'), {
