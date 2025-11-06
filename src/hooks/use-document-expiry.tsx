@@ -27,7 +27,7 @@ export interface DocumentWithExpiry {
 async function fetchDocumentsWithExpiry(companyId: string, entityType?: string, entityId?: string): Promise<DocumentWithExpiry[]> {
   // TypeScript Fix: Supabase Query Builder verursacht "Type instantiation excessively deep"
   // Dies ist ein bekanntes TypeScript-Problem mit komplexen Supabase-Types
-  // @ts-ignore
+  // @ts-expect-error - Supabase type inference issue with complex queries
   const { data, error } = await supabase
     .from('documents')
     .select('*')

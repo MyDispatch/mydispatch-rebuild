@@ -405,7 +405,7 @@ export const getQuickActionsForPage = (
 ): Array<QuickAction & { onClick: () => void }> => {
   const portalActions = QUICK_ACTIONS_REGISTRY[portal];
   
-  // @ts-ignore - Dynamic key access
+  // @ts-expect-error - Dynamic key access
   const actions = portalActions[page] as QuickAction[] | undefined;
   
   if (!actions) {

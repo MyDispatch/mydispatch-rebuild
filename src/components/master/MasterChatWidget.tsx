@@ -252,7 +252,9 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
             const parsed = JSON.parse(jsonStr);
             const content = parsed.choices?.[0]?.delta?.content;
             if (content) upsertAssistant(content);
-          } catch {}
+          } catch {
+            // Ignore parse errors for malformed JSON chunks
+          }
         }
       }
     } catch (error) {

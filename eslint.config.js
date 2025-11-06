@@ -47,4 +47,11 @@ export default tseslint.config(
       "@typescript-eslint/no-require-imports": "off",
     },
   },
+  // Allow require() in config files
+  {
+    files: ["*.config.{ts,js}", "*.config.*.{ts,js}"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  },
 );

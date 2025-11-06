@@ -56,54 +56,44 @@ export const getGoogleApiKey = async (): Promise<string> => {
 /**
  * Lädt die Google Maps API Script
  */
-export const loadGoogleMapsScript = (): Promise<void> => {
-  return new Promise(async (resolve, reject) => {
-    // Prüfen ob bereits geladen
-    if (window.google?.maps) {
-      resolve();
-      return;
-    }
+export const loadGoogleMapsScript = async (): Promise<void> => {
+  // Prüfen ob bereits geladen
+  if (window.google?.maps) {
+    return;
+  }
 
-    try {
-      const apiKey = await getGoogleApiKey();
-      
-      const script = document.createElement('script');
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places,geometry`;
-      script.async = true;
-      script.defer = true;
+  const apiKey = await getGoogleApiKey();
+  
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places,geometry`;
+    script.async = true;
+    script.defer = true;
 
-      script.onload = () => {
-        // Warten auf google.maps Objekt
-        const checkGoogle = setInterval(() => {
-          if (window.google?.maps) {
-            clearInterval(checkGoogle);
-            resolve();
-          }
-        }, 50);
-
-        setTimeout(() => {
+    script.onload = () => {
+      // Warten auf google.maps Objekt
+      const checkGoogle = setInterval(() => {
+        if (window.google?.maps) {
           clearInterval(checkGoogle);
-          if (window.google?.maps) {
-            resolve();
-          } else {
-            reject(new Error('Google Maps nicht vollständig initialisiert'));
-          }
-        }, 3000);
+          resolve();
+        }
+      }, 50);
+
+      setTimeout(() => {
+        clearInterval(checkGoogle);
+        if (window.google?.maps) {
+          resolve();
+        } else {
+          reject(new Error('Google Maps nicht vollständig initialisiert'));
+        }
+      }, 3000);
+    };
+
+    script.onerror = () => {
+      reject(new Error('Failed to load Google Maps API'));
       };
 
-      script.onerror = () => {
-        reject(new Error('Failed to load Google Maps API'));
-      };
-
-      document.head.appendChild(script);
-    } catch (error) {
-      handleError(
-        error as Error,
-        'Google Maps API konnte nicht geladen werden',
-        { title: 'Maps API Fehler' }
-      );
-      reject(error);
-    }
+    document.head.appendChild(script);
   });
 };
 
