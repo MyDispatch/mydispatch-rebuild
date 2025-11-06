@@ -242,26 +242,29 @@ export function getDateRange(
     case 'today':
       return { start: startOfDay(now), end: endOfDay(now) };
     
-    case 'yesterday':
+    case 'yesterday': {
       const yesterday = subDays(now, 1);
       return { start: startOfDay(yesterday), end: endOfDay(yesterday) };
+    }
     
     case 'thisWeek':
       return { start: startOfWeek(now, { locale: de }), end: endOfWeek(now, { locale: de }) };
     
-    case 'lastWeek':
+    case 'lastWeek': {
       const lastWeek = subWeeks(now, 1);
       return { 
         start: startOfWeek(lastWeek, { locale: de }), 
         end: endOfWeek(lastWeek, { locale: de }) 
       };
+    }
     
     case 'thisMonth':
       return { start: startOfMonth(now), end: endOfMonth(now) };
     
-    case 'lastMonth':
+    case 'lastMonth': {
       const lastMonth = subMonths(now, 1);
       return { start: startOfMonth(lastMonth), end: endOfMonth(lastMonth) };
+    }
   }
 }
 

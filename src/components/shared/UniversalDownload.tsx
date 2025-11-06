@@ -115,20 +115,22 @@ export function UniversalDownload({
           blob = await exportToJSON(data);
           extension = 'json';
           break;
-        case 'pdf':
+        case 'pdf': {
           const { exportToPDF } = await import('@/lib/export/pdf-export');
           blob = await exportToPDF(data, {
             title: filename,
           });
           extension = 'pdf';
           break;
-        case 'xlsx':
+        }
+        case 'xlsx': {
           const { exportToXLSX } = await import('@/lib/export/xlsx-export');
           blob = await exportToXLSX(data, {
             sheetName: filename,
           });
           extension = 'xlsx';
           break;
+        }
         case 'zip':
           // TODO: Implement ZIP export (requires jszip)
           toast.error('ZIP-Export noch nicht implementiert');

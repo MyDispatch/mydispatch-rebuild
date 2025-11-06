@@ -104,7 +104,7 @@ export function PasswordStrengthIndicator({ password, className }: PasswordStren
           label="Mindestens eine Zahl" 
         />
         <RequirementItem 
-          met={/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)} 
+          met={/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)} 
           label="Mindestens ein Sonderzeichen" 
         />
         <RequirementItem 

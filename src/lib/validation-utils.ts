@@ -24,7 +24,7 @@ export function isValidEmail(email: string): boolean {
 export const PHONE_REGEX = /^(\+49|0)[1-9]\d{1,14}$/;
 
 export function isValidPhone(phone: string): boolean {
-  const cleaned = phone.replace(/[\s\-\(\)]/g, '');
+  const cleaned = phone.replace(/[\s\-()]/g, '');
   return PHONE_REGEX.test(cleaned);
 }
 
@@ -48,7 +48,7 @@ export const PASSWORD_PATTERNS = {
   uppercase: /[A-Z]/,
   lowercase: /[a-z]/,
   number: /\d/,
-  special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+  special: /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/,
 } as const;
 
 export interface PasswordStrength {
@@ -157,7 +157,7 @@ export function isNonNull<T>(value: T | null | undefined): value is T {
 // URL VALIDATION
 // ============================================================================
 
-export const URL_REGEX = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/;
+export const URL_REGEX = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)$/;
 
 export function isValidURL(url: string): boolean {
   try {
@@ -185,7 +185,7 @@ export function isValidLicensePlate(plate: string): boolean {
 export const TAX_ID_REGEX = /^\d{10,11}$/;
 
 export function isValidTaxID(taxId: string): boolean {
-  const cleaned = taxId.replace(/[\s\-\/]/g, '');
+  const cleaned = taxId.replace(/[\s\-/]/g, '');
   return TAX_ID_REGEX.test(cleaned);
 }
 

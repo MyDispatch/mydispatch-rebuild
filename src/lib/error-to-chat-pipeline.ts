@@ -107,7 +107,7 @@ class ErrorToChatPipeline {
     const classes = element.className ? `.${element.className.split(' ')[0]}` : '';
     const text = element.textContent?.trim().substring(0, 30) || '';
     
-    return `${tag}${id}${classes} ${text ? `\"${text}\"` : ''}`.trim();
+    return `${tag}${id}${classes} ${text ? `"${text}"` : ''}`.trim();
   }
 
   /**
