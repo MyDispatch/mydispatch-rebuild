@@ -43,7 +43,7 @@ export default function Dashboard() {
   // ==================================================================================
   const dashboardKPIs = useMemo(() => {
     const bookings = rawStats?.bookings_today ?? 0;
-    // @ts-ignore - active_drivers exists in DashboardStats
+    // @ts-expect-error - active_drivers exists in DashboardStats
     const drivers = rawStats?.active_drivers ?? 0;
     const revenue = rawStats?.revenue_today ?? 0;
     
@@ -261,7 +261,7 @@ export default function Dashboard() {
                 <span className="text-xs font-medium text-green-600">Aktive Fahrer</span>
                 <Users className="h-4 w-4 text-green-400" />
               </div>
-              {/* @ts-ignore - active_drivers exists in DashboardStats */}
+              {/* @ts-expect-error - active_drivers exists in DashboardStats */}
               <p className="text-2xl font-bold text-green-700">{rawStats?.active_drivers ?? 0}</p>
               <p className="text-xs text-green-500 mt-1">Verfügbar</p>
             </div>

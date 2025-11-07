@@ -524,7 +524,7 @@ export async function exportInvoicePDF(data: InvoiceData, filename?: string): Pr
   
   try {
     // Dynamic import of html2pdf.js (optional dependency)
-    // @ts-ignore - html2pdf.js may not be installed
+    // @ts-expect-error - html2pdf.js may not be installed
     const html2pdf = (await import('html2pdf.js')).default;
     
     const opt = {

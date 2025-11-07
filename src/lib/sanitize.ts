@@ -123,7 +123,7 @@ export function sanitizeHelpContent(content: string): string {
     SANITIZE_DOM: true,
     USE_PROFILES: { html: true },
     // Sichere Links (nur HTTPS)
-    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp|data):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i
+    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp|data):|[^a-z]|[a-z+\-.]+(?:[^a-z+\-.:]|$))/i
   });
 }
 

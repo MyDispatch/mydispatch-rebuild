@@ -194,9 +194,6 @@ export function UnifiedForm({
       if (mode === 'dialog' && closeOnSuccess && onDialogOpenChange) {
         onDialogOpenChange(false);
       }
-    } catch (error) {
-      // Error is already handled by onSubmit
-      throw error;
     } finally {
       setIsSubmitting(false);
     }

@@ -243,7 +243,7 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
 
       // Final flush
       if (textBuffer.trim()) {
-        for (let raw of textBuffer.split('\n')) {
+        for (const raw of textBuffer.split('\n')) {
           if (!raw || raw.startsWith(':')) continue;
           if (!raw.startsWith('data: ')) continue;
           const jsonStr = raw.slice(6).trim();
@@ -252,7 +252,9 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
             const parsed = JSON.parse(jsonStr);
             const content = parsed.choices?.[0]?.delta?.content;
             if (content) upsertAssistant(content);
-          } catch {}
+          } catch {
+            // Ignore parse errors for malformed JSON chunks
+          }
         }
       }
     } catch (error) {

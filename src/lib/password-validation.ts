@@ -79,7 +79,7 @@ export function calculatePasswordStrength(password: string): PasswordStrength {
   }
 
   // Sonderzeichen (15 Punkte)
-  if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+  if (/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
     score += 15;
   } else {
     feedback.push('Füge Sonderzeichen hinzu (!@#$%^&*)');

@@ -55,27 +55,23 @@ export const useBookings = () => {
     mutationFn: async (booking: any) => {
       if (!profile?.company_id) throw new Error('Keine Company-ID');
 
-      try {
-        // ✅ HYPERION: API Layer Handle
-        const data = await api.bookings.create({
-          ...booking,
-          company_id: profile.company_id,
-        });
+      // ✅ HYPERION: API Layer Handle
+      const data = await api.bookings.create({
+        ...booking,
+        company_id: profile.company_id,
+      });
 
-        // ✅ PHASE 2: Centralized Audit Logging
-        logAudit({
-          company_id: profile.company_id,
-          user_id: profile.user_id,
-          action: 'create',
-          entity_type: 'booking',
-          entity_id: data.id,
-          new_data: data,
-        });
+      // ✅ PHASE 2: Centralized Audit Logging
+      logAudit({
+        company_id: profile.company_id,
+        user_id: profile.user_id,
+        action: 'create',
+        entity_type: 'booking',
+        entity_id: data.id,
+        new_data: data,
+      });
 
-        return data;
-      } catch (error) {
-        throw error;
-      }
+      return data;
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.bookings(profile!.company_id!) });
@@ -97,32 +93,28 @@ export const useBookings = () => {
     mutationFn: async ({ id, updates }: { id: string; updates: any }) => {
       if (!profile?.company_id) throw new Error('Keine Company-ID');
 
-      try {
-        // Alte Daten für Audit-Log (direkt, da getById noch nicht in API)
-        const { data: oldData } = await supabase
-          .from('bookings')
-          .select()
-          .eq('id', id)
-          .single();
+      // Alte Daten für Audit-Log (direkt, da getById noch nicht in API)
+      const { data: oldData } = await supabase
+        .from('bookings')
+        .select()
+        .eq('id', id)
+        .single();
 
-        // ✅ HYPERION: API Layer Handle
-        const data = await api.bookings.update(id, updates);
+      // ✅ HYPERION: API Layer Handle
+      const data = await api.bookings.update(id, updates);
 
-        // ✅ PHASE 2: Centralized Audit Logging
-        logAudit({
-          company_id: profile.company_id,
-          user_id: profile.user_id,
-          action: 'update',
-          entity_type: 'booking',
-          entity_id: id,
-          old_data: oldData,
-          new_data: data,
-        });
+      // ✅ PHASE 2: Centralized Audit Logging
+      logAudit({
+        company_id: profile.company_id,
+        user_id: profile.user_id,
+        action: 'update',
+        entity_type: 'booking',
+        entity_id: id,
+        old_data: oldData,
+        new_data: data,
+      });
 
-        return data;
-      } catch (error) {
-        throw error;
-      }
+      return data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.bookings(profile!.company_id!) });
@@ -144,21 +136,17 @@ export const useBookings = () => {
     mutationFn: async (id: string) => {
       if (!profile?.company_id) throw new Error('Keine Company-ID');
 
-      try {
-        // ✅ HYPERION: API Layer Handle
-        await api.bookings.archive(id);
+      // ✅ HYPERION: API Layer Handle
+      await api.bookings.archive(id);
 
-        // ✅ PHASE 2: Centralized Audit Logging
-        logAudit({
-          company_id: profile.company_id,
-          user_id: profile.user_id,
-          action: 'archive',
-          entity_type: 'booking',
-          entity_id: id,
-        });
-      } catch (error) {
-        throw error;
-      }
+      // ✅ PHASE 2: Centralized Audit Logging
+      logAudit({
+        company_id: profile.company_id,
+        user_id: profile.user_id,
+        action: 'archive',
+        entity_type: 'booking',
+        entity_id: id,
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.bookings(profile!.company_id!) });

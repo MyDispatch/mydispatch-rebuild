@@ -21,6 +21,10 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "@typescript-eslint/no-unused-vars": "off",
+      // Downgrade 'any' to warning instead of error - to be fixed gradually
+      "@typescript-eslint/no-explicit-any": "warn",
+      // Allow empty object types temporarily
+      "@typescript-eslint/no-empty-object-type": "warn",
       "no-restricted-imports": ["error", {
         "patterns": [
           {
@@ -33,6 +37,21 @@ export default tseslint.config(
           }
         ]
       }]
+    },
+  },
+  // More lenient rules for test files, scripts and stories
+  {
+    files: ["**/*.{test,spec}.{ts,tsx}", "**/*.stories.{ts,tsx}", "scripts/**/*.ts", "tests/**/*.ts"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/no-require-imports": "off",
+    },
+  },
+  // Allow require() in config files
+  {
+    files: ["*.config.{ts,js}", "*.config.*.{ts,js}"],
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
     },
   },
 );

@@ -88,19 +88,15 @@ export function usePWAInstall(): PWAInstallState {
       return;
     }
 
-    try {
-      await deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
+    await deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
 
-      if (outcome === 'accepted') {
-        setIsInstalled(true);
-      }
-
-      setDeferredPrompt(null);
-      setIsInstallable(false);
-    } catch (error) {
-      throw error;
+    if (outcome === 'accepted') {
+      setIsInstalled(true);
     }
+
+    setDeferredPrompt(null);
+    setIsInstallable(false);
   }, [deferredPrompt]);
 
   const dismissPrompt = React.useCallback(() => {

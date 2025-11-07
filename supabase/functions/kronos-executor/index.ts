@@ -42,7 +42,7 @@ serve(async (req) => {
     const runId = run.id;
     let totalCompleted = 0;
     let totalFailed = 0;
-    let totalSkipped = 0;
+    const totalSkipped = 0;
 
     try {
       // Determine which levels to execute

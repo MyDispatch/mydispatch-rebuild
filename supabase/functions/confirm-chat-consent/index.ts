@@ -96,7 +96,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Füge User zum Unternehmens-Chat hinzu
     // 1. Finde oder erstelle Unternehmens-Chat
-    let { data: companyChat, error: chatError } = await supabaseAdmin
+    const { data: companyChat, error: chatError } = await supabaseAdmin
       .from('chat_conversations')
       .select('id')
       .eq('company_id', consentData.company_id)

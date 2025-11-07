@@ -178,7 +178,7 @@ export function generateUserSummary(result: PageScanResult): string {
 export function generateFixPlan(result: PageScanResult): string {
   const prioritized = prioritizeErrors(result);
   
-  let plan = `
+  const plan = `
 🎯 FIX-PLAN (SCHRITT-FÜR-SCHRITT)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
