@@ -114,7 +114,7 @@ export default function Auth() {
 
   // Company Context for Branding
   const companySlug = searchParams.get('company');
-  const { data: tenantCompany } = usePublicCompany(companySlug, null);
+  const { data: tenantCompany } = usePublicCompany(companySlug || undefined, null);
 
   const [loading, setLoading] = useState(false);
   const [selectedTariff, setSelectedTariff] = useState<'starter' | 'business'>('starter');
@@ -254,7 +254,6 @@ export default function Auth() {
         logger.debug('[Auth] Profile Data', {
           user_id: profile.user_id,
           company_id: profile.company_id,
-          role: profile.role,
           component: 'Auth'
         });
           // ==================================================================================
@@ -269,16 +268,18 @@ export default function Auth() {
             .maybeSingle();
 
           // Master-Zugang-Check (Pascal und andere Master-User)
+          // WICHTIG: Master-User bekommen KEINE separate Route!
+          // Sie landen auf /dashboard wie normale User, aber mit erweiterten Menü-Rechten
           const normalizedEmailForCheck = (email || '').toLowerCase().trim();
           const isMaster = userRoles?.role === 'master' ||
-                          profile.role === 'master' ||
                           normalizedEmailForCheck === 'pascal@nexify.ai' ||
                           normalizedEmailForCheck === 'master@nexify.ai' ||
                           normalizedEmailForCheck === 'courbois1981@gmail.com';
 
           if (isMaster) {
-            logger.debug('[Auth] Master-Zugang erkannt', { email, component: 'Auth' });
-            navigate('/master');
+            logger.debug('[Auth] Master-Zugang erkannt - Weiterleitung zu /dashboard', { email, component: 'Auth' });
+            // Master-User landen auf normalem Dashboard mit erweiterten Rechten
+            navigate('/dashboard');
             return;
           }
 
@@ -299,7 +300,7 @@ export default function Auth() {
         }
 
         // Check if user has customer portal access (use normalized email)
-        const { data: customer, error: customerError } = await supabase
+        const { data: customer } = await supabase
           .from('customers')
           .select('id, company_id, has_portal_access')
           .eq('email', normalizedEmail)
@@ -407,10 +408,11 @@ export default function Auth() {
       if (!authData.user) throw new Error('User creation failed');
 
       // 2. Create Company
-      const { data: company, error: companyError } = await supabase
+      const { data: company, error: companyError} = await supabase
         .from('companies')
         .insert({
           name: signupData.companyName,
+          company_slug: signupData.companyName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
           tax_id: signupData.taxId,
           phone: signupData.phone || null,
           address: signupData.street || null,
@@ -509,7 +511,7 @@ export default function Auth() {
     } catch (error: any) {
       toast({
         title: 'Fehler',
-        description: error.message,
+        description: (error as Error)?.message,
         variant: 'destructive',
       });
     } finally {
@@ -519,8 +521,8 @@ export default function Auth() {
 
   return (
     <AuthPageLayout
-      companyName={tenantCompany?.name}
-      logoUrl={tenantCompany?.logo_url}
+      companyName={tenantCompany?.name || undefined}
+      logoUrl={tenantCompany?.logo_url || undefined}
     >
       <SEOHead
         title="Anmelden | MyDispatch"
@@ -538,7 +540,7 @@ export default function Auth() {
               <div className="flex items-center justify-center mb-6">
                 <img
                   src={tenantCompany.logo_url}
-                  alt={tenantCompany.name}
+                  alt={tenantCompany.name || 'Company Logo'}
                   className="h-12 object-contain"
                 />
               </div>

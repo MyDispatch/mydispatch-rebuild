@@ -106,7 +106,20 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
         handleError(rolesError, 'Fehler beim Laden der Rollen', { showToast: false });
       }
 
-      setRoles(rolesData?.map((r) => r.role) || []);
+      let userRoles = rolesData?.map((r) => r.role) || [];
+      
+      // CRITICAL: Email-basierter Master-Zugang für NeXify Master-User
+      const userEmail = session?.user?.email?.toLowerCase().trim();
+      const isMasterEmail = userEmail === 'courbois1981@gmail.com' ||
+                           userEmail === 'pascal@nexify.ai' ||
+                           userEmail === 'master@nexify.ai';
+      
+      if (isMasterEmail && !userRoles.includes('master')) {
+        userRoles.push('master');
+        logger.debug('[useAuth] Master-Rolle durch Email hinzugefügt', { email: userEmail });
+      }
+      
+      setRoles(userRoles);
     } catch (error) {
       handleError(error, 'Fehler beim Laden der Benutzerdaten', { showToast: false });
     } finally {
