@@ -1,6 +1,6 @@
-#  SUPABASE ACCESS TOKEN ERSTELLEN - SCHRITT-FÜR-SCHRITT
+#  SUPABASE ACCESS TOKEN ERSTELLEN - SCHRITT-FÃœR-SCHRITT
 
-**Status:**  ERFORDERLICH FÜR DEPLOYMENT  
+**Status:**  ERFORDERLICH FÃœR DEPLOYMENT  
 **Datum:** 2025-11-04  
 
 ---
@@ -8,11 +8,11 @@
 ##  SCHNELL-ANLEITUNG
 
 1. Gehe zu: https://supabase.com/dashboard
-2. Wähle Projekt: MyDispatch (ygpwuiygivxoqtyoigtg)
+2. WÃ¤hle Projekt: MyDispatch (ygpwuiygivxoqtyoigtg)
 3. Klicke auf Profil-Icon  Access Tokens
 4. Generate New Token  Name: "MyDispatch Deploy"
 5. Kopiere Token (Format: sbp_...)
-6. Füge in .env.local ein: SUPABASE_ACCESS_TOKEN=sbp_...
+6. FÃ¼ge in .env.local ein: SUPABASE_ACCESS_TOKEN=sbp_...
 
 ---
 
