@@ -1,0 +1,34 @@
+{
+  "recommendations": [
+    // Essential Extensions
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss",
+    
+    // React & TypeScript
+    "dsznajder.es7-react-js-snippets",
+    "styled-components.vscode-styled-components",
+    "ms-vscode.vscode-typescript-next",
+    
+    // Git
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+    
+    // Testing
+    "hbenl.vscode-test-explorer",
+    "ms-playwright.playwright",
+    
+    // Utilities
+    "aaron-bond.better-comments",
+    "usernamehw.errorlens",
+    "christian-kohler.path-intellisense",
+    "csstools.postcss",
+    "yoavbls.pretty-ts-errors",
+    
+    // Editor Enhancements
+    "oderwat.indent-rainbow",
+    "pkief.material-icon-theme",
+    "gruntfuggly.todo-tree"
+  ],
+  "unwantedRecommendations": []
+}
