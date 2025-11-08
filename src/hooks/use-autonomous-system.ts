@@ -19,46 +19,30 @@ import {
   persistToLocalStorage,
   ultimateFallback,
 } from "@/lib/fallback-strategies";
+import type {
+  AutonomousTask,
+  AutonomousSystemConfig,
+  AutonomousExecutionLog,
+} from "@/integrations/supabase/types/autonomous";
 
-export interface AutonomousTask {
-  id: string;
-  task_type: string;
-  description: string;
-  priority: number;
-  autonomy_level: number;
-  risk_level: string;
-  status: string;
-  requires_approval: boolean;
-  files_affected: string[];
-  created_at: string;
-  started_at?: string;
-  completed_at?: string;
-  result?: Record<string, unknown>;
-  error_message?: string;
-}
+// Type helper for autonomous tables (same as in self-healing.ts)
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type AutonomousSupabaseClient = typeof supabase & {
+  from(table: "autonomous_tasks"): any;
+  from(table: "autonomous_system_config"): any;
+  from(table: "autonomous_execution_logs"): any;
+  from(table: "autonomous_safety_checks"): any;
+  from(table: "autonomous_system_stats"): any;
+};
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
-export interface AutonomousSystemConfig {
-  id: number;
-  enabled: boolean;
-  dry_run_mode: boolean;
-  autonomy_level: number;
-  max_parallel_tasks: number;
-  notification_email: string;
-  emergency_stop: boolean;
-  emergency_stop_reason?: string;
-  emergency_stop_until?: string;
-  last_execution_at?: string;
-}
+const autonomousClient = supabase as AutonomousSupabaseClient;
 
-export interface ExecutionLog {
-  id: string;
-  task_id: string;
-  execution_step: string;
-  step_status: string;
-  input_data?: Record<string, unknown>;
-  output_data?: Record<string, unknown>;
-  error_details?: Record<string, unknown>;
-  created_at: string;
+// Re-export types for backward compatibility
+export type { AutonomousTask, AutonomousSystemConfig };
+
+export interface ExecutionLog extends AutonomousExecutionLog {
+  // Compatibility alias
 }
 
 export interface SystemStats {
@@ -84,9 +68,8 @@ export function useAutonomousSystem() {
   } = useQuery({
     queryKey: ["autonomous-system-config"],
     queryFn: async () => {
-      // @ts-expect-error - autonomous_system_config table exists but not in generated types yet
-      const result = await SelfHealing.query(
-        () => supabase.from("autonomous_system_config").select("*").single(),
+            const result = await SelfHealing.query(
+        () => autonomousClient.from("autonomous_system_config").select("*").single(),
         {
           operationName: "fetch_autonomous_config",
           fallbackValue: DEFAULT_SYSTEM_CONFIG,
@@ -116,8 +99,7 @@ export function useAutonomousSystem() {
   } = useQuery({
     queryKey: ["autonomous-tasks"],
     queryFn: async () => {
-      // @ts-expect-error - autonomous_tasks table exists but not in generated types yet
-      const result = await SelfHealing.query(
+            const result = await SelfHealing.query(
         () =>
           supabase
             .from("autonomous_tasks")
@@ -154,8 +136,7 @@ export function useAutonomousSystem() {
   } = useQuery({
     queryKey: ["autonomous-execution-logs"],
     queryFn: async () => {
-      // @ts-expect-error - autonomous_execution_logs table exists but not in generated types yet
-      const result = await SelfHealing.query(
+            const result = await SelfHealing.query(
         () =>
           supabase
             .from("autonomous_execution_logs")
@@ -191,9 +172,8 @@ export function useAutonomousSystem() {
   } = useQuery({
     queryKey: ["autonomous-system-stats"],
     queryFn: async () => {
-      // @ts-expect-error - autonomous_system_stats view exists but not in generated types yet
-      const result = await SelfHealing.query(
-        () => supabase.from("autonomous_system_stats").select("*").single(),
+            const result = await SelfHealing.query(
+        () => autonomousClient.from("autonomous_system_stats").select("*").single(),
         {
           operationName: "fetch_system_stats",
           fallbackValue: getFallbackStats(),
@@ -250,8 +230,7 @@ export function useAutonomousSystem() {
       priority?: number;
       autonomy_level?: number;
     }) => {
-      // @ts-expect-error - create_autonomous_task RPC exists but not in generated types yet
-      const { data, error } = await supabase.rpc("create_autonomous_task", {
+            const { data, error } = await supabase.rpc("create_autonomous_task", {
         p_task_type: task.task_type,
         p_description: task.description,
         p_priority: task.priority || 5,
@@ -274,8 +253,7 @@ export function useAutonomousSystem() {
   // Mutation: Update system config
   const updateConfigMutation = useMutation({
     mutationFn: async (updates: Partial<AutonomousSystemConfig>) => {
-      // @ts-expect-error - autonomous_system_config table exists but not in generated types yet
-      const { data, error } = await supabase
+            const { data, error } = await supabase
         .from("autonomous_system_config")
         .update(updates)
         .eq("id", 1)
@@ -297,8 +275,7 @@ export function useAutonomousSystem() {
   // Mutation: Emergency stop
   const emergencyStopMutation = useMutation({
     mutationFn: async (params: { reason: string; hours?: number }) => {
-      // @ts-expect-error - emergency_stop_autonomous_system RPC exists but not in generated types yet
-      const { data, error } = await supabase.rpc("emergency_stop_autonomous_system", {
+            const { data, error } = await supabase.rpc("emergency_stop_autonomous_system", {
         p_reason: params.reason,
         p_hours: params.hours || 24,
       });

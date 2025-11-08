@@ -9,6 +9,19 @@ import { supabase } from "@/integrations/supabase/client";
 import { SelfHealing } from "./self-healing";
 import { logError, logInfo } from "@/lib/logger";
 
+// Type helper for autonomous tables
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type AutonomousSupabaseClient = typeof supabase & {
+  from(table: "autonomous_tasks"): any;
+  from(table: "autonomous_system_config"): any;
+  from(table: "autonomous_execution_logs"): any;
+  from(table: "autonomous_safety_checks"): any;
+  from(table: "autonomous_system_stats"): any;
+};
+/* eslint-enable @typescript-eslint/no-explicit-any */
+
+const autonomousClient = supabase as AutonomousSupabaseClient;
+
 // ==================================================================================
 // CONFIGURATION
 // ==================================================================================
@@ -58,7 +71,6 @@ async function collectHealthMetrics(): Promise<HealthMetrics> {
 
   // Test database connection
   try {
-    // @ts-expect-error - autonomous_system_config table exists but not in generated types yet
     const { data, error } = await supabase
       .from("autonomous_system_config")
       .select("*")
@@ -85,7 +97,6 @@ async function collectHealthMetrics(): Promise<HealthMetrics> {
 
   // Count pending tasks
   try {
-    // @ts-expect-error - autonomous_tasks table exists but not in generated types yet
     const { data } = await supabase
       .from("autonomous_tasks")
       .select("id", { count: "exact" })
@@ -98,7 +109,6 @@ async function collectHealthMetrics(): Promise<HealthMetrics> {
 
   // Calculate failure rate (last 24h)
   try {
-    // @ts-expect-error - autonomous_tasks table exists but not in generated types yet
     const { data: recentTasks } = await supabase
       .from("autonomous_tasks")
       .select("status")
@@ -114,7 +124,6 @@ async function collectHealthMetrics(): Promise<HealthMetrics> {
 
   // Get last successful execution
   try {
-    // @ts-expect-error - autonomous_execution_logs table exists but not in generated types yet
     const { data } = await supabase
       .from("autonomous_execution_logs")
       .select("created_at")
@@ -145,8 +154,7 @@ async function sendAlert(
 
   // Log to database
   try {
-    // @ts-expect-error - autonomous_execution_logs table exists but not in generated types yet
-    await supabase.from("autonomous_execution_logs").insert({
+    await autonomousClient.from("autonomous_execution_logs").insert({
       execution_step: `watchdog_alert_${severity}`,
       step_status: severity === "critical" ? "failed" : "completed",
       output_data: {
@@ -243,8 +251,7 @@ async function performHealthCheck(): Promise<void> {
     }
 
     // Log metrics
-    // @ts-expect-error - autonomous_execution_logs table exists but not in generated types yet
-    await supabase.from("autonomous_execution_logs").insert({
+    await autonomousClient.from("autonomous_execution_logs").insert({
       execution_step: "watchdog_health_check",
       step_status: "completed",
       output_data: metrics,
@@ -271,7 +278,6 @@ async function emergencyStop(reason: string): Promise<void> {
   console.error(`🛑 EMERGENCY STOP: ${reason}`);
 
   try {
-    // @ts-expect-error - autonomous_system_config table exists but not in generated types yet
     await supabase
       .from("autonomous_system_config")
       .update({
@@ -350,3 +356,4 @@ export function getWatchdogStatus(): {
 if (import.meta.env.VITE_AUTONOMOUS_MODE === "true" && import.meta.env.PROD) {
   startWatchdog();
 }
+
