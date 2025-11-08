@@ -27,7 +27,7 @@ npm run autonomous:test
 
 ### 2. Health-Check Dashboard
 
-**URL:** https://mydispatch.vercel.app/autonomous
+**URL:** https://www.my-dispatch.de/autonomous
 
 **Prüfe:**
 
@@ -334,7 +334,8 @@ ORDER BY t.created_at DESC;
 - **Supabase Status:** https://status.supabase.com
 - **GitHub Status:** https://www.githubstatus.com
 - **Vercel Status:** https://www.vercel-status.com
-- **Projekt URL:** https://mydispatch.vercel.app
+- **Primary Domain:** https://www.my-dispatch.de
+- **Vercel Dashboard:** https://vercel.com/mydispatchs-projects/mydispatch-rebuild
 
 ---
 

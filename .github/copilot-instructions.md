@@ -814,7 +814,8 @@ git push origin master
 - ✅ Auto-deploys from `master` branch via GitHub Integration
 - ✅ Handles Vite environment variables automatically
 - ✅ Integrated with Supabase project (env vars auto-sync)
-- 📍 URL: https://mydispatch.vercel.app (configured in Vercel Dashboard)
+- 📍 Primary Domain: https://www.my-dispatch.de
+- 📍 Vercel Domain: https://mydispatch-rebuild.vercel.app
 
 **Backend:** Supabase
 
@@ -840,7 +841,7 @@ git push origin master
 # - Supabase GitHub integration (migrations + Edge Functions)
 
 # 4. Verify deployments
-# - Vercel: Check Vercel Dashboard or visit https://mydispatch.vercel.app
+# - Vercel: Check Vercel Dashboard or visit https://www.my-dispatch.de
 # - Supabase: Check Database → Migrations for successful deployment
 ```
 
@@ -1198,7 +1199,7 @@ await supabase.functions.invoke("send-template-email", {
       tasks_completed: 15,
       tests_passed: 142,
       build_status: "success",
-      deployment_url: "https://mydispatch.vercel.app",
+      deployment_url: "https://www.my-dispatch.de",
     },
   },
 });
