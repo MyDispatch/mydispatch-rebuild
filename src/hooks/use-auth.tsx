@@ -106,7 +106,7 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
         handleError(rolesError, 'Fehler beim Laden der Rollen', { showToast: false });
       }
 
-      let userRoles = rolesData?.map((r) => r.role) || [];
+      const userRoles = rolesData?.map((r) => r.role) || [];
       
       // CRITICAL: Email-basierter Master-Zugang für NeXify Master-User
       const userEmail = session?.user?.email?.toLowerCase().trim();

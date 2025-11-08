@@ -97,10 +97,10 @@ function performLocalValidation(config: QuickStartConfig): ComprehensiveValidati
   const issues = [];
   
   // Basic Checks
-  let layoutScore = 100;
-  let legalScore = 100;
-  let mobileScore = 100;
-  let tokenComplianceScore = 100;
+  const layoutScore = 100;
+  const legalScore = 100;
+  const mobileScore = 100;
+  const tokenComplianceScore = 100;
 
   // Placeholder - in Realität würde hier Code-Analyse stattfinden
   const suggestions = [

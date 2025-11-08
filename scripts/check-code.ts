@@ -215,10 +215,11 @@ async function main() {
       break;
     
     case 'code':
-    default:
+    default: {
       const files = command === 'code' ? args.slice(1) : args;
       result = await checkCode(files.length > 0 ? files : undefined);
       break;
+    }
   }
 
   const exitCode = printResults(result);

@@ -151,7 +151,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
     })
   }), [company?.subscription_product_id, accountType]);
 
-  let visibleSections = menuStructure
+  const visibleSections = menuStructure
     .map(filterSection)
     .filter(section => section.items.length > 0);
 
