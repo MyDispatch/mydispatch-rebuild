@@ -1,25 +1,14 @@
 {
-  "mcpServers": {
-    "github": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-github"
-      ],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
-      }
-    },
+  "servers": {
     "supabase": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-supabase"
-      ],
-      "env": {
-        "SUPABASE_URL": "${VITE_SUPABASE_URL}",
-        "SUPABASE_SERVICE_ROLE_KEY": "${SUPABASE_SERVICE_ROLE_KEY}"
-      }
+      "type": "http",
+      "url": "https://mcp.supabase.com/mcp?project_ref=vsbqyqhzxmwezlhzdmfd&features=storage,branching,functions,development,debugging,database,account,docs"
+    },
+    "github/github-mcp-server": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "gallery": "https://api.mcp.github.com/2025-09-15/v0/servers/ab12cd34-5678-90ef-1234-567890abcdef",
+      "version": "0.13.0"
     },
     "tavily": {
       "command": "npx",
@@ -30,10 +19,9 @@
       "env": {
         "TAVILY_API_KEY": "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"
       }
-    },
-    "tavily-remote": {
-      "url": "https://mcp.tavily.com/mcp/?tavilyApiKey=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"
     }
-  }
+  },
+  "inputs": []
 }
+
 
