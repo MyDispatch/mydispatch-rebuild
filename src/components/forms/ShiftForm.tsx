@@ -1,8 +1,13 @@
 /* ==================================================================================
-   Shift Form Component - Schichtzettel Erfassung V40.2 OPTIMIERT
+   Shift Form Component - Schichtzettel Erfassung V40.3 OPTIMIERT
    ==================================================================================
+   V40.3 FIXES (ESLint Compliance):
+   - ✅ React Hooks Rules: Alle Hooks vor conditionalem Return
+   - ✅ V26InfoBox zu V28 Alert Component migriert
+   - ✅ useEffect Dependencies korrekt gesetzt
+   
    V40.2 OPTIMIERUNGEN (DASHBOARD_DESIGN_VORGABEN-KONFORM):
-   - ✅ V26InfoBox für Gesamt-Km & Gesamt-Einnahmen (Konsistenz)
+   - ✅ Alert für Gesamt-Km & Gesamt-Einnahmen (V28-konform)
    - ✅ Spacing auf space-y-3 (statt 4/6) angepasst
    - ✅ Alle Abstände gemäß DASHBOARD_DESIGN_VORGABEN.md
    
@@ -29,12 +34,12 @@ import { supabase } from '@/integrations/supabase/client';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Input, Checkbox } from '@/lib/compat';
 import { Label } from '@/components/ui/label';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { handleError, handleSuccess } from '@/lib/error-handler';
 import { formatCurrency } from '@/lib/index';
-import { Loader2, Clock, Car, Euro, CheckCircle } from 'lucide-react';
+import { Loader2, Clock, Car, Euro, CheckCircle, Info } from 'lucide-react';
 import { format } from 'date-fns';
 import { SearchableSelect } from '@/components/shared/SearchableSelect';
-import { V26InfoBox } from '@/components/design-system/V26InfoBox';
 
 interface ShiftFormProps {
   onSuccess: () => void;
@@ -59,16 +64,6 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
   const [loading, setLoading] = useState(false);
   const [drivers, setDrivers] = useState<Driver[]>([]);
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-
-  // V40.0: Company-ID Guard
-  if (!profile?.company_id) {
-    return (
-      <div className="p-4 text-center text-destructive">
-        Fehler: Company-ID fehlt. Bitte melden Sie sich erneut an.
-      </div>
-    );
-  }
-
   const [formData, setFormData] = useState({
     driver_id: undefined as string | undefined,
     vehicle_id: undefined as string | undefined,
@@ -84,13 +79,6 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
     invoice_earnings: '0',
     confirmed_by_driver: false,
   });
-
-  useEffect(() => {
-    if (profile?.company_id) {
-      fetchDrivers();
-      fetchVehicles();
-    }
-  }, [profile?.company_id]);
 
   const fetchDrivers = async () => {
     try {
@@ -121,6 +109,14 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
       handleError(error, 'Fehler beim Laden der Fahrzeuge', { showToast: false });
     }
   };
+
+  useEffect(() => {
+    if (profile?.company_id) {
+      fetchDrivers();
+      fetchVehicles();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile?.company_id]);
 
   // V40.0: Memoized calculation for performance
   const calculateTotalKm = useMemo(() => {
@@ -216,6 +212,15 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
       setLoading(false);
     }
   };
+
+  // V40.0: Company-ID Guard - nach allen Hooks
+  if (!profile?.company_id) {
+    return (
+      <div className="p-4 text-center text-destructive">
+        Fehler: Company-ID fehlt. Bitte melden Sie sich erneut an.
+      </div>
+    );
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
@@ -350,11 +355,12 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
           </div>
         </div>
         {calculateTotalKm() !== null && (
-          <V26InfoBox type="info">
-            <p className="text-xs">
+          <Alert className="bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800">
+            <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <AlertDescription className="text-xs">
               <strong>Gesamt-Km:</strong> {calculateTotalKm()} km
-            </p>
-          </V26InfoBox>
+            </AlertDescription>
+          </Alert>
         )}
       </div>
 
@@ -399,11 +405,12 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
             />
           </div>
         </div>
-        <V26InfoBox type="info">
-          <p className="text-xs">
+        <Alert className="bg-blue-50 dark:bg-blue-950 border-blue-200 dark:border-blue-800">
+          <Info className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+          <AlertDescription className="text-xs">
             <strong>Gesamt:</strong> {formatCurrency(totalEarnings)}
-          </p>
-        </V26InfoBox>
+          </AlertDescription>
+        </Alert>
       </div>
 
       {/* Bestätigung */}

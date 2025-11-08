@@ -1,50 +1,54 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { V28Sheet } from '../index';
 import { describe, it, expect } from 'vitest';
 import '@testing-library/jest-dom';
 
 describe('V28Sheet', () => {
   it('renders when open', () => {
-    const { getByText } = render(
+    render(
       <V28Sheet open={true} onOpenChange={() => {}}>
         <div>Sheet Content</div>
       </V28Sheet>
     );
-    expect(getByText('Sheet Content')).toBeInTheDocument();
+    expect(screen.getByText('Sheet Content')).toBeInTheDocument();
   });
 
   it('does not render when closed', () => {
-    const { queryByText } = render(
+    render(
       <V28Sheet open={false} onOpenChange={() => {}}>
         <div>Sheet Content</div>
       </V28Sheet>
     );
-    expect(queryByText('Sheet Content')).not.toBeInTheDocument();
+    expect(screen.queryByText('Sheet Content')).not.toBeInTheDocument();
   });
 
   it('renders title and description', () => {
-    const { getByText } = render(
+    render(
       <V28Sheet open={true} onOpenChange={() => {}} title="Sheet Title" description="Sheet Description">
         <div>Content</div>
       </V28Sheet>
     );
-    expect(getByText('Sheet Title')).toBeInTheDocument();
-    expect(getByText('Sheet Description')).toBeInTheDocument();
+    expect(screen.getByText('Sheet Title')).toBeInTheDocument();
+    expect(screen.getByText('Sheet Description')).toBeInTheDocument();
   });
 
   it('applies side variants correctly', () => {
-    const { container, rerender } = render(
+    const { rerender } = render(
       <V28Sheet open={true} onOpenChange={() => {}} side="left">
         <div>Content</div>
       </V28Sheet>
     );
-    expect(container.querySelector('.left-0')).toBeInTheDocument();
+    // Check that sheet with left side is rendered
+    const leftSheet = document.querySelector('[class*="left-0"]');
+    expect(leftSheet).toBeInTheDocument();
 
     rerender(
       <V28Sheet open={true} onOpenChange={() => {}} side="bottom">
         <div>Content</div>
       </V28Sheet>
     );
-    expect(container.querySelector('.bottom-0')).toBeInTheDocument();
+    // Check that sheet with bottom side is rendered
+    const bottomSheet = document.querySelector('[class*="bottom-0"]');
+    expect(bottomSheet).toBeInTheDocument();
   });
 });

@@ -10,6 +10,14 @@
       "gallery": "https://api.mcp.github.com/2025-09-15/v0/servers/ab12cd34-5678-90ef-1234-567890abcdef",
       "version": "0.13.0"
     },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/runner/work/mydispatch-rebuild/mydispatch-rebuild"
+      ]
+    },
     "tavily": {
       "command": "npx",
       "args": [
@@ -23,5 +31,4 @@
   },
   "inputs": []
 }
-
 
