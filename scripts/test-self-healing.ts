@@ -318,31 +318,41 @@ async function testFullSystemHealth(): Promise<void> {
   try {
     const { error } = await supabase.from("autonomous_system_config").select("id").limit(1);
     healthChecks.database = !error;
-  } catch {}
+  } catch (error) {
+    console.error("Database check failed:", error);
+  }
 
   // Config table
   try {
     const { data } = await supabase.from("autonomous_system_config").select("*").single();
     healthChecks.config = !!data;
-  } catch {}
+  } catch (error) {
+    console.error("Config check failed:", error);
+  }
 
   // Tasks table
   try {
     const { error } = await supabase.from("autonomous_tasks").select("id").limit(1);
     healthChecks.tasks_table = !error;
-  } catch {}
+  } catch (error) {
+    console.error("Tasks table check failed:", error);
+  }
 
   // Logs table
   try {
     const { error } = await supabase.from("autonomous_execution_logs").select("id").limit(1);
     healthChecks.logs_table = !error;
-  } catch {}
+  } catch (error) {
+    console.error("Logs table check failed:", error);
+  }
 
   // Stats view
   try {
     const { data } = await supabase.from("autonomous_system_stats").select("*").single();
     healthChecks.stats_view = !!data;
-  } catch {}
+  } catch (error) {
+    console.error("Stats view check failed:", error);
+  }
 
   console.log("Health check results:", healthChecks);
 
