@@ -49,7 +49,7 @@ Das **MyDispatch Autonomous Development System** ermöglicht vollautomatische Co
 │         │                                                        │
 │         ▼                                                        │
 │  ┌─────────────────────────────────────────────────────────┐   │
-│  │        Lovable + Supabase + Vercel Deployment           │   │
+│  │        Vercel + Supabase Deployment (GitHub Integration)│   │
 │  └─────────────────────────────────────────────────────────┘   │
 │                                                                   │
 └─────────────────────────────────────────────────────────────────┘

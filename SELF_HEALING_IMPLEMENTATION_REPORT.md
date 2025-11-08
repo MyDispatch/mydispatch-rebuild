@@ -363,7 +363,7 @@ Die 5 RLS-Fehler sind **erwartetes Verhalten** wenn Tests ohne Auth Session lauf
 
 1. Merge Code in `master` Branch
 2. Environment Variables setzen (`VITE_AUTONOMOUS_MODE=true`)
-3. Deploy via Lovable Cloud
+3. Deploy via Vercel
 4. Nach 5 Minuten: Watchdog Logs prüfen
 5. Nach 24h: Success Rate prüfen (Ziel: >95%)
 

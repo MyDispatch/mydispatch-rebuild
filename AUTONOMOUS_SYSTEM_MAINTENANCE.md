@@ -27,7 +27,7 @@ npm run autonomous:test
 
 ### 2. Health-Check Dashboard
 
-**URL:** https://lovable.dev/projects/532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b/master/autonomous
+**URL:** https://mydispatch.vercel.app/autonomous
 
 **Prüfe:**
 
@@ -333,8 +333,8 @@ ORDER BY t.created_at DESC;
 
 - **Supabase Status:** https://status.supabase.com
 - **GitHub Status:** https://www.githubstatus.com
-- **Lovable Status:** https://lovable.dev/status
-- **Projekt Dashboard:** https://lovable.dev/projects/532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b
+- **Vercel Status:** https://www.vercel-status.com
+- **Projekt URL:** https://mydispatch.vercel.app
 
 ---
 

@@ -517,7 +517,7 @@ WHERE execution_step = 'watchdog_healing'
 
 1. ✅ Environment Variables setzen (`VITE_AUTONOMOUS_MODE=true`)
 2. ✅ Tests ausführen (`npm run test:self-healing`)
-3. ✅ System deployen (Lovable Cloud)
+3. ✅ System deployen (Vercel)
 4. ✅ Watchdog Dashboard prüfen (`/master/autonomous`)
 5. ✅ 24h Monitoring-Phase starten
 

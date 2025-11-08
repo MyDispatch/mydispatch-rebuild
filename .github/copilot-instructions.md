@@ -8,7 +8,7 @@ MyDispatch is a production-ready taxi & limousine dispatch management system bui
 
 - **Version:** V32.5 (Production)
 - **Stack:** React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui, Supabase
-- **Deployment:** Lovable Cloud (primary), supports Vercel/Netlify
+- **Deployment:** Vercel (primary), GitHub Actions CI/CD
 - **Database:** Supabase PostgreSQL with RLS (Row Level Security mandatory)
 - **Design System:** V28.1 with frozen layout components
 - **Master Account:** `courbois1981@gmail.com` (special permissions, `/master` route)
@@ -748,7 +748,7 @@ const { data } = await octokit.pulls.create({
 5. Sends notification with PR link
 5. You review patch in browser
 6. Approve → Auto-merge to master
-7. Triggers Lovable + Supabase deployment
+7. Triggers Vercel + Supabase deployment
 ```
 
 **Benefits over traditional Git:**
@@ -809,19 +809,19 @@ git push origin master
 
 ### Deployment Strategy (Multi-Platform)
 
-**Primary:** Lovable Cloud
+**Primary:** Vercel
 
-- ✅ Auto-deploys from `master` branch
+- ✅ Auto-deploys from `master` branch via GitHub Integration
 - ✅ Handles Vite environment variables automatically
-- ✅ Integrated with Supabase project
-- 📍 URL: https://lovable.dev/projects/532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b
+- ✅ Integrated with Supabase project (env vars auto-sync)
+- 📍 URL: https://mydispatch.vercel.app (configured in Vercel Dashboard)
 
-**Secondary:** Vercel
+**Backend:** Supabase
 
-- ✅ Fully configured with correct `VITE_` prefix
-- ✅ Environment variables auto-sync from Supabase
-- 📋 Use for preview deployments or custom domains
-- 🔄 Automatically deploys from GitHub (if Git integration enabled)
+- ✅ PostgreSQL database with RLS
+- ✅ Edge Functions (Deno runtime)
+- ✅ GitHub integration for migrations
+- ✅ Realtime subscriptions
 
 **Deployment Workflow:**
 
@@ -836,21 +836,18 @@ npm run build
 git push origin master
 
 # This triggers:
-# - Lovable Cloud deployment (primary)
+# - Vercel deployment (frontend)
 # - Supabase GitHub integration (migrations + Edge Functions)
-# - Vercel deployment (if Git integration enabled)
 
 # 4. Verify deployments
-# - Lovable: https://lovable.dev/projects/532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b
-# - Vercel: Check Vercel Dashboard
+# - Vercel: Check Vercel Dashboard or visit https://mydispatch.vercel.app
 # - Supabase: Check Database → Migrations for successful deployment
 ```
 
 **Environment Variables are automatically available on:**
 
-- ✅ Lovable Cloud (via platform)
-- ✅ Vercel (via Supabase integration)
-- ✅ Edge Functions (via Supabase)
+- ✅ Vercel (via Supabase integration - VITE\_ prefix configured)
+- ✅ Edge Functions (via Supabase Secrets)
 
 ## Master Account System
 
@@ -1179,7 +1176,7 @@ supabase functions invoke health-check
 04:00 - Batch 3: Performance optimizations
 05:00 - Run tests, build validation
 06:00 - Auto-commit + push (if all tests pass)
-06:05 - Lovable + Supabase + Vercel deploy
+06:05 - Vercel + Supabase deploy (GitHub Integration)
 07:00 - Post-deployment validation
 08:00 - Wiki sync + documentation update
 09:00 - Generate progress report → email notification
@@ -1201,7 +1198,7 @@ await supabase.functions.invoke("send-template-email", {
       tasks_completed: 15,
       tests_passed: 142,
       build_status: "success",
-      deployment_url: "https://lovable.dev/projects/...",
+      deployment_url: "https://mydispatch.vercel.app",
     },
   },
 });
