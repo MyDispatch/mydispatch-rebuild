@@ -225,14 +225,16 @@ Bei Konvertierung einer Seite zum Golden Template:
 
 | Seite | Status | Tabs | Special |
 |-------|--------|------|---------|
-| **Rechnungen.tsx** | ✅ MASTER | Rechnungen/Angebote | - |
-| **Dashboard.tsx** | ✅ ANDERS | - | Widget-fokussiert |
-| **Auftraege.tsx** | ⏳ ZU KONVERTIEREN | Aufträge/Angebote | Smart Assignment |
-| **Kunden.tsx** | ⏳ ZU KONVERTIEREN | - | Portal-Zugang |
-| **Fahrer.tsx** | ⏳ ZU KONVERTIEREN | Fahrer/Fahrzeuge | GPS Status |
-| **Partner.tsx** | ⏳ ZU KONVERTIEREN | - | Provision |
-| **Statistiken.tsx** | ⏳ ZU KONVERTIEREN | - | Charts |
-| **Schichtzettel.tsx** | ⏳ ZU KONVERTIEREN | - | Calendar |
+| **Seite** | **Status** | **Tabs** | **Besonderheiten** |
+|-----------|------------|----------|-------------------|
+| **Rechnungen.tsx** | ✅ MASTER TEMPLATE | Rechnungen/Angebote | 3 KPI Cards, Export Bar |
+| **Dashboard.tsx** | ✅ COMPLIANT | - | Widget-focused, Live Data |
+| **Auftraege.tsx** | ✅ COMPLIANT | Aufträge/Angebote | Smart Assignment |
+| **Kunden.tsx** | ✅ KONVERTIERT V32.5 | - | Portal-Zugang |
+| **Fahrer.tsx** | ✅ PERFECT V38.0 | Fahrer/Fahrzeuge | GPS Status |
+| **Partner.tsx** | ✅ COMPLIANT V28.1 | - | Provision |
+| **Statistiken.tsx** | ✅ COMPLIANT | - | Charts |
+| **Schichtzettel.tsx** | ✅ COMPLIANT | - | Calendar |
 
 ---
 
