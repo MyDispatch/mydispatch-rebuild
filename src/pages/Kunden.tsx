@@ -21,7 +21,7 @@ import { MobileKunden } from '@/components/mobile/MobileKunden';
 import { Mail, Download, Plus, UserCheck, Phone, CreditCard } from 'lucide-react';
 import { KPIGenerator, QuickActionsGenerator } from '@/lib/dashboard-automation';
 import { DashboardStatsCalculator } from '@/lib/dashboard-automation/stats-calculator';
-import { V28StatCard } from '@/components/design-system';
+import { StatCard } from '@/components/smart-templates/StatCard';
 import { supabase } from '@/integrations/supabase/client';
 import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
 import { EmptyState } from '@/components/shared/EmptyState';
@@ -91,14 +91,14 @@ export default function Kunden() {
   const bulkSelection = useBulkSelection<Customer>();
   const { isMobile } = useDeviceType();
   const { sidebarExpanded } = useMainLayout();
-  
+
   const [searchTerm, setSearchTerm] = useState('');
   const [showArchived, setShowArchived] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
   const [detailDialogOpen, setDetailDialogOpen] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
-  
+
   // ✅ MISSION II: TanStack Query Hook für Related Data
   const { bookings: customerBookings, invoices: customerInvoices } = useCustomerRelatedData(
     selectedCustomer?.id || null,
@@ -141,7 +141,7 @@ export default function Kunden() {
   );
 
   // V18.5.1: Stats-Berechnung mit DashboardStatsCalculator
-  const customerStats = useMemo(() => 
+  const customerStats = useMemo(() =>
     DashboardStatsCalculator.customers(customers) as {
       total: number;
       portalAccess: number;
@@ -209,17 +209,17 @@ export default function Kunden() {
         }
       >
 
-        {/* ✅ V6.1: StatCards Pattern (Golden Template) */}
+        {/* ✅ V6.1: StatCards Pattern (Golden Template - EXAKT WIE /RECHNUNGEN) */}
         <div className="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {kpis.map((kpi, index) => (
-            <V28StatCard
+            <StatCard
               key={index}
               label={kpi.title}
               value={kpi.value}
               icon={kpi.icon}
-              change={kpi.trend ? { 
-                value: kpi.trend.value, 
-                trend: kpi.trend.value >= 0 ? 'up' : 'down' 
+              change={kpi.trend ? {
+                value: kpi.trend.value,
+                trend: kpi.trend.value >= 0 ? 'up' : 'down'
               } : undefined}
             />
           ))}
@@ -374,7 +374,7 @@ export default function Kunden() {
             {/* V18.3: Related Entities */}
             <div className="space-y-3 mt-6 pt-6 border-t">
               <h4 className="text-sm font-semibold text-muted-foreground">Verknüpfte Daten</h4>
-              
+
               {/* V18.3: Related Entities */}
               {customerBookings.length > 0 && (
                 <div>
@@ -392,7 +392,7 @@ export default function Kunden() {
                   ))}
                 </div>
               )}
-              
+
               {/* V18.3: Offene Rechnungen */}
               {customerInvoices.length > 0 && (
                 <div>
@@ -421,13 +421,11 @@ export default function Kunden() {
         </DetailDialog>
       )}
 
-      {/* V35.0: Fixed Right Sidebar für Kunden (Desktop only) */}
+      {/* ✅ V32.5: Right Sidebar (320px, Desktop only) - EXAKT WIE /RECHNUNGEN */}
       {!isMobile && (
-        <aside 
+        <aside
           className="fixed right-0 top-16 bottom-0 bg-white border-l border-slate-200 shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300"
-          style={{
-            width: '320px',
-          }}
+          style={{ width: '320px' }}
         >
           {/* Schnellzugriff Actions */}
           <div className="p-4 space-y-3 border-b border-slate-200">
@@ -435,7 +433,7 @@ export default function Kunden() {
               <span className="w-1 h-4 rounded-full bg-slate-700" />
               Schnellzugriff
             </h3>
-            
+
             <V28Button
               variant="primary"
               fullWidth
@@ -460,7 +458,7 @@ export default function Kunden() {
           {/* Live-Status Stats */}
           <div className="p-4 space-y-3">
             <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">Live-Status</h4>
-            
+
             <div className="space-y-2">
               {/* Gesamt Kunden */}
               <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">
@@ -471,7 +469,7 @@ export default function Kunden() {
                 <p className="text-2xl font-bold text-slate-900">{customerStats.total}</p>
                 <p className="text-xs text-slate-500 mt-1">Kunden</p>
               </div>
-              
+
               {/* Portal-Zugang */}
               <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
                 <div className="flex items-center justify-between mb-1">
@@ -483,7 +481,7 @@ export default function Kunden() {
                   {Math.round(customerStats.percentagePortalAccess)}% aller Kunden
                 </p>
               </div>
-              
+
               {/* Offene Rechnungen */}
               <div className="p-3 bg-amber-50 rounded-lg border border-amber-200">
                 <div className="flex items-center justify-between mb-1">
@@ -513,7 +511,7 @@ interface CustomerFormProps {
 
 function CustomerForm({ customer, companyId, onSuccess, onCancel }: CustomerFormProps) {
   const { createCustomer, updateCustomer, isCreating, isUpdating } = useCustomers();
-  
+
   const form = useForm({
     defaultValues: {
       first_name: customer?.first_name || '',
@@ -576,7 +574,7 @@ function CustomerForm({ customer, companyId, onSuccess, onCancel }: CustomerForm
     } else {
       await createCustomer(customerData as any);
     }
-    
+
     onSuccess();
   };
 

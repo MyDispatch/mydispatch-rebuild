@@ -1,16 +1,16 @@
 # MyDispatch - Taxi & Mietwagen Management System
 
-**Status:** ✅ PRODUCTION-READY  
-**Version:** V32.5  
-**Datum:** 2025-01-31  
-**Entwickelt von:** NeXify (Pascal)  
+**Status:** ✅ PRODUCTION-READY
+**Version:** V32.5
+**Datum:** 2025-01-31
+**Entwickelt von:** NeXify (Pascal)
 **Betreuung:** NeXify - Dauerhafte Entwicklung & Support
 
 ## Project info
 
-**Website:** https://my-dispatch.de  
-**URL**: https://lovable.dev/projects/532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b  
-**Supabase Projekt-ID:** `vsbqyqhzxmwezlhzdmfd`
+**Website:** https://my-dispatch.de
+**URL**: https://lovable.dev/projects/532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b
+**Supabase Projekt-ID:** `ygpwuiygivxoqtyoigtg`
 
 ## 🚀 Quick Start
 

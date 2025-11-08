@@ -68,10 +68,10 @@ export function V28HeroPremium({
       {/* Content Container */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          
+
           {/* Left Column - Text Content */}
           <div className="space-y-6 animate-fade-in">
-            
+
             {/* Badge */}
             {badge && (
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200">
@@ -103,8 +103,8 @@ export function V28HeroPremium({
             {businessMetrics && businessMetrics.length > 0 && (
               <div className="flex flex-wrap justify-start gap-12 py-4">
                 {businessMetrics.map((metric, idx) => (
-                  <div 
-                    key={idx} 
+                  <div
+                    key={idx}
                     className="text-left animate-fade-in"
                     style={{ animationDelay: `${0.6 + (idx * 0.1)}s` }}
                   >
@@ -133,15 +133,10 @@ export function V28HeroPremium({
           {primaryCTA.icon && <primaryCTA.icon className="w-5 h-5 mr-2" />}
           {primaryCTA.label}
         </V28Button>
-              
+
               {/* PWA Install Button - MAX 2 BUTTONS! */}
-              {showPWAButton && (
-                <PWAInstallButton 
-                  variant="outline"
-                  size="lg"
-                  className="shadow-md hover:shadow-lg"
-                />
-              )}
+              {/* Note: PWAInstallButton zeigt sich selbst als Fixed Prompt - keine Props nötig */}
+              {showPWAButton && <PWAInstallButton />}
             </div>
 
             {/* Trust Indicators */}

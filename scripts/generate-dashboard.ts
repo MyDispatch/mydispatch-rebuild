@@ -240,7 +240,7 @@ function generateDashboard(config: DashboardConfig): string {
     : '';
   
   // Replace placeholders
-  let output = TEMPLATE
+  const output = TEMPLATE
     .replace(/{{NAME}}/g, config.name)
     .replace(/{{TITLE}}/g, config.title)
     .replace(/{{TIMESTAMP}}/g, timestamp)

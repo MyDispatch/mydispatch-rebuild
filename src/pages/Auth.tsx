@@ -268,8 +268,7 @@ export default function Auth() {
             .maybeSingle();
 
           // Master-Zugang-Check (Pascal und andere Master-User)
-          // WICHTIG: Master-User bekommen KEINE separate Route!
-          // Sie landen auf /dashboard wie normale User, aber mit erweiterten Menü-Rechten
+          // V32.5: Master-User werden zu /master weitergeleitet (nicht /dashboard)
           const normalizedEmailForCheck = (email || '').toLowerCase().trim();
           const isMaster = userRoles?.role === 'master' ||
                           normalizedEmailForCheck === 'pascal@nexify.ai' ||
@@ -277,9 +276,9 @@ export default function Auth() {
                           normalizedEmailForCheck === 'courbois1981@gmail.com';
 
           if (isMaster) {
-            logger.debug('[Auth] Master-Zugang erkannt - Weiterleitung zu /dashboard', { email, component: 'Auth' });
-            // Master-User landen auf normalem Dashboard mit erweiterten Rechten
-            navigate('/dashboard');
+            const redirectRoute = getLoginRedirectRoute('master', searchParams);
+            logger.debug('[Auth] Master-Zugang erkannt - Weiterleitung zu /master', { email, redirectRoute, component: 'Auth' });
+            navigate(redirectRoute);
             return;
           }
 

@@ -3,9 +3,9 @@ import { V28Button } from '@/components/design-system/V28Button';
 import { Card } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Menu, Bell, MapPin, Clock, Euro, TrendingUp, 
-  Car, CheckCircle, XCircle, AlertCircle, Wifi, WifiOff 
+import {
+  Menu, Bell, MapPin, Clock, Euro, TrendingUp,
+  Car, CheckCircle, XCircle, AlertCircle, Wifi, WifiOff
 } from 'lucide-react';
 import officialLogo from '@/assets/mydispatch-logo-official.png';
 import { SEOHead } from '@/components/shared/SEOHead';
@@ -77,8 +77,8 @@ export default function DriverDashboard() {
     try {
       const { error } = await supabase
         .from('bookings')
-        .update({ 
-          status: 'accepted',
+        .update({
+          status: 'confirmed', // V32.5: 'confirmed' ist der korrekte BookingStatus für angenommene Aufträge
           updated_at: new Date().toISOString()
         })
         .eq('id', bookingId);
@@ -97,8 +97,8 @@ export default function DriverDashboard() {
     try {
       const { error } = await supabase
         .from('bookings')
-        .update({ 
-          status: 'declined',
+        .update({
+          status: 'cancelled', // V32.5: 'cancelled' ist der korrekte BookingStatus für abgelehnte Aufträge
           updated_at: new Date().toISOString()
         })
         .eq('id', bookingId);
@@ -126,9 +126,9 @@ export default function DriverDashboard() {
             <V28Button variant="secondary" size="sm" className="text-foreground hover:text-foreground/80">
               <Menu className="h-6 w-6" />
             </V28Button>
-            <img 
-              src={officialLogo} 
-              alt="MyDispatch" 
+            <img
+              src={officialLogo}
+              alt="MyDispatch"
               className="h-10 w-auto object-contain"
             />
             <V28Button variant="secondary" size="sm" className="text-foreground hover:text-foreground/80 relative">
@@ -149,8 +149,8 @@ export default function DriverDashboard() {
               <div className="flex items-center space-x-2 mt-1">
                 <div className="flex items-center">
                   {[...Array(5)].map((_, i) => (
-                    <span 
-                      key={i} 
+                    <span
+                      key={i}
                       className={`text-sm ${i < Math.floor(driverStats.rating) ? 'text-primary' : 'text-muted-foreground/30'}`}
                     >
                       ★
@@ -249,7 +249,7 @@ export default function DriverDashboard() {
                 <p className="text-sm text-muted-foreground mb-1">Abschlussrate</p>
                 <div className="flex items-center space-x-2">
                   <div className="flex-1 bg-muted rounded-full h-2">
-                    <div 
+                    <div
                       className="bg-status-success h-2 rounded-full transition-all"
                       style={{ width: `${driverStats.completionRate}%` }}
                     />
@@ -264,8 +264,8 @@ export default function DriverDashboard() {
                 <div className="flex items-center space-x-2">
                   <div className="flex">
                     {[...Array(5)].map((_, i) => (
-                      <span 
-                        key={i} 
+                      <span
+                        key={i}
                         className={`text-lg ${i < Math.floor(driverStats.rating) ? 'text-primary' : 'text-muted-foreground'}`}
                       >
                         ★

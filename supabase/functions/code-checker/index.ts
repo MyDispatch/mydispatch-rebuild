@@ -94,7 +94,7 @@ serve(async (req) => {
     console.log(`[CODE-CHECKER] Created report ${report.id} for company ${profile.company_id}`);
 
     // Build Claude Prompt (Strukturiert für JSON-Output)
-    let systemPrompt = `Du bist ein Senior Code-Review & DB-Analyse Expert.
+    const systemPrompt = `Du bist ein Senior Code-Review & DB-Analyse Expert.
 Du analysierst Code/Datenbanken und gibst strukturierte Reports zurück.
 
 WICHTIG: Deine Antwort MUSS IMMER valides JSON sein mit diesem Format:

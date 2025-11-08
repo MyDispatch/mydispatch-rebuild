@@ -80,7 +80,7 @@ const Carousel = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
       [scrollPrev, scrollNext],
     );
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
     React.useEffect(() => {
       if (!api || !setApi) {
         return;
