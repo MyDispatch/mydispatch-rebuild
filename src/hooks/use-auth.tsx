@@ -8,6 +8,16 @@ import { handleError } from '@/lib/error-handler';
 import { logger } from '@/lib/logger';
 import type { ExtendedProfile, ExtendedCompany } from '@/types/extended-types';
 import { toExtendedCompany } from '@/types/extended-types';
+import type { Profile } from '@/integrations/supabase/types/core-tables';
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+// Type helper for typed queries
+type TypedSupabaseClient = typeof supabase & {
+  from(table: 'profiles'): any;
+  from(table: 'user_roles'): any;
+};
+const typedClient = supabase as TypedSupabaseClient;
 
 interface AuthContextType {
   user: User | null;
@@ -36,7 +46,7 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
-        
+
         if (session?.user) {
           setTimeout(() => {
             fetchUserData(session.user.id);
@@ -54,7 +64,7 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
       .then(({ data: { session } }) => {
         setSession(session);
         setUser(session?.user ?? null);
-        
+
         if (session?.user) {
           fetchUserData(session.user.id);
         } else {
@@ -73,7 +83,7 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
 
   const fetchUserData = async (userId: string) => {
     try {
-      const { data: profileData, error: profileError } = await supabase
+      const { data: profileData, error: profileError } = await typedClient
         .from('profiles')
         .select('*, companies(*)')
         .eq('user_id', userId)
@@ -85,10 +95,10 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
         return;
       }
 
-      const extendedCompany = toExtendedCompany(profileData?.companies || null);
+      const extendedCompany = toExtendedCompany((profileData as any)?.companies || null);
 
       const enrichedProfile: ExtendedProfile = {
-        ...profileData,
+        ...(profileData as Profile),
         email: session?.user?.email,
         company: extendedCompany,
         companies: extendedCompany,
@@ -97,7 +107,7 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
       setProfile(enrichedProfile);
       setCompany(extendedCompany);
 
-      const { data: rolesData, error: rolesError } = await supabase
+      const { data: rolesData, error: rolesError } = await typedClient
         .from('user_roles')
         .select('role')
         .eq('user_id', userId);
@@ -106,19 +116,19 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
         handleError(rolesError, 'Fehler beim Laden der Rollen', { showToast: false });
       }
 
-      const userRoles = rolesData?.map((r) => r.role) || [];
-      
+      const userRoles = rolesData?.map((r: any) => r.role) || [];
+
       // CRITICAL: Email-basierter Master-Zugang für NeXify Master-User
       const userEmail = session?.user?.email?.toLowerCase().trim();
       const isMasterEmail = userEmail === 'courbois1981@gmail.com' ||
                            userEmail === 'pascal@nexify.ai' ||
                            userEmail === 'master@nexify.ai';
-      
+
       if (isMasterEmail && !userRoles.includes('master')) {
         userRoles.push('master');
         logger.debug('[useAuth] Master-Rolle durch Email hinzugefügt', { email: userEmail });
       }
-      
+
       setRoles(userRoles);
     } catch (error) {
       handleError(error, 'Fehler beim Laden der Benutzerdaten', { showToast: false });
@@ -131,13 +141,13 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
-      
+
       setUser(null);
       setSession(null);
       setProfile(null);
       setCompany(null);
       setRoles([]);
-      
+
       navigate('/auth');
       toast({
         title: 'Abgemeldet',
@@ -165,7 +175,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const context = useContext(AuthContext);
-  
+
   // CRITICAL V18.3.30: Robust Error Handling with Diagnostic Info
   if (context === undefined) {
     // Development: Detailed error with stack trace
@@ -174,13 +184,13 @@ export function useAuth() {
         location: window.location.pathname,
       });
     }
-    
+
     throw new Error(
       'useAuth must be used within an AuthProvider. ' +
       'Ensure <AuthProvider> wraps your component tree. ' +
       `Current path: ${window.location.pathname}`
     );
   }
-  
+
   return context;
 }

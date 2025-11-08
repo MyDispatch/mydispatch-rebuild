@@ -8,6 +8,15 @@
    ================================================================================== */
 
 import { supabase } from '@/integrations/supabase/client';
+import type { Tariff } from '@/integrations/supabase/types/core-tables';
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+// Type helper for typed queries
+type TypedSupabaseClient = typeof supabase & {
+  from(table: 'tariff_definitions'): any;
+};
+const typedClient = supabase as TypedSupabaseClient;
 
 interface TariffRules {
   basePrice: number;
@@ -35,30 +44,30 @@ export const calculateFare = async (
   try {
     // 1. Get Distance from Google Distance Matrix API
     const distance = await getDistance(pickup, destination);
-    
+
     // 2. Load Company Tariff Rules
     const tariff = await getTariffRules(companyId);
-    
+
     // 3. Calculate Base Fare
     let fare = tariff.basePrice +
                (distance.km * tariff.pricePerKm) +
                (distance.minutes * tariff.pricePerMinute);
-    
+
     // 4. Apply Time-based Surcharges
     if (dateTime) {
       const hour = dateTime.getHours();
       const isNight = hour >= 22 || hour < 6;
       const isWeekend = dateTime.getDay() === 0 || dateTime.getDay() === 6;
-      
+
       if (isNight && tariff.nightSurcharge) {
         fare += tariff.nightSurcharge;
       }
-      
+
       if (isWeekend && tariff.weekendSurcharge) {
         fare += tariff.weekendSurcharge;
       }
     }
-    
+
     return Math.round(fare * 100) / 100; // Round to 2 decimals
   } catch (error) {
     console.error('Fare calculation error:', error);
@@ -76,7 +85,7 @@ const getDistance = async (
 ): Promise<DistanceData> => {
   try {
     const HERE_API_KEY = import.meta.env.VITE_HERE_API_KEY;
-    
+
     if (!HERE_API_KEY) {
       console.warn('HERE API Key nicht gefunden, verwende Mock Data');
       return getMockDistance();
@@ -97,11 +106,11 @@ const getDistance = async (
     }
 
     const data = await response.json();
-    
+
     if (data.routes && data.routes.length > 0) {
       const route = data.routes[0];
       const summary = route.sections[0]?.summary;
-      
+
       if (summary) {
         return {
           km: summary.length / 1000, // Convert meters to km
@@ -125,7 +134,7 @@ const getDistance = async (
 const getMockDistance = (): DistanceData => {
   const mockDistanceKm = Math.random() * 20 + 5; // 5-25km
   const mockMinutes = Math.round(mockDistanceKm * 2.5); // ~2.5 min per km
-  
+
   return {
     km: mockDistanceKm,
     minutes: mockMinutes
@@ -138,7 +147,7 @@ const getMockDistance = (): DistanceData => {
  */
 const getTariffRules = async (companyId: string): Promise<TariffRules> => {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await typedClient
       .from('tariff_definitions')
       .select('*')
       .eq('company_id', companyId)
@@ -153,13 +162,14 @@ const getTariffRules = async (companyId: string): Promise<TariffRules> => {
     }
 
     if (data) {
+      const tariff = data as Tariff;
       return {
-        basePrice: data.base_price || 3.50,
-        pricePerKm: data.price_per_km || 2.20,
-        pricePerMinute: data.price_per_minute || 0.50,
-        waitingTimePerMinute: data.waiting_time_per_minute,
-        nightSurcharge: data.night_surcharge || 5.00,
-        weekendSurcharge: data.weekend_surcharge || 2.50
+        basePrice: tariff.base_price || 3.50,
+        pricePerKm: tariff.price_per_km || 2.20,
+        pricePerMinute: tariff.price_per_minute || 0.50,
+        waitingTimePerMinute: tariff.waiting_time_per_minute,
+        nightSurcharge: tariff.night_surcharge || 5.00,
+        weekendSurcharge: tariff.weekend_surcharge || 2.50
       };
     }
 
