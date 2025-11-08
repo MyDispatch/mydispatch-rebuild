@@ -8,7 +8,9 @@
       ],
       "env": {
         "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
-      }
+      },
+      "disabled": false,
+      "alwaysAllow": []
     },
     "supabase": {
       "command": "npx",
@@ -19,7 +21,19 @@
       "env": {
         "SUPABASE_URL": "${VITE_SUPABASE_URL}",
         "SUPABASE_SERVICE_ROLE_KEY": "${SUPABASE_SERVICE_ROLE_KEY}"
-      }
+      },
+      "disabled": false,
+      "alwaysAllow": []
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/home/runner/work/mydispatch-rebuild/mydispatch-rebuild"
+      ],
+      "disabled": false,
+      "alwaysAllow": []
     },
     "tavily": {
       "command": "npx",
@@ -29,11 +43,9 @@
       ],
       "env": {
         "TAVILY_API_KEY": "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"
-      }
-    },
-    "tavily-remote": {
-      "url": "https://mcp.tavily.com/mcp/?tavilyApiKey=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"
+      },
+      "disabled": false,
+      "alwaysAllow": []
     }
   }
 }
-

@@ -113,5 +113,27 @@
   
   // Performance Settings
   "files.maxMemoryForLargeFilesMB": 4096,
-  "typescript.disableAutomaticTypeAcquisition": false
+  "typescript.disableAutomaticTypeAcquisition": false,
+  
+  // MCP (Model Context Protocol) Settings
+  "cline.mcpServers": {
+    "configPath": "${workspaceFolder}/.vscode/mcp-config.json"
+  },
+  
+  // Environment Variables for MCP
+  "terminal.integrated.env.linux": {
+    "GITHUB_TOKEN": "${env:GITHUB_TOKEN}",
+    "VITE_SUPABASE_URL": "${env:VITE_SUPABASE_URL}",
+    "SUPABASE_SERVICE_ROLE_KEY": "${env:SUPABASE_SERVICE_ROLE_KEY}"
+  },
+  "terminal.integrated.env.osx": {
+    "GITHUB_TOKEN": "${env:GITHUB_TOKEN}",
+    "VITE_SUPABASE_URL": "${env:VITE_SUPABASE_URL}",
+    "SUPABASE_SERVICE_ROLE_KEY": "${env:SUPABASE_SERVICE_ROLE_KEY}"
+  },
+  "terminal.integrated.env.windows": {
+    "GITHUB_TOKEN": "${env:GITHUB_TOKEN}",
+    "VITE_SUPABASE_URL": "${env:VITE_SUPABASE_URL}",
+    "SUPABASE_SERVICE_ROLE_KEY": "${env:SUPABASE_SERVICE_ROLE_KEY}"
+  }
 }
