@@ -39,7 +39,14 @@
     "check:configuration": "node scripts/check-configuration.js",
     "deploy:complete": "node scripts/deploy-complete-system.js",
     "deploy:migrations": "supabase db push",
-    "deploy:functions": "supabase functions deploy"
+    "deploy:functions": "supabase functions deploy",
+    "autonomous:start": "tsx scripts/autonomous-agent.ts",
+    "autonomous:dry-run": "DRY_RUN_MODE=true tsx scripts/autonomous-agent.ts",
+    "autonomous:status": "tsx scripts/autonomous-agent.ts status",
+    "autonomous:emergency-stop": "tsx scripts/autonomous-agent.ts emergency-stop",
+    "autonomous:health": "tsx scripts/autonomous-health-check.ts",
+    "autonomous:test": "tsx scripts/test-autonomous-system.ts",
+    "test:self-healing": "tsx scripts/test-self-healing.ts"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.11.0",

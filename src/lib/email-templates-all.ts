@@ -340,8 +340,8 @@ Zum Partner-Bereich: ${partnerLink}
 export function partnerRejectedTemplateBranded(
   companyName: string,
   partnerCompanyName: string,
-  reason?: string,
-  branding: CompanyBranding
+  branding: CompanyBranding,
+  reason?: string
 ): EmailTemplate {
   const reasonText = reason ? `
     <div class="info-box">
@@ -732,4 +732,3 @@ function adjustBrightness(hex: string, percent: number): string {
   const B = Math.min(255, Math.max(0, (num & 0x0000FF) + amt));
   return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
 }
-

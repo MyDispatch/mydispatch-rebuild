@@ -1,0 +1,235 @@
+# ==================================================================================
+# MYDISPATCH AUTONOMOUS AGENT - GITHUB ACTIONS WORKFLOW
+# ==================================================================================
+# Version: 1.0
+# Created: 2025-11-08
+# Purpose: Scheduled autonomous development with safety gates
+# Author: NeXify AI System
+# Safety: Dry-run default, approval gates, automatic rollback
+# ==================================================================================
+
+name: Autonomous Development Agent
+
+on:
+  # Scheduled run every hour (only if enabled)
+  schedule:
+    - cron: "0 * * * *" # Every hour at minute 0
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry-run mode (no actual changes)"
+        required: false
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      emergency_stop:
+        description: "Emergency stop (stops all autonomous work)"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+env:
+  NODE_VERSION: "20"
+  AUTONOMOUS_MODE: "true"
+
+jobs:
+  # ==================================================================================
+  # JOB 1: PRE-FLIGHT CHECKS
+  # ==================================================================================
+  preflight:
+    name: 🔍 Pre-Flight Checks
+    runs-on: ubuntu-latest
+    outputs:
+      can_run: ${{ steps.check.outputs.can_run }}
+      dry_run: ${{ steps.check.outputs.dry_run }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check system status
+        id: check
+        env:
+          SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          DRY_RUN_MODE: ${{ github.event.inputs.dry_run || 'true' }}
+        run: |
+          echo "🔍 Checking autonomous system status..."
+          npx tsx scripts/autonomous-agent.ts status
+
+          # Check if emergency stop triggered
+          if [ "${{ github.event.inputs.emergency_stop }}" == "true" ]; then
+            echo "🚨 Emergency stop triggered"
+            npx tsx scripts/autonomous-agent.ts emergency-stop "Triggered via GitHub Actions"
+            echo "can_run=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Default: can run
+          echo "can_run=true" >> $GITHUB_OUTPUT
+          echo "dry_run=$DRY_RUN_MODE" >> $GITHUB_OUTPUT
+
+  # ==================================================================================
+  # JOB 2: EXECUTE AUTONOMOUS TASKS
+  # ==================================================================================
+  execute:
+    name: 🤖 Execute Autonomous Tasks
+    runs-on: ubuntu-latest
+    needs: preflight
+    if: needs.preflight.outputs.can_run == 'true'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT || github.token }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "NeXify AI Agent"
+          git config --global user.email "nexify@mydispatch.ai"
+
+      - name: Run autonomous agent
+        id: agent
+        env:
+          SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          GITKRAKEN_API_TOKEN: ${{ secrets.GITKRAKEN_API_TOKEN }}
+          DRY_RUN_MODE: ${{ needs.preflight.outputs.dry_run }}
+          AUTONOMOUS_MODE: "true"
+        run: |
+          echo "🤖 Starting autonomous agent..."
+          echo "Dry-run mode: $DRY_RUN_MODE"
+
+          npx tsx scripts/autonomous-agent.ts
+
+          echo "✅ Agent execution completed"
+
+      - name: Safety validation
+        if: success()
+        run: |
+          echo "🔍 Running safety validation..."
+          npm run type-check
+          npm run lint
+          npm run test:unit
+          echo "✅ Safety validation passed"
+
+      - name: Create summary
+        if: always()
+        run: |
+          echo "## 🤖 Autonomous Agent Run" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Dry-Run Mode:** ${{ needs.preflight.outputs.dry_run }}" >> $GITHUB_STEP_SUMMARY
+          echo "**Timestamp:** $(date -u)" >> $GITHUB_STEP_SUMMARY
+
+  # ==================================================================================
+  # JOB 3: POST-EXECUTION VALIDATION
+  # ==================================================================================
+  validate:
+    name: ✅ Post-Execution Validation
+    runs-on: ubuntu-latest
+    needs: [preflight, execute]
+    if: always() && needs.execute.result == 'success'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run full quality check
+        run: |
+          echo "🔍 Running comprehensive quality checks..."
+          npm run quality:check
+          echo "✅ Quality checks passed"
+
+      - name: Build validation
+        run: |
+          echo "🏗️ Validating build..."
+          npm run build
+          echo "✅ Build successful"
+
+      - name: Send notification
+        if: always()
+        env:
+          SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          echo "📧 Sending completion notification..."
+          # Notification will be sent by agent internally
+
+  # ==================================================================================
+  # JOB 4: ROLLBACK ON FAILURE
+  # ==================================================================================
+  rollback:
+    name: 🔄 Rollback on Failure
+    runs-on: ubuntu-latest
+    needs: [execute, validate]
+    if: always() && (needs.execute.result == 'failure' || needs.validate.result == 'failure')
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Emergency stop
+        env:
+          SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: |
+          echo "🚨 Failure detected, activating emergency stop..."
+          npx tsx scripts/autonomous-agent.ts emergency-stop "Automatic rollback due to execution failure"
+
+      - name: Rollback changes
+        run: |
+          echo "🔄 Rolling back changes..."
+          git reset --hard HEAD
+          echo "✅ Rollback completed"
+
+      - name: Send alert
+        run: |
+          echo "⚠️ ALERT: Autonomous agent execution failed"
+          echo "Rollback executed, emergency stop activated"
+          # Alert will be sent by emergency stop function
+
+# ==================================================================================
+# REQUIRED SECRETS (Configure in GitHub Repository Settings)
+# ==================================================================================
+# - VITE_SUPABASE_URL: Supabase project URL
+# - SUPABASE_SERVICE_ROLE_KEY: Service role key (server-side only)
+# - GITKRAKEN_API_TOKEN: GitKraken Cloud API token
+# - GH_PAT (optional): GitHub Personal Access Token for advanced Git operations

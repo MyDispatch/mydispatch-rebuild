@@ -119,12 +119,12 @@ function getEmailBaseTemplate(
       <p>
         <strong>${footerBrand}</strong><br>
         ${branding.isWhiteLabel ? '' : 'MyDispatch GmbH | Musterstraße 123 | 12345 Musterstadt<br>'}
-        <a href="tel:+49123456789">+49 123 456 789</a> | 
+        <a href="tel:+49123456789">+49 123 456 789</a> |
         <a href="mailto:info@mydispatch.de">info@mydispatch.de</a>
       </p>
       <p style="margin-top: 20px; font-size: 12px;">
         Sie erhalten diese E-Mail, weil Sie bei ${footerBrand} registriert sind.<br>
-        <a href="{{unsubscribe_link}}">Benachrichtigungen verwalten</a> | 
+        <a href="{{unsubscribe_link}}">Benachrichtigungen verwalten</a> |
         <a href="{{privacy_link}}">Datenschutz</a>
       </p>
     </div>
@@ -215,9 +215,9 @@ export function bookingConfirmationTemplateBranded(
   dropoffAddress: string,
   pickupTime: string,
   price: string,
+  branding: CompanyBranding,
   driverName?: string,
-  vehiclePlate?: string,
-  branding: CompanyBranding
+  vehiclePlate?: string
 ): EmailTemplate {
   const driverInfo = driverName ? `<p><strong>Fahrer:</strong> ${driverName}</p>` : '';
   const vehicleInfo = vehiclePlate ? `<p><strong>Fahrzeug:</strong> ${vehiclePlate}</p>` : '';
@@ -267,8 +267,8 @@ export function invoiceEmailTemplateBranded(
   totalAmount: string,
   dueDate: string,
   pdfUrl: string,
-  paymentLink?: string,
-  branding: CompanyBranding
+  branding: CompanyBranding,
+  paymentLink?: string
 ): EmailTemplate {
   const paymentButton = paymentLink ? `
     <a href="${paymentLink}" class="cta-button" style="margin-left: 10px;">💳 Jetzt online bezahlen</a>
@@ -311,4 +311,3 @@ ${paymentLink ? `Online bezahlen: ${paymentLink}` : ''}
     `.trim(),
   };
 }
-
