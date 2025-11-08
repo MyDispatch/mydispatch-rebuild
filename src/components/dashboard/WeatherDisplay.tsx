@@ -4,16 +4,8 @@
    Simple Mock-Implementation - kann später mit echter API erweitert werden
    ================================================================================== */
 
-import { Cloud, CloudRain, Sun } from 'lucide-react';
-
-export function useWeatherData() {
-  // Mock Wetterdaten (später durch echte API ersetzen)
-  return {
-    temperature: 18,
-    condition: 'teilweise bewölkt',
-    icon: Cloud,
-  };
-}
+import { Cloud } from 'lucide-react';
+import { useWeatherData } from '@/hooks/use-weather-data';
 
 export function WeatherDisplay() {
   const weather = useWeatherData();

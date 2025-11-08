@@ -8,6 +8,7 @@
  */
 
 import { test, expect } from '@playwright/test';
+import fs from 'fs';
 
 test.describe('Checker System', () => {
   test.beforeEach(async ({ page }) => {
@@ -106,7 +107,6 @@ test.describe('Auto-Healer Integration', () => {
 test.describe('CLI Integration', () => {
   test('CLI script should exist', async () => {
     // Verify CLI script exists
-    const fs = require('fs');
     const cliPath = './scripts/check-code.ts';
     expect(fs.existsSync(cliPath)).toBe(true);
   });

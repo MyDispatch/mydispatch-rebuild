@@ -1,7 +1,8 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MarketingLayout } from '@/components/layout/MarketingLayout';
 import { BrowserRouter } from 'react-router-dom';
+import * as useDeviceTypeModule from '@/hooks/use-device-type';
 
 // Mock hooks
 vi.mock('@/hooks/use-device-type', () => ({
@@ -24,8 +25,7 @@ describe('MarketingLayout', () => {
   });
 
   it('shows mobile menu button on mobile', () => {
-    const { useDeviceType } = require('@/hooks/use-device-type');
-    useDeviceType.mockReturnValue({ isMobile: true });
+    vi.mocked(useDeviceTypeModule.useDeviceType).mockReturnValue({ isMobile: true });
     
     renderWithRouter(
       <MarketingLayout>
@@ -50,8 +50,7 @@ describe('MarketingLayout', () => {
   });
 
   it('mobile menu button has proper ARIA attributes', () => {
-    const { useDeviceType } = require('@/hooks/use-device-type');
-    useDeviceType.mockReturnValue({ isMobile: true });
+    vi.mocked(useDeviceTypeModule.useDeviceType).mockReturnValue({ isMobile: true });
     
     renderWithRouter(
       <MarketingLayout>
