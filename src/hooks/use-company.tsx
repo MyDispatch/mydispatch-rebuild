@@ -11,6 +11,15 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './use-auth';
 import { handleError, handleSuccess } from '@/lib/error-handler';
+import type { Company } from '@/integrations/supabase/types/core-tables';
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+// Type helper for typed queries
+type TypedSupabaseClient = typeof supabase & {
+  from(table: 'companies'): any;
+};
+const typedClient = supabase as TypedSupabaseClient;
 
 export function useCompany() {
   const { profile } = useAuth();
@@ -22,14 +31,14 @@ export function useCompany() {
     queryFn: async () => {
       if (!profile?.company_id) return null;
 
-      const { data, error } = await supabase
+      const { data, error } = await typedClient
         .from('companies')
         .select('*')
         .eq('id', profile.company_id)
         .single();
 
       if (error) throw error;
-      return data;
+      return data as Company;
     },
     enabled: !!profile?.company_id,
     staleTime: 30000, // 30s
@@ -42,7 +51,7 @@ export function useCompany() {
     mutationFn: async (updateData: any) => {
       if (!profile?.company_id) throw new Error('Company ID fehlt');
 
-      const { data, error } = await supabase
+      const { data, error } = await typedClient
         .from('companies')
         .update(updateData)
         .eq('id', profile.company_id)
@@ -50,15 +59,15 @@ export function useCompany() {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as Company;
     },
     onSuccess: (data) => {
       // Invalidate admin company cache
       queryClient.invalidateQueries({ queryKey: ['company', profile?.company_id] });
-      
+
       // KRITISCH: Invalidate public landing page cache
       queryClient.invalidateQueries({ queryKey: ['public-company'] });
-      
+
       handleSuccess('Unternehmensdaten erfolgreich aktualisiert');
     },
     onError: (error) => {

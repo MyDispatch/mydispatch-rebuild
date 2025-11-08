@@ -71,7 +71,7 @@ async function collectHealthMetrics(): Promise<HealthMetrics> {
 
   // Test database connection
   try {
-    const { data, error } = await supabase
+    const { data, error } = await autonomousClient
       .from("autonomous_system_config")
       .select("*")
       .single();
@@ -97,7 +97,7 @@ async function collectHealthMetrics(): Promise<HealthMetrics> {
 
   // Count pending tasks
   try {
-    const { data } = await supabase
+    const { data } = await autonomousClient
       .from("autonomous_tasks")
       .select("id", { count: "exact" })
       .eq("status", "pending");
@@ -109,7 +109,7 @@ async function collectHealthMetrics(): Promise<HealthMetrics> {
 
   // Calculate failure rate (last 24h)
   try {
-    const { data: recentTasks } = await supabase
+    const { data: recentTasks } = await autonomousClient
       .from("autonomous_tasks")
       .select("status")
       .gte("created_at", new Date(Date.now() - 86400000).toISOString());
@@ -124,7 +124,7 @@ async function collectHealthMetrics(): Promise<HealthMetrics> {
 
   // Get last successful execution
   try {
-    const { data } = await supabase
+    const { data } = await autonomousClient
       .from("autonomous_execution_logs")
       .select("created_at")
       .eq("step_status", "completed")
@@ -356,4 +356,3 @@ export function getWatchdogStatus(): {
 if (import.meta.env.VITE_AUTONOMOUS_MODE === "true" && import.meta.env.PROD) {
   startWatchdog();
 }
-

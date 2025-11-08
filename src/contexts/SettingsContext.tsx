@@ -12,6 +12,15 @@ import { useSubscription } from '@/hooks/use-subscription';
 import { useChatConsent } from '@/hooks/use-chat-consent';
 import { supabase } from '@/integrations/supabase/client';
 import { logger } from '@/lib/logger';
+import type { Profile } from '@/integrations/supabase/types/core-tables';
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+// Type helper for typed queries
+type TypedSupabaseClient = typeof supabase & {
+  from(table: 'profiles'): any;
+};
+const typedClient = supabase as TypedSupabaseClient;
 
 interface CompanyData {
   id: string;
@@ -22,6 +31,7 @@ interface CompanyData {
   tax_id: string;
   primary_color?: string;
   logo_url?: string;
+  letterhead_url?: string;
   landingpage_title?: string;
   landingpage_hero_text?: string;
   landingpage_description?: string;
@@ -106,12 +116,12 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
       const paymentMethods = Array.isArray(company.payment_methods)
         ? (company.payment_methods as string[])
         : ['cash', 'invoice'];
-      
+
       const data = {
         ...company,
         payment_methods: paymentMethods
       } as CompanyData;
-      
+
       setCompanyData(data);
       setOriginalCompanyData(data);
     }
@@ -121,9 +131,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const fetchProfile = async () => {
       if (!authProfile?.user_id) return;
-      
+
       try {
-        const { data: profileData, error } = await supabase
+        const { data: profileData, error } = await typedClient
           .from('profiles')
           .select('*')
           .eq('user_id', authProfile.user_id)
@@ -131,8 +141,8 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
         if (error) throw error;
         if (profileData) {
-          setProfileData(profileData);
-          setOriginalProfileData(profileData);
+          setProfileData(profileData as Profile);
+          setOriginalProfileData(profileData as Profile);
         }
       } catch (error) {
         logger.error('[SettingsContext] Error fetching profile', error as Error, {
@@ -141,7 +151,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
         });
       }
     };
-    
+
     fetchProfile();
   }, [authProfile?.user_id]);
 

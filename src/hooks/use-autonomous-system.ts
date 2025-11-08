@@ -39,11 +39,7 @@ type AutonomousSupabaseClient = typeof supabase & {
 const autonomousClient = supabase as AutonomousSupabaseClient;
 
 // Re-export types for backward compatibility
-export type { AutonomousTask, AutonomousSystemConfig };
-
-export interface ExecutionLog extends AutonomousExecutionLog {
-  // Compatibility alias
-}
+export type { AutonomousTask, AutonomousSystemConfig, AutonomousExecutionLog as ExecutionLog };
 
 export interface SystemStats {
   total_tasks: number;
@@ -99,9 +95,9 @@ export function useAutonomousSystem() {
   } = useQuery({
     queryKey: ["autonomous-tasks"],
     queryFn: async () => {
-            const result = await SelfHealing.query(
+      const result = await SelfHealing.query<AutonomousTask[]>(
         () =>
-          supabase
+          autonomousClient
             .from("autonomous_tasks")
             .select("*")
             .order("priority", { ascending: false })
@@ -121,7 +117,7 @@ export function useAutonomousSystem() {
         return ultimateFallback("tasks", getFallbackTasks());
       }
 
-      return (result.data as AutonomousTask[]) || [];
+      return result.data || [];
     },
     staleTime: 10 * 1000, // 10 seconds
     retry: 3,
@@ -136,9 +132,9 @@ export function useAutonomousSystem() {
   } = useQuery({
     queryKey: ["autonomous-execution-logs"],
     queryFn: async () => {
-            const result = await SelfHealing.query(
+      const result = await SelfHealing.query<AutonomousExecutionLog[]>(
         () =>
-          supabase
+          autonomousClient
             .from("autonomous_execution_logs")
             .select("*")
             .order("created_at", { ascending: false })
@@ -157,7 +153,7 @@ export function useAutonomousSystem() {
         return ultimateFallback("execution_logs", getFallbackExecutionLogs());
       }
 
-      return (result.data as ExecutionLog[]) || [];
+      return result.data || [];
     },
     staleTime: 15 * 1000, // 15 seconds
     retry: 3,

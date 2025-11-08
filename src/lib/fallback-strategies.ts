@@ -63,13 +63,17 @@ export function getFallbackExecutionLogs() {
       task_id: "fallback-task",
       execution_step: "system_status",
       step_status: "completed" as const,
-      step_duration: 0,
+      input_data: null,
       output_data: {
         message: "System operating in degraded mode",
         timestamp: new Date().toISOString(),
       },
-      error_details: null,
-      created_at: new Date().toISOString(),
+      error_data: null,
+      timestamp: new Date().toISOString(),
+      duration_ms: 0,
+      agent_version: "1.0",
+      git_commit_sha: null,
+      environment: "production",
     },
   ];
 }
