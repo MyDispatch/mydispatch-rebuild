@@ -7,6 +7,28 @@
 
 import { supabase } from "@/integrations/supabase/client";
 import { logError } from "@/lib/logger";
+import type {
+  AutonomousTask,
+  AutonomousSystemConfig,
+  AutonomousTaskUpdate,
+  AutonomousSystemConfigUpdate,
+  AutonomousExecutionLogInsert,
+} from "@/integrations/supabase/types/autonomous";
+
+// Type helper for autonomous tables that aren't in generated Supabase types yet
+// These tables exist in database but TypeScript doesn't know about them
+// Using explicit `any` here is acceptable because we have proper types defined above
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type AutonomousSupabaseClient = typeof supabase & {
+  from(table: "autonomous_tasks"): any;
+  from(table: "autonomous_system_config"): any;
+  from(table: "autonomous_execution_logs"): any;
+  from(table: "autonomous_safety_checks"): any;
+  from(table: "autonomous_system_stats"): any;
+};
+/* eslint-enable @typescript-eslint/no-explicit-any */
+
+const autonomousClient = supabase as AutonomousSupabaseClient;
 
 // ==================================================================================
 // CIRCUIT BREAKER PATTERN
@@ -172,7 +194,6 @@ async function attemptDatabaseRecovery(): Promise<void> {
 
   try {
     // Test connection with simple query
-    // @ts-expect-error - profiles table check for connection test
     const { error } = await supabase.from("profiles").select("id").limit(1);
 
     if (!error) {
@@ -280,9 +301,8 @@ export async function autoHealAutonomousSystem(): Promise<{
   const fixes: string[] = [];
 
   // 1. Check system configuration
-  // @ts-expect-error - autonomous_system_config table exists but not in generated types yet
-  const { data: config, error: configError } = await selfHealingQuery(
-    () => supabase.from("autonomous_system_config").select("*").single(),
+  const { data: config, error: configError } = await selfHealingQuery<AutonomousSystemConfig>(
+    () => autonomousClient.from("autonomous_system_config").select("*").single(),
     { operationName: "fetch_system_config" }
   );
 
@@ -291,8 +311,7 @@ export async function autoHealAutonomousSystem(): Promise<{
 
     // Auto-fix: Create default configuration
     console.log("🔧 Creating default system configuration...");
-    // @ts-expect-error - autonomous_system_config table exists but not in generated types yet
-    const { error: createError } = await supabase
+    const { error: createError } = await autonomousClient
       .from("autonomous_system_config")
       .upsert({
         id: 1,
@@ -310,10 +329,9 @@ export async function autoHealAutonomousSystem(): Promise<{
   }
 
   // 2. Check for stuck tasks
-  // @ts-expect-error - autonomous_tasks table exists but not in generated types yet
-  const { data: stuckTasks } = await selfHealingQuery(
+  const { data: stuckTasks } = await selfHealingQuery<AutonomousTask[]>(
     () =>
-      supabase
+      autonomousClient
         .from("autonomous_tasks")
         .select("*")
         .eq("status", "in_progress")
@@ -327,14 +345,13 @@ export async function autoHealAutonomousSystem(): Promise<{
     // Auto-fix: Reset stuck tasks
     console.log(`🔧 Resetting ${stuckTasks.length} stuck tasks...`);
     for (const task of stuckTasks) {
-      // @ts-expect-error - autonomous_tasks table exists but not in generated types yet
-      await supabase
+      await autonomousClient
         .from("autonomous_tasks")
         .update({
           status: "failed",
           error_message: "Task stuck for > 1 hour, auto-reset by self-healing system",
           completed_at: new Date().toISOString(),
-        })
+        } as AutonomousTaskUpdate)
         .eq("id", task.id);
     }
 
@@ -354,10 +371,9 @@ export async function autoHealAutonomousSystem(): Promise<{
   }
 
   // 4. Check for excessive failed tasks
-  // @ts-expect-error - autonomous_tasks table exists but not in generated types yet
-  const { data: recentTasks } = await selfHealingQuery(
+  const { data: recentTasks } = await selfHealingQuery<Pick<AutonomousTask, 'status'>[]>(
     () =>
-      supabase
+      autonomousClient
         .from("autonomous_tasks")
         .select("status")
         .gte("created_at", new Date(Date.now() - 86400000).toISOString()), // Last 24h
@@ -373,10 +389,9 @@ export async function autoHealAutonomousSystem(): Promise<{
 
       // Auto-fix: Enable dry-run mode
       console.log("🔧 Enabling dry-run mode due to high failure rate...");
-      // @ts-expect-error - autonomous_system_config table exists but not in generated types yet
-      await supabase
+      await autonomousClient
         .from("autonomous_system_config")
-        .update({ dry_run_mode: true })
+        .update({ dry_run_mode: true } as AutonomousSystemConfigUpdate)
         .eq("id", 1);
 
       fixes.push("Enabled dry-run mode to prevent further damage");
@@ -384,10 +399,9 @@ export async function autoHealAutonomousSystem(): Promise<{
   }
 
   // 5. Cleanup old execution logs (prevent database bloat)
-  // @ts-expect-error - autonomous_execution_logs table exists but not in generated types yet
-  const { data: oldLogs } = await selfHealingQuery(
+  const { data: oldLogs } = await selfHealingQuery<{ id: string }[]>(
     () =>
-      supabase
+      autonomousClient
         .from("autonomous_execution_logs")
         .select("id")
         .lt("created_at", new Date(Date.now() - 2592000000).toISOString()), // > 30 days
@@ -399,8 +413,7 @@ export async function autoHealAutonomousSystem(): Promise<{
 
     // Auto-fix: Delete old logs (keep last 30 days)
     console.log(`🔧 Cleaning up ${oldLogs.length} old logs...`);
-    // @ts-expect-error - autonomous_execution_logs table exists but not in generated types yet
-    await supabase
+    await autonomousClient
       .from("autonomous_execution_logs")
       .delete()
       .lt("created_at", new Date(Date.now() - 2592000000).toISOString());
@@ -430,15 +443,21 @@ export async function watchdogCheck(): Promise<void> {
 
     if (result.healed) {
       // Log healing event
-      // @ts-expect-error - autonomous_execution_logs table exists but not in generated types yet
-      await supabase.from("autonomous_execution_logs").insert({
+      await autonomousClient.from("autonomous_execution_logs").insert({
+        task_id: null,
         execution_step: "watchdog_healing",
         step_status: "completed",
+        input_data: null,
         output_data: {
           issues: result.issues,
           fixes: result.fixes,
         },
-      });
+        error_data: null,
+        duration_ms: null,
+        agent_version: "1.0",
+        git_commit_sha: null,
+        environment: "production",
+      } as unknown as AutonomousExecutionLogInsert);
 
       console.log("🐕 Watchdog: System healed successfully");
     } else {
@@ -448,13 +467,12 @@ export async function watchdogCheck(): Promise<void> {
     console.error("🐕 Watchdog: Critical error during health check", error);
 
     // Last resort: Emergency stop
-    // @ts-expect-error - autonomous_system_config table exists but not in generated types yet
-    await supabase
+    await autonomousClient
       .from("autonomous_system_config")
       .update({
         emergency_stop: true,
         emergency_stop_reason: "Watchdog detected critical system failure",
-      })
+      } as AutonomousSystemConfigUpdate)
       .eq("id", 1);
   }
 }
