@@ -221,7 +221,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                     <div
                       className={cn(
                         "flex items-center rounded-lg text-sm font-medium transition-all duration-300 min-h-[44px] min-w-[44px]",
-                        !expanded && "justify-center",
+                        !expanded && "justify-start",
                         showUpgradeTooltip && "opacity-60",
                         isActive ? "bg-slate-700 text-white shadow-sm" : "text-slate-900 hover:bg-slate-100"
                       )}

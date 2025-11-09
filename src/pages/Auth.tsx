@@ -267,13 +267,9 @@ export default function Auth() {
             .eq('role', 'master')
             .maybeSingle();
 
-          // Master-Zugang-Check (Pascal und andere Master-User)
-          // V32.5: Master-User werden zu /master weitergeleitet (nicht /dashboard)
-          const normalizedEmailForCheck = (email || '').toLowerCase().trim();
-          const isMaster = userRoles?.role === 'master' ||
-                          normalizedEmailForCheck === 'pascal@nexify.ai' ||
-                          normalizedEmailForCheck === 'master@nexify.ai' ||
-                          normalizedEmailForCheck === 'courbois1981@gmail.com';
+          // Master-Zugang-Check
+          // V32.6: Nur user_roles-Tabelle als Single Source of Truth
+          const isMaster = userRoles?.role === 'master';
 
           if (isMaster) {
             const redirectRoute = getLoginRedirectRoute('master', searchParams);
