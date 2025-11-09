@@ -9,41 +9,11 @@
    ✅ KEINE DashboardInfoCard
    ================================================================================== */
 
-import { TrendingDown, TrendingUp, Navigation } from 'lucide-react';
-
-export function useTrafficData() {
-  const hour = new Date().getHours();
-  
-  // Simuliere Verkehrslage basierend auf Tageszeit
-  if (hour >= 7 && hour <= 9) {
-    return { 
-      status: 'hoch', 
-      label: 'Morgenverkehr', 
-      icon: TrendingUp,
-      level: 'Hoch',
-      statusClass: 'bg-status-error'
-    };
-  } else if (hour >= 16 && hour <= 19) {
-    return { 
-      status: 'mittel', 
-      label: 'Feierabend', 
-      icon: TrendingUp,
-      level: 'Mittel',
-      statusClass: 'bg-status-warning'
-    };
-  } else {
-    return { 
-      status: 'normal', 
-      label: 'Fließend', 
-      icon: TrendingDown,
-      level: 'Normal',
-      statusClass: 'bg-status-success'
-    };
-  }
-}
+import { Navigation } from 'lucide-react';
+import { usePremiumTrafficData } from '@/hooks/use-premium-traffic-data';
 
 export function PremiumTrafficDisplay() {
-  const traffic = useTrafficData();
+  const traffic = usePremiumTrafficData();
 
   return (
     <div className="flex items-center gap-2 px-2.5 py-2 border border-slate-200 rounded-md bg-slate-50 flex-shrink-0">

@@ -30,14 +30,14 @@ test.describe('Tariff-Control - Feature-Badges', () => {
     // Partner-Netzwerk mit Badge "🔒 Business+"
     const partnerLink = sidebar.locator('a[href="/partner"]');
     if (await partnerLink.isVisible()) {
-      const badge = partnerLink.locator('text=/Business\+|🔒/i');
+      const badge = partnerLink.locator('text=/Business+|🔒/i');
       await expect(badge).toBeVisible();
     }
     
     // Statistiken mit Badge
     const statisticsLink = sidebar.locator('a[href="/statistiken"]');
     if (await statisticsLink.isVisible()) {
-      const badge = statisticsLink.locator('text=/Business\+|🔒/i');
+      const badge = statisticsLink.locator('text=/Business+|🔒/i');
       await expect(badge).toBeVisible();
     }
   });

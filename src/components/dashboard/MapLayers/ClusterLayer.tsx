@@ -42,6 +42,23 @@ export function ClusterLayer({
   const [clusterObjects, setClusterObjects] = useState<any[]>([]);
   const [currentZoom, setCurrentZoom] = useState(12);
 
+  // ✅ Helper Functions
+  const toRad = (deg: number) => (deg * Math.PI) / 180;
+
+  // ✅ Haversine Distance (in Metern)
+  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+    const R = 6371000; // Earth radius in meters
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  };
+
   // ✅ Listen to Zoom Changes
   useEffect(() => {
     if (!mapInstance) return;
@@ -105,95 +122,87 @@ export function ClusterLayer({
     return result;
   }, [drivers, visible, currentZoom, clusterThreshold, clusterRadius]);
 
-  // ✅ Haversine Distance (in Metern)
-  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-    const R = 6371000; // Earth radius in meters
-    const dLat = toRad(lat2 - lat1);
-    const dLon = toRad(lon2 - lon1);
-
-    const a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
-  };
-
-  const toRad = (deg: number) => (deg * Math.PI) / 180;
-
   // ✅ Render Clusters auf Map
   useEffect(() => {
     if (!mapInstance || !visible || clusters.length === 0) {
       // Cleanup alte Cluster
-      clusterObjects.forEach(obj => mapInstance?.removeObject(obj));
-      setClusterObjects([]);
+      setClusterObjects(prevObjects => {
+        prevObjects.forEach(obj => mapInstance?.removeObject(obj));
+        return [];
+      });
       return;
     }
 
     // Cleanup alte Cluster
-    clusterObjects.forEach(obj => mapInstance.removeObject(obj));
+    setClusterObjects(prevObjects => {
+      prevObjects.forEach(obj => mapInstance.removeObject(obj));
 
-    const newObjects: any[] = [];
+      const newObjects: any[] = [];
 
-    clusters.forEach((cluster) => {
-      // Cluster-Icon (Circle mit Count)
-      const size = 40 + Math.min(cluster.count * 5, 60); // Max 100px
+      clusters.forEach((cluster) => {
+        // Cluster-Icon (Circle mit Count)
+        const size = 40 + Math.min(cluster.count * 5, 60); // Max 100px
 
-      const svgCluster = `
-        <svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
-          <circle 
-            cx="${size / 2}" 
-            cy="${size / 2}" 
-            r="${size / 2}" 
-            fill="rgba(59, 130, 246, 0.7)" 
-            stroke="rgba(59, 130, 246, 1)" 
-            stroke-width="3"
-          />
-          <text 
-            x="${size / 2}" 
-            y="${size / 2}" 
-            text-anchor="middle" 
-            dominant-baseline="middle" 
-            fill="white" 
-            font-weight="bold" 
-            font-size="${Math.min(18, size / 3)}"
-          >
-            ${cluster.count}
-          </text>
-        </svg>
-      `;
+        const svgCluster = `
+          <svg width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+            <circle 
+              cx="${size / 2}" 
+              cy="${size / 2}" 
+              r="${size / 2}" 
+              fill="rgba(59, 130, 246, 0.7)" 
+              stroke="rgba(59, 130, 246, 1)" 
+              stroke-width="3"
+            />
+            <text 
+              x="${size / 2}" 
+              y="${size / 2}" 
+              text-anchor="middle" 
+              dominant-baseline="middle" 
+              fill="white" 
+              font-weight="bold" 
+              font-size="${Math.min(18, size / 3)}"
+            >
+              ${cluster.count}
+            </text>
+          </svg>
+        `;
 
-      const icon = new (window as any).H.map.Icon(
-        'data:image/svg+xml,' + encodeURIComponent(svgCluster),
-        { anchor: { x: size / 2, y: size / 2 } }
-      );
+        const icon = new (window as any).H.map.Icon(
+          'data:image/svg+xml,' + encodeURIComponent(svgCluster),
+          { anchor: { x: size / 2, y: size / 2 } }
+        );
 
-      const marker = new (window as any).H.map.Marker(
-        { lat: cluster.latitude, lng: cluster.longitude },
-        {
-          icon,
-          data: {
-            type: 'cluster',
-            count: cluster.count,
-            drivers: cluster.drivers.map(d => d.label)
+        const marker = new (window as any).H.map.Marker(
+          { lat: cluster.latitude, lng: cluster.longitude },
+          {
+            icon,
+            data: {
+              type: 'cluster',
+              count: cluster.count,
+              drivers: cluster.drivers.map(d => d.label)
+            }
           }
-        }
-      );
+        );
 
-      // Click → Zoom In
-      marker.addEventListener('tap', () => {
-        mapInstance.setCenter({ lat: cluster.latitude, lng: cluster.longitude });
-        mapInstance.setZoom(mapInstance.getZoom() + 2);
+        // Click → Zoom In
+        marker.addEventListener('tap', () => {
+          mapInstance.setCenter({ lat: cluster.latitude, lng: cluster.longitude });
+          mapInstance.setZoom(mapInstance.getZoom() + 2);
+        });
+
+        mapInstance.addObject(marker);
+        newObjects.push(marker);
       });
 
-      mapInstance.addObject(marker);
-      newObjects.push(marker);
+      return newObjects;
     });
 
-    setClusterObjects(newObjects);
-
+    // Cleanup on unmount
     return () => {
-      newObjects.forEach(obj => mapInstance.removeObject(obj));
+      setClusterObjects(prevObjects => {
+        prevObjects.forEach(obj => mapInstance?.removeObject(obj));
+        return [];
+      });
     };
   }, [mapInstance, visible, clusters]);
 
