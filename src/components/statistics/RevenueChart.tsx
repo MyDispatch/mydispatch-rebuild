@@ -108,7 +108,7 @@ export function RevenueChart({
           </div>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
             data={data}

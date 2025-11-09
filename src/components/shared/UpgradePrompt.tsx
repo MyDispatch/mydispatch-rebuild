@@ -108,7 +108,7 @@ export function UpgradePrompt({
           </div>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <V28Button 
           variant="primary"
           className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"

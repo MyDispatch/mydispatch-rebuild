@@ -159,7 +159,7 @@ export function AgentDashboard() {
           </Badge>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <Tabs defaultValue="health" className="space-y-4">
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="health">System Health</TabsTrigger>

@@ -321,7 +321,7 @@ export default function PortalAuth() {
               </CardDescription>
             </CardHeader>
             
-            <CardContent>
+            <CardContent className="p-6">
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <TabsList className="mb-6">
                   <TabsTrigger value="login" className="min-h-[44px]">

@@ -552,7 +552,7 @@ export default function Kommunikation() {
                     <CardTitle>Dokumentvorlagen</CardTitle>
                     <CardDescription>Professionelle Vorlagen mit Ihren Unternehmensdaten</CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-6">
                     {filteredDocuments.length === 0 ? (
                       <EmptyState
                         icon={<FileText className="w-full h-full" />}
@@ -611,7 +611,7 @@ export default function Kommunikation() {
                     <CardTitle>E-Mail-Vorlagen</CardTitle>
                     <CardDescription>Automatisierte E-Mail-Vorlagen</CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-6">
                     {filteredEmails.length === 0 ? (
                       <EmptyState
                         icon={<Mail className="w-full h-full" />}
@@ -804,8 +804,7 @@ export default function Kommunikation() {
       {/* ✅ V37.0: RIGHT SIDEBAR - Fixed 320px (hidden < 768px) */}
       {!isMobile && (
         <aside 
-          className="fixed right-0 top-16 bottom-0 bg-white border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300"
-          className="w-80"
+          className="fixed right-0 top-16 bottom-0 w-80 bg-white border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300"
         >
           {/* Schnellzugriff */}
           <div className="p-4 space-y-3 border-b border-border">

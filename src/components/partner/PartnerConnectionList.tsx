@@ -154,7 +154,7 @@ export function PartnerConnectionList({ currentCompanyId }: PartnerConnectionLis
           <CardTitle>Aktive Partner</CardTitle>
           <CardDescription>Keine Partner-Verbindungen vorhanden</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <p className="text-sm text-muted-foreground">
             Senden Sie eine Partner-Anfrage, um Fahrzeuge und Fahrer zu teilen.
           </p>
@@ -170,7 +170,7 @@ export function PartnerConnectionList({ currentCompanyId }: PartnerConnectionLis
           <CardTitle>Aktive Partner ({connections.length})</CardTitle>
           <CardDescription>Verwaltung Ihrer Partner-Verbindungen</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="overflow-x-auto scrollbar-hide">
             <Table>
               <TableHeader>

@@ -74,7 +74,7 @@ export function PartnerPerformanceTable({ data, onPartnerClick }: PartnerPerform
           </Badge>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <div className="rounded-md border">
           <Table>
             <TableHeader>

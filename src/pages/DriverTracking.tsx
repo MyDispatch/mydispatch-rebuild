@@ -259,7 +259,7 @@ export default function DriverTracking() {
               Starten und beenden Sie Ihre Arbeitsschicht
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <V28Button
                 onClick={handleStartShift}

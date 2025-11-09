@@ -146,7 +146,7 @@ export default function Tracking() {
               GPS-Tracking aller aktiven Fahrer und Fahrzeuge
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="h-[500px] rounded-lg overflow-hidden border border-border">
               <HEREMap
                 center={{ lat: 50.9375, lng: 6.9603 }}
@@ -168,7 +168,7 @@ export default function Tracking() {
               {onlineDrivers} Fahrer im Einsatz
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
@@ -223,7 +223,7 @@ export default function Tracking() {
               {activeVehicles.length} Fahrzeuge im Einsatz
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
                 <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />

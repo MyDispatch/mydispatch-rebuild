@@ -113,7 +113,7 @@ export function InlineCustomerForm({ onCustomerCreated, onCancel }: InlineCustom
           Kunde wird direkt angelegt und für diesen Auftrag ausgewählt
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <CustomerForm
           form={form}
           onSubmit={handleSubmit}

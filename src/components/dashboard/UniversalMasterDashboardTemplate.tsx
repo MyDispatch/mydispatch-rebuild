@@ -147,7 +147,7 @@ export function UniversalMasterDashboardTemplate({
             <CardHeader>
               <CardTitle className="text-destructive">Fehler aufgetreten</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <p className="text-muted-foreground">{error.message}</p>
             </CardContent>
           </Card>

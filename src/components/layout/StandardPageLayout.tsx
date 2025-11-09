@@ -256,7 +256,7 @@ export function StandardPageLayout({
             </div>
           </CardHeader>
           
-          <CardContent>
+          <CardContent className="p-6">
             {children}
           </CardContent>
         </Card>

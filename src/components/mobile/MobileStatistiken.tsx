@@ -136,7 +136,7 @@ export function MobileStatistiken({
             Umsatz (letzte 7 Tage)
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="space-y-3">
             {last7Days.map((day, index) => {
               const percentage = maxRevenue > 0 ? (day.revenue / maxRevenue) * 100 : 0;
@@ -176,7 +176,7 @@ export function MobileStatistiken({
             Top 5 Fahrer
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="space-y-3">
             {topDrivers.slice(0, 5).map((driver) => (
               <div
@@ -238,7 +238,7 @@ export function MobileStatistiken({
               Partner-Performance
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="space-y-3">
               {partnerPerformance.slice(0, 5).map((partner) => (
                 <div

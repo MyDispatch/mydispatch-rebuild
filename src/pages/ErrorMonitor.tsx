@@ -124,7 +124,7 @@ const ErrorMonitor = () => {
                 Kritisch
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <p className="text-2xl font-bold">{stats.bySeverity.critical}</p>
             </CardContent>
           </Card>
@@ -136,7 +136,7 @@ const ErrorMonitor = () => {
                 Hoch
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <p className="text-2xl font-bold">{stats.bySeverity.high}</p>
             </CardContent>
           </Card>
@@ -148,7 +148,7 @@ const ErrorMonitor = () => {
                 Mittel
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <p className="text-2xl font-bold">{stats.bySeverity.medium}</p>
             </CardContent>
           </Card>
@@ -160,7 +160,7 @@ const ErrorMonitor = () => {
                 Niedrig
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <p className="text-2xl font-bold">{stats.bySeverity.low}</p>
             </CardContent>
           </Card>
@@ -172,7 +172,7 @@ const ErrorMonitor = () => {
             <CardTitle>Fehler nach Kategorie</CardTitle>
             <CardDescription>Verteilung der Fehler nach Typ</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
               {Object.entries(stats.byCategory).map(([category, count]) => {
                 const IconComponent = getCategoryIcon(category);
@@ -196,7 +196,7 @@ const ErrorMonitor = () => {
             <CardTitle>Aktuelle Fehler</CardTitle>
             <CardDescription>Letzte 50 Fehler, neueste zuerst</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <Tabs defaultValue="all">
               <TabsList className="mb-4">
                 <TabsTrigger value="all">Alle ({stats.totalErrors})</TabsTrigger>

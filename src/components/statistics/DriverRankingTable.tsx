@@ -73,7 +73,7 @@ export function DriverRankingTable({ data, onClick }: DriverRankingTableProps) {
           </Badge>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <div className="rounded-md border">
           <Table>
             <TableHeader>

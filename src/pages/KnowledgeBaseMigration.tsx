@@ -87,7 +87,7 @@ export default function KnowledgeBaseMigration() {
               Tavily Integration & Connection Manager
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             {apiHealth ? (
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -135,7 +135,7 @@ export default function KnowledgeBaseMigration() {
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-slate-700">Knowledge-Base</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="text-2xl font-bold text-slate-900">{stats.knowledgeBaseEntries}</div>
               <p className="text-xs text-slate-500 mt-1">Entries added</p>
             </CardContent>
@@ -145,7 +145,7 @@ export default function KnowledgeBaseMigration() {
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-slate-700">Components</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="text-2xl font-bold text-slate-900">{stats.componentsRegistered}</div>
               <p className="text-xs text-slate-500 mt-1">Registered</p>
             </CardContent>
@@ -155,7 +155,7 @@ export default function KnowledgeBaseMigration() {
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-slate-700">Known Issues</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="text-2xl font-bold text-slate-900">{stats.knownIssuesFixed}</div>
               <p className="text-xs text-slate-500 mt-1">Fixed with solutions</p>
             </CardContent>
@@ -165,7 +165,7 @@ export default function KnowledgeBaseMigration() {
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-slate-700">Code Snippets</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="text-2xl font-bold text-slate-900">{stats.codeSnippetsAdded}</div>
               <p className="text-xs text-slate-500 mt-1">Patterns added</p>
             </CardContent>

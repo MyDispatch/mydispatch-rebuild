@@ -690,7 +690,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                   Tastatur-Shortcuts
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                   <div className="flex justify-between p-2 bg-muted/30 rounded">
                     <span className="text-muted-foreground">Neuer Auftrag</span>
@@ -719,7 +719,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                   Mobile-App (Coming Soon)
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <p className="text-sm text-muted-foreground">
                   Unsere mobile App für iOS & Android ist in Entwicklung. 
                   Sie werden per E-Mail benachrichtigt, sobald sie verfügbar ist.
@@ -750,7 +750,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                     Dokumentation
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-6">
                   <p className="text-sm text-muted-foreground mb-4">
                     Umfassende Anleitungen, Tutorials und FAQ zu allen Funktionen.
                   </p>
@@ -768,7 +768,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                     Support-Kontakt
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-6">
                   <p className="text-sm text-muted-foreground mb-4">
                     Persönlicher Support per E-Mail, Telefon oder Live-Chat.
                   </p>
@@ -786,7 +786,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                     AI-Assistent
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-6">
                   <p className="text-sm text-muted-foreground mb-4">
                     Unser KI-gestützter Support-Assistent beantwortet Fragen zur Software, 
                     hilft bei der Disposition und gibt Optimierungsempfehlungen.

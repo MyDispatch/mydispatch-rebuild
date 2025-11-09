@@ -219,7 +219,7 @@ export default function GoLiveControl() {
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium">Validation Score</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="text-2xl font-bold">{orchestration.validationScore || 'N/A'}</div>
               <Badge variant={orchestration.approved ? "default" : "secondary"} className="mt-2">
                 {orchestration.approved ? 'APPROVED' : 'WITH WARNINGS'}
@@ -231,7 +231,7 @@ export default function GoLiveControl() {
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium">Launch Emails</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="text-2xl font-bold">{orchestration.emailsSent || 0}</div>
               <p className="text-xs text-muted-foreground mt-2">
                 Successfully delivered
@@ -243,7 +243,7 @@ export default function GoLiveControl() {
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium">Monitoring</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="text-2xl font-bold">
                 {orchestration.monitoringActive ? 'Active' : 'Inactive'}
               </div>
@@ -268,7 +268,7 @@ export default function GoLiveControl() {
             </CardTitle>
             <CardDescription>Post-launch monitoring infrastructure</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 border rounded-lg">
                 <div className="flex items-center gap-2 mb-2">

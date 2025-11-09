@@ -424,8 +424,7 @@ export default function Kunden() {
       {/* ✅ V32.5: Right Sidebar (320px, Desktop only) - EXAKT WIE /RECHNUNGEN */}
       {!isMobile && (
         <aside
-          className="fixed right-0 top-16 bottom-0 bg-white border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300"
-          className="w-80"
+          className="fixed right-0 top-16 bottom-0 w-80 bg-white border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300"
         >
           {/* Schnellzugriff Actions */}
           <div className="p-4 space-y-3 border-b border-border">

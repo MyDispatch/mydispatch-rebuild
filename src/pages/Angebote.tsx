@@ -312,8 +312,7 @@ export default function Angebote() {
       {/* ✅ RIGHT SIDEBAR (320px, Desktop only) */}
       {!isMobile && (
         <aside 
-          className="fixed right-0 top-16 bottom-0 bg-white border-l border-slate-200 shadow-lg z-20 overflow-y-auto hidden md:block"
-          className="w-80"
+          className="fixed right-0 top-16 bottom-0 w-80 bg-white border-l border-slate-200 shadow-lg z-20 overflow-y-auto hidden md:block"
         >
           {/* Schnellzugriff */}
           <div className="p-4 space-y-3 border-b border-slate-200">

@@ -72,7 +72,7 @@ export const AgentHealthDashboard = () => {
               <AlertCircle className="h-4 w-4 text-destructive" />
             )}
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">
               {latestHeartbeat?.all_agents_healthy ? "Gesund" : "Probleme"}
             </div>
@@ -88,7 +88,7 @@ export const AgentHealthDashboard = () => {
             <CardTitle className="text-sm font-medium">Uptime (24h)</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{latestHeartbeat?.uptime_percentage.toFixed(2)}%</div>
             <p className="text-xs text-muted-foreground">
               7d: {uptime7d?.toFixed(2)}% | 30d: {uptime30d?.toFixed(2)}%
@@ -102,7 +102,7 @@ export const AgentHealthDashboard = () => {
             <CardTitle className="text-sm font-medium">Ø Response Time</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{latestHeartbeat?.avg_response_time_ms}ms</div>
             <p className="text-xs text-muted-foreground">Durchschnitt (24h)</p>
           </CardContent>
@@ -114,7 +114,7 @@ export const AgentHealthDashboard = () => {
         <CardHeader>
           <CardTitle>Agent Status</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="space-y-4">
             {agentStatus?.map((agent) => (
               <div key={agent.id} className="flex items-center justify-between">
@@ -136,7 +136,7 @@ export const AgentHealthDashboard = () => {
         <CardHeader>
           <CardTitle>Uptime-Verlauf (24h)</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -154,7 +154,7 @@ export const AgentHealthDashboard = () => {
         <CardHeader>
           <CardTitle>Response Time Verlauf (24h)</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" />

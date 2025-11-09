@@ -234,7 +234,7 @@ export default function Privacy() {
               Ihre Rechte
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
                 <CheckCircle className="h-4 w-4 mt-0.5 flex-shrink-0 text-green-600" />

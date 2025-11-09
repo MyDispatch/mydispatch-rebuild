@@ -24,7 +24,7 @@ export function CompanyProfileSection() {
               Aufträge
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{companyData.total_bookings || 0}</div>
             <p className="text-xs text-muted-foreground mt-1">Gesamt</p>
           </CardContent>
@@ -36,7 +36,7 @@ export function CompanyProfileSection() {
               Fahrer
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{companyData.total_drivers || 0}</div>
             <p className="text-xs text-muted-foreground mt-1">Aktiv</p>
           </CardContent>
@@ -48,7 +48,7 @@ export function CompanyProfileSection() {
               Fahrzeuge
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{companyData.total_vehicles || 0}</div>
             <p className="text-xs text-muted-foreground mt-1">Im Einsatz</p>
           </CardContent>
@@ -60,7 +60,7 @@ export function CompanyProfileSection() {
               Umsatz
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">
               {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(companyData.monthly_revenue || 0)}
             </div>

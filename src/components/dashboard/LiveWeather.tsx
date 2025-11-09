@@ -63,7 +63,7 @@ export function LiveWeather({ city = 'München' }: LiveWeatherProps) {
         <CardHeader>
           <CardTitle className="text-lg">Wetter</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <Skeleton className="h-20 w-full" />
         </CardContent>
       </Card>
@@ -76,7 +76,7 @@ export function LiveWeather({ city = 'München' }: LiveWeatherProps) {
         <CardHeader>
           <CardTitle className="text-lg">Wetter</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <p className="text-sm text-muted-foreground">{error || 'Keine Daten'}</p>
         </CardContent>
       </Card>
@@ -93,7 +93,7 @@ export function LiveWeather({ city = 'München' }: LiveWeatherProps) {
           <WeatherIcon className="h-5 w-5 text-foreground" />
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold">{weather.temp}°C</span>

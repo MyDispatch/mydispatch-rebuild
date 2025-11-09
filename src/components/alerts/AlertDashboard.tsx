@@ -71,7 +71,7 @@ export function AlertDashboard() {
               Gesamt (7 Tage)
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="text-2xl font-bold">{stats?.total || 0}</div>
               <TrendingUp className="h-4 w-4 text-muted-foreground" />
@@ -85,7 +85,7 @@ export function AlertDashboard() {
               Critical
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="text-2xl font-bold text-destructive">{stats?.critical || 0}</div>
               <AlertCircle className="h-4 w-4 text-destructive" />
@@ -99,7 +99,7 @@ export function AlertDashboard() {
               Warnings
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="text-2xl font-bold text-warning">{stats?.warning || 0}</div>
               <AlertTriangle className="h-4 w-4 text-warning" />
@@ -113,7 +113,7 @@ export function AlertDashboard() {
               Info
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="text-2xl font-bold">{stats?.info || 0}</div>
               <Clock className="h-4 w-4 text-muted-foreground" />
@@ -130,7 +130,7 @@ export function AlertDashboard() {
             Ungelöste Alerts (automatisch alle 30s aktualisiert)
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           {!latestAlerts || latestAlerts.length === 0 ? (
             <div className="text-center py-12">
               <CheckCircle className="h-12 w-12 text-success mx-auto mb-4" />
@@ -200,7 +200,7 @@ export function AlertDashboard() {
           <CardTitle>Alert-Verlauf</CardTitle>
           <CardDescription>Alle Alerts der letzten 7 Tage</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           {!alertHistory || alertHistory.length === 0 ? (
             <p className="text-center py-8 text-muted-foreground">Keine Alerts in den letzten 7 Tagen</p>
           ) : (

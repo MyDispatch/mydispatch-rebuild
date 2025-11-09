@@ -137,7 +137,7 @@ export function PrivacySection() {
             Exportieren Sie Ihre personenbezogenen Daten im strukturierten Format
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <DataExportDialog />
         </CardContent>
       </Card>

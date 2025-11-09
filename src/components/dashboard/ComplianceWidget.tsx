@@ -89,7 +89,7 @@ export function ComplianceWidget() {
           <Skeleton className="h-6 w-48" />
           <Skeleton className="h-4 w-64" />
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="space-y-3">
             {[1, 2, 3].map(i => (
               <Skeleton key={i} className="h-16 w-full" />
@@ -109,7 +109,7 @@ export function ComplianceWidget() {
             Compliance-Übersicht
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <Alert variant="destructive">
             <AlertDescription>
               Fehler beim Laden der Compliance-Daten: {error.message}
@@ -147,7 +147,7 @@ export function ComplianceWidget() {
           Ablaufende Pflichtdokumente (nächste 30 Tage)
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         {!expiringDocs || expiringDocs.length === 0 ? (
           <div className="text-center py-8">
             <FileText className="h-12 w-12 mx-auto text-muted-foreground mb-3" />

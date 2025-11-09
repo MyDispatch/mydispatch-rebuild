@@ -640,7 +640,7 @@ export default function Master ()
                   <CardHeader>
                     <CardTitle className="text-lg">{ masterDashboardContent.qualityTab.testCoverage }</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-6">
                     <div className="space-y-2">
                       <div className="flex justify-between items-center">
                         <span className="text-3xl font-bold text-slate-900">87 %</span>
@@ -655,7 +655,7 @@ export default function Master ()
                   <CardHeader>
                     <CardTitle className="text-lg">{ masterDashboardContent.qualityTab.codeQuality }</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-6">
                     <div className="space-y-2">
                       <div className="flex justify-between items-center">
                         <span className="text-3xl font-bold text-slate-900">A+</span>
@@ -670,7 +670,7 @@ export default function Master ()
                   <CardHeader>
                     <CardTitle className="text-lg">{ masterDashboardContent.qualityTab.technicalDebt }</CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-6">
                     <div className="space-y-2">
                       <div className="flex justify-between items-center">
                         <span className="text-3xl font-bold text-slate-900">2,4 h</span>

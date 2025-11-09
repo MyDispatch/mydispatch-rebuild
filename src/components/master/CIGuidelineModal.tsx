@@ -203,7 +203,7 @@ export function CIGuidelineModal() {
             Typografie-System (Fluid Responsive)
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="space-y-3">
             {typography.map((typo) => (
               <div 
@@ -239,7 +239,7 @@ export function CIGuidelineModal() {
             Button-Varianten
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {buttonVariants.map((btn) => (
               <div key={btn.variant} className="space-y-2">
@@ -266,7 +266,7 @@ export function CIGuidelineModal() {
             Kritische Design-Regeln
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="space-y-4">
             {designRules.map((rule, index) => (
               <div 
@@ -337,7 +337,7 @@ export function CIGuidelineModal() {
             V26.1 Spacing System
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="space-y-3">
             <div className="p-3 rounded-lg border bg-muted/30">
               <code className="text-sm font-mono bg-background px-2 py-1 rounded border">space-y-4</code>
@@ -367,7 +367,7 @@ export function CIGuidelineModal() {
             V26.1 Shadow & Radius
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-3">
               <h3 className="font-semibold text-foreground">Shadows</h3>

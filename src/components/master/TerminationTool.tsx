@@ -240,7 +240,7 @@ export function TerminationTool() {
               Gefährdet
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats.at_risk}</div>
             <p className="text-xs text-muted-foreground">Läuft in 7 Tagen ab</p>
           </CardContent>
@@ -253,7 +253,7 @@ export function TerminationTool() {
               Überfällig
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats.overdue}</div>
             <p className="text-xs text-muted-foreground">Sofortmaßnahme nötig</p>
           </CardContent>
@@ -266,7 +266,7 @@ export function TerminationTool() {
               Blockiert
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats.blocked}</div>
             <p className="text-xs text-muted-foreground">Derzeit gesperrt</p>
           </CardContent>

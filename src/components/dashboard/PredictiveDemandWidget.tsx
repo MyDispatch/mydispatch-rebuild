@@ -200,7 +200,7 @@ export function PredictiveDemandWidget() {
           </CardTitle>
           <CardDescription>KI-basierte Vorhersage</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="flex items-center justify-center py-8">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
@@ -220,7 +220,7 @@ export function PredictiveDemandWidget() {
           </CardTitle>
           <CardDescription>KI-basierte Vorhersage</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>

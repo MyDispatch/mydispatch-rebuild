@@ -112,7 +112,7 @@ export function UtilizationHeatmap({ onClick, className }: UtilizationHeatmapPro
           Heatmap zeigt Buchungen nach Wochentag und Uhrzeit (letzte 30 Tage)
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <div className="overflow-x-auto scrollbar-hide">
           <div className="inline-block min-w-full">
             {/* Header: Stunden (0-23) */}

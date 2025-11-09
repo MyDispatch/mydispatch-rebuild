@@ -112,7 +112,7 @@ export function DashboardInfoBoard({
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-semibold text-slate-900">Entwicklung</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="h-32 bg-slate-50 rounded-md flex items-center justify-center">
                 <p className="text-xs text-slate-600">Chart Preview</p>
               </div>

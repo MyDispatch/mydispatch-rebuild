@@ -88,7 +88,7 @@ export function LiveTraffic({ route }: LiveTrafficProps) {
         <CardHeader>
           <CardTitle className="text-lg">Verkehrslage</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <p className="text-sm text-muted-foreground">
             Wählen Sie eine Route für Live-Verkehrsdaten
           </p>
@@ -103,7 +103,7 @@ export function LiveTraffic({ route }: LiveTrafficProps) {
         <CardHeader>
           <CardTitle className="text-lg">Verkehrslage</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <Skeleton className="h-20 w-full" />
         </CardContent>
       </Card>
@@ -116,7 +116,7 @@ export function LiveTraffic({ route }: LiveTrafficProps) {
         <CardHeader>
           <CardTitle className="text-lg">Verkehrslage</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <p className="text-sm text-muted-foreground">{error || 'Keine Daten'}</p>
         </CardContent>
       </Card>
@@ -133,7 +133,7 @@ export function LiveTraffic({ route }: LiveTrafficProps) {
           <TrafficIcon className="h-5 w-5 text-foreground" />
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Badge 
