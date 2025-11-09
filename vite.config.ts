@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-// PRODUCTION CONFIG: Performance-Optimized
+// PRODUCTION CONFIG: Optimized for Vercel deployment
 export default defineConfig({
   base: '/',
   
@@ -14,17 +14,34 @@ export default defineConfig({
     },
   },
   
+  // ✅ Dependency Pre-Bundling Optimization
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      'react-router-dom',
+      '@supabase/supabase-js',
+      'date-fns',
+      'lucide-react',
+    ],
+    exclude: ['@sentry/node', '@sentry/core', '@sentry/browser'],
+  },
+  
+  // ✅ External dependencies for build
   build: {
-    target: 'esnext',
-    minify: 'terser',
+    target: 'es2020',
+    minify: 'terser', // PRODUCTION MINIFICATION
     cssCodeSplit: true,
-    sourcemap: true,
-    chunkSizeWarningLimit: 600, // Warn at 600 KB instead of 500 KB
+    sourcemap: false, // PRODUCTION: No sourcemaps
     
     rollupOptions: {
+      external: ['@sentry/node', '@sentry/core', '@sentry/browser'],
       output: {
         format: 'es',
+        // Optimized for production
         compact: true,
+        // Module bundling for better tree-shaking
+        preserveModules: false,
         
         // ✅ PHASE 15: Code-Splitting & Manual Chunks
         manualChunks: {
@@ -68,17 +85,5 @@ export default defineConfig({
         drop_debugger: true,
       },
     },
-  },
-  
-  // ✅ Dependency Pre-Bundling Optimization
-  optimizeDeps: {
-    include: [
-      'react',
-      'react-dom',
-      'react-router-dom',
-      '@supabase/supabase-js',
-      'date-fns',
-      'lucide-react',
-    ],
   },
 });
