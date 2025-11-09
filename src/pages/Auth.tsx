@@ -279,11 +279,10 @@ export default function Auth() {
             component: 'Auth' 
           });
 
+          // V43.1: Master-Users gehen auch zu /dashboard (keine separate /master Route)
+          // Master-spezifische Features werden im Dashboard conditional gerendert
           if (isMaster) {
-            const redirectRoute = getLoginRedirectRoute('master', searchParams);
-            logger.debug('[Auth] Master-Zugang erkannt - Weiterleitung zu /master', { email, redirectRoute, component: 'Auth' });
-            navigate(redirectRoute);
-            return;
+            logger.debug('[Auth] Master-Zugang erkannt - Weiterleitung zu /dashboard', { email, isMaster: true, component: 'Auth' });
           }
 
           // Check if from Company Landing (SessionStorage)

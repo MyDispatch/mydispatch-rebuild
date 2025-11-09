@@ -790,20 +790,6 @@ export const routes: RouteConfig[] = [
     },
   },
   {
-    path: '/master',
-    component: lazy(() => import('@/pages/Master')),
-    protected: true,
-    layout: 'main',  // V40.22: Im MainLayout integriert mit Tab-Struktur
-    background: 'orbs-light',
-    requiredRole: 'master',  // 🚨 KRITISCH: Nur für System-Admins!
-    meta: {
-      title: 'Master System Dashboard',
-      icon: ShieldCheck,
-      breadcrumb: 'System Control',
-      description: 'Zentrale System-Kontrolle, Brain QA & CI/CD Management',
-    },
-  },
-  {
     path: '/knowledge-base-migration',
     component: lazy(() => import('@/pages/KnowledgeBaseMigration')),
     protected: true,
