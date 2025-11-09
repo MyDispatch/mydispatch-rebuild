@@ -17,7 +17,6 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { Link, useNavigate } from 'react-router-dom';
 import officialLogo from '@/assets/mydispatch-logo-official.png';
 import { useDeviceType } from '@/hooks/use-device-type';
-import { V28CookieConsent } from '@/components/shared/V28CookieConsent';
 import { DESIGN_TOKENS } from '@/lib/design-system/design-tokens';
 
 interface MarketingLayoutProps {
@@ -420,7 +419,6 @@ export function MarketingLayout({ children, currentPage = '', background = 'whit
         </Sheet>
       )}
 
-      <V28CookieConsent />
     </div>
   );
 }

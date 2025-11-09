@@ -14,7 +14,6 @@ import { ReactNode } from 'react';
 import { LucideIcon } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { V28Hero3DBackgroundPremium } from '@/components/hero/V28Hero3DBackgroundPremium';
-import { PWAInstallButton } from '@/components/shared/PWAInstallButton';
 import { TrustIndicators } from '@/components/business/TrustIndicators';
 
 interface V28HeroPremiumProps {
@@ -135,8 +134,6 @@ export function V28HeroPremium({
         </V28Button>
 
               {/* PWA Install Button - MAX 2 BUTTONS! */}
-              {/* Note: PWAInstallButton zeigt sich selbst als Fixed Prompt - keine Props nötig */}
-              {showPWAButton && <PWAInstallButton />}
             </div>
 
             {/* Trust Indicators */}

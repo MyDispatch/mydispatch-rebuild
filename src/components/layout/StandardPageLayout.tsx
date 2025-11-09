@@ -183,7 +183,7 @@ export function StandardPageLayout({
 
         {/* STATS - Optional */}
         {stats && stats.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, index) => {
               // Check if icon is a component or JSX element
               const IconComponent = typeof stat.icon === 'function' ? stat.icon : null;

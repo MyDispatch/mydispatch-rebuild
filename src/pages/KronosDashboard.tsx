@@ -112,7 +112,7 @@ export default function KronosDashboard() {
             <CardTitle className="text-sm font-medium">Total Entities</CardTitle>
             <FileCode className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats?.total || 0}</div>
             <p className="text-xs text-muted-foreground">
               {stats?.by_level ? Object.keys(stats.by_level).length : 0} Levels
@@ -125,7 +125,7 @@ export default function KronosDashboard() {
             <CardTitle className="text-sm font-medium">Completed</CardTitle>
             <CheckCircle2 className="h-4 w-4 text-green-500" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats?.completed || 0}</div>
             <Progress value={completionPercentage} className="mt-2" />
           </CardContent>
@@ -136,7 +136,7 @@ export default function KronosDashboard() {
             <CardTitle className="text-sm font-medium">In Progress</CardTitle>
             <Loader2 className="h-4 w-4 text-blue-500" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats?.in_progress || 0}</div>
             <p className="text-xs text-muted-foreground">
               {stats?.pending || 0} Pending
@@ -149,7 +149,7 @@ export default function KronosDashboard() {
             <CardTitle className="text-sm font-medium">Failed</CardTitle>
             <XCircle className="h-4 w-4 text-red-500" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats?.failed || 0}</div>
             <p className="text-xs text-muted-foreground">
               {stats?.failed ? Math.round((stats.failed / stats.total) * 100) : 0}% Fehlerrate
@@ -170,7 +170,7 @@ export default function KronosDashboard() {
               Started: {new Date(currentRun.started_at).toLocaleString()}
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Status</span>
@@ -217,7 +217,7 @@ export default function KronosDashboard() {
             Real-time status aller zu generierenden Entities
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <Tabs defaultValue="all">
             <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="all">All ({entities.length})</TabsTrigger>
@@ -313,7 +313,7 @@ export default function KronosDashboard() {
             Execute einzelne Schritte des KRONOS Workflows
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <V28Button
               variant="secondary"

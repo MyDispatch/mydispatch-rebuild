@@ -25,7 +25,6 @@ import { ReactNode } from 'react';
 import { AuthHeader } from '@/components/auth/AuthHeader';
 import { AuthFooter } from '@/components/auth/AuthFooter';
 import { V28ChatWidget } from '@/components/chat/V28ChatWidget';
-import { V28CookieConsent } from '@/components/shared/V28CookieConsent';
 
 interface AuthPageLayoutProps {
   children: ReactNode;
@@ -56,7 +55,6 @@ export function AuthPageLayout({
       
       {/* Cookie Consent - Global (z-60 - highest priority) */}
       <div className="z-[60] relative">
-        <V28CookieConsent />
       </div>
       
       {/* Chat Widget - Global (z-50 button, z-[70] dialog) */}

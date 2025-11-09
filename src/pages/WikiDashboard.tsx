@@ -142,7 +142,7 @@ export default function WikiDashboard() {
               <CardTitle className="text-sm font-medium">Total Docs</CardTitle>
               <BookOpen className="h-4 w-4 text-slate-500" />
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="text-2xl font-bold">{totalDocs}</div>
               <p className="text-xs text-slate-500 mt-1">
                 In knowledge_base
@@ -155,7 +155,7 @@ export default function WikiDashboard() {
               <CardTitle className="text-sm font-medium">Critical Issues</CardTitle>
               <AlertCircle className={`h-4 w-4 ${criticalIssuesCount > 0 ? 'text-red-500' : 'text-green-500'}`} />
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className={`text-2xl font-bold ${criticalIssuesCount > 0 ? 'text-red-600' : 'text-green-600'}`}>
                 {criticalIssuesCount}
               </div>
@@ -170,7 +170,7 @@ export default function WikiDashboard() {
               <CardTitle className="text-sm font-medium">Graph Coverage</CardTitle>
               <LinkIcon className="h-4 w-4 text-slate-500" />
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="text-2xl font-bold">{graphCoverage.toFixed(1)}%</div>
               <Progress value={graphCoverage} className="mt-2" />
               <p className="text-xs text-slate-500 mt-1">
@@ -184,7 +184,7 @@ export default function WikiDashboard() {
               <CardTitle className="text-sm font-medium">Load Time</CardTitle>
               <Clock className="h-4 w-4 text-slate-500" />
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-6">
               <div className="text-2xl font-bold">{loadTime}ms</div>
               <p className="text-xs text-slate-500 mt-1">
                 {loadTime < 3000 ? '✅ Fast' : '⚠️ Slow'}
@@ -210,7 +210,7 @@ export default function WikiDashboard() {
                   Letzte 10 AI-Learnings aus Aktionen
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 {wikiData?.recentLearnings && wikiData.recentLearnings.length > 0 ? (
                   <div className="space-y-4">
                     {wikiData.recentLearnings.map((learning: any, idx: number) => (
@@ -249,7 +249,7 @@ export default function WikiDashboard() {
                   {wikiData?.knownComponents?.length || 0} verifizierte Components
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 {wikiData?.knownComponents && wikiData.knownComponents.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {wikiData.knownComponents.map((comp: any, idx: number) => (
@@ -284,7 +284,7 @@ export default function WikiDashboard() {
                   Top patterns nach Usage Count
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 {wikiData?.bestPractices && wikiData.bestPractices.length > 0 ? (
                   <div className="space-y-3">
                     {wikiData.bestPractices.map((practice: any, idx: number) => (
@@ -317,7 +317,7 @@ export default function WikiDashboard() {
                   {criticalIssuesCount} ungelöste Critical Issues
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 {wikiData?.criticalIssues && wikiData.criticalIssues.length > 0 ? (
                   <div className="space-y-4">
                     {wikiData.criticalIssues.map((issue: any, idx: number) => (

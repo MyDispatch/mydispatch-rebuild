@@ -49,7 +49,7 @@ export default function AutonomousSystemDashboard() {
             Fehler beim Laden
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <p className="text-sm text-muted-foreground">{error.message}</p>
         </CardContent>
       </Card>
@@ -110,7 +110,7 @@ export default function AutonomousSystemDashboard() {
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium">Gesamt Tasks</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats?.total_tasks || 0}</div>
           </CardContent>
         </Card>
@@ -119,7 +119,7 @@ export default function AutonomousSystemDashboard() {
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium">Ausstehend</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold text-yellow-600">
               {stats?.pending_tasks || 0}
             </div>
@@ -130,7 +130,7 @@ export default function AutonomousSystemDashboard() {
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium">Abgeschlossen</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold text-green-600">
               {stats?.completed_tasks || 0}
             </div>
@@ -141,7 +141,7 @@ export default function AutonomousSystemDashboard() {
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium">Fehlgeschlagen</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-6">
             <div className="text-2xl font-bold text-red-600">
               {stats?.failed_tasks || 0}
             </div>
@@ -220,7 +220,7 @@ export default function AutonomousSystemDashboard() {
         <CardHeader>
           <CardTitle>Aktuelle Tasks</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           {tasks.length === 0 ? (
             <p className="text-sm text-muted-foreground text-center py-8">
               Keine Tasks vorhanden
@@ -272,7 +272,7 @@ export default function AutonomousSystemDashboard() {
           </div>
         </CardHeader>
         {showLogs && (
-          <CardContent>
+          <CardContent className="p-6">
             {executionLogs.length === 0 ? (
               <p className="text-sm text-muted-foreground text-center py-8">
                 Keine Logs vorhanden

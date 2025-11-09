@@ -1,5 +1,5 @@
 /* ==================================================================================
-   DASHBOARD V42.0 - MODERN SAAS DASHBOARD (BEST PRACTICES)
+   DASHBOARD V43.0 - MODERN SAAS DASHBOARD (BEST PRACTICES + COMPONENT REFACTOR)
    ==================================================================================
    ✅ Clean, professional SaaS-Design
    ✅ StandardPageLayout für Konsistenz
@@ -18,6 +18,8 @@ import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
 import { StatCard } from '@/components/smart-templates/StatCard';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { QuickActionCard } from '@/components/dashboard/QuickActionCard';
+import { ActivityItem } from '@/components/dashboard/ActivityItem';
 import { formatCurrency } from '@/lib/format-utils';
 import { 
   FileText, Users, Euro, Plus, Calendar, TrendingUp,
@@ -166,26 +168,17 @@ export default function Dashboard() {
         <CardHeader>
           <CardTitle className="text-lg font-semibold">Schnellzugriff</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <CardContent className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {quickActions.map((action, index) => (
-              <button
+              <QuickActionCard
                 key={index}
+                label={action.label}
+                description={action.description}
+                icon={action.icon}
                 onClick={action.onClick}
-                className={`
-                  flex flex-col items-start p-4 rounded-lg border transition-all
-                  ${action.prominent 
-                    ? 'bg-primary text-primary-foreground border-primary hover:bg-primary/90' 
-                    : 'bg-card hover:bg-muted border-border'
-                  }
-                `}
-              >
-                <action.icon className={`h-6 w-6 mb-3 ${action.prominent ? 'text-primary-foreground' : 'text-primary'}`} />
-                <span className="font-semibold text-base mb-1">{action.label}</span>
-                <span className={`text-sm ${action.prominent ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
-                  {action.description}
-                </span>
-              </button>
+                prominent={action.prominent}
+              />
             ))}
           </div>
         </CardContent>
@@ -204,29 +197,18 @@ export default function Dashboard() {
             <ArrowRight className="ml-2 h-4 w-4" />
           </V28Button>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <div className="space-y-4">
             {recentActivity.map((activity) => (
-              <div
+              <ActivityItem
                 key={activity.id}
-                className="flex items-start gap-4 p-3 rounded-lg hover:bg-muted/50 transition-colors"
-              >
-                <div className={`
-                  p-2 rounded-lg
-                  ${activity.status === 'success' ? 'bg-status-success/10 text-status-success' : ''}
-                  ${activity.status === 'info' ? 'bg-primary/10 text-primary' : ''}
-                `}>
-                  <activity.icon className="h-5 w-5" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-medium text-sm text-foreground">{activity.title}</p>
-                  <p className="text-sm text-muted-foreground truncate">{activity.description}</p>
-                </div>
-                <div className="flex items-center gap-1 text-xs text-muted-foreground shrink-0">
-                  <Clock className="h-3 w-3" />
-                  {format(activity.time, 'HH:mm', { locale: de })}
-                </div>
-              </div>
+                id={activity.id}
+                icon={activity.icon}
+                title={activity.title}
+                description={activity.description}
+                time={activity.time}
+                status={activity.status}
+              />
             ))}
           </div>
         </CardContent>

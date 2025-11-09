@@ -268,8 +268,16 @@ export default function Auth() {
             .maybeSingle();
 
           // Master-Zugang-Check
-          // V32.6: Nur user_roles-Tabelle als Single Source of Truth
+          // V32.7: Nur user_roles-Tabelle als Single Source of Truth
           const isMaster = userRoles?.role === 'master';
+
+          logger.debug('[Auth] Role-Check', { 
+            email, 
+            isMaster, 
+            userRolesData: userRoles, 
+            userId: userData.user.id,
+            component: 'Auth' 
+          });
 
           if (isMaster) {
             const redirectRoute = getLoginRedirectRoute('master', searchParams);
@@ -287,9 +295,14 @@ export default function Auth() {
             return;
           }
 
-          // Otherwise: Use standard redirect logic
+          // Otherwise: Use standard redirect logic (Entrepreneur)
           const redirectRoute = getLoginRedirectRoute('entrepreneur', searchParams);
-          logger.debug('[Auth] Navigation', { redirectRoute, component: 'Auth' });
+          logger.debug('[Auth] Entrepreneur-Redirect', { 
+            email, 
+            redirectRoute, 
+            isMaster: false,
+            component: 'Auth' 
+          });
           navigate(redirectRoute);
           return;
         }
