@@ -49,7 +49,7 @@ export function MainLayout({ children, background = 'canvas' }: MainLayoutProps)
         <MobileHeader />
         
         {/* Content: Korrekter Abstand für Header (56px) ohne Bottom Padding */}
-        <main className="flex-1 pt-20 pb-0 px-4 overflow-y-auto">
+        <main className="flex-1 pt-14 pb-0 px-4 overflow-y-auto">
           {children}
         </main>
         
@@ -102,7 +102,7 @@ export function MainLayout({ children, background = 'canvas' }: MainLayoutProps)
               '/dashboard',
               '/fahrer',
               '/auftraege',
-              '/statistiken',
+              // '/statistiken', // Hat eigene Right Sidebar!
               '/kommunikation',
               '/kostenstellen',
               '/angebote',
@@ -127,8 +127,8 @@ export function MainLayout({ children, background = 'canvas' }: MainLayoutProps)
           className={cn("overflow-y-auto overflow-x-hidden relative", bgClass)}
           style={{
             minHeight: 'calc(100vh - 64px)', // 100vh - Header (64px)
-            paddingTop: '88px', // V36.0: Header (64px) + Whitespace (24px)
-            paddingBottom: '72px', // V36.0: Footer (48px) + Whitespace (24px)
+            paddingTop: '64px', // V36.0: Header (64px) - kein zusätzlicher Whitespace
+            paddingBottom: '48px', // V36.0: Footer (48px) - kein zusätzlicher Whitespace
             paddingLeft: '24px',   // ✅ Innerer Abstand zum Sidebar-Rand
             paddingRight: '24px',  // ✅ Innerer Abstand - kann von Pages überschrieben werden (z.B. Master.tsx)
             scrollbarWidth: 'none', // V28.1 Premium: Scrollbar-los

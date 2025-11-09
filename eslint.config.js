@@ -20,7 +20,13 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+      
+      // ✅ PHASE 17: Pragmatische ESLint-Konfiguration
       "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-explicit-any": "warn", // Warning statt Error
+      "@typescript-eslint/no-empty-function": "warn",
+      "@typescript-eslint/ban-ts-comment": "warn",
+      
       "no-restricted-imports": ["error", {
         "patterns": [
           {

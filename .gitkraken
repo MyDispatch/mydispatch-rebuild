@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "project": {
+    "name": "MyDispatch Rebuild",
+    "description": "NeXifyAI MASTER Dashboard project (#1)",
+    "type": "web-application"
+  },
+  "git": {
+    "defaultBranch": "master",
+    "protectedBranches": ["master", "main", "production"],
+    "conventionalCommits": true,
+    "commitMessageTemplate": "type(scope): subject\n\nBody\n\nFooter"
+  },
+  "workflow": {
+    "gitFlow": {
+      "enabled": true,
+      "masterBranch": "master",
+      "developBranch": "develop",
+      "featurePrefix": "feature/",
+      "releasePrefix": "release/",
+      "hotfixPrefix": "hotfix/"
+    }
+  },
+  "integrations": {
+    "github": {
+      "enabled": true,
+      "repository": "MyDispatch/mydispatch-rebuild",
+      "autoLinkIssues": true
+    },
+    "vercel": {
+      "enabled": true,
+      "projectId": "prj_j6exywYDPrstYDQvd2XEQMeIDQZt"
+    }
+  },
+  "hooks": {
+    "preCommit": ["npm run lint", "npm run type-check"],
+    "prePush": ["npm run build"]
+  }
+}
