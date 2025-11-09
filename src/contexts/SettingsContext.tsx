@@ -14,11 +14,11 @@ import { supabase } from '@/integrations/supabase/client';
 import { logger } from '@/lib/logger';
 import type { Profile } from '@/integrations/supabase/types/core-tables';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 // Type helper for typed queries
+import type { Database } from '@/integrations/supabase/types';
+
 type TypedSupabaseClient = typeof supabase & {
-  from(table: 'profiles'): any;
+  from(table: 'profiles'): ReturnType<typeof supabase.from<'profiles'>>;
 };
 const typedClient = supabase as TypedSupabaseClient;
 
@@ -40,7 +40,7 @@ interface CompanyData {
   widget_enabled?: boolean;
   landingpage_enabled?: boolean;
   widget_show_phone?: boolean;
-  business_hours?: any;
+  business_hours?: Record<string, string>;
   company_slug?: string;
   custom_impressum_text?: string;
   custom_datenschutz_text?: string;
@@ -53,7 +53,7 @@ interface CompanyData {
   reminder_before_due_days?: number;
   default_vat_rate?: number;
   quote_validity_days?: number;
-  payment_methods?: string[];
+  payment_methods?: string[] | null;
   notification_email_bookings?: boolean;
   notification_email_messages?: boolean;
   notification_sms?: boolean;

@@ -10,12 +10,12 @@ import type { ExtendedProfile, ExtendedCompany } from '@/types/extended-types';
 import { toExtendedCompany } from '@/types/extended-types';
 import type { Profile } from '@/integrations/supabase/types/core-tables';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 // Type helper for typed queries
+import type { Database } from '@/integrations/supabase/types';
+
 type TypedSupabaseClient = typeof supabase & {
-  from(table: 'profiles'): any;
-  from(table: 'user_roles'): any;
+  from(table: 'profiles'): ReturnType<typeof supabase.from<'profiles'>>;
+  from(table: 'user_roles'): ReturnType<typeof supabase.from<'user_roles'>>;
 };
 const typedClient = supabase as TypedSupabaseClient;
 
@@ -95,7 +95,7 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
         return;
       }
 
-      const extendedCompany = toExtendedCompany((profileData as any)?.companies || null);
+      const extendedCompany = toExtendedCompany((profileData as Record<string, unknown>)?.companies || null);
 
       const enrichedProfile: ExtendedProfile = {
         ...(profileData as Profile),
@@ -116,7 +116,10 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
         handleError(rolesError, 'Fehler beim Laden der Rollen', { showToast: false });
       }
 
-      const userRoles = rolesData?.map((r: any) => r.role) || [];
+      interface UserRole {
+        role: string;
+      }
+      const userRoles = rolesData?.map((r: UserRole) => r.role) || [];
 
       // CRITICAL: Email-basierter Master-Zugang für NeXify Master-User
       const userEmail = session?.user?.email?.toLowerCase().trim();

@@ -41,11 +41,15 @@ export interface QueryOptions {
 /**
  * Handle Supabase errors consistently
  */
-export function handleSupabaseError<T = any>(error: any): ApiResponse<T> {
+export function handleSupabaseError<T = unknown>(error: Error | unknown): ApiResponse<T> {
+  const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+  const errorCode = error instanceof Error && 'code' in error ? (error as any).code : undefined;
+  const errorStatus = error instanceof Error && 'status' in error ? (error as any).status : undefined;
+  
   const apiError = new ApiError(
-    error.message || 'An unknown error occurred',
-    error.code,
-    error.status
+    errorMessage,
+    errorCode,
+    errorStatus
   );
   return { data: null, error: apiError };
 }
