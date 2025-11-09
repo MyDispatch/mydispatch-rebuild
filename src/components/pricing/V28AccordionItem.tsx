@@ -8,7 +8,7 @@
    ✅ Rounded Corners (rounded-lg)
    ================================================================================== */
 
-import * as React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -21,11 +21,11 @@ interface V28AccordionItemProps {
 }
 
 export function V28AccordionItem({ question, answer, value, isLast }: V28AccordionItemProps) {
-  const triggerRef = React.useRef<HTMLButtonElement>(null);
-  const [isOpen, setIsOpen] = React.useState(false);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   // Observe data-state changes on the trigger
-  React.useEffect(() => {
+  useEffect(() => {
     const trigger = triggerRef.current;
     if (!trigger) return;
 

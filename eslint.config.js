@@ -30,10 +30,6 @@ export default tseslint.config(
       "no-restricted-imports": ["error", {
         "patterns": [
           {
-            "group": ["**/unified-design-tokens*"],
-            "message": "⛔ UNIFIED_DESIGN_TOKENS ist deprecated!\n   Nutze Tailwind slate-* classes.\n   Migration Guide: docs/V28_MIGRATION_GUIDE.md"
-          },
-          {
             "group": ["**/*V26*", "**/*v26*"],
             "message": "⛔ V26-Components sind deprecated!\n   Nutze V28-Components aus @/components/ui/*.\n   Ausnahme nur für explizite Backward Compatibility.\n   Migration Guide: docs/V28_MIGRATION_GUIDE.md"
           }

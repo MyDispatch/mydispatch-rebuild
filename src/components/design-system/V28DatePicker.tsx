@@ -3,7 +3,7 @@
  * HYPERION Phase 1.3 - Design System
  */
 
-import * as React from 'react';
+import React, { useState, forwardRef } from 'react';
 import { format } from 'date-fns';
 import { de } from 'date-fns/locale';
 import { Calendar as CalendarIcon } from 'lucide-react';
@@ -22,9 +22,9 @@ export interface V28DatePickerProps {
   error?: string;
 }
 
-export const V28DatePicker = React.forwardRef<HTMLButtonElement, V28DatePickerProps>(
+export const V28DatePicker = forwardRef<HTMLButtonElement, V28DatePickerProps>(
   ({ value, onChange, placeholder = 'Datum auswählen', disabled, className, label, error }, ref) => {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     return (
       <div className="w-full space-y-2">

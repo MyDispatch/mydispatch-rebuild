@@ -6,6 +6,8 @@
    Autor: NeXify AI MASTER
    ================================================================================== */
 
+import React, { useState, useEffect } from 'react';
+
 /**
  * Mobile-First Breakpoints
  */
@@ -136,13 +138,16 @@ export function responsiveValue<T>(values: {
  * Mobile-First Media Query Hook (for React)
  */
 export function useMediaQuery(query: string): boolean {
-  if (typeof window === 'undefined') return false;
-  
-  const [matches, setMatches] = React.useState(() => {
+  const [matches, setMatches] = useState(() => {
+    // Initial check for SSR safety
+    if (typeof window === 'undefined') return false;
     return window.matchMedia(query).matches;
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
+    // Skip effect on server-side
+    if (typeof window === 'undefined') return;
+    
     const media = window.matchMedia(query);
     
     if (media.matches !== matches) {
@@ -157,7 +162,4 @@ export function useMediaQuery(query: string): boolean {
 
   return matches;
 }
-
-// React import (if used in React components)
-import React from 'react';
 

@@ -75,6 +75,12 @@ export default function Portal() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  // ✅ V36.0: Zentrales Portal-Theme-System - HOOKS VOR EARLY RETURNS
+  const portalTheme = useCachedPortalTheme();
+  const companyName = portalTheme?.companyName || 'Kunden-Portal';
+  const companyLogo = portalTheme?.logoUrl;
+  const primaryColor = portalTheme?.primaryColor || '#EADEBD';
+
   // Portal Booking Form
   const bookingForm = useForm({
     resolver: zodResolver(portalBookingSchema),
@@ -245,12 +251,6 @@ export default function Portal() {
     return null;
   }
 
-  // ✅ V36.0: Zentrales Portal-Theme-System
-  const portalTheme = useCachedPortalTheme();
-  const companyName = portalTheme?.companyName || 'Kunden-Portal';
-  const companyLogo = portalTheme?.logoUrl;
-  const primaryColor = portalTheme?.primaryColor || '#EADEBD';
-
   // Quick Actions für Portal
   const quickActions: QuickAction[] = [
     {
@@ -262,13 +262,19 @@ export default function Portal() {
     {
       label: 'Meine Buchungen',
       icon: Calendar,
-      onClick: () => {},
+      onClick: () => {
+        // Scroll to bookings section
+        document.getElementById('bookings-section')?.scrollIntoView({ behavior: 'smooth' });
+      },
       variant: 'outline',
     },
     {
       label: 'Profil',
       icon: User,
-      onClick: () => {},
+      onClick: () => {
+        // Scroll to profile section
+        document.getElementById('profile-section')?.scrollIntoView({ behavior: 'smooth' });
+      },
       variant: 'outline',
     },
   ];

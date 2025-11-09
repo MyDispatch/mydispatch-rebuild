@@ -33,6 +33,7 @@ export default defineConfig({
     minify: 'terser', // PRODUCTION MINIFICATION
     cssCodeSplit: true,
     sourcemap: false, // PRODUCTION: No sourcemaps
+    chunkSizeWarningLimit: 1000, // Increase limit for large export libraries
     
     rollupOptions: {
       external: ['@sentry/node', '@sentry/core', '@sentry/browser'],

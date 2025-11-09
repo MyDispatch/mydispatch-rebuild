@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Check, ChevronsUpDown, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { V28Button } from "@/components/design-system/V28Button";
@@ -42,7 +42,7 @@ export function SearchableSelect({
   disabled = false,
   className,
 }: SearchableSelectProps) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const selectedOption = options.find((option) => option.value === value);
 

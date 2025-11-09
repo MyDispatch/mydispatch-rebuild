@@ -9,7 +9,7 @@
    ERREICHBAR: Unternehmer (Portal), Öffentlich (my-dispatch.de)
    ================================================================================== */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Rocket, Calendar, MapPin, CreditCard, BarChart3, Brain, 
   Smartphone, Zap, Users, Package, Bell, Clock, TrendingUp,
@@ -446,7 +446,7 @@ const groupByMonth = (features: ServiceFeature[]) => {
 
 export default function ComingSoon() {
   const content = useContent();
-  const [selectedCategory, setSelectedCategory] = React.useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   
   const handleNotify = () => {
     toast.success('Sie werden benachrichtigt, sobald neue Features verfügbar sind!');

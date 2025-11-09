@@ -47,10 +47,10 @@ const LEVEL_CONFIG: Record<PasswordStrength['level'], {
 };
 
 export function PasswordStrengthIndicator({ password, className }: PasswordStrengthIndicatorProps) {
-  if (!password) return null;
-  
   const strength = calculatePasswordStrength(password);
   const config = LEVEL_CONFIG[strength.level];
+  
+  if (!password) return null;
   
   return (
     <div className={cn('space-y-2', className)}>
@@ -104,7 +104,7 @@ export function PasswordStrengthIndicator({ password, className }: PasswordStren
           label="Mindestens eine Zahl" 
         />
         <RequirementItem 
-          met={/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)} 
+          met={/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(password)} 
           label="Mindestens ein Sonderzeichen" 
         />
         <RequirementItem 
