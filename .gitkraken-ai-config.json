@@ -1,0 +1,176 @@
+{
+  "version": "1.0.0",
+  "workspace": "MyDispatch",
+  "aiConfiguration": {
+    "enabled": true,
+    "model": "gpt-4",
+    "provider": "openai",
+    "commitMessageGeneration": {
+      "enabled": true,
+      "style": "conventional",
+      "includeEmojis": true,
+      "maxLength": 100,
+      "template": "🚀 {type}: {description}\n\n{body}"
+    },
+    "branchNaming": {
+      "enabled": true,
+      "convention": "conventional",
+      "prefixes": {
+        "feature": "feat/",
+        "bugfix": "fix/",
+        "hotfix": "hotfix/",
+        "chore": "chore/",
+        "docs": "docs/",
+        "refactor": "refactor/",
+        "test": "test/",
+        "perf": "perf/"
+      }
+    },
+    "pullRequestGeneration": {
+      "enabled": true,
+      "includeChangelog": true,
+      "includeTesting": true,
+      "includeDeploymentNotes": true
+    },
+    "codeReview": {
+      "enabled": true,
+      "checkForSecurityIssues": true,
+      "checkForPerformanceIssues": true,
+      "checkForCodeStyle": true,
+      "checkForTestCoverage": true
+    }
+  },
+  "automationRules": {
+    "autoCommit": {
+      "enabled": true,
+      "conditions": [
+        "lintPassed",
+        "buildSucceeded",
+        "testsPassedOrSkipped"
+      ],
+      "excludePatterns": [
+        "*.lock",
+        "node_modules/",
+        "dist/",
+        ".env"
+      ]
+    },
+    "autoPush": {
+      "enabled": true,
+      "conditions": [
+        "commitSucceeded",
+        "noConflicts"
+      ],
+      "branches": ["main", "develop"]
+    },
+    "autoCreatePullRequest": {
+      "enabled": true,
+      "conditions": [
+        "branchNameMatches",
+        "commitMessageValid"
+      ],
+      "targetBranch": "main",
+      "requireReview": true,
+      "reviewers": ["courbois1981@gmail.com"]
+    }
+  },
+  "workflowIntegration": {
+    "githubActions": {
+      "enabled": true,
+      "triggerOn": ["push", "pullRequest"],
+      "workflows": [
+        "ci.yml",
+        "deploy.yml"
+      ]
+    },
+    "supabase": {
+      "enabled": true,
+      "projectId": "ygpwuiygivxoqtyoigtg",
+      "autoMigrations": true,
+      "autoFunctionDeploy": true
+    },
+    "vercel": {
+      "enabled": true,
+      "projectId": "prj_mydispatch",
+      "autoDeployOnMain": true,
+      "autoPreviewOnPR": true
+    }
+  },
+  "qualityGates": {
+    "lint": {
+      "enabled": true,
+      "maxErrors": 0,
+      "maxWarnings": 100,
+      "blockOnFailure": true
+    },
+    "build": {
+      "enabled": true,
+      "blockOnFailure": true,
+      "timeout": 300
+    },
+    "tests": {
+      "enabled": true,
+      "minCoverage": 70,
+      "blockOnFailure": false
+    },
+    "security": {
+      "enabled": true,
+      "checkDependencies": true,
+      "blockOnCritical": true
+    }
+  },
+  "notifications": {
+    "slack": {
+      "enabled": false,
+      "webhook": "${SLACK_WEBHOOK_URL}",
+      "channel": "#deployments",
+      "notifyOn": ["deploymentSuccess", "deploymentFailure", "testFailure"]
+    },
+    "email": {
+      "enabled": true,
+      "recipients": ["courbois1981@gmail.com"],
+      "notifyOn": ["deploymentSuccess", "deploymentFailure", "criticalError"]
+    }
+  },
+  "gitFlow": {
+    "enabled": true,
+    "mainBranch": "main",
+    "developBranch": "develop",
+    "featureBranchPrefix": "feat/",
+    "releaseBranchPrefix": "release/",
+    "hotfixBranchPrefix": "hotfix/",
+    "versioningScheme": "semver"
+  },
+  "codeQuality": {
+    "eslint": {
+      "enabled": true,
+      "autoFix": true,
+      "failOnError": true
+    },
+    "prettier": {
+      "enabled": true,
+      "autoFormat": true
+    },
+    "typescript": {
+      "enabled": true,
+      "strictMode": true,
+      "failOnError": true
+    }
+  },
+  "deploymentStrategy": {
+    "staging": {
+      "enabled": true,
+      "branch": "develop",
+      "environment": "staging",
+      "autoDeployOn": "pushToMain"
+    },
+    "production": {
+      "enabled": true,
+      "branch": "main",
+      "environment": "production",
+      "requireApproval": true,
+      "approvers": ["courbois1981@gmail.com"],
+      "autoDeployOn": "pullRequestMerge"
+    }
+  }
+}
