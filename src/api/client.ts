@@ -15,8 +15,9 @@ export type TypedSupabaseClient = SupabaseClient<Database>;
 /**
  * Zentrale Error-Handling Funktion
  */
-export function handleApiError(error: any, context: string): never {
-  logger.error(`API Error in ${context}`, error instanceof Error ? error : new Error(String(error)), {
+export function handleApiError(error: Error | unknown, context: string): never {
+  const errorToLog = error instanceof Error ? error : new Error(String(error));
+  logger.error(`API Error in ${context}`, errorToLog, {
     context,
     errorDetails: error
   });
