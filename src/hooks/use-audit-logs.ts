@@ -13,20 +13,22 @@ import { logger } from '@/lib/logger';
 import { FileText, CheckCircle, Users, Car } from 'lucide-react';
 
 export interface AuditLogData {
+  id: string;
   company_id: string;
   user_id: string;
   action: 'create' | 'update' | 'delete' | 'archive';
   entity_type: string;
   entity_id: string;
-  old_data?: any;
-  new_data?: any;
+  old_data?: Record<string, unknown>;
+  new_data?: Record<string, unknown>;
+  created_at: string;
 }
 
 interface TimelineItem {
   id: string;
   time: string;
   type: 'booking' | 'payment' | 'warning' | 'driver' | 'vehicle' | 'invoice';
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
   status?: 'success' | 'warning' | 'error' | 'info';
@@ -67,7 +69,7 @@ export function useAuditLogs() {
   });
 
   // Transform audit logs into timeline items
-  const activities: TimelineItem[] = rawActivities.map((log: any) => {
+  const activities: TimelineItem[] = rawActivities.map((log: AuditLogData) => {
     const getIcon = () => {
       switch (log.entity_type) {
         case 'booking': return FileText;
