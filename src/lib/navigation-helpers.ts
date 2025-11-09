@@ -167,7 +167,7 @@ export function getLoginRedirectRoute(
   // Role-basiertes Routing
   switch (userRole) {
     case 'master':
-      return '/master';
+      return '/dashboard';  // V43.1: Master-Users gehen auch zu /dashboard
     case 'entrepreneur':
       return '/dashboard';
     case 'customer':
