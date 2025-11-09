@@ -92,7 +92,6 @@ import { useDevValidation } from '@/hooks/validation';
 import { 
   AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer 
 } from 'recharts';
-import { V28DashboardCard, V28DashboardSection } from '@/components/design-system';
 import { UniversalExportBar } from '@/components/dashboard/UniversalExportBar';
 import { useBookingData } from '@/hooks/use-booking-data';
 import { StatCard } from '@/components/smart-templates/StatCard';
@@ -1021,43 +1020,6 @@ export default function Auftraege() {
           </TabsList>
 
           <TabsContent value="auftraege" className="mt-6">
-            {/* ✅ AUFTRAGS-ÜBERSICHT CHART */}
-            <V28DashboardSection
-              background="canvas"
-              className="py-8 mb-6"
-            >
-              <V28DashboardCard 
-                title="Auftrags-Übersicht" 
-                description="Letzte 30 Tage"
-                icon={Activity}
-              >
-                <div className="h-[400px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={chartData}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                      <XAxis dataKey="date" tick={{ fill: '#64748b' }} />
-                      <YAxis tick={{ fill: '#64748b' }} />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: 'white', 
-                          border: '1px solid #e2e8f0',
-                          borderRadius: '8px'
-                        }}
-                        formatter={(value: number) => [value, 'Aufträge']}
-                      />
-                      <Area 
-                        type="monotone" 
-                        dataKey="count" 
-                        stroke="#3b82f6" 
-                        fill="#3b82f6" 
-                        fillOpacity={0.2}
-                        strokeWidth={3}
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </V28DashboardCard>
-            </V28DashboardSection>
 
             {profile?.company_id && (
               <div className="mb-4">
@@ -1115,43 +1077,6 @@ export default function Auftraege() {
           </TabsContent>
 
           <TabsContent value="angebote" className="mt-6">
-            {/* ✅ ANGEBOTE-ÜBERSICHT CHART */}
-            <V28DashboardSection
-              background="canvas"
-              className="py-8 mb-6"
-            >
-              <V28DashboardCard 
-                title="Angebote-Übersicht" 
-                description="Letzte 30 Tage"
-                icon={BookOpen}
-              >
-                <div className="h-[400px] w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={offersChartData}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                      <XAxis dataKey="date" tick={{ fill: '#64748b' }} />
-                      <YAxis tick={{ fill: '#64748b' }} />
-                      <Tooltip 
-                        contentStyle={{ 
-                          backgroundColor: 'white', 
-                          border: '1px solid #e2e8f0',
-                          borderRadius: '8px'
-                        }}
-                        formatter={(value: number) => [value, 'Angebote']}
-                      />
-                      <Area 
-                        type="monotone" 
-                        dataKey="count" 
-                        stroke="#10b981" 
-                        fill="#10b981" 
-                        fillOpacity={0.2}
-                        strokeWidth={3}
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-              </V28DashboardCard>
-            </V28DashboardSection>
 
             {profile?.company_id && (
               <div className="mb-4">
