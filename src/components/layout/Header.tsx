@@ -13,6 +13,7 @@ import { V28Button } from '@/components/design-system/V28Button';
 import { LogOut, User, Search, Bot } from 'lucide-react';
 import { Logo } from '@/components/shared/Logo';
 import { useNavigate } from 'react-router-dom';
+import { APP_ROUTES } from '@/config/app-routes';
 import { designTokens } from '@/config/design-tokens';
 import { cn } from '@/lib/utils';
 
@@ -50,7 +51,7 @@ export function Header({ sidebarExpanded }: HeaderProps) {
         <div className="flex items-center justify-between w-full">
           {/* V29.1: UNIFIED LOGO - Nur MyDispatch-Logo systemweit */}
           <div 
-            onClick={() => navigate(permissions.canAccessMasterDashboard ? '/master' : '/dashboard')} 
+            onClick={() => navigate(APP_ROUTES.dashboard)} 
             className="cursor-pointer hover:opacity-90 transition-all duration-300"
             title="Zur Startseite"
           >

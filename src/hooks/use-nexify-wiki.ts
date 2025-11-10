@@ -51,17 +51,17 @@ export function useNeXifyWiki(options: UseNeXifyWikiOptions = {}) {
       }
 
       // Call brain-query edge function (session initialization)
+      const anon = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
+      const headers = anon ? { apikey: anon, Authorization: `Bearer ${anon}` } : undefined;
+
       const { data, error: functionError } = await supabase.functions.invoke('brain-query', {
+        headers,
         body: {
-          action: 'session-init',
-          options: {
-            loadLearnings: true,
-            loadIssues: true,
-            loadComponents: true,
-            loadBestPractices: true,
-            loadSelfReport: true,
-          }
-        }
+          query: 'session_init',
+          include_best_practices: true,
+          include_code_snippets: true,
+          limit: 10,
+        },
       });
 
       if (functionError) {

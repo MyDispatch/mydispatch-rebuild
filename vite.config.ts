@@ -1,16 +1,24 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 // PRODUCTION CONFIG: Optimized for Vercel deployment
-export default defineConfig({
-  base: '/',
-  
-  plugins: [react()],
+export default defineConfig(({ mode }) => {
+  // Allow overriding base path via env for subpath deployments (e.g. /master/)
+  const env = loadEnv(mode, process.cwd(), "");
+  const base = env.VITE_BASE_PATH && env.VITE_BASE_PATH.trim() !== ""
+    ? env.VITE_BASE_PATH
+    : "/";
+
+  return {
+    base,
+    
+    plugins: [react()],
   
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "@sentry/react": path.resolve(__dirname, "./src/lib/sentry-shim.ts"),
     },
   },
   
@@ -23,8 +31,9 @@ export default defineConfig({
       '@supabase/supabase-js',
       'date-fns',
       'lucide-react',
+      '@sentry/react',
     ],
-    exclude: ['@sentry/node', '@sentry/core', '@sentry/browser'],
+    exclude: ['@sentry/node'],
   },
   
   // ✅ External dependencies for build
@@ -36,7 +45,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 1000, // Increase limit for large export libraries
     
     rollupOptions: {
-      external: ['@sentry/node', '@sentry/core', '@sentry/browser'],
+      external: ['@sentry/node'],
       output: {
         format: 'es',
         // Optimized for production
@@ -87,4 +96,5 @@ export default defineConfig({
       },
     },
   },
+  };
 });

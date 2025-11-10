@@ -32,6 +32,7 @@
     "check:rls": "node scripts/check-rls-coverage.js",
     "git:push:safe": "node scripts/git-push-safe.js",
     "validate:deployments": "node scripts/validate-deployments.js",
+    "validate:icons": "tsx scripts/validate-icons.ts",
     "validate:all": "node scripts/validate-all.js",
     "master:workflow": "node scripts/master-workflow.js",
     "auto:init": "node scripts/auto-init.js",

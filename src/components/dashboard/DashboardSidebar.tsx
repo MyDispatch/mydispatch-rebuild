@@ -30,6 +30,7 @@ import {
   Activity,
   Clock
 } from 'lucide-react';
+import { SafeIcon } from '@/components/base/SafeIcon';
 import { PremiumWeatherDisplay } from './PremiumWeatherDisplay';
 import { PremiumTrafficDisplay } from './PremiumTrafficDisplay';
 import { Badge } from '@/lib/compat';
@@ -160,7 +161,7 @@ export function DashboardSidebar({ sidebarExpanded }: DashboardSidebarProps) {
               <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg pointer-events-none" />
               <div className="relative z-10 flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
-                  <Clock className="h-4 w-4 text-slate-700" />
+                  <SafeIcon icon={Clock} size="sm" color="default" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-lg font-bold tabular-nums text-slate-900">
@@ -178,7 +179,7 @@ export function DashboardSidebar({ sidebarExpanded }: DashboardSidebarProps) {
               <div className="absolute inset-0 bg-gradient-to-br from-slate-100 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg pointer-events-none" />
               <div className="relative z-10 flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
-                  <Activity className="h-4 w-4 text-slate-700" />
+                  <SafeIcon icon={Activity} size="sm" color="default" />
                 </div>
                 <div className="flex flex-col gap-2.5 flex-1">
                   <div className="flex items-center gap-2.5">
@@ -222,7 +223,7 @@ export function DashboardSidebar({ sidebarExpanded }: DashboardSidebarProps) {
           <div className="space-y-3.5 mt-11">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
-                <UserPlus className="h-4 w-4 text-slate-700" />
+                <SafeIcon icon={UserPlus} size="sm" color="default" />
               </div>
               <h3 className="text-sm font-bold tracking-tight text-slate-900">
                 Neue Kunden (7 Tage)
@@ -236,7 +237,7 @@ export function DashboardSidebar({ sidebarExpanded }: DashboardSidebarProps) {
                     Registrierungen
                   </span>
                   <div className="flex items-center justify-center w-9 h-9 bg-status-success/10 rounded-lg">
-                    <CheckCircle className="h-4 w-4 text-status-success" />
+                    <SafeIcon icon={CheckCircle} size="sm" color="primary" />
                   </div>
                 </div>
                 <div className="flex items-baseline gap-3">
@@ -262,7 +263,7 @@ export function DashboardSidebar({ sidebarExpanded }: DashboardSidebarProps) {
           <div className="space-y-3.5 mt-11">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
-                <FileText className="h-4 w-4 text-slate-700" />
+                <SafeIcon icon={FileText} size="sm" color="default" />
               </div>
               <h3 className="text-sm font-bold tracking-tight text-slate-900">
                 Rechnungen
@@ -300,7 +301,7 @@ export function DashboardSidebar({ sidebarExpanded }: DashboardSidebarProps) {
           <div className="space-y-3.5 mt-11">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
-                <Calendar className="h-4 w-4 text-slate-700" />
+                <SafeIcon icon={Calendar} size="sm" color="default" />
               </div>
               <h3 className="text-sm font-bold tracking-tight text-slate-900">
                 Heute geplant
@@ -314,7 +315,7 @@ export function DashboardSidebar({ sidebarExpanded }: DashboardSidebarProps) {
                     Aufträge
                   </span>
                   <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center">
-                    <Activity className="h-4 w-4 text-slate-700" />
+                    <SafeIcon icon={Activity} size="sm" color="default" />
                   </div>
                 </div>
                 <div className="flex items-baseline gap-3">

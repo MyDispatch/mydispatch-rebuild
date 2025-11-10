@@ -333,7 +333,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                 </h3>
                 <nav className="flex flex-col gap-1">
                   <button
-                    onClick={() => navigate('/master')}
+                    onClick={() => navigate('/dashboard')}
                     className="w-full flex items-center text-xs rounded-md transition-all duration-300 whitespace-nowrap"
                     style={{
                       padding: '8px 12px',

@@ -61,6 +61,16 @@ export const routes: RouteConfig[] = [
       description: 'Moderne Cloud-Lösung für professionelle Disposition. GPS-Tracking, Auftragsverwaltung, automatische Rechnungsstellung. DSGVO-konform, Made in Germany.',
     },
   },
+  {
+    path: '/tailadmin',
+    component: lazy(() => import('@/pages/public/TailAdminDashboard')),
+    layout: 'none',
+    protected: false,
+    meta: {
+      title: 'Öffentliches Dashboard (TailAdmin)',
+      description: 'Public-Bereich mit vollständigem TailAdmin-Layout (Header, Sidebar, Footer)',
+    },
+  },
   // Phase 4.1: Removed /design-preview (Dev-Tool, nicht für Production)
   // Phase 4.1: Removed /nexify-it-service (Duplicate zu /nexify-support)
   {
@@ -300,6 +310,15 @@ export const routes: RouteConfig[] = [
     },
   },
   {
+    path: '/docs-v2',
+    component: lazy(() => import('@/pages/DocsV2')),
+    layout: 'none',
+    meta: {
+      title: 'Dokumentation V2',
+      description: 'Dokumentation mit integrierter NeXify Wiki-Suche',
+    },
+  },
+  {
     path: '/contact',
     component: lazy(() => import('@/pages/Contact')),
     layout: 'none',
@@ -518,6 +537,19 @@ export const routes: RouteConfig[] = [
   },
 
   // ========== PROTECTED ROUTES (MAIN LAYOUT) ==========
+  {
+    path: '/collab-studio',
+    component: lazy(() => import('@/pages/tools/CollabStudio')),
+    protected: true,
+    layout: 'main',
+    background: 'canvas',
+    meta: {
+      title: 'Collab Studio',
+      icon: Palette,
+      breadcrumb: 'Collaboration',
+      description: 'Live-Collaboration mit Echtzeit-Vorschau und Versionskontrolle',
+    },
+  },
   {
     path: '/dashboard',
     component: lazy(() => import('@/pages/Index')),

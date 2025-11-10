@@ -143,7 +143,7 @@ export function getEntityRoute(
  * getLoginRedirectRoute('entrepreneur', params) → '/auftraege'
  * 
  * // Master-Account
- * getLoginRedirectRoute('master', params) → '/master'
+ * getLoginRedirectRoute('master', params) → '/dashboard'
  * 
  * // Unternehmer ohne Redirect
  * getLoginRedirectRoute('entrepreneur', params) → '/dashboard'

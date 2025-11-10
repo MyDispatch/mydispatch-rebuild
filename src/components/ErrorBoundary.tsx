@@ -4,7 +4,7 @@
    Fängt React-Fehler ab und sendet sie an Sentry
    ================================================================================== */
 
-import * as Sentry from '@sentry/react';
+import { captureError } from '@/lib/sentry-integration';
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { V28Button } from '@/components/design-system/V28Button';
 
@@ -29,12 +29,10 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Sende Fehler an Sentry
-    Sentry.captureException(error, {
-      contexts: {
-        react: {
-          componentStack: errorInfo.componentStack,
-        },
+    // Sende Fehler über zentrale Integration (Sentry optional)
+    captureError(error, {
+      react: {
+        componentStack: errorInfo.componentStack,
       },
       tags: {
         errorBoundary: true,

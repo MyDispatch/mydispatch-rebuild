@@ -21,8 +21,10 @@ import { logger } from '@/lib/logger';
 type AllowedIconColor = 
   | 'text-foreground' 
   | 'text-muted-foreground' 
+  | 'text-primary'
   | 'default'    // Alias für text-foreground
-  | 'muted';     // Alias für text-muted-foreground
+  | 'muted'      // Alias für text-muted-foreground
+  | 'primary';   // Alias für text-primary
 
 interface SafeIconProps {
   icon: LucideIcon;
@@ -62,15 +64,17 @@ export function SafeIcon({
     'text-foreground': 'text-foreground',
     'muted': 'text-muted-foreground',
     'text-muted-foreground': 'text-muted-foreground',
+    'primary': 'text-primary',
+    'text-primary': 'text-primary',
   };
   
   const mappedColor = colorMap[color] || 'text-foreground';
   
   // Validierung: Prüfe ob Farbe erlaubt ist (DEV-only)
-  if (import.meta.env.DEV && !isValidIconColor(color)) {
+  if (import.meta.env.DEV && !isValidIconColor(mappedColor)) {
     logger.warn(
       `SafeIcon: Unerlaubte Farbe "${color}"`,
-      { allowedColors: ['default', 'muted', 'text-foreground', 'text-muted-foreground'] }
+      { allowedColors: ['default', 'muted', 'primary', 'text-foreground', 'text-muted-foreground', 'text-primary'] }
     );
   }
   

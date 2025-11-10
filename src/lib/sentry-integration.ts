@@ -6,14 +6,13 @@
    RESILIENT: Graceful fallback ohne DSN-Zwang
    ================================================================================== */
 
-import * as Sentry from '@sentry/react';
 import { supabase } from '@/integrations/supabase/client';
 
 /**
  * Initialize Sentry mit DSGVO-konformen Einstellungen
  * Graceful fallback wenn VITE_SENTRY_DSN nicht gesetzt
  */
-export function initSentry() {
+export async function initSentry() {
   // DEFENSIVE: Try-Catch um komplette Init-Funktion
   try {
     const sentryDsn = import.meta.env.VITE_SENTRY_DSN;
@@ -27,6 +26,8 @@ export function initSentry() {
     if (!import.meta.env.PROD) {
       return;
     }
+
+    const Sentry = await import('@sentry/react');
 
     Sentry.init({
     dsn: sentryDsn,
@@ -132,10 +133,18 @@ export async function captureError(
   error: Error,
   context: Record<string, any> = {}
 ): Promise<void> {
-  // Log zu Sentry
-  Sentry.captureException(error, {
-    contexts: { custom: context },
-  });
+  // Log zu Sentry (dynamischer Import, falls verfügbar)
+  try {
+    const sentryDsn = import.meta.env.VITE_SENTRY_DSN;
+    if (import.meta.env.PROD && sentryDsn) {
+      const Sentry = await import('@sentry/react');
+      Sentry.captureException(error, {
+        contexts: { custom: context },
+      });
+    }
+  } catch {
+    // Silent fail
+  }
 
   // Log zu ai_actions_log (für interne Analyse)
   try {
