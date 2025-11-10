@@ -1,10 +1,10 @@
 /* ==================================================================================
-   FOOTER V28.1 - HERO-QUALITÄT
+   FOOTER V45.0 - PREMIUM VIBRANT PROFESSIONAL
    ==================================================================================
-   ✅ designTokens für alle Styles (Single Source of Truth)
-   ✅ Card Pattern
-   ✅ Smooth 300ms Transitions
-   ✅ 100% V28.1 Design System konform
+   ✅ Premium Vibrant Professional Farbpalette
+   ✅ Verbesserte Kontraste und Lesbarkeit
+   ✅ Business Tarif Premium Features
+   ✅ 100% V45.0 Design System konform
    ================================================================================== */
 
 import { Link } from 'react-router-dom';
@@ -20,7 +20,7 @@ export function Footer({ sidebarExpanded }: FooterProps) {
     <footer 
       className={cn(
         "fixed bottom-0 right-0 h-16 sm:h-12",
-        "bg-gradient-to-b from-slate-50 to-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]",
+        "bg-gradient-to-r from-white via-slate-50 to-blue-50 border-t border-blue-100 shadow-lg",
         "transition-all ease-in-out backdrop-blur-md"
       )}
       style={{
@@ -28,6 +28,7 @@ export function Footer({ sidebarExpanded }: FooterProps) {
         left: sidebarExpanded ? '240px' : '64px',
         width: sidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 64px)',
         transitionDuration: '300ms',
+        boxShadow: designTokens.shadows.card,
       }}
     >
       <div className="container mx-auto px-8 h-full flex items-center">
@@ -41,9 +42,9 @@ export function Footer({ sidebarExpanded }: FooterProps) {
               <div key={label} className="flex items-center gap-2">
                 {i > 0 && <span className="text-[9px] text-slate-300">•</span>}
                 <Link 
-                  to={label === 'Kontakt' ? '/contact' : `/${label.toLowerCase()}`}
-                  className="text-[9px] text-slate-600 hover:text-slate-900 transition-colors"
-                >
+              to={label === 'Kontakt' ? '/contact' : `/${label.toLowerCase()}`}
+              className="text-[9px] text-slate-700 hover:text-blue-600 transition-colors font-medium"
+            >
                   {label}
                 </Link>
               </div>
@@ -54,18 +55,18 @@ export function Footer({ sidebarExpanded }: FooterProps) {
         {/* Desktop: Mehrspaltig */}
         <div className="hidden sm:flex items-center justify-between w-full h-full">
           <div className="flex items-center gap-4 h-full">
-            <p className="text-[11px] text-slate-900">
+            <p className="text-[11px] text-slate-800 font-medium">
               © 2025 my-dispatch.de by RideHub Solutions
             </p>
-            <span className="text-[11px] text-slate-300">•</span>
-            <span className="text-[11px] text-slate-600">Made in Germany</span>
+            <span className="text-[11px] text-slate-400">•</span>
+            <span className="text-[11px] text-slate-700 font-medium">Made in Germany</span>
           </div>
           <div className="flex items-center gap-5 h-full">
             {['Impressum', 'Datenschutz', 'AGB', 'Kontakt'].map((label) => (
               <Link 
                 key={label}
                 to={label === 'Kontakt' ? '/contact' : `/${label.toLowerCase()}`}
-                className="text-[11px] text-slate-600 hover:text-slate-900 transition-colors"
+                className="text-[11px] text-slate-700 hover:text-blue-600 transition-colors font-medium"
               >
                 {label}
               </Link>

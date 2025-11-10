@@ -13,12 +13,15 @@ import { StandardListPage, ListColumn, BulkAction } from '@/templates/StandardLi
 import { useBookings } from '@/lib/api/bookings-hooks';
 import { formatDate, formatCurrency, formatStatus } from '@/lib/data-transformers';
 import type { Tables } from '@/integrations/supabase/types';
+import { useNavigate } from 'react-router-dom';
+import { logDebug, logError } from '@/lib/logger';
 
 type Booking = Tables<'bookings'>;
 
 export function BookingsPage() {
   const { data: bookings, isLoading } = useBookings();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const columns: ListColumn<Booking>[] = [
     {
@@ -66,13 +69,24 @@ export function BookingsPage() {
     {
       label: 'Bestätigen',
       icon: <CheckCircle className="h-4 w-4 mr-2" />,
-      onClick: (ids) => console.log('Confirm:', ids),
+      onClick: (ids) => {
+        logDebug('Bulk confirm bookings:', ids);
+        // TODO: Implement booking confirmation logic
+      },
       variant: 'default',
     },
     {
       label: 'Löschen',
       icon: <Trash2 className="h-4 w-4 mr-2" />,
-      onClick: (ids) => console.log('Delete:', ids),
+      onClick: (ids) => {
+        logDebug('Bulk delete bookings:', ids);
+        try {
+          // TODO: Implement booking deletion logic
+          logError('Booking deletion not implemented yet');
+        } catch (error) {
+          logError('Failed to delete bookings:', error);
+        }
+      },
       variant: 'destructive',
     },
   ];
@@ -88,7 +102,10 @@ export function BookingsPage() {
     {
       label: 'Neuer Auftrag',
       icon: Plus,
-      onClick: () => console.log('New booking'),
+      onClick: () => {
+        logDebug('Navigate to new booking');
+        navigate('/bookings/new');
+      },
     },
   ];
 
@@ -100,12 +117,21 @@ export function BookingsPage() {
       data={bookings || []}
       columns={columns}
       isLoading={isLoading}
-      onCreateNew={() => console.log('Create new')}
-      onViewDetail={(booking) => console.log('View:', booking.id)}
+      onCreateNew={() => {
+        logDebug('Create new booking');
+        navigate('/bookings/new');
+      }}
+      onViewDetail={(booking) => {
+        logDebug('View booking details:', booking.id);
+        navigate(`/bookings/${booking.id}`);
+      }}
       bulkActions={bulkActions}
       dashboardArea="bookings"
       quickActions={quickActions}
-      onExport={(format) => console.log('Export:', format)}
+      onExport={(format) => {
+        logDebug('Export bookings:', format);
+        // TODO: Implement booking export functionality
+      }}
     />
   );
 }

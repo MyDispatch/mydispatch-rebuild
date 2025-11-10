@@ -1,10 +1,16 @@
 /* ==================================================================================
-   STANDARD DASHBOARD PAGE TEMPLATE V29.4
+   STANDARD DASHBOARD PAGE TEMPLATE V45.0 - PREMIUM VIBRANT PROFESSIONAL
    ==================================================================================
    ✅ Wiederverwendbares Template für alle Dashboard-Seiten
    ✅ Einheitliches Layout: Hero → KPIs → Charts → Tables
    ✅ V28.1 Design System compliant
    ✅ Minimiert Code-Duplikation über 37+ Dashboard-Seiten
+   
+   ✅ V45.0 PREMIUM VIBRANT PROFESSIONAL DESIGN
+   ✅ Premium Vibrant Professional Farbpalette
+   ✅ Verbesserte Kontraste und leuchtende Farben
+   ✅ Business Tarif Premium Features
+   ✅ 100% V45.0 Design System kompatibel
    ================================================================================== */
 
 import { ReactNode } from 'react';
@@ -78,26 +84,26 @@ export function StandardDashboardPage({
     <>
       <SEOHead title={title} description={description} canonical={canonical} />
       
-      <div className="px-6">
+      <div className="px-6 bg-gradient-to-br from-slate-50 to-blue-50">
         {/* ✅ HERO-HEADER */}
         <V28DashboardSection
           background="white"
-          className="pt-24 pb-12"
+          className="pt-24 pb-12 shadow-lg"
         >
           <div className="animate-fade-in">
             {heroBadge && (
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 mb-4">
-                {heroBadgeIcon && React.createElement(heroBadgeIcon, { className: "w-4 h-4 text-slate-700" })}
-                <span className="font-sans text-sm font-semibold text-slate-700">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-slate-100 to-blue-100 border border-blue-200 mb-4">
+                {heroBadgeIcon && React.createElement(heroBadgeIcon, { className: "w-4 h-4 text-slate-800" })}
+                <span className="font-sans text-sm font-semibold text-slate-800">
                   {heroBadge}
                 </span>
               </div>
             )}
             
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-3">
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-800 mb-3">
               {heroTitle}
             </h1>
-            <p className="text-lg text-slate-600 max-w-2xl">
+            <p className="text-lg text-slate-700 font-medium max-w-2xl">
               {heroSubtitle}
             </p>
           </div>
@@ -106,7 +112,7 @@ export function StandardDashboardPage({
         {/* ✅ KPI GRID */}
         <V28DashboardSection
           background="canvas"
-          className="py-16"
+          className="py-16 shadow-lg"
         >
           <DataGrid 
             columns={{ mobile: 1, tablet: 2, desktop: Math.min(kpis.length, 4) }} 
@@ -123,7 +129,7 @@ export function StandardDashboardPage({
         {charts.length > 0 && (
           <V28DashboardSection
             background="white"
-            className="py-16"
+            className="py-16 shadow-lg"
           >
             <div className="space-y-8">
               {charts.map((chart, index) => (
@@ -132,6 +138,7 @@ export function StandardDashboardPage({
                   title={chart.title}
                   description={chart.description}
                   icon={chart.icon}
+                  className="shadow-lg"
                 >
                   {chart.component}
                 </V28DashboardCard>
@@ -144,7 +151,7 @@ export function StandardDashboardPage({
         {tables.length > 0 && (
           <V28DashboardSection
             background="canvas"
-            className="py-16"
+            className="py-16 shadow-lg"
           >
             <DataGrid columns={{ mobile: 1, desktop: 2 }} gap="lg">
               {tables.map((table, index) => (
@@ -153,6 +160,7 @@ export function StandardDashboardPage({
                   title={table.title}
                   description={table.description}
                   icon={table.icon}
+                  className="shadow-lg"
                 >
                   {table.component}
                 </V28DashboardCard>

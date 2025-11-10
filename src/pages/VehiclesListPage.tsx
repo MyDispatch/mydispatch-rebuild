@@ -7,18 +7,18 @@
  * - vehiclesStore State
  */
 
-import { useState } from 'react';
-import { Plus, Trash2, Wrench } from 'lucide-react';
-import { StandardListPage, ListColumn, BulkAction } from '@/templates/StandardListPage';
 import { useVehicles } from '@/hooks/use-vehicles';
-import { formatDate } from '@/lib/data-transformers';
 import type { Tables } from '@/integrations/supabase/types';
+import { BulkAction, ListColumn, StandardListPage } from '@/templates/StandardListPage';
+import { Plus, Trash2, Wrench } from 'lucide-react';
+import { useState } from 'react';
 
 type Vehicle = Tables<'vehicles'>;
 
 export function VehiclesListPage() {
   const { vehicles, isLoading } = useVehicles();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const columns: ListColumn<Vehicle>[] = [
     {
@@ -46,13 +46,12 @@ export function VehiclesListPage() {
       label: 'Status',
       width: '120px',
       render: (value) => (
-        <span className={`px-2 py-1 text-xs ${
-          value === 'available' 
-            ? 'bg-green-100 text-green-700' 
-            : value === 'wartung'
+        <span className={`px-2 py-1 text-xs ${value === 'available'
+          ? 'bg-green-100 text-green-700'
+          : value === 'wartung'
             ? 'bg-yellow-100 text-yellow-700'
             : 'bg-slate-100 text-slate-700'
-        }`}>
+          }`}>
           {value === 'available' ? 'Verfügbar' : value === 'wartung' ? 'Wartung' : 'Im Einsatz'}
         </span>
       ),
@@ -63,13 +62,28 @@ export function VehiclesListPage() {
     {
       label: 'Wartung planen',
       icon: <Wrench className="h-4 w-4 mr-2" />,
-      onClick: (ids) => console.log('Schedule maintenance:', ids),
+      onClick: (ids) => {
+        logDebug('[VehiclesList] Schedule maintenance for vehicles:', ids);
+        // TODO: Implement maintenance scheduling
+        // navigate(`/maintenance/schedule?vehicleIds=${ids.join(',')}`);
+      },
       variant: 'default',
     },
     {
       label: 'Löschen',
       icon: <Trash2 className="h-4 w-4 mr-2" />,
-      onClick: (ids) => console.log('Delete:', ids),
+      onClick: async (ids) => {
+        logDebug('[VehiclesList] Delete vehicles:', ids);
+        try {
+          // TODO: Implement vehicle deletion with confirmation
+          // const confirmed = await showConfirmationDialog();
+          // if (confirmed) {
+          //   await deleteVehicles(ids);
+          // }
+        } catch (error) {
+          logError('[VehiclesList] Failed to delete vehicles:', error);
+        }
+      },
       variant: 'destructive',
     },
   ];
@@ -85,7 +99,10 @@ export function VehiclesListPage() {
     {
       label: 'Neues Fahrzeug',
       icon: Plus,
-      onClick: () => console.log('New vehicle'),
+      onClick: () => {
+        logDebug('[VehiclesList] Navigate to new vehicle form');
+        navigate('/vehicles/new');
+      },
     },
   ];
 
@@ -97,12 +114,22 @@ export function VehiclesListPage() {
       data={vehicles || []}
       columns={columns}
       isLoading={isLoading}
-      onCreateNew={() => console.log('Create new')}
-      onViewDetail={(vehicle) => console.log('View:', vehicle.id)}
+      onCreateNew={() => {
+        logDebug('[VehiclesList] Create new vehicle');
+        navigate('/vehicles/new');
+      }}
+      onViewDetail={(vehicle) => {
+        logDebug('[VehiclesList] View vehicle details:', vehicle.id);
+        navigate(`/vehicles/${vehicle.id}`);
+      }}
       bulkActions={bulkActions}
       dashboardArea="vehicles"
       quickActions={quickActions}
-      onExport={(format) => console.log('Export:', format)}
+      onExport={(format) => {
+        logDebug('[VehiclesList] Export vehicles in format:', format);
+        // TODO: Implement vehicle export functionality
+        // exportVehicles(format, selectedIds);
+      }}
     />
   );
 }

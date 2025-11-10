@@ -1,10 +1,10 @@
 /* ==================================================================================
-   HEADER V28.1 - HERO-QUALITÄT
+   HEADER V45.0 - PREMIUM VIBRANT PROFESSIONAL
    ==================================================================================
-   ✅ designTokens für alle Styles (Single Source of Truth)
-   ✅ Card/CardContent Pattern
-   ✅ Premium Hover-Effekte
-   ✅ 100% V28.1 Design System konform
+   ✅ Premium Vibrant Professional Farbpalette
+   ✅ Verbesserte Kontraste und Lesbarkeit
+   ✅ Business Tarif Premium Features
+   ✅ 100% V45.0 Design System konform
    ================================================================================== */
 
 import { useAuth } from '@/hooks/use-auth';
@@ -34,14 +34,17 @@ export function Header({ sidebarExpanded }: HeaderProps) {
   return (
     <header 
       className={cn(
-        "fixed top-0 right-0 h-16 bg-gradient-to-b from-white to-slate-50 border-b border-slate-200 shadow-md transition-all backdrop-blur-md"
+        "fixed top-0 right-0 h-16 bg-gradient-to-r from-white via-slate-50 to-blue-50 border-b border-blue-100 shadow-lg transition-all backdrop-blur-md"
       )}
-      style={{
-        zIndex: designTokens.zIndex.header,
-        left: sidebarExpanded ? '240px' : '64px',
-        width: sidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 64px)',
-        transitionDuration: '300ms',
-      }}
+      style={
+        {
+          zIndex: designTokens.zIndex.header,
+          left: sidebarExpanded ? '240px' : '64px',
+          width: sidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 64px)',
+          transitionDuration: '300ms',
+          boxShadow: designTokens.shadows.card,
+        }
+      }
     >
       <div className="px-8 h-full flex items-center">
         <div className="flex items-center justify-between w-full">
@@ -59,16 +62,18 @@ export function Header({ sidebarExpanded }: HeaderProps) {
               <button
                 onClick={openSearch}
                 title="Suche (Cmd+K / Strg+K)"
-                className="p-2.5 rounded-md transition-all duration-300 hover:-translate-y-0.5"
+                className="p-2.5 rounded-lg transition-all duration-300 hover:-translate-y-0.5"
                 style={{
-                  color: designTokens.colors.slate[900],
+                  color: designTokens.colors.slate[800],
                   backgroundColor: 'transparent',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = designTokens.colors.slate[100];
+                  e.currentTarget.style.boxShadow = designTokens.shadows.sm;
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
                 <Search className="w-5 h-5" />
@@ -79,51 +84,54 @@ export function Header({ sidebarExpanded }: HeaderProps) {
                   window.dispatchEvent(event);
                 }}
                 title="AI-Assistent öffnen (Cmd+I)"
-                className="p-2.5 rounded-md transition-all duration-300 hover:-translate-y-0.5 relative"
+                className="p-2.5 rounded-lg transition-all duration-300 hover:-translate-y-0.5 relative"
                 style={{
-                  color: designTokens.colors.slate[900],
+                  color: designTokens.colors.slate[800],
                   backgroundColor: 'transparent',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = designTokens.colors.slate[100];
+                  e.currentTarget.style.boxShadow = designTokens.shadows.sm;
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
                 <Bot className="w-5 h-5" />
                 <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full animate-pulse"
                   style={{
                     backgroundColor: designTokens.colors.accent.DEFAULT,
-                    boxShadow: `0 0 8px ${designTokens.colors.accent.DEFAULT}`,
+                    boxShadow: `0 0 12px ${designTokens.colors.accent.DEFAULT}`,
                   }}
                 />
               </button>
-              <div 
-                className="hidden md:flex items-center rounded-md gap-3 px-4 py-2 bg-slate-600 border border-slate-600"
+              <div className="hidden md:flex items-center rounded-lg gap-3 px-4 py-2 bg-gradient-to-r from-slate-700 to-slate-800 border border-slate-600 shadow-md"
               >
                 <User className="w-4 h-4 text-white" />
-                <span className="text-white">{profile?.first_name || user.email}</span>
+                <span className="text-white font-medium">{profile?.first_name || user.email}</span>
               </div>
               <button
                 onClick={() => {
                   signOut();
                   navigate('/login');
                 }}
-                className="p-2 rounded-md transition-all duration-300 hover:-translate-y-0.5"
+                className="p-2.5 rounded-lg transition-all duration-300 hover:-translate-y-0.5 flex items-center gap-2"
                 style={{
-                  color: designTokens.colors.slate[900],
+                  color: designTokens.colors.slate[800],
                   backgroundColor: 'transparent',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = designTokens.colors.slate[100];
+                  e.currentTarget.style.boxShadow = designTokens.shadows.sm;
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                <LogOut className="w-5 h-5 sm:mr-2" />
-                <span className="hidden sm:inline">Abmelden</span>
+                <LogOut className="w-5 h-5" />
+                <span className="hidden sm:inline font-medium">Abmelden</span>
               </button>
             </div>
           )}

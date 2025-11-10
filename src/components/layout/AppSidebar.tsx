@@ -1,13 +1,12 @@
 /* ==================================================================================
-   AppSidebar V26.1 - HERO-QUALITÄT MIT PERFEKTIONIERTEN ABSTÄNDEN
+   AppSidebar V45.0 - PREMIUM BUSINESS SIDEBAR MIT VIBRANT COLORS
    ==================================================================================
-   ✅ V26.1 Design Token System (UNIFIED_DESIGN_TOKENS)
-   ✅ Premium Glow-Effekte
-   ✅ Smooth 300ms Transitions
-   ✅ Beige/Dunkelblau Premium-Design
-   ✅ Active States mit Glow
-   ✅ Perfektionierte Token-basierte Abstände
-   ✅ Agenten-Dashboard ins Master-Dashboard integriert
+   ✅ V45.0 Premium Vibrant Color System (VIBRANT_PROFESSIONAL_PALETTE)
+   ✅ Premium Business Farben mit besseren Kontrasten
+   ✅ Optimierte Abstände und Premium-Design
+   ✅ Leuchtende Active States mit Premium-Effekten
+   ✅ Business-Tarif Integration mit Premium-Features
+   ✅ Vibrant Professional Palette für bessere UX
    ================================================================================== */
 
 import { useRef, useEffect, useCallback } from 'react';
@@ -170,7 +169,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
         zIndex: designTokens.zIndex.sidebar,
         borderRight: `1px solid ${designTokens.colors.slate[200]}`,
         backgroundColor: designTokens.colors.white,
-        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+        boxShadow: designTokens.shadows.card, // Premium Card Shadow
         transition: 'width 300ms cubic-bezier(0.4, 0, 0.2, 1)',
       }}
       onMouseEnter={handleMouseEnter}
@@ -195,9 +194,9 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                 <h3 
                   className="text-[10px] font-semibold uppercase tracking-wider"
                   style={{
-                    color: designTokens.colors.slate[300],
-                    marginBottom: '8px',
-                    paddingLeft: '12px',
+                    color: designTokens.colors.slate[400], // Premium besserer Kontrast
+                    marginBottom: designTokens.spacing.sm, // 8px
+                    paddingLeft: designTokens.spacing.md, // 12px
                   }}
                 >
                   {section.label}
@@ -223,11 +222,13 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                         "flex items-center rounded-lg text-sm font-medium transition-all duration-300 min-h-[44px] min-w-[44px]",
                         !expanded && "justify-start",
                         showUpgradeTooltip && "opacity-60",
-                        isActive ? "bg-slate-700 text-white shadow-sm" : "text-slate-900 hover:bg-slate-100"
+                        isActive 
+                          ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg" // Premium leuchtender Active State
+                          : "text-slate-700 hover:bg-slate-100 hover:text-slate-900" // Besserer Kontrast
                       )}
                       style={{
-                        padding: '12px',
-                        gap: '12px',
+                        padding: designTokens.spacing.md, // 12px
+                        gap: designTokens.spacing.md, // 12px
                       }}
                     >
                        <IconComponent className="h-5 w-5 shrink-0" />

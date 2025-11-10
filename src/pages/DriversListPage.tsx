@@ -13,12 +13,15 @@ import { StandardListPage, ListColumn, BulkAction } from '@/templates/StandardLi
 import { useDrivers } from '@/hooks/use-drivers';
 import { formatDate, formatPhone } from '@/lib/data-transformers';
 import type { Tables } from '@/integrations/supabase/types';
+import { useNavigate } from 'react-router-dom';
+import { logDebug, logError } from '@/lib/logger';
 
 type Driver = Tables<'drivers'>;
 
 export function DriversListPage() {
   const { drivers, isLoading } = useDrivers();
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const columns: ListColumn<Driver>[] = [
     {
@@ -62,13 +65,24 @@ export function DriversListPage() {
     {
       label: 'Aktivieren',
       icon: <UserCheck className="h-4 w-4 mr-2" />,
-      onClick: (ids) => console.log('Activate:', ids),
+      onClick: (ids) => {
+        logDebug('Bulk activate drivers:', ids);
+        // TODO: Implement driver activation logic
+      },
       variant: 'default',
     },
     {
       label: 'Löschen',
       icon: <Trash2 className="h-4 w-4 mr-2" />,
-      onClick: (ids) => console.log('Delete:', ids),
+      onClick: (ids) => {
+        logDebug('Bulk delete drivers:', ids);
+        try {
+          // TODO: Implement driver deletion logic
+          logError('Driver deletion not implemented yet');
+        } catch (error) {
+          logError('Failed to delete drivers:', error);
+        }
+      },
       variant: 'destructive',
     },
   ];
@@ -84,7 +98,10 @@ export function DriversListPage() {
     {
       label: 'Neuer Fahrer',
       icon: Plus,
-      onClick: () => console.log('New driver'),
+      onClick: () => {
+        logDebug('Navigate to new driver');
+        navigate('/drivers/new');
+      },
     },
   ];
 
@@ -96,12 +113,21 @@ export function DriversListPage() {
       data={drivers || []}
       columns={columns}
       isLoading={isLoading}
-      onCreateNew={() => console.log('Create new')}
-      onViewDetail={(driver) => console.log('View:', driver.id)}
+      onCreateNew={() => {
+        logDebug('Create new driver');
+        navigate('/drivers/new');
+      }}
+      onViewDetail={(driver) => {
+        logDebug('View driver details:', driver.id);
+        navigate(`/drivers/${driver.id}`);
+      }}
       bulkActions={bulkActions}
       dashboardArea="drivers"
       quickActions={quickActions}
-      onExport={(format) => console.log('Export:', format)}
+      onExport={(format) => {
+        logDebug('Export drivers:', format);
+        // TODO: Implement driver export functionality
+      }}
     />
   );
 }

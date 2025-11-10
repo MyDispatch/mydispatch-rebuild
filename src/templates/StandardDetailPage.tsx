@@ -1,5 +1,5 @@
 /**
- * STANDARD DETAIL PAGE TEMPLATE V1.0
+ * STANDARD DETAIL PAGE TEMPLATE V45.0 - PREMIUM VIBRANT PROFESSIONAL
  * 
  * Wiederverwendbare Template-Komponente für alle Detail-Ansichten
  * Basiert auf Detail-Dialog Pattern (VERIFIED)
@@ -11,6 +11,12 @@
  * - Print-Button (für Aufträge mit Briefpapier)
  * - Verwandte Entities (RelatedEntityCard)
  * - Archiv-Button unten
+ * 
+ * ✅ V45.0 PREMIUM VIBRANT PROFESSIONAL DESIGN
+ * ✅ Premium Vibrant Professional Farbpalette
+ * ✅ Verbesserte Kontraste und leuchtende Farben
+ * ✅ Business Tarif Premium Features
+ * ✅ 100% V45.0 Design System kompatibel
  */
 
 import { ReactNode } from 'react';
@@ -76,15 +82,15 @@ export function StandardDetailPage({
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <div className="text-slate-500">Lädt...</div>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
+        <div className="text-slate-600 font-medium">Lädt...</div>
       </div>
     );
   }
 
   return (
     <div 
-      className="min-h-screen bg-slate-50 transition-all duration-300"
+      className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 transition-all duration-300"
       style={{ 
         marginLeft: sidebarExpanded ? '256px' : '56px'
       }}
@@ -96,6 +102,7 @@ export function StandardDetailPage({
             <V28Button
               variant="secondary"
               size="sm"
+              className="hover:shadow-md transition-all duration-300"
               onClick={onBack}
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
@@ -107,6 +114,7 @@ export function StandardDetailPage({
                 <V28Button
                   variant="secondary"
                   size="sm"
+                  className="hover:shadow-md transition-all duration-300"
                   onClick={onPrint}
                 >
                   <Printer className="h-4 w-4 mr-2" />
@@ -119,6 +127,7 @@ export function StandardDetailPage({
                   <V28Button
                     variant="secondary"
                     size="sm"
+                    className="hover:shadow-md transition-all duration-300"
                     onClick={() => onExport('pdf')}
                   >
                     <Download className="h-4 w-4 mr-2" />
@@ -127,6 +136,7 @@ export function StandardDetailPage({
                   <V28Button
                     variant="secondary"
                     size="sm"
+                    className="hover:shadow-md transition-all duration-300"
                     onClick={() => onExport('excel')}
                   >
                     <Download className="h-4 w-4 mr-2" />
@@ -139,6 +149,7 @@ export function StandardDetailPage({
                 <V28Button
                   variant="primary"
                   size="sm"
+                  className="hover:shadow-md transition-all duration-300"
                   onClick={onEdit}
                 >
                   <Pencil className="h-4 w-4 mr-2" />
@@ -148,13 +159,13 @@ export function StandardDetailPage({
             </div>
           </div>
 
-          <h1 className="text-3xl font-bold text-slate-900">{title}</h1>
+          <h1 className="text-3xl font-bold text-slate-800">{title}</h1>
           {subtitle && (
-            <p className="text-slate-600 mt-1">{subtitle}</p>
+            <p className="text-slate-700 mt-1 font-medium">{subtitle}</p>
           )}
           
           {archived && (
-            <div className="mt-3 inline-block px-3 py-1 bg-slate-200 text-slate-700 text-sm">
+            <div className="mt-3 inline-block px-3 py-1 bg-gradient-to-r from-slate-200 to-slate-300 text-slate-800 text-sm font-medium rounded-lg">
               Archiviert
             </div>
           )}
@@ -163,8 +174,8 @@ export function StandardDetailPage({
         {/* Sections */}
         <div className="space-y-6">
           {sections.map((section, idx) => (
-            <div key={idx} className="bg-white border border-slate-200 p-6">
-              <h2 className="text-lg font-semibold text-slate-900 mb-4">
+            <div key={idx} className="bg-white border border-slate-200 p-6 shadow-lg rounded-lg">
+              <h2 className="text-lg font-semibold text-slate-800 mb-4">
                 {section.title}
               </h2>
 
@@ -174,10 +185,10 @@ export function StandardDetailPage({
                     key={fieldIdx}
                     className={field.fullWidth ? 'col-span-2' : 'col-span-1'}
                   >
-                    <div className="text-sm text-slate-600 mb-1">
+                    <div className="text-sm text-slate-700 font-medium mb-1">
                       {field.label}
                     </div>
-                    <div className="text-slate-900">
+                    <div className="text-slate-800 font-medium">
                       {field.value || '-'}
                     </div>
                   </div>
