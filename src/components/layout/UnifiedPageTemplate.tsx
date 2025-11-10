@@ -1,5 +1,5 @@
 /* ==================================================================================
-   UNIFIED PAGE TEMPLATE - V18.3.24 ULTIMATE
+   UNIFIED PAGE TEMPLATE - PREMIUM VIBRANT PROFESSIONAL V45.0
    ==================================================================================
    DAS zentrale Template für ALLE Seiten (außer Landing)
    
@@ -14,6 +14,11 @@
    - Floating Actions für Mobile
    
    Code-Reduktion: -91% (2168 → 180 Zeilen pro Page)
+   
+   PREMIUM VIBRANT PROFESSIONAL V45.0
+   - Premium Vibrant Farbpalette (Slate + Blau Akzente)
+   - Verbesserte Kontraste & Typografie
+   - Subtile Schatten für professionelle Tiefe
    ================================================================================== */
 
 import { SEOHead } from '@/components/shared/SEOHead';
@@ -69,7 +74,7 @@ export function UnifiedPageTemplate<T = any>({
     <>
       <SEOHead title={title} description={description} canonical={canonical} />
       
-      <div className="space-y-6">
+      <div className="space-y-6 bg-gradient-to-br from-slate-50 to-blue-50">
         {/* ============================================================================
             HEADER SECTION
             - Title + Description + Icon
@@ -121,8 +126,8 @@ export function UnifiedPageTemplate<T = any>({
             - Empty State
             ============================================================================ */}
         {isLoading ? (
-          <div className="flex items-center justify-center h-64">
-            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          <div className="flex items-center justify-center h-64 bg-gradient-to-br from-slate-50 to-blue-50">
+            <Loader2 className="h-8 w-8 animate-spin text-slate-600" />
           </div>
         ) : (
           <ContentArea {...content} />

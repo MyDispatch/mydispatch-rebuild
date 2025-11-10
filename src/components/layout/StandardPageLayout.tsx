@@ -1,22 +1,22 @@
 /* ==================================================================================
-   STANDARD PAGE LAYOUT - SYSTEMWEITE KONSISTENZ V28.1
+   STANDARD PAGE LAYOUT - PREMIUM VIBRANT PROFESSIONAL V45.0
    ==================================================================================
    Einheitliches Layout für alle CRUD-Seiten
-   - V28.1 Slate Design (Professional Minimalism)
+   - Premium Vibrant Farbpalette (professionell, leuchtend, kontrastreich)
    - Konsistente Positionierung aller Elemente
    - Wiederverwendbare Struktur
    - Mobile-optimiert
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/lib/compat';
-import { Search, Plus, Archive, LucideIcon, Activity } from 'lucide-react';
+import { SEOHead } from '@/components/shared/SEOHead';
 import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/lib/compat';
 import { format } from 'date-fns';
 import { de } from 'date-fns/locale';
+import { Activity, Archive, LucideIcon, Plus, Search } from 'lucide-react';
+import { ReactNode } from 'react';
 
 interface StatCard {
   label: string;
@@ -30,43 +30,43 @@ interface StandardPageLayoutProps {
   title: string;
   description: string;
   canonical?: string;
-  
+
   // Background (V28.1 Premium)
   background?: 'white' | 'canvas' | 'orbs-light';
-  
+
   // Hero Section (optional)
   heroIcon?: LucideIcon;
   heroTitle?: string;
   heroSubtitle?: string;
   heroBadge?: ReactNode;
-  
+
   // Header
   subtitle?: string;
   onCreateNew?: () => void;
   createButtonLabel?: string;
   createButtonDisabled?: boolean;
   headerExtra?: ReactNode;
-  
+
   // Stats (optional)
   stats?: StatCard[];
-  
+
   // Filter/Search
   searchValue: string;
   onSearchChange: (value: string) => void;
   searchPlaceholder?: string;
   onShowArchivedToggle?: () => void;
   filterComponents?: ReactNode;
-  
+
   // Content
   children: ReactNode;
-  
+
   // Footer (optional)
   footerContent?: ReactNode;
-  
+
   // Card Title
   cardTitle?: string;
   cardIcon?: ReactNode;
-  
+
   // Custom styling
   className?: string;
   style?: React.CSSProperties;
@@ -102,9 +102,9 @@ export function StandardPageLayout({
   return (
     <>
       <SEOHead title={title} description={description} canonical={canonical} />
-      
-      <div 
-        className={`space-y-6 font-sans ${className || ''}`} 
+
+      <div
+        className={`space-y-6 font-sans bg-gradient-to-br from-slate-50 to-blue-50 ${className || ''}`}
         style={style}
       >
         {/* HERO-BEREICH - Optional, Tailwind CSS Design */}
@@ -136,20 +136,20 @@ export function StandardPageLayout({
         {/* HEADER - Desktop: Info-Bereich, Mobile: Button */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-foreground">{title}</h1>
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-800">{title}</h1>
             {subtitle && (
-              <p className="text-sm sm:text-base text-muted-foreground mt-1">{subtitle}</p>
+              <p className="text-sm sm:text-base text-slate-700 font-medium mt-1">{subtitle}</p>
             )}
           </div>
-          
+
           {/* MOBILE: Button anzeigen */}
           <div className="flex lg:hidden flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
             {onCreateNew && (
-              <V28Button 
+              <V28Button
                 onClick={onCreateNew}
                 disabled={createButtonDisabled}
                 variant="primary"
-                className="min-h-[44px] min-w-[44px] w-full sm:w-auto rounded-full font-semibold text-sm transition-all duration-300 h-12 bg-slate-700 text-white hover:bg-slate-800 hover:shadow-lg hover:scale-[1.02]"
+                className="min-h-[44px] min-w-[44px] w-full sm:w-auto rounded-full font-semibold text-sm transition-all duration-300 h-12 bg-slate-700 text-white hover:bg-slate-800 hover:shadow-md hover:scale-[1.02]"
                 icon={Plus}
                 iconPosition="left"
               >
@@ -157,25 +157,25 @@ export function StandardPageLayout({
               </V28Button>
             )}
           </div>
-          
+
           {/* DESKTOP: Info-Bereich (Datum, Zeit, Status) */}
           <div className="hidden lg:flex items-center gap-6">
             {/* Datum & Zeit */}
             <div className="flex flex-col items-end">
-              <span className="text-xl font-bold tabular-nums text-slate-900">
+              <span className="text-xl font-bold tabular-nums text-slate-800">
                 {format(new Date(), 'HH:mm:ss')}
               </span>
-              <span className="text-xs font-semibold text-slate-600">
+              <span className="text-xs font-semibold text-slate-700">
                 {format(new Date(), 'EEEE, dd. MMMM yyyy', { locale: de })}
               </span>
             </div>
-            
+
             {/* System-Status Badge */}
             <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
               <Activity className="h-3 w-3 mr-1.5" />
               System Online
             </Badge>
-            
+
             {/* Optional: Benutzer-Avatar */}
             {headerExtra}
           </div>
@@ -187,14 +187,14 @@ export function StandardPageLayout({
             {stats.map((stat, index) => {
               // Check if icon is a component or JSX element
               const IconComponent = typeof stat.icon === 'function' ? stat.icon : null;
-              
+
               return (
-                <Card key={index}>
+                <Card key={index} className="shadow-lg">
                   <CardContent className="pt-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-muted-foreground">{stat.label}</p>
-                        <p className={`text-2xl font-bold ${stat.className || ''}`}>
+                        <p className="text-sm text-slate-700 font-medium">{stat.label}</p>
+                        <p className={`text-2xl font-bold text-slate-800 ${stat.className || ''}`}>
                           {stat.value}
                         </p>
                       </div>
@@ -222,7 +222,7 @@ export function StandardPageLayout({
                 {cardTitle}
               </CardTitle>
             )}
-            
+
             {/* FILTER/SEARCH - Immer gleich positioniert */}
             <div className="flex flex-col sm:flex-row gap-3 mt-4">
               <div className="flex gap-3 items-center flex-1">
@@ -255,7 +255,7 @@ export function StandardPageLayout({
               )}
             </div>
           </CardHeader>
-          
+
           <CardContent className="p-6">
             {children}
           </CardContent>

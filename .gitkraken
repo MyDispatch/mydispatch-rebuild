@@ -6,7 +6,7 @@
     "type": "web-application"
   },
   "git": {
-    "defaultBranch": "master",
+    "defaultBranch": "main",
     "protectedBranches": ["master", "main", "production"],
     "conventionalCommits": true,
     "commitMessageTemplate": "type(scope): subject\n\nBody\n\nFooter"
@@ -14,7 +14,7 @@
   "workflow": {
     "gitFlow": {
       "enabled": true,
-      "masterBranch": "master",
+      "masterBranch": "main",
       "developBranch": "develop",
       "featurePrefix": "feature/",
       "releasePrefix": "release/",
