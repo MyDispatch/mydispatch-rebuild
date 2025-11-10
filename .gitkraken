@@ -30,7 +30,17 @@
     "vercel": {
       "enabled": true,
       "projectId": "prj_j6exywYDPrstYDQvd2XEQMeIDQZt"
+    },
+    "gitkraken": {
+      "enabled": true,
+      "apiToken": "7ad55e2b-6d49-46f4-ac79-17f4d0972a5e"
     }
+  },
+  "ai": {
+    "enabled": true,
+    "provider": "gitkraken",
+    "capabilities": ["commit-suggestions", "branch-naming", "pr-description", "changelog-draft"],
+    "safeMode": true
   },
   "hooks": {
     "preCommit": ["npm run lint", "npm run type-check"],
