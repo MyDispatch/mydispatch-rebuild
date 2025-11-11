@@ -220,7 +220,7 @@ Ich habe das MyDispatch-Projekt vollständig analysiert, optimiert und automatis
 
 **GitHub:**
 - ✅ Repository: https://github.com/MyDispatch/mydispatch-rebuild
-- ✅ Branch: `master`
+- ✅ Branch: `main`
 - ✅ Letzter Commit: `6a96da97` (feat: Vollständige Automatisierung eingerichtet)
 
 ---

@@ -266,10 +266,11 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
           </div>
         </header>
 
-        {/* Content - Mit Bottom Padding für Footer V28.6 */}
+        {/* Content - Ohne generisches Bottom Padding (Footer-safe via Komponenten) */}
         <main id="main-content" className={cn(
           "min-h-screen overflow-y-auto overflow-x-hidden scrollbar-hide",
-          isMobile ? "pt-16 pb-20" : "pt-16 pb-16"
+          // Mobile: Mehr Bodenabstand, damit Content nicht vom fixierten Footer überdeckt wird
+          isMobile ? "pt-16 pb-16" : "pt-16 pb-0"
         )}>
           {children}
         </main>
@@ -280,19 +281,26 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
             "fixed bottom-0 bg-white shadow-sm",
             isMobile ? "h-16 left-0 right-0" : "h-12 transition-[left,width] duration-300"
           )}
-          style={!isMobile ? { 
-            zIndex: designTokens.zIndex.footer,
-            left: sidebarExpanded ? '240px' : '64px',
-            width: sidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 64px)',
-          } : undefined}
+          style={
+            !isMobile
+              ? {
+                  zIndex: designTokens.zIndex.footer,
+                  left: sidebarExpanded ? '240px' : '64px',
+                  width: sidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 64px)',
+                }
+              : {
+                  // Mobile: Footer unter Overlay/Sheets halten (z-20 laut Tokens)
+                  zIndex: designTokens.zIndex.footer,
+                }
+          }
         >
           <div className={cn(
             "container mx-auto h-full flex items-center",
             isMobile ? "px-4" : "px-8"
           )}>
             {isMobile ? (
-              /* Mobile: Kompakt einspaltig */
-              <div className="flex flex-col items-center justify-center gap-1 w-full">
+              /* Mobile: Kompakt einspaltig – erhöhtes Top‑Padding für bessere Luft und Fingerfreundlichkeit */
+              <div className="flex flex-col items-center justify-center gap-1 w-full pt-2" data-testid="mobile-footer-inner">
                 <p className="text-[9px] text-slate-900 leading-tight">
                   © 2025 my-dispatch.de
                 </p>
@@ -354,8 +362,7 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
           </div>
         </footer>
 
-        {/* Chat Widget - ersetzt dekorativen SVG-Ball unten rechts */}
-        <V28ChatWidget />
+        {/* Chat Widget entfernt – wird weiter unten konditional gerendert */}
       </div>
 
       {/* Mobile Menu Sheet - WCAG FIX: Focus Management + ARIA */}
@@ -363,8 +370,9 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetContent 
             side="left" 
-            className="w-72 p-0"
+            className="w-64 sm:w-72 p-0"
             id="mobile-navigation-menu"
+            aria-labelledby="mobile-menu-title"
             style={{
               backgroundColor: designTokens.colors.white,
               borderRight: `1px solid ${designTokens.colors.slate[200]}`,

@@ -37,7 +37,7 @@ mydispatch-rebuild/
 - **Projekt-ID:** prj_j6exywYDPrstYDQvd2XEQMeIDQZt
 - **Deployment:** mydispatch-rebuild-c32ltyek6-mydispatchs-projects.vercel.app
 - **Domains:** www.my-dispatch.de, mydispatch-rebuild.vercel.app
-- **Branch:** master
+- **Branch:** main
 - **Commit:** 22f4b25
 
 ---

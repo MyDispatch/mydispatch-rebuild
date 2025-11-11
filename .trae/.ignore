@@ -56,6 +56,14 @@ Dieses Dokument definiert strikt verbotene Handlungen und Sicherheitsgrenzen fü
 - `docs/DOKUMENTATIONS_SYSTEM_ANALYSE_V18.5.1.md` (Doc‑Validation)
 - OWASP Top 10, Supabase RLS, CSP Best Practices
 
+## Ignored Paths (Tech‑Stack Enforcement)
+- `archive/nextjs/`
+- `nexify-new-complete/` (relocated to `archive/nextjs/nexify-new-complete/`)
+- `NeXify-New/`
+- `NeXify-New-Full/`
+
+Hinweis: Diese Verzeichnisse enthalten Next.js‑bezogene Templates/Artefakte und sind für das MyDispatch React+Vite Projekt ausgeschlossen. Bitte keine Reaktivierung oder Referenzierung in Build/Docs.
+
 ## Maschinenlesbar
 ```json
 {

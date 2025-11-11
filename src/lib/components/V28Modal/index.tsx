@@ -62,6 +62,9 @@ export function V28Modal({
                 {description}
               </DialogPrimitive.Description>
             )}
+            {!title && !description && (
+              <DialogPrimitive.Title className="sr-only">Modal</DialogPrimitive.Title>
+            )}
           </div>
           
           {children}

@@ -135,7 +135,7 @@ Die Migrations müssen noch deployed werden:
 ## 🔧 TECHNISCHE DETAILS
 
 ### Git Push Details
-- **Branch:** master
+- **Branch:** main
 - **Status:** Erfolgreich
 - **Änderungen:** Umfangreiche System-Updates, Scripts, Dokumentation
 

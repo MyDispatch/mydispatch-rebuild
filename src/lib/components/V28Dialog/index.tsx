@@ -56,6 +56,11 @@ export function V28Dialog({
               )}
             </div>
           )}
+          {!title && !description && (
+            <DialogPrimitive.Title className="sr-only">
+              Dialog
+            </DialogPrimitive.Title>
+          )}
           
           {children}
 

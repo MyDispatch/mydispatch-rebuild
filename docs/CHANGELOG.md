@@ -4,6 +4,44 @@
 **Versioning:** Semantic Versioning (MAJOR.MINOR.PATCH)
 
 ---
+## [V6.1.25] - 2025-11-11 - Mobile Footer Layering & Spacing Fix ✅
+
+### 🟦 Changed
+- MarketingLayout (Mobile): Footer-Z-Index auf Token-Wert (`z-20`) zurückgesetzt, damit Overlays/Sheets (`z-50`) zuverlässig darüber liegen.
+- MarketingLayout (Mobile): Oberes Innenpadding (`pt-1`) im Footer hinzugefügt, damit der Copyright-Text nicht am oberen Rand klebt.
+
+### 📚 References
+- `src/components/layout/MarketingLayout.tsx`
+- `src/components/ui/sheet.tsx` (z-50 Overlay/Content – Referenz)
+- `src/config/design-tokens.ts` (zIndex-Hierarchie)
+
+### 🧪 Validation
+- Dev-Preview geprüft: Mobile Menü (Sheet) überdeckt Footer korrekt; Copyright-Text hat sauberes Luftpolster.
+
+### 💬 Conventional Commit
+- `fix(footer-mobile): correct z-index to token and add top padding`
+
+## [V6.1.24] - 2025-11-11 - Mobile Footer/Sidebar & Padding Fixes ✅
+
+### 🟦 Added / Changed
+- MainLayout (Mobile): Bottom‑Padding des Inhalts auf `pb-20` erhöht, damit beim Scrollen nichts den Footer überdeckt.
+- MarketingLayout (Mobile): Footer‑Layering angepasst – Footer liegt nun unter dem Chat‑Button, aber über allen anderen Layern.
+- MobileHeader / MarketingLayout: Breite der mobilen Slide‑out Menüs reduziert (`w-64 sm:w-80` bzw. `w-64 sm:w-72`) für bessere Usability auf kleinen Displays.
+
+### 📚 References
+- `src/components/layout/MainLayout.tsx`
+- `src/components/layout/MarketingLayout.tsx`
+- `src/components/layout/MobileHeader.tsx`
+- `src/config/design-tokens.ts` (zIndex‑Referenzen)
+
+### 🧪 Validation
+- Dev‑Preview geöffnet und Scroll‑Verhalten auf Mobile geprüft: Footer bleibt sichtbar, Chat‑Button über Footer, keine Inhalte überlagern Footer.
+- Menübreiten auf kleinen Geräten verifiziert: bessere Lesbarkeit und reduzierte horizontale Überdeckung.
+
+### 💬 Conventional Commit
+- `fix(layout-mobile): increase main bottom padding to prevent footer overlap`
+- `fix(footer-mobile): raise footer layering under chat and above content`
+- `fix(menu-mobile): reduce slide-out widths in header/marketing`
 ## [V6.1.22] - 2025-11-11 - Auth/Routing Fixes (Portal customer mode) ✅
 
 ### 🟦 Added / Changed
@@ -1609,3 +1647,45 @@ Overall System:  138 → ~6 calls (100% compliance)
 ### Notes
 - GitHub-Einstellungen: Default-Branch umstellen, Branch-Protektion und Auto-Deploy-Regeln auf `main`.
 - Conventional Commit: `docs: migrate default branch master→main (policy aligned)`
+## [V6.1.23] - 2025-11-11 - Codespaces, Google Sheets Proxy & Agent Memory ✅
+
+### 🟦 Added / Changed
+- Codespaces Devcontainer (`.devcontainer/devcontainer.json`) für schnellere Dev‑Umgebung (Node+Vite, Ports vordefiniert).
+- Google Sheets API Proxy in `server.js`: Endpunkte `/api/google/sheets/read` und `/api/google/sheets/append` (Service‑Account, env‑basiert).
+- Client‑Integration: `src/integrations/google/sheets.ts` (fetch/append Helpers) und Hook `src/hooks/api/useGoogleSheet.ts`.
+- Supabase Migration: `supabase/migrations/20251111_agent_memory.sql` – Tabelle `agent_memory` mit RLS, Indizes und Update‑Trigger.
+- Memory‑Utilities: `src/lib/ai/memory.ts` (remember/recall/search) gegen zentralen Supabase‑Client.
+- Copilot‑Instruktionen ergänzt: React+Vite Only, Produktions‑Branch `main`, Codespaces empfohlen.
+
+### 📚 References
+- `.devcontainer/devcontainer.json`
+- `server.js`, `package.json` (Dependency: `googleapis`)
+- `src/integrations/google/sheets.ts`, `src/hooks/api/useGoogleSheet.ts`
+- `supabase/migrations/20251111_agent_memory.sql`
+- `src/lib/ai/memory.ts`
+- `.github/copilot-instructions.md`
+
+### 🧪 Validation
+- Serverstart: `npm run start` → Health unter `/health` erreichbar.
+- Sheets Read: POST `/api/google/sheets/read` mit `spreadsheetId`+`range` liefert `values` (env: `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY`).
+- Supabase: `npm run deploy:migrations` pusht Migration; CRUD auf `agent_memory` via Utilities geprüft.
+
+### 💬 Conventional Commit
+- `feat(devcontainer): add codespaces setup`
+- `feat(google): add sheets proxy endpoints and client helpers`
+- `feat(memory): add agent_memory table and utilities`
+- `docs(copilot): React+Vite only, main branch rule`
+## 2025-11-11 — Policy Enforcement (React+Vite only)
+### Changed
+- Enforced tech stack: React + Vite + TypeScript + Tailwind + React Router v6.
+- Banned Next.js usage across repo (no App/Pages Router, no `next.config.js`).
+- Updated `.cursorrules` to include mandatory React+Vite rules and auto-load `config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml`.
+
+### References
+- `.cursorrules`
+- `config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml`
+- `docs/README.md`
+
+### Validation
+- Verified local dev with `npm run dev` (Vite) and no Next.js build paths.
+- Grep check confirms no new Next-specific scaffolds added.

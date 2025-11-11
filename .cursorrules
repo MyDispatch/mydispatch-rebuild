@@ -34,6 +34,9 @@
 #
 # DEPLOYMENT & STATUS:
 # 15. docs/DEPLOYMENT_STATUS.md (Deployment Status)
+#
+# TECH-STACK KONFIGURATION:
+# 16. config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml (React+Vite Projektkonfiguration)
 # 16. docs/UMSETZUNG_STATUS_LIVE.md (Aktueller Status)
 #
 # AUTOMATISCHER KONTEXT-LOAD VIA EDGE FUNCTION:
@@ -109,6 +112,16 @@
 - Hooks: `src/hooks/`
 - Types: `src/types/`
 - Docs: `docs/`
+
+## TECH-STACK ENFORCEMENT (MANDATORY)
+- STACK: React + Vite + TypeScript + Tailwind + React Router v6
+- BAN: Next.js (keine App-/Pages-Router, keine `next.config.js`, keine API Routes)
+- GENERATION: Komponenten/Seiten ausschließlich als React-Komponenten unter `src/pages/`/`src/components/`
+- ROUTING: Immer `react-router` verwenden (lazy routes, error boundaries, prefetch)
+- BUILD: Vite Scripts nutzen (`npm run dev/build/preview`), keine Next-Build-Pipelines
+- SUPABASE: Client via Vite-Alias `@/integrations/supabase/client` verwenden
+- DOCS: Falls Dokumente Next.js erwähnen, bei Pflege auf React+Vite Äquivalente verweisen (keine Next-Struktur anlegen)
+- TEMPLATES: Code-Beispiele auf Vite/React Router konvertieren, shadcn/ui kompatibel halten
 
 ## Master Account
 - Email: `courbois1981@gmail.com` (NUR diese!)

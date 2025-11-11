@@ -3,6 +3,50 @@
 Alle wichtigen Änderungen am MyDispatch-Projekt werden in dieser Datei dokumentiert.
 
 ---
+## [V6.1.25] - 2025-11-11 - Mobile Footer Layering & Spacing Fix ✅
+
+### 🎯 Ziel
+- Footer auf mobilen Geräten unter Overlays/Sheets halten und den oberen Innenabstand leicht erhöhen, um saubere Typografie und klare Layer-Hierarchie zu gewährleisten.
+
+### 🔧 Änderungen
+- `MarketingLayout.tsx`: Footer-Z-Index von `z-60` auf Token `z-20` zurückgesetzt (konform mit Design-Tokens und Master-Hierarchie).
+- `MarketingLayout.tsx`: `pt-1` im mobilen Footer-Container ergänzt, damit der `p`-Text nicht am oberen Rand klebt.
+
+### 🗂️ Betroffene Dateien
+- `src/components/layout/MarketingLayout.tsx`
+- `src/components/ui/sheet.tsx` (Referenz: z-50)
+- `src/config/design-tokens.ts`
+
+### 🧪 QA
+- Visuelle Prüfung in Dev-Preview: Sheet/Overlay liegt über Footer, Textabstände stimmig, keine Überlagerungen.
+
+### 💬 Conventional Commit
+- `fix(footer-mobile): correct z-index to token and add top padding`
+
+## [V6.1.24] - 2025-11-11 - Mobile Footer/Sidebar & Padding Fixes ✅
+
+### 🎯 Ziel
+- Footer soll in der mobilen Ansicht stets sichtbar bleiben: unter dem Chat‑Button, aber über allen anderen Elementen. Inhalt darf Footer nicht überlagern. Mobile Menüs sollen schmaler sein.
+
+### 🔧 Änderungen
+- `MainLayout.tsx`: Mobile Hauptbereich mit `pb-20` versehen, um Überdeckung des Footers beim Scrollen zu verhindern.
+- `MarketingLayout.tsx`: Mobiler Footer erhält erhöhten Z‑Index (unter Chat, über Content/Navigation).
+- `MobileHeader.tsx`: Slide‑out Menübreite reduziert (`w-64 sm:w-80`).
+- `MarketingLayout.tsx`: Mobiles Navigations‑Sheet auf `w-64 sm:w-72` verkleinert.
+
+### 🗂️ Betroffene Dateien
+- `src/components/layout/MainLayout.tsx`
+- `src/components/layout/MarketingLayout.tsx`
+- `src/components/layout/MobileHeader.tsx`
+- `src/config/design-tokens.ts` (Z‑Index Referenz)
+
+### 🧪 QA
+- Dev‑Preview visuell geprüft (Mobile): Footer bleibt sichtbar, Chat‑Button liegt darüber, keine Content‑Überlagerungen. Menüs sind kompakter und gut bedienbar.
+
+### 💬 Conventional Commit
+- `fix(layout-mobile): increase main bottom padding to prevent footer overlap`
+- `fix(footer-mobile): raise footer layering under chat and above content`
+- `fix(menu-mobile): reduce slide-out widths in header/marketing`
 ## [V6.1.22] - 2025-11-11 - Auth/Routing Fixes (Portal customer mode) ✅
 
 ### 🎯 Ziel
@@ -996,3 +1040,26 @@ Format: `[Major.Minor.Patch]`
 - Repository-Einstellung in GitHub: Default-Branch auf `main` setzen und Schutzregeln anpassen.
 - Optional: Remote-Branch `master` löschen nach Umstellung (`git push origin --delete master`).
 - Conventional Commit: `docs: migrate default branch master→main (update guides)`
+## 2025-11-11 — v1.1.1
+### Added
+- Codespaces `.devcontainer` for Node+Vite development.
+- Google Sheets API proxy endpoints in `server.js` and client helpers.
+- Supabase `agent_memory` table migration with RLS + indexes.
+- Agent memory utilities `src/lib/ai/memory.ts` (remember/recall/search).
+
+### Changed
+- Strengthened `.github/copilot-instructions.md`: React+Vite only, `main` branch.
+
+### Notes
+- Requires env vars: `GOOGLE_SERVICE_ACCOUNT_EMAIL`, `GOOGLE_PRIVATE_KEY` on server.
+## 2025-11-11 — Policy Enforcement (Frontend Stack)
+### Docs
+- Enforced React+Vite as the only frontend stack; banned Next.js usage.
+- Updated `.cursorrules` with mandatory React+Vite rules and auto-loaded `config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml`.
+
+### Process
+- Guidance for scaffolding now points to Vite and React Router v6.
+- Build and preview scripts standardized on Vite.
+
+### Notes
+- Conventional Commit: `docs: enforce React+Vite policy; ban Next.js`

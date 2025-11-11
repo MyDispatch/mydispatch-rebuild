@@ -63,10 +63,13 @@ export const V28Button = forwardRef<HTMLButtonElement, V28ButtonProps>(
           'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary',
           'inline-flex items-center justify-center gap-2 whitespace-nowrap',
           'shadow-sm hover:shadow-md',
-          // Size variants
-          size === 'sm' && 'h-10 px-6 text-sm',
-          size === 'md' && 'h-12 px-8 text-base',
-          size === 'lg' && 'min-h-[56px] h-auto px-8 sm:px-10 py-3 text-base sm:text-lg',
+          // Size variants (kompakter, aber weiterhin touch-freundlich)
+          // sm: kompakt für Toolbars und Sekundäraktionen
+          size === 'sm' && 'h-9 px-4 text-sm',
+          // md: Standardgröße – 40px Höhe
+          size === 'md' && 'h-10 px-5 text-sm',
+          // lg: Primäre CTAs – mindestens 44px Höhe
+          size === 'lg' && 'min-h-[44px] h-auto px-6 sm:px-8 py-2 text-base',
           // Full width
           fullWidth && 'w-full',
           // Variant styles

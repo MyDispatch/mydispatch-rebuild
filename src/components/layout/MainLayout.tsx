@@ -48,8 +48,8 @@ export function MainLayout({ children, background = 'canvas' }: MainLayoutProps)
         {/* Mobile Header: Kompakt, 56px (h-14) */}
         <MobileHeader />
         
-        {/* Content: Korrekter Abstand für Header (56px) ohne Bottom Padding */}
-        <main className="flex-1 pt-14 pb-0 px-4 overflow-y-auto">
+        {/* Content: Korrigierter Abstand – verhindert Überlagerung mit Footer/Bottom Nav */}
+        <main className="flex-1 pt-14 pb-20 px-4 overflow-y-auto">
           {children}
         </main>
         

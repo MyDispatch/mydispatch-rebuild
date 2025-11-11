@@ -102,7 +102,7 @@ export function MobileHeader() {
 
       {/* Slide-out Menu */}
       <Sheet open={showMenu} onOpenChange={setShowMenu}>
-        <SheetContent side="right" className="w-80 sm:w-96">
+        <SheetContent side="right" className="w-64 sm:w-80">
           <SheetHeader>
             <SheetTitle>Menü</SheetTitle>
           </SheetHeader>

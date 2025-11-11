@@ -13,6 +13,13 @@ MyDispatch is a production-ready taxi & limousine dispatch management system bui
 - **Design System:** V28.1 with frozen layout components
 - **Master Account:** `courbois1981@gmail.com` (special permissions, `/master` route)
 
+### Branch & Platform Rules
+
+- Production branch is `main` (not `master`).
+- Do NOT introduce Next.js. Use React + Vite exclusively.
+- Prefer Codespaces using `.devcontainer` for fast, consistent setup.
+- Use centralized integrations: Supabase client from `src/integrations/supabase/client.ts`, Google Sheets via server proxy endpoints.
+
 ## Critical Architecture Patterns
 
 ### 1. Multi-Tenant Data Access

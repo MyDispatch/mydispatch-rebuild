@@ -173,7 +173,7 @@ Die vollständige Liste umfasst Pages, Components und Shared-Components über da
 ### GitHub
 
 - ✅ Push erfolgreich
-- ✅ Branch: `master`
+- ✅ Branch: `main`
 - ✅ Commit: `7fcb4335`
 - ⚠️ 1 Dependabot-Warnung (moderate, nicht kritisch)
 

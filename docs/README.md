@@ -81,6 +81,7 @@ Gesammeltes Wissen und bewährte Verfahren.
  - [🛡️ Security RLS Policies V18.5.1](./SECURITY_RLS_POLICIES_DOCUMENTATION_V18.5.1.md) - Supabase RLS (Company‑Isolation, Zugriffs‑Matrix)
   - [🎨 Chart Colors V18.3](./DESIGN_SYSTEM_CHART_COLORS_V18.3.md) - CI‑konforme Farben für Recharts
   - [📑 Dokumentationspflege-Policy (Ohne Jira)](./DOCUMENTATION_MAINTENANCE_POLICY_V1.1.md) - Verbindliche Richtlinien zur Dokumentationspflege ohne Jira
+  - [🧯 Problems & Diagnostics](./PROBLEMS_AND_DIAGNOSTICS.md) - Ursachen, Fixes und Validierung (aktuelle Hotfixes)
   - [🔑 Secrets Registry](./SECRETS_REGISTRY.md) - Metadaten der System-/API‑Schlüssel (keine Klartextwerte)
   - [📐 SOLL‑Analyse: Layout & Design](./DESIGN_SOLL_ANALYSE_V1.1.1.md) - Zielbild für Rekonstruktion
   - [🎨 UI‑Styleguide V1.1.1](./STYLEGUIDE_UI_V1.1.1.md) - Typografie, Farben, Abstände, Breakpoints
@@ -197,6 +198,13 @@ supabase functions deploy
 ---
 
 ## 🚨 **WICHTIGE HINWEISE**
+
+### ⚙️ Tech‑Stack Enforcement (React+Vite only)
+- Vorgabe: `React + Vite + TypeScript + Tailwind + React Router v6`.
+- Verbot: **Kein Next.js** (keine App/Pages Router, keine `next.config.js`).
+- Referenzen: `config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml`, `.cursorrules`.
+- Hinweis: Next.js‑Templates wurden archiviert/ignoriert (`archive/nextjs/`, `NeXify-New/`, `NeXify-New-Full/`).
+
 
 ### ⚠️ **Für KI-Agenten - OBLIGATORISCH**
 **JEDER Chat muss mit folgendem Befehl beginnen:**

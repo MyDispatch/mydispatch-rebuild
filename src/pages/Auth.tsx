@@ -611,7 +611,7 @@ export default function Auth() {
               <TabsList className="grid w-full grid-cols-3 mb-6 sm:mb-8 bg-slate-100 border-slate-200 gap-0 z-40 relative">
                 <TabsTrigger
                   value="login"
-                  className="min-h-[52px] text-sm sm:text-base px-3 sm:px-4 py-3 data-[state=active]:bg-slate-700 data-[state=active]:text-white data-[state=inactive]:hover:bg-slate-200"
+                  className="min-h-[44px] text-sm sm:text-base px-4 sm:px-5 py-2.5 data-[state=active]:bg-slate-700 data-[state=active]:text-white data-[state=inactive]:hover:bg-slate-200"
                   style={activeTab === 'login' && tenantCompany?.primary_color ? {
                     backgroundColor: tenantCompany.primary_color
                   } : undefined}
@@ -620,7 +620,7 @@ export default function Auth() {
                 </TabsTrigger>
                 <TabsTrigger
                   value="signup"
-                  className="min-h-[52px] text-sm sm:text-base px-3 sm:px-4 py-3 data-[state=active]:bg-slate-700 data-[state=active]:text-white data-[state=inactive]:hover:bg-slate-200"
+                  className="min-h-[44px] text-sm sm:text-base px-4 sm:px-5 py-2.5 data-[state=active]:bg-slate-700 data-[state=active]:text-white data-[state=inactive]:hover:bg-slate-200"
                   style={activeTab === 'signup' && tenantCompany?.primary_color ? {
                     backgroundColor: tenantCompany.primary_color
                   } : undefined}
@@ -629,7 +629,7 @@ export default function Auth() {
                 </TabsTrigger>
                 <TabsTrigger
                   value="reset"
-                  className="min-h-[52px] text-xs sm:text-base px-2 sm:px-4 py-3 leading-tight data-[state=active]:bg-slate-700 data-[state=active]:text-white data-[state=inactive]:hover:bg-slate-200"
+                  className="min-h-[44px] text-xs sm:text-base px-3 sm:px-5 py-2.5 leading-tight data-[state=active]:bg-slate-700 data-[state=active]:text-white data-[state=inactive]:hover:bg-slate-200"
                   style={activeTab === 'reset' && tenantCompany?.primary_color ? {
                     backgroundColor: tenantCompany.primary_color
                   } : undefined}

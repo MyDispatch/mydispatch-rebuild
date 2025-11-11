@@ -9,7 +9,7 @@
 ## 🚀 DEPLOYMENT-STATUS
 
 ### ✅ GitHub Push
-- **Branch:** `master`
+- **Branch:** `main`
 - **Commits:** Alle Änderungen committed
 - **Status:** ✅ Erfolgreich gepusht
 

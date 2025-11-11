@@ -35,6 +35,7 @@ import { AppSplash } from "@/components/shared/AppSplash";
 import { routes, type RouteConfig } from "@/config/routes.config.tsx";
 import { usePricingValidation } from "@/hooks/use-pricing-validation";
 import { ScrollToTop } from "@/components/shared/ScrollToTop";
+import { LayoutProvider } from "@/components/framework";
 import { initDocAISyncListener } from "@/lib/doc-ai-sync-listener";
 import { logger } from "@/lib/logger";
 import { IdleSessionGuard } from "@/components/security/IdleSessionGuard";
@@ -158,6 +159,7 @@ const App = () => {
               <HelmetProvider context={helmetContext}>
                 <QueryClientProvider client={queryClient}>
                   <ErrorBoundary fallback={<LoadingFallback />}>
+                    <LayoutProvider>
                     <BrowserRouter
               future={{
                 v7_startTransition: true,
@@ -204,6 +206,7 @@ const App = () => {
               </WikiProvider>
             </AuthProvider>
           </BrowserRouter>
+                    </LayoutProvider>
                   </ErrorBoundary>
                 </QueryClientProvider>
               </HelmetProvider>
