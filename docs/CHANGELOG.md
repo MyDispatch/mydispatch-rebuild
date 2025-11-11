@@ -4,6 +4,24 @@
 **Versioning:** Semantic Versioning (MAJOR.MINOR.PATCH)
 
 ---
+## [V6.1.26] - 2025-11-11 - Design Tokens HSL Mapping & Tailwind Integration ✅
+
+### 🟦 Changed
+- Design‑Foundation aktiviert Hex→HSL‑Mapping zur Laufzeit und schreibt die Tailwind‑Variablen (`--primary`, `--secondary`, `--background`, `--text-primary`, …) auf `document.documentElement`.
+- Dadurch werden die Framework‑Tokens im gesamten UI sichtbar und konsistent über `hsl(var(--token))` konsumiert.
+
+### 📚 References
+- `src/framework/design.ts` (aktualisiert: `applyDesignVars` mit Hex→HSL)
+- `src/components/framework/LayoutProvider.tsx` (globaler Apply‑Hook)
+- `tailwind.config.ts`, `src/index.css` (Variablenkonsum)
+
+### 🧪 Validation
+- Dev‑Preview (`http://127.0.0.1:5176/`) geöffnet; Tokens aktiv. Etwaige `net::ERR_ABORTED` sind HMR‑bedingt und ohne Funktionsauswirkung.
+
+### 💬 Conventional Commit
+- `feat(design): map hex palette to HSL CSS vars for Tailwind`
+- `docs(changelog): record design token mapping`
+
 ## [V6.1.25] - 2025-11-11 - Mobile Footer Layering & Spacing Fix ✅
 
 ### 🟦 Changed

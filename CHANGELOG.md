@@ -3,6 +3,28 @@
 Alle wichtigen Änderungen am MyDispatch-Projekt werden in dieser Datei dokumentiert.
 
 ---
+## [V6.1.26] - 2025-11-11 - Design Tokens HSL Mapping & Tailwind Integration ✅
+
+### 🎯 Ziel
+- Hex‑basierte Design‑Tokens (Palette) werden zur Laufzeit in HSL‑Triplets gemappt und auf die Tailwind‑CSS‑Variablen (`--primary`, `--secondary`, `--background`, etc.) angewendet, damit das Framework‑Design systemweit sichtbar und konsistent wird.
+
+### 🔧 Änderungen
+- `src/framework/design.ts`: `applyDesignVars` erweitert — Hex→HSL‑Konvertierung und Zuweisung auf Tailwind‑Variablen (`--primary`, `--text-primary`, …) zusätzlich zu `--color-*`.
+- Provider: Aktivierung erfolgt global über bestehenden `LayoutProvider` (keine zusätzliche Änderung nötig).
+
+### 🗂️ Betroffene/Referenz‑Dateien
+- `src/framework/design.ts` (aktualisiert)
+- `src/components/framework/LayoutProvider.tsx` (Nutzung)
+- `tailwind.config.ts`, `src/index.css` (Referenz: Variablenkonsum via `hsl(var(--token))`)
+
+### 🧪 QA
+- Dev‑Preview auf `http://127.0.0.1:5176/` geöffnet; Tokens aktiv, keine funktionalen UI‑Fehler. Einzelne `net::ERR_ABORTED` Meldungen stammen aus dev‑typischen HMR/Asset‑Neuladevorgängen und beeinträchtigen die Seite nicht.
+
+### 💬 Conventional Commit
+- `feat(design): map hex palette to HSL CSS vars for Tailwind`
+- `chore(layout): ensure LayoutProvider applies new tokens on app start`
+- `docs(changelog): record design token mapping`
+
 ## [V6.1.25] - 2025-11-11 - Mobile Footer Layering & Spacing Fix ✅
 
 ### 🎯 Ziel
