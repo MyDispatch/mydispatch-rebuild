@@ -4,6 +4,52 @@
 **Versioning:** Semantic Versioning (MAJOR.MINOR.PATCH)
 
 ---
+## [V6.1.22] - 2025-11-11 - Auth/Routing Fixes (Portal customer mode) ✅
+
+### 🟦 Added / Changed
+- Routing: Unauthentifizierter Portal‑Zugriff leitet nun einheitlich auf `/portal/auth` statt auf `/auth?mode=customer`.
+- Guards: `/portal/auth` als öffentliche Route in `isPublicRoute` registriert, um Guard‑Kollisionen und Redirect‑Schleifen zu verhindern.
+- Auth: Login berücksichtigt `mode=customer`; bei Portal‑Berechtigung werden `portal_mode`, `portal_customer_id`, `portal_company_id` gesetzt und direkt nach `/portal` umgeleitet.
+
+### 📚 References
+- `src/components/PortalRoute.tsx` (Redirect vereinheitlicht)
+- `src/lib/navigation-helpers.ts` (Public Route erweitert)
+- `src/pages/Auth.tsx` (Customer‑Mode bevorzugt)
+
+### 🧪 Validation
+- Dev‑Preview auf `http://127.0.0.1:5191/` geöffnet; Navigation geprüft:
+  - Unauthentifizierter Zugriff auf `/portal` → Redirect zu `/portal/auth`.
+  - Customer‑Login mit Portal‑Zugriff → Redirect zu `/portal` mit gesetztem Portal‑Kontext.
+- Hinweis: HMR meldete kurzzeitig einen Port‑Konflikt; App ist anschließend erreichbar und funktionsfähig.
+
+### 💬 Conventional Commit
+- `fix(routing): unify unauth portal redirect to /portal/auth`
+- `fix(auth): respect customer mode and prioritize portal flow`
+- `docs(changelog): record auth/routing fixes`
+
+## [V6.1.21] - 2025-11-11 - Build System & Deploy‑Dokumente (Turborepo/Terraform) ✅
+
+### 🟦 Added / Changed
+- Neue Dokumente hinzugefügt:
+  - `docs/BUILD_SYSTEM_TURBOREPO_ADAPTATION_V1.1.md` – Turborepo für React+Vite (ohne Next.js), Pipelines, Caching, Struktur.
+  - `docs/DEPLOY_TERRAFORM_OPTIONS_V1.1.md` – Deploy‑Strategien: Vercel vs. AWS S3+CloudFront mit Terraform (Schritte, Beispielressourcen, Vor-/Nachteile).
+- Pipeline‑Datei `turbo.json` ergänzt (minimale Definition für Vite‑Build‑Caching, kompatibel mit bestehendem Dev‑Workflow).
+- Docs‑Hub (`docs/README.md`) aktualisiert und um Links zu den neuen Dokumenten erweitert.
+
+### 📚 References
+- `docs/BUILD_SYSTEM_TURBOREPO_ADAPTATION_V1.1.md`
+- `docs/DEPLOY_TERRAFORM_OPTIONS_V1.1.md`
+- `turbo.json`
+- `docs/README.md`
+
+### 🧪 Validation
+- Sichtprüfung: Links im Docs‑Hub korrekt, inhaltlich MD‑2024‑konform.
+- Pipeline: `turbo run build` nutzt Cache; Vite‑Build bleibt stabil.
+
+### 💬 Conventional Commit
+- `docs(build): add Turborepo adaptation guide and turbo.json pipeline`
+- `docs(deploy): add Terraform/Vercel/AWS options doc`
+
 ## [V6.1.19] - 2025-11-11 - AI/Agent-Härtung (Feature-Flags & Route-ACL) ✅
 
 ### 🟦 Added / Changed
@@ -28,6 +74,26 @@
 - `fix(app): gate IntelligentAIChat by ai_chat_support flag`
 - `fix(monitoring): guard DatadocClient by datadoc_monitoring flag`
 - `security(routes): restrict /agent-dashboard to role=master`
+
+## [V6.1.20] - 2025-11-11 - Supabase Env Override & Config Panel ✅
+
+### 🟦 Added / Changed
+- Supabase Env-Helper erweitert: Lokale Overrides aus `localStorage` (`supabase_url`, `supabase_anon_key`) werden bevorzugt. Keine Rebuilds nötig, sofort wirksam.
+- Debug-UI hinzugefügt: `SupabaseConfigPanel` (Key/URL eingeben, Verbindung testen, Overrides speichern/löschen). Über Health-Banner aufrufbar.
+- Health-Banner aktualisiert: Button „Key jetzt eintragen“ öffnet das Config-Panel; Timeout/Invalid-Key Meldungen bleiben klar.
+
+### 📚 References
+- `src/integrations/supabase/env.ts`
+- `src/components/debug/SupabaseConfigPanel.tsx`
+- `src/components/debug/SupabaseHealthBanner.tsx`
+
+### 🧪 Validation
+- Lokale Dev-Fehler (`net::ERR_ABORTED`/Timeout) reproduziert; Panel öffnet und ermöglicht Key/URL Test gegen `/auth/v1/settings`.
+- Nach Speichern lädt App neu, Clients nutzen gültige ENV; Banner verschwindet bei erfolgreichem Test.
+
+### 💬 Conventional Commit
+- `feat(supabase): add localStorage env override and config panel`
+- `fix(supabase): integrate health banner with config panel trigger`
 
 ## [V6.1.18] - 2025-11-11 - Routing-/Sidebar-Fix (Dashboard) ✅
 
@@ -1497,4 +1563,49 @@ Overall System:  138 → ~6 calls (100% compliance)
 
 ### Conventional Commit
 - `feat(page-builder): add protected GrapesJS editor behind flag (beta)`
- - `feat(page-builder): add NeXify blocks & flag toggle UI`
+- `feat(page-builder): add NeXify blocks & flag toggle UI`
+
+## [V6.1.21] - 2025-11-11 - Studio SDK Integration (License & Route) ✅
+
+### Added
+- Neue Seite `src/pages/StudioEditorPage.tsx` mit GrapesJS Studio SDK (Lizenz & Plugins).
+- Feature‑Flag `studio_editor` zur kontrollierten Aktivierung; Dev‑Override via `?force=1`.
+- Konfiguration: `src/config/studio-sdk.ts` (License Public Key, Domains, Defaults, stabile IDs via localStorage).
+- Geschützte Route `'/studio'` (Layout `main`, `requiredRole: master`).
+
+### Notes
+- Public License Key kann im Build per `VITE_STUDIO_LICENSE_KEY` überschrieben werden; Default übernommen.
+- Assets/Storage auf `cloud` gemäß SDK‑Defaults; später an MyDispatch‑Storage/Pipeline anpassbar.
+
+### Conventional Commit
+- `feat(studio): add Studio SDK page, license config, protected route`
+## [V6.1.23] - 2025-11-11 - White Screen Hotfix (Service Worker Cache Reset) ✅
+
+### 🟦 Added / Changed
+- Service Worker erweitert: Neue Message‑Typen `VERSION_CHECK`, `CLEAR_CACHES`, `SKIP_WAITING` für gezielten Cache‑Reset bei Versionswechsel.
+- Client (`main.tsx`): Sendet Build‑Version an den Service Worker und triggert einen Cache‑Reset, wenn die gespeicherte Version abweicht.
+
+### 📚 References
+- `public/sw.js` – Message‑Handler und Cache‑Clear
+- `src/main.tsx` – Version‑Handshake, Steuer‑Nachrichten, lokales Cache‑Clearing
+
+### 🧪 Validation
+- Dev‑Preview geöffnet (`http://127.0.0.1:5177/`), keine White‑Screen‑Effekte.
+- Manuelle Tests: Version in `localStorage` geändert → Caches werden gelöscht, Seite lädt sauber neu.
+
+### 💬 Conventional Commit
+- `fix(pwa): add sw message handlers and client cache reset on version change`
+- `docs(changelog): record white screen SW hotfix`
+## 2025-11-11 — v1.1.1
+### Changed
+- Default-Branch Migration: `master` → `main`.
+- Aktualisierung von Deployment- und Automatisierungsdokumenten auf `main`.
+
+### Validation
+- Lokale Branch-Umbenennung ausgeführt (`git branch -m master main`).
+- Remote-Branch `main` gepusht (`git push -u origin main`).
+- Workflows referenzieren bereits `main` (keine Anpassungen nötig).
+
+### Notes
+- GitHub-Einstellungen: Default-Branch umstellen, Branch-Protektion und Auto-Deploy-Regeln auf `main`.
+- Conventional Commit: `docs: migrate default branch master→main (policy aligned)`

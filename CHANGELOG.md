@@ -3,6 +3,56 @@
 Alle wichtigen Änderungen am MyDispatch-Projekt werden in dieser Datei dokumentiert.
 
 ---
+## [V6.1.22] - 2025-11-11 - Auth/Routing Fixes (Portal customer mode) ✅
+
+### 🎯 Ziel
+- Auth/Routing für das Kundenportal stabilisieren: konsistenter Redirect für nicht eingeloggte Nutzer, Public‑Route für `/portal/auth`, und bevorzugter Customer‑Flow beim Login.
+
+### 🔧 Änderungen
+- `PortalRoute`: Unauthentifizierte Zugriffe auf `/portal` leiten auf `/portal/auth` (statt `/auth?mode=customer`).
+- `navigation-helpers.isPublicRoute`: `/portal/auth` als öffentliche Route markiert (verhindert Guard‑Schleifen).
+- `Auth.tsx`: URL‑Parameter `mode=customer` wird respektiert; Nutzer mit Portal‑Berechtigung werden nach Login direkt zu `/portal` umgeleitet, inkl. Setzen von `portal_mode`, `portal_customer_id`, `portal_company_id` in `sessionStorage`.
+
+### 🗂️ Betroffene Dateien
+- `src/components/PortalRoute.tsx`
+- `src/lib/navigation-helpers.ts`
+- `src/pages/Auth.tsx`
+
+### 🧪 QA
+- Dev‑Preview auf `http://127.0.0.1:5191/` gestartet.
+- Manuelle Tests: `/portal` (unauth) → `/portal/auth`; Customer‑Login mit Portalzugriff → `/portal` mit Kontext.
+- HMR‑Hinweis: Kurzzeitige Port‑Meldung, App lauffähig nach Start.
+
+### 💬 Conventional Commit
+- `fix(routing): unify unauth portal redirect to /portal/auth`
+- `fix(auth): respect customer mode and prioritize portal flow`
+- `docs(changelog): record auth/routing fixes`
+
+## [V6.1.21] - 2025-11-11 - Build System & Deploy‑Dokumente (Turborepo/Terraform) ✅
+
+### 🎯 Ziel
+- Dokumentation zur Turborepo‑Anpassung für React+Vite (ohne Next.js) und Deploy‑Strategien (Vercel sowie AWS S3+CloudFront via Terraform) hinzufügen. Pipeline‑Definition (`turbo.json`) aufnehmen.
+
+### 🔧 Änderungen
+- Neue Datei: `docs/BUILD_SYSTEM_TURBOREPO_ADAPTATION_V1.1.md` (Architektur, Pipelines, Caching, Struktur, Remote Caching optional).
+- Neue Datei: `docs/DEPLOY_TERRAFORM_OPTIONS_V1.1.md` (Vercel ohne Terraform vs. AWS S3+CloudFront mit Terraform, Schritte, Vor-/Nachteile, Beispielressourcen).
+- Pipeline: `turbo.json` hinzugefügt (minimale Tasks für Vite Build‑Artefakte, ohne Dev‑Workflow zu stören).
+- Docs‑Hub: Links in `docs/README.md` unter Development ergänzt.
+
+### 🗂️ Betroffene Dateien
+- `docs/BUILD_SYSTEM_TURBOREPO_ADAPTATION_V1.1.md`
+- `docs/DEPLOY_TERRAFORM_OPTIONS_V1.1.md`
+- `turbo.json`
+- `docs/README.md`
+
+### 🧪 QA
+- Konsistenz: Docs‑Links sichtbar im Docs‑Hub; Inhalte MD‑2024‑konform.
+- Build: Lokale `turbo run build` nutzt Cache; Vite‑Build weiterhin funktionsfähig.
+
+### 💬 Conventional Commit
+- `docs(build): add Turborepo adaptation guide and turbo.json pipeline`
+- `docs(deploy): add Terraform/Vercel/AWS options doc`
+
 ## [V6.1.19] - 2025-11-11 - AI/Agent-Härtung (Flags, Monitoring, ACL) ✅
 
 ### 🎯 Ziel
@@ -270,10 +320,21 @@ Alle wichtigen Änderungen am MyDispatch-Projekt werden in dieser Datei dokument
 - Neue Seite `src/pages/PageBuilder.tsx` mit GrapesJS (Preset Webpage, Export‑Funktion).
 - Feature‑Flag `page_builder` und Dev‑Override via `?force=1`.
  - NeXify‑Blöcke hinzugefügt: Hero, Trust Badges, Features‑Grid, Tarifkarten, FAQ, CTA.
- - Header‑UI mit Flag‑Toggle für `page_builder` integriert.
+- Header‑UI mit Flag‑Toggle für `page_builder` integriert.
 
 ### Changed
- - Seed‑Hero auf korrekte Tailwind‑Klassennamen (ohne `tw-`) umgestellt.
+- Seed‑Hero auf korrekte Tailwind‑Klassennamen (ohne `tw-`) umgestellt.
+
+## [V6.1.21] - 2025-11-11 - Studio SDK Integration (License & Route) ✅
+
+### Added
+- Seite `src/pages/StudioEditorPage.tsx` mit Studio SDK (Lizenz + Plugins).
+- Feature‑Flag `studio_editor` und Dev‑Override via `?force=1`.
+- Config `src/config/studio-sdk.ts` (License Public Key, Domains, Defaults, IDs via localStorage).
+- Geschützte Route `'/studio'` (Layout `main`, Rolle `master`).
+
+### Conventional Commit
+- `feat(studio): add Studio SDK page, license config, protected route`
 
 ### Notes
 - Nur intern nutzbar; Endkundenaktivierung erfolgt später per Flags/RBAC.
@@ -908,3 +969,30 @@ Format: `[Major.Minor.Patch]`
 
 ### Meta
 - Commit: `docs: add UI reconstruction analysis & plan v1.1.1 (draft)`
+## [V6.1.23] - 2025-11-11 - White Screen Hotfix (Service Worker Cache Reset) ✅
+
+### 🎯 Ziel
+- White‑Screen in Produktiv-/Browser‑Sitzungen durch veraltete gecachte Assets verhindern.
+
+### 🔧 Änderungen
+- `public/sw.js`: Message‑Handler (`VERSION_CHECK`, `CLEAR_CACHES`, `SKIP_WAITING`) implementiert.
+- `src/main.tsx`: Build‑Version an SW senden; bei Versionsabweichung gezieltes Cache‑Clearing + SkipWaiting auslösen; zusätzlich lokale `caches`/`localStorage`/`sessionStorage` bereinigen.
+
+### 🗂️ Betroffene Dateien
+- `public/sw.js`
+- `src/main.tsx`
+
+### 🧪 QA
+- Dev‑Server auf `http://127.0.0.1:5177/`; manuell Version geändert → Cache‑Reset und Reload erfolgreich; keine White‑Screen‑Effekte.
+
+### 💬 Conventional Commit
+- `fix(pwa): add sw message handlers and client cache reset on version change`
+## 2025-11-11 — v1.1.1
+### Changed
+- Default-Branch von `master` auf `main` migriert (lokal umbenannt, Remote gepusht).
+- CI/Pipeline-Dokumente und Tooling-Hinweise auf `main` aktualisiert.
+
+### Notes
+- Repository-Einstellung in GitHub: Default-Branch auf `main` setzen und Schutzregeln anpassen.
+- Optional: Remote-Branch `master` löschen nach Umstellung (`git push origin --delete master`).
+- Conventional Commit: `docs: migrate default branch master→main (update guides)`

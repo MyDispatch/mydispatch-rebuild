@@ -86,7 +86,7 @@ git push origin master
 1. Login to https://lovable.dev
 2. Navigate to Project "MyDispatch"
 3. Click "Deploy to Production"
-4. Select branch: `master`
+4. Select branch: `main`
 5. Confirm deployment
 
 **Step 3: Verify Deployment**

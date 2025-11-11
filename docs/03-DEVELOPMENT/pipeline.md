@@ -33,7 +33,7 @@
 
 ## GitKraken Richtlinien
 - Default Branch: `main` (angepasst in `.gitkraken`).
-- Protected Branches: `main`, `master`, `production`.
+- Protected Branches: `main`, `production`.
 - Git-Flow: aktiviert mit `develop` und Prefixes für Feature/Release/Hotfix.
 - Konventionelle Commits: aktiv, Template hinterlegt.
 - Hooks: Verwende Husky Hooks – GitKraken erkennt sie automatisch.

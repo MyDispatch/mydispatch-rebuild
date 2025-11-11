@@ -10,8 +10,7 @@ export default defineConfig(({ mode }) => {
     ? env.VITE_BASE_PATH
     : "/";
 
-  // Harmonize Dev Server & HMR ports to avoid WebSocket mismatches
-  // Prefer explicit VITE_DEV_PORT, fallback to PORT, then 5176
+  // Dev‑Port Steuerung: bevorzugt VITE_DEV_PORT/PORT, ansonsten Standard 5176
   const devPort = Number(env.VITE_DEV_PORT || env.PORT || 5176);
 
   return {
@@ -101,18 +100,12 @@ export default defineConfig(({ mode }) => {
     },
   },
 
-  // ✅ Dev Server Configuration to stabilize HMR WebSocket
+  // ✅ Dev‑Server: HMR ohne feste Port‑Vorgabe, damit CLI‑Overrides sauber greifen
   server: {
     host: '127.0.0.1',
     port: devPort,
-    strictPort: true,
-    hmr: {
-      protocol: 'ws',
-      host: '127.0.0.1',
-      port: devPort,
-      // Ensure client uses the same port to avoid HMR desync
-      clientPort: devPort,
-    },
+    strictPort: false,
+    // Kein explizites hmr.port/clientPort → Vite nutzt automatisch den Server‑Port
   },
   };
 });

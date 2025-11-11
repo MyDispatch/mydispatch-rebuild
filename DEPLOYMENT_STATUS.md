@@ -10,7 +10,7 @@
 
 ### GitHub:
 - ✅ **Commit:** `5bcf9058` erfolgreich gepusht
-- ✅ **Branch:** `master`
+- ✅ **Branch:** `main`
 - ✅ **51 Dateien** geändert
 - ✅ **11.953 Zeilen** hinzugefügt
 

@@ -606,7 +606,7 @@ return () => {
 
 ```yaml
 Supabase Directory: . (root)
-Production Branch: master
+Production Branch: main
 Deploy to Production: ✅ Enabled (on push including PR merges)
 Automatic Branching: ✅ Enabled (preview branches for PRs)
 Branch Limit: 50 preview branches

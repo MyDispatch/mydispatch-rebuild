@@ -71,6 +71,17 @@ export const routes: RouteConfig[] = [
       description: 'Public-Bereich mit vollständigem TailAdmin-Layout (Header, Sidebar, Footer)',
     },
   },
+  {
+    path: '/tools/supabase-config',
+    component: lazy(() => import('@/pages/tools/SupabaseConfig')),
+    layout: 'none',
+    protected: false,
+    meta: {
+      title: 'Supabase Konfiguration',
+      description: 'Debug-Panel zur lokalen Supabase-URL/Anon-Key Konfiguration und Validierung.',
+      canonical: '/tools/supabase-config',
+    },
+  },
   // Phase 4.1: Removed /design-preview (Dev-Tool, nicht für Production)
   // Phase 4.1: Removed /nexify-it-service (Duplicate zu /nexify-support)
   {
@@ -537,6 +548,20 @@ export const routes: RouteConfig[] = [
   },
 
   // ========== PROTECTED ROUTES (MAIN LAYOUT) ==========
+  {
+    path: '/studio',
+    component: lazy(() => import('@/pages/StudioEditorPage')),
+    protected: true,
+    requiredRole: 'master',
+    layout: 'main',
+    background: 'canvas',
+    meta: {
+      title: 'Studio Editor',
+      icon: FileText,
+      breadcrumb: 'Tools',
+      description: 'Lizenzierter GrapesJS Studio Editor (Beta)',
+    },
+  },
   {
     path: '/collab-studio',
     component: lazy(() => import('@/pages/tools/CollabStudio')),

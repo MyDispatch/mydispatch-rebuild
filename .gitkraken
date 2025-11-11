@@ -7,7 +7,7 @@
   },
   "git": {
     "defaultBranch": "main",
-    "protectedBranches": ["master", "main", "production"],
+  "protectedBranches": ["main", "production"],
     "conventionalCommits": true,
     "commitMessageTemplate": "type(scope): subject\n\nBody\n\nFooter"
   },

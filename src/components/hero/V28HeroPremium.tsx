@@ -15,6 +15,7 @@ import { LucideIcon } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { V28Hero3DBackgroundPremium } from '@/components/hero/V28Hero3DBackgroundPremium';
 import { TrustIndicators } from '@/components/business/TrustIndicators';
+import { usePWAInstall } from '@/hooks/use-pwa-install';
 
 interface V28HeroPremiumProps {
   variant: 'home' | 'features' | 'demo' | 'pricing';
@@ -44,7 +45,7 @@ export function V28HeroPremium({
   description,
   primaryCTA,
   secondaryCTA,
-  showPWAButton = false,
+  showPWAButton = true,
   visual,
   businessMetrics,
   trustElements = false,
@@ -53,6 +54,9 @@ export function V28HeroPremium({
     // V32.1: EINHEITLICHE Hero-Höhe für alle Variants (Design-Harmonisierung)
     return 'min-h-[650px] md:min-h-[750px]';
   };
+
+  // PWA Install – nur wenn explizit aktiviert
+  const { isInstallable, isIOS, promptInstall } = usePWAInstall();
 
   return (
     <section className={`relative ${getMinHeight()} flex items-center justify-center overflow-hidden`}>
@@ -133,7 +137,28 @@ export function V28HeroPremium({
           {primaryCTA.label}
         </V28Button>
 
-              {/* PWA Install Button - MAX 2 BUTTONS! */}
+              {/* Zweiter CTA: Entweder konventioneller Secondary oder PWA „App-Download“ */}
+              {showPWAButton ? (
+                <V28Button
+                  variant="secondary"
+                  size="lg"
+                  onClick={isIOS ? () => {
+                    // iOS: Hinweis zur manuellen Installation (Teilen → Zum Home-Bildschirm)
+                    alert('iOS: Öffne das Teilen-Menü und wähle „Zum Home-Bildschirm“.');
+                  } : promptInstall}
+                  disabled={!isInstallable && !isIOS}
+                >
+                  App-Download
+                </V28Button>
+              ) : secondaryCTA ? (
+                <V28Button
+                  variant="secondary"
+                  size="lg"
+                  onClick={secondaryCTA.onClick}
+                >
+                  {secondaryCTA.label}
+                </V28Button>
+              ) : null}
             </div>
 
             {/* Trust Indicators */}

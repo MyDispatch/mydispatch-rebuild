@@ -72,16 +72,17 @@ export function V28ChatWidget({ className }: V28ChatWidgetProps) {
   return (
     <>
       {/* Floating Action Button */}
-      <div className={cn("fixed z-[9999]", className, "bottom-4 right-4 sm:bottom-6 sm:right-6")}>
+      <div className={cn("fixed z-[9999] chat-fab", className, "bottom-4 right-4 sm:bottom-6 sm:right-6")}>
       <V28Button
         onClick={() => (isOpen ? setIsOpen(false) : handleChatOpen())}
         size="sm"
         className={cn(
-          "h-14 w-14 p-0 rounded-full shadow-lg",
+          "h-14 w-14 p-0 rounded-full shadow-lg transform-gpu",
           "bg-white text-slate-900 border border-slate-300 hover:bg-slate-50",
           "transition-all duration-200",
           "focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white",
-          "hover:scale-110"
+          // Mobile: kein Hover-Scale zur Vermeidung von Verzerrung; Desktop: dezentes Scale
+          "hover:scale-100 sm:hover:scale-105"
         )}
         aria-label={isOpen ? "Chat schließen" : "Chat öffnen"}
         aria-expanded={isOpen}
@@ -123,7 +124,7 @@ export function V28ChatWidget({ className }: V28ChatWidgetProps) {
               <V28Button
                 onClick={handleConsentApprove}
                 variant="primary"
-                className="flex-1 bg-slate-700 hover:bg-slate-800 text-white"
+                className="flex-1 bg-primary hover:bg-primary/90 text-primary-foreground"
               >
                 Zustimmen
               </V28Button>

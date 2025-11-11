@@ -54,6 +54,8 @@ Entwicklungsrichtlinien und Best Practices.
 - [🔄 Git Workflow](./DEVELOPMENT/GIT_WORKFLOW.md) - Versionskontrolle
 - [🧪 Testing Guide](./DEVELOPMENT/TESTING_GUIDE.md) - Teststrategien
 - [📦 Deployment](./DEVELOPMENT/DEPLOYMENT.md) - Build und Deployment
+ - [🏎️ Build System: Turborepo‑Anpassung (React+Vite, ohne Next.js)](./BUILD_SYSTEM_TURBOREPO_ADAPTATION_V1.1.md) - Pipelines, Caching, Struktur
+ - [🌐 Deploy‑Optionen (Terraform/Vercel/AWS S3+CloudFront)](./DEPLOY_TERRAFORM_OPTIONS_V1.1.md) - Strategien & IaC
 - [🐛 Debugging](./DEVELOPMENT/DEBUGGING.md) - Fehlerbehebung
 - [⚡ Performance](./DEVELOPMENT/PERFORMANCE.md) - Optimierung und Tuning
 - [🧭 React‑Vite Projektkonfiguration (NeXify)](../config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml) - Systemweite Standards & Spezifikationen

@@ -1,4 +1,5 @@
 @import "./styles/sidebar-bem.css";
+@import "./styles/mobile-fixes.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -50,6 +51,11 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Vollhöhe für einheitlichen Haupt-Scroll-Container */
+  html, body, #root {
+    height: 100%;
+  }
+
   * {
     border-color: hsl(var(--border));
   }
@@ -72,6 +78,18 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* Utility-Klassen für Design-Tokens (schnelle, robuste Abbildung) */
+@layer utilities {
+  .bg-background { background-color: hsl(var(--background)); }
+  .bg-surface { background-color: hsl(var(--surface)); }
+  .text-primary { color: hsl(var(--text-primary)); }
+  .text-secondary { color: hsl(var(--text-secondary)); }
+  .bg-primary { background-color: hsl(var(--primary)); }
+  .bg-secondary { background-color: hsl(var(--secondary)); }
+  .bg-accent { background-color: hsl(var(--accent)); }
+  .border-surface { border-color: hsl(var(--surface)); }
 }
 
 /* ==================================================================================
@@ -1204,10 +1222,29 @@
     color: white !important;
     border: 2px solid white !important;
     background-color: transparent !important;
+    transition: background-color 200ms var(--ease-standard), border-color 200ms var(--ease-standard);
   }
 
   .hero-cta-secondary:hover {
     background-color: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .hero-cta-secondary:active {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+  }
+
+  /* Touch-Freundlichkeit für Hero-CTAs */
+  .hero-cta-primary,
+  .hero-cta-secondary {
+    min-height: 48px;
+  }
+
+  /* Mobile-First: Secondary-CTA dezent hinterlegen für bessere Sichtbarkeit */
+  @media (max-width: 640px) {
+    .hero-cta-secondary {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+      border-color: rgba(255, 255, 255, 0.9) !important;
+    }
   }
 
   /* Hero Icons */

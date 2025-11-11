@@ -38,7 +38,8 @@ export function PortalRoute({ children }: PortalRouteProps) {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/auth?mode=customer" replace />;
+    // V43.x: Einheitliche Portal-Auth-Route verwenden
+    return <Navigate to="/portal/auth" replace />;
   }
 
   return <>{children}</>;

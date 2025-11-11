@@ -52,7 +52,7 @@ export function AuthHeader({
           {/* Logo */}
           <button
             onClick={handleNavigateHome}
-            className="max-w-[120px] sm:max-w-[160px] md:max-w-[180px] cursor-pointer hover:opacity-80 transition-opacity duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary bg-transparent border-none p-0"
+            className="max-w-[120px] sm:max-w-[160px] md:max-w-[180px] cursor-pointer hover:opacity-80 transition-opacity duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white hover:ring-0 hover:outline-none outline-none bg-transparent border-none p-0"
             aria-label="Zur Startseite"
           >
             <Logo />

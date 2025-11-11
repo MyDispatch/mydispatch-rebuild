@@ -1,0 +1,59 @@
+/* ==================================================================================
+   MOBILE BASELINE FIXES – MyDispatch V28.1
+   ==================================================================================
+   Ziel: Systemweite, vorsichtige Defaults für 100% Mobilfähigkeit
+   Umfang: Non-invasive, kompatibel mit bestehendem Tailwind-Setup
+   ================================================================================== */
+
+/* Tap-Highlight entfernen (iOS/Android) */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Medien skalieren sauber innerhalb von Containern */
+img, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Touch-Interaktion optimieren */
+button, a {
+  touch-action: manipulation;
+}
+
+/* Mobile Overscroll-Verhalten zähmen (keine Gummiband-Scrolls in Modals) */
+html, body {
+  overscroll-behavior: none;
+}
+
+/* Verhindere horizontales Scrollen durch versehentliche Überbreiten */
+html, body {
+  overflow-x: hidden;
+}
+
+/* Sichere Klick-Zielgrößen (WCAG, mobile) – baseline ohne Zwang */
+:where(button, [role="button"], a) {
+  min-height: 44px;
+}
+
+/* iOS Safe Area Support (z. B. bei Notch) */
+.safe-area-paddings {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* =============================================================
+   Mobile-First Spezifika – Verstecke dekorative Orbs
+   Breakpoints: <=640px (sm), zusätzlich robust für 375px/414px
+   ============================================================= */
+@media (max-width: 640px) {
+  .home-decor-orb { display: none !important; }
+}
+
+/* Zusätzliche Feinschliffe für sehr kleine Geräte */
+@media (max-width: 414px) {
+  .home-decor-orb { display: none !important; }
+}
+

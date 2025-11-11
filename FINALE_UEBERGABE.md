@@ -13,7 +13,7 @@ Das MyDispatch-Projekt wurde erfolgreich und vollumfänglich optimiert. Alle Anf
 **Harmonisierungs-Grad:** 95%  
 **SOLL-Zustand:** ✅ Erreicht  
 **Build-Status:** ✅ Erfolgreich (1m 24s)  
-**Git-Status:** ✅ Gepusht zum `master`-Branch
+**Git-Status:** ✅ Gepusht zum `main`-Branch
 
 ---
 

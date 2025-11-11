@@ -4,7 +4,7 @@ Ich habe die vollständige Automatisierung für das MyDispatch-Projekt eingerich
 
 ## 1. Vercel-Automatisierung
 
-- **Auto-Deploy:** Aktiviert für den `master`-Branch. Jeder Push zum `master`-Branch löst automatisch ein neues Production-Deployment aus.
+- **Auto-Deploy:** Aktiviert für den `main`-Branch. Jeder Push zum `main`-Branch löst automatisch ein neues Production-Deployment aus.
 - **GitHub-Integration:** Vercel ist jetzt korrekt mit dem GitHub-Repository verbunden.
 - **Production-URL:** https://www.my-dispatch.de
 

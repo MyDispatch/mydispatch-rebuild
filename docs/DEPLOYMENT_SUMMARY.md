@@ -2,7 +2,7 @@
 
 **Datum:** 2025-11-09  
 **Commit:** `5bc17621`  
-**Branch:** `master`  
+**Branch:** `main`
 **Status:** ✅ ERFOLGREICH DEPLOYED
 
 ---
@@ -171,7 +171,7 @@ Deletions: -71
 ### GitHub
 
 - ✅ Push erfolgreich
-- ✅ Branch: `master`
+- ✅ Branch: `main`
 - ✅ Commit: `5bc17621`
 - ⚠️ 1 Dependabot-Warnung (moderate, nicht kritisch)
 

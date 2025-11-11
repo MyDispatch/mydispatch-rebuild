@@ -197,12 +197,12 @@ Wie kann ich Ihnen helfen?`,
         </div>
         <V28Button
           variant="ghost"
-          size="sm"
+          size="md"
           onClick={onClose}
-          className="h-8 w-8 rounded-full hover:bg-slate-100"
+          className="h-12 w-12 rounded-lg text-slate-700 bg-slate-100 border border-slate-200 hover:bg-slate-200 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-slate-400"
           aria-label="Chat schließen"
         >
-          <X className="h-4 w-4" />
+          <X className="h-5 w-5" />
         </V28Button>
       </div>
 
@@ -295,12 +295,16 @@ Wie kann ich Ihnen helfen?`,
         <V28Button
           onClick={handleSend}
           disabled={!input.trim() || isLoading}
-          size="sm"
-          variant="primary"
-          className="disabled:opacity-50 disabled:cursor-not-allowed rounded-lg shrink-0 h-10 w-10"
+          size="md"
+          className={cn(
+            "rounded-lg shrink-0 h-12 w-12 transition-colors duration-300 focus-visible:ring-2 focus-visible:ring-primary/50",
+            input.trim() && !isLoading
+              ? "bg-slate-800 text-white hover:bg-slate-700 active:bg-slate-900"
+              : "bg-slate-300 text-slate-600"
+          )}
           aria-label="Nachricht senden"
         >
-          <Send className="h-4 w-4" />
+          <Send className="h-5 w-5" />
         </V28Button>
         </div>
         <p className="text-xs text-slate-500 mt-2 hidden sm:block">

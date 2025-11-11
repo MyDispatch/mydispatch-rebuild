@@ -128,4 +128,5 @@ export function toggleFeatureFlag(featureName: string, enabled: boolean) {
  * Kill Switch - Disable a feature immediately
  */
 export function killSwitch(featureName: string) {
-  return toggleFeatureFlag
+  return toggleFeatureFlag(featureName, false);
+}

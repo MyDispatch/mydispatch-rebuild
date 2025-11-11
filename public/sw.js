@@ -1,7 +1,12 @@
 // Service Worker für MyDispatch PWA
 // Version: 1.0.0
+// Hinweis: CACHE_NAME absichtlich generisch, tatsächliche Invalidierung erfolgt
+// über Nachrichten vom Client (Version-Handshake) und Activate-Cleanup.
 const CACHE_NAME = 'mydispatch-v1.0.0';
 const RUNTIME_CACHE = 'mydispatch-runtime';
+
+// Runtime Version, vom Client via Message gesetzt
+let CLIENT_BUILD_VERSION = null;
 
 // Assets to cache on install
 const PRECACHE_ASSETS = [
@@ -81,8 +86,31 @@ self.addEventListener('fetch', (event) => {
 
 // Message event - handle skipWaiting
 self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
+  if (!event.data) return;
+
+  // Sofortiger Aktivierungswechsel
+  if (event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+    return;
+  }
+
+  // Version vom Client setzen
+  if (event.data.type === 'VERSION_CHECK') {
+    CLIENT_BUILD_VERSION = event.data.version || null;
+    return;
+  }
+
+  // Caches gezielt löschen (White Screen Fix bei Version-Mismatch)
+  if (event.data.type === 'CLEAR_CACHES') {
+    event.waitUntil(
+      caches.keys().then((names) => Promise.all(names.map((n) => caches.delete(n)))).then(() => {
+        // Optional: Clients informieren
+        self.clients.matchAll().then((clients) => {
+          clients.forEach((client) => client.postMessage({ type: 'CACHES_CLEARED', version: CLIENT_BUILD_VERSION }));
+        });
+      })
+    );
+    return;
   }
 });
 

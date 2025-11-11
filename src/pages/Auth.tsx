@@ -274,6 +274,8 @@ export default function Auth() {
         component: 'Auth'
       });
 
+      const forcedCustomerMode = searchParams.get('mode') === 'customer';
+
       if (profile) {
         logger.debug('[Auth] Profile Data', {
           user_id: profile.user_id,
@@ -316,6 +318,25 @@ export default function Auth() {
             sessionStorage.removeItem('landing_company_id');
             navigate(`/${landingSlug}`);
             return;
+          }
+
+          // Wenn explizit Kundenmodus angefordert ist, Portalzugang prüfen und bevorzugen
+          if (forcedCustomerMode) {
+            const { data: customerForced } = await supabase
+              .from('customers')
+              .select('id, company_id, has_portal_access')
+              .eq('email', normalizedEmail)
+              .eq('has_portal_access', true)
+              .maybeSingle();
+
+            if (customerForced) {
+              logger.debug('[Auth] Forced customer mode – Portalzugang gefunden, Weiterleitung zu /portal', { component: 'Auth' });
+              sessionStorage.setItem('portal_mode', 'true');
+              sessionStorage.setItem('portal_customer_id', customerForced.id);
+              sessionStorage.setItem('portal_company_id', customerForced.company_id);
+              navigate('/portal');
+              return;
+            }
           }
 
           // Otherwise: Use standard redirect logic (Entrepreneur)

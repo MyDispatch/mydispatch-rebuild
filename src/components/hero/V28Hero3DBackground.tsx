@@ -71,7 +71,11 @@ export function V28Hero3DBackground() {
       />
 
       {/* Layer 3: Floating Orbs (starke Parallax) */}
-      <div ref={(el) => el && (layersRef.current[1] = el)} className="parallax-layer absolute inset-0">
+      <div
+        ref={(el) => el && (layersRef.current[1] = el)}
+        className="parallax-layer absolute inset-0 pointer-events-none z-0"
+        aria-hidden="true"
+      >
         {/* Orb 1 - Top Left */}
         <div 
           className="absolute top-1/4 left-1/4 w-96 h-96 bg-slate-300/30 rounded-full blur-3xl animate-float-vertical" 
@@ -92,7 +96,11 @@ export function V28Hero3DBackground() {
       </div>
 
       {/* Layer 4: Branchen-Icons (mittlere Parallax) */}
-      <div ref={(el) => el && (layersRef.current[2] = el)} className="parallax-layer absolute inset-0">
+      <div
+        ref={(el) => el && (layersRef.current[2] = el)}
+        className="parallax-layer absolute inset-0 pointer-events-none z-0"
+        aria-hidden="true"
+      >
         {/* Car Icon 1 - Top Right */}
         <div 
           className="absolute top-[15%] right-[20%] animate-float-vertical" 

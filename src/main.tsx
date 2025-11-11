@@ -97,22 +97,28 @@ window.addEventListener('error', (event: ErrorEvent) => {
       `;
       document.body.appendChild(errorDiv);
 
-      // Auto-reload after 3 seconds
-      setTimeout(() => location.reload(), 3000);
+      // Auto‑Reload nur in Produktion
+      if (import.meta.env.PROD) {
+        setTimeout(() => location.reload(), 3000);
+      }
       return;
     }
 
     // Default cache clearing and reload for other chunks
-    if ('caches' in window) {
-      caches.keys().then(names => {
-        names.forEach(name => caches.delete(name));
-      }).then(() => {
+    if (import.meta.env.PROD) {
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          names.forEach(name => caches.delete(name));
+        }).then(() => {
+          location.reload();
+        }).catch(() => {
+          location.reload();
+        });
+      } else {
         location.reload();
-      }).catch(() => {
-        location.reload();
-      });
+      }
     } else {
-      location.reload();
+      console.warn('⚠️ Chunk load failed in DEV – Auto‑Reload unterdrückt. Prüfe HMR/Port.');
     }
   }
 });
@@ -167,9 +173,20 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
 
       // Clean old caches on version change
       const buildVersion = 'v6.0.8-pre-login-complete-1730430000000';
+
+      // Version an SW kommunizieren (Handshake)
+      if (navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({ type: 'VERSION_CHECK', version: buildVersion });
+      }
       const storedVersion = localStorage.getItem('app-version');
 
       if (storedVersion !== buildVersion) {
+        // Caches im SW löschen, bevor wir lokal säubern (White Screen Fix)
+        if (navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_CACHES' });
+          navigator.serviceWorker.controller.postMessage({ type: 'SKIP_WAITING' });
+        }
+
         if ('caches' in window) {
           const cacheNames = await caches.keys();
           await Promise.all(

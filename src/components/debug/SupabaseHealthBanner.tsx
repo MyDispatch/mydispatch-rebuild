@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getSupabaseEnv } from '@/integrations/supabase/env';
+import { SupabaseConfigPanel } from './SupabaseConfigPanel';
 
 interface Status {
   ok: boolean;
@@ -8,6 +9,7 @@ interface Status {
 
 export function SupabaseHealthBanner() {
   const [status, setStatus] = useState<Status>({ ok: true });
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const { url, anonKey, isOfflineDev, usedDefaultAnon } = getSupabaseEnv();
@@ -44,10 +46,20 @@ export function SupabaseHealthBanner() {
 
   return (
     <div className="w-full bg-red-600 text-white text-sm px-4 py-2">
-      <div className="max-w-6xl mx-auto">
-        <strong>Systemkonfiguration fehlerhaft:</strong> {status.message}
-        <span className="ml-2">Bitte korrekten Anon-Key aus dem Supabase-Dashboard des Projekts eintragen.</span>
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div>
+          <strong>Systemkonfiguration fehlerhaft:</strong> {status.message}
+          <span className="ml-2">Bitte korrekten Anon-Key aus dem Supabase-Dashboard des Projekts eintragen.</span>
+          <div className="text-white/80 text-xs mt-1">
+            Origin: {typeof window !== 'undefined' ? window.location.origin : 'unknown'}
+          </div>
+        </div>
+        <button
+          className="rounded-md bg-white/10 px-3 py-1 text-white hover:bg-white/20"
+          onClick={() => setOpen(true)}
+        >Key jetzt eintragen</button>
       </div>
+      {open && <SupabaseConfigPanel onClose={() => setOpen(false)} />}
     </div>
   );
 }

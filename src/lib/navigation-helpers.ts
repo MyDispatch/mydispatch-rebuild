@@ -243,6 +243,7 @@ export function isPublicRoute(path: string): boolean {
     '/',
     '/home',
     '/auth',
+    '/portal/auth',
     '/pricing',
     '/faq',
     '/docs',
