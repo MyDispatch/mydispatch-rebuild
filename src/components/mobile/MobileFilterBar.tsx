@@ -35,7 +35,7 @@ export function MobileFilterBar({ filters, activeFilter, onFilterChange }: Mobil
               variant={activeFilter === filter.id ? 'secondary' : 'outline'}
               className={cn(
                 "ml-auto",
-                "group-hover:bg-primary group-hover:text-foreground"
+                "group-hover:bg-primary group-hover:text-primary-foreground"
               )}
             >
               {filter.count}

@@ -43,7 +43,7 @@ export function AuthHeader({
   return (
     <header 
       className={cn(
-        "fixed top-0 left-0 right-0 z-30 bg-gradient-to-b from-white to-slate-50 border-b border-slate-200 shadow-md h-16",
+        "fixed top-0 left-0 right-0 z-30 bg-white border-b border-slate-200 shadow-md h-16",
         className
       )}
     >

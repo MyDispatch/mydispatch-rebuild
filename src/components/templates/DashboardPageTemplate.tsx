@@ -142,9 +142,9 @@ export function DashboardPageTemplate({
         
         {/* Quick Actions Panel (NEU V2.0) */}
         {showQuickActionsPanel && (
-          <aside className="hidden xl:block w-80 shrink-0">
+          <div className="hidden xl:block w-80 shrink-0">
             {quickActionsPanelConfig?.contextWidget}
-          </aside>
+          </div>
         )}
       </div>
     </MainLayout>

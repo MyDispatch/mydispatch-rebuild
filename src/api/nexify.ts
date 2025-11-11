@@ -1,9 +1,20 @@
 import { logger } from '@/lib/logger';
+import { getSupabaseEnv } from '@/integrations/supabase/env';
 
-const API_BASE = (projectRef?: string) =>
-  `https://${projectRef || import.meta.env.VITE_SUPABASE_URL?.split('https://')[1]}.supabase.co/functions/v1`;
+// Zentrale Ableitung der Function-API-Basis aus validierten ENV-Werten
+const { url: SUPABASE_URL, anonKey: ANON_KEY, isOfflineDev } = getSupabaseEnv();
 
-const ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
+const SUPABASE_HOST = (() => {
+  if (!SUPABASE_URL) return '';
+  try {
+    const u = new URL(SUPABASE_URL);
+    return u.host || SUPABASE_URL.replace(/^https?:\/\//, '').replace(/\/$/, '');
+  } catch {
+    return SUPABASE_URL.replace(/^https?:\/\//, '').replace(/\/$/, '');
+  }
+})();
+
+const API_BASE = () => (!isOfflineDev && SUPABASE_HOST ? `https://${SUPABASE_HOST}/functions/v1` : '');
 
 export interface WikiSearchResult {
   title: string;
@@ -41,6 +52,10 @@ async function fetchJson<T>(url: string): Promise<NexifyResponse<T>> {
 
 async function tryBrainQuerySearch(q: string, limit = 5): Promise<NexifyResponse<{ results: WikiSearchResult[] }>> {
   const base = API_BASE();
+  if (!base) {
+    logger.warn('brain-query skipped: Supabase ENV invalid or offline');
+    return { success: false, error: 'supabase env invalid/offline' };
+  }
   const url = `${base}/brain-query?q=${encodeURIComponent(q)}&limit=${limit}`;
   try {
     const result = await fetchJson<{ results: WikiSearchResult[] }>(url);
@@ -53,6 +68,9 @@ async function tryBrainQuerySearch(q: string, limit = 5): Promise<NexifyResponse
 
 async function tryNexifyApiSearch(q: string, limit = 5): Promise<NexifyResponse<{ results: WikiSearchResult[] }>> {
   const base = API_BASE();
+  if (!base) {
+    return { success: false, error: 'supabase env invalid/offline' };
+  }
   const url = `${base}/nexify-api/wiki/search?q=${encodeURIComponent(q)}&limit=${limit}`;
   return fetchJson<{ results: WikiSearchResult[] }>(url);
 }
@@ -65,7 +83,9 @@ export async function searchWiki(q: string, limit = 5): Promise<NexifyResponse<{
 
 export async function loadWikiSessionInit(): Promise<NexifyResponse<{ session_data: WikiSessionData }>> {
   const base = API_BASE();
+  if (!base) {
+    return { success: false, error: 'supabase env invalid/offline' };
+  }
   const url = `${base}/nexify-api/wiki/session-init`;
   return fetchJson<{ session_data: WikiSessionData }>(url);
 }
-

@@ -6,8 +6,8 @@
    ✅ V28.1 Slate colors
    ================================================================================== */
 
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
+// Lazy load jsPDF and autoTable to reduce initial bundle size
+// Import only when PDF export is triggered
 
 export interface PDFExportOptions {
   title?: string;
@@ -42,6 +42,10 @@ export async function exportToPDF(
     orientation = 'portrait',
     pageSize = 'a4',
   } = options;
+
+  // Dynamically import PDF libraries
+  const jsPDF = (await import('jspdf')).default;
+  const autoTable = (await import('jspdf-autotable')).default;
 
   // Create PDF document
   const doc = new jsPDF({

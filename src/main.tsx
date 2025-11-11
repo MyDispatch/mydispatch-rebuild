@@ -131,8 +131,18 @@ if (import.meta.env.PROD) {
   onLCP((metric) => console.log('LCP:', metric.value));
 }
 
-// Register Service Worker for PWA
-if ('serviceWorker' in navigator) {
+// Service Worker Handling
+// DEV: Sicherstellen, dass keine SW-Registrierung aktiv ist (verursacht White Screen durch Cache/Scope-Konflikte)
+if (import.meta.env.DEV && 'serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((regs) => {
+    regs.forEach((reg) => reg.unregister());
+  }).catch(() => {
+    // Silent fail in Dev
+  });
+}
+
+// PROD: Service Worker nur in Produktion registrieren
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
       // Register new service worker

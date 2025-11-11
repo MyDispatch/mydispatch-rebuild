@@ -10,6 +10,10 @@ export default defineConfig(({ mode }) => {
     ? env.VITE_BASE_PATH
     : "/";
 
+  // Harmonize Dev Server & HMR ports to avoid WebSocket mismatches
+  // Prefer explicit VITE_DEV_PORT, fallback to PORT, then 5176
+  const devPort = Number(env.VITE_DEV_PORT || env.PORT || 5176);
+
   return {
     base,
     
@@ -94,6 +98,20 @@ export default defineConfig(({ mode }) => {
         drop_console: true, // Remove console.log in production
         drop_debugger: true,
       },
+    },
+  },
+
+  // ✅ Dev Server Configuration to stabilize HMR WebSocket
+  server: {
+    host: '127.0.0.1',
+    port: devPort,
+    strictPort: true,
+    hmr: {
+      protocol: 'ws',
+      host: '127.0.0.1',
+      port: devPort,
+      // Ensure client uses the same port to avoid HMR desync
+      clientPort: devPort,
     },
   },
   };

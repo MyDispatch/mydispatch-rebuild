@@ -11,7 +11,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { createApiClient, BookingWithRelations } from '@/lib/api';
 import { useAuth } from './use-auth';
 import { useAuditLogs } from './use-audit-logs';
-import { queryKeys } from '@/lib/query-client';
+import { queryKeys } from '@/lib/react-query/query-keys';
 import { handleError, handleSuccess } from '@/lib/error-handler';
 import { logger } from '@/lib/logger';
 import { useMemo } from 'react';
@@ -29,7 +29,7 @@ export const useBookings = () => {
 
   // Alle Aufträge abrufen (via API Layer)
   const { data: bookings, isLoading, error } = useQuery<BookingWithRelations[]>({
-    queryKey: queryKeys.bookings(profile?.company_id || ''),
+    queryKey: queryKeys.bookings.list({ companyId: profile?.company_id }),
     queryFn: async () => {
       if (!profile?.company_id) return [];
 
@@ -78,8 +78,8 @@ export const useBookings = () => {
       }
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.bookings(profile!.company_id!) });
-      queryClient.invalidateQueries({ queryKey: queryKeys.stats(profile!.company_id!) });
+      queryClient.invalidateQueries({ queryKey: queryKeys.bookings.lists() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.dashboardStats.list(profile!.company_id) });
       handleSuccess('Auftrag erfolgreich erstellt');
     },
     onError: (error: any) => {
@@ -125,8 +125,8 @@ export const useBookings = () => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.bookings(profile!.company_id!) });
-      queryClient.invalidateQueries({ queryKey: queryKeys.stats(profile!.company_id!) });
+      queryClient.invalidateQueries({ queryKey: queryKeys.bookings.lists() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.dashboardStats.list(profile!.company_id) });
       handleSuccess('Auftrag erfolgreich aktualisiert');
     },
     onError: (error: any) => {
@@ -161,8 +161,8 @@ export const useBookings = () => {
       }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.bookings(profile!.company_id!) });
-      queryClient.invalidateQueries({ queryKey: queryKeys.stats(profile!.company_id!) });
+      queryClient.invalidateQueries({ queryKey: queryKeys.bookings.lists() });
+      queryClient.invalidateQueries({ queryKey: queryKeys.dashboardStats.list(profile!.company_id) });
       handleSuccess('Auftrag archiviert');
     },
     onError: (error: any) => {

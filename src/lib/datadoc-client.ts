@@ -14,6 +14,7 @@
    ================================================================================== */
 
 import { logger } from './logger';
+import { isFeatureEnabled } from './feature-flags-client';
 
 interface DatadocConfig {
   baseUrl: string;
@@ -47,7 +48,10 @@ export class DatadocClient {
       baseUrl: 'https://api.datadoc.com/v1',
       keyId: import.meta.env.VITE_DATADOC_KEY_ID || '',
       apiKey: import.meta.env.VITE_DATADOC_API_KEY || '',
-      enabled: import.meta.env.PROD && !!import.meta.env.VITE_DATADOC_API_KEY,
+      enabled:
+        import.meta.env.PROD &&
+        !!import.meta.env.VITE_DATADOC_API_KEY &&
+        isFeatureEnabled('datadoc_monitoring'),
     };
 
     // Start auto-flush if enabled

@@ -119,11 +119,20 @@ export function MainLayout({ children, background = 'canvas' }: MainLayoutProps)
           transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
         }}
       >
+        {/* Skip-Link für Tastaturnutzer */}
+        <a
+          href="#main-content"
+          className="sr-only focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:px-3 focus-visible:py-2 focus-visible:bg-slate-900 focus-visible:text-white rounded-md"
+        >
+          Zum Inhalt springen
+        </a>
+
         {/* Header - passt sich an Sidebar-Breite an */}
         <Header sidebarExpanded={sidebarExpanded} />
 
         {/* Content - Fixed Height Container mit V28.1 Premium Scrollbar-los Design */}
         <main 
+          id="main-content"
           className={cn("overflow-y-auto overflow-x-hidden relative", bgClass)}
           style={{
             minHeight: 'calc(100vh - 64px)', // 100vh - Header (64px)
@@ -167,7 +176,9 @@ export function MainLayout({ children, background = 'canvas' }: MainLayoutProps)
             Quick Actions nicht verfügbar
           </div>
         }>
-          <aside 
+          <div 
+            role="complementary"
+            aria-label="Schnellzugriff Panel"
             className="fixed w-80 bg-transparent"
             style={{
               top: '88px',
@@ -184,7 +195,7 @@ export function MainLayout({ children, background = 'canvas' }: MainLayoutProps)
               maxHeight="calc(100vh - 176px)"
               compact={false}
             />
-          </aside>
+          </div>
         </ErrorBoundary>
       )}
 

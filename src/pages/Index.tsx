@@ -43,6 +43,7 @@ import {
   AreaChart, Area, PieChart, Pie, BarChart, Bar, 
   CartesianGrid, XAxis, YAxis, Tooltip, Legend, Cell, ResponsiveContainer 
 } from 'recharts';
+import { logger } from '@/lib/logger';
 
 // Smart Templates Import
 import { DataGrid } from '@/components/smart-templates';
@@ -134,6 +135,7 @@ export default function Index() {
   }, [navigate]);
 
   const handleNewBookingOpen = useCallback(() => {
+    logger.info('Quick Access: New Booking Open', { component: 'Dashboard', action: 'open_new_booking' });
     setShowNewBookingDialog(true);
   }, []);
 
@@ -148,22 +150,27 @@ export default function Index() {
 
   // ✅ Navigation Callbacks (Component-Scope Level)
   const handleNavigateToAuftraege = useCallback(() => {
+    logger.info('Quick Access: Navigate', { target: '/auftraege', component: 'Dashboard' });
     handleNavigate('/auftraege');
   }, [handleNavigate]);
 
   const handleNavigateToFinanzen = useCallback(() => {
+    logger.info('Quick Access: Navigate', { target: '/finanzen', component: 'Dashboard' });
     handleNavigate('/finanzen');
   }, [handleNavigate]);
 
   const handleNavigateToFahrer = useCallback(() => {
+    logger.info('Quick Access: Navigate', { target: '/fahrer', component: 'Dashboard' });
     handleNavigate('/fahrer');
   }, [handleNavigate]);
 
   const handleNavigateToFahrzeuge = useCallback(() => {
+    logger.info('Quick Access: Navigate', { target: '/fahrer?tab=fahrzeuge', component: 'Dashboard' });
     handleNavigate('/fahrer?tab=fahrzeuge');
   }, [handleNavigate]);
 
   const handleNavigateToSchichtzettel = useCallback(() => {
+    logger.info('Quick Access: Navigate', { target: '/schichtzettel', component: 'Dashboard' });
     handleNavigate('/schichtzettel');
   }, [handleNavigate]);
 
@@ -573,6 +580,73 @@ export default function Index() {
                 </V28Button>
               </div>
             </V28DashboardCard>
+          </div>
+        </V28DashboardSection>
+      </div>
+
+      {/* ✅ SCHNELLZUGRIFF (WCAG-konform, V28 Buttons) */}
+      <div className="px-6">
+        <V28DashboardSection background="white" className="pb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" role="group" aria-label="Schnellzugriffsbereich">
+            <V28Button
+              variant="primary"
+              onClick={handleNewBookingOpen}
+              aria-label="Neuen Auftrag erstellen"
+              className="justify-start"
+            >
+              <Plus className="h-4 w-4 mr-2" aria-hidden="true" />
+              Neuen Auftrag
+            </V28Button>
+
+            <V28Button
+              variant="secondary"
+              onClick={handleNavigateToAuftraege}
+              aria-label="Zu Aufträgen navigieren"
+              className="justify-start"
+            >
+              <FileText className="h-4 w-4 mr-2" aria-hidden="true" />
+              Aufträge
+            </V28Button>
+
+            <V28Button
+              variant="secondary"
+              onClick={handleNavigateToFinanzen}
+              aria-label="Zu Finanzen navigieren"
+              className="justify-start"
+            >
+              <Euro className="h-4 w-4 mr-2" aria-hidden="true" />
+              Finanzen
+            </V28Button>
+
+            <V28Button
+              variant="secondary"
+              onClick={handleNavigateToFahrer}
+              aria-label="Zu Fahrern navigieren"
+              className="justify-start"
+            >
+              <Users className="h-4 w-4 mr-2" aria-hidden="true" />
+              Fahrer
+            </V28Button>
+
+            <V28Button
+              variant="secondary"
+              onClick={handleNavigateToFahrzeuge}
+              aria-label="Zu Fahrzeugen navigieren"
+              className="justify-start"
+            >
+              <Car className="h-4 w-4 mr-2" aria-hidden="true" />
+              Fahrzeuge
+            </V28Button>
+
+            <V28Button
+              variant="secondary"
+              onClick={handleNavigateToSchichtzettel}
+              aria-label="Zu Schichtzetteln navigieren"
+              className="justify-start"
+            >
+              <Calendar className="h-4 w-4 mr-2" aria-hidden="true" />
+              Schichtzettel
+            </V28Button>
           </div>
         </V28DashboardSection>
       </div>

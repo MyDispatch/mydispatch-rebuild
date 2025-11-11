@@ -1,23 +1,15 @@
 # Dependencies
 node_modules/
-.pnp
+.pnp/
 .pnp.js
 
-# Testing
-coverage/
-.nyc_output/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-
-# Production
+# Production builds
 dist/
 build/
-*.local
+storybook-static/
+.out/
 
-# Environment variables
+# Environment files
 .env
 .env.local
 .env.development.local
@@ -25,41 +17,43 @@ build/
 .env.production.local
 .env*.local
 
-# IDE
+# Testing outputs
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Caches & temporary
+.vite/
+.cache/
+*.tmp
+*.temp
+
+# TypeScript
+*.tsbuildinfo
+
+# IDE & OS
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 .DS_Store
-
-# Vite
-.vite/
-*.tsbuildinfo
-
-# TypeScript
-*.tsbuildinfo
-
-# Storybook
-storybook-static/
-.out/
-
-# Playwright
-test-results/
-playwright-report/
-playwright/.cache/
-
-# Temporary files
-*.tmp
-*.temp
-.cache/
-
-# OS
 Thumbs.db
-.DS_Store
 
-# Supabase
+# Supabase local
 .supabase/
+supabase/.branches/
+supabase/.temp/
 
 # Terraform
 .terraform/
@@ -67,12 +61,11 @@ Thumbs.db
 *.tfstate.*
 .terraform.lock.hcl
 
-# Logs
-logs/
-*.log
-
-# Misc
+# Misc tools
 .eslintcache
 .stylelintcache
-
 .vercel
+node_modules
+node_modules
+node_modules
+node_modules

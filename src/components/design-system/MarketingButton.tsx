@@ -22,10 +22,10 @@ export interface MarketingButtonProps {
 export const MarketingButton = forwardRef<HTMLButtonElement, MarketingButtonProps>(
   ({ className, marketingVariant = 'hero-primary', children, variant = 'primary', ...props }, ref) => {
     const marketingClasses = {
-      'hero-primary': 'bg-primary text-foreground hover:bg-primary-glow hover:text-foreground hover:scale-105 shadow-2xl hover:shadow-primary/30 transition-all duration-300',
+      'hero-primary': 'bg-primary text-primary-foreground hover:bg-primary-glow hover:text-primary-foreground hover:scale-105 shadow-2xl hover:shadow-primary/30 transition-all duration-300',
       'hero-secondary': 'marketing-btn-hero-secondary !text-background bg-transparent hover:bg-background hover:!text-foreground hover:scale-105 backdrop-blur-sm transition-all duration-300',
-      'cta-primary': 'bg-primary text-foreground hover:bg-primary-glow hover:text-foreground hover:scale-105 shadow-lg hover:shadow-xl transition-all duration-300',
-      'cta-secondary': 'marketing-btn-cta-secondary bg-background text-foreground hover:bg-primary hover:text-foreground hover:scale-105 transition-all duration-300',
+      'cta-primary': 'bg-primary text-primary-foreground hover:bg-primary-glow hover:text-primary-foreground hover:scale-105 shadow-lg hover:shadow-xl transition-all duration-300',
+      'cta-secondary': 'marketing-btn-cta-secondary bg-background text-foreground hover:bg-primary hover:text-primary-foreground hover:scale-105 transition-all duration-300',
     };
 
     return (

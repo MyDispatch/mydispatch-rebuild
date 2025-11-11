@@ -432,7 +432,9 @@ export default function Dokumente() {
 
       {/* V35.0: Fixed Right Sidebar (Desktop only) */}
       {!isMobile && (
-        <aside 
+        <div 
+          role="complementary"
+          aria-label="Dokumente Schnellzugriff und Live-Status"
           className="fixed right-0 top-16 bottom-0 bg-white border-l border-slate-200 shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300"
           style={{
             width: '320px',
@@ -502,7 +504,7 @@ export default function Dokumente() {
               </div>
             </div>
           </div>
-        </aside>
+        </div>
       )}
     </>
   );

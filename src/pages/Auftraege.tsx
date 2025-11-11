@@ -1518,7 +1518,9 @@ export default function Auftraege() {
       
       {/* ✅ RIGHT SIDEBAR (320px, Desktop only) - AUFTRAEGE */}
       {!isMobile && (
-        <aside 
+        <div 
+          role="complementary"
+          aria-label="Aufträge Schnellzugriff und Live-Status"
           className="fixed right-0 top-16 bottom-0 w-80 bg-white border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block"
         >
           {/* Schnellzugriff Actions */}
@@ -1595,7 +1597,7 @@ export default function Auftraege() {
               </p>
             </div>
           </div>
-        </aside>
+        </div>
       )}
     </>
   );

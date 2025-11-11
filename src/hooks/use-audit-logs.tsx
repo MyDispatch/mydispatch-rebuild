@@ -55,7 +55,7 @@ export function useAuditLogs() {
     queryFn: async () => {
       if (!profile?.company_id) return [];
 
-      // Letzte 24 Stunden
+      // Letzte 24 Stunden (bis zu 83 Einträge)
       const yesterday = new Date();
       yesterday.setHours(yesterday.getHours() - 24);
 
@@ -65,7 +65,7 @@ export function useAuditLogs() {
         .eq('company_id', profile.company_id)
         .gte('created_at', yesterday.toISOString())
         .order('created_at', { ascending: false })
-        .limit(20);
+        .limit(83);
 
       if (error) throw error;
       return data as AuditLog[];

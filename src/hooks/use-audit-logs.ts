@@ -60,7 +60,7 @@ export function useAuditLogs() {
         .from('audit_logs')
         .select('*')
         .order('created_at', { ascending: false })
-        .limit(20);
+        .limit(83);
       
       if (error) throw error;
       return data || [];

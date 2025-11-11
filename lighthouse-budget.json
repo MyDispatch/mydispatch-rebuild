@@ -9,7 +9,7 @@
         },
         {
           "metric": "largest-contentful-paint",
-          "budget": 3000
+          "budget": 2500
         },
         {
           "metric": "interactive",
@@ -18,6 +18,14 @@
         {
           "metric": "speed-index",
           "budget": 3000
+        },
+        {
+          "metric": "total-blocking-time",
+          "budget": 300
+        },
+        {
+          "metric": "cumulative-layout-shift",
+          "budget": 0.1
         }
       ],
       "resourceSizes": [
@@ -31,6 +39,18 @@
         }
       ],
       "resourceCounts": [
+        {
+          "resourceType": "script",
+          "budget": 20
+        },
+        {
+          "resourceType": "image",
+          "budget": 30
+        },
+        {
+          "resourceType": "font",
+          "budget": 8
+        },
         {
           "resourceType": "third-party",
           "budget": 10

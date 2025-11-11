@@ -27,6 +27,7 @@ import {
   Shield
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { getSupabaseEnv } from '@/integrations/supabase/env';
 import { useAuth } from '@/hooks/use-auth';
 
 interface AgentAction {
@@ -94,12 +95,25 @@ export function AgentDashboard() {
 
   const monitorSystemHealth = async () => {
     try {
+      const { isOfflineDev, anonKey } = getSupabaseEnv();
+      if (isOfflineDev) {
+        setHealth({ database: 'offline', edge_functions: 'offline', cache: 'healthy', realtime: 'offline' });
+        return;
+      }
       // Database Health Check
       // ✅ V18.5.0: System Health Check - Public Query (kein company_id Filter nötig)
       const { error: dbError } = await supabase.from('companies').select('id').limit(1);
       
       // Edge Functions Health Check
-      const { error: efError } = await supabase.functions.invoke('health-check');
+      const headers = anonKey ? { apikey: anonKey, Authorization: `Bearer ${anonKey}` } : undefined;
+      let efError: any = null;
+      try {
+        const { error: edgeError } = await supabase.functions.invoke('health-check', { headers });
+        efError = edgeError || null;
+      } catch (e) {
+        // Graceful degradation if function not deployed
+        efError = e;
+      }
 
       setHealth({
         database: dbError ? 'degraded' : 'healthy',

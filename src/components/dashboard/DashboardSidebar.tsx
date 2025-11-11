@@ -125,7 +125,9 @@ export function DashboardSidebar({ sidebarExpanded }: DashboardSidebarProps) {
   }), [vehicles]);
 
   return (
-    <aside
+    <div
+      role="complementary"
+      aria-label="Dashboard Seitenleiste"
       className="absolute inset-0 bg-white border border-l-0 border-slate-200 pt-16 pb-16 shadow-lg transition-all flex flex-col z-10"
       data-sidebar
       style={{
@@ -504,6 +506,6 @@ export function DashboardSidebar({ sidebarExpanded }: DashboardSidebarProps) {
           />
         </div>
       </div>
-    </aside>
+    </div>
   );
 }

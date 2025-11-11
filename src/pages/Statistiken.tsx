@@ -367,9 +367,9 @@ const Statistiken = () => {
           />
         </div>
 
-        {/* ✅ V28.1: RIGHT SIDEBAR - Fixed 320px (hidden < md) - Design Tokens */}
+        {/* ✅ Live-Status Panel (Desktop only) – ohne aside */}
         {!isMobile && (
-          <aside className="fixed right-0 top-16 bottom-0 w-80 bg-card border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300">
+          <div className="fixed right-0 top-16 bottom-0 w-80 bg-card border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300">
             <div className="p-4 space-y-4">
               <div>
                 <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-3 flex items-center gap-2">
@@ -408,7 +408,7 @@ const Statistiken = () => {
                 </div>
               </div>
             </div>
-          </aside>
+          </div>
         )}
       </FeatureGate>
     </>

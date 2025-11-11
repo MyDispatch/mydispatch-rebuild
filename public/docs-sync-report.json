@@ -1,0 +1,8 @@
+{
+  "filesProcessed": 3,
+  "docs": [
+    { "path": "docs/README.md", "title": "📚 MyDispatch Dokumentation & Wiki" },
+    { "path": "docs/DOCUMENTATION_MAINTENANCE_POLICY_V1.1.md", "title": "📑 Dokumentationspflege-Policy (Ohne Jira)" },
+    { "path": "docs/SECRETS_REGISTRY.md", "title": "🔑 Secrets Registry" }
+  ]
+}

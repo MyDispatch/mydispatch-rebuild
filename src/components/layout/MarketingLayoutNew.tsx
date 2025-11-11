@@ -59,7 +59,8 @@ export function MarketingLayout({ children, currentPage = '', background = 'whit
     <div className="min-h-screen flex bg-background overflow-x-hidden max-w-full">
       {/* Marketing Sidebar - DESKTOP ONLY */}
       {!isMobile && (
-        <aside
+        <nav
+          role="navigation"
           className={cn(
             "fixed left-0 top-0 h-full bg-background z-40 flex flex-col shadow-sm border-r overflow-x-hidden scrollbar-visible",
             "transition-[width]",
@@ -85,7 +86,7 @@ export function MarketingLayout({ children, currentPage = '', background = 'whit
         </div>
 
         {/* Navigation Items */}
-        <nav 
+        <div 
           className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-visible"
           style={{
             padding: `${DESIGN_TOKENS.spacing.lg} ${DESIGN_TOKENS.spacing.md}`,
@@ -118,7 +119,7 @@ export function MarketingLayout({ children, currentPage = '', background = 'whit
               </Link>
             );
           })}
-        </nav>
+        </div>
 
         {/* Legal Section - Fade In/Out */}
         <div 
@@ -157,7 +158,7 @@ export function MarketingLayout({ children, currentPage = '', background = 'whit
             </>
           )}
         </div>
-        </aside>
+        </nav>
       )}
 
       {/* Main Content Area */}

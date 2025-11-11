@@ -18,6 +18,8 @@ export function MobileBottomNav() {
   return (
     <nav 
       className="fixed bottom-0 left-0 right-0 z-50 safe-area-bottom"
+      role="navigation"
+      aria-label="Mobile Hauptnavigation"
       style={{
         height: '64px',
         backgroundColor: DESIGN_TOKENS.colors.background,
@@ -36,8 +38,10 @@ export function MobileBottomNav() {
               to={item.url}
               className={cn(
                 "flex flex-col items-center justify-center touch-manipulation",
-                "transition-all"
+                "transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md"
               )}
+              aria-label={item.label}
+              aria-current={isActive ? 'page' : undefined}
               style={{
                 gap: DESIGN_TOKENS.spacing.xs,
                 padding: `${DESIGN_TOKENS.spacing.sm} ${DESIGN_TOKENS.spacing.md}`,
@@ -69,6 +73,7 @@ export function MobileBottomNav() {
                     ? designTokens.colors.slate[900] 
                     : DESIGN_TOKENS.colors.text.tertiary,
                 }} 
+                aria-hidden="true"
               />
               <span 
                 className="font-medium transition-colors"

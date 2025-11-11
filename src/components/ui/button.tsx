@@ -10,7 +10,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "btn-default bg-primary text-foreground hover:bg-primary-hover hover:text-foreground hover:shadow-md hover:scale-[1.02] active:scale-[0.98]",
+        default: "btn-default bg-primary text-primary-foreground hover:bg-primary-hover hover:text-primary-foreground hover:shadow-md hover:scale-[1.02] active:scale-[0.98]",
         destructive: "btn-destructive bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:shadow-md hover:scale-[1.02] active:scale-[0.98]",
         outline: "btn-outline bg-background hover:bg-primary/10 hover:border-primary hover:text-foreground hover:shadow-sm",
         secondary: "btn-secondary bg-secondary text-secondary-foreground hover:bg-secondary-hover hover:text-secondary-foreground hover:shadow-sm",
@@ -19,8 +19,8 @@ const buttonVariants = cva(
         quickAction: "btn-quick-action w-full justify-start text-foreground bg-transparent hover:bg-primary/10 hover:text-foreground hover:shadow-sm hover:scale-[1.01] active:scale-[0.99] hover:border-primary/20",
         "primary-filled": "bg-secondary text-background border border-secondary hover:bg-secondary-hover hover:text-background hover:shadow-md hover:scale-[1.02] active:scale-[0.98]",
         "primary-outline": "bg-transparent border-2 border-secondary text-secondary hover:bg-secondary hover:text-background hover:shadow-sm hover:scale-[1.02] active:scale-[0.98]",
-        "beige-filled": "bg-primary text-foreground border border-primary hover:bg-primary-hover hover:text-foreground hover:shadow-md hover:scale-[1.02] active:scale-[0.98]",
-        "quick-action-primary": "bg-slate-700 text-white border border-slate-700 hover:bg-slate-800 hover:text-white hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 font-medium",
+        "beige-filled": "bg-primary text-primary-foreground border border-primary hover:bg-primary-hover hover:text-primary-foreground hover:shadow-md hover:scale-[1.02] active:scale-[0.98]",
+        "quick-action-primary": "bg-primary text-slate-50 border border-primary hover:bg-primary/90 hover:text-slate-50 hover:shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 font-medium focus-visible:ring-primary",
       },
       size: {
         default: "h-10 px-4 py-2",

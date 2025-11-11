@@ -7,7 +7,8 @@
    ✅ Keine Security-Vulnerabilities
    ================================================================================== */
 
-import ExcelJS from 'exceljs';
+// Lazy load ExcelJS to avoid heavy bundle on initial load
+// This keeps export functionality tree-shaken until explicitly invoked
 
 export interface XLSXExportOptions {
   sheetName?: string;
@@ -27,6 +28,7 @@ export async function exportToXLSX(
   data: any[] | Record<string, any[]>,
   options: XLSXExportOptions = {}
 ): Promise<Blob> {
+  const ExcelJS = (await import('exceljs')).default;
   const {
     sheetName = 'Export',
     columnWidths,

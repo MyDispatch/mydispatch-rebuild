@@ -347,7 +347,7 @@ export default function DesignPreview() {
                     className={
                       plan.highlight 
                         ? 'w-full bg-secondary text-secondary-foreground hover:bg-secondary/90' 
-                        : 'w-full bg-primary text-foreground hover:bg-primary/90'
+                        : 'w-full bg-primary text-primary-foreground hover:bg-primary/90'
                     }
                     variant="primary"
                   >

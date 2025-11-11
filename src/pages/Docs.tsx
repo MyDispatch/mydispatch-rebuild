@@ -22,6 +22,7 @@ import { V28HeroPremium } from '@/components/hero';
 import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
 import { V28IconBox } from '@/components/design-system/V28IconBox';
 import { Play, FileCheck, Users, Car, Handshake, Calendar, TrendingUp, Settings, MessageSquare, BadgeCheck } from 'lucide-react';
+import { DocsRegistry } from '@/components/docs/DocsRegistry';
 
 const Docs = () => {
   const navigate = useNavigate();
@@ -233,6 +234,9 @@ const Docs = () => {
             );
           })}
         </div>
+
+        {/* Docs Registry (MD‑2024 aus Repo / Edge Function) */}
+        <DocsRegistry />
 
         {/* Support CTA */}
         <V28MarketingCard className="mt-12 bg-primary text-primary-foreground text-center">

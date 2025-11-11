@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { queryClient } from "@/lib/query-client";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
@@ -26,7 +27,9 @@ import { PageErrorBoundary } from "@/components/shared/PageErrorBoundary";
 import { GlobalErrorBoundary } from "@/components/debug/GlobalErrorBoundary";
 import { LovableBuildGuard, HydrationErrorGuard, PerformanceGuard } from "@/components/ErrorGuards";
 import { GlobalSearchDialog } from "@/components/search/GlobalSearchDialog";
+import { SupabaseHealthBanner } from "@/components/debug/SupabaseHealthBanner";
 import { IntelligentAIChat } from "@/components/shared/IntelligentAIChat";
+import { useFeatureFlag } from "@/lib/feature-flags-client";
 import { PWAInstallButton } from "@/components/shared/PWAInstallButton";
 import { AppSplash } from "@/components/shared/AppSplash";
 import { routes, type RouteConfig } from "@/config/routes.config.tsx";
@@ -34,6 +37,7 @@ import { usePricingValidation } from "@/hooks/use-pricing-validation";
 import { ScrollToTop } from "@/components/shared/ScrollToTop";
 import { initDocAISyncListener } from "@/lib/doc-ai-sync-listener";
 import { logger } from "@/lib/logger";
+import { IdleSessionGuard } from "@/components/security/IdleSessionGuard";
 
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -103,6 +107,7 @@ const RouteRenderer = ({ route }: { route: RouteConfig }) => {
 const App = () => {
   const [showSplash, setShowSplash] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const aiChatEnabled = useFeatureFlag('ai_chat_support');
 
   const helmetContext = useMemo(() => {
     try {
@@ -167,7 +172,9 @@ const App = () => {
                   <Toaster />
                   <Sonner />
                   <GlobalSearchDialog />
+                  <SupabaseHealthBanner />
                   <ScrollToTop />
+                  <IdleSessionGuard timeoutMinutes={15} warnMinutesBefore={1} />
                   
                   <Routes>
                     {routes.map((route) => (
@@ -183,10 +190,13 @@ const App = () => {
                   </Routes>
 
                   <PWAInstallButton />
-                  {isChatOpen && (
+                  {isChatOpen && aiChatEnabled && (
                     <IntelligentAIChat 
                       isPublicLanding={false}
                     />
+                  )}
+                  {import.meta.env.DEV && (
+                    <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />
                   )}
                     </TooltipProvider>
                   </SubscriptionProvider>

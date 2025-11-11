@@ -9,7 +9,7 @@
    ✅ Vibrant Professional Palette für bessere UX
    ================================================================================== */
 
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useMemo } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/use-auth';
 import { useAccountType } from '@/hooks/use-account-type';
@@ -150,16 +150,20 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
     })
   }), [company?.subscription_product_id, accountType]);
 
-  const visibleSections = menuStructure
-    .map(filterSection)
-    .filter(section => section.items.length > 0);
+  const visibleSections = useMemo(() => (
+    menuStructure
+      .map(filterSection)
+      .filter(section => section.items.length > 0)
+  ), [menuStructure, filterSection]);
 
   // Master-Account Menü ENTFERNT - Zugriff jetzt über Footer-Link
 
   // Keine dynamischen Items mehr - entfernt für bessere Übersichtlichkeit
 
   return (
-    <aside
+    <nav
+      role="navigation"
+      aria-label="Hauptnavigation"
       ref={sidebarRef}
       className={cn(
         "fixed left-0 top-0 h-full flex flex-col overflow-x-hidden transition-[width]",
@@ -175,16 +179,52 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Navigation Items - V33.0 Harmonisiert mit Pre-Login Design */}
-      <nav 
-        className="flex-1 overflow-y-auto"
+      {/* Toggle Button für persistente Expansion (WCAG, Keyboard) */}
+      <div
+        className={cn(
+          "sticky top-0 z-10",
+          expanded ? "px-3 pt-3" : "px-1 pt-3"
+        )}
+      >
+        <button
+          type="button"
+          onClick={() => setExpanded(!expanded)}
+          aria-label={expanded ? "Sidebar einklappen" : "Sidebar ausklappen"}
+          aria-expanded={expanded}
+          aria-controls="app-sidebar-menu"
+          className={cn(
+            "w-full flex items-center rounded-md transition-colors duration-300 min-h-[44px]",
+            expanded ? "justify-start" : "justify-center",
+            expanded
+              ? "bg-slate-100 text-slate-900 hover:bg-slate-200"
+              : "bg-transparent text-slate-700 hover:bg-slate-100"
+          )}
+          style={{
+            border: `1px solid ${designTokens.colors.slate[200]}`,
+          }}
+        >
+          <ChevronRight
+            className={cn(
+              "h-4 w-4 transition-transform",
+              expanded ? "rotate-180" : "rotate-0"
+            )}
+          />
+          {expanded && (
+            <span className="ml-2 text-xs font-medium">Navigation</span>
+          )}
+        </button>
+      </div>
+
+      {/* Navigation Items - V33.0 Harmonisiert mit Pre-Login Design | Styleguide v3.2 Anpassungen */}
+      <div 
+        id="app-sidebar-menu"
+        className="flex-1 overflow-y-auto scrollbar-hide"
         style={{
           paddingTop: '24px',
           paddingBottom: '16px',
-          paddingLeft: '12px',
-          paddingRight: '12px',
-          scrollbarWidth: 'none', // V36.0: Scrollbar verstecken wie MainLayout
-          msOverflowStyle: 'none', // IE/Edge
+          paddingLeft: '24px',
+          paddingRight: '24px',
+          // Sidebar-Menü darf scrollen, Scrollbalken bleiben verborgen
         }}
       >
         <div className="flex flex-col gap-6">
@@ -194,15 +234,15 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                 <h3 
                   className="text-[10px] font-semibold uppercase tracking-wider"
                   style={{
-                    color: designTokens.colors.slate[400], // Premium besserer Kontrast
+                    color: designTokens.colors.slate[500],
                     marginBottom: designTokens.spacing.sm, // 8px
-                    paddingLeft: designTokens.spacing.md, // 12px
+                    paddingLeft: '24px',
                   }}
                 >
                   {section.label}
                 </h3>
               )}
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-3 sidebar__list">
                 {section.items.map((item) => {
                   const IconComponent = item.icon;
                   const isActive = location.pathname === item.url;
@@ -219,21 +259,20 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                   const menuItem = (
                     <div
                       className={cn(
-                        "flex items-center rounded-lg text-sm font-medium transition-all duration-300 min-h-[44px] min-w-[44px]",
-                        !expanded && "justify-start",
+                        "flex items-center justify-start w-full rounded-lg text-sm font-medium transition-all duration-300 min-h-[44px] min-w-[44px] sidebar__item",
                         showUpgradeTooltip && "opacity-60",
                         isActive 
-                          ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-lg" // Premium leuchtender Active State
-                          : "text-slate-700 hover:bg-slate-100 hover:text-slate-900" // Besserer Kontrast
+                          ? "bg-blue-600 text-white shadow-sm"
+                          : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
                       )}
                       style={{
-                        padding: designTokens.spacing.md, // 12px
+                        padding: '10px 24px',
                         gap: designTokens.spacing.md, // 12px
                       }}
                     >
-                       <IconComponent className="h-5 w-5 shrink-0" />
+                      <IconComponent style={{ width: 20, height: 20 }} className="shrink-0" />
                       {expanded && (
-                        <span className="truncate whitespace-nowrap flex items-center flex-1 gap-2">
+                        <span className="truncate whitespace-nowrap flex items-center flex-1 gap-2 text-left sidebar__label">
                           {item.title}
                           {showUpgradeTooltip && (
                             <Lock className="ml-auto h-4 w-4 text-muted-foreground" />
@@ -249,7 +288,12 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                       <TooltipProvider key={item.title} delayDuration={300}>
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <div className="cursor-help">
+                            <div 
+                              className="cursor-help"
+                              role="menuitem"
+                              aria-disabled="true"
+                              tabIndex={-1}
+                            >
                               {menuItem}
                             </div>
                           </TooltipTrigger>
@@ -291,6 +335,12 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                       key={item.title}
                       to={item.url}
                       title={!expanded ? item.title : undefined}
+                      aria-label={item.title}
+                      aria-current={isActive ? 'page' : undefined}
+                      role="menuitem"
+                      className={cn(
+                        "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-transparent rounded-lg text-left",
+                      )}
                     >
                       {menuItem}
                     </NavLink>
@@ -300,14 +350,14 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
             </div>
           ))}
         </div>
-      </nav>
+      </div>
 
       {/* Legal Section - V26.1 Perfektionierte Abstände */}
       <div 
         className={cn("border-t transition-opacity duration-300", expanded ? "opacity-100" : "opacity-0")}
         style={{
           borderColor: designTokens.colors.slate[200],
-          padding: '12px',
+          padding: '24px',
         }}
       >
         {expanded && (
@@ -317,16 +367,16 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                 className="border-b"
                 style={{
                   marginBottom: '24px',
-                  paddingBottom: '12px',
+                  paddingBottom: '16px',
                   borderColor: designTokens.colors.slate[200],
                 }}
               >
                 <h3 
                   className="text-[10px] font-semibold uppercase tracking-wider"
                   style={{
-                    color: designTokens.colors.slate[300],
+                    color: designTokens.colors.slate[500],
                     marginBottom: '8px',
-                    paddingLeft: '12px',
+                    paddingLeft: '24px',
                   }}
                 >
                   Betreiber
@@ -336,7 +386,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                     onClick={() => navigate('/dashboard')}
                     className="w-full flex items-center text-xs rounded-md transition-all duration-300 whitespace-nowrap"
                     style={{
-                      padding: '8px 12px',
+                      padding: '10px 24px',
                       gap: '8px',
                       color: designTokens.colors.slate[600],
                       backgroundColor: 'transparent',
@@ -350,14 +400,14 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                       e.currentTarget.style.backgroundColor = 'transparent';
                     }}
                   >
-                    <Shield className="h-4 w-4" />
+                    <Shield className="h-6 w-6" />
                     Master-Dashboard
                   </button>
                   <button
                     onClick={() => navigate('/kronos')}
                     className="w-full flex items-center text-xs rounded-md transition-all duration-300 whitespace-nowrap"
                     style={{
-                      padding: '8px 12px',
+                      padding: '10px 24px',
                       gap: '8px',
                       color: designTokens.colors.slate[600],
                       backgroundColor: 'transparent',
@@ -371,7 +421,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                       e.currentTarget.style.backgroundColor = 'transparent';
                     }}
                   >
-                    <Zap className="h-4 w-4" />
+                    <Zap className="h-6 w-6" />
                     KRONOS Executor
                   </button>
                 </nav>
@@ -380,9 +430,9 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
             <h3 
               className="text-[10px] font-semibold uppercase tracking-wider"
               style={{
-                color: designTokens.colors.slate[300],
+                color: designTokens.colors.slate[500],
                 marginBottom: '8px',
-                paddingLeft: '12px',
+                paddingLeft: '24px',
               }}
             >
               Rechtliches
@@ -391,10 +441,10 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
               {['Impressum', 'Datenschutz', 'AGB'].map((label) => (
                 <button
                   key={label}
-                  onClick={() => navigate(`/${label.toLowerCase()}`)}
+                  onClick={() => navigate(`/legal/${label.toLowerCase()}`)}
                   className="w-full text-left rounded-md transition-all duration-300 whitespace-nowrap"
                   style={{
-                    padding: '8px 12px',
+                    padding: '10px 24px',
                     fontSize: '12px',
                     color: designTokens.colors.slate[600],
                     backgroundColor: 'transparent',
@@ -415,6 +465,6 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
           </>
         )}
       </div>
-    </aside>
+    </nav>
   );
 }

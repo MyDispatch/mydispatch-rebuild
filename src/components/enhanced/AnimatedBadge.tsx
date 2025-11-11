@@ -21,11 +21,11 @@ export function AnimatedBadge({
 }: AnimatedBadgeProps) {
   // ✅ CI-KONFORM: Semantic Tokens statt direkter Farben
   const variants = {
-    default: 'bg-primary text-foreground',
+    default: 'bg-primary text-primary-foreground',
     success: 'bg-status-success text-status-success-foreground',
     warning: 'bg-status-warning text-status-warning-foreground',
     error: 'bg-status-error text-status-error-foreground',
-    info: 'bg-primary text-foreground'
+    info: 'bg-primary text-primary-foreground'
   };
 
   const glowColors = {

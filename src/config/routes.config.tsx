@@ -552,7 +552,7 @@ export const routes: RouteConfig[] = [
   },
   {
     path: '/dashboard',
-    component: lazy(() => import('@/pages/Index')),
+    component: lazy(() => import('@/pages/Dashboard')),
     protected: true,
     layout: 'main',
     background: 'orbs-light',
@@ -814,6 +814,7 @@ export const routes: RouteConfig[] = [
     protected: true,
     layout: 'main',
     background: 'orbs-light',
+    requiredRole: 'master',
     meta: {
       title: 'Agent-Dashboard',
       icon: ShieldCheck,
@@ -872,6 +873,19 @@ export const routes: RouteConfig[] = [
       icon: Rocket,
       breadcrumb: 'Go-Live Control',
       description: 'Phase 3 Autonomous Go-Live Execution',
+    },
+  },
+  {
+    path: '/page-builder',
+    component: lazy(() => import('@/pages/PageBuilder')),
+    protected: true,
+    layout: 'main',
+    requiredRole: 'master',
+    meta: {
+      title: 'Page Builder',
+      icon: Palette,
+      breadcrumb: 'Page Builder',
+      description: 'Visueller Seiteneditor (GrapesJS) – hinter Feature-Flag geschützt',
     },
   },
   {

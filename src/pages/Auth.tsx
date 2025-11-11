@@ -160,6 +160,22 @@ export default function Auth() {
     e.preventDefault();
     setLoading(true);
 
+    // Basic client-side brute-force protection
+    const MAX_ATTEMPTS = 5;
+    const LOCKOUT_MINUTES = 15;
+    const now = Date.now();
+    const lockUntilRaw = localStorage.getItem('auth_lock_until');
+    const lockUntil = lockUntilRaw ? parseInt(lockUntilRaw, 10) : 0;
+    if (lockUntil && now < lockUntil) {
+      toast({
+        title: 'Vorübergehend gesperrt',
+        description: 'Zu viele fehlgeschlagene Versuche. Bitte versuchen Sie es später erneut.',
+        variant: 'destructive',
+      });
+      setLoading(false);
+      return;
+    }
+
     const formData = new FormData(e.currentTarget);
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
@@ -211,6 +227,14 @@ export default function Auth() {
           errorMessage = 'Dieser Account existiert nicht. Bitte registrieren Sie sich zuerst.';
         }
 
+        // Track failed attempts
+        const attemptsRaw = localStorage.getItem('auth_failed_attempts') || '0';
+        const attempts = parseInt(attemptsRaw, 10) + 1;
+        localStorage.setItem('auth_failed_attempts', String(attempts));
+        if (attempts >= MAX_ATTEMPTS) {
+          const until = Date.now() + LOCKOUT_MINUTES * 60 * 1000;
+          localStorage.setItem('auth_lock_until', String(until));
+        }
         throw new Error(errorMessage);
       }
 
@@ -354,8 +378,9 @@ export default function Auth() {
         duration: 5000, // Show longer for debugging
       });
 
-      // If invalid credentials, suggest password reset
-      if (errorMessage.includes('falsch') || errorMessage.includes('Invalid login credentials')) {
+      // If invalid credentials, suggest password reset (exclude system config errors)
+      const isSystemConfigError = errorMessage.includes('Invalid API key') || errorMessage.toLowerCase().includes('api key');
+      if (!isSystemConfigError && (errorMessage.includes('falsch') || errorMessage.includes('Invalid login credentials'))) {
         // Optionally show password reset hint
         setTimeout(() => {
           toast({
@@ -365,7 +390,14 @@ export default function Auth() {
           });
         }, 2000);
       }
+
+      // Reset brute-force window on successful waits; no-op here
     } finally {
+      if (!localStorage.getItem('auth_lock_until')) {
+        // light backoff: brief delay before allowing another attempt
+        setTimeout(() => setLoading(false), 500);
+        return;
+      }
       setLoading(false);
     }
   };

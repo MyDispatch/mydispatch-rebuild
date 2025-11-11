@@ -1,0 +1,126 @@
+/* ==================================================================================
+   MyDispatch Design System V18.5.0 — Slate-based, WCAG AA
+   - HSL color tokens, status colors, sidebar, charts, premium shadows
+   - Dark mode overrides
+   ================================================================================== */
+
+:root {
+    /* Base tokens */
+    --background: 0 0% 100%;
+    --foreground: 215 25% 27%; /* slate-700 */
+
+    --primary: 215 25% 27%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 40% 96%; /* slate-100 */
+    --secondary-foreground: 215 25% 27%;
+
+    --muted: 214 32% 91%;     /* slate-200 */
+    --muted-foreground: 215 20% 65%; /* slate-500 */
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 215 25% 27%;
+
+    --radius: 0.5rem;
+
+    /* Status (traffic-light) */
+    --status-success: 142 76% 36%;
+    --status-success-foreground: 0 0% 100%;
+    --status-success-hover: 142 76% 32%;
+
+    --status-warning: 48 96% 53%;
+    --status-warning-foreground: 0 0% 0%;
+    --status-warning-hover: 48 96% 48%;
+
+    --status-error: 0 84% 60%;
+    --status-error-foreground: 0 0% 100%;
+    --status-error-hover: 0 84% 55%;
+
+    /* Portals */
+    --portal-fahrer: 210 40% 98%;
+    --portal-fahrer-foreground: 215 25% 27%;
+
+    --portal-kunde: 210 40% 98%;
+    --portal-kunde-foreground: 215 25% 27%;
+
+    --portal-public: 0 0% 100%;
+    --portal-public-foreground: 215 25% 27%;
+
+    /* Video interface */
+    --video-background: 215 25% 16%;
+    --video-foreground: 0 0% 100%;
+
+    /* Sidebar */
+    --sidebar-background: 210 40% 98%; /* slate-50 */
+    --sidebar-foreground: 215 25% 27%; /* slate-700 */
+    --sidebar-primary: 215 25% 27%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 215 25% 27%;
+
+    /* Charts */
+    --chart-primary: 215 25% 45%;  /* slate-600 */
+    --chart-secondary: 215 20% 65%;/* slate-500 */
+    --chart-tertiary: 215 16% 47%; /* alt slate-600 */
+    --chart-grid: 214 32% 91%;     /* slate-200 */
+
+    /* Premium shadows (rgba slate-based) */
+    --shadow-xs: 0 1px 2px 0 rgba(51,65,85,0.05);
+    --shadow-sm: 0 1px 3px 0 rgba(51,65,85,0.12), 0 1px 2px -1px rgba(51,65,85,0.08);
+    --shadow-md: 0 4px 6px -1px rgba(51,65,85,0.14), 0 2px 4px -2px rgba(51,65,85,0.10);
+    --shadow-lg: 0 10px 15px -3px rgba(51,65,85,0.14), 0 4px 6px -4px rgba(51,65,85,0.10);
+    --shadow-xl: 0 20px 25px -5px rgba(51,65,85,0.14), 0 8px 10px -6px rgba(51,65,85,0.08);
+    --shadow-2xl: 0 25px 50px -12px rgba(51,65,85,0.28);
+}
+
+/* Dark mode overrides */
+.dark {
+    --background: 224 71% 4%;       /* slate-950 */
+    --foreground: 213 31% 91%;      /* slate-200 */
+
+    --primary: 213 27% 84%;         /* lighter slate */
+    --primary-foreground: 224 71% 4%;
+
+    --secondary: 215 27% 17%;       /* slate-800 */
+    --secondary-foreground: 213 31% 91%;
+
+    --muted: 215 16% 27%;           /* slate-700/600 */
+    --muted-foreground: 217 19% 70%; /* slate-400 */
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 213 31% 91%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 27% 17%;
+    --input: 215 27% 17%;
+    --ring: 213 31% 91%;
+
+    /* Sidebar */
+    --sidebar-background: 223 47% 7%;
+    --sidebar-foreground: 213 31% 91%;
+    --sidebar-primary: 213 27% 84%;
+    --sidebar-primary-foreground: 224 71% 4%;
+    --sidebar-border: 215 27% 17%;
+    --sidebar-ring: 213 31% 91%;
+
+    /* Charts (dark variants) */
+    --chart-primary: 213 27% 74%;
+    --chart-secondary: 217 19% 70%;
+    --chart-tertiary: 215 16% 57%;
+    --chart-grid: 215 27% 17%;
+}

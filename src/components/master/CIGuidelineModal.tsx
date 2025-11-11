@@ -98,7 +98,7 @@ export function CIGuidelineModal() {
     {
       icon: Palette,
       title: "NIEMALS Direkte Farben",
-      correct: "text-foreground bg-primary",
+  correct: "text-primary-foreground bg-primary",
       wrong: "text-white bg-[hsl(42,49%,78%)]",
       reason: "Semantic Tokens für Theme-Support"
     },

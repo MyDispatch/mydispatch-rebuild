@@ -48,7 +48,7 @@
     "workbench.localization": "de",
     "window.restoreWindows": "all",
     "window.openFoldersInNewWindow": "off",
-    "window.openFilesInNewWindow": "off"
+    "window.openFilesInNewWindow": "off",
+    "git.ignoreLimitWarning": true
   }
 }
-

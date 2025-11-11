@@ -1,0 +1,3561 @@
+﻿{
+  "filesProcessed": 889,
+  "docs": [
+    {
+      "path": "docs/01-GETTING-STARTED/Quick-Reference.md",
+      "title": "ÔÜí Quick Reference"
+    },
+    {
+      "path": "docs/01-GETTING-STARTED/Setup.md",
+      "title": "­ƒÜÇ Setup Guide"
+    },
+    {
+      "path": "docs/02-ARCHITECTURE/Component-Library.md",
+      "title": "­ƒôª Component Library"
+    },
+    {
+      "path": "docs/02-ARCHITECTURE/Database-Schema.md",
+      "title": "­ƒùä´©Å Database Schema"
+    },
+    {
+      "path": "docs/02-ARCHITECTURE/Design-System.md",
+      "title": "­ƒÄ¿ Design System"
+    },
+    {
+      "path": "docs/02-ARCHITECTURE/Overview.md",
+      "title": "­ƒÅù´©Å Architecture Overview"
+    },
+    {
+      "path": "docs/03-DEVELOPMENT/Coding-Standards.md",
+      "title": "­ƒÆ╗ Coding Standards"
+    },
+    {
+      "path": "docs/03-DEVELOPMENT/Deployment.md",
+      "title": "­ƒÜÇ Deployment Guide"
+    },
+    {
+      "path": "docs/03-DEVELOPMENT/Performance.md",
+      "title": "ÔÜí Performance Guide"
+    },
+    {
+      "path": "docs/03-DEVELOPMENT/pipeline.md",
+      "title": "MyDispatch Pipeline & GitKraken Konfiguration (V45.0)"
+    },
+    {
+      "path": "docs/03-DEVELOPMENT/Testing.md",
+      "title": "­ƒº¬ Testing Guide"
+    },
+    {
+      "path": "docs/04-GOVERNANCE/Legal-Compliance.md",
+      "title": "ÔÜû´©Å Legal Compliance"
+    },
+    {
+      "path": "docs/04-GOVERNANCE/Quality-Gates.md",
+      "title": "Ô£à Quality Gates"
+    },
+    {
+      "path": "docs/04-GOVERNANCE/Security.md",
+      "title": "­ƒöÉ Security Guidelines"
+    },
+    {
+      "path": "docs/AAA-TRIPLE-CHECK_PROMPT.md",
+      "title": ""
+    },
+    {
+      "path": "docs/AAA_STANDARD_WORKFLOW.md",
+      "title": ""
+    },
+    {
+      "path": "docs/ABH├äNGIGKEITEN_MATRIX_V1.0.md",
+      "title": "ABH├äNGIGKEITEN-MATRIX V1.0"
+    },
+    {
+      "path": "docs/ABSOLUTE_PERFECTION_V28.2.15_COMPLETE.md",
+      "title": "­ƒîƒ ABSOLUTE PERFECTION V28.2.15 - COMPLETE"
+    },
+    {
+      "path": "docs/ABSOLUT_VORGABEN_FINAL.md",
+      "title": "­ƒÜ¿ ABSOLUT UNUMGEHBARE ULTIMATIVE VORGABE: PRE-BEREICH FINALISIEREN & SYSTEM COMPLETE OPTIMIEREN"
+    },
+    {
+      "path": "docs/ACCESSIBILITY_GOVERNANCE_V19.0.0.md",
+      "title": "ÔÖ┐ ACCESSIBILITY GOVERNANCE V19.0.0"
+    },
+    {
+      "path": "docs/AGENT_DEBUG_SYSTEM_V18.3.25.md",
+      "title": "AGENT DEBUG SYSTEM V18.3.25"
+    },
+    {
+      "path": "docs/AI_AGENT_LAYOUT_FREEZE_PROMPT_V18.5.1.md",
+      "title": "AI-Agent Layout Freeze Prompt V18.5.1"
+    },
+    {
+      "path": "docs/AI_AGENT_LAYOUT_PATTERN_ENFORCEMENT_V18.6.md",
+      "title": "­ƒñû AI AGENT - LAYOUT PATTERN ENFORCEMENT V18.6"
+    },
+    {
+      "path": "docs/AI_CODE_GUARDIAN_V26.0.md",
+      "title": "­ƒøí´©Å AI CODE GUARDIAN V26.0 - COMPREHENSIVE CODE QUALITY SYSTEM"
+    },
+    {
+      "path": "docs/AI_ERROR_PREDICTION.md",
+      "title": "­ƒñû AI-POWERED ERROR PREDICTION"
+    },
+    {
+      "path": "docs/AI_INTEGRATION_V18.3.30.md",
+      "title": "­ƒñû AI-INTEGRATION - MyDispatch V18.3.30"
+    },
+    {
+      "path": "docs/AI_MODEL_GOVERNANCE_V26.0.md",
+      "title": ""
+    },
+    {
+      "path": "docs/AI_PROJEKT_ASSISTENT_V4.0.md",
+      "title": "­ƒºá PROJECT MEMORY - Lovable AI Agent Ged├ñchtnis"
+    },
+    {
+      "path": "docs/AI_PROMPTS_SYSTEM_V18.5.0.md",
+      "title": "AI-PROMPTS SYSTEM V18.5.0"
+    },
+    {
+      "path": "docs/AI_SYSTEM_ARCHITECTURE_V18.5.0.md",
+      "title": "­ƒñû AI-SYSTEM ARCHITEKTUR V18.5.0"
+    },
+    {
+      "path": "docs/ANALYSE_IST_ZUSTAND_V1.0.md",
+      "title": "ANALYSE IST-ZUSTAND (MyDispatch Frontend)"
+    },
+    {
+      "path": "docs/API_CONNECTION_MASTER_PLAN.md",
+      "title": "­ƒöî API CONNECTION MASTER PLAN V28.2.0"
+    },
+    {
+      "path": "docs/API_DOCUMENTATION_V18.3.29.md",
+      "title": "­ƒöî API DOCUMENTATION V18.3.29"
+    },
+    {
+      "path": "docs/API_FLOW_DIAGRAMS.md",
+      "title": "­ƒöä API FLOW DIAGRAMS V28.2.0"
+    },
+    {
+      "path": "docs/API_KEYS_MANAGEMENT.md",
+      "title": "­ƒöÉ API-KEYS VERWALTUNG - SICHERHEITSDOKUMENTATION"
+    },
+    {
+      "path": "docs/API_NEXIFY.md",
+      "title": "NEXIFY API ÔÇô Edge Function Gateway"
+    },
+    {
+      "path": "docs/API_SECRETS_MANAGEMENT_V18.5.0.md",
+      "title": "API & SECRETS MANAGEMENT V18.5.0"
+    },
+    {
+      "path": "docs/APP_PAGE_TEMPLATE_V18.5.1.md",
+      "title": "APP PAGE TEMPLATE V18.5.1"
+    },
+    {
+      "path": "docs/ARBEITSSTATUS_V26.0_SESSION.md",
+      "title": "­ƒôï ARBEITSSTATUS V26.0 - AKTUELLE SESSION"
+    },
+    {
+      "path": "docs/ARBEITSWEISE_STANDARDS_V18.5.0.md",
+      "title": "ARBEITSWEISE-STANDARDS V18.5.0"
+    },
+    {
+      "path": "docs/ARCHITECTURE/SIDEBAR_OPEN_STATE_V1.1.md",
+      "title": "­ƒº¡ Sidebar Open-State Architektur & Optimierung"
+    },
+    {
+      "path": "docs/archive/ARCHIVIERUNGSSYSTEM_V18.3.28.md",
+      "title": "­ƒôª ARCHIVIERUNGSSYSTEM V18.3.28"
+    },
+    {
+      "path": "docs/archive/deprecated/dashboardinfoboard/PHASE_1_V28_DASHBOARD_INFOBOARD_COMPLETE.md",
+      "title": "Ô£à PHASE 1 COMPLETE: V28 Dashboard InfoBoard Integration"
+    },
+    {
+      "path": "docs/archive/deprecated/dashboardinfoboard/README.md",
+      "title": "ÔÜá´©Å DEPRECATED DOCUMENTATION - ARCHIVED 2025-01-31"
+    },
+    {
+      "path": "docs/archive/deprecated/dashboardinfoboard/V26_INFOBOARD_SYSTEM.md",
+      "title": "V26.0 INFOBOARD SYSTEM"
+    },
+    {
+      "path": "docs/archive/deprecated/dashboardinfoboard/V30.0_SYSTEMWIDE_PREMIUM_DESIGN_COMPLETE.md",
+      "title": "Ô£à V30.0 SYSTEMWIDE PREMIUM DESIGN - COMPLETE IMPLEMENTATION"
+    },
+    {
+      "path": "docs/archive/deprecated/dashboardinfoboard/V31.0_PHASE_1_2_COMPLETE.md",
+      "title": "­ƒÄë PHASE 1+2 IMPLEMENTATION COMPLETE - V31.0"
+    },
+    {
+      "path": "docs/archive/deprecated/dashboardinfoboard/V31.5_PHASE_1_2_4_COMPLETE.md",
+      "title": "Ô£à V31.5.0 PHASE 1+2+4 COMPLETE"
+    },
+    {
+      "path": "docs/archive/V26_DESIGN_SYSTEM_DEPRECATED.md",
+      "title": "ÔÜá´©Å V26 DESIGN SYSTEM - DEPRECATED"
+    },
+    {
+      "path": "docs/ARCHIVIERUNGSSYSTEM_V18.5.9.md",
+      "title": "­ƒôª ARCHIVIERUNGSSYSTEM V18.5.9"
+    },
+    {
+      "path": "docs/ASSETS_LIBRARY_V18.5.0.md",
+      "title": "ASSETS LIBRARY V18.5.0"
+    },
+    {
+      "path": "docs/ASSET_MANAGEMENT_SYSTEM_V18.5.0.md",
+      "title": "ASSET-MANAGEMENT SYSTEM V18.5.0"
+    },
+    {
+      "path": "docs/AUTH_DESIGN_LOCK_V28.1.md",
+      "title": "AUTH-SEITE DESIGN LOCK V28.1"
+    },
+    {
+      "path": "docs/AUTH_FORM_IMPROVEMENTS.md",
+      "title": "Ô£à AUTH FORM IMPROVEMENTS - SESSION 2025-10-28"
+    },
+    {
+      "path": "docs/AUTH_PAGE_FINAL_V28.1.md",
+      "title": "­ƒöÉ AUTH PAGE FINAL V28.1 - VOLLST├äNDIGE DOKUMENTATION"
+    },
+    {
+      "path": "docs/AUTH_REFACTORING_ERRORS.md",
+      "title": "­ƒÜ¿ AUTH REFACTORING - VOLLST├äNDIGE FEHLER-DOKUMENTATION"
+    },
+    {
+      "path": "docs/AUTOMATED_QUALITY_CHECKS_V18.5.0.md",
+      "title": "AUTOMATED QUALITY CHECKS V18.5.0"
+    },
+    {
+      "path": "docs/AUTOMATED_QUALITY_CHECKS_V18.5.1.md",
+      "title": "­ƒñû AUTOMATED QUALITY CHECKS V18.5.1"
+    },
+    {
+      "path": "docs/AUTOMATION_PIPELINE_V18.5.0.md",
+      "title": "AUTOMATISIERUNGS-PIPELINE V18.5.0"
+    },
+    {
+      "path": "docs/AUTOMATION_VALIDATION_REPORT_V3.0.md",
+      "title": "­ƒöì AUTOMATION VALIDATION REPORT V3.0"
+    },
+    {
+      "path": "docs/AUTOMATISIERUNGS_PIPELINE_V18.5.0.md",
+      "title": "AUTOMATISIERUNGS-PIPELINE V18.5.0"
+    },
+    {
+      "path": "docs/AUTONOMOUS_AGENT_MODE_V18.3.25.md",
+      "title": "­ƒñû AUTONOMOUS AGENT MODE V18.3.25"
+    },
+    {
+      "path": "docs/AUTONOMOUS_OPTIMIZATION_SYSTEM_V18.5.0.md",
+      "title": "­ƒñû AUTONOMES OPTIMIERUNGSSYSTEM V18.5.0"
+    },
+    {
+      "path": "docs/AUTONOMOUS_SYSTEM_README.md",
+      "title": "­ƒñû MyDispatch Autonomous Development System"
+    },
+    {
+      "path": "docs/AUTO_LOAD_KOMPLETT.md",
+      "title": "­ƒöä AUTO-LOAD KOMPLETT - VOLLST├äNDIGE KONFIGURATION"
+    },
+    {
+      "path": "docs/AVOIDABLE_ERRORS.md",
+      "title": "­ƒöì RADIKAL EHRLICHER FEHLERVERMEIDUNGS-PROMPT"
+    },
+    {
+      "path": "docs/AVOIDABLE_ERRORS_V18.5.2.md",
+      "title": "ÔØî AVOIDABLE ERRORS LOG - V18.5.2"
+    },
+    {
+      "path": "docs/BACKEND_FRONTEND_INTEGRATION_V18.5.1.md",
+      "title": "Backend-Frontend Integration System V18.5.1"
+    },
+    {
+      "path": "docs/BACKEND_FRONTEND_MAPPING_V18.5.0.md",
+      "title": "BACKEND-FRONTEND MAPPING V18.5.0"
+    },
+    {
+      "path": "docs/BACKGROUND_SYSTEM_V33.4.md",
+      "title": "­ƒÄ¿ BACKGROUND-SYSTEM V33.4 - ROUTING-BASED CONTROL"
+    },
+    {
+      "path": "docs/BACKUP_LOG.md",
+      "title": "­ƒÆ¥ BACKUP & RECOVERY LOG - MyDispatch"
+    },
+    {
+      "path": "docs/BATCH_11_EIGENST├äNDIGE_ANALYSE_CQR_V18.5.1.md",
+      "title": "BATCH 11: Eigenst├ñndige Analyse & CQR V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_12_PERFORMANCE_MONITORING_V18.5.1.md",
+      "title": "BATCH 12: Performance Monitoring V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_13_SECURITY_DOCUMENTATION_AUDIT_V18.5.1.md",
+      "title": "BATCH 13: Security & Documentation Audit V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_14_META_PROMPT_LAYOUT_VALIDATION_V18.5.1.md",
+      "title": "BATCH 14: Meta-Prompt Integration & Layout Validation V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_15_SECURITY_DEFINER_VIEW_FIX_V18.5.1.md",
+      "title": "BATCH 15: Security Definer View Fix V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_17.1_REACT_QUERY_FACTORY_MIGRATION_V18.5.3.md",
+      "title": "BATCH 17.1 - REACT QUERY FACTORY MIGRATION V18.5.3"
+    },
+    {
+      "path": "docs/BATCH_17_CODE_GOVERNANCE_ENFORCEMENT_V18.5.1.md",
+      "title": "­ƒöÆ BATCH 17: CODE-GOVERNANCE ENFORCEMENT V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_17_REACT_QUERY_CONSOLIDATION_V18.5.1.md",
+      "title": "BATCH 17: React Query Consolidation V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_18.1_DASHBOARD_SECURITY_SEPARATION_V18.5.1.md",
+      "title": "­ƒöÆ BATCH 18.1: DASHBOARD SECURITY SEPARATION V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_18.1_MARKETING_SEITEN_V18.5.8.md",
+      "title": "­ƒôÜ BATCH 18.1: MARKETING-SEITEN SPEZIFIKATIONEN V18.5.8"
+    },
+    {
+      "path": "docs/BATCH_18_DOKUMENTATIONS_HARMONISIERUNG_V18.5.7.md",
+      "title": "­ƒôÜ BATCH 18: DOKUMENTATIONS-HARMONISIERUNG V18.5.7"
+    },
+    {
+      "path": "docs/BATCH_18_TRAFFIC_API_RESILIENCE_V18.5.1.md",
+      "title": "BATCH 18: Traffic API Resilience & Rate-Limit Handling"
+    },
+    {
+      "path": "docs/BATCH_19_DOC_AI_SYNC_AUTOMATION_V18.5.1.md",
+      "title": "BATCH 19 + 19.1: Doc-AI Sync Automation & Confidence System"
+    },
+    {
+      "path": "docs/BATCH_19_REAL_TIME_INDEXING_V18.5.8.md",
+      "title": "­ƒôª BATCH #19: REAL-TIME INDEXING & ARCA-INTEGRATION V18.5.8"
+    },
+    {
+      "path": "docs/BATCH_20.1_DOKUMENTEN_AUDIT_V18.5.10.md",
+      "title": "­ƒôï BATCH 20.1: Dokumenten-Audit & IST-Zustand-Wahrheit V18.5.10"
+    },
+    {
+      "path": "docs/BATCH_20.2_CORE_ASSURANCE_TESTS_V18.5.10.md",
+      "title": "­ƒøí´©Å BATCH 20.2: Core-Assurance-Tests Implementation V18.5.10"
+    },
+    {
+      "path": "docs/BATCH_20_KNOWLEDGE_CLEANUP_V18.5.9.md",
+      "title": "­ƒôª BATCH 20: KNOWLEDGE CLEAN-UP V18.5.9"
+    },
+    {
+      "path": "docs/BATCH_3_DESIGN_HARMONIZATION_V18.5.1.md",
+      "title": "BATCH 3: Design-Harmonisierung V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_4_LAYOUT_FREEZE_INTEGRATION_V18.5.1.md",
+      "title": "BATCH 4: Layout Freeze Integration V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_5_DESIGN_HARMONY_CLEANUP_V18.5.1.md",
+      "title": "BATCH 5: DESIGN HARMONY & CLEANUP V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_6_WATCHDOG_AI_DEVELOPMENT_V18.5.1.md",
+      "title": "BATCH 6: WATCHDOG-AI DEVELOPMENT V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_7_DATADOC_INTEGRATION_V18.5.1.md",
+      "title": "BATCH 7: DATADOC-INTEGRATION V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_8_OBSERVABILITY_AUTOMATION_V18.5.1.md",
+      "title": "BATCH 8: OBSERVABILITY & AUTOMATION V18.5.1"
+    },
+    {
+      "path": "docs/BATCH_9_ALERT_SYSTEM_V18.5.1.md",
+      "title": "BATCH 9: INTELLIGENT ALERT-SYSTEM V18.5.1"
+    },
+    {
+      "path": "docs/BAUPLAN_V18.5.0.md",
+      "title": "MYDISPATCH V18.5.0 - TECHNISCHER BAUPLAN"
+    },
+    {
+      "path": "docs/BEREIT_ZUM_NEUSTART.md",
+      "title": "Ô£à BEREIT ZUM NEUSTART"
+    },
+    {
+      "path": "docs/BEST├äTIGUNGS_PROMPT_V18.3.25.md",
+      "title": "­ƒÄ» SYSTEMWEITE EXZELLENZ & AUTONOME LEITUNG"
+    },
+    {
+      "path": "docs/BEST├äTIGUNGS_PROMPT_V18.3.26.md",
+      "title": "ULTIMATIVER BEST├äTIGUNGS-PROMPT V18.3.26 EXTENDED PERFECTED"
+    },
+    {
+      "path": "docs/BEST├äTIGUNGS_PROMPT_V18.3.27.md",
+      "title": "­ƒÄ» SYSTEMWEITE EXZELLENZ & AUTONOME QUALIT├äTSSICHERUNG"
+    },
+    {
+      "path": "docs/BEST├äTIGUNGS_PROMPT_V18.3.29.md",
+      "title": "­ƒÄ» SYSTEMWEITE EXZELLENZ & AUTONOME LEITUNG"
+    },
+    {
+      "path": "docs/BEST├äTIGUNGS_PROMPT_V18.3.30.md",
+      "title": "[ SYSTEMWEITE EXZELLENZ & AUTONOME LEITUNG ]"
+    },
+    {
+      "path": "docs/BEST├äTIGUNGS_PROMPT_V18.5.0.md",
+      "title": "BEST├äTIGUNGS-PROMPT V18.5.0 - SYSTEMWEITER PRODUKTIONS-STANDARD"
+    },
+    {
+      "path": "docs/BLOCK_3.1_DISPOSITION_TRACKING_COMPLETE.md",
+      "title": "Ô£à BLOCK 3.1 COMPLETE: Disposition & Tracking Migration"
+    },
+    {
+      "path": "docs/BRANDING_VORGABEN_V18.3.24_FINAL.md",
+      "title": "­ƒÄ¿ BRANDING-VORGABEN MYDISPATCH V18.3.24 FINAL"
+    },
+    {
+      "path": "docs/BREAKING_CHANGE_SIMULATOR_V1.0.md",
+      "title": "­ƒÜ¿ BREAKING CHANGE SIMULATOR V1.0"
+    },
+    {
+      "path": "docs/BUNDLE_OPTIMIZATION_2025.md",
+      "title": "­ƒÜÇ BUNDLE-OPTIMIERUNG 2025 - PERFORMANCE-STEIGERUNG DURCH LAZY LOADING"
+    },
+    {
+      "path": "docs/BUTTON_AUDIT_REPORT_V28.md",
+      "title": "BUTTON AUDIT REPORT V28.2.20"
+    },
+    {
+      "path": "docs/BUTTON_GUIDELINES.md",
+      "title": "MyDispatch Button-Richtlinien (SYSTEMWEIT)"
+    },
+    {
+      "path": "docs/BUTTON_MIGRATION_COMPLETION_REPORT.md",
+      "title": "Ô£à BUTTON MIGRATION COMPLETION REPORT - V28Button"
+    },
+    {
+      "path": "docs/BUTTON_USAGE_GUIDE_V18.5.0.md",
+      "title": "BUTTON USAGE GUIDE V18.5.0"
+    },
+    {
+      "path": "docs/CACHE_CLEARING_SOLUTION_V18.5.1.md",
+      "title": "Cache-Clearing Solution V18.5.1"
+    },
+    {
+      "path": "docs/CACHE_CLEAR_GUIDE.md",
+      "title": "CACHE-CLEAR GUIDE - ├änderungen nicht sichtbar?"
+    },
+    {
+      "path": "docs/CARD_LAYOUT_SYSTEM_V18.5.0.md",
+      "title": "CARD LAYOUT SYSTEM V18.5.0"
+    },
+    {
+      "path": "docs/CARD_POSITIONING_SYSTEM_V26.0.md",
+      "title": "­ƒÄ» CARD POSITIONING SYSTEM V26.0 - ABSOLUTE KONSISTENZ"
+    },
+    {
+      "path": "docs/CHANGELOG.md",
+      "title": "­ƒôØ CHANGELOG - MyDispatch Development History"
+    },
+    {
+      "path": "docs/CHANGELOG_V18.3.30.md",
+      "title": "Changelog V18.3.30 - Landingpage-Konsolidierung"
+    },
+    {
+      "path": "docs/CHANGELOG_V18.3.30_FINAL.md",
+      "title": "Changelog V18.3.30 - FINALE SYSTEMWEITE OPTIMIERUNG"
+    },
+    {
+      "path": "docs/CHAT_WIDGET_INTEGRATION.md",
+      "title": "­ƒù¿´©Å V28 Chat Widget - Zentrale Integration"
+    },
+    {
+      "path": "docs/CICD_PIPELINE_VOLLSTAENDIG.md",
+      "title": "­ƒÜÇ VOLLST├äNDIGE CI/CD PIPELINE MIT GITHUB ACTIONS"
+    },
+    {
+      "path": "docs/CICD_SELF_HEALING.md",
+      "title": "­ƒöº Self-Healing CI/CD Pipeline"
+    },
+    {
+      "path": "docs/CI_CD_EXPANSION_V18.5.1.md",
+      "title": "CI/CD Pipeline Expansion V18.5.1"
+    },
+    {
+      "path": "docs/CI_CD_INTEGRATION_V18.3.29.md",
+      "title": "­ƒÜÇ CI/CD INTEGRATION V18.3.29 - GitHub Actions"
+    },
+    {
+      "path": "docs/CI_COMMIT_MESSAGE.md",
+      "title": "­ƒÜÇ CI/CD COMMIT MESSAGE DRAFT"
+    },
+    {
+      "path": "docs/CI_DESIGN_GOVERNANCE_V18.5.0.md",
+      "title": ""
+    },
+    {
+      "path": "docs/CI_HANDBUCH_V18.5.0.md",
+      "title": "CORPORATE IDENTITY HANDBUCH V18.5.0"
+    },
+    {
+      "path": "docs/CLEANUP_STABILISIERUNG_PLAN_V3.0.md",
+      "title": "­ƒÄ» CLEANUP & STABILISIERUNGS-PLAN V3.0 - MYDISPATCH"
+    },
+    {
+      "path": "docs/CODE_QUALITY_AUDIT_V32.2.md",
+      "title": "­ƒöì CODE QUALITY AUDIT V32.2"
+    },
+    {
+      "path": "docs/CODE_QUALITY_AUDIT_V32.3.md",
+      "title": "­ƒôè CODE QUALITY AUDIT V32.3 - POST-MIGRATION"
+    },
+    {
+      "path": "docs/CODE_QUALITY_SYSTEM_V18.5.2.md",
+      "title": "CODE QUALITY SYSTEM V18.5.2"
+    },
+    {
+      "path": "docs/CODE_STANDARDS_V18.5.0.md",
+      "title": "CODE-STANDARDS V18.5.0 (PROFESSIONAL)"
+    },
+    {
+      "path": "docs/CODING_STANDARDS_V18.3.29.md",
+      "title": "­ƒÆ╗ CODING STANDARDS V18.3.29"
+    },
+    {
+      "path": "docs/COLLABORATION_OPTIMIZATION_V18.5.1.md",
+      "title": "­ƒñØ COLLABORATION OPTIMIZATION V18.5.1"
+    },
+    {
+      "path": "docs/COLOR_EXCEPTIONS.md",
+      "title": "COLOR EXCEPTIONS V32.1"
+    },
+    {
+      "path": "docs/Commit_Summary_V26.1_Phase1.md",
+      "title": "­ƒÄ» Commit Summary: V26.1 Phase 1 - Dashboard Widgets Migration"
+    },
+    {
+      "path": "docs/COMPLETE_ERROR_ANALYSIS_V18.5.1.md",
+      "title": "Vollst├ñndige Fehleranalyse & L├Âsungsplan V18.5.1"
+    },
+    {
+      "path": "docs/COMPLETE_IMPLEMENTATION_V28.3.md",
+      "title": "Ô£à COMPLETE IMPLEMENTATION V28.3 - ALL PHASES DONE"
+    },
+    {
+      "path": "docs/COMPLETE_SYSTEM_ANALYSIS_V18.5.1.md",
+      "title": "Vollst├ñndige System-Analyse V18.5.1"
+    },
+    {
+      "path": "docs/COMPLIANCE_AUDIT_V18.5.0.md",
+      "title": "­ƒöì COMPLIANCE AUDIT V18.5.0"
+    },
+    {
+      "path": "docs/COMPONENT_DEPENDENCY_GRAPH.md",
+      "title": "­ƒöù COMPONENT DEPENDENCY GRAPH V28.2.0"
+    },
+    {
+      "path": "docs/COMPONENT_LIBRARY_V18.5.1.md",
+      "title": "COMPONENT LIBRARY V18.5.1 - MYDISPATCH"
+    },
+    {
+      "path": "docs/COMPONENT_REGISTRY.md",
+      "title": "COMPONENT REGISTRY V28.1"
+    },
+    {
+      "path": "docs/COMPONENT_REGISTRY_V28.1.md",
+      "title": "­ƒôª COMPONENT REGISTRY V28.1 - MyDispatch"
+    },
+    {
+      "path": "docs/COMPONENT_USAGE_GUIDE.md",
+      "title": "­ƒÄ¿ COMPONENT USAGE GUIDE - V28.1"
+    },
+    {
+      "path": "docs/CONFIG_SYSTEM_IMPLEMENTATION.md",
+      "title": "Ô£à CONFIG SYSTEM IMPLEMENTATION - COMPLETE"
+    },
+    {
+      "path": "docs/CONSOLE_LOG_ELIMINATION_GUIDE.md",
+      "title": "Console-Log Elimination Guide - Production-Ready Pattern"
+    },
+    {
+      "path": "docs/CONSOLE_LOG_MIGRATION_V18.3.29.md",
+      "title": "­ƒôï CONSOLE-LOG COMPLIANCE MIGRATION V18.3.29"
+    },
+    {
+      "path": "docs/CONTENT_COPY_STANDARDS_V18.5.0.md",
+      "title": "MyDispatch Content & Copy Standards"
+    },
+    {
+      "path": "docs/CONTENT_MANAGEMENT_SYSTEM_V18.3.28.md",
+      "title": "­ƒôÜ Content-Management-System (CMS) - MyDispatch V18.3.28"
+    },
+    {
+      "path": "docs/CONTENT_WRITING_STANDARDS_V26.0.md",
+      "title": "CONTENT WRITING STANDARDS V26.0 \"BALANCED\""
+    },
+    {
+      "path": "docs/CQR_OFFENE_FRAGEN_V18.5.1.md",
+      "title": "CQR - Offene Fragen / Queries V18.5.1"
+    },
+    {
+      "path": "docs/CRITICAL_ISSUES_RESOLVED_V1.0.md",
+      "title": "­ƒÜ¿ CRITICAL ISSUES - RESOLUTION GUIDE V1.0"
+    },
+    {
+      "path": "docs/CSS_SPECIFICITY_RULES_V26.0.md",
+      "title": "­ƒÄ¿ CSS SPECIFICITY RULES V26.0 - BORDER MANAGEMENT"
+    },
+    {
+      "path": "docs/CURRENCY_GUIDELINES.md",
+      "title": "MyDispatch W├ñhrungs-Richtlinien (SYSTEMWEIT)"
+    },
+    {
+      "path": "docs/CURSOR_AUTO_APPROVAL_CONFIG.md",
+      "title": "­ƒñû CURSOR AUTO-APPROVAL KONFIGURATION"
+    },
+    {
+      "path": "docs/CURSOR_AUTO_APPROVAL_FIX.md",
+      "title": "­ƒöº CURSOR AUTO-APPROVAL FIX"
+    },
+    {
+      "path": "docs/CURSOR_EINSTELLUNGEN_ZUR_BESTAETIGUNG.md",
+      "title": "Ô£à CURSOR EINSTELLUNGEN - ZUR BEST├äTIGUNG"
+    },
+    {
+      "path": "docs/CURSOR_KONFIGURATION_ABGESCHLOSSEN.md",
+      "title": "Ô£à CURSOR KONFIGURATION - ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/CURSOR_PROMPT_EXTENSIONS_SETUP.md",
+      "title": "Cursor Prompt Extensions - Setup Guide"
+    },
+    {
+      "path": "docs/CURSOR_SETTINGS_VOLLSTAENDIG_OPTIMIERT.md",
+      "title": "­ƒÜÇ NEXIFYAI MASTER - VOLLST├äNDIGE CURSOR SETTINGS OPTIMIERUNG"
+    },
+    {
+      "path": "docs/CURSOR_VOLLSTAENDIGE_KONFIGURATION_PLAN.md",
+      "title": "­ƒÄ» CURSOR VOLLST├äNDIGE KONFIGURATION - PLAN"
+    },
+    {
+      "path": "docs/CURSOR_WORKSPACE_AUTO_OPEN.md",
+      "title": "­ƒöº CURSOR WORKSPACE AUTO-OPEN - KONFIGURATION"
+    },
+    {
+      "path": "docs/CUSTOMER_SPECIFICATION_V18.5.0.md",
+      "title": "Customer Specification V18.5.0"
+    },
+    {
+      "path": "docs/CUSTOM_KNOWLEDGE_UPDATE_V26.0.md",
+      "title": "­ƒÜ¿ ABSOLUTE AI-MODEL-VERPFLICHTUNG"
+    },
+    {
+      "path": "docs/DARK_BACKGROUNDS_V18.5.2.md",
+      "title": "DARK BACKGROUNDS - COLOR RULES V18.5.2"
+    },
+    {
+      "path": "docs/dashboard-audit-results.md",
+      "title": "Dashboard Audit - Detaillierte Ergebnisse"
+    },
+    {
+      "path": "docs/dashboard-audit.md",
+      "title": "Dashboard-Seiten Audit"
+    },
+    {
+      "path": "docs/DASHBOARD_DESIGN_V28.1_MASTER.md",
+      "title": "Dashboard Design V28.1 Master Documentation"
+    },
+    {
+      "path": "docs/DASHBOARD_DESIGN_VORGABEN.md",
+      "title": "­ƒôè DASHBOARD DESIGN-VORGABEN V18.3.24"
+    },
+    {
+      "path": "docs/DASHBOARD_IST_ANALYSE_V26.1.md",
+      "title": "DASHBOARD IST-ANALYSE V26.1 - VOLLST├äNDIGE BESTANDSAUFNAHME"
+    },
+    {
+      "path": "docs/DASHBOARD_LAYOUT_RULES_V18.5.1.md",
+      "title": "DASHBOARD LAYOUT RULES V18.5.1"
+    },
+    {
+      "path": "docs/DASHBOARD_NAMING_CONVENTIONS.md",
+      "title": "­ƒôï DASHBOARD NAMING CONVENTIONS V18.3.24"
+    },
+    {
+      "path": "docs/DASHBOARD_PERFEKTIONIERUNG_V26.1_FINAL.md",
+      "title": "DASHBOARD PERFEKTIONIERUNG V26.1 - FINAL"
+    },
+    {
+      "path": "docs/DASHBOARD_SECURITY_SEPARATION_V18.5.1.md",
+      "title": "­ƒöÆ DASHBOARD SECURITY SEPARATION V18.5.1"
+    },
+    {
+      "path": "docs/DASHBOARD_SPECIAL_REQUIREMENTS_V26.1.md",
+      "title": "Dashboard Special Requirements V26.1"
+    },
+    {
+      "path": "docs/DASHBOARD_SPEZIFIKATION_V18.5.0.md",
+      "title": "MYDISPATCH V18.5.0 - DASHBOARD-SPEZIFIKATION"
+    },
+    {
+      "path": "docs/DASHBOARD_SPEZIFIKATION_V18.5.0_KORREKT.md",
+      "title": "DASHBOARD-SPEZIFIKATION V18.5.0 - KORREKTE IMPLEMENTATION"
+    },
+    {
+      "path": "docs/DASHBOARD_STANDARDS.md",
+      "title": "DASHBOARD STANDARDS V28.1"
+    },
+    {
+      "path": "docs/DASHBOARD_TEMPLATE_SYSTEM_V18.5.1.md",
+      "title": "DASHBOARD-TEMPLATE-SYSTEM V18.5.1"
+    },
+    {
+      "path": "docs/DASHBOARD_V26.1_STATUS.md",
+      "title": "Ô£à Dashboard V26.1 Status Report"
+    },
+    {
+      "path": "docs/DASHBOARD_WIDGETS_V28.1_CATALOG.md",
+      "title": "Dashboard Widgets V28.1 Catalog"
+    },
+    {
+      "path": "docs/DATABASE_SCHEMA_COMPLETE.md",
+      "title": "­ƒÆ¥ DATABASE SCHEMA COMPLETE V28.2.0"
+    },
+    {
+      "path": "docs/DATENQUELLEN_INTEGRATION_V18.5.0.md",
+      "title": "DATENQUELLEN & INTEGRATION V18.5.0"
+    },
+    {
+      "path": "docs/DEPENDENCY_GRAPHS_V1.0.md",
+      "title": "­ƒöù DEPENDENCY GRAPHS V1.0"
+    },
+    {
+      "path": "docs/deployment.md",
+      "title": "Deployment Hinweise"
+    },
+    {
+      "path": "docs/DEPLOYMENT_AUTO_CHECKLIST.md",
+      "title": "Ô£à AUTO-DEPLOYMENT CHECKLIST - BEI \"DEPLOY\" BEFEHL"
+    },
+    {
+      "path": "docs/DEPLOYMENT_GUIDE_V32.5.md",
+      "title": "­ƒÜÇ Deployment Guide V32.5 - Lovable Cloud"
+    },
+    {
+      "path": "docs/DEPLOYMENT_PROCESS.md",
+      "title": "­ƒÜÇ MyDispatch - Deployment-Prozess"
+    },
+    {
+      "path": "docs/DEPLOYMENT_READY_V18.3.29.md",
+      "title": "­ƒÜÇ DEPLOYMENT-READY CERTIFICATION V18.3.29"
+    },
+    {
+      "path": "docs/DEPLOYMENT_STATUS.md",
+      "title": "­ƒôè DEPLOYMENT STATUS - LIVE TRACKING"
+    },
+    {
+      "path": "docs/DEPLOYMENT_SUMMARY.md",
+      "title": "­ƒÄë Deployment Summary - Dashboard Layout Perfektion"
+    },
+    {
+      "path": "docs/DEPLOYMENT_V6.0.3_READY.md",
+      "title": "­ƒÜÇ DEPLOYMENT V6.0.3 - READY FOR PRODUCTION"
+    },
+    {
+      "path": "docs/DEPLOYMENT_VERIFICATION_V28.2.16_COMPLETE.md",
+      "title": "­ƒÜÇ DEPLOYMENT VERIFICATION V28.2.16 - COMPLETE"
+    },
+    {
+      "path": "docs/DEPLOYMENT_VOLLSTAENDIG_ABGESCHLOSSEN.md",
+      "title": "Ô£à DEPLOYMENT - VOLLST├äNDIG ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/DEPLOYMENT_VOLLSTAENDIG_ANLEITUNG.md",
+      "title": "­ƒÜÇ DEPLOYMENT - VOLLST├äNDIGE ANLEITUNG"
+    },
+    {
+      "path": "docs/DEPLOYMENT_VOLLSTAENDIG_SOFORT.md",
+      "title": "­ƒÜÇ DEPLOYMENT - VOLLST├äNDIG SOFORT"
+    },
+    {
+      "path": "docs/DEPLOYMENT_ZUSAMMENFASSUNG.md",
+      "title": "Ô£à DEPLOYMENT ZUSAMMENFASSUNG - VOLLST├äNDIG ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/DESIGN_AUDIT_REPORT_V18.5.0.md",
+      "title": "DESIGN-AUDIT REPORT V18.5.0"
+    },
+    {
+      "path": "docs/DESIGN_COMPONENT_RULES_V18.3.24.md",
+      "title": "­ƒÄ¿ DESIGN COMPONENT RULES V18.3.24"
+    },
+    {
+      "path": "docs/DESIGN_HARMONISIERUNG_CHECKLIST_V18.5.1.md",
+      "title": "DESIGN HARMONISIERUNG CHECKLIST V18.5.1"
+    },
+    {
+      "path": "docs/DESIGN_LOCK_INDEX_V32.1.md",
+      "title": "­ƒöÆ DESIGN LOCK INDEX V32.1"
+    },
+    {
+      "path": "docs/DESIGN_SOLL_ANALYSE_V1.1.1.md",
+      "title": "­ƒôÉ MyDispatch SOLL-Analyse: Layout & Design"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_AUDIT_V18.3.30.md",
+      "title": "Design-System-Audit V18.3.30"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_CHART_COLORS_V18.3.md",
+      "title": "DESIGN-SYSTEM: CHART-FARBEN V18.3"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_CONSOLIDATED_V1.1.md",
+      "title": "MyDispatch Design-System Konsolidiert"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_DOCUMENTATION_V28.1_FINAL.md",
+      "title": "­ƒÄ¿ MyDispatch Design System V28.1 - FINALE DOKUMENTATION"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_FINAL_V26.md",
+      "title": "DESIGN SYSTEM FINAL V26.0 - MASTER-DOKUMENTATION"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_FIXES_V18.5.1.md",
+      "title": "Design-System Fixes V18.5.1 - Vollst├ñndige Analyse & L├Âsung"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_HOVER_RULES_V18.3.1.md",
+      "title": "DESIGN-SYSTEM REGEL: HOVER-FARBEN AUF HELLEN HINTERGR├£NDEN"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_LOCK.md",
+      "title": "DESIGN SYSTEM LOCK V32.1"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_MASTER_V18.3_ULTIMATE.md",
+      "title": "­ƒÄ¿ MYDISPATCH DESIGN-SYSTEM MASTER V18.3 ULTIMATE"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_UPDATE_V18.5.1.md",
+      "title": "DESIGN SYSTEM UPDATE V18.5.1"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_V18.3.28.md",
+      "title": "­ƒÄ¿ MyDispatch Design System V18.3.28 - Corporate Standard"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_V18.3.30.md",
+      "title": "Design-System V18.3.30 - Vollst├ñndige Spezifikation"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_V18.5.0.md",
+      "title": "DESIGN-SYSTEM V18.5.0 - MASTER COMPONENTS & PATTERNS"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_V18_5_0.md",
+      "title": "­ƒÄ¿ MyDispatch Design System V18.5.0 - PRODUCTION READY"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_V28.1_ABSOLUTE_ENFORCEMENT.md",
+      "title": "­ƒÜ¿ DESIGN SYSTEM V28.1 - ABSOLUTE ENFORCEMENT"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_V28.1_COMPLETE.md",
+      "title": "­ƒÄ¿ DESIGN SYSTEM V28.1 - COMPLETE DOCUMENTATION"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_V28.1_FINAL.md",
+      "title": "­ƒÄ¿ DESIGN SYSTEM V28.1 - PROFESSIONAL MINIMALISM (FINAL)"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_V28_1_ABSOLUTE.md",
+      "title": "­ƒÜ¿ DESIGN SYSTEM V28.1 - ABSOLUTE ENFORCEMENT"
+    },
+    {
+      "path": "docs/DESIGN_SYSTEM_VOLLSTAENDIG.md",
+      "title": "­ƒÄ¿ VOLLST├äNDIGE DESIGN SYSTEM & COMPONENT LIBRARY ERSTELLUNG"
+    },
+    {
+      "path": "docs/DESIGN_TOKEN_GOVERNANCE_V19.0.0.md",
+      "title": "­ƒÄ¿ DESIGN TOKEN GOVERNANCE V19.0.0"
+    },
+    {
+      "path": "docs/DESIGN_UPDATE_V18.5.2_HELLE_SCHRIFT.md",
+      "title": "DESIGN UPDATE V18.5.2 - HELLE SCHRIFT AUF PRIMARY GRADIENT"
+    },
+    {
+      "path": "docs/DESIGN_UPGRADE_V18.3_KONZEPT.md",
+      "title": "MyDispatch Design-Upgrade V18.3 - Gesamtkonzept"
+    },
+    {
+      "path": "docs/DIALOG_SYSTEM_V18.3.24.md",
+      "title": "MyDispatch Dialog-System V18.3.24"
+    },
+    {
+      "path": "docs/DISASTER_RECOVERY_PLAN.md",
+      "title": "­ƒÜ¿ DISASTER RECOVERY PLAN - MyDispatch"
+    },
+    {
+      "path": "docs/DOCUMENTATION_MAINTENANCE_POLICY_V1.1.md",
+      "title": "­ƒº¡ Dokumentationspflege-Policy (Ohne Jira)"
+    },
+    {
+      "path": "docs/DOC_AI_INTEGRATION_V18.5.1.md",
+      "title": "Doc-Management AI Integration V18.5.1"
+    },
+    {
+      "path": "docs/DOC_AI_PR├£FANFRAGEN_QUEUE.md",
+      "title": "Doc-AI Pr├╝fanfragen Queue"
+    },
+    {
+      "path": "docs/DOC_AI_VALIDATION_PROTOCOL_V18.5.1.md",
+      "title": "Doc-AI Validation Protocol V18.5.1"
+    },
+    {
+      "path": "docs/DOKUMENTATIONS_SYSTEM_ANALYSE_V18.5.1.md",
+      "title": "­ƒôÜ Dokumentations-System Analyse & Optimierung V18.5.1"
+    },
+    {
+      "path": "docs/DOKUMENTATIONS_UEBERSICHT_V18.5.0.md",
+      "title": "DOKUMENTATIONS-├£BERSICHT V18.5.0"
+    },
+    {
+      "path": "docs/DOKUMENTENMANAGEMENT_SYSTEM_V18.5.0.md",
+      "title": "DOKUMENTENMANAGEMENT-SYSTEM V18.5.0"
+    },
+    {
+      "path": "docs/DOWNLOAD_UPLOAD_GUIDE.md",
+      "title": "­ƒôÑ­ƒôñ UNIVERSAL DOWNLOAD/UPLOAD GUIDE"
+    },
+    {
+      "path": "docs/DRIVER_APP_AUTH_MIGRATION_V18.3.29.md",
+      "title": "­ƒöÉ DRIVER APP AUTH MIGRATION V18.3.29"
+    },
+    {
+      "path": "docs/DRIVER_SPECIFICATION_V18.5.0.md",
+      "title": "Driver Specification V18.5.0"
+    },
+    {
+      "path": "docs/EMAIL_FIX_GUIDE.md",
+      "title": "­ƒôº E-MAIL KONFIGURATION FIX"
+    },
+    {
+      "path": "docs/EMAIL_MARKETING_SPECIFICATION_V18.5.0.md",
+      "title": "­ƒôº EMAIL-MARKETING-SYSTEM SPEZIFIKATION V18.5.0"
+    },
+    {
+      "path": "docs/EMAIL_SYSTEM_INTEGRATION_GUIDE_V1.0.md",
+      "title": "­ƒôº E-MAIL-SYSTEM INTEGRATION GUIDE V1.0"
+    },
+    {
+      "path": "docs/EMAIL_SYSTEM_VOLLSTAENDIG_V1.0.md",
+      "title": "­ƒôº E-MAIL-SYSTEM VOLLST├äNDIG V1.0"
+    },
+    {
+      "path": "docs/EMERGENCY_PRODUCTION_FIX_V28.2.13_COMPLETE.md",
+      "title": "­ƒÄë EMERGENCY PRODUCTION UNBLOCKING - COMPLETE V28.2.13"
+    },
+    {
+      "path": "docs/ENVIRONMENT_STATUS.md",
+      "title": "­ƒîì ENVIRONMENT STATUS & PROTECTION - MyDispatch"
+    },
+    {
+      "path": "docs/ERROR_AUDIT_V18.5.0_COMPLETE.md",
+      "title": "­ƒÜ¿ VOLLST├äNDIGER FEHLER-AUDIT V18.5.0"
+    },
+    {
+      "path": "docs/ERROR_DATABASE.md",
+      "title": "­ƒöì ZENTRALE FEHLERDATENBANK V18.3.30"
+    },
+    {
+      "path": "docs/ERROR_DATABASE_V18.3.25.md",
+      "title": "­ƒÜ¿ ERROR DATABASE V18.3.25 - Systemweite Fehleranalyse"
+    },
+    {
+      "path": "docs/ERROR_MONITORING_V18.5.0.md",
+      "title": "ERROR-MONITORING V18.5.0"
+    },
+    {
+      "path": "docs/ERROR_PREVENTION_SYSTEM.md",
+      "title": "­ƒøí´©Å ERROR PREVENTION SYSTEM V6.0"
+    },
+    {
+      "path": "docs/ERROR_REPORT_2025-01-26.md",
+      "title": "Error Report - 26.01.2025"
+    },
+    {
+      "path": "docs/ERROR_REPORT_BADGE_FINAL_V18.5.1.md",
+      "title": "Error Report: Badge \"Beliebt\" Final Fix V18.5.1"
+    },
+    {
+      "path": "docs/ERROR_REPORT_PHASE2_V18.5.1.md",
+      "title": "Error Report: Phase 2 Implementation V18.5.1"
+    },
+    {
+      "path": "docs/ERROR_REPORT_VALIDATION_HOOKS_V18.5.1.md",
+      "title": "Error Report: Validation Hooks Implementation V18.5.1"
+    },
+    {
+      "path": "docs/ERROR_SOLUTIONS_DB.md",
+      "title": "ERROR SOLUTIONS DATABASE V18.3.26"
+    },
+    {
+      "path": "docs/EXPORT_FUNCTIONALITY.md",
+      "title": "Export Functionality V28.1"
+    },
+    {
+      "path": "docs/EXTERNAL_RESOURCES_BLUEPRINTS.md",
+      "title": "External Resources & Blueprints"
+    },
+    {
+      "path": "docs/E_MAIL_TEMPLATES_V18.5.0.md",
+      "title": "E-MAIL TEMPLATES - MyDispatch V18.5.0"
+    },
+    {
+      "path": "docs/FAHRER_APP_DOKUMENTATION.md",
+      "title": "MyDispatch Fahrer-App - Dokumentation V1.0"
+    },
+    {
+      "path": "docs/FEATURE_ROADMAP_V18.5.0.md",
+      "title": "FEATURE-ROADMAP V18.5.0"
+    },
+    {
+      "path": "docs/FEHLENDE_KOMPONENTEN_ANALYSE_V18.5.0.md",
+      "title": "FEHLENDE KOMPONENTEN - VOLLST├äNDIGE ANALYSE V18.5.0"
+    },
+    {
+      "path": "docs/FEHLERANALYSE_KOMPLETT_V18.5.0.md",
+      "title": "­ƒöì FEHLERANALYSE KOMPLETT V18.5.0"
+    },
+    {
+      "path": "docs/FEHLERBESEITIGUNGS_KONZEPT_V18.5.0.md",
+      "title": "­ƒÄ» Fehlerbeseitigungs-Konzept V18.5.0"
+    },
+    {
+      "path": "docs/FEHLERDATENBANK_V18.3.28.md",
+      "title": "­ƒöì ZENTRALE FEHLERDATENBANK V18.3.28"
+    },
+    {
+      "path": "docs/FEHLERDIAGNOSE_FRAMEWORK_V1.0.md",
+      "title": "FEHLERDIAGNOSE FRAMEWORK V1.0"
+    },
+    {
+      "path": "docs/FEHLERLOG_V18.5.14.md",
+      "title": "FEHLERLOG V18.5.14"
+    },
+    {
+      "path": "docs/FEHLERSUCHE_COMPLETION_2025-10-28.md",
+      "title": "Ô£à VOLLUMF├äNGLICHE FEHLERSUCHE - COMPLETION REPORT"
+    },
+    {
+      "path": "docs/FEHLERSUCHE_FINDINGS_2025-10-28.md",
+      "title": "­ƒöì FEHLERSUCHE PRE-LOGIN AREA - FINDINGS"
+    },
+    {
+      "path": "docs/FEHLERSUCHE_PRE_LOGIN_AREA.md",
+      "title": "­ƒøæ VOLLUMF├äNGLICHER FEHLERSUCHE-PROMPT PRE-BEREICH (PLUS POPUPS/FORM/TEXTE)"
+    },
+    {
+      "path": "docs/FEHLERSUCHE_PRE_LOGIN_VOLLUMFAENGLICH.md",
+      "title": "­ƒøæ VOLLUMF├äNGLICHER PRE-LOGIN FEHLERSUCHE-PROMPT"
+    },
+    {
+      "path": "docs/FEHLERSUCHE_VOLLUMFAENGLICH_POPUPS_FORMS.md",
+      "title": "­ƒøæ VOLLUMF├äNGLICHER FEHLERSUCHE-PROMPT PRE-BEREICH (PLUS POPUPS/FORM/TEXTE)"
+    },
+    {
+      "path": "docs/FEHLERVERHINDERUNG_SYSTEM_V18.5.1.md",
+      "title": "FEHLERVERHINDERUNGS-SYSTEM V18.5.1"
+    },
+    {
+      "path": "docs/FEHLER_LOG_V18.5.1.md",
+      "title": "FEHLER-LOG V18.5.1 - MYDISPATCH"
+    },
+    {
+      "path": "docs/FEHLER_LOG_V18.5.1_UPDATE.md",
+      "title": "FEHLER-LOG UPDATE - F-025"
+    },
+    {
+      "path": "docs/FERTIGSTELLUNGS_ROADMAP_V28.2.6.md",
+      "title": "­ƒÜÇ FERTIGSTELLUNGS-ROADMAP V28.2.6 - MyDispatch"
+    },
+    {
+      "path": "docs/FERTIGSTELLUNG_STATUS_2025-01-31.md",
+      "title": "Ô£à FERTIGSTELLUNG STATUS - 2025-01-31"
+    },
+    {
+      "path": "docs/filesExplorer.md",
+      "title": "­ƒôü FILES EXPLORER - MyDispatch Projekt-Struktur"
+    },
+    {
+      "path": "docs/FINAL_ABschluss_LUECKENSCHLIESSUNG_V1.0.md",
+      "title": "Ô£à FINALER ABSCHLUSS - LUECKENSCHLIESSUNG V1.0"
+    },
+    {
+      "path": "docs/FINAL_PERFECTION_REPORT.md",
+      "title": "­ƒÄë Final Perfection Report - MyDispatch Dashboard"
+    },
+    {
+      "path": "docs/FINAL_PHASE5_SUMMARY.md",
+      "title": "­ƒÄë PHASE 5 ABGESCHLOSSEN - FINAL SUMMARY"
+    },
+    {
+      "path": "docs/FINAL_PRODUCTION_UNBLOCKING_V28.2.14_COMPLETE.md",
+      "title": "­ƒÄë FINAL PRODUCTION UNBLOCKING V28.2.14 - COMPLETE"
+    },
+    {
+      "path": "docs/FINAL_QA_REPORT_V28.2.5.md",
+      "title": "­ƒôè FINAL QA REPORT V28.2.5 - PRE-LOGIN PAGES"
+    },
+    {
+      "path": "docs/FINAL_QUALITY_REPORT_V18.5.0.md",
+      "title": "FINAL QUALITY REPORT V18.5.0"
+    },
+    {
+      "path": "docs/FINAL_REPORT_V18.3.29.md",
+      "title": "­ƒÄ» FINAL REPORT V18.3.29 - SYSTEMWEITE EXZELLENZ ERREICHT"
+    },
+    {
+      "path": "docs/FINAL_STATUS_REPORT_V18.5.1.md",
+      "title": "­ƒÄ» Final Status Report V18.5.1 - Vollst├ñndige Selbstreflexion"
+    },
+    {
+      "path": "docs/FIX_STRATEGY_V18.5.0.md",
+      "title": "­ƒÄ» FIX-STRATEGIE V18.5.0"
+    },
+    {
+      "path": "docs/FLEET_DRIVER_ADDON_V18.5.0.md",
+      "title": "FLEET & DRIVER ADD-ON V18.5.0"
+    },
+    {
+      "path": "docs/FOOTER_BUTTON_AUDIT_V18.5.0.md",
+      "title": "­ƒöì FOOTER & BUTTON AUDIT V18.5.0"
+    },
+    {
+      "path": "docs/FORGET_PROOF_SYSTEM_V1.0.md",
+      "title": "­ƒºá FORGET-PROOF SYSTEM V1.0 - NeXify AI MASTER"
+    },
+    {
+      "path": "docs/FORMULAR_STANDARDS_V18.5.0.md",
+      "title": "MYDISPATCH V18.5.0 - FORMULAR-STANDARDS"
+    },
+    {
+      "path": "docs/FORM_FIELDS_REGISTRY_USAGE.md",
+      "title": "­ƒôï FORM FIELDS REGISTRY - USAGE GUIDE"
+    },
+    {
+      "path": "docs/FORM_FIELD_INVENTORY_V29.1.md",
+      "title": "FORM FIELD INVENTORY V29.1"
+    },
+    {
+      "path": "docs/FORM_MIGRATION_GUIDE.md",
+      "title": "­ƒôØ FORM MIGRATION GUIDE - V26 ÔåÆ UnifiedForm V2.0"
+    },
+    {
+      "path": "docs/FORM_STANDARDS_V18.5.0.md",
+      "title": "Form Standards V18.5.0"
+    },
+    {
+      "path": "docs/FORM_SYSTEM_V18.3.24.md",
+      "title": "MyDispatch Form-System V18.3.24"
+    },
+    {
+      "path": "docs/FORM_TEMPLATES_LIBRARY_V26.1.md",
+      "title": "FORM TEMPLATES LIBRARY V26.1"
+    },
+    {
+      "path": "docs/FRONTEND_ARCHITECTURE_V18.5.1.md",
+      "title": "Frontend Architecture System V18.5.1"
+    },
+    {
+      "path": "docs/FRONTEND_SYNC_L├ûSUNGEN_V18.5.1.md",
+      "title": "FRONTEND SYNC L├ûSUNGEN V18.5.1"
+    },
+    {
+      "path": "docs/GDPR_COMPLIANCE.md",
+      "title": "­ƒöÉ GDPR / DSGVO COMPLIANCE - MyDispatch"
+    },
+    {
+      "path": "docs/GEDAECHTNIS_UND_WISSEN.md",
+      "title": "­ƒºá NeXify AI MASTER - Ged├ñchtnis & Wissen"
+    },
+    {
+      "path": "docs/GENESIS_PROTOCOL_COMPLETION_CERTIFICATE.md",
+      "title": "­ƒº¼ GENESIS PROTOCOL - COMPLETION CERTIFICATE V1.0"
+    },
+    {
+      "path": "docs/GESAMTKONZEPT_V18.5.0.md",
+      "title": "­ƒÄ» GESAMTKONZEPT MYDISPATCH V18.5.0"
+    },
+    {
+      "path": "docs/GESAMTLOESUNG_VOLLSTAENDIG.md",
+      "title": "­ƒÄ» GESAMTLOESUNG - VOLLSTAENDIGE UMSETZUNG"
+    },
+    {
+      "path": "docs/GESAMTPLAN_HEUTE.md",
+      "title": "­ƒÜÇ GESAMTPLAN - HEUTE VOLLST├äNDIG FERTIGSTELLEN"
+    },
+    {
+      "path": "docs/GESPR├äCHSZUSAMMENFASSUNG_BATCH_1_BIS_3_V18.5.8.md",
+      "title": "­ƒôï GESPR├äCHSZUSAMMENFASSUNG: BATCH 1-3 - MyDispatch V18.5.8"
+    },
+    {
+      "path": "docs/GITHUB_CI_CD_KI_INTEGRATION_V18.3.30.md",
+      "title": "­ƒñû GITHUB CI/CD KI-INTEGRATION V18.3.30"
+    },
+    {
+      "path": "docs/GITHUB_CI_CD_V18.3.30.md",
+      "title": "GitHub CI/CD Integration V18.3.30"
+    },
+    {
+      "path": "docs/GITKRAKEN_SSH_SETUP.md",
+      "title": "GitKraken SSH Setup f├╝r MyDispatch"
+    },
+    {
+      "path": "docs/GIT_WORKFLOW_V18.3.29.md",
+      "title": "­ƒöÇ GIT WORKFLOW V18.3.29"
+    },
+    {
+      "path": "docs/GOLDEN_TEMPLATE_PATTERN_V32.5.md",
+      "title": "­ƒÄ» Golden Template Pattern: /rechnungen"
+    },
+    {
+      "path": "docs/GOLDEN_TEMPLATE_VIEWPORT_GUIDE.md",
+      "title": "­ƒº¼ GOLDEN TEMPLATE VIEWPORT GUIDE V1.0"
+    },
+    {
+      "path": "docs/GO_LIVE_CHECKLIST.md",
+      "title": "­ƒÜÇ GO-LIVE CHECKLIST"
+    },
+    {
+      "path": "docs/GO_LIVE_STATUS_V6.0.3.md",
+      "title": "­ƒÜÇ GO-LIVE STATUS REPORT V6.0.3"
+    },
+    {
+      "path": "docs/GO_LIVE_STATUS_V6.0.5.md",
+      "title": "­ƒÜÇ GO-LIVE STATUS V6.0.5"
+    },
+    {
+      "path": "docs/GRAPHICS_GUIDELINES_V18.5.0.md",
+      "title": "GRAPHICS GUIDELINES V18.5.14"
+    },
+    {
+      "path": "docs/HARMONIZATION_MASTERPLAN_V4_STATUS.md",
+      "title": "­ƒÄ» HARMONIZATION MASTERPLAN V4.0 - STATUS"
+    },
+    {
+      "path": "docs/HEADER_FOOTER_DESIGN_V18.5.1.md",
+      "title": "HEADER & FOOTER DESIGN SYSTEM V18.5.1"
+    },
+    {
+      "path": "docs/HEADER_FOOTER_LOGO_GOVERNANCE_V26.0.md",
+      "title": "­ƒÄ» ├£BERGEORDNETES ZIEL"
+    },
+    {
+      "path": "docs/HEADER_FOOTER_SIDEBAR_FINAL_V20.0.0.md",
+      "title": "HEADER/FOOTER/SIDEBAR FINAL SPECIFICATION V20.0.0"
+    },
+    {
+      "path": "docs/HEADER_FOOTER_SIDEBAR_GOVERNANCE_V28.1.md",
+      "title": "Header/Footer/Sidebar Governance V28.1"
+    },
+    {
+      "path": "docs/HEADER_FOOTER_UNIFIED_V18.5.1.md",
+      "title": "UNIFIED HEADER/FOOTER SYSTEM V18.5.1"
+    },
+    {
+      "path": "docs/HELP_SYSTEM_DESIGN_V26.1.md",
+      "title": "HELP-SYSTEM DESIGN V26.1 - NUTZERFREUNDLICHKEIT"
+    },
+    {
+      "path": "docs/HERE_MAPS_RATE_LIMIT_FIX_V20.0.0.md",
+      "title": "HERE MAPS RATE LIMIT FIX V20.0.0"
+    },
+    {
+      "path": "docs/HERO_BACKGROUND_STANDARD_V31.5.md",
+      "title": "­ƒÄ¿ HERO-BACKGROUND-STANDARD V31.5"
+    },
+    {
+      "path": "docs/HERO_DESIGN_PERFECTION_V26.0.md",
+      "title": "HERO DESIGN PERFECTION V26.0 - PREMIUM GLOW CONCEPT"
+    },
+    {
+      "path": "docs/HERO_FEHLERANALYSE_FINAL_V26.0.md",
+      "title": "HERO FEHLERANALYSE & FINAL FIX V26.0"
+    },
+    {
+      "path": "docs/HERO_GRAFIK_FIX_V6.0.5.md",
+      "title": "­ƒÄ¿ HERO-GRAFIK FIX V6.0.5 - DASHBOARD-PREVIEW RESTORED"
+    },
+    {
+      "path": "docs/HERO_LOCK_FINAL_V32.0.md",
+      "title": "HERO-SYSTEM LOCK V32.0"
+    },
+    {
+      "path": "docs/HERO_SECTION_BODY_LOCK_V32.5.md",
+      "title": "­ƒöÆ HERO-SECTION-BODY-LOCK V32.5"
+    },
+    {
+      "path": "docs/HERO_SYSTEM_V26.0.md",
+      "title": "­ƒÄ» HERO SYSTEM V26.0 - VERBINDLICHE STANDARDISIERUNG"
+    },
+    {
+      "path": "docs/HOMEPAGE_KONZEPT_V18.5.0.md",
+      "title": "HOMEPAGE KONZEPT V18.5.0"
+    },
+    {
+      "path": "docs/HOMEPAGE_MIGRATION_PLAN_V28.1.md",
+      "title": "­ƒÄ» PUBLIC HOMEPAGE MIGRATION PLAN - V28.1 DESIGN SYSTEM"
+    },
+    {
+      "path": "docs/HOME_DESIGN_TEMPLATE_V18.5.1.md",
+      "title": "HOME DESIGN TEMPLATE V18.5.1"
+    },
+    {
+      "path": "docs/HOME_PAGE_PERFECTION_V28.2.md",
+      "title": "HOME PAGE PERFECTION V28.2"
+    },
+    {
+      "path": "docs/HOME_PAGE_PERFECTION_V28.3.md",
+      "title": "HOME PAGE PERFECTION V28.3"
+    },
+    {
+      "path": "docs/HOME_PAGE_PERFECTION_V28.5.md",
+      "title": "HOME PAGE PERFECTION V28.5"
+    },
+    {
+      "path": "docs/HOME_PAGE_PERFECTION_V28.6.md",
+      "title": "HOME PAGE PERFECTION V28.6 - \"WOW-FINALE\""
+    },
+    {
+      "path": "docs/HOME_REFACTORING_V26.0_AUDIT.md",
+      "title": "­ƒöº HOME REFACTORING V26.0 AUDIT - SYSTEMWEITE FEHLERANALYSE"
+    },
+    {
+      "path": "docs/HOME_V28_MIGRATION_COMPLETED.md",
+      "title": "­ƒÄ» HOME V28.1 MIGRATION - COMPLETED"
+    },
+    {
+      "path": "docs/HOME_V28_MIGRATION_DETAILED_PLAN.md",
+      "title": "­ƒÄ» HOME.TSX ÔåÆ V28.1 MIGRATION - DETAILLIERTER PLAN"
+    },
+    {
+      "path": "docs/HYPERION_IMPLEMENTATION_STATUS.md",
+      "title": "HYPERION Implementation Status"
+    },
+    {
+      "path": "docs/HYPERION_PHASE_1_MIGRATION_EXAMPLE.md",
+      "title": "HYPERION Phase 1: Migration Example - Auftr├ñge Seite"
+    },
+    {
+      "path": "docs/HYPERION_PHASE_2_STATUS.md",
+      "title": "HYPERION Phase 2: Implementation Status"
+    },
+    {
+      "path": "docs/ICON_AUDIT_V18_5_13.md",
+      "title": "­ƒÄ¿ ICON-AUDIT V18.5.13 - SYSTEMWEITE CI-COMPLIANCE"
+    },
+    {
+      "path": "docs/ICON_AUDIT_V18_5_14.md",
+      "title": "ICON-AUDIT V18.5.14 - Tariff Badge Correction"
+    },
+    {
+      "path": "docs/ICON_SYSTEM_V18.3.24.md",
+      "title": "MyDispatch Icon-System V18.3.24"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_CHECKLIST.md",
+      "title": "Ô£à NeXify AI MASTER System - Implementation Checklist"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_LOG_20251028.md",
+      "title": "­ƒôØ IMPLEMENTATION LOG - 2025-10-28"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_LOG_V32.5_PATTERNS.md",
+      "title": "­ƒÜÇ Implementation Log V32.5 - External Patterns Integration"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_REPORT_V18.5.1.md",
+      "title": "Implementation Report V18.5.1"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_ROADMAP_EXTERNAL_PATTERNS.md",
+      "title": "Implementation Roadmap - External Patterns Integration"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_SPEC_DASHBOARD_TARIFFS_ACCESS_V1.1.md",
+      "title": "MyDispatch Implementierungsspezifikation ÔÇö Dashboard, Tarife, Zugriffe & Inhalte"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_STATUS_V18.5.1_FINAL.md",
+      "title": "Implementation Status V18.5.1 FINAL"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_STATUS_V32.5.md",
+      "title": "­ƒôè Implementation Status Report V32.5"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_ZUSAMMENFASSUNG_V1.0.md",
+      "title": "Ô£à IMPLEMENTATION ZUSAMMENFASSUNG V1.0"
+    },
+    {
+      "path": "docs/IMPLEMENTIERUNGS_PLAN_V18.5.0.md",
+      "title": "­ƒÜÇ Implementierungs-Plan: Systematische Fehlerbeseitigung V18.5.0"
+    },
+    {
+      "path": "docs/INFRASTRUKTUR_STATUS_V18.5.1.md",
+      "title": "INFRASTRUKTUR-STATUS V18.5.3"
+    },
+    {
+      "path": "docs/INLINE_STYLE_MIGRATION_V40.14.md",
+      "title": "­ƒöº INLINE-STYLE-MIGRATION V40.14"
+    },
+    {
+      "path": "docs/INSTALLATION_GUIDE_V18.3.27.md",
+      "title": "­ƒÜÇ INSTALLATION GUIDE - TEST AUTOMATION V18.3.27"
+    },
+    {
+      "path": "docs/INTEGRATION_GUIDE_V18.5.1.md",
+      "title": "Integration Guide V18.5.1"
+    },
+    {
+      "path": "docs/INTERNAL_PAGES_AUDIT_V18.5.0.md",
+      "title": "­ƒôï INTERNAL PAGES AUDIT V18.5.0"
+    },
+    {
+      "path": "docs/INVOICES_SPECIFICATION_V18.5.0.md",
+      "title": "Invoices Specification V18.5.0"
+    },
+    {
+      "path": "docs/IST_ANALYSE_V40.14_CRITICAL.md",
+      "title": "­ƒöì IST-SYSTEMANALYSE V40.14 - CRITICAL FINDINGS"
+    },
+    {
+      "path": "docs/IST_VS_SOLL_ABWEICHUNGEN_V1.1.1.md",
+      "title": "­ƒöì Abweichungen IST Ôåö SOLL (Header, Footer, Chat)"
+    },
+    {
+      "path": "docs/IST_ZUSTAND_MYDISPATCH_V1.0.md",
+      "title": "IST-Zustand MyDispatch"
+    },
+    {
+      "path": "docs/KNOWLEDGE/TROUBLESHOOTING.md",
+      "title": "­ƒøá´©Å Troubleshooting Guide"
+    },
+    {
+      "path": "docs/KNOWN_ISSUES_REGISTRY_V18.3.24.md",
+      "title": "­ƒÉø KNOWN ISSUES REGISTRY V18.3.24"
+    },
+    {
+      "path": "docs/KNOWN_ISSUES_V28_HERO.md",
+      "title": "Known Issues - V28 Hero System"
+    },
+    {
+      "path": "docs/KOMMUNIKATION_TONALITY_V19.0.0.md",
+      "title": "­ƒÄñ KOMMUNIKATION & TONALITY V19.0.0"
+    },
+    {
+      "path": "docs/KONFIGURATION_ABGLEICH.md",
+      "title": "­ƒöº MyDispatch - Konfigurations-Abgleich"
+    },
+    {
+      "path": "docs/KRONOS_EXECUTION_PLAN_V18.0.md",
+      "title": "KRONOS EXECUTION PLAN V18.0"
+    },
+    {
+      "path": "docs/LANDINGPAGE_DESIGN_VORGABEN_V18.3.25.md",
+      "title": "Landing-Page Design-Vorgaben V18.3.25 - FINAL & VERBINDLICH"
+    },
+    {
+      "path": "docs/LANDINGPAGE_IMPLEMENTATION_CHECKLIST_V18.3.25.md",
+      "title": "Landing-Page Implementation Checklist V18.3.25"
+    },
+    {
+      "path": "docs/LANDINGPAGE_LEGAL_TEXTE_IMPLEMENTATION_V18.3.25.md",
+      "title": "Landing-Page Legal-Texte Implementation V18.3.25"
+    },
+    {
+      "path": "docs/layout-perfection-analysis.md",
+      "title": "Layout-Perfektion-Analyse"
+    },
+    {
+      "path": "docs/LAYOUT_ARCHITECTURE_V33.1.md",
+      "title": "LAYOUT-ARCHITEKTUR V33.1 - FINAL DOCUMENTATION"
+    },
+    {
+      "path": "docs/LAYOUT_FIX_V33.2_COMPLETED.md",
+      "title": "­ƒÄë LAYOUT-FIX V33.2 - ERFOLGREICH ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/LAYOUT_FREEZE_PROTECTION_V18.5.1.md",
+      "title": "LAYOUT FREEZE PROTECTION V18.5.1"
+    },
+    {
+      "path": "docs/LAYOUT_FREEZE_QUICK_REFERENCE.md",
+      "title": "LAYOUT FREEZE - QUICK REFERENCE V32.1"
+    },
+    {
+      "path": "docs/LAYOUT_FREEZE_SUMMARY_V18.5.1.md",
+      "title": "LAYOUT FREEZE SYSTEM - ZUSAMMENFASSUNG V18.5.1"
+    },
+    {
+      "path": "docs/LAYOUT_PATTERNS_VOLLSTAENDIG.md",
+      "title": "­ƒÄ¿ VOLLST├äNDIGE LAYOUT PATTERNS & SECTION STANDARDS"
+    },
+    {
+      "path": "docs/LAYOUT_PATTERN_GUIDE.md",
+      "title": "Layout Pattern Guide V28.1"
+    },
+    {
+      "path": "docs/LAYOUT_PATTERN_STANDARD_V33.1.md",
+      "title": "LAYOUT-PATTERN STANDARD V33.1"
+    },
+    {
+      "path": "docs/LAYOUT_PATTERN_SYSTEM_V18.6.md",
+      "title": "­ƒÄ¿ LAYOUT PATTERN SYSTEM V18.6 - MANDATORY STANDARD"
+    },
+    {
+      "path": "docs/LAYOUT_SPACING_GUIDELINES.md",
+      "title": "LAYOUT SPACING GUIDELINES - SYSTEMWEITE VORGABEN"
+    },
+    {
+      "path": "docs/LAYOUT_SYSTEM_FINAL_V20.0.0.md",
+      "title": "LAYOUT SYSTEM FINAL SPECIFICATION V20.0.0"
+    },
+    {
+      "path": "docs/LAYOUT_SYSTEM_V18.5.0.md",
+      "title": "LAYOUT-SYSTEM V18.5.0 - VOLLST├äNDIGE SPEZIFIKATION"
+    },
+    {
+      "path": "docs/LEGAL_COMPLIANCE_V18.3.24.md",
+      "title": "­ƒôï RECHTSSICHERHEIT V18.3.24 - COMPLIANCE SYSTEM"
+    },
+    {
+      "path": "docs/LESSONS_LEARNED.md",
+      "title": "LESSONS LEARNED V30.0"
+    },
+    {
+      "path": "docs/LINK_VALIDATION_REPORT_V18.5.0.md",
+      "title": "LINK-VALIDIERUNG REPORT V18.5.0"
+    },
+    {
+      "path": "docs/LIVE_VALIDATION_MASTER.md",
+      "title": "­ƒÄ» Live-Validierung: Master System Dashboard"
+    },
+    {
+      "path": "docs/LOESUNGSPLAN_V1.0.md",
+      "title": "L├ûSUNGSPLAN (Systemweite Korrekturen & Optimierungen)"
+    },
+    {
+      "path": "docs/LOGO_OVERFLOW_FIX_V18.5.0.md",
+      "title": "LOGO-OVERFLOW FIX V18.5.0"
+    },
+    {
+      "path": "docs/LOGO_OVERFLOW_FIX_V18.5.1_COMPLETE.md",
+      "title": "­ƒÄ¿ LOGO OVERFLOW FIX V18.5.1 - COMPLETE"
+    },
+    {
+      "path": "docs/LOGO_OVERFLOW_FIX_V18.5.1_SUMMARY.md",
+      "title": "Logo-Overflow Fix V18.5.1 - Executive Summary"
+    },
+    {
+      "path": "docs/LOGO_OVERFLOW_PREVENTION_V18.5.1.md",
+      "title": "Logo-Overflow Prevention V18.5.1"
+    },
+    {
+      "path": "docs/LOVABLE_AI_AGENT_META_PROMPT_V18.5.0.md",
+      "title": "LOVABLE AI AGENT - META-PROMPT V18.5.0"
+    },
+    {
+      "path": "docs/Lovable_MasterPrompt_and_ReverseLog.md",
+      "title": "­ƒÄ» MYDISPATCH MASTER PROMPT & REVERSE LOG V6.0.2"
+    },
+    {
+      "path": "docs/MANDATORY_READING_LIST.md",
+      "title": "­ƒôÜ MANDATORY READING LIST - Pflichtlekt├╝re VOR jeder Arbeit"
+    },
+    {
+      "path": "docs/MANUELLE_BROWSER_TESTS_V1.0.md",
+      "title": "­ƒº¬ MANUELLE BROWSER-TESTS - VOLLST├äNDIGE CHECKLISTE V1.0"
+    },
+    {
+      "path": "docs/MARKENPOSITIONIERUNG_V18.5.0.md",
+      "title": "MARKENPOSITIONIERUNG V18.5.0"
+    },
+    {
+      "path": "docs/MARKETING_CLAIMS_FIX_V18.3.25.md",
+      "title": "­ƒÜ¿ MARKETING CLAIMS FIX - V18.3.25"
+    },
+    {
+      "path": "docs/MARKETING_CONTENT_STANDARDS_V18.5.0.md",
+      "title": "MARKETING CONTENT STANDARDS V18.5.0"
+    },
+    {
+      "path": "docs/MARKETING_KONZEPT_V18.5.0.md",
+      "title": "MARKETING-KONZEPT - MyDispatch V18.5.0"
+    },
+    {
+      "path": "docs/MASTER_BOT_API_V1.0.md",
+      "title": "­ƒñû Master Bot API v1.0"
+    },
+    {
+      "path": "docs/MASTER_COMPLETION_PLAN_V18.3.md",
+      "title": "­ƒÄ» MyDispatch Master Completion Plan V18.3"
+    },
+    {
+      "path": "docs/MASTER_DASHBOARD_FIX_V33.3.md",
+      "title": "­ƒÄë MASTER-DASHBOARD-FIX V33.3 - COMPLETED"
+    },
+    {
+      "path": "docs/MASTER_DASHBOARD_LAYOUT_VORGABEN.md",
+      "title": "MASTER DASHBOARD LAYOUT VORGABEN V33.0"
+    },
+    {
+      "path": "docs/MASTER_DASHBOARD_SCHEMA_V1.0.md",
+      "title": "Master Dashboard Schema V1.0 - FINALE REFERENZ"
+    },
+    {
+      "path": "docs/MASTER_DASHBOARD_SPECIFICATION_V40.11_COMPLETE.md",
+      "title": "­ƒÄ» MASTER-DASHBOARD SPECIFICATION V40.11 - COMPLETE"
+    },
+    {
+      "path": "docs/MASTER_DESIGN_SYSTEM_V32.1.md",
+      "title": "­ƒÄ¿ MASTER DESIGN SYSTEM V32.1"
+    },
+    {
+      "path": "docs/MASTER_ENFORCEMENT_PROMPT.md",
+      "title": "­ƒÄ» MASTER ENFORCEMENT PROMPT - VOLLST├äNDIGE SYSTEMWEITE IMPLEMENTATION"
+    },
+    {
+      "path": "docs/MASTER_GOVERNANCE_V26.1_FINAL.md",
+      "title": "­ƒÄ» MASTER GOVERNANCE V26.1 - SYSTEMWEITE ARBEITSANWEISUNG"
+    },
+    {
+      "path": "docs/MASTER_INDEX.md",
+      "title": "­ƒôÜ MASTER INDEX - Zentrale Dokumentations-├£bersicht"
+    },
+    {
+      "path": "docs/MASTER_INDEX_V1.0.md",
+      "title": "­ƒôÜ MASTER DOCUMENTATION INDEX V1.0"
+    },
+    {
+      "path": "docs/MASTER_INDEX_V18.5.1.md",
+      "title": "MASTER INDEX V18.5.1 - MYDISPATCH DOKUMENTATION"
+    },
+    {
+      "path": "docs/MASTER_LAYOUT_ALIGNMENT_V33.5.md",
+      "title": "­ƒÄ¿ MASTER LAYOUT ALIGNMENT V33.5 - PERFECT INTEGRATION"
+    },
+    {
+      "path": "docs/MASTER_LAYOUT_FIX_V33.7.md",
+      "title": "­ƒÄ¿ MASTER LAYOUT FIX V33.7"
+    },
+    {
+      "path": "docs/MASTER_LAYOUT_PERFECT_ALIGNMENT_V33.6.md",
+      "title": "MASTER LAYOUT PERFECT ALIGNMENT V33.6"
+    },
+    {
+      "path": "docs/MASTER_PROJECT_PREPARATION.md",
+      "title": "­ƒÄ» MASTER PROJECT PREPARATION & PLANNING"
+    },
+    {
+      "path": "docs/MASTER_PROMPT_AUTONOMOUS_AGENT_V1.1.md",
+      "title": "MASTER-PROMPT: Autonomer System- und Fullstack-Agent"
+    },
+    {
+      "path": "docs/MASTER_PROMPT_NEXIFY_V18.5.10.md",
+      "title": "­ƒÄ» MASTER-PROMPT: KI-LEAD DEVELOPMENT AGENT (NEXIFY) - V18.5.10"
+    },
+    {
+      "path": "docs/MASTER_PROMPT_NEXIFY_V18.5.7.md",
+      "title": "­ƒñû MASTER-PROMPT: NeXify AI Development Agent V18.5.7"
+    },
+    {
+      "path": "docs/MASTER_PROMPT_NEXIFY_V18.5.8.md",
+      "title": "­ƒñû MASTER-PROMPT: NeXify AI Development Agent V18.5.8"
+    },
+    {
+      "path": "docs/MASTER_PROMPT_NEXIFY_V18.5.9.md",
+      "title": "­ƒñû MASTER-PROMPT: KI-LEAD DEVELOPMENT AGENT (NEXIFY) - V18.5.9"
+    },
+    {
+      "path": "docs/MASTER_PROMPT_NEXIFY_V18.6.1.md",
+      "title": "­ƒñû MASTER-PROMPT: NeXify AI Development Agent V18.6.1"
+    },
+    {
+      "path": "docs/MASTER_REMOVAL_PLAN.md",
+      "title": "Master.tsx Removal Plan"
+    },
+    {
+      "path": "docs/MASTER_SYSTEM_AUFTRAG.md",
+      "title": "­ƒÜÇ MASTER-SYSTEMAUFTRAG - ZENTRALISIERTE SYSTEM-L├ûSUNG"
+    },
+    {
+      "path": "docs/MASTER_SYSTEM_V18.3_IMPLEMENTATION.md",
+      "title": "MYDISPATCH MASTER SYSTEM V18.3 - IMPLEMENTATION LOG"
+    },
+    {
+      "path": "docs/MASTER_VORGABEN_CHECKLISTE_V18.3.24.md",
+      "title": "­ƒÄ» MASTER VORGABEN CHECKLISTE V18.3.24"
+    },
+    {
+      "path": "docs/META_GUIDELINES_V18.3.24.md",
+      "title": "­ƒºá META-GUIDELINES V18.3.25 - AUTONOMOUS AGENT MODE"
+    },
+    {
+      "path": "docs/META_PROMPT_NUTZER_V18.5.10.md",
+      "title": "­ƒÄ» META-PROMPT: NeXify Steuerung V18.5.10"
+    },
+    {
+      "path": "docs/META_PROMPT_NUTZER_V18.5.7.md",
+      "title": "­ƒÄ» META-PROMPT: NeXify Steuerung V18.5.7"
+    },
+    {
+      "path": "docs/META_PROMPT_NUTZER_V18.5.8.md",
+      "title": "­ƒÄ» META-PROMPT: NeXify Steuerung V18.5.8"
+    },
+    {
+      "path": "docs/META_PROMPT_NUTZER_V18.5.9.md",
+      "title": "­ƒÄ» META-PROMPT: NeXify Steuerung V18.5.9"
+    },
+    {
+      "path": "docs/META_PROMPT_NUTZER_V18.6.1.md",
+      "title": "­ƒÄ» META-PROMPT: NeXify Steuerung V18.6.1"
+    },
+    {
+      "path": "docs/META_PROMPT_NUTZER_V19.0.0.md",
+      "title": "­ƒÄ» META-PROMPT: NeXify Steuerung V19.0.0"
+    },
+    {
+      "path": "docs/MIGRATION_DESIGN_TOKENS.md",
+      "title": "­ƒöä DESIGN TOKEN MIGRATION - STATUS LOG"
+    },
+    {
+      "path": "docs/MIGRATION_GUIDE_V18.5.1.md",
+      "title": "Migration Guide V18.5.0 ÔåÆ V18.5.1"
+    },
+    {
+      "path": "docs/MIGRATION_MASTERPLAN_V21.0.0.md",
+      "title": "­ƒôï MIGRATION MASTERPLAN V21.0.0"
+    },
+    {
+      "path": "docs/MIGRATION_NOTES.md",
+      "title": "­ƒöä MIGRATION NOTES - Abh├ñngigkeiten & Restore-Anleitungen"
+    },
+    {
+      "path": "docs/MIGRATION_UNIFIED_DESIGN_V26.1.md",
+      "title": "MIGRATION ZU UNIFIED DESIGN SYSTEM V26.1"
+    },
+    {
+      "path": "docs/MIGRATION_V26_AUFTRAEGE_LOG.md",
+      "title": "MIGRATION LOG V26.0 - AUFTRAEGE PAGE"
+    },
+    {
+      "path": "docs/MIGRATION_V26_AUTH_FINAL_LOG.md",
+      "title": "­ƒÜÇ MIGRATION V26.0 - /AUTH BEREICH - FINAL LOG"
+    },
+    {
+      "path": "docs/MIGRATION_V26_AUTH_LOG.md",
+      "title": "MIGRATION LOG V26.0 - AUTH PAGE"
+    },
+    {
+      "path": "docs/MIGRATION_V28_COMPLETE.md",
+      "title": "V28.1 MIGRATION - COMPLETE Ô£à"
+    },
+    {
+      "path": "docs/MISSION_II_API_LAYER_MIGRATION_PLAN.md",
+      "title": "­ƒöÑ MISSION II: STRANGLER FIG 2.0 - API LAYER MIGRATION"
+    },
+    {
+      "path": "docs/MOBILE_FIRST_GRID_SYSTEM_V18.5.1.md",
+      "title": "MOBILE-FIRST GRID-SYSTEM V18.5.1"
+    },
+    {
+      "path": "docs/MOBILE_FIRST_SYSTEM.md",
+      "title": "MyDispatch Mobile-First Design System V18.3"
+    },
+    {
+      "path": "docs/MOBILE_OPTIMIERUNG_VOLLSTAENDIG.md",
+      "title": "­ƒô▒ MOBILE-OPTIMIERUNG - VOLLST├äNDIG V1.0"
+    },
+    {
+      "path": "docs/MOBILE_READINESS_REPORT_V32.5.md",
+      "title": "­ƒô▒ Mobile Readiness Report V32.5"
+    },
+    {
+      "path": "docs/MOCKUP_ABGLEICH_V1.1.1.md",
+      "title": "­ƒû╝´©Å MockupÔÇæAbgleich (SOLL vs. Entw├╝rfe)"
+    },
+    {
+      "path": "docs/MONITORING_DASHBOARD.md",
+      "title": "­ƒôè MONITORING DASHBOARD"
+    },
+    {
+      "path": "docs/MYDISPATCH_AI_AGENT_META_PROMPT_V18.5.1.md",
+      "title": "MyDispatch AI-Agent Meta-Prompt V18.5.1"
+    },
+    {
+      "path": "docs/MYDISPATCH_AI_AGENT_META_PROMPT_V19.0.0.md",
+      "title": "­ƒñû MYDISPATCH AI AGENT META-PROMPT V19.0.0"
+    },
+    {
+      "path": "docs/MYDISPATCH_API_KEYS_VOLLSTAENDIG.md",
+      "title": "­ƒöÉ MYDISPATCH API-KEYS - VOLLST├äNDIGE ├£BERSICHT"
+    },
+    {
+      "path": "docs/MYDISPATCH_COMPLETE_SYSTEM_DOCUMENTATION.md",
+      "title": "­ƒôû MYDISPATCH VOLLUMF├äNGLICHE SYSTEM-DOKUMENTATION"
+    },
+    {
+      "path": "docs/MYDISPATCH_CONTEXT_GUIDELINES_V18.5.0.md",
+      "title": "MYDISPATCH CONTEXT GUIDELINES V18.5.0"
+    },
+    {
+      "path": "docs/MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md",
+      "title": "­ƒÅó MYDISPATCH CORPORATE GOVERNANCE V19.0.0"
+    },
+    {
+      "path": "docs/MYDISPATCH_DESIGN_SYSTEM_FINAL_V26.0.md",
+      "title": "­ƒÄ¿ MyDispatch Design System V26.1 - FINAL SPECIFICATION"
+    },
+    {
+      "path": "docs/MYDISPATCH_FERTIGSTELLUNGSPLAN_V18.5.0.md",
+      "title": "­ƒÜÇ MYDISPATCH FERTIGSTELLUNGSPLAN V18.5.0"
+    },
+    {
+      "path": "docs/MyDispatch_Gesamtkonzept.md",
+      "title": "MyDispatch - GESAMTKONZEPT & TECHNISCHE SPEZIFIKATION"
+    },
+    {
+      "path": "docs/MYDISPATCH_OPTIMIERUNGEN_ABGESCHLOSSEN_V1.0.md",
+      "title": "Ô£à MYDISPATCH - OPTIMIERUNGEN ABGESCHLOSSEN V1.0"
+    },
+    {
+      "path": "docs/MYDISPATCH_SYSTEM_MASTER_V18.5.1.md",
+      "title": "­ƒÄ» MYDISPATCH SYSTEM MASTER-DOKUMENTATION V18.5.1"
+    },
+    {
+      "path": "docs/MYDISPATCH_ULTIMATE_ARCHITECTURE_V18.3.md",
+      "title": "­ƒÅù´©Å MyDispatch Ultimate Architecture V18.3"
+    },
+    {
+      "path": "docs/MYDISPATCH_VOLLSTAENDIGE_ANALYSE_V1.0.md",
+      "title": "­ƒôè MYDISPATCH - VOLLST├äNDIGE ANALYSE & OPTIMIERUNGSBEDARF V1.0"
+    },
+    {
+      "path": "docs/MYDISPATCH_VOLLSTAENDIGE_OPTIMIERUNGEN_V1.0.md",
+      "title": "­ƒÜÇ MYDISPATCH - VOLLST├äNDIGE OPTIMIERUNGEN V1.0"
+    },
+    {
+      "path": "docs/NAVIGATION_LINK_SYSTEM_V18.3.md",
+      "title": "­ƒöù Navigation & Link System V18.3"
+    },
+    {
+      "path": "docs/nexify-known-issues.md",
+      "title": "NeXify Wiki - Known Issues"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_ABGESCHLOSSEN.md",
+      "title": "Ô£à VOLLST├äNDIGE INTEGRATION ABGESCHLOSSEN - FINALE BEST├äTIGUNG"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_ABSOLUTE_FINALE_PERFEKTION.md",
+      "title": "Ô£à NEXIFYAI MASTER - ABSOLUTE FINALE PERFEKTION"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_ABSOLUT_FINAL.md",
+      "title": "­ƒÄë NEXIFYAI MASTER - VOLLST├äNDIGE INTEGRATION ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_AUTONOME_AUSFUEHRUNG.md",
+      "title": "­ƒÜÇ NEXIFYAI MASTER - AUTONOME AUSF├£HRUNG & 24/7 WORKFLOWS"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_AUTONOME_KONFIGURATION.md",
+      "title": "­ƒñû NEXIFYAI MASTER - AUTONOME AUSF├£HRUNGS-KONFIGURATION"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_AUTO_APPROVAL.md",
+      "title": "­ƒÄ» NEXIFYAI MASTER - AUTO-APPROVAL KONFIGURATION"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_DASHBOARD_ANFORDERUNGEN.md",
+      "title": "­ƒÜÇ NeXifyAI MASTER Dashboard - Vollst├ñndige Anforderungen & Spezifikation"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_DEPLOYMENT_VOLLSTAENDIG_2025-01-31.md",
+      "title": "­ƒÜÇ NeXifyAI MASTER - Vollst├ñndiges Deployment & System-Optimierung"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_DOKUMENTATIONS_INDEX.md",
+      "title": "­ƒôÜ NEXIFYAI MASTER - VOLLST├äNDIGE DOKUMENTATIONS-├£BERSICHT"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_FINALE_PERFEKTION.md",
+      "title": "­ƒÄ» NEXIFYAI MASTER - VOLLST├äNDIGE PERFEKTION ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_FINALE_ZUSAMMENFASSUNG.md",
+      "title": "­ƒÄ» FINALE ZUSAMMENFASSUNG - ALLES VOLLST├äNDIG INTEGRIERT"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_INTEGRATION.md",
+      "title": "­ƒÄ» NEXIFYAI MASTER - VOLLST├äNDIGE INTEGRATION & DOKUMENTATION"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_PERFEKTION.md",
+      "title": "­ƒÄ» NEXIFYAI MASTER - VOLLST├äNDIGE PERFEKTION ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_SYSTEM_INTEGRATION.md",
+      "title": "­ƒÜÇ NEXIFYAI MASTER - VOLLST├äNDIGE SYSTEM-INTEGRATION"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_VOLLSTAENDIGE_ERWEITERUNG.md",
+      "title": "Ô£à NEXIFYAI MASTER - VOLLST├äNDIGE ERWEITERUNG ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_VOLLSTAENDIGE_KONFIGURATION.md",
+      "title": "­ƒÄ» NEXIFYAI MASTER - VOLLST├äNDIGE KONFIGURATION ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_VOLLSTAENDIG_INTEGRIERT.md",
+      "title": "­ƒÄ» NEXIFYAI MASTER - VOLLST├äNDIGE INTEGRATION ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/NEXIFYAI_MASTER_VOLLSTAENDIG_OPTIMIERT.md",
+      "title": "­ƒÄ» NEXIFYAI MASTER - VOLLST├äNDIGE OPTIMIERUNG ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/NEXIFY_AUTONOMY_LEVELS_V18.6.0.md",
+      "title": "­ƒñû NEXIFY AUTONOMIE-EBENEN V18.6.0"
+    },
+    {
+      "path": "docs/NEXIFY_CRM_SYSTEM_V1.0.md",
+      "title": "­ƒôç NeXify AI MASTER - CRM System V1.0"
+    },
+    {
+      "path": "docs/NeXify_Current_Session_Context.md",
+      "title": "NeXify AI - CURRENT SESSION CONTEXT V40.11"
+    },
+    {
+      "path": "docs/NEXIFY_DECISION_MATRIX_V18.6.0.md",
+      "title": "­ƒºá NEXIFY DECISION MATRIX V18.6.0"
+    },
+    {
+      "path": "docs/NEXIFY_DOC_AI_HANDOVER_V18.5.1.md",
+      "title": "NeXify ÔåÆ Doc-AI Handover V18.5.1"
+    },
+    {
+      "path": "docs/NEXIFY_EIGENST├äNDIGE_ANALYSE_VORGABE_V18.5.1.md",
+      "title": "NeXify Eigenst├ñndige Analyse-Vorgabe V18.5.1"
+    },
+    {
+      "path": "docs/NEXIFY_IMPLEMENTATION_LOG.md",
+      "title": "NeXify Implementierung ÔÇô Soll-Zustand und Abweichungen"
+    },
+    {
+      "path": "docs/NEXIFY_MASTER_SYSTEM_COMPLETE.md",
+      "title": "­ƒºá NeXify AI MASTER - Vollst├ñndiges System V1.0"
+    },
+    {
+      "path": "docs/NEXIFY_MASTER_SYSTEM_SUMMARY.md",
+      "title": "­ƒÄ» NeXify AI MASTER System - Vollst├ñndige Zusammenfassung"
+    },
+    {
+      "path": "docs/NEXIFY_MASTER_SYSTEM_USAGE.md",
+      "title": "­ƒÜÇ NeXify AI MASTER System - Usage Guide"
+    },
+    {
+      "path": "docs/NEXIFY_MASTER_SYSTEM_V1.0.md",
+      "title": "­ƒºá NeXify AI MASTER - Vollst├ñndiges Knowledge-Management-System V1.0"
+    },
+    {
+      "path": "docs/NEXIFY_META_PROMPT_V2.0_ULTIMATE.md",
+      "title": "­ƒÜÇ NEXIFY META-PROMPT V2.0 ULTIMATE"
+    },
+    {
+      "path": "docs/NEXIFY_META_PROMPT_V3.0.md",
+      "title": "­ƒÄ» NEXIFY META-PROMPT V3.0 - SYSTEMWEITE GOVERNANCE"
+    },
+    {
+      "path": "docs/NEXIFY_META_PROMPT_V3.0_ULTIMATE.md",
+      "title": "­ƒÄ» NEXIFY META-PROMPT V3.0 ULTIMATE - SYSTEMWEITE GOVERNANCE & EXZELLENZ"
+    },
+    {
+      "path": "docs/NEXIFY_META_PROMPT_V3.1_OPTIMIZED.md",
+      "title": "­ƒÄ» NEXIFY META-PROMPT V3.1 - DESIGN-FIRST MODE (OPTIMIERT)"
+    },
+    {
+      "path": "docs/NEXIFY_PROMPT_OPTIMIZATION_V18.6.1.md",
+      "title": "­ƒÜÇ NEXIFY PROMPT OPTIMIZATION V18.6.1"
+    },
+    {
+      "path": "docs/NEXIFY_SESSION_UPDATE_V40.20.md",
+      "title": "­ƒôï NEXIFY SESSION UPDATE V40.20"
+    },
+    {
+      "path": "docs/NEXIFY_SUPER_PRAEMBEL_V1.8.md",
+      "title": "Ô£¿ NEXIFY-SUPER-PR├äAMBEL: ULTIMATIVE GOVERNANCE & EXZELLENZ-VERPFLICHTUNG V1.8"
+    },
+    {
+      "path": "docs/NEXIFY_SYSTEM_MASTER_BRAIN.md",
+      "title": "­ƒºá NEXIFY SYSTEM MASTER BRAIN V1.0"
+    },
+    {
+      "path": "docs/NEXIFY_SYSTEM_MASTER_BRAIN_SECTION_4.5.md",
+      "title": ""
+    },
+    {
+      "path": "docs/NEXIFY_WIKI_LOCATION.md",
+      "title": "­ƒôì NeXify Wiki - Genauer Speicherort"
+    },
+    {
+      "path": "docs/NEXIFY_WIKI_V1.0.md",
+      "title": "­ƒºá NEXIFY WIKI V1.0 - COMPLETE KNOWLEDGE SYSTEM"
+    },
+    {
+      "path": "docs/NEXIFY_WIKI_V1.0_COMPLETION_REPORT.md",
+      "title": "Ô£à NEXIFY WIKI V1.0 - FULL COMPLETION REPORT"
+    },
+    {
+      "path": "docs/NEXIFY_WORKFLOW_PROMPT_V18.5.1.md",
+      "title": "NeXify Workflow-Prompt V18.5.1"
+    },
+    {
+      "path": "docs/NEXIFY_WORKFLOW_PROMPT_V19.0.0.md",
+      "title": "NeXify Workflow-Prompt V19.0.0"
+    },
+    {
+      "path": "docs/OFFENE_PUNKTE_VOLLSTAENDIG.md",
+      "title": "­ƒôï OFFENE PUNKTE - VOLLST├äNDIGE ├£BERSICHT"
+    },
+    {
+      "path": "docs/OPTIMIERUNGSPOTENZIAL_V18.5.1.md",
+      "title": "OPTIMIERUNGSPOTENZIAL V18.5.1"
+    },
+    {
+      "path": "docs/OPTIMIERUNG_MYDISPATCH_V18.3.25.md",
+      "title": "­ƒÜÇ OPTIMIERUNG MYDISPATCH V18.3.25"
+    },
+    {
+      "path": "docs/OPTIMIZATION_TRACKING_V18.3.24.md",
+      "title": "­ƒôè OPTIMIZATION TRACKING V18.3.24 - ZENTRALE ├£BERSICHT"
+    },
+    {
+      "path": "docs/ORDERS_SPECIFICATION_V18.5.0.md",
+      "title": "Orders Specification V18.5.0"
+    },
+    {
+      "path": "docs/pages/AUFTR├äGE_SPECIFICATION_V18.3.29.md",
+      "title": "­ƒôï AUFTR├äGE SPECIFICATION V18.3.29"
+    },
+    {
+      "path": "docs/pages/DASHBOARD_SPEC.md",
+      "title": "­ƒôä SEITENDOKUMENTATION: Dashboard (DashboardV18_3)"
+    },
+    {
+      "path": "docs/pages/DASHBOARD_SPECIFICATION_V18.3.28.md",
+      "title": "­ƒôè DASHBOARD SPECIFICATION V18.3.28"
+    },
+    {
+      "path": "docs/pages/FINANZEN_SPECIFICATION_V18.3.29.md",
+      "title": "­ƒÆ░ FINANZEN SPECIFICATION V18.3.29"
+    },
+    {
+      "path": "docs/pages/nexify-wiki/design-system.md",
+      "title": "NeXify WiKi ÔÇô Design System (V28.1 ÔåÆ V32.5)"
+    },
+    {
+      "path": "docs/pages/nexify-wiki/restore-original-design.md",
+      "title": "Wiederherstellung des originalen Designs (Pixelgenau)"
+    },
+    {
+      "path": "docs/PAGES_DESIGN_OVERVIEW.md",
+      "title": "PAGES DESIGN OVERVIEW V28.1"
+    },
+    {
+      "path": "docs/PAGE_DESIGN_SPECS.md",
+      "title": "Page Design Specifications V18.5.1"
+    },
+    {
+      "path": "docs/PAGE_HEADER_VERPFLICHTEND_V18.3.24.md",
+      "title": ""
+    },
+    {
+      "path": "docs/PAGE_IMPLEMENTATION_CHECKLIST.md",
+      "title": "PAGE IMPLEMENTATION CHECKLIST V28.1"
+    },
+    {
+      "path": "docs/PAGE_TEMPLATE_SYSTEM_V18.3_ULTIMATE.md",
+      "title": "­ƒÄ» PAGE TEMPLATE SYSTEM V18.3 - ULTIMATE ZENTRALISIERUNG"
+    },
+    {
+      "path": "docs/PASCAL_ANWEISUNGEN_ZUSAMMENFASSUNG.md",
+      "title": "Ô£à Pascal's Kritische Anweisungen - Zusammenfassung"
+    },
+    {
+      "path": "docs/PASCAL_DEPLOYMENT_REGEL.md",
+      "title": "­ƒÜÇ PASCAL'S DEPLOYMENT-REGEL - ABSOLUT"
+    },
+    {
+      "path": "docs/PASCAL_KRITISCHE_ANWEISUNGEN.md",
+      "title": "­ƒÄ» Pascal's Kritische Anweisungen - ABSOLUTE VORGABE"
+    },
+    {
+      "path": "docs/PASCAL_NEXT_STEPS.md",
+      "title": "­ƒôï PASCAL - DEINE N├äCHSTEN SCHRITTE"
+    },
+    {
+      "path": "docs/PASCAL_ZEIGE_MIR_REGEL.md",
+      "title": "­ƒôï PASCAL'S \"ZEIGE MIR\" REGEL"
+    },
+    {
+      "path": "docs/PDF_SYSTEM_V18.3.24.md",
+      "title": "MyDispatch PDF-System V18.3.24"
+    },
+    {
+      "path": "docs/PERFORMANCE_GOVERNANCE_V19.0.0.md",
+      "title": "ÔÜí PERFORMANCE GOVERNANCE V19.0.0"
+    },
+    {
+      "path": "docs/PERFORMANCE_LOG.md",
+      "title": "ÔÜí PERFORMANCE LOG - MyDispatch"
+    },
+    {
+      "path": "docs/PERFORMANCE_OPTIMIZATION_REPORT_V18.3.md",
+      "title": "­ƒÜÇ PERFORMANCE OPTIMIZATION REPORT V18.3"
+    },
+    {
+      "path": "docs/PERFORMANCE_OPTIMIZATION_V18.5.1.md",
+      "title": "PERFORMANCE OPTIMIZATION V18.5.1"
+    },
+    {
+      "path": "docs/PERFORMANCE_REPORT_V28.1.md",
+      "title": "­ƒôè Performance Report V28.1"
+    },
+    {
+      "path": "docs/PERFORMANCE_TESTING_GUIDE.md",
+      "title": "­ƒôè PERFORMANCE TESTING GUIDE V28.1"
+    },
+    {
+      "path": "docs/PERSISTENTES_GEDAECHTNIS_SYSTEM.md",
+      "title": "­ƒºá NeXify AI MASTER - Persistentes Ged├ñchtnis System"
+    },
+    {
+      "path": "docs/PFLICHTDOKUMENTE_MATRIX_V18.3.md",
+      "title": "­ƒôï PFLICHTDOKUMENTE-MATRIX V18.3"
+    },
+    {
+      "path": "docs/PFLICHTENHEFT_V18.3.27.md",
+      "title": "­ƒôÿ SYSTEMWEITES PFLICHTENHEFT - MyDispatch System"
+    },
+    {
+      "path": "docs/PFLICHTENHEFT_V18.3.28.md",
+      "title": "­ƒôÿ SYSTEMWEITES PFLICHTENHEFT V18.3.28"
+    },
+    {
+      "path": "docs/PFLICHTENHEFT_V18.3.md",
+      "title": "­ƒôï PFLICHTENHEFT V18.3 - MyDispatch Premium+"
+    },
+    {
+      "path": "docs/PHASE1_PRE_LOGIN_PAGES_MASTER_PLAN.md",
+      "title": "­ƒôï PHASE 1: PRE-LOGIN PAGES MASTER PLAN"
+    },
+    {
+      "path": "docs/PHASE2_IMPLEMENTATION_CHECKLIST.md",
+      "title": "Ô£à PHASE 2: IMPLEMENTATION CHECKLIST"
+    },
+    {
+      "path": "docs/PHASE5_ANSWERS.md",
+      "title": "­ƒôï PHASE 5 - ANTWORTEN AUF FRAGEN"
+    },
+    {
+      "path": "docs/PHASE6_ANSWERS.md",
+      "title": "­ƒôï PHASE 6 - ANTWORTEN AUF FRAGEN"
+    },
+    {
+      "path": "docs/PHASE_1-5_COMPLETION_V29.4.md",
+      "title": "­ƒÄë PHASE 1-5 COMPLETION REPORT V29.4"
+    },
+    {
+      "path": "docs/PHASE_1-5_KNOWN_ISSUES_V30.0.md",
+      "title": "­ƒÜ¿ PHASE 1-5 KNOWN ISSUES & LEARNINGS V30.0"
+    },
+    {
+      "path": "docs/PHASE_1_CLEANUP_COMPLETE_V32.0.md",
+      "title": "­ƒº╣ PHASE 1: CLEANUP COMPLETE - BRAIN-SYSTEM DEPRECATION V32.0"
+    },
+    {
+      "path": "docs/PHASE_1_COMPLETE_V18.5.0.md",
+      "title": "Ô£à PHASE 1 ABGESCHLOSSEN - V18.5.0"
+    },
+    {
+      "path": "docs/PHASE_1_COMPLETE_V29.1.md",
+      "title": "­ƒÄë PHASE 1-5 STATUS V29.1"
+    },
+    {
+      "path": "docs/PHASE_1_CRITICAL_FIXES_V28.2.18.md",
+      "title": "PHASE 1: KRITISCHE FIXES - V28.2.18 COMPLETE Ô£à"
+    },
+    {
+      "path": "docs/PHASE_1_IMPLEMENTATION_COMPLETE_V18.5.1.md",
+      "title": "Phase 1 Implementation Complete V18.5.1"
+    },
+    {
+      "path": "docs/PHASE_1_KRITISCHE_FIXES_V18.5.2.md",
+      "title": "PHASE 1: KRITISCHE FIXES V18.5.2 - ABGESCHLOSSEN Ô£à"
+    },
+    {
+      "path": "docs/PHASE_1_PROGRESS_V18.5.0.md",
+      "title": "­ƒÜÇ PHASE 1 PROGRESS TRACKER V18.5.0"
+    },
+    {
+      "path": "docs/PHASE_1_SETUP_GUIDE.md",
+      "title": "PHASE 1 INFRASTRUKTUR SETUP - ABGESCHLOSSEN Ô£à"
+    },
+    {
+      "path": "docs/PHASE_1_STATUS.md",
+      "title": "Ô£à PHASE 1 STATUS - FORM SYSTEM UNIFICATION"
+    },
+    {
+      "path": "docs/PHASE_2A_AXIOM_FIXES_COMPLETE.md",
+      "title": "PHASE 2A: CRITICAL AXIOM FIXES - COMPLETION REPORT"
+    },
+    {
+      "path": "docs/PHASE_2C_MIGRATION_COMPLETE.md",
+      "title": "Ô£à PHASE 2C: DESIGN SYSTEM COMPLETION - ERFOLGREICH ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/PHASE_2_DESIGN_PERFECTION_V28.2.19.md",
+      "title": "PHASE 2: DESIGN PERFECTION V28.2.19"
+    },
+    {
+      "path": "docs/PHASE_2_MASTER_DASHBOARD_COMPLETE_V32.0.md",
+      "title": "­ƒÄ» PHASE 2: MASTER-DASHBOARD COMPLETE V32.0"
+    },
+    {
+      "path": "docs/PHASE_2_UNTERNEHMER_LANDING_UPGRADE.md",
+      "title": "Ô£à PHASE 2 PARTIAL: Unternehmer-Landing Premium-Upgrade"
+    },
+    {
+      "path": "docs/PHASE_6_COMPLETE.md",
+      "title": "PHASE 6 - PROJECT FINALIZATION Ô£à COMPLETE"
+    },
+    {
+      "path": "docs/PHOENIX_RISING_PHASE_1.3_COMPLETE.md",
+      "title": "PHOENIX RISING Phase 1.3 - Design System COMPLETE Ô£à"
+    },
+    {
+      "path": "docs/PHOENIX_RISING_PHASE_1.3_DESIGN_SYSTEM.md",
+      "title": "PHOENIX RISING Phase 1.3: Design-System Status"
+    },
+    {
+      "path": "docs/PHOENIX_RISING_PHASE_1_STATUS.md",
+      "title": "PHOENIX RISING Phase 1: Status Report"
+    },
+    {
+      "path": "docs/PLAN.md",
+      "title": "­ƒôï NEXIFY AI - EXECUTION PLAN V40.10"
+    },
+    {
+      "path": "docs/PLAN_UPDATE_PHASE2.md",
+      "title": "­ƒôï PHASE 2 UPDATE - MASTER-CHAT INTEGRATION"
+    },
+    {
+      "path": "docs/PLAN_UPDATE_PHASE3.md",
+      "title": "­ƒôï PHASE 3 UPDATE - DATENFLUSS & FILE-UPLOAD"
+    },
+    {
+      "path": "docs/PLAN_UPDATE_PHASE4.md",
+      "title": "­ƒôï PHASE 4 UPDATE - DESIGN & DRAG-DROP INTEGRATION"
+    },
+    {
+      "path": "docs/PLAN_UPDATE_PHASE5.md",
+      "title": "­ƒôï PHASE 5 UPDATE - TESTING & DEPLOYMENT"
+    },
+    {
+      "path": "docs/PLAN_UPDATE_PHASE6.md",
+      "title": "­ƒôï PHASE 6 UPDATE - EMBEDDED CHAT & FINAL CORRECTIONS"
+    },
+    {
+      "path": "docs/POPUP_SYSTEM_V28.1.md",
+      "title": "­ƒ¬ƒ POPUP SYSTEM V28.1 - SYSTEMWEITE DIALOG-VORLAGE"
+    },
+    {
+      "path": "docs/POPUP_SYSTEM_V28.1_DOCUMENTATION.md",
+      "title": "­ƒ¬ƒ PopUp System V28.1 - Wiederverwendbare Dialog-Patterns"
+    },
+    {
+      "path": "docs/PORTAL_STRUKTUR_V18.3.30.md",
+      "title": "Portal-Struktur & Systemlogik V18.3.30"
+    },
+    {
+      "path": "docs/PORTAL_THEMES_GUIDE.md",
+      "title": "­ƒÄ¿ PORTAL THEMES GUIDE"
+    },
+    {
+      "path": "docs/PRE_BEREICH_UMSETZUNGSPLAN.md",
+      "title": "­ƒÜÇ PRE-BEREICH UMSETZUNGSPLAN"
+    },
+    {
+      "path": "docs/PRE_LOGIN_COMPLETE_V6.0.8.md",
+      "title": "­ƒÄ» PRE-LOGIN FERTIGSTELLUNG V6.0.8 - ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/PRE_LOGIN_FINAL_COMPLETION_REPORT.md",
+      "title": "­ƒÄë PRE-LOGIN-BEREICH - FINAL COMPLETION REPORT"
+    },
+    {
+      "path": "docs/PRE_LOGIN_FOCUS.md",
+      "title": "­ƒÄ» PRE-LOGIN FOKUS - MIGRATION STRATEGIE"
+    },
+    {
+      "path": "docs/PRE_LOGIN_PAGES_COMPLETE_PLAN.md",
+      "title": "­ƒôï PRE-LOGIN SEITEN - VOLLST├äNDIGER PLAN"
+    },
+    {
+      "path": "docs/PRICING_DESIGN_SYSTEM_V26.0.md",
+      "title": "PRICING DESIGN SYSTEM V26.0 - \"BALANCED\""
+    },
+    {
+      "path": "docs/PRICING_ERROR_FIX_V18.5.1.md",
+      "title": "­ƒÜ¿ KRITISCHER PRICING-FEHLER BEHOBEN - V18.5.1"
+    },
+    {
+      "path": "docs/PRICING_V26.1_FINAL_REPORT.md",
+      "title": "Ô£à PRICING V26.1 FINAL REPORT - VOLLST├äNDIGE AKTUALISIERUNG"
+    },
+    {
+      "path": "docs/PRODUCTION_DEPLOYMENT_FIX_V18.3.25.md",
+      "title": "PRODUCTION DEPLOYMENT FIX V18.3.25"
+    },
+    {
+      "path": "docs/PRODUCTION_DEPLOYMENT_V18_5_0.md",
+      "title": "­ƒÜÇ MyDispatch V18.5.0 - PRODUCTION DEPLOYMENT COMPLETE"
+    },
+    {
+      "path": "docs/PRODUCTION_FIXES_V18.5.0.md",
+      "title": "MyDispatch V18.5.0 - Production Fixes & Stabilisierung"
+    },
+    {
+      "path": "docs/PRODUCTION_GO_LIVE_V28.2.17_COMPLETE.md",
+      "title": "­ƒÜÇ PRODUCTION GO-LIVE V28.2.17 - PERFECTIONIST COMPLETE"
+    },
+    {
+      "path": "docs/PRODUCTION_READY_CHECKLIST_V18.3.29.md",
+      "title": "Ô£à PRODUCTION READY CHECKLIST V18.3.29"
+    },
+    {
+      "path": "docs/PRODUCTION_READY_REPORT_V32.5.md",
+      "title": "­ƒÜÇ Production Ready Report V32.5"
+    },
+    {
+      "path": "docs/PROJECT_KNOWLEDGE_BASE.md",
+      "title": "­ƒôÜ PROJECT KNOWLEDGE BASE - MyDispatch Ultimate Guide"
+    },
+    {
+      "path": "docs/PROJECT_MEMORY.md",
+      "title": "PROJECT MEMORY V32.5.0"
+    },
+    {
+      "path": "docs/PROJECT_MEMORY_V28.1.md",
+      "title": "­ƒºá PROJECT MEMORY V28.1 - MyDispatch AI Agent"
+    },
+    {
+      "path": "docs/PROJEKT_SPEZIFISCHE_TRENNUNG.md",
+      "title": "­ƒùé´©Å PROJEKT-SPEZIFISCHE TRENNUNG - MYDISPATCH"
+    },
+    {
+      "path": "docs/PROMETHEUS_MISSIONS_V1.0.md",
+      "title": "PROMETHEUS OPERATIONS PLAN V1.0"
+    },
+    {
+      "path": "docs/PROMETHEUS_MISSIONS_V1.0_FINAL.md",
+      "title": "­ƒÄ» PROMETHEUS MISSIONS V1.0 - FINAL STATUS REPORT"
+    },
+    {
+      "path": "docs/PRUEF_VALIDIERUNG_SYSTEM_V18.5.0.md",
+      "title": "PR├£F- & VALIDIERUNGS-SYSTEM V18.5.0"
+    },
+    {
+      "path": "docs/PUBLIC_PAGES_DESIGN_LOCK_V32.1.md",
+      "title": "PUBLIC PAGES DESIGN LOCK V32.1"
+    },
+    {
+      "path": "docs/QA/FRONTEND_QA_REPORT_V6.1.9.md",
+      "title": "Frontend QA Bericht ÔÇô MyDispatch"
+    },
+    {
+      "path": "docs/QA/media/README.md",
+      "title": "Annotierte Screenshots ÔÇô Leitfaden"
+    },
+    {
+      "path": "docs/QUALITAETSSICHERUNG_VOLLSTAENDIG_V1.0.md",
+      "title": "­ƒöÆ QUALIT├äTSSICHERUNG - VOLLST├äNDIG V1.0"
+    },
+    {
+      "path": "docs/QUALITAETS_STANDARDS_V18.5.0.md",
+      "title": "QUALIT├äTS-STANDARDS V18.5.0"
+    },
+    {
+      "path": "docs/QUALITY_AUDIT_V28.1_REPORT.md",
+      "title": "­ƒöì QUALITY AUDIT V28.1 - ABSCHLUSSPR├£FUNG"
+    },
+    {
+      "path": "docs/QUALITY_AUDIT_V28.1_SCROLLBAR_FIX.md",
+      "title": "­ƒöì QUALITY AUDIT V28.1 - SCROLLBAR FIX & TRIPLE-CHECK"
+    },
+    {
+      "path": "docs/QUALITY_GATES_V18.3.24.md",
+      "title": "­ƒöÆ QUALITY GATES V18.3.24"
+    },
+    {
+      "path": "docs/QUALITY_GATES_V29.1.md",
+      "title": "Ô£à QUALITY GATES V29.1 - RESULTS"
+    },
+    {
+      "path": "docs/QUICK_ACTIONS_GUIDE.md",
+      "title": "­ƒÜÇ QUICK-ACTIONS REGISTRY GUIDE"
+    },
+    {
+      "path": "docs/QUICK_FIX_GUIDE.md",
+      "title": "­ƒÜÇ MyDispatch Critical Fixes - Sofort-L├Âsung"
+    },
+    {
+      "path": "docs/QUICK_REFERENCE_V18.5.1.md",
+      "title": "­ƒôÜ QUICK REFERENCE V18.5.1"
+    },
+    {
+      "path": "docs/QUICK_START_CHECKLIST_V18.5.1.md",
+      "title": "ÔÜí QUICK START CHECKLIST V18.5.1"
+    },
+    {
+      "path": "docs/README.md",
+      "title": "­ƒôÜ MyDispatch Dokumentation & Wiki"
+    },
+    {
+      "path": "docs/REALTIME_SUBSCRIPTIONS_PLAN.md",
+      "title": "­ƒöä REALTIME SUBSCRIPTIONS PLAN V28.2.0"
+    },
+    {
+      "path": "docs/RECHTLICHE_COMPLIANCE_VORGABEN_V18.5.1.md",
+      "title": "RECHTLICHE COMPLIANCE-VORGABEN V18.5.1"
+    },
+    {
+      "path": "docs/RECOVERY_KIT.md",
+      "title": "­ƒº░ RECOVERY KIT - MyDispatch"
+    },
+    {
+      "path": "docs/RECOVERY_MYDISPATCH_2025-11-11.md",
+      "title": "WEBSITE RECOVERY ÔÇö MyDispatch (Full Restore)"
+    },
+    {
+      "path": "docs/RELEASE_NOTES_2025-11-10.md",
+      "title": "Release Notes ÔÇô 2025-11-10"
+    },
+    {
+      "path": "docs/RESPONSIVE_AUDIT_V33.1.md",
+      "title": "RESPONSIVE-AUDIT V33.1"
+    },
+    {
+      "path": "docs/RETINA_OPTIMIZATION_V28.3.md",
+      "title": "­ƒÄ¿ RETINA OPTIMIZATION V28.3 - IMPLEMENTATION REPORT"
+    },
+    {
+      "path": "docs/REVENUE_CHART_FEATURES_V18.3.md",
+      "title": "REVENUE CHART FEATURES - V18.3 IMPLEMENTATION GUIDE"
+    },
+    {
+      "path": "docs/ROADMAP_INITIAL_TASKS_V5.0.md",
+      "title": "­ƒôï ROADMAP INITIAL TASKS V5.0"
+    },
+    {
+      "path": "docs/ROADMAP_QUICKSTART_GUIDE.md",
+      "title": "­ƒÜÇ ROADMAP SYSTEM V5.0 - QUICK START GUIDE"
+    },
+    {
+      "path": "docs/ROADMAP_SYSTEM_V5.0.md",
+      "title": "­ƒÜÇ ROADMAP SYSTEM V5.0 - AUTONOMOUS PROGRESS TRACKING"
+    },
+    {
+      "path": "docs/ROUTING_FIX_REPORT_V18.5.1.md",
+      "title": "Routing Fix Report V18.5.1"
+    },
+    {
+      "path": "docs/ROUTING_SYSTEM_V18.5.1.md",
+      "title": "­ƒøú´©Å ROUTING SYSTEM V18.5.1 - COMPLETE GUIDE"
+    },
+    {
+      "path": "docs/SCROLLBAR_SYSTEM_V28.1_DOCUMENTATION.md",
+      "title": "­ƒöÆ Scrollbar System V28.1 - Unsichtbare Scrollbars"
+    },
+    {
+      "path": "docs/SCROLLING_FIX_V28.1_REPORT.md",
+      "title": "­ƒöº SCROLLING FIX V28.1 - ROOT CAUSE ANALYSIS"
+    },
+    {
+      "path": "docs/SECRETS_REGISTRY.md",
+      "title": "Secrets Registry (MyDispatch)"
+    },
+    {
+      "path": "docs/SECURITY_ARCHITECTURE.md",
+      "title": "­ƒöÉ SECURITY ARCHITECTURE - MyDispatch"
+    },
+    {
+      "path": "docs/SECURITY_AUDIT.md",
+      "title": "­ƒöÉ SECURITY AUDIT - MyDispatch"
+    },
+    {
+      "path": "docs/SECURITY_AUDIT_REPORT_V28.2.3.md",
+      "title": "­ƒöÉ SECURITY AUDIT REPORT V28.2.3"
+    },
+    {
+      "path": "docs/SECURITY_AUDIT_V18.3.25.md",
+      "title": "SECURITY AUDIT V18.3.25 - VOLLST├äNDIGE SYSTEMABSICHERUNG"
+    },
+    {
+      "path": "docs/SECURITY_COMPLIANCE_V18.3.29_FINAL.md",
+      "title": "­ƒöÆ SECURITY COMPLIANCE V18.3.29 - FINAL REPORT"
+    },
+    {
+      "path": "docs/SECURITY_FIX_REPORT_V18.3.29.md",
+      "title": "­ƒöÆ Security Fix Report V18.3.29"
+    },
+    {
+      "path": "docs/SECURITY_LOGIN.md",
+      "title": "Login-Sicherheit und Stabilit├ñt (Stand: 2025-11-10)"
+    },
+    {
+      "path": "docs/SECURITY_RLS_POLICIES_DOCUMENTATION_V18.5.1.md",
+      "title": "Security RLS Policies Documentation V18.5.1"
+    },
+    {
+      "path": "docs/SEITEN_PLANUNGSPROZESS_V18.5.1.md",
+      "title": "SEITEN-PLANUNGSPROZESS V18.5.1"
+    },
+    {
+      "path": "docs/SELBSTREFLEXION_COMPLETE_V18.5.1.md",
+      "title": "­ƒºá Vollst├ñndige Selbstreflexion V18.5.1"
+    },
+    {
+      "path": "docs/SELBSTREFLEXION_COMPLETE_V18.5.2.md",
+      "title": "SELBSTREFLEXION & FEHLERANALYSE V18.5.2"
+    },
+    {
+      "path": "docs/SELF_HEALING_SYSTEM_V1.0.md",
+      "title": "­ƒöä SELF-HEALING SYSTEM V1.0"
+    },
+    {
+      "path": "docs/SENTRY_SETUP_V1.0.md",
+      "title": "­ƒöº SENTRY SETUP - VOLLST├äNDIGE KONFIGURATION V1.0"
+    },
+    {
+      "path": "docs/SEO_PERFORMANCE_V18.5.0.md",
+      "title": "SEO & PERFORMANCE V18.5.0"
+    },
+    {
+      "path": "docs/SEO_SPECIFICATION_V18.3.md",
+      "title": "­ƒÄ» SEO SPECIFICATION V18.3 - MyDispatch Premium+"
+    },
+    {
+      "path": "docs/SESSION_2025-10-28_FINAL_REPORT.md",
+      "title": "­ƒôè SESSION 2025-10-28 - FINAL REPORT"
+    },
+    {
+      "path": "docs/SESSION_2025_01_31_SUMMARY.md",
+      "title": "­ƒôÜ SESSION SUMMARY - 2025-01-31"
+    },
+    {
+      "path": "docs/SESSION_FINAL_SUMMARY.md",
+      "title": "­ƒôè SESSION FINAL SUMMARY - 2025-10-28 Late Night"
+    },
+    {
+      "path": "docs/SESSION_LEARNINGS_2025-10-28_PRICING_FIXES.md",
+      "title": "­ƒôÜ SESSION LEARNINGS - PRICING FIXES V18.5.2"
+    },
+    {
+      "path": "docs/SESSION_LOG_20251028_COMPLETE.md",
+      "title": "­ƒôØ COMPLETE SESSION LOG - 2025-10-28"
+    },
+    {
+      "path": "docs/SHARED_KNOWLEDGE_V18.5.1.md",
+      "title": "­ƒôÜ SHARED KNOWLEDGE BASE V18.5.1"
+    },
+    {
+      "path": "docs/SHARED_KNOWLEDGE_V3.0.md",
+      "title": "­ƒôÜ SHARED KNOWLEDGE V3.0 - MyDispatch"
+    },
+    {
+      "path": "docs/SHIFTS_ARCHIVING_MIGRATION_V18.3.29.md",
+      "title": "­ƒùä´©Å SHIFTS ARCHIVING MIGRATION V18.3.29"
+    },
+    {
+      "path": "docs/SMART_TEMPLATES_V21.0.0.md",
+      "title": "­ƒÄ» SMART TEMPLATES SYSTEM V21.0.0"
+    },
+    {
+      "path": "docs/SOLL_ZUSTANDS_DOKUMENTATION_V1.0.md",
+      "title": "SOLL-ZUSTAND (MyDispatch Frontend)"
+    },
+    {
+      "path": "docs/SOLL_ZUSTAND_MYDISPATCH_V1.0.md",
+      "title": "SOLL-Zustand MyDispatch"
+    },
+    {
+      "path": "docs/SOLUTION_DATABASE.md",
+      "title": "MYDISPATCH SOLUTION DATABASE - ZENTRALE L├ûSUNGSDATENBANK"
+    },
+    {
+      "path": "docs/SOL_INVICTUS_V21_COMPLETION_REPORT.md",
+      "title": "­ƒöÑ SOL INVICTUS V21.0 - COMPLETION REPORT"
+    },
+    {
+      "path": "docs/SOL_INVICTUS_V21_FINAL_REPORT.md",
+      "title": "­ƒÄ» SOL INVICTUS v21.0 - MISSION ACCOMPLISHED"
+    },
+    {
+      "path": "docs/spacing-standards.md",
+      "title": "Spacing Standards - V28.1 Design System"
+    },
+    {
+      "path": "docs/SPACING_SYSTEM_V18.5.1.md",
+      "title": "­ƒôÅ SPACING SYSTEM V18.5.1 - VOLLST├äNDIGES ABSTANDSKONZEPT"
+    },
+    {
+      "path": "docs/SPEC_CONTACT_PAGE_V18.5.8.md",
+      "title": "­ƒôº CONTACT PAGE SPECIFICATION V18.5.8"
+    },
+    {
+      "path": "docs/SPEC_DOCUMENTATION_PAGE_V18.5.8.md",
+      "title": "­ƒôÜ DOCUMENTATION PAGE SPECIFICATION V18.5.8"
+    },
+    {
+      "path": "docs/SPEC_FEATURES_PAGE_V18.5.8.md",
+      "title": "ÔÜí FEATURES PAGE SPECIFICATION V18.5.8"
+    },
+    {
+      "path": "docs/SPEC_LANDING_PAGE_V18.5.8.md",
+      "title": "­ƒÅá LANDING PAGE SPECIFICATION V18.5.8"
+    },
+    {
+      "path": "docs/SPEC_PRICING_PAGE_V18.5.8.md",
+      "title": "­ƒÆ░ PRICING PAGE SPECIFICATION V18.5.8"
+    },
+    {
+      "path": "docs/SPRINT_1_COMPLETE_V28.2.11.md",
+      "title": "Ô£à SPRINT 1 COMPLETE - V28.2.11"
+    },
+    {
+      "path": "docs/SPRINT_1_PRODUCTION_FIX_COMPLETE_V28.2.13.md",
+      "title": "Sprint 1: Emergency Production Unblocking - COMPLETE Ô£à"
+    },
+    {
+      "path": "docs/SPRINT_47_ZUSAMMENFASSUNG.md",
+      "title": "­ƒôè SPRINT 47 ZUSAMMENFASSUNG - RECHTSSICHERHEIT & HOOK-ZENTRALISIERUNG"
+    },
+    {
+      "path": "docs/SPRINT_48_TAB_PERFECTION.md",
+      "title": "­ƒÄ¿ Sprint 48 - Tab-Perfektionierung & Ultimate Architecture"
+    },
+    {
+      "path": "docs/SPRINT_48_TEMPLATE_SYSTEM.md",
+      "title": "SPRINT 48: ZENTRALES TEMPLATE-SYSTEM V18.3"
+    },
+    {
+      "path": "docs/SPRINT_49_P_SCHEIN_SYSTEM.md",
+      "title": "­ƒÜÇ Sprint 49 - P-Schein-System & Erweiterte Compliance"
+    },
+    {
+      "path": "docs/STABILISIERUNG_REPORT_V3.0.md",
+      "title": "­ƒøá´©Å STABILISIERUNG REPORT V3.0"
+    },
+    {
+      "path": "docs/STANDARD_FOLGEPROMPT.md",
+      "title": "Standard-Folgeprompt f├╝r MyDispatch V18.5.0"
+    },
+    {
+      "path": "docs/STANDARD_FOLGEPROMPT_V18.5.1.md",
+      "title": "Standard-Folgeprompt f├╝r MyDispatch V18.5.1"
+    },
+    {
+      "path": "docs/STRIKTE_3_PHASEN_IMPLEMENTIERUNG.md",
+      "title": "­ƒÜ¿ STRIKTE 3-PHASEN IMPLEMENTIERUNGS-VORGABE"
+    },
+    {
+      "path": "docs/STRIPE_INTEGRATION_V18.5.0.md",
+      "title": "STRIPE INTEGRATION V18.5.0"
+    },
+    {
+      "path": "docs/STYLEGUIDE_UI_V1.1.1.md",
+      "title": "­ƒÄ¿ UIÔÇæStyleguide (Typografie, Farben, Abst├ñnde, Breakpoints)"
+    },
+    {
+      "path": "docs/STYLE_CLEANUP_LOG.md",
+      "title": "STYLE CLEANUP LOG V32.1"
+    },
+    {
+      "path": "docs/STYLE_FIX_PATTERNS.md",
+      "title": "­ƒÄ¿ STYLE-FIX-PATTERNS V40.19"
+    },
+    {
+      "path": "docs/SUPABASE_LINTER_ISSUES_V18.3.29.md",
+      "title": "­ƒöÆ SUPABASE LINTER ISSUES V18.3.29"
+    },
+    {
+      "path": "docs/SUPABASE_SECRETS_SETUP.md",
+      "title": "­ƒöÉ SUPABASE SECRETS SETUP - ANLEITUNG"
+    },
+    {
+      "path": "docs/SYSTEMANALYSE_MYDISPATCH_V1.0.md",
+      "title": "Systemanalyse MyDispatch"
+    },
+    {
+      "path": "docs/SYSTEMATISCHE_DOCS_ANALYSE.md",
+      "title": "­ƒöÄ SYSTEMATISCHE DOCS-ANALYSE PROMPT (OHNE DESIGN & LAYOUT)"
+    },
+    {
+      "path": "docs/SYSTEMWEITER_AUDIT_V26.0_ABSCHLUSS.md",
+      "title": "Ô£à SYSTEMWEITER AUDIT V26.0 - ABSCHLUSSBERICHT"
+    },
+    {
+      "path": "docs/SYSTEMWEITER_AUDIT_V26.0_BEFUNDE.md",
+      "title": "­ƒöì SYSTEMWEITER AUDIT V26.0 - BEFUNDE & FIXES"
+    },
+    {
+      "path": "docs/SYSTEMWEITE_DASHBOARD_STRUKTUR_V18.5.1.md",
+      "title": "SYSTEMWEITE DASHBOARD-STRUKTUR V18.5.1"
+    },
+    {
+      "path": "docs/SYSTEMWEITE_PRUEFUNG_V18.3.26.md",
+      "title": "­ƒÄ» SYSTEMWEITE QUALIT├äTSPR├£FUNG V18.3.26 EXTENDED"
+    },
+    {
+      "path": "docs/SYSTEMWEITE_QUALIT├äTSSICHERUNG_V18.3.26.md",
+      "title": "SYSTEMWEITE QUALIT├äTSSICHERUNG, PR├äVENTION & KONFORMIT├äT"
+    },
+    {
+      "path": "docs/SYSTEMWEITE_QUALIT├äTSSICHERUNG_V18.3.26_FINAL.md",
+      "title": "­ƒÄ» SYSTEMWEITE QUALIT├äTSSICHERUNG V18.3.26 - FINAL REPORT"
+    },
+    {
+      "path": "docs/SYSTEMWEITE_TEXTUMBRUCH_VORGABEN_V18.3.25.md",
+      "title": "Systemweite Textumbruch-Vorgaben V18.3.25"
+    },
+    {
+      "path": "docs/SYSTEMWIDE_IMPROVEMENTS_LOG.md",
+      "title": "­ƒöä SYSTEMWIDE IMPROVEMENTS LOG"
+    },
+    {
+      "path": "docs/SYSTEM_ARCHITECTURE_V18.3.29.md",
+      "title": "­ƒÅù´©Å SYSTEM ARCHITECTURE - MyDispatch V18.3.29"
+    },
+    {
+      "path": "docs/SYSTEM_AUDIT_REPORT_V18.5.0.md",
+      "title": "­ƒöì SYSTEM-AUDIT-REPORT V18.5.0"
+    },
+    {
+      "path": "docs/SYSTEM_AUDIT_REPORT_V34.0.md",
+      "title": "­ƒöì MYDISPATCH SYSTEM AUDIT REPORT V34.0"
+    },
+    {
+      "path": "docs/SYSTEM_AUDIT_V18.3.24.md",
+      "title": "­ƒôè SYSTEM AUDIT V18.3.24"
+    },
+    {
+      "path": "docs/SYSTEM_AUDIT_V18.3.29_FINAL.md",
+      "title": "­ƒÄ» SYSTEM-AUDIT V18.3.29 - FINAL EXCELLENCE REPORT"
+    },
+    {
+      "path": "docs/SYSTEM_CONSISTENCY_V18.3.md",
+      "title": "­ƒöÆ SYSTEM CONSISTENCY FRAMEWORK V18.3"
+    },
+    {
+      "path": "docs/SYSTEM_DESIGN_PRINCIPLES_V18.5.0.md",
+      "title": "SYSTEM DESIGN PRINCIPLES V18.5.0"
+    },
+    {
+      "path": "docs/SYSTEM_FINALISIERUNG_COMPLETE.md",
+      "title": "­ƒÄë SYSTEM FINALISIERUNG COMPLETE - V28.2.20"
+    },
+    {
+      "path": "docs/SYSTEM_FINALIZATION_V18.3.29.md",
+      "title": "­ƒÅå SYSTEM FINALIZATION REPORT V18.3.29"
+    },
+    {
+      "path": "docs/SYSTEM_FIXES_V18.3.29_ROOT_CAUSE.md",
+      "title": "­ƒöº SYSTEM FIXES V18.3.29 - ROOT CAUSE ANALYSIS"
+    },
+    {
+      "path": "docs/SYSTEM_KOMPONENTEN_VORGABEN_V18.5.1.md",
+      "title": "SYSTEM-KOMPONENTEN VORGABEN V18.5.1"
+    },
+    {
+      "path": "docs/SYSTEM_KONFIGURATION_VOLLSTAENDIG.md",
+      "title": "­ƒöº MyDispatch - Vollst├ñndige System-Konfiguration"
+    },
+    {
+      "path": "docs/SYSTEM_OPTIMIZATION_PROPOSALS_V18.5.1.md",
+      "title": "­ƒÜÇ SYSTEM-OPTIMIERUNGEN V18.5.1"
+    },
+    {
+      "path": "docs/SYSTEM_OPTIMIZATION_REPORT_V18.5.14.md",
+      "title": "­ƒÜÇ SYSTEM-OPTIMIERUNGSBERICHT V18.5.14"
+    },
+    {
+      "path": "docs/SYSTEM_OPTIMIZATION_SUMMARY_V18.5.1.md",
+      "title": "System Optimization Summary V18.5.1"
+    },
+    {
+      "path": "docs/SYSTEM_OVERVIEW_V18.5.0.md",
+      "title": "SYSTEM OVERVIEW V18.5.0"
+    },
+    {
+      "path": "docs/SYSTEM_PERFECTION_V4.0_STATUS.md",
+      "title": "SYSTEM PERFECTION V4.0 - STATUS REPORT"
+    },
+    {
+      "path": "docs/SYSTEM_REQUIREMENTS_V18.3.30.md",
+      "title": "Systemweites Pflichtenheft V18.3.30"
+    },
+    {
+      "path": "docs/SYSTEM_SCAN_MASTER_LIST.md",
+      "title": "­ƒöì SYSTEM SCAN - MASTER-LISTE ALLER OFFENEN PUNKTE"
+    },
+    {
+      "path": "docs/SYSTEM_STABILITY_OPTIMIZATION_V18.5.1.md",
+      "title": "System Stability & Optimization V18.5.1"
+    },
+    {
+      "path": "docs/SYSTEM_STATUS_V18.5.1.md",
+      "title": "System-Status Report V18.5.1"
+    },
+    {
+      "path": "docs/SYSTEM_UPDATE_V18.3.30_CRITICAL_FIXES.md",
+      "title": "­ƒÜ¿ SYSTEM UPDATE V18.3.30 - CRITICAL FIXES"
+    },
+    {
+      "path": "docs/SYSTEM_UPDATE_V18.3.30_KI_INTEGRATION.md",
+      "title": "­ƒÜÇ SYSTEM UPDATE V18.3.30 - KI-INTEGRATION & LOGGER-MIGRATION"
+    },
+    {
+      "path": "docs/SYSTEM_UPGRADE_V18.5.0_COMPLETE.md",
+      "title": "Ô£à SYSTEM-UPGRADE V18.5.0 - VOLLST├äNDIG ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/SYSTEM_VORGABEN_V18.3.24_FINAL.md",
+      "title": "­ƒÄ» SYSTEM-VORGABEN V18.3.24 FINAL - ULTIMATIVE REGELN"
+    },
+    {
+      "path": "docs/TAEGLICHE_ARBEITSABLAEUFE.md",
+      "title": "­ƒôà MyDispatch - T├ñgliche Arbeitsabl├ñufe"
+    },
+    {
+      "path": "docs/TARGET_AUDIENCE_V18.5.0.md",
+      "title": "MyDispatch Zielgruppen-Dokumentation V18.5.0"
+    },
+    {
+      "path": "docs/TARIFF_SYSTEM_V18.3.24.md",
+      "title": "­ƒÆ│ TARIFF-SYSTEM V18.3.24 - VOLLST├äNDIGE DOKUMENTATION"
+    },
+    {
+      "path": "docs/TARIFF_SYSTEM_V2_COMPLETE.md",
+      "title": "­ƒÄ» TARIFF SYSTEM V2 - COMPLETE DOCUMENTATION"
+    },
+    {
+      "path": "docs/TARIFF_SYSTEM_V2_ISSUES_RESOLVED.md",
+      "title": "­ƒÄ» TARIFF SYSTEM V2 - OFFENE PUNKTE RESOLVED"
+    },
+    {
+      "path": "docs/TARIF_FEATURE_GOVERNANCE_V18.5.0.md",
+      "title": "Tarif-Feature-Governance V18.5.0"
+    },
+    {
+      "path": "docs/TASK_MANAGEMENT_SYSTEM_V18.5.0.md",
+      "title": "­ƒôï TASK-MANAGEMENT-SYSTEM V18.5.0"
+    },
+    {
+      "path": "docs/TECHNISCHE_OPTIMIERUNGEN_V18.3.md",
+      "title": "­ƒÜÇ TECHNISCHE OPTIMIERUNGEN V18.3"
+    },
+    {
+      "path": "docs/TECH_DEBT_LOG.md",
+      "title": "­ƒÅù´©Å TECH DEBT LOG - MyDispatch"
+    },
+    {
+      "path": "docs/templates/api-migration-template.md",
+      "title": "­ƒî┐ API MIGRATION TEMPLATE (STRANGLER FIG PATTERN)"
+    },
+    {
+      "path": "docs/templates/API_INTEGRATION_TEMPLATE.md",
+      "title": "­ƒöî API INTEGRATION TEMPLATE - MyDispatch"
+    },
+    {
+      "path": "docs/templates/atomic-design-system-template.md",
+      "title": "­ƒº▒ ATOMIC DESIGN SYSTEM TEMPLATE"
+    },
+    {
+      "path": "docs/templates/COMPONENT_TEMPLATE.md",
+      "title": "­ƒº® COMPONENT TEMPLATE - MyDispatch"
+    },
+    {
+      "path": "docs/templates/FORM_TEMPLATE.md",
+      "title": "­ƒôØ FORM TEMPLATE - MyDispatch"
+    },
+    {
+      "path": "docs/templates/living-docs-template.md",
+      "title": "­ƒôÜ LIVING DOCUMENTATION TEMPLATE"
+    },
+    {
+      "path": "docs/templates/TEST_TEMPLATE.md",
+      "title": "­ƒº¬ TEST TEMPLATE - MyDispatch"
+    },
+    {
+      "path": "docs/TEMPLATE_SYSTEM_V18.3.md",
+      "title": "ZENTRALES TEMPLATE-SYSTEM V18.3 - DOKUMENTATION"
+    },
+    {
+      "path": "docs/TEMPLATE_SYSTEM_V29.0.md",
+      "title": "TEMPLATE SYSTEM V29.0 - COMPLETE DOCUMENTATION"
+    },
+    {
+      "path": "docs/TESTING_AUTOMATION_V18.3.27.md",
+      "title": "­ƒÜÇ TESTING AUTOMATION V18.3.27"
+    },
+    {
+      "path": "docs/TESTING_PLAN_UI_V1.1.1.md",
+      "title": "­ƒº¬ TestingÔÇæPlan: CrossÔÇæBrowser & Responsive"
+    },
+    {
+      "path": "docs/TESTING_STRATEGIE_V18.5.0.md",
+      "title": "TESTING-STRATEGIE V18.5.0"
+    },
+    {
+      "path": "docs/TESTING_STRATEGY_V18.3.29.md",
+      "title": "­ƒº¬ TESTING STRATEGY V18.3.29"
+    },
+    {
+      "path": "docs/TEST_AUTOMATION_SUMMARY_V18.3.27.md",
+      "title": "Ô£à TEST-AUTOMATION V18.3.27 - VOLLST├äNDIG IMPLEMENTIERT"
+    },
+    {
+      "path": "docs/TEST_COVERAGE_GUIDE_V28.2.4.md",
+      "title": "­ƒº¬ TEST COVERAGE GUIDE V28.2.4"
+    },
+    {
+      "path": "docs/TEXT_ALIGNMENT_SYSTEM_V26.0.md",
+      "title": "TEXT ALIGNMENT SYSTEM V26.0"
+    },
+    {
+      "path": "docs/TEXT_WRAPPING_GUIDELINES_V18.5.0.md",
+      "title": "TEXT WRAPPING GUIDELINES V18.5.0"
+    },
+    {
+      "path": "docs/TODO_NEXIFY.md",
+      "title": "­ƒôï NeXify ToDo & Tracking System"
+    },
+    {
+      "path": "docs/TODO_TRACKING.md",
+      "title": "Ô£à TODO TRACKING - MyDispatch"
+    },
+    {
+      "path": "docs/TRIPLE_CHECK_FIXES_2025-10-28.md",
+      "title": "­ƒö┤ TRIPLE-CHECK ENFORCEMENT - KRITISCHE FEHLER BEHOBEN"
+    },
+    {
+      "path": "docs/TRIPLE_CHECK_REPORT_2025-10-28.md",
+      "title": "­ƒö┤ TRIPLE-CHECK ENFORCEMENT REPORT"
+    },
+    {
+      "path": "docs/TYPOGRAPHY_LINE_BREAK_SYSTEM_V18.5.1.md",
+      "title": "­ƒôØ TYPOGRAPHY & LINE-BREAK SYSTEM V18.5.1"
+    },
+    {
+      "path": "docs/TYPOGRAPHY_STANDARDS_V18.5.1.md",
+      "title": "TYPOGRAPHY-STANDARDS V18.5.1"
+    },
+    {
+      "path": "docs/TYPOGRAPHY_SYSTEM_V26.md",
+      "title": "TYPOGRAPHY SYSTEM V26.0"
+    },
+    {
+      "path": "docs/UI_CHECKLISTE_V1.1.1.md",
+      "title": "Ô£à UIÔÇæCheckliste f├╝r Rekonstruktion"
+    },
+    {
+      "path": "docs/UI_COMPONENTS_LIBRARY_V18.5.0.md",
+      "title": "UI COMPONENTS LIBRARY V18.5.0"
+    },
+    {
+      "path": "docs/UI_DESIGN_AUDIT_REPORT_V26.1.md",
+      "title": "­ƒÄ» MyDispatch UI Design Audit Report V26.1"
+    },
+    {
+      "path": "docs/UI_LIBRARY_SYSTEM_V18.5.0.md",
+      "title": "UI-LIBRARY SYSTEM V18.5.1"
+    },
+    {
+      "path": "docs/UI_SPEC_KOSTENSTELLEN_V18.3.26.md",
+      "title": "­ƒôï UI-SPEZIFIKATION: KOSTENSTELLEN V18.3.26"
+    },
+    {
+      "path": "docs/UI_UX_CONTENT_GOVERNANCE_V1.0.md",
+      "title": "­ƒôÜ MyDispatch UI/UX & Content Governance V1.0"
+    },
+    {
+      "path": "docs/UI_V26.1_DASHBOARD_STATUS.md",
+      "title": "Dashboard V26.1 - Finaler Status Report"
+    },
+    {
+      "path": "docs/UI_V26.1_Migration_Report.md",
+      "title": "­ƒÜÇ UI V26.1 Migration Report"
+    },
+    {
+      "path": "docs/ULTIMATE_CUSTOM_KNOWLEDGE_BASE.md",
+      "title": "PROJECT_KNOWLEDGE_BASE.md"
+    },
+    {
+      "path": "docs/ULTIMATIVE_GOVERNANCE_ERWEITERUNG_V18.5.14.md",
+      "title": "­ƒÄ» ULTIMATIVE GOVERNANCE-ERWEITERUNG V18.5.14"
+    },
+    {
+      "path": "docs/UMSETZUNGSPLAN_MYDISPATCH_V1.0.md",
+      "title": "Umsetzungsplan MyDispatch"
+    },
+    {
+      "path": "docs/UMSETZUNG_STATUS_LIVE.md",
+      "title": "Ô£à UMSETZUNG STATUS - LIVE"
+    },
+    {
+      "path": "docs/UNIFIED_DESIGN_SYSTEM_V26.1.md",
+      "title": "UNIFIED DESIGN SYSTEM V26.1 - SYSTEMWEITE KONSISTENZ"
+    },
+    {
+      "path": "docs/UNTERNEHMER_LANDINGPAGE.md",
+      "title": "UNTERNEHMER LANDINGPAGE V28.1"
+    },
+    {
+      "path": "docs/UNTERNEHMER_LANDINGPAGE_AUTH_OPTIMIERUNG_V18.3.25.md",
+      "title": "Unternehmer-Landingpage Auth-Optimierung V18.3.26"
+    },
+    {
+      "path": "docs/V18_5_0_PRODUCTION_DEPLOYMENT_PLAN.md",
+      "title": "­ƒÜÇ V18.5.0 PRODUCTION DEPLOYMENT PLAN"
+    },
+    {
+      "path": "docs/V18_5_14_AUTOMATED_QA_SYSTEM_COMPLETE.md",
+      "title": "V18.5.14: AUTOMATISIERTES QA-SYSTEM + RECHTLICHE COMPLIANCE COMPLETE"
+    },
+    {
+      "path": "docs/V2.0_DASHBOARD_QUICK_ACTIONS_STANDARD.md",
+      "title": "Ô£à V2.0 DASHBOARD QUICK ACTIONS STANDARD - COMPLETE"
+    },
+    {
+      "path": "docs/V26.1_COMPLETE_FIX_DOCUMENTATION.md",
+      "title": "V26.1 COMPLETE FIX DOCUMENTATION Ô£à"
+    },
+    {
+      "path": "docs/V26.1_COMPONENT_WORKFLOW.md",
+      "title": "V26.1 COMPONENT WORKFLOW - FIXE ARBEITSANWEISUNG"
+    },
+    {
+      "path": "docs/V26.1_DASHBOARD_CLEANUP_COMPLETE.md",
+      "title": "­ƒôè V26.1 DASHBOARD CLEANUP - COMPLETE"
+    },
+    {
+      "path": "docs/V26.1_DASHBOARD_COMPLETE.md",
+      "title": "Dashboard V26.1 - Vollst├ñndige Implementierung"
+    },
+    {
+      "path": "docs/V26.1_DASHBOARD_FIX_COMPLETE.md",
+      "title": "Dashboard V26.1 - Kritische Fehler behoben Ô£à"
+    },
+    {
+      "path": "docs/V26.1_DASHBOARD_SYNC_FIX.md",
+      "title": "DASHBOARD SYNCHRONISATION & OPTIMIERUNG V26.1.1"
+    },
+    {
+      "path": "docs/V26.1_DASHBOARD_UI_LIBRARY.md",
+      "title": "V26.1 DASHBOARD UI LIBRARY"
+    },
+    {
+      "path": "docs/V26.1_DESIGN_SYNC_DOCUMENTATION.md",
+      "title": "­ƒÄ¿ V26.1 DESIGN SYSTEM - SYSTEMWEITE SYNCHRONISATION"
+    },
+    {
+      "path": "docs/V26.1_FINAL_STATUS_REPORT.md",
+      "title": "Ô£à V26.1 FINAL STATUS REPORT - SYSTEMWEITE DESIGN-SYNCHRONISATION"
+    },
+    {
+      "path": "docs/V26.1_HERO_QUALITY_COMPLETE.md",
+      "title": "V26.1 HERO-QUALIT├äT MIGRATION COMPLETE Ô£¿"
+    },
+    {
+      "path": "docs/V26.1_PERFECT_FIXES_DOCUMENTATION.md",
+      "title": "V26.1 PERFECT FIXES DOCUMENTATION"
+    },
+    {
+      "path": "docs/V26_AUTH_COMPONENTS.md",
+      "title": "V26.0 AUTH COMPONENTS"
+    },
+    {
+      "path": "docs/V26_AUTH_HEADER_FINAL_UPDATE_LOG.md",
+      "title": "­ƒÄ» ├£BERBLICK"
+    },
+    {
+      "path": "docs/V26_AUTH_HEADER_FOOTER_MIGRATION_LOG.md",
+      "title": "­ƒÄ» MIGRATION-ZIEL"
+    },
+    {
+      "path": "docs/V26_BADGE_DESIGN_SYSTEM.md",
+      "title": "V26 BADGE DESIGN SYSTEM - CI-KONFORME BADGE-VARIANTEN"
+    },
+    {
+      "path": "docs/V26_BUTTON_DESIGN_SYSTEM.md",
+      "title": "V26 BUTTON DESIGN SYSTEM - BADGE-KONFORMES FARBSCHEMA"
+    },
+    {
+      "path": "docs/V26_COMPONENT_LIBRARY.md",
+      "title": "V26.0 COMPONENT LIBRARY"
+    },
+    {
+      "path": "docs/V26_COMPONENT_LIBRARY_COMPLETE.md",
+      "title": "­ƒôÜ V26.0 COMPONENT LIBRARY - VOLLST├äNDIGE DOKUMENTATION"
+    },
+    {
+      "path": "docs/V26_HSL_COLOR_SYSTEM_FIX.md",
+      "title": "V26 HSL COLOR SYSTEM FIX - SYSTEMWEITE FARBKORREKTUR"
+    },
+    {
+      "path": "docs/V26_ICON_BADGE_GUIDELINES.md",
+      "title": "V26 ICON & BADGE BORDER GUIDELINES"
+    },
+    {
+      "path": "docs/V26_IMPLEMENTATION_SUMMARY.md",
+      "title": "V26.0 IMPLEMENTATION SUMMARY"
+    },
+    {
+      "path": "docs/V26_MIGRATION_PROCESS.md",
+      "title": "V26.0 MIGRATIONS-PROZESS - STANDARD-VORGEHEN"
+    },
+    {
+      "path": "docs/V26_MIGRATION_STATUS.md",
+      "title": "V26.0 MIGRATIONS-STATUS"
+    },
+    {
+      "path": "docs/V26_SYSTEM_CLEANUP_COMPLETE.md",
+      "title": "V26 SYSTEM-CLEANUP - VOLLST├äNDIGE FEHLERBESEITIGUNG"
+    },
+    {
+      "path": "docs/V28.1_DESIGN_SYSTEM_FINAL.md",
+      "title": "­ƒÄ¿ V28.1 DESIGN SYSTEM - COMPARISON TABLE SPEC"
+    },
+    {
+      "path": "docs/V28.1_MIGRATION_COMPLETE.md",
+      "title": "Ô£à V28.1 MIGRATION COMPLETE"
+    },
+    {
+      "path": "docs/V28.1_SLATE_MIGRATION_COMPLETE.md",
+      "title": "V28.1 SLATE MIGRATION - COMPLETE Ô£à"
+    },
+    {
+      "path": "docs/V28_BILLING_TOGGLE_SPACING.md",
+      "title": "V28 Billing Toggle Spacing Vorgabe"
+    },
+    {
+      "path": "docs/V28_COMPONENT_REUSABILITY.md",
+      "title": "Ô£à V28 COMPONENT REUSABILITY - DOKUMENTATION"
+    },
+    {
+      "path": "docs/V28_DASHBOARD_TRANSFORMATION.md",
+      "title": "V28.1 Dashboard Transformation Plan"
+    },
+    {
+      "path": "docs/V28_DIALOG_MIGRATION_PLAN.md",
+      "title": "­ƒöä V28 DIALOG MIGRATION PLAN"
+    },
+    {
+      "path": "docs/V28_HERO_DESIGN_RULES.md",
+      "title": "V28 HERO DESIGN RULES - VERBINDLICH!"
+    },
+    {
+      "path": "docs/V28_HOME_FINAL_FIXES.md",
+      "title": "Ô£à V28 HOME FINAL FIXES - FAQ & COMPONENTS"
+    },
+    {
+      "path": "docs/V28_HOME_PRICING_FINAL_ALIGNMENT.md",
+      "title": "Ô£à V28 HOME & PRICING FINAL ALIGNMENT"
+    },
+    {
+      "path": "docs/V28_ICONBOX_CORRECTION.md",
+      "title": "Ô£à V28 ICONBOX CORRECTION"
+    },
+    {
+      "path": "docs/V28_MIGRATION_COMPLETE_FINAL.md",
+      "title": "V28.1 MIGRATION COMPLETE - SYSTEM 100% V28-KONFORM"
+    },
+    {
+      "path": "docs/V28_MIGRATION_FUNCTION_VALIDATION.md",
+      "title": "Ô£à V28 MIGRATION FUNCTION VALIDATION V28.2.0"
+    },
+    {
+      "path": "docs/V28_MIGRATION_GUIDE.md",
+      "title": "V28 MIGRATION GUIDE"
+    },
+    {
+      "path": "docs/V28_MIGRATION_ROLLBACK_PLAN.md",
+      "title": "­ƒöä V28 MIGRATION ROLLBACK PLAN V28.2.0"
+    },
+    {
+      "path": "docs/V28_MIGRATION_STATUS.md",
+      "title": "V28.1 Migration Status Report"
+    },
+    {
+      "path": "docs/V28_MIGRATION_TESTING_MATRIX.md",
+      "title": "­ƒº¬ V28 MIGRATION TESTING MATRIX V28.2.0"
+    },
+    {
+      "path": "docs/V28_PRICING_CARDS_FINAL_FIX.md",
+      "title": "Ô£à V28 PRICING CARDS FINAL FIX"
+    },
+    {
+      "path": "docs/V28_PRICING_STYLE_CORRECTION.md",
+      "title": "Ô£à V28 PRICING-STYLE CORRECTION - ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/V28_SCROLLBAR_COMPLIANCE_REPORT.md",
+      "title": "V28.1 Scrollbar Compliance Report"
+    },
+    {
+      "path": "docs/V28_SIDEBAR_FEATURE_NAVIGATION.md",
+      "title": "V28 Sidebar Feature Navigation"
+    },
+    {
+      "path": "docs/V28_SYSTEMWEITES_DESIGN_TEMPLATE.md",
+      "title": "­ƒÄ¿ V28.1 SYSTEMWEITES DESIGN-TEMPLATE"
+    },
+    {
+      "path": "docs/V28_TRANSFORMATION_COMPLETE.md",
+      "title": "V28.1 Dashboard Transformation - ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/V29.1_REFACTORING_LOG.md",
+      "title": "­ƒôï V29.1 REFACTORING LOG - VOLLST├äNDIGE OPTIMIERUNG"
+    },
+    {
+      "path": "docs/V29_HERO_SYSTEM.md",
+      "title": "V29 HERO SYSTEM - ZENTRALE IPAD SHOWCASE"
+    },
+    {
+      "path": "docs/V30_DUAL_DEVICE_MIGRATION_COMPLETE.md",
+      "title": "Ô£à V30.0 DUAL-DEVICE-HERO MIGRATION - COMPLETE"
+    },
+    {
+      "path": "docs/V30_MIGRATION_COMPLETE.md",
+      "title": "Ô£à V30.0 DUAL-DEVICE-HERO MIGRATION - ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/V31.6_ZENTRALE_DASHBOARD_ARCHITEKTUR.md",
+      "title": "­ƒÜÇ V31.6 ZENTRALE DASHBOARD-ARCHITEKTUR"
+    },
+    {
+      "path": "docs/V32.0_LAYOUT_FINAL.md",
+      "title": "Ô£à V32.0 LAYOUT FINAL - 2-SIDEBAR SYSTEM"
+    },
+    {
+      "path": "docs/V32.1_DOCUMENTATION_COMPLETE.md",
+      "title": "Ô£à V32.1 DOCUMENTATION COMPLETE - FULL SYSTEM SYNC"
+    },
+    {
+      "path": "docs/V32.3_DESIGN_SYSTEM_MIGRATION_COMPLETE.md",
+      "title": "­ƒÄ» V32.3 DESIGN-SYSTEM-MIGRATION - ABGESCHLOSSEN"
+    },
+    {
+      "path": "docs/V32.5_100_PERCENT_ACHIEVEMENT_REPORT.md",
+      "title": "­ƒÅå MyDispatch V32.5 - 100% ACHIEVEMENT REPORT"
+    },
+    {
+      "path": "docs/V32.5_COMPLETION_FINAL.md",
+      "title": "­ƒÄë MyDispatch V32.5 - VOLLST├äNDIGE FERTIGSTELLUNG"
+    },
+    {
+      "path": "docs/V32.5_FINALE_ZUSAMMENFASSUNG.md",
+      "title": "­ƒÄ» MyDispatch V32.5 - FINALE ZUSAMMENFASSUNG"
+    },
+    {
+      "path": "docs/V32.5_MASTER_WHITE_SCREEN_FIX.md",
+      "title": "Ô£à V32.5 MASTER.TSX WHITE-SCREEN FIX - COMPLETE"
+    },
+    {
+      "path": "docs/V32.5_ONE_PAGER.md",
+      "title": "­ƒÜÇ MyDispatch V32.5 - ONE-PAGER"
+    },
+    {
+      "path": "docs/V33.0_UNIVERSAL_DASHBOARD_SYSTEM.md",
+      "title": "V33.0 UNIVERSAL DASHBOARD SYSTEM - DOKUMENTATION"
+    },
+    {
+      "path": "docs/V33.2_FINAL_VALIDATION_CHECKLIST.md",
+      "title": "Ô£à V33.2 FINAL VALIDATION CHECKLIST"
+    },
+    {
+      "path": "docs/V36.0_LAYOUT_FIXES.md",
+      "title": "V36.0 LAYOUT FIXES - ERFOLGREICHE ├äNDERUNGEN"
+    },
+    {
+      "path": "docs/V37.0_DASHBOARD_MIGRATION.md",
+      "title": "­ƒÜÇ V37.0 DASHBOARD MIGRATION - COMPLETE"
+    },
+    {
+      "path": "docs/V37.1_HOOK_RULE_FIX.md",
+      "title": "­ƒöº V37.1 - REACT HOOK RULE COMPLIANCE FIX"
+    },
+    {
+      "path": "docs/V37.2_TAB_NAVIGATION_IMPLEMENTATION.md",
+      "title": "­ƒÄ» V37.2 TAB-NAVIGATION IMPLEMENTATION - COMPLETED"
+    },
+    {
+      "path": "docs/V40.10_CHAT_MIGRATION_REPORT.md",
+      "title": "­ƒÄ» V40.10 CHAT-SYSTEM MIGRATION REPORT"
+    },
+    {
+      "path": "docs/V40.10_DASHBOARD_DISPLAY_MIGRATION_REPORT.md",
+      "title": "V40.10 Dashboard Display-Komponenten Migration Report"
+    },
+    {
+      "path": "docs/V40.10_DASHBOARD_V26_MIGRATION_REPORT.md",
+      "title": "V40.10 Dashboard V26-Kern Migration Report"
+    },
+    {
+      "path": "docs/V40.10_DASHBOARD_WIDGETS_MIGRATION_REPORT.md",
+      "title": "Dashboard Widgets Migration Report V40.10"
+    },
+    {
+      "path": "docs/V40.10_FINAL_REPORT.md",
+      "title": "­ƒÄ» V40.10 FINAL REPORT - BACKEND-AGENTEN-SYSTEM & SELBST-OPTIMIERUNG"
+    },
+    {
+      "path": "docs/V40.11_BRAIN_SYSTEM_FINDINGS.md",
+      "title": "­ƒöì BRAIN SYSTEM FINDINGS V40.11"
+    },
+    {
+      "path": "docs/V40.14_INLINE_STYLE_MIGRATION_REPORT.md",
+      "title": "­ƒôï V40.14 INLINE-STYLE-MIGRATION REPORT"
+    },
+    {
+      "path": "docs/V40.15_INLINE_STYLE_MIGRATION_FINAL.md",
+      "title": "­ƒÄ» INLINE-STYLE MIGRATION V40.15 - FINAL REPORT"
+    },
+    {
+      "path": "docs/V40.16_CHECKER_SYSTEM_PHASE1.md",
+      "title": "­ƒöì CHECKER-SYSTEM PHASE 1 - Claude 4.5 Integration"
+    },
+    {
+      "path": "docs/V40.17_CHECKER_INTEGRATION_PHASE1.1.md",
+      "title": "­ƒöä CHECKER-SYSTEM INTEGRATION PHASE 1.1 - Auto-Healing Loop"
+    },
+    {
+      "path": "docs/V40.18_PHASE1.2_COMPLETE.md",
+      "title": "­ƒÜÇ PHASE 1.2 COMPLETE - Production-Ready Checker System"
+    },
+    {
+      "path": "docs/V40.19_BATCH_FIX_PHASE2.md",
+      "title": "­ƒÄ¿ BATCH-FIX PHASE 2 COMPLETE - Style-Violations Eliminiert"
+    },
+    {
+      "path": "docs/V40.20_FINAL_VALIDATION.md",
+      "title": "Ô£à FINAL VALIDATION V40.20 - Style-Migration Complete"
+    },
+    {
+      "path": "docs/V40.21_BRAIN_QA_EXPANSION.md",
+      "title": "­ƒºá BRAIN QA SYSTEM EXPANSION V40.21"
+    },
+    {
+      "path": "docs/V40.7_INLINE_STYLE_MIGRATION_GUIDE.md",
+      "title": "­ƒöº V40.7 INLINE-STYLE MIGRATION GUIDE"
+    },
+    {
+      "path": "docs/V40.7_OPTIMIZATION_REPORT.md",
+      "title": "V40.7 OPTIMIZATION REPORT"
+    },
+    {
+      "path": "docs/V40.8_SYSTEM_OPTIMIZATION_FINAL.md",
+      "title": "V40.8 SYSTEM OPTIMIZATION - FINAL REPORT"
+    },
+    {
+      "path": "docs/V40.9_DASHBOARD_FOOTER_FIX_COMPLETE.md",
+      "title": "V40.9 - Dashboard Footer & InfoPanel Complete Fix"
+    },
+    {
+      "path": "docs/V40.9_VOLLST├äNDIGE_SYSTEMPR├£FUNG.md",
+      "title": "­ƒöì VOLLST├äNDIGE SYSTEMPR├£FUNG V40.9 - DIAGNOSE-BERICHT"
+    },
+    {
+      "path": "docs/V5.0_FINAL_ACTIVATION_COMPLETE.md",
+      "title": "­ƒÜÇ V5.0 PROMPT FULL ACTIVATION - COMPLETE"
+    },
+    {
+      "path": "docs/V5.0_KNOWLEDGE_BASE_COMPLETE.md",
+      "title": "­ƒÄ» V5.0 KNOWLEDGE-BASE COMPLETE - VOLLST├äNDIGE DOKUMENTATION"
+    },
+    {
+      "path": "docs/V5.0_MIGRATION_COMPLETE.md",
+      "title": "V5.0 KNOWLEDGE-BASE MIGRATION - COMPLETION REPORT"
+    },
+    {
+      "path": "docs/V5.0_OPT_COMPLETION_REPORT.md",
+      "title": "V5.0 OPT 1-3 COMPLETION REPORT"
+    },
+    {
+      "path": "docs/V5.0_SESSION_CHECKLIST.md",
+      "title": "­ƒöä V5.0 SESSION INITIALIZATION CHECKLIST"
+    },
+    {
+      "path": "docs/V6.0.9_CONSOLE_CLEANUP_AUDIT.md",
+      "title": "­ƒöç CONSOLE CLEANUP AUDIT V6.0.9"
+    },
+    {
+      "path": "docs/V6.0.9_DEPLOYMENT_READY.md",
+      "title": "­ƒÜÇ DEPLOYMENT READY V6.0.9 - PRODUCTION CHECKLIST"
+    },
+    {
+      "path": "docs/V6.0.9_MOBILE_FIRST_VALIDATION.md",
+      "title": "­ƒô▒ MOBILE-FIRST VALIDATION V6.0.9"
+    },
+    {
+      "path": "docs/V6.0.9_TYPE_SAFETY_AUDIT.md",
+      "title": "­ƒöÆ TYPE SAFETY AUDIT V6.0.9"
+    },
+    {
+      "path": "docs/VERCEL_DEPLOY_HOOK.md",
+      "title": "Vercel Deploy-Hook"
+    },
+    {
+      "path": "docs/VERCEL_TEMPLATES_KOMPLETT_ANALYSE.md",
+      "title": "­ƒÄ» KOMPLETTE VERCEL TEMPLATES ANALYSE F├£R MYDISPATCH"
+    },
+    {
+      "path": "docs/VERCEL_TEMPLATE_ANALYSE.md",
+      "title": "­ƒÄ» MyDispatch vs. Vercel Templates - Strategische Analyse"
+    },
+    {
+      "path": "docs/VERWALTUNGS_SEITEN_DESIGN_VORGABEN_V18.3.26.md",
+      "title": "­ƒôï VERWALTUNGS-SEITEN DESIGN-VORGABEN V18.3.26"
+    },
+    {
+      "path": "docs/VOLLAUTOMATISIERUNGS_KONZEPT_V18.5.0.md",
+      "title": "VOLLAUTOMATISIERUNGS-KONZEPT V18.5.0"
+    },
+    {
+      "path": "docs/VOLLSTAENDIGER_ABGABEPLAN_HEUTE.md",
+      "title": "­ƒÜÇ VOLLST├äNDIGER ABGABEPLAN - HEUTE FERTIGSTELLEN"
+    },
+    {
+      "path": "docs/VOLLSTAENDIGE_ANFORDERUNGEN_V1.0.md",
+      "title": "­ƒôï MYDISPATCH - VOLLST├äNDIGE ANFORDERUNGEN V1.0"
+    },
+    {
+      "path": "docs/VOLLSTAENDIGE_LUECKENANALYSE_V1.0.md",
+      "title": "­ƒöì VOLLST├äNDIGE LUECKENANALYSE - SYSTEMWEIT V1.0"
+    },
+    {
+      "path": "docs/VOLLSTAENDIGE_LUECKENSCHLIESSUNG_V1.0.md",
+      "title": "Ô£à VOLLST├äNDIGE L├£CKENSCHLIESSUNG V1.0"
+    },
+    {
+      "path": "docs/VOLLSTAENDIGE_SICHERUNG_2025-01-31.md",
+      "title": "­ƒÆ¥ VOLLST├äNDIGE SICHERUNG - 2025-01-31"
+    },
+    {
+      "path": "docs/VOLLSTAENDIGE_UMSETZUNG_STATUS.md",
+      "title": "Ô£à VOLLST├äNDIGE UMSETZUNG - STATUS V1.0"
+    },
+    {
+      "path": "docs/VOLLSTAENDIGKEITS_PRUEFUNG_V18.5.1.md",
+      "title": "VOLLST├äNDIGKEITS-PR├£FUNG V18.5.1"
+    },
+    {
+      "path": "docs/VORBEREITUNG_SCHNELLUMSETZUNG_V18.5.1.md",
+      "title": "­ƒÄ» Vorbereitung f├╝r schnelle Umsetzung V18.5.1"
+    },
+    {
+      "path": "docs/VORSCHRIFT_SEITENAUFBAU_HERO.md",
+      "title": "­ƒÄ» VORSCHRIFT: Hero-Sektion Seitenaufbau V31.5"
+    },
+    {
+      "path": "docs/WATCHDOG_AI_ARCHITECTURE_V18.5.1.md",
+      "title": "WATCHDOG-AI ARCHITECTURE V18.5.1"
+    },
+    {
+      "path": "docs/WDIF_REPORT_BATCH_18.1_CQR_FEHLER_V18.5.9.md",
+      "title": "­ƒÜ¿ WDIF-REPORT: CQR-FEHLER BATCH 18.1"
+    },
+    {
+      "path": "docs/WEBSITE_PLANUNG_VOLLSTAENDIG.md",
+      "title": "­ƒÄ» VOLLST├äNDIGE WEBSITE-PLANUNG F├£R MYDISPATCH"
+    },
+    {
+      "path": "docs/WHITE_SCREEN_FINAL_FIX_V18.3.30.md",
+      "title": "­ƒÄ» WHITE SCREEN FINAL FIX V18.3.30"
+    },
+    {
+      "path": "docs/WHITE_SCREEN_FIX_V18.3.29.md",
+      "title": "­ƒÜ¿ WHITE SCREEN FIX V18.3.29 - Root-Cause-Behebung"
+    },
+    {
+      "path": "docs/WHITE_SCREEN_FIX_V6.0.4.md",
+      "title": "­ƒÄ» WHITE SCREEN FIX V6.0.4 - COMPREHENSIVE SOLUTION"
+    },
+    {
+      "path": "docs/WHITE_SCREEN_ROOT_CAUSE_V18.3.30.md",
+      "title": "­ƒÄ» WHITE SCREEN ROOT-CAUSE BEHOBEN V18.3.30"
+    },
+    {
+      "path": "docs/WIKI_ENTRY_PROMPT.md",
+      "title": "­ƒºá NEXIFY WIKI ENTRY-PROMPT"
+    },
+    {
+      "path": "docs/WIKI_VERSION_CONTROL.md",
+      "title": "­ƒöä WIKI VERSION CONTROL SYSTEM"
+    },
+    {
+      "path": "docs/WIREFRAMES_HEADER_FOOTER_CHAT_V1.1.1.md",
+      "title": "­ƒº® Wireframes: Header, Footer, ChatÔÇæWidget"
+    },
+    {
+      "path": "docs/WISSENSMANAGEMENT_SYSTEM_V18.5.0.md",
+      "title": "WISSENSMANAGEMENT-SYSTEM V18.5.0"
+    },
+    {
+      "path": "docs/WISSENS_DATENBANK_STRUKTUR_V18.5.1.md",
+      "title": "WISSENS-DATENBANK STRUKTUR V18.5.1"
+    },
+    {
+      "path": "docs/WORKFLOW_AUTOMATION_V18.5.0.md",
+      "title": "WORKFLOW AUTOMATION - MyDispatch V18.5.0"
+    },
+    {
+      "path": "docs/WORKFLOW_IMPLEMENTATION_COMPLETE_V18.5.0.md",
+      "title": "WORKFLOW-OPTIMIERUNG ABGESCHLOSSEN V18.5.0"
+    },
+    {
+      "path": "docs/WORKFLOW_OPTIMIERUNG_V18.5.0.md",
+      "title": "WORKFLOW-OPTIMIERUNG V18.5.0"
+    },
+    {
+      "path": "docs/ZENTRALE_IMPLEMENTIERUNG.md",
+      "title": "­ƒÜÇ ZENTRALE IMPLEMENTIERUNGS-STRATEGIE"
+    }
+  ]
+}

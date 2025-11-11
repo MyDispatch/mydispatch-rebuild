@@ -6,8 +6,15 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const SUPABASE_URL = 'https://ygpwuiygivxoqtyoigtg.supabase.co';
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlncHd1aXlnaXZ4b3F0eW9pZ3RnIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MDQ0NDM0MywiZXhwIjoyMDc2MDIwMzQzfQ.W_rbOUxa57VffJiUX9TClCAFB6m11qS2GVxpEzWQ56Q';
+const SUPABASE_URL = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL || '';
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+
+if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+  console.error('❌ Missing Supabase configuration');
+  console.error('   - Required: SUPABASE_URL (or VITE_SUPABASE_URL)');
+  console.error('   - Required: SUPABASE_SERVICE_ROLE_KEY');
+  process.exit(1);
+}
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
@@ -156,7 +163,8 @@ async function activateSystem() {
     console.log('   3. Logs results in autonomous_execution_logs table');
     console.log('   4. You can monitor in Supabase Dashboard\n');
     console.log('📊 Monitor here:');
-    console.log('   https://supabase.com/dashboard/project/ygpwuiygivxoqtyoigtg/editor\n');
+    const projectRef = SUPABASE_URL.replace('https://', '').replace('.supabase.co', '').split('.')[0];
+    console.log(`   https://supabase.com/dashboard/project/${projectRef}/editor\n`);
     console.log('🛑 Emergency stop:');
     console.log('   npx tsx scripts/emergency-stop.ts\n');
 

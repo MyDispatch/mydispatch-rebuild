@@ -7,13 +7,13 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './use-auth';
-import { queryKeys } from '@/lib/query-client';
+import { queryKeys } from '@/lib/react-query/query-keys';
 
 export const useGlobalSearch = (query: string) => {
   const { profile } = useAuth();
 
   const { data: results, isLoading } = useQuery({
-    queryKey: queryKeys.globalSearch(profile?.company_id || '', query),
+    queryKey: queryKeys.globalSearch.query(profile?.company_id || '', query),
     queryFn: async () => {
       if (!profile?.company_id || query.length < 2) {
         return {

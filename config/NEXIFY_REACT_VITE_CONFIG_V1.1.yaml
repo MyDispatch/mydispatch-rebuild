@@ -1,0 +1,555 @@
+# MyDispatch React‑Vite Projektkonfiguration (NeXify)
+status: Production-Ready
+version: 1.1.0
+date: 2025-11-10
+project: MyDispatch
+platform: React + Vite
+compatibility:
+  nexify_wiki: true
+  mydispatch_api_version: "2.3"
+  supabase: true
+  react_router_v6: true
+  tailwindcss: true
+  wcag_level: "AA (2.2)"
+metadata:
+  owner: "Engineering"
+  maintained_by: "Frontend Team"
+  references:
+    - "docs/MASTER_INDEX_V18.5.1.md"
+    - "docs/KNOWLEDGE/DESIGN_SYSTEM.md"
+    - "docs/DESIGN_SYSTEM_CHART_COLORS_V18.3.md"
+    - "docs/ARCHITECTURE/FRONTEND_STRUCTURE.md"
+    - "docs/ROUTING_SYSTEM_V18.5.1.md"
+    - "docs/TECHNICAL/DATABASE_SCHEMA.md"
+    - "docs/SECURITY_RLS_POLICIES_DOCUMENTATION_V18.5.1.md"
+    - "docs/API_SECRETS_MANAGEMENT_V18.5.0.md"
+    - "docs/DEVELOPMENT/TESTING_GUIDE.md"
+    - "docs/DEVELOPMENT/DEPLOYMENT.md"
+    - "docs/NEXIFY_WIKI_V1.0.md"
+    - "docs/ACCESSIBILITY_GOVERNANCE_V19.0.0.md"
+
+design:
+  palette:
+    primary:
+      hex: "#1F3A8A"
+      rgb: "31, 58, 138"
+    secondary:
+      hex: "#0EA5E9"
+      rgb: "14, 165, 233"
+    accent:
+      hex: "#22C55E"
+      rgb: "34, 197, 94"
+    background:
+      hex: "#0B1220"  # Dark slate background (marketing)
+      rgb: "11, 18, 32"
+    surface:
+      hex: "#111827"
+      rgb: "17, 24, 39"
+    textPrimary:
+      hex: "#F8FAFC"
+      rgb: "248, 250, 252"
+    textSecondary:
+      hex: "#CBD5E1"
+      rgb: "203, 213, 225"
+    error:
+      hex: "#EF4444"
+      rgb: "239, 68, 68"
+    warning:
+      hex: "#F59E0B"
+      rgb: "245, 158, 11"
+    info:
+      hex: "#3B82F6"
+      rgb: "59, 130, 246"
+    success:
+      hex: "#10B981"
+      rgb: "16, 185, 129"
+  typography:
+    fontFamilies:
+      - "Inter"
+      - "DM Sans"
+    scale:
+      xs: { size: "12px", lineHeight: "18px" }
+      sm: { size: "14px", lineHeight: "20px" }
+      base: { size: "16px", lineHeight: "24px" }
+      lg: { size: "18px", lineHeight: "28px" }
+      xl: { size: "20px", lineHeight: "30px" }
+      xxl: { size: "24px", lineHeight: "32px" }
+      display: { size: "36px", lineHeight: "44px" }
+  components:
+    button:
+      base: "rounded-lg px-4 py-2 font-medium transition-colors duration-300"
+      primary: "bg-primary text-slate-50 hover:bg-primary/90 focus:ring-2 focus:ring-primary/50"
+      secondary: "bg-slate-700 text-slate-50 hover:bg-slate-600"
+    card:
+      base: "rounded-xl border border-slate-800 bg-slate-900/60 backdrop-blur"
+      header: "px-4 py-3 text-slate-200"
+      body: "px-4 py-4 text-slate-300"
+    input:
+      base: "rounded-md bg-slate-800/60 border border-slate-700 text-slate-50 placeholder-slate-400 focus:ring-2 focus:ring-primary"
+    modal:
+      base: "rounded-2xl bg-slate-900/80 shadow-2xl backdrop-blur-md"
+  responsive:
+    breakpoints:
+      sm: 640
+      md: 768
+      lg: 1024
+      xl: 1280
+      xxl: 1536
+  motion:
+    durations:
+      fast: "150ms"
+      medium: "300ms"
+      slow: "500ms"
+    easings:
+      standard: "cubic-bezier(0.4, 0, 0.2, 1)"
+      emphasized: "cubic-bezier(0.2, 0, 0, 1)"
+
+visualization:
+  charts:
+    vendor: "recharts"
+    # WCAG-konforme CI-Chart-Farben (HEX) gemäß DESIGN_SYSTEM_CHART_COLORS_V18.3
+    colors_hex:
+      - "#2563EB"   # Blue-600
+      - "#10B981"   # Emerald-500
+      - "#F59E0B"   # Amber-500
+      - "#22C55E"   # Green-500
+      - "#0EA5E9"   # Sky-500
+      - "#9333EA"   # Purple-600
+      - "#EF4444"   # Red-500 (nur für Status/Fehler, nicht für Datenvergleich)
+    usage_notes: |
+      - Recharts benötigt HEX für fill/stroke.
+      - Keine Ampel-Farblogik zur Bedeutungszuweisung von Datenreihen.
+      - Tooltip/Legend-Klassen zentral: `.recharts-tooltip--dashboard`.
+      - Kontrast ≥ 4.5:1; keine rein roten/grünen Unterscheidungen.
+    accessibility:
+      min_contrast_ratio: "4.5:1"
+      avoid_color_only_distinction: true
+      tooltip_wrapper_class: ".recharts-tooltip--dashboard"
+
+layout:
+  directory_structure:
+    root:
+      - "src/"
+      - "src/components/"
+      - "src/pages/"
+      - "src/hooks/"
+      - "src/config/"
+      - "src/lib/"
+      - "src/store/"
+      - "src/routes/"
+      - "src/i18n/"
+    naming_conventions:
+      components: "PascalCase (z.B. DashboardCard.tsx)"
+      hooks: "kebab-case mit use- Präfix (z.B. use-auth.tsx)"
+      pages: "PascalCase (z.B. Unternehmer.tsx)"
+      styles: "kebab-case (z.B. marketing-hero.css)"
+  component_hierarchy:
+    - "Layout > Page > Section > Widget > Primitive"
+    - "Keine nested Scroll-Container: EIN Haupt-Scroll-Container"
+  routing:
+    react_router_v6:
+      lazy_loading: true
+      error_boundaries: true
+      prefetch: true
+      routes:
+        - path: "/"
+          element: "Marketing/Home"
+        - path: "/dashboard"
+          element: "App/Dashboard"
+        - path: "/bookings"
+          element: "App/Bookings"
+        - path: "/legal/impressum"
+          element: "Marketing/Legal/Impressum"
+        - path: "/drivers"
+          element: "App/Drivers"
+        - path: "/vehicles"
+          element: "App/Vehicles"
+        - path: "/finance"
+          element: "App/Finance"
+      example_implementation: |
+        // App.tsx (Ausschnitt)
+        import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+        const router = createBrowserRouter([
+          { path: '/', lazy: () => import('./pages/Home') },
+          { path: '/dashboard', lazy: () => import('./pages/Index') },
+          { path: '/bookings', lazy: () => import('./pages/Bookings') },
+          { path: '/drivers', lazy: () => import('./pages/Drivers') },
+          { path: '/vehicles', lazy: () => import('./pages/Vehicles') },
+          { path: '/finance', lazy: () => import('./pages/Finance') },
+        ])
+        export default function App() { return <RouterProvider router={router} /> }
+      guards:
+        protected_paths: ["/dashboard", "/bookings", "/drivers", "/vehicles", "/finance"]
+        brand_routes:
+          pattern: "/:brand/(home|portal|dashboard)"
+          notes: "Brand-spezifische Routen nutzen denselben Layout-Stack; Navigation ist kontextsensitiv."
+        rules:
+          - "Auth-Gate: Zugriff nur für authenticated Nutzer."
+          - "Tarif-Gate: Schreiboperationen nur bei paid=true und ausreichendem Entitlement."
+          - "ErrorBoundary pro Route aktiv."
+          - "Keine verschachtelten Scroll-Container."
+  i18n:
+    format: "JSON Namespaced"
+    default_locale: "de"
+    locales: ["de", "en"]
+    example: |
+      // src/i18n/de/common.json
+      {
+        "cta_start": "Jetzt starten",
+        "dashboard": { "title": "Dashboard-Übersicht" }
+      }
+
+database:
+  provider: "supabase"
+  roles:
+    - anon
+    - authenticated
+    - service_role
+  schemas:
+    bookings:
+      columns:
+        - { name: id, type: uuid, pk: true }
+        - { name: customer_id, type: uuid, index: true }
+        - { name: pickup_time, type: timestamptz }
+        - { name: pickup_address, type: text }
+        - { name: dropoff_address, type: text }
+        - { name: status, type: text, default: "pending" }
+        - { name: notes, type: text, nullable: true }
+        - { name: created_at, type: timestamptz, default: now() }
+        - { name: updated_at, type: timestamptz, default: now() }
+      rls_policies:
+        - name: "authenticated_can_read_own"
+          definition: "(auth.uid() = created_by)"
+        - name: "service_role_full_access"
+          definition: "using (true) with check (true)"
+    drivers:
+      columns:
+        - { name: id, type: uuid, pk: true }
+        - { name: full_name, type: text }
+        - { name: phone, type: text }
+        - { name: license_number, type: text }
+        - { name: active, type: boolean, default: true }
+        - { name: created_at, type: timestamptz, default: now() }
+  query_templates:
+    list_bookings: |
+      import { supabase } from '../lib/client'
+      export async function listBookings(status?: string) {
+        const q = supabase.from('bookings').select('*').order('pickup_time', { ascending: true })
+        return status ? q.eq('status', status) : q
+      }
+    create_booking: |
+      import { supabase } from '../lib/client'
+      export async function createBooking(payload) {
+        return supabase.from('bookings').insert(payload).select('*').single()
+      }
+    update_booking: |
+      export async function updateBooking(id, patch) {
+        return supabase.from('bookings').update(patch).eq('id', id).select('*').single()
+      }
+  validation_rules:
+    booking_schema_zod: |
+      import { z } from 'zod'
+      export const BookingCreateSchema = z.object({
+        customerId: z.string().uuid(),
+        pickupTime: z.string().datetime(),
+        pickupAddress: z.string().min(3),
+        dropoffAddress: z.string().min(3),
+        notes: z.string().optional(),
+      })
+  backup:
+    strategy:
+      - "Supabase Point-in-time Recovery aktiv"
+      - "Tägliche Dumps (cron) in Storage-Bucket"
+    example_cron: "0 3 * * * supabase db dump --local > backups/db-$(date +%F).sql"
+
+security:
+  secrets_management:
+    principles:
+      - "Nur ENV-Variablen verwenden (keine Secrets im Repo)."
+      - "Keys niemals ausgeben oder loggen."
+    providers:
+      - name: "HERE Maps"
+        env: "VITE_HERE_API_KEY"
+      - name: "OpenWeatherMap"
+        env: "VITE_OPENWEATHER_API_KEY"
+      - name: "Resend Email"
+        env: "VITE_RESEND_API_KEY"
+      - name: "Stripe"
+        env: "VITE_STRIPE_PUBLIC_KEY"
+    references:
+      - "docs/API_SECRETS_MANAGEMENT_V18.5.0.md"
+  rls_policies:
+    pattern: "Company-Isolation + Granular Access"
+    references:
+      - "docs/SECURITY_RLS_POLICIES_DOCUMENTATION_V18.5.1.md"
+    modules:
+      - name: "bookings"
+        policies:
+          - "authenticated_can_read_own"
+          - "service_role_full_access"
+      - name: "drivers"
+        policies:
+          - "company_isolation"
+          - "service_role_full_access"
+      - name: "vehicles"
+        policies:
+          - "company_isolation"
+          - "service_role_full_access"
+      - name: "finance"
+        policies:
+          - "company_isolation"
+          - "accounting_only_write"
+
+tariffs_integration:
+  tiers: ["free", "starter", "business", "enterprise"]
+  enforcement:
+    feature_gate: "Komponenten prüfen entitlements[feature] === true"
+    api_gate: "Schreibend nur, wenn paid=true (serverseitig validiert)"
+  entitlements:
+    business:
+      all_dashboard_modules: true
+      features: ["gps_map", "exports", "realtime", "kpi_full", "charts_full"]
+    starter:
+      all_dashboard_modules: false
+      features: ["kpi_basic", "charts_basic"]
+  stripe:
+    products:
+      - key: "PRODUCT_DASHBOARD_BUSINESS"
+        tier: "business"
+    webhooks:
+      - "customer.subscription.updated"
+      - "invoice.payment_succeeded"
+    sync:
+      target_table: "profiles.entitlements"
+      flags: ["paid"]
+  special_accounts:
+    - email: "courbois1981@gmail.com"
+      enforced_tier: "business"
+      notes: "QA/Maintainer – Vollverifikation aller Dashboard-Funktionen; bei paid=false Schreibsperre, Read für QA erlaubt."
+
+accessibility:
+  governance:
+    wcag_level: "AA"
+    rules:
+      - "Kontrast ≥ 4.5:1 für Text"
+      - "Touch-Targets ≥ 44x44px"
+      - "Tastaturnavigation vollständig"
+      - "ARIA-Labels für interaktive Elemente"
+      - "Semantisches HTML konsequent"
+    references:
+      - "docs/ACCESSIBILITY_GOVERNANCE_V19.0.0.md"
+
+forms:
+  standards:
+    references:
+      - "docs/FORMULAR_STANDARDS_V18.5.0.md"
+      - "docs/FORM_FIELD_INVENTORY_V29.1.md"
+    rules:
+      - "Bestehende Felder bleiben; nur Ergänzungen sind zulässig."
+      - "Zentrale Zod-Schemata synchron mit API-Typen."
+      - "Labels Satzfall; Platzhalter kurz und kontextuell."
+      - "i18n-Keys: de Default, en optional."
+    inventory_status:
+      total_db_columns: 220
+      total_form_fields: 175
+      coverage_percent: 80
+
+observability:
+  audit_logs_minimum:
+    categories:
+      - "auth_login_logout"
+      - "account_tier_change"
+      - "stripe_subscription_update"
+      - "entitlement_evaluation"
+      - "route_guard_access_denied"
+      - "api_crud_bookings"
+      - "api_crud_drivers_vehicles"
+      - "realtime_subscription_state"
+      - "map_render_update"
+      - "kpi_calculation_snapshot"
+      - "chart_render"
+      - "feature_gate_trigger"
+      - "export_trigger"
+      - "error_boundary_capture"
+      - "rate_limit_throttle"
+      - "cache_hit_miss"
+      - "security_policy_violation"
+    schema_example: |
+      {
+        "ts":"2025-11-10T12:00:00Z",
+        "userId":"uuid",
+        "email":"string",
+        "accountTier":"free|starter|business|enterprise",
+        "event":"string",
+        "entity":"bookings|drivers|vehicles|finance|map|auth|stripe|kpi|chart|feature",
+        "status":"ok|warn|error",
+        "details":{},
+        "durationMs":123,
+        "correlationId":"uuid"
+      }
+
+performance_governance:
+  rules:
+    - "Immer lazy() für Seiten + Code-Splitting"
+    - "Memoization für teure Berechnungen"
+    - "Virtualization für lange Listen"
+    - "Prefetching aktiv für Haupt-Routen"
+    - "Charts und große Module nur dort laden, wo benötigt (Marketing vermeiden)"
+
+csp:
+  directives:
+    default-src: ["'self'"]
+    script-src: ["'self'", "'unsafe-inline'", "https:"]
+    style-src: ["'self'", "'unsafe-inline'"]
+    img-src: ["'self'", "data:", "https:"]
+    connect-src: ["'self'", "https:"]
+    frame-ancestors: ["'none'"]
+  notes: "Bei externen Integrationen (Supabase, Stripe, HERE) connect-src gezielt erweitern, ohne Wildcards."
+
+functional_requirements:
+  api_endpoints_mydispatch_v2_3:
+    base_url: "/api/v2"
+    endpoints:
+      - { name: "bookings.list", method: GET, path: "/bookings", auth: true }
+      - { name: "bookings.create", method: POST, path: "/bookings", auth: true }
+      - { name: "bookings.update", method: PUT, path: "/bookings/{id}", auth: true }
+      - { name: "bookings.delete", method: DELETE, path: "/bookings/{id}", auth: true }
+    strict_validation: true
+    examples:
+      request_typescript: |
+        type BookingCreateRequest = {
+          customerId: string
+          pickupTime: string // ISO-8601
+          pickupAddress: string
+          dropoffAddress: string
+          notes?: string
+        }
+      client_fetch_example: |
+        import { handleApiError } from '../lib/base'
+        export async function createBooking(req) {
+          try {
+            const res = await fetch('/api/v2/bookings', {
+              method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(req)
+            })
+            if (!res.ok) throw new Error('API Error')
+            return await res.json()
+          } catch (e) { return handleApiError(e) }
+        }
+  state_management:
+    strategy: "TanStack Query + React Context"
+    examples:
+      query_example: |
+        import { useQuery } from '@tanstack/react-query'
+        import { listBookings } from '../lib/bookings'
+        export function useBookings(status?: string) {
+          return useQuery({ queryKey: ['bookings', status], queryFn: () => listBookings(status) })
+        }
+  error_handling:
+    flows:
+      - "Globaler ErrorBoundary pro Route"
+      - "handleApiError & handleSupabaseError zentral"
+    example: |
+      export function ErrorBoundaryFallback({ error }) { return <div>Fehler: {error.message}</div> }
+  performance:
+    rules:
+      - "Immer lazy() für Seiten + Code-Splitting"
+      - "Memoization für teure Berechnungen"
+      - "Virtualization für lange Listen"
+      - "Prefetching aktiv für Haupt-Routen"
+  security:
+    measures:
+      - "Nur ENV-Variablen (VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY)"
+      - "Keine Secrets im Code/Repo"
+      - "RLS Policies strikt aktiv"
+      - "CSP konfiguriert (siehe unten)"
+
+content_policies:
+  localization:
+    rules:
+      - "de als Default, en optional"
+      - "Kontextspezifische Keys, keine Sätze im Code"
+  accessibility:
+    wcag: "2.2 AA"
+    rules:
+      - "Kontrast > 4.5:1 für Text"
+      - "Fokuszustände überall konsistent"
+      - "ARIA-Labels für interaktive Elemente"
+  seo:
+    metadata:
+      default_title_suffix: "— MyDispatch"
+      open_graph: true
+      twitter_cards: true
+    example: |
+      export const defaultSEO = {
+        titleTemplate: '%s — MyDispatch',
+        defaultTitle: 'MyDispatch',
+        description: 'Disposition ohne Papierkram — Made in Germany',
+      }
+  csp:
+    directives:
+      default-src: ["'self'" ]
+      script-src: ["'self'", "'unsafe-inline'", "https:" ]
+      style-src: ["'self'", "'unsafe-inline'" ]
+      img-src: ["'self'", "data:", "https:" ]
+      connect-src: ["'self'", "https:" ]
+      frame-ancestors: ["'none'" ]
+  licenses:
+    allowed:
+      - "MIT"
+      - "Apache-2.0"
+
+forbidden_practices:
+  disallowed_libraries:
+    - "Next.js (ACHTUNG: Nicht verwenden — nur React App)"
+    - "eval-basiertes Rendering"
+    - "jquery"
+  deprecated_patterns:
+    - "Inline-Secrets"
+    - "Mehrere verschachtelte Scroll-Container"
+  security_risks:
+    - "LocalStorage für Tokens ohne Verschlüsselung"
+    - "Unsichere HTTP-Verbindungen"
+  performance_antipatterns:
+    - "Große synchron importierte Module auf Marketing-Seiten"
+    - "Unvirtualisierte Listen > 1000 Einträge"
+  non_conforming_styles:
+    - "Hardcoded Farben statt Design Tokens"
+
+quality_assurance:
+  linting:
+    eslint_config: "eslint.config.js"
+    rules:
+      - "@typescript-eslint/no-floating-promises: error"
+      - "react-hooks/rules-of-hooks: error"
+      - "no-restricted-imports: warn"
+  tests:
+    framework: "vitest + testing-library"
+    coverage_target: 0.8
+    critical_paths:
+      - "Routing"
+      - "Bookings CRUD"
+      - "Auth & RLS"
+    example: |
+      import { render } from '@testing-library/react'
+      import App from '../App'
+      test('renders', () => { expect(render(<App />)).toBeTruthy() })
+  ci_cd:
+    pipeline: "GitHub Actions"
+    steps:
+      - "Install → Lint → Test → Build → Preview"
+  code_review:
+    checklist:
+      - "Design Tokens korrekt"
+      - "Keine Secrets"
+      - "RLS geprüft"
+      - "Performance akzeptabel"
+      - "Tests vorhanden"
+  monitoring:
+    metrics:
+      - "Web Vitals (LCP, CLS, FID)"
+      - "Error Rate"
+      - "API Latenz"
+
+notes:
+  - "Alle Änderungen müssen mit dem Docs-Hub synchronisiert werden (MD-2024)."
+  - "Verweise siehe metadata.references."

@@ -1,13 +1,14 @@
 /* ==================================================================================
-   LOGGER UTILITY V18.5.14
+   LOGGER UTILITY V18.5.15
    ==================================================================================
    Centralized Logging System für MyDispatch
    
    Vorteile:
-   - Production: Logs automatisch deaktiviert
+   - Production: Logs optional an DB-Sink (Supabase) emitten
    - Development: Strukturiertes Logging mit Prefixes
    - Performance: console.log-Overhead in Production entfernt
    - Debugging: Bessere Filterbarkeit in DevTools
+   - Governance: Sanitizing sensitivier Felder gemäß Security-Richtlinien
    
    Migration:
    console.log('message') → logger.debug('message')
@@ -21,6 +22,15 @@ interface LoggerConfig {
   enabled: boolean;
   minLevel: LogLevel;
   prefix?: string;
+  sinks?: LoggerSink[];
+}
+
+interface LogContext {
+  [key: string]: unknown;
+}
+
+interface LoggerSink {
+  emit: (level: LogLevel, message: string, context?: LogContext) => Promise<void> | void;
 }
 
 class Logger {
@@ -44,6 +54,9 @@ class Logger {
       minLevel: 'debug',
       ...config,
     };
+
+    // Initialize sinks
+    this.initSinks();
   }
 
   private shouldLog(level: LogLevel): boolean {
@@ -65,32 +78,107 @@ class Logger {
     return [`${emoji} ${timestamp} ${prefix} ${message}`, ...args];
   }
 
-  debug(message: string | any, ...args: any[]): void {
-    if (this.shouldLog('debug')) {
-      const msg = typeof message === 'string' ? message : JSON.stringify(message);
-      console.log(...this.formatMessage('debug', msg, ...args));
+  private sanitizeContext(context?: LogContext): LogContext | undefined {
+    if (!context) return undefined;
+    const forbiddenKeys = ['password', 'token', 'key', 'secret', 'authorization', 'auth'];
+    const sanitized: LogContext = {};
+    for (const [k, v] of Object.entries(context)) {
+      const lower = k.toLowerCase();
+      if (forbiddenKeys.some(f => lower.includes(f))) {
+        sanitized[k] = '[REDACTED]';
+      } else {
+        sanitized[k] = v;
+      }
     }
+    return sanitized;
+  }
+
+  private async emitToSinks(level: LogLevel, message: string, context?: LogContext) {
+    const sinks = this.config.sinks || [];
+    if (sinks.length === 0) return;
+    const sanitized = this.sanitizeContext(context);
+    for (const sink of sinks) {
+      try {
+        await sink.emit(level, message, sanitized);
+      } catch (e) {
+        // Avoid recursive error logging
+        if (this.shouldLog('warn')) {
+          console.warn('[Logger] Sink emit failed', e);
+        }
+      }
+    }
+  }
+
+  private initSinks() {
+    const sinks: LoggerSink[] = [];
+    // Console sink (dev only)
+    const consoleSink: LoggerSink = {
+      emit: (level, msg, ctx) => {
+        const formatted = this.formatMessage(level, msg, ctx);
+        switch (level) {
+          case 'debug':
+            if (this.shouldLog('debug')) console.log(...formatted);
+            break;
+          case 'info':
+            if (this.shouldLog('info')) console.info(...formatted);
+            break;
+          case 'warn':
+            if (this.shouldLog('warn')) console.warn(...formatted);
+            break;
+          case 'error':
+            if (this.shouldLog('error')) console.error(...formatted);
+            break;
+        }
+      }
+    };
+    sinks.push(consoleSink);
+
+    // Optional Supabase sink (controlled via env flag)
+    const enableDbLogs = (import.meta as any)?.env?.VITE_ENABLE_DB_LOGS === 'true';
+    if (enableDbLogs) {
+      const supabaseSink: LoggerSink = {
+        emit: async (level, msg, ctx) => {
+          // Only emit info/warn/error to DB sinks; skip debug to reduce noise
+          if (level === 'debug') return;
+          try {
+            const { supabase } = await import('@/integrations/supabase/client');
+            const payload = {
+              level,
+              message: msg,
+              context: ctx ?? {},
+              created_at: new Date().toISOString(),
+            };
+            // Fire-and-forget; ignore errors to avoid UI blocking
+            await supabase.from('app_logs').insert(payload);
+          } catch (e) {
+            if (this.shouldLog('warn')) console.warn('[Logger] Supabase sink emit failed');
+          }
+        }
+      };
+      sinks.push(supabaseSink);
+    }
+
+    this.config.sinks = sinks;
+  }
+
+  debug(message: string | any, ...args: any[]): void {
+    const msg = typeof message === 'string' ? message : JSON.stringify(message);
+    this.emitToSinks('debug', msg, args?.[0]);
   }
 
   info(message: string | any, ...args: any[]): void {
-    if (this.shouldLog('info')) {
-      const msg = typeof message === 'string' ? message : JSON.stringify(message);
-      console.info(...this.formatMessage('info', msg, ...args));
-    }
+    const msg = typeof message === 'string' ? message : JSON.stringify(message);
+    this.emitToSinks('info', msg, args?.[0]);
   }
 
   warn(message: string | any, ...args: any[]): void {
-    if (this.shouldLog('warn')) {
-      const msg = typeof message === 'string' ? message : JSON.stringify(message);
-      console.warn(...this.formatMessage('warn', msg, ...args));
-    }
+    const msg = typeof message === 'string' ? message : JSON.stringify(message);
+    this.emitToSinks('warn', msg, args?.[0]);
   }
 
   error(message: string | any, ...args: any[]): void {
-    if (this.shouldLog('error')) {
-      const msg = typeof message === 'string' ? message : JSON.stringify(message);
-      console.error(...this.formatMessage('error', msg, ...args));
-    }
+    const msg = typeof message === 'string' ? message : JSON.stringify(message);
+    this.emitToSinks('error', msg, args?.[0]);
   }
 
   // Factory method for scoped loggers

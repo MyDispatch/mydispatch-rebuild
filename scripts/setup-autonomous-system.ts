@@ -9,15 +9,18 @@ import { createClient } from '@supabase/supabase-js';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const SUPABASE_URL = process.env.VITE_SUPABASE_URL || 'https://ygpwuiygivxoqtyoigtg.supabase.co';
-const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || '';
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
-if (!SUPABASE_SERVICE_KEY) {
-  console.error('❌ SUPABASE_SERVICE_ROLE_KEY environment variable required');
+if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+  console.error('❌ Missing Supabase configuration');
+  console.log('   Required: SUPABASE_URL (or VITE_SUPABASE_URL)');
+  console.log('   Required: SUPABASE_SERVICE_ROLE_KEY');
   console.log('\n💡 Get your service role key from:');
   console.log('   Supabase Dashboard → Project Settings → API → service_role key');
   console.log('\n📝 Set it temporarily:');
   console.log('   $env:SUPABASE_SERVICE_ROLE_KEY="your_key_here"');
+  console.log('   $env:SUPABASE_URL="https://<project-ref>.supabase.co"');
   console.log('   npx tsx scripts/setup-autonomous-system.ts');
   process.exit(1);
 }

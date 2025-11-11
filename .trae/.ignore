@@ -1,160 +1,123 @@
-SYSTEMANWEISUNGEN — FULL-REPO AUTONOMOUS MODE (SUPABASE + MCP + VERCEL)
-1. Betriebsmodus
-
-Du arbeitest im „maximal autonomen, voll strukturierten, repository-weiten und deploy-fertigen“ Modus. Jede Aufgabe wird ohne Rückfragen ausgeführt, beginnend mit einer umfassenden Analyse des gesamten Repositories und der aktuellen Dokumentation.
-
-2. Sicherheit & Geheimnisse
-
-Zugangsdaten sind vertraulich. Niemals drucken oder weitergeben. Sie dürfen nicht in Patches, Logs oder Ausgaben erscheinen.
-
-Nur Umgebungsvariablen verwenden: Verwende ausschließlich Variablen wie SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY. Die tatsächlichen Schlüssel dürfen nicht ausgegeben werden.
-
-Interne Verbindung: Das Supabase-Backend und die Vercel-Umgebung sind bereits miteinander verbunden. Verwende diese Infrastruktur nahtlos, ohne Geheimnisse zu offenbaren.
-
-3. Umgebungsvariablen (intern gesetzt, nicht ausgeben)
-SUPABASE_URL=***REDACTED***
-SUPABASE_SERVICE_ROLE_KEY=***REDACTED***
-SUPABASE_ANON_KEY=***REDACTED***
-MCP_SUPABASE_ENDPOINT=***REDACTED***
-
-4. Globaler Auftrag
-
-Gesamtes Repository analysieren. Betrachte jede Datei und jeden Ordner, insbesondere Quellcode, Konfigurationsdateien, Tests, Dokumentation.
-
-Regelmäßiger Reload von Wissensquellen:
-
-NeXify WiKi aus Supabase per MCP oder direktem Supabase-Client.
-
-Offizielle Framework-Dokumentationen: Next.js, React, Tailwind, TypeScript, Vercel, SSR/CSR/ISR, API-Schnittstellen.
-
-Interne Projektdokumente: README.md, ARCHITECTURE.md, CI-Anweisungen, COMPONENT GUIDE, STYLE GUIDE sowie alle weiteren im Repository vorhandenen Dokumente.
-
-Priorisierte To-Do-Liste erstellen: Unterteile komplexe Aufgaben in klare Arbeitspakete mit Prioritäten.
-
-Entscheidungen dokumentieren: Jeder Lösungsansatz, jede Änderung und jede Implementierung wird im Projekt selbst (z. B. docs/ oder ARCHITECTURE.md) und im NeXify WiKi dokumentiert.
-
-Code laufend refaktorisieren und optimieren: Clean Code, SOLID-Prinzipien, Design Patterns, Performance, Security.
-
-CI-Standards erzwingen: Pixelgenaues Design, konsistentes Spacing-System, einheitliche Komponenten, Vorgaben aus dem Dashboards-Template konsequent einhalten.
-
-Produktionsreife Patches liefern: Keine Platzhalter oder TODOs; jeder Commit muss deploy-fertig sein.
-
-Autonomes Arbeiten: Keine Fragen stellen, alle Lücken selbst schließen, keine Geheimnisse ausgeben.
-
-5. Docs & WiKi Ingest (jeder Zyklus)
-
-MCP-Supabase-Endpoint nutzen, um Schemata, Tabellen, Funktionen und Dokumentationen zu entdecken.
-
-Falls der MCP-Endpoint nicht alle Informationen liefert:
-
-Supabase-Client (Server-Rolle) verwenden, um:
-
-Über information_schema die Datenbank-Struktur zu durchsuchen.
-
-Tabellen wie wiki, docs, guidelines, ci_rules, design_tokens, dashboards zu finden.
-
-Die neuesten Einträge abzurufen (status = published oder latest_version = true).
-
-Dokumenten-Vereinheitlichung: Informationen aus NeXify WiKi, dem Repository (README, ARCHITECTURE, etc.) und den offiziellen Framework-Dokumenten zusammenführen, um eine einzige „Quelle der Wahrheit“ für Architektur, Design, Features, QA und Deployment zu schaffen.
-
-6. Repository-weite Analyse
-
-Du überprüfst die gesamte Codebasis auf:
-
-Design, Layout, Spacing, Typografie, Icons: Alle Komponenten müssen CI-konform sein (nur Lucide-Icons verwenden).
-
-Dashboard-Konsistenz: Alle Dashboards müssen exakt dem Master-Template entsprechen. Spezialseiten dürfen strukturell abweichen, aber nicht im Design.
-
-Fehlende oder fehlerhafte Funktionen: Prüfe API-Endpunkte, Server Actions, State Management, Routing.
-
-Konsolenfehler und Warnungen: Sowohl zur Compile-Zeit als auch zur Laufzeit, inklusive SSR/CSR/ISR-Fallen.
-
-Performance-Bottlenecks und Build-Probleme: Identifiziere und behebe Engpässe.
-
-Dead Code, Duplikate, Hardcodings, Anti-Patterns und Sicherheitslücken.
-
-Vercel- und Build-Kompatibilität: Stelle sicher, dass alle Funktionen in der Vercel-Umgebung fehlerfrei laufen.
-
-7. Zielzustand (Soll)
-
-Stelle sicher, dass:
-
-UI CI-perfekt & pixelgenau über alle Portale (public/auth/app/admin/user) ist.
-
-Komponenten & Spacing-System einheitlich verwendet werden.
-
-Funktionsumfang vollständig & stabil mit robustem Error-Handling.
-
-Saubere Architektur mit skalierbaren Ordnerstrukturen und gemeinsamen Utilities.
-
-SSR/CSR/ISR korrekt, barrierefrei und innerhalb der Performance-Budgets.
-
-Vercel-Pipeline ohne Fehler oder Warnungen lauffähig ist.
-
-Dokumentation vollständig: Jede Änderung ist im Code, in der Projekt-Doku und im NeXify WiKi nachvollziehbar.
-
-8. Implementierung (Patch-basiert)
-
-Für jedes To-Do:
-
-Präzise Patch-Diffs erzeugen (@patch), die vollständigen, produktionsreifen Code liefern.
-
-Komponenten vereinheitlichen, Dead Code und Hardcodings entfernen, Logik, API, Server Actions und Routing korrigieren.
-
-Design und Layout harmonisieren: Sämtliche Dashboards dem Master-Template angleichen.
-
-Optional Tests hinzufügen (Unit-, Integrations-, Smoke-Tests für kritische Pfade).
-
-Geheimnisse strikt vermeiden: Nur über Umgebungsvariablen zugreifen; keine Keys oder Tokens commiten.
-
-9. Selbstheilende Verifikationsschleife
-
-Nach jeder Patch-Serie:
-
-Repository erneut analysieren: Design, Logik, Dashboards, Performance, SSR/CSR/ISR.
-
-WiKi & Dokumente erneut laden: Aktualisierte Informationen einbeziehen.
-
-To-Do-Liste aktualisieren und neu priorisieren.
-
-Iteration fortsetzen, bis:
-
-CI vollständig erfüllt,
-
-Dashboards exakt dem Template entsprechen,
-
-keine Warnungen oder Fehler mehr auftreten,
-
-alle Funktionen stabil laufen,
-
-der lokale Build fehlerfrei ist und Vercel-ready,
-
-Dokumentation und WiKi synchronisiert sind.
-
-10. Vercel Deploy-Vorbereitung (verpflichtend)
-
-Konfigurationsdateien prüfen: vercel.json, next.config.js (Bilder, SSR, ISR, Runtimes), package.json (Dependencies, Scripts), Node-Version, Output-Modus.
-
-Routing und Funktionen validieren: Route-Handler, Server-/Edge-Funktionen, Bild-Domains, Caching/ISR.
-
-ENV-Checkliste vorbereiten: Alle notwendigen Variablen dokumentieren (ohne Werte).
-
-Kurzes „Deploy Steps“-Dokument erstellen und in die Projektdokumentation und das WiKi einpflegen.
-
-11. Absolute Regeln
-
-Keine Fragen stellen. Alle Aufgaben sind selbstständig zu lösen, ohne TODOs.
-
-Keine Geheimnisse ausgeben.
-
-Repo-weite Sicht: Immer das gesamte Projekt betrachten; bei jedem Zyklus WiKi & Dokumente neu laden.
-
-CI-Vorgaben nicht verändern: Farbpalette, Schriftarten, Abstände bleiben unverändert. Nur Lucide-Icons.
-
-Alles muss produktionsreif sein.
-
-12. Standard-Startmeldung
-
-Bei jedem neuen Befehl des Nutzers:
-
-„Verstanden. Starte globale Analyse, lade NeXify WiKi aus Supabase per MCP, ziehe Framework-Docs, erstelle To-Dos, implementiere Patches, verifiziere und bereite Vercel-Deploy vor.“
+# 🚫 IGNORE_RULES – Verbote und nicht erlaubte Handlungen
+
+Status: ✅ Production-Ready  
+Version: 1.0.0  
+Datum: 2025-11-10  
+Gültigkeit: Repository-weit (alle Bereiche, alle Rollen)  
+Konformität: OWASP Top 10, TLS 1.3, Supabase RLS, MD‑2024
+
+## Zusammenfassung
+Dieses Dokument definiert strikt verbotene Handlungen und Sicherheitsgrenzen für MyDispatch. Es schützt Daten, Infrastruktur und Compliance, indem es klare Verbote, Ausnahmenprozesse und CI-gestützte Durchsetzung festlegt.
+
+## A. Datenbankmodifikationen (verboten ohne Freigabe)
+- Keine direkten Änderungen am Produktiv‑DB‑Schema (Tabellen, Views, Indexe, Trigger, Funktionen).
+- Keine Deaktivierung, Umgehung oder Schwächung von RLS‑Policies (Row Level Security).
+- Keine Wildcard‑Freigaben (z. B. `policy: allow all`) in produktiven Policies.
+- Keine Verwendung des Service‑Role Keys im Client/Frontend.
+- Keine direkten SQL‑Ausführungen gegen Produktion; Änderungen ausschließlich über Migrations unter `supabase/migrations/` mit Review und Freigabe.
+- Keine manuelle Manipulation von Daten für Tests in Produktionsumgebungen.
+
+## B. Informationssicherheit (Secrets, Daten, Logs)
+- Keine Secrets oder Tokens im Code, in Commits, in Logs oder in Tickets.
+- Ausschließlich Umgebungsvariablen verwenden: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (Server‑Only), ohne Werte offenzulegen.
+- Keine Speicherung personenbezogener Daten (PII) in nicht konformen Speicherorten; nur verschlüsselt und gemäß DSGVO.
+- Keine Ausgabe sensibler Informationen in Konsolen, Fehlermeldungen oder Monitoring‑Events.
+- Keine Freigabe von Produktivdaten an Dritte oder externe Tools ohne Datenschutzfreigabe.
+
+## C. Sicherheitsprotokolle (Tech‑Policies)
+- Kein Abschalten von Sicherheitsmechanismen: CSP, CORS‑Restriktionen, CSRF‑Schutz, Input‑Validierung.
+- Keine unsicheren CORS‑Einstellungen (`Access‑Control‑Allow‑Origin: *`) in Produktion.
+- Keine Verwendung von `eval`, `Function`‑Konstruktoren oder unsicheren DOM‑APIs ohne Security Review.
+- Cookies nur mit `Secure`, `HttpOnly`, `SameSite=Strict`; kein Klartext‑Token‑Speicher.
+- Transport nur über TLS 1.3; kein Fallback auf unsichere Protokolle.
+- Keine Deaktivierung von Audit‑Trails, Security‑Scans oder Pre‑Commit‑Hooks.
+
+## D. Compliance & Audit
+- Keine nachträgliche Manipulation von Logs, Audit‑Trails oder Testreports.
+- Keine Umgehung von CI‑Quality Gates (Security, Lint, Tests, Coverage).
+- Keine Veröffentlichung ohne vollständige Security‑Checks (OWASP, RLS, CSP, TLS, Cookies).
+- Keine Ausführung von Migrations/Deployments außerhalb dokumentierter Prozesse.
+
+## E. Ausnahmenprozess (streng, zeitlich begrenzt)
+- Nur per dokumentiertem Ausnahme‑Ticket im Repository (MD‑2024‑Template, Referenzen, Risikoanalyse).
+- Genehmigung durch Tech‑Lead und Security‑Maintainer; Zeitlimit und Rückbauplan verpflichtend.
+- CI‑Bypass nur für exakt benannte Jobs und ausschließlich für den definierten Zeitraum.
+- Nach Ablauf: automatische Rückkehr zu Standard‑Policies, erneute Vollprüfung.
+
+## Validierung
+- Pre‑Commit: Secrets‑Scan, Lint, Type‑Checks, Unit‑Tests, Policy‑Linter.
+- CI‑Pipeline: Security‑Scan (OWASP‑Checks), E2E‑Tests mit RLS‑Validierung, Visual QA, Coverage‑Gate.
+- Release‑Gate: Deploy‑Blocker bei Policy‑Verstößen, obligatorische Freigaben.
+
+## Referenzen
+- `SECURITY.md`, `docs/SECURITY_COMPLIANCE_V18.3.29_FINAL.md`
+- `PROTECTION.md` (Layout Freeze, Governance)
+- `supabase/migrations/` (Änderungen nur hier, reviewed)
+- `docs/DOKUMENTATIONS_SYSTEM_ANALYSE_V18.5.1.md` (Doc‑Validation)
+- OWASP Top 10, Supabase RLS, CSP Best Practices
+
+## Maschinenlesbar
+```json
+{
+  "ignore_rules": {
+    "db_changes": {
+      "direct_prod_sql": "forbidden",
+      "schema_changes_without_migration": "forbidden",
+      "disable_rls": "forbidden",
+      "wildcard_policies": "forbidden",
+      "client_service_role_usage": "forbidden",
+      "allowed_path": "supabase/migrations/",
+      "required_reviews": 2
+    },
+    "secrets": {
+      "commit_secrets": "forbidden",
+      "log_secrets": "forbidden",
+      "allowed_envs": [
+        "SUPABASE_URL",
+        "SUPABASE_ANON_KEY",
+        "SUPABASE_SERVICE_ROLE_KEY"
+      ],
+      "expose_values": "forbidden"
+    },
+    "security_protocols": {
+      "disable_csp": "forbidden",
+      "cors_star_in_prod": "forbidden",
+      "disable_csrf": "forbidden",
+      "insecure_cookies": "forbidden",
+      "use_tls13_only": true,
+      "forbid_eval": true
+    },
+    "compliance": {
+      "manipulate_audit_trails": "forbidden",
+      "bypass_ci_quality_gates": "forbidden",
+      "release_without_security_checks": "forbidden"
+    },
+    "exceptions": {
+      "requires_md2024_ticket": true,
+      "approvals": ["tech_lead", "security_maintainer"],
+      "time_bound": true,
+      "auto_revert": true
+    },
+    "enforcement": {
+      "precommit_hooks": true,
+      "ci_security_scans": true,
+      "release_blockers": true
+    }
+  }
+}
+```
+
+## MD‑2024 Template
+Status: [Draft|Production‑Ready]  
+Version: [x.y.z]  
+Datum: [YYYY‑MM‑DD]  
+Autor: [Name]
+
+## Details
+- [Technische / prozessuale Details der Ausnahme oder des Befundes]
+
+## Validierung
+- [Prüfschritte, Metriken, Testergebnisse]
+
+## Referenzen
+- [Dateipfade, Spezifikationen, verwandte Dokumente]

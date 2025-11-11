@@ -98,7 +98,7 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
         </div>
 
         {/* Navigation Items */}
-        <nav className="flex-1 px-3 py-6 space-y-1.5 overflow-y-auto overflow-x-hidden scrollbar-hide m-0">
+        <nav className="flex-1 px-3 py-6 space-y-3 overflow-y-auto overflow-x-hidden scrollbar-hide m-0">
         {marketingMenuItems.map((item) => {
             const IconComponent = item.icon;
             const isActive = location.pathname === item.url;
@@ -109,15 +109,16 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 text-sm m-0 h-11",
                   "transition-all duration-200",
-                  !sidebarExpanded && "justify-center px-2",
+                  !sidebarExpanded && "justify-start pl-2",
                   isActive
                     ? "rounded-lg font-semibold bg-slate-600 text-white border border-slate-600 hover:bg-slate-700 shadow-sm"
                     : "rounded-md font-medium bg-transparent text-slate-900 hover:bg-slate-100"
                 )}
+                aria-current={isActive ? 'page' : undefined}
               >
                 <IconComponent className="h-5 w-5 shrink-0" />
                 {sidebarExpanded && (
-                  <span className="truncate whitespace-nowrap">{item.title}</span>
+                  <span className="truncate whitespace-nowrap text-left">{item.title}</span>
                 )}
               </Link>
             );
@@ -135,7 +136,7 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
         </div>
 
         {/* Feature Navigation Items */}
-        <nav className="flex-1 px-3 pb-6 space-y-1.5 overflow-y-auto overflow-x-hidden scrollbar-hide m-0">
+        <nav className="flex-1 px-3 pb-6 space-y-3 overflow-y-auto overflow-x-hidden scrollbar-hide m-0">
           {featureMenuItems.map((item) => {
             const IconComponent = item.icon;
             const isActive = location.pathname === item.url;
@@ -146,15 +147,16 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
                 className={cn(
                   "flex items-center gap-3 px-3 py-2.5 text-sm m-0 h-11",
                   "transition-all duration-200",
-                  !sidebarExpanded && "justify-center px-2",
+                  !sidebarExpanded && "justify-start pl-2",
                   isActive
                     ? "rounded-lg font-semibold bg-slate-600 text-white border border-slate-600 hover:bg-slate-700 shadow-sm"
                     : "rounded-md font-medium bg-transparent text-slate-900 hover:bg-slate-100"
                 )}
+                aria-current={isActive ? 'page' : undefined}
               >
                 <IconComponent className="h-5 w-5 shrink-0" />
                 {sidebarExpanded && (
-                  <span className="truncate whitespace-nowrap">{item.title}</span>
+                  <span className="truncate whitespace-nowrap text-left">{item.title}</span>
                 )}
               </Link>
             );
@@ -179,6 +181,7 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
                     key={item.title}
                     to={item.url}
                     className="block px-3 py-2 text-xs rounded-md transition-all duration-300 whitespace-nowrap text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                    aria-current={location.pathname === item.url ? 'page' : undefined}
                   >
                     {item.title}
                   </Link>
@@ -192,10 +195,17 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
 
       {/* Main Content Area */}
       <div className={cn("flex-1 overflow-x-hidden", isMobile ? "ml-0" : "")}>
-        {/* Header V19.0.0 - Sidebar-Style (Hell) */}
+        {/* Header V19.0.0 → Harmonisiert (Tokens, kein Gradient) */}
+        {/* Skip-Link für Tastaturnutzer */}
+        <a
+          href="#main-content"
+          className="sr-only focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:absolute focus-visible:top-2 focus-visible:left-2 focus-visible:px-3 focus-visible:py-2 focus-visible:bg-slate-900 focus-visible:text-white rounded-md"
+        >
+          Zum Inhalt springen
+        </a>
         <header 
           className={cn(
-            "fixed top-0 h-16 bg-gradient-to-b from-white to-slate-50 border-b border-slate-200 shadow-md",
+            "fixed top-0 h-16 bg-white shadow-sm",
             isMobile 
               ? "left-0 right-0 w-full" 
               : "right-0 transition-[left,width] duration-300"
@@ -257,17 +267,17 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
         </header>
 
         {/* Content - Mit Bottom Padding für Footer V28.6 */}
-        <main className={cn(
+        <main id="main-content" className={cn(
           "min-h-screen overflow-x-hidden",
           isMobile ? "pt-16 pb-20" : "pt-16 pb-16"
         )}>
           {children}
         </main>
 
-        {/* Footer V32.1 - Mobile Optimiert */}
+        {/* Footer V32.1 → Harmonisiert (Tokens, kein Gradient) */}
         <footer 
           className={cn(
-            "fixed bottom-0 bg-gradient-to-b from-slate-50 to-white border-t border-slate-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]",
+            "fixed bottom-0 bg-white shadow-sm",
             isMobile ? "h-16 left-0 right-0" : "h-12 transition-[left,width] duration-300"
           )}
           style={!isMobile ? { 
@@ -289,23 +299,23 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
                 <div className="flex items-center gap-2">
                   <Link
                     to="/impressum" 
-                    className="text-[9px] text-slate-600 hover:text-slate-900 transition-colors"
+                    className="text-[9px] text-textSecondary hover:text-textPrimary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-sm"
                     aria-label="Zur Impressum-Seite"
                   >
                     Impressum
                   </Link>
-                  <span className="text-[9px] text-slate-300">•</span>
+                  <span className="text-[9px] text-slate-500">•</span>
                   <Link 
                     to="/datenschutz" 
-                    className="text-[9px] text-slate-600 hover:text-slate-900 transition-colors"
+                    className="text-[9px] text-textSecondary hover:text-textPrimary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-sm"
                     aria-label="Zur Datenschutz-Seite"
                   >
                     Datenschutz
                   </Link>
-                  <span className="text-[9px] text-slate-300">•</span>
+                  <span className="text-[9px] text-slate-500">•</span>
                   <Link 
                     to="/contact" 
-                    className="text-[9px] text-slate-600 hover:text-slate-900 transition-colors"
+                    className="text-[9px] text-textSecondary hover:text-textPrimary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-sm"
                     aria-label="Zur Kontakt-Seite"
                   >
                     Kontakt
@@ -316,7 +326,7 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
               /* Desktop: Mehrspaltig strukturiert */
               <div className="flex items-center justify-between w-full h-full">
                 <div className="flex items-center gap-4 h-full">
-                  <p className="text-[11px] text-slate-900">
+                  <p className="text-[11px] text-textPrimary">
                     © 2025 my-dispatch.de by RideHub Solutions
                   </p>
                   <span className="text-[11px] text-slate-300">•</span>
@@ -395,6 +405,7 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
                         ? "rounded-lg font-semibold bg-slate-600 text-white border border-slate-600 shadow-sm"
                         : "rounded-md font-medium bg-transparent text-slate-900 hover:bg-slate-100"
                     )}
+                    aria-current={isActive ? 'page' : undefined}
                   >
                     <IconComponent className="h-5 w-5 shrink-0" />
                     <span>{item.title}</span>
@@ -432,6 +443,7 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
                           ? "rounded-lg font-semibold bg-slate-600 text-white border border-slate-600 shadow-sm"
                           : "rounded-md font-medium bg-transparent text-slate-900 hover:bg-slate-100"
                       )}
+                      aria-current={isActive ? 'page' : undefined}
                     >
                       <IconComponent className="h-5 w-5 shrink-0" />
                       <span>{item.title}</span>
@@ -483,8 +495,8 @@ export function MarketingLayout({ children, currentPage = '' }: MarketingLayoutP
         </Sheet>
       )}
       
-      {/* Chat Widget - Global verfügbar auf allen Marketing-Pages */}
-      <V28ChatWidget />
+      {/* Chat Widget - NICHT auf der Startseite anzeigen (Design-Vorgabe: kein bunter Chatbot auf Home) */}
+      {location.pathname !== '/' && <V28ChatWidget />}
       
       <V28CookieConsent />
     </div>

@@ -4,6 +4,462 @@
 **Versioning:** Semantic Versioning (MAJOR.MINOR.PATCH)
 
 ---
+## [V6.1.19] - 2025-11-11 - AI/Agent-Härtung (Feature-Flags & Route-ACL) ✅
+
+### 🟦 Added / Changed
+- Feature-Flags erweitert: `agent_dashboard`, `doc_ai_sync`, `datadoc_monitoring`, `watchdog_ai` (alle standardmäßig aus).  
+- App: `IntelligentAIChat` rendert nur, wenn `ai_chat_support` aktiv ist.  
+- Monitoring: `DatadocClient` sendet nur, wenn `datadoc_monitoring` aktiv ist und Prod-Keys vorhanden sind.  
+- Routing: `/agent-dashboard` mit `requiredRole: 'master'` abgesichert (RBAC durch `ProtectedRoute`).
+
+### 📚 References
+- `src/lib/feature-flags-client.ts`
+- `src/App.tsx`
+- `src/lib/datadoc-client.ts`
+- `src/config/routes.config.tsx`
+
+### 🧪 Validation
+- Dev-Preview: Öffnen des Chat-Widgets erfolgt nur bei aktivem Flag; ohne Flag keine Render-Ausführung.  
+- Monitoring: In DEV/ohne Flag werden Events lokal geloggt, keine Netzwerkanfragen.  
+- Routing: Zugriff auf `/agent-dashboard` nur mit Rolle `master`; unberechtigte Nutzer erhalten Schutz durch `ProtectedRoute`.
+
+### 💬 Conventional Commit
+- `feat(flags): add ai/agent flags (agent_dashboard, doc_ai_sync, datadoc_monitoring, watchdog_ai)`
+- `fix(app): gate IntelligentAIChat by ai_chat_support flag`
+- `fix(monitoring): guard DatadocClient by datadoc_monitoring flag`
+- `security(routes): restrict /agent-dashboard to role=master`
+
+## [V6.1.18] - 2025-11-11 - Routing-/Sidebar-Fix (Dashboard) ✅
+
+### 🟦 Added / Changed
+- Routing korrigiert: `/dashboard` verweist nun explizit auf die korrekte Dashboard-Seite statt `Index` (Lazy‑Import Pfad bereinigt).
+- Sidebar-Menü: Vertikale Scrollbarkeit für die Navigationsliste aktiviert und Scrollbalken visuell versteckt (`overflow-y-auto` + `scrollbar-hide`).
+- Zielkonformität: Seitenlayout entspricht dem Muster der Seite `Angebote` (rechte Schnellzugriffe, linke Sidebar, zentral ein Dashboard‑Bereich).
+
+### 📚 References
+- `src/config/routes.config.tsx`
+- `src/components/layout/AppSidebar.tsx`
+- `docs/ROUTING_FIX_REPORT_V18.5.1.md`
+
+### 🧪 Validation
+- Dev-Preview: Navigation zu `/dashboard` lädt die richtige Seite; Sidebar-Menü ist scrollbar, ohne störenden Doppel‑Scroll.
+- A11y: Fokus‑Ringe sichtbar, Landmarken vorhanden; Haupt‑Scroll‑Container bleibt der Inhaltsbereich.
+
+### 💬 Conventional Commit
+- `fix(routing): correct /dashboard lazy target to Dashboard`
+- `fix(sidebar): enable vertical scroll on menu and hide scrollbar`
+
+## [V6.1.17] - 2025-11-11 - Dashboard → Universal Template V33.0 ✅
+
+### 🟦 Added / Changed
+- `/dashboard` auf `UniversalDashboardTemplate` (V33.0) migriert; exakt 3 KPIs und 2 Quick‑Actions via Generator erzwungen.
+- Standard‑Leisten integriert: `UniversalFilterBar` (Suche + Archiv‑Toggle), `UniversalExportBar`, `UniversalPagination`.
+- Legacy‑Fixed‑Sidebar der Dashboard‑Seite entfernt; Seitenstruktur auf Template‑Standard vereinheitlicht (ein Haupt‑Scroll‑Container, V28.1 Slate‑Palette).
+- Quick‑Actions in den Header verlagert; Aktivitäten‑Sektion bleibt erhalten.
+
+### 📚 References
+- `src/pages/Dashboard.tsx`
+- `src/components/dashboard/UniversalDashboardTemplate.tsx`
+- `src/lib/dashboard-automation/kpi-generator.ts`
+- `docs/V33.0_UNIVERSAL_DASHBOARD_SYSTEM.md`
+- `docs/DASHBOARD_TEMPLATE_SYSTEM_V18.5.1.md`
+
+### 🧪 Validation
+- Produktionsbuild wird neu erstellt und als Preview geöffnet zur visuellen Abnahme (Navigation, KPIs, Quick‑Actions, Suche/Archiv/Export/Pagination).
+- A11y Check: Fokus‑Ringe sichtbar, Landmarken vorhanden, keine nested Scroll‑Container.
+
+### 💬 Conventional Commit
+- `feat(dashboard): migrate /dashboard to UniversalDashboardTemplate v33.0 with kpis/quick-actions and standard bars`
+
+## [V6.1.16] - 2025-11-11 - DocsRegistry Server‑First & Pagination ✅
+
+### 🟦 Added / Changed
+- `DocsRegistry`: Server‑First Datenabfrage (Edge Function) mit lokalem Fallback.
+- Pagination: Seitengröße (12/24/48/96), Zurück/Weiter, Reset setzt Seite auf 1.
+ - `.gitignore`: Konsolidiert (node_modules, dist/build, caches, logs, env). 
+
+### 📚 References
+- `src/components/docs/DocsRegistry.tsx`
+- `docs/CHANGELOG.md` (dieser Eintrag), `CHANGELOG.md` (Root)
+
+### 🧪 Validation
+- Dev‑Preview: Docs‑Seite zeigt paginierte Liste; Interaktionen geprüft.
+- Supabase‑bezogene Health‑Checks schlagen lokal ohne Keys fehl, Registry bleibt funktionsfähig.
+
+### 💬 Conventional Commit
+- `feat(docs-registry): server-first fetch and pagination`
+
+## [V6.1.15] - 2025-11-11 - Docs Sync & Registry (ESM/CI/UI/Edge) ✅
+
+### 🟦 Added / Changed
+- `scripts/docs-sync.js`: ESM‑Konvertierung (kompatibel mit `"type": "module"`).
+- `docs/README.md`: Link zur `SECRETS_REGISTRY.md` im Docs‑Hub ergänzt.
+- Neue UI: `src/components/docs/DocsRegistry.tsx` mit Suche/Reset; Integration in `src/pages/Docs.tsx`.
+- `public/docs-sync-report.json`: Dev‑Fallback für lokale Vorschau.
+- Edge Function: `supabase/functions/wiki-sync/index.ts` erweitert um `GET`‑Listing (`limit`, `q`).
+- CI verifiziert: Node 20, Dry‑Run erfolgreich (Artefakt).
+
+### 📚 References
+- `scripts/docs-sync.js`
+- `docs/README.md`
+- `src/components/docs/DocsRegistry.tsx`, `src/pages/Docs.tsx`
+- `public/docs-sync-report.json`
+- `supabase/functions/wiki-sync/index.ts`
+- `.github/workflows/docs-sync.yml`
+
+### 🧪 Validation
+- Lokal: `node scripts/docs-sync.js --dry` → JSON‑Bericht erzeugt und geprüft.
+- UI: Registry‑Liste rendert, Suche/Reset funktioniert; keine Laufzeitfehler in Dev.
+
+### 💬 Conventional Commit
+- `docs(sync): add registry ui, esm conversion and edge get`
+
+## [V6.1.13] - 2025-11-11 - Full Website Recovery (Build/Preview/Config) ✅
+
+### 🟦 Added / Changed
+- Restore-Kopie erstellt (`mydispatch-rebuild-restore-20251111`), Dependencies via `npm ci` installiert, Produktionsbuild (`npm run build`) durchgeführt.
+- Preview gestartet: `http://localhost:5190/` für visuelle Systemprüfung (Home, Router, Layouts).
+- Konfigurationsabgleich mit Prod:
+  - `vite.config.ts` (Base/HMR Ports, terser, manualChunks)
+  - `nexify-ai-master-dashboard/vercel.json` (Rewrites → `/index.html`)
+  - `config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml` (CI/UX/WCAG konsistent)
+- Recovery-Dokument hinzugefügt: `docs/RECOVERY_MYDISPATCH_2025-11-11.md` (MD‑2024 Template).
+
+### 📚 References
+- `vite.config.ts`
+- `config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml`
+- `nexify-ai-master-dashboard/vercel.json`
+- `docs/RECOVERY_MYDISPATCH_2025-11-11.md`
+
+### 🧪 Validation
+- Smoke-Test bestanden: Home lädt fehlerfrei; Navigation aktiv; keine UI-Abstürze.
+- A11y bestätigt: Skip-Link/Fokus-Ringe sichtbar; Landmarken vorhanden.
+- `npm audit`: 2 moderate Vulnerabilities → kein Blocker.
+
+### 💬 Conventional Commit
+- `docs(recovery): add full website recovery entry and recovery document`
+
+## [V6.1.14] - 2025-11-11 - Sidebar Open-State Optimierung (ARIA/Scroll/Perf) ✅
+
+### 🎯 Added / Changed
+- `AppSidebar`: `nav` mit `aria-label="Hauptnavigation"`; Single‑Scroll‑Container durch `overflow-y-hidden` erzwungen.
+- `AppSidebar`: `useMemo` für `visibleSections` eingeführt (weniger Re‑Renders, stabileres UI).
+- Tests: `tests/unit/ui/AppSidebar.test.tsx` hinzugefügt (Offen‑Zustand, ARIA‑Landmarken, Scroll‑Verhalten).
+- Dokumentation: Neues Architektur‑Dokument `docs/ARCHITECTURE/SIDEBAR_OPEN_STATE_V1.1.md` erstellt und im Docs‑Hub/Master‑Index verlinkt.
+
+### 📚 References
+- `src/components/layout/AppSidebar.tsx`
+- `src/components/layout/MainLayout.tsx`
+- `tests/unit/ui/AppSidebar.test.tsx`
+- `docs/ARCHITECTURE/SIDEBAR_OPEN_STATE_V1.1.md`
+- `docs/README.md`, `docs/MASTER_INDEX_V18.5.1.md`
+
+### 🧪 Validation
+- Dev‑Preview visuell geprüft: Keine Doppel‑Scroll in Sidebar; Ausrichtung korrekt; Fokus‑Ringe sichtbar.
+- Unit‑Tests grün lokal (sofern Test‑Runner konfiguriert); Integration‑Tests vorbereitet.
+
+### 💬 Conventional Commit
+- `fix(sidebar): enforce single scroll, add aria label, memoize sections`
+- `test(sidebar): add unit tests for open state and aria landmarks`
+- `docs(architecture): add sidebar open-state doc and link in hub/index`
+
+## [V6.1.12] - 2025-11-11 - Home-Seite Wiederherstellung (Header/Footer/Sidebar/Chatbot) ✅
+
+### 🎯 Added / Changed
+- Header/Footer (MarketingLayout): Originalstruktur bestätigt, Gradients entfernt, Token-basierte Hintergründe/Ränder, Fokus-Ringe und Skip-Link aktiv.
+- Sidebar (MarketingLayout): Desktop-Sidebar gemäß Spezifikation aktiviert; aktive Navigationslinks mit `aria-current` gekennzeichnet.
+- Chatbot: Auf der öffentlichen Startseite ("/") deaktiviert; `V28ChatWidget` wird dort nicht gerendert.
+- Design-Konformität: Farben, Typografie und Abstände auf Standardwerte (CI-Tokens) zurückgesetzt; keine Inline-Overrides in `Home.tsx`.
+
+### 📚 References
+- `src/components/layout/MarketingLayout.tsx`
+- `src/pages/Home.tsx`
+- `src/config/routes.config.tsx`
+
+### 🧪 Validation
+- Dev-Preview geöffnet (`http://127.0.0.1:5177/` / `http://127.0.0.1:5178/`): Chatbot auf Home nicht sichtbar; Header/Footer/Sidebar harmonisiert.
+- Responsives Verhalten geprüft (sm/md/lg/xl/xxl): keine Layoutbrüche.
+- A11y: Skip-Link funktionsfähig, Landmarken vorhanden, `aria-current` aktiv, sichtbare Fokus-Ringe.
+- Konsole: Supabase Health-Check Fehler durch Offline-Dev erwartet; UI bleibt stabil.
+
+### 💬 Conventional Commit
+- `fix(home): restore homepage per design; remove chatbot on '/' and confirm header/footer/sidebar`
+
+## [V6.1.11] - 2025-11-11 - MarketingLayout Harmonisierung (Header/Footer/Skip-Link) ✅
+
+### 🎯 Added / Changed
+- Header (Marketing): Gradient entfernt; Token-basierter Hintergrund `bg-surface/90` mit `backdrop-blur`; `border-b border-slate-800`; Skip-Link (`#main-content`) ergänzt.
+- Footer (Marketing): Gradient entfernt; Token-basierter Hintergrund `bg-surface/90`; `border-t border-slate-800`; Fokus-Ringe für Footer-Links (`focus-visible`) ergänzt.
+- Main: `id="main-content"` ergänzt für funktionalen Skip-Link.
+- Links: Textfarben auf `textPrimary`/`textSecondary` konsolidiert; Divider-Farbe auf `text-slate-500` für Kontrast.
+
+### 📚 References
+- `src/components/layout/MarketingLayout.tsx`
+
+### 🧪 Validation
+- Dev-Preview `http://127.0.0.1:5177/` visuell geprüft: Keine Gradients, Fokus-Ringe sichtbar, Skip-Link funktional.
+- Konsole zeigt Supabase-Health-Check-Fehler aufgrund Offline/invalid ENV (erwartet, UI bleibt stabil).
+
+### 💬 Conventional Commit
+- `style(marketing): remove gradients; apply design token surface/border; add skip-link & focus-visible`
+
+## [V6.1.10] - 2025-11-11 - Design-System Harmonisierung (Header/Sidebar/Footer) ✅
+
+### 🎯 Added / Changed
+- Header: Gradient entfernt; Hintergrund/Border über Design‑Tokens (`surface`, `border`) gesetzt; Fokus‑Styles vereinheitlicht.
+- Sidebar: Aktive Item‑Gradients entfernt; Icon‑Größe vereinheitlicht (20px); Fokus‑Ringe und ARIA‑Attribute konsistent.
+- Footer: Gradient entfernt; Token‑basierter Hintergrund/Border; Fokus‑Ringe für Links ergänzt.
+- Global: Interaktionszustände (hover/active/disabled) als Utilities in `index.css`; sichtbare Fokus‑Ringe systemweit.
+
+### 📚 References
+- `src/components/layout/Header.tsx`
+- `src/components/layout/AppSidebar.tsx`
+- `src/components/layout/Footer.tsx`
+- `src/index.css`
+- `docs/DESIGN_SYSTEM_CONSOLIDATED_V1.1.md`
+
+### 🧪 Validation
+- Preview geöffnet und visuell geprüft: Keine Gradients; Fokus‑Ringe sichtbar; Kontrast CI‑konform.
+- Browser/Terminal: Keine neuen Fehler oder Warnungen festgestellt.
+
+### 💬 Conventional Commit
+- `style(header): remove gradients; apply design token background/border`
+- `style(footer): remove gradients; add focus-visible rings for links`
+- `style(sidebar): unify active styles, 20px icons, aria improvements`
+- `docs(ui): design system harmonization entry`
+
+## [V6.1.9] - 2025-11-11 - UI/UX Accessibility & Navigation ✅
+
+### 🎯 Added / Changed
+- Header: ARIA‑Rollen/Labels ergänzt, Fokus‑Styles vereinheitlicht; Benutzeraktionen semantisch gruppiert.
+- Sidebar: Persistenter Toggle‑Button mit `aria-expanded`/`aria-controls`; Keyboard‑Bedienung verbessert (Hover weiterhin verfügbar).
+- MainLayout: Skip‑to‑Content‑Link (`#main-content`) ergänzt; Hauptbereich mit ID für Screenreader/Tastatur markiert.
+- Footer: Legal‑Links konsistent auf `/legal/impressum`, `/legal/datenschutz`, `/legal/agb`; ARIA‑Labels ergänzt.
+
+### 📚 References
+- `src/components/layout/Header.tsx`
+- `src/components/layout/AppSidebar.tsx`
+- `src/components/layout/MainLayout.tsx`
+- `src/components/layout/Footer.tsx`
+
+### 🧪 Validation
+- Fokusnavigation in Preview geprüft: Skip‑Link sichtbar/bedienbar; Sidebar‑Toggle per Tastatur funktional.
+- Routen Smoke‑Test: Legal‑Links navigieren korrekt; keine UI‑Fehler.
+
+### 💬 Conventional Commit
+- `fix(accessibility): header ARIA + focus styles`
+- `feat(sidebar): add persistent toggle with ARIA states`
+- `chore(layout): add skip-to-content anchor`
+- `docs(ui): changelog v6.1.9 (UI/UX accessibility)`
+## [V6.1.8] - 2025-11-11 - NeXify Wiki Guard & Docs Links ✅
+
+### 🎯 Added / Changed
+- ENV-Hardening für Supabase: Strikte Validierung (Platzhalter/ungültige Werte → Offline-Dev), keine Hardcoded-Fallbacks.
+- NeXify API: Funktionen-Basis aus `getSupabaseEnv`; Edge-Calls werden bei ungültiger ENV blockiert.
+- NeXify Wiki Hook: Health-Check vor `brain-query` wieder aktiviert; bei Fehlern Fallback ohne UI-Crash.
+- MD-2024 Dokumente hinzugefügt:
+  - `docs/SYSTEMANALYSE_MYDISPATCH_V1.0.md`
+  - `docs/IST_ZUSTAND_MYDISPATCH_V1.0.md`
+  - `docs/SOLL_ZUSTAND_MYDISPATCH_V1.0.md`
+  - `docs/UMSETZUNGSPLAN_MYDISPATCH_V1.0.md`
+- Docs-Hub & Master-Index aktualisiert: Links in `docs/README.md` und Einträge in `docs/MASTER_INDEX_V18.5.1.md`.
+- Supabase `.env.setup` als Template bestätigt (keine Secrets) und um Offline-Dev-Hinweis ergänzt.
+
+### 📚 References
+- `src/integrations/supabase/env.ts`
+- `src/api/nexify.ts`
+- `src/hooks/use-nexify-wiki.ts`
+- `docs/README.md`
+- `docs/MASTER_INDEX_V18.5.1.md`
+- `supabase/.env.setup`
+
+### 🧪 Validation
+- Aktive Server-URL: `http://localhost:5176/` bestätigt.
+- Smoke-Test: `Home`, `Dashboard`, `Bookings` ohne UI-Abstürze und ohne Konsolenfehler bzgl. Supabase-Variablen.
+- Netzwerk-Requests geprüft: Keine hartcodierten Supabase-URLs; nur validierte Basis-URLs oder sauberer Degradationspfad.
+- Health-Check: Erwarteter Fehler bei Offline/invalid ENV; `brain-query` wird korrekt nicht aufgerufen.
+
+### 💬 Conventional Commit
+- `fix(wiki): harden offline guard and block edge calls without env`
+- `docs: add system analysis docs and link in README + MASTER_INDEX`
+- `chore(env): confirm supabase .env.setup as template (no secrets)`
+
+
+## [V6.1.5] - 2025-11-10 - Slate Color Tokens & Button Contrast ✅
+
+### 🎯 Added / Changed
+- Tailwind Theme erweitert: `primary.hover`, `primary.glow`, `secondary.hover` (über HSL‑Variablen)
+- CSS‑Variablen ergänzt: `--primary-hover`, `--primary-glow`, `--secondary-hover` in `:root` und `.dark`
+- Buttons: Primärvarianten nutzen `text-primary-foreground` auf `bg-primary` (WCAG‑AA‑Kontrast)
+- Hero CTA: Textfarbe auf `primary-foreground` vereinheitlicht, Hover/Glow konsistent
+
+### 🔧 Kontrast‑Fixes (Batch 2)
+- `bg-primary text-foreground` ersetzt durch `text-primary-foreground` an:
+  - `src/components/enhanced/AnimatedBadge.tsx` (Varianten `default`, `info`)
+  - `src/pages/DesignPreview.tsx` (CTA `V28Button`)
+  - `src/components/mobile/MobileFilterBar.tsx` (Badge Hover‑State)
+  - `src/components/ui/badge.tsx` (Variante `trust`)
+
+### 🔧 Kontrast‑Fixes (Batch 3)
+- `src/components/master/CIGuidelineModal.tsx` — Variante `correct` korrigiert: `bg-primary` kombiniert mit `text-primary-foreground` für AA‑Kontrast.
+
+### 📚 References
+- `tailwind.config.ts`
+- `src/index.css`
+- `src/components/ui/button.tsx`
+- `docs/ACCESSIBILITY_GOVERNANCE_V19.0.0.md`
+
+### 🧪 Validation
+- Dev‑Server (Vite) lokal gestartet, Preview geöffnet; keine Fehler in Browser/Terminal.
+- Kontrastregeln erfüllt: primäre Aktionen weisen weiße Schrift auf dunklem Primär‑Hintergrund.
+- Dark Mode Variablen vorhanden (Hover/Glow), konsistent mit Slate System.
+
+### 🔜 Follow‑Up
+- Geplante Audit‑Runde zur Bereinigung verbleibender Fälle mit `bg-primary` + `text-foreground` in nicht‑kritischen Widgets.
+
+### 💬 Conventional Commit
+- `fix(ui): add primary/secondary hover & glow tokens, ensure button contrast`
+
+## [V6.1.6] - 2025-11-10 - Dev White Screen Fix (Service Worker) ✅
+
+### 🎯 Added / Changed
+- Entwicklungsmodus stabilisiert: Service Worker wird in DEV vollständig deregistriert, Registrierung nur in PROD mit defensivem Cache‑Cleanup.
+
+### 📚 References
+- `src/main.tsx`
+- `docs/KNOWLEDGE/TROUBLESHOOTING.md` — neue Sektion: „White Screen in Dev (Service Worker)“
+
+### 🧪 Validation
+- Isolierte Dev‑Preview (`http://127.0.0.1:5176/`) geöffnet, keine Fehler im Browser/Terminal.
+- White Screen behoben; HMR funktioniert, Routing rendert korrekt.
+
+### 💬 Conventional Commit
+- `fix(dev): disable service worker in development to prevent white screen`
+
+## [V6.1.7] - 2025-11-10 - Dev Stability: Vite HMR & Supabase Env Hardening ✅
+
+### 🎯 Added / Changed
+- Vite Dev/HMR Ports harmonisiert: Einheitlicher Port via `VITE_DEV_PORT` → `PORT` → Fallback `5176`; `strictPort` aktiviert; HMR `clientPort` entspricht Dev‑Port.
+- Supabase Client gehärtet: Entfernung Hardcoded‑Defaults; Nutzung `getSupabaseEnv()`; Dev‑Diagnostics bei Offline‑Dev; Production fail‑fast bei fehlenden ENV.
+
+### 📚 References
+- `vite.config.ts`
+- `src/integrations/supabase/client.ts`
+- `.env.local.example`
+
+### 🧪 Validation
+- Zweiten Dev‑Server gestoppt (Port `5175`), alleiniger Server auf `http://127.0.0.1:5176/` läuft stabil.
+- HMR‑Overlay/Verbindungen funktionieren ohne WebSocket‑Fehler; Supabase zeigt verständliche Fehlermeldungen, falls ENV fehlt.
+
+### 💬 Conventional Commit
+- `chore(dev): unify vite hmr/clientPort and harden supabase env handling`
+
+## [V6.1.4] - 2025-11-10 - Dokumentationspflege-Policy (Ohne Jira) ✅
+
+### 🎯 Added
+- Neue Policy eingeführt: `docs/DOCUMENTATION_MAINTENANCE_POLICY_V1.1.md` — Repository‑native Audit‑Trails ohne Jira (MD‑2024‑konform).
+- Direktlink im `docs/README.md` ergänzt (Wissen & Best Practices) zur zentralen Auffindbarkeit.
+
+### 📚 References
+- `docs/README.md`
+- `docs/MASTER_INDEX_V18.5.1.md`
+- Root `CHANGELOG.md`
+
+### 🧪 Validation
+- MD‑2024 Template eingehalten; Metadaten vorhanden.
+- Cross‑References aktualisiert; Changelogs gepflegt (Root + Docs).
+- Keine Geheimnisse; rein prozessuale Richtlinie.
+
+### 💬 Conventional Commit
+- `docs: add DOCUMENTATION_MAINTENANCE_POLICY v1.1.0 (no Jira flow)`
+
+## [V6.1.1] - 2025-11-10 - Implementierungsspezifikation Dashboard/Tarife/Zugriffe ✅
+
+### 🎯 Added
+- Neue MD‑2024 Spezifikation: `docs/IMPLEMENTATION_SPEC_DASHBOARD_TARIFFS_ACCESS_V1.1.md` — enthält Inhaltsrichtlinien (Formulare), Workflow‑Anforderungen (bezahlt vs. frei, Spezial‑Account), vollständige Dashboard‑Layouts (KPIs/Charts/CI), Stripe‑Tarifintegration (Feature‑Registry/Webhooks) und „17 Logs“ Audit‑System + Prüfdaten.
+- Docs‑Hub Link (`docs/README.md` → DEVELOPMENT) zur direkten Auffindbarkeit.
+
+### 📚 References
+- `config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml`
+- `docs/MASTER_INDEX_V18.5.1.md`
+- `docs/DEVELOPMENT/TESTING_GUIDE.md`
+- `docs/ARCHITECTURE/FRONTEND_STRUCTURE.md`
+- `docs/TECHNICAL/DATABASE_SCHEMA.md`
+- `docs/NEXIFY_WIKI_V1.0.md`
+
+### 🧪 Validation
+- Strukturkonform mit MD‑2024, Inhalte konsistent mit NeXify‑Vorgaben und Verboten; keine Secrets.
+
+### 💬 Conventional Commit
+- `docs: add implementation spec v1.1.0 (dashboard/tariffs/access)`
+
+## [V6.1.2] - 2025-11-10 - Governance-Integration in YAML & Spezifikation ✅
+
+### 🎯 Added
+- YAML-Konfiguration (`config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml`) erweitert um Vorgaben aus ALLEN relevanten Dokumenten:
+  - Chart-Farben (CI, WCAG) inkl. Recharts‑Hinweisen und Tooltip‑Klasse
+  - Routing-Guards, Brand-Routen und kontextsensitives Navigationsverhalten
+  - Tarif-Gating/Entitlements (Stripe), Webhooks und Special-Account-Regelung
+  - Accessibility-Governance (WCAG AA), Touch‑Targets, Tastaturnavigation, ARIA
+  - Secrets-Management (ENV‑Variablen), keine Secrets im Repo
+  - Supabase RLS-Policies (Company‑Isolation, Module-spezifische Policies)
+  - Observability (17 Logs) inkl. JSON‑Schema‑Beispiel
+  - Performance‑Governance (Lazy, Virtualization, Prefetching, Chart‑Ladeverhalten)
+- Implementierungsspezifikation (`docs/IMPLEMENTATION_SPEC_DASHBOARD_TARIFFS_ACCESS_V1.1.md`) um vollständige Referenzen/Validierungen ergänzt (Form‑Standards, Inventar, Charts, Accessibility, Routing, RLS, Secrets).
+- Docs‑Hub (`docs/README.md`) erweitert: direkte Links zu Governance-/Standards‑Dokumenten (Accessibility, Routing, Secrets, RLS, Chart Colors).
+
+### 📚 References
+- `docs/DESIGN_SYSTEM_CHART_COLORS_V18.3.md`
+- `docs/ROUTING_SYSTEM_V18.5.1.md`
+- `docs/API_SECRETS_MANAGEMENT_V18.5.0.md`
+- `docs/SECURITY_RLS_POLICIES_DOCUMENTATION_V18.5.1.md`
+- `docs/ACCESSIBILITY_GOVERNANCE_V19.0.0.md`
+- `docs/FORMULAR_STANDARDS_V18.5.0.md`, `docs/FORM_FIELD_INVENTORY_V29.1.md`
+
+### 🧪 Validation
+- Konsistenzprüfung: Vorgaben aus Master‑Index übernommen; YAML/Spec referenzieren alle Schlüssel‑Dokumente.
+- Keine Geheimnisse offengelegt; ENV‑Variablen‑Prinzip bestätigt.
+- Spezifikations‑Validierung: WCAG/Routing/RLS‑Checklisten aufgenommen.
+
+### 💬 Conventional Commit
+- `docs: integrate governance across config/spec (v6.1.2)`
+
+## [V6.1.3] - 2025-11-10 - MASTER-PROMPT Verankerung ✅
+
+### 🎯 Added
+- MASTER-PROMPT verankert: `docs/MASTER_PROMPT_AUTONOMOUS_AGENT_V1.1.md` (Autoloop, Ursachenfix, CI-/Governance-Konformität).
+- Link in `docs/README.md` (Bereich „Für KI-Agenten“) aufgenommen.
+
+### 📚 References
+- `docs/MASTER_INDEX_V18.5.1.md`
+- `docs/NEXIFY_WIKI_V1.0.md`
+- `config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml`
+
+### 🧪 Validation
+- MD‑2024 Template-konform, zentral verlinkt im Docs-Hub, konsistent mit Governance-Dokumenten.
+
+### 💬 Conventional Commit
+- `docs: add MASTER_PROMPT_AUTONOMOUS_AGENT v1.1.0 (anchored)`
+## [V6.1.0] - 2025-11-10 - NeXify React‑Vite Projektkonfiguration (YAML) ✅
+
+### 🎯 Added
+- Neue zentrale Konfigurationsdatei: `config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml` (Design, Layout, Datenbank, Funktionen, Inhalte, Verbote, QA) inkl. Beispielimplementierungen.
+- Verlinkung im Docs-Hub (`docs/README.md` → DEVELOPMENT) zur schnellen Auffindbarkeit.
+
+### 📚 References
+- `docs/MASTER_INDEX_V18.5.1.md`
+- `docs/KNOWLEDGE/DESIGN_SYSTEM.md`
+- `docs/ARCHITECTURE/FRONTEND_STRUCTURE.md`
+- `docs/TECHNICAL/DATABASE_SCHEMA.md`
+- `docs/DEVELOPMENT/TESTING_GUIDE.md`
+- `docs/DEVELOPMENT/DEPLOYMENT.md`
+- `docs/NEXIFY_WIKI_V1.0.md`
+
+### 🧪 Validation
+- Lint, Build und Vitest-Sanity lokal ausgeführt (Konfig-Datei ist statisch, keine Build-Auswirkung).
+
+### 💬 Conventional Commit
+- `docs: add NEXIFY React‑Vite config v1.1.0 and README link`
 
 ## [V32.5.0] - 2025-01-31 - MASTER.TSX WHITE-SCREEN FIX + LAYOUT HARMONIZATION ✅
 
@@ -993,3 +1449,52 @@ Overall System:  138 → ~6 calls (100% compliance)
 **Maintained by:** NeXify AI Agent  
 **Format:** [Keep a Changelog](https://keepachangelog.com/)  
 **Versioning:** [Semantic Versioning](https://semver.org/)
+## 2025-11-10 — v1.1.1
+### Added
+- `ANALYSE_IST_ZUSTAND_V1.0.md` – IST-Analyse (Frontend, Supabase, UI/UX).
+- `LOESUNGSPLAN_V1.0.md` – Problemkatalog und Maßnahmenplan mit Tests.
+- `SOLL_ZUSTANDS_DOKUMENTATION_V1.0.md` – Erfolgskriterien und QA.
+### Changed
+- `docs/README.md`: Architekturbezeichnung auf „React + Vite“ aktualisiert; neue Links ergänzt.
+- `.env.local.example`: Supabase-Beispielwerte durch Platzhalter ersetzt; Sicherheitshinweise ergänzt.
+### Notes
+- Indexpflege empfohlen: `docs/MASTER_INDEX_V18.5.1.md` um neue Dokumente ergänzen.
+## [V6.1.9] - 2025-11-11 - UI Rekonstruktion: Analyse & Plan (Draft)
+
+### 🎯 Added
+- SOLL‑Analyse `docs/DESIGN_SOLL_ANALYSE_V1.1.1.md`
+- UI‑Styleguide `docs/STYLEGUIDE_UI_V1.1.1.md`
+- Wireframes `docs/WIREFRAMES_HEADER_FOOTER_CHAT_V1.1.1.md`
+- Mockup‑Abgleich `docs/MOCKUP_ABGLEICH_V1.1.1.md`
+- Testing‑Plan `docs/TESTING_PLAN_UI_V1.1.1.md`
+- UI‑Checkliste `docs/UI_CHECKLISTE_V1.1.1.md`
+- Abweichungen IST↔SOLL `docs/IST_VS_SOLL_ABWEICHUNGEN_V1.1.1.md`
+
+### 🔗 References
+- `docs/README.md`, `docs/MASTER_INDEX_V18.5.1.md`
+- `config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml`
+- `src/layouts/MarketingLayout.tsx`, `src/layouts/AuthPageLayout.tsx`
+- `src/components/chat/V28ChatWidget.tsx`
+
+### 💬 Conventional Commit
+- `docs: add UI reconstruction analysis & plan v1.1.1 (draft)`
+
+## [V6.1.20] - 2025-11-11 - Page Builder (Beta) ✅
+
+### Added
+- Geschützte Route `'/page-builder'` mit Layout `main` und `requiredRole: master`.
+- Neue Seite `src/pages/PageBuilder.tsx` mit GrapesJS‑Integration (Preset Webpage, Export‑Funktion).
+- Feature‑Flag `page_builder` zur kontrollierten Aktivierung; Override via `?force=1` für Dev‑Preview.
+ - NeXify‑Blöcke registriert: Hero, Trust Badges, Features‑Grid, Tarifkarten, FAQ, CTA.
+ - In‑App Flag‑Toggle UI im Header zur schnellen Aktivierung/Deaktivierung von `page_builder`.
+
+### Security & Governance
+- Hinter Feature‑Flag und RBAC (Master‑Rolle) geschützt; kein Endkunden‑Zugriff ohne Freigabe.
+- Dokumentationspflege gemäß MD‑2024, Eintrag in Root & Docs Changelog.
+
+### Changed
+ - Seed‑Template auf Tailwind‑Klassennamen ohne `tw-` Präfix korrigiert (visuelle Konsistenz, WCAG‑konform).
+
+### Conventional Commit
+- `feat(page-builder): add protected GrapesJS editor behind flag (beta)`
+ - `feat(page-builder): add NeXify blocks & flag toggle UI`

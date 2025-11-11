@@ -1,0 +1,251 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbar Hide Utility */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ==================================================================================
+   TYPOGRAPHY & LINE-BREAK SYSTEM V18.5.1
+   ==================================================================================
+   Globale Standards für harmonische Text-Umbrüche
+   ================================================================================== */
+
+@layer base {
+  /* Global Typography Defaults */
+  :root {
+    word-break: normal;
+    overflow-wrap: break-word;
+    hyphens: manual;
+  }
+
+  /* German Language Support - Automatische Silbentrennung */
+  :lang(de) {
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphenate-limit-chars: 6 3 2;
+  }
+
+  /* English - No Auto Hyphenation */
+  :lang(en) {
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+  }
+
+  /* Prose Container für optimale Lesbarkeit */
+  .prose {
+    max-width: 65ch; /* Optimal: 45-75 Zeichen pro Zeile */
+    line-height: 1.625;
+    hyphens: auto;
+    word-break: break-word;
+  }
+
+  .prose-narrow {
+    max-width: 45ch;
+  }
+
+  .prose-wide {
+    max-width: 80ch;
+  }
+}
+
+@layer utilities {
+  /* ==================================================================================
+     V28.1 SCROLLBAR SYSTEM - UNSICHTBARE SCROLLBARS
+     ==================================================================================
+     ✅ KRITISCHE REGEL: Scrollbars MÜSSEN unsichtbar sein
+     ✅ Seitliche Scrollbars sind NIEMALS erlaubt
+     ✅ Mobile-First Lösungen für Tabellen
+     ================================================================================== */
+  
+  /* Unsichtbare Scrollbars - Systemweit */
+  .scrollbar-invisible {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  
+  .scrollbar-invisible::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  /* Alternative: Scrollbar in Background-Farbe (falls nötig) */
+  .scrollbar-hidden {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  
+  .scrollbar-hidden::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+  
+  .scrollbar-hidden::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-hidden::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
+  
+  /* ==================================================================================
+     DASHBOARD SIDEBAR SCROLLBAR (V28.1 PREMIUM DESIGN - SCROLLBAR-LOS)
+     ==================================================================================
+     ✅ VOLLSTÄNDIG UNSICHTBAR (0px, display: none)
+     ✅ V28.1 Premium Design Konform
+     ✅ Scrolling funktioniert einwandfrei
+     ================================================================================== */
+  
+  /* Webkit (Chrome, Safari, Opera) */
+  aside[data-sidebar]::-webkit-scrollbar {
+    display: none; /* Vollständig unsichtbar */
+  }
+  
+  /* Firefox */
+  aside[data-sidebar] {
+    scrollbar-width: none; /* Keine Scrollbar */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  
+  /* ==================================================================================
+     MAIN CONTENT SCROLLBAR (V28.1 PREMIUM DESIGN - SCROLLBAR-LOS)
+     ==================================================================================
+     ✅ Main Content Area ebenfalls scrollbar-los
+     ✅ Konsistent mit Dashboard Sidebar
+     ================================================================================== */
+  
+  main::-webkit-scrollbar {
+    display: none; /* Vollständig unsichtbar */
+  }
+
+  /* ==================================================================================
+     3D HERO BACKGROUND ANIMATIONS - V28.1 PARALLAX SYSTEM
+     ==================================================================================
+     ✅ Float-Vertical: Subtile vertikale Bewegung
+     ✅ Float-Horizontal: Subtile horizontale Bewegung
+     ✅ Rotate-Slow: Langsame 360°-Rotation
+     ✅ Parallax-Layer: Performance-optimiert
+     ================================================================================== */
+  
+  /* Floating Animations */
+  @keyframes float-vertical {
+    0%, 100% { 
+      transform: translateY(0px); 
+    }
+    50% { 
+      transform: translateY(-20px); 
+    }
+  }
+
+  @keyframes float-horizontal {
+    0%, 100% { 
+      transform: translateX(0px); 
+    }
+    50% { 
+      transform: translateX(15px); 
+    }
+  }
+
+  @keyframes rotate-slow {
+    0% { 
+      transform: rotate(0deg); 
+    }
+    100% { 
+      transform: rotate(360deg); 
+    }
+  }
+
+  /* Parallax Layer Classes */
+  .parallax-layer {
+    will-change: transform;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: transform 0.1s ease-out;
+  }
+
+  .animate-float-vertical {
+    animation: float-vertical 8s ease-in-out infinite;
+  }
+
+  .animate-float-horizontal {
+    animation: float-horizontal 12s ease-in-out infinite;
+  }
+
+  .animate-rotate-slow {
+    animation: rotate-slow 60s linear infinite;
+  }
+
+  /* Reduced Motion Support - Accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .parallax-layer {
+      animation: none !important;
+      transform: none !important;
+      transition: none !important;
+    }
+    
+    .animate-float-vertical,
+    .animate-float-horizontal,
+    .animate-rotate-slow {
+      animation: none !important;
+    }
+  }
+  
+  /* ==================================================================================
+     TEXT UTILITIES - V28.1 SLATE SYSTEM
+     ==================================================================================
+     ✅ Text Fade Gradient für expandable text
+     ✅ V28.1 konform - verwendet --background Token
+     ================================================================================== */
+  
+  /* Text Fade Gradient (für expandable text) */
+  .text-fade-gradient {
+    position: relative;
+    overflow: hidden;
+    max-height: 6rem; /* ~3 lines */
+  }
+
+  .text-fade-gradient::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2rem;
+    background: linear-gradient(to bottom, transparent, hsl(var(--background)));
+    pointer-events: none;
+  }
+
+  /* ==================================================================================
+     Z-INDEX STACK - GLOBAL SINGLE SOURCE OF TRUTH
+     ==================================================================================
+     ✅ Verhindert Z-Index-Konflikte systemweit
+     ✅ Konsistente Layer-Hierarchie
+     ✅ Touch-optimierte Overlays
+     ================================================================================== */
+  
+  :root {
+    --z-index-dropdown: 1000;
+    --z-index-sticky: 1010;
+    --z-index-fixed: 1020;
+    --z-index-sidebar: 1030;
+    --z-index-dashboard-sidebar: 1035;
+    --z-index-infoboard: 1040;
+    --z-index-modal-backdrop: 1050;
+    --z-index-modal: 1060;
+    --z-index-popover: 1070;
+    --z-index-tooltip: 1080;
+    --z-index-toast: 1090;
+  }
+}
+

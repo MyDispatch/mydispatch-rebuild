@@ -26,13 +26,16 @@ export function V28BillingToggle({
   return (
     <div
       className={cn(
-        'inline-flex gap-1 p-1.5 rounded-xl bg-slate-100 border border-slate-200 shadow-lg',
+        'inline-flex gap-1 p-1.5 rounded-lg bg-slate-100 border border-slate-200 shadow-lg',
         className
       )}
     >
       {/* Monthly Button */}
       <button
+        type="button"
         onClick={() => onToggle('monthly')}
+        aria-pressed={billingPeriod === 'monthly'}
+        aria-label="Monatliche Abrechnung auswählen"
         className={cn(
           'px-6 sm:px-8 py-3 rounded-lg font-semibold text-base transition-all duration-200',
           billingPeriod === 'monthly'
@@ -45,7 +48,10 @@ export function V28BillingToggle({
 
       {/* Yearly Button with Badge */}
       <button
+        type="button"
         onClick={() => onToggle('yearly')}
+        aria-pressed={billingPeriod === 'yearly'}
+        aria-label="Jährliche Abrechnung auswählen"
         className={cn(
           'px-6 sm:px-8 py-3 rounded-lg font-semibold text-base transition-all duration-200 inline-flex items-center gap-2',
           billingPeriod === 'yearly'

@@ -9,7 +9,7 @@
    ✅ Lazy-Loading für Performance
    ================================================================================== */
 
-import { useState, lazy, Suspense, useEffect } from 'react';
+import { useState, lazy, Suspense, useEffect, useRef } from 'react';
 import { MessageSquare, X } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Card } from '@/lib/compat';
@@ -25,6 +25,7 @@ export function V28ChatWidget({ className }: V28ChatWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [chatConsent, setChatConsent] = useState(false);
   const [showConsentDialog, setShowConsentDialog] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
   
   // Check for existing consent on mount
   useEffect(() => {
@@ -48,28 +49,49 @@ export function V28ChatWidget({ className }: V28ChatWidgetProps) {
     setShowConsentDialog(false);
     setIsOpen(true);
   };
+
+  // Focus the chat panel when opened
+  useEffect(() => {
+    if (isOpen) {
+      panelRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  // Close on ESC when panel is open
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isOpen]);
   
   return (
     <>
       {/* Floating Action Button */}
-      <div className={cn("fixed z-50", className, "bottom-4 right-4 sm:bottom-6 sm:right-6")}>
+      <div className={cn("fixed z-[9999]", className, "bottom-4 right-4 sm:bottom-6 sm:right-6")}>
       <V28Button
-        onClick={handleChatOpen}
+        onClick={() => (isOpen ? setIsOpen(false) : handleChatOpen())}
         size="sm"
         className={cn(
           "h-14 w-14 p-0 rounded-full shadow-lg",
-          "bg-slate-700 hover:bg-slate-800",
+          "bg-white text-slate-900 border border-slate-300 hover:bg-slate-50",
           "transition-all duration-200",
-          "focus-visible:ring-2 focus-visible:ring-slate-500",
+          "focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white",
           "hover:scale-110"
         )}
         aria-label={isOpen ? "Chat schließen" : "Chat öffnen"}
         aria-expanded={isOpen}
+        aria-haspopup="dialog"
+        aria-controls="chat-panel"
       >
           {isOpen ? (
-            <X className="h-6 w-6 text-white" aria-hidden="true" />
+            <X className="h-6 w-6 text-slate-900" aria-hidden="true" />
           ) : (
-            <MessageSquare className="h-6 w-6 text-white" aria-hidden="true" />
+            <MessageSquare className="h-6 w-6 text-slate-900" aria-hidden="true" />
           )}
         </V28Button>
       </div>
@@ -125,7 +147,7 @@ export function V28ChatWidget({ className }: V28ChatWidgetProps) {
       {isOpen && (
         <div 
           className={cn(
-            "fixed z-[60]",
+            "fixed z-[10000]",
             // Mobile: Full-screen (komplett über alles)
             "inset-0 sm:inset-auto",
             // Desktop: Floating panel
@@ -133,6 +155,10 @@ export function V28ChatWidget({ className }: V28ChatWidgetProps) {
           )}
           role="dialog"
           aria-label="Chat-Fenster"
+          aria-modal="true"
+          id="chat-panel"
+          tabIndex={-1}
+          ref={panelRef}
         >
           <Card className={cn(
             "shadow-2xl border-slate-200 bg-white",

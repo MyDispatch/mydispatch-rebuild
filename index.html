@@ -14,7 +14,7 @@
     <title>MyDispatch - Moderne Dispositionslösung für Taxi & Mietwagen</title>
     <meta name="description" content="Professionelle Dispositionssoftware für Taxi- und Mietwagenunternehmen. Auftragsverwaltung, Flottenmanagement & mehr. DSGVO-konform." />
     <meta name="author" content="MyDispatch" />
-    <meta name="theme-color" content="#323D5E" />
+    <meta name="theme-color" content="#334155" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -34,18 +34,17 @@
     <link rel="preconnect" href="https://maps.googleapis.com" />
     <link rel="dns-prefetch" href="https://maps.googleapis.com" />
     
-    <!-- Preconnect to Supabase (Critical API) -->
-    <link rel="preconnect" href="https://ygpwuiygivxoqtyoigtg.supabase.co" crossorigin />
-    <link rel="dns-prefetch" href="https://ygpwuiygivxoqtyoigtg.supabase.co" />
+    <!-- Supabase preconnect removed: use runtime env via client; avoid hardcoded domain -->
     
-    <!-- Critical inline CSS for instant rendering -->
+    <!-- Critical inline CSS for instant rendering (aligned to V28.1 Slate Color System) -->
     <style>
       :root {
-        --background: 40 8% 95%;
-        --foreground: 225 31% 28%;
-        --primary: 40 31% 88%;
-        --primary-foreground: 225 31% 28%;
-        --muted-foreground: 225 31% 28% / 0.6;
+        /* V28.1 Slate Color System (light mode) */
+        --background: 0 0% 100%;                /* White */
+        --foreground: 215 25% 27%;              /* slate-700 */
+        --primary: 215 25% 27%;                 /* slate-700 */
+        --primary-foreground: 0 0% 100%;        /* White */
+        --muted-foreground: 215 20% 65%;        /* slate-500 */
       }
       
       /* KRITISCH: Verhindere horizontale Scrollbars + Footer-Whitespace V18.3.25 */
@@ -100,7 +99,7 @@
         width: 100%; 
         height: 60px;
         z-index: 50;
-        background: hsl(225 31% 28%);
+        background: hsl(var(--primary));
       }
       
       main { 

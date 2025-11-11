@@ -7,7 +7,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './use-auth';
-import { queryKeys } from '@/lib/query-client';
+import { queryKeys } from '@/lib/react-query/query-keys';
 import { toast } from '@/hooks/use-toast';
 
 interface Partner {
@@ -26,7 +26,7 @@ export const usePartners = () => {
 
   // Fetch all partners
   const { data: partners = [], isLoading, error } = useQuery({
-    queryKey: queryKeys.partners(profile?.company_id || ''),
+    queryKey: queryKeys.partners.list({ companyId: profile?.company_id }),
     queryFn: async () => {
       if (!profile?.company_id) return [];
 
@@ -61,7 +61,7 @@ export const usePartners = () => {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.partners(profile?.company_id || '') });
+      queryClient.invalidateQueries({ queryKey: queryKeys.partners.lists() });
       toast({
         title: 'Erfolg',
         description: 'Partner wurde erfolgreich erstellt.',
@@ -93,7 +93,7 @@ export const usePartners = () => {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.partners(profile?.company_id || '') });
+      queryClient.invalidateQueries({ queryKey: queryKeys.partners.lists() });
       toast({
         title: 'Erfolg',
         description: 'Partner wurde erfolgreich aktualisiert.',
@@ -122,7 +122,7 @@ export const usePartners = () => {
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.partners(profile?.company_id || '') });
+      queryClient.invalidateQueries({ queryKey: queryKeys.partners.lists() });
       toast({
         title: 'Erfolg',
         description: 'Partner wurde archiviert.',

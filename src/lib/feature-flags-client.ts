@@ -20,6 +20,14 @@ const DEFAULT_FLAGS: Record<string, boolean> = {
   'ai_chat_support': false,
   'realtime_tracking': true,
   'mobile_app_beta': false,
+  // AI/Agent & Monitoring toggles
+  'agent_dashboard': false,
+  'doc_ai_sync': false,
+  'datadoc_monitoring': false,
+  'watchdog_ai': false,
+  // Content & Creator
+  'page_builder': false,
+  'studio_editor': false,
 };
 
 /**
@@ -120,5 +128,4 @@ export function toggleFeatureFlag(featureName: string, enabled: boolean) {
  * Kill Switch - Disable a feature immediately
  */
 export function killSwitch(featureName: string) {
-  return toggleFeatureFlag(featureName, false);
-}
+  return toggleFeatureFlag

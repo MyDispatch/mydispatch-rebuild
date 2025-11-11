@@ -19,6 +19,27 @@
 4. **Pflicht-Leseprozess:** Was muss gelesen werden vor Task X?
 
 ---
+## 🆕 Aktuelle Ergänzungen (2025-11-10)
+
+- Konfiguration: `config/NEXIFY_REACT_VITE_CONFIG_V1.1.yaml` — Zentrale React‑Vite Projektkonfiguration (NeXify) inkl. Chart‑Farben, Routing‑Guards, Tarif‑Gating, Accessibility, Secrets, RLS, Observability.
+- Spezifikation: `docs/IMPLEMENTATION_SPEC_DASHBOARD_TARIFFS_ACCESS_V1.1.md` — Umsetzungsvorgaben für Dashboard, Tarife, Zugriffe, Inhalte, Prüfdaten und 17 Logs.
+- Docs‑Hub: `docs/README.md` um Governance‑Links erweitert (Accessibility, Routing, Secrets, RLS, Chart Colors).
+ - Analyse: `docs/ANALYSE_IST_ZUSTAND_V1.0.md` — Systemweite IST‑Analyse (Frontend, Supabase, UI/UX).
+ - Plan: `docs/LOESUNGSPLAN_V1.0.md` — Maßnahmenplan mit Prioritäten, Tests und Erfolgskriterien.
+ - Zielbild: `docs/SOLL_ZUSTANDS_DOKUMENTATION_V1.0.md` — SOLL‑Zustand und Abnahmekriterien.
+ - Systemanalyse: `docs/SYSTEMANALYSE_MYDISPATCH_V1.0.md` — Systemweite Analyse (Architektur, Hooks, Integrationen, ENV‑Nutzung).
+ - IST: `docs/IST_ZUSTAND_MYDISPATCH_V1.0.md` — Aktuelle Funktionen, Risiken, Validierung.
+ - SOLL: `docs/SOLL_ZUSTAND_MYDISPATCH_V1.0.md` — Zielbild, Anforderungen, Akzeptanzkriterien.
+- Umsetzung: `docs/UMSETZUNGSPLAN_MYDISPATCH_V1.0.md` — Phasen, Meilensteine, Risiken, CI/CD, Monitoring.
+
+---
+
+## 🆕 Aktuelle Ergänzungen (2025-11-11)
+
+- Architektur: `docs/ARCHITECTURE/SIDEBAR_OPEN_STATE_V1.1.md` — Analyse & Optimierung des Sidebar‑Offen‑Zustands (ARIA, Single‑Scroll, Performance, Tests).
+- Sicherheit/Secrets: `docs/SECRETS_REGISTRY.md` — Zentrale Metadaten‑Registry (keine Klartext‑Werte) gemäß Dokumentationspflege‑Policy.
+
+---
 
 ## 📚 DOKUMENTATIONS-KATEGORIEN
 
@@ -163,6 +184,7 @@
 | Vorgangsnr. | Dokument | Version | Status | Abhängigkeiten | Beschreibung |
 |-------------|----------|---------|--------|----------------|--------------|
 | **VG-014.1** | `API_SECRETS_MANAGEMENT_V18.5.0.md` | 18.5.0 | ✅ Aktiv | VG-001.2 | API & Secrets Management |
+| **VG-014.2** | `SECRETS_REGISTRY.md` | 1.1.0 | ✅ Aktiv | VG-014.1 | Metadaten‑Registry (keine Klartext‑Werte, Audit‑Trail) |
 
 ---
 
@@ -375,3 +397,11 @@ VG-006.1 (HOMEPAGE_KONZEPT) benötigt:
 **Version:** 18.5.1  
 **Datum:** 2025-10-24  
 **Status:** 🔴 PRODUCTION-READY & VERPFLICHTEND
+### UI Rekonstruktion (V1.1.1)
+- `docs/DESIGN_SOLL_ANALYSE_V1.1.1.md` – SOLL‑Design & Layout
+- `docs/STYLEGUIDE_UI_V1.1.1.md` – Styleguide (Typo/Farben/Spacing/Breakpoints)
+- `docs/WIREFRAMES_HEADER_FOOTER_CHAT_V1.1.1.md` – Wireframes
+- `docs/MOCKUP_ABGLEICH_V1.1.1.md` – Mockup‑Abgleich
+- `docs/TESTING_PLAN_UI_V1.1.1.md` – Testing‑Plan
+- `docs/UI_CHECKLISTE_V1.1.1.md` – Checkliste
+- `docs/IST_VS_SOLL_ABWEICHUNGEN_V1.1.1.md` – Abweichungen IST↔SOLL

@@ -1,0 +1,12 @@
+/* Sidebar BEM helpers: minimal, non-intrusive, Tailwind-friendly */
+.sidebar__list { row-gap: 12px; }
+.sidebar__item { text-align: left; }
+.sidebar__label { text-align: left; }
+
+/* Responsive adjustments (Mobile-First) */
+@media (max-width: 640px) {
+  .sidebar__list { row-gap: 8px; }
+}
+@media (min-width: 1024px) {
+  .sidebar__list { row-gap: 12px; }
+}

@@ -7,7 +7,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './use-auth';
-import { queryKeys } from '@/lib/query-client';
+import { queryKeys } from '@/lib/react-query/query-keys';
 
 interface DashboardStats {
   bookings_today: number;
@@ -26,7 +26,7 @@ export const useStatistics = () => {
   const { profile } = useAuth();
 
   const { data: stats, isLoading, error } = useQuery({
-    queryKey: queryKeys.stats(profile?.company_id || ''),
+    queryKey: queryKeys.dashboardStats.list(profile?.company_id),
     queryFn: async (): Promise<DashboardStats> => {
       if (!profile?.company_id) {
         return {
