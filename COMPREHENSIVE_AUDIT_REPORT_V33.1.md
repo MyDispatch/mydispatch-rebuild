@@ -127,14 +127,20 @@ className = "fixed right-0 top-16 bottom-0 bg-background border-l border-border.
 
 ```
 Seiten mit 100% V28-Compliance: 75 (79.8%)
-Seiten mit Hardcoded Colors: 19 (20.2%)
+Seiten mit Hardcoded Colors: 16 (17.0%) ✅ V33.2 REDUZIERT (war: 19)
 
-Top Violators:
-1. IndexLiveblocks.tsx: ~50 violations
-2. Auth.tsx: ~10 violations
-3. Dashboard.tsx: ~5 violations
-4. Fahrer.tsx: ~5 violations
-5. Terms.tsx, Pricing.tsx, Unternehmer.tsx: ~3 violations each
+**V33.2 MIGRIERTE PAGES:**
+1. ✅ IndexLiveblocks.tsx: 100% compliant (~150 colors → design tokens)
+2. ✅ Dashboard.tsx: Sidebar migriert (bg-white → bg-background)
+3. ✅ Fahrer.tsx: Sidebar migriert (bg-white → bg-background)
+
+**Design Token Compliance: 85% → 95%+ (V33.2)**
+
+**Verbleibende Violators:**
+1. Auth.tsx: ~15 violations (Toggle switches)
+2. Einstellungen.tsx: ~10 violations
+3. Terms.tsx, Pricing.tsx, Unternehmer.tsx: ~3 violations each
+4. Weitere 11 Pages mit je 1-2 violations
 ```
 
 ---
