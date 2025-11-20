@@ -54,11 +54,13 @@ npm run validate:hero
 All hero sections MUST use `backgroundVariant="3d-premium"` for visual consistency.
 
 **Validation:**
+
 ```bash
 npm run validate:hero
 ```
 
 **Documentation:**
+
 - [Hero Background Standard V31.5](./docs/HERO_BACKGROUND_STANDARD_V31.5.md)
 - [Hero Design Rules](./docs/V28_HERO_DESIGN_RULES.md)
 
@@ -83,6 +85,30 @@ npm run validate:hero
 - **Testing**: Vitest, Playwright
 - **Monitoring**: Sentry, Web Vitals
 
+## 📚 Documentation
+
+**Complete documentation index:** [DOCUMENTATION.md](./DOCUMENTATION.md)
+
+**Essential docs:**
+
+- [CHANGELOG.md](./CHANGELOG.md) - Version history
+- [ERROR_SOLUTIONS_DB.md](./ERROR_SOLUTIONS_DB.md) - Known issues & solutions
+- [PERFORMANCE_OPTIMIZATIONS_V18.3.md](./PERFORMANCE_OPTIMIZATIONS_V18.3.md) - Performance guidelines
+
+**Documentation structure:**
+
+- `docs/01-GETTING-STARTED/` - Quick start guides (2 docs)
+- `docs/02-ARCHITECTURE/` - System design (4 docs)
+- `docs/03-DEVELOPMENT/` - Dev workflows (5 docs)
+- `docs/04-GOVERNANCE/` - Compliance (3 docs)
+- `docs/architecture/` - Architecture blueprints (44 docs)
+- `docs/deployment/` - Deployment guides (21 docs)
+- `docs/features/` - Feature specifications (47 docs)
+- `docs/guides/` - How-to guides (33 docs)
+- `docs/archive/` - Historical documentation (134 docs)
+
+**Total:** 308 documents organized by category
+
 ## Project Structure
 
 ```
@@ -97,15 +123,23 @@ mydispatch-rebuild/
 │   ├── lib/                 # Utilities & Helpers
 │   ├── hooks/               # React Hooks
 │   └── integrations/        # External Integrations
-├── docs/                    # Dokumentation
-│   ├── NEXIFY_WIKI_V1.0.md  # Haupt-Wiki
-│   ├── COMPONENT_REGISTRY_V28.1.md
-│   ├── FORGET_PROOF_SYSTEM_V1.0.md
-│   └── MYDISPATCH_VOLLSTAENDIGE_ANALYSE_V1.0.md
+├── docs/                    # 📚 Documentation (308 docs)
+│   ├── 01-GETTING-STARTED/  # Quick start guides
+│   ├── 02-ARCHITECTURE/     # System architecture
+│   ├── 03-DEVELOPMENT/      # Development guides
+│   ├── 04-GOVERNANCE/       # Compliance & security
+│   ├── architecture/        # Architecture blueprints
+│   ├── deployment/          # Deployment procedures
+│   ├── features/            # Feature specifications
+│   ├── guides/              # How-to guides
+│   └── archive/             # Historical docs
+├── scripts/
+│   └── archive/             # Legacy shell scripts
 ├── supabase/                # Supabase Config
 │   ├── migrations/          # Database Migrations
-│   └── functions/          # Edge Functions
-└── PROTECTION.md            # Repository Protection Rules
+│   └── functions/          # Edge Functions (100+)
+├── DOCUMENTATION.md         # 📑 Documentation index
+└── PROTECTION.md            # 🔒 Repository protection rules
 ```
 
 ## Repository Protection
