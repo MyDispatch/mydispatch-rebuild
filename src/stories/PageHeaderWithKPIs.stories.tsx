@@ -2,18 +2,14 @@
    STORYBOOK: PAGE HEADER WITH KPIs
    ================================================================================== */
 
-import type { Meta, StoryObj } from "@storybook/react";
-import {
-  PageHeaderWithKPIs,
-  type KPICardData,
-  type QuickAction,
-} from "@/components/shared/PageHeaderWithKPIs";
-import { Users, DollarSign, TrendingUp, Plus, FileText } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { PageHeaderWithKPIs, type KPICardData, type QuickAction } from '@/components/shared/PageHeaderWithKPIs';
+import { Users, DollarSign, TrendingUp, Plus, FileText } from 'lucide-react';
 
 const meta: Meta<typeof PageHeaderWithKPIs> = {
-  title: "Shared/PageHeaderWithKPIs",
+  title: 'Shared/PageHeaderWithKPIs',
   component: PageHeaderWithKPIs,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export default meta;
@@ -21,19 +17,19 @@ type Story = StoryObj<typeof PageHeaderWithKPIs>;
 
 const sampleKPIs: [KPICardData, KPICardData, KPICardData] = [
   {
-    title: "Heutige Aufträge",
+    title: 'Heutige Aufträge',
     value: 12,
     icon: Users,
-    trend: { value: 8, label: "+8%" },
+    trend: { value: 8, label: '+8%' },
   },
   {
-    title: "Umsatz Heute",
-    value: "2.450 €",
+    title: 'Umsatz Heute',
+    value: '2.450 €',
     icon: DollarSign,
-    trend: { value: 12, label: "+12%" },
+    trend: { value: 12, label: '+12%' },
   },
   {
-    title: "Verfügbare Fahrer",
+    title: 'Verfügbare Fahrer',
     value: 8,
     icon: TrendingUp,
   },
@@ -41,14 +37,14 @@ const sampleKPIs: [KPICardData, KPICardData, KPICardData] = [
 
 const sampleQuickActions: [QuickAction, QuickAction] = [
   {
-    label: "Neuer Auftrag",
+    label: 'Neuer Auftrag',
     icon: Plus,
-    onClick: () => console.log("Neuer Auftrag"),
+    onClick: () => console.log('Neuer Auftrag'),
   },
   {
-    label: "Schichtzettel",
+    label: 'Schichtzettel',
     icon: FileText,
-    onClick: () => console.log("Schichtzettel"),
+    onClick: () => console.log('Schichtzettel'),
   },
 ];
 

@@ -2,16 +2,16 @@
    SHIFT FORM - Wrapped UnifiedForm for Shifts
    ================================================================================== */
 
-import { UseFormReturn } from "react-hook-form";
-import { User, Car } from "lucide-react";
-import { UnifiedForm, FormField } from "../UnifiedForm";
-import { FORM_FIELDS_REGISTRY } from "@/config/form-fields-registry";
-import { SearchableSelect } from "@/components/ui/SearchableSelect";
+import { UseFormReturn } from 'react-hook-form';
+import { User, Car } from 'lucide-react';
+import { UnifiedForm, FormField } from '../UnifiedForm';
+import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
+import { SearchableSelect } from '@/components/ui/SearchableSelect';
 
 interface ShiftFormProps {
   form: UseFormReturn<any>;
   onSubmit: (data: any) => Promise<void>;
-  mode?: "inline" | "dialog";
+  mode?: 'inline' | 'dialog';
   dialogOpen?: boolean;
   onDialogOpenChange?: (open: boolean) => void;
   loading?: boolean;
@@ -22,7 +22,7 @@ interface ShiftFormProps {
 export function ShiftForm({
   form,
   onSubmit,
-  mode = "dialog",
+  mode = 'dialog',
   dialogOpen,
   onDialogOpenChange,
   loading,
@@ -55,7 +55,7 @@ export function ShiftForm({
       customRenderers={{
         driver_id: (field, formInstance) => (
           <SearchableSelect
-            options={drivers.map((d) => ({
+            options={drivers.map(d => ({
               value: d.id,
               label: `${d.first_name} ${d.last_name}`,
               icon: User,
@@ -67,7 +67,7 @@ export function ShiftForm({
         ),
         vehicle_id: (field, formInstance) => (
           <SearchableSelect
-            options={vehicles.map((v) => ({
+            options={vehicles.map(v => ({
               value: v.id,
               label: v.license_plate,
               description: v.vehicle_type,

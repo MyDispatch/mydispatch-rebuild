@@ -8,109 +8,93 @@
    ✅ Contact CTA
    ================================================================================== */
 
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
-import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
-import { V28IconBox } from "@/components/design-system/V28IconBox";
-import { V28HeroBackground } from "@/components/hero/V28HeroBackground";
-import { V28ITDashboardPreview } from "@/components/home/V28ITDashboardPreview";
-import { HeroTrustStats } from "@/components/hero/HeroTrustStats";
-import { V28Button } from "@/components/design-system/V28Button";
-import { SEOHead } from "@/components/shared/SEOHead";
-import {
-  Server,
-  Shield,
-  Zap,
-  Headphones,
-  Code2,
-  Monitor,
-  CheckCircle2,
-  Mail,
-  Phone,
-  Clock,
-  TrendingUp,
-  Award,
-} from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28HeroBackground } from '@/components/hero/V28HeroBackground';
+import { V28ITDashboardPreview } from '@/components/home/V28ITDashboardPreview';
+import { HeroTrustStats } from '@/components/hero/HeroTrustStats';
+import { V28Button } from '@/components/design-system/V28Button';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { 
+  Server, Shield, Zap, Headphones, Code2, Monitor,
+  CheckCircle2, Mail, Phone, Clock, TrendingUp, Award
+} from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const services = [
   {
     icon: Server,
-    title: "Server-Management",
-    description:
-      "24/7 Monitoring und Wartung Ihrer Server-Infrastruktur. Proaktive Problemlösung bevor Ausfälle entstehen.",
+    title: 'Server-Management',
+    description: '24/7 Monitoring und Wartung Ihrer Server-Infrastruktur. Proaktive Problemlösung bevor Ausfälle entstehen.'
   },
   {
     icon: Shield,
-    title: "IT-Security",
-    description:
-      "Umfassende Security-Audits, Firewall-Konfiguration und Incident Response. Ihre Daten sind bei uns sicher.",
+    title: 'IT-Security',
+    description: 'Umfassende Security-Audits, Firewall-Konfiguration und Incident Response. Ihre Daten sind bei uns sicher.'
   },
   {
     icon: Code2,
-    title: "Software-Entwicklung",
-    description:
-      "Maßgeschneiderte Software-Lösungen für Ihre individuellen Anforderungen. Von der Konzeption bis zum Deployment.",
+    title: 'Software-Entwicklung',
+    description: 'Maßgeschneiderte Software-Lösungen für Ihre individuellen Anforderungen. Von der Konzeption bis zum Deployment.'
   },
   {
     icon: Monitor,
-    title: "System-Monitoring",
-    description:
-      "Echtzeit-Überwachung aller IT-Systeme. Automatische Alerts bei kritischen Events und Performance-Problemen.",
+    title: 'System-Monitoring',
+    description: 'Echtzeit-Überwachung aller IT-Systeme. Automatische Alerts bei kritischen Events und Performance-Problemen.'
   },
   {
     icon: Headphones,
-    title: "Premium-Support",
-    description:
-      "Schnelle Hilfe bei allen IT-Problemen. Unser Support-Team ist für Sie da - persönlich, kompetent und lösungsorientiert.",
+    title: 'Premium-Support',
+    description: 'Schnelle Hilfe bei allen IT-Problemen. Unser Support-Team ist für Sie da - persönlich, kompetent und lösungsorientiert.'
   },
   {
     icon: Zap,
-    title: "Performance-Optimierung",
-    description:
-      "Analyse und Optimierung Ihrer IT-Systeme. Schnellere Ladezeiten, bessere Stabilität und zufriedenere Nutzer.",
-  },
+    title: 'Performance-Optimierung',
+    description: 'Analyse und Optimierung Ihrer IT-Systeme. Schnellere Ladezeiten, bessere Stabilität und zufriedenere Nutzer.'
+  }
 ];
 
 const packages = [
   {
-    name: "Basic Support",
-    price: "99€",
-    period: "Monat",
+    name: 'Basic Support',
+    price: '99€',
+    period: 'Monat',
     features: [
-      "E-Mail Support (Mo-Fr)",
-      "10 Support-Tickets/Monat",
-      "System-Monitoring (Basic)",
-      "Monatlicher Status-Report",
-    ],
+      'E-Mail Support (Mo-Fr)',
+      '10 Support-Tickets/Monat',
+      'System-Monitoring (Basic)',
+      'Monatlicher Status-Report'
+    ]
   },
   {
-    name: "Business Support",
-    price: "299€",
-    period: "Monat",
+    name: 'Business Support',
+    price: '299€',
+    period: 'Monat',
     highlighted: true,
     features: [
-      "Telefon + E-Mail Support",
-      "Keine Limit bei Tickets",
-      "Premium-Monitoring 24/7",
-      "Proaktive Wartung",
-      "Incident Response (4h)",
-      "Wöchentliche Reports",
-    ],
+      'Telefon + E-Mail Support',
+      'Keine Limit bei Tickets',
+      'Premium-Monitoring 24/7',
+      'Proaktive Wartung',
+      'Incident Response (4h)',
+      'Wöchentliche Reports'
+    ]
   },
   {
-    name: "Enterprise Support",
-    price: "Individuell",
-    period: "nach Bedarf",
+    name: 'Enterprise Support',
+    price: 'Individuell',
+    period: 'nach Bedarf',
     features: [
-      "Dedizierter Account Manager",
-      "SLA-Garantie (99,9%)",
-      "Incident Response (1h)",
-      "On-Site-Service inkl.",
-      "Custom Monitoring",
-      "Tägliche Reports",
-    ],
-  },
+      'Dedizierter Account Manager',
+      'SLA-Garantie (99,9%)',
+      'Incident Response (1h)',
+      'On-Site-Service inkl.',
+      'Custom Monitoring',
+      'Tägliche Reports'
+    ]
+  }
 ];
 
 export default function NexifyITService() {
@@ -118,26 +102,18 @@ export default function NexifyITService() {
 
   // Trust Stats für Hero
   const trustStats = [
-    { icon: Clock, label: "24/7", sublabel: "Premium Support" },
-    { icon: TrendingUp, label: "99.9%", sublabel: "SLA-Garantie" },
-    { icon: Zap, label: "< 1h", sublabel: "Response Time" },
-    { icon: Award, label: "ISO", sublabel: "Zertifiziert" },
+    { icon: Clock, label: '24/7', sublabel: 'Premium Support' },
+    { icon: TrendingUp, label: '99.9%', sublabel: 'SLA-Garantie' },
+    { icon: Zap, label: '< 1h', sublabel: 'Response Time' },
+    { icon: Award, label: 'ISO', sublabel: 'Zertifiziert' },
   ];
 
   return (
     <MarketingLayout>
-      <SEOHead
+      <SEOHead 
         title="NeXify IT-Service - Premium IT-Support für Unternehmen"
         description="24/7 Premium IT-Support mit SLA-Garantie. Server-Management, Cloud-Solutions, Software-Entwicklung und mehr. Made in Germany."
-        keywords={[
-          "IT-Service",
-          "IT-Support",
-          "Server-Management",
-          "Cloud-Solutions",
-          "Software-Entwicklung",
-          "24/7-Support",
-          "Premium-IT",
-        ]}
+        keywords={['IT-Service', 'IT-Support', 'Server-Management', 'Cloud-Solutions', 'Software-Entwicklung', '24/7-Support', 'Premium-IT']}
       />
 
       {/* Hero Section - 2-Column Layout wie Home.tsx */}
@@ -169,24 +145,23 @@ export default function NexifyITService() {
 
                 {/* Description */}
                 <p className="font-sans text-lg text-slate-600 leading-relaxed max-w-xl">
-                  Von Server-Management bis Software-Entwicklung – Ihr IT-Partner für langfristigen
-                  Erfolg. Persönlicher Ansprechpartner, schnelle Response-Zeiten und höchste
-                  Qualitätsstandards.
+                  Von Server-Management bis Software-Entwicklung – Ihr IT-Partner für langfristigen Erfolg. 
+                  Persönlicher Ansprechpartner, schnelle Response-Zeiten und höchste Qualitätsstandards.
                 </p>
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <V28Button
-                    size="lg"
+                  <V28Button 
+                    size="lg" 
                     className="shadow-lg hover:shadow-xl transition-shadow"
-                    onClick={() => navigate("/contact")}
+                    onClick={() => navigate('/contact')}
                   >
                     Unverbindliches Beratungsgespräch
                   </V28Button>
-                  <V28Button
-                    variant="secondary"
+                  <V28Button 
+                    variant="secondary" 
                     size="lg"
-                    onClick={() => (window.location.href = "#services")}
+                    onClick={() => window.location.href = '#services'}
                   >
                     Services entdecken
                   </V28Button>
@@ -204,18 +179,10 @@ export default function NexifyITService() {
       </section>
 
       {/* Services Section */}
-      <V28MarketingSection
-        id="services"
-        background="white"
-        title="Unsere IT-Services"
-        description="Umfassende IT-Dienstleistungen für Unternehmen jeder Größe"
-      >
+      <V28MarketingSection id="services" background="white" title="Unsere IT-Services" description="Umfassende IT-Dienstleistungen für Unternehmen jeder Größe">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
-            <V28MarketingCard
-              key={index}
-              className="transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]"
-            >
+            <V28MarketingCard key={index} className="transition-all duration-300 hover:shadow-2xl hover:scale-[1.02]">
               <V28IconBox icon={service.icon} variant="slate" />
               <h3 className="font-sans text-lg font-semibold text-slate-900 mt-4 mb-2">
                 {service.title}
@@ -229,17 +196,13 @@ export default function NexifyITService() {
       </V28MarketingSection>
 
       {/* Pricing Section */}
-      <V28MarketingSection
-        background="canvas"
-        title="Support-Pakete"
-        description="Flexibler IT-Support für jedes Budget"
-      >
+      <V28MarketingSection background="canvas" title="Support-Pakete" description="Flexibler IT-Support für jedes Budget">
         <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {packages.map((pkg, index) => (
-            <V28MarketingCard
+            <V28MarketingCard 
               key={index}
               className={`transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] ${
-                pkg.highlighted ? "ring-2 ring-slate-500 shadow-2xl" : ""
+                pkg.highlighted ? 'ring-2 ring-slate-500 shadow-2xl' : ''
               }`}
             >
               {pkg.highlighted && (
@@ -248,7 +211,9 @@ export default function NexifyITService() {
                   Meistgewählt
                 </div>
               )}
-              <h3 className="font-sans text-2xl font-bold text-slate-900 mb-2">{pkg.name}</h3>
+              <h3 className="font-sans text-2xl font-bold text-slate-900 mb-2">
+                {pkg.name}
+              </h3>
               <div className="mb-6">
                 <span className="text-4xl font-bold text-slate-900">{pkg.price}</span>
                 <span className="text-slate-600 ml-2">/ {pkg.period}</span>
@@ -261,12 +226,12 @@ export default function NexifyITService() {
                   </li>
                 ))}
               </ul>
-              <V28Button
+              <V28Button 
                 className="w-full"
-                variant={pkg.highlighted ? "primary" : "secondary"}
-                onClick={() => navigate("/contact?service=" + encodeURIComponent(pkg.name))}
+                variant={pkg.highlighted ? 'primary' : 'secondary'}
+                onClick={() => navigate('/contact?service=' + encodeURIComponent(pkg.name))}
               >
-                {pkg.price === "Individuell" ? "Angebot anfragen" : "Paket auswählen"}
+                {pkg.price === 'Individuell' ? 'Angebot anfragen' : 'Paket auswählen'}
               </V28Button>
             </V28MarketingCard>
           ))}
@@ -281,18 +246,20 @@ export default function NexifyITService() {
               Bereit für professionellen IT-Support?
             </h2>
             <p className="font-sans text-lg text-slate-600 mb-8">
-              Kontaktieren Sie uns für eine kostenlose Erstberatung. Wir finden die optimale Lösung
-              für Ihre IT-Anforderungen.
+              Kontaktieren Sie uns für eine kostenlose Erstberatung. Wir finden die optimale Lösung für Ihre IT-Anforderungen.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <V28Button size="lg" onClick={() => navigate("/contact")}>
+              <V28Button 
+                size="lg" 
+                onClick={() => navigate('/contact')}
+              >
                 <Mail className="h-5 w-5 mr-2" />
                 E-Mail schreiben
               </V28Button>
-              <V28Button
-                size="lg"
+              <V28Button 
+                size="lg" 
                 variant="secondary"
-                onClick={() => (window.location.href = "tel:+31613318856")}
+                onClick={() => window.location.href = 'tel:+31613318856'}
               >
                 <Phone className="h-5 w-5 mr-2" />
                 Anrufen

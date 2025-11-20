@@ -7,16 +7,16 @@
    ✅ Optimistic Updates
    ================================================================================== */
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { handleError, handleSuccess } from "@/lib/error-handler";
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { handleError, handleSuccess } from '@/lib/error-handler';
 
 interface PartnerRequest {
   id: string;
   requesting_company_id: string;
   target_company_id: string;
   message?: string | null;
-  status: "pending" | "accepted" | "rejected";
+  status: 'pending' | 'accepted' | 'rejected';
   created_at: string;
 }
 
@@ -30,20 +30,16 @@ export function usePartnerRequests(companyId?: string) {
   const queryClient = useQueryClient();
 
   // Fetch Partner Requests
-  const {
-    data: requests = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["partner_requests", companyId],
+  const { data: requests = [], isLoading, error } = useQuery({
+    queryKey: ['partner_requests', companyId],
     queryFn: async () => {
       if (!companyId) return [];
 
       const { data, error } = await supabase
-        .from("partner_requests")
-        .select("*")
+        .from('partner_requests')
+        .select('*')
         .or(`requesting_company_id.eq.${companyId},target_company_id.eq.${companyId}`)
-        .order("created_at", { ascending: false });
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
       return data || [];
@@ -58,7 +54,7 @@ export function usePartnerRequests(companyId?: string) {
   const createRequest = useMutation({
     mutationFn: async (requestData: CreatePartnerRequestData) => {
       const { data, error } = await supabase
-        .from("partner_requests")
+        .from('partner_requests')
         .insert(requestData)
         .select()
         .single();
@@ -67,21 +63,21 @@ export function usePartnerRequests(companyId?: string) {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["partner_requests", companyId] });
-      handleSuccess("Partner-Anfrage erfolgreich gesendet");
+      queryClient.invalidateQueries({ queryKey: ['partner_requests', companyId] });
+      handleSuccess('Partner-Anfrage erfolgreich gesendet');
     },
     onError: (error) => {
-      handleError(error, "Partner-Anfrage konnte nicht gesendet werden");
+      handleError(error, 'Partner-Anfrage konnte nicht gesendet werden');
     },
   });
 
   // Update Partner Request Status
   const updateRequestStatus = useMutation({
-    mutationFn: async ({ id, status }: { id: string; status: "accepted" | "rejected" }) => {
+    mutationFn: async ({ id, status }: { id: string; status: 'accepted' | 'rejected' }) => {
       const { data, error } = await supabase
-        .from("partner_requests")
+        .from('partner_requests')
         .update({ status })
-        .eq("id", id)
+        .eq('id', id)
         .select()
         .single();
 
@@ -89,11 +85,11 @@ export function usePartnerRequests(companyId?: string) {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["partner_requests", companyId] });
-      handleSuccess("Anfrage-Status aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['partner_requests', companyId] });
+      handleSuccess('Anfrage-Status aktualisiert');
     },
     onError: (error) => {
-      handleError(error, "Status konnte nicht aktualisiert werden");
+      handleError(error, 'Status konnte nicht aktualisiert werden');
     },
   });
 

@@ -2,29 +2,25 @@
    FEATURE DETAIL PAGE: White-Labeling (V32.0 - Hero-Lock Compliant)
    ================================================================================== */
 
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { V28HeroPremium } from "@/components/hero/V28HeroPremium";
-import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
-import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
-import { V28IconBox } from "@/components/design-system/V28IconBox";
-import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
-import { Palette, Globe, Smartphone, Image } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
+import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
+import { Palette, Globe, Smartphone, Image } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function WhiteLabelingPage() {
   const navigate = useNavigate();
 
   const features = [
-    { icon: Palette, title: "Custom Branding", description: "Ihre Farben, Ihr Logo, Ihr Design" },
-    {
-      icon: Globe,
-      title: "Eigene Domain",
-      description: "app.ihr-unternehmen.de statt MyDispatch-Branding",
-    },
-    { icon: Smartphone, title: "Branded Apps", description: "iOS und Android Apps mit Ihrem Logo" },
-    { icon: Image, title: "Custom Assets", description: "Eigene Icons, Bilder und Grafiken" },
+    { icon: Palette, title: 'Custom Branding', description: 'Ihre Farben, Ihr Logo, Ihr Design' },
+    { icon: Globe, title: 'Eigene Domain', description: 'app.ihr-unternehmen.de statt MyDispatch-Branding' },
+    { icon: Smartphone, title: 'Branded Apps', description: 'iOS und Android Apps mit Ihrem Logo' },
+    { icon: Image, title: 'Custom Assets', description: 'Eigene Icons, Bilder und Grafiken' },
   ];
 
   return (
@@ -40,20 +36,20 @@ export default function WhiteLabelingPage() {
         backgroundVariant="3d-premium"
         badge={{
           text: "Enterprise-Feature",
-          icon: Palette,
+          icon: Palette
         }}
         title="White-Labeling"
         subtitle="MyDispatch in Ihrem Branding"
         description="Ihre Software, Ihre Marke – ohne MyDispatch-Logo. Mit eigener Domain, individuellem Farbschema und Branded Apps."
         primaryCTA={{
           label: "Sales kontaktieren",
-          onClick: () => navigate("/contact"),
+          onClick: () => navigate('/contact')
         }}
         visual={<PremiumDashboardContent pageType="white-labeling" />}
         businessMetrics={[
-          { label: "Branding", value: "100%", sublabel: "Ihr Design" },
-          { label: "Domains", value: "Custom", sublabel: "Ihre URL" },
-          { label: "Apps", value: "iOS+Android", sublabel: "White Label" },
+          { label: 'Branding', value: '100%', sublabel: 'Ihr Design' },
+          { label: 'Domains', value: 'Custom', sublabel: 'Ihre URL' },
+          { label: 'Apps', value: 'iOS+Android', sublabel: 'White Label' }
         ]}
         trustElements={true}
       />

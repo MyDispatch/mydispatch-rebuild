@@ -1,9 +1,9 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/lib/compat";
-import { TrendingUp, TrendingDown, Calendar } from "lucide-react";
-import { formatCurrency } from "@/lib/format-utils";
-import { V28Button } from "@/components/design-system/V28Button";
-import { useNavigate } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
+import { TrendingUp, TrendingDown, Calendar } from 'lucide-react';
+import { formatCurrency } from '@/lib/format-utils';
+import { V28Button } from '@/components/design-system/V28Button';
+import { useNavigate } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 
 interface StatisticsWidgetProps {
   revenueToday: number;
@@ -39,22 +39,22 @@ export function StatisticsWidget({
 
   const stats = [
     {
-      label: "Gestern",
+      label: 'Gestern',
       value: formatCurrency(revenueYesterday),
       change: revenueChangeDay,
-      subLabel: `${bookingsYesterday} Aufträge`,
+      subLabel: `${bookingsYesterday} Aufträge`
     },
     {
-      label: "Diese Woche",
+      label: 'Diese Woche',
       value: formatCurrency(revenueThisWeek),
       change: revenueChangeWeek,
-      subLabel: "vs. letzte Woche",
+      subLabel: 'vs. letzte Woche'
     },
     {
-      label: "Dieser Monat",
+      label: 'Dieser Monat',
       value: formatCurrency(revenueThisMonth),
       change: revenueChangeMonth,
-      subLabel: "vs. letzter Monat",
+      subLabel: 'vs. letzter Monat'
     },
   ];
 
@@ -70,7 +70,7 @@ export function StatisticsWidget({
             variant="secondary"
             size="sm"
             className="h-6 text-[11px] hover:bg-muted px-2"
-            onClick={() => navigate("/statistiken")}
+            onClick={() => navigate('/statistiken')}
           >
             Details →
           </V28Button>
@@ -78,20 +78,21 @@ export function StatisticsWidget({
       </CardHeader>
       <CardContent className="space-y-1.5 pb-3">
         {stats.map((stat, index) => (
-          <div key={index} className="p-2 rounded-lg border bg-card">
+          <div 
+            key={index}
+            className="p-2 rounded-lg border bg-card"
+          >
             <div className="flex items-center justify-between mb-1">
               <span className="text-[9px] font-medium text-muted-foreground uppercase tracking-wide">
                 {stat.label}
               </span>
               {stat.change !== 0 && (
-                <div
-                  className={cn(
-                    "flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[9px] font-semibold",
-                    stat.change > 0
-                      ? "bg-status-success/10 text-status-success"
-                      : "bg-muted text-muted-foreground"
-                  )}
-                >
+                <div className={cn(
+                  "flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[9px] font-semibold",
+                  stat.change > 0 
+                    ? 'bg-status-success/10 text-status-success' 
+                    : 'bg-muted text-muted-foreground'
+                )}>
                   {stat.change > 0 ? (
                     <TrendingUp className="h-2.5 w-2.5 text-foreground" />
                   ) : (
@@ -101,8 +102,12 @@ export function StatisticsWidget({
                 </div>
               )}
             </div>
-            <p className="text-base font-bold text-foreground">{stat.value}</p>
-            <p className="text-[9px] text-muted-foreground mt-0.5">{stat.subLabel}</p>
+            <p className="text-base font-bold text-foreground">
+              {stat.value}
+            </p>
+            <p className="text-[9px] text-muted-foreground mt-0.5">
+              {stat.subLabel}
+            </p>
           </div>
         ))}
       </CardContent>

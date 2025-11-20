@@ -51,7 +51,12 @@ export function AlertWidget() {
               icon={AlertTriangle}
               variant="warning"
             />
-            <StatBadge label="Info" value={stats?.info || 0} icon={Info} variant="default" />
+            <StatBadge
+              label="Info"
+              value={stats?.info || 0}
+              icon={Info}
+              variant="default"
+            />
           </div>
         )}
 
@@ -158,7 +163,9 @@ function AlertItem({ alert }: AlertItemProps) {
 
   // Nachricht auf 50 Zeichen kürzen
   const truncatedMessage =
-    alert.message.length > 50 ? `${alert.message.substring(0, 50)}...` : alert.message;
+    alert.message.length > 50
+      ? `${alert.message.substring(0, 50)}...`
+      : alert.message;
 
   return (
     <div
@@ -170,7 +177,9 @@ function AlertItem({ alert }: AlertItemProps) {
     >
       <Icon className="h-4 w-4 mt-0.5 flex-shrink-0" />
       <div className="flex-1 min-w-0">
-        <p className="text-xs font-medium text-foreground truncate">{truncatedMessage}</p>
+        <p className="text-xs font-medium text-foreground truncate">
+          {truncatedMessage}
+        </p>
         <div className="flex items-center gap-2 mt-1">
           <Badge variant={config.variant} className="text-[10px] px-1.5 py-0">
             {alert.severity}

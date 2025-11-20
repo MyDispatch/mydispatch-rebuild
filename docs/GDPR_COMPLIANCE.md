@@ -18,21 +18,19 @@ Dokumentation der DSGVO-Compliance für MyDispatch.
 ## 🎯 GDPR Principles (DSGVO-Grundsätze)
 
 ### 1. Data Minimization (Datenminimierung)
-
 **Status:** 🟢 OK (noch keine User-Daten)  
 **Regel:** Nur speichern was absolut nötig ist
 
 **Implementation:**
-
 ```typescript
 // ❌ FALSCH - zu viele Daten
 interface User {
   id: string;
   email: string;
-  password: string; // NIEMALS im Klartext!
+  password: string;  // NIEMALS im Klartext!
   name: string;
-  birthdate: Date; // Nur wenn wirklich nötig!
-  address: string; // Nur wenn nötig!
+  birthdate: Date;   // Nur wenn wirklich nötig!
+  address: string;   // Nur wenn nötig!
   phone: string;
   socialSecurity: string; // ❌ NIEMALS!
 }
@@ -48,7 +46,6 @@ interface User {
 ```
 
 **Checklist:**
-
 - [x] Nur notwendige Daten erfassen
 - [ ] Business-Need für jedes Datenfeld dokumentieren
 - [ ] Regelmäßige Überprüfung: Werden alle Daten noch benötigt?
@@ -56,18 +53,15 @@ interface User {
 ---
 
 ### 2. Purpose Limitation (Zweckbindung)
-
 **Status:** 🟡 TBD  
 **Regel:** Daten nur für angegebenen Zweck nutzen
 
 **Implementation:**
-
 - In Privacy Policy klar kommunizieren
 - Keine Nutzung für andere Zwecke ohne neue Einwilligung
 - Tracking & Analytics nur mit Consent
 
 **Required Documents:**
-
 - [ ] Privacy Policy (Datenschutzerklärung) - FEHLT
 - [ ] Terms of Service (Nutzungsbedingungen) - FEHLT
 - [ ] Cookie Policy - FEHLT
@@ -75,29 +69,26 @@ interface User {
 ---
 
 ### 3. Storage Limitation (Speicherbegrenzung)
-
 **Status:** 🟡 TBD  
 **Regel:** Daten nur so lange speichern wie nötig
 
 **Retention Periods (geplant):**
-
 - **Active Users:** Unbegrenzt (solange Account aktiv)
 - **Inactive Users (>90 Tage):** Erinnerungs-Email
 - **Inactive Users (>180 Tage):** Archivierungs-Ankündigung
 - **Inactive Users (>365 Tage):** Automatische Löschung
 
 **Implementation:**
-
 ```sql
 -- Supabase Function für automatische Cleanup
 CREATE OR REPLACE FUNCTION cleanup_inactive_users()
 RETURNS void AS $$
 BEGIN
   -- Lösche Users die >365 Tage inaktiv
-  DELETE FROM auth.users
+  DELETE FROM auth.users 
   WHERE last_sign_in_at < NOW() - INTERVAL '365 days'
   AND deletion_requested = false;
-
+  
   -- Lösche zugehörige Daten
   DELETE FROM public.profiles
   WHERE user_id NOT IN (SELECT id FROM auth.users);
@@ -113,7 +104,6 @@ SELECT cron.schedule(
 ```
 
 **Checklist:**
-
 - [ ] Retention Periods definieren
 - [ ] Automatic Cleanup implementieren
 - [ ] User-Benachrichtigungen vor Löschung
@@ -122,12 +112,10 @@ SELECT cron.schedule(
 ---
 
 ### 4. Accuracy (Richtigkeit)
-
 **Status:** 🟡 TBD  
 **Regel:** Daten müssen korrekt und aktuell sein
 
 **Implementation:**
-
 - User kann eigene Daten jederzeit korrigieren
 - Validierung bei Eingabe
 - Regelmäßige Aufforderung zur Aktualisierung
@@ -135,12 +123,10 @@ SELECT cron.schedule(
 ---
 
 ### 5. Integrity & Confidentiality (Integrität & Vertraulichkeit)
-
 **Status:** 🟡 PARTIAL  
 **Regel:** Daten müssen sicher sein
 
 **Security Measures:**
-
 - ✅ HTTPS only (TLS 1.3)
 - ✅ Passwords: Supabase Auth (bcrypt/argon2)
 - ✅ Sensitive Data: Encrypted at rest (Supabase)
@@ -154,12 +140,10 @@ SELECT cron.schedule(
 ---
 
 ### 6. Accountability (Rechenschaftspflicht)
-
 **Status:** 🟡 TBD  
 **Regel:** Nachweis der DSGVO-Compliance
 
 **Documentation:**
-
 - [x] Diese Datei (GDPR_COMPLIANCE.md)
 - [ ] Privacy Policy
 - [ ] Data Processing Agreement (mit Supabase)
@@ -170,19 +154,17 @@ SELECT cron.schedule(
 ## 🔑 GDPR User Rights (Betroffenenrechte)
 
 ### Right to Access (Art. 15 DSGVO)
-
 **Status:** ❌ NICHT IMPLEMENTIERT  
 **Regel:** User kann Auskunft über gespeicherte Daten verlangen
 
 **Implementation (geplant):**
-
 ```typescript
 async function exportUserData(userId: string) {
   // Alle User-Daten sammeln
   const userData = await supabase.auth.getUser();
-  const profile = await supabase.from("profiles").select("*").eq("id", userId).single();
-  const tours = await supabase.from("tours").select("*").eq("user_id", userId);
-
+  const profile = await supabase.from('profiles').select('*').eq('id', userId).single();
+  const tours = await supabase.from('tours').select('*').eq('user_id', userId);
+  
   // Export als JSON
   const exportData = {
     user: userData,
@@ -190,37 +172,32 @@ async function exportUserData(userId: string) {
     tours: tours,
     exported_at: new Date().toISOString(),
   };
-
+  
   return JSON.stringify(exportData, null, 2);
 }
 ```
 
 **UI:**
-
 - "Daten exportieren" Button in User-Settings
 - Download als JSON
 
 ---
 
 ### Right to Rectification (Art. 16 DSGVO)
-
 **Status:** ❌ NICHT IMPLEMENTIERT  
 **Regel:** User kann Daten korrigieren
 
 **Implementation:**
-
 - User-Settings mit Edit-Funktionen
 - Validation bei Updates
 
 ---
 
 ### Right to Erasure / "Right to be Forgotten" (Art. 17 DSGVO)
-
 **Status:** ❌ NICHT IMPLEMENTIERT (CRITICAL!)  
 **Regel:** User kann Account-Löschung verlangen
 
 **Workflow (geplant):**
-
 1. User klickt "Account löschen"
 2. Confirmation Dialog (sicher?)
 3. 30-Tage Grace Period (Account deaktiviert)
@@ -228,51 +205,50 @@ async function exportUserData(userId: string) {
 5. Nach 30 Tagen: Vollständige Löschung
 
 **Implementation:**
-
 ```typescript
 async function deleteUserAccount(userId: string) {
   // 1. Markiere als deletion_requested
   await supabase.auth.updateUser({
-    data: { deletion_requested: true, deletion_requested_at: new Date() },
+    data: { deletion_requested: true, deletion_requested_at: new Date() }
   });
-
+  
   // 2. Schedule Deletion (nach 30 Tagen)
-  await supabase.from("scheduled_deletions").insert({
+  await supabase.from('scheduled_deletions').insert({
     user_id: userId,
-    execute_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    execute_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
   });
-
+  
   // 3. Send Confirmation Email
   await sendEmail({
     to: user.email,
-    subject: "Account-Löschung bestätigt",
-    body: "Dein Account wird in 30 Tagen gelöscht. Du kannst die Löschung bis dahin abbrechen.",
+    subject: 'Account-Löschung bestätigt',
+    body: 'Dein Account wird in 30 Tagen gelöscht. Du kannst die Löschung bis dahin abbrechen.'
   });
 }
 
 // Scheduled Job (täglich)
 async function executeScheduledDeletions() {
   const deletions = await supabase
-    .from("scheduled_deletions")
-    .select("*")
-    .lte("execute_at", new Date());
-
+    .from('scheduled_deletions')
+    .select('*')
+    .lte('execute_at', new Date());
+  
   for (const deletion of deletions.data) {
     // Lösche ALLE User-Daten
     await supabase.auth.admin.deleteUser(deletion.user_id);
-    await supabase.from("profiles").delete().eq("id", deletion.user_id);
-    await supabase.from("tours").delete().eq("user_id", deletion.user_id);
+    await supabase.from('profiles').delete().eq('id', deletion.user_id);
+    await supabase.from('tours').delete().eq('user_id', deletion.user_id);
     // ... alle weiteren Tabellen
-
+    
     // Log für Audit
-    await supabase.from("gdpr_audit_log").insert({
-      action: "account_deleted",
+    await supabase.from('gdpr_audit_log').insert({
+      action: 'account_deleted',
       user_id: deletion.user_id,
-      timestamp: new Date(),
+      timestamp: new Date()
     });
-
+    
     // Lösche scheduled_deletion Entry
-    await supabase.from("scheduled_deletions").delete().eq("id", deletion.id);
+    await supabase.from('scheduled_deletions').delete().eq('id', deletion.id);
   }
 }
 ```
@@ -282,7 +258,6 @@ async function executeScheduledDeletions() {
 ---
 
 ### Right to Data Portability (Art. 20 DSGVO)
-
 **Status:** ❌ NICHT IMPLEMENTIERT  
 **Regel:** User kann Daten in maschinenlesbarem Format erhalten
 
@@ -291,12 +266,10 @@ async function executeScheduledDeletions() {
 ---
 
 ### Right to Object (Art. 21 DSGVO)
-
 **Status:** 🟡 TBD  
 **Regel:** User kann Datenverarbeitung widersprechen
 
 **Implementation:**
-
 - Opt-Out für Marketing-Emails
 - Opt-Out für Analytics/Tracking
 - Cookie-Einstellungen
@@ -304,12 +277,10 @@ async function executeScheduledDeletions() {
 ---
 
 ### Right to Restrict Processing (Art. 18 DSGVO)
-
 **Status:** 🟡 TBD  
 **Regel:** User kann Verarbeitung einschränken
 
 **Implementation:**
-
 - Account temporär deaktivieren
 - Datenverarbeitung pausieren
 
@@ -318,30 +289,25 @@ async function executeScheduledDeletions() {
 ## 🍪 Cookies & Tracking
 
 ### Cookie Categories
-
 **Status:** ❌ KEIN COOKIE-BANNER
 
 **Essential Cookies (IMMER erlaubt):**
-
 - Supabase Auth Token
 - Session Cookie
 
 **Analytical Cookies (Opt-in erforderlich):**
-
 - Google Analytics (falls verwendet)
 - Custom Analytics
 
 **Marketing Cookies (Opt-in erforderlich):**
-
 - Aktuell keine geplant
 
 **Implementation (geplant):**
-
 ```tsx
 // Cookie Banner Component
 <CookieBanner
-  essentialCookies={["supabase-auth-token"]}
-  analyticalCookies={["_ga", "_gid"]}
+  essentialCookies={['supabase-auth-token']}
+  analyticalCookies={['_ga', '_gid']}
   marketingCookies={[]}
   onAccept={(preferences) => {
     if (preferences.analytical) {
@@ -358,10 +324,8 @@ async function executeScheduledDeletions() {
 ## 📄 Required Legal Documents
 
 ### 1. Privacy Policy (Datenschutzerklärung)
-
 **Status:** ❌ FEHLT (CRITICAL!)  
 **Required Content:**
-
 - Welche Daten werden gesammelt?
 - Warum werden sie gesammelt?
 - Wie lange werden sie gespeichert?
@@ -375,10 +339,8 @@ async function executeScheduledDeletions() {
 ---
 
 ### 2. Terms of Service (Nutzungsbedingungen)
-
 **Status:** ❌ FEHLT  
 **Required Content:**
-
 - Nutzungsbedingungen
 - Haftungsausschluss
 - Gerichtsstand
@@ -389,10 +351,8 @@ async function executeScheduledDeletions() {
 ---
 
 ### 3. Impressum
-
 **Status:** ❌ FEHLT (PFLICHT für DE!)  
 **Required Content:**
-
 - Firmenname
 - Anschrift
 - Kontakt (Email, Telefon)
@@ -406,10 +366,8 @@ async function executeScheduledDeletions() {
 ---
 
 ### 4. Cookie Policy
-
 **Status:** ❌ FEHLT  
 **Required Content:**
-
 - Welche Cookies werden verwendet?
 - Zweck der Cookies
 - Wie kann man Cookies ablehnen?
@@ -422,7 +380,6 @@ async function executeScheduledDeletions() {
 ## 🔍 GDPR Audit Trail
 
 ### Audit Logging (geplant)
-
 Alle GDPR-relevanten Aktionen protokollieren:
 
 ```typescript
@@ -430,23 +387,18 @@ interface GdprAuditLog {
   id: string;
   timestamp: Date;
   user_id: string;
-  action:
-    | "data_export"
-    | "account_deletion"
-    | "consent_given"
-    | "consent_withdrawn"
-    | "data_updated";
+  action: 'data_export' | 'account_deletion' | 'consent_given' | 'consent_withdrawn' | 'data_updated';
   details: string;
-  ip_address: string; // Anonymisiert (erste 3 Oktette)
+  ip_address: string;  // Anonymisiert (erste 3 Oktette)
 }
 
 // Beispiel
-await supabase.from("gdpr_audit_log").insert({
+await supabase.from('gdpr_audit_log').insert({
   user_id: userId,
-  action: "data_export",
-  details: "User exported all personal data",
+  action: 'data_export',
+  details: 'User exported all personal data',
   ip_address: anonymizeIP(req.ip),
-  timestamp: new Date(),
+  timestamp: new Date()
 });
 ```
 
@@ -457,7 +409,6 @@ await supabase.from("gdpr_audit_log").insert({
 ## 📋 GDPR Feature Checklist
 
 **Vor Production:**
-
 - [ ] Privacy Policy erstellt
 - [ ] Terms of Service erstellt
 - [ ] Impressum erstellt
@@ -478,7 +429,6 @@ await supabase.from("gdpr_audit_log").insert({
 ## 🚀 GDPR Roadmap
 
 ### Phase 1: Critical (Vor Public Launch)
-
 1. Privacy Policy / ToS / Impressum
 2. Cookie Banner & Consent Management
 3. Right to Erasure Implementation
@@ -488,7 +438,6 @@ await supabase.from("gdpr_audit_log").insert({
 **Priority:** 🔴 BLOCKING für Public Launch
 
 ### Phase 2: Full Compliance
-
 5. GDPR Audit Logging
 6. Data Retention Automation
 7. Regular Compliance Audits
@@ -501,7 +450,6 @@ await supabase.from("gdpr_audit_log").insert({
 ## 🔄 Update Protocol
 
 **Quarterly GDPR Review:**
-
 - Privacy Policy aktuell?
 - Neue Datenverarbeitungen?
 - Compliance-Status prüfen

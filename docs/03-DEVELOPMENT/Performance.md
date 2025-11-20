@@ -10,14 +10,14 @@
 
 ### Web Vitals Budgets
 
-| Metric                             | Gut     | Akzeptabel | Kritisch |
-| ---------------------------------- | ------- | ---------- | -------- |
-| **FCP** (First Contentful Paint)   | < 1.8s  | < 3s       | > 3s     |
-| **LCP** (Largest Contentful Paint) | < 2.5s  | < 4s       | > 4s     |
-| **TTI** (Time to Interactive)      | < 3.8s  | < 7.3s     | > 7.3s   |
-| **CLS** (Cumulative Layout Shift)  | < 0.1   | < 0.25     | > 0.25   |
-| **FID** (First Input Delay)        | < 100ms | < 300ms    | > 300ms  |
-| **Bundle Size**                    | < 500KB | < 1MB      | > 1MB    |
+| Metric | Gut | Akzeptabel | Kritisch |
+|--------|-----|------------|----------|
+| **FCP** (First Contentful Paint) | < 1.8s | < 3s | > 3s |
+| **LCP** (Largest Contentful Paint) | < 2.5s | < 4s | > 4s |
+| **TTI** (Time to Interactive) | < 3.8s | < 7.3s | > 7.3s |
+| **CLS** (Cumulative Layout Shift) | < 0.1 | < 0.25 | > 0.25 |
+| **FID** (First Input Delay) | < 100ms | < 300ms | > 300ms |
+| **Bundle Size** | < 500KB | < 1MB | > 1MB |
 
 ---
 
@@ -27,10 +27,10 @@
 
 ```tsx
 // ✅ RICHTIG - Lazy Loading für Routes
-import { lazy, Suspense } from "react";
+import { lazy, Suspense } from 'react';
 
-const Dashboard = lazy(() => import("./pages/Dashboard"));
-const Booking = lazy(() => import("./pages/Booking"));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Booking = lazy(() => import('./pages/Booking'));
 
 function App() {
   return (
@@ -44,8 +44,8 @@ function App() {
 }
 
 // ❌ FALSCH - Alle Routes in einem Bundle
-import Dashboard from "./pages/Dashboard";
-import Booking from "./pages/Booking";
+import Dashboard from './pages/Dashboard';
+import Booking from './pages/Booking';
 ```
 
 ### 2. React Query Caching
@@ -53,7 +53,7 @@ import Booking from "./pages/Booking";
 ```tsx
 // ✅ RICHTIG - Aggressive Caching
 const { data: bookings } = useQuery({
-  queryKey: ["bookings", companyId],
+  queryKey: ['bookings', companyId],
   queryFn: fetchBookings,
   staleTime: 5 * 60 * 1000, // 5min Cache
   cacheTime: 10 * 60 * 1000, // 10min Memory
@@ -61,7 +61,7 @@ const { data: bookings } = useQuery({
 
 // ❌ FALSCH - Kein Caching
 const { data: bookings } = useQuery({
-  queryKey: ["bookings"],
+  queryKey: ['bookings'],
   queryFn: fetchBookings,
   staleTime: 0, // Immer neu laden!
 });
@@ -70,11 +70,13 @@ const { data: bookings } = useQuery({
 ### 3. Memoization
 
 ```tsx
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback } from 'react';
 
 // ✅ RICHTIG - Expensive Calculations memoizen
 const sortedBookings = useMemo(() => {
-  return bookings.sort((a, b) => new Date(b.pickup_time) - new Date(a.pickup_time));
+  return bookings.sort((a, b) => 
+    new Date(b.pickup_time) - new Date(a.pickup_time)
+  );
 }, [bookings]);
 
 // ✅ RICHTIG - Callbacks memoizen
@@ -83,17 +85,19 @@ const handleDelete = useCallback((id: string) => {
 }, []);
 
 // ❌ FALSCH - Jeder Render neu berechnen
-const sortedBookings = bookings.sort((a, b) => new Date(b.pickup_time) - new Date(a.pickup_time));
+const sortedBookings = bookings.sort((a, b) => 
+  new Date(b.pickup_time) - new Date(a.pickup_time)
+);
 ```
 
 ### 4. Virtual Scrolling (bei langen Listen)
 
 ```tsx
-import { useVirtualizer } from "@tanstack/react-virtual";
+import { useVirtualizer } from '@tanstack/react-virtual';
 
 function BookingList({ bookings }) {
   const parentRef = useRef<HTMLDivElement>(null);
-
+  
   const virtualizer = useVirtualizer({
     count: bookings.length,
     getScrollElement: () => parentRef.current,
@@ -101,16 +105,16 @@ function BookingList({ bookings }) {
   });
 
   return (
-    <div ref={parentRef} style={{ height: "600px", overflow: "auto" }}>
+    <div ref={parentRef} style={{ height: '600px', overflow: 'auto' }}>
       <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
         {virtualizer.getVirtualItems().map((item) => (
           <div
             key={item.key}
             style={{
-              position: "absolute",
+              position: 'absolute',
               top: 0,
               left: 0,
-              width: "100%",
+              width: '100%',
               height: `${item.size}px`,
               transform: `translateY(${item.start}px)`,
             }}
@@ -128,7 +132,7 @@ function BookingList({ bookings }) {
 
 ```tsx
 // ✅ RICHTIG - Lazy Loading + Responsive Images
-<img
+<img 
   src="/images/hero.jpg"
   srcSet="/images/hero-sm.jpg 375w, /images/hero-md.jpg 768w, /images/hero-lg.jpg 1920w"
   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -153,7 +157,7 @@ CREATE INDEX idx_bookings_pickup_time ON bookings(pickup_time);
 CREATE INDEX idx_bookings_status ON bookings(status);
 
 -- Composite Index für komplexe Queries
-CREATE INDEX idx_bookings_company_status
+CREATE INDEX idx_bookings_company_status 
 ON bookings(company_id, status);
 
 -- ❌ FALSCH - Keine Indexes
@@ -165,13 +169,15 @@ ON bookings(company_id, status);
 ```typescript
 // ✅ RICHTIG - Nur benötigte Felder abfragen
 const { data } = await supabase
-  .from("bookings")
-  .select("id, pickup_address, pickup_time, status")
-  .eq("company_id", companyId)
+  .from('bookings')
+  .select('id, pickup_address, pickup_time, status')
+  .eq('company_id', companyId)
   .limit(20);
 
 // ❌ FALSCH - Alle Felder + Alle Zeilen
-const { data } = await supabase.from("bookings").select("*"); // Alle Felder!
+const { data } = await supabase
+  .from('bookings')
+  .select('*'); // Alle Felder!
 // Keine Pagination!
 ```
 
@@ -180,7 +186,7 @@ const { data } = await supabase.from("bookings").select("*"); // Alle Felder!
 ```sql
 -- Für komplexe Dashboard-Stats
 CREATE MATERIALIZED VIEW company_stats AS
-SELECT
+SELECT 
   company_id,
   COUNT(*) as total_bookings,
   SUM(final_price) as total_revenue,
@@ -190,7 +196,7 @@ WHERE status = 'completed'
 GROUP BY company_id;
 
 -- Index für schnelle Abfragen
-CREATE INDEX idx_company_stats_company_id
+CREATE INDEX idx_company_stats_company_id 
 ON company_stats(company_id);
 
 -- Refresh täglich (Cronjob)
@@ -205,16 +211,16 @@ REFRESH MATERIALIZED VIEW company_stats;
 
 // ✅ RICHTIG - Batching
 const { data } = await supabase
-  .from("bookings")
-  .select("*, customer:customers(*)")
-  .in("id", bookingIds);
+  .from('bookings')
+  .select('*, customer:customers(*)')
+  .in('id', bookingIds);
 
 // ❌ FALSCH - N+1 Problem
 for (const booking of bookings) {
   const { data: customer } = await supabase
-    .from("customers")
-    .select("*")
-    .eq("id", booking.customer_id)
+    .from('customers')
+    .select('*')
+    .eq('id', booking.customer_id)
     .single();
 }
 ```
@@ -227,17 +233,17 @@ for (const booking of bookings) {
 
 ```typescript
 // ✅ RICHTIG - Named Imports
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 
 // ❌ FALSCH - Default Import
-import * as Components from "@/components/ui"; // Importiert ALLES!
+import * as Components from '@/components/ui'; // Importiert ALLES!
 ```
 
 ### 2. Vite Config Optimierung
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from "vite";
+import { defineConfig } from 'vite';
 
 export default defineConfig({
   build: {
@@ -245,23 +251,23 @@ export default defineConfig({
       output: {
         manualChunks: {
           // React-Vendor-Bundle
-          "react-vendor": ["react", "react-dom", "react-router-dom"],
-
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          
           // UI-Vendor-Bundle
-          "ui-vendor": [
-            "@radix-ui/react-dialog",
-            "@radix-ui/react-dropdown-menu",
-            "@radix-ui/react-select",
+          'ui-vendor': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-select',
           ],
-
+          
           // Utility-Bundle
-          utils: ["date-fns", "zod", "clsx"],
+          'utils': ['date-fns', 'zod', 'clsx'],
         },
       },
     },
-
+    
     // Minify
-    minify: "terser",
+    minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true, // Remove console.log in prod
@@ -290,13 +296,13 @@ npm run build -- --analyze
 
 ```typescript
 // vite.config.ts
-import viteCompression from "vite-plugin-compression";
+import viteCompression from 'vite-plugin-compression';
 
 export default defineConfig({
   plugins: [
     viteCompression({
-      algorithm: "brotli",
-      ext: ".br",
+      algorithm: 'brotli',
+      ext: '.br',
     }),
   ],
 });
@@ -310,7 +316,7 @@ export default defineConfig({
   <!-- Preconnect zu kritischen Domains -->
   <link rel="preconnect" href="https://xyz.supabase.co" />
   <link rel="dns-prefetch" href="https://xyz.supabase.co" />
-
+  
   <!-- Preload kritische Ressourcen -->
   <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
 </head>
@@ -324,11 +330,11 @@ export default defineConfig({
 
 ```typescript
 // src/lib/performance.ts
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from "web-vitals";
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
 
 function sendToAnalytics(metric: Metric) {
   console.log(metric.name, metric.value);
-
+  
   // Optional: Send to analytics service
   // analytics.track('web_vitals', {
   //   metric: metric.name,
@@ -348,15 +354,19 @@ export function initPerformanceMonitoring() {
 ### 2. React Profiler
 
 ```tsx
-import { Profiler } from "react";
+import { Profiler } from 'react';
 
-function onRenderCallback(id: string, phase: "mount" | "update", actualDuration: number) {
+function onRenderCallback(
+  id: string,
+  phase: 'mount' | 'update',
+  actualDuration: number,
+) {
   console.log(`${id} ${phase}: ${actualDuration}ms`);
 }
 
 <Profiler id="Dashboard" onRender={onRenderCallback}>
   <Dashboard />
-</Profiler>;
+</Profiler>
 ```
 
 ---
@@ -434,7 +444,6 @@ Vor jedem Deployment:
 ## 📝 Changelog
 
 ### V18.5.0 (2025-01-26)
-
 - Erstversion Performance Guide
 - Web Vitals Budgets definiert
 - Frontend/Backend-Optimierungen dokumentiert

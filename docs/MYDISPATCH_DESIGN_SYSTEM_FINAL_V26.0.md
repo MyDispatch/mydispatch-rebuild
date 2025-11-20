@@ -10,7 +10,6 @@
 ## 🎯 DESIGN-PHILOSOPHIE
 
 ### Corporate Identity (CI)
-
 MyDispatch nutzt ein **professionelles Premium-Design** mit folgenden Kernfarben:
 
 - **Primary (Dunkelblau):** `#323D5E` - Seriosität, Vertrauen, Stabilität
@@ -25,19 +24,19 @@ MyDispatch nutzt ein **professionelles Premium-Design** mit folgenden Kernfarben
 ```typescript
 export const KERNFARBEN = {
   // Core Brand Colors
-  dunkelblau: "#323D5E", // Primary - Seriös & Vertrauenswürdig
-  beige: "#EADEBD", // Secondary - Warm & Einladend
-  weiss: "#FFFFFF", // Pure White
-  canvas: "#F8F9FB", // Light Background
-
+  dunkelblau: '#323D5E',      // Primary - Seriös & Vertrauenswürdig
+  beige: '#EADEBD',           // Secondary - Warm & Einladend
+  weiss: '#FFFFFF',           // Pure White
+  canvas: '#F8F9FB',          // Light Background
+  
   // Text Colors
-  text_primary: "#323D5E", // Haupttext (Dunkelblau)
-  text_secondary: "#64748B", // Sekundärtext (Grau)
-  text_tertiary: "#94A3B8", // Tertiärtext (Hellgrau)
-
+  text_primary: '#323D5E',    // Haupttext (Dunkelblau)
+  text_secondary: '#64748B',  // Sekundärtext (Grau)
+  text_tertiary: '#94A3B8',   // Tertiärtext (Hellgrau)
+  
   // Border Colors
-  border_neutral: "#E2E8F0",
-  border_neutral_soft: "#F1F5F9",
+  border_neutral: '#E2E8F0',
+  border_neutral_soft: '#F1F5F9',
 } as const;
 ```
 
@@ -48,7 +47,6 @@ export const KERNFARBEN = {
 ## 🧩 HERO DESIGN SYSTEM (V26.0 STANDARD)
 
 ### Hero-Struktur
-
 Das Hero-Design von MyDispatch folgt diesem Aufbau:
 
 ```
@@ -68,19 +66,16 @@ Das Hero-Design von MyDispatch folgt diesem Aufbau:
 ### 1. Background & Atmosphere
 
 **Gradient:**
-
 ```css
-background: linear-gradient(135deg, #323d5e 0%, #3f4c70 50%, #4a5a85 100%);
+background: linear-gradient(135deg, #323D5E 0%, #3F4C70 50%, #4A5A85 100%)
 ```
 
 **Glow Orbs (3 Schichten):**
-
 - Top Right: `rgba(234, 222, 189, 0.25)` - 800px, 8s pulse
 - Bottom Left: `rgba(234, 222, 189, 0.25)` - 600px, 6s pulse (1s delay)
 - Center: `rgba(50, 61, 94, 0.37)` - 500px, 10s pulse (2s delay)
 
 **Patterns:**
-
 - Grid Pattern: 60x60px, 1.5px stroke, 7% opacity
 - Dot Pattern: 30x30px, 2px dots, 7% opacity
 - Diagonal Lines: 40x40px, 2px lines, 3% opacity (45° rotation)
@@ -88,7 +83,6 @@ background: linear-gradient(135deg, #323d5e 0%, #3f4c70 50%, #4a5a85 100%);
 ### 2. Premium Badge
 
 **Style:**
-
 ```css
 backgroundColor: rgba(234, 222, 189, 0.08)
 border: 2px solid #EADEBD
@@ -96,14 +90,12 @@ boxShadow: 0 0 20px rgba(234, 222, 189, 0.25), 0 4px 12px rgba(0,0,0,0.1)
 ```
 
 **Elements:**
-
 - Pulsing Dot (Beige, 8px Glow)
 - Text: 14px, Semibold, Beige
 
 ### 3. Typography Hierarchy
 
 **Headline:**
-
 - Size: 5xl → 8xl (responsive)
 - Font: Inter, Bold
 - Color: Beige (#EADEBD)
@@ -111,14 +103,12 @@ boxShadow: 0 0 20px rgba(234, 222, 189, 0.25), 0 4px 12px rgba(0,0,0,0.1)
 - Tracking: Tight
 
 **Subheadline:**
-
 - Size: 2xl → 4xl (responsive)
 - Font: Inter, Medium
 - Color: rgba(255, 255, 255, 0.94)
 - Line Height: Snug
 
 **Description:**
-
 - Size: lg → 2xl (responsive)
 - Font: Inter, Regular
 - Color: rgba(255, 255, 255, 0.8)
@@ -127,7 +117,6 @@ boxShadow: 0 0 20px rgba(234, 222, 189, 0.25), 0 4px 12px rgba(0,0,0,0.1)
 ### 4. CTA Buttons
 
 **Primary Button:**
-
 ```css
 backgroundColor: rgba(234, 222, 189, 0.13)
 color: #EADEBD
@@ -141,7 +130,6 @@ hover:
 ```
 
 **Secondary Button:**
-
 ```css
 backgroundColor: rgba(255, 255, 255, 0.06)
 color: #FFFFFF
@@ -157,7 +145,6 @@ hover:
 ### 5. Trust Stats (2x2 Grid)
 
 **Container:**
-
 ```css
 backgroundColor: rgba(255, 255, 255, 0.06)
 border: 2px solid rgba(234, 222, 189, 0.19)
@@ -170,7 +157,6 @@ hover:
 ```
 
 **Icon Container:**
-
 ```css
 backgroundColor: rgba(234, 222, 189, 0.13)
 boxShadow: 0 0 12px rgba(234, 222, 189, 0.19), inset 0 0 15px rgba(234, 222, 189, 0.06)
@@ -179,7 +165,6 @@ boxShadow: 0 0 12px rgba(234, 222, 189, 0.19), inset 0 0 15px rgba(234, 222, 189
 ### 6. Dashboard Preview
 
 **Container:**
-
 ```css
 backgroundColor: #F8F9FB (canvas)
 border: 3px solid rgba(234, 222, 189, 0.25)
@@ -187,7 +172,6 @@ boxShadow: 0 0 60px rgba(234, 222, 189, 0.19), 0 25px 80px rgba(50, 61, 94, 0.5)
 ```
 
 **Header:**
-
 ```css
 backgroundColor: rgba(255, 255, 255, 0.98)
 borderBottom: rgba(229, 231, 235, 0.5)
@@ -195,7 +179,6 @@ boxShadow: 0 0 20px rgba(50, 61, 94, 0.05)
 ```
 
 **Icon Box (Dunkelblau mit Beige Icon):**
-
 ```css
 backgroundColor: #323D5E
 iconColor: #EADEBD
@@ -205,7 +188,6 @@ boxShadow: 0 0 15px rgba(234, 222, 189, 0.19), inset 0 0 15px rgba(234, 222, 189
 ```
 
 **KPI Card:**
-
 ```css
 backgroundColor: #FFFFFF
 border: 2px solid rgba(229, 231, 235, 0.5)
@@ -217,7 +199,6 @@ hover:
 ```
 
 **Performance Badge (+12%, +8%):**
-
 ```css
 backgroundColor: rgba(234, 222, 189, 0.15)
 color: #323D5E (Dunkelblau)
@@ -225,7 +206,6 @@ border: 2px solid rgba(234, 222, 189, 0.3)
 ```
 
 **Activity List Item:**
-
 ```css
 backgroundColor: rgba(50, 61, 94, 0.03)
 border: 2px solid rgba(229, 231, 235, 0.5)
@@ -240,13 +220,11 @@ hover:
 ## 📐 SPACING & LAYOUT
 
 ### Container
-
 - Max Width: 1280px (7xl)
 - Padding: px-4 sm:px-6 lg:px-8
 - Section Spacing: py-20 md:py-28
 
 ### Grid Systems
-
 - 2 Columns: `grid-cols-1 lg:grid-cols-2`
 - 4 Columns (KPIs): `grid-cols-2 lg:grid-cols-4`
 - Gap: gap-4 lg:gap-6
@@ -256,7 +234,6 @@ hover:
 ## ✅ MANDATORY RULES
 
 ### DO's ✅
-
 1. **Immer KERNFARBEN verwenden** - Keine direkten Hex-Codes
 2. **rgba() für Transparenzen** - NIEMALS Hex + Alpha (z.B. `#EADEBD40`)
 3. **V26-Komponenten nutzen** - V26Button, V26IconBox, V26MarketingCard
@@ -266,7 +243,6 @@ hover:
 7. **Responsive Typography:** Fluid clamp() oder Responsive Classes
 
 ### DON'Ts ❌
-
 1. ❌ Direkte Hex-Codes (außer in KERNFARBEN-Konstante)
 2. ❌ Hex + Alpha Transparenzen (z.B. `#22C55E40`)
 3. ❌ Status-Farben außerhalb von Ampel-System
@@ -279,7 +255,6 @@ hover:
 ## 🚀 COMPONENT LIBRARY
 
 ### Core Components
-
 - `V26Button` - Primary & Secondary Buttons
 - `V26IconBox` - Icon Container (Dunkelblau + Beige)
 - `V26MarketingCard` - Marketing Cards
@@ -289,7 +264,6 @@ hover:
 - `V26Badge` - Standardisiertes Badge
 
 ### Hero Components (NEU)
-
 - `HeroBackgroundOrbs` - Background mit Glow Orbs & Patterns
 - `HeroPremiumBadge` - Premium Badge mit Live-Dot
 - `HeroTrustStats` - Trust Stats Grid (2x2)
@@ -298,7 +272,6 @@ hover:
 - `DashboardActivityItem` - Activity List Item
 
 ### Templates (NEU)
-
 - `HeroTemplate` - Komplettes Hero (Left + Right Column)
 - `DashboardPreviewTemplate` - Dashboard Mockup
 
@@ -307,7 +280,6 @@ hover:
 ## 📊 QUALITY GATES
 
 ### Pre-Commit Checks
-
 - [ ] Keine direkten Hex-Codes (außer KERNFARBEN)
 - [ ] Keine Hex + Alpha Transparenzen
 - [ ] Alle Buttons sind V26Button
@@ -318,7 +290,6 @@ hover:
 - [ ] Responsive Typography implementiert
 
 ### Testing
-
 ```bash
 npm run test:visual     # Visual Regression Tests
 npm run test:component  # Component Tests

@@ -2,10 +2,10 @@
  * HYPERION PHASE 2: Profiles API Module
  */
 
-import { TypedSupabaseClient, handleApiError } from "./client";
-import { Tables } from "@/integrations/supabase/types";
+import { TypedSupabaseClient, handleApiError } from './client';
+import { Tables } from '@/integrations/supabase/types';
 
-export type Profile = Tables<"profiles">;
+export type Profile = Tables<'profiles'>;
 
 export interface ProfileFilters {
   company_id?: string;
@@ -23,62 +23,69 @@ export function createProfilesApi(supabase: TypedSupabaseClient): ProfilesApi {
   return {
     async list(filters = {}) {
       try {
-        let query = supabase.from("profiles").select("*").order("first_name");
+        let query = supabase
+          .from('profiles')
+          .select('*')
+          .order('first_name');
 
         if (filters.company_id) {
-          query = query.eq("company_id", filters.company_id);
+          query = query.eq('company_id', filters.company_id);
         }
         if (filters.user_id) {
-          query = query.eq("user_id", filters.user_id);
+          query = query.eq('user_id', filters.user_id);
         }
 
         const { data, error } = await query;
-        if (error) handleApiError(error, "profiles.list");
+        if (error) handleApiError(error, 'profiles.list');
         return data || [];
       } catch (error) {
-        handleApiError(error, "profiles.list");
+        handleApiError(error, 'profiles.list');
       }
     },
 
     async getById(id) {
       try {
-        const { data, error } = await supabase.from("profiles").select("*").eq("id", id).single();
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', id)
+          .single();
 
-        if (error) handleApiError(error, "profiles.getById");
+        if (error) handleApiError(error, 'profiles.getById');
         return data!;
       } catch (error) {
-        handleApiError(error, "profiles.getById");
+        handleApiError(error, 'profiles.getById');
       }
     },
 
     async getByUserId(userId) {
       try {
         const { data, error } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("user_id", userId)
+          .from('profiles')
+          .select('*')
+          .eq('user_id', userId)
           .single();
 
-        if (error) handleApiError(error, "profiles.getByUserId");
+        if (error) handleApiError(error, 'profiles.getByUserId');
         return data!;
       } catch (error) {
-        handleApiError(error, "profiles.getByUserId");
+        handleApiError(error, 'profiles.getByUserId');
       }
     },
 
     async update(id, updates) {
       try {
         const { data, error } = await supabase
-          .from("profiles")
+          .from('profiles')
           .update(updates)
-          .eq("id", id)
+          .eq('id', id)
           .select()
           .single();
 
-        if (error) handleApiError(error, "profiles.update");
+        if (error) handleApiError(error, 'profiles.update');
         return data!;
       } catch (error) {
-        handleApiError(error, "profiles.update");
+        handleApiError(error, 'profiles.update');
       }
     },
   };

@@ -11,13 +11,13 @@
 ### 1. Header-Übernahme (Auth → Marketing)
 
 **Vorher (MarketingLayout):**
-
 ```tsx
-<header className="bg-background shadow-sm border-b border-border">{/* Weißer Header */}</header>
+<header className="bg-background shadow-sm border-b border-border">
+  {/* Weißer Header */}
+</header>
 ```
 
 **Nachher (Auth-Style übernommen):**
-
 ```tsx
 <header className="bg-gradient-to-r from-primary via-primary to-primary/95 shadow-lg border-b border-border/20">
   {/* Primary Gradient Header - fehlerfrei */}
@@ -31,18 +31,20 @@
 ### 2. Footer-Anpassung (Matching Header)
 
 **Vorher:**
-
 ```tsx
 <footer className="bg-background border-t border-border">
-  <Link className="text-muted-foreground hover:text-foreground">Impressum</Link>
+  <Link className="text-muted-foreground hover:text-foreground">
+    Impressum
+  </Link>
 </footer>
 ```
 
 **Nachher:**
-
 ```tsx
 <footer className="bg-gradient-to-t from-primary via-primary to-primary/95 border-t border-border/20 backdrop-blur-sm">
-  <Link className="text-foreground/70 hover:text-foreground">Impressum</Link>
+  <Link className="text-foreground/70 hover:text-foreground">
+    Impressum
+  </Link>
 </footer>
 ```
 
@@ -53,7 +55,6 @@
 ### 3. Sidebar (UNVERÄNDERT)
 
 **Bleibt:**
-
 ```tsx
 <aside className="bg-background border-r border-border">
   <Link className="text-foreground hover:bg-primary/10 hover:text-foreground">
@@ -71,38 +72,35 @@
 
 ### Header/Footer (NEU)
 
-| Element    | Farbe            | Wert                                                       |
-| ---------- | ---------------- | ---------------------------------------------------------- |
-| Background | Primary Gradient | `from-primary via-primary to-primary/95`                   |
-| Text       | Foreground       | `text-foreground` (Header) / `text-foreground/70` (Footer) |
-| Border     | Subtil           | `border-border/20`                                         |
-| Shadow     | Premium          | `shadow-lg` (Header) / `backdrop-blur-sm` (Footer)         |
+| Element | Farbe | Wert |
+|---------|-------|------|
+| Background | Primary Gradient | `from-primary via-primary to-primary/95` |
+| Text | Foreground | `text-foreground` (Header) / `text-foreground/70` (Footer) |
+| Border | Subtil | `border-border/20` |
+| Shadow | Premium | `shadow-lg` (Header) / `backdrop-blur-sm` (Footer) |
 
 ### Sidebar (UNVERÄNDERT)
 
-| Element    | Farbe      | Wert                                        |
-| ---------- | ---------- | ------------------------------------------- |
-| Background | Weiß       | `bg-background`                             |
-| Active     | Primary    | `bg-primary text-foreground`                |
-| Hover      | Primary/10 | `hover:bg-primary/10 hover:text-foreground` |
-| Icons      | Foreground | `text-foreground`                           |
+| Element | Farbe | Wert |
+|---------|-------|------|
+| Background | Weiß | `bg-background` |
+| Active | Primary | `bg-primary text-foreground` |
+| Hover | Primary/10 | `hover:bg-primary/10 hover:text-foreground` |
+| Icons | Foreground | `text-foreground` |
 
 ---
 
 ## 📦 BETROFFENE DATEIEN
 
 ### Geändert
-
 - `src/components/layout/MarketingLayout.tsx` - Header/Footer übernommen
 - `docs/HEADER_FOOTER_DESIGN_V18.5.1.md` - Neue Spezifikation
 
 ### Basis (Referenz)
-
 - `src/components/auth/AuthHeader.tsx` - Fehlerfrei, als Basis verwendet
 - `src/components/auth/AuthFooter.tsx` - Als Basis für Footer-Farben
 
 ### Unverändert (Beibehalten)
-
 - `src/components/layout/MarketingLayout.tsx` - Sidebar-Design
 - `src/index.css` - Sidebar-Farben (Lines 164-171)
 
@@ -124,7 +122,7 @@
 ### Für neue Marketing-Seiten
 
 ```tsx
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
 
 // MarketingLayout verwendet automatisch:
 // - Header: Primary Gradient (Auth-Style)
@@ -132,7 +130,11 @@ import { MarketingLayout } from "@/components/layout/MarketingLayout";
 // - Sidebar: Weiß/Beige (Unverändert)
 
 export default function NewMarketingPage() {
-  return <MarketingLayout currentPage="new-page">{/* Content */}</MarketingLayout>;
+  return (
+    <MarketingLayout currentPage="new-page">
+      {/* Content */}
+    </MarketingLayout>
+  );
 }
 ```
 

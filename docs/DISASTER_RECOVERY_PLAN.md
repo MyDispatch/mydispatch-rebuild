@@ -12,25 +12,21 @@
 ## 1. RECOVERY SCENARIOS
 
 ### Scenario A: Total System Failure
-
 **Trigger:** Complete infrastructure loss, data center outage  
 **Impact:** Full system unavailable  
 **Recovery Time:** 10-15 minutes
 
 ### Scenario B: Database Corruption
-
 **Trigger:** Database failure, data corruption  
 **Impact:** Data layer unavailable  
 **Recovery Time:** 5-10 minutes
 
 ### Scenario C: Frontend Deployment Failure
-
 **Trigger:** Vercel/hosting platform issues  
 **Impact:** User interface unavailable  
 **Recovery Time:** 3-5 minutes
 
 ### Scenario D: Partial Service Degradation
-
 **Trigger:** Single service failure (auth, storage, etc.)  
 **Impact:** Specific features unavailable  
 **Recovery Time:** 1-3 minutes
@@ -41,14 +37,14 @@
 
 ### Required Access
 
-| Resource                  | Access Required | Location                                      |
-| ------------------------- | --------------- | --------------------------------------------- |
-| GitHub Primary Repository | Admin           | `github.com/[owner]/mydispatch`               |
-| GitHub Mirror Repository  | Admin           | `github.com/[owner]/mydispatch-secure-mirror` |
-| Terraform State Storage   | Read/Write      | `s3://mydispatch-terraform-state`             |
-| Backup Storage            | Read            | `s3://mydispatch-backups`                     |
-| Domain DNS                | Admin           | DNS Provider Dashboard                        |
-| Secrets Vault             | Read            | 1Password/LastPass                            |
+| Resource | Access Required | Location |
+|----------|----------------|----------|
+| GitHub Primary Repository | Admin | `github.com/[owner]/mydispatch` |
+| GitHub Mirror Repository | Admin | `github.com/[owner]/mydispatch-secure-mirror` |
+| Terraform State Storage | Read/Write | `s3://mydispatch-terraform-state` |
+| Backup Storage | Read | `s3://mydispatch-backups` |
+| Domain DNS | Admin | DNS Provider Dashboard |
+| Secrets Vault | Read | 1Password/LastPass |
 
 ### Required Secrets
 
@@ -249,11 +245,11 @@ terraform apply -var-file="terraform.tfvars.previous"
 
 ### Emergency Contacts
 
-| Role           | Contact | Availability   |
-| -------------- | ------- | -------------- |
-| Tech Lead      | [Name]  | 24/7           |
-| DevOps         | [Name]  | 24/7           |
-| Database Admin | [Name]  | Business Hours |
+| Role | Contact | Availability |
+|------|---------|--------------|
+| Tech Lead | [Name] | 24/7 |
+| DevOps | [Name] | 24/7 |
+| Database Admin | [Name] | Business Hours |
 
 ### Escalation Path
 
@@ -265,11 +261,11 @@ terraform apply -var-file="terraform.tfvars.previous"
 
 ## 8. TESTING SCHEDULE
 
-| Test Type           | Frequency | Last Test  | Next Test  |
-| ------------------- | --------- | ---------- | ---------- |
+| Test Type | Frequency | Last Test | Next Test |
+|-----------|-----------|-----------|-----------|
 | Full Recovery Drill | Quarterly | 2025-01-15 | 2025-04-15 |
-| Database Restore    | Monthly   | 2025-01-25 | 2025-02-25 |
-| Backup Verification | Weekly    | 2025-01-29 | 2025-02-05 |
+| Database Restore | Monthly | 2025-01-25 | 2025-02-25 |
+| Backup Verification | Weekly | 2025-01-29 | 2025-02-05 |
 
 ---
 
@@ -277,12 +273,12 @@ terraform apply -var-file="terraform.tfvars.previous"
 
 ### Target Metrics
 
-| Metric                | Target     | Current  |
-| --------------------- | ---------- | -------- |
-| RTO (Recovery Time)   | < 15 min   | TBD      |
-| RPO (Data Loss)       | < 24 hours | 24 hours |
-| Backup Success Rate   | > 99%      | TBD      |
-| Recovery Test Success | 100%       | TBD      |
+| Metric | Target | Current |
+|--------|--------|---------|
+| RTO (Recovery Time) | < 15 min | TBD |
+| RPO (Data Loss) | < 24 hours | 24 hours |
+| Backup Success Rate | > 99% | TBD |
+| Recovery Test Success | 100% | TBD |
 
 ---
 
@@ -290,9 +286,9 @@ terraform apply -var-file="terraform.tfvars.previous"
 
 ### Recovery Event Log
 
-| Date | Event | RTO Actual | Notes            |
-| ---- | ----- | ---------- | ---------------- |
-| -    | -     | -          | No incidents yet |
+| Date | Event | RTO Actual | Notes |
+|------|-------|------------|-------|
+| - | - | - | No incidents yet |
 
 ---
 
@@ -360,13 +356,11 @@ terraform apply -var-file="terraform.tfvars.previous"
 ## 13. RECOVERY DRILL LOG ✅
 
 ### Drill #1 - 2025-01-31 ✅ SUCCESS
-
 **Environment:** Test  
 **Type:** Full System Recovery  
 **RTO Achieved:** 12 minutes 34 seconds ✅ (Target: < 15 min)
 
 **Timeline:**
-
 - 00:00 - Terraform init & workspace setup
 - 02:15 - Infrastructure deployment started
 - 06:45 - Database backup restoration initiated
@@ -375,7 +369,6 @@ terraform apply -var-file="terraform.tfvars.previous"
 - 12:34 - Full recovery complete ✅
 
 **Validation Results:**
-
 - ✅ Database connection: PASS
 - ✅ Frontend availability (HTTP 200): PASS
 - ✅ Edge functions responding: PASS
@@ -383,7 +376,6 @@ terraform apply -var-file="terraform.tfvars.previous"
 - ✅ All critical features operational: PASS
 
 **Lessons Learned:**
-
 - Terraform workspace creation adds ~30s (acceptable)
 - Database restoration is fastest phase (~2 min)
 - Vercel deployment caching reduces time by 40%

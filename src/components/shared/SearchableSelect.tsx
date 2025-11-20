@@ -10,7 +10,11 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export interface SearchableSelectOption {
   value: string;
@@ -49,7 +53,11 @@ export function SearchableSelect({
           variant="secondary"
           type="button"
           disabled={disabled}
-          className={cn("w-full justify-between", !value && "text-muted-foreground", className)}
+          className={cn(
+            "w-full justify-between",
+            !value && "text-muted-foreground",
+            className
+          )}
         >
           {selectedOption ? selectedOption.label : placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />

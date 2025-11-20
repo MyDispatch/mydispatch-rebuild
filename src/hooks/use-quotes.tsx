@@ -7,35 +7,54 @@
    - Zentrale Fehlerbehandlung
    ================================================================================== */
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "./use-auth";
-import { handleError, handleSuccess } from "@/lib/error-handler";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from './use-auth';
+import { handleError, handleSuccess } from '@/lib/error-handler';
+
+// ==================================================================================
+// TYPES
+// ==================================================================================
+export interface Quote {
+  id: string;
+  created_at: string;
+  pickup_address: string;
+  dropoff_address: string;
+  pickup_time: string;
+  offer_status?: string;
+  price: number;
+  customer_id?: string;
+  archived?: boolean;
+  booking_number?: string;
+  customer_name?: string;
+  customer_first_name?: string;
+  customer_last_name?: string;
+  company_id?: string;
+  is_offer?: boolean;
+  booking_status?: string;
+  archived_at?: string;
+}
 
 export function useQuotes() {
   const { profile } = useAuth();
   const queryClient = useQueryClient();
 
   // Fetch Quotes (bookings with is_offer=true)
-  const {
-    data: quotes = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["quotes", profile?.company_id],
+  const { data: quotes = [], isLoading, error, refetch } = useQuery<Quote[]>({
+    queryKey: ['quotes', profile?.company_id],
     queryFn: async () => {
       if (!profile?.company_id) return [];
 
       const { data, error } = await supabase
-        .from("bookings")
-        .select("*")
-        .eq("company_id", profile.company_id)
-        .eq("is_offer", true)
-        .eq("archived", false)
-        .order("pickup_time", { ascending: false });
+        .from('bookings')
+        .select('*')
+        .eq('company_id', profile.company_id)
+        .eq('is_offer', true)
+        .eq('archived', false)
+        .order('pickup_time', { ascending: false });
 
       if (error) throw error;
-      return data || [];
+      return (data || []) as unknown as Quote[];
     },
     enabled: !!profile?.company_id,
     staleTime: 30000, // 30s
@@ -46,10 +65,10 @@ export function useQuotes() {
   // Create Quote
   const createQuote = useMutation({
     mutationFn: async (quoteData: any) => {
-      if (!profile?.company_id) throw new Error("Company ID fehlt");
+      if (!profile?.company_id) throw new Error('Company ID fehlt');
 
       const { data, error } = await supabase
-        .from("bookings")
+        .from('bookings')
         .insert({
           ...quoteData,
           company_id: profile.company_id,
@@ -63,11 +82,11 @@ export function useQuotes() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["quotes", profile?.company_id] });
-      handleSuccess("Angebot erfolgreich erstellt");
+      queryClient.invalidateQueries({ queryKey: ['quotes', profile?.company_id] });
+      handleSuccess('Angebot erfolgreich erstellt');
     },
     onError: (error) => {
-      handleError(error, "Angebot konnte nicht erstellt werden");
+      handleError(error, 'Angebot konnte nicht erstellt werden');
     },
   });
 
@@ -75,10 +94,10 @@ export function useQuotes() {
   const updateQuote = useMutation({
     mutationFn: async ({ id, ...updateData }: any) => {
       const { data, error } = await supabase
-        .from("bookings")
+        .from('bookings')
         .update(updateData)
-        .eq("id", id)
-        .eq("company_id", profile?.company_id)
+        .eq('id', id)
+        .eq('company_id', profile?.company_id)
         .select()
         .single();
 
@@ -86,11 +105,11 @@ export function useQuotes() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["quotes", profile?.company_id] });
-      handleSuccess("Angebot erfolgreich aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['quotes', profile?.company_id] });
+      handleSuccess('Angebot erfolgreich aktualisiert');
     },
     onError: (error) => {
-      handleError(error, "Angebot konnte nicht aktualisiert werden");
+      handleError(error, 'Angebot konnte nicht aktualisiert werden');
     },
   });
 
@@ -98,19 +117,19 @@ export function useQuotes() {
   const archiveQuote = useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase
-        .from("bookings")
+        .from('bookings')
         .update({ archived: true, archived_at: new Date().toISOString() })
-        .eq("id", id)
-        .eq("company_id", profile?.company_id);
+        .eq('id', id)
+        .eq('company_id', profile?.company_id);
 
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["quotes", profile?.company_id] });
-      handleSuccess("Angebot archiviert");
+      queryClient.invalidateQueries({ queryKey: ['quotes', profile?.company_id] });
+      handleSuccess('Angebot archiviert');
     },
     onError: (error) => {
-      handleError(error, "Angebot konnte nicht archiviert werden");
+      handleError(error, 'Angebot konnte nicht archiviert werden');
     },
   });
 
@@ -118,24 +137,24 @@ export function useQuotes() {
   const convertToBooking = useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase
-        .from("bookings")
-        .update({
+        .from('bookings')
+        .update({ 
           is_offer: false,
-          offer_status: "accepted",
-          booking_status: "pending",
+          offer_status: 'accepted',
+          booking_status: 'pending'
         })
-        .eq("id", id)
-        .eq("company_id", profile?.company_id);
+        .eq('id', id)
+        .eq('company_id', profile?.company_id);
 
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["quotes", profile?.company_id] });
-      queryClient.invalidateQueries({ queryKey: ["bookings", profile?.company_id] });
-      handleSuccess("Angebot in Auftrag umgewandelt");
+      queryClient.invalidateQueries({ queryKey: ['quotes', profile?.company_id] });
+      queryClient.invalidateQueries({ queryKey: ['bookings', profile?.company_id] });
+      handleSuccess('Angebot in Auftrag umgewandelt');
     },
     onError: (error) => {
-      handleError(error, "Umwandlung fehlgeschlagen");
+      handleError(error, 'Umwandlung fehlgeschlagen');
     },
   });
 
@@ -143,10 +162,11 @@ export function useQuotes() {
     quotes,
     isLoading,
     error,
+    refetch,
     createQuote: createQuote.mutate,
     updateQuote: updateQuote.mutate,
-    archiveQuote: archiveQuote.mutate,
-    convertToBooking: convertToBooking.mutate,
+    archiveQuote: archiveQuote.mutateAsync,
+    convertToBooking: convertToBooking.mutateAsync,
     isCreating: createQuote.isPending,
     isUpdating: updateQuote.isPending,
     isArchiving: archiveQuote.isPending,

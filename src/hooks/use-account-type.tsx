@@ -7,15 +7,20 @@
    - Master: master@my-dispatch.de (Master-Dashboard)
    ================================================================================== */
 
-import { useMemo } from "react";
-import { useAuth } from "./use-auth";
-import { isBusinessTier } from "@/lib/subscription-utils";
+import { useMemo } from 'react';
+import { useAuth } from './use-auth';
+import { isBusinessTier } from '@/lib/subscription-utils';
 
-export type AccountType = "normal" | "test" | "master";
+export type AccountType = 'normal' | 'test' | 'master';
 
 const SPECIAL_ACCOUNTS = {
-  test: ["demo@my-dispatch.de"],
-  master: ["courbois1981@gmail.com", "master@my-dispatch.de"],
+  test: [
+    'demo@my-dispatch.de',
+  ],
+  master: [
+    'courbois1981@gmail.com',
+    'master@my-dispatch.de',
+  ],
 } as const;
 
 interface AccountPermissions {
@@ -34,29 +39,30 @@ export function useAccountType(): UseAccountTypeReturn {
   const { user, profile } = useAuth();
 
   const accountType: AccountType = useMemo(() => {
-    if (!user?.email) return "normal";
+    if (!user?.email) return 'normal';
     const emailLower = user.email.toLowerCase().trim();
-
+    
     // Check master first (highest priority)
-    if (SPECIAL_ACCOUNTS.master.some((e) => e.toLowerCase() === emailLower)) {
-      return "master";
+    if (SPECIAL_ACCOUNTS.master.some(e => e.toLowerCase() === emailLower)) {
+      return 'master';
     }
     // Then check test
-    if (SPECIAL_ACCOUNTS.test.some((e) => e.toLowerCase() === emailLower)) {
-      return "test";
+    if (SPECIAL_ACCOUNTS.test.some(e => e.toLowerCase() === emailLower)) {
+      return 'test';
     }
-    return "normal";
+    return 'normal';
   }, [user?.email]);
 
   const permissions: AccountPermissions = useMemo(() => {
-    const canBypassPayment = accountType === "test" || accountType === "master";
+    const canBypassPayment = accountType === 'test' || accountType === 'master';
     const hasBusinessSubscription = isBusinessTier(profile?.company?.subscription_product_id);
-
+    
     return {
-      canSwitchTariff: accountType === "test" || accountType === "master",
-      canAccessMasterDashboard: accountType === "master",
+      canSwitchTariff: accountType === 'test' || accountType === 'master',
+      canAccessMasterDashboard: accountType === 'master',
       canBypassPayment,
-      canAccessBusinessFeatures: accountType !== "normal" || hasBusinessSubscription,
+      canAccessBusinessFeatures: 
+        accountType !== 'normal' || hasBusinessSubscription,
     };
   }, [accountType, profile?.company?.subscription_product_id]);
 

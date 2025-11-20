@@ -7,12 +7,12 @@
    - Design-System konform
    ================================================================================== */
 
-import { ReactNode } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { V28Button } from "@/components/design-system/V28Button";
-import { LucideIcon } from "lucide-react";
-import { StatCard } from "@/components/smart-templates/StatCard";
-import { cn } from "@/lib/utils";
+import { ReactNode } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { V28Button } from '@/components/design-system/V28Button';
+import { LucideIcon } from 'lucide-react';
+import { StatCard } from '@/components/smart-templates/StatCard';
+import { cn } from '@/lib/utils';
 
 interface KPICardData {
   title: string;
@@ -27,7 +27,7 @@ interface QuickAction {
   label: string;
   icon: LucideIcon;
   onClick: () => void;
-  variant?: "default" | "outline" | "ghost";
+  variant?: 'default' | 'outline' | 'ghost';
 }
 
 export type { KPICardData, QuickAction };
@@ -41,7 +41,7 @@ interface PageHeaderWithKPIsProps {
 export function PageHeaderWithKPIs({
   kpis,
   quickActions,
-  quickAccessTitle = "Schnellzugriff",
+  quickAccessTitle = 'Schnellzugriff',
 }: PageHeaderWithKPIsProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
@@ -53,11 +53,7 @@ export function PageHeaderWithKPIs({
             label={kpi.title}
             value={kpi.value}
             icon={kpi.icon}
-            change={
-              kpi.trend
-                ? { value: kpi.trend.value, trend: kpi.trend.value >= 0 ? "up" : "down" }
-                : undefined
-            }
+            change={kpi.trend ? { value: kpi.trend.value, trend: kpi.trend.value >= 0 ? 'up' : 'down' } : undefined}
           />
         ))}
       </div>
@@ -75,7 +71,7 @@ export function PageHeaderWithKPIs({
             {quickActions.map((action, index) => (
               <V28Button
                 key={index}
-                variant={index === 0 ? "primary" : "secondary"}
+                variant={index === 0 ? 'primary' : 'secondary'}
                 size="md"
                 onClick={action.onClick}
                 icon={action.icon}

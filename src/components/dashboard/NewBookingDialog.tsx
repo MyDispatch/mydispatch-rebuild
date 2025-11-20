@@ -7,26 +7,17 @@
    - Direkte Integration mit Booking-System
    ================================================================================== */
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  Input,
-  Textarea,
-} from "@/lib/compat";
-import { Label } from "@/components/ui/label";
-import { V28Button } from "@/components/design-system/V28Button";
-import { MapPin, Calendar, User, Phone, Mail, FileText } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
-import { useCreateBooking } from "@/hooks/api/useBookings";
-import { logger } from "@/lib/logger";
-import { useAuth } from "@/hooks/use-auth";
-import { supabase } from "@/integrations/supabase/client"; // Temporary for customer creation
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, Input, Textarea } from '@/lib/compat';
+import { Label } from '@/components/ui/label';
+import { V28Button } from '@/components/design-system/V28Button';
+import { MapPin, Calendar, User, Phone, Mail, FileText } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import { useCreateBooking } from '@/hooks/api/useBookings';
+import { logger } from '@/lib/logger';
+import { useAuth } from '@/hooks/use-auth';
+import { supabase } from '@/integrations/supabase/client'; // Temporary for customer creation
 
 interface NewBookingDialogProps {
   open: boolean;
@@ -41,23 +32,23 @@ export function NewBookingDialog({ open, onOpenChange }: NewBookingDialogProps) 
 
   // Form State
   const [formData, setFormData] = useState({
-    customer_name: "",
-    customer_phone: "",
-    customer_email: "",
-    pickup_address: "",
-    dropoff_address: "",
-    pickup_time: "",
-    notes: "",
+    customer_name: '',
+    customer_phone: '',
+    customer_email: '',
+    pickup_address: '',
+    dropoff_address: '',
+    pickup_time: '',
+    notes: '',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (!profile?.company_id) {
       toast({
-        title: "Fehler",
-        description: "Keine Company-ID gefunden",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Keine Company-ID gefunden',
+        variant: 'destructive',
       });
       return;
     }
@@ -65,9 +56,9 @@ export function NewBookingDialog({ open, onOpenChange }: NewBookingDialogProps) 
     // Validierung
     if (!formData.pickup_address || !formData.dropoff_address || !formData.pickup_time) {
       toast({
-        title: "Fehlende Angaben",
-        description: "Bitte füllen Sie alle Pflichtfelder aus",
-        variant: "destructive",
+        title: 'Fehlende Angaben',
+        description: 'Bitte füllen Sie alle Pflichtfelder aus',
+        variant: 'destructive',
       });
       return;
     }
@@ -75,24 +66,22 @@ export function NewBookingDialog({ open, onOpenChange }: NewBookingDialogProps) 
     try {
       // Create quick customer if customer data provided
       let customerId: string | null = null;
-
+      
       if (formData.customer_name || formData.customer_phone || formData.customer_email) {
         const { data: customerData, error: customerError } = await supabase
-          .from("customers")
+          .from('customers')
           .insert({
             company_id: profile.company_id,
-            first_name: formData.customer_name || "Walk-in",
-            last_name: "Customer",
+            first_name: formData.customer_name || 'Walk-in',
+            last_name: 'Customer',
             phone: formData.customer_phone,
             email: formData.customer_email,
           })
-          .select("id")
+          .select('id')
           .single();
-
+        
         if (customerError) {
-          logger.error("Customer creation failed", customerError, {
-            component: "NewBookingDialog",
-          });
+          logger.error('Customer creation failed', customerError, { component: 'NewBookingDialog' });
         } else {
           customerId = customerData.id;
         }
@@ -107,37 +96,34 @@ export function NewBookingDialog({ open, onOpenChange }: NewBookingDialogProps) 
           dropoff_address: formData.dropoff_address,
           pickup_time: formData.pickup_time,
           special_requests: formData.notes,
-          status: "pending" as const,
+          status: 'pending' as const,
           archived: false,
           is_offer: false,
         },
         {
           onSuccess: (data) => {
             onOpenChange(false);
-            navigate("/auftraege", { state: { highlightId: data.id } });
+            navigate('/auftraege', { state: { highlightId: data.id } });
           },
           onError: (error) => {
-            logger.error("Booking creation failed", error, { component: "NewBookingDialog" });
+            logger.error('Booking creation failed', error, { component: 'NewBookingDialog' });
           },
         }
       );
     } catch (error: unknown) {
-      const errorMessage =
-        error instanceof Error ? error.message : "Auftrag konnte nicht erstellt werden";
-      logger.error("Fehler beim Erstellen", error instanceof Error ? error : undefined, {
-        component: "NewBookingDialog",
-      });
+      const errorMessage = error instanceof Error ? error.message : 'Auftrag konnte nicht erstellt werden';
+      logger.error('Fehler beim Erstellen', error instanceof Error ? error : undefined, { component: 'NewBookingDialog' });
       toast({
-        title: "Fehler",
+        title: 'Fehler',
         description: errorMessage,
-        variant: "destructive",
+        variant: 'destructive',
       });
     }
   };
 
   const handleFullForm = () => {
     onOpenChange(false);
-    navigate("/auftraege", { state: { openCreateDialog: true } });
+    navigate('/auftraege', { state: { openCreateDialog: true } });
   };
 
   return (
@@ -157,7 +143,7 @@ export function NewBookingDialog({ open, onOpenChange }: NewBookingDialogProps) 
               <User className="h-4 w-4" />
               Kunden-Informationen
             </h3>
-
+            
             <div className="space-y-3">
               <div>
                 <Label htmlFor="customer_name" className="text-sm font-medium text-slate-700">
@@ -274,7 +260,7 @@ export function NewBookingDialog({ open, onOpenChange }: NewBookingDialogProps) 
             </div>
           </div>
         </form>
-
+        
         <DialogFooter className="flex-col sm:flex-row gap-3">
           <V28Button
             variant="secondary"
@@ -296,13 +282,13 @@ export function NewBookingDialog({ open, onOpenChange }: NewBookingDialogProps) 
             <V28Button
               variant="primary"
               onClick={() => {
-                const form = document.querySelector("form");
+                const form = document.querySelector('form');
                 if (form) form.requestSubmit();
               }}
               disabled={isPending}
               className="flex-1 sm:flex-none"
             >
-              {isPending ? "Wird erstellt..." : "Auftrag erstellen"}
+              {isPending ? 'Wird erstellt...' : 'Auftrag erstellen'}
             </V28Button>
           </div>
         </DialogFooter>

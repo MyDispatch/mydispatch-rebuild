@@ -1,12 +1,12 @@
 import * as React from "react";
-import { logger } from "@/lib/logger";
+import { logger } from '@/lib/logger';
 
 import type { ToastActionElement, ToastProps } from "@/components/ui/toast";
 
 // Defensive Programming: React-Verfügbarkeit prüfen (V18.2.26 Pattern)
-if (!React || typeof React.useState !== "function") {
-  logger.warn("[MyDispatch] React nicht verfügbar in use-toast.ts - Bundle wird geladen", {
-    component: "use-toast",
+if (!React || typeof React.useState !== 'function') {
+  logger.warn('[MyDispatch] React nicht verfügbar in use-toast.ts - Bundle wird geladen', {
+    component: 'use-toast'
   });
 }
 
@@ -111,7 +111,7 @@ export const reducer = (state: State, action: Action): State => {
                 ...t,
                 open: false,
               }
-            : t
+            : t,
         ),
       };
     }
@@ -173,10 +173,10 @@ function toast({ ...props }: Toast) {
 
 function useToast() {
   // Defensive Programming: Safe Fallback wenn React nicht verfügbar
-  if (!React || typeof React.useState !== "function") {
+  if (!React || typeof React.useState !== 'function') {
     return {
       toasts: [],
-      toast: () => ({ id: "", dismiss: () => {}, update: () => {} }),
+      toast: () => ({ id: '', dismiss: () => {}, update: () => {} }),
       dismiss: () => {},
     };
   }

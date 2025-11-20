@@ -3,10 +3,10 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { ReactNode } from "react";
-import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ReactNode } from 'react';
+import * as AccordionPrimitive from '@radix-ui/react-accordion';
+import { ChevronDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export interface V28AccordionItem {
   value: string;
@@ -17,7 +17,7 @@ export interface V28AccordionItem {
 
 export interface V28AccordionProps {
   items: V28AccordionItem[];
-  type?: "single" | "multiple";
+  type?: 'single' | 'multiple';
   defaultValue?: string | string[];
   className?: string;
   collapsible?: boolean;
@@ -25,7 +25,7 @@ export interface V28AccordionProps {
 
 export function V28Accordion({
   items,
-  type = "single",
+  type = 'single',
   defaultValue,
   className,
   collapsible = true,
@@ -34,8 +34,8 @@ export function V28Accordion({
     <AccordionPrimitive.Root
       type={type as any}
       defaultValue={defaultValue as any}
-      collapsible={type === "single" ? collapsible : undefined}
-      className={cn("w-full", className)}
+      collapsible={type === 'single' ? collapsible : undefined}
+      className={cn('w-full', className)}
     >
       {items.map((item) => (
         <AccordionPrimitive.Item
@@ -47,10 +47,10 @@ export function V28Accordion({
           <AccordionPrimitive.Header className="flex">
             <AccordionPrimitive.Trigger
               className={cn(
-                "flex flex-1 items-center justify-between py-4 font-medium transition-all",
-                "text-slate-900 dark:text-slate-100",
-                "hover:underline disabled:opacity-50 disabled:cursor-not-allowed",
-                "[&[data-state=open]>svg]:rotate-180"
+                'flex flex-1 items-center justify-between py-4 font-medium transition-all',
+                'text-slate-900 dark:text-slate-100',
+                'hover:underline disabled:opacity-50 disabled:cursor-not-allowed',
+                '[&[data-state=open]>svg]:rotate-180'
               )}
             >
               {item.trigger}
@@ -59,8 +59,8 @@ export function V28Accordion({
           </AccordionPrimitive.Header>
           <AccordionPrimitive.Content
             className={cn(
-              "overflow-hidden text-sm transition-all",
-              "data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
+              'overflow-hidden text-sm transition-all',
+              'data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down'
             )}
           >
             <div className="pb-4 pt-0 text-slate-600 dark:text-slate-400">{item.content}</div>

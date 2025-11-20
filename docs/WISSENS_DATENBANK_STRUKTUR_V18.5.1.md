@@ -20,17 +20,14 @@
 **Datei:** `docs/SYSTEM_WISSEN_V18.5.1.md`
 
 **Inhalt:**
-
 ```markdown
 # MyDispatch - System-Übersicht
 
 ## Was ist MyDispatch?
-
-MyDispatch ist eine Cloud-basierte SaaS-Plattform für professionelle
+MyDispatch ist eine Cloud-basierte SaaS-Plattform für professionelle 
 Taxi-, Mietwagen- und Limousinen-Unternehmen.
 
 ## Kernfunktionen
-
 1. Intelligente Auftragsverwaltung
 2. Digitale Fuhrparkverwaltung
 3. Fahrermanagement Pro
@@ -42,26 +39,22 @@ Taxi-, Mietwagen- und Limousinen-Unternehmen.
 9. Live-Traffic & Wetter-Integration
 
 ## Zielgruppen
-
 - **Primär:** Taxi-/Mietwagenunternehmer (5-50 Fahrzeuge)
 - **Sekundär:** Limousinen-Services, Großflotten (>50 Fahrzeuge)
 - **Tertiär:** Fahrer (App-Download), Partner (Netzwerk)
 
 ## Marktpositionierung
-
 - **Ziel:** Marktführer in DACH-Region
 - **USP:** DSGVO-konform, Made in Germany, All-in-One
 - **Pricing:** Transparent, monatlich kündbar, keine Tricks
 
 ## Rechtlicher Kontext (Deutschland)
-
 - **DSGVO:** Datenschutz-Grundverordnung (2018)
 - **AI Act:** EU-KI-Verordnung (2024)
 - **TMG:** Telemediengesetz (Impressumspflicht, etc.)
 - **PBefG § 51:** 10 Jahre Aufbewahrung Auftragsdaten
 
 ## Erwartungen an Texte/Grafiken (DE)
-
 - **Professionalität:** Fehlerfreie Rechtschreibung (Duden)
 - **Klarheit:** Keine Marketing-Floskeln, klare Aussagen
 - **Vertrauen:** Made in Germany, ISO-Zertifizierung sichtbar
@@ -75,30 +68,25 @@ Taxi-, Mietwagen- und Limousinen-Unternehmen.
 **Datei:** `docs/DESIGN_WISSEN_V18.5.1.md`
 
 **Inhalt:**
-
-````markdown
+```markdown
 # MyDispatch - Design-Übersicht
 
 ## Corporate Identity (CI)
 
 ### Farben (HSL)
-
 ```css
---primary: 40 31% 88%; /* #EADEBD - Beige/Gold */
---foreground: 225 31% 28%; /* #323D5E - Dunkelblau */
---accent: 20 20% 45%; /* #8B7355 - Braun */
+--primary: 40 31% 88%;           /* #EADEBD - Beige/Gold */
+--foreground: 225 31% 28%;       /* #323D5E - Dunkelblau */
+--accent: 20 20% 45%;            /* #8B7355 - Braun */
 ```
-````
 
 ### Typografie
-
 - **Font:** Inter (Sans-Serif)
 - **Hero:** text-5xl sm:text-6xl font-bold
 - **Section:** text-3xl sm:text-4xl font-bold
 - **Body:** text-sm sm:text-base
 
 ### Spacing (8px Grid)
-
 - `gap-2` (8px)
 - `gap-3` (12px)
 - `gap-4` (16px)
@@ -106,30 +94,25 @@ Taxi-, Mietwagen- und Limousinen-Unternehmen.
 - `gap-8` (32px)
 
 ### Animationen
-
 - `animate-fade-in` (0.3s ease-out)
 - `hover:scale-105` (0.2s)
 - `hover:shadow-2xl` (0.3s)
 
 ## Design-Prinzipien
-
 1. **Mobile-First:** Immer zuerst Mobile, dann Desktop
 2. **Semantic Tokens:** Niemals direkte Farben
 3. **Zentralisierung:** Alle Styles in Design-System
 4. **Konsistenz:** Home-Seite = Template für alle öffentlichen Seiten
 
 ## Button-System
-
 - **Marketing:** `MarketingButton` (hero-primary, hero-secondary, cta-primary, cta-secondary)
 - **App:** `Button` (default, secondary, outline, ghost, destructive)
 
 ## Icon-System
-
 - **Quelle:** Lucide (via Icon-Komponente)
 - **Erlaubte Farben:** text-foreground, text-muted-foreground
-- **Verboten:** text-status-success, text-green-\*, etc.
-
-````
+- **Verboten:** text-status-success, text-green-*, etc.
+```
 
 ---
 
@@ -179,7 +162,7 @@ Taxi-, Mietwagen- und Limousinen-Unternehmen.
 - **LOVABLE_API_KEY** - Auto-provisioned (Lovable AI)
 - **STRIPE_SECRET_KEY** - Payment (wenn implementiert)
 - **SMTP_PASSWORD** - E-Mail-Versand (wenn implementiert)
-````
+```
 
 ---
 
@@ -188,12 +171,10 @@ Taxi-, Mietwagen- und Limousinen-Unternehmen.
 **Datei:** `docs/VORGABEN_WISSEN_V18.5.1.md`
 
 **Inhalt:**
-
 ```markdown
 # MyDispatch - Vorgaben-Übersicht
 
 ## Design-Vorgaben (PFLICHT)
-
 1. ✅ Semantic Tokens (niemals direkte Farben)
 2. ✅ MarketingButton auf Marketing-Seiten
 3. ✅ Icon-Komponente (keine direkten Lucide-Imports)
@@ -201,14 +182,12 @@ Taxi-, Mietwagen- und Limousinen-Unternehmen.
 5. ✅ Home-Template für alle öffentlichen Seiten
 
 ## Rechtliche Vorgaben (PFLICHT)
-
 1. ✅ DSGVO-Hinweis bei JEDEM Formular
 2. ✅ AI-Kennzeichnung bei JEDEM KI-Output
 3. ✅ Impressum/Datenschutz/AGB Links in JEDEM Footer
 4. ✅ 10 Jahre Aufbewahrung Auftragsdaten (PBefG § 51)
 
 ## Code-Vorgaben (PFLICHT)
-
 1. ✅ TypeScript strict mode
 2. ✅ React Query für API-Calls
 3. ✅ useMemo/useCallback für Performance
@@ -216,7 +195,6 @@ Taxi-, Mietwagen- und Limousinen-Unternehmen.
 5. ✅ Single Source of Truth (keine Hardcodes)
 
 ## Workflow-Vorgaben (PFLICHT)
-
 1. ✅ SEITEN-PLANUNGSPROZESS vor neuer Seite
 2. ✅ Brain-Query vor Task-Start
 3. ✅ Testing (Mobile/Tablet/Desktop) nach Änderungen
@@ -230,39 +208,33 @@ Taxi-, Mietwagen- und Limousinen-Unternehmen.
 **Datei:** `docs/FEHLER_WISSEN_V18.5.1.md`
 
 **Inhalt:**
-
-````markdown
+```markdown
 # MyDispatch - Fehler-Log & Lösungen
 
 ## F-001: Logo-Overflow (2025-01-26)
 
 **Problem:**
-
 - Logo + Text im Header überlappten sich
 - Unprofessionelles Erscheinungsbild
 
 **Root Cause:**
-
 ```tsx
 <div>
   <img src={logo} className="h-8 max-w-[140px]" />
-  <span>{companyName}</span> {/* ❌ REDUNDANT! */}
+  <span>{companyName}</span>  {/* ❌ REDUNDANT! */}
 </div>
 ```
-````
 
 **Lösung:**
-
 ```tsx
 // Text entfernt, strikte max-width
-<img
+<img 
   src={logo}
   className="h-7 sm:h-8 max-w-[120px] sm:max-w-[160px] md:max-w-[180px] object-contain"
 />
 ```
 
 **Prävention:**
-
 - ESLint-Rule: `no-logo-without-max-width`
 - Pre-Commit Hook für Logo-Checks
 
@@ -271,21 +243,17 @@ Taxi-, Mietwagen- und Limousinen-Unternehmen.
 ## F-002: Hero-Grafik Browser-Tab-Overflow (2025-10-23)
 
 **Problem:**
-
 - Browser-Tab-Bereich nicht vollständig ausgefüllt
 - Grauer Rand sichtbar
 
 **Root Cause:**
-
 - Grafik-Erstellung unvollständig
 
 **Lösung:**
-
 - Neue Grafik erstellt mit vollständig ausgefülltem Browser-Tab
 - Datei: `hero-dashboard-screenshot-fixed.jpg`
 
 **Prävention:**
-
 - Grafik-Checkliste: "Browser-Tab vollständig sichtbar?"
 
 ---
@@ -293,26 +261,21 @@ Taxi-, Mietwagen- und Limousinen-Unternehmen.
 ## F-003: Wissensverlust durch fehlende Dokumentation (2025-10-23)
 
 **Problem:**
-
 - Vorgaben gingen verloren
 - Fehler wiederholten sich
 
 **Root Cause:**
-
 - Keine zentrale Dokumentation
 - Keine Pflicht, Docs zu lesen
 
 **Lösung:**
-
 - MASTER_INDEX_V18.5.1.md erstellt
 - WISSENS_DATENBANK_STRUKTUR_V18.5.1.md erstellt
 - PFLICHT_LESEPROZESS_V18.5.1.md erstellt (TODO)
 
 **Prävention:**
-
 - Erzwingungs-Mechanismus: Docs lesen BEVOR Task-Start
-
-````
+```
 
 ---
 
@@ -340,24 +303,21 @@ const { data } = useQuery({
   queryKey: ['bookings'],
   queryFn: () => supabase.from('bookings').select('*')
 });
-````
+```
 
 ---
 
 ## E-002: Memoization verhindert Re-Renders (2025-01-20)
 
 **Kontext:**
-
 - Cards re-renderten bei jedem Parent-Render
 
 **Ergebnis:**
-
 - `React.memo(Card)` verhindert unnötige Renders
 - `useMemo` für berechnete Werte
 - `useCallback` für Event-Handler
 
 **Anwendung:**
-
 ```tsx
 const MemoizedCard = React.memo(Card);
 const sorted = useMemo(() => data.sort(...), [data]);
@@ -369,22 +329,18 @@ const handleClick = useCallback(() => ..., [deps]);
 ## E-003: Home-Template spart Entwicklungszeit (2025-10-23)
 
 **Kontext:**
-
 - Jede Marketing-Seite hatte eigenes Design
 - Inkonsistenzen, doppelte Arbeit
 
 **Ergebnis:**
-
 - Home als Master-Template
 - 80% weniger Design-Entscheidungen pro Seite
 - Konsistenz garantiert
 
 **Anwendung:**
-
 - Neue Seite = Home kopieren + Inhalte anpassen
 - Design NIEMALS ändern, nur Inhalte
-
-````
+```
 
 ---
 
@@ -430,7 +386,7 @@ const handleClick = useCallback(() => ..., [deps]);
 - `MASTER_INDEX_V18.5.1.md` - Zentrale Übersicht
 - `DESIGN_SYSTEM_V18.5.0.md` - Design-Vorgaben
 - `HOME_DESIGN_TEMPLATE_V18.5.1.md` - Template-Specs
-````
+```
 
 ---
 
@@ -438,13 +394,13 @@ const handleClick = useCallback(() => ..., [deps]);
 
 ### Aktuelle Statistik (2025-10-23)
 
-| Metrik                      | Wert       | Ziel         |
-| --------------------------- | ---------- | ------------ |
-| Dokumentierte Fehler        | 3          | +1 pro Woche |
-| Dokumentierte Erkenntnisse  | 3          | +1 pro Woche |
-| Verlinkte Docs              | 44         | 100%         |
+| Metrik | Wert | Ziel |
+|--------|------|------|
+| Dokumentierte Fehler | 3 | +1 pro Woche |
+| Dokumentierte Erkenntnisse | 3 | +1 pro Woche |
+| Verlinkte Docs | 44 | 100% |
 | Durchschnittliche Doc-Größe | 450 Zeilen | < 500 Zeilen |
-| Veraltete Docs (>6 Monate)  | 5          | 0            |
+| Veraltete Docs (>6 Monate) | 5 | 0 |
 
 ---
 
@@ -455,13 +411,11 @@ const handleClick = useCallback(() => ..., [deps]);
 **Tool:** Brain-Query-System (VG-009.4)
 
 **Funktion:**
-
 - Automatische Extraktion von Vorgaben aus User-Messages
 - Automatische Kategorisierung
 - Automatische Verlinkung
 
 **Beispiel:**
-
 ```
 User: "Nutze immer MarketingButton auf Marketing-Seiten"
 
@@ -478,13 +432,11 @@ User: "Nutze immer MarketingButton auf Marketing-Seiten"
 **Tool:** Automated Quality Checks (VG-010.2)
 
 **Funktion:**
-
 - Prüft, ob neue Vorgaben in allen Docs aktualisiert wurden
 - Warnt bei Inkonsistenzen
 - Schlägt Fixes vor
 
 **Beispiel:**
-
 ```
 ✅ HOME_DESIGN_TEMPLATE_V18.5.1.md erwähnt MarketingButton
 ❌ LANDINGPAGE_DESIGN_VORGABEN_V18.3.25.md erwähnt MarketingButton NICHT
@@ -501,7 +453,6 @@ User: "Nutze immer MarketingButton auf Marketing-Seiten"
 **Frequenz:** Täglich (automatisch via Git)
 
 **Speicherort:**
-
 - **Primary:** GitHub Repository (my-dispatch-craft)
 - **Secondary:** Lovable Cloud (Auto-Backup)
 - **Tertiary:** Lokale Entwickler-Maschine
@@ -513,7 +464,6 @@ User: "Nutze immer MarketingButton auf Marketing-Seiten"
 **Szenario:** Versehentliches Löschen von Dokumentation
 
 **Prozess:**
-
 1. GitHub History durchsuchen
 2. Letzte gültige Version finden
 3. Wiederherstellen via `git revert`
@@ -527,7 +477,6 @@ User: "Nutze immer MarketingButton auf Marketing-Seiten"
 ### Pre-Task-Training
 
 **Vor jedem Task:**
-
 1. ✅ MASTER_INDEX lesen
 2. ✅ Relevante VG-Kategorien identifizieren
 3. ✅ Abhängigkeiten auflösen
@@ -539,7 +488,6 @@ User: "Nutze immer MarketingButton auf Marketing-Seiten"
 ### Continuous Learning
 
 **Nach jedem Task:**
-
 1. ✅ Neue Erkenntnisse dokumentieren
 2. ✅ Fehler (falls aufgetreten) erfassen
 3. ✅ Best Practices aktualisieren
@@ -549,13 +497,13 @@ User: "Nutze immer MarketingButton auf Marketing-Seiten"
 
 ## 🎯 SUCCESS CRITERIA
 
-| Kriterium                 | Zielwert | Aktuell | Status         |
-| ------------------------- | -------- | ------- | -------------- |
-| Wissens-Vollständigkeit   | 100%     | 88,6%   | 🟡 In Progress |
-| Dokumentations-Aktualität | 100%     | 90%     | 🟡 In Progress |
-| Verlinkung                | 100%     | 95%     | 🟢 On Track    |
-| Fehler-Wiederholung       | 0%       | 5%      | 🟢 On Track    |
-| Wissens-Zugriff < 30s     | 100%     | 80%     | 🟡 In Progress |
+| Kriterium | Zielwert | Aktuell | Status |
+|-----------|----------|---------|--------|
+| Wissens-Vollständigkeit | 100% | 88,6% | 🟡 In Progress |
+| Dokumentations-Aktualität | 100% | 90% | 🟡 In Progress |
+| Verlinkung | 100% | 95% | 🟢 On Track |
+| Fehler-Wiederholung | 0% | 5% | 🟢 On Track |
+| Wissens-Zugriff < 30s | 100% | 80% | 🟡 In Progress |
 
 ---
 

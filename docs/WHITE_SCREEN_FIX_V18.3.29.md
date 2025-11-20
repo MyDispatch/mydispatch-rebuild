@@ -10,14 +10,12 @@
 ## 📋 PROBLEM-ANALYSE
 
 ### **Symptome**
-
 - ✅ Preview/Development funktioniert einwandfrei
 - ❌ Production-Build zeigt weiße/blanke Seite
 - ❌ Keine Console-Logs sichtbar
 - ❌ App lädt nicht
 
 ### **Root-Causes identifiziert**
-
 1. **Sentry-Integration ohne Error-Handling** (KRITISCH)
 2. **Build-Target zu modern** (iOS/Android Kompatibilität)
 3. **Fehlende Root-Element-Validierung**
@@ -30,40 +28,38 @@
 ### **1. Sentry-Integration gehärtet**
 
 **Problem:**
-
 ```typescript
 // ❌ VORHER: Kein Try-Catch, kann App crashen
 export function initSentry() {
   const sentryDsn = import.meta.env.VITE_SENTRY_DSN;
   if (!dsn) return;
-
+  
   Sentry.init({ dsn }); // Kann Exception werfen!
 }
 ```
 
 **Lösung:**
-
 ```typescript
 // ✅ NACHHER: Vollständige Fehlerbehandlung
 export function initSentry() {
   try {
     const sentryDsn = import.meta.env.VITE_SENTRY_DSN;
-
+    
     if (!sentryDsn) {
-      console.info("[Sentry] DSN not configured, skipping");
+      console.info('[Sentry] DSN not configured, skipping');
       return;
     }
-
+    
     if (!import.meta.env.PROD) {
-      console.info("[Sentry] Development mode, skipping");
+      console.info('[Sentry] Development mode, skipping');
       return;
     }
 
     Sentry.init({ dsn: sentryDsn /* ... */ });
-    console.info("[Sentry] Initialized successfully");
+    console.info('[Sentry] Initialized successfully');
   } catch (error) {
     // KRITISCH: Sentry darf NIEMALS App crashen!
-    console.warn("[Sentry] Failed (non-critical):", error);
+    console.warn('[Sentry] Failed (non-critical):', error);
   }
 }
 ```
@@ -75,32 +71,29 @@ export function initSentry() {
 ### **2. Build-Target auf es2020 gesetzt**
 
 **Problem:**
-
 ```typescript
 // ❌ VORHER: Default Target (esnext/es2021+)
 export default defineConfig({
   build: {
-    minify: "terser",
+    minify: 'terser',
     // Kein target angegeben = zu modern für iOS 12/13
-  },
+  }
 });
 ```
 
 **Lösung:**
-
 ```typescript
 // ✅ NACHHER: Kompatibel mit iOS 13+, Android Chrome 80+
 export default defineConfig({
   build: {
-    target: "es2020",
-    minify: "terser",
+    target: 'es2020',
+    minify: 'terser',
     // ...
-  },
+  }
 });
 ```
 
 **Browser-Kompatibilität:**
-
 - ✅ iOS Safari 13+ (2019+)
 - ✅ Android Chrome 80+ (2020+)
 - ✅ Desktop Chrome/Firefox/Edge (alle modernen Versionen)
@@ -110,14 +103,12 @@ export default defineConfig({
 ### **3. Root-Element-Validierung**
 
 **Problem:**
-
 ```typescript
 // ❌ VORHER: Non-null assertion ohne Check
 createRoot(document.getElementById("root")!).render(<App />);
 ```
 
 **Lösung:**
-
 ```typescript
 // ✅ NACHHER: Explizite Validierung mit klarer Fehlermeldung
 const rootElement = document.getElementById("root");
@@ -134,21 +125,19 @@ createRoot(rootElement).render(<App />);
 ### **4. Helmet-Context mit Try-Catch**
 
 **Problem:**
-
 ```typescript
 // ❌ VORHER: useMemo ohne Error-Handling
 const helmetContext = useMemo(() => ({}), []);
 ```
 
 **Lösung:**
-
 ```typescript
 // ✅ NACHHER: Defensive Programming
 const helmetContext = useMemo(() => {
   try {
     return {};
   } catch (error) {
-    console.warn("[App] Helmet context creation failed:", error);
+    console.warn('[App] Helmet context creation failed:', error);
     return {};
   }
 }, []);
@@ -161,20 +150,18 @@ const helmetContext = useMemo(() => {
 ### **5. Main.tsx Init-Sequenz gehärtet**
 
 **Problem:**
-
 ```typescript
 // ❌ VORHER: Sentry direkt aufgerufen (kann werfen)
 initSentry();
 ```
 
 **Lösung:**
-
 ```typescript
 // ✅ NACHHER: Sentry in Try-Catch
 try {
   initSentry();
 } catch (error) {
-  console.warn("[Init] Sentry failed (non-critical):", error);
+  console.warn('[Init] Sentry failed (non-critical):', error);
 }
 ```
 
@@ -185,7 +172,6 @@ try {
 ## 📊 VALIDIERUNG
 
 ### **Build-Test**
-
 ```bash
 npm run build
 # ✅ Build successful
@@ -194,7 +180,6 @@ npm run build
 ```
 
 ### **Production-Test**
-
 ```bash
 npm run preview
 # ✅ Server startet
@@ -203,7 +188,6 @@ npm run preview
 ```
 
 ### **Browser-Kompatibilität**
-
 - ✅ Chrome 90+ (Desktop)
 - ✅ Firefox 88+ (Desktop)
 - ✅ Safari 13+ (iOS/macOS)
@@ -221,15 +205,15 @@ npm run preview
 try {
   initExternalService();
 } catch (error) {
-  console.warn("[Init] Service failed (non-critical)");
+  console.warn('[Init] Service failed (non-critical)');
   // App läuft weiter
 }
 
 // REGEL: Immer Build-Target explizit setzen
 export default defineConfig({
   build: {
-    target: "es2020", // Niemals leer lassen!
-  },
+    target: 'es2020', // Niemals leer lassen!
+  }
 });
 
 // REGEL: Alle External Context-Creations mit Try-Catch
@@ -237,7 +221,7 @@ const context = useMemo(() => {
   try {
     return createContext();
   } catch (error) {
-    console.warn("Context creation failed");
+    console.warn('Context creation failed');
     return {};
   }
 }, []);
@@ -254,20 +238,17 @@ const context = useMemo(() => {
 **Häufigkeit:** Selten (1x pro 6 Monate)
 
 **Symptome:**
-
 - Weiße Seite nach Deploy
 - Preview funktioniert
 - Keine Console-Errors
 
 **Root-Causes:**
-
 1. External Service Init ohne Try-Catch
 2. Build-Target nicht explizit gesetzt
 3. Fehlende Element-Validierung
 4. Context-Creation ohne Error-Handling
 
 **Prävention:**
-
 - ✅ Alle externe Initialisierungen in Try-Catch
 - ✅ Build-Target explizit auf es2020 setzen
 - ✅ Root-Element-Check vor createRoot()

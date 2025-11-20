@@ -4,11 +4,11 @@
    CRUD-Operationen für Schichten mit Smart Caching
    ================================================================================== */
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "./use-auth";
-import { queryKeys } from "@/lib/query-client";
-import { handleError, handleSuccess } from "@/lib/error-handler";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from './use-auth';
+import { queryKeys } from '@/lib/query-client';
+import { handleError, handleSuccess } from '@/lib/error-handler';
 
 interface Shift {
   id?: string;
@@ -36,20 +36,16 @@ export const useShifts = () => {
   const queryClient = useQueryClient();
 
   // Fetch all shifts
-  const {
-    data: shifts = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: queryKeys.shifts(profile?.company_id || ""),
+  const { data: shifts = [], isLoading, error } = useQuery({
+    queryKey: queryKeys.shifts(profile?.company_id || ''),
     queryFn: async () => {
       if (!profile?.company_id) return [];
 
       const { data, error } = await supabase
-        .from("shifts")
-        .select("*, drivers(first_name, last_name), vehicles(license_plate)")
-        .eq("company_id", profile.company_id)
-        .order("date", { ascending: false })
+        .from('shifts')
+        .select('*, drivers(first_name, last_name), vehicles(license_plate)')
+        .eq('company_id', profile.company_id)
+        .order('date', { ascending: false })
         .limit(100);
 
       if (error) throw error;
@@ -61,10 +57,10 @@ export const useShifts = () => {
   // Create shift
   const createShift = useMutation({
     mutationFn: async (newShift: Shift) => {
-      if (!profile?.company_id) throw new Error("Company ID fehlt");
+      if (!profile?.company_id) throw new Error('Company ID fehlt');
 
       const { data, error } = await supabase
-        .from("shifts")
+        .from('shifts')
         .insert({
           ...newShift,
           company_id: profile.company_id,
@@ -76,24 +72,24 @@ export const useShifts = () => {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.shifts(profile?.company_id || "") });
-      handleSuccess("Schicht erfolgreich erstellt");
+      queryClient.invalidateQueries({ queryKey: queryKeys.shifts(profile?.company_id || '') });
+      handleSuccess('Schicht erfolgreich erstellt');
     },
     onError: (error) => {
-      handleError(error, "Schicht konnte nicht erstellt werden");
+      handleError(error, 'Schicht konnte nicht erstellt werden');
     },
   });
 
   // Update shift
   const updateShift = useMutation({
     mutationFn: async ({ id, ...updates }: Shift & { id: string }) => {
-      if (!profile?.company_id) throw new Error("Company ID fehlt");
+      if (!profile?.company_id) throw new Error('Company ID fehlt');
 
       const { data, error } = await supabase
-        .from("shifts")
+        .from('shifts')
         .update(updates)
-        .eq("id", id)
-        .eq("company_id", profile.company_id)
+        .eq('id', id)
+        .eq('company_id', profile.company_id)
         .select()
         .single();
 
@@ -101,35 +97,36 @@ export const useShifts = () => {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.shifts(profile?.company_id || "") });
-      handleSuccess("Schicht erfolgreich aktualisiert");
+      queryClient.invalidateQueries({ queryKey: queryKeys.shifts(profile?.company_id || '') });
+      handleSuccess('Schicht erfolgreich aktualisiert');
     },
     onError: (error) => {
-      handleError(error, "Schicht konnte nicht aktualisiert werden");
+      handleError(error, 'Schicht konnte nicht aktualisiert werden');
     },
   });
 
   // Archive shift (V18.3.29: Archiving-System via RPC)
   const archiveShift = useMutation({
     mutationFn: async (id: string) => {
-      if (!profile?.company_id) throw new Error("Company ID fehlt");
+      if (!profile?.company_id) throw new Error('Company ID fehlt');
 
       // V18.3.29: Nutze RPC function für Soft-Delete
-      const { data, error } = await supabase.rpc("archive_shift", {
-        shift_id_param: id,
-      });
+      const { data, error } = await supabase
+        .rpc('archive_shift', {
+          shift_id_param: id
+        });
 
       if (error) throw error;
-      if (!data) throw new Error("Archivierung fehlgeschlagen");
-
+      if (!data) throw new Error('Archivierung fehlgeschlagen');
+      
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.shifts(profile?.company_id || "") });
-      handleSuccess("Schicht entfernt");
+      queryClient.invalidateQueries({ queryKey: queryKeys.shifts(profile?.company_id || '') });
+      handleSuccess('Schicht entfernt');
     },
     onError: (error) => {
-      handleError(error, "Schicht konnte nicht archiviert werden");
+      handleError(error, 'Schicht konnte nicht archiviert werden');
     },
   });
 

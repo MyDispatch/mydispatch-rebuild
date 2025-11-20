@@ -11,7 +11,6 @@
 **KRITISCH:** Vor Beginn prüfen ob Seite unter **Layout Freeze** steht!
 
 📋 **Geschützte Seiten (KEINE Layout-Änderungen):**
-
 - ✅ Dashboard (`src/pages/Index.tsx`)
 - ✅ Aufträge (`src/pages/Auftraege.tsx`)
 
@@ -34,7 +33,6 @@ Dieser Prozess ist **VERPFLICHTEND** vor Implementierung JEDER neuen Seite oder 
 ### KRITISCH: Bevor du IRGENDWAS implementierst, musst du:
 
 #### 1. Alle relevanten Dokumente lesen
-
 ```bash
 # Pflicht-Dokumente für JEDE Seite:
 - LAYOUT_FREEZE_PROTECTION_V18.5.1.md ⭐⭐⭐ (ZUERST PRÜFEN!)
@@ -50,7 +48,6 @@ Dieser Prozess ist **VERPFLICHTEND** vor Implementierung JEDER neuen Seite oder 
 ```
 
 #### 2. Bestehenden Code analysieren
-
 ```typescript
 // Suche nach ähnlichen Seiten:
 // - Welches Layout-Pattern wird verwendet?
@@ -60,7 +57,6 @@ Dieser Prozess ist **VERPFLICHTEND** vor Implementierung JEDER neuen Seite oder 
 ```
 
 #### 3. Datenbank-Schema prüfen
-
 ```sql
 -- Falls neue Daten gespeichert werden:
 -- - Welche Tabellen existieren bereits?
@@ -70,14 +66,13 @@ Dieser Prozess ist **VERPFLICHTEND** vor Implementierung JEDER neuen Seite oder 
 ```
 
 #### 4. Design-System-Compliance
-
 ```typescript
 // CI-Farben:
-import { CI_COLOR_01, CI_COLOR_02, CI_COLOR_03 } from "@/lib/ci-colors";
+import { CI_COLOR_01, CI_COLOR_02, CI_COLOR_03 } from '@/lib/ci-colors';
 
 // Grid-Pattern:
-import { DashboardGrid } from "@/components/design-system/DashboardGrid";
-import { MobileGridLayout } from "@/components/mobile/MobileGridLayout";
+import { DashboardGrid } from '@/components/design-system/DashboardGrid';
+import { MobileGridLayout } from '@/components/mobile/MobileGridLayout';
 
 // Spacing-System:
 // gap-2, gap-4, gap-6, gap-8
@@ -86,7 +81,6 @@ import { MobileGridLayout } from "@/components/mobile/MobileGridLayout";
 ```
 
 #### 5. Rechtliche Anforderungen
-
 ```typescript
 // Checkliste:
 - [ ] DSGVO: Datenschutzhinweis nötig?
@@ -103,7 +97,6 @@ import { MobileGridLayout } from "@/components/mobile/MobileGridLayout";
 ### 1. Architektur-Entscheidung
 
 **Frage dich:**
-
 - Ist das eine Marketing-Seite oder App-Seite?
 - Mobile-First oder Desktop-First? (IMMER Mobile-First!)
 - Welches Grid-Pattern passt?
@@ -111,12 +104,12 @@ import { MobileGridLayout } from "@/components/mobile/MobileGridLayout";
 
 **Entscheidungs-Matrix:**
 
-| Seiten-Typ                      | Layout            | Grid-Pattern                       | Touch-Targets |
-| ------------------------------- | ----------------- | ---------------------------------- | ------------- |
-| Marketing (Home, Pricing, Docs) | MarketingLayout   | HERO-GRID, TARIF-KARTEN-GRID       | min-h-[44px]  |
-| App (Dashboard, Aufträge)       | MainLayout        | DASHBOARD-GRID, MOBILE-GRID-LAYOUT | min-h-[44px]  |
-| Auth (Login, Register)          | AuthHeader/Footer | FORM-GRID                          | h-11          |
-| Dialogs (Formulare)             | Dialog            | RESPONSIVE-DIALOG                  | min-h-[44px]  |
+| Seiten-Typ | Layout | Grid-Pattern | Touch-Targets |
+|------------|--------|--------------|---------------|
+| Marketing (Home, Pricing, Docs) | MarketingLayout | HERO-GRID, TARIF-KARTEN-GRID | min-h-[44px] |
+| App (Dashboard, Aufträge) | MainLayout | DASHBOARD-GRID, MOBILE-GRID-LAYOUT | min-h-[44px] |
+| Auth (Login, Register) | AuthHeader/Footer | FORM-GRID | h-11 |
+| Dialogs (Formulare) | Dialog | RESPONSIVE-DIALOG | min-h-[44px] |
 
 ### 2. Component-Breakdown
 
@@ -125,21 +118,21 @@ import { MobileGridLayout } from "@/components/mobile/MobileGridLayout";
 ```typescript
 // Beispiel: Neue Statistik-Seite
 const ComponentBreakdown = {
-  Layout: "MainLayout",
-  Grid: "DashboardGrid",
+  Layout: 'MainLayout',
+  Grid: 'DashboardGrid',
   Components: [
-    "StatisticsHeader", // Neu erstellen
-    "KpiCard", // Wiederverwendbar
-    "ChartCard", // Wiederverwendbar
-    "FilterBar", // Wiederverwendbar
-    "MobileStatistics", // Neu erstellen
+    'StatisticsHeader',      // Neu erstellen
+    'KpiCard',               // Wiederverwendbar
+    'ChartCard',             // Wiederverwendbar
+    'FilterBar',             // Wiederverwendbar
+    'MobileStatistics',      // Neu erstellen
   ],
   Dialogs: [
-    "DateRangeDialog", // Neu erstellen
+    'DateRangeDialog',       // Neu erstellen
   ],
   Hooks: [
-    "useStatistics", // Neu erstellen
-    "useDeviceType", // Wiederverwendbar
+    'useStatistics',         // Neu erstellen
+    'useDeviceType',         // Wiederverwendbar
   ],
 };
 ```
@@ -151,7 +144,7 @@ const ComponentBreakdown = {
 const DataFlow = {
   // 1. Datenquelle
   source: 'supabase.from("bookings")',
-
+  
   // 2. Query-Logic
   query: `
     SELECT 
@@ -163,17 +156,17 @@ const DataFlow = {
     GROUP BY DATE(created_at)
     ORDER BY date DESC
   `,
-
+  
   // 3. State-Management
   state: {
-    data: "useState<Statistics[]>([]);",
-    loading: "useState<boolean>(true);",
-    error: "useState<Error | null>(null);",
+    data: 'useState<Statistics[]>([]);',
+    loading: 'useState<boolean>(true);',
+    error: 'useState<Error | null>(null);',
   },
-
+  
   // 4. Cache-Strategy
-  cache: "React Query - staleTime: 5min",
-
+  cache: 'React Query - staleTime: 5min',
+  
   // 5. Optimistic Updates
   optimistic: false, // Nur bei Mutations
 };
@@ -225,22 +218,22 @@ const DataFlow = {
 // Compliance-Matrix für neue Seite
 const ComplianceMatrix = {
   DSGVO: {
-    datenschutzhinweis: true, // Bei Formularen
-    cookies: false, // Keine zusätzlichen Cookies
-    aufbewahrungsfrist: "10 Jahre", // PBefG § 51
+    datenschutzhinweis: true,  // Bei Formularen
+    cookies: false,            // Keine zusätzlichen Cookies
+    aufbewahrungsfrist: '10 Jahre', // PBefG § 51
   },
   AI_Act: {
-    ki_kennzeichnung: false, // Keine KI-Features
+    ki_kennzeichnung: false,   // Keine KI-Features
   },
   TMG: {
-    impressum_link: true, // Im Footer
-    agb_link: false, // Keine Vertragsabschlüsse
+    impressum_link: true,      // Im Footer
+    agb_link: false,           // Keine Vertragsabschlüsse
   },
   UStG: {
-    rechnungspflicht: false, // Keine Rechnungserstellung
+    rechnungspflicht: false,   // Keine Rechnungserstellung
   },
   PBefG: {
-    auftragsdaten: false, // Keine Auftragsdaten
+    auftragsdaten: false,      // Keine Auftragsdaten
   },
 };
 ```
@@ -257,58 +250,48 @@ const ComplianceMatrix = {
 ## Planungspräsentation: [Seiten-Name]
 
 ### 1. Überblick
-
 - **Seiten-Typ:** Marketing / App / Auth / Dialog
 - **Hauptzweck:** [Beschreibung in 1-2 Sätzen]
 - **Geschätzter Aufwand:** [X Minuten]
 
 ### 2. Architektur-Entscheidungen
-
 - **Layout:** MarketingLayout / MainLayout / AuthLayout
 - **Grid-Pattern:** HERO-GRID / DASHBOARD-GRID / MOBILE-GRID-LAYOUT
 - **Responsive-Strategie:** Mobile-First, 3 Breakpoints (sm, md, lg)
 
 ### 3. Components
-
 **Neu zu erstellen:**
-
 - [ ] Component 1 (5min)
 - [ ] Component 2 (10min)
 
 **Wiederverwendbar:**
-
 - [x] Component A (schon vorhanden)
 - [x] Component B (schon vorhanden)
 
 ### 4. Datenfluss
-
 - **Quelle:** Supabase / Static Data / API
 - **State:** React Query / useState
 - **Cache:** 5min staleTime
 
 ### 5. Rechtliche Compliance
-
 - [x] DSGVO-Hinweis eingeplant
 - [x] CI-Farben verwendet
 - [x] Mobile-First umgesetzt
 - [ ] Weitere Anforderungen...
 
 ### 6. Wireframes
-
 [ASCII-Wireframes für Mobile + Desktop]
 
 ### 7. Offene Fragen
-
 - Frage 1 an Pascal
 - Frage 2 an Pascal
 
 ### 8. Next Steps nach Freigabe
-
 1. Component X erstellen (5min)
 2. Component Y erstellen (10min)
 3. Integration testen (5min)
 4. Mobile-Test (5min)
-   **Gesamt: 25min**
+**Gesamt: 25min**
 ```
 
 ---
@@ -318,14 +301,12 @@ const ComplianceMatrix = {
 ### ERST NACH FREIGABE durch Pascal!
 
 #### 1. Component-Erstellung (Parallel!)
-
 ```bash
 # WICHTIG: Parallel erstellen, nicht sequentiell!
 # Verwende lov-write für ALLE neuen Files in EINEM Tool-Call
 ```
 
 #### 2. Integration
-
 ```typescript
 // Schritt für Schritt:
 // 1. Layout integrieren
@@ -337,28 +318,20 @@ const ComplianceMatrix = {
 ```
 
 #### 3. Rechtliche Elemente
-
 ```tsx
 // IMMER am Ende jeder Seite einfügen:
 <footer className="mt-12 pt-6 border-t border-border text-center text-xs text-muted-foreground">
   <p>
-    <Link to="/impressum" className="hover:text-foreground">
-      Impressum
-    </Link>
-    {" • "}
-    <Link to="/datenschutz" className="hover:text-foreground">
-      Datenschutz
-    </Link>
-    {" • "}
-    <Link to="/agb" className="hover:text-foreground">
-      AGB
-    </Link>
+    <Link to="/impressum" className="hover:text-foreground">Impressum</Link>
+    {' • '}
+    <Link to="/datenschutz" className="hover:text-foreground">Datenschutz</Link>
+    {' • '}
+    <Link to="/agb" className="hover:text-foreground">AGB</Link>
   </p>
 </footer>
 ```
 
 #### 4. Dokumentation
-
 ```typescript
 // JEDE neue Component MUSS Kommentare haben:
 /* ==================================================================================
@@ -379,7 +352,6 @@ const ComplianceMatrix = {
 ### VERPFLICHTENDE Tests:
 
 #### 1. Responsive-Tests
-
 ```bash
 # PFLICHT: Teste auf ALLEN Breakpoints
 Mobile:  375px, 414px
@@ -391,7 +363,6 @@ Desktop: 1920px
 ```
 
 #### 2. Touch-Target-Test
-
 ```bash
 # Teste mit Finger auf echtem Gerät:
 - Alle Buttons ≥ 44px?
@@ -401,7 +372,6 @@ Desktop: 1920px
 ```
 
 #### 3. Performance-Test
-
 ```bash
 # React DevTools Profiler:
 - Render-Time < 16ms (60fps)
@@ -410,7 +380,6 @@ Desktop: 1920px
 ```
 
 #### 4. Accessibility-Test
-
 ```bash
 # Chrome Lighthouse:
 - Accessibility-Score ≥ 95
@@ -419,7 +388,6 @@ Desktop: 1920px
 ```
 
 #### 5. Legal-Compliance-Test
-
 ```bash
 # Checkliste:
 - [ ] DSGVO-Hinweis vorhanden?
@@ -433,7 +401,6 @@ Desktop: 1920px
 ## 🚫 ANTI-PATTERNS
 
 ### ❌ Implementieren OHNE Planung
-
 ```typescript
 // ❌ FALSCH: Direkt losprogrammieren
 "Ich erstelle jetzt die neue Statistik-Seite..."
@@ -445,7 +412,6 @@ Desktop: 1920px
 ```
 
 ### ❌ Unvollständige Informationen
-
 ```typescript
 // ❌ FALSCH: Nicht alle Docs gelesen
 "Ich habe eine Idee, wie wir das machen können..."
@@ -456,7 +422,6 @@ Desktop: 1920px
 ```
 
 ### ❌ Pascal nach dem Mund reden
-
 ```typescript
 // ❌ FALSCH: Blind zustimmen
 Pascal: "Lass uns 5 neue Features gleichzeitig bauen!"
@@ -464,12 +429,11 @@ NeXify: "Klar, machen wir!"
 
 // ✅ RICHTIG: Bessere Lösung präsentieren
 Pascal: "Lass uns 5 neue Features gleichzeitig bauen!"
-NeXify: "Pascal, das birgt Risiken. Besser: Feature 1 heute (15min),
+NeXify: "Pascal, das birgt Risiken. Besser: Feature 1 heute (15min), 
          testen, dann Feature 2 morgen. So vermeiden wir Bugs."
 ```
 
 ### ❌ Fehlende Zeitangaben
-
 ```typescript
 // ❌ FALSCH: Keine Zeit-Estimates
 "Ich setze jetzt die neue Seite um..."
@@ -490,7 +454,6 @@ Gesamt: 25min"
 ### Vor Start JEDER neuen Seite:
 
 #### Phase 1: Informations-Sammlung
-
 - [ ] Alle Pflicht-Dokumente gelesen
 - [ ] Ähnliche Seiten im Code analysiert
 - [ ] Datenbank-Schema geprüft
@@ -498,7 +461,6 @@ Gesamt: 25min"
 - [ ] Rechtliche Anforderungen ermittelt
 
 #### Phase 2: Planung
-
 - [ ] Architektur-Entscheidung getroffen
 - [ ] Component-Breakdown erstellt
 - [ ] Datenfluss geplant
@@ -506,21 +468,18 @@ Gesamt: 25min"
 - [ ] Compliance-Matrix erstellt
 
 #### Phase 3: Präsentation
-
 - [ ] Plan an Pascal präsentiert
 - [ ] Offene Fragen geklärt
 - [ ] Freigabe erhalten
 - [ ] Zeitplan bestätigt
 
 #### Phase 4: Implementierung
-
 - [ ] Components parallel erstellt
 - [ ] Integration durchgeführt
 - [ ] Rechtliche Elemente eingefügt
 - [ ] Code dokumentiert
 
 #### Phase 5: Testing
-
 - [ ] Responsive-Tests (5 Breakpoints)
 - [ ] Touch-Target-Test (echtes Gerät)
 - [ ] Performance-Test (< 16ms)

@@ -2,38 +2,26 @@
    FEATURE DETAIL PAGE: Live-Traffic & Wetter
    ================================================================================== */
 
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { V28HeroPremium } from "@/components/hero";
-import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
-import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
-import { V28IconBox } from "@/components/design-system/V28IconBox";
-import { V28Button } from "@/components/design-system/V28Button";
-import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
-import { MapPin, Cloud, Navigation, Clock } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { V28HeroPremium } from '@/components/hero';
+import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28Button } from '@/components/design-system/V28Button';
+import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
+import { MapPin, Cloud, Navigation, Clock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function LiveTrafficPage() {
   const navigate = useNavigate();
 
   const features = [
-    {
-      icon: MapPin,
-      title: "Echtzeit-Verkehr",
-      description: "Live-Verkehrsinformationen für optimale Routenplanung",
-    },
-    { icon: Cloud, title: "Wettervorhersage", description: "Aktuelle Wetterdaten und Vorhersagen" },
-    {
-      icon: Navigation,
-      title: "Intelligentes Routing",
-      description: "Automatische Umleitung bei Staus",
-    },
-    {
-      icon: Clock,
-      title: "Ankunftszeit-Prognose",
-      description: "Genaue ETA-Berechnung mit Live-Daten",
-    },
+    { icon: MapPin, title: 'Echtzeit-Verkehr', description: 'Live-Verkehrsinformationen für optimale Routenplanung' },
+    { icon: Cloud, title: 'Wettervorhersage', description: 'Aktuelle Wetterdaten und Vorhersagen' },
+    { icon: Navigation, title: 'Intelligentes Routing', description: 'Automatische Umleitung bei Staus' },
+    { icon: Clock, title: 'Ankunftszeit-Prognose', description: 'Genaue ETA-Berechnung mit Live-Daten' },
   ];
 
   return (
@@ -53,12 +41,12 @@ export default function LiveTrafficPage() {
         subtitle="Echtzeit-Verkehrsinformationen und Wettervorhersage"
         description="Vermeiden Sie Staus und planen Sie vorausschauend."
         primaryCTA={{
-          label: "Jetzt starten",
-          onClick: () => navigate("/auth?mode=signup"),
+          label: 'Jetzt starten',
+          onClick: () => navigate('/auth?mode=signup')
         }}
         secondaryCTA={{
-          label: "Mehr erfahren",
-          onClick: () => navigate("/pricing"),
+          label: 'Mehr erfahren',
+          onClick: () => navigate('/pricing')
         }}
         visual={<PremiumDashboardContent pageType="features" />}
         trustElements={true}
@@ -83,7 +71,7 @@ export default function LiveTrafficPage() {
             <V28TariffBadge label="Business" />
             <V28TariffBadge label="Enterprise" />
           </div>
-          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
             Tarife vergleichen
           </V28Button>
         </div>

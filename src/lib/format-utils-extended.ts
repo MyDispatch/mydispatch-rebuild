@@ -11,13 +11,11 @@
  * @returns Formatierter String (z.B. "14:30 Uhr")
  */
 export const formatTime = (date: string | Date): string => {
-  const dateObj = typeof date === "string" ? new Date(date) : date;
-  return (
-    dateObj.toLocaleTimeString("de-DE", {
-      hour: "2-digit",
-      minute: "2-digit",
-    }) + " Uhr"
-  );
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  return dateObj.toLocaleTimeString('de-DE', {
+    hour: '2-digit',
+    minute: '2-digit',
+  }) + ' Uhr';
 };
 
 /**
@@ -26,15 +24,15 @@ export const formatTime = (date: string | Date): string => {
  * @returns Formatierter String (z.B. "15.01.2025, 14:30 Uhr")
  */
 export const formatDateTime = (date: string | Date): string => {
-  const dateObj = typeof date === "string" ? new Date(date) : date;
-  const dateStr = dateObj.toLocaleDateString("de-DE", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  const dateStr = dateObj.toLocaleDateString('de-DE', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
   });
-  const timeStr = dateObj.toLocaleTimeString("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit",
+  const timeStr = dateObj.toLocaleTimeString('de-DE', {
+    hour: '2-digit',
+    minute: '2-digit',
   });
   return `${dateStr}, ${timeStr} Uhr`;
 };
@@ -45,9 +43,9 @@ export const formatDateTime = (date: string | Date): string => {
  * @returns Formatierter String (z.B. "19,5 %")
  */
 export const formatPercentage = (value: number): string => {
-  const formatted = value.toLocaleString("de-DE", {
+  const formatted = value.toLocaleString('de-DE', { 
     minimumFractionDigits: 0,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 2 
   });
   return `${formatted} %`; // Leerzeichen vor % (DIN 5008)
 };
@@ -62,9 +60,9 @@ export const formatDistance = (meters: number): string => {
     return `${Math.round(meters)} m`; // Leerzeichen vor Einheit
   }
   const km = meters / 1000;
-  const formatted = km.toLocaleString("de-DE", {
+  const formatted = km.toLocaleString('de-DE', {
     minimumFractionDigits: 1,
-    maximumFractionDigits: 2,
+    maximumFractionDigits: 2
   });
   return `${formatted} km`; // Leerzeichen vor Einheit
 };
@@ -109,9 +107,14 @@ export const formatFullName = (
   firstName?: string,
   lastName?: string
 ): string => {
-  const parts = [salutation, title, firstName, lastName].filter(Boolean);
-
-  return parts.join(" ");
+  const parts = [
+    salutation,
+    title,
+    firstName,
+    lastName
+  ].filter(Boolean);
+  
+  return parts.join(' ');
 };
 
 /**
@@ -129,14 +132,14 @@ export const formatLetterSalutation = (
   lastName?: string
 ): string => {
   // Divers → geschlechtsneutrale Anrede
-  if (salutation === "Divers") {
+  if (salutation === 'Divers') {
     return `Guten Tag ${firstName} ${lastName},`;
   }
 
   // Standard: Sehr geehrte/r Herr/Frau
-  const prefix = salutation === "Frau" ? "Sehr geehrte" : "Sehr geehrter";
-  const titlePart = title ? ` ${title}` : "";
-
+  const prefix = salutation === 'Frau' ? 'Sehr geehrte' : 'Sehr geehrter';
+  const titlePart = title ? ` ${title}` : '';
+  
   return `${prefix} ${salutation}${titlePart} ${lastName},`;
 };
 
@@ -154,11 +157,11 @@ export const formatAddressSingleLine = (
   postalCode?: string,
   city?: string
 ): string => {
-  if (!street || !city) return "";
-
-  const streetPart = [street, streetNumber].filter(Boolean).join(" ");
-  const cityPart = [postalCode, city].filter(Boolean).join(" ");
-
+  if (!street || !city) return '';
+  
+  const streetPart = [street, streetNumber].filter(Boolean).join(' ');
+  const cityPart = [postalCode, city].filter(Boolean).join(' ');
+  
   return `${streetPart}, ${cityPart}`;
 };
 
@@ -168,23 +171,23 @@ export const formatAddressSingleLine = (
  * @returns Formatierter String (z.B. "+49 170 8004423")
  */
 export const formatPhoneNumber = (phone: string): string => {
-  const cleaned = phone.replace(/\s+/g, "").replace(/^00/, "+");
-
+  const cleaned = phone.replace(/\s+/g, '').replace(/^00/, '+');
+  
   // Deutsche Mobilnummer mit +49
-  if (cleaned.startsWith("+49")) {
+  if (cleaned.startsWith('+49')) {
     const main = cleaned.substring(3);
     if (main.length >= 10) {
       return `+49 ${main.substring(0, 3)} ${main.substring(3)}`;
     }
     return cleaned;
   }
-
+  
   // Deutsche Mobilnummer mit 0
-  if (cleaned.startsWith("0") && cleaned.length >= 11) {
+  if (cleaned.startsWith('0') && cleaned.length >= 11) {
     const main = cleaned.substring(1);
     return `+49 ${main.substring(0, 3)} ${main.substring(3)}`;
   }
-
+  
   return phone; // Fallback: Original-Format
 };
 
@@ -195,11 +198,11 @@ export const formatPhoneNumber = (phone: string): string => {
  * @returns Formatierter String (z.B. "48.1351°N, 11.5820°E")
  */
 export const formatCoordinates = (lat: number, lng: number): string => {
-  const latDir = lat >= 0 ? "N" : "S";
-  const lngDir = lng >= 0 ? "E" : "W";
-
+  const latDir = lat >= 0 ? 'N' : 'S';
+  const lngDir = lng >= 0 ? 'E' : 'W';
+  
   const latStr = Math.abs(lat).toFixed(4);
   const lngStr = Math.abs(lng).toFixed(4);
-
+  
   return `${latStr}°${latDir}, ${lngStr}°${lngDir}`;
 };

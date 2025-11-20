@@ -1,6 +1,6 @@
 // MyDispatch V28.2.19 - Supabase Client Configuration
-import { createClient } from "@supabase/supabase-js";
-import type { Database } from "./types";
+import { createClient } from '@supabase/supabase-js';
+import type { Database } from './types';
 
 const SUPABASE_URL =
   import.meta.env.VITE_SUPABASE_URL || "https://ygpwuiygivxoqtyoigtg.supabase.co";
@@ -16,7 +16,7 @@ export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABL
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    flowType: "pkce",
+    flowType: 'pkce',
   },
   realtime: {
     params: {
@@ -25,7 +25,7 @@ export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABL
   },
   global: {
     headers: {
-      "X-Client-Info": "mydispatch-v28.2.19",
+      'X-Client-Info': 'mydispatch-v28.2.19',
     },
   },
 });

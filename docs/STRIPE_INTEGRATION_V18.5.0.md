@@ -39,16 +39,16 @@ MyDispatch nutzt Stripe in **zwei verschiedenen Kontexten**:
 ```typescript
 // src/lib/subscription-utils.ts (BEREITS VORHANDEN)
 export const PRODUCT_IDS = {
-  starter: ["prod_TEeg0ykplmGKd0", "prod_TF5cFE5Fi5rBCz"],
-  business: ["prod_TEegHmtpPZOZcG", "prod_TF5cnWFZYEQUsG"],
-  enterprise: ["prod_ENTERPRISE_ID_PLACEHOLDER"],
+  starter: ['prod_TEeg0ykplmGKd0', 'prod_TF5cFE5Fi5rBCz'],
+  business: ['prod_TEegHmtpPZOZcG', 'prod_TF5cnWFZYEQUsG'],
+  enterprise: ['prod_ENTERPRISE_ID_PLACEHOLDER'],
 } as const;
 
 export const PRICE_IDS = {
-  starterMonthly: "price_1SIBMrLX5M8TT990zBX6gWOm",
-  starterYearly: "price_1SIbRALX5M8TT990B81vhHPT",
-  businessMonthly: "price_1SIBN9LX5M8TT990mxE8owxm",
-  businessYearly: "price_1SIbRKLX5M8TT990e1vX4ebf",
+  starterMonthly: 'price_1SIBMrLX5M8TT990zBX6gWOm',
+  starterYearly: 'price_1SIbRALX5M8TT990B81vhHPT',
+  businessMonthly: 'price_1SIBN9LX5M8TT990mxE8owxm',
+  businessYearly: 'price_1SIbRKLX5M8TT990e1vX4ebf',
 } as const;
 ```
 
@@ -65,9 +65,9 @@ const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
 });
 
 // 1. Suche Stripe Customer via E-Mail
-const customers = await stripe.customers.list({
-  email: user.email,
-  limit: 1,
+const customers = await stripe.customers.list({ 
+  email: user.email, 
+  limit: 1 
 });
 
 // 2. Prüfe aktive Subscription
@@ -80,29 +80,28 @@ const subscriptions = await stripe.subscriptions.list({
 // 3. Update companies Tabelle
 if (hasActiveSub) {
   await supabaseClient
-    .from("companies")
+    .from('companies')
     .update({
       subscription_product_id: productId,
-      subscription_status: "active",
+      subscription_status: 'active',
       subscription_current_period_end: subscriptionEnd,
       stripe_customer_id: customerId,
     })
-    .eq("id", profile.company_id);
+    .eq('id', profile.company_id);
 }
 ```
 
 **Aufruf im Frontend:**
-
 ```typescript
 // src/hooks/use-subscription.tsx
 const checkSubscription = async () => {
-  const { data, error } = await supabase.functions.invoke("check-subscription");
-
+  const { data, error } = await supabase.functions.invoke('check-subscription');
+  
   if (data) {
     setSubscriptionData({
       subscribed: data.subscribed,
       productId: data.product_id,
-      subscriptionEnd: data.subscription_end,
+      subscriptionEnd: data.subscription_end
     });
   }
 };
@@ -134,16 +133,15 @@ return { url: session.url }; // Redirect zu Stripe Checkout
 ```
 
 **Aufruf im Frontend:**
-
 ```typescript
 // src/pages/Pricing.tsx
 const handleSubscribe = async (priceId: string) => {
-  const { data, error } = await supabase.functions.invoke("create-checkout", {
-    body: { priceId },
+  const { data, error } = await supabase.functions.invoke('create-checkout', {
+    body: { priceId }
   });
-
+  
   if (data?.url) {
-    window.open(data.url, "_blank"); // Öffnet Stripe Checkout
+    window.open(data.url, '_blank'); // Öffnet Stripe Checkout
   }
 };
 ```
@@ -161,14 +159,13 @@ return { url: portalSession.url };
 ```
 
 **Aufruf im Frontend:**
-
 ```typescript
 // src/pages/Einstellungen.tsx
 const openCustomerPortal = async () => {
-  const { data } = await supabase.functions.invoke("customer-portal");
-
+  const { data } = await supabase.functions.invoke('customer-portal');
+  
   if (data?.url) {
-    window.open(data.url, "_blank"); // Stripe Portal
+    window.open(data.url, '_blank'); // Stripe Portal
   }
 };
 ```
@@ -177,47 +174,46 @@ const openCustomerPortal = async () => {
 
 ```typescript
 // supabase/functions/stripe-webhook/index.ts
-const webhookSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET");
-const signature = req.headers.get("stripe-signature")!;
+const webhookSecret = Deno.env.get('STRIPE_WEBHOOK_SECRET');
+const signature = req.headers.get('stripe-signature')!;
 const body = await req.text();
 
 const event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
 
 switch (event.type) {
-  case "checkout.session.completed":
+  case 'checkout.session.completed':
     const session = event.data.object;
     const userId = session.metadata.supabase_user_id;
-
+    
     // Update subscription_product_id in companies table
     const { data: profile } = await supabase
-      .from("profiles")
-      .select("company_id")
-      .eq("user_id", userId)
+      .from('profiles')
+      .select('company_id')
+      .eq('user_id', userId)
       .single();
-
+    
     if (profile?.company_id) {
       await supabase
-        .from("companies")
+        .from('companies')
         .update({
-          subscription_status: "active",
-          subscription_product_id: session.metadata.product_id,
+          subscription_status: 'active',
+          subscription_product_id: session.metadata.product_id
         })
-        .eq("id", profile.company_id);
+        .eq('id', profile.company_id);
     }
     break;
-
-  case "customer.subscription.deleted":
+    
+  case 'customer.subscription.deleted':
     // Set subscription_status = 'cancelled'
     break;
-
-  case "invoice.payment_failed":
+    
+  case 'invoice.payment_failed':
     // Notification an Admin
     break;
 }
 ```
 
 **Webhook-URL konfigurieren:**
-
 ```
 Stripe Dashboard → Developers → Webhooks → Add endpoint
 URL: https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/stripe-webhook
@@ -282,61 +278,60 @@ const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY") || "", {
 
 export default async (req: Request) => {
   const { companyId, email, businessName } = await req.json();
-
+  
   // 1. Stripe Express Account erstellen
   const account = await stripe.accounts.create({
-    type: "express",
-    country: "DE",
+    type: 'express',
+    country: 'DE',
     email: email,
     capabilities: {
       card_payments: { requested: true },
       transfers: { requested: true },
     },
-    business_type: "company",
+    business_type: 'company',
     company: {
       name: businessName,
     },
   });
-
+  
   // 2. Onboarding-Link generieren
   const accountLink = await stripe.accountLinks.create({
     account: account.id,
-    refresh_url: `${req.headers.get("origin")}/einstellungen/payments`,
-    return_url: `${req.headers.get("origin")}/einstellungen/payments?success=true`,
-    type: "account_onboarding",
+    refresh_url: `${req.headers.get('origin')}/einstellungen/payments`,
+    return_url: `${req.headers.get('origin')}/einstellungen/payments?success=true`,
+    type: 'account_onboarding',
   });
-
+  
   // 3. Account-ID in Datenbank speichern
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL") ?? "",
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
   );
-
+  
   await supabase
-    .from("companies")
+    .from('companies')
     .update({
       stripe_connect_account_id: account.id,
       stripe_connect_onboarding_completed: false,
     })
-    .eq("id", companyId);
-
+    .eq('id', companyId);
+  
   return { onboardingUrl: accountLink.url };
 };
 ```
 
 **Frontend-Integration:**
-
 ```typescript
 // src/pages/Einstellungen.tsx
 const startStripeOnboarding = async () => {
-  const { data } = await supabase.functions.invoke("create-stripe-connect-account", {
+  const { data } = await supabase.functions.invoke('create-stripe-connect-account', {
     body: {
       companyId: company.id,
       email: company.email,
       businessName: company.name,
-    },
+    }
   });
-
+  
   if (data?.onboardingUrl) {
     window.location.href = data.onboardingUrl; // Redirect zu Stripe
   }
@@ -349,24 +344,24 @@ const startStripeOnboarding = async () => {
 // Edge Function: supabase/functions/check-stripe-connect-status/index.ts
 export default async (req: Request) => {
   const { accountId } = await req.json();
-
+  
   const account = await stripe.accounts.retrieve(accountId);
-
+  
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL") ?? "",
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
   );
-
+  
   // Update Status in Datenbank
   await supabase
-    .from("companies")
+    .from('companies')
     .update({
       stripe_connect_onboarding_completed: account.details_submitted,
       stripe_connect_charges_enabled: account.charges_enabled,
       stripe_connect_payouts_enabled: account.payouts_enabled,
     })
-    .eq("stripe_connect_account_id", accountId);
-
+    .eq('stripe_connect_account_id', accountId);
+  
   return {
     onboardingCompleted: account.details_submitted,
     chargesEnabled: account.charges_enabled,
@@ -383,29 +378,29 @@ export default async (req: Request) => {
 // Edge Function: supabase/functions/create-payment-intent/index.ts
 export default async (req: Request) => {
   const { amount, bookingId, companyId } = await req.json();
-
+  
   // 1. Stripe Connect Account-ID aus Datenbank holen
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL") ?? "",
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
   );
-
+  
   const { data: company } = await supabase
-    .from("companies")
-    .select("stripe_connect_account_id, stripe_connect_charges_enabled")
-    .eq("id", companyId)
+    .from('companies')
+    .select('stripe_connect_account_id, stripe_connect_charges_enabled')
+    .eq('id', companyId)
     .single();
-
+  
   if (!company?.stripe_connect_charges_enabled) {
-    throw new Error("Stripe-Zahlungen nicht aktiviert");
+    throw new Error('Stripe-Zahlungen nicht aktiviert');
   }
-
+  
   // 2. Payment Intent mit Connect Account erstellen
   const paymentIntent = await stripe.paymentIntents.create(
     {
       amount: Math.round(amount * 100), // Cents!
-      currency: "eur",
-      payment_method_types: ["card", "sepa_debit"],
+      currency: 'eur',
+      payment_method_types: ['card', 'sepa_debit'],
       metadata: {
         booking_id: bookingId,
         company_id: companyId,
@@ -417,7 +412,7 @@ export default async (req: Request) => {
       stripeAccount: company.stripe_connect_account_id, // WICHTIG!
     }
   );
-
+  
   return {
     clientSecret: paymentIntent.client_secret,
   };
@@ -435,7 +430,7 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 export function PaymentForm({ bookingId, amount }: { bookingId: string; amount: number }) {
   const [clientSecret, setClientSecret] = useState('');
-
+  
   useEffect(() => {
     // Payment Intent erstellen
     supabase.functions.invoke('create-payment-intent', {
@@ -444,7 +439,7 @@ export function PaymentForm({ bookingId, amount }: { bookingId: string; amount: 
       setClientSecret(data.clientSecret);
     });
   }, []);
-
+  
   return (
     <Elements stripe={stripePromise} options={{ clientSecret }}>
       <CheckoutForm bookingId={bookingId} />
@@ -455,24 +450,24 @@ export function PaymentForm({ bookingId, amount }: { bookingId: string; amount: 
 function CheckoutForm({ bookingId }: { bookingId: string }) {
   const stripe = useStripe();
   const elements = useElements();
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (!stripe || !elements) return;
-
+    
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: `${window.location.origin}/auftraege?payment_success=true`,
       },
     });
-
+    
     if (error) {
       handleError(error, 'Zahlung fehlgeschlagen');
     }
   };
-
+  
   return (
     <form onSubmit={handleSubmit}>
       <PaymentElement />
@@ -490,24 +485,23 @@ function CheckoutForm({ bookingId }: { bookingId: string }) {
 // Edge Function: supabase/functions/create-stripe-dashboard-link/index.ts
 export default async (req: Request) => {
   const { accountId } = await req.json();
-
+  
   const loginLink = await stripe.accounts.createLoginLink(accountId);
-
+  
   return { dashboardUrl: loginLink.url };
 };
 ```
 
 **Frontend:**
-
 ```typescript
 // src/pages/Einstellungen.tsx
 const openStripeDashboard = async () => {
-  const { data } = await supabase.functions.invoke("create-stripe-dashboard-link", {
-    body: { accountId: company.stripe_connect_account_id },
+  const { data } = await supabase.functions.invoke('create-stripe-dashboard-link', {
+    body: { accountId: company.stripe_connect_account_id }
   });
-
+  
   if (data?.dashboardUrl) {
-    window.open(data.dashboardUrl, "_blank");
+    window.open(data.dashboardUrl, '_blank');
   }
 };
 ```
@@ -523,25 +517,25 @@ const openStripeDashboard = async () => {
 const handleBookingSubmit = async (formData) => {
   // 1. Auftrag erstellen
   const { data: booking } = await supabase
-    .from("bookings")
+    .from('bookings')
     .insert({
       ...formData,
-      payment_status: "pending",
-      payment_method: "stripe",
+      payment_status: 'pending',
+      payment_method: 'stripe',
     })
     .select()
     .single();
-
+  
   // 2. Payment Intent erstellen (falls Online-Zahlung)
-  if (formData.payment_method === "stripe") {
-    const { data: paymentData } = await supabase.functions.invoke("create-payment-intent", {
+  if (formData.payment_method === 'stripe') {
+    const { data: paymentData } = await supabase.functions.invoke('create-payment-intent', {
       body: {
         amount: formData.price,
         bookingId: booking.id,
         companyId: profile.company_id,
-      },
+      }
     });
-
+    
     // 3. Redirect zu Payment-Seite
     navigate(`/payment/${booking.id}?client_secret=${paymentData.clientSecret}`);
   }
@@ -553,39 +547,39 @@ const handleBookingSubmit = async (formData) => {
 ```typescript
 // supabase/functions/stripe-connect-webhook/index.ts
 export default async (req: Request) => {
-  const sig = req.headers.get("stripe-signature")!;
+  const sig = req.headers.get('stripe-signature')!;
   const body = await req.text();
-
+  
   const event = stripe.webhooks.constructEvent(
     body,
     sig,
-    Deno.env.get("STRIPE_CONNECT_WEBHOOK_SECRET")!
+    Deno.env.get('STRIPE_CONNECT_WEBHOOK_SECRET')!
   );
-
-  if (event.type === "payment_intent.succeeded") {
+  
+  if (event.type === 'payment_intent.succeeded') {
     const paymentIntent = event.data.object;
     const bookingId = paymentIntent.metadata.booking_id;
-
+    
     // Update booking payment_status
     await supabase
-      .from("bookings")
+      .from('bookings')
       .update({
-        payment_status: "paid",
+        payment_status: 'paid',
         payment_stripe_intent_id: paymentIntent.id,
       })
-      .eq("id", bookingId);
-
+      .eq('id', bookingId);
+    
     // Sende Bestätigungs-E-Mail
-    await supabase.functions.invoke("send-email", {
+    await supabase.functions.invoke('send-email', {
       body: {
-        template: "bookingConfirmationTemplate",
+        template: 'bookingConfirmationTemplate',
         to: customerEmail,
         bookingId,
-      },
+      }
     });
   }
-
-  return new Response("OK", { status: 200 });
+  
+  return new Response('OK', { status: 200 });
 };
 ```
 
@@ -595,15 +589,14 @@ export default async (req: Request) => {
 
 ### Stripe-Gebühren (Deutschland)
 
-| Typ                         | Gebühr                        |
-| --------------------------- | ----------------------------- |
-| Kreditkarte (EU)            | 1,4% + 0,25€                  |
-| SEPA-Lastschrift            | 0,35% (min. 0,25€)            |
+| Typ | Gebühr |
+|-----|--------|
+| Kreditkarte (EU) | 1,4% + 0,25€ |
+| SEPA-Lastschrift | 0,35% (min. 0,25€) |
 | Stripe Connect Platform-Fee | +2% (optional für MyDispatch) |
-| Auszahlung                  | Kostenlos                     |
+| Auszahlung | Kostenlos |
 
 **Beispiel:**
-
 - Auftrag: 100,00€
 - Stripe-Gebühr: 1,40€ + 0,25€ = 1,65€
 - Platform-Fee (MyDispatch): 2,00€
@@ -616,7 +609,6 @@ export default async (req: Request) => {
 ### PCI-DSS Compliance
 
 ✅ **MyDispatch ist PCI-DSS-konform**, da:
-
 - KEINE Kartendaten auf MyDispatch-Servern gespeichert werden
 - Stripe Elements iframe verwendet wird (Stripe handet PCI-DSS)
 - Payment Intents Server-Side erstellt werden
@@ -624,7 +616,6 @@ export default async (req: Request) => {
 ### DSGVO-Compliance
 
 ✅ **DSGVO-konform**, da:
-
 - Zahlungsdaten bei Stripe gespeichert (EU-Server)
 - Unternehmer = eigener Stripe-Account = eigener Data-Controller
 - MyDispatch = nur Platform-Provider (Data-Processor)

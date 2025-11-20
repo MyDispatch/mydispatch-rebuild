@@ -22,43 +22,36 @@
 ## ✅ VORHANDENE E-MAIL-FUNKTIONEN
 
 ### 1. send-booking-email ✅
-
 - **Zweck:** Buchungs-E-Mails (Confirmation, Update, Cancellation, Reminder)
 - **Status:** ✅ FUNKTIONIERT
 - **Edge Function:** `supabase/functions/send-booking-email/index.ts`
 - **Integration:** Resend API
 
 ### 2. send-password-reset ✅
-
 - **Zweck:** Passwort-Zurücksetzung
 - **Status:** ✅ FUNKTIONIERT
 - **Edge Function:** `supabase/functions/send-password-reset/index.ts`
 - **Integration:** Resend API
 
 ### 3. send-template-email ✅
-
 - **Zweck:** Template-basierte E-Mails
 - **Status:** ✅ FUNKTIONIERT
 - **Edge Function:** `supabase/functions/send-template-email/index.ts`
 - **Integration:** Resend API
 
 ### 4. send-customer-credentials ✅
-
 - **Zweck:** Kunden-Zugangsdaten versenden
 - **Status:** ✅ VORHANDEN
 
 ### 5. send-driver-invitation ✅
-
 - **Zweck:** Fahrer-Einladung
 - **Status:** ✅ VORHANDEN
 
 ### 6. send-contact-email ✅
-
 - **Zweck:** Kontaktformular-E-Mails
 - **Status:** ✅ VORHANDEN
 
 ### 7. send-nexify-contact ✅
-
 - **Zweck:** NeXify Kontakt-E-Mails
 - **Status:** ✅ VORHANDEN
 
@@ -153,3 +146,4 @@
 ---
 
 **Pascal, alle E-Mail-Lücken sind identifiziert!** 📧
+

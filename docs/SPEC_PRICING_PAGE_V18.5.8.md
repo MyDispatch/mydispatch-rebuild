@@ -11,17 +11,14 @@
 ## 📊 EXECUTIVE SUMMARY
 
 ### Zweck
-
 Die Pricing Page zeigt alle verfügbaren Tarife mit vollständiger Feature-Matrix und dient der **Konversion** (Trial-Start oder direktes Abo).
 
 ### Zielgruppe
-
 - Entscheider, die bereits Interesse haben
 - Vergleichende Nutzer (Wettbewerbs-Analyse)
 - Budget-bewusste Unternehmer
 
 ### Kernbotschaft
-
 > "Transparente Preise. Keine versteckten Kosten. Monatlich kündbar. Ab 39 €/Monat."
 
 ---
@@ -29,7 +26,6 @@ Die Pricing Page zeigt alle verfügbaren Tarife mit vollständiger Feature-Matri
 ## 🏗️ ARCHITEKTUR-ENTSCHEIDUNGEN
 
 ### Layout
-
 ```typescript
 Layout: MarketingLayout
 Grid: TARIF-KARTEN-GRID (3 Spalten Desktop, 1 Spalte Mobile)
@@ -37,19 +33,18 @@ Responsive: Mobile-First (3 Breakpoints: sm, md, lg)
 ```
 
 ### Component-Struktur
-
 ```typescript
 const PageStructure = {
-  Header: "MarketingHeader",
+  Header: 'MarketingHeader',
   Sections: [
-    "PricingHeroSection", // H1 + Subtitle
-    "TariffComparisonSection", // 3 Tarif-Cards mit Feature-Matrix
-    "DetailedFeaturesSection", // Vollständige Feature-Liste
-    "FAQPricingSection", // Pricing-spezifische FAQs
-    "EnterpriseCTASection", // Für Custom-Anfragen
-    "TrustSection", // Sicherheits-Garantien
+    'PricingHeroSection',          // H1 + Subtitle
+    'TariffComparisonSection',     // 3 Tarif-Cards mit Feature-Matrix
+    'DetailedFeaturesSection',     // Vollständige Feature-Liste
+    'FAQPricingSection',           // Pricing-spezifische FAQs
+    'EnterpriseCTASection',        // Für Custom-Anfragen
+    'TrustSection',                // Sicherheits-Garantien
   ],
-  Footer: "MarketingFooter",
+  Footer: 'MarketingFooter',
 };
 ```
 
@@ -58,7 +53,6 @@ const PageStructure = {
 ## 📐 MOBILE-FIRST WIREFRAMES
 
 ### Mobile (375px)
-
 ```
 ┌─────────────────────────────────┐
 │  [Logo]          [Menü ☰]       │
@@ -117,7 +111,6 @@ const PageStructure = {
 ```
 
 ### Desktop (1920px)
-
 ```
 ┌───────────────────────────────────────────────────┐
 │  [Logo]      Features  Preise  Docs  Kontakt      │
@@ -157,7 +150,6 @@ const PageStructure = {
 ## 🎨 COMPONENT-BREAKDOWN
 
 ### Neu zu erstellen
-
 - [ ] `PricingHeroSection.tsx` (5min)
   - Kurz & prägnant
   - Keine CTAs (kommen in Tarif-Cards)
@@ -189,7 +181,6 @@ const PageStructure = {
   - 99,9% Uptime
 
 ### Wiederverwendbar
-
 - [x] `MarketingHeader`
 - [x] `MarketingFooter`
 - [x] `Badge`
@@ -202,30 +193,25 @@ const PageStructure = {
 ## 🔒 RECHTLICHE COMPLIANCE
 
 ### DSGVO
-
 - [x] Kein Datenschutzhinweis nötig (keine Formulare)
 - [x] Footer-Links vorhanden
 
 ### TMG § 5
-
 - [x] Impressum-Link (verpflichtend)
 - [x] AGB-Link (verpflichtend bei Preisen!)
 
 ### Preisangabenverordnung (PAngV)
-
 - [x] Bruttopreise anzeigen (inkl. MwSt.)
 - [x] Disclaimer: "Alle Preise zzgl. 19% MwSt."
 - [x] Mindestlaufzeit: "Monatlich kündbar"
 - [x] Kündigungsfrist: "Zum Monatsende"
 
 ### UWG (Wettbewerbsrecht)
-
 - [x] Keine "Ab"-Preise ohne Kontext
 - [x] Transparente Feature-Zuordnung
 - [x] Kein Kleingedrucktes mit versteckten Kosten
 
 ### Compliance-Matrix
-
 ```typescript
 const PricingPageCompliance = {
   DSGVO: {
@@ -234,7 +220,7 @@ const PricingPageCompliance = {
   },
   TMG: {
     impressum: true,
-    agb: true, // Verpflichtend!
+    agb: true,  // Verpflichtend!
   },
   PAngV: {
     bruttopreise: true,
@@ -253,31 +239,27 @@ const PricingPageCompliance = {
 ## 🔍 SEO-STRATEGIE
 
 ### Primary Keywords
-
 - MyDispatch Preise
 - Taxi Software Kosten
 - Dispositionssoftware Preis
 - Fuhrparkverwaltung Tarife
 
 ### Secondary Keywords
-
 - Taxi Software günstig
 - Mietwagenunternehmen Software Abo
 - Dispositionssoftware monatlich kündbar
 
 ### Meta-Tags
-
 ```html
 <title>MyDispatch Preise – Transparente Tarife ab 39 €/Monat</title>
-<meta
-  name="description"
+<meta 
+  name="description" 
   content="MyDispatch Tarife: Starter 39 €, Business 79 €, Enterprise 129 €. 
            Monatlich kündbar. Keine versteckten Kosten. 14 Tage kostenlos testen."
 />
 ```
 
 ### Structured Data (JSON-LD)
-
 ```json
 {
   "@context": "https://schema.org",
@@ -312,18 +294,15 @@ const PricingPageCompliance = {
 ## 📝 CONTENT-STRUKTUR
 
 ### Hero-Section
-
 **H1:** "Transparente Preise für jeden Bedarf"
 **P:** "Keine versteckten Kosten. Keine Mindestlaufzeit. Monatlich kündbar. Abonnieren ab 39 €/Monat."
 
 ### Tariffe-Section
-
 **H2:** "Wählen Sie den passenden Tarif"
 
 **Tarife (detailliert):**
 
 #### 1. STARTER – 39 €/Monat
-
 - ✅ Max. 10 Fahrzeuge
 - ✅ Max. 10 Fahrer
 - ✅ Unbegrenzt Aufträge
@@ -337,7 +316,6 @@ const PricingPageCompliance = {
 **Ideal für:** Kleine Taxiunternehmen, Einzelunternehmer
 
 #### 2. BUSINESS – 79 €/Monat ⭐ Empfohlen
-
 - ✅ Max. 50 Fahrzeuge
 - ✅ Max. 50 Fahrer
 - ✅ Unbegrenzt Aufträge
@@ -352,7 +330,6 @@ const PricingPageCompliance = {
 **Ideal für:** Mittelständische Unternehmen, Mietwagenfirmen
 
 #### 3. ENTERPRISE – 129 €/Monat
-
 - ✅ Unbegrenzt Fahrzeuge
 - ✅ Unbegrenzt Fahrer
 - ✅ Partner-Netzwerk
@@ -368,7 +345,6 @@ const PricingPageCompliance = {
 **Disclaimer:** "Alle Preise zzgl. 19% MwSt. Monatlich kündbar zum Monatsende. Keine Mindestlaufzeit."
 
 ### Feature-Matrix-Section
-
 **H2:** "Vollständiger Feature-Vergleich"
 
 **Tabelle:**
@@ -398,13 +374,11 @@ const PricingPageCompliance = {
 | Dedizierter Account-Manager | ❌ | ❌ | ✅ |
 
 **Legende:**
-
 - ✅ Enthalten
 - ⚠️ Eingeschränkt
 - ❌ Nicht verfügbar
 
 ### FAQ-Section
-
 **H2:** "Häufig gestellte Fragen zu Preisen"
 
 1. **Gibt es eine Mindestlaufzeit?**  
@@ -429,15 +403,12 @@ const PricingPageCompliance = {
    Custom-Lösungen, White-Label, API, dedizierter Support. Kontaktieren Sie uns für Details.
 
 ### Enterprise-CTA-Section
-
 **H2:** "Individuelle Lösung benötigt?"
 **P:** "Große Flotten, spezielle Anforderungen oder On-Premise Installation? Wir erstellen Ihnen ein individuelles Angebot."
 **CTA:** "Jetzt Kontakt aufnehmen"
 
 ### Trust-Section
-
 **H2:** "Unsere Garantien"
-
 - ✅ 14 Tage Geld-zurück-Garantie
 - ✅ 99,9% Uptime-Garantie
 - ✅ DSGVO-konform
@@ -465,20 +436,17 @@ GESAMT:                    75min
 ## ✅ TESTING-CHECKLISTE
 
 ### Responsive-Tests
-
 - [ ] Mobile: Tarif-Cards vertikal
 - [ ] Desktop: Tarif-Cards 3 Spalten
 - [ ] Feature-Matrix: Mobile Card-basiert, Desktop Tabelle
 
 ### Rechtliche-Tests
-
 - [ ] AGB-Link funktioniert
 - [ ] Disclaimer sichtbar
 - [ ] Preise inkl. MwSt.-Hinweis
 - [ ] Kündigungsfristen klar
 
 ### Conversion-Tests
-
 - [ ] CTAs prominent
 - [ ] Business-Tarif highlighted
 - [ ] Feature-Unterschiede klar
@@ -497,7 +465,6 @@ GESAMT:                    75min
 ## 📝 CHANGELOG
 
 ### V18.5.8 (2025-10-24)
-
 - **ERSTELLT:** Pricing Page Spezifikation
 
 ---

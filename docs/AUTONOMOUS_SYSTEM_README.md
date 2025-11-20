@@ -287,18 +287,21 @@ SELECT create_autonomous_task(
 ### Task erstellen (via Edge Function - empfohlen)
 
 ```typescript
-const { data, error } = await supabase.functions.invoke("create-autonomous-task", {
-  body: {
-    task_type: "performance_optimization",
-    description: "Memoize expensive components",
-    task_data: {
-      files: ["src/components/Dashboard.tsx"],
-      components: ["StatisticsCard", "RevenueChart"],
+const { data, error } = await supabase.functions.invoke(
+  "create-autonomous-task",
+  {
+    body: {
+      task_type: "performance_optimization",
+      description: "Memoize expensive components",
+      task_data: {
+        files: ["src/components/Dashboard.tsx"],
+        components: ["StatisticsCard", "RevenueChart"],
+      },
+      priority: 6,
+      autonomy_level: 2,
     },
-    priority: 6,
-    autonomy_level: 2,
-  },
-});
+  }
+);
 ```
 
 ---

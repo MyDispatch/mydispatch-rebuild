@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { StatusIndicator } from "./StatusIndicator";
+import type { Meta, StoryObj } from '@storybook/react';
+import { StatusIndicator } from './StatusIndicator';
 
 const meta: Meta<typeof StatusIndicator> = {
-  title: "Shared/StatusIndicator",
+  title: 'Shared/StatusIndicator',
   component: StatusIndicator,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     type: {
-      control: "select",
-      options: ["success", "warning", "error", "neutral", "info"],
+      control: 'select',
+      options: ['success', 'warning', 'error', 'neutral', 'info'],
     },
   },
 };
@@ -18,36 +18,36 @@ type Story = StoryObj<typeof StatusIndicator>;
 
 export const Success: Story = {
   args: {
-    type: "success",
-    label: "Completed",
+    type: 'success',
+    label: 'Completed',
   },
 };
 
 export const Warning: Story = {
   args: {
-    type: "warning",
-    label: "Pending",
+    type: 'warning',
+    label: 'Pending',
   },
 };
 
 export const Error: Story = {
   args: {
-    type: "error",
-    label: "Failed",
+    type: 'error',
+    label: 'Failed',
   },
 };
 
 export const Neutral: Story = {
   args: {
-    type: "neutral",
-    label: "Draft",
+    type: 'neutral',
+    label: 'Draft',
   },
 };
 
 export const Info: Story = {
   args: {
-    type: "info",
-    label: "In Progress",
+    type: 'info',
+    label: 'In Progress',
   },
 };
 

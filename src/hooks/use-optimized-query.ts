@@ -17,9 +17,9 @@
    });
    ================================================================================== */
 
-import { useQuery, useMutation, useQueryClient, QueryKey } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { logger } from "@/lib/logger";
+import { useQuery, useMutation, useQueryClient, QueryKey } from '@tanstack/react-query';
+import { toast } from 'sonner';
+import { logger } from '@/lib/logger';
 
 interface UseOptimizedQueryOptions<TData> {
   queryKey: QueryKey;
@@ -40,7 +40,7 @@ interface UseOptimizedMutationOptions<TData, TVariables> {
 
 /**
  * Optimized Query Hook mit Best-Practice Defaults
- *
+ * 
  * @example
  * const { data, isLoading } = useOptimizedQuery({
  *   queryKey: ['bookings'],
@@ -69,7 +69,7 @@ export function useOptimizedQuery<TData = unknown>({
 
 /**
  * Optimized Mutation Hook mit Optimistic Updates
- *
+ * 
  * @example
  * const { mutate } = useOptimizedMutation({
  *   mutationFn: (data) => supabase.from('bookings').insert(data),
@@ -82,7 +82,7 @@ export function useOptimizedMutation<TData = unknown, TVariables = unknown>({
   mutationFn,
   queryKey,
   onSuccessMessage,
-  onErrorMessage = "Ein Fehler ist aufgetreten",
+  onErrorMessage = 'Ein Fehler ist aufgetreten',
   optimisticUpdate,
 }: UseOptimizedMutationOptions<TData, TVariables>) {
   const queryClient = useQueryClient();
@@ -114,9 +114,9 @@ export function useOptimizedMutation<TData = unknown, TVariables = unknown>({
       if (context?.previousData && queryKey) {
         queryClient.setQueryData(queryKey, context.previousData);
       }
-
+      
       toast.error(onErrorMessage);
-      logger.error("Mutation error", error as Error, { component: "useOptimizedMutation" });
+      logger.error('Mutation error', error as Error, { component: 'useOptimizedMutation' });
     },
     onSuccess: () => {
       if (onSuccessMessage) {

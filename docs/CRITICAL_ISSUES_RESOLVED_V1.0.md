@@ -9,40 +9,34 @@
 ## Issue #1: Hallucinated Function (Duplicate Entry)
 
 ### Details
-
 - **Issue Type:** `hallucinated_function`
 - **Severity:** Critical
 - **Occurrences:** 0 (Prevented)
 - **Tags:** `hallucination`, `functions`
 
 ### Problem
-
 AI creates functions that don't exist in codebase, leading to import errors and runtime failures.
 
 ### Solution
-
 Always check `component_registry` and `code_snippets` before creating new functions.
 
 ### Prevention Checklist
-
 ✅ **MANDATORY Steps:**
-
 1. Check `filesExplorer.md` for existing files
 2. Query `component_registry` table for component existence
 3. Search `code_snippets` for similar patterns
 4. **NEVER code from memory** - always validate against knowledge_base
 
 ### Implementation
-
 ```typescript
 // Before creating ANY new component/function:
 const { data: existing } = await supabase
-  .from("component_registry")
-  .select("*")
-  .ilike("component_name", "%ButtonName%");
+  .from('component_registry')
+  .select('*')
+  .ilike('component_name', '%ButtonName%');
 
 if (existing && existing.length > 0) {
-  throw new Error("Component already exists! Use existing component.");
+  throw new Error('Component already exists! Use existing component.');
 }
 ```
 
@@ -51,24 +45,19 @@ if (existing && existing.length > 0) {
 ## Issue #2: Hallucinated Function V2 (Critical Variant)
 
 ### Details
-
 - **Issue Type:** `hallucinated_function`
 - **Severity:** Critical
 - **Occurrences:** 0 (Prevented)
 - **Tags:** `hallucination`, `functions`, `critical`
 
 ### Problem
-
 Enhanced variant with query knowledge_base for similar patterns requirement.
 
 ### Solution
-
 Always check `component_registry`, `code_snippets`, **AND** query `knowledge_base` for similar patterns.
 
 ### Prevention Checklist
-
 ✅ **MANDATORY Steps:**
-
 1. Check `filesExplorer.md`
 2. Query `component_registry`
 3. Search `code_snippets`
@@ -76,18 +65,17 @@ Always check `component_registry`, `code_snippets`, **AND** query `knowledge_bas
 5. Never code from memory
 
 ### Implementation
-
 ```typescript
 // Enhanced Check with Knowledge Base
 const { data: kbPatterns } = await supabase
-  .from("knowledge_base")
-  .select("*")
-  .contains("tags", ["component", "button"])
-  .order("confidence_score", { ascending: false })
+  .from('knowledge_base')
+  .select('*')
+  .contains('tags', ['component', 'button'])
+  .order('confidence_score', { ascending: false })
   .limit(5);
 
 if (kbPatterns && kbPatterns.length > 0) {
-  console.log("Found similar patterns in KB:", kbPatterns);
+  console.log('Found similar patterns in KB:', kbPatterns);
   // Use existing pattern instead of creating new one
 }
 ```
@@ -97,31 +85,25 @@ if (kbPatterns && kbPatterns.length > 0) {
 ## Issue #3: RLS Violation
 
 ### Details
-
 - **Issue Type:** `rls_violation`
 - **Severity:** Critical
 - **Occurrences:** 0 (Prevented)
 - **Tags:** `security`, `rls`, `database`
 
 ### Problem
-
 New tables created without Row Level Security (RLS) enabled, exposing data.
 
 ### Solution
-
 Enable RLS immediately: `ALTER TABLE table_name ENABLE ROW LEVEL SECURITY`
 
 ### Prevention Checklist
-
 ✅ **MANDATORY Steps:**
-
 1. **Run `supabase--linter` after EVERY migration**
 2. Enable RLS on ALL new tables immediately
 3. Create CRUD policies for all operations
 4. Test with different user roles
 
 ### Implementation
-
 ```sql
 -- MANDATORY for EVERY new table:
 ALTER TABLE new_table_name ENABLE ROW LEVEL SECURITY;
@@ -143,31 +125,25 @@ WITH CHECK (auth.uid() = user_id);
 ## Issue #4: RLS Violation V2 (Extended)
 
 ### Details
-
 - **Issue Type:** `rls_violation`
 - **Severity:** Critical
 - **Occurrences:** 0 (Prevented)
 - **Tags:** `security`, `rls`, `database`
 
 ### Problem
-
 Extended RLS violation with comprehensive policy requirements.
 
 ### Solution
-
 Always enable RLS immediately after table creation, then create appropriate policies.
 
 ### Prevention Checklist
-
 ✅ **MANDATORY Steps:**
-
 1. Run `supabase--linter` after migrations
 2. Enable RLS on EVERY new table
 3. Create policies for **ALL CRUD operations** (SELECT, INSERT, UPDATE, DELETE)
 4. Test with different user roles
 
 ### Implementation
-
 ```sql
 -- Full CRUD Policy Set:
 ALTER TABLE new_table_name ENABLE ROW LEVEL SECURITY;
@@ -194,21 +170,18 @@ FOR DELETE USING (auth.uid() = user_id);
 ## 🎯 ZERO-HALLUCINATION STRATEGY
 
 ### Success Metrics
-
 - ✅ **Critical Issues:** 0/4 (Target: 0)
 - ✅ **Hallucination Rate:** < 1%
 - ✅ **Knowledge Check Compliance:** 100%
 - ✅ **RLS Compliance:** 100%
 
 ### Implementation Status
-
 1. **Prevention Checklists:** ✅ Implemented (All 4 Issues)
 2. **Component Registry Check:** ✅ Implemented (`useNeXifyWiki`)
 3. **Knowledge Base Query:** ✅ Implemented (`brain-query`)
 4. **RLS Linter Integration:** ✅ Available (`supabase--linter`)
 
 ### Auto-Prevention Tools
-
 - `brain-query` Edge Function: Auto-loads knowledge on session init
 - `useNeXifyWiki` Hook: Client-side Wiki access
 - `WikiProvider` Context: Global Wiki state
@@ -221,30 +194,25 @@ FOR DELETE USING (auth.uid() = user_id);
 
 **Datum:** 2025-01-31  
 **Severity:** HIGH  
-**Status:** ✅ RESOLVED
+**Status:** ✅ RESOLVED  
 
 ### Problem:
-
 WikiDashboard nutzte `ui/button` (shadcn) statt `V28Button`:
-
 - ❌ Kein blauer Hintergrund (Default: Beige)
 - ❌ Kein weißer Text (Default: Dunkel)
 - ❌ Nicht Master-Design-konform
 
 ### Root Cause:
-
 - Automatische Imports von shadcn statt V28Button
 - Fehlende Import-Guard im Dashboard
 - Nicht dokumentiert in NEXIFY_WIKI_V1.0.md
 
 ### Solution:
-
 1. ✅ Migriere WikiDashboard → V28Button (2 Buttons)
 2. ✅ Dokumentiere Button-System im Wiki
 3. ✅ Füge Prevention Checklist hinzu
 
 ### Prevention Checklist:
-
 ```typescript
 // VOR jedem Button-Import:
 const isInternalPage = file.includes('Dashboard') || file.includes('pages/');
@@ -252,7 +220,7 @@ const isInternalPage = file.includes('Dashboard') || file.includes('pages/');
 if (isInternalPage) {
   // ✅ IMMER V28Button verwenden:
   import { V28Button } from '@/components/design-system/V28Button';
-
+  
   // ❌ NIEMALS ui/button:
   // import { Button } from '@/components/ui/button'; // VERBOTEN!
 }
@@ -263,7 +231,6 @@ grep -r "from '@/components/ui/button'" src/pages/**/*.tsx
 ```
 
 ### Validation:
-
 ```bash
 # Nach Migration prüfen:
 grep -r "ui/button" src/pages/WikiDashboard.tsx
@@ -274,24 +241,22 @@ grep -r "V28Button" src/pages/WikiDashboard.tsx
 ```
 
 ### Success Criteria:
-
 ✅ WikiDashboard nutzt 100% V28Button  
 ✅ Build Graph Button: bg-slate-700, text-white  
 ✅ Sync Wiki Button: bg-slate-100, text-slate-900  
-✅ Hover-States korrekt (weiß bleibt weiß)
+✅ Hover-States korrekt (weiß bleibt weiß)  
 
 ---
 
 ## 📊 MONITORING & METRICS
 
 ### Critical Issue Tracking
-
 ```sql
 -- Query current Critical Issues:
-SELECT
-  issue_type,
-  severity,
-  occurrences,
+SELECT 
+  issue_type, 
+  severity, 
+  occurrences, 
   resolved,
   prevention_checklist
 FROM known_issues
@@ -300,13 +265,11 @@ ORDER BY occurrences DESC;
 ```
 
 ### Expected Result
-
 ```
 0 rows returned (Zero Critical Issues = SUCCESS!)
 ```
 
 ### Resolution Timeline
-
 - **2025-01-30:** 4 Critical Issues identified
 - **2025-01-30:** Prevention Checklists implemented
 - **2025-01-30:** Auto-Prevention Tools deployed
@@ -319,14 +282,12 @@ ORDER BY occurrences DESC;
 Before ANY component/table creation:
 
 ### Component Creation
-
 - [ ] Check `component_registry` for existing component
 - [ ] Query `knowledge_base` for similar patterns
 - [ ] Search `code_snippets` for reusable code
 - [ ] Validate against `filesExplorer.md`
 
 ### Database Table Creation
-
 - [ ] Run `supabase--linter` BEFORE migration
 - [ ] Enable RLS immediately after table creation
 - [ ] Create ALL CRUD policies (SELECT, INSERT, UPDATE, DELETE)
@@ -334,7 +295,6 @@ Before ANY component/table creation:
 - [ ] Test with different user roles
 
 ### Knowledge Base Usage
-
 - [ ] Load Wiki via `useNeXifyWiki()` hook
 - [ ] Check `criticalIssues` before implementation
 - [ ] Apply `bestPractices` from knowledge_base

@@ -9,21 +9,21 @@
  * ==================================================================================
  */
 
-import { X, ChevronDown } from "lucide-react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { cn } from "@/lib/utils";
+import { X, ChevronDown } from 'lucide-react';
+import { V28Button } from '@/components/design-system/V28Button';
+import { cn } from '@/lib/utils';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
 export interface BulkAction {
   label: string;
   icon: React.ComponentType<{ className?: string }>;
   onClick: () => void;
-  variant?: "default" | "destructive" | "outline" | "secondary";
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary';
   disabled?: boolean;
   showCount?: boolean; // Show selected count in button label
 }
@@ -54,8 +54,8 @@ export function BulkActionBar({
     <div
       className={cn(
         // Floating Badge rechts oben über dem Content
-        "fixed top-20 right-6 z-40",
-        "animate-in slide-in-from-top-2 fade-in duration-300",
+        'fixed top-20 right-6 z-40',
+        'animate-in slide-in-from-top-2 fade-in duration-300',
         className
       )}
     >
@@ -69,7 +69,11 @@ export function BulkActionBar({
         {/* Actions Dropdown */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <V28Button variant="secondary" size="sm" className="gap-1">
+            <V28Button
+              variant="secondary"
+              size="sm"
+              className="gap-1"
+            >
               Aktionen
               <ChevronDown className="h-3 w-3" />
             </V28Button>
@@ -96,7 +100,12 @@ export function BulkActionBar({
         </DropdownMenu>
 
         {/* Clear Selection */}
-        <V28Button variant="secondary" size="sm" onClick={onClearSelection} className="gap-1">
+        <V28Button
+          variant="secondary"
+          size="sm"
+          onClick={onClearSelection}
+          className="gap-1"
+        >
           <X className="h-4 w-4" />
           <span className="sr-only">Auswahl aufheben</span>
         </V28Button>

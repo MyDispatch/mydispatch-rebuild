@@ -1,6 +1,6 @@
 /**
  * V28 Textarea - Mehrzeiliges Eingabefeld
- *
+ * 
  * Features:
  * - Label Support
  * - Error State Handling
@@ -9,10 +9,10 @@
  * - Semantic Color Tokens
  */
 
-import { forwardRef } from "react";
-import { cn } from "@/lib/utils";
-import { Textarea } from "@/lib/compat";
-import { typography } from "@/lib/design-system";
+import { forwardRef } from 'react';
+import { cn } from '@/lib/utils';
+import { Textarea } from '@/lib/compat';
+import { typography } from '@/lib/design-system';
 
 export interface V28TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   /** Optional Label-Text */
@@ -28,70 +28,72 @@ export interface V28TextareaProps extends React.TextareaHTMLAttributes<HTMLTextA
 }
 
 export const V28Textarea = forwardRef<HTMLTextAreaElement, V28TextareaProps>(
-  (
-    {
-      className,
-      error,
-      label,
-      helperText,
-      showCharacterCount = false,
-      fullWidth = true,
-      maxLength,
-      value,
-      ...props
-    },
-    ref
-  ) => {
+  ({ 
+    className, 
+    error, 
+    label, 
+    helperText, 
+    showCharacterCount = false,
+    fullWidth = true,
+    maxLength,
+    value,
+    ...props 
+  }, ref) => {
     const textareaId = props.id || `textarea-${Math.random().toString(36).substr(2, 9)}`;
-    const currentLength = typeof value === "string" ? value.length : 0;
+    const currentLength = typeof value === 'string' ? value.length : 0;
 
     return (
-      <div className={cn("space-y-2", fullWidth && "w-full")}>
+      <div className={cn('space-y-2', fullWidth && 'w-full')}>
         {label && (
           <div className="flex items-center justify-between">
-            <label htmlFor={textareaId} className={cn(typography.label, "text-foreground")}>
+            <label 
+              htmlFor={textareaId}
+              className={cn(typography.label, 'text-foreground')}
+            >
               {label}
               {props.required && <span className="text-status-error ml-1">*</span>}
             </label>
-
+            
             {showCharacterCount && maxLength && (
-              <span
-                className={cn(
-                  typography.caption,
-                  currentLength > maxLength ? "text-status-error" : "text-muted-foreground"
-                )}
-              >
+              <span className={cn(
+                typography.caption,
+                currentLength > maxLength ? 'text-status-error' : 'text-muted-foreground'
+              )}>
                 {currentLength} / {maxLength}
               </span>
             )}
           </div>
         )}
-
+        
         <Textarea
           ref={ref}
           id={textareaId}
           value={value}
           maxLength={maxLength}
-          className={cn(error && "border-status-error focus-visible:ring-status-error", className)}
+          className={cn(
+            error && 'border-status-error focus-visible:ring-status-error',
+            className
+          )}
           aria-invalid={!!error}
-          aria-describedby={
-            error ? `${textareaId}-error` : helperText ? `${textareaId}-helper` : undefined
-          }
+          aria-describedby={error ? `${textareaId}-error` : helperText ? `${textareaId}-helper` : undefined}
           {...props}
         />
-
+        
         {error && (
-          <p
+          <p 
             id={`${textareaId}-error`}
-            className={cn(typography.caption, "text-status-error")}
+            className={cn(typography.caption, 'text-status-error')}
             role="alert"
           >
             {error}
           </p>
         )}
-
+        
         {helperText && !error && (
-          <p id={`${textareaId}-helper`} className={typography.caption}>
+          <p 
+            id={`${textareaId}-helper`}
+            className={typography.caption}
+          >
             {helperText}
           </p>
         )}
@@ -100,4 +102,4 @@ export const V28Textarea = forwardRef<HTMLTextAreaElement, V28TextareaProps>(
   }
 );
 
-V28Textarea.displayName = "V28Textarea";
+V28Textarea.displayName = 'V28Textarea';

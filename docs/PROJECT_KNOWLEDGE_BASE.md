@@ -1,5 +1,4 @@
 # 📚 PROJECT KNOWLEDGE BASE - MyDispatch Ultimate Guide
-
 ## Zentrale Wissensquelle für AI-gesteuerte, fehlerfreie Entwicklung
 
 **Version:** V1.1.0  
@@ -12,11 +11,9 @@
 ## 🎯 1. MISSION & ZIELSETZUNG
 
 ### Grundprinzip
-
 **Immer höchste Qualität, Fehlerfreiheit, Konsistenz von Code, Doku, Abläufen – und permanente Verbesserung!**
 
 ### Technik-Stack
-
 - **React 18.3+** mit TypeScript (strict mode)
 - **Vite 5.x** Build-Tool
 - **TailwindCSS** + Design System V28.1
@@ -27,7 +24,6 @@
 - **WCAG 2.1 AA** Accessibility
 
 ### Core-Prinzipien
-
 1. **SSoT** - Single Source of Truth für ALLE Daten
 2. **DRY** - Don't Repeat Yourself
 3. **Configuration over Code** - Alles in Config-Files
@@ -41,28 +37,24 @@
 ## 🏗️ 2. ARCHITEKTUR & STRUKTUR
 
 ### Design System V28.1 (EINZIGE QUELLE!)
-
 **Location:** `/src/lib/design-system/unified-design-tokens-v28.ts`
 
-**Regel:**
-
+**Regel:** 
 - ❌ NIEMALS hardcoded colors/spacing im Code
 - ✅ IMMER Design Tokens nutzen
 - ✅ Alte Design Systems (V26, V27) nur historisch
 
 **Tokens:**
-
 ```typescript
 PRIMARY_COLORS_V28 = {
-  primary: "hsl(215, 16%, 47%)", // Professional Gray-Blue
-  primaryLight: "hsl(215, 25%, 96%)", // Very Light BG
-  slate50: "hsl(210, 40%, 98%)", // Canvas
+  primary: 'hsl(215, 16%, 47%)',      // Professional Gray-Blue
+  primaryLight: 'hsl(215, 25%, 96%)', // Very Light BG
+  slate50: 'hsl(210, 40%, 98%)',      // Canvas
   // ... siehe unified-design-tokens-v28.ts
-};
+}
 ```
 
 ### Component Library Struktur
-
 **Regel:** KEINE Components außerhalb der Library!
 
 ```
@@ -78,16 +70,13 @@ PRIMARY_COLORS_V28 = {
 ```
 
 **Pflicht-Checks vor neuer Component:**
-
 1. ✅ `COMPONENT_REGISTRY.md` prüfen
 2. ✅ `filesExplorer.md` für Pfade prüfen
 3. ✅ Ähnliche Components suchen
 4. ✅ Nur wenn NICHT existiert → neu erstellen
 
 ### Single Source of Truth Pattern
-
 **Config-Files für ALLE Daten:**
-
 - `/config/design-tokens.ts` - Design System
 - `/config/routes.config.tsx` - Routing
 - `/lib/pricing/single-source.ts` - Pricing Data
@@ -100,7 +89,6 @@ PRIMARY_COLORS_V28 = {
 ## 💻 3. CODING-PRINZIPIEN
 
 ### A. Type-Safety (STRIKT)
-
 ```typescript
 // ❌ FALSCH
 const user: any = getUserData();
@@ -115,13 +103,11 @@ const user: User = getUserData();
 ```
 
 **Regel:**
-
 - ❌ NIEMALS `any` verwenden
 - ✅ IMMER explizite Types/Interfaces
 - ✅ Strict Mode in tsconfig.json
 
 ### B. Error Handling (Multi-Layer)
-
 ```typescript
 // ALLE States abdecken:
 - Loading State
@@ -131,25 +117,22 @@ const user: User = getUserData();
 ```
 
 **Pattern:**
-
 ```typescript
-import { handleError, handleSuccess } from "@/lib/error-handler";
+import { handleError, handleSuccess } from '@/lib/error-handler';
 
 try {
   const data = await fetchData();
-  handleSuccess("Daten geladen");
+  handleSuccess('Daten geladen');
 } catch (error) {
-  handleError(error, "Fehler beim Laden", {
+  handleError(error, 'Fehler beim Laden', {
     showToast: true,
-    logToSupabase: true,
+    logToSupabase: true
   });
 }
 ```
 
 ### C. Testing (80%+ Coverage PFLICHT)
-
 **Test-Arten:**
-
 1. **Unit Tests** - Alle Components, Utils, Hooks
 2. **Integration Tests** - API Calls, State Management
 3. **E2E Tests** - Critical User Flows (Playwright)
@@ -157,7 +140,6 @@ try {
 5. **Visual Regression** - Screenshots aller Breakpoints
 
 **Checklist:**
-
 - □ Test Coverage > 80%
 - □ Alle Props getestet
 - □ Alle States getestet
@@ -165,9 +147,7 @@ try {
 - □ Accessibility Tests durchgeführt
 
 ### D. Performance (Budget Enforcement)
-
 **Budgets:**
-
 ```
 Lighthouse Score:    > 90
 Bundle Size:         < 250kB (initial)
@@ -178,29 +158,25 @@ CLS (Layout Shift):  < 0.1
 ```
 
 **Optimierungen:**
-
 - Lazy Loading für Routes
 - Code Splitting für Vendor Chunks
 - Optimierte Images (WebP, responsive)
 - Tree Shaking für unused code
 
 ### E. Security (KRITISCH)
-
 **Input Validation:**
-
 ```typescript
-import { z } from "zod";
+import { z } from 'zod';
 
 const userSchema = z.object({
   email: z.string().email().max(255),
-  name: z.string().trim().min(1).max(100),
+  name: z.string().trim().min(1).max(100)
 });
 
 // Client-side AND Server-side validation!
 ```
 
 **Checklist:**
-
 - □ Input Validation (Client + Server)
 - □ SQL Injection Prevention (Supabase RLS)
 - □ XSS Prevention (DOMPurify für HTML)
@@ -209,9 +185,7 @@ const userSchema = z.object({
 - □ Keine Secrets im Code
 
 ### F. Accessibility (WCAG 2.1 AA)
-
 **Standards:**
-
 - Semantic HTML (`<header>`, `<main>`, `<nav>`)
 - ARIA Labels wo nötig
 - Keyboard Navigation
@@ -220,7 +194,6 @@ const userSchema = z.object({
 - Touch Targets min. 44x44px
 
 **Testing:**
-
 - axe-core für automatische Tests
 - Manual Testing mit Keyboard
 - Screen Reader Testing (NVDA, VoiceOver)
@@ -230,11 +203,9 @@ const userSchema = z.object({
 ## 📋 4. WORKFLOW & PROZESSE
 
 ### AAA-Standard Workflow (VERPFLICHTEND)
-
 **Siehe:** `docs/AAA_STANDARD_WORKFLOW.md`
 
 **Zusammenfassung:**
-
 1. **Pre-Implementation** (7 Schritte)
    - PROJECT_MEMORY.md lesen
    - COMPONENT_REGISTRY.md prüfen
@@ -267,42 +238,35 @@ const userSchema = z.object({
    - Self-Review Bestätigung
 
 ### 3-Phasen-Implementierung
-
 **Regel:** Phasen NACHEINANDER, nie parallel!
 
 **Phase 1: Planung**
-
 - Requirements analysieren
 - Component-Struktur planen
 - Design System Tokens festlegen
 - Dokumentation schreiben
 
 **Phase 2: Component-Erstellung**
-
 - Components nach Checklist erstellen
 - Tests schreiben
 - Storybook/Usage Guide
 - COMPONENT_REGISTRY.md updaten
 
 **Phase 3: Seitenbau**
-
 - Seiten aus Components zusammensetzen
 - Responsive Testing
 - Accessibility Testing
 - Performance Testing
 
 ### Triple-Check Enforcement
-
 **Siehe:** `docs/AAA-TRIPLE-CHECK_PROMPT.md`
 
 **Ebenen:**
-
 1. **Technical Review** - Imports, Types, Halluzinations
 2. **Logical Review** - Patterns, DRY, System Impact
 3. **Quality Review** - Security, Tests, Performance
 
 **Bei JEDEM Fehler:**
-
 - Sofort korrigieren
 - AVOIDABLE_ERRORS.md updaten
 - LESSONS_LEARNED.md erweitern
@@ -313,7 +277,6 @@ const userSchema = z.object({
 ## 📚 5. DOKUMENTATIONS-SYSTEM
 
 ### Pflicht-Dokumente (IMMER aktuell halten!)
-
 1. **PROJECT_MEMORY.md** - Haupt-Gedächtnis
 2. **COMPONENT_REGISTRY.md** - Alle Components
 3. **filesExplorer.md** - File-Struktur
@@ -323,19 +286,15 @@ const userSchema = z.object({
 7. **AAA_STANDARD_WORKFLOW.md** - Standard Workflow
 
 ### Dokumentations-Regeln
-
 **JEDE Änderung erfordert:**
-
 - Eintrag in CHANGELOG.md
 - Update relevanter Docs
 - Lessons Learned wenn applicable
 - Commit-Message mit Kontext
 
 **Format:**
-
 ```markdown
 ## [2025-10-28] Feature/Fix Description
-
 **Was:** Kurze Beschreibung
 **Warum:** Motivation/Problem
 **Wie:** Implementation Details
@@ -348,7 +307,6 @@ const userSchema = z.object({
 ## 🎨 6. MOBILE-FIRST & RESPONSIVENESS
 
 ### Breakpoints (Tailwind)
-
 ```css
 sm:  640px   /* Small Tablet */
 md:  768px   /* Tablet */
@@ -358,7 +316,6 @@ xl:  1280px  /* Large Desktop */
 ```
 
 ### Mobile-First Pattern
-
 ```tsx
 // Start with mobile, add desktop
 <div className="px-4 py-6 md:px-8 md:py-12 lg:px-12 lg:py-16">
@@ -369,7 +326,6 @@ xl:  1280px  /* Large Desktop */
 ```
 
 ### Touch Targets
-
 **Regel:** ALLE interaktiven Elemente min. 44x44px
 
 ```tsx
@@ -381,7 +337,6 @@ xl:  1280px  /* Large Desktop */
 ```
 
 ### Responsive Testing Pflicht
-
 - □ iPhone SE (375px)
 - □ iPhone 12/13 (390px)
 - □ iPad (768px)
@@ -393,28 +348,24 @@ xl:  1280px  /* Large Desktop */
 ## ✍️ 7. TEXT & COPY GUIDELINES
 
 ### Tone of Voice
-
 - **Klar** - Verständlich ohne Fachjargon
 - **Wertschätzend** - Respektvoll zu Nutzern
 - **Konsistent** - Einheitliche Begriffe
 - **Gendersensibel** - Inklusiv (Fahrer:innen, Nutzer:innen)
 
 ### Button Labels
-
 ```
 ✅ Klare Aktion: "Auftrag erstellen", "Fahrer hinzufügen"
 ❌ Vage: "OK", "Weiter", "Speichern"
 ```
 
 ### Error Messages
-
 ```
 ✅ Hilfreich: "E-Mail ungültig. Bitte Format prüfen: name@firma.de"
 ❌ Technisch: "Validation error: email format invalid"
 ```
 
 ### Pflicht-Guide
-
 **Siehe:** `docs/TEXT_GUIDELINE.md` (zu erstellen)
 
 ---
@@ -422,9 +373,7 @@ xl:  1280px  /* Large Desktop */
 ## 🤖 8. AI & PROMPT MANAGEMENT
 
 ### Meta-Prompting Pattern
-
 **Struktur:**
-
 1. **Kontext** - Was ist der Hintergrund?
 2. **Aufgabe** - Was soll gemacht werden?
 3. **Regeln** - Welche Standards gelten?
@@ -434,11 +383,9 @@ xl:  1280px  /* Large Desktop */
 7. **Lessons Learned** - Was lernen wir daraus?
 
 ### Prompt-Versionierung
-
 **Regel:** Alle erfolgreichen Prompts als Vorlagen speichern
 
 **Format:**
-
 ```
 /docs/prompts/
 ├─ component-creation-v1.md
@@ -447,9 +394,7 @@ xl:  1280px  /* Large Desktop */
 ```
 
 ### AI Knowledge Workflow
-
 **Bei neuem Pattern/Learning:**
-
 1. In LESSONS_LEARNED.md dokumentieren
 2. Pattern extrahieren
 3. Als Prompt-Template speichern
@@ -461,19 +406,15 @@ xl:  1280px  /* Large Desktop */
 ## 🔄 9. FEHLERKULTUR & CONTINUOUS IMPROVEMENT
 
 ### Fehler-Philosophie
-
 **"Jeder Fehler ist ein Lernpunkt!"**
 
 ### Fehler-Protokoll
-
 **JEDER Fehler wird dokumentiert in:**
-
 1. **AVOIDABLE_ERRORS.md** - Was/Warum/Prevention
 2. **LESSONS_LEARNED.md** - Pattern für Zukunft
 3. **Commit-Message** - Transparenz
 
 ### Verbesserungs-Zyklus
-
 1. Fehler erkennen
 2. Root Cause analysieren
 3. Prevention Pattern definieren
@@ -482,7 +423,6 @@ xl:  1280px  /* Large Desktop */
 6. Bei nächstem Task anwenden
 
 ### Success Metrics
-
 - **Fehler-Reduktion:** -20% pro Sprint
 - **Code Coverage:** > 80%
 - **Performance Score:** > 90
@@ -494,7 +434,6 @@ xl:  1280px  /* Large Desktop */
 ## 📊 10. QUALITY GATES & ENFORCEMENT
 
 ### Pre-Commit Checks (Automatisch)
-
 ```bash
 npm run lint         # ESLint
 npm run type-check   # TypeScript
@@ -503,7 +442,6 @@ npm run build        # Build Test
 ```
 
 ### Pre-PR Checks (Mandatory)
-
 - □ Alle Tests passing
 - □ Coverage > 80%
 - □ Keine TypeScript Errors
@@ -513,7 +451,6 @@ npm run build        # Build Test
 - □ Docs updated
 
 ### Pre-Production Checks
-
 - □ E2E Tests passed
 - □ Security Scan passed
 - □ Lighthouse Score > 90
@@ -525,20 +462,16 @@ npm run build        # Build Test
 ## 🚀 11. CI/CD PIPELINE
 
 ### GitHub Actions Workflows
-
 **Files:**
-
 - `.github/workflows/ci.yml` - Main Pipeline
 - `.github/workflows/deploy-preview.yml` - Preview Deploy
 
 **Steps:**
-
 1. Lint → Type-Check → Unit Tests → Build → E2E Tests
 2. Quality Gates (Coverage, Performance)
 3. Deploy (Auto bei passing tests)
 
 ### Environments
-
 - **Development** (localhost) - Freie Entwicklung
 - **Staging** (Preview) - PR Review erforderlich
 - **Production** (Live) - Manual Approval + Smoke Tests
@@ -548,16 +481,13 @@ npm run build        # Build Test
 ## 📖 12. KNOWLEDGE BASE MAINTENANCE
 
 ### Update-Frequenz
-
 - **Daily:** PROJECT_MEMORY.md, CHANGELOG.md
 - **Per Task:** COMPONENT_REGISTRY.md, filesExplorer.md
 - **Per Lesson:** LESSONS_LEARNED.md, AVOIDABLE_ERRORS.md
 - **Per Sprint:** Full Docs Review
 
 ### Versionierung
-
 **Pattern:** Semantic Versioning für Docs
-
 ```
 V1.0.0 - Initial Release
 V1.1.0 - New Patterns Added
@@ -566,9 +496,7 @@ V2.0.0 - Major Refactoring
 ```
 
 ### Review-Zyklus
-
 **Monatlich:**
-
 - Alle Docs auf Aktualität prüfen
 - Obsolete Patterns entfernen
 - Neue Best Practices ergänzen
@@ -579,7 +507,6 @@ V2.0.0 - Major Refactoring
 ## ⚠️ 13. KRITISCHE VERBOTE
 
 ### Code
-
 - ❌ NIEMALS `any` in TypeScript
 - ❌ NIEMALS hardcoded colors/spacing
 - ❌ NIEMALS Components außerhalb Library
@@ -587,7 +514,6 @@ V2.0.0 - Major Refactoring
 - ❌ NIEMALS unvalidierte User-Inputs
 
 ### Prozess
-
 - ❌ NIEMALS ohne Pre-Implementation Checks
 - ❌ NIEMALS ohne Self-Review Loop
 - ❌ NIEMALS ohne Tests (min. 80%)
@@ -595,7 +521,6 @@ V2.0.0 - Major Refactoring
 - ❌ NIEMALS ohne Lessons Learned
 
 ### Workflow
-
 - ❌ NIEMALS direkt zu Production pushen
 - ❌ NIEMALS ohne PR Review
 - ❌ NIEMALS ohne Quality Gates
@@ -606,7 +531,6 @@ V2.0.0 - Major Refactoring
 ## ✅ 14. ERFOLGS-CHECKLISTE
 
 ### Vor JEDER Implementation
-
 - □ PROJECT_MEMORY.md vollständig gelesen
 - □ COMPONENT_REGISTRY.md geprüft
 - □ filesExplorer.md durchgegangen
@@ -617,7 +541,6 @@ V2.0.0 - Major Refactoring
 - □ Self-Review bestanden
 
 ### Nach JEDER Implementation
-
 - □ CHANGELOG.md updated
 - □ LESSONS_LEARNED.md erweitert (wenn applicable)
 - □ COMPONENT_REGISTRY.md aktualisiert
@@ -630,20 +553,17 @@ V2.0.0 - Major Refactoring
 ## 🔗 15. REFERENZEN & QUICK-LINKS
 
 ### Essential Docs (DAILY)
-
 - `docs/PROJECT_MEMORY.md` - 🧠 Haupt-Gedächtnis
 - `docs/AAA_STANDARD_WORKFLOW.md` - 📋 Workflow
 - `docs/COMPONENT_REGISTRY.md` - 📦 Components
 - `docs/filesExplorer.md` - 📁 File-Struktur
 
 ### Learning Docs (PER TASK)
-
 - `docs/LESSONS_LEARNED.md` - ✅ Success Patterns
 - `docs/AVOIDABLE_ERRORS.md` - ❌ Error Prevention
 - `docs/AAA-TRIPLE-CHECK_PROMPT.md` - 🔴 Quality Gate
 
 ### Technical Docs (AS NEEDED)
-
 - `docs/03-DEVELOPMENT/Deployment.md` - 🚀 CI/CD
 - `src/lib/design-system/unified-design-tokens-v28.ts` - 🎨 Tokens
 - `config/routes.config.tsx` - 🛣️ Routing
@@ -653,7 +573,6 @@ V2.0.0 - Major Refactoring
 ## 📈 16. METRIKEN & MONITORING
 
 ### Code Quality
-
 ```
 TypeScript Strict:     ✅ Enabled
 ESLint Errors:         0
@@ -663,7 +582,6 @@ Complexity Score:      < 10
 ```
 
 ### Performance
-
 ```
 Lighthouse:            > 90
 Bundle Size:           < 250kB
@@ -673,7 +591,6 @@ CLS:                   < 0.1
 ```
 
 ### Accessibility
-
 ```
 WCAG 2.1 AA:          100%
 Axe-core Violations:   0

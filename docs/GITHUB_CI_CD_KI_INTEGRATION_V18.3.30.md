@@ -9,7 +9,6 @@ MyDispatch nutzt **intelligente KI-gestützte Code-Reviews** mit **Claude Sonnet
 ## 🎯 Features
 
 ### 1. Automatische Code-Review (AI)
-
 - ✅ **Design System Compliance** (keine `accent`, `text-white` etc.)
 - ✅ **Security Best Practices** (company_id Filter, Soft-Delete, Input Validation)
 - ✅ **TypeScript Patterns** (Type-Safety, keine console.logs)
@@ -17,13 +16,11 @@ MyDispatch nutzt **intelligente KI-gestützte Code-Reviews** mit **Claude Sonnet
 - ✅ **Performance** (React Query, Defensive Coding)
 
 ### 2. Intelligente Severity-Klassifizierung
-
 - 🚨 **Critical:** Blocking Issues (Design System Violations, Security Gaps)
 - ⚠️ **Warning:** Wichtige Verbesserungen (Performance, Best Practices)
 - ℹ️ **Info:** Vorschläge (Optimierungen, Nice-to-Haves)
 
 ### 3. GitHub PR Integration
-
 - Automatische PR-Comments mit detailliertem Review
 - Direkter Link zu betroffenen Dateien und Zeilen
 - Konkrete Fix-Vorschläge für jeden Fund
@@ -35,26 +32,22 @@ MyDispatch nutzt **intelligente KI-gestützte Code-Reviews** mit **Claude Sonnet
 ### Secrets konfigurieren
 
 #### 1. Anthropic API Key
-
 ```bash
 # In Lovable Cloud hinzufügen:
 ANTHROPIC_API_KEY=sk-ant-...
 ```
 
 #### 2. GitHub Token (Classic)
-
 ```bash
 # In Lovable Cloud hinzufügen:
 GITHUB_Personal_access_tokens_classic=ghp_...
 ```
 
 **Erforderliche Permissions:**
-
 - `repo` (Full control of private repositories)
 - `workflow` (Update GitHub Action workflows)
 
 #### 3. GitHub Repository Variable
-
 ```bash
 # In GitHub Actions Secrets hinzufügen:
 GITHUB_REPOSITORY=owner/repo-name
@@ -65,7 +58,6 @@ GITHUB_REPOSITORY=owner/repo-name
 Die Edge Function wird **automatisch** deployt bei jedem Push zu `main`.
 
 Manuelle Deployments:
-
 ```bash
 npx supabase functions deploy ai-code-review
 ```
@@ -77,7 +69,6 @@ npx supabase functions deploy ai-code-review
 ### Trigger
 
 Der AI Code Review läuft automatisch bei:
-
 - `pull_request` (opened, synchronize, reopened)
 - Branches: `main`, `develop`
 
@@ -117,8 +108,7 @@ Missing React Query for data fetching. Use useQuery for better caching.
 ...
 
 ---
-
-_Automated Review powered by Claude Sonnet 4.5 | MyDispatch V18.3.30_
+*Automated Review powered by Claude Sonnet 4.5 | MyDispatch V18.3.30*
 ```
 
 ---
@@ -126,33 +116,28 @@ _Automated Review powered by Claude Sonnet 4.5 | MyDispatch V18.3.30_
 ## 🎨 Review-Kategorien
 
 ### 1. Design System
-
 - ❌ Verboten: `accent`, `text-white`, `bg-black`, `text-black`
 - ✅ Pflicht: Semantic Tokens (`text-foreground`, `bg-primary`)
 - ✅ Touch-Targets ≥ 44px (`min-h-[44px]`)
 - ✅ Mobile-First (Responsive Klassen)
 
 ### 2. Security
-
 - ✅ Company-ID Filter bei allen Queries
 - ✅ Soft-Delete statt Hard-Delete (`archived=true`)
 - ✅ Input Validation mit Zod
 - ✅ DEV-Guards für console.log
 
 ### 3. Performance
-
 - ✅ React Query für Data Fetching
 - ✅ Defensive Coding (try-catch, fallbacks)
 - ✅ Error Handler statt console.error
 
 ### 4. TypeScript
-
 - ✅ Type-Safety (kein `any` ohne Grund)
 - ✅ Keine doppelten Imports
 - ✅ Interfaces für Props
 
 ### 5. Mobile
-
 - ✅ Responsive Typography (`text-sm sm:text-base md:text-lg`)
 - ✅ Responsive Icons (`h-4 w-4 sm:h-5 sm:w-5`)
 - ✅ Responsive Spacing (`p-4 sm:p-6 md:p-8`)
@@ -186,15 +171,15 @@ file.content.slice(0, 5000)
 
 ```typescript
 // Model wechseln
-model: "claude-sonnet-4-20250514"; // Default
-model: "claude-opus-4-20250514"; // Mehr Leistung
+model: "claude-sonnet-4-20250514"  // Default
+model: "claude-opus-4-20250514"    // Mehr Leistung
 
 // Max Tokens anpassen
-max_tokens: 4096; // Default
-max_tokens: 8192; // Längere Reviews
+max_tokens: 4096  // Default
+max_tokens: 8192  // Längere Reviews
 
 // System Prompt erweitern
-const systemPrompt = `...`;
+const systemPrompt = `...`
 ```
 
 ---
@@ -225,7 +210,6 @@ supabase functions logs ai-code-review --error
 ### Issue: "ANTHROPIC_API_KEY not configured"
 
 **Lösung:**
-
 ```bash
 # In Lovable Cloud → Settings → Secrets:
 ANTHROPIC_API_KEY=sk-ant-...
@@ -234,7 +218,6 @@ ANTHROPIC_API_KEY=sk-ant-...
 ### Issue: "GitHub comment failed"
 
 **Lösung:**
-
 ```bash
 # In Lovable Cloud → Settings → Secrets:
 GITHUB_Personal_access_tokens_classic=ghp_...
@@ -249,7 +232,6 @@ GITHUB_Personal_access_tokens_classic=ghp_...
 **Grund:** Rate Limit erreicht
 
 **Lösung:**
-
 - Reduce Files per Review (max 10)
 - Reduce Content per File (max 5KB)
 - Upgrade Anthropic Plan
@@ -259,7 +241,6 @@ GITHUB_Personal_access_tokens_classic=ghp_...
 **Grund:** Claude gibt kein valides JSON zurück
 
 **Lösung:**
-
 - Prompt präzisieren ("Gebe NUR JSON zurück")
 - JSON-Extraktion robuster machen (Regex)
 - Fallback-Issue erstellen (wie aktuell)
@@ -269,19 +250,16 @@ GITHUB_Personal_access_tokens_classic=ghp_...
 ## 🎓 Best Practices
 
 ### 1. PR-Erstellung
-
 - Kleine PRs (max 10 Files)
 - Clear Description
 - Pre-Check vor PR (local linting)
 
 ### 2. Review-Verarbeitung
-
 - Critical Issues **SOFORT** fixen
 - Warnings **vor Merge** adressieren
 - Infos für spätere Refactorings merken
 
 ### 3. False Positives
-
 - Im PR diskutieren
 - System Prompt verbessern
 - Edge Function updaten
@@ -309,7 +287,6 @@ GITHUB_Personal_access_tokens_classic=ghp_...
 ## 🔄 Updates
 
 ### Edge Function Update
-
 ```bash
 # 1. Edit supabase/functions/ai-code-review/index.ts
 # 2. Deploy:
@@ -323,7 +300,6 @@ curl -X POST "$SUPABASE_URL/functions/v1/ai-code-review" \
 ```
 
 ### Workflow Update
-
 ```bash
 # 1. Edit .github/workflows/ai-code-review.yml
 # 2. Commit & Push

@@ -11,7 +11,7 @@ export interface EmailTemplate {
 
 // 1. Passwort-Vergessen
 export const passwordResetTemplate = (resetLink: string): EmailTemplate => ({
-  subject: "MyDispatch - Passwort zurücksetzen",
+  subject: 'MyDispatch - Passwort zurücksetzen',
   body: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <h2 style="color: #323D5E;">Passwort zurücksetzen</h2>
@@ -27,11 +27,8 @@ export const passwordResetTemplate = (resetLink: string): EmailTemplate => ({
 });
 
 // 2. Registrierungs-Bestätigung
-export const registrationConfirmTemplate = (
-  companyName: string,
-  userName: string
-): EmailTemplate => ({
-  subject: "Willkommen bei MyDispatch!",
+export const registrationConfirmTemplate = (companyName: string, userName: string): EmailTemplate => ({
+  subject: 'Willkommen bei MyDispatch!',
   body: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <h2 style="color: #323D5E;">Willkommen bei MyDispatch, ${userName}!</h2>
@@ -46,12 +43,7 @@ export const registrationConfirmTemplate = (
 });
 
 // 3. Fahrer-Einladung (Portal)
-export const driverInvitationTemplate = (
-  driverName: string,
-  companyName: string,
-  loginLink: string,
-  tempPassword: string
-): EmailTemplate => ({
+export const driverInvitationTemplate = (driverName: string, companyName: string, loginLink: string, tempPassword: string): EmailTemplate => ({
   subject: `Einladung zum MyDispatch Fahrer-Portal - ${companyName}`,
   body: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -75,12 +67,7 @@ export const driverInvitationTemplate = (
 });
 
 // 4. Kunden-Einladung (Portal)
-export const customerInvitationTemplate = (
-  customerName: string,
-  companyName: string,
-  loginLink: string,
-  tempPassword: string
-): EmailTemplate => ({
+export const customerInvitationTemplate = (customerName: string, companyName: string, loginLink: string, tempPassword: string): EmailTemplate => ({
   subject: `Einladung zum MyDispatch Kunden-Portal - ${companyName}`,
   body: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -104,19 +91,13 @@ export const customerInvitationTemplate = (
 });
 
 // 5. Partner-Anfrage (Benachrichtigung)
-export const partnerRequestTemplate = (
-  targetCompanyName: string,
-  requestingCompanyName: string,
-  message: string,
-  acceptLink: string,
-  rejectLink: string
-): EmailTemplate => ({
+export const partnerRequestTemplate = (targetCompanyName: string, requestingCompanyName: string, message: string, acceptLink: string, rejectLink: string): EmailTemplate => ({
   subject: `Neue Partner-Anfrage von ${requestingCompanyName}`,
   body: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <h2 style="color: #323D5E;">Neue Partner-Anfrage</h2>
       <p><strong>${requestingCompanyName}</strong> möchte mit <strong>${targetCompanyName}</strong> eine Partner-Verbindung aufbauen.</p>
-      ${message ? `<p><strong>Nachricht:</strong></p><p style="background: #f5f5f5; padding: 12px; border-radius: 4px;">${message}</p>` : ""}
+      ${message ? `<p><strong>Nachricht:</strong></p><p style="background: #f5f5f5; padding: 12px; border-radius: 4px;">${message}</p>` : ''}
       <p>Bei Annahme können beide Unternehmen Fahrzeuge und Fahrer gemeinsam nutzen.</p>
       <div style="margin: 30px 0;">
         <a href="${acceptLink}" style="display: inline-block; padding: 12px 24px; background-color: #51cf66; color: white; text-decoration: none; border-radius: 4px; margin-right: 10px;">
@@ -131,13 +112,7 @@ export const partnerRequestTemplate = (
 });
 
 // 6. Dokumenten-Ablauf (Erinnerung)
-export const documentExpiryTemplate = (
-  companyName: string,
-  documentName: string,
-  entityType: string,
-  expiryDate: string,
-  daysUntilExpiry: number
-): EmailTemplate => ({
+export const documentExpiryTemplate = (companyName: string, documentName: string, entityType: string, expiryDate: string, daysUntilExpiry: number): EmailTemplate => ({
   subject: `Dokument läuft bald ab - ${documentName}`,
   body: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -158,14 +133,8 @@ export const documentExpiryTemplate = (
 });
 
 // 7. Buchungs-Bestätigung
-export const bookingConfirmationTemplate = (
-  customerName: string,
-  pickupAddress: string,
-  dropoffAddress: string,
-  pickupTime: string,
-  price: string
-): EmailTemplate => ({
-  subject: "Buchungsbestätigung - MyDispatch",
+export const bookingConfirmationTemplate = (customerName: string, pickupAddress: string, dropoffAddress: string, pickupTime: string, price: string): EmailTemplate => ({
+  subject: 'Buchungsbestätigung - MyDispatch',
   body: `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <h2 style="color: #323D5E;">Buchungsbestätigung</h2>

@@ -28,19 +28,19 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
 
 ### ✅ ALLE ÖFFENTLICHEN SEITEN SIND GESPERRT
 
-| #   | Seite        | Route       | Datei                    | Hero-Typ       | Status    |
-| --- | ------------ | ----------- | ------------------------ | -------------- | --------- |
-| 1   | **Home**     | `/`         | `src/pages/Home.tsx`     | V28HeroPremium | 🔒 LOCKED |
-| 2   | **Features** | `/features` | `src/pages/Features.tsx` | V28HeroPremium | 🔒 LOCKED |
-| 3   | **Pricing**  | `/pricing`  | `src/pages/Pricing.tsx`  | V28HeroPremium | 🔒 LOCKED |
-| 4   | **About**    | `/about`    | `src/pages/About.tsx`    | V28HeroPremium | 🔒 LOCKED |
-| 5   | **Contact**  | `/contact`  | `src/pages/Contact.tsx`  | V28HeroPremium | 🔒 LOCKED |
-| 6   | **FAQ**      | `/faq`      | `src/pages/FAQ.tsx`      | V28HeroPremium | 🔒 LOCKED |
-| 7   | **Login**    | `/login`    | `src/pages/Login.tsx`    | Auth-Form      | 🔒 LOCKED |
-| 8   | **Register** | `/register` | `src/pages/Register.tsx` | Auth-Form      | 🔒 LOCKED |
-| 9   | **Privacy**  | `/privacy`  | `src/pages/Privacy.tsx`  | Legal-Layout   | 🔒 LOCKED |
-| 10  | **Terms**    | `/terms`    | `src/pages/Terms.tsx`    | Legal-Layout   | 🔒 LOCKED |
-| 11  | **Imprint**  | `/imprint`  | `src/pages/Imprint.tsx`  | Legal-Layout   | 🔒 LOCKED |
+| # | Seite | Route | Datei | Hero-Typ | Status |
+|---|-------|-------|-------|----------|--------|
+| 1 | **Home** | `/` | `src/pages/Home.tsx` | V28HeroPremium | 🔒 LOCKED |
+| 2 | **Features** | `/features` | `src/pages/Features.tsx` | V28HeroPremium | 🔒 LOCKED |
+| 3 | **Pricing** | `/pricing` | `src/pages/Pricing.tsx` | V28HeroPremium | 🔒 LOCKED |
+| 4 | **About** | `/about` | `src/pages/About.tsx` | V28HeroPremium | 🔒 LOCKED |
+| 5 | **Contact** | `/contact` | `src/pages/Contact.tsx` | V28HeroPremium | 🔒 LOCKED |
+| 6 | **FAQ** | `/faq` | `src/pages/FAQ.tsx` | V28HeroPremium | 🔒 LOCKED |
+| 7 | **Login** | `/login` | `src/pages/Login.tsx` | Auth-Form | 🔒 LOCKED |
+| 8 | **Register** | `/register` | `src/pages/Register.tsx` | Auth-Form | 🔒 LOCKED |
+| 9 | **Privacy** | `/privacy` | `src/pages/Privacy.tsx` | Legal-Layout | 🔒 LOCKED |
+| 10 | **Terms** | `/terms` | `src/pages/Terms.tsx` | Legal-Layout | 🔒 LOCKED |
+| 11 | **Imprint** | `/imprint` | `src/pages/Imprint.tsx` | Legal-Layout | 🔒 LOCKED |
 
 ---
 
@@ -49,7 +49,6 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
 ### ❌ NIEMALS ERLAUBT (IM GESAMTEN SYSTEM):
 
 #### 1. **Master-Komponenten-Änderungen** ⚠️ NEU - KRITISCH!
-
 - **Header** aus öffentlichem Bereich ändern/ersetzen
   - Einziger erlaubter Header: `src/components/layout/Header.tsx`
   - Keine alternativen Header-Komponenten im gesamten System
@@ -64,7 +63,6 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
   - Keine Dashboard-Sidebar (außer mit identischem Design aus öffentlichem Bereich)
 
 #### 2. **Design-Änderungen**
-
 - Hero-Varianten ändern (`variant`, `backgroundVariant`)
 - Farben anpassen (nur `slate-50` bis `slate-900` erlaubt)
 - Spacing ändern (Padding, Margins, Gaps)
@@ -73,7 +71,6 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
 - Shadows, Borders, Border-Radius ändern
 
 #### 2. **Layout-Änderungen**
-
 - Hero-Position/Größe ändern
 - Section-Struktur ändern (PageShell, SectionLayout)
 - Grid-Layouts ändern (Spalten, Rows, Gaps)
@@ -82,7 +79,6 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
 - Responsive-Breakpoints ändern
 
 #### 3. **Komponenten-Änderungen**
-
 - V28-Komponenten durch andere ersetzen
 - Neue UI-Komponenten hinzufügen
 - Komponenten-Varianten ändern
@@ -91,7 +87,6 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
 - Inline-Styles hinzufügen
 
 #### 4. **Content-Änderungen (ohne Freigabe)**
-
 - Texte umformulieren
 - Bilder austauschen
 - Icons ändern
@@ -105,7 +100,6 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
 ### ✅ NUR FOLGENDES IST ERLAUBT:
 
 #### 1. **Performance-Optimierungen**
-
 ```typescript
 // ✅ ERLAUBT
 - React.memo() für teure Components
@@ -117,7 +111,6 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
 ```
 
 #### 2. **SEO-Optimierungen**
-
 ```typescript
 // ✅ ERLAUBT
 - Meta-Tags optimieren (ohne Content-Änderung)
@@ -129,7 +122,6 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
 ```
 
 #### 3. **Accessibility-Verbesserungen**
-
 ```typescript
 // ✅ ERLAUBT
 - ARIA-Labels hinzufügen
@@ -141,7 +133,6 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
 ```
 
 #### 4. **Code-Qualität**
-
 ```typescript
 // ✅ ERLAUBT
 - Type-Safety verbessern (TypeScript)
@@ -153,7 +144,6 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
 ```
 
 #### 5. **Security-Verbesserungen**
-
 ```typescript
 // ✅ ERLAUBT
 - Input-Validation (Zod)
@@ -165,7 +155,6 @@ Dieses Dokument definiert die **absolute Sperrung** aller öffentlichen Seiten (
 ```
 
 #### 6. **Analytics & Monitoring**
-
 ```typescript
 // ✅ ERLAUBT
 - Analytics-Events hinzufügen
@@ -215,61 +204,34 @@ npm run validate:design-lock
 ```typescript
 function beforeAnyChange(file: string, changeType: string) {
   const publicPages = [
-    "Home.tsx",
-    "Features.tsx",
-    "Pricing.tsx",
-    "About.tsx",
-    "Contact.tsx",
-    "FAQ.tsx",
-    "Login.tsx",
-    "Register.tsx",
-    "Privacy.tsx",
-    "Terms.tsx",
-    "Imprint.tsx",
+    'Home.tsx', 'Features.tsx', 'Pricing.tsx', 'About.tsx',
+    'Contact.tsx', 'FAQ.tsx', 'Login.tsx', 'Register.tsx',
+    'Privacy.tsx', 'Terms.tsx', 'Imprint.tsx'
   ];
-
+  
   const designKeywords = [
-    "hero",
-    "layout",
-    "design",
-    "color",
-    "spacing",
-    "padding",
-    "margin",
-    "grid",
-    "flex",
-    "position",
-    "size",
-    "width",
-    "height",
-    "font",
-    "text",
-    "background",
-    "border",
-    "shadow",
-    "animation",
-    "transition",
-    "transform",
-    "component",
-    "variant",
+    'hero', 'layout', 'design', 'color', 'spacing', 'padding',
+    'margin', 'grid', 'flex', 'position', 'size', 'width',
+    'height', 'font', 'text', 'background', 'border', 'shadow',
+    'animation', 'transition', 'transform', 'component', 'variant'
   ];
-
-  if (publicPages.some((page) => file.includes(page))) {
-    if (designKeywords.some((keyword) => changeType.toLowerCase().includes(keyword))) {
+  
+  if (publicPages.some(page => file.includes(page))) {
+    if (designKeywords.some(keyword => changeType.toLowerCase().includes(keyword))) {
       return STOP_AND_WARN(
         `⚠️ Die Seite ${file} ist durch Layout Freeze V32.1 geschützt.\n` +
-          `Design-/Layout-Änderungen sind NICHT erlaubt.\n\n` +
-          `Erlaubt sind nur:\n` +
-          `- Performance-Optimierungen\n` +
-          `- SEO-Verbesserungen\n` +
-          `- Accessibility-Fixes\n` +
-          `- Security-Improvements\n` +
-          `- Code-Refactoring (ohne UI-Änderung)\n\n` +
-          `Möchtest du eine dieser technischen Optimierungen durchführen?`
+        `Design-/Layout-Änderungen sind NICHT erlaubt.\n\n` +
+        `Erlaubt sind nur:\n` +
+        `- Performance-Optimierungen\n` +
+        `- SEO-Verbesserungen\n` +
+        `- Accessibility-Fixes\n` +
+        `- Security-Improvements\n` +
+        `- Code-Refactoring (ohne UI-Änderung)\n\n` +
+        `Möchtest du eine dieser technischen Optimierungen durchführen?`
       );
     }
   }
-
+  
   return PROCEED();
 }
 ```
@@ -348,7 +310,6 @@ DESIGN LOCK COMPLIANCE CHECK:
 ## 🔄 LIFECYCLE
 
 ### **Eine Seite wird GESPERRT wenn:**
-
 1. Design ist final (V28 + V32.0 konform)
 2. Alle Tests sind grün
 3. Performance-Metriken erfüllt (>90 Lighthouse)
@@ -356,7 +317,6 @@ DESIGN LOCK COMPLIANCE CHECK:
 5. Pascal hat explizit freigegeben
 
 ### **Eine Seite wird ENTSPERRT wenn:**
-
 1. **NIEMALS** (außer Notfall mit Pascal-Freigabe)
 2. Redesign-Projekt mit vollständiger Dokumentation
 3. Breaking-Change im Design-System
@@ -366,7 +326,6 @@ DESIGN LOCK COMPLIANCE CHECK:
 ## 📚 REFERENZEN
 
 ### Verwandte Dokumentation:
-
 - [`docs/DESIGN_SYSTEM_LOCK.md`](./DESIGN_SYSTEM_LOCK.md) - V32.0 Design-System
 - [`docs/HERO_LOCK_FINAL_V32.0.md`](./HERO_LOCK_FINAL_V32.0.md) - Hero-System
 - [`docs/COLOR_EXCEPTIONS.md`](./COLOR_EXCEPTIONS.md) - Farb-Ausnahmen
@@ -374,7 +333,6 @@ DESIGN LOCK COMPLIANCE CHECK:
 - [`docs/PRE_LOGIN_FOCUS.md`](./PRE_LOGIN_FOCUS.md) - Pre-Login Strategie
 
 ### Validation Scripts:
-
 - [`scripts/validate-design-lock.ts`](../scripts/validate-design-lock.ts) - Automatische Validierung
 
 ---

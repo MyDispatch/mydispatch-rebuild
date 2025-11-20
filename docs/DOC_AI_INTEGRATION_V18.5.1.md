@@ -29,7 +29,7 @@ Der Doc-Management AI Agent ist ausschließlich für die Strukturierung, Aktuali
 POST /functions/v1/manage-docs
 {
   "action": "analyze" | "update" | "validate" | "sync-design",
-  "docs": {
+  "docs": { 
     "filename.md": "content...",
     ...
   },
@@ -76,16 +76,16 @@ const response = await supabase.functions.invoke('manage-docs', {
 ### 2. Design-Synchronisation
 
 ```typescript
-const response = await supabase.functions.invoke("manage-docs", {
+const response = await supabase.functions.invoke('manage-docs', {
   body: {
-    action: "sync-design",
+    action: 'sync-design',
     designReferences: {
       home: homePageCode,
       dashboard: dashboardCode,
       header: headerCode,
-      footer: footerCode,
-    },
-  },
+      footer: footerCode
+    }
+  }
 });
 
 // Response: Aktualisierte Design-Vorgaben in Docs
@@ -94,11 +94,11 @@ const response = await supabase.functions.invoke("manage-docs", {
 ### 3. Automatische Validierung
 
 ```typescript
-const response = await supabase.functions.invoke("manage-docs", {
+const response = await supabase.functions.invoke('manage-docs', {
   body: {
-    action: "validate",
-    docs: allDocFiles,
-  },
+    action: 'validate',
+    docs: allDocFiles
+  }
 });
 
 // Response: Konsistenz-Check-Ergebnisse
@@ -111,21 +111,18 @@ const response = await supabase.functions.invoke("manage-docs", {
 Der AI Agent kennt die folgenden Master-Referenzen:
 
 ### /home (Marketing-Design)
-
 - Buttons: MarketingButton mit Varianten
 - Badges: CI-Colors (#EADEBD, #323D5E)
 - Typography: Headline-Styles mit Line-Break-System
 - Colors: HSL-basiert, keine direkten Farben
 
 ### /dashboard (App-Design)
-
 - KPIs: PageHeaderWithKPIs + KPIGenerator
 - Cards: Shadcn Cards mit h-full
 - Layout: 12-Column Grid (8 cols + 4 cols)
 - Spacing: gap-4 lg:gap-6, space-y-6 sm:space-y-8
 
 ### Header/Footer
-
 - **MASTER:** Nur /home ist korrekt implementiert
 - Farben: bg-primary, text-foreground
 - Logo: max-w-[140px] sm:max-w-[180px]
@@ -137,13 +134,11 @@ Der AI Agent kennt die folgenden Master-Referenzen:
 ### NeXify Workflow V18.5.1
 
 **Phase 1: Code-Audit**
-
 1. Fehler identifizieren
 2. **NEU:** Doc-AI konsultieren (Referenzen prüfen)
 3. Erkenntnisse dokumentieren
 
 **Phase 3: Implementation**
-
 1. Code ändern
 2. **NEU:** Doc-AI Update triggern (automatische Sync)
 3. Dokumentation aktualisiert
@@ -151,7 +146,6 @@ Der AI Agent kennt die folgenden Master-Referenzen:
 ### Automatische Trigger
 
 Der Doc-AI wird automatisch aufgerufen bei:
-
 - Neuen Fehler-Reports (FEHLER_LOG_V18.5.1.md)
 - Design-Änderungen (DESIGN_SYSTEM_V18_5_0.md)
 - Neuen Seiten (APP_PAGE_TEMPLATE_V18.5.1.md)
@@ -160,12 +154,12 @@ Der Doc-AI wird automatisch aufgerufen bei:
 
 ## 📊 ERFOLGS-METRIKEN
 
-| Metrik         | Ziel | Status        |
-| -------------- | ---- | ------------- |
+| Metrik | Ziel | Status |
+|--------|------|--------|
 | Doc-Konsistenz | 100% | 🔄 Monitoring |
-| Veraltete Docs | 0    | 🔄 Monitoring |
-| Design-Sync    | 100% | 🔄 Monitoring |
-| Response-Zeit  | < 5s | ✅ OK         |
+| Veraltete Docs | 0 | 🔄 Monitoring |
+| Design-Sync | 100% | 🔄 Monitoring |
+| Response-Zeit | < 5s | ✅ OK |
 
 ---
 

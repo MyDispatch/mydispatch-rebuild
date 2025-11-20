@@ -4,7 +4,7 @@
    Code-Splitting, Asset-Optimierung, Performance-Budget-Tracking
    ================================================================================== */
 
-import { logger } from "@/lib/logger";
+import { logger } from '@/lib/logger';
 
 export interface PerformanceMetrics {
   fcp: number; // First Contentful Paint (ms)
@@ -45,9 +45,9 @@ class PerformanceAuditor {
    * Collect Web Vitals using PerformanceObserver API
    */
   collectMetrics(): void {
-    if (!("PerformanceObserver" in window)) {
-      logger.warn("[PerformanceAuditor] PerformanceObserver not supported", {
-        component: "PerformanceAuditor",
+    if (!('PerformanceObserver' in window)) {
+      logger.warn('[PerformanceAuditor] PerformanceObserver not supported', { 
+        component: 'PerformanceAuditor' 
       });
       return;
     }
@@ -56,16 +56,16 @@ class PerformanceAuditor {
     try {
       const observer = new PerformanceObserver((list) => {
         const entries = list.getEntries();
-        const fcpEntry = entries.find((entry) => entry.name === "first-contentful-paint");
+        const fcpEntry = entries.find(entry => entry.name === 'first-contentful-paint');
         if (fcpEntry && this.metrics) {
           this.metrics.fcp = fcpEntry.startTime;
         }
       });
-      observer.observe({ entryTypes: ["paint"] });
+      observer.observe({ entryTypes: ['paint'] });
     } catch (e) {
-      logger.warn("[PerformanceAuditor] FCP monitoring failed", {
-        component: "PerformanceAuditor",
-        error: e,
+      logger.warn('[PerformanceAuditor] FCP monitoring failed', { 
+        component: 'PerformanceAuditor', 
+        error: e 
       });
     }
 
@@ -78,11 +78,11 @@ class PerformanceAuditor {
           this.metrics.lcp = lastEntry.startTime;
         }
       });
-      observer.observe({ entryTypes: ["largest-contentful-paint"] });
+      observer.observe({ entryTypes: ['largest-contentful-paint'] });
     } catch (e) {
-      logger.warn("[PerformanceAuditor] LCP monitoring failed", {
-        component: "PerformanceAuditor",
-        error: e,
+      logger.warn('[PerformanceAuditor] LCP monitoring failed', { 
+        component: 'PerformanceAuditor', 
+        error: e 
       });
     }
 
@@ -96,11 +96,11 @@ class PerformanceAuditor {
           }
         });
       });
-      observer.observe({ entryTypes: ["first-input"] });
+      observer.observe({ entryTypes: ['first-input'] });
     } catch (e) {
-      logger.warn("[PerformanceAuditor] FID monitoring failed", {
-        component: "PerformanceAuditor",
-        error: e,
+      logger.warn('[PerformanceAuditor] FID monitoring failed', { 
+        component: 'PerformanceAuditor', 
+        error: e 
       });
     }
 
@@ -117,26 +117,24 @@ class PerformanceAuditor {
           }
         });
       });
-      observer.observe({ entryTypes: ["layout-shift"] });
+      observer.observe({ entryTypes: ['layout-shift'] });
     } catch (e) {
-      logger.warn("[PerformanceAuditor] CLS monitoring failed", {
-        component: "PerformanceAuditor",
-        error: e,
+      logger.warn('[PerformanceAuditor] CLS monitoring failed', { 
+        component: 'PerformanceAuditor', 
+        error: e 
       });
     }
 
     // TTFB - Time to First Byte
     try {
-      const navigation = performance.getEntriesByType(
-        "navigation"
-      )[0] as PerformanceNavigationTiming;
+      const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
       if (navigation && this.metrics) {
         this.metrics.ttfb = navigation.responseStart - navigation.requestStart;
       }
     } catch (e) {
-      logger.warn("[PerformanceAuditor] TTFB monitoring failed", {
-        component: "PerformanceAuditor",
-        error: e,
+      logger.warn('[PerformanceAuditor] TTFB monitoring failed', { 
+        component: 'PerformanceAuditor', 
+        error: e 
       });
     }
 
@@ -160,7 +158,7 @@ class PerformanceAuditor {
       metric: string;
       actual: number;
       budget: number;
-      severity: "critical" | "warning";
+      severity: 'critical' | 'warning';
     }>;
   } {
     if (!this.metrics) {
@@ -171,17 +169,17 @@ class PerformanceAuditor {
       metric: string;
       actual: number;
       budget: number;
-      severity: "critical" | "warning";
+      severity: 'critical' | 'warning';
     }> = [];
 
     // Check each metric
     const checks: Array<{ key: keyof PerformanceMetrics; label: string }> = [
-      { key: "fcp", label: "First Contentful Paint" },
-      { key: "lcp", label: "Largest Contentful Paint" },
-      { key: "fid", label: "First Input Delay" },
-      { key: "cls", label: "Cumulative Layout Shift" },
-      { key: "ttfb", label: "Time to First Byte" },
-      { key: "tbt", label: "Total Blocking Time" },
+      { key: 'fcp', label: 'First Contentful Paint' },
+      { key: 'lcp', label: 'Largest Contentful Paint' },
+      { key: 'fid', label: 'First Input Delay' },
+      { key: 'cls', label: 'Cumulative Layout Shift' },
+      { key: 'ttfb', label: 'Time to First Byte' },
+      { key: 'tbt', label: 'Total Blocking Time' },
     ];
 
     checks.forEach(({ key, label }) => {
@@ -194,7 +192,7 @@ class PerformanceAuditor {
           metric: label,
           actual,
           budget: budgetValue,
-          severity: percentOver > 50 ? "critical" : "warning",
+          severity: percentOver > 50 ? 'critical' : 'warning',
         });
       }
     });
@@ -229,7 +227,7 @@ class PerformanceAuditor {
     // Weighted average (LCP has highest weight)
     const totalScore =
       scores.fcp * 0.15 +
-      scores.lcp * 0.3 +
+      scores.lcp * 0.30 +
       scores.fid * 0.15 +
       scores.cls * 0.25 +
       scores.ttfb * 0.15;
@@ -247,13 +245,13 @@ class PerformanceAuditor {
    * Get optimization recommendations
    */
   getRecommendations(): Array<{
-    priority: "high" | "medium" | "low";
+    priority: 'high' | 'medium' | 'low';
     category: string;
     recommendation: string;
     impact: string;
   }> {
     const recommendations: Array<{
-      priority: "high" | "medium" | "low";
+      priority: 'high' | 'medium' | 'low';
       category: string;
       recommendation: string;
       impact: string;
@@ -264,40 +262,40 @@ class PerformanceAuditor {
     // LCP optimization
     if (this.metrics.lcp > this.budget.lcp) {
       recommendations.push({
-        priority: "high",
-        category: "LCP",
-        recommendation: "Implement lazy loading for images and defer non-critical resources",
-        impact: "Reduce LCP by 20-40%",
+        priority: 'high',
+        category: 'LCP',
+        recommendation: 'Implement lazy loading for images and defer non-critical resources',
+        impact: 'Reduce LCP by 20-40%',
       });
     }
 
     // FCP optimization
     if (this.metrics.fcp > this.budget.fcp) {
       recommendations.push({
-        priority: "high",
-        category: "FCP",
-        recommendation: "Inline critical CSS and defer non-critical CSS",
-        impact: "Reduce FCP by 15-30%",
+        priority: 'high',
+        category: 'FCP',
+        recommendation: 'Inline critical CSS and defer non-critical CSS',
+        impact: 'Reduce FCP by 15-30%',
       });
     }
 
     // CLS optimization
     if (this.metrics.cls > this.budget.cls) {
       recommendations.push({
-        priority: "high",
-        category: "CLS",
-        recommendation: "Add explicit width/height to images and reserve space for dynamic content",
-        impact: "Reduce CLS to < 0.1",
+        priority: 'high',
+        category: 'CLS',
+        recommendation: 'Add explicit width/height to images and reserve space for dynamic content',
+        impact: 'Reduce CLS to < 0.1',
       });
     }
 
     // TTFB optimization
     if (this.metrics.ttfb > this.budget.ttfb) {
       recommendations.push({
-        priority: "medium",
-        category: "TTFB",
-        recommendation: "Enable CDN caching and optimize server response time",
-        impact: "Reduce TTFB by 30-50%",
+        priority: 'medium',
+        category: 'TTFB',
+        recommendation: 'Enable CDN caching and optimize server response time',
+        impact: 'Reduce TTFB by 30-50%',
       });
     }
 
@@ -318,29 +316,29 @@ if (!import.meta.env.DEV) {
  */
 export const PERFORMANCE_OPTIMIZATION_CHECKLIST = {
   codeSplitting: [
-    "✅ Lazy load routes with React.lazy()",
-    "✅ Split large components into separate chunks",
-    "✅ Use dynamic imports for heavy libraries",
-    "✅ Implement route-based code splitting",
+    '✅ Lazy load routes with React.lazy()',
+    '✅ Split large components into separate chunks',
+    '✅ Use dynamic imports for heavy libraries',
+    '✅ Implement route-based code splitting',
   ],
   assetOptimization: [
-    "✅ Convert images to WebP/AVIF format",
-    "✅ Implement responsive images (srcset)",
-    "✅ Enable lazy loading for images",
-    "✅ Compress all assets (gzip/brotli)",
-    "✅ Use CDN for static assets",
+    '✅ Convert images to WebP/AVIF format',
+    '✅ Implement responsive images (srcset)',
+    '✅ Enable lazy loading for images',
+    '✅ Compress all assets (gzip/brotli)',
+    '✅ Use CDN for static assets',
   ],
   criticalRenderingPath: [
-    "✅ Inline critical CSS",
-    "✅ Defer non-critical CSS",
-    "✅ Minify CSS/JS",
-    "✅ Remove render-blocking resources",
-    "✅ Preload critical resources",
+    '✅ Inline critical CSS',
+    '✅ Defer non-critical CSS',
+    '✅ Minify CSS/JS',
+    '✅ Remove render-blocking resources',
+    '✅ Preload critical resources',
   ],
   caching: [
-    "✅ Implement service worker caching",
-    "✅ Use Cache-Control headers",
-    "✅ Enable browser caching",
-    "✅ Implement stale-while-revalidate",
+    '✅ Implement service worker caching',
+    '✅ Use Cache-Control headers',
+    '✅ Enable browser caching',
+    '✅ Implement stale-while-revalidate',
   ],
 };

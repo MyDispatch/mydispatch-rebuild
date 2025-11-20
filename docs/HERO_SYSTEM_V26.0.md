@@ -2,7 +2,7 @@
 
 **STATUS:** ✅ MANDATORY - AB SOFORT SYSTEMWEIT VERPFLICHTEND  
 **VERSION:** V26.0  
-**LAST UPDATE:** 2025-01-26
+**LAST UPDATE:** 2025-01-26  
 
 ---
 
@@ -24,7 +24,6 @@
 - ✅ `relative` - Für absolute Positionierung (fixiert)
 
 **VERBOTEN:**
-
 - ❌ `min-h-screen` oder andere dynamische Höhen
 - ❌ `flex items-center justify-center` (macht Höhe variabel)
 - ❌ Padding-Anpassungen für Content
@@ -37,25 +36,25 @@
 **ALLE Hero-Sections verwenden AUSNAHMSLOS:**
 
 ```tsx
-import { HeroBackgroundOrbs } from "@/components/hero/HeroBackgroundOrbs";
+import { HeroBackgroundOrbs } from '@/components/hero/HeroBackgroundOrbs';
 
 <section className="relative pt-24 md:pt-32 pb-48 md:pb-56 overflow-hidden">
   <HeroBackgroundOrbs />
-
+  
   {/* Content mit relative z-10 */}
-  <div className="relative z-10">{/* ... */}</div>
-</section>;
+  <div className="relative z-10">
+    {/* ... */}
+  </div>
+</section>
 ```
 
 **Background-Komponente:**
-
 - ✅ Gradient: `v26-gradient-hero-primary`
 - ✅ Pattern Overlays (Grid, Dots, Diagonals)
 - ✅ Animierte Glow Orbs (3 Schichten)
 - ✅ NIEMALS inline-styles für Background
 
 **VERBOTEN:**
-
 - ❌ Eigene Background-Gradients
 - ❌ Andere Background-Komponenten
 - ❌ Modifikation der Orbs
@@ -70,10 +69,9 @@ import { HeroBackgroundOrbs } from "@/components/hero/HeroBackgroundOrbs";
 #### Content-Anpassungsstrategien:
 
 **Text-Content:**
-
 ```tsx
 // ✅ RICHTIG - Text passt sich an
-<h1
+<h1 
   className="font-sans text-5xl md:text-6xl font-bold tracking-tight mb-6"
   style={{
     color: UNIFIED_DESIGN_TOKENS.colors.beige,
@@ -83,7 +81,7 @@ import { HeroBackgroundOrbs } from "@/components/hero/HeroBackgroundOrbs";
   {title}
 </h1>
 
-<p
+<p 
   className="font-sans text-lg md:text-xl leading-relaxed max-w-3xl mx-auto"
   style={{
     color: UNIFIED_DESIGN_TOKENS.colors.weiss,
@@ -95,23 +93,22 @@ import { HeroBackgroundOrbs } from "@/components/hero/HeroBackgroundOrbs";
 ```
 
 **Spacing innerhalb Hero:**
-
 ```tsx
 // ✅ RICHTIG - Container mit festem Spacing
 <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-  <div className="text-center mb-10 md:mb-14">{/* Content */}</div>
+  <div className="text-center mb-10 md:mb-14">
+    {/* Content */}
+  </div>
 </div>
 ```
 
 **Komponenten in Hero:**
-
 - ✅ Badges: Kompakt halten
 - ✅ Buttons: Standard-Größen
 - ✅ Toggle/Widgets: Innerhalb `mt-4` platzieren
 - ✅ Graphics: Max-width limitieren
 
 **VERBOTEN:**
-
 - ❌ Hero-Größe für Content ändern
 - ❌ Zusätzliches Padding für mehr Platz
 - ❌ Content overflow außerhalb Hero
@@ -124,32 +121,29 @@ import { HeroBackgroundOrbs } from "@/components/hero/HeroBackgroundOrbs";
 **Pattern:** Cards/Sections die in Hero "eingreifen"
 
 ```tsx
-{
-  /* Hero Section */
-}
+{/* Hero Section */}
 <section className="relative pt-24 md:pt-32 pb-48 md:pb-56 overflow-hidden">
   <HeroBackgroundOrbs />
   {/* Content */}
-</section>;
+</section>
 
-{
-  /* Overlapping Section - Cards ragen in Hero */
-}
-<section
+{/* Overlapping Section - Cards ragen in Hero */}
+<section 
   className="-mt-32 md:-mt-40 py-20 md:py-24"
   style={{ backgroundColor: UNIFIED_DESIGN_TOKENS.colors.canvas }}
 >
   <div className="container mx-auto px-4 sm:px-6 lg:px-8">
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 md:items-start">
       {/* Cards mit translate für unterschiedliche Höhen */}
-      <div className="md:-translate-y-16">{/* Highlighted Card - ragt am weitesten */}</div>
+      <div className="md:-translate-y-16">
+        {/* Highlighted Card - ragt am weitesten */}
+      </div>
     </div>
   </div>
-</section>;
+</section>
 ```
 
 **Berechnungslogik:**
-
 - Hero Bottom Padding: `pb-48 md:pb-56`
 - Negative Margin: `-mt-32 md:-mt-40`
 - Differenz = visueller Eingriff: `16/16 (mobile/desktop)`
@@ -202,8 +196,8 @@ export function V26PricingHero({ title, subtitle, children }: V26PricingHeroProp
             className="font-sans text-5xl md:text-6xl font-bold tracking-tight mb-6 animate-fade-in"
             style={{
               color: UNIFIED_DESIGN_TOKENS.colors.weiss,
-              textWrap: "balance",
-              textShadow: "0 2px 20px rgba(0,0,0,0.2)",
+              textWrap: 'balance',
+              textShadow: '0 2px 20px rgba(0,0,0,0.2)',
             }}
           >
             {title}
@@ -212,16 +206,16 @@ export function V26PricingHero({ title, subtitle, children }: V26PricingHeroProp
             className="font-sans text-lg md:text-xl font-normal leading-relaxed max-w-3xl mx-auto mb-12 text-center animate-fade-in"
             style={{
               color: UNIFIED_DESIGN_TOKENS.colors.weiss,
-              textWrap: "pretty",
-              animationDelay: "0.1s",
-              textShadow: "0 1px 10px rgba(0,0,0,0.3)",
+              textWrap: 'pretty',
+              animationDelay: '0.1s',
+              textShadow: '0 1px 10px rgba(0,0,0,0.3)',
             }}
           >
             {subtitle}
           </p>
 
           {children && (
-            <div className="animate-fade-in" style={{ animationDelay: "0.2s" }}>
+            <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
               {children}
             </div>
           )}
@@ -233,7 +227,6 @@ export function V26PricingHero({ title, subtitle, children }: V26PricingHeroProp
 ```
 
 **Verwendung:**
-
 ```tsx
 <V26PricingHero
   title="Klar. Fair. Zukunftssicher."
@@ -254,7 +247,6 @@ export function V26PricingHero({ title, subtitle, children }: V26PricingHeroProp
 ## 🚫 ANTI-PATTERNS (NIEMALS!)
 
 ### ❌ Variable Hero-Höhen
-
 ```tsx
 // ❌ FALSCH - dynamische Höhe
 <section className="relative min-h-screen flex items-center">
@@ -267,7 +259,6 @@ export function V26PricingHero({ title, subtitle, children }: V26PricingHeroProp
 ```
 
 ### ❌ Custom Backgrounds
-
 ```tsx
 // ❌ FALSCH - eigener Background
 <section className="relative bg-gradient-to-br from-blue-900 to-blue-700">
@@ -282,7 +273,6 @@ export function V26PricingHero({ title, subtitle, children }: V26PricingHeroProp
 ```
 
 ### ❌ Hero-Größe für Content anpassen
-
 ```tsx
 // ❌ FALSCH - Hero für mehr Content erweitern
 <section className="relative pt-32 pb-64"> {/* pb-64 ist zu viel! */}
@@ -320,14 +310,14 @@ export function V26PricingHero({ title, subtitle, children }: V26PricingHeroProp
 
 ### Vorteile gegenüber flexiblen Heroes:
 
-| Aspekt        | Flexibel (❌)         | Fixiert (✅)        |
-| ------------- | --------------------- | ------------------- |
-| Konsistenz    | Variiert pro Page     | Immer identisch     |
-| Wartung       | Jedes Hero einzeln    | Zentrale Komponente |
-| Performance   | Layout-Shifts möglich | Stabil              |
-| Design-Review | Jedes Mal diskutieren | Einmal definiert    |
-| Onboarding    | "Wie groß machen?"    | "Verwende Standard" |
-| Mobile        | Unterschiedlich       | Einheitlich         |
+| Aspekt | Flexibel (❌) | Fixiert (✅) |
+|--------|---------------|--------------|
+| Konsistenz | Variiert pro Page | Immer identisch |
+| Wartung | Jedes Hero einzeln | Zentrale Komponente |
+| Performance | Layout-Shifts möglich | Stabil |
+| Design-Review | Jedes Mal diskutieren | Einmal definiert |
+| Onboarding | "Wie groß machen?" | "Verwende Standard" |
+| Mobile | Unterschiedlich | Einheitlich |
 
 ---
 

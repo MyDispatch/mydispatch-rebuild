@@ -108,7 +108,7 @@ CREATE POLICY "Admins can update own company"
 ON companies FOR UPDATE
 USING (
   id IN (
-    SELECT company_id FROM profiles
+    SELECT company_id FROM profiles 
     WHERE user_id = auth.uid() AND role = 'admin'
   )
 );
@@ -125,7 +125,7 @@ CREATE TABLE bookings (
   customer_id UUID NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
   vehicle_id UUID REFERENCES vehicles(id) ON DELETE SET NULL,
   driver_id UUID REFERENCES drivers(id) ON DELETE SET NULL,
-
+  
   -- Adress-Daten
   pickup_address TEXT NOT NULL,
   pickup_lat DECIMAL(10, 8),
@@ -133,28 +133,28 @@ CREATE TABLE bookings (
   dropoff_address TEXT NOT NULL,
   dropoff_lat DECIMAL(10, 8),
   dropoff_lng DECIMAL(11, 8),
-
+  
   -- Zeit-Daten
   pickup_time TIMESTAMPTZ NOT NULL,
   dropoff_time TIMESTAMPTZ,
-
+  
   -- Buchungs-Details
   passengers INTEGER NOT NULL DEFAULT 1 CHECK (passengers >= 1 AND passengers <= 8),
   luggage INTEGER NOT NULL DEFAULT 0 CHECK (luggage >= 0 AND luggage <= 8),
   special_requests TEXT,
-
+  
   -- Preis-Daten
   estimated_price DECIMAL(10, 2),
   final_price DECIMAL(10, 2),
   currency TEXT DEFAULT 'EUR',
-
+  
   -- Status
   status booking_status NOT NULL DEFAULT 'pending',
-
+  
   -- Timestamps
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-
+  
   -- Constraints
   CONSTRAINT valid_passengers CHECK (passengers BETWEEN 1 AND 8),
   CONSTRAINT valid_luggage CHECK (luggage BETWEEN 0 AND 8),
@@ -212,26 +212,26 @@ USING (
 CREATE TABLE customers (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   company_id UUID NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
-
+  
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   email TEXT,
   phone TEXT NOT NULL,
-
+  
   -- Adresse (optional)
   address TEXT,
   city TEXT,
   postal_code TEXT,
   country TEXT DEFAULT 'DE',
-
+  
   -- DSGVO
   gdpr_consent BOOLEAN NOT NULL DEFAULT false,
   gdpr_consent_date TIMESTAMPTZ,
-
+  
   -- Timestamps
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-
+  
   -- Constraints
   CONSTRAINT valid_email CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$')
 );
@@ -269,24 +269,24 @@ WITH CHECK (
 CREATE TABLE vehicles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   company_id UUID NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
-
+  
   make TEXT NOT NULL, -- Hersteller (z.B. Mercedes)
   model TEXT NOT NULL, -- Modell (z.B. E-Klasse)
   year INTEGER NOT NULL CHECK (year >= 1900 AND year <= EXTRACT(YEAR FROM CURRENT_DATE) + 1),
   license_plate TEXT NOT NULL,
-
+  
   -- Fahrzeug-Details
   color TEXT,
   seats INTEGER NOT NULL DEFAULT 4 CHECK (seats >= 1 AND seats <= 8),
   vehicle_type vehicle_type NOT NULL DEFAULT 'sedan',
-
+  
   -- Status
   status vehicle_status NOT NULL DEFAULT 'available',
-
+  
   -- Timestamps
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-
+  
   UNIQUE(company_id, license_plate)
 );
 
@@ -319,23 +319,23 @@ CREATE TABLE drivers (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   company_id UUID NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
   user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL, -- Optional: Fahrer-Login
-
+  
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   email TEXT,
   phone TEXT NOT NULL,
-
+  
   -- Führerschein
   license_number TEXT NOT NULL,
   license_expiry DATE NOT NULL CHECK (license_expiry > CURRENT_DATE),
-
+  
   -- Status
   status driver_status NOT NULL DEFAULT 'available',
-
+  
   -- Timestamps
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-
+  
   UNIQUE(company_id, license_number)
 );
 
@@ -405,7 +405,7 @@ CREATE POLICY "policy_name_delete"
 ON table_name FOR DELETE
 USING (
   company_id IN (
-    SELECT company_id FROM profiles
+    SELECT company_id FROM profiles 
     WHERE user_id = auth.uid() AND role = 'admin'
   )
 );
@@ -445,15 +445,15 @@ BEGIN
   IF NEW.passengers < 1 OR NEW.passengers > 8 THEN
     RAISE EXCEPTION 'Passengers must be between 1 and 8';
   END IF;
-
+  
   IF LENGTH(NEW.pickup_address) > 500 THEN
     RAISE EXCEPTION 'Address too long (DoS prevention)';
   END IF;
-
+  
   IF NEW.pickup_time < now() THEN
     RAISE EXCEPTION 'Pickup time cannot be in the past';
   END IF;
-
+  
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = public;
@@ -551,7 +551,7 @@ BEGIN
   IF NOT EXISTS (...) THEN
     RAISE EXCEPTION 'Unauthorized';
   END IF;
-
+  
   -- Logic
 END;
 $$;
@@ -567,10 +567,10 @@ BEGIN
   IF LENGTH(NEW.field) > 500 THEN
     RAISE EXCEPTION 'Input too long';
   END IF;
-
+  
   -- Type checks
   -- Range checks
-
+  
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -606,7 +606,6 @@ Vor jedem Deployment:
 ## 📝 Changelog
 
 ### V18.5.0 (2025-01-26)
-
 - Erstversion Database Schema
 - Kern-Tabellen dokumentiert (profiles, companies, bookings, customers, vehicles, drivers)
 - RLS Policy Templates

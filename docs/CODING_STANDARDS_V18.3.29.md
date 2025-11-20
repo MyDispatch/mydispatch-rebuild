@@ -1,5 +1,4 @@
 # 💻 CODING STANDARDS V18.3.29
-
 ## MyDispatch - Corporate Development Standards
 
 **Status:** Production-Ready  
@@ -78,12 +77,12 @@ const handleOrder = (order: { id: string; status: string }) => { ... }
 
 ```typescript
 // ✅ RICHTIG: String Literal Unions
-type OrderStatus = "pending" | "assigned" | "in_transit" | "delivered" | "cancelled";
+type OrderStatus = 'pending' | 'assigned' | 'in_transit' | 'delivered' | 'cancelled';
 
 // ❌ FALSCH: Enums (außer für Flags)
 enum OrderStatus {
-  Pending = "pending",
-  Assigned = "assigned",
+  Pending = 'pending',
+  Assigned = 'assigned'
 }
 ```
 
@@ -98,10 +97,10 @@ enum OrderStatus {
 type OrderUpdate = Partial<Order>;
 
 // Pick für Subsets
-type OrderListItem = Pick<Order, "id" | "order_number" | "status">;
+type OrderListItem = Pick<Order, 'id' | 'order_number' | 'status'>;
 
 // Omit für Ausschlüsse
-type CreateOrderInput = Omit<Order, "id" | "created_at">;
+type CreateOrderInput = Omit<Order, 'id' | 'created_at'>;
 
 // Record für Maps
 type OrderStatusMap = Record<OrderStatus, string>;
@@ -113,7 +112,7 @@ type OrderStatusMap = Record<OrderStatus, string>;
 
 ```typescript
 // IMMER Zod-Schemas für externe Daten
-import { z } from "zod";
+import { z } from 'zod';
 
 const OrderSchema = z.object({
   customer_id: z.string().uuid(),
@@ -156,9 +155,9 @@ class Button extends React.Component { ... }
 const MyComponent = () => {
   const [state, setState] = useState(0);
   const data = useQuery({ ... });
-
+  
   useEffect(() => { ... }, []);
-
+  
   return <div>...</div>;
 };
 
@@ -337,14 +336,14 @@ interface OrderCardProps {
 
 ### Component File Structure
 
-````tsx
+```tsx
 /**
  * ========================================================================
  * COMPONENT NAME V18.3.29
  * ========================================================================
- *
+ * 
  * Kurze Beschreibung der Komponente.
- *
+ * 
  * VERWENDUNG:
  * ```tsx
  * <ComponentName prop1="value" />
@@ -407,7 +406,7 @@ export const ComponentName = ({ prop1, prop2 = 0, className }: ComponentNameProp
 function helperFunction() {
   // ...
 }
-````
+```
 
 ---
 
@@ -460,30 +459,30 @@ src/
 
 ```typescript
 // 1. React & External Libraries
-import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import React, { useState, useEffect } from 'react';
+import { useQuery, useMutation } from '@tanstack/react-query';
 
 // 2. Internal Libraries & Utils
-import { cn } from "@/lib/utils";
-import { sanitizeHTML } from "@/lib/sanitize";
-import { validateOrder } from "@/lib/validation";
+import { cn } from '@/lib/utils';
+import { sanitizeHTML } from '@/lib/sanitize';
+import { validateOrder } from '@/lib/validation';
 
 // 3. Components
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { KPICard } from "@/components/design-system/KPICard";
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import { KPICard } from '@/components/design-system/KPICard';
 
 // 4. Hooks
-import { useOrders } from "@/hooks/useOrders";
+import { useOrders } from '@/hooks/useOrders';
 
 // 5. Types
-import type { Order, OrderStatus } from "@/types";
+import type { Order, OrderStatus } from '@/types';
 
 // 6. Icons (Lucide)
-import { Plus, Edit, Trash } from "lucide-react";
+import { Plus, Edit, Trash } from 'lucide-react';
 
 // 7. Styles (wenn separate CSS-Dateien)
-import "./styles.css";
+import './styles.css';
 ```
 
 ---
@@ -492,15 +491,15 @@ import "./styles.css";
 
 ```typescript
 // components/design-system/index.ts
-export { HeroSection } from "./HeroSection";
-export { KPICard } from "./KPICard";
-export { Icon } from "./Icon";
+export { HeroSection } from './HeroSection';
+export { KPICard } from './KPICard';
+export { Icon } from './Icon';
 
-export type { HeroSectionProps } from "./HeroSection";
-export type { KPICardProps } from "./KPICard";
+export type { HeroSectionProps } from './HeroSection';
+export type { KPICardProps } from './KPICard';
 
 // Verwendung
-import { KPICard, Icon } from "@/components/design-system";
+import { KPICard, Icon } from '@/components/design-system';
 ```
 
 ---
@@ -513,20 +512,22 @@ import { KPICard, Icon } from "@/components/design-system";
 // ✅ RICHTIG: Comprehensive Error Handling
 const fetchOrders = async () => {
   try {
-    const { data, error } = await supabase.from("orders").select("*");
-
+    const { data, error } = await supabase
+      .from('orders')
+      .select('*');
+    
     if (error) throw error;
-
+    
     return data;
   } catch (error) {
-    console.error("[fetchOrders]", error);
-    throw new Error("Fehler beim Laden der Aufträge");
+    console.error('[fetchOrders]', error);
+    throw new Error('Fehler beim Laden der Aufträge');
   }
 };
 
 // ❌ FALSCH: Keine Error Handling
 const fetchOrders = async () => {
-  const { data } = await supabase.from("orders").select("*");
+  const { data } = await supabase.from('orders').select('*');
   return data; // Was wenn error?
 };
 ```
@@ -568,10 +569,10 @@ if (error) {
 
 ```typescript
 // Fallback-Werte für optionale Daten
-const driverName = order.driver?.full_name || "Nicht zugewiesen";
+const driverName = order.driver?.full_name || 'Nicht zugewiesen';
 
 // Optional Chaining für verschachtelte Props
-const cityName = order.customer?.address?.city ?? "Unbekannt";
+const cityName = order.customer?.address?.city ?? 'Unbekannt';
 
 // Nullish Coalescing statt OR
 const count = order.count ?? 0; // 0 wird nicht als falsy behandelt
@@ -586,11 +587,11 @@ const count = order.count ?? 0; // 0 wird nicht als falsy behandelt
 ```typescript
 /**
  * Erstellt einen neuen Auftrag.
- *
+ * 
  * @param orderData - Die Auftragsdaten
  * @returns Der erstellte Auftrag
  * @throws {Error} Wenn die Validierung fehlschlägt
- *
+ * 
  * @example
  * const order = await createOrder({
  *   customer_id: '123',
@@ -609,7 +610,7 @@ export async function createOrder(orderData: CreateOrderInput): Promise<Order> {
 ```typescript
 // ✅ RICHTIG: Erklärung von "Warum", nicht "Was"
 // Workaround für Supabase RLS Policy Bug (Ticket #123)
-const { data } = await supabase.rpc("custom_fetch_orders");
+const { data } = await supabase.rpc('custom_fetch_orders');
 
 // ❌ FALSCH: Kommentiert offensichtlichen Code
 // Setze loading auf true
@@ -657,7 +658,7 @@ describe('Button', () => {
   it('calls onClick when clicked', () => {
     const handleClick = jest.fn();
     render(<Button label="Click" onClick={handleClick} />);
-
+    
     fireEvent.click(screen.getByText('Click'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -676,24 +677,24 @@ describe('Button', () => {
 ### E2E Test Pattern
 
 ```typescript
-import { test, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-test.describe("Orders Page", () => {
-  test("should create new order", async ({ page }) => {
-    await page.goto("/orders");
-
+test.describe('Orders Page', () => {
+  test('should create new order', async ({ page }) => {
+    await page.goto('/orders');
+    
     // Click "Neuer Auftrag"
     await page.click('button:has-text("Neuer Auftrag")');
-
+    
     // Fill form
-    await page.fill('[name="pickup_address"]', "Test Str. 1");
-    await page.fill('[name="delivery_address"]', "Test Str. 2");
-
+    await page.fill('[name="pickup_address"]', 'Test Str. 1');
+    await page.fill('[name="delivery_address"]', 'Test Str. 2');
+    
     // Submit
     await page.click('button:has-text("Erstellen")');
-
+    
     // Verify success
-    await expect(page.locator("text=Auftrag erstellt")).toBeVisible();
+    await expect(page.locator('text=Auftrag erstellt')).toBeVisible();
   });
 });
 ```
@@ -730,8 +731,8 @@ function App() {
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, // 5 Minuten
-      cacheTime: 10 * 60 * 1000, // 10 Minuten
+      staleTime: 5 * 60 * 1000,     // 5 Minuten
+      cacheTime: 10 * 60 * 1000,    // 10 Minuten
       refetchOnWindowFocus: false,
     },
   },
@@ -743,14 +744,14 @@ const queryClient = new QueryClient({
 ### 3. Debounce für Search
 
 ```typescript
-import { useDebouncedValue } from "@/hooks/useDebouncedValue";
+import { useDebouncedValue } from '@/hooks/useDebouncedValue';
 
-const [searchInput, setSearchInput] = useState("");
+const [searchInput, setSearchInput] = useState('');
 const debouncedSearch = useDebouncedValue(searchInput, 300);
 
 // Query verwendet debounced value
 const { data } = useQuery({
-  queryKey: ["orders", debouncedSearch],
+  queryKey: ['orders', debouncedSearch],
   queryFn: () => fetchOrders(debouncedSearch),
 });
 ```
@@ -760,7 +761,13 @@ const { data } = useQuery({
 ### 4. Image Optimization
 
 ```tsx
-<img src={imageUrl} alt="Description" loading="lazy" width={400} height={300} />
+<img 
+  src={imageUrl} 
+  alt="Description"
+  loading="lazy"
+  width={400}
+  height={300}
+/>
 ```
 
 ---
@@ -781,7 +788,7 @@ import { sanitizeHTML } from '@/lib/sanitize';
 ### 2. Input Validation (PFLICHT)
 
 ```typescript
-import { validateOrder } from "@/lib/validation";
+import { validateOrder } from '@/lib/validation';
 
 const handleSubmit = (formData: unknown) => {
   const result = validateOrder(formData);
@@ -789,7 +796,7 @@ const handleSubmit = (formData: unknown) => {
     // Handle validation errors
     return;
   }
-
+  
   // result.data ist validiert
   createOrder(result.data);
 };
@@ -804,7 +811,7 @@ const handleSubmit = (formData: unknown) => {
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 
 // ❌ FALSCH: Hardcoded
-const apiKey = "sk_test_123..."; // NIEMALS!
+const apiKey = 'sk_test_123...'; // NIEMALS!
 ```
 
 ---
@@ -849,4 +856,4 @@ CREATE POLICY "Users see own orders" ON orders
 
 **END OF DOCUMENT**
 
-_Diese Coding Standards sind verbindlich und müssen bei allen Code-Contributions befolgt werden._
+*Diese Coding Standards sind verbindlich und müssen bei allen Code-Contributions befolgt werden.*

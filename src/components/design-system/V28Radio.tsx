@@ -3,21 +3,21 @@
  * HYPERION Phase 1.3 - Design System
  */
 
-import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import * as React from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '@/lib/utils';
 
 const radioVariants = cva(
-  "h-4 w-4 rounded-full border ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+  'h-4 w-4 rounded-full border ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
   {
     variants: {
       variant: {
-        default: "border-primary text-primary",
-        error: "border-destructive text-destructive",
+        default: 'border-primary text-primary',
+        error: 'border-destructive text-destructive',
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: 'default',
     },
   }
 );
@@ -29,28 +29,27 @@ export interface V28RadioOption {
 }
 
 export interface V28RadioProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type">,
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>,
     VariantProps<typeof radioVariants> {
   label?: string;
   error?: string;
   options: V28RadioOption[];
-  orientation?: "vertical" | "horizontal";
+  orientation?: 'vertical' | 'horizontal';
 }
 
 export const V28Radio = React.forwardRef<HTMLInputElement, V28RadioProps>(
-  (
-    { className, variant, label, error, options, orientation = "vertical", name, ...props },
-    ref
-  ) => {
+  ({ className, variant, label, error, options, orientation = 'vertical', name, ...props }, ref) => {
     const groupId = React.useId();
 
     return (
       <div className="w-full">
-        {label && <label className="mb-2 block text-sm font-medium text-foreground">{label}</label>}
+        {label && (
+          <label className="mb-2 block text-sm font-medium text-foreground">{label}</label>
+        )}
         <div
           className={cn(
-            "flex gap-4",
-            orientation === "vertical" ? "flex-col" : "flex-row flex-wrap"
+            'flex gap-4',
+            orientation === 'vertical' ? 'flex-col' : 'flex-row flex-wrap'
           )}
         >
           {options.map((option) => {
@@ -62,7 +61,7 @@ export const V28Radio = React.forwardRef<HTMLInputElement, V28RadioProps>(
                   id={optionId}
                   name={name}
                   value={option.value}
-                  className={cn(radioVariants({ variant: error ? "error" : variant }), className)}
+                  className={cn(radioVariants({ variant: error ? 'error' : variant }), className)}
                   ref={ref}
                   {...props}
                 />
@@ -87,4 +86,4 @@ export const V28Radio = React.forwardRef<HTMLInputElement, V28RadioProps>(
   }
 );
 
-V28Radio.displayName = "V28Radio";
+V28Radio.displayName = 'V28Radio';

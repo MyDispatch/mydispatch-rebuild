@@ -10,7 +10,6 @@
 Professionelle, typografisch korrekte Textumbrüche in ALLEN MyDispatch-Seiten nach deutschen Standards (DIN 5008) mit kontextspezifischen Regeln für optimale Lesbarkeit.
 
 **Kernprinzipien:**
-
 - ✅ Headlines: **KEINE** Silbentrennung (bleiben ungeteilt)
 - ✅ Hero-Text: **KEINE** Silbentrennung (natürliche Umbrüche an Leerzeichen)
 - ✅ Marketing-Text: **SANFTE** Silbentrennung (8 Zeichen min., 4 vor/nach)
@@ -30,12 +29,12 @@ body {
   -webkit-hyphens: auto;
   -ms-hyphens: auto;
   hyphenate-limit-chars: 6 3 3; /* Min. 6 Zeichen, mind. 3 vor/nach Trennung */
-
+  
   /* Wortumbruch-Regeln */
   word-wrap: break-word;
   overflow-wrap: break-word;
   word-break: normal; /* NICHT break-all! Behält Wortgrenzen */
-
+  
   /* Typografie-Optimierung */
   text-rendering: optimizeLegibility;
   font-kerning: normal;
@@ -44,7 +43,6 @@ body {
 ```
 
 **Was bedeutet das?**
-
 - Automatische Silbentrennung für ALLE Texte
 - Mindestens 6 Zeichen pro Wort vor Trennung
 - Mindestens 3 Zeichen vor/nach dem Trennstrich
@@ -57,12 +55,7 @@ body {
 ### 1. **Headlines (h1-h6): KEINE Silbentrennung**
 
 ```css
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   hyphens: none !important;
   -webkit-hyphens: none !important;
   word-break: normal;
@@ -71,14 +64,12 @@ h6 {
 ```
 
 **Verwendung:**
-
 ```tsx
 <h1>Ihr professioneller Fahrservice</h1>
 <!-- Bleibt ungeteilt, auch auf Mobile -->
 ```
 
 **Warum?**
-
 - Headlines sollen visuell stark und ungeteilt wirken
 - Silbentrennung stört den Lesefluss bei großen Schriften
 - Wichtige Botschaften bleiben zusammen
@@ -88,10 +79,7 @@ h6 {
 ### 2. **Fließtext (p, li, td, th): STANDARD Silbentrennung**
 
 ```css
-p,
-li,
-td,
-th {
+p, li, td, th {
   hyphens: auto;
   -webkit-hyphens: auto;
   hyphenate-limit-chars: 6 3 3;
@@ -100,17 +88,15 @@ th {
 ```
 
 **Verwendung:**
-
 ```tsx
 <p>
-  Professioneller Taxi- und Mietwagenservice von Taxi Courbois.
+  Professioneller Taxi- und Mietwagenservice von Taxi Courbois. 
   Jetzt buchen!
 </p>
 <!-- "Mietwagenservice" könnte zu "Mietwagen-service" werden -->
 ```
 
 **Warum?**
-
 - Fließtext profitiert von Silbentrennung (gleichmäßigere Zeilen)
 - DIN 5008 Standard für deutsche Texte
 - Verbessert Lesbarkeit auf schmalen Bildschirmen
@@ -120,10 +106,7 @@ th {
 ### 3. **Code/Pre (code, pre, kbd): SPEZIELLE Regeln**
 
 ```css
-code,
-pre,
-kbd,
-samp {
+code, pre, kbd, samp {
   hyphens: none;
   -webkit-hyphens: none;
   word-break: break-all; /* Code darf überall umbrechen */
@@ -132,14 +115,12 @@ samp {
 ```
 
 **Verwendung:**
-
 ```tsx
 <code>npm install @tanstack/react-query</code>
 <!-- Kann bei "react-query" umbrechen, aber ohne Trennstrich -->
 ```
 
 **Warum?**
-
 - Code soll NIEMALS mit Trennstrichen versehen werden
 - Aber bei langen Pfaden/URLs muss Umbruch möglich sein
 - `break-all` erlaubt Umbruch überall (ohne Trennzeichen)
@@ -156,7 +137,6 @@ a {
 ```
 
 **Verwendung:**
-
 ```tsx
 <a href="https://my-dispatch.de/sehr-lange-url-die-umbricht">
   Link mit langer URL
@@ -165,7 +145,6 @@ a {
 ```
 
 **Warum?**
-
 - URLs sind oft sehr lang und würden sonst überlaufen
 - Wichtig für Mobile-Optimierung
 - Verhindert horizontale Scrollbars
@@ -177,7 +156,6 @@ a {
 ### `.hero-text-no-hyphens` - Hero/Marketing ohne Silbentrennung
 
 **Verwendung:**
-
 ```tsx
 <p className="text-2xl hero-text-no-hyphens">
   Willkommen bei Courbois, Ihrem Taxi-Unternehmer in Köln.
@@ -186,7 +164,6 @@ a {
 ```
 
 **CSS:**
-
 ```css
 .hero-text-no-hyphens {
   hyphens: none !important;
@@ -197,14 +174,12 @@ a {
 ```
 
 **Wann verwenden?**
-
 - ✅ Hero-Sections (große, prominente Texte)
 - ✅ Marketing-Slogans
 - ✅ Call-to-Action Texte
 - ✅ Kurze beschreibende Texte (1-3 Sätze)
 
 **Warum?**
-
 - Hero-Text wirkt natürlicher ohne Silbentrennung
 - "Taxi-Unternehmer" bleibt zusammen (bereits ein Kompositum)
 - Umbruch erfolgt an natürlichen Grenzen (Leerzeichen, Kommata)
@@ -214,17 +189,15 @@ a {
 ### `.marketing-text-soft-hyphens` - Sanfte Silbentrennung
 
 **Verwendung:**
-
 ```tsx
 <p className="text-lg marketing-text-soft-hyphens">
-  Professioneller Taxi- und Mietwagenservice für Geschäftskunden
+  Professioneller Taxi- und Mietwagenservice für Geschäftskunden 
   und Privatpersonen in ganz Deutschland.
 </p>
 <!-- "Mietwagenservice" → "Mietwagen-service" (nur bei mind. 8 Zeichen) -->
 ```
 
 **CSS:**
-
 ```css
 .marketing-text-soft-hyphens {
   hyphens: auto;
@@ -234,14 +207,12 @@ a {
 ```
 
 **Wann verwenden?**
-
 - ✅ Feature-Beschreibungen
 - ✅ Service-Übersichten
 - ✅ Produkt-Texte
 - ✅ Mittelgroße Texte (3-6 Sätze)
 
 **Warum?**
-
 - Weniger aggressive Trennung als Standard
 - Nur sehr lange Wörter (8+ Zeichen) werden getrennt
 - Mehr Zeichen vor/nach Trennstrich (4 statt 3)
@@ -251,7 +222,6 @@ a {
 ### `.body-text-hyphens` - Standard Fließtext
 
 **Verwendung:**
-
 ```tsx
 <article className="body-text-hyphens">
   <p>Langer Artikel-Text mit vielen Absätzen...</p>
@@ -261,7 +231,6 @@ a {
 ```
 
 **CSS:**
-
 ```css
 .body-text-hyphens {
   hyphens: auto;
@@ -271,14 +240,12 @@ a {
 ```
 
 **Wann verwenden?**
-
 - ✅ Blog-Artikel
 - ✅ Dokumentation
 - ✅ AGB / Datenschutz
 - ✅ Lange Texte (10+ Sätze)
 
 **Warum?**
-
 - Standard-Regel für deutschen Fließtext
 - Optimal für lange Texte (gleichmäßige Zeilen)
 - DIN 5008 konform
@@ -288,14 +255,12 @@ a {
 ### `.text-nowrap-important` - Keine Umbrüche
 
 **Verwendung:**
-
 ```tsx
 <span className="text-nowrap-important">24/7 verfügbar</span>
 <!-- Bleibt IMMER zusammen, auch auf Mobile -->
 ```
 
 **CSS:**
-
 ```css
 .text-nowrap-important {
   white-space: nowrap !important;
@@ -305,14 +270,12 @@ a {
 ```
 
 **Wann verwenden?**
-
 - ✅ Wichtige Badges ("24/7", "100% Pünktlich")
 - ✅ Telefonnummern
 - ✅ Kurze Labels
 - ✅ Navigation-Items
 
 **Warum?**
-
 - Manche Phrasen MÜSSEN zusammenbleiben
 - Visuell wichtig (z.B. "24/7" darf nicht zu "24/ | 7" werden)
 - Ellipsis (`...`) zeigt an, wenn Text abgeschnitten ist
@@ -322,7 +285,6 @@ a {
 ### `.text-balance` - Gleichmäßige Zeilenverteilung
 
 **Verwendung:**
-
 ```tsx
 <h2 className="text-balance">
   Warum Taxi Courbois?
@@ -331,7 +293,6 @@ a {
 ```
 
 **CSS:**
-
 ```css
 .text-balance {
   text-wrap: balance;
@@ -339,13 +300,11 @@ a {
 ```
 
 **Wann verwenden?**
-
 - ✅ Kurze Headlines (2-3 Zeilen)
 - ✅ Card-Titel
 - ✅ Section-Überschriften
 
 **Warum?**
-
 - Verhindert "Witwen" (einzelnes Wort auf letzter Zeile)
 - Gleichmäßigere optische Verteilung
 - Modernes CSS-Feature (Chrome 114+, Safari 17+)
@@ -355,17 +314,15 @@ a {
 ### `.text-pretty` - Verhindert Witwen/Waisen
 
 **Verwendung:**
-
 ```tsx
 <p className="text-pretty">
-  Professioneller Fahrservice mit höchsten Qualitätsstandards
+  Professioneller Fahrservice mit höchsten Qualitätsstandards 
   für Ihr Unternehmen.
 </p>
 <!-- Verhindert einzelne Wörter auf letzter Zeile -->
 ```
 
 **CSS:**
-
 ```css
 .text-pretty {
   text-wrap: pretty;
@@ -373,13 +330,11 @@ a {
 ```
 
 **Wann verwenden?**
-
 - ✅ Kurze Absätze (2-4 Sätze)
 - ✅ Teaser-Texte
 - ✅ Intro-Texte
 
 **Warum?**
-
 - Verhindert typografische Witwen (einzelnes Wort auf neuer Zeile)
 - Bessere optische Balance
 - Modernes CSS-Feature (Chrome 117+, Safari 17.4+)
@@ -388,17 +343,17 @@ a {
 
 ## 🗂️ Verwendungs-Matrix
 
-| Text-Typ       | Element | Klasse                         | Silbentrennung            | Wann?                  |
-| -------------- | ------- | ------------------------------ | ------------------------- | ---------------------- |
-| **Headlines**  | h1-h6   | -                              | ❌ Keine                  | Immer                  |
-| **Hero-Text**  | p       | `.hero-text-no-hyphens`        | ❌ Keine                  | Hero-Sections          |
-| **Marketing**  | p       | `.marketing-text-soft-hyphens` | 🟡 Sanft (8-4-4)          | Feature-Beschreibungen |
-| **Fließtext**  | p, li   | `.body-text-hyphens`           | ✅ Standard (6-3-3)       | Artikel, Docs          |
-| **Badges**     | span    | `.text-nowrap-important`       | ❌ Keine                  | Labels, Badges         |
-| **Card-Titel** | h3      | `.text-balance`                | ❌ Keine                  | Kurze Titel            |
-| **Teaser**     | p       | `.text-pretty`                 | ✅ Standard               | Intro-Texte            |
-| **Code**       | code    | -                              | ❌ Keine, aber break-all  | Code-Snippets          |
-| **URLs**       | a       | -                              | ❌ Keine, aber break-word | Links                  |
+| Text-Typ | Element | Klasse | Silbentrennung | Wann? |
+|----------|---------|--------|----------------|-------|
+| **Headlines** | h1-h6 | - | ❌ Keine | Immer |
+| **Hero-Text** | p | `.hero-text-no-hyphens` | ❌ Keine | Hero-Sections |
+| **Marketing** | p | `.marketing-text-soft-hyphens` | 🟡 Sanft (8-4-4) | Feature-Beschreibungen |
+| **Fließtext** | p, li | `.body-text-hyphens` | ✅ Standard (6-3-3) | Artikel, Docs |
+| **Badges** | span | `.text-nowrap-important` | ❌ Keine | Labels, Badges |
+| **Card-Titel** | h3 | `.text-balance` | ❌ Keine | Kurze Titel |
+| **Teaser** | p | `.text-pretty` | ✅ Standard | Intro-Texte |
+| **Code** | code | - | ❌ Keine, aber break-all | Code-Snippets |
+| **URLs** | a | - | ❌ Keine, aber break-word | Links |
 
 ---
 
@@ -421,7 +376,6 @@ a {
 ### Problem: Text bricht an falschen Stellen um
 
 **Lösung 1:** Prüfe, ob das Element die richtige Klasse hat
-
 ```tsx
 <!-- ❌ FALSCH: Hero-Text ohne Klasse -->
 <p className="text-2xl">Willkommen bei Courbois...</p>
@@ -431,7 +385,6 @@ a {
 ```
 
 **Lösung 2:** Nutze Browser DevTools
-
 ```
 1. Element rechtsklicken → Untersuchen
 2. Im "Computed" Tab nach "hyphens" suchen
@@ -443,7 +396,6 @@ a {
 ### Problem: Footer-Buttons ziehen nach links
 
 **Lösung:** Flex-Container mit `justify-center` verwenden
-
 ```tsx
 <!-- ❌ FALSCH: text-center auf Buttons -->
 <div className="text-center">
@@ -463,7 +415,6 @@ a {
 ### Problem: Lange URLs überlaufen
 
 **Lösung:** `word-break: break-word` ist bereits auf `<a>` gesetzt
-
 ```tsx
 <!-- ✅ Automatisch: Links brechen korrekt um -->
 <a href="https://very-long-url.com/with/many/segments">
@@ -476,14 +427,12 @@ a {
 ## 🚀 Systemweite Aktivierung
 
 ### Bereits implementiert in:
-
 - ✅ `src/index.css` (Global Base Styles)
 - ✅ `src/pages/Unternehmer.tsx` (Landing-Page)
 - ✅ Alle Footer-Komponenten
 - ✅ Alle Card-Komponenten
 
 ### TODO für neue Seiten:
-
 1. Prüfe Hero-Texte → Füge `.hero-text-no-hyphens` hinzu
 2. Prüfe Marketing-Texte → Füge `.marketing-text-soft-hyphens` hinzu
 3. Prüfe Footer → Nutze Flex-Layout mit `justify-center`
@@ -493,12 +442,12 @@ a {
 
 ## 📚 Browser-Support
 
-| Feature                  | Chrome  | Safari   | Firefox | Edge    |
-| ------------------------ | ------- | -------- | ------- | ------- |
-| `hyphens: auto`          | ✅ 55+  | ✅ 5.1+  | ✅ 43+  | ✅ 79+  |
-| `text-wrap: balance`     | ✅ 114+ | ✅ 17+   | ❌      | ✅ 114+ |
-| `text-wrap: pretty`      | ✅ 117+ | ✅ 17.4+ | ❌      | ✅ 117+ |
-| `word-break: break-word` | ✅ 1+   | ✅ 3+    | ✅ 1+   | ✅ 12+  |
+| Feature | Chrome | Safari | Firefox | Edge |
+|---------|--------|--------|---------|------|
+| `hyphens: auto` | ✅ 55+ | ✅ 5.1+ | ✅ 43+ | ✅ 79+ |
+| `text-wrap: balance` | ✅ 114+ | ✅ 17+ | ❌ | ✅ 114+ |
+| `text-wrap: pretty` | ✅ 117+ | ✅ 17.4+ | ❌ | ✅ 117+ |
+| `word-break: break-word` | ✅ 1+ | ✅ 3+ | ✅ 1+ | ✅ 12+ |
 
 **Fallback:** Moderne Features haben automatische Fallbacks (Browser ignorieren unbekannte Properties)
 
@@ -508,7 +457,7 @@ a {
 
 **Tech Lead:** MyDispatch Development Team  
 **Letzte Aktualisierung:** 2025-01-18  
-**Version:** V18.3.25 FINAL
+**Version:** V18.3.25 FINAL  
 
 Bei Fragen zu Textumbrüchen → siehe dieses Dokument FIRST!
 

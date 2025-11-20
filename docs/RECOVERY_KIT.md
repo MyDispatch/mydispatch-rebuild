@@ -348,19 +348,19 @@ psql "$SUPABASE_DB_URL" -c "SELECT COUNT(*) FROM users;"
 
 ### Recovery Team
 
-| Role           | Name   | Phone   | Email   |
-| -------------- | ------ | ------- | ------- |
-| Tech Lead      | [Name] | [Phone] | [Email] |
-| DevOps         | [Name] | [Phone] | [Email] |
+| Role | Name | Phone | Email |
+|------|------|-------|-------|
+| Tech Lead | [Name] | [Phone] | [Email] |
+| DevOps | [Name] | [Phone] | [Email] |
 | Database Admin | [Name] | [Phone] | [Email] |
 
 ### Service Providers
 
-| Provider | Support              | URL                            |
-| -------- | -------------------- | ------------------------------ |
+| Provider | Support | URL |
+|----------|---------|-----|
 | Supabase | support@supabase.com | https://supabase.com/dashboard |
-| Vercel   | support@vercel.com   | https://vercel.com/support     |
-| AWS      | [Account Support]    | https://console.aws.amazon.com |
+| Vercel | support@vercel.com | https://vercel.com/support |
+| AWS | [Account Support] | https://console.aws.amazon.com |
 
 ---
 
@@ -398,28 +398,24 @@ terraform destroy -var-file="terraform.tfvars.test"
 ### Common Issues
 
 **Issue:** Terraform state locked
-
 ```bash
 # Solution: Force unlock
 terraform force-unlock [LOCK_ID]
 ```
 
 **Issue:** Backup decryption fails
-
 ```bash
 # Solution: Verify encryption key
 echo "$BACKUP_ENCRYPTION_KEY" | gpg --batch --decrypt [file].gpg
 ```
 
 **Issue:** Vercel deployment fails
-
 ```bash
 # Solution: Check build logs
 vercel logs [deployment-url]
 ```
 
 **Issue:** Database restore timeout
-
 ```bash
 # Solution: Restore in batches
 psql "$SUPABASE_DB_URL" < schema.sql

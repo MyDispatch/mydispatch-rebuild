@@ -18,19 +18,19 @@ MyDispatch ist eine professionelle, DSGVO-konforme Dispositionssoftware für Tax
 graph TB
     A[Public Marketing] --> B[Authentication]
     B --> C[Dashboard/App]
-
+    
     A --> D[Home.tsx]
     A --> E[Pricing.tsx]
     A --> F[Unternehmer.tsx]
-
+    
     B --> G[Auth.tsx]
-
+    
     C --> H[IndexNew.tsx]
     C --> I[Auftraege.tsx]
     C --> J[Fahrer.tsx]
     C --> K[Fahrzeuge.tsx]
     C --> L[Kunden.tsx]
-
+    
     style D fill:#EADEBD
     style E fill:#EADEBD
     style F fill:#EADEBD
@@ -108,36 +108,33 @@ src/
 ## 🎨 DESIGN-SYSTEM KOMPONENTEN
 
 ### Base Components (shadcn/ui)
-
-| Komponente | Pfad                     | Verwendung     |
-| ---------- | ------------------------ | -------------- |
-| Button     | `@/components/ui/button` | Alle Buttons   |
-| Card       | `@/components/ui/card`   | Container      |
-| Input      | `@/components/ui/input`  | Text-Eingaben  |
-| Select     | `@/components/ui/select` | Dropdowns      |
-| Dialog     | `@/components/ui/dialog` | Modals         |
-| Tabs       | `@/components/ui/tabs`   | Tab-Navigation |
-| Table      | `@/components/ui/table`  | Datentabellen  |
-| Badge      | `@/components/ui/badge`  | Status-Labels  |
+| Komponente | Pfad | Verwendung |
+|------------|------|------------|
+| Button | `@/components/ui/button` | Alle Buttons |
+| Card | `@/components/ui/card` | Container |
+| Input | `@/components/ui/input` | Text-Eingaben |
+| Select | `@/components/ui/select` | Dropdowns |
+| Dialog | `@/components/ui/dialog` | Modals |
+| Tabs | `@/components/ui/tabs` | Tab-Navigation |
+| Table | `@/components/ui/table` | Datentabellen |
+| Badge | `@/components/ui/badge` | Status-Labels |
 
 ### Design System Components
-
-| Komponente      | Pfad                         | Verwendung        |
-| --------------- | ---------------------------- | ----------------- |
-| HeroSection     | `@/components/design-system` | Hero-Bereiche     |
-| KPICard         | `@/components/design-system` | KPI-Anzeige       |
-| QuickActions    | `@/components/design-system` | Quick-Action-Grid |
+| Komponente | Pfad | Verwendung |
+|------------|------|------------|
+| HeroSection | `@/components/design-system` | Hero-Bereiche |
+| KPICard | `@/components/design-system` | KPI-Anzeige |
+| QuickActions | `@/components/design-system` | Quick-Action-Grid |
 | MarketingButton | `@/components/design-system` | Marketing-Buttons |
-| Icon            | `@/components/design-system` | Icon-System       |
+| Icon | `@/components/design-system` | Icon-System |
 
 ### Shared Components
-
-| Komponente       | Pfad                  | Verwendung         |
-| ---------------- | --------------------- | ------------------ |
-| StatusIndicator  | `@/components/shared` | Ampel-System       |
-| EmptyState       | `@/components/shared` | Leere Zustände     |
-| BulkActionBar    | `@/components/shared` | Massenaktionen     |
-| DetailDialog     | `@/components/shared` | Detail-Ansichten   |
+| Komponente | Pfad | Verwendung |
+|------------|------|------------|
+| StatusIndicator | `@/components/shared` | Ampel-System |
+| EmptyState | `@/components/shared` | Leere Zustände |
+| BulkActionBar | `@/components/shared` | Massenaktionen |
+| DetailDialog | `@/components/shared` | Detail-Ansichten |
 | SearchableSelect | `@/components/shared` | Suchbare Dropdowns |
 
 ---
@@ -145,14 +142,13 @@ src/
 ## 🔄 DATENFLUSS
 
 ### Authentication Flow
-
 ```mermaid
 sequenceDiagram
     participant U as User
     participant A as Auth.tsx
     participant S as Supabase Auth
     participant D as Dashboard
-
+    
     U->>A: Login/Signup
     A->>S: signInWithPassword()
     S-->>A: Session + User
@@ -162,14 +158,13 @@ sequenceDiagram
 ```
 
 ### Booking Creation Flow
-
 ```mermaid
 sequenceDiagram
     participant U as User
     participant P as Auftraege.tsx
     participant Q as React Query
     participant S as Supabase
-
+    
     U->>P: Neuer Auftrag
     P->>Q: createBooking()
     Q->>S: INSERT booking
@@ -183,46 +178,42 @@ sequenceDiagram
 ## 📊 FEATURE-MATRIX
 
 ### Tarif-Features
-
-| Feature          | Starter | Business   | Enterprise |
-| ---------------- | ------- | ---------- | ---------- |
-| Aufträge         | ✅      | ✅         | ✅         |
-| Fahrer/Fahrzeuge | Bis 3   | Unbegrenzt | Unbegrenzt |
-| Kunden           | ✅      | ✅         | ✅         |
-| Rechnungen       | ✅      | ✅         | ✅         |
-| Partner          | ❌      | ✅         | ✅         |
-| Statistiken      | ❌      | ✅         | ✅         |
-| Live-Traffic     | ❌      | ✅         | ✅         |
-| Kunden-Portal    | ❌      | ✅         | ✅         |
-| Booking-Widget   | ❌      | ✅         | ✅         |
-| AI-Features      | ❌      | ✅         | ✅         |
+| Feature | Starter | Business | Enterprise |
+|---------|---------|----------|------------|
+| Aufträge | ✅ | ✅ | ✅ |
+| Fahrer/Fahrzeuge | Bis 3 | Unbegrenzt | Unbegrenzt |
+| Kunden | ✅ | ✅ | ✅ |
+| Rechnungen | ✅ | ✅ | ✅ |
+| Partner | ❌ | ✅ | ✅ |
+| Statistiken | ❌ | ✅ | ✅ |
+| Live-Traffic | ❌ | ✅ | ✅ |
+| Kunden-Portal | ❌ | ✅ | ✅ |
+| Booking-Widget | ❌ | ✅ | ✅ |
+| AI-Features | ❌ | ✅ | ✅ |
 
 ---
 
 ## 🎨 FARB-SYSTEM
 
 ### Primärfarben (CI)
-
 ```css
---primary: 40 31% 88%; /* #EADEBD - Gold/Beige */
---foreground: 225 31% 28%; /* #323D5E - Dunkelblau */
---background: 0 0% 100%; /* #FFFFFF - Weiß */
+--primary: 40 31% 88%;              /* #EADEBD - Gold/Beige */
+--foreground: 225 31% 28%;          /* #323D5E - Dunkelblau */
+--background: 0 0% 100%;            /* #FFFFFF - Weiß */
 ```
 
 ### Status-Farben (Ampel)
-
 ```css
---status-success: 142 76% 36%; /* Grün */
---status-warning: 48 96% 53%; /* Gelb */
---status-error: 0 84% 60%; /* Rot */
+--status-success: 142 76% 36%;      /* Grün */
+--status-warning: 48 96% 53%;       /* Gelb */
+--status-error: 0 84% 60%;          /* Rot */
 ```
 
 ### Chart-Farben
-
 ```css
---chart-primary: 31 26% 45%; /* Braun */
---chart-secondary: 40 31% 70%; /* Helles Beige */
---chart-tertiary: 31 26% 55%; /* Mittleres Braun */
+--chart-primary: 31 26% 45%;        /* Braun */
+--chart-secondary: 40 31% 70%;      /* Helles Beige */
+--chart-tertiary: 31 26% 55%;       /* Mittleres Braun */
 ```
 
 ---
@@ -238,11 +229,10 @@ xl:  1280px  /* Large Desktop */
 ```
 
 ### Mobile-First Pattern
-
 ```tsx
-className = "text-sm sm:text-base md:text-lg";
-className = "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
-className = "px-4 sm:px-6 lg:px-8";
+className="text-sm sm:text-base md:text-lg"
+className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+className="px-4 sm:px-6 lg:px-8"
 ```
 
 ---
@@ -250,13 +240,11 @@ className = "px-4 sm:px-6 lg:px-8";
 ## 🔒 SECURITY & COMPLIANCE
 
 ### Multi-Tenancy
-
 - ✅ Alle Queries filtern nach `company_id`
 - ✅ RLS (Row Level Security) auf allen Tabellen
 - ✅ Soft-Delete statt Hard-Delete
 
 ### DSGVO
-
 - ✅ Made in Germany
 - ✅ Deutsche Server
 - ✅ Datenschutz-konform
@@ -264,7 +252,6 @@ className = "px-4 sm:px-6 lg:px-8";
 - ✅ Datenexport-Funktionen
 
 ### Input-Validation
-
 - ✅ Zod-Schemas für alle Forms
 - ✅ Frontend + Backend Validation
 - ✅ Sichere Passwörter (8+ Zeichen, Mix)
@@ -274,22 +261,19 @@ className = "px-4 sm:px-6 lg:px-8";
 ## 🚀 PERFORMANCE
 
 ### React Query Caching
-
 ```tsx
 // Automatisches Caching & Invalidierung
 const { bookings } = useBookings(); // Cache: 30s
-const { drivers } = useDrivers(); // Cache: 60s
+const { drivers } = useDrivers();   // Cache: 60s
 ```
 
 ### Lazy Loading
-
 ```tsx
 // Route-based Code Splitting
-const Dashboard = lazy(() => import("@/pages/IndexNew"));
+const Dashboard = lazy(() => import('@/pages/IndexNew'));
 ```
 
 ### Bundle Optimization
-
 - ✅ Tree-Shaking (Vite)
 - ✅ Code-Splitting (React.lazy)
 - ✅ Asset Optimization (Terser)
@@ -300,19 +284,16 @@ const Dashboard = lazy(() => import("@/pages/IndexNew"));
 ## 🧪 TESTING
 
 ### E2E Tests (Playwright)
-
 ```bash
 npm run test:e2e
 ```
 
 ### Type-Check
-
 ```bash
 npm run typecheck
 ```
 
 ### Lint
-
 ```bash
 npm run lint
 ```
@@ -322,19 +303,16 @@ npm run lint
 ## 📦 DEPLOYMENT
 
 ### Build
-
 ```bash
 npm run build
 ```
 
 ### Preview
-
 ```bash
 npm run preview
 ```
 
 ### Production
-
 - ✅ Auto-Deploy via Lovable
 - ✅ CDN (Cloudflare)
 - ✅ SSL/TLS
@@ -345,19 +323,16 @@ npm run preview
 ## 🔗 EXTERNE INTEGRATIONEN
 
 ### HERE Maps API
-
 - **Funktion:** Live-Karten, Routing, Traffic
 - **Tarif:** Business+
 - **Caching:** 30 Minuten
 
 ### OpenWeather API
-
 - **Funktion:** Wetter-Daten
 - **Tarif:** Business+
 - **Caching:** 30 Minuten
 
 ### Stripe API
-
 - **Funktion:** Zahlungsabwicklung
 - **Tarif:** Alle
 - **Webhook:** Auto-configured
@@ -367,7 +342,6 @@ npm run preview
 ## 📚 DOKUMENTATION
 
 ### Kern-Dokumente
-
 1. [DESIGN_SYSTEM_V18.5.0.md](./DESIGN_SYSTEM_V18.5.0.md) - Design-System
 2. [QUALITAETS_STANDARDS_V18.5.0.md](./QUALITAETS_STANDARDS_V18.5.0.md) - Qualität
 3. [UI_COMPONENTS_LIBRARY_V18.5.0.md](./UI_COMPONENTS_LIBRARY_V18.5.0.md) - UI-Library
@@ -376,7 +350,6 @@ npm run preview
 6. [ASSETS_LIBRARY_V18.5.0.md](./ASSETS_LIBRARY_V18.5.0.md) - Assets
 
 ### Spezifikationen
-
 - [LANDINGPAGE_DESIGN_VORGABEN_V18.3.25.md](./LANDINGPAGE_DESIGN_VORGABEN_V18.3.25.md)
 - [DESIGN_SYSTEM_HERO_VORGABEN.md](./DESIGN_SYSTEM_HERO_VORGABEN.md)
 - [ICON_SYSTEM_V18.3.24.md](./ICON_SYSTEM_V18.3.24.md)
@@ -385,34 +358,31 @@ npm run preview
 
 ## 🎯 QUALITÄTS-METRIKEN (AKTUELL)
 
-| Kategorie     | Status | Score                 |
-| ------------- | ------ | --------------------- |
-| TypeScript    | ✅     | 0 Errors              |
-| Design-System | ✅     | 100% Compliance       |
-| Accessibility | ✅     | WCAG 2.1 AA           |
-| Performance   | ✅     | Bundle <1.5MB         |
-| Security      | ✅     | RLS aktiv             |
-| Mobile        | ✅     | 100% Responsive       |
-| SEO           | ✅     | Meta-Tags, Schema.org |
+| Kategorie | Status | Score |
+|-----------|--------|-------|
+| TypeScript | ✅ | 0 Errors |
+| Design-System | ✅ | 100% Compliance |
+| Accessibility | ✅ | WCAG 2.1 AA |
+| Performance | ✅ | Bundle <1.5MB |
+| Security | ✅ | RLS aktiv |
+| Mobile | ✅ | 100% Responsive |
+| SEO | ✅ | Meta-Tags, Schema.org |
 
 ---
 
 ## 🚀 NÄCHSTE SCHRITTE
 
 ### Phase 1: Post-Meeting (24h)
-
 - [ ] Lighthouse-Audit durchführen
 - [ ] Weitere Marketing-Seiten (FAQ, Docs)
 - [ ] Mobile-Testing (iOS/Android)
 
 ### Phase 2: Diese Woche
-
 - [ ] PWA-Optimierung
 - [ ] Offline-Modus
 - [ ] Push-Notifications
 
 ### Phase 3: Nächster Sprint
-
 - [ ] Multi-Language (EN, FR)
 - [ ] Advanced Analytics
 - [ ] Custom Branding
@@ -422,21 +392,18 @@ npm run preview
 ## 💡 BEST PRACTICES
 
 ### Code-Qualität
-
 - ✅ TypeScript strict mode
 - ✅ ESLint + Prettier
 - ✅ Komponenten <200 Zeilen
 - ✅ DRY-Prinzip
 
 ### Design-System
-
 - ✅ Semantic Tokens (KEINE direkten Farben)
 - ✅ Mobile-First
 - ✅ Touch-Targets ≥44px
 - ✅ WCAG 2.1 AA Kontraste
 
 ### Performance
-
 - ✅ React Query Caching
 - ✅ Lazy Loading
 - ✅ Image Optimization
@@ -447,13 +414,11 @@ npm run preview
 ## 📞 SUPPORT & KONTAKT
 
 ### Entwickler-Support
-
 - **Email:** dev@mydispatch.de
 - **Discord:** MyDispatch Dev Community
 - **Docs:** docs.mydispatch.de
 
 ### Business-Support
-
 - **Email:** support@mydispatch.de
 - **Phone:** +49 XXX XXXXXXX
 - **Öffnungszeiten:** Mo-Fr 9:00-18:00

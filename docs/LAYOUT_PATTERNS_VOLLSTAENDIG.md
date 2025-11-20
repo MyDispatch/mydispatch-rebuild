@@ -1,5 +1,4 @@
 # 🎨 VOLLSTÄNDIGE LAYOUT PATTERNS & SECTION STANDARDS
-
 ## KONSISTENTE AUSRICHTUNG FÜR HERO, SECTIONS, GRIDS & CO.
 
 ---
@@ -7,7 +6,6 @@
 ## 🎯 MISSION
 
 Erstelle **standardisierte, wiederverwendbare Layout-Patterns** für alle Sections (Hero, Features, Pricing, etc.) mit:
-
 - ✅ **Konsistente Abstände** (Spacing System)
 - ✅ **Perfekte Ausrichtung** (Grid & Flex)
 - ✅ **Responsive Design** (Mobile → Desktop)
@@ -15,7 +13,6 @@ Erstelle **standardisierte, wiederverwendbare Layout-Patterns** für alle Sectio
 - ✅ **Accessibility** (Semantic HTML)
 
 **ABSOLUTE REGEL:**
-
 - ❌ **NIEMALS** inline Styles mit hardcoded values
 - ❌ **NIEMALS** inkonsistente Abstände
 - ✅ **IMMER** Design Tokens nutzen
@@ -34,25 +31,25 @@ export type ContainerSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'
 export type ContainerPadding = 'none' | 'sm' | 'md' | 'lg' | 'xl'
 
 export interface ContainerProps {
-/\*_ Maximum width of the container _/
+/** Maximum width of the container */
 size?: ContainerSize
 
-/\*_ Padding (responsive) _/
+/** Padding (responsive) */
 padding?: ContainerPadding
 
-/\*_ Center content horizontally _/
+/** Center content horizontally */
 center?: boolean
 
-/\*_ Remove default padding on mobile _/
+/** Remove default padding on mobile */
 noPaddingMobile?: boolean
 
-/\*_ Children _/
+/** Children */
 children: React.ReactNode
 
-/\*_ Additional classes _/
+/** Additional classes */
 className?: string
 
-/\*_ HTML element _/
+/** HTML element */
 as?: 'div' | 'section' | 'article' | 'main' | 'aside'
 }
 
@@ -66,7 +63,7 @@ import { cn } from '@/lib/utils/cn'
 import { designTokens } from '@/config/design-tokens'
 import type { ContainerProps } from './Container.types'
 
-/\*\*
+/**
 
 Container Component
 
@@ -83,7 +80,7 @@ undefined
 </Container>
 text
 undefined
-\*/
+*/
 export const Container = forwardRef<HTMLDivElement, ContainerProps>(
 (
 {
@@ -110,37 +107,34 @@ full: 'max-w-full',
 text
 // Responsive Padding (Design System Spacing)
 const paddingClasses = {
-none: '',
-sm: 'px-4 py-6 md:px-6 md:py-8', // 16px/24px → 24px/32px
-md: 'px-4 py-8 md:px-8 md:py-12', // 16px/32px → 32px/48px
-lg: 'px-6 py-12 md:px-12 md:py-16', // 24px/48px → 48px/64px
-xl: 'px-6 py-16 md:px-16 md:py-24', // 24px/64px → 64px/96px
+  none: '',
+  sm: 'px-4 py-6 md:px-6 md:py-8',           // 16px/24px → 24px/32px
+  md: 'px-4 py-8 md:px-8 md:py-12',          // 16px/32px → 32px/48px
+  lg: 'px-6 py-12 md:px-12 md:py-16',        // 24px/48px → 48px/64px
+  xl: 'px-6 py-16 md:px-16 md:py-24',        // 24px/64px → 64px/96px
 }
 
 return (
-<Component
-ref={ref}
-className={cn(
-// Max Width
-sizeClasses[size],
-
+  <Component
+    ref={ref}
+    className={cn(
+      // Max Width
+      sizeClasses[size],
+      
       // Centering
       center && 'mx-auto',
-
+      
       // Padding
       !noPaddingMobile && paddingClasses[padding],
       noPaddingMobile && cn(
         'px-0 py-0 md:px-8 md:py-12' // No padding on mobile
       ),
-
+      
       // Custom className
       className
     )}
-
->
-
+  >
     {children}
-
   </Component>
 )
 }
@@ -159,25 +153,25 @@ export type SectionSpacing = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 export type SectionBackground = 'white' | 'gray' | 'gradient' | 'primary' | 'transparent'
 
 export interface SectionProps {
-/\*_ Vertical spacing (padding top/bottom) _/
+/** Vertical spacing (padding top/bottom) */
 spacing?: SectionSpacing
 
-/\*_ Background variant _/
+/** Background variant */
 background?: SectionBackground
 
-/\*_ Container size _/
+/** Container size */
 containerSize?: ContainerSize
 
-/\*_ Full width (no container) _/
+/** Full width (no container) */
 fullWidth?: boolean
 
-/\*_ Children _/
+/** Children */
 children: React.ReactNode
 
-/\*_ Additional classes _/
+/** Additional classes */
 className?: string
 
-/\*_ HTML ID for anchor links _/
+/** HTML ID for anchor links */
 id?: string
 }
 
@@ -191,7 +185,7 @@ import { cn } from '@/lib/utils/cn'
 import { Container } from '../Container'
 import type { SectionProps } from './Section.types'
 
-/\*\*
+/**
 
 Section Component
 
@@ -203,7 +197,6 @@ Automatically includes Container unless fullWidth is true.
 
 tsx
 undefined
-
 <Section spacing="xl" background="gray">
 <Heading>Features</Heading>
 
@@ -238,23 +231,22 @@ xl: 'py-20 md:py-32', // 80px → 128px
 text
 // Background Variants
 const backgroundClasses = {
-white: 'bg-white',
-gray: 'bg-gray-50',
-gradient: 'bg-gradient-to-br from-primary-50 to-secondary-50',
-primary: 'bg-primary text-white',
-transparent: 'bg-transparent',
+  white: 'bg-white',
+  gray: 'bg-gray-50',
+  gradient: 'bg-gradient-to-br from-primary-50 to-secondary-50',
+  primary: 'bg-primary text-white',
+  transparent: 'bg-transparent',
 }
 
 const content = fullWidth ? (
-children
+  children
 ) : (
-<Container size={containerSize} padding="none">
-{children}
-</Container>
+  <Container size={containerSize} padding="none">
+    {children}
+  </Container>
 )
 
 return (
-
   <section
     ref={ref}
     id={id}
@@ -288,7 +280,7 @@ export type GridColumns = 1 | 2 | 3 | 4 | 5 | 6 | 12
 export type GridGap = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 
 export interface GridProps {
-/\*_ Number of columns (responsive) _/
+/** Number of columns (responsive) */
 cols?: {
 default?: GridColumns
 sm?: GridColumns
@@ -297,13 +289,13 @@ lg?: GridColumns
 xl?: GridColumns
 } | GridColumns
 
-/\*_ Gap between grid items _/
+/** Gap between grid items */
 gap?: GridGap
 
-/\*_ Children _/
+/** Children */
 children: React.ReactNode
 
-/\*_ Additional classes _/
+/** Additional classes */
 className?: string
 }
 
@@ -316,7 +308,7 @@ import { forwardRef } from 'react'
 import { cn } from '@/lib/utils/cn'
 import type { GridProps, GridColumns } from './Grid.types'
 
-/\*\*
+/**
 
 Grid Component
 
@@ -361,23 +353,22 @@ xl: 'gap-12', // 48px
 text
 // Column Classes
 const getColClass = (num: GridColumns, breakpoint?: string) => {
-const prefix = breakpoint ? `${breakpoint}:` : ''
-return `${prefix}grid-cols-${num}`
+  const prefix = breakpoint ? `${breakpoint}:` : ''
+  return `${prefix}grid-cols-${num}`
 }
 
 // Build responsive column classes
 const colClasses = typeof cols === 'number'
-? getColClass(cols)
-: cn(
-cols.default && getColClass(cols.default),
-cols.sm && getColClass(cols.sm, 'sm'),
-cols.md && getColClass(cols.md, 'md'),
-cols.lg && getColClass(cols.lg, 'lg'),
-cols.xl && getColClass(cols.xl, 'xl'),
-)
+  ? getColClass(cols)
+  : cn(
+      cols.default && getColClass(cols.default),
+      cols.sm && getColClass(cols.sm, 'sm'),
+      cols.md && getColClass(cols.md, 'md'),
+      cols.lg && getColClass(cols.lg, 'lg'),
+      cols.xl && getColClass(cols.xl, 'xl'),
+    )
 
 return (
-
   <div
     ref={ref}
     className={cn(
@@ -409,25 +400,25 @@ export type FlexWrap = 'wrap' | 'nowrap' | 'wrap-reverse'
 export type FlexGap = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 
 export interface FlexProps {
-/\*_ Flex direction _/
+/** Flex direction */
 direction?: FlexDirection
 
-/\*_ Justify content _/
+/** Justify content */
 justify?: FlexJustify
 
-/\*_ Align items _/
+/** Align items */
 align?: FlexAlign
 
-/\*_ Wrap behavior _/
+/** Wrap behavior */
 wrap?: FlexWrap
 
-/\*_ Gap between items _/
+/** Gap between items */
 gap?: FlexGap
 
-/\*_ Children _/
+/** Children */
 children: React.ReactNode
 
-/\*_ Additional classes _/
+/** Additional classes */
 className?: string
 }
 
@@ -440,7 +431,7 @@ import { forwardRef } from 'react'
 import { cn } from '@/lib/utils/cn'
 import type { FlexProps } from './Flex.types'
 
-/\*\*
+/**
 
 Flex Component
 
@@ -456,7 +447,7 @@ undefined
 </Flex>
 text
 undefined
-\*/
+*/
 export const Flex = forwardRef<HTMLDivElement, FlexProps>(
 (
 {
@@ -479,40 +470,39 @@ col: 'flex-col',
 
 text
 const justifyClasses = {
-start: 'justify-start',
-end: 'justify-end',
-center: 'justify-center',
-between: 'justify-between',
-around: 'justify-around',
-evenly: 'justify-evenly',
+  start: 'justify-start',
+  end: 'justify-end',
+  center: 'justify-center',
+  between: 'justify-between',
+  around: 'justify-around',
+  evenly: 'justify-evenly',
 }
 
 const alignClasses = {
-start: 'items-start',
-end: 'items-end',
-center: 'items-center',
-baseline: 'items-baseline',
-stretch: 'items-stretch',
+  start: 'items-start',
+  end: 'items-end',
+  center: 'items-center',
+  baseline: 'items-baseline',
+  stretch: 'items-stretch',
 }
 
 const wrapClasses = {
-wrap: 'flex-wrap',
-nowrap: 'flex-nowrap',
-'wrap-reverse': 'flex-wrap-reverse',
+  wrap: 'flex-wrap',
+  nowrap: 'flex-nowrap',
+  'wrap-reverse': 'flex-wrap-reverse',
 }
 
 const gapClasses = {
-none: 'gap-0',
-xs: 'gap-2',
-sm: 'gap-4',
-md: 'gap-6',
-lg: 'gap-8',
-xl: 'gap-12',
-'2xl': 'gap-16',
+  none: 'gap-0',
+  xs: 'gap-2',
+  sm: 'gap-4',
+  md: 'gap-6',
+  lg: 'gap-8',
+  xl: 'gap-12',
+  '2xl': 'gap-16',
 }
 
 return (
-
   <div
     ref={ref}
     className={cn(
@@ -545,22 +535,22 @@ export type StackSpacing = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
 export type StackAlign = 'start' | 'center' | 'end' | 'stretch'
 
 export interface StackProps {
-/\*_ Stack direction _/
+/** Stack direction */
 direction?: StackDirection
 
-/\*_ Spacing between items _/
+/** Spacing between items */
 spacing?: StackSpacing
 
-/\*_ Alignment _/
+/** Alignment */
 align?: StackAlign
 
-/\*_ Show dividers between items _/
+/** Show dividers between items */
 divider?: boolean
 
-/\*_ Children _/
+/** Children */
 children: React.ReactNode
 
-/\*_ Additional classes _/
+/** Additional classes */
 className?: string
 }
 
@@ -574,7 +564,7 @@ import { cn } from '@/lib/utils/cn'
 import { Divider } from '../../content/Divider'
 import type { StackProps } from './Stack.types'
 
-/\*\*
+/**
 
 Stack Component
 
@@ -621,16 +611,15 @@ xl: 'gap-12',
 
 text
 const alignClasses = {
-start: direction === 'vertical' ? 'items-start' : 'justify-start',
-center: direction === 'vertical' ? 'items-center' : 'justify-center',
-end: direction === 'vertical' ? 'items-end' : 'justify-end',
-stretch: direction === 'vertical' ? 'items-stretch' : 'justify-stretch',
+  start: direction === 'vertical' ? 'items-start' : 'justify-start',
+  center: direction === 'vertical' ? 'items-center' : 'justify-center',
+  end: direction === 'vertical' ? 'items-end' : 'justify-end',
+  stretch: direction === 'vertical' ? 'items-stretch' : 'justify-stretch',
 }
 
 const childrenArray = Children.toArray(children)
 
 return (
-
   <div
     ref={ref}
     className={cn(
@@ -673,28 +662,28 @@ export type HeroVariant = 'default' | 'centered' | 'split'
 export type HeroSize = 'md' | 'lg' | 'xl'
 
 export interface HeroProps {
-/\*_ Hero variant _/
+/** Hero variant */
 variant?: HeroVariant
 
-/\*_ Hero size (min-height) _/
+/** Hero size (min-height) */
 size?: HeroSize
 
-/\*_ Title _/
+/** Title */
 title: string
 
-/\*_ Subtitle/Description _/
+/** Subtitle/Description */
 subtitle?: string
 
-/\*_ Call to action buttons _/
+/** Call to action buttons */
 actions?: React.ReactNode
 
-/\*_ Image/Visual _/
+/** Image/Visual */
 visual?: React.ReactNode
 
-/\*_ Background (gradient, image, etc.) _/
+/** Background (gradient, image, etc.) */
 background?: 'white' | 'gray' | 'gradient' | 'image'
 
-/\*_ Additional classes _/
+/** Additional classes */
 className?: string
 }
 
@@ -712,7 +701,7 @@ import { Heading } from '../../typography/Heading'
 import { Text } from '../../typography/Text'
 import type { HeroProps } from './Hero.types'
 
-/\*\*
+/**
 
 Hero Section Pattern
 
@@ -737,9 +726,9 @@ actions={
 text
 <>
 text
-<Button variant="primary" size="lg">Demo anfragen</Button>
+  <Button variant="primary" size="lg">Demo anfragen</Button>
 text
-<Button variant="outline" size="lg">Mehr erfahren</Button>
+  <Button variant="outline" size="lg">Mehr erfahren</Button>
 text
 </>
 }
@@ -750,7 +739,7 @@ visual={<img src="/hero.png" alt="Dashboard" />}
 
 text
 undefined
-\*/
+*/
 export const Hero = forwardRef<HTMLElement, HeroProps>(
 (
 {
@@ -775,25 +764,26 @@ xl: 'min-h-[600px] md:min-h-[700px]',
 text
 // Background Variants
 const backgroundClasses = {
-white: 'bg-white',
-gray: 'bg-gray-50',
-gradient: 'bg-gradient-to-br from-primary-50 via-white to-secondary-50',
-image: 'bg-cover bg-center',
+  white: 'bg-white',
+  gray: 'bg-gray-50',
+  gradient: 'bg-gradient-to-br from-primary-50 via-white to-secondary-50',
+  image: 'bg-cover bg-center',
 }
 
 // Variant Layouts
 const renderContent = () => {
-const content = (
-<Stack spacing="xl" align={variant === 'centered' ? 'center' : 'start'}>
-{/_ Title _/}
-<Heading
-level={1}
-className={cn(
-'max-w-4xl',
-variant === 'centered' && 'text-center'
-)} >
-{title}
-</Heading>
+  const content = (
+    <Stack spacing="xl" align={variant === 'centered' ? 'center' : 'start'}>
+      {/* Title */}
+      <Heading
+        level={1}
+        className={cn(
+          'max-w-4xl',
+          variant === 'centered' && 'text-center'
+        )}
+      >
+        {title}
+      </Heading>
 
       {/* Subtitle */}
       {subtitle && (
@@ -819,14 +809,13 @@ variant === 'centered' && 'text-center'
         </Flex>
       )}
     </Stack>
+  )
 
-)
-
-if (variant === 'split' && visual) {
-return (
-<div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-{/_ Content _/}
-<div>{content}</div>
+  if (variant === 'split' && visual) {
+    return (
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        {/* Content */}
+        <div>{content}</div>
 
         {/* Visual */}
         <div className="relative">
@@ -834,37 +823,35 @@ return (
         </div>
       </div>
     )
+  }
 
+  if (variant === 'centered') {
+    return (
+      <div className="flex flex-col items-center">
+        {content}
+        {visual && (
+          <div className="mt-12 w-full max-w-4xl">
+            {visual}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  // Default variant
+  return (
+    <div className="max-w-4xl">
+      {content}
+      {visual && (
+        <div className="mt-12">
+          {visual}
+        </div>
+      )}
+    </div>
+  )
 }
 
-if (variant === 'centered') {
 return (
-<div className="flex flex-col items-center">
-{content}
-{visual && (
-<div className="mt-12 w-full max-w-4xl">
-{visual}
-</div>
-)}
-</div>
-)
-}
-
-// Default variant
-return (
-<div className="max-w-4xl">
-{content}
-{visual && (
-<div className="mt-12">
-{visual}
-</div>
-)}
-</div>
-)
-}
-
-return (
-
   <section
     ref={ref}
     className={cn(
@@ -900,17 +887,17 @@ description: string
 }
 
 export interface FeatureGridProps {
-/\*_ Features to display _/
+/** Features to display */
 features: Feature[]
 
-/\*_ Number of columns _/
+/** Number of columns */
 columns?: {
 default?: 1 | 2 | 3 | 4
 md?: 1 | 2 | 3 | 4
 lg?: 1 | 2 | 3 | 4
 }
 
-/\*_ Additional classes _/
+/** Additional classes */
 className?: string
 }
 
@@ -927,7 +914,7 @@ import { Heading } from '../../typography/Heading'
 import { Text } from '../../typography/Text'
 import type { FeatureGridProps } from './FeatureGrid.types'
 
-/\*\*
+/**
 
 Feature Grid Pattern
 
@@ -946,13 +933,13 @@ features={[
 text
 {
 text
-id: 'gps',
+  id: 'gps',
 text
-icon: <MapPin />,
+  icon: <MapPin />,
 text
-title: 'GPS-Tracking',
+  title: 'GPS-Tracking',
 text
-description: 'Echtzeit-Tracking Ihrer Flotte'
+  description: 'Echtzeit-Tracking Ihrer Flotte'
 text
 },
 text
@@ -977,17 +964,16 @@ return (
 <Grid ref={ref} cols={columns} gap="lg" className={className} >
 {features.map((feature) => (
 <Stack key={feature.id} spacing="md" className="p-6 rounded-xl border border-gray-200 hover:border-primary hover:shadow-md transition-all">
-{/ Icon \*/}
-
+{/ Icon */}
 <div className="w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center text-primary">
 {feature.icon}
 </div>
 
 text
-{/_ Title _/}
-<Heading level={3} className="text-xl">
-{feature.title}
-</Heading>
+        {/* Title */}
+        <Heading level={3} className="text-xl">
+          {feature.title}
+        </Heading>
 
         {/* Description */}
         <Text className="text-gray-600">
@@ -995,7 +981,6 @@ text
         </Text>
       </Stack>
     ))}
-
   </Grid>
 )
 }
@@ -1011,19 +996,19 @@ text
 
 // CTASection.types.ts
 export interface CTASectionProps {
-/\*_ Title _/
+/** Title */
 title: string
 
-/\*_ Description _/
+/** Description */
 description?: string
 
-/\*_ Call to action buttons _/
+/** Call to action buttons */
 actions: React.ReactNode
 
-/\*_ Background variant _/
+/** Background variant */
 background?: 'primary' | 'gradient' | 'gray'
 
-/\*_ Additional classes _/
+/** Additional classes */
 className?: string
 }
 
@@ -1041,7 +1026,7 @@ import { Heading } from '../../typography/Heading'
 import { Text } from '../../typography/Text'
 import type { CTASectionProps } from './CTASection.types'
 
-/\*\*
+/**
 
 CTA Section Pattern
 
@@ -1064,7 +1049,7 @@ actions={
 text
 <Button variant="secondary" size="lg">
 text
-Demo anfragen
+  Demo anfragen
 text
 </Button>
 }
@@ -1073,7 +1058,7 @@ text
 
 text
 undefined
-\*/
+*/
 export const CTASection = forwardRef<HTMLElement, CTASectionProps>(
 (
 {
@@ -1093,7 +1078,6 @@ gray: 'bg-gray-50 text-gray-900',
 
 text
 return (
-
   <Section
     ref={ref}
     spacing="xl"
@@ -1122,7 +1106,6 @@ return (
         {actions}
       </Flex>
     </Stack>
-
   </Section>
 )
 }
@@ -1146,33 +1129,32 @@ SPACING SYSTEM
 Vertikale Abstände (Section Spacing):
 
 text
-none: 0px
-sm: 32px → 48px (Mobile → Desktop)
-md: 48px → 64px
-lg: 64px → 96px
-xl: 80px → 128px
-2xl: 96px → 160px
+none:  0px
+sm:    32px → 48px   (Mobile → Desktop)
+md:    48px → 64px
+lg:    64px → 96px
+xl:    80px → 128px
+2xl:   96px → 160px
 Horizontale Abstände (Container Padding):
 
 text
-sm: 16px/24px → 24px/32px
-md: 16px/32px → 32px/48px
-lg: 24px/48px → 48px/64px
-xl: 24px/64px → 64px/96px
+sm:  16px/24px → 24px/32px
+md:  16px/32px → 32px/48px
+lg:  24px/48px → 48px/64px
+xl:  24px/64px → 64px/96px
 Grid/Flex Gaps:
 
 text
 none: 0px
-xs: 8px
-sm: 16px
-md: 24px
-lg: 32px
-xl: 48px
-2xl: 64px
+xs:   8px
+sm:   16px
+md:   24px
+lg:   32px
+xl:   48px
+2xl:  64px
 SECTION ANATOMY
 Standard Section Structure
 tsx
-
 <Section spacing="lg" background="white">
   <Container size="xl">
     {/* Section Header (optional) */}
@@ -1188,7 +1170,6 @@ tsx
     <Grid cols={{ default: 1, md: 2, lg: 3 }} gap="lg">
       {/* Cards, Features, etc. */}
     </Grid>
-
   </Container>
 </Section>
 HERO PATTERNS
@@ -1218,12 +1199,12 @@ Feature-Pages
 Pattern 2: Centered Hero
 tsx
 <Hero
-variant="centered"
-size="xl"
-background="gradient"
-title="Willkommen bei MyDispatch"
-subtitle="Die Zukunft der Flottensteuerung"
-actions={<Button variant="primary" size="xl">Jetzt starten</Button>}
+  variant="centered"
+  size="xl"
+  background="gradient"
+  title="Willkommen bei MyDispatch"
+  subtitle="Die Zukunft der Flottensteuerung"
+  actions={<Button variant="primary" size="xl">Jetzt starten</Button>}
 />
 Wann nutzen:
 
@@ -1236,16 +1217,16 @@ Event Pages
 Pattern 3: Split Hero (Image/Text)
 tsx
 <Hero
-variant="split"
-size="lg"
-title="GPS-Echtzeit-Tracking"
-subtitle="Vollständige Transparenz über Ihre Flotte in Echtzeit"
-actions={<Button variant="primary">Mehr erfahren</Button>}
-visual={
-<div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl">
-<Image src="/gps-tracking.png" alt="GPS Tracking" fill />
-</div>
-}
+  variant="split"
+  size="lg"
+  title="GPS-Echtzeit-Tracking"
+  subtitle="Vollständige Transparenz über Ihre Flotte in Echtzeit"
+  actions={<Button variant="primary">Mehr erfahren</Button>}
+  visual={
+    <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl">
+      <Image src="/gps-tracking.png" alt="GPS Tracking" fill />
+    </div>
+  }
 />
 Wann nutzen:
 
@@ -1258,7 +1239,6 @@ Case Studies
 SECTION PATTERNS
 Pattern 1: Feature Grid (3-Column)
 tsx
-
 <Section spacing="xl" background="white">
   <Container>
     {/* Header */}
@@ -1274,7 +1254,6 @@ tsx
       columns={{ default: 1, md: 2, lg: 3 }}
       features={FEATURES}
     />
-
   </Container>
 </Section>
 Pattern 2: Alternating Content (Image/Text)
@@ -1305,7 +1284,6 @@ tsx
         </div>
       </Grid>
     </Stack>
-
   </Container>
 </Section>
 Pattern 3: Pricing Table
@@ -1324,7 +1302,6 @@ tsx
         <PricingCard key={plan.id} {...plan} />
       ))}
     </Grid>
-
   </Container>
 </Section>
 Pattern 4: Testimonials
@@ -1340,7 +1317,6 @@ tsx
         <TestimonialCard key={testimonial.id} {...testimonial} />
       ))}
     </Grid>
-
   </Container>
 </Section>
 Pattern 5: CTA Section
@@ -1379,14 +1355,12 @@ ACCESSIBILITY
 Semantic HTML
 tsx
 ✅ CORRECT:
-
 <Section as="section">
   <Heading level={2}>Title</Heading>
   <Text as="p">Content</Text>
 </Section>
 
 ❌ WRONG:
-
 <div>
   <div className="text-2xl">Title</div>
   <span>Content</span>

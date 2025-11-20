@@ -7,14 +7,14 @@
    - Type-safe mit Generics
    ================================================================================== */
 
-import { ReactNode } from "react";
-import { cn } from "@/lib/utils";
+import { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 interface Column<T> {
   header: string;
   accessor: keyof T | ((row: T) => ReactNode);
   width?: number;
-  align?: "left" | "center" | "right";
+  align?: 'left' | 'center' | 'right';
   className?: string;
 }
 
@@ -30,29 +30,29 @@ export function MobileScrollTable<T extends Record<string, any>>({
   columns,
   data,
   onRowClick,
-  emptyMessage = "Keine Daten verfügbar",
+  emptyMessage = 'Keine Daten verfügbar',
   className,
 }: MobileScrollTableProps<T>) {
   const getCellValue = (row: T, column: Column<T>): ReactNode => {
-    if (typeof column.accessor === "function") {
+    if (typeof column.accessor === 'function') {
       return column.accessor(row);
     }
     return row[column.accessor] as ReactNode;
   };
 
-  const getAlignClass = (align?: "left" | "center" | "right") => {
+  const getAlignClass = (align?: 'left' | 'center' | 'right') => {
     switch (align) {
-      case "center":
-        return "text-center";
-      case "right":
-        return "text-right";
+      case 'center':
+        return 'text-center';
+      case 'right':
+        return 'text-right';
       default:
-        return "text-left";
+        return 'text-left';
     }
   };
 
   return (
-    <div className={cn("overflow-x-auto scrollbar-hide -mx-4", className)}>
+    <div className={cn('overflow-x-auto scrollbar-hide -mx-4', className)}>
       <div className="inline-block min-w-full px-4">
         <table className="min-w-full divide-y divide-border">
           {/* Header - Sticky */}
@@ -62,7 +62,7 @@ export function MobileScrollTable<T extends Record<string, any>>({
                 <th
                   key={i}
                   className={cn(
-                    "py-3 px-3 text-xs font-semibold text-muted-foreground",
+                    'py-3 px-3 text-xs font-semibold text-muted-foreground',
                     getAlignClass(column.align),
                     column.className
                   )}
@@ -91,15 +91,15 @@ export function MobileScrollTable<T extends Record<string, any>>({
                   key={rowIndex}
                   onClick={() => onRowClick?.(row, rowIndex)}
                   className={cn(
-                    "transition-colors",
-                    onRowClick && "active:bg-muted/50 cursor-pointer touch-manipulation"
+                    'transition-colors',
+                    onRowClick && 'active:bg-muted/50 cursor-pointer touch-manipulation'
                   )}
                 >
                   {columns.map((column, colIndex) => (
                     <td
                       key={colIndex}
                       className={cn(
-                        "py-3 px-3 text-sm",
+                        'py-3 px-3 text-sm',
                         getAlignClass(column.align),
                         column.className
                       )}

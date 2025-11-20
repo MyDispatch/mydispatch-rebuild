@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
-import { resilientQuery } from "@/lib/supabase-resilient-client";
+import { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import { resilientQuery } from '@/lib/supabase-resilient-client';
 
 export interface TavilySearchResult {
   title: string;
@@ -16,7 +16,7 @@ export interface TavilySearchResponse {
   answer: string | null;
   results: TavilySearchResult[];
   total: number;
-  search_depth: "basic" | "advanced";
+  search_depth: 'basic' | 'advanced';
 }
 
 export interface EnhancedKnowledgeResult {
@@ -28,7 +28,7 @@ export interface EnhancedKnowledgeResult {
   confidence_score: number;
   relevance_score?: number;
   relevance_reason?: string;
-  source: "internal" | "tavily";
+  source: 'internal' | 'tavily';
 }
 
 export interface EnhancedKnowledgeResponse {
@@ -44,7 +44,7 @@ export interface CodeValidationResult {
   is_valid: boolean;
   score: number;
   issues: Array<{
-    severity: "error" | "warning" | "info";
+    severity: 'error' | 'warning' | 'info';
     message: string;
     line: number | null;
     suggestion: string;
@@ -58,10 +58,10 @@ export interface CodeValidationResult {
 }
 
 export interface APIHealthStatus {
-  overall_status: "healthy" | "degraded" | "critical" | "error";
+  overall_status: 'healthy' | 'degraded' | 'critical' | 'error';
   apis: Array<{
     api_name: string;
-    status: "healthy" | "degraded" | "down";
+    status: 'healthy' | 'degraded' | 'down';
     response_time_ms: number;
     error_message: string | null;
     critical: boolean;
@@ -80,13 +80,13 @@ export function useTavilySearch() {
    */
   const searchBestPractices = async (
     query: string,
-    searchDepth: "basic" | "advanced" = "advanced",
+    searchDepth: 'basic' | 'advanced' = 'advanced',
     includeDomains: string[] = [],
     maxResults: number = 5
   ): Promise<TavilySearchResponse | null> => {
     setIsSearching(true);
     try {
-      const { data, error } = await supabase.functions.invoke("tavily-best-practice-search", {
+      const { data, error } = await supabase.functions.invoke('tavily-best-practice-search', {
         body: {
           query,
           search_depth: searchDepth,
@@ -96,16 +96,16 @@ export function useTavilySearch() {
       });
 
       if (error) {
-        if (import.meta.env.DEV) console.error("Tavily search error:", error);
-        toast.error("Tavily-Suche fehlgeschlagen");
+        if (import.meta.env.DEV) console.error('Tavily search error:', error);
+        toast.error('Tavily-Suche fehlgeschlagen');
         return null;
       }
 
       toast.success(`${data.total} Best Practices gefunden`);
       return data;
     } catch (error) {
-      if (import.meta.env.DEV) console.error("Tavily search exception:", error);
-      toast.error("Unerwarteter Fehler bei Tavily-Suche");
+      if (import.meta.env.DEV) console.error('Tavily search exception:', error);
+      toast.error('Unerwarteter Fehler bei Tavily-Suche');
       return null;
     } finally {
       setIsSearching(false);
@@ -123,7 +123,7 @@ export function useTavilySearch() {
   ): Promise<EnhancedKnowledgeResponse | null> => {
     setIsSearching(true);
     try {
-      const { data, error } = await supabase.functions.invoke("enhanced-knowledge-query", {
+      const { data, error } = await supabase.functions.invoke('enhanced-knowledge-query', {
         body: {
           query,
           category_filter: categoryFilter,
@@ -133,8 +133,8 @@ export function useTavilySearch() {
       });
 
       if (error) {
-        if (import.meta.env.DEV) console.error("Enhanced knowledge query error:", error);
-        toast.error("Knowledge-Abfrage fehlgeschlagen");
+        if (import.meta.env.DEV) console.error('Enhanced knowledge query error:', error);
+        toast.error('Knowledge-Abfrage fehlgeschlagen');
         return null;
       }
 
@@ -143,8 +143,8 @@ export function useTavilySearch() {
       );
       return data;
     } catch (error) {
-      if (import.meta.env.DEV) console.error("Enhanced knowledge query exception:", error);
-      toast.error("Unerwarteter Fehler bei Knowledge-Abfrage");
+      if (import.meta.env.DEV) console.error('Enhanced knowledge query exception:', error);
+      toast.error('Unerwarteter Fehler bei Knowledge-Abfrage');
       return null;
     } finally {
       setIsSearching(false);
@@ -161,7 +161,7 @@ export function useTavilySearch() {
   ): Promise<CodeValidationResult | null> => {
     setIsValidating(true);
     try {
-      const { data, error } = await supabase.functions.invoke("tavily-code-validator", {
+      const { data, error } = await supabase.functions.invoke('tavily-code-validator', {
         body: {
           code,
           context,
@@ -170,8 +170,8 @@ export function useTavilySearch() {
       });
 
       if (error) {
-        if (import.meta.env.DEV) console.error("Code validation error:", error);
-        toast.error("Code-Validierung fehlgeschlagen");
+        if (import.meta.env.DEV) console.error('Code validation error:', error);
+        toast.error('Code-Validierung fehlgeschlagen');
         return null;
       }
 
@@ -183,8 +183,8 @@ export function useTavilySearch() {
 
       return data;
     } catch (error) {
-      if (import.meta.env.DEV) console.error("Code validation exception:", error);
-      toast.error("Unerwarteter Fehler bei Code-Validierung");
+      if (import.meta.env.DEV) console.error('Code validation exception:', error);
+      toast.error('Unerwarteter Fehler bei Code-Validierung');
       return null;
     } finally {
       setIsValidating(false);
@@ -197,39 +197,37 @@ export function useTavilySearch() {
   const checkAPIHealth = async (): Promise<APIHealthStatus | null> => {
     setIsCheckingHealth(true);
     try {
-      if (import.meta.env.DEV) console.log("[useTavilySearch] Checking API health...");
-
+      if (import.meta.env.DEV) console.log('[useTavilySearch] Checking API health...');
+      
       const { data, error } = await resilientQuery(
-        () => supabase.functions.invoke("api-connection-manager"),
+        () => supabase.functions.invoke('api-connection-manager'),
         { maxRetries: 3, baseDelay: 1000 }
       );
 
       if (error) {
-        if (import.meta.env.DEV)
-          console.warn("[useTavilySearch] API health check failed after retries:", error);
-        toast.error("API Health Check fehlgeschlagen", {
-          description: "Bitte versuche es später erneut",
+        if (import.meta.env.DEV) console.warn('[useTavilySearch] API health check failed after retries:', error);
+        toast.error('API Health Check fehlgeschlagen', {
+          description: 'Bitte versuche es später erneut',
         });
         setApiHealth(null);
         return null;
       }
 
-      const criticalDown = data.apis.filter((api: any) => api.critical && api.status === "down");
+      const criticalDown = data.apis.filter((api: any) => api.critical && api.status === 'down');
 
-      if (data.overall_status === "healthy") {
-        toast.success("Alle APIs sind gesund");
+      if (data.overall_status === 'healthy') {
+        toast.success('Alle APIs sind gesund');
       } else if (criticalDown.length > 0) {
         toast.error(`${criticalDown.length} kritische APIs down!`);
       } else {
-        toast.warning("Einige APIs sind degradiert");
+        toast.warning('Einige APIs sind degradiert');
       }
 
       setApiHealth(data);
       return data;
     } catch (error) {
-      if (import.meta.env.DEV)
-        console.error("[useTavilySearch] API health check exception:", error);
-      toast.error("API Health Check fehlgeschlagen");
+      if (import.meta.env.DEV) console.error('[useTavilySearch] API health check exception:', error);
+      toast.error('API Health Check fehlgeschlagen');
       setApiHealth(null);
       return null;
     } finally {

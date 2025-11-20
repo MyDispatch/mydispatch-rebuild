@@ -29,12 +29,12 @@ MyDispatch unterliegt folgenden rechtlichen Rahmenbedingungen:
 <form onSubmit={handleSubmit}>
   <Input name="email" />
   <Input name="phone" />
-
+  
   <p className="text-xs text-muted-foreground">
-    Ihre Daten werden DSGVO-konform verarbeitet.
+    Ihre Daten werden DSGVO-konform verarbeitet. 
     Weitere Informationen: <Link to="/datenschutz">Datenschutzerklärung</Link>
   </p>
-
+  
   <Checkbox required>
     <Label>
       Ich stimme der <Link to="/datenschutz">Datenschutzerklärung</Link> zu
@@ -73,7 +73,7 @@ MyDispatch unterliegt folgenden rechtlichen Rahmenbedingungen:
       initAnalytics();
     }
   }}
-  categories={["necessary", "functional", "analytics", "marketing"]}
+  categories={['necessary', 'functional', 'analytics', 'marketing']}
 />
 ```
 
@@ -95,8 +95,8 @@ interface BookingData {
 interface BookingData {
   pickup_address: string;
   dropoff_address: string;
-  birthdate: Date; // Nicht nötig für Buchung!
-  social_security: string; // Absolut verboten!
+  birthdate: Date;          // Nicht nötig für Buchung!
+  social_security: string;  // Absolut verboten!
 }
 ```
 
@@ -119,14 +119,17 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 ```tsx
 // ✅ RICHTIG - User kann eigene Daten exportieren
 async function exportUserData(userId: string) {
-  const { data, error } = await supabase.from("bookings").select("*").eq("user_id", userId);
-
+  const { data, error } = await supabase
+    .from('bookings')
+    .select('*')
+    .eq('user_id', userId);
+  
   // Export als JSON
   const blob = new Blob([JSON.stringify(data, null, 2)], {
-    type: "application/json",
+    type: 'application/json'
   });
-
-  downloadFile(blob, "my-data.json");
+  
+  downloadFile(blob, 'my-data.json');
 }
 ```
 
@@ -159,7 +162,9 @@ async function exportUserData(userId: string) {
     <CardTitle>KI-Assistenz</CardTitle>
   </CardHeader>
   <CardContent>
-    <p>MyDispatch nutzt KI-Systeme für:</p>
+    <p>
+      MyDispatch nutzt KI-Systeme für:
+    </p>
     <ul>
       <li>Routenoptimierung (Google/Gemini 2.5 Flash)</li>
       <li>Nachfrageprognose (Gemini 2.5 Pro)</li>
@@ -181,14 +186,14 @@ async function exportUserData(userId: string) {
 ```tsx
 // ✅ RICHTIG - Alle Pflichtangaben gemäß PBefG
 interface BookingConfirmation {
-  booking_number: string; // Eindeutige Auftrags-Nr
-  driver_name: string; // Fahrername
-  vehicle_license_plate: string; // Kennzeichen
-  estimated_arrival_time: Date; // Voraussichtliche Ankunft
-  fare_estimate: number; // Preisschätzung
-  payment_method: string; // Zahlungsweise
-  company_name: string; // Unternehmen
-  company_license_number: string; // Lizenz-Nr (PBefG)
+  booking_number: string;           // Eindeutige Auftrags-Nr
+  driver_name: string;               // Fahrername
+  vehicle_license_plate: string;     // Kennzeichen
+  estimated_arrival_time: Date;      // Voraussichtliche Ankunft
+  fare_estimate: number;             // Preisschätzung
+  payment_method: string;            // Zahlungsweise
+  company_name: string;              // Unternehmen
+  company_license_number: string;    // Lizenz-Nr (PBefG)
 }
 ```
 
@@ -220,29 +225,29 @@ USING (public.has_role(auth.uid(), 'admin'));
 ```tsx
 // ✅ RICHTIG - Alle Pflichtangaben auf Rechnung
 interface InvoiceData {
-  invoice_number: string; // Fortlaufende Nummer
-  invoice_date: Date; // Rechnungsdatum
-  company_name: string; // Leistungserbringer
-  company_address: string; // Vollständige Adresse
-  tax_id: string; // Steuernummer
-  vat_id?: string; // USt-IdNr (bei B2B)
-
+  invoice_number: string;        // Fortlaufende Nummer
+  invoice_date: Date;            // Rechnungsdatum
+  company_name: string;          // Leistungserbringer
+  company_address: string;       // Vollständige Adresse
+  tax_id: string;                // Steuernummer
+  vat_id?: string;               // USt-IdNr (bei B2B)
+  
   customer_name: string;
   customer_address: string;
-
+  
   line_items: Array<{
     description: string;
     quantity: number;
     unit_price: number;
-    vat_rate: number; // 19% oder 7%
+    vat_rate: number;            // 19% oder 7%
     line_total: number;
   }>;
-
+  
   subtotal: number;
   vat_amount: number;
   total: number;
-
-  payment_terms: string; // "Zahlbar innerhalb 14 Tagen"
+  
+  payment_terms: string;         // "Zahlbar innerhalb 14 Tagen"
   bank_details: {
     iban: string;
     bic: string;
@@ -257,17 +262,20 @@ interface InvoiceData {
 // ✅ RICHTIG - Soft-Delete statt Hard-Delete
 async function archiveInvoice(invoiceId: string) {
   await supabase
-    .from("invoices")
-    .update({
+    .from('invoices')
+    .update({ 
       archived: true,
-      archived_at: new Date().toISOString(),
+      archived_at: new Date().toISOString()
     })
-    .eq("id", invoiceId);
+    .eq('id', invoiceId);
 }
 
 // ❌ FALSCH - Löschen von Rechnungen
 async function deleteInvoice(invoiceId: string) {
-  await supabase.from("invoices").delete().eq("id", invoiceId); // VERBOTEN! Aufbewahrungspflicht!
+  await supabase
+    .from('invoices')
+    .delete()
+    .eq('id', invoiceId);  // VERBOTEN! Aufbewahrungspflicht!
 }
 ```
 
@@ -325,7 +333,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-
+      
       # 1. DSGVO: Prüfe Datenschutz-Hinweise
       - name: Check Privacy Notices
         run: |
@@ -333,7 +341,7 @@ jobs:
             echo "ERROR: Missing privacy notice"
             exit 1
           fi
-
+      
       # 2. AI Act: Prüfe KI-Kennzeichnung
       - name: Check AI Disclosure
         run: |
@@ -341,7 +349,7 @@ jobs:
             echo "ERROR: Missing AI disclosure"
             exit 1
           fi
-
+      
       # 3. Security: Supabase RLS Linter
       - name: Run Supabase Security Linter
         run: supabase test db
@@ -389,7 +397,6 @@ await backup.create({ encrypted: false }); // Datenleck-Risiko!
 ## 📝 Changelog
 
 ### V18.5.0 (2025-01-26)
-
 - Erstversion basierend auf bestehenden Compliance-Docs
 - DSGVO, AI Act, PBefG, TMG Guidelines konsolidiert
 - Code-Beispiele hinzugefügt

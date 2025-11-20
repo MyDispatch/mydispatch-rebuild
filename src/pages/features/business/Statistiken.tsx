@@ -2,42 +2,26 @@
    FEATURE DETAIL PAGE: Statistiken & Reports
    ================================================================================== */
 
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { V28HeroPremium } from "@/components/hero";
-import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
-import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
-import { V28IconBox } from "@/components/design-system/V28IconBox";
-import { V28Button } from "@/components/design-system/V28Button";
-import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
-import { TrendingUp, BarChart3, PieChart, FileText } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { V28HeroPremium } from '@/components/hero';
+import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28Button } from '@/components/design-system/V28Button';
+import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
+import { TrendingUp, BarChart3, PieChart, FileText } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function StatistikenPage() {
   const navigate = useNavigate();
 
   const features = [
-    {
-      icon: TrendingUp,
-      title: "Echtzeit-Dashboards",
-      description: "Live-KPIs zu Umsätzen, Auslastung und Performance",
-    },
-    {
-      icon: BarChart3,
-      title: "Umsatz-Reports",
-      description: "Detaillierte Umsatzanalysen nach Zeitraum, Fahrer, Kunde",
-    },
-    {
-      icon: PieChart,
-      title: "Auslastungsanalyse",
-      description: "Fahrzeug- und Fahrerauslastung visualisiert",
-    },
-    {
-      icon: FileText,
-      title: "Export-Funktionen",
-      description: "Excel, PDF und CSV-Export für Steuerberater",
-    },
+    { icon: TrendingUp, title: 'Echtzeit-Dashboards', description: 'Live-KPIs zu Umsätzen, Auslastung und Performance' },
+    { icon: BarChart3, title: 'Umsatz-Reports', description: 'Detaillierte Umsatzanalysen nach Zeitraum, Fahrer, Kunde' },
+    { icon: PieChart, title: 'Auslastungsanalyse', description: 'Fahrzeug- und Fahrerauslastung visualisiert' },
+    { icon: FileText, title: 'Export-Funktionen', description: 'Excel, PDF und CSV-Export für Steuerberater' },
   ];
 
   return (
@@ -57,12 +41,12 @@ export default function StatistikenPage() {
         subtitle="Echtzeit-Dashboards für datenbasierte Entscheidungen"
         description="Mit Umsätzen, Auslastung und Fahrerperformance."
         primaryCTA={{
-          label: "Jetzt starten",
-          onClick: () => navigate("/auth?mode=signup"),
+          label: 'Jetzt starten',
+          onClick: () => navigate('/auth?mode=signup')
         }}
         secondaryCTA={{
-          label: "Mehr erfahren",
-          onClick: () => navigate("/pricing"),
+          label: 'Mehr erfahren',
+          onClick: () => navigate('/pricing')
         }}
         visual={<PremiumDashboardContent pageType="features" />}
         trustElements={true}
@@ -87,7 +71,7 @@ export default function StatistikenPage() {
             <V28TariffBadge label="Business" />
             <V28TariffBadge label="Enterprise" />
           </div>
-          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
             Tarife vergleichen
           </V28Button>
         </div>

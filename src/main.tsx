@@ -10,11 +10,11 @@ import App from "./App.tsx";
 import "./index.css";
 import "./styles/mobile-first.css";
 import "./styles/mobile-optimized.css";
-// import { initSentry } from "./lib/sentry-integration"; // DISABLED: Sentry not installed
+import { initSentry } from "./lib/sentry-integration";
 import { initPerformanceMonitoring } from "./lib/performance-monitoring";
 import { initGlobalErrorHandlers } from "./lib/error-tracking";
 import ProductionErrorMonitor from "./utils/errorMonitoring";
-import { onCLS, onINP, onLCP } from "web-vitals";
+import { onCLS, onINP, onLCP } from 'web-vitals';
 
 try {
   initPerformanceMonitoring();
@@ -37,161 +37,231 @@ if (import.meta.env.PROD) {
   }
 }
 
-// try {
-//   initSentry(); // DISABLED: Sentry not installed
-// } catch {
-//   // Silent fail
-// }
+try {
+  initSentry();
+} catch {
+  // Silent fail
+}
 
-// V6.0.4: CHUNK LOAD ERROR HANDLER - Robust fallback for failed chunk loads
-window.addEventListener("error", (event: ErrorEvent) => {
-  const errorMsg = event.message || "";
+// Production: Chunk Load Error Handler with One-Shot Guard
+// Prevents infinite reload loops while handling dynamic import failures
+if (import.meta.env.PROD) {
+  window.addEventListener('error', (event: ErrorEvent) => {
+    const errorMsg = event.message || '';
 
-  if (
-    errorMsg.includes("Failed to fetch dynamically imported module") ||
-    errorMsg.includes("Importing a module script failed")
-  ) {
-    console.warn("⚠️ Chunk load failed - clearing caches and reloading...", event);
+    if (
+      errorMsg.includes('Failed to fetch dynamically imported module') ||
+      errorMsg.includes('Importing a module script failed')
+    ) {
+      // ONE-SHOT GUARD: Only reload ONCE per session to prevent infinite loops
+      const RELOAD_KEY = 'chunk-reload-attempted';
+      const hasReloaded = sessionStorage.getItem(RELOAD_KEY);
+      
+      if (hasReloaded) {
+        // Already reloaded once - show error instead of looping
+        console.error('❌ Chunk load failed after reload. Please refresh manually.', event);
+        
+        // Show user-friendly error (NO auto-reload)
+        const errorDiv = document.createElement('div');
+        errorDiv.innerHTML = `
+          <div style="
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            z-index: 9999;
+          ">
+            <h2 style="margin-bottom: 16px; font-size: 20px; font-weight: bold; color: #dc2626;">
+              Ladefehler
+            </h2>
+            <p style="margin-bottom: 24px; color: #666;">
+              Ein Teil der Seite konnte nicht geladen werden. Bitte laden Sie die Seite manuell neu.
+            </p>
+            <button
+              onclick="sessionStorage.removeItem('${RELOAD_KEY}'); location.reload()"
+              style="
+                background: #475569;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                font-weight: 600;
+              "
+            >
+              Seite neu laden
+            </button>
+          </div>
+        `;
+        document.body.appendChild(errorDiv);
+        return;
+      }
 
-    // Special handling for critical Home-Sections
-    if (errorMsg.includes("HomeHeroSection") || errorMsg.includes("app-home-sections")) {
-      console.error("❌ CRITICAL: Home-Section failed to load!");
-
-      // Show user-friendly error overlay
-      const errorDiv = document.createElement("div");
-      errorDiv.innerHTML = `
-        <div style="
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          background: white;
-          padding: 32px;
-          border-radius: 12px;
-          box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-          text-align: center;
-          max-width: 400px;
-          z-index: 9999;
-        ">
-          <h2 style="margin-bottom: 16px; font-size: 20px; font-weight: bold;">
-            Seite wird geladen...
-          </h2>
-          <p style="margin-bottom: 24px; color: #666;">
-            Bitte warten Sie einen Moment.
-          </p>
-          <button
-            onclick="location.reload()"
-            style="
-              background: #475569;
-              color: white;
-              padding: 12px 24px;
-              border-radius: 8px;
-              border: none;
-              cursor: pointer;
-              font-weight: 600;
-            "
-          >
-            Neu laden
-          </button>
-        </div>
-      `;
-      document.body.appendChild(errorDiv);
-
-      // Auto-reload after 3 seconds
-      setTimeout(() => location.reload(), 3000);
-      return;
-    }
-
-    // Default cache clearing and reload for other chunks
-    if ("caches" in window) {
-      caches
-        .keys()
-        .then((names) => {
-          names.forEach((name) => caches.delete(name));
-        })
-        .then(() => {
+      // First time - mark as reloaded and reload
+      console.warn('⚠️ Chunk load failed - reloading once...', event);
+      sessionStorage.setItem(RELOAD_KEY, 'true');
+      
+      // Clear caches and reload
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          names.forEach(name => caches.delete(name));
+        }).then(() => {
           location.reload();
-        })
-        .catch(() => {
+        }).catch(() => {
           location.reload();
         });
-    } else {
-      location.reload();
+      } else {
+        location.reload();
+      }
     }
-  }
-});
+  });
+}
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
-  throw new Error("Root element not found - check index.html");
+  throw new Error('Root element not found - check index.html');
 }
 
 createRoot(rootElement).render(<App />);
 
 // Phase 5.1: Web Vitals Tracking
 if (import.meta.env.PROD) {
-  onCLS((metric) => console.log("CLS:", metric.value));
-  onINP((metric) => console.log("INP:", metric.value));
-  onLCP((metric) => console.log("LCP:", metric.value));
+  onCLS((metric) => console.log('CLS:', metric.value));
+  onINP((metric) => console.log('INP:', metric.value));
+  onLCP((metric) => console.log('LCP:', metric.value));
 }
 
-// Register Service Worker for PWA
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", async () => {
+// PWA Service Worker Registration - Production Only
+// Implements update prompts and skip-waiting flow
+if ('serviceWorker' in navigator && import.meta.env.PROD) {
+  window.addEventListener('load', async () => {
     try {
-      // Register new service worker
-      const registration = await navigator.serviceWorker.register("/sw.js", {
-        scope: "/",
+      const registration = await navigator.serviceWorker.register('/sw.js', {
+        scope: '/',
       });
-
-      console.log("[PWA] Service Worker registered:", registration.scope);
-
-      // Update service worker when new version available
-      registration.addEventListener("updatefound", () => {
+      
+      console.log('[PWA] Service Worker registered:', registration.scope);
+      
+      // Check for updates on page load
+      registration.update();
+      
+      // Listen for new service worker installation
+      registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
+        
         if (newWorker) {
-          newWorker.addEventListener("statechange", () => {
-            if (newWorker.state === "installed" && navigator.serviceWorker.controller) {
-              console.log("[PWA] New service worker available, reloading...");
-              window.location.reload();
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // New service worker is ready - show update prompt
+              showUpdatePrompt(registration);
             }
           });
         }
       });
-
-      // Clean old caches on version change
-      const buildVersion = "v6.0.8-pre-login-complete-1730430000000";
-      const storedVersion = localStorage.getItem("app-version");
-
-      if (storedVersion !== buildVersion) {
-        if ("caches" in window) {
-          const cacheNames = await caches.keys();
-          await Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName)));
-        }
-        // Clear localStorage (aggressive)
-        const keysToKeep = ["supabase.auth.token"];
-        const allKeys = Object.keys(localStorage);
-        allKeys.forEach((key) => {
-          if (!keysToKeep.includes(key)) {
-            localStorage.removeItem(key);
-          }
-        });
-
-        // Clear sessionStorage
-        sessionStorage.clear();
-
-        // Clear all cookies (except essential)
-        document.cookie.split(";").forEach((c) => {
-          document.cookie = c
-            .replace(/^ +/, "")
-            .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-        });
-
-        localStorage.setItem("app-version", buildVersion);
+      
+      // Handle controller change (when new SW takes over)
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        console.log('[PWA] New service worker activated - reloading...');
         window.location.reload();
-      }
+      });
+      
     } catch (error) {
-      console.debug("Cache cleanup error:", error);
+      console.error('[PWA] Service Worker registration failed:', error);
     }
+  });
+}
+
+// Show update prompt - Non-intrusive notification
+function showUpdatePrompt(registration: ServiceWorkerRegistration) {
+  console.log('[PWA] Update available - showing prompt');
+  
+  // Create update notification element
+  const updateBanner = document.createElement('div');
+  updateBanner.id = 'sw-update-banner';
+  updateBanner.innerHTML = `
+    <div style="
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #323D5E;
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 99999;
+      max-width: 400px;
+      animation: slideIn 0.3s ease-out;
+    ">
+      <div style="flex: 1;">
+        <div style="font-weight: 600; margin-bottom: 4px;">Update verfügbar</div>
+        <div style="font-size: 14px; opacity: 0.9;">Eine neue Version von MyDispatch ist verfügbar.</div>
+      </div>
+      <button
+        id="sw-update-btn"
+        style="
+          background: white;
+          color: #323D5E;
+          padding: 8px 16px;
+          border-radius: 6px;
+          border: none;
+          cursor: pointer;
+          font-weight: 600;
+          white-space: nowrap;
+        "
+      >
+        Aktualisieren
+      </button>
+      <button
+        id="sw-dismiss-btn"
+        style="
+          background: transparent;
+          color: white;
+          padding: 8px;
+          border: none;
+          cursor: pointer;
+          opacity: 0.7;
+          font-size: 18px;
+        "
+      >
+        ✕
+      </button>
+    </div>
+    <style>
+      @keyframes slideIn {
+        from {
+          transform: translateY(100px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+    </style>
+  `;
+  
+  document.body.appendChild(updateBanner);
+  
+  // Update button - triggers skip waiting
+  document.getElementById('sw-update-btn')?.addEventListener('click', () => {
+    if (registration.waiting) {
+      // Tell service worker to skip waiting
+      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+    }
+    updateBanner.remove();
+  });
+  
+  // Dismiss button
+  document.getElementById('sw-dismiss-btn')?.addEventListener('click', () => {
+    updateBanner.remove();
   });
 }

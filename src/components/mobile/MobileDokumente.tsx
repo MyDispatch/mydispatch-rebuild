@@ -4,15 +4,15 @@
    Verwendet MobileGridLayout für standardisierte Struktur
    ================================================================================== */
 
-import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Badge } from "@/components/ui/badge";
-import { Plus, Search, FileText, Download, Calendar } from "lucide-react";
-import { MobileGridLayout } from "./MobileGridLayout";
-import { StatusIndicator } from "@/components/shared/StatusIndicator";
-import { format } from "date-fns";
-import { de } from "date-fns/locale";
+import { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Badge } from '@/components/ui/badge';
+import { Plus, Search, FileText, Download, Calendar } from 'lucide-react';
+import { MobileGridLayout } from './MobileGridLayout';
+import { StatusIndicator } from '@/components/shared/StatusIndicator';
+import { format } from 'date-fns';
+import { de } from 'date-fns/locale';
 
 interface Document {
   id: string;
@@ -40,81 +40,80 @@ export function MobileDokumente({
   isLoading,
   onCreateNew,
   onDocumentClick,
-  onRefresh,
+  onRefresh
 }: MobileDokumenteProps) {
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const getExpiryStatus = (expiryDate: string | null) => {
-    if (!expiryDate) return "neutral";
-
+    if (!expiryDate) return 'neutral';
+    
     const expiry = new Date(expiryDate);
     const now = new Date();
     const daysUntilExpiry = Math.ceil((expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 
-    if (daysUntilExpiry < 0) return "error";
-    if (daysUntilExpiry <= 30) return "warning";
-    return "success";
+    if (daysUntilExpiry < 0) return 'error';
+    if (daysUntilExpiry <= 30) return 'warning';
+    return 'success';
   };
 
-  const filteredDocuments = documents.filter((doc) => {
+  const filteredDocuments = documents.filter(doc => {
     const status = getExpiryStatus(doc.expiry_date);
-
-    if (activeFilter === "valid" && status !== "success") return false;
-    if (activeFilter === "expiring" && status !== "warning") return false;
-    if (activeFilter === "expired" && status !== "error") return false;
+    
+    if (activeFilter === 'valid' && status !== 'success') return false;
+    if (activeFilter === 'expiring' && status !== 'warning') return false;
+    if (activeFilter === 'expired' && status !== 'error') return false;
 
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       return (
-        doc.name.toLowerCase().includes(query) || doc.document_type.toLowerCase().includes(query)
+        doc.name.toLowerCase().includes(query) ||
+        doc.document_type.toLowerCase().includes(query)
       );
     }
 
     return true;
   });
 
-  const validCount = documents.filter((d) => getExpiryStatus(d.expiry_date) === "success").length;
-  const expiringCount = documents.filter(
-    (d) => getExpiryStatus(d.expiry_date) === "warning"
-  ).length;
-  const expiredCount = documents.filter((d) => getExpiryStatus(d.expiry_date) === "error").length;
+  const validCount = documents.filter(d => getExpiryStatus(d.expiry_date) === 'success').length;
+  const expiringCount = documents.filter(d => getExpiryStatus(d.expiry_date) === 'warning').length;
+  const expiredCount = documents.filter(d => getExpiryStatus(d.expiry_date) === 'error').length;
 
   const filters = [
-    { id: "all", label: "Alle", count: documents.length },
-    { id: "valid", label: "Gültig", count: validCount },
-    { id: "expiring", label: "Läuft ab", count: expiringCount },
-    { id: "expired", label: "Abgelaufen", count: expiredCount },
+    { id: 'all', label: 'Alle', count: documents.length },
+    { id: 'valid', label: 'Gültig', count: validCount },
+    { id: 'expiring', label: 'Läuft ab', count: expiringCount },
+    { id: 'expired', label: 'Abgelaufen', count: expiredCount },
   ];
 
   const getDocumentTypeLabel = (type: string) => {
     const labels: Record<string, string> = {
-      fuehrerschein: "Führerschein",
-      p_schein: "P-Schein",
-      fahrzeugschein: "Fahrzeugschein",
-      tuev: "TÜV",
-      versicherung: "Versicherung",
-      sonstiges: "Sonstiges",
+      fuehrerschein: 'Führerschein',
+      p_schein: 'P-Schein',
+      fahrzeugschein: 'Fahrzeugschein',
+      tuev: 'TÜV',
+      versicherung: 'Versicherung',
+      sonstiges: 'Sonstiges',
     };
     return labels[type] || type;
   };
 
   const getEntityTypeLabel = (type: string) => {
     const labels: Record<string, string> = {
-      driver: "Fahrer",
-      vehicle: "Fahrzeug",
-      customer: "Kunde",
+      driver: 'Fahrer',
+      vehicle: 'Fahrzeug',
+      customer: 'Kunde',
     };
     return labels[type] || type;
   };
 
   const getExpiryLabel = (expiryDate: string | null) => {
-    if (!expiryDate) return "Kein Ablaufdatum";
-
+    if (!expiryDate) return 'Kein Ablaufdatum';
+    
     const status = getExpiryStatus(expiryDate);
-    if (status === "error") return "Abgelaufen";
-    if (status === "warning") return "Läuft bald ab";
-    return "Gültig";
+    if (status === 'error') return 'Abgelaufen';
+    if (status === 'warning') return 'Läuft bald ab';
+    return 'Gültig';
   };
 
   return (
@@ -133,18 +132,15 @@ export function MobileDokumente({
           <CardContent className="p-4">
             <div className="flex items-start justify-between mb-3">
               <div className="flex-1">
-                <h3 className="font-semibold text-base mb-1">{doc.name}</h3>
+                <h3 className="font-semibold text-base mb-1">
+                  {doc.name}
+                </h3>
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <FileText className="h-4 w-4" />
-                  <span>
-                    {doc.document_type === "license"
-                      ? "Führerschein"
-                      : doc.document_type === "registration"
-                        ? "Fahrzeugschein"
-                        : doc.document_type === "insurance"
-                          ? "Versicherung"
-                          : "Sonstiges"}
-                  </span>
+                  <span>{doc.document_type === 'license' ? 'Führerschein' : 
+                          doc.document_type === 'registration' ? 'Fahrzeugschein' : 
+                          doc.document_type === 'insurance' ? 'Versicherung' : 
+                          'Sonstiges'}</span>
                 </div>
               </div>
 
@@ -154,7 +150,7 @@ export function MobileDokumente({
                   <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                     <Calendar className="h-4 w-4" />
                     <span>
-                      Ablauf: {format(new Date(doc.expiry_date), "dd.MM.yyyy", { locale: de })}
+                      Ablauf: {format(new Date(doc.expiry_date), 'dd.MM.yyyy', { locale: de })}
                     </span>
                   </div>
                 )}
@@ -166,7 +162,7 @@ export function MobileDokumente({
                 variant="secondary"
                 size="sm"
                 className="flex-1"
-                onClick={() => window.open(doc.file_url, "_blank")}
+                onClick={() => window.open(doc.file_url, '_blank')}
               >
                 <Download className="h-4 w-4 mr-2" />
                 Download
@@ -176,16 +172,16 @@ export function MobileDokumente({
         </Card>
       )}
       onItemClick={onDocumentClick}
-      entityLabel={{ singular: "Dokument", plural: "Dokumente" }}
+      entityLabel={{ singular: 'Dokument', plural: 'Dokumente' }}
       fabLabel="Dokument hochladen"
       onFabClick={onCreateNew}
       fabIcon={Plus}
       emptyStateProps={{
         icon: <FileText className="h-16 w-16" />,
-        noDataTitle: "Keine Dokumente",
-        noDataDescription: "Lade dein erstes Dokument hoch",
-        noResultsTitle: "Keine Ergebnisse",
-        noResultsDescription: "Versuche einen anderen Suchbegriff",
+        noDataTitle: 'Keine Dokumente',
+        noDataDescription: 'Lade dein erstes Dokument hoch',
+        noResultsTitle: 'Keine Ergebnisse',
+        noResultsDescription: 'Versuche einen anderen Suchbegriff'
       }}
     />
   );

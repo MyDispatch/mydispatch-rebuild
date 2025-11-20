@@ -1,12 +1,12 @@
-/\* ==================================================================================
-CUSTOM KNOWLEDGE UPDATE V26.0 - AI MODEL GOVERNANCE
-==================================================================================
-
-Dieser Text MUSS in die Custom Knowledge des Projekts eingefügt werden!
-
-Pfad: Project Settings → Manage Knowledge → Add to Custom Knowledge
-
-================================================================================== \*/
+/* ==================================================================================
+   CUSTOM KNOWLEDGE UPDATE V26.0 - AI MODEL GOVERNANCE
+   ==================================================================================
+   
+   Dieser Text MUSS in die Custom Knowledge des Projekts eingefügt werden!
+   
+   Pfad: Project Settings → Manage Knowledge → Add to Custom Knowledge
+   
+   ================================================================================== */
 
 # 🚨 ABSOLUTE AI-MODEL-VERPFLICHTUNG
 

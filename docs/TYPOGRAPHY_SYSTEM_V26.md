@@ -1,5 +1,4 @@
 # TYPOGRAPHY SYSTEM V26.0
-
 > **Version:** 26.0  
 > **Letzte Aktualisierung:** 2025-01-26  
 > **Status:** ✅ Production Ready
@@ -15,7 +14,6 @@ Systemweite Schriftarten-Vorgaben für MyDispatch. Garantiert konsistente Typogr
 ## 📚 SCHRIFTFAMILIEN
 
 ### Primary: Inter (Sans-Serif)
-
 **Verwendung:** Gesamte UI, alle Texte, Buttons, Forms  
 **Gewichte:** 300, 400, 500, 600, 700, 800, 900
 
@@ -27,7 +25,6 @@ fontFamily: {
 ```
 
 **Anwendung:**
-
 ```tsx
 // Standard (wird automatisch angewendet)
 <div className="font-sans">Inhalt</div>
@@ -37,7 +34,6 @@ fontFamily: {
 ```
 
 ### Secondary: Playfair Display (Serif)
-
 **Verwendung:** Dekorative Überschriften, Marketing-Hero-Sektionen (optional)  
 **Gewichte:** 400, 700
 
@@ -49,14 +45,12 @@ fontFamily: {
 ```
 
 **Anwendung:**
-
 ```tsx
 // Nur für spezielle Marketing-Elemente
 <h1 className="font-serif">Elegante Überschrift</h1>
 ```
 
 ### Monospace: SF Mono
-
 **Verwendung:** Code-Blöcke, technische Daten, Debugging  
 **Gewichte:** Standard
 
@@ -72,7 +66,6 @@ fontFamily: {
 ## 🎨 SCHRIFTGRÖSSENSYSTEM (Responsive)
 
 ### Überschriften
-
 ```tsx
 // H1 - Seitentitel
 <h1 className="text-2xl sm:text-3xl font-bold text-foreground font-sans">
@@ -96,7 +89,6 @@ fontFamily: {
 ```
 
 ### Body Text
-
 ```tsx
 // Standard Body
 <p className="text-sm sm:text-base text-muted-foreground font-sans">
@@ -115,7 +107,6 @@ fontFamily: {
 ```
 
 ### UI-Elemente
-
 ```tsx
 // Button-Text
 <Button className="font-semibold text-sm font-sans">
@@ -128,8 +119,8 @@ fontFamily: {
 </label>
 
 // Placeholder
-<Input
-  placeholder="Eingabe..."
+<Input 
+  placeholder="Eingabe..." 
   className="text-sm font-sans placeholder:text-muted-foreground"
 />
 ```
@@ -139,7 +130,6 @@ fontFamily: {
 ## ✅ PFLICHT-REGELN
 
 ### 1. Font-Sans ist Standard
-
 **IMMER** `font-sans` explizit setzen für konsistente Darstellung:
 
 ```tsx
@@ -156,7 +146,6 @@ fontFamily: {
 ```
 
 ### 2. Mobile-First Typography
-
 **IMMER** responsive Schriftgrößen verwenden:
 
 ```tsx
@@ -168,29 +157,27 @@ fontFamily: {
 ```
 
 ### 3. Semantische Schriftgewichte
-
 ```tsx
 // Light (300) - Selten, nur für Design-Akzente
-font - light;
+font-light
 
 // Normal (400) - Standard-Body-Text
-font - normal;
+font-normal
 
 // Medium (500) - Labels, Sub-Headings
-font - medium;
+font-medium
 
 // Semibold (600) - Wichtige Texte, Card-Titel
-font - semibold;
+font-semibold
 
 // Bold (700) - Überschriften (H1, H2, H3)
-font - bold;
+font-bold
 
 // Extrabold (800) - KPI-Werte, Preise
-font - extrabold;
+font-extrabold
 ```
 
 ### 4. Text-Farben mit Schrift kombinieren
-
 ```tsx
 // Primary Text (H1-H3, wichtige Elemente)
 <h1 className="text-foreground font-bold font-sans">
@@ -207,7 +194,6 @@ font - extrabold;
 ## 🚫 VERBOTEN
 
 ### Direct Font Declarations
-
 ```tsx
 // ❌ FALSCH - Inline Font-Family
 <div style={{ fontFamily: 'Arial' }}>
@@ -217,7 +203,6 @@ font - extrabold;
 ```
 
 ### Inkonsistente Schriftgrößen
-
 ```tsx
 // ❌ FALSCH - Nicht-responsive, willkürliche Größe
 <h1 className="text-[28px]">
@@ -227,7 +212,6 @@ font - extrabold;
 ```
 
 ### Fehlende Schriftarten-Klasse
-
 ```tsx
 // ❌ FALSCH - Keine font-sans auf Container
 <div className="space-y-4">
@@ -240,7 +224,6 @@ font - extrabold;
 ## 📋 MIGRATION CHECKLIST
 
 Für jede Komponente/Seite:
-
 - [ ] `font-sans` auf Root-Container gesetzt
 - [ ] Alle Überschriften haben `font-sans`
 - [ ] Alle Body-Texte haben `font-sans`
@@ -254,7 +237,6 @@ Für jede Komponente/Seite:
 ## 🛠️ TOOLS & TESTING
 
 ### Visual Check
-
 ```bash
 # Suche nach fehlenden font-sans
 grep -r "className=" src/ | grep -v "font-sans"
@@ -264,7 +246,6 @@ grep -r "fontFamily:" src/
 ```
 
 ### Test-Cases
-
 1. Desktop (1920px) - Alle Texte lesbar
 2. Tablet (768px) - Responsive Schriftgrößen aktiv
 3. Mobile (375px) - Touch-optimiert, kein Text-Overflow
@@ -273,13 +254,13 @@ grep -r "fontFamily:" src/
 
 ## 📊 SYSTEM-STATUS
 
-| Komponente         | Status | Font-Sans | Responsive |
-| ------------------ | ------ | --------- | ---------- |
-| EmptyState         | ✅     | ✅        | ✅         |
-| StandardPageLayout | ✅     | ✅        | ✅         |
-| MetricCard         | ✅     | ✅        | ✅         |
-| PageHeaderWithKPIs | ✅     | ✅        | ✅         |
-| Auftraege.tsx      | ✅     | ✅        | ✅         |
+| Komponente | Status | Font-Sans | Responsive |
+|------------|--------|-----------|------------|
+| EmptyState | ✅ | ✅ | ✅ |
+| StandardPageLayout | ✅ | ✅ | ✅ |
+| MetricCard | ✅ | ✅ | ✅ |
+| PageHeaderWithKPIs | ✅ | ✅ | ✅ |
+| Auftraege.tsx | ✅ | ✅ | ✅ |
 
 ---
 

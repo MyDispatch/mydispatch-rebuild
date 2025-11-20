@@ -6,7 +6,7 @@
    ✅ Gleiche Props wie V28MarketingSection
    ================================================================================== */
 
-import { V28MarketingSection } from "./V28MarketingSection";
+import { V28MarketingSection } from './V28MarketingSection';
 
 // Alias für Dashboard-Seiten (gleiche Props wie V28MarketingSection)
 export const V28DashboardSection = V28MarketingSection;

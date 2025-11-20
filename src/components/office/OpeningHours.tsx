@@ -7,18 +7,15 @@ interface OpeningHoursProps {
 export function OpeningHours({
   className = "",
   showIcon = true,
-  compact = false,
+  compact = false
 }: OpeningHoursProps) {
   if (compact) {
-    return (
-      <div className={`flex items-center gap-2 text-sm text-muted-foreground ${className}`}>
+    return <div className={`flex items-center gap-2 text-sm text-muted-foreground ${className}`}>
         {showIcon && <Clock className="h-4 w-4" />}
         <span>Mo. - Fr.: 9:00 - 17:00 Uhr</span>
       </div>
-    );
   }
-  return (
-    <div className={`space-y-2 text-center ${className}`}>
+  return <div className={`space-y-2 text-center ${className}`}>
       <div className="flex items-center justify-center gap-2 font-semibold text-foreground">
         {showIcon && <Clock className="h-5 w-5 text-foreground" />}
         <span>MyDispatch Support</span>
@@ -31,5 +28,4 @@ export function OpeningHours({
         Außerhalb der Öffnungszeiten erreichen Sie uns per E-Mail
       </p>
     </div>
-  );
 }

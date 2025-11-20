@@ -7,8 +7,8 @@
    - Agent Learning Integration
    ================================================================================== */
 
-import { toast } from "sonner";
-import { logError } from "./logger";
+import { toast } from 'sonner';
+import { logError } from './logger';
 
 interface ErrorHandlerOptions {
   title?: string;
@@ -25,7 +25,11 @@ export const handleError = (
   defaultMessage: string,
   options: ErrorHandlerOptions = {}
 ) => {
-  const { title = "Fehler", showToast = true, logToSupabase = true } = options;
+  const {
+    title = 'Fehler',
+    showToast = true,
+    logToSupabase = true,
+  } = options;
 
   const errorMessage = error instanceof Error ? error.message : defaultMessage;
 
@@ -39,22 +43,23 @@ export const handleError = (
 
   // Zu Supabase loggen
   if (logToSupabase) {
-    logError(defaultMessage, error instanceof Error ? error : undefined, {
-      error:
-        error instanceof Error
-          ? {
-              message: error.message,
-              stack: error.stack,
-            }
-          : error,
-    });
+    logError(
+      defaultMessage,
+      error instanceof Error ? error : undefined,
+      {
+        error: error instanceof Error ? {
+          message: error.message,
+          stack: error.stack,
+        } : error,
+      }
+    );
   }
 };
 
 /**
  * Success Handler
  */
-export const handleSuccess = (message: string, title = "Erfolg") => {
+export const handleSuccess = (message: string, title = 'Erfolg') => {
   toast.success(title, {
     description: message,
     duration: 3000,
@@ -64,7 +69,7 @@ export const handleSuccess = (message: string, title = "Erfolg") => {
 /**
  * Info Handler
  */
-export const handleInfo = (message: string, title = "Info") => {
+export const handleInfo = (message: string, title = 'Info') => {
   toast.info(title, {
     description: message,
     duration: 4000,
@@ -74,7 +79,7 @@ export const handleInfo = (message: string, title = "Info") => {
 /**
  * Warning Handler
  */
-export const handleWarning = (message: string, title = "Warnung") => {
+export const handleWarning = (message: string, title = 'Warnung') => {
   toast.warning(title, {
     description: message,
     duration: 5000,

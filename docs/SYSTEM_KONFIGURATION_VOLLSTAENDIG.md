@@ -34,12 +34,10 @@
 ### 1.2 Authentication
 
 **Provider:**
-
 - Email/Password ✅
 - OAuth (optional)
 
 **Konfiguration:**
-
 - Email-Verifizierung: **Optional** (für Production: Aktivieren)
 - Password-Reset: ✅ Aktiviert
 - Session-Dauer: Standard (1 Woche)
@@ -47,13 +45,11 @@
 ### 1.3 Database Schema
 
 **Hauptschemas:**
-
 - `public` - Hauptschema für App-Daten
 - `auth` - Supabase Auth Schema
 - `nexify_ai_master_knowledge_base` - AI Knowledge Base Schema
 
 **Wichtige Tabellen:**
-
 - `profiles` - User-Profile
 - `companies` - Unternehmen
 - `bookings` - Aufträge
@@ -71,7 +67,6 @@
 **Status:** ✅ Aktiviert für alle Tabellen
 
 **Policies:**
-
 - User können nur eigene Daten sehen
 - Company-basierte Zugriffskontrolle
 - Master-Role hat Vollzugriff
@@ -79,20 +74,17 @@
 ### 1.5 Storage
 
 **Buckets:**
-
 - `documents` - Dokumenten-Uploads (Private)
 - `logos` - Firmenlogos (Public)
 - `master-chat` - Master-Chat Uploads (Private)
 
 **Konfiguration:**
-
 - File-Size-Limit: 10MB (dokumente), 5MB (logos)
 - Erlaubte Formate: PDF, JPG, PNG, DOCX
 
 ### 1.6 Realtime
 
 **Aktivierte Channels:**
-
 - `bookings` - Auftrags-Updates
 - `drivers` - Fahrer-Updates
 - `vehicles` - Fahrzeug-Updates
@@ -105,7 +97,6 @@
 ### 2.1 API-Keys
 
 **Environment Variables:**
-
 - `STRIPE_SECRET_KEY` - Secret Key (Edge Functions)
 - `STRIPE_PUBLISHABLE_KEY` - Publishable Key (Frontend)
 
@@ -114,21 +105,18 @@
 ### 2.2 Products & Prices
 
 **Starter-Tarif:**
-
 - Product ID: `prod_TEeg0ykplmGKd0` (Monthly), `prod_TF5cFE5Fi5rBCz` (Yearly)
 - Price ID Monthly: `price_1SIBMrLX5M8TT990zBX6gWOm`
 - Price ID Yearly: `price_1SIbRALX5M8TT990B81vhHPT`
 - Preis: 39€/Monat, 374,40€/Jahr
 
 **Business-Tarif:**
-
 - Product ID: `prod_TEegHmtpPZOZcG` (Monthly), `prod_TF5cnWFZYEQUsG` (Yearly)
 - Price ID Monthly: `price_1SIBN9LX5M8TT990mxE8owxm`
 - Price ID Yearly: `price_1SIbRKLX5M8TT990e1vX4ebf`
 - Preis: 99€/Monat, 950,40€/Jahr
 
 **Enterprise-Tarif:**
-
 - Product ID: `prod_ENTERPRISE_ID_PLACEHOLDER` (auf Anfrage)
 - Preis: Auf Anfrage
 
@@ -137,7 +125,6 @@
 **Endpoint:** `https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/stripe-webhook`
 
 **Events:**
-
 - `checkout.session.completed` - Subscription erstellt
 - `customer.subscription.updated` - Subscription aktualisiert
 - `customer.subscription.deleted` - Subscription gekündigt
@@ -156,7 +143,6 @@
 ### 3.1 API-Keys
 
 **Environment Variables:**
-
 - `HERE_API_KEY` - API Key (Edge Functions)
 
 **Status:** ✅ Konfiguriert
@@ -164,14 +150,12 @@
 ### 3.2 Services
 
 **Verwendete Services:**
-
 - **Geocoding** - Adressen → Koordinaten
 - **Routing** - Routenberechnung
 - **Traffic** - Live-Verkehrsdaten
 - **Weather** - Wettervorhersage
 
 **Edge Functions:**
-
 - `geocode-address` - Adress-Geocoding
 - `get-here-api-key` - API-Key-Verwaltung
 - `get-traffic` - Verkehrsdaten
@@ -180,7 +164,6 @@
 ### 3.3 Rate Limits
 
 **Limits:**
-
 - Geocoding: 250 requests/day (Free Tier)
 - Routing: 250 requests/day (Free Tier)
 - Traffic: 250 requests/day (Free Tier)
@@ -194,13 +177,11 @@
 **Status:** ✅ Integriert (n8n Cloud)
 
 **Edge Function:**
-
 - `n8n-workflow-management` - Workflow-Verwaltung
 
 ### 4.2 Workflows
 
 **Aktive Workflows:**
-
 - Buchungs-Bestätigung (Email)
 - Rechnungserstellung (Automatisch)
 - Dokument-Ablauf-Erinnerungen
@@ -208,7 +189,6 @@
 - Daily Reports
 
 **Konfiguration:**
-
 - Webhook-URLs werden dynamisch generiert
 - API-Keys werden in Edge Functions verwaltet
 
@@ -224,24 +204,20 @@
 ### 5.2 Wichtige Edge Functions
 
 **Authentication:**
-
 - `create-checkout` - Stripe Checkout (verify_jwt: true)
 - `check-subscription` - Subscription-Status (verify_jwt: true)
 
 **AI-Features:**
-
 - `ai-smart-assignment` - Intelligente Fahrerzuweisung
 - `ai-support-chat` - AI-Chatbot
 - `ai-document-ocr` - Dokument-OCR
 
 **Business Logic:**
-
 - `geocode-address` - Adress-Geocoding
 - `send-booking-email` - Buchungs-Emails
 - `create-public-booking` - Öffentliche Buchungen
 
 **Master-System:**
-
 - `master-chat` - Master-Chat (verify_jwt: true)
 - `nexify-project-management` - Projekt-Management
 - `nexify-compliance-automation` - Compliance-Checks
@@ -249,12 +225,10 @@
 ### 5.3 Environment Variables
 
 **Alle Edge Functions:**
-
 - `SUPABASE_URL` - Automatisch gesetzt
 - `SUPABASE_SERVICE_ROLE_KEY` - Automatisch gesetzt
 
 **Spezifische Variables:**
-
 - `STRIPE_SECRET_KEY` - Für `create-checkout`
 - `HERE_API_KEY` - Für `geocode-address`, `get-traffic`, `get-weather`
 - `N8N_API_KEY` - Für `n8n-workflow-management`
@@ -274,12 +248,10 @@ VITE_APP_URL=https://my-dispatch.de
 ### 6.2 Edge Functions
 
 **Automatisch gesetzt:**
-
 - `SUPABASE_URL`
 - `SUPABASE_SERVICE_ROLE_KEY`
 
 **Manuell zu setzen:**
-
 - `STRIPE_SECRET_KEY`
 - `HERE_API_KEY`
 - `N8N_API_KEY`
@@ -287,7 +259,6 @@ VITE_APP_URL=https://my-dispatch.de
 ### 6.3 Supabase Dashboard
 
 **Settings → Edge Functions → Secrets:**
-
 - Alle Secrets hier konfigurieren
 - Werden automatisch an alle Functions weitergegeben
 
@@ -305,7 +276,6 @@ VITE_APP_URL=https://my-dispatch.de
 
 **Router:** React Router v6  
 **Layouts:**
-
 - `MarketingLayout` - Marketing-Seiten
 - `AppLayout` - App-Bereich
 - `PortalLayout` - Kunden-Portal
@@ -331,32 +301,27 @@ VITE_APP_URL=https://my-dispatch.de
 ### 8.1 GitHub Actions
 
 **Workflows:**
-
 - `ci-quality-assurance.yml` - Quality Checks
 - Pre-commit Hooks (Husky)
 
 ### 8.2 Quality Checks
 
 **Tests:**
-
 - Unit Tests (Vitest)
 - E2E Tests (Playwright)
 - Performance Tests (Lighthouse)
 
 **Linting:**
-
 - ESLint (TypeScript)
 - Prettier (Code-Formatting)
 
 ### 8.3 Deployment
 
 **Frontend:**
-
 - Vercel/Netlify (automatisch via Git)
 - Environment Variables müssen gesetzt werden
 
 **Edge Functions:**
-
 - Supabase CLI: `supabase functions deploy <function-name>`
 
 ---
@@ -366,37 +331,31 @@ VITE_APP_URL=https://my-dispatch.de
 ### 9.1 Logging
 
 **Frontend:**
-
 - `@/lib/logger` - Zentrale Logging-Funktion
 - Log-Level: debug, info, warn, error
 
 **Edge Functions:**
-
 - `console.log()` - Wird in Supabase Dashboard angezeigt
 - Structured Logging empfohlen
 
 ### 9.2 Error Tracking
 
 **Frontend:**
-
 - Error Boundaries (React)
 - Error Handler: `@/lib/error-handler`
 
 **Edge Functions:**
-
 - Try-Catch-Blocks
 - Error-Responses mit Status-Codes
 
 ### 9.3 Monitoring
 
 **Supabase Dashboard:**
-
 - Edge Function Logs
 - Database Performance
 - API Usage
 
 **Custom Monitoring:**
-
 - `watchdog-monitor` Edge Function (optional)
 
 ---
@@ -404,7 +363,6 @@ VITE_APP_URL=https://my-dispatch.de
 ## 📋 KONFIGURATIONS-CHECKLISTE
 
 ### Initial Setup:
-
 - [ ] Supabase Projekt erstellt
 - [ ] Database Migrations ausgeführt
 - [ ] RLS Policies konfiguriert
@@ -416,7 +374,6 @@ VITE_APP_URL=https://my-dispatch.de
 - [ ] Environment Variables gesetzt
 
 ### Tägliche Wartung:
-
 - [ ] Edge Function Logs prüfen
 - [ ] Database Performance prüfen
 - [ ] Stripe Webhooks prüfen
@@ -425,3 +382,9 @@ VITE_APP_URL=https://my-dispatch.de
 ---
 
 **Pascal, alle System-Konfigurationen sind dokumentiert!** 🚀
+
+
+
+
+
+

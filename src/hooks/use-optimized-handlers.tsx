@@ -4,7 +4,7 @@
    useCallback für Event-Handler zur Performance-Optimierung
    ================================================================================== */
 
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
 /**
  * Optimized CRUD Handlers Hook
@@ -19,19 +19,13 @@ export function useOptimizedHandlers<T extends { id: string }>(
     await onRefresh();
   }, [onRefresh]);
 
-  const handleViewDetail = useCallback(
-    (item: T) => {
-      onOpenDetail(item);
-    },
-    [onOpenDetail]
-  );
+  const handleViewDetail = useCallback((item: T) => {
+    onOpenDetail(item);
+  }, [onOpenDetail]);
 
-  const handleEdit = useCallback(
-    (item: T) => {
-      onEdit(item);
-    },
-    [onEdit]
-  );
+  const handleEdit = useCallback((item: T) => {
+    onEdit(item);
+  }, [onEdit]);
 
   return {
     handleRefresh,
@@ -44,17 +38,17 @@ export function useOptimizedHandlers<T extends { id: string }>(
  * Optimized Search Handler
  * Debounced Search mit useCallback
  */
-export function useOptimizedSearch(onSearch: (term: string) => void, debounceMs: number = 300) {
-  const handleSearch = useCallback(
-    (term: string) => {
-      const timer = setTimeout(() => {
-        onSearch(term);
-      }, debounceMs);
+export function useOptimizedSearch(
+  onSearch: (term: string) => void,
+  debounceMs: number = 300
+) {
+  const handleSearch = useCallback((term: string) => {
+    const timer = setTimeout(() => {
+      onSearch(term);
+    }, debounceMs);
 
-      return () => clearTimeout(timer);
-    },
-    [onSearch, debounceMs]
-  );
+    return () => clearTimeout(timer);
+  }, [onSearch, debounceMs]);
 
   return handleSearch;
 }
@@ -69,7 +63,7 @@ export function useOptimizedFilter<T>(
   searchTerm: string
 ) {
   return useCallback(() => {
-    if (!searchTerm || searchTerm.trim() === "") {
+    if (!searchTerm || searchTerm.trim() === '') {
       return items;
     }
 

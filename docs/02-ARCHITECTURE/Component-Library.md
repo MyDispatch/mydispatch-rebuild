@@ -80,14 +80,14 @@ import { Button } from '@/components/ui/button';
 ```tsx
 import { Input } from '@/components/ui/input';
 
-<Input
-  type="text"
+<Input 
+  type="text" 
   placeholder="Enter text..."
   className="max-w-sm"
 />
 
-<Input
-  type="email"
+<Input 
+  type="email" 
   placeholder="Email"
   required
 />
@@ -103,7 +103,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 
 <Dialog>
   <DialogTrigger asChild>
@@ -112,11 +112,13 @@ import {
   <DialogContent>
     <DialogHeader>
       <DialogTitle>Modal Title</DialogTitle>
-      <DialogDescription>Modal description text.</DialogDescription>
+      <DialogDescription>
+        Modal description text.
+      </DialogDescription>
     </DialogHeader>
     {/* Content */}
   </DialogContent>
-</Dialog>;
+</Dialog>
 ```
 
 ### Select
@@ -128,7 +130,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 <Select>
   <SelectTrigger className="w-[180px]">
@@ -138,13 +140,13 @@ import {
     <SelectItem value="option1">Option 1</SelectItem>
     <SelectItem value="option2">Option 2</SelectItem>
   </SelectContent>
-</Select>;
+</Select>
 ```
 
 ### Toast (Notifications)
 
 ```tsx
-import { useToast } from "@/hooks/use-toast";
+import { useToast } from '@/hooks/use-toast';
 
 const { toast } = useToast();
 
@@ -189,7 +191,6 @@ import { Check } from 'lucide-react';
 ```
 
 **Erlaubte Farben:**
-
 - `text-foreground` (Standard)
 - `text-muted-foreground` (Sekundär)
 - `text-primary` (Akzent)
@@ -222,7 +223,6 @@ import { MarketingButton } from '@/components/design-system/MarketingButton';
 ```
 
 **Varianten:**
-
 - `hero-primary` - Hero-Hauptbutton
 - `hero-secondary` - Hero-Sekundärbutton
 - `cta-primary` - CTA-Hauptbutton
@@ -237,14 +237,17 @@ import { MarketingButton } from '@/components/design-system/MarketingButton';
 **Location:** `src/components/shared/FeatureIconBox.tsx`
 
 ```tsx
-import { FeatureIconBox } from "@/components/shared/FeatureIconBox";
-import { Car } from "lucide-react";
+import { FeatureIconBox } from '@/components/shared/FeatureIconBox';
+import { Car } from 'lucide-react';
 
-<FeatureIconBox icon={Car} size="md" className="mb-4" />;
+<FeatureIconBox 
+  icon={Car} 
+  size="md" 
+  className="mb-4"
+/>
 ```
 
 **Design:**
-
 - `bg-secondary` (Blauer Hintergrund)
 - `text-primary-foreground` (Helles Icon)
 - Hover: `bg-secondary/90`
@@ -255,13 +258,12 @@ import { Car } from "lucide-react";
 **Location:** `src/components/shared/Navbar.tsx`
 
 ```tsx
-import { Navbar } from "@/components/shared/Navbar";
+import { Navbar } from '@/components/shared/Navbar';
 
-<Navbar />;
+<Navbar />
 ```
 
 **Features:**
-
 - Responsive (Mobile: Hamburger-Menu)
 - Logo + Navigation-Links
 - CTA-Button (Login/Register)
@@ -271,13 +273,12 @@ import { Navbar } from "@/components/shared/Navbar";
 **Location:** `src/components/shared/Footer.tsx`
 
 ```tsx
-import { Footer } from "@/components/shared/Footer";
+import { Footer } from '@/components/shared/Footer';
 
-<Footer />;
+<Footer />
 ```
 
 **Features:**
-
 - Impressum, Datenschutz, AGB (TMG-Pflicht!)
 - Copyright-Hinweis
 - Social-Media-Links
@@ -289,11 +290,11 @@ import { Footer } from "@/components/shared/Footer";
 ### Form mit React Hook Form
 
 ```tsx
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const schema = z.object({
   email: z.string().email(),
@@ -301,11 +302,7 @@ const schema = z.object({
 });
 
 function LoginForm() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
   });
 
@@ -316,17 +313,31 @@ function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <Input {...register("email")} placeholder="Email" type="email" />
-        {errors.email && <p className="text-status-error text-sm mt-1">{errors.email.message}</p>}
-      </div>
-
-      <div>
-        <Input {...register("password")} placeholder="Password" type="password" />
-        {errors.password && (
-          <p className="text-status-error text-sm mt-1">{errors.password.message}</p>
+        <Input 
+          {...register('email')} 
+          placeholder="Email"
+          type="email"
+        />
+        {errors.email && (
+          <p className="text-status-error text-sm mt-1">
+            {errors.email.message}
+          </p>
         )}
       </div>
-
+      
+      <div>
+        <Input 
+          {...register('password')} 
+          placeholder="Password"
+          type="password"
+        />
+        {errors.password && (
+          <p className="text-status-error text-sm mt-1">
+            {errors.password.message}
+          </p>
+        )}
+      </div>
+      
       <Button type="submit">Login</Button>
     </form>
   );
@@ -340,8 +351,12 @@ function LoginForm() {
 ### Container
 
 ```tsx
-function Container({ children, className = "" }) {
-  return <div className={`container mx-auto px-4 sm:px-6 md:px-8 ${className}`}>{children}</div>;
+function Container({ children, className = '' }) {
+  return (
+    <div className={`container mx-auto px-4 sm:px-6 md:px-8 ${className}`}>
+      {children}
+    </div>
+  );
 }
 ```
 
@@ -350,7 +365,9 @@ function Container({ children, className = "" }) {
 ```tsx
 function Grid({ children, cols = 3 }) {
   return (
-    <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${cols} gap-6`}>{children}</div>
+    <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${cols} gap-6`}>
+      {children}
+    </div>
   );
 }
 ```
@@ -369,7 +386,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 
 <Card>
   <CardHeader>
@@ -382,7 +399,7 @@ import {
   <CardFooter>
     <Button>Action</Button>
   </CardFooter>
-</Card>;
+</Card>
 ```
 
 ### Table
@@ -395,7 +412,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 
 <Table>
   <TableHeader>
@@ -416,7 +433,7 @@ import {
       </TableRow>
     ))}
   </TableBody>
-</Table>;
+</Table>
 ```
 
 ---
@@ -426,21 +443,18 @@ import {
 ### DO's ✅
 
 1. **Semantic Tokens verwenden**
-
    ```tsx
-   className = "text-foreground bg-background";
+   className="text-foreground bg-background"
    ```
 
 2. **Icon-Komponente nutzen**
-
    ```tsx
    <Icon name="Check" className="text-foreground" />
    ```
 
 3. **Mobile-First Spacing**
-
    ```tsx
-   className = "p-4 sm:p-6 md:p-8";
+   className="p-4 sm:p-6 md:p-8"
    ```
 
 4. **Touch-Targets ≥ 44px**
@@ -451,19 +465,16 @@ import {
 ### DON'Ts ❌
 
 1. **Keine direkten Farben**
-
    ```tsx
-   className = "text-white bg-black"; // FALSCH!
+   className="text-white bg-black" // FALSCH!
    ```
 
 2. **Keine direkten Lucide-Imports**
-
    ```tsx
-   import { Check } from "lucide-react"; // FALSCH!
+   import { Check } from 'lucide-react'; // FALSCH!
    ```
 
 3. **Keine Inline-Styles**
-
    ```tsx
    style={{ backgroundColor: '#eadebd' }} // FALSCH!
    ```
@@ -502,7 +513,6 @@ Vor jedem Commit:
 ## 📝 Changelog
 
 ### V18.5.0 (2025-01-26)
-
 - Erstversion Component Library
 - Alle UI-Components dokumentiert
 - Design-System-Components integriert

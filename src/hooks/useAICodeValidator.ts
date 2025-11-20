@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
-import { createLogger } from "@/lib/logger";
+import { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+import { createLogger } from '@/lib/logger';
 
-const logger = createLogger("CodeValidator");
+const logger = createLogger('CodeValidator');
 
 export interface CodeViolation {
   rule: string;
@@ -35,19 +35,19 @@ export interface AutoFixResult {
 
 /**
  * Hook für AI-gestützte Code-Validierung
- *
+ * 
  * Prüft Code gegen alle MyDispatch Standards (Design, Layout, Icons, etc.)
  * vor der Implementation, um Layout-Breaks zu verhindern.
- *
+ * 
  * @example
  * const { validateCode, isValidating, lastValidation } = useAICodeValidator();
- *
+ * 
  * const result = await validateCode({
  *   code: '...tsx code...',
  *   file_path: 'src/pages/Fahrer.tsx',
  *   change_type: 'dashboard_modification'
  * });
- *
+ * 
  * if (!result.valid) {
  *   console.error('Violations:', result.violations);
  * }
@@ -65,18 +65,18 @@ export function useAICodeValidator() {
   const validateCode = async ({
     code,
     file_path,
-    change_type = "component_render",
+    change_type = 'component_render'
   }: {
     code: string;
     file_path: string;
     change_type?: string;
   }): Promise<ValidationResult> => {
     setIsValidating(true);
-
+    
     try {
       logger.debug(`Validating ${file_path}...`);
 
-      const { data, error } = await supabase.functions.invoke("ai-code-validator", {
+      const { data, error } = await supabase.functions.invoke('ai-code-validator', {
         body: {
           code,
           file_path,
@@ -85,8 +85,8 @@ export function useAICodeValidator() {
       });
 
       if (error) {
-        logger.error("Validation error:", error);
-        throw new Error(error.message || "Validation failed");
+        logger.error('Validation error:', error);
+        throw new Error(error.message || 'Validation failed');
       }
 
       const result: ValidationResult = data;
@@ -95,36 +95,36 @@ export function useAICodeValidator() {
       // Show toast if violations found
       if (!result.valid && result.violations.length > 0) {
         toast({
-          title: "⚠️ Code Violations gefunden",
+          title: '⚠️ Code Violations gefunden',
           description: `${result.violations.length} Violations in ${file_path}`,
-          variant: "destructive",
+          variant: 'destructive',
         });
-        logger.warn("Validation failed:", result.violations);
+        logger.warn('Validation failed:', result.violations);
       } else {
-        logger.debug("Validation passed");
+        logger.debug('Validation passed');
       }
 
       return result;
-    } catch (error) {
-      logger.error("validateCode error:", error);
 
+    } catch (error) {
+      logger.error('validateCode error:', error);
+      
       const errorResult: ValidationResult = {
         valid: false,
-        violations: [
-          {
-            rule: "System Error",
-            line: 0,
-            issue: error instanceof Error ? error.message : "Unknown error",
-            fix: "Please check logs",
-          },
-        ],
+        violations: [{
+          rule: 'System Error',
+          line: 0,
+          issue: error instanceof Error ? error.message : 'Unknown error',
+          fix: 'Please check logs'
+        }],
         suggestions: [],
         confidence: 0,
-        error: error instanceof Error ? error.message : "Unknown error",
+        error: error instanceof Error ? error.message : 'Unknown error'
       };
-
+      
       setLastValidation(errorResult);
       return errorResult;
+
     } finally {
       setIsValidating(false);
     }
@@ -136,7 +136,7 @@ export function useAICodeValidator() {
   const generateAutoFix = async ({
     code,
     violations,
-    file_path,
+    file_path
   }: {
     code: string;
     violations: CodeViolation[];
@@ -147,7 +147,7 @@ export function useAICodeValidator() {
     try {
       logger.debug(`Generating auto-fix for ${file_path}...`);
 
-      const { data, error } = await supabase.functions.invoke("ai-auto-fix-generator", {
+      const { data, error } = await supabase.functions.invoke('ai-auto-fix-generator', {
         body: {
           code,
           violations,
@@ -156,8 +156,8 @@ export function useAICodeValidator() {
       });
 
       if (error) {
-        logger.error("Auto-fix error:", error);
-        throw new Error(error.message || "Auto-fix generation failed");
+        logger.error('Auto-fix error:', error);
+        throw new Error(error.message || 'Auto-fix generation failed');
       }
 
       const result: AutoFixResult = data;
@@ -165,32 +165,34 @@ export function useAICodeValidator() {
 
       if (result.fixed_code && result.confidence > 0.8) {
         toast({
-          title: "✅ Auto-Fix generiert",
+          title: '✅ Auto-Fix generiert',
           description: `${result.changes.length} Änderungen vorgeschlagen (Confidence: ${(result.confidence * 100).toFixed(0)}%)`,
         });
-        logger.debug("Auto-fix generated:", result.changes.length, "changes");
+        logger.debug('Auto-fix generated:', result.changes.length, 'changes');
       } else if (result.error) {
         toast({
-          title: "⚠️ Auto-Fix fehlgeschlagen",
+          title: '⚠️ Auto-Fix fehlgeschlagen',
           description: result.error,
-          variant: "destructive",
+          variant: 'destructive',
         });
       }
 
       return result;
+
     } catch (error) {
-      logger.error("generateAutoFix error:", error);
+      logger.error('generateAutoFix error:', error);
 
       const errorResult: AutoFixResult = {
         fixed_code: null,
         changes: [],
         confidence: 0,
-        remaining_issues: [error instanceof Error ? error.message : "Unknown error"],
-        error: error instanceof Error ? error.message : "Unknown error",
+        remaining_issues: [error instanceof Error ? error.message : 'Unknown error'],
+        error: error instanceof Error ? error.message : 'Unknown error'
       };
 
       setLastFix(errorResult);
       return errorResult;
+
     } finally {
       setIsGeneratingFix(false);
     }

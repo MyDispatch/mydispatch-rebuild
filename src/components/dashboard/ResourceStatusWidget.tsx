@@ -6,12 +6,12 @@
    ✅ Responsive Design
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/lib/compat";
-import { Badge } from "@/lib/compat";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Users } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useStatusSystem } from "@/hooks/use-status-system";
+import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
+import { Badge } from '@/lib/compat';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Users } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useStatusSystem } from '@/hooks/use-status-system';
 
 interface Driver {
   id: string;
@@ -40,7 +40,7 @@ export function ResourceStatusWidget({
 }: ResourceStatusWidgetProps) {
   const navigate = useNavigate();
   const { configs } = useStatusSystem();
-
+  
   const activeVehicles = totalVehicles - availableVehicles;
 
   // Status-Configs aus zentralem Ampelsystem
@@ -56,10 +56,7 @@ export function ResourceStatusWidget({
             <Users className="h-4 w-4" />
             Fahrer-Status
           </CardTitle>
-          <Badge
-            variant="outline"
-            className="text-[10px] px-2 py-0.5 bg-status-success/10 text-status-success border-status-success/30"
-          >
+          <Badge variant="outline" className="text-[10px] px-2 py-0.5 bg-status-success/10 text-status-success border-status-success/30">
             LIVE
           </Badge>
         </div>
@@ -76,13 +73,17 @@ export function ResourceStatusWidget({
             </p>
           </div>
           <div className="p-2 rounded-lg border bg-card text-center">
-            <p className={`text-xl font-bold ${busyStatus.colorClass}`}>{busyDrivers.length}</p>
+            <p className={`text-xl font-bold ${busyStatus.colorClass}`}>
+              {busyDrivers.length}
+            </p>
             <p className="text-[9px] text-muted-foreground uppercase tracking-wide mt-0.5">
               {busyStatus.label}
             </p>
           </div>
           <div className="p-2 rounded-lg border bg-card text-center">
-            <p className={`text-xl font-bold ${offlineStatus.colorClass}`}>{offlineDrivers}</p>
+            <p className={`text-xl font-bold ${offlineStatus.colorClass}`}>
+              {offlineDrivers}
+            </p>
             <p className="text-[9px] text-muted-foreground uppercase tracking-wide mt-0.5">
               {offlineStatus.label}
             </p>
@@ -105,8 +106,7 @@ export function ResourceStatusWidget({
                   <Avatar className="h-7 w-7 border-2 border-primary">
                     <AvatarImage src={driver.profile_image_url || undefined} />
                     <AvatarFallback className="text-[10px] bg-primary/10 text-foreground">
-                      {driver.first_name?.[0]}
-                      {driver.last_name?.[0]}
+                      {driver.first_name?.[0]}{driver.last_name?.[0]}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
@@ -139,15 +139,16 @@ export function ResourceStatusWidget({
                   <Avatar className="h-7 w-7 border-2 border-primary/50">
                     <AvatarImage src={driver.profile_image_url || undefined} />
                     <AvatarFallback className="text-[10px] bg-primary/10 text-foreground">
-                      {driver.first_name?.[0]}
-                      {driver.last_name?.[0]}
+                      {driver.first_name?.[0]}{driver.last_name?.[0]}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-medium text-foreground truncate">
                       {driver.first_name} {driver.last_name}
                     </p>
-                    <p className="text-[9px] text-muted-foreground truncate">Auftrag läuft</p>
+                    <p className="text-[9px] text-muted-foreground truncate">
+                      Auftrag läuft
+                    </p>
                   </div>
                 </div>
               ))}
@@ -156,7 +157,7 @@ export function ResourceStatusWidget({
         )}
 
         {/* Vehicle Utilization */}
-        <div className="pt-1">
+          <div className="pt-1">
           <div className="flex items-center justify-between mb-2">
             <h4 className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
               Fahrzeug-Auslastung
@@ -166,7 +167,7 @@ export function ResourceStatusWidget({
             </span>
           </div>
           <div className="h-2 bg-slate-200/50 rounded-full overflow-hidden relative">
-            <div
+            <div 
               className="h-full bg-green-600 transition-all duration-300"
               style={{ width: `${(activeVehicles / totalVehicles) * 100}%` }}
             />

@@ -2,42 +2,26 @@
    FEATURE DETAIL PAGE: Workflow-Automatisierung
    ================================================================================== */
 
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { V28HeroPremium } from "@/components/hero";
-import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
-import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
-import { V28IconBox } from "@/components/design-system/V28IconBox";
-import { V28Button } from "@/components/design-system/V28Button";
-import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
-import { Zap, GitBranch, Bell, Mail } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { V28HeroPremium } from '@/components/hero';
+import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28Button } from '@/components/design-system/V28Button';
+import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
+import { Zap, GitBranch, Bell, Mail } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function WorkflowAutomationPage() {
   const navigate = useNavigate();
 
   const features = [
-    {
-      icon: Zap,
-      title: "n8n Integration",
-      description: "Leistungsstarke Workflow-Automatisierung mit n8n",
-    },
-    {
-      icon: GitBranch,
-      title: "Custom Workflows",
-      description: "Erstellen Sie eigene Automatisierungs-Regeln",
-    },
-    {
-      icon: Bell,
-      title: "Event-Trigger",
-      description: "Automatische Aktionen bei bestimmten Ereignissen",
-    },
-    {
-      icon: Mail,
-      title: "Benachrichtigungen",
-      description: "E-Mail, SMS und Push-Benachrichtigungen automatisieren",
-    },
+    { icon: Zap, title: 'n8n Integration', description: 'Leistungsstarke Workflow-Automatisierung mit n8n' },
+    { icon: GitBranch, title: 'Custom Workflows', description: 'Erstellen Sie eigene Automatisierungs-Regeln' },
+    { icon: Bell, title: 'Event-Trigger', description: 'Automatische Aktionen bei bestimmten Ereignissen' },
+    { icon: Mail, title: 'Benachrichtigungen', description: 'E-Mail, SMS und Push-Benachrichtigungen automatisieren' },
   ];
 
   return (
@@ -57,12 +41,12 @@ export default function WorkflowAutomationPage() {
         subtitle="Automatisieren Sie wiederkehrende Aufgaben mit n8n"
         description="Sparen Sie Zeit und reduzieren Sie Fehler."
         primaryCTA={{
-          label: "Jetzt starten",
-          onClick: () => navigate("/auth?mode=signup"),
+          label: 'Jetzt starten',
+          onClick: () => navigate('/auth?mode=signup')
         }}
         secondaryCTA={{
-          label: "Mehr erfahren",
-          onClick: () => navigate("/pricing"),
+          label: 'Mehr erfahren',
+          onClick: () => navigate('/pricing')
         }}
         visual={<PremiumDashboardContent pageType="features" />}
         trustElements={true}
@@ -87,7 +71,7 @@ export default function WorkflowAutomationPage() {
             <V28TariffBadge label="Business" />
             <V28TariffBadge label="Enterprise" />
           </div>
-          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
             Tarife vergleichen
           </V28Button>
         </div>

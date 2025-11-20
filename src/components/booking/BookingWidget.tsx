@@ -7,11 +7,11 @@
    - Registrierung oder Login erforderlich
    ================================================================================== */
 
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/lib/compat";
-import { V28Button } from "@/components/design-system/V28Button";
-import { LogIn, UserPlus, Check } from "lucide-react";
-import { CI_COLORS_HEX } from "@/lib/design-system";
-import { useNavigate } from "react-router-dom";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/lib/compat';
+import { V28Button } from '@/components/design-system/V28Button';
+import { LogIn, UserPlus, Check } from 'lucide-react';
+import { CI_COLORS_HEX } from '@/lib/design-system';
+import { useNavigate } from 'react-router-dom';
 
 interface BookingWidgetProps {
   open: boolean;
@@ -21,20 +21,13 @@ interface BookingWidgetProps {
   primaryColor?: string;
 }
 
-export function BookingWidget({
-  open,
-  onOpenChange,
-  companyId,
-  companyName,
-  primaryColor,
-}: BookingWidgetProps) {
+export function BookingWidget({ open, onOpenChange, companyId, companyName, primaryColor }: BookingWidgetProps) {
   const navigate = useNavigate();
-
-  const handleNavigateToAuth = (mode: "login" | "register") => {
-    const url =
-      mode === "register"
-        ? `/auth?company=${companyId}&mode=customer&tab=signup`
-        : `/auth?company=${companyId}&mode=customer&tab=login`;
+  
+  const handleNavigateToAuth = (mode: 'login' | 'register') => {
+    const url = mode === 'register' 
+      ? `/auth?company=${companyId}&mode=customer&tab=signup`
+      : `/auth?company=${companyId}&mode=customer&tab=login`;
     navigate(url);
   };
 
@@ -51,8 +44,8 @@ export function BookingWidget({
         </DialogHeader>
 
         <div className="space-y-4 py-6">
-          <V28Button
-            onClick={() => handleNavigateToAuth("login")}
+          <V28Button 
+            onClick={() => handleNavigateToAuth('login')} 
             className="w-full min-h-[44px] h-14 text-base sm:text-lg bg-primary text-primary-foreground"
             variant="primary"
           >
@@ -65,12 +58,14 @@ export function BookingWidget({
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">Oder</span>
+              <span className="bg-background px-2 text-muted-foreground">
+                Oder
+              </span>
             </div>
           </div>
 
-          <V28Button
-            onClick={() => handleNavigateToAuth("register")}
+          <V28Button 
+            onClick={() => handleNavigateToAuth('register')} 
             className="w-full min-h-[44px] h-14 text-base sm:text-lg"
             variant="secondary"
           >
@@ -79,7 +74,9 @@ export function BookingWidget({
           </V28Button>
 
           <div className="mt-6 pt-6 border-t">
-            <p className="text-center font-medium mb-3 text-foreground">Warum registrieren?</p>
+            <p className="text-center font-medium mb-3 text-foreground">
+              Warum registrieren?
+            </p>
             <ul className="space-y-2 text-sm sm:text-base">
               <li className="flex items-start">
                 <Check className="h-4 w-4 sm:h-5 sm:w-5 text-foreground mr-2 flex-shrink-0 mt-0.5" />

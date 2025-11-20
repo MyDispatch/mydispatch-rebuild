@@ -39,13 +39,11 @@ MyDispatch verpflichtet sich zu **100% WCAG 2.1 AA Compliance** und darüber hin
 ### 1. FARB-KONTRASTE (WCAG 2.1 - 1.4.3, 1.4.11)
 
 **Level AA:**
-
 - **Text:** Mindestens 4.5:1 (Normaler Text)
 - **Großer Text:** Mindestens 3:1 (≥18pt oder ≥14pt bold)
 - **UI-Komponenten:** Mindestens 3:1 (Buttons, Inputs, Borders)
 
 **Implementierung:**
-
 ```typescript
 // ✅ RICHTIG: Ausreichender Kontrast
 // Dunkelblau (#323D5E) auf Weiß (#FFFFFF): 8.59:1 ✓
@@ -78,10 +76,9 @@ MyDispatch verpflichtet sich zu **100% WCAG 2.1 AA Compliance** und darüber hin
 **Mindestgröße:** 44px × 44px
 
 **Implementierung:**
-
 ```typescript
 // ✅ RICHTIG: Touch-Target ≥ 44px
-<Button
+<Button 
   className="h-12" // 48px
   style={{ minHeight: DESIGN_TOKENS.interactive.min_touch_target }}
 >
@@ -89,7 +86,7 @@ MyDispatch verpflichtet sich zu **100% WCAG 2.1 AA Compliance** und darüber hin
 </Button>
 
 // ✅ RICHTIG: Icon-Button mit Padding
-<button
+<button 
   className="p-3" // Icon 24px + Padding 12px = 48px Touch-Target
   style={{ minHeight: DESIGN_TOKENS.interactive.min_touch_target }}
 >
@@ -105,7 +102,6 @@ MyDispatch verpflichtet sich zu **100% WCAG 2.1 AA Compliance** und darüber hin
 ### 3. KEYBOARD-NAVIGATION (WCAG 2.1 - 2.1.1, 2.1.2, 2.4.7)
 
 **Pflicht-Kriterien:**
-
 - Alle interaktiven Elemente per Tab erreichbar
 - Logische Tab-Reihenfolge (visuell links-nach-rechts, oben-nach-unten)
 - Sichtbarer Fokus-Indikator (mindestens 2px, Kontrast 3:1)
@@ -113,10 +109,9 @@ MyDispatch verpflichtet sich zu **100% WCAG 2.1 AA Compliance** und darüber hin
 - Enter/Space für Buttons/Links
 
 **Implementierung:**
-
 ```typescript
 // ✅ RICHTIG: Fokus-Indikator
-<Button
+<Button 
   className="focus:outline-none focus:ring-2"
   style={{
     '--tw-ring-color': DESIGN_TOKENS.interactive.focus_ring_color,
@@ -127,7 +122,7 @@ MyDispatch verpflichtet sich zu **100% WCAG 2.1 AA Compliance** und darüber hin
 </Button>
 
 // ✅ RICHTIG: Custom Interactive Element mit Keyboard-Support
-<div
+<div 
   role="button"
   tabIndex={0}
   onClick={handleClick}
@@ -150,7 +145,6 @@ MyDispatch verpflichtet sich zu **100% WCAG 2.1 AA Compliance** und darüber hin
 ### 4. ARIA-ATTRIBUTE (WCAG 2.1 - 4.1.2)
 
 **Pflicht-Attribute:**
-
 - `aria-label` für Icon-Buttons ohne Text
 - `aria-labelledby` für Dialogs, Sections
 - `aria-describedby` für zusätzliche Beschreibungen (z.B. Fehlermeldungen)
@@ -159,10 +153,9 @@ MyDispatch verpflichtet sich zu **100% WCAG 2.1 AA Compliance** und darüber hin
 - `role` für Custom Interactive Elements
 
 **Implementierung:**
-
 ```typescript
 // ✅ RICHTIG: Icon-Button mit aria-label
-<button
+<button 
   aria-label="Menü schließen"
   onClick={closeMenu}
 >
@@ -182,7 +175,7 @@ MyDispatch verpflichtet sich zu **100% WCAG 2.1 AA Compliance** und darüber hin
 
 // ✅ RICHTIG: Input mit Fehlermeldung
 <div>
-  <Input
+  <Input 
     id="email"
     aria-describedby="email-error"
     aria-invalid={!!error}
@@ -203,7 +196,6 @@ MyDispatch verpflichtet sich zu **100% WCAG 2.1 AA Compliance** und darüber hin
 ### 5. SEMANTISCHES HTML (WCAG 2.1 - 1.3.1, 4.1.1)
 
 **Pflicht-Struktur:**
-
 ```html
 <!-- ✅ RICHTIG: Semantische HTML5-Struktur -->
 <header>
@@ -245,12 +237,11 @@ MyDispatch verpflichtet sich zu **100% WCAG 2.1 AA Compliance** und darüber hin
 **Pflicht:** Skip-Link zum Hauptinhalt (für Keyboard-Nutzer)
 
 **Implementierung:**
-
 ```typescript
 // src/components/shared/SkipLink.tsx
 export function SkipLink() {
   return (
-    <a
+    <a 
       href="#main-content"
       className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2"
       style={{
@@ -275,10 +266,9 @@ export function SkipLink() {
 **Pflicht:** Respekt für `prefers-reduced-motion`
 
 **Implementierung:**
-
 ```typescript
 // ✅ RICHTIG: Animation mit prefers-reduced-motion
-<div
+<div 
   className="animate-fade-in"
   style={{
     animation: 'fade-in 0.3s ease-out',
@@ -309,7 +299,6 @@ export function SkipLink() {
 ### 1. Manuelle Tests (Pre-Commit)
 
 **Developer führt durch:**
-
 - [ ] **Keyboard-Navigation:** Alle Elemente per Tab erreichbar? Fokus sichtbar?
 - [ ] **Screen-Reader-Test:** VoiceOver (Mac) / NVDA (Windows) aktivieren, durch Seite navigieren
 - [ ] **Zoom-Test:** Browser auf 200% zoomen, Funktionalität intakt?
@@ -321,51 +310,51 @@ export function SkipLink() {
 
 ```typescript
 // tests/accessibility/keyboard-navigation.spec.ts
-import { test, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-test("Pricing page - Keyboard navigation", async ({ page }) => {
-  await page.goto("/pricing");
-
+test('Pricing page - Keyboard navigation', async ({ page }) => {
+  await page.goto('/pricing');
+  
   // Fokus auf erstes interaktives Element
-  await page.keyboard.press("Tab");
+  await page.keyboard.press('Tab');
   const firstFocused = await page.evaluate(() => document.activeElement?.tagName);
-  expect(["A", "BUTTON"]).toContain(firstFocused);
-
+  expect(['A', 'BUTTON']).toContain(firstFocused);
+  
   // Alle Tarif-Buttons erreichbar
   const buttons = await page.locator('button:has-text("Jetzt starten")').count();
   for (let i = 0; i < buttons; i++) {
-    await page.keyboard.press("Tab");
+    await page.keyboard.press('Tab');
   }
-
+  
   // Fokus-Indikator sichtbar
-  const focused = page.locator(":focus");
-  await expect(focused).toHaveCSS("outline-width", /[2-9]px/); // Mindestens 2px
+  const focused = page.locator(':focus');
+  await expect(focused).toHaveCSS('outline-width', /[2-9]px/); // Mindestens 2px
 });
 
-test("Pricing page - ARIA attributes", async ({ page }) => {
-  await page.goto("/pricing");
-
+test('Pricing page - ARIA attributes', async ({ page }) => {
+  await page.goto('/pricing');
+  
   // Dialog hat aria-labelledby
   const dialog = page.locator('[role="dialog"]');
-  if ((await dialog.count()) > 0) {
-    await expect(dialog).toHaveAttribute("aria-labelledby");
+  if (await dialog.count() > 0) {
+    await expect(dialog).toHaveAttribute('aria-labelledby');
   }
-
+  
   // Icon-Buttons haben aria-label
-  const iconButtons = page.locator("button:has(svg):not(:has-text(/\w+/))");
+  const iconButtons = page.locator('button:has(svg):not(:has-text(/\w+/))');
   const count = await iconButtons.count();
   for (let i = 0; i < count; i++) {
-    await expect(iconButtons.nth(i)).toHaveAttribute("aria-label");
+    await expect(iconButtons.nth(i)).toHaveAttribute('aria-label');
   }
 });
 
-test("Pricing page - Color contrasts", async ({ page }) => {
-  await page.goto("/pricing");
-
+test('Pricing page - Color contrasts', async ({ page }) => {
+  await page.goto('/pricing');
+  
   // Prüfe alle Texte auf ausreichenden Kontrast
-  const texts = page.locator("p, h1, h2, h3, span, a, button");
+  const texts = page.locator('p, h1, h2, h3, span, a, button');
   const count = await texts.count();
-
+  
   for (let i = 0; i < count; i++) {
     const element = texts.nth(i);
     const color = await element.evaluate((el) => {
@@ -375,7 +364,7 @@ test("Pricing page - Color contrasts", async ({ page }) => {
         bg: style.backgroundColor,
       };
     });
-
+    
     // Kontrast-Berechnung (vereinfacht)
     // In Produktion: Axe-core oder ähnliche Library verwenden
     console.log(`Element ${i}: Foreground ${color.fg}, Background ${color.bg}`);
@@ -387,16 +376,16 @@ test("Pricing page - Color contrasts", async ({ page }) => {
 
 ```typescript
 // tests/accessibility/axe.spec.ts
-import { test, expect } from "@playwright/test";
-import AxeBuilder from "@axe-core/playwright";
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
-test("Pricing page - Axe accessibility scan", async ({ page }) => {
-  await page.goto("/pricing");
-
+test('Pricing page - Axe accessibility scan', async ({ page }) => {
+  await page.goto('/pricing');
+  
   const results = await new AxeBuilder({ page })
-    .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
     .analyze();
-
+  
   expect(results.violations).toEqual([]);
 });
 ```
@@ -404,7 +393,6 @@ test("Pricing page - Axe accessibility scan", async ({ page }) => {
 ### 3. Code-Review Checks
 
 **Reviewer prüft:**
-
 - [ ] Sind alle interaktiven Elemente keyboard-zugänglich?
 - [ ] Haben Icon-Buttons aria-label?
 - [ ] Sind Fokus-Indikatoren sichtbar?
@@ -445,7 +433,6 @@ test("Pricing page - Axe accessibility scan", async ({ page }) => {
 ## 🔗 VERWANDTE DOKUMENTATION
 
 **Hierarchie:**
-
 ```
 MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 ├─ ACCESSIBILITY_GOVERNANCE_V19.0.0.md (Diese Datei)
@@ -454,7 +441,6 @@ MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 ```
 
 **Externe Ressourcen:**
-
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
 - [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
 - [Axe DevTools](https://www.deque.com/axe/devtools/)
@@ -467,7 +453,6 @@ MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 ### V19.0.0 (2025-10-25) - INITIAL RELEASE
 
 **🎯 NEU:**
-
 - Accessibility-Standards definiert (WCAG 2.1 AA)
 - Pflicht-Kriterien dokumentiert (Kontraste, Touch-Targets, Keyboard, ARIA, Semantik)
 - Testing-Prozess etabliert (Manuell, Automatisch, Code-Review)
@@ -476,7 +461,6 @@ MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 - Compliance-Checkliste bereitgestellt
 
 **🔗 Integration:**
-
 - Verknüpft mit MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md
 - Verknüpft mit DESIGN_TOKEN_GOVERNANCE_V19.0.0.md
 - Bindend für alle UI-Entwicklungen

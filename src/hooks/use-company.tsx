@@ -7,17 +7,17 @@
    - Zentrale Fehlerbehandlung
    ================================================================================== */
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "./use-auth";
-import { handleError, handleSuccess } from "@/lib/error-handler";
-import type { Company } from "@/integrations/supabase/types/core-tables";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from './use-auth';
+import { handleError, handleSuccess } from '@/lib/error-handler';
+import type { Company } from '@/integrations/supabase/types/core-tables';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 // Type helper for typed queries
 type TypedSupabaseClient = typeof supabase & {
-  from(table: "companies"): any;
+  from(table: 'companies'): any;
 };
 const typedClient = supabase as TypedSupabaseClient;
 
@@ -26,19 +26,15 @@ export function useCompany() {
   const queryClient = useQueryClient();
 
   // Fetch Company Data
-  const {
-    data: company,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["company", profile?.company_id],
+  const { data: company, isLoading, error } = useQuery({
+    queryKey: ['company', profile?.company_id],
     queryFn: async () => {
       if (!profile?.company_id) return null;
 
       const { data, error } = await typedClient
-        .from("companies")
-        .select("*")
-        .eq("id", profile.company_id)
+        .from('companies')
+        .select('*')
+        .eq('id', profile.company_id)
         .single();
 
       if (error) throw error;
@@ -53,12 +49,12 @@ export function useCompany() {
   // Update Company
   const updateCompany = useMutation({
     mutationFn: async (updateData: any) => {
-      if (!profile?.company_id) throw new Error("Company ID fehlt");
+      if (!profile?.company_id) throw new Error('Company ID fehlt');
 
       const { data, error } = await typedClient
-        .from("companies")
+        .from('companies')
         .update(updateData)
-        .eq("id", profile.company_id)
+        .eq('id', profile.company_id)
         .select()
         .single();
 
@@ -67,15 +63,15 @@ export function useCompany() {
     },
     onSuccess: (data) => {
       // Invalidate admin company cache
-      queryClient.invalidateQueries({ queryKey: ["company", profile?.company_id] });
+      queryClient.invalidateQueries({ queryKey: ['company', profile?.company_id] });
 
       // KRITISCH: Invalidate public landing page cache
-      queryClient.invalidateQueries({ queryKey: ["public-company"] });
+      queryClient.invalidateQueries({ queryKey: ['public-company'] });
 
-      handleSuccess("Unternehmensdaten erfolgreich aktualisiert");
+      handleSuccess('Unternehmensdaten erfolgreich aktualisiert');
     },
     onError: (error) => {
-      handleError(error, "Unternehmensdaten konnten nicht aktualisiert werden");
+      handleError(error, 'Unternehmensdaten konnten nicht aktualisiert werden');
     },
   });
 

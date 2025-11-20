@@ -9,14 +9,12 @@
 ## 📋 Voraussetzungen
 
 ### System Requirements
-
 - Node.js >= 18.x
 - npm oder Bun Package Manager
 - Git
 - VS Code (empfohlen)
 
 ### Accounts (Optional)
-
 - GitHub Account (für CI/CD)
 - Supabase Account (für Backend)
 
@@ -102,7 +100,9 @@ Erstelle `.vscode/settings.json`:
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "tailwindCSS.experimental.classRegex": [["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]]
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
+  ]
 }
 ```
 
@@ -177,7 +177,6 @@ npm run preview
 ### Deployment
 
 Via Lovable Cloud:
-
 - Automatisches Deployment bei Push zu `main`
 - Staging-Umgebung bei Pull Requests
 

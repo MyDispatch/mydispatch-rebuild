@@ -2,7 +2,7 @@
 
 **Status:** 🟡 IN PROGRESS  
 **Letzter Test:** [Noch nicht ausgeführt]  
-**Version:** V28.1
+**Version:** V28.1  
 
 ---
 
@@ -10,12 +10,12 @@
 
 ### Performance Testing Scope
 
-| Kategorie             | Status     | Tests     | Dauer   |
-| --------------------- | ---------- | --------- | ------- |
-| **E2E Tests**         | ⏳ Pending | 17 Tests  | ~5 Min  |
-| **Lighthouse CI**     | ⏳ Pending | 10 Pages  | ~15 Min |
-| **Query Performance** | ⏳ Pending | 7 Queries | ~2 Min  |
-| **Bundle Size**       | ⏳ Pending | 1 Test    | ~1 Min  |
+| Kategorie | Status | Tests | Dauer |
+|-----------|--------|-------|-------|
+| **E2E Tests** | ⏳ Pending | 17 Tests | ~5 Min |
+| **Lighthouse CI** | ⏳ Pending | 10 Pages | ~15 Min |
+| **Query Performance** | ⏳ Pending | 7 Queries | ~2 Min |
+| **Bundle Size** | ⏳ Pending | 1 Test | ~1 Min |
 
 **Gesamtdauer:** ~25 Minuten
 
@@ -30,7 +30,6 @@
 #### Tests:
 
 **Master Account Login (9 Tests):**
-
 1. ✅ should login successfully with master credentials
 2. ✅ should detect master account correctly after login
 3. ✅ should have access to master-only routes
@@ -41,7 +40,9 @@
 8. ✅ should show master account email in user menu
 9. ✅ should logout successfully and clear master status
 
-**Master Account Permissions (2 Tests):** 10. ✅ should see all companies in master dashboard 11. ✅ should have access to system-wide analytics
+**Master Account Permissions (2 Tests):**
+10. ✅ should see all companies in master dashboard
+11. ✅ should have access to system-wide analytics
 
 #### Execution Command:
 
@@ -70,31 +71,31 @@ npx playwright test tests/e2e/master-account-login.spec.ts --screenshot=on
 
 **Pages:**
 
-| #   | Route                | Page          | Priority |
-| --- | -------------------- | ------------- | -------- |
-| 1   | `/`                  | Landing       | P0       |
-| 2   | `/home`              | Home          | P0       |
-| 3   | `/pricing`           | Preise        | P0       |
-| 4   | `/features`          | Features      | P1       |
-| 5   | `/faq`               | FAQ           | P1       |
-| 6   | `/contact`           | Kontakt       | P1       |
-| 7   | `/unternehmer`       | Unternehmer   | P1       |
-| 8   | `/docs`              | Dokumentation | P2       |
-| 9   | `/legal/impressum`   | Impressum     | P2       |
-| 10  | `/legal/datenschutz` | Datenschutz   | P2       |
+| # | Route | Page | Priority |
+|---|-------|------|----------|
+| 1 | `/` | Landing | P0 |
+| 2 | `/home` | Home | P0 |
+| 3 | `/pricing` | Preise | P0 |
+| 4 | `/features` | Features | P1 |
+| 5 | `/faq` | FAQ | P1 |
+| 6 | `/contact` | Kontakt | P1 |
+| 7 | `/unternehmer` | Unternehmer | P1 |
+| 8 | `/docs` | Dokumentation | P2 |
+| 9 | `/legal/impressum` | Impressum | P2 |
+| 10 | `/legal/datenschutz` | Datenschutz | P2 |
 
 ### Performance-Targets (Lighthouse)
 
-| Metric                | Target   | Priority | Beschreibung               |
-| --------------------- | -------- | -------- | -------------------------- |
-| **Performance Score** | ≥ 90     | P0       | Gesamt-Performance Score   |
-| **Accessibility**     | ≥ 95     | P0       | WCAG 2.1 AA Compliance     |
-| **Best Practices**    | ≥ 95     | P0       | Code Quality & Security    |
-| **SEO**               | ≥ 95     | P0       | Search Engine Optimization |
-| **FCP**               | < 2000ms | P0       | First Contentful Paint     |
-| **LCP**               | < 2500ms | P0       | Largest Contentful Paint   |
-| **CLS**               | < 0.1    | P0       | Cumulative Layout Shift    |
-| **TBT**               | < 300ms  | P0       | Total Blocking Time        |
+| Metric | Target | Priority | Beschreibung |
+|--------|--------|----------|--------------|
+| **Performance Score** | ≥ 90 | P0 | Gesamt-Performance Score |
+| **Accessibility** | ≥ 95 | P0 | WCAG 2.1 AA Compliance |
+| **Best Practices** | ≥ 95 | P0 | Code Quality & Security |
+| **SEO** | ≥ 95 | P0 | Search Engine Optimization |
+| **FCP** | < 2000ms | P0 | First Contentful Paint |
+| **LCP** | < 2500ms | P0 | Largest Contentful Paint |
+| **CLS** | < 0.1 | P0 | Cumulative Layout Shift |
+| **TBT** | < 300ms | P0 | Total Blocking Time |
 
 ### Execution Command:
 
@@ -113,7 +114,6 @@ lhci autorun --config=lighthouserc.json
 ### Erwartete Ergebnisse:
 
 **Alle Pages:**
-
 - Performance: ≥ 90
 - Accessibility: ≥ 95
 - Best Practices: ≥ 95
@@ -127,15 +127,15 @@ lhci autorun --config=lighthouserc.json
 
 **Queries:**
 
-| #   | Query              | Target  | Beschreibung          |
-| --- | ------------------ | ------- | --------------------- |
-| 1   | Dashboard Stats    | < 500ms | KPI Aggregation       |
-| 2   | Booking List       | < 300ms | Aufträge (paginated)  |
-| 3   | Driver List        | < 300ms | Fahrer (paginated)    |
-| 4   | Vehicle List       | < 300ms | Fahrzeuge (paginated) |
-| 5   | Customer List      | < 300ms | Kunden (paginated)    |
-| 6   | Global Search      | < 500ms | Full-Text Search      |
-| 7   | Concurrent Queries | < 800ms | 5 Parallel Queries    |
+| # | Query | Target | Beschreibung |
+|---|-------|--------|--------------|
+| 1 | Dashboard Stats | < 500ms | KPI Aggregation |
+| 2 | Booking List | < 300ms | Aufträge (paginated) |
+| 3 | Driver List | < 300ms | Fahrer (paginated) |
+| 4 | Vehicle List | < 300ms | Fahrzeuge (paginated) |
+| 5 | Customer List | < 300ms | Kunden (paginated) |
+| 6 | Global Search | < 500ms | Full-Text Search |
+| 7 | Concurrent Queries | < 800ms | 5 Parallel Queries |
 
 ### Execution Command:
 
@@ -157,11 +157,11 @@ node scripts/performance-tests.js
 
 **Targets:**
 
-| Asset                 | Target  | Beschreibung                 |
-| --------------------- | ------- | ---------------------------- |
-| **Main Bundle**       | < 1.5MB | Haupt-JavaScript Bundle      |
-| **Total Page Weight** | < 3MB   | Alle Assets (JS, CSS, Fonts) |
-| **Initial Load**      | < 500KB | Critical Path Assets         |
+| Asset | Target | Beschreibung |
+|-------|--------|--------------|
+| **Main Bundle** | < 1.5MB | Haupt-JavaScript Bundle |
+| **Total Page Weight** | < 3MB | Alle Assets (JS, CSS, Fonts) |
+| **Initial Load** | < 500KB | Critical Path Assets |
 
 ### Execution Command:
 
@@ -285,13 +285,11 @@ du -h dist/assets/*
 **Workflow:** `.github/workflows/performance.yml`
 
 **Trigger:**
-
 - Push to `main`
 - Weekly (Sundays 3 AM UTC)
 - Manual Dispatch
 
 **Jobs:**
-
 1. Lighthouse CI
 2. Bundle Size Check
 3. Query Performance Tests
@@ -303,12 +301,12 @@ du -h dist/assets/*
 
 ### Performance Journey (Geplant)
 
-| Phase                    | Status | Score | FCP | LCP | Bundle | Notizen             |
-| ------------------------ | ------ | ----- | --- | --- | ------ | ------------------- |
-| **Baseline (Pre-V28.1)** | ✅     | -     | -   | -   | -      | Initial Measurement |
-| **V28.1 Migration**      | 🟡     | -     | -   | -   | -      | In Progress         |
-| **Post-Migration**       | ⏳     | -     | -   | -   | -      | Nach Tests          |
-| **Optimized**            | ⏳     | -     | -   | -   | -      | Nach Optimierungen  |
+| Phase | Status | Score | FCP | LCP | Bundle | Notizen |
+|-------|--------|-------|-----|-----|--------|---------|
+| **Baseline (Pre-V28.1)** | ✅ | - | - | - | - | Initial Measurement |
+| **V28.1 Migration** | 🟡 | - | - | - | - | In Progress |
+| **Post-Migration** | ⏳ | - | - | - | - | Nach Tests |
+| **Optimized** | ⏳ | - | - | - | - | Nach Optimierungen |
 
 ---
 
@@ -348,7 +346,6 @@ Grade D: Score < 70 (Targets nicht erfüllt)
 **Wird nach Test-Execution dokumentiert.**
 
 Kategorien:
-
 - Bundle Size Optimization
 - Image Optimization
 - Code Splitting
@@ -372,4 +369,4 @@ Kategorien:
 
 **LAST UPDATE:** [Wird nach Execution aktualisiert]  
 **NEXT UPDATE:** Nach Test-Execution  
-**OWNER:** AI Agent V28.1
+**OWNER:** AI Agent V28.1  

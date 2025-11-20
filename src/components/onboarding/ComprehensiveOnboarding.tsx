@@ -4,41 +4,26 @@
    6 Schritte: Recht, Unternehmen, Fahrer/Fahrzeuge, Test-Auftrag, Workflow, Support
    ================================================================================== */
 
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/lib/compat";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/lib/compat";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/lib/compat";
-import { Badge } from "@/lib/compat";
-import { Progress } from "@/components/ui/progress";
-import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/hooks/use-auth";
-import { supabase } from "@/integrations/supabase/client";
-import { handleError } from "@/lib/error-handler";
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/lib/compat';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/lib/compat';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/lib/compat';
+import { Badge } from '@/lib/compat';
+import { Progress } from '@/components/ui/progress';
+import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/use-auth';
+import { supabase } from '@/integrations/supabase/client';
+import { handleError } from '@/lib/error-handler';
 import {
-  Scale,
-  Building2,
-  Users,
-  Car,
-  FileText,
-  Workflow,
-  HelpCircle,
-  CheckCircle,
-  ArrowRight,
-  ArrowLeft,
-  X,
-  ExternalLink,
-  Shield,
-  BookOpen,
-  Sparkles,
-  Keyboard,
-  Smartphone,
-  AlertTriangle,
-  Phone,
-} from "lucide-react";
+  Scale, Building2, Users, Car, FileText, Workflow, 
+  HelpCircle, CheckCircle, ArrowRight, ArrowLeft, X, 
+  ExternalLink, Shield, BookOpen, Sparkles, Keyboard, 
+  Smartphone, AlertTriangle, Phone 
+} from 'lucide-react';
 
 interface OnboardingProgress {
   current_step: number;
@@ -52,11 +37,11 @@ interface ComprehensiveOnboardingProps {
 }
 
 const VEHICLE_CLASSES = [
-  "Economy Class (1-4 Pax)",
-  "Business Class - Limousine (1-4 Pax)",
-  "Business Class - Kombi (1-4 Pax)",
-  "First Class (1-3 Pax)",
-  "Van / SUV (1-8 Pax)",
+  'Economy Class (1-4 Pax)',
+  'Business Class - Limousine (1-4 Pax)',
+  'Business Class - Kombi (1-4 Pax)',
+  'First Class (1-3 Pax)',
+  'Van / SUV (1-8 Pax)',
 ];
 
 export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnboardingProps) {
@@ -69,25 +54,25 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
 
   // Form States
   const [companyData, setCompanyData] = useState({
-    name: company?.name || "",
-    address: company?.address || "",
-    phone: company?.phone || "",
-    email: company?.email || "",
+    name: company?.name || '',
+    address: company?.address || '',
+    phone: company?.phone || '',
+    email: company?.email || '',
     is_kleinunternehmer: company?.is_kleinunternehmer || false,
   });
 
   const [driverData, setDriverData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    phone: "",
-    license_number: "",
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    license_number: '',
   });
 
   const [vehicleData, setVehicleData] = useState({
-    license_plate: "",
-    vehicle_class: "Economy Class (1-4 Pax)",
-    concession_number: "",
+    license_plate: '',
+    vehicle_class: 'Economy Class (1-4 Pax)',
+    concession_number: '',
   });
 
   useEffect(() => {
@@ -98,9 +83,9 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
     if (!user?.id) return;
 
     const { data, error } = await supabase
-      .from("onboarding_progress")
-      .select("*")
-      .eq("user_id", user.id)
+      .from('onboarding_progress')
+      .select('*')
+      .eq('user_id', user.id)
       .single();
 
     if (!error && data) {
@@ -113,15 +98,17 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
   const saveProgress = async (step: number, completed: number[] = completedSteps) => {
     if (!user?.id) return;
 
-    const { error } = await supabase.from("onboarding_progress").upsert({
-      user_id: user.id,
-      current_step: step,
-      completed_steps: completed,
-      skipped: false,
-    });
+    const { error } = await supabase
+      .from('onboarding_progress')
+      .upsert({
+        user_id: user.id,
+        current_step: step,
+        completed_steps: completed,
+        skipped: false,
+      });
 
     if (error) {
-      handleError(error, "Fehler beim Speichern des Fortschritts", { showToast: false });
+      handleError(error, 'Fehler beim Speichern des Fortschritts', { showToast: false });
     }
   };
 
@@ -135,7 +122,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
     if (!company?.id) return;
 
     const { error } = await supabase
-      .from("companies")
+      .from('companies')
       .update({
         name: companyData.name,
         address: companyData.address,
@@ -143,20 +130,20 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
         email: companyData.email,
         is_kleinunternehmer: companyData.is_kleinunternehmer,
       })
-      .eq("id", company.id);
+      .eq('id', company.id);
 
     if (error) {
       toast({
-        title: "Fehler",
-        description: "Unternehmensdaten konnten nicht gespeichert werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Unternehmensdaten konnten nicht gespeichert werden.',
+        variant: 'destructive',
       });
       return false;
     }
 
     toast({
-      title: "Gespeichert",
-      description: "Unternehmensdaten erfolgreich aktualisiert.",
+      title: 'Gespeichert',
+      description: 'Unternehmensdaten erfolgreich aktualisiert.',
     });
     return true;
   };
@@ -164,26 +151,28 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
   const handleSaveDriver = async () => {
     if (!profile?.company_id) return;
 
-    const { error } = await supabase.from("drivers").insert({
-      company_id: profile.company_id,
-      first_name: driverData.first_name,
-      last_name: driverData.last_name,
-      email: driverData.email,
-      phone: driverData.phone,
-      license_number: driverData.license_number,
-    });
+    const { error } = await supabase
+      .from('drivers')
+      .insert({
+        company_id: profile.company_id,
+        first_name: driverData.first_name,
+        last_name: driverData.last_name,
+        email: driverData.email,
+        phone: driverData.phone,
+        license_number: driverData.license_number,
+      });
 
     if (error) {
       toast({
-        title: "Fehler",
-        description: "Fahrer konnte nicht angelegt werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Fahrer konnte nicht angelegt werden.',
+        variant: 'destructive',
       });
       return false;
     }
 
     toast({
-      title: "Fahrer angelegt",
+      title: 'Fahrer angelegt',
       description: `${driverData.first_name} ${driverData.last_name} erfolgreich hinzugefügt.`,
     });
     return true;
@@ -192,24 +181,26 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
   const handleSaveVehicle = async () => {
     if (!profile?.company_id) return;
 
-    const { error } = await supabase.from("vehicles").insert({
-      company_id: profile.company_id,
-      license_plate: vehicleData.license_plate,
-      vehicle_class: vehicleData.vehicle_class as any,
-      concession_number: vehicleData.concession_number,
-    });
+    const { error } = await supabase
+      .from('vehicles')
+      .insert({
+        company_id: profile.company_id,
+        license_plate: vehicleData.license_plate,
+        vehicle_class: vehicleData.vehicle_class as any,
+        concession_number: vehicleData.concession_number,
+      });
 
     if (error) {
       toast({
-        title: "Fehler",
-        description: "Fahrzeug konnte nicht angelegt werden.",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Fahrzeug konnte nicht angelegt werden.',
+        variant: 'destructive',
       });
       return false;
     }
 
     toast({
-      title: "Fahrzeug angelegt",
+      title: 'Fahrzeug angelegt',
       description: `${vehicleData.license_plate} erfolgreich hinzugefügt.`,
     });
     return true;
@@ -238,13 +229,15 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
   const handleComplete = async () => {
     if (!user?.id) return;
 
-    await supabase.from("onboarding_progress").upsert({
-      user_id: user.id,
-      current_step: 7,
-      completed_steps: [1, 2, 3, 4, 5, 6],
-      skipped: false,
-      completed_at: new Date().toISOString(),
-    });
+    await supabase
+      .from('onboarding_progress')
+      .upsert({
+        user_id: user.id,
+        current_step: 7,
+        completed_steps: [1, 2, 3, 4, 5, 6],
+        skipped: false,
+        completed_at: new Date().toISOString(),
+      });
 
     onComplete();
   };
@@ -319,7 +312,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                     DSGVO-Hinweis
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    MyDispatch speichert Beförderungsdaten 30 Tage (§ 21 PBefG Betriebspflicht).
+                    MyDispatch speichert Beförderungsdaten 30 Tage (§ 21 PBefG Betriebspflicht). 
                     Danach Archivierung für 10 Jahre (§ 147 AO). Fahrer-GPS nur für Disposition.
                   </p>
                 </div>
@@ -327,7 +320,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                 <V28Button
                   variant="secondary"
                   size="sm"
-                  onClick={() => window.open("https://www.gesetze-im-internet.de/pbefg/", "_blank")}
+                  onClick={() => window.open('https://www.gesetze-im-internet.de/pbefg/', '_blank')}
                   className="w-full"
                 >
                   <BookOpen className="mr-2 h-4 w-4" />
@@ -407,7 +400,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                 <Checkbox
                   id="kleinunternehmer"
                   checked={companyData.is_kleinunternehmer}
-                  onCheckedChange={(checked) =>
+                  onCheckedChange={(checked) => 
                     setCompanyData({ ...companyData, is_kleinunternehmer: checked as boolean })
                   }
                 />
@@ -426,8 +419,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
             <Card className="bg-primary/5 border-primary/20">
               <CardContent className="pt-6">
                 <p className="text-sm text-muted-foreground">
-                  <strong>Ihr Tarif:</strong>{" "}
-                  {company?.subscription_status === "active" ? "Business" : "Starter"}
+                  <strong>Ihr Tarif:</strong> {company?.subscription_status === 'active' ? 'Business' : 'Starter'}
                   <br />
                   Änderungen jederzeit unter <strong>Einstellungen → Unternehmen</strong>
                 </p>
@@ -503,9 +495,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                   <Input
                     id="driver-license"
                     value={driverData.license_number}
-                    onChange={(e) =>
-                      setDriverData({ ...driverData, license_number: e.target.value })
-                    }
+                    onChange={(e) => setDriverData({ ...driverData, license_number: e.target.value })}
                     placeholder="B123456789"
                     required
                   />
@@ -524,12 +514,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                   <Input
                     id="vehicle-plate"
                     value={vehicleData.license_plate}
-                    onChange={(e) =>
-                      setVehicleData({
-                        ...vehicleData,
-                        license_plate: e.target.value.toUpperCase(),
-                      })
-                    }
+                    onChange={(e) => setVehicleData({ ...vehicleData, license_plate: e.target.value.toUpperCase() })}
                     placeholder="B-TX 1234"
                     required
                   />
@@ -538,18 +523,14 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                   <Label htmlFor="vehicle-class">Fahrzeugklasse *</Label>
                   <Select
                     value={vehicleData.vehicle_class}
-                    onValueChange={(value) =>
-                      setVehicleData({ ...vehicleData, vehicle_class: value })
-                    }
+                    onValueChange={(value) => setVehicleData({ ...vehicleData, vehicle_class: value })}
                   >
                     <SelectTrigger id="vehicle-class">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       {VEHICLE_CLASSES.map((vc) => (
-                        <SelectItem key={vc} value={vc}>
-                          {vc}
-                        </SelectItem>
+                        <SelectItem key={vc} value={vc}>{vc}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -559,9 +540,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                   <Input
                     id="vehicle-concession"
                     value={vehicleData.concession_number}
-                    onChange={(e) =>
-                      setVehicleData({ ...vehicleData, concession_number: e.target.value })
-                    }
+                    onChange={(e) => setVehicleData({ ...vehicleData, concession_number: e.target.value })}
                     placeholder="PB-12345"
                     required
                   />
@@ -610,8 +589,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                     <div>
                       <p className="font-semibold text-sm">Neuer Auftrag</p>
                       <p className="text-xs text-muted-foreground">
-                        Klicken Sie auf <strong>"Neuer Auftrag"</strong> und füllen Sie die Felder
-                        aus
+                        Klicken Sie auf <strong>"Neuer Auftrag"</strong> und füllen Sie die Felder aus
                       </p>
                     </div>
                   </div>
@@ -639,7 +617,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                   className="w-full"
                   variant="primary"
                   onClick={() => {
-                    navigate("/auftraege");
+                    navigate('/auftraege');
                     onSkip();
                   }}
                 >
@@ -679,8 +657,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                     <div>
                       <p className="font-semibold text-sm">Morgen-Routine</p>
                       <p className="text-xs text-muted-foreground">
-                        Schichtzettel öffnen → Fahrer zuweisen → Fahrzeuge checken → Aufträge
-                        disponieren
+                        Schichtzettel öffnen → Fahrer zuweisen → Fahrzeuge checken → Aufträge disponieren
                       </p>
                     </div>
                   </div>
@@ -689,8 +666,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                     <div>
                       <p className="font-semibold text-sm">Kunden-Hotline</p>
                       <p className="text-xs text-muted-foreground">
-                        Nutzen Sie das integrierte Kommunikations-System (WhatsApp-ähnlich) für
-                        schnelle Absprachen
+                        Nutzen Sie das integrierte Kommunikations-System (WhatsApp-ähnlich) für schnelle Absprachen
                       </p>
                     </div>
                   </div>
@@ -699,8 +675,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                     <div>
                       <p className="font-semibold text-sm">Monatsabschluss</p>
                       <p className="text-xs text-muted-foreground">
-                        Rechnungen prüfen → Zahlungseingänge kontrollieren → Statistiken auswerten
-                        (Business)
+                        Rechnungen prüfen → Zahlungseingänge kontrollieren → Statistiken auswerten (Business)
                       </p>
                     </div>
                   </div>
@@ -719,27 +694,19 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                   <div className="flex justify-between p-2 bg-muted/30 rounded">
                     <span className="text-muted-foreground">Neuer Auftrag</span>
-                    <Badge variant="outline" className="font-mono text-xs">
-                      Strg+N
-                    </Badge>
+                    <Badge variant="outline" className="font-mono text-xs">Strg+N</Badge>
                   </div>
                   <div className="flex justify-between p-2 bg-muted/30 rounded">
                     <span className="text-muted-foreground">Suche</span>
-                    <Badge variant="outline" className="font-mono text-xs">
-                      Strg+K
-                    </Badge>
+                    <Badge variant="outline" className="font-mono text-xs">Strg+K</Badge>
                   </div>
                   <div className="flex justify-between p-2 bg-muted/30 rounded">
                     <span className="text-muted-foreground">Schichtzettel</span>
-                    <Badge variant="outline" className="font-mono text-xs">
-                      Strg+S
-                    </Badge>
+                    <Badge variant="outline" className="font-mono text-xs">Strg+S</Badge>
                   </div>
                   <div className="flex justify-between p-2 bg-muted/30 rounded">
                     <span className="text-muted-foreground">Dashboard</span>
-                    <Badge variant="outline" className="font-mono text-xs">
-                      Strg+H
-                    </Badge>
+                    <Badge variant="outline" className="font-mono text-xs">Strg+H</Badge>
                   </div>
                 </div>
               </CardContent>
@@ -754,8 +721,8 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
               </CardHeader>
               <CardContent className="p-6">
                 <p className="text-sm text-muted-foreground">
-                  Unsere mobile App für iOS & Android ist in Entwicklung. Sie werden per E-Mail
-                  benachrichtigt, sobald sie verfügbar ist.
+                  Unsere mobile App für iOS & Android ist in Entwicklung. 
+                  Sie werden per E-Mail benachrichtigt, sobald sie verfügbar ist.
                 </p>
               </CardContent>
             </Card>
@@ -776,10 +743,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <Card
-                className="hover:shadow-lg transition-shadow cursor-pointer"
-                onClick={() => navigate("/docs")}
-              >
+              <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/docs')}>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base">
                     <BookOpen className="h-5 w-5 text-foreground" />
@@ -797,10 +761,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                 </CardContent>
               </Card>
 
-              <Card
-                className="hover:shadow-lg transition-shadow cursor-pointer"
-                onClick={() => navigate("/contact")}
-              >
+              <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/contact')}>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base">
                     <Phone className="h-5 w-5 text-foreground" />
@@ -827,8 +788,8 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                 </CardHeader>
                 <CardContent className="p-6">
                   <p className="text-sm text-muted-foreground mb-4">
-                    Unser KI-gestützter Support-Assistent beantwortet Fragen zur Software, hilft bei
-                    der Disposition und gibt Optimierungsempfehlungen.
+                    Unser KI-gestützter Support-Assistent beantwortet Fragen zur Software, 
+                    hilft bei der Disposition und gibt Optimierungsempfehlungen.
                   </p>
                   <div className="bg-background p-3 rounded-lg border text-xs text-muted-foreground">
                     <p className="font-semibold mb-1">Beispielfragen:</p>
@@ -845,9 +806,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
             <Card className="bg-status-success/5 border-status-success/20">
               <CardContent className="pt-6 text-center">
                 <CheckCircle className="h-16 w-16 text-foreground mx-auto mb-4" />
-                <h4 className="text-xl font-bold text-foreground mb-2">
-                  Onboarding abgeschlossen! 🎉
-                </h4>
+                <h4 className="text-xl font-bold text-foreground mb-2">Onboarding abgeschlossen! 🎉</h4>
                 <p className="text-sm text-muted-foreground mb-6">
                   Sie sind jetzt bereit, MyDispatch voll zu nutzen. Viel Erfolg!
                 </p>
@@ -884,7 +843,11 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
             {renderStep()}
 
             <div className="flex items-center justify-between pt-6 border-t">
-              <V28Button variant="secondary" onClick={handleBack} disabled={currentStep === 1}>
+              <V28Button
+                variant="secondary"
+                onClick={handleBack}
+                disabled={currentStep === 1}
+              >
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Zurück
               </V28Button>
@@ -895,11 +858,7 @@ export function ComprehensiveOnboarding({ onComplete, onSkip }: ComprehensiveOnb
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </V28Button>
               ) : (
-                <V28Button
-                  onClick={handleComplete}
-                  variant="primary"
-                  className="bg-status-success hover:bg-status-success/90"
-                >
+                <V28Button onClick={handleComplete} variant="primary" className="bg-status-success hover:bg-status-success/90">
                   Abschließen
                   <CheckCircle className="ml-2 h-4 w-4" />
                 </V28Button>

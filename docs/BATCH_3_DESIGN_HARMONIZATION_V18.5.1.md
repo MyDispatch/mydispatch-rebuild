@@ -18,7 +18,6 @@
 ## ✅ IMPLEMENTIERT
 
 ### 1. Doc-AI Integration (COMPLETE)
-
 - ✅ Edge Function: `supabase/functions/manage-docs/index.ts`
 - ✅ React Hook: `src/hooks/use-doc-ai.ts`
 - ✅ Auto-Sync: `src/lib/doc-ai-sync.ts`
@@ -29,7 +28,6 @@
 **Funktion:** Automatische Doc-Strukturierung, Validierung, Design-Referenz-Extraktion
 
 ### 2. E2E-Tests (ERWEITERT)
-
 ```
 tests/e2e/
 ├── compliance/
@@ -47,18 +45,15 @@ tests/e2e/
 ```
 
 **Neue Tests:**
-
 - **Tab-System:** Validiert w-full, flex-1, rounded-none, Touch-Targets (≥44px)
 - **Hero-Bereiche:** Validiert Tailwind CSS (KEINE JPG/PNG!), Responsive Heights, Icons
 
 ### 3. CI/CD-Erweiterung
-
 - ✅ `.github/workflows/ci.yml` aktualisiert
 - ✅ Separate Test-Suites (Compliance, Performance, Design, Dashboard)
 - ✅ Dokumentation: `docs/CI_CD_EXPANSION_V18.5.1.md`
 
 ### 4. Meta-Prompt Update
-
 - ✅ `docs/MYDISPATCH_AI_AGENT_META_PROMPT_V18.5.1.md`
 - ✅ **SCHRITT 0: DOC-AI SYNC** hinzugefügt (VERPFLICHTEND!)
 - ✅ Pre/Post-Implementation Checks erweitert
@@ -68,10 +63,9 @@ tests/e2e/
 ## 🎨 DESIGN-REFERENZEN (MASTER-TEMPLATES)
 
 ### Marketing-Seiten (Master: `/home`)
-
 - **Layout:** `MarketingLayout` (`src/components/layout/MarketingLayout.tsx`)
 - **Buttons:** `MarketingButton` (`src/components/design-system/MarketingButton.tsx`)
-- **Farben:**
+- **Farben:** 
   - Primary: `hsl(40 31% 88%)` (#EADEBD)
   - Foreground: `hsl(225 31% 28%)` (#323D5E)
   - Background: `hsl(0 0% 100%)` (#FFFFFF)
@@ -79,7 +73,6 @@ tests/e2e/
 - **Footer:** `bg-gradient-to-t from-primary via-primary to-primary/95`
 
 ### App-Seiten (Master: `/dashboard`, `/auftraege`, `/partner`)
-
 - **Layout:** `StandardPageLayout` + `DashboardLayout`
 - **Header:** `Header.tsx` (dynamic width, sidebar-aware)
 - **Footer:** `Footer.tsx` (collapsible, Windows-Taskleiste-Style)
@@ -89,7 +82,6 @@ tests/e2e/
   - Responsive: h-[200px] sm:h-[250px] lg:h-[300px]
 
 ### Tab-System (APP_PAGE_TEMPLATE V18.5.1)
-
 ```tsx
 <TabsList className="w-full p-0 rounded-t-lg border-b border-border">
   <TabsTrigger className="flex-1 rounded-none first:rounded-tl-lg last:rounded-tr-lg min-h-[44px]">
@@ -102,7 +94,6 @@ tests/e2e/
 ```
 
 **VERBOTEN:**
-
 - ❌ `rounded-md` zwischen Tabs
 - ❌ Feste Breiten (`w-[200px]`)
 - ❌ JPG/PNG Bilder für Hero-Bereiche
@@ -112,9 +103,8 @@ tests/e2e/
 ## 🔄 DOC-AI WORKFLOW
 
 ### 1. VOR Implementation
-
 ```typescript
-import { syncDesignReferences } from "@/lib/doc-ai-sync";
+import { syncDesignReferences } from '@/lib/doc-ai-sync';
 
 // Extrahiere Design-Referenzen von fertigen Seiten
 await syncDesignReferences();
@@ -122,30 +112,28 @@ await syncDesignReferences();
 ```
 
 ### 2. NACH Implementation
-
 ```typescript
-import { validateDocConsistency } from "@/lib/doc-ai-sync";
+import { validateDocConsistency } from '@/lib/doc-ai-sync';
 
 // Validiere Dokumentations-Konsistenz
 const { valid, issues } = await validateDocConsistency({
-  "DESIGN_SYSTEM_V18_5_0.md": content,
-  "APP_PAGE_TEMPLATE_V18.5.1.md": content,
+  'DESIGN_SYSTEM_V18_5_0.md': content,
+  'APP_PAGE_TEMPLATE_V18.5.1.md': content
 });
 
 if (!valid) {
-  console.warn("Doc-Inkonsistenzen:", issues);
+  console.warn('Doc-Inkonsistenzen:', issues);
 }
 ```
 
 ### 3. BEI NEUEN FEATURES
-
 ```typescript
-import { triggerDocUpdate } from "@/lib/doc-ai-sync";
+import { triggerDocUpdate } from '@/lib/doc-ai-sync';
 
 // Triggere Doc-Update
-await triggerDocUpdate("page", {
-  page: "/neue-seite",
-  changes: ["Hero-Bereich hinzugefügt", "KPI-Cards integriert"],
+await triggerDocUpdate('page', {
+  page: '/neue-seite',
+  changes: ['Hero-Bereich hinzugefügt', 'KPI-Cards integriert']
 });
 ```
 
@@ -153,33 +141,30 @@ await triggerDocUpdate("page", {
 
 ## 📊 ERFOLGS-METRIKEN
 
-| Metrik               | Vorher | Nachher | Verbesserung |
-| -------------------- | ------ | ------- | ------------ |
-| E2E Tests            | 5      | 9       | +80%         |
-| Doc-Konsistenz       | 70%    | 95%     | +25%         |
-| Design-Referenzen    | 0      | 4       | +100%        |
-| CI/CD-Abdeckung      | 60%    | 90%     | +30%         |
-| Meta-Prompt-Schritte | 2      | 3       | +50%         |
+| Metrik | Vorher | Nachher | Verbesserung |
+|--------|--------|---------|--------------|
+| E2E Tests | 5 | 9 | +80% |
+| Doc-Konsistenz | 70% | 95% | +25% |
+| Design-Referenzen | 0 | 4 | +100% |
+| CI/CD-Abdeckung | 60% | 90% | +30% |
+| Meta-Prompt-Schritte | 2 | 3 | +50% |
 
 ---
 
 ## 🚀 NÄCHSTE SCHRITTE
 
 ### BATCH 4: WEITERE TESTS (Optional)
-
 - [ ] Accessibility Tests (WCAG 2.1 AA)
 - [ ] Performance Budget Tests (< 2MB Bundle)
 - [ ] Visual Regression Tests (Percy/Chromatic)
 
 ### BATCH 5: CLEANUP (VERPFLICHTEND)
-
 - [ ] Unused Imports entfernen
 - [ ] Dead Code identifizieren & löschen
 - [ ] Component-Duplikate konsolidieren
 - [ ] Veraltete Docs archivieren
 
 ### BATCH 6: DOKUMENTATION (Optional)
-
 - [ ] Component-Library aktualisieren
 - [ ] Code-Snippets-Sammlung erstellen
 - [ ] Tutorial-Videos (Loom)
@@ -189,13 +174,11 @@ await triggerDocUpdate("page", {
 ## 🔍 GEFUNDENE INKONSISTENZEN
 
 ### ❌ KRITISCH (BEHOBEN)
-
 1. **AuthHeader/AuthFooter fehlen** - System nutzt nur `Header.tsx` / `Footer.tsx`
 2. **Hero-Bereiche uneinheitlich** - Jetzt standardisiert: Tailwind CSS only
 3. **Tab-System Varianten** - Jetzt einheitlich: w-full, flex-1, rounded-none
 
 ### ⚠️ WARNUNG (TODO)
-
 1. **Marketing-Seiten** - Impressum, Datenschutz, AGB etc. auf Home-Standard bringen
 2. **Veraltete Docs** - Einige V18.3-Docs auf V18.5.1 upgraden
 3. **Dead Code** - Einige Components werden nicht mehr verwendet

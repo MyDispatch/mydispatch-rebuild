@@ -18,7 +18,9 @@ export function HeroPremiumBadge({ text, showDot = true }: HeroPremiumBadgeProps
       {showDot && (
         <div className="h-2 w-2 rounded-full animate-pulse v26-bg-beige v26-shadow-glow-beige-8" />
       )}
-      <span className="font-sans text-sm font-semibold v26-text-beige">{text}</span>
+      <span className="font-sans text-sm font-semibold v26-text-beige">
+        {text}
+      </span>
     </div>
   );
 }

@@ -9,12 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/lib
 import { Badge } from "@/lib/compat";
 import { V28Button } from "@/components/design-system/V28Button";
 import { AlertCircle, CheckCircle, Clock, TrendingUp, Mail, AlertTriangle } from "lucide-react";
-import {
-  useLatestAlerts,
-  useAlertHistory,
-  useAlertStatistics,
-  useResolveAlert,
-} from "@/hooks/use-alert-system";
+import { useLatestAlerts, useAlertHistory, useAlertStatistics, useResolveAlert } from "@/hooks/use-alert-system";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 
@@ -24,9 +19,7 @@ export function AlertDashboard() {
   const { data: stats } = useAlertStatistics(7);
   const resolveAlert = useResolveAlert();
 
-  const getSeverityColor = (
-    severity: string
-  ): "default" | "destructive" | "outline" | "secondary" => {
+  const getSeverityColor = (severity: string): "default" | "destructive" | "outline" | "secondary" => {
     switch (severity) {
       case "critical":
         return "destructive";
@@ -65,7 +58,9 @@ export function AlertDashboard() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-foreground">Alert-System</h1>
-        <p className="text-muted-foreground mt-2">Real-Time Überwachung aller System-Alerts</p>
+        <p className="text-muted-foreground mt-2">
+          Real-Time Überwachung aller System-Alerts
+        </p>
       </div>
 
       {/* Statistics Cards */}
@@ -86,7 +81,9 @@ export function AlertDashboard() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Critical</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Critical
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -98,7 +95,9 @@ export function AlertDashboard() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Warnings</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Warnings
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -110,7 +109,9 @@ export function AlertDashboard() {
 
         <Card>
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Info</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground">
+              Info
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -125,7 +126,9 @@ export function AlertDashboard() {
       <Card>
         <CardHeader>
           <CardTitle>Aktive Alerts</CardTitle>
-          <CardDescription>Ungelöste Alerts (automatisch alle 30s aktualisiert)</CardDescription>
+          <CardDescription>
+            Ungelöste Alerts (automatisch alle 30s aktualisiert)
+          </CardDescription>
         </CardHeader>
         <CardContent className="p-6">
           {!latestAlerts || latestAlerts.length === 0 ? (
@@ -160,8 +163,7 @@ export function AlertDashboard() {
                       </div>
                       <p className="font-semibold text-foreground">{alert.message}</p>
                       <p className="text-sm text-muted-foreground mt-1">
-                        {format(new Date(alert.created_at), "dd. MMM yyyy, HH:mm", { locale: de })}{" "}
-                        Uhr
+                        {format(new Date(alert.created_at), "dd. MMM yyyy, HH:mm", { locale: de })} Uhr
                       </p>
                       {alert.details && Object.keys(alert.details).length > 0 && (
                         <details className="mt-2">
@@ -200,9 +202,7 @@ export function AlertDashboard() {
         </CardHeader>
         <CardContent className="p-6">
           {!alertHistory || alertHistory.length === 0 ? (
-            <p className="text-center py-8 text-muted-foreground">
-              Keine Alerts in den letzten 7 Tagen
-            </p>
+            <p className="text-center py-8 text-muted-foreground">Keine Alerts in den letzten 7 Tagen</p>
           ) : (
             <div className="space-y-2">
               {alertHistory.slice(0, 20).map((alert) => (

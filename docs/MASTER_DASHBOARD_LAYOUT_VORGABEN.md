@@ -2,7 +2,7 @@
 
 **Status:** ✅ FINAL - SYSTEMWEITE ARCHITEKTUR  
 **Datum:** 2025-01-31  
-**Version:** 33.0
+**Version:** 33.0  
 
 ---
 
@@ -43,7 +43,6 @@ Alle Dashboard-Seiten MÜSSEN diesem Layout-Standard folgen:
 ```
 
 **WICHTIG:**
-
 - ✅ `marginLeft`: Platz für linke Sidebars (AppSidebar + DashboardSidebar)
 - ✅ `marginRight`: Platz für rechte Schnellzugriff-Sidebar (320px)
 - ✅ `px-6`: Gleichmäßiger horizontaler Rundumabstand (24px)
@@ -61,7 +60,6 @@ Alle Dashboard-Seiten MÜSSEN diesem Layout-Standard folgen:
 ```
 
 **Specs:**
-
 - Breite: **320px** (w-80)
 - Position: **fixed right-0**
 - Top-Offset: **64px** (Header)
@@ -75,15 +73,11 @@ Alle Dashboard-Seiten MÜSSEN diesem Layout-Standard folgen:
   {/* 1. Schnellzugriff Actions (flex-shrink-0) */}
   <div className="p-4 space-y-4 flex-shrink-0 bg-white border-b">
     <h3>Schnellzugriff</h3>
-    <V28Button variant="primary" fullWidth>
-      Aktion 1
-    </V28Button>
-    <V28Button variant="secondary" fullWidth>
-      Aktion 2
-    </V28Button>
-
+    <V28Button variant="primary" fullWidth>Aktion 1</V28Button>
+    <V28Button variant="secondary" fullWidth>Aktion 2</V28Button>
+    
     <Separator />
-
+    
     <div className="space-y-2">
       <h4>Statistiken</h4>
       {/* Kompakte Stats */}
@@ -98,7 +92,6 @@ Alle Dashboard-Seiten MÜSSEN diesem Layout-Standard folgen:
 ```
 
 **WICHTIG:**
-
 - ✅ Actions-Bereich: `flex-shrink-0` (feste Höhe)
 - ✅ AI-Chat: `flex-1` (nimmt restlichen Platz)
 - ✅ Gesamtes `<aside>`: `flex-col` + `overflow-hidden`
@@ -110,7 +103,6 @@ Alle Dashboard-Seiten MÜSSEN diesem Layout-Standard folgen:
 ### Komponente: `SidebarAIChat`
 
 **Features:**
-
 - ✅ Lovable AI Integration (google/gemini-2.5-flash)
 - ✅ Streaming-Antworten (Token-by-Token)
 - ✅ Kompaktes Design (320px Breite)
@@ -118,19 +110,17 @@ Alle Dashboard-Seiten MÜSSEN diesem Layout-Standard folgen:
 - ✅ V28.1 Design System
 
 **Edge Function:** `dashboard-ai-assistant`
-
 - Model: `google/gemini-2.5-flash`
 - System-Prompt: MyDispatch-spezifisch
 - Rate-Limit & Payment-Error Handling
 
 **Verwendung:**
-
 ```tsx
-import { SidebarAIChat } from "@/components/dashboard/SidebarAIChat";
+import { SidebarAIChat } from '@/components/dashboard/SidebarAIChat';
 
 <div className="flex-1 p-4 overflow-hidden flex flex-col">
   <SidebarAIChat />
-</div>;
+</div>
 ```
 
 ---
@@ -138,23 +128,23 @@ import { SidebarAIChat } from "@/components/dashboard/SidebarAIChat";
 ## 📋 RESPONSIVE-VERHALTEN
 
 ### Desktop (lg+)
-
 - ✅ AppSidebar: 256px (expanded) / 128px (collapsed)
 - ✅ DashboardSidebar: 384px (optional, seiten-spezifisch)
 - ✅ Schnellzugriff-Sidebar: 320px (rechts)
 - ✅ Main-Content: Dynamisch zwischen den Sidebars
 
 ### Tablet/Mobile (< lg)
-
 - ✅ Alle Sidebars versteckt
 - ✅ Main-Content: `marginLeft: 0`, `marginRight: 0`
 - ✅ Content: `pt-14 pb-16` (Mobile Header + Footer)
 
 ```tsx
 // Mobile View Override
-{
-  isMobile && <main className="pt-14 pb-16 px-4">{/* Content ohne Sidebars */}</main>;
-}
+{isMobile && (
+  <main className="pt-14 pb-16 px-4">
+    {/* Content ohne Sidebars */}
+  </main>
+)}
 ```
 
 ---
@@ -162,7 +152,6 @@ import { SidebarAIChat } from "@/components/dashboard/SidebarAIChat";
 ## ❌ VERBOTEN
 
 ### NIEMALS VERWENDEN:
-
 - ❌ `QuickActionsOverlay` (alter floating Overlay)
 - ❌ `PageHeaderWithKPIs` mit `quickActions` Prop
 - ❌ Schnellzugriff in Header/Content-Bereich
@@ -174,11 +163,9 @@ import { SidebarAIChat } from "@/components/dashboard/SidebarAIChat";
 ## 🔍 BETROFFENE SEITEN (MIGRATION)
 
 **✅ Migriert (V33.0):**
-
 1. `/rechnungen` - Rechnungen.tsx
 
 **⚠️ TO-DO (10 Seiten):**
-
 1. `/auftraege` - Auftraege.tsx
 2. `/fahrer` - Fahrer.tsx
 3. `/fahrzeuge` - Fahrzeuge.tsx
@@ -186,12 +173,11 @@ import { SidebarAIChat } from "@/components/dashboard/SidebarAIChat";
 5. `/disposition` - Disposition.tsx
 6. `/statistiken` - Statistiken.tsx
 7. `/schichtzettel` - Schichtzettel.tsx
-   8: `/einstellungen` - Einstellungen.tsx
-8. `/kommunikation` - Kommunikation.tsx
-9. `/dokumente` - Dokumente.tsx
+8: `/einstellungen` - Einstellungen.tsx
+9. `/kommunikation` - Kommunikation.tsx
+10. `/dokumente` - Dokumente.tsx
 
 **Migration-Checklist pro Seite:**
-
 - [ ] Main-Element: `marginLeft` + `marginRight` + `px-6`
 - [ ] Schnellzugriff-Sidebar: rechts, 320px, flex-col
 - [ ] AI-Chat-Widget: `SidebarAIChat` integriert
@@ -205,24 +191,20 @@ import { SidebarAIChat } from "@/components/dashboard/SidebarAIChat";
 Nach Migration JEDER Seite:
 
 ✅ **Layout:**
-
 - Main-Content: Links + Rechts Abstand zu Sidebars
 - Gleichmäßige Rundumabstände (24px horizontal)
 - Schnellzugriff-Sidebar: Rechts, 320px, fixed
 
 ✅ **AI-Chat:**
-
 - Vollflächig in Schnellzugriff-Sidebar
 - Streaming-Antworten funktionieren
 - Rate-Limit & Payment-Errors werden angezeigt
 
 ✅ **Responsive:**
-
 - Desktop: Alle Sidebars sichtbar
 - Mobile: Sidebars versteckt, Content Full-Width
 
 ✅ **Design:**
-
 - V28.1 Design System (Slate-Palette)
 - Konsistente Spacings (pt-16, pb-32, px-6)
 - Keine Überlappungen oder Scroll-Probleme

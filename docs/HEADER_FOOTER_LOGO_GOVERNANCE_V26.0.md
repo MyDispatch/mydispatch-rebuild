@@ -1,11 +1,11 @@
-/_ ==================================================================================
-HEADER/FOOTER/LOGO GOVERNANCE V26.0 - SYSTEMWEITE VORGABEN
-==================================================================================
-Status: ZWINGEND BINDEND (P-00)
-Erstellt: 2025-01-26
-Letzte Änderung: 2025-01-26
-Bereich: DESIGN-FROZEN (Nur technische Optimierungen erlaubt)
-================================================================================== _/
+/* ==================================================================================
+   HEADER/FOOTER/LOGO GOVERNANCE V26.0 - SYSTEMWEITE VORGABEN
+   ==================================================================================
+   Status: ZWINGEND BINDEND (P-00)
+   Erstellt: 2025-01-26
+   Letzte Änderung: 2025-01-26
+   Bereich: DESIGN-FROZEN (Nur technische Optimierungen erlaubt)
+   ================================================================================== */
 
 # 🎯 ÜBERGEORDNETES ZIEL
 
@@ -20,10 +20,10 @@ Es gibt EINEN einzigen, systemweit erlaubten Header/Footer-Typ für Marketing- u
 
 MyDispatch hat drei klar getrennte Bereiche mit unterschiedlichen Header/Footer/Logo-Regeln:
 
-| Bereich          | Header/Footer    | Logo             | Daten im Footer                     |
-| ---------------- | ---------------- | ---------------- | ----------------------------------- |
-| **1. Marketing** | MarketingLayout  | MyDispatch-Logo  | MyDispatch (RideHub Solutions)      |
-| **2. Auth**      | MarketingLayout  | MyDispatch-Logo  | MyDispatch (RideHub Solutions)      |
+| Bereich | Header/Footer | Logo | Daten im Footer |
+|---------|--------------|------|-----------------|
+| **1. Marketing** | MarketingLayout | MyDispatch-Logo | MyDispatch (RideHub Solutions) |
+| **2. Auth** | MarketingLayout | MyDispatch-Logo | MyDispatch (RideHub Solutions) |
 | **3. Dashboard** | Dashboard-Header | Unternehmer-Logo | KEINE Footer-Daten (minimalistisch) |
 
 ---
@@ -31,7 +31,6 @@ MyDispatch hat drei klar getrennte Bereiche mit unterschiedlichen Header/Footer/
 ## 🏛️ BEREICH 1: MARKETING-SEITEN
 
 ### Gültig für:
-
 - `/` (Startseite)
 - `/pricing` (Preise & Tarife)
 - `/docs` (Dokumentation)
@@ -44,10 +43,9 @@ MyDispatch hat drei klar getrennte Bereiche mit unterschiedlichen Header/Footer/
 - `/terms` (Nutzungsbedingungen)
 
 ### Header-Vorgaben:
-
 ```typescript
 // QUELLE: src/components/layout/MarketingLayout.tsx (Zeile 149-233)
-<header
+<header 
   className="fixed top-0 z-30 bg-background"
   style={{
     left: sidebarExpanded ? '240px' : '64px', // Desktop only
@@ -59,13 +57,13 @@ MyDispatch hat drei klar getrennte Bereiche mit unterschiedlichen Header/Footer/
   <div style={{ padding: `0 ${DESIGN_TOKENS.spacing.lg} 0 ${DESIGN_TOKENS.spacing.xl}` }}>
     <div className="flex items-center justify-between" style={{ height: '64px' }}>
       {/* MyDispatch-Logo (ZWINGEND) */}
-      <img
-        src={officialLogo}
+      <img 
+        src={officialLogo} 
         alt="MyDispatch - simply arrive"
         onClick={() => navigate('/')}
         className="h-8 max-w-[120px] sm:max-w-[160px] md:max-w-[180px] object-contain drop-shadow-sm cursor-pointer hover:opacity-80"
       />
-
+      
       {/* Action Buttons */}
       <div className="flex items-center" style={{ gap: DESIGN_TOKENS.spacing.md }}>
         <Button onClick={() => navigate('/auth?tab=signup')}>Registrieren</Button>
@@ -77,15 +75,13 @@ MyDispatch hat drei klar getrennte Bereiche mit unterschiedlichen Header/Footer/
 ```
 
 **KRITISCH:** Buttons MÜSSEN zu korrekten Tabs führen:
-
 - "Registrieren" → `/auth?tab=signup`
 - "Anmelden" → `/auth?tab=login`
 
 ### Footer-Vorgaben:
-
 ```typescript
 // QUELLE: src/components/layout/MarketingLayout.tsx (Zeile 243-352)
-<footer
+<footer 
   className="fixed bottom-0 z-20 bg-background"
   style={{
     left: sidebarExpanded ? '240px' : '64px', // Desktop only
@@ -99,7 +95,7 @@ MyDispatch hat drei klar getrennte Bereiche mit unterschiedlichen Header/Footer/
       <p style={{ fontSize: '12px', color: DESIGN_TOKENS.colors.text.secondary }}>
         © 2025 my-dispatch.de by RideHub Solutions
       </p>
-
+      
       {/* Legal Links - MyDispatch Links (ZWINGEND) */}
       <div className="flex items-center" style={{ gap: DESIGN_TOKENS.spacing.xl }}>
         <Link to="/impressum">Impressum</Link>
@@ -113,13 +109,11 @@ MyDispatch hat drei klar getrennte Bereiche mit unterschiedlichen Header/Footer/
 ```
 
 ### Logo-Vorgabe:
-
 - **ZWINGEND**: `officialLogo` (MyDispatch-Logo)
 - **QUELLE**: `@/assets/mydispatch-logo-official.png`
 - **ALT-Text**: `"MyDispatch - simply arrive"`
 
 ### Footer-Daten:
-
 - **Copyright**: `© 2025 my-dispatch.de by RideHub Solutions`
 - **Links zu**: MyDispatch Impressum, Datenschutz, AGB, Kontakt
 
@@ -128,23 +122,21 @@ MyDispatch hat drei klar getrennte Bereiche mit unterschiedlichen Header/Footer/
 ## 🔐 BEREICH 2: AUTH-SEITEN
 
 ### Gültig für:
-
 - `/auth` (Login, Registrierung, Passwort-Reset)
 
 ### Header-Vorgaben:
-
 ```typescript
 // SPEZIELL FÜR /auth - CUSTOM HEADER (KEIN MarketingLayout)
 <header className="fixed top-0 w-full z-30 bg-background">
   <div className="flex items-center justify-between h-16 px-6">
     {/* MyDispatch-Logo (ZWINGEND) */}
-    <img
-      src={officialLogo}
+    <img 
+      src={officialLogo} 
       alt="MyDispatch - simply arrive"
       onClick={() => navigate('/')}
       className="h-8 max-w-[180px] object-contain cursor-pointer hover:opacity-80"
     />
-
+    
     {/* Action Button - NUR "Startseite" (führt zu Home) */}
     <Button onClick={() => navigate('/')}>
       Startseite
@@ -153,34 +145,28 @@ MyDispatch hat drei klar getrennte Bereiche mit unterschiedlichen Header/Footer/
 </header>
 ```
 
-**KRITISCH:**
-
+**KRITISCH:** 
 - **KEIN** "Registrieren"-Button im Header (Nutzer ist bereits auf Auth-Seite!)
 - **Button-Text MUSS "Startseite" lauten**
 - **Button führt zur MyDispatch Home (`/`)** - NICHT zu /auth
 
 ### Footer-Vorgaben:
-
 **IDENTISCH MIT MARKETING-FOOTER**
-
 - Gleiche Struktur wie MarketingLayout-Footer (siehe oben)
 - MyDispatch Daten im Copyright
 - Links zu MyDispatch Rechtsseiten
 
 ### Logo-Vorgabe:
-
 - **ZWINGEND**: `officialLogo` (MyDispatch-Logo)
 - **QUELLE**: `@/assets/mydispatch-logo-official.png`
 - **NIEMALS**: Unternehmer-Logo auf Auth-Seiten
 
 ### Footer-Daten:
-
 - **Copyright**: `© 2025 my-dispatch.de by RideHub Solutions`
 - **Links zu**: MyDispatch Impressum, Datenschutz, AGB, Kontakt
 - **NIEMALS**: Unternehmer-Daten im Footer
 
 ### Begründung:
-
 Auth-Seiten sind ÖFFENTLICH und NEUTRAL. Es gibt noch KEINEN Unternehmer-Kontext. Daher MUSS MyDispatch-Branding verwendet werden. Der "Anmelden"-Button führt zurück zur Startseite, da der Nutzer bereits auf der Auth-Seite ist.
 
 ---
@@ -188,14 +174,12 @@ Auth-Seiten sind ÖFFENTLICH und NEUTRAL. Es gibt noch KEINEN Unternehmer-Kontex
 ## 🏢 BEREICH 3: DASHBOARD-SEITEN (Unternehmer-Portal)
 
 ### Gültig für:
-
 - `/dashboard` (Alle Dashboard-Routen für eingeloggte Unternehmer)
 
 ### Header-Vorgaben:
-
 ```typescript
 // QUELLE: src/components/layout/Header.tsx
-<header
+<header 
   className="fixed top-0 z-30 bg-background"
   style={{
     left: sidebarExpanded ? '240px' : '64px',
@@ -207,29 +191,28 @@ Auth-Seiten sind ÖFFENTLICH und NEUTRAL. Es gibt noch KEINEN Unternehmer-Kontex
   <div className="flex items-center justify-between h-16 px-6">
     {/* Unternehmer-Logo (wenn vorhanden) ODER MyDispatch-Logo (Fallback) */}
     {company.logo_url ? (
-      <img
-        src={company.logo_url}
+      <img 
+        src={company.logo_url} 
         alt={`${company.name} Logo`}
         className="h-8 max-w-[180px] object-contain"
       />
     ) : (
-      <img
-        src={officialLogo}
+      <img 
+        src={officialLogo} 
         alt="MyDispatch"
         className="h-8 max-w-[180px] object-contain"
       />
     )}
-
+    
     {/* Action Buttons: Search, AI, Profile, Logout */}
   </div>
 </header>
 ```
 
 ### Footer-Vorgaben:
-
 ```typescript
 // QUELLE: src/components/layout/Footer.tsx
-<footer
+<footer 
   className="fixed bottom-0 z-20 bg-background"
   style={{
     left: sidebarExpanded ? '240px' : '64px',
@@ -253,20 +236,17 @@ Auth-Seiten sind ÖFFENTLICH und NEUTRAL. Es gibt noch KEINEN Unternehmer-Kontex
 ```
 
 ### Logo-Vorgabe:
-
 - **PRIORITÄT 1**: Unternehmer-Logo (wenn `company.logo_url` vorhanden)
 - **FALLBACK**: MyDispatch-Logo (`officialLogo`)
 - **QUELLE Unternehmer**: `company.logo_url` aus Supabase
 - **QUELLE MyDispatch**: `@/assets/mydispatch-logo-official.png`
 
 ### Footer-Daten:
-
 - **Minimalistisch**: Keine detaillierten Unternehmer-Daten
 - **Copyright**: `© 2025 MyDispatch` (generisch)
 - **Links zu**: MyDispatch Rechtsseiten (NICHT Unternehmer-spezifisch)
 
 ### Begründung:
-
 Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Logo SOLL das Unternehmer-Logo sein (wenn vorhanden). Der Footer bleibt minimalistisch und zeigt KEINE detaillierten Unternehmer-Kontaktdaten (Datenschutz!).
 
 ---
@@ -274,20 +254,18 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 ## 🏢 BEREICH 4: UNTERNEHMER-LANDINGPAGE
 
 ### Gültig für:
-
 - `/unternehmen/:slug` (Öffentliche Landingpage eines Unternehmers)
 - z.B. `/unternehmen/taxi-mueller`
 
 ### Header-Vorgaben:
-
 ```typescript
 // UNTERNEHMER-LANDINGPAGE HEADER
 <header className="fixed top-0 w-full z-30 bg-background">
   <div className="flex items-center justify-between h-16 px-6">
     {/* Unternehmer-Logo (wenn vorhanden) ODER Unternehmer-Name */}
     {company.logo_url ? (
-      <img
-        src={company.logo_url}
+      <img 
+        src={company.logo_url} 
         alt={`${company.name} Logo`}
         className="h-8 max-w-[180px] object-contain"
       />
@@ -296,7 +274,7 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
         {company.name}
       </h1>
     )}
-
+    
     {/* Action Buttons - Registrieren & Anmelden */}
     <div className="flex items-center gap-3">
       <Button onClick={() => navigate(`/unternehmen/${slug}/auth?tab=signup`)}>
@@ -310,14 +288,12 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 </header>
 ```
 
-**KRITISCH:**
-
+**KRITISCH:** 
 - Buttons führen zur **Unternehmer-Auth** (`/unternehmen/:slug/auth`)
 - "Registrieren" → `?tab=signup`
 - "Anmelden" → `?tab=login`
 
 ### Footer-Vorgaben:
-
 ```typescript
 // UNTERNEHMER-LANDINGPAGE FOOTER
 <footer className="fixed bottom-0 w-full z-20 bg-background border-t">
@@ -327,7 +303,7 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
       <p className="text-muted-foreground">
         Powered by <Link to="/" className="text-foreground hover:underline">MyDispatch</Link>
       </p>
-
+      
       {/* Unternehmer-Legal Links */}
       <div className="flex gap-4">
         <Link to={`/unternehmen/${slug}/impressum`}>Impressum</Link>
@@ -340,19 +316,16 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 </footer>
 ```
 
-**KRITISCH:**
-
+**KRITISCH:** 
 - Footer MUSS "Powered by MyDispatch" enthalten
 - "MyDispatch" MUSS zu MyDispatch Home (`/`) verlinkt sein
 
 ### Logo-Vorgabe:
-
 - **PRIORITÄT 1**: Unternehmer-Logo (wenn `company.logo_url` vorhanden)
 - **FALLBACK**: Unternehmer-Name (als H1-Text)
 - **NIEMALS**: MyDispatch-Logo auf Unternehmer-Landingpage
 
 ### Footer-Daten:
-
 - **Powered by**: `Powered by MyDispatch` (MyDispatch verlinkt zu `/`)
 - **Links zu**: Unternehmer-Rechtsseiten (Impressum, Datenschutz, AGB, Kontakt des Unternehmers)
 
@@ -361,19 +334,17 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 ## 🏢 BEREICH 5: UNTERNEHMER-AUTH
 
 ### Gültig für:
-
 - `/unternehmen/:slug/auth` (Login/Registrierung im Unternehmer-Kontext)
 
 ### Header-Vorgaben:
-
 ```typescript
 // UNTERNEHMER-AUTH HEADER
 <header className="fixed top-0 w-full z-30 bg-background">
   <div className="flex items-center justify-between h-16 px-6">
     {/* Unternehmer-Logo (wenn vorhanden) ODER Unternehmer-Name */}
     {company.logo_url ? (
-      <img
-        src={company.logo_url}
+      <img 
+        src={company.logo_url} 
         alt={`${company.name} Logo`}
         className="h-8 max-w-[180px] object-contain"
       />
@@ -382,7 +353,7 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
         {company.name}
       </h1>
     )}
-
+    
     {/* Action Button - NUR "Startseite" (führt zu Unternehmer-Landingpage) */}
     <Button onClick={() => navigate(`/unternehmen/${slug}`)}>
       Startseite
@@ -391,14 +362,12 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 </header>
 ```
 
-**KRITISCH:**
-
+**KRITISCH:** 
 - **KEIN** "Registrieren"-Button im Header (Nutzer ist bereits auf Auth-Seite!)
 - **Button-Text MUSS "Startseite" lauten**
 - **Button führt zur Unternehmer-Landingpage** (`/unternehmen/:slug`)
 
 ### Footer-Vorgaben:
-
 ```typescript
 // UNTERNEHMER-AUTH FOOTER
 <footer className="fixed bottom-0 w-full z-20 bg-background border-t">
@@ -408,7 +377,7 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
       <p className="text-muted-foreground">
         Powered by <Link to="/" className="text-foreground hover:underline">MyDispatch</Link>
       </p>
-
+      
       {/* Unternehmer-Legal Links */}
       <div className="flex gap-4">
         <Link to={`/unternehmen/${slug}/impressum`}>Impressum</Link>
@@ -421,18 +390,15 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 </footer>
 ```
 
-**KRITISCH:**
-
+**KRITISCH:** 
 - Footer MUSS "Powered by MyDispatch" enthalten
 - "MyDispatch" MUSS zu MyDispatch Home (`/`) verlinkt sein
 
 ### Logo-Vorgabe:
-
 - **PRIORITÄT 1**: Unternehmer-Logo (wenn `company.logo_url` vorhanden)
 - **FALLBACK**: Unternehmer-Name (als H1-Text)
 
 ### Footer-Daten:
-
 - **Powered by**: `Powered by MyDispatch` (MyDispatch verlinkt zu `/`)
 - **Links zu**: Unternehmer-Rechtsseiten
 
@@ -441,22 +407,20 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 ## 🏢 BEREICH 6: ALLE UNTERNEHMER-PORTALE
 
 ### Gültig für:
-
 - Fahrer-Portal (`/fahrer-portal`)
 - Kunden-Portal (`/kunden-portal`)
 - Partner-Portal (`/partner-portal`)
 - Alle anderen Portale im Unternehmer-Kontext
 
 ### Header-Vorgaben:
-
 ```typescript
 // PORTAL HEADER
 <header className="fixed top-0 w-full z-30 bg-background">
   <div className="flex items-center justify-between h-16 px-6">
     {/* Unternehmer-Logo (wenn vorhanden) ODER Unternehmer-Name */}
     {company.logo_url ? (
-      <img
-        src={company.logo_url}
+      <img 
+        src={company.logo_url} 
         alt={`${company.name} Logo`}
         className="h-8 max-w-[180px] object-contain"
       />
@@ -465,14 +429,13 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
         {company.name}
       </h1>
     )}
-
+    
     {/* Portal-spezifische Actions (Profile, Logout, etc.) */}
   </div>
 </header>
 ```
 
 ### Footer-Vorgaben:
-
 ```typescript
 // PORTAL FOOTER
 <footer className="fixed bottom-0 w-full z-20 bg-background border-t">
@@ -482,7 +445,7 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
       <p className="text-muted-foreground">
         Powered by <Link to="/" className="text-foreground hover:underline">MyDispatch</Link>
       </p>
-
+      
       {/* Portal-spezifische Links */}
       <div className="flex gap-4">
         <Link to="/hilfe">Hilfe</Link>
@@ -494,18 +457,15 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 </footer>
 ```
 
-**KRITISCH:**
-
+**KRITISCH:** 
 - Footer MUSS "Powered by MyDispatch" enthalten
 - "MyDispatch" MUSS zu MyDispatch Home (`/`) verlinkt sein
 
 ### Logo-Vorgabe:
-
 - **PRIORITÄT 1**: Unternehmer-Logo (wenn `company.logo_url` vorhanden)
 - **FALLBACK**: Unternehmer-Name (als H1-Text)
 
 ### Footer-Daten:
-
 - **Powered by**: `Powered by MyDispatch` (MyDispatch verlinkt zu `/`)
 - **Links zu**: Portal-spezifische Links (Hilfe, Datenschutz, Kontakt)
 
@@ -514,7 +474,6 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 ## 🚫 VERBOTENE PRAKTIKEN
 
 ### NIEMALS ERLAUBT:
-
 1. ❌ **Unternehmer-Logo auf Marketing-Seiten**
    - Marketing-Seiten sind MyDispatch-Branding
 2. ❌ **Unternehmer-Logo auf MyDispatch /auth-Seite**
@@ -542,7 +501,6 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 ## ✅ PFLICHT-CHECKLISTE
 
 ### Marketing-Seiten:
-
 - [ ] MarketingLayout-Header verwendet
 - [ ] MarketingLayout-Footer verwendet
 - [ ] MyDispatch-Logo (`officialLogo`)
@@ -552,7 +510,6 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 - [ ] "Anmelden"-Button führt zu `/auth?tab=login`
 
 ### MyDispatch Auth-Seite:
-
 - [ ] Custom Header (KEIN MarketingLayout)
 - [ ] MyDispatch-Logo (`officialLogo`)
 - [ ] KEIN "Registrieren"-Button im Header
@@ -565,7 +522,6 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 - [ ] KEINE Unternehmer-Daten im Footer
 
 ### Dashboard-Seiten:
-
 - [ ] Dashboard-Header verwendet (aus `Header.tsx`)
 - [ ] Dashboard-Footer verwendet (aus `Footer.tsx`)
 - [ ] Unternehmer-Logo (wenn vorhanden) ODER MyDispatch-Logo (Fallback)
@@ -573,7 +529,6 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 - [ ] Footer-Links zu MyDispatch Rechtsseiten
 
 ### Unternehmer-Landingpage:
-
 - [ ] Custom Header mit Unternehmer-Logo/Name
 - [ ] "Registrieren"-Button führt zu `/unternehmen/:slug/auth?tab=signup`
 - [ ] "Anmelden"-Button führt zu `/unternehmen/:slug/auth?tab=login`
@@ -581,7 +536,6 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 - [ ] Footer-Links zu Unternehmer-Rechtsseiten
 
 ### Unternehmer-Auth:
-
 - [ ] Custom Header mit Unternehmer-Logo/Name
 - [ ] KEIN "Registrieren"-Button im Header
 - [ ] Button-Text: "Startseite" (NICHT "Anmelden")
@@ -590,7 +544,6 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 - [ ] Footer-Links zu Unternehmer-Rechtsseiten
 
 ### Alle Unternehmer-Portale:
-
 - [ ] Custom Header mit Unternehmer-Logo/Name
 - [ ] Footer mit "Powered by MyDispatch" (verlinkt zu `/`)
 - [ ] Footer-Links zu Portal-spezifischen Seiten
@@ -599,15 +552,15 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 
 ## 📊 IMPLEMENTIERUNGS-MATRIX
 
-| Seite/Bereich             | Header-Komponente | Footer-Komponente   | Logo                               | Footer-Daten          | Action-Buttons                                                                                      |
-| ------------------------- | ----------------- | ------------------- | ---------------------------------- | --------------------- | --------------------------------------------------------------------------------------------------- |
-| `/` (Home)                | MarketingLayout   | MarketingLayout     | MyDispatch                         | MyDispatch            | Registrieren → `/auth?tab=signup`, Anmelden → `/auth?tab=login`                                     |
-| `/pricing`                | MarketingLayout   | MarketingLayout     | MyDispatch                         | MyDispatch            | Registrieren → `/auth?tab=signup`, Anmelden → `/auth?tab=login`                                     |
-| `/auth`                   | **Custom**        | **MarketingLayout** | **MyDispatch**                     | **MyDispatch**        | **Startseite → `/` (Home)**                                                                         |
-| `/dashboard/*`            | Dashboard Header  | Dashboard Footer    | Unternehmer (Fallback: MyDispatch) | Minimalistisch        | Profile, Logout                                                                                     |
-| `/unternehmen/:slug`      | Custom            | Custom              | Unternehmer                        | Powered by MyDispatch | Registrieren → `/unternehmen/:slug/auth?tab=signup`, Anmelden → `/unternehmen/:slug/auth?tab=login` |
-| `/unternehmen/:slug/auth` | Custom            | Custom              | Unternehmer                        | Powered by MyDispatch | Startseite → `/unternehmen/:slug`                                                                   |
-| Unternehmer-Portale       | Custom            | Custom              | Unternehmer                        | Powered by MyDispatch | Portal-spezifisch                                                                                   |
+| Seite/Bereich | Header-Komponente | Footer-Komponente | Logo | Footer-Daten | Action-Buttons |
+|--------------|-------------------|-------------------|------|--------------|----------------|
+| `/` (Home) | MarketingLayout | MarketingLayout | MyDispatch | MyDispatch | Registrieren → `/auth?tab=signup`, Anmelden → `/auth?tab=login` |
+| `/pricing` | MarketingLayout | MarketingLayout | MyDispatch | MyDispatch | Registrieren → `/auth?tab=signup`, Anmelden → `/auth?tab=login` |
+| `/auth` | **Custom** | **MarketingLayout** | **MyDispatch** | **MyDispatch** | **Startseite → `/` (Home)** |
+| `/dashboard/*` | Dashboard Header | Dashboard Footer | Unternehmer (Fallback: MyDispatch) | Minimalistisch | Profile, Logout |
+| `/unternehmen/:slug` | Custom | Custom | Unternehmer | Powered by MyDispatch | Registrieren → `/unternehmen/:slug/auth?tab=signup`, Anmelden → `/unternehmen/:slug/auth?tab=login` |
+| `/unternehmen/:slug/auth` | Custom | Custom | Unternehmer | Powered by MyDispatch | Startseite → `/unternehmen/:slug` |
+| Unternehmer-Portale | Custom | Custom | Unternehmer | Powered by MyDispatch | Portal-spezifisch |
 
 ---
 
@@ -616,7 +569,6 @@ Im Dashboard ist der Nutzer eingeloggt und hat einen Unternehmer-Kontext. Das Lo
 **Dieser Bereich ist DESIGN-FROZEN.**
 
 Nach Fertigstellung und Dokumentation sind AUSNAHMSLOS nur noch folgende Änderungen erlaubt:
-
 - ✅ Technische Optimierungen (Performance, Barrierefreiheit)
 - ✅ Bug-Fixes (Funktionale Fehler, Layout-Probleme)
 - ✅ Sicherheits-Updates (z.B. XSS-Schutz, CSRF-Protection)
@@ -628,14 +580,12 @@ Nach Fertigstellung und Dokumentation sind AUSNAHMSLOS nur noch folgende Änderu
 ## 📚 REFERENZEN
 
 ### Code-Quellen:
-
 - **Marketing Header/Footer**: `src/components/layout/MarketingLayout.tsx` (Zeile 149-352)
 - **Dashboard Header**: `src/components/layout/Header.tsx`
 - **Dashboard Footer**: `src/components/layout/Footer.tsx`
 - **MyDispatch-Logo**: `src/assets/mydispatch-logo-official.png`
 
 ### Verwandte Dokumentation:
-
 - `docs/DESIGN_SYSTEM_FINAL_V26.md` - Allgemeine Design-System-Vorgaben
 - `docs/V26_COMPONENT_LIBRARY_COMPLETE.md` - UI-Komponenten-Bibliothek
 - `docs/MIGRATION_V26_AUTH_FINAL_LOG.md` - Auth-Seite Migration Log
@@ -646,14 +596,12 @@ Nach Fertigstellung und Dokumentation sind AUSNAHMSLOS nur noch folgende Änderu
 ## 📝 CHANGELOG
 
 ### V26.2 (2025-01-26) - BUTTON-TEXT-STANDARDISIERUNG
-
 - **ZWINGEND**: Button auf Auth-Seiten MUSS "Startseite" heißen
 - **GEÄNDERT**: MyDispatch /auth Button: "Startseite" (statt "Anmelden")
 - **GEÄNDERT**: Unternehmer-Auth Button: "Startseite" (statt "Anmelden")
 - **BEGRÜNDUNG**: Klarere Benennung - Button führt zur Startseite, nicht zum Login
 
 ### V26.1 (2025-01-26) - ERWEITERTE GOVERNANCE
-
 - **ERWEITERT**: 6 Bereiche statt 3 (Marketing, MyDispatch Auth, Dashboard, Unternehmer-Landingpage, Unternehmer-Auth, Unternehmer-Portale)
 - **ERWEITERT**: "Powered by MyDispatch"-Regel für alle Unternehmer-Bereiche
 - **ERWEITERT**: Button-Navigation-Regeln (Registrieren/Anmelden führen zu korrekten Tabs)
@@ -665,7 +613,6 @@ Nach Fertigstellung und Dokumentation sind AUSNAHMSLOS nur noch folgende Änderu
 - **NEU**: Implementierungs-Matrix erweitert um Action-Buttons
 
 ### V26.0 (2025-01-26) - INITIAL GOVERNANCE
-
 - Erstellt als systemweite, bindende Vorgabe
 - Definiert drei Bereiche: Marketing, Auth, Dashboard
 - Definiert Logo-Regeln pro Bereich

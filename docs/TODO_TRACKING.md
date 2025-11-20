@@ -11,7 +11,6 @@
 Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 
 **Prioritäten:**
-
 - **P0 - KRITISCH:** Blocker für Production-Deployment (sofort lösen!)
 - **P1 - HOCH:** Wichtig für Quality/Security (diese Woche)
 - **P2 - MITTEL:** Nice-to-have, aber nicht dringend (nächste 2 Wochen)
@@ -22,7 +21,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 ## 🚨 P0 - KRITISCH (PRODUCTION BLOCKER)
 
 ### Dashboard-Blocker Migration V28.1
-
 - [x] **Dashboard Index + Smart Templates:** ✅ COMPLETED (V28.2.7)
   - ✅ Dashboard Index.tsx (V26.1 → V28.1)
   - ✅ StatCard, ActionButton, DashboardCard
@@ -41,6 +39,7 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
   - **Performance:** -12% Render, -50% Hover, -12 KB Bundle, -160 LOC
   - **Status:** ✅ COMPLETED (100% V28.1 konform)
   - **Docs:** `docs/V28.1_MIGRATION_COMPLETE.md`
+  
 - [x] **Dashboard Pages (5 P0-Seiten):** ✅ COMPLETE
   - **Status:** 5/5 COMPLETED ✅
   - **Estimated:** 10-15h | **Actual:** 5.5h (under budget!)
@@ -54,7 +53,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
   - **Progress:** 100% (5/5 Pages)
 
 ### Auth-System (Login-Fix)
-
 - [x] **AUTH.TSX BUG:** `.select()` zu spezifisch → `.select('*')` gefixt
 - [x] **Docs aktualisiert:** LESSONS_LEARNED, AVOIDABLE_ERRORS, CHANGELOG, PROJECT_MEMORY
 - [x] **Login-Test durchgeführt:** ✅ SUCCESS
@@ -67,16 +65,17 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 ## 🔥 P1 - HOCH (Diese Woche)
 
 ### Fertigstellung Pre-Login Bereich
-
 - [x] **Legal Pages Finalisierung:** ✅ COMPLETED (V28.2.5)
   - Impressum - 100% V28.1 konform
   - Datenschutz - 100% V28.1 konform
   - AGB - 100% V28.1 konform
   - Terms - 100% V28.1 konform
   - **Status:** Alle 4 Legal Pages ohne Code-Änderungen konform!
+  
 - [x] **Core Pages Verifikation:** ✅ COMPLETED (V28.2.5)
   - Home, Pricing, Docs, FAQ, NeXify, Contact
   - **Status:** Alle 6 Core Pages bereits V28.1 konform!
+  
 - [x] **Final QA Report:** ✅ COMPLETED (V28.2.5)
   - `docs/FINAL_QA_REPORT_V28.2.5.md` erstellt
   - **Result:** 10/10 Pre-Login-Seiten 100% Production-Ready!
@@ -84,10 +83,10 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 ---
 
 ### Dashboard Migration Vorbereitung
-
 - [ ] **Performance Testing Pre-Login:** Lighthouse-Scores für alle 10 Seiten
   - **Status:** ⏳ TODO (P1)
   - **ETA:** 1h
+  
 - [ ] **Fertigstellungs-Roadmap:** ✅ COMPLETED (V28.2.6)
   - `docs/FERTIGSTELLUNGS_ROADMAP_V28.2.6.md` erstellt
   - 44 Dashboard-Seiten identifiziert
@@ -101,7 +100,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 ---
 
 ### Dokumentations-Lücken (DIESER BATCH!)
-
 - [x] `MASTER_INDEX.md` erstellen
 - [x] `MANDATORY_READING_LIST.md` mit `.select()` Alarm-Trigger updaten
 - [x] `SECURITY_ARCHITECTURE.md` erstellen
@@ -114,7 +112,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 ---
 
 ### Test Coverage (Qualitätssicherung)
-
 - [ ] **E2E-Tests ausführen:** Master-Account Login Tests durchlaufen lassen
   - **Command:** `npm run test:e2e -- master-account-login.spec.ts`
   - **Expected:** Alle 17 Tests bestehen
@@ -132,7 +129,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 ---
 
 ### Security & Compliance
-
 - [x] **Security Audit durchgeführt:** ✅ COMPLETED (2025-10-29)
   - **Status:** ✅ 95/100 Score - EXCELLENT
   - **Result:** Production-Ready, 0 kritische Issues
@@ -145,7 +141,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 ---
 
 ### Security Audit
-
 - [ ] **RLS-Policies überprüfen:** Sind alle Tabellen geschützt?
   - **Tool:** `supabase db lint` (falls verfügbar)
   - **Manual Check:** Alle Tabellen in `docs/DATABASE_SCHEMA_COMPLETE.md` durchgehen
@@ -160,7 +155,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 ## ⚙️ P2 - MITTEL (Nächste 2 Wochen)
 
 ### Code-Quality
-
 - [ ] **TypeScript Strict Mode aktivieren:** Aktuell `strict: false` in `tsconfig.json`
   - **Warum:** Type-Safety erhöhen, Bugs früher finden
   - **Impact:** Medium (viele Type-Errors zu erwarten)
@@ -175,7 +169,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 ---
 
 ### Performance
-
 - [ ] **Performance-Profiling Dashboard-Seiten:** Lighthouse-Score ermitteln
   - **Ziel:** >90 für alle Seiten
   - **Tool:** Lighthouse CI (bereits in `playwright.config.ts`?)
@@ -189,7 +182,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 ---
 
 ### Accessibility
-
 - [ ] **Accessibility-Audit durchführen:** WCAG 2.1 AA Compliance
   - **Tool:** axe-core (bereits installiert: `@axe-core/playwright`)
   - **Ziel:** 0 Violations
@@ -199,13 +191,11 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 ---
 
 ## 🔴 P1: Performance Testing (Pre-Login) ✅ READY FOR EXECUTION
-
 **Owner:** AI Agent V28.1  
 **Status:** 🟢 INFRASTRUCTURE COMPLETE - READY TO RUN  
-**Estimated:** 1.5h (E2E + Lighthouse)
+**Estimated:** 1.5h (E2E + Lighthouse)  
 
 **Scope:**
-
 - ✅ E2E Tests Setup (17 Tests für Master Account Login)
 - ✅ Lighthouse CI Setup für 10 Pre-Login Pages
 - ✅ Performance-Testing Scripts erstellt
@@ -214,7 +204,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 - ⏳ Test-Execution ausstehend
 
 **Infrastructure Complete:**
-
 1. ✅ `tests/e2e/master-account-login.spec.ts` - 17 Tests
 2. ✅ `lighthouserc.json` - 10 Pre-Login Pages konfiguriert
 3. ✅ `scripts/run-performance-tests.sh` - Full Test Suite Runner
@@ -224,7 +213,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 7. ✅ `docs/PERFORMANCE_TESTING_GUIDE.md` - Complete Testing Guide
 
 **Pages (Lighthouse CI):**
-
 1. `/` - Landing
 2. `/home` - Home
 3. `/pricing` - Preise
@@ -237,7 +225,6 @@ Zentrale TODO-Liste für ALLE offenen Aufgaben im Projekt.
 10. `/legal/datenschutz` - Datenschutz
 
 **Execution Commands:**
-
 ```bash
 # Full Test Suite (E2E + Lighthouse)
 ./scripts/run-performance-tests.sh
@@ -250,7 +237,6 @@ npm run build && lhci autorun
 ```
 
 **Deliverables:**
-
 - ✅ Test-Setup komplett
 - ⏳ E2E Test Execution (17 Tests)
 - ⏳ Lighthouse CI Results (10 Pages)
@@ -261,7 +247,6 @@ npm run build && lhci autorun
 ## 🎨 P3 - NIEDRIG (Backlog)
 
 ### Optimierungen
-
 - [ ] **Design-System V28.1 vollständig implementieren:** Alle Components auf V28.1 Tokens
   - **Status:** Pre-Login bereits V28.1, Dashboard noch V26
   - **Blocker:** Dashboard-Freeze (erst nach Pre-Login-Fertigstellung!)
@@ -275,7 +260,6 @@ npm run build && lhci autorun
 ---
 
 ### Refactorings
-
 - [ ] **Auth-Context refactoren:** Zu viele Responsibilities?
   - **Ziel:** Single Responsibility Principle
   - **Methode:** Split in `AuthProvider` + `UserProvider` + `CompanyProvider`?
@@ -291,7 +275,6 @@ npm run build && lhci autorun
 ## 🎯 COMPLETED TODOS (Letzte 7 Tage)
 
 ### 2025-10-29 ✅
-
 - [x] **AUTH.TSX BUG GEFIXT:** Partial Data Loading `.select('user_id')` → `.select('*')`
 - [x] **DASHBOARD-REDIRECT GEFIXT:** V28.2.2 - Helper-Integration `getLoginRedirectRoute()`
 - [x] **LOGIN-TEST ERFOLGREICH:** ✅ Pascal-Validation - Login funktioniert!
@@ -321,7 +304,6 @@ npm run build && lhci autorun
   - [x] `TODO_TRACKING.md` (diese Datei!)
 
 ### 2025-10-28 ✅
-
 - [x] **Layout Freeze V18.5.1 implementiert:** Dashboard-Bereich gesperrt
 - [x] **Pre-Login Design V28.1 deployed:** Hero, Auth, Landing Pages
 - [x] **Component Registry gepflegt:** Alle V28.1 Components dokumentiert
@@ -331,13 +313,11 @@ npm run build && lhci autorun
 ## 📊 METRICS & TRACKING
 
 ### Velocity (TODOs/Week)
-
 - **Diese Woche (2025-10-29):** 17 TODOs completed (Auth-Bug + Docs + Pre-Login Finalisierung!)
 - **Letzte Woche (2025-10-22):** ~8 TODOs completed (Layout-Freeze)
 - **Durchschnitt:** ~12 TODOs/Week (+20% Velocity!)
 
 ### Backlog Size
-
 - **P0 (Kritisch):** 1 TODO (Dashboard-Blocker Migration vor Dashboard-Seiten!)
 - **P1 (Hoch):** 3 TODOs
   - Performance Testing Pre-Login (Lighthouse)
@@ -355,35 +335,31 @@ npm run build && lhci autorun
 - **TOTAL:** 58 offene TODOs (44 Dashboard-Seiten + 14 Improvements)
 
 ### Quality Gates
-
-| Gate                  | Target | Current          | Status         |
-| --------------------- | ------ | ---------------- | -------------- |
-| **Test Coverage**     | >80%   | ~60% (geschätzt) | 🟡 IN PROGRESS |
-| **ESLint Errors**     | 0      | 0 (vermutlich)   | ✅ OK          |
-| **TypeScript Strict** | true   | false            | 🔴 TODO        |
-| **Lighthouse Score**  | >90    | ~85 (geschätzt)  | 🟡 IN PROGRESS |
-| **Bundle Size**       | <800KB | ~1MB (geschätzt) | 🔴 TODO        |
+| Gate | Target | Current | Status |
+|------|--------|---------|--------|
+| **Test Coverage** | >80% | ~60% (geschätzt) | 🟡 IN PROGRESS |
+| **ESLint Errors** | 0 | 0 (vermutlich) | ✅ OK |
+| **TypeScript Strict** | true | false | 🔴 TODO |
+| **Lighthouse Score** | >90 | ~85 (geschätzt) | 🟡 IN PROGRESS |
+| **Bundle Size** | <800KB | ~1MB (geschätzt) | 🔴 TODO |
 
 ---
 
 ## 🔄 UPDATE-PROZEDUR
 
 **Bei neuem TODO:**
-
 1. [ ] TODO in passende Priorität einsortieren (P0-P3)
 2. [ ] ETA schätzen (realistisch!)
 3. [ ] Blocker identifizieren (falls vorhanden)
 4. [ ] Dieses Dokument committen
 
 **Bei abgeschlossenem TODO:**
-
 1. [ ] TODO in "COMPLETED TODOS" verschieben
 2. [ ] Datum hinzufügen
 3. [ ] Related Docs updaten (falls relevant)
 4. [ ] `CHANGELOG.md` updaten (falls relevant)
 
 **Update-Frequenz:**
-
 - **P0-P1 TODOs:** Täglich prüfen
 - **P2-P3 TODOs:** Wöchentlich prüfen
 - **Metrics:** Wöchentlich updaten (Freitags)
@@ -402,7 +378,6 @@ npm run build && lhci autorun
 ## 🎯 COMMITMENT
 
 **Jeder AI-Agent verpflichtet sich:**
-
 - ✅ Dieses Dokument bei Session-Start zu lesen (Teil von MANDATORY_READING!)
 - ✅ Neue TODOs SOFORT hier einzutragen
 - ✅ Abgeschlossene TODOs in "COMPLETED" zu verschieben

@@ -7,7 +7,7 @@
    ✅ Keine Security-Vulnerabilities
    ================================================================================== */
 
-import ExcelJS from "exceljs";
+import ExcelJS from 'exceljs';
 
 export interface XLSXExportOptions {
   sheetName?: string;
@@ -18,7 +18,7 @@ export interface XLSXExportOptions {
 
 /**
  * Export data to XLSX format using ExcelJS
- *
+ * 
  * @param data - Array of objects or multiple sheets
  * @param options - Export options
  * @returns XLSX blob
@@ -27,22 +27,25 @@ export async function exportToXLSX(
   data: any[] | Record<string, any[]>,
   options: XLSXExportOptions = {}
 ): Promise<Blob> {
-  const { sheetName = "Export", columnWidths } = options;
+  const {
+    sheetName = 'Export',
+    columnWidths,
+  } = options;
 
   // Create workbook
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = "MyDispatch";
+  workbook.creator = 'MyDispatch';
   workbook.created = new Date();
 
   // Handle single sheet or multiple sheets
   if (Array.isArray(data)) {
     // Single sheet
     if (data.length === 0) {
-      throw new Error("Keine Daten zum Exportieren");
+      throw new Error('Keine Daten zum Exportieren');
     }
-
+    
     const worksheet = workbook.addWorksheet(sheetName);
-
+    
     // Extract headers from first object
     const headers = Object.keys(data[0]);
     worksheet.columns = headers.map((header, index) => ({
@@ -50,31 +53,31 @@ export async function exportToXLSX(
       key: header,
       width: columnWidths?.[header] || 15,
     }));
-
+    
     // Add rows
-    data.forEach((row) => {
+    data.forEach(row => {
       worksheet.addRow(row);
     });
-
+    
     // Style header row
     worksheet.getRow(1).font = { bold: true };
     worksheet.getRow(1).fill = {
-      type: "pattern",
-      pattern: "solid",
-      fgColor: { argb: "FFE5E7EB" }, // Light gray
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFE5E7EB' }, // Light gray
     };
   } else {
     // Multiple sheets
     const sheetNames = Object.keys(data);
     if (sheetNames.length === 0) {
-      throw new Error("Keine Daten zum Exportieren");
+      throw new Error('Keine Daten zum Exportieren');
     }
-
+    
     for (const name of sheetNames) {
       const sheetData = data[name];
       if (Array.isArray(sheetData) && sheetData.length > 0) {
         const worksheet = workbook.addWorksheet(name);
-
+        
         // Extract headers from first object
         const headers = Object.keys(sheetData[0]);
         worksheet.columns = headers.map((header) => ({
@@ -82,18 +85,18 @@ export async function exportToXLSX(
           key: header,
           width: columnWidths?.[header] || 15,
         }));
-
+        
         // Add rows
-        sheetData.forEach((row) => {
+        sheetData.forEach(row => {
           worksheet.addRow(row);
         });
-
+        
         // Style header row
         worksheet.getRow(1).font = { bold: true };
         worksheet.getRow(1).fill = {
-          type: "pattern",
-          pattern: "solid",
-          fgColor: { argb: "FFE5E7EB" },
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb: 'FFE5E7EB' },
         };
       }
     }
@@ -103,53 +106,56 @@ export async function exportToXLSX(
   const buffer = await workbook.xlsx.writeBuffer();
 
   // Return as blob
-  return new Blob([buffer], {
-    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  return new Blob([buffer], { 
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' 
   });
 }
 
 /**
  * Export data to CSV format (alternative to XLSX)
- *
+ * 
  * @param data - Array of objects
  * @param options - Export options
  * @returns CSV blob
  */
-export async function exportToCSV(data: any[], options: { filename?: string } = {}): Promise<Blob> {
+export async function exportToCSV(
+  data: any[],
+  options: { filename?: string } = {}
+): Promise<Blob> {
   if (!Array.isArray(data) || data.length === 0) {
-    throw new Error("Keine Daten zum Exportieren");
+    throw new Error('Keine Daten zum Exportieren');
   }
 
   // Extract headers
   const headers = Object.keys(data[0]);
-
+  
   // Build CSV
   const csvRows: string[] = [];
-
+  
   // Add header row
-  csvRows.push(headers.join(";"));
-
+  csvRows.push(headers.join(';'));
+  
   // Add data rows
-  data.forEach((row) => {
-    const values = headers.map((header) => {
+  data.forEach(row => {
+    const values = headers.map(header => {
       const value = row[header];
       // Escape values containing semicolon or quotes
-      if (value === null || value === undefined) return "";
+      if (value === null || value === undefined) return '';
       const stringValue = String(value);
-      if (stringValue.includes(";") || stringValue.includes('"') || stringValue.includes("\n")) {
+      if (stringValue.includes(';') || stringValue.includes('"') || stringValue.includes('\n')) {
         return `"${stringValue.replace(/"/g, '""')}"`;
       }
       return stringValue;
     });
-    csvRows.push(values.join(";"));
+    csvRows.push(values.join(';'));
   });
 
-  const csv = csvRows.join("\n");
+  const csv = csvRows.join('\n');
 
   // Add BOM for Excel compatibility
-  const BOM = "\uFEFF";
-
-  return new Blob([BOM + csv], {
-    type: "text/csv;charset=utf-8;",
+  const BOM = '\uFEFF';
+  
+  return new Blob([BOM + csv], { 
+    type: 'text/csv;charset=utf-8;' 
   });
 }

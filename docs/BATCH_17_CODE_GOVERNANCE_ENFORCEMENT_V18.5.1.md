@@ -15,7 +15,6 @@ Dieses Batch implementiert die **technische Erzwingung** der Code-Standards übe
 **Ziel:** Nichteinhaltung der Dokumentation ist technisch unmöglich.
 
 **Kern-Komponenten:**
-
 1. ✅ SHARED_KNOWLEDGE_V18.5.1.md (Zentrale Wissensquelle)
 2. ✅ Brain-System Hook Integration (Automatische Validierung)
 3. ✅ CI/CD Governance-Step (Build-Blockade bei Verstößen)
@@ -31,14 +30,12 @@ Dieses Batch implementiert die **technische Erzwingung** der Code-Standards übe
 **Zweck:** Zentrale Single Source of Truth für alle Standards
 
 **Konsolidiert aus:**
-
 - MOBILE_FIRST_GRID_SYSTEM_V18.5.1.md
 - RECHTLICHE_COMPLIANCE_VORGABEN_V18.5.1.md
 - SEITEN_PLANUNGSPROZESS_V18.5.1.md
 - DESIGN_SYSTEM_VORGABEN_V18.3.md
 
 **Inhalt:**
-
 - ✅ Mobile-First Architektur (Breakpoints, Grid-Patterns, Touch-Targets)
 - ✅ Design-System (CI-Farben, Typography, Buttons)
 - ✅ Rechtliche Compliance (DSGVO, AI Act, TMG, PBefG)
@@ -52,7 +49,6 @@ Dieses Batch implementiert die **technische Erzwingung** der Code-Standards übe
 - ✅ Zeitangaben
 
 **Nutzung:**
-
 ```typescript
 // VOR jeder Code-Änderung konsultieren
 // Brain-System nutzt diese Quelle für Validierung
@@ -68,26 +64,23 @@ Dieses Batch implementiert die **technische Erzwingung** der Code-Standards übe
 **Zweck:** Automatische Validierung via Brain-System
 
 **Features:**
-
 - ✅ 100% automatische Validierung (Layout, Legal, Mobile)
 - ✅ Auto-Fix für 95% der Probleme
 - ✅ Production-Ready-Check vor Deploy
 - ✅ Console-Logging für Dev-Modus
 
 **Integration in kritischen Seiten:**
-
 - ✅ Aufträge (`src/pages/Auftraege.tsx`)
 - ✅ Fahrer (`src/pages/Fahrer.tsx`)
 - ✅ Partner (`src/pages/Partner.tsx`)
 - ✅ Kunden (`src/pages/Kunden.tsx`)
 
 **Workflow:**
-
 ```typescript
 // 1. Hook in Component integrieren
-const brainResult = useBrainSystem({
-  entity: "bookings",
-  pagePath: "/auftraege",
+const brainResult = useBrainSystem({ 
+  entity: 'bookings',
+  pagePath: '/auftraege'
 });
 
 // 2. Automatische Validierung bei Mount
@@ -102,7 +95,6 @@ const brainResult = useBrainSystem({
 **File:** `.github/workflows/ci.yml`
 
 **NEU: Governance Job**
-
 ```yaml
 governance:
   name: Code Governance Check
@@ -115,8 +107,8 @@ governance:
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: "18"
-        cache: "npm"
+        node-version: '18'
+        cache: 'npm'
 
     - name: Install dependencies
       run: npm ci
@@ -128,7 +120,6 @@ governance:
 ```
 
 **Zweck:**
-
 - ✅ Führt Brain-System Validierung für alle kritischen Seiten aus
 - ✅ Blockiert Build bei Verstößen (Non-Zero Exit Code)
 - ✅ Detaillierter Error-Report in CI-Logs
@@ -142,7 +133,6 @@ governance:
 **Zweck:** Führt quickStartPage() für alle kritischen Seiten aus
 
 **Validierte Seiten:**
-
 - ✅ Aufträge (`/auftraege`)
 - ✅ Kunden (`/kunden`)
 - ✅ Fahrer (`/fahrer`)
@@ -150,7 +140,6 @@ governance:
 - ✅ Partner (`/partner`)
 
 **Prüfungen:**
-
 - ✅ Layout-Validierung (Touch-Targets, Grid-System)
 - ✅ Link-Validierung (Logo, Footer-Links)
 - ✅ Farb-Validierung (Semantic Tokens statt direkte Farben)
@@ -159,7 +148,6 @@ governance:
 - ✅ Production-Ready Check
 
 **Output:**
-
 ```
 ╔════════════════════════════════════════════════════════════════╗
 ║  CODE-GOVERNANCE CHECK V18.5.1                                 ║
@@ -192,7 +180,6 @@ Build kann fortgesetzt werden.
 ```
 
 **Bei Fehlern:**
-
 ```
 ❌ GOVERNANCE CHECK FAILED
 Build wird blockiert!
@@ -212,7 +199,6 @@ FEHLERDETAILS:
 **File:** `package.json`
 
 **NEU: governance:check Script**
-
 ```json
 {
   "scripts": {
@@ -222,7 +208,6 @@ FEHLERDETAILS:
 ```
 
 **Nutzung:**
-
 ```bash
 # Lokal ausführen
 npm run governance:check
@@ -236,13 +221,12 @@ npm run governance:check
 ## 📊 METRICS
 
 ### Build-Blockaden
-
 ```yaml
-Vorher:
+Vorher: 
   - Layout-Breaks: 20%
   - Rechtliche Verstöße: 10%
   - Mobile-Verstöße: 15%
-
+  
 Nachher:
   - Layout-Breaks: 0% (Build blockiert)
   - Rechtliche Verstöße: 0% (Build blockiert)
@@ -250,24 +234,22 @@ Nachher:
 ```
 
 ### Code-Qualität
-
 ```yaml
 Vorher:
   - Code-Qualität: 70%
   - Fehlerrate: 30%
-
+  
 Nachher:
   - Code-Qualität: 95%
   - Fehlerrate: 5%
 ```
 
 ### Entwickler-Produktivität
-
 ```yaml
 Vorher:
   - Zeit für Bug-Fixes: 2h/Woche
   - Merge-Konflikte: 10/Woche
-
+  
 Nachher:
   - Zeit für Bug-Fixes: 0.5h/Woche (-75%)
   - Merge-Konflikte: 2/Woche (-80%)
@@ -278,7 +260,6 @@ Nachher:
 ## 🔄 INTEGRATION MIT NEXIFY WORKFLOW
 
 ### Phase 1: Selbstreflexion & Code-Audit
-
 ```bash
 # NEU: SHARED_KNOWLEDGE Base konsultieren
 1. Lese SHARED_KNOWLEDGE_V18.5.1.md
@@ -287,7 +268,6 @@ Nachher:
 ```
 
 ### Phase 2: Planung
-
 ```bash
 # Nutze SKB für Architektur-Entscheidungen
 - Welches Grid-Pattern? (SKB Sektion 1)
@@ -296,7 +276,6 @@ Nachher:
 ```
 
 ### Phase 3: Implementation
-
 ```bash
 # Brain-System Hook automatisch integriert
 - Validierung beim Speichern
@@ -305,7 +284,6 @@ Nachher:
 ```
 
 ### CI/CD: Governance Check
-
 ```bash
 # Automatisch vor Deployment
 1. npm run governance:check
@@ -318,7 +296,6 @@ Nachher:
 ## ✅ SUCCESS CRITERIA
 
 ### PRIO 0: Technische Erzwingung
-
 - [x] SHARED_KNOWLEDGE_V18.5.1.md erstellt
 - [x] Brain-System Hook integriert (BEREITS VORHANDEN)
 - [x] CI/CD Governance-Step implementiert
@@ -327,14 +304,12 @@ Nachher:
 - [x] Build-Blockade bei Verstößen aktiv
 
 ### Dokumentation
-
 - [x] Batch-Dokumentation erstellt
 - [x] SHARED_KNOWLEDGE Base vollständig
 - [x] Governance-Script dokumentiert
 - [x] CI/CD Pipeline dokumentiert
 
 ### Testing
-
 - [x] Governance-Check lokal getestet
 - [x] Build-Blockade verifiziert
 - [x] Error-Reports validiert
@@ -345,14 +320,12 @@ Nachher:
 ## 🎯 NÄCHSTE SCHRITTE
 
 ### Optional: Erweiterte Validierung
-
 - [ ] Visual Regression Testing (Percy/Chromatic)
 - [ ] Accessibility Tests (Axe-Core)
 - [ ] Performance Budgets (Lighthouse CI)
 - [ ] Security Scans (OWASP ZAP)
 
 ### Optional: Automatisierungen
-
 - [ ] Pre-Commit Hooks (Husky)
 - [ ] Auto-Fix in Pre-Push Hook
 - [ ] Automated PR-Reviews
@@ -372,14 +345,12 @@ Nachher:
 ## 📝 LESSONS LEARNED
 
 ### Was funktioniert gut
-
 - ✅ Brain-System Hook automatisiert Validierung perfekt
 - ✅ SHARED_KNOWLEDGE Base als zentrale Quelle sehr hilfreich
 - ✅ CI/CD Governance-Step verhindert Fehler vor Deployment
 - ✅ Detaillierte Error-Reports helfen bei Debugging
 
 ### Was verbessert werden kann
-
 - [ ] Governance-Check könnte schneller sein (parallel)
 - [ ] Mehr Seiten in Validierung aufnehmen
 - [ ] Visual Regression Testing fehlt noch

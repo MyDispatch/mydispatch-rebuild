@@ -9,34 +9,30 @@
 ## 🔒 GESCHÜTZTE DATEIEN
 
 ### Auth-Seite & Layout
-
-| Datei                                      | Komponente      | Status   |
-| ------------------------------------------ | --------------- | -------- |
-| `src/pages/Auth.tsx`                       | Auth-Hauptseite | 🔒 FINAL |
-| `src/components/layout/AuthPageLayout.tsx` | Layout-Wrapper  | 🔒 FINAL |
+| Datei | Komponente | Status |
+|-------|------------|--------|
+| `src/pages/Auth.tsx` | Auth-Hauptseite | 🔒 FINAL |
+| `src/components/layout/AuthPageLayout.tsx` | Layout-Wrapper | 🔒 FINAL |
 
 ### Header & Footer
-
-| Datei                                | Komponente  | Status   |
-| ------------------------------------ | ----------- | -------- |
+| Datei | Komponente | Status |
+|-------|------------|--------|
 | `src/components/auth/AuthHeader.tsx` | Auth-Header | 🔒 FINAL |
 | `src/components/auth/AuthFooter.tsx` | Auth-Footer | 🔒 FINAL |
 
 ### Design-System Komponenten
-
-| Datei                                            | Komponente       | Status   |
-| ------------------------------------------------ | ---------------- | -------- |
-| `src/components/design-system/V28AuthCard.tsx`   | Auth-Card        | 🔒 FINAL |
-| `src/components/design-system/V28AuthInput.tsx`  | Auth-Input       | 🔒 FINAL |
-| `src/components/design-system/V28TariffCard.tsx` | Tarif-Card       | 🔒 FINAL |
-| `src/components/design-system/V28Button.tsx`     | Universal Button | 🔒 FINAL |
+| Datei | Komponente | Status |
+|-------|------------|--------|
+| `src/components/design-system/V28AuthCard.tsx` | Auth-Card | 🔒 FINAL |
+| `src/components/design-system/V28AuthInput.tsx` | Auth-Input | 🔒 FINAL |
+| `src/components/design-system/V28TariffCard.tsx` | Tarif-Card | 🔒 FINAL |
+| `src/components/design-system/V28Button.tsx` | Universal Button | 🔒 FINAL |
 
 ---
 
 ## ❌ ABSOLUT VERBOTEN
 
 ### Layout & Struktur
-
 - ❌ AuthPageLayout Struktur ändern (Fixed Header/Footer, Spacing)
 - ❌ Header-Höhe ändern (64px mobile, 56px desktop)
 - ❌ Footer-Höhe ändern (64px mobile, 48px desktop)
@@ -44,7 +40,6 @@
 - ❌ Z-Index Hierarchie ändern (Cookie: z-60, Chat: z-70, Header: z-30)
 
 ### Tabs-Navigation
-
 - ❌ Tab-Höhe ändern (min-h-52px)
 - ❌ Tab-Text-Größe ändern (text-sm sm:text-base)
 - ❌ Tab-Breakpoint für "Passwort zurücksetzen" ändern
@@ -52,7 +47,6 @@
 - ❌ Active/Inactive States ändern
 
 ### Forms & Inputs
-
 - ❌ Card-Padding Breakpoints ändern (p-4 sm:p-6 md:p-8 lg:p-12)
 - ❌ Form-Spacing ändern (space-y-6 sm:space-y-8)
 - ❌ Grid-Breakpoints ändern (cols: default 1, lg: 2)
@@ -61,7 +55,6 @@
 - ❌ Section-Headlines Text-Größe ändern (text-lg sm:text-xl)
 
 ### Tariff-Selection
-
 - ❌ Billing-Toggle Layout ändern (flex-wrap, gap-3 sm:gap-4)
 - ❌ Tariff-Card Badge-Position ändern (absolute -top-4)
 - ❌ Tariff-Card Preis-Größe ändern (text-2xl sm:text-3xl md:text-4xl)
@@ -69,23 +62,20 @@
 - ❌ Fleet-Addon Image-Größe ändern (w-16 h-16 sm:w-20 sm:h-20)
 
 ### Buttons & Touch-Targets
-
 - ❌ Submit-Button Text ändern (siehe Responsive-Pattern)
 - ❌ Header-Button Design ändern (min-h-44px, hover: bg-slate-600)
 - ❌ Footer-Links Touch-Target ändern (text-[9px] mobile, text-[11px] desktop)
 - ❌ Button-Size lg ändern (min-h-56px, text-base sm:text-lg)
 
 ### Farben & Typografie
-
 - ❌ Slate-Palette verlassen (nur slate-50 bis slate-900)
 - ❌ Font-Größen ändern (außerhalb responsive Pattern)
 - ❌ Font-Weights ändern (semibold für Labels, medium für Text)
 - ❌ Line-Heights ändern
 
 ### Responsive Breakpoints
-
 - ❌ sm (640px) Breakpoint ändern
-- ❌ md (768px) Breakpoint ändern
+- ❌ md (768px) Breakpoint ändern  
 - ❌ lg (1024px) Breakpoint ändern
 - ❌ Grid wechselt erst bei lg zu 2-col (NICHT bei md!)
 
@@ -94,7 +84,6 @@
 ## ✅ NUR ERLAUBT
 
 ### Technische Optimierungen
-
 - ✅ Validation-Logik verbessern (Zod-Schemas)
 - ✅ Error-Handling erweitern
 - ✅ Performance optimieren (React.memo, useMemo)
@@ -105,7 +94,6 @@
 - ✅ Logging & Monitoring erweitern
 
 ### Backend-Integration
-
 - ✅ Supabase Auth-Logik optimieren
 - ✅ API-Calls optimieren
 - ✅ State-Management verbessern
@@ -113,7 +101,6 @@
 - ✅ Session-Management optimieren
 
 ### Code-Qualität
-
 - ✅ TypeScript-Typen verbessern
 - ✅ Code-Kommentare hinzufügen
 - ✅ Refactoring (OHNE UI-Änderung)
@@ -125,7 +112,6 @@
 ## 📋 MOBILE-FIRST SPECS (FINAL)
 
 ### Touch-Targets (WCAG 2.1 AA)
-
 - ✅ Header-Button: min-h-44px
 - ✅ Tabs: min-h-52px
 - ✅ Input-Felder: min-h-44px
@@ -134,7 +120,6 @@
 - ✅ Fleet-Addon Checkbox: w-6 h-6 (24px)
 
 ### Responsive Typography
-
 ```typescript
 // Headlines
 text-lg sm:text-xl        // Section-Headlines
@@ -158,7 +143,6 @@ text-sm text-slate-600   // Helper-Text, Descriptions
 ```
 
 ### Responsive Spacing
-
 ```typescript
 // Card-Padding
 p-4 sm:p-6 md:p-8 lg:p-12
@@ -177,7 +161,6 @@ gap-3 sm:gap-4
 ```
 
 ### Responsive Heights
-
 ```typescript
 // Header
 h-16 sm:h-14           // Auth-Header
@@ -198,7 +181,6 @@ min-h-[52px]           // Tab-Triggers
 ## 🚨 WENN USER DESIGN-ÄNDERUNGEN FORDERT
 
 ### Standard-Antwort:
-
 ```
 ⚠️ AUTH-SEITE DESIGN LOCK V28.1 AKTIV!
 
@@ -235,19 +217,16 @@ Möchtest du eine der erlaubten technischen Optimierungen durchführen?
 ## 📚 VERWANDTE DOKUMENTATION
 
 ### Design-System
-
 - `docs/DESIGN_SYSTEM_V28.1_COMPLETE.md` - V28.1 Specs
 - `docs/DESIGN_SYSTEM_DOCUMENTATION_V28.1_FINAL.md` - Component-Katalog
 - `docs/COMPONENT_REGISTRY_V28.1.md` - Component-Index
 
 ### Layout-Freeze System
-
 - `docs/LAYOUT_FREEZE_PROTECTION_V18.5.1.md` - Allgemeine Regeln
 - `docs/LAYOUT_FREEZE_QUICK_REFERENCE.md` - Quick Reference
 - `docs/AI_AGENT_LAYOUT_FREEZE_PROMPT_V18.5.1.md` - AI-Agent Verhalten
 
 ### Auth-Spezifisch
-
 - `docs/AUTH_PAGE_FINAL_V28.1.md` - Auth-Seite Architektur
 - `docs/AUTH_FORM_IMPROVEMENTS.md` - Form-System
 - `docs/MOBILE_FIRST_GRID_SYSTEM_V18.5.1.md` - Responsive System

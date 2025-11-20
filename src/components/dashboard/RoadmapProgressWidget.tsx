@@ -1,12 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { Card } from "@/lib/compat";
-import { Progress } from "@/components/ui/progress";
-import { Rocket, CheckCircle2, Clock, Loader2 } from "lucide-react";
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { Card } from '@/lib/compat';
+import { Progress } from '@/components/ui/progress';
+import { Rocket, CheckCircle2, Clock, Loader2 } from 'lucide-react';
 
 /**
  * Roadmap Progress Widget für Dashboard
- *
+ * 
  * Zeigt Fortschritt der Roadmap-Tasks mit:
  * - Gesamt-Fortschritt (%)
  * - Status-Breakdown (Completed/In Progress/Pending)
@@ -14,27 +14,27 @@ import { Rocket, CheckCircle2, Clock, Loader2 } from "lucide-react";
  */
 export function RoadmapProgressWidget() {
   const { data: stats, isLoading } = useQuery({
-    queryKey: ["roadmap-stats"],
+    queryKey: ['roadmap-stats'],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("roadmap_tasks")
-        .select("status, priority, estimated_hours, actual_hours");
-
+        .from('roadmap_tasks')
+        .select('status, priority, estimated_hours, actual_hours');
+      
       if (error) throw error;
-
+      
       const total = data.length;
-      const completed = data.filter((t) => t.status === "completed").length;
-      const inProgress = data.filter((t) => t.status === "in_progress").length;
-      const pending = data.filter((t) => t.status === "pending").length;
-
-      const p0Tasks = data.filter((t) => t.priority === "P0");
-      const p0Completed = p0Tasks.filter((t) => t.status === "completed").length;
-
+      const completed = data.filter(t => t.status === 'completed').length;
+      const inProgress = data.filter(t => t.status === 'in_progress').length;
+      const pending = data.filter(t => t.status === 'pending').length;
+      
+      const p0Tasks = data.filter(t => t.priority === 'P0');
+      const p0Completed = p0Tasks.filter(t => t.status === 'completed').length;
+      
       const totalEstimatedHours = data.reduce((sum, t) => sum + (t.estimated_hours || 0), 0);
       const completedHours = data
-        .filter((t) => t.status === "completed")
+        .filter(t => t.status === 'completed')
         .reduce((sum, t) => sum + (t.actual_hours || t.estimated_hours || 0), 0);
-
+      
       return {
         total,
         completed,
@@ -43,17 +43,17 @@ export function RoadmapProgressWidget() {
         completionPercent: total > 0 ? Math.round((completed / total) * 100) : 0,
         priorityBreakdown: {
           p0: `${p0Completed}/${p0Tasks.length}`,
-          p1: `${data.filter((t) => t.priority === "P1" && t.status === "completed").length}/${data.filter((t) => t.priority === "P1").length}`,
-          p2: `${data.filter((t) => t.priority === "P2" && t.status === "completed").length}/${data.filter((t) => t.priority === "P2").length}`,
+          p1: `${data.filter(t => t.priority === 'P1' && t.status === 'completed').length}/${data.filter(t => t.priority === 'P1').length}`,
+          p2: `${data.filter(t => t.priority === 'P2' && t.status === 'completed').length}/${data.filter(t => t.priority === 'P2').length}`
         },
         hours: {
           total: totalEstimatedHours.toFixed(1),
           completed: completedHours.toFixed(1),
-          remaining: (totalEstimatedHours - completedHours).toFixed(1),
-        },
+          remaining: (totalEstimatedHours - completedHours).toFixed(1)
+        }
       };
     },
-    refetchInterval: 30000, // Refresh alle 30s
+    refetchInterval: 30000 // Refresh alle 30s
   });
 
   if (isLoading) {
@@ -77,7 +77,7 @@ export function RoadmapProgressWidget() {
           <p className="text-sm text-slate-600">Content & Design Strategy V28.1</p>
         </div>
       </div>
-
+      
       {/* Gesamt-Fortschritt */}
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
@@ -121,21 +121,15 @@ export function RoadmapProgressWidget() {
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span className="text-slate-600">P0 (Critical)</span>
-            <span className="font-mono font-medium text-slate-900">
-              {stats?.priorityBreakdown.p0}
-            </span>
+            <span className="font-mono font-medium text-slate-900">{stats?.priorityBreakdown.p0}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-slate-600">P1 (High)</span>
-            <span className="font-mono font-medium text-slate-900">
-              {stats?.priorityBreakdown.p1}
-            </span>
+            <span className="font-mono font-medium text-slate-900">{stats?.priorityBreakdown.p1}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-slate-600">P2 (Medium)</span>
-            <span className="font-mono font-medium text-slate-900">
-              {stats?.priorityBreakdown.p2}
-            </span>
+            <span className="font-mono font-medium text-slate-900">{stats?.priorityBreakdown.p2}</span>
           </div>
         </div>
       </div>

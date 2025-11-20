@@ -11,7 +11,6 @@
 Zentrale Definition aller Form-Fields im System.
 
 **REGEL:**
-
 - ✅ **1× Field-Definition, 100× Nutzung**
 - ❌ **KEINE Duplikate**
 - ✅ **Type-Safe mit Zod**
@@ -22,14 +21,14 @@ Zentrale Definition aller Form-Fields im System.
 ## 📦 VERFÜGBARE KATEGORIEN
 
 ```typescript
-import { FORM_FIELDS_REGISTRY } from "@/config/form-fields-registry";
+import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 
 // Kategorien:
-FORM_FIELDS_REGISTRY.booking; // Auftrags-Fields
-FORM_FIELDS_REGISTRY.customer; // Kunden-Fields
-FORM_FIELDS_REGISTRY.driver; // Fahrer-Fields
-FORM_FIELDS_REGISTRY.vehicle; // Fahrzeug-Fields
-FORM_FIELDS_REGISTRY.invoice; // Rechnungs-Fields
+FORM_FIELDS_REGISTRY.booking   // Auftrags-Fields
+FORM_FIELDS_REGISTRY.customer  // Kunden-Fields
+FORM_FIELDS_REGISTRY.driver    // Fahrer-Fields
+FORM_FIELDS_REGISTRY.vehicle   // Fahrzeug-Fields
+FORM_FIELDS_REGISTRY.invoice   // Rechnungs-Fields
 ```
 
 ---
@@ -127,11 +126,11 @@ const CustomerForm = () => {
 ### getFieldsForCategory
 
 ```typescript
-import { getFieldsForCategory } from "@/config/form-fields-registry";
+import { getFieldsForCategory } from '@/config/form-fields-registry';
 
 // Alle Fields einer Kategorie
-const bookingFields = getFieldsForCategory("booking");
-const customerFields = getFieldsForCategory("customer");
+const bookingFields = getFieldsForCategory('booking');
+const customerFields = getFieldsForCategory('customer');
 ```
 
 ---
@@ -139,11 +138,11 @@ const customerFields = getFieldsForCategory("customer");
 ### getField
 
 ```typescript
-import { getField } from "@/config/form-fields-registry";
+import { getField } from '@/config/form-fields-registry';
 
 // Einzelnes Field
-const emailField = getField("customer", "email");
-const pickupDateField = getField("booking", "pickupDate");
+const emailField = getField('customer', 'email');
+const pickupDateField = getField('booking', 'pickupDate');
 ```
 
 ---
@@ -151,7 +150,7 @@ const pickupDateField = getField("booking", "pickupDate");
 ### buildZodSchema
 
 ```typescript
-import { buildZodSchema, FORM_FIELDS_REGISTRY } from "@/config/form-fields-registry";
+import { buildZodSchema, FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 
 const fields = [
   FORM_FIELDS_REGISTRY.customer.firstName,
@@ -174,23 +173,23 @@ const form = useForm({
 
 ### Unterstützte Typen:
 
-| Type       | Description     | Example            |
-| ---------- | --------------- | ------------------ |
-| `text`     | Text Input      | Name, Adresse      |
-| `email`    | Email Input     | E-Mail             |
-| `password` | Password Input  | Passwort           |
-| `number`   | Number Input    | Preis, Anzahl      |
-| `tel`      | Phone Input     | Telefon            |
-| `url`      | URL Input       | Website            |
-| `textarea` | Multi-Line Text | Notizen            |
-| `select`   | Dropdown        | Kunde, Status      |
-| `checkbox` | Checkbox        | Portal-Zugang      |
-| `radio`    | Radio Buttons   | Zahlungsart        |
-| `date`     | Date Picker     | Datum              |
-| `time`     | Time Picker     | Uhrzeit            |
-| `datetime` | DateTime Picker | Datum + Zeit       |
-| `file`     | File Upload     | Dokument           |
-| `status`   | Status Select   | Status (mit Ampel) |
+| Type | Description | Example |
+|------|-------------|---------|
+| `text` | Text Input | Name, Adresse |
+| `email` | Email Input | E-Mail |
+| `password` | Password Input | Passwort |
+| `number` | Number Input | Preis, Anzahl |
+| `tel` | Phone Input | Telefon |
+| `url` | URL Input | Website |
+| `textarea` | Multi-Line Text | Notizen |
+| `select` | Dropdown | Kunde, Status |
+| `checkbox` | Checkbox | Portal-Zugang |
+| `radio` | Radio Buttons | Zahlungsart |
+| `date` | Date Picker | Datum |
+| `time` | Time Picker | Uhrzeit |
+| `datetime` | DateTime Picker | Datum + Zeit |
+| `file` | File Upload | Dokument |
+| `status` | Status Select | Status (mit Ampel) |
 
 ---
 
@@ -203,18 +202,15 @@ const form = useForm({
 
 export const BOOKING_FIELDS = {
   // Bestehende Fields...
-
+  
   // NEU: Flight Number
   flightNumber: {
-    name: "flight_number",
-    label: "Flugnummer (optional)",
-    type: "text" as const,
-    placeholder: "LH1234",
+    name: 'flight_number',
+    label: 'Flugnummer (optional)',
+    type: 'text' as const,
+    placeholder: 'LH1234',
     required: false,
-    validation: z
-      .string()
-      .regex(/^[A-Z]{2}\d{1,4}$/, "Ungültige Flugnummer")
-      .optional(),
+    validation: z.string().regex(/^[A-Z]{2}\d{1,4}$/, 'Ungültige Flugnummer').optional(),
   },
 } as const;
 ```
@@ -224,32 +220,27 @@ export const BOOKING_FIELDS = {
 ## ✅ BENEFITS
 
 ### 1. **Single Source of Truth**
-
 - Alle Fields zentral definiert
 - Keine Duplikate
 - Konsistente Labels
 
 ### 2. **Type-Safe**
-
 - TypeScript Autocomplete
 - Compile-Time Checks
 - Zod Runtime Validation
 
 ### 3. **Wiederverwendbarkeit**
-
 - 1× Definition → 100× Nutzung
 - Änderungen propagieren automatisch
 - Weniger Code
 
 ### 4. **Konsistenz**
-
 - Gleiche Validierung überall
 - Gleiche Labels
 - Gleiche Placeholders
 - Gleiche Fehlermeldungen
 
 ### 5. **Wartbarkeit**
-
 - Zentrale Änderungen
 - Einfache Erweiterung
 - Klare Struktur
@@ -274,9 +265,11 @@ export const BOOKING_FIELDS = {
 
 ```typescript
 // RICHTIG: Aus Registry
-import { FORM_FIELDS_REGISTRY } from "@/config/form-fields-registry";
+import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 
-const fields = [FORM_FIELDS_REGISTRY.customer.email];
+const fields = [
+  FORM_FIELDS_REGISTRY.customer.email,
+];
 ```
 
 ---
@@ -284,7 +277,6 @@ const fields = [FORM_FIELDS_REGISTRY.customer.email];
 ## 📊 STATISTICS
 
 **Anzahl definierter Fields:**
-
 - Booking: 13 Fields
 - Customer: 11 Fields
 - Driver: 10 Fields
@@ -300,7 +292,6 @@ const fields = [FORM_FIELDS_REGISTRY.customer.email];
 ### Alte Forms migrieren:
 
 **Vorher:**
-
 ```typescript
 // Hardcoded Fields
 <Input
@@ -312,7 +303,6 @@ const fields = [FORM_FIELDS_REGISTRY.customer.email];
 ```
 
 **Nachher:**
-
 ```typescript
 // Aus Registry
 import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';

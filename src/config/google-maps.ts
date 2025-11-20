@@ -7,7 +7,7 @@
    - Fallback für HERE Maps bei Rate Limits
    ================================================================================== */
 
-import { handleError } from "@/lib/error-handler";
+import { handleError } from '@/lib/error-handler';
 
 // Google API Credentials (wird dynamisch via Edge Function geladen)
 let GOOGLE_API_KEY_CACHE: string | null = null;
@@ -19,9 +19,9 @@ const CACHE_DURATION = 1000 * 60 * 60; // 1 Stunde
  */
 export const getGoogleApiKey = async (): Promise<string> => {
   const now = Date.now();
-
+  
   // Cache prüfen (1 Stunde gültig)
-  if (GOOGLE_API_KEY_CACHE && now - API_KEY_TIMESTAMP < CACHE_DURATION) {
+  if (GOOGLE_API_KEY_CACHE && (now - API_KEY_TIMESTAMP) < CACHE_DURATION) {
     return GOOGLE_API_KEY_CACHE;
   }
 
@@ -30,7 +30,7 @@ export const getGoogleApiKey = async (): Promise<string> => {
       `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/get-google-maps-key`,
       {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       }
     );
@@ -44,10 +44,12 @@ export const getGoogleApiKey = async (): Promise<string> => {
     API_KEY_TIMESTAMP = now;
     return data.apiKey;
   } catch (error) {
-    handleError(error as Error, "Google API Key konnte nicht geladen werden", {
-      title: "Google Maps API Fehler",
-    });
-    throw new Error("Google API Key konnte nicht geladen werden");
+    handleError(
+      error as Error,
+      'Google API Key konnte nicht geladen werden',
+      { title: 'Google Maps API Fehler' }
+    );
+    throw new Error('Google API Key konnte nicht geladen werden');
   }
 };
 
@@ -64,8 +66,8 @@ export const loadGoogleMapsScript = (): Promise<void> => {
 
     try {
       const apiKey = await getGoogleApiKey();
-
-      const script = document.createElement("script");
+      
+      const script = document.createElement('script');
       script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places,geometry`;
       script.async = true;
       script.defer = true;
@@ -84,20 +86,22 @@ export const loadGoogleMapsScript = (): Promise<void> => {
           if (window.google?.maps) {
             resolve();
           } else {
-            reject(new Error("Google Maps nicht vollständig initialisiert"));
+            reject(new Error('Google Maps nicht vollständig initialisiert'));
           }
         }, 3000);
       };
 
       script.onerror = () => {
-        reject(new Error("Failed to load Google Maps API"));
+        reject(new Error('Failed to load Google Maps API'));
       };
 
       document.head.appendChild(script);
     } catch (error) {
-      handleError(error as Error, "Google Maps API konnte nicht geladen werden", {
-        title: "Maps API Fehler",
-      });
+      handleError(
+        error as Error,
+        'Google Maps API konnte nicht geladen werden',
+        { title: 'Maps API Fehler' }
+      );
       reject(error);
     }
   });

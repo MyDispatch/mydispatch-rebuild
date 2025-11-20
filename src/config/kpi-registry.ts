@@ -6,45 +6,30 @@
    REGEL: Jede Page hat GENAU 3 strategische KPIs!
    ================================================================================== */
 
-import {
-  FileText,
-  Users,
-  Car,
-  Euro,
-  TrendingUp,
-  Clock,
-  CheckCircle,
-  AlertCircle,
-  Calendar,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import {
-  BOOKING_STATUS_CONFIG,
-  DRIVER_STATUS_CONFIG,
-  INVOICE_STATUS_CONFIG,
-  VEHICLE_STATUS_CONFIG,
-} from "@/lib/status-system";
+import { FileText, Users, Car, Euro, TrendingUp, Clock, CheckCircle, AlertCircle, Calendar } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { BOOKING_STATUS_CONFIG, DRIVER_STATUS_CONFIG, INVOICE_STATUS_CONFIG, VEHICLE_STATUS_CONFIG } from '@/lib/status-system';
 
 interface KPIDefinition {
   id: string;
   label: string;
   icon: LucideIcon;
   getValue: () => Promise<string | number>;
-  getChange?: () => Promise<{ value: number; trend: "up" | "down" | "neutral" }>;
+  getChange?: () => Promise<{ value: number; trend: 'up' | 'down' | 'neutral' }>;
   onClick?: () => void;
   // NEU: Status-Integration (Phase 2.5)
-  getStatusInfo?: () => Promise<import("@/lib/status-system").StatusConfig | null>;
+  getStatusInfo?: () => Promise<import('@/lib/status-system').StatusConfig | null>;
 }
 
 // Helper function to break TypeScript inference
 const getCustomersPortalAccess = async (): Promise<number> => {
   try {
-    const query = await (supabase as any)
-      .from("customers")
-      .select("*", { count: "exact", head: true })
-      .eq("portal_access_enabled", true);
-
+    const query = await ((supabase as any)
+      .from('customers')
+      .select('*', { count: 'exact', head: true })
+      .eq('portal_access_enabled', true));
+    
     if (query.error) throw query.error;
     return query.count || 0;
   } catch {
@@ -57,59 +42,59 @@ const getCustomersPortalAccess = async (): Promise<number> => {
 // ============================================================================
 const DASHBOARD_KPIS = [
   {
-    id: "bookings-today",
-    label: "Aufträge Heute",
+    id: 'bookings-today',
+    label: 'Aufträge Heute',
     icon: FileText,
     getValue: async () => {
       try {
-        const today = new Date().toISOString().split("T")[0];
+        const today = new Date().toISOString().split('T')[0];
         const { count, error } = await supabase
-          .from("bookings")
-          .select("*", { count: "exact", head: true })
-          .gte("pickup_date", today)
-          .lt("pickup_date", new Date(Date.now() + 86400000).toISOString().split("T")[0]);
-
+          .from('bookings')
+          .select('*', { count: 'exact', head: true })
+          .gte('pickup_date', today)
+          .lt('pickup_date', new Date(Date.now() + 86400000).toISOString().split('T')[0]);
+        
         if (error) throw error;
         return count || 0;
       } catch {
         return 0;
       }
     },
-    getChange: async () => ({ value: 12, trend: "up" as const }),
+    getChange: async () => ({ value: 12, trend: 'up' as const }),
   },
   {
-    id: "revenue-today",
-    label: "Umsatz Heute",
+    id: 'revenue-today',
+    label: 'Umsatz Heute',
     icon: Euro,
     getValue: async () => {
       try {
-        const today = new Date().toISOString().split("T")[0];
+        const today = new Date().toISOString().split('T')[0];
         const { data, error } = await supabase
-          .from("bookings")
-          .select("price")
-          .gte("pickup_date", today)
-          .eq("status", "completed");
-
+          .from('bookings')
+          .select('price')
+          .gte('pickup_date', today)
+          .eq('status', 'completed');
+        
         if (error) throw error;
         const total = data?.reduce((sum, booking) => sum + (booking.price || 0), 0) || 0;
-        return `${total.toLocaleString("de-DE")} €`;
+        return `${total.toLocaleString('de-DE')} €`;
       } catch {
-        return "0 €";
+        return '0 €';
       }
     },
-    getChange: async () => ({ value: 8, trend: "up" as const }),
+    getChange: async () => ({ value: 8, trend: 'up' as const }),
   },
   {
-    id: "drivers-active",
-    label: "Fahrer Aktiv",
+    id: 'drivers-active',
+    label: 'Fahrer Aktiv',
     icon: Users,
     getValue: async () => {
       try {
         const { count, error } = await supabase
-          .from("drivers")
-          .select("*", { count: "exact", head: true })
-          .eq("shift_status", "on_duty");
-
+          .from('drivers')
+          .select('*', { count: 'exact', head: true })
+          .eq('shift_status', 'on_duty');
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -124,16 +109,16 @@ const DASHBOARD_KPIS = [
 // ============================================================================
 const AUFTRAEGE_KPIS = [
   {
-    id: "bookings-open",
-    label: "Offene Aufträge",
+    id: 'bookings-open',
+    label: 'Offene Aufträge',
     icon: Clock,
     getValue: async () => {
       try {
         const { count, error } = await supabase
-          .from("bookings")
-          .select("*", { count: "exact", head: true })
-          .eq("status", "pending");
-
+          .from('bookings')
+          .select('*', { count: 'exact', head: true })
+          .eq('status', 'pending');
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -144,18 +129,18 @@ const AUFTRAEGE_KPIS = [
     getStatusInfo: async () => BOOKING_STATUS_CONFIG.pending,
   },
   {
-    id: "bookings-completed",
-    label: "Abgeschlossen (Heute)",
+    id: 'bookings-completed',
+    label: 'Abgeschlossen (Heute)',
     icon: CheckCircle,
     getValue: async () => {
       try {
-        const today = new Date().toISOString().split("T")[0];
+        const today = new Date().toISOString().split('T')[0];
         const { count, error } = await supabase
-          .from("bookings")
-          .select("*", { count: "exact", head: true })
-          .eq("status", "completed")
-          .gte("pickup_date", today);
-
+          .from('bookings')
+          .select('*', { count: 'exact', head: true })
+          .eq('status', 'completed')
+          .gte('pickup_date', today);
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -164,23 +149,23 @@ const AUFTRAEGE_KPIS = [
     },
   },
   {
-    id: "bookings-revenue-month",
-    label: "Umsatz (Monat)",
+    id: 'bookings-revenue-month',
+    label: 'Umsatz (Monat)',
     icon: Euro,
     getValue: async () => {
       try {
-        const firstDayOfMonth = new Date(new Date().setDate(1)).toISOString().split("T")[0];
+        const firstDayOfMonth = new Date(new Date().setDate(1)).toISOString().split('T')[0];
         const { data, error } = await supabase
-          .from("bookings")
-          .select("price")
-          .eq("status", "completed")
-          .gte("pickup_date", firstDayOfMonth);
-
+          .from('bookings')
+          .select('price')
+          .eq('status', 'completed')
+          .gte('pickup_date', firstDayOfMonth);
+        
         if (error) throw error;
         const total = data?.reduce((sum, booking) => sum + (booking.price || 0), 0) || 0;
-        return `${total.toLocaleString("de-DE")} €`;
+        return `${total.toLocaleString('de-DE')} €`;
       } catch {
-        return "0 €";
+        return '0 €';
       }
     },
   },
@@ -191,15 +176,15 @@ const AUFTRAEGE_KPIS = [
 // ============================================================================
 const KUNDEN_KPIS: KPIDefinition[] = [
   {
-    id: "customers-total",
-    label: "Kunden Gesamt",
+    id: 'customers-total',
+    label: 'Kunden Gesamt',
     icon: Users,
     getValue: async (): Promise<number> => {
       try {
         const { count, error } = (await supabase
-          .from("customers")
-          .select("*", { count: "exact", head: true })) as { count: number | null; error: any };
-
+          .from('customers')
+          .select('*', { count: 'exact', head: true })) as { count: number | null; error: any };
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -208,23 +193,23 @@ const KUNDEN_KPIS: KPIDefinition[] = [
     },
   },
   {
-    id: "customers-portal-access",
-    label: "Portal-Zugang",
+    id: 'customers-portal-access',
+    label: 'Portal-Zugang',
     icon: Users,
     getValue: getCustomersPortalAccess,
   },
   {
-    id: "customers-bookings-month",
-    label: "Buchungen (Monat)",
+    id: 'customers-bookings-month',
+    label: 'Buchungen (Monat)',
     icon: FileText,
     getValue: async (): Promise<number> => {
       try {
-        const firstDayOfMonth = new Date(new Date().setDate(1)).toISOString().split("T")[0];
+        const firstDayOfMonth = new Date(new Date().setDate(1)).toISOString().split('T')[0];
         const { count, error } = (await supabase
-          .from("bookings")
-          .select("*", { count: "exact", head: true })
-          .gte("pickup_date", firstDayOfMonth)) as { count: number | null; error: any };
-
+          .from('bookings')
+          .select('*', { count: 'exact', head: true })
+          .gte('pickup_date', firstDayOfMonth)) as { count: number | null; error: any };
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -239,15 +224,15 @@ const KUNDEN_KPIS: KPIDefinition[] = [
 // ============================================================================
 const FAHRER_KPIS: KPIDefinition[] = [
   {
-    id: "drivers-total",
-    label: "Fahrer Gesamt",
+    id: 'drivers-total',
+    label: 'Fahrer Gesamt',
     icon: Users,
     getValue: async () => {
       try {
         const { count, error } = await supabase
-          .from("drivers")
-          .select("*", { count: "exact", head: true });
-
+          .from('drivers')
+          .select('*', { count: 'exact', head: true });
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -256,16 +241,16 @@ const FAHRER_KPIS: KPIDefinition[] = [
     },
   },
   {
-    id: "drivers-on-duty",
-    label: "Im Dienst",
+    id: 'drivers-on-duty',
+    label: 'Im Dienst',
     icon: CheckCircle,
     getValue: async () => {
       try {
         const { count, error } = await supabase
-          .from("drivers")
-          .select("*", { count: "exact", head: true })
-          .eq("shift_status", "on_duty");
-
+          .from('drivers')
+          .select('*', { count: 'exact', head: true })
+          .eq('shift_status', 'on_duty');
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -274,18 +259,18 @@ const FAHRER_KPIS: KPIDefinition[] = [
     },
   },
   {
-    id: "drivers-active-month",
-    label: "Aktiv (Monat)",
+    id: 'drivers-active-month',
+    label: 'Aktiv (Monat)',
     icon: TrendingUp,
     getValue: async () => {
       try {
-        const firstDayOfMonth = new Date(new Date().setDate(1)).toISOString().split("T")[0];
+        const firstDayOfMonth = new Date(new Date().setDate(1)).toISOString().split('T')[0];
         const { count, error } = await supabase
-          .from("bookings")
-          .select("driver_id", { count: "exact", head: true })
-          .not("driver_id", "is", null)
-          .gte("pickup_date", firstDayOfMonth);
-
+          .from('bookings')
+          .select('driver_id', { count: 'exact', head: true })
+          .not('driver_id', 'is', null)
+          .gte('pickup_date', firstDayOfMonth);
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -300,15 +285,15 @@ const FAHRER_KPIS: KPIDefinition[] = [
 // ============================================================================
 const FAHRZEUGE_KPIS: KPIDefinition[] = [
   {
-    id: "vehicles-total",
-    label: "Fahrzeuge Gesamt",
+    id: 'vehicles-total',
+    label: 'Fahrzeuge Gesamt',
     icon: Car,
     getValue: async () => {
       try {
         const { count, error } = await supabase
-          .from("vehicles")
-          .select("*", { count: "exact", head: true });
-
+          .from('vehicles')
+          .select('*', { count: 'exact', head: true });
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -317,16 +302,16 @@ const FAHRZEUGE_KPIS: KPIDefinition[] = [
     },
   },
   {
-    id: "vehicles-active",
-    label: "Verfügbar",
+    id: 'vehicles-active',
+    label: 'Verfügbar',
     icon: CheckCircle,
     getValue: async () => {
       try {
         const { count, error } = await supabase
-          .from("vehicles")
-          .select("*", { count: "exact", head: true })
-          .eq("status", "available");
-
+          .from('vehicles')
+          .select('*', { count: 'exact', head: true })
+          .eq('status', 'available');
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -335,17 +320,17 @@ const FAHRZEUGE_KPIS: KPIDefinition[] = [
     },
   },
   {
-    id: "vehicles-in-service",
-    label: "Im Einsatz",
+    id: 'vehicles-in-service',
+    label: 'Im Einsatz',
     icon: TrendingUp,
     getValue: async () => {
       try {
         const { count, error } = await supabase
-          .from("bookings")
-          .select("vehicle_id", { count: "exact", head: true })
-          .eq("status", "in_progress")
-          .not("vehicle_id", "is", null);
-
+          .from('bookings')
+          .select('vehicle_id', { count: 'exact', head: true })
+          .eq('status', 'in_progress')
+          .not('vehicle_id', 'is', null);
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -360,16 +345,16 @@ const FAHRZEUGE_KPIS: KPIDefinition[] = [
 // ============================================================================
 const RECHNUNGEN_KPIS: KPIDefinition[] = [
   {
-    id: "invoices-open",
-    label: "Offene Rechnungen",
+    id: 'invoices-open',
+    label: 'Offene Rechnungen',
     icon: AlertCircle,
     getValue: async () => {
       try {
         const { count, error } = await supabase
-          .from("invoices")
-          .select("*", { count: "exact", head: true })
-          .eq("status", "pending");
-
+          .from('invoices')
+          .select('*', { count: 'exact', head: true })
+          .eq('status', 'pending');
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -378,17 +363,17 @@ const RECHNUNGEN_KPIS: KPIDefinition[] = [
     },
   },
   {
-    id: "invoices-total-month",
-    label: "Rechnungen (Monat)",
+    id: 'invoices-total-month',
+    label: 'Rechnungen (Monat)',
     icon: FileText,
     getValue: async () => {
       try {
-        const firstDayOfMonth = new Date(new Date().setDate(1)).toISOString().split("T")[0];
+        const firstDayOfMonth = new Date(new Date().setDate(1)).toISOString().split('T')[0];
         const { count, error } = await supabase
-          .from("invoices")
-          .select("*", { count: "exact", head: true })
-          .gte("created_at", firstDayOfMonth);
-
+          .from('invoices')
+          .select('*', { count: 'exact', head: true })
+          .gte('created_at', firstDayOfMonth);
+        
         if (error) throw error;
         return count || 0;
       } catch {
@@ -397,23 +382,23 @@ const RECHNUNGEN_KPIS: KPIDefinition[] = [
     },
   },
   {
-    id: "invoices-revenue-month",
-    label: "Umsatz (Monat)",
+    id: 'invoices-revenue-month',
+    label: 'Umsatz (Monat)',
     icon: Euro,
     getValue: async () => {
       try {
-        const firstDayOfMonth = new Date(new Date().setDate(1)).toISOString().split("T")[0];
+        const firstDayOfMonth = new Date(new Date().setDate(1)).toISOString().split('T')[0];
         const { data, error } = await supabase
-          .from("invoices")
-          .select("total_amount")
-          .eq("status", "paid")
-          .gte("created_at", firstDayOfMonth);
-
+          .from('invoices')
+          .select('total_amount')
+          .eq('status', 'paid')
+          .gte('created_at', firstDayOfMonth);
+        
         if (error) throw error;
         const total = data?.reduce((sum, invoice) => sum + (invoice.total_amount || 0), 0) || 0;
-        return `${total.toLocaleString("de-DE")} €`;
+        return `${total.toLocaleString('de-DE')} €`;
       } catch {
-        return "0 €";
+        return '0 €';
       }
     },
   },

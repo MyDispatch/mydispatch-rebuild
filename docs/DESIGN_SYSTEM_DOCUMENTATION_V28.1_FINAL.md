@@ -26,7 +26,6 @@
 ### V28.1 Kernprinzipien
 
 **Professional Gray-Blue Minimalism**
-
 - Dezent & professionell für B2B (Ibrahim-approved)
 - Modern Minimalism (GitHub, Linear, Vercel inspiriert)
 - Flat Design 2.0 (subtile Elevationen)
@@ -50,14 +49,12 @@
 **Prinzip:** Scrollbars sind VOLLSTÄNDIG unsichtbar für cleanen Premium-Look
 
 **Begründung:**
-
 - Premium-Ästhetik: Cleaner, moderner Look
 - Focus auf Content: Keine Ablenkung durch UI-Elemente
 - Professional B2B: GitHub, Linear, Vercel-Standard
 - Performance: Weniger zu rendern
 
 **Implementation:**
-
 ```css
 /* Webkit (Chrome, Safari, Opera) */
 aside[data-sidebar]::-webkit-scrollbar {
@@ -78,18 +75,15 @@ aside[data-sidebar] {
 ```
 
 **NIEMALS:**
-
 - ❌ `scrollbar-width: thin` (noch sichtbar - V26.1 veraltet)
 - ❌ Custom Scrollbar-Farben (sichtbar)
 - ❌ 4px/6px Scrollbars (V26.1 Legacy)
 
 **Ausnahmen:**
-
 - KEINE! Alle Scrollbars im System sind unsichtbar
 - Scrolling funktioniert einwandfrei, nur visuell unsichtbar
 
 **Betroffene Components:**
-
 - `src/index.css` - aside[data-sidebar] Scrollbar
 - `src/components/layout/MainLayout.tsx` - Main Content Scrollbar
 - `src/components/dashboard/DashboardSidebar.tsx` - Sidebar Scrollbar
@@ -105,32 +99,31 @@ aside[data-sidebar] {
 
 export const PRIMARY_COLORS_V28 = {
   // Primary (CTA, Icons, Headlines) - Professional Gray-Blue
-  primary: "hsl(215, 16%, 47%)", // #6B7A99 - Gray-Blue (dezent)
-  primaryHover: "hsl(215, 20%, 40%)", // #526485 - Darker Gray-Blue
-  primaryLight: "hsl(215, 25%, 96%)", // #F5F6F9 - Very Light Gray BG
-
+  primary: 'hsl(215, 16%, 47%)',        // #6B7A99 - Gray-Blue (dezent)
+  primaryHover: 'hsl(215, 20%, 40%)',   // #526485 - Darker Gray-Blue
+  primaryLight: 'hsl(215, 25%, 96%)',   // #F5F6F9 - Very Light Gray BG
+  
   // Neutral (Backgrounds, Borders, Text)
-  slate50: "hsl(210, 40%, 98%)", // #FAFBFC - Canvas
-  slate100: "hsl(214, 32%, 91%)", // #E2E8F0 - Border Light
-  slate200: "hsl(214, 32%, 83%)", // #CBD5E1 - Border
-  slate300: "hsl(215, 20%, 65%)", // #94A3B8 - Text Tertiary
-  slate600: "hsl(215, 25%, 27%)", // #334155 - Text Secondary
-  slate900: "hsl(222, 47%, 11%)", // #0F172A - Text Primary
-
+  slate50: 'hsl(210, 40%, 98%)',        // #FAFBFC - Canvas
+  slate100: 'hsl(214, 32%, 91%)',       // #E2E8F0 - Border Light
+  slate200: 'hsl(214, 32%, 83%)',       // #CBD5E1 - Border
+  slate300: 'hsl(215, 20%, 65%)',       // #94A3B8 - Text Tertiary
+  slate600: 'hsl(215, 25%, 27%)',       // #334155 - Text Secondary
+  slate900: 'hsl(222, 47%, 11%)',       // #0F172A - Text Primary
+  
   // Accent (Success, Highlights)
-  accent: "hsl(142, 71%, 45%)", // #22C55E - Success Green
-  accentLight: "hsl(142, 76%, 96%)", // #F0FDF4 - Success BG
-
+  accent: 'hsl(142, 71%, 45%)',         // #22C55E - Success Green
+  accentLight: 'hsl(142, 76%, 96%)',    // #F0FDF4 - Success BG
+  
   // Surface
-  white: "hsl(0, 0%, 100%)", // #FFFFFF - Card BG
-  glass: "rgba(255, 255, 255, 0.7)", // Glassmorphism
+  white: 'hsl(0, 0%, 100%)',            // #FFFFFF - Card BG
+  glass: 'rgba(255, 255, 255, 0.7)',    // Glassmorphism
 };
 ```
 
 ### Farbverwendung nach Kontext
 
 #### Header & Navigation
-
 ```css
 background: linear-gradient(180deg, slate50 0%, white 100%)
 border: 1px solid slate200
@@ -139,7 +132,6 @@ text-secondary: slate600
 ```
 
 #### Footer
-
 ```css
 background: linear-gradient(180deg, slate50 0%, white 100%)
 border-top: 1px solid slate200
@@ -148,7 +140,6 @@ hover: slate900 (kein white auf hellem BG!)
 ```
 
 #### Comparison Table
-
 ```css
 /* Header */
 background: linear-gradient(to-r, slate700, slate800)
@@ -169,14 +160,14 @@ x-icon: slate400
 // ⚠️ ABSOLUTE REGEL - NIEMALS BRECHEN!
 
 // Auf HELLEN Hintergründen (white, slate50, slate100)
-text: slate900 / slate600; // ✅ RICHTIG
-hover: slate900; // ✅ RICHTIG
-text: white; // ❌ FALSCH - kein Kontrast!
+text: slate900 / slate600        // ✅ RICHTIG
+hover: slate900                  // ✅ RICHTIG
+text: white                      // ❌ FALSCH - kein Kontrast!
 
 // Auf DUNKLEN Hintergründen (slate700, slate800, slate900)
-text: white / slate50; // ✅ RICHTIG
-hover: slate100; // ✅ RICHTIG
-text: slate900; // ❌ FALSCH - kein Kontrast!
+text: white / slate50            // ✅ RICHTIG
+hover: slate100                  // ✅ RICHTIG
+text: slate900                   // ❌ FALSCH - kein Kontrast!
 ```
 
 ---
@@ -227,11 +218,11 @@ text: slate900; // ❌ FALSCH - kein Kontrast!
 ```tsx
 // src/components/layout/Header.tsx
 
-<header
+<header 
   className="fixed top-0 right-0 z-50 h-16 backdrop-blur-md transition-all duration-300"
   style={{
-    left: sidebarExpanded ? "240px" : "64px",
-    width: sidebarExpanded ? "calc(100% - 240px)" : "calc(100% - 64px)",
+    left: sidebarExpanded ? '240px' : '64px',
+    width: sidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 64px)',
     background: `linear-gradient(180deg, ${PRIMARY_COLORS_V28.slate50} 0%, ${PRIMARY_COLORS_V28.white} 100%)`,
     borderBottom: `1px solid ${PRIMARY_COLORS_V28.slate200}`,
   }}
@@ -241,7 +232,6 @@ text: slate900; // ❌ FALSCH - kein Kontrast!
 ```
 
 **Eigenschaften:**
-
 - **Position:** `fixed top-0 right-0`
 - **Höhe:** `h-16` (64px)
 - **Z-Index:** `z-50`
@@ -254,14 +244,14 @@ text: slate900; // ❌ FALSCH - kein Kontrast!
 ```tsx
 // src/components/layout/Footer.tsx
 
-<footer
+<footer 
   className="fixed bottom-0 right-0 z-40 h-8 backdrop-blur-md transition-all duration-300"
   style={{
-    left: sidebarExpanded ? "240px" : "64px",
-    width: sidebarExpanded ? "calc(100% - 240px)" : "calc(100% - 64px)",
+    left: sidebarExpanded ? '240px' : '64px',
+    width: sidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 64px)',
     background: `linear-gradient(180deg, ${PRIMARY_COLORS_V28.slate50} 0%, ${PRIMARY_COLORS_V28.white} 100%)`,
     borderTop: `1px solid ${PRIMARY_COLORS_V28.slate200}`,
-    boxShadow: "0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06)",
+    boxShadow: '0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06)',
   }}
 >
   {/* Content */}
@@ -269,7 +259,6 @@ text: slate900; // ❌ FALSCH - kein Kontrast!
 ```
 
 **Eigenschaften:**
-
 - **Position:** `fixed bottom-0 right-0`
 - **Höhe:** `h-8` (32px)
 - **Z-Index:** `z-40`
@@ -279,7 +268,6 @@ text: slate900; // ❌ FALSCH - kein Kontrast!
 - **Links:** Hover mit `-translate-y-0.5` und Underline-Animation
 
 **Link-Animation (Footer):**
-
 ```css
 .footer-link {
   transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -287,7 +275,7 @@ text: slate900; // ❌ FALSCH - kein Kontrast!
 }
 
 .footer-link::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0;
   left: 0;
@@ -304,7 +292,7 @@ text: slate900; // ❌ FALSCH - kein Kontrast!
 
 ### Sidebar Spezifikation
 
-_Hinweis: Sidebar-Details noch zu dokumentieren - wird in separater Session ergänzt_
+*Hinweis: Sidebar-Details noch zu dokumentieren - wird in separater Session ergänzt*
 
 ---
 
@@ -322,11 +310,10 @@ interface ComparisonFeature {
   enterprise: boolean;
 }
 
-<V28ComparisonTable features={comparisonData} />;
+<V28ComparisonTable features={comparisonData} />
 ```
 
 **Design-Eigenschaften:**
-
 - **Container:** `rounded-2xl` (einzige Ausnahme vom Flat Design)
 - **Border:** 1px solid slate200
 - **Shadow:** `shadow-sm` (Tailwind Standard)
@@ -337,7 +324,6 @@ interface ComparisonFeature {
 - **Responsive:** overflow-x-auto, min-w-[600px]
 
 **Highlighted Column Border:**
-
 ```tsx
 // Business Column Header
 <th className="... bg-slate-100 border-y border-slate-700">
@@ -370,19 +356,18 @@ interface ComparisonFeature {
 
 ```typescript
 export const SPACING_SYSTEM_V28 = {
-  xs: "4px", // gap-1
-  sm: "8px", // gap-2
-  md: "16px", // gap-4
-  lg: "24px", // gap-6
-  xl: "32px", // gap-8
-  "2xl": "48px", // gap-12
+  xs: '4px',    // gap-1
+  sm: '8px',    // gap-2
+  md: '16px',   // gap-4
+  lg: '24px',   // gap-6
+  xl: '32px',   // gap-8
+  '2xl': '48px', // gap-12
 };
 ```
 
 ### Standard-Abstände nach Kontext
 
 #### Container & Sections
-
 ```css
 padding-x: px-8           /* Desktop */
 padding-x: px-4 sm:px-8   /* Responsive */
@@ -391,7 +376,6 @@ gap: gap-8                /* Standard Section Gap */
 ```
 
 #### Cards & Components
-
 ```css
 padding: p-6              /* Standard Card Padding */
 gap: gap-4                /* Card Internal Gap */
@@ -399,7 +383,6 @@ margin-bottom: mb-8       /* Card Abstand */
 ```
 
 #### Header & Footer
-
 ```css
 header-height: h-16 (64px)
 footer-height: h-8 (32px)
@@ -408,7 +391,6 @@ footer-padding-x: px-8 pl-10
 ```
 
 #### Typography Spacing
-
 ```css
 heading-margin-bottom: mb-4
 paragraph-margin-bottom: mb-6
@@ -422,12 +404,7 @@ list-item-gap: gap-2
 ### Font Family
 
 ```css
-font-family:
-  "Inter",
-  -apple-system,
-  BlinkMacSystemFont,
-  "Segoe UI",
-  sans-serif;
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif
 ```
 
 ### Font Sizes & Line Heights
@@ -475,17 +452,16 @@ tracking-wide: 0.025em     /* Buttons, Footer */
 
 ```typescript
 export const SHADOW_SYSTEM_V28 = {
-  none: "shadow-none",
-  sm: "shadow-sm", // 0 1px 2px rgba(0,0,0,0.05)
-  base: "shadow", // 0 1px 3px rgba(0,0,0,0.1)
-  md: "shadow-md", // 0 4px 6px rgba(0,0,0,0.1)
-  lg: "shadow-lg", // 0 10px 15px rgba(0,0,0,0.1)
-  xl: "shadow-xl", // 0 20px 25px rgba(0,0,0,0.1)
+  none: 'shadow-none',
+  sm: 'shadow-sm',      // 0 1px 2px rgba(0,0,0,0.05)
+  base: 'shadow',       // 0 1px 3px rgba(0,0,0,0.1)
+  md: 'shadow-md',      // 0 4px 6px rgba(0,0,0,0.1)
+  lg: 'shadow-lg',      // 0 10px 15px rgba(0,0,0,0.1)
+  xl: 'shadow-xl',      // 0 20px 25px rgba(0,0,0,0.1)
 };
 ```
 
 **Verwendung:**
-
 - **Cards:** `shadow-sm` (Standard)
 - **Modals:** `shadow-lg`
 - **Dropdowns:** `shadow-md`
@@ -526,12 +502,12 @@ rounded-2xl: 16px         /* Cards (groß) - EINZIGE AUSNAHME! */
 
 ```typescript
 breakpoints = {
-  sm: "640px", // Mobile Landscape
-  md: "768px", // Tablet
-  lg: "1024px", // Desktop
-  xl: "1280px", // Large Desktop
-  "2xl": "1400px", // Extra Large
-};
+  sm: '640px',    // Mobile Landscape
+  md: '768px',    // Tablet
+  lg: '1024px',   // Desktop
+  xl: '1280px',   // Large Desktop
+  '2xl': '1400px' // Extra Large
+}
 ```
 
 ### Mobile-First Pattern
@@ -556,12 +532,12 @@ breakpoints = {
 
 ```tsx
 // Header & Footer mit Sidebar-Awareness
-<header
+<header 
   className="transition-all duration-300"
   style={{
     left: sidebarExpanded ? '240px' : '64px',
-    width: sidebarExpanded
-      ? 'calc(100% - 240px)'
+    width: sidebarExpanded 
+      ? 'calc(100% - 240px)' 
       : 'calc(100% - 64px)',
   }}
 />
@@ -617,7 +593,6 @@ breakpoints = {
 ### Triple-Check Enforcement
 
 **PHASE 1: TECHNICAL CHECK**
-
 ```
 ✓ Alle Imports existieren in filesExplorer.md?
 ✓ Keine halluzinierten Funktionen?
@@ -625,7 +600,6 @@ breakpoints = {
 ```
 
 **PHASE 2: LOGICAL CHECK**
-
 ```
 ✓ LESSONS_LEARNED.md Patterns befolgt?
 ✓ DRY Principle: Keine Code-Duplication?
@@ -633,7 +607,6 @@ breakpoints = {
 ```
 
 **PHASE 3: SECURITY & QUALITY**
-
 ```
 ✓ Input Validation vorhanden?
 ✓ Performance: Unnötige Re-Renders vermieden?
@@ -672,7 +645,6 @@ npm run lint
 ### Implementation
 
 **CSS Utilities (src/index.css):**
-
 ```css
 /* Unsichtbare Scrollbars - Systemweit */
 .scrollbar-invisible {
@@ -686,7 +658,6 @@ npm run lint
 ```
 
 **Verwendung:**
-
 ```tsx
 // Vertikales Scrolling
 <div className="overflow-y-auto scrollbar-invisible">
@@ -700,7 +671,6 @@ npm run lint
 ```
 
 **Wichtige Beispiele:**
-
 - **TariffFeatureDialog** (Body): `overflow-y-auto scrollbar-invisible`
 - **V28ComparisonTable** (Container): `overflow-x-auto scrollbar-invisible`
 
@@ -763,11 +733,11 @@ docs/
 </div>
 
 // Button mit Primary Color
-<button
+<button 
   className="px-4 py-2 rounded font-semibold transition-all duration-300"
-  style={{
+  style={{ 
     background: PRIMARY_COLORS_V28.primary,
-    color: PRIMARY_COLORS_V28.white
+    color: PRIMARY_COLORS_V28.white 
   }}
 >
   Button
@@ -784,10 +754,10 @@ docs/
 </section>
 
 // Footer Link mit Animation
-<Link
-  to="/route"
+<Link 
+  to="/route" 
   className="text-[10px] font-semibold tracking-wide transition-all duration-300 hover:-translate-y-0.5 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:transition-all after:duration-300 hover:after:w-full"
-  style={{
+  style={{ 
     color: PRIMARY_COLORS_V28.slate600,
   }}
   onMouseEnter={(e) => {
@@ -806,7 +776,6 @@ docs/
 ## 📝 CHANGELOG
 
 ### V28.1 (2025-10-28) - Initial Release
-
 - ✅ Professional Gray-Blue Farbsystem etabliert
 - ✅ Flat Design 2.0 implementiert (minimal rounding)
 - ✅ Header V28.1 finalisiert
@@ -834,8 +803,8 @@ docs/
 **Autor:** Lovable AI Agent  
 **Review:** Ibrahim (Design Owner)  
 **Status:** ✅ APPROVED & PRODUCTION-READY  
-**Letzte Aktualisierung:** 2025-10-28
+**Letzte Aktualisierung:** 2025-10-28  
 
 ---
 
-_Dieses Dokument ist die Single Source of Truth für das MyDispatch Design System V28.1. Alle Änderungen müssen hier dokumentiert und mit dem Design Owner abgestimmt werden._
+*Dieses Dokument ist die Single Source of Truth für das MyDispatch Design System V28.1. Alle Änderungen müssen hier dokumentiert und mit dem Design Owner abgestimmt werden.*

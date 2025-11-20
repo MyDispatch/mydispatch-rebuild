@@ -7,12 +7,12 @@
    - Type-Safety
    ================================================================================== */
 
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "./use-auth";
-import { toast } from "sonner";
-import { handleError } from "@/lib/error-handler";
-import { logger } from "@/lib/logger";
+import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from './use-auth';
+import { toast } from 'sonner';
+import { handleError } from '@/lib/error-handler';
+import { logger } from '@/lib/logger';
 
 interface SubscriptionContextType {
   subscribed: boolean;
@@ -41,7 +41,7 @@ function SubscriptionProviderInner({ children }: { children: ReactNode }) {
       setProductId(null);
       setSubscriptionEnd(null);
       setLoading(false);
-      setError("Kein Benutzer angemeldet");
+      setError('Kein Benutzer angemeldet');
       return;
     }
 
@@ -51,27 +51,27 @@ function SubscriptionProviderInner({ children }: { children: ReactNode }) {
 
       // PRIMÄR: Datenbank ist die einzige Wahrheitsquelle
       const { data: companyData, error: companyError } = await supabase
-        .from("companies")
-        .select("subscription_product_id, subscription_status, subscription_current_period_end")
-        .eq("id", profile.company_id)
+        .from('companies')
+        .select('subscription_product_id, subscription_status, subscription_current_period_end')
+        .eq('id', profile.company_id)
         .single();
 
       if (companyError) {
-        throw new Error(companyError.message || "Fehler beim Laden der Unternehmensdaten");
+        throw new Error(companyError.message || 'Fehler beim Laden der Unternehmensdaten');
       }
-
+      
       if (companyData) {
-        const isActive = companyData.subscription_status === "active";
+        const isActive = companyData.subscription_status === 'active';
         const productId = companyData.subscription_product_id || null;
-
+        
         setSubscribed(isActive);
         setProductId(productId);
         setSubscriptionEnd(companyData.subscription_current_period_end || null);
-
+        
         // Debug-Log (nur in Development)
         if (import.meta.env.DEV) {
-          logger.info("[Subscription] Loaded", {
-            component: "useSubscription",
+          logger.info('[Subscription] Loaded', {
+            component: 'useSubscription',
             subscribed: isActive,
             productId,
             subscriptionEnd: companyData.subscription_current_period_end,
@@ -84,10 +84,10 @@ function SubscriptionProviderInner({ children }: { children: ReactNode }) {
         setSubscriptionEnd(null);
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Fehler beim Laden des Abonnements";
+      const errorMessage = err instanceof Error ? err.message : 'Fehler beim Laden des Abonnements';
       setError(errorMessage);
-      handleError(err, "checkSubscription");
-
+      handleError(err, 'checkSubscription');
+      
       // Fallback zu "nicht subscribed"
       setSubscribed(false);
       setProductId(null);
@@ -100,32 +100,31 @@ function SubscriptionProviderInner({ children }: { children: ReactNode }) {
   const openCustomerPortal = async () => {
     // Guard: Kein User oder Profile
     if (!user || !profile?.company_id) {
-      toast.error("Bitte melden Sie sich an");
+      toast.error('Bitte melden Sie sich an');
       return;
     }
 
     try {
-      toast.loading("Öffne Kundenportal...");
+      toast.loading('Öffne Kundenportal...');
 
-      const { data, error } = await supabase.functions.invoke("customer-portal", {
-        body: { company_id: profile.company_id },
+      const { data, error } = await supabase.functions.invoke('customer-portal', {
+        body: { company_id: profile.company_id }
       });
 
       if (error) {
-        throw new Error(error.message || "Fehler beim Öffnen des Kundenportals");
+        throw new Error(error.message || 'Fehler beim Öffnen des Kundenportals');
       }
 
       if (data?.url) {
         toast.dismiss();
         window.location.href = data.url;
       } else {
-        throw new Error("Keine Portal-URL erhalten");
+        throw new Error('Keine Portal-URL erhalten');
       }
     } catch (err) {
       toast.dismiss();
-      const errorMessage =
-        err instanceof Error ? err.message : "Fehler beim Öffnen des Kundenportals";
-      handleError(err, "openCustomerPortal");
+      const errorMessage = err instanceof Error ? err.message : 'Fehler beim Öffnen des Kundenportals';
+      handleError(err, 'openCustomerPortal');
       toast.error(errorMessage);
     }
   };
@@ -162,7 +161,7 @@ export function SubscriptionProvider({ children }: { children: ReactNode }) {
 export function useSubscription() {
   const context = useContext(SubscriptionContext);
   if (!context) {
-    throw new Error("useSubscription must be used within SubscriptionProvider");
+    throw new Error('useSubscription must be used within SubscriptionProvider');
   }
   return context;
 }

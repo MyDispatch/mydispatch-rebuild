@@ -79,14 +79,14 @@ export function average(numbers: number[]): number {
 
 export function median(numbers: number[]): number {
   if (numbers.length === 0) return 0;
-
+  
   const sorted = [...numbers].sort((a, b) => a - b);
   const mid = Math.floor(sorted.length / 2);
-
+  
   if (sorted.length % 2 === 0) {
     return roundTo((sorted[mid - 1] + sorted[mid]) / 2, 2);
   }
-
+  
   return sorted[mid];
 }
 
@@ -150,7 +150,7 @@ export function toFixed(value: number, decimals: number = 2): string {
 }
 
 export function formatNumber(value: number, options?: Intl.NumberFormatOptions): string {
-  return new Intl.NumberFormat("de-DE", options).format(value);
+  return new Intl.NumberFormat('de-DE', options).format(value);
 }
 
 export function formatCompact(value: number): string {

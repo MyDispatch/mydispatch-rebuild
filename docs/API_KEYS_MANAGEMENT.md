@@ -19,13 +19,11 @@
 ## 📍 SPEICHERORTE DER API-KEYS
 
 ### Frontend (`.env.local`)
-
 **Datei:** `.env.local` (in `.gitignore`)  
 **Zweck:** Frontend-Environment-Variables  
 **Status:** ✅ Gespeichert
 
 **Keys:**
-
 - ✅ `VITE_GOOGLE_API_KEY`
 - ✅ `VITE_DAILY_API_KEY`
 - ⏳ `VITE_STRIPE_PUBLISHABLE_KEY` (wenn benötigt)
@@ -33,26 +31,22 @@
 - ⏳ `VITE_SENTRY_DSN` (wenn benötigt)
 
 ### Backend (Supabase Secrets)
-
 **Ort:** Supabase Dashboard → Settings → Secrets  
 **Zweck:** Edge Functions Environment Variables  
 **Status:** ⏳ Muss konfiguriert werden
 
 **Keys (zu setzen):**
-
 - ⏳ `ANTHROPIC_API_KEY` (Claude API)
 - ⏳ `RESEND_API_KEY`
 - ⏳ `RESEND_DOMAIN`
 - ⏳ `DAILY_API_KEY` (falls Edge Functions benötigen)
 
 ### Cursor Extensions
-
 **Ort:** Cursor Settings / Secrets  
 **Zweck:** Cursor Prompt Extensions  
 **Status:** ⏳ Muss konfiguriert werden
 
 **Keys:**
-
 - ⏳ GitHub PAT (für Prompt Saver/Manager)
 - ✅ Tavily MCP API (bereits in `.cursor/mcp-config.json`)
 
@@ -61,21 +55,18 @@
 ## 🔑 API-KEYS ÜBERSICHT
 
 ### ✅ Google API Key
-
 - **Key:** `AIzaSyDZRIS2SYJYjdHSAv-j4E9Bt5kCCkf3sbQ`
 - **Speicherort:** `.env.local` → `VITE_GOOGLE_API_KEY`
 - **Verwendung:** Google Maps, Geocoding, etc.
 - **Status:** ✅ Gespeichert
 
 ### ✅ Daily API Key
-
 - **Key:** `e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441d72`
 - **Speicherort:** `.env.local` → `VITE_DAILY_API_KEY`
 - **Verwendung:** Daily.co Video Calls
 - **Status:** ✅ Gespeichert
 
 ### ✅ GitHub Personal Access Token
-
 - **Token:** `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`
 - **Username:** `u4231458123@gmail.com`
 - **Speicherort:** Cursor Secrets (via Command Palette)
@@ -83,14 +74,12 @@
 - **Status:** ⏳ Muss über Command Palette konfiguriert werden
 
 ### ✅ Anthropic (Claude) API Key
-
 - **Key:** `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`
 - **Speicherort:** Supabase Secrets → `ANTHROPIC_API_KEY`
 - **Verwendung:** AI Chat (ersetzt OpenAI)
 - **Status:** ⏳ Muss in Supabase Secrets gesetzt werden
 
 ### ✅ Resend API Key
-
 - **Key:** `re_QLd5UEuy_65ESCwqXFrSaHzuSTaS8LTGd`
 - **Domain:** `https://resend.com/domains/b899dc5b-e1e7-486e-87ef-bccece2d3002`
 - **Speicherort:** Supabase Secrets
@@ -100,7 +89,6 @@
 - **Status:** ⏳ Muss in Supabase Secrets gesetzt werden
 
 ### ✅ Tavily MCP API
-
 - **Key:** `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`
 - **Speicherort:** `.cursor/mcp-config.json`
 - **Verwendung:** Web Search für Best Practices
@@ -113,7 +101,6 @@
 ### 1. Supabase Secrets setzen
 
 **Vorgehen:**
-
 1. Öffne Supabase Dashboard → Settings → Secrets
 2. Füge folgende Secrets hinzu:
 
@@ -132,7 +119,6 @@ DAILY_API_KEY=e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441d72
 ### 2. Cursor Prompt Extensions konfigurieren
 
 **Vorgehen:**
-
 1. Command Palette: `Ctrl+Shift+P`
 2. `Configure Prompt Saver`
 3. GitHub Token eingeben: `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`
@@ -142,7 +128,6 @@ DAILY_API_KEY=e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441d72
 ### 3. Frontend Environment Variables
 
 **Status:** ✅ `.env.local` erstellt mit:
-
 - `VITE_GOOGLE_API_KEY`
 - `VITE_DAILY_API_KEY`
 
@@ -155,19 +140,17 @@ DAILY_API_KEY=e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441d72
 ### Edge Functions anpassen
 
 **Dateien zu ändern:**
-
 - `supabase/functions/ai-support-chat/index.ts`
 
 **Änderungen:**
-
 ```typescript
 // ❌ ALT (OpenAI):
-import OpenAI from "openai";
-const openai = new OpenAI({ apiKey: Deno.env.get("OPENAI_API_KEY") });
+import OpenAI from 'openai';
+const openai = new OpenAI({ apiKey: Deno.env.get('OPENAI_API_KEY') });
 
 // ✅ NEU (Anthropic):
-import Anthropic from "@anthropic-ai/sdk";
-const anthropic = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") });
+import Anthropic from '@anthropic-ai/sdk';
+const anthropic = new Anthropic({ apiKey: Deno.env.get('ANTHROPIC_API_KEY') });
 ```
 
 ---
@@ -175,7 +158,6 @@ const anthropic = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") });
 ## 🛡️ SICHERHEITSMASSNAHMEN
 
 ### ✅ Implementiert
-
 1. ✅ `.env.local` in `.gitignore`
 2. ✅ `.env.local.example` als Template (ohne echte Keys)
 3. ✅ API-Keys Dokumentation (ohne Keys in Git)
@@ -183,7 +165,6 @@ const anthropic = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") });
 5. ✅ Cursor Secrets (nicht in Git)
 
 ### ⚠️ WICHTIGE HINWEISE
-
 - **NIEMALS** API-Keys in Code committen
 - **NIEMALS** API-Keys in Dokumentation (die in Git ist) committen
 - **IMMER** `.env.local` prüfen vor Git-Commits
@@ -194,7 +175,6 @@ const anthropic = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") });
 ## 📋 CHECKLISTE
 
 ### ✅ Erledigt
-
 - [x] `.env.local` erstellt (mit Keys)
 - [x] `.env.local.example` erstellt (ohne Keys)
 - [x] `.gitignore` prüfen (`.env.local` enthalten)
@@ -202,7 +182,6 @@ const anthropic = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") });
 - [x] Tavily MCP konfiguriert
 
 ### ⏳ Ausstehend
-
 - [ ] Supabase Secrets setzen (Anthropic, Resend)
 - [ ] Cursor Prompt Extensions konfigurieren (GitHub PAT)
 - [ ] Edge Functions auf Anthropic umstellen
@@ -219,3 +198,4 @@ const anthropic = new Anthropic({ apiKey: Deno.env.get("ANTHROPIC_API_KEY") });
 ---
 
 **⚠️ WICHTIG:** Diese Dokumentation enthält KEINE echten API-Keys (außer in nicht-committeten Dateien). Alle Keys sind sicher gespeichert!
+

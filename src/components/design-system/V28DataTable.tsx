@@ -10,11 +10,11 @@
    ✅ Responsive
    ================================================================================== */
 
-import { ReactNode, useState, useMemo } from "react";
-import { cn } from "@/lib/utils";
-import { ChevronUp, ChevronDown, Search } from "lucide-react";
-import { V28Input } from "./V28Input";
-import { V28Button } from "./V28Button";
+import { ReactNode, useState, useMemo } from 'react';
+import { cn } from '@/lib/utils';
+import { ChevronUp, ChevronDown, Search } from 'lucide-react';
+import { V28Input } from './V28Input';
+import { V28Button } from './V28Button';
 
 export interface V28Column<T = any> {
   id: string;
@@ -42,21 +42,21 @@ export function V28DataTable<T extends { id: string }>({
   columns,
   onRowClick,
   searchable = false,
-  searchPlaceholder = "Suchen...",
-  emptyMessage = "Keine Daten vorhanden",
+  searchPlaceholder = 'Suchen...',
+  emptyMessage = 'Keine Daten vorhanden',
   loading = false,
   className,
   pageSize = 10,
 }: V28DataTableProps<T>) {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [sortColumn, setSortColumn] = useState<string | null>(null);
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filter data based on search
   const filteredData = useMemo(() => {
     if (!searchQuery) return data;
-
+    
     return data.filter((row) => {
       return columns.some((col) => {
         const value = col.accessorKey ? row[col.accessorKey] : null;
@@ -68,18 +68,18 @@ export function V28DataTable<T extends { id: string }>({
   // Sort data
   const sortedData = useMemo(() => {
     if (!sortColumn) return filteredData;
-
+    
     return [...filteredData].sort((a, b) => {
       const col = columns.find((c) => c.id === sortColumn);
       if (!col?.accessorKey) return 0;
-
+      
       const aVal = a[col.accessorKey];
       const bVal = b[col.accessorKey];
-
+      
       if (aVal === bVal) return 0;
-
+      
       const comparison = aVal > bVal ? 1 : -1;
-      return sortDirection === "asc" ? comparison : -comparison;
+      return sortDirection === 'asc' ? comparison : -comparison;
     });
   }, [filteredData, sortColumn, sortDirection, columns]);
 
@@ -93,10 +93,10 @@ export function V28DataTable<T extends { id: string }>({
 
   const handleSort = (columnId: string) => {
     if (sortColumn === columnId) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
       setSortColumn(columnId);
-      setSortDirection("asc");
+      setSortDirection('asc');
     }
   };
 
@@ -109,7 +109,7 @@ export function V28DataTable<T extends { id: string }>({
   }
 
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className={cn('space-y-4', className)}>
       {/* Search */}
       {searchable && (
         <div className="max-w-md">
@@ -135,21 +135,21 @@ export function V28DataTable<T extends { id: string }>({
                   <th
                     key={column.id}
                     className={cn(
-                      "px-6 py-4 text-left text-sm font-semibold text-slate-900",
-                      column.sortable && "cursor-pointer hover:bg-slate-100 transition-colors",
+                      'px-6 py-4 text-left text-sm font-semibold text-slate-900',
+                      column.sortable && 'cursor-pointer hover:bg-slate-100 transition-colors',
                       column.width && `w-${column.width}`
                     )}
                     onClick={() => column.sortable && handleSort(column.id)}
                   >
                     <div className="flex items-center gap-2">
                       {column.header}
-                      {column.sortable &&
-                        sortColumn === column.id &&
-                        (sortDirection === "asc" ? (
+                      {column.sortable && sortColumn === column.id && (
+                        sortDirection === 'asc' ? (
                           <ChevronUp className="h-4 w-4" />
                         ) : (
                           <ChevronDown className="h-4 w-4" />
-                        ))}
+                        )
+                      )}
                     </div>
                   </th>
                 ))}
@@ -167,8 +167,8 @@ export function V28DataTable<T extends { id: string }>({
                   <tr
                     key={row.id}
                     className={cn(
-                      "hover:bg-slate-50 transition-colors",
-                      onRowClick && "cursor-pointer"
+                      'hover:bg-slate-50 transition-colors',
+                      onRowClick && 'cursor-pointer'
                     )}
                     onClick={() => onRowClick?.(row)}
                   >
@@ -177,8 +177,8 @@ export function V28DataTable<T extends { id: string }>({
                         {column.cell
                           ? column.cell(row)
                           : column.accessorKey
-                            ? String(row[column.accessorKey])
-                            : ""}
+                          ? String(row[column.accessorKey])
+                          : ''}
                       </td>
                     ))}
                   </tr>
@@ -193,7 +193,7 @@ export function V28DataTable<T extends { id: string }>({
       {totalPages > 1 && (
         <div className="flex items-center justify-between">
           <div className="text-sm text-slate-600">
-            Zeige {(currentPage - 1) * pageSize + 1} bis{" "}
+            Zeige {(currentPage - 1) * pageSize + 1} bis{' '}
             {Math.min(currentPage * pageSize, sortedData.length)} von {sortedData.length}
           </div>
           <div className="flex gap-2">

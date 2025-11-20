@@ -1,5 +1,4 @@
 # 🚨 STRIKTE 3-PHASEN IMPLEMENTIERUNGS-VORGABE
-
 ## AUSNAHMSLOS IN DIESER REIHENFOLGE!
 
 ---
@@ -18,7 +17,6 @@
 ---
 
 ## 📊 PHASE 1: SEITEN-PLANUNG & GRAFIK-KONZEPT
-
 ### ⏱️ DAUER: 2-3 Tage | STATUS: MUSS ZUERST
 
 ### 1.1 Alle Seiten definieren
@@ -59,50 +57,41 @@ Trust Indicators
 FEATURES PAGES:
 
 4.1 Fahrer & Fahrzeuge (/features/fahrer-fahrzeuge)
-
 - Hero: Split (Text links, Grafik rechts)
 - Feature Details
 - Screenshots/Mockups
 
-  4.2 Auftragsverwaltung (/features/auftragsverwaltung)
-
+4.2 Auftragsverwaltung (/features/auftragsverwaltung)
 - Hero: Split (Text links, Grafik rechts)
 - Feature Details
 
-  4.3 GPS-Tracking (/features/gps-tracking)
-
+4.3 GPS-Tracking (/features/gps-tracking)
 - Hero: Split (Text links, Grafik rechts)
 - Feature Details
 
-  4.4 Automatisierung (/features/automatisierung)
-
+4.4 Automatisierung (/features/automatisierung)
 - Hero: Split (Text links, Grafik rechts)
 - Feature Details
 
-  4.5 Rechnungsstellung (/features/rechnungsstellung)
-
+4.5 Rechnungsstellung (/features/rechnungsstellung)
 - Hero: Split (Text links, Grafik rechts)
 - Feature Details
 
-  4.6 API (/features/api)
-
+4.6 API (/features/api)
 - Hero: Split (Text links, Grafik rechts)
 - API Dokumentation Preview
 
 BRANCHEN PAGES:
 
 5.1 Taxi (/branchen/taxi)
-
 - Hero: Split (Text links, Grafik rechts)
 - Branchen-spezifische Features
 
-  5.2 Mietwagen (/branchen/mietwagen)
-
+5.2 Mietwagen (/branchen/mietwagen)
 - Hero: Split (Text links, Grafik rechts)
 - Branchen-spezifische Features
 
-  5.3 Limousinen (/branchen/limousinen)
-
+5.3 Limousinen (/branchen/limousinen)
 - Hero: Split (Text links, Grafik rechts)
 - Branchen-spezifische Features
 
@@ -117,40 +106,33 @@ Kontakt-Informationen
 LEGAL PAGES (nutzen Pricing Hero Style):
 
 7.1 Impressum (/legal/impressum)
-
 - Hero: Centered (wie Pricing)
 - Rechtliche Informationen
 
-  7.2 Datenschutz (/legal/datenschutz)
-
+7.2 Datenschutz (/legal/datenschutz)
 - Hero: Centered (wie Pricing)
 - DSGVO Details
 
-  7.3 AGB (/legal/agb)
-
+7.3 AGB (/legal/agb)
 - Hero: Centered (wie Pricing)
 - AGB Text
 
-  7.4 KI-Transparenz (/legal/ki-transparenz)
-
+7.4 KI-Transparenz (/legal/ki-transparenz)
 - Hero: Centered (wie Pricing)
 - AI Act Compliance
 
-  7.5 Cookie-Policy (/legal/cookie-policy)
-
+7.5 Cookie-Policy (/legal/cookie-policy)
 - Hero: Centered (wie Pricing)
 - Cookie Details
 
 ERROR PAGES:
 
 8.1 404 (/404)
-
 - Hero: Centered
 - Illustration
 - Navigation
 
-  8.2 500 (/500)
-
+8.2 500 (/500)
 - Hero: Centered
 - Illustration
 - Support Info
@@ -394,7 +376,6 @@ text
 ---
 
 ## 🎨 PHASE 2: COMPONENT LIBRARY KOMPLETT ERSTELLEN
-
 ### ⏱️ DAUER: 30-35 Tage | STATUS: NACH PHASE 1
 
 ### 2.1 STRIKTE REGEL
@@ -420,7 +401,7 @@ WEEK 1: FOUNDATIONS (Tage 1-7)
 □ Font Setup (Inter, JetBrains Mono)
 □ Utility Functions (cn, format, validators)
 □ Custom Hooks (useMediaQuery, useDebounce, etc.)
-□ Type Definitions (alle \*.types.ts)
+□ Type Definitions (alle *.types.ts)
 
 WEEK 2: LAYOUT COMPONENTS (Tage 8-12)
 ══════════════════════════════════════════════════════
@@ -544,7 +525,6 @@ text
 ---
 
 ## 🏗️ PHASE 3: SEITEN ERSTELLEN (NUR LIBRARY COMPONENTS!)
-
 ### ⏱️ DAUER: 12-15 Tage | STATUS: NACH PHASE 2
 
 ### 3.1 STRIKTE REGEL
@@ -859,22 +839,22 @@ text
 
 PHASE 1: PLANUNG
 Status: [ ] Not Started | [ ] In Progress | [ ] Complete
-Progress: **\_% (0-100)
-Blockers: ******\_********
-Next Step: ******\_\_******
+Progress: ___% (0-100)
+Blockers: _______________
+Next Step: ______________
 
 PHASE 2: COMPONENT LIBRARY
 Status: [ ] Not Started | [ ] In Progress | [ ] Complete
-Progress: **_/61 Components
-Grafiken: _**/9 Complete
-Blockers: ******\_\_\_******
-Next Step: ******\_\_******
+Progress: ___/61 Components
+Grafiken: ___/9 Complete
+Blockers: _______________
+Next Step: ______________
 
 PHASE 3: SEITEN
 Status: [ ] Not Started | [ ] In Progress | [ ] Complete
-Progress: **\_/21 Seiten
-Blockers: ******\_********
-Next Step: ******\_\_******
+Progress: ___/21 Seiten
+Blockers: _______________
+Next Step: ______________
 
 ⚠️ REGEL: Phase X+1 darf NIEMALS starten bevor Phase X = 100%!
 

@@ -11,7 +11,6 @@
 ### GRUNDPRINZIP: VORAUSSCHAUENDES SYSTEMDENKEN
 
 Bei jeder Aufgabe gilt:
-
 - **Logisches Denken**: Bewerte Konsequenzen systemweit
 - **Vorausschau**: Denke langfristig auf alle MyDispatch-Anforderungen
 - **Ganzheitlich**: Verstehe Abhängigkeiten und Zusammenhänge
@@ -19,27 +18,21 @@ Bei jeder Aufgabe gilt:
 ### ARBEITSABLAUF (MANDATORISCH)
 
 #### 1. PRE-WORK (KONSOLIDIERUNG & IST-ABGLEICH)
-
 Vor jeder Code-Änderung oder Implementierung:
-
 - [ ] Ziehe vollständige Wissens-Informationen zusammen (CI, Governance, Feature-Liste)
 - [ ] Gleiche mit aktuellem IST-Stand im Repository ab
 - [ ] Identifiziere ALLE Abhängigkeiten des Bereichs
 - [ ] Prüfe deren vollständige Funktion
 
 #### 2. FEHLERANALYSE (ULTIMATIV)
-
 Bei Fehlern oder Unstimmigkeiten:
-
 - [ ] Finde ausnahmslos ALLE Fehler im betroffenen Bereich
 - [ ] Suche deren jeweiligen Ursprung (Root Cause)
 - [ ] Finde die systemweit überdachte Gesamtlösung
 - [ ] Plane und setze vollständig um
 
 #### 3. DOKUMENTATIONS-GOVERNANCE (POST-WORK)
-
 Nach jeder abgeschlossenen Arbeit:
-
 - [ ] Aktualisiere alle bisherigen sowie veralteten Vorgaben
 - [ ] Pflege gesamte Dokumentation sauber und strukturiert
 - [ ] Update Component Library Liste
@@ -49,12 +42,12 @@ Nach jeder abgeschlossenen Arbeit:
 
 ## 🤖 TECHNOLOGIE-STACK (MANDATORISCH)
 
-| Komponente | Vorgabe                             | Secrets                           |
-| ---------- | ----------------------------------- | --------------------------------- |
-| KI-API     | Anthropic API                       | ANTHROPIC_API_KEY (Lovable Cloud) |
-| KI-Modell  | Claude 3.5 Sonnet (ausschließlich!) | N/A                               |
-| Backend    | Supabase, RLS, Security Definer     | N/A                               |
-| Testing    | Playwright E2E, Visuelle Regression | N/A                               |
+| Komponente | Vorgabe | Secrets |
+|------------|---------|---------|
+| KI-API | Anthropic API | ANTHROPIC_API_KEY (Lovable Cloud) |
+| KI-Modell | Claude 3.5 Sonnet (ausschließlich!) | N/A |
+| Backend | Supabase, RLS, Security Definer | N/A |
+| Testing | Playwright E2E, Visuelle Regression | N/A |
 
 ---
 
@@ -65,25 +58,21 @@ Nach jeder abgeschlossenen Arbeit:
 Diese Kette ist **zwingend** bei Bearbeitung jedes Bereichs einzuhalten:
 
 #### SCHRITT 1: PRÜFUNG
-
 - [ ] Prüfe aktuellen IST-Stand im gesamten Bereich
 - [ ] Analysiere alle UI-Elemente
 - [ ] Vergleiche mit bestehender Component Library
 
 #### SCHRITT 2: VERSTÄNDNIS & ÜBERDENKEN
-
 - [ ] Verstehe Anforderungen des Bereichs
 - [ ] Überdenke im Kontext der Gesamtanforderungen
 - [ ] Identifiziere Abhängigkeiten
 
 #### SCHRITT 3: UI-BIBLIOTHEK-CHECK
-
 - [ ] Prüfe aktuelle UI-Elemente in der Library
 - [ ] Identifiziere fehlende Komponenten
 - [ ] Plane neue Komponenten
 
 #### SCHRITT 4: COMPONENT-FIRST
-
 **BEVOR** du den Hauptbereich implementierst:
 
 1. **Vorhandene Komponenten**: Nutze sie konsequent
@@ -98,7 +87,6 @@ Diese Kette ist **zwingend** bei Bearbeitung jedes Bereichs einzuhalten:
    - Update Barrel Exports (`index.ts`)
 
 #### SCHRITT 5: IMPLEMENTIERUNG
-
 - [ ] Setze V26.1 Design vollständig und pixelgenau um
 - [ ] Nutze neue gültige Schriftart: **Inter**
 - [ ] Nutze neue gültige Farben: **Token-basiert** (DESIGN_TOKENS_V26_1)
@@ -106,22 +94,18 @@ Diese Kette ist **zwingend** bei Bearbeitung jedes Bereichs einzuhalten:
 - [ ] Setze gesetzliche Vorgaben um (DSGVO, Impressum, etc.)
 
 #### SCHRITT 6: FUNKTIONS-CHECK & FEHLERBEHEBUNG
-
 - [ ] Prüfe jede Funktion im gesamten Bereich
 - [ ] Finde und behebe ALLE Fehler
 - [ ] Finde systemweite Gesamtlösung
 - [ ] Setze vollständig um
 
 #### SCHRITT 7: LIB-PFLEGE
-
 - [ ] Füge neue UI-Elemente zur Library hinzu
 - [ ] Dokumentiere strukturiert und sortiert
 - [ ] Update Barrel Exports
 
 #### SCHRITT 8: DESIGN-SPERRE (FINALISIERUNG)
-
 Nach Fertigstellung des Bereichs:
-
 - [ ] Sperre gegen erneute Design- und Layout-Neuerungen
 - [ ] **Nach Sperre**: Nur noch technische Optimierungen, Fixes, Stabilisierungen erlaubt
 
@@ -134,21 +118,21 @@ Nach Fertigstellung des Bereichs:
 ```typescript
 export const KERNFARBEN_V26_1 = {
   // Core Brand Colors
-  dunkelblau: "#323D5E", // Primary
-  dunkelblau_hover: "#3F4C70", // Hover State
-  dunkelblau_lighter: "#4A5A85", // Lighter Variant
-  beige: "#EADEBD", // Secondary
-  weiss: "#FFFFFF", // Pure White
-  canvas: "#F8F9FB", // Light Background
-
+  dunkelblau: '#323D5E',          // Primary
+  dunkelblau_hover: '#3F4C70',    // Hover State
+  dunkelblau_lighter: '#4A5A85',  // Lighter Variant
+  beige: '#EADEBD',               // Secondary
+  weiss: '#FFFFFF',               // Pure White
+  canvas: '#F8F9FB',              // Light Background
+  
   // Text Colors
-  text_primary: "#323D5E", // Haupttext (Dunkelblau)
-  text_secondary: "#64748B", // Sekundärtext
-  text_tertiary: "#94A3B8", // Tertiärtext
-
+  text_primary: '#323D5E',        // Haupttext (Dunkelblau)
+  text_secondary: '#64748B',      // Sekundärtext
+  text_tertiary: '#94A3B8',       // Tertiärtext
+  
   // Border Colors
-  border_neutral: "#E2E8F0",
-  border_neutral_soft: "#F1F5F9",
+  border_neutral: '#E2E8F0',
+  border_neutral_soft: '#F1F5F9',
 } as const;
 ```
 
@@ -157,28 +141,26 @@ export const KERNFARBEN_V26_1 = {
 ```typescript
 export const MOTION_V26_1 = {
   // Duration (Best Practice)
-  duration_instant: "100ms",
-  duration_fast: "200ms",
-  duration_default: "300ms", // ← Standard für Sidebar/Header/Footer
-  duration_slow: "400ms",
-  duration_slower: "600ms",
-
+  duration_instant: '100ms',
+  duration_fast: '200ms',
+  duration_default: '300ms',      // ← Standard für Sidebar/Header/Footer
+  duration_slow: '400ms',
+  duration_slower: '600ms',
+  
   // Timing Functions
-  ease_default: "cubic-bezier(0.4, 0, 0.2, 1)",
-  ease_smooth: "cubic-bezier(0.4, 0, 0.2, 1)",
-
+  ease_default: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  ease_smooth: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  
   // Transitions
-  transition_sidebar: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-  transition_header:
-    "left 300ms cubic-bezier(0.4, 0, 0.2, 1), width 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-  transition_content: "margin 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+  transition_sidebar: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+  transition_header: 'left 300ms cubic-bezier(0.4, 0, 0.2, 1), width 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+  transition_content: 'margin 300ms cubic-bezier(0.4, 0, 0.2, 1)',
 } as const;
 ```
 
 ### ICON & BADGE SYSTEM
 
 #### Icon-Boxen (Dunkelblau + Beige)
-
 ```tsx
 <div className="bg-[#323D5E] rounded-xl p-3 shadow-lg shadow-[#323D5E]/20">
   <Icon className="text-[#EADEBD] h-6 w-6" />
@@ -186,7 +168,6 @@ export const MOTION_V26_1 = {
 ```
 
 #### Performance-Badges (Beige + Dunkelblau)
-
 ```tsx
 <div className="bg-[rgba(234,222,189,0.15)] border-2 border-[rgba(234,222,189,0.3)] text-[#323D5E] px-3 py-1 rounded-lg font-semibold">
   +12%
@@ -194,7 +175,6 @@ export const MOTION_V26_1 = {
 ```
 
 #### Status-Badges (Ampel-System - NUR für Status)
-
 ```tsx
 <Badge className="bg-[rgba(34,197,94,0.15)] border-2 border-[rgba(34,197,94,0.3)] text-green-700">
   Live
@@ -280,13 +260,11 @@ src/components/
 ### KRITISCHE REGEL FÜR /dashboard (HAUPTDASHBOARD)
 
 **UNVERÄNDERLICH:**
-
 - ❌ **KEIN Layout-Change** für das Hauptdashboard (`/dashboard`)
 - ❌ **Infoboard links** bleibt in Position und Struktur
 - ❌ **GPS-Karte** bleibt in Position und Struktur
 
 **ERLAUBT & PFLICHT:**
-
 - ✅ **Technische Optimierung** (Performance, Code-Qualität)
 - ✅ **Visuelle Synchronisierung** (V26.1 Design-Tokens)
 - ✅ **UI-Element-Upgrade** (Glow-Effekte, Transitions)
@@ -297,7 +275,6 @@ src/components/
 **Paradigma:** "Single Large Card View"
 
 Alle anderen Dashboard-Seiten nutzen:
-
 - Große zentrale Card als Hauptcontainer
 - Integrierte Sections mit `DashboardSection`
 - Konsistente Header/Footer/Sidebar
@@ -308,7 +285,6 @@ Alle anderen Dashboard-Seiten nutzen:
 Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 
 #### 1. V26DashboardCard (zu erstellen)
-
 ```tsx
 // Große zentrale Card für Dashboard-Content
 <V26DashboardCard title="Dashboard Titel" icon={Icon}>
@@ -317,14 +293,18 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 ```
 
 #### 2. V26StatCard (zu erstellen)
-
 ```tsx
 // KPI-Karten mit Glow-Effekten
-<V26StatCard label="Aufträge" value="142" icon={Truck} trend="+12%" trendType="positive" />
+<V26StatCard
+  label="Aufträge"
+  value="142"
+  icon={Truck}
+  trend="+12%"
+  trendType="positive"
+/>
 ```
 
 #### 3. V26MetricCard (zu erstellen)
-
 ```tsx
 // Erweiterte Metrik-Karten mit Chart-Integration
 <V26MetricCard
@@ -337,14 +317,16 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 ```
 
 #### 4. V26DataTable (zu erstellen)
-
 ```tsx
 // Tabellen mit V26.1 Styling
-<V26DataTable columns={columns} data={data} onRowClick={handleRowClick} />
+<V26DataTable
+  columns={columns}
+  data={data}
+  onRowClick={handleRowClick}
+/>
 ```
 
 #### 5. V26ActionButton (zu erstellen)
-
 ```tsx
 // Aktions-Buttons mit Glow-Effekten
 <V26ActionButton variant="primary" icon={Plus}>
@@ -353,7 +335,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 ```
 
 #### 6. V26StatusBadge (zu erstellen)
-
 ```tsx
 // Status-Badges (Ampel-System)
 <V26StatusBadge status="success">Bestätigt</V26StatusBadge>
@@ -362,7 +343,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 ```
 
 #### 7. V26SectionHeader (zu erstellen)
-
 ```tsx
 // Section-Header mit Icon und Actions
 <V26SectionHeader
@@ -377,7 +357,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 ## ✅ QUALITY GATES (PRE-COMMIT CHECKLIST)
 
 ### VISUELLE PRÜFUNG
-
 - [ ] Alle Elemente haben Glow-Effekte
 - [ ] Hover-States funktionieren smooth (300ms)
 - [ ] Farben ausschließlich aus DESIGN_TOKENS_V26_1
@@ -388,7 +367,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 - [ ] Animations laufen flüssig (60fps)
 
 ### CODE-PRÜFUNG
-
 - [ ] Alle Buttons nutzen V26Button oder V26HeroButton
 - [ ] Alle UI-Elemente sind wiederverwendbare Komponenten
 - [ ] Barrel Exports (`index.ts`) aktualisiert
@@ -401,14 +379,12 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 - [ ] Header/Footer: Sticky-Position korrekt (top: 0, bottom: 0)
 
 ### DOKUMENTATION-PRÜFUNG
-
 - [ ] Komponenten in Library dokumentiert
 - [ ] Usage-Examples vorhanden
 - [ ] Props-Beschreibungen vollständig
 - [ ] CHANGELOG aktualisiert
 
 ### FUNKTIONALE PRÜFUNG
-
 - [ ] Alle Features funktionieren wie vorher
 - [ ] Keine Breaking Changes
 - [ ] Edge Cases getestet
@@ -420,7 +396,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 ## 🚫 FORBIDDEN PRACTICES (ABSOLUTES VERBOT)
 
 ❌ **NIEMALS:**
-
 - Direkte Hex-Codes in Components verwenden
 - Inline-Hover-Effekte mit `onMouseEnter/Leave` für Styles
 - Shadcn-Components ohne V26-Wrapper verwenden
@@ -437,7 +412,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 ## 📈 SYSTEMWEITE HARMONISIERUNG (ABSOLUT)
 
 ### DESIGN-GLEICHHEIT
-
 - **Alle Seiten** nutzen identisches Design-System
 - **Alle UI-Elemente** haben Hero-Qualität
 - **Alle Farben** aus DESIGN_TOKENS_V26_1
@@ -445,21 +419,18 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 - **Alle Badges** folgen Performance/Status-Regeln
 
 ### LAYOUT-GLEICHHEIT
-
 - **Header** systemweit identisch (sticky, 300ms transition)
 - **Footer** systemweit identisch (sticky, 300ms transition)
 - **Sidebar** systemweit identisch (collapsible, 300ms transition)
 - **Content-Bereich** konsistent (margin-left angepasst)
 
 ### FUNKTIONALE GLEICHHEIT
-
 - **Error Handling** systemweit konsistent
 - **Loading States** systemweit konsistent
 - **Toast Notifications** systemweit konsistent
 - **Form Validation** systemweit konsistent
 
 ### TECHNISCHE GLEICHHEIT
-
 - **Code-Struktur** folgt Best Practices
 - **TypeScript** überall vollständig
 - **React Query** für Data Fetching
@@ -470,7 +441,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 ## 🎯 IMPLEMENTIERUNGS-PRIORITÄTEN (NEXT STEPS)
 
 ### PRIORITÄT 1: DASHBOARD-KOMPONENTEN ERSTELLEN
-
 - [ ] `V26DashboardCard` erstellen
 - [ ] `V26StatCard` erstellen
 - [ ] `V26MetricCard` erstellen
@@ -481,7 +451,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 - [ ] Barrel Export `/src/components/dashboard/index.ts` erstellen
 
 ### PRIORITÄT 2: HAUPTDASHBOARD SYNCHRONISIEREN
-
 - [ ] `/dashboard` (Hauptdashboard) technisch optimieren
 - [ ] UI-Elemente auf V26.1 upgraden (OHNE Layout-Change!)
 - [ ] Glow-Effekte hinzufügen
@@ -489,7 +458,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 - [ ] Testing durchführen
 
 ### PRIORITÄT 3: WEITERE DASHBOARDS SYNCHRONISIEREN
-
 - [ ] `/agent-dashboard` auf V26.1
 - [ ] `/bookings` auf V26.1
 - [ ] `/vehicles` auf V26.1
@@ -498,7 +466,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 - [ ] usw.
 
 ### PRIORITÄT 4: DOKUMENTATION FINALISIEREN
-
 - [ ] Alle Komponenten dokumentieren
 - [ ] Usage-Examples erstellen
 - [ ] CHANGELOG pflegen
@@ -509,7 +476,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 ## 📚 REFERENZEN
 
 ### INTERNE DOKUMENTATION
-
 - `V26.1_DESIGN_SYNC_DOCUMENTATION.md` → Design-Sync Details
 - `V26.1_COMPONENT_WORKFLOW.md` → Component-First Workflow
 - `MYDISPATCH_DESIGN_SYSTEM_FINAL_V26.0.md` → Design-System Spezifikation
@@ -517,7 +483,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 - `HOME_REFACTORING_V26.0_AUDIT.md` → Home-Refactoring Audit
 
 ### CODE-REFERENZEN
-
 - `src/lib/design-system/v26-1-tokens.ts` → Design-Tokens
 - `src/components/hero/index.ts` → Hero Components
 - `src/components/home/index.ts` → Home Components
@@ -550,7 +515,6 @@ Alle Dashboard-Seiten MÜSSEN folgende V26.1 Elemente nutzen:
 ## 📝 CHANGELOG
 
 ### V26.1 (2025-10-26)
-
 - ✅ Hero-Design als systemweiter Standard etabliert
 - ✅ V26.1 Design-Tokens finalisiert
 - ✅ Component Library strukturiert

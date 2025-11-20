@@ -25,15 +25,15 @@
 
 ```css
 /* MyDispatch CI Colors - HSL-basiert */
---primary: 40 31% 88%; /* #EADEBD - Beige/Gold (MyDispatch Hauptfarbe) */
+--primary: 40 31% 88%;           /* #EADEBD - Beige/Gold (MyDispatch Hauptfarbe) */
 --primary-foreground: 225 31% 28%; /* #323D5E - Dunkelblau (Kontrast) */
---primary-glow: 40 41% 93%; /* Hellere Variante für Highlights */
+--primary-glow: 40 41% 93%;      /* Hellere Variante für Highlights */
 
---foreground: 225 31% 28%; /* #323D5E - Haupttext */
---background: 0 0% 100%; /* #FFFFFF - Hintergrund */
+--foreground: 225 31% 28%;       /* #323D5E - Haupttext */
+--background: 0 0% 100%;         /* #FFFFFF - Hintergrund */
 
---secondary: 40 8% 95%; /* Helle Sekundärfarbe */
---muted: 40 8% 95%; /* Gedämpfte Hintergründe */
+--secondary: 40 8% 95%;          /* Helle Sekundärfarbe */
+--muted: 40 8% 95%;              /* Gedämpfte Hintergründe */
 ```
 
 ### Status-Farben (Ampelsystem)
@@ -41,30 +41,28 @@
 **KRITISCH:** Nur für Status-Badges verwenden, NIEMALS für Icons!
 
 ```css
---status-success: 142 76% 36%; /* Grün - Erfolg */
---status-warning: 48 96% 53%; /* Gelb - Warnung */
---status-error: 0 84% 60%; /* Rot - Fehler */
+--status-success: 142 76% 36%;   /* Grün - Erfolg */
+--status-warning: 48 96% 53%;    /* Gelb - Warnung */
+--status-error: 0 84% 60%;       /* Rot - Fehler */
 ```
 
 ### Chart-Farben (Datenvisualisierung)
 
 ```css
---chart-primary: 31 26% 45%; /* #9B7D57 - Hauptlinie */
---chart-secondary: 40 31% 70%; /* #D4C5A3 - Sekundärlinie */
---chart-tertiary: 31 26% 55%; /* #B89368 - Dritte Linie */
---chart-grid: 40 12% 88%; /* Grid-Linien */
+--chart-primary: 31 26% 45%;     /* #9B7D57 - Hauptlinie */
+--chart-secondary: 40 31% 70%;   /* #D4C5A3 - Sekundärlinie */
+--chart-tertiary: 31 26% 55%;    /* #B89368 - Dritte Linie */
+--chart-grid: 40 12% 88%;        /* Grid-Linien */
 ```
 
 ### Verwendungsregeln
 
 ✅ **RICHTIG:**
-
 - `bg-primary` für Hauptelemente
 - `text-foreground` für Texte auf hellem Hintergrund
 - `text-status-success` für Status-Badges
 
 ❌ **FALSCH:**
-
 - Direkte Farben: `text-white`, `bg-black`
 - Ampelfarben auf Icons: `text-green-500` auf `<Icon />`
 - Hex-Codes: `#FFFFFF`, `rgb(255,255,255)`
@@ -76,17 +74,10 @@
 ### Schriftarten
 
 ```css
-font-family:
-  "Inter",
-  -apple-system,
-  BlinkMacSystemFont,
-  "Segoe UI",
-  Roboto,
-  sans-serif;
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 ```
 
 **Inter Features:**
-
 - `font-feature-settings: 'cv11', 'ss01'`
 - `-webkit-font-smoothing: antialiased`
 - Variable Font (opsz: 32)
@@ -94,15 +85,15 @@ font-family:
 ### Fluid Typography (Responsive)
 
 ```css
---font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); /* 12px → 14px */
---font-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem); /* 14px → 16px */
---font-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); /* 16px → 18px */
---font-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem); /* 18px → 20px */
---font-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem); /* 20px → 24px */
---font-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem); /* 24px → 30px */
+--font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);    /* 12px → 14px */
+--font-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);     /* 14px → 16px */
+--font-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);    /* 16px → 18px */
+--font-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);  /* 18px → 20px */
+--font-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);      /* 20px → 24px */
+--font-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);   /* 24px → 30px */
 --font-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.25rem); /* 30px → 36px */
---font-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem); /* 36px → 48px */
---font-5xl: clamp(3rem, 2.55rem + 2.25vw, 4rem); /* 48px → 64px */
+--font-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem);       /* 36px → 48px */
+--font-5xl: clamp(3rem, 2.55rem + 2.25vw, 4rem);         /* 48px → 64px */
 ```
 
 ### Typography Classes
@@ -160,19 +151,18 @@ import { Camera, User, Settings } from 'lucide-react';
 
 ### Icon-Größen-System
 
-| Größe | Class       | Pixel | Verwendung          |
-| ----- | ----------- | ----- | ------------------- |
-| XS    | `h-3 w-3`   | 12px  | Inline-Text, Badges |
-| SM    | `h-4 w-4`   | 16px  | Buttons, Listen     |
-| MD    | `h-5 w-5`   | 20px  | Cards, Navigation   |
-| LG    | `h-6 w-6`   | 24px  | Headers, Hero       |
-| XL    | `h-8 w-8`   | 32px  | Large Actions       |
-| 2XL   | `h-10 w-10` | 40px  | Feature Icons       |
+| Größe | Class | Pixel | Verwendung |
+|-------|-------|-------|------------|
+| XS | `h-3 w-3` | 12px | Inline-Text, Badges |
+| SM | `h-4 w-4` | 16px | Buttons, Listen |
+| MD | `h-5 w-5` | 20px | Cards, Navigation |
+| LG | `h-6 w-6` | 24px | Headers, Hero |
+| XL | `h-8 w-8` | 32px | Large Actions |
+| 2XL | `h-10 w-10` | 40px | Feature Icons |
 
 ### Farbregeln für Icons
 
 ✅ **RICHTIG:**
-
 ```tsx
 // Foreground auf hellem Hintergrund
 <Icon className="text-foreground" />
@@ -185,7 +175,6 @@ import { Camera, User, Settings } from 'lucide-react';
 ```
 
 ❌ **FALSCH:**
-
 ```tsx
 // NIEMALS Ampelfarben auf Icons (außer Status-Badges)
 <Icon className="text-green-500" />   // ❌
@@ -197,10 +186,10 @@ import { Camera, User, Settings } from 'lucide-react';
 
 ```tsx
 // src/components/design-system/Icon.tsx
-import { icons, LucideProps } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { icons, LucideProps } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-interface IconProps extends Omit<LucideProps, "ref"> {
+interface IconProps extends Omit<LucideProps, 'ref'> {
   name: keyof typeof icons;
   className?: string;
 }
@@ -211,7 +200,7 @@ export const Icon = ({ name, className, ...props }: IconProps) => {
 };
 
 // Verwendung
-<Icon name="Camera" className="text-foreground" />;
+<Icon name="Camera" className="text-foreground" />
 ```
 
 ---
@@ -245,18 +234,18 @@ Basierend auf Dashboard/Aufträge/Finanzen:
 ```tsx
 <PageLayout>
   <PageHeader>
-    <PageHeaderWithKPIs
+    <PageHeaderWithKPIs 
       title="Seitentitel"
       kpis={[...]}
     />
   </PageHeader>
-
+  
   <PageContent className="space-y-6">
     {/* KPI Cards */}
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <KPICard {...} />
     </div>
-
+    
     {/* Main Content */}
     <Card>
       <CardHeader>
@@ -492,7 +481,6 @@ font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
 ## 📚 DOKUMENTATION & UPDATES
 
 **Letzte Updates:**
-
 - V18.3.28: Icon-System-Dokumentation, Dynamische Icon-Komponente
 - V18.3.27: XSS-Prävention, Sanitization-System
 - V15.0: Initial Design System (HSL-basiert)

@@ -19,7 +19,6 @@ Vollständiges **Agent Health Monitoring System** mit Cron-Job-Automation, Real-
 **Migration:** `20251026_batch8_observability_automation.sql`
 
 **Features:**
-
 - ✅ `pg_cron` Extension aktiviert (Cron-Jobs)
 - ✅ `pg_net` Extension aktiviert (HTTP-Requests)
 - ✅ `heartbeat_history` Tabelle (30 Tage Retention)
@@ -27,7 +26,6 @@ Vollständiges **Agent Health Monitoring System** mit Cron-Job-Automation, Real-
 - ✅ Cron-Job: Cleanup (täglich 3 Uhr)
 
 **Cron-Jobs:**
-
 ```sql
 -- Heartbeat alle 15 Minuten
 */15 * * * * → POST /central-brain (action: heartbeat)
@@ -46,14 +44,12 @@ Vollständiges **Agent Health Monitoring System** mit Cron-Job-Automation, Real-
 **Datei:** `supabase/functions/central-brain/index.ts`
 
 **Neu:**
-
 - ✅ Uptime-Berechnung (aus monitoring_logs, Last 24h)
 - ✅ Response-Time-Durchschnitt (Last 24h)
 - ✅ Heartbeat speichern in `heartbeat_history`
 - ✅ Datadoc-Sync (weiterhin aktiv)
 
 **Heartbeat-Payload:**
-
 ```json
 {
   "timestamp": "2025-01-26T10:00:00Z",
@@ -80,7 +76,6 @@ Vollständiges **Agent Health Monitoring System** mit Cron-Job-Automation, Real-
 **Datei:** `src/hooks/use-agent-health.ts`
 
 **Features:**
-
 - ✅ Latest Heartbeat (Refetch: 1 Min)
 - ✅ Heartbeat History (Last 24h, Refetch: 5 Min)
 - ✅ Agent Status (Current, Refetch: 30s)
@@ -88,9 +83,8 @@ Vollständiges **Agent Health Monitoring System** mit Cron-Job-Automation, Real-
 - ✅ Manual Heartbeat Trigger
 
 **Usage:**
-
 ```typescript
-import { useAgentHealth, triggerHeartbeat } from "@/hooks/use-agent-health";
+import { useAgentHealth, triggerHeartbeat } from '@/hooks/use-agent-health';
 
 const { latestHeartbeat, heartbeatHistory, uptime7d, uptime30d } = useAgentHealth();
 
@@ -105,7 +99,6 @@ await triggerHeartbeat();
 **Datei:** `src/components/agent-health/AgentHealthDashboard.tsx`
 
 **Features:**
-
 - ✅ Real-Time Status Cards (Gesamt-Status, Uptime, Response Time)
 - ✅ Agent Status List (NeXify, Watchdog-AI, Docs-Agent)
 - ✅ Uptime-Verlauf Chart (24h, Recharts)
@@ -113,7 +106,6 @@ await triggerHeartbeat();
 - ✅ Manual Heartbeat Button
 
 **Design:**
-
 - Mobile-First (Responsive Grid)
 - Shadcn UI Components (Card, Badge, Button)
 - CI-Colors (Primary, Accent, Success, Destructive)
@@ -142,7 +134,7 @@ graph TD
 ### 1. Dashboard einbinden (React)
 
 ```tsx
-import { AgentHealthDashboard } from "@/components/agent-health/AgentHealthDashboard";
+import { AgentHealthDashboard } from '@/components/agent-health/AgentHealthDashboard';
 
 function MonitoringPage() {
   return (
@@ -156,11 +148,11 @@ function MonitoringPage() {
 ### 2. Manual Heartbeat triggern
 
 ```typescript
-import { triggerHeartbeat } from "@/hooks/use-agent-health";
+import { triggerHeartbeat } from '@/hooks/use-agent-health';
 
 const handleRefresh = async () => {
   await triggerHeartbeat();
-  toast.success("Heartbeat erfolgreich gesendet!");
+  toast.success('Heartbeat erfolgreich gesendet!');
 };
 ```
 
@@ -175,21 +167,20 @@ SELECT * FROM cron.job_run_details ORDER BY end_time DESC LIMIT 10;
 
 ## 📈 ERFOLGSMETRIKEN
 
-| Metrik                 | Target      | Status                                |
-| ---------------------- | ----------- | ------------------------------------- |
-| Heartbeat-Frequenz     | Alle 15 Min | ✅ Implementiert                      |
-| Heartbeat-Uptime       | > 99%       | ✅ 99.87% (24h)                       |
-| Dashboard-Ladezeit     | < 2s        | ✅ < 1s                               |
-| Uptime-Berechnung      | Real-Time   | ✅ Aus monitoring_logs                |
-| Response-Time-Tracking | Real-Time   | ✅ Durchschnitt (24h)                 |
-| Cleanup-Automation     | Täglich     | ✅ 3 Uhr (heartbeat), 3:30 Uhr (logs) |
+| Metrik | Target | Status |
+|--------|--------|--------|
+| Heartbeat-Frequenz | Alle 15 Min | ✅ Implementiert |
+| Heartbeat-Uptime | > 99% | ✅ 99.87% (24h) |
+| Dashboard-Ladezeit | < 2s | ✅ < 1s |
+| Uptime-Berechnung | Real-Time | ✅ Aus monitoring_logs |
+| Response-Time-Tracking | Real-Time | ✅ Durchschnitt (24h) |
+| Cleanup-Automation | Täglich | ✅ 3 Uhr (heartbeat), 3:30 Uhr (logs) |
 
 ---
 
 ## 🔄 AUTOMATISIERUNG
 
 **Cron-Jobs (pg_cron):**
-
 1. **Heartbeat:** Alle 15 Minuten → `central-brain` aufrufen
 2. **Cleanup Heartbeat:** Täglich 3 Uhr → Alte Einträge löschen (>30d)
 3. **Cleanup Logs:** Täglich 3:30 Uhr → Alte monitoring_logs löschen (>90d)

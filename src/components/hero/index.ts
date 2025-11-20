@@ -7,19 +7,19 @@
    ================================================================================== */
 
 // V32.0: EINZIGE erlaubte Hero-Komponente
-export { V28HeroPremium } from "./V28HeroPremium";
+export { V28HeroPremium } from './V28HeroPremium';
 
 // V32.0: EINZIGER erlaubter Background (wird automatisch von V28HeroPremium verwendet)
-export { V28Hero3DBackgroundPremium } from "./V28Hero3DBackgroundPremium";
+export { V28Hero3DBackgroundPremium } from './V28Hero3DBackgroundPremium';
 
 // Device Mockups (behalten, werden intern verwendet)
-export { V28iPadMockup } from "./V28iPadMockup";
-export { V28iPadMockupHD } from "./V28iPadMockupHD";
-export { IPhoneMockupHD } from "./IPhoneMockupHD";
-export { DualDeviceMockup } from "./DualDeviceMockup";
+export { V28iPadMockup } from './V28iPadMockup';
+export { V28iPadMockupHD } from './V28iPadMockupHD';
+export { IPhoneMockupHD } from './IPhoneMockupHD';
+export { DualDeviceMockup } from './DualDeviceMockup';
 
 // Types
-export type { RenderingResolution } from "@/lib/rendering-quality";
+export type { RenderingResolution } from '@/lib/rendering-quality';
 
 /* ==================================================================================
    ARCHIVIERTE KOMPONENTEN (V32.0)

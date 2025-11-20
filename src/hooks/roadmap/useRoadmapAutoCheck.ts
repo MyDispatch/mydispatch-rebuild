@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
 
 interface RoadmapAutoCheckConfig {
   enabled: boolean;
@@ -11,10 +11,10 @@ interface RoadmapAutoCheckConfig {
 
 /**
  * Auto-Check Hook für Roadmap-System
- *
+ * 
  * Prüft automatisch bei Code-Änderungen, ob parallel Tasks erledigt werden können.
  * NUR in Dev-Mode aktiv!
- *
+ * 
  * @example
  * useRoadmapAutoCheck({
  *   enabled: true,
@@ -31,27 +31,27 @@ export function useRoadmapAutoCheck(config: RoadmapAutoCheckConfig) {
     const checkRoadmap = async () => {
       try {
         if (import.meta.env.DEV) {
-          console.log("🔍 [Roadmap Auto-Check] Starting...");
+          console.log('🔍 [Roadmap Auto-Check] Starting...');
         }
 
-        const { data, error } = await supabase.functions.invoke("roadmap-auto-checker", {
+        const { data, error } = await supabase.functions.invoke('roadmap-auto-checker', {
           body: {
             current_task_description: config.current_task,
             affected_files: config.affected_files || [],
-            affected_pages: config.affected_pages || [],
-          },
+            affected_pages: config.affected_pages || []
+          }
         });
 
         if (error) {
           if (import.meta.env.DEV) {
-            console.error("❌ [Roadmap Auto-Check] Error:", error);
+            console.error('❌ [Roadmap Auto-Check] Error:', error);
           }
           return;
         }
 
         if (data.opportunistic_tasks?.length > 0) {
           if (import.meta.env.DEV) {
-            console.group("💡 [Roadmap Auto-Check] Opportunistic Tasks Found!");
+            console.group('💡 [Roadmap Auto-Check] Opportunistic Tasks Found!');
             data.opportunistic_tasks.forEach((task: any) => {
               console.log(`→ ${task.title} (Match: ${(task.match_score * 100).toFixed(0)}%)`);
               console.log(`  Reason: ${task.match_reason}`);
@@ -64,12 +64,13 @@ export function useRoadmapAutoCheck(config: RoadmapAutoCheckConfig) {
           config.onOpportunisticTasksFound?.(data.opportunistic_tasks);
         } else {
           if (import.meta.env.DEV) {
-            console.log("✅ [Roadmap Auto-Check] No opportunistic tasks found");
+            console.log('✅ [Roadmap Auto-Check] No opportunistic tasks found');
           }
         }
+
       } catch (err) {
         if (import.meta.env.DEV) {
-          console.error("❌ [Roadmap Auto-Check] Exception:", err);
+          console.error('❌ [Roadmap Auto-Check] Exception:', err);
         }
       }
     };
@@ -77,11 +78,5 @@ export function useRoadmapAutoCheck(config: RoadmapAutoCheckConfig) {
     // Debounce: Warte 2s nach letzter Änderung
     const timer = setTimeout(checkRoadmap, 2000);
     return () => clearTimeout(timer);
-  }, [
-    config.current_task,
-    config.affected_files,
-    config.affected_pages,
-    config.enabled,
-    config.onOpportunisticTasksFound,
-  ]);
+  }, [config.current_task, config.affected_files, config.affected_pages, config.enabled, config.onOpportunisticTasksFound]);
 }

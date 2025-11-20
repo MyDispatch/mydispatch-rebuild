@@ -2,42 +2,26 @@
    FEATURE DETAIL PAGE: Partner-Management
    ================================================================================== */
 
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { V28HeroPremium } from "@/components/hero";
-import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
-import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
-import { V28IconBox } from "@/components/design-system/V28IconBox";
-import { V28Button } from "@/components/design-system/V28Button";
-import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
-import { Handshake, Users, Euro, TrendingUp } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { V28HeroPremium } from '@/components/hero';
+import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28Button } from '@/components/design-system/V28Button';
+import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
+import { Handshake, Users, Euro, TrendingUp } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function PartnerManagementPage() {
   const navigate = useNavigate();
 
   const features = [
-    {
-      icon: Users,
-      title: "Partner-Netzwerk",
-      description: "Verwalten Sie alle Partner-Unternehmen zentral",
-    },
-    {
-      icon: Handshake,
-      title: "Auftragsvergabe",
-      description: "Vergeben Sie Aufträge automatisch oder manuell",
-    },
-    {
-      icon: Euro,
-      title: "Provisionen",
-      description: "Transparente Abrechnungen mit automatischer Provisionsberechnung",
-    },
-    {
-      icon: TrendingUp,
-      title: "Partner-Statistiken",
-      description: "Performance-Tracking für jeden Partner",
-    },
+    { icon: Users, title: 'Partner-Netzwerk', description: 'Verwalten Sie alle Partner-Unternehmen zentral' },
+    { icon: Handshake, title: 'Auftragsvergabe', description: 'Vergeben Sie Aufträge automatisch oder manuell' },
+    { icon: Euro, title: 'Provisionen', description: 'Transparente Abrechnungen mit automatischer Provisionsberechnung' },
+    { icon: TrendingUp, title: 'Partner-Statistiken', description: 'Performance-Tracking für jeden Partner' },
   ];
 
   return (
@@ -57,12 +41,12 @@ export default function PartnerManagementPage() {
         subtitle="Verwalten Sie Ihr Partner-Netzwerk professionell"
         description="Mit Auftragsvergabe, Provisionsabrechnung und Performance-Tracking."
         primaryCTA={{
-          label: "Jetzt starten",
-          onClick: () => navigate("/auth?mode=signup"),
+          label: 'Jetzt starten',
+          onClick: () => navigate('/auth?mode=signup')
         }}
         secondaryCTA={{
-          label: "Mehr erfahren",
-          onClick: () => navigate("/pricing"),
+          label: 'Mehr erfahren',
+          onClick: () => navigate('/pricing')
         }}
         visual={<PremiumDashboardContent pageType="features" />}
         trustElements={true}
@@ -87,7 +71,7 @@ export default function PartnerManagementPage() {
             <V28TariffBadge label="Business" />
             <V28TariffBadge label="Enterprise" />
           </div>
-          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
             Tarife vergleichen
           </V28Button>
         </div>

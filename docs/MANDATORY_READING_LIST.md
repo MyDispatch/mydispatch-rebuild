@@ -25,10 +25,8 @@
 ## 📖 READING ORDER & ZWECK
 
 ### 0. AVOIDABLE_ERRORS.md (5-7 Min) ⚠️ ZUERST!
-
 **Zweck:** Radikal ehrlicher Fehlervermeidungs-Workflow
 **Was prüfen:**
-
 - □ 7-Step Master-Workflow verinnerlicht?
 - □ Radikale Selbstanalyse durchführen
 - □ Mandatory Kontext-Check verstanden?
@@ -38,7 +36,6 @@
 - □ Bekannte Fehler-Muster studiert?
 
 **Alarm-Trigger:**
-
 - Starte ich ohne alle Dateien zu lesen? → STOPP!
 - Starte ich ohne User-Validierung? → STOPP!
 - Starte ich ohne Screenshot? → STOPP!
@@ -49,10 +46,8 @@
 ---
 
 ### 1. PROJECT_MEMORY.md (3-5 Min)
-
 **Zweck:** Aktueller Projekt-Status, letzte Änderungen, kritische Erinnerungen
 **Was prüfen:**
-
 - □ Aktueller Scope (Pre-Login vs Dashboard)
 - □ Letzte Session-Änderungen
 - □ Kritische Erinnerungen (häufige Fehler)
@@ -60,7 +55,6 @@
 - □ Nächste Schritte
 
 **Alarm-Trigger:**
-
 - Bin ich dabei Dashboard-Code zu ändern? → STOPP! (GESPERRT)
 - Importiere ich V26-Komponenten? → STOPP!
 - Nutze ich Hex-Codes direkt? → STOPP!
@@ -68,10 +62,8 @@
 ---
 
 ### 2. DESIGN_SYSTEM_DOCUMENTATION_V28.1_FINAL.md (5-7 Min)
-
 **Zweck:** V28.1 Design-Regeln, verbotene Patterns, Pflicht-Standards
 **Was prüfen:**
-
 - □ Farbsystem (nur semantic tokens!)
 - □ Verbotene Patterns (V26, Hex-Codes, inline styles)
 - □ Pflicht-Patterns (Tailwind, V28-Komponenten)
@@ -79,7 +71,6 @@
 - □ Component-Naming (V28-Prefix!)
 
 **Alarm-Trigger:**
-
 - Nutze ich `v26-` Classes? → STOPP!
 - Nutze ich `bg-[#334155]`? → STOPP!
 - Nutze ich `style={{ ... }}`? → STOPP!
@@ -88,35 +79,29 @@
 ---
 
 ### 3. PRE_LOGIN_FOCUS.md (2-3 Min)
-
 **Zweck:** Aktueller Arbeitsbereich, gesperrte Bereiche
 **Was prüfen:**
-
 - □ Ist meine geplante Änderung im aktuellen Scope?
 - □ Betrifft sie Dashboard? (GESPERRT!)
 - □ Betrifft sie Pre-Login Bereich? (ERLAUBT!)
 - □ Was ist als nächstes geplant?
 
 **Alarm-Trigger:**
-
 - Ändere ich Dashboard-Code? → STOPP! (GESPERRT bis explizit gefordert)
-- Ändere ich /dashboard/\* Routes? → STOPP!
+- Ändere ich /dashboard/* Routes? → STOPP!
 - Ändere ich Sidebar/Widgets? → STOPP!
 
 ---
 
 ### 4. LESSONS_LEARNED.md (3-5 Min)
-
 **Zweck:** Aus vergangenen Fehlern lernen, erfolgreiche Patterns
 **Was prüfen:**
-
 - □ Anti-Patterns (Was NICHT funktioniert)
 - □ Erfolgreiche Patterns (Was gut funktioniert)
 - □ Häufige Fehler (Component-Duplikation, fehlende Types)
 - □ Workflow-Optimierungen
 
 **Alarm-Trigger:**
-
 - Bin ich dabei einen Component neu zu erstellen? → Check COMPONENT_REGISTRY erst!
 - Vergesse ich Type Definitions? → STOPP!
 - Nutze ich inline styles? → STOPP!
@@ -124,17 +109,14 @@
 ---
 
 ### 5. COMPONENT_REGISTRY.md (2-4 Min)
-
 **Zweck:** Existierende Components, Vermeidung von Duplikation
 **Was prüfen:**
-
 - □ Existiert der Component bereits?
 - □ Kann ich einen bestehenden Component erweitern?
 - □ Wo ist der Component (Path)?
 - □ Welche Props hat er?
 
 **Alarm-Trigger:**
-
 - Component existiert bereits? → NICHT neu erstellen!
 - Ähnlicher Component existiert? → Erweitern statt neu erstellen!
 
@@ -143,7 +125,6 @@
 ## 🔄 NACH jeder Code-Änderung (PFLICHT!)
 
 **Wenn Fehler behoben wurde:**
-
 ```
 1. ✅ LESSONS_LEARNED.md erweitern (neues Learning eintragen)
 2. ✅ PROJECT_MEMORY.md "Kritische Erinnerungen" updaten
@@ -152,14 +133,12 @@
 ```
 
 **Wenn Component erstellt wurde:**
-
 ```
 1. ✅ COMPONENT_REGISTRY.md eintragen (Path, Props, Usage)
 2. ✅ PROJECT_MEMORY.md updaten (neue Component vermerken)
 ```
 
 **Wenn Design-Pattern entdeckt wurde:**
-
 ```
 1. ✅ LESSONS_LEARNED.md eintragen (erfolgreicher Pattern)
 2. ✅ DESIGN_SYSTEM_V28_1_ABSOLUTE.md erweitern (falls relevant)
@@ -172,7 +151,6 @@
 **Total Reading Time:** ~20-31 Minuten pro Session-Start (+5-7 Min für AVOIDABLE_ERRORS.md)
 
 **Amortisation:**
-
 - Verhindert: 30-60 Min Fehler-Debugging
 - Verhindert: 15-30 Min Code-Refactoring
 - Verhindert: 10-20 Min Component-Duplikation Cleanup
@@ -185,7 +163,6 @@
 ## 🚨 KONSEQUENZEN BEI NICHT-BEFOLGEN
 
 **Wenn ich diese Liste NICHT lese:**
-
 - ❌ V26-Komponenten werden verwendet (80% Fehlerquote)
 - ❌ Components werden dupliziert (60% Fehlerquote)
 - ❌ Dashboard-Code wird geändert (GESPERRT!)
@@ -226,13 +203,13 @@
 
 **Ziel-Metriken durch Pflichtlektüre:**
 
-| Metrik         | Vorher | Ziel | Aktuell |
-| -------------- | ------ | ---- | ------- |
-| Fehlerquote    | 30%    | <5%  | ?       |
-| Duplikationen  | 20%    | 0%   | ?       |
-| Design-Breaks  | 40%    | 0%   | ?       |
-| Type-Errors    | 25%    | <5%  | ?       |
-| V26-Verwendung | 80%    | 0%   | ?       |
+| Metrik | Vorher | Ziel | Aktuell |
+|--------|--------|------|---------|
+| Fehlerquote | 30% | <5% | ? |
+| Duplikationen | 20% | 0% | ? |
+| Design-Breaks | 40% | 0% | ? |
+| Type-Errors | 25% | <5% | ? |
+| V26-Verwendung | 80% | 0% | ? |
 
 **Update nach jeder Session!**
 
@@ -258,7 +235,6 @@
 ## ⚠️ NEU HINZUGEFÜGT (2025-10-29)
 
 ### Alarm-Trigger: Partial Data Loading
-
 **KRITISCHE REGEL für Supabase Queries:**
 
 ```typescript
@@ -274,12 +250,10 @@
 **Regel:** `.select('*')` für ALLE User-bezogenen Queries (Profile, Auth, Roles)!
 
 **Warum?**
-
 - Fehlende Daten führen zu Bugs in `useAuth()`, `useAccountType()`, Master-Detection
 - Performance-Optimierung ERST nach Profiling, nicht präventiv!
 
 **Betroffene Bereiche:**
-
 - Profile-Queries
 - Customer-Queries
 - Company-Queries

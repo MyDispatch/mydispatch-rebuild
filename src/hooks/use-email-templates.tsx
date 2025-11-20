@@ -7,31 +7,27 @@
    - Zentrale Fehlerbehandlung
    ================================================================================== */
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "./use-auth";
-import { handleError, handleSuccess } from "@/lib/error-handler";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from './use-auth';
+import { handleError, handleSuccess } from '@/lib/error-handler';
 
 export function useEmailTemplates() {
   const { profile } = useAuth();
   const queryClient = useQueryClient();
 
   // Fetch Email Templates
-  const {
-    data: templates = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["email-templates", profile?.company_id],
+  const { data: templates = [], isLoading, error } = useQuery({
+    queryKey: ['email-templates', profile?.company_id],
     queryFn: async () => {
       if (!profile?.company_id) return [];
 
       const { data, error } = await supabase
-        .from("email_templates")
-        .select("*")
-        .eq("company_id", profile.company_id)
-        .eq("is_active", true)
-        .order("name");
+        .from('email_templates')
+        .select('*')
+        .eq('company_id', profile.company_id)
+        .eq('is_active', true)
+        .order('name');
 
       if (error) throw error;
       return data || [];
@@ -45,10 +41,10 @@ export function useEmailTemplates() {
   // Create Email Template
   const createTemplate = useMutation({
     mutationFn: async (templateData: any) => {
-      if (!profile?.company_id) throw new Error("Company ID fehlt");
+      if (!profile?.company_id) throw new Error('Company ID fehlt');
 
       const { data, error } = await supabase
-        .from("email_templates")
+        .from('email_templates')
         .insert({
           ...templateData,
           company_id: profile.company_id,
@@ -61,11 +57,11 @@ export function useEmailTemplates() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["email-templates", profile?.company_id] });
-      handleSuccess("E-Mail-Vorlage erfolgreich erstellt");
+      queryClient.invalidateQueries({ queryKey: ['email-templates', profile?.company_id] });
+      handleSuccess('E-Mail-Vorlage erfolgreich erstellt');
     },
     onError: (error) => {
-      handleError(error, "E-Mail-Vorlage konnte nicht erstellt werden");
+      handleError(error, 'E-Mail-Vorlage konnte nicht erstellt werden');
     },
   });
 
@@ -73,10 +69,10 @@ export function useEmailTemplates() {
   const updateTemplate = useMutation({
     mutationFn: async ({ id, ...updateData }: any) => {
       const { data, error } = await supabase
-        .from("email_templates")
+        .from('email_templates')
         .update(updateData)
-        .eq("id", id)
-        .eq("company_id", profile?.company_id)
+        .eq('id', id)
+        .eq('company_id', profile?.company_id)
         .select()
         .single();
 
@@ -84,11 +80,11 @@ export function useEmailTemplates() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["email-templates", profile?.company_id] });
-      handleSuccess("E-Mail-Vorlage erfolgreich aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['email-templates', profile?.company_id] });
+      handleSuccess('E-Mail-Vorlage erfolgreich aktualisiert');
     },
     onError: (error) => {
-      handleError(error, "E-Mail-Vorlage konnte nicht aktualisiert werden");
+      handleError(error, 'E-Mail-Vorlage konnte nicht aktualisiert werden');
     },
   });
 
@@ -96,19 +92,19 @@ export function useEmailTemplates() {
   const deleteTemplate = useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase
-        .from("email_templates")
+        .from('email_templates')
         .update({ is_active: false })
-        .eq("id", id)
-        .eq("company_id", profile?.company_id);
+        .eq('id', id)
+        .eq('company_id', profile?.company_id);
 
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["email-templates", profile?.company_id] });
-      handleSuccess("E-Mail-Vorlage deaktiviert");
+      queryClient.invalidateQueries({ queryKey: ['email-templates', profile?.company_id] });
+      handleSuccess('E-Mail-Vorlage deaktiviert');
     },
     onError: (error) => {
-      handleError(error, "E-Mail-Vorlage konnte nicht deaktiviert werden");
+      handleError(error, 'E-Mail-Vorlage konnte nicht deaktiviert werden');
     },
   });
 

@@ -6,9 +6,9 @@
    ✅ Automated fix suggestions
    ================================================================================== */
 
-import { useEffect } from "react";
-import { TripleCheckSystem } from "@/utils/errorDetection";
-import { logger } from "@/lib/logger";
+import { useEffect } from 'react';
+import { TripleCheckSystem } from '@/utils/errorDetection';
+import { logger } from '@/lib/logger';
 
 interface UseTripleCheckOptions {
   componentName: string;
@@ -66,7 +66,7 @@ export function useTripleCheck(options: UseTripleCheckOptions) {
           const warnings = TripleCheckSystem.getWarnings();
           if (warnings.length > 0 && import.meta.env.DEV) {
             console.group(`⚠️ Triple-Check Warnings: ${options.componentName}`);
-            warnings.forEach((warning) => console.warn(warning));
+            warnings.forEach(warning => console.warn(warning));
             console.groupEnd();
           }
         }

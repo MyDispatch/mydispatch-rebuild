@@ -7,11 +7,11 @@
    - Custom Filters (Select, Date, etc.)
    ================================================================================== */
 
-import { Input } from "@/lib/compat";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { Search } from "lucide-react";
-import { SearchConfig, TabConfig, FilterConfig } from "@/types/page-template";
+import { Input } from '@/lib/compat';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Search } from 'lucide-react';
+import { SearchConfig, TabConfig, FilterConfig } from '@/types/page-template';
 
 interface FilterBarProps {
   search?: SearchConfig;
@@ -22,13 +22,13 @@ interface FilterBarProps {
   onFilterChange?: (filters: Record<string, any>) => void;
 }
 
-export function FilterBar({
-  search,
-  tabs,
+export function FilterBar({ 
+  search, 
+  tabs, 
   customFilters,
   onSearchChange,
   onTabChange,
-  onFilterChange,
+  onFilterChange
 }: FilterBarProps) {
   // Keine Filter definiert
   if (!search && (!tabs || tabs.length === 0) && (!customFilters || customFilters.length === 0)) {
@@ -52,13 +52,21 @@ export function FilterBar({
           />
         </div>
       )}
-
+      
       {/* Tabs */}
       {tabs && tabs.length > 0 && (
-        <Tabs defaultValue={tabs[0].id} onValueChange={onTabChange} className="w-full">
+        <Tabs 
+          defaultValue={tabs[0].id} 
+          onValueChange={onTabChange}
+          className="w-full"
+        >
           <TabsList className="w-full justify-start flex-wrap h-auto">
-            {tabs.map((tab) => (
-              <TabsTrigger key={tab.id} value={tab.id} className="gap-2">
+            {tabs.map(tab => (
+              <TabsTrigger 
+                key={tab.id} 
+                value={tab.id}
+                className="gap-2"
+              >
                 {tab.icon && <tab.icon className="h-4 w-4" />}
                 {tab.label}
                 {tab.count !== undefined && (
@@ -71,14 +79,16 @@ export function FilterBar({
           </TabsList>
         </Tabs>
       )}
-
+      
       {/* Custom Filters */}
       {customFilters && customFilters.length > 0 && (
         <div className="flex gap-2 flex-wrap">
           {customFilters.map((filter) => (
             <div key={filter.id}>
               {filter.component || (
-                <div className="text-sm text-muted-foreground">Filter: {filter.label}</div>
+                <div className="text-sm text-muted-foreground">
+                  Filter: {filter.label}
+                </div>
               )}
             </div>
           ))}

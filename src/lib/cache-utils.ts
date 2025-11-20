@@ -4,7 +4,7 @@
    localStorage/sessionStorage Helper mit Expiry + Error Handling
    ================================================================================== */
 
-import { handleWarning } from "./error-handler";
+import { handleWarning } from './error-handler';
 
 interface CacheItem<T> {
   value: T;
@@ -17,8 +17,8 @@ interface CacheItem<T> {
 export class CacheManager {
   private storage: Storage;
 
-  constructor(storage: "local" | "session" = "local") {
-    this.storage = storage === "local" ? localStorage : sessionStorage;
+  constructor(storage: 'local' | 'session' = 'local') {
+    this.storage = storage === 'local' ? localStorage : sessionStorage;
   }
 
   /**
@@ -36,7 +36,7 @@ export class CacheManager {
     try {
       this.storage.setItem(key, JSON.stringify(item));
     } catch (error) {
-      handleWarning(`Cache set failed for ${key}`, "Cache Warning");
+      handleWarning(`Cache set failed for ${key}`, 'Cache Warning');
     }
   }
 
@@ -60,7 +60,7 @@ export class CacheManager {
 
       return item.value;
     } catch (error) {
-      handleWarning(`Cache get failed for ${key}`, "Cache Warning");
+      handleWarning(`Cache get failed for ${key}`, 'Cache Warning');
       return null;
     }
   }
@@ -103,5 +103,5 @@ export class CacheManager {
 }
 
 // Singleton Instances
-export const localCache = new CacheManager("local");
-export const sessionCache = new CacheManager("session");
+export const localCache = new CacheManager('local');
+export const sessionCache = new CacheManager('session');

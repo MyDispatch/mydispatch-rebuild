@@ -2,14 +2,14 @@
    PARTNER FORM - Wrapped UnifiedForm for Partners
    ================================================================================== */
 
-import { UseFormReturn } from "react-hook-form";
-import { UnifiedForm, FormField } from "../UnifiedForm";
-import { FORM_FIELDS_REGISTRY } from "@/config/form-fields-registry";
+import { UseFormReturn } from 'react-hook-form';
+import { UnifiedForm, FormField } from '../UnifiedForm';
+import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 
 interface PartnerFormProps {
   form: UseFormReturn<any>;
   onSubmit: (data: any) => Promise<void>;
-  mode?: "inline" | "dialog";
+  mode?: 'inline' | 'dialog';
   dialogOpen?: boolean;
   onDialogOpenChange?: (open: boolean) => void;
   loading?: boolean;
@@ -18,7 +18,7 @@ interface PartnerFormProps {
 export function PartnerForm({
   form,
   onSubmit,
-  mode = "dialog",
+  mode = 'dialog',
   dialogOpen,
   onDialogOpenChange,
   loading,

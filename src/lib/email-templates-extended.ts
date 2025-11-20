@@ -26,7 +26,7 @@ const formatEmailTemplate = (data: EmailTemplateData, content: string): string =
       <!-- Header mit Logo -->
       <div style="background-color: #EADEBD; padding: 20px; border-radius: 8px 8px 0 0; text-align: center;">
         <h1 style="color: #323D5E; margin: 0; font-size: 24px;">MyDispatch</h1>
-        ${data.companyName ? `<p style="color: #856d4b; margin: 8px 0 0 0; font-size: 14px;">${data.companyName}</p>` : ""}
+        ${data.companyName ? `<p style="color: #856d4b; margin: 8px 0 0 0; font-size: 14px;">${data.companyName}</p>` : ''}
       </div>
       
       <!-- Hauptinhalt -->
@@ -38,8 +38,8 @@ const formatEmailTemplate = (data: EmailTemplateData, content: string): string =
       <div style="background-color: #f9f9f9; padding: 20px; border-radius: 0 0 8px 8px; text-align: center; font-size: 12px; color: #666;">
         <p style="margin: 0 0 10px 0;"><strong>MyDispatch Support</strong></p>
         <p style="margin: 0;">Mo. - Fr.: 9:00 - 17:00 Uhr</p>
-        ${data.companyPhone ? `<p style="margin: 5px 0 0 0;">Tel: ${data.companyPhone}</p>` : ""}
-        ${data.companyEmail ? `<p style="margin: 5px 0 0 0;">E-Mail: ${data.companyEmail}</p>` : ""}
+        ${data.companyPhone ? `<p style="margin: 5px 0 0 0;">Tel: ${data.companyPhone}</p>` : ''}
+        ${data.companyEmail ? `<p style="margin: 5px 0 0 0;">E-Mail: ${data.companyEmail}</p>` : ''}
         <p style="margin: 15px 0 0 0; color: #999; font-size: 11px;">
           © ${new Date().getFullYear()} MyDispatch. Alle Rechte vorbehalten.
         </p>
@@ -90,26 +90,18 @@ const bookingConfirmationTemplateV2 = (data: EmailTemplateData): string => {
         <span style="color: #333;">${data.vehicleClass}</span>
       </div>
       
-      ${
-        data.price
-          ? `
+      ${data.price ? `
         <div style="margin-top: 20px; padding-top: 15px; border-top: 2px solid #EADEBD;">
           <strong style="color: #323D5E; font-size: 16px;">💶 Gesamtpreis:</strong> 
           <span style="color: #856d4b; font-size: 18px; font-weight: bold;">${data.price}</span>
         </div>
-      `
-          : ""
-      }
+      ` : ''}
       
-      ${
-        data.additionalInfo
-          ? `
+      ${data.additionalInfo ? `
         <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e5e5e5;">
           <p style="font-size: 13px; color: #666; margin: 0;">${data.additionalInfo}</p>
         </div>
-      `
-          : ""
-      }
+      ` : ''}
     </div>
     
     <!-- Abschluss -->
@@ -119,10 +111,10 @@ const bookingConfirmationTemplateV2 = (data: EmailTemplateData): string => {
     
     <p style="font-size: 14px; color: #323D5E; margin: 20px 0 0 0;">
       Mit freundlichen Grüßen<br>
-      ${data.companyName || "Ihr MyDispatch-Team"}
+      ${data.companyName || 'Ihr MyDispatch-Team'}
     </p>
   `;
-
+  
   return formatEmailTemplate(data, content);
 };
 
@@ -165,16 +157,12 @@ const quoteEmailTemplateV2 = (data: EmailTemplateData & { validUntil: string }):
         <span style="color: #333;">${data.vehicleClass}</span>
       </div>
       
-      ${
-        data.price
-          ? `
+      ${data.price ? `
         <div style="margin-top: 20px; padding-top: 15px; border-top: 2px solid #EADEBD;">
           <strong style="color: #323D5E; font-size: 16px;">💶 Angebots-Preis:</strong> 
           <span style="color: #856d4b; font-size: 18px; font-weight: bold;">${data.price}</span>
         </div>
-      `
-          : ""
-      }
+      ` : ''}
       
       <div style="margin-top: 15px; padding: 12px; background-color: #fff3cd; border-radius: 4px;">
         <strong style="color: #856d4b;">⏰ Gültig bis:</strong> 
@@ -188,23 +176,15 @@ const quoteEmailTemplateV2 = (data: EmailTemplateData & { validUntil: string }):
     
     <p style="font-size: 14px; color: #323D5E; margin: 20px 0 0 0;">
       Mit freundlichen Grüßen<br>
-      ${data.companyName || "Ihr MyDispatch-Team"}
+      ${data.companyName || 'Ihr MyDispatch-Team'}
     </p>
   `;
-
+  
   return formatEmailTemplate(data, content);
 };
 
 // 3. RECHNUNGSVERSAND
-const invoiceEmailTemplateV2 = (
-  data: EmailTemplateData & {
-    invoiceNumber: string;
-    dueDate: string;
-    netAmount: string;
-    vatAmount: string;
-    grossAmount: string;
-  }
-): string => {
+const invoiceEmailTemplateV2 = (data: EmailTemplateData & { invoiceNumber: string; dueDate: string; netAmount: string; vatAmount: string; grossAmount: string }): string => {
   const content = `
     <p style="font-size: 16px; color: #323D5E; margin: 0 0 20px 0;">
       ${data.salutation},
@@ -274,17 +254,15 @@ const invoiceEmailTemplateV2 = (
     
     <p style="font-size: 14px; color: #323D5E; margin: 20px 0 0 0;">
       Mit freundlichen Grüßen<br>
-      ${data.companyName || "Ihr MyDispatch-Team"}
+      ${data.companyName || 'Ihr MyDispatch-Team'}
     </p>
   `;
-
+  
   return formatEmailTemplate(data, content);
 };
 
 // 4. ZAHLUNGSERINNERUNG
-const paymentReminderTemplateV2 = (
-  data: EmailTemplateData & { invoiceNumber: string; dueDate: string; daysOverdue: number }
-): string => {
+const paymentReminderTemplateV2 = (data: EmailTemplateData & { invoiceNumber: string; dueDate: string; daysOverdue: number }): string => {
   const content = `
     <p style="font-size: 16px; color: #323D5E; margin: 0 0 20px 0;">
       ${data.salutation},
@@ -323,17 +301,15 @@ const paymentReminderTemplateV2 = (
     
     <p style="font-size: 14px; color: #323D5E; margin: 20px 0 0 0;">
       Mit freundlichen Grüßen<br>
-      ${data.companyName || "Ihr MyDispatch-Team"}
+      ${data.companyName || 'Ihr MyDispatch-Team'}
     </p>
   `;
-
+  
   return formatEmailTemplate(data, content);
 };
 
 // 5. AUFTRAGS-STORNIERUNG
-const bookingCancellationTemplateV2 = (
-  data: EmailTemplateData & { cancellationReason?: string }
-): string => {
+const bookingCancellationTemplateV2 = (data: EmailTemplateData & { cancellationReason?: string }): string => {
   const content = `
     <p style="font-size: 16px; color: #323D5E; margin: 0 0 20px 0;">
       ${data.salutation},
@@ -366,16 +342,12 @@ const bookingCancellationTemplateV2 = (
         <span style="color: #333;">${data.dropoffAddress}</span>
       </div>
       
-      ${
-        data.cancellationReason
-          ? `
+      ${data.cancellationReason ? `
         <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ef4444;">
           <strong style="color: #323D5E;">Grund:</strong>
           <p style="color: #666; margin: 5px 0 0 0;">${data.cancellationReason}</p>
         </div>
-      `
-          : ""
-      }
+      ` : ''}
     </div>
     
     <p style="font-size: 14px; line-height: 1.6; color: #333; margin: 20px 0;">
@@ -384,17 +356,15 @@ const bookingCancellationTemplateV2 = (
     
     <p style="font-size: 14px; color: #323D5E; margin: 20px 0 0 0;">
       Mit freundlichen Grüßen<br>
-      ${data.companyName || "Ihr MyDispatch-Team"}
+      ${data.companyName || 'Ihr MyDispatch-Team'}
     </p>
   `;
-
+  
   return formatEmailTemplate(data, content);
 };
 
 // 6. AUFTRAGS-ÄNDERUNG
-const bookingUpdateTemplateV2 = (
-  data: EmailTemplateData & { changesDescription: string }
-): string => {
+const bookingUpdateTemplateV2 = (data: EmailTemplateData & { changesDescription: string }): string => {
   const content = `
     <p style="font-size: 16px; color: #323D5E; margin: 0 0 20px 0;">
       ${data.salutation},
@@ -432,16 +402,12 @@ const bookingUpdateTemplateV2 = (
         <span style="color: #333;">${data.vehicleClass}</span>
       </div>
       
-      ${
-        data.price
-          ? `
+      ${data.price ? `
         <div style="margin-top: 20px; padding-top: 15px; border-top: 2px solid #3b82f6;">
           <strong style="color: #323D5E; font-size: 16px;">💶 Preis:</strong> 
           <span style="color: #856d4b; font-size: 18px; font-weight: bold;">${data.price}</span>
         </div>
-      `
-          : ""
-      }
+      ` : ''}
       
       <div style="margin-top: 15px; padding: 12px; background-color: #dbeafe; border-radius: 4px;">
         <strong style="color: #1e40af;">📝 Änderungen:</strong>
@@ -455,17 +421,15 @@ const bookingUpdateTemplateV2 = (
     
     <p style="font-size: 14px; color: #323D5E; margin: 20px 0 0 0;">
       Mit freundlichen Grüßen<br>
-      ${data.companyName || "Ihr MyDispatch-Team"}
+      ${data.companyName || 'Ihr MyDispatch-Team'}
     </p>
   `;
-
+  
   return formatEmailTemplate(data, content);
 };
 
 // 7. FAHRER-ZUWEISUNG (an Fahrer)
-const driverAssignmentTemplateV2 = (
-  data: EmailTemplateData & { driverName: string; bookingId: string }
-): string => {
+const driverAssignmentTemplateV2 = (data: EmailTemplateData & { driverName: string; bookingId: string }): string => {
   const content = `
     <p style="font-size: 16px; color: #323D5E; margin: 0 0 20px 0;">
       Hallo ${data.driverName},
@@ -508,16 +472,12 @@ const driverAssignmentTemplateV2 = (
         <span style="color: #333;">${data.vehicleClass}</span>
       </div>
       
-      ${
-        data.additionalInfo
-          ? `
+      ${data.additionalInfo ? `
         <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #10b981;">
           <strong style="color: #323D5E;">ℹ️ Zusatzinfo:</strong>
           <p style="color: #666; margin: 5px 0 0 0;">${data.additionalInfo}</p>
         </div>
-      `
-          : ""
-      }
+      ` : ''}
     </div>
     
     <p style="font-size: 14px; line-height: 1.6; color: #333; margin: 20px 0;">
@@ -526,33 +486,26 @@ const driverAssignmentTemplateV2 = (
     
     <p style="font-size: 14px; color: #323D5E; margin: 20px 0 0 0;">
       Gute Fahrt!<br>
-      ${data.companyName || "Ihr MyDispatch-Team"}
+      ${data.companyName || 'Ihr MyDispatch-Team'}
     </p>
   `;
-
+  
   return formatEmailTemplate(data, content);
 };
 
 // 8. SCHICHT-ERINNERUNG (an Fahrer)
-const shiftReminderTemplateV2 = (
-  driverName: string,
-  date: string,
-  startTime: string,
-  endTime: string,
-  vehiclePlate: string,
-  companyName: string
-): string => {
+const shiftReminderTemplateV2 = (driverName: string, date: string, startTime: string, endTime: string, vehiclePlate: string, companyName: string): string => {
   const data: EmailTemplateData = {
     salutation: `Hallo ${driverName}`,
-    introduction: "Erinnerung an Ihre morgige Schicht",
+    introduction: 'Erinnerung an Ihre morgige Schicht',
     date,
     time: startTime,
-    pickupAddress: "-",
-    dropoffAddress: "-",
-    vehicleClass: "-",
+    pickupAddress: '-',
+    dropoffAddress: '-',
+    vehicleClass: '-',
     companyName,
   };
-
+  
   const content = `
     <p style="font-size: 16px; color: #323D5E; margin: 0 0 20px 0;">
       ${data.salutation},
@@ -592,10 +545,10 @@ const shiftReminderTemplateV2 = (
     
     <p style="font-size: 14px; color: #323D5E; margin: 20px 0 0 0;">
       Gute Fahrt!<br>
-      ${companyName || "Ihr MyDispatch-Team"}
+      ${companyName || 'Ihr MyDispatch-Team'}
     </p>
   `;
-
+  
   return formatEmailTemplate(data, content);
 };
 
@@ -604,14 +557,14 @@ const welcomeOnboardingTemplateV2 = (userName: string, companyName: string): str
   const data: EmailTemplateData = {
     salutation: `Sehr geehrte/r ${userName}`,
     introduction: `willkommen bei MyDispatch! Ihr Konto für ${companyName} ist jetzt aktiv.`,
-    date: new Date().toLocaleDateString("de-DE"),
-    time: "-",
-    pickupAddress: "-",
-    dropoffAddress: "-",
-    vehicleClass: "-",
-    companyName: "MyDispatch",
+    date: new Date().toLocaleDateString('de-DE'),
+    time: '-',
+    pickupAddress: '-',
+    dropoffAddress: '-',
+    vehicleClass: '-',
+    companyName: 'MyDispatch',
   };
-
+  
   const content = `
     <p style="font-size: 16px; color: #323D5E; margin: 0 0 20px 0;">
       ${data.salutation},
@@ -641,29 +594,23 @@ const welcomeOnboardingTemplateV2 = (userName: string, companyName: string): str
       Ihr MyDispatch-Team
     </p>
   `;
-
+  
   return formatEmailTemplate(data, content);
 };
 
 // 10. TARIF-UPGRADE-BESTÄTIGUNG
-const tariffUpgradeTemplateV2 = (
-  userName: string,
-  oldTariff: string,
-  newTariff: string,
-  effectiveDate: string,
-  newPrice: string
-): string => {
+const tariffUpgradeTemplateV2 = (userName: string, oldTariff: string, newTariff: string, effectiveDate: string, newPrice: string): string => {
   const data: EmailTemplateData = {
     salutation: `Sehr geehrte/r ${userName}`,
     introduction: `Ihr Tarif-Upgrade wurde erfolgreich durchgeführt.`,
     date: effectiveDate,
-    time: "-",
-    pickupAddress: "-",
-    dropoffAddress: "-",
-    vehicleClass: "-",
-    companyName: "MyDispatch",
+    time: '-',
+    pickupAddress: '-',
+    dropoffAddress: '-',
+    vehicleClass: '-',
+    companyName: 'MyDispatch',
   };
-
+  
   const content = `
     <p style="font-size: 16px; color: #323D5E; margin: 0 0 20px 0;">
       ${data.salutation},
@@ -706,28 +653,23 @@ const tariffUpgradeTemplateV2 = (
       Ihr MyDispatch-Team
     </p>
   `;
-
+  
   return formatEmailTemplate(data, content);
 };
 
 // 11. SUPPORT-TICKET-BESTÄTIGUNG
-const supportTicketTemplateV2 = (
-  userName: string,
-  ticketId: string,
-  subject: string,
-  message: string
-): string => {
+const supportTicketTemplateV2 = (userName: string, ticketId: string, subject: string, message: string): string => {
   const data: EmailTemplateData = {
     salutation: `Sehr geehrte/r ${userName}`,
     introduction: `Ihr Support-Ticket wurde erfolgreich angelegt.`,
-    date: new Date().toLocaleDateString("de-DE"),
-    time: new Date().toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }),
-    pickupAddress: "-",
-    dropoffAddress: "-",
-    vehicleClass: "-",
-    companyName: "MyDispatch",
+    date: new Date().toLocaleDateString('de-DE'),
+    time: new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }),
+    pickupAddress: '-',
+    dropoffAddress: '-',
+    vehicleClass: '-',
+    companyName: 'MyDispatch',
   };
-
+  
   const content = `
     <p style="font-size: 16px; color: #323D5E; margin: 0 0 20px 0;">
       ${data.salutation},
@@ -777,7 +719,7 @@ const supportTicketTemplateV2 = (
       Ihr MyDispatch-Team
     </p>
   `;
-
+  
   return formatEmailTemplate(data, content);
 };
 

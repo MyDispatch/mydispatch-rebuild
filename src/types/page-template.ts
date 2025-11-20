@@ -4,8 +4,8 @@
    Zentrale TypeScript-Definitionen für das UnifiedPageTemplate-System
    ================================================================================== */
 
-import { ReactNode } from "react";
-import { LucideIcon } from "lucide-react";
+import { ReactNode } from 'react';
+import { LucideIcon } from 'lucide-react';
 
 // ============================================================================
 // KPI CONFIGURATION
@@ -15,7 +15,7 @@ export interface KPICardConfig {
   value: string | number;
   icon?: LucideIcon;
   trend?: string;
-  statusType?: "success" | "warning" | "error" | "neutral";
+  statusType?: 'success' | 'warning' | 'error' | 'neutral';
   onClick?: () => void;
 }
 
@@ -24,7 +24,7 @@ export interface KPICardConfig {
 // ============================================================================
 export interface BadgeConfig {
   label: string;
-  variant?: "default" | "secondary" | "outline" | "destructive";
+  variant?: 'default' | 'secondary' | 'outline' | 'destructive';
 }
 
 // ============================================================================
@@ -34,7 +34,7 @@ export interface ActionConfig {
   label: string;
   icon?: LucideIcon;
   onClick: () => void;
-  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
   disabled?: boolean;
   badge?: string;
 }
@@ -44,7 +44,7 @@ export interface BulkActionConfig {
     label: string;
     icon?: LucideIcon;
     onClick: (selectedIds: string[]) => void | Promise<void>;
-    variant?: "default" | "destructive" | "outline";
+    variant?: 'default' | 'destructive' | 'outline';
   }>;
   onClear: () => void;
 }
@@ -67,7 +67,7 @@ export interface TabConfig {
 
 export interface FilterConfig {
   id: string;
-  type: "select" | "multiselect" | "date" | "daterange" | "custom";
+  type: 'select' | 'multiselect' | 'date' | 'daterange' | 'custom';
   label: string;
   options?: Array<{ value: string; label: string }>;
   value?: any;
@@ -95,12 +95,12 @@ export interface ColumnDef<T = any> {
   cell?: (row: T) => ReactNode;
   sortable?: boolean;
   width?: string;
-  sticky?: boolean; // Für rechtliche Pflichtfelder
-  mandatory?: boolean; // Für rechtliche Pflichtfelder (niemals verstecken)
+  sticky?: boolean;      // Für rechtliche Pflichtfelder
+  mandatory?: boolean;   // Für rechtliche Pflichtfelder (niemals verstecken)
 }
 
 export interface ContentConfig<T = any> {
-  type: "table" | "grid" | "cards" | "widgets" | "custom";
+  type: 'table' | 'grid' | 'cards' | 'widgets' | 'custom';
   data: T[];
   columns?: ColumnDef<T>[];
   renderItem?: (item: T, index: number) => ReactNode;
@@ -115,7 +115,7 @@ export interface ContentConfig<T = any> {
 export interface FloatingActionConfig {
   icon: LucideIcon;
   onClick: () => void;
-  variant?: "default" | "secondary" | "outline";
+  variant?: 'default' | 'secondary' | 'outline';
   label?: string;
 }
 
@@ -126,7 +126,7 @@ export interface QuickActionConfig {
   label: string;
   icon: LucideIcon;
   onClick: () => void;
-  variant?: "default" | "outline" | "ghost";
+  variant?: 'default' | 'outline' | 'ghost';
 }
 
 export interface PageHeaderConfig {
@@ -146,17 +146,17 @@ export interface UnifiedPageTemplateProps<T = any> {
   title: string;
   description: string;
   canonical: string;
-
+  
   // Header Configuration
   header: PageHeaderConfig;
-
+  
   // Actions Configuration (optional)
   actions?: {
     primary?: ActionConfig[];
     secondary?: ActionConfig[];
     bulk?: BulkActionConfig;
   };
-
+  
   // Filter Configuration (optional)
   filters?: {
     search?: SearchConfig;
@@ -166,20 +166,20 @@ export interface UnifiedPageTemplateProps<T = any> {
     onTabChange?: (tabId: string) => void;
     onFilterChange?: (filters: Record<string, any>) => void;
   };
-
+  
   // Content Configuration
   content: ContentConfig<T>;
-
+  
   // Floating Actions (Mobile, optional)
   floatingActions?: FloatingActionConfig[];
-
+  
   // Mobile Override (optional)
   mobileComponent?: ReactNode;
-
+  
   // Bulk Selection (optional)
   selectedIds?: string[];
   onSelectionChange?: (ids: string[]) => void;
-
+  
   // Loading State (optional)
   isLoading?: boolean;
 }

@@ -18,27 +18,25 @@ Alle Farben sind in `src/lib/design-system/pricing-colors.ts` definiert:
 
 ```typescript
 export const KERNFARBEN = {
-  dunkelblau: "#323D5E",
-  beige: "#EADEBD",
-  weiss: "#FFFFFF",
-  canvas: "#F9FAFB",
-  text_primary: "#111827", // H1, H2, H3, Preise
-  text_secondary: "#374151", // Body-Text
-  text_tertiary: "#6B7280", // Sub-Text, "pro Monat"
-  border_neutral: "#E5E7EB",
-  border_neutral_soft: "rgba(229, 231, 235, 0.8)",
-};
+  dunkelblau: '#323D5E',
+  beige: '#EADEBD',
+  weiss: '#FFFFFF',
+  canvas: '#F9FAFB',
+  text_primary: '#111827',    // H1, H2, H3, Preise
+  text_secondary: '#374151',  // Body-Text
+  text_tertiary: '#6B7280',   // Sub-Text, "pro Monat"
+  border_neutral: '#E5E7EB',
+  border_neutral_soft: 'rgba(229, 231, 235, 0.8)',
+}
 ```
 
 ### ✅ RICHTIG
-
 ```tsx
 import { KERNFARBEN } from '@/lib/design-system/pricing-colors';
 style={{ color: KERNFARBEN.text_primary }}
 ```
 
 ### ❌ FALSCH
-
 ```tsx
 className="text-gray-900"
 style={{ color: '#111827' }}
@@ -53,7 +51,6 @@ style={{ color: '#111827' }}
 Die folgenden Komponenten sind speziell für Marketing-Seiten:
 
 ### 1. MarketingSection
-
 **Datei:** `src/components/marketing/MarketingSection.tsx`
 
 Konsistente Section mit optionalen Überschriften:
@@ -69,7 +66,6 @@ Konsistente Section mit optionalen Überschriften:
 ```
 
 **Props:**
-
 - `background`: 'canvas' | 'white'
 - `title`: Optional, automatisch zentriert
 - `description`: Optional, automatisch zentriert
@@ -78,17 +74,19 @@ Konsistente Section mit optionalen Überschriften:
 ---
 
 ### 2. IconBox
-
 **Datei:** `src/components/marketing/IconBox.tsx`
 
 Icon-Container mit CI-Farben:
 
 ```tsx
-<IconBox icon={Truck} variant="beige" size="lg" />
+<IconBox 
+  icon={Truck} 
+  variant="beige" 
+  size="lg" 
+/>
 ```
 
 **Props:**
-
 - `icon`: LucideIcon
 - `variant`: 'beige' | 'dunkelblau'
 - `size`: 'sm' | 'md' | 'lg'
@@ -96,7 +94,6 @@ Icon-Container mit CI-Farben:
 ---
 
 ### 3. FeatureListItem
-
 **Datei:** `src/components/marketing/FeatureListItem.tsx`
 
 Feature-Listen-Element mit Check-Icon:
@@ -111,19 +108,21 @@ Feature-Listen-Element mit Check-Icon:
 ---
 
 ### 4. BillingToggle
-
 **Datei:** `src/components/marketing/BillingToggle.tsx`
 
 Monatlich/Jährlich Toggle:
 
 ```tsx
-<BillingToggle billingPeriod={billingPeriod} onToggle={setBillingPeriod} discountText="-20%" />
+<BillingToggle
+  billingPeriod={billingPeriod}
+  onToggle={setBillingPeriod}
+  discountText="-20%"
+/>
 ```
 
 ---
 
 ### 5. MarketingCard
-
 **Datei:** `src/components/marketing/MarketingCard.tsx`
 
 Card mit konsistentem CI-Styling:
@@ -161,25 +160,21 @@ FAQ              → bg-canvas (mit bg-white Card)
 ## 📐 LAYOUT-STANDARDS
 
 ### Section-Spacing
-
 ```tsx
-className = "py-20 md:py-24";
+className="py-20 md:py-24"
 ```
 
 ### Container
-
 ```tsx
 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 ```
 
 ### Title + Description Spacing
-
 ```tsx
 <div className="text-center mb-12 md:mb-16">
 ```
 
 ### Card-Padding
-
 ```tsx
 <CardContent className="p-8">
 ```
@@ -189,7 +184,6 @@ className = "py-20 md:py-24";
 ## 🎨 TYPOGRAFIE
 
 ### Überschriften
-
 ```tsx
 // H1 (Hero)
 className="text-5xl md:text-6xl font-bold tracking-tight mb-6"
@@ -205,7 +199,6 @@ style={{ color: KERNFARBEN.text_primary }}
 ```
 
 ### Body-Text
-
 ```tsx
 // Standard
 className="text-base font-normal leading-relaxed"
@@ -225,7 +218,6 @@ style={{ color: KERNFARBEN.text_tertiary }}
 ## 🔘 BUTTON-STANDARDS
 
 ### Primary (Highlighted Tariff)
-
 ```tsx
 style={{
   backgroundColor: KERNFARBEN.dunkelblau,
@@ -243,7 +235,6 @@ onMouseEnter={(e) => {
 ```
 
 ### Outline
-
 ```tsx
 style={{
   backgroundColor: KERNFARBEN.weiss,
@@ -265,13 +256,13 @@ onMouseEnter={(e) => {
 ## 🎯 CARD-STANDARDS
 
 ### Standard Marketing Card
-
 ```tsx
-<MarketingCard>{/* Content */}</MarketingCard>
+<MarketingCard>
+  {/* Content */}
+</MarketingCard>
 ```
 
 ### Tariff Card (Komplexer)
-
 - Border: `border-neutral-soft` (nicht highlighted)
 - Ring: `ring-2 ring-dunkelblau` (highlighted)
 - Shadow: `shadow-xl shadow-dunkelblau/15` (highlighted)
@@ -319,7 +310,6 @@ Siehe: `docs/CONTENT_WRITING_STANDARDS_V26.0.md`
 ## 🔄 VERSION HISTORY
 
 ### V26.0 (2025-01-26)
-
 - Initiale Definition des wiederverwendbaren Design-Systems
 - Extraktion aus Pricing Page V26.0 "BALANCED"
 - Erstellung zentraler Komponenten-Bibliothek

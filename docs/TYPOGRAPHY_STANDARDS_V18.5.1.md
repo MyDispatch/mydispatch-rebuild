@@ -207,7 +207,7 @@ text-body      → 16px (Mobile) bis 18px (Desktop)
 
 ```typescript
 // ✅ KORREKTE TYPOGRAFIE
-<MetricCard
+<MetricCard 
   title="Aktive Fahrer" // text-caption (12-14px)
   value={12}            // text-3xl (30-36px)
   subtitle="im Einsatz" // text-caption (12-14px)
@@ -226,7 +226,7 @@ text-body      → 16px (Mobile) bis 18px (Desktop)
 
 ```typescript
 // ✅ KORREKTE TYPOGRAFIE
-<DashboardSection
+<DashboardSection 
   title="Fahrerliste" // text-lg (18-20px)
 />
 

@@ -2,16 +2,16 @@
    DRIVER FORM - Wrapped UnifiedForm for Drivers
    ================================================================================== */
 
-import { UseFormReturn } from "react-hook-form";
-import { UnifiedForm, FormField } from "../UnifiedForm";
-import { FORM_FIELDS_REGISTRY } from "@/config/form-fields-registry";
-import { AddressInput } from "../AddressInput";
+import { UseFormReturn } from 'react-hook-form';
+import { UnifiedForm, FormField } from '../UnifiedForm';
+import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
+import { AddressInput } from '../AddressInput';
 
 interface DriverFormProps {
   form: UseFormReturn<any>;
   onSubmit: (data: any) => Promise<void>;
-  mode?: "inline" | "dialog";
-  portal?: "entrepreneur" | "customer" | "driver";
+  mode?: 'inline' | 'dialog';
+  portal?: 'entrepreneur' | 'customer' | 'driver';
   dialogOpen?: boolean;
   onDialogOpenChange?: (open: boolean) => void;
   loading?: boolean;
@@ -20,8 +20,8 @@ interface DriverFormProps {
 export function DriverForm({
   form,
   onSubmit,
-  mode = "dialog",
-  portal = "entrepreneur",
+  mode = 'dialog',
+  portal = 'entrepreneur',
   dialogOpen,
   onDialogOpenChange,
   loading,
@@ -66,18 +66,18 @@ export function DriverForm({
       dialogSize="lg"
       fieldGroups={{
         address: {
-          label: "Adresse",
-          fields: ["street", "street_number", "postal_code", "city"],
+          label: 'Adresse',
+          fields: ['street', 'street_number', 'postal_code', 'city'],
           component: AddressInput,
           props: {
-            street: form.watch("street") || "",
-            streetNumber: form.watch("street_number") || "",
-            postalCode: form.watch("postal_code") || "",
-            city: form.watch("city") || "",
-            onStreetChange: (value: string) => form.setValue("street", value),
-            onStreetNumberChange: (value: string) => form.setValue("street_number", value),
-            onPostalCodeChange: (value: string) => form.setValue("postal_code", value),
-            onCityChange: (value: string) => form.setValue("city", value),
+            street: form.watch('street') || '',
+            streetNumber: form.watch('street_number') || '',
+            postalCode: form.watch('postal_code') || '',
+            city: form.watch('city') || '',
+            onStreetChange: (value: string) => form.setValue('street', value),
+            onStreetNumberChange: (value: string) => form.setValue('street_number', value),
+            onPostalCodeChange: (value: string) => form.setValue('postal_code', value),
+            onCityChange: (value: string) => form.setValue('city', value),
             required: true,
           },
         },

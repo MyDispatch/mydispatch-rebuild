@@ -46,38 +46,38 @@
 
 ### **Phase 1: Fehlersuche (alle Tools genutzt)**
 
-| Tool                        | Query                   | Ergebnisse                    |
-| --------------------------- | ----------------------- | ----------------------------- |
-| `lov-search-files`          | `text-white\|bg-white`  | 1 Match gefunden              |
-| `lov-search-files`          | `console\.(log\|error)` | 188 Matches gefunden          |
-| `lov-search-files`          | `<a\s+href`             | 25 Matches gefunden           |
-| `lov-read-console-logs`     | `error`                 | 0 Errors ✅                   |
-| `lov-read-network-requests` | `error`                 | 0 Errors ✅                   |
-| `supabase--read-query`      | Schema-Check            | performance_metrics existiert |
+| Tool | Query | Ergebnisse |
+|------|-------|------------|
+| `lov-search-files` | `text-white\|bg-white` | 1 Match gefunden |
+| `lov-search-files` | `console\.(log\|error)` | 188 Matches gefunden |
+| `lov-search-files` | `<a\s+href` | 25 Matches gefunden |
+| `lov-read-console-logs` | `error` | 0 Errors ✅ |
+| `lov-read-network-requests` | `error` | 0 Errors ✅ |
+| `supabase--read-query` | Schema-Check | performance_metrics existiert |
 
 ### **Phase 2: Fehler-Kategorisierung**
 
 #### **🔴 KRITISCH (P1)** - Funktionalität beeinträchtigt
 
-| ID   | Fehler                    | Datei                 | Zeile | Auswirkung              | Status     |
-| ---- | ------------------------- | --------------------- | ----- | ----------------------- | ---------- |
-| E001 | Direct Color `text-white` | `MarketingButton.tsx` | 20    | Design-System Violation | ✅ BEHOBEN |
-| E002 | DB-Schema unvollständig   | `performance_metrics` | -     | Monitoring fehlt        | ✅ BEHOBEN |
+| ID | Fehler | Datei | Zeile | Auswirkung | Status |
+|----|--------|-------|-------|------------|--------|
+| E001 | Direct Color `text-white` | `MarketingButton.tsx` | 20 | Design-System Violation | ✅ BEHOBEN |
+| E002 | DB-Schema unvollständig | `performance_metrics` | - | Monitoring fehlt | ✅ BEHOBEN |
 
 #### **🟠 WICHTIG (P2)** - UX beeinträchtigt
 
-| ID   | Fehler                     | Anzahl | Auswirkung               | Priorität |
-| ---- | -------------------------- | ------ | ------------------------ | --------- |
-| E003 | `<a href>` statt `Link`    | 25     | Full-Page-Reload         | HOCH      |
-| E004 | console.logs in Production | 188    | Bundle-Size, Performance | MITTEL    |
+| ID | Fehler | Anzahl | Auswirkung | Priorität |
+|----|--------|--------|------------|-----------|
+| E003 | `<a href>` statt `Link` | 25 | Full-Page-Reload | HOCH |
+| E004 | console.logs in Production | 188 | Bundle-Size, Performance | MITTEL |
 
 #### **🟢 OPTIMIERUNG (P3)** - Verbesserungen
 
-| ID   | Fehler                            | Beschreibung     | Priorität |
-| ---- | --------------------------------- | ---------------- | --------- |
-| E005 | Dokumentation unvollständig       | Fehlt in `/docs` | NIEDRIG   |
-| E006 | E2E-Tests basic                   | Nur Auth-Flow    | NIEDRIG   |
-| E007 | Performance-Budget nicht enforced | CI/CD            | NIEDRIG   |
+| ID | Fehler | Beschreibung | Priorität |
+|----|--------|--------------|-----------|
+| E005 | Dokumentation unvollständig | Fehlt in `/docs` | NIEDRIG |
+| E006 | E2E-Tests basic | Nur Auth-Flow | NIEDRIG |
+| E007 | Performance-Budget nicht enforced | CI/CD | NIEDRIG |
 
 ---
 
@@ -85,20 +85,17 @@
 
 ### **E001: Direct Color `text-white`**
 
-**Root Cause:**
-
+**Root Cause:**  
 - Legacy Code aus V18.4.x
 - MarketingButton nicht nach neuen Vorgaben aktualisiert
 - Hero-Sections verwendeten Shortcuts
 
-**Why it happened:**
-
+**Why it happened:**  
 - Schnelle Implementierung ohne Design-System-Review
 - Keine automatische Lint-Rule für Direct Colors
 - Code-Review nicht streng genug
 
-**How to prevent:**
-
+**How to prevent:**  
 - ✅ ESLint-Rule für Direct Colors hinzufügen
 - ✅ Pre-Commit-Hook mit Pattern-Check
 - ✅ Design-System-Review bei jedem PR
@@ -107,19 +104,16 @@
 
 ### **E002: DB-Schema unvollständig**
 
-**Root Cause:**
-
+**Root Cause:**  
 - Tabelle wurde in früherer Migration mit vereinfachtem Schema erstellt
 - Fehlende Spalten: `rating`, `route`, `user_agent`, `company_id`, `user_id`
 
-**Why it happened:**
-
+**Why it happened:**  
 - Migrations aus verschiedenen Quellen (V18.3.x vs V18.5.x)
 - Keine Schema-Validierung vor Code-Integration
 - Performance-Monitoring Code vor DB-Table
 
-**How to prevent:**
-
+**How to prevent:**  
 - ✅ Immer DB-Schema ZUERST erstellen
 - ✅ Schema-Validierung in CI/CD
 - ✅ Type-Safe DB-Queries (Supabase Types)
@@ -128,26 +122,22 @@
 
 ### **E003: <a href> statt Link**
 
-**Root Cause:**
-
+**Root Cause:**  
 - HTML-Patterns statt React-Patterns
 - Alte Legal-Pages (Impressum, Datenschutz, AGB) nicht refactored
 - Fehlende Code-Review
 
-**Why it happened:**
-
+**Why it happened:**  
 - Schnelle Content-Erstellung
 - Copy-Paste aus Templates
 - Keine automatische Lint-Rule
 
-**How to prevent:**
-
+**How to prevent:**  
 - ⏳ ESLint-Rule: `no-href-without-router`
 - ⏳ Search & Replace Session
 - ⏳ Code-Review für alle Legal-Pages
 
 **Impact Analysis:**
-
 ```
 25 <a href> Tags × 50 Klicks/Tag = 1.250 unnötige Full-Reloads/Tag
 Performance-Verlust: ~2s pro Reload × 1.250 = 41,7 Minuten/Tag
@@ -158,26 +148,22 @@ User-Frustration: HOCH
 
 ### **E004: 188 Console Statements**
 
-**Root Cause:**
-
+**Root Cause:**  
 - Debug-Code aus Entwicklung
 - Kein structured logging
 - No cleanup before Production
 
 **Kategorien:**
-
 - 95× `console.log` (Debug)
-- 62× `console.error` (Errors)
+- 62× `console.error` (Errors)  
 - 31× `console.warn` (Warnings)
 
-**Why it happened:**
-
+**Why it happened:**  
 - Schnelle Entwicklung ohne Cleanup
 - Keine Logger-Utility
 - Vite terser config dropped nur in Production (nicht in Dev)
 
-**How to prevent:**
-
+**How to prevent:**  
 - ⏳ Logger-Utility erstellen (`src/lib/logger.ts`)
 - ⏳ Pre-Commit-Hook für console.log
 - ⏳ Nur critical Errors behalten
@@ -193,19 +179,19 @@ graph TD
     A[Frontend React/Vite] -->|✅ Stabil| B[Design-System]
     A -->|✅ Stabil| C[Routing-System]
     A -->|⚠️ Optimierung| D[Navigation <a> vs Link]
-
+    
     B -->|✅ 100%| E[Semantic Tokens]
     B -->|✅ 100%| F[HSL Colors]
     B -->|⚠️ Cleanup| G[Console Logs]
-
+    
     C -->|✅ Stabil| H[React Router]
     C -->|✅ Stabil| I[Code-Splitting]
     C -->|⚠️ Fix| D
-
+    
     J[Backend Supabase] -->|✅ Stabil| K[Auth-System]
     J -->|✅ Neu| L[Performance-Metrics]
     J -->|✅ Vorhanden| M[Error-Logs]
-
+    
     N[Cache-System] -->|✅ Implementiert| O[Service Worker Cleanup]
     N -->|✅ Implementiert| P[Version-Check]
     N -->|✅ Implementiert| Q[Force-Reload]
@@ -213,14 +199,14 @@ graph TD
 
 ### **Qualitäts-Metriken:**
 
-| Bereich       | Score | Ziel | Gap  | Trend |
-| ------------- | ----- | ---- | ---- | ----- |
-| Design-System | 100%  | 100% | 0%   | ✅    |
-| Performance   | 92    | >90  | +2   | ✅    |
-| Accessibility | 95    | >90  | +5   | ✅    |
-| SEO           | 100   | >95  | +5   | ✅    |
-| Code-Qualität | 85%   | >90% | -5%  | ⚠️    |
-| Test-Coverage | 40%   | >80% | -40% | 🔴    |
+| Bereich | Score | Ziel | Gap | Trend |
+|---------|-------|------|-----|-------|
+| Design-System | 100% | 100% | 0% | ✅ |
+| Performance | 92 | >90 | +2 | ✅ |
+| Accessibility | 95 | >90 | +5 | ✅ |
+| SEO | 100 | >95 | +5 | ✅ |
+| Code-Qualität | 85% | >90% | -5% | ⚠️ |
+| Test-Coverage | 40% | >80% | -40% | 🔴 |
 
 ---
 
@@ -228,22 +214,22 @@ graph TD
 
 ### **Prinzipien:**
 
-1. **Nicht überstürzen:**
+1. **Nicht überstürzen:**  
    - Alle Fehler ERST sammeln
    - Dann Ursachen analysieren
    - Dann systematisch fixen
 
-2. **Prioritäten setzen:**
+2. **Prioritäten setzen:**  
    - P1 (Kritisch) → SOFORT
    - P2 (Wichtig) → diese Woche
    - P3 (Nice-to-have) → nächster Sprint
 
-3. **Dokumentieren:**
+3. **Dokumentieren:**  
    - Jeden Fix dokumentieren
    - Lessons Learned festhalten
    - Best Practices definieren
 
-4. **Automatisieren:**
+4. **Automatisieren:**  
    - Fehler-Checks in CI/CD
    - Lint-Rules erstellen
    - Pre-Commit-Hooks
@@ -281,7 +267,6 @@ graph TD
 ### **⏳ TODO (diese Woche):**
 
 #### **Tag 1: Navigation-Fix (P2)**
-
 ```bash
 # Konvertiere Top 10 critical <a> Tags:
 1. Contact.tsx - Email/Phone Links
@@ -291,14 +276,12 @@ graph TD
 5. Pricing.tsx - Legal Links
 ```
 
-**Estimated Impact:**
-
+**Estimated Impact:**  
 - 80% der Reloads vermeiden
 - UX-Improvement: HOCH
 - Performance: +15%
 
 #### **Tag 2: Console-Cleanup (P2)**
-
 ```bash
 # Erstelle Logger-Utility:
 src/lib/logger.ts
@@ -310,13 +293,11 @@ src/lib/logger.ts
 - N8nWorkflowManager (4 logs)
 ```
 
-**Estimated Impact:**
-
+**Estimated Impact:**  
 - Bundle-Size: -10KB
 - Production-Performance: +5%
 
 #### **Tag 3: Dokumentation (P3)**
-
 ```bash
 # Vervollständige:
 - README.md Update
@@ -349,7 +330,6 @@ src/lib/logger.ts
 ## 📈 ERFOLGS-INDIKATOREN
 
 ### **Heute erreicht:**
-
 - ✅ 100% Design-System Compliance
 - ✅ 0 TypeScript Errors
 - ✅ 0 Build Errors
@@ -358,14 +338,12 @@ src/lib/logger.ts
 - ✅ Performance-Monitoring ready
 
 ### **Diese Woche angestrebt:**
-
 - ⏳ 0 `<a href>` Tags (aktuell: 25)
 - ⏳ <20 Console Logs (aktuell: 188)
 - ⏳ E2E-Test-Coverage >60%
 - ⏳ Performance-Score >93
 
 ### **Nächster Sprint:**
-
 - ⏳ Security-Warnings <10
 - ⏳ Test-Coverage >80%
 - ⏳ Performance-Budget enforced
@@ -379,15 +357,13 @@ src/lib/logger.ts
 **Problem:**  
 Browser zeigen alte Version trotz korrektem Code.
 
-**Erkenntnisse:**
-
+**Erkenntnisse:**  
 - Service Worker überleben Reloads
 - LocalStorage bleibt persistent
 - Build-Hashes alleine reichen nicht
 - Multiple Cache-Layers brauchen multiple Strategien
 
-**Lösung:**
-
+**Lösung:**  
 - Aggressive Cleanup bei Page-Load
 - Build-Version in LocalStorage
 - Force-Reload bei Mismatch
@@ -400,14 +376,12 @@ Browser zeigen alte Version trotz korrektem Code.
 **Problem:**  
 Direct Colors trotz klarer Vorgaben.
 
-**Erkenntnisse:**
-
+**Erkenntnisse:**  
 - Menschen machen Fehler
-- Legacy-Code überlebt Refactorings
+- Legacy-Code überlebt Refactorings  
 - Manuelle Code-Reviews finden nicht alles
 
-**Lösung:**
-
+**Lösung:**  
 - ✅ ESLint-Rules für Direct Colors
 - ✅ Pre-Commit-Hooks
 - ✅ Automatische Validierung in CI/CD
@@ -419,14 +393,12 @@ Direct Colors trotz klarer Vorgaben.
 **Problem:**  
 3 Migrations fehlgeschlagen wegen Schema-Konflikten.
 
-**Erkenntnisse:**
-
+**Erkenntnisse:**  
 - RLS-Policies können Tabellen-Erstellung blockieren
 - `IF NOT EXISTS` für Policies fehlt in PostgreSQL
 - Schema-Validierung VOR Migration essentiell
 
-**Lösung:**
-
+**Lösung:**  
 - ✅ Erst Schema prüfen (`information_schema.columns`)
 - ✅ Dann inkrementell erweitern (ALTER TABLE ADD COLUMN)
 - ✅ RLS-Policies am Ende
@@ -438,14 +410,12 @@ Direct Colors trotz klarer Vorgaben.
 **Problem:**  
 25 `<a href>` Tags brechen SPA-Experience.
 
-**Erkenntnisse:**
-
+**Erkenntnisse:**  
 - HTML-Patterns werden kopiert
 - Legal-Pages oft vergessen
 - <a> vs Link nicht obvious für Entwickler
 
-**Lösung:**
-
+**Lösung:**  
 - ⏳ Systematic Search & Replace
 - ⏳ ESLint-Rule `no-href-without-router`
 - ⏳ Code-Review-Checklist erweitern
@@ -455,11 +425,10 @@ Direct Colors trotz klarer Vorgaben.
 ## 🔧 OPTIMIERUNGEN (Implementiert)
 
 ### **1. Cache-Strategie (V18.5.1)**
-
 ```typescript
 // main.tsx - Enhanced Service Worker Cleanup
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", async () => {
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', async () => {
     // 1. Deregister all SWs
     // 2. Delete all caches
     // 3. Version-Check in LocalStorage
@@ -468,8 +437,7 @@ if ("serviceWorker" in navigator) {
 }
 ```
 
-**Impact:**
-
+**Impact:**  
 - ✅ Updates sofort sichtbar
 - ✅ Keine White-Screens mehr
 - ✅ User sieht immer aktuelle Version
@@ -477,7 +445,6 @@ if ("serviceWorker" in navigator) {
 ---
 
 ### **2. Build-Version-System (V18.5.1)**
-
 ```html
 <!-- index.html -->
 <meta name="build-version" content="v18.5.1-1761210800000" />
@@ -485,14 +452,13 @@ if ("serviceWorker" in navigator) {
 
 ```typescript
 // main.tsx
-const buildVersion = "v18.5.1-1761210800000";
+const buildVersion = 'v18.5.1-1761210800000';
 if (storedVersion !== buildVersion) {
   // Clear cache & reload
 }
 ```
 
-**Impact:**
-
+**Impact:**  
 - ✅ Automatische Version-Erkennung
 - ✅ Granulare Cache-Invalidierung
 - ✅ Deployment-Tracking
@@ -500,15 +466,13 @@ if (storedVersion !== buildVersion) {
 ---
 
 ### **3. Performance-Monitoring (V18.5.1)**
-
 ```typescript
 // Tracks: CLS, INP, LCP, FCP, TTFB
-import { initPerformanceMonitoring } from "./lib/performance-monitoring";
+import { initPerformanceMonitoring } from './lib/performance-monitoring';
 initPerformanceMonitoring();
 ```
 
-**Impact:**
-
+**Impact:**  
 - ✅ Real User Monitoring (RUM)
 - ✅ Web Vitals Tracking
 - ✅ Performance-Insights
@@ -516,15 +480,13 @@ initPerformanceMonitoring();
 ---
 
 ### **4. Error-Tracking (V18.5.1)**
-
 ```typescript
 // Global Error Handlers
-import { initGlobalErrorHandlers } from "./lib/error-tracking";
+import { initGlobalErrorHandlers } from './lib/error-tracking';
 initGlobalErrorHandlers();
 ```
 
-**Impact:**
-
+**Impact:**  
 - ✅ Alle Frontend-Errors tracked
 - ✅ Debugging vereinfacht
 - ✅ Proactive Issue-Detection
@@ -533,15 +495,15 @@ initGlobalErrorHandlers();
 
 ## 📊 VORHER/NACHHER VERGLEICH
 
-| Metrik                 | Vorher (V18.4.x) | Nachher (V18.5.1) | Verbesserung |
-| ---------------------- | ---------------- | ----------------- | ------------ |
-| Direct Colors          | 2                | 0                 | ✅ 100%      |
-| Design-System          | 95%              | 100%              | ✅ +5%       |
-| Cache-Updates          | ❌ Manuell       | ✅ Automatisch    | ✅ 100%      |
-| Performance-Monitoring | ❌ Fehlt         | ✅ Live           | ✅ Neu       |
-| Error-Tracking         | Partial          | ✅ Global         | ✅ +50%      |
-| DB-Schema              | Partial          | ✅ Komplett       | ✅ +30%      |
-| Build-Version          | ❌ Keine         | ✅ Tracked        | ✅ Neu       |
+| Metrik | Vorher (V18.4.x) | Nachher (V18.5.1) | Verbesserung |
+|--------|------------------|-------------------|--------------|
+| Direct Colors | 2 | 0 | ✅ 100% |
+| Design-System | 95% | 100% | ✅ +5% |
+| Cache-Updates | ❌ Manuell | ✅ Automatisch | ✅ 100% |
+| Performance-Monitoring | ❌ Fehlt | ✅ Live | ✅ Neu |
+| Error-Tracking | Partial | ✅ Global | ✅ +50% |
+| DB-Schema | Partial | ✅ Komplett | ✅ +30% |
+| Build-Version | ❌ Keine | ✅ Tracked | ✅ Neu |
 
 ---
 
@@ -550,16 +512,16 @@ initGlobalErrorHandlers();
 ### **Automatische Prüfungen:**
 
 - [x] **Brain-Query erfolgreich?**  
-      → Ja, alle relevanten Dateien analysiert
+  → Ja, alle relevanten Dateien analysiert
 
 - [x] **Design-System-Compliance?**  
-      → Ja, 100% nach Fixes
+  → Ja, 100% nach Fixes
 
 - [x] **Tests bestanden?**  
-      → Ja, 0 Build-Errors, 0 TypeScript-Errors
+  → Ja, 0 Build-Errors, 0 TypeScript-Errors
 
 - [x] **Dokumentation aktualisiert?**  
-      → Ja, 5 neue Dokumente erstellt
+  → Ja, 5 neue Dokumente erstellt
 
 ---
 
@@ -579,7 +541,6 @@ initGlobalErrorHandlers();
 ## 📚 REFERENZEN
 
 ### **Erstellt heute:**
-
 1. [SYSTEM_STATUS_V18.5.1.md](./SYSTEM_STATUS_V18.5.1.md)
 2. [DESIGN_SYSTEM_FIXES_V18.5.1.md](./DESIGN_SYSTEM_FIXES_V18.5.1.md)
 3. [CACHE_CLEARING_SOLUTION_V18.5.1.md](./CACHE_CLEARING_SOLUTION_V18.5.1.md)
@@ -587,23 +548,22 @@ initGlobalErrorHandlers();
 5. [SELBSTREFLEXION_COMPLETE_V18.5.1.md](./SELBSTREFLEXION_COMPLETE_V18.5.1.md)
 
 ### **Aktualisiert heute:**
-
 1. [PHASE_1_IMPLEMENTATION_COMPLETE_V18.5.1.md](./PHASE_1_IMPLEMENTATION_COMPLETE_V18.5.1.md)
 
 ---
 
 ## 🎯 ERFOLGSKRITERIEN (Final)
 
-| Kriterium                 | Status | Kommentar                    |
-| ------------------------- | ------ | ---------------------------- |
-| App funktioniert korrekt  | ✅     | Screenshot bestätigt         |
-| Design-System 100%        | ✅     | Alle Direct Colors entfernt  |
-| Cache-System funktional   | ✅     | Aggressive Clearing          |
-| DB-Schema komplett        | ✅     | Performance-Metrics ready    |
-| Error-Tracking live       | ✅     | Global Handlers aktiv        |
-| Dokumentation vollständig | ✅     | 5 Dokumente erstellt         |
-| Code sauber               | ⚠️     | Console-Logs & <a> Tags TODO |
-| Performance optimiert     | ✅     | Score 92, Bundle 800KB       |
+| Kriterium | Status | Kommentar |
+|-----------|--------|-----------|
+| App funktioniert korrekt | ✅ | Screenshot bestätigt |
+| Design-System 100% | ✅ | Alle Direct Colors entfernt |
+| Cache-System funktional | ✅ | Aggressive Clearing |
+| DB-Schema komplett | ✅ | Performance-Metrics ready |
+| Error-Tracking live | ✅ | Global Handlers aktiv |
+| Dokumentation vollständig | ✅ | 5 Dokumente erstellt |
+| Code sauber | ⚠️ | Console-Logs & <a> Tags TODO |
+| Performance optimiert | ✅ | Score 92, Bundle 800KB |
 
 ---
 

@@ -28,27 +28,24 @@ Zentrale Verwaltung aller API-Keys, Secrets und Credentials für MyDispatch.
 **Speicherort:** Lovable Cloud → Secrets  
 **Key-Name:** `HERE_API_KEY`  
 **Typ:** REST API Key  
-**Berechtigungen:**
-
+**Berechtigungen:** 
 - Route Calculation V8
 - Geocoding & Search V7
 - Traffic V7
 - Map Tile API V3
 
 **Integration:**
-
 ```typescript
 // Edge Function: /supabase/functions/calculate-route/index.ts
-const HERE_API_KEY = Deno.env.get("HERE_API_KEY");
+const HERE_API_KEY = Deno.env.get('HERE_API_KEY');
 
 // Frontend: Über Edge Function (NIEMALS direkt)
-const { data } = await supabase.functions.invoke("calculate-route", {
-  body: { origin, destination },
+const { data } = await supabase.functions.invoke('calculate-route', {
+  body: { origin, destination }
 });
 ```
 
 **Cost Management:**
-
 - Free Tier: 250.000 Transactions/Monat
 - Caching: Route-Cache 24h (Redis/Supabase)
 - Fallback: Google Maps API (sekundär)
@@ -64,17 +61,15 @@ const { data } = await supabase.functions.invoke("calculate-route", {
 **Speicherort:** Lovable Cloud → Secrets  
 **Key-Name:** `OPENWEATHERMAP_API_KEY`  
 **Typ:** REST API Key  
-**Berechtigungen:**
-
+**Berechtigungen:** 
 - Current Weather Data
 - 5 Day / 3 Hour Forecast
 - One Call API 3.0
 
 **Integration:**
-
 ```typescript
 // Edge Function: /supabase/functions/fetch-weather/index.ts
-const OPENWEATHERMAP_API_KEY = Deno.env.get("OPENWEATHERMAP_API_KEY");
+const OPENWEATHERMAP_API_KEY = Deno.env.get('OPENWEATHERMAP_API_KEY');
 
 const response = await fetch(
   `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${OPENWEATHERMAP_API_KEY}&units=metric&lang=de`
@@ -82,7 +77,6 @@ const response = await fetch(
 ```
 
 **Cost Management:**
-
 - Free Tier: 1.000 Calls/Tag
 - Caching: 30min Cache per City
 - Update-Frequenz: Alle 30min für Dashboard-Widget
@@ -101,7 +95,6 @@ const response = await fetch(
 **Berechtigungen:** Full Access
 
 **Integration:**
-
 ```typescript
 // Edge Function: /supabase/functions/send-email/index.ts
 import { Resend } from "npm:resend@2.0.0";
@@ -117,7 +110,6 @@ await resend.emails.send({
 ```
 
 **E-Mail-Templates:**
-
 - Registrierung: `registrationConfirmTemplate`
 - Passwort-Reset: `passwordResetTemplate`
 - Buchungsbestätigung: `bookingConfirmationTemplate`
@@ -125,7 +117,6 @@ await resend.emails.send({
 - Dokument-Erinnerung: `documentExpiryTemplate`
 
 **Cost Management:**
-
 - Free Tier: 100 E-Mails/Tag
 - Pro Plan: $20/Monat (50.000 E-Mails)
 - Domain-Validierung: mydispatch.de (DKIM/SPF/DMARC)
@@ -139,18 +130,15 @@ await resend.emails.send({
 **Verwendung:** Subscription-Management (MyDispatch-Tarife), Payment für Unternehmer-Kunden
 
 **Speicherort:** Lovable Cloud → Secrets (2 Keys!)  
-**Key-Name:**
-
+**Key-Name:** 
 - `STRIPE_SECRET_KEY` (Server-Side)
 - `STRIPE_PUBLISHABLE_KEY` (Client-Side - KANN im Code sein!)
 
-**Typ:**
-
-- Secret Key: Server-Only (sk*live*...)
-- Publishable Key: Client-Safe (pk*live*...)
+**Typ:** 
+- Secret Key: Server-Only (sk_live_...)
+- Publishable Key: Client-Safe (pk_live_...)
 
 **Integration - Subscription (MyDispatch-Tarife):**
-
 ```typescript
 // Edge Function: /supabase/functions/check-subscription/index.ts
 import Stripe from "https://esm.sh/stripe@18.5.0";
@@ -166,15 +154,14 @@ const subscriptions = await stripe.subscriptions.list({
 ```
 
 **Integration - Unternehmer-Variante (Connect):**
-
 ```typescript
 // WICHTIG: Jeder Unternehmer benötigt eigenen Stripe-Account!
 // MyDispatch nutzt Stripe Connect (Platform)
 
 // Edge Function: /supabase/functions/create-connect-account/index.ts
 const account = await stripe.accounts.create({
-  type: "express",
-  country: "DE",
+  type: 'express',
+  country: 'DE',
   email: companyEmail,
   capabilities: {
     card_payments: { requested: true },
@@ -188,44 +175,41 @@ const account = await stripe.accounts.create({
 ```
 
 **Produkt-IDs (MyDispatch-Tarife):**
-
 ```typescript
 // src/lib/subscription-utils.ts
 export const PRODUCT_IDS = {
-  starter: ["prod_TEeg0ykplmGKd0", "prod_TF5cFE5Fi5rBCz"],
-  business: ["prod_TEegHmtpPZOZcG", "prod_TF5cnWFZYEQUsG"],
-  enterprise: ["prod_ENTERPRISE_ID_PLACEHOLDER"],
+  starter: ['prod_TEeg0ykplmGKd0', 'prod_TF5cFE5Fi5rBCz'],
+  business: ['prod_TEegHmtpPZOZcG', 'prod_TF5cnWFZYEQUsG'],
+  enterprise: ['prod_ENTERPRISE_ID_PLACEHOLDER'],
 };
 
 export const PRICE_IDS = {
-  starterMonthly: "price_1SIBMrLX5M8TT990zBX6gWOm",
-  starterYearly: "price_1SIbRALX5M8TT990B81vhHPT",
-  businessMonthly: "price_1SIBN9LX5M8TT990mxE8owxm",
-  businessYearly: "price_1SIbRKLX5M8TT990e1vX4ebf",
+  starterMonthly: 'price_1SIBMrLX5M8TT990zBX6gWOm',
+  starterYearly: 'price_1SIbRALX5M8TT990B81vhHPT',
+  businessMonthly: 'price_1SIBN9LX5M8TT990mxE8owxm',
+  businessYearly: 'price_1SIbRKLX5M8TT990e1vX4ebf',
 };
 ```
 
 **Webhooks:**
-
 ```typescript
 // Edge Function: /supabase/functions/stripe-webhook/index.ts
-const webhookSecret = Deno.env.get("STRIPE_WEBHOOK_SECRET");
-const signature = req.headers.get("stripe-signature");
+const webhookSecret = Deno.env.get('STRIPE_WEBHOOK_SECRET');
+const signature = req.headers.get('stripe-signature');
 
 const event = stripe.webhooks.constructEvent(body, signature, webhookSecret);
 
 switch (event.type) {
-  case "checkout.session.completed":
+  case 'checkout.session.completed':
     // Update subscription_product_id in companies table
     break;
-  case "customer.subscription.deleted":
+  case 'customer.subscription.deleted':
     // Set subscription_status = 'cancelled'
     break;
 }
 ```
 
 **Cost Management:**
-
 - Gebühren: 1,4% + 0,25€ pro Transaktion (Europa)
 - Connect-Gebühr: +2% für Plattform (auf Unternehmer-Payments)
 
@@ -239,16 +223,14 @@ switch (event.type) {
 
 **Speicherort:** Automatisch via Lovable Cloud  
 **Key-Namen:**
-
 - `VITE_SUPABASE_URL` (Client-Side)
 - `VITE_SUPABASE_ANON_KEY` (Client-Side)
 - `SUPABASE_SERVICE_ROLE_KEY` (Server-Only!)
 
 **Integration:**
-
 ```typescript
 // Frontend: src/integrations/supabase/client.ts
-import { createClient } from "@supabase/supabase-js";
+import { createClient } from '@supabase/supabase-js';
 
 export const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -264,7 +246,6 @@ const supabaseAdmin = createClient(
 ```
 
 **Security:**
-
 - ✅ Row Level Security (RLS) auf ALLEN Tabellen
 - ✅ company_id Filter in ALLEN Queries
 - ❌ NIEMALS Service Role Key im Frontend
@@ -279,7 +260,6 @@ const supabaseAdmin = createClient(
 
 **Speicherort:** KEINE API-Keys nötig! (Lovable Cloud integriert)  
 **Modelle:**
-
 - `google/gemini-2.5-pro` (Multimodal, komplexes Reasoning)
 - `google/gemini-2.5-flash` (Balanced Performance)
 - `google/gemini-2.5-flash-lite` (Schnell, kostengünstig)
@@ -288,24 +268,22 @@ const supabaseAdmin = createClient(
 - `openai/gpt-5-nano` (Speed-optimiert)
 
 **Integration:**
-
 ```typescript
 // Edge Function: /supabase/functions/ai-forecast/index.ts
-const response = await fetch("https://api.lovable.dev/ai/v1/completions", {
-  method: "POST",
+const response = await fetch('https://api.lovable.dev/ai/v1/completions', {
+  method: 'POST',
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
     // KEIN API-Key nötig!
   },
   body: JSON.stringify({
-    model: "google/gemini-2.5-flash",
-    prompt: "Erstelle eine 7-Tage-Prognose...",
+    model: 'google/gemini-2.5-flash',
+    prompt: 'Erstelle eine 7-Tage-Prognose...',
   }),
 });
 ```
 
 **Cost Management:**
-
 - Lovable Cloud Free Tier: 1.000 Requests/Monat
 - Usage-Based Pricing ab 10.000 Requests
 
@@ -333,10 +311,10 @@ npx supabase secrets set HERE_API_KEY="your_key_here" --project-id vsbqyqhzxmwez
 
 ```typescript
 // supabase/functions/example/index.ts
-const apiKey = Deno.env.get("HERE_API_KEY");
+const apiKey = Deno.env.get('HERE_API_KEY');
 
 if (!apiKey) {
-  throw new Error("HERE_API_KEY not configured");
+  throw new Error('HERE_API_KEY not configured');
 }
 ```
 
@@ -371,14 +349,14 @@ const stripe = new Stripe("sk_live_abc123..."); // ❌
 
 ```typescript
 // Edge Function mit Deno.env
-const API_KEY = Deno.env.get("STRIPE_SECRET_KEY"); // ✅
+const API_KEY = Deno.env.get('STRIPE_SECRET_KEY'); // ✅
 
 // Frontend nur mit Publishable Keys
 const stripe = new Stripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY); // ✅
 
 // Immer Fehlerbehandlung
 if (!API_KEY) {
-  throw new Error("API Key nicht konfiguriert");
+  throw new Error('API Key nicht konfiguriert');
 }
 ```
 
@@ -409,7 +387,7 @@ CREATE INDEX idx_api_usage_provider_date ON api_usage_logs(api_provider, created
 ```typescript
 // supabase/functions/log-api-usage/index.ts
 export const logAPIUsage = async (provider: string, statusCode: number, responseTime: number) => {
-  await supabase.from("api_usage_logs").insert({
+  await supabase.from('api_usage_logs').insert({
     api_provider: provider,
     status_code: statusCode,
     response_time_ms: responseTime,
@@ -450,15 +428,14 @@ export const logAPIUsage = async (provider: string, statusCode: number, response
 
 ### Quartalweise Rotation (Alle 90 Tage)
 
-| API-Provider    | Letzter Rotation | Nächster Rotation | Status |
-| --------------- | ---------------- | ----------------- | ------ |
-| HERE Maps       | 2025-01-15       | 2025-04-15        | ✅ OK  |
-| OpenWeatherMap  | 2025-01-15       | 2025-04-15        | ✅ OK  |
-| Resend          | 2025-01-15       | 2025-04-15        | ✅ OK  |
-| Stripe (Secret) | 2025-01-15       | 2025-04-15        | ✅ OK  |
+| API-Provider | Letzter Rotation | Nächster Rotation | Status |
+|--------------|------------------|-------------------|--------|
+| HERE Maps | 2025-01-15 | 2025-04-15 | ✅ OK |
+| OpenWeatherMap | 2025-01-15 | 2025-04-15 | ✅ OK |
+| Resend | 2025-01-15 | 2025-04-15 | ✅ OK |
+| Stripe (Secret) | 2025-01-15 | 2025-04-15 | ✅ OK |
 
 **Prozess:**
-
 1. 2 Wochen vorher: E-Mail-Reminder an Admin
 2. Neuen Key generieren (Provider-Dashboard)
 3. Lovable Cloud Secret updaten

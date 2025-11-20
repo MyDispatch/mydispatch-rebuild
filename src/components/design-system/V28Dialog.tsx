@@ -21,12 +21,12 @@
    - children: Content
    ================================================================================== */
 
-import * as React from "react";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
-import { designTokens } from "@/config/design-tokens";
-import { Badge } from "@/lib/compat";
-import { cn } from "@/lib/utils";
+import * as React from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { X } from 'lucide-react';
+import { designTokens } from '@/config/design-tokens';
+import { Badge } from '@/lib/compat';
+import { cn } from '@/lib/utils';
 
 /* ==================================================================================
    BASE DIALOG PRIMITIVE EXPORTS
@@ -48,8 +48,8 @@ const V28DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-      className
+      'fixed inset-0 z-50 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+      className,
     )}
     style={{
       background: `${designTokens.colors.slate[900]}80`, // 50% opacity
@@ -57,7 +57,7 @@ const V28DialogOverlay = React.forwardRef<
     {...props}
   />
 ));
-V28DialogOverlay.displayName = "V28DialogOverlay";
+V28DialogOverlay.displayName = 'V28DialogOverlay';
 
 /* ==================================================================================
    MAIN DIALOG COMPONENT
@@ -72,7 +72,7 @@ interface V28DialogProps {
   badge?: string;
   children: React.ReactNode;
   actions?: React.ReactNode;
-  maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl";
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
   className?: string;
 }
 
@@ -85,16 +85,16 @@ export function V28Dialog({
   badge,
   children,
   actions,
-  maxWidth = "lg",
+  maxWidth = 'lg',
   className,
 }: V28DialogProps) {
   const maxWidthClasses = {
-    sm: "max-w-sm",
-    md: "max-w-md",
-    lg: "max-w-lg",
-    xl: "max-w-xl",
-    "2xl": "max-w-2xl",
-    "3xl": "max-w-3xl",
+    sm: 'max-w-sm',
+    md: 'max-w-md',
+    lg: 'max-w-lg',
+    xl: 'max-w-xl',
+    '2xl': 'max-w-2xl',
+    '3xl': 'max-w-3xl',
   };
 
   return (
@@ -103,19 +103,19 @@ export function V28Dialog({
         <V28DialogOverlay />
         <DialogPrimitive.Content
           className={cn(
-            "fixed left-[50%] top-[50%] z-50 grid w-full translate-x-[-50%] translate-y-[-50%] p-0 duration-200",
-            "data-[state=open]:animate-in data-[state=closed]:animate-out",
-            "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-            "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-            "data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%]",
-            "data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]",
-            "rounded-2xl shadow-lg max-h-[90vh] flex flex-col gap-0",
+            'fixed left-[50%] top-[50%] z-50 grid w-full translate-x-[-50%] translate-y-[-50%] p-0 duration-200',
+            'data-[state=open]:animate-in data-[state=closed]:animate-out',
+            'data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+            'data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95',
+            'data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%]',
+            'data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%]',
+            'rounded-2xl shadow-lg max-h-[90vh] flex flex-col gap-0',
             maxWidthClasses[maxWidth],
-            className
+            className,
           )}
           style={{
             borderColor: designTokens.colors.slate[200],
-            border: "1px solid",
+            border: '1px solid',
             background: designTokens.colors.white,
           }}
         >
@@ -133,7 +133,9 @@ export function V28Dialog({
                       background: `linear-gradient(135deg, ${designTokens.colors.primary.light} 0%, ${designTokens.colors.slate[100]} 100%)`,
                     }}
                   >
-                    <div style={{ color: designTokens.colors.primary.DEFAULT }}>{icon}</div>
+                    <div style={{ color: designTokens.colors.primary.DEFAULT }}>
+                      {icon}
+                    </div>
                   </div>
                 )}
                 <div className="flex-1 min-w-0">
@@ -213,4 +215,10 @@ export function V28Dialog({
    EXPORT PRIMITIVES FOR ADVANCED USAGE
    ================================================================================== */
 
-export { V28DialogRoot, V28DialogTrigger, V28DialogPortal, V28DialogOverlay, V28DialogClose };
+export {
+  V28DialogRoot,
+  V28DialogTrigger,
+  V28DialogPortal,
+  V28DialogOverlay,
+  V28DialogClose,
+};

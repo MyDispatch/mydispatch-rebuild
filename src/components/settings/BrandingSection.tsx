@@ -5,17 +5,17 @@
    HINWEIS: Landingpage-Konfiguration erfolgt im Landingpage-Konfigurator
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/lib/compat";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useSettings } from "@/contexts/SettingsContext";
-import { LogoUpload } from "./LogoUpload";
-import { LetterheadUpload } from "./LetterheadUpload";
-import { Info } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { V28Button } from "@/components/design-system/V28Button";
-import { CI_COLORS_HEX } from "@/lib/design-system";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/lib/compat';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useSettings } from '@/contexts/SettingsContext';
+import { LogoUpload } from './LogoUpload';
+import { LetterheadUpload } from './LetterheadUpload';
+import { Info } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { V28Button } from '@/components/design-system/V28Button';
+import { CI_COLORS_HEX } from '@/lib/design-system';
 
 export function BrandingSection() {
   const { companyData, setCompanyData } = useSettings();
@@ -25,8 +25,12 @@ export function BrandingSection() {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Corporate Identity</CardTitle>
-          <CardDescription>Logo und Primärfarbe Ihres Unternehmens</CardDescription>
+          <CardTitle>
+            Corporate Identity
+          </CardTitle>
+          <CardDescription>
+            Logo und Primärfarbe Ihres Unternehmens
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Logo-Upload */}
@@ -79,14 +83,14 @@ export function BrandingSection() {
           <div>
             <p className="font-medium mb-1">Landingpage konfigurieren</p>
             <p className="text-sm">
-              Die vollständige Konfiguration Ihrer öffentlichen Landingpage (Domain, Inhalte,
-              Widget) erfolgt im Landingpage-Konfigurator.
+              Die vollständige Konfiguration Ihrer öffentlichen Landingpage 
+              (Domain, Inhalte, Widget) erfolgt im Landingpage-Konfigurator.
             </p>
           </div>
-          <V28Button
-            variant="secondary"
+          <V28Button 
+            variant="secondary" 
             size="sm"
-            onClick={() => navigate("/landingpage-konfigurator")}
+            onClick={() => navigate('/landingpage-konfigurator')}
           >
             Zum Konfigurator →
           </V28Button>

@@ -136,23 +136,23 @@ grep -rn "useEffect" src/
 
 ```tsx
 // ✅ RICHTIG
-className = "text-foreground bg-background";
-className = "text-primary bg-primary";
+className="text-foreground bg-background"
+className="text-primary bg-primary"
 
 // ❌ FALSCH
-className = "text-white bg-black";
-className = "text-[#EADEBD]";
+className="text-white bg-black"
+className="text-[#EADEBD]"
 ```
 
 ### Icon-Komponente
 
 ```tsx
 // ✅ RICHTIG
-<Icon name="Check" className="text-foreground" />;
+<Icon name="Check" className="text-foreground" />
 
 // ❌ FALSCH
-import { Check } from "lucide-react";
-<Check className="text-green-500" />;
+import { Check } from 'lucide-react';
+<Check className="text-green-500" />
 ```
 
 ### Button-Varianten

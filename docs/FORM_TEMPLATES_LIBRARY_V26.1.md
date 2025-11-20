@@ -17,13 +17,11 @@ Alle existierenden Forms/Dialogs wurden dokumentiert und als Templates für die 
 ## 📋 EXISTIERENDE FORMS
 
 ### 1. **FormDialog** (Base Component)
-
 **Pfad:** `src/components/dialogs/FormDialog.tsx`  
 **Typ:** Generic Form Dialog Base  
 **Verwendung:** Basis für alle anderen Form Dialogs
 
 #### Struktur:
-
 ```typescript
 interface FormDialogProps<TFormValues> {
   open: boolean;
@@ -38,12 +36,11 @@ interface FormDialogProps<TFormValues> {
   resetOnClose?: boolean;
   closeOnSubmit?: boolean;
   isLoading?: boolean;
-  size?: "sm" | "md" | "lg" | "xl" | "full";
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
 }
 ```
 
 #### Features:
-
 - ✅ React Hook Form Integration
 - ✅ Auto-Reset on Close
 - ✅ Loading States
@@ -55,13 +52,11 @@ interface FormDialogProps<TFormValues> {
 ---
 
 ### 2. **InvoiceFormDialog**
-
 **Pfad:** `src/components/invoices/InvoiceFormDialog.tsx`  
 **Typ:** Rechnung erstellen  
 **Verwendung:** Neue Rechnung anlegen
 
 #### Struktur:
-
 ```typescript
 interface InvoiceFormData {
   customer_id: string;
@@ -69,12 +64,11 @@ interface InvoiceFormData {
   due_date: string;
   description: string;
   invoice_number: string;
-  payment_method: "bar" | "rechnung" | "ec_karte" | "kreditkarte";
+  payment_method: 'bar' | 'rechnung' | 'ec_karte' | 'kreditkarte';
 }
 ```
 
 #### Felder (NIEMALS ENTFERNEN):
-
 1. **Kunde** (customer_id) - Pflichtfeld, Dropdown mit Kunden
 2. **Rechnungsnummer** (invoice_number) - Auto-generiert, editierbar
 3. **Betrag** (amount) - Pflichtfeld, Euro
@@ -83,7 +77,6 @@ interface InvoiceFormData {
 6. **Zahlungsmethode** (payment_method) - Pflichtfeld, Dropdown
 
 #### Features:
-
 - ✅ Inline Customer Creation
 - ✅ Auto-Generated Invoice Number
 - ✅ Payment Method Selection
@@ -92,13 +85,11 @@ interface InvoiceFormData {
 ---
 
 ### 3. **MobileFormDialog**
-
 **Pfad:** `src/components/mobile/MobileFormDialog.tsx`  
 **Typ:** Mobile-Optimierter Form Dialog  
 **Verwendung:** Forms auf Mobile Devices
 
 #### Struktur:
-
 ```typescript
 interface MobileFormDialogProps {
   open: boolean;
@@ -116,7 +107,6 @@ interface MobileFormDialogProps {
 ```
 
 #### Features:
-
 - ✅ Full-Screen auf Mobile
 - ✅ Scroll Area für lange Forms
 - ✅ Touch-Optimierte Buttons
@@ -127,19 +117,16 @@ interface MobileFormDialogProps {
 ---
 
 ### 4. **V26NewBookingDialog**
-
 **Pfad:** `src/components/dashboard/V26NewBookingDialog.tsx`  
 **Typ:** Neuer Auftrag  
 **Verwendung:** Schnell-Buchung vom Dashboard
 
 #### Struktur:
-
 ```typescript
 // Muss noch dokumentiert werden - Form existiert aber
 ```
 
 #### Felder (zu dokumentieren):
-
 - Abholadresse
 - Zieladresse
 - Abholzeit
@@ -153,13 +140,11 @@ interface MobileFormDialogProps {
 ## 🎨 V26.1 HERO-QUALITÄT MIGRATION PLAN
 
 ### Phase 1: UI-Elemente erstellen (✅ DONE)
-
 - [x] V26PerformanceBadge
 - [x] V26IconBox (existiert bereits)
 - [x] Dashboard Hero-Qualität
 
 ### Phase 2: Form-Komponenten (TODO)
-
 - [ ] V26FormDialog (Base mit Glassmorphism)
 - [ ] V26FormField (Mit Icon-Box Support)
 - [ ] V26FormInput (Premium Inputs)
@@ -167,7 +152,6 @@ interface MobileFormDialogProps {
 - [ ] V26FormTextarea (Premium Textareas)
 
 ### Phase 3: Spezifische Forms Migrieren (TODO)
-
 - [ ] InvoiceFormDialog → V26InvoiceFormDialog
 - [ ] V26NewBookingDialog optimieren
 - [ ] Weitere Forms identifizieren und migrieren
@@ -177,14 +161,12 @@ interface MobileFormDialogProps {
 ## 📝 MIGRATION RULES
 
 ### Vor Migration eines Forms:
-
 1. ✅ Form in dieser Datei dokumentieren
 2. ✅ Alle Felder auflisten (NIEMALS ENTFERNEN!)
 3. ✅ Validierungsregeln notieren
 4. ✅ Dependencies prüfen
 
 ### Während Migration:
-
 1. ✅ Alle Felder beibehalten (nur Design ändern!)
 2. ✅ V26IconBox für Icons verwenden
 3. ✅ V26PerformanceBadge für Status/Trends
@@ -192,7 +174,6 @@ interface MobileFormDialogProps {
 5. ✅ Glassmorphism & Glow Effects
 
 ### Nach Migration:
-
 1. ✅ Alten Form-Code auskommentieren (NICHT LÖSCHEN!)
 2. ✅ Library-Eintrag erstellen
 3. ✅ Dokumentation aktualisieren

@@ -14,7 +14,6 @@
 **Root Cause:** `overflow-y-auto` auf Parent `<aside>` Element verhinderte korrektes Scroll-Containment
 
 **Lösung:**
-
 ```typescript
 // src/components/dashboard/DashboardSidebar.tsx - Line 126-140
 // VORHER:
@@ -26,7 +25,7 @@
 
 // NACHHER:
 <aside className="... flex flex-col" style={{ overflow: 'hidden' }} data-sidebar>
-  <div
+  <div 
     className="flex-1 overflow-y-auto px-5 pb-6 space-y-5"
     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
   >
@@ -36,7 +35,6 @@
 ```
 
 **Änderungen:**
-
 1. Parent `<aside>`: `overflow: hidden` gesetzt (kein Scroll)
 2. Inner `<div>`: `flex-1 overflow-y-auto` (Scroll-Container)
 3. Scrollbar unsichtbar: `scrollbarWidth: 'none'` (V28.1 Spec)
@@ -53,7 +51,6 @@
 **Befund:** Route existiert bereits vollständig!
 
 **Beweis:**
-
 ```typescript
 // src/config/routes.config.tsx - Line 275-285
 {
@@ -82,10 +79,9 @@
 **Befund:** Portal verwendet **KEINE Dialog-Components** mehr!
 
 **Analyse:**
-
 ```typescript
 // src/pages/Portal.tsx - Line 18
-import { V28Dialog } from "@/components/design-system/V28Dialog"; // ✅ Geändert
+import { V28Dialog } from '@/components/design-system/V28Dialog'; // ✅ Geändert
 
 // Aber: Keine <Dialog> Verwendung gefunden (Search: 0 matches)
 // Portal nutzt ausschließlich Inline-Forms (PortalBookingForm)
@@ -99,12 +95,12 @@ import { V28Dialog } from "@/components/design-system/V28Dialog"; // ✅ Geände
 
 ## 📊 PHASE 1 - ZUSAMMENFASSUNG
 
-| Task               | Status          | Geplant    | Tatsächlich | Zeitersparnis |
-| ------------------ | --------------- | ---------- | ----------- | ------------- |
-| Sidebar-Scroll-Fix | ✅ DONE         | 10 Min     | 10 Min      | -             |
-| Dashboard-Route    | ✅ EXISTED      | 5 Min      | 2 Min       | +3 Min        |
-| Portal-Dialogs     | ✅ EXISTED      | 15 Min     | 3 Min       | +12 Min       |
-| **GESAMT**         | **✅ COMPLETE** | **30 Min** | **15 Min**  | **+15 Min**   |
+| Task | Status | Geplant | Tatsächlich | Zeitersparnis |
+|------|--------|---------|-------------|---------------|
+| Sidebar-Scroll-Fix | ✅ DONE | 10 Min | 10 Min | - |
+| Dashboard-Route | ✅ EXISTED | 5 Min | 2 Min | +3 Min |
+| Portal-Dialogs | ✅ EXISTED | 15 Min | 3 Min | +12 Min |
+| **GESAMT** | **✅ COMPLETE** | **30 Min** | **15 Min** | **+15 Min** |
 
 ---
 
@@ -147,7 +143,6 @@ import { V28Dialog } from "@/components/design-system/V28Dialog"; // ✅ Geände
 **(+2% durch Phase 1 Fixes)**
 
 **Phase 1 Impact:**
-
 - Sidebar-UX: Perfekt ✅
 - Routing-Struktur: Vollständig ✅
 - Portal-Design: V28.1-konform ✅

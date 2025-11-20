@@ -7,8 +7,8 @@
    ✅ Development-only (tree-shaken in production)
    ================================================================================== */
 
-import React, { createContext, useContext, useEffect, useState } from "react";
-import { logger } from "@/lib/logger";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { logger } from '@/lib/logger';
 
 interface ErrorDetectionConfig {
   validateForms: boolean;
@@ -29,7 +29,7 @@ interface ErrorDetectionContextValue {
 interface ValidationError {
   id: string;
   message: string;
-  severity: "low" | "medium" | "high" | "critical";
+  severity: 'low' | 'medium' | 'high' | 'critical';
   timestamp: number;
   source?: string;
 }
@@ -46,7 +46,7 @@ const ErrorDetectionContext = createContext<ErrorDetectionContextValue | null>(n
 export function useErrorDetectionContext() {
   const context = useContext(ErrorDetectionContext);
   if (!context) {
-    throw new Error("useErrorDetectionContext must be used within ErrorDetectionProvider");
+    throw new Error('useErrorDetectionContext must be used within ErrorDetectionProvider');
   }
   return context;
 }
@@ -74,16 +74,16 @@ export function ErrorDetectionProvider({ children, config: userConfig }: Props) 
   const [warnings, setWarnings] = useState<ValidationWarning[]>([]);
 
   const addError = (error: ValidationError) => {
-    setErrors((prev) => [...prev, error]);
-    logger.error("ErrorDetection: " + error.message, undefined, {
+    setErrors(prev => [...prev, error]);
+    logger.error('ErrorDetection: ' + error.message, undefined, {
       severity: error.severity,
       source: error.source,
     });
   };
 
   const addWarning = (warning: ValidationWarning) => {
-    setWarnings((prev) => [...prev, warning]);
-    logger.warn("ErrorDetection Warning: " + warning.message, {
+    setWarnings(prev => [...prev, warning]);
+    logger.warn('ErrorDetection Warning: ' + warning.message, {
       source: warning.source,
     });
   };
@@ -105,13 +105,13 @@ export function ErrorDetectionProvider({ children, config: userConfig }: Props) 
             id: `perf-${Date.now()}`,
             message: `Slow operation: ${entry.name} took ${entry.duration.toFixed(0)}ms`,
             timestamp: Date.now(),
-            source: "performance",
+            source: 'performance',
           });
         }
       });
     });
 
-    observer.observe({ entryTypes: ["measure", "navigation"] });
+    observer.observe({ entryTypes: ['measure', 'navigation'] });
 
     return () => observer.disconnect();
   }, [config.validatePerformance]);
@@ -122,26 +122,26 @@ export function ErrorDetectionProvider({ children, config: userConfig }: Props) 
 
     const checkAccessibility = () => {
       // Check for images without alt text
-      const imagesWithoutAlt = document.querySelectorAll("img:not([alt])");
+      const imagesWithoutAlt = document.querySelectorAll('img:not([alt])');
       if (imagesWithoutAlt.length > 0) {
         addWarning({
           id: `a11y-img-${Date.now()}`,
           message: `${imagesWithoutAlt.length} images without alt text`,
           timestamp: Date.now(),
-          source: "accessibility",
+          source: 'accessibility',
         });
       }
 
       // Check for buttons without accessible names
       const buttonsWithoutNames = document.querySelectorAll(
-        "button:not([aria-label]):not([aria-labelledby]):empty"
+        'button:not([aria-label]):not([aria-labelledby]):empty'
       );
       if (buttonsWithoutNames.length > 0) {
         addWarning({
           id: `a11y-btn-${Date.now()}`,
           message: `${buttonsWithoutNames.length} buttons without accessible names`,
           timestamp: Date.now(),
-          source: "accessibility",
+          source: 'accessibility',
         });
       }
     };
@@ -172,7 +172,10 @@ export function ErrorDetectionProvider({ children, config: userConfig }: Props) 
           <div className="bg-status-error text-white p-4 rounded-lg shadow-lg">
             <div className="flex items-start justify-between mb-2">
               <h3 className="font-semibold">⚠️ Validation Errors ({errors.length})</h3>
-              <button onClick={clearErrors} className="text-white/80 hover:text-white">
+              <button
+                onClick={clearErrors}
+                className="text-white/80 hover:text-white"
+              >
                 ✕
               </button>
             </div>

@@ -9,7 +9,6 @@
 ## 📋 Zweck
 
 Dieses Dokument simuliert die Auswirkungen häufiger Breaking Changes auf das MyDispatch-System. Es dient zur:
-
 - **Risikoanalyse** bei geplanten Änderungen
 - **Impact Assessment** vor Migrations
 - **Rollback-Planung** für Notfälle
@@ -21,23 +20,21 @@ Dieses Dokument simuliert die Auswirkungen häufiger Breaking Changes auf das My
 ### Simulation #1: ALTER TABLE bookings (Add Column)
 
 **Change:**
-
 ```sql
 ALTER TABLE bookings ADD COLUMN priority VARCHAR(10) DEFAULT 'normal';
 ```
 
 **Impact Analysis:**
 
-| Category               | Impact                                      | Details                                 |
-| ---------------------- | ------------------------------------------- | --------------------------------------- |
-| **Affected Files**     | 23                                          | All files using `bookings` table        |
-| **Affected Functions** | 8                                           | Edge Functions reading/writing bookings |
-| **TypeScript Errors**  | 0                                           | Column is nullable/has default          |
-| **Estimated Downtime** | 0 minutes                                   | Non-breaking (adds optional field)      |
-| **Rollback Strategy**  | `ALTER TABLE bookings DROP COLUMN priority` | Safe rollback                           |
+| Category | Impact | Details |
+|----------|--------|---------|
+| **Affected Files** | 23 | All files using `bookings` table |
+| **Affected Functions** | 8 | Edge Functions reading/writing bookings |
+| **TypeScript Errors** | 0 | Column is nullable/has default |
+| **Estimated Downtime** | 0 minutes | Non-breaking (adds optional field) |
+| **Rollback Strategy** | `ALTER TABLE bookings DROP COLUMN priority` | Safe rollback |
 
 **Deployment Plan:**
-
 1. ✅ Run migration in Supabase
 2. ✅ Deploy new types (auto-generated)
 3. ✅ No code changes required (optional field)
@@ -50,23 +47,21 @@ ALTER TABLE bookings ADD COLUMN priority VARCHAR(10) DEFAULT 'normal';
 ### Simulation #2: ALTER TABLE bookings (Remove Column)
 
 **Change:**
-
 ```sql
 ALTER TABLE bookings DROP COLUMN old_field;
 ```
 
 **Impact Analysis:**
 
-| Category               | Impact                                                          | Details                    |
-| ---------------------- | --------------------------------------------------------------- | -------------------------- |
-| **Affected Files**     | 15                                                              | Files using `old_field`    |
-| **Affected Functions** | 3                                                               | Edge Functions using field |
-| **TypeScript Errors**  | 15+                                                             | Missing property errors    |
-| **Estimated Downtime** | 30 minutes                                                      | Code changes required      |
-| **Rollback Strategy**  | `ALTER TABLE bookings ADD COLUMN old_field TYPE` + Restore data | Complex rollback           |
+| Category | Impact | Details |
+|----------|--------|---------|
+| **Affected Files** | 15 | Files using `old_field` |
+| **Affected Functions** | 3 | Edge Functions using field |
+| **TypeScript Errors** | 15+ | Missing property errors |
+| **Estimated Downtime** | 30 minutes | Code changes required |
+| **Rollback Strategy** | `ALTER TABLE bookings ADD COLUMN old_field TYPE` + Restore data | Complex rollback |
 
 **Deployment Plan:**
-
 1. ⚠️ Identify all usages via grep: `grep -r "old_field" src/`
 2. ⚠️ Remove all references in code (15 files)
 3. ⚠️ Deploy code changes
@@ -81,7 +76,6 @@ ALTER TABLE bookings DROP COLUMN old_field;
 ### Simulation #3: ALTER TABLE bookings (Change Column Type)
 
 **Change:**
-
 ```sql
 ALTER TABLE bookings ALTER COLUMN status TYPE VARCHAR(50);
 -- Previously: VARCHAR(20)
@@ -89,16 +83,15 @@ ALTER TABLE bookings ALTER COLUMN status TYPE VARCHAR(50);
 
 **Impact Analysis:**
 
-| Category               | Impact                                                      | Details                            |
-| ---------------------- | ----------------------------------------------------------- | ---------------------------------- |
-| **Affected Files**     | 18                                                          | Files with hardcoded status checks |
-| **Affected Functions** | 5                                                           | Edge Functions validating status   |
-| **TypeScript Errors**  | 0                                                           | Type widening (safe)               |
-| **Estimated Downtime** | 5 minutes                                                   | Migration time only                |
-| **Rollback Strategy**  | `ALTER TABLE bookings ALTER COLUMN status TYPE VARCHAR(20)` | Safe if no data >20 chars          |
+| Category | Impact | Details |
+|----------|--------|---------|
+| **Affected Files** | 18 | Files with hardcoded status checks |
+| **Affected Functions** | 5 | Edge Functions validating status |
+| **TypeScript Errors** | 0 | Type widening (safe) |
+| **Estimated Downtime** | 5 minutes | Migration time only |
+| **Rollback Strategy** | `ALTER TABLE bookings ALTER COLUMN status TYPE VARCHAR(20)` | Safe if no data >20 chars |
 
 **Deployment Plan:**
-
 1. ✅ Run migration (backward compatible)
 2. ✅ Update validation rules if needed
 3. ✅ No immediate code changes required
@@ -110,23 +103,21 @@ ALTER TABLE bookings ALTER COLUMN status TYPE VARCHAR(50);
 ### Simulation #4: RENAME TABLE bookings → orders
 
 **Change:**
-
 ```sql
 ALTER TABLE bookings RENAME TO orders;
 ```
 
 **Impact Analysis:**
 
-| Category               | Impact                                  | Details                           |
-| ---------------------- | --------------------------------------- | --------------------------------- |
-| **Affected Files**     | 45+                                     | ALL files using bookings table    |
-| **Affected Functions** | 12                                      | ALL Edge Functions using bookings |
-| **TypeScript Errors**  | 100+                                    | Table name not found              |
-| **Estimated Downtime** | 2-4 hours                               | Complete refactor required        |
-| **Rollback Strategy**  | `ALTER TABLE orders RENAME TO bookings` | Simple but requires downtime      |
+| Category | Impact | Details |
+|----------|--------|---------|
+| **Affected Files** | 45+ | ALL files using bookings table |
+| **Affected Functions** | 12 | ALL Edge Functions using bookings |
+| **TypeScript Errors** | 100+ | Table name not found |
+| **Estimated Downtime** | 2-4 hours | Complete refactor required |
+| **Rollback Strategy** | `ALTER TABLE orders RENAME TO bookings` | Simple but requires downtime |
 
 **Deployment Plan:**
-
 1. 🔴 **CRITICAL:** Coordinate deployment window
 2. 🔴 Find all usages: `grep -r "from('bookings')" src/`
 3. 🔴 Batch replace (45+ files)
@@ -143,7 +134,6 @@ ALTER TABLE bookings RENAME TO orders;
 ### Simulation #5: RENAME ENV VAR (LOVABLE_API_KEY → AI_API_KEY)
 
 **Change:**
-
 ```bash
 # Old: LOVABLE_API_KEY=xxx
 # New: AI_API_KEY=xxx
@@ -151,16 +141,15 @@ ALTER TABLE bookings RENAME TO orders;
 
 **Impact Analysis:**
 
-| Category               | Impact                                   | Details                                                |
-| ---------------------- | ---------------------------------------- | ------------------------------------------------------ |
-| **Affected Files**     | 0                                        | No code uses env vars directly                         |
-| **Affected Functions** | 8                                        | Edge Functions using `Deno.env.get('LOVABLE_API_KEY')` |
-| **TypeScript Errors**  | 0                                        | Runtime error only                                     |
-| **Estimated Downtime** | 30 minutes                               | Redeploy all Edge Functions                            |
-| **Rollback Strategy**  | Revert secret name in Supabase Dashboard | Immediate                                              |
+| Category | Impact | Details |
+|----------|--------|---------|
+| **Affected Files** | 0 | No code uses env vars directly |
+| **Affected Functions** | 8 | Edge Functions using `Deno.env.get('LOVABLE_API_KEY')` |
+| **TypeScript Errors** | 0 | Runtime error only |
+| **Estimated Downtime** | 30 minutes | Redeploy all Edge Functions |
+| **Rollback Strategy** | Revert secret name in Supabase Dashboard | Immediate |
 
 **Deployment Plan:**
-
 1. ⚠️ Update secret in Supabase Dashboard
 2. ⚠️ Update all Edge Functions (8 files):
    ```diff
@@ -178,27 +167,28 @@ ALTER TABLE bookings RENAME TO orders;
 
 **Impact Analysis:**
 
-| Category               | Impact                      | Details                             |
-| ---------------------- | --------------------------- | ----------------------------------- |
-| **Affected Files**     | 0                           | Detected at runtime                 |
-| **Affected Functions** | 12                          | ALL Edge Functions fail immediately |
-| **TypeScript Errors**  | 0                           | Runtime error only                  |
-| **Estimated Downtime** | Complete outage until fixed | 5-10 minutes to add secret          |
-| **Rollback Strategy**  | Add secret in Dashboard     | Immediate recovery                  |
+| Category | Impact | Details |
+|----------|--------|---------|
+| **Affected Files** | 0 | Detected at runtime |
+| **Affected Functions** | 12 | ALL Edge Functions fail immediately |
+| **TypeScript Errors** | 0 | Runtime error only |
+| **Estimated Downtime** | Complete outage until fixed | 5-10 minutes to add secret |
+| **Rollback Strategy** | Add secret in Dashboard | Immediate recovery |
 
 **Error Message:**
-
 ```
 Error: Server configuration error: Missing environment variables
 ```
 
 **Prevention:**
-
 ```typescript
 // ALL Edge Functions have this check:
-const supabaseUrl = Deno.env.get("SUPABASE_URL");
+const supabaseUrl = Deno.env.get('SUPABASE_URL');
 if (!supabaseUrl) {
-  return new Response(JSON.stringify({ error: "Server configuration error" }), { status: 500 });
+  return new Response(
+    JSON.stringify({ error: 'Server configuration error' }),
+    { status: 500 }
+  );
 }
 ```
 
@@ -211,7 +201,6 @@ if (!supabaseUrl) {
 ### Simulation #7: Edge Function Body Change (Breaking)
 
 **Change:**
-
 ```typescript
 // Old:
 POST /edge-function { "action": "create" }
@@ -222,16 +211,15 @@ POST /edge-function { "operation": "create" }
 
 **Impact Analysis:**
 
-| Category               | Impact                           | Details                              |
-| ---------------------- | -------------------------------- | ------------------------------------ |
-| **Affected Files**     | 12                               | All files calling this Edge Function |
-| **Affected Functions** | 1                                | The Edge Function itself             |
-| **TypeScript Errors**  | 0                                | Type mismatch at runtime             |
-| **Estimated Downtime** | 1-2 hours                        | Coordinate client + server changes   |
-| **Rollback Strategy**  | Deploy old Edge Function version | Git revert + redeploy                |
+| Category | Impact | Details |
+|----------|--------|---------|
+| **Affected Files** | 12 | All files calling this Edge Function |
+| **Affected Functions** | 1 | The Edge Function itself |
+| **TypeScript Errors** | 0 | Type mismatch at runtime |
+| **Estimated Downtime** | 1-2 hours | Coordinate client + server changes |
+| **Rollback Strategy** | Deploy old Edge Function version | Git revert + redeploy |
 
 **Deployment Plan:**
-
 1. 🔴 Support BOTH `action` AND `operation` (backward compatibility):
    ```typescript
    const operation = body.operation || body.action;
@@ -248,16 +236,15 @@ POST /edge-function { "operation": "create" }
 
 **Impact Analysis:**
 
-| Category               | Impact                                     | Details                                                |
-| ---------------------- | ------------------------------------------ | ------------------------------------------------------ |
-| **Affected Files**     | 8                                          | All files using Stripe                                 |
-| **Affected Functions** | 3                                          | payment-webhook, create-payment-intent, refund-payment |
-| **TypeScript Errors**  | 20+                                        | Type mismatches                                        |
-| **Estimated Downtime** | 4-6 hours                                  | Complete Stripe integration rewrite                    |
-| **Rollback Strategy**  | Keep v2 code, deploy as separate functions | Complex                                                |
+| Category | Impact | Details |
+|----------|--------|---------|
+| **Affected Files** | 8 | All files using Stripe |
+| **Affected Functions** | 3 | payment-webhook, create-payment-intent, refund-payment |
+| **TypeScript Errors** | 20+ | Type mismatches |
+| **Estimated Downtime** | 4-6 hours | Complete Stripe integration rewrite |
+| **Rollback Strategy** | Keep v2 code, deploy as separate functions | Complex |
 
 **Deployment Plan:**
-
 1. 🔴 Create NEW Edge Functions (v3):
    - `payment-webhook-v3`
    - `create-payment-intent-v3`
@@ -277,26 +264,24 @@ POST /edge-function { "operation": "create" }
 
 **Impact Analysis:**
 
-| Category               | Impact                              | Details                         |
-| ---------------------- | ----------------------------------- | ------------------------------- |
-| **Affected Files**     | 150+                                | ALL files using Supabase client |
-| **Affected Functions** | 12                                  | ALL Edge Functions              |
-| **TypeScript Errors**  | 50+                                 | Breaking API changes            |
-| **Estimated Downtime** | 1-2 days                            | Complete refactor               |
-| **Rollback Strategy**  | Git revert + package.json downgrade | Complex (types changed)         |
+| Category | Impact | Details |
+|----------|--------|---------|
+| **Affected Files** | 150+ | ALL files using Supabase client |
+| **Affected Functions** | 12 | ALL Edge Functions |
+| **TypeScript Errors** | 50+ | Breaking API changes |
+| **Estimated Downtime** | 1-2 days | Complete refactor |
+| **Rollback Strategy** | Git revert + package.json downgrade | Complex (types changed) |
 
 **Known Breaking Changes (Example):**
-
 ```typescript
 // v2:
-const { data, error } = await supabase.from("bookings").select();
+const { data, error } = await supabase.from('bookings').select();
 
 // v3 (hypothetical):
-const { data, error } = await supabase.table("bookings").query();
+const { data, error } = await supabase.table('bookings').query();
 ```
 
 **Deployment Plan:**
-
 1. 🔴 Create feature branch
 2. 🔴 Update package.json
 3. 🔴 Fix TypeScript errors (50+ files)
@@ -314,35 +299,32 @@ const { data, error } = await supabase.table("bookings").query();
 ### Simulation #10: Tighten RLS Policy (bookings)
 
 **Change:**
-
 ```sql
 -- Old: Users can view all bookings
 CREATE POLICY "Users view all" ON bookings FOR SELECT USING (true);
 
 -- New: Users can only view their own bookings
 DROP POLICY "Users view all" ON bookings;
-CREATE POLICY "Users view own" ON bookings FOR SELECT
+CREATE POLICY "Users view own" ON bookings FOR SELECT 
 USING (auth.uid() = user_id);
 ```
 
 **Impact Analysis:**
 
-| Category               | Impact             | Details                                 |
-| ---------------------- | ------------------ | --------------------------------------- |
-| **Affected Files**     | 15                 | Pages/components showing all bookings   |
-| **Affected Functions** | 2                  | Edge Functions querying all bookings    |
-| **TypeScript Errors**  | 0                  | Data just disappears (silent failure!)  |
-| **Estimated Downtime** | 0 minutes          | No downtime, but data access restricted |
-| **Rollback Strategy**  | Restore old policy | Immediate via Supabase Dashboard        |
+| Category | Impact | Details |
+|----------|--------|---------|
+| **Affected Files** | 15 | Pages/components showing all bookings |
+| **Affected Functions** | 2 | Edge Functions querying all bookings |
+| **TypeScript Errors** | 0 | Data just disappears (silent failure!) |
+| **Estimated Downtime** | 0 minutes | No downtime, but data access restricted |
+| **Rollback Strategy** | Restore old policy | Immediate via Supabase Dashboard |
 
 **Side Effects:**
-
 - Admin users can't see all bookings anymore
 - Reports/analytics break (no data)
 - Customer support can't view bookings
 
 **Mitigation:**
-
 ```sql
 -- Add admin bypass:
 CREATE POLICY "Admins view all" ON bookings FOR SELECT
@@ -382,17 +364,17 @@ Before applying ANY breaking change:
 
 ## 📊 Breaking Change Risk Matrix
 
-| Change Type              | Risk Level  | Downtime | Rollback Complexity |
-| ------------------------ | ----------- | -------- | ------------------- |
-| Add Column               | 🟢 LOW      | 0 min    | Easy                |
-| Remove Column            | 🟡 MEDIUM   | 30 min   | Medium              |
-| Rename Table             | 🔴 HIGH     | 2-4h     | Hard                |
-| Env Var Rename           | 🟡 MEDIUM   | 30 min   | Easy                |
-| Missing Env Var          | 🔴 HIGH     | Outage   | Easy                |
-| API Signature Change     | 🔴 HIGH     | 1-2h     | Medium              |
-| External API Version     | 🔴 CRITICAL | 4-6h     | Hard                |
-| Dependency Major Version | 🔴 CRITICAL | 1-2 days | Hard                |
-| RLS Policy Tighten       | 🟡 MEDIUM   | 0 min    | Easy                |
+| Change Type | Risk Level | Downtime | Rollback Complexity |
+|-------------|------------|----------|---------------------|
+| Add Column | 🟢 LOW | 0 min | Easy |
+| Remove Column | 🟡 MEDIUM | 30 min | Medium |
+| Rename Table | 🔴 HIGH | 2-4h | Hard |
+| Env Var Rename | 🟡 MEDIUM | 30 min | Easy |
+| Missing Env Var | 🔴 HIGH | Outage | Easy |
+| API Signature Change | 🔴 HIGH | 1-2h | Medium |
+| External API Version | 🔴 CRITICAL | 4-6h | Hard |
+| Dependency Major Version | 🔴 CRITICAL | 1-2 days | Hard |
+| RLS Policy Tighten | 🟡 MEDIUM | 0 min | Easy |
 
 ---
 
@@ -402,22 +384,22 @@ Before applying ANY breaking change:
 
 ```typescript
 // scripts/detect-breaking-changes.ts
-import { exec } from "child_process";
+import { exec } from 'child_process';
 
 const breakingPatterns = [
-  { pattern: /DROP COLUMN/, severity: "HIGH", message: "Column removal detected" },
-  { pattern: /ALTER TABLE .* RENAME TO/, severity: "CRITICAL", message: "Table rename detected" },
-  { pattern: /DROP POLICY/, severity: "MEDIUM", message: "RLS policy change detected" },
+  { pattern: /DROP COLUMN/, severity: 'HIGH', message: 'Column removal detected' },
+  { pattern: /ALTER TABLE .* RENAME TO/, severity: 'CRITICAL', message: 'Table rename detected' },
+  { pattern: /DROP POLICY/, severity: 'MEDIUM', message: 'RLS policy change detected' },
 ];
 
 async function detectBreakingChanges(migrationFile: string) {
-  const content = await fs.readFile(migrationFile, "utf-8");
-
-  const issues = breakingPatterns.filter((p) => p.pattern.test(content));
-
+  const content = await fs.readFile(migrationFile, 'utf-8');
+  
+  const issues = breakingPatterns.filter(p => p.pattern.test(content));
+  
   if (issues.length > 0) {
-    console.error("🚨 BREAKING CHANGES DETECTED:");
-    issues.forEach((issue) => {
+    console.error('🚨 BREAKING CHANGES DETECTED:');
+    issues.forEach(issue => {
       console.error(`[${issue.severity}] ${issue.message}`);
     });
     process.exit(1);
@@ -426,7 +408,6 @@ async function detectBreakingChanges(migrationFile: string) {
 ```
 
 **Usage:**
-
 ```bash
 npm run detect-breaking-changes supabase/migrations/latest.sql
 ```

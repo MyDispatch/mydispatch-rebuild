@@ -9,14 +9,12 @@
 ## EXECUTIVE SUMMARY
 
 ### Kritische Sicherheitslücken behoben
-
 ✅ **7/7 Security-Findings** aus Supabase Security-Scan adressiert  
 ✅ **1 CRITICAL** Error behoben: Public Company Data Exposure  
 ✅ **6 WARNINGS** analysiert und dokumentiert/ignored mit Begründung  
 ✅ **100% DSGVO-Compliance** durch strikte Datenzugriffskontrolle
 
 ### Systemstatus
-
 - 🟢 **PRODUCTION-READY**: Keine kritischen Sicherheitslücken
 - 🟢 **RLS-PROTECTED**: Alle sensitiven Daten durch Row-Level-Security geschützt
 - 🟢 **API-SECURED**: Public APIs nutzen gefilterte Views
@@ -35,7 +33,6 @@
 **Betroffene Tabelle:** `public.companies`
 
 **Exponierte Daten:**
-
 - ❌ Email-Adressen (Kontaktdaten)
 - ❌ Telefonnummern (Geschäftsdaten)
 - ❌ Tax-ID / Steuernummer (Finanzielle Identifikation)
@@ -45,19 +42,17 @@
 - ❌ Business Registration Details (Handelsregister-Daten)
 
 **Alte (unsichere) RLS Policy:**
-
 ```sql
 CREATE POLICY "Public landing page data only"
 ON public.companies
 FOR SELECT
 USING (
-  landingpage_enabled = true
+  landingpage_enabled = true 
   AND company_status = 'active'
 );
 ```
 
 **Risiko:**
-
 - Wettbewerber könnten alle aktiven MyDispatch-Kunden scrapen
 - Phishing-Angriffe mit echten Unternehmens-Kontaktdaten
 - Identitätsdiebstahl mit Tax-ID und Bankdaten
@@ -66,7 +61,6 @@ USING (
 ### Implementierte Lösung (V18.3.25)
 
 #### 1. Public Policy KOMPLETT ENTFERNT
-
 ```sql
 -- Alte Policy entfernen
 DROP POLICY IF EXISTS "Public landing page data only" ON public.companies;
@@ -76,11 +70,10 @@ DROP POLICY IF EXISTS "Public landing page data only" ON public.companies;
 ```
 
 #### 2. Public Access NUR über gefilterte View
-
 ```sql
 -- companies_public_info View filtert automatisch:
 CREATE VIEW companies_public_info AS
-SELECT
+SELECT 
   id,
   name,
   company_slug,
@@ -95,23 +88,22 @@ SELECT
   timezone,
   postal_code,      -- ✅ Nur PLZ (KEINE Straße!)
   city,             -- ✅ Nur Stadt
-  CASE
-    WHEN landingpage_enabled = true AND widget_show_phone = true
-    THEN phone
-    ELSE NULL
+  CASE 
+    WHEN landingpage_enabled = true AND widget_show_phone = true 
+    THEN phone 
+    ELSE NULL 
   END AS phone,     -- ✅ Conditional Exposure
-  CASE
-    WHEN landingpage_enabled = true
-    THEN email
-    ELSE NULL
+  CASE 
+    WHEN landingpage_enabled = true 
+    THEN email 
+    ELSE NULL 
   END AS email      -- ✅ Conditional Exposure
 FROM companies
-WHERE landingpage_enabled = true
+WHERE landingpage_enabled = true 
   AND company_status = 'active';
 ```
 
 **Vorteile:**
-
 - ✅ KEINE Tax-ID exponiert
 - ✅ KEINE IBAN/BIC exponiert
 - ✅ KEINE vollständige Adresse (nur Stadt/PLZ)
@@ -119,7 +111,6 @@ WHERE landingpage_enabled = true
 - ✅ Stripe Customer ID NICHT enthalten
 
 #### 3. Security Helper Function
-
 ```sql
 CREATE FUNCTION public.get_public_company_info(company_slug_param text)
 RETURNS TABLE (...filtered fields...)
@@ -134,19 +125,18 @@ $$;
 ```
 
 #### 4. Frontend Code Review
-
 ```typescript
 // ✅ SICHER: src/hooks/use-public-company.tsx
 export function usePublicCompany(slug?: string) {
   return useQuery({
     queryFn: async () => {
       const { data } = await supabase
-        .from("companies_public_info") // ✅ Gefilterte View
-        .select("*")
-        .eq("company_slug", slug)
+        .from('companies_public_info')  // ✅ Gefilterte View
+        .select('*')
+        .eq('company_slug', slug)
         .maybeSingle();
       return data;
-    },
+    }
   });
 }
 
@@ -158,7 +148,6 @@ const { data: company } = usePublicCompany(slug);
 ### Auswirkungen
 
 #### Vorher (V18.3.24 - UNSICHER)
-
 ```typescript
 // ❌ Public konnte scrapen:
 {
@@ -176,7 +165,6 @@ const { data: company } = usePublicCompany(slug);
 ```
 
 #### Nachher (V18.3.25 - SICHER)
-
 ```typescript
 // ✅ Public sieht nur:
 {
@@ -200,23 +188,23 @@ const { data: company } = usePublicCompany(slug);
 **Finding:** `dashboard_stats` und `mv_document_expiry_dashboard` sind über API exponiert
 
 **Risiko-Bewertung:** LOW
-
 - Views enthalten company-specific aggregierte Daten
 - Kein direkter Personenbezug (nur Statistiken)
 - PostgreSQL: Materialized Views können KEIN RLS haben
 
 **Mitigation:**
-
 - ✅ Application-level filtering: Alle Queries mit `company_id` Filter
 - ✅ Authentication required: Nur logged-in users
 - ✅ Company-isolation: `company_id` wird aus `auth.uid()` validiert
 - ✅ Dokumentation: COMMENT ON MATERIALIZED VIEW hinzugefügt
 
 **Frontend-Pattern:**
-
 ```typescript
 // ✅ SICHER: Immer mit company_id Filter
-const { data } = await supabase.from("dashboard_stats").select("*").eq("company_id", userCompanyId); // ✅ Validated via RLS
+const { data } = await supabase
+  .from('dashboard_stats')
+  .select('*')
+  .eq('company_id', userCompanyId);  // ✅ Validated via RLS
 ```
 
 **Status:** ACCEPTED - Risk mitigated durch application-level controls
@@ -225,11 +213,10 @@ const { data } = await supabase.from("dashboard_stats").select("*").eq("company_
 
 **Finding:** "Security Definer View detected"
 
-**Analyse:**
-
+**Analyse:** 
 ```sql
 -- Query: Suche nach SECURITY DEFINER Views
-SELECT * FROM pg_views
+SELECT * FROM pg_views 
 WHERE definition LIKE '%SECURITY DEFINER%';
 -- Result: 0 rows (Keine gefunden!)
 ```
@@ -243,13 +230,11 @@ WHERE definition LIKE '%SECURITY DEFINER%';
 **Finding:** "Functions ohne search_path Parameter"
 
 **Analyse:**
-
 - ✅ 24+ Functions haben bereits `SET search_path = public`
 - ✅ Alle kritischen SECURITY DEFINER Functions sind abgesichert
 - ⚠️ Wenige einfache Trigger-Functions ohne search_path (kein Security-Risiko)
 
 **Betroffene Functions (Safe):**
-
 ```sql
 -- Diese Functions sind Trigger-Functions, KEINE SECURITY DEFINER
 -- Kein direkter API-Access möglich
@@ -265,7 +250,6 @@ validate_future_booking()
 **Finding:** `pg_net` Extension im public Schema
 
 **Erklärung:**
-
 - `pg_net` ist ein Supabase-Standard für HTTP requests aus DB
 - Wird für Webhooks, Edge Functions, External APIs benötigt
 - Ist Teil der Supabase-Architektur
@@ -277,12 +261,11 @@ validate_future_booking()
 **Finding:** Auth-Einstellung nicht aktiviert
 
 **Fix:**
-
 ```typescript
 // Auth Configuration aktiviert über supabase--configure-auth
-auto_confirm_email: true;
-external_anonymous_users_enabled: false;
-disable_signup: false;
+auto_confirm_email: true
+external_anonymous_users_enabled: false
+disable_signup: false
 ```
 
 **Status:** FIXED - Auth-Einstellungen optimiert
@@ -294,23 +277,21 @@ disable_signup: false;
 ### Public API Access (Landing Pages)
 
 #### ✅ SICHER: use-public-company.tsx
-
 ```typescript
 export function usePublicCompany(slug?: string, tenantId?: string) {
   return useQuery({
     queryFn: async () => {
       const { data } = await supabase
-        .from("companies_public_info") // ✅ Gefilterte View
-        .select("*")
-        .eq("company_slug", slug);
+        .from('companies_public_info')  // ✅ Gefilterte View
+        .select('*')
+        .eq('company_slug', slug);
       return data;
-    },
+    }
   });
 }
 ```
 
 #### ✅ SICHER: pages/Unternehmer.tsx
-
 ```typescript
 // Nutzt use-public-company Hook
 const { data: company } = usePublicCompany(slug);
@@ -326,22 +307,23 @@ interface CompanyData {
 ```
 
 #### ✅ SICHER: pages/Portal.tsx
-
 ```typescript
 const { data: companyData } = await supabase
-  .from("companies_public_info") // ✅ Gefilterte View
-  .select("*")
-  .eq("id", companyId)
+  .from('companies_public_info')  // ✅ Gefilterte View
+  .select('*')
+  .eq('id', companyId)
   .single();
 ```
 
 ### Authenticated Access (Internal)
 
 #### ✅ SICHER: All internal components
-
 ```typescript
 // Pattern: Alle components greifen mit RLS-Protection zu
-const { data } = await supabase.from("companies").select("*").eq("id", companyId);
+const { data } = await supabase
+  .from('companies')
+  .select('*')
+  .eq('id', companyId);
 // ✅ RLS Policy: company_select_policy validiert auth.uid()
 ```
 
@@ -350,7 +332,6 @@ const { data } = await supabase.from("companies").select("*").eq("id", companyId
 ## RLS POLICY ÜBERSICHT (POST-FIX)
 
 ### companies Table
-
 ```sql
 -- ✅ Authenticated Users: Eigene Company
 CREATE POLICY "company_select_policy"
@@ -374,7 +355,6 @@ USING (
 ```
 
 ### companies_public_info View
-
 ```sql
 -- Views haben KEIN eigenes RLS (PostgreSQL Limitation)
 -- Protection durch underlying companies table RLS
@@ -382,11 +362,10 @@ USING (
 ```
 
 ### Materialized Views
-
 ```sql
 -- dashboard_stats
 -- mv_document_expiry_dashboard
---
+-- 
 -- Haben KEIN RLS (PostgreSQL Limitation)
 -- Protection durch Application-Level Filtering:
 --   WHERE company_id IN (SELECT company_id FROM profiles WHERE user_id = auth.uid())
@@ -397,7 +376,6 @@ USING (
 ## TESTING & VERIFICATION
 
 ### 1. Public Access Test
-
 ```bash
 # Test: Anonymous user kann KEINE sensitiven Daten sehen
 curl -X GET 'https://[project].supabase.co/rest/v1/companies?select=*'
@@ -409,19 +387,22 @@ curl -X GET 'https://[project].supabase.co/rest/v1/companies_public_info?select=
 ```
 
 ### 2. Authenticated Access Test
-
 ```typescript
 // Test: Authenticated user sieht nur eigene Company
 const { data } = await supabase.auth.getUser();
-const { data: company } = await supabase.from("companies").select("*");
+const { data: company } = await supabase
+  .from('companies')
+  .select('*');
 // Expected: Nur eigene Company (via RLS), alle Felder sichtbar
 ```
 
 ### 3. Cross-Company Access Test
-
 ```typescript
 // Test: User A kann NICHT Company B Daten sehen
-const { data } = await supabase.from("companies").select("*").eq("id", "other-company-id");
+const { data } = await supabase
+  .from('companies')
+  .select('*')
+  .eq('id', 'other-company-id');
 // Expected: Empty result (RLS blocks)
 ```
 
@@ -429,21 +410,20 @@ const { data } = await supabase.from("companies").select("*").eq("id", "other-co
 
 ## COMPLIANCE MATRIX
 
-| Requirement                       | Status | Implementation                         |
-| --------------------------------- | ------ | -------------------------------------- |
-| DSGVO Art. 32 (Datensicherheit)   | ✅     | RLS auf allen Tables mit PII           |
-| DSGVO Art. 25 (Privacy by Design) | ✅     | Gefilterte Public Views                |
-| DSGVO Art. 5 (Datenminimierung)   | ✅     | companies_public_info zeigt Minimum    |
-| ISO 27001 (Access Control)        | ✅     | Role-based RLS Policies                |
-| OWASP A01 (Broken Access Control) | ✅     | Keine public policy auf sensitive data |
-| OWASP A03 (Injection)             | ✅     | Prepared statements, RLS               |
+| Requirement | Status | Implementation |
+|-------------|--------|----------------|
+| DSGVO Art. 32 (Datensicherheit) | ✅ | RLS auf allen Tables mit PII |
+| DSGVO Art. 25 (Privacy by Design) | ✅ | Gefilterte Public Views |
+| DSGVO Art. 5 (Datenminimierung) | ✅ | companies_public_info zeigt Minimum |
+| ISO 27001 (Access Control) | ✅ | Role-based RLS Policies |
+| OWASP A01 (Broken Access Control) | ✅ | Keine public policy auf sensitive data |
+| OWASP A03 (Injection) | ✅ | Prepared statements, RLS |
 
 ---
 
 ## SECURITY BEST PRACTICES (FÜR TEAM)
 
 ### 1. Public Data Exposure
-
 ```sql
 -- ✅ RICHTIG: Public access via filtered view
 CREATE VIEW safe_public_data AS
@@ -458,7 +438,6 @@ FOR SELECT USING (public_access_enabled = true);
 ```
 
 ### 2. RLS Policy Design
-
 ```sql
 -- ✅ RICHTIG: Company isolation via profiles
 CREATE POLICY "company_isolation"
@@ -477,18 +456,21 @@ USING (company_id = auth.uid());
 ```
 
 ### 3. Materialized Views
-
 ```typescript
 // ✅ RICHTIG: Application-level filtering
-const { data } = await supabase.from("dashboard_stats").select("*").eq("company_id", userCompanyId); // IMMER filtern!
+const { data } = await supabase
+  .from('dashboard_stats')
+  .select('*')
+  .eq('company_id', userCompanyId);  // IMMER filtern!
 
 // ❌ FALSCH: Unfiltered access
-const { data } = await supabase.from("dashboard_stats").select("*");
+const { data } = await supabase
+  .from('dashboard_stats')
+  .select('*');
 // Könnte Daten anderer Companies laden!
 ```
 
 ### 4. Security Definer Functions
-
 ```sql
 -- ✅ RICHTIG: Mit search_path
 CREATE FUNCTION my_function()
@@ -508,20 +490,18 @@ AS $$ ... $$;
 ## MONITORING & ALERTING
 
 ### Laufende Überwachung
-
 1. **Monatlicher Security-Scan**: Supabase Linter ausführen
 2. **Audit-Logs prüfen**: Ungewöhnliche Zugriffsmuster
 3. **RLS Policy Review**: Vierteljährlich alle Policies prüfen
 4. **Dependency Updates**: Wöchentlich auf Security-Patches prüfen
 
 ### Alert-Regeln
-
 ```typescript
 // Sentry Integration für Security Events
 if (unauthorizedAccess) {
-  Sentry.captureException(new Error("Unauthorized access attempt"), {
-    level: "error",
-    tags: { security: true, type: "access_violation" },
+  Sentry.captureException(new Error('Unauthorized access attempt'), {
+    level: 'error',
+    tags: { security: true, type: 'access_violation' }
   });
 }
 ```
@@ -531,7 +511,6 @@ if (unauthorizedAccess) {
 ## DEPLOYMENT CHECKLIST
 
 ### Pre-Deployment Security Check
-
 - [x] Supabase Security-Scan durchgeführt
 - [x] Alle CRITICAL Findings behoben
 - [x] RLS Policies auf allen Tables mit PII
@@ -540,7 +519,6 @@ if (unauthorizedAccess) {
 - [x] Auth-Konfiguration optimiert
 
 ### Post-Deployment Verification
-
 - [ ] Public API Access testen (anonymous)
 - [ ] Authenticated Access testen (user)
 - [ ] Cross-company access testen (isolation)
@@ -552,23 +530,19 @@ if (unauthorizedAccess) {
 ## DOKUMENTATION & REFERENZEN
 
 ### Geänderte Dateien
-
 - ✅ `supabase/migrations/XXXXXX_security_fix_v18_3_25.sql`
 - ✅ `docs/SECURITY_AUDIT_V18.3.25.md` (dieses Dokument)
 - ✅ `docs/PRODUCTION_DEPLOYMENT_FIX_V18.3.25.md`
 - ✅ `docs/ERROR_DATABASE_V18.3.25.md` (wird aktualisiert)
 
 ### Externe Referenzen
-
 - [Supabase RLS Guide](https://supabase.com/docs/guides/auth/row-level-security)
 - [Supabase Security Advisor](https://supabase.com/docs/guides/database/database-advisors)
 - [OWASP Top 10](https://owasp.org/www-project-top-ten/)
 - [DSGVO Art. 32](https://dsgvo-gesetz.de/art-32-dsgvo/)
 
 ### Support
-
 Bei Sicherheitsfragen:
-
 - **Security Contact:** security@mydispatch.de
 - **Emergency:** +49 123 456789
 - **Incident Response:** Sentry + n8n Alerts
@@ -578,38 +552,32 @@ Bei Sicherheitsfragen:
 ## LESSONS LEARNED
 
 ### 1. Public RLS Policies sind gefährlich
-
 ❌ **Fehler:** "Wir zeigen nur Landing-Page-Felder" → Policy exponiert ALLES  
 ✅ **Lösung:** Gefilterte Views statt Public Table Policies
 
 ### 2. Views vs. Tables: RLS Unterschiede
-
 ❌ **Fehler:** "ALTER VIEW ... ENABLE ROW LEVEL SECURITY" → Funktioniert nicht  
 ✅ **Lösung:** Views werden durch underlying table RLS geschützt
 
 ### 3. Defense in Depth
-
 ✅ **Strategie:** Mehrschichtige Absicherung
-
-1.  Keine Public Policy auf sensitiven Tables
-2.  Gefilterte Public Views
-3.  Security Definer Functions mit search_path
-4.  Application-level filtering
-5.  Frontend Type-Safety
+   1. Keine Public Policy auf sensitiven Tables
+   2. Gefilterte Public Views
+   3. Security Definer Functions mit search_path
+   4. Application-level filtering
+   5. Frontend Type-Safety
 
 ---
 
 ## ABSCHLUSS
 
 ### System-Status
-
 - ✅ **V18.3.25**: PRODUCTION-READY
 - ✅ **Security-Scan**: 0 Critical Errors
 - ✅ **DSGVO-Compliance**: 100%
 - ✅ **Go-Live**: Bereit für 19.10.2025
 
 ### Nächste Schritte
-
 1. ✅ Security-Findings in Supabase Dashboard ignorieren (mit Begründung)
 2. ✅ Frontend Code Review completed
 3. ✅ Dokumentation erstellt

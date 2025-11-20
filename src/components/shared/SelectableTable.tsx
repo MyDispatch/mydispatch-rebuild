@@ -9,7 +9,7 @@
  * - Typ-sicher mit Generics
  * ==================================================================================
  * VERWENDUNG:
- *
+ * 
  * <SelectableTable
  *   items={bookings}
  *   getItemId={(item) => item.id}
@@ -33,41 +33,34 @@
  * ==================================================================================
  */
 
-import { ReactNode } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useBulkSelection } from "@/hooks/use-bulk-selection";
-import { BulkActionBar, BulkAction } from "@/components/shared/BulkActionBar";
-import { cn } from "@/lib/utils";
+import { ReactNode } from 'react';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Checkbox } from '@/components/ui/checkbox';
+import { useBulkSelection } from '@/hooks/use-bulk-selection';
+import { BulkActionBar, BulkAction } from '@/components/shared/BulkActionBar';
+import { cn } from '@/lib/utils';
 
 interface SelectableTableProps<T extends { id: string }> {
   /**
    * Array of items to display
    */
   items: T[];
-
+  
   /**
    * Function to extract ID from item (default: item.id)
    */
   getItemId?: (item: T) => string;
-
+  
   /**
    * Bulk actions to show in BulkActionBar
    */
   bulkActions: BulkAction[];
-
+  
   /**
    * Render function for table header (without checkbox column)
    */
   renderHeader: () => ReactNode;
-
+  
   /**
    * Render function for table row (without checkbox cell)
    * @param item - Current item
@@ -75,17 +68,17 @@ interface SelectableTableProps<T extends { id: string }> {
    * @param toggleSelection - Function to toggle selection
    */
   renderRow: (item: T, isSelected: boolean, toggleSelection: () => void) => ReactNode;
-
+  
   /**
    * Optional className for table
    */
   className?: string;
-
+  
   /**
    * Optional: Show row hover effect
    */
   hoverable?: boolean;
-
+  
   /**
    * Optional: Callback when item is clicked (entire row)
    */
@@ -129,25 +122,30 @@ export function SelectableTable<T extends { id: string }>({
                 checked={allSelected}
                 onCheckedChange={() => toggleSelectAll(items)}
                 aria-label="Alle auswählen"
-                className={cn(someSelected && "data-[state=checked]:bg-muted-foreground")}
+                className={cn(
+                  someSelected && "data-[state=checked]:bg-muted-foreground"
+                )}
               />
             </TableHead>
-
+            
             {/* User-defined Headers */}
             {renderHeader()}
           </TableRow>
         </TableHeader>
-
+        
         <TableBody>
           {items.map((item) => {
             const itemId = getItemId(item);
             const itemSelected = isSelected(itemId);
-
+            
             return (
               <TableRow
                 key={itemId}
-                data-state={itemSelected ? "selected" : undefined}
-                className={cn(hoverable && "cursor-pointer", onRowClick && "cursor-pointer")}
+                data-state={itemSelected ? 'selected' : undefined}
+                className={cn(
+                  hoverable && "cursor-pointer",
+                  onRowClick && "cursor-pointer"
+                )}
                 onClick={() => onRowClick?.(item)}
               >
                 {/* Checkbox Cell */}
@@ -158,7 +156,7 @@ export function SelectableTable<T extends { id: string }>({
                     aria-label={`Auswählen ${itemId}`}
                   />
                 </TableCell>
-
+                
                 {/* User-defined Row */}
                 {renderRow(item, itemSelected, () => toggleSelection(itemId))}
               </TableRow>

@@ -7,10 +7,10 @@
    - React Query Integration
    ================================================================================== */
 
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "./use-auth";
-import { handleError } from "@/lib/error-handler";
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from './use-auth';
+import { handleError } from '@/lib/error-handler';
 
 export interface CompanyLocation {
   id: string;
@@ -39,11 +39,11 @@ interface UseCompanyLocationReturn {
 
 /**
  * Hook zum Laden des Firmenstandorts
- *
+ * 
  * Verwendung:
  * ```tsx
  * const { location, hasCoordinates } = useCompanyLocation();
- *
+ * 
  * if (hasCoordinates) {
  *   // Zeige Wetter-Widget mit location.latitude, location.longitude
  * }
@@ -52,27 +52,22 @@ interface UseCompanyLocationReturn {
 export function useCompanyLocation(): UseCompanyLocationReturn {
   const { profile } = useAuth();
 
-  const {
-    data: location,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery({
-    queryKey: ["company-location", profile?.company_id],
+  const { data: location, isLoading, error, refetch } = useQuery({
+    queryKey: ['company-location', profile?.company_id],
     queryFn: async () => {
       if (!profile?.company_id) {
-        throw new Error("Kein Unternehmen verfügbar");
+        throw new Error('Kein Unternehmen verfügbar');
       }
 
       // Verwende companies-Tabelle direkt (View wurde aus Security-Gründen entfernt)
       const { data, error } = await supabase
-        .from("companies")
-        .select("*")
-        .eq("id", profile.company_id)
+        .from('companies')
+        .select('*')
+        .eq('id', profile.company_id)
         .single();
 
       if (error) throw error;
-      if (!data) throw new Error("Unternehmen nicht gefunden");
+      if (!data) throw new Error('Unternehmen nicht gefunden');
 
       // Type-Casting: numeric → number (CRITICAL FIX)
       return {
@@ -88,10 +83,10 @@ export function useCompanyLocation(): UseCompanyLocationReturn {
 
   // Prüfe, ob Koordinaten vorhanden sind (mit explizitem Type-Check)
   const hasCoordinates = !!(
-    location?.latitude &&
-    location?.longitude &&
-    typeof location.latitude === "number" &&
-    typeof location.longitude === "number" &&
+    location?.latitude && 
+    location?.longitude && 
+    typeof location.latitude === 'number' && 
+    typeof location.longitude === 'number' &&
     !isNaN(location.latitude) &&
     !isNaN(location.longitude)
   );
@@ -109,16 +104,16 @@ export function useCompanyLocation(): UseCompanyLocationReturn {
  * Helper: Gibt eine lesbare Adresse zurück (strukturiert oder Fallback)
  */
 export function getDisplayAddress(location: CompanyLocation | null): string {
-  if (!location) return "Keine Adresse hinterlegt";
+  if (!location) return 'Keine Adresse hinterlegt';
 
   // Strukturierte Adresse bevorzugen
   if (location.street && location.city) {
     const parts = [
-      [location.street, location.street_number].filter(Boolean).join(" "),
-      [location.postal_code, location.city].filter(Boolean).join(" "),
+      [location.street, location.street_number].filter(Boolean).join(' '),
+      [location.postal_code, location.city].filter(Boolean).join(' '),
     ].filter(Boolean);
-
-    return parts.join(", ");
+    
+    return parts.join(', ');
   }
 
   // Fallback auf full_address (aus View)
@@ -131,7 +126,7 @@ export function getDisplayAddress(location: CompanyLocation | null): string {
     return location.address;
   }
 
-  return "Keine Adresse hinterlegt";
+  return 'Keine Adresse hinterlegt';
 }
 
 /**
@@ -139,10 +134,10 @@ export function getDisplayAddress(location: CompanyLocation | null): string {
  */
 export function needsGeocoding(location: CompanyLocation | null): boolean {
   if (!location) return false;
-
+  
   // Hat strukturierte Adresse, aber keine Koordinaten
   const hasStructuredAddress = Boolean(location.street && location.city);
   const hasCoordinates = Boolean(location.latitude && location.longitude);
-
+  
   return hasStructuredAddress && !hasCoordinates;
 }

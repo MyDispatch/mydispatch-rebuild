@@ -98,9 +98,9 @@
 <DashboardLayout>
   <SEOHead title="Dashboard" description="..." />
   <Breadcrumbs />
-
+  
   {showWelcomeWizard && <WelcomeWizard />}
-
+  
   {isMobile ? (
     <MobileDashboard {...props} />
   ) : (
@@ -115,7 +115,7 @@
             </p>
           </div>
         </div>
-
+        
         <DashboardKPICards />
       </section>
 
@@ -218,7 +218,6 @@ grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6
 ### **KPI-Cards (4 Stück)**
 
 #### **1. Aufträge**
-
 ```typescript
 {
   title: "Aufträge",
@@ -239,7 +238,6 @@ grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6
 **Status-Logik:** `warning` wenn `pending_bookings > 5`, sonst `success`
 
 #### **2. Umsatz**
-
 ```typescript
 {
   title: "Umsatz",
@@ -247,15 +245,15 @@ grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6
   icon: Euro,
   description: "Gesamt",
   subMetrics: [
-    {
-      label: 'Bezahlt',
+    { 
+      label: 'Bezahlt', 
       value: Math.round((revenuePaid / totalRevenue) * 100) || 0, // in %
-      color: 'success'
+      color: 'success' 
     },
-    {
-      label: 'Offen',
+    { 
+      label: 'Offen', 
       value: Math.round((revenuePending / totalRevenue) * 100) || 0, // in %
-      color: 'warning'
+      color: 'warning' 
     }
   ],
   statusType: revenuePending > totalRevenue * 0.5 ? 'warning' : 'success',
@@ -267,7 +265,6 @@ grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6
 **Status-Logik:** `warning` wenn > 50% unbezahlt, sonst `success`
 
 #### **3. Fahrer**
-
 ```typescript
 {
   title: "Fahrer",
@@ -282,7 +279,6 @@ grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6
 **Hinweis:** Keine Sub-Metrics (kann erweitert werden mit shift_status)
 
 #### **4. Kunden**
-
 ```typescript
 {
   title: "Kunden",
@@ -305,20 +301,19 @@ interface KPICardProps {
   description?: string;
   subMetrics?: SubMetric[];
   trend?: string; // z.B. "+15%"
-  trendDirection?: "up" | "down";
+  trendDirection?: 'up' | 'down';
   onClick?: () => void;
-  statusType?: "success" | "warning" | "error" | "neutral";
+  statusType?: 'success' | 'warning' | 'error' | 'neutral';
 }
 
 interface SubMetric {
   label: string;
   value: number;
-  color: "success" | "warning" | "error" | "neutral";
+  color: 'success' | 'warning' | 'error' | 'neutral';
 }
 ```
 
 **Styling:**
-
 ```css
 /* Card */
 className="cursor-pointer transition-all hover:shadow-md h-full border-border"
@@ -346,23 +341,22 @@ bg-status-success (grün) | bg-status-warning (gelb) | bg-status-error (rot)
 
 ### **Widget-Übersicht**
 
-| Widget                   | Spalten | Business+ | Error Boundary | Beschreibung                               |
-| ------------------------ | ------- | --------- | -------------- | ------------------------------------------ |
-| `DashboardKPICards`      | 4       | ❌        | ✅             | KPI-Cards mit Drill-Down                   |
-| `UrgentActionsWidget`    | 1       | ❌        | ✅             | Dringende Aktionen (Dokumente, Rechnungen) |
-| `ResourceStatusWidget`   | 1       | ❌        | ✅             | Fahrer & Fahrzeuge Status                  |
-| `RevenueBreakdownWidget` | 1       | ✅        | ✅             | Umsatz-Aufschlüsselung                     |
-| `HEREMapComponent`       | 2       | ❌        | ✅             | Live-Karte mit Fahrzeugen                  |
-| `WeatherWidget`          | 1       | ❌        | ✅             | Wetter-Informationen                       |
-| `TrafficWidget`          | 1       | ❌        | ✅             | Verkehrsmeldungen                          |
-| `PredictiveDemandWidget` | 3       | ✅        | ✅             | AI-Nachfrage-Prognose                      |
-| `LiveInfoWidget`         | 1       | ✅        | ✅             | Live-Infos (News, Alerts)                  |
-| `ActivityTimeline`       | 2/3     | ❌        | ✅             | Letzte Aktivitäten (Audit-Logs)            |
+| Widget | Spalten | Business+ | Error Boundary | Beschreibung |
+|--------|---------|-----------|----------------|--------------|
+| `DashboardKPICards` | 4 | ❌ | ✅ | KPI-Cards mit Drill-Down |
+| `UrgentActionsWidget` | 1 | ❌ | ✅ | Dringende Aktionen (Dokumente, Rechnungen) |
+| `ResourceStatusWidget` | 1 | ❌ | ✅ | Fahrer & Fahrzeuge Status |
+| `RevenueBreakdownWidget` | 1 | ✅ | ✅ | Umsatz-Aufschlüsselung |
+| `HEREMapComponent` | 2 | ❌ | ✅ | Live-Karte mit Fahrzeugen |
+| `WeatherWidget` | 1 | ❌ | ✅ | Wetter-Informationen |
+| `TrafficWidget` | 1 | ❌ | ✅ | Verkehrsmeldungen |
+| `PredictiveDemandWidget` | 3 | ✅ | ✅ | AI-Nachfrage-Prognose |
+| `LiveInfoWidget` | 1 | ✅ | ✅ | Live-Infos (News, Alerts) |
+| `ActivityTimeline` | 2/3 | ❌ | ✅ | Letzte Aktivitäten (Audit-Logs) |
 
 ### **Widget-Details**
 
 #### **UrgentActionsWidget**
-
 ```typescript
 <UrgentActionsWidget
   expiringDocuments={expiringDocuments} // Anzahl
@@ -373,19 +367,16 @@ bg-status-success (grün) | bg-status-warning (gelb) | bg-status-error (rot)
 ```
 
 **Datenquellen:**
-
 - `documents` → Filter: `expiry_date <= heute + 30 Tage`
 - `invoices` → Filter: `payment_status === 'overdue'`
 - `dashboardStats` → `pending_bookings`
 
 **Aktionen:**
-
 - Klick auf "Dokumente" → `/dokumente`
 - Klick auf "Rechnungen" → `/rechnungen`
 - Klick auf "Aufträge" → `/auftraege`
 
 #### **ResourceStatusWidget**
-
 ```typescript
 <ResourceStatusWidget
   availableDrivers={[
@@ -401,13 +392,11 @@ bg-status-success (grün) | bg-status-warning (gelb) | bg-status-error (rot)
 ```
 
 **Datenquellen:**
-
 - `drivers` → Filter: `!archived && shift_status === 'available'`
 - `drivers` → Filter: `!archived && shift_status === 'busy'`
 - `vehicles` → Filter: `!archived`
 
 #### **RevenueBreakdownWidget** (Business+)
-
 ```typescript
 <RevenueBreakdownWidget
   total={todayTotal} // Gesamtumsatz heute
@@ -425,13 +414,11 @@ bg-status-success (grün) | bg-status-warning (gelb) | bg-status-error (rot)
 ```
 
 **Datenquellen:**
-
 - `bookings` → Filter: `created_at === heute && payment_status === 'paid'`
 - Gruppierung nach `payment_method` (Barzahlung, Rechnung, Kartenzahlung)
 - Dual-Fallback: DE + EN Zahlungsmethoden
 
 **Fallback (Starter):**
-
 ```typescript
 <Card className="border-primary/20 bg-primary/5">
   <CardContent className="pt-6">
@@ -450,7 +437,6 @@ bg-status-success (grün) | bg-status-warning (gelb) | bg-status-error (rot)
 ```
 
 #### **HEREMapComponent**
-
 ```typescript
 <WidgetErrorBoundary widgetName="HERE Map">
   <HEREMapComponent />
@@ -458,14 +444,12 @@ bg-status-success (grün) | bg-status-warning (gelb) | bg-status-error (rot)
 ```
 
 **Features:**
-
 - Live-Tracking verfügbarer Fahrer
 - Aktuelle Fahrzeug-Positionen
 - Interaktive Karte (Zoom, Pan)
 - Marker mit Tooltips
 
 #### **WeatherWidget** & **TrafficWidget**
-
 ```typescript
 <WidgetErrorBoundary widgetName="Wetter">
   <WeatherWidget />
@@ -477,12 +461,10 @@ bg-status-success (grün) | bg-status-warning (gelb) | bg-status-error (rot)
 ```
 
 **Datenquellen:**
-
 - HERE Weather API (via Edge Function)
 - HERE Traffic API (via Edge Function)
 
 #### **PredictiveDemandWidget** (Business+)
-
 ```typescript
 {isBusinessActive && (
   <section>
@@ -492,19 +474,16 @@ bg-status-success (grün) | bg-status-warning (gelb) | bg-status-error (rot)
 ```
 
 **Features:**
-
 - AI-basierte Nachfrage-Prognose (7 Tage)
 - Historische Analyse (90 Tage)
 - Lovable AI Gateway (Google Gemini)
 - Visualisierung via Recharts
 
 **Datenquelle:**
-
 - Edge Function: `ai-forecast`
 - Model: `google/gemini-2.5-flash`
 
 #### **ActivityTimeline**
-
 ```typescript
 <ActivityTimeline
   activities={activities} // Audit-Logs
@@ -513,13 +492,11 @@ bg-status-success (grün) | bg-status-warning (gelb) | bg-status-error (rot)
 ```
 
 **Datenquelle:**
-
 - `audit_logs` Tabelle (via `useAuditLogs()`)
 - Sortierung: `created_at DESC`
 - Limit: 5 neueste Einträge
 
 **Aktivitätstypen:**
-
 - `booking.created` → "Neuer Auftrag erstellt"
 - `driver.shift_start` → "Fahrer hat Schicht gestartet"
 - `invoice.paid` → "Rechnung wurde bezahlt"
@@ -570,7 +547,6 @@ if (isMobile) {
 ```
 
 **Mobile-Optimierungen:**
-
 - Stack-Layout (vertikal)
 - Touch-optimierte Buttons (min-height: 44px)
 - Reduzierte Info-Dichte
@@ -589,9 +565,9 @@ const { profile, company } = useAuth();
 
 // Subscription-Status
 const { productId } = useSubscription();
-const isBusinessActive =
-  company?.subscription_status === "active" &&
-  company?.subscription_product_id &&
+const isBusinessActive = 
+  company?.subscription_status === 'active' && 
+  company?.subscription_product_id && 
   isBusinessTier(company.subscription_product_id);
 
 // Dashboard-Statistiken (Materialized View)
@@ -623,7 +599,6 @@ const { isMobile } = useDeviceType();
 **RPC Function:** `get_dashboard_stats_for_company(target_company_id UUID)`
 
 **Rückgabe:**
-
 ```typescript
 interface DashboardStats {
   company_id: string;
@@ -647,7 +622,6 @@ interface DashboardStats {
 **View-Refresh:** Automatisch via Trigger bei INSERT/UPDATE/DELETE auf `bookings`
 
 **Caching:**
-
 ```typescript
 staleTime: 60000, // 1 Minute
 gcTime: 5 * 60 * 1000, // 5 Minuten
@@ -662,23 +636,21 @@ refetchOnWindowFocus: false,
 ### **Business+ Features**
 
 ```typescript
-const isBusinessActive =
-  company?.subscription_status === "active" &&
-  company?.subscription_product_id &&
+const isBusinessActive = 
+  company?.subscription_status === 'active' && 
+  company?.subscription_product_id && 
   isBusinessTier(company.subscription_product_id);
 
 // Business+ Product IDs
-const businessProductIds = ["prod_TEegHmtpPZOZcG", "prod_TF5cnWFZYEQUsG"];
+const businessProductIds = ['prod_TEegHmtpPZOZcG', 'prod_TF5cnWFZYEQUsG'];
 ```
 
 **Gesperrte Features (Starter):**
-
 - `RevenueBreakdownWidget` → Zeigt Upgrade-Banner
 - `PredictiveDemandWidget` → Nicht gerendert
 - `LiveInfoWidget` → Nicht gerendert
 
 **Upgrade-Banner (Starter):**
-
 ```typescript
 {!isBusinessActive && (
   <section>
@@ -706,7 +678,6 @@ const businessProductIds = ["prod_TEegHmtpPZOZcG", "prod_TF5cnWFZYEQUsG"];
 ## 🎨 DESIGN-GUIDELINES
 
 ### **Spacing**
-
 ```css
 /* Haupt-Container */
 space-y-6 sm:space-y-8
@@ -719,7 +690,6 @@ p-4 sm:p-6
 ```
 
 ### **Typography**
-
 ```css
 /* Hero-Titel */
 text-3xl font-bold
@@ -735,7 +705,6 @@ text-[10px] sm:text-xs
 ```
 
 ### **Farben**
-
 ```css
 /* Status-Codierung */
 border-status-success/20 bg-status-success/5  /* Grün */
@@ -759,28 +728,27 @@ hover:scale-105 (Buttons)
 ```typescript
 const quickActions = [
   {
-    label: "Neuer Auftrag",
+    label: 'Neuer Auftrag',
     icon: Plus,
-    action: () => navigate("/auftraege", { state: { openCreateDialog: true } }),
-    variant: "default" as const,
+    action: () => navigate('/auftraege', { state: { openCreateDialog: true } }),
+    variant: 'default' as const,
   },
   {
-    label: "Schichtzettel",
+    label: 'Schichtzettel',
     icon: Calendar,
-    action: () => navigate("/schichtzettel"),
-    variant: "outline" as const,
+    action: () => navigate('/schichtzettel'),
+    variant: 'outline' as const,
   },
   {
-    label: "Team-Chat",
+    label: 'Team-Chat',
     icon: MessageSquare,
-    action: () => navigate("/team-chat"),
-    variant: "outline" as const,
+    action: () => navigate('/team-chat'),
+    variant: 'outline' as const,
   },
 ];
 ```
 
 **Render:**
-
 ```typescript
 <Card>
   <CardHeader className="pb-3">
@@ -829,9 +797,8 @@ useRealtimeVehicles(); // Invalidiert vehicles-Query
 ```
 
 **Fallback bei Fehler:**
-
 ```typescript
-<ErrorPlaceholder
+<ErrorPlaceholder 
   title="Widget temporär nicht verfügbar"
   action={<Button onClick={refetch}>Erneut versuchen</Button>}
 />
@@ -844,7 +811,7 @@ useRealtimeVehicles(); // Invalidiert vehicles-Query
 const [showWelcomeWizard, setShowWelcomeWizard] = useState(false);
 
 useEffect(() => {
-  const hasSeenOnboarding = localStorage.getItem("mydispatch_onboarding_completed");
+  const hasSeenOnboarding = localStorage.getItem('mydispatch_onboarding_completed');
   if (!hasSeenOnboarding && profile) {
     setShowWelcomeWizard(true);
   }
@@ -873,7 +840,7 @@ useEffect(() => {
 ✅ Mobile-optimierte Alternative (MobileDashboard)  
 ✅ Responsive Grid-Layout  
 ✅ SEO-optimiert via SEOHead  
-✅ Breadcrumbs-Navigation
+✅ Breadcrumbs-Navigation  
 
 ### **Datenquellen**
 

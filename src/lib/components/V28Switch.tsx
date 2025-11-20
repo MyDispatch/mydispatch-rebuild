@@ -39,7 +39,7 @@ export { V28Switch };
 
 /**
  * USAGE EXAMPLE:
- *
+ * 
  * <div className="flex items-center space-x-2">
  *   <V28Switch id="airplane-mode" />
  *   <label htmlFor="airplane-mode" className="text-sm">

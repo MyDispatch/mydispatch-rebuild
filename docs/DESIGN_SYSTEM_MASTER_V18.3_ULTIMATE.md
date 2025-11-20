@@ -12,7 +12,6 @@
 Dieses Dokument definiert die **ABSOLUTE WAHRHEIT** für das gesamte MyDispatch-System. Jede Code-Änderung, jede Komponente, jede Farbe MUSS diesem System folgen.
 
 ### 🎯 Kernziele
-
 1. **100% Zentralisierung** - Alle Styles, Formate, Utils zentral gesteuert
 2. **0 Duplikation** - Jeder Code existiert nur einmal
 3. **Maximale Wartbarkeit** - Änderungen nur an 1 Stelle = systemweit wirksam
@@ -77,22 +76,22 @@ MyDispatch V18.3 Architektur
 /* src/index.css - Lines 17-46 */
 :root {
   /* Hauptfarben */
-  --background: 0 0% 100%; /* #FFFFFF - Weiß */
-  --foreground: 225 31% 28%; /* #323D5E - Dunkelblau (Text) */
-
-  --primary: 40 31% 88%; /* #EADEBD - MyDispatch Beige/Gold */
-  --primary-foreground: 225 31% 28%; /* #323D5E - Dunkel auf Primary */
-  --primary-glow: 40 41% 93%; /* Hellere Primary-Variante */
-
-  --accent: 31 26% 38%; /* #856d4b - MyDispatch Braun/Gold */
-  --accent-foreground: 0 0% 100%; /* #FFFFFF - Weiß auf Accent */
-  --accent-hover: 31 26% 32%; /* Dunklere Accent-Variante */
-
-  --muted: 40 8% 95%; /* Gedämpftes Beige */
-  --muted-foreground: 225 20% 50%; /* Gedämpfter Text */
-
-  --border: 40 12% 88%; /* #E8E0D0 - Border */
-  --card: 0 0% 100%; /* #FFFFFF - Card-Hintergrund */
+  --background: 0 0% 100%;            /* #FFFFFF - Weiß */
+  --foreground: 225 31% 28%;          /* #323D5E - Dunkelblau (Text) */
+  
+  --primary: 40 31% 88%;              /* #EADEBD - MyDispatch Beige/Gold */
+  --primary-foreground: 225 31% 28%;  /* #323D5E - Dunkel auf Primary */
+  --primary-glow: 40 41% 93%;         /* Hellere Primary-Variante */
+  
+  --accent: 31 26% 38%;               /* #856d4b - MyDispatch Braun/Gold */
+  --accent-foreground: 0 0% 100%;     /* #FFFFFF - Weiß auf Accent */
+  --accent-hover: 31 26% 32%;         /* Dunklere Accent-Variante */
+  
+  --muted: 40 8% 95%;                 /* Gedämpftes Beige */
+  --muted-foreground: 225 20% 50%;    /* Gedämpfter Text */
+  
+  --border: 40 12% 88%;               /* #E8E0D0 - Border */
+  --card: 0 0% 100%;                  /* #FFFFFF - Card-Hintergrund */
 }
 ```
 
@@ -101,14 +100,13 @@ MyDispatch V18.3 Architektur
 ```css
 /* KRITISCH: Ampelfarben NUR für Status-Badges, NIEMALS für Icons/Charts */
 :root {
-  --status-success: 142 76% 36%; /* #22c55e - Echtes Grün */
-  --status-warning: 48 96% 53%; /* #eab308 - Echtes Gelb */
-  --status-error: 0 84% 60%; /* #ef4444 - Echtes Rot */
+  --status-success: 142 76% 36%;      /* #22c55e - Echtes Grün */
+  --status-warning: 48 96% 53%;       /* #eab308 - Echtes Gelb */
+  --status-error: 0 84% 60%;          /* #ef4444 - Echtes Rot */
 }
 ```
 
 **VERWENDUNG:**
-
 ```tsx
 // ✅ RICHTIG: Status-Badges
 <Badge variant="success">Aktiv</Badge>
@@ -126,29 +124,28 @@ MyDispatch V18.3 Architektur
 /* WICHTIG: Für Charts verwenden wir --primary als Hauptfarbe */
 :root {
   /* PRIMARY = Zentrale Chart-Farbe (wie Fahrzeug-Auslastungsleiste) */
-  --primary: 40 31% 88%; /* #EADEBD - Hauptfarbe für Charts */
-
+  --primary: 40 31% 88%;              /* #EADEBD - Hauptfarbe für Charts */
+  
   /* Sekundäre Chart-Farben (für Multi-Serie-Charts) */
-  --chart-secondary: 40 31% 70%; /* #D4C5A3 - Sekundärlinie */
-  --chart-tertiary: 31 26% 55%; /* #B89368 - Dritte Linie */
-  --chart-grid: 40 12% 88%; /* #E8E0D0 - Gitternetz */
+  --chart-secondary: 40 31% 70%;      /* #D4C5A3 - Sekundärlinie */
+  --chart-tertiary: 31 26% 55%;       /* #B89368 - Dritte Linie */
+  --chart-grid: 40 12% 88%;           /* #E8E0D0 - Gitternetz */
 }
 ```
 
 **VERWENDUNG:**
-
 ```tsx
 // RevenueChart, AreaChart, LineChart
-<Area
-  stroke="hsl(var(--primary))" // Hauptlinie
-  fill="url(#colorRevenue)" // Gradient
-/>;
+<Area 
+  stroke="hsl(var(--primary))"         // Hauptlinie
+  fill="url(#colorRevenue)"            // Gradient
+/>
 
 // Multi-Serie Charts
 const COLORS = [
-  "hsl(var(--primary))", // Serie 1
-  "hsl(var(--chart-secondary))", // Serie 2
-  "hsl(var(--chart-tertiary))", // Serie 3
+  'hsl(var(--primary))',               // Serie 1
+  'hsl(var(--chart-secondary))',       // Serie 2
+  'hsl(var(--chart-tertiary))',        // Serie 3
 ];
 ```
 
@@ -166,7 +163,6 @@ const COLORS = [
 ```
 
 **AUSNAHMEN** (sehr selten):
-
 - Status-spezifische Icons IN Status-Badges (z.B. CheckCircle in Success-Badge)
 - Hero-Sections mit dunklem Hintergrund (text-white)
 
@@ -177,8 +173,8 @@ const COLORS = [
 ```tsx
 // ✅ RICHTIG: Hover-Farben auf HELLEN Hintergründen
 // (bg-primary, bg-background, bg-card)
-<Button
-  variant="ghost"
+<Button 
+  variant="ghost" 
   className="text-foreground hover:text-foreground"
 >
   <Icon className="text-foreground" />
@@ -195,8 +191,7 @@ const COLORS = [
 {/* accent-foreground ist WEISS - unsichtbar! */}
 ```
 
-**REGEL:**
-
+**REGEL:** 
 - **Helle Hintergründe** (bg-primary, bg-background, bg-card) → `hover:text-foreground` (dunkel)
 - **Dunkle Hintergründe** (bg-accent, bg-destructive) → `hover:text-white`
 
@@ -209,7 +204,6 @@ const COLORS = [
 ### 2.1 Geschützte Layout-Komponenten (NIEMALS ÄNDERN)
 
 #### Header (src/components/layout/Header.tsx)
-
 ```tsx
 // FIXIERT: h-16 (60px), bg-primary
 <header className="h-16 bg-primary fixed top-0 w-full z-50">
@@ -218,7 +212,6 @@ const COLORS = [
 ```
 
 #### Sidebar (src/components/layout/AppSidebar.tsx)
-
 ```tsx
 // FIXIERT: w-16 (collapsed) / w-60 (expanded)
 <Sidebar className="w-16 md:w-60 transition-all duration-300">
@@ -227,22 +220,20 @@ const COLORS = [
 ```
 
 #### Footer (src/components/layout/Footer.tsx)
-
 ```tsx
 // FIXIERT: py-2, bg-primary
-<footer className="py-2 bg-primary">{/* KEINE Layout-Änderungen erlaubt */}</footer>
+<footer className="py-2 bg-primary">
+  {/* KEINE Layout-Änderungen erlaubt */}
+</footer>
 ```
 
 ### 2.2 Erlaubte Änderungen an Layout-Komponenten
-
 ✅ **ERLAUBT:**
-
 - Funktionale Erweiterungen (neue Features, Buttons)
 - Daten-Enrichment (mehr Informationen anzeigen)
 - Event-Handler (onClick, Navigation)
 
 ❌ **VERBOTEN:**
-
 - Layout-Änderungen (Höhe, Breite, Padding, Margin)
 - CI-Farben ändern (bg-primary → bg-accent)
 - Border-System ändern
@@ -256,19 +247,13 @@ const COLORS = [
 
 ```css
 /* Primär: Inter (Body + UI) */
-font-family:
-  "Inter",
-  -apple-system,
-  BlinkMacSystemFont,
-  "Segoe UI",
-  Roboto,
-  sans-serif;
+font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
 /* Sekundär: Geist (Headlines - wenn benötigt) */
-font-family: "Geist", "Inter", sans-serif;
+font-family: 'Geist', 'Inter', sans-serif;
 
 /* Monospace (Code, Zahlen) */
-font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
+font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
 ```
 
 ### 3.2 Fluid Typography (Responsive)
@@ -276,15 +261,15 @@ font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monosp
 ```css
 /* Definiert in src/index.css Lines 103-112 */
 :root {
-  --font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); /* 12px → 14px */
-  --font-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem); /* 14px → 16px */
-  --font-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); /* 16px → 18px */
+  --font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);   /* 12px → 14px */
+  --font-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);    /* 14px → 16px */
+  --font-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);   /* 16px → 18px */
   --font-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem); /* 18px → 20px */
-  --font-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem); /* 20px → 24px */
-  --font-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem); /* 24px → 30px */
-  --font-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.25rem); /* 30px → 36px */
-  --font-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem); /* 36px → 48px */
-  --font-5xl: clamp(3rem, 2.55rem + 2.25vw, 4rem); /* 48px → 64px */
+  --font-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);     /* 20px → 24px */
+  --font-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);  /* 24px → 30px */
+  --font-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.25rem);/* 30px → 36px */
+  --font-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem);      /* 36px → 48px */
+  --font-5xl: clamp(3rem, 2.55rem + 2.25vw, 4rem);        /* 48px → 64px */
 }
 ```
 
@@ -313,31 +298,31 @@ text-3xl     // 30px (Large Headlines)
 ### 3.4 Font-Weights
 
 ```tsx
-font - normal; // 400 (Body-Text)
-font - medium; // 500 (Subtext, Labels)
-font - semibold; // 600 (Wichtige UI-Elemente)
-font - bold; // 700 (Headlines, Zahlen)
+font-normal     // 400 (Body-Text)
+font-medium     // 500 (Subtext, Labels)
+font-semibold   // 600 (Wichtige UI-Elemente)
+font-bold       // 700 (Headlines, Zahlen)
 ```
 
 ### 3.5 Line-Heights
 
 ```tsx
-leading - tight; // 1.25 (Headlines)
-leading - normal; // 1.5 (Body-Text)
-leading - relaxed; // 1.625 (Long-Form-Text)
+leading-tight    // 1.25 (Headlines)
+leading-normal   // 1.5 (Body-Text)
+leading-relaxed  // 1.625 (Long-Form-Text)
 ```
 
 ### 3.6 Letter-Spacing
 
 ```tsx
 // Headlines (enger für Eleganz)
--tracking - tight; // letter-spacing: -0.01em
+-tracking-tight  // letter-spacing: -0.01em
 
 // Body (normal)
-tracking - normal; // letter-spacing: 0
+tracking-normal  // letter-spacing: 0
 
 // Labels/Meta (weiter für Lesbarkeit)
-tracking - wide; // letter-spacing: 0.025em
+tracking-wide    // letter-spacing: 0.025em
 ```
 
 ---
@@ -392,7 +377,7 @@ gap-1, gap-2, gap-3, gap-4, gap-6, gap-8
 ```css
 /* Definiert in src/index.css Line 48 */
 :root {
-  --radius: 0.5rem; /* 8px - Standard-Radius */
+  --radius: 0.5rem;  /* 8px - Standard-Radius */
 }
 ```
 
@@ -502,17 +487,17 @@ animate-pulse-glow       // Pulsierender Glow (3s infinite)
 
 ```tsx
 // Tailwind-Transitions
-transition; // all 150ms cubic-bezier(0.4, 0, 0.2, 1)
-transition - colors; // colors 150ms
-transition - opacity; // opacity 150ms
-transition -
-  // Custom Hover-Effects (src/index.css Lines 308-370)
-  transform.hover - // transform 150ms
-  lift.hover - // translateY(-4px) + shadow-xl
-  scale.hover - // scale(1.02)
-  glow.interactive - // shadow-glow
-  hover.card - // bg + shadow + translateY
-  hover; // scale(1.01) + shadow
+transition              // all 150ms cubic-bezier(0.4, 0, 0.2, 1)
+transition-colors       // colors 150ms
+transition-opacity      // opacity 150ms
+transition-transform    // transform 150ms
+
+// Custom Hover-Effects (src/index.css Lines 308-370)
+.hover-lift             // translateY(-4px) + shadow-xl
+.hover-scale            // scale(1.02)
+.hover-glow             // shadow-glow
+.interactive-hover      // bg + shadow + translateY
+.card-hover             // scale(1.01) + shadow
 ```
 
 ---
@@ -608,18 +593,18 @@ transition -
 
 ```tsx
 import {
-  formatCurrency, // 1234.56 => "1.234,56 €"
-  formatDate, // "2025-01-18" => "18.01.2025"
-  formatDateTime, // "2025-01-18T14:30:00Z" => "18.01.2025 14:30"
-  formatTime, // "2025-01-18T14:30:00Z" => "14:30"
-  formatBookingStatus, // "pending" => "Ausstehend"
-  formatInvoiceStatus, // "paid" => "Bezahlt"
-  formatOfferStatus, // "sent" => "Versendet"
-  formatShiftStatus, // "available" => "Verfügbar"
-  formatPaymentStatus, // "pending" => "Ausstehend"
-  formatVehicleClass, // "Business Class" => "Business"
-  getFullName, // ("Max", "Mustermann") => "Max Mustermann"
-} from "@/lib/format-utils";
+  formatCurrency,     // 1234.56 => "1.234,56 €"
+  formatDate,         // "2025-01-18" => "18.01.2025"
+  formatDateTime,     // "2025-01-18T14:30:00Z" => "18.01.2025 14:30"
+  formatTime,         // "2025-01-18T14:30:00Z" => "14:30"
+  formatBookingStatus,     // "pending" => "Ausstehend"
+  formatInvoiceStatus,     // "paid" => "Bezahlt"
+  formatOfferStatus,       // "sent" => "Versendet"
+  formatShiftStatus,       // "available" => "Verfügbar"
+  formatPaymentStatus,     // "pending" => "Ausstehend"
+  formatVehicleClass,      // "Business Class" => "Business"
+  getFullName,             // ("Max", "Mustermann") => "Max Mustermann"
+} from '@/lib/format-utils';
 
 // KRITISCH: IMMER diese Funktionen verwenden, NIEMALS inline formatieren!
 // ✅ RICHTIG:
@@ -627,43 +612,44 @@ const displayPrice = formatCurrency(booking.price);
 const displayDate = formatDate(booking.pickup_date);
 
 // ❌ FALSCH:
-const displayPrice = `${booking.price.toFixed(2)} €`; // VERBOTEN!
-const displayDate = new Date(booking.pickup_date).toLocaleDateString("de-DE"); // VERBOTEN!
+const displayPrice = `${booking.price.toFixed(2)} €`;  // VERBOTEN!
+const displayDate = new Date(booking.pickup_date).toLocaleDateString('de-DE');  // VERBOTEN!
 ```
 
 ### 9.2 Validation-Utils (TODO: Erstellen)
 
 ```tsx
 // src/lib/validation-utils.ts (NEU - PHASE 1)
-import { z } from "zod";
+import { z } from 'zod';
 
 // Deutsche Telefonnummer
-export const phoneSchema = z
-  .string()
-  .regex(/^(\+49|0)[1-9][0-9]{1,14}$/, "Ungültige deutsche Telefonnummer");
+export const phoneSchema = z.string()
+  .regex(/^(\+49|0)[1-9][0-9]{1,14}$/, 'Ungültige deutsche Telefonnummer');
 
 // Deutsche PLZ
-export const plzSchema = z.string().regex(/^[0-9]{5}$/, "PLZ muss 5-stellig sein");
+export const plzSchema = z.string()
+  .regex(/^[0-9]{5}$/, 'PLZ muss 5-stellig sein');
 
 // Email
-export const emailSchema = z.string().email("Ungültige E-Mail-Adresse");
+export const emailSchema = z.string().email('Ungültige E-Mail-Adresse');
 
 // IBAN
-export const ibanSchema = z.string().regex(/^DE[0-9]{20}$/, "Ungültige deutsche IBAN");
+export const ibanSchema = z.string()
+  .regex(/^DE[0-9]{20}$/, 'Ungültige deutsche IBAN');
 ```
 
 ### 9.3 API-Utils (TODO: Zentralisieren)
 
 ```tsx
 // src/lib/api-utils.ts (NEU - PHASE 1)
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from '@/integrations/supabase/client';
 
 /**
  * Zentrale Error-Handler
  */
 export function handleError(error: any, context: string) {
   console.error(`[${context}] Error:`, error);
-  toast.error(`Fehler: ${error.message || "Unbekannter Fehler"}`);
+  toast.error(`Fehler: ${error.message || 'Unbekannter Fehler'}`);
 }
 
 /**
@@ -676,13 +662,16 @@ export function handleSuccess(message: string) {
 /**
  * Zentrale Supabase-Query mit Company-Filter
  */
-export async function queryWithCompanyFilter<T>(table: string, companyId: string): Promise<T[]> {
+export async function queryWithCompanyFilter<T>(
+  table: string,
+  companyId: string
+): Promise<T[]> {
   const { data, error } = await supabase
     .from(table)
-    .select("*")
-    .eq("company_id", companyId)
-    .eq("archived", false);
-
+    .select('*')
+    .eq('company_id', companyId)
+    .eq('archived', false);
+  
   if (error) throw error;
   return data as T[];
 }
@@ -696,23 +685,23 @@ export async function queryWithCompanyFilter<T>(table: string, companyId: string
 
 ```tsx
 // Authentication & User
-import { useAuth } from "@/hooks/use-auth";
+import { useAuth } from '@/hooks/use-auth';
 const { user, profile, company, roles, loading } = useAuth();
 
 // Device Detection
-import { useDeviceType } from "@/hooks/use-device-type";
+import { useDeviceType } from '@/hooks/use-device-type';
 const { isMobile, isTablet, isDesktop } = useDeviceType();
 
 // Dashboard Stats (Materialized View)
-import { useDashboardStats } from "@/hooks/use-dashboard-stats";
+import { useDashboardStats } from '@/hooks/use-dashboard-stats';
 const { data: stats, isLoading } = useDashboardStats();
 
 // Status-System (Ampel-Logik)
-import { useStatusSystem } from "@/hooks/use-status-system";
+import { useStatusSystem } from '@/hooks/use-status-system';
 const { configs, getStatusConfig } = useStatusSystem();
 
 // Company-Location (GPS-Koordinaten)
-import { useCompanyLocation } from "@/hooks/use-company-location";
+import { useCompanyLocation } from '@/hooks/use-company-location';
 const { location, hasCoordinates } = useCompanyLocation();
 ```
 
@@ -720,19 +709,19 @@ const { location, hasCoordinates } = useCompanyLocation();
 
 ```tsx
 // Bookings
-import { useBookings } from "@/hooks/use-bookings";
+import { useBookings } from '@/hooks/use-bookings';
 const { bookings, isLoading, createMutation, updateMutation } = useBookings();
 
 // Customers
-import { useCustomers } from "@/hooks/use-customers";
+import { useCustomers } from '@/hooks/use-customers';
 const { customers, isLoading, createMutation } = useCustomers();
 
 // Drivers
-import { useDrivers } from "@/hooks/use-drivers";
+import { useDrivers } from '@/hooks/use-drivers';
 const { drivers, isLoading } = useDrivers();
 
 // Vehicles
-import { useVehicles } from "@/hooks/use-vehicles";
+import { useVehicles } from '@/hooks/use-vehicles';
 const { vehicles, isLoading } = useVehicles();
 ```
 
@@ -740,15 +729,15 @@ const { vehicles, isLoading } = useVehicles();
 
 ```tsx
 // Bulk-Selection
-import { useBulkSelection } from "@/hooks/use-bulk-selection";
+import { useBulkSelection } from '@/hooks/use-bulk-selection';
 const { selectedIds, isSelected, toggleSelection, clearSelection } = useBulkSelection(items);
 
 // Chat-Consent
-import { useChatConsent } from "@/hooks/use-chat-consent";
+import { useChatConsent } from '@/hooks/use-chat-consent';
 const { consent, loading, grantConsent } = useChatConsent();
 
 // Auto-Update (PWA)
-import { useAutoUpdate } from "@/hooks/use-auto-update";
+import { useAutoUpdate } from '@/hooks/use-auto-update';
 useAutoUpdate({ checkInterval: 5 * 60 * 1000 });
 ```
 
@@ -793,17 +782,16 @@ isDesktop = window.innerWidth >= 1024px
 ```css
 @media (max-width: 767px) {
   /* Touch-optimierte Buttons */
-  button,
-  a[role="button"] {
+  button, a[role="button"] {
     min-height: 44px;
     touch-action: manipulation;
   }
-
+  
   /* Full-Width Dialogs */
   [role="dialog"] {
     width: calc(100vw - 2rem) !important;
   }
-
+  
   /* Safe Area (iOS) */
   .safe-area-bottom {
     padding-bottom: env(safe-area-inset-bottom);
@@ -819,15 +807,14 @@ isDesktop = window.innerWidth >= 1024px
 
 ```tsx
 // ✅ RICHTIG: formatCurrency()
-import { formatCurrency } from "@/lib/format-utils";
-const displayPrice = formatCurrency(1234.56); // "1.234,56 €"
+import { formatCurrency } from '@/lib/format-utils';
+const displayPrice = formatCurrency(1234.56);  // "1.234,56 €"
 
 // ❌ FALSCH: Inline-Formatierung
-const displayPrice = `${price.toFixed(2)} €`; // VERBOTEN!
+const displayPrice = `${price.toFixed(2)} €`;  // VERBOTEN!
 ```
 
 **Details:**
-
 - Punkt als Tausendertrenner: `1.234`
 - Komma als Dezimaltrennzeichen: `,56`
 - Währungszeichen nachgestellt mit Leerzeichen: ` €`
@@ -836,17 +823,16 @@ const displayPrice = `${price.toFixed(2)} €`; // VERBOTEN!
 
 ```tsx
 // ✅ RICHTIG: formatDate(), formatDateTime(), formatTime()
-import { formatDate, formatDateTime, formatTime } from "@/lib/format-utils";
-const displayDate = formatDate("2025-01-18"); // "18.01.2025"
-const displayDateTime = formatDateTime("2025-01-18T14:30:00Z"); // "18.01.2025 14:30"
-const displayTime = formatTime("2025-01-18T14:30:00Z"); // "14:30"
+import { formatDate, formatDateTime, formatTime } from '@/lib/format-utils';
+const displayDate = formatDate('2025-01-18');         // "18.01.2025"
+const displayDateTime = formatDateTime('2025-01-18T14:30:00Z');  // "18.01.2025 14:30"
+const displayTime = formatTime('2025-01-18T14:30:00Z');  // "14:30"
 
 // ❌ FALSCH: US-Format oder inline
-const displayDate = new Date().toLocaleDateString("en-US"); // VERBOTEN!
+const displayDate = new Date().toLocaleDateString('en-US');  // VERBOTEN!
 ```
 
 **Format:**
-
 - Datum: `DD.MM.YYYY` (18.01.2025)
 - Zeit: `HH:mm` (14:30)
 - DateTime: `DD.MM.YYYY HH:mm` (18.01.2025 14:30)
@@ -854,7 +840,6 @@ const displayDate = new Date().toLocaleDateString("en-US"); // VERBOTEN!
 ### 12.3 Rechtschreibung (Neue Deutsche Rechtschreibung 2006)
 
 **Wichtige Regeln:**
-
 - `Straße` (nicht `Strasse`)
 - `dass` (Konjunktion, nicht `daß`)
 - `kennenlernen` (zusammen)
@@ -865,14 +850,14 @@ const displayDate = new Date().toLocaleDateString("en-US"); // VERBOTEN!
 
 ```tsx
 // Salutation (Herr/Frau/Divers)
-salutation: "Herr" | "Frau" | "Divers";
+salutation: 'Herr' | 'Frau' | 'Divers'
 
 // Titel (optional)
-title: "Dr." | "Prof." | "Dr. med." | null;
+title: 'Dr.' | 'Prof.' | 'Dr. med.' | null
 
 // Formelle Anrede
-("Sehr geehrte Frau Prof. Schmidt,");
-("Guten Tag Alex Müller,"); // Divers
+"Sehr geehrte Frau Prof. Schmidt,"
+"Guten Tag Alex Müller,"  // Divers
 ```
 
 ---
@@ -884,13 +869,15 @@ title: "Dr." | "Prof." | "Dr. med." | null;
 ```tsx
 // ✅ RICHTIG: IMMER company_id filtern
 const { data } = await supabase
-  .from("bookings")
-  .select("*")
-  .eq("company_id", profile.company_id)
-  .eq("archived", false);
+  .from('bookings')
+  .select('*')
+  .eq('company_id', profile.company_id)
+  .eq('archived', false);
 
 // ❌ FALSCH: Ohne company_id
-const { data } = await supabase.from("bookings").select("*"); // KRITISCHER SICHERHEITSFEHLER!
+const { data } = await supabase
+  .from('bookings')
+  .select('*');  // KRITISCHER SICHERHEITSFEHLER!
 ```
 
 ### 13.2 Archiving-System (NIEMALS DELETE)
@@ -898,15 +885,18 @@ const { data } = await supabase.from("bookings").select("*"); // KRITISCHER SICH
 ```tsx
 // ✅ RICHTIG: Archivieren
 await supabase
-  .from("bookings")
+  .from('bookings')
   .update({
     archived: true,
-    archived_at: new Date().toISOString(),
+    archived_at: new Date().toISOString()
   })
-  .eq("id", bookingId);
+  .eq('id', bookingId);
 
 // ❌ FALSCH: DELETE verwenden
-await supabase.from("bookings").delete().eq("id", bookingId); // VERBOTEN!
+await supabase
+  .from('bookings')
+  .delete()
+  .eq('id', bookingId);  // VERBOTEN!
 ```
 
 ### 13.3 RLS-Policy-Patterns
@@ -994,7 +984,6 @@ USING (
 ### Phase 1: Foundation-Cleanup (SOFORT - Woche 1)
 
 #### Sprint 1.1: Utility-Zentralisierung
-
 **Ziel:** Alle Format-/Validation-Utils konsolidieren
 
 ```bash
@@ -1009,7 +998,6 @@ src/lib/format-utils.ts         # Bereits vollständig ✅
 ```
 
 **Dateien zu erstellen:**
-
 1. `src/lib/validation-utils.ts` (300 Zeilen)
 2. `src/lib/api-utils.ts` (200 Zeilen)
 3. `src/lib/string-utils.ts` (150 Zeilen)
@@ -1018,7 +1006,6 @@ src/lib/format-utils.ts         # Bereits vollständig ✅
 **Impact:** 🔴 KRITISCH - Eliminiert 50+ Code-Duplikationen
 
 #### Sprint 1.2: Component-Cleanup
-
 **Ziel:** Doppelte Komponenten eliminieren
 
 ```bash
@@ -1035,7 +1022,6 @@ src/components/shared/EmptyState.tsx           # Zentrale Empty-States
 **Impact:** 🟡 WICHTIG - Reduziert Bundle-Size um 10%
 
 #### Sprint 1.3: Hook-Cleanup
-
 **Ziel:** Unused Hooks entfernen, Missing Hooks erstellen
 
 ```bash
@@ -1055,7 +1041,6 @@ src/hooks/use-export.tsx            # PDF/Excel-Export
 ### Phase 2: Advanced Features (Woche 2-3)
 
 #### Sprint 2.1: Chart-System-Upgrade
-
 **Ziel:** Alle Charts auf --primary migrieren
 
 ```bash
@@ -1073,7 +1058,6 @@ src/components/statistics/ForecastChart.tsx (Business+)
 **Impact:** 🟡 WICHTIG - Konsistentes Chart-Design
 
 #### Sprint 2.2: Form-System-Upgrade
-
 **Ziel:** Alle Formulare auf zentrale Komponenten umstellen
 
 ```bash
@@ -1092,7 +1076,6 @@ src/pages/Fahrer.tsx         # PersonFormFields verwenden
 **Impact:** 🔴 KRITISCH - 80% weniger Form-Code
 
 #### Sprint 2.3: Table-System-Upgrade
-
 **Ziel:** Einheitliche Tabellen-Komponente mit Bulk-Actions
 
 ```bash
@@ -1113,7 +1096,6 @@ src/pages/Fahrer.tsx         # DataTable verwenden
 ### Phase 3: Performance & Scale (Woche 4-5)
 
 #### Sprint 3.1: Code-Splitting
-
 ```bash
 # Lazy-Loading für große Pages:
 const Dashboard = lazy(() => import('@/pages/Dashboard'));
@@ -1126,7 +1108,6 @@ src/routes/index.tsx  # Implementierung
 **Impact:** 🟢 ENHANCEMENT - 30% schnellere Initial-Load-Time
 
 #### Sprint 3.2: Bundle-Size-Optimierung
-
 ```bash
 # Tree-Shaking:
 - Unused Lucide-Icons entfernen
@@ -1140,7 +1121,6 @@ npm run build --analyze
 **Impact:** 🟢 ENHANCEMENT - 20% kleinerer Bundle
 
 #### Sprint 3.3: Cache-Strategie
-
 ```bash
 # React-Query-Konfiguration:
 src/lib/query-client.ts  # Optimierte Cache-Times
@@ -1425,22 +1405,18 @@ npm run dev
 ## 🎉 ZUSAMMENFASSUNG
 
 ### Was ist dieses Dokument?
-
 Die **ABSOLUTE SINGLE SOURCE OF TRUTH** für MyDispatch V18.3 Design-System, Architektur und Best Practices.
 
 ### Warum ist es wichtig?
-
 - **0 Duplikation** → Änderungen nur an 1 Stelle
 - **100% Konsistenz** → Einheitliche UX/UI
 - **Maximale Wartbarkeit** → Code bleibt sauber & verständlich
 - **Fehlerfreiheit** → Type-Safety & Validation
 
 ### Wer muss es lesen?
-
 **ALLE** Entwickler, Designer, PMs - keine Ausnahmen!
 
 ### Wie oft aktualisieren?
-
 Bei JEDER Design-System-Änderung sofort aktualisieren.
 
 ---
@@ -1448,7 +1424,7 @@ Bei JEDER Design-System-Änderung sofort aktualisieren.
 **Version:** V18.3 ULTIMATE  
 **Letzte Aktualisierung:** 21.10.2025  
 **Maintainer:** MyDispatch Dev-Team  
-**Status:** 🔴 KRITISCH - VERBINDLICH
+**Status:** 🔴 KRITISCH - VERBINDLICH  
 
 ---
 

@@ -9,13 +9,13 @@
    ✅ KEINE DashboardInfoCard
    ================================================================================== */
 
-import { Cloud, CloudRain, Sun } from "lucide-react";
+import { Cloud, CloudRain, Sun } from 'lucide-react';
 
 export function useWeatherData() {
   // Mock Wetterdaten (später durch echte API ersetzen)
   return {
     temperature: 18,
-    condition: "Teilweise bewölkt",
+    condition: 'Teilweise bewölkt',
     icon: Cloud,
   };
 }
@@ -32,7 +32,9 @@ export function PremiumWeatherDisplay() {
         <span className="text-lg font-bold tabular-nums text-slate-900">
           {weather.temperature}°C
         </span>
-        <span className="text-[10px] font-medium text-slate-600">{weather.condition}</span>
+        <span className="text-[10px] font-medium text-slate-600">
+          {weather.condition}
+        </span>
       </div>
     </div>
   );

@@ -24,7 +24,6 @@
 ### 1.1 Code-Qualität
 
 **Vor jedem Deployment:**
-
 - [ ] `npm run quality:check` bestanden
 - [ ] `npm run test:unit` bestanden
 - [ ] `npm run test:e2e` bestanden (kritische Flows)
@@ -33,7 +32,6 @@
 - [ ] `npm run format:check` bestanden
 
 **Code-Coverage:**
-
 - [ ] Unit Tests: ≥ 80%
 - [ ] E2E Tests: Kritische Flows abgedeckt
 
@@ -62,7 +60,6 @@
 ### 2.1 Entwicklungsumgebung
 
 **Lokale Entwicklung:**
-
 ```bash
 # Development-Server starten
 npm run dev
@@ -79,16 +76,13 @@ npm run build
 ### 2.2 Git-Workflow
 
 **Branch-Strategie:**
-
 - `main` - Production (geschützt)
 - `develop` - Development (optional)
 - `feature/*` - Features
 - `fix/*` - Bug-Fixes
 
 **Prozess:**
-
 1. **Feature-Branch erstellen:**
-
    ```bash
    git checkout -b feature/meine-feature
    ```
@@ -99,14 +93,12 @@ npm run build
    - Quality-Checks ausführen
 
 3. **Commit:**
-
    ```bash
    git add .
    git commit -m "feat: Meine Feature Beschreibung"
    ```
 
 4. **Push:**
-
    ```bash
    git push origin feature/meine-feature
    ```
@@ -131,14 +123,12 @@ npm run build
 ### 2.3 CI/CD Pipeline
 
 **Automatisch:**
-
 - Quality-Checks
 - Tests
 - Build
 - Deployment zu Vercel/Netlify
 
 **Manual Steps:**
-
 - Keine (vollautomatisch)
 
 ---
@@ -148,20 +138,17 @@ npm run build
 ### 3.1 Lokale Entwicklung
 
 **Edge Function entwickeln:**
-
 ```bash
 cd supabase/functions/meine-function
 # Code schreiben
 ```
 
 **Lokal testen:**
-
 ```bash
 supabase functions serve meine-function
 ```
 
 **Test-Request:**
-
 ```bash
 curl -X POST http://localhost:54321/functions/v1/meine-function \
   -H "Authorization: Bearer YOUR_ANON_KEY" \
@@ -174,13 +161,11 @@ curl -X POST http://localhost:54321/functions/v1/meine-function \
 ### 3.2 Deployment
 
 **Voraussetzungen:**
-
 - ✅ Supabase CLI installiert
 - ✅ Logged in: `supabase login`
 - ✅ Projekt verlinkt: `supabase link --project-ref vsbqyqhzxmwezlhzdmfd`
 
 **Deployment:**
-
 ```bash
 # Edge Function deployen
 supabase functions deploy meine-function
@@ -190,7 +175,6 @@ supabase functions deploy meine-function --env-file .env.local
 ```
 
 **Verifizierung:**
-
 - Supabase Dashboard → Edge Functions
 - Logs prüfen
 - Test-Request senden
@@ -200,7 +184,6 @@ supabase functions deploy meine-function --env-file .env.local
 ### 3.3 Environment Variables
 
 **Setzen:**
-
 ```bash
 # Via Supabase Dashboard
 # Settings → Edge Functions → Secrets
@@ -210,7 +193,6 @@ supabase secrets set STRIPE_SECRET_KEY=sk_test_...
 ```
 
 **Verfügbare Variables:**
-
 - `SUPABASE_URL` - Automatisch gesetzt
 - `SUPABASE_SERVICE_ROLE_KEY` - Automatisch gesetzt
 - `STRIPE_SECRET_KEY` - Manuell setzen
@@ -224,13 +206,11 @@ supabase secrets set STRIPE_SECRET_KEY=sk_test_...
 ### 4.1 Migration erstellen
 
 **Neue Migration:**
-
 ```bash
 supabase migration new meine_migration
 ```
 
 **SQL schreiben:**
-
 ```sql
 -- supabase/migrations/YYYYMMDDHHMMSS_meine_migration.sql
 
@@ -257,7 +237,6 @@ USING (
 ### 4.2 Migration testen
 
 **Lokal:**
-
 ```bash
 # Database reset (Achtung: Löscht alle Daten!)
 supabase db reset
@@ -274,7 +253,6 @@ supabase db diff
 ### 4.3 Migration deployen
 
 **Production:**
-
 ```bash
 # Migration deployen
 supabase db push
@@ -284,7 +262,6 @@ supabase db push
 ```
 
 **Verifizierung:**
-
 - Migration erfolgreich?
 - RLS Policies aktiv?
 - Daten korrekt?
@@ -297,7 +274,6 @@ supabase db push
 **Wichtig:** Vor jeder Migration Rollback-Plan erstellen!
 
 **Beispiel:**
-
 ```sql
 -- Rollback-Migration
 DROP POLICY IF EXISTS "Users can view own company data" ON meine_tabelle;
@@ -311,7 +287,6 @@ DROP TABLE IF EXISTS meine_tabelle;
 ### 5.1 Frontend
 
 **Checkliste:**
-
 - [ ] Production-URL öffnen
 - [ ] Login funktioniert?
 - [ ] Hauptfunktionen testen
@@ -324,7 +299,6 @@ DROP TABLE IF EXISTS meine_tabelle;
 ### 5.2 Edge Functions
 
 **Checkliste:**
-
 - [ ] Edge Function Logs prüfen
 - [ ] Test-Request senden
 - [ ] Response korrekt?
@@ -335,7 +309,6 @@ DROP TABLE IF EXISTS meine_tabelle;
 ### 5.3 Database
 
 **Checkliste:**
-
 - [ ] Migration erfolgreich?
 - [ ] RLS Policies aktiv?
 - [ ] Daten korrekt?
@@ -347,7 +320,6 @@ DROP TABLE IF EXISTS meine_tabelle;
 ### 5.4 Monitoring
 
 **Checkliste:**
-
 - [ ] Error-Rate prüfen (Sentry)
 - [ ] API-Usage prüfen (Supabase)
 - [ ] Performance prüfen
@@ -360,12 +332,10 @@ DROP TABLE IF EXISTS meine_tabelle;
 ### 6.1 Frontend Rollback
 
 **Vercel/Netlify:**
-
 - Automatisches Rollback möglich
 - Dashboard → Deployments → Previous Version
 
 **Manual:**
-
 ```bash
 # Previous Version deployen
 git revert HEAD
@@ -377,7 +347,6 @@ git push origin main
 ### 6.2 Edge Function Rollback
 
 **Prozess:**
-
 1. Previous Version identifizieren
 2. Code wiederherstellen
 3. Neu deployen:
@@ -392,13 +361,11 @@ git push origin main
 **Wichtig:** Rollback-Strategie VOR Migration!
 
 **Prozess:**
-
 1. Rollback-Migration erstellen
 2. Migration deployen
 3. Bei Problemen: Rollback ausführen
 
 **Beispiel:**
-
 ```sql
 -- Rollback-Migration
 DROP POLICY IF EXISTS "Users can view own company data" ON meine_tabelle;
@@ -410,20 +377,17 @@ DROP TABLE IF EXISTS meine_tabelle;
 ## 📋 DEPLOYMENT-CHECKLISTE
 
 ### Pre-Deployment:
-
 - [ ] Quality-Checks bestanden
 - [ ] Tests bestanden
 - [ ] Dokumentation aktualisiert
 - [ ] Security-Checks bestanden
 
 ### Deployment:
-
 - [ ] Frontend deployed
 - [ ] Edge Functions deployed (falls nötig)
 - [ ] Database Migration deployed (falls nötig)
 
 ### Post-Deployment:
-
 - [ ] Verifizierung abgeschlossen
 - [ ] Monitoring prüfen
 - [ ] User-Feedback prüfen
@@ -431,3 +395,9 @@ DROP TABLE IF EXISTS meine_tabelle;
 ---
 
 **Pascal, alle Deployment-Prozesse sind dokumentiert!** 🚀
+
+
+
+
+
+

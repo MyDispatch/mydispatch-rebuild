@@ -9,7 +9,6 @@
 ## 🎯 ÜBERSICHT
 
 Vollständig standardisiertes Template-System für ALLE Dashboard-Seiten mit:
-
 - Einheitlicher Struktur (Breadcrumbs, KPIs, Suche, Content)
 - Wiederverwendbaren Komponenten
 - Mobile-optimiertem Design
@@ -20,7 +19,6 @@ Vollständig standardisiertes Template-System für ALLE Dashboard-Seiten mit:
 ## 📦 KOMPONENTEN-ÜBERSICHT
 
 ### 1. DashboardPageTemplate (1-Bereich)
-
 ```typescript
 import { DashboardPageTemplate } from '@/components/templates';
 
@@ -28,18 +26,18 @@ import { DashboardPageTemplate } from '@/components/templates';
   // SEO & Layout
   pageTitle="Kunden"
   pageDescription="Verwaltung Ihrer Kundendaten"
-
+  
   // KPIs + Actions
   kpis={[kpi1, kpi2, kpi3]}
   quickActions={[action1, action2]}
-
+  
   // Search & Filter
   searchTerm={searchTerm}
   onSearchChange={setSearchTerm}
   searchPlaceholder="Kunden durchsuchen..."
   showArchived={showArchived}
   onArchivedChange={setShowArchived}
-
+  
   // Section
   sectionIcon={Users}
   sectionTitle="Kundenliste"
@@ -51,7 +49,6 @@ import { DashboardPageTemplate } from '@/components/templates';
 ```
 
 ### 2. DashboardDualPageTemplate (2-Bereiche mit Tabs)
-
 ```typescript
 import { DashboardDualPageTemplate } from '@/components/templates';
 
@@ -59,7 +56,7 @@ import { DashboardDualPageTemplate } from '@/components/templates';
   // SEO & Layout
   pageTitle="Fahrer & Fahrzeuge"
   pageDescription="Verwaltung Ihrer Flotte"
-
+  
   // Tabs
   sections={[
     {
@@ -85,7 +82,7 @@ import { DashboardDualPageTemplate } from '@/components/templates';
   ]}
   activeTab={currentTab}
   onTabChange={setCurrentTab}
-
+  
   // Search & Filter (Global)
   searchTerm={searchTerm}
   onSearchChange={setSearchTerm}
@@ -95,7 +92,6 @@ import { DashboardDualPageTemplate } from '@/components/templates';
 ```
 
 ### 3. DashboardSection (Bereichs-Container)
-
 ```typescript
 import { DashboardSection } from '@/components/shared';
 
@@ -109,12 +105,11 @@ import { DashboardSection } from '@/components/shared';
 ```
 
 ### 4. StandardDetailDialog (Eye-Icon PopUp)
-
 ```typescript
 import { StandardDetailDialog, DetailTrigger } from '@/components/shared';
 
 // In Tabelle: Trigger-Button
-<DetailTrigger
+<DetailTrigger 
   onClick={() => setSelectedItem(item)}
   label="Details anzeigen"
 />
@@ -157,7 +152,6 @@ import { StandardDetailDialog, DetailTrigger } from '@/components/shared';
 ## 🎨 DESIGN-STANDARDS
 
 ### Layout-Struktur (ZWINGEND)
-
 1. **Breadcrumbs** (automatisch via StandardPageLayout)
 2. **Titel + Beschreibung** (SEO-optimiert)
 3. **KPIs (3x) + Schnellzugriff (2x)** via PageHeaderWithKPIs
@@ -166,9 +160,8 @@ import { StandardDetailDialog, DetailTrigger } from '@/components/shared';
 6. **Eye-Icon** für Detailansichten (NIEMALS andere Icons!)
 
 ### KPI-Generierung
-
 ```typescript
-import { KPIGenerator } from "@/lib/dashboard-automation";
+import { KPIGenerator } from '@/lib/dashboard-automation';
 
 const kpis: [any, any, any] = [
   KPIGenerator.customers.total(stats.total),
@@ -178,13 +171,19 @@ const kpis: [any, any, any] = [
 ```
 
 ### Quick Actions
-
 ```typescript
-import { QuickActionsGenerator } from "@/lib/dashboard-automation";
+import { QuickActionsGenerator } from '@/lib/dashboard-automation';
 
 const quickActions: [any, any] = [
-  QuickActionsGenerator.create("Kunde hinzufügen", Plus, () => setDialogOpen(true)),
-  QuickActionsGenerator.export(Download, () => handleExport()),
+  QuickActionsGenerator.create(
+    'Kunde hinzufügen',
+    Plus,
+    () => setDialogOpen(true)
+  ),
+  QuickActionsGenerator.export(
+    Download,
+    () => handleExport()
+  ),
 ];
 ```
 
@@ -210,7 +209,6 @@ const quickActions: [any, any] = [
 ### Beispiel: /kunden Migration
 
 **Vorher:**
-
 ```typescript
 export default function Kunden() {
   // Individuelles Layout, inkonsistente KPIs
@@ -225,25 +223,24 @@ export default function Kunden() {
 ```
 
 **Nachher:**
-
 ```typescript
 import { DashboardPageTemplate } from '@/components/templates';
 import { KPIGenerator, QuickActionsGenerator } from '@/lib/dashboard-automation';
 
 export default function Kunden() {
   const stats = DashboardStatsCalculator.customers(customers);
-
+  
   const kpis: [any, any, any] = [
     KPIGenerator.customers.total(stats.total),
     KPIGenerator.customers.portalAccess(stats.portalAccess),
     KPIGenerator.customers.openInvoices(stats.openInvoices),
   ];
-
+  
   const quickActions: [any, any] = [
     QuickActionsGenerator.create('Kunde hinzufügen', Plus, handleCreate),
     QuickActionsGenerator.export(Download, handleExport),
   ];
-
+  
   return (
     <DashboardPageTemplate
       pageTitle="Kunden"
@@ -275,23 +272,18 @@ export default function Kunden() {
 ## 🔧 TROUBLESHOOTING
 
 ### Problem: KPIs werden nicht angezeigt
-
 **Lösung:** Prüfen, ob genau 3 KPIs übergeben werden (Array-Typ: `[any, any, any]`)
 
 ### Problem: Quick Actions fehlen
-
 **Lösung:** Prüfen, ob genau 2 Actions übergeben werden (Array-Typ: `[any, any]`)
 
 ### Problem: Eye-Icon funktioniert nicht
-
 **Lösung:** `DetailTrigger` verwenden statt custom Button:
-
 ```typescript
 <DetailTrigger onClick={() => setSelectedItem(item)} />
 ```
 
 ### Problem: Breadcrumbs fehlen
-
 **Lösung:** `StandardPageLayout` automatisch via Template integriert
 
 ---
@@ -303,7 +295,7 @@ export default function Kunden() {
 ✅ **Performance**: Memoization & optimierte Renders  
 ✅ **Rechtssicherheit**: Zeitstempel automatisch  
 ✅ **Mobile-First**: Responsive by default  
-✅ **DRY-Prinzip**: Keine Code-Duplikation
+✅ **DRY-Prinzip**: Keine Code-Duplikation  
 
 ---
 

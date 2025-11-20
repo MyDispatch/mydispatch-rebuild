@@ -17,7 +17,7 @@ e2e-tests:
   name: E2E Tests (Playwright)
   runs-on: ubuntu-latest
   needs: build
-
+  
   steps:
     - Install Dependencies (npm ci)
     - Install Playwright Browsers (--with-deps)
@@ -110,30 +110,27 @@ npx playwright test --screenshot=on
 
 ## 📊 COVERAGE
 
-| Bereich          | Test-Suites | Tests  | Coverage |
-| ---------------- | ----------- | ------ | -------- |
-| Dashboard        | 2           | 11     | 100%     |
-| Design System    | 1           | 3      | 90%      |
-| DSGVO Compliance | 1           | 6      | 100%     |
-| Performance      | 1           | 12     | 80%      |
-| **TOTAL**        | **5**       | **32** | **92%**  |
+| Bereich | Test-Suites | Tests | Coverage |
+|---------|-------------|-------|----------|
+| Dashboard | 2 | 11 | 100% |
+| Design System | 1 | 3 | 90% |
+| DSGVO Compliance | 1 | 6 | 100% |
+| Performance | 1 | 12 | 80% |
+| **TOTAL** | **5** | **32** | **92%** |
 
 ---
 
 ## 🔄 INTEGRATION IN NEXIFY WORKFLOW
 
 ### Phase 1: Code-Audit
-
 - ✅ E2E Tests vor jeder Änderung ausführen
 - ✅ Baseline-Screenshots erstellen
 
 ### Phase 3: Implementation
-
 - ✅ E2E Tests nach jeder Änderung ausführen
 - ✅ Neue Tests für neue Features schreiben
 
 ### Phase 3: Qualitätssicherung
-
 - ✅ Automatische E2E Tests vor Deployment
 - ✅ Screenshot-Validierung (visuelle Regression)
 

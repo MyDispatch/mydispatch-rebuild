@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 interface DonutChartProps {
   value: number;
@@ -10,19 +10,19 @@ interface DonutChartProps {
   centerText?: string;
 }
 
-export function DonutChart({
-  value,
-  max,
-  size = 80,
+export function DonutChart({ 
+  value, 
+  max, 
+  size = 80, 
   strokeWidth = 8,
-  color = "hsl(var(--primary))",
+  color = 'hsl(var(--primary))',
   label,
-  centerText,
+  centerText
 }: DonutChartProps) {
   const percentage = Math.min((value / max) * 100, 100);
   const data = [
     { value: percentage, fill: color },
-    { value: 100 - percentage, fill: "hsl(var(--muted))" },
+    { value: 100 - percentage, fill: 'hsl(var(--muted))' }
   ];
 
   return (

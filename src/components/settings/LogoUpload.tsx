@@ -50,11 +50,11 @@ export function LogoUpload({ companyId, currentLogoUrl, onUploadComplete }: Logo
 
   const handleFile = async (file: File) => {
     // Validierung: Nur Bildformate
-    const validFormats = ["image/png", "image/jpeg", "image/jpg", "image/webp"];
+    const validFormats = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
     if (!validFormats.includes(file.type)) {
       handleError(
-        new Error("Ungültiges Dateiformat"),
-        "Bitte wählen Sie eine PNG, JPG oder WEBP Datei",
+        new Error('Ungültiges Dateiformat'),
+        'Bitte wählen Sie eine PNG, JPG oder WEBP Datei',
         { showToast: true }
       );
       return;
@@ -62,9 +62,11 @@ export function LogoUpload({ companyId, currentLogoUrl, onUploadComplete }: Logo
 
     // Validierung: Max. 2MB
     if (file.size > 2 * 1024 * 1024) {
-      handleError(new Error("Datei zu groß"), "Die Datei darf maximal 2 MB groß sein", {
-        showToast: true,
-      });
+      handleError(
+        new Error('Datei zu groß'),
+        'Die Datei darf maximal 2 MB groß sein',
+        { showToast: true }
+      );
       return;
     }
 
@@ -79,34 +81,40 @@ export function LogoUpload({ companyId, currentLogoUrl, onUploadComplete }: Logo
       reader.readAsDataURL(file);
 
       // Dateiname: company_id + timestamp + extension
-      const fileExt = file.name.split(".").pop();
+      const fileExt = file.name.split('.').pop();
       const fileName = `${companyId}/${Date.now()}.${fileExt}`;
 
       // Upload zu Supabase Storage
-      const { data, error } = await supabase.storage.from("company-logos").upload(fileName, file, {
-        cacheControl: "3600",
-        upsert: false,
-      });
+      const { data, error } = await supabase.storage
+        .from('company-logos')
+        .upload(fileName, file, {
+          cacheControl: '3600',
+          upsert: false
+        });
 
       if (error) throw error;
 
       // Public URL generieren
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from("company-logos").getPublicUrl(fileName);
+      const { data: { publicUrl } } = supabase.storage
+        .from('company-logos')
+        .getPublicUrl(fileName);
 
       // URL in companies-Tabelle speichern
       const { error: updateError } = await supabase
-        .from("companies")
+        .from('companies')
         .update({ logo_url: publicUrl })
-        .eq("id", companyId);
+        .eq('id', companyId);
 
       if (updateError) throw updateError;
 
-      handleSuccess("Logo erfolgreich hochgeladen", "Erfolg");
+      handleSuccess('Logo erfolgreich hochgeladen', 'Erfolg');
       onUploadComplete(publicUrl);
     } catch (error) {
-      handleError(error as Error, "Fehler beim Hochladen des Logos", { showToast: true });
+      handleError(
+        error as Error, 
+        'Fehler beim Hochladen des Logos',
+        { showToast: true }
+      );
       setPreview(currentLogoUrl || null);
     } finally {
       setUploading(false);
@@ -118,17 +126,21 @@ export function LogoUpload({ companyId, currentLogoUrl, onUploadComplete }: Logo
     try {
       // URL in companies-Tabelle entfernen
       const { error } = await supabase
-        .from("companies")
+        .from('companies')
         .update({ logo_url: null })
-        .eq("id", companyId);
+        .eq('id', companyId);
 
       if (error) throw error;
 
       setPreview(null);
-      handleSuccess("Logo erfolgreich entfernt", "Erfolg");
-      onUploadComplete("");
+      handleSuccess('Logo erfolgreich entfernt', 'Erfolg');
+      onUploadComplete('');
     } catch (error) {
-      handleError(error as Error, "Fehler beim Entfernen des Logos", { showToast: true });
+      handleError(
+        error as Error, 
+        'Fehler beim Entfernen des Logos',
+        { showToast: true }
+      );
     } finally {
       setUploading(false);
     }
@@ -138,16 +150,18 @@ export function LogoUpload({ companyId, currentLogoUrl, onUploadComplete }: Logo
     <Card>
       <CardHeader>
         <CardTitle>Firmenlogo</CardTitle>
-        <CardDescription>Logo hochladen (PNG, JPG, WEBP - max. 2 MB)</CardDescription>
+        <CardDescription>
+          Logo hochladen (PNG, JPG, WEBP - max. 2 MB)
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Preview */}
         {preview && (
           <div className="relative w-full max-w-xs mx-auto">
             <div className="aspect-video bg-muted rounded-lg flex items-center justify-center overflow-hidden">
-              <img
-                src={preview}
-                alt="Logo-Vorschau"
+              <img 
+                src={preview} 
+                alt="Logo-Vorschau" 
                 className="max-h-full max-w-full object-contain"
               />
             </div>
@@ -166,7 +180,9 @@ export function LogoUpload({ companyId, currentLogoUrl, onUploadComplete }: Logo
         {/* Upload Area */}
         <div
           className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-            dragActive ? "border-primary bg-primary/5" : "border-border hover:border-primary/50"
+            dragActive 
+              ? 'border-primary bg-primary/5' 
+              : 'border-border hover:border-primary/50'
           }`}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
@@ -181,8 +197,11 @@ export function LogoUpload({ companyId, currentLogoUrl, onUploadComplete }: Logo
             onChange={handleChange}
             disabled={uploading}
           />
-
-          <label htmlFor="logo-upload" className="cursor-pointer flex flex-col items-center gap-2">
+          
+          <label 
+            htmlFor="logo-upload" 
+            className="cursor-pointer flex flex-col items-center gap-2"
+          >
             {uploading ? (
               <>
                 <div className="h-8 w-8 text-primary animate-spin">↻</div>
@@ -194,7 +213,9 @@ export function LogoUpload({ companyId, currentLogoUrl, onUploadComplete }: Logo
                 <p className="text-sm text-foreground font-medium">
                   Datei hier ablegen oder klicken zum Auswählen
                 </p>
-                <p className="text-xs text-muted-foreground">PNG, JPG, WEBP (max. 2 MB)</p>
+                <p className="text-xs text-muted-foreground">
+                  PNG, JPG, WEBP (max. 2 MB)
+                </p>
               </>
             )}
           </label>

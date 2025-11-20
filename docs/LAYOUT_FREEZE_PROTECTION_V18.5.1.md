@@ -7,45 +7,41 @@
 ### ✅ VOLLSTÄNDIG GESCHÜTZT - KEINE ÄNDERUNGEN ERLAUBT!
 
 #### 🌐 ÖFFENTLICHE SEITEN (PRE-LOGIN) - V32.1 DESIGN-LOCK
-
-| Seite        | Datei                    | Status   | Design-System | Freigabe   |
-| ------------ | ------------------------ | -------- | ------------- | ---------- |
-| **Home**     | `src/pages/Home.tsx`     | 🔒 FINAL | V28/V32.0     | 2025-10-31 |
-| **Features** | `src/pages/Features.tsx` | 🔒 FINAL | V28/V32.0     | 2025-10-31 |
-| **Pricing**  | `src/pages/Pricing.tsx`  | 🔒 FINAL | V28/V32.0     | 2025-10-31 |
-| **About**    | `src/pages/About.tsx`    | 🔒 FINAL | V28/V32.0     | 2025-10-31 |
-| **Contact**  | `src/pages/Contact.tsx`  | 🔒 FINAL | V28/V32.0     | 2025-10-31 |
-| **FAQ**      | `src/pages/FAQ.tsx`      | 🔒 FINAL | V28/V32.0     | 2025-10-31 |
-| **Login**    | `src/pages/Login.tsx`    | 🔒 FINAL | V28/V32.0     | 2025-10-31 |
-| **Register** | `src/pages/Register.tsx` | 🔒 FINAL | V28/V32.0     | 2025-10-31 |
-| **Auth**     | `src/pages/Auth.tsx`     | 🔒 FINAL | V28.1         | 2025-01-30 |
-| **Privacy**  | `src/pages/Privacy.tsx`  | 🔒 FINAL | V28/V32.0     | 2025-10-31 |
-| **Terms**    | `src/pages/Terms.tsx`    | 🔒 FINAL | V28/V32.0     | 2025-10-31 |
-| **Imprint**  | `src/pages/Imprint.tsx`  | 🔒 FINAL | V28/V32.0     | 2025-10-31 |
+| Seite | Datei | Status | Design-System | Freigabe |
+|-------|-------|--------|---------------|----------|
+| **Home** | `src/pages/Home.tsx` | 🔒 FINAL | V28/V32.0 | 2025-10-31 |
+| **Features** | `src/pages/Features.tsx` | 🔒 FINAL | V28/V32.0 | 2025-10-31 |
+| **Pricing** | `src/pages/Pricing.tsx` | 🔒 FINAL | V28/V32.0 | 2025-10-31 |
+| **About** | `src/pages/About.tsx` | 🔒 FINAL | V28/V32.0 | 2025-10-31 |
+| **Contact** | `src/pages/Contact.tsx` | 🔒 FINAL | V28/V32.0 | 2025-10-31 |
+| **FAQ** | `src/pages/FAQ.tsx` | 🔒 FINAL | V28/V32.0 | 2025-10-31 |
+| **Login** | `src/pages/Login.tsx` | 🔒 FINAL | V28/V32.0 | 2025-10-31 |
+| **Register** | `src/pages/Register.tsx` | 🔒 FINAL | V28/V32.0 | 2025-10-31 |
+| **Auth** | `src/pages/Auth.tsx` | 🔒 FINAL | V28.1 | 2025-01-30 |
+| **Privacy** | `src/pages/Privacy.tsx` | 🔒 FINAL | V28/V32.0 | 2025-10-31 |
+| **Terms** | `src/pages/Terms.tsx` | 🔒 FINAL | V28/V32.0 | 2025-10-31 |
+| **Imprint** | `src/pages/Imprint.tsx` | 🔒 FINAL | V28/V32.0 | 2025-10-31 |
 
 #### 🔐 AUTH-KOMPONENTEN - V28.1 DESIGN-LOCK
-
-| Komponente         | Datei                                           | Status   | Design-System | Freigabe   |
-| ------------------ | ----------------------------------------------- | -------- | ------------- | ---------- |
-| **AuthPageLayout** | `src/components/layout/AuthPageLayout.tsx`      | 🔒 FINAL | V28.1         | 2025-01-30 |
-| **AuthHeader**     | `src/components/auth/AuthHeader.tsx`            | 🔒 FINAL | V28.1         | 2025-01-30 |
-| **AuthFooter**     | `src/components/auth/AuthFooter.tsx`            | 🔒 FINAL | V28.1         | 2025-01-30 |
-| **V28AuthCard**    | `src/components/design-system/V28AuthCard.tsx`  | 🔒 FINAL | V28.1         | 2025-01-30 |
-| **V28AuthInput**   | `src/components/design-system/V28AuthInput.tsx` | 🔒 FINAL | V28.1         | 2025-01-30 |
+| Komponente | Datei | Status | Design-System | Freigabe |
+|------------|-------|--------|---------------|----------|
+| **AuthPageLayout** | `src/components/layout/AuthPageLayout.tsx` | 🔒 FINAL | V28.1 | 2025-01-30 |
+| **AuthHeader** | `src/components/auth/AuthHeader.tsx` | 🔒 FINAL | V28.1 | 2025-01-30 |
+| **AuthFooter** | `src/components/auth/AuthFooter.tsx` | 🔒 FINAL | V28.1 | 2025-01-30 |
+| **V28AuthCard** | `src/components/design-system/V28AuthCard.tsx` | 🔒 FINAL | V28.1 | 2025-01-30 |
+| **V28AuthInput** | `src/components/design-system/V28AuthInput.tsx` | 🔒 FINAL | V28.1 | 2025-01-30 |
 
 #### 🏢 DASHBOARD-SEITEN (POST-LOGIN) - V18.5 DESIGN-LOCK
-
-| Seite         | Datei                     | Status   | Letzte Freigabe |
-| ------------- | ------------------------- | -------- | --------------- |
-| **Dashboard** | `src/pages/Index.tsx`     | 🔒 FINAL | 2025-01-26      |
-| **Aufträge**  | `src/pages/Auftraege.tsx` | 🔒 FINAL | 2025-01-26      |
+| Seite | Datei | Status | Letzte Freigabe |
+|-------|-------|--------|-----------------|
+| **Dashboard** | `src/pages/Index.tsx` | 🔒 FINAL | 2025-01-26 |
+| **Aufträge** | `src/pages/Auftraege.tsx` | 🔒 FINAL | 2025-01-26 |
 
 ### 📋 SCHUTZ-REGELN (ABSOLUTE VORGABE!)
 
 #### 1. **VERBOTEN - NIEMALS ÄNDERN:**
 
 ##### 🌐 Öffentliche Seiten (Pre-Login):
-
 - ❌ Hero-Sektion (V28HeroPremium) - Position, Größe, Variante, Background
 - ❌ Header-Bereich Layout (Titel, Subtitle, CTAs, Badge)
 - ❌ Section-Struktur und Spacing (PageShell, SectionLayout)
@@ -59,7 +55,6 @@
 - ❌ Padding, Margins, Gaps
 
 ##### 🔐 Auth-Seiten & Komponenten:
-
 - ❌ AuthPageLayout Struktur (Fixed Header/Footer, Spacing)
 - ❌ AuthHeader Layout (Logo-Position, Button-Position, Höhe)
 - ❌ AuthFooter Layout (Links-Anordnung, Höhe, Typografie)
@@ -74,7 +69,6 @@
 - ❌ Padding, Margins, Gaps
 
 ##### 🏢 Dashboard-Seiten (Post-Login):
-
 - ❌ Hero-Grafik Position, Größe, Farben
 - ❌ Header-Bereich Layout (Titel, Button-Position)
 - ❌ KPI-Cards Design, Anordnung, Spacing
@@ -85,7 +79,6 @@
 - ❌ Padding, Margins, Gaps
 
 #### 2. **ERLAUBT - NUR TECHNISCHE OPTIMIERUNGEN:**
-
 - ✅ Performance-Optimierungen (React Query, Memoization, Lazy Loading)
 - ✅ SEO-Optimierungen (Meta-Tags, Schema.org)
 - ✅ Accessibility-Verbesserungen (ARIA, Keyboard-Navigation)
@@ -98,7 +91,6 @@
 - ✅ Test-Coverage erweitern
 
 #### ❌ **NICHT ERLAUBT - AUCH NICHT BEI "VERBESSERUNGEN":**
-
 - ❌ Neue Features hinzufügen (auch nicht "unterhalb")
 - ❌ Komponenten austauschen (auch nicht "bessere")
 - ❌ Farben anpassen (auch nicht "minimal")
@@ -113,7 +105,6 @@
 Alle geschützten Seiten MÜSSEN folgenden Header haben:
 
 ##### 🌐 Öffentliche Seiten (Pre-Login):
-
 ```typescript
 /* ==================================================================================
    ⚠️ LAYOUT FREEZE V32.1 - KEINE DESIGN/LAYOUT-ÄNDERUNGEN ERLAUBT!
@@ -127,7 +118,6 @@ Alle geschützten Seiten MÜSSEN folgenden Header haben:
 ```
 
 ##### 🔐 Auth-Seite & Komponenten:
-
 ```typescript
 /* ==================================================================================
    ⚠️ LAYOUT FREEZE V28.1 - KEINE DESIGN/LAYOUT-ÄNDERUNGEN ERLAUBT!
@@ -142,7 +132,6 @@ Alle geschützten Seiten MÜSSEN folgenden Header haben:
 ```
 
 ##### 🏢 Dashboard-Seiten (Post-Login):
-
 ```typescript
 /* ==================================================================================
    ⚠️ LAYOUT FREEZE V18.5.1 - KEINE DESIGN/LAYOUT-ÄNDERUNGEN ERLAUBT!
@@ -166,11 +155,10 @@ Alle geschützten Seiten MÜSSEN folgenden Header haben:
 
 **BEISPIEL-ANTWORT:**
 
-> "Die Seite `Dashboard` ist durch **Layout Freeze V18.5.1** geschützt.
+> "Die Seite `Dashboard` ist durch **Layout Freeze V18.5.1** geschützt. 
 > Design-Änderungen sind nicht erlaubt.
 >
 > **Stattdessen kann ich:**
->
 > - Neue Funktionen in einem NEUEN Bereich hinzufügen
 > - Daten optimieren (ohne UI-Änderung)
 > - Eine neue Seite/Komponente erstellen
@@ -189,7 +177,6 @@ Alle geschützten Seiten MÜSSEN folgenden Header haben:
 ## 📖 DOKUMENTATION IN ANDEREN DATEIEN
 
 ### Zu aktualisieren:
-
 - `docs/SEITEN_PLANUNGSPROZESS_V18.5.1.md` → Verweis auf Layout Freeze
 - `docs/MOBILE_FIRST_GRID_SYSTEM_V18.5.1.md` → "Änderungen nur bei neuen Seiten"
 - `docs/MYDISPATCH_AI_AGENT_META_PROMPT_V18.5.1.md` → Layout-Freeze-Regel integrieren
@@ -197,14 +184,12 @@ Alle geschützten Seiten MÜSSEN folgenden Header haben:
 ## 🔄 LIFECYCLE
 
 ### Eine Seite wird geschützt, wenn:
-
 1. Pascal sie explizit freigibt ("Sehr gut, so bleibt es!")
 2. Design, Layout und Struktur final sind
 3. Alle Tests erfolgreich durchgeführt wurden
 4. Dokumentation vollständig ist
 
 ### Eine Seite wird NICHT geschützt, wenn:
-
 - Noch in Entwicklung (WIP)
 - Explizit als "experimentell" markiert
 - Teil eines aktiven Sprints
@@ -212,7 +197,6 @@ Alle geschützten Seiten MÜSSEN folgenden Header haben:
 ## 🚨 NOTFALL-ÄNDERUNGEN
 
 **NUR bei kritischen Bugs:**
-
 1. Pascal informieren
 2. Minimale Änderung dokumentieren
 3. Layout-Konsistenz wahren

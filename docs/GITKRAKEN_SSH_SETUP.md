@@ -193,16 +193,19 @@ await execAsync("gk work pr create");
 **Verwendung:**
 
 ```typescript
-const { data, error } = await supabase.functions.invoke("create-gitkraken-patch", {
-  body: {
-    task_id: "uuid-here",
-    repository: "MyDispatch/mydispatch-rebuild",
-    changes: "diff --git a/...",
-    description: "Autonomous fixes: Layout optimizations",
-    priority: 7,
-    files_affected: ["src/pages/Dashboard.tsx"],
-  },
-});
+const { data, error } = await supabase.functions.invoke(
+  "create-gitkraken-patch",
+  {
+    body: {
+      task_id: "uuid-here",
+      repository: "MyDispatch/mydispatch-rebuild",
+      changes: "diff --git a/...",
+      description: "Autonomous fixes: Layout optimizations",
+      priority: 7,
+      files_affected: ["src/pages/Dashboard.tsx"],
+    },
+  }
+);
 ```
 
 **Rückgabe:**

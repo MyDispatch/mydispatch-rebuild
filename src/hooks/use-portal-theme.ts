@@ -7,9 +7,9 @@
    - Type-Safe Theme-Zugriff
    ================================================================================== */
 
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { createPortalTheme, type PortalTheme } from "@/lib/portal-theme";
+import { useEffect, useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { createPortalTheme, type PortalTheme } from '@/lib/portal-theme';
 
 interface UsePortalThemeOptions {
   companyId?: string | null;
@@ -24,17 +24,19 @@ interface UsePortalThemeReturn {
 
 /**
  * Hook für Portal-Theme-Zugriff
- *
+ * 
  * @example
  * ```tsx
  * const { theme, isLoading } = usePortalTheme({ companyId });
- *
+ * 
  * if (theme) {
  *   return <div style={{ color: theme.primaryColor }}>{theme.companyName}</div>;
  * }
  * ```
  */
-export function usePortalTheme(options: UsePortalThemeOptions = {}): UsePortalThemeReturn {
+export function usePortalTheme(
+  options: UsePortalThemeOptions = {}
+): UsePortalThemeReturn {
   const { companyId, enableCache = true } = options;
   const [theme, setTheme] = useState<PortalTheme | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -61,15 +63,13 @@ export function usePortalTheme(options: UsePortalThemeOptions = {}): UsePortalTh
       try {
         setIsLoading(true);
         const { data, error: fetchError } = await supabase
-          .from("companies")
-          .select(
-            "id, name, logo_url, primary_color, landingpage_title, landingpage_hero_text, landingpage_description"
-          )
-          .eq("id", companyId)
+          .from('companies')
+          .select('id, name, logo_url, primary_color, landingpage_title, landingpage_hero_text, landingpage_description')
+          .eq('id', companyId)
           .maybeSingle();
 
         if (fetchError) throw fetchError;
-        if (!data) throw new Error("Company not found");
+        if (!data) throw new Error('Company not found');
 
         const portalTheme = createPortalTheme(data);
         setTheme(portalTheme);
@@ -79,7 +79,7 @@ export function usePortalTheme(options: UsePortalThemeOptions = {}): UsePortalTh
           (window as any).__portalCompany = data;
         }
       } catch (err) {
-        setError(err instanceof Error ? err : new Error("Unknown error"));
+        setError(err instanceof Error ? err : new Error('Unknown error'));
         setTheme(null);
       } finally {
         setIsLoading(false);

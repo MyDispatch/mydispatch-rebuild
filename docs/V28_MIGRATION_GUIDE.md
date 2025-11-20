@@ -8,36 +8,36 @@
 
 ### Color Mapping (V26 → V28)
 
-| V26 Token          | V28 Tailwind Class              | RGB Value                 | Usage                        |
-| ------------------ | ------------------------------- | ------------------------- | ---------------------------- |
-| `dunkelblau`       | `bg-slate-700`                  | `rgb(51 65 85)`           | Primary backgrounds, buttons |
-| `dunkelblau_hover` | `hover:bg-slate-800`            | `rgb(30 41 59)`           | Button hover states          |
-| `beige`            | `bg-slate-200`                  | `rgb(226 232 240)`        | Secondary backgrounds        |
-| `beige_30`         | `bg-slate-200/30`               | `rgba(226 232 240 / 0.3)` | Subtle backgrounds           |
-| `beige_glow_30`    | `shadow-lg shadow-slate-200/50` | -                         | Glow effects                 |
-| `text_primary`     | `text-slate-900`                | `rgb(15 23 42)`           | Headings, primary text       |
-| `text_secondary`   | `text-slate-600`                | `rgb(71 85 105)`          | Body text, descriptions      |
-| `text_muted`       | `text-slate-500`                | `rgb(100 116 139)`        | Placeholder, disabled        |
-| `border_neutral`   | `border-slate-200`              | `rgb(226 232 240)`        | Borders, dividers            |
-| `weiss`            | `bg-white`                      | `rgb(255 255 255)`        | White backgrounds            |
-| `canvas`           | `bg-slate-50`                   | `rgb(248 250 252)`        | Page backgrounds             |
+| V26 Token | V28 Tailwind Class | RGB Value | Usage |
+|-----------|-------------------|-----------|-------|
+| `dunkelblau` | `bg-slate-700` | `rgb(51 65 85)` | Primary backgrounds, buttons |
+| `dunkelblau_hover` | `hover:bg-slate-800` | `rgb(30 41 59)` | Button hover states |
+| `beige` | `bg-slate-200` | `rgb(226 232 240)` | Secondary backgrounds |
+| `beige_30` | `bg-slate-200/30` | `rgba(226 232 240 / 0.3)` | Subtle backgrounds |
+| `beige_glow_30` | `shadow-lg shadow-slate-200/50` | - | Glow effects |
+| `text_primary` | `text-slate-900` | `rgb(15 23 42)` | Headings, primary text |
+| `text_secondary` | `text-slate-600` | `rgb(71 85 105)` | Body text, descriptions |
+| `text_muted` | `text-slate-500` | `rgb(100 116 139)` | Placeholder, disabled |
+| `border_neutral` | `border-slate-200` | `rgb(226 232 240)` | Borders, dividers |
+| `weiss` | `bg-white` | `rgb(255 255 255)` | White backgrounds |
+| `canvas` | `bg-slate-50` | `rgb(248 250 252)` | Page backgrounds |
 
 ### Component Mapping (V26 → V28)
 
-| V26 Component        | V28 Component         | Import Path                                      | Migration Complexity |
-| -------------------- | --------------------- | ------------------------------------------------ | -------------------- |
-| `V26Button`          | `Button`              | `@/components/ui/button`                         | 🟢 Easy              |
-| `V26Dialog`          | `Dialog`              | `@/components/ui/dialog`                         | 🟡 Medium            |
-| `V26Checkbox`        | `Checkbox`            | `@/components/ui/checkbox`                       | 🟢 Easy              |
-| `V26Badge`           | `V28Badge`            | `@/components/design-system/V28Badge`            | 🟢 Easy              |
-| `V26IconBox`         | `V28IconBox`          | `@/components/design-system/V28IconBox`          | 🟢 Easy              |
-| `V26AuthCard`        | `V28AuthCard`         | `@/components/design-system/V28AuthCard`         | 🟢 Easy              |
-| `V26MarketingCard`   | `V28MarketingCard`    | `@/components/design-system/V28MarketingCard`    | 🟡 Medium            |
-| `V26FeatureCard`     | `Card + FeatureGrid`  | `@/components/ui/card`                           | 🔴 Complex           |
-| `V26TestimonialCard` | `TestimonialSlider`   | `@/components/smart-templates/TestimonialSlider` | 🔴 Complex           |
-| `V26SliderControls`  | `Carousel`            | `@/components/ui/carousel`                       | 🟡 Medium            |
-| `V26Link`            | `Link` (React Router) | `react-router-dom`                               | 🟢 Easy              |
-| `V26TabNavigation`   | `Tabs`                | `@/components/ui/tabs`                           | 🟡 Medium            |
+| V26 Component | V28 Component | Import Path | Migration Complexity |
+|---------------|---------------|-------------|---------------------|
+| `V26Button` | `Button` | `@/components/ui/button` | 🟢 Easy |
+| `V26Dialog` | `Dialog` | `@/components/ui/dialog` | 🟡 Medium |
+| `V26Checkbox` | `Checkbox` | `@/components/ui/checkbox` | 🟢 Easy |
+| `V26Badge` | `V28Badge` | `@/components/design-system/V28Badge` | 🟢 Easy |
+| `V26IconBox` | `V28IconBox` | `@/components/design-system/V28IconBox` | 🟢 Easy |
+| `V26AuthCard` | `V28AuthCard` | `@/components/design-system/V28AuthCard` | 🟢 Easy |
+| `V26MarketingCard` | `V28MarketingCard` | `@/components/design-system/V28MarketingCard` | 🟡 Medium |
+| `V26FeatureCard` | `Card + FeatureGrid` | `@/components/ui/card` | 🔴 Complex |
+| `V26TestimonialCard` | `TestimonialSlider` | `@/components/smart-templates/TestimonialSlider` | 🔴 Complex |
+| `V26SliderControls` | `Carousel` | `@/components/ui/carousel` | 🟡 Medium |
+| `V26Link` | `Link` (React Router) | `react-router-dom` | 🟢 Easy |
+| `V26TabNavigation` | `Tabs` | `@/components/ui/tabs` | 🟡 Medium |
 
 ---
 
@@ -59,13 +59,11 @@ grep -r "style={{" src/your-component.tsx
 ### Step 2: Choose Migration Strategy
 
 #### Strategy A: Gradual Migration (Recommended)
-
 - ✅ Migrate one component at a time
 - ✅ Test after each migration
 - ✅ Deploy incrementally
 
 #### Strategy B: Bulk Migration
-
 - ⚠️ Migrate entire feature/page at once
 - ⚠️ Higher risk, requires thorough testing
 - ✅ Faster completion
@@ -100,12 +98,11 @@ npm run lighthouse:ci
 ### Pattern 1: Button Migration
 
 #### Before (V26)
-
 ```typescript
 import { V26Button } from '@/components/design-system/V26Button';
 import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens';
 
-<V26Button
+<V26Button 
   variant="primary"
   style={{ backgroundColor: UNIFIED_DESIGN_TOKENS.colors.dunkelblau }}
   onClick={handleClick}
@@ -115,11 +112,10 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 ```
 
 #### After (V28)
-
 ```typescript
 import { Button } from '@/components/ui/button';
 
-<Button
+<Button 
   className="bg-slate-700 hover:bg-slate-800 text-white"
   onClick={handleClick}
 >
@@ -128,7 +124,6 @@ import { Button } from '@/components/ui/button';
 ```
 
 **Changes:**
-
 - ✅ Import from shadcn/ui
 - ✅ Replace inline-styles with Tailwind classes
 - ✅ Remove UNIFIED_DESIGN_TOKENS import
@@ -138,7 +133,6 @@ import { Button } from '@/components/ui/button';
 ### Pattern 2: Dialog Migration
 
 #### Before (V26)
-
 ```typescript
 import { V26Dialog } from '@/components/design-system/V26Dialog';
 
@@ -152,14 +146,13 @@ import { V26Dialog } from '@/components/design-system/V26Dialog';
 ```
 
 #### After (V28)
-
 ```typescript
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
   DialogTitle,
-  DialogFooter
+  DialogFooter 
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 
@@ -179,7 +172,6 @@ import { Button } from '@/components/ui/button';
 ```
 
 **Changes:**
-
 - ✅ Use DialogContent, DialogHeader, DialogFooter subcomponents
 - ✅ `onClose` → `onOpenChange`
 - ✅ Structured layout with semantic sections
@@ -189,11 +181,10 @@ import { Button } from '@/components/ui/button';
 ### Pattern 3: Color Migration
 
 #### Before (V26)
-
 ```typescript
 import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens';
 
-<div style={{
+<div style={{ 
   backgroundColor: UNIFIED_DESIGN_TOKENS.colors.dunkelblau,
   color: UNIFIED_DESIGN_TOKENS.colors.text_primary,
   borderColor: UNIFIED_DESIGN_TOKENS.colors.border_neutral,
@@ -202,18 +193,16 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 ```
 
 #### After (V28)
-
 ```typescript
 <div className="
-  bg-slate-700
-  text-slate-900
-  border border-slate-200
+  bg-slate-700 
+  text-slate-900 
+  border border-slate-200 
   p-6
 " />
 ```
 
 **Changes:**
-
 - ✅ Inline-styles → Tailwind classes
 - ✅ Color tokens → `slate-*` palette
 - ✅ Spacing tokens → Tailwind spacing scale
@@ -223,7 +212,6 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 ### Pattern 4: Hover States Migration
 
 #### Before (V26)
-
 ```typescript
 import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens';
 
@@ -242,11 +230,10 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 ```
 
 #### After (V28)
-
 ```typescript
 <button className="
-  hover:bg-slate-200/30
-  hover:scale-105
+  hover:bg-slate-200/30 
+  hover:scale-105 
   transition-all duration-200 ease-in-out
   focus:ring-2 focus:ring-slate-400
 ">
@@ -255,7 +242,6 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 ```
 
 **Changes:**
-
 - ✅ JavaScript hover → CSS pseudo-classes
 - ✅ Inline-transforms → Tailwind utilities
 - ✅ Add smooth transitions
@@ -266,13 +252,12 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 ### Pattern 5: Card Migration
 
 #### Before (V26)
-
 ```typescript
 import { V26MarketingCard } from '@/components/design-system/V26MarketingCard';
 import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens';
 
-<V26MarketingCard
-  style={{
+<V26MarketingCard 
+  style={{ 
     borderColor: UNIFIED_DESIGN_TOKENS.colors.border_neutral,
     boxShadow: `0 0 20px ${UNIFIED_DESIGN_TOKENS.colors.beige_glow_30}`
   }}
@@ -283,7 +268,6 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 ```
 
 #### After (V28)
-
 ```typescript
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
@@ -298,7 +282,6 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 ```
 
 **Changes:**
-
 - ✅ Structured sections (Header, Content)
 - ✅ Semantic Tailwind classes
 - ✅ Hover effects via CSS
@@ -309,7 +292,6 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 ### Pattern 6: Badge Migration
 
 #### Before (V26)
-
 ```typescript
 import { V26Badge } from '@/components/design-system/V26Badge';
 
@@ -317,7 +299,6 @@ import { V26Badge } from '@/components/design-system/V26Badge';
 ```
 
 #### After (V28)
-
 ```typescript
 import { V28Badge } from '@/components/design-system/V28Badge';
 
@@ -325,7 +306,6 @@ import { V28Badge } from '@/components/design-system/V28Badge';
 ```
 
 **Changes:**
-
 - ✅ V26Badge → V28Badge (same API, upgraded internals)
 
 ---
@@ -333,7 +313,6 @@ import { V28Badge } from '@/components/design-system/V28Badge';
 ### Pattern 7: Icon Box Migration
 
 #### Before (V26)
-
 ```typescript
 import { V26IconBox } from '@/components/design-system/V26IconBox';
 import { Zap } from 'lucide-react';
@@ -344,7 +323,6 @@ import { Zap } from 'lucide-react';
 ```
 
 #### After (V28)
-
 ```typescript
 import { V28IconBox } from '@/components/design-system/V28IconBox';
 import { Zap } from 'lucide-react';
@@ -355,7 +333,6 @@ import { Zap } from 'lucide-react';
 ```
 
 **Changes:**
-
 - ✅ V26IconBox → V28IconBox (same API, flat design)
 
 ---
@@ -365,17 +342,15 @@ import { Zap } from 'lucide-react';
 ### Edge Case 1: Dynamic Colors
 
 #### Problem:
-
 ```typescript
 // ❌ How to migrate dynamic colors?
 const status = order.status; // 'pending' | 'completed' | 'cancelled'
-<div style={{
-  backgroundColor: UNIFIED_DESIGN_TOKENS.colors[`status_${status}`]
+<div style={{ 
+  backgroundColor: UNIFIED_DESIGN_TOKENS.colors[`status_${status}`] 
 }} />
 ```
 
 #### Solution:
-
 ```typescript
 // ✅ Use Tailwind with conditional classes
 const statusColors = {
@@ -394,17 +369,15 @@ const statusColors = {
 ### Edge Case 2: Complex Shadows
 
 #### Problem:
-
 ```typescript
 // ❌ Complex shadow with glow
-<div style={{
+<div style={{ 
   boxShadow: `0 0 20px ${UNIFIED_DESIGN_TOKENS.colors.beige_glow_30},
-              0 4px 6px rgba(0,0,0,0.1)`
+              0 4px 6px rgba(0,0,0,0.1)` 
 }} />
 ```
 
 #### Solution:
-
 ```typescript
 // ✅ Tailwind + custom shadow
 <div className="shadow-lg shadow-slate-200/50" />
@@ -425,18 +398,16 @@ const statusColors = {
 ### Edge Case 3: Responsive Styles
 
 #### Problem:
-
 ```typescript
 // ❌ Inline responsive styles
-<div style={{
-  padding: window.innerWidth < 768
-    ? UNIFIED_DESIGN_TOKENS.spacing.sm
-    : UNIFIED_DESIGN_TOKENS.spacing.lg
+<div style={{ 
+  padding: window.innerWidth < 768 
+    ? UNIFIED_DESIGN_TOKENS.spacing.sm 
+    : UNIFIED_DESIGN_TOKENS.spacing.lg 
 }} />
 ```
 
 #### Solution:
-
 ```typescript
 // ✅ Tailwind responsive utilities
 <div className="p-4 md:p-8" />
@@ -453,14 +424,13 @@ const statusColors = {
 
 ```typescript
 // ❌ Will be blocked by ESLint:
-import { UNIFIED_DESIGN_TOKENS } from "@/lib/design-system/unified-design-tokens";
+import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens';
 
 // ✅ Use Tailwind instead:
-className = "bg-slate-700 text-white";
+className="bg-slate-700 text-white"
 ```
 
 **Migration:**
-
 1. Find all UNIFIED_DESIGN_TOKENS usages
 2. Replace with Tailwind equivalents (see color mapping table)
 3. Remove import
@@ -474,10 +444,10 @@ className = "bg-slate-700 text-white";
 
 ```typescript
 // ❌ Will be blocked by ESLint:
-import { V26Button } from "@/components/design-system/V26Button";
+import { V26Button } from '@/components/design-system/V26Button';
 
 // ✅ Use V28 components:
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 ```
 
 **Exception:** Existing V26 components in codebase still work (backward compatibility), but no new usages allowed.
@@ -490,7 +460,6 @@ import { Button } from "@/components/ui/button";
 **Impact:** All V26 components will be **deleted**
 
 **Action Required:**
-
 - ✅ Migrate ALL V26 usages before V29.0
 - ✅ Run migration audit: `grep -r "V26" src/`
 - ✅ Test all migrated components
@@ -519,7 +488,6 @@ import { Button } from "@/components/ui/button";
 ### Issue 1: ESLint Blocks My Import
 
 **Error:**
-
 ```
 ⛔ UNIFIED_DESIGN_TOKENS ist deprecated!
    Nutze Tailwind slate-* classes.
@@ -527,7 +495,6 @@ import { Button } from "@/components/ui/button";
 ```
 
 **Solution:**
-
 - See color mapping table above
 - Replace with Tailwind classes
 - Remove UNIFIED_DESIGN_TOKENS import
@@ -539,8 +506,7 @@ import { Button } from "@/components/ui/button";
 **Problem:** V28 component doesn't match V26 visual exactly.
 
 **Solution:**
-
-1. Check color mapping (V26 colors → V28 slate-\*)
+1. Check color mapping (V26 colors → V28 slate-*)
 2. Inspect spacing (V26 used custom spacing)
 3. Compare shadows/borders (V28 uses subtle shadows)
 4. Add custom classes if needed:
@@ -555,7 +521,6 @@ import { Button } from "@/components/ui/button";
 **Problem:** Type errors in migrated component.
 
 **Solution:**
-
 1. Check prop types (V28 components have stricter types)
 2. Ensure all required props are provided
 3. Use TypeScript-strict-mode for early detection:
@@ -570,7 +535,6 @@ import { Button } from "@/components/ui/button";
 **Problem:** Migrated page loads slower.
 
 **Solution:**
-
 1. Check bundle-size: `npm run build`
 2. Use code-splitting: `lazy(() => import(...))`
 3. Optimize images: WebP, responsive sizes
@@ -581,18 +545,15 @@ import { Button } from "@/components/ui/button";
 ## 📞 SUPPORT & RESOURCES
 
 ### Documentation
-
 - **Component Registry:** `docs/COMPONENT_REGISTRY.md`
 - **Lessons Learned:** `docs/LESSONS_LEARNED.md`
 - **Project Memory:** `docs/PROJECT_MEMORY.md`
 
 ### Tools
-
 - **Design System Linter:** `scripts/design-system-lint.ts`
 - **Migration Scripts:** `scripts/` (various)
 
 ### Help Channels
-
 - **GitHub Issues:** Tag with `migration` label
 - **Code Review:** Request review for migration PRs
 - **Team Chat:** #design-system channel
@@ -602,14 +563,12 @@ import { Button } from "@/components/ui/button";
 ## 📊 MIGRATION STATISTICS
 
 ### Completed Migrations (as of 2025-10-29)
-
 - **Total Components:** 247 migrated
 - **V26 → V28:** 189 components
 - **UNIFIED_DESIGN_TOKENS removed:** 156 usages
 - **Hardcoded colors removed:** 87 instances
 
 ### Remaining Work
-
 - **V26 Components:** 22 deprecated (still functional)
 - **Test Coverage:** 67% → 80% target
 - **Documentation:** 4/4 guides complete ✅

@@ -8,28 +8,32 @@
    - Drag & Drop Support
    ================================================================================== */
 
-import { useState } from "react";
-import { useAuth } from "@/hooks/use-auth";
-import { supabase } from "@/integrations/supabase/client";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Input } from "@/lib/compat";
-import { Label } from "@/components/ui/label";
-import { handleError, handleSuccess } from "@/lib/error-handler";
+import { useState } from 'react';
+import { useAuth } from '@/hooks/use-auth';
+import { supabase } from '@/integrations/supabase/client';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Input } from '@/lib/compat';
+import { Label } from '@/components/ui/label';
+import { handleError, handleSuccess } from '@/lib/error-handler';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { CalendarIcon, Upload, X, FileText, Eye } from "lucide-react";
-import { format } from "date-fns";
-import { de } from "date-fns/locale";
-import { cn } from "@/lib/utils";
-import { Card, CardContent } from "@/components/ui/card";
-import { StatusIndicator } from "@/components/shared/StatusIndicator";
+} from '@/components/ui/select';
+import { Calendar } from '@/components/ui/calendar';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { CalendarIcon, Upload, X, FileText, Eye } from 'lucide-react';
+import { format } from 'date-fns';
+import { de } from 'date-fns/locale';
+import { cn } from '@/lib/utils';
+import { Card, CardContent } from '@/components/ui/card';
+import { StatusIndicator } from '@/components/shared/StatusIndicator';
 
 interface UploadedDocument {
   id: string;
@@ -40,7 +44,7 @@ interface UploadedDocument {
 }
 
 interface InlineDocumentUploadProps {
-  entityType: "driver" | "vehicle" | "customer";
+  entityType: 'driver' | 'vehicle' | 'customer';
   entityId?: string; // Optional: Wenn Entity noch nicht existiert
   onUploadSuccess?: () => void;
   allowedDocumentTypes?: string[];
@@ -48,12 +52,12 @@ interface InlineDocumentUploadProps {
 }
 
 const DOCUMENT_TYPE_LABELS = {
-  fuehrerschein: "Führerschein (Fahrerlaubnis)",
-  p_schein: "P-Schein (Personenbeförderungsschein)",
-  fahrzeugschein: "Fahrzeugschein (Zulassungsbescheinigung Teil I)",
-  tuev: "TÜV (Hauptuntersuchung)",
-  versicherung: "Versicherung (Versicherungsnachweis)",
-  sonstiges: "Sonstiges (Weitere Dokumente)",
+  fuehrerschein: 'Führerschein (Fahrerlaubnis)',
+  p_schein: 'P-Schein (Personenbeförderungsschein)',
+  fahrzeugschein: 'Fahrzeugschein (Zulassungsbescheinigung Teil I)',
+  tuev: 'TÜV (Hauptuntersuchung)',
+  versicherung: 'Versicherung (Versicherungsnachweis)',
+  sonstiges: 'Sonstiges (Weitere Dokumente)',
 };
 
 export function InlineDocumentUpload({
@@ -66,8 +70,8 @@ export function InlineDocumentUpload({
   const { profile } = useAuth();
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [documentType, setDocumentType] = useState<string>("fuehrerschein");
-  const [documentName, setDocumentName] = useState("");
+  const [documentType, setDocumentType] = useState<string>('fuehrerschein');
+  const [documentName, setDocumentName] = useState('');
   const [expiryDate, setExpiryDate] = useState<Date | undefined>(undefined);
   const [uploadedDocs, setUploadedDocs] = useState<UploadedDocument[]>([]);
 
@@ -82,7 +86,7 @@ export function InlineDocumentUpload({
       setSelectedFile(file);
       // Auto-fill document name from filename
       if (!documentName) {
-        const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
+        const nameWithoutExt = file.name.replace(/\.[^/.]+$/, '');
         setDocumentName(nameWithoutExt);
       }
     }
@@ -90,18 +94,14 @@ export function InlineDocumentUpload({
 
   const handleUpload = async () => {
     if (!selectedFile || !profile?.company_id) {
-      handleError(null, "Bitte wählen Sie eine Datei aus.", { title: "Fehler" });
+      handleError(null, 'Bitte wählen Sie eine Datei aus.', { title: 'Fehler' });
       return;
     }
 
     if (!entityId) {
-      handleError(
-        null,
-        "Bitte speichern Sie zuerst die Hauptdaten, bevor Sie Dokumente hochladen.",
-        {
-          title: "Hinweis",
-        }
-      );
+      handleError(null, 'Bitte speichern Sie zuerst die Hauptdaten, bevor Sie Dokumente hochladen.', { 
+        title: 'Hinweis' 
+      });
       return;
     }
 
@@ -109,59 +109,53 @@ export function InlineDocumentUpload({
       setUploading(true);
 
       // Upload to Supabase Storage
-      const fileExt = selectedFile.name.split(".").pop();
+      const fileExt = selectedFile.name.split('.').pop();
       const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
       const filePath = `${profile.company_id}/${entityType}/${entityId}/${fileName}`;
 
       const { error: uploadError } = await supabase.storage
-        .from("documents")
+        .from('documents')
         .upload(filePath, selectedFile);
 
       if (uploadError) throw uploadError;
 
       // Get public URL
-      const {
-        data: { publicUrl },
-      } = supabase.storage.from("documents").getPublicUrl(filePath);
+      const { data: { publicUrl } } = supabase.storage
+        .from('documents')
+        .getPublicUrl(filePath);
 
       // Save to database
       const documentData = {
         company_id: profile.company_id,
         entity_type: entityType,
         entity_id: entityId,
-        document_type: documentType as
-          | "fuehrerschein"
-          | "p_schein"
-          | "fahrzeugschein"
-          | "tuev"
-          | "versicherung"
-          | "sonstiges",
+        document_type: documentType as 'fuehrerschein' | 'p_schein' | 'fahrzeugschein' | 'tuev' | 'versicherung' | 'sonstiges',
         name: documentName || selectedFile.name,
         file_url: publicUrl,
-        expiry_date: expiryDate ? format(expiryDate, "yyyy-MM-dd") : null,
+        expiry_date: expiryDate ? format(expiryDate, 'yyyy-MM-dd') : null,
       };
 
       const { data, error } = await supabase
-        .from("documents")
+        .from('documents')
         .insert([documentData])
         .select()
         .single();
 
       if (error) throw error;
 
-      handleSuccess("Dokument wurde hochgeladen.", "Erfolgreich");
+      handleSuccess('Dokument wurde hochgeladen.', 'Erfolgreich');
 
       // Add to uploaded docs list
       setUploadedDocs((prev) => [...prev, data]);
 
       // Reset form
       setSelectedFile(null);
-      setDocumentName("");
+      setDocumentName('');
       setExpiryDate(undefined);
 
       onUploadSuccess?.();
     } catch (error: any) {
-      handleError(error, "Dokument konnte nicht hochgeladen werden.", { title: "Upload-Fehler" });
+      handleError(error, 'Dokument konnte nicht hochgeladen werden.', { title: 'Upload-Fehler' });
     } finally {
       setUploading(false);
     }
@@ -171,20 +165,20 @@ export function InlineDocumentUpload({
     try {
       // SECURITY: Use Archiving instead of DELETE (SOLL-Vorgabe V18.3.24)
       const { error } = await supabase
-        .from("documents")
-        .update({
-          archived: true,
-          archived_at: new Date().toISOString(),
+        .from('documents')
+        .update({ 
+          archived: true, 
+          archived_at: new Date().toISOString() 
         })
-        .eq("id", docId);
+        .eq('id', docId);
 
       if (error) throw error;
 
       setUploadedDocs((prev) => prev.filter((d) => d.id !== docId));
 
-      handleSuccess("Dokument wurde entfernt.", "Erfolgreich");
+      handleSuccess('Dokument wurde entfernt.', 'Erfolgreich');
     } catch (error: any) {
-      handleError(error, "Dokument konnte nicht entfernt werden.", { title: "Fehler" });
+      handleError(error, 'Dokument konnte nicht entfernt werden.', { title: 'Fehler' });
     }
   };
 
@@ -241,7 +235,7 @@ export function InlineDocumentUpload({
                     disabled={uploading}
                     className="shrink-0"
                   >
-                    {uploading ? "Uploading..." : "Hochladen"}
+                    {uploading ? 'Uploading...' : 'Hochladen'}
                   </V28Button>
                 </div>
               )}
@@ -288,7 +282,9 @@ export function InlineDocumentUpload({
           Dokumente hochladen
         </h3>
         {!entityId && (
-          <span className="text-xs text-muted-foreground">Speichern Sie zuerst die Hauptdaten</span>
+          <span className="text-xs text-muted-foreground">
+            Speichern Sie zuerst die Hauptdaten
+          </span>
         )}
       </div>
 
@@ -340,12 +336,12 @@ export function InlineDocumentUpload({
                   <V28Button
                     variant="secondary"
                     className={cn(
-                      "w-full justify-start text-left font-normal",
-                      !expiryDate && "text-muted-foreground"
+                      'w-full justify-start text-left font-normal',
+                      !expiryDate && 'text-muted-foreground'
                     )}
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {expiryDate ? format(expiryDate, "dd.MM.yyyy", { locale: de }) : "Datum wählen"}
+                    {expiryDate ? format(expiryDate, 'dd.MM.yyyy', { locale: de }) : 'Datum wählen'}
                   </V28Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
@@ -382,7 +378,7 @@ export function InlineDocumentUpload({
             disabled={!selectedFile || uploading}
             className="w-full"
           >
-            {uploading ? "Uploading..." : "Dokument hochladen"}
+            {uploading ? 'Uploading...' : 'Dokument hochladen'}
           </V28Button>
         </div>
       )}
@@ -407,7 +403,7 @@ export function InlineDocumentUpload({
                   </div>
                   {doc.expiry_date && (
                     <div className="text-xs text-muted-foreground">
-                      Ablauf: {format(new Date(doc.expiry_date), "dd.MM.yyyy")}
+                      Ablauf: {format(new Date(doc.expiry_date), 'dd.MM.yyyy')}
                     </div>
                   )}
                 </div>
@@ -416,7 +412,7 @@ export function InlineDocumentUpload({
                     type="button"
                     variant="ghost"
                     size="sm"
-                    onClick={() => window.open(doc.file_url, "_blank")}
+                    onClick={() => window.open(doc.file_url, '_blank')}
                   >
                     <Eye className="h-4 w-4" />
                   </V28Button>

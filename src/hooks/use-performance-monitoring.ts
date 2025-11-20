@@ -13,20 +13,20 @@
    usePerformanceMonitoring(); // In App.tsx oder Layout
    ================================================================================== */
 
-import { useEffect } from "react";
-import { logger } from "@/lib/logger";
+import { useEffect } from 'react';
+import { logger } from '@/lib/logger';
 
 interface PerformanceMetric {
   name: string;
   value: number;
-  rating: "good" | "needs-improvement" | "poor";
+  rating: 'good' | 'needs-improvement' | 'poor';
 }
 
 /**
  * Performance Monitoring Hook
- *
+ * 
  * Tracks Core Web Vitals and reports to logging system
- *
+ * 
  * Thresholds (Google Web Vitals):
  * - LCP: <2.5s (good), <4s (needs-improvement), >=4s (poor)
  * - FID: <100ms (good), <300ms (needs-improvement), >=300ms (poor)
@@ -36,7 +36,7 @@ interface PerformanceMetric {
 export const usePerformanceMonitoring = () => {
   useEffect(() => {
     // Check if Web Vitals API is available
-    if (typeof window === "undefined" || !window.performance) {
+    if (typeof window === 'undefined' || !window.performance) {
       return;
     }
 
@@ -46,17 +46,17 @@ export const usePerformanceMonitoring = () => {
         const observer = new PerformanceObserver((list) => {
           const entries = list.getEntries();
           const lastEntry = entries[entries.length - 1] as any;
-
+          
           if (lastEntry?.renderTime || lastEntry?.loadTime) {
             const value = lastEntry.renderTime || lastEntry.loadTime;
-            const rating = value < 2500 ? "good" : value < 4000 ? "needs-improvement" : "poor";
-
-            reportMetric({ name: "LCP", value, rating });
+            const rating = value < 2500 ? 'good' : value < 4000 ? 'needs-improvement' : 'poor';
+            
+            reportMetric({ name: 'LCP', value, rating });
             observer.disconnect();
           }
         });
-
-        observer.observe({ entryTypes: ["largest-contentful-paint"] });
+        
+        observer.observe({ entryTypes: ['largest-contentful-paint'] });
       } catch (error) {
         // LCP not supported
       }
@@ -69,14 +69,14 @@ export const usePerformanceMonitoring = () => {
           const entries = list.getEntries();
           entries.forEach((entry: any) => {
             const value = entry.processingStart - entry.startTime;
-            const rating = value < 100 ? "good" : value < 300 ? "needs-improvement" : "poor";
-
-            reportMetric({ name: "FID", value, rating });
+            const rating = value < 100 ? 'good' : value < 300 ? 'needs-improvement' : 'poor';
+            
+            reportMetric({ name: 'FID', value, rating });
           });
           observer.disconnect();
         });
-
-        observer.observe({ entryTypes: ["first-input"] });
+        
+        observer.observe({ entryTypes: ['first-input'] });
       } catch (error) {
         // FID not supported
       }
@@ -94,13 +94,13 @@ export const usePerformanceMonitoring = () => {
             }
           });
         });
-
-        observer.observe({ entryTypes: ["layout-shift"] });
-
+        
+        observer.observe({ entryTypes: ['layout-shift'] });
+        
         // Report CLS after page is visible for 5 seconds
         setTimeout(() => {
-          const rating = clsValue < 0.1 ? "good" : clsValue < 0.25 ? "needs-improvement" : "poor";
-          reportMetric({ name: "CLS", value: clsValue, rating });
+          const rating = clsValue < 0.1 ? 'good' : clsValue < 0.25 ? 'needs-improvement' : 'poor';
+          reportMetric({ name: 'CLS', value: clsValue, rating });
           observer.disconnect();
         }, 5000);
       } catch (error) {
@@ -111,13 +111,13 @@ export const usePerformanceMonitoring = () => {
     // TTFB (Time to First Byte)
     const observeTTFB = () => {
       try {
-        const navigationEntries = performance.getEntriesByType("navigation") as any[];
+        const navigationEntries = performance.getEntriesByType('navigation') as any[];
         if (navigationEntries.length > 0) {
           const navEntry = navigationEntries[0];
           const value = navEntry.responseStart - navEntry.requestStart;
-          const rating = value < 800 ? "good" : value < 1800 ? "needs-improvement" : "poor";
-
-          reportMetric({ name: "TTFB", value, rating });
+          const rating = value < 800 ? 'good' : value < 1800 ? 'needs-improvement' : 'poor';
+          
+          reportMetric({ name: 'TTFB', value, rating });
         }
       } catch (error) {
         // TTFB not supported
@@ -128,10 +128,9 @@ export const usePerformanceMonitoring = () => {
     const reportMetric = (metric: PerformanceMetric) => {
       // Log to console in development
       if (import.meta.env.DEV) {
-        const emoji =
-          metric.rating === "good" ? "✅" : metric.rating === "needs-improvement" ? "⚠️" : "❌";
+        const emoji = metric.rating === 'good' ? '✅' : metric.rating === 'needs-improvement' ? '⚠️' : '❌';
         console.log(
-          `${emoji} ${metric.name}: ${Math.round(metric.value)}${metric.name === "CLS" ? "" : "ms"} (${metric.rating})`
+          `${emoji} ${metric.name}: ${Math.round(metric.value)}${metric.name === 'CLS' ? '' : 'ms'} (${metric.rating})`
         );
       }
 

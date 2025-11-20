@@ -1,6 +1,6 @@
-import { V28Button } from "@/components/design-system/V28Button";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { V28Button } from '@/components/design-system/V28Button';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 interface FilterOption {
   id: string;
@@ -17,11 +17,11 @@ interface MobileFilterBarProps {
 export function MobileFilterBar({ filters, activeFilter, onFilterChange }: MobileFilterBarProps) {
   return (
     <div className="flex flex-col gap-2 w-full">
-      {filters.map((filter) => (
+      {filters.map(filter => (
         <V28Button
           key={filter.id}
           size="sm"
-          variant={activeFilter === filter.id ? "primary" : "secondary"}
+          variant={activeFilter === filter.id ? 'primary' : 'secondary'}
           onClick={() => onFilterChange(filter.id)}
           className={cn(
             "w-full touch-manipulation min-h-[44px] h-11 px-4",
@@ -31,9 +31,12 @@ export function MobileFilterBar({ filters, activeFilter, onFilterChange }: Mobil
         >
           <span className="text-sm font-medium">{filter.label}</span>
           {filter.count !== undefined && (
-            <Badge
-              variant={activeFilter === filter.id ? "secondary" : "outline"}
-              className={cn("ml-auto", "group-hover:bg-primary group-hover:text-foreground")}
+            <Badge 
+              variant={activeFilter === filter.id ? 'secondary' : 'outline'}
+              className={cn(
+                "ml-auto",
+                "group-hover:bg-primary group-hover:text-foreground"
+              )}
             >
               {filter.count}
             </Badge>

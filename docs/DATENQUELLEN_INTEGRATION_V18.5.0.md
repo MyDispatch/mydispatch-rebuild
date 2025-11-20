@@ -39,11 +39,11 @@ MyDispatch integriert **5 Haupt-Datenquellen** für intelligente, datengetrieben
 // supabase/functions/calculate-route/index.ts
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
-const HERE_API_KEY = Deno.env.get("HERE_API_KEY");
+const HERE_API_KEY = Deno.env.get('HERE_API_KEY');
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
 interface RouteRequest {
@@ -51,67 +51,64 @@ interface RouteRequest {
   destination: { lat: number; lng: number };
   departureTime?: string; // ISO 8601
   avoidTolls?: boolean;
-  vehicleType?: "car" | "truck";
+  vehicleType?: 'car' | 'truck';
 }
 
 serve(async (req) => {
-  if (req.method === "OPTIONS") {
+  if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { origin, destination, departureTime, avoidTolls, vehicleType }: RouteRequest =
-      await req.json();
+    const { origin, destination, departureTime, avoidTolls, vehicleType }: RouteRequest = await req.json();
 
     // 1. Geocoding (falls Adressen statt Koordinaten)
     // (siehe Geocoding-Section unten)
 
     // 2. Route-Berechnung mit Traffic
-    const routeUrl = new URL("https://router.hereapi.com/v8/routes");
-    routeUrl.searchParams.set("transportMode", vehicleType || "car");
-    routeUrl.searchParams.set("origin", `${origin.lat},${origin.lng}`);
-    routeUrl.searchParams.set("destination", `${destination.lat},${destination.lng}`);
-    routeUrl.searchParams.set("return", "summary,polyline,turnByTurnActions,travelSummary");
-    routeUrl.searchParams.set("apiKey", HERE_API_KEY!);
-
+    const routeUrl = new URL('https://router.hereapi.com/v8/routes');
+    routeUrl.searchParams.set('transportMode', vehicleType || 'car');
+    routeUrl.searchParams.set('origin', `${origin.lat},${origin.lng}`);
+    routeUrl.searchParams.set('destination', `${destination.lat},${destination.lng}`);
+    routeUrl.searchParams.set('return', 'summary,polyline,turnByTurnActions,travelSummary');
+    routeUrl.searchParams.set('apiKey', HERE_API_KEY!);
+    
     if (departureTime) {
-      routeUrl.searchParams.set("departureTime", departureTime);
+      routeUrl.searchParams.set('departureTime', departureTime);
     }
-
+    
     if (avoidTolls) {
-      routeUrl.searchParams.set("avoid[features]", "tollRoad");
+      routeUrl.searchParams.set('avoid[features]', 'tollRoad');
     }
 
     const response = await fetch(routeUrl.toString());
     const data = await response.json();
 
     if (!response.ok || !data.routes || data.routes.length === 0) {
-      throw new Error("Route nicht gefunden");
+      throw new Error('Route nicht gefunden');
     }
 
     const route = data.routes[0];
     const section = route.sections[0];
 
-    return new Response(
-      JSON.stringify({
-        distance: section.travelSummary.length, // Meter
-        duration: section.travelSummary.duration, // Sekunden
-        trafficDelay: section.travelSummary.trafficDelay || 0, // Sekunden
-        baseDuration: section.travelSummary.baseDuration, // Ohne Traffic
-        polyline: section.polyline, // Für Karten-Darstellung
-        instructions: section.turnByTurnActions || [],
-        departureTime: section.departure.time,
-        arrivalTime: section.arrival.time,
-      }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
-    );
+    return new Response(JSON.stringify({
+      distance: section.travelSummary.length, // Meter
+      duration: section.travelSummary.duration, // Sekunden
+      trafficDelay: section.travelSummary.trafficDelay || 0, // Sekunden
+      baseDuration: section.travelSummary.baseDuration, // Ohne Traffic
+      polyline: section.polyline, // Für Karten-Darstellung
+      instructions: section.turnByTurnActions || [],
+      departureTime: section.departure.time,
+      arrivalTime: section.arrival.time,
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
+
   } catch (error: any) {
-    console.error("[CALCULATE-ROUTE] Error:", error);
+    console.error('[CALCULATE-ROUTE] Error:', error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 });
@@ -121,7 +118,7 @@ serve(async (req) => {
 
 ```typescript
 // src/lib/here-api-client.ts
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from '@/integrations/supabase/client';
 
 export interface RouteData {
   distance: number; // Meter
@@ -140,10 +137,10 @@ export const calculateRoute = async (
   options?: {
     departureTime?: string;
     avoidTolls?: boolean;
-    vehicleType?: "car" | "truck";
+    vehicleType?: 'car' | 'truck';
   }
 ): Promise<RouteData> => {
-  const { data, error } = await supabase.functions.invoke("calculate-route", {
+  const { data, error } = await supabase.functions.invoke('calculate-route', {
     body: {
       origin,
       destination,
@@ -157,32 +154,31 @@ export const calculateRoute = async (
 ```
 
 **Verwendung in Komponenten:**
-
 ```typescript
 // src/components/booking/RoutePreview.tsx
 import { calculateRoute } from '@/lib/here-api-client';
 
 export function RoutePreview({ pickupAddress, dropoffAddress }: RoutePreviewProps) {
   const [routeData, setRouteData] = useState<RouteData | null>(null);
-
+  
   useEffect(() => {
     const loadRoute = async () => {
       // 1. Geocode Adressen (siehe unten)
       const origin = await geocodeAddress(pickupAddress);
       const destination = await geocodeAddress(dropoffAddress);
-
+      
       // 2. Route berechnen
       const route = await calculateRoute(origin, destination, {
         departureTime: new Date().toISOString(),
         avoidTolls: false,
       });
-
+      
       setRouteData(route);
     };
-
+    
     loadRoute();
   }, [pickupAddress, dropoffAddress]);
-
+  
   return (
     <Card>
       <CardHeader>
@@ -209,29 +205,26 @@ export function RoutePreview({ pickupAddress, dropoffAddress }: RoutePreviewProp
 // supabase/functions/geocode/index.ts
 serve(async (req) => {
   const { address } = await req.json();
-
-  const url = new URL("https://geocode.search.hereapi.com/v1/geocode");
-  url.searchParams.set("q", address);
-  url.searchParams.set("apiKey", HERE_API_KEY!);
-
+  
+  const url = new URL('https://geocode.search.hereapi.com/v1/geocode');
+  url.searchParams.set('q', address);
+  url.searchParams.set('apiKey', HERE_API_KEY!);
+  
   const response = await fetch(url.toString());
   const data = await response.json();
-
+  
   if (data.items && data.items.length > 0) {
     const location = data.items[0].position;
-    return new Response(
-      JSON.stringify({
-        lat: location.lat,
-        lng: location.lng,
-        address: data.items[0].address,
-      }),
-      {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
-    );
+    return new Response(JSON.stringify({
+      lat: location.lat,
+      lng: location.lng,
+      address: data.items[0].address,
+    }), {
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    });
   }
-
-  throw new Error("Adresse nicht gefunden");
+  
+  throw new Error('Adresse nicht gefunden');
 });
 ```
 
@@ -241,32 +234,27 @@ serve(async (req) => {
 // supabase/functions/traffic-flow/index.ts
 serve(async (req) => {
   const { lat, lng, radius } = await req.json(); // radius in Metern
-
-  const url = new URL("https://data.traffic.hereapi.com/v7/flow");
-  url.searchParams.set("locationReferencing", "shape");
-  url.searchParams.set("in", `circle:${lat},${lng};r=${radius}`);
-  url.searchParams.set("apiKey", HERE_API_KEY!);
-
+  
+  const url = new URL('https://data.traffic.hereapi.com/v7/flow');
+  url.searchParams.set('locationReferencing', 'shape');
+  url.searchParams.set('in', `circle:${lat},${lng};r=${radius}`);
+  url.searchParams.set('apiKey', HERE_API_KEY!);
+  
   const response = await fetch(url.toString());
   const data = await response.json();
-
+  
   // Durchschnittliche Verkehrslage berechnen
-  const avgSpeed =
-    data.results.reduce((sum, item) => sum + item.currentFlow.speed, 0) / data.results.length;
-  const avgJamFactor =
-    data.results.reduce((sum, item) => sum + item.currentFlow.jamFactor, 0) / data.results.length;
-
-  return new Response(
-    JSON.stringify({
-      avgSpeed, // km/h
-      avgJamFactor, // 0-10 (0 = frei, 10 = Stau)
-      status: avgJamFactor < 4 ? "free" : avgJamFactor < 8 ? "slow" : "jam",
-      details: data.results,
-    }),
-    {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    }
-  );
+  const avgSpeed = data.results.reduce((sum, item) => sum + item.currentFlow.speed, 0) / data.results.length;
+  const avgJamFactor = data.results.reduce((sum, item) => sum + item.currentFlow.jamFactor, 0) / data.results.length;
+  
+  return new Response(JSON.stringify({
+    avgSpeed, // km/h
+    avgJamFactor, // 0-10 (0 = frei, 10 = Stau)
+    status: avgJamFactor < 4 ? 'free' : avgJamFactor < 8 ? 'slow' : 'jam',
+    details: data.results,
+  }), {
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  });
 });
 ```
 
@@ -291,11 +279,11 @@ serve(async (req) => {
 // supabase/functions/fetch-weather/index.ts
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
-const OPENWEATHERMAP_API_KEY = Deno.env.get("OPENWEATHERMAP_API_KEY");
+const OPENWEATHERMAP_API_KEY = Deno.env.get('OPENWEATHERMAP_API_KEY');
 
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
 interface WeatherRequest {
@@ -306,7 +294,7 @@ interface WeatherRequest {
 }
 
 serve(async (req) => {
-  if (req.method === "OPTIONS") {
+  if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
@@ -314,16 +302,16 @@ serve(async (req) => {
     const { city, lat, lng, includeForecast }: WeatherRequest = await req.json();
 
     // 1. Aktuelles Wetter
-    const currentUrl = new URL("https://api.openweathermap.org/data/2.5/weather");
+    const currentUrl = new URL('https://api.openweathermap.org/data/2.5/weather');
     if (city) {
-      currentUrl.searchParams.set("q", city);
+      currentUrl.searchParams.set('q', city);
     } else if (lat && lng) {
-      currentUrl.searchParams.set("lat", lat.toString());
-      currentUrl.searchParams.set("lon", lng.toString());
+      currentUrl.searchParams.set('lat', lat.toString());
+      currentUrl.searchParams.set('lon', lng.toString());
     }
-    currentUrl.searchParams.set("appid", OPENWEATHERMAP_API_KEY!);
-    currentUrl.searchParams.set("units", "metric");
-    currentUrl.searchParams.set("lang", "de");
+    currentUrl.searchParams.set('appid', OPENWEATHERMAP_API_KEY!);
+    currentUrl.searchParams.set('units', 'metric');
+    currentUrl.searchParams.set('lang', 'de');
 
     const currentResponse = await fetch(currentUrl.toString());
     const currentData = await currentResponse.json();
@@ -347,16 +335,16 @@ serve(async (req) => {
 
     // 2. Vorhersage (optional)
     if (includeForecast) {
-      const forecastUrl = new URL("https://api.openweathermap.org/data/2.5/forecast");
+      const forecastUrl = new URL('https://api.openweathermap.org/data/2.5/forecast');
       if (city) {
-        forecastUrl.searchParams.set("q", city);
+        forecastUrl.searchParams.set('q', city);
       } else if (lat && lng) {
-        forecastUrl.searchParams.set("lat", lat.toString());
-        forecastUrl.searchParams.set("lon", lng.toString());
+        forecastUrl.searchParams.set('lat', lat.toString());
+        forecastUrl.searchParams.set('lon', lng.toString());
       }
-      forecastUrl.searchParams.set("appid", OPENWEATHERMAP_API_KEY!);
-      forecastUrl.searchParams.set("units", "metric");
-      forecastUrl.searchParams.set("lang", "de");
+      forecastUrl.searchParams.set('appid', OPENWEATHERMAP_API_KEY!);
+      forecastUrl.searchParams.set('units', 'metric');
+      forecastUrl.searchParams.set('lang', 'de');
 
       const forecastResponse = await fetch(forecastUrl.toString());
       const forecastData = await forecastResponse.json();
@@ -366,18 +354,19 @@ serve(async (req) => {
         temp: item.main.temp,
         description: item.weather[0].description,
         icon: item.weather[0].icon,
-        precipitation: item.rain?.["3h"] || 0,
+        precipitation: item.rain?.['3h'] || 0,
       }));
     }
 
     return new Response(JSON.stringify(result), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
+
   } catch (error: any) {
-    console.error("[FETCH-WEATHER] Error:", error);
+    console.error('[FETCH-WEATHER] Error:', error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 });
@@ -416,7 +405,7 @@ export function LiveWeather({ city = 'München' }: { city?: string }) {
       </CardHeader>
       <CardContent>
         <div className="flex items-center gap-4">
-          <img
+          <img 
             src={`https://openweathermap.org/img/wn/${weather.current.icon}@2x.png`}
             alt={weather.current.description}
             className="h-16 w-16"
@@ -466,24 +455,21 @@ export function LiveWeather({ city = 'München' }: { city?: string }) {
 // supabase/functions/fetch-current-time/index.ts
 serve(async (req) => {
   const { timezone } = await req.json(); // z.B. 'Europe/Berlin'
-
-  const url = `http://worldtimeapi.org/api/timezone/${timezone || "Europe/Berlin"}`;
+  
+  const url = `http://worldtimeapi.org/api/timezone/${timezone || 'Europe/Berlin'}`;
   const response = await fetch(url);
   const data = await response.json();
-
-  return new Response(
-    JSON.stringify({
-      datetime: data.datetime, // ISO 8601
-      timestamp: data.unixtime,
-      timezone: data.timezone,
-      offset: data.utc_offset, // z.B. '+01:00'
-      dayOfWeek: data.day_of_week,
-      weekNumber: data.week_number,
-    }),
-    {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    }
-  );
+  
+  return new Response(JSON.stringify({
+    datetime: data.datetime, // ISO 8601
+    timestamp: data.unixtime,
+    timezone: data.timezone,
+    offset: data.utc_offset, // z.B. '+01:00'
+    dayOfWeek: data.day_of_week,
+    weekNumber: data.week_number,
+  }), {
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+  });
 });
 ```
 
@@ -491,19 +477,19 @@ serve(async (req) => {
 
 ```typescript
 // src/lib/time-utils.ts
-import { format, formatInTimeZone } from "date-fns-tz";
-import { de } from "date-fns/locale";
+import { format, formatInTimeZone } from 'date-fns-tz';
+import { de } from 'date-fns/locale';
 
 export const formatDateTimeInTimezone = (
   date: string | Date,
-  timezone: string = "Europe/Berlin",
-  formatStr: string = "dd.MM.yyyy HH:mm"
+  timezone: string = 'Europe/Berlin',
+  formatStr: string = 'dd.MM.yyyy HH:mm'
 ): string => {
   return formatInTimeZone(new Date(date), timezone, formatStr, { locale: de });
 };
 
 // Verwendung
-formatDateTimeInTimezone("2025-01-26T14:30:00Z", "Europe/Berlin", "dd.MM.yyyy HH:mm");
+formatDateTimeInTimezone('2025-01-26T14:30:00Z', 'Europe/Berlin', 'dd.MM.yyyy HH:mm');
 // Output: "26.01.2025 15:30"
 ```
 
@@ -545,9 +531,9 @@ export function LiveTraffic({ route }: { route?: { lat: number; lng: number }[] 
         {traffic && (
           <>
             <div className="flex items-center gap-2">
-              <StatusIndicator
-                status={traffic.status}
-                type="traffic"
+              <StatusIndicator 
+                status={traffic.status} 
+                type="traffic" 
               />
               <span className="font-medium">
                 {traffic.status === 'free' && 'Freie Fahrt'}
@@ -581,26 +567,26 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
 
 serve(async (req) => {
   const { companyId, days } = await req.json();
-
+  
   const supabase = createClient(
     Deno.env.get("SUPABASE_URL") ?? "",
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
   );
-
+  
   // 1. Historische Daten (90 Tage)
   const { data: historical } = await supabase
-    .from("bookings")
-    .select("pickup_time, created_at, price, status")
-    .eq("company_id", companyId)
-    .gte("pickup_time", new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString())
-    .order("pickup_time", { ascending: true });
-
+    .from('bookings')
+    .select('pickup_time, created_at, price, status')
+    .eq('company_id', companyId)
+    .gte('pickup_time', new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString())
+    .order('pickup_time', { ascending: true });
+  
   // 2. Lovable AI Gateway (Google Gemini)
-  const aiResponse = await fetch("https://api.lovable.dev/ai/v1/completions", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+  const aiResponse = await fetch('https://api.lovable.dev/ai/v1/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: "google/gemini-2.5-flash",
+      model: 'google/gemini-2.5-flash',
       prompt: `
 Analysiere die folgenden Buchungsdaten und erstelle eine ${days}-Tage-Prognose.
 Berücksichtige: Wochentag-Muster, Saisonalität, Trends.
@@ -612,11 +598,11 @@ ${JSON.stringify(historical, null, 2)}
       `,
     }),
   });
-
+  
   const forecast = await aiResponse.json();
-
+  
   return new Response(JSON.stringify({ forecast }), {
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
+    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   });
 });
 ```
@@ -627,7 +613,7 @@ ${JSON.stringify(historical, null, 2)}
 // src/components/dashboard/PredictiveDemandWidget.tsx
 export function PredictiveDemandWidget() {
   const { profile } = useAuth();
-
+  
   const { data: forecast } = useQuery({
     queryKey: ['predictive-demand', profile?.company_id],
     queryFn: async () => {
@@ -679,17 +665,17 @@ export const calculateSmartRoute = async (
   pickupTime: string
 ) => {
   // 1. Wetter-Check
-  const weather = await supabase.functions.invoke("fetch-weather", {
+  const weather = await supabase.functions.invoke('fetch-weather', {
     body: { lat: origin.lat, lng: origin.lng },
   });
-
+  
   // 2. Verkehrs-Check
-  const traffic = await supabase.functions.invoke("traffic-flow", {
+  const traffic = await supabase.functions.invoke('traffic-flow', {
     body: { lat: origin.lat, lng: origin.lng, radius: 5000 },
   });
-
+  
   // 3. Route-Berechnung mit Traffic
-  const route = await supabase.functions.invoke("calculate-route", {
+  const route = await supabase.functions.invoke('calculate-route', {
     body: {
       origin,
       destination,
@@ -697,14 +683,14 @@ export const calculateSmartRoute = async (
       avoidTolls: false,
     },
   });
-
+  
   // 4. Risiko-Assessment
   const riskScore = calculateRiskScore({
     weather: weather.data.current,
     traffic: traffic.data,
     route: route.data,
   });
-
+  
   return {
     ...route.data,
     weather: weather.data.current,
@@ -716,34 +702,34 @@ export const calculateSmartRoute = async (
 
 const calculateRiskScore = ({ weather, traffic, route }) => {
   let score = 0;
-
+  
   // Wetter-Risiko
-  if (weather.description.includes("regen")) score += 2;
-  if (weather.description.includes("schnee")) score += 4;
+  if (weather.description.includes('regen')) score += 2;
+  if (weather.description.includes('schnee')) score += 4;
   if (weather.windSpeed > 15) score += 2;
-
+  
   // Verkehrs-Risiko
   if (traffic.avgJamFactor > 7) score += 3;
-
+  
   // Route-Risiko
   if (route.trafficDelay > 600) score += 2; // >10min Verzögerung
-
+  
   return Math.min(score, 10); // 0-10 Scale
 };
 
 const generateRecommendations = (riskScore: number): string[] => {
   const recommendations: string[] = [];
-
+  
   if (riskScore > 7) {
-    recommendations.push("⚠️ Hohe Verzögerung erwartet - frühere Abfahrt empfohlen");
+    recommendations.push('⚠️ Hohe Verzögerung erwartet - frühere Abfahrt empfohlen');
   }
   if (riskScore > 5) {
-    recommendations.push("🚗 Erhöhtes Verkehrsaufkommen - alternative Route prüfen");
+    recommendations.push('🚗 Erhöhtes Verkehrsaufkommen - alternative Route prüfen');
   }
   if (riskScore > 3) {
-    recommendations.push("🌧️ Schlechtes Wetter - vorsichtige Fahrweise empfohlen");
+    recommendations.push('🌧️ Schlechtes Wetter - vorsichtige Fahrweise empfohlen');
   }
-
+  
   return recommendations;
 };
 ```
@@ -765,27 +751,27 @@ const CACHE_TTL = {
 
 export const getCachedData = async (key: string, fetchFn: () => Promise<any>, ttl: number) => {
   // Supabase Storage als Cache nutzen (alternativ: Upstash Redis)
-  const cached = await supabase.storage.from("cache").download(`${key}.json`);
-
+  const cached = await supabase.storage
+    .from('cache')
+    .download(`${key}.json`);
+  
   if (cached.data) {
     const data = JSON.parse(await cached.data.text());
     if (Date.now() - data.timestamp < ttl * 1000) {
       return data.value;
     }
   }
-
+  
   // Cache Miss → Neu laden
   const value = await fetchFn();
-
-  await supabase.storage.from("cache").upload(
-    `${key}.json`,
-    JSON.stringify({
+  
+  await supabase.storage
+    .from('cache')
+    .upload(`${key}.json`, JSON.stringify({
       value,
       timestamp: Date.now(),
-    }),
-    { upsert: true }
-  );
-
+    }), { upsert: true });
+  
   return value;
 };
 ```

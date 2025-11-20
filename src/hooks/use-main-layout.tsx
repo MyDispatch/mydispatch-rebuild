@@ -4,8 +4,8 @@
    Provides sidebar expansion state to all components
    ================================================================================== */
 
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface MainLayoutState {
   sidebarExpanded: boolean;
@@ -21,7 +21,7 @@ export const useMainLayout = create<MainLayoutState>()(
       toggleSidebar: () => set((state) => ({ sidebarExpanded: !state.sidebarExpanded })),
     }),
     {
-      name: "main-layout-storage",
+      name: 'main-layout-storage',
     }
   )
 );

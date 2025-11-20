@@ -7,7 +7,7 @@
    ✅ Type-Safe Props
    ================================================================================== */
 
-import React from "react";
+import React from 'react';
 import {
   Dialog,
   DialogContent,
@@ -15,11 +15,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/lib/compat";
-import { V28Button } from "@/components/design-system/V28Button";
-import { SafeIcon } from "@/components/base/SafeIcon";
-import { X, Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+} from '@/lib/compat';
+import { V28Button } from '@/components/design-system/V28Button';
+import { SafeIcon } from '@/components/base/SafeIcon';
+import { X, Loader2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 // ==================================================================================
 // TYPES
@@ -29,32 +29,32 @@ export interface UnifiedDialogProps {
   // Visibility
   open: boolean;
   onOpenChange: (open: boolean) => void;
-
+  
   // Content
   title: string;
   description?: string;
   children: React.ReactNode;
-
+  
   // Footer Actions
   primaryAction?: {
     label: string;
     onClick: () => void | Promise<void>;
-    variant?: "default" | "destructive";
+    variant?: 'default' | 'destructive';
     disabled?: boolean;
   };
   secondaryAction?: {
     label: string;
     onClick: () => void;
   };
-
+  
   // State
   isLoading?: boolean;
   loadingText?: string;
-
+  
   // Styling
-  size?: "sm" | "md" | "lg" | "xl" | "full";
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
   className?: string;
-
+  
   // Behavior
   closeOnOutsideClick?: boolean;
   showCloseButton?: boolean;
@@ -65,11 +65,11 @@ export interface UnifiedDialogProps {
 // ==================================================================================
 
 const SIZE_MAP = {
-  sm: "max-w-sm", // 384px
-  md: "max-w-md", // 448px
-  lg: "max-w-lg", // 512px
-  xl: "max-w-xl", // 576px
-  full: "max-w-full", // Fullscreen mobile
+  sm: 'max-w-sm',     // 384px
+  md: 'max-w-md',     // 448px
+  lg: 'max-w-lg',     // 512px
+  xl: 'max-w-xl',     // 576px
+  full: 'max-w-full', // Fullscreen mobile
 } as const;
 
 // ==================================================================================
@@ -85,23 +85,31 @@ export function UnifiedDialog({
   primaryAction,
   secondaryAction,
   isLoading = false,
-  loadingText = "Wird verarbeitet...",
-  size = "md",
+  loadingText = 'Wird verarbeitet...',
+  size = 'md',
   className,
   closeOnOutsideClick = true,
   showCloseButton = true,
 }: UnifiedDialogProps) {
+  
   // Handle primary action with loading state
   const handlePrimaryAction = async () => {
     if (primaryAction && !isLoading) {
       await primaryAction.onClick();
     }
   };
-
+  
   return (
-    <Dialog open={open} onOpenChange={closeOnOutsideClick ? onOpenChange : undefined}>
-      <DialogContent
-        className={cn(SIZE_MAP[size], "max-h-[90vh] overflow-y-auto", className)}
+    <Dialog 
+      open={open} 
+      onOpenChange={closeOnOutsideClick ? onOpenChange : undefined}
+    >
+      <DialogContent 
+        className={cn(
+          SIZE_MAP[size],
+          'max-h-[90vh] overflow-y-auto',
+          className
+        )}
         onPointerDownOutside={(e) => {
           if (!closeOnOutsideClick) {
             e.preventDefault();
@@ -110,27 +118,29 @@ export function UnifiedDialog({
       >
         {/* Header */}
         <DialogHeader className="relative">
-          <DialogTitle className="text-xl font-semibold text-foreground pr-8">{title}</DialogTitle>
-
+          <DialogTitle className="text-xl font-semibold text-foreground pr-8">
+            {title}
+          </DialogTitle>
+          
           {description && (
             <DialogDescription className="text-sm text-muted-foreground">
               {description}
             </DialogDescription>
           )}
-
+          
           {/* Custom Close Button (oben rechts) */}
           {showCloseButton && (
             <button
               onClick={() => onOpenChange(false)}
               disabled={isLoading}
               className={cn(
-                "absolute right-0 top-0",
-                "rounded-sm opacity-70",
-                "ring-offset-background transition-opacity",
-                "hover:opacity-100",
-                "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-                "disabled:pointer-events-none",
-                isLoading && "opacity-50 cursor-not-allowed"
+                'absolute right-0 top-0',
+                'rounded-sm opacity-70',
+                'ring-offset-background transition-opacity',
+                'hover:opacity-100',
+                'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+                'disabled:pointer-events-none',
+                isLoading && 'opacity-50 cursor-not-allowed'
               )}
               aria-label="Dialog schließen"
             >
@@ -138,19 +148,23 @@ export function UnifiedDialog({
             </button>
           )}
         </DialogHeader>
-
+        
         {/* Content */}
         <div className="py-4">
           {isLoading ? (
             <div className="flex flex-col items-center justify-center py-8 space-y-4">
-              <SafeIcon icon={Loader2} size="xl" className="animate-spin text-primary" />
+              <SafeIcon 
+                icon={Loader2} 
+                size="xl" 
+                className="animate-spin text-primary" 
+              />
               <p className="text-sm text-muted-foreground">{loadingText}</p>
             </div>
           ) : (
             children
           )}
         </div>
-
+        
         {/* Footer (nur wenn Actions definiert) */}
         {(primaryAction || secondaryAction) && (
           <DialogFooter className="flex flex-col sm:flex-row gap-2 sm:gap-3">
@@ -166,19 +180,23 @@ export function UnifiedDialog({
                 {secondaryAction.label}
               </V28Button>
             )}
-
+            
             {/* Primary Action (Save/Confirm) */}
             {primaryAction && (
               <V28Button
                 type="button"
-                variant={primaryAction.variant === "destructive" ? "destructive" : "primary"}
+                variant={primaryAction.variant === 'destructive' ? 'destructive' : 'primary'}
                 onClick={handlePrimaryAction}
                 disabled={primaryAction.disabled || isLoading}
                 className="w-full sm:w-auto"
               >
                 {isLoading ? (
                   <>
-                    <SafeIcon icon={Loader2} size="sm" className="mr-2 animate-spin" />
+                    <SafeIcon 
+                      icon={Loader2} 
+                      size="sm" 
+                      className="mr-2 animate-spin" 
+                    />
                     {loadingText}
                   </>
                 ) : (
@@ -205,7 +223,7 @@ export interface ConfirmDialogProps {
   confirmLabel?: string;
   cancelLabel?: string;
   onConfirm: () => void | Promise<void>;
-  variant?: "default" | "destructive";
+  variant?: 'default' | 'destructive';
   isLoading?: boolean;
 }
 
@@ -214,10 +232,10 @@ export function ConfirmDialog({
   onOpenChange,
   title,
   description,
-  confirmLabel = "Bestätigen",
-  cancelLabel = "Abbrechen",
+  confirmLabel = 'Bestätigen',
+  cancelLabel = 'Abbrechen',
   onConfirm,
-  variant = "default",
+  variant = 'default',
   isLoading = false,
 }: ConfirmDialogProps) {
   return (

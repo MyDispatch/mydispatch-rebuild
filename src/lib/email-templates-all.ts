@@ -6,13 +6,8 @@
    Autor: NeXify AI MASTER
    ================================================================================== */
 
-import { EmailTemplate, CompanyBranding } from "./email-templates-branded";
-import {
-  passwordResetTemplateBranded,
-  registrationConfirmTemplateBranded,
-  bookingConfirmationTemplateBranded,
-  invoiceEmailTemplateBranded,
-} from "./email-templates-branded";
+import { EmailTemplate, CompanyBranding } from './email-templates-branded';
+import { passwordResetTemplateBranded, registrationConfirmTemplateBranded, bookingConfirmationTemplateBranded, invoiceEmailTemplateBranded } from './email-templates-branded';
 
 /**
  * Email Verification Template (AUTH-03)
@@ -25,7 +20,7 @@ export function emailVerificationTemplateBranded(
   const content = `
     <h1>E-Mail-Adresse bestätigen</h1>
     <p>Hallo ${userName}! 👋</p>
-    <p>Vielen Dank für Ihre Registrierung bei ${branding.isWhiteLabel ? branding.companyName : "MyDispatch"}.</p>
+    <p>Vielen Dank für Ihre Registrierung bei ${branding.isWhiteLabel ? branding.companyName : 'MyDispatch'}.</p>
     <p>Bitte bestätigen Sie Ihre E-Mail-Adresse, um Ihr Konto zu aktivieren:</p>
     <a href="${verificationLink}" class="cta-button">E-Mail-Adresse bestätigen</a>
     <p style="color: #666; font-size: 14px; margin-top: 30px;">
@@ -35,14 +30,14 @@ export function emailVerificationTemplateBranded(
   `;
 
   return {
-    subject: `${branding.isWhiteLabel ? branding.companyName : "MyDispatch"} - E-Mail-Adresse bestätigen`,
+    subject: `${branding.isWhiteLabel ? branding.companyName : 'MyDispatch'} - E-Mail-Adresse bestätigen`,
     html: getEmailBaseTemplate(content, branding),
     text: `
 E-Mail-Adresse bestätigen
 
 Hallo ${userName},
 
-vielen Dank für Ihre Registrierung bei ${branding.isWhiteLabel ? branding.companyName : "MyDispatch"}.
+vielen Dank für Ihre Registrierung bei ${branding.isWhiteLabel ? branding.companyName : 'MyDispatch'}.
 
 Bitte bestätigen Sie Ihre E-Mail-Adresse:
 ${verificationLink}
@@ -192,7 +187,7 @@ export function bookingReminderTemplateBranded(
   `;
 
   return {
-    subject: `Erinnerung: Ihre Fahrt morgen - ${branding.isWhiteLabel ? branding.companyName : "MyDispatch"}`,
+    subject: `Erinnerung: Ihre Fahrt morgen - ${branding.isWhiteLabel ? branding.companyName : 'MyDispatch'}`,
     html: getEmailBaseTemplate(content, branding),
     text: `
 Erinnerung: Ihre Fahrt morgen
@@ -219,17 +214,14 @@ export function bookingCancellationTemplateBranded(
   refundAmount: string,
   branding: CompanyBranding
 ): EmailTemplate {
-  const cancellationFeeBox =
-    cancellationFee !== "0,00 €"
-      ? `
+  const cancellationFeeBox = cancellationFee !== '0,00 €' ? `
     <div class="warning-box">
       <p><strong>Stornogebühr:</strong> ${cancellationFee}</p>
       <p style="font-size: 14px; margin-top: 10px;">
         Da die Stornierung weniger als 24 Stunden vor der Abholung erfolgte, fällt eine Stornogebühr an.
       </p>
     </div>
-  `
-      : "";
+  ` : '';
 
   const content = `
     <h1>Buchung storniert</h1>
@@ -245,7 +237,7 @@ export function bookingCancellationTemplateBranded(
   `;
 
   return {
-    subject: `Buchung storniert - ${branding.isWhiteLabel ? branding.companyName : "MyDispatch"}`,
+    subject: `Buchung storniert - ${branding.isWhiteLabel ? branding.companyName : 'MyDispatch'}`,
     html: getEmailBaseTemplate(content, branding),
     text: `
 Buchung storniert
@@ -256,7 +248,7 @@ Ihre Buchung wurde erfolgreich storniert.
 
 Buchungsnummer: ${bookingId}
 Ursprüngliche Abholung: ${pickupTime}
-${cancellationFee !== "0,00 €" ? `Stornogebühr: ${cancellationFee}\n` : ""}
+${cancellationFee !== '0,00 €' ? `Stornogebühr: ${cancellationFee}\n` : ''}
 Rückerstattung: ${refundAmount}
     `.trim(),
   };
@@ -351,13 +343,11 @@ export function partnerRejectedTemplateBranded(
   branding: CompanyBranding,
   reason?: string
 ): EmailTemplate {
-  const reasonText = reason
-    ? `
+  const reasonText = reason ? `
     <div class="info-box">
       <p><strong>Grund:</strong> ${reason}</p>
     </div>
-  `
-    : "";
+  ` : '';
 
   const content = `
     <h1>Partner-Anfrage abgelehnt</h1>
@@ -376,7 +366,7 @@ Partner-Anfrage abgelehnt
 Hallo ${companyName},
 
 Ihre Partner-Anfrage an ${partnerCompanyName} wurde leider abgelehnt.
-${reason ? `\nGrund: ${reason}` : ""}
+${reason ? `\nGrund: ${reason}` : ''}
     `.trim(),
   };
 }
@@ -680,12 +670,10 @@ Aktive Kunden: ${reportData.activeCustomers}
 function getEmailBaseTemplate(content: string, branding: CompanyBranding): string {
   // This should be imported from email-templates-branded.ts
   // For now, we'll use a simplified version
-  const logoUrl = branding.logoUrl || "https://cdn.mydispatch.de/logo-white.png";
-  const primaryColor = branding.primaryColor || "#323D5E";
-  const accentColor = branding.primaryColor
-    ? adjustBrightness(branding.primaryColor, -20)
-    : "#856d4b";
-  const footerBrand = branding.isWhiteLabel ? branding.companyName : "MyDispatch";
+  const logoUrl = branding.logoUrl || 'https://cdn.mydispatch.de/logo-white.png';
+  const primaryColor = branding.primaryColor || '#323D5E';
+  const accentColor = branding.primaryColor ? adjustBrightness(branding.primaryColor, -20) : '#856d4b';
+  const footerBrand = branding.isWhiteLabel ? branding.companyName : 'MyDispatch';
 
   return `
 <!DOCTYPE html>
@@ -723,7 +711,7 @@ function getEmailBaseTemplate(content: string, branding: CompanyBranding): strin
     </div>
     <div class="footer">
       <p><strong>${footerBrand}</strong><br>
-      ${branding.isWhiteLabel ? "" : "MyDispatch GmbH | Musterstraße 123 | 12345 Musterstadt<br>"}
+      ${branding.isWhiteLabel ? '' : 'MyDispatch GmbH | Musterstraße 123 | 12345 Musterstadt<br>'}
       <a href="tel:+49123456789">+49 123 456 789</a> | <a href="mailto:info@mydispatch.de">info@mydispatch.de</a></p>
       <p style="margin-top: 20px; font-size: 12px;">
         Sie erhalten diese E-Mail, weil Sie bei ${footerBrand} registriert sind.<br>
@@ -737,10 +725,10 @@ function getEmailBaseTemplate(content: string, branding: CompanyBranding): strin
 }
 
 function adjustBrightness(hex: string, percent: number): string {
-  const num = parseInt(hex.replace("#", ""), 16);
+  const num = parseInt(hex.replace('#', ''), 16);
   const amt = Math.round(2.55 * percent);
   const R = Math.min(255, Math.max(0, (num >> 16) + amt));
-  const G = Math.min(255, Math.max(0, ((num >> 8) & 0x00ff) + amt));
-  const B = Math.min(255, Math.max(0, (num & 0x0000ff) + amt));
-  return "#" + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+  const G = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + amt));
+  const B = Math.min(255, Math.max(0, (num & 0x0000FF) + amt));
+  return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
 }

@@ -4,10 +4,10 @@
    Automatische Kategorisierung, Deduplication und Severity-Scoring
    ================================================================================== */
 
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from '@/integrations/supabase/client';
 
-export type ErrorSeverity = "critical" | "high" | "medium" | "low";
-export type ErrorCategory = "runtime" | "api" | "network" | "user" | "system";
+export type ErrorSeverity = 'critical' | 'high' | 'medium' | 'low';
+export type ErrorCategory = 'runtime' | 'api' | 'network' | 'user' | 'system';
 
 interface ErrorContext {
   component?: string;
@@ -40,11 +40,11 @@ class ErrorTracker {
   async trackError(
     error: Error | unknown,
     context: ErrorContext = {},
-    severity: ErrorSeverity = "medium"
+    severity: ErrorSeverity = 'medium'
   ): Promise<void> {
     const errorMessage = error instanceof Error ? error.message : String(error);
     const errorStack = error instanceof Error ? error.stack : undefined;
-
+    
     const trackedError: TrackedError = {
       message: errorMessage,
       stack: errorStack,
@@ -75,8 +75,8 @@ class ErrorTracker {
 
     // Log in Dev
     if (import.meta.env.DEV) {
-      const { logError } = await import("@/lib/logger");
-      logError("[ErrorTracker] Error tracked", trackedError as any);
+      const { logError } = await import('@/lib/logger');
+      logError('[ErrorTracker] Error tracked', trackedError as any);
     }
   }
 
@@ -91,14 +91,14 @@ class ErrorTracker {
   ): Promise<void> {
     const severity = this.getAPISeverity(statusCode);
     const errorMessage = `API Error: ${endpoint} returned ${statusCode}`;
-
+    
     await this.trackError(
       new Error(errorMessage),
       {
         ...context,
         endpoint,
         statusCode,
-        response: typeof response === "string" ? response : JSON.stringify(response),
+        response: typeof response === 'string' ? response : JSON.stringify(response),
       },
       severity
     );
@@ -113,15 +113,11 @@ class ErrorTracker {
     error: Error | unknown,
     context: ErrorContext = {}
   ): Promise<void> {
-    await this.trackError(
-      error,
-      {
-        ...context,
-        component,
-        action,
-      },
-      "medium"
-    );
+    await this.trackError(error, {
+      ...context,
+      component,
+      action,
+    }, 'medium');
   }
 
   /**
@@ -134,7 +130,7 @@ class ErrorTracker {
     recentErrors: TrackedError[];
   } {
     const errors = Array.from(this.errors.values());
-
+    
     const bySeverity: Record<ErrorSeverity, number> = {
       critical: 0,
       high: 0,
@@ -150,7 +146,7 @@ class ErrorTracker {
       system: 0,
     };
 
-    errors.forEach((err) => {
+    errors.forEach(err => {
       bySeverity[err.severity]++;
       byCategory[err.category]++;
     });
@@ -176,7 +172,7 @@ class ErrorTracker {
       }
     });
 
-    toDelete.forEach((hash) => {
+    toDelete.forEach(hash => {
       this.errors.delete(hash);
       this.errorCounts.delete(hash);
     });
@@ -186,44 +182,36 @@ class ErrorTracker {
 
   private categorizeError(message: string): ErrorCategory {
     const lowerMessage = message.toLowerCase();
-
-    if (lowerMessage.includes("api") || lowerMessage.includes("endpoint")) {
-      return "api";
+    
+    if (lowerMessage.includes('api') || lowerMessage.includes('endpoint')) {
+      return 'api';
     }
-    if (
-      lowerMessage.includes("network") ||
-      lowerMessage.includes("fetch") ||
-      lowerMessage.includes("timeout")
-    ) {
-      return "network";
+    if (lowerMessage.includes('network') || lowerMessage.includes('fetch') || lowerMessage.includes('timeout')) {
+      return 'network';
     }
-    if (
-      lowerMessage.includes("cannot read") ||
-      lowerMessage.includes("undefined") ||
-      lowerMessage.includes("null")
-    ) {
-      return "runtime";
+    if (lowerMessage.includes('cannot read') || lowerMessage.includes('undefined') || lowerMessage.includes('null')) {
+      return 'runtime';
     }
-    if (lowerMessage.includes("user") || lowerMessage.includes("permission")) {
-      return "user";
+    if (lowerMessage.includes('user') || lowerMessage.includes('permission')) {
+      return 'user';
     }
-
-    return "system";
+    
+    return 'system';
   }
 
   private getAPISeverity(statusCode: number): ErrorSeverity {
-    if (statusCode >= 500) return "critical";
-    if (statusCode === 429) return "high";
-    if (statusCode >= 400) return "medium";
-    return "low";
+    if (statusCode >= 500) return 'critical';
+    if (statusCode === 429) return 'high';
+    if (statusCode >= 400) return 'medium';
+    return 'low';
   }
 
   private generateHash(message: string, component?: string): string {
-    const str = `${message}-${component || "unknown"}`;
+    const str = `${message}-${component || 'unknown'}`;
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
-      hash = (hash << 5) - hash + char;
+      hash = ((hash << 5) - hash) + char;
       hash = hash & hash;
     }
     return Math.abs(hash).toString(36);
@@ -232,9 +220,9 @@ class ErrorTracker {
   private isDuplicate(error: TrackedError): boolean {
     const existing = this.errors.get(error.hash);
     if (!existing) return false;
-
+    
     // Consider duplicate if within dedup window
-    return error.timestamp - existing.timestamp < this.DEDUP_WINDOW;
+    return (error.timestamp - existing.timestamp) < this.DEDUP_WINDOW;
   }
 
   private incrementErrorCount(hash: string): void {
@@ -244,14 +232,14 @@ class ErrorTracker {
 
   private async logToSupabase(error: TrackedError): Promise<void> {
     try {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      const { data: profile } = user
-        ? await supabase.from("profiles").select("company_id").eq("user_id", user.id).single()
-        : { data: null };
+      const { data: { user } } = await supabase.auth.getUser();
+      const { data: profile } = user ? await supabase
+        .from('profiles')
+        .select('company_id')
+        .eq('user_id', user.id)
+        .single() : { data: null };
 
-      await supabase.from("system_logs").insert({
+      await supabase.from('system_logs').insert({
         level: this.severityToLogLevel(error.severity),
         message: `[${error.category.toUpperCase()}] ${error.message}`,
         context: {
@@ -267,16 +255,16 @@ class ErrorTracker {
     } catch (err) {
       // Silent fail - don't create error loop
       if (import.meta.env.DEV) {
-        const { logError } = await import("@/lib/logger");
-        logError("[ErrorTracker] Failed to log to Supabase", err as Error);
+        const { logError } = await import('@/lib/logger');
+        logError('[ErrorTracker] Failed to log to Supabase', err as Error);
       }
     }
   }
 
-  private severityToLogLevel(severity: ErrorSeverity): "error" | "warn" | "info" {
-    if (severity === "critical" || severity === "high") return "error";
-    if (severity === "medium") return "warn";
-    return "info";
+  private severityToLogLevel(severity: ErrorSeverity): 'error' | 'warn' | 'info' {
+    if (severity === 'critical' || severity === 'high') return 'error';
+    if (severity === 'medium') return 'warn';
+    return 'info';
   }
 }
 
@@ -284,25 +272,14 @@ class ErrorTracker {
 export const errorTracker = new ErrorTracker();
 
 // Convenience exports
-export const trackError = (
-  error: Error | unknown,
-  context?: ErrorContext,
-  severity?: ErrorSeverity
-) => errorTracker.trackError(error, context, severity);
+export const trackError = (error: Error | unknown, context?: ErrorContext, severity?: ErrorSeverity) =>
+  errorTracker.trackError(error, context, severity);
 
-export const trackAPIError = (
-  endpoint: string,
-  statusCode: number,
-  response: any,
-  context?: ErrorContext
-) => errorTracker.trackAPIError(endpoint, statusCode, response, context);
+export const trackAPIError = (endpoint: string, statusCode: number, response: any, context?: ErrorContext) =>
+  errorTracker.trackAPIError(endpoint, statusCode, response, context);
 
-export const trackUIError = (
-  component: string,
-  action: string,
-  error: Error | unknown,
-  context?: ErrorContext
-) => errorTracker.trackUIError(component, action, error, context);
+export const trackUIError = (component: string, action: string, error: Error | unknown, context?: ErrorContext) =>
+  errorTracker.trackUIError(component, action, error, context);
 
 export const getErrorStats = () => errorTracker.getErrorStats();
 

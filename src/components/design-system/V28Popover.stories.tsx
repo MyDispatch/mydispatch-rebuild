@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { V28Popover } from "./V28Popover";
-import { V28Button } from "./V28Button";
-import { Calendar, Settings } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { V28Popover } from './V28Popover';
+import { V28Button } from './V28Button';
+import { Calendar, Settings } from 'lucide-react';
 
 const meta: Meta<typeof V28Popover> = {
-  title: "Design System/Atoms/V28Popover",
+  title: 'Design System/Atoms/V28Popover',
   component: V28Popover,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     side: {
-      control: "select",
-      options: ["top", "right", "bottom", "left"],
+      control: 'select',
+      options: ['top', 'right', 'bottom', 'left'],
     },
     align: {
-      control: "select",
-      options: ["start", "center", "end"],
+      control: 'select',
+      options: ['start', 'center', 'end'],
     },
   },
 };
@@ -64,19 +64,31 @@ export const WithList: Story = {
 export const Positions: Story = {
   render: () => (
     <div className="flex items-center justify-center gap-8 p-12">
-      <V28Popover content={<p className="text-sm">Inhalt links</p>} side="left">
+      <V28Popover
+        content={<p className="text-sm">Inhalt links</p>}
+        side="left"
+      >
         <V28Button variant="secondary">Links</V28Button>
       </V28Popover>
 
-      <V28Popover content={<p className="text-sm">Inhalt oben</p>} side="top">
+      <V28Popover
+        content={<p className="text-sm">Inhalt oben</p>}
+        side="top"
+      >
         <V28Button variant="secondary">Oben</V28Button>
       </V28Popover>
 
-      <V28Popover content={<p className="text-sm">Inhalt unten</p>} side="bottom">
+      <V28Popover
+        content={<p className="text-sm">Inhalt unten</p>}
+        side="bottom"
+      >
         <V28Button variant="secondary">Unten</V28Button>
       </V28Popover>
 
-      <V28Popover content={<p className="text-sm">Inhalt rechts</p>} side="right">
+      <V28Popover
+        content={<p className="text-sm">Inhalt rechts</p>}
+        side="right"
+      >
         <V28Button variant="secondary">Rechts</V28Button>
       </V28Popover>
     </div>
@@ -99,7 +111,10 @@ export const FilterOptions: Story = {
           </div>
           <div>
             <label className="text-sm font-medium">Zeitraum</label>
-            <input type="date" className="mt-1 w-full rounded border px-2 py-1 text-sm" />
+            <input
+              type="date"
+              className="mt-1 w-full rounded border px-2 py-1 text-sm"
+            />
           </div>
           <V28Button size="sm" fullWidth>
             Filter anwenden

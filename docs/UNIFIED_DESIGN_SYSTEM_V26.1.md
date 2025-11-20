@@ -18,13 +18,12 @@ Dieses Dokument definiert das **einheitliche Design-System** für MyDispatch, da
 ## 📋 DESIGN-TOKEN ÜBERSICHT
 
 ### Import
-
 ```typescript
-import {
+import { 
   UNIFIED_DESIGN_TOKENS,
   getCardStyle,
-  getPanelStyle,
-} from "@/lib/design-system/unified-design-tokens";
+  getPanelStyle 
+} from '@/lib/design-system/unified-design-tokens';
 ```
 
 ---
@@ -32,9 +31,7 @@ import {
 ## 🔲 1. BORDER SYSTEM
 
 ### Standard Border
-
 **MANDATORY:** Alle Cards/Panels verwenden diese Border:
-
 ```typescript
 {
   border: '2px solid',
@@ -43,16 +40,14 @@ import {
 ```
 
 ### Border Varianten
-
-| Use Case        | Width | Color      | Verwendung          |
-| --------------- | ----- | ---------- | ------------------- |
-| Standard Card   | `2px` | `beige_20` | Alle Cards, Panels  |
-| Hover Card      | `2px` | `beige_40` | Card Hover-State    |
-| Hero Element    | `3px` | `beige_25` | Map, große Elemente |
-| Section Divider | `2px` | `beige_30` | Header-Trenner      |
+| Use Case | Width | Color | Verwendung |
+|----------|-------|-------|------------|
+| Standard Card | `2px` | `beige_20` | Alle Cards, Panels |
+| Hover Card | `2px` | `beige_40` | Card Hover-State |
+| Hero Element | `3px` | `beige_25` | Map, große Elemente |
+| Section Divider | `2px` | `beige_30` | Header-Trenner |
 
 ### Code-Beispiele
-
 ```typescript
 // Standard Card Border
 import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens';
@@ -62,7 +57,7 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 </div>
 
 // Hover State
-<div
+<div 
   style={UNIFIED_DESIGN_TOKENS.border.styles.card_standard}
   onMouseEnter={(e) => {
     Object.assign(e.currentTarget.style, UNIFIED_DESIGN_TOKENS.border.styles.card_hover);
@@ -80,21 +75,19 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 ## 🔘 2. RADIUS SYSTEM
 
 ### Standard Rundungen
-
 **MANDATORY:** Einheitliche Rundungen für alle Komponenten:
 
-| Component  | Radius | Pixel  | Verwendung     |
-| ---------- | ------ | ------ | -------------- |
-| Card/Panel | `md`   | `12px` | Alle Cards     |
-| Button     | `md`   | `12px` | Alle Buttons   |
-| Input      | `sm`   | `8px`  | Input-Felder   |
-| Badge      | `sm`   | `8px`  | Status-Badges  |
-| Icon Box   | `md`   | `12px` | Icon-Container |
-| Modal      | `lg`   | `16px` | Dialogs/Modals |
-| Hero Map   | `lg`   | `16px` | Map Container  |
+| Component | Radius | Pixel | Verwendung |
+|-----------|--------|-------|------------|
+| Card/Panel | `md` | `12px` | Alle Cards |
+| Button | `md` | `12px` | Alle Buttons |
+| Input | `sm` | `8px` | Input-Felder |
+| Badge | `sm` | `8px` | Status-Badges |
+| Icon Box | `md` | `12px` | Icon-Container |
+| Modal | `lg` | `16px` | Dialogs/Modals |
+| Hero Map | `lg` | `16px` | Map Container |
 
 ### Code-Beispiele
-
 ```typescript
 import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens';
 
@@ -119,33 +112,30 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 ## 🌑 3. SHADOW SYSTEM
 
 ### Standard Shadows
-
 **MANDATORY:** Konsistente Schatten für Tiefenwirkung:
 
-| Component      | Shadow           | Verwendung         |
-| -------------- | ---------------- | ------------------ |
-| Card Standard  | `card_standard`  | Default Card State |
-| Card Hover     | `card_hover`     | Hover State        |
-| Sidebar Panel  | `panel_sidebar`  | Linke Sidebar      |
-| Info Panel     | `panel_info`     | Untere Info-Leiste |
-| Hero Map       | `hero_map`       | Karten-Container   |
-| Icon Box       | `icon_box`       | Icon-Container     |
-| Status Success | `status_success` | Erfolgs-Glow       |
-| Status Error   | `status_error`   | Fehler-Glow        |
+| Component | Shadow | Verwendung |
+|-----------|--------|------------|
+| Card Standard | `card_standard` | Default Card State |
+| Card Hover | `card_hover` | Hover State |
+| Sidebar Panel | `panel_sidebar` | Linke Sidebar |
+| Info Panel | `panel_info` | Untere Info-Leiste |
+| Hero Map | `hero_map` | Karten-Container |
+| Icon Box | `icon_box` | Icon-Container |
+| Status Success | `status_success` | Erfolgs-Glow |
+| Status Error | `status_error` | Fehler-Glow |
 
 ### Multi-Layer Shadow (Hero Map)
-
 ```typescript
 boxShadow: `
   0 0 40px rgba(234, 222, 189, 0.15),
   0 20px 60px rgba(50, 61, 94, 0.12),
   0 30px 80px rgba(0, 0, 0, 0.08),
   0 0 0 1px rgba(234, 222, 189, 0.08)
-`;
+`
 ```
 
 ### Code-Beispiele
-
 ```typescript
 import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens';
 
@@ -155,7 +145,7 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 }}>
 
 // Card mit Hover
-<div
+<div 
   style={{
     boxShadow: UNIFIED_DESIGN_TOKENS.shadow.component.card_standard,
   }}
@@ -173,19 +163,17 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 ## 📏 4. SPACING SYSTEM
 
 ### Standard Abstände
-
 **MANDATORY:** Konsistente Abstände zwischen Elementen:
 
-| Use Case           | Spacing | Pixel  | Verwendung                 |
-| ------------------ | ------- | ------ | -------------------------- |
-| Card Padding       | `lg`    | `16px` | Standard Card Innenabstand |
-| Card Padding Small | `md`    | `12px` | Kompakte Cards             |
-| Gap Cards          | `lg`    | `16px` | Abstand zwischen Cards     |
-| Gap Sections       | `xl`    | `24px` | Abstand zwischen Sections  |
-| Gap Inline         | `md`    | `12px` | Icon + Text                |
+| Use Case | Spacing | Pixel | Verwendung |
+|----------|---------|-------|------------|
+| Card Padding | `lg` | `16px` | Standard Card Innenabstand |
+| Card Padding Small | `md` | `12px` | Kompakte Cards |
+| Gap Cards | `lg` | `16px` | Abstand zwischen Cards |
+| Gap Sections | `xl` | `24px` | Abstand zwischen Sections |
+| Gap Inline | `md` | `12px` | Icon + Text |
 
 ### Code-Beispiele
-
 ```typescript
 import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens';
 
@@ -212,67 +200,58 @@ import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens
 ## 🎨 5. ICON MAPPING SYSTEM
 
 ### Konsistente Icon-Nutzung
-
 **MANDATORY:** Diese Icons für diese Bedeutungen verwenden:
 
 #### Aufträge & Buchungen
-
-| Bedeutung          | Icon          | Lucide Import                                |
-| ------------------ | ------------- | -------------------------------------------- |
-| Aufträge allgemein | `FileText`    | `import { FileText } from 'lucide-react'`    |
-| Neuer Auftrag      | `Plus`        | `import { Plus } from 'lucide-react'`        |
-| Bestätigt          | `CheckCircle` | `import { CheckCircle } from 'lucide-react'` |
-| Geplant            | `Calendar`    | `import { Calendar } from 'lucide-react'`    |
+| Bedeutung | Icon | Lucide Import |
+|-----------|------|---------------|
+| Aufträge allgemein | `FileText` | `import { FileText } from 'lucide-react'` |
+| Neuer Auftrag | `Plus` | `import { Plus } from 'lucide-react'` |
+| Bestätigt | `CheckCircle` | `import { CheckCircle } from 'lucide-react'` |
+| Geplant | `Calendar` | `import { Calendar } from 'lucide-react'` |
 
 #### Kunden
-
-| Bedeutung        | Icon       | Lucide Import                             |
-| ---------------- | ---------- | ----------------------------------------- |
-| Kunden allgemein | `Users`    | `import { Users } from 'lucide-react'`    |
-| Neuer Kunde      | `UserPlus` | `import { UserPlus } from 'lucide-react'` |
-| Kundenprofil     | `User`     | `import { User } from 'lucide-react'`     |
+| Bedeutung | Icon | Lucide Import |
+|-----------|------|---------------|
+| Kunden allgemein | `Users` | `import { Users } from 'lucide-react'` |
+| Neuer Kunde | `UserPlus` | `import { UserPlus } from 'lucide-react'` |
+| Kundenprofil | `User` | `import { User } from 'lucide-react'` |
 
 #### Fahrzeuge
-
-| Bedeutung | Icon       | Lucide Import                             |
-| --------- | ---------- | ----------------------------------------- |
-| Fahrzeuge | `Car`      | `import { Car } from 'lucide-react'`      |
-| Aktiv     | `Activity` | `import { Activity } from 'lucide-react'` |
+| Bedeutung | Icon | Lucide Import |
+|-----------|------|---------------|
+| Fahrzeuge | `Car` | `import { Car } from 'lucide-react'` |
+| Aktiv | `Activity` | `import { Activity } from 'lucide-react'` |
 
 #### Finanzen
-
-| Bedeutung | Icon         | Lucide Import                               |
-| --------- | ------------ | ------------------------------------------- |
-| Umsatz    | `Euro`       | `import { Euro } from 'lucide-react'`       |
-| Rechnung  | `Receipt`    | `import { Receipt } from 'lucide-react'`    |
-| Zahlung   | `CreditCard` | `import { CreditCard } from 'lucide-react'` |
+| Bedeutung | Icon | Lucide Import |
+|-----------|------|---------------|
+| Umsatz | `Euro` | `import { Euro } from 'lucide-react'` |
+| Rechnung | `Receipt` | `import { Receipt } from 'lucide-react'` |
+| Zahlung | `CreditCard` | `import { CreditCard } from 'lucide-react'` |
 
 #### Navigation
-
-| Bedeutung  | Icon         | Lucide Import                               |
-| ---------- | ------------ | ------------------------------------------- |
-| Standort   | `MapPin`     | `import { MapPin } from 'lucide-react'`     |
+| Bedeutung | Icon | Lucide Import |
+|-----------|------|---------------|
+| Standort | `MapPin` | `import { MapPin } from 'lucide-react'` |
 | Navigation | `Navigation` | `import { Navigation } from 'lucide-react'` |
-| Karte      | `Map`        | `import { Map } from 'lucide-react'`        |
+| Karte | `Map` | `import { Map } from 'lucide-react'` |
 
 #### Zeit & Datum
-
-| Bedeutung | Icon       | Lucide Import                             |
-| --------- | ---------- | ----------------------------------------- |
-| Uhrzeit   | `Clock`    | `import { Clock } from 'lucide-react'`    |
-| Datum     | `Calendar` | `import { Calendar } from 'lucide-react'` |
+| Bedeutung | Icon | Lucide Import |
+|-----------|------|---------------|
+| Uhrzeit | `Clock` | `import { Clock } from 'lucide-react'` |
+| Datum | `Calendar` | `import { Calendar } from 'lucide-react'` |
 
 #### Status
-
-| Bedeutung   | Icon            | Lucide Import                                  |
-| ----------- | --------------- | ---------------------------------------------- |
-| Erfolgreich | `CheckCircle`   | `import { CheckCircle } from 'lucide-react'`   |
-| Warnung     | `AlertTriangle` | `import { AlertTriangle } from 'lucide-react'` |
-| Fehler      | `XCircle`       | `import { XCircle } from 'lucide-react'`       |
-| Info        | `Info`          | `import { Info } from 'lucide-react'`          |
+| Bedeutung | Icon | Lucide Import |
+|-----------|------|---------------|
+| Erfolgreich | `CheckCircle` | `import { CheckCircle } from 'lucide-react'` |
+| Warnung | `AlertTriangle` | `import { AlertTriangle } from 'lucide-react'` |
+| Fehler | `XCircle` | `import { XCircle } from 'lucide-react'` |
+| Info | `Info` | `import { Info } from 'lucide-react'` |
 
 ### Code-Beispiel
-
 ```typescript
 import { FileText } from 'lucide-react';
 import { UNIFIED_DESIGN_TOKENS } from '@/lib/design-system/unified-design-tokens';
@@ -288,45 +267,41 @@ const iconName = UNIFIED_DESIGN_TOKENS.icons.booking; // 'FileText'
 ## 📐 6. LAYOUT POSITIONING SYSTEM
 
 ### Sidebar
-
 ```typescript
 // Collapsed
-width: "80px";
-transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)";
+width: '80px'
+transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)'
 
 // Expanded
-width: "384px";
-transition: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)";
+width: '384px'
+transition: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)'
 ```
 
 ### Header
-
 ```typescript
-height: "64px";
-padding: "1rem 1.5rem";
+height: '64px'
+padding: '1rem 1.5rem'
 ```
 
 ### Footer/Info Panel
-
 ```typescript
-height: "48px";
-padding: "1rem 1.5rem";
+height: '48px'
+padding: '1rem 1.5rem'
 ```
 
 ### Content Area
-
 ```typescript
 // Mobile
-padding: "1rem";
+padding: '1rem'
 
 // Tablet
-padding: "1.5rem";
+padding: '1.5rem'
 
 // Desktop
-padding: "2rem";
+padding: '2rem'
 
 // Max Width
-maxWidth: "1920px";
+maxWidth: '1920px'
 ```
 
 ---
@@ -334,7 +309,6 @@ maxWidth: "1920px";
 ## 🚀 HELPER FUNCTIONS
 
 ### Quick Card Style
-
 ```typescript
 import { getCardStyle } from '@/lib/design-system/unified-design-tokens';
 
@@ -355,7 +329,6 @@ import { getCardStyle } from '@/lib/design-system/unified-design-tokens';
 ```
 
 ### Quick Panel Style
-
 ```typescript
 import { getPanelStyle } from '@/lib/design-system/unified-design-tokens';
 
@@ -391,13 +364,11 @@ Vor jedem Commit MUSS geprüft werden:
 ## 📚 REFERENZEN
 
 ### Dateien
-
 - **Token-System:** `src/lib/design-system/unified-design-tokens.ts`
 - **Basis-Farben:** `src/lib/design-system/pricing-colors.ts`
 - **V26.1 Tokens:** `src/lib/design-system/v26-1-tokens.ts`
 
 ### Dokumentation
-
 - **Design-System:** `docs/DESIGN_SYSTEM_FINAL_V26.md`
 - **UI-Library:** `docs/UI_LIBRARY_SYSTEM_V18.5.0.md`
 - **Qualitäts-Standards:** `docs/QUALITAETS_STANDARDS_V18.5.0.md`
@@ -409,7 +380,6 @@ Vor jedem Commit MUSS geprüft werden:
 ### Bestehende Komponenten Migrieren
 
 **Vorher:**
-
 ```typescript
 <div className="rounded-xl border-2 border-primary/20 shadow-lg">
   Content
@@ -417,7 +387,6 @@ Vor jedem Commit MUSS geprüft werden:
 ```
 
 **Nachher:**
-
 ```typescript
 import { getCardStyle } from '@/lib/design-system/unified-design-tokens';
 
@@ -427,7 +396,6 @@ import { getCardStyle } from '@/lib/design-system/unified-design-tokens';
 ```
 
 ### Prüfung
-
 ```bash
 # Suche nach alten Patterns
 grep -r "rounded-xl" src/components/

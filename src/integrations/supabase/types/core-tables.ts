@@ -79,7 +79,7 @@ export interface Company {
   updated_at?: string;
 }
 
-export type CompanyInsert = Omit<Company, "id" | "created_at" | "updated_at">;
+export type CompanyInsert = Omit<Company, 'id' | 'created_at' | 'updated_at'>;
 export type CompanyUpdate = Partial<CompanyInsert>;
 
 // ==================================================================================
@@ -105,7 +105,7 @@ export interface Profile {
   updated_at?: string;
 }
 
-export type ProfileInsert = Omit<Profile, "id" | "created_at" | "updated_at" | "companies">;
+export type ProfileInsert = Omit<Profile, 'id' | 'created_at' | 'updated_at' | 'companies'>;
 export type ProfileUpdate = Partial<ProfileInsert>;
 
 // ==================================================================================
@@ -123,7 +123,7 @@ export interface Booking {
   pickup_location: string;
   dropoff_location: string;
   pickup_time?: string | null;
-  status: "pending" | "confirmed" | "in_progress" | "completed" | "cancelled";
+  status: 'pending' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled';
 
   // Pricing
   price?: number | null;
@@ -140,7 +140,7 @@ export interface Booking {
   updated_at?: string;
 }
 
-export type BookingInsert = Omit<Booking, "id" | "created_at" | "updated_at">;
+export type BookingInsert = Omit<Booking, 'id' | 'created_at' | 'updated_at'>;
 export type BookingUpdate = Partial<BookingInsert>;
 
 // ==================================================================================
@@ -160,8 +160,8 @@ export interface Driver {
   license_number?: string | null;
 
   // Status
-  shift_status?: "available" | "busy" | "offline" | null;
-  status?: "active" | "inactive" | null;
+  shift_status?: 'available' | 'busy' | 'offline' | null;
+  status?: 'active' | 'inactive' | null;
 
   // GPS
   current_lat?: number | null;
@@ -172,7 +172,7 @@ export interface Driver {
   updated_at?: string;
 }
 
-export type DriverInsert = Omit<Driver, "id" | "created_at" | "updated_at">;
+export type DriverInsert = Omit<Driver, 'id' | 'created_at' | 'updated_at'>;
 export type DriverUpdate = Partial<DriverInsert>;
 
 // ==================================================================================
@@ -190,7 +190,7 @@ export interface Vehicle {
   year?: number | null;
 
   // Status
-  status?: "available" | "in_use" | "maintenance" | null;
+  status?: 'available' | 'in_use' | 'maintenance' | null;
 
   // Capacity
   seats?: number | null;
@@ -200,7 +200,7 @@ export interface Vehicle {
   updated_at?: string;
 }
 
-export type VehicleInsert = Omit<Vehicle, "id" | "created_at" | "updated_at">;
+export type VehicleInsert = Omit<Vehicle, 'id' | 'created_at' | 'updated_at'>;
 export type VehicleUpdate = Partial<VehicleInsert>;
 
 // ==================================================================================
@@ -231,7 +231,7 @@ export interface Tariff {
   updated_at?: string;
 }
 
-export type TariffInsert = Omit<Tariff, "id" | "created_at" | "updated_at">;
+export type TariffInsert = Omit<Tariff, 'id' | 'created_at' | 'updated_at'>;
 export type TariffUpdate = Partial<TariffInsert>;
 
 // ==================================================================================
@@ -255,7 +255,7 @@ export interface APIKey {
   updated_at?: string;
 }
 
-export type APIKeyInsert = Omit<APIKey, "id" | "created_at" | "updated_at">;
+export type APIKeyInsert = Omit<APIKey, 'id' | 'created_at' | 'updated_at'>;
 export type APIKeyUpdate = Partial<APIKeyInsert>;
 
 // ==================================================================================
@@ -264,13 +264,13 @@ export type APIKeyUpdate = Partial<APIKeyInsert>;
 
 // Re-export core tables for convenience
 export const CORE_TABLES = [
-  "companies",
-  "profiles",
-  "bookings",
-  "drivers",
-  "vehicles",
-  "tariffs",
-  "api_keys",
+  'companies',
+  'profiles',
+  'bookings',
+  'drivers',
+  'vehicles',
+  'tariffs',
+  'api_keys',
 ] as const;
 
-export type CoreTableName = (typeof CORE_TABLES)[number];
+export type CoreTableName = typeof CORE_TABLES[number];

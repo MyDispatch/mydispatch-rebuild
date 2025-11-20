@@ -9,113 +9,35 @@
 
 import {
   // Navigation
-  Home,
-  FileText,
-  Users,
-  Car,
-  Calendar,
-  Receipt,
-  Euro,
-  FolderOpen,
-  Handshake,
-  TrendingUp,
-  Building2,
-  MessageSquare,
-  Mail,
-  Settings,
-
+  Home, FileText, Users, Car, Calendar, Receipt, Euro, FolderOpen,
+  Handshake, TrendingUp, Building2, MessageSquare, Mail, Settings,
+  
   // Actions
-  Plus,
-  Edit,
-  Trash2,
-  Save,
-  X,
-  Check,
-  Download,
-  Upload,
-  Send,
-  Copy,
-  RefreshCw,
-  Search,
-  Filter,
-  MoreHorizontal,
-  ChevronDown,
-  ChevronUp,
-  ChevronLeft,
-  ChevronRight,
-  ExternalLink,
-  Eye,
-  EyeOff,
-
+  Plus, Edit, Trash2, Save, X, Check, Download, Upload, Send, Copy,
+  RefreshCw, Search, Filter, MoreHorizontal, ChevronDown, ChevronUp,
+  ChevronLeft, ChevronRight, ExternalLink, Eye, EyeOff,
+  
   // Status & Info
-  AlertCircle,
-  CheckCircle,
-  Info,
-  Clock,
-  MapPin,
-  Phone,
-  User,
-  UserPlus,
-  Users2,
-  Activity,
-  TrendingDown,
-  Star,
-  Award,
-
+  AlertCircle, CheckCircle, Info, Clock, MapPin, Phone, User,
+  UserPlus, Users2, Activity, TrendingDown, Star, Award,
+  
   // Business
-  Package,
-  Truck,
-  Navigation,
-  Flag,
-  CreditCard,
-  DollarSign,
-  ShoppingCart,
-  Briefcase,
-  FileDown,
-  FileUp,
-  Printer,
-  Share2,
-
+  Package, Truck, Navigation, Flag, CreditCard, DollarSign,
+  ShoppingCart, Briefcase, FileDown, FileUp, Printer, Share2,
+  
   // Communication
-  AtSign,
-  Bell,
-  Megaphone,
-  Video,
-  Headphones,
-  Mic,
-
+  AtSign, Bell, Megaphone, Video, Headphones, Mic,
+  
   // System
-  Loader2,
-  Menu,
-  LogOut,
-  Lock,
-  Unlock,
-  Key,
-  Shield,
-  Database,
-  Server,
-  Cloud,
-  Zap,
-  Sparkles,
-  Bot,
-  Code,
-  Terminal,
-
+  Loader2, Menu, LogOut, Lock, Unlock, Key, Shield, Database,
+  Server, Cloud, Zap, Sparkles, Bot, Code, Terminal,
+  
   // Special
-  Image as ImageIcon,
-  File,
-  Folder,
-  Archive,
-  Link,
-  Paperclip,
-  QrCode,
-  Barcode,
-  Scan,
-  Camera,
-  Globe,
-  Wifi,
+  Image as ImageIcon, File, Folder, Archive, Link, Paperclip,
+  QrCode, Barcode, Scan, Camera, Globe, Wifi,
+  
   type LucideIcon,
-} from "lucide-react";
+} from 'lucide-react';
 
 // ==================================================================================
 // ICON CATEGORIES
@@ -140,7 +62,7 @@ export const ICON_REGISTRY = {
     email: Mail,
     einstellungen: Settings,
   },
-
+  
   // Action Icons
   actions: {
     add: Plus,
@@ -165,7 +87,7 @@ export const ICON_REGISTRY = {
     view: Eye,
     hide: EyeOff,
   },
-
+  
   // Status Icons
   status: {
     alert: AlertCircle,
@@ -178,7 +100,7 @@ export const ICON_REGISTRY = {
     star: Star,
     award: Award,
   },
-
+  
   // Business Icons
   business: {
     package: Package,
@@ -192,7 +114,7 @@ export const ICON_REGISTRY = {
     printer: Printer,
     share: Share2,
   },
-
+  
   // Communication Icons
   communication: {
     email: AtSign,
@@ -203,7 +125,7 @@ export const ICON_REGISTRY = {
     mic: Mic,
     phone: Phone,
   },
-
+  
   // User Icons
   user: {
     user: User,
@@ -211,7 +133,7 @@ export const ICON_REGISTRY = {
     users: Users,
     team: Users2,
   },
-
+  
   // System Icons
   system: {
     menu: Menu,
@@ -229,7 +151,7 @@ export const ICON_REGISTRY = {
     code: Code,
     terminal: Terminal,
   },
-
+  
   // File Icons
   files: {
     image: ImageIcon,
@@ -243,7 +165,7 @@ export const ICON_REGISTRY = {
     scan: Scan,
     camera: Camera,
   },
-
+  
   // Misc Icons
   misc: {
     globe: Globe,
@@ -260,12 +182,12 @@ export const ICON_REGISTRY = {
 // ==================================================================================
 
 export const ICON_SIZES = {
-  xs: "h-3 w-3", // 12px
-  sm: "h-4 w-4", // 16px (Standard)
-  md: "h-5 w-5", // 20px
-  lg: "h-6 w-6", // 24px
-  xl: "h-8 w-8", // 32px
-  "2xl": "h-10 w-10", // 40px
+  xs: 'h-3 w-3',   // 12px
+  sm: 'h-4 w-4',   // 16px (Standard)
+  md: 'h-5 w-5',   // 20px
+  lg: 'h-6 w-6',   // 24px
+  xl: 'h-8 w-8',   // 32px
+  '2xl': 'h-10 w-10', // 40px
 } as const;
 
 // ==================================================================================
@@ -273,10 +195,10 @@ export const ICON_SIZES = {
 // ==================================================================================
 
 export const ICON_COLORS = {
-  default: "text-foreground",
-  muted: "text-muted-foreground",
-  primary: "text-primary",
-  background: "text-background", // Für dunkle Hintergründe (statt text-white)
+  default: 'text-foreground',
+  muted: 'text-muted-foreground',
+  primary: 'text-primary',
+  background: 'text-background', // Für dunkle Hintergründe (statt text-white)
 } as const;
 
 // ==================================================================================
@@ -307,8 +229,8 @@ export function hasIcon(category: keyof typeof ICON_REGISTRY, name: string): boo
  */
 export function getAllIcons(): LucideIcon[] {
   const allIcons: LucideIcon[] = [];
-  Object.values(ICON_REGISTRY).forEach((category) => {
-    Object.values(category).forEach((icon) => {
+  Object.values(ICON_REGISTRY).forEach(category => {
+    Object.values(category).forEach(icon => {
       allIcons.push(icon);
     });
   });

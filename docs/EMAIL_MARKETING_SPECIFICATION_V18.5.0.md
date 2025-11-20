@@ -9,7 +9,6 @@
 ## 🎯 ZIELSETZUNG
 
 Automatisiertes, rechtssicheres Email-Marketing-System zur:
-
 - Lead-Generierung durch Web-Scraping
 - AI-generierte, personalisierte Mail-Templates
 - DSGVO-konforme Kampagnen-Verwaltung
@@ -22,9 +21,7 @@ Automatisiertes, rechtssicheres Email-Marketing-System zur:
 ### FRONTEND-KOMPONENTEN
 
 #### 1. Campaign Builder (`src/components/marketing/EmailCampaignBuilder.tsx`)
-
 **Features:**
-
 - Drag & Drop Template-Editor
 - Zielgruppen-Segmentierung
 - A/B-Test-Konfiguration
@@ -32,7 +29,6 @@ Automatisiertes, rechtssicheres Email-Marketing-System zur:
 - Preview für Desktop/Mobile
 
 **Felder:**
-
 ```typescript
 interface EmailCampaign {
   id: string;
@@ -43,7 +39,7 @@ interface EmailCampaign {
   template_id: string;
   target_segment: string[];
   scheduled_at?: Date;
-  status: "draft" | "scheduled" | "sending" | "sent" | "cancelled";
+  status: 'draft' | 'scheduled' | 'sending' | 'sent' | 'cancelled';
   ab_test_enabled: boolean;
   ab_variant_b_subject?: string;
   created_at: Date;
@@ -52,9 +48,7 @@ interface EmailCampaign {
 ```
 
 #### 2. Lead Scanner (`src/components/marketing/LeadScanner.tsx`)
-
 **Features:**
-
 - Web-URL-Eingabe
 - Branchen-Filter
 - Region-Filter
@@ -63,7 +57,6 @@ interface EmailCampaign {
 - DSGVO-Hinweis (Öffentliche Daten)
 
 **Workflow:**
-
 1. User gibt URLs/Branchen ein
 2. AI scannt Webseiten nach Kontaktdaten
 3. Automatische Deduplizierung
@@ -71,9 +64,7 @@ interface EmailCampaign {
 5. Import in Lead-Datenbank
 
 #### 3. Template Generator (`src/components/marketing/EmailTemplateGenerator.tsx`)
-
 **Features:**
-
 - AI-gestützte Template-Generierung
 - DIN 5008 konform
 - Personalisierungs-Tokens
@@ -81,7 +72,6 @@ interface EmailCampaign {
 - Brand-Anpassung
 
 **Template-Varianten:**
-
 - Cold Outreach
 - Follow-Up
 - Newsletter
@@ -90,9 +80,7 @@ interface EmailCampaign {
 - Reaktivierung
 
 #### 4. Campaign Dashboard (`src/components/marketing/CampaignDashboard.tsx`)
-
 **Metriken:**
-
 - Versandrate (Sent Rate)
 - Öffnungsrate (Open Rate)
 - Klickrate (Click Rate)
@@ -106,11 +94,9 @@ interface EmailCampaign {
 ## 🔧 BACKEND-FUNKTIONEN
 
 ### Edge Function: `web-lead-scanner`
-
 **Datei:** `supabase/functions/web-lead-scanner/index.ts`
 
 **Workflow:**
-
 ```typescript
 1. URL-Validierung
 2. Robots.txt-Check (Scraping erlaubt?)
@@ -129,31 +115,28 @@ interface EmailCampaign {
 ```
 
 **API-Beispiel:**
-
 ```typescript
-await supabase.functions.invoke("web-lead-scanner", {
+await supabase.functions.invoke('web-lead-scanner', {
   body: {
-    urls: ["https://example-taxi.de"],
+    urls: ['https://example-taxi.de'],
     filters: {
-      industry: "Taxi & Mietwagen",
-      region: "Bayern",
+      industry: 'Taxi & Mietwagen',
+      region: 'Bayern',
     },
   },
 });
 ```
 
 ### Edge Function: `ai-email-generator`
-
 **Datei:** `supabase/functions/ai-email-generator/index.ts`
 
 **Input:**
-
 ```typescript
 interface GenerationRequest {
-  template_type: "cold_outreach" | "follow_up" | "newsletter";
+  template_type: 'cold_outreach' | 'follow_up' | 'newsletter';
   company_name: string;
   target_industry: string;
-  tone: "formal" | "casual" | "professional";
+  tone: 'formal' | 'casual' | 'professional';
   personalization_tokens: {
     recipient_name?: string;
     company_name?: string;
@@ -163,7 +146,6 @@ interface GenerationRequest {
 ```
 
 **Output:**
-
 ```typescript
 interface GeneratedEmail {
   subject: string;
@@ -180,7 +162,6 @@ interface GeneratedEmail {
 ```
 
 **System-Prompt:**
-
 ```
 Du bist ein Experte für professionelles E-Mail-Marketing im B2B-Bereich.
 
@@ -210,11 +191,9 @@ VERBOTE:
 ```
 
 ### Edge Function: `email-campaign-sender`
-
 **Datei:** `supabase/functions/email-campaign-sender/index.ts`
 
 **Features:**
-
 - Rate-Limiting (max. 100 Mails/Minute)
 - Retry-Logik bei Fehlern
 - Bounce-Handling
@@ -223,7 +202,6 @@ VERBOTE:
 - Link-Tracking
 
 **Workflow:**
-
 ```typescript
 1. Kampagne aus DB laden
 2. Zielgruppe segmentieren
@@ -241,7 +219,6 @@ VERBOTE:
 ## 🗄️ DATENBANK-SCHEMA
 
 ### Tabelle: `email_campaigns`
-
 ```sql
 CREATE TABLE email_campaigns (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -272,7 +249,6 @@ CREATE TABLE email_campaigns (
 ```
 
 ### Tabelle: `leads`
-
 ```sql
 CREATE TABLE leads (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -299,7 +275,6 @@ CREATE TABLE leads (
 ```
 
 ### Tabelle: `email_events`
-
 ```sql
 CREATE TABLE email_events (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -312,7 +287,6 @@ CREATE TABLE email_events (
 ```
 
 ### Tabelle: `email_templates`
-
 ```sql
 CREATE TABLE email_templates (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -340,33 +314,33 @@ CREATE TABLE email_templates (
 ### PFLICHT-ELEMENTE IN JEDER MAIL
 
 #### 1. Abmelde-Link
-
 ```html
-<a href="{{unsubscribe_link}}" style="color: #666;"> Abmelden </a>
+<a href="{{unsubscribe_link}}" style="color: #666;">
+  Abmelden
+</a>
 ```
 
 #### 2. Impressum
-
 ```html
 <p style="font-size: 12px; color: #666;">
-  {{company_name}}<br />
-  {{company_address}}<br />
-  Geschäftsführer: {{ceo_name}}<br />
-  HRB {{hrb_number}}, {{court}}<br />
+  {{company_name}}<br>
+  {{company_address}}<br>
+  Geschäftsführer: {{ceo_name}}<br>
+  HRB {{hrb_number}}, {{court}}<br>
   USt-IdNr.: {{vat_id}}
 </p>
 ```
 
 #### 3. Datenschutz-Link
-
 ```html
-<a href="{{privacy_policy_url}}" style="color: #666;"> Datenschutzerklärung </a>
+<a href="{{privacy_policy_url}}" style="color: #666;">
+  Datenschutzerklärung
+</a>
 ```
 
 ### EINWILLIGUNGS-MANAGEMENT
 
 **Double-Opt-In-Prozess:**
-
 ```typescript
 1. Lead gibt E-Mail ein
 2. System sendet Bestätigungs-Mail
@@ -377,7 +351,6 @@ CREATE TABLE email_templates (
 ```
 
 **Widerrufs-Prozess:**
-
 ```typescript
 1. Lead klickt Abmelde-Link
 2. System setzt blacklisted = true
@@ -391,7 +364,6 @@ CREATE TABLE email_templates (
 ## 📊 REPORTING & ANALYTICS
 
 ### Campaign-Performance-Dashboard
-
 ```typescript
 interface CampaignMetrics {
   sent: number;
@@ -413,7 +385,6 @@ interface CampaignMetrics {
 ```
 
 ### BENCHMARK-WERTE (B2B)
-
 - Open Rate: 20-25% (Gut)
 - Click Rate: 2-5% (Gut)
 - Bounce Rate: <5% (Akzeptabel)
@@ -424,42 +395,36 @@ interface CampaignMetrics {
 ## 🚀 IMPLEMENTIERUNGS-PLAN
 
 ### PHASE 1: FOUNDATION (Woche 1-2)
-
 - [ ] Datenbank-Schema erstellen
 - [ ] RLS-Policies einrichten
 - [ ] Basic UI-Components
 - [ ] Resend-Integration
 
 ### PHASE 2: LEAD-SCANNER (Woche 3-4)
-
 - [ ] Web-Scraping Edge Function
 - [ ] AI-Extraktion von Kontaktdaten
 - [ ] Lead-Import-UI
 - [ ] Blacklist-Management
 
 ### PHASE 3: TEMPLATE-GENERATOR (Woche 5-6)
-
 - [ ] AI Email Template Generator
 - [ ] DIN 5008 Compliance-Checks
 - [ ] Template-Library
 - [ ] Preview-Funktionalität
 
 ### PHASE 4: CAMPAIGN-MANAGEMENT (Woche 7-8)
-
 - [ ] Campaign-Builder-UI
 - [ ] Segmentierung-Engine
 - [ ] A/B-Testing-Logik
 - [ ] Scheduling-System
 
 ### PHASE 5: VERSAND & TRACKING (Woche 9-10)
-
 - [ ] Email-Versand Edge Function
 - [ ] Tracking-Pixel-Integration
 - [ ] Link-Tracking
 - [ ] Bounce-Handling
 
 ### PHASE 6: ANALYTICS (Woche 11-12)
-
 - [ ] Performance-Dashboard
 - [ ] Reporting-Engine
 - [ ] Export-Funktionen
@@ -470,7 +435,6 @@ interface CampaignMetrics {
 ## 💡 BEST PRACTICES
 
 ### EMAIL-SUBJECT-LINES
-
 - ✅ Personalisiert: "{{first_name}}, Ihre Anfrage zu..."
 - ✅ Klar & präzise: "10 Tipps für bessere Disposition"
 - ✅ Benefit-fokussiert: "Sparen Sie 30% Verwaltungszeit"
@@ -479,7 +443,6 @@ interface CampaignMetrics {
 - ❌ Zu lang: >50 Zeichen
 
 ### EMAIL-BODY
-
 - ✅ Persönliche Anrede
 - ✅ Kurze Absätze (max. 3 Sätze)
 - ✅ Bullet-Points für Listen
@@ -490,7 +453,6 @@ interface CampaignMetrics {
 - ❌ Zu lang (max. 500 Wörter)
 
 ### VERSAND-TIMING
-
 - **B2B:** Di-Do, 09:00-11:00 oder 14:00-16:00
 - **B2C:** Sa-So, 18:00-20:00
 - **Newsletter:** Mi, 10:00

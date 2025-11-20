@@ -78,34 +78,29 @@ graph TB
 ### Edge Functions (26 Functions)
 
 **Authentication & User Management:**
-
 - `create-checkout` - Stripe payment integration
 - `send-invitation-email` - Team member invitations
 - `send-welcome-email` - Onboarding emails
 
 **AI & Intelligence:**
-
 - `ai-code-review` - Intelligent GitHub CI/CD reviews
 - `ai-support-chat` - Customer support automation
 - `analyze-routes` - Route optimization
 - `predict-demand` - Demand forecasting
 
 **Maps & Geolocation:**
-
 - `calculate-route` - Route calculation with HERE Maps
 - `geocode` - Address geocoding
 - `reverse-geocode` - Coordinate to address
 - `get-weather` - Weather data integration
 
 **Business Logic:**
-
 - `calculate-booking-price` - Dynamic pricing
 - `send-booking-confirmation` - Booking emails
 - `send-shift-assignment` - Driver notifications
 - `update-booking-status` - Status automation
 
 **System & Monitoring:**
-
 - `health-check` - System health monitoring
 - `cleanup-old-data` - Data retention automation
 
@@ -266,8 +261,8 @@ CREATE POLICY "customers_view_own_bookings"
   FOR SELECT
   USING (
     customer_id = (
-      SELECT id FROM customers
-      WHERE email = auth.jwt()->>'email'
+      SELECT id FROM customers 
+      WHERE email = auth.jwt()->>'email' 
         AND has_portal_access = true
     )
   );
@@ -337,17 +332,15 @@ CREATE POLICY "customers_view_own_bookings"
 ```typescript
 // Standard CRUD Pattern
 const { data, error } = await supabase
-  .from("bookings")
-  .select(
-    `
+  .from('bookings')
+  .select(`
     *,
     customer:customers(id, first_name, last_name),
     driver:drivers(id, first_name, last_name),
     vehicle:vehicles(id, license_plate)
-  `
-  )
-  .eq("company_id", companyId)
-  .order("created_at", { ascending: false });
+  `)
+  .eq('company_id', companyId)
+  .order('created_at', { ascending: false });
 ```
 
 ### Edge Function Pattern
@@ -384,10 +377,10 @@ Response: {
 ```typescript
 // Query Keys Factory (Centralized)
 export const queryKeys = {
-  bookings: (companyId: string) => ["bookings", companyId],
-  booking: (id: string) => ["booking", id],
-  customers: (companyId: string) => ["customers", companyId],
-  stats: (companyId: string) => ["stats", companyId],
+  bookings: (companyId: string) => ['bookings', companyId],
+  booking: (id: string) => ['booking', id],
+  customers: (companyId: string) => ['customers', companyId],
+  stats: (companyId: string) => ['stats', companyId],
 };
 
 // Custom Hook Pattern
@@ -398,20 +391,16 @@ export const useBookings = () => {
   // Query
   const { data, isLoading } = useQuery({
     queryKey: queryKeys.bookings(profile!.company_id),
-    queryFn: async () => {
-      /* ... */
-    },
+    queryFn: async () => { /* ... */ },
     staleTime: 30000, // 30s cache
   });
 
   // Mutation
   const createMutation = useMutation({
-    mutationFn: async (booking) => {
-      /* ... */
-    },
+    mutationFn: async (booking) => { /* ... */ },
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.bookings(profile!.company_id),
+      queryClient.invalidateQueries({ 
+        queryKey: queryKeys.bookings(profile!.company_id) 
       });
     },
   });
@@ -461,25 +450,25 @@ export const useBookings = () => {
   --secondary: 210 40% 96.1%;
   --muted: 210 40% 96.1%;
   --muted-foreground: 215.4 16.3% 46.9%;
-
+  
   /* Semantic Usage */
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
   --destructive: 0 84.2% 60.2%;
   --success: 142 71% 45%;
   --warning: 38 92% 50%;
-
+  
   /* Spacing Scale */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
-
+  
   /* Typography */
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-heading: "Cal Sans", "Inter", sans-serif;
-
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Cal Sans', 'Inter', sans-serif;
+  
   /* Borders & Radius */
   --radius: 0.5rem;
   --border-width: 1px;
@@ -552,13 +541,13 @@ graph LR
 
 ### Performance Targets
 
-| Metric                         | Target | Current |
-| ------------------------------ | ------ | ------- |
-| First Contentful Paint (FCP)   | < 1.5s | 1.2s ✅ |
+| Metric | Target | Current |
+|--------|--------|---------|
+| First Contentful Paint (FCP) | < 1.5s | 1.2s ✅ |
 | Largest Contentful Paint (LCP) | < 2.5s | 2.1s ✅ |
-| Time to Interactive (TTI)      | < 3.5s | 2.8s ✅ |
-| Cumulative Layout Shift (CLS)  | < 0.1  | 0.05 ✅ |
-| Lighthouse Score               | > 90   | 94 ✅   |
+| Time to Interactive (TTI) | < 3.5s | 2.8s ✅ |
+| Cumulative Layout Shift (CLS) | < 0.1 | 0.05 ✅ |
+| Lighthouse Score | > 90 | 94 ✅ |
 
 ---
 
@@ -636,7 +625,7 @@ sequenceDiagram
 - [Console Log Migration](./CONSOLE_LOG_MIGRATION_V18.3.29.md)
 - [Agent Debug System](./AGENT_DEBUG_SYSTEM_V18.3.25.md)
 - [Deployment Guide](./DEPLOYMENT_READY_V18.3.29.md)
-- [API Documentation](./API_DOCUMENTATION_V18.3.29.md) _(to be created)_
+- [API Documentation](./API_DOCUMENTATION_V18.3.29.md) *(to be created)*
 
 ---
 

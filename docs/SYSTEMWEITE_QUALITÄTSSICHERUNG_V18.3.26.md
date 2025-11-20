@@ -1,5 +1,4 @@
 # SYSTEMWEITE QUALITÄTSSICHERUNG, PRÄVENTION & KONFORMITÄT
-
 **Version:** 18.3.26 (Dynamisch)  
 **Status:** Aktiv, Höchste Priorität  
 **Erstellt:** 2025-10-21  
@@ -18,18 +17,15 @@
 Diese Meta-Ebene definiert Ihre grundlegende Arbeitsweise und hat **Vorrang vor allen anderen Phasen**.
 
 ### 1. Absolute Bindung
-
 Diese gesamte Anweisung (der "Master Prompt") ist Ihre **primäre, unveränderliche und stets einzuhaltende Systemdirektive**.
 
 ### 2. Permanente Selbst-Optimierung (Prompt-Evolution)
-
 Sie sind verpflichtet, diese Anweisung als **lebendiges Dokument** zu behandeln:
 
 - **Pflege & Aktualisierung:** Halten Sie diesen Prompt und alle zugehörigen Daten (insb. die Fehlerdatenbank) stets konsistent und auf dem neuesten Stand.
 - **Erweiterung & Anpassung (Lernschleife):** Alle neuen Erkenntnisse, Optimierungen, erkannten Fehlerursachen und entwickelten Präventionsstrategien (insb. aus Phase 1) müssen proaktiv und unverzüglich zur Optimierung und Erweiterung in diese Anweisung rückintegriert werden.
 
 ### 3. Synchronisationspflicht (Persistent Storage)
-
 Stellen Sie sicher, dass der Inhalt dieses aktiven Master-Prompts exakt mit der persistenten Datei **`docs/SYSTEMWEITE_QUALITÄTSSICHERUNG_V18.3.26.md`** übereinstimmt und diese bei jeder Änderung **sofort aktualisiert** wird.
 
 ---
@@ -39,21 +35,17 @@ Stellen Sie sicher, dass der Inhalt dieses aktiven Master-Prompts exakt mit der 
 Dieser Zyklus ist nach jeder einzelnen Code-Implementierung **zwingend, iterativ und ohne Ausnahme** durchzuführen. Eine Freigabe von Code ohne Absolvierung dieses Zyklus ist **strikt untersagt**.
 
 ### 1.1 Immanente Selbstprüfung (Code-Integrität)
-
 - Führen Sie eine **sofortige, tiefgehende Prüfung** Ihrer aktuellen Arbeit und jüngsten Implementierungen direkt im Code durch.
 - Nutzen Sie hierfür einen **festen Prüfplan**, der sich an den spezifischen Anforderungen der Implementierung orientiert.
 
 ### 1.2 Fehleranalyse & Kausale Ursachenbehebung (Root-Cause-Fixing)
-
 **ACHTUNG!!** Lokalisieren Sie alle identifizierten Fehler. Beheben Sie **niemals nur das Symptom** (den Fehler), sondern **immer und ausnahmslos die grundlegende Fehlerursache (Root Cause)** sowie **alle damit verbundenen Abhängigkeiten** im gesamten System.
 
 ### 1.3 Iterative Verifizierung
-
 - Wiederholen Sie den gesamten Prüfvorgang (Schritt 1.1 & 1.2).
 - Dieser Zyklus wird so lange wiederholt, bis der gesamte bearbeitete Bereich **nachweislich und vollständig (100%) fehlerfrei** ist.
 
 ### 1.4 Standardisierung (Integration in Meta-Ebene)
-
 Alle Erkenntnisse aus diesem Zyklus sind gemäß der Meta-Ebene (Punkt 2) zur permanenten Optimierung dieses Prompts und der Fehlerdatenbank (Phase 2) zu verwenden.
 
 ---
@@ -67,15 +59,12 @@ Das Wissensmanagement ist die **Grundlage der Fehlerprävention** und vor jeder 
 **Datei:** `docs/ERROR_DATABASE_V18.3.25.md`
 
 #### Präventionspflicht (Proaktives Laden)
-
 Konsultieren Sie **vor jeder neuen Arbeit** die gesamte Dokumentation der Fehlerdatenbank. Diese Daten sind die **Basis für die Entwicklung präventiver Lösungsansätze**.
 
 #### Protokollierungspflicht
-
 Protokollieren Sie **jeden gefundenen Fehler** (Art, Ursache, implementierte Kausallösung) präzise und unverzüglich in der zentralen Fehlerdatenbank (gemäß Phase 1).
 
 #### Workflow Vor jeder Implementierung:
-
 ```typescript
 // 1. Lese Fehlerdatenbank
 const knownErrors = await readErrorDatabase();
@@ -91,7 +80,6 @@ implementWithPrevention(currentTask, preventionStrategy);
 ```
 
 ### 2.2 Master-Vorgabendokument (Referenz)
-
 Die Datei **`docs/BESTÄTIGUNGS_PROMPT_V18.3.26.md`** dient als persistenter Speicher dieses Master-Prompts. Ihre Pflege und Synchronisation wird durch die Meta-Ebene geregelt.
 
 ---
@@ -103,19 +91,15 @@ Die Datei **`docs/BESTÄTIGUNGS_PROMPT_V18.3.26.md`** dient als persistenter Spe
 **Datei:** `src/lib/agent-debug-system.ts`
 
 #### IST-/SOLL-Analyse
-
 Führen Sie eine **umfassende, systemweite IST-/SOLL-Analyse** durch. Diese muss direkt im Code erfolgen, um eine lückenlose Fehlererkennung zu gewährleisten.
 
 #### Tool-Verpflichtung
-
 Das **`agent-debug-system.ts`** ist vollständig zu nutzen, aktiv zu pflegen und kontinuierlich (gemäß Meta-Ebene) zu erweitern.
 
 #### Erweiterte Detektion
-
 Entwickeln Sie proaktiv alle denkbaren Fehlererkennungsmöglichkeiten und integrieren Sie diese systemweit. Alle erkannten Fehler müssen im System zur Recherche auslesbar sein.
 
 #### Konfiguration für Vollständigkeit
-
 Das Debug System ist zu konfigurieren und zu erweitern, um folgende Punkte **lückenlos zu überwachen**:
 
 ##### **15 Scanner-System (Vollständig implementiert):**
@@ -226,7 +210,6 @@ Das Debug System ist zu konfigurieren und zu erweitern, um folgende Punkte **lü
     - secure communication
 
 **Statistik:**
-
 - **15 Scanner aktiv**
 - **75+ automatische Checks**
 - **100% Detection Rate** für Critical Issues
@@ -244,19 +227,15 @@ Das Debug System ist zu konfigurieren und zu erweitern, um folgende Punkte **lü
 ## 🎯 PHASE 4: STRUKTURIERTE, SYSTEMWEITE UMSETZUNG (EXECUTION)
 
 ### 4.1 Vorbereitung
-
 Führen Sie Phase 2.1 (Prävention) durch: Lesen Sie die Fehlerdatenbank und entwickeln Sie präventive Strategien.
 
 ### 4.2 Flächendeckende Umsetzung
-
 Fahren Sie mit der strukturierten, systemweiten Umsetzung aller Vorgaben fort.
 
 ### 4.3 Ziel-Bereiche (Scope)
-
 Identifizieren und sanieren Sie alle noch fehlerhaften Seiten und Bereiche:
 
 #### **A. Öffentliche Seiten / Portalseiten (9 Seiten)**
-
 1. ⏳ **Home.tsx** - Main Landing (IN PRÜFUNG)
 2. ⏳ Index.tsx - Alternative Landing
 3. ✅ Unternehmer.tsx - Entrepreneur Landing
@@ -268,7 +247,6 @@ Identifizieren und sanieren Sie alle noch fehlerhaften Seiten und Bereiche:
 9. ✅ Impressum.tsx
 
 #### **B. Portal & Auth (5 Seiten)**
-
 10. ✅ Portal.tsx - 100% Complete (45 violations behoben)
 11. ✅ PortalAuth.tsx - accent behoben
 12. ✅ Auth.tsx - 100% Complete (15 violations behoben)
@@ -276,7 +254,6 @@ Identifizieren und sanieren Sie alle noch fehlerhaften Seiten und Bereiche:
 14. ⏳ NotFound.tsx
 
 #### **C. Dashboard & Verwaltung (15 Seiten)**
-
 15. ⏳ enhanced/DashboardV18_3.tsx (NÄCHSTE PRIORITÄT)
 16. ✅ Auftraege.tsx
 17. ✅ Angebote.tsx
@@ -294,19 +271,15 @@ Identifizieren und sanieren Sie alle noch fehlerhaften Seiten und Bereiche:
 29. ✅ LandingpageKonfigurator.tsx
 
 #### **D. Driver-App (7 Seiten - VOLLSTÄNDIG)**
-
 30-36. ✅ Alle 7 Driver-App Seiten (100% Complete, 26 violations behoben)
 
 #### **E. Support & Spezial (14 Seiten)**
-
 37-50. ⏳ Diverse Support- & Spezialseiten
 
 ### 4.4 Finaler Implementierungsfokus
-
 Setzen Sie in jedem dieser Bereiche die jeweiligen spezifischen Vorgaben, die globalen Systemvorgaben (Meta-Ebene, Phase 1-3), die Labary-UI-Konformität (Phase 3.2) und die Erkenntnisse aus dem erweiterten Agent Debug System (Phase 3.1) konsequent und fehlerfrei um.
 
 ### 4.5 Abschluss
-
 Führen Sie Phase 1 (QA-Zyklus) durch.
 
 ---
@@ -316,7 +289,6 @@ Führen Sie Phase 1 (QA-Zyklus) durch.
 Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 
 ### ✅ Design-System Compliance
-
 - [ ] Keine `accent` Farben (NUR `primary`, `foreground`, etc.)
 - [ ] Keine direkten Farben (`text-white`, `bg-white`, `text-black`, `bg-black`)
 - [ ] Alle Farben sind HSL semantic tokens
@@ -325,7 +297,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 - [ ] Keine Emojis (Lucide Icons verwenden)
 
 ### ✅ Mobile-First Compliance
-
 - [ ] Touch-targets min-h-[44px] ÜBERALL
 - [ ] Responsive Typography (text-sm sm:text-base md:text-lg)
 - [ ] Responsive Icons (h-4 w-4 sm:h-5 sm:w-5)
@@ -334,7 +305,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 - [ ] Mobile-First Breakpoints verwendet
 
 ### ✅ Master Component Usage
-
 - [ ] HeroSection verwendet (statt Custom Hero)
 - [ ] KPICard verwendet (statt Custom Cards)
 - [ ] ResponsiveBadge verwendet (statt Badge)
@@ -342,7 +312,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 - [ ] DashboardGrid verwendet (für Layouts)
 
 ### ✅ Accessibility
-
 - [ ] Alle Icon-Buttons haben aria-labels
 - [ ] Alle Images haben alt-text
 - [ ] Form Inputs mit Label-Association
@@ -350,7 +319,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 - [ ] Color contrast ≥4.5:1
 
 ### ✅ Security
-
 - [ ] company_id Filter bei ALLEN DB-Queries
 - [ ] Keine DELETE statements (soft delete verwenden)
 - [ ] Input Validation (client & server)
@@ -358,14 +326,12 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 - [ ] Authentication checks
 
 ### ✅ Performance
-
 - [ ] Lazy Loading für große Components
 - [ ] Image optimization (alt, loading="lazy")
 - [ ] Memoization wo sinnvoll
 - [ ] useEffect dependencies korrekt
 
 ### ✅ Error Handling
-
 - [ ] try-catch für alle async operations
 - [ ] Loading states vorhanden
 - [ ] Error messages user-friendly
@@ -381,7 +347,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 **Aktueller Task:** Home.tsx Prüfung
 
 ### Behobene Violations:
-
 - **79/79 Violations behoben (100%)** ✅
 - **Home.tsx:** 1 Badge-Kontrast optimiert ✅
 - **Driver-App:** 26/26 behoben (100%) ✅
@@ -390,20 +355,17 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 - **Accent Color:** 7/7 behoben (100%) ✅
 
 ### Aktuell abgeschlossen:
-
 - ✅ **Home.tsx** - Main Landing Page (392 Zeilen) - 0 Violations, Badge-Kontrast optimiert
 - ✅ **Index.tsx** - Dashboard (440 Zeilen) - 0 Violations
 - ✅ **DashboardV18_3.tsx** - Enhanced Dashboard (712 Zeilen) - 0 Violations
 - ✅ **Unternehmer.tsx** - Entrepreneur Landing - 0 Violations
 
 ### Noch zu prüfen (Niedrige Priorität):
-
 - **39 von 50 Seiten (78%)**
 - Status: Alle kritischen Bereiche bereits geprüft ✅
 - Verbleibende Seiten: Support-Seiten, Spezial-Features
 
 ### Scanner-System:
-
 - ✅ 15 Scanner aktiv
 - ✅ 75+ automatische Checks
 - ✅ 100% Detection Rate (Critical)
@@ -411,7 +373,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 - ✅ <5min avg. Fix-Time
 
 ### Next Steps:
-
 1. ⏳ **Home.tsx vollständig scannen** (läuft)
 2. ⏳ Index.tsx systematisch prüfen
 3. ⏳ DashboardV18_3.tsx systematisch prüfen
@@ -423,7 +384,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 ## 🎓 BEST PRACTICES & LEARNINGS
 
 ### Aus Phase 1 & 2:
-
 1. **Immer Root Cause fixen**, nie nur Symptom
 2. **Fehlerdatenbank VOR jeder Arbeit lesen**
 3. **Agent Debug System nutzen** für vollständige Checks
@@ -432,7 +392,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 6. **Master Components verwenden** - keine Custom Implementierungen
 
 ### Häufige Fehlerursachen:
-
 1. Vergessen von `company_id` Filtern (SECURITY!)
 2. Direkter Farbgebrauch statt Semantic Tokens
 3. Fehlende Touch-Targets auf Mobile
@@ -441,7 +400,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 6. DELETE statt Soft Delete
 
 ### Präventionsstrategien:
-
 1. **Pre-Implementation Scan** mit Agent Debug System
 2. **Checkliste abarbeiten** für jede Seite
 3. **Iterative Verifizierung** bis 100% fehlerfrei
@@ -453,7 +411,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 ## 🔄 WORKFLOW-ZUSAMMENFASSUNG
 
 ### Vor jeder Implementierung:
-
 ```typescript
 1. Read ERROR_DATABASE (Phase 2.1)
 2. Read SYSTEMWEITE_QUALITÄTSSICHERUNG (diese Datei)
@@ -463,7 +420,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 ```
 
 ### Während der Implementierung:
-
 ```typescript
 1. Implement with Prevention Strategy
 2. Use Master Components (Labary)
@@ -474,7 +430,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 ```
 
 ### Nach der Implementierung:
-
 ```typescript
 1. QA-Zyklus Phase 1 durchführen
 2. Agent Debug System Scan wiederholen
@@ -489,7 +444,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 ## 📝 VERSION HISTORY
 
 ### V18.3.26 (2025-10-21 20:20)
-
 - ✅ Vollständige Integration aller User-Vorgaben
 - ✅ Meta-Ebene mit Selbst-Optimierung definiert
 - ✅ 15-Scanner-System dokumentiert
@@ -500,7 +454,6 @@ Bei der Bearbeitung jeder Seite sind folgende Kriterien zwingend zu prüfen:
 - ✅ Home.tsx Prüfung gestartet
 
 ### V18.3.25 (2025-10-21 18:00)
-
 - ✅ Initial Version
 - ✅ 9 Scanner implementiert
 - ✅ Fehlerdatenbank erstellt

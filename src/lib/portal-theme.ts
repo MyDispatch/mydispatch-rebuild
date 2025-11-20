@@ -8,14 +8,14 @@
    - HSL-Konvertierung
    ================================================================================== */
 
-import { UNIFIED_DESIGN_TOKENS } from "./design-system/unified-design-tokens";
+import { UNIFIED_DESIGN_TOKENS } from './design-system/unified-design-tokens';
 
 /**
  * Default CI-Farben (Fallback wenn keine primary_color gesetzt)
  */
 export const DEFAULT_PORTAL_THEME = {
-  primary_color: "#EADEBD", // Beige (CI)
-  primary_hsl: "40 31% 88%", // HSL-Version für CSS Variables
+  primary_color: '#EADEBD', // Beige (CI)
+  primary_hsl: '40 31% 88%', // HSL-Version für CSS Variables
 } as const;
 
 /**
@@ -39,7 +39,7 @@ export interface PortalTheme {
  */
 export function hexToHsl(hex: string): string {
   // Entferne # falls vorhanden
-  hex = hex.replace("#", "");
+  hex = hex.replace('#', '');
 
   // Konvertiere zu RGB
   const r = parseInt(hex.substring(0, 2), 16) / 255;
@@ -111,8 +111,8 @@ export function createPortalTheme(companyData: {
  */
 export function generatePortalThemeVars(theme: PortalTheme): Record<string, string> {
   return {
-    "--portal-primary": theme.primaryColorHsl,
-    "--portal-primary-rgb": theme.primaryColor,
+    '--portal-primary': theme.primaryColorHsl,
+    '--portal-primary-rgb': theme.primaryColor,
   };
 }
 
@@ -130,6 +130,8 @@ export function isValidHexColor(color: string): boolean {
  * @param companyData - Company-Daten
  * @returns primary_color mit Fallback
  */
-export function getPortalPrimaryColor(companyData: { primary_color?: string | null }): string {
+export function getPortalPrimaryColor(companyData: {
+  primary_color?: string | null;
+}): string {
   return companyData.primary_color || DEFAULT_PORTAL_THEME.primary_color;
 }

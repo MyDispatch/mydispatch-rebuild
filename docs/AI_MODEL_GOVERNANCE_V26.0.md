@@ -1,23 +1,22 @@
-/\* ==================================================================================
-AI MODEL GOVERNANCE V26.0 - ABSOLUTE VERPFLICHTUNG
-==================================================================================
-
-🚨 KRITISCHE REGEL - AUSNAHMSLOS EINZUHALTEN 🚨
-
-MyDispatch verwendet AUSSCHLIESSLICH das folgende AI-Modell:
-
-**Modell:** Claude Sonnet 4.5 (claude-sonnet-4-5)
-**API:** Anthropic API
-**API-Key:** ANTHROPIC_API_KEY (in Supabase Secrets hinterlegt)
-
-================================================================================== \*/
+/* ==================================================================================
+   AI MODEL GOVERNANCE V26.0 - ABSOLUTE VERPFLICHTUNG
+   ==================================================================================
+   
+   🚨 KRITISCHE REGEL - AUSNAHMSLOS EINZUHALTEN 🚨
+   
+   MyDispatch verwendet AUSSCHLIESSLICH das folgende AI-Modell:
+   
+   **Modell:** Claude Sonnet 4.5 (claude-sonnet-4-5)
+   **API:** Anthropic API
+   **API-Key:** ANTHROPIC_API_KEY (in Supabase Secrets hinterlegt)
+   
+   ================================================================================== */
 
 ## 🎯 ABSOLUTE VERPFLICHTUNG
 
 ### Für alle Entwickler, AI-Agenten und Code-Generatoren:
 
 **ES IST ZWINGEND VERBOTEN:**
-
 - ❌ Lovable AI Gateway zu verwenden
 - ❌ Google Gemini Modelle zu verwenden
 - ❌ OpenAI GPT Modelle zu verwenden
@@ -25,7 +24,6 @@ MyDispatch verwendet AUSSCHLIESSLICH das folgende AI-Modell:
 - ❌ Fallback-Modelle zu konfigurieren
 
 **ES IST ZWINGEND VORGESCHRIEBEN:**
-
 - ✅ Ausschließlich Claude Sonnet 4.5 über Anthropic API
 - ✅ API-Key aus Supabase Secret "ANTHROPIC_API_KEY" verwenden
 - ✅ Zentrale AI-Konfiguration (siehe unten) verwenden
@@ -48,10 +46,10 @@ Datei: `src/lib/ai/config.ts`
    ================================================================================== */
 
 export const AI_CONFIG = {
-  provider: "anthropic" as const,
-  model: "claude-sonnet-4-5" as const,
-  apiKeySecret: "ANTHROPIC_API_KEY" as const,
-  baseUrl: "https://api.anthropic.com/v1" as const,
+  provider: 'anthropic' as const,
+  model: 'claude-sonnet-4-5' as const,
+  apiKeySecret: 'ANTHROPIC_API_KEY' as const,
+  baseUrl: 'https://api.anthropic.com/v1' as const,
 } as const;
 
 export type AIConfig = typeof AI_CONFIG;
@@ -59,12 +57,12 @@ export type AIConfig = typeof AI_CONFIG;
 // Type Guard zur Compile-Time Validierung
 export function validateAIConfig(config: unknown): config is AIConfig {
   return (
-    typeof config === "object" &&
+    typeof config === 'object' &&
     config !== null &&
-    "provider" in config &&
-    config.provider === "anthropic" &&
-    "model" in config &&
-    config.model === "claude-sonnet-4-5"
+    'provider' in config &&
+    config.provider === 'anthropic' &&
+    'model' in config &&
+    config.model === 'claude-sonnet-4-5'
   );
 }
 ```
@@ -114,10 +112,10 @@ serve(async (req) => {
     if (!response.ok) {
       const error = await response.text();
       console.error("Anthropic API Error:", error);
-      return new Response(JSON.stringify({ error: "AI API Fehler" }), {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({ error: "AI API Fehler" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     return new Response(response.body, {
@@ -128,10 +126,10 @@ serve(async (req) => {
     });
   } catch (error) {
     console.error("Edge Function Error:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({ error: error.message }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
   }
 });
 ```
@@ -149,7 +147,6 @@ Status: ✅ Konfiguriert
 ```
 
 **NIEMALS:**
-
 - API-Keys im Frontend speichern
 - API-Keys in Environment-Variablen im Client
 - API-Keys in Git committen
@@ -193,7 +190,7 @@ Bei Verstoß gegen diese Governance:
 **Version:** V26.0  
 **Erstellt:** 2025-10-26  
 **Status:** PRODUCTION - ZWINGEND  
-**Letzte Aktualisierung:** 2025-10-26
+**Letzte Aktualisierung:** 2025-10-26  
 
 **Verantwortlich:** Pascal (Projekt-Inhaber)  
 **Governance-Level:** P-00 (Höchste Priorität)

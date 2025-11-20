@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { V28Spinner } from "./V28Spinner";
+import type { Meta, StoryObj } from '@storybook/react';
+import { V28Spinner } from './V28Spinner';
 
 const meta: Meta<typeof V28Spinner> = {
-  title: "Design System/Atoms/V28Spinner",
+  title: 'Design System/Atoms/V28Spinner',
   component: V28Spinner,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["sm", "md", "lg", "xl"],
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl'],
     },
     variant: {
-      control: "select",
-      options: ["default", "secondary", "destructive", "muted"],
+      control: 'select',
+      options: ['default', 'secondary', 'destructive', 'muted'],
     },
   },
 };
@@ -26,7 +26,7 @@ export const Default: Story = {
 
 export const WithLabel: Story = {
   args: {
-    label: "Buchungen werden geladen...",
+    label: 'Buchungen werden geladen...',
   },
 };
 

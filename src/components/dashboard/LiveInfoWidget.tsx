@@ -6,12 +6,12 @@
    - Business+ Feature
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/lib/compat";
-import { useCompanyLocation } from "@/hooks/use-company-location";
-import { supabase } from "@/integrations/supabase/client";
-import { useQuery } from "@tanstack/react-query";
-import { Cloud, Navigation, Thermometer } from "lucide-react";
-import { Badge } from "@/lib/compat";
+import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
+import { useCompanyLocation } from '@/hooks/use-company-location';
+import { supabase } from '@/integrations/supabase/client';
+import { useQuery } from '@tanstack/react-query';
+import { Cloud, Navigation, Thermometer } from 'lucide-react';
+import { Badge } from '@/lib/compat';
 
 interface WeatherData {
   temp: number;
@@ -27,10 +27,10 @@ export function LiveInfoWidget() {
 
   // Weather Data
   const { data: weather } = useQuery({
-    queryKey: ["weather", location?.city],
+    queryKey: ['weather', location?.city],
     queryFn: async () => {
       if (!location?.city) return null;
-      const { data, error } = await supabase.functions.invoke("get-weather", {
+      const { data, error } = await supabase.functions.invoke('get-weather', {
         body: { city: location.city },
       });
       if (error) throw error;
@@ -42,11 +42,11 @@ export function LiveInfoWidget() {
 
   // Traffic Data
   const { data: traffic } = useQuery({
-    queryKey: ["traffic", location?.latitude, location?.longitude],
+    queryKey: ['traffic', location?.latitude, location?.longitude],
     queryFn: async () => {
       if (!location?.latitude || !location?.longitude) return null;
       const origin = `${location.latitude},${location.longitude}`;
-      const { data, error } = await supabase.functions.invoke("get-traffic", {
+      const { data, error } = await supabase.functions.invoke('get-traffic', {
         body: { origin },
       });
       if (error) throw error;
@@ -57,24 +57,18 @@ export function LiveInfoWidget() {
   });
 
   const getTrafficStatus = (jamFactor: number) => {
-    if (jamFactor < 3)
-      return {
-        label: "Frei",
-        color: "text-status-success bg-status-success/10 border-status-success/20",
-      };
-    if (jamFactor < 6)
-      return {
-        label: "Mäßig",
-        color: "text-status-warning bg-status-warning/10 border-status-warning/20",
-      };
-    return { label: "Stau", color: "text-status-error bg-status-error/10 border-status-error/20" };
+    if (jamFactor < 3) return { label: 'Frei', color: 'text-status-success bg-status-success/10 border-status-success/20' };
+    if (jamFactor < 6) return { label: 'Mäßig', color: 'text-status-warning bg-status-warning/10 border-status-warning/20' };
+    return { label: 'Stau', color: 'text-status-error bg-status-error/10 border-status-error/20' };
   };
 
   if (!hasCoordinates) {
     return (
       <Card>
         <CardContent className="pt-6">
-          <p className="text-sm text-muted-foreground text-center">Standort-Daten erforderlich</p>
+          <p className="text-sm text-muted-foreground text-center">
+            Standort-Daten erforderlich
+          </p>
         </CardContent>
       </Card>
     );

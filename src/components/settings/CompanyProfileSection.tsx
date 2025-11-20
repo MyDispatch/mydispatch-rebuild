@@ -4,12 +4,12 @@
    Firmenprofil mit KPI-Cards
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/lib/compat";
-import { Textarea } from "@/components/ui/textarea";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { useSettings } from "@/contexts/SettingsContext";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/lib/compat';
+import { Textarea } from '@/components/ui/textarea';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useSettings } from '@/contexts/SettingsContext';
 
 export function CompanyProfileSection() {
   const { companyData, setCompanyData } = useSettings();
@@ -20,7 +20,9 @@ export function CompanyProfileSection() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Aufträge</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Aufträge
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             <div className="text-2xl font-bold">{companyData.total_bookings || 0}</div>
@@ -30,7 +32,9 @@ export function CompanyProfileSection() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Fahrer</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Fahrer
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             <div className="text-2xl font-bold">{companyData.total_drivers || 0}</div>
@@ -40,7 +44,9 @@ export function CompanyProfileSection() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Fahrzeuge</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Fahrzeuge
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             <div className="text-2xl font-bold">{companyData.total_vehicles || 0}</div>
@@ -50,13 +56,13 @@ export function CompanyProfileSection() {
 
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium">Umsatz</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Umsatz
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-6">
             <div className="text-2xl font-bold">
-              {new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(
-                companyData.monthly_revenue || 0
-              )}
+              {new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(companyData.monthly_revenue || 0)}
             </div>
             <p className="text-xs text-muted-foreground mt-1">Monatlich</p>
           </CardContent>
@@ -66,8 +72,12 @@ export function CompanyProfileSection() {
       {/* Firmenprofil */}
       <Card>
         <CardHeader>
-          <CardTitle>Unternehmensprofil</CardTitle>
-          <CardDescription>Verwalten Sie die Stammdaten Ihres Unternehmens</CardDescription>
+          <CardTitle>
+            Unternehmensprofil
+          </CardTitle>
+          <CardDescription>
+            Verwalten Sie die Stammdaten Ihres Unternehmens
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -87,7 +97,7 @@ export function CompanyProfileSection() {
               <Input
                 id="company_email"
                 type="email"
-                value={companyData.email || ""}
+                value={companyData.email || ''}
                 onChange={(e) => setCompanyData({ ...companyData, email: e.target.value })}
                 className="min-h-[44px] touch-manipulation"
               />
@@ -98,7 +108,7 @@ export function CompanyProfileSection() {
               <Input
                 id="company_phone"
                 type="tel"
-                value={companyData.phone || ""}
+                value={companyData.phone || ''}
                 onChange={(e) => setCompanyData({ ...companyData, phone: e.target.value })}
                 className="min-h-[44px] touch-manipulation"
               />
@@ -108,7 +118,7 @@ export function CompanyProfileSection() {
               <Label htmlFor="company_address">Adresse</Label>
               <Textarea
                 id="company_address"
-                value={companyData.address || ""}
+                value={companyData.address || ''}
                 onChange={(e) => setCompanyData({ ...companyData, address: e.target.value })}
                 rows={3}
                 className="min-h-[44px] touch-manipulation"
@@ -118,7 +128,9 @@ export function CompanyProfileSection() {
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="tax_id" className="flex items-center gap-2">
                 Umsatzsteuernummer (USt-IdNr.) *
-                <span className="text-xs text-muted-foreground font-normal">(Obligatorisch)</span>
+                <span className="text-xs text-muted-foreground font-normal">
+                  (Obligatorisch)
+                </span>
               </Label>
               <Input
                 id="tax_id"
@@ -141,8 +153,8 @@ export function CompanyProfileSection() {
           <div className="bg-muted p-4 rounded-lg text-xs sm:text-sm text-muted-foreground">
             <p className="font-medium mb-1">DSGVO-Hinweis:</p>
             <p>
-              Ihre Unternehmensdaten werden gemäß DSGVO geschützt und nur für die Nutzung der
-              MyDispatch-App verwendet.
+              Ihre Unternehmensdaten werden gemäß DSGVO geschützt und nur für 
+              die Nutzung der MyDispatch-App verwendet.
             </p>
           </div>
         </CardContent>

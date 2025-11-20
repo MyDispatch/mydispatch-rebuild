@@ -5,9 +5,9 @@
    Redirect zu /auth?mode=customer wenn nicht authentifiziert
    ================================================================================== */
 
-import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import { Loader2 } from "lucide-react";
+import { useState, useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
 
 interface PortalRouteProps {
   children: React.ReactNode;
@@ -22,9 +22,9 @@ export function PortalRoute({ children }: PortalRouteProps) {
   }, []);
 
   const checkPortalAuth = () => {
-    const portalMode = sessionStorage.getItem("portal_mode");
-    const customerId = sessionStorage.getItem("portal_customer_id");
-
+    const portalMode = sessionStorage.getItem('portal_mode');
+    const customerId = sessionStorage.getItem('portal_customer_id');
+    
     setIsAuthenticated(!!(portalMode && customerId));
     setLoading(false);
   };

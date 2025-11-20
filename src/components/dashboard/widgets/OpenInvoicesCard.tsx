@@ -6,10 +6,10 @@
    ✅ Offen, Überfällig, Summen
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/lib/compat";
-import { FileText, AlertTriangle } from "lucide-react";
-import { formatCurrency } from "@/lib/format-utils";
-import { Badge } from "@/lib/compat";
+import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
+import { FileText, AlertTriangle } from 'lucide-react';
+import { formatCurrency } from '@/lib/format-utils';
+import { Badge } from '@/lib/compat';
 
 interface InvoiceStats {
   open: {
@@ -32,7 +32,7 @@ export function OpenInvoicesCard({ stats, onViewAll }: OpenInvoicesCardProps) {
   const totalAmount = stats.open.total + stats.overdue.total;
 
   return (
-    <Card
+    <Card 
       className="bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
       onClick={onViewAll}
     >
@@ -58,10 +58,12 @@ export function OpenInvoicesCard({ stats, onViewAll }: OpenInvoicesCardProps) {
         <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
           <div className="flex items-baseline justify-between mb-1">
             <span className="text-xs font-semibold text-slate-600">Gesamt offen</span>
-            <p className="text-2xl font-bold text-slate-900">{formatCurrency(totalAmount)}</p>
+            <p className="text-2xl font-bold text-slate-900">
+              {formatCurrency(totalAmount)}
+            </p>
           </div>
           <p className="text-[10px] text-slate-500">
-            {totalCount} {totalCount === 1 ? "Rechnung" : "Rechnungen"}
+            {totalCount} {totalCount === 1 ? 'Rechnung' : 'Rechnungen'}
           </p>
         </div>
 
@@ -72,7 +74,9 @@ export function OpenInvoicesCard({ stats, onViewAll }: OpenInvoicesCardProps) {
               <FileText className="h-3 w-3 text-slate-700" />
               <p className="text-[10px] font-semibold text-slate-700">Offen</p>
             </div>
-            <p className="text-xl font-bold text-slate-900 mb-0.5">{stats.open.count}</p>
+            <p className="text-xl font-bold text-slate-900 mb-0.5">
+              {stats.open.count}
+            </p>
             <p className="text-[10px] font-medium text-slate-700">
               {formatCurrency(stats.open.total)}
             </p>
@@ -82,10 +86,11 @@ export function OpenInvoicesCard({ stats, onViewAll }: OpenInvoicesCardProps) {
           <div className="p-3 rounded-lg bg-red-50 border border-red-200">
             <div className="flex items-center gap-1.5 mb-2">
               <AlertTriangle className="h-3 w-3 text-red-600" />
-              <p className="text-[10px] font-semibold text-red-600">Überfällig</p>{" "}
-              {/* ✅ Status Exception */}
+              <p className="text-[10px] font-semibold text-red-600">Überfällig</p> {/* ✅ Status Exception */}
             </div>
-            <p className="text-xl font-bold text-red-700 mb-0.5">{stats.overdue.count}</p>
+            <p className="text-xl font-bold text-red-700 mb-0.5">
+              {stats.overdue.count}
+            </p>
             <p className="text-[10px] font-medium text-red-600">
               {formatCurrency(stats.overdue.total)}
             </p>

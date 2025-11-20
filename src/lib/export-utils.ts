@@ -6,8 +6,8 @@
    - Browser-Download für Excel (CSV-Format)
    ================================================================================== */
 
-import { supabase } from "@/integrations/supabase/client";
-import { logger } from "@/lib/logger";
+import { supabase } from '@/integrations/supabase/client';
+import { logger } from '@/lib/logger';
 
 export interface StatisticsExportData {
   company_id: string;
@@ -44,9 +44,9 @@ export interface StatisticsExportData {
  */
 export async function exportStatisticsPDF(data: StatisticsExportData): Promise<Blob> {
   try {
-    const { data: pdfData, error } = await supabase.functions.invoke("bulk-export-pdf", {
+    const { data: pdfData, error } = await supabase.functions.invoke('bulk-export-pdf', {
       body: {
-        type: "statistics",
+        type: 'statistics',
         data,
       },
     });
@@ -61,13 +61,13 @@ export async function exportStatisticsPDF(data: StatisticsExportData): Promise<B
       bytes[i] = binaryData.charCodeAt(i);
     }
 
-    return new Blob([bytes], { type: "application/pdf" });
+    return new Blob([bytes], { type: 'application/pdf' });
   } catch (error) {
-    logger.error("[ExportUtils] PDF Export Error", error, {
-      component: "export-utils",
-      type: "pdf",
+    logger.error('[ExportUtils] PDF Export Error', error, { 
+      component: 'export-utils',
+      type: 'pdf' 
     });
-    throw new Error("PDF-Export fehlgeschlagen");
+    throw new Error('PDF-Export fehlgeschlagen');
   }
 }
 
@@ -76,58 +76,58 @@ export async function exportStatisticsPDF(data: StatisticsExportData): Promise<B
  */
 export function exportStatisticsExcel(data: StatisticsExportData): Blob {
   try {
-    let csv = "";
+    let csv = '';
 
     // Header
-    csv += "MyDispatch Statistik-Export\n";
+    csv += 'MyDispatch Statistik-Export\n';
     csv += `Zeitraum: ${data.period.from} bis ${data.period.to}\n`;
-    csv += "\n";
+    csv += '\n';
 
     // Zusammenfassung
-    csv += "ZUSAMMENFASSUNG\n";
-    csv += "Kennzahl;Wert\n";
+    csv += 'ZUSAMMENFASSUNG\n';
+    csv += 'Kennzahl;Wert\n';
     csv += `Gesamtumsatz;${formatCurrency(data.summary.total_revenue)}\n`;
     csv += `Aufträge;${data.summary.total_bookings}\n`;
     csv += `Fahrer;${data.summary.total_drivers}\n`;
     csv += `Ø Auftragswert;${formatCurrency(data.summary.avg_booking_value)}\n`;
-    csv += "\n\n";
+    csv += '\n\n';
 
     // Täglicher Umsatz
-    csv += "TÄGLICHER UMSATZ\n";
-    csv += "Datum;Umsatz;Aufträge\n";
+    csv += 'TÄGLICHER UMSATZ\n';
+    csv += 'Datum;Umsatz;Aufträge\n';
     data.daily_revenue.forEach((day) => {
       csv += `${day.date};${formatCurrency(day.revenue)};${day.bookings}\n`;
     });
-    csv += "\n\n";
+    csv += '\n\n';
 
     // Top-Fahrer
     if (data.top_drivers.length > 0) {
-      csv += "TOP-FAHRER\n";
-      csv += "Name;Fahrten;Umsatz\n";
+      csv += 'TOP-FAHRER\n';
+      csv += 'Name;Fahrten;Umsatz\n';
       data.top_drivers.forEach((driver) => {
         csv += `${driver.name};${driver.rides};${formatCurrency(driver.revenue)}\n`;
       });
-      csv += "\n\n";
+      csv += '\n\n';
     }
 
     // Partner-Performance
     if (data.partner_performance.length > 0) {
-      csv += "PARTNER-PERFORMANCE\n";
-      csv += "Name;Aufträge;Umsatz;Provision\n";
+      csv += 'PARTNER-PERFORMANCE\n';
+      csv += 'Name;Aufträge;Umsatz;Provision\n';
       data.partner_performance.forEach((partner) => {
         csv += `${partner.name};${partner.bookings};${formatCurrency(partner.revenue)};${formatCurrency(partner.provision)}\n`;
       });
     }
 
     // UTF-8 BOM für Excel
-    const bom = "\uFEFF";
-    return new Blob([bom + csv], { type: "text/csv;charset=utf-8;" });
+    const bom = '\uFEFF';
+    return new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
   } catch (error) {
-    logger.error("[ExportUtils] Excel Export Error", error, {
-      component: "export-utils",
-      type: "excel",
+    logger.error('[ExportUtils] Excel Export Error', error, { 
+      component: 'export-utils',
+      type: 'excel' 
     });
-    throw new Error("Excel-Export fehlgeschlagen");
+    throw new Error('Excel-Export fehlgeschlagen');
   }
 }
 
@@ -136,7 +136,7 @@ export function exportStatisticsExcel(data: StatisticsExportData): Blob {
  */
 export function downloadBlob(blob: Blob, filename: string): void {
   const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
+  const link = document.createElement('a');
   link.href = url;
   link.download = filename;
   document.body.appendChild(link);
@@ -150,7 +150,7 @@ export function downloadBlob(blob: Blob, filename: string): void {
  */
 export function generateExportFilename(prefix: string, extension: string): string {
   const now = new Date();
-  const timestamp = now.toISOString().split("T")[0]; // YYYY-MM-DD
+  const timestamp = now.toISOString().split('T')[0]; // YYYY-MM-DD
   return `${prefix}_${timestamp}.${extension}`;
 }
 
@@ -158,7 +158,7 @@ export function generateExportFilename(prefix: string, extension: string): strin
  * Helper: Formatiere Währung für CSV
  */
 function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat("de-DE", {
+  return new Intl.NumberFormat('de-DE', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(amount);

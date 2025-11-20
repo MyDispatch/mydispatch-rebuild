@@ -75,7 +75,9 @@ export const useAgentHealth = () => {
   const { data: agentStatus, isLoading: isLoadingStatus } = useQuery({
     queryKey: queryKeys.agentHealth.status(),
     queryFn: async () => {
-      const { data, error } = await supabase.from("agent_status").select("*");
+      const { data, error } = await supabase
+        .from("agent_status")
+        .select("*");
 
       if (error) throw error;
       return data;
@@ -88,12 +90,15 @@ export const useAgentHealth = () => {
     if (!heartbeatHistory) return null;
 
     const cutoff = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
-    const relevant = heartbeatHistory.filter((h) => new Date(h.timestamp) >= cutoff);
+    const relevant = heartbeatHistory.filter(
+      (h) => new Date(h.timestamp) >= cutoff
+    );
 
     if (relevant.length === 0) return null;
 
     const avgUptime =
-      relevant.reduce((sum, h) => sum + (h.uptime_percentage || 0), 0) / relevant.length;
+      relevant.reduce((sum, h) => sum + (h.uptime_percentage || 0), 0) /
+      relevant.length;
 
     return parseFloat(avgUptime.toFixed(2));
   };

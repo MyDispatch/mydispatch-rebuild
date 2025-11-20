@@ -2,15 +2,18 @@
    SECTION ERROR FALLBACK V28.1
    ================================================================================== */
 
-import { V28Button } from "@/components/design-system/V28Button";
-import { AlertCircle } from "lucide-react";
+import { V28Button } from '@/components/design-system/V28Button';
+import { AlertCircle } from 'lucide-react';
 
 interface SectionErrorFallbackProps {
   sectionName: string;
   onRetry?: () => void;
 }
 
-export const SectionErrorFallback = ({ sectionName, onRetry }: SectionErrorFallbackProps) => {
+export const SectionErrorFallback = ({ 
+  sectionName, 
+  onRetry 
+}: SectionErrorFallbackProps) => {
   return (
     <div className="min-h-[200px] flex items-center justify-center bg-slate-50 py-12">
       <div className="text-center max-w-md px-4">
@@ -22,7 +25,10 @@ export const SectionErrorFallback = ({ sectionName, onRetry }: SectionErrorFallb
           Bitte laden Sie die Seite neu oder versuchen Sie es später erneut.
         </p>
         <div className="flex gap-3 justify-center">
-          <V28Button variant="secondary" onClick={() => window.location.reload()}>
+          <V28Button 
+            variant="secondary" 
+            onClick={() => window.location.reload()}
+          >
             Seite neu laden
           </V28Button>
           {onRetry && (

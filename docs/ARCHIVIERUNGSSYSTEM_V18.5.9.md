@@ -49,12 +49,12 @@ docs/
 
 ### Status-Definitionen
 
-| Status         | Bedeutung                              | Speicherort                |
-| -------------- | -------------------------------------- | -------------------------- |
-| **ACTIVE**     | Aktuell gültig, in Verwendung          | `docs/`                    |
+| Status | Bedeutung | Speicherort |
+|--------|-----------|-------------|
+| **ACTIVE** | Aktuell gültig, in Verwendung | `docs/` |
 | **DEPRECATED** | Veraltet, durch neuere Version ersetzt | `docs/archive/deprecated/` |
-| **OBSOLETE**   | Komplett überholt, nicht mehr relevant | `docs/archive/obsolete/`   |
-| **SUPERSEDED** | Durch neues Konzept/System ersetzt     | `docs/archive/superseded/` |
+| **OBSOLETE** | Komplett überholt, nicht mehr relevant | `docs/archive/obsolete/` |
+| **SUPERSEDED** | Durch neues Konzept/System ersetzt | `docs/archive/superseded/` |
 
 ### Lifecycle-Phasen
 
@@ -123,8 +123,7 @@ docs/DOKUMENT_NAME_V18.5.9.md (NEU)
 
 ```markdown
 # Header der alten Version aktualisieren
-
-**Status:** Active 🟢 → **Status:** DEPRECATED ⚠️
+**Status:** Active 🟢  →  **Status:** DEPRECATED ⚠️
 **Deprecated seit:** [DATUM]
 **Ersetzt durch:** [Link zur neuen Version]
 ```
@@ -140,8 +139,8 @@ mv docs/DOKUMENT_NAME_V18.5.8.md docs/archive/deprecated/V18.5.8/
 
 ```typescript
 await postCommitIndexing([
-  "docs/DOKUMENT_NAME_V18.5.9.md", // Neue Version indexieren
-  "docs/archive/deprecated/V18.5.8/DOKUMENT_NAME_V18.5.8.md", // Alte Version aus Index entfernen
+  'docs/DOKUMENT_NAME_V18.5.9.md',  // Neue Version indexieren
+  'docs/archive/deprecated/V18.5.8/DOKUMENT_NAME_V18.5.8.md'  // Alte Version aus Index entfernen
 ]);
 ```
 
@@ -160,7 +159,7 @@ NEW_DOCS=$(git diff --name-only HEAD HEAD~1 | grep "docs/.*_V[0-9]")
 
 if [ -n "$NEW_DOCS" ]; then
   echo "📦 Neue Dokumenten-Version erkannt: $NEW_DOCS"
-
+  
   # Trigger Real-Time Indexing
   node scripts/post-commit-indexing.js "$NEW_DOCS"
 fi
@@ -172,22 +171,25 @@ fi
 /**
  * Automatische Deprecation beim Erstellen einer neuen Version
  */
-async function autoDeprecateOldVersion(newDocPath: string, oldVersion: string): Promise<void> {
+async function autoDeprecateOldVersion(
+  newDocPath: string,
+  oldVersion: string
+): Promise<void> {
   const docName = extractDocName(newDocPath);
   const oldDocPath = `docs/${docName}_${oldVersion}.md`;
-
+  
   if (fs.existsSync(oldDocPath)) {
     // 1. Header aktualisieren
     await updateHeaderToDeprecated(oldDocPath, newDocPath);
-
+    
     // 2. Verschieben nach Archive
     const archivePath = `docs/archive/deprecated/${oldVersion}/`;
     await fs.promises.mkdir(archivePath, { recursive: true });
     await fs.promises.rename(oldDocPath, `${archivePath}${path.basename(oldDocPath)}`);
-
+    
     // 3. Index aktualisieren
     await postCommitIndexing([newDocPath]);
-
+    
     logInfo(`✅ Auto-Deprecated: ${oldDocPath} → ${archivePath}`);
   }
 }
@@ -200,13 +202,11 @@ async function autoDeprecateOldVersion(newDocPath: string, oldVersion: string): 
 ### Audit-Checkliste
 
 **Durchzuführen:**
-
 - [ ] Wöchentlich (automatisch)
 - [ ] Bei jedem Major-Release
 - [ ] Bei ARCA-Pflicht-Trigger
 
 **Prüfungen:**
-
 1. Alle Dokumente in `docs/` haben Status "Active"
 2. Keine duplizierten Versionen im Hauptverzeichnis
 3. Alle Deprecated-Dokumente in `docs/archive/deprecated/`
@@ -220,52 +220,52 @@ async function autoDeprecateOldVersion(newDocPath: string, oldVersion: string): 
  * Automatischer Versions-Audit
  */
 async function auditDocumentVersions(): Promise<{
-  active: string[];
-  deprecated: string[];
-  misplaced: string[];
-  duplicates: string[];
+  active: string[],
+  deprecated: string[],
+  misplaced: string[],
+  duplicates: string[]
 }> {
-  const allDocs = await glob("docs/**/*.md");
+  const allDocs = await glob('docs/**/*.md');
   const results = {
     active: [],
     deprecated: [],
     misplaced: [],
-    duplicates: [],
+    duplicates: []
   };
-
+  
   const docMap = new Map<string, string[]>();
-
+  
   for (const docPath of allDocs) {
-    const content = await fs.promises.readFile(docPath, "utf-8");
+    const content = await fs.promises.readFile(docPath, 'utf-8');
     const status = extractStatus(content);
     const docName = extractDocName(docPath);
     const version = extractVersion(docPath);
-
+    
     // Gruppiere nach Dokument-Name
     if (!docMap.has(docName)) {
       docMap.set(docName, []);
     }
     docMap.get(docName)!.push(version);
-
+    
     // Prüfe Status
-    if (status === "Active" && docPath.includes("archive/")) {
+    if (status === 'Active' && docPath.includes('archive/')) {
       results.misplaced.push(docPath);
-    } else if (status === "DEPRECATED" && !docPath.includes("archive/")) {
+    } else if (status === 'DEPRECATED' && !docPath.includes('archive/')) {
       results.misplaced.push(docPath);
     }
   }
-
+  
   // Prüfe auf Duplikate (mehrere Versionen im Hauptverzeichnis)
   for (const [docName, versions] of docMap) {
-    const activeVersions = versions.filter(
-      (v) => !allDocs.find((d) => d.includes(v) && d.includes("archive/"))
+    const activeVersions = versions.filter(v => 
+      !allDocs.find(d => d.includes(v) && d.includes('archive/'))
     );
-
+    
     if (activeVersions.length > 1) {
       results.duplicates.push(docName);
     }
   }
-
+  
   return results;
 }
 ```
@@ -282,24 +282,24 @@ async function auditDocumentVersions(): Promise<{
  */
 function calculateDocHealthScore(): number {
   const metrics = {
-    noDuplicates: checkNoDuplicatesInMain(), // 25%
-    allHeadersValid: checkAllHeadersValid(), // 25%
+    noDuplicates: checkNoDuplicatesInMain(),      // 25%
+    allHeadersValid: checkAllHeadersValid(),      // 25%
     deprecatedInArchive: checkDeprecatedInArchive(), // 25%
-    indexSync: checkRealTimeIndexSync(), // 25%
+    indexSync: checkRealTimeIndexSync()           // 25%
   };
-
-  return (Object.values(metrics).reduce((a, b) => a + b, 0) / 4) * 100;
+  
+  return Object.values(metrics).reduce((a, b) => a + b, 0) / 4 * 100;
 }
 ```
 
 ### Ziel-Metriken
 
-| Metrik                        | Ziel | Aktuell |
-| ----------------------------- | ---- | ------- |
-| Dokumentations-Health         | 100% | TBD     |
-| Duplikate im Hauptverzeichnis | 0    | TBD     |
-| Deprecated ohne Archive       | 0    | TBD     |
-| Index-Sync-Rate               | 100% | TBD     |
+| Metrik | Ziel | Aktuell |
+|--------|------|---------|
+| Dokumentations-Health | 100% | TBD |
+| Duplikate im Hauptverzeichnis | 0 | TBD |
+| Deprecated ohne Archive | 0 | TBD |
+| Index-Sync-Rate | 100% | TBD |
 
 ---
 
@@ -337,7 +337,6 @@ function calculateDocHealthScore(): number {
 ## 📝 CHANGELOG
 
 ### V18.5.9 (2025-10-24)
-
 - **NEU:** Archivierungssystem erstellt
 - **NEU:** Automatische Deprecation-Workflows
 - **NEU:** Dokumentations-Health-Score

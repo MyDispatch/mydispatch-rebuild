@@ -6,9 +6,9 @@
    - Offline-Support
    ================================================================================== */
 
-import { createClient } from "@supabase/supabase-js";
-import type { Database } from "@/integrations/supabase/types";
-import { logError, logWarning } from "./logger";
+import { createClient } from '@supabase/supabase-js';
+import type { Database } from '@/integrations/supabase/types';
+import { logError, logWarning } from './logger';
 
 // Singleton Connection Pool Instance
 let poolInstance: ReturnType<typeof createClient<Database>> | null = null;
@@ -25,9 +25,9 @@ export function getSupabasePool() {
           autoRefreshToken: true,
         },
         global: {
-          headers: {
-            "x-my-dispatch-version": "18.2.28",
-            "x-client-info": "mydispatch-web",
+          headers: { 
+            'x-my-dispatch-version': '18.2.28',
+            'x-client-info': 'mydispatch-web'
           },
         },
       }
@@ -46,7 +46,7 @@ interface RetryOptions {
 const DEFAULT_OPTIONS: Required<RetryOptions> = {
   maxRetries: 3,
   baseDelay: 2000, // 2 seconds
-  maxDelay: 8000, // 8 seconds
+  maxDelay: 8000,  // 8 seconds
 };
 
 /**
@@ -62,7 +62,7 @@ export async function resilientQuery<T>(
   for (let attempt = 0; attempt <= maxRetries; attempt++) {
     try {
       const result = await queryFn();
-
+      
       // Success
       if (!result.error) {
         return result;
@@ -82,34 +82,35 @@ export async function resilientQuery<T>(
 
       // Calculate delay with exponential backoff
       const delay = Math.min(baseDelay * Math.pow(2, attempt), maxDelay);
-
+      
       // Log retry attempt
-      logWarning(`Retry attempt ${attempt + 1}/${maxRetries} after ${delay}ms`, {
-        error: result.error,
-        attempt,
-        delay,
-      });
+      logWarning(
+        `Retry attempt ${attempt + 1}/${maxRetries} after ${delay}ms`,
+        { error: result.error, attempt, delay }
+      );
 
       // Wait before retry
-      await new Promise((resolve) => setTimeout(resolve, delay));
+      await new Promise(resolve => setTimeout(resolve, delay));
+      
     } catch (error) {
       lastError = error;
-
+      
       // Don't retry on last attempt
       if (attempt === maxRetries) {
         break;
       }
 
       const delay = Math.min(baseDelay * Math.pow(2, attempt), maxDelay);
-      await new Promise((resolve) => setTimeout(resolve, delay));
+      await new Promise(resolve => setTimeout(resolve, delay));
     }
   }
 
   // All retries failed
-  logError("All retry attempts failed", lastError instanceof Error ? lastError : undefined, {
-    error: lastError,
-    maxRetries,
-  });
+  logError(
+    'All retry attempts failed',
+    lastError instanceof Error ? lastError : undefined,
+    { error: lastError, maxRetries }
+  );
 
   return { data: null, error: lastError };
 }
@@ -121,16 +122,18 @@ function isRetryableError(error: any): boolean {
   if (!error) return false;
 
   const retryableCodes = [
-    "NETWORK_ERROR",
-    "TIMEOUT",
-    "ECONNRESET",
-    "ENOTFOUND",
-    "ECONNREFUSED",
-    "ETIMEDOUT",
+    'NETWORK_ERROR',
+    'TIMEOUT',
+    'ECONNRESET',
+    'ENOTFOUND',
+    'ECONNREFUSED',
+    'ETIMEDOUT',
   ];
 
-  const errorCode = error.code || error.message || "";
-  return retryableCodes.some((code) => String(errorCode).toUpperCase().includes(code));
+  const errorCode = error.code || error.message || '';
+  return retryableCodes.some(code => 
+    String(errorCode).toUpperCase().includes(code)
+  );
 }
 
 // Export convenience method

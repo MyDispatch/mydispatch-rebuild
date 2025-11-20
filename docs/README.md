@@ -7,22 +7,18 @@
 ## 📋 DOKUMENTATIONS-ÜBERSICHT
 
 ### 🚀 Getting Started
-
 - [System-Konfiguration](./SYSTEM_KONFIGURATION_VOLLSTAENDIG.md) - Vollständige System-Konfiguration
 - [Konfigurations-Abgleich](./KONFIGURATION_ABGLEICH.md) - Abgleich aller Konfigurationen
 
 ### 📅 Arbeitsabläufe
-
 - [Tägliche Arbeitsabläufe](./TAEGLICHE_ARBEITSABLAEUFE.md) - Standardisierte Vorgehensweisen
 - [Deployment-Prozess](./DEPLOYMENT_PROCESS.md) - Deployment-Anleitungen
 
 ### 🧠 Wissen & Best Practices
-
 - [NeXify Wiki](./NEXIFY_WIKI_V1.0.md) - Komplettes Knowledge System
 - [Master System](./MYDISPATCH_MASTER_SYSTEM_V18.5.0.md) - System-Architektur
 
 ### 🔧 Technische Details
-
 - [Design System](./DESIGN_SYSTEM_VORGABEN_V18.3.md) - Design-Vorgaben
 - [Coding Standards](./DEFENSIVE_CODING_STANDARDS.md) - Code-Qualität
 - [Deutsche Formatierung](./DEUTSCHE_FORMATIERUNG_VORGABEN_V18.2.7.md) - Formatierungsstandards
@@ -76,18 +72,15 @@ supabase functions deploy meine-function
 ## 📚 WICHTIGE DOKUMENTE
 
 ### Für Entwickler:
-
 - [Tägliche Arbeitsabläufe](./TAEGLICHE_ARBEITSABLAEUFE.md)
 - [Deployment-Prozess](./DEPLOYMENT_PROCESS.md)
 - [Coding Standards](./DEFENSIVE_CODING_STANDARDS.md)
 
 ### Für System-Administratoren:
-
 - [System-Konfiguration](./SYSTEM_KONFIGURATION_VOLLSTAENDIG.md)
 - [Konfigurations-Abgleich](./KONFIGURATION_ABGLEICH.md)
 
 ### Für AI-Agenten:
-
 - [NeXify Wiki](./NEXIFY_WIKI_V1.0.md) - **MANDATORY LOAD**
 - [Master System](./MYDISPATCH_MASTER_SYSTEM_V18.5.0.md)
 

@@ -2,34 +2,26 @@
    FEATURE DETAIL PAGE: Kunden-Portal
    ================================================================================== */
 
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { V28HeroPremium } from "@/components/hero";
-import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
-import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
-import { V28IconBox } from "@/components/design-system/V28IconBox";
-import { V28Button } from "@/components/design-system/V28Button";
-import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
-import { Smartphone, Users, FileText, Calendar } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { V28HeroPremium } from '@/components/hero';
+import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28Button } from '@/components/design-system/V28Button';
+import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
+import { Smartphone, Users, FileText, Calendar } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function KundenPortalPage() {
   const navigate = useNavigate();
 
   const features = [
-    { icon: Users, title: "Kunden-Login", description: "Jeder Kunde erhält persönlichen Zugang" },
-    {
-      icon: Calendar,
-      title: "Fahrt-Verwaltung",
-      description: "Kunden sehen alle vergangenen und geplanten Fahrten",
-    },
-    { icon: FileText, title: "Rechnungen", description: "Alle Rechnungen digital einsehbar" },
-    {
-      icon: Smartphone,
-      title: "Mobile App",
-      description: "Als Web-App auf dem Smartphone nutzbar",
-    },
+    { icon: Users, title: 'Kunden-Login', description: 'Jeder Kunde erhält persönlichen Zugang' },
+    { icon: Calendar, title: 'Fahrt-Verwaltung', description: 'Kunden sehen alle vergangenen und geplanten Fahrten' },
+    { icon: FileText, title: 'Rechnungen', description: 'Alle Rechnungen digital einsehbar' },
+    { icon: Smartphone, title: 'Mobile App', description: 'Als Web-App auf dem Smartphone nutzbar' },
   ];
 
   return (
@@ -49,12 +41,12 @@ export default function KundenPortalPage() {
         subtitle="Ihre Kunden loggen sich ein und verwalten Fahrten selbst"
         description="Weniger Anrufe, mehr Effizienz."
         primaryCTA={{
-          label: "Jetzt starten",
-          onClick: () => navigate("/auth?mode=signup"),
+          label: 'Jetzt starten',
+          onClick: () => navigate('/auth?mode=signup')
         }}
         secondaryCTA={{
-          label: "Mehr erfahren",
-          onClick: () => navigate("/pricing"),
+          label: 'Mehr erfahren',
+          onClick: () => navigate('/pricing')
         }}
         visual={<PremiumDashboardContent pageType="features" />}
         trustElements={true}
@@ -79,7 +71,7 @@ export default function KundenPortalPage() {
             <V28TariffBadge label="Business" />
             <V28TariffBadge label="Enterprise" />
           </div>
-          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
             Tarife vergleichen
           </V28Button>
         </div>

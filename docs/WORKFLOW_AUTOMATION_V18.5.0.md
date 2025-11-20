@@ -28,7 +28,6 @@
 **Trigger**: Benutzer füllt Registrierungsformular aus (`/auth`)
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[User füllt Formular] --> B{Validierung}
@@ -51,20 +50,17 @@ graph TD
 **Datenbank-Trigger**: `handle_new_user()` (automatisch bei neuem Auth-User)
 
 **Validierung**:
-
 - E-Mail: Zod Email-Validator
 - Passwort: Min. 8 Zeichen, `validateSecurePassword()` aus `src/lib/password-validation.ts`
 - Company-Name: Min. 3 Zeichen, Max. 100 Zeichen
 - Tax-ID: Optional, aber empfohlen
 
 **Fehlerbehandlung**:
-
 - **Duplikat-E-Mail**: Toast mit Hinweis "E-Mail bereits registriert"
 - **Schwaches Passwort**: Zeige Passwort-Stärke-Anzeige mit Feedback
 - **Netzwerkfehler**: Retry mit Exponential Backoff (3x)
 
 **Security-Checks**:
-
 - ✅ CSRF-Protection via Supabase
 - ✅ Rate-Limiting: Max. 5 Registrierungen pro IP/Stunde
 - ✅ Leaked-Password-Check (clientseitig via `password-validation.ts`)
@@ -76,7 +72,6 @@ graph TD
 **Trigger**: Benutzer klickt "Passwort vergessen" (`/auth`, `/driver/forgot-password`)
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[User gibt E-Mail ein] --> B{E-Mail existiert?}
@@ -98,21 +93,18 @@ graph TD
 **E-Mail-Template**: `passwordResetTemplate` (siehe `src/lib/email-templates.ts`)
 
 **Supabase-API**:
-
 ```typescript
 const { error } = await supabase.auth.resetPasswordForEmail(email, {
-  redirectTo: `${window.location.origin}/reset-password`,
+  redirectTo: `${window.location.origin}/reset-password`
 });
 ```
 
 **Security-Checks**:
-
 - ✅ Token-Expiry: 24 Stunden (Supabase-Default)
 - ✅ Rate-Limiting: Max. 3 Resets pro E-Mail/Stunde
 - ✅ Generische Erfolgsmeldung (Information Disclosure Prevention)
 
 **Komponenten**:
-
 - Frontend: `src/pages/driver-app/DriverForgotPassword.tsx`
 - Auth-Hook: `src/hooks/use-auth.tsx`
 
@@ -123,7 +115,6 @@ const { error } = await supabase.auth.resetPasswordForEmail(email, {
 **Trigger**: Neue Registrierung mit `auto_confirm_email = false`
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Registrierung] --> B[Supabase sendet Verify-Mail]
@@ -137,7 +128,6 @@ graph TD
 ```
 
 **Konfiguration**:
-
 ```typescript
 // Supabase Auth Settings
 {
@@ -149,7 +139,6 @@ graph TD
 ```
 
 **Deployment-Hinweis**:
-
 - ⚠️ Production: `MAILER_AUTOCONFIRM = false` für regulierte Branchen
 - ✅ Development: `MAILER_AUTOCONFIRM = true` für schnelles Testing
 
@@ -162,7 +151,6 @@ graph TD
 **Trigger**: Benutzer erstellt neue Buchung (`/auftraege`, Landingpage-Widget, Kunden-Portal)
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[User füllt Formular] --> B{Validierung}
@@ -186,7 +174,6 @@ graph TD
 **E-Mail-Template**: `bookingConfirmationTemplate`
 
 **Validierung** (siehe `src/lib/validation-schemas.ts`):
-
 ```typescript
 const bookingSchema = z.object({
   pickup_address: z.string().min(5).max(500),
@@ -194,14 +181,13 @@ const bookingSchema = z.object({
   pickup_time: z.date().min(new Date()), // Zukunft
   passengers: z.number().min(1).max(8),
   luggage: z.number().min(0).max(8),
-  special_requests: z.string().max(1000).optional(),
+  special_requests: z.string().max(1000).optional()
 });
 ```
 
 **Database-Trigger**: `validate_booking_input()` (siehe Supabase Functions)
 
 **Security-Checks**:
-
 - ✅ `company_id` Filter (Multi-Tenant)
 - ✅ Input-Längen-Limits (DoS-Prevention)
 - ✅ Pickup-Time >= NOW() - 5 Minuten
@@ -213,7 +199,6 @@ const bookingSchema = z.object({
 **Trigger**: Disponent weist Fahrer zu
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Disponent wählt Fahrer] --> B{Fahrer verfügbar?}
@@ -228,7 +213,6 @@ graph TD
 **E-Mail-Template**: `bookingConfirmationTemplate` (mit Fahrer-Details)
 
 **Push-Notification** (via Fahrer-Portal):
-
 ```typescript
 // supabase/functions/send-driver-notification/
 {
@@ -245,7 +229,6 @@ graph TD
 **Trigger**: Kunde/Disponent storniert Buchung
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Stornierung initiiert] --> B{Stornierungsfrist?}
@@ -261,11 +244,10 @@ graph TD
 **E-Mail-Template**: Neu erstellen: `bookingCancellationTemplate`
 
 **Stornogebühren-Logik**:
-
 ```typescript
 const getCancellationFee = (pickup_time: Date, cancelled_at: Date) => {
   const hoursUntilPickup = (pickup_time - cancelled_at) / (1000 * 60 * 60);
-
+  
   if (hoursUntilPickup < 2) return 1.0; // 100%
   if (hoursUntilPickup < 24) return 0.5; // 50%
   return 0.0; // Kostenlos
@@ -281,7 +263,6 @@ const getCancellationFee = (pickup_time: Date, cancelled_at: Date) => {
 **Trigger**: Disponent lädt neuen Fahrer ein (`/fahrer`)
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Disponent gibt Fahrer-Daten ein] --> B[Generiere temporäres Passwort]
@@ -298,18 +279,16 @@ graph TD
 **E-Mail-Template**: `driverInvitationTemplate` (siehe `src/lib/email-templates.ts`)
 
 **Temporäres Passwort**:
-
 ```typescript
 const generateTempPassword = () => {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%";
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%';
   return Array.from(crypto.getRandomValues(new Uint8Array(12)))
-    .map((x) => chars[x % chars.length])
-    .join("");
+    .map(x => chars[x % chars.length])
+    .join('');
 };
 ```
 
 **Security-Checks**:
-
 - ✅ Temp-Passwort: 12 Zeichen, gemischt
 - ✅ First-Login-Flag: `requires_password_change = true`
 - ✅ Temp-Passwort-Expiry: 7 Tage
@@ -321,7 +300,6 @@ const generateTempPassword = () => {
 **Trigger**: Fahrer meldet sich erstmals an
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[First-Login] --> B[Zeige Willkommens-Screen]
@@ -333,12 +311,10 @@ graph TD
 ```
 
 **Komponenten**:
-
 - `src/pages/driver-app/DriverOnboarding.tsx` (neu erstellen)
 - Stepper-Component mit 4 Schritten
 
 **Pflicht-Dokumente**:
-
 1. Personalausweis
 2. Führerschein
 3. P-Schein (Personenbeförderungsschein)
@@ -351,7 +327,6 @@ graph TD
 **Trigger**: Fahrer ändert Verfügbarkeit im Fahrer-Portal
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Fahrer öffnet Schichtplan] --> B[Wählt Datum/Zeit]
@@ -366,7 +341,6 @@ graph TD
 **Database-Function**: `can_edit_shift()` (siehe Supabase Functions)
 
 **Bearbeitungsrechte**:
-
 - Fahrer: Nur heutiger Tag
 - Disponent: Letzten 10 Tage
 
@@ -379,7 +353,6 @@ graph TD
 **Trigger**: Disponent lädt Firmenkunden ein
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Disponent gibt Kunden-Daten ein] --> B[Erstelle Customer-Record]
@@ -394,7 +367,6 @@ graph TD
 **E-Mail-Template**: `customerInvitationTemplate` (siehe `src/lib/email-templates.ts`)
 
 **Tarif-Check**:
-
 - ✅ Kunden-Portal nur für Business+ / Enterprise
 
 ---
@@ -404,7 +376,6 @@ graph TD
 **Trigger**: Kunde bucht über Kunden-Portal
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Kunde öffnet Portal] --> B[Wählt Abhol-/Zieladresse]
@@ -419,7 +390,6 @@ graph TD
 ```
 
 **Komponenten**:
-
 - `src/pages/customer-portal/CreateBooking.tsx` (neu erstellen)
 - Integration mit Landingpage-Widget-Code
 
@@ -432,7 +402,6 @@ graph TD
 **Trigger**: Company A sendet Partner-Anfrage an Company B
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Company A sendet Anfrage] --> B[Erstelle PartnerConnection]
@@ -449,12 +418,10 @@ graph TD
 **E-Mail-Template**: `partnerRequestTemplate` (siehe `src/lib/email-templates.ts`)
 
 **Database-Functions**:
-
 - `get_partner_drivers()` - Listet Partner-Fahrer
 - `get_partner_vehicles()` - Listet Partner-Fahrzeuge
 
 **Security-Checks**:
-
 - ✅ Beide Companies müssen aktiv sein
 - ✅ Duplikat-Check: Keine doppelten Partner-Connections
 - ✅ `company_id` Filter bei Ressourcen-Queries
@@ -466,7 +433,6 @@ graph TD
 **Trigger**: Disponent bucht Partner-Fahrzeug/-Fahrer
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Booking erstellen] --> B{Partner-Ressource?}
@@ -478,12 +444,11 @@ graph TD
 ```
 
 **Revenue-Split-Logik**:
-
 ```typescript
 const calculateRevenueSplit = (price: number, partnerConfig: PartnerConnection) => {
   return {
     own_company: price * (1 - partnerConfig.revenue_split_percentage),
-    partner_company: price * partnerConfig.revenue_split_percentage,
+    partner_company: price * partnerConfig.revenue_split_percentage
   };
 };
 ```
@@ -497,7 +462,6 @@ const calculateRevenueSplit = (price: number, partnerConfig: PartnerConnection) 
 **Trigger**: Cron-Job (täglich 06:00 Uhr)
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Cron-Job startet] --> B[Query: Dokumente mit expiry_date < +30 Tage]
@@ -518,7 +482,6 @@ graph TD
 **Database-Trigger**: `create_expiry_reminder()`, `create_p_schein_reminder()`
 
 **Cron-Schedule** (Supabase pg_cron):
-
 ```sql
 SELECT cron.schedule(
   'check-document-expiry',
@@ -531,7 +494,6 @@ SELECT cron.schedule(
 ```
 
 **Reminder-Schwellen**:
-
 - 90 Tage vorher: Info-Mail
 - 60 Tage vorher: Warning-Mail
 - 30 Tage vorher: Urgent-Mail
@@ -545,7 +507,6 @@ SELECT cron.schedule(
 **Trigger**: Benutzer lädt neues Dokument hoch
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[User wählt Datei] --> B{Validierung}
@@ -559,12 +520,11 @@ graph TD
 ```
 
 **Validierung**:
-
 ```typescript
 const documentSchema = z.object({
   file: z.instanceof(File)
     .refine(f => f.size <= 10 * 1024 * 1024, "Max. 10MB")
-    .refine(f => ['application/pdf', 'image/jpeg', 'image/png'].includes(f.type),
+    .refine(f => ['application/pdf', 'image/jpeg', 'image/png'].includes(f.type), 
       "Nur PDF, JPG, PNG erlaubt"),
   document_type: z.enum(['fuehrerschein', 'personalausweis', 'p_schein', ...]),
   expiry_date: z.date().min(new Date()).optional()
@@ -574,7 +534,6 @@ const documentSchema = z.object({
 **Storage-Bucket**: `documents` (public read, RLS-protected)
 
 **Pfad-Struktur**:
-
 ```
 documents/
   ├── {company_id}/
@@ -594,7 +553,6 @@ documents/
 **Trigger**: Buchung abgeschlossen (Status: completed)
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Booking Status: completed] --> B{Auto-Invoice?}
@@ -613,7 +571,6 @@ graph TD
 **E-Mail-Template**: Neu erstellen: `invoiceEmailTemplate`
 
 **PDF-Generation**:
-
 - Bibliothek: `jsPDF` oder `pdfmake`
 - Template: Company-Logo, Rechnungsnummer, Positionen, MwSt., Zahlungsziel
 
@@ -624,7 +581,6 @@ graph TD
 **Trigger**: Cron-Job (täglich 08:00 Uhr)
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Cron-Job startet] --> B[Query: Überfällige Rechnungen]
@@ -643,7 +599,6 @@ graph TD
 **Edge Function**: `supabase/functions/send-payment-reminder/`
 
 **E-Mail-Templates**:
-
 - `paymentReminder1Template` (freundlich)
 - `paymentReminder2Template` (eindringlich)
 - `paymentReminder3Template` (Inkasso-Warnung)
@@ -655,7 +610,6 @@ graph TD
 **Trigger**: Kunde wählt "Jetzt bezahlen" bei Rechnung
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Kunde klickt Bezahlen] --> B[Erstelle Stripe Checkout-Session]
@@ -673,7 +627,6 @@ graph TD
 **Webhook-Handler**: `supabase/functions/stripe-webhook/`
 
 **Stripe-Events**:
-
 - `payment_intent.succeeded` → Update Invoice
 - `payment_intent.failed` → Sende Fehler-Mail
 - `charge.refunded` → Erstelle Credit-Note
@@ -687,7 +640,6 @@ graph TD
 **Trigger**: Neue Buchung erstellt (Webhook)
 
 **N8N-Knoten**:
-
 ```json
 {
   "nodes": [
@@ -753,13 +705,12 @@ graph TD
 ```
 
 **Score-Berechnung**:
-
 ```javascript
 function calculateScore(driver) {
-  const distanceScore = 100 - driver.distance / 1000; // Näher = besser
+  const distanceScore = 100 - (driver.distance / 1000); // Näher = besser
   const ratingScore = driver.rating * 20; // 5-Sterne-System
   const experienceScore = Math.min(driver.years_experience * 2, 20);
-
+  
   return distanceScore * 0.5 + ratingScore * 0.3 + experienceScore * 0.2;
 }
 ```
@@ -771,7 +722,6 @@ function calculateScore(driver) {
 **Trigger**: Cron-Job (täglich 23:00 Uhr)
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Cron-Job startet] --> B[Abrufe historische Buchungsdaten]
@@ -783,14 +733,12 @@ graph TD
 ```
 
 **N8N-Knoten**:
-
 - Supabase: Query letzte 90 Tage Buchungen
 - HTTP Request: POST zu `supabase/functions/ai-forecast`
 - Supabase: Update `analytics.dashboard_stats`
 - Resend: Sende Prognose-Report an Admin
 
 **Lovable AI Prompt**:
-
 ```
 Analysiere die Buchungsdaten und erstelle eine 7-Tage-Prognose.
 Berücksichtige: Wochentag-Muster, Saisonalität, Feiertage, Trends.
@@ -806,7 +754,6 @@ Daten: {historical_bookings}
 **Trigger**: Buchungsstatus-Änderung
 
 **Ablauf**:
-
 ```mermaid
 graph TD
     A[Status-Change-Event] --> B{WhatsApp aktiviert?}
@@ -817,13 +764,11 @@ graph TD
 ```
 
 **N8N-Knoten**:
-
 - Webhook: Status-Change
 - Function: Formatiere Nachricht
 - WhatsApp Business API: Sende Message
 
 **Message-Template**:
-
 ```
 Hallo {{customer_name}},
 
@@ -841,23 +786,22 @@ Track your ride: {{tracking_link}}
 
 ## 9. E-MAIL-TRIGGER-MATRIX
 
-| Event                  | Template                                 | Empfänger          | Edge Function               | Priorität |
-| ---------------------- | ---------------------------------------- | ------------------ | --------------------------- | --------- |
-| **Neue Registrierung** | `registrationConfirmTemplate`            | Neuer User         | `send-welcome-email`        | P1        |
-| **Passwort vergessen** | `passwordResetTemplate`                  | User               | `send-password-reset`       | P0        |
-| **Buchung erstellt**   | `bookingConfirmationTemplate`            | Kunde              | `send-booking-confirmation` | P1        |
-| **Buchung bestätigt**  | `bookingConfirmationTemplate` (+ Fahrer) | Kunde + Fahrer     | `send-booking-confirmation` | P1        |
-| **Buchung storniert**  | `bookingCancellationTemplate`            | Kunde + Fahrer     | `send-cancellation-email`   | P2        |
-| **Fahrer eingeladen**  | `driverInvitationTemplate`               | Fahrer             | `invite-driver`             | P1        |
-| **Kunde eingeladen**   | `customerInvitationTemplate`             | Kunde              | `invite-customer`           | P2        |
-| **Partner-Anfrage**    | `partnerRequestTemplate`                 | Ziel-Company       | `send-partner-request`      | P2        |
-| **Dokument läuft ab**  | `documentExpiryTemplate`                 | Disponent + Fahrer | `send-expiry-reminder`      | P1        |
-| **Rechnung erstellt**  | `invoiceEmailTemplate`                   | Kunde              | `send-invoice`              | P1        |
-| **Zahlungserinnerung** | `paymentReminder1/2/3Template`           | Kunde              | `send-payment-reminder`     | P2        |
-| **Zahlung bestätigt**  | `paymentConfirmationTemplate`            | Kunde              | `send-payment-confirmation` | P2        |
+| Event | Template | Empfänger | Edge Function | Priorität |
+|-------|----------|-----------|---------------|-----------|
+| **Neue Registrierung** | `registrationConfirmTemplate` | Neuer User | `send-welcome-email` | P1 |
+| **Passwort vergessen** | `passwordResetTemplate` | User | `send-password-reset` | P0 |
+| **Buchung erstellt** | `bookingConfirmationTemplate` | Kunde | `send-booking-confirmation` | P1 |
+| **Buchung bestätigt** | `bookingConfirmationTemplate` (+ Fahrer) | Kunde + Fahrer | `send-booking-confirmation` | P1 |
+| **Buchung storniert** | `bookingCancellationTemplate` | Kunde + Fahrer | `send-cancellation-email` | P2 |
+| **Fahrer eingeladen** | `driverInvitationTemplate` | Fahrer | `invite-driver` | P1 |
+| **Kunde eingeladen** | `customerInvitationTemplate` | Kunde | `invite-customer` | P2 |
+| **Partner-Anfrage** | `partnerRequestTemplate` | Ziel-Company | `send-partner-request` | P2 |
+| **Dokument läuft ab** | `documentExpiryTemplate` | Disponent + Fahrer | `send-expiry-reminder` | P1 |
+| **Rechnung erstellt** | `invoiceEmailTemplate` | Kunde | `send-invoice` | P1 |
+| **Zahlungserinnerung** | `paymentReminder1/2/3Template` | Kunde | `send-payment-reminder` | P2 |
+| **Zahlung bestätigt** | `paymentConfirmationTemplate` | Kunde | `send-payment-confirmation` | P2 |
 
 **Prioritäten**:
-
 - P0: Kritisch (< 1 Min)
 - P1: Hoch (< 5 Min)
 - P2: Normal (< 15 Min)
@@ -870,34 +814,33 @@ Track your ride: {{tracking_link}}
 ### 10.1 E-Mail-Versand-Fehler
 
 **Retry-Strategie**:
-
 ```typescript
 async function sendEmailWithRetry(template: EmailTemplate, recipient: string, maxRetries = 3) {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const response = await resend.emails.send({
-        from: "MyDispatch <noreply@mydispatch.de>",
+        from: 'MyDispatch <noreply@mydispatch.de>',
         to: recipient,
         subject: template.subject,
-        html: template.body,
+        html: template.body
       });
-
+      
       if (response.error) throw response.error;
       return response;
     } catch (error) {
       if (attempt === maxRetries) {
-        logger.error("[Email] Max retries reached", error, { recipient, template });
+        logger.error('[Email] Max retries reached', error, { recipient, template });
         // Fallback: Speichere in error_logs Tabelle
-        await supabase.from("error_logs").insert({
-          error_type: "email_send_failed",
+        await supabase.from('error_logs').insert({
+          error_type: 'email_send_failed',
           error_message: error.message,
-          context: { recipient, template: template.subject },
+          context: { recipient, template: template.subject }
         });
         throw error;
       }
-
+      
       const delay = Math.min(1000 * 2 ** (attempt - 1), 10000); // Exponential Backoff
-      await new Promise((resolve) => setTimeout(resolve, delay));
+      await new Promise(resolve => setTimeout(resolve, delay));
     }
   }
 }
@@ -908,19 +851,17 @@ async function sendEmailWithRetry(template: EmailTemplate, recipient: string, ma
 ### 10.2 N8N-Workflow-Fehler
 
 **Error-Handler**:
-
 - N8N-Node: "Error Trigger" nach jedem kritischen Schritt
 - Bei Fehler: Sende Alert an Admin via Resend
 - Speichere Fehler in Supabase `error_logs` Tabelle
 
 **Monitoring**:
-
 ```typescript
 // Edge Function: check-n8n-health
 const checkN8NHealth = async () => {
   const response = await fetch(`${N8N_WEBHOOK_URL}/health`);
   if (!response.ok) {
-    await sendAlert("N8N Health Check Failed", "admin@mydispatch.de");
+    await sendAlert('N8N Health Check Failed', 'admin@mydispatch.de');
   }
 };
 ```
@@ -930,26 +871,28 @@ const checkN8NHealth = async () => {
 ### 10.3 Webhook-Fehler (Stripe, Supabase)
 
 **Webhook-Verification**:
-
 ```typescript
 // supabase/functions/stripe-webhook/
-const signature = req.headers.get("stripe-signature");
-const event = stripe.webhooks.constructEvent(payload, signature, STRIPE_WEBHOOK_SECRET);
+const signature = req.headers.get('stripe-signature');
+const event = stripe.webhooks.constructEvent(
+  payload,
+  signature,
+  STRIPE_WEBHOOK_SECRET
+);
 
 // Prevent duplicate processing
 const { data: existing } = await supabase
-  .from("webhook_events")
-  .select("id")
-  .eq("event_id", event.id)
+  .from('webhook_events')
+  .select('id')
+  .eq('event_id', event.id)
   .single();
 
 if (existing) {
-  return new Response("Duplicate event", { status: 200 });
+  return new Response('Duplicate event', { status: 200 });
 }
 ```
 
 **Idempotency**:
-
 - Alle Webhooks speichern `event_id` in `webhook_events` Tabelle
 - Bei Duplikat: 200 OK (ohne Processing)
 
@@ -958,7 +901,6 @@ if (existing) {
 ## ✅ IMPLEMENTATION CHECKLIST
 
 ### Phase 1: Auth-Workflows (2h)
-
 - [ ] `send-welcome-email` Edge Function
 - [ ] `send-password-reset` Edge Function
 - [ ] E-Mail-Templates optimieren (HTML + Plain Text)
@@ -966,7 +908,6 @@ if (existing) {
 - [ ] Rate-Limiting für Auth-Endpoints
 
 ### Phase 2: Buchungs-Workflows (3h)
-
 - [ ] `create-booking` Edge Function mit HERE-Integration
 - [ ] `send-booking-confirmation` Edge Function
 - [ ] `send-cancellation-email` Edge Function
@@ -974,28 +915,24 @@ if (existing) {
 - [ ] N8N Smart-Dispatch-Workflow deployen
 
 ### Phase 3: Fahrer-/Kunden-Workflows (2h)
-
 - [ ] `invite-driver` Edge Function
 - [ ] `invite-customer` Edge Function
 - [ ] Driver-Onboarding-Component
 - [ ] Customer-Portal-Booking-Component
 
 ### Phase 4: Dokumenten-Workflows (1.5h)
-
 - [ ] `check-document-expiry` Edge Function
 - [ ] Cron-Job für tägliche Checks
 - [ ] Document-Upload-Validierung
 - [ ] Expiry-Reminder-E-Mails testen
 
 ### Phase 5: Payment-Workflows (2h)
-
 - [ ] `generate-invoice-pdf` Edge Function
 - [ ] `send-payment-reminder` Edge Function
 - [ ] Stripe-Webhook-Handler
 - [ ] Payment-Confirmation-E-Mails
 
 ### Phase 6: N8N-Workflows (2h)
-
 - [ ] Smart-Dispatch-Workflow live schalten
 - [ ] Predictive-Demand-Workflow deployen
 - [ ] WhatsApp-Integration (optional)
@@ -1006,7 +943,6 @@ if (existing) {
 **Total Effort**: ~13 Stunden (vollständige Workflow-Automation)
 
 **Dependencies**:
-
 - Resend API Key ✅
 - N8N Webhook URL ✅
 - HERE API Key ✅
@@ -1014,7 +950,6 @@ if (existing) {
 - Lovable AI aktiviert ✅
 
 **Testing-Strategy**:
-
 1. Unit-Tests für alle Edge Functions
 2. E2E-Tests für kritische User-Journeys
 3. Load-Tests für N8N-Workflows (100 Bookings/Min)

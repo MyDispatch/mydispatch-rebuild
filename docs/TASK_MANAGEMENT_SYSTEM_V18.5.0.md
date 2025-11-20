@@ -10,7 +10,6 @@
 ## 🎯 SYSTEM-ÜBERSICHT
 
 Das Task-Management-System ist das **zentrale Brain** für alle offenen Aufgaben. Es stellt sicher, dass:
-
 - Keine Aufgabe verloren geht
 - Prioritäten klar sind
 - Abhängigkeiten dokumentiert sind
@@ -21,25 +20,21 @@ Das Task-Management-System ist das **zentrale Brain** für alle offenen Aufgaben
 ## 📊 TASK-KATEGORIEN
 
 ### 1. CRITICAL ⚡ (P0)
-
 **Beschreibung:** Blockiert Production-Deployment oder verursacht schwere Fehler  
 **SLA:** Sofort (innerhalb 1h)  
 **Aktuelle Tasks:** 3
 
 ### 2. HIGH 🔴 (P1)
-
 **Beschreibung:** Wichtige Features oder Performance-Probleme  
 **SLA:** Innerhalb 24h  
 **Aktuelle Tasks:** 11
 
 ### 3. MEDIUM 🟡 (P2)
-
 **Beschreibung:** Verbesserungen, kleinere Bugs  
 **SLA:** Innerhalb 1 Woche  
 **Aktuelle Tasks:** 47
 
 ### 4. LOW 🟢 (P3)
-
 **Beschreibung:** Nice-to-have Features, Optimierungen  
 **SLA:** Backlog  
 **Aktuelle Tasks:** 215
@@ -51,12 +46,12 @@ Das Task-Management-System ist das **zentrale Brain** für alle offenen Aufgaben
 ```typescript
 interface Task {
   id: string;
-  category: "critical" | "high" | "medium" | "low";
-  type: "bug" | "feature" | "refactor" | "docs" | "security" | "performance";
+  category: 'critical' | 'high' | 'medium' | 'low';
+  type: 'bug' | 'feature' | 'refactor' | 'docs' | 'security' | 'performance';
   title: string;
   description: string;
   area: string; // z.B. 'Frontend/Sidebar', 'Backend/API', 'Docs'
-  status: "open" | "in_progress" | "blocked" | "review" | "done";
+  status: 'open' | 'in_progress' | 'blocked' | 'review' | 'done';
   assignee?: string;
   created_at: Date;
   updated_at: Date;
@@ -76,9 +71,7 @@ interface Task {
 ## 📋 AKTUELLE TASK-LISTE
 
 ### SYSTEM-UPDATE: AUTONOMES LERNEN ✅
-
 **NEU V18.5.0:** Selbstlernendes Optimierungssystem aktiv
-
 - **Dokumente:**
   - `AUTONOMOUS_OPTIMIZATION_SYSTEM_V18.5.0.md` ✅
   - `INTERNAL_PAGES_AUDIT_V18.5.0.md` ✅
@@ -89,11 +82,10 @@ interface Task {
 ### CRITICAL ⚡ (P0)
 
 #### TASK-001: Farb-System-Inkonsistenz (accent)
-
 - **Type:** Bug
 - **Area:** Frontend/Design-System
 - **Description:** `tailwind.config.ts` verwendet `accent`, aber `index.css` hat es entfernt
-- **Files:**
+- **Files:** 
   - `tailwind.config.ts` (Zeile 52-54)
   - `src/index.css` (Zeile 37)
 - **Impact:** Gelbe Farben statt erwarteter Farben
@@ -101,7 +93,6 @@ interface Task {
 - **Status:** ✅ Done (behoben)
 
 #### TASK-002: Header Bot-Button Click-Event
-
 - **Type:** Bug
 - **Area:** Frontend/Header
 - **Description:** Bot-Button im Header öffnet Chat nicht
@@ -113,7 +104,6 @@ interface Task {
 - **Status:** ✅ Done (behoben)
 
 #### TASK-003: Sidebar Navigation Links validieren
-
 - **Type:** Bug/Feature
 - **Area:** Frontend/Navigation
 - **Description:** Alle Sidebar-Links auf korrekte Ziele prüfen
@@ -127,7 +117,6 @@ interface Task {
 ### HIGH 🔴 (P1)
 
 #### TASK-004: Email-Marketing-System DB-Migration
-
 - **Type:** Feature
 - **Area:** Backend/Database
 - **Description:** Tabellen für Email-Marketing erstellen
@@ -140,7 +129,6 @@ interface Task {
 - **Blocked By:** TASK-001
 
 #### TASK-005: Web-Lead-Scanner Edge Function
-
 - **Type:** Feature
 - **Area:** Backend/Edge-Functions
 - **Description:** AI-gestütztes Web-Scraping für Lead-Generierung
@@ -150,7 +138,6 @@ interface Task {
 - **Blocked By:** TASK-004
 
 #### TASK-006: AI-Email-Template-Generator
-
 - **Type:** Feature
 - **Area:** Backend/Edge-Functions + Frontend
 - **Description:** DIN 5008 + DSGVO-konforme Email-Templates
@@ -161,7 +148,6 @@ interface Task {
 - **Blocked By:** TASK-004
 
 #### TASK-007: Campaign-Dashboard UI
-
 - **Type:** Feature
 - **Area:** Frontend/Marketing
 - **Description:** Dashboard für Email-Kampagnen-Management
@@ -171,7 +157,6 @@ interface Task {
 - **Status:** 📝 Open
 
 #### TASK-008: Pricing-Seite nach HOME_DESIGN_TEMPLATE_V18.5.1 überarbeiten
-
 - **Type:** Feature/Refactor
 - **Area:** Frontend/Marketing
 - **Description:** /pricing vollständig nach allen Vorgaben überarbeitet
@@ -181,7 +166,7 @@ interface Task {
   - ✅ Hero-Background 1:1 aus Home (Video + Fallback + Dark-Overlay)
   - ✅ Typography-Klassen: hero-headline-secondary, hero-subtext
   - ✅ Hero-Grafik mit Glow-Background & Browser-Frame
-  - ✅ Animation-Delays bei allen Cards (150ms + index \* 100ms)
+  - ✅ Animation-Delays bei allen Cards (150ms + index * 100ms)
   - ✅ Card-Shadows: shadow-md hover:shadow-2xl
   - ✅ MarketingButton statt Standard-Button
   - ✅ Icon-Komponente verwendet
@@ -191,7 +176,6 @@ interface Task {
 - **Status:** ✅ Done (2025-10-24)
 
 #### TASK-008b: Docs-Seite nach HOME_DESIGN_TEMPLATE_V18.5.1 überarbeiten
-
 - **Type:** Feature/Refactor
 - **Area:** Frontend/Marketing
 - **Description:** /docs vollständig nach allen Vorgaben (HOME_DESIGN_TEMPLATE, RECHTLICHE_COMPLIANCE, MARKETING_CONTENT_STANDARDS) überarbeitet
@@ -201,7 +185,7 @@ interface Task {
   - ✅ Hero-Background 1:1 aus Home (Video + Fallback + Dark-Overlay)
   - ✅ Typography-Klassen: hero-headline-secondary, hero-subtext
   - ✅ KEINE Hero-Grafik (V18.5.2: nur auf Home!)
-  - ✅ Animation-Delays bei allen Cards & Sections (0ms, 150ms + index \* 100ms, 450ms)
+  - ✅ Animation-Delays bei allen Cards & Sections (0ms, 150ms + index * 100ms, 450ms)
   - ✅ Card-Shadows: shadow-md hover:shadow-2xl
   - ✅ Icon-Backgrounds: bg-secondary text-secondary-foreground
   - ✅ Semantic Tokens (keine direkten Farben)
@@ -211,14 +195,12 @@ interface Task {
 - **Status:** ✅ Done (2025-10-24)
 
 #### TASK-009: Backend-Verbindungen auditieren
-
 - **Type:** Security/Performance
 - **Area:** Full-Stack
 - **Description:** Alle Frontend-Backend-Verbindungen dokumentieren und validieren
 - **Status:** ✅ Done (vollständig dokumentiert in BACKEND_FRONTEND_MAPPING_V18.5.0.md)
 
 #### TASK-010: Console-Logs vollständig wrappen
-
 - **Type:** Refactor
 - **Area:** Full-Stack
 - **Description:** Alle verbleibenden console.logs mit DEV-Guards
@@ -227,7 +209,6 @@ interface Task {
 - **Status:** ⏳ Ready to Execute (Script: scripts/fix-console-logs.ts)
 
 #### TASK-011: IntelligentAIChat Keyboard-Shortcuts
-
 - **Type:** Feature
 - **Area:** Frontend/AI-Chat
 - **Description:** Cmd+I / Ctrl+I zum Öffnen des AI-Chats
@@ -236,7 +217,6 @@ interface Task {
 - **Status:** 📝 Open
 
 #### TASK-012: Chat-History-Persistierung
-
 - **Type:** Feature
 - **Area:** Backend/Frontend
 - **Description:** Chat-Nachrichten in DB speichern für History
@@ -246,7 +226,6 @@ interface Task {
 - **Status:** 📝 Open
 
 #### TASK-013: Mobile-Statistiken implementieren
-
 - **Type:** Feature
 - **Area:** Frontend/Mobile
 - **Description:** Mobile-optimierte Statistik-Ansicht fehlt
@@ -255,7 +234,6 @@ interface Task {
 - **Status:** 📝 Open
 
 #### TASK-014: Geocoding-System vollständig implementieren
-
 - **Type:** Feature
 - **Area:** Backend/Integration
 - **Description:** HERE API Geocoding Integration abschließen
@@ -264,7 +242,6 @@ interface Task {
 - **Status:** 📝 Open
 
 #### TASK-015: ETA-Berechnung implementieren
-
 - **Type:** Feature
 - **Area:** Backend/Integration
 - **Description:** HERE API für ETA-Berechnungen
@@ -277,7 +254,6 @@ interface Task {
 ### MEDIUM 🟡 (P2)
 
 #### TASK-016-062: (47 Tasks)
-
 - Dokumentations-Updates
 - UI-Verbesserungen
 - Performance-Optimierungen
@@ -291,7 +267,6 @@ interface Task {
 ### LOW 🟢 (P3)
 
 #### TASK-063-277: (215 Tasks)
-
 - Nice-to-have Features
 - Design-Tweaks
 - Experimental Features
@@ -304,7 +279,6 @@ interface Task {
 ## 🔄 WORKFLOW
 
 ### 1. TASK-ERSTELLUNG
-
 ```bash
 1. Neue Aufgabe identifizieren
 2. Kategorie & Typ bestimmen
@@ -315,7 +289,6 @@ interface Task {
 ```
 
 ### 2. TASK-BEARBEITUNG
-
 ```bash
 1. Status auf 'in_progress' setzen
 2. Branch erstellen: task-{id}-{kurz-beschreibung}
@@ -326,7 +299,6 @@ interface Task {
 ```
 
 ### 3. TASK-ABSCHLUSS
-
 ```bash
 1. Review durchführen
 2. Tests bestanden?
@@ -341,7 +313,6 @@ interface Task {
 ## 📊 METRIKEN & REPORTING
 
 ### VELOCITY-TRACKING
-
 ```typescript
 interface SprintMetrics {
   sprint_number: number;
@@ -355,13 +326,11 @@ interface SprintMetrics {
 ```
 
 ### BURNDOWN-CHART
-
 - X-Achse: Zeit (Tage/Sprints)
 - Y-Achse: Offene Tasks (nach Punkten gewichtet)
 - Ziel: Linearer Abbau bis Projektende
 
 ### LEAD TIME
-
 - Zeit von Task-Erstellung bis Completion
 - Ziel: <5 Tage für P1, <14 Tage für P2
 
@@ -370,7 +339,6 @@ interface SprintMetrics {
 ## 🛠️ TOOLS & INTEGRATION
 
 ### DATENBANK-SCHEMA
-
 ```sql
 CREATE TABLE tasks (
   id TEXT PRIMARY KEY,
@@ -401,11 +369,9 @@ CREATE INDEX idx_tasks_assignee ON tasks(assignee);
 ```
 
 ### FRONTEND-KOMPONENTE
-
 **Datei:** `src/components/tasks/TaskDashboard.tsx`
 
 **Features:**
-
 - Kanban-Board (Open → In Progress → Review → Done)
 - Filter nach Kategorie, Type, Area, Assignee
 - Drag & Drop
@@ -417,13 +383,13 @@ CREATE INDEX idx_tasks_assignee ON tasks(assignee);
 
 ## 📈 SUCCESS-KRITERIEN
 
-| Metrik                 | Ziel    | Aktuell |
-| ---------------------- | ------- | ------- |
-| Critical Tasks         | 0       | 3       |
-| High Tasks             | <5      | 12      |
-| Task Completion Rate   | >90%    | -       |
-| Average Lead Time (P1) | <5 days | -       |
-| Carried Over Tasks     | <10%    | -       |
+| Metrik | Ziel | Aktuell |
+|--------|------|---------|
+| Critical Tasks | 0 | 3 |
+| High Tasks | <5 | 12 |
+| Task Completion Rate | >90% | - |
+| Average Lead Time (P1) | <5 days | - |
+| Carried Over Tasks | <10% | - |
 
 ---
 

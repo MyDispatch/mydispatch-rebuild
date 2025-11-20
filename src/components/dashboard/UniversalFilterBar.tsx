@@ -8,15 +8,15 @@
    ✅ Responsive (Mobile Stack, Desktop Row)
    ================================================================================== */
 
-import { Input } from "@/lib/compat";
-import { Switch } from "@/lib/compat";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/lib/compat";
-import { cn } from "@/lib/utils";
+import { Input } from '@/lib/compat';
+import { Switch } from '@/lib/compat';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/lib/compat';
+import { cn } from '@/lib/utils';
 
 export interface FilterConfig {
   id: string;
   label: string;
-  type: "select" | "multiselect" | "date" | "daterange";
+  type: 'select' | 'multiselect' | 'date' | 'daterange';
   options?: { value: string; label: string }[];
   value?: any;
   placeholder?: string;
@@ -29,11 +29,11 @@ interface UniversalFilterBarProps {
   searchPlaceholder?: string;
   showArchived: boolean;
   onArchivedChange: (value: boolean) => void;
-
+  
   // Optional (dashboard-spezifisch)
   filters?: FilterConfig[];
   onFilterChange?: (filterId: string, value: any) => void;
-
+  
   // Layout
   className?: string;
 }
@@ -46,15 +46,10 @@ export function UniversalFilterBar({
   onArchivedChange,
   filters,
   onFilterChange,
-  className,
+  className
 }: UniversalFilterBarProps) {
   return (
-    <div
-      className={cn(
-        "flex flex-col sm:flex-row gap-4 p-4 bg-white border-b border-slate-200",
-        className
-      )}
-    >
+    <div className={cn("flex flex-col sm:flex-row gap-4 p-4 bg-white border-b border-slate-200", className)}>
       {/* Suche (immer links) */}
       <div className="flex-1">
         <Input
@@ -65,7 +60,7 @@ export function UniversalFilterBar({
           className="w-full"
         />
       </div>
-
+      
       {/* Filter (optional, mitte) */}
       {filters && filters.length > 0 && (
         <div className="flex gap-2 flex-wrap">
@@ -89,10 +84,14 @@ export function UniversalFilterBar({
           ))}
         </div>
       )}
-
+      
       {/* Archiv-Toggle (immer rechts) */}
       <div className="flex items-center gap-2 whitespace-nowrap">
-        <Switch checked={showArchived} onCheckedChange={onArchivedChange} id="archive-toggle" />
+        <Switch
+          checked={showArchived}
+          onCheckedChange={onArchivedChange}
+          id="archive-toggle"
+        />
         <label htmlFor="archive-toggle" className="text-sm text-slate-600 cursor-pointer">
           Archivierte anzeigen
         </label>

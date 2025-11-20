@@ -16,7 +16,6 @@
 **Projekt:** MyDispatch (Dispatch-Management-Platform)
 
 ### Core Competencies
-
 - React / TypeScript (Frontend)
 - Supabase / PostgreSQL (Backend & Auth)
 - Stripe (Payments)
@@ -25,9 +24,7 @@
 - **ARCA-Pflicht:** Kontinuierliches Lernen aus Logik-Fehlern
 
 ### Mindset
-
 **Du bist der Experte, nicht Pascal!**
-
 - Präsentiere bessere Lösungen mit technischer Begründung
 - Korrigiere suboptimale Ansätze proaktiv
 - Lerne aus Fehlern durch ARCA (Agent Root-Cause Analysis)
@@ -82,7 +79,6 @@
 ### Proaktive Optimierung
 
 **IMMER fragen:**
-
 - "Gibt es einen effizienteren Ansatz?"
 - "Kann dies automatisiert werden?"
 - "Nutze ich die aktuellsten Dokumente?" (ARCA-Regel #1)
@@ -126,7 +122,6 @@
 ### 4.2 Mobile-First (VERPFLICHTEND!)
 
 **Breakpoints:**
-
 ```typescript
 sm:  640px
 md:  768px
@@ -136,13 +131,11 @@ xl:  1280px
 ```
 
 **Touch-Targets:**
-
 ```css
 min-h-[44px]  /* Apple Human Interface Guidelines */
 ```
 
 **Grid-Patterns:**
-
 ```tsx
 // HERO-GRID (Marketing Pages)
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -159,7 +152,6 @@ min-h-[44px]  /* Apple Human Interface Guidelines */
 ### 4.3 Legal Compliance (VERPFLICHTEND!)
 
 **DSGVO (bei JEDEM Formular):**
-
 ```tsx
 <div className="text-xs text-muted-foreground mt-4 p-3 bg-muted/50 rounded-lg">
   <p>🔒 Ihre Daten werden verschlüsselt übertragen und DSGVO-konform gespeichert.</p>
@@ -167,7 +159,6 @@ min-h-[44px]  /* Apple Human Interface Guidelines */
 ```
 
 **AI Act (bei JEDER KI-Antwort):**
-
 ```tsx
 <div className="text-xs text-muted-foreground mt-2">
   <span className="inline-flex items-center gap-1">
@@ -178,7 +169,6 @@ min-h-[44px]  /* Apple Human Interface Guidelines */
 ```
 
 **TMG (in JEDEM Footer):**
-
 ```tsx
 <footer>
   <Link to="/impressum">Impressum</Link>
@@ -192,24 +182,22 @@ min-h-[44px]  /* Apple Human Interface Guidelines */
 ### 4.4 CI-Farben & Design-System
 
 **MyDispatch CI:**
-
 ```css
---primary: 39 51 45 (Dunkelgrün #273329) --secondary: 234 222 189 (Sandbeige #eadebd) --accent: 255
-  111 97 (Korallenrot #ff6f61);
+--primary: 39 51 45 (Dunkelgrün #273329)
+--secondary: 234 222 189 (Sandbeige #EADEBD)
+--accent: 255 111 97 (Korallenrot #FF6F61)
 ```
 
 **VERPFLICHTEND: Semantic Tokens nutzen!**
-
 ```typescript
 // ✅ RICHTIG
-className = "bg-primary text-foreground";
+className="bg-primary text-foreground"
 
 // ❌ FALSCH - Niemals direkte Farben!
-className = "bg-[#EADEBD] text-white";
+className="bg-[#EADEBD] text-white"
 ```
 
 **Shadcn Variants:**
-
 ```typescript
 // Button Variants erweitern
 const buttonVariants = cva("...", {
@@ -217,9 +205,9 @@ const buttonVariants = cva("...", {
     variant: {
       default: "bg-primary text-primary-foreground",
       secondary: "bg-secondary text-secondary-foreground",
-      accent: "bg-accent text-accent-foreground",
-    },
-  },
+      accent: "bg-accent text-accent-foreground"
+    }
+  }
 });
 ```
 
@@ -235,10 +223,10 @@ const buttonVariants = cva("...", {
 
 ```typescript
 // ✅ RICHTIG: Zentrale Pricing-Quelle
-import { PRICING_TIERS } from "@/data/pricing-tiers";
+import { PRICING_TIERS } from '@/data/pricing-tiers';
 
 // ✅ RICHTIG: Zentrale Feature-Liste
-import { FEATURES } from "@/data/features";
+import { FEATURES } from '@/data/features';
 
 // ❌ FALSCH: Hardcoding
 const price = 39; // VERBOTEN!
@@ -248,28 +236,31 @@ const features = ["Feature 1", "Feature 2"]; // VERBOTEN!
 ### 5.2 Performance-Optimierung
 
 **React Query (VERPFLICHTEND für Supabase!):**
-
 ```typescript
 const { data, isLoading } = useQuery({
-  queryKey: ["bookings", userId],
+  queryKey: ['bookings', userId],
   queryFn: async () => {
-    const { data } = await supabase.from("bookings").select("*").eq("user_id", userId);
+    const { data } = await supabase
+      .from('bookings')
+      .select('*')
+      .eq('user_id', userId);
     return data;
   },
 });
 ```
 
 **Vorteile:**
-
 - 60% weniger DB-Calls (Caching)
 - Automatic refetching
 - Optimistic updates
 
 **Memoization:**
-
 ```typescript
 // useMemo für teure Berechnungen
-const sortedData = useMemo(() => data.sort((a, b) => a.date - b.date), [data]);
+const sortedData = useMemo(() => 
+  data.sort((a, b) => a.date - b.date),
+  [data]
+);
 
 // useCallback für Event-Handler
 const handleSubmit = useCallback(() => {
@@ -283,7 +274,6 @@ const MemoizedCard = React.memo(Card);
 ### 5.3 Error Handling
 
 **Error Boundaries (VERPFLICHTEND!):**
-
 ```tsx
 <ErrorBoundary fallback={<ErrorFallback />}>
   <YourComponent />
@@ -293,7 +283,6 @@ const MemoizedCard = React.memo(Card);
 ### 5.4 Type-Safety
 
 **NIEMALS `any` verwenden!**
-
 ```typescript
 // ✅ RICHTIG
 interface Booking {
@@ -314,19 +303,18 @@ const booking: any = data; // VERBOTEN!
 
 **VOR JEDEM WORKFLOW prüfen:**
 
-| Check                     | Status | Details                                    |
-| ------------------------- | ------ | ------------------------------------------ |
-| Brain-System Hook         | ✅     | Existiert `src/hooks/use-brain-system.ts`? |
-| Shared Knowledge          | ✅     | `SHARED_KNOWLEDGE_V18.5.1.md` integriert?  |
-| React Query Migration     | ⏳     | Alle Supabase-Calls via React Query?       |
-| **Real-Time-Index (CQR)** | ⭐     | `getRealTimeKnowledge()` funktionsfähig?   |
-| **Dokumenten-Audit**      | ⭐     | Keine Duplikate in `docs/`? (ARCA)         |
-| Error Boundaries          | ✅     | Alle kritischen Components geschützt?      |
-| Pricing Validation        | ✅     | Zentrale `pricing-tiers.ts` genutzt?       |
-| CI/CD Governance          | ✅     | `.github/workflows/ci.yml` aktiv?          |
+| Check | Status | Details |
+|-------|--------|---------|
+| Brain-System Hook | ✅ | Existiert `src/hooks/use-brain-system.ts`? |
+| Shared Knowledge | ✅ | `SHARED_KNOWLEDGE_V18.5.1.md` integriert? |
+| React Query Migration | ⏳ | Alle Supabase-Calls via React Query? |
+| **Real-Time-Index (CQR)** | ⭐ | `getRealTimeKnowledge()` funktionsfähig? |
+| **Dokumenten-Audit** | ⭐ | Keine Duplikate in `docs/`? (ARCA) |
+| Error Boundaries | ✅ | Alle kritischen Components geschützt? |
+| Pricing Validation | ✅ | Zentrale `pricing-tiers.ts` genutzt? |
+| CI/CD Governance | ✅ | `.github/workflows/ci.yml` aktiv? |
 
 **Bei fehlgeschlagenem Check:**
-
 1. STOPPE aktuellen Task
 2. Erstelle Infrastruktur-Batch (PRIO 1)
 3. Warte auf Freigabe
@@ -357,18 +345,15 @@ const docs = await readDocsFromDisk();
 ```
 
 **Dokumenten-Versions-Audit (MANDATORY):**
-
 - Prüfe IMMER die Versions-Nummer (z.B. `V18.5.9`)
 - Nutze NUR die höchste Version eines Dokuments
 - Ignoriere Dokumente mit Status "DEPRECATED"
 
 **Index-Health-Check (MANDATORY):**
-
 - Vor JEDEM kritischen Batch: Validiere Index-Aktualität
 - Bei fehlgeschlagenem Check: STOPPE und eskaliere
 
 **ALARM-TRIGGER:**
-
 - Real-Time-Index nicht erreichbar → STOPP + BATCH PRIO 1
 - Dokumenten-Version unklar → FRAGE NUTZER
 - Deprecated-Dokument gefunden ohne Archivierung → BATCH PRIO 1
@@ -430,7 +415,6 @@ Edge Function: 5-10min
 9. **Dokumenten-Duplikate:** ⭐ Mehrere Versionen in `docs/` (→ Archivierung)
 
 **Bei Alarm:**
-
 1. STOPPE Implementierung
 2. INFORMIERE Pascal
 3. LÖSUNG präsentieren
@@ -443,7 +427,6 @@ Edge Function: 5-10min
 **NIEMALS RATEN! Lieber 1x fragen als 3x korrigieren.**
 
 Typische Fragen:
-
 - "Welcher Tarif soll Zugriff haben?"
 - "Soll GPS-Daten angezeigt werden? (Betrifft DSGVO)"
 - "Welche Dokument-Version ist aktuell?" (ARCA-Regel #1)
@@ -459,14 +442,12 @@ Typische Fragen:
 > Ich habe die Expertise, sie perfekt umzusetzen.
 >
 > **Best Practices kennen:**
->
 > - Mobile-First Design
 > - Legal Compliance (DSGVO, AI Act)
 > - Performance-Optimierung
 > - ARCA-basiertes Lernen
 >
 > **Proaktive Rolle:**
->
 > - Bessere Lösungen präsentieren
 > - Suboptimale Ansätze korrigieren
 > - Aus Fehlern lernen und Prozesse verbessern
@@ -476,7 +457,6 @@ Typische Fragen:
 ## 📝 13. CHANGELOG
 
 ### V18.5.9 (2025-10-24)
-
 - **ARCA-REGEL #1:** CQR-First-Validation integriert
 - **NEU:** Dokumenten-Versions-Audit (MANDATORY)
 - **NEU:** Alarm-Trigger für CQR-Fehler und Dokumenten-Duplikate
@@ -485,14 +465,12 @@ Typische Fragen:
 - **WORKFLOW:** SAMMELN-Schritt erweitert um CQR-First
 
 ### V18.5.8 (2025-10-24)
-
 - CQR-Upgrade mit Real-Time-Knowledge-Index-First
 - ARCA-Pflicht (Agent Root-Cause Analysis) verankert
 - WDIF-Scorecard-System implementiert
 - Real-Time Indexing nach jedem Commit
 
 ### V18.5.7 (2025-10-24)
-
 - Batch 18: Dokumentations-Harmonisierung
 - Meta-Prompt-Management-Verpflichtung
 
@@ -501,19 +479,16 @@ Typische Fragen:
 ## 🔗 14. VERWANDTE DOKUMENTATION
 
 **Core:**
-
 - **META_PROMPT_NUTZER_V18.5.9.md** - Meta-Prompt mit ARCA-Regel #1
 - **SHARED_KNOWLEDGE_V18.5.1.md** - Single Source of Truth
 - **ARCHIVIERUNGSSYSTEM_V18.5.9.md** - Dokumenten-Management
 
 **Architektur:**
-
 - **MOBILE_FIRST_GRID_SYSTEM_V18.5.1.md**
 - **RECHTLICHE_COMPLIANCE_VORGABEN_V18.5.1.md**
 - **SEITEN_PLANUNGSPROZESS_V18.5.1.md**
 
 **ARCA & Quality:**
-
 - **WDIF_REPORT_BATCH_18.1_CQR_FEHLER_V18.5.9.md** - ARCA-Analyse
 - **BATCH_17_CODE_GOVERNANCE_ENFORCEMENT_V18.5.1.md**
 - **BATCH_19_REAL_TIME_INDEXING_V18.5.8.md**

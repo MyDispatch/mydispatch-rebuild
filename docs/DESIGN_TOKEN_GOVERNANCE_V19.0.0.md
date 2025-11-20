@@ -55,13 +55,11 @@ import { DESIGN_TOKENS } from '@/lib/design-system/design-tokens';
 ### ⚠️ AUSNAHMEN (Nur in begründeten Fällen)
 
 **Erlaubt (mit Begründung):**
-
 - Layout-Klassen: `flex`, `grid`, `container`, `mx-auto`
 - Utility-Klassen: `hidden`, `block`, `relative`, `absolute`
 - Responsive Breakpoints: `md:grid-cols-2`, `lg:flex-row`
 
 **Begründung erforderlich für:**
-
 - Tailwind-Farben in bestehenden Komponenten (Migration geplant)
 - Einmalige, komponentenspezifische Werte (z.B. custom Icon-Größe)
 
@@ -72,7 +70,6 @@ import { DESIGN_TOKENS } from '@/lib/design-system/design-tokens';
 ### 1. COLORS (Farben)
 
 **Verfügbar:**
-
 - `DESIGN_TOKENS.colors.dunkelblau` (#323D5E) - Hauptfarbe
 - `DESIGN_TOKENS.colors.beige` (#EADEBD) - Akzentfarbe
 - `DESIGN_TOKENS.colors.weiss` (#FFFFFF) - Hintergrund
@@ -85,9 +82,8 @@ import { DESIGN_TOKENS } from '@/lib/design-system/design-tokens';
 - `DESIGN_TOKENS.colors.error` - Fehler (rot)
 
 **Verwendung:**
-
 ```typescript
-style={{
+style={{ 
   backgroundColor: DESIGN_TOKENS.colors.dunkelblau,
   color: DESIGN_TOKENS.colors.beige,
 }}
@@ -96,7 +92,6 @@ style={{
 ### 2. SPACING (Abstände)
 
 **Verfügbar:**
-
 - `DESIGN_TOKENS.spacing.xs` (8px)
 - `DESIGN_TOKENS.spacing.sm` (12px)
 - `DESIGN_TOKENS.spacing.md` (16px)
@@ -109,9 +104,8 @@ style={{
 - `DESIGN_TOKENS.spacing.card_gap` (32px)
 
 **Verwendung:**
-
 ```typescript
-style={{
+style={{ 
   padding: DESIGN_TOKENS.spacing.card_padding_mobile,
   gap: DESIGN_TOKENS.spacing.card_gap,
 }}
@@ -120,7 +114,6 @@ style={{
 ### 3. ELEVATION (Schatten)
 
 **Verfügbar:**
-
 - `DESIGN_TOKENS.elevation.card_default` - Standard-Card-Schatten
 - `DESIGN_TOKENS.elevation.card_hover` - Card-Hover-Schatten
 - `DESIGN_TOKENS.elevation.card_highlighted` - Hervorgehobene Card
@@ -128,9 +121,8 @@ style={{
 - `DESIGN_TOKENS.elevation.neutral_subtle` - Subtiler Schatten
 
 **Verwendung:**
-
 ```typescript
-style={{
+style={{ 
   boxShadow: DESIGN_TOKENS.elevation.card_default,
 }}
 ```
@@ -138,16 +130,14 @@ style={{
 ### 4. RADIUS (Abrundungen)
 
 **Verfügbar:**
-
 - `DESIGN_TOKENS.radius.card` (16px, rounded-2xl)
 - `DESIGN_TOKENS.radius.button` (9999px, rounded-full)
 - `DESIGN_TOKENS.radius.input` (8px, rounded-lg)
 - `DESIGN_TOKENS.radius.icon_container` (8px oder 9999px)
 
 **Verwendung:**
-
 ```typescript
-style={{
+style={{ 
   borderRadius: DESIGN_TOKENS.radius.card,
 }}
 ```
@@ -155,7 +145,6 @@ style={{
 ### 5. MOTION (Animationen)
 
 **Verfügbar:**
-
 - `DESIGN_TOKENS.motion.duration_default` (300ms)
 - `DESIGN_TOKENS.motion.duration_fast` (200ms)
 - `DESIGN_TOKENS.motion.ease_default` (cubic-bezier)
@@ -163,9 +152,8 @@ style={{
 - `DESIGN_TOKENS.motion.transition_transform` (transform 0.3s ease)
 
 **Verwendung:**
-
 ```typescript
-style={{
+style={{ 
   transition: DESIGN_TOKENS.motion.transition_default,
 }}
 
@@ -177,7 +165,6 @@ onMouseEnter={(e) => {
 ### 6. TYPOGRAPHY (Typografie)
 
 **Verfügbar:**
-
 - `DESIGN_TOKENS.typography.font_family_base` (Inter)
 - `DESIGN_TOKENS.typography.font_size_h1_mobile` (48px)
 - `DESIGN_TOKENS.typography.font_size_h1_desktop` (60px)
@@ -186,9 +173,8 @@ onMouseEnter={(e) => {
 - `DESIGN_TOKENS.typography.line_height_relaxed` (1.625)
 
 **Verwendung:**
-
 ```typescript
-style={{
+style={{ 
   fontFamily: DESIGN_TOKENS.typography.font_family_base,
   fontSize: DESIGN_TOKENS.typography.font_size_h1_mobile,
   fontWeight: DESIGN_TOKENS.typography.font_weight_bold,
@@ -198,7 +184,6 @@ style={{
 ### 7. INTERACTIVE (Interaktive Elemente)
 
 **Verfügbar:**
-
 - `DESIGN_TOKENS.interactive.min_touch_target` (44px)
 - `DESIGN_TOKENS.interactive.button_height` (48px)
 - `DESIGN_TOKENS.interactive.button_primary_bg` (Dunkelblau)
@@ -206,9 +191,8 @@ style={{
 - `DESIGN_TOKENS.interactive.focus_ring_color` (Dunkelblau)
 
 **Verwendung:**
-
 ```typescript
-style={{
+style={{ 
   minHeight: DESIGN_TOKENS.interactive.min_touch_target,
   backgroundColor: DESIGN_TOKENS.interactive.button_primary_bg,
 }}
@@ -243,14 +227,12 @@ export function MyNewComponent() {
 ### Phase 2: Bestehende Komponenten (SCHRITTWEISE)
 
 **Priorisierung:**
-
 1. **P1 (Kritisch):** Marketing-Komponenten (Pricing, Hero, Features)
 2. **P2 (Hoch):** Shared-Komponenten (Button, Card, Input)
 3. **P3 (Mittel):** Dashboard-Komponenten
 4. **P4 (Niedrig):** Admin-Komponenten
 
 **Vorgehen:**
-
 1. Identifiziere direkte Tailwind-Klassen für visuelle Eigenschaften
 2. Ersetze durch entsprechende Design-Tokens
 3. Teste visuell (keine Änderungen in der Darstellung!)
@@ -262,7 +244,7 @@ export function MyNewComponent() {
 
 ```javascript
 // tailwind.config.ts (Zukunft)
-import { DESIGN_TOKENS } from "./src/lib/design-system/design-tokens";
+import { DESIGN_TOKENS } from './src/lib/design-system/design-tokens';
 
 export default {
   theme: {
@@ -270,9 +252,9 @@ export default {
       colors: DESIGN_TOKENS.colors,
       spacing: DESIGN_TOKENS.spacing,
       // etc.
-    },
-  },
-};
+    }
+  }
+}
 ```
 
 ---
@@ -282,7 +264,6 @@ export default {
 ### Pre-Commit Check (Developer)
 
 **Vor jedem Commit prüfen:**
-
 - [ ] Keine neuen direkten Farben (`bg-[#...]`, `text-white`, etc.)
 - [ ] Keine hardcoded Abstände in neuen/geänderten Komponenten
 - [ ] Keine hardcoded Schatten/Radien in neuen/geänderten Komponenten
@@ -292,7 +273,6 @@ export default {
 ### Code-Review Check (Reviewer)
 
 **Reviewer prüft:**
-
 - [ ] Sind Design-Tokens verwendet?
 - [ ] Sind Ausnahmen begründet?
 - [ ] Ist die visuelle Konsistenz gewahrt?
@@ -301,7 +281,6 @@ export default {
 ### CI/CD Check (Automated)
 
 **Automatische Checks (geplant):**
-
 - ESLint-Rule: Keine direkten Farb-Werte in neuen Dateien
 - Visual Regression Tests: Keine unerwarteten visuellen Änderungen
 - Accessibility Tests: Touch-Targets ≥ 44px, Kontraste WCAG 2.1 AA
@@ -311,7 +290,6 @@ export default {
 ## 🔗 VERWANDTE DOKUMENTATION
 
 **Hierarchie:**
-
 ```
 MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 ├─ DESIGN_TOKEN_GOVERNANCE_V19.0.0.md (Diese Datei)
@@ -325,14 +303,12 @@ MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 ## 📊 METRIKEN & ZIELE
 
 **Ziele (Q1 2026):**
-
 - 100% Design-Token-Nutzung in neuen Komponenten
 - 80% Design-Token-Nutzung in bestehenden Komponenten (P1+P2)
 - 0% direkte Farb-Werte in neuem Code
 - 0% hardcoded Abstände/Schatten/Radien in neuem Code
 
 **Tracking:**
-
 - Monatlicher Bericht: Anzahl Komponenten mit/ohne Design-Tokens
 - Code-Review-Feedback: Anzahl abgelehnter PRs wegen Token-Verstößen
 - Developer-Feedback: Usability der Design-Tokens
@@ -344,7 +320,6 @@ MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 ### V19.0.0 (2025-10-25) - INITIAL RELEASE
 
 **🎯 NEU:**
-
 - Design-Token-System erstellt (`src/lib/design-system/design-tokens.ts`)
 - Token-Kategorien definiert: Colors, Spacing, Elevation, Radius, Motion, Typography, Interactive
 - Token-Zwang für neue Komponenten eingeführt
@@ -353,7 +328,6 @@ MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 - Helper-Functions für CSS-Variablen und Media-Queries
 
 **🔗 Integration:**
-
 - Verknüpft mit MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md
 - Erweitert KERNFARBEN aus `src/lib/design-system/pricing-colors.ts`
 - Bindend für alle UI-Entwicklungen

@@ -16,26 +16,21 @@ Ein **vollautomatisches Progress-Tracking-System**, das bei JEDEM AI-Task automa
 ## ✅ WAS WURDE IMPLEMENTIERT?
 
 ### 1. **3 Supabase-Tabellen**
-
 - `roadmap_tasks` - Zentrale Task-Liste (20 Tasks initial)
 - `roadmap_progress` - Fortschritts-Tracking pro Task
 - `roadmap_auto_check_log` - Historie aller Auto-Checks
 
 ### 2. **2 Edge Functions**
-
 - `roadmap-auto-checker` - Findet parallel erledigbare Tasks
 - `roadmap-weekly-report` - Generiert wöchentliche Reports
 
 ### 3. **Dashboard Widget**
-
 - `RoadmapProgressWidget` - Live-Visualisierung im Dashboard
 
 ### 4. **React Hook**
-
 - `useRoadmapAutoCheck` - Dev-Mode Auto-Check
 
 ### 5. **Dokumentation**
-
 - `docs/ROADMAP_SYSTEM_V5.0.md` - Vollständige System-Docs
 - `docs/ROADMAP_QUICKSTART_GUIDE.md` - Diese Datei
 
@@ -68,7 +63,6 @@ Ein **vollautomatisches Progress-Tracking-System**, das bei JEDEM AI-Task automa
 ## 📋 AKTUELLE ROADMAP (INITIAL 20 TASKS)
 
 ### P0-Tasks (8 Tasks, ~2,4h):
-
 - ✅ CONTENT-001: Heroes-Section erweitern (0.13h)
 - ✅ CONTENT-002: Features-Section erstellen (0.42h)
 - ✅ CONTENT-006: Content-Types erweitern (0.13h)
@@ -79,7 +73,6 @@ Ein **vollautomatisches Progress-Tracking-System**, das bei JEDEM AI-Task automa
 - ✅ DOC-002: IMPLEMENTATION_CHECKLIST (0.42h)
 
 ### P1-Tasks (10 Tasks, ~1,8h):
-
 - ⏳ CONTENT-003: Testimonials (0.25h)
 - ⏳ CONTENT-004: Trust-Elements (0.08h)
 - ⏳ CONTENT-007: Generic CTAs eliminieren (0.17h)
@@ -92,7 +85,6 @@ Ein **vollautomatisches Progress-Tracking-System**, das bei JEDEM AI-Task automa
 - ⏳ PAGE-007: Features-Dropdown Navigation (0.25h)
 
 ### P2-Tasks (2 Tasks, ~0,8h):
-
 - ⏳ CONTENT-005: Legal-Content-Migration (0.33h)
 - ⏳ TEST-001: E2E-Tests (0.50h)
 
@@ -103,11 +95,10 @@ Ein **vollautomatisches Progress-Tracking-System**, das bei JEDEM AI-Task automa
 ## 👁️ WIE SEHE ICH DEN FORTSCHRITT?
 
 ### Option 1: Dashboard Widget (EMPFOHLEN)
-
 Integriere `RoadmapProgressWidget` in dein Dashboard:
 
 ```tsx
-import { RoadmapProgressWidget } from "@/components/dashboard/RoadmapProgressWidget";
+import { RoadmapProgressWidget } from '@/components/dashboard/RoadmapProgressWidget';
 
 export function Dashboard() {
   return (
@@ -120,17 +111,15 @@ export function Dashboard() {
 ```
 
 **Zeigt:**
-
 - Gesamt-Fortschritt (%)
 - Status (Completed/In Progress/Pending)
 - Priority-Breakdown (P0/P1/P2)
 - Stunden (Total/Completed/Remaining)
 
 ### Option 2: Direkte Supabase-Query
-
 ```sql
-SELECT
-  status,
+SELECT 
+  status, 
   COUNT(*) as count,
   SUM(estimated_hours) as hours
 FROM roadmap_tasks
@@ -138,7 +127,6 @@ GROUP BY status;
 ```
 
 ### Option 3: Weekly Report (Automatisch jeden Montag)
-
 ```bash
 curl https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/roadmap-weekly-report
 ```
@@ -161,10 +149,9 @@ Diese erscheinen automatisch in den Edge Function Logs, wenn der jeweilige Miles
 ## 🛠️ WIE FÜGE ICH NEUE TASKS HINZU?
 
 ### Methode 1: Direkter SQL-Insert
-
 ```sql
 INSERT INTO roadmap_tasks (
-  task_id, title, description, category, priority,
+  task_id, title, description, category, priority, 
   estimated_hours, auto_checkable, affected_files, related_pages, completion_criteria
 ) VALUES (
   'CUSTOM-001',
@@ -181,9 +168,7 @@ INSERT INTO roadmap_tasks (
 ```
 
 ### Methode 2: Via AI-Request
-
-Einfach sagen:
-
+Einfach sagen: 
 > "Füge Task 'XYZ' zur Roadmap hinzu mit Priorität P1"
 
 AI wird automatisch den passenden INSERT ausführen.
@@ -193,7 +178,6 @@ AI wird automatisch den passenden INSERT ausführen.
 ## 💡 TIPPS & BEST PRACTICES
 
 ### ✅ DO's:
-
 1. **Klare Task-Titel:** "Hero-Grafik: Contact" statt "Grafik erstellen"
 2. **affected_files ausfüllen:** Ermöglicht besseres Auto-Matching
 3. **related_pages ausfüllen:** Verbessert Opportunistic-Execution
@@ -201,7 +185,6 @@ AI wird automatisch den passenden INSERT ausführen.
 5. **Completion-Criteria definieren:** JSON-Checklist für "DONE"
 
 ### ❌ DON'Ts:
-
 1. **Keine zu großen Tasks:** > 2h → Besser splitten in Subtasks
 2. **Keine vagen Descriptions:** "Verbesserung" → Was genau?
 3. **Keine fehlenden Dependencies:** Task C braucht A+B → dependencies setzen!
@@ -223,24 +206,18 @@ AI wird automatisch den passenden INSERT ausführen.
 ## 🚨 TROUBLESHOOTING
 
 ### Problem: Auto-Check findet keine Tasks
-
-**Lösung:**
-
+**Lösung:** 
 - Prüfe ob `auto_checkable = true` gesetzt ist
 - Prüfe ob `affected_files` / `related_pages` korrekt gesetzt sind
 - Erhöhe Keyword-Dichte in Task-Titeln/Descriptions
 
 ### Problem: Tasks werden nicht als completed markiert
-
 **Lösung:**
-
 - AI muss nach Erfolg explizit `UPDATE roadmap_tasks SET status = 'completed'` ausführen
 - Prüfe Auto-Learning-Integration (`auto-learn-from-actions`)
 
 ### Problem: Dashboard Widget lädt nicht
-
 **Lösung:**
-
 - Prüfe RLS Policies: `authenticated` users müssen `roadmap_tasks` lesen können
 - Prüfe Browser Console für Fehler
 

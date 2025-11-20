@@ -17,7 +17,6 @@ Verwende stattdessen: `docs/DESIGN_SYSTEM_V28.1_FINAL.md`
 ## V26 "BALANCED" (Alt)
 
 ### Alte Kernfarben
-
 ```typescript
 // ❌ NICHT MEHR VERWENDEN!
 colors: {
@@ -28,18 +27,16 @@ colors: {
 ```
 
 ### Alte Patterns
-
 - 2-3px Borders
 - 3D Glow-Effekte mit custom drop-shadow
 - Inset 3D borders für Highlights
 - Beige/Dunkelblau Farbschema
 
 ### Deprecated Components
-
 - V26Button (mit V26-Colors)
 - V26Badge (mit V26-Colors)
 - V26IconBox (mit V26-Colors)
-- Alle anderen V26-\* Components mit altem Styling
+- Alle anderen V26-* Components mit altem Styling
 
 ---
 

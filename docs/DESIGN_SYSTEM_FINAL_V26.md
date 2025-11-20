@@ -1,5 +1,4 @@
 # DESIGN SYSTEM FINAL V26.0 - MASTER-DOKUMENTATION
-
 > **Version:** 26.0 "BALANCED"  
 > **Letzte Aktualisierung:** 2025-01-26  
 > **Status:** 🔒 LOCKED & PRODUCTION READY
@@ -15,7 +14,6 @@ Dies ist die Master-Dokumentation für das V26.0 "BALANCED" Design System von My
 ## 📚 STRUKTUR & NAVIGATION
 
 ### Kern-Dokumentation
-
 1. **KERNFARBEN:** `src/lib/design-system/pricing-colors.ts` - Zentrale Farb-Definitionen
 2. **Design-Tokens:** `src/lib/design-system/design-tokens.ts` - Spacing, Elevation, Motion
 3. **Komponenten-Library:** `docs/V26_COMPONENT_LIBRARY.md` - Wiederverwendbare Komponenten
@@ -24,7 +22,6 @@ Dies ist die Master-Dokumentation für das V26.0 "BALANCED" Design System von My
 6. **Migration-Log:** `docs/MIGRATION_V26_AUFTRAEGE_LOG.md` - Implementierungs-Historie
 
 ### Erweiterte Dokumentation
-
 - **Pricing Design:** `docs/PRICING_DESIGN_SYSTEM_V26.0.md` - Marketing-Seiten
 - **Design-System Basis:** `docs/02-ARCHITECTURE/Design-System.md` - Allgemeine Regeln
 - **UI-Library:** `docs/UI_LIBRARY_SYSTEM_V18.5.0.md` - Shared Components
@@ -37,61 +34,56 @@ Dies ist die Master-Dokumentation für das V26.0 "BALANCED" Design System von My
 
 ```typescript
 export const KERNFARBEN = {
-  dunkelblau: "#323D5E",
-  beige: "#EADEBD",
-  weiss: "#FFFFFF",
-  canvas: "#F9FAFB",
-  text_primary: "#111827",
-  text_secondary: "#374151",
-  text_tertiary: "#6B7280",
-  border_neutral: "#E5E7EB",
-  border_neutral_soft: "rgba(229, 231, 235, 0.8)",
+  dunkelblau: '#323D5E',
+  beige: '#EADEBD',
+  weiss: '#FFFFFF',
+  canvas: '#F9FAFB',
+  text_primary: '#111827',
+  text_secondary: '#374151',
+  text_tertiary: '#6B7280',
+  border_neutral: '#E5E7EB',
+  border_neutral_soft: 'rgba(229, 231, 235, 0.8)',
 } as const;
 ```
 
 ### Verwendungs-Matrix
 
-| Farbe                   | Primäre Verwendung                                                    | Sekundäre Verwendung              |
-| ----------------------- | --------------------------------------------------------------------- | --------------------------------- |
-| **dunkelblau**          | Button-Background (Primary), Icon-Container-Background, Active States | Borders (20-40% Opacity), Accents |
-| **beige**               | Text auf Dunkelblau, Icons in blauen Containern                       | -                                 |
-| **weiss**               | Card-Hintergründe, Secondary Button-Background                        | -                                 |
-| **canvas**              | Seiten-Hintergrund, Notice-Boxen                                      | -                                 |
-| **text_primary**        | H1-H3, KPI-Werte, Card-Titel                                          | -                                 |
-| **text_secondary**      | Body-Text, Beschreibungen                                             | -                                 |
-| **text_tertiary**       | Sub-Texte, Labels, Meta-Info                                          | -                                 |
-| **border_neutral**      | Standard-Borders, Hover-States                                        | -                                 |
-| **border_neutral_soft** | Default-Card-Borders                                                  | -                                 |
+| Farbe | Primäre Verwendung | Sekundäre Verwendung |
+|-------|-------------------|----------------------|
+| **dunkelblau** | Button-Background (Primary), Icon-Container-Background, Active States | Borders (20-40% Opacity), Accents |
+| **beige** | Text auf Dunkelblau, Icons in blauen Containern | - |
+| **weiss** | Card-Hintergründe, Secondary Button-Background | - |
+| **canvas** | Seiten-Hintergrund, Notice-Boxen | - |
+| **text_primary** | H1-H3, KPI-Werte, Card-Titel | - |
+| **text_secondary** | Body-Text, Beschreibungen | - |
+| **text_tertiary** | Sub-Texte, Labels, Meta-Info | - |
+| **border_neutral** | Standard-Borders, Hover-States | - |
+| **border_neutral_soft** | Default-Card-Borders | - |
 
 ---
 
 ## 🧩 KOMPONENTEN-SYSTEM
 
 ### 1. Buttons (V26Button)
-
 **Datei:** `src/components/design-system/V26Button.tsx`
 
 #### Primary Button
-
 ```tsx
 <V26Button variant="primary" onClick={handleAction}>
   <Plus className="h-4 w-4" />
   Neu erstellen
 </V26Button>
 ```
-
 - **Background:** Dunkelblau
 - **Text:** Beige
 - **Hover:** `#3F4C70` + Schatten + `scale(1.02)`
 
 #### Secondary Button
-
 ```tsx
 <V26Button variant="secondary" onClick={handleAction}>
   Abbrechen
 </V26Button>
 ```
-
 - **Background:** Weiß
 - **Border:** 2px Dunkelblau
 - **Text:** Dunkelblau
@@ -102,13 +94,11 @@ export const KERNFARBEN = {
 ---
 
 ### 2. Icon-Container (V26IconBox)
-
 **Datei:** `src/components/design-system/V26IconBox.tsx`
 
 ```tsx
 <V26IconBox icon={FileText} size="md" />
 ```
-
 - **Background:** Dunkelblau (`#323D5E`)
 - **Icon-Farbe:** Beige (`#EADEBD`)
 - **Größen:** sm (40px), md (48px), lg (64px)
@@ -118,11 +108,9 @@ export const KERNFARBEN = {
 ---
 
 ### 3. Hinweis-Boxen (V26InfoBox)
-
 **Datei:** `src/components/design-system/V26InfoBox.tsx`
 
 #### Legal (DSGVO, PBefG)
-
 ```tsx
 <V26InfoBox type="legal" title="PBefG § 51 Hinweis">
   Auftragsdaten werden für 10 Jahre gespeichert.
@@ -130,7 +118,6 @@ export const KERNFARBEN = {
 ```
 
 #### Warning
-
 ```tsx
 <V26InfoBox type="warning" title="Achtung">
   Diese Aktion kann nicht rückgängig gemacht werden.
@@ -138,9 +125,10 @@ export const KERNFARBEN = {
 ```
 
 #### Info (Standard)
-
 ```tsx
-<V26InfoBox title="Hinweis">Wichtige Information für den Nutzer.</V26InfoBox>
+<V26InfoBox title="Hinweis">
+  Wichtige Information für den Nutzer.
+</V26InfoBox>
 ```
 
 - **Background:** Canvas (`#F9FAFB`)
@@ -152,7 +140,6 @@ export const KERNFARBEN = {
 ## 📐 DESIGN-TOKENS
 
 ### Spacing
-
 ```typescript
 spacing: {
   xs: '4px',
@@ -164,7 +151,6 @@ spacing: {
 ```
 
 ### Elevation (Shadows)
-
 ```typescript
 elevation: {
   sm: '0 1px 3px rgba(0, 0, 0, 0.1)',
@@ -174,7 +160,6 @@ elevation: {
 ```
 
 ### Border-Radius
-
 ```typescript
 radius: {
   sm: '4px',
@@ -186,7 +171,6 @@ radius: {
 ```
 
 ### Motion
-
 ```typescript
 motion: {
   duration: {
@@ -208,7 +192,6 @@ motion: {
 **Fallbacks:** -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Arial
 
 ### Hierarchie
-
 ```tsx
 // H1 - Seitentitel
 <h1 className="text-2xl sm:text-3xl font-bold text-foreground font-sans">
@@ -233,7 +216,6 @@ motion: {
 ## ✅ PFLICHT-REGELN
 
 ### 1. KERNFARBEN verwenden
-
 ```tsx
 // ✅ RICHTIG
 import { KERNFARBEN } from '@/lib/design-system/pricing-colors';
@@ -245,7 +227,6 @@ className="bg-blue-500"
 ```
 
 ### 2. V26-Komponenten verwenden
-
 ```tsx
 // ✅ RICHTIG
 <V26Button variant="primary">Aktion</V26Button>
@@ -259,7 +240,6 @@ className="bg-blue-500"
 ```
 
 ### 3. Responsive Typografie
-
 ```tsx
 // ✅ RICHTIG
 <h1 className="text-2xl sm:text-3xl lg:text-4xl">
@@ -269,7 +249,6 @@ className="bg-blue-500"
 ```
 
 ### 4. Semantic Tokens
-
 ```tsx
 // ✅ RICHTIG
 <p style={{ color: KERNFARBEN.text_secondary }}>
@@ -283,7 +262,6 @@ className="bg-blue-500"
 ## 🚫 VERBOTEN
 
 ### Direct Colors
-
 ```tsx
 // ❌ VERBOTEN
 className="text-white bg-black text-blue-500"
@@ -291,21 +269,18 @@ style={{ color: '#FFFFFF' }}
 ```
 
 ### Inline Styles ohne KERNFARBEN
-
 ```tsx
 // ❌ VERBOTEN
 style={{ backgroundColor: '#ccc', padding: '10px' }}
 ```
 
 ### Custom Button Styles
-
 ```tsx
 // ❌ VERBOTEN
 <Button className="bg-primary text-white rounded-full">
 ```
 
 ### Nicht-responsive Schriftgrößen
-
 ```tsx
 // ❌ VERBOTEN
 <h1 className="text-5xl">
@@ -316,7 +291,6 @@ style={{ backgroundColor: '#ccc', padding: '10px' }}
 ## 📋 MIGRATIONS-CHECKLIST
 
 Für jede neue Seite/Komponente:
-
 - [ ] KERNFARBEN importiert und verwendet
 - [ ] Buttons durch `V26Button` ersetzt
 - [ ] Icons durch `V26IconBox` ersetzt
@@ -333,14 +307,12 @@ Für jede neue Seite/Komponente:
 ## 📊 QUALITY GATES
 
 ### Pre-Commit
-
 - [ ] Keine Direct Colors (`grep -r "text-white\|bg-black"`)
 - [ ] Keine Inline-Styles ohne KERNFARBEN
 - [ ] TypeScript: Zero Errors
 - [ ] Prettier: Formatierung korrekt
 
 ### Pre-Deploy
-
 - [ ] Visual Regression Tests: Pass
 - [ ] Accessibility Tests: WCAG AA
 - [ ] Performance: Core Web Vitals
@@ -351,7 +323,6 @@ Für jede neue Seite/Komponente:
 ## 🛠️ TOOLS & COMMANDS
 
 ### Code Checks
-
 ```bash
 # Suche nach Direct Colors
 grep -r "text-white\|bg-black\|text-blue-" src/
@@ -364,7 +335,6 @@ grep -r "style={{" src/ | grep -v "KERNFARBEN"
 ```
 
 ### Testing
-
 ```bash
 # Visual Regression
 npm run test:visual
@@ -380,16 +350,16 @@ npm run test:components
 
 ## 📈 SYSTEM-STATUS
 
-| Kategorie        | Status | Compliance |
-| ---------------- | ------ | ---------- |
-| **KERNFARBEN**   | ✅     | 100%       |
-| **Komponenten**  | ✅     | 100%       |
-| **Typografie**   | ✅     | 100%       |
-| **Infoboard**    | ✅     | 100%       |
-| **Buttons**      | ✅     | 100%       |
-| **Icons**        | ✅     | 100%       |
-| **Mobile-First** | ✅     | 100%       |
-| **WCAG AA**      | ✅     | 100%       |
+| Kategorie | Status | Compliance |
+|-----------|--------|------------|
+| **KERNFARBEN** | ✅ | 100% |
+| **Komponenten** | ✅ | 100% |
+| **Typografie** | ✅ | 100% |
+| **Infoboard** | ✅ | 100% |
+| **Buttons** | ✅ | 100% |
+| **Icons** | ✅ | 100% |
+| **Mobile-First** | ✅ | 100% |
+| **WCAG AA** | ✅ | 100% |
 
 ---
 

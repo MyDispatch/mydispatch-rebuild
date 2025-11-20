@@ -8,8 +8,8 @@
    - Konsistentes Styling
    ================================================================================== */
 
-import { LucideIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { LucideIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface QuickActionCardProps {
   label: string;
@@ -26,7 +26,7 @@ export function QuickActionCard({
   icon: Icon,
   onClick,
   prominent = false,
-  className,
+  className
 }: QuickActionCardProps) {
   return (
     <button
@@ -40,15 +40,18 @@ export function QuickActionCard({
       )}
     >
       {/* Icon */}
-      <Icon
-        className={cn("h-6 w-6 mb-4", prominent ? "text-primary-foreground" : "text-primary")}
+      <Icon 
+        className={cn(
+          "h-6 w-6 mb-4",
+          prominent ? "text-primary-foreground" : "text-primary"
+        )} 
       />
-
+      
       {/* Label */}
       <span className="font-semibold text-base mb-2">{label}</span>
-
+      
       {/* Description */}
-      <span
+      <span 
         className={cn(
           "text-sm",
           prominent ? "text-primary-foreground/80" : "text-muted-foreground"

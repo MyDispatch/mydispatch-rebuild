@@ -3,14 +3,14 @@
  * HYPERION Phase 1.3 - Design System
  */
 
-import React, { useState, forwardRef } from "react";
-import { format } from "date-fns";
-import { de } from "date-fns/locale";
-import { Calendar as CalendarIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { V28Button } from "./V28Button";
-import { V28Popover } from "./V28Popover";
-import { Calendar } from "@/components/ui/calendar";
+import React, { useState, forwardRef } from 'react';
+import { format } from 'date-fns';
+import { de } from 'date-fns/locale';
+import { Calendar as CalendarIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { V28Button } from './V28Button';
+import { V28Popover } from './V28Popover';
+import { Calendar } from '@/components/ui/calendar';
 
 export interface V28DatePickerProps {
   value?: Date;
@@ -23,15 +23,14 @@ export interface V28DatePickerProps {
 }
 
 export const V28DatePicker = forwardRef<HTMLButtonElement, V28DatePickerProps>(
-  (
-    { value, onChange, placeholder = "Datum auswählen", disabled, className, label, error },
-    ref
-  ) => {
+  ({ value, onChange, placeholder = 'Datum auswählen', disabled, className, label, error }, ref) => {
     const [open, setOpen] = useState(false);
 
     return (
       <div className="w-full space-y-2">
-        {label && <label className="block text-sm font-medium text-foreground">{label}</label>}
+        {label && (
+          <label className="block text-sm font-medium text-foreground">{label}</label>
+        )}
         <V28Popover
           open={open}
           onOpenChange={setOpen}
@@ -53,16 +52,16 @@ export const V28DatePicker = forwardRef<HTMLButtonElement, V28DatePickerProps>(
             type="button"
             disabled={disabled}
             className={cn(
-              "flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm",
-              "ring-offset-background placeholder:text-muted-foreground",
-              "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
-              "disabled:cursor-not-allowed disabled:opacity-50",
-              error && "border-destructive",
+              'flex h-10 w-full items-center justify-between rounded-md border bg-background px-3 py-2 text-sm',
+              'ring-offset-background placeholder:text-muted-foreground',
+              'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+              'disabled:cursor-not-allowed disabled:opacity-50',
+              error && 'border-destructive',
               className
             )}
           >
-            <span className={cn(!value && "text-muted-foreground")}>
-              {value ? format(value, "PPP", { locale: de }) : placeholder}
+            <span className={cn(!value && 'text-muted-foreground')}>
+              {value ? format(value, 'PPP', { locale: de }) : placeholder}
             </span>
             <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
           </button>
@@ -73,4 +72,4 @@ export const V28DatePicker = forwardRef<HTMLButtonElement, V28DatePickerProps>(
   }
 );
 
-V28DatePicker.displayName = "V28DatePicker";
+V28DatePicker.displayName = 'V28DatePicker';

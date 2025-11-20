@@ -1,15 +1,15 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { V28Badge } from "./V28Badge";
-import { CheckCircle, Clock, XCircle } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { V28Badge } from './V28Badge';
+import { CheckCircle, Clock, XCircle } from 'lucide-react';
 
 const meta: Meta<typeof V28Badge> = {
-  title: "Design System/Atoms/V28Badge",
+  title: 'Design System/Atoms/V28Badge',
   component: V28Badge,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     variant: {
-      control: "select",
-      options: ["primary", "secondary"],
+      control: 'select',
+      options: ['primary', 'secondary'],
     },
   },
 };
@@ -19,7 +19,7 @@ type Story = StoryObj<typeof V28Badge>;
 
 export const Default: Story = {
   args: {
-    children: "Badge",
+    children: 'Badge',
   },
 };
 
@@ -48,12 +48,8 @@ export const CustomStyles: Story = {
     <div className="flex flex-wrap gap-2">
       <V28Badge variant="primary">Standard</V28Badge>
       <V28Badge variant="secondary">Alternative</V28Badge>
-      <V28Badge variant="primary" className="bg-green-100 border-green-300 text-green-800">
-        Erfolgreich
-      </V28Badge>
-      <V28Badge variant="secondary" className="bg-red-100 border-red-300 text-red-800">
-        Fehler
-      </V28Badge>
+      <V28Badge variant="primary" className="bg-green-100 border-green-300 text-green-800">Erfolgreich</V28Badge>
+      <V28Badge variant="secondary" className="bg-red-100 border-red-300 text-red-800">Fehler</V28Badge>
     </div>
   ),
 };

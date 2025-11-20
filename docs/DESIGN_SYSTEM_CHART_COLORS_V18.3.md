@@ -1,8 +1,7 @@
 # DESIGN-SYSTEM: CHART-FARBEN V18.3
-
 **Datum:** 21.10.2025  
 **Version:** V18.3  
-**Status:** ✅ AKTIV
+**Status:** ✅ AKTIV  
 
 ---
 
@@ -28,23 +27,23 @@ Ab V18.3 haben wir dedizierte Chart-Farben eingeführt, um **Datenvisualisierung
 ```css
 :root {
   /* PRIMARY = Zentrale Chart-Farbe (wie Fahrzeug-Auslastungsleiste) */
-  --primary: 40 31% 88%; /* #EADEBD - Beige/Gold HAUPTFARBE für Charts */
-
+  --primary: 40 31% 88%;           /* #EADEBD - Beige/Gold HAUPTFARBE für Charts */
+  
   /* Sekundäre Chart-Farben (für Multi-Serie) */
-  --chart-secondary: 40 31% 70%; /* #D4C5A3 - Mittleres Beige für Sekundärlinie */
-  --chart-tertiary: 31 26% 55%; /* #B89368 - Mittleres Braun für dritte Linie */
-  --chart-grid: 40 12% 88%; /* #E8E0D0 - Identisch zu --border für Grid */
+  --chart-secondary: 40 31% 70%;   /* #D4C5A3 - Mittleres Beige für Sekundärlinie */
+  --chart-tertiary: 31 26% 55%;    /* #B89368 - Mittleres Braun für dritte Linie */
+  --chart-grid: 40 12% 88%;        /* #E8E0D0 - Identisch zu --border für Grid */
 }
 ```
 
 ### Farbcodes (Hex)
 
-| Token               | HSL          | Hex       | Verwendung                     |
-| ------------------- | ------------ | --------- | ------------------------------ |
-| `--chart-primary`   | `31 26% 45%` | `#9B7D57` | Hauptdatenreihe, Umsatz-Linie  |
+| Token | HSL | Hex | Verwendung |
+|-------|-----|-----|------------|
+| `--chart-primary` | `31 26% 45%` | `#9B7D57` | Hauptdatenreihe, Umsatz-Linie |
 | `--chart-secondary` | `40 31% 70%` | `#D4C5A3` | Sekundärdaten, Vergleichslinie |
-| `--chart-tertiary`  | `31 26% 55%` | `#B89368` | Tertiärdaten, Prognose-Linie   |
-| `--chart-grid`      | `40 12% 88%` | `#E8E0D0` | Gitternetzlinien               |
+| `--chart-tertiary` | `31 26% 55%` | `#B89368` | Tertiärdaten, Prognose-Linie |
+| `--chart-grid` | `40 12% 88%` | `#E8E0D0` | Gitternetzlinien |
 
 ### Farbharmonie
 
@@ -68,7 +67,7 @@ Chart-Farben (abgeleitet):          │
 
 ```tsx
 // Recharts (AreaChart, LineChart, BarChart)
-<Area
+<Area 
   stroke="hsl(var(--chart-primary))"       // Linie
   fill="url(#colorRevenue)"                 // Gradient
   dot={{ fill: 'hsl(var(--chart-primary))' }}  // Datenpunkte
@@ -83,14 +82,14 @@ Chart-Farben (abgeleitet):          │
 </defs>
 
 // Grid
-<CartesianGrid
-  stroke="hsl(var(--chart-grid))"
+<CartesianGrid 
+  stroke="hsl(var(--chart-grid))" 
   strokeDasharray="3 3"
   opacity={0.3}
 />
 
 // Sekundärlinie (Vergleichsmodus)
-<Area
+<Area 
   stroke="hsl(var(--chart-secondary))"
   strokeDasharray="5 5"  // Gestrichelt
   fillOpacity={0}
@@ -101,22 +100,22 @@ Chart-Farben (abgeleitet):          │
 
 ```tsx
 const CHART_COLORS = [
-  "hsl(var(--chart-primary))",
-  "hsl(var(--chart-secondary))",
-  "hsl(var(--chart-tertiary))",
-  "hsl(var(--primary))", // Fallback
+  'hsl(var(--chart-primary))',
+  'hsl(var(--chart-secondary))',
+  'hsl(var(--chart-tertiary))',
+  'hsl(var(--primary))',  // Fallback
 ];
 
 <Pie dataKey="value">
   {data.map((entry, index) => (
-    <Cell
+    <Cell 
       key={`cell-${index}`}
       fill={CHART_COLORS[index % CHART_COLORS.length]}
       stroke="hsl(var(--card))"
       strokeWidth={2}
     />
   ))}
-</Pie>;
+</Pie>
 ```
 
 ### ✅ RICHTIG: CSS-basierte Charts
@@ -147,7 +146,7 @@ const CHART_COLORS = [
 
 ```tsx
 // NIEMALS direkte Hex-Farben verwenden
-<Area stroke="#9B7D57" /> // FALSCH!
+<Area stroke="#9B7D57" />  // FALSCH!
 ```
 
 ### ❌ FALSCH: Ampelfarben für Daten
@@ -162,7 +161,7 @@ const CHART_COLORS = [
 
 ```tsx
 // IMMER HSL verwenden (keine RGB)
-<Area stroke="rgb(155, 125, 87)" /> // FALSCH!
+<Area stroke="rgb(155, 125, 87)" />  // FALSCH!
 ```
 
 ### ❌ FALSCH: Inkonsistente Farben
@@ -183,8 +182,8 @@ const CHART_COLORS = [
 
 ```tsx
 <AreaChart>
-  <Area
-    type="monotone" // Smooth Kurven
+  <Area 
+    type="monotone"  // Smooth Kurven
     dataKey="revenue"
     stroke="hsl(var(--chart-primary))"
     strokeWidth={2.5}
@@ -194,7 +193,6 @@ const CHART_COLORS = [
 ```
 
 **Best Practices:**
-
 - Hauptlinie: `--chart-primary` (2.5px Breite)
 - Vergleichslinie: `--chart-secondary` (2px, gestrichelt)
 - Prognose: `--chart-tertiary` (2px, gestrichelt, opacity 0.7)
@@ -206,16 +204,15 @@ const CHART_COLORS = [
 
 ```tsx
 <BarChart>
-  <Bar
+  <Bar 
     dataKey="revenue"
     fill="hsl(var(--chart-primary))"
-    radius={[4, 4, 0, 0]} // Abgerundete Ecken oben
+    radius={[4, 4, 0, 0]}  // Abgerundete Ecken oben
   />
 </BarChart>
 ```
 
 **Best Practices:**
-
 - Einzelne Kategorie: `--chart-primary`
 - Gruppierte Bars: Primary, Secondary, Tertiary
 - Hover-Effect: `opacity: 0.8`
@@ -226,11 +223,11 @@ const CHART_COLORS = [
 
 ```tsx
 <PieChart>
-  <Pie
+  <Pie 
     data={data}
-    innerRadius={30} // Donut
+    innerRadius={30}  // Donut
     outerRadius={43}
-    paddingAngle={2} // Abstand zwischen Segmenten
+    paddingAngle={2}  // Abstand zwischen Segmenten
   >
     {data.map((entry, index) => (
       <Cell fill={CHART_COLORS[index % CHART_COLORS.length]} />
@@ -240,7 +237,6 @@ const CHART_COLORS = [
 ```
 
 **Best Practices:**
-
 - Max. 4-5 Segmente (Lesbarkeit)
 - Stroke: `hsl(var(--card))` (2px) → Separation
 - Labels außerhalb bei < 10%
@@ -267,12 +263,12 @@ const CHART_COLORS = [
 
 ### Kontrast-Ratios (WCAG 2.1 AA)
 
-| Farbe               | Auf Weiß | Auf Card | Auf Primary | Status             |
-| ------------------- | -------- | -------- | ----------- | ------------------ |
-| `--chart-primary`   | 4.8:1    | 4.8:1    | 2.1:1       | ✅ Pass            |
-| `--chart-secondary` | 2.9:1    | 2.9:1    | 1.5:1       | ⚠️ Nur mit Outline |
-| `--chart-tertiary`  | 3.5:1    | 3.5:1    | 1.8:1       | ✅ Pass            |
-| `--chart-grid`      | 1.3:1    | 1.3:1    | 1.1:1       | ✅ Pass (Grid)     |
+| Farbe | Auf Weiß | Auf Card | Auf Primary | Status |
+|-------|----------|----------|-------------|--------|
+| `--chart-primary` | 4.8:1 | 4.8:1 | 2.1:1 | ✅ Pass |
+| `--chart-secondary` | 2.9:1 | 2.9:1 | 1.5:1 | ⚠️ Nur mit Outline |
+| `--chart-tertiary` | 3.5:1 | 3.5:1 | 1.8:1 | ✅ Pass |
+| `--chart-grid` | 1.3:1 | 1.3:1 | 1.1:1 | ✅ Pass (Grid) |
 
 ### Best Practices
 
@@ -322,14 +318,14 @@ const CHART_COLORS = [
 
 ```tsx
 // ❌ VORHER (V18.2)
-stroke = "hsl(var(--accent))"; // #856d4b - zu dunkel
-fill = "hsl(var(--primary))"; // #EADEBD - zu hell
-stroke = "hsl(var(--status-success))"; // Ampelfarbe - verboten
+stroke="hsl(var(--accent))"        // #856d4b - zu dunkel
+fill="hsl(var(--primary))"         // #EADEBD - zu hell
+stroke="hsl(var(--status-success))"  // Ampelfarbe - verboten
 
 // ✅ NACHHER (V18.3)
-stroke = "hsl(var(--chart-primary))"; // #9B7D57 - perfekt
-fill = "url(#colorRevenue)"; // Gradient
-stroke = "hsl(var(--chart-primary))"; // Chart-Farbe
+stroke="hsl(var(--chart-primary))"    // #9B7D57 - perfekt
+fill="url(#colorRevenue)"             // Gradient
+stroke="hsl(var(--chart-primary))"    // Chart-Farbe
 ```
 
 ### Automatische Refactoring-Regel

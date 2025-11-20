@@ -21,21 +21,22 @@ Einheitliches Header/Footer-Design für alle Marketing-Seiten mit Auth-Header al
   <div className="px-4 sm:px-6">
     <div className="flex items-center justify-between h-14 sm:h-16">
       {/* Logo - KEIN Overflow */}
-      <img
-        src={officialLogo}
+      <img 
+        src={officialLogo} 
         alt="MyDispatch"
         className="h-7 sm:h-8 max-w-[120px] sm:max-w-[160px] md:max-w-[180px] object-contain drop-shadow-sm"
       />
-
+      
       {/* Action Buttons */}
-      <Button className="bg-background/20 text-foreground hover:bg-background/30">Anmelden</Button>
+      <Button className="bg-background/20 text-foreground hover:bg-background/30">
+        Anmelden
+      </Button>
     </div>
   </div>
 </header>
 ```
 
 **Eigenschaften:**
-
 - **Background:** `bg-gradient-to-r from-primary via-primary to-primary/95`
 - **Höhe:** `h-14 sm:h-16` (56px → 64px)
 - **Padding:** `px-4 sm:px-6` (horizontal)
@@ -70,7 +71,7 @@ Einheitliches Header/Footer-Design für alle Marketing-Seiten mit Auth-Header al
         </Link>
       </div>
     </div>
-
+    
     {/* Desktop: Mehrspaltig */}
     <div className="hidden sm:flex items-center justify-between">
       <p className="text-xs text-primary-foreground/90">
@@ -90,7 +91,6 @@ Einheitliches Header/Footer-Design für alle Marketing-Seiten mit Auth-Header al
 ```
 
 **Eigenschaften:**
-
 - **Background:** `bg-gradient-to-t from-primary via-primary to-primary/95` (identisch zu Header, nur Richtung gedreht)
 - **Padding:** `py-3 sm:py-4` (vertical)
 - **Border:** `border-t border-border/20` (subtil)
@@ -111,22 +111,20 @@ Einheitliches Header/Footer-Design für alle Marketing-Seiten mit Auth-Header al
 
 ```css
 /* Primary Gradient (Beige/Gold) */
---primary: hsl(40, 31%, 88%); /* #EADEBD */
+--primary: hsl(40, 31%, 88%);          /* #EADEBD */
 --primary-foreground: hsl(225, 31%, 28%); /* #323D5E - Dunkelblau */
 
 /* Header: Top → Bottom */
-background: linear-gradient(
-  to right,
-  hsl(var(--primary)),
-  hsl(var(--primary)),
+background: linear-gradient(to right, 
+  hsl(var(--primary)), 
+  hsl(var(--primary)), 
   hsl(var(--primary) / 0.95)
 );
 
 /* Footer: Bottom → Top */
-background: linear-gradient(
-  to top,
-  hsl(var(--primary)),
-  hsl(var(--primary)),
+background: linear-gradient(to top, 
+  hsl(var(--primary)), 
+  hsl(var(--primary)), 
   hsl(var(--primary) / 0.95)
 );
 ```
@@ -143,14 +141,13 @@ text-primary-foreground/90: hsl(225, 31%, 28%, 0.9); /* Haupttext */
 text-primary-foreground/80: hsl(225, 31%, 28%, 0.8); /* Links/Sekundär */
 
 /* Hover-Text (voll, 100% Opacity) */
-text-primary-foreground: hsl(225, 31%, 28%); /* Aktiv/Hover */
+text-primary-foreground: hsl(225, 31%, 28%);         /* Aktiv/Hover */
 
 /* Trennzeichen (40% Opacity) */
 text-primary-foreground/40: hsl(225, 31%, 28%, 0.4); /* Bullet-Points */
 ```
 
-**Reasoning:**
-
+**Reasoning:** 
 - Primary Gradient ist hell (Beige #EADEBD)
 - `primary-foreground` ist dunkel (Dunkelblau #323D5E)
 - ABER: Für bessere Harmonie mit Sidebar verwenden wir helle Schrift
@@ -173,7 +170,6 @@ text-primary-foreground/40: hsl(225, 31%, 28%, 0.4); /* Bullet-Points */
 ```
 
 **Sidebar-Farben:**
-
 - **Background:** `bg-background` (Weiß #FFFFFF)
 - **Active:** `bg-primary text-foreground` (Beige #EADEBD)
 - **Hover:** `hover:bg-primary/10 hover:text-foreground`
@@ -184,7 +180,6 @@ text-primary-foreground/40: hsl(225, 31%, 28%, 0.4); /* Bullet-Points */
 ## ✅ IMPLEMENTIERUNGS-CHECKLISTE
 
 ### Header
-
 - [ ] Gradient `from-primary via-primary to-primary/95`
 - [ ] Logo mit strikter `max-w-[120px] sm:max-w-[160px] md:max-w-[180px]`
 - [ ] Logo `object-contain` + `drop-shadow-sm`
@@ -193,7 +188,6 @@ text-primary-foreground/40: hsl(225, 31%, 28%, 0.4); /* Bullet-Points */
 - [ ] Höhe `h-14 sm:h-16`
 
 ### Footer
-
 - [ ] Gradient `from-primary via-primary to-primary/95` (to top!)
 - [ ] Text `text-foreground/70 hover:text-foreground`
 - [ ] Border `border-t border-border/20`
@@ -201,7 +195,6 @@ text-primary-foreground/40: hsl(225, 31%, 28%, 0.4); /* Bullet-Points */
 - [ ] Padding `py-3 sm:py-4`
 
 ### Sidebar (Unverändert)
-
 - [ ] Background `bg-background` (Weiß)
 - [ ] Active `bg-primary text-foreground`
 - [ ] Hover `hover:bg-primary/10 hover:text-foreground`
@@ -252,11 +245,11 @@ text-primary-foreground/40: hsl(225, 31%, 28%, 0.4); /* Bullet-Points */
 
 ## 📊 KOMPONENTEN-ÜBERSICHT
 
-| Komponente  | Background                                                | Text                 | Border                      |
-| ----------- | --------------------------------------------------------- | -------------------- | --------------------------- |
-| **Header**  | `bg-gradient-to-r from-primary via-primary to-primary/95` | `text-foreground`    | `border-b border-border/20` |
-| **Footer**  | `bg-gradient-to-t from-primary via-primary to-primary/95` | `text-foreground/70` | `border-t border-border/20` |
-| **Sidebar** | `bg-background`                                           | `text-foreground`    | `border-r border-border`    |
+| Komponente | Background | Text | Border |
+|-----------|-----------|------|---------|
+| **Header** | `bg-gradient-to-r from-primary via-primary to-primary/95` | `text-foreground` | `border-b border-border/20` |
+| **Footer** | `bg-gradient-to-t from-primary via-primary to-primary/95` | `text-foreground/70` | `border-t border-border/20` |
+| **Sidebar** | `bg-background` | `text-foreground` | `border-r border-border` |
 
 ---
 

@@ -1,5 +1,4 @@
 # 🐛 KNOWN ISSUES REGISTRY V18.3.24
-
 **Zentrale Fehler-Datenbank - Fehler niemals wiederholen!**
 
 Datum: 18.01.2025  
@@ -24,17 +23,11 @@ Diese Datei ist die **zentrale Fehler-Datenbank** für alle bereits gemachten Fe
 ## 📋 FEHLER-KATEGORIEN
 
 ### Kategorie A: Design-Violations
-
 ### Kategorie B: Component-Fehler
-
 ### Kategorie C: State-Management-Fehler
-
 ### Kategorie D: Security-Violations
-
 ### Kategorie E: Performance-Issues
-
 ### Kategorie F: Accessibility-Violations
-
 ### Kategorie G: Branding-Violations
 
 ---
@@ -44,7 +37,6 @@ Diese Datei ist die **zentrale Fehler-Datenbank** für alle bereits gemachten Fe
 ### A.1 accent-Farbe verwendet (KRITISCH)
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 <Button className="bg-accent hover:bg-accent/90" />
@@ -53,7 +45,6 @@ Diese Datei ist die **zentrale Fehler-Datenbank** für alle bereits gemachten Fe
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 <Button className="bg-primary hover:bg-primary/90" />
@@ -71,7 +62,6 @@ Diese Datei ist die **zentrale Fehler-Datenbank** für alle bereits gemachten Fe
 ### A.2 Ampelfarben auf Icons
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 <CheckIcon className="text-status-success" />
@@ -80,7 +70,6 @@ Diese Datei ist die **zentrale Fehler-Datenbank** für alle bereits gemachten Fe
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 <CheckIcon className="text-foreground" />
@@ -103,7 +92,6 @@ Diese Datei ist die **zentrale Fehler-Datenbank** für alle bereits gemachten Fe
 ### A.3 Layout-Höhen geändert
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 <Header className="h-20" />  // statt h-16
@@ -112,7 +100,6 @@ Diese Datei ist die **zentrale Fehler-Datenbank** für alle bereits gemachten Fe
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG (NIEMALS ändern):
 <Header className="h-16" />  // 60px fixiert
@@ -130,7 +117,6 @@ Diese Datei ist die **zentrale Fehler-Datenbank** für alle bereits gemachten Fe
 ### A.4 Direkte Hex-Farben verwendet
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 <div style={{ backgroundColor: '#EADEBD' }} />
@@ -138,7 +124,6 @@ Diese Datei ist die **zentrale Fehler-Datenbank** für alle bereits gemachten Fe
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 <div className="bg-primary" />
@@ -159,7 +144,6 @@ color: hsl(var(--foreground));
 ### A.5 Badge mit Hover-Effekten (NEU!)
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 <Badge className="hover:bg-primary/90 cursor-pointer" />
@@ -167,7 +151,6 @@ color: hsl(var(--foreground));
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 <Badge className="pointer-events-none" />  // Keine Interaktion
@@ -184,7 +167,6 @@ color: hsl(var(--foreground));
 ### A.6 Dialog-Footer außerhalb/falsche Farbe
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 </DialogContent>
@@ -194,7 +176,6 @@ color: hsl(var(--foreground));
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
   <div className="px-6 py-4 border-t bg-background">  // Innerhalb + korrekte Farbe
@@ -215,21 +196,19 @@ color: hsl(var(--foreground));
 ### B.1 Inline-Formatierung statt Utils
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 const formatted = `${value.toFixed(2)} €`;
-const date = new Date().toLocaleDateString("de-DE");
+const date = new Date().toLocaleDateString('de-DE');
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
-import { formatCurrency, formatDate } from "@/lib/format-utils";
+import { formatCurrency, formatDate } from '@/lib/format-utils';
 
-const formatted = formatCurrency(value); // "1.234,56 €"
-const date = formatDate(new Date()); // "18.01.2025"
+const formatted = formatCurrency(value);  // "1.234,56 €"
+const date = formatDate(new Date());      // "18.01.2025"
 ```
 
 **Grund:** Zentrale Formatierung (DIN 5008), keine Duplikation  
@@ -242,7 +221,6 @@ const date = formatDate(new Date()); // "18.01.2025"
 ### B.2 TypeScript any verwendet
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 const handleSubmit = (data: any) => { ... }
@@ -250,7 +228,6 @@ const response: any = await fetch(...);
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 interface FormData {
@@ -276,28 +253,26 @@ const response: ApiResponse = await fetch(...);
 ### B.3 Fehlende Error-Boundaries
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 try {
-  await supabase.from("bookings").insert(data);
+  await supabase.from('bookings').insert(data);
   // Kein Error-Handling!
 } catch (error) {
-  console.error(error); // Nur Console-Log
+  console.error(error);  // Nur Console-Log
 }
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
-import { handleError, handleSuccess } from "@/lib/error-handlers";
+import { handleError, handleSuccess } from '@/lib/error-handlers';
 
 try {
-  await supabase.from("bookings").insert(data);
-  handleSuccess("Auftrag erfolgreich erstellt");
+  await supabase.from('bookings').insert(data);
+  handleSuccess('Auftrag erfolgreich erstellt');
 } catch (error) {
-  handleError(error, "Fehler beim Erstellen des Auftrags");
+  handleError(error, 'Fehler beim Erstellen des Auftrags');
 }
 ```
 
@@ -311,23 +286,19 @@ try {
 ### B.4 Keys fehlen bei Listen
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
-{
-  items.map((item) => (
-    <div>{item.name}</div> // Kein key!
-  ));
-}
+{items.map(item => (
+  <div>{item.name}</div>  // Kein key!
+))}
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
-{
-  items.map((item) => <div key={item.id}>{item.name}</div>);
-}
+{items.map(item => (
+  <div key={item.id}>{item.name}</div>
+))}
 ```
 
 **Grund:** React-Performance, Vermeidung von Re-Renders  
@@ -342,16 +313,14 @@ try {
 ### C.1 useState in Loops
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
-items.forEach((item) => {
-  const [selected, setSelected] = useState(false); // Kein Hook in Loop!
+items.forEach(item => {
+  const [selected, setSelected] = useState(false);  // Kein Hook in Loop!
 });
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -369,7 +338,6 @@ const isSelected = (id: string) => selectedIds.includes(id);
 ### C.2 Direkte State-Mutation
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 const [items, setItems] = useState([...]);
@@ -378,10 +346,9 @@ setItems(items);
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
-setItems((prev) => [...prev, newItem]);
+setItems(prev => [...prev, newItem]);
 ```
 
 **Grund:** React State Immutability - Trigger Re-Render  
@@ -396,21 +363,21 @@ setItems((prev) => [...prev, newItem]);
 ### D.1 Fehlender company_id Filter
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH (KRITISCH!):
-const { data } = await supabase.from("bookings").select("*"); // Kein company_id Filter!
+const { data } = await supabase
+  .from('bookings')
+  .select('*');  // Kein company_id Filter!
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 const { data } = await supabase
-  .from("bookings")
-  .select("*")
-  .eq("company_id", profile.company_id) // PFLICHT!
-  .eq("archived", false);
+  .from('bookings')
+  .select('*')
+  .eq('company_id', profile.company_id)  // PFLICHT!
+  .eq('archived', false);
 ```
 
 **Grund:** Multi-Tenant Security - Data-Leakage verhindern  
@@ -423,23 +390,24 @@ const { data } = await supabase
 ### D.2 DELETE statt Archiving
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH (KRITISCH!):
-await supabase.from("bookings").delete().eq("id", bookingId);
+await supabase
+  .from('bookings')
+  .delete()
+  .eq('id', bookingId);
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 await supabase
-  .from("bookings")
-  .update({
-    archived: true,
-    archived_at: new Date().toISOString(),
+  .from('bookings')
+  .update({ 
+    archived: true, 
+    archived_at: new Date().toISOString() 
   })
-  .eq("id", bookingId);
+  .eq('id', bookingId);
 ```
 
 **Grund:** Soft-Delete - Daten-Recovery, Audit-Trail  
@@ -452,20 +420,18 @@ await supabase
 ### D.3 SQL-Injection-Risiko
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 const query = `SELECT * FROM bookings WHERE customer_name = '${userInput}'`;
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 const { data } = await supabase
-  .from("bookings")
-  .select("*")
-  .ilike("customer_name", `%${userInput}%`); // Parametrisiert
+  .from('bookings')
+  .select('*')
+  .ilike('customer_name', `%${userInput}%`);  // Parametrisiert
 ```
 
 **Grund:** SQL-Injection-Prevention  
@@ -480,7 +446,6 @@ const { data } = await supabase
 ### E.1 Fehlende Memoization
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 const expensiveCalculation = () => {
@@ -490,7 +455,6 @@ const expensiveCalculation = () => {
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 const expensiveCalculation = useMemo(() => {
@@ -508,17 +472,20 @@ const expensiveCalculation = useMemo(() => {
 ### E.2 Fehlende Pagination
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
-const { data } = await supabase.from("bookings").select("*"); // Alle Aufträge laden!
+const { data } = await supabase
+  .from('bookings')
+  .select('*');  // Alle Aufträge laden!
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
-const { data } = await supabase.from("bookings").select("*").range(0, 49); // Nur 50 laden
+const { data } = await supabase
+  .from('bookings')
+  .select('*')
+  .range(0, 49);  // Nur 50 laden
 ```
 
 **Grund:** Performance - Reduzierung Daten-Transfer  
@@ -533,14 +500,12 @@ const { data } = await supabase.from("bookings").select("*").range(0, 49); // Nu
 ### F.1 Fehlende Alt-Texte
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 <img src={logoUrl} />
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 <img src={logoUrl} alt="MyDispatch Logo" />
@@ -556,19 +521,20 @@ const { data } = await supabase.from("bookings").select("*").range(0, 49); // Nu
 ### F.2 Fehlende ARIA-Labels
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 <button onClick={handleDelete}>
-  <TrashIcon /> // Nur Icon, kein Text!
+  <TrashIcon />  // Nur Icon, kein Text!
 </button>
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
-<button onClick={handleDelete} aria-label="Auftrag löschen">
+<button 
+  onClick={handleDelete}
+  aria-label="Auftrag löschen"
+>
   <TrashIcon />
 </button>
 ```
@@ -583,17 +549,15 @@ const { data } = await supabase.from("bookings").select("*").range(0, 49); // Nu
 ### F.3 Zu kleine Touch-Targets (Mobile)
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
-<button className="h-8 w-8" /> // 32px zu klein!
+<button className="h-8 w-8" />  // 32px zu klein!
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
-<button className="min-h-[44px] min-w-[44px]" /> // 44px Standard
+<button className="min-h-[44px] min-w-[44px]" />  // 44px Standard
 ```
 
 **Grund:** Mobile UX - Touch-Target-Größe (Apple HIG)  
@@ -608,7 +572,6 @@ const { data } = await supabase.from("bookings").select("*").range(0, 49); // Nu
 ### G.1 "Lovable" erwähnt
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 <p>Powered by Lovable</p>
@@ -616,7 +579,6 @@ const { data } = await supabase.from("bookings").select("*").range(0, 49); // Nu
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 <p>Powered by MyDispatch</p>
@@ -633,7 +595,6 @@ const { data } = await supabase.from("bookings").select("*").range(0, 49); // Nu
 ### G.2 "Supabase" öffentlich erwähnt
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH (öffentliche Seite):
 <p>Datenbank: Supabase</p>
@@ -641,7 +602,6 @@ const { data } = await supabase.from("bookings").select("*").range(0, 49); // Nu
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 <p>Sichere Cloud-Infrastruktur</p>
@@ -658,7 +618,6 @@ const { data } = await supabase.from("bookings").select("*").range(0, 49); // Nu
 ### G.3 Test-Account-Versprechen
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
 <Button>Jetzt kostenlos testen</Button>
@@ -666,7 +625,6 @@ const { data } = await supabase.from("bookings").select("*").range(0, 49); // Nu
 ```
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
 <Button>Jetzt starten</Button>
@@ -684,16 +642,16 @@ const { data } = await supabase.from("bookings").select("*").range(0, 49); // Nu
 
 ### Nach Kategorie
 
-| Kategorie         | Anzahl Fehler | Status       |
-| ----------------- | ------------- | ------------ |
-| A - Design        | 6             | 🔴 Kritisch  |
-| B - Components    | 4             | 🟡 Wichtig   |
-| C - State         | 2             | 🟡 Wichtig   |
-| D - Security      | 3             | 🔴 Kritisch  |
-| E - Performance   | 2             | 🟢 Empfohlen |
-| F - Accessibility | 3             | 🟡 Wichtig   |
-| G - Branding      | 3             | 🔴 Kritisch  |
-| **GESAMT**        | **23**        | -            |
+| Kategorie | Anzahl Fehler | Status |
+|-----------|---------------|--------|
+| A - Design | 6 | 🔴 Kritisch |
+| B - Components | 4 | 🟡 Wichtig |
+| C - State | 2 | 🟡 Wichtig |
+| D - Security | 3 | 🔴 Kritisch |
+| E - Performance | 2 | 🟢 Empfohlen |
+| F - Accessibility | 3 | 🟡 Wichtig |
+| G - Branding | 3 | 🔴 Kritisch |
+| **GESAMT** | **23** | - |
 
 ### Nach Schweregrad
 
@@ -748,29 +706,25 @@ grep -r "kostenlos testen\|free trial" src/
 
 ### Format für neue Einträge
 
-````markdown
+```markdown
 ### X.Y Fehler-Titel
 
 **Fehler:**
-
 ```tsx
 // ❌ FALSCH:
-[Code - Beispiel];
+[Code-Beispiel]
 ```
-````
 
 **Korrekt:**
-
 ```tsx
 // ✅ RICHTIG:
-[Code - Beispiel];
+[Code-Beispiel]
 ```
 
 **Grund:** [Erklärung warum falsch]
 **Dokument:** [Referenz-Dokument]
 **Datum:** [TT.MM.YYYY]
 **Status:** ❌ VERBOTEN / ⚠️ EMPFOHLEN / 🟢 OPTIONAL
-
 ```
 
 ---
@@ -781,31 +735,25 @@ grep -r "kostenlos testen\|free trial" src/
 
 **VOR dem Code schreiben:**
 ```
-
 1. KNOWN_ISSUES_REGISTRY_V18.3.24.md öffnen
 2. Relevante Kategorien durchlesen
 3. Ähnliche Fehler identifizieren
 4. Anti-Patterns vermeiden
-
 ```
 
 **NACH dem Code schreiben:**
 ```
-
 1. Code gegen Registry prüfen
 2. Neue Fehler gefunden? → Hinzufügen!
 3. Grep-Commands durchlaufen
 4. Quality Gates bestanden? → Commit
-
 ```
 
 **BEI Code-Reviews:**
 ```
-
 1. Fehler im PR gefunden? → Registry checken
 2. Bereits dokumentiert? → PR ablehnen mit Hinweis
 3. Neues Anti-Pattern? → Registry erweitern
-
 ```
 
 ---
@@ -851,8 +799,7 @@ grep -r "kostenlos testen\|free trial" src/
 
 **🔴 DIESE REGISTRY MUSS BEI JEDEM ARBEITSSCHRITT KONSULTIERT WERDEN!**
 
-**Version:** V18.3.24
-**Letzte Aktualisierung:** 18.01.2025
-**Status:** ✅ AKTIV
+**Version:** V18.3.24  
+**Letzte Aktualisierung:** 18.01.2025  
+**Status:** ✅ AKTIV  
 **Änderungsvorbehalt:** info@my-dispatch.de
-```

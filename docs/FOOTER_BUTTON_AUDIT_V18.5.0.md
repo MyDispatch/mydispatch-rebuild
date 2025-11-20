@@ -11,11 +11,9 @@
 ### 1. FOOTER-LAYOUT-FEHLER
 
 #### Problem: Texte kleben am linken Rand
-
 **Ursache:** Fehlende responsive Padding-Klassen (px-4 sm:px-6 lg:px-8)
 
 **Betroffene Dateien:**
-
 1. ✅ `src/pages/Auth.tsx` (Zeile 874)
    - **Vorher:** `py-3 sm:py-4 md:py-5 text-center`
    - **Nachher:** `py-3 sm:py-4 md:py-5 text-center px-4 sm:px-6 lg:px-8`
@@ -41,11 +39,9 @@
 ### 2. BUTTON "ZUR STARTSEITE" (Auth.tsx)
 
 #### Analyse
-
 **Location:** `src/pages/Auth.tsx` Zeile 453-467
 
 **Implementierung:**
-
 ```typescript
 secondaryCTA={{
   text: brandedCompany ? 'Zurück zur Landingpage' : 'Zur Startseite',
@@ -67,7 +63,6 @@ secondaryCTA={{
 **Status:** ✅ KORREKT IMPLEMENTIERT
 
 **Eigenschaften:**
-
 - Text: "Zur Startseite" (wenn keine Company) | "Zurück zur Landingpage" (wenn Company)
 - Icon: ArrowLeft (✅)
 - Navigation: `/` (Root) oder Company-spezifische Route
@@ -83,7 +78,6 @@ secondaryCTA={{
 ### Button-Komponente: `src/components/ui/button.tsx`
 
 **Varianten:**
-
 1. ✅ `default` - bg-primary text-primary-foreground
 2. ✅ `destructive` - bg-destructive text-destructive-foreground
 3. ✅ `outline` - border border-input bg-background hover:bg-primary/10
@@ -93,14 +87,12 @@ secondaryCTA={{
 7. ✅ `quickAction` - full-width transparent hover:bg-primary/10
 
 **Größen:**
-
 1. ✅ `default` - h-10 (40px) - Touch-Safe ✅
 2. ✅ `sm` - h-9 (36px) - Nicht Touch-Safe ⚠️ (aber OK für Desktop-only)
 3. ✅ `lg` - h-11 (44px) - Touch-Safe ✅
 4. ✅ `icon` - h-10 w-10 (40px) - Touch-Safe ✅
 
 **Design-System-Compliance:**
-
 - ✅ Semantic Colors (primary, destructive, secondary)
 - ✅ Hover-Effekte (hover:bg-primary/10, hover:shadow-md)
 - ✅ Scale-Animations (hover:scale-[1.02], active:scale-[0.98])
@@ -113,7 +105,6 @@ secondaryCTA={{
 ## 🎯 BEST PRACTICES (ETABLIERT)
 
 ### Footer-Standards
-
 ```typescript
 // ✅ RICHTIG: Responsive Padding
 <footer className="py-8 px-4 sm:px-6 lg:px-8">
@@ -131,7 +122,6 @@ secondaryCTA={{
 ```
 
 ### Button-Standards
-
 ```typescript
 // ✅ RICHTIG: Touch-Safe Button (≥44px)
 <Button size="lg" className="min-h-[44px]">
@@ -146,7 +136,6 @@ secondaryCTA={{
 ```
 
 ### Container-Standards
-
 ```typescript
 // ✅ RICHTIG: Responsive Container mit Padding
 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -164,7 +153,6 @@ secondaryCTA={{
 ## ✅ FIXES ANGEWENDET
 
 ### 1. Footer-Padding (5 Dateien)
-
 - [x] Auth.tsx - Footer px-4 sm:px-6 lg:px-8 hinzugefügt
 - [x] Unternehmer.tsx - Footer px-4 sm:px-6 lg:px-8 hinzugefügt
 - [x] Footer.tsx - Container px-4 → px-4 sm:px-6 lg:px-8
@@ -172,26 +160,24 @@ secondaryCTA={{
 - [x] PortalAuth.tsx - Container px-4 → px-4 sm:px-6 lg:px-8
 
 ### 2. Button "Zur Startseite"
-
 - [x] Keine Änderungen nötig - bereits korrekt implementiert
 
 ---
 
 ## 📊 AUDIT-STATISTIK
 
-| Kategorie         | Geprüft | Fehler | Behoben |
-| ----------------- | ------- | ------ | ------- |
-| Footer-Layouts    | 10      | 5      | 5 ✅    |
-| Button-Komponente | 1       | 0      | -       |
-| Button-Verwendung | 50+     | 0      | -       |
-| Touch-Targets     | 50+     | 0      | -       |
+| Kategorie | Geprüft | Fehler | Behoben |
+|-----------|---------|--------|---------|
+| Footer-Layouts | 10 | 5 | 5 ✅ |
+| Button-Komponente | 1 | 0 | - |
+| Button-Verwendung | 50+ | 0 | - |
+| Touch-Targets | 50+ | 0 | - |
 
 ---
 
 ## 🔄 CONTINUOUS MONITORING
 
 ### ESLint-Rule: `enforce-responsive-padding`
-
 ```javascript
 // .eslintrc.js
 rules: {
@@ -205,7 +191,6 @@ rules: {
 ```
 
 ### Pre-Commit-Hook: `check-footer-padding.sh`
-
 ```bash
 #!/bin/bash
 
@@ -228,7 +213,6 @@ echo "✅ All footers have correct padding"
 ## 🎓 LEARNINGS
 
 ### LEARNING-004: Footer-Padding-Regel
-
 ```typescript
 {
   id: "LEARNING-004",

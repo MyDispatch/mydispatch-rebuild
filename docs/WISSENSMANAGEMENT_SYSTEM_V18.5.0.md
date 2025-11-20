@@ -9,7 +9,6 @@
 ## 🎯 VISION
 
 MyDispatch nutzt ein **intelligentes Wissensmanagement-System** (Brain) als Single Source of Truth für:
-
 - Dokumentationen (Technical, Business, Design)
 - Code-Patterns & Best Practices
 - API-Spezifikationen
@@ -177,58 +176,58 @@ CREATE TABLE faq (
 
 ```typescript
 enum UserRole {
-  ADMIN = "admin", // Vollzugriff
-  DEVELOPER = "developer", // Technical + Design Docs
-  DESIGNER = "designer", // Design Docs
-  BUSINESS = "business", // Business Docs
-  SUPPORT = "support", // FAQs + Support Docs
-  CUSTOMER = "customer", // Public Docs only
+  ADMIN = 'admin',           // Vollzugriff
+  DEVELOPER = 'developer',   // Technical + Design Docs
+  DESIGNER = 'designer',     // Design Docs
+  BUSINESS = 'business',     // Business Docs
+  SUPPORT = 'support',       // FAQs + Support Docs
+  CUSTOMER = 'customer'      // Public Docs only
 }
 
 interface AccessMatrix {
   role: UserRole;
-  canRead: string[]; // Kategorien
-  canWrite: string[]; // Kategorien
-  canDelete: string[]; // Kategorien
+  canRead: string[];    // Kategorien
+  canWrite: string[];   // Kategorien
+  canDelete: string[];  // Kategorien
 }
 
 const ACCESS_CONTROL: AccessMatrix[] = [
   {
     role: UserRole.ADMIN,
-    canRead: ["*"],
-    canWrite: ["*"],
-    canDelete: ["*"],
+    canRead: ['*'],
+    canWrite: ['*'],
+    canDelete: ['*']
   },
   {
     role: UserRole.DEVELOPER,
-    canRead: ["technical", "design", "integrations", "quality", "ai"],
-    canWrite: ["technical", "integrations", "quality"],
-    canDelete: [],
+    canRead: ['technical', 'design', 'integrations', 'quality', 'ai'],
+    canWrite: ['technical', 'integrations', 'quality'],
+    canDelete: []
   },
   {
     role: UserRole.DESIGNER,
-    canRead: ["design", "business"],
-    canWrite: ["design"],
-    canDelete: [],
+    canRead: ['design', 'business'],
+    canWrite: ['design'],
+    canDelete: []
   },
   {
     role: UserRole.BUSINESS,
-    canRead: ["business", "quality"],
-    canWrite: ["business"],
-    canDelete: [],
+    canRead: ['business', 'quality'],
+    canWrite: ['business'],
+    canDelete: []
   },
   {
     role: UserRole.SUPPORT,
-    canRead: ["business", "faq"],
-    canWrite: ["faq"],
-    canDelete: [],
+    canRead: ['business', 'faq'],
+    canWrite: ['faq'],
+    canDelete: []
   },
   {
     role: UserRole.CUSTOMER,
-    canRead: ["faq"],
+    canRead: ['faq'],
     canWrite: [],
-    canDelete: [],
-  },
+    canDelete: []
+  }
 ];
 ```
 
@@ -239,7 +238,7 @@ const ACCESS_CONTROL: AccessMatrix[] = [
 CREATE POLICY "knowledge_base_read_policy" ON knowledge_base
   FOR SELECT
   USING (
-    CASE
+    CASE 
       WHEN access_level = 'public' THEN true
       WHEN access_level = 'internal' THEN auth.jwt() ->> 'role' IN ('developer', 'designer', 'business', 'support', 'admin')
       WHEN access_level = 'admin' THEN auth.jwt() ->> 'role' = 'admin'
@@ -250,7 +249,7 @@ CREATE POLICY "knowledge_base_read_policy" ON knowledge_base
 CREATE POLICY "knowledge_base_write_policy" ON knowledge_base
   FOR INSERT
   WITH CHECK (
-    CASE
+    CASE 
       WHEN category = 'technical' THEN auth.jwt() ->> 'role' IN ('developer', 'admin')
       WHEN category = 'design' THEN auth.jwt() ->> 'role' IN ('designer', 'admin')
       WHEN category = 'business' THEN auth.jwt() ->> 'role' IN ('business', 'admin')
@@ -267,7 +266,7 @@ CREATE POLICY "knowledge_base_write_policy" ON knowledge_base
 
 ```typescript
 // lib/knowledge-base-search.ts
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from '@/integrations/supabase/client';
 
 interface SearchResult {
   id: string;
@@ -283,39 +282,37 @@ export async function searchKnowledgeBase(
   category?: string
 ): Promise<SearchResult[]> {
   let queryBuilder = supabase
-    .from("knowledge_base")
-    .select("*")
-    .textSearch("search_vector", query, {
-      type: "websearch",
-      config: "german",
+    .from('knowledge_base')
+    .select('*')
+    .textSearch('search_vector', query, {
+      type: 'websearch',
+      config: 'german'
     })
-    .eq("status", "approved")
-    .order("created_at", { ascending: false })
+    .eq('status', 'approved')
+    .order('created_at', { ascending: false })
     .limit(10);
 
   if (category) {
-    queryBuilder = queryBuilder.eq("category", category);
+    queryBuilder = queryBuilder.eq('category', category);
   }
 
   const { data, error } = await queryBuilder;
 
   if (error) throw error;
 
-  return data
-    .map((item) => ({
-      ...item,
-      relevance: calculateRelevance(query, item),
-    }))
-    .sort((a, b) => b.relevance - a.relevance);
+  return data.map(item => ({
+    ...item,
+    relevance: calculateRelevance(query, item)
+  })).sort((a, b) => b.relevance - a.relevance);
 }
 
 function calculateRelevance(query: string, doc: any): number {
   const queryLower = query.toLowerCase();
   const titleMatch = doc.title.toLowerCase().includes(queryLower) ? 0.5 : 0;
   const contentMatch = doc.content.toLowerCase().includes(queryLower) ? 0.3 : 0;
-  const tagsMatch = doc.tags?.some((tag: string) => tag.toLowerCase().includes(queryLower))
-    ? 0.2
-    : 0;
+  const tagsMatch = doc.tags?.some((tag: string) => 
+    tag.toLowerCase().includes(queryLower)
+  ) ? 0.2 : 0;
 
   return titleMatch + contentMatch + tagsMatch;
 }
@@ -325,15 +322,17 @@ function calculateRelevance(query: string, doc: any): number {
 
 ```typescript
 // lib/ai-knowledge-search.ts
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from '@/integrations/supabase/client';
 
-export async function aiKnowledgeSearch(naturalLanguageQuery: string): Promise<SearchResult[]> {
+export async function aiKnowledgeSearch(
+  naturalLanguageQuery: string
+): Promise<SearchResult[]> {
   // 1. AI interpretiert die Frage
-  const { data: aiResponse } = await supabase.functions.invoke("ai-search", {
+  const { data: aiResponse } = await supabase.functions.invoke('ai-search', {
     body: {
       query: naturalLanguageQuery,
-      context: "mydispatch_knowledge_base",
-    },
+      context: 'mydispatch_knowledge_base'
+    }
   });
 
   // AI liefert:
@@ -344,7 +343,7 @@ export async function aiKnowledgeSearch(naturalLanguageQuery: string): Promise<S
   const { keywords, categories } = aiResponse;
 
   // 2. Full-Text-Search mit AI-Keywords
-  const results = await searchKnowledgeBase(keywords.join(" "));
+  const results = await searchKnowledgeBase(keywords.join(' '));
 
   // 3. AI rankt Ergebnisse nach Relevanz
   return results;
@@ -373,7 +372,7 @@ serve(async (req) => {
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${Deno.env.get("LOVABLE_API_KEY")}`,
+        "Authorization": `Bearer ${Deno.env.get("LOVABLE_API_KEY")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -386,12 +385,12 @@ serve(async (req) => {
             Deine Aufgabe: Interpretiere die natürlichsprachliche Suchanfrage und extrahiere:
             1. Keywords (relevante Suchbegriffe)
             2. Categories (technical, design, business, integrations, etc.)
-            3. Synonyme (alternative Formulierungen)`,
+            3. Synonyme (alternative Formulierungen)`
           },
           {
             role: "user",
-            content: `Suchanfrage: "${query}"\nContext: ${context}`,
-          },
+            content: `Suchanfrage: "${query}"\nContext: ${context}`
+          }
         ],
         tools: [
           {
@@ -405,26 +404,26 @@ serve(async (req) => {
                   keywords: {
                     type: "array",
                     items: { type: "string" },
-                    description: "Relevante Suchbegriffe",
+                    description: "Relevante Suchbegriffe"
                   },
                   categories: {
                     type: "array",
                     items: { type: "string" },
-                    description: "Relevante Kategorien",
+                    description: "Relevante Kategorien"
                   },
                   synonyms: {
                     type: "array",
                     items: { type: "string" },
-                    description: "Alternative Formulierungen",
-                  },
+                    description: "Alternative Formulierungen"
+                  }
                 },
                 required: ["keywords", "categories"],
-                additionalProperties: false,
-              },
-            },
-          },
+                additionalProperties: false
+              }
+            }
+          }
         ],
-        tool_choice: { type: "function", function: { name: "extract_search_params" } },
+        tool_choice: { type: "function", function: { name: "extract_search_params" } }
       }),
     });
 
@@ -562,14 +561,14 @@ on:
   push:
     branches: [main]
     paths:
-      - "docs/**/*.md"
+      - 'docs/**/*.md'
 
 jobs:
   sync-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
+      
       - name: Sync Docs to Supabase
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -581,18 +580,21 @@ jobs:
 **Script: `scripts/sync-docs-to-db.js`**
 
 ```typescript
-import { createClient } from "@supabase/supabase-js";
-import { readFileSync } from "fs";
-import { glob } from "glob";
-import { parse } from "gray-matter"; // YAML Front-Matter Parser
+import { createClient } from '@supabase/supabase-js';
+import { readFileSync } from 'fs';
+import { glob } from 'glob';
+import { parse } from 'gray-matter'; // YAML Front-Matter Parser
 
-const supabase = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!);
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
 
 async function syncDocsToDatabase() {
-  const files = await glob("docs/**/*.md");
+  const files = await glob('docs/**/*.md');
 
   for (const file of files) {
-    const content = readFileSync(file, "utf-8");
+    const content = readFileSync(file, 'utf-8');
     const { data: frontMatter, content: markdownContent } = parse(content);
 
     const doc = {
@@ -600,17 +602,17 @@ async function syncDocsToDatabase() {
       content: markdownContent,
       file_path: file,
       category: extractCategoryFromPath(file),
-      version: frontMatter.version || "18.5.0",
-      status: frontMatter.status || "approved",
-      access_level: frontMatter.access_level || "internal",
+      version: frontMatter.version || '18.5.0',
+      status: frontMatter.status || 'approved',
+      access_level: frontMatter.access_level || 'internal',
       tags: frontMatter.tags || [],
-      author: frontMatter.author || "MyDispatch Team",
+      author: frontMatter.author || 'MyDispatch Team'
     };
 
     // Upsert (Insert or Update)
     const { error } = await supabase
-      .from("knowledge_base")
-      .upsert(doc, { onConflict: "file_path" });
+      .from('knowledge_base')
+      .upsert(doc, { onConflict: 'file_path' });
 
     if (error) {
       console.error(`❌ Fehler bei ${file}:`, error);
@@ -619,7 +621,7 @@ async function syncDocsToDatabase() {
     }
   }
 
-  console.log("🎉 Alle Docs synchronisiert!");
+  console.log('🎉 Alle Docs synchronisiert!');
 }
 
 syncDocsToDatabase();
@@ -629,13 +631,13 @@ syncDocsToDatabase();
 
 ## ✅ ERFOLGS-METRIKEN
 
-| Metrik            | Ziel                      | Tracking               |
-| ----------------- | ------------------------- | ---------------------- |
-| Docs Coverage     | >95% aller Features       | Manual Review          |
-| Docs Aktualität   | <7 Tage seit Update       | Git Timestamps         |
-| Search Accuracy   | >90% relevante Ergebnisse | User-Feedback          |
-| Access Time       | <2s für Docs-Suche        | Performance-Monitoring |
-| User Satisfaction | >4.5/5 Rating             | Feedback-System        |
+| Metrik | Ziel | Tracking |
+|--------|------|----------|
+| Docs Coverage | >95% aller Features | Manual Review |
+| Docs Aktualität | <7 Tage seit Update | Git Timestamps |
+| Search Accuracy | >90% relevante Ergebnisse | User-Feedback |
+| Access Time | <2s für Docs-Suche | Performance-Monitoring |
+| User Satisfaction | >4.5/5 Rating | Feedback-System |
 
 ---
 

@@ -6,7 +6,7 @@
    ✅ Zeigt maximal 3 Events
    ================================================================================== */
 
-import { Clock } from "lucide-react";
+import { Clock } from 'lucide-react';
 
 interface UpcomingEvent {
   title: string;
@@ -25,9 +25,7 @@ export function UpcomingEventsWidget({ events }: UpcomingEventsWidgetProps) {
         <div key={index} className="flex items-start gap-2 text-xs">
           <Clock className="w-3.5 h-3.5 text-slate-500 mt-0.5 flex-shrink-0" />
           <div className="flex-1 min-w-0">
-            <p
-              className={`font-medium truncate ${event.highlight ? "text-blue-600" : "text-slate-900"}`}
-            >
+            <p className={`font-medium truncate ${event.highlight ? 'text-blue-600' : 'text-slate-900'}`}>
               {event.title}
             </p>
             <p className="text-[10px] text-slate-500">{event.time}</p>
@@ -43,7 +41,7 @@ export function UpcomingEventsWidget({ events }: UpcomingEventsWidgetProps) {
 
 /**
  * USAGE EXAMPLE:
- *
+ * 
  * <UpcomingEventsWidget
  *   events={[
  *     { title: 'Schicht: Max Mustermann', time: 'Heute 14:00 - 22:00', highlight: true },

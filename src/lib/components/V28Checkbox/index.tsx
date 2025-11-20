@@ -3,13 +3,12 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { forwardRef } from "react";
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { Check } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { forwardRef } from 'react';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
+import { Check } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-export interface V28CheckboxProps
-  extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
+export interface V28CheckboxProps extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
   label?: string;
 }
 
@@ -44,4 +43,4 @@ export const V28Checkbox = forwardRef<
   </div>
 ));
 
-V28Checkbox.displayName = "V28Checkbox";
+V28Checkbox.displayName = 'V28Checkbox';

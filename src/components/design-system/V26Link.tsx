@@ -18,9 +18,9 @@
    ```
    ================================================================================== */
 
-import { forwardRef, AnchorHTMLAttributes } from "react";
-import { Link as RouterLink } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { forwardRef, AnchorHTMLAttributes } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { cn } from '@/lib/utils';
 
 interface V26LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   to?: string;
@@ -31,13 +31,18 @@ interface V26LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 export const V26Link = forwardRef<HTMLAnchorElement, V26LinkProps>(
   ({ to, external = false, children, className, ...props }, ref) => {
     const baseStyles = cn(
-      "no-underline font-medium transition-colors text-slate-700 hover:text-slate-900",
+      'no-underline font-medium transition-colors text-slate-700 hover:text-slate-900',
       className
     );
 
     if (to && !external) {
       return (
-        <RouterLink ref={ref as any} to={to} className={baseStyles} {...(props as any)}>
+        <RouterLink
+          ref={ref as any}
+          to={to}
+          className={baseStyles}
+          {...(props as any)}
+        >
           {children}
         </RouterLink>
       );
@@ -49,8 +54,8 @@ export const V26Link = forwardRef<HTMLAnchorElement, V26LinkProps>(
         href={to}
         className={baseStyles}
         {...(external && {
-          target: "_blank",
-          rel: "noopener noreferrer",
+          target: '_blank',
+          rel: 'noopener noreferrer',
         })}
         {...props}
       >
@@ -60,4 +65,4 @@ export const V26Link = forwardRef<HTMLAnchorElement, V26LinkProps>(
   }
 );
 
-V26Link.displayName = "V26Link";
+V26Link.displayName = 'V26Link';

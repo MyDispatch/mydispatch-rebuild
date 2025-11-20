@@ -8,8 +8,8 @@
    ✅ V28.1 PROFESSIONAL MINIMALISM
    ================================================================================== */
 
-import { forwardRef, SelectHTMLAttributes } from "react";
-import { cn } from "@/lib/utils";
+import { forwardRef, SelectHTMLAttributes } from 'react';
+import { cn } from '@/lib/utils';
 
 interface V28SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -23,7 +23,10 @@ export const V28Select = forwardRef<HTMLSelectElement, V28SelectProps>(
     return (
       <div className="space-y-2">
         {label && (
-          <label htmlFor={selectId} className="text-sm font-medium text-slate-900">
+          <label
+            htmlFor={selectId}
+            className="text-sm font-medium text-slate-900"
+          >
             {label}
           </label>
         )}
@@ -31,12 +34,12 @@ export const V28Select = forwardRef<HTMLSelectElement, V28SelectProps>(
           id={selectId}
           ref={ref}
           className={cn(
-            "w-full rounded-lg px-4 py-2.5 text-base",
-            "min-h-[44px] transition-all duration-200",
-            "bg-white border border-slate-200",
-            "text-slate-900",
-            "focus:outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-500/10",
-            "disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-50",
+            'w-full rounded-lg px-4 py-2.5 text-base',
+            'min-h-[44px] transition-all duration-200',
+            'bg-white border border-slate-200',
+            'text-slate-900',
+            'focus:outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-500/10',
+            'disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-50',
             className
           )}
           {...props}
@@ -52,4 +55,4 @@ export const V28Select = forwardRef<HTMLSelectElement, V28SelectProps>(
   }
 );
 
-V28Select.displayName = "V28Select";
+V28Select.displayName = 'V28Select';

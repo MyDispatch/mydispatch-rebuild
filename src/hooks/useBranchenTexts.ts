@@ -1,4 +1,4 @@
-import { BRANCHEN_TEXTS } from "@/lib/content/branchen-texts";
+import { BRANCHEN_TEXTS } from '@/lib/content/branchen-texts';
 
 export function useBranchenTexts() {
   return BRANCHEN_TEXTS;

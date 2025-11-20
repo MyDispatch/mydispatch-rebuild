@@ -4,10 +4,10 @@
    React Hook für PHASE 0: System-Audit
    ================================================================================== */
 
-import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
-import { logger } from "@/lib/logger";
+import { useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import { logger } from '@/lib/logger';
 
 interface AuditMetrics {
   codeDriftScore: number;
@@ -17,8 +17,8 @@ interface AuditMetrics {
 }
 
 interface AuditIssue {
-  severity: "critical" | "warning" | "info";
-  category: "code-drift" | "arca-pattern" | "dependency" | "ci-compliance";
+  severity: 'critical' | 'warning' | 'info';
+  category: 'code-drift' | 'arca-pattern' | 'dependency' | 'ci-compliance';
   message: string;
   autoFixable: boolean;
 }
@@ -39,7 +39,7 @@ export function useSystemAudit() {
     setLoading(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke("system-audit");
+      const { data, error } = await supabase.functions.invoke('system-audit');
 
       if (error) throw error;
 
@@ -47,8 +47,8 @@ export function useSystemAudit() {
       setLastAudit(auditResult);
 
       // Toast basierend auf Schweregrad
-      const criticalIssues = auditResult.issues.filter((i) => i.severity === "critical");
-      const warningIssues = auditResult.issues.filter((i) => i.severity === "warning");
+      const criticalIssues = auditResult.issues.filter(i => i.severity === 'critical');
+      const warningIssues = auditResult.issues.filter(i => i.severity === 'warning');
 
       if (criticalIssues.length > 0) {
         toast.error(`System-Audit: ${criticalIssues.length} kritische Issues`, {
@@ -59,15 +59,15 @@ export function useSystemAudit() {
           description: warningIssues[0].message,
         });
       } else {
-        toast.success("System-Audit erfolgreich", {
-          description: "Alle Checks bestanden",
+        toast.success('System-Audit erfolgreich', {
+          description: 'Alle Checks bestanden',
         });
       }
 
       return auditResult;
     } catch (error: any) {
-      logger.error("[useSystemAudit] Error", error, { component: "useSystemAudit" });
-      toast.error("System-Audit fehlgeschlagen", {
+      logger.error('[useSystemAudit] Error', error, { component: 'useSystemAudit' });
+      toast.error('System-Audit fehlgeschlagen', {
         description: error.message,
       });
       return null;

@@ -22,33 +22,25 @@
 ### **FEHLER #1: Navigation verwendet `<a>` statt `<Link>` [KRITISCH]**
 
 **Problem:**
-
 - MarketingLayout.tsx verwendete `<a href="...">` statt React Router `<Link>`
 - Führte zu vollständigen Page-Reloads bei Navigation
 - Verlust von React-State, Subscription-Context ging verloren
 - Schlechte UX (langsame Navigation)
 
 **Betroffene Dateien:**
-
 - `src/components/layout/MarketingLayout.tsx` (3 Bereiche: Desktop-Menu, Desktop-Legal, Mobile-Menu)
 
 **Lösung:**
-
 ```tsx
 // ❌ VORHER
-<a href="/pricing" className="...">
-  Preise
-</a>;
+<a href="/pricing" className="...">Preise</a>
 
 // ✅ NACHHER
-import { Link } from "react-router-dom";
-<Link to="/pricing" className="...">
-  Preise
-</Link>;
+import { Link } from 'react-router-dom';
+<Link to="/pricing" className="...">Preise</Link>
 ```
 
 **Impact:**
-
 - ✅ Keine Page-Reloads mehr
 - ✅ React-State bleibt erhalten
 - ✅ Schnellere Navigation (SPA-Verhalten)
@@ -59,17 +51,14 @@ import { Link } from "react-router-dom";
 ### **FEHLER #2: Video Error-Handling unvollständig [MITTEL]**
 
 **Problem:**
-
 - Video-Element auf Home.tsx hatte `onError` Handler
 - Handler versteckte nur Video, aber Fallback-Gradient nicht sichtbar
 - Schwarzer Hintergrund bei Video-Load-Failure
 
 **Betroffene Dateien:**
-
 - `src/pages/Home.tsx` (Zeile 91-103)
 
 **Lösung:**
-
 ```tsx
 // ❌ VORHER
 onError={(e) => {
@@ -78,7 +67,7 @@ onError={(e) => {
   } catch {}
 }}
 
-// ✅ NACHHER
+// ✅ NACHHER  
 onError={(e) => {
   try {
     e.currentTarget.style.display = 'none';
@@ -91,7 +80,6 @@ onError={(e) => {
 ```
 
 **Impact:**
-
 - ✅ Graceful Fallback bei Video-Fehler
 - ✅ Gradient-Hintergrund sichtbar
 - ✅ Keine Black-Screens mehr
@@ -101,19 +89,16 @@ onError={(e) => {
 ### **FEHLER #3: Design-System Violations [MITTEL]**
 
 **Problem:**
-
 - Driver-App Seiten verwendeten hardcoded HEX-Farbe `bg-[#FEFFEE]`
 - Verstößt gegen V18.3.25 Design-System-Vorgaben
 - Kein Dark-Mode-Support
 
 **Betroffene Dateien:**
-
 - `src/pages/driver-app/DriverDashboard.tsx`
 - `src/pages/driver-app/DriverSplash.tsx`
 - `src/pages/driver-app/DriverWelcome.tsx`
 
 **Lösung:**
-
 ```tsx
 // ❌ VORHER
 <div className="min-h-screen bg-[#FEFFEE]">
@@ -123,14 +108,12 @@ onError={(e) => {
 ```
 
 **Design-System-Token:**
-
 ```css
 /* index.css */
 --portal-fahrer: 220 14% 96%; /* Helles Blau-Grau */
 ```
 
 **Impact:**
-
 - ✅ Design-System-konform
 - ✅ Dark-Mode-Ready
 - ✅ Wartbar (zentrale Farbverwaltung)
@@ -140,37 +123,33 @@ onError={(e) => {
 ### **FEHLER #4: Missing useEffect Dependencies [KRITISCH]**
 
 **Problem:**
-
 - `use-pwa-install.tsx` hatte `useEffect` ohne Dependency-Array
 - Führte zu mehrfacher Event-Listener-Registrierung
 - Memory-Leaks & potenzielle Race-Conditions
 
 **Betroffene Dateien:**
-
 - `src/hooks/use-pwa-install.tsx` (Zeile 45-69)
 
 **Lösung:**
-
 ```tsx
 // ❌ VORHER
 useEffect(() => {
-  window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+  window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   return () => {
-    window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   };
 }); // ❌ FEHLT: []
 
 // ✅ NACHHER
 useEffect(() => {
-  window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+  window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   return () => {
-    window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   };
 }, []); // ✅ Run once on mount
 ```
 
 **Impact:**
-
 - ✅ Keine Memory-Leaks mehr
 - ✅ Event-Listener nur einmal registriert
 - ✅ Bessere Performance
@@ -180,23 +159,19 @@ useEffect(() => {
 ### **FEHLER #5-8: Weitere Optimierungen**
 
 **Console.log Elimination (69 Matches):**
-
 - Vite Terser-Config bereits korrekt (drop_console: true in Production)
 - Development-Logs bleiben für Debugging
 - ✅ Keine Änderungen nötig
 
 **Throw new Error (103 Matches):**
-
 - Bereits korrekt mit Error-Boundaries gefangen
 - ✅ Keine Änderungen nötig
 
 **Relative Imports (89 Matches):**
-
 - Code funktioniert, aber nicht Best-Practice
 - ⚠️ Zukünftiges Refactoring empfohlen
 
 **Direct Supabase Queries (244 Matches):**
-
 - Alle kritischen Hooks haben company_id Filter ✅
 - ✅ Security ist gewährleistet
 
@@ -205,7 +180,6 @@ useEffect(() => {
 ## ✅ VALIDIERUNG & TESTING
 
 ### **Pre-Deployment Checklist:**
-
 - [x] TypeScript: 0 Errors
 - [x] Build: Erfolgreich
 - [x] Navigation: Alle Links funktionieren
@@ -215,7 +189,6 @@ useEffect(() => {
 - [x] Memory-Leaks: Chrome DevTools Profiler geprüft
 
 ### **Browser-Kompatibilität:**
-
 - [x] Chrome 120+ ✅
 - [x] Safari 17+ ✅
 - [x] Firefox 121+ ✅
@@ -226,19 +199,18 @@ useEffect(() => {
 
 ## 📈 PERFORMANCE IMPACT
 
-| Metrik           | Vorher              | Nachher    | Verbesserung      |
-| ---------------- | ------------------- | ---------- | ----------------- |
+| Metrik | Vorher | Nachher | Verbesserung |
+|--------|--------|---------|--------------|
 | Navigation Speed | 800ms (Full Reload) | 50ms (SPA) | **94% schneller** |
-| Memory Usage     | +2MB/min (Leaks)    | Stabil     | **Leak-Free**     |
-| Bundle Size      | 1.2MB               | 1.2MB      | Keine Änderung    |
-| Lighthouse Score | 89                  | 92         | +3 Punkte         |
+| Memory Usage | +2MB/min (Leaks) | Stabil | **Leak-Free** |
+| Bundle Size | 1.2MB | 1.2MB | Keine Änderung |
+| Lighthouse Score | 89 | 92 | +3 Punkte |
 
 ---
 
 ## 🚀 DEPLOYMENT PLAN
 
 ### **20:00 Uhr - Production Deployment**
-
 ```bash
 # 1. Git Push (Auto-Deploy via Lovable)
 git add .
@@ -254,7 +226,6 @@ curl https://mydispatch.lovable.app/health
 ```
 
 ### **20:10 Uhr - Smoke Tests**
-
 - [ ] Login funktioniert
 - [ ] Navigation ohne Reload
 - [ ] Video Fallback (manuell testen)
@@ -262,9 +233,7 @@ curl https://mydispatch.lovable.app/health
 - [ ] Fahrer-App öffnet
 
 ### **Rollback-Plan:**
-
 Falls kritische Fehler nach 20:15 Uhr:
-
 1. Lovable History → Vorherige Version wiederherstellen (1 Klick)
 2. Cache leeren: `curl -X PURGE https://mydispatch.lovable.app/*`
 3. Rollback-Zeit: <5 Minuten
@@ -274,20 +243,18 @@ Falls kritische Fehler nach 20:15 Uhr:
 ## 📋 POST-DEPLOYMENT MONITORING
 
 ### **Erste 24 Stunden:**
-
 - Sentry Error-Rate: <0.05% (Ziel)
 - Navigation-Performance: <100ms avg
 - Video-Fallback-Trigger: <1% (akzeptabel)
 - Memory-Leaks: 0 (DevTools Profiler)
 
 ### **Metriken überwachen:**
-
 ```javascript
 // Datadoc Integration
 datadoc.logMetric({
-  name: "navigation.spa_transition",
+  name: 'navigation.spa_transition',
   value: transitionTime,
-  tags: { version: "18.5.0" },
+  tags: { version: '18.5.0' }
 });
 ```
 
@@ -295,15 +262,15 @@ datadoc.logMetric({
 
 ## 🎯 SUCCESS CRITERIA
 
-| Kriterium                 | Status | Hinweise                       |
-| ------------------------- | ------ | ------------------------------ |
-| White Screen Reports      | ✅ 0   | Keine Berichte erwartet        |
-| Navigation ohne Reload    | ✅     | React Router funktioniert      |
-| Video Fallback sichtbar   | ✅     | Gradient als Backup            |
-| Memory-Leaks behoben      | ✅     | useEffect Dependencies korrekt |
-| Design-System-Konformität | ✅     | Alle Tokens verwendet          |
-| TypeScript Clean          | ✅     | 0 Errors                       |
-| Production Build          | ✅     | Erfolgreich                    |
+| Kriterium | Status | Hinweise |
+|-----------|--------|----------|
+| White Screen Reports | ✅ 0 | Keine Berichte erwartet |
+| Navigation ohne Reload | ✅ | React Router funktioniert |
+| Video Fallback sichtbar | ✅ | Gradient als Backup |
+| Memory-Leaks behoben | ✅ | useEffect Dependencies korrekt |
+| Design-System-Konformität | ✅ | Alle Tokens verwendet |
+| TypeScript Clean | ✅ | 0 Errors |
+| Production Build | ✅ | Erfolgreich |
 
 ---
 
@@ -320,13 +287,11 @@ datadoc.logMetric({
 ## 🔮 NEXT STEPS (Post-Launch)
 
 ### **Phase 2: Code-Qualität (Optional)**
-
 1. Relative Imports → `@/` standardisieren (89 Files)
 2. Weitere useEffect Dependencies prüfen (85 verbleibende)
 3. ESLint-Rule `exhaustive-deps` aktivieren
 
 ### **Phase 3: Monitoring-Erweiterungen**
-
 1. Datadoc-Dashboard für Navigation-Metriken
 2. Sentry Performance-Traces für Video-Loading
 3. Custom Error-Boundaries für Driver-App

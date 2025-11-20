@@ -7,11 +7,11 @@
    ✅ Reload functionality
    ================================================================================== */
 
-import React from "react";
-import { AlertTriangle, RefreshCw, Home } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { V28Button } from "@/components/design-system/V28Button";
-import { logger } from "@/lib/logger";
+import React from 'react';
+import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { V28Button } from '@/components/design-system/V28Button';
+import { logger } from '@/lib/logger';
 
 interface Props {
   children: React.ReactNode;
@@ -36,11 +36,15 @@ export class PageErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Log to console in DEV, Sentry in PROD
-    logger.error(`Page Error: ${this.props.pageName}`, error, {
-      component: this.props.pageName,
-      componentStack: errorInfo.componentStack,
-      severity: "high",
-    });
+    logger.error(
+      `Page Error: ${this.props.pageName}`,
+      error,
+      {
+        component: this.props.pageName,
+        componentStack: errorInfo.componentStack,
+        severity: 'high',
+      }
+    );
 
     this.setState({ errorInfo });
   }
@@ -51,7 +55,7 @@ export class PageErrorBoundary extends React.Component<Props, State> {
   };
 
   handleHome = () => {
-    window.location.href = "/";
+    window.location.href = '/';
   };
 
   render() {
@@ -67,7 +71,9 @@ export class PageErrorBoundary extends React.Component<Props, State> {
               </div>
 
               <div className="space-y-2">
-                <h1 className="text-2xl font-bold text-foreground">Fehler beim Laden der Seite</h1>
+                <h1 className="text-2xl font-bold text-foreground">
+                  Fehler beim Laden der Seite
+                </h1>
                 <p className="text-muted-foreground">
                   Beim Laden von <strong>{this.props.pageName}</strong> ist ein Fehler aufgetreten.
                 </p>
@@ -75,12 +81,18 @@ export class PageErrorBoundary extends React.Component<Props, State> {
 
               {this.state.error && (
                 <div className="text-left bg-muted/50 p-4 rounded-md">
-                  <p className="text-sm font-mono text-foreground/80">{this.state.error.message}</p>
+                  <p className="text-sm font-mono text-foreground/80">
+                    {this.state.error.message}
+                  </p>
                 </div>
               )}
 
               <div className="flex flex-col sm:flex-row gap-3">
-                <V28Button onClick={this.handleReload} className="flex-1" size="lg">
+                <V28Button
+                  onClick={this.handleReload}
+                  className="flex-1"
+                  size="lg"
+                >
                   <RefreshCw className="h-4 w-4 mr-2" />
                   Seite neu laden
                 </V28Button>

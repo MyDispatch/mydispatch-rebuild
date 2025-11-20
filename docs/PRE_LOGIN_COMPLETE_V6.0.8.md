@@ -11,15 +11,12 @@
 ### PHASE 1: HOME-OPTIMIERUNG ✅
 
 #### 1.1 Final CTA Section Refactoring (Lines 477-587)
-
 **Problem:**
-
 - Inline styles (`fontSize`, `textWrap`, `animationDelay`)
 - Nicht V28.1-konform
 - Keine Component-Wiederverwendung
 
 **Lösung:**
-
 ```tsx
 // ✅ VORHER → NACHHER:
 <section className="...">  →  <V28MarketingSection background="white">
@@ -33,7 +30,6 @@
 ```
 
 **Ergebnis:**
-
 - ✅ 100% Tailwind-Classes (responsive)
 - ✅ V28MarketingSection als Wrapper
 - ✅ V28MarketingCard für Trust-Stats
@@ -47,7 +43,6 @@
 #### 2.1 Features.tsx - Hero-Visual Fix ✅
 
 **Änderung:**
-
 ```tsx
 // ❌ VORHER:
 import { DashboardRenderer } from '@/components/preview';
@@ -59,7 +54,6 @@ visual={<V28DashboardPreview animationDelay="0.4s" />}
 ```
 
 **Ergebnis:**
-
 - ✅ Systemweites Hero-Template
 - ✅ Browser-Mockup mit macOS Verkehrsampeln
 - ✅ Konsistent mit Home-Seite
@@ -69,15 +63,17 @@ visual={<V28DashboardPreview animationDelay="0.4s" />}
 #### 2.2 Impressum.tsx - Hero-Migration ✅
 
 **Änderung:**
-
 ```tsx
 // ❌ VORHER:
-import { V28PricingHero } from "@/components/pricing/V28PricingHero";
-<V28PricingHero title="Impressum" subtitle="Angaben gemäß § 5 TMG..." />;
+import { V28PricingHero } from '@/components/pricing/V28PricingHero';
+<V28PricingHero
+  title="Impressum"
+  subtitle="Angaben gemäß § 5 TMG..."
+/>
 
 // ✅ NACHHER:
-import { V28HeroPremium } from "@/components/hero/V28HeroPremium";
-import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
+import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
+import { V28DashboardPreview } from '@/components/home/V28DashboardPreview';
 <V28HeroPremium
   variant="demo"
   backgroundVariant="3d-clean"
@@ -85,15 +81,14 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
   title="Impressum"
   subtitle="Angaben gemäß § 5 TMG und § 2 DL-InfoV"
   primaryCTA={{
-    label: "Kontakt aufnehmen",
-    onClick: () => (window.location.href = "/contact"),
+    label: 'Kontakt aufnehmen',
+    onClick: () => window.location.href = '/contact'
   }}
   visual={<V28DashboardPreview animationDelay="0.4s" />}
-/>;
+/>
 ```
 
 **Ergebnis:**
-
 - ✅ Premium Hero mit Visual
 - ✅ Badge-System
 - ✅ CTA Button
@@ -104,10 +99,9 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 #### 2.3 Datenschutz.tsx - Hero-Migration ✅
 
 **Änderung:**
-
 ```tsx
 // ❌ VORHER:
-<V28PricingHero
+<V28PricingHero 
   title="Datenschutzerklärung"
   subtitle="Stand: Januar 2025..."
 />
@@ -128,7 +122,6 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 ```
 
 **Ergebnis:**
-
 - ✅ DSGVO-Badge
 - ✅ Shield Icon
 - ✅ Premium Hero-Visual
@@ -138,10 +131,9 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 #### 2.4 AGB.tsx - Hero-Migration ✅
 
 **Änderung:**
-
 ```tsx
 // ❌ VORHER:
-<V28PricingHero
+<V28PricingHero 
   title="Allgemeine Geschäftsbedingungen"
   subtitle="Stand: 2025"
 />
@@ -162,7 +154,6 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 ```
 
 **Ergebnis:**
-
 - ✅ Vertragsrecht-Badge
 - ✅ FileText Icon
 - ✅ Premium Hero-Visual
@@ -174,8 +165,8 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 **Standard für ALLE Pre-Login-Seiten (außer Pricing):**
 
 ```tsx
-import { V28HeroPremium } from "@/components/hero/V28HeroPremium";
-import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
+import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
+import { V28DashboardPreview } from '@/components/home/V28DashboardPreview';
 
 <V28HeroPremium
   variant="demo" // oder 'features', 'faq', etc.
@@ -184,17 +175,16 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
   title="Page Title"
   subtitle="Page Subtitle"
   primaryCTA={{
-    label: "CTA Button",
-    onClick: () => navigate("/..."),
+    label: 'CTA Button',
+    onClick: () => navigate('/...')
   }}
   visual={
     <V28DashboardPreview animationDelay="0.4s" /> // ✅ IMMER DIESES TEMPLATE!
   }
-/>;
+/>
 ```
 
 **Wiederverwendet in:**
-
 - ✅ Home.tsx
 - ✅ Features.tsx
 - ✅ Impressum.tsx
@@ -208,7 +198,6 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 ## 📂 BETROFFENE DATEIEN
 
 ### Edited (8 Dateien):
-
 1. ✅ `src/pages/Home.tsx` (Lines 477-587 refactored)
 2. ✅ `src/pages/Features.tsx` (Lines 15-16, 176)
 3. ✅ `src/pages/Impressum.tsx` (Lines 9-13, 25-38)
@@ -219,7 +208,6 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 8. ✅ `docs/PRE_LOGIN_COMPLETE_V6.0.8.md` (Diese Dokumentation)
 
 ### Unverändert (bereits V28.1-konform):
-
 - ✅ `src/pages/Pricing.tsx` (eigenes Hero-System)
 - ✅ `src/pages/FAQ.tsx` (bereits V28.1-konform)
 - ✅ `src/pages/Contact.tsx` (bereits V28.1-konform)
@@ -229,7 +217,6 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 ## ✅ SUCCESS CRITERIA - ERFÜLLT
 
 ### Design System Compliance:
-
 - ✅ 100% V28.1 Design Tokens
 - ✅ Keine inline styles (`style={{}}`)
 - ✅ Keine Hex-Codes direkt
@@ -241,14 +228,12 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
   - V28Button
 
 ### Systemweite Konsistenz:
-
 - ✅ Alle Pre-Login-Seiten nutzen GLEICHEN Hero-Template
 - ✅ Browser-Mockup mit macOS Verkehrsampeln auf ALLEN Seiten
 - ✅ V28HeroPremium statt V28PricingHero (außer Pricing-Seite)
 - ✅ Responsive Tailwind-Classes (text-3xl sm:text-4xl md:text-5xl)
 
 ### Wiederverwendbarkeit:
-
 - ✅ Template für zukünftige Seiten definiert
 - ✅ Dokumentiert in `PRE_LOGIN_COMPLETE_V6.0.8.md`
 - ✅ Copy-Paste-Ready Pattern
@@ -260,7 +245,6 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 **Build-Version:** v6.0.8-pre-login-complete-1730430000000
 
 **Cache-Busting:**
-
 - ✅ `index.html` - Meta-Tag aktualisiert
 - ✅ `src/main.tsx` - Version-Check aktualisiert
 - ✅ Aggressive Cache-Clearing (localStorage, sessionStorage, Cookies)
@@ -272,19 +256,16 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 ## 📈 QUALITÄTSSICHERUNG
 
 ### Desktop (1920x1080):
-
 - ✅ Hero-Visual sichtbar (Browser-Mockup)
 - ✅ Trust-Stats Grid (4 Spalten)
 - ✅ CTA Buttons prominent
 
 ### Tablet (768x1024):
-
 - ✅ Hero-Visual verschwindet (lg:block)
 - ✅ Trust-Stats Grid (2 Spalten)
 - ✅ Responsive Text-Sizes
 
 ### Mobile (375x667):
-
 - ✅ Hero-Visual verschwindet
 - ✅ Trust-Stats Grid (1 Spalte)
 - ✅ Stacked CTA Buttons
@@ -294,19 +275,16 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 ## 🎓 LESSONS LEARNED
 
 ### Was funktioniert:
-
 1. **Systemweites Template:** `V28DashboardPreview` ist jetzt DER Standard
 2. **Parallel Implementation:** Alle Änderungen in einem Go → schneller
 3. **Component-First:** V28MarketingCard reduziert Code-Duplikation
 
 ### Was vermieden wurde:
-
 1. ❌ Inline styles (style={{}})
 2. ❌ Unterschiedliche Hero-Patterns pro Seite
 3. ❌ Manuelle fontSize/textWrap-Werte
 
 ### Future-Proof:
-
 - Neue Pre-Login-Seiten nutzen das Standard-Template
 - Copy-Paste aus dieser Doku → instant V28.1-compliant
 - Keine weiteren Hero-Varianten nötig
@@ -316,14 +294,12 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 ## 🔄 NEXT STEPS (OPTIONAL)
 
 ### Weitere Optimierungen:
-
 1. **Docs.tsx** - Prüfung + ggf. Hero-Visual
 2. **Demo.tsx** - Falls existent, Hero-Migration
 3. **E2E Tests** - Playwright Tests aktualisieren
 4. **Performance Audit** - Lighthouse Score prüfen
 
 ### Dokumentation:
-
 - ✅ `docs/PRE_LOGIN_COMPLETE_V6.0.8.md` (DIESE DATEI)
 - ✅ `docs/HOME_V28_MIGRATION_COMPLETED.md` (aktualisiert)
 - ✅ `CHANGELOG.md` (Entry für V6.0.8)
@@ -335,7 +311,6 @@ import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
 **Status:** ✅ ALLE PRE-LOGIN-SEITEN ERFOLGREICH FERTIGGESTELLT!
 
 **Ergebnis:**
-
 - 7 Pre-Login-Seiten 100% V28.1-konform
 - Systemweites Hero-Template etabliert
 - Browser-Mockup auf allen Seiten

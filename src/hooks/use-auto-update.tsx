@@ -7,9 +7,9 @@
    - Stille Updates im Hintergrund
    ================================================================================== */
 
-import * as React from "react";
-import { handleError, handleSuccess } from "@/lib/error-handler";
-import { logger } from "@/lib/logger";
+import * as React from 'react';
+import { handleError, handleSuccess } from '@/lib/error-handler';
+import { logger } from '@/lib/logger';
 
 interface UpdateCheckOptions {
   checkInterval?: number; // in Millisekunden (Standard: 60 Sekunden)
@@ -19,10 +19,8 @@ interface UpdateCheckOptions {
 
 export function useAutoUpdate(options: UpdateCheckOptions = {}) {
   // CRITICAL FIX V18.2.28: Defensive React Check (präventiv)
-  if (typeof React === "undefined" || !React.useEffect || !React.useRef) {
-    logger.error("[useAutoUpdate] React Hooks nicht verfügbar", undefined, {
-      component: "useAutoUpdate",
-    });
+  if (typeof React === 'undefined' || !React.useEffect || !React.useRef) {
+    logger.error('[useAutoUpdate] React Hooks nicht verfügbar', undefined, { component: 'useAutoUpdate' });
     // Fallback: Return dummy trigger
     return { triggerUpdate: () => {} };
   }
@@ -38,23 +36,23 @@ export function useAutoUpdate(options: UpdateCheckOptions = {}) {
 
   React.useEffect(() => {
     // Service Worker Registration prüfen
-    if (!("serviceWorker" in navigator)) {
-      logger.info("[Auto-Update] Service Worker nicht unterstützt", { component: "useAutoUpdate" });
+    if (!('serviceWorker' in navigator)) {
+      logger.info('[Auto-Update] Service Worker nicht unterstützt', { component: 'useAutoUpdate' });
       return;
     }
 
     // Service Worker Update Handler
     const handleServiceWorkerUpdate = (registration: ServiceWorkerRegistration) => {
       const newWorker = registration.waiting || registration.installing;
-
+      
       if (newWorker) {
         serviceWorkerRef.current = newWorker;
 
         // Warte auf State-Change
-        newWorker.addEventListener("statechange", () => {
-          if (newWorker.state === "activated") {
+        newWorker.addEventListener('statechange', () => {
+          if (newWorker.state === 'activated') {
             if (showNotification) {
-              handleSuccess("Die App wird aktualisiert...", "Update verfügbar");
+              handleSuccess('Die App wird aktualisiert...', 'Update verfügbar');
             }
 
             // Automatischer Reload nach kurzer Verzögerung
@@ -67,7 +65,7 @@ export function useAutoUpdate(options: UpdateCheckOptions = {}) {
         });
 
         // Sofort aktivieren (Skip Waiting)
-        newWorker.postMessage({ type: "SKIP_WAITING" });
+        newWorker.postMessage({ type: 'SKIP_WAITING' });
       }
     };
 
@@ -78,18 +76,15 @@ export function useAutoUpdate(options: UpdateCheckOptions = {}) {
 
       // Periodische Update-Checks
       updateCheckTimerRef.current = setInterval(() => {
-        registration
-          .update()
-          .then((updatedRegistration) => {
-            handleServiceWorkerUpdate(updatedRegistration);
-          })
-          .catch((error) => {
-            handleError(error, "Auto-Update Check fehlgeschlagen", { showToast: false });
-          });
+        registration.update().then((updatedRegistration) => {
+          handleServiceWorkerUpdate(updatedRegistration);
+        }).catch((error) => {
+          handleError(error, 'Auto-Update Check fehlgeschlagen', { showToast: false });
+        });
       }, checkInterval);
 
       // Event-Listener für neue Service Worker
-      registration.addEventListener("updatefound", () => {
+      registration.addEventListener('updatefound', () => {
         handleServiceWorkerUpdate(registration);
       });
     });
@@ -105,7 +100,7 @@ export function useAutoUpdate(options: UpdateCheckOptions = {}) {
   // Manueller Update-Trigger
   const triggerUpdate = () => {
     if (serviceWorkerRef.current) {
-      serviceWorkerRef.current.postMessage({ type: "SKIP_WAITING" });
+      serviceWorkerRef.current.postMessage({ type: 'SKIP_WAITING' });
       window.location.reload();
     }
   };

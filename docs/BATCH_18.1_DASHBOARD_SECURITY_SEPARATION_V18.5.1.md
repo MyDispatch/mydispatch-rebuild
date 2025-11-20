@@ -16,9 +16,7 @@ Strikte Sicherheitstrennung zwischen Kunden-Dashboard (`/dashboard`) und Master-
 ## 📋 DURCHGEFÜHRTE ÄNDERUNGEN
 
 ### 1. **Hauptdokumentation erstellt**
-
 ✅ `docs/DASHBOARD_SECURITY_SEPARATION_V18.5.1.md`
-
 - Kernprinzip: Strikte Trennung (Kunden vs. Master)
 - Absolute Sicherheitsregeln (3 Kern-Regeln)
 - RBAC Implementation (user_roles Tabelle)
@@ -31,7 +29,6 @@ Strikte Sicherheitstrennung zwischen Kunden-Dashboard (`/dashboard`) und Master-
 ### 2. **Route-Schutz implementiert**
 
 #### routes.config.tsx
-
 ```typescript
 export interface RouteConfig {
   path: string;
@@ -58,7 +55,6 @@ export interface RouteConfig {
 ```
 
 #### App.tsx (RouteRenderer)
-
 ```typescript
 // 3. Auth-Wrapper (mit optionalem Role-Check)
 if (route.protected) {
@@ -75,20 +71,17 @@ if (route.protected) {
 ### 3. **Bestehende Dokumentation aktualisiert**
 
 #### docs/PORTAL_STRUKTUR_V18.3.30.md
-
 - ✅ Sektion "1.5. Master-Dashboard" hinzugefügt
 - ✅ Sicherheits-Hinweise ergänzt
 - ✅ Trennung Kunden-Dashboard vs. Master-Dashboard klargestellt
 
 #### docs/SHARED_KNOWLEDGE_V18.5.1.md
-
 - ✅ Neue Sektion "SICHERHEITS-ARCHITEKTUR" hinzugefügt
 - ✅ Dashboard-Trennung dokumentiert
 - ✅ RBAC (Role-Based Access Control) erklärt
 - ✅ user_roles Tabellen-Schema hinzugefügt
 
 #### docs/SYSTEM_KOMPONENTEN_VORGABEN_V18.5.1.md
-
 - ✅ Sicherheits-Hinweis ergänzt
 - ✅ Link zu DASHBOARD_SECURITY_SEPARATION_V18.5.1.md
 
@@ -97,7 +90,6 @@ if (route.protected) {
 ## 🔐 SICHERHEITS-FEATURES
 
 ### Implementiert (✅)
-
 1. ✅ `requiredRole` Property in RouteConfig
 2. ✅ RouteRenderer übergibt `requiredRole` an ProtectedRoute
 3. ✅ `/master` Route mit `requiredRole="master"` geschützt
@@ -106,7 +98,6 @@ if (route.protected) {
 6. ✅ Dokumentation: Security Best Practices (Server-Side Validation)
 
 ### Ausstehend (🔄)
-
 1. 🔄 **user_roles Tabelle erstellen** (siehe Migration unten)
 2. 🔄 **Master-Accounts hinzufügen** (MyDispatch-Team)
 3. 🔄 **Testing:** Zugriff als Kunde → Verweigert
@@ -177,7 +168,7 @@ USING (user_id = auth.uid());
 -- WICHTIG: UUIDs durch echte User-IDs ersetzen!
 
 INSERT INTO public.user_roles (user_id, role)
-VALUES
+VALUES 
   ('UUID_PASCAL', 'master'),
   ('UUID_TEAM_MEMBER_2', 'master'),
   ('UUID_TEAM_MEMBER_3', 'master')
@@ -239,32 +230,29 @@ WITH CHECK (public.has_role(auth.uid(), 'master'));
 
 ## 📊 QUALITÄTS-METRIKEN
 
-| Bereich              | Vorher            | Nachher           | Status               |
-| -------------------- | ----------------- | ----------------- | -------------------- |
-| Route-Schutz /master | ❌ Fehlt          | ✅ requiredRole   | ✅ Implementiert     |
-| Dokumentation        | ⚠️ Unklar         | ✅ Umfassend      | ✅ Komplett          |
-| RBAC System          | ❌ Fehlt          | 🔄 Vorbereitet    | 🔄 Migration pending |
-| user_roles Tabelle   | ❌ Fehlt          | 🔄 SQL bereit     | 🔄 Migration pending |
-| RLS Policies         | ⚠️ Unvollständig  | 🔄 SQL bereit     | 🔄 Migration pending |
-| Testing              | ❌ Nicht getestet | 🔄 Plan vorhanden | 🔄 Nach Migration    |
+| Bereich | Vorher | Nachher | Status |
+|---------|--------|---------|--------|
+| Route-Schutz /master | ❌ Fehlt | ✅ requiredRole | ✅ Implementiert |
+| Dokumentation | ⚠️ Unklar | ✅ Umfassend | ✅ Komplett |
+| RBAC System | ❌ Fehlt | 🔄 Vorbereitet | 🔄 Migration pending |
+| user_roles Tabelle | ❌ Fehlt | 🔄 SQL bereit | 🔄 Migration pending |
+| RLS Policies | ⚠️ Unvollständig | 🔄 SQL bereit | 🔄 Migration pending |
+| Testing | ❌ Nicht getestet | 🔄 Plan vorhanden | 🔄 Nach Migration |
 
 ---
 
 ## ⚠️ WICHTIGE HINWEISE
 
 ### 1. **Bestehende ProtectedRoute unterstützt requiredRole bereits!**
-
 ✅ Keine Änderungen an `src/components/ProtectedRoute.tsx` notwendig  
 ✅ Komponente prüft bereits `roles.includes(requiredRole)`  
 ✅ Zeigt "Zugriff verweigert" wenn Role fehlt
 
 ### 2. **Migration MUSS ausgeführt werden!**
-
 🚨 Ohne `user_roles` Tabelle funktioniert der Role-Check NICHT!  
 🚨 ProtectedRoute lädt Rollen aus `useAuth()` → Daten müssen in DB sein
 
 ### 3. **Master-Accounts MÜSSEN identifiziert werden!**
-
 🚨 Welche User-IDs gehören zum MyDispatch-Team?  
 🚨 Diese müssen in `user_roles` mit `role = 'master'` eingetragen werden
 
@@ -273,12 +261,10 @@ WITH CHECK (public.has_role(auth.uid(), 'master'));
 ## 🔍 AUDIT-LOG (Was wurde geändert?)
 
 ### Neue Dateien
-
 - ✅ `docs/DASHBOARD_SECURITY_SEPARATION_V18.5.1.md`
 - ✅ `docs/BATCH_18.1_DASHBOARD_SECURITY_SEPARATION_V18.5.1.md` (diese Datei)
 
 ### Geänderte Dateien
-
 - ✅ `src/config/routes.config.tsx` (requiredRole Property + /master Route)
 - ✅ `src/App.tsx` (RouteRenderer übergibt requiredRole)
 - ✅ `docs/PORTAL_STRUKTUR_V18.3.30.md` (Master-Dashboard Sektion)
@@ -286,7 +272,6 @@ WITH CHECK (public.has_role(auth.uid(), 'master'));
 - ✅ `docs/SYSTEM_KOMPONENTEN_VORGABEN_V18.5.1.md` (Security-Hinweis)
 
 ### Nicht geänderte Dateien (korrekt implementiert)
-
 - ✅ `src/components/ProtectedRoute.tsx` (unterstützt requiredRole bereits!)
 - ✅ `src/pages/MasterDashboard.tsx` (keine Änderungen nötig)
 
@@ -295,7 +280,6 @@ WITH CHECK (public.has_role(auth.uid(), 'master'));
 ## ✅ CHECKLISTE FÜR PASCAL
 
 Vor Go-Live:
-
 - [ ] Migration Phase 1 ausführen (user_roles Tabelle)
 - [ ] Migration Phase 2 ausführen (Master-Accounts hinzufügen)
 - [ ] Migration Phase 3 ausführen (companies RLS erweitern)
@@ -304,7 +288,6 @@ Vor Go-Live:
 - [ ] Dokumentation an Team kommunizieren
 
 Nach Go-Live:
-
 - [ ] Monitoring: Fehlgeschlagene Zugriffs-Versuche auf /master
 - [ ] Review: Sind alle System-Komponenten im /master?
 - [ ] Review: Enthält /dashboard keine System-Daten?
@@ -330,6 +313,7 @@ Nach Go-Live:
    - Ich erstelle die Migration via Supabase Tool
    - Du identifizierst Master-Account User-IDs
    - Wir testen den Zugriff
+   
 2. **Option B:** Migration später
    - `/master` Route ist bereits geschützt (Code-Ebene)
    - Dokumentation ist vollständig

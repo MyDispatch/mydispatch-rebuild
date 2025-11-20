@@ -25,17 +25,17 @@ MyDispatch bietet **absolute Rechtssicherheit** durch systematische Einhaltung a
 
 **ZWINGEND erforderlich** (bei Verstößen: Bußgeld bis 10.000 €):
 
-| Feld              | Rechtliche Grundlage  | Sichtbarkeit            | Aufbewahrung |
-| ----------------- | --------------------- | ----------------------- | ------------ |
-| `booking_number`  | PBefG § 51 Abs. 1     | Immer                   | 10 Jahre     |
-| **`created_at`**  | **PBefG § 51 Abs. 2** | **NIEMALS verstecken!** | **10 Jahre** |
-| `pickup_time`     | PBefG § 51 Abs. 1     | Immer                   | 10 Jahre     |
-| `pickup_address`  | PBefG § 51 Abs. 1     | Immer                   | 10 Jahre     |
-| `dropoff_address` | PBefG § 51 Abs. 1     | Immer                   | 10 Jahre     |
-| `price`           | PBefG § 51 Abs. 1     | Immer                   | 10 Jahre     |
-| `customer_id`     | PBefG § 51 Abs. 1     | Immer                   | 10 Jahre     |
-| `driver_id`       | PBefG § 51 Abs. 1     | Nach Zuweisung          | 10 Jahre     |
-| `vehicle_id`      | PBefG § 51 Abs. 1     | Nach Zuweisung          | 10 Jahre     |
+| Feld | Rechtliche Grundlage | Sichtbarkeit | Aufbewahrung |
+|------|---------------------|--------------|--------------|
+| `booking_number` | PBefG § 51 Abs. 1 | Immer | 10 Jahre |
+| **`created_at`** | **PBefG § 51 Abs. 2** | **NIEMALS verstecken!** | **10 Jahre** |
+| `pickup_time` | PBefG § 51 Abs. 1 | Immer | 10 Jahre |
+| `pickup_address` | PBefG § 51 Abs. 1 | Immer | 10 Jahre |
+| `dropoff_address` | PBefG § 51 Abs. 1 | Immer | 10 Jahre |
+| `price` | PBefG § 51 Abs. 1 | Immer | 10 Jahre |
+| `customer_id` | PBefG § 51 Abs. 1 | Immer | 10 Jahre |
+| `driver_id` | PBefG § 51 Abs. 1 | Nach Zuweisung | 10 Jahre |
+| `vehicle_id` | PBefG § 51 Abs. 1 | Nach Zuweisung | 10 Jahre |
 
 **KRITISCH:** Das Feld `created_at` (Auftragseingangsdatum/-zeit) MUSS in ALLEN Auftrags-Tabellen sichtbar sein!
 
@@ -48,17 +48,17 @@ MyDispatch bietet **absolute Rechtssicherheit** durch systematische Einhaltung a
 
 **ZWINGEND erforderlich** (bei Verstößen: Verstoß gegen § 14 UStG):
 
-| Feld             | Rechtliche Grundlage       | Sichtbarkeit            | Aufbewahrung        |
-| ---------------- | -------------------------- | ----------------------- | ------------------- |
-| `invoice_number` | § 14 Abs. 4 Nr. 4 UStG     | Immer                   | 10 Jahre (§ 147 AO) |
-| **`created_at`** | **§ 14 Abs. 4 Nr. 1 UStG** | **NIEMALS verstecken!** | **10 Jahre**        |
-| `customer_id`    | § 14 Abs. 4 Nr. 1 UStG     | Immer                   | 10 Jahre            |
-| `total`          | § 14 Abs. 4 Nr. 3 UStG     | Immer                   | 10 Jahre            |
-| `tax_rate`       | § 14 Abs. 4 Nr. 8 UStG     | Immer                   | 10 Jahre            |
-| `tax_amount`     | § 14 Abs. 4 Nr. 8 UStG     | Immer                   | 10 Jahre            |
-| `net_amount`     | § 14 Abs. 4 Nr. 3 UStG     | Immer                   | 10 Jahre            |
-| `payment_status` | Empfohlen                  | Immer                   | 10 Jahre            |
-| `due_date`       | Empfohlen                  | Immer                   | 10 Jahre            |
+| Feld | Rechtliche Grundlage | Sichtbarkeit | Aufbewahrung |
+|------|---------------------|--------------|--------------|
+| `invoice_number` | § 14 Abs. 4 Nr. 4 UStG | Immer | 10 Jahre (§ 147 AO) |
+| **`created_at`** | **§ 14 Abs. 4 Nr. 1 UStG** | **NIEMALS verstecken!** | **10 Jahre** |
+| `customer_id` | § 14 Abs. 4 Nr. 1 UStG | Immer | 10 Jahre |
+| `total` | § 14 Abs. 4 Nr. 3 UStG | Immer | 10 Jahre |
+| `tax_rate` | § 14 Abs. 4 Nr. 8 UStG | Immer | 10 Jahre |
+| `tax_amount` | § 14 Abs. 4 Nr. 8 UStG | Immer | 10 Jahre |
+| `net_amount` | § 14 Abs. 4 Nr. 3 UStG | Immer | 10 Jahre |
+| `payment_status` | Empfohlen | Immer | 10 Jahre |
+| `due_date` | Empfohlen | Immer | 10 Jahre |
 
 **KRITISCH:** Das Feld `created_at` (Rechnungsdatum) MUSS in ALLEN Rechnungs-Tabellen sichtbar sein!
 
@@ -71,13 +71,13 @@ MyDispatch bietet **absolute Rechtssicherheit** durch systematische Einhaltung a
 
 **ZWINGEND erforderlich** (bei Verstößen: Bußgeld bis 20 Mio. € oder 4% Jahresumsatz):
 
-| Feld             | Rechtliche Grundlage | Sichtbarkeit            | Aufbewahrung           |
-| ---------------- | -------------------- | ----------------------- | ---------------------- |
-| **`created_at`** | **DSGVO Art. 30**    | **NIEMALS verstecken!** | **Bis Widerruf**       |
-| `first_name`     | DSGVO Art. 6         | Immer                   | Bis Widerruf           |
-| `last_name`      | DSGVO Art. 6         | Immer                   | Bis Widerruf           |
-| `consent_status` | DSGVO Art. 7         | Dokumentation           | Bis Widerruf + 3 Jahre |
-| `consent_date`   | DSGVO Art. 7 Abs. 1  | Dokumentation           | Bis Widerruf + 3 Jahre |
+| Feld | Rechtliche Grundlage | Sichtbarkeit | Aufbewahrung |
+|------|---------------------|--------------|--------------|
+| **`created_at`** | **DSGVO Art. 30** | **NIEMALS verstecken!** | **Bis Widerruf** |
+| `first_name` | DSGVO Art. 6 | Immer | Bis Widerruf |
+| `last_name` | DSGVO Art. 6 | Immer | Bis Widerruf |
+| `consent_status` | DSGVO Art. 7 | Dokumentation | Bis Widerruf + 3 Jahre |
+| `consent_date` | DSGVO Art. 7 Abs. 1 | Dokumentation | Bis Widerruf + 3 Jahre |
 
 **KRITISCH:** Das Feld `created_at` (Erfassungsdatum) MUSS dokumentiert werden für das Verarbeitungsverzeichnis (Art. 30 DSGVO)!
 
@@ -90,12 +90,12 @@ DSGVO Art. 30 verlangt ein **Verarbeitungsverzeichnis** mit Zeitstempel aller Da
 
 **KRITISCH** (bei Verstößen: Fahrzeug-Stilllegung, Bußgeld):
 
-| Feld                      | Rechtliche Grundlage | Sichtbarkeit            | Aufbewahrung               |
-| ------------------------- | -------------------- | ----------------------- | -------------------------- |
-| `license_number`          | StVG § 21            | Immer                   | Bis Austritt + 3 Jahre     |
-| **`license_expiry_date`** | **StVG § 24**        | **NIEMALS verstecken!** | **Bis Austritt + 3 Jahre** |
-| `license_classes`         | StVG § 21            | Immer                   | Bis Austritt + 3 Jahre     |
-| `employment_start`        | Arbeitsrecht         | Immer                   | Bis Austritt + 3 Jahre     |
+| Feld | Rechtliche Grundlage | Sichtbarkeit | Aufbewahrung |
+|------|---------------------|--------------|--------------|
+| `license_number` | StVG § 21 | Immer | Bis Austritt + 3 Jahre |
+| **`license_expiry_date`** | **StVG § 24** | **NIEMALS verstecken!** | **Bis Austritt + 3 Jahre** |
+| `license_classes` | StVG § 21 | Immer | Bis Austritt + 3 Jahre |
+| `employment_start` | Arbeitsrecht | Immer | Bis Austritt + 3 Jahre |
 
 **KRITISCH:** Das Feld `license_expiry_date` (Führerscheinablauf) MUSS **prominent** angezeigt werden mit Ablauf-Warnungen!
 
@@ -103,7 +103,6 @@ DSGVO Art. 30 verlangt ein **Verarbeitungsverzeichnis** mit Zeitstempel aller Da
 Einsatz eines Fahrers mit abgelaufenem Führerschein = **Straftat** (§ 21 StVG: Fahren ohne Fahrerlaubnis).
 
 **Warnungen implementiert:**
-
 - ⚠️ **30 Tage vorher:** Gelbe Warnung
 - 🚫 **Abgelaufen:** Rote Warnung + "DARF NICHT MEHR EINGESETZT WERDEN!"
 
@@ -113,12 +112,12 @@ Einsatz eines Fahrers mit abgelaufenem Führerschein = **Straftat** (§ 21 StVG:
 
 **KRITISCH** (bei Verstößen: Fahrzeug-Stilllegung, Bußgeld bis 270 €):
 
-| Feld               | Rechtliche Grundlage | Sichtbarkeit            | Aufbewahrung              |
-| ------------------ | -------------------- | ----------------------- | ------------------------- |
-| `license_plate`    | StVZO § 10           | Immer                   | Bis Verkauf + 2 Jahre     |
-| **`tuev_expiry`**  | **StVZO § 29**       | **NIEMALS verstecken!** | **Bis Verkauf + 2 Jahre** |
-| `insurance_expiry` | PflVG § 1            | Immer                   | Bis Verkauf + 2 Jahre     |
-| `last_maintenance` | Empfohlen            | Immer                   | Bis Verkauf + 2 Jahre     |
+| Feld | Rechtliche Grundlage | Sichtbarkeit | Aufbewahrung |
+|------|---------------------|--------------|--------------|
+| `license_plate` | StVZO § 10 | Immer | Bis Verkauf + 2 Jahre |
+| **`tuev_expiry`** | **StVZO § 29** | **NIEMALS verstecken!** | **Bis Verkauf + 2 Jahre** |
+| `insurance_expiry` | PflVG § 1 | Immer | Bis Verkauf + 2 Jahre |
+| `last_maintenance` | Empfohlen | Immer | Bis Verkauf + 2 Jahre |
 
 **KRITISCH:** Das Feld `tuev_expiry` (TÜV-Ablauf) MUSS **prominent** angezeigt werden mit Ablauf-Warnungen!
 
@@ -126,7 +125,6 @@ Einsatz eines Fahrers mit abgelaufenem Führerschein = **Straftat** (§ 21 StVG:
 Einsatz eines Fahrzeugs mit abgelaufenem TÜV = **Ordnungswidrigkeit** (§ 69a StVZO: Bußgeld + Punkte).
 
 **Warnungen implementiert:**
-
 - ⚠️ **60 Tage vorher:** Gelbe Warnung
 - 🚫 **Abgelaufen:** Rote Warnung + "DARF NICHT MEHR EINGESETZT WERDEN!"
 
@@ -137,32 +135,32 @@ Einsatz eines Fahrzeugs mit abgelaufenem TÜV = **Ordnungswidrigkeit** (§ 69a S
 ### 1. Tabellen-Spalten verwenden
 
 ```tsx
-import { getBookingColumns, getInvoiceColumns } from "@/lib/legal-compliance/column-definitions";
+import { getBookingColumns, getInvoiceColumns } from '@/lib/legal-compliance/column-definitions';
 
 // In UnifiedPageTemplate
 <UnifiedPageTemplate
   content={{
-    type: "table",
+    type: 'table',
     data: bookings,
     columns: getBookingColumns(), // Alle rechtlichen Pflichtfelder inkludiert!
   }}
-/>;
+/>
 ```
 
 ### 2. Compliance-Check ausführen
 
 ```tsx
-import { validateBookingCompliance } from "@/lib/legal-compliance/compliance-checker";
+import { validateBookingCompliance } from '@/lib/legal-compliance/compliance-checker';
 
 const check = validateBookingCompliance(booking);
 
 if (!check.valid) {
-  console.error("Rechtliche Verstöße:", check.errors);
+  console.error('Rechtliche Verstöße:', check.errors);
   // ⚠️ Zeige Fehler im UI
 }
 
 if (check.warnings.length > 0) {
-  console.warn("Compliance-Warnungen:", check.warnings);
+  console.warn('Compliance-Warnungen:', check.warnings);
   // ⚠️ Zeige Warnungen im UI
 }
 ```
@@ -170,17 +168,14 @@ if (check.warnings.length > 0) {
 ### 3. Systemweiter Compliance-Check (Dashboard)
 
 ```tsx
-import {
-  runSystemComplianceCheck,
-  showComplianceWarnings,
-} from "@/lib/legal-compliance/compliance-checker";
+import { runSystemComplianceCheck, showComplianceWarnings } from '@/lib/legal-compliance/compliance-checker';
 
 const results = await runSystemComplianceCheck(supabase, companyId);
 const notification = showComplianceWarnings(results);
 
-if (notification.type === "error") {
+if (notification.type === 'error') {
   toast.error(notification.message); // Kritische Verstöße!
-} else if (notification.type === "warning") {
+} else if (notification.type === 'warning') {
   toast.warning(notification.message); // Warnungen
 }
 ```
@@ -192,10 +187,8 @@ if (notification.type === "error") {
 ### PBefG (Personenbeförderungsgesetz)
 
 **§ 51 Aufzeichnungspflichten:**
-
 > (1) Unternehmer, die Verkehr mit Taxen, mit Mietomnibussen, mit Mietwagen [...] betreiben, sind verpflichtet, Aufzeichnungen über die Beförderungen [...] zu führen.
 > (2) Die Aufzeichnungen müssen Angaben enthalten über:
->
 > - den Auftragseingangszeitpunkt
 > - die Abholzeit
 > - den Abholort
@@ -207,7 +200,6 @@ if (notification.type === "error") {
 **Aufbewahrungspflicht:** 10 Jahre (§ 51 Abs. 5 PBefG)
 
 **Verstöße:**
-
 - Fehlende Aufzeichnungen: **Bußgeld bis 10.000 €** (§ 61 Abs. 1 Nr. 14 PBefG)
 - Nicht verfügbare Nachweise bei Prüfung: **Ordnungswidrigkeit**
 
@@ -216,7 +208,6 @@ if (notification.type === "error") {
 ### HGB & UStG (Rechnungen)
 
 **§ 14 Abs. 4 UStG - Pflichtangaben Rechnung:**
-
 1. Name und Anschrift des Unternehmers
 2. Name und Anschrift des Empfängers
 3. **Rechnungsdatum** (created_at)
@@ -228,12 +219,10 @@ if (notification.type === "error") {
 9. Hinweis auf Steuerbefreiung (falls zutreffend)
 
 **§ 147 AO - Aufbewahrungspflicht:**
-
 - Rechnungen: **10 Jahre**
 - Buchungsbelege: **10 Jahre**
 
 **Verstöße:**
-
 - Fehlende Pflichtangaben: **Vorsteuerabzug nicht möglich**
 - Fehlende Aufbewahrung: **Bußgeld bis 25.000 €** (§ 379 AO)
 
@@ -242,21 +231,17 @@ if (notification.type === "error") {
 ### DSGVO (Datenschutz)
 
 **Art. 30 DSGVO - Verarbeitungsverzeichnis:**
-
 > (1) Jeder Verantwortliche [...] führt ein Verzeichnis aller Verarbeitungstätigkeiten.
 > (2) Das Verzeichnis enthält:
->
 > - den Zeitpunkt der Datenerhebung (created_at)
 > - die Kategorien betroffener Personen
 > - die Zwecke der Verarbeitung
 > - die Löschfristen
 
 **Art. 7 DSGVO - Einwilligung:**
-
 > (1) Der Verantwortliche muss nachweisen können, dass die betroffene Person in die Verarbeitung eingewilligt hat.
 
 **Verstöße:**
-
 - Fehlendes Verarbeitungsverzeichnis: **Bußgeld bis 10 Mio. € oder 2% Jahresumsatz**
 - Fehlende Einwilligungsnachweise: **Bußgeld bis 20 Mio. € oder 4% Jahresumsatz**
 
@@ -265,15 +250,12 @@ if (notification.type === "error") {
 ### Arbeitsrecht (Fahrer)
 
 **StVG § 21 - Fahrerlaubnis:**
-
 > (1) Wer auf öffentlichen Straßen ein Kraftfahrzeug führt, bedarf der Fahrerlaubnis.
 
 **§ 24 StVG - Gültigkeitsdauer:**
-
 > Die Fahrerlaubnis wird auf Zeit erteilt.
 
 **Verstöße:**
-
 - Fahren ohne gültige Fahrerlaubnis: **Straftat** (Freiheitsstrafe bis 1 Jahr oder Geldstrafe)
 - Arbeitgeber lässt Fahrer mit abgelaufenem Führerschein fahren: **Haftung**
 
@@ -282,15 +264,12 @@ if (notification.type === "error") {
 ### Verkehrssicherheit (Fahrzeuge)
 
 **StVZO § 29 - Hauptuntersuchung (TÜV):**
-
 > (1) Kraftfahrzeuge müssen in bestimmten Zeitabständen einer Hauptuntersuchung unterzogen werden.
 
 **PflVG § 1 - Versicherungspflicht:**
-
 > Der Halter eines Kraftfahrzeugs ist verpflichtet, für sich [...] eine Haftpflichtversicherung abzuschließen.
 
 **Verstöße:**
-
 - TÜV überzogen: **Bußgeld 15-75 € + 1 Punkt** (bei >8 Monaten)
 - Versicherung abgelaufen: **Straftat** (§ 6 PflVG: Freiheitsstrafe bis 1 Jahr oder Geldstrafe)
 
@@ -301,11 +280,10 @@ if (notification.type === "error") {
 Das System zeigt automatisch Warnungen an:
 
 ### 1. Dashboard-Widget "Dringende Aktionen"
-
 ```tsx
 <DashboardWidget type="urgent-actions">
   {expiringLicenses.length > 0 && (
-    <ActionItem
+    <ActionItem 
       type="error"
       title="3 Führerscheine laufen ab"
       description="In den nächsten 7 Tagen"
@@ -316,13 +294,11 @@ Das System zeigt automatisch Warnungen an:
 ```
 
 ### 2. Tabellen-Ampelsystem
-
 - 🟢 Grün: Alles OK
 - 🟡 Gelb: Warnung (30-60 Tage vor Ablauf)
 - 🔴 Rot: Kritisch (abgelaufen oder <30 Tage)
 
 ### 3. Console-Warnings (Development)
-
 ```
 ⚠️ RECHTLICHE VERSTÖSSE: 5 kritische Fehler gefunden!
 {

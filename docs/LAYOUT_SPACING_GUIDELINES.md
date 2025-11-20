@@ -2,7 +2,7 @@
 
 **Status:** ✅ FINAL - NIEMALS ÄNDERN!  
 **Datum:** 26.10.2025  
-**Version:** 1.0
+**Version:** 1.0  
 
 ---
 
@@ -19,18 +19,15 @@ Der Footer MUSS nahtlos an das Seitenende anschließen - KEINE weiße Lücke zwi
 ### MarketingLayout (src/components/layout/MarketingLayout.tsx)
 
 ```tsx
-<main
-  className={cn(
-    "min-h-screen overflow-x-hidden",
-    isMobile ? "pt-14 pb-0" : "pt-16 pb-0" // ✅ pb-0 - KEIN Bottom-Padding!
-  )}
->
+<main className={cn(
+  "min-h-screen overflow-x-hidden",
+  isMobile ? "pt-14 pb-0" : "pt-16 pb-0"  // ✅ pb-0 - KEIN Bottom-Padding!
+)}>
   {children}
 </main>
 ```
 
 **WICHTIG:**
-
 - `pb-0` auf allen Breakpoints
 - ❌ NIEMALS `pb-16`, `pb-20` oder ähnliches verwenden
 - Footer ist `fixed bottom-0` und darf KEINE Lücke zum Content haben
@@ -53,7 +50,9 @@ Die letzte Section jeder Seite MUSS mit `pb-0` oder entsprechendem negativen Mar
 
 ```tsx
 // ❌ FALSCH - Zusätzliches Padding/Margin nach letzter Section
-<section className="py-20 md:py-24 mb-8">{/* Content */}</section>
+<section className="py-20 md:py-24 mb-8">
+  {/* Content */}
+</section>
 // Erzeugt Lücke zum Footer!
 ```
 
@@ -62,22 +61,19 @@ Die letzte Section jeder Seite MUSS mit `pb-0` oder entsprechendem negativen Mar
 ## 🔍 BETROFFENE DATEIEN
 
 ### Layout-Komponenten
-
 ✅ `src/components/layout/MarketingLayout.tsx` - main mit `pb-0`  
-✅ `src/components/layout/AppLayout.tsx` - main mit `pb-0`
+✅ `src/components/layout/AppLayout.tsx` - main mit `pb-0`  
 
 ### Seiten (Beispiele)
-
 ✅ `src/pages/Home.tsx` - Letzte Section ohne zusätzliches Margin  
 ✅ `src/pages/Pricing.tsx` - Letzte Section ohne zusätzliches Margin  
-✅ `src/pages/Auth.tsx` - Content ohne zusätzliches Bottom-Padding
+✅ `src/pages/Auth.tsx` - Content ohne zusätzliches Bottom-Padding  
 
 ---
 
 ## ❌ VERBOTEN
 
 ### NIEMALS VERWENDEN:
-
 - ❌ `pb-16`, `pb-20` auf `<main>` Elementen
 - ❌ `mb-8`, `mb-12` auf der letzten Section einer Seite
 - ❌ Zusätzliches `padding-bottom` auf Container-Elementen
@@ -88,7 +84,6 @@ Die letzte Section jeder Seite MUSS mit `pb-0` oder entsprechendem negativen Mar
 ## ⚠️ WARTUNG & UPDATES
 
 Bei **JEDER** neuen Seite oder Layout-Änderung:
-
 1. ✅ Prüfe, ob `<main>` `pb-0` hat
 2. ✅ Prüfe, ob die letzte Section kein zusätzliches Bottom-Spacing hat
 3. ✅ Teste im Browser: Footer muss nahtlos an Content anschließen
@@ -107,7 +102,6 @@ grep -r "mb-8\\|mb-12\\|mb-16" src/pages/*.tsx | grep "section"
 ```
 
 **Sofort korrigieren auf:**
-
 - `<main>`: `pb-0`
 - Letzte Section: Kein zusätzliches `mb-*`
 
@@ -116,7 +110,6 @@ grep -r "mb-8\\|mb-12\\|mb-16" src/pages/*.tsx | grep "section"
 ## 🎨 FOOTER-DESIGN
 
 Der Footer ist `fixed bottom-0` und hat:
-
 - Eigenes internes Padding: `py-xs` (ca. 8px)
 - Border-Top: `1px solid border`
 - Hintergrund: `background`

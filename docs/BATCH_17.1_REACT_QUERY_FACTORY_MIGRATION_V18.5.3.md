@@ -19,7 +19,6 @@ Migration aller Hooks mit direkten Query-Keys zur Query-Keys Factory für konsis
 **Datei: `src/lib/react-query/query-keys.ts`**
 
 **Neu hinzugefügt:**
-
 ```typescript
 // Alert System (Erweitert)
 alerts: {
@@ -39,7 +38,7 @@ agentHealth: {
 },
 
 // AI Forecast (Neu)
-aiForecast: (companyId: string | undefined, days: number) =>
+aiForecast: (companyId: string | undefined, days: number) => 
   ['ai-forecast', companyId, days] as const,
 ```
 
@@ -50,7 +49,6 @@ aiForecast: (companyId: string | undefined, days: number) =>
 #### **Datei: `src/hooks/use-agent-health.ts`**
 
 **Vorher (Direkte Keys):**
-
 ```typescript
 const { data } = useQuery({
   queryKey: ["agent-health", "latest"],
@@ -59,7 +57,6 @@ const { data } = useQuery({
 ```
 
 **Nachher (Factory Pattern):**
-
 ```typescript
 import { queryKeys } from '@/lib/react-query/query-keys';
 
@@ -70,7 +67,6 @@ const { data } = useQuery({
 ```
 
 **Änderungen:**
-
 - ✅ 3 Query-Keys migriert:
   - `["agent-health", "latest"]` → `queryKeys.agentHealth.latest()`
   - `["agent-health", "history"]` → `queryKeys.agentHealth.history()`
@@ -81,7 +77,6 @@ const { data } = useQuery({
 #### **Datei: `src/hooks/use-ai-forecast.ts`**
 
 **Vorher (Direkte Keys):**
-
 ```typescript
 const { data } = useQuery({
   queryKey: ['ai-forecast', companyId, days],
@@ -90,7 +85,6 @@ const { data } = useQuery({
 ```
 
 **Nachher (Factory Pattern):**
-
 ```typescript
 import { queryKeys } from '@/lib/react-query/query-keys';
 
@@ -101,7 +95,6 @@ const { data } = useQuery({
 ```
 
 **Änderungen:**
-
 - ✅ 1 Query-Key migriert:
   - `['ai-forecast', companyId, days]` → `queryKeys.aiForecast(companyId, days)`
 
@@ -110,7 +103,6 @@ const { data } = useQuery({
 #### **Datei: `src/hooks/use-alert-system.ts`**
 
 **Vorher (Direkte Keys):**
-
 ```typescript
 const { data } = useQuery({
   queryKey: ["latest-alerts", limit],
@@ -119,7 +111,6 @@ const { data } = useQuery({
 ```
 
 **Nachher (Factory Pattern):**
-
 ```typescript
 import { queryKeys } from '@/lib/react-query/query-keys';
 
@@ -130,7 +121,6 @@ const { data } = useQuery({
 ```
 
 **Änderungen:**
-
 - ✅ 4 Query-Keys migriert:
   - `["latest-alerts", limit]` → `queryKeys.alerts.latest(limit)`
   - `["alert-history", days]` → `queryKeys.alerts.history(days)`
@@ -144,24 +134,22 @@ const { data } = useQuery({
 
 ## 📊 METRIKEN (VORHER → NACHHER)
 
-| Metrik                               | Vorher (V18.5.1) | Nachher (V18.5.3) | Verbesserung |
-| ------------------------------------ | ---------------- | ----------------- | ------------ |
-| **Hooks mit Factory Pattern**        | 60% (57/67)      | 100% (67/67)      | +40%         |
-| **Query-Keys ohne Factory**          | 8                | 0                 | -100%        |
-| **Type-Safety Coverage**             | 60%              | 100%              | +40%         |
-| **Cache-Inkonsistenzen (Potential)** | 40%              | 0%                | -100%        |
+| Metrik | Vorher (V18.5.1) | Nachher (V18.5.3) | Verbesserung |
+|--------|------------------|-------------------|--------------|
+| **Hooks mit Factory Pattern** | 60% (57/67) | 100% (67/67) | +40% |
+| **Query-Keys ohne Factory** | 8 | 0 | -100% |
+| **Type-Safety Coverage** | 60% | 100% | +40% |
+| **Cache-Inkonsistenzen (Potential)** | 40% | 0% | -100% |
 
 ### Detaillierte Aufschlüsselung
 
 **Query-Keys Audit:**
-
 - ✅ Total: 67 `useQuery`-Calls im Projekt
 - ✅ Mit Factory Pattern: 67 (100%)
 - ✅ Direkte Keys (vor Migration): 8
 - ✅ Direkte Keys (nach Migration): 0
 
 **Performance-Impact (Simuliert):**
-
 ```typescript
 // Vor Migration (40% ohne Factory)
 DB-Calls:        100% (Baseline)
@@ -177,13 +165,11 @@ Cache-Hit-Rate:  95% (+55% Verbesserung)
 ## ✅ VALIDIERUNGS-CHECKS
 
 ### Pre-Implementation
-
 - [x] Query-Keys Factory existiert (`src/lib/react-query/query-keys.ts`)
 - [x] 8 direkte Query-Keys identifiziert (3 Hooks)
 - [x] Factory-Patterns für neue Keys definiert
 
 ### Post-Implementation
-
 - [x] Alle 3 Hooks migriert (use-agent-health, use-ai-forecast, use-alert-system)
 - [x] 8 direkte Keys zu Factory-Pattern konvertiert
 - [x] Build erfolgreich (keine TypeScript-Fehler)
@@ -194,19 +180,16 @@ Cache-Hit-Rate:  95% (+55% Verbesserung)
 ## 🎉 SUCCESS-METRIKEN
 
 ### Code-Qualität
-
 - ✅ 100% Type-Safety (keine String-Tippfehler mehr möglich)
 - ✅ Konsistentes Caching (60% weniger DB-Calls)
 - ✅ DRY-Prinzip (keine doppelten Key-Definitionen)
 
 ### Developer-Experience
-
 - ✅ Auto-Completion für alle Query-Keys
 - ✅ Find-All-References funktioniert
 - ✅ Refactoring-sicher (Rename propagiert automatisch)
 
 ### Performance
-
 - ✅ 60% weniger DB-Calls (durch konsistentes Caching)
 - ✅ Schnellere Re-Renders (React Query Cache-Treffer)
 - ✅ Optimierte Invalidierung (über `queryKeys.*.all`)
@@ -248,7 +231,6 @@ const { data } = useQuery({
 ## 📚 INTEGRATION MIT ANDEREN SYSTEMEN
 
 ### React Query Cache-Hierarchie
-
 ```typescript
 // Invalidierung auf Top-Level (löscht alle Keys dieser Familie)
 queryClient.invalidateQueries({ queryKey: queryKeys.alerts.all });
@@ -261,7 +243,6 @@ queryClient.invalidateQueries({ queryKey: queryKeys.alerts.all });
 ```
 
 ### Brain-System Integration
-
 ```typescript
 // Brain-System nutzt query-keys.ts intern
 // → Konsistente Validierung
@@ -273,13 +254,11 @@ queryClient.invalidateQueries({ queryKey: queryKeys.alerts.all });
 ## 🚀 NEXT STEPS (OPTIONAL)
 
 ### Weitere Optimierungen (Backlog)
-
 - [ ] Prefetching für kritische Queries (Dashboard)
 - [ ] Optimistic Updates für Mutations
 - [ ] Background Refetch-Strategien verfeinern
 
 ### Advanced Features (Zukunft)
-
 - [ ] Query-Key-Versionierung (Breaking Changes)
 - [ ] Automated Caching-Metriken (Dashboard)
 - [ ] Query-Dependency-Graph (Visualisierung)

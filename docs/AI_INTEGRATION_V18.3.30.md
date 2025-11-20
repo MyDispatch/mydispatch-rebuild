@@ -36,14 +36,12 @@ MyDispatch nutzt **intelligente KI-Integration** für:
 **GitHub Workflow:** `.github/workflows/ai-code-review.yml`
 
 **Features:**
-
 - ✅ Automatisches Review bei PR
 - ✅ Blockiert bei Critical Issues
 - ✅ Postet Review als GitHub Comment
 - ✅ Powered by Claude Sonnet 4.5
 
 **Vorteile:**
-
 - 95% schnellere Code-Reviews
 - Verhindert Design-System-Violations
 - Automatische Security-Prüfung
@@ -53,12 +51,12 @@ MyDispatch nutzt **intelligente KI-Integration** für:
 
 ## 📊 KI-METRIKEN
 
-| Metrik                      | Ziel    | Aktuell    |
-| --------------------------- | ------- | ---------- |
+| Metrik | Ziel | Aktuell |
+|--------|------|---------|
 | Code Review Geschwindigkeit | < 2 Min | 1.5 Min ✅ |
-| False Positive Rate         | < 5%    | 2% ✅      |
-| Critical Issue Detection    | > 95%   | 98% ✅     |
-| Developer Satisfaction      | > 8/10  | 9.2/10 ✅  |
+| False Positive Rate | < 5% | 2% ✅ |
+| Critical Issue Detection | > 95% | 98% ✅ |
+| Developer Satisfaction | > 8/10 | 9.2/10 ✅ |
 
 ---
 

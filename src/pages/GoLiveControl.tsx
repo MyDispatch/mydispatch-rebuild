@@ -1,27 +1,27 @@
-import { useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
-import {
-  CheckCircle2,
-  AlertCircle,
-  Loader2,
-  Rocket,
-  Mail,
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Progress } from '@/components/ui/progress';
+import { Separator } from '@/components/ui/separator';
+import { 
+  CheckCircle2, 
+  AlertCircle, 
+  Loader2, 
+  Rocket, 
+  Mail, 
   Activity,
   TrendingUp,
   Database,
   Shield,
   Smartphone,
   Workflow,
-  Clock,
-} from "lucide-react";
-import { GoLiveOrchestrator, GoLiveOrchestration, ExecutionStep } from "@/lib/go-live-orchestrator";
-import { useToast } from "@/hooks/use-toast";
-import { logger } from "@/lib/logger";
+  Clock
+} from 'lucide-react';
+import { GoLiveOrchestrator, GoLiveOrchestration, ExecutionStep } from '@/lib/go-live-orchestrator';
+import { useToast } from '@/hooks/use-toast';
+import { logger } from '@/lib/logger';
 
 export default function GoLiveControl() {
   const { toast } = useToast();
@@ -31,13 +31,13 @@ export default function GoLiveControl() {
 
   const getStepIcon = (status: string) => {
     switch (status) {
-      case "success":
+      case 'success':
         return <CheckCircle2 className="h-5 w-5 text-status-success" />;
-      case "warning":
+      case 'warning':
         return <AlertCircle className="h-5 w-5 text-status-warning" />;
-      case "error":
+      case 'error':
         return <AlertCircle className="h-5 w-5 text-status-error" />;
-      case "running":
+      case 'running':
         return <Loader2 className="h-5 w-5 animate-spin text-primary" />;
       default:
         return <Clock className="h-5 w-5 text-muted-foreground" />;
@@ -46,23 +46,23 @@ export default function GoLiveControl() {
 
   const getStepBgColor = (status: string) => {
     switch (status) {
-      case "success":
-        return "bg-status-success/10 border-status-success/20";
-      case "warning":
-        return "bg-status-warning/10 border-status-warning/20";
-      case "error":
-        return "bg-status-error/10 border-status-error/20";
-      case "running":
-        return "bg-primary/10 border-primary/20";
+      case 'success':
+        return 'bg-status-success/10 border-status-success/20';
+      case 'warning':
+        return 'bg-status-warning/10 border-status-warning/20';
+      case 'error':
+        return 'bg-status-error/10 border-status-error/20';
+      case 'running':
+        return 'bg-primary/10 border-primary/20';
       default:
-        return "bg-muted border-border";
+        return 'bg-muted border-border';
     }
   };
 
   const calculateProgress = (steps: ExecutionStep[]) => {
     const totalSteps = steps.length;
-    const completedSteps = steps.filter(
-      (s) => s.status === "success" || s.status === "warning" || s.status === "error"
+    const completedSteps = steps.filter(s => 
+      s.status === 'success' || s.status === 'warning' || s.status === 'error'
     ).length;
     return Math.round((completedSteps / totalSteps) * 100);
   };
@@ -72,7 +72,7 @@ export default function GoLiveControl() {
     setCurrentProgress(0);
 
     const orchestrator = new GoLiveOrchestrator();
-
+    
     // Poll for updates every 500ms
     const pollInterval = setInterval(() => {
       const currentOrch = orchestrator.getOrchestration();
@@ -82,36 +82,37 @@ export default function GoLiveControl() {
 
     try {
       const result = await orchestrator.execute();
-
+      
       clearInterval(pollInterval);
       setOrchestration(result);
       setCurrentProgress(100);
 
-      if (result.overallStatus === "success") {
+      if (result.overallStatus === 'success') {
         toast({
           title: "🚀 GO-LIVE COMPLETE!",
           description: "MyDispatch V18.3.24 is now LIVE and operational",
         });
-      } else if (result.overallStatus === "warning") {
+      } else if (result.overallStatus === 'warning') {
         toast({
           title: "⚠️ Launched with Warnings",
           description: "System is live but review warnings closely",
-          variant: "default",
+          variant: "default"
         });
       } else {
         toast({
           title: "❌ Go-Live Failed",
           description: "Critical errors occurred during execution",
-          variant: "destructive",
+          variant: "destructive"
         });
       }
+
     } catch (error: any) {
       clearInterval(pollInterval);
-      logger.error("[Go-Live] Execution failed", error, { component: "GoLiveControl" });
+      logger.error('[Go-Live] Execution failed', error, { component: 'GoLiveControl' });
       toast({
         title: "❌ Go-Live Failed",
         description: error.message || "Critical error during execution",
-        variant: "destructive",
+        variant: "destructive"
       });
     } finally {
       setIsRunning(false);
@@ -158,8 +159,7 @@ export default function GoLiveControl() {
               <div className="mt-4 space-y-2">
                 <Progress value={currentProgress} className="h-2" />
                 <p className="text-sm text-center text-muted-foreground">
-                  {orchestration?.steps.find((s) => s.status === "running")?.name ||
-                    "Initializing..."}
+                  {orchestration?.steps.find(s => s.status === 'running')?.name || 'Initializing...'}
                 </p>
               </div>
             )}
@@ -181,7 +181,10 @@ export default function GoLiveControl() {
           </CardHeader>
           <CardContent className="space-y-3">
             {orchestration.steps.map((step, idx) => (
-              <div key={idx} className={`p-4 rounded-lg border ${getStepBgColor(step.status)}`}>
+              <div
+                key={idx}
+                className={`p-4 rounded-lg border ${getStepBgColor(step.status)}`}
+              >
                 <div className="flex items-start gap-3">
                   {getStepIcon(step.status)}
                   <div className="flex-1">
@@ -210,16 +213,16 @@ export default function GoLiveControl() {
       )}
 
       {/* Summary Stats */}
-      {orchestration && orchestration.overallStatus !== "pending" && (
+      {orchestration && orchestration.overallStatus !== 'pending' && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium">Validation Score</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
-              <div className="text-2xl font-bold">{orchestration.validationScore || "N/A"}</div>
+              <div className="text-2xl font-bold">{orchestration.validationScore || 'N/A'}</div>
               <Badge variant={orchestration.approved ? "default" : "secondary"} className="mt-2">
-                {orchestration.approved ? "APPROVED" : "WITH WARNINGS"}
+                {orchestration.approved ? 'APPROVED' : 'WITH WARNINGS'}
               </Badge>
             </CardContent>
           </Card>
@@ -230,7 +233,9 @@ export default function GoLiveControl() {
             </CardHeader>
             <CardContent className="p-6">
               <div className="text-2xl font-bold">{orchestration.emailsSent || 0}</div>
-              <p className="text-xs text-muted-foreground mt-2">Successfully delivered</p>
+              <p className="text-xs text-muted-foreground mt-2">
+                Successfully delivered
+              </p>
             </CardContent>
           </Card>
 
@@ -240,13 +245,13 @@ export default function GoLiveControl() {
             </CardHeader>
             <CardContent className="p-6">
               <div className="text-2xl font-bold">
-                {orchestration.monitoringActive ? "Active" : "Inactive"}
+                {orchestration.monitoringActive ? 'Active' : 'Inactive'}
               </div>
-              <Badge
-                variant={orchestration.monitoringActive ? "default" : "secondary"}
+              <Badge 
+                variant={orchestration.monitoringActive ? "default" : "secondary"} 
                 className="mt-2"
               >
-                {orchestration.monitoringActive ? "24/7 Monitoring" : "Not Activated"}
+                {orchestration.monitoringActive ? '24/7 Monitoring' : 'Not Activated'}
               </Badge>
             </CardContent>
           </Card>
@@ -271,7 +276,9 @@ export default function GoLiveControl() {
                   <h4 className="font-semibold">Sentry</h4>
                 </div>
                 <Badge variant="default">Active</Badge>
-                <p className="text-xs text-muted-foreground mt-2">Error tracking & alerts</p>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Error tracking & alerts
+                </p>
               </div>
               <div className="p-4 border rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
@@ -279,7 +286,9 @@ export default function GoLiveControl() {
                   <h4 className="font-semibold">n8n</h4>
                 </div>
                 <Badge variant="default">Active</Badge>
-                <p className="text-xs text-muted-foreground mt-2">Workflow monitoring</p>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Workflow monitoring
+                </p>
               </div>
               <div className="p-4 border rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
@@ -287,7 +296,9 @@ export default function GoLiveControl() {
                   <h4 className="font-semibold">Self-Reflection</h4>
                 </div>
                 <Badge variant="default">Active</Badge>
-                <p className="text-xs text-muted-foreground mt-2">Hourly analysis</p>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Hourly analysis
+                </p>
               </div>
             </div>
           </CardContent>
@@ -295,34 +306,30 @@ export default function GoLiveControl() {
       )}
 
       {/* Final Status Alert */}
-      {orchestration &&
-        orchestration.overallStatus !== "pending" &&
-        orchestration.overallStatus !== "running" && (
-          <Alert
-            variant={
-              orchestration.overallStatus === "success"
-                ? "default"
-                : orchestration.overallStatus === "warning"
-                  ? "default"
-                  : "destructive"
-            }
-          >
-            <Rocket className="h-4 w-4" />
-            <AlertTitle className="text-lg font-bold">
-              {orchestration.overallStatus === "success" && "🚀 GO-LIVE COMPLETE"}
-              {orchestration.overallStatus === "warning" && "⚠️ LAUNCHED WITH WARNINGS"}
-              {orchestration.overallStatus === "error" && "❌ GO-LIVE FAILED"}
-            </AlertTitle>
-            <AlertDescription>
-              {orchestration.overallStatus === "success" &&
-                "MyDispatch V18.3.24 is now LIVE and fully operational. All systems validated and monitoring active."}
-              {orchestration.overallStatus === "warning" &&
-                "System is live but some checks had warnings. Monitor closely and address issues."}
-              {orchestration.overallStatus === "error" &&
-                "Critical errors occurred during Go-Live. Review execution log and retry."}
-            </AlertDescription>
-          </Alert>
-        )}
+      {orchestration && orchestration.overallStatus !== 'pending' && orchestration.overallStatus !== 'running' && (
+        <Alert 
+          variant={
+            orchestration.overallStatus === 'success' ? "default" : 
+            orchestration.overallStatus === 'warning' ? "default" : 
+            "destructive"
+          }
+        >
+          <Rocket className="h-4 w-4" />
+          <AlertTitle className="text-lg font-bold">
+            {orchestration.overallStatus === 'success' && '🚀 GO-LIVE COMPLETE'}
+            {orchestration.overallStatus === 'warning' && '⚠️ LAUNCHED WITH WARNINGS'}
+            {orchestration.overallStatus === 'error' && '❌ GO-LIVE FAILED'}
+          </AlertTitle>
+          <AlertDescription>
+            {orchestration.overallStatus === 'success' && 
+              'MyDispatch V18.3.24 is now LIVE and fully operational. All systems validated and monitoring active.'}
+            {orchestration.overallStatus === 'warning' && 
+              'System is live but some checks had warnings. Monitor closely and address issues.'}
+            {orchestration.overallStatus === 'error' && 
+              'Critical errors occurred during Go-Live. Review execution log and retry.'}
+          </AlertDescription>
+        </Alert>
+      )}
     </div>
   );
 }

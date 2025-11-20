@@ -1,10 +1,10 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { V28Avatar } from "./index";
+import type { Meta, StoryObj } from '@storybook/react';
+import { V28Avatar } from './index';
 
 const meta: Meta<typeof V28Avatar> = {
-  title: "Design System/V28Avatar",
+  title: 'Design System/V28Avatar',
   component: V28Avatar,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export default meta;
@@ -12,15 +12,15 @@ type Story = StoryObj<typeof V28Avatar>;
 
 export const Default: Story = {
   args: {
-    fallback: "AB",
+    fallback: 'AB',
   },
 };
 
 export const WithImage: Story = {
   args: {
-    src: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop",
-    alt: "User Avatar",
-    fallback: "UN",
+    src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
+    alt: 'User Avatar',
+    fallback: 'UN',
   },
 };
 
@@ -48,8 +48,8 @@ export const FallbackVariants: Story = {
 
 export const WithBrokenImage: Story = {
   args: {
-    src: "https://invalid-url.com/broken.jpg",
-    fallback: "ER",
-    alt: "Broken Image",
+    src: 'https://invalid-url.com/broken.jpg',
+    fallback: 'ER',
+    alt: 'Broken Image',
   },
 };

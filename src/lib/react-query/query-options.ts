@@ -1,8 +1,8 @@
 /**
  * React Query Default Options
- *
+ * 
  * Zentrale Konfiguration für konsistentes Caching-Verhalten
- *
+ * 
  * Siehe: docs/OPTIMIERUNGSPOTENZIAL_V18.5.1.md
  */
 
@@ -10,14 +10,14 @@ export const defaultQueryOptions = {
   queries: {
     // Standard: 5 Minuten Cache
     staleTime: 5 * 60 * 1000,
-
+    
     // Garbage Collection nach 10 Minuten
     gcTime: 10 * 60 * 1000,
-
+    
     // Retry-Strategie
     retry: 2,
     retryDelay: (attemptIndex: number) => Math.min(1000 * 2 ** attemptIndex, 30000),
-
+    
     // Refetch-Strategie
     refetchOnWindowFocus: false,
     refetchOnReconnect: true,

@@ -11,7 +11,6 @@
 Das V29 Hero-System etabliert eine zentrale, wiederverwendbare `HeroIpadShowcase`-Komponente, die auf allen Pre-Login-Seiten ein konsistentes visuelles Erlebnis schafft. Jede Seite erhält thematisch passenden Dashboard-Content im iPad-Mockup.
 
 ### Kernprinzipien
-
 - ✅ **Einheitlichkeit**: Alle Seiten nutzen `backgroundVariant="3d-premium"`
 - ✅ **Thematische Relevanz**: iPad-Content passt zur Seite (GPS-Tracking für Features, Tarife für Pricing, etc.)
 - ✅ **Wiederverwendbarkeit**: Zentrale Komponente statt Code-Duplikation
@@ -36,34 +35,32 @@ HeroIpadShowcase (Universal Wrapper)
 ### Kernkomponenten
 
 #### 1. `HeroIpadShowcase.tsx`
-
 **Path:** `src/components/hero/HeroIpadShowcase.tsx`  
 **Zweck:** Zentrale Hero-Wrapper-Komponente für alle Pre-Login-Seiten  
 **Status:** ✅ Production-Ready V29.0
 
 **Props:**
-
 ```typescript
 interface HeroIpadShowcaseProps {
   // Hero Config
-  variant: "home" | "features" | "demo" | "pricing";
-  backgroundVariant?: "flat" | "3d" | "3d-clean" | "3d-premium" | "3d-white-zones"; // Default: '3d-premium'
-
+  variant: 'home' | 'features' | 'demo' | 'pricing';
+  backgroundVariant?: 'flat' | '3d' | '3d-clean' | '3d-premium' | '3d-white-zones'; // Default: '3d-premium'
+  
   // Content
   badge?: { text: string; icon?: LucideIcon };
   title: string;
   subtitle: string;
   description?: string | ReactNode;
-
+  
   // CTA
   primaryCTA: { label: string; onClick: () => void; icon?: LucideIcon };
   secondaryCTA?: { label: string; onClick: () => void };
   showPWAButton?: boolean;
-
+  
   // iPad Content (thematisch anpassbar)
   ipadContent: ReactNode; // ✅ Dashboard-Component von außen injizierbar
-  ipadTilt?: "left" | "right"; // Default: 'left'
-
+  ipadTilt?: 'left' | 'right'; // Default: 'left'
+  
   // Optional
   businessMetrics?: Array<{
     label: string;
@@ -75,7 +72,6 @@ interface HeroIpadShowcaseProps {
 ```
 
 **Usage:**
-
 ```typescript
 import { HeroIpadShowcase } from '@/components/hero';
 import { FeaturesDashboardPreview } from '@/components/preview';
@@ -99,13 +95,11 @@ import { FeaturesDashboardPreview } from '@/components/preview';
 ```
 
 #### 2. `ThematicDashboards.tsx`
-
 **Path:** `src/components/preview/ThematicDashboards.tsx`  
 **Zweck:** Seitenspezifische Dashboard-Previews für iPad-Mockups  
 **Status:** ✅ Production-Ready V29.0
 
 **Exported Components:**
-
 - `HomeDashboardPreview()` - Standard Dashboard mit KPIs
 - `FeaturesDashboardPreview()` - GPS-Tracking Dashboard
 - `PricingDashboardPreview()` - Tarif-Management Dashboard
@@ -113,7 +107,6 @@ import { FeaturesDashboardPreview } from '@/components/preview';
 - `ContactDashboardPreview()` - Support-Dashboard
 
 **Reusable Sub-Components:**
-
 - `MiniKPI` - KPI-Card mit Label, Value, Trend
 - `MiniActivity` - Activity-Row mit Icon, Title, Subtitle
 
@@ -124,7 +117,6 @@ import { FeaturesDashboardPreview } from '@/components/preview';
 ### ✅ Migrierte Seiten (V29.0)
 
 #### 1. Features Page (`/features`)
-
 ```typescript
 <HeroIpadShowcase
   variant="features"
@@ -145,7 +137,6 @@ import { FeaturesDashboardPreview } from '@/components/preview';
 ---
 
 #### 2. Pricing Page (`/pricing`)
-
 ```typescript
 <HeroIpadShowcase
   variant="features"
@@ -165,7 +156,6 @@ import { FeaturesDashboardPreview } from '@/components/preview';
 ---
 
 #### 3. About Page (`/about`)
-
 ```typescript
 <HeroIpadShowcase
   variant="home"
@@ -190,7 +180,6 @@ import { FeaturesDashboardPreview } from '@/components/preview';
 ---
 
 #### 4. Contact Page (`/contact`)
-
 ```typescript
 <HeroIpadShowcase
   variant="demo"
@@ -216,21 +205,17 @@ import { FeaturesDashboardPreview } from '@/components/preview';
 ## 🎨 DESIGN-VORGABEN
 
 ### Background-Variant
-
 **IMMER verwenden:** `backgroundVariant="3d-premium"`
 
 **Warum?**
-
 - Konsistentes visuelles Erlebnis über alle Seiten
 - Premium-Feeling durch 3D-Effekte
 - Optimale Kontraste für Text-Lesbarkeit
 
 ### iPad-Tilt
-
 **Abwechseln:** `left` und `right` über Seiten hinweg
 
 **Beispiel:**
-
 - Home: `left`
 - Features: `right`
 - Pricing: `right`
@@ -238,16 +223,13 @@ import { FeaturesDashboardPreview } from '@/components/preview';
 - Contact: `left`
 
 ### Button-Limit
-
 **MAX 2 BUTTONS PRO HERO**
 
 **Erlaubt:**
-
 - Primary CTA + Secondary CTA
 - Primary CTA + PWA-Button
 
 **NICHT erlaubt:**
-
 - Primary CTA + Secondary CTA + PWA-Button (3 Buttons)
 
 ---
@@ -269,12 +251,12 @@ export function DemoDashboardPreview() {
         <h2 className="text-2xl font-bold text-slate-900">Demo Dashboard</h2>
         <div className="w-8 h-8 rounded-full bg-slate-900" />
       </div>
-
+      
       <div className="grid grid-cols-2 gap-3">
         <MiniKPI label="Demo-Fahrten" value="25" trend="+5" />
         <MiniKPI label="Demo-Zeit" value="10 Min" trend="verbleibend" />
       </div>
-
+      
       <div className="space-y-2">
         <div className="text-sm font-semibold text-slate-700 mb-2">Demo-Aktionen</div>
         <MiniActivity icon={PlayCircle} title="Demo gestartet" subtitle="Vollzugriff für 10 Minuten" />
@@ -312,21 +294,18 @@ import { DemoDashboardPreview } from '@/components/preview';
 ## ✅ SUCCESS CRITERIA
 
 ### Functional
-
 - [x] Alle Pre-Login-Seiten nutzen `HeroIpadShowcase`
 - [x] Jede Seite hat thematisch passenden iPad-Content
 - [x] Einheitliche `3d-premium` Background-Variant
 - [x] MAX 2 Buttons pro Hero
 
 ### Visual
-
 - [x] Visuelle Harmonie über alle Pages
 - [x] iPad-Mockup mit 3D-Tilt konsistent
 - [x] Business Metrics konsistent gestylt
 - [x] Trust Indicators konsistent positioniert
 
 ### Technical
-
 - [x] Zero Code-Duplikation
 - [x] Barrel Exports optimiert
 - [x] TypeScript ohne Errors
@@ -336,14 +315,12 @@ import { DemoDashboardPreview } from '@/components/preview';
 ## 📈 METRIKEN
 
 **Achieved:**
-
 - 4 Pages migriert (Features, Pricing, About, Contact)
 - 5 Thematische Dashboards erstellt
 - 2 neue Components (`HeroIpadShowcase`, `ThematicDashboards`)
 - 100% V28.1 Design System Compliance
 
 **Reduced:**
-
 - Code-Duplikation: -40%
 - Import-Statements: -30%
 - Maintenance-Overhead: -50%
@@ -353,17 +330,14 @@ import { DemoDashboardPreview } from '@/components/preview';
 ## 🚀 NÄCHSTE SCHRITTE (Optional)
 
 ### Phase 4: Interne Bereiche Harmonisierung
-
 - [ ] Dashboard-Pages einheitlicher Background
 - [ ] Settings-Pages visuell anpassen
 
 ### Phase 5: Performance-Optimierung
-
 - [ ] React.memo für Thematic Dashboards
 - [ ] Lazy-Loading für iPad-Content
 
 ### Phase 6: Accessibility
-
 - [ ] WCAG 2.1 AA Audit
 - [ ] Keyboard-Navigation testen
 - [ ] Screen-Reader-Tests

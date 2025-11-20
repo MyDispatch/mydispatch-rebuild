@@ -6,7 +6,7 @@
    - Trend-Indikatoren
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -14,9 +14,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Handshake, TrendingUp, TrendingDown } from "lucide-react";
+} from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Handshake, TrendingUp, TrendingDown } from 'lucide-react';
 
 interface PartnerPerformanceData {
   partner_id: string;
@@ -35,16 +35,16 @@ interface PartnerPerformanceTableProps {
 
 export function PartnerPerformanceTable({ data, onPartnerClick }: PartnerPerformanceTableProps) {
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat("de-DE", {
-      style: "currency",
-      currency: "EUR",
+    return new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR',
       minimumFractionDigits: 2,
     }).format(value);
   };
 
   const parseTrend = (trend?: string) => {
     if (!trend) return { value: 0, isPositive: true };
-    const value = parseFloat(trend.replace(/[+%]/g, ""));
+    const value = parseFloat(trend.replace(/[+%]/g, ''));
     return { value, isPositive: value >= 0 };
   };
 
@@ -100,7 +100,7 @@ export function PartnerPerformanceTable({ data, onPartnerClick }: PartnerPerform
                     return (
                       <TableRow
                         key={partner.partner_id}
-                        className={onPartnerClick ? "cursor-pointer hover:bg-muted/50" : ""}
+                        className={onPartnerClick ? 'cursor-pointer hover:bg-muted/50' : ''}
                         onClick={() => onPartnerClick?.(partner.partner_id)}
                       >
                         <TableCell>
@@ -115,7 +115,9 @@ export function PartnerPerformanceTable({ data, onPartnerClick }: PartnerPerform
                           <span className="font-medium">{partner.bookings}</span>
                         </TableCell>
                         <TableCell className="text-right">
-                          <span className="font-semibold">{formatCurrency(partner.revenue)}</span>
+                          <span className="font-semibold">
+                            {formatCurrency(partner.revenue)}
+                          </span>
                         </TableCell>
                         <TableCell className="text-right">
                           <span className="font-semibold text-primary">
@@ -125,7 +127,7 @@ export function PartnerPerformanceTable({ data, onPartnerClick }: PartnerPerform
                         <TableCell className="text-right">
                           {partner.trend && (
                             <Badge
-                              variant={trend.isPositive ? "default" : "destructive"}
+                              variant={trend.isPositive ? 'default' : 'destructive'}
                               className="text-xs"
                             >
                               {trend.isPositive ? (
@@ -144,7 +146,9 @@ export function PartnerPerformanceTable({ data, onPartnerClick }: PartnerPerform
                   <TableRow className="bg-muted/50 font-semibold">
                     <TableCell>Gesamt</TableCell>
                     <TableCell className="text-right">{totals.bookings}</TableCell>
-                    <TableCell className="text-right">{formatCurrency(totals.revenue)}</TableCell>
+                    <TableCell className="text-right">
+                      {formatCurrency(totals.revenue)}
+                    </TableCell>
                     <TableCell className="text-right text-primary">
                       {formatCurrency(totals.provision)}
                     </TableCell>

@@ -10,15 +10,15 @@
    ✅ Taxi-Branchen-spezifische Badges
    ================================================================================== */
 
-import { ReactNode } from "react";
-import { LucideIcon } from "lucide-react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { V28Hero3DBackgroundPremium } from "@/components/hero/V28Hero3DBackgroundPremium";
-import { TrustIndicators } from "@/components/business/TrustIndicators";
+import { ReactNode } from 'react';
+import { LucideIcon } from 'lucide-react';
+import { V28Button } from '@/components/design-system/V28Button';
+import { V28Hero3DBackgroundPremium } from '@/components/hero/V28Hero3DBackgroundPremium';
+import { TrustIndicators } from '@/components/business/TrustIndicators';
 
 interface V28HeroPremiumProps {
-  variant: "home" | "features" | "demo" | "pricing";
-  backgroundVariant?: "3d-premium" | "flat"; // ✅ V32.0: Bevorzugt 3d-premium
+  variant: 'home' | 'features' | 'demo' | 'pricing';
+  backgroundVariant?: '3d-premium' | 'flat'; // ✅ V32.0: Bevorzugt 3d-premium
   badge?: { text: string; icon?: LucideIcon };
   title: string;
   subtitle: string;
@@ -37,7 +37,7 @@ interface V28HeroPremiumProps {
 
 export function V28HeroPremium({
   variant,
-  backgroundVariant = "3d-premium", // ✅ V32.0: Default ist 3d-premium
+  backgroundVariant = '3d-premium', // ✅ V32.0: Default ist 3d-premium
   badge,
   title,
   subtitle,
@@ -51,15 +51,13 @@ export function V28HeroPremium({
 }: V28HeroPremiumProps) {
   const getMinHeight = () => {
     // V32.1: EINHEITLICHE Hero-Höhe für alle Variants (Design-Harmonisierung)
-    return "min-h-[650px] md:min-h-[750px]";
+    return 'min-h-[650px] md:min-h-[750px]';
   };
 
   return (
-    <section
-      className={`relative ${getMinHeight()} flex items-center justify-center overflow-hidden`}
-    >
+    <section className={`relative ${getMinHeight()} flex items-center justify-center overflow-hidden`}>
       {/* V32.0: NUR V28Hero3DBackgroundPremium erlaubt (bevorzugt) */}
-      {backgroundVariant === "3d-premium" ? (
+      {backgroundVariant === '3d-premium' ? (
         <V28Hero3DBackgroundPremium />
       ) : (
         // Flat Background - keine zusätzliche Komponente nötig
@@ -69,13 +67,17 @@ export function V28HeroPremium({
       {/* Content Container */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
           {/* Left Column - Text Content */}
           <div className="space-y-6 animate-fade-in">
+
             {/* Badge */}
             {badge && (
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200">
                 {badge.icon && <badge.icon className="w-4 h-4 text-slate-700" />}
-                <span className="font-sans text-sm font-semibold text-slate-700">{badge.text}</span>
+                <span className="font-sans text-sm font-semibold text-slate-700">
+                  {badge.text}
+                </span>
               </div>
             )}
 
@@ -103,7 +105,7 @@ export function V28HeroPremium({
                   <div
                     key={idx}
                     className="text-left animate-fade-in"
-                    style={{ animationDelay: `${0.6 + idx * 0.1}s` }}
+                    style={{ animationDelay: `${0.6 + (idx * 0.1)}s` }}
                   >
                     <div className="text-3xl font-bold text-slate-900 mb-1 leading-none">
                       {metric.value}
@@ -111,7 +113,9 @@ export function V28HeroPremium({
                     <div className="text-sm text-slate-600 font-medium leading-tight">
                       {metric.label}
                     </div>
-                    <div className="text-xs text-slate-500 leading-tight">{metric.sublabel}</div>
+                    <div className="text-xs text-slate-500 leading-tight">
+                      {metric.sublabel}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -119,15 +123,15 @@ export function V28HeroPremium({
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <V28Button
-                variant="primary"
-                size="lg"
-                onClick={primaryCTA.onClick}
-                className="shadow-lg hover:shadow-xl"
-              >
-                {primaryCTA.icon && <primaryCTA.icon className="w-5 h-5 mr-2" />}
-                {primaryCTA.label}
-              </V28Button>
+        <V28Button
+          variant="primary"
+          size="lg"
+          onClick={primaryCTA.onClick}
+          className="shadow-lg hover:shadow-xl"
+        >
+          {primaryCTA.icon && <primaryCTA.icon className="w-5 h-5 mr-2" />}
+          {primaryCTA.label}
+        </V28Button>
 
               {/* PWA Install Button - MAX 2 BUTTONS! */}
             </div>
@@ -142,10 +146,7 @@ export function V28HeroPremium({
 
           {/* Right Column - Visual */}
           {visual && (
-            <div
-              className="hidden lg:block animate-fade-in pixel-perfect"
-              style={{ animationDelay: "0.2s" }}
-            >
+            <div className="hidden lg:block animate-fade-in pixel-perfect" style={{ animationDelay: '0.2s' }}>
               {visual}
             </div>
           )}

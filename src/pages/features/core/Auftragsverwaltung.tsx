@@ -2,53 +2,29 @@
    FEATURE DETAIL PAGE: Auftragsverwaltung
    ================================================================================== */
 
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { V28HeroPremium } from "@/components/hero";
-import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
-import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
-import { V28IconBox } from "@/components/design-system/V28IconBox";
-import { V28Button } from "@/components/design-system/V28Button";
-import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { V28HeroPremium } from '@/components/hero';
+import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28Button } from '@/components/design-system/V28Button';
+import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
 
-import { ClipboardList, Zap, Users, MapPin, Clock, CheckCircle } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ClipboardList, Zap, Users, MapPin, Clock, CheckCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AuftragsverwaltungPage() {
   const navigate = useNavigate();
 
   const features = [
-    {
-      icon: Zap,
-      title: "Automatische Fahrerzuweisung",
-      description: "Intelligente Zuweisung basierend auf GPS, Verfügbarkeit und Fahrzeugklasse",
-    },
-    {
-      icon: MapPin,
-      title: "Intelligentes Routing",
-      description: "HERE Maps Integration mit Live-Traffic für optimale Routen",
-    },
-    {
-      icon: ClipboardList,
-      title: "Multi-Channel-Eingang",
-      description: "Aufträge per App, Telefon, Widget oder API erfassen",
-    },
-    {
-      icon: Clock,
-      title: "Echtzeit-Status",
-      description: "Auftrags-Tracking von Annahme bis Abschluss",
-    },
-    {
-      icon: Users,
-      title: "Priorisierung",
-      description: "VIP-Kunden, Express-Aufträge und Langstrecken bevorzugen",
-    },
-    {
-      icon: CheckCircle,
-      title: "Historien-Tracking",
-      description: "Alle Aufträge durchsuchbar und filterbar",
-    },
+    { icon: Zap, title: 'Automatische Fahrerzuweisung', description: 'Intelligente Zuweisung basierend auf GPS, Verfügbarkeit und Fahrzeugklasse' },
+    { icon: MapPin, title: 'Intelligentes Routing', description: 'HERE Maps Integration mit Live-Traffic für optimale Routen' },
+    { icon: ClipboardList, title: 'Multi-Channel-Eingang', description: 'Aufträge per App, Telefon, Widget oder API erfassen' },
+    { icon: Clock, title: 'Echtzeit-Status', description: 'Auftrags-Tracking von Annahme bis Abschluss' },
+    { icon: Users, title: 'Priorisierung', description: 'VIP-Kunden, Express-Aufträge und Langstrecken bevorzugen' },
+    { icon: CheckCircle, title: 'Historien-Tracking', description: 'Alle Aufträge durchsuchbar und filterbar' },
   ];
 
   return (
@@ -68,8 +44,8 @@ export default function AuftragsverwaltungPage() {
         subtitle="Erfassen, planen und verwalten Sie alle Fahrten zentral"
         description="Mit intelligentem Routing und automatischer Fahrerzuweisung."
         primaryCTA={{
-          label: "Jetzt starten",
-          onClick: () => navigate("/auth?mode=signup"),
+          label: 'Jetzt starten',
+          onClick: () => navigate('/auth?mode=signup')
         }}
         showPWAButton={true}
         visual={<PremiumDashboardContent pageType="features" />}
@@ -95,7 +71,7 @@ export default function AuftragsverwaltungPage() {
             <V28TariffBadge label="Business" />
             <V28TariffBadge label="Enterprise" />
           </div>
-          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
             Tarife vergleichen
           </V28Button>
         </div>

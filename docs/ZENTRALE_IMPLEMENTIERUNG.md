@@ -1,5 +1,4 @@
 # 🚀 ZENTRALE IMPLEMENTIERUNGS-STRATEGIE
-
 ## UNIVERSELLER PROMPT FÜR FEHLERFREIE, WARTBARE UMSETZUNG
 
 ---
@@ -7,7 +6,6 @@
 ## 🎯 ZIEL DIESER IMPLEMENTATION
 
 Setze die geplanten Features/Components/Pages um mit:
-
 - ✅ **Zentralisierung:** Keine Code-Duplication, DRY-Prinzip absolut
 - ✅ **Wartbarkeit:** Änderungen an EINER Stelle, Effekt überall
 - ✅ **Fehlerfreiheit:** Multi-Layer Validation, Type-Safety
@@ -54,7 +52,7 @@ Feature Flags → /config/features.ts
 Constants → /config/constants.ts
 Types → /types/.types.ts
 Validation Schemas → /schemas/.schema.ts
-Utility Functions → /lib/utils/\*.ts
+Utility Functions → /lib/utils/*.ts
 
 text
 
@@ -67,7 +65,6 @@ text
 // ❌ FALSCH - Monolithische Component
 function PricingCard() {
 return (
-
 <div className="card">
 <div className="card-header">
 <h3>Starter</h3>
@@ -97,14 +94,14 @@ return (
 </Card.Header>
 
 text
-<Card.Body>
-<Price amount={price} currency="EUR" period="month" />
-<FeatureList features={features} />
-</Card.Body>
-
-<Card.Footer>
-<Button variant="primary">Jetzt starten</Button>
-</Card.Footer>
+  <Card.Body>
+    <Price amount={price} currency="EUR" period="month" />
+    <FeatureList features={features} />
+  </Card.Body>
+  
+  <Card.Footer>
+    <Button variant="primary">Jetzt starten</Button>
+  </Card.Footer>
 </Card>
 )
 }
@@ -250,7 +247,6 @@ return <EmptyState message="Benutzer nicht gefunden" />
 
 // Success State
 return (
-
 <div>
 <h2>{user.name ?? 'Unbekannt'}</h2>
 <p>{user.email ?? 'Keine E-Mail'}</p>
@@ -479,7 +475,7 @@ analytics: true
 },
 
 limits: {
-maxFileSize: 5 _ 1024 _ 1024, // 5MB
+maxFileSize: 5 * 1024 * 1024, // 5MB
 maxFilesPerUpload: 5,
 rateLimit: {
 demo: { requests: 3, window: 600 }, // 3 requests per 10 min
@@ -670,10 +666,10 @@ text
 import { clsx, type ClassValue } from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
-/\*\*
+/**
 
 Merge Tailwind classes with proper conflict resolution
-\*/
+*/
 export function cn(...inputs: ClassValue[]) {
 return twMerge(clsx(inputs))
 }
@@ -690,10 +686,10 @@ text
 ### 2. Format Utilities
 
 // lib/utils/format.ts
-/\*\*
+/**
 
 Format currency (EUR)
-\*/
+*/
 export function formatCurrency(
 amount: number,
 options?: Intl.NumberFormatOptions
@@ -705,10 +701,10 @@ currency: 'EUR',
 }).format(amount)
 }
 
-/\*\*
+/**
 
 Format date
-\*/
+*/
 export function formatDate(
 date: Date | string,
 format: 'short' | 'long' | 'relative' = 'short'
@@ -724,10 +720,10 @@ dateStyle: format === 'long' ? 'long' : 'short'
 }).format(d)
 }
 
-/\*\*
+/**
 
 Format phone number
-\*/
+*/
 export function formatPhone(phone: string): string {
 const cleaned = phone.replace(/\D/g, '')
 
@@ -739,10 +735,10 @@ return +49 ${cleaned.slice(2, 5)} ${cleaned.slice(5)}
 return phone
 }
 
-/\*\*
+/**
 
 Truncate text
-\*/
+*/
 export function truncate(text: string, maxLength: number): string {
 if (text.length <= maxLength) return text
 return text.slice(0, maxLength) + '...'
@@ -753,25 +749,25 @@ text
 ### 3. Validation Helpers
 
 // lib/utils/validators.ts
-/\*\*
+/**
 
 Validate German phone number
-\*/
+*/
 export function isValidPhone(phone: string): boolean {
 const pattern = /^(+49|0)[1-9][0-9]{1,14}$/
 return pattern.test(phone.replace(/\s/g, ''))
 }
 
-/\*\*
+/**
 
 Validate VAT ID (German)
-\*/
+*/
 export function isValidVatId(vatId: string): boolean {
 const pattern = /^DE[0-9]{9}$/
 return pattern.test(vatId)
 }
 
-/\*\*
+/**
 
 Check if email is from disposable domain
 /
@@ -800,7 +796,7 @@ const media = window.matchMedia(query)
 
 text
 if (media.matches !== matches) {
-setMatches(media.matches)
+  setMatches(media.matches)
 }
 
 const listener = () => setMatches(media.matches)
@@ -867,11 +863,11 @@ return initialValue
 
 text
 try {
-const item = window.localStorage.getItem(key)
-return item ? JSON.parse(item) : initialValue
+  const item = window.localStorage.getItem(key)
+  return item ? JSON.parse(item) : initialValue
 } catch (error) {
-console.error(`Error reading localStorage key "${key}":`, error)
-return initialValue
+  console.error(`Error reading localStorage key "${key}":`, error)
+  return initialValue
 }
 })
 
@@ -952,43 +948,36 @@ text
 
 PHASE 1: PREPARATION
 □ 1. Lies alle Konfigurations-Dateien
-
 - design-tokens.ts
 - constants.ts
 - Relevante Config-Dateien
 
 □ 2. Prüfe existierende Components
-
 - COMPONENT_REGISTRY.md checken
 - Kann ich bestehende Components nutzen?
 
 □ 3. Prüfe existierende Utilities
-
-- lib/utils/\* durchsehen
+- lib/utils/* durchsehen
 - Gibt es bereits Helper-Functions?
 
 PHASE 2: TYPES & SCHEMAS
 □ 4. Erstelle Types (wenn neu)
-
-- In types/\*.types.ts
+- In types/*.types.ts
 - Exportiere für Wiederverwendung
 
 □ 5. Erstelle Validation Schema (wenn Form)
-
-- In schemas/\*.schema.ts
+- In schemas/*.schema.ts
 - Nutze Zod
 - Server + Client gleiche Schema
 
 PHASE 3: IMPLEMENTATION
 □ 6. Implementiere Component/Page
-
 - Nutze Design Tokens (KEINE Hardcoded Values!)
 - Nutze bestehende Components
 - Nutze zentrale Utils
 - Type-Safe (explizite Types überall)
 
 □ 7. Error Handling
-
 - Loading States
 - Error States
 - Empty States
@@ -996,7 +985,6 @@ PHASE 3: IMPLEMENTATION
 
 PHASE 4: TESTING
 □ 8. Unit Tests schreiben
-
 - Component Tests
 - Utility Tests
 - Min. 80% Coverage
@@ -1004,7 +992,6 @@ PHASE 4: TESTING
 □ 9. Integration Tests (falls relevant)
 
 □ 10. Manual Testing
-
 - Alle Breakpoints
 - Alle States
 - Keyboard Navigation

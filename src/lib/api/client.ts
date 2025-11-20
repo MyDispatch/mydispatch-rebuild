@@ -1,26 +1,26 @@
 /**
  * RE-EXPORT: API Client
- *
+ * 
  * Dieser File re-exportiert die API Client-Typen aus src/api/client.ts
  * für Backward-Kompatibilität mit bestehendem Code in src/lib/api/*
  */
 
-import { SupabaseClient } from "@supabase/supabase-js";
-import { Database } from "@/integrations/supabase/types";
-export type { TypedSupabaseClient, ApiResponse } from "@/api/client";
-export { handleApiError } from "@/api/client";
+import { SupabaseClient } from '@supabase/supabase-js';
+import { Database } from '@/integrations/supabase/types';
+export type { TypedSupabaseClient, ApiResponse } from '@/api/client';
+export { handleApiError } from '@/api/client';
 
 // Import API factories
-import { createBookingsApi } from "./bookings";
-import { createPartnersApi } from "./partners";
-import { createShiftsApi } from "./shifts";
-import { createCompaniesApi } from "./companies";
-import { createInvoicesApi } from "./invoices";
-import { createDocumentsApi } from "./documents";
-import { createProfilesApi } from "./profiles";
-import { createDriversApi } from "@/api/drivers";
-import { createVehiclesApi } from "@/api/vehicles";
-import { createCustomersApi } from "@/api/customers";
+import { createBookingsApi } from './bookings';
+import { createPartnersApi } from './partners';
+import { createShiftsApi } from './shifts';
+import { createCompaniesApi } from './companies';
+import { createInvoicesApi } from './invoices';
+import { createDocumentsApi } from './documents';
+import { createProfilesApi } from './profiles';
+import { createDriversApi } from '@/api/drivers';
+import { createVehiclesApi } from '@/api/vehicles';
+import { createCustomersApi } from '@/api/customers';
 
 /**
  * Unified API Client Interface
@@ -55,3 +55,5 @@ export function createApiClient(supabase: SupabaseClient<Database>): ApiClient {
     profiles: createProfilesApi(supabase),
   };
 }
+
+

@@ -17,11 +17,9 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ### **A. AUFTRÄGE (Bookings)**
 
 **Fehlt:**
-
 - `AUFTRAEGE_SPEZIFIKATION_V18.5.0.md`
 
 **Benötigt:**
-
 ```markdown
 1. Auftragsübersicht
    - DataTable mit Filtern (Status, Datum, Fahrer, Kunde)
@@ -56,11 +54,9 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ### **B. FAHRER (Drivers)**
 
 **Fehlt:**
-
 - `FAHRER_SPEZIFIKATION_V18.5.0.md`
 
 **Benötigt:**
-
 ```markdown
 1. Fahrerübersicht
    - DataTable mit Status-Ampel (verfügbar, im Einsatz, offline)
@@ -95,11 +91,9 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ### **C. KUNDEN (Customers)**
 
 **Fehlt:**
-
 - `KUNDEN_SPEZIFIKATION_V18.5.0.md`
 
 **Benötigt:**
-
 ```markdown
 1. Kundenübersicht
    - DataTable mit Filtern (Typ: Privat/Geschäft, Status, Letzte Buchung)
@@ -133,11 +127,9 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ### **D. RECHNUNGEN (Invoices)**
 
 **Fehlt:**
-
 - `RECHNUNGEN_SPEZIFIKATION_V18.5.0.md`
 
 **Benötigt:**
-
 ```markdown
 1. Rechnungsübersicht
    - DataTable mit Filtern (Status: Offen/Bezahlt/Überfällig, Zeitraum)
@@ -169,11 +161,9 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ## 📋 KATEGORIE 2: FORMULAR-STANDARDS (HOCH PRIORITÄT)
 
 ### **Fehlt:**
-
 - `FORMULAR_STANDARDS_V18.5.0_KORREKT.md`
 
 **Benötigt:**
-
 ```markdown
 1. Allgemeine Formular-Prinzipien
    - React Hook Form + Zod-Validation
@@ -222,11 +212,9 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ## 📋 KATEGORIE 3: MARKETING-SEITEN (MITTEL PRIORITÄT)
 
 ### **Fehlt:**
-
 - `MARKETING_SEITEN_SPEZIFIKATION_V18.5.0.md`
 
 **Benötigt:**
-
 ```markdown
 1. Hero-Sections (5 Varianten)
    - Variante A: Full-Screen mit Video-Background
@@ -267,11 +255,9 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ## 📋 KATEGORIE 4: API-DOKUMENTATION (MITTEL PRIORITÄT)
 
 ### **Fehlt:**
-
 - `API_DOKUMENTATION_V18.5.0.md` (vollständig)
 
 **Benötigt:**
-
 ```markdown
 1. Supabase Edge Functions
    - check-subscription (Tarif-Prüfung)
@@ -317,11 +303,9 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ## 📋 KATEGORIE 5: DATENBANK-SCHEMA (MITTEL PRIORITÄT)
 
 ### **Fehlt:**
-
 - `DATENBANK_SCHEMA_V18.5.0.md` (vollständig)
 
 **Benötigt:**
-
 ```markdown
 1. Tabellen-Übersicht (alle 34 Tabellen)
    - profiles (User-Profile)
@@ -371,11 +355,9 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ## 📋 KATEGORIE 6: WORKFLOW-AUTOMATION (NIEDRIG PRIORITÄT)
 
 ### **Fehlt:**
-
 - `WORKFLOW_AUTOMATION_V18.5.0.md` (Update)
 
 **Benötigt:**
-
 ```markdown
 1. N8N Workflows (20+ Workflows)
    - Automatische Fahrer-Zuweisung (Smart-Dispatch)
@@ -401,11 +383,9 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ## 📋 KATEGORIE 7: GRAFIK- & DESIGN-VORGABEN (HOCH PRIORITÄT)
 
 ### **Fehlt:**
-
 - `GRAFIK_DESIGN_SYSTEM_V18.5.0.md`
 
 **Benötigt:**
-
 ```markdown
 1. Tailwind-CSS-Grafiken
    - Dashboard-Mockups (mit realen Daten)
@@ -443,13 +423,11 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ## 📋 KATEGORIE 8: TESTING & QA (HOCH PRIORITÄT)
 
 ### **Fehlt:**
-
 - Test-Cases für alle Features
 - Visual-Regression-Tests (Screenshot-Baselines)
 - E2E-Test-Szenarien
 
 **Benötigt:**
-
 ```markdown
 1. Unit-Test-Coverage
    - Alle Utils (format-utils, database-utils, etc.)
@@ -484,25 +462,21 @@ Nach Analyse der bestehenden Dokumentation wurden folgende **kritische Lücken**
 ## ✅ PRIORISIERUNG & ZEITPLAN
 
 ### **Phase 1 (Woche 1-2): KRITISCH**
-
 1. ✅ AUFTRAEGE_SPEZIFIKATION_V18.5.0.md
 2. ✅ FAHRER_SPEZIFIKATION_V18.5.0.md
 3. ✅ FORMULAR_STANDARDS_V18.5.0_KORREKT.md
 
 ### **Phase 2 (Woche 3-4): HOCH**
-
 4. ✅ KUNDEN_SPEZIFIKATION_V18.5.0.md
 5. ✅ RECHNUNGEN_SPEZIFIKATION_V18.5.0.md
 6. ✅ GRAFIK_DESIGN_SYSTEM_V18.5.0.md
 
 ### **Phase 3 (Woche 5-6): MITTEL**
-
 7. ✅ MARKETING_SEITEN_SPEZIFIKATION_V18.5.0.md
 8. ✅ API_DOKUMENTATION_V18.5.0.md (vollständig)
 9. ✅ DATENBANK_SCHEMA_V18.5.0.md (vollständig)
 
 ### **Phase 4 (Woche 7-8): NIEDRIG**
-
 10. ✅ WORKFLOW_AUTOMATION_V18.5.0.md (Update)
 11. ✅ Test-Cases & QA-Dokumentation
 

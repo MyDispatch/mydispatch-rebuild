@@ -11,7 +11,7 @@ import { BRANCHEN_TEXTS } from "@/lib/content/branchen-texts";
 export const HomeHeroSection = () => {
   const navigate = useNavigate();
   const commonTexts = BRANCHEN_TEXTS.common;
-
+  
   return (
     <V28HeroPremium
       variant="home"
@@ -21,16 +21,16 @@ export const HomeHeroSection = () => {
       subtitle={commonTexts.hero.subheadline}
       description={`${commonTexts.hero.description} MyDispatch – simply arrive.`}
       primaryCTA={{
-        label: "Jetzt starten",
-        onClick: () => navigate("/auth?mode=signup"),
-        icon: BadgeCheck,
+        label: 'Jetzt starten',
+        onClick: () => navigate('/auth?mode=signup'),
+        icon: BadgeCheck
       }}
       showPWAButton={true}
       visual={<PremiumDashboardContent pageType="home" />}
       businessMetrics={[
-        { label: "Unternehmen", value: "450+", sublabel: "vertrauen uns" },
-        { label: "Fahrzeuge", value: "12.000+", sublabel: "täglich online" },
-        { label: "Effizienz", value: "+35%", sublabel: "durchschnittlich" },
+        { label: 'Unternehmen', value: '450+', sublabel: 'vertrauen uns' },
+        { label: 'Fahrzeuge', value: '12.000+', sublabel: 'täglich online' },
+        { label: 'Effizienz', value: '+35%', sublabel: 'durchschnittlich' }
       ]}
       trustElements={true}
     />

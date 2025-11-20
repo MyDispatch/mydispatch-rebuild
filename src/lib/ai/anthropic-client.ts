@@ -5,10 +5,10 @@
    Nur für Frontend-Use (Edge Functions verwenden direkten Fetch)
    ================================================================================== */
 
-import { AI_CONFIG, enforceAIConfig } from "./config";
+import { AI_CONFIG, enforceAIConfig } from './config';
 
 export interface AnthropicMessage {
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
   content: string;
 }
 
@@ -20,7 +20,7 @@ export interface AnthropicStreamResponse {
 
 /**
  * Anthropic API Client für Frontend
- *
+ * 
  * Ruft Edge Functions auf, die dann die Anthropic API verwenden.
  * NIEMALS direkt von hier aus die Anthropic API aufrufen!
  */
@@ -34,7 +34,7 @@ export class AnthropicClient {
     // Konstruiere Edge Function URL
     const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
     if (!supabaseUrl) {
-      throw new Error("VITE_SUPABASE_URL ist nicht konfiguriert");
+      throw new Error('VITE_SUPABASE_URL ist nicht konfiguriert');
     }
 
     this.edgeFunctionUrl = `${supabaseUrl}/functions/v1/${edgeFunctionName}`;
@@ -42,17 +42,20 @@ export class AnthropicClient {
 
   /**
    * Streaming Chat mit Claude Sonnet 4.5
-   *
+   * 
    * @param messages - Chat-Historie
    * @param handlers - Callback-Handler für Stream-Events
    */
-  async streamChat(messages: AnthropicMessage[], handlers: AnthropicStreamResponse): Promise<void> {
+  async streamChat(
+    messages: AnthropicMessage[],
+    handlers: AnthropicStreamResponse
+  ): Promise<void> {
     try {
       const response = await fetch(this.edgeFunctionUrl, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY}`,
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY}`,
         },
         body: JSON.stringify({ messages }),
       });
@@ -62,13 +65,13 @@ export class AnthropicClient {
       }
 
       if (!response.body) {
-        throw new Error("Response body ist leer");
+        throw new Error('Response body ist leer');
       }
 
       // SSE Stream parsen
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let buffer = "";
+      let buffer = '';
 
       while (true) {
         const { done, value } = await reader.read();
@@ -78,24 +81,24 @@ export class AnthropicClient {
 
         // Line-by-line Processing
         let newlineIndex: number;
-        while ((newlineIndex = buffer.indexOf("\n")) !== -1) {
+        while ((newlineIndex = buffer.indexOf('\n')) !== -1) {
           const line = buffer.slice(0, newlineIndex).trim();
           buffer = buffer.slice(newlineIndex + 1);
 
-          if (!line || line.startsWith(":")) continue;
-          if (!line.startsWith("data: ")) continue;
+          if (!line || line.startsWith(':')) continue;
+          if (!line.startsWith('data: ')) continue;
 
           const data = line.slice(6).trim();
-          if (data === "[DONE]") {
+          if (data === '[DONE]') {
             handlers.onDone();
             return;
           }
 
           try {
             const parsed = JSON.parse(data);
-
+            
             // Anthropic SSE Format
-            if (parsed.type === "content_block_delta") {
+            if (parsed.type === 'content_block_delta') {
               const text = parsed.delta?.text;
               if (text) {
                 handlers.onDelta(text);
@@ -103,7 +106,7 @@ export class AnthropicClient {
             }
           } catch (parseError) {
             if (import.meta.env.DEV) {
-              console.warn("JSON Parse Error:", parseError);
+              console.warn('JSON Parse Error:', parseError);
             }
           }
         }
@@ -117,13 +120,13 @@ export class AnthropicClient {
 
   /**
    * Non-Streaming Chat mit Claude Sonnet 4.5
-   *
+   * 
    * @param messages - Chat-Historie
    * @returns Komplette Antwort
    */
   async chat(messages: AnthropicMessage[]): Promise<string> {
     return new Promise((resolve, reject) => {
-      let fullResponse = "";
+      let fullResponse = '';
 
       this.streamChat(messages, {
         onDelta: (text) => {
@@ -142,7 +145,7 @@ export class AnthropicClient {
 
 /**
  * Helper: Erstelle System-Prompt für MyDispatch
- *
+ * 
  * Standardisierter System-Prompt für alle AI-Integrationen.
  */
 export function createMyDispatchSystemPrompt(context?: string): string {

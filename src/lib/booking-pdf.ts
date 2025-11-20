@@ -6,8 +6,8 @@
    Autor: NeXify AI MASTER
    ================================================================================== */
 
-import { supabase } from "@/integrations/supabase/client";
-import { formatCurrency, formatDate, formatDateTime } from "@/lib/format-utils";
+import { supabase } from '@/integrations/supabase/client';
+import { formatCurrency, formatDate, formatDateTime } from '@/lib/format-utils';
 
 /**
  * Generate Booking PDF and Send via Email
@@ -18,7 +18,7 @@ export const sendBookingPDF = async (
   recipientEmail?: string
 ): Promise<boolean> => {
   try {
-    const { data, error } = await supabase.functions.invoke("send-booking-pdf", {
+    const { data, error } = await supabase.functions.invoke('send-booking-pdf', {
       body: {
         booking_id: bookingId,
         company_id: companyId,
@@ -30,7 +30,7 @@ export const sendBookingPDF = async (
 
     return data?.success === true;
   } catch (error) {
-    console.error("Send booking PDF failed:", error);
+    console.error('Send booking PDF failed:', error);
     return false;
   }
 };
@@ -40,10 +40,8 @@ export const sendBookingPDF = async (
  */
 export const generateBookingPDFHTML = (booking: any): string => {
   const bookingNumber = booking.booking_number || booking.id.slice(0, 8);
-  const pickupDate = booking.pickup_time ? formatDate(booking.pickup_time) : "N/A";
-  const pickupTime = booking.pickup_time
-    ? formatDateTime(booking.pickup_time).split(" ")[1] || "N/A"
-    : "N/A";
+  const pickupDate = booking.pickup_time ? formatDate(booking.pickup_time) : 'N/A';
+  const pickupTime = booking.pickup_time ? formatDateTime(booking.pickup_time).split(' ')[1] || 'N/A' : 'N/A';
 
   return `
 <!DOCTYPE html>
@@ -79,9 +77,9 @@ export const generateBookingPDFHTML = (booking: any): string => {
   
   <div class="address-block">
     <div style="font-size: 11pt; line-height: 1.5;">
-      <strong>${booking.customer?.first_name || ""} ${booking.customer?.last_name || ""}</strong><br>
-      ${booking.customer?.address || ""}<br>
-      ${booking.customer?.postal_code || ""} ${booking.customer?.city || ""}
+      <strong>${booking.customer?.first_name || ''} ${booking.customer?.last_name || ''}</strong><br>
+      ${booking.customer?.address || ''}<br>
+      ${booking.customer?.postal_code || ''} ${booking.customer?.city || ''}
     </div>
   </div>
   
@@ -100,59 +98,39 @@ export const generateBookingPDFHTML = (booking: any): string => {
         <th>Datum & Uhrzeit</th>
         <td>${pickupDate} um ${pickupTime}</td>
       </tr>
-      ${
-        booking.price
-          ? `
+      ${booking.price ? `
       <tr>
         <th>Preis</th>
         <td>${formatCurrency(booking.price)}</td>
       </tr>
-      `
-          : ""
-      }
-      ${
-        booking.passengers
-          ? `
+      ` : ''}
+      ${booking.passengers ? `
       <tr>
         <th>Passagiere</th>
         <td>${booking.passengers}</td>
       </tr>
-      `
-          : ""
-      }
-      ${
-        booking.vehicle_type
-          ? `
+      ` : ''}
+      ${booking.vehicle_type ? `
       <tr>
         <th>Fahrzeugtyp</th>
         <td>${booking.vehicle_type}</td>
       </tr>
-      `
-          : ""
-      }
-      ${
-        booking.status
-          ? `
+      ` : ''}
+      ${booking.status ? `
       <tr>
         <th>Status</th>
         <td>${booking.status}</td>
       </tr>
-      `
-          : ""
-      }
+      ` : ''}
     </table>
   </div>
   
-  ${
-    booking.notes
-      ? `
+  ${booking.notes ? `
   <div class="content">
     <h3 style="font-size: 14pt; font-weight: bold; margin-bottom: 10mm;">Bemerkungen</h3>
     <p style="font-size: 10pt; line-height: 1.6;">${booking.notes}</p>
   </div>
-  `
-      : ""
-  }
+  ` : ''}
   
   <div class="footer">
     <p><strong>MyDispatch</strong> - Professionelle Dispositionssoftware</p>
@@ -162,3 +140,4 @@ export const generateBookingPDFHTML = (booking: any): string => {
 </html>
   `.trim();
 };
+

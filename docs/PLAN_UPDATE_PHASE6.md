@@ -13,7 +13,6 @@
 **Created:** `src/components/master/MasterChatEmbedded.tsx`
 
 **Features:**
-
 - ✅ Embedded Section (collapsible, full-width)
 - ✅ Responsive: Full-width Mobile, Max-width 1024px Desktop
 - ✅ Drag-Drop File Upload (Visual Feedback + Overlay)
@@ -22,7 +21,6 @@
 - ✅ ARIA-Accessible (alle Labels, Keyboard-Nav)
 
 **Design:**
-
 - Max-width: `max-w-5xl` (1024px)
 - Height: `h-[400px]` (Messages ScrollArea)
 - Border: `border-2` (normal), `border-4 ring-4 ring-primary/30` (dragging)
@@ -30,7 +28,6 @@
 - Messages: User `bg-primary`, Assistant `bg-muted`
 
 **Integration in Dashboard:**
-
 ```tsx
 // src/pages/Index.tsx (Lines 278-300)
 <CollapsibleDashboardSection defaultCollapsed={false}>
@@ -51,19 +48,16 @@
 **Modified:** `src/pages/Index.tsx`
 
 **Changes:**
-
 - ✅ Imported `MasterChatEmbedded`
 - ✅ Added Chat Section unter MAP
 - ✅ Floating Widget auskommentiert (optional)
 - ✅ CollapsibleDashboardSection für Chat (defaultCollapsed=false)
 
 **Entfernte Sections:** KEINE
-
 - ℹ️ "Auftrags-Übersicht" bleibt in DashboardSidebar.tsx (MAP-Sidebar)
 - ℹ️ Floating Widget optional auskommentiert (kann reaktiviert werden)
 
 **Begründung:**
-
 - MAP-Sidebar zu schmal für Chat (300px vs. Chat braucht 400px+)
 - Chat als eigene Section unter MAP = bessere UX
 - Floating Widget optional für Quick-Access
@@ -75,7 +69,6 @@
 **Created:** `tests/e2e/master-chat-embedded.spec.ts`
 
 **Tests (11 neue Tests):**
-
 ```typescript
 // Embedded Chat Section (8 Tests)
 - should display Master-Chat embedded section
@@ -100,12 +93,10 @@
 ### 4. Documentation
 
 **Created:**
-
 - `docs/PHASE6_ANSWERS.md` - Antworten auf 4 Fragen
 - `docs/PLAN_UPDATE_PHASE6.md` - Dieser Plan
 
 **Answers:**
-
 1. **Claude-Sample:** Empfehlung Option A (Chat als eigene Section)
 2. **CI-Trigger:** Nicht getriggert (wartet auf Commit)
 3. **"Auftrags-Übersicht":** Gefunden in DashboardSidebar.tsx (MAP-Sidebar, nicht ersetzen)
@@ -116,18 +107,15 @@
 ## 📊 TECHNICAL DETAILS
 
 ### New Files:
-
 - `src/components/master/MasterChatEmbedded.tsx` - Embedded Chat Component
 - `tests/e2e/master-chat-embedded.spec.ts` - E2E Tests (11 Tests)
 - `docs/PHASE6_ANSWERS.md` - Q&A Dokumentation
 - `docs/PLAN_UPDATE_PHASE6.md` - Dieser Plan
 
 ### Modified Files:
-
 - `src/pages/Index.tsx` - Added Chat Section, Imported MasterChatEmbedded
 
 ### Unchanged Files:
-
 - `src/components/dashboard/DashboardSidebar.tsx` - "Auftrags-Übersicht" bleibt
 - `src/components/master/MasterChatWidget.tsx` - Floating Widget (optional)
 
@@ -136,20 +124,16 @@
 ## 🧪 TESTING-COVERAGE (UPDATED)
 
 ### E2E Tests (16 Tests total):
-
 ```bash
 npx playwright test
 ```
-
 - Dashboard-Load (5 Tests - Phase 5)
 - Master-Chat Embedded (11 Tests - Phase 6)
 
 ### Unit Tests (14 Tests):
-
 ```bash
 npm run test:unit
 ```
-
 - Upload-Validation (5 Tests)
 - Dashboard-Formatting (9 Tests)
 
@@ -160,7 +144,6 @@ npm run test:unit
 ## 🚀 DEPLOYMENT-STATUS
 
 ### ✅ Ready:
-
 - TypeScript Build: ✅
 - ESLint Checks: ✅
 - E2E Tests: ✅ (16 Tests implementiert)
@@ -168,16 +151,13 @@ npm run test:unit
 - CI-Pipeline: ✅ (YAML ready)
 
 ### ⏳ Pending:
-
 1. **Run Tests lokal:**
-
    ```bash
    npm run test:unit
    npx playwright test
    ```
 
 2. **Commit & Push:**
-
    ```bash
    git add .
    git commit -m "Phase 6: Embedded Chat Integration + Tests"
@@ -191,19 +171,16 @@ npm run test:unit
 ## 🎓 LESSONS LEARNED (PHASE 6)
 
 ### Embedded vs. Floating:
-
 - ✅ Embedded = fester Bestandteil, bessere Integration
 - ✅ Floating = Quick-Access, kann parallel existieren
 - ✅ Option: Toggle zwischen floating/embedded via User-Setting
 
 ### MAP-Sidebar "Auftrags-Übersicht":
-
 - ❌ Zu schmal für Chat (300px vs. 400px+)
 - ✅ Bleibt für Auftrags-Details (Neue Kunden, Rechnungen)
 - ✅ Chat als eigene Section unter MAP = bessere UX
 
 ### CollapsibleDashboardSection:
-
 - ✅ Perfekt für embedded Chat
 - ✅ `defaultCollapsed={false}` = Chat immer sichtbar
 - ✅ Konsistent mit anderen Dashboard-Sections
@@ -213,7 +190,6 @@ npm run test:unit
 ## 🔗 NEXT STEPS
 
 1. **Run Tests lokal:**
-
    ```bash
    npx playwright test tests/e2e/master-chat-embedded.spec.ts
    npm run test:unit

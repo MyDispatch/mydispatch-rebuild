@@ -9,7 +9,6 @@
 ## 🎯 BUTTON-ARTEN
 
 ### 1. MARKETING-BUTTONS
-
 **Verwendung:** Landing Pages (Home, Pricing, etc.)  
 **Pfad:** `src/components/design-system/MarketingButton.tsx`
 
@@ -36,7 +35,6 @@ import { MarketingButton } from '@/components/design-system';
 ```
 
 **Farben:**
-
 - `hero-primary`: Gold/Beige (`bg-primary`) mit dunkelbauem Text
 - `hero-secondary`: Transparent mit weißem Border und Text
 - `cta-primary`: Gold/Beige (`bg-primary`) mit dunkelbauem Text
@@ -45,7 +43,6 @@ import { MarketingButton } from '@/components/design-system';
 ---
 
 ### 2. APP-BUTTONS
-
 **Verwendung:** Dashboard, Interne Seiten  
 **Pfad:** `src/components/ui/button.tsx`
 
@@ -94,7 +91,6 @@ import { Button } from '@/components/ui/button';
 ### KRITISCH: Background-Kontrast beachten!
 
 #### Auf DUNKLEM Background (Video-Hero, Dark-Mode)
-
 ```tsx
 ✅ RICHTIG:
 <Button className="bg-primary text-foreground">Text</Button>
@@ -107,7 +103,6 @@ import { Button } from '@/components/ui/button';
 ```
 
 #### Auf HELLEM Background (Cards, Dashboard)
-
 ```tsx
 ✅ RICHTIG:
 <Button variant="default">Text</Button>  // Nutzt primary
@@ -123,7 +118,6 @@ import { Button } from '@/components/ui/button';
 ## 📱 MOBILE-OPTIMIERUNG
 
 ### Touch-Targets (PFLICHT)
-
 ```tsx
 // IMMER mindestens 44x44px für Touch-Targets
 <Button className="min-h-[44px]">OK</Button>
@@ -133,10 +127,12 @@ import { Button } from '@/components/ui/button';
 ```
 
 ### Responsive Sizing
-
 ```tsx
 // Mobile-First Sizing
-<Button size="lg" className="w-full sm:w-auto px-4 sm:px-8 py-4 sm:py-6">
+<Button 
+  size="lg"
+  className="w-full sm:w-auto px-4 sm:px-8 py-4 sm:py-6"
+>
   Abonnieren
 </Button>
 ```
@@ -146,16 +142,16 @@ import { Button } from '@/components/ui/button';
 ## ✨ HOVER & ANIMATIONEN
 
 ### Standard-Hover (App-Buttons)
-
 ```tsx
 // Automatisch durch Varianten
-<Button variant="default">Hover-Effekt inkludiert</Button>
+<Button variant="default">
+  Hover-Effekt inkludiert
+</Button>
 ```
 
 ### Custom-Hover (Marketing)
-
 ```tsx
-<MarketingButton
+<MarketingButton 
   marketingVariant="hero-primary"
   className="hover:scale-105 transition-all duration-300"
 >
@@ -168,18 +164,16 @@ import { Button } from '@/components/ui/button';
 ## 🔢 ICON-BUTTONS
 
 ### Mit Icon + Text
-
 ```tsx
-import { Plus } from "lucide-react";
+import { Plus } from 'lucide-react';
 
 <Button>
   <Plus className="h-4 w-4" />
   Neu erstellen
-</Button>;
+</Button>
 ```
 
 ### Nur Icon
-
 ```tsx
 <Button size="icon" variant="ghost">
   <Edit className="h-4 w-4" />
@@ -196,7 +190,6 @@ import { Plus } from "lucide-react";
 ## 🚫 VERBOTENE PATTERNS
 
 ### ❌ Direkte Farben
-
 ```tsx
 // FALSCH
 <Button className="bg-blue-500 text-white">Button</Button>
@@ -208,7 +201,6 @@ import { Plus } from "lucide-react";
 ```
 
 ### ❌ Falsche Marketing-Button Usage
-
 ```tsx
 // FALSCH - Standard-Button auf Marketing-Seite
 <Button variant="default">Jetzt abonnieren</Button>
@@ -220,7 +212,6 @@ import { Plus } from "lucide-react";
 ```
 
 ### ❌ Zu kleine Touch-Targets
-
 ```tsx
 // FALSCH
 <Button className="h-8 px-2">OK</Button>  // Zu klein für Mobile!

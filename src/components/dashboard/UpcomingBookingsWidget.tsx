@@ -4,16 +4,16 @@
    Nächste anstehende Aufträge mit Countdown und Quick-Actions
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/lib/compat";
-import { Badge } from "@/lib/compat";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Clock, MapPin, User, ChevronRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { formatCurrency } from "@/lib/format-utils";
-import { useBookings } from "@/hooks/use-bookings";
-import { useMemo, useState, useEffect } from "react";
-import { format, differenceInMinutes, isToday, isTomorrow } from "date-fns";
-import { de } from "date-fns/locale";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/lib/compat';
+import { Badge } from '@/lib/compat';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Clock, MapPin, User, ChevronRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { formatCurrency } from '@/lib/format-utils';
+import { useBookings } from '@/hooks/use-bookings';
+import { useMemo, useState, useEffect } from 'react';
+import { format, differenceInMinutes, isToday, isTomorrow } from 'date-fns';
+import { de } from 'date-fns/locale';
 
 interface UpcomingBooking {
   id: string;
@@ -45,22 +45,22 @@ export function UpcomingBookingsWidget() {
     const in24Hours = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
     return bookings
-      .filter((b) => {
+      .filter(b => {
         if (!b.pickup_time || b.archived) return false;
         const pickupTime = new Date(b.pickup_time);
-        return pickupTime >= now && pickupTime <= in24Hours && b.status !== "cancelled";
+        return pickupTime >= now && pickupTime <= in24Hours && b.status !== 'cancelled';
       })
-      .map((b) => {
+      .map(b => {
         const pickupTime = new Date(b.pickup_time!);
         // Get customer name from relationship or fallback
-        const customerName = b.customer
-          ? `${b.customer.first_name || ""} ${b.customer.last_name || ""}`.trim() || "Unbekannt"
-          : "Unbekannt";
-
+        const customerName = b.customer 
+          ? `${b.customer.first_name || ''} ${b.customer.last_name || ''}`.trim() || 'Unbekannt'
+          : 'Unbekannt';
+        
         return {
           id: b.id,
           pickup_time: b.pickup_time!,
-          pickup_address: b.pickup_address || "Keine Adresse",
+          pickup_address: b.pickup_address || 'Keine Adresse',
           customer_name: customerName,
           price: b.price || 0,
           status: b.status,
@@ -73,22 +73,22 @@ export function UpcomingBookingsWidget() {
 
   const getTimeLabel = (pickupTime: string, minutesUntil: number) => {
     const time = new Date(pickupTime);
-
+    
     if (minutesUntil < 60) {
       return `In ${minutesUntil} Min`;
     } else if (isToday(time)) {
-      return `Heute ${format(time, "HH:mm")}`;
+      return `Heute ${format(time, 'HH:mm')}`;
     } else if (isTomorrow(time)) {
-      return `Morgen ${format(time, "HH:mm")}`;
+      return `Morgen ${format(time, 'HH:mm')}`;
     } else {
-      return format(time, "EEE HH:mm", { locale: de });
+      return format(time, 'EEE HH:mm', { locale: de });
     }
   };
 
   const getUrgencyColor = (minutesUntil: number) => {
-    if (minutesUntil < 30) return "bg-status-error/10 border-status-error/30";
-    if (minutesUntil < 60) return "bg-status-warning/10 border-status-warning/30";
-    return "bg-card";
+    if (minutesUntil < 30) return 'bg-status-error/10 border-status-error/30';
+    if (minutesUntil < 60) return 'bg-status-warning/10 border-status-warning/30';
+    return 'bg-card';
   };
 
   return (
@@ -99,16 +99,11 @@ export function UpcomingBookingsWidget() {
             <Clock className="h-4 w-4 text-foreground" />
             Anstehende Aufträge
           </CardTitle>
-          <Badge
-            variant="outline"
-            className="text-[10px] px-2 py-0.5 bg-primary/10 text-foreground border-primary/30"
-          >
+          <Badge variant="outline" className="text-[10px] px-2 py-0.5 bg-primary/10 text-foreground border-primary/30">
             24h
           </Badge>
         </div>
-        <CardDescription className="text-[10px]">
-          Nächste {upcomingBookings.length} Fahrten
-        </CardDescription>
+        <CardDescription className="text-[10px]">Nächste {upcomingBookings.length} Fahrten</CardDescription>
       </CardHeader>
       <CardContent className="space-y-2 pb-3">
         {upcomingBookings.length === 0 ? (
@@ -127,14 +122,8 @@ export function UpcomingBookingsWidget() {
                 >
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div className="flex items-center gap-2">
-                      <Badge
-                        variant={
-                          booking.minutes_until < 30
-                            ? "destructive"
-                            : booking.minutes_until < 60
-                              ? "secondary"
-                              : "outline"
-                        }
+                      <Badge 
+                        variant={booking.minutes_until < 30 ? 'destructive' : booking.minutes_until < 60 ? 'secondary' : 'outline'}
                         className="text-[9px] px-1.5 py-0"
                       >
                         {getTimeLabel(booking.pickup_time, booking.minutes_until)}
@@ -168,7 +157,7 @@ export function UpcomingBookingsWidget() {
               variant="secondary"
               size="sm"
               className="w-full h-7 text-xs"
-              onClick={() => navigate("/auftraege")}
+              onClick={() => navigate('/auftraege')}
             >
               Alle Aufträge ansehen →
             </V28Button>

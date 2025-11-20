@@ -3,7 +3,6 @@
 ## 🎯 ZIEL
 
 Finde systematisch und ausnahmslos JEDEN Fehler oder Lücke im kompletten vor-Login-Bereich. Einschließlich:
-
 - Frontend
 - Backend
 - APIs
@@ -24,7 +23,7 @@ Finde systematisch und ausnahmslos JEDEN Fehler oder Lücke im kompletten vor-Lo
 
 ## 2. UI & UX-FEHLER (Mobile/Tablet/Desktop)
 
-- Popups/Modals:
+- Popups/Modals:  
   - Werden alle erforderlichen Popups überall korrekt ausgelöst?
   - Sind sie auf allen Breakpoints responsiv?
   - Wird der Hintergrund gesperrt? Lässt sich das Modal korrekt schließen (ESC, Klick-Outside)?

@@ -1,7 +1,6 @@
 # Cursor Prompt Extensions - Setup Guide
 
 ## Status
-
 ⚠️ **PENDING KONFIGURATION:** Cursor Prompt Saver und Cursor Prompt Manager benötigen GitHub-Einstellungen
 
 ## Übersicht
@@ -90,7 +89,6 @@ Nach erfolgreicher Konfiguration sollten die Extensions folgende Einstellungen v
 ```
 
 **⚠️ SICHERHEITSHINWEIS:**
-
 - GitHub Tokens sollten **NIEMALS** in Settings-Dateien committet werden!
 - Die Extensions speichern Tokens normalerweise sicher in Cursor's Secret Storage
 - Falls Token in Settings erscheinen, füge `.vscode/settings.json` und `.cursor/settings.json` zu `.gitignore` hinzu
@@ -128,14 +126,12 @@ prompts/
 ### Problem: "Please configure your GitHub settings"
 
 **Lösung:**
-
 - Führe die Schritte 2 und 3 oben aus
 - Stelle sicher, dass der GitHub Token den `gist` Scope hat
 
 ### Problem: "Invalid GitHub token"
 
 **Lösung:**
-
 1. Prüfe, ob der Token korrekt kopiert wurde (keine Leerzeichen)
 2. Prüfe, ob der Token noch gültig ist (nicht abgelaufen)
 3. Prüfe, ob der Token den `gist` Scope hat
@@ -144,14 +140,12 @@ prompts/
 ### Problem: "Gist not found"
 
 **Lösung:**
-
 - Lasse die Gist ID leer, damit ein neuer Gist erstellt wird
 - Oder prüfe, ob die Gist ID korrekt ist
 
 ### Problem: Extensions funktionieren nicht nach Konfiguration
 
 **Lösung:**
-
 1. Starte Cursor neu
 2. Prüfe die Extension-Einstellungen in den Cursor Settings
 3. Prüfe, ob die Extensions aktiviert sind
@@ -177,3 +171,4 @@ Nach erfolgreicher Konfiguration:
 **Erstellt:** 2025-11-04  
 **Status:** ⏳ Konfiguration erforderlich  
 **Zuletzt aktualisiert:** 2025-11-04
+

@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ArrowLeft, Eye, EyeOff, Mail, Lock } from "lucide-react";
-import officialLogo from "@/assets/mydispatch-logo-official.png";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { ArrowLeft, Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import officialLogo from '@/assets/mydispatch-logo-official.png';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 export default function DriverLogin() {
   const navigate = useNavigate();
@@ -15,8 +15,8 @@ export default function DriverLogin() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: ''
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -26,22 +26,22 @@ export default function DriverLogin() {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email: formData.email,
-        password: formData.password,
+        password: formData.password
       });
 
       if (error) throw error;
-
+      
       toast({
-        title: "Anmeldung erfolgreich",
-        description: "Willkommen zurück!",
+        title: 'Anmeldung erfolgreich',
+        description: 'Willkommen zurück!'
       });
-
-      navigate("/driver/dashboard");
+      
+      navigate('/driver/dashboard');
     } catch (error: any) {
       toast({
-        title: "Anmeldung fehlgeschlagen",
-        description: error?.message || "Bitte überprüfen Sie Ihre Zugangsdaten",
-        variant: "destructive",
+        title: 'Anmeldung fehlgeschlagen',
+        description: error?.message || 'Bitte überprüfen Sie Ihre Zugangsdaten',
+        variant: 'destructive'
       });
     } finally {
       setIsLoading(false);
@@ -60,12 +60,16 @@ export default function DriverLogin() {
           <V28Button
             variant="secondary"
             size="sm"
-            onClick={() => navigate("/driver/welcome")}
+            onClick={() => navigate('/driver/welcome')}
             className="rounded-full"
           >
             <ArrowLeft className="h-5 w-5 text-foreground" />
           </V28Button>
-          <img src={officialLogo} alt="MyDispatch Logo" className="h-10 w-auto object-contain" />
+          <img 
+            src={officialLogo} 
+            alt="MyDispatch Logo" 
+            className="h-10 w-auto object-contain"
+          />
           <div className="w-10" /> {/* Spacer */}
         </div>
 
@@ -74,8 +78,12 @@ export default function DriverLogin() {
           <div className="max-w-md mx-auto space-y-6">
             {/* Title */}
             <div className="text-center space-y-2">
-              <h1 className="text-3xl font-bold text-foreground">Willkommen zurück</h1>
-              <p className="text-muted-foreground">Melden Sie sich an, um fortzufahren</p>
+              <h1 className="text-3xl font-bold text-foreground">
+                Willkommen zurück
+              </h1>
+              <p className="text-muted-foreground">
+                Melden Sie sich an, um fortzufahren
+              </p>
             </div>
 
             {/* Form */}
@@ -108,7 +116,7 @@ export default function DriverLogin() {
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                   <Input
                     id="password"
-                    type={showPassword ? "text" : "password"}
+                    type={showPassword ? 'text' : 'password'}
                     placeholder="••••••••"
                     value={formData.password}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
@@ -135,7 +143,7 @@ export default function DriverLogin() {
               <div className="text-right">
                 <button
                   type="button"
-                  onClick={() => navigate("/driver/forgot-password")}
+                  onClick={() => navigate('/driver/forgot-password')}
                   className="text-sm text-primary hover:text-primary/80"
                 >
                   Passwort vergessen?
@@ -150,16 +158,16 @@ export default function DriverLogin() {
                 size="lg"
                 className="w-full mt-6"
               >
-                {isLoading ? "Wird angemeldet..." : "Anmelden"}
+                {isLoading ? 'Wird angemeldet...' : 'Anmelden'}
               </V28Button>
             </form>
 
             {/* Register Link */}
             <div className="text-center pt-4">
               <p className="text-muted-foreground">
-                Noch kein Konto?{" "}
+                Noch kein Konto?{' '}
                 <button
-                  onClick={() => navigate("/driver/register")}
+                  onClick={() => navigate('/driver/register')}
                   className="text-primary hover:text-primary/80 font-semibold"
                 >
                   Jetzt registrieren
@@ -172,9 +180,9 @@ export default function DriverLogin() {
         {/* Decorative Wave */}
         <div className="fixed bottom-0 left-0 right-0 pointer-events-none">
           <svg viewBox="0 0 375 150" fill="none" className="w-full">
-            <path
-              d="M0 80 Q 93.75 40, 187.5 80 T 375 80 V 150 H 0 Z"
-              fill="hsl(var(--primary))"
+            <path 
+              d="M0 80 Q 93.75 40, 187.5 80 T 375 80 V 150 H 0 Z" 
+              fill="hsl(var(--primary))" 
               opacity="0.1"
             />
           </svg>

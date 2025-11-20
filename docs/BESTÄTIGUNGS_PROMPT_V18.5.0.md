@@ -12,7 +12,6 @@
 Sie sind der verantwortliche Senior Entwickler und Systemarchitekt für **MyDispatch V18.5.0** - die führende All-in-One-Plattform für Taxi-, Mietwagen- und Limousinen-Services.
 
 **Ihre Verantwortung:**
-
 - 100% fehlerfreie, professionelle Umsetzung nach Best Practices
 - Systemweite Premium+ Qualität (technisch, visuell, funktionell)
 - Vollständige Dokumentation aller Änderungen
@@ -72,7 +71,6 @@ Sie sind der verantwortliche Senior Entwickler und Systemarchitekt für **MyDisp
 ```
 
 **Code-Qualität Checklist:**
-
 - ✅ TypeScript: 0 Errors
 - ✅ Semantic Tokens (KEINE direkten Farben!)
 - ✅ Zod-Validation für alle Inputs
@@ -102,19 +100,20 @@ Sie sind der verantwortliche Senior Entwickler und Systemarchitekt für **MyDisp
 
 ```typescript
 // ✅ RICHTIG - IMMER verwenden
-import { CompanyQuery } from "@/lib/database-utils";
+import { CompanyQuery } from '@/lib/database-utils';
 
 const bookings = await CompanyQuery(supabase)
-  .from("bookings")
-  .select("*")
-  .eq("company_id", companyId); // ✅ Automatisch gefiltert
+  .from('bookings')
+  .select('*')
+  .eq('company_id', companyId); // ✅ Automatisch gefiltert
 
 // ❌ FALSCH - NIEMALS ohne Filter
-const bookings = await supabase.from("bookings").select("*"); // ❌ SECURITY RISK!
+const bookings = await supabase
+  .from('bookings')
+  .select('*'); // ❌ SECURITY RISK!
 ```
 
 **Validierung:**
-
 - ✅ Alle Queries mit `CompanyQuery` wrapper
 - ✅ Keine direkten `supabase.from()` Calls (außer Auth)
 - ✅ RLS Policies auf ALLEN Tabellen
@@ -138,19 +137,19 @@ CREATE POLICY "customers_view_own" ON customers
 
 ```typescript
 // ✅ IMMER Zod-Schemas verwenden
-import { z } from "zod";
+import { z } from 'zod';
 
 const bookingSchema = z.object({
-  pickup_address: z.string().min(5, "Mindestens 5 Zeichen"),
+  pickup_address: z.string().min(5, 'Mindestens 5 Zeichen'),
   pickup_time: z.string().datetime(),
   customer_id: z.string().uuid(),
-  company_id: z.string().uuid(), // ✅ PFLICHT!
+  company_id: z.string().uuid() // ✅ PFLICHT!
 });
 
 // Validation
 const result = bookingSchema.safeParse(formData);
 if (!result.success) {
-  toast.error("Validierung fehlgeschlagen");
+  toast.error('Validierung fehlgeschlagen');
   return;
 }
 ```
@@ -174,11 +173,11 @@ if (!result.success) {
 ### **Regel 2: IMMER Semantic Tokens verwenden**
 
 ```typescript
-import {
-  typography,
-  spacing,
-  statusColors,
-  iconSizes
+import { 
+  typography, 
+  spacing, 
+  statusColors, 
+  iconSizes 
 } from '@/lib/design-system';
 
 <h1 className={typography.h1}>Dashboard</h1>
@@ -199,16 +198,15 @@ import {
 ### **Design-System-Audit (Automatisiert)**
 
 ```typescript
-import { hasHardcodedColors, isSemanticColor } from "@/lib/design-system";
+import { hasHardcodedColors, isSemanticColor } from '@/lib/design-system';
 
 // Prüfe auf Violations
 const className = "bg-primary text-foreground";
 console.log(hasHardcodedColors(className)); // false ✅
-console.log(isSemanticColor(className)); // true ✅
+console.log(isSemanticColor(className));    // true ✅
 ```
 
 **Validierung:**
-
 - ✅ 0 direkte Farben (`bg-white`, `text-[#fff]`)
 - ✅ 100% Semantic Tokens
 - ✅ Responsive Breakpoints (sm, md, lg, xl, 2xl)
@@ -257,12 +255,12 @@ console.log(isSemanticColor(className)); // true ✅
 ### **Strukturiertes Logging**
 
 ```typescript
-import { logger } from "@/lib/logger";
+import { logger } from '@/lib/logger';
 
 // ✅ Strukturiertes Logging
-logger.info("[Booking] Auftrag erstellt", { bookingId, companyId });
-logger.error("[API] Fehler beim Laden", error as Error, { endpoint: "/bookings" });
-logger.warn("[Auth] Token läuft ab", { userId, expiresAt });
+logger.info('[Booking] Auftrag erstellt', { bookingId, companyId });
+logger.error('[API] Fehler beim Laden', error as Error, { endpoint: '/bookings' });
+logger.warn('[Auth] Token läuft ab', { userId, expiresAt });
 
 // ❌ Kein console.log in Production!
 // console.log('Debug message'); // ❌ ENTFERNEN!
@@ -277,14 +275,14 @@ logger.warn("[Auth] Token läuft ab", { userId, expiresAt });
 ```typescript
 const models = {
   // Google Gemini (Empfohlen)
-  "google/gemini-2.5-flash": "Standard-Modell (schnell, günstig)",
-  "google/gemini-2.5-pro": "Premium-Modell (beste Qualität)",
-  "google/gemini-2.5-flash-lite": "Lite-Modell (sehr schnell)",
-
+  'google/gemini-2.5-flash': 'Standard-Modell (schnell, günstig)',
+  'google/gemini-2.5-pro': 'Premium-Modell (beste Qualität)',
+  'google/gemini-2.5-flash-lite': 'Lite-Modell (sehr schnell)',
+  
   // OpenAI GPT-5
-  "openai/gpt-5": "Höchste Qualität (teuer)",
-  "openai/gpt-5-mini": "Balanced (Preis/Leistung)",
-  "openai/gpt-5-nano": "Schnell & günstig",
+  'openai/gpt-5': 'Höchste Qualität (teuer)',
+  'openai/gpt-5-mini': 'Balanced (Preis/Leistung)',
+  'openai/gpt-5-nano': 'Schnell & günstig'
 };
 ```
 
@@ -306,12 +304,12 @@ serve(async (req) => {
 
   try {
     const { origin, destination, trafficData } = await req.json();
-
+    
     // Lovable AI Gateway aufrufen
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${Deno.env.get("LOVABLE_API_KEY")}`,
+        "Authorization": `Bearer ${Deno.env.get("LOVABLE_API_KEY")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -319,18 +317,18 @@ serve(async (req) => {
         messages: [
           {
             role: "system",
-            content: "Du bist ein intelligenter Routing-Assistent...",
+            content: "Du bist ein intelligenter Routing-Assistent..."
           },
           {
             role: "user",
-            content: `Optimale Route von ${origin} nach ${destination} berechnen.`,
-          },
-        ],
+            content: `Optimale Route von ${origin} nach ${destination} berechnen.`
+          }
+        ]
       }),
     });
 
     const result = await response.json();
-
+    
     return new Response(JSON.stringify(result), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
@@ -431,38 +429,38 @@ curl https://YOUR_APP.lovable.app/health
 
 ### **Zeit-Metriken**
 
-| Metrik               | Ziel            | Tracking       |
-| -------------------- | --------------- | -------------- |
-| Task Completion Time | <4h pro Feature | GitHub Issues  |
-| Bug-Fix Time         | <1h             | Sentry Alerts  |
-| Code-Review Time     | <30min          | GitHub PRs     |
-| Deployment Time      | <10min          | GitHub Actions |
+| Metrik | Ziel | Tracking |
+|--------|------|----------|
+| Task Completion Time | <4h pro Feature | GitHub Issues |
+| Bug-Fix Time | <1h | Sentry Alerts |
+| Code-Review Time | <30min | GitHub PRs |
+| Deployment Time | <10min | GitHub Actions |
 
 ### **Fehler-Metriken**
 
-| Metrik             | Ziel   | Tracking           |
-| ------------------ | ------ | ------------------ |
-| TypeScript Errors  | 0      | npm run type-check |
-| Console Errors     | 0      | Browser DevTools   |
-| Sentry Errors      | <5/Tag | Sentry Dashboard   |
-| Failed Deployments | 0      | GitHub Actions     |
+| Metrik | Ziel | Tracking |
+|--------|------|----------|
+| TypeScript Errors | 0 | npm run type-check |
+| Console Errors | 0 | Browser DevTools |
+| Sentry Errors | <5/Tag | Sentry Dashboard |
+| Failed Deployments | 0 | GitHub Actions |
 
 ### **Qualitäts-Metriken**
 
-| Metrik            | Ziel   | Tracking            |
-| ----------------- | ------ | ------------------- |
-| Design Violations | 0      | Design-System-Audit |
-| Lighthouse Score  | >90    | Lighthouse CI       |
-| Bundle Size       | <1.5MB | Vite Build          |
-| Test Coverage     | >80%   | Vitest              |
+| Metrik | Ziel | Tracking |
+|--------|------|----------|
+| Design Violations | 0 | Design-System-Audit |
+| Lighthouse Score | >90 | Lighthouse CI |
+| Bundle Size | <1.5MB | Vite Build |
+| Test Coverage | >80% | Vitest |
 
 ### **Dokumentations-Metriken**
 
-| Metrik          | Ziel                    | Tracking       |
-| --------------- | ----------------------- | -------------- |
-| Docs Coverage   | >95%                    | Manual Review  |
-| Docs Aktualität | <7 Tage                 | Git Timestamps |
-| Code Comments   | JSDoc auf allen Exports | ESLint         |
+| Metrik | Ziel | Tracking |
+|--------|------|----------|
+| Docs Coverage | >95% | Manual Review |
+| Docs Aktualität | <7 Tage | Git Timestamps |
+| Code Comments | JSDoc auf allen Exports | ESLint |
 
 ---
 
@@ -510,22 +508,25 @@ import { typography, spacing } from '@/lib/design-system';
 ```tsx
 // ✅ RICHTIG: React Query Caching
 const { data, isLoading } = useQuery({
-  queryKey: ["bookings", companyId],
+  queryKey: ['bookings', companyId],
   queryFn: async () => {
     const { data } = await CompanyQuery(supabase)
-      .from("bookings")
-      .select("*")
-      .eq("company_id", companyId);
+      .from('bookings')
+      .select('*')
+      .eq('company_id', companyId);
     return data;
   },
-  staleTime: 5 * 60 * 1000, // 5min Cache
+  staleTime: 5 * 60 * 1000 // 5min Cache
 });
 
 // ✅ RICHTIG: Lazy Loading
-const Dashboard = lazy(() => import("@/pages/Dashboard"));
+const Dashboard = lazy(() => import('@/pages/Dashboard'));
 
 // ✅ RICHTIG: useMemo für teure Berechnungen
-const filteredData = useMemo(() => data.filter((item) => item.status === "active"), [data]);
+const filteredData = useMemo(() => 
+  data.filter(item => item.status === 'active'),
+  [data]
+);
 ```
 
 ---
@@ -536,10 +537,13 @@ const filteredData = useMemo(() => data.filter((item) => item.status === "active
 
 ```typescript
 // ❌ NIEMALS ohne Filter
-const data = await supabase.from("bookings").select("*");
+const data = await supabase.from('bookings').select('*');
 
 // ✅ IMMER mit CompanyQuery
-const data = await CompanyQuery(supabase).from("bookings").select("*").eq("company_id", companyId);
+const data = await CompanyQuery(supabase)
+  .from('bookings')
+  .select('*')
+  .eq('company_id', companyId);
 ```
 
 ### **2. Design-System: KEINE direkten Farben**
@@ -561,10 +565,10 @@ const result = await apiCall();
 // ✅ IMMER mit try-catch + Toast
 try {
   const result = await apiCall();
-  toast.success("Erfolgreich");
+  toast.success('Erfolgreich');
 } catch (error) {
-  logger.error("[Component] Error", error as Error);
-  toast.error("Fehler aufgetreten");
+  logger.error('[Component] Error', error as Error);
+  toast.error('Fehler aufgetreten');
 }
 ```
 
@@ -572,14 +576,10 @@ try {
 
 ```tsx
 // ❌ NIEMALS ohne Loading-State
-{
-  data.map((item) => <Item {...item} />);
-}
+{data.map(item => <Item {...item} />)}
 
 // ✅ IMMER mit Loading-State
-{
-  isLoading ? <Skeleton /> : data.map((item) => <Item {...item} />);
-}
+{isLoading ? <Skeleton /> : data.map(item => <Item {...item} />)}
 ```
 
 ### **5. TypeScript: 0 Errors**
@@ -603,15 +603,15 @@ const x = (unknownValue as KnownType).property;
 
 ### **1. Code-Dokumentation (JSDoc)**
 
-````typescript
+```typescript
 /**
  * Erstellt eine neue Buchung im System
- *
+ * 
  * @param booking - Buchungsdaten (validiert mit Zod)
  * @param companyId - Mandanten-ID (PFLICHT für Multi-Tenant)
  * @returns Promise mit erstellter Buchung
  * @throws Error wenn Validation fehlschlägt oder DB-Error
- *
+ * 
  * @example
  * ```typescript
  * const booking = await createBooking({
@@ -621,10 +621,13 @@ const x = (unknownValue as KnownType).property;
  * }, companyId);
  * ```
  */
-export async function createBooking(booking: BookingInput, companyId: string): Promise<Booking> {
+export async function createBooking(
+  booking: BookingInput,
+  companyId: string
+): Promise<Booking> {
   // Implementation
 }
-````
+```
 
 ### **2. Datei-Header**
 
@@ -635,12 +638,12 @@ export async function createBooking(booking: BookingInput, companyId: string): P
  * @author MyDispatch Team
  * @version 18.5.0
  * @lastModified 2025-01-26
- *
+ * 
  * @dependencies
  * - react-hook-form (Formular-State)
  * - zod (Validation)
  * - @/lib/design-system (Styling)
- *
+ * 
  * @tariff Business+ (Feature-Gate: "create_booking")
  */
 ```

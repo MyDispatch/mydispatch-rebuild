@@ -13,12 +13,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Plus, Trash2, Calendar } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/use-auth";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 
@@ -31,15 +38,13 @@ const invoiceSchema = z.object({
   internal_notes: z.string().optional(),
   currency: z.string().default("EUR"),
   vat_rate: z.number().default(19),
-  items: z
-    .array(
-      z.object({
-        description: z.string().min(1, "Beschreibung erforderlich"),
-        quantity: z.number().min(1, "Mindestens 1"),
-        unit_price: z.number().min(0, "Preis muss positiv sein"),
-      })
-    )
-    .min(1, "Mindestens eine Position erforderlich"),
+  items: z.array(
+    z.object({
+      description: z.string().min(1, "Beschreibung erforderlich"),
+      quantity: z.number().min(1, "Mindestens 1"),
+      unit_price: z.number().min(0, "Preis muss positiv sein"),
+    })
+  ).min(1, "Mindestens eine Position erforderlich"),
 });
 
 type InvoiceFormData = z.infer<typeof invoiceSchema>;
@@ -50,36 +55,74 @@ interface InvoiceFormProps {
   onCancel?: () => void;
 }
 
+interface Customer {
+  id: string;
+  first_name: string;
+  last_name: string;
+  company_name?: string;
+}
+
+interface InvoiceItem {
+  description: string;
+  quantity: number;
+  unit_price: number;
+}
+
+interface Invoice {
+  id: string;
+  customer_id: string;
+  invoice_number: string;
+  invoice_date: string;
+  due_date: string;
+  status: "draft" | "sent" | "paid" | "overdue" | "cancelled";
+  payment_method?: string;
+  internal_notes?: string;
+  currency: string;
+  invoice_items?: InvoiceItem[];
+}
+
+interface Profile {
+  company_id: string;
+}
+
 export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps) {
   const { toast } = useToast();
+  const { profile } = useAuth();
   const queryClient = useQueryClient();
   const [totalAmount, setTotalAmount] = useState(0);
 
-  // Fetch customers
+  // ⚠️ SECURITY FIX: Multi-tenant customer query with company_id filter
   const { data: customers } = useQuery({
-    queryKey: ["customers"],
+    queryKey: ['customers', profile?.company_id],
     queryFn: async () => {
+      if (!profile?.company_id) {
+        return [];
+      }
+
       const { data, error } = await supabase
-        .from("customers")
-        .select("id, first_name, last_name, company_name")
-        .order("last_name");
+        .from('customers')
+        .select('id, first_name, last_name, company_name')
+        .eq('company_id', profile.company_id)
+        .eq('archived', false)
+        .order('last_name');
       if (error) throw error;
-      return data;
+      return data as unknown as Customer[];
     },
+    enabled: !!profile?.company_id,
   });
 
   // Fetch invoice if editing
   const { data: invoice } = useQuery({
-    queryKey: ["invoice", invoiceId],
+    queryKey: ['invoice', invoiceId],
     queryFn: async () => {
       if (!invoiceId) return null;
       const { data, error } = await supabase
-        .from("invoices")
-        .select("*, invoice_items(*)")
-        .eq("id", invoiceId)
+        .from('invoices')
+        .select('*, invoice_items(*)')
+        .eq('id', invoiceId)
         .single();
       if (error) throw error;
-      return data;
+      return data as unknown as Invoice;
     },
     enabled: !!invoiceId,
   });
@@ -87,8 +130,8 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
   const form = useForm<InvoiceFormData>({
     resolver: zodResolver(invoiceSchema),
     defaultValues: {
-      invoice_date: format(new Date(), "yyyy-MM-dd"),
-      due_date: format(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), "yyyy-MM-dd"),
+      invoice_date: format(new Date(), 'yyyy-MM-dd'),
+      due_date: format(new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), 'yyyy-MM-dd'),
       status: "draft",
       currency: "EUR",
       vat_rate: 19,
@@ -106,14 +149,14 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
     if (invoice) {
       form.reset({
         customer_id: invoice.customer_id,
-        invoice_date: format(new Date(invoice.invoice_date), "yyyy-MM-dd"),
-        due_date: format(new Date(invoice.due_date), "yyyy-MM-dd"),
-        status: invoice.status as any,
+        invoice_date: format(new Date(invoice.invoice_date), 'yyyy-MM-dd'),
+        due_date: format(new Date(invoice.due_date), 'yyyy-MM-dd'),
+        status: invoice.status,
         payment_method: invoice.payment_method || undefined,
         internal_notes: invoice.internal_notes || undefined,
         currency: invoice.currency,
         vat_rate: 19, // Default VAT rate
-        items: invoice.invoice_items?.map((item: any) => ({
+        items: invoice.invoice_items?.map((item) => ({
           description: item.description,
           quantity: item.quantity,
           unit_price: item.unit_price,
@@ -124,28 +167,30 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
 
   // Calculate totals
   useEffect(() => {
-    const items = form.watch("items");
+    const items = form.watch('items');
     const subtotal = items.reduce((sum, item) => {
-      return sum + item.quantity * item.unit_price;
+      return sum + (item.quantity * item.unit_price);
     }, 0);
-    const vatRate = form.watch("vat_rate") || 19;
+    const vatRate = form.watch('vat_rate') || 19;
     const total = subtotal * (1 + vatRate / 100);
     setTotalAmount(total);
-  }, [form.watch("items"), form.watch("vat_rate")]);
+  }, [form.watch('items'), form.watch('vat_rate')]);
 
   // Create/Update mutation
   const saveMutation = useMutation({
     mutationFn: async (data: InvoiceFormData) => {
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("company_id")
-        .eq("user_id", (await supabase.auth.getUser()).data.user?.id)
-        .single();
+      const { data: profile } = (await supabase
+        .from('profiles')
+        .select('company_id')
+        .eq('user_id', (await supabase.auth.getUser()).data.user?.id)
+        .single()) as unknown as { data: Profile | null };
 
       if (!profile) throw new Error("Profil nicht gefunden");
 
       // Calculate amounts
-      const subtotal = data.items.reduce((sum, item) => sum + item.quantity * item.unit_price, 0);
+      const subtotal = data.items.reduce((sum, item) => 
+        sum + (item.quantity * item.unit_price), 0
+      );
       const vatAmount = subtotal * (data.vat_rate / 100);
       const total = subtotal + vatAmount;
 
@@ -153,9 +198,9 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
       let invoiceNumber = invoice?.invoice_number;
       if (!invoiceId) {
         const { count } = await supabase
-          .from("invoices")
-          .select("*", { count: "exact", head: true })
-          .eq("company_id", profile.company_id);
+          .from('invoices')
+          .select('*', { count: 'exact', head: true })
+          .eq('company_id', profile.company_id);
         invoiceNumber = `RE-${(count || 0) + 1001}`;
       }
 
@@ -174,7 +219,7 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
         total_amount: number;
         created_by?: string;
       }
-
+      
       const invoiceData: InvoiceInsertData = {
         company_id: profile.company_id,
         customer_id: data.customer_id,
@@ -195,19 +240,26 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
 
       if (invoiceId) {
         // Update existing invoice
-        const { error } = await supabase.from("invoices").update(invoiceData).eq("id", invoiceId);
+        const { error } = await supabase
+          .from('invoices')
+          .update(invoiceData)
+          .eq('id', invoiceId);
         if (error) throw error;
 
         // Archive old items (Soft-Delete workaround - delete then recreate)
-        await supabase.from("invoice_items").delete().eq("invoice_id", invoiceId);
+        await supabase
+          .from('invoice_items')
+          .delete()
+          .eq('invoice_id', invoiceId);
       } else {
         // Create new invoice
-        const { data: newInvoice, error } = await supabase
-          .from("invoices")
+        const { data: newInvoice, error } = (await supabase
+          .from('invoices')
           .insert([invoiceData])
           .select()
-          .single();
+          .single()) as unknown as { data: { id: string } | null; error: any };
         if (error) throw error;
+        if (!newInvoice) throw new Error("Invoice konnte nicht erstellt werden");
         savedInvoiceId = newInvoice.id;
       }
 
@@ -221,7 +273,9 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
         position: index + 1,
       }));
 
-      const { error: itemsError } = await supabase.from("invoice_items").insert(itemsData);
+      const { error: itemsError } = await supabase
+        .from('invoice_items')
+        .insert(itemsData);
       if (itemsError) throw itemsError;
 
       return savedInvoiceId;
@@ -231,14 +285,13 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
         title: invoiceId ? "Rechnung aktualisiert" : "Rechnung erstellt",
         description: "Die Rechnung wurde erfolgreich gespeichert.",
       });
-      queryClient.invalidateQueries({ queryKey: ["invoices"] });
+      queryClient.invalidateQueries({ queryKey: ['invoices'] });
       onSuccess?.();
     },
     onError: (error) => {
       toast({
         title: "Fehler",
-        description:
-          error instanceof Error ? error.message : "Rechnung konnte nicht gespeichert werden.",
+        description: error instanceof Error ? error.message : "Rechnung konnte nicht gespeichert werden.",
         variant: "destructive",
       });
     },
@@ -256,8 +309,8 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
             <div className="space-y-2">
               <Label htmlFor="customer_id">Kunde *</Label>
               <Select
-                value={form.watch("customer_id")}
-                onValueChange={(value) => form.setValue("customer_id", value)}
+                value={form.watch('customer_id')}
+                onValueChange={(value) => form.setValue('customer_id', value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Kunde auswählen" />
@@ -271,17 +324,15 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
                 </SelectContent>
               </Select>
               {form.formState.errors.customer_id && (
-                <p className="text-sm text-destructive">
-                  {form.formState.errors.customer_id.message}
-                </p>
+                <p className="text-sm text-destructive">{form.formState.errors.customer_id.message}</p>
               )}
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="status">Status</Label>
               <Select
-                value={form.watch("status")}
-                onValueChange={(value: any) => form.setValue("status", value)}
+                value={form.watch('status')}
+                onValueChange={(value) => form.setValue('status', value as "draft" | "sent" | "paid" | "overdue" | "cancelled")}
               >
                 <SelectTrigger>
                   <SelectValue />
@@ -298,12 +349,20 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
 
             <div className="space-y-2">
               <Label htmlFor="invoice_date">Rechnungsdatum</Label>
-              <Input id="invoice_date" type="date" {...form.register("invoice_date")} />
+              <Input
+                id="invoice_date"
+                type="date"
+                {...form.register('invoice_date')}
+              />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="due_date">Fälligkeitsdatum</Label>
-              <Input id="due_date" type="date" {...form.register("due_date")} />
+              <Input
+                id="due_date"
+                type="date"
+                {...form.register('due_date')}
+              />
             </div>
 
             <div className="space-y-2">
@@ -311,15 +370,15 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
               <Input
                 id="vat_rate"
                 type="number"
-                {...form.register("vat_rate", { valueAsNumber: true })}
+                {...form.register('vat_rate', { valueAsNumber: true })}
               />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="payment_method">Zahlungsmethode</Label>
               <Select
-                value={form.watch("payment_method")}
-                onValueChange={(value) => form.setValue("payment_method", value)}
+                value={form.watch('payment_method')}
+                onValueChange={(value) => form.setValue('payment_method', value)}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Zahlungsmethode wählen" />
@@ -338,7 +397,7 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
             <Label htmlFor="internal_notes">Interne Notizen</Label>
             <Textarea
               id="internal_notes"
-              {...form.register("internal_notes")}
+              {...form.register('internal_notes')}
               placeholder="Interne Notizen..."
             />
           </div>
@@ -401,12 +460,12 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
               <div className="w-32 space-y-2">
                 <Label>Gesamt</Label>
                 <div className="h-10 flex items-center font-semibold text-foreground">
-                  {new Intl.NumberFormat("de-DE", {
-                    style: "currency",
-                    currency: "EUR",
+                  {new Intl.NumberFormat('de-DE', { 
+                    style: 'currency', 
+                    currency: 'EUR' 
                   }).format(
-                    (form.watch(`items.${index}.quantity`) || 0) *
-                      (form.watch(`items.${index}.unit_price`) || 0)
+                    (form.watch(`items.${index}.quantity`) || 0) * 
+                    (form.watch(`items.${index}.unit_price`) || 0)
                   )}
                 </div>
               </div>
@@ -431,27 +490,26 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
             <div className="flex justify-between text-sm">
               <span className="text-muted-foreground">Zwischensumme:</span>
               <span className="font-medium text-foreground">
-                {new Intl.NumberFormat("de-DE", {
-                  style: "currency",
-                  currency: "EUR",
+                {new Intl.NumberFormat('de-DE', { 
+                  style: 'currency', 
+                  currency: 'EUR' 
                 }).format(
-                  form
-                    .watch("items")
-                    .reduce((sum, item) => sum + item.quantity * item.unit_price, 0)
+                  form.watch('items').reduce((sum, item) => 
+                    sum + (item.quantity * item.unit_price), 0
+                  )
                 )}
               </span>
             </div>
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">MwSt. ({form.watch("vat_rate")}%):</span>
+              <span className="text-muted-foreground">MwSt. ({form.watch('vat_rate')}%):</span>
               <span className="font-medium text-foreground">
-                {new Intl.NumberFormat("de-DE", {
-                  style: "currency",
-                  currency: "EUR",
+                {new Intl.NumberFormat('de-DE', { 
+                  style: 'currency', 
+                  currency: 'EUR' 
                 }).format(
-                  form
-                    .watch("items")
-                    .reduce((sum, item) => sum + item.quantity * item.unit_price, 0) *
-                    (form.watch("vat_rate") / 100)
+                  form.watch('items').reduce((sum, item) => 
+                    sum + (item.quantity * item.unit_price), 0
+                  ) * (form.watch('vat_rate') / 100)
                 )}
               </span>
             </div>
@@ -459,9 +517,9 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
             <div className="flex justify-between text-lg font-bold">
               <span className="text-foreground">Gesamtsumme:</span>
               <span className="text-foreground">
-                {new Intl.NumberFormat("de-DE", {
-                  style: "currency",
-                  currency: "EUR",
+                {new Intl.NumberFormat('de-DE', { 
+                  style: 'currency', 
+                  currency: 'EUR' 
                 }).format(totalAmount)}
               </span>
             </div>
@@ -474,7 +532,7 @@ export function InvoiceForm({ invoiceId, onSuccess, onCancel }: InvoiceFormProps
           Abbrechen
         </V28Button>
         <V28Button type="submit" variant="primary" disabled={saveMutation.isPending}>
-          {saveMutation.isPending ? "Speichern..." : invoiceId ? "Aktualisieren" : "Erstellen"}
+          {saveMutation.isPending ? "Speichern..." : (invoiceId ? "Aktualisieren" : "Erstellen")}
         </V28Button>
       </div>
     </form>

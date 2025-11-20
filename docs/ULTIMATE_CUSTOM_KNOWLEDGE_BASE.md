@@ -1,7 +1,6 @@
 📚 Ultimate Custom Knowledge Base für AI-gesteuerte Projekte
-
 1. Struktur & Zielsetzung
-   Mission:
+Mission:
 
 Immer höchste Qualität, Fehlerfreiheit, Konsistenz von Code, Doku, Abläufen – und permanente Verbesserung!
 
@@ -14,8 +13,8 @@ Vorgehen:
 Alle zentralen Regeln, Vorgaben, Prompts, Komponenten, Docs, Tests, Workflows und Review-Mechanismen werden hier aktuell gehalten, erweitert und enforced.
 
 2. Funktionen & Pattern – Vollständig und zentral
-   A. Projektmanagement & Onboarding
-   Setup, Struktur, Readme, Conventions, Branch-Protektion – alles nach Plan vor Implementierung (siehe MASTER-PROJECT-PREPARATION).
+A. Projektmanagement & Onboarding
+Setup, Struktur, Readme, Conventions, Branch-Protektion – alles nach Plan vor Implementierung (siehe MASTER-PROJECT-PREPARATION).
 
 Automatische Analyse, Review, Checklisten, Memory-Management vor jedem Task.
 
@@ -118,7 +117,7 @@ Jede Wissensbasis-Änderung wird versioniert, changelog-geführt und getestet.
 Lessons Learned werden pro Implementation ergänzt und fließen bei jedem folgenden Task in Memory Loop und Review-Pflicht ein.
 
 3. Wie Knowledge optimal einpflegen/strukturieren/bewahren
-   Empfohlene Datei: /docs/PROJECT_KNOWLEDGE_BASE.md
+Empfohlene Datei: /docs/PROJECT_KNOWLEDGE_BASE.md
 
 Klare einzelne Abschnitte PRINZIP, BEISPIEL, CHECKLISTE, QUELLE/Referenz (Link zu Doc, Prompt, Changelog).
 
@@ -135,32 +134,22 @@ Prompts nach jedem Erfolg/Fehler als Promptvorlage speichern (Training Wheel-Mus
 Regelmäßig Meta-Review, Memory-Loops, Präzedenzfälle und Decision Logs aktuell halten.
 
 4. Beispiel (Auszug für PROJECT_KNOWLEDGE_BASE.md):
-   text
-
+text
 # PROJECT_KNOWLEDGE_BASE.md
 
 ## Grundprinzipien
-
 - SSoT, DRY, Configuration over Code, 3-Phasen-Workflow, mobile-first, vollständige Tests/Doku-Pflicht etc.
-
 ## Component-Workflow
-
 - ComponentRegistry updaten, Tests, Types, Storybook, Usage Guide
-
 ## Testing-Pattern
-
 - Mindestens 80% Coverage, a11y, Manual, Visual pro Komponente/Seite
-
 ## Doku-Pflicht
-
 - Doku vorab, während und nach jedem Schritt (siehe MASTER DOCS PREP Guide)
-
 ## Lessons Learned
-
 - Fehlerkultur und Pattern-Log für alle
-  ...
-  Fazit/Handlungsanweisung für den Bot
-  Lese und pflege ALLE Docs, Prompts, Patterns und Checklisten nach diesem Muster.
+...
+Fazit/Handlungsanweisung für den Bot
+Lese und pflege ALLE Docs, Prompts, Patterns und Checklisten nach diesem Muster.
 
 Jede Änderung/test wird SOFORT in die Knowledge-Base und Memory-Loop übernommen.
 

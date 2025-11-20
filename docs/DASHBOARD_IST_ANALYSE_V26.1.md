@@ -15,7 +15,6 @@ Vollständige IST-Analyse des `/dashboard` Bereichs zur Identifikation aller Opt
 ## 📁 STRUKTUR ANALYSE
 
 ### Hauptkomponenten
-
 ```
 /dashboard (Index.tsx)
 ├── CollapsibleDashboardSection
@@ -30,7 +29,6 @@ Vollständige IST-Analyse des `/dashboard` Bereichs zur Identifikation aller Opt
 ```
 
 ### Sub-Komponenten
-
 ```
 DashboardSidebar
 ├── Neue Kunden Card
@@ -55,18 +53,16 @@ DashboardInfoPanel
 ### 1. ICON-ABSTÄNDE (GAP)
 
 #### IST-Zustand
-
-| Komponente             | Gap             | Verwendung                | Status              |
-| ---------------------- | --------------- | ------------------------- | ------------------- |
-| DashboardInfoPanel     | `gap-4` (16px)  | Horizontal zwischen Cards | ⚠️ Nicht konsistent |
-| DashboardSidebar Cards | `gap-2` (8px)   | Grid Gap                  | ⚠️ Nicht konsistent |
-| Icon + Text            | `gap-3` (12px)  | V26IconBox + Text         | ⚠️ Nicht konsistent |
-| Icon + Text            | `gap-2` (8px)   | Inline Icons              | ⚠️ Nicht konsistent |
-| Icon + Text            | `gap-1.5` (6px) | Kompakte Bereiche         | ⚠️ Nicht konsistent |
-| Icon + Text            | `gap-1` (4px)   | Status-Dots               | ⚠️ Zu eng           |
+| Komponente | Gap | Verwendung | Status |
+|------------|-----|------------|--------|
+| DashboardInfoPanel | `gap-4` (16px) | Horizontal zwischen Cards | ⚠️ Nicht konsistent |
+| DashboardSidebar Cards | `gap-2` (8px) | Grid Gap | ⚠️ Nicht konsistent |
+| Icon + Text | `gap-3` (12px) | V26IconBox + Text | ⚠️ Nicht konsistent |
+| Icon + Text | `gap-2` (8px) | Inline Icons | ⚠️ Nicht konsistent |
+| Icon + Text | `gap-1.5` (6px) | Kompakte Bereiche | ⚠️ Nicht konsistent |
+| Icon + Text | `gap-1` (4px) | Status-Dots | ⚠️ Zu eng |
 
 #### SOLL-Zustand (UNIFIED_DESIGN_TOKENS)
-
 ```typescript
 // Alle verwenden einheitliche Tokens
 gap_cards: '1rem',           // 16px - Cards horizontal
@@ -76,7 +72,6 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ```
 
 #### Probleme
-
 - ❌ 5 verschiedene Gap-Werte im InfoPanel
 - ❌ 4 verschiedene Gap-Werte in Sidebar
 - ❌ Keine konsistente Verwendung von Design-Tokens
@@ -87,13 +82,12 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ### 2. BORDER SYSTEM
 
 #### IST-Zustand
-
-| Komponente       | Border                       | Status        |
-| ---------------- | ---------------------------- | ------------- |
-| Cards (Standard) | `border-2 border-beige/20`   | ✅ Konsistent |
-| Hero Map         | `border-3 border-beige/25`   | ✅ Korrekt    |
-| Section Divider  | `border-b-2 border-beige/30` | ✅ Korrekt    |
-| Error Cards      | `border-2 border-error/40`   | ✅ Korrekt    |
+| Komponente | Border | Status |
+|------------|--------|--------|
+| Cards (Standard) | `border-2 border-beige/20` | ✅ Konsistent |
+| Hero Map | `border-3 border-beige/25` | ✅ Korrekt |
+| Section Divider | `border-b-2 border-beige/30` | ✅ Korrekt |
+| Error Cards | `border-2 border-error/40` | ✅ Korrekt |
 
 **Bewertung:** ✅ Border-System ist konsistent
 
@@ -102,14 +96,13 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ### 3. RADIUS SYSTEM
 
 #### IST-Zustand
-
-| Komponente     | Radius               | Status        |
-| -------------- | -------------------- | ------------- |
-| Standard Cards | `rounded-xl` (12px)  | ✅ Konsistent |
-| Buttons        | `rounded-xl` (12px)  | ✅ Konsistent |
-| Badges         | `rounded-full`       | ✅ Korrekt    |
-| Icon Box       | `rounded-xl` (12px)  | ✅ Konsistent |
-| Hero Map       | `rounded-2xl` (16px) | ✅ Korrekt    |
+| Komponente | Radius | Status |
+|------------|--------|--------|
+| Standard Cards | `rounded-xl` (12px) | ✅ Konsistent |
+| Buttons | `rounded-xl` (12px) | ✅ Konsistent |
+| Badges | `rounded-full` | ✅ Korrekt |
+| Icon Box | `rounded-xl` (12px) | ✅ Konsistent |
+| Hero Map | `rounded-2xl` (16px) | ✅ Korrekt |
 
 **Bewertung:** ✅ Radius-System ist konsistent
 
@@ -118,16 +111,14 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ### 4. SHADOW SYSTEM
 
 #### IST-Zustand
-
-| Komponente     | Shadow             | Status                 |
-| -------------- | ------------------ | ---------------------- |
-| Standard Cards | Custom (variiert)  | ⚠️ Inkonsistent        |
-| Sidebar Panel  | Custom multi-layer | ⚠️ Nicht token-basiert |
-| Info Panel     | Custom multi-layer | ⚠️ Nicht token-basiert |
-| Hero Map       | Custom multi-layer | ⚠️ Nicht token-basiert |
+| Komponente | Shadow | Status |
+|------------|--------|--------|
+| Standard Cards | Custom (variiert) | ⚠️ Inkonsistent |
+| Sidebar Panel | Custom multi-layer | ⚠️ Nicht token-basiert |
+| Info Panel | Custom multi-layer | ⚠️ Nicht token-basiert |
+| Hero Map | Custom multi-layer | ⚠️ Nicht token-basiert |
 
 #### Probleme
-
 - ❌ Jede Komponente definiert eigene Shadows
 - ❌ Keine Verwendung von `SHADOW_SYSTEM.component.*`
 - ❌ Unterschiedliche Shadow-Stärken ohne System
@@ -137,17 +128,15 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ### 5. SPACING SYSTEM
 
 #### IST-Zustand
-
-| Bereich       | Padding      | Status               |
-| ------------- | ------------ | -------------------- |
-| Cards         | `p-4` (16px) | ⚠️ Sollte Token sein |
+| Bereich | Padding | Status |
+|---------|---------|--------|
+| Cards | `p-4` (16px) | ⚠️ Sollte Token sein |
 | Compact Cards | `p-3` (12px) | ⚠️ Sollte Token sein |
-| Large Cards   | `p-6` (24px) | ⚠️ Sollte Token sein |
-| Panels        | `px-6 py-4`  | ⚠️ Sollte Token sein |
-| Info Panel    | `px-6 py-4`  | ⚠️ Sollte Token sein |
+| Large Cards | `p-6` (24px) | ⚠️ Sollte Token sein |
+| Panels | `px-6 py-4` | ⚠️ Sollte Token sein |
+| Info Panel | `px-6 py-4` | ⚠️ Sollte Token sein |
 
 #### Probleme
-
 - ❌ Tailwind-Klassen statt `SPACING_SYSTEM.component.*`
 - ❌ Verschiedene Padding-Werte ohne System
 - ❌ Keine Verwendung von `card_padding`, `card_padding_sm`, `card_padding_lg`
@@ -157,17 +146,16 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ### 6. ICON USAGE
 
 #### IST-Zustand
-
-| Verwendung | Icon            | Konsistenz |
-| ---------- | --------------- | ---------- |
-| Aufträge   | `FileText`      | ✅ Korrekt |
-| Zeit       | `Clock`         | ✅ Korrekt |
-| Fahrzeuge  | `Activity`      | ✅ Korrekt |
-| Standort   | `MapPin`        | ✅ Korrekt |
-| Kunden     | `UserPlus`      | ✅ Korrekt |
-| Rechnungen | `Receipt`       | ✅ Korrekt |
-| Warnung    | `AlertTriangle` | ✅ Korrekt |
-| Erfolg     | `CheckCircle`   | ✅ Korrekt |
+| Verwendung | Icon | Konsistenz |
+|------------|------|------------|
+| Aufträge | `FileText` | ✅ Korrekt |
+| Zeit | `Clock` | ✅ Korrekt |
+| Fahrzeuge | `Activity` | ✅ Korrekt |
+| Standort | `MapPin` | ✅ Korrekt |
+| Kunden | `UserPlus` | ✅ Korrekt |
+| Rechnungen | `Receipt` | ✅ Korrekt |
+| Warnung | `AlertTriangle` | ✅ Korrekt |
+| Erfolg | `CheckCircle` | ✅ Korrekt |
 
 **Bewertung:** ✅ Icon-Mapping ist konsistent
 
@@ -176,13 +164,12 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ### 7. TYPOGRAPHY
 
 #### IST-Zustand
-
-| Element   | Font                     | Size      | Weight           | Status     |
-| --------- | ------------------------ | --------- | ---------------- | ---------- |
-| Headlines | `font-sans`              | `text-lg` | `font-bold`      | ✅ Korrekt |
-| Body      | `font-sans`              | `text-sm` | `font-medium`    | ✅ Korrekt |
-| Labels    | `font-sans`              | `text-xs` | `font-semibold`  | ✅ Korrekt |
-| Zahlen    | `font-sans tabular-nums` | variiert  | `font-extrabold` | ✅ Korrekt |
+| Element | Font | Size | Weight | Status |
+|---------|------|------|--------|--------|
+| Headlines | `font-sans` | `text-lg` | `font-bold` | ✅ Korrekt |
+| Body | `font-sans` | `text-sm` | `font-medium` | ✅ Korrekt |
+| Labels | `font-sans` | `text-xs` | `font-semibold` | ✅ Korrekt |
+| Zahlen | `font-sans tabular-nums` | variiert | `font-extrabold` | ✅ Korrekt |
 
 **Bewertung:** ✅ Typografie ist konsistent
 
@@ -191,15 +178,12 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ### 8. COLOR USAGE
 
 #### IST-Zustand
-
 **Primärfarben:**
-
 - ✅ Dunkelblau (`#323D5E`) - Konsistent verwendet
 - ✅ Beige (`#EADEBD`) - Konsistent mit Transparenz
 - ✅ Weiß (`#FFFFFF`) - Konsistent
 
 **Statusfarben:**
-
 - ✅ Success (`status_success`) - Grün für Verfügbar
 - ✅ Warning (`status_warning`) - Gelb für Aktiv
 - ✅ Error (`status_error`) - Rot für Service/Fehler
@@ -211,12 +195,11 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ### 9. RESPONSIVE DESIGN
 
 #### IST-Zustand
-
-| Breakpoint        | Implementation    | Status                |
-| ----------------- | ----------------- | --------------------- |
-| Mobile (<640px)   | `MobileDashboard` | ✅ Separate Component |
-| Tablet (768px)    | Grid angepasst    | ✅ Responsive         |
-| Desktop (1024px+) | Volle Ansicht     | ✅ Optimiert          |
+| Breakpoint | Implementation | Status |
+|------------|----------------|--------|
+| Mobile (<640px) | `MobileDashboard` | ✅ Separate Component |
+| Tablet (768px) | Grid angepasst | ✅ Responsive |
+| Desktop (1024px+) | Volle Ansicht | ✅ Optimiert |
 
 **Bewertung:** ✅ Mobile-First korrekt implementiert
 
@@ -225,14 +208,12 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ### 10. PERFORMANCE
 
 #### Metriken (IST)
-
 - ⚠️ Map Auto-Refresh: 60s (könnte optimiert werden)
 - ✅ React Query Caching aktiv
 - ✅ Lazy Loading für große Listen
 - ⚠️ Viele individuelle Cards ohne Memoization
 
 #### Optimierungspotenzial
-
 - 🔧 useMemo für Card-Berechnungen
 - 🔧 useCallback für Event-Handler
 - 🔧 React.memo für statische Sub-Komponenten
@@ -242,7 +223,6 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ## 🎯 KRITISCHE PROBLEME
 
 ### HIGH PRIORITY (Sofort beheben)
-
 1. **Icon-Abstände inkonsistent**
    - 5-6 verschiedene Gap-Werte
    - Keine Verwendung von `UNIFIED_DESIGN_TOKENS.spacing`
@@ -256,7 +236,6 @@ gap_compact: '0.5rem',       // 8px - Kompakt
    - Keine Verwendung von `card_padding`, `panel_padding_x`, etc.
 
 ### MEDIUM PRIORITY (Diese Woche)
-
 4. **Performance-Optimierung**
    - Fehlende Memoization in Cards
    - Zu viele Re-Renders
@@ -266,7 +245,6 @@ gap_compact: '0.5rem',       // 8px - Kompakt
    - Keine kontextuelle Hilfe
 
 ### LOW PRIORITY (Nice-to-have)
-
 6. **Keyboard Shortcuts**
    - Keine Tastaturkürzel definiert
 
@@ -277,25 +255,24 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 
 ## 📊 COMPLIANCE SCORE
 
-| Kategorie         | Score   | Bewertung                       |
-| ----------------- | ------- | ------------------------------- |
-| Border System     | 95%     | ✅ Sehr gut                     |
-| Radius System     | 95%     | ✅ Sehr gut                     |
-| Icon Mapping      | 100%    | ✅ Perfekt                      |
-| Color System      | 100%    | ✅ Perfekt                      |
-| Typography        | 95%     | ✅ Sehr gut                     |
-| **Gap/Spacing**   | **40%** | ❌ Kritisch                     |
-| **Shadow System** | **30%** | ❌ Kritisch                     |
-| **Token Usage**   | **50%** | ⚠️ Verbesserungsbedarf          |
-| Responsive        | 100%    | ✅ Perfekt                      |
-| **GESAMT**        | **78%** | ⚠️ Gut, aber Verbesserung nötig |
+| Kategorie | Score | Bewertung |
+|-----------|-------|-----------|
+| Border System | 95% | ✅ Sehr gut |
+| Radius System | 95% | ✅ Sehr gut |
+| Icon Mapping | 100% | ✅ Perfekt |
+| Color System | 100% | ✅ Perfekt |
+| Typography | 95% | ✅ Sehr gut |
+| **Gap/Spacing** | **40%** | ❌ Kritisch |
+| **Shadow System** | **30%** | ❌ Kritisch |
+| **Token Usage** | **50%** | ⚠️ Verbesserungsbedarf |
+| Responsive | 100% | ✅ Perfekt |
+| **GESAMT** | **78%** | ⚠️ Gut, aber Verbesserung nötig |
 
 ---
 
 ## 🚀 OPTIMIERUNGS-ROADMAP
 
 ### Phase 1: KRITISCHE FIXES (Jetzt)
-
 1. ✅ UNIFIED_DESIGN_TOKENS.spacing verwenden
    - Alle `gap-*` durch Token ersetzen
    - Alle `p-*` durch Token ersetzen
@@ -308,7 +285,6 @@ gap_compact: '0.5rem',       // 8px - Kompakt
    - `getPanelStyle()` für Panels
 
 ### Phase 2: FEATURE-INTEGRATION (Diese Woche)
-
 4. ⚠️ KI-Support-Chat integrieren
    - Floating Chat-Button
    - Kontextuelle Hilfe
@@ -320,7 +296,6 @@ gap_compact: '0.5rem',       // 8px - Kompakt
    - React.memo für statische Components
 
 ### Phase 3: POLISH (Nächste Woche)
-
 6. ⚠️ Keyboard Shortcuts
 7. ⚠️ Smooth Animations
 8. ⚠️ Accessibility (A11y)
@@ -330,25 +305,23 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ## 📝 NÄCHSTE SCHRITTE
 
 1. **Icon-Abstände perfektionieren**
-
    ```typescript
    // VORHER
    <div className="flex items-center gap-3">
-
+   
    // NACHHER
-   <div className="flex items-center" style={{
-     gap: UNIFIED_DESIGN_TOKENS.spacing.component.gap_inline
+   <div className="flex items-center" style={{ 
+     gap: UNIFIED_DESIGN_TOKENS.spacing.component.gap_inline 
    }}>
    ```
 
 2. **Shadows standardisieren**
-
    ```typescript
    // VORHER
-   boxShadow: "0 2px 8px rgba(234, 222, 189, 0.1)";
-
+   boxShadow: '0 2px 8px rgba(234, 222, 189, 0.1)'
+   
    // NACHHER
-   boxShadow: UNIFIED_DESIGN_TOKENS.shadow.component.card_standard;
+   boxShadow: UNIFIED_DESIGN_TOKENS.shadow.component.card_standard
    ```
 
 3. **KI-Chat integrieren**
@@ -361,7 +334,6 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 ## ✅ ZUSAMMENFASSUNG
 
 ### Stärken ✅
-
 - Border-System perfekt
 - Radius-System perfekt
 - Icon-Mapping konsistent
@@ -370,7 +342,6 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 - Typografie einheitlich
 
 ### Schwächen ❌
-
 - Icon-Abstände inkonsistent (5-6 Varianten)
 - Shadow-System nicht token-basiert
 - Spacing nicht token-basiert
@@ -378,7 +349,6 @@ gap_compact: '0.5rem',       // 8px - Kompakt
 - Performance-Optimierung fehlt
 
 ### Ziel-Score: 95%+
-
 **Aktuell:** 78%  
 **Mit Optimierungen:** 95%+ erreichbar
 

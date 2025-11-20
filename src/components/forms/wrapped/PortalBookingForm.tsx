@@ -6,16 +6,16 @@
    ✅ Portal theming support
    ================================================================================== */
 
-import { UseFormReturn } from "react-hook-form";
-import { UnifiedForm, FormField } from "../UnifiedForm";
-import { FORM_FIELDS_REGISTRY } from "@/config/form-fields-registry";
+import { UseFormReturn } from 'react-hook-form';
+import { UnifiedForm, FormField } from '../UnifiedForm';
+import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 
 interface PortalBookingFormProps {
   form: UseFormReturn<any>;
   onSubmit: (data: any) => Promise<void>;
-  mode?: "inline" | "dialog";
-  portal?: "customer" | "entrepreneur";
-
+  mode?: 'inline' | 'dialog';
+  portal?: 'customer' | 'entrepreneur';
+  
   // Dialog props
   dialogOpen?: boolean;
   onDialogOpenChange?: (open: boolean) => void;
@@ -25,8 +25,8 @@ interface PortalBookingFormProps {
 export function PortalBookingForm({
   form,
   onSubmit,
-  mode = "dialog",
-  portal = "customer",
+  mode = 'dialog',
+  portal = 'customer',
   dialogOpen,
   onDialogOpenChange,
   loading,
@@ -52,12 +52,14 @@ export function PortalBookingForm({
       mode={mode}
       portal={portal}
       loading={loading}
+      
       // Dialog props
       dialogOpen={dialogOpen}
       onDialogOpenChange={onDialogOpenChange}
       dialogTitle="Neue Buchung erstellen"
       dialogDescription="Geben Sie die Details für Ihre Buchung ein."
       dialogSize="lg"
+      
       resetOnSuccess
       closeOnSuccess
     />

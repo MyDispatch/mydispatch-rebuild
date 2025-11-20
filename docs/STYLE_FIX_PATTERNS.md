@@ -9,54 +9,46 @@
 ## 📊 IDENTIFIZIERTE PATTERNS
 
 ### Pattern 1: White Text Opacity
-
 ```tsx
 // ❌ BEFORE
-className = "v26-text-white-80";
+className="v26-text-white-80"
 
 // ✅ AFTER
-className = "text-muted-foreground";
+className="text-muted-foreground"
 ```
-
 **Reason:** Semantic token für Secondary-Text, Theme-kompatibel
 
 ---
 
 ### Pattern 2: White Background
-
 ```tsx
 // ❌ BEFORE
-className = "v26-bg-white";
+className="v26-bg-white"
 
 // ✅ AFTER
-className = "bg-card";
+className="bg-card"
 ```
-
 **Reason:** Semantic token für Card-Backgrounds, Dark-Mode-ready
 
 ---
 
 ### Pattern 3: Direct Text White (Context-Dependent)
-
 ```tsx
 // ❌ BEFORE (auf dunklem Hintergrund)
-className = "text-white";
+className="text-white"
 
 // ✅ AFTER
-className = "text-foreground"; // oder text-primary-foreground (Hero)
+className="text-foreground" // oder text-primary-foreground (Hero)
 ```
-
 **Reason:** Kontext-basiert - auf Hero-Sections oft korrekt, sonst semantic
 
 ---
 
 ### Pattern 4: White Overlays (Glassmorphism)
-
 ```tsx
 // ⚠️ ACCEPTABLE (spezifische Opacity für Glassmorphism)
-className = "v26-bg-white-overlay-06";
+className="v26-bg-white-overlay-06"
 ```
-
 **Reason:** Spezifische Design-Requirement für Backdrop-Blur-Effekte
 
 ---
@@ -66,12 +58,10 @@ className = "v26-bg-white-overlay-06";
 **Datei:** `src/components/hero/HeroTrustStats.tsx`
 
 **Violations:**
-
 - BEFORE: 1 (v26-text-white-80)
 - AFTER: 0
 
 **Fix:**
-
 - Line 44: `v26-text-white-80` → `text-muted-foreground`
 
 **Build Status:** ✅ Success  
@@ -82,7 +72,6 @@ className = "v26-bg-white-overlay-06";
 ## 🎯 BATCH-FIX PLAN
 
 **Target Files (13):**
-
 1. `src/components/dashboard/CollapsibleDashboardSection.tsx`
 2. `src/components/dashboard/DashboardInfoPanel.tsx`
 3. `src/components/design-system/V26AuthCard.tsx`
@@ -104,14 +93,12 @@ className = "v26-bg-white-overlay-06";
 ## 🔧 FIX STRATEGY
 
 ### Step-by-Step:
-
 1. **Context Analysis**: Check if `text-white` is on dark background (Hero) → Keep
 2. **Replace**: Apply Pattern 1-3 based on context
 3. **Validate**: Build + Visual (if accessible)
 4. **Document**: Update this file with results
 
 ### Auto-Fix Candidates:
-
 - `v26-text-white-80` → `text-muted-foreground` (100% safe)
 - `v26-bg-white` → `bg-card` (95% safe, check context)
 - `text-white` → Context-dependent (Manual review)
@@ -126,19 +113,16 @@ className = "v26-bg-white-overlay-06";
 **Status:** Sample-Fix Complete (3/94 files)
 
 ### Pattern 5: Icon Sizing Standard
-
 ```tsx
 // ❌ BEFORE (inconsistent)
-className = "h-5 w-5"; // or h-3 w-3, h-6 w-6
+className="h-5 w-5"  // or h-3 w-3, h-6 w-6
 
 // ✅ AFTER (standard)
-className = "h-4 w-4 text-muted-foreground";
+className="h-4 w-4 text-muted-foreground"
 ```
-
 **Reason:** Consistent icon sizing across all UI, better visual hierarchy
 
 ### Exceptions:
-
 ```tsx
 // ✅ ACCEPTABLE (specific use cases)
 h-12 w-12  // Large decorative icons (empty states)
@@ -147,7 +131,6 @@ h-8 w-8    // Medium emphasis icons
 ```
 
 ### Sample-Fix Results (3 Files):
-
 - `AlertDashboard.tsx` - 6 violations fixed
 - `V26KPICard.tsx` - 1 violation fixed
 - `MetricCard.tsx` - 0 fixes (h-6 w-6 kept as exception)

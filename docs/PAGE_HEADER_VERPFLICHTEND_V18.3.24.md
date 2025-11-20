@@ -1,8 +1,8 @@
-/_ ==================================================================================
-PAGE HEADER VERPFLICHTEND - V18.3.24
-==================================================================================
-KRITISCHE DESIGNVORGABE: Jede Seite MUSS exakt 3 KPIs + Schnellzugriff haben
-================================================================================== _/
+/* ==================================================================================
+   PAGE HEADER VERPFLICHTEND - V18.3.24
+   ==================================================================================
+   KRITISCHE DESIGNVORGABE: Jede Seite MUSS exakt 3 KPIs + Schnellzugriff haben
+   ================================================================================== */
 
 ## 🎯 VERPFLICHTENDE STRUKTUR
 
@@ -32,7 +32,6 @@ Jede Seite (außer Landing) MUSS folgendes Header-Pattern verwenden:
 - ✅ IMMER: 3 KPIs (9 cols Grid: 3 cols pro KPI)
 
 **Warum?**
-
 - Konsistentes Layout über alle Seiten
 - Perfekte Grid-Balance: 9 cols KPIs + 3 cols Schnellzugriff = 12 cols
 - Mobile-optimiert: 3 KPIs stacken sauber
@@ -46,7 +45,6 @@ Jede Seite (außer Landing) MUSS folgendes Header-Pattern verwenden:
 - Erste Action IMMER die Haupt-Action (z.B. "Neuer Auftrag")
 
 **Layout:**
-
 - 3 cols rechts neben KPIs
 - Hervorgehobenes Design (Border, Gradient)
 - Vertikal gestackt
@@ -62,7 +60,7 @@ import { UnifiedPageTemplate } from '@/components/layout/UnifiedPageTemplate';
     title: 'Seiten-Titel',
     description: 'Beschreibung der Seite',
     icon: IconComponent,
-
+    
     // VERPFLICHTEND: Exakt 3 KPIs
     kpis: [
       {
@@ -86,7 +84,7 @@ import { UnifiedPageTemplate } from '@/components/layout/UnifiedPageTemplate';
         statusType: 'success'
       }
     ],
-
+    
     // VERPFLICHTEND: 2-4 Quick Actions
     quickActions: [
       {
@@ -109,7 +107,7 @@ import { UnifiedPageTemplate } from '@/components/layout/UnifiedPageTemplate';
       }
     ]
   }}
-
+  
   // ... rest of config
 />
 ```
@@ -117,7 +115,6 @@ import { UnifiedPageTemplate } from '@/components/layout/UnifiedPageTemplate';
 ## 🎨 DESIGN-DETAILS
 
 ### KPI Card (MetricCard)
-
 ```typescript
 // Auto-rendered in PageHeader
 <MetricCard
@@ -130,7 +127,6 @@ import { UnifiedPageTemplate } from '@/components/layout/UnifiedPageTemplate';
 ```
 
 ### Schnellzugriff Card
-
 ```typescript
 // Auto-rendered in PageHeader
 <Card className="border-2 border-primary/20 shadow-md hover:shadow-lg">
@@ -151,7 +147,6 @@ import { UnifiedPageTemplate } from '@/components/layout/UnifiedPageTemplate';
 ## 📱 RESPONSIVE VERHALTEN
 
 ### Desktop (≥ 1024px)
-
 ```
 ┌─────────────────────────────────────────────┐
 │ [KPI 1] [KPI 2] [KPI 3] [Schnellzugriff]   │
@@ -160,7 +155,6 @@ import { UnifiedPageTemplate } from '@/components/layout/UnifiedPageTemplate';
 ```
 
 ### Tablet (768px - 1023px)
-
 ```
 ┌─────────────────────────────┐
 │ [KPI 1] [KPI 2] [KPI 3]     │
@@ -172,7 +166,6 @@ import { UnifiedPageTemplate } from '@/components/layout/UnifiedPageTemplate';
 ```
 
 ### Mobile (< 768px)
-
 ```
 ┌───────────────┐
 │ [KPI 1]       │
@@ -192,7 +185,6 @@ import { UnifiedPageTemplate } from '@/components/layout/UnifiedPageTemplate';
 ## ✅ BEISPIELE FÜR VERSCHIEDENE SEITEN
 
 ### Aufträge-Seite
-
 ```typescript
 kpis: [
   { label: 'Aufträge heute', value: 15, icon: FileText, trend: '+12%', statusType: 'success' },
@@ -207,7 +199,6 @@ quickActions: [
 ```
 
 ### Kunden-Seite
-
 ```typescript
 kpis: [
   { label: 'Gesamt-Kunden', value: 124, icon: Users, statusType: 'neutral' },
@@ -222,7 +213,6 @@ quickActions: [
 ```
 
 ### Fahrer-Seite
-
 ```typescript
 kpis: [
   { label: 'Verfügbar', value: 8, icon: CheckCircle, statusType: 'success' },
@@ -237,7 +227,6 @@ quickActions: [
 ```
 
 ### Dashboard
-
 ```typescript
 kpis: [
   { label: 'Aufträge heute', value: 15, icon: FileText, trend: '+12%', statusType: 'success' },
@@ -254,18 +243,16 @@ quickActions: [
 ## 🚫 ANTI-PATTERNS (WAS NIEMALS TUN)
 
 ### ❌ NUR 2 KPIs
-
 ```typescript
 // FALSCH!
 kpis: [
-  { label: "KPI 1", value: 10, icon: Icon },
-  { label: "KPI 2", value: 20, icon: Icon },
+  { label: 'KPI 1', value: 10, icon: Icon },
+  { label: 'KPI 2', value: 20, icon: Icon }
   // Fehlt: KPI 3!
-];
+]
 ```
 
 ### ❌ 4+ KPIs
-
 ```typescript
 // FALSCH!
 kpis: [
@@ -277,7 +264,6 @@ kpis: [
 ```
 
 ### ❌ Keine Quick Actions
-
 ```typescript
 // FALSCH!
 header: {
@@ -287,17 +273,15 @@ header: {
 ```
 
 ### ❌ Nur 1 Quick Action
-
 ```typescript
 // FALSCH!
 quickActions: [
-  { label: "Neu", icon: Plus, onClick: handleCreate },
+  { label: 'Neu', icon: Plus, onClick: handleCreate }
   // Zu wenig! Min. 2 erforderlich
-];
+]
 ```
 
 ### ❌ Mehr als 4 Quick Actions
-
 ```typescript
 // FALSCH!
 quickActions: [
@@ -312,14 +296,12 @@ quickActions: [
 ## 📊 METRIKEN & ERFOLGSKRITERIEN
 
 ### Vor Regel-Implementierung (V18.2)
-
 - Inkonsistente Header-Layouts
 - 0-4 KPIs pro Seite (uneinheitlich)
 - Quick Actions mal da, mal nicht
 - Unterschiedliche Designs
 
 ### Nach Regel-Implementierung (V18.3)
-
 - ✅ 100% konsistente Header über alle Seiten
 - ✅ Exakt 3 KPIs auf allen Seiten
 - ✅ 2-4 Quick Actions verpflichtend

@@ -6,7 +6,7 @@
    - Verwendet von Aufträgen, Angeboten, Rechnungen
    ================================================================================== */
 
-import { addMinutes, isBefore, startOfDay } from "date-fns";
+import { addMinutes, isBefore, startOfDay } from 'date-fns';
 
 /**
  * Prüft ob ein Datum in der Zukunft liegt (mit 5min Toleranz)
@@ -24,7 +24,7 @@ export function isFutureDate(date: Date): boolean {
 export function validateFutureBooking(pickupDate: Date): void {
   if (!isFutureDate(pickupDate)) {
     throw new Error(
-      "Rückwirkende Buchungen sind nicht erlaubt. Bitte wählen Sie einen Zeitpunkt in der Zukunft."
+      'Rückwirkende Buchungen sind nicht erlaubt. Bitte wählen Sie einen Zeitpunkt in der Zukunft.'
     );
   }
 }
@@ -44,9 +44,9 @@ export function isTodayOrFuture(date: Date): boolean {
 export function getDateValidationMessage(date: Date): string {
   const now = new Date();
   if (isBefore(date, now)) {
-    return "Das gewählte Datum liegt in der Vergangenheit. Bitte wählen Sie einen Zeitpunkt in der Zukunft.";
+    return 'Das gewählte Datum liegt in der Vergangenheit. Bitte wählen Sie einen Zeitpunkt in der Zukunft.';
   }
-  return "";
+  return '';
 }
 
 /**
@@ -58,10 +58,10 @@ export function canEditShift(shiftDate: Date, isDriver: boolean): boolean {
   const today = startOfDay(new Date());
   const shift = startOfDay(shiftDate);
   const daysAgo = Math.floor((today.getTime() - shift.getTime()) / (1000 * 60 * 60 * 24));
-
+  
   if (isDriver) {
     return daysAgo === 0; // Nur heute
   }
-
+  
   return daysAgo <= 10; // Unternehmer: 10 Tage
 }

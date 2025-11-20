@@ -6,11 +6,12 @@
    - React Query Caching
    ================================================================================== */
 
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "./use-auth";
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from './use-auth';
 
-interface DashboardStats {
+// Renamed to MaterializedViewStats to avoid conflict with DashboardStats from @/types/dashboard
+export interface MaterializedViewStats {
   company_id: string;
   completed_bookings: number;
   confirmed_bookings: number;
@@ -32,19 +33,19 @@ export function useDashboardStats() {
   const { profile } = useAuth();
 
   return useQuery({
-    queryKey: ["dashboard-stats", profile?.company_id],
+    queryKey: ['dashboard-stats', profile?.company_id],
     queryFn: async () => {
       if (!profile?.company_id) return null;
 
       // V18.3.29: Nutze RPC function (Materialized View in analytics schema)
       const { data, error } = await supabase
-        .rpc("get_dashboard_stats_for_company", {
-          target_company_id: profile.company_id,
+        .rpc('get_dashboard_stats_for_company', {
+          target_company_id: profile.company_id
         })
         .maybeSingle();
 
       if (error) throw error;
-      return data as DashboardStats | null;
+      return data as MaterializedViewStats | null;
     },
     enabled: !!profile?.company_id,
     staleTime: 60000, // 1 Minute Cache (View refresht automatisch via Trigger)
@@ -58,10 +59,10 @@ export function useDashboardStats() {
  * Helper: Formatiere Währung
  */
 export function formatRevenue(amount: number | null | undefined): string {
-  if (!amount) return "0,00 €";
-  return new Intl.NumberFormat("de-DE", {
-    style: "currency",
-    currency: "EUR",
+  if (!amount) return '0,00 €';
+  return new Intl.NumberFormat('de-DE', {
+    style: 'currency',
+    currency: 'EUR',
   }).format(amount);
 }
 

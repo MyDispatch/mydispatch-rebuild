@@ -11,7 +11,6 @@
 **User-Feedback:** Helle Schrift auf Header/Footer wirkt optisch besser und harmoniert mit der Sidebar.
 
 **Vorher:**
-
 - Footer-Text: `text-foreground/70` (Dunkelblau gedimmt)
 - Header-Buttons: `text-foreground` (Dunkelblau)
 - Primary-Button: `text-foreground` (Dunkelblau)
@@ -25,7 +24,6 @@
 ### 1. Footer - Helle Schrift
 
 **Vorher (V18.5.1):**
-
 ```tsx
 <footer className="bg-gradient-to-t from-primary via-primary to-primary/95">
   <p className="text-muted-foreground">© 2025 MyDispatch.de</p>
@@ -34,7 +32,6 @@
 ```
 
 **Nachher (V18.5.2):**
-
 ```tsx
 <footer className="bg-gradient-to-t from-primary via-primary to-primary/95">
   <p className="text-white/90">© 2025 MyDispatch.de</p>
@@ -44,7 +41,6 @@
 ```
 
 **Änderungen:**
-
 - Haupttext: `text-muted-foreground` → `text-white/90` (90% Opacity)
 - Links: `text-muted-foreground` → `text-white/80` (80% Opacity)
 - Hover: `hover:text-foreground` → `hover:text-white` (100% Opacity)
@@ -57,7 +53,6 @@
 ### 2. Header - Helle Button-Texte
 
 **Vorher (V18.5.1):**
-
 ```tsx
 <Button className="text-foreground hover:bg-background/10">
   Registrieren
@@ -68,7 +63,6 @@
 ```
 
 **Nachher (V18.5.2):**
-
 ```tsx
 <Button className="text-white hover:bg-background/10">
   Registrieren
@@ -79,7 +73,6 @@
 ```
 
 **Änderungen:**
-
 - Registrieren-Button: `text-foreground` → `text-white`
 - Anmelden-Button: `text-foreground` → `text-white` + `hover:text-white`
 - Menu-Icon (Mobile): `text-foreground` → `text-white`
@@ -96,22 +89,13 @@
 
 ```css
 /* ✅ KORREKT: Weiße Schrift mit Opacity-Abstufungen */
-.text-white/90 {
-  color: rgb(255 255 255 / 0.9);
-} /* Haupttext */
-.text-white/80 {
-  color: rgb(255 255 255 / 0.8);
-} /* Links */
-.text-white {
-  color: rgb(255 255 255);
-} /* Hover */
-.text-white/40 {
-  color: rgb(255 255 255 / 0.4);
-} /* Trennzeichen */
+.text-white/90 { color: rgb(255 255 255 / 0.9); } /* Haupttext */
+.text-white/80 { color: rgb(255 255 255 / 0.8); } /* Links */
+.text-white     { color: rgb(255 255 255); }       /* Hover */
+.text-white/40 { color: rgb(255 255 255 / 0.4); } /* Trennzeichen */
 ```
 
 **Reasoning:**
-
 - Primary Gradient (#EADEBD) ist hell
 - Wir wollen helle Schrift für Harmonie mit Sidebar
 - `text-white` mit Opacity für saubere helle Abstufungen
@@ -121,12 +105,12 @@
 
 ## 📊 IMPACT-ANALYSE
 
-| Element            | Vorher                   | Nachher                  | Effekt              |
-| ------------------ | ------------------------ | ------------------------ | ------------------- |
-| **Footer-Text**    | Dunkelblau (#323D5E/70%) | Weiß (255 255 255 / 90%) | Hell, gut lesbar    |
-| **Footer-Links**   | Dunkelblau (#323D5E/70%) | Weiß (255 255 255 / 80%) | Hell, gut lesbar    |
-| **Header-Buttons** | Dunkelblau (#323D5E)     | Weiß (255 255 255)       | Hell, gut lesbar    |
-| **Trennzeichen**   | Border-Color             | Weiß (255 255 255 / 40%) | Einheitlich, subtil |
+| Element | Vorher | Nachher | Effekt |
+|---------|--------|---------|--------|
+| **Footer-Text** | Dunkelblau (#323D5E/70%) | Weiß (255 255 255 / 90%) | Hell, gut lesbar |
+| **Footer-Links** | Dunkelblau (#323D5E/70%) | Weiß (255 255 255 / 80%) | Hell, gut lesbar |
+| **Header-Buttons** | Dunkelblau (#323D5E) | Weiß (255 255 255) | Hell, gut lesbar |
+| **Trennzeichen** | Border-Color | Weiß (255 255 255 / 40%) | Einheitlich, subtil |
 
 ### Visuelle Verbesserungen
 
@@ -194,12 +178,10 @@
 ## 🎯 NÄCHSTE SCHRITTE
 
 ### Sofort:
-
 - ✅ MarketingLayout.tsx aktualisiert
 - ✅ Docs aktualisiert
 
 ### Optional (bei Bedarf):
-
 - [ ] AuthHeader.tsx prüfen (falls Primary Gradient)
 - [ ] AuthFooter.tsx prüfen (falls Primary Gradient)
 - [ ] Alle Custom Headers/Footers durchsuchen

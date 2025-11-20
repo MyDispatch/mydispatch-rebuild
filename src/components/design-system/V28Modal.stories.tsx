@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { V28Modal } from "./V28Modal";
-import { V28Button } from "./V28Button";
-import { useState } from "react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { V28Modal } from './V28Modal';
+import { V28Button } from './V28Button';
+import { useState } from 'react';
 
 const meta: Meta<typeof V28Modal> = {
-  title: "Design System/Atoms/V28Modal",
+  title: 'Design System/Atoms/V28Modal',
   component: V28Modal,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     size: {
-      control: "select",
-      options: ["sm", "md", "lg", "xl", "full"],
+      control: 'select',
+      options: ['sm', 'md', 'lg', 'xl', 'full'],
     },
   },
 };
@@ -31,9 +31,7 @@ export const Default: Story = {
               <V28Button variant="secondary" onClick={() => setOpen(false)}>
                 Abbrechen
               </V28Button>
-              <V28Button variant="primary" onClick={() => setOpen(false)}>
-                Bestätigen
-              </V28Button>
+              <V28Button variant="primary" onClick={() => setOpen(false)}>Bestätigen</V28Button>
             </div>
           </div>
         </V28Modal>
@@ -70,52 +68,17 @@ export const WithDescription: Story = {
 
 export const Sizes: Story = {
   render: () => {
-    const [size, setSize] = useState<"sm" | "md" | "lg" | "xl" | "full">("md");
+    const [size, setSize] = useState<'sm' | 'md' | 'lg' | 'xl' | 'full'>('md');
     const [open, setOpen] = useState(false);
-
+    
     return (
       <>
         <div className="flex gap-2">
-          <V28Button
-            onClick={() => {
-              setSize("sm");
-              setOpen(true);
-            }}
-          >
-            Klein
-          </V28Button>
-          <V28Button
-            onClick={() => {
-              setSize("md");
-              setOpen(true);
-            }}
-          >
-            Mittel
-          </V28Button>
-          <V28Button
-            onClick={() => {
-              setSize("lg");
-              setOpen(true);
-            }}
-          >
-            Groß
-          </V28Button>
-          <V28Button
-            onClick={() => {
-              setSize("xl");
-              setOpen(true);
-            }}
-          >
-            Extra Groß
-          </V28Button>
-          <V28Button
-            onClick={() => {
-              setSize("full");
-              setOpen(true);
-            }}
-          >
-            Vollbild
-          </V28Button>
+          <V28Button onClick={() => { setSize('sm'); setOpen(true); }}>Klein</V28Button>
+          <V28Button onClick={() => { setSize('md'); setOpen(true); }}>Mittel</V28Button>
+          <V28Button onClick={() => { setSize('lg'); setOpen(true); }}>Groß</V28Button>
+          <V28Button onClick={() => { setSize('xl'); setOpen(true); }}>Extra Groß</V28Button>
+          <V28Button onClick={() => { setSize('full'); setOpen(true); }}>Vollbild</V28Button>
         </div>
         <V28Modal
           open={open}
@@ -171,9 +134,7 @@ export const FormModal: Story = {
               <V28Button variant="secondary" onClick={() => setOpen(false)}>
                 Abbrechen
               </V28Button>
-              <V28Button variant="primary" onClick={() => setOpen(false)}>
-                Speichern
-              </V28Button>
+              <V28Button variant="primary" onClick={() => setOpen(false)}>Speichern</V28Button>
             </div>
           </div>
         </V28Modal>

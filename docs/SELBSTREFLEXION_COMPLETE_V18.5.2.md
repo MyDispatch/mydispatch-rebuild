@@ -11,7 +11,6 @@
 Vollständige Systemanalyse durchgeführt. **Status: 85% Production-Ready**
 
 ### Erfolge
-
 - ✅ Header/Footer auf Primary Gradient umgestellt (Auth-Style)
 - ✅ Button-Hover-States systemweit korrigiert
 - ✅ Keine direkten `bg-white`/`text-white` Klassen mehr
@@ -19,7 +18,6 @@ Vollständige Systemanalyse durchgeführt. **Status: 85% Production-Ready**
 - ✅ 108 Docs auf V18.5.X aktualisiert
 
 ### Verbleibende Probleme
-
 - ⚠️ 72 Inline-Styles in 23 Dateien
 - ⚠️ 50 Pages müssen systematisch geprüft werden
 - ⚠️ PWAInstallButton verwendet noch direkte Farben
@@ -33,12 +31,12 @@ Vollständige Systemanalyse durchgeführt. **Status: 85% Production-Ready**
 ### 1. KRITISCH (Sofort beheben)
 
 #### 1.1 PWAInstallButton - Direkte Farben
-
 **Datei:** `src/components/shared/PWAInstallButton.tsx` (Lines 108-110)
-
 ```tsx
 // ❌ FALSCH
-<Button style={{ color: CI_COLORS_HEX.foreground, borderColor: CI_COLORS_HEX.foreground }}>
+<Button
+  style={{ color: CI_COLORS_HEX.foreground, borderColor: CI_COLORS_HEX.foreground }}
+>
   <Download style={{ color: CI_COLORS_HEX.foreground }} />
   App installieren
 </Button>
@@ -52,9 +50,7 @@ Vollständige Systemanalyse durchgeführt. **Status: 85% Production-Ready**
 ---
 
 #### 1.2 HEREMapComponent - Inline-Styles in HTML-Strings
-
 **Datei:** `src/components/dashboard/HEREMapComponent.tsx` (Lines 178-232)
-
 ```tsx
 // ❌ FALSCH
 <strong style="font-size: 13px; color: ${CI_COLORS_HEX.foreground};">Firmensitz</strong>
@@ -69,9 +65,7 @@ Vollständige Systemanalyse durchgeführt. **Status: 85% Production-Ready**
 ---
 
 #### 1.3 MarketingButton - Hero-Secondary Variant falsch
-
 **Datei:** `src/components/design-system/MarketingButton.tsx` (Line 20)
-
 ```tsx
 // ⚠️ PROBLEMATISCH
 'hero-secondary': 'border-2 border-foreground bg-foreground/10 text-foreground hover:bg-foreground/20 hover:text-foreground'
@@ -87,13 +81,10 @@ Vollständige Systemanalyse durchgeführt. **Status: 85% Production-Ready**
 ### 2. WICHTIG (In Sprint beheben)
 
 #### 2.1 Home.tsx - Inkonsistente Button-Klassen
-
 **Datei:** `src/pages/Home.tsx` (Line 166)
-
 ```tsx
 // ⚠️ INKONSISTENT
-className =
-  "border-background bg-background/10 text-background hover:bg-background/20 hover:text-foreground hover:border-foreground";
+className="border-background bg-background/10 text-background hover:bg-background/20 hover:text-foreground hover:border-foreground"
 ```
 
 **Problem:** Wechselt bei Hover von `text-background` zu `text-foreground` (Design-Bruch)  
@@ -104,9 +95,7 @@ className =
 ---
 
 #### 2.2 Fehlende Mobile-Optimierung
-
 **Betroffene Pages (Stichprobe):**
-
 - `src/pages/Pricing.tsx` - Badge-Größen nicht responsive
 - `src/pages/Docs.tsx` - Navigation mobile nicht getestet
 - `src/pages/FAQ.tsx` - Accordion mobile nicht optimiert
@@ -119,9 +108,7 @@ className =
 ---
 
 #### 2.3 Wiederverwendbare UI-Elemente fehlen
-
 **Fehlende Komponenten:**
-
 - `PageHeader` - Für konsistente Page-Headers (mit Breadcrumb)
 - `PageContainer` - Standard-Container mit Padding/Max-Width
 - `ActionButton` - Standard-CTA-Button (statt manueller Buttons)
@@ -137,11 +124,9 @@ className =
 ### 3. OPTIMIERUNG (Nice-to-Have)
 
 #### 3.1 Versionskonsistenz in Docs
-
 **Gefunden:** 741 Matches für `V18.5.` in 108 Dateien
 
 **Inkonsistenzen:**
-
 - Einige Docs sind V18.5.0
 - Andere sind V18.5.1
 - SELBSTREFLEXION ist jetzt V18.5.2
@@ -153,9 +138,7 @@ className =
 ---
 
 #### 3.2 Dashboard-Komponenten mit direkten Farben
-
 **Beispiele:**
-
 - `src/components/dashboard/RevenueBreakdownWidget.tsx` - `backgroundColor: item.color`
 - `src/components/dashboard/RevenueChart.tsx` - `backgroundColor: COLORS[index]`
 
@@ -187,7 +170,6 @@ className =
 ## 📋 AKTIONSPLAN
 
 ### Phase 1: Kritische Fixes (SOFORT)
-
 **Dauer:** 30 Minuten
 
 1. ✅ PWAInstallButton - Semantic Tokens statt direkte Farben
@@ -199,7 +181,6 @@ className =
 ---
 
 ### Phase 2: UI-Library erstellen (HEUTE)
-
 **Dauer:** 2 Stunden
 
 1. ⏳ `PageHeader` Komponente erstellen
@@ -212,11 +193,9 @@ className =
 ---
 
 ### Phase 3: Seite-für-Seite Migration (DIESE WOCHE)
-
 **Dauer:** 5 Stunden (10 Minuten pro Page)
 
 **Priorität:**
-
 1. Home.tsx (Marketing)
 2. Pricing.tsx (Marketing)
 3. Auth.tsx (Auth-Flow)
@@ -228,7 +207,6 @@ className =
 ---
 
 ### Phase 4: Mobile-Optimierung (NÄCHSTE WOCHE)
-
 **Dauer:** 8 Stunden
 
 1. ⏳ Mobile-Audit aller 50 Pages
@@ -241,7 +219,6 @@ className =
 ---
 
 ### Phase 5: Docs-Cleanup & Archivierung (LAUFEND)
-
 **Dauer:** 3 Stunden
 
 1. ⏳ Versionierungs-Standard definieren
@@ -255,33 +232,30 @@ className =
 
 ## 🎯 ERFOLGSKRITERIEN
 
-| Kategorie                    | Ist | Soll | Status       |
-| ---------------------------- | --- | ---- | ------------ |
+| Kategorie | Ist | Soll | Status |
+|-----------|-----|------|--------|
 | **Design-System Compliance** | 85% | 100% | 🟡 In Arbeit |
-| **Mobile-Optimierung**       | 60% | 100% | 🔴 Kritisch  |
-| **UI-Library Nutzung**       | 20% | 80%  | 🔴 Kritisch  |
-| **Inline-Styles**            | 72  | 0    | 🔴 Kritisch  |
-| **Docs-Konsistenz**          | 70% | 100% | 🟡 In Arbeit |
+| **Mobile-Optimierung** | 60% | 100% | 🔴 Kritisch |
+| **UI-Library Nutzung** | 20% | 80% | 🔴 Kritisch |
+| **Inline-Styles** | 72 | 0 | 🔴 Kritisch |
+| **Docs-Konsistenz** | 70% | 100% | 🟡 In Arbeit |
 
 ---
 
 ## 📊 METRIKEN
 
 ### Code-Quality
-
 - **TypeScript-Fehler:** 0 ✅
 - **Console-Warnings:** 0 ✅
 - **Inline-Styles:** 72 ⚠️
 - **Direct-Colors:** 5 ⚠️
 
 ### Performance
-
 - **Lighthouse-Score:** 90+ ✅
 - **Bundle-Size:** OK ✅
 - **First-Contentful-Paint:** < 1.5s ✅
 
 ### Mobile
-
 - **Touch-Targets:** 80% ≥ 44px ⚠️
 - **Responsive-Classes:** 60% ⚠️
 - **Mobile-Screenshots:** 0% 🔴
@@ -291,7 +265,6 @@ className =
 ## 🚀 NÄCHSTE SCHRITTE
 
 ### SOFORT (jetzt):
-
 ```bash
 1. PWAInstallButton fixen (Semantic Tokens)
 2. MarketingButton Hero-Secondary korrigieren
@@ -299,7 +272,6 @@ className =
 ```
 
 ### HEUTE:
-
 ```bash
 4. PageHeader Komponente erstellen
 5. PageContainer Komponente erstellen
@@ -307,7 +279,6 @@ className =
 ```
 
 ### DIESE WOCHE:
-
 ```bash
 7. Home.tsx mit neuen Komponenten migrieren
 8. Pricing.tsx migrieren

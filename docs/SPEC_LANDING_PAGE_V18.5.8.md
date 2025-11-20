@@ -11,17 +11,14 @@
 ## 📊 EXECUTIVE SUMMARY
 
 ### Zweck
-
 Die Landing Page ist die zentrale Einstiegsseite von MyDispatch und dient der **ersten Kontaktaufnahme** mit potenziellen Kunden.
 
 ### Zielgruppe
-
 - Taxi- und Mietwagenunternehmer
 - Geschäftsführer von Limousinen-Services
 - Fuhrparkleiter (B2B)
 
 ### Kernbotschaft
-
 > "MyDispatch – Die professionelle Dispositionssoftware für Taxi- und Mietwagenunternehmen. DSGVO-konform. Made in Germany. Abonnieren ab 39 €/Monat."
 
 ---
@@ -29,7 +26,6 @@ Die Landing Page ist die zentrale Einstiegsseite von MyDispatch und dient der **
 ## 🏗️ ARCHITEKTUR-ENTSCHEIDUNGEN
 
 ### Layout
-
 ```typescript
 Layout: MarketingLayout
 Grid: HERO-GRID, TARIF-KARTEN-GRID, FAQ-ACCORDION
@@ -37,20 +33,19 @@ Responsive: Mobile-First (3 Breakpoints: sm, md, lg)
 ```
 
 ### Component-Struktur
-
 ```typescript
 const PageStructure = {
-  Header: "MarketingHeader", // Mit Navigation
+  Header: 'MarketingHeader',        // Mit Navigation
   Sections: [
-    "HeroSection", // Hero + Dual-CTA
-    "TrustBadgesSection", // Made in Germany, DSGVO, etc.
-    "FeaturesOverviewSection", // Top 6 Features (3 Spalten Desktop)
-    "TarifkartenSection", // 3 Tarife (Starter, Business, Enterprise)
-    "TestimonialsSection", // 3 Kundenstimmen
-    "FAQSection", // Top 5 FAQs
-    "CTASection", // Final Call-to-Action
+    'HeroSection',                   // Hero + Dual-CTA
+    'TrustBadgesSection',            // Made in Germany, DSGVO, etc.
+    'FeaturesOverviewSection',       // Top 6 Features (3 Spalten Desktop)
+    'TarifkartenSection',            // 3 Tarife (Starter, Business, Enterprise)
+    'TestimonialsSection',           // 3 Kundenstimmen
+    'FAQSection',                    // Top 5 FAQs
+    'CTASection',                    // Final Call-to-Action
   ],
-  Footer: "MarketingFooter", // Impressum/Datenschutz/AGB Links
+  Footer: 'MarketingFooter',         // Impressum/Datenschutz/AGB Links
 };
 ```
 
@@ -59,7 +54,6 @@ const PageStructure = {
 ## 📐 MOBILE-FIRST WIREFRAMES
 
 ### Mobile (375px)
-
 ```
 ┌─────────────────────────────────┐
 │  [Logo]          [Menü ☰]       │
@@ -110,7 +104,6 @@ const PageStructure = {
 ```
 
 ### Desktop (1920px)
-
 ```
 ┌───────────────────────────────────────────────────┐
 │  [Logo]      Features  Preise  Docs  Kontakt      │
@@ -152,7 +145,6 @@ const PageStructure = {
 ## 🎨 COMPONENT-BREAKDOWN
 
 ### Neu zu erstellen
-
 - [ ] `HeroSection.tsx` (15min)
   - Gradient-Background
   - Dual-CTA (Primär + Sekundär)
@@ -181,7 +173,6 @@ const PageStructure = {
   - Prominent
 
 ### Wiederverwendbar
-
 - [x] `MarketingHeader` (existiert)
 - [x] `MarketingFooter` (existiert)
 - [x] `Badge` (shadcn/ui)
@@ -193,46 +184,41 @@ const PageStructure = {
 ## 🔒 RECHTLICHE COMPLIANCE
 
 ### DSGVO (Art. 13)
-
 - [x] **Kein** Datenschutzhinweis nötig (keine Formulare auf Landing)
 - [x] Cookie-Banner nur bei Tracking (aktuell: Nur technisch notwendig)
 - [x] Footer-Links: Impressum, Datenschutz, AGB
 
 ### TMG § 5
-
 - [x] Impressum-Link im Footer (verpflichtend)
 - [x] Datenschutzerklärung-Link im Footer (verpflichtend)
 - [x] AGB-Link im Footer (verpflichtend)
 
 ### AI Act (Art. 52)
-
 - [ ] **Keine KI-Features** auf Landing Page (keine Kennzeichnung nötig)
 
 ### UWG (Wettbewerbsrecht)
-
 - [x] Keine Superlative ohne Beleg
 - [x] Messbare Fakten ("500+ Unternehmen")
 - [x] Transparente Preisangaben ("ab 39 €/Monat")
 
 ### Compliance-Matrix
-
 ```typescript
 const LandingPageCompliance = {
   DSGVO: {
-    datenschutzhinweis: false, // Keine Formulare
-    cookies: true, // Cookie-Banner bei Tracking
-    footer_links: true, // Impressum/Datenschutz/AGB
+    datenschutzhinweis: false,  // Keine Formulare
+    cookies: true,              // Cookie-Banner bei Tracking
+    footer_links: true,         // Impressum/Datenschutz/AGB
   },
   AI_Act: {
-    ki_kennzeichnung: false, // Keine KI-Features
+    ki_kennzeichnung: false,    // Keine KI-Features
   },
   TMG: {
-    impressum: true, // Verpflichtend
-    agb: true, // Verpflichtend
+    impressum: true,            // Verpflichtend
+    agb: true,                  // Verpflichtend
   },
   UWG: {
-    belege: true, // Nur messbare Fakten
-    preistransparenz: true, // "ab 39 €/Monat"
+    belege: true,               // Nur messbare Fakten
+    preistransparenz: true,     // "ab 39 €/Monat"
   },
 };
 ```
@@ -242,45 +228,40 @@ const LandingPageCompliance = {
 ## 🔍 SEO-STRATEGIE
 
 ### Primary Keywords
-
 - Taxi Software (Hauptkeyword)
 - Mietwagenunternehmen Software
 - Dispositionssoftware
 - Fuhrparkverwaltung Software
 
 ### Secondary Keywords
-
 - DSGVO-konform Taxi Software
 - Made in Germany Dispositionssoftware
 - Limousinen-Service Software
 - Flottenmanagementsoftware
 
 ### Long-Tail Keywords
-
 - Taxi Software München
 - Mietwagen Software Berlin
 - Dispositionssoftware Hamburg
 - Fuhrpark App Deutschland
 
 ### Meta-Tags
-
 ```html
 <title>MyDispatch – Taxi & Mietwagen Software | DSGVO-konform</title>
-<meta
-  name="description"
+<meta 
+  name="description" 
   content="Professionelle Dispositionssoftware für Taxiunternehmen. 
            DSGVO-konform, Made in Germany. Abonnieren ab 39 €/Monat. 
            500+ aktive Unternehmen vertrauen MyDispatch."
 />
-<meta
-  name="keywords"
+<meta 
+  name="keywords" 
   content="taxi software, mietwagenunternehmen software, dispositionssoftware, 
            fuhrparkverwaltung, DSGVO-konform, made in germany"
 />
 ```
 
 ### Structured Data (JSON-LD)
-
 ```json
 {
   "@context": "https://schema.org",
@@ -306,36 +287,29 @@ const LandingPageCompliance = {
 ## 📝 CONTENT-STRUKTUR
 
 ### Hero-Section
-
 **H1:** "MyDispatch – Die führende Software für Taxi- und Mietwagenunternehmen"
-
 - Max. 60 Zeichen ✅
 - Primary Keyword enthalten ✅
 - text-wrap: balance ✅
 
 **Subtitle:** "Professionelle Disposition, Live-Tracking und intelligente Auftragsverwaltung für moderne Fuhrparks."
-
 - Max. 160 Zeichen ✅
 - Nutzen-orientiert ✅
 - text-wrap: pretty ✅
 
 **CTAs:**
-
 - Primär: "Jetzt abonnieren" (Hero-Primary Style)
 - Sekundär: "Mehr erfahren" (Hero-Secondary Style)
 
 **Trust-Badges:**
-
 - 🇩🇪 Made in Germany
 - 🔒 DSGVO-konform
 - ✅ 500+ Unternehmen
 
 ### Features-Section
-
 **H2:** "Alles, was moderne Taxiunternehmen brauchen"
 
 **Features (Top 6):**
-
 1. 📋 **Intelligente Disposition** - Automatische Fahrerzuweisung
 2. 📊 **Live-Statistiken** - Echtzeit-KPIs & Dashboards
 3. 🔗 **Partner-Netzwerk** - Auftragsverteilung & Kooperationen
@@ -344,11 +318,9 @@ const LandingPageCompliance = {
 6. 🤖 **KI-Assistent** - 24/7 Support & intelligente Hilfe
 
 ### Tarife-Section
-
 **H2:** "Transparente Preise für jeden Bedarf"
 
 **Tarife:**
-
 1. **STARTER** - 39 €/Monat
    - Max. 10 Fahrzeuge
    - Max. 10 Fahrer
@@ -372,11 +344,9 @@ const LandingPageCompliance = {
 **Disclaimer:** "Alle Preise zzgl. MwSt. Monatlich kündbar."
 
 ### Testimonials-Section
-
 **H2:** "Was unsere Kunden sagen"
 
 **Testimonials (3):**
-
 1. "MyDispatch hat unsere Disposition revolutioniert. 30% Zeitersparnis!"  
    – Michael Schmidt, GF Taxi München GmbH
 
@@ -387,11 +357,9 @@ const LandingPageCompliance = {
    – Thomas Klein, Mietwagen Hamburg
 
 ### FAQ-Section
-
 **H2:** "Häufig gestellte Fragen"
 
 **Top 5 FAQs:**
-
 1. **Ist MyDispatch DSGVO-konform?**  
    Ja, vollständig DSGVO-konform. Server in Deutschland, TLS 1.3 Verschlüsselung.
 
@@ -408,7 +376,6 @@ const LandingPageCompliance = {
    SEPA-Lastschrift, Kreditkarte, PayPal. Automatische Abrechnung.
 
 ### Final-CTA-Section
-
 **H2:** "Starten Sie jetzt mit MyDispatch"
 **P:** "500+ Unternehmen vertrauen bereits auf MyDispatch. Werden Sie Teil der Community."
 **CTA:** "Jetzt abonnieren"
@@ -418,7 +385,6 @@ const LandingPageCompliance = {
 ## 🎯 IMPLEMENTIERUNGS-ZEITPLAN
 
 ### Geschätzte Zeiten (AI-Zeiten)
-
 ```yaml
 HeroSection:           15min
 FeaturesOverview:      10min
@@ -436,25 +402,21 @@ GESAMT:                75min
 ## ✅ TESTING-CHECKLISTE
 
 ### Responsive-Tests
-
 - [ ] Mobile (375px, 414px)
 - [ ] Tablet (768px, 1024px)
 - [ ] Desktop (1920px)
 
 ### Touch-Target-Tests
-
 - [ ] Alle Buttons ≥ 44px
 - [ ] CTA-Buttons gut klickbar
 - [ ] Navigation erreichbar
 
 ### Performance-Tests
-
 - [ ] Lighthouse Score ≥ 90
 - [ ] First Contentful Paint < 1.5s
 - [ ] Largest Contentful Paint < 2.5s
 
 ### SEO-Tests
-
 - [ ] Title-Tag optimiert
 - [ ] Meta-Description optimiert
 - [ ] H1 vorhanden & unique
@@ -462,7 +424,6 @@ GESAMT:                75min
 - [ ] Structured Data validiert
 
 ### Legal-Compliance-Tests
-
 - [ ] Impressum-Link funktioniert
 - [ ] Datenschutz-Link funktioniert
 - [ ] AGB-Link funktioniert
@@ -483,7 +444,6 @@ GESAMT:                75min
 ## 📝 CHANGELOG
 
 ### V18.5.8 (2025-10-24)
-
 - **ERSTELLT:** Landing Page Spezifikation
 - **KONFORM:** ARCHIVIERUNGSSYSTEM_V18.3.28.md
 - **WORKFLOW:** SEITEN_PLANUNGSPROZESS_V18.5.1.md

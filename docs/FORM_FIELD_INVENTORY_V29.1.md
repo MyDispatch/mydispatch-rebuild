@@ -97,17 +97,17 @@ Diese haben Custom-Logic:
 
 ## 📊 DATABASE MAPPING STATUS
 
-| Tabelle        | DB-Spalten | Form-Felder | Status  | Fehlende Felder                            |
-| -------------- | ---------- | ----------- | ------- | ------------------------------------------ |
-| `bookings`     | 42         | ~35         | ✅ 95%  | `archived`, `updated_at`                   |
-| `customers`    | 31         | ~25         | ✅ 90%  | `billing_*` (5 Felder)                     |
-| `drivers`      | 28         | ~22         | ✅ 85%  | `p_schein_*`, `medical_certificate_expiry` |
-| `vehicles`     | 32         | ~25         | ✅ 80%  | `service_*`, `rental_*` (6 Felder)         |
-| `documents`    | 14         | ~8          | ✅ 70%  | `tags`, `reminder_sent`                    |
-| `invoices`     | 23         | ~15         | ✅ 75%  | `pdf_url`, `internal_notes`                |
-| `cost_centers` | 7          | 3           | ✅ 100% | None                                       |
-| `partners`     | 10         | 4           | ✅ 100% | None                                       |
-| `shifts`       | 26         | ~18         | ✅ 80%  | `archived_*` (3 Felder)                    |
+| Tabelle | DB-Spalten | Form-Felder | Status | Fehlende Felder |
+|---------|------------|-------------|--------|-----------------|
+| `bookings` | 42 | ~35 | ✅ 95% | `archived`, `updated_at` |
+| `customers` | 31 | ~25 | ✅ 90% | `billing_*` (5 Felder) |
+| `drivers` | 28 | ~22 | ✅ 85% | `p_schein_*`, `medical_certificate_expiry` |
+| `vehicles` | 32 | ~25 | ✅ 80% | `service_*`, `rental_*` (6 Felder) |
+| `documents` | 14 | ~8 | ✅ 70% | `tags`, `reminder_sent` |
+| `invoices` | 23 | ~15 | ✅ 75% | `pdf_url`, `internal_notes` |
+| `cost_centers` | 7 | 3 | ✅ 100% | None |
+| `partners` | 10 | 4 | ✅ 100% | None |
+| `shifts` | 26 | ~18 | ✅ 80% | `archived_*` (3 Felder) |
 
 **Gesamt:** ~220 DB-Spalten → ~175 Form-Felder (80% Coverage)
 
@@ -142,18 +142,15 @@ Diese Form-Felder haben KEIN DB-Äquivalent:
 ## 📝 NEXT STEPS (Optional)
 
 ### Priority 1 (P1):
-
 - ✅ Inventory complete
 - ⏳ Add missing billing fields to `customers` table
 - ⏳ Add missing maintenance fields to `vehicles` table
 
 ### Priority 2 (P2):
-
 - ⏳ Add `mobile` column to `drivers` + `customers`
 - ⏳ Add `tags` column to `documents`
 
 ### Priority 3 (P3):
-
 - ⏳ Extend `invoices` with `internal_notes`
 - ⏳ Extend `shifts` with `archived_by` tracking
 

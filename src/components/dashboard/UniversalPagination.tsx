@@ -18,7 +18,13 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/lib/compat";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/lib/compat";
 import { cn } from "@/lib/utils";
 
 interface UniversalPaginationProps {
@@ -40,18 +46,13 @@ export function UniversalPagination({
   onPageChange,
   onItemsPerPageChange,
   itemsPerPageOptions = [10, 25, 50, 100],
-  className,
+  className
 }: UniversalPaginationProps) {
   const startItem = (currentPage - 1) * itemsPerPage + 1;
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
-
+  
   return (
-    <div
-      className={cn(
-        "flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-white border-t border-slate-200",
-        className
-      )}
-    >
+    <div className={cn("flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-white border-t border-slate-200", className)}>
       {/* Items-per-Page Select */}
       <div className="flex items-center gap-2">
         <span className="text-sm text-slate-600">Zeige</span>
@@ -70,9 +71,11 @@ export function UniversalPagination({
             ))}
           </SelectContent>
         </Select>
-        <span className="text-sm text-slate-600">Einträge</span>
+        <span className="text-sm text-slate-600">
+          Einträge
+        </span>
       </div>
-
+      
       {/* Pagination */}
       <Pagination>
         <PaginationContent>
@@ -80,17 +83,15 @@ export function UniversalPagination({
             <PaginationPrevious
               onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
               className={cn(
-                currentPage === 1
-                  ? "pointer-events-none opacity-50"
-                  : "cursor-pointer hover:bg-slate-100"
+                currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer hover:bg-slate-100'
               )}
             />
           </PaginationItem>
-
+          
           {/* Page Numbers */}
           {[...Array(totalPages)].map((_, i) => {
             const page = i + 1;
-
+            
             // Show first, last, current, and adjacent pages
             if (
               page === 1 ||
@@ -109,7 +110,7 @@ export function UniversalPagination({
                 </PaginationItem>
               );
             }
-
+            
             // Show ellipsis
             if (page === currentPage - 2 || page === currentPage + 2) {
               return (
@@ -118,29 +119,25 @@ export function UniversalPagination({
                 </PaginationItem>
               );
             }
-
+            
             return null;
           })}
-
+          
           <PaginationItem>
             <PaginationNext
               onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
               className={cn(
-                currentPage === totalPages
-                  ? "pointer-events-none opacity-50"
-                  : "cursor-pointer hover:bg-slate-100"
+                currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer hover:bg-slate-100'
               )}
             />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-
+      
       {/* Status Text */}
       <div className="text-sm text-slate-600">
         {totalItems > 0 ? (
-          <>
-            Zeige {startItem}-{endItem} von {totalItems}
-          </>
+          <>Zeige {startItem}-{endItem} von {totalItems}</>
         ) : (
           <>Keine Einträge</>
         )}

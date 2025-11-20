@@ -4,13 +4,13 @@
    System-Informationen, Account-Type, Version
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { V28Button } from "@/components/design-system/V28Button";
-import { useAuth } from "@/hooks/use-auth";
-import { useAccountType } from "@/hooks/use-account-type";
-import { StatusIndicator } from "@/components/shared/StatusIndicator";
-import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { V28Button } from '@/components/design-system/V28Button';
+import { useAuth } from '@/hooks/use-auth';
+import { useAccountType } from '@/hooks/use-account-type';
+import { StatusIndicator } from '@/components/shared/StatusIndicator';
+import { useNavigate } from 'react-router-dom';
 
 export function SystemInfoSection() {
   const { user, company } = useAuth();
@@ -20,8 +20,12 @@ export function SystemInfoSection() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>System-Informationen</CardTitle>
-        <CardDescription>Technische Details und Support</CardDescription>
+        <CardTitle>
+          System-Informationen
+        </CardTitle>
+        <CardDescription>
+          Technische Details und Support
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -34,12 +38,8 @@ export function SystemInfoSection() {
             <Label className="text-muted-foreground">Account-Typ</Label>
             <div>
               <StatusIndicator
-                type={
-                  accountType === "master" ? "error" : accountType === "test" ? "warning" : "info"
-                }
-                label={
-                  accountType === "master" ? "Master" : accountType === "test" ? "Test" : "Normal"
-                }
+                type={accountType === 'master' ? 'error' : accountType === 'test' ? 'warning' : 'info'}
+                label={accountType === 'master' ? 'Master' : accountType === 'test' ? 'Test' : 'Normal'}
                 size="md"
               />
             </div>
@@ -63,7 +63,7 @@ export function SystemInfoSection() {
           </p>
           <V28Button
             variant="secondary"
-            onClick={() => navigate("/nexify-support")}
+            onClick={() => navigate('/nexify-support')}
             className="min-h-[44px] touch-manipulation"
           >
             Support-Center öffnen

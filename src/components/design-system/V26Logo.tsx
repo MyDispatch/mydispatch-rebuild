@@ -20,39 +20,39 @@
    ```
    ================================================================================== */
 
-import { cn } from "@/lib/utils";
-import { Truck } from "lucide-react";
+import { cn } from '@/lib/utils';
+import { Truck } from 'lucide-react';
 
 interface V26LogoProps {
   companyName?: string;
   logoUrl?: string;
-  size?: "sm" | "md" | "lg";
+  size?: 'sm' | 'md' | 'lg';
   className?: string;
   onClick?: () => void;
 }
 
 const sizeConfig = {
   sm: {
-    container: "h-8",
-    text: "text-lg",
-    icon: "h-5 w-5",
+    container: 'h-8',
+    text: 'text-lg',
+    icon: 'h-5 w-5',
   },
   md: {
-    container: "h-10",
-    text: "text-xl",
-    icon: "h-6 w-6",
+    container: 'h-10',
+    text: 'text-xl',
+    icon: 'h-6 w-6',
   },
   lg: {
-    container: "h-14",
-    text: "text-2xl md:text-3xl",
-    icon: "h-8 w-8",
+    container: 'h-14',
+    text: 'text-2xl md:text-3xl',
+    icon: 'h-8 w-8',
   },
 };
 
 export function V26Logo({
-  companyName = "MyDispatch",
+  companyName = 'MyDispatch',
   logoUrl,
-  size = "md",
+  size = 'md',
   className,
   onClick,
 }: V26LogoProps) {
@@ -60,21 +60,35 @@ export function V26Logo({
 
   return (
     <div
-      className={cn("flex items-center gap-2 sm:gap-3", onClick && "cursor-pointer", className)}
+      className={cn(
+        'flex items-center gap-2 sm:gap-3',
+        onClick && 'cursor-pointer',
+        className
+      )}
       onClick={onClick}
     >
       {logoUrl ? (
         <img
           src={logoUrl}
           alt={`${companyName} Logo`}
-          className={cn("object-contain", config.container)}
+          className={cn('object-contain', config.container)}
         />
       ) : (
-        <div className={cn("flex items-center gap-2 sm:gap-3")}>
-          <div className="p-1.5 sm:p-2 rounded-lg bg-slate-700">
-            <Truck className={cn(config.icon, "text-white")} />
-          </div>
-          <span className={cn("font-bold text-slate-900", config.text)}>{companyName}</span>
+        <div
+          className={cn('flex items-center gap-2 sm:gap-3')}
+        >
+        <div
+          className="p-1.5 sm:p-2 rounded-lg bg-slate-700"
+        >
+          <Truck
+            className={cn(config.icon, "text-white")}
+          />
+        </div>
+        <span
+          className={cn('font-bold text-slate-900', config.text)}
+        >
+            {companyName}
+          </span>
         </div>
       )}
     </div>

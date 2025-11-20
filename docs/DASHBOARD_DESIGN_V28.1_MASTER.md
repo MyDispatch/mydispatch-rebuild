@@ -29,28 +29,27 @@ V28.1 Professional Minimalism definiert den aktuellen Standard für alle Dashboa
 ## 🎨 FARBPALETTE
 
 ### Primärfarben (Slate)
-
 ```css
 /* Backgrounds */
---background: rgb(255 255 255); /* Weiß */
---card: rgb(255 255 255); /* Weiß */
+--background: rgb(255 255 255);        /* Weiß */
+--card: rgb(255 255 255);              /* Weiß */
 
 /* Text */
---slate-900: rgb(15 23 42); /* Haupttext */
---slate-700: rgb(51 65 85); /* Icon/Label */
---slate-600: rgb(71 85 105); /* Secondary Text */
---slate-500: rgb(100 116 139); /* Tertiary */
+--slate-900: rgb(15 23 42);            /* Haupttext */
+--slate-700: rgb(51 65 85);            /* Icon/Label */
+--slate-600: rgb(71 85 105);           /* Secondary Text */
+--slate-500: rgb(100 116 139);         /* Tertiary */
 
 /* Borders & Dividers */
---slate-200: rgb(226 232 240); /* Standard Border */
---slate-100: rgb(241 245 249); /* Icon Background */
---slate-50: rgb(248 250 252); /* Subtle Background */
+--slate-200: rgb(226 232 240);         /* Standard Border */
+--slate-100: rgb(241 245 249);         /* Icon Background */
+--slate-50: rgb(248 250 252);          /* Subtle Background */
 
 /* Status Colors */
---status-success: rgb(34 197 94); /* Grün */
---status-warning: rgb(251 146 60); /* Orange */
---status-error: rgb(239 68 68); /* Rot */
---status-info: rgb(59 130 246); /* Blau */
+--status-success: rgb(34 197 94);      /* Grün */
+--status-warning: rgb(251 146 60);     /* Orange */
+--status-error: rgb(239 68 68);        /* Rot */
+--status-info: rgb(59 130 246);        /* Blau */
 ```
 
 ---
@@ -60,31 +59,35 @@ V28.1 Professional Minimalism definiert den aktuellen Standard für alle Dashboa
 ### Grid-Struktur (Desktop)
 
 **Standard Dashboard Layout:**
-
 ```tsx
 <div className="grid grid-cols-12 gap-3">
   {/* Linke Spalte - 8 Cols */}
-  <div className="col-span-8 space-y-3">{/* Widgets */}</div>
-
+  <div className="col-span-8 space-y-3">
+    {/* Widgets */}
+  </div>
+  
   {/* Rechte Spalte - 4 Cols */}
-  <div className="col-span-4 space-y-3">{/* Widgets */}</div>
+  <div className="col-span-4 space-y-3">
+    {/* Widgets */}
+  </div>
 </div>
 ```
 
 **Mobile (< 768px):**
-
 ```tsx
-<div className="space-y-3">{/* Alle Widgets full-width, gestacked */}</div>
+<div className="space-y-3">
+  {/* Alle Widgets full-width, gestacked */}
+</div>
 ```
 
 ### Spacing-Standards
 
-| Element             | Desktop            | Mobile             |
-| ------------------- | ------------------ | ------------------ |
-| Gap zwischen Cards  | `gap-3` (12px)     | `gap-3` (12px)     |
-| Vertical Spacing    | `space-y-3` (12px) | `space-y-3` (12px) |
-| Card Padding        | `p-3` (12px)       | `p-3` (12px)       |
-| Page Bottom Padding | `pb-[128px]`       | `pb-16` (64px)     |
+| Element | Desktop | Mobile |
+|---------|---------|--------|
+| Gap zwischen Cards | `gap-3` (12px) | `gap-3` (12px) |
+| Vertical Spacing | `space-y-3` (12px) | `space-y-3` (12px) |
+| Card Padding | `p-3` (12px) | `p-3` (12px) |
+| Page Bottom Padding | `pb-[128px]` | `pb-16` (64px) |
 
 ---
 
@@ -99,35 +102,38 @@ V28.1 Professional Minimalism definiert den aktuellen Standard für alle Dashboa
       <div className="p-2 rounded-lg bg-slate-100">
         <Icon className="h-4 w-4 text-slate-700" />
       </div>
-      <CardTitle className="text-sm font-semibold text-slate-900">Widget-Titel</CardTitle>
+      <CardTitle className="text-sm font-semibold text-slate-900">
+        Widget-Titel
+      </CardTitle>
     </div>
   </CardHeader>
-  <CardContent className="pb-3">{/* Content */}</CardContent>
+  <CardContent className="pb-3">
+    {/* Content */}
+  </CardContent>
 </Card>
 ```
 
 ### Typografie
 
-| Element       | Tailwind Class          | Größe   | Weight                     |
-| ------------- | ----------------------- | ------- | -------------------------- |
-| Widget-Titel  | `text-sm`               | 14px    | `font-semibold`            |
-| Body-Text     | `text-xs`               | 12px    | `font-medium`              |
-| Meta-Text     | `text-[10px]`           | 10px    | `font-medium`              |
+| Element | Tailwind Class | Größe | Weight |
+|---------|---------------|-------|--------|
+| Widget-Titel | `text-sm` | 14px | `font-semibold` |
+| Body-Text | `text-xs` | 12px | `font-medium` |
+| Meta-Text | `text-[10px]` | 10px | `font-medium` |
 | Large Numbers | `text-2xl` - `text-5xl` | 24-48px | `font-bold` / `font-black` |
 
 ### Icon-Größen
 
-| Kontext            | Tailwind Class | Größe |
-| ------------------ | -------------- | ----- |
-| Card Header Icon   | `h-4 w-4`      | 16px  |
-| Timeline/List Icon | `h-4 w-4`      | 16px  |
-| Small Badge Icon   | `h-3 w-3`      | 12px  |
-| Large Feature Icon | `h-6 w-6`      | 24px  |
+| Kontext | Tailwind Class | Größe |
+|---------|---------------|-------|
+| Card Header Icon | `h-4 w-4` | 16px |
+| Timeline/List Icon | `h-4 w-4` | 16px |
+| Small Badge Icon | `h-3 w-3` | 12px |
+| Large Feature Icon | `h-6 w-6` | 24px |
 
 ### Button-Styles
 
 **Primary:**
-
 ```tsx
 <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200">
   Primär
@@ -135,7 +141,6 @@ V28.1 Professional Minimalism definiert den aktuellen Standard für alle Dashboa
 ```
 
 **Secondary:**
-
 ```tsx
 <button className="px-4 py-2 bg-slate-100 text-slate-900 rounded-lg font-semibold hover:bg-slate-200 transition-colors duration-200">
   Sekundär
@@ -166,16 +171,16 @@ V28.1 Professional Minimalism definiert den aktuellen Standard für alle Dashboa
 
 ## 🎯 WIDGET-NAMING-CONVENTIONS
 
-| Widget              | Titel (exakt)        | Icon            |
-| ------------------- | -------------------- | --------------- |
-| UrgentActionsCard   | "Dringende Aktionen" | `AlertTriangle` |
-| PaymentMethodsChart | "Zahlungsarten"      | `Receipt`       |
-| ResourceStatusCard  | "Fahrer-Status"      | `Users`         |
-| StatisticsCard      | "Vergleich & Trends" | `BarChart3`     |
-| ActivityTimeline    | "Letzte Aktivitäten" | `Activity`      |
-| RevenueChart        | "Umsatz-Entwicklung" | `TrendingUp`    |
-| TodayOverviewCard   | "Tagesübersicht"     | `Calendar`      |
-| OpenInvoicesCard    | "Offene Rechnungen"  | `Receipt`       |
+| Widget | Titel (exakt) | Icon |
+|--------|---------------|------|
+| UrgentActionsCard | "Dringende Aktionen" | `AlertTriangle` |
+| PaymentMethodsChart | "Zahlungsarten" | `Receipt` |
+| ResourceStatusCard | "Fahrer-Status" | `Users` |
+| StatisticsCard | "Vergleich & Trends" | `BarChart3` |
+| ActivityTimeline | "Letzte Aktivitäten" | `Activity` |
+| RevenueChart | "Umsatz-Entwicklung" | `TrendingUp` |
+| TodayOverviewCard | "Tagesübersicht" | `Calendar` |
+| OpenInvoicesCard | "Offene Rechnungen" | `Receipt` |
 
 ---
 
@@ -192,8 +197,7 @@ V28.1 Professional Minimalism definiert den aktuellen Standard für alle Dashboa
 
 ```css
 /* Horizontal VERBOTEN */
-html,
-body {
+html, body {
   overflow-x: hidden !important;
   max-width: 100vw;
 }
@@ -262,55 +266,51 @@ plugins: [
 
 ### Was ändert sich?
 
-| V26.1 (LEGACY)                        | V28.1 (ACTIVE)      |
-| ------------------------------------- | ------------------- |
-| Token-Imports (UNIFIED_DESIGN_TOKENS) | Pure Tailwind       |
-| Dunkelblau/Beige (#323D5E, #EADEBD)   | Slate Palette (rgb) |
-| 2-3px Borders                         | 1px Borders         |
-| Custom CSS Classes (`.v26-*`)         | Tailwind Classes    |
-| 300ms Transitions                     | 200ms Transitions   |
-| Glassmorphism Effects                 | Flat Design         |
+| V26.1 (LEGACY) | V28.1 (ACTIVE) |
+|----------------|----------------|
+| Token-Imports (UNIFIED_DESIGN_TOKENS) | Pure Tailwind |
+| Dunkelblau/Beige (#323D5E, #EADEBD) | Slate Palette (rgb) |
+| 2-3px Borders | 1px Borders |
+| Custom CSS Classes (`.v26-*`) | Tailwind Classes |
+| 300ms Transitions | 200ms Transitions |
+| Glassmorphism Effects | Flat Design |
 
 ### Migration-Steps
 
 1. **Remove Token-Imports:**
-
    ```tsx
    // ❌ V26.1
-   import { UNIFIED_DESIGN_TOKENS } from "@/lib/unified-design-tokens-v26";
-
+   import { UNIFIED_DESIGN_TOKENS } from '@/lib/unified-design-tokens-v26';
+   
    // ✅ V28.1
    // No imports needed
    ```
 
 2. **Replace Custom Classes:**
-
    ```tsx
    // ❌ V26.1
-   className = "v26-bg-dunkelblau v26-text-beige v26-border-beige-20";
-
+   className="v26-bg-dunkelblau v26-text-beige v26-border-beige-20"
+   
    // ✅ V28.1
-   className = "bg-slate-900 text-slate-50 border border-slate-200";
+   className="bg-slate-900 text-slate-50 border border-slate-200"
    ```
 
 3. **Update Shadows:**
-
    ```tsx
    // ❌ V26.1
-   className = "v26-shadow-card-standard";
-
+   className="v26-shadow-card-standard"
+   
    // ✅ V28.1
-   className = "shadow-sm hover:shadow-md";
+   className="shadow-sm hover:shadow-md"
    ```
 
 4. **Simplify Transitions:**
-
    ```tsx
    // ❌ V26.1
-   className = "v26-transition-all";
-
+   className="v26-transition-all"
+   
    // ✅ V28.1
-   className = "transition-all duration-200";
+   className="transition-all duration-200"
    ```
 
 ---
@@ -338,7 +338,6 @@ plugins: [
 ## 📝 CHANGELOG
 
 ### V28.1 (2025-10-29)
-
 - ✅ Professional Minimalism als neuer Standard
 - ✅ Slate Palette ersetzt Dunkelblau/Beige
 - ✅ 1px Borders statt 2-3px
@@ -349,7 +348,6 @@ plugins: [
 - ✅ scrollbar-hide Utility hinzugefügt
 
 ### V26.1 (LEGACY)
-
 - ⚠️ Token-basiertes System (obsolete)
 - ⚠️ Dunkelblau/Beige Farbschema (obsolete)
 - ⚠️ Custom CSS Classes (obsolete)

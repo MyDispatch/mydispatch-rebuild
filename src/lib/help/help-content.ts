@@ -5,7 +5,7 @@
    Kategorisiert nach Bereichen mit detaillierten Erklärungen
    ================================================================================== */
 
-import type { HelpArticle, HelpContext } from "@/components/help/HelpSystem";
+import type { HelpArticle, HelpContext } from '@/components/help/HelpSystem';
 
 // ==================================================================================
 // DASHBOARD HILFE
@@ -13,10 +13,10 @@ import type { HelpArticle, HelpContext } from "@/components/help/HelpSystem";
 
 const dashboardArticles: HelpArticle[] = [
   {
-    id: "dashboard-overview",
-    title: "Dashboard-Übersicht verstehen",
-    category: "Grundlagen",
-    tags: ["dashboard", "quick-start", "übersicht"],
+    id: 'dashboard-overview',
+    title: 'Dashboard-Übersicht verstehen',
+    category: 'Grundlagen',
+    tags: ['dashboard', 'quick-start', 'übersicht'],
     content: `
 Das Dashboard ist Ihre Zentrale für alle wichtigen Informationen auf einen Blick.
 
@@ -42,21 +42,21 @@ Hier sehen Sie alle Aufgaben, die sofortige Aufmerksamkeit erfordern:
     `,
     quickActions: [
       {
-        label: "Neuen Auftrag erstellen",
-        action: () => (window.location.href = "/auftraege?action=new"),
+        label: 'Neuen Auftrag erstellen',
+        action: () => window.location.href = '/auftraege?action=new'
       },
       {
-        label: "Fahrer-Status prüfen",
-        action: () => (window.location.href = "/fahrer"),
-      },
+        label: 'Fahrer-Status prüfen',
+        action: () => window.location.href = '/fahrer'
+      }
     ],
-    relatedArticles: ["dashboard-kpis", "dashboard-actions"],
+    relatedArticles: ['dashboard-kpis', 'dashboard-actions']
   },
   {
-    id: "dashboard-kpis",
-    title: "KPI-Cards erklärt",
-    category: "Grundlagen",
-    tags: ["dashboard", "kpi", "metriken"],
+    id: 'dashboard-kpis',
+    title: 'KPI-Cards erklärt',
+    category: 'Grundlagen',
+    tags: ['dashboard', 'kpi', 'metriken'],
     content: `
 <strong>Was bedeuten die KPI-Cards?</strong>
 
@@ -83,13 +83,13 @@ Hier sehen Sie alle Aufgaben, die sofortige Aufmerksamkeit erfordern:
 <strong>💡 Profi-Tipp:</strong>
 Die Trends (↑↓) vergleichen mit gestern.
 Grün = Verbesserung, Rot = Verschlechterung
-    `,
+    `
   },
   {
-    id: "dashboard-actions",
-    title: "Dringende Aktionen richtig nutzen",
-    category: "Funktionen",
-    tags: ["dashboard", "aktionen", "workflow"],
+    id: 'dashboard-actions',
+    title: 'Dringende Aktionen richtig nutzen',
+    category: 'Funktionen',
+    tags: ['dashboard', 'aktionen', 'workflow'],
     content: `
 <strong>Wie funktionieren Dringende Aktionen?</strong>
 
@@ -118,8 +118,8 @@ Das System erkennt automatisch Aufgaben, die Ihre Aufmerksamkeit benötigen:
 4. Die Aktion verschwindet automatisch
 
 <strong>💡 Ziel:</strong> 0 kritische Aktionen jeden Tag!
-    `,
-  },
+    `
+  }
 ];
 
 // ==================================================================================
@@ -128,10 +128,10 @@ Das System erkennt automatisch Aufgaben, die Ihre Aufmerksamkeit benötigen:
 
 const bookingsArticles: HelpArticle[] = [
   {
-    id: "bookings-create",
-    title: "Neuen Auftrag erstellen",
-    category: "Grundlagen",
-    tags: ["aufträge", "quick-start", "erstellen"],
+    id: 'bookings-create',
+    title: 'Neuen Auftrag erstellen',
+    category: 'Grundlagen',
+    tags: ['aufträge', 'quick-start', 'erstellen'],
     content: `
 <strong>So erstellen Sie einen neuen Auftrag in 5 Schritten:</strong>
 
@@ -165,16 +165,16 @@ Nutzen Sie "Smart Assignment" für automatische Fahrer-Zuweisung!
     `,
     quickActions: [
       {
-        label: "Jetzt Auftrag erstellen",
-        action: () => (window.location.href = "/auftraege?action=new"),
-      },
-    ],
+        label: 'Jetzt Auftrag erstellen',
+        action: () => window.location.href = '/auftraege?action=new'
+      }
+    ]
   },
   {
-    id: "bookings-smart-assignment",
-    title: "Intelligente Fahrer-Zuweisung (AI)",
-    category: "KI-Features",
-    tags: ["aufträge", "ai", "zuweisung", "fahrer"],
+    id: 'bookings-smart-assignment',
+    title: 'Intelligente Fahrer-Zuweisung (AI)',
+    category: 'KI-Features',
+    tags: ['aufträge', 'ai', 'zuweisung', 'fahrer'],
     content: `
 <strong>Wie funktioniert Smart Assignment?</strong>
 
@@ -206,8 +206,8 @@ Smart Assignment berücksichtigt:
 
 <strong>⚠️ Business+ Feature</strong>
 Benötigt Business-Tarif oder höher.
-    `,
-  },
+    `
+  }
 ];
 
 // ==================================================================================
@@ -216,10 +216,10 @@ Benötigt Business-Tarif oder höher.
 
 const driversArticles: HelpArticle[] = [
   {
-    id: "drivers-overview",
-    title: "Fahrer-Verwaltung Übersicht",
-    category: "Grundlagen",
-    tags: ["fahrer", "quick-start", "verwaltung"],
+    id: 'drivers-overview',
+    title: 'Fahrer-Verwaltung Übersicht',
+    category: 'Grundlagen',
+    tags: ['fahrer', 'quick-start', 'verwaltung'],
     content: `
 <strong>Fahrer & Fahrzeuge verwalten</strong>
 
@@ -246,20 +246,20 @@ Rot = <7 Tage, Gelb = <14 Tage
     `,
     quickActions: [
       {
-        label: "Neuen Fahrer anlegen",
-        action: () => (window.location.href = "/fahrer?tab=fahrer&action=new"),
+        label: 'Neuen Fahrer anlegen',
+        action: () => window.location.href = '/fahrer?tab=fahrer&action=new'
       },
       {
-        label: "Neues Fahrzeug anlegen",
-        action: () => (window.location.href = "/fahrer?tab=fahrzeuge&action=new"),
-      },
-    ],
+        label: 'Neues Fahrzeug anlegen',
+        action: () => window.location.href = '/fahrer?tab=fahrzeuge&action=new'
+      }
+    ]
   },
   {
-    id: "drivers-documents",
-    title: "Pflichtdokumente für Fahrer",
-    category: "Compliance",
-    tags: ["fahrer", "dokumente", "pbefg", "pflicht"],
+    id: 'drivers-documents',
+    title: 'Pflichtdokumente für Fahrer',
+    category: 'Compliance',
+    tags: ['fahrer', 'dokumente', 'pbefg', 'pflicht'],
     content: `
 <strong>Welche Dokumente sind Pflicht?</strong>
 
@@ -290,8 +290,8 @@ MyDispatch trackt alle Ablaufdaten automatisch und sendet:
 • 14 Tage vorher: Dashboard-Warnung (Gelb)
 • 7 Tage vorher: Kritische Warnung (Rot)
 • 0 Tage: Fahrer-Status → "Nicht einsetzbar"
-    `,
-  },
+    `
+  }
 ];
 
 // ==================================================================================
@@ -300,29 +300,29 @@ MyDispatch trackt alle Ablaufdaten automatisch und sendet:
 
 export const helpContexts: Record<string, HelpContext> = {
   dashboard: {
-    page: "Dashboard",
+    page: 'Dashboard',
     articles: dashboardArticles,
     shortcuts: [
-      { key: "Cmd+K", description: "Globale Suche öffnen" },
-      { key: "Cmd+N", description: "Neuer Auftrag" },
-      { key: "Cmd+H", description: "Hilfe öffnen" },
-    ],
+      { key: 'Cmd+K', description: 'Globale Suche öffnen' },
+      { key: 'Cmd+N', description: 'Neuer Auftrag' },
+      { key: 'Cmd+H', description: 'Hilfe öffnen' }
+    ]
   },
   bookings: {
-    page: "Aufträge",
+    page: 'Aufträge',
     articles: bookingsArticles,
     shortcuts: [
-      { key: "N", description: "Neuer Auftrag" },
-      { key: "F", description: "Filter öffnen" },
-      { key: "S", description: "Suche fokussieren" },
-    ],
+      { key: 'N', description: 'Neuer Auftrag' },
+      { key: 'F', description: 'Filter öffnen' },
+      { key: 'S', description: 'Suche fokussieren' }
+    ]
   },
   drivers: {
-    page: "Fahrer & Fahrzeuge",
+    page: 'Fahrer & Fahrzeuge',
     articles: driversArticles,
     shortcuts: [
-      { key: "N", description: "Neuer Fahrer" },
-      { key: "Tab", description: "Zwischen Tabs wechseln" },
-    ],
-  },
+      { key: 'N', description: 'Neuer Fahrer' },
+      { key: 'Tab', description: 'Zwischen Tabs wechseln' }
+    ]
+  }
 };

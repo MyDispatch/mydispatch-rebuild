@@ -2,7 +2,7 @@
 
 **Status:** ✅ FINAL - PRODUCTION  
 **Datum:** 26.10.2025  
-**Version:** 1.0
+**Version:** 1.0  
 
 ---
 
@@ -15,25 +15,22 @@ Das Hero-Design basiert auf einem **Premium Glow Konzept** mit konsistenter Farb
 ## 🎨 KERNPRINZIPIEN
 
 ### 1. Glow statt harte Borders
-
 - **Box-Shadow** mit Farb-Glow statt einfache Borders
 - **Inset-Shadow** für 3D-Tiefe
 - **Radial Gradients** für weiche Leuchteffekte
 
 ### 2. Konsistente Farbsprache
-
 - **Dunkelblau**: Primary Icons, Borders, Basis-Glow
 - **Beige**: Highlight-Glow, Secondary Borders, Akzente
 - **Grün (#22C55E)**: Nur für Status/Live-Badges (Ampelsystem)
 
 ### 3. Layered Shadows
-
 ```tsx
 // Beispiel: Button mit mehrschichtigem Glow
 boxShadow: `
   0 0 30px ${KERNFARBEN.beige}60,      // Äußerer Glow
   0 10px 40px rgba(0,0,0,0.3)          // Tiefenschatten
-`;
+`
 ```
 
 ---
@@ -41,7 +38,6 @@ boxShadow: `
 ## 📐 ANWENDUNGSBEREICHE
 
 ### Background (Hero-Section)
-
 ```tsx
 // Gradient Base
 background: `linear-gradient(135deg, ${KERNFARBEN.dunkelblau} 0%, #3F4C70 50%, #4A5A85 100%)`
@@ -77,27 +73,21 @@ background: `linear-gradient(135deg, ${KERNFARBEN.dunkelblau} 0%, #3F4C70 50%, #
 ```
 
 ### Premium Badge
-
 ```tsx
-<div
-  style={{
-    backgroundColor: `${KERNFARBEN.beige}15`,
-    border: "2px solid",
-    borderColor: KERNFARBEN.beige,
-    boxShadow: `0 0 20px ${KERNFARBEN.beige}40, 0 4px 12px rgba(0,0,0,0.1)`,
-  }}
->
-  <div
-    style={{
-      backgroundColor: KERNFARBEN.beige,
-      boxShadow: `0 0 8px ${KERNFARBEN.beige}80`, // Pulsierender Punkt
-    }}
-  />
+<div style={{
+  backgroundColor: `${KERNFARBEN.beige}15`,
+  border: '2px solid',
+  borderColor: KERNFARBEN.beige,
+  boxShadow: `0 0 20px ${KERNFARBEN.beige}40, 0 4px 12px rgba(0,0,0,0.1)`
+}}>
+  <div style={{
+    backgroundColor: KERNFARBEN.beige,
+    boxShadow: `0 0 8px ${KERNFARBEN.beige}80`  // Pulsierender Punkt
+  }} />
 </div>
 ```
 
 ### Hero Buttons
-
 ```tsx
 // Primary (Beige)
 style={{
@@ -122,104 +112,83 @@ style={{
 ```
 
 ### Trust Stats (2x2 Grid)
-
 ```tsx
-<div
-  style={{
-    backgroundColor: `${KERNFARBEN.weiss}10`,
-    border: "2px solid",
-    borderColor: `${KERNFARBEN.beige}30`,
-    boxShadow: `0 0 20px ${KERNFARBEN.beige}25, 0 8px 32px rgba(0,0,0,0.12)`,
-  }}
->
+<div style={{
+  backgroundColor: `${KERNFARBEN.weiss}10`,
+  border: '2px solid',
+  borderColor: `${KERNFARBEN.beige}30`,
+  boxShadow: `0 0 20px ${KERNFARBEN.beige}25, 0 8px 32px rgba(0,0,0,0.12)`
+}}>
   {/* Icon Container */}
-  <div
-    style={{
-      backgroundColor: `${KERNFARBEN.beige}20`,
-      boxShadow: `0 0 12px ${KERNFARBEN.beige}30, inset 0 0 15px ${KERNFARBEN.beige}10`,
-    }}
-  >
+  <div style={{
+    backgroundColor: `${KERNFARBEN.beige}20`,
+    boxShadow: `0 0 12px ${KERNFARBEN.beige}30, inset 0 0 15px ${KERNFARBEN.beige}10`
+  }}>
     <Icon style={{ color: KERNFARBEN.beige }} />
   </div>
-</div>;
+</div>
 
 // Hover
-boxShadow: `0 0 30px ${KERNFARBEN.beige}35, 0 12px 40px rgba(0,0,0,0.15)`;
+boxShadow: `0 0 30px ${KERNFARBEN.beige}35, 0 12px 40px rgba(0,0,0,0.15)`
 ```
 
 ### Dashboard Container
-
 ```tsx
-<div
-  style={{
-    backgroundColor: KERNFARBEN.canvas,
-    border: "3px solid",
-    borderColor: `${KERNFARBEN.beige}40`,
-    boxShadow: `
+<div style={{
+  backgroundColor: KERNFARBEN.canvas,
+  border: '3px solid',
+  borderColor: `${KERNFARBEN.beige}40`,
+  boxShadow: `
     0 0 60px ${KERNFARBEN.beige}30,           // Beige Glow
     0 25px 80px ${KERNFARBEN.dunkelblau}80,   // Dunkelblau Schatten
     0 40px 120px rgba(0,0,0,0.4)              // Tiefer Schatten
-  `,
-  }}
-/>
+  `
+}} />
 ```
 
 ### Dashboard Header Icon
-
 ```tsx
 // WICHTIG: Blau mit beige Schrift!
-<div
-  style={{
-    backgroundColor: KERNFARBEN.dunkelblau,
-    boxShadow: `0 0 15px ${KERNFARBEN.dunkelblau}40, inset 0 0 20px ${KERNFARBEN.beige}10`,
-  }}
->
+<div style={{
+  backgroundColor: KERNFARBEN.dunkelblau,
+  boxShadow: `0 0 15px ${KERNFARBEN.dunkelblau}40, inset 0 0 20px ${KERNFARBEN.beige}10`
+}}>
   <Icon style={{ color: KERNFARBEN.beige }} />
 </div>
 ```
 
 ### KPI Cards (in Dashboard-Grafik)
-
 ```tsx
 // Card
-<div
-  style={{
-    backgroundColor: KERNFARBEN.weiss,
-    border: "1px solid",
-    borderColor: `${KERNFARBEN.dunkelblau}20`, // oder beige für Alternierung
-    boxShadow: `0 0 20px ${KERNFARBEN.dunkelblau}15, 0 8px 24px rgba(0,0,0,0.08)`,
-  }}
->
+<div style={{
+  backgroundColor: KERNFARBEN.weiss,
+  border: '1px solid',
+  borderColor: `${KERNFARBEN.dunkelblau}20`,  // oder beige für Alternierung
+  boxShadow: `0 0 20px ${KERNFARBEN.dunkelblau}15, 0 8px 24px rgba(0,0,0,0.08)`
+}}>
   {/* Icon */}
-  <div
-    style={{
-      backgroundColor: `${KERNFARBEN.dunkelblau}15`, // oder beige30
-      boxShadow: `0 0 15px ${KERNFARBEN.dunkelblau}30, inset 0 0 20px ${KERNFARBEN.dunkelblau}10`,
-    }}
-  >
+  <div style={{
+    backgroundColor: `${KERNFARBEN.dunkelblau}15`,  // oder beige30
+    boxShadow: `0 0 15px ${KERNFARBEN.dunkelblau}30, inset 0 0 20px ${KERNFARBEN.dunkelblau}10`
+  }}>
     <Icon style={{ color: KERNFARBEN.dunkelblau }} />
   </div>
 </div>
 ```
 
 ### Activity List
-
 ```tsx
-<div
-  style={{
-    backgroundColor: KERNFARBEN.weiss,
-    border: "1px solid",
-    borderColor: `${KERNFARBEN.dunkelblau}20`,
-    boxShadow: `0 0 25px ${KERNFARBEN.dunkelblau}12, 0 10px 30px rgba(0,0,0,0.08)`,
-  }}
->
+<div style={{
+  backgroundColor: KERNFARBEN.weiss,
+  border: '1px solid',
+  borderColor: `${KERNFARBEN.dunkelblau}20`,
+  boxShadow: `0 0 25px ${KERNFARBEN.dunkelblau}12, 0 10px 30px rgba(0,0,0,0.08)`
+}}>
   {/* Clock Icon */}
-  <div
-    style={{
-      backgroundColor: `${KERNFARBEN.dunkelblau}10`,
-      boxShadow: `0 0 12px ${KERNFARBEN.dunkelblau}25, inset 0 0 15px ${KERNFARBEN.dunkelblau}08`,
-    }}
-  >
+  <div style={{
+    backgroundColor: `${KERNFARBEN.dunkelblau}10`,
+    boxShadow: `0 0 12px ${KERNFARBEN.dunkelblau}25, inset 0 0 15px ${KERNFARBEN.dunkelblau}08`
+  }}>
     <Clock style={{ color: KERNFARBEN.dunkelblau }} />
   </div>
 </div>
@@ -233,27 +202,22 @@ boxShadow: `0 0 30px ${KERNFARBEN.beige}35, 0 12px 40px rgba(0,0,0,0.15)`;
 
 ```tsx
 // Live/Echtzeit Badge (GRÜN mit WEISSEM RAND)
-<Badge
-  style={{
-    backgroundColor: "#22C55E", // Grün (Status Success)
-    color: KERNFARBEN.weiss,
-    border: "2px solid",
-    borderColor: KERNFARBEN.weiss, // ✅ WEISSER RAND (SYSTEMVORGABE)
-    boxShadow: "0 0 20px #22C55E40", // Grüner Glow
-  }}
->
-  <span
-    style={{
-      backgroundColor: KERNFARBEN.weiss,
-      boxShadow: `0 0 8px ${KERNFARBEN.weiss}`, // Weißer pulsierender Punkt
-    }}
-  />
+<Badge style={{
+  backgroundColor: '#22C55E',        // Grün (Status Success)
+  color: KERNFARBEN.weiss,
+  border: '2px solid',
+  borderColor: KERNFARBEN.weiss,     // ✅ WEISSER RAND (SYSTEMVORGABE)
+  boxShadow: '0 0 20px #22C55E40'    // Grüner Glow
+}}>
+  <span style={{
+    backgroundColor: KERNFARBEN.weiss,
+    boxShadow: `0 0 8px ${KERNFARBEN.weiss}` // Weißer pulsierender Punkt
+  }} />
   Echtzeit
 </Badge>
 ```
 
-**REGELN:**
-
+**REGELN:** 
 1. Nur Status-Badges (Live, Aktiv, Online, Echtzeit) dürfen Grün verwenden
 2. Alle Ampelsystem-Badges bekommen einen **2px weißen Rand** (keine grünen Ränder!)
 3. Alle anderen Badges bleiben blau/beige

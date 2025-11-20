@@ -38,7 +38,7 @@ declare namespace H {
           pixelRatio?: number;
         }
       );
-
+      
       setCenter(coords: { lat: number; lng: number }): void;
       setZoom(zoom: number): void;
       addObject(obj: Object): void;
@@ -76,11 +76,7 @@ declare namespace H {
     }
 
     interface ViewModel {
-      setLookAtData(data: {
-        bounds?: geo.Rect;
-        zoom?: number;
-        position?: { lat: number; lng: number };
-      }): void;
+      setLookAtData(data: { bounds?: geo.Rect; zoom?: number; position?: { lat: number; lng: number } }): void;
     }
   }
 

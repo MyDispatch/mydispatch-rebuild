@@ -9,13 +9,11 @@
 ## 🎯 ZWECK
 
 Diese UI-Spezifikation definiert **verbindlich**:
-
 - Aufbauplan (Layout-Struktur)
 - Schaltplan (Interaktionslogik & Datenfluss)
 - Labary-Komponenten-Mapping (Eindeutige Zuordnung)
 
 **Verwendet als Prüfbasis für:**
-
 - Phase 1: QA-Zyklus (Line-by-Line Audit)
 - Phase 3C: Labary-Implementierung
 - Phase 4: Systemweite Umsetzung
@@ -123,7 +121,6 @@ Diese UI-Spezifikation definiert **verbindlich**:
 ## 🎨 DESIGN-TOKENS
 
 ### **Farben (100% Semantic)**
-
 ```css
 /* Background */
 bg-background           /* Page Background */
@@ -149,7 +146,6 @@ border-border           /* Default Border */
 ```
 
 ### **Typography (Mobile-First)**
-
 ```css
 /* Desktop */
 text-sm  sm:text-base  md:text-lg     /* Body Text */
@@ -163,7 +159,6 @@ h-16 w-16                             /* Empty State Icons */
 ```
 
 ### **Spacing (Mobile-First)**
-
 ```css
 p-4  sm:p-6  md:p-8                  /* Section Padding */
 gap-2  sm:gap-3  md:gap-4            /* Element Spacing */
@@ -171,7 +166,6 @@ space-y-2  sm:space-y-3              /* Vertical Spacing */
 ```
 
 ### **Touch-Targets (MANDATORY)**
-
 ```css
 min-h-[44px]                         /* ALL Buttons */
 min-h-[44px]                         /* ALL Inputs */
@@ -186,22 +180,21 @@ min-h-[44px]                         /* ALL Interactive Elements */
 
 ```typescript
 // Local State
-const [searchTerm, setSearchTerm] = useState("");
+const [searchTerm, setSearchTerm] = useState('');
 const [isDialogOpen, setIsDialogOpen] = useState(false);
 const [editingCostCenter, setEditingCostCenter] = useState<CostCenter | null>(null);
 const [detailDialogOpen, setDetailDialogOpen] = useState(false);
 const [selectedCostCenter, setSelectedCostCenter] = useState<CostCenter | null>(null);
 const [formData, setFormData] = useState({
-  name: "",
-  description: "",
+  name: '',
+  description: '',
   active: true,
 });
 
 // Hooks
 const { profile } = useAuth();
 const { isMobile } = useDeviceType();
-const { costCenters, isLoading, createCostCenter, updateCostCenter, deactivateCostCenter } =
-  useCostCenters();
+const { costCenters, isLoading, createCostCenter, updateCostCenter, deactivateCostCenter } = useCostCenters();
 ```
 
 ### **Datenfluss**
@@ -292,32 +285,32 @@ const { costCenters, isLoading, createCostCenter, updateCostCenter, deactivateCo
 
 ### **Desktop View Components**
 
-| UI-Element             | Labary-Komponente             | Props/Config                          |
-| ---------------------- | ----------------------------- | ------------------------------------- |
-| **Page Layout**        | `StandardPageLayout`          | title, subtitle, canonical            |
-| **Search**             | `StandardPageLayout` (prop)   | searchValue, onSearchChange           |
-| **Stats KPIs**         | `StandardPageLayout` (prop)   | stats array (label, value, icon)      |
-| **Create Button**      | `StandardPageLayout` (prop)   | onCreateNew, createButtonLabel        |
-| **Table**              | `Table` + `TableRow` etc.     | Standard Shadcn Table                 |
-| **Status Badge**       | `StatusIndicator`             | type, label, size                     |
-| **Action Buttons**     | `StandardActionButtons`       | onViewDetails, onEdit, showArchive    |
-| **Empty State**        | `EmptyState`                  | icon, title, description, actionLabel |
-| **Create/Edit Dialog** | `Dialog` + `DialogContent`    | ⚠️ MUSS DIALOG_LAYOUT verwenden!      |
-| **Detail Dialog**      | `DetailDialog`                | title, createdAt, onEdit, onArchive   |
-| **Form Inputs**        | `Input`, `Textarea`, `Switch` | min-h-[44px], aria-labels             |
-| **Buttons**            | `Button`                      | min-h-[44px], variant                 |
+| UI-Element              | Labary-Komponente            | Props/Config                          |
+|-------------------------|------------------------------|---------------------------------------|
+| **Page Layout**         | `StandardPageLayout`         | title, subtitle, canonical            |
+| **Search**              | `StandardPageLayout` (prop)  | searchValue, onSearchChange           |
+| **Stats KPIs**          | `StandardPageLayout` (prop)  | stats array (label, value, icon)      |
+| **Create Button**       | `StandardPageLayout` (prop)  | onCreateNew, createButtonLabel        |
+| **Table**               | `Table` + `TableRow` etc.    | Standard Shadcn Table                 |
+| **Status Badge**        | `StatusIndicator`            | type, label, size                     |
+| **Action Buttons**      | `StandardActionButtons`      | onViewDetails, onEdit, showArchive    |
+| **Empty State**         | `EmptyState`                 | icon, title, description, actionLabel |
+| **Create/Edit Dialog**  | `Dialog` + `DialogContent`   | ⚠️ MUSS DIALOG_LAYOUT verwenden!     |
+| **Detail Dialog**       | `DetailDialog`               | title, createdAt, onEdit, onArchive   |
+| **Form Inputs**         | `Input`, `Textarea`, `Switch`| min-h-[44px], aria-labels             |
+| **Buttons**             | `Button`                     | min-h-[44px], variant                 |
 
 ### **Mobile View Components**
 
-| UI-Element       | Labary-Komponente         | Props/Config                       |
-| ---------------- | ------------------------- | ---------------------------------- |
-| **Page Layout**  | `StandardPageLayout`      | (gleich wie Desktop)               |
-| **Grid Layout**  | `MobileGridLayout`        | data, renderCard, filters, FAB     |
-| **Card**         | `Card` + `CardContent`    | cursor-pointer, hover:bg-primary/5 |
-| **Badge**        | `Badge`                   | variant: default / outline         |
-| **Progress Bar** | `Progress`                | value, className für Status-Colors |
-| **FAB**          | `MobileGridLayout` (prop) | onFabClick, fabLabel, fabIcon      |
-| **Icons**        | Lucide Icons              | h-4 w-4 sm:h-5 sm:w-5 (min!)       |
+| UI-Element              | Labary-Komponente            | Props/Config                          |
+|-------------------------|------------------------------|---------------------------------------|
+| **Page Layout**         | `StandardPageLayout`         | (gleich wie Desktop)                  |
+| **Grid Layout**         | `MobileGridLayout`           | data, renderCard, filters, FAB        |
+| **Card**                | `Card` + `CardContent`       | cursor-pointer, hover:bg-primary/5    |
+| **Badge**               | `Badge`                      | variant: default / outline            |
+| **Progress Bar**        | `Progress`                   | value, className für Status-Colors    |
+| **FAB**                 | `MobileGridLayout` (prop)    | onFabClick, fabLabel, fabIcon         |
+| **Icons**               | Lucide Icons                 | h-4 w-4 sm:h-5 sm:w-5 (min!)          |
 
 ---
 
@@ -338,13 +331,13 @@ const { costCenters, isLoading, createCostCenter, updateCostCenter, deactivateCo
     <DialogTitle>...</DialogTitle>
     <DialogDescription>...</DialogDescription>
   </DialogHeader>
-
+  
   <div className={DIALOG_LAYOUT.body}>
     <form className="space-y-4">
       {/* Form Content */}
     </form>
   </div>
-
+  
   <div className={DIALOG_LAYOUT.footer}>
     <Button>Action</Button>
   </div>
@@ -377,13 +370,11 @@ const { costCenters, isLoading, createCostCenter, updateCostCenter, deactivateCo
 ## 📊 VIOLATIONS & FIXES
 
 ### **V-083: Dialog Layout ohne DIALOG_LAYOUT Utils**
-
 - **Datei:** `src/pages/Kostenstellen.tsx:253`
 - **Zeile:** `<DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">`
 - **Fix:** DIALOG_LAYOUT.content + separater Body mit overflow
 
 ### **V-084: Icons zu klein für Touch (Mobile)**
-
 - **Datei:** `src/components/mobile/MobileKostenstellen.tsx:157,163`
 - **Zeile:** `<AlertCircle className="h-3 w-3" />`
 - **Fix:** `h-4 w-4` (minimum für Sichtbarkeit)

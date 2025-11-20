@@ -11,7 +11,6 @@
 Buttons übernehmen das **exakt gleiche Farbschema wie Badges** (siehe `docs/V26_BADGE_DESIGN_SYSTEM.md`) für maximale visuelle Konsistenz.
 
 **KERNREGEL:**
-
 - **Primary Button = Badge Variante 1**: Beige Background + Blaue Schrift
 - **Secondary Button = Badge Variante 2**: Blauer Background + Beige Schrift
 
@@ -22,13 +21,11 @@ Buttons übernehmen das **exakt gleiche Farbschema wie Badges** (siehe `docs/V26
 ### Variante 1: Primary Button (Beige BG + Blaue Schrift)
 
 **Anwendung:**
-
 - Haupt-Call-to-Actions (z.B. "Jetzt starten", "Tarif wählen")
 - Wichtigste Aktion auf einer Seite
 - Maximale Aufmerksamkeit erforderlich
 
 **Styling:**
-
 ```typescript
 style={{
   backgroundColor: UNIFIED_DESIGN_TOKENS.colors.beige,      // hsl(42, 49%, 78%)
@@ -42,7 +39,6 @@ style={{
 ```
 
 **Hover-Effekt:**
-
 ```typescript
 hover: {
   transform: 'scale(1.05)',
@@ -55,13 +51,11 @@ hover: {
 ### Variante 2: Secondary Button (Blauer BG + Beige Schrift)
 
 **Anwendung:**
-
 - Sekundäre Aktionen (z.B. "Mehr erfahren", "Dokumentation")
 - Alternativen zur Haupt-Aktion
 - Informative CTAs
 
 **Styling:**
-
 ```typescript
 style={{
   backgroundColor: UNIFIED_DESIGN_TOKENS.colors.dunkelblau,  // hsl(225, 31%, 28%)
@@ -75,7 +69,6 @@ style={{
 ```
 
 **Hover-Effekt:**
-
 ```typescript
 hover: {
   transform: 'scale(1.05)',
@@ -91,35 +84,35 @@ hover: {
 
 **KRITISCH:** Alle interaktiven Elemente MÜSSEN minimum **44x44px** sein (WCAG 2.1 AA - Target Size).
 
-| Kontext                | Höhe | Tailwind-Klasse | Anwendung                                     |
-| ---------------------- | ---- | --------------- | --------------------------------------------- |
-| **Standard Button**    | 48px | `h-12`          | Standard-Buttons in Formularen, Cards, Listen |
-| **Hero Button**        | 56px | `h-14`          | Haupt-CTAs auf Hero-Sections, Landingpages    |
-| **Sidebar Navigation** | 44px | `h-11`          | Sidebar-Links (Touch-Minimum)                 |
-| **Icon Button**        | 40px | `h-10 w-10`     | Icon-only Buttons (z.B. Menu, Close)          |
-| **Small Button**       | 36px | `h-9`           | Inline-Aktionen in dichter UI (nur Desktop)   |
+| Kontext | Höhe | Tailwind-Klasse | Anwendung |
+|---------|------|-----------------|-----------|
+| **Standard Button** | 48px | `h-12` | Standard-Buttons in Formularen, Cards, Listen |
+| **Hero Button** | 56px | `h-14` | Haupt-CTAs auf Hero-Sections, Landingpages |
+| **Sidebar Navigation** | 44px | `h-11` | Sidebar-Links (Touch-Minimum) |
+| **Icon Button** | 40px | `h-10 w-10` | Icon-only Buttons (z.B. Menu, Close) |
+| **Small Button** | 36px | `h-9` | Inline-Aktionen in dichter UI (nur Desktop) |
 
 ---
 
 ### Padding-Standards (Horizontal)
 
-| Größe        | Padding | Tailwind-Klasse | Verwendung                   |
-| ------------ | ------- | --------------- | ---------------------------- |
-| **Standard** | 24px    | `px-6`          | Standard-Buttons mit Text    |
-| **Large**    | 32px    | `px-8`          | Hero-Buttons, wichtige CTAs  |
-| **Compact**  | 16px    | `px-4`          | Kompakte Buttons in enger UI |
-| **Small**    | 12px    | `px-3`          | Sidebar, Dense Lists         |
+| Größe | Padding | Tailwind-Klasse | Verwendung |
+|-------|---------|-----------------|------------|
+| **Standard** | 24px | `px-6` | Standard-Buttons mit Text |
+| **Large** | 32px | `px-8` | Hero-Buttons, wichtige CTAs |
+| **Compact** | 16px | `px-4` | Kompakte Buttons in enger UI |
+| **Small** | 12px | `px-3` | Sidebar, Dense Lists |
 
 ---
 
 ### Spacing zwischen Buttons (Gap)
 
-| Kontext                        | Gap  | Tailwind-Klasse |
-| ------------------------------ | ---- | --------------- |
-| **Button-Gruppe (horizontal)** | 16px | `gap-4`         |
-| **Button-Stack (vertikal)**    | 12px | `gap-3`         |
-| **Hero-CTAs**                  | 16px | `gap-4`         |
-| **Form-Buttons**               | 12px | `gap-3`         |
+| Kontext | Gap | Tailwind-Klasse |
+|---------|-----|-----------------|
+| **Button-Gruppe (horizontal)** | 16px | `gap-4` |
+| **Button-Stack (vertikal)** | 12px | `gap-3` |
+| **Hero-CTAs** | 16px | `gap-4` |
+| **Form-Buttons** | 12px | `gap-3` |
 
 ---
 
@@ -127,12 +120,12 @@ hover: {
 
 ### Betroffene Button-Komponenten
 
-| Datei                                              | Varianten                       | Status                   |
-| -------------------------------------------------- | ------------------------------- | ------------------------ |
-| `src/components/design-system/V26Button.tsx`       | primary, secondary              | ✅ Badge-Konform         |
-| `src/components/design-system/V26HeroButton.tsx`   | primary, secondary              | ✅ Badge-Konform         |
-| `src/components/design-system/V26ActionButton.tsx` | primary, secondary, outline     | ✅ Badge-Konform         |
-| `src/components/ui/button.tsx`                     | default, outline, ghost, etc.   | ⚠️ Legacy (zu migrieren) |
+| Datei | Varianten | Status |
+|-------|-----------|--------|
+| `src/components/design-system/V26Button.tsx` | primary, secondary | ✅ Badge-Konform |
+| `src/components/design-system/V26HeroButton.tsx` | primary, secondary | ✅ Badge-Konform |
+| `src/components/design-system/V26ActionButton.tsx` | primary, secondary, outline | ✅ Badge-Konform |
+| `src/components/ui/button.tsx` | default, outline, ghost, etc. | ⚠️ Legacy (zu migrieren) |
 | `src/components/design-system/MarketingButton.tsx` | hero-primary, cta-primary, etc. | ⚠️ Legacy (zu migrieren) |
 
 ---
@@ -142,15 +135,14 @@ hover: {
 ### ✅ RICHTIG - Primary Button (Beige/Blau)
 
 ```tsx
-import { V26Button } from "@/components/design-system/V26Button";
+import { V26Button } from '@/components/design-system/V26Button';
 
 <V26Button variant="primary" onClick={handleAction}>
   Jetzt starten
-</V26Button>;
+</V26Button>
 ```
 
 **Rendering:**
-
 - Beige Background (#EADEBD)
 - Blaue Schrift (#323D5E)
 - 2px Beige Border
@@ -168,7 +160,6 @@ import { V26Button } from "@/components/design-system/V26Button";
 ```
 
 **Rendering:**
-
 - Blauer Background (#323D5E)
 - Beige Schrift (#EADEBD)
 - 2px Blauer Border
@@ -183,8 +174,8 @@ import { V26Button } from "@/components/design-system/V26Button";
 // ❌ NIEMALS Hex-Farben verwenden!
 <button
   style={{
-    backgroundColor: "#EADEBD", // ❌ Hex!
-    color: "#323D5E", // ❌ Hex!
+    backgroundColor: '#EADEBD',  // ❌ Hex!
+    color: '#323D5E',            // ❌ Hex!
   }}
 >
   Button
@@ -199,7 +190,9 @@ import { V26Button } from "@/components/design-system/V26Button";
 
 ```tsx
 // ❌ 32px Höhe = WCAG-Verstoß!
-<button className="h-8 px-3">Action</button>
+<button className="h-8 px-3">
+  Action
+</button>
 ```
 
 **Problem:** Unter 44x44px Touch-Target (Accessibility-Verstoß).
@@ -211,13 +204,11 @@ import { V26Button } from "@/components/design-system/V26Button";
 ### 1. Wann welche Variante?
 
 **Primary Button (Beige/Blau):**
-
 - ✅ Hauptaktion auf einer Seite
 - ✅ Conversion-orientierte CTAs ("Kaufen", "Registrieren", "Starten")
 - ✅ Wenn maximale Aufmerksamkeit benötigt wird
 
 **Secondary Button (Blau/Beige):**
-
 - ✅ Alternative Aktionen ("Abbrechen", "Zurück", "Mehr erfahren")
 - ✅ Navigations-Buttons
 - ✅ Informative CTAs
@@ -227,7 +218,6 @@ import { V26Button } from "@/components/design-system/V26Button";
 ### 2. Border ist Pflicht
 
 Der **2px Border** ist nicht optional:
-
 - Hebt Button vom Hintergrund ab
 - Erzeugt visuellen Tiefeneffekt
 - CI-Standard für professionellen Look
@@ -265,21 +255,18 @@ Hero-CTA (56px)  >  Standard (48px)  >  Navigation (44px)  >  Icon (40px)
 ## 🚨 HÄUFIGE FEHLER & LÖSUNGEN
 
 ### Problem 1: Button zeigt falsche Farbe
-
 **Ursache:** Conditional Logic im Style  
 **Lösung:** Nutze feste Varianten (`primary` / `secondary`) über Props
 
 ---
 
 ### Problem 2: Button zu klein auf Mobile
-
 **Ursache:** Touch-Target unter 44px  
 **Lösung:** Minimum `h-11` (44px) für alle interaktiven Elemente
 
 ---
 
 ### Problem 3: Inkonsistente Abstände
-
 **Ursache:** Willkürliche px-Werte  
 **Lösung:** Nutze 8px-Grid und Tailwind-Spacing (`gap-3`, `gap-4`, `px-6`)
 
@@ -287,11 +274,11 @@ Hero-CTA (56px)  >  Standard (48px)  >  Navigation (44px)  >  Icon (40px)
 
 ## 📊 FARB-REFERENZ (UNIFIED_DESIGN_TOKENS)
 
-| Farbe      | Hex     | HSL                | Verwendung                 |
-| ---------- | ------- | ------------------ | -------------------------- |
+| Farbe | Hex | HSL | Verwendung |
+|-------|-----|-----|------------|
 | Dunkelblau | #323D5E | hsl(225, 31%, 28%) | Secondary BG, Primary Text |
-| Beige      | #EADEBD | hsl(42, 49%, 78%)  | Primary BG, Secondary Text |
-| Weiß       | #FFFFFF | hsl(0, 0%, 100%)   | Border (3D-Effekt)         |
+| Beige | #EADEBD | hsl(42, 49%, 78%) | Primary BG, Secondary Text |
+| Weiß | #FFFFFF | hsl(0, 0%, 100%) | Border (3D-Effekt) |
 
 ---
 

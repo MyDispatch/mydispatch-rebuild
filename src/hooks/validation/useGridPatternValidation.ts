@@ -1,19 +1,19 @@
-import { useEffect } from "react";
-import { logger } from "@/lib/logger";
+import { useEffect } from 'react';
+import { logger } from '@/lib/logger';
 
 /**
  * Grid-Pattern Validation Hook
- *
+ * 
  * Prüft automatisch, ob Mobile-First Grid-Patterns korrekt verwendet werden
  * Warnt bei fehlenden Breakpoints oder falschen Spacing-Werten
- *
+ * 
  * Siehe: docs/MOBILE_FIRST_GRID_SYSTEM_V18.5.1.md
- *
+ * 
  * @example
  * useGridPatternValidation('HERO-GRID', '.hero-section');
  */
 export const useGridPatternValidation = (
-  pattern: "HERO-GRID" | "TARIF-KARTEN-GRID" | "DASHBOARD-GRID" | "MOBILE-GRID-LAYOUT",
+  pattern: 'HERO-GRID' | 'TARIF-KARTEN-GRID' | 'DASHBOARD-GRID' | 'MOBILE-GRID-LAYOUT',
   selector?: string
 ) => {
   useEffect(() => {
@@ -27,7 +27,7 @@ export const useGridPatternValidation = (
       const warnings: string[] = [];
 
       // Prüfe Grid-Display
-      if (pattern.includes("GRID") && !computedStyle.display.includes("grid")) {
+      if (pattern.includes('GRID') && !computedStyle.display.includes('grid')) {
         warnings.push(`${pattern}: Element sollte display: grid verwenden`);
       }
 
@@ -42,7 +42,9 @@ export const useGridPatternValidation = (
       buttons.forEach((btn) => {
         const rect = btn.getBoundingClientRect();
         if (rect.height < 44) {
-          warnings.push(`${pattern}: Touch-Target zu klein (${Math.round(rect.height)}px < 44px)`);
+          warnings.push(
+            `${pattern}: Touch-Target zu klein (${Math.round(rect.height)}px < 44px)`
+          );
         }
       });
 
@@ -54,9 +56,7 @@ export const useGridPatternValidation = (
 
       if (warnings.length > 0) {
         logger.group(`🔶 Grid-Pattern Validation: ${pattern}`);
-        warnings.forEach((warning) =>
-          logger.warn(warning, { component: "useGridPatternValidation", pattern })
-        );
+        warnings.forEach((warning) => logger.warn(warning, { component: 'useGridPatternValidation', pattern }));
         logger.groupEnd();
       }
     };
@@ -65,7 +65,7 @@ export const useGridPatternValidation = (
     validateGridPattern();
 
     // Re-validate on resize
-    window.addEventListener("resize", validateGridPattern);
-    return () => window.removeEventListener("resize", validateGridPattern);
+    window.addEventListener('resize', validateGridPattern);
+    return () => window.removeEventListener('resize', validateGridPattern);
   }, [pattern, selector]);
 };

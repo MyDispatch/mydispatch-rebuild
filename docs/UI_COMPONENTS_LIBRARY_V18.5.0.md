@@ -15,11 +15,9 @@ Vollständige UI-Komponenten-Bibliothek für MyDispatch mit allen erforderlichen
 ## 📚 KOMPONENTEN-KATEGORIEN
 
 ### 1. BASE COMPONENTS (shadcn/ui)
-
 Pfad: `src/components/ui/`
 
 #### Buttons
-
 ```tsx
 import { Button } from '@/components/ui/button';
 
@@ -39,16 +37,8 @@ import { Button } from '@/components/ui/button';
 ```
 
 #### Cards
-
 ```tsx
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 
 <Card>
   <CardHeader>
@@ -57,11 +47,10 @@ import {
   </CardHeader>
   <CardContent>Inhalt</CardContent>
   <CardFooter>Footer</CardFooter>
-</Card>;
+</Card>
 ```
 
 #### Inputs
-
 ```tsx
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -76,15 +65,8 @@ import { Textarea } from '@/components/ui/textarea';
 ```
 
 #### Selects & Dropdowns
-
 ```tsx
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 <Select>
   <SelectTrigger>
@@ -94,20 +76,12 @@ import {
     <SelectItem value="option1">Option 1</SelectItem>
     <SelectItem value="option2">Option 2</SelectItem>
   </SelectContent>
-</Select>;
+</Select>
 ```
 
 #### Dialogs & Modals
-
 ```tsx
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 <Dialog>
   <DialogTrigger asChild>
@@ -120,11 +94,10 @@ import {
     </DialogHeader>
     {/* Content */}
   </DialogContent>
-</Dialog>;
+</Dialog>
 ```
 
 #### Badges
-
 ```tsx
 import { Badge } from '@/components/ui/badge';
 
@@ -135,9 +108,8 @@ import { Badge } from '@/components/ui/badge';
 ```
 
 #### Tabs
-
 ```tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 <Tabs defaultValue="tab1">
   <TabsList>
@@ -146,20 +118,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
   </TabsList>
   <TabsContent value="tab1">Inhalt Tab 1</TabsContent>
   <TabsContent value="tab2">Inhalt Tab 2</TabsContent>
-</Tabs>;
+</Tabs>
 ```
 
 #### Tables
-
 ```tsx
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 <Table>
   <TableHeader>
@@ -174,17 +138,15 @@ import {
       <TableCell>Aktiv</TableCell>
     </TableRow>
   </TableBody>
-</Table>;
+</Table>
 ```
 
 ---
 
 ### 2. SHARED COMPONENTS
-
 Pfad: `src/components/shared/`
 
 #### StatusIndicator
-
 ```tsx
 import { StatusIndicator } from '@/components/shared/StatusIndicator';
 
@@ -195,38 +157,35 @@ import { StatusIndicator } from '@/components/shared/StatusIndicator';
 ```
 
 #### EmptyState
-
 ```tsx
-import { EmptyState } from "@/components/shared/EmptyState";
+import { EmptyState } from '@/components/shared/EmptyState';
 
-<EmptyState
+<EmptyState 
   icon={FileX}
   title="Keine Aufträge"
   description="Erstellen Sie Ihren ersten Auftrag"
   actionLabel="Auftrag erstellen"
   onAction={() => {}}
-/>;
+/>
 ```
 
 #### BulkActionBar
-
 ```tsx
-import { BulkActionBar } from "@/components/shared/BulkActionBar";
+import { BulkActionBar } from '@/components/shared/BulkActionBar';
 
 <BulkActionBar
   selectedCount={5}
   actions={[
-    { label: "PDF exportieren", icon: Download, onClick: handleExport },
-    { label: "Status ändern", icon: RefreshCw, onClick: handleStatus },
+    { label: 'PDF exportieren', icon: Download, onClick: handleExport },
+    { label: 'Status ändern', icon: RefreshCw, onClick: handleStatus },
   ]}
   onClear={() => {}}
-/>;
+/>
 ```
 
 #### DetailDialog
-
 ```tsx
-import { DetailDialog } from "@/components/shared/DetailDialog";
+import { DetailDialog } from '@/components/shared/DetailDialog';
 
 <DetailDialog
   open={open}
@@ -234,36 +193,35 @@ import { DetailDialog } from "@/components/shared/DetailDialog";
   title="Details"
   entity={data}
   fields={[
-    { label: "Name", value: data.name },
-    { label: "Status", value: <StatusIndicator status={data.status} /> },
+    { label: 'Name', value: data.name },
+    { label: 'Status', value: <StatusIndicator status={data.status} /> },
   ]}
-  actions={[{ label: "Bearbeiten", icon: Edit, onClick: handleEdit }]}
-/>;
+  actions={[
+    { label: 'Bearbeiten', icon: Edit, onClick: handleEdit },
+  ]}
+/>
 ```
 
 #### SearchableSelect
-
 ```tsx
-import { SearchableSelect } from "@/components/shared/SearchableSelect";
+import { SearchableSelect } from '@/components/shared/SearchableSelect';
 
 <SearchableSelect
-  options={customers.map((c) => ({ value: c.id, label: c.name }))}
+  options={customers.map(c => ({ value: c.id, label: c.name }))}
   value={selectedCustomer}
   onChange={setSelectedCustomer}
   placeholder="Kunde suchen..."
-/>;
+/>
 ```
 
 ---
 
 ### 3. DESIGN SYSTEM COMPONENTS
-
 Pfad: `src/components/design-system/`
 
 #### HeroSection
-
 ```tsx
-import { HeroSection } from "@/components/design-system";
+import { HeroSection } from '@/components/design-system';
 
 <HeroSection
   badge="Made in Germany"
@@ -273,32 +231,34 @@ import { HeroSection } from "@/components/design-system";
   primaryAction={{ label: "Abonnieren", onClick: () => {} }}
   secondaryAction={{ label: "Demo", onClick: () => {} }}
   videoUrl="https://..."
-/>;
+/>
 ```
 
 #### KPICard
-
 ```tsx
-import { KPICard } from "@/components/design-system";
+import { KPICard } from '@/components/design-system';
 
-<KPICard title="Umsatz heute" value="2.450 €" trend={12.5} icon={Euro} />;
+<KPICard
+  title="Umsatz heute"
+  value="2.450 €"
+  trend={12.5}
+  icon={Euro}
+/>
 ```
 
 #### QuickActions
-
 ```tsx
-import { QuickActions } from "@/components/design-system";
+import { QuickActions } from '@/components/design-system';
 
 <QuickActions
   actions={[
-    { label: "Neuer Auftrag", icon: Plus, onClick: () => {} },
-    { label: "Neuer Kunde", icon: UserPlus, onClick: () => {} },
+    { label: 'Neuer Auftrag', icon: Plus, onClick: () => {} },
+    { label: 'Neuer Kunde', icon: UserPlus, onClick: () => {} },
   ]}
-/>;
+/>
 ```
 
 #### DashboardGrid
-
 ```tsx
 import { DashboardGrid } from '@/components/design-system';
 
@@ -310,7 +270,6 @@ import { DashboardGrid } from '@/components/design-system';
 ```
 
 #### MarketingButton (NEU)
-
 ```tsx
 import { MarketingButton } from '@/components/design-system/MarketingButton';
 
@@ -326,70 +285,75 @@ import { MarketingButton } from '@/components/design-system/MarketingButton';
 ---
 
 ### 4. FORM COMPONENTS
-
 Pfad: `src/components/forms/`
 
 #### PersonFormFields
-
 ```tsx
-import { PersonFormFields } from "@/components/forms/PersonFormFields";
+import { PersonFormFields } from '@/components/forms/PersonFormFields';
 
-<PersonFormFields formData={formData} setFormData={setFormData} fieldPrefix="customer" />;
+<PersonFormFields
+  formData={formData}
+  setFormData={setFormData}
+  fieldPrefix="customer"
+/>
 ```
 
 #### AddressInput
-
 ```tsx
-import { AddressInput } from "@/components/forms/AddressInput";
+import { AddressInput } from '@/components/forms/AddressInput';
 
 <AddressInput
   value={address}
   onChange={setAddress}
   onAddressSelect={(place) => console.log(place)}
-/>;
+/>
 ```
 
 #### InlineCustomerForm
-
 ```tsx
-import { InlineCustomerForm } from "@/components/forms/InlineCustomerForm";
+import { InlineCustomerForm } from '@/components/forms/InlineCustomerForm';
 
 <InlineCustomerForm
   onCustomerCreated={(customer) => console.log(customer)}
   companyId={companyId}
-/>;
+/>
 ```
 
 ---
 
 ### 5. LAYOUT COMPONENTS
-
 Pfad: `src/components/layout/`
 
 #### MainLayout
-
 ```tsx
-import { MainLayout } from "@/components/layout/MainLayout";
+import { MainLayout } from '@/components/layout/MainLayout';
 
-<MainLayout>{/* App-Inhalt */}</MainLayout>;
+<MainLayout>
+  {/* App-Inhalt */}
+</MainLayout>
 ```
 
 #### MarketingLayout
-
 ```tsx
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
 
-<MarketingLayout currentPage="home">{/* Marketing-Inhalt */}</MarketingLayout>;
+<MarketingLayout currentPage="home">
+  {/* Marketing-Inhalt */}
+</MarketingLayout>
 ```
 
 #### StandardPageLayout
-
 ```tsx
-import { StandardPageLayout } from "@/components/layout/StandardPageLayout";
+import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
 
-<StandardPageLayout title="Aufträge" actions={[{ label: "Neu", icon: Plus, onClick: () => {} }]}>
+<StandardPageLayout
+  title="Aufträge"
+  actions={[
+    { label: 'Neu', icon: Plus, onClick: () => {} }
+  ]}
+>
   {/* Page-Inhalt */}
-</StandardPageLayout>;
+</StandardPageLayout>
 ```
 
 ---
@@ -397,33 +361,31 @@ import { StandardPageLayout } from "@/components/layout/StandardPageLayout";
 ## 🎨 FARB-SYSTEM
 
 ### Semantic Tokens (IMMER verwenden)
-
 ```tsx
 // Text-Farben
-className = "text-foreground"; // Haupttext
-className = "text-muted-foreground"; // Sekundärtext
-className = "text-primary"; // Primärfarbe (Gold)
-className = "text-destructive"; // Fehler
+className="text-foreground"     // Haupttext
+className="text-muted-foreground" // Sekundärtext
+className="text-primary"         // Primärfarbe (Gold)
+className="text-destructive"     // Fehler
 
 // Hintergrund-Farben
-className = "bg-background"; // Haupthintergrund
-className = "bg-card"; // Card-Hintergrund
-className = "bg-primary"; // Primärfarbe
-className = "bg-muted"; // Gedämpfter Hintergrund
+className="bg-background"  // Haupthintergrund
+className="bg-card"        // Card-Hintergrund
+className="bg-primary"     // Primärfarbe
+className="bg-muted"       // Gedämpfter Hintergrund
 
 // Status-Farben (NUR für Badges/StatusIndicator)
-className = "bg-status-success"; // Grün
-className = "bg-status-warning"; // Gelb
-className = "bg-status-error"; // Rot
+className="bg-status-success"  // Grün
+className="bg-status-warning"  // Gelb
+className="bg-status-error"    // Rot
 ```
 
 ### Verbotene Patterns ❌
-
 ```tsx
 // NIEMALS direkte Farben!
-className = "text-white"; // ❌
-className = "bg-blue-500"; // ❌
-className = "text-[#EADEBD]"; // ❌
+className="text-white"     // ❌
+className="bg-blue-500"    // ❌
+className="text-[#EADEBD]" // ❌
 ```
 
 ---
@@ -431,25 +393,22 @@ className = "text-[#EADEBD]"; // ❌
 ## 📐 SPACING & LAYOUT
 
 ### Standard-Gaps
-
 ```tsx
-gap - 2; // 8px - Enge Abstände
-gap - 4; // 16px - Standard
-gap - 6; // 24px - Großzügig
-gap - 8; // 32px - Sehr großzügig
+gap-2  // 8px - Enge Abstände
+gap-4  // 16px - Standard
+gap-6  // 24px - Großzügig
+gap-8  // 32px - Sehr großzügig
 ```
 
 ### Container-Padding
-
 ```tsx
 px-4 sm:px-6 lg:px-8  // Responsive Standard-Padding
 ```
 
 ### Grid-Layouts
-
 ```tsx
 // Mobile-First Grid
-className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6";
+className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
 ```
 
 ---
@@ -457,33 +416,24 @@ className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6";
 ## 🔤 TYPOGRAFIE
 
 ### Headings
-
 ```tsx
-className = "text-3xl sm:text-4xl md:text-5xl font-bold"; // H1
-className = "text-2xl sm:text-3xl md:text-4xl font-bold"; // H2
-className = "text-xl sm:text-2xl md:text-3xl font-bold"; // H3
+className="text-3xl sm:text-4xl md:text-5xl font-bold" // H1
+className="text-2xl sm:text-3xl md:text-4xl font-bold" // H2
+className="text-xl sm:text-2xl md:text-3xl font-bold" // H3
 ```
 
 ### Body Text
-
 ```tsx
-className = "text-base sm:text-lg"; // Großer Body
-className = "text-sm sm:text-base"; // Standard Body
-className = "text-xs sm:text-sm"; // Kleiner Text
+className="text-base sm:text-lg"        // Großer Body
+className="text-sm sm:text-base"        // Standard Body
+className="text-xs sm:text-sm"          // Kleiner Text
 ```
 
 ### Fluid Typography (CSS)
-
 ```css
-.text-display {
-  font-size: var(--font-5xl);
-}
-.text-heading-1 {
-  font-size: var(--font-4xl);
-}
-.text-body {
-  font-size: var(--font-base);
-}
+.text-display { font-size: var(--font-5xl); }
+.text-heading-1 { font-size: var(--font-4xl); }
+.text-body { font-size: var(--font-base); }
 ```
 
 ---
@@ -491,19 +441,17 @@ className = "text-xs sm:text-sm"; // Kleiner Text
 ## 🎬 ANIMATIONEN
 
 ### Hover-Effekte
-
 ```tsx
-className = "hover:scale-105 transition-transform duration-300";
-className = "hover:-translate-y-1 transition-transform duration-200";
-className = "hover:shadow-xl transition-shadow duration-300";
+className="hover:scale-105 transition-transform duration-300"
+className="hover:-translate-y-1 transition-transform duration-200"
+className="hover:shadow-xl transition-shadow duration-300"
 ```
 
 ### Fade-In Animationen
-
 ```tsx
-className = "animate-fade-in";
-className = "animate-scale-in";
-className = "animate-slide-in-right";
+className="animate-fade-in"
+className="animate-scale-in"
+className="animate-slide-in-right"
 ```
 
 ---
@@ -511,7 +459,6 @@ className = "animate-slide-in-right";
 ## 📱 RESPONSIVE DESIGN
 
 ### Breakpoints
-
 ```tsx
 sm:  // 640px
 md:  // 768px
@@ -521,18 +468,16 @@ xl:  // 1280px
 ```
 
 ### Mobile-First Pattern
-
 ```tsx
-className = "text-sm sm:text-base md:text-lg lg:text-xl";
-className = "px-4 sm:px-6 lg:px-8";
-className = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+className="text-sm sm:text-base md:text-lg lg:text-xl"
+className="px-4 sm:px-6 lg:px-8"
+className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
 ```
 
 ### Touch-Targets
-
 ```tsx
 // PFLICHT für mobile Buttons
-className = "min-h-[44px] min-w-[44px]";
+className="min-h-[44px] min-w-[44px]"
 ```
 
 ---
@@ -540,7 +485,6 @@ className = "min-h-[44px] min-w-[44px]";
 ## 🛡️ ACCESSIBILITY
 
 ### ARIA Labels
-
 ```tsx
 <Button aria-label="Auftrag erstellen">
   <Plus />
@@ -548,13 +492,11 @@ className = "min-h-[44px] min-w-[44px]";
 ```
 
 ### Alt-Texte
-
 ```tsx
 <img src="..." alt="MyDispatch Logo - simply arrive" />
 ```
 
 ### Keyboard Navigation
-
 ```tsx
 // Automatisch durch shadcn/ui Components
 <Dialog> // ESC zum Schließen
@@ -566,17 +508,8 @@ className = "min-h-[44px] min-w-[44px]";
 ## 📊 CHARTS & VISUALISIERUNG
 
 ### Recharts Integration
-
 ```tsx
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 <ResponsiveContainer width="100%" height={300}>
   <LineChart data={data}>
@@ -586,7 +519,7 @@ import {
     <Tooltip />
     <Line type="monotone" dataKey="value" stroke="hsl(var(--primary))" />
   </LineChart>
-</ResponsiveContainer>;
+</ResponsiveContainer>
 ```
 
 ---
@@ -594,7 +527,6 @@ import {
 ## 🎯 BEST PRACTICES
 
 ### DO's ✅
-
 1. **Semantic Tokens verwenden**: `text-foreground` statt `text-gray-900`
 2. **Mobile-First**: Immer von klein zu groß denken
 3. **Touch-Targets**: Mindestens 44x44px für Buttons
@@ -602,7 +534,6 @@ import {
 5. **TypeScript**: Alle Props typisieren
 
 ### DON'Ts ❌
-
 1. **Direkte Farben**: NIEMALS `text-white`, `bg-blue-500`
 2. **Inline-Styles**: Nur Tailwind-Klassen
 3. **Fixed Widths**: Nur responsive Werte
@@ -614,13 +545,11 @@ import {
 ## 📦 INSTALLATION NEUER KOMPONENTEN
 
 ### shadcn/ui Component hinzufügen
-
 ```bash
 npx shadcn-ui@latest add [component-name]
 ```
 
 ### Beispiele
-
 ```bash
 npx shadcn-ui@latest add calendar
 npx shadcn-ui@latest add popover

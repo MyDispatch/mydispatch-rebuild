@@ -21,22 +21,22 @@
    - Subtile Schatten für professionelle Tiefe
    ================================================================================== */
 
-import { SEOHead } from "@/components/shared/SEOHead";
-import { PageHeader } from "./PageHeader";
-import { ActionBar } from "./ActionBar";
-import { FilterBar } from "./FilterBar";
-import { ContentArea } from "./ContentArea";
-import { FloatingActions } from "./FloatingActions";
-import { useDeviceType } from "@/hooks/use-device-type";
-import { UnifiedPageTemplateProps } from "@/types/page-template";
-import { Loader2 } from "lucide-react";
+import { SEOHead } from '@/components/shared/SEOHead';
+import { PageHeader } from './PageHeader';
+import { ActionBar } from './ActionBar';
+import { FilterBar } from './FilterBar';
+import { ContentArea } from './ContentArea';
+import { FloatingActions } from './FloatingActions';
+import { useDeviceType } from '@/hooks/use-device-type';
+import { UnifiedPageTemplateProps } from '@/types/page-template';
+import { Loader2 } from 'lucide-react';
 
 export function UnifiedPageTemplate<T = any>({
   // SEO
   title,
   description,
   canonical,
-
+  
   // Configuration
   header,
   actions,
@@ -44,16 +44,16 @@ export function UnifiedPageTemplate<T = any>({
   content,
   floatingActions,
   mobileComponent,
-
+  
   // Bulk Selection
   selectedIds = [],
   onSelectionChange,
-
+  
   // Loading
-  isLoading = false,
+  isLoading = false
 }: UnifiedPageTemplateProps<T>) {
   const { isMobile } = useDeviceType();
-
+  
   // ============================================================================
   // MOBILE OVERRIDE
   // ============================================================================
@@ -66,14 +66,14 @@ export function UnifiedPageTemplate<T = any>({
       </>
     );
   }
-
+  
   // ============================================================================
   // DESKTOP LAYOUT
   // ============================================================================
   return (
     <>
       <SEOHead title={title} description={description} canonical={canonical} />
-
+      
       <div className="space-y-6 bg-gradient-to-br from-slate-50 to-blue-50">
         {/* ============================================================================
             HEADER SECTION
@@ -82,7 +82,7 @@ export function UnifiedPageTemplate<T = any>({
             - Badges (optional)
             ============================================================================ */}
         <PageHeader {...header} />
-
+        
         {/* ============================================================================
             ACTION BAR
             - Primary Actions (Links)
@@ -98,7 +98,7 @@ export function UnifiedPageTemplate<T = any>({
             selectedIds={selectedIds}
           />
         )}
-
+        
         {/* ============================================================================
             FILTER BAR
             - Search Input
@@ -115,7 +115,7 @@ export function UnifiedPageTemplate<T = any>({
             onFilterChange={filters.onFilterChange}
           />
         )}
-
+        
         {/* ============================================================================
             CONTENT AREA
             - Table View (DataTable)
@@ -133,7 +133,7 @@ export function UnifiedPageTemplate<T = any>({
           <ContentArea {...content} />
         )}
       </div>
-
+      
       {/* ============================================================================
           FLOATING ACTIONS (MOBILE)
           - Fixed Position Bottom-Right

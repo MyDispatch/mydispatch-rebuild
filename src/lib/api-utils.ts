@@ -6,9 +6,9 @@
    - Response-Formatierung
    ================================================================================== */
 
-import { toast } from "sonner";
-import type { PostgrestError } from "@supabase/supabase-js";
-import { logError, logDebug } from "@/lib/logger";
+import { toast } from 'sonner';
+import type { PostgrestError } from '@supabase/supabase-js';
+import { logError, logDebug } from '@/lib/logger';
 
 // ============================================================================
 // ERROR HANDLING
@@ -20,35 +20,39 @@ export interface ErrorOptions {
   logToConsole?: boolean;
 }
 
-export function handleError(error: unknown, message?: string, options: ErrorOptions = {}): void {
+export function handleError(
+  error: unknown,
+  message?: string,
+  options: ErrorOptions = {}
+): void {
   const {
     showToast = true,
-    fallbackMessage = "Ein Fehler ist aufgetreten",
+    fallbackMessage = 'Ein Fehler ist aufgetreten',
     logToConsole = true,
   } = options;
 
   // Log error
   if (logToConsole) {
-    logError(message || fallbackMessage, error instanceof Error ? error : undefined, {
-      component: "api-utils",
-      error: typeof error === "object" ? JSON.stringify(error) : String(error),
+    logError(message || fallbackMessage, error instanceof Error ? error : undefined, { 
+      component: 'api-utils',
+      error: typeof error === 'object' ? JSON.stringify(error) : String(error)
     });
   }
 
   // Extract error message
   let errorMessage = fallbackMessage;
-
+  
   if (error instanceof Error) {
     errorMessage = error.message;
   } else if (isPostgrestError(error)) {
     errorMessage = error.message || error.details || fallbackMessage;
-  } else if (typeof error === "string") {
+  } else if (typeof error === 'string') {
     errorMessage = error;
   }
 
   // Show toast
   if (showToast) {
-    toast.error(message || "Fehler", {
+    toast.error(message || 'Fehler', {
       description: errorMessage,
       duration: 5000,
     });
@@ -67,7 +71,12 @@ export function handleSuccess(message: string, description?: string): void {
 // ============================================================================
 
 export function isPostgrestError(error: unknown): error is PostgrestError {
-  return typeof error === "object" && error !== null && "code" in error && "message" in error;
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'code' in error &&
+    'message' in error
+  );
 }
 
 // ============================================================================
@@ -83,13 +92,16 @@ export interface QueryFilters {
 
 /**
  * Erstellt Standard-Filter für Multi-Tenant-Queries
- *
+ * 
  * @example
  * const filters = getStandardFilters(profile.company_id);
  * let query = supabase.from('bookings').select('*');
  * query = applyFilters(query, filters);
  */
-export function getStandardFilters(companyId: string, archived: boolean = false): QueryFilters {
+export function getStandardFilters(
+  companyId: string,
+  archived: boolean = false
+): QueryFilters {
   return {
     company_id: companyId,
     archived,
@@ -98,7 +110,7 @@ export function getStandardFilters(companyId: string, archived: boolean = false)
 
 /**
  * Wendet Filter auf Supabase-Query an (Type-Safe)
- *
+ * 
  * @example
  * let query = supabase.from('bookings').select('*');
  * query = applyQueryFilters(query, { company_id: '123', archived: false });
@@ -108,11 +120,11 @@ export function applyQueryFilters<T>(
   filters: QueryFilters
 ): any {
   if (filters.company_id) {
-    query = query.eq("company_id", filters.company_id);
+    query = query.eq('company_id', filters.company_id);
   }
 
   if (filters.archived !== undefined) {
-    query = query.eq("archived", filters.archived);
+    query = query.eq('archived', filters.archived);
   }
 
   if (filters.limit) {
@@ -128,7 +140,7 @@ export function applyQueryFilters<T>(
 
 /**
  * Helper für company_id + archived Filter (häufigster Use-Case)
- *
+ * 
  * @example
  * const { data } = await queryWithCompanyFilter(
  *   supabase.from('bookings').select('*'),
@@ -140,10 +152,10 @@ export async function queryWithCompanyFilter<T>(
   companyId: string,
   includeArchived: boolean = false
 ): Promise<{ data: T[] | null; error: PostgrestError | null }> {
-  let filteredQuery = query.eq("company_id", companyId);
-
+  let filteredQuery = query.eq('company_id', companyId);
+  
   if (!includeArchived) {
-    filteredQuery = filteredQuery.eq("archived", false);
+    filteredQuery = filteredQuery.eq('archived', false);
   }
 
   return filteredQuery;
@@ -187,15 +199,22 @@ export interface RetryOptions {
 
 /**
  * Führt eine Funktion mit Retry-Logic aus
- *
+ * 
  * @example
  * const data = await withRetry(
  *   () => supabase.from('bookings').select('*'),
  *   { maxRetries: 3 }
  * );
  */
-export async function withRetry<T>(fn: () => Promise<T>, options: RetryOptions = {}): Promise<T> {
-  const { maxRetries = 3, retryDelay = 1000, shouldRetry = () => true } = options;
+export async function withRetry<T>(
+  fn: () => Promise<T>,
+  options: RetryOptions = {}
+): Promise<T> {
+  const {
+    maxRetries = 3,
+    retryDelay = 1000,
+    shouldRetry = () => true,
+  } = options;
 
   let lastError: unknown;
 
@@ -206,7 +225,7 @@ export async function withRetry<T>(fn: () => Promise<T>, options: RetryOptions =
       lastError = error;
 
       if (attempt < maxRetries - 1 && shouldRetry(error)) {
-        await new Promise((resolve) => setTimeout(resolve, retryDelay * (attempt + 1)));
+        await new Promise(resolve => setTimeout(resolve, retryDelay * (attempt + 1)));
         continue;
       }
 

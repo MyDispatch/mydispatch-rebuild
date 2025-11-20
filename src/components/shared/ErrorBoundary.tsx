@@ -4,11 +4,11 @@
    Zentrale Fehlerbehandlung mit automatischem Logging
    ================================================================================== */
 
-import React, { Component, ErrorInfo, ReactNode } from "react";
-import { AlertTriangle, RefreshCw } from "lucide-react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Card } from "@/components/ui/card";
-import { logError } from "@/lib/logger";
+import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { AlertTriangle, RefreshCw } from 'lucide-react';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Card } from '@/components/ui/card';
+import { logError } from '@/lib/logger';
 
 interface Props {
   children: ReactNode;
@@ -38,7 +38,7 @@ export class ErrorBoundary extends Component<Props, State> {
       message: error.message,
       stack: error.stack,
       componentStack: errorInfo.componentStack,
-      level: "error",
+      level: 'error',
     });
 
     this.setState({
@@ -65,12 +65,14 @@ export class ErrorBoundary extends Component<Props, State> {
               <div className="rounded-full bg-destructive/10 p-4">
                 <AlertTriangle className="h-12 w-12 text-destructive" />
               </div>
-
+              
               <div className="space-y-2">
-                <h1 className="text-2xl font-bold text-foreground">Ein Fehler ist aufgetreten</h1>
+                <h1 className="text-2xl font-bold text-foreground">
+                  Ein Fehler ist aufgetreten
+                </h1>
                 <p className="text-muted-foreground">
-                  Die Anwendung ist auf einen unerwarteten Fehler gestoßen. Bitte laden Sie die
-                  Seite neu oder kontaktieren Sie den Support.
+                  Die Anwendung ist auf einen unerwarteten Fehler gestoßen.
+                  Bitte laden Sie die Seite neu oder kontaktieren Sie den Support.
                 </p>
               </div>
 
@@ -84,7 +86,9 @@ export class ErrorBoundary extends Component<Props, State> {
                       <summary className="cursor-pointer text-xs text-muted-foreground hover:text-foreground">
                         Technische Details anzeigen
                       </summary>
-                      <pre className="mt-2 text-xs overflow-x-auto">{this.state.error.stack}</pre>
+                      <pre className="mt-2 text-xs overflow-x-auto">
+                        {this.state.error.stack}
+                      </pre>
                     </details>
                   )}
                 </div>
@@ -95,7 +99,10 @@ export class ErrorBoundary extends Component<Props, State> {
                   <RefreshCw className="h-4 w-4" />
                   Seite neu laden
                 </V28Button>
-                <V28Button variant="secondary" onClick={() => window.location.reload()}>
+                <V28Button 
+                  variant="secondary" 
+                  onClick={() => window.location.reload()}
+                >
                   Zur Startseite
                 </V28Button>
               </div>

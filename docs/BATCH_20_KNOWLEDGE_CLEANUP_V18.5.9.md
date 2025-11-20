@@ -12,7 +12,6 @@
 **Auslöser:** WDIF-Report Batch 18.1 - CQR-Fehler (Nutzung veralteter Daten)
 
 **Ziel:** Behebung des CQR-Fehlers durch:
-
 1. ARCA-Pflicht durchführen (WDIF-Report + Root-Cause-Analyse)
 2. Vollständiger Audit aller Dokumente in `docs/`
 3. Archivierung veralteter Versionen
@@ -65,12 +64,12 @@
 
 ### Dokumentations-Health
 
-| Metrik              | Vorher  | Nachher | Ziel     |
-| ------------------- | ------- | ------- | -------- |
-| ARCA-Integration    | 0%      | 100%    | 100%     |
-| Archivierungssystem | 0%      | 100%    | 100%     |
-| Dokumenten-Audit    | 0%      | 0%      | 100%     |
-| **GESAMT**          | **60%** | **80%** | **100%** |
+| Metrik | Vorher | Nachher | Ziel |
+|--------|--------|---------|------|
+| ARCA-Integration | 0% | 100% | 100% |
+| Archivierungssystem | 0% | 100% | 100% |
+| Dokumenten-Audit | 0% | 0% | 100% |
+| **GESAMT** | **60%** | **80%** | **100%** |
 
 **Note:** Audit & Archivierung in Batch 20.1
 
@@ -79,13 +78,11 @@
 ## 🎓 LESSONS LEARNED (ARCA)
 
 **Was lief schief?**
-
 - Real-Time-Knowledge-Index wurde nicht genutzt
 - Keine Versions-Validierung vor Dokumenten-Nutzung
 - Kein Archivierungssystem vorhanden
 
 **Präventive Maßnahmen:**
-
 - ARCA-Regel #1: CQR-First-Validation (MANDATORY)
 - Dokumenten-Versions-Audit vor jedem Workflow
 - Automatische Deprecation bei neuer Version

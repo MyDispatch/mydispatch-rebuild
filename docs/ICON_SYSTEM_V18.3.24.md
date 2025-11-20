@@ -2,14 +2,13 @@
 
 **Status:** ✅ AKTIV - Systemweit verpflichtend  
 **Datum:** 21.10.2025  
-**Version:** V18.3.24
+**Version:** V18.3.24  
 
 ---
 
 ## 🎯 ZIELSETZUNG
 
 Zentrale Verwaltung ALLER Icons im gesamten System mit:
-
 - ✅ CI-Konformität (nur erlaubte Farben)
 - ✅ Lucide-Only (keine anderen Icon-Libraries)
 - ✅ Type-Safety (TypeScript)
@@ -25,7 +24,7 @@ Zentrale Verwaltung ALLER Icons im gesamten System mit:
 Zentrale Definition aller verfügbaren Icons in Kategorien:
 
 ```typescript
-import { ICON_REGISTRY, getIcon, IconSize, IconColor } from "@/lib/icon-registry";
+import { ICON_REGISTRY, getIcon, IconSize, IconColor } from '@/lib/icon-registry';
 
 // Icon holen
 const HomeIcon = ICON_REGISTRY.navigation.home;
@@ -33,11 +32,10 @@ const AddIcon = ICON_REGISTRY.actions.add;
 const SuccessIcon = ICON_REGISTRY.status.success;
 
 // Oder dynamisch
-const icon = getIcon("navigation", "home");
+const icon = getIcon('navigation', 'home');
 ```
 
 **Verfügbare Kategorien:**
-
 - `navigation` - Menü-Icons (Home, Aufträge, Kunden, etc.)
 - `actions` - Aktions-Icons (Add, Edit, Delete, etc.)
 - `status` - Status-Icons (Success, Error, Warning, etc.)
@@ -53,20 +51,19 @@ const icon = getIcon("navigation", "home");
 Wrapper-Component, die CI-Konformität erzwingt:
 
 ```tsx
-import { SafeIcon } from "@/components/base/SafeIcon";
-import { Plus } from "lucide-react";
+import { SafeIcon } from '@/components/base/SafeIcon';
+import { Plus } from 'lucide-react';
 
 // Verwendung
-<SafeIcon
-  icon={Plus}
-  size="sm" // xs | sm | md | lg | xl | 2xl
-  color="default" // default | muted | accent | white
-  className="mr-2" // Optional
-/>;
+<SafeIcon 
+  icon={Plus} 
+  size="sm"           // xs | sm | md | lg | xl | 2xl
+  color="default"     // default | muted | accent | white
+  className="mr-2"    // Optional
+/>
 ```
 
 **Features:**
-
 - ✅ Automatische CI-Farb-Validierung
 - ✅ Console-Warnings bei verbotenen Farben
 - ✅ Standard-Größen vordefiniert
@@ -80,7 +77,7 @@ import { Plus } from "lucide-react";
 
 ```typescript
 // Standard (Default)
-<SafeIcon icon={Home} color="default" />
+<SafeIcon icon={Home} color="default" />  
 // → text-foreground (hsl(225 31% 28%))
 
 // Gedämpft (für sekundäre Icons)
@@ -143,26 +140,30 @@ import { Plus } from "lucide-react";
 ### Button mit Icon
 
 ```tsx
-import { SafeIcon } from "@/components/base/SafeIcon";
-import { Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { SafeIcon } from '@/components/base/SafeIcon';
+import { Plus } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 <Button>
   <SafeIcon icon={Plus} size="sm" className="mr-2" />
   Neuer Auftrag
-</Button>;
+</Button>
 ```
 
 ### Navigation-Item
 
 ```tsx
-import { SafeIcon } from "@/components/base/SafeIcon";
-import { ICON_REGISTRY } from "@/lib/icon-registry";
+import { SafeIcon } from '@/components/base/SafeIcon';
+import { ICON_REGISTRY } from '@/lib/icon-registry';
 
 <NavLink to="/auftraege">
-  <SafeIcon icon={ICON_REGISTRY.navigation.auftraege} size="sm" className="mr-3" />
+  <SafeIcon 
+    icon={ICON_REGISTRY.navigation.auftraege} 
+    size="sm" 
+    className="mr-3" 
+  />
   Aufträge
-</NavLink>;
+</NavLink>
 ```
 
 ### Status-Anzeige (RICHTIG!)
@@ -183,8 +184,14 @@ import { StatusIndicator } from '@/components/shared/StatusIndicator';
 ```tsx
 <Card>
   <CardHeader className="flex flex-row items-center justify-between pb-2">
-    <CardTitle className="text-sm font-medium">Aufträge heute</CardTitle>
-    <SafeIcon icon={ICON_REGISTRY.business.truck} size="md" color="muted" />
+    <CardTitle className="text-sm font-medium">
+      Aufträge heute
+    </CardTitle>
+    <SafeIcon 
+      icon={ICON_REGISTRY.business.truck} 
+      size="md" 
+      color="muted" 
+    />
   </CardHeader>
   <CardContent>
     <div className="text-2xl font-bold">{stats.bookings_today}</div>
@@ -200,23 +207,23 @@ import { StatusIndicator } from '@/components/shared/StatusIndicator';
 
 ```tsx
 // ❌ ALT
-import { Plus } from "lucide-react";
-<Plus className="h-4 w-4 text-foreground" />;
+import { Plus } from 'lucide-react';
+<Plus className="h-4 w-4 text-foreground" />
 
 // ✅ NEU
-import { SafeIcon } from "@/components/base/SafeIcon";
-import { Plus } from "lucide-react";
-<SafeIcon icon={Plus} size="sm" />;
+import { SafeIcon } from '@/components/base/SafeIcon';
+import { Plus } from 'lucide-react';
+<SafeIcon icon={Plus} size="sm" />
 ```
 
 ### Schritt 2: Registry nutzen (Optional)
 
 ```tsx
 // ✅ Noch besser: Registry verwenden
-import { SafeIcon } from "@/components/base/SafeIcon";
-import { ICON_REGISTRY } from "@/lib/icon-registry";
+import { SafeIcon } from '@/components/base/SafeIcon';
+import { ICON_REGISTRY } from '@/lib/icon-registry';
 
-<SafeIcon icon={ICON_REGISTRY.actions.add} size="sm" />;
+<SafeIcon icon={ICON_REGISTRY.actions.add} size="sm" />
 ```
 
 ### Schritt 3: Farb-Fehler fixen
@@ -243,7 +250,6 @@ SafeIcon prüft automatisch:
    - Fallback auf `text-foreground`
 
 2. **Console-Warnings**
-
    ```
    ❌ SafeIcon: Verbotene Farbe "text-status-success"
    Ampelfarben sind auf Icons verboten!
@@ -258,7 +264,6 @@ SafeIcon prüft automatisch:
 ## 📊 COVERAGE (SYSTEMWEIT)
 
 **Bereits migriert:**
-
 - ✅ `src/pages/Auth.tsx`
 - ✅ `src/pages/Pricing.tsx`
 - ✅ `src/pages/Angebote.tsx`
@@ -268,7 +273,6 @@ SafeIcon prüft automatisch:
 - ✅ `src/pages/Statistiken.tsx`
 
 **TODO:**
-
 - [ ] Alle anderen Pages migrieren
 - [ ] Alle Dialogs migrieren
 - [ ] Alle Forms migrieren
@@ -342,12 +346,12 @@ Icon not found in registry
 
 ```tsx
 // Falls nicht vorhanden, hinzufügen:
-import { NewIcon } from "lucide-react";
+import { NewIcon } from 'lucide-react';
 
 export const ICON_REGISTRY = {
   actions: {
     // ... existing
-    newAction: NewIcon, // Hinzufügen
+    newAction: NewIcon,  // Hinzufügen
   },
 };
 ```
@@ -357,7 +361,6 @@ export const ICON_REGISTRY = {
 ## 📞 SUPPORT
 
 Bei Fragen oder Problemen:
-
 - Dokumentation: `docs/ICON_SYSTEM_V18.3.24.md`
 - Guidelines: `ICON_GUIDELINES.md`
 - Code: `src/lib/icon-registry.ts` & `src/components/base/SafeIcon.tsx`

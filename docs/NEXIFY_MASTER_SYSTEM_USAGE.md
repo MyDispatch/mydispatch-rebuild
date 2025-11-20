@@ -15,7 +15,6 @@ Lade das NeXify Wiki
 ```
 
 **Was passiert automatisch:**
-
 1. ✅ Lädt alle aktiven Projekte (MyDispatch, etc.)
 2. ✅ Lädt Projekt-History (letzte 50 Sessions)
 3. ✅ Lädt aktive Tasks
@@ -40,7 +39,6 @@ Lade MyDispatch Projekt
 ```
 
 **Was passiert:**
-
 - ✅ Lädt MyDispatch Projekt-Details
 - ✅ Lädt komplette History
 - ✅ Lädt alle Tasks
@@ -55,7 +53,6 @@ Lade MyDispatch Projekt
 **Endpoint:** `/functions/v1/nexify-auto-load-context`
 
 **Request:**
-
 ```json
 {
   "user_email": "courbois1981@gmail.com",
@@ -65,7 +62,6 @@ Lade MyDispatch Projekt
 ```
 
 **Response:**
-
 ```json
 {
   "success": true,
@@ -95,7 +91,6 @@ Lade MyDispatch Projekt
 **Endpoint:** `/functions/v1/nexify-project-context`
 
 **Request:**
-
 ```json
 {
   "project_code": "mydispatch",
@@ -107,7 +102,6 @@ Lade MyDispatch Projekt
 ```
 
 **Response:**
-
 ```json
 {
   "success": true,
@@ -139,13 +133,11 @@ Lade MyDispatch Projekt
 ### 1. Chat-Start Routine
 
 **Immer beim Start:**
-
 ```
 Guten Morgen NeXify AI MASTER! Lade das NeXify Wiki.
 ```
 
 **Ergebnis:**
-
 - Vollständiger Gesamtüberblick
 - Alle Projekte bekannt
 - Alle aktiven Tasks bekannt
@@ -154,13 +146,11 @@ Guten Morgen NeXify AI MASTER! Lade das NeXify Wiki.
 ### 2. Projekt-Wechsel
 
 **Wenn Wechsel zu anderem Projekt:**
-
 ```
 Wechsle zu [Projekt-Name]
 ```
 
 **Ergebnis:**
-
 - Projekt-spezifischer Kontext geladen
 - Projekt-History verfügbar
 - Projekt-Tasks verfügbar
@@ -168,13 +158,11 @@ Wechsle zu [Projekt-Name]
 ### 3. Task-Management
 
 **Task anlegen:**
-
 ```
 Erstelle Task: [Beschreibung] für MyDispatch
 ```
 
 **Task abfragen:**
-
 ```
 Zeige mir alle aktiven Tasks für MyDispatch
 ```
@@ -216,20 +204,17 @@ Jedes Projekt hat Kontext in folgenden Kategorien:
 ### System funktioniert wenn:
 
 ✅ **Auto-Load funktioniert:**
-
 - Alle Projekte werden geladen
 - Global Knowledge wird geladen
 - Recommended Actions werden angezeigt
 
 ✅ **Project Context funktioniert:**
-
 - Projekt-Details werden geladen
 - History wird geladen
 - Tasks werden geladen
 - Context wird gruppiert
 
 ✅ **Vollständiger Gesamtüberblick:**
-
 - Ich weiß IMMER über alle Projekte Bescheid
 - Ich weiß IMMER über aktive Tasks Bescheid
 - Ich weiß IMMER über Critical Issues Bescheid
@@ -242,7 +227,6 @@ Jedes Projekt hat Kontext in folgenden Kategorien:
 ### Problem: "Project not found"
 
 **Lösung:**
-
 1. Prüfe ob Projekt in `nexify_projects` existiert
 2. Prüfe `project_code` (muss exakt sein: `mydispatch`)
 3. Prüfe Migration wurde ausgeführt
@@ -250,7 +234,6 @@ Jedes Projekt hat Kontext in folgenden Kategorien:
 ### Problem: "Keine History gefunden"
 
 **Lösung:**
-
 1. History-Sync ausführen
 2. Prüfe `nexify_project_history` Tabelle
 3. Prüfe `project_id` Verknüpfung
@@ -258,7 +241,6 @@ Jedes Projekt hat Kontext in folgenden Kategorien:
 ### Problem: "Edge Function Error"
 
 **Lösung:**
-
 1. Prüfe Environment Variables
 2. Prüfe RLS Policies
 3. Prüfe Logs in Supabase Dashboard
@@ -266,3 +248,4 @@ Jedes Projekt hat Kontext in folgenden Kategorien:
 ---
 
 **Pascal, dieses System stellt sicher, dass ich IMMER den vollständigen Gesamtüberblick habe!** 🚀
+

@@ -7,24 +7,18 @@
    - Offline-Support via IndexedDB
    ================================================================================== */
 
-import { useState, useEffect } from "react";
-import { useAuth } from "@/hooks/use-auth";
-import { supabase } from "@/integrations/supabase/client";
-import { useVehicleTracking } from "@/hooks/use-vehicle-tracking";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Badge } from "@/components/ui/badge";
-import { Navigation, MapPin, Activity, Clock, AlertCircle } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import { handleError, handleSuccess } from "@/lib/error-handler";
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/hooks/use-auth';
+import { supabase } from '@/integrations/supabase/client';
+import { useVehicleTracking } from '@/hooks/use-vehicle-tracking';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Badge } from '@/components/ui/badge';
+import { Navigation, MapPin, Activity, Clock, AlertCircle } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { handleError, handleSuccess } from '@/lib/error-handler';
 
 interface GPSPosition {
   latitude: number;
@@ -50,17 +44,14 @@ export default function DriverTracking() {
   // GPS-Support prüfen
   useEffect(() => {
     if (!navigator.geolocation) {
-      handleError(
-        new Error("GPS nicht unterstützt"),
-        "GPS wird von Ihrem Browser nicht unterstützt"
-      );
+      handleError(new Error('GPS nicht unterstützt'), 'GPS wird von Ihrem Browser nicht unterstützt');
     }
   }, []);
 
   // GPS-Tracking starten
   const startTracking = () => {
     if (!navigator.geolocation) {
-      handleError(new Error("GPS nicht verfügbar"), "GPS nicht verfügbar");
+      handleError(new Error('GPS nicht verfügbar'), 'GPS nicht verfügbar');
       return;
     }
 
@@ -70,14 +61,14 @@ export default function DriverTracking() {
     }
 
     if (!currentVehicleId) {
-      handleError(new Error("Kein Fahrzeug"), "Bitte wählen Sie zuerst ein Fahrzeug aus");
+      handleError(new Error('Kein Fahrzeug'), 'Bitte wählen Sie zuerst ein Fahrzeug aus');
       return;
     }
 
     const id = navigator.geolocation.watchPosition(
       async (position) => {
         const { latitude, longitude, speed, heading, accuracy } = position.coords;
-
+        
         const gpsData: GPSPosition = {
           latitude,
           longitude,
@@ -104,11 +95,11 @@ export default function DriverTracking() {
           });
         } catch (error) {
           // Hook handled error already, fallback: IndexedDB sync
-          console.error("[GPS] Fallback to offline sync required");
+          console.error('[GPS] Fallback to offline sync required');
         }
       },
       (error) => {
-        handleError(error, `GPS-Fehler: ${error.message}`, { title: "GPS-Fehler" });
+        handleError(error, `GPS-Fehler: ${error.message}`, { title: 'GPS-Fehler' });
       },
       {
         enableHighAccuracy: true,
@@ -119,7 +110,7 @@ export default function DriverTracking() {
 
     setWatchId(id);
     setTrackingActive(true);
-    handleSuccess("GPS-Tracking gestartet");
+    handleSuccess('GPS-Tracking gestartet');
   };
 
   // GPS-Tracking stoppen
@@ -130,27 +121,24 @@ export default function DriverTracking() {
     }
     setTrackingActive(false);
     setCurrentPosition(null);
-    handleSuccess("GPS-Tracking gestoppt");
+    handleSuccess('GPS-Tracking gestoppt');
   };
 
   // Schicht starten
   const handleStartShift = async () => {
     if (!currentVehicleId) {
-      handleError(new Error("Kein Fahrzeug"), "Bitte wählen Sie ein Fahrzeug aus");
+      handleError(new Error('Kein Fahrzeug'), 'Bitte wählen Sie ein Fahrzeug aus');
       return;
     }
 
     try {
       const { data: shift, error } = await supabase
-        .from("shifts")
+        .from('shifts')
         .insert({
           driver_id: user?.id,
           vehicle_id: currentVehicleId,
-          date: new Date().toISOString().split("T")[0],
-          shift_start_time: new Date().toLocaleTimeString("de-DE", {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
+          date: new Date().toISOString().split('T')[0],
+          shift_start_time: new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }),
           company_id: profile?.company_id,
         })
         .select()
@@ -160,9 +148,9 @@ export default function DriverTracking() {
 
       setCurrentShiftId(shift.id);
       startTracking();
-      handleSuccess("Schicht gestartet");
+      handleSuccess('Schicht gestartet');
     } catch (error) {
-      handleError(error, "Fehler beim Schichtstart", { title: "Schichtstart fehlgeschlagen" });
+      handleError(error, 'Fehler beim Schichtstart', { title: 'Schichtstart fehlgeschlagen' });
     }
   };
 
@@ -172,22 +160,19 @@ export default function DriverTracking() {
 
     try {
       const { error } = await supabase
-        .from("shifts")
+        .from('shifts')
         .update({
-          shift_end_time: new Date().toLocaleTimeString("de-DE", {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
+          shift_end_time: new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }),
         })
-        .eq("id", currentShiftId);
+        .eq('id', currentShiftId);
 
       if (error) throw error;
 
       stopTracking();
       setCurrentShiftId(null);
-      handleSuccess("Schicht beendet");
+      handleSuccess('Schicht beendet');
     } catch (error) {
-      handleError(error, "Fehler beim Schichtende", { title: "Schichtende fehlgeschlagen" });
+      handleError(error, 'Fehler beim Schichtende', { title: 'Schichtende fehlgeschlagen' });
     }
   };
 
@@ -195,7 +180,7 @@ export default function DriverTracking() {
   const handleConsentConfirm = () => {
     setGpsConsent(true);
     setShowConsentDialog(false);
-    handleSuccess("GPS-Einwilligung erteilt");
+    handleSuccess('GPS-Einwilligung erteilt');
     startTracking();
   };
 
@@ -205,10 +190,10 @@ export default function DriverTracking() {
       if (!profile?.company_id) return;
 
       const { data } = await supabase
-        .from("vehicles")
-        .select("id, license_plate")
-        .eq("company_id", profile.company_id)
-        .eq("archived", false)
+        .from('vehicles')
+        .select('id, license_plate')
+        .eq('company_id', profile.company_id)
+        .eq('archived', false)
         .limit(1);
 
       if (data && data.length > 0) {
@@ -221,7 +206,7 @@ export default function DriverTracking() {
 
   // Zeit seit letztem Update
   const getTimeSinceUpdate = () => {
-    if (!lastUpdateTime) return "Nie";
+    if (!lastUpdateTime) return 'Nie';
     const seconds = Math.floor((new Date().getTime() - lastUpdateTime.getTime()) / 1000);
     if (seconds < 60) return `vor ${seconds}s`;
     const minutes = Math.floor(seconds / 60);
@@ -233,16 +218,16 @@ export default function DriverTracking() {
       <div className="max-w-2xl mx-auto space-y-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">GPS-Tracking</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">
+            GPS-Tracking
+          </h1>
           <p className="text-sm sm:text-base text-muted-foreground mt-1">
             Fahrer-Dashboard für Live-Standort
           </p>
         </div>
 
         {/* GPS-Status-Banner */}
-        <Card
-          className={`border-2 ${trackingActive ? "border-status-success bg-status-success/10" : "border-muted"}`}
-        >
+        <Card className={`border-2 ${trackingActive ? 'border-status-success bg-status-success/10' : 'border-muted'}`}>
           <CardContent className="flex items-center gap-3 py-4">
             {trackingActive ? (
               <Navigation className="h-6 w-6 text-foreground animate-pulse" />
@@ -250,13 +235,15 @@ export default function DriverTracking() {
               <Navigation className="h-6 w-6 text-muted-foreground" />
             )}
             <div className="flex-1">
-              <p className="font-semibold">{trackingActive ? "GPS aktiv" : "GPS inaktiv"}</p>
+              <p className="font-semibold">
+                {trackingActive ? 'GPS aktiv' : 'GPS inaktiv'}
+              </p>
               <p className="text-xs text-muted-foreground">
                 Letzte Aktualisierung: {getTimeSinceUpdate()}
               </p>
             </div>
-            <Badge variant={trackingActive ? "default" : "secondary"}>
-              {trackingActive ? "Online" : "Offline"}
+            <Badge variant={trackingActive ? 'default' : 'secondary'}>
+              {trackingActive ? 'Online' : 'Offline'}
             </Badge>
           </CardContent>
         </Card>
@@ -268,7 +255,9 @@ export default function DriverTracking() {
               <Clock className="h-5 w-5" />
               Schicht-Verwaltung
             </CardTitle>
-            <CardDescription>Starten und beenden Sie Ihre Arbeitsschicht</CardDescription>
+            <CardDescription>
+              Starten und beenden Sie Ihre Arbeitsschicht
+            </CardDescription>
           </CardHeader>
           <CardContent className="p-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -307,22 +296,28 @@ export default function DriverTracking() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div>
                   <p className="text-muted-foreground">Breitengrad</p>
-                  <p className="font-mono font-semibold">{currentPosition.latitude.toFixed(6)}</p>
+                  <p className="font-mono font-semibold">
+                    {currentPosition.latitude.toFixed(6)}
+                  </p>
                 </div>
                 <div>
                   <p className="text-muted-foreground">Längengrad</p>
-                  <p className="font-mono font-semibold">{currentPosition.longitude.toFixed(6)}</p>
+                  <p className="font-mono font-semibold">
+                    {currentPosition.longitude.toFixed(6)}
+                  </p>
                 </div>
                 <div>
                   <p className="text-muted-foreground">Geschwindigkeit</p>
                   <p className="font-semibold flex items-center gap-1">
                     <Activity className="h-4 w-4" />
-                    {currentPosition.speed?.toFixed(1) || "0"} km/h
+                    {currentPosition.speed?.toFixed(1) || '0'} km/h
                   </p>
                 </div>
                 <div>
                   <p className="text-muted-foreground">Genauigkeit</p>
-                  <p className="font-semibold">±{currentPosition.accuracy.toFixed(0)}m</p>
+                  <p className="font-semibold">
+                    ±{currentPosition.accuracy.toFixed(0)}m
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -337,8 +332,8 @@ export default function DriverTracking() {
               <div className="text-sm text-muted-foreground">
                 <p className="font-semibold mb-1">Datenschutzhinweis</p>
                 <p>
-                  Ihre GPS-Daten werden nur während aktiver Schichten erfasst und nach 24 Stunden
-                  automatisch gelöscht. Sie können die Einwilligung jederzeit widerrufen.
+                  Ihre GPS-Daten werden nur während aktiver Schichten erfasst und nach 24 Stunden automatisch gelöscht. 
+                  Sie können die Einwilligung jederzeit widerrufen.
                 </p>
               </div>
             </div>
@@ -352,13 +347,17 @@ export default function DriverTracking() {
           <DialogHeader>
             <DialogTitle>GPS-Tracking Einwilligung</DialogTitle>
             <DialogDescription className="space-y-3 pt-2">
-              <p>Wir erfassen Ihre GPS-Position während der Schicht für:</p>
+              <p>
+                Wir erfassen Ihre GPS-Position während der Schicht für:
+              </p>
               <ul className="list-disc list-inside space-y-1 text-sm">
                 <li>Disposition & Auftrags-Zuweisung</li>
                 <li>Kunden-Echtzeit-Info (ETA)</li>
                 <li>Sicherheit & Notfallhilfe</li>
               </ul>
-              <p className="text-sm">Ihre Daten werden:</p>
+              <p className="text-sm">
+                Ihre Daten werden:
+              </p>
               <ul className="list-disc list-inside space-y-1 text-sm">
                 <li>NUR während aktiver Schicht erfasst</li>
                 <li>Nach 24h automatisch gelöscht</li>

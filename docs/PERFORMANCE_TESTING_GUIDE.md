@@ -5,7 +5,6 @@
 Dieser Guide führt dich durch die Ausführung der kompletten Performance Test Suite für MyDispatch V28.1.
 
 **Test-Scope:**
-
 - ✅ E2E Tests (17 Tests) - Master Account Login Flow
 - ✅ Lighthouse CI (10 Pre-Login Pages) - Performance, Accessibility, SEO
 - ✅ Bundle Size Analysis
@@ -18,21 +17,18 @@ Dieser Guide führt dich durch die Ausführung der kompletten Performance Test S
 ## 🚀 QUICK START
 
 ### Option 1: Full Test Suite (Empfohlen)
-
 ```bash
 # Komplett: E2E + Lighthouse CI + Report
 ./scripts/run-performance-tests.sh
 ```
 
 ### Option 2: Nur E2E Tests (Quick)
-
 ```bash
 # Nur E2E Tests (5 Min)
 ./scripts/quick-e2e-test.sh
 ```
 
 ### Option 3: Nur Lighthouse CI
-
 ```bash
 # Build + Lighthouse
 npm run build
@@ -44,7 +40,6 @@ npx @lhci/cli@latest autorun --config=lighthouserc.json
 ## 📋 PREREQUISITES CHECK
 
 ### 1. Node & Dependencies
-
 ```bash
 # Node Version: ≥ 18.x
 node --version
@@ -54,14 +49,12 @@ npm install
 ```
 
 ### 2. Playwright installiert?
-
 ```bash
 # Playwright Browsers installieren (falls nicht vorhanden)
 npx playwright install
 ```
 
 ### 3. Port 5173 verfügbar?
-
 ```bash
 # Dev Server Port prüfen
 lsof -i :5173
@@ -69,7 +62,6 @@ lsof -i :5173
 ```
 
 ### 4. Port 4173 verfügbar? (für Lighthouse)
-
 ```bash
 # Preview Server Port prüfen
 lsof -i :4173
@@ -91,7 +83,6 @@ chmod +x scripts/run-performance-tests.sh
 ```
 
 **Was passiert:**
-
 1. ✅ E2E Tests (5-10 Min)
    - 17 Tests für Master Account Login Flow
    - Screenshots bei Failures
@@ -117,7 +108,6 @@ chmod +x scripts/run-performance-tests.sh
 ## 📊 EXPECTED RESULTS
 
 ### E2E Tests (PASS Criteria)
-
 ```
 ✅ 17/17 Tests PASSED
 ✅ Duration: < 5 Min
@@ -126,7 +116,6 @@ chmod +x scripts/run-performance-tests.sh
 ```
 
 ### Lighthouse CI (PASS Criteria)
-
 ```
 Page                  Performance  Accessibility  Best Practices  SEO
 ─────────────────────────────────────────────────────────────────────
@@ -143,7 +132,6 @@ Page                  Performance  Accessibility  Best Practices  SEO
 ```
 
 ### Core Web Vitals
-
 ```
 FCP (First Contentful Paint):     < 2.0s
 LCP (Largest Contentful Paint):   < 2.5s
@@ -176,7 +164,6 @@ test-results/
 ## 🔍 REPORT ANALYSIS
 
 ### 1. E2E Test Report öffnen
-
 ```bash
 # HTML Report im Browser öffnen
 open test-results/playwright-report/index.html
@@ -186,14 +173,12 @@ npx playwright show-report
 ```
 
 ### 2. Lighthouse Report analysieren
-
 ```bash
 # Lighthouse Summary
 cat test-results/performance/lighthouse/summary.json | jq
 ```
 
 ### 3. Performance Report lesen
-
 ```bash
 # Gesamter Report
 cat test-results/performance/performance-report-*.json | jq
@@ -206,7 +191,6 @@ cat test-results/performance/performance-report-*.json | jq
 ### Problem: E2E Tests fehlschlagen
 
 **Error: "Timeout waiting for page"**
-
 ```bash
 # Dev Server manuell starten (separates Terminal)
 npm run dev
@@ -216,7 +200,6 @@ npm run dev
 ```
 
 **Error: "locator.click() failed"**
-
 - Screenshot checken: `test-results/playwright-report/screenshots/`
 - Manuell im Browser testen
 - Selector möglicherweise geändert (V28.1 Migration)
@@ -226,7 +209,6 @@ npm run dev
 ### Problem: Lighthouse CI fehlschlägt
 
 **Error: "Port 4173 already in use"**
-
 ```bash
 # Port freigeben
 kill $(lsof -t -i:4173)
@@ -235,7 +217,6 @@ kill $(lsof -t -i:4173)
 ```
 
 **Error: "Build failed"**
-
 ```bash
 # Dependencies neu installieren
 rm -rf node_modules package-lock.json
@@ -250,7 +231,6 @@ npm run build
 ### Problem: Performance Scores < 90
 
 **Mögliche Ursachen:**
-
 1. **Bundle Size zu groß** (> 1.5MB)
    - Check: `dist/assets/index-*.js` Size
    - Fix: Code-Splitting verbessern
@@ -272,32 +252,27 @@ npm run build
 ## 🔧 ADVANCED OPTIONS
 
 ### E2E Tests: Headed Mode (Browser sichtbar)
-
 ```bash
 ./scripts/quick-e2e-test.sh --headed
 ```
 
 ### E2E Tests: Debug Mode
-
 ```bash
 ./scripts/quick-e2e-test.sh --debug
 ```
 
 ### Lighthouse: Nur bestimmte Pages
-
 ```bash
 # lighthouserc.json editieren → url[] Array anpassen
 npx @lhci/cli@latest autorun --config=lighthouserc.json
 ```
 
 ### Performance Tests: Skip E2E
-
 ```bash
 ./scripts/run-performance-tests.sh --skip-e2e
 ```
 
 ### Performance Tests: Skip Lighthouse
-
 ```bash
 ./scripts/run-performance-tests.sh --skip-lighthouse
 ```
@@ -309,7 +284,6 @@ npx @lhci/cli@latest autorun --config=lighthouserc.json
 ### Wenn ALLE Tests PASSED ✅
 
 1. **Report finalisieren**
-
    ```bash
    # PERFORMANCE_REPORT_V28.1.md updaten mit Results
    ```
@@ -335,12 +309,10 @@ npx @lhci/cli@latest autorun --config=lighthouserc.json
    - Root Cause identifizieren
 
 2. **Issues dokumentieren**
-
    ```markdown
    # docs/PERFORMANCE_ISSUES_V28.1.md
-
+   
    ## Issue #1: E2E Test "Login Flow" failed
-
    - Error: Timeout waiting for button
    - Screenshot: test-results/.../login-failed.png
    - Root Cause: Selector geändert nach V28.1 Migration
@@ -357,27 +329,23 @@ npx @lhci/cli@latest autorun --config=lighthouserc.json
 ## 🎯 PERFORMANCE TARGETS (Definition of Done)
 
 ### E2E Tests
-
 - ✅ 17/17 Tests PASSED
 - ✅ Duration: < 5 Min
 - ✅ 0 Failures
 
 ### Lighthouse CI
-
 - ✅ Performance Score: ≥ 90 (alle Pages)
 - ✅ Accessibility Score: ≥ 95 (alle Pages)
 - ✅ Best Practices Score: ≥ 95 (alle Pages)
 - ✅ SEO Score: ≥ 95 (alle Pages)
 
 ### Core Web Vitals
-
 - ✅ FCP: < 2.0s
 - ✅ LCP: < 2.5s
 - ✅ TBT: < 300ms
 - ✅ CLS: < 0.1
 
 ### Bundle Size
-
 - ✅ Main Bundle: < 1.5MB
 - ✅ Total Assets: < 3MB
 - ✅ Code-Splitting: ✓ (Lazy Routes)
@@ -387,14 +355,12 @@ npx @lhci/cli@latest autorun --config=lighthouserc.json
 ## 📞 SUPPORT
 
 **Bei Problemen:**
-
 1. Check Troubleshooting Section
 2. Review Test Reports
 3. Check Console Logs
 4. Open GitHub Issue
 
 **Docs:**
-
 - Test Strategy: `TESTING_STRATEGIE_V18.1.md`
 - Quality Gates: `docs/04-GOVERNANCE/Quality-Gates.md`
 - Performance Report: `docs/PERFORMANCE_REPORT_V28.1.md`

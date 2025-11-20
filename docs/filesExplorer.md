@@ -223,18 +223,15 @@ MyDispatch/
 ### ⚠️ KRITISCHE PFADE (Häufige Fehler!)
 
 **AUTH:**
-
 - ✅ **RICHTIG:** `src/hooks/use-auth.tsx` (Hook, kein Context!)
 - ❌ **FALSCH:** `src/contexts/AuthContext.tsx` (existiert NICHT!)
 
 **VALIDATION:**
-
 - ❌ `src/lib/validators.ts` existiert NICHT
 - ❌ `utils/validation.ts` existiert NICHT
 - ✅ Verwende Zod Schemas direkt (z.B. `src/schemas/auth.schema.ts`)
 
 **DATE HANDLING:**
-
 - ❌ `src/lib/date-utils.ts` existiert NICHT
 - ❌ `formatDate()` Funktion existiert NICHT
 - ✅ Verwende `date-fns` Library direkt (bereits installiert)
@@ -363,7 +360,6 @@ Diese Files werden **automatisch generiert** und dürfen **NICHT manuell bearbei
 ## 🆕 NEUE FILES (V28.1 - Config System)
 
 **Zentrale Config Registry (2025-10-28):**
-
 - ✅ `src/config/index.ts` - Single Source Export
 - ✅ `src/config/pricing-plans.ts` - Pricing Config (331 Zeilen)
 - ✅ `src/config/navigation.ts` - Navigation Config (391 Zeilen)
@@ -371,7 +367,6 @@ Diese Files werden **automatisch generiert** und dürfen **NICHT manuell bearbei
 - ✅ `src/config/features.ts` - Features Config (363 Zeilen)
 
 **Documentation:**
-
 - ✅ `docs/CONFIG_SYSTEM_IMPLEMENTATION.md` - Config System Doku
 - ✅ `docs/SYSTEM_SCAN_MASTER_LIST.md` - Master Task Liste
 - ✅ `docs/MASTER_SYSTEM_AUFTRAG.md` - Systemauftrag
@@ -383,7 +378,6 @@ Diese Files werden **automatisch generiert** und dürfen **NICHT manuell bearbei
 ## 🆕 NEUE FILES (2025-10-29 - Performance Testing Infrastructure)
 
 **Performance Testing Setup:**
-
 - ✅ `scripts/pre-test-check.sh` - Environment Validation (200 Zeilen)
 - ✅ `scripts/run-performance-tests.sh` - Full Test Suite (besteht bereits)
 - ✅ `scripts/quick-e2e-test.sh` - Quick E2E Tests (besteht bereits)
@@ -392,7 +386,6 @@ Diese Files werden **automatisch generiert** und dürfen **NICHT manuell bearbei
 - ✅ `tests/e2e/master-account-login.spec.ts` - E2E Tests (besteht bereits)
 
 **Documentation Updates:**
-
 - ✅ `docs/TODO_TRACKING.md` - Performance Testing Section
 - ✅ `docs/CHANGELOG.md` - V28.2.11 Entry
 - ✅ `docs/PROJECT_MEMORY_V28.1.md` - Status Update

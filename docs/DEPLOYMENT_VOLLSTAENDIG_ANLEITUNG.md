@@ -19,7 +19,6 @@
 **Wo:** Supabase Dashboard → SQL Editor
 
 **Reihenfolge:**
-
 1. `20250131_nexify_master_system.sql`
 2. `20250131_nexify_crm_system.sql`
 3. `20250131_system_health_tables.sql`
@@ -29,7 +28,6 @@
 7. `20250131_cron_jobs.sql`
 
 **Wie:**
-
 1. Öffne Supabase Dashboard
 2. Gehe zu: **SQL Editor**
 3. Öffne die Migration-Datei
@@ -47,7 +45,6 @@
 **Voraussetzung:** Supabase CLI installiert und authentifiziert
 
 **Befehle:**
-
 ```bash
 # In Terminal (im Projektverzeichnis)
 cd C:\Users\pcour\mydispatch-rebuild
@@ -65,7 +62,6 @@ supabase functions deploy create-master-user
 ```
 
 **Alternativ (alle auf einmal):**
-
 ```bash
 # Deploye alle Functions in einem Befehl
 supabase functions deploy ai-support-chat && \
@@ -86,7 +82,6 @@ supabase functions deploy create-master-user
 **Wo:** Supabase Dashboard → Settings → Edge Functions → Secrets
 
 **Zu setzende Variablen:**
-
 1. **OPENAI_API_KEY**
    - Wert: Dein OpenAI API Key
    - Zweck: Für AI-Chat-System
@@ -100,7 +95,6 @@ supabase functions deploy create-master-user
    - Zweck: E-Mail-Domain
 
 **Wie:**
-
 1. Öffne Supabase Dashboard
 2. Gehe zu: **Settings → Edge Functions**
 3. Scrolle zu: **Secrets**
@@ -115,15 +109,12 @@ supabase functions deploy create-master-user
 ### Nach Deployment prüfen:
 
 **Migrations:**
-
 - ✅ Alle 8 Migrations in Supabase Dashboard → Database → Tables sichtbar?
 
 **Edge Functions:**
-
 - ✅ Alle 9 Functions in Supabase Dashboard → Edge Functions sichtbar?
 
 **Environment Variables:**
-
 - ✅ Alle 3 Variablen in Settings → Edge Functions → Secrets sichtbar?
 
 ---
@@ -139,3 +130,4 @@ supabase functions deploy create-master-user
 ---
 
 **Pascal, Deployment-Anleitung ist fertig!** 🚀
+

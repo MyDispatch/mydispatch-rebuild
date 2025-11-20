@@ -4,20 +4,20 @@
    Shows pricing tiers, payment status, and billing information
    ================================================================================== */
 
-import { RenderingResolution } from "@/lib/rendering-quality";
-import { useOptimizedRendering } from "@/hooks/useOptimizedRendering";
-import { Check, CreditCard, Euro, TrendingUp } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { RenderingResolution } from '@/lib/rendering-quality';
+import { useOptimizedRendering } from '@/hooks/useOptimizedRendering';
+import { Check, CreditCard, Euro, TrendingUp } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface PricingLiveDashboardProps {
-  variant?: "ipad" | "iphone" | "desktop";
+  variant?: 'ipad' | 'iphone' | 'desktop';
   interactive?: boolean;
   resolution?: RenderingResolution;
 }
 
-export default function PricingLiveDashboard({
-  variant = "ipad",
-  resolution = "retina",
+export default function PricingLiveDashboard({ 
+  variant = 'ipad',
+  resolution = 'retina' 
 }: PricingLiveDashboardProps) {
   const { shouldRender, elementRef } = useOptimizedRendering(resolution);
 
@@ -26,10 +26,7 @@ export default function PricingLiveDashboard({
   }
 
   return (
-    <div
-      ref={elementRef}
-      className="w-full h-full bg-gradient-to-br from-slate-50 to-slate-100 p-6 overflow-auto"
-    >
+    <div ref={elementRef} className="w-full h-full bg-gradient-to-br from-slate-50 to-slate-100 p-6 overflow-auto">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-slate-900 mb-1">Tarifübersicht</h2>
@@ -39,15 +36,15 @@ export default function PricingLiveDashboard({
       {/* Pricing Tiers */}
       <div className="grid grid-cols-3 gap-4 mb-6">
         {[
-          { name: "Starter", price: "49", users: "1-3", color: "bg-slate-100" },
-          { name: "Business", price: "149", users: "4-10", color: "bg-violet-100", popular: true },
-          { name: "Enterprise", price: "349", users: "Unlimitiert", color: "bg-slate-100" },
+          { name: 'Starter', price: '49', users: '1-3', color: 'bg-slate-100' },
+          { name: 'Business', price: '149', users: '4-10', color: 'bg-violet-100', popular: true },
+          { name: 'Enterprise', price: '349', users: 'Unlimitiert', color: 'bg-slate-100' },
         ].map((tier) => (
-          <div
+          <div 
             key={tier.name}
             className={cn(
               "relative rounded-xl p-4 border-2",
-              tier.popular ? "border-slate-600 shadow-lg" : "border-slate-200",
+              tier.popular ? 'border-slate-600 shadow-lg' : 'border-slate-200',
               tier.color
             )}
           >

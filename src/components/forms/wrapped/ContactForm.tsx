@@ -2,9 +2,9 @@
    CONTACT FORM - Public Contact Form
    ================================================================================== */
 
-import { UseFormReturn } from "react-hook-form";
-import { UnifiedForm, FormField } from "../UnifiedForm";
-import { FORM_FIELDS_REGISTRY } from "@/config/form-fields-registry";
+import { UseFormReturn } from 'react-hook-form';
+import { UnifiedForm, FormField } from '../UnifiedForm';
+import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 
 interface ContactFormProps {
   form: UseFormReturn<any>;
@@ -12,7 +12,11 @@ interface ContactFormProps {
   loading?: boolean;
 }
 
-export function ContactForm({ form, onSubmit, loading }: ContactFormProps) {
+export function ContactForm({
+  form,
+  onSubmit,
+  loading,
+}: ContactFormProps) {
   const { contact } = FORM_FIELDS_REGISTRY;
 
   const fields: FormField[] = [

@@ -6,8 +6,8 @@
    ✅ Hover-Effekte für bessere UX
    ================================================================================== */
 
-import { LucideIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { LucideIcon } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface Shortcut {
   icon: LucideIcon;
@@ -38,7 +38,7 @@ export function ShortcutsWidget({ links }: ShortcutsWidgetProps) {
 
 /**
  * USAGE EXAMPLE:
- *
+ * 
  * <ShortcutsWidget
  *   links={[
  *     { icon: Settings, label: 'Systemeinstellungen', href: '/einstellungen/system' },

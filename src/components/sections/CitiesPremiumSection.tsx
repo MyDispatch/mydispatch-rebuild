@@ -9,20 +9,23 @@
    ✅ Mobile-First Responsive Grid
    ================================================================================== */
 
-import { useState } from "react";
-import { MapPin, ChevronDown, ChevronUp } from "lucide-react";
-import { Link } from "react-router-dom";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { useState } from 'react';
+import { MapPin, ChevronDown, ChevronUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
 
 interface CitiesPremiumSectionProps {
   cities: string[];
   maxVisible?: number;
 }
 
-export function CitiesPremiumSection({ cities, maxVisible = 30 }: CitiesPremiumSectionProps) {
+export function CitiesPremiumSection({ 
+  cities, 
+  maxVisible = 30 
+}: CitiesPremiumSectionProps) {
   const [showAll, setShowAll] = useState(false);
   const displayedCities = showAll ? cities : cities.slice(0, maxVisible);
-
+  
   return (
     <V28MarketingSection
       background="canvas"
@@ -32,11 +35,8 @@ export function CitiesPremiumSection({ cities, maxVisible = 30 }: CitiesPremiumS
     >
       {/* Floating Orbs */}
       <div className="absolute top-[20%] right-[5%] w-96 h-96 bg-slate-200 rounded-full blur-3xl opacity-20 animate-float-slow pointer-events-none" />
-      <div
-        className="absolute bottom-[15%] left-[8%] w-80 h-80 bg-slate-300 rounded-full blur-3xl opacity-15 animate-float-slow pointer-events-none"
-        style={{ animationDelay: "2s" }}
-      />
-
+      <div className="absolute bottom-[15%] left-[8%] w-80 h-80 bg-slate-300 rounded-full blur-3xl opacity-15 animate-float-slow pointer-events-none" style={{ animationDelay: '2s' }} />
+      
       {/* Badge */}
       <div className="text-center mb-8">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200">
@@ -61,7 +61,7 @@ export function CitiesPremiumSection({ cities, maxVisible = 30 }: CitiesPremiumS
           </div>
         ))}
       </div>
-
+      
       {/* "Alle anzeigen" Button (wenn mehr als maxVisible) */}
       {cities.length > maxVisible && (
         <div className="text-center mt-8 relative z-10">
@@ -83,17 +83,17 @@ export function CitiesPremiumSection({ cities, maxVisible = 30 }: CitiesPremiumS
           </button>
         </div>
       )}
-
+      
       {/* Trust-Line */}
       <p className="text-center text-slate-600 mt-10 text-sm relative z-10">
-        Ihre Stadt nicht dabei?{" "}
-        <Link
-          to="/contact"
+        Ihre Stadt nicht dabei?{' '}
+        <Link 
+          to="/contact" 
           className="underline hover:text-slate-900 transition-colors font-semibold"
         >
           Kontaktieren Sie uns
-        </Link>{" "}
-        – wir expandieren kontinuierlich.
+        </Link>
+        {' '}– wir expandieren kontinuierlich.
       </p>
     </V28MarketingSection>
   );

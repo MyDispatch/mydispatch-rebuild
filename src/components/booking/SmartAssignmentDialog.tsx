@@ -10,14 +10,20 @@
  * ==================================================================================
  */
 
-import { useState, useEffect } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/lib/compat";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Card } from "@/lib/compat";
-import { Badge } from "@/lib/compat";
-import { Progress } from "@/components/ui/progress";
-import { Separator } from "@/components/ui/separator";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { useState, useEffect } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/lib/compat';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Card } from '@/lib/compat';
+import { Badge } from '@/lib/compat';
+import { Progress } from '@/components/ui/progress';
+import { Separator } from '@/components/ui/separator';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import {
   Sparkles,
   MapPin,
@@ -28,8 +34,8 @@ import {
   Clock,
   Phone,
   Loader2,
-} from "lucide-react";
-import { handleError, handleSuccess } from "@/lib/error-handler";
+} from 'lucide-react';
+import { handleError, handleSuccess } from '@/lib/error-handler';
 
 interface AssignmentRecommendation {
   driver_id: string;
@@ -39,7 +45,7 @@ interface AssignmentRecommendation {
   vehicle_plate: string;
   score: number;
   eta_minutes: number | null;
-  confidence: "high" | "medium" | "low";
+  confidence: 'high' | 'medium' | 'low';
   reason: string;
   breakdown: {
     proximity: number;
@@ -90,9 +96,9 @@ export function SmartAssignmentDialog({
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-smart-assignment`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
             Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
           },
           body: JSON.stringify({
@@ -107,13 +113,13 @@ export function SmartAssignmentDialog({
       );
 
       if (!response.ok) {
-        throw new Error("Fehler beim Laden der Vorschläge");
+        throw new Error('Fehler beim Laden der Vorschläge');
       }
 
       const data = await response.json();
       setRecommendations(data.recommendations || []);
     } catch (error) {
-      handleError(error, "Fehler beim Laden der AI-Vorschläge");
+      handleError(error, 'Fehler beim Laden der AI-Vorschläge');
     } finally {
       setLoading(false);
     }
@@ -123,10 +129,10 @@ export function SmartAssignmentDialog({
     setAssigning(driverId);
     try {
       await onAssign(driverId, vehicleId);
-      handleSuccess("Fahrer erfolgreich zugewiesen");
+      handleSuccess('Fahrer erfolgreich zugewiesen');
       onOpenChange(false);
     } catch (error) {
-      handleError(error, "Fehler bei der Zuweisung");
+      handleError(error, 'Fehler bei der Zuweisung');
     } finally {
       setAssigning(null);
     }
@@ -134,15 +140,15 @@ export function SmartAssignmentDialog({
 
   const getConfidenceBadge = (confidence: string) => {
     const colors = {
-      high: "bg-status-success/10 text-status-success border-status-success/20",
-      medium: "bg-status-warning/10 text-status-warning border-status-warning/20",
-      low: "bg-muted/30 text-muted-foreground border-border",
+      high: 'bg-status-success/10 text-status-success border-status-success/20',
+      medium: 'bg-status-warning/10 text-status-warning border-status-warning/20',
+      low: 'bg-muted/30 text-muted-foreground border-border',
     };
 
     const labels = {
-      high: "Hohe Übereinstimmung",
-      medium: "Mittlere Übereinstimmung",
-      low: "Niedrige Übereinstimmung",
+      high: 'Hohe Übereinstimmung',
+      medium: 'Mittlere Übereinstimmung',
+      low: 'Niedrige Übereinstimmung',
     };
 
     return (
@@ -153,9 +159,9 @@ export function SmartAssignmentDialog({
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 85) return "text-status-success";
-    if (score >= 70) return "text-status-warning";
-    return "text-muted-foreground";
+    if (score >= 85) return 'text-status-success';
+    if (score >= 70) return 'text-status-warning';
+    return 'text-muted-foreground';
   };
 
   return (
@@ -167,8 +173,7 @@ export function SmartAssignmentDialog({
             <DialogTitle>AI-Intelligente Zuweisung</DialogTitle>
           </div>
           <DialogDescription>
-            Unsere KI analysiert Standort, Verfügbarkeit, Auslastung und Erfahrung, um die optimalen
-            Fahrer vorzuschlagen.
+            Unsere KI analysiert Standort, Verfügbarkeit, Auslastung und Erfahrung, um die optimalen Fahrer vorzuschlagen.
           </DialogDescription>
         </DialogHeader>
 
@@ -191,14 +196,16 @@ export function SmartAssignmentDialog({
             {recommendations.map((rec, index) => (
               <Card
                 key={rec.driver_id}
-                className={`p-4 ${index === 0 ? "border-primary border-2" : ""}`}
+                className={`p-4 ${index === 0 ? 'border-primary border-2' : ''}`}
               >
                 <div className="space-y-4">
                   {/* Header */}
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       {index === 0 && (
-                        <Badge className="bg-primary text-primary-foreground">Top-Vorschlag</Badge>
+                        <Badge className="bg-primary text-primary-foreground">
+                          Top-Vorschlag
+                        </Badge>
                       )}
                       <Avatar className="h-12 w-12">
                         <AvatarFallback className="bg-primary/10 text-foreground font-semibold">
@@ -308,7 +315,7 @@ export function SmartAssignmentDialog({
                       <V28Button
                         variant="secondary"
                         size="sm"
-                        onClick={() => window.open(`tel:${rec.driver_phone}`, "_self")}
+                        onClick={() => window.open(`tel:${rec.driver_phone}`, '_self')}
                         className="h-10 w-10"
                       >
                         <Phone className="h-4 w-4" />

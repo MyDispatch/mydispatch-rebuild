@@ -7,7 +7,7 @@
    ✅ Flexible Display (Row/Grid)
    ================================================================================== */
 
-import { Shield, Server, Lock, Clock, Award, CheckCircle2 } from "lucide-react";
+import { Shield, Server, Lock, Clock, Award, CheckCircle2 } from 'lucide-react';
 
 interface TrustIndicator {
   icon: React.ElementType;
@@ -16,44 +16,45 @@ interface TrustIndicator {
 }
 
 const TRUST_BADGES: TrustIndicator[] = [
-  {
-    icon: Shield,
-    label: "DSGVO-konform",
-    tooltip: "Hosting in Deutschland, AVV inklusive",
+  { 
+    icon: Shield, 
+    label: 'DSGVO-konform', 
+    tooltip: 'Hosting in Deutschland, AVV inklusive' 
   },
-  {
-    icon: Server,
-    label: "German Hosting",
-    tooltip: "Server in Frankfurt/München",
+  { 
+    icon: Server, 
+    label: 'German Hosting', 
+    tooltip: 'Server in Frankfurt/München' 
   },
-  {
-    icon: Lock,
-    label: "SSL-verschlüsselt",
-    tooltip: "256-bit Verschlüsselung",
+  { 
+    icon: Lock, 
+    label: 'SSL-verschlüsselt', 
+    tooltip: '256-bit Verschlüsselung' 
   },
-  {
-    icon: Clock,
-    label: "24/7 Support",
-    tooltip: "Deutscher Support rund um die Uhr",
+  { 
+    icon: Clock, 
+    label: '24/7 Support', 
+    tooltip: 'Deutscher Support rund um die Uhr' 
   },
 ];
 
 interface TrustIndicatorsProps {
-  variant?: "row" | "grid";
+  variant?: 'row' | 'grid';
   className?: string;
 }
 
-export function TrustIndicators({ variant = "row", className = "" }: TrustIndicatorsProps) {
-  const containerClasses =
-    variant === "grid" ? "grid grid-cols-2 gap-4" : "flex flex-wrap items-center gap-6";
+export function TrustIndicators({ variant = 'row', className = '' }: TrustIndicatorsProps) {
+  const containerClasses = variant === 'grid' 
+    ? 'grid grid-cols-2 gap-4' 
+    : 'flex flex-wrap items-center gap-6';
 
   return (
     <div className={`${containerClasses} ${className}`}>
       {TRUST_BADGES.map((badge, idx) => {
         const Icon = badge.icon;
         return (
-          <div
-            key={idx}
+          <div 
+            key={idx} 
             className="flex items-center gap-2 group cursor-help"
             title={badge.tooltip}
           >

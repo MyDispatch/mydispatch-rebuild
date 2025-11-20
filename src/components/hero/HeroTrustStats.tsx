@@ -7,7 +7,7 @@
    ✅ V40.14: Inline-Styles eliminiert → CSS-Klassen + Hover-Events
    ================================================================================== */
 
-import { LucideIcon } from "lucide-react";
+import { LucideIcon } from 'lucide-react';
 
 interface TrustStat {
   icon: LucideIcon;
@@ -20,7 +20,7 @@ interface HeroTrustStatsProps {
   animationDelay?: string;
 }
 
-export function HeroTrustStats({ stats, animationDelay = "0.5s" }: HeroTrustStatsProps) {
+export function HeroTrustStats({ stats, animationDelay = '0.5s' }: HeroTrustStatsProps) {
   return (
     <div
       className="grid grid-cols-2 gap-4 lg:gap-6 max-w-xl mx-auto lg:mx-0 pt-8 animate-fade-in"

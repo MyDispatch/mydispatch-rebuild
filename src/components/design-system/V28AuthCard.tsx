@@ -16,8 +16,8 @@
    ✅ V28.1 PROFESSIONAL MINIMALISM
    ================================================================================== */
 
-import { ReactNode } from "react";
-import { cn } from "@/lib/utils";
+import { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 interface V28AuthCardProps {
   children: ReactNode;
@@ -26,7 +26,12 @@ interface V28AuthCardProps {
 
 export function V28AuthCard({ children, className }: V28AuthCardProps) {
   return (
-    <div className={cn("rounded-2xl bg-white border border-slate-200 shadow-lg", className)}>
+    <div
+      className={cn(
+        'rounded-2xl bg-white border border-slate-200 shadow-lg',
+        className
+      )}
+    >
       {children}
     </div>
   );

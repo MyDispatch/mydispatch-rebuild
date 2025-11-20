@@ -7,19 +7,19 @@
    ================================================================================== */
 
 // Cards
-export { DashboardCard } from "./DashboardCard";
-export { StatCard } from "./StatCard";
+export { DashboardCard } from './DashboardCard';
+export { StatCard } from './StatCard';
 
 // Layout
-export { SectionHeader } from "./SectionHeader";
-export { DataGrid } from "./DataGrid";
+export { SectionHeader } from './SectionHeader';
+export { DataGrid } from './DataGrid';
 
 // Interactive
-export { ActionButton } from "./ActionButton";
+export { ActionButton } from './ActionButton';
 
 /**
  * QUICK START EXAMPLE:
- *
+ * 
  * import {
  *   SectionHeader,
  *   DataGrid,
@@ -27,7 +27,7 @@ export { ActionButton } from "./ActionButton";
  *   DashboardCard,
  *   ActionButton,
  * } from '@/components/smart-templates';
- *
+ * 
  * export default function MyDashboard() {
  *   return (
  *     <>
@@ -38,14 +38,14 @@ export { ActionButton } from "./ActionButton";
  *           <ActionButton variant="primary">Neuer Auftrag</ActionButton>
  *         }
  *       />
- *
+ *       
  *       <DataGrid columns={{ mobile: 1, tablet: 2, desktop: 4 }}>
  *         <StatCard label="Aufträge" value="142" icon={Truck} />
  *         <StatCard label="Fahrer" value="28" icon={Users} />
  *         <StatCard label="Fahrzeuge" value="35" icon={Car} />
  *         <StatCard label="Umsatz" value="12.450 €" icon={Euro} />
  *       </DataGrid>
- *
+ *       
  *       <DataGrid columns={{ mobile: 1, desktop: 2 }}>
  *         <DashboardCard title="Letzte Aufträge" icon={List}>
  *           {// Content}

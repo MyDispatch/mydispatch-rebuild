@@ -4,19 +4,19 @@
    Shows GPS map with live traffic and weather information
    ================================================================================== */
 
-import { RenderingResolution } from "@/lib/rendering-quality";
-import { useOptimizedRendering } from "@/hooks/useOptimizedRendering";
-import { MapPin, Navigation, Cloud, Wind, AlertCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { RenderingResolution } from '@/lib/rendering-quality';
+import { useOptimizedRendering } from '@/hooks/useOptimizedRendering';
+import { MapPin, Navigation, Cloud, Wind, AlertCircle } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface MapWeatherLiveDashboardProps {
-  variant?: "ipad" | "iphone" | "desktop";
+  variant?: 'ipad' | 'iphone' | 'desktop';
   resolution?: RenderingResolution;
 }
 
-export default function MapWeatherLiveDashboard({
-  variant = "ipad",
-  resolution = "retina",
+export default function MapWeatherLiveDashboard({ 
+  variant = 'ipad',
+  resolution = 'retina' 
 }: MapWeatherLiveDashboardProps) {
   const { shouldRender, elementRef } = useOptimizedRendering(resolution);
 
@@ -31,18 +31,10 @@ export default function MapWeatherLiveDashboard({
         {/* Grid lines for map effect */}
         <div className="absolute inset-0 opacity-20">
           {[...Array(10)].map((_, i) => (
-            <div
-              key={`v-${i}`}
-              className="absolute top-0 bottom-0 w-px bg-slate-400"
-              style={{ left: `${i * 10}%` }}
-            />
+            <div key={`v-${i}`} className="absolute top-0 bottom-0 w-px bg-slate-400" style={{ left: `${i * 10}%` }} />
           ))}
           {[...Array(10)].map((_, i) => (
-            <div
-              key={`h-${i}`}
-              className="absolute left-0 right-0 h-px bg-slate-400"
-              style={{ top: `${i * 10}%` }}
-            />
+            <div key={`h-${i}`} className="absolute left-0 right-0 h-px bg-slate-400" style={{ top: `${i * 10}%` }} />
           ))}
         </div>
       </div>

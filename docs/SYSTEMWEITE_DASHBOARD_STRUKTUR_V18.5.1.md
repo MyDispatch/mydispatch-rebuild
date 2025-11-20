@@ -40,7 +40,7 @@ Dieses Dokument definiert die **VERPFLICHTENDE** Struktur für ALLE Dashboard-Se
 **Datei:** `src/components/layout/DashboardLayout.tsx`
 
 ```tsx
-import { DashboardLayout } from "@/components/layout/DashboardLayout";
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
 
 <DashboardLayout
   title="Seiten-Titel (z.B. Kunden)"
@@ -48,11 +48,10 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
   canonical="/pfad"
 >
   {/* Seiteninhalt */}
-</DashboardLayout>;
+</DashboardLayout>
 ```
 
-**WICHTIG:**
-
+**WICHTIG:** 
 - DashboardLayout ist PFLICHT für alle Dashboard-Seiten
 - Breadcrumbs werden automatisch integriert
 - SEO-Optimierung via SEOHead Component
@@ -69,7 +68,9 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
     <div className="mb-4 p-6 rounded-full bg-foreground/10 backdrop-blur-sm">
       <SeitenIcon className="h-16 w-16 sm:h-20 sm:w-20 text-foreground" />
     </div>
-    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">Seitentitel</h2>
+    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">
+      Seitentitel
+    </h2>
     <p className="text-sm sm:text-base text-foreground/80 max-w-2xl">
       Kurze Beschreibung der Seite
     </p>
@@ -79,7 +80,6 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
 ```
 
 **Icons nach Seite:**
-
 - Kunden: `Users`
 - Aufträge: `FileText`
 - Fahrer: `Users`
@@ -95,11 +95,15 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
 ```tsx
 <div className="mb-6">
   {/* Titel */}
-  <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Seitentitel</h1>
-
+  <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">
+    Seitentitel
+  </h1>
+  
   {/* Beschreibung */}
-  <p className="text-sm sm:text-base text-muted-foreground mb-4">Kurzbeschreibung der Seite</p>
-
+  <p className="text-sm sm:text-base text-muted-foreground mb-4">
+    Kurzbeschreibung der Seite
+  </p>
+  
   {/* Suche + Archivierte Toggle */}
   <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
     <div className="flex-1">
@@ -111,7 +115,11 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
       />
     </div>
     <div className="flex items-center gap-2">
-      <Switch id="show-archived" checked={showArchived} onCheckedChange={setShowArchived} />
+      <Switch
+        id="show-archived"
+        checked={showArchived}
+        onCheckedChange={setShowArchived}
+      />
       <Label htmlFor="show-archived" className="text-sm cursor-pointer">
         Archivierte anzeigen
       </Label>
@@ -129,48 +137,47 @@ import { DashboardLayout } from "@/components/layout/DashboardLayout";
 **VERPFLICHTEND:** Genau 3 KPIs + Schnellzugriff auf JEDER Seite!
 
 ```tsx
-import { PageHeaderWithKPIs } from "@/components/shared/PageHeaderWithKPIs";
-import { MetricCard } from "@/components/dashboard/MetricCard";
+import { PageHeaderWithKPIs } from '@/components/shared/PageHeaderWithKPIs';
+import { MetricCard } from '@/components/dashboard/MetricCard';
 
 <PageHeaderWithKPIs
   kpis={[
     {
-      title: "KPI 1 Titel",
+      title: 'KPI 1 Titel',
       value: stats.value1,
       icon: IconComponent1,
-      trend: { value: 12, label: "+12% ggü. Vormonat" },
+      trend: { value: 12, label: '+12% ggü. Vormonat' },
     },
     {
-      title: "KPI 2 Titel",
+      title: 'KPI 2 Titel',
       value: stats.value2,
       icon: IconComponent2,
     },
     {
-      title: "KPI 3 Titel",
+      title: 'KPI 3 Titel',
       value: stats.value3,
       icon: IconComponent3,
     },
   ]}
   quickActions={[
     {
-      label: "Hauptaktion",
+      label: 'Hauptaktion',
       icon: Plus,
       onClick: () => setDialogOpen(true),
-      variant: "default",
+      variant: 'default',
     },
     {
-      label: "Exportieren",
+      label: 'Exportieren',
       icon: Download,
       onClick: handleExport,
-      variant: "outline",
+      variant: 'outline',
     },
   ]}
   quickAccessTitle="Schnellzugriff"
-/>;
+/>
 ```
 
 **Grid-Layout:**
-
 - Desktop: 4 Spalten (`grid-cols-4`)
 - Tablet: 2 Spalten (`grid-cols-2`)
 - Mobile: 1 Spalte (`grid-cols-1`)
@@ -185,7 +192,10 @@ import { MetricCard } from "@/components/dashboard/MetricCard";
 
 ```tsx
 <div className="flex justify-center mb-6">
-  <Button onClick={() => setDialogOpen(true)} className="min-h-[44px]">
+  <Button
+    onClick={() => setDialogOpen(true)}
+    className="min-h-[44px]"
+  >
     <Plus className="h-4 w-4 mr-2" />
     Kunde hinzufügen
   </Button>
@@ -208,10 +218,14 @@ import { MetricCard } from "@/components/dashboard/MetricCard";
       Kategorie 2 ({count2})
     </TabsTrigger>
   </TabsList>
-
-  <TabsContent value="kategorie1">{/* Tabelle 1 */}</TabsContent>
-
-  <TabsContent value="kategorie2">{/* Tabelle 2 */}</TabsContent>
+  
+  <TabsContent value="kategorie1">
+    {/* Tabelle 1 */}
+  </TabsContent>
+  
+  <TabsContent value="kategorie2">
+    {/* Tabelle 2 */}
+  </TabsContent>
 </Tabs>
 ```
 
@@ -226,19 +240,24 @@ import { MetricCard } from "@/components/dashboard/MetricCard";
 **VERPFLICHTEND auf ALLEN Seiten:**
 
 ```tsx
-import { StandardTableTemplate, TableColumn } from "@/components/templates/StandardTableTemplate";
+import { StandardTableTemplate, TableColumn } from '@/components/templates/StandardTableTemplate';
 
 const columns: TableColumn<EntityType>[] = [
   {
-    key: "field1",
-    header: "Spalte 1",
+    key: 'field1',
+    header: 'Spalte 1',
     render: (item) => <span className="font-medium">{item.field1}</span>,
   },
   {
-    key: "status",
-    header: "Status",
-    render: (item) => <StatusIndicator type={getStatusType(item.status)} label={item.status} />,
-    className: "w-[120px]",
+    key: 'status',
+    header: 'Status',
+    render: (item) => (
+      <StatusIndicator
+        type={getStatusType(item.status)}
+        label={item.status}
+      />
+    ),
+    className: 'w-[120px]',
   },
   // ... weitere Spalten
 ];
@@ -257,11 +276,10 @@ const columns: TableColumn<EntityType>[] = [
   showCreatedAt={true}
   emptyTitle="Keine Einträge vorhanden"
   emptyDescription="Erstellen Sie Ihren ersten Eintrag"
-/>;
+/>
 ```
 
 **Features:**
-
 - ✅ Nur EIN Details-Button am Seitenende (Eye-Icon)
 - ✅ Bulk-Selection Support
 - ✅ Rechtlich erforderlicher Zeitstempel (created_at)
@@ -277,17 +295,20 @@ const columns: TableColumn<EntityType>[] = [
 **VERPFLICHTEND:** Alle Aktionen NUR im Dialog!
 
 ```tsx
-import {
-  EnhancedDetailDialog,
-  createEntityActions,
-} from "@/components/templates/EnhancedDetailDialog";
+import { EnhancedDetailDialog, createEntityActions } from '@/components/templates/EnhancedDetailDialog';
 
 <EnhancedDetailDialog
   open={detailDialogOpen}
   onOpenChange={setDetailDialogOpen}
   title="Entity-Details"
   createdAt={selectedItem?.created_at}
-  actions={createEntityActions(selectedItem?.id, handleEdit, handlePDF, handleEmail, handleArchive)}
+  actions={createEntityActions(
+    selectedItem?.id,
+    handleEdit,
+    handlePDF,
+    handleEmail,
+    handleArchive
+  )}
   relatedEntities={
     <>
       <RelatedEntityCard
@@ -305,11 +326,10 @@ import {
     <FieldRow label="Feld 2" value={selectedItem?.field2} />
     {/* ... weitere Felder */}
   </div>
-</EnhancedDetailDialog>;
+</EnhancedDetailDialog>
 ```
 
 **Actions im Dialog:**
-
 - ✅ Bearbeiten
 - ✅ PDF herunterladen
 - ✅ E-Mail senden
@@ -324,20 +344,21 @@ import {
 **VERPFLICHTEND:** Für alle Status-Anzeigen verwenden!
 
 ```tsx
-import { StatusIndicator, getBookingStatusType } from "@/components/shared/StatusIndicator";
+import { StatusIndicator, getBookingStatusType } from '@/components/shared/StatusIndicator';
 
-<StatusIndicator type={getBookingStatusType(booking.status)} label={booking.status} />;
+<StatusIndicator
+  type={getBookingStatusType(booking.status)}
+  label={booking.status}
+/>
 ```
 
 **Status-Typen:**
-
 - `success`: Grün (erfolgreich, aktiv, bezahlt)
 - `warning`: Gelb (ausstehend, in Bearbeitung)
 - `error`: Rot (überfällig, abgebrochen, inaktiv)
 - `neutral`: Grau (archiviert, unbekannt)
 
 **Helper-Funktionen:**
-
 - `getBookingStatusType(status)` - Für Auftrags-Status
 - `getPaymentStatusType(status)` - Für Zahlungs-Status
 - `getDriverStatusType(status)` - Für Fahrer-Status
@@ -350,8 +371,7 @@ import { StatusIndicator, getBookingStatusType } from "@/components/shared/Statu
 
 **Datei:** `src/components/layout/Header.tsx`
 
-**WICHTIG:**
-
+**WICHTIG:** 
 - NIEMALS direkt in Seiten integrieren
 - Wird automatisch via `MainLayout` geladen
 - Logo MUSS zur jeweiligen Startseite verlinken
@@ -362,7 +382,6 @@ import { StatusIndicator, getBookingStatusType } from "@/components/shared/Statu
 **Datei:** `src/components/layout/Footer.tsx`
 
 **WICHTIG:**
-
 - Automatisch via `MainLayout`
 - Pflicht-Links: Impressum, Datenschutz, AGB
 - Gleiche Gestaltung auf ALLEN Seiten
@@ -372,7 +391,6 @@ import { StatusIndicator, getBookingStatusType } from "@/components/shared/Statu
 **Datei:** `src/components/layout/Sidebar.tsx`
 
 **WICHTIG:**
-
 - Automatisch via `MainLayout`
 - Menü-Belegung pro Seite korrekt
 - Aktive Route hervorheben
@@ -386,8 +404,8 @@ import { StatusIndicator, getBookingStatusType } from "@/components/shared/Statu
 **VERPFLICHTEND:** Separate Mobile-Components verwenden!
 
 ```tsx
-import { useDeviceType } from "@/hooks/use-device-type";
-import { MobileKunden } from "@/components/mobile/MobileKunden";
+import { useDeviceType } from '@/hooks/use-device-type';
+import { MobileKunden } from '@/components/mobile/MobileKunden';
 
 const { isMobile } = useDeviceType();
 
@@ -396,11 +414,14 @@ if (isMobile) {
 }
 
 // Desktop-Layout
-return <DashboardLayout>{/* Desktop-Content */}</DashboardLayout>;
+return (
+  <DashboardLayout>
+    {/* Desktop-Content */}
+  </DashboardLayout>
+);
 ```
 
 **Mobile-Components:**
-
 - `MobileAuftraege` (Aufträge)
 - `MobileKunden` (Kunden)
 - `MobileFahrer` (Fahrer)
@@ -416,11 +437,11 @@ return <DashboardLayout>{/* Desktop-Content */}</DashboardLayout>;
 ```tsx
 <div className="text-xs text-muted-foreground mt-4 p-3 bg-muted/50 rounded-lg">
   <p>
-    🔒 Ihre Daten werden verschlüsselt übertragen und gemäß
+    🔒 Ihre Daten werden verschlüsselt übertragen und gemäß 
     <Link to="/datenschutz" className="text-primary hover:underline ml-1">
       Datenschutzerklärung
-    </Link>{" "}
-    verarbeitet.
+    </Link>
+    {" "}verarbeitet.
   </p>
 </div>
 ```
@@ -443,17 +464,11 @@ return <DashboardLayout>{/* Desktop-Content */}</DashboardLayout>;
 ```tsx
 <footer className="mt-12 pt-6 border-t border-border text-center text-xs text-muted-foreground">
   <p>
-    <Link to="/impressum" className="hover:text-foreground">
-      Impressum
-    </Link>
-    {" • "}
-    <Link to="/datenschutz" className="hover:text-foreground">
-      Datenschutz
-    </Link>
-    {" • "}
-    <Link to="/agb" className="hover:text-foreground">
-      AGB
-    </Link>
+    <Link to="/impressum" className="hover:text-foreground">Impressum</Link>
+    {' • '}
+    <Link to="/datenschutz" className="hover:text-foreground">Datenschutz</Link>
+    {' • '}
+    <Link to="/agb" className="hover:text-foreground">AGB</Link>
   </p>
 </footer>
 ```
@@ -465,14 +480,12 @@ return <DashboardLayout>{/* Desktop-Content */}</DashboardLayout>;
 ## ✅ DESIGN-VORGABEN
 
 ### Spacing & Alignment
-
 - **Grid-Gap:** `gap-3` (Standard für alle Grids)
 - **Card-Padding:** `p-4` (Header), `p-6` (Content)
 - **Section-Spacing:** `space-y-4` (Vertikal)
 - **Responsive:** Mobile-First (`sm:`, `md:`, `lg:`)
 
 ### Rundungen bei angrenzenden Elementen
-
 - **VERPFLICHTEND:** Wo Elemente zusammentreffen (z.B. gestapelte Buttons), KEINE Rundungen an angrenzenden Kanten
 - **Implementierung:** `rounded-none first:rounded-t-lg last:rounded-b-lg`
 - **Anwendung:** Button-Listen, Tab-Navigation, gestapelte Cards
@@ -482,8 +495,8 @@ return <DashboardLayout>{/* Desktop-Content */}</DashboardLayout>;
 // ✅ KORREKT - Erste/Letzte gerundet, angrenzende Kanten gerade
 <div className="space-y-0">
   {actions.map((action, i) => (
-    <Button
-      key={i}
+    <Button 
+      key={i} 
       className="rounded-none first:rounded-t-lg last:rounded-b-lg"
     />
   ))}
@@ -498,7 +511,6 @@ return <DashboardLayout>{/* Desktop-Content */}</DashboardLayout>;
 ```
 
 ### Farben & CI
-
 - **NIEMALS** direkte Farben (`text-white`, `bg-[#fff]`)
 - **IMMER** Semantic Tokens (`text-foreground`, `bg-primary`)
 
@@ -509,7 +521,6 @@ return <DashboardLayout>{/* Desktop-Content */}</DashboardLayout>;
 ### Vor Erstellung JEDER neuen Dashboard-Seite:
 
 #### Struktur
-
 - [ ] DashboardLayout verwendet?
 - [ ] Hero-Bereich (Tailwind CSS) integriert?
 - [ ] Seitentitel + Beschreibung vorhanden?
@@ -520,20 +531,17 @@ return <DashboardLayout>{/* Desktop-Content */}</DashboardLayout>;
 - [ ] EnhancedDetailDialog verwendet?
 
 #### Mobile
-
 - [ ] Mobile-Component erstellt?
 - [ ] useDeviceType Hook verwendet?
 - [ ] Touch-Targets ≥ 44px?
 - [ ] Responsive Grid (grid-cols-1 sm:2 lg:4)?
 
 #### Rechtlich
-
 - [ ] DSGVO-Hinweis bei Formularen?
 - [ ] Zeitstempel bei Aufträgen/Rechnungen?
 - [ ] Footer-Links (Impressum/Datenschutz/AGB)?
 
 #### Design-System
-
 - [ ] CI-Farben (semantic tokens)?
 - [ ] Ampelsystem (StatusIndicator)?
 - [ ] Icons via lucide-react?
@@ -621,16 +629,16 @@ return <DashboardLayout>{/* Desktop-Content */}</DashboardLayout>;
 
 ### Übersicht aller Dashboard-Seiten
 
-| Seite             | Solo/Multi | KPI 1  | KPI 2         | KPI 3             | Schnellzugriff                 |
-| ----------------- | ---------- | ------ | ------------- | ----------------- | ------------------------------ |
-| **Kunden**        | Solo       | Gesamt | Portal-Zugang | Offene Rechnungen | Kunde anlegen, Export          |
-| **Aufträge**      | Solo       | Offen  | Heute         | Umsatz Monat      | Auftrag anlegen, Export        |
-| **Fahrer**        | Multi      | Gesamt | Aktiv         | Inaktiv           | Fahrer anlegen, Schichtplan    |
-| **Fahrzeuge**     | Multi      | Gesamt | Verfügbar     | In Wartung        | Fahrzeug anlegen, Wartungsplan |
-| **Rechnungen**    | Solo       | Offen  | Überfällig    | Umsatz Monat      | Rechnung erstellen, Export     |
-| **Partner**       | Solo       | Gesamt | Aktive        | Provision Monat   | Partner anlegen, Export        |
-| **Kostenstellen** | Solo       | Gesamt | Aktive        | Ausgaben Monat    | Kostenstelle anlegen, Export   |
-| **Dokumente**     | Multi      | Gesamt | Fahrer-Docs   | Fahrzeug-Docs     | Dokument hochladen, Export     |
+| Seite | Solo/Multi | KPI 1 | KPI 2 | KPI 3 | Schnellzugriff |
+|-------|------------|-------|-------|-------|----------------|
+| **Kunden** | Solo | Gesamt | Portal-Zugang | Offene Rechnungen | Kunde anlegen, Export |
+| **Aufträge** | Solo | Offen | Heute | Umsatz Monat | Auftrag anlegen, Export |
+| **Fahrer** | Multi | Gesamt | Aktiv | Inaktiv | Fahrer anlegen, Schichtplan |
+| **Fahrzeuge** | Multi | Gesamt | Verfügbar | In Wartung | Fahrzeug anlegen, Wartungsplan |
+| **Rechnungen** | Solo | Offen | Überfällig | Umsatz Monat | Rechnung erstellen, Export |
+| **Partner** | Solo | Gesamt | Aktive | Provision Monat | Partner anlegen, Export |
+| **Kostenstellen** | Solo | Gesamt | Aktive | Ausgaben Monat | Kostenstelle anlegen, Export |
+| **Dokumente** | Multi | Gesamt | Fahrer-Docs | Fahrzeug-Docs | Dokument hochladen, Export |
 
 ---
 
@@ -654,7 +662,6 @@ return <DashboardLayout>{/* Desktop-Content */}</DashboardLayout>;
 ## 📝 CHANGELOG
 
 ### V18.5.1 (23.10.2025)
-
 - ✅ Systemweite Dashboard-Struktur definiert
 - ✅ Hero-Bereiche als Tailwind CSS (KEINE JPGs)
 - ✅ PageHeaderWithKPIs verpflichtend für alle Seiten

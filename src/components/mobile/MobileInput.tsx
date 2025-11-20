@@ -6,12 +6,12 @@
    - Automatische Tastatur-Optimierung
    ================================================================================== */
 
-import { forwardRef, InputHTMLAttributes } from "react";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
+import { forwardRef, InputHTMLAttributes } from 'react';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
+import { LucideIcon } from 'lucide-react';
 
-interface MobileInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {
+interface MobileInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   label?: string;
   icon?: LucideIcon;
   error?: string;
@@ -49,10 +49,12 @@ export const MobileInput = forwardRef<HTMLInputElement, MobileInputProps>(
             {...props}
           />
         </div>
-        {error && <p className="text-xs text-status-error mt-0.5">{error}</p>}
+        {error && (
+          <p className="text-xs text-status-error mt-0.5">{error}</p>
+        )}
       </div>
     );
   }
 );
 
-MobileInput.displayName = "MobileInput";
+MobileInput.displayName = 'MobileInput';

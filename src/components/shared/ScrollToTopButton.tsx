@@ -10,9 +10,9 @@
    ✅ Touch-optimiert (48x48px)
    ================================================================================== */
 
-import { useState, useEffect } from "react";
-import { ArrowUp } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState, useEffect } from 'react';
+import { ArrowUp } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
@@ -23,14 +23,14 @@ export function ScrollToTopButton() {
       setIsVisible(window.pageYOffset > 400);
     };
 
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
   }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
 
@@ -48,8 +48,8 @@ export function ScrollToTopButton() {
         "transition-all duration-300 ease-out",
         "flex items-center justify-center",
         // Visibility animation
-        isVisible
-          ? "opacity-100 translate-y-0 scale-100"
+        isVisible 
+          ? "opacity-100 translate-y-0 scale-100" 
           : "opacity-0 translate-y-10 scale-90 pointer-events-none"
       )}
       aria-label="Zurück nach oben"

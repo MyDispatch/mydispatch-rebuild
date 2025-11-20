@@ -9,28 +9,24 @@
 ## 🎯 AUDIT-KRITERIEN
 
 ### 1. STRUKTUR ✅
-
 - [ ] Nutzt DashboardLayout
 - [ ] SEOHead-Component integriert
 - [ ] Breadcrumbs automatisch via DashboardLayout
 - [ ] Responsive Design (Mobile-First)
 
 ### 2. DESIGN ✨
-
 - [ ] Semantic Color-Tokens (keine direct colors)
 - [ ] Konsistente Spacing (p-4/p-6/p-8)
 - [ ] Icons: h-5 w-5 Standard
 - [ ] Touch-Targets ≥ 44px (Mobile)
 
 ### 3. FUNKTIONALITÄT 🔧
-
 - [ ] Alle Links funktionieren
 - [ ] Forms mit Validation
 - [ ] Error-Handling implementiert
 - [ ] Loading-States vorhanden
 
 ### 4. PERFORMANCE ⚡
-
 - [ ] Lazy-Loading wo sinnvoll
 - [ ] Keine Render-Blocking Resources
 - [ ] Optimierte Images
@@ -42,7 +38,6 @@
 ### ✅ COMPLIANT PAGES (10/50 = 20%)
 
 #### 1. Index.tsx (Dashboard)
-
 - **Status:** ✅ PERFECT
 - **Layout:** MainLayout ✅
 - **SEO:** SEOHead ✅
@@ -51,7 +46,6 @@
 - **Issues:** KEINE
 
 #### 2. Auftraege.tsx
-
 - **Status:** ✅ GOOD
 - **Layout:** MainLayout ✅
 - **SEO:** SEOHead ✅
@@ -59,49 +53,41 @@
 - **Issues:** KEINE
 
 #### 3. Kunden.tsx
-
 - **Status:** ✅ GOOD
 - **Layout:** MainLayout ✅
 - **Issues:** KEINE
 
 #### 4. Fahrer.tsx
-
 - **Status:** ✅ GOOD
 - **Layout:** MainLayout ✅
 - **Issues:** KEINE
 
 #### 5. Einstellungen.tsx
-
 - **Status:** ✅ GOOD
 - **Layout:** MainLayout ✅
 - **Issues:** KEINE
 
 #### 6. Kommunikation.tsx
-
 - **Status:** ✅ GOOD
 - **Layout:** MainLayout ✅
 - **Issues:** KEINE
 
 #### 7. Schichtzettel.tsx
-
 - **Status:** ✅ GOOD
 - **Layout:** MainLayout ✅
 - **Issues:** KEINE
 
 #### 8. Dokumente.tsx
-
 - **Status:** ✅ GOOD
 - **Layout:** MainLayout ✅
 - **Issues:** KEINE
 
 #### 9. Rechnungen.tsx
-
 - **Status:** ✅ GOOD
 - **Layout:** MainLayout ✅
 - **Issues:** KEINE (sehr umfangreich, 752 Zeilen)
 
 #### 10. Statistiken.tsx
-
 - **Status:** ✅ GOOD
 - **Layout:** MainLayout ✅
 - **Issues:** KEINE
@@ -111,7 +97,6 @@
 ### ⚠️ NEEDS FIXING (25/50 = 50%)
 
 #### 11. Partner.tsx
-
 - **Status:** ⚠️ NEEDS REVIEW
 - **Issues:**
   - FeatureGate: requiredTariff="Business" ✅
@@ -120,7 +105,6 @@
 - **Priority:** P1
 
 #### 12. Kostenstellen.tsx
-
 - **Status:** ⚠️ BASIC
 - **Issues:**
   - Nur 50 Zeilen → Vermutlich Placeholder
@@ -128,7 +112,6 @@
 - **Priority:** P1
 
 #### 13. Angebote.tsx
-
 - **Status:** ⚠️ BASIC
 - **Issues:**
   - Nur 11 Zeilen → Definitiv Placeholder
@@ -136,7 +119,6 @@
 - **Priority:** P2
 
 #### 14. Fahrzeuge.tsx
-
 - **Status:** ⚠️ BASIC
 - **Issues:**
   - Nur 11 Zeilen → Placeholder
@@ -144,7 +126,6 @@
 - **Priority:** P2
 
 #### 15. ComingSoon.tsx
-
 - **Status:** ❌ MARKETING PAGE (447 Zeilen!)
 - **Issues:**
   - Riesige Marketing-Page für "Coming Soon"
@@ -153,7 +134,6 @@
 - **Priority:** P2
 
 #### 16. AuftraegeNew.tsx
-
 - **Status:** ⚠️ DUPLICATE?
 - **Issues:**
   - Gibt es Auftraege.tsx UND AuftraegeNew.tsx
@@ -162,7 +142,6 @@
 - **Priority:** P1 (klären)
 
 #### 17. IndexNew.tsx
-
 - **Status:** ⚠️ DUPLICATE?
 - **Issues:**
   - Gibt es Index.tsx UND IndexNew.tsx
@@ -171,7 +150,6 @@
 - **Priority:** P1 (klären)
 
 #### 18. LandingpageKonfigurator.tsx
-
 - **Status:** ⚠️ NEEDS REVIEW
 - **Issues:**
   - Nur 31 Zeilen → Zu simpel?
@@ -179,14 +157,12 @@
 - **Priority:** P1
 
 #### 19. LogoTools.tsx
-
 - **Status:** ⚠️ BASIC
 - **Issues:**
   - Nur 4 Zeilen → Placeholder
 - **Priority:** P3
 
 #### 20. MobileMenu.tsx
-
 - **Status:** ⚠️ UNCLEAR
 - **Issues:**
   - Sollte Component sein, nicht Page
@@ -194,7 +170,6 @@
 - **Priority:** P2
 
 #### 21-25. Driver-App Pages
-
 - **Files:**
   - DriverDashboard.tsx
   - DriverLogin.tsx
@@ -239,30 +214,25 @@
 ### ⚡ SPECIAL/ADMIN PAGES
 
 #### MasterDashboard.tsx (551 Zeilen)
-
 - **Status:** ✅ GOOD
 - **Access:** Master-Account only
 - **Issues:** KEINE
 
 #### AgentDashboard.tsx (10 Zeilen)
-
 - **Status:** ⚠️ PLACEHOLDER
 - **Priority:** P2
 
 #### ErrorMonitor.tsx (310 Zeilen)
-
 - **Status:** ✅ GOOD
 - **Purpose:** System-Monitoring
 - **Issues:** KEINE
 
 #### GoLiveControl.tsx (25 Zeilen)
-
 - **Status:** ⚠️ BASIC
 - **Purpose:** Deployment-Control
 - **Priority:** P2
 
 #### NeXifySupport.tsx (744 Zeilen!)
-
 - **Status:** ⚠️ HUGE
 - **Issues:**
   - 744 Zeilen → Zu groß?
@@ -273,23 +243,21 @@
 
 ## 📈 AUDIT-STATISTIK
 
-| Kategorie             | Anzahl | Prozent |
-| --------------------- | ------ | ------- |
-| **Compliant (✅)**    | 10     | 20%     |
-| **Needs Fixing (⚠️)** | 25     | 50%     |
-| **Public Pages (🚫)** | 15     | 30%     |
-| **TOTAL**             | 50     | 100%    |
+| Kategorie | Anzahl | Prozent |
+|-----------|--------|---------|
+| **Compliant (✅)** | 10 | 20% |
+| **Needs Fixing (⚠️)** | 25 | 50% |
+| **Public Pages (🚫)** | 15 | 30% |
+| **TOTAL** | 50 | 100% |
 
 ---
 
 ## 🎯 ACTION PLAN
 
 ### PHASE 1: STRUCTURE (P0)
-
 **Ziel:** Ordnung schaffen
 
 1. **Refactoring Public Pages**
-
    ```bash
    mkdir src/pages/public
    mv src/pages/{Home,Unternehmer,Contact,Pricing,FAQ,Terms,AGB,Datenschutz,Impressum,Docs,ComingSoon,NotFound}.tsx src/pages/public/
@@ -308,7 +276,6 @@
 ---
 
 ### PHASE 2: PLACEHOLDER-COMPLETION (P1)
-
 **Ziel:** Fehlende Funktionalität implementieren
 
 1. **Angebote.tsx** (11 Zeilen → ~200 Zeilen)
@@ -338,7 +305,6 @@
 ---
 
 ### PHASE 3: DESIGN-SYSTEM-COMPLIANCE (P1)
-
 **Ziel:** 100% Semantic Tokens
 
 ```bash
@@ -357,7 +323,6 @@ npm run audit:design-system
 ---
 
 ### PHASE 4: LINK-VALIDATION (P1)
-
 **Ziel:** 0 Broken Links
 
 ```bash
@@ -375,7 +340,6 @@ npm run check:links
 ---
 
 ### PHASE 5: REFACTORING (P2)
-
 **Ziel:** Code-Quality
 
 1. **NeXifySupport.tsx** (744 Zeilen)
@@ -396,21 +360,21 @@ npm run check:links
 
 ### Sidebar-Links (aus AppSidebar.tsx)
 
-| Link                  | Target                      | Status                           |
-| --------------------- | --------------------------- | -------------------------------- |
-| Dashboard             | `/dashboard`                | ✅ → Index.tsx                   |
-| Aufträge              | `/auftraege`                | ✅ → Auftraege.tsx               |
-| Kunden                | `/kunden`                   | ✅ → Kunden.tsx                  |
-| Fahrer & Fahrzeuge    | `/fahrer`                   | ✅ → Fahrer.tsx                  |
-| Schichten & Zeiten    | `/schichtzettel`            | ✅ → Schichtzettel.tsx           |
-| Finanzen              | `/rechnungen`               | ✅ → Rechnungen.tsx              |
-| Kostenstellen         | `/kostenstellen`            | ✅ → Kostenstellen.tsx           |
-| Dokumente & Ablauf    | `/dokumente`                | ✅ → Dokumente.tsx               |
-| Partner-Netzwerk      | `/partner`                  | ✅ → Partner.tsx                 |
-| Statistiken & Reports | `/statistiken`              | ✅ → Statistiken.tsx             |
-| Landingpage-Editor    | `/landingpage-konfigurator` | ✅ → LandingpageKonfigurator.tsx |
-| Kommunikation         | `/kommunikation`            | ✅ → Kommunikation.tsx           |
-| Einstellungen         | `/einstellungen`            | ✅ → Einstellungen.tsx           |
+| Link | Target | Status |
+|------|--------|--------|
+| Dashboard | `/dashboard` | ✅ → Index.tsx |
+| Aufträge | `/auftraege` | ✅ → Auftraege.tsx |
+| Kunden | `/kunden` | ✅ → Kunden.tsx |
+| Fahrer & Fahrzeuge | `/fahrer` | ✅ → Fahrer.tsx |
+| Schichten & Zeiten | `/schichtzettel` | ✅ → Schichtzettel.tsx |
+| Finanzen | `/rechnungen` | ✅ → Rechnungen.tsx |
+| Kostenstellen | `/kostenstellen` | ✅ → Kostenstellen.tsx |
+| Dokumente & Ablauf | `/dokumente` | ✅ → Dokumente.tsx |
+| Partner-Netzwerk | `/partner` | ✅ → Partner.tsx |
+| Statistiken & Reports | `/statistiken` | ✅ → Statistiken.tsx |
+| Landingpage-Editor | `/landingpage-konfigurator` | ✅ → LandingpageKonfigurator.tsx |
+| Kommunikation | `/kommunikation` | ✅ → Kommunikation.tsx |
+| Einstellungen | `/einstellungen` | ✅ → Einstellungen.tsx |
 
 **Result:** ✅ ALLE Links funktionieren!
 
@@ -418,24 +382,22 @@ npm run check:links
 
 ### Missing Pages (NOT in Sidebar, but might be needed)
 
-| Page          | Reason                  | Status                     |
-| ------------- | ----------------------- | -------------------------- |
-| `/fahrzeuge`  | Separate from `/fahrer` | ⚠️ Placeholder (11 Zeilen) |
-| `/angebote`   | Business-Feature        | ⚠️ Placeholder (11 Zeilen) |
-| `/logo-tools` | Admin-Tool              | ⚠️ Placeholder (4 Zeilen)  |
+| Page | Reason | Status |
+|------|--------|--------|
+| `/fahrzeuge` | Separate from `/fahrer` | ⚠️ Placeholder (11 Zeilen) |
+| `/angebote` | Business-Feature | ⚠️ Placeholder (11 Zeilen) |
+| `/logo-tools` | Admin-Tool | ⚠️ Placeholder (4 Zeilen) |
 
 ---
 
 ## ✅ ERFOLGSKRITERIEN
 
 ### Phase 1: Structure
-
 - [ ] Public Pages in /pages/public/
 - [ ] Duplicates resolved
 - [ ] Driver-App separation confirmed
 
 ### Phase 2: Placeholder-Completion
-
 - [ ] Angebote.tsx: Full CRUD ✅
 - [ ] Fahrzeuge.tsx: Full CRUD ✅
 - [ ] Kostenstellen.tsx: Extended ✅
@@ -443,18 +405,15 @@ npm run check:links
 - [ ] LogoTools.tsx: Full-Feature ✅
 
 ### Phase 3: Design-System-Compliance
-
 - [ ] 0 direct colors
 - [ ] 100% semantic tokens
 - [ ] 100% HSL colors
 
 ### Phase 4: Link-Validation
-
 - [ ] 0 broken links
 - [ ] 100% links tested
 
 ### Phase 5: Refactoring
-
 - [ ] Max. 300 Zeilen pro File
 - [ ] Components extracted
 
@@ -462,14 +421,14 @@ npm run check:links
 
 ## 📊 TIMELINE
 
-| Phase                             | Aufwand | ETA        |
-| --------------------------------- | ------- | ---------- |
-| Phase 1: Structure                | 2h      | Tag 1      |
-| Phase 2: Placeholder-Completion   | 8h      | Tag 2-3    |
-| Phase 3: Design-System-Compliance | 3h      | Tag 3      |
-| Phase 4: Link-Validation          | 1h      | Tag 3      |
-| Phase 5: Refactoring              | 4h      | Tag 4      |
-| **TOTAL**                         | **18h** | **4 Tage** |
+| Phase | Aufwand | ETA |
+|-------|---------|-----|
+| Phase 1: Structure | 2h | Tag 1 |
+| Phase 2: Placeholder-Completion | 8h | Tag 2-3 |
+| Phase 3: Design-System-Compliance | 3h | Tag 3 |
+| Phase 4: Link-Validation | 1h | Tag 3 |
+| Phase 5: Refactoring | 4h | Tag 4 |
+| **TOTAL** | **18h** | **4 Tage** |
 
 ---
 

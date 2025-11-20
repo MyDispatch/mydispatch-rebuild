@@ -16,7 +16,6 @@ Diese Guidelines definieren **einheitliche Standards** für alle Formulare in My
 ## 🏗️ Form Architecture
 
 ### **Stack:**
-
 - **React Hook Form** (`react-hook-form`) - Form State Management
 - **Zod** (`zod`) - Schema Validation
 - **@hookform/resolvers** - RHF + Zod Integration
@@ -77,7 +76,7 @@ export function ExampleForm() {
             </FormItem>
           )}
         />
-
+        
         <FormField
           control={form.control}
           name="password"
@@ -141,10 +140,10 @@ email: z.string().email("Ungültige E-Mail-Adresse"),
 ### **3. Phone Input**
 
 ```typescript
-<Input
-  type="tel"
-  placeholder="+49 170 1234567"
-  {...field}
+<Input 
+  type="tel" 
+  placeholder="+49 170 1234567" 
+  {...field} 
 />
 
 // Validation (DE Format)
@@ -156,12 +155,12 @@ phone: z.string()
 ### **4. Number Input**
 
 ```typescript
-<Input
-  type="number"
-  min={0}
+<Input 
+  type="number" 
+  min={0} 
   step={1}
-  placeholder="0"
-  {...field}
+  placeholder="0" 
+  {...field} 
   onChange={(e) => field.onChange(parseFloat(e.target.value))}
 />
 
@@ -347,10 +346,10 @@ import { Textarea } from "@/components/ui/textarea";
     <FormItem>
       <FormLabel>Notizen</FormLabel>
       <FormControl>
-        <Textarea
-          placeholder="Zusätzliche Informationen..."
+        <Textarea 
+          placeholder="Zusätzliche Informationen..." 
           className="min-h-[100px]"
-          {...field}
+          {...field} 
         />
       </FormControl>
       <FormMessage />
@@ -423,14 +422,14 @@ avatar: z
     <FormField ... /> {/* Vorname */}
     <FormField ... /> {/* Nachname */}
   </div>
-
+  
   <FormField ... /> {/* Email (Full Width) */}
-
+  
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
     <FormField ... /> {/* Telefon */}
     <FormField ... /> {/* Mobilnummer */}
   </div>
-
+  
   <Button type="submit">Speichern</Button>
 </form>
 ```
@@ -448,7 +447,7 @@ const [step, setStep] = useState(1);
       <Button onClick={() => setStep(2)}>Weiter</Button>
     </>
   )}
-
+  
   {step === 2 && (
     <>
       <FormField ... />
@@ -473,21 +472,21 @@ const validations = {
   // Text
   required: z.string().min(1, "Pflichtfeld"),
   text: z.string().min(2).max(100),
-
+  
   // Email
   email: z.string().email("Ungültige E-Mail"),
-
+  
   // Phone (DE)
   phone: z.string().regex(/^(\+49|0)[1-9][0-9]{1,14}$/),
-
+  
   // Number
   positiveInt: z.number().int().positive(),
   percentage: z.number().min(0).max(100),
-
+  
   // Date
   futureDate: z.date().min(new Date(), "Datum muss in Zukunft liegen"),
   pastDate: z.date().max(new Date(), "Datum muss in Vergangenheit liegen"),
-
+  
   // File
   image: z
     .instanceof(File)
@@ -509,7 +508,10 @@ const ibanSchema = z.string().refine(
 );
 
 // USt-IdNr. Validation (DE)
-const vatSchema = z.string().regex(/^DE\d{9}$/, "Ungültige USt-IdNr. (Format: DE123456789)");
+const vatSchema = z.string().regex(
+  /^DE\d{9}$/,
+  "Ungültige USt-IdNr. (Format: DE123456789)"
+);
 ```
 
 ---
@@ -521,9 +523,9 @@ const vatSchema = z.string().regex(/^DE\d{9}$/, "Ungültige USt-IdNr. (Format: D
 ```typescript
 const onSubmit = async (data: FormValues) => {
   try {
-    const { error } = await supabase.from("table").insert(data);
+    const { error } = await supabase.from('table').insert(data);
     if (error) throw error;
-
+    
     toast.success("Erfolgreich gespeichert");
     form.reset();
     onClose?.(); // Close dialog/modal
@@ -543,22 +545,22 @@ const onSubmit = async (data: FormValues) => {
     if (data.avatar) {
       const fileName = `${Date.now()}-${data.avatar.name}`;
       const { error: uploadError } = await supabase.storage
-        .from("avatars")
+        .from('avatars')
         .upload(fileName, data.avatar);
-
+      
       if (uploadError) throw uploadError;
-
+      
       data.avatar_url = fileName;
     }
-
+    
     // 2. Insert Data
-    const { error } = await supabase.from("drivers").insert({
+    const { error } = await supabase.from('drivers').insert({
       ...data,
       avatar: undefined, // Remove File object
     });
-
+    
     if (error) throw error;
-
+    
     toast.success("Fahrer erstellt");
   } catch (error) {
     toast.error("Fehler beim Speichern");
@@ -571,7 +573,6 @@ const onSubmit = async (data: FormValues) => {
 ## 🎯 Best Practices
 
 ### **DO's ✅**
-
 - **Immer** React Hook Form + Zod verwenden
 - **Klare** Fehlermeldungen in Deutsch
 - **Loading States** während Submit (`isSubmitting`)
@@ -582,7 +583,6 @@ const onSubmit = async (data: FormValues) => {
 - **Optimistic Updates** wo sinnvoll
 
 ### **DON'Ts ❌**
-
 - **Keine** uncontrolled forms
 - **Keine** vagen Fehlermeldungen ("Fehler")
 - **Keine** Inline-Validation ohne Zod
@@ -622,25 +622,25 @@ useEffect(() => {
 
 ```typescript
 // tests/forms/create-order-form.spec.ts
-test("Create order form validation", async ({ page }) => {
-  await page.goto("/orders/new");
-
+test('Create order form validation', async ({ page }) => {
+  await page.goto('/orders/new');
+  
   // Submit empty form
   await page.click('button[type="submit"]');
-
+  
   // Check error messages
-  await expect(page.locator("text=Pflichtfeld")).toHaveCount(3);
-
+  await expect(page.locator('text=Pflichtfeld')).toHaveCount(3);
+  
   // Fill valid data
-  await page.fill('[name="customer_id"]', "CUS-P-00001");
-  await page.fill('[name="pickup_address"]', "Berlin Hauptbahnhof");
-  await page.fill('[name="dropoff_address"]', "Berlin Tegel");
-
+  await page.fill('[name="customer_id"]', 'CUS-P-00001');
+  await page.fill('[name="pickup_address"]', 'Berlin Hauptbahnhof');
+  await page.fill('[name="dropoff_address"]', 'Berlin Tegel');
+  
   // Submit
   await page.click('button[type="submit"]');
-
+  
   // Verify success
-  await expect(page.locator("text=Auftrag erstellt")).toBeVisible();
+  await expect(page.locator('text=Auftrag erstellt')).toBeVisible();
 });
 ```
 

@@ -4,7 +4,7 @@
 
 **Status:** ✅ FINAL - SYSTEMWEITE VORGABE  
 **Datum:** 26.10.2025  
-**Version:** 1.0
+**Version:** 1.0  
 
 ---
 
@@ -23,7 +23,6 @@ Alle Icons (in IconBox) und Badges im MyDispatch-System MÜSSEN eine **2px Umran
 ### Varianten (Badge-Konform)
 
 **Variante 1: Primary (Blauer BG + Beiges Icon)**
-
 ```tsx
 <V26IconBox icon={Truck} size="lg" variant="primary" />
 
@@ -37,7 +36,6 @@ style={{
 ```
 
 **Variante 2: Secondary (Beiger BG + Blaues Icon)**
-
 ```tsx
 <V26IconBox icon={Check} size="md" variant="secondary" />
 
@@ -51,7 +49,6 @@ style={{
 ```
 
 ### Größen
-
 - `sm`: 40x40px (Icon: 20x20px)
 - `md`: 48x48px (Icon: 24x24px)
 - `lg`: 64x64px (Icon: 32x32px)
@@ -65,7 +62,6 @@ style={{
 **Datei:** `src/components/design-system/V26Badge.tsx`
 
 ### Styling (Neue V26.0 Vorgabe - V2.0 Update)
-
 ```tsx
 <V26Badge>Info</V26Badge>
 
@@ -80,7 +76,6 @@ style={{
 ```
 
 ### Neue Badge-Regeln (V26.0 - V2.0 Update)
-
 - **Border:** 3px solid white (Pflicht)
 - **Zwei Varianten:**
   - **Variante 1:** Beige BG + Blaue Schrift (Premium/Rabatt)
@@ -93,7 +88,6 @@ style={{
 ## ❌ VERBOTEN
 
 ### NIEMALS VERWENDEN:
-
 - ❌ 1px Umrandung (zu dünn, nicht sichtbar genug)
 - ❌ Keine Umrandung bei IconBox oder Badge
 - ❌ Uneinheitliche Border-Breiten
@@ -105,21 +99,18 @@ style={{
 ## 🔍 BETROFFENE KOMPONENTEN
 
 ### Library-Komponenten (26.10.2025)
-
 ✅ `src/components/design-system/V26IconBox.tsx` - 2px Border auf allen Größen  
-✅ `src/components/design-system/V26Badge.tsx` - 2px Border systemweit
+✅ `src/components/design-system/V26Badge.tsx` - 2px Border systemweit  
 
 ### Verwendung in Seiten
-
 ✅ `src/pages/Home.tsx` - V26IconBox & V26Badge mit 2px Border  
-✅ `src/pages/Pricing.tsx` - V26IconBox & V26Badge mit 2px Border
+✅ `src/pages/Pricing.tsx` - V26IconBox & V26Badge mit 2px Border  
 
 ---
 
 ## ⚠️ WARTUNG & UPDATES
 
 Bei **JEDEM** neuen Icon oder Badge:
-
 1. ✅ Verwende ausschließlich V26IconBox oder V26Badge
 2. ✅ Niemals custom Icons/Badges ohne 2px Border erstellen
 3. ✅ Prüfe visuelle Konsistenz
@@ -138,7 +129,6 @@ grep -r "Badge.*border.*none" src/**/*.tsx
 ```
 
 **Sofort korrigieren auf:**
-
 - `border: '2px solid'`
 - `borderColor: KERNFARBEN.dunkelblau`
 

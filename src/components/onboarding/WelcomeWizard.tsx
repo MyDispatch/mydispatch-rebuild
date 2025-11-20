@@ -4,12 +4,12 @@
    Schritt-für-Schritt Einführung in MyDispatch
    ================================================================================== */
 
-import { useState } from "react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Building2, Users, Car, CheckCircle, ArrowRight, ArrowLeft } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
+import { useState } from 'react';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Building2, Users, Car, CheckCircle, ArrowRight, ArrowLeft } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
 
 interface WelcomeWizardProps {
   onComplete: () => void;
@@ -21,14 +21,14 @@ export function WelcomeWizard({ onComplete, onSkip }: WelcomeWizardProps) {
 
   const steps = [
     {
-      title: "Willkommen bei MyDispatch!",
-      description: "In wenigen Schritten ist Ihr System einsatzbereit",
+      title: 'Willkommen bei MyDispatch!',
+      description: 'In wenigen Schritten ist Ihr System einsatzbereit',
       icon: CheckCircle,
       content: (
         <div className="space-y-4">
           <p className="text-muted-foreground">
-            MyDispatch ist Ihre professionelle Dispositionssoftware für Taxi- und
-            Mietwagenunternehmen. Lassen Sie uns gemeinsam Ihr System einrichten.
+            MyDispatch ist Ihre professionelle Dispositionssoftware für Taxi- und Mietwagenunternehmen. 
+            Lassen Sie uns gemeinsam Ihr System einrichten.
           </p>
           <div className="bg-muted/30 p-4 rounded-lg">
             <h4 className="font-semibold mb-2">Was Sie erwartet:</h4>
@@ -51,8 +51,8 @@ export function WelcomeWizard({ onComplete, onSkip }: WelcomeWizardProps) {
       ),
     },
     {
-      title: "Schritt 1: Unternehmensprofil",
-      description: "Vervollständigen Sie Ihre Firmendaten",
+      title: 'Schritt 1: Unternehmensprofil',
+      description: 'Vervollständigen Sie Ihre Firmendaten',
       icon: Building2,
       content: (
         <div className="space-y-4">
@@ -67,16 +67,16 @@ export function WelcomeWizard({ onComplete, onSkip }: WelcomeWizardProps) {
           </ul>
           <div className="bg-primary/10 border border-primary/20 p-4 rounded-lg">
             <p className="text-sm">
-              💡 <strong>Tipp:</strong> Vollständige Firmendaten werden automatisch auf allen
-              Rechnungen und Angeboten verwendet.
+              💡 <strong>Tipp:</strong> Vollständige Firmendaten werden automatisch auf allen Rechnungen 
+              und Angeboten verwendet.
             </p>
           </div>
         </div>
       ),
     },
     {
-      title: "Schritt 2: Fahrer anlegen",
-      description: "Fügen Sie Ihre Fahrer hinzu",
+      title: 'Schritt 2: Fahrer anlegen',
+      description: 'Fügen Sie Ihre Fahrer hinzu',
       icon: Users,
       content: (
         <div className="space-y-4">
@@ -91,7 +91,7 @@ export function WelcomeWizard({ onComplete, onSkip }: WelcomeWizardProps) {
           </ul>
           <div className="bg-status-warning/10 border border-status-warning/20 p-4 rounded-lg">
             <p className="text-sm">
-              ⚠️ <strong>Wichtig:</strong> MyDispatch erinnert Sie automatisch vor Ablauf von
+              ⚠️ <strong>Wichtig:</strong> MyDispatch erinnert Sie automatisch vor Ablauf von 
               Dokumenten (30 Tage Vorlauf).
             </p>
           </div>
@@ -99,8 +99,8 @@ export function WelcomeWizard({ onComplete, onSkip }: WelcomeWizardProps) {
       ),
     },
     {
-      title: "Schritt 3: Fahrzeuge hinzufügen",
-      description: "Erfassen Sie Ihren Fuhrpark",
+      title: 'Schritt 3: Fahrzeuge hinzufügen',
+      description: 'Erfassen Sie Ihren Fuhrpark',
       icon: Car,
       content: (
         <div className="space-y-4">
@@ -116,7 +116,7 @@ export function WelcomeWizard({ onComplete, onSkip }: WelcomeWizardProps) {
           </ul>
           <div className="bg-primary/10 border border-primary/20 p-4 rounded-lg">
             <p className="text-sm">
-              💡 <strong>Tipp:</strong> Die Konzessionsnummer wird gemäß PBefG § 47 pro Fahrzeug
+              💡 <strong>Tipp:</strong> Die Konzessionsnummer wird gemäß PBefG § 47 pro Fahrzeug 
               hinterlegt, nicht im Unternehmensprofil.
             </p>
           </div>
@@ -124,8 +124,8 @@ export function WelcomeWizard({ onComplete, onSkip }: WelcomeWizardProps) {
       ),
     },
     {
-      title: "Geschafft! 🎉",
-      description: "Sie sind bereit für Ihren ersten Auftrag",
+      title: 'Geschafft! 🎉',
+      description: 'Sie sind bereit für Ihren ersten Auftrag',
       icon: CheckCircle,
       content: (
         <div className="space-y-4">
@@ -153,15 +153,8 @@ export function WelcomeWizard({ onComplete, onSkip }: WelcomeWizardProps) {
           <div className="bg-primary/10 border border-primary/20 p-4 rounded-lg">
             <p className="text-sm font-semibold mb-2">🚀 Weitere Hilfe benötigt?</p>
             <p className="text-sm text-muted-foreground">
-              Besuchen Sie unsere{" "}
-              <a href="/docs" className="text-primary hover:underline">
-                Dokumentation
-              </a>{" "}
-              oder kontaktieren Sie unseren{" "}
-              <a href="/contact" className="text-primary hover:underline">
-                Support
-              </a>
-              .
+              Besuchen Sie unsere <a href="/docs" className="text-primary hover:underline">Dokumentation</a> oder 
+              kontaktieren Sie unseren <a href="/contact" className="text-primary hover:underline">Support</a>.
             </p>
           </div>
         </div>
@@ -178,9 +171,7 @@ export function WelcomeWizard({ onComplete, onSkip }: WelcomeWizardProps) {
       <Card className="w-full max-w-2xl">
         <CardHeader>
           <div className="flex items-center justify-between mb-4">
-            <Badge variant="outline">
-              Schritt {currentStep + 1} von {steps.length}
-            </Badge>
+            <Badge variant="outline">Schritt {currentStep + 1} von {steps.length}</Badge>
             <V28Button variant="ghost" size="sm" onClick={onSkip}>
               Überspringen
             </V28Button>

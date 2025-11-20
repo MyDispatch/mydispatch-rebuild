@@ -34,7 +34,6 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ```
 
 **KEY EIGENSCHAFTEN:**
-
 - ✅ Sidebar: `fixed left-0 top-0 h-full`
 - ✅ Header: `fixed top-0 right-0` mit `left: 64px/240px`
 - ✅ Footer: `fixed bottom-0 right-0` mit `left: 64px/240px`
@@ -50,26 +49,25 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ```typescript
 <div className="min-h-screen flex bg-background">
   {/* Sidebar - FIXED LEFT */}
-  <AppSidebar
-    expanded={sidebarExpanded}
-    setExpanded={setSidebarExpanded}
+  <AppSidebar 
+    expanded={sidebarExpanded} 
+    setExpanded={setSidebarExpanded} 
   />
 
   {/* Main Content Area - KEIN margin! */}
   <div className="flex-1 overflow-x-hidden">
     <Header sidebarExpanded={sidebarExpanded} />
-
+    
     <main className="min-h-screen pt-16 pb-20">
       {children}
     </main>
-
+    
     <Footer sidebarExpanded={sidebarExpanded} />
   </div>
 </div>
 ```
 
 **WICHTIG:**
-
 - ❌ **KEIN** `ml-60` oder `ml-[64px]` auf Main-Content!
 - ✅ Header/Footer passen sich automatisch an Sidebar-Breite an
 - ✅ `flex-1` sorgt für automatische Breite
@@ -113,7 +111,6 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ```
 
 **KEY FEATURES:**
-
 - ✅ `fixed left-0 top-0 h-full` (immer sichtbar)
 - ✅ `z-40` (über Main-Content)
 - ✅ `.scrollbar-visible` (Scrollbar sichtbar)
@@ -125,9 +122,9 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ### 3. Header
 
 ```typescript
-<header
-  className="fixed top-0 right-0 z-30 bg-background transition-[left,width]"
-  style={{
+<header 
+  className="fixed top-0 right-0 z-30 bg-background transition-[left,width]" 
+  style={{ 
     left: sidebarExpanded ? '240px' : '64px',
     width: sidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 64px)',
     boxShadow: DESIGN_TOKENS.elevation.sm,
@@ -146,7 +143,6 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ```
 
 **KEY EIGENSCHAFTEN:**
-
 - ✅ `fixed top-0 right-0` (nicht full-width!)
 - ✅ `left` und `width` passen sich an Sidebar an
 - ✅ `z-30` (unter Sidebar, über Content)
@@ -157,9 +153,9 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ### 4. Footer
 
 ```typescript
-<footer
+<footer 
   className="fixed bottom-0 z-20 bg-background transition-[left,width]"
-  style={{
+  style={{ 
     left: sidebarExpanded ? '240px' : '64px',
     width: sidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 64px)',
     borderTop: `1px solid ${DESIGN_TOKENS.colors.border.DEFAULT}`,
@@ -173,7 +169,6 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ```
 
 **KEY EIGENSCHAFTEN:**
-
 - ✅ `fixed bottom-0` (nicht full-width!)
 - ✅ `left` und `width` passen sich an Sidebar an
 - ✅ `z-20` (unter Header, über Content)
@@ -183,25 +178,21 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ## 📏 SPACING & DIMENSIONS
 
 ### Sidebar
-
 - **Width collapsed:** `64px`
 - **Width expanded:** `240px`
 - **z-index:** `40`
 - **Transition:** `300ms ease-in-out`
 
 ### Header
-
 - **Height:** `64px`
 - **z-index:** `30`
 - **Padding:** `0 ${DESIGN_TOKENS.spacing.lg} 0 ${DESIGN_TOKENS.spacing.xl}`
 
 ### Footer
-
 - **Padding:** `${DESIGN_TOKENS.spacing.xs} 0`
 - **z-index:** `20`
 
 ### Main Content
-
 - **Padding Top:** `pt-16` (64px für Header)
 - **Padding Bottom:** `pb-20` (80px für Footer)
 - **KEIN margin!**
@@ -213,13 +204,11 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ### Problem 1: Margin statt flex-1
 
 **FALSCH:**
-
 ```typescript
 <div className="flex-1 ml-60"> {/* ❌ margin verschiebt! */}
 ```
 
 **RICHTIG:**
-
 ```typescript
 <div className="flex-1"> {/* ✅ füllt automatisch! */}
 ```
@@ -227,7 +216,6 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ### Problem 2: Icons inkonsistent
 
 **FALSCH:**
-
 ```typescript
 <Icon className="h-5 w-5" /> {/* ❌ 20px */}
 <Icon className="h-4 w-4" /> {/* ❌ 16px */}
@@ -235,7 +223,6 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ```
 
 **RICHTIG:**
-
 ```typescript
 <Icon style={{ width: '20px', height: '20px' }} /> {/* ✅ IMMER 20px! */}
 ```
@@ -243,13 +230,11 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ### Problem 3: Scrollbar nicht sichtbar
 
 **FALSCH:**
-
 ```typescript
 <nav className="overflow-y-auto"> {/* ❌ Scrollbar versteckt */}
 ```
 
 **RICHTIG:**
-
 ```typescript
 <nav className="overflow-y-auto scrollbar-visible"> {/* ✅ Scrollbar sichtbar */}
 
@@ -265,7 +250,6 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 ## 📦 BETROFFENE DATEIEN
 
 ### ✅ FINAL (REFERENZ)
-
 - `src/components/layout/MainLayout.tsx` ⭐ V20.0.0
 - `src/components/layout/AppSidebar.tsx` ⭐ V20.0.0
 - `src/components/layout/Header.tsx` ⭐ V20.0.0
@@ -273,7 +257,6 @@ Alle Layouts im gesamten System MÜSSEN diese Architektur zu 100% einhalten.
 - `src/components/layout/DashboardLayout.tsx` ⭐ V20.0.0
 
 ### 📝 VERWANDTE KOMPONENTEN
-
 - `src/components/layout/MobileHeader.tsx` - Mobile-Variante
 - `src/components/layout/MobileBottomNav.tsx` - Mobile-Navigation
 - `src/components/layout/MarketingLayoutNew.tsx` - Marketing-Version
@@ -323,27 +306,23 @@ export default function DetailPage() {
 ### ❌ NIEMALS VERWENDEN
 
 1. **Margin auf Main-Content:**
-
    ```typescript
    ❌ className="ml-60 ml-[64px]"
    ```
 
 2. **Inline Header/Footer in Pages:**
-
    ```typescript
    ❌ <header>Custom Header</header>
    ✅ <MainLayout> {/* verwendet Header intern */}
    ```
 
 3. **Inkonsistente Icon-Größen:**
-
    ```typescript
    ❌ <Icon className="h-4 w-4" />
    ✅ <Icon style={{ width: '20px', height: '20px' }} />
    ```
 
 4. **Sidebar ohne fixed:**
-
    ```typescript
    ❌ className="absolute left-0"
    ✅ className="fixed left-0 top-0 h-full"
@@ -364,7 +343,6 @@ export default function DetailPage() {
 Diese Layout-Architektur ist **UNVERÄNDERLICH** und **SYSTEMWEIT VERBINDLICH**.
 
 Jede Abweichung führt zu:
-
 - ❌ Layout-Bruch
 - ❌ Inkonsistente Spacing
 - ❌ Sofortiger Rollback

@@ -2,38 +2,26 @@
    FEATURE DETAIL PAGE: Angebotserstellung
    ================================================================================== */
 
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { V28HeroPremium } from "@/components/hero";
-import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
-import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
-import { V28IconBox } from "@/components/design-system/V28IconBox";
-import { V28Button } from "@/components/design-system/V28Button";
-import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
-import { FileText, Zap, Mail, CheckCircle } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { V28HeroPremium } from '@/components/hero';
+import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28Button } from '@/components/design-system/V28Button';
+import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
+import { FileText, Zap, Mail, CheckCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AngebotserstellungPage() {
   const navigate = useNavigate();
 
   const features = [
-    {
-      icon: Zap,
-      title: "Schnelle Erstellung",
-      description: "Angebote in unter 60 Sekunden erstellen",
-    },
-    {
-      icon: FileText,
-      title: "Vorlagen",
-      description: "Wiederverwendbare Angebotsvorlagen für Standardfahrten",
-    },
-    { icon: Mail, title: "Versand", description: "Direkter E-Mail-Versand mit PDF-Anhang" },
-    {
-      icon: CheckCircle,
-      title: "Status-Tracking",
-      description: "Nachverfolgung von Angebotsstatus und Rückmeldungen",
-    },
+    { icon: Zap, title: 'Schnelle Erstellung', description: 'Angebote in unter 60 Sekunden erstellen' },
+    { icon: FileText, title: 'Vorlagen', description: 'Wiederverwendbare Angebotsvorlagen für Standardfahrten' },
+    { icon: Mail, title: 'Versand', description: 'Direkter E-Mail-Versand mit PDF-Anhang' },
+    { icon: CheckCircle, title: 'Status-Tracking', description: 'Nachverfolgung von Angebotsstatus und Rückmeldungen' },
   ];
 
   return (
@@ -53,8 +41,8 @@ export default function AngebotserstellungPage() {
         subtitle="Professionelle Angebote mit Logo und Preistabellen"
         description="Versenden Sie per E-Mail oder teilen Sie einen Link."
         primaryCTA={{
-          label: "Jetzt starten",
-          onClick: () => navigate("/auth?mode=signup"),
+          label: 'Jetzt starten',
+          onClick: () => navigate('/auth?mode=signup')
         }}
         showPWAButton={true}
         visual={<PremiumDashboardContent pageType="features" />}
@@ -80,7 +68,7 @@ export default function AngebotserstellungPage() {
             <V28TariffBadge label="Business" />
             <V28TariffBadge label="Enterprise" />
           </div>
-          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
             Tarife vergleichen
           </V28Button>
         </div>

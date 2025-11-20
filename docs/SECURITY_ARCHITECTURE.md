@@ -21,7 +21,6 @@ aber bewusst aus Sicherheits-, Performance- oder Architektur-Gründen gewählt w
 **Betroffene Funktion:** `public.is_master_account(uuid)`
 
 **Implementierung:**
-
 ```sql
 CREATE OR REPLACE FUNCTION public.is_master_account(_user_id uuid)
 RETURNS boolean
@@ -39,11 +38,11 @@ DECLARE
 BEGIN
   -- Fetch email from JWT (not DB!)
   user_email := (auth.jwt() ->> 'email');
-
+  
   IF user_email IS NULL THEN
     RETURN false;
   END IF;
-
+  
   RETURN user_email = ANY(master_emails);
 END;
 $$;
@@ -54,9 +53,7 @@ $$;
 ### 🤔 WARUM HARDCODED STATT DB-LOOKUP?
 
 #### Grund #1: Performance (RLS-Optimization)
-
 **Problem:** Diese Funktion wird in RLS-Policies genutzt:
-
 ```sql
 CREATE POLICY "Master accounts have full access"
 ON public.user_roles
@@ -65,24 +62,20 @@ USING (is_master_account(user_id));
 ```
 
 **Impact:**
-
 - RLS-Policy wird bei JEDEM Query ausgeführt (millionenfach!)
 - DB-Lookup würde zu JOIN führen → Massive Performance-Degradation
 - Hardcoded Array-Check ist O(1) vs. DB-Lookup O(log n)
 
 **Benchmark:**
-
 - Hardcoded: ~0.01ms
 - DB-Lookup: ~2-5ms (200-500x langsamer!)
 
 ---
 
 #### Grund #2: Security (Circularity Prevention)
-
 **Problem:** Zirkuläre RLS-Dependency
 
 **Szenario wenn DB-Lookup:**
-
 ```sql
 -- ❌ WOULD CAUSE INFINITE LOOP!
 
@@ -100,11 +93,9 @@ SELECT user_id FROM user_roles WHERE role = 'master';
 ---
 
 #### Grund #3: Simplicity (Architecture)
-
 **Problem:** Master-Emails ändern sich EXTREM selten (max. 1x/Jahr)
 
 **Alternativen geprüft:**
-
 1. **Separate `master_accounts` Tabelle**
    - ❌ Zu komplex für 3 Emails
    - ❌ Würde auch RLS-Zirkularität verursachen
@@ -122,17 +113,14 @@ SELECT user_id FROM user_roles WHERE role = 'master';
 ---
 
 #### Grund #4: Immutability (System Constants)
-
 **Konzept:** Master-Emails sind "System Constants" wie DB-Config
 
 **Vergleichbar mit:**
-
 - Database Connection Strings (auch hardcoded in `config.toml`)
 - Service Account Emails (auch hardcoded)
 - API Endpoints (auch hardcoded)
 
 **Änderungshäufigkeit:**
-
 - Master-Email: ~1x pro Jahr (oder nie)
 - DB-Schema: ~10x pro Monat
 - RLS-Policies: ~5x pro Monat
@@ -144,11 +132,9 @@ SELECT user_id FROM user_roles WHERE role = 'master';
 ### 🚨 AKZEPTIERTE NACHTEILE
 
 #### Nachteil #1: Neue Master-Email erfordert Migration
-
 **Impact:** Neue Master-Email → Code-Deployment nötig
 
 **Mitigation:**
-
 - Migration ist trivial: `ALTER FUNCTION is_master_account() ...`
 - Downtime: 0 Sekunden (Function-Replacement ist atomic)
 - Frequency: ~1x pro Jahr (akzeptabel!)
@@ -156,11 +142,9 @@ SELECT user_id FROM user_roles WHERE role = 'master';
 ---
 
 #### Nachteil #2: "Secrets" im Code
-
 **Concern:** Master-Emails sind im Code sichtbar
 
 **Mitigation:**
-
 - **ABER:** Es sind nur Emails, keine Passwörter!
 - Emails sind NICHT geheim (stehen in `auth.users`)
 - Master-Status erfordert zusätzlich: Korrektes Passwort + MFA (falls enabled)
@@ -174,11 +158,9 @@ SELECT user_id FROM user_roles WHERE role = 'master';
 ### 📊 ALTERNATIVE GEPRÜFT UND VERWORFEN
 
 #### Alternative #1: DB-Lookup mit Cache
-
 **Idee:** Master-Emails in DB, aber mit Redis-Cache
 
 **Warum verworfen:**
-
 - ❌ Zu komplex (Redis nicht verfügbar in Lovable Cloud)
 - ❌ Cache-Invalidierung schwierig
 - ❌ Zirkularitäts-Problem bleibt!
@@ -186,11 +168,9 @@ SELECT user_id FROM user_roles WHERE role = 'master';
 ---
 
 #### Alternative #2: JWT-Claim für Master-Status
-
 **Idee:** Master-Status als JWT-Claim speichern
 
 **Warum verworfen:**
-
 - ❌ JWT wird bei Login generiert (einmal!)
 - ❌ Master-Status-Änderung würde Re-Login erfordern
 - ❌ JWT-Payload-Size würde wachsen
@@ -205,7 +185,6 @@ SELECT user_id FROM user_roles WHERE role = 'master';
 **Status:** ✅ APPROVED
 
 **Checks:**
-
 - [x] Keine Passwörter hardcoded (nur Emails!)
 - [x] Master-Status erfordert zusätzlich korrektes Passwort
 - [x] Keine SQL-Injection möglich (parameterized Array)
@@ -223,7 +202,6 @@ SELECT user_id FROM user_roles WHERE role = 'master';
 ### Neue Master-Email hinzufügen
 
 **Schritt 1:** Migration erstellen
-
 ```sql
 -- migrations/YYYYMMDD_add_new_master_email.sql
 
@@ -252,14 +230,12 @@ $$;
 ```
 
 **Schritt 2:** Migration deployen
-
 ```bash
 # Via Lovable Cloud (automatisch)
 git push origin main
 ```
 
 **Schritt 3:** Dokumentation updaten
-
 - [ ] Dieses Dokument aktualisieren (neue Email hinzufügen)
 - [ ] `CHANGELOG.md` updaten
 - [ ] `MIGRATION_NOTES.md` updaten
@@ -279,13 +255,11 @@ git push origin main
 ## 📚 LESSONS LEARNED
 
 ### Was funktioniert
-
 ✅ Hardcoded Master-Emails für Performance + Simplicity  
 ✅ JWT-basierter Check (keine DB-Lookup-Zirkularität)  
 ✅ Migration-basierte Änderungen (transparent + nachvollziehbar)
 
 ### Was NICHT funktioniert
-
 ❌ DB-Lookup (Zirkularität + Performance)  
 ❌ Environment Variables (nicht in SQL Functions verfügbar)  
 ❌ Redis-Cache (zu komplex, nicht verfügbar)

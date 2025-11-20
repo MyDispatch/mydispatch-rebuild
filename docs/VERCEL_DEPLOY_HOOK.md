@@ -3,7 +3,6 @@
 **Projekt:** mydispatch-rebuild
 
 **Deploy-Hook URL:**
-
 ```
 https://api.vercel.com/v1/integrations/deploy/prj_j6exywYDPrstYDQvd2XEQMeIDQZt/7p943NLtid
 ```
@@ -11,13 +10,11 @@ https://api.vercel.com/v1/integrations/deploy/prj_j6exywYDPrstYDQvd2XEQMeIDQZt/7
 ## Verwendung
 
 **Manuelles Deployment triggern:**
-
 ```bash
 curl -X POST "https://api.vercel.com/v1/integrations/deploy/prj_j6exywYDPrstYDQvd2XEQMeIDQZt/7p943NLtid"
 ```
 
 **Response:**
-
 ```json
 {
   "job": {

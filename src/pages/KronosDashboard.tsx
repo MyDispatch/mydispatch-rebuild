@@ -4,26 +4,26 @@
    Real-time monitoring und control für KRONOS Executor System
    ================================================================================== */
 
-import { useEffect, useState } from "react";
-import { useKronos } from "@/hooks/use-kronos";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Play,
-  RefreshCw,
-  FileCode,
-  GitGraph,
-  CheckCircle2,
-  XCircle,
-  Clock,
+import { useEffect, useState } from 'react';
+import { useKronos } from '@/hooks/use-kronos';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { 
+  Play, 
+  RefreshCw, 
+  FileCode, 
+  GitGraph, 
+  CheckCircle2, 
+  XCircle, 
+  Clock, 
   Loader2,
   AlertCircle,
-  TrendingUp,
-} from "lucide-react";
+  TrendingUp
+} from 'lucide-react';
 
 export default function KronosDashboard() {
   const {
@@ -57,7 +57,9 @@ export default function KronosDashboard() {
     return () => clearInterval(interval);
   }, [autoRefresh, loadEntities, loadCurrentRun]);
 
-  const completionPercentage = stats ? Math.round((stats.completed / stats.total) * 100) : 0;
+  const completionPercentage = stats 
+    ? Math.round((stats.completed / stats.total) * 100)
+    : 0;
 
   const handleFullExecution = async () => {
     await parseWiki();
@@ -77,18 +79,22 @@ export default function KronosDashboard() {
             Wiki-Execution-Protocol • Parallele Code-Synthese
           </p>
         </div>
-
+        
         <div className="flex items-center gap-2">
           <V28Button
             variant="secondary"
             onClick={() => setAutoRefresh(!autoRefresh)}
             className="gap-2"
           >
-            <RefreshCw className={`h-4 w-4 ${autoRefresh ? "animate-spin" : ""}`} />
-            Auto-Refresh {autoRefresh ? "On" : "Off"}
+            <RefreshCw className={`h-4 w-4 ${autoRefresh ? 'animate-spin' : ''}`} />
+            Auto-Refresh {autoRefresh ? 'On' : 'Off'}
           </V28Button>
-
-          <V28Button onClick={handleFullExecution} disabled={isLoading} className="gap-2">
+          
+          <V28Button
+            onClick={handleFullExecution}
+            disabled={isLoading}
+            className="gap-2"
+          >
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
@@ -132,7 +138,9 @@ export default function KronosDashboard() {
           </CardHeader>
           <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats?.in_progress || 0}</div>
-            <p className="text-xs text-muted-foreground">{stats?.pending || 0} Pending</p>
+            <p className="text-xs text-muted-foreground">
+              {stats?.pending || 0} Pending
+            </p>
           </CardContent>
         </Card>
 
@@ -166,19 +174,21 @@ export default function KronosDashboard() {
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Status</span>
-                <Badge variant={currentRun.status === "completed" ? "default" : "secondary"}>
+                <Badge variant={currentRun.status === 'completed' ? 'default' : 'secondary'}>
                   {currentRun.status}
                 </Badge>
               </div>
-
+              
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Progress</span>
                 <span className="text-sm">
                   Level {currentRun.current_level} / {currentRun.total_levels}
                 </span>
               </div>
-
-              <Progress value={(currentRun.current_level / currentRun.total_levels) * 100} />
+              
+              <Progress 
+                value={(currentRun.current_level / currentRun.total_levels) * 100} 
+              />
 
               <div className="grid grid-cols-3 gap-4 text-sm">
                 <div>
@@ -203,7 +213,9 @@ export default function KronosDashboard() {
       <Card>
         <CardHeader>
           <CardTitle>Entities</CardTitle>
-          <CardDescription>Real-time status aller zu generierenden Entities</CardDescription>
+          <CardDescription>
+            Real-time status aller zu generierenden Entities
+          </CardDescription>
         </CardHeader>
         <CardContent className="p-6">
           <Tabs defaultValue="all">
@@ -215,13 +227,13 @@ export default function KronosDashboard() {
               <TabsTrigger value="failed">Failed ({stats?.failed || 0})</TabsTrigger>
             </TabsList>
 
-            {(["all", "pending", "in_progress", "completed", "failed"] as const).map((status) => (
+            {(['all', 'pending', 'in_progress', 'completed', 'failed'] as const).map(status => (
               <TabsContent key={status} value={status}>
                 <ScrollArea className="h-[400px]">
                   <div className="space-y-2">
                     {entities
-                      .filter((e) => status === "all" || e.status === status)
-                      .map((entity) => (
+                      .filter(e => status === 'all' || e.status === status)
+                      .map(entity => (
                         <div
                           key={entity.id}
                           className="flex items-center justify-between p-3 rounded-lg border bg-card"
@@ -246,25 +258,25 @@ export default function KronosDashboard() {
                           </div>
 
                           <div className="flex items-center gap-2">
-                            {entity.status === "completed" && (
+                            {entity.status === 'completed' && (
                               <Badge className="gap-1">
                                 <CheckCircle2 className="h-3 w-3" />
                                 {entity.execution_time_ms}ms
                               </Badge>
                             )}
-                            {entity.status === "in_progress" && (
+                            {entity.status === 'in_progress' && (
                               <Badge variant="secondary" className="gap-1">
                                 <Loader2 className="h-3 w-3 animate-spin" />
                                 Running
                               </Badge>
                             )}
-                            {entity.status === "pending" && (
+                            {entity.status === 'pending' && (
                               <Badge variant="outline" className="gap-1">
                                 <Clock className="h-3 w-3" />
                                 Pending
                               </Badge>
                             )}
-                            {entity.status === "failed" && (
+                            {entity.status === 'failed' && (
                               <>
                                 <Badge variant="destructive" className="gap-1">
                                   <XCircle className="h-3 w-3" />
@@ -297,7 +309,9 @@ export default function KronosDashboard() {
             <GitGraph className="h-5 w-5" />
             Manual Actions
           </CardTitle>
-          <CardDescription>Execute einzelne Schritte des KRONOS Workflows</CardDescription>
+          <CardDescription>
+            Execute einzelne Schritte des KRONOS Workflows
+          </CardDescription>
         </CardHeader>
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

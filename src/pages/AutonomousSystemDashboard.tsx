@@ -120,7 +120,9 @@ export default function AutonomousSystemDashboard() {
             <CardTitle className="text-sm font-medium">Ausstehend</CardTitle>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="text-2xl font-bold text-yellow-600">{stats?.pending_tasks || 0}</div>
+            <div className="text-2xl font-bold text-yellow-600">
+              {stats?.pending_tasks || 0}
+            </div>
           </CardContent>
         </Card>
 
@@ -129,7 +131,9 @@ export default function AutonomousSystemDashboard() {
             <CardTitle className="text-sm font-medium">Abgeschlossen</CardTitle>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="text-2xl font-bold text-green-600">{stats?.completed_tasks || 0}</div>
+            <div className="text-2xl font-bold text-green-600">
+              {stats?.completed_tasks || 0}
+            </div>
           </CardContent>
         </Card>
 
@@ -138,7 +142,9 @@ export default function AutonomousSystemDashboard() {
             <CardTitle className="text-sm font-medium">Fehlgeschlagen</CardTitle>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="text-2xl font-bold text-red-600">{stats?.failed_tasks || 0}</div>
+            <div className="text-2xl font-bold text-red-600">
+              {stats?.failed_tasks || 0}
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -216,7 +222,9 @@ export default function AutonomousSystemDashboard() {
         </CardHeader>
         <CardContent className="p-6">
           {tasks.length === 0 ? (
-            <p className="text-sm text-muted-foreground text-center py-8">Keine Tasks vorhanden</p>
+            <p className="text-sm text-muted-foreground text-center py-8">
+              Keine Tasks vorhanden
+            </p>
           ) : (
             <div className="space-y-3">
               {tasks.slice(0, 10).map((task) => (
@@ -234,7 +242,9 @@ export default function AutonomousSystemDashboard() {
                     </div>
                     <p className="text-sm">{task.description}</p>
                     {task.error_message && (
-                      <p className="text-xs text-destructive mt-1">Fehler: {task.error_message}</p>
+                      <p className="text-xs text-destructive mt-1">
+                        Fehler: {task.error_message}
+                      </p>
                     )}
                   </div>
                   <div className="text-xs text-muted-foreground whitespace-nowrap ml-4">
@@ -252,7 +262,11 @@ export default function AutonomousSystemDashboard() {
         <CardHeader>
           <div className="flex items-center justify-between">
             <CardTitle>Ausführungs-Logs</CardTitle>
-            <Button onClick={() => setShowLogs(!showLogs)} variant="ghost" size="sm">
+            <Button
+              onClick={() => setShowLogs(!showLogs)}
+              variant="ghost"
+              size="sm"
+            >
               {showLogs ? "Ausblenden" : "Anzeigen"}
             </Button>
           </div>
@@ -260,11 +274,16 @@ export default function AutonomousSystemDashboard() {
         {showLogs && (
           <CardContent className="p-6">
             {executionLogs.length === 0 ? (
-              <p className="text-sm text-muted-foreground text-center py-8">Keine Logs vorhanden</p>
+              <p className="text-sm text-muted-foreground text-center py-8">
+                Keine Logs vorhanden
+              </p>
             ) : (
               <div className="space-y-2 max-h-[400px] overflow-y-auto">
                 {executionLogs.slice(0, 20).map((log) => (
-                  <div key={log.id} className="text-xs p-2 bg-muted rounded font-mono">
+                  <div
+                    key={log.id}
+                    className="text-xs p-2 bg-muted rounded font-mono"
+                  >
                     <span className="text-muted-foreground">
                       {new Date(log.created_at).toLocaleTimeString("de-DE")}
                     </span>

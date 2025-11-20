@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Card } from "@/components/ui/card";
-import { RefreshCw, Search, Plus, LucideIcon } from "lucide-react";
-import { MobileInput } from "./MobileInput";
-import { MobileFilterBar } from "./MobileFilterBar";
-import { EmptyState } from "@/components/shared/EmptyState";
+import { useState } from 'react';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Card } from '@/components/ui/card';
+import { RefreshCw, Search, Plus, LucideIcon } from 'lucide-react';
+import { MobileInput } from './MobileInput';
+import { MobileFilterBar } from './MobileFilterBar';
+import { EmptyState } from '@/components/shared/EmptyState';
 
 interface FilterOption {
   id: string;
@@ -19,23 +19,23 @@ interface MobileGridLayoutProps<T> {
   onSearchChange: (value: string) => void;
   onRefresh: () => void;
   isLoading: boolean;
-
+  
   // Filter Bar
   filters: FilterOption[];
   activeFilter: string;
   onFilterChange: (filterId: string) => void;
-
+  
   // Data & Rendering
   data: T[];
   renderCard: (item: T) => React.ReactNode;
   onItemClick: (item: T) => void;
   entityLabel: { singular: string; plural: string };
-
+  
   // FAB
   fabLabel: string;
   onFabClick: () => void;
   fabIcon?: LucideIcon;
-
+  
   // Empty State
   emptyStateProps: {
     icon: React.ReactNode;
@@ -62,7 +62,7 @@ export function MobileGridLayout<T extends { id: string }>({
   fabLabel,
   onFabClick,
   fabIcon: FabIcon = Plus,
-  emptyStateProps,
+  emptyStateProps
 }: MobileGridLayoutProps<T>) {
   return (
     <div className="space-y-6">
@@ -83,7 +83,7 @@ export function MobileGridLayout<T extends { id: string }>({
           disabled={isLoading}
           className="h-11 w-11 shrink-0"
         >
-          <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
+          <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
         </V28Button>
       </div>
 
@@ -112,7 +112,7 @@ export function MobileGridLayout<T extends { id: string }>({
         </div>
       ) : data.length > 0 ? (
         <div className="space-y-4">
-          {data.map((item) => (
+          {data.map(item => (
             <div key={item.id} onClick={() => onItemClick(item)}>
               {renderCard(item)}
             </div>
@@ -122,9 +122,7 @@ export function MobileGridLayout<T extends { id: string }>({
         <EmptyState
           icon={emptyStateProps.icon}
           title={searchValue ? emptyStateProps.noResultsTitle : emptyStateProps.noDataTitle}
-          description={
-            searchValue ? emptyStateProps.noResultsDescription : emptyStateProps.noDataDescription
-          }
+          description={searchValue ? emptyStateProps.noResultsDescription : emptyStateProps.noDataDescription}
           actionLabel={!searchValue ? fabLabel : undefined}
           onAction={!searchValue ? onFabClick : undefined}
           isSearchResult={!!searchValue}

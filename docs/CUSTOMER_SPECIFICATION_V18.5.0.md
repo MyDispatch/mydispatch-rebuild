@@ -21,33 +21,33 @@ Die **Customers-Seite** verwaltet alle Kundendaten mit Historie, Präferenzen un
 CREATE TABLE public.customers (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   customer_number TEXT NOT NULL UNIQUE,
-
+  
   -- Persönliche Daten
   customer_type TEXT NOT NULL DEFAULT 'individual' CHECK (customer_type IN (
     'individual',  -- Privatkunde
     'business'     -- Geschäftskunde
   )),
-
+  
   -- Individual
   first_name TEXT,
   last_name TEXT,
   date_of_birth DATE,
-
+  
   -- Business
   company_name TEXT,
   vat_number TEXT,
-
+  
   -- Kontakt
   email TEXT NOT NULL,
   phone TEXT NOT NULL,
   mobile TEXT,
-
+  
   -- Adresse
   street TEXT,
   postal_code TEXT,
   city TEXT,
   country TEXT DEFAULT 'DE',
-
+  
   -- Präferenzen
   preferred_payment_method TEXT CHECK (preferred_payment_method IN (
     'cash',
@@ -63,33 +63,33 @@ CREATE TABLE public.customers (
     'minibus'
   )),
   language TEXT DEFAULT 'de' CHECK (language IN ('de', 'en', 'fr', 'es')),
-
+  
   -- Marketing
   newsletter_subscribed BOOLEAN DEFAULT false,
   marketing_consent BOOLEAN DEFAULT false,
-
+  
   -- Statistiken
   total_orders INTEGER DEFAULT 0,
   completed_orders INTEGER DEFAULT 0,
   cancelled_orders INTEGER DEFAULT 0,
   total_spent DECIMAL(10, 2) DEFAULT 0.00,
   avg_rating DECIMAL(3, 2),
-
+  
   -- Customer Status
   status TEXT NOT NULL DEFAULT 'active' CHECK (status IN (
     'active',
     'inactive',
     'blocked'
   )),
-
+  
   -- VIP/Corporate
   is_vip BOOLEAN DEFAULT false,
   discount_percentage DECIMAL(5, 2) DEFAULT 0.00,
   credit_limit DECIMAL(10, 2),
-
+  
   -- Notizen
   notes TEXT,
-
+  
   -- System
   created_by UUID REFERENCES auth.users(id),
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
@@ -133,16 +133,16 @@ EXECUTE FUNCTION public.update_updated_at_column();
 -- RLS Policies
 ALTER TABLE public.customers ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Users can view customers"
-ON public.customers FOR SELECT
+CREATE POLICY "Users can view customers" 
+ON public.customers FOR SELECT 
 USING (auth.uid() IS NOT NULL);
 
-CREATE POLICY "Users can create customers"
-ON public.customers FOR INSERT
+CREATE POLICY "Users can create customers" 
+ON public.customers FOR INSERT 
 WITH CHECK (auth.uid() = created_by);
 
-CREATE POLICY "Users can update customers"
-ON public.customers FOR UPDATE
+CREATE POLICY "Users can update customers" 
+ON public.customers FOR UPDATE 
 USING (auth.uid() IS NOT NULL);
 ```
 
@@ -165,7 +165,7 @@ export function Customers() {
         <h1 className="text-heading">Kunden</h1>
         <AddCustomerButton />
       </div>
-
+      
       <CustomersFilters />
       <CustomersList />
     </div>
@@ -176,7 +176,6 @@ export function Customers() {
 ### **2. Customers Table**
 
 **Spalten:**
-
 - Kundennummer (mit VIP Badge wenn is_vip)
 - Name/Firma
 - Typ (Badge: Privat/Geschäft)
@@ -188,7 +187,6 @@ export function Customers() {
 - Aktionen (View/Edit/Block)
 
 **Features:**
-
 - Quick Search (Name, Email, Telefon)
 - Filter: Typ, Status, VIP
 - Sort: Name, Umsatz, Anzahl Aufträge
@@ -198,7 +196,6 @@ export function Customers() {
 ### **3. Add/Edit Customer Form**
 
 **Step 1: Kundentyp wählen**
-
 ```typescript
 <RadioGroup>
   <Radio value="individual">Privatkunde</Radio>
@@ -207,7 +204,6 @@ export function Customers() {
 ```
 
 **Step 2A: Privatkunde-Daten**
-
 - Vorname (Text Input)
 - Nachname (Text Input)
 - Geburtsdatum (Date Picker)
@@ -216,7 +212,6 @@ export function Customers() {
 - Mobilnummer (Phone Input, optional)
 
 **Step 2B: Geschäftskunde-Daten**
-
 - Firmenname (Text Input)
 - USt-IdNr. (Text Input mit Validation)
 - Ansprechpartner Vorname
@@ -226,14 +221,12 @@ export function Customers() {
 - Mobilnummer (optional)
 
 **Step 3: Adresse**
-
 - Straße + Hausnummer
 - PLZ
 - Stadt
 - Land (Select)
 
 **Step 4: Präferenzen**
-
 - Bevorzugte Zahlungsmethode (Select)
 - Bevorzugter Fahrzeugtyp (Select)
 - Sprache (Select: DE, EN, FR, ES)
@@ -242,12 +235,10 @@ export function Customers() {
 - Kreditlimit (Number Input, nur Business)
 
 **Step 5: Marketing**
-
 - Newsletter abonnieren (Checkbox)
 - Marketing-Einwilligung (Checkbox mit DSGVO-Hinweis)
 
 **Validation:**
-
 - Email format + Uniqueness check
 - Telefon format DE
 - USt-IdNr. Validation (Format + Prüfziffer)
@@ -259,27 +250,23 @@ export function Customers() {
 **Tabs:**
 
 **1. Übersicht**
-
 - Customer Card (Nummer, Typ, Kontakt, Status)
 - Stats Widget (Aufträge, Umsatz, Durchschnittsbewertung)
 - VIP Badge & Benefits
 - Quick Actions (Auftrag erstellen, Email senden, Anrufen)
 
 **2. Aufträge**
-
 - Table mit allen Aufträgen des Kunden
 - Filter: Status, Datum
 - Quick Create Order Button
 
 **3. Rechnungen**
-
 - Table mit allen Rechnungen
 - Status: Offen, Bezahlt, Überfällig
 - Gesamtsumme & Offene Posten
 - Download Invoice PDFs
 
 **4. Kommunikation**
-
 - Timeline aller Interaktionen
   - Phone Calls (mit Notizen)
   - Emails (gesendete/empfangene)
@@ -288,12 +275,10 @@ export function Customers() {
 - "Neue Nachricht senden" Button
 
 **5. Dokumente**
-
 - Upload/View Customer Documents
 - Contracts, Agreements, ID-Scans etc.
 
 **6. Notizen**
-
 - Internal Notes (nur für Staff)
 - Rich Text Editor
 - Timeline-View mit Author + Timestamp
@@ -319,7 +304,6 @@ export function Customers() {
 ```
 
 **Logik:**
-
 - Fuzzy-Match auf Name (Levenshtein-Distanz)
 - Exact-Match auf Email & Phone
 - Score-basiertes Ranking
@@ -332,7 +316,6 @@ export function Customers() {
 ```
 
 **Segmente:**
-
 - **VIP**: is_vip = true OR total_spent > 5000€
 - **Active**: completed_orders > 0 in letzten 30 Tagen
 - **At-Risk**: Keine Orders in letzten 90 Tagen, aber davor aktiv
@@ -357,10 +340,10 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.customers;
 :root {
   --customer-individual: 221 83% 53%;
   --customer-individual-foreground: 0 0% 100%;
-
+  
   --customer-business: 262 83% 58%;
   --customer-business-foreground: 0 0% 100%;
-
+  
   --customer-vip: 47 96% 53%;
   --customer-vip-foreground: 26 83% 14%;
 }
@@ -386,31 +369,31 @@ export function VipBadge() {
 
 ```typescript
 // tests/customers.spec.ts
-test("Add private customer", async ({ page }) => {
-  await page.goto("/customers");
-  await page.click("text=Neuer Kunde");
-
+test('Add private customer', async ({ page }) => {
+  await page.goto('/customers');
+  await page.click('text=Neuer Kunde');
+  
   await page.click('[value="individual"]');
-  await page.fill('[name="first_name"]', "Max");
-  await page.fill('[name="last_name"]', "Mustermann");
-  await page.fill('[name="email"]', "max@example.com");
-  await page.fill('[name="phone"]', "+49 170 1234567");
-
+  await page.fill('[name="first_name"]', 'Max');
+  await page.fill('[name="last_name"]', 'Mustermann');
+  await page.fill('[name="email"]', 'max@example.com');
+  await page.fill('[name="phone"]', '+49 170 1234567');
+  
   await page.click('button[type="submit"]');
-
-  await expect(page.locator("text=Kunde erstellt")).toBeVisible();
+  
+  await expect(page.locator('text=Kunde erstellt')).toBeVisible();
 });
 
-test("Detect duplicate customer", async ({ page }) => {
+test('Detect duplicate customer', async ({ page }) => {
   // Create first customer
-  await createCustomer({ email: "test@example.com" });
-
+  await createCustomer({ email: 'test@example.com' });
+  
   // Try to create duplicate
-  await page.goto("/customers/new");
-  await page.fill('[name="email"]', "test@example.com");
-
+  await page.goto('/customers/new');
+  await page.fill('[name="email"]', 'test@example.com');
+  
   // Should show warning
-  await expect(page.locator("text=Kunde mit dieser Email existiert bereits")).toBeVisible();
+  await expect(page.locator('text=Kunde mit dieser Email existiert bereits')).toBeVisible();
 });
 ```
 
@@ -419,7 +402,6 @@ test("Detect duplicate customer", async ({ page }) => {
 ## 📊 DSGVO Compliance
 
 **Wichtige Features:**
-
 - **Data Export**: Kunde kann alle seine Daten als JSON/PDF exportieren
 - **Data Deletion**: "Recht auf Vergessenwerden" - anonymisiert Kundendaten
 - **Consent Management**: Tracking aller Einwilligungen (Marketing, Newsletter)

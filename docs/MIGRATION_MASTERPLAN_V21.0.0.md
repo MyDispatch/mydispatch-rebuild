@@ -10,7 +10,6 @@
 ## 🎯 MISSION
 
 Pixelgenaue Re-Architektur und visuelle Neugestaltung aller 36 Seiten basierend auf:
-
 - **Pricing.tsx** als Master-Vorlage
 - **DESIGN_TOKENS** als zentrale Styling-Quelle
 - **Smart Templates** für schnelle, konsistente Implementierung
@@ -19,12 +18,12 @@ Pixelgenaue Re-Architektur und visuelle Neugestaltung aller 36 Seiten basierend 
 
 ## 📊 STATUS-ÜBERSICHT
 
-| Phase                                 | Status     | Abgeschlossen | Gesamt |
-| ------------------------------------- | ---------- | ------------- | ------ |
-| **Phase 1:** Smart Templates erstellt | ✅ DONE    | 5             | 5      |
-| **Phase 2:** P0-Migration (Kritisch)  | 🚧 TODO    | 0             | 8      |
-| **Phase 3:** P1-Migration (Kern)      | ⏳ PENDING | 0             | 18     |
-| **Phase 4:** P2-Migration (Sekundär)  | ⏳ PENDING | 0             | 10     |
+| Phase | Status | Abgeschlossen | Gesamt |
+|-------|--------|---------------|--------|
+| **Phase 1:** Smart Templates erstellt | ✅ DONE | 5 | 5 |
+| **Phase 2:** P0-Migration (Kritisch) | 🚧 TODO | 0 | 8 |
+| **Phase 3:** P1-Migration (Kern) | ⏳ PENDING | 0 | 18 |
+| **Phase 4:** P2-Migration (Sekundär) | ⏳ PENDING | 0 | 10 |
 
 **Gesamt-Fortschritt:** 5/41 (12%)
 
@@ -82,7 +81,6 @@ Pixelgenaue Re-Architektur und visuelle Neugestaltung aller 36 Seiten basierend 
 ## 🔄 MIGRATIONS-WORKFLOW PRO SEITE
 
 ### Schritt 1: Analyse (5-10 Min)
-
 1. **Alte Seite öffnen** und Screenshots machen
 2. **Funktionalität dokumentieren**:
    - Welche Daten werden angezeigt?
@@ -99,18 +97,16 @@ Pixelgenaue Re-Architektur und visuelle Neugestaltung aller 36 Seiten basierend 
    - Tabs/Filter? → Existing Components
 
 ### Schritt 2: Template-Mapping (2-5 Min)
-
 Erstelle eine Mapping-Tabelle:
 
-| Alte Komponente | Smart Template  | Props              |
-| --------------- | --------------- | ------------------ |
-| KPI-Box         | `StatCard`      | label, value, icon |
-| Detail-Karte    | `DashboardCard` | title, children    |
-| Seiten-Titel    | `SectionHeader` | title, description |
-| Button          | `ActionButton`  | variant, icon      |
+| Alte Komponente | Smart Template | Props |
+|-----------------|----------------|-------|
+| KPI-Box | `StatCard` | label, value, icon |
+| Detail-Karte | `DashboardCard` | title, children |
+| Seiten-Titel | `SectionHeader` | title, description |
+| Button | `ActionButton` | variant, icon |
 
 ### Schritt 3: Implementierung (15-30 Min)
-
 1. **Neue Datei erstellen** (oder alte löschen und neu schreiben)
 2. **Smart Templates importieren**:
    ```typescript
@@ -120,7 +116,7 @@ Erstelle eine Mapping-Tabelle:
      StatCard,
      DashboardCard,
      ActionButton,
-   } from "@/components/smart-templates";
+   } from '@/components/smart-templates';
    ```
 3. **Pixelgenau umsetzen**:
    - Header mit `SectionHeader`
@@ -133,7 +129,6 @@ Erstelle eine Mapping-Tabelle:
    - Event-Handler verbinden
 
 ### Schritt 4: Testing (5-10 Min)
-
 1. **Visual QA**:
    - [ ] Pricing.tsx Referenz-Vergleich
    - [ ] Hover-Effekte funktionieren
@@ -148,20 +143,17 @@ Erstelle eine Mapping-Tabelle:
    - [ ] WCAG 2.1 AA Kontrast
 
 ### Schritt 5: Commit & Dokumentation (2-3 Min)
-
 1. **Git Commit** mit strukturierter Message:
-
    ```
    feat(migration): IndexNew.tsx - P0 Migration abgeschlossen
-
+   
    - Smart Templates integriert (SectionHeader, StatCard, DataGrid)
    - Pixelgenaue Pricing.tsx-Konformität
    - Mobile-First Responsiveness
    - DESIGN_TOKENS 100% Compliance
-
+   
    WDIF-Score: 0/10 ✅
    ```
-
 2. **Migrations-Log aktualisieren**
 
 ---
@@ -171,7 +163,6 @@ Erstelle eine Mapping-Tabelle:
 ### Vor jedem Commit
 
 #### 1. **Design-System-Compliance**
-
 - [ ] Alle Farben über `DESIGN_TOKENS.colors.*`
 - [ ] Alle Spacing über `DESIGN_TOKENS.spacing.*`
 - [ ] Alle Schatten über `DESIGN_TOKENS.elevation.*`
@@ -179,28 +170,24 @@ Erstelle eine Mapping-Tabelle:
 - [ ] Keine Inline-Styles außerhalb von Smart Templates
 
 #### 2. **Visual Consistency**
-
 - [ ] Pricing.tsx Referenz-Vergleich bestanden
 - [ ] Hover-Effekte pixelgenau (translateY(-2px), scale(1.02), shadow)
 - [ ] Typografie korrekt (font-size, line-height, font-weight)
 - [ ] Icons aus `lucide-react`, Farbe `DESIGN_TOKENS.colors.kernfarben.dunkelblau`
 
 #### 3. **Accessibility**
-
 - [ ] WCAG 2.1 AA Kontrast (min 4.5:1)
 - [ ] Touch-Targets ≥ 44px (Mobile)
 - [ ] Keyboard-Navigation funktioniert
 - [ ] ARIA-Attribute gesetzt
 
 #### 4. **Responsiveness**
-
 - [ ] Mobile (375px) getestet
 - [ ] Tablet (768px) getestet
 - [ ] Desktop (1920px) getestet
 - [ ] Keine horizontalen Scrollbars
 
 #### 5. **Functionality**
-
 - [ ] Alle API-Calls funktionieren
 - [ ] State-Management intakt
 - [ ] Navigation funktioniert
@@ -211,19 +198,16 @@ Erstelle eine Mapping-Tabelle:
 ## 🚀 NEXT STEPS (PRIORISIERT)
 
 ### Sofort (Heute)
-
 1. **Migration: Auth.tsx** (P0 - Login/Registrierung)
 2. **Migration: IndexNew.tsx** (P0 - Haupt-Dashboard)
 
 ### Diese Woche
-
 3. **Migration: Auftraege.tsx** (P0)
 4. **Migration: Fahrer.tsx** (P0)
 5. **Migration: Fahrzeuge.tsx** (P0)
 6. **Migration: Kunden.tsx** (P0)
 
 ### Nächste Woche
-
 7. **Migration: Index.tsx** (P0 - Hero mit Video)
 8. **P1-Seiten** (Angebote, Partner, Kostenstellen...)
 
@@ -232,7 +216,6 @@ Erstelle eine Mapping-Tabelle:
 ## 📈 ERFOLGSKRITERIEN
 
 Nach vollständiger Migration:
-
 - ✅ **100% Design-Token-Compliance** (0 direkte Farben/Styles)
 - ✅ **Pixelgenaue Pricing.tsx-Konformität** (Visual Regression Tests)
 - ✅ **Mobile-First Responsiveness** (Alle Seiten auf 3 Breakpoints getestet)

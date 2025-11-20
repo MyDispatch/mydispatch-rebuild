@@ -13,14 +13,12 @@
 **Pascal, hier ist meine ehrliche Analyse des Dokumentations-Systems:**
 
 ### ✅ Was gut funktioniert:
-
 - Umfangreiche Dokumentation vorhanden
 - Klare Versionierung (V18.x.x)
 - Gute thematische Trennung
 - Code-Beispiele in Docs
 
 ### ❌ Was problematisch ist:
-
 - **Inkonsistente Zeitstempel** (mal deutsch, mal englisch, mal ISO)
 - **Doppelte Informationen** (MASTER_SYSTEM vs einzelne Specs)
 - **Veraltete Docs** (teilweise Datum fehlt)
@@ -34,7 +32,6 @@
 ### Kategorisierung der Dokumentation
 
 **Gefunden:**
-
 ```
 Total Docs: ~45+
 - System-Docs: 15
@@ -48,14 +45,12 @@ Total Docs: ~45+
 
 ```markdown
 # ❌ Aktuell (Inkonsistent)
-
 - "Datum: 23.10.2025" (Deutsch)
 - "Date: 2025-10-21" (ISO)
 - "2025-01-18" (Kurz-ISO)
 - Teilweise fehlt Zeitstempel komplett
 
 # ✅ Sollte sein (Einheitlich)
-
 **Datum:** 26.01.2025
 **Erstellt:** 26.01.2025 15:30 Uhr (MEZ)
 ```
@@ -67,11 +62,10 @@ Total Docs: ~45+
 ### Problem 2: Dokumenten-Redundanz
 
 **Beispiel:**
-
 ```
 MYDISPATCH_MASTER_SYSTEM_V18.5.0.md (652 Zeilen)
 ├── Enthält: Tarif-System
-├── Enthält: Design-System
+├── Enthält: Design-System  
 ├── Enthält: Datenquellen
 └── Enthält: Komponenten-Bibliothek
 
@@ -90,7 +84,6 @@ ABER:
 ### Problem 3: Veraltete Dokumentation
 
 **Gefunden:**
-
 ```
 PFLICHTENHEFT_V18.3.27.md
 - Version: 18.3.27
@@ -123,8 +116,7 @@ Aktuell existieren:
 Aber nur EINER davon ist in Custom Knowledge eingetragen!
 ```
 
-**Problem:**
-
+**Problem:** 
 - Ich weiß nicht welcher Prompt der "echte" ist
 - Widersprüchliche Vorgaben möglich
 - Verwirrung bei jedem Session-Start
@@ -142,7 +134,6 @@ Aber nur EINER davon ist in Custom Knowledge eingetragen!
 Du hast 3 Meta-Prompts parallel laufen. Das ist **problematisch**.
 
 **Meine Empfehlung:**
-
 ```
 Behalten:
 ✅ LOVABLE_AI_AGENT_META_PROMPT_V18.5.1.md
@@ -177,23 +168,22 @@ HIERARCHIE V18.5.1:
    tariff-definitions.ts
    index.css
    ↓
-
+   
 2. TECHNICAL DOCS = Referenzieren Code
    TARIFF_SYSTEM.md → "Siehe pricing-tiers.ts"
    DESIGN_SYSTEM.md → "Siehe index.css"
    ↓
-
+   
 3. MASTER DOCS = High-Level Overview
    MYDISPATCH_MASTER_SYSTEM.md → Links zu Details
    ↓
-
+   
 4. FEATURE SPECS = Spezifische Features
    CHAT_SYSTEM.md
    STATISTICS_SYSTEM.md
 ```
 
 **Regel:**
-
 - **Code** enthält die echte Logik
 - **Technical Docs** erklären den Code
 - **Master Docs** verlinken Technical Docs
@@ -203,19 +193,15 @@ HIERARCHIE V18.5.1:
 
 ```markdown
 # ❌ Aktuell
-
 ## Tarif-Übersicht
-
-| Tarif   | Preis |
-| ------- | ----- |
-| Starter | 39 €  |
+| Tarif | Preis |
+|-------|-------|
+| Starter | 39 € |
 
 # ✅ Neu
-
 ## Tarif-Übersicht
-
 > **Source of Truth:** `src/data/pricing-tiers.ts`
->
+> 
 > Die aktuellen Preise sind im Code definiert.
 > Diese Dokumentation bietet eine Übersicht.
 
@@ -246,11 +232,11 @@ interface DocMetadata {
 
 const DOC_REGISTRY: DocMetadata[] = [
   {
-    file: "TARIFF_SYSTEM_V18.3.24.md",
-    version: "V18.3.24",
-    lastUpdated: new Date("2025-01-15"),
-    relatedCode: ["src/data/pricing-tiers.ts"],
-    relatedDocs: ["MYDISPATCH_MASTER_SYSTEM.md"],
+    file: 'TARIFF_SYSTEM_V18.3.24.md',
+    version: 'V18.3.24',
+    lastUpdated: new Date('2025-01-15'),
+    relatedCode: ['src/data/pricing-tiers.ts'],
+    relatedDocs: ['MYDISPATCH_MASTER_SYSTEM.md'],
   },
   // ... mehr Docs
 ];
@@ -260,8 +246,9 @@ export function validateDocs() {
   const now = new Date();
   const warnings: string[] = [];
 
-  DOC_REGISTRY.forEach((doc) => {
-    const daysSinceUpdate = (now.getTime() - doc.lastUpdated.getTime()) / (1000 * 60 * 60 * 24);
+  DOC_REGISTRY.forEach(doc => {
+    const daysSinceUpdate = 
+      (now.getTime() - doc.lastUpdated.getTime()) / (1000 * 60 * 60 * 24);
 
     if (daysSinceUpdate > 30) {
       warnings.push(`⚠️ ${doc.file} ist ${daysSinceUpdate} Tage alt`);
@@ -273,13 +260,12 @@ export function validateDocs() {
 ```
 
 **Nutzung:**
-
 ```typescript
 // In App.tsx oder main.tsx
 if (import.meta.env.DEV) {
   const warnings = validateDocs();
   if (warnings.length > 0) {
-    console.warn("📚 DOKUMENTATION:", warnings);
+    console.warn('📚 DOKUMENTATION:', warnings);
   }
 }
 ```
@@ -296,14 +282,13 @@ if (import.meta.env.DEV) {
 **Bereits implementiert:** `src/lib/doc-timestamps.ts::createNewDocTemplate()`
 
 **Usage:**
-
 ```typescript
-import { createNewDocTemplate } from "@/lib/doc-timestamps";
+import { createNewDocTemplate } from '@/lib/doc-timestamps';
 
 const newDoc = createNewDocTemplate({
-  title: "Feature X Specification",
-  version: "V18.5.1",
-  status: "Production-Ready",
+  title: 'Feature X Specification',
+  version: 'V18.5.1',
+  status: 'Production-Ready',
 });
 
 // Schreibt in: docs/FEATURE_X_SPEC_V18.5.1.md
@@ -323,23 +308,23 @@ const newDoc = createNewDocTemplate({
 ```typescript
 // scripts/generate-changelog.ts
 
-import { execSync } from "child_process";
-import { generateChangelog } from "../src/lib/doc-timestamps";
+import { execSync } from 'child_process';
+import { generateChangelog } from '../src/lib/doc-timestamps';
 
 function getCommitsSinceLastTag(): string[] {
-  const output = execSync("git log --oneline --no-merges $(git describe --tags --abbrev=0)..HEAD")
+  const output = execSync('git log --oneline --no-merges $(git describe --tags --abbrev=0)..HEAD')
     .toString()
-    .split("\n")
+    .split('\n')
     .filter(Boolean);
-
-  return output.map((line) => line.replace(/^[a-f0-9]+ /, ""));
+  
+  return output.map(line => line.replace(/^[a-f0-9]+ /, ''));
 }
 
 function categorizeCommits(commits: string[]) {
-  const features = commits.filter((c) => c.startsWith("feat:"));
-  const fixes = commits.filter((c) => c.startsWith("fix:"));
-  const docs = commits.filter((c) => c.startsWith("docs:"));
-
+  const features = commits.filter(c => c.startsWith('feat:'));
+  const fixes = commits.filter(c => c.startsWith('fix:'));
+  const docs = commits.filter(c => c.startsWith('docs:'));
+  
   return { features, fixes, docs };
 }
 
@@ -348,11 +333,11 @@ const { features, fixes, docs } = categorizeCommits(commits);
 
 const changelog = generateChangelog([
   {
-    version: "V18.5.1",
+    version: 'V18.5.1',
     changes: [
-      ...features.map((f) => `✨ ${f}`),
-      ...fixes.map((f) => `🐛 ${f}`),
-      ...docs.map((d) => `📝 ${d}`),
+      ...features.map(f => `✨ ${f}`),
+      ...fixes.map(f => `🐛 ${f}`),
+      ...docs.map(d => `📝 ${d}`),
     ],
   },
 ]);
@@ -371,13 +356,11 @@ console.log(changelog);
 ### 1. Testing-Dokumentation fehlt
 
 **Gefunden:**
-
 - Keine Docs zu Test-Strategy
 - Keine Test-Coverage Reports
 - Keine E2E-Test-Specs
 
 **Sollte vorhanden sein:**
-
 ```
 docs/testing/
 ├── TESTING_STRATEGY_V18.5.1.md
@@ -393,12 +376,10 @@ docs/testing/
 ### 2. API-Dokumentation fehlt
 
 **Gefunden:**
-
 - Edge Functions dokumentiert (teilweise)
 - Keine API-Spec für externe Partner
 
 **Sollte vorhanden sein:**
-
 ```
 docs/api/
 ├── API_OVERVIEW_V18.5.1.md
@@ -414,13 +395,11 @@ docs/api/
 ### 3. Deployment-Docs unvollständig
 
 **Gefunden:**
-
 - Keine Deployment-Checkliste
 - Keine Rollback-Prozedur
 - Keine Environment-Setup-Guide
 
 **Sollte vorhanden sein:**
-
 ```
 docs/deployment/
 ├── DEPLOYMENT_CHECKLIST_V18.5.1.md
@@ -438,7 +417,6 @@ docs/deployment/
 **Problem:** Wenn neues Team-Member dazukommt, wo startet er?
 
 **Sollte vorhanden sein:**
-
 ```
 docs/onboarding/
 ├── GETTING_STARTED.md
@@ -455,13 +433,11 @@ docs/onboarding/
 ### 5. Security-Dokumentation unvollständig
 
 **Gefunden:**
-
 - RLS Policies dokumentiert
 - Keine Security-Best-Practices
 - Keine Incident-Response-Plan
 
 **Sollte vorhanden sein:**
-
 ```
 docs/security/
 ├── SECURITY_OVERVIEW_V18.5.1.md
@@ -477,13 +453,11 @@ docs/security/
 ### 6. Performance-Monitoring fehlt
 
 **Gefunden:**
-
 - `src/lib/performance-monitoring.ts` existiert
 - Keine Dokumentation WIE die Metriken genutzt werden
 - Keine Performance-Budgets definiert
 
 **Sollte vorhanden sein:**
-
 ```
 docs/performance/
 ├── PERFORMANCE_STRATEGY_V18.5.1.md
@@ -506,11 +480,11 @@ docs/performance/
 ✅ 1. Meta-Prompt konsolidieren
    → Eine einzige Version, klar definiert
    → Andere archivieren
-
+   
 ✅ 2. CI-Farben System implementieren
    → src/lib/ci-colors.ts (bereits erstellt)
    → In Docs referenzieren
-
+   
 ✅ 3. Zeitstempel-System einführen
    → src/lib/doc-timestamps.ts (bereits erstellt)
    → Alle neuen Docs nutzen automatisch
@@ -522,11 +496,11 @@ docs/performance/
 📝 4. Single Source of Truth Hierarchie
    → Alle Docs durchgehen
    → Code-Links hinzufügen
-
+   
 📝 5. Testing-Dokumentation erstellen
    → TESTING_STRATEGY.md
    → Coverage Requirements
-
+   
 📝 6. Deployment-Docs vervollständigen
    → DEPLOYMENT_CHECKLIST.md
    → ROLLBACK_PROCEDURE.md
@@ -537,10 +511,10 @@ docs/performance/
 ```
 🔮 7. Doc-Validation System
    → Automatische Veraltungs-Checks
-
+   
 🔮 8. API-Dokumentation
    → Wenn wir öffentliche API haben
-
+   
 🔮 9. Onboarding-Docs
    → Wenn Team wächst
 ```
@@ -553,12 +527,12 @@ docs/performance/
 
 ```typescript
 // Automatisch korrekte Header
-import { generateDocHeader } from "@/lib/doc-timestamps";
+import { generateDocHeader } from '@/lib/doc-timestamps';
 
 const header = generateDocHeader({
-  title: "Feature Name",
-  version: "V18.5.1",
-  status: "Production-Ready",
+  title: 'Feature Name',
+  version: 'V18.5.1',
+  status: 'Production-Ready',
 });
 ```
 
@@ -566,7 +540,7 @@ const header = generateDocHeader({
 
 ```markdown
 > **Source of Truth:** `src/path/to/file.ts`
->
+> 
 > [View Code](../src/path/to/file.ts)
 ```
 
@@ -611,7 +585,6 @@ PATCH: Bug Fixes
 **Pascal, deine Entscheidung:**
 
 **Option A: Konservativ (Empfohlen)**
-
 ```
 Heute: Meta-Prompt + CI-Colors + Timestamps (2h)
 Nächste Woche: Single Source of Truth (8h)
@@ -619,14 +592,12 @@ Später: Rest nach Bedarf
 ```
 
 **Option B: Aggressiv**
-
 ```
 Diese Woche: Alles aus "SOFORT" + "NÄCHSTE WOCHE" (10h)
 Risiko: Viel Arbeit, wenig Zeit für Features
 ```
 
 **Option C: Minimal**
-
 ```
 Nur: Meta-Prompt + CI-Colors (30min)
 Rest: Nach Go-Live

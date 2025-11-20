@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { V28Modal } from "./index";
-import { useState } from "react";
-import { V28Button } from "@/components/design-system/V28Button";
+import type { Meta, StoryObj } from '@storybook/react';
+import { V28Modal } from './index';
+import { useState } from 'react';
+import { V28Button } from '@/components/design-system/V28Button';
 
 const meta: Meta<typeof V28Modal> = {
-  title: "Design System/V28Modal",
+  title: 'Design System/V28Modal',
   component: V28Modal,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export default meta;
@@ -17,9 +17,7 @@ export const Default: Story = {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <V28Button variant="primary" onClick={() => setOpen(true)}>
-          Open Modal
-        </V28Button>
+        <V28Button variant="primary" onClick={() => setOpen(true)}>Open Modal</V28Button>
         <V28Modal
           open={open}
           onOpenChange={setOpen}
@@ -50,16 +48,10 @@ export const SmallSize: Story = {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <V28Button variant="primary" onClick={() => setOpen(true)}>
-          Open Small Modal
-        </V28Button>
+        <V28Button variant="primary" onClick={() => setOpen(true)}>Open Small Modal</V28Button>
         <V28Modal open={open} onOpenChange={setOpen} title="Quick Action" size="sm">
-          <p className="text-sm text-slate-600 dark:text-slate-400">
-            Compact modal for simple confirmations.
-          </p>
-          <V28Button variant="primary" onClick={() => setOpen(false)} className="w-full">
-            Confirm
-          </V28Button>
+          <p className="text-sm text-slate-600 dark:text-slate-400">Compact modal for simple confirmations.</p>
+          <V28Button variant="primary" onClick={() => setOpen(false)} className="w-full">Confirm</V28Button>
         </V28Modal>
       </>
     );
@@ -71,9 +63,7 @@ export const FullScreen: Story = {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <V28Button variant="primary" onClick={() => setOpen(true)}>
-          Open Full Modal
-        </V28Button>
+        <V28Button variant="primary" onClick={() => setOpen(true)}>Open Full Modal</V28Button>
         <V28Modal open={open} onOpenChange={setOpen} title="Detailed Form" size="full">
           <div className="space-y-4">
             <p className="text-sm text-slate-600 dark:text-slate-400">

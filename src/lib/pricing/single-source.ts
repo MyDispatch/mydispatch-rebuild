@@ -7,7 +7,7 @@
    ================================================================================== */
 
 export interface PricingTier {
-  id: "starter" | "business";
+  id: 'starter' | 'business';
   name: string;
   description: string;
   price: {
@@ -38,7 +38,7 @@ export interface AddOn {
   period: string;
   description: string;
   features: string[];
-  availableFor: ("starter" | "business")[];
+  availableFor: ('starter' | 'business')[];
 }
 
 /**
@@ -46,60 +46,60 @@ export interface AddOn {
  */
 export const PRICING_TIERS: PricingTier[] = [
   {
-    id: "starter",
-    name: "Starter",
-    description: "Perfekt für kleine Unternehmen und Einzelunternehmer",
+    id: 'starter',
+    name: 'Starter',
+    description: 'Perfekt für kleine Unternehmen und Einzelunternehmer',
     price: {
       monthly: 39,
-      annually: 374.4, // 39 * 12 * 0.8 (20% Rabatt)
-      currency: "€",
-      period: "Monat",
-      annualSavings: 20,
+      annually: 374.40, // 39 * 12 * 0.8 (20% Rabatt)
+      currency: '€',
+      period: 'Monat',
+      annualSavings: 20
     },
     limits: {
       drivers: 3,
       vehicles: 3,
-      users: 1,
+      users: 1
     },
     features: [
-      "GPS-Echtzeit-Tracking",
-      "Auftragsverwaltung",
-      "Kundenverwaltung",
-      "Fahrzeugverwaltung",
-      "Basis-Reporting",
-      "Mobile App",
-      "E-Mail Support",
-    ],
+      'GPS-Echtzeit-Tracking',
+      'Auftragsverwaltung',
+      'Kundenverwaltung',
+      'Fahrzeugverwaltung',
+      'Basis-Reporting',
+      'Mobile App',
+      'E-Mail Support'
+    ]
   },
   {
-    id: "business",
-    name: "Business",
-    description: "Für wachsende Unternehmen mit erweiterten Anforderungen",
+    id: 'business',
+    name: 'Business',
+    description: 'Für wachsende Unternehmen mit erweiterten Anforderungen',
     price: {
       monthly: 99,
-      annually: 950.4, // 99 * 12 * 0.8 (20% Rabatt)
-      currency: "€",
-      period: "Monat",
-      annualSavings: 20,
+      annually: 950.40, // 99 * 12 * 0.8 (20% Rabatt)
+      currency: '€',
+      period: 'Monat',
+      annualSavings: 20
     },
     limits: {
       drivers: Infinity,
       vehicles: Infinity,
-      users: 5,
+      users: 5
     },
     features: [
-      "Alle Starter-Features",
-      "Keine Begrenzung bei Fahrzeugen & Fahrern",
-      "Partner-Management",
-      "Erweiterte Analysen & Reports",
-      "API-Zugang",
-      "Schichtplanung",
-      "Team-Chat",
-      "Premium-Support (Telefon & E-Mail)",
-      "Individuelle Schulung",
+      'Alle Starter-Features',
+      'Keine Begrenzung bei Fahrzeugen & Fahrern',
+      'Partner-Management',
+      'Erweiterte Analysen & Reports',
+      'API-Zugang',
+      'Schichtplanung',
+      'Team-Chat',
+      'Premium-Support (Telefon & E-Mail)',
+      'Individuelle Schulung'
     ],
-    recommended: true,
-  },
+    recommended: true
+  }
 ];
 
 /**
@@ -107,21 +107,20 @@ export const PRICING_TIERS: PricingTier[] = [
  */
 export const ADD_ONS: AddOn[] = [
   {
-    id: "fleet-expansion",
-    name: "Fleet & Driver Add-On",
+    id: 'fleet-expansion',
+    name: 'Fleet & Driver Add-On',
     price: 9,
-    currency: "€",
-    period: "Monat",
-    description:
-      "Erweitern Sie Ihre Flotte flexibel: Pauschale 9 € pro Monat für beliebig viele Fahrzeuge und Fahrer über die Starter-Limits hinaus.",
+    currency: '€',
+    period: 'Monat',
+    description: 'Erweitern Sie Ihre Flotte flexibel: Pauschale 9 € pro Monat für beliebig viele Fahrzeuge und Fahrer über die Starter-Limits hinaus.',
     features: [
-      "Beliebig erweiterbar",
-      "Keine versteckten Kosten",
-      "Sofort aktivierbar",
-      "Monatlich kündbar",
+      'Beliebig erweiterbar',
+      'Keine versteckten Kosten',
+      'Sofort aktivierbar',
+      'Monatlich kündbar'
     ],
-    availableFor: ["starter"],
-  },
+    availableFor: ['starter']
+  }
 ];
 
 /**
@@ -131,15 +130,15 @@ export const ADD_ONS: AddOn[] = [
 /**
  * Formatiert Preis im deutschen Format (DIN 5008)
  */
-export const formatPrice = (price: number, currency: string = "€"): string => {
-  return `${price.toFixed(2).replace(".", ",")} ${currency}`;
+export const formatPrice = (price: number, currency: string = '€'): string => {
+  return `${price.toFixed(2).replace('.', ',')} ${currency}`;
 };
 
 /**
  * Gibt Limit-Text zurück
  */
 export const getLimitText = (limit: number | typeof Infinity): string => {
-  return limit === Infinity ? "Unbegrenzt" : `Max. ${limit}`;
+  return limit === Infinity ? 'Unbegrenzt' : `Max. ${limit}`;
 };
 
 /**
@@ -154,21 +153,21 @@ export const calculateAnnualSavings = (monthlyPrice: number, annualPrice: number
 /**
  * Gibt Tarif nach ID zurück
  */
-export const getTierById = (id: "starter" | "business"): PricingTier | undefined => {
-  return PRICING_TIERS.find((tier) => tier.id === id);
+export const getTierById = (id: 'starter' | 'business'): PricingTier | undefined => {
+  return PRICING_TIERS.find(tier => tier.id === id);
 };
 
 /**
  * Gibt Add-On nach ID zurück
  */
 export const getAddOnById = (id: string): AddOn | undefined => {
-  return ADD_ONS.find((addOn) => addOn.id === id);
+  return ADD_ONS.find(addOn => addOn.id === id);
 };
 
 /**
  * Prüft ob Add-On für Tarif verfügbar ist
  */
-export const isAddOnAvailable = (addOnId: string, tierId: "starter" | "business"): boolean => {
+export const isAddOnAvailable = (addOnId: string, tierId: 'starter' | 'business'): boolean => {
   const addOn = getAddOnById(addOnId);
   return addOn?.availableFor.includes(tierId) ?? false;
 };
@@ -179,19 +178,19 @@ export const isAddOnAvailable = (addOnId: string, tierId: "starter" | "business"
 export const PRICING_LEGAL = {
   // ❌ VERBOTENE Aussagen (niemals verwenden!)
   forbidden: [
-    "30 Tage kostenlos testen",
-    "Gratis Testphase",
-    "Kostenlos ausprobieren",
-    "1 Monat gratis",
+    '30 Tage kostenlos testen',
+    'Gratis Testphase',
+    'Kostenlos ausprobieren',
+    '1 Monat gratis'
   ],
-
+  
   // ✅ ERLAUBTE Aussagen
   allowed: {
-    pricing: "Alle Preise verstehen sich zzgl. gesetzlicher Mehrwertsteuer.",
-    contract: "Vertragslaufzeit: Monatlich kündbar. Keine Mindestvertragslaufzeit.",
-    payment: "Zahlung per Lastschrift oder Kreditkarte.",
-    support: "Support per E-Mail (Starter) oder Telefon & E-Mail (Business).",
-  },
+    pricing: 'Alle Preise verstehen sich zzgl. gesetzlicher Mehrwertsteuer.',
+    contract: 'Vertragslaufzeit: Monatlich kündbar. Keine Mindestvertragslaufzeit.',
+    payment: 'Zahlung per Lastschrift oder Kreditkarte.',
+    support: 'Support per E-Mail (Starter) oder Telefon & E-Mail (Business).'
+  }
 };
 
 /**
@@ -206,5 +205,5 @@ export default {
   getTierById,
   getAddOnById,
   isAddOnAvailable,
-  legal: PRICING_LEGAL,
+  legal: PRICING_LEGAL
 };

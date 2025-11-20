@@ -1,5 +1,4 @@
 # 🚨 DESIGN SYSTEM V28.1 - ABSOLUTE ENFORCEMENT
-
 ## VOLLSTÄNDIGE ELIMINIERUNG VON V26/V26.1 - AUSNAHMSLOS!
 
 ---
@@ -231,11 +230,11 @@ message: '🚨 V26/V26.1 ist TOT! Nutze AUSSCHLIESSLICH Design System V28.1 aus 
 text
 // Verhindere hardcoded Hex-Colors
 'no-restricted-syntax': [
-'error',
-{
-selector: "Literal[value=/#[0-9A-Fa-f]{3,6}/]",
-message: '🚨 Hardcoded Hex-Colors verboten! Nutze designTokens.colors aus V28.1'
-}
+  'error',
+  {
+    selector: "Literal[value=/#[0-9A-Fa-f]{3,6}/]",
+    message: '🚨 Hardcoded Hex-Colors verboten! Nutze designTokens.colors aus V28.1'
+  }
 ]
 }
 }
@@ -247,7 +246,7 @@ text
 **Erstelle: `.husky/pre-commit`**
 
 #!/bin/sh
-. "$(dirname "$0")/\_/husky.sh"
+. "$(dirname "$0")/_/husky.sh"
 
 echo "🔍 Prüfe auf V26/V26.1 Referenzen..."
 

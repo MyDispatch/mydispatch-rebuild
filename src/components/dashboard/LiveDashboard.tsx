@@ -8,34 +8,34 @@
    ✅ Responsive variants (iPad/iPhone/Desktop)
    ================================================================================== */
 
-import { ReactNode, lazy, Suspense } from "react";
-import type { RenderingResolution } from "@/lib/rendering-quality";
+import { ReactNode, lazy, Suspense } from 'react';
+import type { RenderingResolution } from '@/lib/rendering-quality';
 
 // Lazy-load dashboard variants for performance
-const PricingLiveDashboard = lazy(() => import("./variants/PricingLiveDashboard"));
-const MapWeatherLiveDashboard = lazy(() => import("./variants/MapWeatherLiveDashboard"));
-const KPILiveDashboard = lazy(() => import("./variants/KPILiveDashboard"));
-const ContactSupportDashboard = lazy(() => import("./variants/ContactSupportDashboard"));
-const PartnerLiveDashboard = lazy(() => import("./variants/PartnerLiveDashboard"));
+const PricingLiveDashboard = lazy(() => import('./variants/PricingLiveDashboard'));
+const MapWeatherLiveDashboard = lazy(() => import('./variants/MapWeatherLiveDashboard'));
+const KPILiveDashboard = lazy(() => import('./variants/KPILiveDashboard'));
+const ContactSupportDashboard = lazy(() => import('./variants/ContactSupportDashboard'));
+const PartnerLiveDashboard = lazy(() => import('./variants/PartnerLiveDashboard'));
 
-export type DashboardType =
-  | "home-dashboard" // Standard Dashboard mit KPIs
-  | "pricing-dashboard" // Tarif-Management
-  | "features-overview" // Funktionsliste
-  | "contact-support-ui" // Support-Ticketsystem
-  | "partner-dashboard" // Partner-Verwaltung
-  | "fahrer-dashboard" // Fahrer-Schichten & Abrechnung
-  | "map-weather-kombi" // GPS + Wetter
-  | "kunden-ui" // Kundenbuchung
-  | "kpi-dashboard" // Live-Statistiken
-  | "minimal-dashboard" // Impressum/Legal
-  | "docs-dashboard" // Dokumentation
-  | "faq-dashboard" // FAQ-Übersicht
-  | "nexify-dashboard"; // IT-Service
+export type DashboardType = 
+  | 'home-dashboard'           // Standard Dashboard mit KPIs
+  | 'pricing-dashboard'        // Tarif-Management
+  | 'features-overview'        // Funktionsliste
+  | 'contact-support-ui'       // Support-Ticketsystem
+  | 'partner-dashboard'        // Partner-Verwaltung
+  | 'fahrer-dashboard'         // Fahrer-Schichten & Abrechnung
+  | 'map-weather-kombi'        // GPS + Wetter
+  | 'kunden-ui'                // Kundenbuchung
+  | 'kpi-dashboard'            // Live-Statistiken
+  | 'minimal-dashboard'        // Impressum/Legal
+  | 'docs-dashboard'           // Dokumentation
+  | 'faq-dashboard'            // FAQ-Übersicht
+  | 'nexify-dashboard';        // IT-Service
 
 export interface LiveDashboardProps {
   type: DashboardType;
-  variant?: "ipad" | "iphone" | "desktop";
+  variant?: 'ipad' | 'iphone' | 'desktop';
   interactive?: boolean;
   resolution?: RenderingResolution;
   className?: string;
@@ -60,47 +60,34 @@ function DashboardSkeleton() {
   );
 }
 
-export function LiveDashboard({
-  type,
-  variant = "ipad",
+export function LiveDashboard({ 
+  type, 
+  variant = 'ipad', 
   interactive = false,
-  resolution = "retina",
+  resolution = 'retina',
   className,
-  partnerBranding,
+  partnerBranding 
 }: LiveDashboardProps) {
+  
   // Render Dashboard based on type
   const renderDashboard = (): ReactNode => {
-    switch (type) {
-      case "pricing-dashboard":
-        return (
-          <PricingLiveDashboard
-            variant={variant}
-            interactive={interactive}
-            resolution={resolution}
-          />
-        );
-
-      case "map-weather-kombi":
+    switch(type) {
+      case 'pricing-dashboard':
+        return <PricingLiveDashboard variant={variant} interactive={interactive} resolution={resolution} />;
+      
+      case 'map-weather-kombi':
         return <MapWeatherLiveDashboard variant={variant} resolution={resolution} />;
-
-      case "kpi-dashboard":
-      case "home-dashboard":
-        return (
-          <KPILiveDashboard variant={variant} interactive={interactive} resolution={resolution} />
-        );
-
-      case "contact-support-ui":
+      
+      case 'kpi-dashboard':
+      case 'home-dashboard':
+        return <KPILiveDashboard variant={variant} interactive={interactive} resolution={resolution} />;
+      
+      case 'contact-support-ui':
         return <ContactSupportDashboard variant={variant} resolution={resolution} />;
-
-      case "partner-dashboard":
-        return (
-          <PartnerLiveDashboard
-            variant={variant}
-            branding={partnerBranding}
-            resolution={resolution}
-          />
-        );
-
+      
+      case 'partner-dashboard':
+        return <PartnerLiveDashboard variant={variant} branding={partnerBranding} resolution={resolution} />;
+      
       // Fallback to KPI Dashboard for not-yet-implemented types
       default:
         return <KPILiveDashboard variant={variant} interactive={false} resolution={resolution} />;

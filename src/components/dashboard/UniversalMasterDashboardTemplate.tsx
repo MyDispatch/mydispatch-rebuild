@@ -15,14 +15,13 @@
    - V28 Design System Compliance
    ================================================================================== */
 
-import { ReactNode, useEffect, useMemo } from "react";
-import { useMainLayout } from "@/hooks/use-main-layout";
-import { useQuickActionsPanel } from "@/hooks/use-quick-actions-panel";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
-import { Card, CardContent, CardHeader, CardTitle } from "@/lib/compat";
-import { Skeleton } from "@/components/ui/skeleton";
-import type { LucideIcon } from "lucide-react";
+import { ReactNode, useMemo } from 'react';
+import { useMainLayout } from '@/hooks/use-main-layout';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { ErrorBoundary } from '@/components/shared/ErrorBoundary';
+import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
+import { Skeleton } from '@/components/ui/skeleton';
+import type { LucideIcon } from 'lucide-react';
 
 export interface KPIConfig {
   label: string;
@@ -40,7 +39,7 @@ export interface QuickActionConfig {
   label: string;
   action: () => void;
   tooltip?: string;
-  variant?: "quick-action-primary" | "secondary";
+  variant?: 'quick-action-primary' | 'secondary';
 }
 
 export interface RecentActivity {
@@ -60,32 +59,32 @@ export interface UniversalMasterDashboardProps {
   // SEO & Meta
   pageTitle: string;
   metaDescription?: string;
-
+  
   // Header & KPIs
   headerTitle: string;
   headerSubtitle?: string;
   kpis: KPIConfig[];
-
+  
   // Quick Actions (Context-Sensitive)
   quickActions: QuickActionConfig[];
   recentActivities?: RecentActivity[];
   contextWidget?: ContextWidget;
-
+  
   // Main Content
   children: ReactNode;
-
+  
   // States
   loading?: boolean;
   error?: Error | null;
-
+  
   // Optional Features
   showExport?: boolean;
   exportConfig?: {
     filename: string;
-    formats: Array<"pdf" | "excel" | "csv">;
+    formats: Array<'pdf' | 'excel' | 'csv'>;
     onExport: (format: string) => void;
   };
-
+  
   showFilters?: boolean;
   filterConfig?: {
     filters: Array<{
@@ -115,27 +114,6 @@ export function UniversalMasterDashboardTemplate({
   filterConfig,
 }: UniversalMasterDashboardProps) {
   const { sidebarExpanded } = useMainLayout();
-  const { setConfig } = useQuickActionsPanel();
-
-  // Configure Quick Actions Panel (Memoized)
-  const quickActionsPanelConfig = useMemo(
-    () => ({
-      enabled: true,
-      quickActions: quickActions.map((action) => ({
-        ...action,
-        variant: action.variant || ("quick-action-primary" as const),
-      })),
-      recentActivities,
-      contextWidget,
-    }),
-    [quickActions, recentActivities, contextWidget]
-  );
-
-  // Setup Quick Actions Panel via Context
-  useEffect(() => {
-    setConfig(quickActionsPanelConfig);
-    return () => setConfig(null); // Cleanup on unmount
-  }, [quickActionsPanelConfig, setConfig]);
 
   // Error State
   if (error) {
@@ -159,15 +137,19 @@ export function UniversalMasterDashboardTemplate({
   return (
     <>
       <SEOHead title={pageTitle} description={metaDescription} />
-
+      
       <div className="flex flex-col min-h-screen">
         {/* Page Header mit KPIs */}
         <div className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="container mx-auto p-4 sm:p-6">
             {/* Title Section */}
             <div className="mb-6">
-              <h1 className="text-3xl font-bold tracking-tight text-foreground">{headerTitle}</h1>
-              {headerSubtitle && <p className="text-muted-foreground mt-1">{headerSubtitle}</p>}
+              <h1 className="text-3xl font-bold tracking-tight text-foreground">
+                {headerTitle}
+              </h1>
+              {headerSubtitle && (
+                <p className="text-muted-foreground mt-1">{headerSubtitle}</p>
+              )}
             </div>
 
             {/* KPI Grid */}
@@ -188,21 +170,27 @@ export function UniversalMasterDashboardTemplate({
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
                         <div className="flex-1">
-                          <p className="text-sm font-medium text-muted-foreground">{kpi.label}</p>
-                          <p className="text-2xl font-bold text-foreground mt-2">{kpi.value}</p>
+                          <p className="text-sm font-medium text-muted-foreground">
+                            {kpi.label}
+                          </p>
+                          <p className="text-2xl font-bold text-foreground mt-2">
+                            {kpi.value}
+                          </p>
                           {kpi.trend && (
                             <p
                               className={`text-xs mt-1 ${
-                                kpi.trend.isPositive ? "text-green-600" : "text-red-600"
+                                kpi.trend.isPositive
+                                  ? 'text-green-600'
+                                  : 'text-red-600'
                               }`}
                             >
-                              {kpi.trend.isPositive ? "↑" : "↓"} {kpi.trend.value}%
+                              {kpi.trend.isPositive ? '↑' : '↓'} {kpi.trend.value}%
                             </p>
                           )}
                         </div>
                         <div
                           className={`flex h-12 w-12 items-center justify-center rounded-full ${
-                            kpi.color || "bg-primary/10"
+                            kpi.color || 'bg-primary/10'
                           }`}
                         >
                           <kpi.icon className="h-6 w-6 text-primary" />

@@ -19,10 +19,9 @@ Vollständige Optimierungsvorschläge für ein stabiles, zuverlässiges und perf
 **Problem:** React-Fehler crashen die gesamte App.
 
 **Lösung:**
-
 ```tsx
 // src/components/ErrorBoundary.tsx
-import { Component, ReactNode } from "react";
+import { Component, ReactNode } from 'react';
 
 interface Props {
   children: ReactNode;
@@ -45,23 +44,24 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error("ErrorBoundary caught:", error, errorInfo);
+    console.error('ErrorBoundary caught:', error, errorInfo);
     // Optional: Send to Error Tracking Service
   }
 
   render() {
     if (this.state.hasError) {
-      return (
-        this.props.fallback || (
-          <div className="min-h-screen flex items-center justify-center">
-            <div className="text-center space-y-4">
-              <h1 className="text-2xl font-bold">Etwas ist schiefgelaufen</h1>
-              <button onClick={() => window.location.reload()} className="btn-primary">
-                Seite neu laden
-              </button>
-            </div>
+      return this.props.fallback || (
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <h1 className="text-2xl font-bold">Etwas ist schiefgelaufen</h1>
+            <button 
+              onClick={() => window.location.reload()}
+              className="btn-primary"
+            >
+              Seite neu laden
+            </button>
           </div>
-        )
+        </div>
       );
     }
 
@@ -72,7 +72,7 @@ export class ErrorBoundary extends Component<Props, State> {
 // Usage in App.tsx
 <ErrorBoundary>
   <App />
-</ErrorBoundary>;
+</ErrorBoundary>
 ```
 
 **Impact:** ⭐⭐⭐⭐⭐ (KRITISCH)
@@ -84,35 +84,38 @@ export class ErrorBoundary extends Component<Props, State> {
 **Problem:** API-Fehler brechen User-Flow.
 
 **Lösung:**
-
 ```typescript
 // src/lib/api-client.ts
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from '@/integrations/supabase/client';
 
 export async function resilientQuery<T>(
   queryFn: () => Promise<T>,
   options = { retries: 3, backoff: 1000 }
 ): Promise<T> {
   let lastError: Error | null = null;
-
+  
   for (let attempt = 0; attempt < options.retries; attempt++) {
     try {
       return await queryFn();
     } catch (error) {
       lastError = error as Error;
-
+      
       // Exponential Backoff
       if (attempt < options.retries - 1) {
-        await new Promise((resolve) => setTimeout(resolve, options.backoff * Math.pow(2, attempt)));
+        await new Promise(resolve => 
+          setTimeout(resolve, options.backoff * Math.pow(2, attempt))
+        );
       }
     }
   }
-
+  
   throw lastError;
 }
 
 // Usage
-const { data } = await resilientQuery(() => supabase.from("orders").select("*"));
+const { data } = await resilientQuery(() =>
+  supabase.from('orders').select('*')
+);
 ```
 
 **Impact:** ⭐⭐⭐⭐⭐ (KRITISCH)
@@ -124,7 +127,6 @@ const { data } = await resilientQuery(() => supabase.from("orders").select("*"))
 **Problem:** TypeScript Errors werden ignoriert.
 
 **Lösung:**
-
 ```json
 // tsconfig.json - STRICT MODE
 {
@@ -134,7 +136,7 @@ const { data } = await resilientQuery(() => supabase.from("orders").select("*"))
     "strictNullChecks": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true
+    "noUnusedParameters": true,
   }
 }
 ```
@@ -150,7 +152,6 @@ const { data } = await resilientQuery(() => supabase.from("orders").select("*"))
 **Problem:** Initiales Bundle zu groß (> 1MB).
 
 **Lösung:**
-
 ```typescript
 // src/App.tsx
 import { lazy, Suspense } from 'react';
@@ -182,7 +183,6 @@ function App() {
 **Problem:** N+1 Queries & Missing Indexes.
 
 **Lösung:**
-
 ```sql
 -- Backend: Create Indexes for frequently queried columns
 CREATE INDEX idx_orders_user_id ON public.orders(user_id);
@@ -196,9 +196,9 @@ CREATE INDEX idx_orders_user_status ON public.orders(user_id, status);
 ```typescript
 // Frontend: Use select() to reduce payload
 const { data } = await supabase
-  .from("orders")
-  .select("id, status, created_at, customer:customers(name, email)")
-  .order("created_at", { ascending: false })
+  .from('orders')
+  .select('id, status, created_at, customer:customers(name, email)')
+  .order('created_at', { ascending: false })
   .limit(50);
 ```
 
@@ -211,7 +211,6 @@ const { data } = await supabase
 **Problem:** Unnötige Re-Fetches.
 
 **Lösung:**
-
 ```typescript
 // src/lib/react-query.ts
 export const queryClient = new QueryClient({
@@ -227,7 +226,7 @@ export const queryClient = new QueryClient({
 
 // Per-Query Overrides for Real-Time Data
 const { data } = useQuery({
-  queryKey: ["driver-locations"],
+  queryKey: ['driver-locations'],
   queryFn: fetchDriverLocations,
   staleTime: 30 * 1000, // 30 seconds für GPS-Daten
   refetchInterval: 30 * 1000,
@@ -243,7 +242,6 @@ const { data } = useQuery({
 **Problem:** Große Images, langsame Ladezeiten.
 
 **Lösung:**
-
 ```tsx
 // src/components/OptimizedImage.tsx
 interface Props {
@@ -261,7 +259,7 @@ export function OptimizedImage({ src, alt, className }: Props) {
       decoding="async"
       className={className}
       onError={(e) => {
-        e.currentTarget.src = "/placeholder.svg";
+        e.currentTarget.src = '/placeholder.svg';
       }}
     />
   );
@@ -279,7 +277,6 @@ export function OptimizedImage({ src, alt, className }: Props) {
 **Problem:** Unvollständige RLS Policies.
 
 **Lösung:**
-
 ```sql
 -- Audit Script: Check Tables without RLS
 SELECT schemaname, tablename
@@ -312,11 +309,10 @@ END $$;
 **Problem:** XSS & SQL Injection möglich.
 
 **Lösung:**
-
 ```typescript
 // src/lib/validation.ts
-import { z } from "zod";
-import DOMPurify from "dompurify";
+import { z } from 'zod';
+import DOMPurify from 'dompurify';
 
 // Zod Schema für alle Forms
 export const orderSchema = z.object({
@@ -329,7 +325,7 @@ export const orderSchema = z.object({
 // Sanitize User Input
 export function sanitizeHTML(html: string): string {
   return DOMPurify.sanitize(html, {
-    ALLOWED_TAGS: ["b", "i", "em", "strong", "p", "br"],
+    ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'p', 'br'],
   });
 }
 ```
@@ -343,12 +339,15 @@ export function sanitizeHTML(html: string): string {
 **Problem:** API-Abuse möglich.
 
 **Lösung:**
-
 ```typescript
 // Backend: supabase/functions/_shared/rate-limit.ts
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 
-export function checkRateLimit(userId: string, limit = 100, windowMs = 60 * 1000): boolean {
+export function checkRateLimit(
+  userId: string,
+  limit = 100,
+  windowMs = 60 * 1000
+): boolean {
   const now = Date.now();
   const userLimit = rateLimitMap.get(userId);
 
@@ -367,10 +366,10 @@ export function checkRateLimit(userId: string, limit = 100, windowMs = 60 * 1000
 
 // Usage in Edge Function
 if (!checkRateLimit(userId)) {
-  return new Response(JSON.stringify({ error: "Rate limit exceeded" }), {
-    status: 429,
-    headers: corsHeaders,
-  });
+  return new Response(
+    JSON.stringify({ error: 'Rate limit exceeded' }),
+    { status: 429, headers: corsHeaders }
+  );
 }
 ```
 
@@ -383,7 +382,6 @@ if (!checkRateLimit(userId)) {
 ### **4.1 Error Tracking Integration**
 
 **Lösung:**
-
 ```typescript
 // src/lib/sentry-integration.ts
 import * as Sentry from "@sentry/react";
@@ -416,20 +414,19 @@ initSentry();
 ### **4.2 Performance Monitoring**
 
 **Lösung:**
-
 ```typescript
 // src/lib/analytics.ts
 export function trackPerformance() {
   // Web Vitals
-  if ("PerformanceObserver" in window) {
+  if ('PerformanceObserver' in window) {
     const observer = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        console.log("Performance:", entry.name, entry.duration);
+        console.log('Performance:', entry.name, entry.duration);
         // Send to Analytics Service
       }
     });
-
-    observer.observe({ entryTypes: ["navigation", "resource", "measure"] });
+    
+    observer.observe({ entryTypes: ['navigation', 'resource', 'measure'] });
   }
 }
 ```
@@ -443,7 +440,6 @@ export function trackPerformance() {
 ### **5.1 Unit Tests (Components)**
 
 **Lösung:**
-
 ```typescript
 // src/components/__tests__/Button.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
@@ -458,7 +454,7 @@ describe('Button', () => {
   it('handles click events', () => {
     const handleClick = vi.fn();
     render(<Button onClick={handleClick}>Click me</Button>);
-
+    
     fireEvent.click(screen.getByText('Click me'));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
@@ -472,22 +468,21 @@ describe('Button', () => {
 ### **5.2 Integration Tests (E2E)**
 
 **Lösung:**
-
 ```typescript
 // tests/e2e/orders.spec.ts
-import { test, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-test("create order flow", async ({ page }) => {
-  await page.goto("/orders");
-  await page.click("text=Neuer Auftrag");
-
-  await page.fill('[name="customer_name"]', "Test Customer");
-  await page.fill('[name="pickup_address"]', "Berlin Hauptbahnhof");
-  await page.fill('[name="delivery_address"]', "Alexanderplatz");
-
+test('create order flow', async ({ page }) => {
+  await page.goto('/orders');
+  await page.click('text=Neuer Auftrag');
+  
+  await page.fill('[name="customer_name"]', 'Test Customer');
+  await page.fill('[name="pickup_address"]', 'Berlin Hauptbahnhof');
+  await page.fill('[name="delivery_address"]', 'Alexanderplatz');
+  
   await page.click('button[type="submit"]');
-
-  await expect(page.locator("text=Auftrag erstellt")).toBeVisible();
+  
+  await expect(page.locator('text=Auftrag erstellt')).toBeVisible();
 });
 ```
 
@@ -500,12 +495,14 @@ test("create order flow", async ({ page }) => {
 ### **6.1 Pre-Commit Hooks**
 
 **Lösung:**
-
 ```json
 // package.json
 {
   "lint-staged": {
-    "*.{ts,tsx}": ["eslint --fix", "prettier --write"]
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
 ```
@@ -523,14 +520,13 @@ npm run type-check
 ### **6.2 Component Storybook**
 
 **Lösung:**
-
 ```typescript
 // src/components/ui/button.stories.tsx
-import type { Meta, StoryObj } from "@storybook/react";
-import { Button } from "./button";
+import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from './button';
 
 const meta: Meta<typeof Button> = {
-  title: "UI/Button",
+  title: 'UI/Button',
   component: Button,
 };
 
@@ -539,8 +535,8 @@ type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
   args: {
-    variant: "default",
-    children: "Primary Button",
+    variant: 'default',
+    children: 'Primary Button',
   },
 };
 ```
@@ -552,28 +548,24 @@ export const Primary: Story = {
 ## 📋 IMPLEMENTATION ROADMAP
 
 ### **Phase 1: Critical (Woche 1)**
-
 - [x] Badge Overflow Fix
 - [ ] Error Boundary Implementation
 - [ ] RLS Policy Audit & Fix
 - [ ] Input Validation (Zod)
 
 ### **Phase 2: High Priority (Woche 2)**
-
 - [ ] Code Splitting
 - [ ] Database Indexes
 - [ ] React Query Caching
 - [ ] Rate Limiting
 
 ### **Phase 3: Medium Priority (Woche 3)**
-
 - [ ] Image Optimization
 - [ ] Performance Monitoring
 - [ ] Unit Tests (Critical Components)
 - [ ] E2E Tests (Core Flows)
 
 ### **Phase 4: Nice-to-Have (Woche 4)**
-
 - [ ] Storybook Setup
 - [ ] Advanced Analytics
 - [ ] Component Documentation
@@ -584,25 +576,21 @@ export const Primary: Story = {
 ## 🎯 SUCCESS METRICS
 
 **Stability:**
-
 - ✅ 0 Unhandled Errors in Production
 - ✅ 99.9% Uptime
 - ✅ < 0.1% Error Rate
 
 **Performance:**
-
 - ✅ < 2s Initial Load Time
 - ✅ < 100ms API Response Time (p95)
 - ✅ Lighthouse Score > 90
 
 **Security:**
-
 - ✅ 100% RLS Coverage
 - ✅ 0 Known Vulnerabilities
 - ✅ OWASP Top 10 Compliant
 
 **Developer Experience:**
-
 - ✅ < 5min Setup Time
 - ✅ 100% TypeScript Coverage
 - ✅ Automated Quality Checks

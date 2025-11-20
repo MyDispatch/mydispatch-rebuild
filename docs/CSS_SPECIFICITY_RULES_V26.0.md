@@ -2,7 +2,7 @@
 
 **STATUS:** ✅ MANDATORY - AB SOFORT SYSTEMWEIT VERPFLICHTEND  
 **VERSION:** V26.0  
-**LAST UPDATE:** 2025-01-26
+**LAST UPDATE:** 2025-01-26  
 
 ---
 
@@ -107,8 +107,8 @@ export function V26Button({ variant }: Props) {
       )}
       style={{
         border: `3px solid ${
-          isPrimary
-            ? UNIFIED_DESIGN_TOKENS.colors.beige
+          isPrimary 
+            ? UNIFIED_DESIGN_TOKENS.colors.beige 
             : UNIFIED_DESIGN_TOKENS.colors.dunkelblau
         }`
       }}
@@ -147,8 +147,8 @@ export function V26IconBox({ variant }: Props) {
       )}
       style={{
         border: `3px solid ${
-          isPrimary
-            ? UNIFIED_DESIGN_TOKENS.colors.beige
+          isPrimary 
+            ? UNIFIED_DESIGN_TOKENS.colors.beige 
             : UNIFIED_DESIGN_TOKENS.colors.dunkelblau
         }`
       }}
@@ -184,12 +184,10 @@ export function V26IconBox({ variant }: Props) {
 ### Symptom: Border nicht sichtbar oder falsche Farbe
 
 **1. Browser DevTools öffnen**
-
-- Rechtsklick auf Element → "Inspect"
-- Tab "Computed" öffnen
+   - Rechtsklick auf Element → "Inspect"
+   - Tab "Computed" öffnen
 
 **2. Border-Properties prüfen**
-
 ```
 border-width: 3px;     ← Ist das korrekt?
 border-style: solid;   ← Ist das gesetzt?
@@ -198,15 +196,14 @@ border-color: ???      ← Was ist die tatsächliche Farbe?
 
 **3. Diagnose:**
 
-| border-color Wert | Problem                         | Lösung                 |
-| ----------------- | ------------------------------- | ---------------------- |
-| `currentColor`    | Keine border-color gesetzt      | Inline-style verwenden |
-| Falsche Farbe     | CSS-Klasse überschrieben        | Inline-style verwenden |
-| `transparent`     | Andere Klasse setzt transparent | Inline-style verwenden |
-| `rgb(0,0,0)`      | Default black statt Token       | Inline-style verwenden |
+| border-color Wert | Problem | Lösung |
+|-------------------|---------|--------|
+| `currentColor` | Keine border-color gesetzt | Inline-style verwenden |
+| Falsche Farbe | CSS-Klasse überschrieben | Inline-style verwenden |
+| `transparent` | Andere Klasse setzt transparent | Inline-style verwenden |
+| `rgb(0,0,0)` | Default black statt Token | Inline-style verwenden |
 
 **4. Fix anwenden:**
-
 ```typescript
 // Remove: className="border-[3px] v26-border-beige"
 // Add:
@@ -265,13 +262,11 @@ Benötigt Element einen Border?
 ## ✅ SYSTEMWEITE IMPLEMENTIERUNGS-CHECKLIST
 
 ### Phase 1: Audit (JETZT)
-
 - [ ] Alle Components mit `border-[3px]` finden
 - [ ] Alle Components mit `.v26-border-*` und custom width finden
 - [ ] Liste erstellen: Betroffene Files
 
 ### Phase 2: Fix (PRIORITY HIGH)
-
 - [x] V26Button.tsx - ✅ Fixed
 - [ ] V26IconBox.tsx - TODO
 - [ ] V26Badge.tsx (falls existiert) - TODO
@@ -279,14 +274,12 @@ Benötigt Element einen Border?
 - [ ] Alle anderen Badge-Components - TODO
 
 ### Phase 3: Validation
-
 - [ ] Visuelle Tests auf allen Pages
 - [ ] Browser DevTools: Border-Properties gecheckt
 - [ ] Mobile & Desktop getestet
 - [ ] Dark Mode getestet (falls relevant)
 
 ### Phase 4: Documentation
-
 - [x] LESSONS_LEARNED.md aktualisiert
 - [x] CSS_SPECIFICITY_RULES_V26.0.md erstellt
 - [ ] COMPONENT_REGISTRY.md aktualisieren
@@ -297,23 +290,20 @@ Benötigt Element einen Border?
 ## 🚫 ANTI-PATTERNS (NIEMALS!)
 
 ### ❌ Tailwind arbitrary + CSS class
-
 ```typescript
 // ❌ FALSCH
 <div className="border-[3px] v26-border-beige">
 ```
 
 ### ❌ !important in CSS-Klasse
-
 ```css
 /* ❌ FALSCH - Hilft nicht bei Tailwind-Konflikten */
 .v26-border-beige {
-  border-color: #eadebd !important;
+  border-color: #EADEBD !important;
 }
 ```
 
 ### ❌ Mehrere border-Klassen kombinieren
-
 ```typescript
 // ❌ FALSCH - Unvorhersehbares Verhalten
 <div className="border-[3px] border-solid border-beige v26-border-beige">

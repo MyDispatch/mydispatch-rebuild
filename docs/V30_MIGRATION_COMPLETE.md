@@ -7,13 +7,11 @@ Alle 23 Pre-Login-Seiten nutzen jetzt das V30 Dual-Device-Hero-System mit iPad +
 ### ✅ Migrierte Seiten (23/23)
 
 #### Legal Pages (3/3)
-
 - ✅ `/impressum` - `backgroundVariant="3d-premium"` + `showDualDevices={true}`
 - ✅ `/datenschutz` - `backgroundVariant="3d-premium"` + `showDualDevices={true}`
 - ✅ `/agb` - `backgroundVariant="3d-premium"` + `showDualDevices={true}`
 
 #### Core Features (6/6)
-
 - ✅ Auftragsverwaltung
 - ✅ FahrerFahrzeuge
 - ✅ Kundenverwaltung
@@ -22,18 +20,15 @@ Alle 23 Pre-Login-Seiten nutzen jetzt das V30 Dual-Device-Hero-System mit iPad +
 - ✅ Landingpage
 
 #### Business Features (9/9)
-
 - ✅ GPSTracking
 - ⏳ TeamChat, KundenPortal, LiveTraffic, WorkflowAutomation, PartnerManagement, Statistiken, Buchungswidget (haben gleiche Struktur - auto-migriert via Pattern)
 
 #### Enterprise Features (4/4)
-
 - ⏳ WhiteLabeling, Support, CustomDevelopment, APIZugang (haben gleiche Struktur - auto-migriert via Pattern)
 
 ### 🎨 V30.0 Design-Standard
 
 **Alle Pre-Login-Seiten nutzen:**
-
 ```tsx
 <HeroIpadShowcase
   variant="features"
@@ -48,18 +43,15 @@ Alle 23 Pre-Login-Seiten nutzen jetzt das V30 Dual-Device-Hero-System mit iPad +
 ### 📊 Technische Details
 
 **Neue Komponenten:**
-
 - `src/components/hero/DualDeviceMockup.tsx` ✅
 - `src/components/hero/HeroIpadShowcase.tsx` (erweitert) ✅
 
 **Responsive:**
-
 - Desktop: iPad + iPhone nebeneinander
 - Tablet: iPad + iPhone untereinander
 - Mobile: Nur Text (Devices hidden)
 
 **Performance:**
-
 - Lazy-Loading vorbereitet
 - will-change CSS für Animationen
 - Reduced Motion Support

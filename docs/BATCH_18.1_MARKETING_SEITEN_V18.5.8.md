@@ -19,11 +19,9 @@ Dieses Batch dokumentiert die **Erstellung der Seiten-Spezifikationen** für die
 ## 🎯 ERSTELLTE SPEZIFIKATIONEN
 
 ### 1. LANDING PAGE (/)
-
 **File:** `docs/SPEC_LANDING_PAGE_V18.5.8.md`
 
 **Inhalt:**
-
 - ✅ Executive Summary (Zweck, Zielgruppe, Kernbotschaft)
 - ✅ Architektur-Entscheidungen (Layout, Grid-Pattern, Components)
 - ✅ Mobile-First Wireframes (ASCII)
@@ -35,7 +33,6 @@ Dieses Batch dokumentiert die **Erstellung der Seiten-Spezifikationen** für die
 - ✅ Testing-Checkliste
 
 **Highlights:**
-
 - Hero-Section mit Dual-CTA
 - 3 Tarif-Cards (Starter/Business/Enterprise)
 - Trust-Badges (Made in Germany, DSGVO-konform)
@@ -44,11 +41,9 @@ Dieses Batch dokumentiert die **Erstellung der Seiten-Spezifikationen** für die
 ---
 
 ### 2. PRICING PAGE (/preise)
-
 **File:** `docs/SPEC_PRICING_PAGE_V18.5.8.md`
 
 **Inhalt:**
-
 - ✅ Executive Summary
 - ✅ Architektur-Entscheidungen
 - ✅ Mobile-First Wireframes
@@ -60,14 +55,12 @@ Dieses Batch dokumentiert die **Erstellung der Seiten-Spezifikationen** für die
 - ✅ Testing-Checkliste
 
 **Highlights:**
-
 - Detaillierte Feature-Matrix (Tarif-Vergleich)
 - Transparente Preise (PAngV-konform)
 - Enterprise-CTA für Custom-Lösungen
 - Trust-Section (Garantien)
 
 **KRITISCH:** Preisangabenverordnung (PAngV) beachtet:
-
 - Bruttopreise anzeigen
 - Disclaimer: "Alle Preise zzgl. 19% MwSt."
 - Kündigungsfristen klar
@@ -75,11 +68,9 @@ Dieses Batch dokumentiert die **Erstellung der Seiten-Spezifikationen** für die
 ---
 
 ### 3. DOCUMENTATION PAGE (/docs)
-
 **File:** `docs/SPEC_DOCUMENTATION_PAGE_V18.5.8.md`
 
 **Inhalt:**
-
 - ✅ Executive Summary
 - ✅ Architektur-Entscheidungen (Sidebar + Content-Area)
 - ✅ Mobile-First Wireframes
@@ -92,14 +83,12 @@ Dieses Batch dokumentiert die **Erstellung der Seiten-Spezifikationen** für die
 - ✅ Testing-Checkliste
 
 **Highlights:**
-
 - Sidebar-Navigation (Kategorie-Baum)
 - Quick-Start (5 Schritte)
 - Beliebte Artikel (Top 5)
 - KI-Chat-Integration (optional, mit AI Act Compliance)
 
 **KRITISCH:** Falls KI-Chat implementiert wird:
-
 - AI Act Art. 52 Transparenzpflichten
 - Icon + Text-Hinweis bei JEDER KI-Antwort
 - Disclaimer: "Antworten werden von KI generiert"
@@ -107,11 +96,9 @@ Dieses Batch dokumentiert die **Erstellung der Seiten-Spezifikationen** für die
 ---
 
 ### 4. FEATURES PAGE (/features)
-
 **File:** `docs/SPEC_FEATURES_PAGE_V18.5.8.md`
 
 **Inhalt:**
-
 - ✅ Executive Summary
 - ✅ Architektur-Entscheidungen
 - ✅ Mobile-First Wireframes
@@ -124,25 +111,21 @@ Dieses Batch dokumentiert die **Erstellung der Seiten-Spezifikationen** für die
 - ✅ Testing-Checkliste
 
 **Highlights:**
-
 - 6 Haupt-Features (Cards mit Screenshots)
 - Erweiterte Features (Kategorisiert)
 - Integration-Features (API, Webhooks, White-Label)
 - Use-Cases (Real-World-Beispiele)
 
 **WICHTIG:** Tarif-Zuordnung klar kommunizieren:
-
 - Welches Feature in welchem Tarif verfügbar ist
 - Keine irreführenden Feature-Listen
 
 ---
 
 ### 5. CONTACT PAGE (/kontakt)
-
 **File:** `docs/SPEC_CONTACT_PAGE_V18.5.8.md`
 
 **Inhalt:**
-
 - ✅ Executive Summary
 - ✅ Architektur-Entscheidungen
 - ✅ Mobile-First Wireframes
@@ -155,22 +138,20 @@ Dieses Batch dokumentiert die **Erstellung der Seiten-Spezifikationen** für die
 - ✅ Testing-Checkliste
 
 **Highlights:**
-
 - Kontaktformular mit Validation
 - Edge Function: `contact-form`
 - DB-Tabelle: `contact_inquiries`
 - Alternative Kontaktmethoden (E-Mail, Telefon, Chat)
 
 **KRITISCH:** DSGVO Art. 13 Datenschutzhinweis VERPFLICHTEND!
-
 ```tsx
 <div className="text-xs text-muted-foreground mt-4 p-3 bg-muted/50 rounded-lg">
   <p>
-    🔒 Ihre Daten werden verschlüsselt übertragen und gemäß unserer{" "}
+    🔒 Ihre Daten werden verschlüsselt übertragen und gemäß unserer{' '}
     <Link to="/datenschutz" className="text-primary hover:underline">
       Datenschutzerklärung
-    </Link>{" "}
-    verarbeitet. Sie können Ihre Einwilligung jederzeit widerrufen.
+    </Link>
+    {' '}verarbeitet. Sie können Ihre Einwilligung jederzeit widerrufen.
   </p>
 </div>
 ```
@@ -180,21 +161,19 @@ Dieses Batch dokumentiert die **Erstellung der Seiten-Spezifikationen** für die
 ## 📊 DOKUMENTATIONS-HEALTH METRIKEN
 
 ### Vorher (BATCH 18):
-
 ```yaml
-Seiten dokumentiert: 60%
-Marketing-Seiten: 0/5 (0%)
-App-Seiten: 0/9 (0%)
-Legal-Seiten: 0/3 (0%)
+Seiten dokumentiert:     60%
+Marketing-Seiten:         0/5 (0%)
+App-Seiten:              0/9 (0%)
+Legal-Seiten:            0/3 (0%)
 ```
 
 ### Nachher (BATCH 18.1):
-
 ```yaml
-Seiten dokumentiert: 90% ✅
-Marketing-Seiten: 5/5 (100%) ✅
-App-Seiten: 0/9 (0%)
-Legal-Seiten: 0/3 (0%)
+Seiten dokumentiert:     90% ✅
+Marketing-Seiten:         5/5 (100%) ✅
+App-Seiten:              0/9 (0%)
+Legal-Seiten:            0/3 (0%)
 ```
 
 **Fortschritt:** +30% (von 60% auf 90%)
@@ -204,7 +183,6 @@ Legal-Seiten: 0/3 (0%)
 ## ✅ SUCCESS CRITERIA
 
 ### PRIO A: Spezifikationen erstellt
-
 - [x] SPEC_LANDING_PAGE_V18.5.8.md
 - [x] SPEC_PRICING_PAGE_V18.5.8.md
 - [x] SPEC_DOCUMENTATION_PAGE_V18.5.8.md
@@ -212,7 +190,6 @@ Legal-Seiten: 0/3 (0%)
 - [x] SPEC_CONTACT_PAGE_V18.5.8.md
 
 ### PRIO B: Konformität
-
 - [x] ARCHIVIERUNGSSYSTEM_V18.3.28.md konform
 - [x] SEITEN_PLANUNGSPROZESS_V18.5.1.md konform
 - [x] MOBILE_FIRST_GRID_SYSTEM_V18.5.1.md konform
@@ -220,7 +197,6 @@ Legal-Seiten: 0/3 (0%)
 - [x] MARKETING_CONTENT_STANDARDS_V18.5.0.md konform
 
 ### PRIO C: Qualität
-
 - [x] Mobile-First Wireframes (ASCII)
 - [x] Component-Breakdown (Neu + Wiederverwendbar)
 - [x] Rechtliche Compliance-Checklisten
@@ -233,32 +209,24 @@ Legal-Seiten: 0/3 (0%)
 ## 🚨 KRITISCHE COMPLIANCE-HINWEISE
 
 ### 1. DSGVO Art. 13 (Contact Page)
-
 **VERPFLICHTEND:** Datenschutzhinweis bei Kontaktformular!
-
 - Link zur Datenschutzerklärung
 - Hinweis auf Verschlüsselung
 - Widerrufsrecht erwähnen
 
 ### 2. AI Act Art. 52 (Documentation Page)
-
 **FALLS KI-CHAT:** KI-Kennzeichnung VERPFLICHTEND!
-
 - Icon + Text-Hinweis bei JEDER Antwort
 - Disclaimer: "Antworten werden von KI generiert"
 
 ### 3. PAngV (Pricing Page)
-
 **VERPFLICHTEND:** Transparente Preise!
-
 - Bruttopreise anzeigen
 - Disclaimer: "Alle Preise zzgl. MwSt."
 - Kündigungsfristen klar
 
 ### 4. UWG (Features Page)
-
 **VERPFLICHTEND:** Tarif-Zuordnung!
-
 - Welches Feature in welchem Tarif
 - Keine irreführenden Feature-Listen
 
@@ -267,7 +235,6 @@ Legal-Seiten: 0/3 (0%)
 ## 🎯 NÄCHSTE SCHRITTE
 
 ### Batch 18.2: App-Seiten (PRIO 2)
-
 ```markdown
 6. Dashboard Specification (/dashboard)
 7. Master-Dashboard Specification (/master-dashboard)
@@ -285,7 +252,6 @@ Legal-Seiten: 0/3 (0%)
 ---
 
 ### Batch 18.3: Legal-Seiten (PRIO 3)
-
 ```markdown
 15. Impressum Specification (/impressum)
 16. Datenschutz Specification (/datenschutz)
@@ -309,7 +275,6 @@ Legal-Seiten: 0/3 (0%)
 ## 📝 LESSONS LEARNED
 
 ### Was funktioniert gut:
-
 - ✅ SEITEN_PLANUNGSPROZESS_V18.5.1.md sehr hilfreich als Template
 - ✅ Mobile-First Wireframes (ASCII) klare Visualisierung
 - ✅ Component-Breakdown verhindert Code-Duplikation
@@ -317,7 +282,6 @@ Legal-Seiten: 0/3 (0%)
 - ✅ Zeitpläne (AI-Zeiten) helfen bei Planung
 
 ### Was verbessert werden kann:
-
 - [ ] Template-Generator für Spezifikationen (Copy-Paste-Aufwand)
 - [ ] Automatische Validierung der Compliance-Checklisten
 - [ ] Screenshot-Mockups zusätzlich zu ASCII-Wireframes
@@ -327,7 +291,6 @@ Legal-Seiten: 0/3 (0%)
 ## 📝 CHANGELOG
 
 ### V18.5.8 (2025-10-24)
-
 - **ERSTELLT:** 5 Marketing-Seiten Spezifikationen
 - **FINALISIERT:** Landing, Pricing, Documentation, Features, Contact
 - **KONFORM:** ARCHIVIERUNGSSYSTEM, SEITEN_PLANUNGSPROZESS, MOBILE_FIRST_GRID_SYSTEM

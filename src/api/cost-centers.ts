@@ -6,8 +6,8 @@
    ✅ Error handling via handleSupabaseError
    ================================================================================== */
 
-import { supabase } from "@/integrations/supabase/client";
-import { handleSupabaseError } from "./base";
+import { supabase } from '@/integrations/supabase/client';
+import { handleSupabaseError } from './base';
 
 export interface CostCenter {
   id?: string;
@@ -22,11 +22,11 @@ export interface CostCenter {
 export const costCentersAPI = {
   async getAll(companyId: string): Promise<CostCenter[]> {
     const { data, error } = await supabase
-      .from("cost_centers")
-      .select("*")
-      .eq("company_id", companyId)
-      .eq("active", true)
-      .order("name", { ascending: true });
+      .from('cost_centers')
+      .select('*')
+      .eq('company_id', companyId)
+      .eq('active', true)
+      .order('name', { ascending: true });
 
     if (error) throw handleSupabaseError(error);
     return data || [];
@@ -34,19 +34,19 @@ export const costCentersAPI = {
 
   async getById(id: string, companyId: string): Promise<CostCenter> {
     const { data, error } = await supabase
-      .from("cost_centers")
-      .select("*")
-      .eq("id", id)
-      .eq("company_id", companyId)
+      .from('cost_centers')
+      .select('*')
+      .eq('id', id)
+      .eq('company_id', companyId)
       .single();
 
     if (error) throw handleSupabaseError(error);
     return data;
   },
 
-  async create(costCenter: Omit<CostCenter, "id">, companyId: string): Promise<CostCenter> {
+  async create(costCenter: Omit<CostCenter, 'id'>, companyId: string): Promise<CostCenter> {
     const { data, error } = await supabase
-      .from("cost_centers")
+      .from('cost_centers')
       .insert({
         ...costCenter,
         company_id: companyId,
@@ -60,10 +60,10 @@ export const costCentersAPI = {
 
   async update(id: string, updates: Partial<CostCenter>, companyId: string): Promise<CostCenter> {
     const { data, error } = await supabase
-      .from("cost_centers")
+      .from('cost_centers')
       .update(updates)
-      .eq("id", id)
-      .eq("company_id", companyId)
+      .eq('id', id)
+      .eq('company_id', companyId)
       .select()
       .single();
 
@@ -73,10 +73,10 @@ export const costCentersAPI = {
 
   async archive(id: string, companyId: string): Promise<void> {
     const { error } = await supabase
-      .from("cost_centers")
+      .from('cost_centers')
       .update({ active: false })
-      .eq("id", id)
-      .eq("company_id", companyId);
+      .eq('id', id)
+      .eq('company_id', companyId);
 
     if (error) throw handleSupabaseError(error);
   },

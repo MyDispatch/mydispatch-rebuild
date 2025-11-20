@@ -9,7 +9,7 @@
    ✅ Sizes: sm (384px), md (448px), lg (512px), xl (576px), full (100%)
    ================================================================================== */
 
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -17,16 +17,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/lib/compat";
-import { cn } from "@/lib/utils";
-import { X } from "lucide-react";
+} from '@/lib/compat';
+import { cn } from '@/lib/utils';
+import { X } from 'lucide-react';
 
 interface V28DialogWrapperProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: string;
   description?: string;
-  size?: "sm" | "md" | "lg" | "xl" | "full";
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
   children: ReactNode;
   footer?: ReactNode;
   showCloseButton?: boolean;
@@ -35,11 +35,11 @@ interface V28DialogWrapperProps {
 }
 
 const sizeClasses = {
-  sm: "max-w-sm",
-  md: "max-w-md",
-  lg: "max-w-lg",
-  xl: "max-w-xl",
-  full: "max-w-full",
+  sm: 'max-w-sm',
+  md: 'max-w-md',
+  lg: 'max-w-lg',
+  xl: 'max-w-xl',
+  full: 'max-w-full',
 };
 
 export function V28DialogWrapper({
@@ -47,7 +47,7 @@ export function V28DialogWrapper({
   onOpenChange,
   title,
   description,
-  size = "md",
+  size = 'md',
   children,
   footer,
   showCloseButton = true,
@@ -59,7 +59,7 @@ export function V28DialogWrapper({
       <DialogContent
         className={cn(
           sizeClasses[size],
-          "p-0 gap-0 bg-gradient-to-b from-white to-slate-50 border-slate-200 shadow-2xl overflow-hidden",
+          'p-0 gap-0 bg-gradient-to-b from-white to-slate-50 border-slate-200 shadow-2xl overflow-hidden',
           className
         )}
         onInteractOutside={(e) => {
@@ -70,7 +70,9 @@ export function V28DialogWrapper({
       >
         {/* Header - Gradient wie AuthHeader */}
         <DialogHeader className="bg-gradient-to-b from-white to-slate-50 border-b border-slate-200 p-6 relative">
-          <DialogTitle className="text-xl font-semibold text-slate-900 pr-8">{title}</DialogTitle>
+          <DialogTitle className="text-xl font-semibold text-slate-900 pr-8">
+            {title}
+          </DialogTitle>
           {description && (
             <DialogDescription className="text-sm text-slate-600 mt-1">
               {description}
@@ -88,7 +90,9 @@ export function V28DialogWrapper({
         </DialogHeader>
 
         {/* Body - Scrollable */}
-        <div className="p-6 max-h-[calc(100vh-300px)] overflow-y-auto">{children}</div>
+        <div className="p-6 max-h-[calc(100vh-300px)] overflow-y-auto">
+          {children}
+        </div>
 
         {/* Footer - Gradient wie AuthFooter (nur wenn Content vorhanden) */}
         {footer && (

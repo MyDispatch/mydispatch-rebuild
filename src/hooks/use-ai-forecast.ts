@@ -13,12 +13,12 @@
    const { forecast, isLoading, error, refetch } = useAIForecast(companyId, 7);
    ================================================================================== */
 
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "./use-auth";
-import { logger } from "@/lib/logger";
-import { datadoc } from "@/lib/datadoc-client";
-import { queryKeys } from "@/lib/react-query/query-keys";
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from './use-auth';
+import { logger } from '@/lib/logger';
+import { datadoc } from '@/lib/datadoc-client';
+import { queryKeys } from '@/lib/react-query/query-keys';
 
 interface DemandForecast {
   date: string;
@@ -46,54 +46,54 @@ export function useAIForecast(days: number = 7) {
     queryKey: queryKeys.aiForecast(companyId, days),
     queryFn: async (): Promise<ForecastResponse> => {
       if (!companyId) {
-        throw new Error("No company_id available");
+        throw new Error('No company_id available');
       }
 
       const startTime = Date.now();
 
       try {
-        logger.info("[AI Forecast] Requesting forecast", { companyId, days });
+        logger.info('[AI Forecast] Requesting forecast', { companyId, days });
 
-        const { data, error } = await supabase.functions.invoke("ai-forecast", {
+        const { data, error } = await supabase.functions.invoke('ai-forecast', {
           body: { companyId, days },
         });
 
         const duration = Date.now() - startTime;
 
         if (error) {
-          logger.error("[AI Forecast] Edge function error", error, { companyId, days });
-
+          logger.error('[AI Forecast] Edge function error', error, { companyId, days });
+          
           // Track error metric
-          await datadoc.trackAPICall("ai-forecast", duration, "error", {
-            errorType: error.message || "unknown",
+          await datadoc.trackAPICall('ai-forecast', duration, 'error', {
+            errorType: error.message || 'unknown',
           });
 
           throw error;
         }
 
         if (!data || !data.forecast) {
-          throw new Error("Invalid response from AI forecast service");
+          throw new Error('Invalid response from AI forecast service');
         }
 
-        logger.info("[AI Forecast] Forecast received", {
-          companyId,
+        logger.info('[AI Forecast] Forecast received', { 
+          companyId, 
           forecastLength: data.forecast.length,
-          duration,
+          duration 
         });
 
         // Track success metric
-        await datadoc.trackAPICall("ai-forecast", duration, "success", {
+        await datadoc.trackAPICall('ai-forecast', duration, 'success', {
           forecastDays: days.toString(),
         });
 
         return data as ForecastResponse;
       } catch (error) {
         const duration = Date.now() - startTime;
-
-        logger.error("[AI Forecast] Request failed", error as Error, { companyId, days });
-
-        await datadoc.trackAPICall("ai-forecast", duration, "error", {
-          errorType: error instanceof Error ? error.message : "unknown",
+        
+        logger.error('[AI Forecast] Request failed', error as Error, { companyId, days });
+        
+        await datadoc.trackAPICall('ai-forecast', duration, 'error', {
+          errorType: error instanceof Error ? error.message : 'unknown',
         });
 
         throw error;

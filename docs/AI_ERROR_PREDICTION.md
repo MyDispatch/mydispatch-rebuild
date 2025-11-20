@@ -12,14 +12,14 @@ Das **AI Error Prediction System** nutzt Lovable AI (Google Gemini 2.5 Flash), u
 
 ### **Supported Error Types:**
 
-| Error Type                     | Detection Rate | Auto-Fix Rate | Example                                   |
-| ------------------------------ | -------------- | ------------- | ----------------------------------------- |
-| Null-Pointer Access            | 95%            | 85%           | `user.profile.name` without null-check    |
-| Type-Safety Violations         | 90%            | 80%           | `string` assigned to `number`             |
-| Array Index Out of Bounds      | 85%            | 75%           | `arr[10]` when `arr.length = 5`           |
-| Promise Without Error Handling | 88%            | 70%           | `.then()` without `.catch()`              |
-| XSS Vulnerabilities            | 92%            | 60%           | `dangerouslySetInnerHTML` with user input |
-| Performance Issues             | 80%            | 50%           | Blocking operations in render             |
+| Error Type | Detection Rate | Auto-Fix Rate | Example |
+|------------|---------------|---------------|---------|
+| Null-Pointer Access | 95% | 85% | `user.profile.name` without null-check |
+| Type-Safety Violations | 90% | 80% | `string` assigned to `number` |
+| Array Index Out of Bounds | 85% | 75% | `arr[10]` when `arr.length = 5` |
+| Promise Without Error Handling | 88% | 70% | `.then()` without `.catch()` |
+| XSS Vulnerabilities | 92% | 60% | `dangerouslySetInnerHTML` with user input |
+| Performance Issues | 80% | 50% | Blocking operations in render |
 
 ---
 
@@ -64,37 +64,37 @@ Edge Function `ai-error-predictor` ist bereits deployed:
 
 ```typescript
 // supabase/functions/ai-error-predictor/index.ts
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 
 serve(async (req) => {
   const { code, filename, context } = await req.json();
-
+  
   // Call Lovable AI (Gemini 2.5 Flash)
-  const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-    method: "POST",
+  const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    method: 'POST',
     headers: {
-      Authorization: `Bearer ${Deno.env.get("LOVABLE_API_KEY")}`,
-      "Content-Type": "application/json",
+      'Authorization': `Bearer ${Deno.env.get('LOVABLE_API_KEY')}`,
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: "google/gemini-2.5-flash",
+      model: 'google/gemini-2.5-flash',
       messages: [
-        {
-          role: "system",
-          content: "You are an expert code analyzer. Predict potential runtime errors.",
+        { 
+          role: 'system', 
+          content: 'You are an expert code analyzer. Predict potential runtime errors.' 
         },
-        {
-          role: "user",
-          content: `Analyze this ${context?.type || "TypeScript"} code:\n\n${code}`,
-        },
+        { 
+          role: 'user', 
+          content: `Analyze this ${context?.type || 'TypeScript'} code:\n\n${code}` 
+        }
       ],
       temperature: 0.3, // Low temperature for consistent analysis
     }),
   });
-
+  
   const data = await response.json();
   return new Response(JSON.stringify(data), {
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   });
 });
 ```
@@ -111,24 +111,24 @@ CHANGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(ts
 
 if [ -n "$CHANGED_FILES" ]; then
   echo "🔍 Running AI Error Prediction..."
-
+  
   for file in $CHANGED_FILES; do
     # Call Edge Function
     PREDICTIONS=$(curl -s -X POST \
       "https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/ai-error-predictor" \
       -H "Content-Type: application/json" \
       -d "{\"filename\":\"$file\",\"code\":\"$(cat $file | jq -Rs .)\"}")
-
+    
     # Check for critical errors
     CRITICAL_COUNT=$(echo $PREDICTIONS | jq '[.predictions[] | select(.severity == "critical")] | length')
-
+    
     if [ "$CRITICAL_COUNT" -gt 0 ]; then
       echo "❌ CRITICAL ERRORS DETECTED in $file:"
       echo $PREDICTIONS | jq -r '.predictions[] | select(.severity == "critical") | "- \(.pattern): \(.description)"'
       exit 1
     fi
   done
-
+  
   echo "✅ AI Error Prediction passed"
 fi
 ```
@@ -136,19 +136,24 @@ fi
 ### **Step 3: Usage in Code**
 
 ```typescript
-import { AIErrorPredictor } from "@/utils/aiErrorPrediction";
+import { AIErrorPredictor } from '@/utils/aiErrorPrediction';
 
 // Predict errors before deployment
-const predictions = await AIErrorPredictor.predictErrors(code, "src/components/Booking.tsx", {
-  type: "component",
-  framework: "React",
-});
+const predictions = await AIErrorPredictor.predictErrors(
+  code,
+  'src/components/Booking.tsx',
+  { type: 'component', framework: 'React' }
+);
 
 // Generate prevention strategy
 const strategy = await AIErrorPredictor.generatePreventionStrategy(predictions);
 
 // Store for learning
-await AIErrorPredictor.storePrediction("src/components/Booking.tsx", predictions, actualErrors);
+await AIErrorPredictor.storePrediction(
+  'src/components/Booking.tsx',
+  predictions,
+  actualErrors
+);
 ```
 
 ---
@@ -162,9 +167,9 @@ Das System lernt aus **jeder Prediction** und verbessert sich kontinuierlich:
 ```typescript
 // Stored in ai_learning_patterns table
 interface LearningPattern {
-  pattern_type: "error_prediction";
+  pattern_type: 'error_prediction';
   learnings: string; // What was predicted vs. what happened
-  success: boolean; // Did the prediction match reality?
+  success: boolean;  // Did the prediction match reality?
   confidence: number; // 0.0 - 1.0
   context: {
     filename: string;
@@ -177,11 +182,11 @@ interface LearningPattern {
 
 ### **Current Performance**
 
-| Date       | Predictions | Correct | False-Positives | Accuracy |
-| ---------- | ----------- | ------- | --------------- | -------- |
-| 2025-01-30 | 45          | 38      | 7               | 84.4%    |
-| 2025-01-29 | 52          | 43      | 9               | 82.7%    |
-| 2025-01-28 | 61          | 49      | 12              | 80.3%    |
+| Date | Predictions | Correct | False-Positives | Accuracy |
+|------|-------------|---------|-----------------|----------|
+| 2025-01-30 | 45 | 38 | 7 | 84.4% |
+| 2025-01-29 | 52 | 43 | 9 | 82.7% |
+| 2025-01-28 | 61 | 49 | 12 | 80.3% |
 
 **Target:** 90% Accuracy by 2025-02-15
 
@@ -192,14 +197,12 @@ interface LearningPattern {
 ### **Example 1: Null-Pointer Access**
 
 **Code:**
-
 ```typescript
 const user = await getUser(userId);
 const name = user.profile.name; // ⚠️ AI Warning
 ```
 
 **AI Prediction:**
-
 ```json
 {
   "pattern": "null_pointer_access",
@@ -213,22 +216,19 @@ const name = user.profile.name; // ⚠️ AI Warning
 ```
 
 **Auto-Fix:**
-
 ```typescript
 const user = await getUser(userId);
-const name = user?.profile?.name ?? "Unknown"; // ✅ Fixed
+const name = user?.profile?.name ?? 'Unknown'; // ✅ Fixed
 ```
 
 ### **Example 2: XSS Vulnerability**
 
 **Code:**
-
 ```typescript
 <div dangerouslySetInnerHTML={{ __html: userInput }} /> // 🚨 AI Critical
 ```
 
 **AI Prediction:**
-
 ```json
 {
   "pattern": "xss_vulnerability",
@@ -242,19 +242,17 @@ const name = user?.profile?.name ?? "Unknown"; // ✅ Fixed
 ```
 
 **Auto-Fix:**
-
 ```typescript
 import DOMPurify from 'dompurify';
 
-<div dangerouslySetInnerHTML={{
-  __html: DOMPurify.sanitize(userInput)
+<div dangerouslySetInnerHTML={{ 
+  __html: DOMPurify.sanitize(userInput) 
 }} /> // ✅ Fixed
 ```
 
 ### **Example 3: Performance Issue**
 
 **Code:**
-
 ```typescript
 const BookingList = ({ bookings }) => {
   const filtered = bookings.filter(b => b.status === 'active'); // ⚠️ AI Warning
@@ -263,7 +261,6 @@ const BookingList = ({ bookings }) => {
 ```
 
 **AI Prediction:**
-
 ```json
 {
   "pattern": "inefficient_filtering",
@@ -277,7 +274,6 @@ const BookingList = ({ bookings }) => {
 ```
 
 **Auto-Fix:**
-
 ```typescript
 import { useMemo } from 'react';
 
@@ -298,11 +294,10 @@ const BookingList = ({ bookings }) => {
 
 ```typescript
 // In .env.local (Development only)
-VITE_AI_PREDICTION_DEBUG = true;
+VITE_AI_PREDICTION_DEBUG=true
 ```
 
 This will log:
-
 - ✅ All AI predictions to console
 - ✅ Confidence scores
 - ✅ False-positives
@@ -319,7 +314,7 @@ npx supabase functions logs ai-error-predictor
 
 ```sql
 -- Check AI learning history
-SELECT
+SELECT 
   pattern_type,
   confidence,
   success,

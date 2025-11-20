@@ -19,13 +19,11 @@
 ## 🔄 IN PROGRESS (2/10 Files - LARGE!)
 
 ### `src/components/layout/AppSidebar.tsx`
-
 - **Status:** Import updated, but 21+ usages need replacement
 - **Lines affected:** 161, 162, 186, 219-230, 306, 318, 324, 338, 342-343, 346, 359, 375, 379-380, 383
 - **Pattern:** `PRIMARY_COLORS_V28.slate200` → `designTokens.colors.slate[200]`
 
 ### `src/components/layout/MarketingLayout.tsx`
-
 - **Status:** Import updated, but 69+ usages need replacement
 - **Lines affected:** 63-64, 76, 80, 106-108, 111, 116, 141, 148, 159, 163-164, 167, 194-195, 199-200, etc.
 - **Pattern:** Same as above
@@ -54,7 +52,6 @@ style={{ color: designTokens.colors.slate[900] }}
 ```
 
 **Mapping Table:**
-
 - `PRIMARY_COLORS_V28.white` → `designTokens.colors.white`
 - `PRIMARY_COLORS_V28.primary` → `designTokens.colors.primary.DEFAULT`
 - `PRIMARY_COLORS_V28.primaryHover` → `designTokens.colors.primary.hover`

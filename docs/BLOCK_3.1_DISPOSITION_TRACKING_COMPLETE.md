@@ -11,7 +11,6 @@
 ### 1. Neue Seiten (V28.1 Compliant)
 
 #### `/disposition` - Live-Auftragsdisposition
-
 - ✅ DashboardPageTemplate integriert
 - ✅ KPIGenerator: Offene Aufträge, Verfügbare Fahrer, Verfügbare Fahrzeuge
 - ✅ QuickActionsGenerator: Neuer Auftrag, Export
@@ -24,21 +23,18 @@
 - ✅ Suche + Archiv-Toggle
 
 **Features:**
-
 - Offene Aufträge anzeigen (status: pending/confirmed ohne driver_id)
 - Fahrer/Fahrzeug direkt zuweisen
 - Kontaktdaten anzeigen
 - Details-Link zu Auftrag
 
 **Technologie:**
-
 - Pure Tailwind V28.1
 - Slate Palette
 - 1px Borders
 - 200ms Transitions
 
 #### `/tracking` - Live-Fahrzeug/Fahrer-Tracking
-
 - ✅ DashboardPageTemplate integriert
 - ✅ KPIGenerator: Online Fahrer, Aktive Fahrzeuge, GPS-Status
 - ✅ QuickActionsGenerator: Zur Disposition, Export
@@ -50,14 +46,12 @@
 - ✅ Suche + Archiv-Toggle
 
 **Features:**
-
 - Live-Karte mit Fahrer-Positionen
 - Online Fahrer auflisten
 - Aktive Fahrzeuge auflisten
 - GPS-Status anzeigen
 
 **Technologie:**
-
 - Pure Tailwind V28.1
 - Slate Palette
 - HERE Maps API
@@ -105,7 +99,6 @@ import { Clipboard } from 'lucide-react';
 ## 📊 QUALITÄTS-CHECKS
 
 ### ✅ V28.1 Design Compliance
-
 - [x] Pure Tailwind (keine Custom CSS)
 - [x] Slate Palette (keine direkten Farben)
 - [x] 1px Borders überall
@@ -115,7 +108,6 @@ import { Clipboard } from 'lucide-react';
 - [x] Keine Token-Imports
 
 ### ✅ Template-System Compliance
-
 - [x] DashboardPageTemplate verwendet
 - [x] Genau 3 KPIs (via KPIGenerator)
 - [x] Genau 2 Quick Actions (via QuickActionsGenerator)
@@ -124,21 +116,18 @@ import { Clipboard } from 'lucide-react';
 - [x] Breadcrumbs automatisch
 
 ### ✅ TypeScript Compliance
-
 - [x] 0 TypeScript Errors
 - [x] Korrekte Type-Verwendung (shift_status, vehicle.status)
 - [x] Hooks korrekt verwendet
 - [x] Props korrekt typed
 
 ### ✅ Performance
-
 - [x] useMemo für teure Berechnungen
 - [x] useCallback für Event-Handler (wo nötig)
 - [x] Realtime-Updates optimiert
 - [x] Keine unnötigen Re-Renders
 
 ### ✅ User Experience
-
 - [x] Loading States (Spinner)
 - [x] Empty States (Keine Daten)
 - [x] Error Handling (logger)
@@ -150,14 +139,11 @@ import { Clipboard } from 'lucide-react';
 ## 🚀 MIGRATION NOTES
 
 ### Disposition vs. Aufträge
-
 **Unterschied:**
-
 - `/auftraege` = Komplette Auftragsverwaltung (CRUD, Details, Angebote)
 - `/disposition` = **Live-Zuweisungsoberfläche** (Offene Aufträge schnell Fahrern zuweisen)
 
 **Workflow:**
-
 1. Neuer Auftrag erstellt → Status: `pending`
 2. Disponent öffnet `/disposition`
 3. Sieht offene Aufträge, weist Fahrer/Fahrzeug zu
@@ -165,14 +151,11 @@ import { Clipboard } from 'lucide-react';
 5. Fahrer sieht Auftrag in seiner App
 
 ### Tracking vs. DriverTracking
-
 **Unterschied:**
-
 - `/driver/tracking` = Fahrer-App (eigenes GPS starten/stoppen)
 - `/tracking` = **Unternehmer-Dashboard** (alle Fahrer/Fahrzeuge monitoren)
 
 **Data Flow:**
-
 1. Fahrer startet GPS in `/driver/tracking`
 2. GPS-Daten landen in `driver_positions` table
 3. Unternehmer sieht Live-Positionen in `/tracking`
@@ -183,7 +166,6 @@ import { Clipboard } from 'lucide-react';
 ## 🔧 TECHNICAL DETAILS
 
 ### Dependencies Used
-
 - `@/components/templates/DashboardPageTemplate`
 - `@/lib/dashboard-automation` (KPIGenerator, QuickActionsGenerator)
 - `@/hooks/use-bookings`, `use-drivers`, `use-vehicles`
@@ -192,14 +174,12 @@ import { Clipboard } from 'lucide-react';
 - `@/components/ui/card`, `badge`, `button`, `select`
 
 ### Database Tables
-
 - `bookings` (Aufträge)
 - `drivers` (Fahrer)
 - `vehicles` (Fahrzeuge)
 - `driver_positions` (GPS-Daten, wird noch integriert)
 
 ### Realtime Features
-
 - `useRealtimeBookings` → Auto-Refresh bei Änderungen
 - Zukünftig: `useRealtimeDriverPositions` für Live-GPS
 
@@ -208,20 +188,17 @@ import { Clipboard } from 'lucide-react';
 ## 📝 TODO (Follow-Up)
 
 ### P1 - Kritisch
-
 - [ ] GPS-Daten aus `driver_positions` table laden (aktuell Mock-Daten)
 - [ ] Realtime-Updates für GPS-Positionen (`useRealtimeDriverPositions`)
 - [ ] Fahrer-Phone-Nummer in Customer-Type hinzufügen
 
 ### P2 - Wichtig
-
 - [ ] Filter: Nur bestimmte Status anzeigen (pending/confirmed)
 - [ ] Bulk-Actions: Mehrere Aufträge auf einmal zuweisen
 - [ ] Fahrer-Verfügbarkeit in Echtzeit (online/offline)
 - [ ] Fahrzeug-GPS in Karte integrieren (nicht nur Fahrer)
 
 ### P3 - Nice-to-Have
-
 - [ ] Drag & Drop für Auftragszuweisung
 - [ ] Route-Optimierung vorschlagen
 - [ ] Push-Notifications bei neuen Aufträgen
@@ -232,13 +209,11 @@ import { Clipboard } from 'lucide-react';
 ## 🎯 NÄCHSTE SCHRITTE
 
 ### Block 3.2 - Kunden-Details/Edit
-
 - Migration `/kunden` Details-View
 - Migration `/kunden` Edit-Dialog
 - StandardDetailDialog verwenden
 
 ### Block 3.3 - Auftrag Neu
-
 - Migration `/auftraege/neu` auf V28.1
 - Form-Optimierung
 - Validation Updates

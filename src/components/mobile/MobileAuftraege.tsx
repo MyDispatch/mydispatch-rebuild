@@ -4,10 +4,10 @@
    Verwendet MobileGridLayout für standardisierte Struktur
    ================================================================================== */
 
-import { useState } from "react";
-import { Plus, Search } from "lucide-react";
-import { MobileGridLayout } from "./MobileGridLayout";
-import { MobileBookingCard } from "./MobileBookingCard";
+import { useState } from 'react';
+import { Plus, Search } from 'lucide-react';
+import { MobileGridLayout } from './MobileGridLayout';
+import { MobileBookingCard } from './MobileBookingCard';
 
 interface Booking {
   id: string;
@@ -35,22 +35,21 @@ export function MobileAuftraege({
   isLoading,
   onCreateNew,
   onBookingClick,
-  onRefresh,
+  onRefresh
 }: MobileAuftraegeProps) {
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredBookings = bookings.filter((booking) => {
-    if (activeFilter !== "all" && booking.status !== activeFilter) {
+  const filteredBookings = bookings.filter(booking => {
+    if (activeFilter !== 'all' && booking.status !== activeFilter) {
       return false;
     }
 
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      const customerName =
-        booking.customer_name ||
-        `${booking.customer_first_name || ""} ${booking.customer_last_name || ""}`.trim();
-
+      const customerName = booking.customer_name || 
+        `${booking.customer_first_name || ''} ${booking.customer_last_name || ''}`.trim();
+      
       return (
         booking.booking_number.toLowerCase().includes(query) ||
         customerName.toLowerCase().includes(query) ||
@@ -64,28 +63,20 @@ export function MobileAuftraege({
 
   const statusCounts = {
     all: bookings.length,
-    pending: bookings.filter((b) => b.status === "pending").length,
-    confirmed: bookings.filter((b) => b.status === "confirmed").length,
-    in_progress: bookings.filter((b) => b.status === "in_progress").length,
-    completed: bookings.filter((b) => b.status === "completed").length,
+    pending: bookings.filter(b => b.status === 'pending').length,
+    confirmed: bookings.filter(b => b.status === 'confirmed').length,
+    in_progress: bookings.filter(b => b.status === 'in_progress').length,
+    completed: bookings.filter(b => b.status === 'completed').length,
   };
 
   const filters = [
-    { id: "all", label: "Alle", count: statusCounts.all },
-    {
-      id: "auftraege",
-      label: "Aufträge",
-      count: statusCounts.all - bookings.filter((b) => b.status === "pending").length,
-    },
-    {
-      id: "angebote",
-      label: "Angebote",
-      count: bookings.filter((b) => b.status === "pending").length,
-    },
-    { id: "pending", label: "Offen", count: statusCounts.pending },
-    { id: "confirmed", label: "Bestätigt", count: statusCounts.confirmed },
-    { id: "in_progress", label: "Aktiv", count: statusCounts.in_progress },
-    { id: "completed", label: "Abgeschlossen", count: statusCounts.completed },
+    { id: 'all', label: 'Alle', count: statusCounts.all },
+    { id: 'auftraege', label: 'Aufträge', count: statusCounts.all - bookings.filter(b => b.status === 'pending').length },
+    { id: 'angebote', label: 'Angebote', count: bookings.filter(b => b.status === 'pending').length },
+    { id: 'pending', label: 'Offen', count: statusCounts.pending },
+    { id: 'confirmed', label: 'Bestätigt', count: statusCounts.confirmed },
+    { id: 'in_progress', label: 'Aktiv', count: statusCounts.in_progress },
+    { id: 'completed', label: 'Abgeschlossen', count: statusCounts.completed },
   ];
 
   return (
@@ -100,19 +91,22 @@ export function MobileAuftraege({
       onFilterChange={setActiveFilter}
       data={filteredBookings}
       renderCard={(booking) => (
-        <MobileBookingCard booking={booking} onClick={() => onBookingClick(booking)} />
+        <MobileBookingCard
+          booking={booking}
+          onClick={() => onBookingClick(booking)}
+        />
       )}
       onItemClick={onBookingClick}
-      entityLabel={{ singular: "Auftrag", plural: "Aufträge" }}
+      entityLabel={{ singular: 'Auftrag', plural: 'Aufträge' }}
       fabLabel="Neuer Auftrag"
       onFabClick={onCreateNew}
       fabIcon={Plus}
       emptyStateProps={{
         icon: <Search className="h-16 w-16" />,
-        noDataTitle: "Keine Aufträge",
-        noDataDescription: "Erstelle deinen ersten Auftrag",
-        noResultsTitle: "Keine Ergebnisse",
-        noResultsDescription: "Versuche einen anderen Suchbegriff",
+        noDataTitle: 'Keine Aufträge',
+        noDataDescription: 'Erstelle deinen ersten Auftrag',
+        noResultsTitle: 'Keine Ergebnisse',
+        noResultsDescription: 'Versuche einen anderen Suchbegriff'
       }}
     />
   );

@@ -9,7 +9,6 @@
 ## 🎯 ABSOLUTE REGEL: KEINE GENERISCHEN GRAFIKEN
 
 **NIEMALS:**
-
 - ❌ Stock-Photos von generischen Dashboards
 - ❌ Billige Mockups ohne echten Content
 - ❌ Grafiken mit Lorem Ipsum oder Platzhalter-Daten
@@ -17,7 +16,6 @@
 - ❌ Langweilige, austauschbare Visualisierungen
 
 **IMMER:**
-
 - ✅ MyDispatch-spezifische Dashboards und Interfaces
 - ✅ Echte Daten und realistische Inhalte
 - ✅ CI-konforme Farben (HSL-Tokens)
@@ -29,33 +27,30 @@
 ## 🎨 CI-FARBEN FÜR GRAFIKEN
 
 ### Primäre Farben (PFLICHT)
-
 ```css
 /* Primary (Gold/Braun) */
---primary: 31 26% 38%; /* #856d4b */
---primary-glow: 31 26% 48%; /* Hellere Variante */
+--primary: 31 26% 38%;              /* #856d4b */
+--primary-glow: 31 26% 48%;         /* Hellere Variante */
 
 /* Foreground (Dunkelblau-Grau) */
---foreground: 225 31% 28%; /* #323D5E */
+--foreground: 225 31% 28%;          /* #323D5E */
 
 /* Akzent */
---accent: 31 26% 38%; /* #856d4b */
+--accent: 31 26% 38%;               /* #856d4b */
 ```
 
 ### Status-Farben (nur für Ampel-System)
-
 ```css
---status-success: 142 76% 36%; /* Grün: #16a34a */
---status-warning: 38 92% 50%; /* Gelb: #f59e0b */
---status-error: 0 84% 60%; /* Rot: #ef4444 */
+--status-success: 142 76% 36%;      /* Grün: #16a34a */
+--status-warning: 38 92% 50%;       /* Gelb: #f59e0b */
+--status-error: 0 84% 60%;          /* Rot: #ef4444 */
 ```
 
 ### UI-Farben
-
 ```css
---background: 0 0% 100%; /* Weiß */
---muted: 210 40% 96.1%; /* Helles Grau */
---border: 214.3 31.8% 91.4%; /* Border Grau */
+--background: 0 0% 100%;            /* Weiß */
+--muted: 210 40% 96.1%;             /* Helles Grau */
+--border: 214.3 31.8% 91.4%;        /* Border Grau */
 ```
 
 ---
@@ -63,11 +58,9 @@
 ## 📐 GRAFIK-TYPEN FÜR MYDISPATCH
 
 ### 1. Dashboard-Screenshots
-
 **Verwendung:** Hero-Bereiche, Feature-Präsentationen
 
 **Inhalte:**
-
 - Echtzeit-GPS-Karte mit Fahrzeug-Markern (Taxi-Icons)
 - Live-Dispositions-Panel mit Fahrernamen
 - KPI-Cards: "12 Aktive Fahrten", "8 Verfügbare Fahrer", "€2,847 Tagesumsatz"
@@ -75,7 +68,6 @@
 - Deutsche Straßennamen und Orte
 
 **Technische Specs:**
-
 - Format: JPG/PNG
 - Auflösung: 1920×1080px (16:9 für Hero)
 - Qualität: Ultra High Resolution
@@ -83,7 +75,6 @@
 - Speicherort: `src/assets/`
 
 **Beispiel-Prompt:**
-
 ```
 Professional MyDispatch fleet management dashboard showing:
 - GPS map with taxi markers in German city
@@ -96,18 +87,15 @@ Professional MyDispatch fleet management dashboard showing:
 ---
 
 ### 2. API/Code-Visualisierungen
-
 **Verwendung:** Entwickler-Dokumentation, Integration-Features
 
 **Inhalte:**
-
 - Echte MyDispatch API-Endpoints
 - Code-Snippets mit Syntax-Highlighting in CI-Farben
 - Request/Response-Beispiele
 - Webhook-Flows
 
 **Beispiel:**
-
 ```javascript
 // MyDispatch API - Fahrzeug erstellen
 POST /api/v1/vehicles
@@ -119,7 +107,6 @@ POST /api/v1/vehicles
 ```
 
 **Farbschema:**
-
 - Hintergrund: `hsl(225 31% 28%)` (dunkel)
 - Keywords: `hsl(31 26% 38%)` (gold)
 - Strings: Weiß
@@ -128,11 +115,9 @@ POST /api/v1/vehicles
 ---
 
 ### 3. GPS-Dashboard-Visualisierung
-
 **Verwendung:** Flottenmanagement-Features, Tracking-Übersicht
 
 **Inhalte:**
-
 - Karte mit mehreren Fahrzeug-Pins
 - Routenlinien zwischen Punkten
 - Echtzeit-Statusanzeigen
@@ -143,36 +128,31 @@ POST /api/v1/vehicles
 ---
 
 ### 4. Statistik-Dashboards
-
 **Verwendung:** Analytics-Features, Reporting-Seiten
 
 **Inhalte:**
-
 - Recharts-Komponenten mit CI-Farben
 - Bar-Charts, Line-Charts, Pie-Charts
 - KPI-Karten mit echten Metriken
 - Zeitreihen-Daten (täglich/wöchentlich/monatlich)
 
 **Farben für Charts:**
-
 ```typescript
 const chartColors = {
-  primary: "hsl(31 26% 38%)", // Gold für Hauptdaten
-  secondary: "hsl(225 31% 28%)", // Dunkelblau für Vergleich
-  success: "hsl(142 76% 36%)", // Grün für positive Trends
-  warning: "hsl(38 92% 50%)", // Gelb für Warnungen
-  error: "hsl(0 84% 60%)", // Rot für Fehler
+  primary: "hsl(31 26% 38%)",        // Gold für Hauptdaten
+  secondary: "hsl(225 31% 28%)",     // Dunkelblau für Vergleich
+  success: "hsl(142 76% 36%)",       // Grün für positive Trends
+  warning: "hsl(38 92% 50%)",        // Gelb für Warnungen
+  error: "hsl(0 84% 60%)",           // Rot für Fehler
 };
 ```
 
 ---
 
 ### 5. Mobile-App-Screenshots
-
 **Verwendung:** Mobile Features, Fahrer-App-Präsentation
 
 **Inhalte:**
-
 - iPhone/Android Mockups
 - MyDispatch Fahrer-App UI
 - Auftrags-Benachrichtigungen
@@ -183,25 +163,21 @@ const chartColors = {
 ---
 
 ### 6. Hero-Banner-Grafiken (NEU V18.5.14)
-
 **Verwendung:** Marketing-Seiten Hero-Bereiche, Abstrakte visuelle Verstärkung
 
 **Konzept:**
-
 - Abstrakte, organische freischwebende Formen
 - Rein visuelle Elemente ohne Text, Icons oder Symbole
 - Verstärken die Markenbotschaft ("Transparent & fair", "Modern", "Professionell")
 - Subtile, nicht ablenkende Hintergrund-Grafiken
 
 **Inhalte:**
-
 - Transparente, überlappende organische Formen (Blob-Shapes)
 - Fließende, weiche Kurven und Verläufe
 - Mehrschichtige Komposition mit Tiefenwirkung
 - Asymmetrische, dynamische Layouts
 
 **Technische Specs:**
-
 - Format: PNG (mit Transparenz)
 - Auflösung: 1920×1080px (16:9)
 - Qualität: Ultra High Resolution (flux.dev Modell)
@@ -209,23 +185,21 @@ const chartColors = {
 - Speicherort: `src/assets/`
 
 **CI-Farben (ZWINGEND):**
-
 ```css
 /* Primary Beige/Gold - 40-70% Opacity */
---primary: 40 31% 88%; /* #EADEBD */
+--primary: 40 31% 88%;              /* #EADEBD */
 
 /* Foreground Dark Blue - 40-70% Opacity */
---foreground: 225 31% 28%; /* #323D5E */
+--foreground: 225 31% 28%;          /* #323D5E */
 ```
 
 **Integration:**
-
 ```tsx
-import heroAbstract from "@/assets/hero-pricing-abstract.png";
+import heroAbstract from '@/assets/hero-pricing-abstract.png';
 
 <div className="hidden lg:block relative" aria-hidden="true">
   <div className="absolute inset-0 flex items-center justify-center">
-    <img
+    <img 
       src={heroAbstract}
       alt=""
       className="w-full h-auto max-w-2xl opacity-70 mix-blend-screen 
@@ -233,11 +207,10 @@ import heroAbstract from "@/assets/hero-pricing-abstract.png";
       loading="eager"
     />
   </div>
-</div>;
+</div>
 ```
 
 **Beispiel-Prompt (Tarifseite):**
-
 ```
 Create an ultra-modern, pure abstract composition with organic floating shapes.
 
@@ -272,7 +245,6 @@ Technical:
 ```
 
 **Integration-Regeln:**
-
 - IMMER als `aria-hidden="true"` kennzeichnen (rein dekorativ)
 - IMMER in rechter Spalte des Hero-Grid (2-spaltiges Layout)
 - IMMER mit `hidden lg:block` (nur Desktop)
@@ -282,7 +254,6 @@ Technical:
 - Hover-Effekte: leichtes Scale und Opacity-Erhöhung
 
 **NIEMALS:**
-
 - ❌ Grafiken mit Text oder Icons
 - ❌ Erkennbare Objekte oder Symbole
 - ❌ Bunte Farben außerhalb CI-Palette
@@ -294,10 +265,8 @@ Technical:
 ## 🚀 ERSTELLUNGSPROZESS
 
 ### Schritt 1: Konzept definieren
-
 ```markdown
 Welchen Aspekt von MyDispatch sollen wir zeigen?
-
 - Disposition? → Dashboard mit GPS & Fahrerliste
 - Flottenmanagement? → Fahrzeug-Übersicht mit Status
 - Statistiken? → Charts & KPI-Cards
@@ -305,7 +274,6 @@ Welchen Aspekt von MyDispatch sollen wir zeigen?
 ```
 
 ### Schritt 2: AI-Image-Generation nutzen
-
 ```typescript
 imagegen--generate_image({
   model: "flux.dev",  // Höchste Qualität für Hero-Grafiken
@@ -317,22 +285,19 @@ imagegen--generate_image({
 ```
 
 ### Schritt 3: Import & Verwendung
-
 ```tsx
-import heroDashboard from "@/assets/hero-dashboard-screenshot.jpg";
+import heroDashboard from '@/assets/hero-dashboard-screenshot.jpg';
 
-<img
-  src={heroDashboard}
+<img 
+  src={heroDashboard} 
   alt="MyDispatch Echtzeit-Dashboard mit GPS-Tracking und Live-Disposition"
   className="rounded-xl shadow-2xl border border-primary/20"
-/>;
+/>
 ```
 
 ### Schritt 4: Asset-Library aktualisieren
-
 ```markdown
 docs/ASSETS_LIBRARY_V18.5.0.md
-
 - Neue Grafik dokumentieren
 - Verwendungszweck beschreiben
 - Technische Details ergänzen
@@ -343,7 +308,6 @@ docs/ASSETS_LIBRARY_V18.5.0.md
 ## ✅ QUALITY CHECKLIST
 
 ### Vor Verwendung jeder Grafik prüfen:
-
 - [ ] Verwendet ausschließlich CI-Farben (HSL-Tokens)
 - [ ] Icons nur aus Lucide/CI-Icon-System
 - [ ] Zeigt echte MyDispatch-Funktionalität (keine generischen Inhalte)
@@ -359,7 +323,6 @@ docs/ASSETS_LIBRARY_V18.5.0.md
 ## 🎯 BEISPIEL-PROMPTS FÜR AI-GENERATION
 
 ### Dashboard-Screenshot
-
 ```
 Professional MyDispatch fleet management dashboard, ultra high resolution:
 - Left: GPS map with 8+ taxi markers (yellow icons), route lines, German street names
@@ -372,7 +335,6 @@ Professional MyDispatch fleet management dashboard, ultra high resolution:
 ```
 
 ### Statistik-Dashboard
-
 ```
 MyDispatch analytics dashboard screenshot:
 - 3 KPI cards at top showing daily revenue, trips completed, active drivers
@@ -385,7 +347,6 @@ MyDispatch analytics dashboard screenshot:
 ```
 
 ### GPS-Tracking
-
 ```
 Real-time GPS tracking interface for MyDispatch:
 - Centered map of Berlin with 12 taxi vehicle markers
@@ -416,7 +377,6 @@ mobile-driver-app-screenshot.png
 ## 🚫 HÄUFIGE FEHLER VERMEIDEN
 
 ### ❌ FALSCH
-
 ```
 - Generic stock photo eines Dashboards
 - Lorem Ipsum Texte in der UI
@@ -427,7 +387,6 @@ mobile-driver-app-screenshot.png
 ```
 
 ### ✅ RICHTIG
-
 ```
 - MyDispatch-spezifisches Dashboard mit echten Features
 - Deutsche Texte: "Aktive Fahrten", "Verfügbare Fahrer"
@@ -442,7 +401,6 @@ mobile-driver-app-screenshot.png
 ## 📚 INTEGRATION MIT ANDEREN VORGABEN
 
 Diese Guidelines arbeiten zusammen mit:
-
 - `ICON_GUIDELINES.md` - CI-konformes Icon-System
 - `DESIGN_SYSTEM_HERO_VORGABEN.md` - Hero-Bereiche
 - `ASSETS_LIBRARY_V18.5.0.md` - Asset-Verwaltung
@@ -453,7 +411,6 @@ Diese Guidelines arbeiten zusammen mit:
 ## 📝 CHANGELOG V18.5.14
 
 ### NEU: Hero-Banner-Grafiken (2025-10-25)
-
 - **Neue Kategorie:** Abstrakte freischwebende Hero-Grafiken
 - **Zweck:** Visuelle Verstärkung der Markenbotschaft ohne Ablenkung
 - **Implementiert:** Tarifseite Hero-Banner (`hero-pricing-abstract.png`)
@@ -462,7 +419,6 @@ Diese Guidelines arbeiten zusammen mit:
 - **Prompting:** Strikte Anforderungen gegen Text/Icons dokumentiert
 
 **Assets:**
-
 - `src/assets/hero-pricing-abstract.png` (1920×1080, flux.dev)
 
 ---

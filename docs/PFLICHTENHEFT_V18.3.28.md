@@ -1,5 +1,4 @@
 # 📘 SYSTEMWEITES PFLICHTENHEFT V18.3.28
-
 ## MyDispatch - Requirements Specification (Corporate Standard)
 
 **Version:** 18.3.28  
@@ -28,18 +27,15 @@
 ## 🎯 PROJEKTÜBERSICHT
 
 ### Vision
-
 MyDispatch ist eine **Premium-Disposition-Plattform für die Transportbranche**, die Unternehmer, Disponenten, Fahrer und Kunden in einem integrierten System vereint. Ziel ist es, **Marktführer** durch höchste technische Qualität, perfektioniertes Design und maximale Nutzerfreundlichkeit zu werden.
 
 ### Scope
-
 - **Dispatcher-Webapp** (React/Vite)
 - **Backend-Infrastruktur** (Lovable Cloud/Supabase)
 - **Öffentliche Portale** (Unternehmer, Fahrer, Kunden)
 - **Mobile-Responsive** Design (Mobile-First)
 
 ### Technologie-Stack
-
 ```
 Frontend:  React 18 + TypeScript + Vite
 Styling:   Tailwind CSS (HSL Design System)
@@ -58,15 +54,14 @@ CI/CD:     GitHub Actions
 
 ### Primäre Benutzergruppen
 
-| Rolle           | Beschreibung         | Zugriffsrechte                       | Portal             |
-| --------------- | -------------------- | ------------------------------------ | ------------------ |
-| **Unternehmer** | Firmengründer, Owner | Full Admin, Alle Daten               | Unternehmer-Portal |
-| **Disponent**   | Auftrags-Manager     | CRUD Aufträge, Fahrer-Zuweisung      | Dispatcher-Webapp  |
-| **Fahrer**      | Ausführende Kraft    | Read Eigene Aufträge, Status-Updates | Fahrer-Portal      |
-| **Kunde**       | Auftraggeber         | Read Eigene Aufträge, Tracking       | Kunden-Portal      |
+| Rolle | Beschreibung | Zugriffsrechte | Portal |
+|-------|--------------|----------------|--------|
+| **Unternehmer** | Firmengründer, Owner | Full Admin, Alle Daten | Unternehmer-Portal |
+| **Disponent** | Auftrags-Manager | CRUD Aufträge, Fahrer-Zuweisung | Dispatcher-Webapp |
+| **Fahrer** | Ausführende Kraft | Read Eigene Aufträge, Status-Updates | Fahrer-Portal |
+| **Kunde** | Auftraggeber | Read Eigene Aufträge, Tracking | Kunden-Portal |
 
 ### Entwickler-Rollen
-
 - **Senior Systemarchitekt** (KI): Gesamtverantwortung, Qualitätssicherung
 - **Auftraggeber**: Anforderungsdefinition, Abnahme
 - **QA Engineer** (automatisiert): Test-Execution, Reporting
@@ -78,16 +73,13 @@ CI/CD:     GitHub Actions
 ### FR-001: Auftrags-Management
 
 #### FR-001.1: Auftrags-Erstellung
-
 **Priorität:** MUST  
 **Status:** ✅ Implementiert
 
 **User Story:**
-
 > Als Disponent möchte ich einen neuen Auftrag erstellen können, damit ich Transportaufträge erfassen kann.
 
 **Akzeptanzkriterien:**
-
 - [x] Formular mit allen Pflichtfeldern (Abholung, Lieferung, Datum, Kunde)
 - [x] Adress-Autocomplete via HERE Maps
 - [x] Validierung aller Eingaben (Zod-Schema)
@@ -95,7 +87,6 @@ CI/CD:     GitHub Actions
 - [x] Fehlerhandling bei API-Fehlern
 
 **Technische Spezifikation:**
-
 ```typescript
 interface Order {
   id: string;
@@ -105,7 +96,7 @@ interface Order {
   delivery_address: string;
   pickup_date: Date;
   delivery_date?: Date;
-  status: "pending" | "assigned" | "in_transit" | "delivered" | "cancelled";
+  status: 'pending' | 'assigned' | 'in_transit' | 'delivered' | 'cancelled';
   driver_id?: string;
   notes?: string;
   created_at: Date;
@@ -114,7 +105,6 @@ interface Order {
 ```
 
 **Abhängigkeiten:**
-
 - Backend: `orders` Tabelle mit RLS
 - API: HERE Maps Geocoding API
 - UI: Shadcn Form + Dialog
@@ -122,16 +112,13 @@ interface Order {
 ---
 
 #### FR-001.2: Auftrags-Übersicht
-
 **Priorität:** MUST  
 **Status:** ✅ Implementiert
 
 **User Story:**
-
 > Als Disponent möchte ich alle Aufträge filtern und sortieren können.
 
 **Akzeptanzkriterien:**
-
 - [x] Tabellarische Darstellung mit Pagination
 - [x] Filter nach Status, Datum, Kunde
 - [x] Suche nach Auftragsnummer
@@ -141,16 +128,13 @@ interface Order {
 ---
 
 #### FR-001.3: Fahrer-Zuweisung
-
 **Priorität:** MUST  
 **Status:** ✅ Implementiert
 
 **User Story:**
-
 > Als Disponent möchte ich einem Auftrag einen Fahrer zuweisen können.
 
 **Akzeptanzkriterien:**
-
 - [x] Dropdown mit verfügbaren Fahrern
 - [x] Verfügbarkeits-Check (nicht bereits zugewiesene Fahrer)
 - [x] Benachrichtigung an Fahrer nach Zuweisung
@@ -161,12 +145,10 @@ interface Order {
 ### FR-002: Dashboard & KPIs
 
 #### FR-002.1: Dashboard-Übersicht
-
 **Priorität:** MUST  
 **Status:** ✅ Implementiert
 
 **Akzeptanzkriterien:**
-
 - [x] KPI-Cards (Offene Aufträge, Heute fällig, Aktive Fahrer, Umsatz)
 - [x] Echtzeit-Updates via Supabase Realtime
 - [x] Responsive Grid-Layout
@@ -175,12 +157,10 @@ interface Order {
 ---
 
 #### FR-002.2: Karten-Integration
-
 **Priorität:** MUST  
 **Status:** ✅ Implementiert
 
 **Akzeptanzkriterien:**
-
 - [x] HERE Maps Embedded (Iframe)
 - [x] Marker für aktive Aufträge
 - [x] Routing zwischen Abholung und Lieferung
@@ -191,12 +171,10 @@ interface Order {
 ### FR-003: Authentifizierung & Autorisierung
 
 #### FR-003.1: Login/Logout
-
 **Priorität:** MUST  
 **Status:** ✅ Implementiert
 
 **Akzeptanzkriterien:**
-
 - [x] Email/Password Login
 - [x] Session Management via Supabase Auth
 - [x] Protected Routes
@@ -205,12 +183,10 @@ interface Order {
 ---
 
 #### FR-003.2: Row Level Security
-
 **Priorität:** MUST  
 **Status:** ✅ Implementiert
 
 **Akzeptanzkriterien:**
-
 - [x] User kann nur eigene Daten sehen
 - [x] RLS Policies für alle Tabellen
 - [x] Service Role nur für Admin-Tasks
@@ -220,12 +196,10 @@ interface Order {
 ### FR-004: Benachrichtigungs-System
 
 #### FR-004.1: Toast-Notifications
-
 **Priorität:** MUST  
 **Status:** ✅ Implementiert
 
 **Akzeptanzkriterien:**
-
 - [x] Erfolgs-Meldungen (grün)
 - [x] Fehler-Meldungen (rot)
 - [x] Info-Meldungen (blau)
@@ -236,16 +210,13 @@ interface Order {
 ### FR-005: Finanz-Management
 
 #### FR-005.1: Rechnungs-Übersicht
-
 **Priorität:** SHOULD  
 **Status:** 🔄 IN ARBEIT
 
 **User Story:**
-
 > Als Unternehmer möchte ich alle Rechnungen einsehen können.
 
 **Akzeptanzkriterien:**
-
 - [ ] Tabellarische Darstellung
 - [ ] Filter nach Status (bezahlt, offen, überfällig)
 - [ ] Export als PDF
@@ -256,16 +227,13 @@ interface Order {
 ### FR-006: Reporting & Analytics
 
 #### FR-006.1: Auftrags-Reports
-
 **Priorität:** COULD  
 **Status:** 📋 GEPLANT
 
 **User Story:**
-
 > Als Unternehmer möchte ich Reports über Aufträge generieren können.
 
 **Akzeptanzkriterien:**
-
 - [ ] Zeitraum-Filter
 - [ ] Charts (Recharts)
 - [ ] Export als CSV/PDF
@@ -277,15 +245,14 @@ interface Order {
 
 ### NFR-001: Performance
 
-| Metrik                   | Zielwert | Messmethode  |
-| ------------------------ | -------- | ------------ |
-| Initial Load Time        | < 2s     | Lighthouse   |
-| Time to Interactive      | < 3s     | Lighthouse   |
-| API Response Time        | < 500ms  | Backend Logs |
-| Largest Contentful Paint | < 2.5s   | Lighthouse   |
+| Metrik | Zielwert | Messmethode |
+|--------|----------|-------------|
+| Initial Load Time | < 2s | Lighthouse |
+| Time to Interactive | < 3s | Lighthouse |
+| API Response Time | < 500ms | Backend Logs |
+| Largest Contentful Paint | < 2.5s | Lighthouse |
 
 **Maßnahmen:**
-
 - Code Splitting (Vite)
 - Lazy Loading für Routes
 - Image Optimization
@@ -296,7 +263,6 @@ interface Order {
 ### NFR-002: Usability
 
 **Anforderungen:**
-
 - [x] Mobile-First Design
 - [x] Touch-Targets mind. 44x44px
 - [x] WCAG 2.1 AA Konformität
@@ -304,7 +270,6 @@ interface Order {
 - [x] Screen-Reader Support
 
 **Verifizierung:**
-
 - Lighthouse Accessibility Score > 90
 - Manual Testing mit VoiceOver/NVDA
 
@@ -313,7 +278,6 @@ interface Order {
 ### NFR-003: Sicherheit
 
 **Anforderungen:**
-
 - [x] XSS-Prävention (DOMPurify)
 - [x] CSRF-Protection (Supabase)
 - [x] Input-Validation (Zod)
@@ -322,7 +286,6 @@ interface Order {
 - [x] Content Security Policy
 
 **Verifizierung:**
-
 - Security Scan (Playwright)
 - OWASP Top 10 Compliance
 
@@ -331,7 +294,6 @@ interface Order {
 ### NFR-004: Wartbarkeit
 
 **Code-Qualität:**
-
 - TypeScript Strict Mode
 - ESLint + Prettier
 - Komponenten < 300 Zeilen
@@ -339,7 +301,6 @@ interface Order {
 - Test Coverage > 80%
 
 **Dokumentation:**
-
 - Jede Komponente JSDoc-kommentiert
 - README für alle Module
 - Inline-Kommentare für komplexe Logik
@@ -349,14 +310,12 @@ interface Order {
 ### NFR-005: Skalierbarkeit
 
 **Anforderungen:**
-
 - Horizontal Scaling (Supabase)
 - Connection Pooling
 - Caching (TanStack Query)
 - Pagination für alle Listen
 
 **Load Testing:**
-
 - 1000 concurrent users
 - 10k requests/min
 - < 1% error rate
@@ -456,7 +415,6 @@ src/
 ### Tabellen-Definitionen
 
 #### `profiles`
-
 ```sql
 CREATE TABLE profiles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -477,7 +435,6 @@ CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.
 ---
 
 #### `orders`
-
 ```sql
 CREATE TABLE orders (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -511,7 +468,6 @@ CREATE POLICY "Drivers can view assigned orders" ON orders FOR SELECT USING (dri
 ### REST API Endpoints
 
 #### Orders API
-
 ```
 GET    /api/orders                # List all orders (paginated)
 POST   /api/orders                # Create new order
@@ -522,7 +478,6 @@ PATCH  /api/orders/:id/assign     # Assign driver
 ```
 
 #### Drivers API
-
 ```
 GET    /api/drivers               # List all drivers
 GET    /api/drivers/:id           # Get driver details
@@ -536,19 +491,15 @@ GET    /api/drivers/:id/orders    # Get driver's orders
 ```typescript
 // Orders Channel
 supabase
-  .channel("orders")
-  .on(
-    "postgres_changes",
-    {
-      event: "*",
-      schema: "public",
-      table: "orders",
-    },
-    (payload) => {
-      // Handle INSERT, UPDATE, DELETE
-    }
-  )
-  .subscribe();
+  .channel('orders')
+  .on('postgres_changes', {
+    event: '*',
+    schema: 'public',
+    table: 'orders'
+  }, (payload) => {
+    // Handle INSERT, UPDATE, DELETE
+  })
+  .subscribe()
 ```
 
 ---
@@ -556,7 +507,6 @@ supabase
 ### External APIs
 
 #### HERE Maps API
-
 ```typescript
 // Geocoding
 GET https://geocode.search.hereapi.com/v1/geocode
@@ -576,35 +526,31 @@ GET https://router.hereapi.com/v8/routes
 ## 🔒 SICHERHEITSANFORDERUNGEN
 
 ### Authentifizierung
-
 - **JWT-basiert** (Supabase Auth)
 - **Session-Timeout:** 1 Stunde Inaktivität
 - **Refresh-Token:** 30 Tage Gültigkeit
 - **Password-Policy:** Min. 8 Zeichen, 1 Großbuchstabe, 1 Zahl
 
 ### Autorisierung
-
 - **Role-Based Access Control (RBAC)**
 - **Row Level Security (RLS)** auf allen Tabellen
 - **API-Keys:** Environment Variables, NIEMALS im Code
 
 ### Daten-Schutz
-
 - **DSGVO-konform:** Recht auf Löschung, Datenexport
 - **Verschlüsselung:** TLS 1.3 für alle Verbindungen
 - **Backup:** Daily Automated Backups (7 Tage Retention)
 
 ### Input-Validation
-
 ```typescript
 // Alle Inputs MÜSSEN validiert werden
-import { z } from "zod";
+import { z } from 'zod';
 
 const OrderSchema = z.object({
   pickup_address: z.string().min(5).max(200),
   delivery_address: z.string().min(5).max(200),
   pickup_date: z.date().min(new Date()),
-  customer_id: z.string().uuid(),
+  customer_id: z.string().uuid()
 });
 ```
 
@@ -614,13 +560,13 @@ const OrderSchema = z.object({
 
 ### Code-Qualität
 
-| Metrik            | Zielwert          | Tool          |
-| ----------------- | ----------------- | ------------- |
-| Test Coverage     | > 80%             | Jest          |
-| TypeScript Errors | 0                 | tsc --noEmit  |
-| ESLint Errors     | 0                 | ESLint        |
-| Lighthouse Score  | > 90              | Lighthouse CI |
-| Bundle Size       | < 500kb (gzipped) | Vite Analyzer |
+| Metrik | Zielwert | Tool |
+|--------|----------|------|
+| Test Coverage | > 80% | Jest |
+| TypeScript Errors | 0 | tsc --noEmit |
+| ESLint Errors | 0 | ESLint |
+| Lighthouse Score | > 90 | Lighthouse CI |
+| Bundle Size | < 500kb (gzipped) | Vite Analyzer |
 
 ---
 
@@ -640,7 +586,6 @@ const OrderSchema = z.object({
 ```
 
 **Test-Pyramide:**
-
 - 70% Unit Tests
 - 20% Integration Tests
 - 10% E2E Tests
@@ -673,14 +618,12 @@ const OrderSchema = z.object({
 ### Monitoring & Logging
 
 **Tools:**
-
 - **Error Tracking:** Sentry
 - **Performance:** Lighthouse CI
 - **Logs:** Supabase Logs + Browser Console
 - **Uptime:** UptimeRobot
 
 **Alerts:**
-
 - Error Rate > 1%
 - Response Time > 1s
 - Downtime > 5 min
@@ -689,11 +632,11 @@ const OrderSchema = z.object({
 
 ### Backup-Strategie
 
-| Was      | Frequenz | Retention  | Speicherort      |
-| -------- | -------- | ---------- | ---------------- |
-| Database | Täglich  | 7 Tage     | Supabase Backup  |
-| Files    | Täglich  | 30 Tage    | Supabase Storage |
-| Code     | Bei Push | Unbegrenzt | GitHub           |
+| Was | Frequenz | Retention | Speicherort |
+|-----|----------|-----------|-------------|
+| Database | Täglich | 7 Tage | Supabase Backup |
+| Files | Täglich | 30 Tage | Supabase Storage |
+| Code | Bei Push | Unbegrenzt | GitHub |
 
 ---
 
@@ -701,12 +644,12 @@ const OrderSchema = z.object({
 
 ### Glossar
 
-| Begriff           | Definition                                |
-| ----------------- | ----------------------------------------- |
-| **Disposition**   | Zuweisung von Aufträgen an Fahrer         |
-| **RLS**           | Row Level Security (Datenbank-Sicherheit) |
-| **KPI**           | Key Performance Indicator                 |
-| **Edge Function** | Serverless Function (läuft on-demand)     |
+| Begriff | Definition |
+|---------|------------|
+| **Disposition** | Zuweisung von Aufträgen an Fahrer |
+| **RLS** | Row Level Security (Datenbank-Sicherheit) |
+| **KPI** | Key Performance Indicator |
+| **Edge Function** | Serverless Function (läuft on-demand) |
 
 ---
 
@@ -721,4 +664,4 @@ const OrderSchema = z.object({
 
 **END OF DOCUMENT**
 
-_Dieses Pflichtenheft ist ein lebendes Dokument und wird kontinuierlich aktualisiert. Letzte Review: 2025-10-21_
+*Dieses Pflichtenheft ist ein lebendes Dokument und wird kontinuierlich aktualisiert. Letzte Review: 2025-10-21*

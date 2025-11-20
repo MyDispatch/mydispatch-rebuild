@@ -3,8 +3,8 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { forwardRef, TextareaHTMLAttributes } from "react";
-import { cn } from "@/lib/utils";
+import { forwardRef, TextareaHTMLAttributes } from 'react';
+import { cn } from '@/lib/utils';
 
 export interface V28TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
@@ -31,21 +31,23 @@ export const V28Textarea = forwardRef<HTMLTextAreaElement, V28TextareaProps>(
           id={textareaId}
           rows={rows}
           className={cn(
-            "flex min-h-[80px] w-full border bg-white px-3 py-2 text-sm",
-            "placeholder:text-slate-400",
-            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2",
-            "disabled:cursor-not-allowed disabled:opacity-50",
-            "transition-all duration-300",
-            "resize-y",
+            'flex min-h-[80px] w-full border bg-white px-3 py-2 text-sm',
+            'placeholder:text-slate-400',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2',
+            'disabled:cursor-not-allowed disabled:opacity-50',
+            'transition-all duration-300',
+            'resize-y',
             error
-              ? "border-red-500 focus-visible:ring-red-500"
-              : "border-slate-200 dark:border-slate-700",
-            "dark:bg-slate-900 dark:text-slate-100",
+              ? 'border-red-500 focus-visible:ring-red-500'
+              : 'border-slate-200 dark:border-slate-700',
+            'dark:bg-slate-900 dark:text-slate-100',
             className
           )}
           {...props}
         />
-        {error && <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{error}</p>}
+        {error && (
+          <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{error}</p>
+        )}
         {helperText && !error && (
           <p className="mt-1.5 text-sm text-slate-500 dark:text-slate-400">{helperText}</p>
         )}
@@ -54,4 +56,4 @@ export const V28Textarea = forwardRef<HTMLTextAreaElement, V28TextareaProps>(
   }
 );
 
-V28Textarea.displayName = "V28Textarea";
+V28Textarea.displayName = 'V28Textarea';

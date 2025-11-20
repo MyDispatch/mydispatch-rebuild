@@ -6,9 +6,7 @@
 > **Status:** ✅ V28.1 Professional Gray-Blue Flat Design ist AKTIV
 
 ## 🚨 V28.1 UPDATE - BREAKING CHANGES
-
 **Ab sofort gelten folgende neue Regeln systemweit:**
-
 - ✅ **NO ROUNDED CORNERS** - Alle border-radius entfernt
 - ✅ **Flat Design System** - Keine 3D-Effekte, keine Glows
 - ✅ **Slate Palette** - Nur noch slate-50 bis slate-900
@@ -25,7 +23,6 @@
 **IMMER** über zentrale Design-Systeme.
 
 ### Warum?
-
 - ✅ Eine Änderung = Systemweite Aktualisierung
 - ✅ Keine Inkonsistenzen
 - ✅ Wartbarkeit & Skalierbarkeit
@@ -36,11 +33,9 @@
 ## 📚 ZENTRALE SYSTEME
 
 ### 1. Button-System
-
 **Location:** `src/components/ui/button.tsx` + `src/components/design-system/MarketingButton.tsx`
 
 **Regel:**
-
 ```tsx
 // ❌ FALSCH
 <button className="bg-blue-500 text-white">Click</button>
@@ -51,7 +46,6 @@
 ```
 
 **Varianten:**
-
 - `default` - Primäre Aktion (bg-primary)
 - `secondary` - Sekundäre Aktion (bg-secondary)
 - `outline` - Outline-Stil
@@ -59,18 +53,15 @@
 - `destructive` - Löschen/Warnung
 
 **Marketing-Varianten:**
-
 - `hero-primary` - Hero-Hauptbutton (bg-primary)
 - `hero-secondary` - Hero-Sekundärbutton (transparent + border)
 - `cta-primary` - CTA-Hauptbutton
 - `cta-secondary` - CTA-Sekundärbutton
 
 ### 3. Feature-Icon-Boxen
-
 **Location:** `src/components/shared/FeatureIconBox.tsx`
 
 **Regel:**
-
 ```tsx
 // ❌ FALSCH - Inkonsistentes Styling
 <div className="bg-primary/10 p-3">
@@ -82,21 +73,18 @@
 ```
 
 **Design:**
-
 - `bg-secondary` (Blauer Hintergrund)
 - `text-primary-foreground` (Helles Icon)
 - Hover: `bg-secondary/90`
 - Shadow: `shadow-md`
 
 **Größen:**
-
 - `sm` - Kleine Icons (p-2, h-4 w-4)
 - `md` - Standard (p-2 sm:p-3, h-6 w-6 sm:h-8 w-8)
 - `lg` - Große Icons (p-3 sm:p-4, h-8 w-8 sm:h-10 w-10)
-  **Location:** `src/components/design-system/Icon.tsx`
+**Location:** `src/components/design-system/Icon.tsx`
 
 **STRIKTE REGEL:**
-
 ```tsx
 // ❌ VERBOTEN: Direkte Lucide-Imports
 import { Check } from 'lucide-react';
@@ -111,13 +99,11 @@ import { Check } from 'lucide-react';
 ```
 
 **Erlaubte Icon-Farben (AUSNAHMSLOS):**
-
 - `text-foreground` (Standard-Dunkelblau)
 - `text-muted-foreground` (Deaktiviert/Sekundär)
 - `text-accent` (Sonderfälle, Bronze/Gold-Akzent)
 
 **VERBOTEN:**
-
 - ❌ `text-status-success` / `text-green-*`
 - ❌ `text-status-warning` / `text-yellow-*`
 - ❌ `text-status-error` / `text-red-*`
@@ -127,23 +113,20 @@ import { Check } from 'lucide-react';
 Status-Farben nur für `StatusIndicator` + `Badge` Komponenten.
 
 ### 3. Color-System
-
 **Location:** `src/index.css` + `tailwind.config.ts`
 
 **Regel:**
-
 ```tsx
 // ❌ FALSCH
-className = "text-white bg-black";
-className = "text-[#323D5E]";
+className="text-white bg-black"
+className="text-[#323D5E]"
 
 // ✅ RICHTIG
-className = "text-foreground bg-background";
-className = "text-primary-foreground bg-primary";
+className="text-foreground bg-background"
+className="text-primary-foreground bg-primary"
 ```
 
 **Semantic Tokens:**
-
 - `--background` / `--foreground`
 - `--primary` / `--primary-foreground`
 - `--secondary` / `--secondary-foreground`
@@ -152,24 +135,21 @@ className = "text-primary-foreground bg-primary";
 - `--status-success` / `--status-warning` / `--status-error`
 
 ### 4. Spacing-System
-
 **Location:** `tailwind.config.ts`
 
 **Mobile-First Pattern:**
-
 ```tsx
 // ✅ RICHTIG
-className = "gap-3 sm:gap-4 md:gap-6";
-className = "p-4 sm:p-6 md:p-8";
-className = "py-8 sm:py-12 md:py-16";
+className="gap-3 sm:gap-4 md:gap-6"
+className="p-4 sm:p-6 md:p-8"
+className="py-8 sm:py-12 md:py-16"
 
 // ❌ FALSCH
-className = "gap-5";
-className = "p-7";
+className="gap-5"
+className="p-7"
 ```
 
 **Standard-Werte (8px Grid):**
-
 - `gap-2` (8px)
 - `gap-3` (12px)
 - `gap-4` (16px)
@@ -181,7 +161,6 @@ className = "p-7";
 **🚫 KRITISCH: NO ROUNDED CORNERS (V28.1)**
 
 **Alle `rounded-*` Classes sind VERBOTEN:**
-
 ```tsx
 // ❌ VERBOTEN - Keine Rundungen mehr!
 className="rounded-xl"
@@ -197,7 +176,6 @@ className="rounded-full"
 ```
 
 **Grund:** V28.1 ist ein **Flat Design System**. Alle Rundungen wurden entfernt für:
-
 - Klare, professionelle Ästhetik
 - Keine "Lückenfüll-Lösungen" mit absolut positionierten Divs
 - Konsistentes, minimalistisches Erscheinungsbild
@@ -219,7 +197,6 @@ className="rounded-full"
 ```
 
 **Regel:**
-
 - Alle Links verwenden `no-underline`
 - Hover-Effekte über Farbwechsel, NICHT über Unterstreichungen
 - V26Link-Komponente ist bereits konform
@@ -229,22 +206,19 @@ className="rounded-full"
 ## 🚫 VERBOTENE PATTERNS
 
 ### 1. Inline-Styles
-
 ```tsx
 // ❌ NIEMALS
 <div style={{ backgroundColor: '#eadebd' }}>
 ```
 
 ### 2. Direkte Farben
-
 ```tsx
 // ❌ NIEMALS
-className = "text-blue-500 bg-white";
-className = "text-[#323D5E]";
+className="text-blue-500 bg-white"
+className="text-[#323D5E]"
 ```
 
 ### 3. Custom Button-Styles
-
 ```tsx
 // ❌ NIEMALS
 <button className="bg-[#eadebd] hover:bg-[#d4c8a7] text-[#323d5e]">
@@ -254,7 +228,6 @@ className = "text-[#323D5E]";
 ```
 
 ### 4. Nicht-CI-konforme Icons
-
 ```tsx
 // ❌ NIEMALS
 <Check className="text-green-500" />
@@ -296,7 +269,6 @@ Vor jedem Commit:
 ## 🗑️ DEPRECATED (V26.x)
 
 **Folgende Design-Versionen sind NICHT MEHR GÜLTIG:**
-
 - ❌ V26.x Design System - Komplett ersetzt durch V28.1
 - ❌ Beige/Dunkelblau Farbpalette - Ersetzt durch Slate
 - ❌ Rounded Corners - Komplett entfernt

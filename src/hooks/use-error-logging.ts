@@ -1,21 +1,21 @@
 /**
  * PROMETHEUS MISSION II: Error Logging Hook (P1 Cluster 3)
- *
+ * 
  * Replaces direct Supabase calls in GlobalErrorBoundary.tsx
  * with TanStack Query mutations for error tracking.
- *
+ * 
  * Migration: Lines 57, 75 in src/components/debug/GlobalErrorBoundary.tsx
  */
 
-import { useMutation } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { handleError as handleErrorLib } from "@/lib/error-handler";
+import { useMutation } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { handleError as handleErrorLib } from '@/lib/error-handler';
 
 interface ErrorLog {
   error_message: string;
   error_stack?: string;
   error_category: string;
-  severity: "low" | "medium" | "high" | "critical";
+  severity: 'low' | 'medium' | 'high' | 'critical';
   context?: Record<string, any>;
   component?: string;
   url?: string;
@@ -38,21 +38,25 @@ interface UseErrorLoggingReturn {
 export function useErrorLogging(): UseErrorLoggingReturn {
   const logErrorMutation = useMutation({
     mutationFn: async (log: ErrorLog) => {
-      const { data, error } = await supabase.from("error_logs").insert([log]).select().single();
+      const { data, error } = await supabase
+        .from('error_logs')
+        .insert([log])
+        .select()
+        .single();
 
       if (error) throw error;
       return data;
     },
     onError: (error) => {
       // Silent fail - don't spam user with error logging errors
-      console.error("[ErrorLogging] Failed to log error:", error);
+      console.error('[ErrorLogging] Failed to log error:', error);
     },
   });
 
   const logLearningMutation = useMutation({
     mutationFn: async (pattern: LearningPattern) => {
       const { data, error } = await supabase
-        .from("ai_learning_patterns")
+        .from('ai_learning_patterns')
         .insert([pattern])
         .select()
         .single();
@@ -62,7 +66,7 @@ export function useErrorLogging(): UseErrorLoggingReturn {
     },
     onError: (error) => {
       // Silent fail
-      console.error("[ErrorLogging] Failed to log learning:", error);
+      console.error('[ErrorLogging] Failed to log learning:', error);
     },
   });
 

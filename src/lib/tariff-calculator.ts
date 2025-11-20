@@ -7,14 +7,14 @@
    - Tarif-Regeln basierend auf Zeit/Distanz (Supabase)
    ================================================================================== */
 
-import { supabase } from "@/integrations/supabase/client";
-import type { Tariff } from "@/integrations/supabase/types/core-tables";
+import { supabase } from '@/integrations/supabase/client';
+import type { Tariff } from '@/integrations/supabase/types/core-tables';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 // Type helper for typed queries
 type TypedSupabaseClient = typeof supabase & {
-  from(table: "tariff_definitions"): any;
+  from(table: 'tariff_definitions'): any;
 };
 const typedClient = supabase as TypedSupabaseClient;
 
@@ -49,8 +49,9 @@ export const calculateFare = async (
     const tariff = await getTariffRules(companyId);
 
     // 3. Calculate Base Fare
-    let fare =
-      tariff.basePrice + distance.km * tariff.pricePerKm + distance.minutes * tariff.pricePerMinute;
+    let fare = tariff.basePrice +
+               (distance.km * tariff.pricePerKm) +
+               (distance.minutes * tariff.pricePerMinute);
 
     // 4. Apply Time-based Surcharges
     if (dateTime) {
@@ -69,7 +70,7 @@ export const calculateFare = async (
 
     return Math.round(fare * 100) / 100; // Round to 2 decimals
   } catch (error) {
-    console.error("Fare calculation error:", error);
+    console.error('Fare calculation error:', error);
     return 0;
   }
 };
@@ -78,23 +79,26 @@ export const calculateFare = async (
  * Get Distance using HERE Maps API (Routing v8)
  * Falls API nicht verfügbar, wird Mock Data verwendet
  */
-const getDistance = async (pickup: string, destination: string): Promise<DistanceData> => {
+const getDistance = async (
+  pickup: string,
+  destination: string
+): Promise<DistanceData> => {
   try {
     const HERE_API_KEY = import.meta.env.VITE_HERE_API_KEY;
 
     if (!HERE_API_KEY) {
-      console.warn("HERE API Key nicht gefunden, verwende Mock Data");
+      console.warn('HERE API Key nicht gefunden, verwende Mock Data');
       return getMockDistance();
     }
 
     // HERE Routing API v8 - Calculate Route
     const response = await fetch(
       `https://router.hereapi.com/v8/routes?` +
-        `transportMode=car&` +
-        `origin=${encodeURIComponent(pickup)}&` +
-        `destination=${encodeURIComponent(destination)}&` +
-        `return=summary&` +
-        `apikey=${HERE_API_KEY}`
+      `transportMode=car&` +
+      `origin=${encodeURIComponent(pickup)}&` +
+      `destination=${encodeURIComponent(destination)}&` +
+      `return=summary&` +
+      `apikey=${HERE_API_KEY}`
     );
 
     if (!response.ok) {
@@ -110,7 +114,7 @@ const getDistance = async (pickup: string, destination: string): Promise<Distanc
       if (summary) {
         return {
           km: summary.length / 1000, // Convert meters to km
-          minutes: summary.duration / 60, // Convert seconds to minutes
+          minutes: summary.duration / 60 // Convert seconds to minutes
         };
       }
     }
@@ -118,7 +122,7 @@ const getDistance = async (pickup: string, destination: string): Promise<Distanc
     // Fallback to mock data if route not found
     return getMockDistance();
   } catch (error) {
-    console.error("Distance calculation error:", error);
+    console.error('Distance calculation error:', error);
     // Fallback to mock data on error
     return getMockDistance();
   }
@@ -133,7 +137,7 @@ const getMockDistance = (): DistanceData => {
 
   return {
     km: mockDistanceKm,
-    minutes: mockMinutes,
+    minutes: mockMinutes
   };
 };
 
@@ -144,35 +148,35 @@ const getMockDistance = (): DistanceData => {
 const getTariffRules = async (companyId: string): Promise<TariffRules> => {
   try {
     const { data, error } = await typedClient
-      .from("tariff_definitions")
-      .select("*")
-      .eq("company_id", companyId)
-      .eq("is_active", true)
-      .order("created_at", { ascending: false })
+      .from('tariff_definitions')
+      .select('*')
+      .eq('company_id', companyId)
+      .eq('is_active', true)
+      .order('created_at', { ascending: false })
       .limit(1)
       .maybeSingle();
 
     if (error) {
-      console.warn("Tariff fetch error, using default:", error);
+      console.warn('Tariff fetch error, using default:', error);
       return getDefaultTariff();
     }
 
     if (data) {
       const tariff = data as Tariff;
       return {
-        basePrice: tariff.base_price || 3.5,
-        pricePerKm: tariff.price_per_km || 2.2,
-        pricePerMinute: tariff.price_per_minute || 0.5,
+        basePrice: tariff.base_price || 3.50,
+        pricePerKm: tariff.price_per_km || 2.20,
+        pricePerMinute: tariff.price_per_minute || 0.50,
         waitingTimePerMinute: tariff.waiting_time_per_minute,
-        nightSurcharge: tariff.night_surcharge || 5.0,
-        weekendSurcharge: tariff.weekend_surcharge || 2.5,
+        nightSurcharge: tariff.night_surcharge || 5.00,
+        weekendSurcharge: tariff.weekend_surcharge || 2.50
       };
     }
 
     // No tariff found, return default
     return getDefaultTariff();
   } catch (error) {
-    console.error("Tariff rules error:", error);
+    console.error('Tariff rules error:', error);
     return getDefaultTariff();
   }
 };
@@ -182,11 +186,11 @@ const getTariffRules = async (companyId: string): Promise<TariffRules> => {
  */
 const getDefaultTariff = (): TariffRules => {
   return {
-    basePrice: 3.5,
-    pricePerKm: 2.2,
-    pricePerMinute: 0.5,
-    nightSurcharge: 5.0,
-    weekendSurcharge: 2.5,
+    basePrice: 3.50,
+    pricePerKm: 2.20,
+    pricePerMinute: 0.50,
+    nightSurcharge: 5.00,
+    weekendSurcharge: 2.50
   };
 };
 
@@ -194,8 +198,8 @@ const getDefaultTariff = (): TariffRules => {
  * Format Fare as Currency String
  */
 export const formatFare = (fare: number): string => {
-  return new Intl.NumberFormat("de-DE", {
-    style: "currency",
-    currency: "EUR",
+  return new Intl.NumberFormat('de-DE', {
+    style: 'currency',
+    currency: 'EUR'
   }).format(fare);
 };

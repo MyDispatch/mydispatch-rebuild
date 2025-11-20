@@ -12,8 +12,8 @@ interface AuthVideoBackgroundProps {
 }
 
 export function AuthVideoBackground({
-  videoUrl = "/videos/hero-video.mp4",
-  posterUrl = "/images/hero-poster.jpg",
+  videoUrl = '/videos/hero-video.mp4',
+  posterUrl = '/images/hero-poster.jpg',
 }: AuthVideoBackgroundProps) {
   return (
     <div className="fixed inset-0 z-0 overflow-hidden bg-slate-50">

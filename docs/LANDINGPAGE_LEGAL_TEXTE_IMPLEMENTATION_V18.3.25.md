@@ -11,7 +11,6 @@
 Vollständig rechtssichere Implementierung von Impressum, Datenschutzerklärung und AGB für Taxi-/Mietwagenunternehmen auf Unternehmer-Landingpages.
 
 **Compliance:**
-
 - ✅ **DSGVO** (Art. 13, 14 - Informationspflichten)
 - ✅ **TMG** (§ 5 Impressumspflicht)
 - ✅ **PBefG** (Personenbeförderungsgesetz)
@@ -55,7 +54,6 @@ Vollständig rechtssichere Implementierung von Impressum, Datenschutzerklärung 
 ```
 
 ### Rechtliche Basis:
-
 - **TMG § 5:** Impressumspflicht für geschäftsmäßige Online-Dienste
 - **RStV § 55:** Verantwortlichkeit für journalistisch-redaktionelle Inhalte
 - **VSBG:** Verbraucherstreitbeilegungsgesetz
@@ -116,7 +114,6 @@ Vollständig rechtssichere Implementierung von Impressum, Datenschutzerklärung 
 ### DSGVO-Compliance:
 
 **Art. 13 DSGVO - Informationspflichten:**
-
 - ✅ Name und Kontaktdaten des Verantwortlichen
 - ✅ Zwecke und Rechtsgrundlagen der Verarbeitung
 - ✅ Empfänger der Daten
@@ -126,13 +123,11 @@ Vollständig rechtssichere Implementierung von Impressum, Datenschutzerklärung 
 - ✅ Widerrufsrecht
 
 **Art. 28 DSGVO - Auftragsverarbeiter:**
-
 - ✅ AVV mit Google Cloud Platform
 - ✅ AVV mit Cloudflare
 - ✅ EU-Datacenter (DSGVO-konform)
 
 **AI Act (Art. 52) - KI-Transparenz:**
-
 - ✅ Explizite Information über KI-Nutzung
 - ✅ Verwendete Modelle transparent genannt
 - ✅ Zweck der KI-Verarbeitung erklärt
@@ -210,13 +205,11 @@ Vollständig rechtssichere Implementierung von Impressum, Datenschutzerklärung 
 ### PBefG-Compliance:
 
 **§ 51 PBefG - Beförderungspflicht:**
-
 - ✅ Taxi: Beförderungspflicht im Pflichtfahrgebiet
 - ✅ Mietwagen: kein Kontrahierungszwang
 - ✅ Ausschluss bei Gefährdung
 
 **Taxentarifverordnung:**
-
 - ✅ Taxameter-Pflicht erwähnt
 - ✅ Amtliche Tarife bindend
 - ✅ Zusatzkosten transparent
@@ -236,14 +229,15 @@ Vollständig rechtssichere Implementierung von Impressum, Datenschutzerklärung 
         {title}
       </DialogTitle>
     </DialogHeader>
-
-    <ScrollArea className="max-h-[calc(85vh-8rem)] pr-4">{content}</ScrollArea>
+    
+    <ScrollArea className="max-h-[calc(85vh-8rem)] pr-4">
+      {content}
+    </ScrollArea>
   </DialogContent>
 </Dialog>
 ```
 
 **Features:**
-
 - ✅ Max. 85vh Höhe (Mobile-optimiert)
 - ✅ ScrollArea für lange Texte
 - ✅ Primary-Color-Akzent
@@ -279,20 +273,17 @@ Vollständig rechtssichere Implementierung von Impressum, Datenschutzerklärung 
 ## 📱 Responsive Design
 
 ### Mobile (< 768px):
-
 - ✅ Text: `text-sm` (14px)
 - ✅ Headlines: `text-base` bis `text-lg`
 - ✅ Dialog: 90vw Breite
 - ✅ Padding: `p-4`
 
 ### Tablet (768px - 1024px):
-
 - ✅ Text: `text-base` (16px)
 - ✅ Headlines: `text-lg` bis `text-xl`
 - ✅ Dialog: 80vw Breite
 
 ### Desktop (> 1024px):
-
 - ✅ Text: `text-base` (16px)
 - ✅ Headlines: `text-xl` bis `text-3xl`
 - ✅ Dialog: max-w-4xl (896px)
@@ -304,30 +295,28 @@ Vollständig rechtssichere Implementierung von Impressum, Datenschutzerklärung 
 ### In Unternehmer.tsx:
 
 ```tsx
-import { LegalDialog } from "@/components/shared/LegalDialog";
+import { LegalDialog } from '@/components/shared/LegalDialog';
 
 // State
-const [legalDialog, setLegalDialog] = useState<"impressum" | "datenschutz" | "agb" | null>(null);
+const [legalDialog, setLegalDialog] = useState<'impressum' | 'datenschutz' | 'agb' | null>(null);
 
 // Footer
 <footer>
-  <button onClick={() => setLegalDialog("impressum")}>Impressum</button>
-  <button onClick={() => setLegalDialog("datenschutz")}>Datenschutz</button>
-  <button onClick={() => setLegalDialog("agb")}>AGB</button>
-</footer>;
+  <button onClick={() => setLegalDialog('impressum')}>Impressum</button>
+  <button onClick={() => setLegalDialog('datenschutz')}>Datenschutz</button>
+  <button onClick={() => setLegalDialog('agb')}>AGB</button>
+</footer>
 
 // Dialog
-{
-  legalDialog && (
-    <LegalDialog
-      open={!!legalDialog}
-      onOpenChange={() => setLegalDialog(null)}
-      type={legalDialog}
-      companyName={company.name}
-      primaryColor={company.primary_color}
-    />
-  );
-}
+{legalDialog && (
+  <LegalDialog
+    open={!!legalDialog}
+    onOpenChange={() => setLegalDialog(null)}
+    type={legalDialog}
+    companyName={company.name}
+    primaryColor={company.primary_color}
+  />
+)}
 ```
 
 ---
@@ -335,7 +324,6 @@ const [legalDialog, setLegalDialog] = useState<"impressum" | "datenschutz" | "ag
 ## ✅ Quality Checklist
 
 ### Content:
-
 - [x] Alle Pflicht-Sections enthalten
 - [x] Rechtlich korrekte Formulierungen
 - [x] Aktuelle Gesetzesverweise
@@ -343,7 +331,6 @@ const [legalDialog, setLegalDialog] = useState<"impressum" | "datenschutz" | "ag
 - [x] Company-Name dynamisch
 
 ### Compliance:
-
 - [x] DSGVO Art. 13, 14 erfüllt
 - [x] TMG § 5 erfüllt
 - [x] PBefG § 51 berücksichtigt
@@ -351,7 +338,6 @@ const [legalDialog, setLegalDialog] = useState<"impressum" | "datenschutz" | "ag
 - [x] eRecht24-Standard
 
 ### UX:
-
 - [x] Mobile-First Responsive
 - [x] Scrollbar bei langen Texten
 - [x] Touch-optimierte Buttons
@@ -359,7 +345,6 @@ const [legalDialog, setLegalDialog] = useState<"impressum" | "datenschutz" | "ag
 - [x] Semantic HTML
 
 ### Design:
-
 - [x] Design-System-konform
 - [x] Keine Inline-Styles (außer primaryColor)
 - [x] Typografie-Hierarchie

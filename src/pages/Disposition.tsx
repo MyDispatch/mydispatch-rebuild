@@ -10,102 +10,102 @@
    - Echtzeit-Updates
    ================================================================================== */
 
-import { useState, useMemo } from "react";
-import { StandardPageLayout } from "@/components/layout/StandardPageLayout";
-import { StatCard } from "@/components/smart-templates/StatCard";
-import { useTouchTargetValidation } from "@/hooks/validation/useTouchTargetValidation";
-import { useBookings } from "@/hooks/use-bookings";
-import { useDrivers } from "@/hooks/use-drivers";
-import { useVehicles } from "@/hooks/use-vehicles";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Clipboard, Users, Car, Clock, MapPin, User, Phone } from "lucide-react";
-import { format } from "date-fns";
-import { de } from "date-fns/locale";
-import { useToast } from "@/hooks/use-toast";
-import { useRealtimeBookings } from "@/hooks/use-realtime-bookings";
-import { logger } from "@/lib/logger";
-import { UniversalExportBar } from "@/components/dashboard/UniversalExportBar";
+import { useState, useMemo, useEffect } from 'react';
+import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
+import { StatCard } from '@/components/smart-templates/StatCard';
+import { MobileDisposition } from '@/components/mobile/MobileDisposition';
+import { useTouchTargetValidation } from '@/hooks/validation/useTouchTargetValidation';
+import { useDeviceType } from '@/hooks/use-device-type';
+import { useAuth } from '@/hooks/use-auth';
+import { useNavigate } from 'react-router-dom';
+import { useBookings } from '@/hooks/use-bookings';
+import { useDrivers } from '@/hooks/use-drivers';
+import { useVehicles } from '@/hooks/use-vehicles';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Clipboard, Users, Car, Clock, MapPin, User, Phone } from 'lucide-react';
+import { format } from 'date-fns';
+import { de } from 'date-fns/locale';
+import { useToast } from '@/hooks/use-toast';
+import { useRealtimeBookings } from '@/hooks/use-realtime-bookings';
+import { logger } from '@/lib/logger';
 
 export default function Disposition() {
   useTouchTargetValidation();
-  const [searchTerm, setSearchTerm] = useState("");
+  const { profile, loading } = useAuth();
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
   const { toast } = useToast();
-
+  const { isMobile } = useDeviceType();
+  
+  // Authentication Guard - KRITISCH für Sicherheit!
+  useEffect(() => {
+    if (!loading && !profile) {
+      navigate('/auth', { replace: true });
+    }
+  }, [loading, profile, navigate]);
+  
   // Data hooks
   const { bookings, isLoading, updateBooking } = useBookings();
   const { drivers } = useDrivers();
   const { vehicles } = useVehicles();
-
+  
   // Realtime updates
   useRealtimeBookings();
 
   // Filter bookings
   const filteredBookings = useMemo(() => {
     if (!bookings) return [];
-
-    return bookings.filter((booking) => {
-      const matchesSearch =
-        searchTerm === "" ||
+    
+    return bookings.filter(booking => {
+      const matchesSearch = searchTerm === '' || 
         booking.pickup_address?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         booking.dropoff_address?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         booking.customer?.first_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         booking.customer?.last_name?.toLowerCase().includes(searchTerm.toLowerCase());
-
+      
       return matchesSearch && !booking.archived;
     });
   }, [bookings, searchTerm]);
 
   // Pending bookings (need assignment)
-  const pendingBookings = useMemo(
-    () =>
-      filteredBookings.filter(
-        (b) => b.status === "pending" || (b.status === "confirmed" && !b.driver_id)
-      ),
+  const pendingBookings = useMemo(() => 
+    filteredBookings.filter(b => b.status === 'pending' || (b.status === 'confirmed' && !b.driver_id)),
     [filteredBookings]
   );
 
   // Available drivers
-  const availableDrivers = useMemo(
-    () => drivers?.filter((d) => d.shift_status === "available" && !d.archived) || [],
+  const availableDrivers = useMemo(() => 
+    drivers?.filter(d => d.shift_status === 'available' && !d.archived) || [],
     [drivers]
   );
 
   // Available vehicles
-  const availableVehicles = useMemo(
-    () => vehicles?.filter((v) => v.status === "available" && !v.archived) || [],
+  const availableVehicles = useMemo(() => 
+    vehicles?.filter(v => v.status === 'available' && !v.archived) || [],
     [vehicles]
   );
 
   // KPIs - Konsistent mit /rechnungen
-  const kpis = useMemo(
-    () => [
-      {
-        label: "Offene Aufträge",
-        value: pendingBookings.length.toString(),
-        icon: Clipboard,
-      },
-      {
-        label: "Verfügbare Fahrer",
-        value: availableDrivers.length.toString(),
-        icon: Users,
-      },
-      {
-        label: "Verfügbare Fahrzeuge",
-        value: availableVehicles.length.toString(),
-        icon: Car,
-      },
-    ],
-    [pendingBookings.length, availableDrivers.length, availableVehicles.length]
-  );
+  const kpis = useMemo(() => [
+    {
+      label: 'Offene Aufträge',
+      value: pendingBookings.length.toString(),
+      icon: Clipboard,
+    },
+    {
+      label: 'Verfügbare Fahrer',
+      value: availableDrivers.length.toString(),
+      icon: Users,
+    },
+    {
+      label: 'Verfügbare Fahrzeuge',
+      value: availableVehicles.length.toString(),
+      icon: Car,
+    },
+  ], [pendingBookings.length, availableDrivers.length, availableVehicles.length]);
 
   // Assign driver/vehicle
   const handleAssign = async (bookingId: string, driverId?: string, vehicleId?: string) => {
@@ -115,37 +115,81 @@ export default function Disposition() {
         updates: {
           driver_id: driverId || undefined,
           vehicle_id: vehicleId || undefined,
-          status: driverId ? "confirmed" : "pending",
+          status: driverId ? 'confirmed' : 'pending',
         },
       });
-
+      
       toast({
-        title: "Zuweisung erfolgreich",
-        description: "Auftrag wurde zugewiesen",
+        title: 'Zuweisung erfolgreich',
+        description: 'Auftrag wurde zugewiesen',
       });
     } catch (error) {
-      logger.error("Fehler bei Auftragszuweisung", error as Error, {
-        component: "Disposition",
+      logger.error('Fehler bei Auftragszuweisung', error as Error, { 
+        component: 'Disposition',
         bookingId,
         driverId,
-        vehicleId,
+        vehicleId
       });
-
+      
       toast({
-        title: "Fehler",
-        description: "Auftrag konnte nicht zugewiesen werden",
-        variant: "destructive",
+        title: 'Fehler',
+        description: 'Auftrag konnte nicht zugewiesen werden',
+        variant: 'destructive',
       });
     }
   };
 
+  // Mobile View
+  if (isMobile) {
+    return (
+      <StandardPageLayout
+        title="Disposition"
+        description="MyDispatch Live-Disposition: Echtzeit-Auftragszuweisung und Fahrerverwaltung"
+        canonical="/disposition"
+        subtitle="Live-Auftragsdisposition"
+        searchValue={searchTerm}
+        onSearchChange={setSearchTerm}
+        searchPlaceholder="Aufträge durchsuchen..."
+      >
+        {/* KPIs für Mobile */}
+        <div className="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          {kpis.map((kpi, index) => (
+            <StatCard
+              key={index}
+              label={kpi.label}
+              value={kpi.value}
+              icon={kpi.icon}
+            />
+          ))}
+        </div>
+
+        <MobileDisposition
+          bookings={pendingBookings.map(booking => ({
+            id: booking.id,
+            pickup_address: booking.pickup_address,
+            dropoff_address: booking.dropoff_address,
+            pickup_time: booking.pickup_time,
+            customer: booking.customer,
+            driver: booking.driver_id ? drivers?.find(d => d.id === booking.driver_id) : undefined,
+            vehicle: booking.vehicle_id ? vehicles?.find(v => v.id === booking.vehicle_id) : undefined,
+            status: booking.status as 'pending' | 'confirmed' | 'in_progress' | 'completed',
+          }))}
+          isLoading={isLoading}
+          onBookingClick={(booking) => window.location.href = `/auftraege/${booking.id}`}
+          onRefresh={() => window.location.reload()}
+        />
+      </StandardPageLayout>
+    );
+  }
+
+  // Desktop View
   return (
     <StandardPageLayout
       title="Disposition"
       description="MyDispatch Live-Disposition: Echtzeit-Auftragszuweisung und Fahrerverwaltung für Taxi- und Mietwagenunternehmen."
       canonical="/disposition"
       subtitle="Live-Auftragsdisposition und Fahrerzuweisung"
-      onCreateNew={() => (window.location.href = "/auftraege")}
+      onCreateNew={() => window.location.href = '/auftraege'}
       createButtonLabel="Neuer Auftrag"
       searchValue={searchTerm}
       onSearchChange={setSearchTerm}
@@ -156,18 +200,14 @@ export default function Disposition() {
       {/* ✅ V28.1: StatCards Pattern (Golden Template - Desktop) */}
       <div className="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {kpis.map((kpi, index) => (
-          <StatCard key={index} label={kpi.label} value={kpi.value} icon={kpi.icon} />
+          <StatCard
+            key={index}
+            label={kpi.label}
+            value={kpi.value}
+            icon={kpi.icon}
+          />
         ))}
       </div>
-
-      {/* Export Bar */}
-      <UniversalExportBar
-        data={pendingBookings}
-        filename={`disposition-${new Date().toISOString().split("T")[0]}`}
-        showPdf={true}
-        showExcel={true}
-        showCsv={true}
-      />
 
       {/* Offene Aufträge */}
       {isLoading ? (
@@ -196,10 +236,7 @@ export default function Disposition() {
       ) : (
         <div className="space-y-3">
           {pendingBookings.map((booking) => (
-            <Card
-              key={booking.id}
-              className="border border-border hover:border-primary/50 transition-colors"
-            >
+            <Card key={booking.id} className="border border-border hover:border-primary/50 transition-colors">
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between gap-3">
                   <div className="space-y-1 flex-1">
@@ -207,17 +244,14 @@ export default function Disposition() {
                       <CardTitle className="text-base">
                         {booking.customer?.first_name} {booking.customer?.last_name}
                       </CardTitle>
-                      <Badge variant={booking.status === "pending" ? "secondary" : "default"}>
-                        {booking.status === "pending" ? "Neu" : "Bestätigt"}
+                      <Badge variant={booking.status === 'pending' ? 'secondary' : 'default'}>
+                        {booking.status === 'pending' ? 'Neu' : 'Bestätigt'}
                       </Badge>
                     </div>
                     <CardDescription className="text-xs">
                       <div className="flex items-center gap-1">
                         <Clock className="h-3 w-3" />
-                        {format(new Date(booking.pickup_time), "dd.MM.yyyy HH:mm", {
-                          locale: de,
-                        })}{" "}
-                        Uhr
+                        {format(new Date(booking.pickup_time), 'dd.MM.yyyy HH:mm', { locale: de })} Uhr
                       </div>
                     </CardDescription>
                   </div>
@@ -228,7 +262,7 @@ export default function Disposition() {
                   )}
                 </div>
               </CardHeader>
-
+              
               <CardContent className="space-y-4">
                 {/* Route */}
                 <div className="space-y-2 text-sm">
@@ -251,14 +285,10 @@ export default function Disposition() {
                 {/* Assignment */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-3 border-t">
                   <div className="space-y-2">
-                    <label className="text-xs font-medium text-muted-foreground">
-                      Fahrer zuweisen
-                    </label>
+                    <label className="text-xs font-medium text-muted-foreground">Fahrer zuweisen</label>
                     <Select
                       value={booking.driver_id || undefined}
-                      onValueChange={(value) =>
-                        handleAssign(booking.id, value, booking.vehicle_id || undefined)
-                      }
+                      onValueChange={(value) => handleAssign(booking.id, value, booking.vehicle_id || undefined)}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Fahrer wählen..." />
@@ -277,14 +307,10 @@ export default function Disposition() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-xs font-medium text-muted-foreground">
-                      Fahrzeug zuweisen
-                    </label>
+                    <label className="text-xs font-medium text-muted-foreground">Fahrzeug zuweisen</label>
                     <Select
                       value={booking.vehicle_id || undefined}
-                      onValueChange={(value) =>
-                        handleAssign(booking.id, booking.driver_id || undefined, value)
-                      }
+                      onValueChange={(value) => handleAssign(booking.id, booking.driver_id || undefined, value)}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Fahrzeug wählen..." />
@@ -307,14 +333,12 @@ export default function Disposition() {
                 <div className="flex items-center justify-between gap-3 pt-3 border-t flex-wrap">
                   <div className="flex items-center gap-2 text-xs text-muted-foreground min-w-0">
                     <Phone className="h-3 w-3 flex-shrink-0" />
-                    <span className="truncate">
-                      {booking.customer?.email || "Keine Kontaktdaten"}
-                    </span>
+                    <span className="truncate">{booking.customer?.email || 'Keine Kontaktdaten'}</span>
                   </div>
                   <V28Button
                     size="sm"
                     variant="secondary"
-                    onClick={() => (window.location.href = `/auftraege?id=${booking.id}`)}
+                    onClick={() => window.location.href = `/auftraege?id=${booking.id}`}
                   >
                     Details
                   </V28Button>

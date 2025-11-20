@@ -6,8 +6,8 @@
    ✅ Development-only
    ================================================================================== */
 
-import { useEffect, useState, type ReactNode } from "react";
-import { AlertTriangle } from "lucide-react";
+import { useEffect, useState, type ReactNode } from 'react';
+import { AlertTriangle } from 'lucide-react';
 
 interface Props {
   children: ReactNode;
@@ -24,15 +24,15 @@ export function LovableBuildGuard({ children }: Props) {
     const originalError = console.error;
 
     console.error = (...args: unknown[]) => {
-      const message = args.map((arg) => String(arg)).join(" ");
+      const message = args.map(arg => String(arg)).join(' ');
 
       // Detect common Lovable build issues
       if (
-        message.includes("Module not found") ||
-        message.includes("Cannot resolve") ||
-        message.includes("Unexpected token") ||
-        message.includes("SyntaxError") ||
-        message.includes("Failed to fetch dynamically imported module")
+        message.includes('Module not found') ||
+        message.includes('Cannot resolve') ||
+        message.includes('Unexpected token') ||
+        message.includes('SyntaxError') ||
+        message.includes('Failed to fetch dynamically imported module')
       ) {
         setBuildError(message);
 
@@ -55,7 +55,9 @@ export function LovableBuildGuard({ children }: Props) {
         <div className="bg-white rounded-lg shadow-lg p-6 max-w-2xl border-2 border-status-error">
           <div className="flex items-start gap-4 mb-4">
             <AlertTriangle className="h-8 w-8 text-status-error flex-shrink-0" />
-            <h1 className="text-2xl font-bold text-status-error">🚨 MyDispatch Build Error</h1>
+            <h1 className="text-2xl font-bold text-status-error">
+              🚨 MyDispatch Build Error
+            </h1>
           </div>
 
           <div className="bg-status-error/10 p-4 rounded mb-4 max-h-60 overflow-auto">
@@ -83,12 +85,12 @@ export function LovableBuildGuard({ children }: Props) {
 // Helper: Show build error banner
 function showBuildErrorBanner(message: string): void {
   // Remove existing error banners
-  const existingBanners = document.querySelectorAll("[data-build-error-banner]");
-  existingBanners.forEach((banner) => banner.remove());
+  const existingBanners = document.querySelectorAll('[data-build-error-banner]');
+  existingBanners.forEach(banner => banner.remove());
 
   // Create new error banner
-  const errorDiv = document.createElement("div");
-  errorDiv.setAttribute("data-build-error-banner", "true");
+  const errorDiv = document.createElement('div');
+  errorDiv.setAttribute('data-build-error-banner', 'true');
   errorDiv.style.cssText = `
     position: fixed;
     top: 0;

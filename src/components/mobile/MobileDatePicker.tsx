@@ -6,10 +6,10 @@
    - Deutsche Formatierung (DD.MM.YYYY)
    ================================================================================== */
 
-import { forwardRef } from "react";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-import { Calendar } from "lucide-react";
+import { forwardRef } from 'react';
+import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
+import { Calendar } from 'lucide-react';
 
 interface MobileDatePickerProps {
   label?: string;
@@ -25,10 +25,7 @@ interface MobileDatePickerProps {
 }
 
 export const MobileDatePicker = forwardRef<HTMLInputElement, MobileDatePickerProps>(
-  (
-    { label, value, onChange, placeholder, required, disabled, error, min, max, className },
-    ref
-  ) => {
+  ({ label, value, onChange, placeholder, required, disabled, error, min, max, className }, ref) => {
     return (
       <div className="space-y-2 w-full">
         {label && (
@@ -64,10 +61,12 @@ export const MobileDatePicker = forwardRef<HTMLInputElement, MobileDatePickerPro
           />
           <Calendar className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
         </div>
-        {error && <p className="text-xs text-status-error mt-1">{error}</p>}
+        {error && (
+          <p className="text-xs text-status-error mt-1">{error}</p>
+        )}
       </div>
     );
   }
 );
 
-MobileDatePicker.displayName = "MobileDatePicker";
+MobileDatePicker.displayName = 'MobileDatePicker';

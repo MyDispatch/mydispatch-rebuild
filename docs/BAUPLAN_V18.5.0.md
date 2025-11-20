@@ -19,13 +19,13 @@ graph TB
         D[Fahrer-Portal PWA]
         E[Kunden-Portal]
     end
-
+    
     subgraph "State Management"
         F[TanStack Query]
         G[React Context]
         H[Local Storage]
     end
-
+    
     subgraph "Backend Layer - Supabase"
         I[PostgreSQL DB]
         J[Edge Functions]
@@ -33,7 +33,7 @@ graph TB
         L[Auth System]
         M[Realtime]
     end
-
+    
     subgraph "External Services"
         N[HERE Maps API]
         O[Google Maps API]
@@ -42,7 +42,7 @@ graph TB
         R[Sentry Monitoring]
         S[Stripe Payments]
     end
-
+    
     A --> F
     A --> G
     A --> H
@@ -284,30 +284,30 @@ BookingForm
 
 ### Tabellen-Übersicht (34 Tabellen)
 
-| Tabelle                                  | Primär | Zweck                            | Multi-Tenant           |
-| ---------------------------------------- | ------ | -------------------------------- | ---------------------- |
-| `companies`                              | ✅     | Unternehmensdaten                | -                      |
-| `profiles`                               | -      | User-Profile                     | ✅ `company_id`        |
-| `user_roles`                             | -      | Rollenbasierte Zugriffskontrolle | -                      |
-| `bookings`                               | ✅     | Buchungen/Aufträge               | ✅ `company_id`        |
-| `customers`                              | -      | Kundendaten                      | ✅ `company_id`        |
-| `drivers`                                | -      | Fahrerdaten                      | ✅ `company_id`        |
-| `vehicles`                               | -      | Fahrzeugdaten                    | ✅ `company_id`        |
-| `invoices`                               | -      | Rechnungen                       | ✅ `company_id`        |
-| `payments`                               | -      | Zahlungen                        | ✅ `company_id`        |
-| `documents`                              | -      | Dokumente (Führerschein, etc.)   | ✅ `company_id`        |
-| `document_expiry_reminders`              | -      | Ablauf-Erinnerungen              | ✅ `company_id`        |
-| `shifts`                                 | -      | Schichtpläne                     | ✅ `company_id`        |
-| `partner_connections`                    | -      | Partnernetzwerk                  | ✅ `company_a_id/b_id` |
-| `chat_conversations`                     | -      | Chat-Konversationen              | ✅ `company_id`        |
-| `chat_messages`                          | -      | Chat-Nachrichten                 | -                      |
-| `chat_participants`                      | -      | Chat-Teilnehmer                  | -                      |
-| `chat_consent`                           | -      | Chat-Einwilligung                | ✅ `company_id`        |
-| `system_logs`                            | -      | System-Logs                      | ✅ `company_id`        |
-| `error_logs`                             | -      | Fehler-Logs                      | ✅ `company_id`        |
-| `analytics.dashboard_stats`              | -      | Materialized View (KPIs)         | ✅ `company_id`        |
-| `analytics.mv_document_expiry_dashboard` | -      | Materialized View (Ablauf)       | ✅ `company_id`        |
-| ...                                      | -      | (weitere 13 Tabellen)            | ✅                     |
+| Tabelle | Primär | Zweck | Multi-Tenant |
+|---------|--------|-------|--------------|
+| `companies` | ✅ | Unternehmensdaten | - |
+| `profiles` | - | User-Profile | ✅ `company_id` |
+| `user_roles` | - | Rollenbasierte Zugriffskontrolle | - |
+| `bookings` | ✅ | Buchungen/Aufträge | ✅ `company_id` |
+| `customers` | - | Kundendaten | ✅ `company_id` |
+| `drivers` | - | Fahrerdaten | ✅ `company_id` |
+| `vehicles` | - | Fahrzeugdaten | ✅ `company_id` |
+| `invoices` | - | Rechnungen | ✅ `company_id` |
+| `payments` | - | Zahlungen | ✅ `company_id` |
+| `documents` | - | Dokumente (Führerschein, etc.) | ✅ `company_id` |
+| `document_expiry_reminders` | - | Ablauf-Erinnerungen | ✅ `company_id` |
+| `shifts` | - | Schichtpläne | ✅ `company_id` |
+| `partner_connections` | - | Partnernetzwerk | ✅ `company_a_id/b_id` |
+| `chat_conversations` | - | Chat-Konversationen | ✅ `company_id` |
+| `chat_messages` | - | Chat-Nachrichten | - |
+| `chat_participants` | - | Chat-Teilnehmer | - |
+| `chat_consent` | - | Chat-Einwilligung | ✅ `company_id` |
+| `system_logs` | - | System-Logs | ✅ `company_id` |
+| `error_logs` | - | Fehler-Logs | ✅ `company_id` |
+| `analytics.dashboard_stats` | - | Materialized View (KPIs) | ✅ `company_id` |
+| `analytics.mv_document_expiry_dashboard` | - | Materialized View (Ablauf) | ✅ `company_id` |
+| ... | - | (weitere 13 Tabellen) | ✅ |
 
 ### Kritische Beziehungen
 
@@ -318,18 +318,18 @@ erDiagram
     COMPANIES ||--o{ DRIVERS : "hat"
     COMPANIES ||--o{ VEHICLES : "hat"
     COMPANIES ||--o{ CUSTOMERS : "hat"
-
+    
     BOOKINGS }o--|| CUSTOMERS : "gehört_zu"
     BOOKINGS }o--|| DRIVERS : "zugewiesen_an"
     BOOKINGS }o--|| VEHICLES : "verwendet"
-
+    
     DRIVERS ||--o{ SHIFTS : "hat"
     DRIVERS ||--o{ DOCUMENTS : "besitzt"
-
+    
     VEHICLES ||--o{ DOCUMENTS : "besitzt"
-
+    
     DOCUMENTS ||--o{ DOCUMENT_EXPIRY_REMINDERS : "erzeugt"
-
+    
     COMPANIES ||--o{ PARTNER_CONNECTIONS : "hat_partner"
 ```
 
@@ -343,7 +343,7 @@ CREATE POLICY "bookings_select_policy" ON bookings
     company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
     OR
     company_id IN (
-      SELECT company_b_id FROM partner_connections
+      SELECT company_b_id FROM partner_connections 
       WHERE company_a_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
     )
   );
@@ -372,51 +372,55 @@ CREATE POLICY "bookings_update_policy" ON bookings
 
 ### Übersicht
 
-| Function                  | Trigger             | Zweck                         | Model            |
-| ------------------------- | ------------------- | ----------------------------- | ---------------- |
-| `ai-error-analysis`       | Manual              | Fehleranalyse via KI          | Gemini 2.5 Flash |
-| `ai-forecast`             | Scheduled (täglich) | Nachfrage-Prognose            | Gemini 2.5 Flash |
-| `booking-webhook`         | N8N                 | Automatische Fahrer-Zuweisung | -                |
-| `send-chat-notification`  | DB-Trigger          | Chat-Benachrichtigungen       | -                |
-| `stripe-webhook`          | Stripe              | Payment-Events                | -                |
-| `configure-auth-security` | Deployment-Hook     | Auth-Konfiguration            | -                |
+| Function | Trigger | Zweck | Model |
+|----------|---------|-------|-------|
+| `ai-error-analysis` | Manual | Fehleranalyse via KI | Gemini 2.5 Flash |
+| `ai-forecast` | Scheduled (täglich) | Nachfrage-Prognose | Gemini 2.5 Flash |
+| `booking-webhook` | N8N | Automatische Fahrer-Zuweisung | - |
+| `send-chat-notification` | DB-Trigger | Chat-Benachrichtigungen | - |
+| `stripe-webhook` | Stripe | Payment-Events | - |
+| `configure-auth-security` | Deployment-Hook | Auth-Konfiguration | - |
 
 ### Edge Function Template
 
 ```typescript
 // supabase/functions/FUNCTION_NAME/index.ts
 const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
 Deno.serve(async (req) => {
   // CORS Preflight
-  if (req.method === "OPTIONS") {
+  if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
     const { data } = await req.json();
-
+    
     // Validierung
     if (!data) {
-      throw new Error("Missing required data");
+      throw new Error('Missing required data');
     }
-
+    
     // Business Logic
     const result = await processData(data);
-
+    
     // Response
     return new Response(JSON.stringify(result), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
+    
   } catch (error) {
-    console.error("[FUNCTION_NAME] Error:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+    console.error('[FUNCTION_NAME] Error:', error);
+    return new Response(
+      JSON.stringify({ error: error.message }),
+      { 
+        status: 500, 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      }
+    );
   }
 });
 ```
@@ -430,42 +434,42 @@ Deno.serve(async (req) => {
 ```css
 :root {
   /* Farben (HSL) */
-  --primary: 210 100% 50%; /* Blau */
-  --primary-foreground: 0 0% 100%; /* Weiß */
-  --secondary: 200 18% 46%; /* Grau-Blau */
-  --accent: 210 100% 60%; /* Hell-Blau */
-  --background: 0 0% 100%; /* Weiß */
-  --foreground: 222 47% 11%; /* Dunkel-Grau */
-  --muted: 210 40% 96%; /* Hell-Grau */
-  --border: 214 32% 91%; /* Grau */
-
+  --primary: 210 100% 50%;           /* Blau */
+  --primary-foreground: 0 0% 100%;   /* Weiß */
+  --secondary: 200 18% 46%;          /* Grau-Blau */
+  --accent: 210 100% 60%;            /* Hell-Blau */
+  --background: 0 0% 100%;           /* Weiß */
+  --foreground: 222 47% 11%;         /* Dunkel-Grau */
+  --muted: 210 40% 96%;              /* Hell-Grau */
+  --border: 214 32% 91%;             /* Grau */
+  
   /* Status-Farben */
-  --status-success: 142 76% 36%; /* Grün */
-  --status-warning: 38 92% 50%; /* Orange */
-  --status-error: 0 84% 60%; /* Rot */
-  --status-info: 210 100% 50%; /* Blau */
-
+  --status-success: 142 76% 36%;     /* Grün */
+  --status-warning: 38 92% 50%;      /* Orange */
+  --status-error: 0 84% 60%;         /* Rot */
+  --status-info: 210 100% 50%;       /* Blau */
+  
   /* Typografie */
-  --font-sans: "Inter", system-ui, sans-serif;
-  --font-mono: "Fira Code", monospace;
-
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+  
   /* Spacing */
-  --spacing-xs: 0.25rem; /* 4px */
-  --spacing-sm: 0.5rem; /* 8px */
-  --spacing-md: 1rem; /* 16px */
-  --spacing-lg: 1.5rem; /* 24px */
-  --spacing-xl: 2rem; /* 32px */
-
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.5rem;   /* 24px */
+  --spacing-xl: 2rem;     /* 32px */
+  
   /* Border Radius */
-  --radius-sm: 0.25rem; /* 4px */
-  --radius-md: 0.5rem; /* 8px */
-  --radius-lg: 0.75rem; /* 12px */
-
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-
+  
   /* Transitions */
   --transition-fast: 150ms ease-in-out;
   --transition-base: 200ms ease-in-out;
@@ -489,11 +493,11 @@ Deno.serve(async (req) => {
 export default {
   theme: {
     screens: {
-      sm: "640px", // Mobile Large
-      md: "768px", // Tablet
-      lg: "1024px", // Desktop
-      xl: "1280px", // Desktop Large
-      "2xl": "1536px", // Desktop XL
+      'sm': '640px',   // Mobile Large
+      'md': '768px',   // Tablet
+      'lg': '1024px',  // Desktop
+      'xl': '1280px',  // Desktop Large
+      '2xl': '1536px', // Desktop XL
     },
   },
 };
@@ -520,14 +524,14 @@ interface IconProps {
   className?: string;
 }
 
-export const Icon: React.FC<IconProps> = ({
-  icon: IconComponent,
-  size = 'md',
-  className
+export const Icon: React.FC<IconProps> = ({ 
+  icon: IconComponent, 
+  size = 'md', 
+  className 
 }) => {
   return (
-    <IconComponent
-      className={cn(ICON_SIZES[size], 'text-foreground', className)}
+    <IconComponent 
+      className={cn(ICON_SIZES[size], 'text-foreground', className)} 
     />
   );
 };
@@ -536,10 +540,10 @@ export const Icon: React.FC<IconProps> = ({
 **Verwendung:**
 
 ```tsx
-import { Calendar } from "lucide-react";
-import { Icon } from "@/components/design-system/Icon";
+import { Calendar } from 'lucide-react';
+import { Icon } from '@/components/design-system/Icon';
 
-<Icon icon={Calendar} size="md" className="text-primary" />;
+<Icon icon={Calendar} size="md" className="text-primary" />
 ```
 
 ---
@@ -552,15 +556,15 @@ import { Icon } from "@/components/design-system/Icon";
 
 ```typescript
 // ✅ RICHTIG - CompanyQuery verwenden
-import { CompanyQuery } from "@/lib/database-utils";
+import { CompanyQuery } from '@/lib/database-utils';
 
 const { data } = await CompanyQuery(supabase)
-  .from("bookings")
-  .select("*")
-  .eq("company_id", companyId); // ✅ Automatisch gefiltert
+  .from('bookings')
+  .select('*')
+  .eq('company_id', companyId); // ✅ Automatisch gefiltert
 
 // ❌ FALSCH - Direkter Query ohne Filter
-const { data } = await supabase.from("bookings").select("*"); // ❌ SECURITY RISK!
+const { data } = await supabase.from('bookings').select('*'); // ❌ SECURITY RISK!
 ```
 
 ### Soft-Delete Policy
@@ -569,25 +573,25 @@ const { data } = await supabase.from("bookings").select("*"); // ❌ SECURITY RI
 
 ```typescript
 // ✅ RICHTIG - Soft-Delete
-import { softDelete } from "@/lib/database-utils";
+import { softDelete } from '@/lib/database-utils';
 
-await softDelete(supabase, "drivers", driverId);
+await softDelete(supabase, 'drivers', driverId);
 // → UPDATE drivers SET archived = true, archived_at = NOW(), archived_by = auth.uid()
 
 // ❌ FALSCH - Hard-Delete
-await supabase.from("drivers").delete().eq("id", driverId); // ❌ VERBOTEN!
+await supabase.from('drivers').delete().eq('id', driverId); // ❌ VERBOTEN!
 ```
 
 ### Input-Validierung (Zod)
 
 ```typescript
 // src/lib/validation.ts
-import { z } from "zod";
+import { z } from 'zod';
 
 export const bookingSchema = z.object({
-  pickup_time: z.date().min(new Date(), "Pickup time must be in future"),
-  pickup_address: z.string().min(5, "Address too short").max(500),
-  dropoff_address: z.string().min(5, "Address too short").max(500),
+  pickup_time: z.date().min(new Date(), 'Pickup time must be in future'),
+  pickup_address: z.string().min(5, 'Address too short').max(500),
+  dropoff_address: z.string().min(5, 'Address too short').max(500),
   passengers: z.number().int().min(1).max(8),
   luggage: z.number().int().min(0).max(8),
   special_requests: z.string().max(1000).optional(),
@@ -617,16 +621,16 @@ const cleanHTML = DOMPurify.sanitize(userInput);
 
 ```typescript
 // src/lib/query-client.ts
-import { QueryClient } from "@tanstack/react-query";
+import { QueryClient } from '@tanstack/react-query';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, // 5 Minuten
-      cacheTime: 10 * 60 * 1000, // 10 Minuten
-      refetchOnWindowFocus: false, // Kein automatischer Refetch
-      refetchOnReconnect: true, // Refetch bei Reconnect
-      retry: 3, // 3 Versuche bei Fehler
+      staleTime: 5 * 60 * 1000,        // 5 Minuten
+      cacheTime: 10 * 60 * 1000,       // 10 Minuten
+      refetchOnWindowFocus: false,     // Kein automatischer Refetch
+      refetchOnReconnect: true,        // Refetch bei Reconnect
+      retry: 3,                        // 3 Versuche bei Fehler
       retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
     },
   },
@@ -708,11 +712,11 @@ const handleDelete = useCallback((id: string) => {
 
 ```typescript
 // src/lib/__tests__/database-utils.test.ts
-import { describe, it, expect, vi } from "vitest";
-import { CompanyQuery } from "../database-utils";
+import { describe, it, expect, vi } from 'vitest';
+import { CompanyQuery } from '../database-utils';
 
-describe("CompanyQuery", () => {
-  it("should add company_id filter", () => {
+describe('CompanyQuery', () => {
+  it('should add company_id filter', () => {
     const mockSupabase = {
       from: vi.fn().mockReturnThis(),
       select: vi.fn().mockReturnThis(),
@@ -720,10 +724,10 @@ describe("CompanyQuery", () => {
     };
 
     CompanyQuery(mockSupabase as any)
-      .from("bookings")
-      .select("*");
+      .from('bookings')
+      .select('*');
 
-    expect(mockSupabase.eq).toHaveBeenCalledWith("company_id", expect.any(String));
+    expect(mockSupabase.eq).toHaveBeenCalledWith('company_id', expect.any(String));
   });
 });
 ```
@@ -732,22 +736,22 @@ describe("CompanyQuery", () => {
 
 ```typescript
 // tests/e2e/bookings.spec.ts
-import { test, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-test("create new booking", async ({ page }) => {
-  await page.goto("/auth");
-  await page.fill('[name="email"]', "test@example.com");
-  await page.fill('[name="password"]', "password123");
+test('create new booking', async ({ page }) => {
+  await page.goto('/auth');
+  await page.fill('[name="email"]', 'test@example.com');
+  await page.fill('[name="password"]', 'password123');
   await page.click('button[type="submit"]');
 
-  await page.goto("/auftraege");
-  await page.click("text=Neuer Auftrag");
+  await page.goto('/auftraege');
+  await page.click('text=Neuer Auftrag');
 
-  await page.fill('[name="pickup_address"]', "Berlin Hauptbahnhof");
-  await page.fill('[name="dropoff_address"]', "Flughafen Tegel");
+  await page.fill('[name="pickup_address"]', 'Berlin Hauptbahnhof');
+  await page.fill('[name="dropoff_address"]', 'Flughafen Tegel');
   await page.click('button:has-text("Speichern")');
 
-  await expect(page.locator("text=Auftrag erfolgreich erstellt")).toBeVisible();
+  await expect(page.locator('text=Auftrag erfolgreich erstellt')).toBeVisible();
 });
 ```
 
@@ -771,7 +775,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: '20'
       - run: npm ci
       - run: npm run type-check
       - run: npm run test
@@ -790,7 +794,7 @@ jobs:
             SELECT policyname FROM pg_policies 
             WHERE qual::text LIKE '%auth.users%'
           " > rls_check.txt
-
+          
           if [ -s rls_check.txt ]; then
             echo "❌ RLS Policies mit auth.users gefunden!"
             exit 1
@@ -836,23 +840,26 @@ export const Health = () => {
 
 ```typescript
 // src/lib/sentry-integration.ts
-import * as Sentry from "@sentry/react";
+import * as Sentry from '@sentry/react';
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
   environment: import.meta.env.MODE,
-  release: "mydispatch@18.5.0",
-
+  release: 'mydispatch@18.5.0',
+  
   tracesSampleRate: 0.2,
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
-
+  
   beforeSend(event) {
-    if (event.user) event.user.email = "[REDACTED]";
+    if (event.user) event.user.email = '[REDACTED]';
     return event;
   },
-
-  integrations: [new Sentry.BrowserTracing(), new Sentry.Replay({ maskAllText: true })],
+  
+  integrations: [
+    new Sentry.BrowserTracing(),
+    new Sentry.Replay({ maskAllText: true }),
+  ],
 });
 ```
 
@@ -911,7 +918,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       (event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
-
+        
         // Defer data fetching with setTimeout
         if (session?.user) {
           setTimeout(() => {
@@ -993,14 +1000,20 @@ export const useAuth = () => {
 
 ```javascript
 // public/sw.js
-const CACHE_NAME = "mydispatch-v18.5.0";
-const urlsToCache = ["/", "/index.html", "/manifest.json"];
+const CACHE_NAME = 'mydispatch-v18.5.0';
+const urlsToCache = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+];
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache)));
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
+  );
 });
 
-self.addEventListener("activate", (event) => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
       Promise.all(
@@ -1012,7 +1025,7 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-self.addEventListener("fetch", (event) => {
+self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
       return response || fetch(event.request);
@@ -1067,7 +1080,7 @@ export const geocodeAddress = async (address: string) => {
 
 export const calculateRoute = async (origin: [number, number], destination: [number, number]) => {
   const response = await fetch(
-    `https://router.hereapi.com/v8/routes?transportMode=car&origin=${origin.join(",")}&destination=${destination.join(",")}&return=summary&apiKey=${HERE_API_KEY}`
+    `https://router.hereapi.com/v8/routes?transportMode=car&origin=${origin.join(',')}&destination=${destination.join(',')}&return=summary&apiKey=${HERE_API_KEY}`
   );
   const data = await response.json();
   return {
@@ -1081,14 +1094,14 @@ export const calculateRoute = async (origin: [number, number], destination: [num
 
 ```typescript
 // src/lib/stripe-client.ts
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from '@stripe/stripe-js';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 export const createCheckoutSession = async (priceId: string) => {
   const stripe = await stripePromise;
-
-  const { data } = await supabase.functions.invoke("create-checkout-session", {
+  
+  const { data } = await supabase.functions.invoke('create-checkout-session', {
     body: { priceId },
   });
 

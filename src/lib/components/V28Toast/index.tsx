@@ -3,17 +3,17 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import * as ToastPrimitive from "@radix-ui/react-toast";
-import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import * as ToastPrimitive from '@radix-ui/react-toast';
+import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { ReactNode } from 'react';
 
 export interface V28ToastProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title?: string;
   description?: string;
-  variant?: "default" | "success" | "error" | "warning" | "info";
+  variant?: 'default' | 'success' | 'error' | 'warning' | 'info';
   duration?: number;
   action?: {
     label: string;
@@ -22,11 +22,11 @@ export interface V28ToastProps {
 }
 
 const variantStyles = {
-  default: "bg-white border-slate-200 dark:bg-slate-800 dark:border-slate-700",
-  success: "bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800",
-  error: "bg-red-50 border-red-200 dark:bg-red-950 dark:border-red-800",
-  warning: "bg-yellow-50 border-yellow-200 dark:bg-yellow-950 dark:border-yellow-800",
-  info: "bg-blue-50 border-blue-200 dark:bg-blue-950 dark:border-blue-800",
+  default: 'bg-white border-slate-200 dark:bg-slate-800 dark:border-slate-700',
+  success: 'bg-green-50 border-green-200 dark:bg-green-950 dark:border-green-800',
+  error: 'bg-red-50 border-red-200 dark:bg-red-950 dark:border-red-800',
+  warning: 'bg-yellow-50 border-yellow-200 dark:bg-yellow-950 dark:border-yellow-800',
+  info: 'bg-blue-50 border-blue-200 dark:bg-blue-950 dark:border-blue-800',
 };
 
 const iconMap: Record<string, ReactNode> = {
@@ -41,7 +41,7 @@ export function V28Toast({
   onOpenChange,
   title,
   description,
-  variant = "default",
+  variant = 'default',
   duration = 5000,
   action,
 }: V28ToastProps) {
@@ -51,17 +51,17 @@ export function V28Toast({
       onOpenChange={onOpenChange}
       duration={duration}
       className={cn(
-        "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden border p-4 pr-8 shadow-lg transition-all",
-        "data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)]",
-        "data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none",
-        "data-[state=open]:animate-in data-[state=closed]:animate-out",
-        "data-[swipe=end]:animate-out data-[state=closed]:fade-out-80",
-        "data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full",
+        'group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden border p-4 pr-8 shadow-lg transition-all',
+        'data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)]',
+        'data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none',
+        'data-[state=open]:animate-in data-[state=closed]:animate-out',
+        'data-[swipe=end]:animate-out data-[state=closed]:fade-out-80',
+        'data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full',
         variantStyles[variant]
       )}
     >
       <div className="flex gap-3 flex-1">
-        {variant !== "default" && iconMap[variant]}
+        {variant !== 'default' && iconMap[variant]}
         <div className="grid gap-1 flex-1">
           {title && (
             <ToastPrimitive.Title className="text-sm font-semibold text-slate-900 dark:text-slate-100">

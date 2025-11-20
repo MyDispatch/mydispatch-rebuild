@@ -14,7 +14,6 @@
 Im Batch 18.1 wurden Marketing-Seiten-Spezifikationen erstellt, die veraltete Informationen enthielten, obwohl die CQR-Strategie (Continuous Query Resolution) mit Real-Time-Knowledge-Index aktiv war.
 
 **Symptom:**
-
 - Nutzung veralteter Dokumenten-Versionen
 - CQR-System hat nicht die aktuellsten Daten geliefert
 - Real-Time-Knowledge-Index-First Prinzip wurde nicht korrekt angewendet
@@ -23,12 +22,12 @@ Im Batch 18.1 wurden Marketing-Seiten-Spezifikationen erstellt, die veraltete In
 
 ## II. WDIF-SCORECARD
 
-| Kategorie         | Score  | Begründung                           |
-| ----------------- | ------ | ------------------------------------ |
-| Architektur       | 0      | Keine strukturellen Änderungen nötig |
-| Dokumentation     | 0      | Dokumente wurden korrekt erstellt    |
-| **Logik (Agent)** | **+1** | **CQR-Strategie fehlgeschlagen**     |
-| **GESAMT**        | **+1** | **ARCA-PFLICHT AUSGELÖST**           |
+| Kategorie | Score | Begründung |
+|-----------|-------|------------|
+| Architektur | 0 | Keine strukturellen Änderungen nötig |
+| Dokumentation | 0 | Dokumente wurden korrekt erstellt |
+| **Logik (Agent)** | **+1** | **CQR-Strategie fehlgeschlagen** |
+| **GESAMT** | **+1** | **ARCA-PFLICHT AUSGELÖST** |
 
 ---
 
@@ -57,7 +56,6 @@ Der Agent hat die CQR-Strategie nicht korrekt befolgt:
 ### 3.2 Prozess-Ursache
 
 **Workflow-Verstoß:**
-
 - **SCHRITT 1 (SAMMELN)** wurde nicht korrekt ausgeführt:
   - ❌ Real-Time-Knowledge-Index NICHT als erste Quelle genutzt
   - ❌ Keine Validierung der Dokumenten-Aktualität
@@ -66,7 +64,6 @@ Der Agent hat die CQR-Strategie nicht korrekt befolgt:
 ### 3.3 System-Ursache
 
 **Infrastruktur-Lücke:**
-
 1. **Fehlendes Archivierungssystem:**
    - Kein `ARCHIVIERUNGSSYSTEM_V18.3.28.md` vorhanden
    - Keine klare Struktur für deprecated Dokumente
@@ -82,13 +79,11 @@ Der Agent hat die CQR-Strategie nicht korrekt befolgt:
 ## IV. IMPACT-ANALYSE
 
 **Auswirkungen:**
-
 - ⚠️ Niedrig: Batch 18.1 Spezifikationen müssen nicht revidiert werden
 - ⚠️ Mittel: Dokumenten-Chaos kann zu weiteren CQR-Fehlern führen
 - 🚨 **Hoch: CQR-Strategie ist praktisch nicht funktionsfähig**
 
 **Betroffene Systeme:**
-
 - Real-Time-Knowledge-Index (nicht aktiv)
 - CQR-Workflow (nicht befolgt)
 - Dokumentations-Management (unstrukturiert)
@@ -101,7 +96,7 @@ Der Agent hat die CQR-Strategie nicht korrekt befolgt:
 
 **ARCA-Regel #1: CQR-First-Validation (2025-10-24)**
 
-````markdown
+```markdown
 ## ARCA-REGEL #1: CQR-FIRST-VALIDATION
 
 **Fehler-Typ:** Logik-Fehler (WDIF +1)  
@@ -111,7 +106,6 @@ Der Agent hat die CQR-Strategie nicht korrekt befolgt:
 **VERPFLICHTENDE PRÜFUNG VOR JEDEM WORKFLOW:**
 
 1. **Knowledge-Index-First (MANDATORY):**
-
    ```typescript
    // ✅ RICHTIG: Immer zuerst Real-Time Index prüfen
    const knowledge = await getRealTimeKnowledge(query);
@@ -124,7 +118,6 @@ Der Agent hat die CQR-Strategie nicht korrekt befolgt:
    // ❌ FALSCH: Direkt Disk Docs lesen
    const docs = await readDocsFromDisk();
    ```
-````
 
 2. **Dokumenten-Versions-Audit (MANDATORY):**
    - Prüfe IMMER die Versions-Nummer in jedem Dokument
@@ -136,12 +129,10 @@ Der Agent hat die CQR-Strategie nicht korrekt befolgt:
    - Bei fehlgeschlagenem Check: STOPPE und eskaliere
 
 **ALARM-TRIGGER:**
-
 - Real-Time-Index nicht erreichbar → STOPP + BATCH PRIO 1
 - Dokumenten-Version unklar → FRAGE NUTZER
 - Deprecated-Dokument gefunden ohne Archivierung → BATCH PRIO 1
-
-````
+```
 
 ### 5.2 Integration in MASTER_PROMPT_NEXIFY_V18.5.9
 
@@ -153,7 +144,7 @@ Diese Regel muss in Abschnitt **"2. VERPFLICHTENDER WORKFLOW"** integriert werde
 2. Dokumenten-Versions-Audit
 3. Index-Health-Check
 4. Erst bei erfolgreicher Validierung: Fallback auf Disk Docs
-````
+```
 
 ---
 
@@ -164,7 +155,6 @@ Diese Regel muss in Abschnitt **"2. VERPFLICHTENDER WORKFLOW"** integriert werde
 **Ziel:** Dokumentations-Health auf 100% durch vollständigen Audit
 
 **Aufgaben:**
-
 1. ✅ Erstelle `ARCHIVIERUNGSSYSTEM_V18.5.9.md`
 2. ✅ Audit ALLER Dokumente in `docs/`
 3. ✅ Identifiziere veraltete Versionen
@@ -177,7 +167,6 @@ Diese Regel muss in Abschnitt **"2. VERPFLICHTENDER WORKFLOW"** integriert werde
 **Ziel:** Real-Time-Indexing funktionsfähig machen
 
 **Aufgaben:**
-
 1. Erstelle Edge Function `doc-ai-realtime-index`
 2. Implementiere `postCommitIndexing()` Hook
 3. Aktiviere Real-Time Channel `doc-ai-realtime`
@@ -188,7 +177,6 @@ Diese Regel muss in Abschnitt **"2. VERPFLICHTENDER WORKFLOW"** integriert werde
 ## VII. VALIDIERUNG & ERFOLG
 
 **Definition of Done:**
-
 - [x] WDIF-Report erstellt
 - [x] ARCA-Regel formuliert
 - [ ] ARCA-Regel in META_PROMPT_NUTZER_V18.5.9 integriert
@@ -199,7 +187,6 @@ Diese Regel muss in Abschnitt **"2. VERPFLICHTENDER WORKFLOW"** integriert werde
 - [ ] Batch-Report BATCH_20 erstellt
 
 **Erfolgs-Kriterien:**
-
 - 100% Dokumentations-Health
 - CQR-First-Prinzip funktionsfähig
 - Keine veralteten Dokumente in `docs/` (außer `docs/archive/`)
@@ -209,7 +196,6 @@ Diese Regel muss in Abschnitt **"2. VERPFLICHTENDER WORKFLOW"** integriert werde
 ## VIII. CHANGELOG
 
 ### V18.5.9 (2025-10-24)
-
 - **NEU:** ARCA-Regel #1 (CQR-First-Validation)
 - **FIX:** Root-Cause CQR-Fehler identifiziert
 - **KRITISCH:** Archivierungssystem fehlt (wird erstellt)

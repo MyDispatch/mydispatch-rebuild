@@ -9,7 +9,6 @@
 ## 🎯 ZIELSETZUNG
 
 Systemweite, konsistente Abstände für:
-
 - **Header-zu-Content**
 - **Modal-zu-Header**
 - **Innere Abstände (Hero, Cards, Sections)**
@@ -21,7 +20,6 @@ Systemweite, konsistente Abstände für:
 ## 📐 GLOBALE SPACING-STANDARDS
 
 ### 1. HEADER SPACING
-
 ```tsx
 // Fixed Header Heights (NIEMALS ändern!)
 --header-height-mobile: 3.5rem    /* 56px / 14 */
@@ -32,7 +30,6 @@ Systemweite, konsistente Abstände für:
 ```
 
 ### 2. CONTENT SPACING (nach Header)
-
 ```tsx
 // Main Content Top Padding
 .pt-14 sm:pt-16                   /* Standard nach Header */
@@ -43,7 +40,6 @@ Systemweite, konsistente Abstände für:
 ```
 
 ### 3. MODAL/DIALOG SPACING
-
 ```tsx
 // Dialog Position (IMMER mit Top-Margin)
 .top-[50%]                        /* Vertikal zentriert */
@@ -58,7 +54,6 @@ Systemweite, konsistente Abstände für:
 ```
 
 ### 4. CARD SPACING
-
 ```tsx
 // Card Container
 .p-4 sm:p-6 md:p-8               /* Responsive Padding */
@@ -72,7 +67,6 @@ Systemweite, konsistente Abstände für:
 ```
 
 ### 5. SECTION SPACING
-
 ```tsx
 // Section Container
 .py-8 sm:py-12 md:py-16          /* Vertical Section Padding */
@@ -84,7 +78,6 @@ Systemweite, konsistente Abstände für:
 ```
 
 ### 6. FORM SPACING
-
 ```tsx
 // Form Container
 .space-y-4 sm:space-y-6          /* Form Fields Vertical */
@@ -101,7 +94,6 @@ Systemweite, konsistente Abstände für:
 ## 🚫 OVERFLOW PREVENTION
 
 ### 1. TEXT OVERFLOW
-
 ```tsx
 // Single Line
 .truncate                        /* text-overflow: ellipsis */
@@ -115,7 +107,6 @@ Systemweite, konsistente Abstände für:
 ```
 
 ### 2. CONTAINER OVERFLOW
-
 ```tsx
 // Scrollable Content
 .overflow-y-auto                 /* Vertical Scroll */
@@ -127,7 +118,6 @@ Systemweite, konsistente Abstände für:
 ```
 
 ### 3. MODAL OVERFLOW
-
 ```tsx
 // Modal Content
 .max-h-[90vh]                    /* Max Height */
@@ -138,7 +128,6 @@ Systemweite, konsistente Abstände für:
 ```
 
 ### 4. BADGE/ABSOLUTE POSITIONING
-
 ```tsx
 // Absolute Badge (IMMER mit clearance)
 .absolute -top-3 right-3         /* Mit genug Abstand */
@@ -154,7 +143,6 @@ Systemweite, konsistente Abstände für:
 ## 📱 RESPONSIVE SPACING
 
 ### Breakpoints
-
 ```tsx
 sm:  640px   /* Tablet Portrait */
 md:  768px   /* Tablet Landscape */
@@ -164,14 +152,13 @@ xl:  1280px  /* Large Desktop */
 ```
 
 ### Mobile-First Pattern
-
 ```tsx
 // ✅ RICHTIG: Mobile First
-className = "gap-3 sm:gap-4 md:gap-6 lg:gap-8";
-className = "p-4 sm:p-6 md:p-8";
+className="gap-3 sm:gap-4 md:gap-6 lg:gap-8"
+className="p-4 sm:p-6 md:p-8"
 
 // ❌ FALSCH: Desktop First
-className = "gap-8 md:gap-6 sm:gap-4";
+className="gap-8 md:gap-6 sm:gap-4"
 ```
 
 ---
@@ -179,13 +166,12 @@ className = "gap-8 md:gap-6 sm:gap-4";
 ## 🎨 STANDARD-KOMPONENTEN
 
 ### StandardPageLayout
-
 ```tsx
 <StandardPageLayout
   seoConfig={{ title: "...", description: "..." }}
   headerConfig={{
     title: "Title",
-    subtitle: "Subtitle",
+    subtitle: "Subtitle"
   }}
 >
   {/* Content automatisch mit korrektem Spacing */}
@@ -193,21 +179,19 @@ className = "gap-8 md:gap-6 sm:gap-4";
 ```
 
 ### UnifiedDialog
-
 ```tsx
 <UnifiedDialog
   open={open}
   onOpenChange={setOpen}
   title="Dialog Title"
-  size="md" // sm | md | lg | xl | full
-  className="mt-14 sm:mt-16" // IMMER hinzufügen!
+  size="md"  // sm | md | lg | xl | full
+  className="mt-14 sm:mt-16"  // IMMER hinzufügen!
 >
   {/* Content */}
 </UnifiedDialog>
 ```
 
 ### Card mit Overflow-Protection
-
 ```tsx
 <Card className="w-full">
   <CardHeader className="pb-4">
@@ -224,7 +208,6 @@ className = "gap-8 md:gap-6 sm:gap-4";
 ## ✅ QUALITY GATES
 
 ### Pre-Commit Checklist
-
 ```typescript
 // 1. Header Spacing
 ✓ Header: h-14 sm:h-16
@@ -252,23 +235,20 @@ className = "gap-8 md:gap-6 sm:gap-4";
 ## 🔍 AUTOMATISIERTE PRÜFUNGEN
 
 ### 1. ESLint Rule (Geplant V18.6.0)
-
 ```typescript
 // Warnt bei direkten Spacing-Werten ohne Responsive
 'no-hardcoded-spacing': 'error'
 ```
 
 ### 2. Playwright Visual Regression
-
 ```typescript
-test("spacing-consistency", async ({ page }) => {
-  await page.goto("/");
-  await expect(page).toHaveScreenshot("spacing-baseline.png");
+test('spacing-consistency', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveScreenshot('spacing-baseline.png');
 });
 ```
 
 ### 3. Pre-Commit Hook
-
 ```bash
 # Prüfe Spacing-Pattern
 npm run lint:spacing
@@ -279,7 +259,6 @@ npm run lint:spacing
 ## 📊 HÄUFIGE FEHLER
 
 ### ❌ Fehler 1: Fehlender Modal-Abstand
-
 ```tsx
 // FALSCH
 <DialogContent className="max-h-[90vh]">
@@ -289,7 +268,6 @@ npm run lint:spacing
 ```
 
 ### ❌ Fehler 2: Badge-Überlappung
-
 ```tsx
 // FALSCH
 <Label className="relative">
@@ -302,7 +280,6 @@ npm run lint:spacing
 ```
 
 ### ❌ Fehler 3: Text-Overflow
-
 ```tsx
 // FALSCH
 <h3>{longTitle}</h3>
@@ -313,7 +290,6 @@ npm run lint:spacing
 ```
 
 ### ❌ Fehler 4: Hardcoded Spacing
-
 ```tsx
 // FALSCH
 <div className="gap-6">
@@ -327,24 +303,21 @@ npm run lint:spacing
 ## 🚀 MIGRATION-GUIDE
 
 ### Schritt 1: Bestehende Komponenten prüfen
-
 ```bash
 # Suche nach hardcoded spacing
 grep -r "gap-\|p-\|m-\|pt-\|pb-" src/
 ```
 
 ### Schritt 2: Responsive Spacing hinzufügen
-
 ```tsx
 // Vor
-className = "gap-6 p-8";
+className="gap-6 p-8"
 
 // Nach
-className = "gap-4 sm:gap-6 p-4 sm:p-6 md:p-8";
+className="gap-4 sm:gap-6 p-4 sm:p-6 md:p-8"
 ```
 
 ### Schritt 3: Overflow-Protection hinzufügen
-
 ```tsx
 // Vor
 <div>{text}</div>
@@ -357,14 +330,14 @@ className = "gap-4 sm:gap-6 p-4 sm:p-6 md:p-8";
 
 ## 📈 SUCCESS METRICS
 
-| Metrik               | Ziel | Status |
-| -------------------- | ---- | ------ |
-| Modal-Header-Abstand | 100% | ✅     |
-| Responsive Spacing   | 100% | ✅     |
-| Overflow Prevention  | 100% | ✅     |
-| Badge Positioning    | 100% | ✅     |
-| Touch-Targets (44px) | 100% | ✅     |
-| Mobile-First         | 100% | ✅     |
+| Metrik | Ziel | Status |
+|--------|------|--------|
+| Modal-Header-Abstand | 100% | ✅ |
+| Responsive Spacing | 100% | ✅ |
+| Overflow Prevention | 100% | ✅ |
+| Badge Positioning | 100% | ✅ |
+| Touch-Targets (44px) | 100% | ✅ |
+| Mobile-First | 100% | ✅ |
 
 ---
 

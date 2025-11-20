@@ -9,7 +9,6 @@
 ## ❌ PROBLEM
 
 Die ursprünglichen Settings verwendeten falsche Einstellungsnamen:
-
 - `ai.autoAcceptSuggestions` (falsch)
 - `ai.requireConfirmationForExternalAccess` (falsch)
 
@@ -63,10 +62,10 @@ Diese Einstellungen existieren nicht in Cursor!
 ## ⚠️ HINWEIS
 
 Falls es immer noch nicht funktioniert:
-
 - Cursor komplett schließen & neu starten
 - Settings manuell in Cursor UI prüfen: `Settings → Cursor → General`
 
 ---
 
 **Pascal, Auto-Approval sollte jetzt funktionieren!** 🔧
+

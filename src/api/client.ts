@@ -6,9 +6,9 @@
    ✅ Konsistentes Error-Handling
    ================================================================================== */
 
-import { SupabaseClient } from "@supabase/supabase-js";
-import { Database } from "@/integrations/supabase/types";
-import { logger } from "@/lib/logger";
+import { SupabaseClient } from '@supabase/supabase-js';
+import { Database } from '@/integrations/supabase/types';
+import { logger } from '@/lib/logger';
 
 export type TypedSupabaseClient = SupabaseClient<Database>;
 
@@ -19,7 +19,7 @@ export function handleApiError(error: Error | unknown, context: string): never {
   const errorToLog = error instanceof Error ? error : new Error(String(error));
   logger.error(`API Error in ${context}`, errorToLog, {
     context,
-    errorDetails: error,
+    errorDetails: error
   });
   throw error;
 }

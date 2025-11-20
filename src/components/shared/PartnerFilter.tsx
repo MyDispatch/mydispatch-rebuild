@@ -2,9 +2,9 @@
    PARTNER FILTER - Dropdown für Partner-Auswahl in Aufträgen
    ================================================================================== */
 
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { handleError } from "@/lib/error-handler";
+import { useEffect, useState } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { handleError } from '@/lib/error-handler';
 import {
   Select,
   SelectContent,
@@ -13,8 +13,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Handshake, Loader2 } from "lucide-react";
+} from '@/components/ui/select';
+import { Handshake, Loader2 } from 'lucide-react';
 
 interface PartnerConnection {
   id: string;
@@ -45,8 +45,8 @@ export function PartnerFilter({
     const fetchPartners = async () => {
       try {
         const { data, error } = await supabase
-          .from("partner_connections")
-          .select("id, provision_rate, company_a_id, company_b_id")
+          .from('partner_connections')
+          .select('id, provision_rate, company_a_id, company_b_id')
           .or(`company_a_id.eq.${currentCompanyId},company_b_id.eq.${currentCompanyId}`);
 
         if (error) throw error;
@@ -54,13 +54,12 @@ export function PartnerFilter({
         // Fetch partner company details
         const partnersWithCompany = await Promise.all(
           (data || []).map(async (conn) => {
-            const partnerId =
-              conn.company_a_id === currentCompanyId ? conn.company_b_id : conn.company_a_id;
-
+            const partnerId = conn.company_a_id === currentCompanyId ? conn.company_b_id : conn.company_a_id;
+            
             const { data: company } = await supabase
-              .from("companies")
-              .select("id, name")
-              .eq("id", partnerId)
+              .from('companies')
+              .select('id, name')
+              .eq('id', partnerId)
               .single();
 
             return {
@@ -73,7 +72,7 @@ export function PartnerFilter({
 
         setPartners(partnersWithCompany);
       } catch (error) {
-        handleError(error, "Fehler beim Laden der Partner", { showToast: false });
+        handleError(error, 'Fehler beim Laden der Partner', { showToast: false });
       } finally {
         setLoading(false);
       }
@@ -83,7 +82,7 @@ export function PartnerFilter({
   }, [currentCompanyId]);
 
   const handleValueChange = (val: string) => {
-    if (val === "none") {
+    if (val === 'none') {
       onValueChange(undefined, 0);
     } else {
       const partner = partners.find((p) => p.partner_company.id === val);
@@ -112,7 +111,7 @@ export function PartnerFilter({
   }
 
   return (
-    <Select value={value || "none"} onValueChange={handleValueChange} disabled={disabled}>
+    <Select value={value || 'none'} onValueChange={handleValueChange} disabled={disabled}>
       <SelectTrigger>
         <SelectValue placeholder="Partner auswählen (optional)" />
       </SelectTrigger>

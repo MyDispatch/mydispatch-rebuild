@@ -1,16 +1,16 @@
 /**
  * PROMETHEUS MISSION II: Vehicle Tracking Hook (P0 Cluster 1)
- *
+ * 
  * Replaces direct Supabase calls in DriverTracking.tsx
  * with TanStack Query mutation for GPS position updates.
- *
+ * 
  * Migration: Line 85 in src/pages/DriverTracking.tsx
  */
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
-import { handleError } from "@/lib/error-handler";
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
+import { handleError } from '@/lib/error-handler';
 
 interface VehiclePosition {
   vehicle_id: string;
@@ -34,7 +34,7 @@ export function useVehicleTracking(): UseVehicleTrackingReturn {
   const updatePositionMutation = useMutation({
     mutationFn: async (position: VehiclePosition) => {
       const { data, error } = await supabase
-        .from("vehicle_positions")
+        .from('vehicle_positions')
         .insert({
           vehicle_id: position.vehicle_id,
           driver_id: position.driver_id,
@@ -52,11 +52,11 @@ export function useVehicleTracking(): UseVehicleTrackingReturn {
     },
     onSuccess: () => {
       // Invalidate tracking queries to refresh position on map
-      queryClient.invalidateQueries({ queryKey: ["vehicle-positions"] });
+      queryClient.invalidateQueries({ queryKey: ['vehicle-positions'] });
     },
     onError: (error) => {
-      handleError(error, "Fehler beim Aktualisieren der Position");
-      console.error("[VehicleTracking] Position update failed:", error);
+      handleError(error, 'Fehler beim Aktualisieren der Position');
+      console.error('[VehicleTracking] Position update failed:', error);
     },
   });
 

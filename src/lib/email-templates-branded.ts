@@ -20,13 +20,14 @@ export interface CompanyBranding {
 /**
  * Base Email Template mit Company-Branding oder MyDispatch-Branding
  */
-function getEmailBaseTemplate(content: string, branding: CompanyBranding): string {
-  const logoUrl = branding.logoUrl || "https://cdn.mydispatch.de/logo-white.png";
-  const primaryColor = branding.primaryColor || "#323D5E";
-  const accentColor = branding.primaryColor
-    ? adjustBrightness(branding.primaryColor, -20)
-    : "#856d4b";
-  const footerBrand = branding.isWhiteLabel ? branding.companyName : "MyDispatch";
+function getEmailBaseTemplate(
+  content: string,
+  branding: CompanyBranding
+): string {
+  const logoUrl = branding.logoUrl || 'https://cdn.mydispatch.de/logo-white.png';
+  const primaryColor = branding.primaryColor || '#323D5E';
+  const accentColor = branding.primaryColor ? adjustBrightness(branding.primaryColor, -20) : '#856d4b';
+  const footerBrand = branding.isWhiteLabel ? branding.companyName : 'MyDispatch';
 
   return `
 <!DOCTYPE html>
@@ -117,7 +118,7 @@ function getEmailBaseTemplate(content: string, branding: CompanyBranding): strin
     <div class="footer">
       <p>
         <strong>${footerBrand}</strong><br>
-        ${branding.isWhiteLabel ? "" : "MyDispatch GmbH | Musterstraße 123 | 12345 Musterstadt<br>"}
+        ${branding.isWhiteLabel ? '' : 'MyDispatch GmbH | Musterstraße 123 | 12345 Musterstadt<br>'}
         <a href="tel:+49123456789">+49 123 456 789</a> |
         <a href="mailto:info@mydispatch.de">info@mydispatch.de</a>
       </p>
@@ -137,12 +138,12 @@ function getEmailBaseTemplate(content: string, branding: CompanyBranding): strin
  * Helper: Adjust color brightness
  */
 function adjustBrightness(hex: string, percent: number): string {
-  const num = parseInt(hex.replace("#", ""), 16);
+  const num = parseInt(hex.replace('#', ''), 16);
   const amt = Math.round(2.55 * percent);
   const R = Math.min(255, Math.max(0, (num >> 16) + amt));
-  const G = Math.min(255, Math.max(0, ((num >> 8) & 0x00ff) + amt));
-  const B = Math.min(255, Math.max(0, (num & 0x0000ff) + amt));
-  return "#" + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+  const G = Math.min(255, Math.max(0, ((num >> 8) & 0x00FF) + amt));
+  const B = Math.min(255, Math.max(0, (num & 0x0000FF) + amt));
+  return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
 }
 
 // 1. Passwort-Vergessen (Branded)
@@ -160,7 +161,7 @@ export function passwordResetTemplateBranded(
   `;
 
   return {
-    subject: `${branding.isWhiteLabel ? branding.companyName : "MyDispatch"} - Passwort zurücksetzen`,
+    subject: `${branding.isWhiteLabel ? branding.companyName : 'MyDispatch'} - Passwort zurücksetzen`,
     html: getEmailBaseTemplate(content, branding),
     text: `
 Passwort zurücksetzen
@@ -193,10 +194,10 @@ export function registrationConfirmTemplateBranded(
   `;
 
   return {
-    subject: `Willkommen bei ${branding.isWhiteLabel ? branding.companyName : "MyDispatch"}!`,
+    subject: `Willkommen bei ${branding.isWhiteLabel ? branding.companyName : 'MyDispatch'}!`,
     html: getEmailBaseTemplate(content, branding),
     text: `
-Willkommen bei ${branding.isWhiteLabel ? branding.companyName : "MyDispatch"}, ${userName}!
+Willkommen bei ${branding.isWhiteLabel ? branding.companyName : 'MyDispatch'}, ${userName}!
 
 Ihre Registrierung für ${companyName} war erfolgreich.
 
@@ -218,8 +219,8 @@ export function bookingConfirmationTemplateBranded(
   driverName?: string,
   vehiclePlate?: string
 ): EmailTemplate {
-  const driverInfo = driverName ? `<p><strong>Fahrer:</strong> ${driverName}</p>` : "";
-  const vehicleInfo = vehiclePlate ? `<p><strong>Fahrzeug:</strong> ${vehiclePlate}</p>` : "";
+  const driverInfo = driverName ? `<p><strong>Fahrer:</strong> ${driverName}</p>` : '';
+  const vehicleInfo = vehiclePlate ? `<p><strong>Fahrzeug:</strong> ${vehiclePlate}</p>` : '';
 
   const content = `
     <h1>Buchungsbestätigung</h1>
@@ -237,7 +238,7 @@ export function bookingConfirmationTemplateBranded(
   `;
 
   return {
-    subject: `Buchungsbestätigung - ${branding.isWhiteLabel ? branding.companyName : "MyDispatch"}`,
+    subject: `Buchungsbestätigung - ${branding.isWhiteLabel ? branding.companyName : 'MyDispatch'}`,
     html: getEmailBaseTemplate(content, branding),
     text: `
 Buchungsbestätigung
@@ -250,8 +251,8 @@ Abholung: ${pickupAddress}
 Ziel: ${dropoffAddress}
 Zeit: ${pickupTime}
 Preis: ${price}
-${driverName ? `Fahrer: ${driverName}` : ""}
-${vehiclePlate ? `Fahrzeug: ${vehiclePlate}` : ""}
+${driverName ? `Fahrer: ${driverName}` : ''}
+${vehiclePlate ? `Fahrzeug: ${vehiclePlate}` : ''}
 
 Wir freuen uns darauf, Sie zu fahren!
     `.trim(),
@@ -269,11 +270,9 @@ export function invoiceEmailTemplateBranded(
   branding: CompanyBranding,
   paymentLink?: string
 ): EmailTemplate {
-  const paymentButton = paymentLink
-    ? `
+  const paymentButton = paymentLink ? `
     <a href="${paymentLink}" class="cta-button" style="margin-left: 10px;">💳 Jetzt online bezahlen</a>
-  `
-    : "";
+  ` : '';
 
   const content = `
     <h1>Ihre Rechnung</h1>
@@ -293,7 +292,7 @@ export function invoiceEmailTemplateBranded(
   `;
 
   return {
-    subject: `Rechnung ${invoiceNumber} - ${branding.isWhiteLabel ? branding.companyName : "MyDispatch"}`,
+    subject: `Rechnung ${invoiceNumber} - ${branding.isWhiteLabel ? branding.companyName : 'MyDispatch'}`,
     html: getEmailBaseTemplate(content, branding),
     text: `
 Ihre Rechnung
@@ -308,7 +307,7 @@ Gesamtbetrag: ${totalAmount}
 Zahlungsziel: ${dueDate}
 
 PDF: ${pdfUrl}
-${paymentLink ? `Online bezahlen: ${paymentLink}` : ""}
+${paymentLink ? `Online bezahlen: ${paymentLink}` : ''}
     `.trim(),
   };
 }

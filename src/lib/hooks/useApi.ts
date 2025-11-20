@@ -1,14 +1,14 @@
 /**
  * HYPERION PHASE 2: Unified API Hooks
- *
+ * 
  * TanStack Query Integration für typ-sichere, gecachte API-Calls.
  * Alle Komponenten nutzen DIESE Hooks statt direktem Supabase-Zugriff.
  */
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { createApiClient } from "@/lib/api/client";
-import { toast } from "sonner";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { createApiClient } from '@/lib/api/client';
+import { toast } from 'sonner';
 
 // ============================================================================
 // API CLIENT INSTANCE
@@ -22,7 +22,7 @@ const api = createApiClient(supabase);
 
 export const useBookings = (filters = {}) => {
   return useQuery({
-    queryKey: ["bookings", filters],
+    queryKey: ['bookings', filters],
     queryFn: () => api.bookings.list(filters),
     staleTime: 30000, // 30 seconds
   });
@@ -30,7 +30,7 @@ export const useBookings = (filters = {}) => {
 
 export const useBooking = (id: string) => {
   return useQuery({
-    queryKey: ["bookings", id],
+    queryKey: ['bookings', id],
     queryFn: () => api.bookings.getById(id),
     enabled: !!id,
   });
@@ -41,8 +41,8 @@ export const useCreateBooking = () => {
   return useMutation({
     mutationFn: api.bookings.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["bookings"] });
-      toast.success("Buchung erfolgreich erstellt");
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
+      toast.success('Buchung erfolgreich erstellt');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -55,8 +55,8 @@ export const useUpdateBooking = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: any }) => api.bookings.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["bookings"] });
-      toast.success("Buchung aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
+      toast.success('Buchung aktualisiert');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -69,8 +69,8 @@ export const useDeleteBooking = () => {
   return useMutation({
     mutationFn: api.bookings.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["bookings"] });
-      toast.success("Buchung gelöscht");
+      queryClient.invalidateQueries({ queryKey: ['bookings'] });
+      toast.success('Buchung gelöscht');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -84,7 +84,7 @@ export const useDeleteBooking = () => {
 
 export const useDrivers = (filters = {}) => {
   return useQuery({
-    queryKey: ["drivers", filters],
+    queryKey: ['drivers', filters],
     queryFn: () => api.drivers.list(filters),
     staleTime: 60000, // 1 minute
   });
@@ -92,7 +92,7 @@ export const useDrivers = (filters = {}) => {
 
 export const useDriver = (id: string) => {
   return useQuery({
-    queryKey: ["drivers", id],
+    queryKey: ['drivers', id],
     queryFn: () => api.drivers.getById(id),
     enabled: !!id,
   });
@@ -103,8 +103,8 @@ export const useCreateDriver = () => {
   return useMutation({
     mutationFn: api.drivers.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["drivers"] });
-      toast.success("Fahrer erstellt");
+      queryClient.invalidateQueries({ queryKey: ['drivers'] });
+      toast.success('Fahrer erstellt');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -117,8 +117,8 @@ export const useUpdateDriver = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: any }) => api.drivers.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["drivers"] });
-      toast.success("Fahrer aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['drivers'] });
+      toast.success('Fahrer aktualisiert');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -132,7 +132,7 @@ export const useUpdateDriver = () => {
 
 export const useVehicles = (filters = {}) => {
   return useQuery({
-    queryKey: ["vehicles", filters],
+    queryKey: ['vehicles', filters],
     queryFn: () => api.vehicles.list(filters),
     staleTime: 60000,
   });
@@ -140,7 +140,7 @@ export const useVehicles = (filters = {}) => {
 
 export const useVehicle = (id: string) => {
   return useQuery({
-    queryKey: ["vehicles", id],
+    queryKey: ['vehicles', id],
     queryFn: () => api.vehicles.getById(id),
     enabled: !!id,
   });
@@ -151,8 +151,8 @@ export const useCreateVehicle = () => {
   return useMutation({
     mutationFn: api.vehicles.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["vehicles"] });
-      toast.success("Fahrzeug erstellt");
+      queryClient.invalidateQueries({ queryKey: ['vehicles'] });
+      toast.success('Fahrzeug erstellt');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -165,8 +165,8 @@ export const useUpdateVehicle = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: any }) => api.vehicles.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["vehicles"] });
-      toast.success("Fahrzeug aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['vehicles'] });
+      toast.success('Fahrzeug aktualisiert');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -180,7 +180,7 @@ export const useUpdateVehicle = () => {
 
 export const useCustomers = (filters = {}) => {
   return useQuery({
-    queryKey: ["customers", filters],
+    queryKey: ['customers', filters],
     queryFn: () => api.customers.list(filters),
     staleTime: 60000,
   });
@@ -188,7 +188,7 @@ export const useCustomers = (filters = {}) => {
 
 export const useCustomer = (id: string) => {
   return useQuery({
-    queryKey: ["customers", id],
+    queryKey: ['customers', id],
     queryFn: () => api.customers.getById(id),
     enabled: !!id,
   });
@@ -199,8 +199,8 @@ export const useCreateCustomer = () => {
   return useMutation({
     mutationFn: api.customers.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["customers"] });
-      toast.success("Kunde erstellt");
+      queryClient.invalidateQueries({ queryKey: ['customers'] });
+      toast.success('Kunde erstellt');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -213,8 +213,8 @@ export const useUpdateCustomer = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: any }) => api.customers.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["customers"] });
-      toast.success("Kunde aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['customers'] });
+      toast.success('Kunde aktualisiert');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -228,7 +228,7 @@ export const useUpdateCustomer = () => {
 
 export const usePartners = (filters = {}) => {
   return useQuery({
-    queryKey: ["partners", filters],
+    queryKey: ['partners', filters],
     queryFn: () => api.partners.list(filters),
     staleTime: 60000,
   });
@@ -236,7 +236,7 @@ export const usePartners = (filters = {}) => {
 
 export const usePartner = (id: string) => {
   return useQuery({
-    queryKey: ["partners", id],
+    queryKey: ['partners', id],
     queryFn: () => api.partners.getById(id),
     enabled: !!id,
   });
@@ -247,8 +247,8 @@ export const useCreatePartner = () => {
   return useMutation({
     mutationFn: api.partners.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["partners"] });
-      toast.success("Partner erstellt");
+      queryClient.invalidateQueries({ queryKey: ['partners'] });
+      toast.success('Partner erstellt');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -261,8 +261,8 @@ export const useUpdatePartner = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: any }) => api.partners.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["partners"] });
-      toast.success("Partner aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['partners'] });
+      toast.success('Partner aktualisiert');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -276,7 +276,7 @@ export const useUpdatePartner = () => {
 
 export const useShifts = (filters = {}) => {
   return useQuery({
-    queryKey: ["shifts", filters],
+    queryKey: ['shifts', filters],
     queryFn: () => api.shifts.list(filters),
     staleTime: 30000,
   });
@@ -284,7 +284,7 @@ export const useShifts = (filters = {}) => {
 
 export const useShift = (id: string) => {
   return useQuery({
-    queryKey: ["shifts", id],
+    queryKey: ['shifts', id],
     queryFn: () => api.shifts.getById(id),
     enabled: !!id,
   });
@@ -295,8 +295,8 @@ export const useCreateShift = () => {
   return useMutation({
     mutationFn: api.shifts.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["shifts"] });
-      toast.success("Schicht erstellt");
+      queryClient.invalidateQueries({ queryKey: ['shifts'] });
+      toast.success('Schicht erstellt');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -309,8 +309,8 @@ export const useUpdateShift = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: any }) => api.shifts.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["shifts"] });
-      toast.success("Schicht aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['shifts'] });
+      toast.success('Schicht aktualisiert');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -323,8 +323,8 @@ export const useDeleteShift = () => {
   return useMutation({
     mutationFn: api.shifts.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["shifts"] });
-      toast.success("Schicht gelöscht");
+      queryClient.invalidateQueries({ queryKey: ['shifts'] });
+      toast.success('Schicht gelöscht');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -338,7 +338,7 @@ export const useDeleteShift = () => {
 
 export const useCompanies = (filters = {}) => {
   return useQuery({
-    queryKey: ["companies", filters],
+    queryKey: ['companies', filters],
     queryFn: () => api.companies.list(filters),
     staleTime: 300000, // 5 minutes - static data
   });
@@ -346,7 +346,7 @@ export const useCompanies = (filters = {}) => {
 
 export const useCompany = (id: string) => {
   return useQuery({
-    queryKey: ["companies", id],
+    queryKey: ['companies', id],
     queryFn: () => api.companies.getById(id),
     enabled: !!id,
   });
@@ -357,8 +357,8 @@ export const useUpdateCompany = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: any }) => api.companies.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["companies"] });
-      toast.success("Unternehmen aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['companies'] });
+      toast.success('Unternehmen aktualisiert');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -372,7 +372,7 @@ export const useUpdateCompany = () => {
 
 export const useInvoices = (filters = {}) => {
   return useQuery({
-    queryKey: ["invoices", filters],
+    queryKey: ['invoices', filters],
     queryFn: () => api.invoices.list(filters),
     staleTime: 30000,
   });
@@ -380,7 +380,7 @@ export const useInvoices = (filters = {}) => {
 
 export const useInvoice = (id: string) => {
   return useQuery({
-    queryKey: ["invoices", id],
+    queryKey: ['invoices', id],
     queryFn: () => api.invoices.getById(id),
     enabled: !!id,
   });
@@ -391,8 +391,8 @@ export const useCreateInvoice = () => {
   return useMutation({
     mutationFn: api.invoices.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["invoices"] });
-      toast.success("Rechnung erstellt");
+      queryClient.invalidateQueries({ queryKey: ['invoices'] });
+      toast.success('Rechnung erstellt');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -405,8 +405,8 @@ export const useUpdateInvoice = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: any }) => api.invoices.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["invoices"] });
-      toast.success("Rechnung aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['invoices'] });
+      toast.success('Rechnung aktualisiert');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -419,8 +419,8 @@ export const useDeleteInvoice = () => {
   return useMutation({
     mutationFn: api.invoices.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["invoices"] });
-      toast.success("Rechnung gelöscht");
+      queryClient.invalidateQueries({ queryKey: ['invoices'] });
+      toast.success('Rechnung gelöscht');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -434,7 +434,7 @@ export const useDeleteInvoice = () => {
 
 export const useDocuments = (filters = {}) => {
   return useQuery({
-    queryKey: ["documents", filters],
+    queryKey: ['documents', filters],
     queryFn: () => api.documents.list(filters),
     staleTime: 60000,
   });
@@ -442,7 +442,7 @@ export const useDocuments = (filters = {}) => {
 
 export const useDocument = (id: string) => {
   return useQuery({
-    queryKey: ["documents", id],
+    queryKey: ['documents', id],
     queryFn: () => api.documents.getById(id),
     enabled: !!id,
   });
@@ -453,8 +453,8 @@ export const useCreateDocument = () => {
   return useMutation({
     mutationFn: api.documents.create,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["documents"] });
-      toast.success("Dokument erstellt");
+      queryClient.invalidateQueries({ queryKey: ['documents'] });
+      toast.success('Dokument erstellt');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -467,8 +467,8 @@ export const useUpdateDocument = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: any }) => api.documents.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["documents"] });
-      toast.success("Dokument aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['documents'] });
+      toast.success('Dokument aktualisiert');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -481,8 +481,8 @@ export const useDeleteDocument = () => {
   return useMutation({
     mutationFn: api.documents.delete,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["documents"] });
-      toast.success("Dokument gelöscht");
+      queryClient.invalidateQueries({ queryKey: ['documents'] });
+      toast.success('Dokument gelöscht');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);
@@ -496,7 +496,7 @@ export const useDeleteDocument = () => {
 
 export const useProfiles = (filters = {}) => {
   return useQuery({
-    queryKey: ["profiles", filters],
+    queryKey: ['profiles', filters],
     queryFn: () => api.profiles.list(filters),
     staleTime: 60000,
   });
@@ -504,7 +504,7 @@ export const useProfiles = (filters = {}) => {
 
 export const useProfile = (id: string) => {
   return useQuery({
-    queryKey: ["profiles", id],
+    queryKey: ['profiles', id],
     queryFn: () => api.profiles.getById(id),
     enabled: !!id,
   });
@@ -512,7 +512,7 @@ export const useProfile = (id: string) => {
 
 export const useProfileByUserId = (userId: string) => {
   return useQuery({
-    queryKey: ["profiles", "user", userId],
+    queryKey: ['profiles', 'user', userId],
     queryFn: () => api.profiles.getByUserId(userId),
     enabled: !!userId,
   });
@@ -523,8 +523,8 @@ export const useUpdateProfile = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: any }) => api.profiles.update(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["profiles"] });
-      toast.success("Profil aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['profiles'] });
+      toast.success('Profil aktualisiert');
     },
     onError: (error: any) => {
       toast.error(`Fehler: ${error.message}`);

@@ -1,15 +1,15 @@
 /**
  * OPTIMIZED TABLE COMPONENT V18.5.1
- *
+ * 
  * Performance-optimierte Table mit:
  * - React.memo für unnötige Re-Renders
  * - useMemo für berechnete Werte
  * - useCallback für Event-Handler
- *
+ * 
  * 80% schnellere Renders bei 100+ Einträgen
  */
 
-import { memo, useMemo, useCallback, ReactNode } from "react";
+import { memo, useMemo, useCallback, ReactNode } from 'react';
 import {
   Table,
   TableBody,
@@ -17,9 +17,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Pencil, Trash2 } from "lucide-react";
+} from '@/components/ui/table';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Pencil, Trash2 } from 'lucide-react';
 
 interface Column<T> {
   key: keyof T | string;
@@ -35,7 +35,7 @@ interface OptimizedTableProps<T> {
   onEdit?: (item: T) => void;
   onDelete?: (item: T) => void;
   sortBy?: string;
-  sortOrder?: "asc" | "desc";
+  sortOrder?: 'asc' | 'desc';
   emptyMessage?: string;
 }
 
@@ -46,9 +46,10 @@ function OptimizedTableInner<T extends Record<string, any>>({
   onEdit,
   onDelete,
   sortBy,
-  sortOrder = "asc",
-  emptyMessage = "Keine Daten vorhanden",
+  sortOrder = 'asc',
+  emptyMessage = 'Keine Daten vorhanden',
 }: OptimizedTableProps<T>) {
+  
   // Memoize sortierte Daten
   const sortedData = useMemo(() => {
     if (!sortBy) return data;
@@ -57,37 +58,35 @@ function OptimizedTableInner<T extends Record<string, any>>({
       const aVal = a[sortBy];
       const bVal = b[sortBy];
 
-      if (typeof aVal === "string" && typeof bVal === "string") {
+      if (typeof aVal === 'string' && typeof bVal === 'string') {
         const comparison = aVal.localeCompare(bVal);
-        return sortOrder === "asc" ? comparison : -comparison;
+        return sortOrder === 'asc' ? comparison : -comparison;
       }
 
-      if (aVal < bVal) return sortOrder === "asc" ? -1 : 1;
-      if (aVal > bVal) return sortOrder === "asc" ? 1 : -1;
+      if (aVal < bVal) return sortOrder === 'asc' ? -1 : 1;
+      if (aVal > bVal) return sortOrder === 'asc' ? 1 : -1;
       return 0;
     });
   }, [data, sortBy, sortOrder]);
 
   // Memoize Event-Handler
-  const handleEdit = useCallback(
-    (item: T) => {
-      onEdit?.(item);
-    },
-    [onEdit]
-  );
+  const handleEdit = useCallback((item: T) => {
+    onEdit?.(item);
+  }, [onEdit]);
 
-  const handleDelete = useCallback(
-    (item: T) => {
-      onDelete?.(item);
-    },
-    [onDelete]
-  );
+  const handleDelete = useCallback((item: T) => {
+    onDelete?.(item);
+  }, [onDelete]);
 
   // Memoize Action Buttons
   const hasActions = onEdit || onDelete;
 
   if (sortedData.length === 0) {
-    return <div className="text-center py-8 text-muted-foreground">{emptyMessage}</div>;
+    return (
+      <div className="text-center py-8 text-muted-foreground">
+        {emptyMessage}
+      </div>
+    );
   }
 
   return (
@@ -95,7 +94,9 @@ function OptimizedTableInner<T extends Record<string, any>>({
       <TableHeader>
         <TableRow>
           {columns.map((col) => (
-            <TableHead key={String(col.key)}>{col.header}</TableHead>
+            <TableHead key={String(col.key)}>
+              {col.header}
+            </TableHead>
           ))}
           {hasActions && <TableHead className="text-right">Aktionen</TableHead>}
         </TableRow>
@@ -105,7 +106,10 @@ function OptimizedTableInner<T extends Record<string, any>>({
           <TableRow key={keyExtractor(item)}>
             {columns.map((col) => (
               <TableCell key={`${keyExtractor(item)}-${String(col.key)}`}>
-                {col.render ? col.render(item) : item[col.key as keyof T]}
+                {col.render 
+                  ? col.render(item) 
+                  : item[col.key as keyof T]
+                }
               </TableCell>
             ))}
             {hasActions && (

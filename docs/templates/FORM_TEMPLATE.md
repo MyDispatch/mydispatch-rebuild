@@ -13,44 +13,55 @@
    [FORM-NAME] SCHEMA - ZOD VALIDATION
    ================================================================================== */
 
-import { z } from "zod";
+import { z } from 'zod';
 
 export const formNameSchema = z.object({
   // Text Fields
-  email: z.string().min(1, "E-Mail ist erforderlich").email("Ungültige E-Mail-Adresse"),
-
+  email: z
+    .string()
+    .min(1, 'E-Mail ist erforderlich')
+    .email('Ungültige E-Mail-Adresse'),
+  
   name: z
     .string()
-    .min(2, "Name muss mindestens 2 Zeichen haben")
-    .max(50, "Name darf maximal 50 Zeichen haben"),
-
+    .min(2, 'Name muss mindestens 2 Zeichen haben')
+    .max(50, 'Name darf maximal 50 Zeichen haben'),
+  
   // Number Fields
-  age: z.number().min(18, "Mindestalter ist 18").max(120, "Ungültiges Alter"),
-
+  age: z
+    .number()
+    .min(18, 'Mindestalter ist 18')
+    .max(120, 'Ungültiges Alter'),
+  
   // Optional Fields
   phone: z
     .string()
-    .regex(/^\+?[0-9]{10,15}$/, "Ungültige Telefonnummer")
+    .regex(/^\+?[0-9]{10,15}$/, 'Ungültige Telefonnummer')
     .optional(),
-
+  
   // Boolean Fields
-  acceptTerms: z.boolean().refine((val) => val === true, "Sie müssen den Bedingungen zustimmen"),
-
+  acceptTerms: z
+    .boolean()
+    .refine((val) => val === true, 'Sie müssen den Bedingungen zustimmen'),
+  
   // Select Fields
-  role: z.enum(["user", "admin", "moderator"], {
-    errorMap: () => ({ message: "Ungültige Rolle" }),
+  role: z.enum(['user', 'admin', 'moderator'], {
+    errorMap: () => ({ message: 'Ungültige Rolle' }),
   }),
-
+  
   // Date Fields
   birthdate: z.date({
-    required_error: "Geburtsdatum ist erforderlich",
+    required_error: 'Geburtsdatum ist erforderlich',
   }),
-
+  
   // File Upload
   avatar: z
-    .instanceof(File, { message: "Datei ist erforderlich" })
-    .refine((file) => file.size <= 5000000, "Datei darf maximal 5MB groß sein")
-    .refine((file) => ["image/jpeg", "image/png"].includes(file.type), "Nur JPG/PNG erlaubt")
+    .instanceof(File, { message: 'Datei ist erforderlich' })
+    .refine((file) => file.size <= 5000000, 'Datei darf maximal 5MB groß sein')
+    .refine(
+      (file) => ['image/jpeg', 'image/png'].includes(file.type),
+      'Nur JPG/PNG erlaubt'
+    )
     .optional(),
 });
 
@@ -96,12 +107,12 @@ export function FormName({ onSuccess, initialData, isLoading = false }: FormName
     resolver: zodResolver(formNameSchema),
     defaultValues: initialData || {},
   });
-
+  
   const onSubmit = async (data: FormNameType) => {
     try {
       // API Call oder Mutation
       console.log('Form Data:', data);
-
+      
       // Success
       toast.success('Formular erfolgreich übermittelt');
       onSuccess?.(data);
@@ -111,7 +122,7 @@ export function FormName({ onSuccess, initialData, isLoading = false }: FormName
       toast.error('Fehler beim Übermitteln des Formulars');
     }
   };
-
+  
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {/* Text Input */}
@@ -128,7 +139,7 @@ export function FormName({ onSuccess, initialData, isLoading = false }: FormName
           <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
         )}
       </div>
-
+      
       {/* Text Input */}
       <div>
         <Label htmlFor="name">Name *</Label>
@@ -142,7 +153,7 @@ export function FormName({ onSuccess, initialData, isLoading = false }: FormName
           <p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
         )}
       </div>
-
+      
       {/* Number Input */}
       <div>
         <Label htmlFor="age">Alter *</Label>
@@ -157,7 +168,7 @@ export function FormName({ onSuccess, initialData, isLoading = false }: FormName
           <p className="text-sm text-red-500 mt-1">{errors.age.message}</p>
         )}
       </div>
-
+      
       {/* Optional Input */}
       <div>
         <Label htmlFor="phone">Telefon (optional)</Label>
@@ -172,7 +183,7 @@ export function FormName({ onSuccess, initialData, isLoading = false }: FormName
           <p className="text-sm text-red-500 mt-1">{errors.phone.message}</p>
         )}
       </div>
-
+      
       {/* Checkbox */}
       <div className="flex items-center gap-2">
         <input
@@ -187,7 +198,7 @@ export function FormName({ onSuccess, initialData, isLoading = false }: FormName
       {errors.acceptTerms && (
         <p className="text-sm text-red-500">{errors.acceptTerms.message}</p>
       )}
-
+      
       {/* Select */}
       <div>
         <Label htmlFor="role">Rolle *</Label>
@@ -206,7 +217,7 @@ export function FormName({ onSuccess, initialData, isLoading = false }: FormName
           <p className="text-sm text-red-500 mt-1">{errors.role.message}</p>
         )}
       </div>
-
+      
       {/* Submit Button */}
       <div className="flex gap-2">
         <V26Button
@@ -216,7 +227,7 @@ export function FormName({ onSuccess, initialData, isLoading = false }: FormName
         >
           {isSubmitting ? 'Übermitteln...' : 'Absenden'}
         </V26Button>
-
+        
         <V26Button
           type="button"
           onClick={() => reset()}
@@ -243,9 +254,9 @@ import { useState } from 'react';
 function FileUploadForm() {
   const [preview, setPreview] = useState<string | null>(null);
   const { register, watch } = useForm();
-
+  
   const avatarFile = watch('avatar');
-
+  
   useEffect(() => {
     if (avatarFile && avatarFile[0]) {
       const reader = new FileReader();
@@ -253,7 +264,7 @@ function FileUploadForm() {
       reader.readAsDataURL(avatarFile[0]);
     }
   }, [avatarFile]);
-
+  
   return (
     <div>
       <input type="file" {...register('avatar')} accept="image/*" />
@@ -273,13 +284,13 @@ import { useState } from 'react';
 function MultiStepForm() {
   const [step, setStep] = useState(1);
   const { register, handleSubmit, trigger } = useForm();
-
+  
   const handleNext = async () => {
     // Validate current step
     const isValid = await trigger(['email', 'name']); // Step 1 fields
     if (isValid) setStep(step + 1);
   };
-
+  
   return (
     <form>
       {step === 1 && (
@@ -288,7 +299,7 @@ function MultiStepForm() {
           <V26Button onClick={handleNext}>Weiter</V26Button>
         </div>
       )}
-
+      
       {step === 2 && (
         <div>
           {/* Step 2 Fields */}
@@ -318,7 +329,7 @@ const schema = z.object({
 function DynamicForm() {
   const { control, register } = useForm({ resolver: zodResolver(schema) });
   const { fields, append, remove } = useFieldArray({ control, name: 'items' });
-
+  
   return (
     <div>
       {fields.map((field, index) => (
@@ -339,7 +350,6 @@ function DynamicForm() {
 ## Checklist Form Implementation
 
 **Vor Implementation:**
-
 - [ ] Zod Schema definiert (src/schemas/)
 - [ ] TypeScript Types aus Schema generiert
 - [ ] Required vs. Optional Fields geklärt
@@ -347,7 +357,6 @@ function DynamicForm() {
 - [ ] UI/UX für Fehler-Anzeige geplant
 
 **Nach Implementation:**
-
 - [ ] Alle Felder validiert (Edge Cases)
 - [ ] Error Messages benutzerfreundlich
 - [ ] Loading States funktionieren

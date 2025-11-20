@@ -23,13 +23,15 @@
 // package.json
 {
   "lint-staged": {
-    "*.{ts,tsx}": ["eslint --fix", "prettier --write"]
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
 ```
 
 **Checks:**
-
 - ✅ ESLint (Code Quality)
 - ✅ Prettier (Code Formatting)
 - ✅ TypeScript (Type Errors)
@@ -50,7 +52,6 @@ npm run test
 ```
 
 **Checks:**
-
 - ✅ TypeScript Compilation
 - ✅ Unit Tests (Vitest)
 
@@ -71,28 +72,27 @@ jobs:
     steps:
       - name: Lint
         run: npm run lint
-
+      
       - name: Type Check
         run: npm run type-check
-
+      
       - name: Unit Tests
         run: npm run test
-
+      
       - name: E2E Tests
         run: npm run test:e2e
-
+      
       - name: Build
         run: npm run build
-
+      
       - name: Design System Check
         run: npm run test:design-tokens
-
+      
       - name: Security Check
         run: supabase test db
 ```
 
 **Checks:**
-
 - ✅ ESLint (Zero Errors)
 - ✅ TypeScript (Zero Errors)
 - ✅ Unit Tests (100% Pass)
@@ -112,21 +112,20 @@ jobs:
 
 ```typescript
 // tests/smoke/production.test.ts
-describe("Production Smoke Tests", () => {
-  it("Homepage loads", async () => {
-    const response = await fetch("https://mydispatch.lovable.app");
+describe('Production Smoke Tests', () => {
+  it('Homepage loads', async () => {
+    const response = await fetch('https://mydispatch.lovable.app');
     expect(response.status).toBe(200);
   });
-
-  it("API responds", async () => {
-    const response = await fetch("https://xyz.supabase.co/rest/v1/health");
+  
+  it('API responds', async () => {
+    const response = await fetch('https://xyz.supabase.co/rest/v1/health');
     expect(response.status).toBe(200);
   });
 });
 ```
 
 **Checks:**
-
 - ✅ Homepage lädt
 - ✅ API erreichbar
 - ✅ Authentication funktioniert
@@ -139,37 +138,37 @@ describe("Production Smoke Tests", () => {
 
 ### Code Quality
 
-| Metric                    | Schwelle | Tool   |
-| ------------------------- | -------- | ------ |
-| **ESLint Errors**         | 0        | ESLint |
-| **TypeScript Errors**     | 0        | tsc    |
-| **Code Duplication**      | < 5%     | -      |
-| **Cyclomatic Complexity** | < 10     | ESLint |
+| Metric | Schwelle | Tool |
+|--------|----------|------|
+| **ESLint Errors** | 0 | ESLint |
+| **TypeScript Errors** | 0 | tsc |
+| **Code Duplication** | < 5% | - |
+| **Cyclomatic Complexity** | < 10 | ESLint |
 
 ### Test Coverage
 
-| Metric                        | Schwelle       | Tool       |
-| ----------------------------- | -------------- | ---------- |
-| **Unit Test Coverage**        | > 80%          | Vitest     |
-| **Integration Test Coverage** | > 60%          | Vitest     |
-| **E2E Test Coverage**         | Critical Flows | Playwright |
+| Metric | Schwelle | Tool |
+|--------|----------|------|
+| **Unit Test Coverage** | > 80% | Vitest |
+| **Integration Test Coverage** | > 60% | Vitest |
+| **E2E Test Coverage** | Critical Flows | Playwright |
 
 ### Performance
 
-| Metric          | Schwelle | Tool       |
-| --------------- | -------- | ---------- |
-| **LCP**         | < 2.5s   | Lighthouse |
-| **FCP**         | < 1.8s   | Lighthouse |
-| **CLS**         | < 0.1    | Lighthouse |
-| **Bundle Size** | < 1MB    | Vite       |
+| Metric | Schwelle | Tool |
+|--------|----------|------|
+| **LCP** | < 2.5s | Lighthouse |
+| **FCP** | < 1.8s | Lighthouse |
+| **CLS** | < 0.1 | Lighthouse |
+| **Bundle Size** | < 1MB | Vite |
 
 ### Security
 
-| Metric                      | Schwelle   | Tool            |
-| --------------------------- | ---------- | --------------- |
-| **RLS Enabled**             | 100%       | Supabase Linter |
-| **Security Policies**       | 100%       | Supabase Linter |
-| **Vulnerable Dependencies** | 0 Critical | npm audit       |
+| Metric | Schwelle | Tool |
+|--------|----------|------|
+| **RLS Enabled** | 100% | Supabase Linter |
+| **Security Policies** | 100% | Supabase Linter |
+| **Vulnerable Dependencies** | 0 Critical | npm audit |
 
 ---
 
@@ -256,7 +255,6 @@ npm run test:design-tokens
 ```
 
 **Prüft:**
-
 - ❌ `text-white`, `bg-black`, `text-blue-500`
 - ❌ Inline-Styles
 - ❌ Direct Lucide-Imports
@@ -271,7 +269,6 @@ supabase test db
 ```
 
 **Prüft:**
-
 - ❌ Tabellen ohne RLS
 - ❌ Fehlende Policies
 - ❌ Unsichere Functions
@@ -299,7 +296,6 @@ supabase test db
 ### Was passiert bei Fehlschlag?
 
 #### Pre-Commit
-
 ```
 ❌ ESLint Error in src/components/Button.tsx
    Line 42: 'color' is not defined
@@ -309,7 +305,6 @@ supabase test db
 ```
 
 #### Pre-Push
-
 ```
 ❌ TypeScript Error in src/pages/Dashboard.tsx
    Line 123: Type 'string' is not assignable to type 'number'
@@ -319,7 +314,6 @@ supabase test db
 ```
 
 #### Pull Request
-
 ```
 ❌ E2E Test Failed: Booking Creation
    Expected: Booking created successfully
@@ -336,7 +330,6 @@ supabase test db
 Vor jedem Deployment:
 
 ### Code Quality
-
 ```
 [ ] ESLint: 0 Errors
 [ ] TypeScript: 0 Errors
@@ -345,7 +338,6 @@ Vor jedem Deployment:
 ```
 
 ### Testing
-
 ```
 [ ] Unit Tests: > 80% Coverage
 [ ] E2E Tests: Alle Critical Flows
@@ -353,7 +345,6 @@ Vor jedem Deployment:
 ```
 
 ### Security
-
 ```
 [ ] RLS auf allen Tabellen
 [ ] Supabase Linter: 0 Critical Issues
@@ -362,7 +353,6 @@ Vor jedem Deployment:
 ```
 
 ### Performance
-
 ```
 [ ] Bundle < 1MB
 [ ] LCP < 2.5s
@@ -371,7 +361,6 @@ Vor jedem Deployment:
 ```
 
 ### Design System
-
 ```
 [ ] Semantic Tokens verwendet
 [ ] Icon-Komponente genutzt
@@ -380,7 +369,6 @@ Vor jedem Deployment:
 ```
 
 ### Legal Compliance
-
 ```
 [ ] DSGVO-Hinweis bei Formularen
 [ ] Impressum/Datenschutz/AGB im Footer
@@ -422,7 +410,6 @@ Vor jedem Deployment:
 ## 📝 Changelog
 
 ### V18.5.0 (2025-01-26)
-
 - Erstversion Quality Gates
 - 4-Stage Quality Pipeline definiert
 - Automatische Checks dokumentiert

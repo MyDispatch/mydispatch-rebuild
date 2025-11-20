@@ -7,8 +7,8 @@
    NUTZUNG: const { nav, buttons } = useContent();
    ================================================================================== */
 
-import { content } from "@/lib/content/de-DE";
-import type { Content } from "@/lib/content/types";
+import { content } from '@/lib/content/de-DE';
+import type { Content } from '@/lib/content/types';
 
 export function useContent(): Content {
   return content;

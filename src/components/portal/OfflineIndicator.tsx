@@ -4,10 +4,10 @@
    Zeigt Offline-Status im Customer-Portal mit Sync-Queue-Info
    ================================================================================== */
 
-import { useEffect, useState } from "react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { WifiOff, Wifi, RefreshCw } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { useEffect, useState } from 'react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { WifiOff, Wifi, RefreshCw } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 export function OfflineIndicator() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
@@ -17,12 +17,12 @@ export function OfflineIndicator() {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener("online", handleOnline);
-    window.addEventListener("offline", handleOffline);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
 
     // Check offline queue (von Service Worker)
     const checkOfflineQueue = () => {
-      const queue = JSON.parse(localStorage.getItem("offline_queue") || "[]");
+      const queue = JSON.parse(localStorage.getItem('offline_queue') || '[]');
       setPendingActions(queue.length);
     };
 
@@ -30,8 +30,8 @@ export function OfflineIndicator() {
     const interval = setInterval(checkOfflineQueue, 5000);
 
     return () => {
-      window.removeEventListener("online", handleOnline);
-      window.removeEventListener("offline", handleOffline);
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
       clearInterval(interval);
     };
   }, []);
@@ -39,7 +39,7 @@ export function OfflineIndicator() {
   if (isOnline && pendingActions === 0) return null;
 
   return (
-    <Alert variant={isOnline ? "default" : "destructive"} className="mb-4">
+    <Alert variant={isOnline ? 'default' : 'destructive'} className="mb-4">
       <div className="flex items-center gap-3">
         {isOnline ? (
           <Wifi className="h-4 w-4 text-status-success" />
@@ -54,8 +54,7 @@ export function OfflineIndicator() {
                 <>
                   <RefreshCw className="h-4 w-4 animate-spin" />
                   <Badge variant="secondary" className="text-xs">
-                    {pendingActions} {pendingActions === 1 ? "Aktion" : "Aktionen"} werden
-                    synchronisiert...
+                    {pendingActions} {pendingActions === 1 ? 'Aktion' : 'Aktionen'} werden synchronisiert...
                   </Badge>
                 </>
               )}

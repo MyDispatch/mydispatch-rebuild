@@ -7,24 +7,24 @@
    - Wetter-Preview für Standort
    ================================================================================== */
 
-import { useState } from "react";
-import { useAuth } from "@/hooks/use-auth";
-import { supabase } from "@/integrations/supabase/client";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { AddressInput } from "@/components/forms/AddressInput";
-import { handleError, handleSuccess } from "@/lib/error-handler";
-import { formatCoordinates } from "@/lib/format-utils-extended";
-import { useCompanyLocation } from "@/hooks/use-company-location";
-import { Input } from "@/components/ui/input";
+import { useState } from 'react';
+import { useAuth } from '@/hooks/use-auth';
+import { supabase } from '@/integrations/supabase/client';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { AddressInput } from '@/components/forms/AddressInput';
+import { handleError, handleSuccess } from '@/lib/error-handler';
+import { formatCoordinates } from '@/lib/format-utils-extended';
+import { useCompanyLocation } from '@/hooks/use-company-location';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 interface GeocodingResult {
   latitude: number;
@@ -45,25 +45,25 @@ export function LocationSettingsTab() {
   const [isSaving, setIsSaving] = useState(false);
 
   // Form State
-  const [street, setStreet] = useState(location?.street || "");
-  const [streetNumber, setStreetNumber] = useState(location?.street_number || "");
-  const [postalCode, setPostalCode] = useState(location?.postal_code || "");
-  const [city, setCity] = useState(location?.city || "");
+  const [street, setStreet] = useState(location?.street || '');
+  const [streetNumber, setStreetNumber] = useState(location?.street_number || '');
+  const [postalCode, setPostalCode] = useState(location?.postal_code || '');
+  const [city, setCity] = useState(location?.city || '');
   const [latitude, setLatitude] = useState<number | undefined>(location?.latitude);
   const [longitude, setLongitude] = useState<number | undefined>(location?.longitude);
-  const [timezone, setTimezone] = useState(location?.timezone || "Europe/Berlin");
-  const [countryCode, setCountryCode] = useState(location?.country_code || "DE");
-  const [phonePrefix, setPhonePrefix] = useState(location?.phone_prefix || "+49");
+  const [timezone, setTimezone] = useState(location?.timezone || 'Europe/Berlin');
+  const [countryCode, setCountryCode] = useState(location?.country_code || 'DE');
+  const [phonePrefix, setPhonePrefix] = useState(location?.phone_prefix || '+49');
 
   // Geocoding mit HERE API (via Edge Function)
   const handleGeocodeAddress = async () => {
     const fullAddress = `${street} ${streetNumber}, ${postalCode} ${city}`;
-
+    
     if (!street || !city) {
       handleError(
-        new Error("Unvollständige Adresse"),
-        "Bitte geben Sie mindestens Straße und Stadt ein.",
-        { title: "Geocoding nicht möglich" }
+        new Error('Unvollständige Adresse'),
+        'Bitte geben Sie mindestens Straße und Stadt ein.',
+        { title: 'Geocoding nicht möglich' }
       );
       return;
     }
@@ -72,9 +72,9 @@ export function LocationSettingsTab() {
 
     try {
       const { data, error } = await supabase.functions.invoke<GeocodingResult>(
-        "geocode-company-address",
+        'geocode-company-address',
         {
-          body: { address: fullAddress },
+          body: { address: fullAddress }
         }
       );
 
@@ -83,16 +83,16 @@ export function LocationSettingsTab() {
       if (data) {
         setLatitude(data.latitude);
         setLongitude(data.longitude);
-        setTimezone(data.timezone || "Europe/Berlin");
-        setCountryCode(data.country_code || "DE");
-
-        handleSuccess("Adresse erfolgreich geocodiert! Koordinaten wurden automatisch ermittelt.");
+        setTimezone(data.timezone || 'Europe/Berlin');
+        setCountryCode(data.country_code || 'DE');
+        
+        handleSuccess('Adresse erfolgreich geocodiert! Koordinaten wurden automatisch ermittelt.');
       }
     } catch (error) {
       handleError(
         error,
-        "Adresse konnte nicht geocodiert werden. Bitte überprüfen Sie die Eingabe.",
-        { title: "Geocoding fehlgeschlagen" }
+        'Adresse konnte nicht geocodiert werden. Bitte überprüfen Sie die Eingabe.',
+        { title: 'Geocoding fehlgeschlagen' }
       );
     } finally {
       setIsGeocoding(false);
@@ -107,7 +107,7 @@ export function LocationSettingsTab() {
 
     try {
       const { error } = await supabase
-        .from("companies")
+        .from('companies')
         .update({
           street,
           street_number: streetNumber,
@@ -119,14 +119,14 @@ export function LocationSettingsTab() {
           country_code: countryCode,
           phone_prefix: phonePrefix,
         })
-        .eq("id", profile.company_id);
+        .eq('id', profile.company_id);
 
       if (error) throw error;
 
-      handleSuccess("Standort erfolgreich gespeichert!");
+      handleSuccess('Standort erfolgreich gespeichert!');
       refetch(); // Aktualisiere Company Location Cache
     } catch (error) {
-      handleError(error, "Fehler beim Speichern des Standorts");
+      handleError(error, 'Fehler beim Speichern des Standorts');
     } finally {
       setIsSaving(false);
     }
@@ -148,18 +148,18 @@ export function LocationSettingsTab() {
       <div>
         <h2 className="text-2xl font-bold tracking-tight">Firmenstandort</h2>
         <p className="text-muted-foreground mt-1">
-          Verwalten Sie den Standort Ihres Unternehmens. Die Koordinaten werden für Wetter-,
-          Verkehrs- und GPS-Funktionen verwendet.
+          Verwalten Sie den Standort Ihres Unternehmens. Die Koordinaten werden für Wetter-, Verkehrs- und GPS-Funktionen verwendet.
         </p>
       </div>
 
       {/* Adress-Eingabe */}
       <Card>
         <CardHeader>
-          <CardTitle>Adresse</CardTitle>
+          <CardTitle>
+            Adresse
+          </CardTitle>
           <CardDescription>
-            Geben Sie die vollständige Firmenadresse ein. Die Koordinaten werden automatisch
-            ermittelt.
+            Geben Sie die vollständige Firmenadresse ein. Die Koordinaten werden automatisch ermittelt.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -229,7 +229,7 @@ export function LocationSettingsTab() {
             variant="secondary"
             className="w-full"
           >
-            {isGeocoding ? "Geocodiere..." : "Koordinaten ermitteln"}
+            {isGeocoding ? 'Geocodiere...' : 'Koordinaten ermitteln'}
           </V28Button>
         </CardContent>
       </Card>
@@ -237,7 +237,9 @@ export function LocationSettingsTab() {
       {/* Koordinaten & Meta-Daten */}
       <Card>
         <CardHeader>
-          <CardTitle>Geo-Daten & Zeitzone</CardTitle>
+          <CardTitle>
+            Geo-Daten & Zeitzone
+          </CardTitle>
           <CardDescription>
             Koordinaten und Zeitzone werden für Location-Aware Features verwendet.
           </CardDescription>
@@ -246,7 +248,9 @@ export function LocationSettingsTab() {
           {/* Koordinaten (Read-Only, nur via Geocoding) */}
           {latitude && longitude && (
             <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-              <div className="flex items-center gap-2 text-sm font-medium">Koordinaten</div>
+              <div className="flex items-center gap-2 text-sm font-medium">
+                Koordinaten
+              </div>
               <p className="text-sm text-muted-foreground font-mono">
                 {formatCoordinates(latitude, longitude)}
               </p>
@@ -258,7 +262,9 @@ export function LocationSettingsTab() {
 
           {/* Zeitzone */}
           <div className="space-y-2">
-            <Label htmlFor="timezone">Zeitzone</Label>
+            <Label htmlFor="timezone">
+              Zeitzone
+            </Label>
             <Select value={timezone} onValueChange={setTimezone}>
               <SelectTrigger id="timezone">
                 <SelectValue />
@@ -288,7 +294,9 @@ export function LocationSettingsTab() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="phone_prefix">Telefonvorwahl</Label>
+              <Label htmlFor="phone_prefix">
+                Telefonvorwahl
+              </Label>
               <Select value={phonePrefix} onValueChange={setPhonePrefix}>
                 <SelectTrigger id="phone_prefix">
                   <SelectValue />
@@ -311,7 +319,7 @@ export function LocationSettingsTab() {
             <div className="space-y-1">
               <p className="text-sm font-medium">Location-Aware Features aktiviert</p>
               <p className="text-xs text-muted-foreground">
-                Ihr Dashboard zeigt nun automatisch Wetter- und Verkehrsinformationen für{" "}
+                Ihr Dashboard zeigt nun automatisch Wetter- und Verkehrsinformationen für{' '}
                 <strong>{city}</strong>. Die Live-Karte wird auf Ihren Standort zentriert.
               </p>
             </div>
@@ -321,8 +329,12 @@ export function LocationSettingsTab() {
 
       {/* Speichern-Button */}
       <div className="flex justify-end">
-        <V28Button onClick={handleSave} disabled={isSaving || !street || !city} size="lg">
-          {isSaving ? "Speichere..." : "Standort speichern"}
+        <V28Button
+          onClick={handleSave}
+          disabled={isSaving || !street || !city}
+          size="lg"
+        >
+          {isSaving ? 'Speichere...' : 'Standort speichern'}
         </V28Button>
       </div>
     </div>

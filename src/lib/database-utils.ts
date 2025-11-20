@@ -21,11 +21,14 @@ import { datadoc } from "./datadoc-client";
  * FEHLER-002 LÖSUNG: Automatischer company_id Filter
  * Stellt sicher, dass ALLE Queries company-spezifisch sind
  */
-export const withCompanyFilter = <T>(query: any, companyId: string | null | undefined) => {
+export const withCompanyFilter = <T>(
+  query: any,
+  companyId: string | null | undefined
+) => {
   if (!companyId) {
-    throw new Error("company_id is required for data isolation");
+    throw new Error('company_id is required for data isolation');
   }
-  return query.eq("company_id", companyId) as T;
+  return query.eq('company_id', companyId) as T;
 };
 
 /**
@@ -40,12 +43,12 @@ export const softDelete = async (
   try {
     const { error } = await (supabase as any)
       .from(table)
-      .update({
+      .update({ 
         deleted_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       })
-      .eq("id", id)
-      .eq("company_id", companyId); // SECURITY: company_id Filter
+      .eq('id', id)
+      .eq('company_id', companyId); // SECURITY: company_id Filter
 
     if (error) throw error;
 
@@ -70,12 +73,12 @@ export const softDeleteBulk = async (
   try {
     const { error, count } = await (supabase as any)
       .from(table)
-      .update({
+      .update({ 
         deleted_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       })
-      .in("id", ids)
-      .eq("company_id", companyId);
+      .in('id', ids)
+      .eq('company_id', companyId);
 
     if (error) throw error;
 
@@ -100,12 +103,12 @@ export const restore = async (
   try {
     const { error } = await (supabase as any)
       .from(table)
-      .update({
+      .update({ 
         deleted_at: null,
-        updated_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
       })
-      .eq("id", id)
-      .eq("company_id", companyId);
+      .eq('id', id)
+      .eq('company_id', companyId);
 
     if (error) throw error;
 
@@ -129,23 +132,23 @@ export class CompanyQuery<T> {
 
   constructor(table: any, companyId: string) {
     if (!companyId) {
-      throw new Error("company_id is required");
+      throw new Error('company_id is required');
     }
     this.table = table;
     this.companyId = companyId;
     this.query = (supabase as any)
       .from(table)
-      .select("*")
-      .eq("company_id", companyId)
-      .is("deleted_at", null); // Exclude soft-deleted records
+      .select('*')
+      .eq('company_id', companyId)
+      .is('deleted_at', null); // Exclude soft-deleted records
   }
 
   select(columns: string) {
     this.query = (supabase as any)
       .from(this.table)
       .select(columns)
-      .eq("company_id", this.companyId)
-      .is("deleted_at", null);
+      .eq('company_id', this.companyId)
+      .is('deleted_at', null);
     return this;
   }
 
@@ -207,16 +210,20 @@ export const createCompanyQuery = <T>(table: any, companyId: string) => {
 /**
  * Helper: Prüfen ob Datensatz existiert
  */
-export const exists = async (table: any, id: string, companyId: string): Promise<boolean> => {
+export const exists = async (
+  table: any,
+  id: string,
+  companyId: string
+): Promise<boolean> => {
   try {
     const { data } = await (supabase as any)
       .from(table)
-      .select("id")
-      .eq("id", id)
-      .eq("company_id", companyId)
-      .is("deleted_at", null)
+      .select('id')
+      .eq('id', id)
+      .eq('company_id', companyId)
+      .is('deleted_at', null)
       .maybeSingle();
-
+    
     return !!data;
   } catch {
     return false;
@@ -234,9 +241,9 @@ export const count = async (
   try {
     let query = (supabase as any)
       .from(table)
-      .select("*", { count: "exact", head: true })
-      .eq("company_id", companyId)
-      .is("deleted_at", null);
+      .select('*', { count: 'exact', head: true })
+      .eq('company_id', companyId)
+      .is('deleted_at', null);
 
     if (filters) {
       Object.entries(filters).forEach(([key, value]) => {

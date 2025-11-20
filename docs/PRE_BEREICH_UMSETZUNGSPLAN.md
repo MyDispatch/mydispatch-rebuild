@@ -1,5 +1,4 @@
 # 🚀 PRE-BEREICH UMSETZUNGSPLAN
-
 ## VOLLSTÄNDIGER PLAN FÜR FEHLERFREIE, SYNCHRONE IMPLEMENTATION
 
 **Status:** 🟡 IN VORBEREITUNG  
@@ -11,7 +10,6 @@
 ## 📋 MISSION STATEMENT
 
 Implementiere den gesamten Pre-Login-Bereich (alle öffentlichen Seiten vor Anmeldung) mit:
-
 - ✅ **100% Fehlerfreiheit** (keine Tech Debt, keine TODOs)
 - ✅ **Synchrone Fertigstellung** (alle Seiten gleichzeitig fertig)
 - ✅ **Mobile First** (320px → Desktop)
@@ -25,7 +23,6 @@ Implementiere den gesamten Pre-Login-Bereich (alle öffentlichen Seiten vor Anme
 ## 🎯 PHASE 0: SYSTEMATISCHES ONBOARDING (AKTUELL)
 
 ### ✅ ABGESCHLOSSEN:
-
 - [x] Alle Vorgaben in `/docs` integriert
 - [x] Design System V28.1 Dokumentation
 - [x] Layout Patterns vollständig
@@ -42,14 +39,12 @@ Implementiere den gesamten Pre-Login-Bereich (alle öffentlichen Seiten vor Anme
 ### 📚 DOKUMENTATIONS-ÜBERSICHT:
 
 **Strategische Vorgaben:**
-
 - `AAA_STANDARD_WORKFLOW.md` - Pre-Implementation Workflow
 - `AAA-TRIPLE-CHECK_PROMPT.md` - Self-Review Loop
 - `NEXIFY_WORKFLOW_PROMPT_V18.5.1.md` - 3-Phasen-Workflow
 - `ABSOLUT_VORGABEN_FINAL.md` - Ultimative Vorgaben
 
 **Design & Layout:**
-
 - `DESIGN_SYSTEM_VOLLSTAENDIG.md` - Vollständiges Design System
 - `DESIGN_SYSTEM_V28.1_ABSOLUTE_ENFORCEMENT.md` - V28.1 Enforcement
 - `LAYOUT_PATTERNS_VOLLSTAENDIG.md` - Layout Patterns & Section Standards
@@ -58,31 +53,26 @@ Implementiere den gesamten Pre-Login-Bereich (alle öffentlichen Seiten vor Anme
 - `V28_COMPONENT_REUSABILITY.md` - Component Reusability Strategy
 
 **Implementierung:**
-
 - `ZENTRALE_IMPLEMENTIERUNG.md` - Zentrale Implementierungs-Strategie
 - `STRIKTE_3_PHASEN_IMPLEMENTIERUNG.md` - 3-Phasen-Vorgabe
 - `MASTER_ENFORCEMENT_PROMPT.md` - Master Enforcement
 - `MASTER_PROJECT_PREPARATION.md` - Vollständige Projektvorbereitung
 
 **Qualitätssicherung:**
-
 - `FEHLERSUCHE_PRE_LOGIN_AREA.md` - Pre-Login Fehlersuche
 - `FEHLERSUCHE_PRE_LOGIN_VOLLUMFAENGLICH.md` - Vollumfängliche Pre-Login Fehlersuche
 - `FEHLERSUCHE_VOLLUMFAENGLICH_POPUPS_FORMS.md` - Popups/Forms Fehlersuche
 - `FEHLERSUCHE_COMPLETION_2025-10-28.md` - Completion Report (27/27 Findings behoben)
 
 **CI/CD & DevOps:**
-
 - `CICD_PIPELINE_VOLLSTAENDIG.md` - Vollständige CI/CD Pipeline
 - `BATCH_3_DESIGN_HARMONIZATION_V18.5.1.md` - Design Harmonization
 
 **Planung:**
-
 - `WEBSITE_PLANUNG_VOLLSTAENDIG.md` - Vollständige Website-Planung
 - `SYSTEMATISCHE_DOCS_ANALYSE.md` - Systematische Docs-Analyse
 
 **Knowledge Base:**
-
 - `AI_PROJEKT_ASSISTENT_V4.0.md` - AI Projekt-Assistent v4.0
 - `ULTIMATE_CUSTOM_KNOWLEDGE_BASE.md` - Ultimate Custom Knowledge Base
 - `LESSONS_LEARNED.md` - Learnings & Best Practices
@@ -149,7 +139,6 @@ Implementiere den gesamten Pre-Login-Bereich (alle öffentlichen Seiten vor Anme
    - `/terms` ✅ EXISTIERT
 
 **DRIVER APP (Separate Sektion):**
-
 - `/driver` - Splash Screen
 - `/driver/welcome` - Willkommen
 - `/driver/login` - Fahrer Login
@@ -159,7 +148,6 @@ Implementiere den gesamten Pre-Login-Bereich (alle öffentlichen Seiten vor Anme
 ### 1.2 HERO-GRAFIK SPEZIFIKATIONEN
 
 **Für JEDE Seite mit Hero+Grafik:**
-
 - Thema/Konzept definiert
 - Stil: Konsistent mit Home-Hero
 - Format: SVG (vektorbasiert) oder optimiertes PNG/WebP
@@ -169,7 +157,6 @@ Implementiere den gesamten Pre-Login-Bereich (alle öffentlichen Seiten vor Anme
 - Accessibility: Alt-Texte, ARIA-Labels
 
 **Grafik-Quellen:**
-
 - Illustrations: Undraw.co, Storyset, Humaaans
 - Icons: Lucide React (bereits installiert)
 - Custom: Figma → SVG Export
@@ -177,7 +164,6 @@ Implementiere den gesamten Pre-Login-Bereich (alle öffentlichen Seiten vor Anme
 ### 1.3 GRID-KONZEPTE PRO SEITE
 
 Jede Seite bekommt individuellen Grid-Inhaltsbereich:
-
 - Features Pages: 3-spaltig (Feature Cards)
 - Branchen Pages: 2-spaltig (Use Cases + Benefits)
 - Service Pages: Form + Trust Indicators
@@ -211,7 +197,6 @@ Jede Seite bekommt individuellen Grid-Inhaltsbereich:
 ### 2.2 COMPONENT ERSTELLUNG WORKFLOW
 
 Für JEDE neue Component:
-
 1. ✅ COMPONENT_REGISTRY.md prüfen (existiert sie schon?)
 2. ✅ Component Template verwenden (Ordnerstruktur, Types, Tests)
 3. ✅ Design Tokens nutzen (KEINE hardcoded values!)
@@ -228,19 +213,16 @@ Für JEDE neue Component:
 ### 3.1 IMPLEMENTATION-REIHENFOLGE
 
 **Welle 1: Core Pages (Woche 1)**
-
 1. Features Pages (6 Seiten)
 2. Branchen Pages (3 Seiten)
 3. Demo Page (1 Seite)
 
 **Welle 2: Optimization (Woche 2)**
-
 1. Performance Optimization (alle Seiten)
 2. SEO Enhancement (Meta Tags, Schema.org)
 3. Accessibility Audit (WCAG 2.1 AA)
 
 **Welle 3: Quality Assurance (Woche 3)**
-
 1. Visual Regression Tests
 2. E2E Tests (kritische User Flows)
 3. Cross-Browser Testing
@@ -249,7 +231,6 @@ Für JEDE neue Component:
 ### 3.2 PRO SEITE CHECKLIST
 
 Für JEDE Seite:
-
 - [ ] Hero mit Grafik implementiert (oder Pricing-Style für Legal)
 - [ ] Grid-Inhaltsbereich individuell gestaltet
 - [ ] Mobile First (320px → Desktop)
@@ -270,7 +251,6 @@ Für JEDE Seite:
 ### 4.1 VOLLUMFÄNGLICHE FEHLERSUCHE
 
 **Frontend Fehlersuche:**
-
 - Mobile First Compliance (alle Breakpoints)
 - UI/UX Fehler (Buttons, Dropdowns, Navigation)
 - Forms (alle Felder, Validierungen, Error States)
@@ -279,7 +259,6 @@ Für JEDE Seite:
 - States (Loading, Error, Empty, Success)
 
 **Backend/API Fehlersuche:**
-
 - API Coverage (alle Endpoints dokumentiert & getestet)
 - Schema Validierung (Frontend & Backend)
 - Error Handling (sinnvolle Fehlermeldungen)
@@ -287,7 +266,6 @@ Für JEDE Seite:
 - Double Opt-In (Newsletter, Demo Requests)
 
 **Performance Fehlersuche:**
-
 - Lighthouse Score > 90 (alle Pages)
 - Bundle Size < 250KB
 - LCP < 2.5s, FID < 100ms, CLS < 0.1
@@ -295,7 +273,6 @@ Für JEDE Seite:
 - Bilder optimiert (WebP, Responsive)
 
 **Security Fehlersuche:**
-
 - Input Validation (Client & Server)
 - XSS Prevention (DOMPurify)
 - CSRF Protection
@@ -304,7 +281,6 @@ Für JEDE Seite:
 - RLS Policies korrekt
 
 **Accessibility Fehlersuche:**
-
 - WCAG 2.1 AA Compliance
 - Axe Core Tests (alle Seiten)
 - Keyboard Navigation funktional
@@ -315,7 +291,6 @@ Für JEDE Seite:
 ### 4.2 QUALITY GATES
 
 **Gate 1: Code Quality**
-
 - [ ] TypeScript strict mode (keine `any`)
 - [ ] ESLint: 0 Errors, 0 Warnings
 - [ ] Prettier: Code formatiert
@@ -323,7 +298,6 @@ Für JEDE Seite:
 - [ ] Dead Code entfernt
 
 **Gate 2: Testing**
-
 - [ ] Unit Tests: > 80% Coverage
 - [ ] E2E Tests: Kritische Flows getestet
 - [ ] Visual Regression: Keine unerwarteten Änderungen
@@ -331,7 +305,6 @@ Für JEDE Seite:
 - [ ] Cross-Browser: Chrome, Firefox, Safari, Edge
 
 **Gate 3: Performance**
-
 - [ ] Lighthouse Score > 90 (Mobile & Desktop)
 - [ ] Bundle Size < 250KB
 - [ ] LCP < 2.5s
@@ -339,7 +312,6 @@ Für JEDE Seite:
 - [ ] Critical CSS inline
 
 **Gate 4: Accessibility**
-
 - [ ] WCAG 2.1 AA compliant
 - [ ] Keyboard Navigation funktional
 - [ ] Screen Reader getestet
@@ -347,7 +319,6 @@ Für JEDE Seite:
 - [ ] Color Contrast > 4.5:1
 
 **Gate 5: SEO**
-
 - [ ] Meta Tags korrekt (Title, Description)
 - [ ] Schema.org implementiert
 - [ ] Canonical URLs gesetzt
@@ -355,7 +326,6 @@ Für JEDE Seite:
 - [ ] robots.txt korrekt
 
 **Gate 6: Documentation**
-
 - [ ] COMPONENT_REGISTRY.md aktualisiert
 - [ ] CHANGELOG.md Eintrag
 - [ ] LESSONS_LEARNED.md erweitert
@@ -369,7 +339,6 @@ Für JEDE Seite:
 ### AKTUELLER STATUS (2025-10-28)
 
 **Seiten: 16/25 (64%)**
-
 - ✅ Home, Pricing, FAQ, Docs, Contact
 - ✅ Impressum, Datenschutz, AGB, Terms
 - ✅ Driver App (5 Seiten)
@@ -378,7 +347,6 @@ Für JEDE Seite:
 - ❌ Demo Page (0/1)
 
 **Components: 42/61 (69%)**
-
 - ✅ Foundation: Button, Input (weitere prüfen)
 - ✅ Navigation: Header, Footer, NavLink
 - ✅ Content: Card, Badge, Hero (Home), PricingTable
@@ -388,7 +356,6 @@ Für JEDE Seite:
 - ❌ Fehlend: ~19 Components (siehe 2.1)
 
 **Quality Gates: 3/6 (50%)**
-
 - ✅ Code Quality (ESLint, TypeScript)
 - ✅ Accessibility (WCAG 2.1 AA für existierende Seiten)
 - ✅ SEO (Meta Tags, Schema.org)
@@ -401,13 +368,11 @@ Für JEDE Seite:
 ## 🎯 NÄCHSTE KONKRETE SCHRITTE
 
 ### SOFORT (diese Session):
-
 1. ✅ Alle Vorgaben in `/docs` integriert
 2. ✅ Umsetzungsplan erstellt (diese Datei)
 3. 🔄 FAQ-Seite 404 Problem beheben (Route existiert, Cache-Problem)
 
 ### NÄCHSTE SESSION:
-
 1. Vollständige Bestandsaufnahme:
    - Screenshots aller existierenden Seiten
    - Fehlersuche nach neuen Vorgaben
@@ -430,7 +395,6 @@ Für JEDE Seite:
 ## 📝 ENFORCEMENT & REGELN
 
 **ABSOLUTE REGELN:**
-
 - ❌ NIEMALS Components außerhalb der Library erstellen
 - ❌ NIEMALS hardcoded Values (immer Design Tokens!)
 - ❌ NIEMALS ohne Mobile First testen
@@ -443,7 +407,6 @@ Für JEDE Seite:
 - ✅ IMMER Lessons Learned dokumentieren
 
 **BEI NICHT-EINHALTUNG:**
-
 - Code wird ABGELEHNT
 - Implementation wird GESTOPPT
 - Von vorne beginnen

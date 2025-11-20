@@ -215,21 +215,13 @@ async function performHealthCheck(): Promise<void> {
 
     // Check failure rate
     if (metrics.failed_tasks_rate > 0.8) {
-      await sendAlert(
-        "critical",
-        `High failure rate: ${(metrics.failed_tasks_rate * 100).toFixed(1)}%`,
-        {
-          metrics,
-        }
-      );
+      await sendAlert("critical", `High failure rate: ${(metrics.failed_tasks_rate * 100).toFixed(1)}%`, {
+        metrics,
+      });
     } else if (metrics.failed_tasks_rate > 0.5) {
-      await sendAlert(
-        "warning",
-        `Elevated failure rate: ${(metrics.failed_tasks_rate * 100).toFixed(1)}%`,
-        {
-          metrics,
-        }
-      );
+      await sendAlert("warning", `Elevated failure rate: ${(metrics.failed_tasks_rate * 100).toFixed(1)}%`, {
+        metrics,
+      });
     }
 
     // Check if system is stuck (no activity for > 1 hour)

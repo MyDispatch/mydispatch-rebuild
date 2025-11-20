@@ -91,10 +91,10 @@ export default function MeineDashboardSeite() {
   const { isMobile } = useDeviceType();
   const [searchTerm, setSearchTerm] = useState('');
   const [showArchived, setShowArchived] = useState(false);
-
+  
   // React Query
   const { data, isLoading } = useMyData();
-
+  
   // 2. STATS & KPIs
   const stats = DashboardStatsCalculator.myEntity(data);
   const kpis: [any, any, any] = [
@@ -102,7 +102,7 @@ export default function MeineDashboardSeite() {
     KPIGenerator.myEntity.active(stats.active),
     KPIGenerator.myEntity.custom(stats.custom),
   ];
-
+  
   // 3. QUICK ACTIONS
   const quickActions: [any, any] = [
     QuickActionsGenerator.create(
@@ -115,16 +115,16 @@ export default function MeineDashboardSeite() {
       () => handleExport()
     ),
   ];
-
+  
   // 4. EVENT HANDLERS
   const handleCreate = () => { ... };
   const handleEdit = (item) => { ... };
-
+  
   // 5. MOBILE REDIRECT (optional)
   if (isMobile) {
     return <MobileVersion />;
   }
-
+  
   // 6. RENDER
   return (
     <DashboardPageTemplate

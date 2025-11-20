@@ -7,13 +7,13 @@
    - Smooth Transitions
    ================================================================================== */
 
-import { Loader2 } from "lucide-react";
+import { Loader2 } from 'lucide-react';
 
 interface LoadingPageProps {
   message?: string;
 }
 
-export function LoadingPage({ message = "Lade Anwendung..." }: LoadingPageProps) {
+export function LoadingPage({ message = 'Lade Anwendung...' }: LoadingPageProps) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-background">
       <div className="flex flex-col items-center gap-4 max-w-md text-center px-4">
@@ -23,11 +23,15 @@ export function LoadingPage({ message = "Lade Anwendung..." }: LoadingPageProps)
             <Loader2 className="h-8 w-8 text-primary animate-spin" />
           </div>
         </div>
-
+        
         {/* Message */}
         <div className="space-y-2">
-          <h2 className="text-xl font-semibold text-foreground">{message}</h2>
-          <p className="text-sm text-muted-foreground">Bitte warten Sie einen Moment...</p>
+          <h2 className="text-xl font-semibold text-foreground">
+            {message}
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            Bitte warten Sie einen Moment...
+          </p>
         </div>
 
         {/* Progress Indicator */}

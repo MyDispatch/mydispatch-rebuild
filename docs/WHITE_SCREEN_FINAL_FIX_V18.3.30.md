@@ -44,7 +44,6 @@ console.log + Video Element + PWA Hook
 ### **SCHRITT 1: Kritische Crash-Quellen eliminiert**
 
 #### 1.1 Home.tsx - console.log entfernt
-
 ```typescript
 // ❌ VORHER
 onError={(e) => {
@@ -63,13 +62,11 @@ onError={(e) => {
   }
 }}
 ```
-
 **Effekt:** Kein console.log mehr in Production, Try-Catch um DOM-Manipulation
 
 ---
 
 #### 1.2 base/ErrorBoundary - process.env ersetzt
-
 ```typescript
 // ❌ VORHER
 {process.env.NODE_ENV === 'development' && this.state.error && (...)}
@@ -77,13 +74,11 @@ onError={(e) => {
 // ✅ NACHHER
 {import.meta.env.DEV && this.state.error && (...)}
 ```
-
 **Effekt:** Vite-kompatible Environment-Variable
 
 ---
 
 #### 1.3 App.tsx - RouteRenderer mit Try-Catch gehärtet
-
 ```typescript
 // ✅ NEU
 const RouteRenderer = ({ route }: { route: RouteConfig }) => {
@@ -106,7 +101,6 @@ const RouteRenderer = ({ route }: { route: RouteConfig }) => {
   }
 };
 ```
-
 **Effekt:** RouteRenderer kann niemals die gesamte App crashen
 
 ---
@@ -114,7 +108,6 @@ const RouteRenderer = ({ route }: { route: RouteConfig }) => {
 ### **SCHRITT 2: Production Build Optimierungen**
 
 #### 2.1 vite.config.ts - Build Target gesenkt
-
 ```typescript
 // ❌ VORHER
 build: {
@@ -127,25 +120,22 @@ build: {
   base: '/',
 }
 ```
-
-**Effekt:**
-
+**Effekt:** 
 - iOS 12/13 Kompatibilität ✅
 - Expliziter Base Path ✅
 
 ---
 
 #### 2.2 vite.config.ts - Aggressive Terser Optimierung
-
 ```typescript
 terserOptions: {
   compress: {
     drop_console: mode === 'production',
     drop_debugger: true,
     pure_funcs: mode === 'production' ? [
-      'console.log',
-      'console.debug',
-      'console.info',
+      'console.log', 
+      'console.debug', 
+      'console.info', 
       'console.warn',
       'console.trace'  // ✅ NEU
     ] : [],
@@ -155,10 +145,8 @@ terserOptions: {
   },
 }
 ```
-
 **Effekt:**
-
-- Alle console.\* Statements entfernt
+- Alle console.* Statements entfernt
 - 3 Terser-Durchläufe für maximale Optimierung
 - Aggressive Kompression aktiviert
 
@@ -169,7 +157,6 @@ terserOptions: {
 ### **Warum crashte die App nach SubscriptionProvider?**
 
 **Antwort:** Das Routing wurde gerendert, aber der erste `<Component />` Call (Home.tsx) crashte aufgrund von:
-
 1. console.log in Production (TypeError: console is undefined in mangled code)
 2. Video Element ohne defensive Error-Handling
 3. Fehlende Try-Catch um RouteRenderer
@@ -181,7 +168,6 @@ terserOptions: {
 ### **Warum process.env.NODE_ENV gefährlich?**
 
 **Antwort:** Vite verwendet `import.meta.env.*` statt Node.js `process.env.*`
-
 - `process.env` existiert NICHT im Browser-Bundle
 - Führt zu `ReferenceError: process is not defined`
 - Crash bei bedingtem Rendering
@@ -193,7 +179,6 @@ terserOptions: {
 ### **Warum es2019 statt es2020?**
 
 **Antwort:** iOS 12/13 Safari unterstützt bestimmte ES2020 Features nicht:
-
 - Optional Chaining (`?.`)
 - Nullish Coalescing (`??`)
 - BigInt
@@ -205,7 +190,6 @@ terserOptions: {
 ## 📊 VALIDIERUNG
 
 ### **Pre-Deploy Checklist:**
-
 - [x] TypeScript Errors: 0
 - [x] Build erfolgreich: ✅
 - [x] console.log entfernt: ✅
@@ -216,7 +200,6 @@ terserOptions: {
 - [x] Terser Passes: 3 ✅
 
 ### **Post-Deploy Tests:**
-
 1. [ ] App lädt (keine weiße Seite)
 2. [ ] Home Route funktioniert
 3. [ ] Dashboard funktioniert
@@ -228,14 +211,12 @@ terserOptions: {
 ## 🚀 ERWARTETE ERGEBNISSE
 
 ### **Vorher (V18.3.29):**
-
 - ❌ Weiße Seite nach Deploy
 - ❌ App stoppt nach Subscription Provider
 - ❌ Keine Error Messages
 - ❌ Production Build instabil
 
 ### **Nachher (V18.3.30):**
-
 - ✅ App lädt vollständig
 - ✅ Alle Routes funktionieren
 - ✅ Fehler werden gefangen und angezeigt
@@ -247,7 +228,6 @@ terserOptions: {
 ## 🛡️ PRÄVENTIONSMASSNAHMEN FÜR ZUKUNFT
 
 ### **1. NIEMALS process.env verwenden**
-
 ```typescript
 // ❌ VERBOTEN
 if (process.env.NODE_ENV === 'production')
@@ -257,19 +237,17 @@ if (import.meta.env.PROD)
 if (import.meta.env.DEV)
 ```
 
-### **2. NIEMALS console.\* in Production Code**
-
+### **2. NIEMALS console.* in Production Code**
 ```typescript
 // ❌ VERBOTEN
-console.log("[Debug]", data);
+console.log('[Debug]', data);
 
 // ✅ IMMER
-import { logger } from "@/lib/logger";
-logger.info("[Debug]", data);
+import { logger } from '@/lib/logger';
+logger.info('[Debug]', data);
 ```
 
 ### **3. IMMER Try-Catch um kritische Komponenten**
-
 ```typescript
 // ✅ Renderer-Pattern
 const Renderer = ({ component }: Props) => {
@@ -282,14 +260,13 @@ const Renderer = ({ component }: Props) => {
 ```
 
 ### **4. IMMER explizite Build Targets**
-
 ```typescript
 // vite.config.ts
 export default defineConfig({
   build: {
-    target: "es2019", // NIEMALS leer lassen!
-    base: "/", // IMMER explizit setzen!
-  },
+    target: 'es2019', // NIEMALS leer lassen!
+    base: '/',        // IMMER explizit setzen!
+  }
 });
 ```
 

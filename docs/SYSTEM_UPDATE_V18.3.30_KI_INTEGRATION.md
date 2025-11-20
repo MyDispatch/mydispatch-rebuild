@@ -25,7 +25,6 @@
 **Datei:** `src/lib/logger.ts`
 
 **Features:**
-
 - ✅ DEV/PROD-Unterscheidung
 - ✅ Sentry-Integration (PROD)
 - ✅ Type-Safe Logging
@@ -33,21 +32,19 @@
 - ✅ Breadcrumb Support
 
 **Migration:**
-
 ```typescript
 // ❌ Alt
-console.error("[Component] Error:", error);
+console.error('[Component] Error:', error);
 
 // ✅ Neu
-import { logger } from "@/lib/logger";
-logger.error("Error description", error, {
-  component: "ComponentName",
-  action: "actionName",
+import { logger } from '@/lib/logger';
+logger.error('Error description', error, { 
+  component: 'ComponentName',
+  action: 'actionName'
 });
 ```
 
 **Migrierte Dateien (15+):**
-
 - `src/hooks/use-auth.tsx`
 - `src/hooks/use-bookings.tsx`
 - `src/hooks/use-offline-queue.tsx`
@@ -59,7 +56,7 @@ logger.error("Error description", error, {
 - `src/lib/pre-deploy-check.ts`
 - `src/lib/error-handler.ts`
 - `src/lib/supabase-resilient-client.ts`
-- - weitere...
+- + weitere...
 
 ---
 
@@ -68,7 +65,6 @@ logger.error("Error description", error, {
 **Datei:** `src/lib/database-utils.ts`
 
 **Features:**
-
 - ✅ Automatic Company-ID Filtering
 - ✅ Soft-Delete (archived=true)
 - ✅ Bulk Operations
@@ -76,25 +72,26 @@ logger.error("Error description", error, {
 - ✅ CompanyQuery Builder
 
 **Usage:**
-
 ```typescript
-import { withCompanyFilter, softDelete, CompanyQuery } from "@/lib/database-utils";
+import { withCompanyFilter, softDelete, CompanyQuery } from '@/lib/database-utils';
 
 // Auto company_id filter
-const { data } = await withCompanyFilter("bookings", companyId)
-  .select("*")
-  .order("created_at", { ascending: false });
+const { data } = await withCompanyFilter('bookings', companyId)
+  .select('*')
+  .order('created_at', { ascending: false });
 
 // Soft-delete
-await softDelete("bookings", bookingId, companyId);
+await softDelete('bookings', bookingId, companyId);
 
 // Query Builder
-const query = new CompanyQuery("bookings", companyId);
-const { data } = await query.select("*").notArchived().execute();
+const query = new CompanyQuery('bookings', companyId);
+const { data } = await query
+  .select('*')
+  .notArchived()
+  .execute();
 ```
 
 **Migrations:**
-
 - FEHLER-002: Fehlende company_id Filter systematisch behoben
 - FEHLER-003: Hard-Deletes zu Soft-Deletes migriert
 
@@ -105,7 +102,6 @@ const { data } = await query.select("*").notArchived().execute();
 **Datei:** `supabase/functions/ai-code-review/index.ts`
 
 **Features:**
-
 - ✅ Claude Sonnet 4.5 Integration
 - ✅ Design System Compliance Check
 - ✅ Security Best Practices Check
@@ -113,7 +109,6 @@ const { data } = await query.select("*").notArchived().execute();
 - ✅ GitHub PR Comments
 
 **Automatische Prüfungen:**
-
 1. 🎨 **Design System**
    - Keine `accent`, `text-white`, `bg-black`
    - Semantic Tokens (`text-foreground`, `bg-primary`)
@@ -137,7 +132,6 @@ const { data } = await query.select("*").notArchived().execute();
    - Keine horizontalen Scrollbars
 
 **Workflow:**
-
 ```yaml
 # .github/workflows/ai-code-review.yml
 on:
@@ -161,24 +155,21 @@ jobs:
 **Datei:** `src/lib/error-handler.ts`
 
 **Changes:**
-
 - ✅ Logger-Integration
 - ✅ Semantic Memory Storage
 - ✅ Backward Compatibility
 - ✅ Type-Safe Error Messages
 
 **Before:**
-
 ```typescript
-logError({ message: "Error", context: { error } });
+logError({ message: 'Error', context: { error } });
 ```
 
 **After:**
-
 ```typescript
-logger.error("Error description", error, {
-  component: "ComponentName",
-  context: additionalContext,
+logger.error('Error description', error, { 
+  component: 'ComponentName',
+  context: additionalContext
 });
 ```
 
@@ -220,7 +211,6 @@ logger.error("Error description", error, {
 **Keine Breaking Changes** in diesem Release.
 
 Alle Änderungen sind **backward-compatible** durch:
-
 - Legacy Export Functions in `logger.ts`
 - Fallback-Mechanismen in `error-handler.ts`
 - Optional Database Utils (nicht zwingend)
@@ -230,13 +220,11 @@ Alle Änderungen sind **backward-compatible** durch:
 ## 📝 Dokumentation
 
 **Neue Dokumente:**
-
 1. `docs/GITHUB_CI_CD_KI_INTEGRATION_V18.3.30.md`
 2. `docs/SYSTEM_UPDATE_V18.3.30_KI_INTEGRATION.md`
 3. `docs/SYSTEM_UPDATE_V18.3.30_CRITICAL_FIXES.md`
 
 **Aktualisierte Dokumente:**
-
 1. `docs/ERROR_DATABASE.md` (FEHLER-008 hinzugefügt)
 2. `docs/CHANGELOG_V18.3.30_FINAL.md`
 
@@ -281,7 +269,6 @@ Automatisch aktiv bei Pull Requests zu `main` oder `develop`.
 **Keine kritischen Issues bekannt.**
 
 **Minor:**
-
 - ~175 Legacy console-Statements verbleiben (Batch-Migration in V18.3.31 geplant)
 - AI Review begrenzt auf 10 Files pro PR (Performance)
 
@@ -301,35 +288,37 @@ Automatisch aktiv bei Pull Requests zu `main` oder `develop`.
 ### Logger verwenden
 
 ```typescript
-import { logger } from "@/lib/logger";
+import { logger } from '@/lib/logger';
 
 // Debug (nur DEV)
-logger.debug("Debug info", { component: "MyComponent" });
+logger.debug('Debug info', { component: 'MyComponent' });
 
 // Info (nur DEV)
-logger.info("Operation started", { action: "loadData" });
+logger.info('Operation started', { action: 'loadData' });
 
 // Warning (DEV + Sentry in PROD)
-logger.warn("Deprecated feature used", { component: "OldComponent" });
+logger.warn('Deprecated feature used', { component: 'OldComponent' });
 
 // Error (DEV + Sentry in PROD)
-logger.error("Operation failed", error, {
-  component: "MyComponent",
-  action: "saveData",
-  userId: user.id,
+logger.error('Operation failed', error, { 
+  component: 'MyComponent',
+  action: 'saveData',
+  userId: user.id
 });
 ```
 
 ### Database Utils verwenden
 
 ```typescript
-import { withCompanyFilter, softDelete } from "@/lib/database-utils";
+import { withCompanyFilter, softDelete } from '@/lib/database-utils';
 
 // Query mit Auto company_id
-const { data } = await withCompanyFilter("bookings", companyId).select("*").eq("status", "active");
+const { data } = await withCompanyFilter('bookings', companyId)
+  .select('*')
+  .eq('status', 'active');
 
 // Soft-Delete
-await softDelete("bookings", bookingId, companyId, userId);
+await softDelete('bookings', bookingId, companyId, userId);
 ```
 
 ### AI Code Review nutzen

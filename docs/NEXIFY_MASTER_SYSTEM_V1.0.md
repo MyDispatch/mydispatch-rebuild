@@ -13,7 +13,6 @@
 **Ich bin NeXify AI MASTER** - Der vollautonome, produktions-bereite AI-Assistent von Pascal (Inhaber NeXify).
 
 **Meine Garantien:**
-
 - ✅ Zero-Hallucination: Jede Annahme wird gegen Supabase validiert
 - ✅ Self-Learning: Jede Aktion verbessert meine Knowledge-Base
 - ✅ Production-Ready: Alle Edge Functions deployed und funktionieren
@@ -28,7 +27,6 @@
 ## 📊 PROJEKT-STRUKTUR
 
 ### Unternehmen: NeXify
-
 - **Website:** nexify-automate.com
 - **Slogan:** "Chat it. Automate it."
 - **Inhaber:** Pascal
@@ -36,7 +34,6 @@
 - **Kennzahlen:** 763+ Projekte, 98% Zufriedenheit, 15+ Jahre Erfahrung
 
 ### Projekt: MyDispatch
-
 - **Website:** my-dispatch.de
 - **Produkt:** Dispositionslösung für Taxi & Mietwagen
 - **Status:** Kunde von NeXify (dauerhafte Betreuung)
@@ -51,7 +48,6 @@
 ### Schema: `nexify_ai_master_knowledge_base`
 
 #### Tabelle: `nexify_projects`
-
 ```sql
 CREATE TABLE IF NOT EXISTS nexify_projects (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -64,22 +60,22 @@ CREATE TABLE IF NOT EXISTS nexify_projects (
   supabase_project_id TEXT,
   status TEXT DEFAULT 'active', -- 'active', 'archived', 'on_hold'
   priority INTEGER DEFAULT 5, -- 1-10
-
+  
   -- Projekt-Metadaten
   tech_stack JSONB, -- ['react', 'typescript', 'supabase']
   team_members JSONB, -- [{name, role, email}]
   client_info JSONB, -- {name, email, company}
-
+  
   -- Kennzahlen
   total_sessions INTEGER DEFAULT 0,
   total_tasks INTEGER DEFAULT 0,
   total_components INTEGER DEFAULT 0,
   last_activity_at TIMESTAMPTZ,
-
+  
   -- Timestamps
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
-
+  
   -- Indizes
   CONSTRAINT project_code_format CHECK (project_code ~ '^[a-z0-9-]+$')
 );
@@ -89,29 +85,28 @@ CREATE INDEX idx_nexify_projects_code ON nexify_projects(project_code);
 ```
 
 #### Tabelle: `nexify_project_history`
-
 ```sql
 CREATE TABLE IF NOT EXISTS nexify_project_history (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   project_id UUID NOT NULL REFERENCES nexify_projects(id) ON DELETE CASCADE,
-
+  
   -- Session-Info
   session_date DATE NOT NULL,
   session_version TEXT, -- 'V32.5', 'V28.1', etc.
   session_title TEXT NOT NULL,
   session_type TEXT NOT NULL, -- 'development', 'bugfix', 'feature', 'refactoring', 'documentation'
-
+  
   -- Content
   description TEXT,
   changes JSONB, -- [{type, file, description}]
   root_causes JSONB, -- [{issue, solution}]
   technical_details JSONB,
   impact JSONB,
-
+  
   -- Dokumentation
   documentation_files TEXT[], -- ['docs/V32.5_MASTER_FIX.md', ...]
   test_files TEXT[], -- ['tests/e2e/...']
-
+  
   -- Metadaten
   duration_minutes INTEGER,
   files_changed INTEGER,
@@ -119,10 +114,10 @@ CREATE TABLE IF NOT EXISTS nexify_project_history (
   lines_removed INTEGER,
   components_created INTEGER,
   components_updated INTEGER,
-
+  
   -- Status
   status TEXT DEFAULT 'completed', -- 'completed', 'in_progress', 'cancelled'
-
+  
   -- Timestamps
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -134,26 +129,25 @@ CREATE INDEX idx_nexify_project_history_type ON nexify_project_history(session_t
 ```
 
 #### Tabelle: `nexify_project_context`
-
 ```sql
 CREATE TABLE IF NOT EXISTS nexify_project_context (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   project_id UUID NOT NULL REFERENCES nexify_projects(id) ON DELETE CASCADE,
-
+  
   -- Kontext-Kategorien
   context_type TEXT NOT NULL, -- 'architecture', 'design_system', 'dependencies', 'deployment', 'known_issues', 'best_practices'
   context_key TEXT NOT NULL, -- 'layout_system', 'color_palette', 'api_endpoints', etc.
   context_value JSONB NOT NULL,
-
+  
   -- Metadaten
   importance_score NUMERIC(3,2) DEFAULT 0.5, -- 0.0-1.0
   last_verified_at TIMESTAMPTZ,
   verified_by TEXT, -- 'ai', 'pascal', 'system'
-
+  
   -- Timestamps
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
-
+  
   UNIQUE(project_id, context_type, context_key)
 );
 
@@ -162,35 +156,34 @@ CREATE INDEX idx_nexify_project_context_type ON nexify_project_context(context_t
 ```
 
 #### Tabelle: `nexify_project_tasks`
-
 ```sql
 CREATE TABLE IF NOT EXISTS nexify_project_tasks (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   project_id UUID NOT NULL REFERENCES nexify_projects(id) ON DELETE CASCADE,
-
+  
   -- Task-Info
   task_title TEXT NOT NULL,
   task_description TEXT,
   task_type TEXT NOT NULL, -- 'feature', 'bugfix', 'refactoring', 'documentation', 'maintenance'
   priority TEXT DEFAULT 'medium', -- 'low', 'medium', 'high', 'critical'
-
+  
   -- Status
   status TEXT DEFAULT 'pending', -- 'pending', 'in_progress', 'completed', 'cancelled', 'blocked'
   assigned_to TEXT, -- 'pascal', 'nexify-ai-master', etc.
-
+  
   -- Dependencies
   depends_on UUID[], -- Array von task_ids
   blocks UUID[], -- Array von task_ids
-
+  
   -- Schätzungen
   estimated_hours NUMERIC(5,2),
   actual_hours NUMERIC(5,2),
-
+  
   -- Metadaten
   tags TEXT[],
   related_components TEXT[], -- ['V28Button', 'MainLayout']
   related_files TEXT[], -- ['src/pages/Master.tsx']
-
+  
   -- Timestamps
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
@@ -212,7 +205,6 @@ CREATE INDEX idx_nexify_project_tasks_priority ON nexify_project_tasks(priority)
 **Zweck:** Lädt vollständigen Projekt-Kontext für ein Projekt
 
 **Request:**
-
 ```json
 {
   "project_code": "mydispatch",
@@ -224,7 +216,6 @@ CREATE INDEX idx_nexify_project_tasks_priority ON nexify_project_tasks(priority)
 ```
 
 **Response:**
-
 ```json
 {
   "project": {
@@ -257,7 +248,6 @@ CREATE INDEX idx_nexify_project_tasks_priority ON nexify_project_tasks(priority)
 **Zweck:** Lädt automatisch ALLEN Kontext beim Chat-Start
 
 **Request:**
-
 ```json
 {
   "user_email": "courbois1981@gmail.com",
@@ -267,7 +257,6 @@ CREATE INDEX idx_nexify_project_tasks_priority ON nexify_project_tasks(priority)
 ```
 
 **Response:**
-
 ```json
 {
   "active_projects": [
@@ -298,7 +287,6 @@ CREATE INDEX idx_nexify_project_tasks_priority ON nexify_project_tasks(priority)
 **Zweck:** Synchronisiert Projekt-History aus Dokumentation
 
 **Request:**
-
 ```json
 {
   "project_code": "mydispatch",
@@ -308,7 +296,6 @@ CREATE INDEX idx_nexify_project_tasks_priority ON nexify_project_tasks(priority)
 ```
 
 **Response:**
-
 ```json
 {
   "synced_sessions": 15,
@@ -325,7 +312,6 @@ CREATE INDEX idx_nexify_project_tasks_priority ON nexify_project_tasks(priority)
 ### MyDispatch - Vollständige History
 
 #### Phase 1: Initial Setup (V1.0 - V6.0)
-
 - Projekt-Erstellung
 - Supabase Setup
 - Design System V28.1
@@ -333,27 +319,23 @@ CREATE INDEX idx_nexify_project_tasks_priority ON nexify_project_tasks(priority)
 - Basic Dashboard
 
 #### Phase 2: Layout System (V18.5 - V32.5)
-
 - **V18.5.1:** Layout Freeze System
 - **V28.1:** Design Token Migration (Slate)
 - **V32.0:** 2-Sidebar System (AppSidebar + DashboardSidebar)
 - **V32.5:** Master.tsx White-Screen Fix
 
 #### Phase 3: Dashboard Standards (V2.0)
-
 - UniversalQuickActionsPanel
 - Context Widget Library
 - Dashboard Quick Actions Config
 - useQuickActionsPanel Hook
 
 #### Phase 4: Hero System (V32.0)
-
 - V28HeroPremium (Standard)
 - V28DashboardPreview
 - Hero Lock System
 
 #### Phase 5: Features & Integrations
-
 - Chat Widget Integration (V28.3)
 - Export System (PDF/XLSX/CSV)
 - Marketing Stats (Dynamic DB)
@@ -405,7 +387,6 @@ CREATE INDEX idx_nexify_project_tasks_priority ON nexify_project_tasks(priority)
 ### Workflow: Vollständiger Gesamtüberblick
 
 #### 1. Chat-Start (Automatisch)
-
 ```
 User: "Lade das NeXify Wiki"
   ↓
@@ -422,7 +403,6 @@ Vollständiger Gesamtüberblick verfügbar!
 ```
 
 #### 2. Projekt-Wechsel (On-Demand)
-
 ```
 User: "Wechsle zu MyDispatch"
   ↓
@@ -438,7 +418,6 @@ Projekt-spezifischer Gesamtüberblick verfügbar!
 ```
 
 #### 3. History-Sync (Automatisch/On-Demand)
-
 ```
 Trigger: Neue Dokumentation oder manuell
   ↓
@@ -460,7 +439,6 @@ Speichert in DB:
 ## 📋 IMPLEMENTATION PLAN
 
 ### Phase 1: Database Schema (Sofort)
-
 - [x] Schema `nexify_ai_master_knowledge_base` prüfen
 - [ ] Tabelle `nexify_projects` erstellen
 - [ ] Tabelle `nexify_project_history` erstellen
@@ -470,7 +448,6 @@ Speichert in DB:
 - [ ] RLS Policies aktivieren
 
 ### Phase 2: MyDispatch Projekt anlegen (Sofort)
-
 - [ ] MyDispatch Projekt in `nexify_projects` anlegen
 - [ ] Initiale Projekt-Kontext-Daten einfügen
 - [ ] History aus PROJECT_MEMORY.md extrahieren und importieren
@@ -478,21 +455,18 @@ Speichert in DB:
 - [ ] Learnings aus LESSONS_LEARNED.md importieren
 
 ### Phase 3: Edge Functions (Sofort)
-
 - [ ] `nexify-project-context` erstellen
 - [ ] `nexify-auto-load-context` erweitern
 - [ ] `nexify-project-history-sync` erstellen
 - [ ] Testing
 
 ### Phase 4: History-Rekonstruktion (Sofort)
-
 - [ ] Alle Docs analysieren
 - [ ] History strukturiert extrahieren
 - [ ] In Database importieren
 - [ ] Validierung
 
 ### Phase 5: Dokumentation (Sofort)
-
 - [ ] Diese Datei finalisieren
 - [ ] Usage-Guide erstellen
 - [ ] API-Dokumentation erstellen
@@ -502,13 +476,11 @@ Speichert in DB:
 ## 🚀 USAGE
 
 ### Beim Chat-Start:
-
 ```
 "Lade das NeXify Wiki"
 ```
 
 **Was passiert:**
-
 1. ✅ Lädt alle aktiven Projekte
 2. ✅ Lädt Projekt-History
 3. ✅ Lädt aktive Tasks
@@ -517,13 +489,11 @@ Speichert in DB:
 6. ✅ Vollständiger Gesamtüberblick verfügbar!
 
 ### Projekt-spezifisch:
-
 ```
 "Zeige mir MyDispatch Kontext"
 ```
 
 **Was passiert:**
-
 1. ✅ Lädt MyDispatch Projekt-Details
 2. ✅ Lädt komplette History
 3. ✅ Lädt alle Tasks
@@ -534,7 +504,6 @@ Speichert in DB:
 ## 📊 SUCCESS CRITERIA
 
 ### Technical:
-
 - ✅ Database Schema vollständig
 - ✅ MyDispatch Projekt in DB
 - ✅ History vollständig rekonstruiert
@@ -542,14 +511,12 @@ Speichert in DB:
 - ✅ Auto-Load funktioniert
 
 ### Functional:
-
 - ✅ Vollständiger Gesamtüberblick bei Chat-Start
 - ✅ Projekt-Wechsel funktioniert
 - ✅ History-Sync funktioniert
 - ✅ Alle Zusammenhänge verstanden
 
 ### Quality:
-
 - ✅ Zero-Hallucination
 - ✅ 100% Knowledge Coverage
 - ✅ Systemweites Denken
@@ -558,3 +525,4 @@ Speichert in DB:
 ---
 
 **Pascal, dieses System stellt sicher, dass ich IMMER den vollständigen Gesamtüberblick habe!** 🚀
+

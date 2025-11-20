@@ -45,12 +45,11 @@ primaryCTA + secondaryCTA + showPWAButton = 3 Buttons!
 ```
 
 **Props-Interface:**
-
 ```tsx
 interface V28HeroPremiumProps {
   primaryCTA: { label: string; onClick: () => void; icon?: LucideIcon };
-  secondaryCTA?: { label: string; onClick: () => void }; // Nur OHNE PWA-Button!
-  showPWAButton?: boolean; // Ersetzt secondaryCTA
+  secondaryCTA?: { label: string; onClick: () => void };  // Nur OHNE PWA-Button!
+  showPWAButton?: boolean;  // Ersetzt secondaryCTA
 }
 ```
 
@@ -77,7 +76,6 @@ interface V28HeroPremiumProps {
 ```
 
 **Standard für ALLE KPI-Cards:**
-
 - Background: `bg-slate-50`
 - Icon-Color: `text-slate-700`
 - Border (optional): `ring-1 ring-slate-200`
@@ -89,24 +87,22 @@ interface V28HeroPremiumProps {
 ## 📋 VALIDATION CHECKLISTE
 
 ### Hero-Button-Check:
-
 ```bash
 # ✅ Prüfen: Max 2 Buttons
 grep -A 20 "V28HeroPremium" src/pages/*.tsx | grep -E "primaryCTA|secondaryCTA|showPWAButton"
 
-# Expected:
+# Expected: 
 # - primaryCTA immer vorhanden
 # - secondaryCTA ODER showPWAButton (nicht beides!)
 ```
 
 ### Icon-Background-Check:
-
 ```bash
 # ❌ Verbotene Farben finden (Taxi Dashboard)
 grep -r "bg-blue-50\|bg-green-50\|bg-red-50\|bg-yellow-50" src/components/hero/V28TaxiDashboardPreview.tsx
 # Expected: 0 Treffer! (alle müssen bg-slate-50 sein)
 
-# ❌ Verbotene Farben finden (IT Dashboard)
+# ❌ Verbotene Farben finden (IT Dashboard)  
 grep -r "bg-blue-100\|bg-green-100\|bg-red-100\|bg-slate-200" src/components/home/V28ITDashboardPreview.tsx
 # Expected: 0 Treffer! (alle müssen bg-slate-50 sein)
 
@@ -120,13 +116,11 @@ grep -r "bg-slate-50" src/components/hero/V28TaxiDashboardPreview.tsx src/compon
 ## 🎨 DESIGN SYSTEM COMPLIANCE
 
 ### Button-Hierarchie:
-
 1. **Primary CTA** (`variant="primary"`): Slate-700 Background, White Text
 2. **Secondary CTA** (`variant="secondary"`): Slate-100 Background, Slate-900 Text
 3. **PWA Button** (`variant="secondary"`): Wie Secondary CTA, aber mit PWA-Logik
 
 ### Icon-Container-Hierarchie:
-
 1. **KPI-Cards:** `bg-slate-50` + `text-slate-700` (Standard)
 2. **Status-Badges:** Farben erlaubt (green/red/yellow) nur für Live/Erledigt/Geplant
 3. **Navigation-Icons:** `bg-slate-100` + `text-slate-700`
@@ -136,7 +130,6 @@ grep -r "bg-slate-50" src/components/hero/V28TaxiDashboardPreview.tsx src/compon
 ## 🚫 ANTI-PATTERNS (NIEMALS TUN!)
 
 ### ❌ 3 Buttons im Hero
-
 ```tsx
 // ❌ FALSCH
 <V28HeroPremium
@@ -147,7 +140,6 @@ grep -r "bg-slate-50" src/components/hero/V28TaxiDashboardPreview.tsx src/compon
 ```
 
 ### ❌ Bunte Icon-Backgrounds in KPI-Cards
-
 ```tsx
 // ❌ FALSCH
 <div className="p-1.5 rounded-lg bg-blue-50">
@@ -156,7 +148,6 @@ grep -r "bg-slate-50" src/components/hero/V28TaxiDashboardPreview.tsx src/compon
 ```
 
 ### ❌ Inkonsistente Icon-Colors
-
 ```tsx
 // ❌ FALSCH - Verschiedene Farben
 <FileText className="w-4 h-4 text-blue-600" />   // Aufträge
@@ -174,7 +165,6 @@ grep -r "bg-slate-50" src/components/hero/V28TaxiDashboardPreview.tsx src/compon
 ## 📚 BETROFFENE DATEIEN
 
 ### Direkt betroffen:
-
 - `src/components/hero/V28HeroPremium.tsx` (Button-Logik)
 - `src/components/hero/V28TaxiDashboardPreview.tsx` (Icon-Backgrounds)
 - `src/components/home/V28ITDashboardPreview.tsx` (Icon-Backgrounds) ← NEU 2025-01-30
@@ -184,7 +174,6 @@ grep -r "bg-slate-50" src/components/hero/V28TaxiDashboardPreview.tsx src/compon
 - `src/pages/Contact.tsx` (✅ KONFORM - nutzt V28IconBox variant="slate")
 
 ### Referenz-Dokumentation:
-
 - `docs/02-ARCHITECTURE/Design-System.md` (V28.1 Slate-Palette)
 - `docs/V28_HERO_PREMIUM_COMPONENTS.md` (Component-API)
 
@@ -202,7 +191,6 @@ grep -r "bg-slate-50" src/components/hero/V28TaxiDashboardPreview.tsx src/compon
 ## 🔄 MIGRATION HISTORIE
 
 **2025-01-30:**
-
 - Initial Rules definiert
 - Home.tsx: Secondary CTA entfernt (zugunsten PWA-Button)
 - V28TaxiDashboardPreview: Aufträge/Umsatz Icon-BG von blue-50/green-50 → slate-50 geändert

@@ -4,8 +4,8 @@
    Offizielles MyDispatch-Logo mit "simply arrive" Tagline
    ================================================================================== */
 
-import { cn } from "@/lib/utils";
-import officialLogo from "@/assets/mydispatch-logo-official.png";
+import { cn } from '@/lib/utils';
+import officialLogo from '@/assets/mydispatch-logo-official.png';
 
 interface LogoProps {
   className?: string;

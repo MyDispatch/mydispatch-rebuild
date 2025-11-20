@@ -26,7 +26,6 @@
 ## 🏢 CORE TABLES (8)
 
 ### 1. companies
-
 **Zweck:** Zentrale Company-Verwaltung (Multi-Tenant Isolation)
 
 ```sql
@@ -55,7 +54,6 @@ CREATE INDEX idx_companies_subscription ON companies(subscription_plan, subscrip
 ```
 
 **RLS Policy:**
-
 ```sql
 -- Users can only view own company
 CREATE POLICY "Users view own company"
@@ -74,7 +72,6 @@ USING (
 ---
 
 ### 2. profiles
-
 **Zweck:** User Profiles (extends auth.users)
 
 ```sql
@@ -100,7 +97,6 @@ CREATE INDEX idx_profiles_role ON profiles(role);
 ```
 
 **RLS Policy:**
-
 ```sql
 -- Users can view profiles in own company
 CREATE POLICY "Users view own company profiles"
@@ -114,7 +110,6 @@ USING (user_id = auth.uid());
 ```
 
 **Trigger:**
-
 ```sql
 -- Auto-create profile on signup
 CREATE OR REPLACE FUNCTION public.handle_new_user()
@@ -139,7 +134,6 @@ CREATE TRIGGER on_auth_user_created
 ---
 
 ### 3. customers
-
 **Zweck:** Kunden-Verwaltung
 
 ```sql
@@ -172,7 +166,6 @@ CREATE INDEX idx_customers_portal_user_id ON customers(portal_user_id);
 ```
 
 **RLS Policy:**
-
 ```sql
 -- Company-Isolation
 CREATE POLICY "Users manage own company customers"
@@ -183,7 +176,6 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ---
 
 ### 4. drivers
-
 **Zweck:** Fahrer-Verwaltung
 
 ```sql
@@ -214,7 +206,6 @@ CREATE INDEX idx_drivers_user_id ON drivers(user_id);
 ```
 
 **RLS Policy:**
-
 ```sql
 CREATE POLICY "Users manage own company drivers"
 ON drivers FOR ALL
@@ -226,7 +217,6 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ---
 
 ### 5. vehicles
-
 **Zweck:** Fahrzeug-Verwaltung
 
 ```sql
@@ -258,7 +248,6 @@ CREATE INDEX idx_vehicles_license_plate ON vehicles(license_plate);
 ```
 
 **RLS Policy:**
-
 ```sql
 CREATE POLICY "Users manage own company vehicles"
 ON vehicles FOR ALL
@@ -272,7 +261,6 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ## 📦 BOOKING & OPERATIONS (12)
 
 ### 6. bookings
-
 **Zweck:** Haupttabelle für Aufträge/Buchungen
 
 ```sql
@@ -321,7 +309,6 @@ CREATE TABLE bookings_2025_01 PARTITION OF bookings
 ```
 
 **RLS Policy:**
-
 ```sql
 CREATE POLICY "Users manage own company bookings"
 ON bookings FOR ALL
@@ -335,7 +322,6 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ## 💰 FINANCE & ACCOUNTING (8)
 
 ### 14. invoices
-
 **Zweck:** Rechnungen
 
 ```sql
@@ -368,7 +354,6 @@ CREATE INDEX idx_invoices_invoice_number ON invoices(invoice_number);
 ```
 
 **RLS Policy:**
-
 ```sql
 CREATE POLICY "Users manage own company invoices"
 ON invoices FOR ALL
@@ -380,7 +365,6 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ## 📱 COMMUNICATION & DOCUMENTS (6)
 
 ### 22. chat_messages
-
 **Zweck:** Team-Chat
 
 ```sql
@@ -404,14 +388,13 @@ CREATE INDEX idx_chat_messages_created_at ON chat_messages(created_at DESC);
 ```
 
 **RLS Policy:**
-
 ```sql
 -- Users can only view messages in conversations they're part of
 CREATE POLICY "Users view own conversations"
 ON chat_messages FOR SELECT
 USING (
   conversation_id IN (
-    SELECT id FROM conversations
+    SELECT id FROM conversations 
     WHERE company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
   )
 );
@@ -424,7 +407,6 @@ USING (
 ## ⚙️ DATABASE FUNCTIONS (20+)
 
 ### get_dashboard_stats_for_company
-
 **Zweck:** KPI Statistiken für Dashboard
 
 ```sql
@@ -440,12 +422,12 @@ RETURNS TABLE (
 DECLARE
   user_company_id UUID;
 BEGIN
-  SELECT company_id INTO user_company_id
-  FROM profiles
+  SELECT company_id INTO user_company_id 
+  FROM profiles 
   WHERE user_id = auth.uid();
 
   RETURN QUERY
-  SELECT
+  SELECT 
     COUNT(*) FILTER (WHERE b.created_at::date = target_date) as todays_bookings,
     COALESCE(SUM(b.price) FILTER (WHERE b.created_at::date = target_date), 0) as todays_revenue,
     COUNT(DISTINCT d.id) FILTER (WHERE d.status = 'available') as available_drivers,
@@ -461,9 +443,8 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 ```
 
 **Usage:**
-
 ```typescript
-const { data } = await supabase.rpc("get_dashboard_stats_for_company");
+const { data } = await supabase.rpc('get_dashboard_stats_for_company');
 ```
 
 ---
@@ -471,7 +452,6 @@ const { data } = await supabase.rpc("get_dashboard_stats_for_company");
 ## 🔄 TRIGGERS (15+)
 
 ### update_updated_at_column
-
 **Zweck:** Automatisches Updated_at Timestamp Update
 
 ```sql
@@ -535,14 +515,12 @@ USING (
 ## ⚡ REALTIME TABLES (4)
 
 **Enabled Tables:**
-
 1. **bookings** - Dashboard, Aufträge, Map
 2. **drivers** - Dashboard, Fahrer, Map
 3. **vehicles** - Dashboard, Fahrzeuge, Map
 4. **chat_messages** - Team-Chat
 
 **Enable Command:**
-
 ```sql
 ALTER PUBLICATION supabase_realtime ADD TABLE public.bookings;
 ALTER PUBLICATION supabase_realtime ADD TABLE public.drivers;
@@ -555,12 +533,11 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.chat_messages;
 ## 📊 MATERIALIZED VIEWS (3)
 
 ### dashboard_stats_view
-
 **Zweck:** Pre-aggregated Dashboard Stats
 
 ```sql
 CREATE MATERIALIZED VIEW dashboard_stats_view AS
-SELECT
+SELECT 
   company_id,
   COUNT(*) as total_bookings,
   SUM(price) as total_revenue,
@@ -585,7 +562,6 @@ SELECT cron.schedule(
 ## 🔍 INDEXES (Performance Critical)
 
 **All Foreign Keys have indexes:**
-
 ```sql
 -- Examples
 CREATE INDEX idx_bookings_company_id ON bookings(company_id);
@@ -594,14 +570,13 @@ CREATE INDEX idx_bookings_driver_id ON bookings(driver_id);
 ```
 
 **Composite Indexes:**
-
 ```sql
 -- Fast status + date queries
-CREATE INDEX idx_bookings_company_status_date
+CREATE INDEX idx_bookings_company_status_date 
 ON bookings(company_id, status, pickup_time DESC);
 
 -- Fast driver availability queries
-CREATE INDEX idx_drivers_company_status
+CREATE INDEX idx_drivers_company_status 
 ON drivers(company_id, status) WHERE status = 'available';
 ```
 

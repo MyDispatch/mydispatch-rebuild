@@ -2,38 +2,26 @@
    FEATURE DETAIL PAGE: Buchungswidget
    ================================================================================== */
 
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { V28HeroPremium } from "@/components/hero";
-import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
-import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
-import { V28IconBox } from "@/components/design-system/V28IconBox";
-import { V28Button } from "@/components/design-system/V28Button";
-import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
-import { Code, Smartphone, Zap, CheckCircle } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { V28HeroPremium } from '@/components/hero';
+import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28Button } from '@/components/design-system/V28Button';
+import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
+import { Code, Smartphone, Zap, CheckCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function BuchungswidgetPage() {
   const navigate = useNavigate();
 
   const features = [
-    {
-      icon: Code,
-      title: "Einfache Integration",
-      description: "Ein Code-Snippet auf Ihrer Webseite einbinden",
-    },
-    {
-      icon: Smartphone,
-      title: "Mobile-optimiert",
-      description: "Perfekte Darstellung auf allen Geräten",
-    },
-    { icon: Zap, title: "Echtzeit-Buchung", description: "Kunden buchen direkt ohne Umwege" },
-    {
-      icon: CheckCircle,
-      title: "Automatische Bestätigung",
-      description: "Sofortige Buchungsbestätigung per E-Mail",
-    },
+    { icon: Code, title: 'Einfache Integration', description: 'Ein Code-Snippet auf Ihrer Webseite einbinden' },
+    { icon: Smartphone, title: 'Mobile-optimiert', description: 'Perfekte Darstellung auf allen Geräten' },
+    { icon: Zap, title: 'Echtzeit-Buchung', description: 'Kunden buchen direkt ohne Umwege' },
+    { icon: CheckCircle, title: 'Automatische Bestätigung', description: 'Sofortige Buchungsbestätigung per E-Mail' },
   ];
 
   return (
@@ -53,12 +41,12 @@ export default function BuchungswidgetPage() {
         subtitle="Integrieren Sie Online-Buchungen auf Ihrer Webseite"
         description="Kunden buchen direkt online – 24/7."
         primaryCTA={{
-          label: "Jetzt starten",
-          onClick: () => navigate("/auth?mode=signup"),
+          label: 'Jetzt starten',
+          onClick: () => navigate('/auth?mode=signup')
         }}
         secondaryCTA={{
-          label: "Mehr erfahren",
-          onClick: () => navigate("/pricing"),
+          label: 'Mehr erfahren',
+          onClick: () => navigate('/pricing')
         }}
         visual={<PremiumDashboardContent pageType="features" />}
         trustElements={true}
@@ -84,7 +72,7 @@ export default function BuchungswidgetPage() {
             <V28TariffBadge label="Enterprise" />
           </div>
           <p className="text-slate-600 mb-8">Ab Business-Tarif verfügbar.</p>
-          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
             Tarife vergleichen
           </V28Button>
         </div>

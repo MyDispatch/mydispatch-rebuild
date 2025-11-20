@@ -61,14 +61,29 @@ const V28DialogContent = React.forwardRef<
 ));
 V28DialogContent.displayName = DialogPrimitive.Content.displayName;
 
-const V28DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("flex flex-col space-y-1.5 text-center sm:text-left", className)} {...props} />
+const V28DialogHeader = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn(
+      "flex flex-col space-y-1.5 text-center sm:text-left",
+      className
+    )}
+    {...props}
+  />
 );
 V28DialogHeader.displayName = "V28DialogHeader";
 
-const V28DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
+const V28DialogFooter = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className)}
+    className={cn(
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+      className
+    )}
     {...props}
   />
 );
@@ -80,7 +95,10 @@ const V28DialogTitle = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DialogPrimitive.Title
     ref={ref}
-    className={cn("text-lg font-semibold leading-none tracking-tight text-slate-900", className)}
+    className={cn(
+      "text-lg font-semibold leading-none tracking-tight text-slate-900",
+      className
+    )}
     {...props}
   />
 ));
@@ -113,7 +131,7 @@ export {
 
 /**
  * USAGE EXAMPLE:
- *
+ * 
  * <V28Dialog>
  *   <V28DialogTrigger asChild>
  *     <button>Dialog öffnen</button>

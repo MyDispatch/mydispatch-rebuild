@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { V28Tooltip } from "./index";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Info, HelpCircle } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { V28Tooltip } from './index';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Info, HelpCircle } from 'lucide-react';
 
 const meta: Meta<typeof V28Tooltip> = {
-  title: "Design System/V28Tooltip",
+  title: 'Design System/V28Tooltip',
   component: V28Tooltip,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export default meta;
@@ -59,7 +59,7 @@ export const WithIcons: Story = {
 export const ComplexContent: Story = {
   render: () => (
     <div className="flex items-center justify-center p-12">
-      <V28Tooltip
+      <V28Tooltip 
         content={
           <div className="space-y-1">
             <p className="font-semibold">Feature Details</p>

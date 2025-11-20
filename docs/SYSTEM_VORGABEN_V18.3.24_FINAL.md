@@ -40,7 +40,6 @@ return (
 ```
 
 **Variants:**
-
 - `default` - Standard-Bestätigungen
 - `destructive` - Lösch-Aktionen (rot)
 - `warning` - Warn-Bestätigungen (gelb)
@@ -70,7 +69,6 @@ function BookingsPage() {
 ```
 
 **Tour-Anforderungen:**
-
 - ✅ Minimum 3 Steps pro Tour
 - ✅ Highlighting von UI-Elementen
 - ✅ Tipps & Tricks einbauen
@@ -90,7 +88,7 @@ function DashboardPage() {
   return (
     <div>
       {/* Page Content */}
-
+      
       {/* Floating Help Button (fixed bottom-right) */}
       <FloatingHelpButton context={helpContexts.dashboard} />
     </div>
@@ -99,7 +97,6 @@ function DashboardPage() {
 ```
 
 **Hilfe-Anforderungen:**
-
 - ✅ Context-sensitive Artikel
 - ✅ Suchfunktion
 - ✅ Quick-Start-Guides
@@ -133,7 +130,6 @@ function DashboardPage() {
 ## 🎯 SYSTEM-TEMPLATES (ZWINGEND NUTZEN)
 
 ### 1. ConfirmDialog
-
 ```typescript
 import { ConfirmDialog, useConfirm } from '@/components/shared/ConfirmDialog';
 
@@ -152,7 +148,6 @@ const { confirm, dialog } = useConfirm();
 ```
 
 ### 2. OnboardingTour
-
 ```typescript
 import { OnboardingTour } from '@/components/onboarding/OnboardingTour';
 
@@ -165,7 +160,6 @@ import { OnboardingTour } from '@/components/onboarding/OnboardingTour';
 ```
 
 ### 3. HelpSystem
-
 ```typescript
 import { HelpSystem, FloatingHelpButton } from '@/components/help/HelpSystem';
 
@@ -181,7 +175,6 @@ import { HelpSystem, FloatingHelpButton } from '@/components/help/HelpSystem';
 ## 📚 DOKUMENTATIONS-STANDARD
 
 ### Hilfe-Artikel Struktur
-
 ```typescript
 {
   id: 'unique-id',
@@ -214,7 +207,6 @@ Hilfreicher Tipp für fortgeschrittene Nutzer.
 ```
 
 ### Onboarding-Step Struktur
-
 ```typescript
 {
   id: 'step-id',
@@ -242,7 +234,6 @@ Hilfreicher Tipp für fortgeschrittene Nutzer.
 ### Erweiterte Design-System-Regeln
 
 **NIEMALS:**
-
 - ❌ `window.confirm()` verwenden
 - ❌ `window.alert()` verwenden
 - ❌ `window.prompt()` verwenden
@@ -251,7 +242,6 @@ Hilfreicher Tipp für fortgeschrittene Nutzer.
 - ❌ Fehlende Dokumentation
 
 **IMMER:**
-
 - ✅ `<ConfirmDialog>` für Bestätigungen
 - ✅ `<OnboardingTour>` für neue Features
 - ✅ `<HelpSystem>` in jeder Seite
@@ -263,14 +253,12 @@ Hilfreicher Tipp für fortgeschrittene Nutzer.
 ## 📋 CHECKLISTE: NEUES FEATURE
 
 ### Vor Umsetzung:
-
 - [ ] Feature-Konzept dokumentiert
 - [ ] UI-Mockups erstellt
 - [ ] Hilfe-Artikel geschrieben
 - [ ] Onboarding-Tour geplant
 
 ### Während Umsetzung:
-
 - [ ] Code entspricht Design-System
 - [ ] ConfirmDialog statt window.confirm
 - [ ] Hilfe-Button integriert
@@ -278,7 +266,6 @@ Hilfreicher Tipp für fortgeschrittene Nutzer.
 - [ ] Data-tour Attribute gesetzt
 
 ### Nach Umsetzung:
-
 - [ ] Dokumentation aktualisiert
 - [ ] Hilfe-Artikel veröffentlicht
 - [ ] Tour getestet (Desktop & Mobile)
@@ -289,28 +276,25 @@ Hilfreicher Tipp für fortgeschrittene Nutzer.
 ## 🎓 BEST PRACTICES
 
 ### 1. User-Friendly Confirmations
-
 ```typescript
 // ✅ RICHTIG: Klare, verständliche Texte
 confirm({
   title: 'Fahrer "Max Mustermann" löschen?',
-  description:
-    "Alle Daten werden gelöscht: Aufträge, Schichten, Dokumente. Dieser Vorgang kann NICHT rückgängig gemacht werden.",
-  confirmLabel: "Ja, endgültig löschen",
-  cancelLabel: "Nein, abbrechen",
-  variant: "destructive",
+  description: 'Alle Daten werden gelöscht: Aufträge, Schichten, Dokumente. Dieser Vorgang kann NICHT rückgängig gemacht werden.',
+  confirmLabel: 'Ja, endgültig löschen',
+  cancelLabel: 'Nein, abbrechen',
+  variant: 'destructive'
 });
 
 // ❌ FALSCH: Unklare Texte
 confirm({
-  title: "Löschen?",
-  description: "Wirklich?",
-  confirmLabel: "OK",
+  title: 'Löschen?',
+  description: 'Wirklich?',
+  confirmLabel: 'OK'
 });
 ```
 
 ### 2. Strukturierte Onboarding-Tours
-
 ```typescript
 // ✅ RICHTIG: Logische Reihenfolge
 1. Welcome Screen
@@ -326,7 +310,6 @@ confirm({
 ```
 
 ### 3. Comprehensive Help Articles
-
 ```typescript
 // ✅ RICHTIG: Vollständig
 - Was ist X?
@@ -346,7 +329,6 @@ confirm({
 ## 🚀 QUICK-WINS
 
 ### 1. Bestehende window.confirm() ersetzen
-
 ```bash
 # Suche alle Vorkommen
 grep -r "window.confirm" src/
@@ -356,7 +338,6 @@ grep -r "window.confirm" src/
 ```
 
 ### 2. Hilfe-Buttons hinzufügen
-
 ```typescript
 // In jeder Page-Component
 import { FloatingHelpButton } from '@/components/help/HelpSystem';
@@ -366,7 +347,6 @@ import { helpContexts } from '@/lib/help/help-content';
 ```
 
 ### 3. Data-Tour-Attribute setzen
-
 ```tsx
 // Zu wichtigen UI-Elementen
 <Button data-tour="new-booking">Neuer Auftrag</Button>
@@ -378,14 +358,12 @@ import { helpContexts } from '@/lib/help/help-content';
 ## 📊 ERFOLGS-METRIKEN
 
 ### Vor V18.3.24:
-
 - User-Onboarding: ~30 Min
 - Support-Anfragen: ~50 pro Woche
 - Feature-Discovery: ~40%
 - Dokumentations-Rate: 30%
 
 ### Nach V18.3.24:
-
 - User-Onboarding: **<10 Min** (-67%)
 - Support-Anfragen: **<20 pro Woche** (-60%)
 - Feature-Discovery: **>80%** (+100%)
@@ -396,13 +374,11 @@ import { helpContexts } from '@/lib/help/help-content';
 ## 🔐 COMPLIANCE
 
 ### DSGVO-Konformität
-
 - ✅ Alle Hilfe-Texte DSGVO-konform
 - ✅ Datenschutz-Hinweise in Tours
 - ✅ Opt-Out für Tracking möglich
 
 ### Barrierefreiheit
-
 - ✅ Keyboard-Navigation (Tab, Enter, Esc)
 - ✅ Screen-Reader-Support
 - ✅ Kontrast-Verhältnisse (WCAG AA)
@@ -421,7 +397,6 @@ import { helpContexts } from '@/lib/help/help-content';
 ### 🔒 ZUSÄTZLICHE SYSTEM-REGELN (V18.3.24 EXTENDED)
 
 #### A) KEINE TEST-ACCOUNTS ODER KOSTENLOSEN TESTS
-
 - ❌ MyDispatch bietet KEINE kostenlosen Testphasen an
 - ❌ Keine "14 Tage testen" oder ähnliche Angebote
 - ❌ Keine "Geld-zurück-Garantie" für Tests
@@ -431,7 +406,6 @@ import { helpContexts } from '@/lib/help/help-content';
 **Ausnahme:** Tariff-Switcher für interne Test-Accounts (courbois1981@gmail.com, demo@my-dispatch.de) bleibt bestehen - wird NICHT öffentlich gezeigt.
 
 #### B) TECHNISCHE DETAILS VERBERGEN
-
 - ❌ Keine Erwähnung von "React", "Vite", "TailwindCSS", "TypeScript", "Supabase" auf öffentlichen Seiten
 - ❌ Keine Erwähnung von "Lovable", "lovable.dev", "lovable.app" auf öffentlichen UND rechtlichen Seiten
 - ✅ Stattdessen: "Google Cloud" als Hosting-Plattform nennen (wo technisch erforderlich)
@@ -439,19 +413,16 @@ import { helpContexts } from '@/lib/help/help-content';
 - ✅ Nutzer sollen NICHT sehen, wie MyDispatch technisch aufgebaut wurde
 
 **Erlaubt auf öffentlichen Seiten:**
-
 - "Cloud-basiert", "Browser-basiert", "PWA-Technologie"
 - "KI-gestützt" (ohne Modell-Namen)
 - "HERE Maps Integration" (neutral als "Live-Karte" oder "intelligente Routenplanung")
 
 **Verboten auf öffentlichen Seiten:**
-
 - "Supabase", "React 18", "Vite", "TailwindCSS"
 - "Lovable", "lovable.dev"
 - Tech-Stack-Details außer in Datenschutz (gesetzlich erforderlich)
 
 #### C) BRANDING-KONSEQUENZ
-
 - ✅ IMMER "MyDispatch" oder "MyDispatch by RideHub Solutions"
 - ✅ NIEMALS "Lovable" oder externe Branding-Referenzen
 - ✅ In Datenschutz/rechtlichen Seiten: "Google Cloud" statt "Lovable Cloud"

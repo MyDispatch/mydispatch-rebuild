@@ -6,9 +6,9 @@
    - Label + Description Support
    ================================================================================== */
 
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { cn } from "@/lib/utils";
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { cn } from '@/lib/utils';
 
 interface MobileSwitchProps {
   label: string;
@@ -25,10 +25,10 @@ export function MobileSwitch({
   checked,
   onCheckedChange,
   disabled,
-  className,
+  className
 }: MobileSwitchProps) {
   return (
-    <div
+    <div 
       className={cn(
         "flex items-center justify-between min-h-[44px] py-2 touch-manipulation",
         disabled && "opacity-50 cursor-not-allowed",
@@ -37,10 +37,17 @@ export function MobileSwitch({
       onClick={() => !disabled && onCheckedChange(!checked)}
     >
       <div className="flex-1 pr-3">
-        <Label className="text-sm font-medium cursor-pointer" onClick={(e) => e.stopPropagation()}>
+        <Label 
+          className="text-sm font-medium cursor-pointer"
+          onClick={(e) => e.stopPropagation()}
+        >
           {label}
         </Label>
-        {description && <p className="text-xs text-muted-foreground mt-0.5">{description}</p>}
+        {description && (
+          <p className="text-xs text-muted-foreground mt-0.5">
+            {description}
+          </p>
+        )}
       </div>
       <Switch
         checked={checked}

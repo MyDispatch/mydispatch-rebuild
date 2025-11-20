@@ -28,25 +28,25 @@ graph TB
         B[useCreateBooking Hook]
         C[Form Validation Zod]
     end
-
+    
     subgraph API Layer
         D[src/lib/api/bookings.ts]
         E[createBooking Function]
         F[Type Validation]
     end
-
+    
     subgraph Backend
         G[Supabase Client]
         H[bookings Table]
         I[RLS Policy Check]
         J[Trigger Functions]
     end
-
+    
     subgraph Notifications
         K[Edge Function: send-booking-email]
         L[Resend API]
     end
-
+    
     A --> C
     C --> B
     B --> D
@@ -58,7 +58,7 @@ graph TB
     I --> J
     J --> K
     K --> L
-
+    
     style A fill:#3b82f6
     style D fill:#10b981
     style H fill:#f59e0b
@@ -74,23 +74,23 @@ graph LR
         A[Login Form]
         B[Auth.tsx]
     end
-
+    
     subgraph Auth Layer
         C[Supabase Auth]
         D[JWT Generation]
         E[Session Storage]
     end
-
+    
     subgraph State Management
         F[useAuthStore]
         G[Global State]
     end
-
+    
     subgraph Protected Routes
         H[ProtectedRoute.tsx]
         I[Dashboard]
     end
-
+    
     A --> B
     B --> C
     C --> D
@@ -99,7 +99,7 @@ graph LR
     F --> G
     G --> H
     H --> I
-
+    
     style C fill:#ef4444
     style F fill:#3b82f6
     style H fill:#10b981
@@ -117,26 +117,26 @@ graph TB
         A[BookingsList.tsx]
         B[useBookings Call]
     end
-
+    
     subgraph TanStack Query
         C[Query Client]
         D[Cache Layer]
         E[Refetch Logic]
     end
-
+    
     subgraph API Layer
         F[src/lib/api/bookings.ts]
         G[getBookings Function]
         H[Filter Logic]
     end
-
+    
     subgraph Database
         I[Supabase Client]
         J[SELECT Query]
         K[RLS Filtering]
         L[bookings Table]
     end
-
+    
     A --> B
     B --> C
     C --> D
@@ -148,10 +148,10 @@ graph TB
     I --> J
     J --> K
     K --> L
-
+    
     D -.Cache Hit.-> A
     L -.Data Response.-> A
-
+    
     style C fill:#f59e0b
     style D fill:#10b981
     style K fill:#ef4444
@@ -167,7 +167,7 @@ sequenceDiagram
     participant API as API Layer
     participant DB as Database
     participant Cache as Query Cache
-
+    
     Component->>Hook: mutateAsync(data)
     Hook->>TanStack: Execute Mutation
     TanStack->>API: createBooking(data)
@@ -196,7 +196,7 @@ graph TB
         D[Network Timeout]
         E[Auth Token Expired]
     end
-
+    
     subgraph Cascading Failures
         F[All DB Queries Fail]
         G[401 Unauthorized Errors]
@@ -204,16 +204,16 @@ graph TB
         I[Retry Mechanism]
         J[Redirect to Login]
     end
-
+    
     A --> F
     B --> G
     C --> H
     D --> I
     E --> J
-
+    
     F --> H
     G --> J
-
+    
     style A fill:#ef4444
     style E fill:#ef4444
     style J fill:#f59e0b
@@ -229,7 +229,7 @@ graph LR
     D --> E[Clear User State]
     E --> F[Redirect to /auth]
     F --> G[Show Login Form]
-
+    
     style A fill:#ef4444
     style C fill:#ef4444
     style F fill:#f59e0b
@@ -246,10 +246,10 @@ graph TB
     D --> F[Retry Connection]
     E --> G[Show Error Message]
     E --> H[Queue Failed Requests]
-
+    
     F -.Success.-> I[Normal Operation]
     F -.Fail.-> C
-
+    
     style A fill:#ef4444
     style E fill:#f59e0b
     style I fill:#10b981
@@ -266,31 +266,31 @@ graph TB
     subgraph MyDispatch App
         A[Frontend]
     end
-
+    
     subgraph External Services
         B[Google Maps API]
         C[Lovable AI Gateway]
         D[Stripe API]
         E[Resend API]
     end
-
+    
     subgraph Edge Functions
         F[geocoding-service]
         G[ai-chat-handler]
         H[payment-webhook]
         I[send-email]
     end
-
+    
     A --> F
     A --> G
     A --> H
     A --> I
-
+    
     F --> B
     G --> C
     H --> D
     I --> E
-
+    
     style B fill:#34a853
     style C fill:#8b5cf6
     style D fill:#635bff
@@ -307,21 +307,21 @@ sequenceDiagram
     participant Lovable as Lovable AI
     participant Stripe
     participant Resend
-
+    
     App->>HealthCheck: Check all APIs
-
+    
     par Parallel Health Checks
         HealthCheck->>Google: GET /maps/api/geocode
         HealthCheck->>Lovable: POST /v1/chat/completions
         HealthCheck->>Stripe: GET /v1/account
         HealthCheck->>Resend: GET /emails
     end
-
+    
     Google-->>HealthCheck: 200 OK
     Lovable-->>HealthCheck: 200 OK
     Stripe-->>HealthCheck: 200 OK
     Resend-->>HealthCheck: 200 OK
-
+    
     HealthCheck-->>App: All services healthy
 ```
 
@@ -336,24 +336,24 @@ graph TB
     subgraph Client Request
         A[Frontend Call]
     end
-
+    
     subgraph Edge Function
         B[send-booking-email]
         C[Fetch Booking Data]
         D[Generate Email Template]
     end
-
+    
     subgraph Database
         E[bookings Table]
         F[customers Table]
         G[RLS Check]
     end
-
+    
     subgraph External API
         H[Resend API]
         I[Email Delivery]
     end
-
+    
     A --> B
     B --> C
     C --> E
@@ -363,7 +363,7 @@ graph TB
     G --> D
     D --> H
     H --> I
-
+    
     style B fill:#8b5cf6
     style G fill:#ef4444
     style H fill:#f59e0b
@@ -376,33 +376,33 @@ graph LR
     subgraph Edge Function Runtime
         A[index.ts]
     end
-
+    
     subgraph Required Secrets
         B[SUPABASE_URL]
         C[SUPABASE_SERVICE_ROLE_KEY]
         D[RESEND_API_KEY]
         E[LOVABLE_API_KEY]
     end
-
+    
     subgraph Validation
         F[Environment Check]
         G[Secret Validation]
     end
-
+    
     A --> F
     F --> B
     F --> C
     F --> D
     F --> E
-
+    
     B --> G
     C --> G
     D --> G
     E --> G
-
+    
     G -.Missing Secret.-> H[500 Error]
     G -.All Valid.-> I[Function Execution]
-
+    
     style H fill:#ef4444
     style I fill:#10b981
 ```
@@ -420,11 +420,11 @@ erDiagram
     bookings ||--o{ vehicles : uses
     bookings ||--o{ partners : via
     bookings ||--o{ invoices : generates
-
+    
     customers ||--o{ addresses : has_multiple
     drivers ||--o{ shifts : works
     drivers ||--o{ vehicles : drives
-
+    
     companies ||--o{ bookings : owns
     companies ||--o{ drivers : employs
     companies ||--o{ vehicles : owns
@@ -437,31 +437,31 @@ graph TB
     subgraph User Request
         A[SELECT bookings]
     end
-
+    
     subgraph RLS Policies
         B[Policy: Users can view their own bookings]
         C[Check: auth.uid = user_id]
         D[Policy: Admins can view all]
         E[Check: role = 'admin']
     end
-
+    
     subgraph Database
         F[bookings Table]
         G[Filtered Results]
     end
-
+    
     A --> B
     B --> C
     A --> D
     D --> E
-
+    
     C --> F
     E --> F
     F --> G
-
+    
     C -.Unauthorized.-> H[403 Error]
     E -.Not Admin.-> H
-
+    
     style C fill:#f59e0b
     style H fill:#ef4444
     style G fill:#10b981
@@ -483,7 +483,6 @@ graph TB
 ### How to Update Diagrams
 
 1. **Install Mermaid CLI** (optional for local preview):
-
    ```bash
    npm install -g @mermaid-js/mermaid-cli
    ```
@@ -496,14 +495,14 @@ graph TB
 
 ## 📊 Dependency Complexity Metrics
 
-| Dependency Type     | Count | Criticality | Monitoring         |
-| ------------------- | ----- | ----------- | ------------------ |
-| Frontend Components | 150+  | Medium      | Component Registry |
-| API Layer Modules   | 7     | High        | Unit Tests         |
-| Database Tables     | 18    | Critical    | RLS Linter         |
-| Edge Functions      | 12    | High        | Health Checks      |
-| External APIs       | 4     | Critical    | Uptime Monitor     |
-| RLS Policies        | 45+   | Critical    | Security Scan      |
+| Dependency Type | Count | Criticality | Monitoring |
+|----------------|-------|-------------|------------|
+| Frontend Components | 150+ | Medium | Component Registry |
+| API Layer Modules | 7 | High | Unit Tests |
+| Database Tables | 18 | Critical | RLS Linter |
+| Edge Functions | 12 | High | Health Checks |
+| External APIs | 4 | Critical | Uptime Monitor |
+| RLS Policies | 45+ | Critical | Security Scan |
 
 **Total Tracked Dependencies:** 236+
 

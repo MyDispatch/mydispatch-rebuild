@@ -17,7 +17,6 @@
 - **Dokumentation:** `docs/AI_MODEL_GOVERNANCE_V26.0.md`
 
 **VERBOTEN:**
-
 - ❌ Lovable AI Gateway
 - ❌ Google Gemini (alle Varianten)
 - ❌ OpenAI GPT (alle Varianten)
@@ -33,7 +32,6 @@
 **IMMER** über zentrale Design-Systeme.
 
 ### Warum?
-
 - ✅ Eine Änderung = Systemweite Aktualisierung
 - ✅ Keine Inkonsistenzen
 - ✅ Wartbarkeit & Skalierbarkeit
@@ -49,25 +47,25 @@
 
 ```tsx
 // ✅ RICHTIG - Semantic Tokens
-className = "text-foreground bg-background";
-className = "text-primary bg-primary";
-className = "text-muted-foreground bg-muted";
+className="text-foreground bg-background"
+className="text-primary bg-primary"
+className="text-muted-foreground bg-muted"
 
 // ❌ FALSCH - Direct Colors
-className = "text-white bg-black";
-className = "text-[#EADEBD]";
-className = "text-blue-500";
+className="text-white bg-black"
+className="text-[#EADEBD]"
+className="text-blue-500"
 ```
 
 ### Verfügbare Tokens
 
 ```css
 /* Light Mode */
---background: 40 8% 98%; /* Helles Beige */
---foreground: 225 31% 28%; /* Dunkles Blau */
---primary: 40 31% 88%; /* Beige-Gold (#EADEBD) */
+--background: 40 8% 98%;          /* Helles Beige */
+--foreground: 225 31% 28%;        /* Dunkles Blau */
+--primary: 40 31% 88%;            /* Beige-Gold (#EADEBD) */
 --primary-foreground: 225 31% 28%;
---secondary: 225 31% 28%; /* Dunkles Blau */
+--secondary: 225 31% 28%;         /* Dunkles Blau */
 --secondary-foreground: 40 31% 88%;
 --muted: 40 8% 95%;
 --muted-foreground: 225 20% 50%;
@@ -108,7 +106,6 @@ className = "text-blue-500";
 ```
 
 **Varianten:**
-
 - `hero-primary` - Hero-Hauptbutton (bg-primary)
 - `hero-secondary` - Hero-Sekundärbutton (transparent + border)
 - `cta-primary` - CTA-Hauptbutton
@@ -137,14 +134,12 @@ import { Check } from 'lucide-react';
 ### Erlaubte Icon-Farben
 
 **AUSNAHMSLOS:**
-
 - `text-foreground` (Standard-Dunkelblau)
 - `text-muted-foreground` (Deaktiviert/Sekundär)
 - `text-primary` (Primär-Akzent)
 - `text-background` (Auf dunklen Hintergründen)
 
 **VERBOTEN:**
-
 - ❌ `text-status-success` / `text-green-*`
 - ❌ `text-status-warning` / `text-yellow-*`
 - ❌ `text-status-error` / `text-red-*`
@@ -161,13 +156,13 @@ import { Check } from 'lucide-react';
 
 ```tsx
 // ✅ RICHTIG
-className = "gap-3 sm:gap-4 md:gap-6";
-className = "p-4 sm:p-6 md:p-8";
-className = "py-8 sm:py-12 md:py-16";
+className="gap-3 sm:gap-4 md:gap-6"
+className="p-4 sm:p-6 md:p-8"
+className="py-8 sm:py-12 md:py-16"
 
 // ❌ FALSCH
-className = "gap-5";
-className = "p-7";
+className="gap-5"
+className="p-7"
 ```
 
 ### Standard-Werte (8px Grid)
@@ -211,7 +206,6 @@ className = "p-7";
 ```
 
 **Design:**
-
 - `bg-secondary` (Blauer Hintergrund)
 - `text-primary-foreground` (Helles Icon)
 - Hover: `bg-secondary/90`
@@ -225,7 +219,7 @@ className = "p-7";
 // ✅ KORREKT
 <div className="space-y-0">
   {items.map((item, i) => (
-    <Button
+    <Button 
       className="rounded-none first:rounded-t-lg last:rounded-b-lg"
     />
   ))}
@@ -244,22 +238,19 @@ className = "p-7";
 ## 🚫 VERBOTENE PATTERNS
 
 ### 1. Inline-Styles
-
 ```tsx
 // ❌ NIEMALS
 <div style={{ backgroundColor: '#eadebd' }}>
 ```
 
 ### 2. Direkte Farben
-
 ```tsx
 // ❌ NIEMALS
-className = "text-blue-500 bg-white";
-className = "text-[#323D5E]";
+className="text-blue-500 bg-white"
+className="text-[#323D5E]"
 ```
 
 ### 3. Custom Button-Styles
-
 ```tsx
 // ❌ NIEMALS
 <button className="bg-[#eadebd] hover:bg-[#d4c8a7]">
@@ -269,7 +260,6 @@ className = "text-[#323D5E]";
 ```
 
 ### 4. Nicht-CI-konforme Icons
-
 ```tsx
 // ❌ NIEMALS
 <Check className="text-green-500" />
@@ -330,7 +320,6 @@ npx playwright test tests/e2e/design-system/
 ## 📝 Changelog
 
 ### V18.5.0 (2025-01-26)
-
 - Konsolidierung aus 10+ Design-Dokumenten
 - Zentrale Anlaufstelle für alle Design-Fragen
 - Content System Integration

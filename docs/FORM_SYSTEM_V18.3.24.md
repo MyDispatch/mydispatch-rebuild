@@ -2,14 +2,13 @@
 
 **Status:** ✅ AKTIV - Zentral & Wiederverwendbar  
 **Datum:** 21.10.2025  
-**Version:** V18.3.24
+**Version:** V18.3.24  
 
 ---
 
 ## 🎯 ZIELSETZUNG
 
 Zentrale Form-Komponenten für:
-
 - ✅ react-hook-form Integration
 - ✅ Zod Validation
 - ✅ File Upload Support
@@ -25,14 +24,14 @@ Zentrale Form-Komponenten für:
 **Datei:** `src/components/forms/UnifiedForm.tsx`
 
 ```tsx
-import { UnifiedForm } from "@/components/forms/UnifiedForm";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { UnifiedForm } from '@/components/forms/UnifiedForm';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 
 const schema = z.object({
-  name: z.string().min(1, "Name erforderlich"),
-  email: z.string().email("Ungültige E-Mail"),
+  name: z.string().min(1, 'Name erforderlich'),
+  email: z.string().email('Ungültige E-Mail'),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -41,12 +40,12 @@ function MyComponent() {
   const form = useForm<FormData>({
     resolver: zodResolver(schema),
   });
-
+  
   const onSubmit = async (data: FormData) => {
     await api.create(data);
-    toast.success("Gespeichert");
+    toast.success('Gespeichert');
   };
-
+  
   return (
     <UnifiedForm
       form={form}
@@ -54,7 +53,7 @@ function MyComponent() {
       submitLabel="Speichern"
       cancelLabel="Abbrechen"
       onCancel={() => navigate(-1)}
-      columns={2} // 1 | 2 | 3
+      columns={2}  // 1 | 2 | 3
     >
       <FormField
         control={form.control}
@@ -69,7 +68,7 @@ function MyComponent() {
           </FormItem>
         )}
       />
-
+      
       <FormField
         control={form.control}
         name="email"
@@ -89,7 +88,6 @@ function MyComponent() {
 ```
 
 **Features:**
-
 - Grid-Layouts (1, 2, 3 Spalten)
 - Auto-Loading-State
 - Required-Indicator
@@ -99,27 +97,28 @@ function MyComponent() {
 ### 2. FileUploadField (File Upload)
 
 ```tsx
-import { FileUploadField } from "@/components/forms/UnifiedForm";
+import { FileUploadField } from '@/components/forms/UnifiedForm';
 
 <FileUploadField
   label="Führerschein"
   accept="image/*,.pdf"
-  maxSize={10} // MB
+  maxSize={10}  // MB
   multiple={false}
   required={true}
   description="Max. 10MB, JPG/PNG/PDF"
   onUpload={async (files) => {
     const file = files[0];
     // Upload to Supabase Storage
-    const { data } = await supabase.storage.from("documents").upload(`licenses/${file.name}`, file);
-
-    toast.success("Hochgeladen");
+    const { data } = await supabase.storage
+      .from('documents')
+      .upload(`licenses/${file.name}`, file);
+    
+    toast.success('Hochgeladen');
   }}
-/>;
+/>
 ```
 
 **Features:**
-
 - Drag & Drop (geplant)
 - Size Validation
 - Type Validation
@@ -167,7 +166,9 @@ import { FileUploadField } from "@/components/forms/UnifiedForm";
 ### File Upload Hinweise
 
 ```tsx
-<FileUploadField description="Ihre Daten werden verschlüsselt übertragen und gemäß DSGVO gespeichert." />
+<FileUploadField
+  description="Ihre Daten werden verschlüsselt übertragen und gemäß DSGVO gespeichert."
+/>
 ```
 
 ---

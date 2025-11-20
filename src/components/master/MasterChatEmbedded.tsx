@@ -8,20 +8,20 @@
    ✅ ARIA Accessible
    ================================================================================== */
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { Send, Bot, Paperclip, Upload } from "lucide-react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Textarea } from "@/components/ui/textarea";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Card } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/use-auth";
-import { toast } from "@/hooks/use-toast";
-import { handleError } from "@/lib/error-handler";
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { Send, Bot, Paperclip, Upload } from 'lucide-react';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Textarea } from '@/components/ui/textarea';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Card } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/use-auth';
+import { toast } from '@/hooks/use-toast';
+import { handleError } from '@/lib/error-handler';
 
 interface Message {
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
   content: string;
   attachmentUrl?: string;
   attachmentName?: string;
@@ -31,12 +31,11 @@ export function MasterChatEmbedded() {
   const { session } = useAuth();
   const [messages, setMessages] = useState<Message[]>([
     {
-      role: "assistant",
-      content:
-        "Hallo! Ich bin der Master-Agent. Wie kann ich dir helfen?\n\n💡 Tipp: Du kannst Dateien hochladen (.pdf, .md, .txt, .png, .jpg) bis 5MB.",
+      role: 'assistant',
+      content: 'Hallo! Ich bin der Master-Agent. Wie kann ich dir helfen?\n\n💡 Tipp: Du kannst Dateien hochladen (.pdf, .md, .txt, .png, .jpg) bis 5MB.',
     },
   ]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -52,120 +51,75 @@ export function MasterChatEmbedded() {
   }, [messages]);
 
   // File Upload
-  const uploadFile = useCallback(
-    async (file: File): Promise<string | null> => {
-      if (!session?.user?.id) {
-        toast({ title: "Fehler", description: "Nicht angemeldet", variant: "destructive" });
-        return null;
-      }
+  const uploadFile = useCallback(async (file: File): Promise<string | null> => {
+    if (!session?.user?.id) {
+      toast({ title: 'Fehler', description: 'Nicht angemeldet', variant: 'destructive' });
+      return null;
+    }
 
-      const allowedTypes = [
-        "application/pdf",
-        "text/markdown",
-        "text/plain",
-        "image/png",
-        "image/jpeg",
-      ];
-      if (!allowedTypes.includes(file.type)) {
-        toast({
-          title: "Ungültiger Dateityp",
-          description: "Erlaubt: .pdf, .md, .txt, .png, .jpg",
-          variant: "destructive",
-        });
-        return null;
-      }
+    const allowedTypes = ['application/pdf', 'text/markdown', 'text/plain', 'image/png', 'image/jpeg'];
+    if (!allowedTypes.includes(file.type)) {
+      toast({ title: 'Ungültiger Dateityp', description: 'Erlaubt: .pdf, .md, .txt, .png, .jpg', variant: 'destructive' });
+      return null;
+    }
 
-      if (file.size > 5 * 1024 * 1024) {
-        toast({
-          title: "Datei zu groß",
-          description: "Maximal 5MB erlaubt",
-          variant: "destructive",
-        });
-        return null;
-      }
+    if (file.size > 5 * 1024 * 1024) {
+      toast({ title: 'Datei zu groß', description: 'Maximal 5MB erlaubt', variant: 'destructive' });
+      return null;
+    }
 
-      try {
-        setUploadProgress(0);
-        const fileName = `${Date.now()}-${file.name}`;
-        const filePath = `${session.user.id}/${fileName}`;
+    try {
+      setUploadProgress(0);
+      const fileName = `${Date.now()}-${file.name}`;
+      const filePath = `${session.user.id}/${fileName}`;
 
-        const { data, error } = await supabase.storage
-          .from("chat-uploads")
-          .upload(filePath, file, { cacheControl: "3600", upsert: false });
-        if (error) throw error;
+      const { data, error } = await supabase.storage.from('chat-uploads').upload(filePath, file, { cacheControl: '3600', upsert: false });
+      if (error) throw error;
 
-        const { data: urlData } = supabase.storage.from("chat-uploads").getPublicUrl(filePath);
-        setUploadProgress(100);
-        toast({ title: "Upload erfolgreich", description: file.name });
-        return urlData.publicUrl;
-      } catch (error) {
-        handleError(error, "Upload fehlgeschlagen", { title: "Upload Error" });
-        toast({
-          title: "Upload fehlgeschlagen",
-          description: error instanceof Error ? error.message : "Unbekannter Fehler",
-          variant: "destructive",
-        });
-        return null;
-      } finally {
-        setUploadProgress(0);
-      }
-    },
-    [session, toast]
-  );
+      const { data: urlData } = supabase.storage.from('chat-uploads').getPublicUrl(filePath);
+      setUploadProgress(100);
+      toast({ title: 'Upload erfolgreich', description: file.name });
+      return urlData.publicUrl;
+    } catch (error) {
+      handleError(error, 'Upload fehlgeschlagen', { title: 'Upload Error' });
+      toast({ title: 'Upload fehlgeschlagen', description: error instanceof Error ? error.message : 'Unbekannter Fehler', variant: 'destructive' });
+      return null;
+    } finally {
+      setUploadProgress(0);
+    }
+  }, [session, toast]);
 
-  const handleFileSelect = useCallback(
-    async (e: React.ChangeEvent<HTMLInputElement>) => {
-      const file = e.target.files?.[0];
-      if (!file) return;
-      setSelectedFile(file);
-      const url = await uploadFile(file);
-      if (url) setInput((prev) => `${prev}\n\n📎 Hochgeladen: [${file.name}](${url})`);
-      setSelectedFile(null);
-      if (fileInputRef.current) fileInputRef.current.value = "";
-    },
-    [uploadFile]
-  );
+  const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setSelectedFile(file);
+    const url = await uploadFile(file);
+    if (url) setInput((prev) => `${prev}\n\n📎 Hochgeladen: [${file.name}](${url})`);
+    setSelectedFile(null);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }, [uploadFile]);
 
   // Drag-Drop
-  const handleDragEnter = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(true);
-  }, []);
-  const handleDragLeave = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.currentTarget === e.target) setIsDragging(false);
-  }, []);
-  const handleDragOver = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-  }, []);
-  const handleDrop = useCallback(
-    async (e: React.DragEvent) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsDragging(false);
-      const file = e.dataTransfer.files?.[0];
-      if (!file) return;
-      setSelectedFile(file);
-      const url = await uploadFile(file);
-      if (url) setInput((prev) => `${prev}\n\n📎 Hochgeladen: [${file.name}](${url})`);
-      setSelectedFile(null);
-    },
-    [uploadFile]
-  );
+  const handleDragEnter = useCallback((e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setIsDragging(true); }, []);
+  const handleDragLeave = useCallback((e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); if (e.currentTarget === e.target) setIsDragging(false); }, []);
+  const handleDragOver = useCallback((e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); }, []);
+  const handleDrop = useCallback(async (e: React.DragEvent) => {
+    e.preventDefault(); e.stopPropagation(); setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (!file) return;
+    setSelectedFile(file);
+    const url = await uploadFile(file);
+    if (url) setInput((prev) => `${prev}\n\n📎 Hochgeladen: [${file.name}](${url})`);
+    setSelectedFile(null);
+  }, [uploadFile]);
 
   // Chat Stream
   const streamChat = async (userMessage: Message) => {
     try {
       const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/master-chat`;
       const response = await fetch(CHAT_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY}`,
-        },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY}` },
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
 
@@ -173,18 +127,15 @@ export function MasterChatEmbedded() {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let textBuffer = "";
-      let assistantContent = "";
+      let textBuffer = '';
+      let assistantContent = '';
 
       const upsertAssistant = (chunk: string) => {
         assistantContent += chunk;
         setMessages((prev) => {
           const last = prev[prev.length - 1];
-          if (last?.role === "assistant")
-            return prev.map((m, i) =>
-              i === prev.length - 1 ? { ...m, content: assistantContent } : m
-            );
-          return [...prev, { role: "assistant", content: assistantContent }];
+          if (last?.role === 'assistant') return prev.map((m, i) => (i === prev.length - 1 ? { ...m, content: assistantContent } : m));
+          return [...prev, { role: 'assistant', content: assistantContent }];
         });
       };
 
@@ -194,53 +145,47 @@ export function MasterChatEmbedded() {
         textBuffer += decoder.decode(value, { stream: true });
 
         let newlineIndex: number;
-        while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
+        while ((newlineIndex = textBuffer.indexOf('\n')) !== -1) {
           let line = textBuffer.slice(0, newlineIndex);
           textBuffer = textBuffer.slice(newlineIndex + 1);
-          if (line.endsWith("\r")) line = line.slice(0, -1);
-          if (line.startsWith(":") || line.trim() === "") continue;
-          if (!line.startsWith("data: ")) continue;
+          if (line.endsWith('\r')) line = line.slice(0, -1);
+          if (line.startsWith(':') || line.trim() === '') continue;
+          if (!line.startsWith('data: ')) continue;
           const jsonStr = line.slice(6).trim();
-          if (jsonStr === "[DONE]") break;
+          if (jsonStr === '[DONE]') break;
           try {
             const parsed = JSON.parse(jsonStr);
             const content = parsed.choices?.[0]?.delta?.content;
             if (content) upsertAssistant(content);
           } catch {
-            textBuffer = line + "\n" + textBuffer;
+            textBuffer = line + '\n' + textBuffer;
             break;
           }
         }
       }
     } catch (error) {
-      handleError(error, "Chat-Stream-Fehler", { title: "Chat Stream Error" });
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: "⚠️ Fehler bei der Verbindung zum Master-Agent." },
-      ]);
+      handleError(error, 'Chat-Stream-Fehler', { title: 'Chat Stream Error' });
+      setMessages((prev) => [...prev, { role: 'assistant', content: '⚠️ Fehler bei der Verbindung zum Master-Agent.' }]);
     }
   };
 
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
-    const userMessage: Message = { role: "user", content: input.trim() };
+    const userMessage: Message = { role: 'user', content: input.trim() };
     setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+    setInput('');
     setIsLoading(true);
     await streamChat(userMessage);
     setIsLoading(false);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); }
   };
 
   return (
     <Card
-      className={`w-full max-w-5xl mx-auto bg-background border-2 shadow-lg ${isDragging ? "border-primary border-4 ring-4 ring-primary/30" : "border-border"}`}
+      className={`w-full max-w-5xl mx-auto bg-background border-2 shadow-lg ${isDragging ? 'border-primary border-4 ring-4 ring-primary/30' : 'border-border'}`}
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}
@@ -261,22 +206,15 @@ export function MasterChatEmbedded() {
             <div className="text-center">
               <Upload className="h-12 w-12 text-primary mx-auto mb-2" />
               <p className="text-sm font-semibold text-primary">Datei hier ablegen</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                .pdf, .md, .txt, .png, .jpg (max 5MB)
-              </p>
+              <p className="text-xs text-muted-foreground mt-1">.pdf, .md, .txt, .png, .jpg (max 5MB)</p>
             </div>
           </div>
         )}
 
         <div className="space-y-4">
           {messages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-            >
-              <div
-                className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${msg.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted text-foreground"}`}
-              >
+            <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-[85%] rounded-lg px-3 py-2 text-sm ${msg.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted text-foreground'}`}>
                 <div className="whitespace-pre-wrap break-words">{msg.content}</div>
               </div>
             </div>
@@ -286,14 +224,8 @@ export function MasterChatEmbedded() {
               <div className="bg-muted rounded-lg px-3 py-2 text-sm">
                 <div className="flex items-center gap-1">
                   <span className="w-2 h-2 bg-foreground/50 rounded-full animate-bounce" />
-                  <span
-                    className="w-2 h-2 bg-foreground/50 rounded-full animate-bounce"
-                    style={{ animationDelay: "0.1s" }}
-                  />
-                  <span
-                    className="w-2 h-2 bg-foreground/50 rounded-full animate-bounce"
-                    style={{ animationDelay: "0.2s" }}
-                  />
+                  <span className="w-2 h-2 bg-foreground/50 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                  <span className="w-2 h-2 bg-foreground/50 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
                 </div>
               </div>
             </div>
@@ -314,40 +246,12 @@ export function MasterChatEmbedded() {
         )}
 
         <div className="flex gap-2">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept=".pdf,.md,.txt,.png,.jpg,.jpeg"
-            onChange={handleFileSelect}
-            className="hidden"
-            aria-label="File Upload"
-          />
-          <V28Button
-            variant="secondary"
-            size="sm"
-            onClick={() => fileInputRef.current?.click()}
-            disabled={isLoading || uploadProgress > 0}
-            className="shrink-0 h-10 w-10"
-            aria-label="Datei hochladen"
-          >
+          <input ref={fileInputRef} type="file" accept=".pdf,.md,.txt,.png,.jpg,.jpeg" onChange={handleFileSelect} className="hidden" aria-label="File Upload" />
+          <V28Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()} disabled={isLoading || uploadProgress > 0} className="shrink-0 h-10 w-10" aria-label="Datei hochladen">
             <Paperclip className="h-4 w-4" />
           </V28Button>
-          <Textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Nachricht an Master-Agent..."
-            className="min-h-[40px] max-h-[100px] resize-none"
-            disabled={isLoading}
-            aria-label="Chat Input"
-          />
-          <V28Button
-            onClick={handleSend}
-            disabled={!input.trim() || isLoading}
-            size="sm"
-            className="shrink-0 h-10 w-10"
-            aria-label="Send Message"
-          >
+          <Textarea value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={handleKeyDown} placeholder="Nachricht an Master-Agent..." className="min-h-[40px] max-h-[100px] resize-none" disabled={isLoading} aria-label="Chat Input" />
+          <V28Button onClick={handleSend} disabled={!input.trim() || isLoading} size="sm" className="shrink-0 h-10 w-10" aria-label="Send Message">
             <Send className="h-4 w-4" />
           </V28Button>
         </div>

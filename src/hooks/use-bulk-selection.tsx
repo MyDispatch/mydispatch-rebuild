@@ -10,7 +10,7 @@
  * ==================================================================================
  */
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from 'react';
 
 export interface UseBulkSelectionReturn<T> {
   selectedIds: string[];
@@ -33,7 +33,10 @@ export function useBulkSelection<T extends { id: string }>(
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   // Check if ID is selected
-  const isSelected = useCallback((id: string): boolean => selectedIds.includes(id), [selectedIds]);
+  const isSelected = useCallback(
+    (id: string): boolean => selectedIds.includes(id),
+    [selectedIds]
+  );
 
   // Toggle single selection
   const toggleSelection = useCallback((id: string) => {
@@ -67,8 +70,7 @@ export function useBulkSelection<T extends { id: string }>(
   // Computed states
   const selectedCount = selectedIds.length;
   const isAllSelected = useMemo(
-    () => (items: T[]) =>
-      items.length > 0 && items.every((item) => selectedIds.includes(extractId(item))),
+    () => (items: T[]) => items.length > 0 && items.every((item) => selectedIds.includes(extractId(item))),
     [selectedIds, extractId]
   );
   const isSomeSelected = selectedIds.length > 0;

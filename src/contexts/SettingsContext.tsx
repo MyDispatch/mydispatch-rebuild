@@ -5,20 +5,20 @@
    Reduziert Redundanz und verbessert Performance
    ================================================================================== */
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { useAuth } from "@/hooks/use-auth";
-import { useCompany } from "@/hooks/use-company";
-import { useSubscription } from "@/hooks/use-subscription";
-import { useChatConsent } from "@/hooks/use-chat-consent";
-import { supabase } from "@/integrations/supabase/client";
-import { logger } from "@/lib/logger";
-import type { Profile } from "@/integrations/supabase/types/core-tables";
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useAuth } from '@/hooks/use-auth';
+import { useCompany } from '@/hooks/use-company';
+import { useSubscription } from '@/hooks/use-subscription';
+import { useChatConsent } from '@/hooks/use-chat-consent';
+import { supabase } from '@/integrations/supabase/client';
+import { logger } from '@/lib/logger';
+import type { Profile } from '@/integrations/supabase/types/core-tables';
 
 // Type helper for typed queries
-import type { Database } from "@/integrations/supabase/types";
+import type { Database } from '@/integrations/supabase/types';
 
 type TypedSupabaseClient = typeof supabase & {
-  from(table: "profiles"): ReturnType<typeof supabase.from<"profiles">>;
+  from(table: 'profiles'): ReturnType<typeof supabase.from<'profiles'>>;
 };
 const typedClient = supabase as TypedSupabaseClient;
 
@@ -95,19 +95,19 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const [originalProfileData, setOriginalProfileData] = useState<ProfileData | null>(null);
 
   const [companyData, setCompanyData] = useState<CompanyData>({
-    id: "",
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    tax_id: "",
+    id: '',
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    tax_id: '',
   });
 
   const [profileData, setProfileData] = useState<ProfileData>({
-    id: "",
-    user_id: "",
-    first_name: "",
-    last_name: "",
+    id: '',
+    user_id: '',
+    first_name: '',
+    last_name: '',
   });
 
   // Sync company data from React Query
@@ -115,11 +115,11 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     if (company) {
       const paymentMethods = Array.isArray(company.payment_methods)
         ? (company.payment_methods as string[])
-        : ["cash", "invoice"];
+        : ['cash', 'invoice'];
 
       const data = {
         ...company,
-        payment_methods: paymentMethods,
+        payment_methods: paymentMethods
       } as CompanyData;
 
       setCompanyData(data);
@@ -134,9 +134,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
       try {
         const { data: profileData, error } = await typedClient
-          .from("profiles")
-          .select("*")
-          .eq("user_id", authProfile.user_id)
+          .from('profiles')
+          .select('*')
+          .eq('user_id', authProfile.user_id)
           .single();
 
         if (error) throw error;
@@ -145,9 +145,9 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
           setOriginalProfileData(profileData as Profile);
         }
       } catch (error) {
-        logger.error("[SettingsContext] Error fetching profile", error as Error, {
-          component: "SettingsContext",
-          action: "fetchProfile",
+        logger.error('[SettingsContext] Error fetching profile', error as Error, {
+          component: 'SettingsContext',
+          action: 'fetchProfile'
         });
       }
     };
@@ -164,7 +164,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 
   const saveAllChanges = async () => {
     if (!companyData.tax_id) {
-      throw new Error("Umsatzsteuernummer ist obligatorisch.");
+      throw new Error('Umsatzsteuernummer ist obligatorisch.');
     }
 
     // Save company data
@@ -210,12 +210,12 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     // Save profile data if changed
     if (JSON.stringify(profileData) !== JSON.stringify(originalProfileData)) {
       const { error } = await supabase
-        .from("profiles")
+        .from('profiles')
         .update({
           first_name: profileData.first_name,
           last_name: profileData.last_name,
         })
-        .eq("id", profileData.id);
+        .eq('id', profileData.id);
 
       if (error) throw error;
     }
@@ -247,7 +247,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
 export function useSettings() {
   const context = useContext(SettingsContext);
   if (context === undefined) {
-    throw new Error("useSettings must be used within a SettingsProvider");
+    throw new Error('useSettings must be used within a SettingsProvider');
   }
   return context;
 }

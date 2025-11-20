@@ -8,27 +8,27 @@
    ✅ Mobile-optimiert
    ================================================================================== */
 
-import { useState, useEffect } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/ui/card";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
-import { ArrowRight, ArrowLeft, X, Check, Lightbulb, Rocket } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Progress } from '@/components/ui/progress';
+import { Badge } from '@/components/ui/badge';
+import { 
+  ArrowRight, 
+  ArrowLeft, 
+  X, 
+  Check,
+  Lightbulb,
+  Rocket
+} from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export interface OnboardingStep {
   id: string;
   title: string;
   description: string;
   targetSelector?: string; // CSS-Selector für Highlighting
-  position?: "top" | "bottom" | "left" | "right" | "center";
+  position?: 'top' | 'bottom' | 'left' | 'right' | 'center';
   action?: {
     label: string;
     onClick: () => void;
@@ -50,7 +50,7 @@ export function OnboardingTour({
   tourId,
   onComplete,
   onSkip,
-  startAutomatically = true,
+  startAutomatically = true
 }: OnboardingTourProps) {
   const [isActive, setIsActive] = useState(false);
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -73,9 +73,9 @@ export function OnboardingTour({
   useEffect(() => {
     if (!isActive || !currentStep.targetSelector) {
       if (highlightedElement) {
-        highlightedElement.style.position = "";
-        highlightedElement.style.zIndex = "";
-        highlightedElement.style.outline = "";
+        highlightedElement.style.position = '';
+        highlightedElement.style.zIndex = '';
+        highlightedElement.style.outline = '';
         setHighlightedElement(null);
       }
       return;
@@ -83,19 +83,19 @@ export function OnboardingTour({
 
     const element = document.querySelector(currentStep.targetSelector) as HTMLElement;
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "center" });
-      element.style.position = "relative";
-      element.style.zIndex = "1001";
-      element.style.outline = "3px solid hsl(var(--primary))";
-      element.style.outlineOffset = "4px";
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      element.style.position = 'relative';
+      element.style.zIndex = '1001';
+      element.style.outline = '3px solid hsl(var(--primary))';
+      element.style.outlineOffset = '4px';
       setHighlightedElement(element);
     }
 
     return () => {
       if (element) {
-        element.style.position = "";
-        element.style.zIndex = "";
-        element.style.outline = "";
+        element.style.position = '';
+        element.style.zIndex = '';
+        element.style.outline = '';
       }
     };
   }, [isActive, currentStep, currentStepIndex]);
@@ -104,7 +104,7 @@ export function OnboardingTour({
     if (isLastStep) {
       handleComplete();
     } else {
-      setCurrentStepIndex((prev) => prev + 1);
+      setCurrentStepIndex(prev => prev + 1);
       // Save progress
       localStorage.setItem(`onboarding-${tourId}-progress`, String(currentStepIndex + 1));
     }
@@ -112,19 +112,19 @@ export function OnboardingTour({
 
   const handlePrevious = () => {
     if (!isFirstStep) {
-      setCurrentStepIndex((prev) => prev - 1);
+      setCurrentStepIndex(prev => prev - 1);
     }
   };
 
   const handleComplete = () => {
-    localStorage.setItem(`onboarding-${tourId}-completed`, "true");
+    localStorage.setItem(`onboarding-${tourId}-completed`, 'true');
     localStorage.removeItem(`onboarding-${tourId}-progress`);
     setIsActive(false);
     onComplete();
   };
 
   const handleSkip = () => {
-    localStorage.setItem(`onboarding-${tourId}-skipped`, "true");
+    localStorage.setItem(`onboarding-${tourId}-skipped`, 'true');
     setIsActive(false);
     onSkip?.();
   };
@@ -139,13 +139,13 @@ export function OnboardingTour({
       {/* Tour Card */}
       <div
         className={cn(
-          "fixed z-[1002] max-w-md w-full mx-auto",
-          currentStep.position === "center" && "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2",
-          currentStep.position === "top" && "top-20 left-1/2 -translate-x-1/2",
-          currentStep.position === "bottom" && "bottom-20 left-1/2 -translate-x-1/2",
-          currentStep.position === "left" && "left-4 top-1/2 -translate-y-1/2",
-          currentStep.position === "right" && "right-4 top-1/2 -translate-y-1/2",
-          !currentStep.position && "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+          'fixed z-[1002] max-w-md w-full mx-auto',
+          currentStep.position === 'center' && 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
+          currentStep.position === 'top' && 'top-20 left-1/2 -translate-x-1/2',
+          currentStep.position === 'bottom' && 'bottom-20 left-1/2 -translate-x-1/2',
+          currentStep.position === 'left' && 'left-4 top-1/2 -translate-y-1/2',
+          currentStep.position === 'right' && 'right-4 top-1/2 -translate-y-1/2',
+          !currentStep.position && 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
         )}
       >
         <Card className="shadow-2xl border-2">
@@ -159,9 +159,16 @@ export function OnboardingTour({
                   </Badge>
                 </div>
                 <CardTitle className="text-foreground">{currentStep.title}</CardTitle>
-                <CardDescription className="mt-2">{currentStep.description}</CardDescription>
+                <CardDescription className="mt-2">
+                  {currentStep.description}
+                </CardDescription>
               </div>
-              <V28Button variant="ghost" size="sm" onClick={handleSkip} className="shrink-0 ml-2">
+              <V28Button
+                variant="ghost"
+                size="sm"
+                onClick={handleSkip}
+                className="shrink-0 ml-2"
+              >
                 <X className="h-4 w-4 text-foreground" />
               </V28Button>
             </div>
@@ -170,7 +177,9 @@ export function OnboardingTour({
           <CardContent className="space-y-4">
             {/* Illustration */}
             {currentStep.illustration && (
-              <div className="rounded-lg bg-muted p-4">{currentStep.illustration}</div>
+              <div className="rounded-lg bg-muted p-4">
+                {currentStep.illustration}
+              </div>
             )}
 
             {/* Tips */}
@@ -222,7 +231,7 @@ export function OnboardingTour({
             <V28Button
               onClick={handleNext}
               className="flex-1"
-              variant={isLastStep ? "primary" : "secondary"}
+              variant={isLastStep ? 'primary' : 'secondary'}
             >
               {isLastStep ? (
                 <>
@@ -252,7 +261,7 @@ interface OnboardingTriggerProps {
   label?: string;
 }
 
-export function OnboardingTrigger({ onClick, label = "Tour starten" }: OnboardingTriggerProps) {
+export function OnboardingTrigger({ onClick, label = 'Tour starten' }: OnboardingTriggerProps) {
   return (
     <V28Button onClick={onClick} variant="secondary" size="sm">
       <Rocket className="h-4 w-4 mr-2 text-foreground" />

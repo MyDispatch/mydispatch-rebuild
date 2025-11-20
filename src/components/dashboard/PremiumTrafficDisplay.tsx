@@ -9,35 +9,35 @@
    ✅ KEINE DashboardInfoCard
    ================================================================================== */
 
-import { TrendingDown, TrendingUp, Navigation } from "lucide-react";
+import { TrendingDown, TrendingUp, Navigation } from 'lucide-react';
 
 export function useTrafficData() {
   const hour = new Date().getHours();
-
+  
   // Simuliere Verkehrslage basierend auf Tageszeit
   if (hour >= 7 && hour <= 9) {
-    return {
-      status: "hoch",
-      label: "Morgenverkehr",
+    return { 
+      status: 'hoch', 
+      label: 'Morgenverkehr', 
       icon: TrendingUp,
-      level: "Hoch",
-      statusClass: "bg-status-error",
+      level: 'Hoch',
+      statusClass: 'bg-status-error'
     };
   } else if (hour >= 16 && hour <= 19) {
-    return {
-      status: "mittel",
-      label: "Feierabend",
+    return { 
+      status: 'mittel', 
+      label: 'Feierabend', 
       icon: TrendingUp,
-      level: "Mittel",
-      statusClass: "bg-status-warning",
+      level: 'Mittel',
+      statusClass: 'bg-status-warning'
     };
   } else {
-    return {
-      status: "normal",
-      label: "Fließend",
+    return { 
+      status: 'normal', 
+      label: 'Fließend', 
       icon: TrendingDown,
-      level: "Normal",
-      statusClass: "bg-status-success",
+      level: 'Normal',
+      statusClass: 'bg-status-success'
     };
   }
 }
@@ -52,8 +52,12 @@ export function PremiumTrafficDisplay() {
       </div>
       <div className="flex items-center gap-2">
         <div className="flex flex-col">
-          <span className="text-sm font-bold text-slate-900">Verkehr</span>
-          <span className="text-[10px] font-medium text-slate-600">{traffic.label}</span>
+          <span className="text-sm font-bold text-slate-900">
+            Verkehr
+          </span>
+          <span className="text-[10px] font-medium text-slate-600">
+            {traffic.label}
+          </span>
         </div>
         <div className={`w-2 h-2 rounded-full ${traffic.statusClass} shadow-sm`} />
       </div>

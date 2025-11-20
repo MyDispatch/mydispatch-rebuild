@@ -10,21 +10,18 @@
 MyDispatch richtet sich an drei Hauptzielgruppen im professionellen Personentransport:
 
 ### 1. Taxiunternehmen
-
 - Traditionelle Taxibetriebe
 - Funktaxi-Zentralen
 - Städtische Taxiunternehmen
 - Flughafentaxis
 
 ### 2. Mietwagenunternehmen (mit Fahrer)
-
 - Chauffeurservices
 - Business-Shuttles
 - Eventfahrten
 - Privattransfers
 
 ### 3. Limousinenservice
-
 - Premium-Fahrdienste
 - VIP-Transport
 - Executive Services
@@ -35,7 +32,6 @@ MyDispatch richtet sich an drei Hauptzielgruppen im professionellen Personentran
 ## 📊 GEMEINSAME ANFORDERUNGEN
 
 Alle drei Zielgruppen haben ähnliche Bedürfnisse:
-
 - **Disposition:** Intelligente Auftragsverteilung
 - **GPS-Tracking:** Echtzeit-Fahrzeugverfolgung
 - **Abrechnung:** Automatisierte Fakturierung
@@ -48,16 +44,13 @@ Alle drei Zielgruppen haben ähnliche Bedürfnisse:
 ## 🎨 VISUAL IDENTITY GUIDELINES
 
 ### Fahrzeug-Darstellung
-
 Bei der Erstellung von Marketing-Materialien und Screenshots:
-
 - ✅ Diverse Fahrzeugtypen zeigen (Taxi, Limousine, Premium-Mietwagen)
 - ✅ Moderne Flottenvielfalt darstellen
 - ✅ Business-Premium-Ästhetik
 - ❌ Nicht ausschließlich auf Taxis fokussieren
 
 ### Beispiel-Szenarien
-
 - Taxi-Disposition am Flughafen
 - Limousinen-Buchung für VIP-Event
 - Mietwagen-Shuttle für Geschäftsreise
@@ -68,19 +61,16 @@ Bei der Erstellung von Marketing-Materialien und Screenshots:
 ## 💼 BRANCHEN-SPEZIFISCHE FEATURES
 
 ### Taxi
-
 - Taxameter-Integration
 - Funktaxi-Anbindung
 - Schichtplanung
 
 ### Mietwagen
-
 - Vorab-Buchungen
 - Festpreis-Kalkulation
 - Customer Profiling
 
 ### Limousinen
-
 - Premium-Kunden-Management
 - Event-Planung
 - VIP-Service-Module

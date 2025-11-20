@@ -22,32 +22,32 @@ CREATE TABLE public.drivers (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
   driver_number TEXT NOT NULL UNIQUE,
-
+  
   -- Persönliche Daten
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   email TEXT NOT NULL,
   phone TEXT NOT NULL,
   date_of_birth DATE,
-
+  
   -- Adresse
   street TEXT,
   postal_code TEXT,
   city TEXT,
   country TEXT DEFAULT 'DE',
-
+  
   -- Führerschein
   license_number TEXT NOT NULL,
   license_category TEXT[] NOT NULL, -- ['B', 'D', 'P']
   license_expiry DATE NOT NULL,
   license_verified BOOLEAN DEFAULT false,
-
+  
   -- Dokumente
   avatar_url TEXT,
   license_image_url TEXT,
   vehicle_registration_url TEXT,
   insurance_url TEXT,
-
+  
   -- Status & Verfügbarkeit
   status TEXT NOT NULL DEFAULT 'active' CHECK (status IN (
     'active',      -- Aktiv verfügbar
@@ -56,17 +56,17 @@ CREATE TABLE public.drivers (
     'break',       -- Pause
     'inactive'     -- Deaktiviert
   )),
-
+  
   -- Performance
   rating DECIMAL(3, 2) DEFAULT 5.00 CHECK (rating >= 0 AND rating <= 5),
   total_trips INTEGER DEFAULT 0,
   completed_trips INTEGER DEFAULT 0,
   cancelled_trips INTEGER DEFAULT 0,
-
+  
   -- Fahrzeug-Präferenzen
   preferred_vehicle_id UUID REFERENCES public.vehicles(id),
   service_types TEXT[] DEFAULT ARRAY['taxi'], -- ['taxi', 'rental', 'limousine']
-
+  
   -- Finanzen
   commission_rate DECIMAL(5, 2) DEFAULT 15.00, -- Prozentsatz
   payment_method TEXT CHECK (payment_method IN (
@@ -75,12 +75,12 @@ CREATE TABLE public.drivers (
     'cash'
   )),
   iban TEXT,
-
+  
   -- Tracking
   last_location_lat DECIMAL(10, 8),
   last_location_lng DECIMAL(11, 8),
   last_location_update TIMESTAMP WITH TIME ZONE,
-
+  
   -- System
   created_by UUID REFERENCES auth.users(id),
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
@@ -119,20 +119,20 @@ EXECUTE FUNCTION public.update_updated_at_column();
 -- RLS Policies
 ALTER TABLE public.drivers ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Users can view drivers"
-ON public.drivers FOR SELECT
+CREATE POLICY "Users can view drivers" 
+ON public.drivers FOR SELECT 
 USING (auth.uid() IS NOT NULL);
 
-CREATE POLICY "Users can create drivers"
-ON public.drivers FOR INSERT
+CREATE POLICY "Users can create drivers" 
+ON public.drivers FOR INSERT 
 WITH CHECK (auth.uid() = created_by);
 
-CREATE POLICY "Users can update drivers"
-ON public.drivers FOR UPDATE
+CREATE POLICY "Users can update drivers" 
+ON public.drivers FOR UPDATE 
 USING (auth.uid() IS NOT NULL);
 
-CREATE POLICY "Drivers can update own profile"
-ON public.drivers FOR UPDATE
+CREATE POLICY "Drivers can update own profile" 
+ON public.drivers FOR UPDATE 
 USING (auth.uid() = user_id);
 ```
 
@@ -142,14 +142,14 @@ USING (auth.uid() = user_id);
 CREATE TABLE public.vehicles (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   driver_id UUID REFERENCES public.drivers(id) ON DELETE CASCADE,
-
+  
   -- Fahrzeugdaten
   make TEXT NOT NULL, -- z.B. "Mercedes-Benz"
   model TEXT NOT NULL, -- z.B. "E-Klasse"
   year INTEGER NOT NULL CHECK (year >= 1990 AND year <= EXTRACT(YEAR FROM now()) + 1),
   color TEXT NOT NULL,
   license_plate TEXT NOT NULL UNIQUE,
-
+  
   -- Technische Daten
   vehicle_type TEXT NOT NULL CHECK (vehicle_type IN (
     'sedan',
@@ -160,7 +160,7 @@ CREATE TABLE public.vehicles (
   )),
   seats INTEGER NOT NULL CHECK (seats >= 1 AND seats <= 50),
   luggage_capacity INTEGER DEFAULT 2,
-
+  
   -- Ausstattung
   features TEXT[], -- ['air_conditioning', 'gps', 'child_seat', 'wheelchair_accessible']
   fuel_type TEXT CHECK (fuel_type IN (
@@ -169,21 +169,21 @@ CREATE TABLE public.vehicles (
     'electric',
     'hybrid'
   )),
-
+  
   -- Dokumente
   registration_number TEXT NOT NULL,
   registration_expiry DATE NOT NULL,
   insurance_number TEXT NOT NULL,
   insurance_expiry DATE NOT NULL,
   tuv_expiry DATE, -- TÜV/AU
-
+  
   -- Status
   status TEXT NOT NULL DEFAULT 'active' CHECK (status IN (
     'active',
     'maintenance',
     'inactive'
   )),
-
+  
   -- System
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
@@ -203,12 +203,12 @@ EXECUTE FUNCTION public.update_updated_at_column();
 -- RLS Policies
 ALTER TABLE public.vehicles ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Users can view vehicles"
-ON public.vehicles FOR SELECT
+CREATE POLICY "Users can view vehicles" 
+ON public.vehicles FOR SELECT 
 USING (auth.uid() IS NOT NULL);
 
-CREATE POLICY "Users can manage vehicles"
-ON public.vehicles FOR ALL
+CREATE POLICY "Users can manage vehicles" 
+ON public.vehicles FOR ALL 
 USING (auth.uid() IS NOT NULL);
 ```
 
@@ -231,7 +231,7 @@ export function Drivers() {
         <h1 className="text-heading">Fahrer</h1>
         <AddDriverButton />
       </div>
-
+      
       <DriversFilters />
       <DriversList />
     </div>
@@ -242,7 +242,6 @@ export function Drivers() {
 ### **2. Drivers Table**
 
 **Spalten:**
-
 - Avatar (mit Online-Status Indicator)
 - Fahrernummer
 - Name (First + Last)
@@ -254,7 +253,6 @@ export function Drivers() {
 - Aktionen (View/Edit/Deactivate)
 
 **Features:**
-
 - Live-Status Updates (Echtzeit)
 - Drag & Drop für Fahrer-Zuweisung zu Aufträgen
 - Quick-Actions: Anrufen, Nachricht senden
@@ -265,7 +263,6 @@ export function Drivers() {
 **Sections:**
 
 **A) Persönliche Daten**
-
 - Vorname (Text Input)
 - Nachname (Text Input)
 - Email (Email Input)
@@ -274,33 +271,28 @@ export function Drivers() {
 - Avatar Upload (Image Upload)
 
 **B) Adresse**
-
 - Straße + Hausnummer
 - PLZ
 - Stadt
 - Land (Select)
 
 **C) Führerschein**
-
 - Führerscheinnummer
 - Führerscheinklassen (Multi-Select: B, C, D, P)
 - Ablaufdatum (Date Picker mit Warning bei <30 Tagen)
 - Führerschein-Scan Upload
 
 **D) Fahrzeug zuweisen**
-
 - Fahrzeug auswählen (Select aus vehicles)
 - Oder neues Fahrzeug anlegen (Nested Form)
 
 **E) Einstellungen**
-
 - Service-Typen (Checkbox Group: Taxi, Mietwagen, Limousine)
 - Provisions-Satz (Number Input in %)
 - Zahlungsmethode (Select)
 - IBAN (bei Bank Transfer)
 
 **Validation:**
-
 - Email format check
 - Telefonnummer format DE: +49 oder 0
 - Führerschein-Ablauf muss in Zukunft liegen
@@ -312,31 +304,26 @@ export function Drivers() {
 **Tabs:**
 
 **1. Übersicht**
-
 - Profile Card (Avatar, Name, Contact, Status)
 - Performance Metrics (Rating, Trips, Completion Rate)
 - Current Vehicle Info
 - Documents Status (TÜV, Versicherung, Führerschein mit Expiry Warnings)
 
 **2. Fahrten-Historie**
-
 - Table mit letzten 50 Fahrten
 - Filter: Datum, Status
 - Export als CSV
 
 **3. Fahrzeuge**
-
 - Liste aller Fahrzeuge des Fahrers
 - Add/Edit/Delete Fahrzeuge
 
 **4. Finanzen**
-
 - Umsatzübersicht (nach Monat)
 - Offene Provisionen
 - Abrechnungen (Link zu Invoices)
 
 **5. Dokumente**
-
 - Upload/View/Download aller Dokumente
 - Ablaufdatum-Tracking
 - Verifikations-Status
@@ -379,7 +366,6 @@ stateDiagram-v2
 ```
 
 **Logik:**
-
 - Haversine-Distanz-Berechnung
 - Filter nach Status = 'active'
 - Filter nach vehicle_type match
@@ -434,16 +420,16 @@ const channel = supabase
 :root {
   --driver-active: 142 71% 45%;
   --driver-active-foreground: 0 0% 100%;
-
+  
   --driver-offline: 220 13% 91%;
   --driver-offline-foreground: 220 9% 46%;
-
+  
   --driver-on-trip: 47 96% 53%;
   --driver-on-trip-foreground: 26 83% 14%;
-
+  
   --driver-break: 221 83% 53%;
   --driver-break-foreground: 0 0% 100%;
-
+  
   --driver-inactive: 0 0% 64%;
   --driver-inactive-foreground: 0 0% 100%;
 }
@@ -455,18 +441,18 @@ const channel = supabase
 
 ```typescript
 // tests/drivers.spec.ts
-test("Add new driver", async ({ page }) => {
-  await page.goto("/drivers");
-  await page.click("text=Neuer Fahrer");
-
-  await page.fill('[name="first_name"]', "Max");
-  await page.fill('[name="last_name"]', "Mustermann");
-  await page.fill('[name="email"]', "max@example.com");
-  await page.fill('[name="phone"]', "+49 170 1234567");
-
+test('Add new driver', async ({ page }) => {
+  await page.goto('/drivers');
+  await page.click('text=Neuer Fahrer');
+  
+  await page.fill('[name="first_name"]', 'Max');
+  await page.fill('[name="last_name"]', 'Mustermann');
+  await page.fill('[name="email"]', 'max@example.com');
+  await page.fill('[name="phone"]', '+49 170 1234567');
+  
   await page.click('button[type="submit"]');
-
-  await expect(page.locator("text=Fahrer erstellt")).toBeVisible();
+  
+  await expect(page.locator('text=Fahrer erstellt')).toBeVisible();
 });
 ```
 

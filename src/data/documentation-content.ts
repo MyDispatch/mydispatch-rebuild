@@ -13,9 +13,9 @@ export interface DocTopic {
 
 export const documentationTopics: DocTopic[] = [
   {
-    id: "quickstart",
-    title: "Schnellstart-Guide",
-    category: "Erste Schritte",
+    id: 'quickstart',
+    title: 'Schnellstart-Guide',
+    category: 'Erste Schritte',
     content: `
       <h2>Willkommen bei MyDispatch!</h2>
       <p>Dieser Guide hilft Ihnen, in 5 Minuten mit MyDispatch zu starten.</p>
@@ -52,12 +52,12 @@ export const documentationTopics: DocTopic[] = [
         <li><strong>E-Mail:</strong> support@my-dispatch.de</li>
         <li><strong>Telefon:</strong> Mo-Fr 9-17 Uhr</li>
       </ul>
-    `,
+    `
   },
   {
-    id: "auftraege",
-    title: "Aufträge erstellen und verwalten",
-    category: "Disposition",
+    id: 'auftraege',
+    title: 'Aufträge erstellen und verwalten',
+    category: 'Disposition',
     content: `
       <h2>Auftragsmanagement</h2>
       <p>Alles zur Erstellung, Bearbeitung und Verwaltung von Aufträgen.</p>
@@ -97,12 +97,12 @@ export const documentationTopics: DocTopic[] = [
         <li><strong>EC-Karte:</strong> Für alle Kunden</li>
         <li><strong>Rechnung:</strong> Für alle Kunden (Standard)</li>
       </ul>
-    `,
+    `
   },
   {
-    id: "fahrer",
-    title: "Fahrer-Verwaltung",
-    category: "Verwaltung",
+    id: 'fahrer',
+    title: 'Fahrer-Verwaltung',
+    category: 'Verwaltung',
     content: `
       <h2>Fahrer-Management</h2>
       <p>Verwalten Sie Ihre Fahrer, Dokumente und Schichten.</p>
@@ -136,12 +136,12 @@ export const documentationTopics: DocTopic[] = [
       <h3>GPS-Tracking</h3>
       <p>Business-Tarif: Fahrer können GPS-Tracking aktivieren für Live-Standort-Updates.</p>
       <p><strong>DSGVO-Hinweis:</strong> Fahrer müssen explizit zustimmen!</p>
-    `,
+    `
   },
   {
-    id: "fahrzeuge",
-    title: "Fahrzeug-Verwaltung",
-    category: "Verwaltung",
+    id: 'fahrzeuge',
+    title: 'Fahrzeug-Verwaltung',
+    category: 'Verwaltung',
     content: `
       <h2>Fahrzeugverwaltung</h2>
       <p>Verwalten Sie Ihre Flotte mit allen relevanten Daten.</p>
@@ -188,12 +188,12 @@ export const documentationTopics: DocTopic[] = [
         <li>Konzessionsurkunde</li>
       </ul>
       <p><strong>Automatische Erinnerungen:</strong> Sie werden 30 Tage vor Ablauf benachrichtigt!</p>
-    `,
+    `
   },
   {
-    id: "partner",
-    title: "Partner-Netzwerk",
-    category: "Business-Features",
+    id: 'partner',
+    title: 'Partner-Netzwerk',
+    category: 'Business-Features',
     content: `
       <h2>Partner-Netzwerk (Business-Tarif)</h2>
       <p>Arbeiten Sie mit anderen Unternehmen zusammen und teilen Sie Aufträge.</p>
@@ -237,12 +237,12 @@ export const documentationTopics: DocTopic[] = [
         <li><strong>Fahrer:</strong> Verfügbare Fahrer für Partner-Aufträge</li>
         <li><strong>Fahrzeuge:</strong> Fahrzeuge für Partner-Einsätze</li>
       </ul>
-    `,
+    `
   },
   {
-    id: "schichtplanung",
-    title: "Schichtplanung",
-    category: "Betrieb",
+    id: 'schichtplanung',
+    title: 'Schichtplanung',
+    category: 'Betrieb',
     content: `
       <h2>Schichtzettel & Planung</h2>
       <p>Planen Sie Schichten, erfassen Sie Einnahmen und verwalten Sie Arbeitszeiten.</p>
@@ -279,12 +279,12 @@ export const documentationTopics: DocTopic[] = [
         <li>Umsatzübersichten</li>
         <li>Steuerliche Dokumentation</li>
       </ul>
-    `,
+    `
   },
   {
-    id: "rechnungen",
-    title: "Rechnungsstellung",
-    category: "Finanzen",
+    id: 'rechnungen',
+    title: 'Rechnungsstellung',
+    category: 'Finanzen',
     content: `
       <h2>Angebote & Rechnungen</h2>
       <p>Erstellen Sie professionelle Angebote und Rechnungen in Sekunden.</p>
@@ -327,12 +327,12 @@ export const documentationTopics: DocTopic[] = [
         <li>Wählen Sie, welche Informationen enthalten sein sollen</li>
         <li>PDF wird mit Ihrem Unternehmens-Logo generiert</li>
       </ol>
-    `,
+    `
   },
   {
-    id: "kommunikation",
-    title: "Kommunikationssystem",
-    category: "Betrieb",
+    id: 'kommunikation',
+    title: 'Kommunikationssystem',
+    category: 'Betrieb',
     content: `
       <h2>Team-Kommunikation</h2>
       <p>WhatsApp-ähnliches System für interne Kommunikation.</p>
@@ -355,12 +355,12 @@ export const documentationTopics: DocTopic[] = [
       
       <h3>DSGVO-Hinweis</h3>
       <p><strong>Wichtig:</strong> Sie können nur mit Personen aus Ihrem Unternehmen kommunizieren (company_id Isolation).</p>
-    `,
+    `
   },
   {
-    id: "statistiken",
-    title: "Statistiken & Reporting",
-    category: "Business-Features",
+    id: 'statistiken',
+    title: 'Statistiken & Reporting',
+    category: 'Business-Features',
     content: `
       <h2>Live-Statistiken (Business-Tarif)</h2>
       <p>Echtzeit-Dashboards mit aussagekräftigen KPIs.</p>
@@ -388,12 +388,12 @@ export const documentationTopics: DocTopic[] = [
         <li><strong>Wetter:</strong> Aktuelle Wetterlage am Standort</li>
         <li><strong>Verkehr:</strong> Echtzeit-Verkehrsinformationen</li>
       </ul>
-    `,
+    `
   },
   {
-    id: "einstellungen",
-    title: "Einstellungen & Konfiguration",
-    category: "System",
+    id: 'einstellungen',
+    title: 'Einstellungen & Konfiguration',
+    category: 'System',
     content: `
       <h2>System-Einstellungen</h2>
       <p>Passen Sie MyDispatch an Ihre Bedürfnisse an.</p>
@@ -426,12 +426,12 @@ export const documentationTopics: DocTopic[] = [
       
       <h3>API-Zugang (Business+)</h3>
       <p>Integrieren Sie MyDispatch in Ihre bestehenden Systeme via REST-API.</p>
-    `,
+    `
   },
   {
-    id: "rechtliches",
-    title: "Rechtliche Grundlagen",
-    category: "Compliance",
+    id: 'rechtliches',
+    title: 'Rechtliche Grundlagen',
+    category: 'Compliance',
     content: `
       <h2>Rechtliche Compliance</h2>
       <p>MyDispatch erfüllt alle gesetzlichen Anforderungen für Taxiunternehmen.</p>
@@ -467,12 +467,12 @@ export const documentationTopics: DocTopic[] = [
         <li><strong>Modell:</strong> MyDispatch AI (Google Gemini 2.5 Flash)</li>
         <li><strong>Datenschutz:</strong> Anonymisierte Verarbeitung</li>
       </ul>
-    `,
+    `
   },
   {
-    id: "troubleshooting",
-    title: "Fehlerbehebung",
-    category: "Support",
+    id: 'troubleshooting',
+    title: 'Fehlerbehebung',
+    category: 'Support',
     content: `
       <h2>Häufige Probleme & Lösungen</h2>
       
@@ -524,12 +524,12 @@ export const documentationTopics: DocTopic[] = [
         <li><strong>Telefon:</strong> Mo-Fr 9-17 Uhr</li>
         <li><strong>AI-Support:</strong> 24/7 verfügbar (Button unten rechts)</li>
       </ul>
-    `,
+    `
   },
   {
-    id: "api",
-    title: "API-Dokumentation",
-    category: "Business-Features",
+    id: 'api',
+    title: 'API-Dokumentation',
+    category: 'Business-Features',
     content: `
       <h2>MyDispatch REST-API (Business-Tarif)</h2>
       <p>Integrieren Sie MyDispatch in Ihre bestehenden Systeme.</p>
@@ -569,18 +569,18 @@ export const documentationTopics: DocTopic[] = [
       </ul>
       
       <p><strong>Vollständige API-Dokumentation:</strong> Kontaktieren Sie support@my-dispatch.de</p>
-    `,
-  },
+    `
+  }
 ];
 
 export function getDocumentationTopic(id: string): DocTopic | undefined {
-  return documentationTopics.find((topic) => topic.id === id);
+  return documentationTopics.find(topic => topic.id === id);
 }
 
 export function getDocumentationCategories(): string[] {
-  return Array.from(new Set(documentationTopics.map((topic) => topic.category)));
+  return Array.from(new Set(documentationTopics.map(topic => topic.category)));
 }
 
 export function getDocumentationByCategory(category: string): DocTopic[] {
-  return documentationTopics.filter((topic) => topic.category === category);
+  return documentationTopics.filter(topic => topic.category === category);
 }

@@ -93,13 +93,14 @@ const handleSubmit = (data: FormData) => {
 
 ```typescript
 // src/lib/validation-utils.ts
-import { z } from "zod";
+import { z } from 'zod';
 
 export const BookingFormSchema = z.object({
-  pickup_address: z.string().min(5, "Adresse zu kurz").max(500, "Adresse zu lang"),
-  pickup_time: z
-    .string()
-    .refine((val) => new Date(val) > new Date(), "Pickup-Zeit muss in der Zukunft liegen"),
+  pickup_address: z.string().min(5, 'Adresse zu kurz').max(500, 'Adresse zu lang'),
+  pickup_time: z.string().refine(
+    (val) => new Date(val) > new Date(),
+    'Pickup-Zeit muss in der Zukunft liegen'
+  ),
   passengers: z.number().min(1).max(8),
   price: z.number().min(0),
 });
@@ -116,13 +117,11 @@ const form = useForm<BookingFormData>({
 
 ```typescript
 // ❌ FALSCH
-const fetchBookings = async (): Promise<
-  {
-    id: string;
-    pickup_time: string;
-    status: "pending" | "confirmed";
-  }[]
-> => {
+const fetchBookings = async (): Promise<{
+  id: string;
+  pickup_time: string;
+  status: 'pending' | 'confirmed';
+}[]> => {
   // ...
 };
 
@@ -137,7 +136,7 @@ export interface Booking {
   driver?: Driver;
 }
 
-export type BookingStatus = "pending" | "confirmed" | "in_progress" | "completed" | "cancelled";
+export type BookingStatus = 'pending' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled';
 
 // src/lib/api-clients/booking-client.ts
 export const fetchBookings = async (): Promise<Booking[]> => {
@@ -160,8 +159,8 @@ const BookingForm = () => {
   useEffect(() => {
     setLoading(true);
     supabase
-      .from("bookings")
-      .select("*")
+      .from('bookings')
+      .select('*')
       .then(({ data }) => setBookings(data))
       .finally(() => setLoading(false));
   }, []);
@@ -175,13 +174,13 @@ export const useBookings = () => {
   const { profile } = useAuth();
 
   return useQuery({
-    queryKey: ["bookings", profile?.company_id],
+    queryKey: ['bookings', profile?.company_id],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from("bookings")
-        .select("*")
-        .eq("company_id", profile.company_id)
-        .order("pickup_time", { ascending: false });
+        .from('bookings')
+        .select('*')
+        .eq('company_id', profile.company_id)
+        .order('pickup_time', { ascending: false });
 
       if (error) throw error;
       return data as Booking[];
@@ -286,15 +285,15 @@ const BookingCard = ({ booking }: { booking: Booking }) => {
 
 ### 4. API-CLIENT-LAYER (ZENTRALISIERT)
 
-````typescript
+```typescript
 // src/lib/api-clients/here-api-client.ts
 
 /**
  * HERE Maps API Client
- *
+ * 
  * @module here-api-client
  * @description Zentralisierter Client für alle HERE Maps API-Calls
- *
+ * 
  * @example
  * ```typescript
  * const route = await calculateRoute(origin, destination);
@@ -302,8 +301,8 @@ const BookingCard = ({ booking }: { booking: Booking }) => {
  * ```
  */
 
-import { supabase } from "@/integrations/supabase/client";
-import { logger } from "@/lib/logger";
+import { supabase } from '@/integrations/supabase/client';
+import { logger } from '@/lib/logger';
 
 /**
  * Route-Daten von HERE Maps
@@ -328,8 +327,8 @@ export interface RouteData {
 }
 
 export interface TurnByTurnAction {
-  action: "depart" | "arrive" | "turn" | "continue";
-  direction?: "left" | "right" | "straight";
+  action: 'depart' | 'arrive' | 'turn' | 'continue';
+  direction?: 'left' | 'right' | 'straight';
   street?: string;
   distance: number;
   duration: number;
@@ -337,14 +336,14 @@ export interface TurnByTurnAction {
 
 /**
  * Berechnet die optimale Route zwischen zwei Punkten
- *
+ * 
  * @param origin - Start-Koordinaten
  * @param destination - Ziel-Koordinaten
  * @param options - Optionale Parameter
  * @returns RouteData mit Distanz, Dauer, Traffic
- *
+ * 
  * @throws {Error} Wenn Route nicht berechnet werden kann
- *
+ * 
  * @example
  * ```typescript
  * const route = await calculateRoute(
@@ -360,13 +359,13 @@ export const calculateRoute = async (
   options?: {
     departureTime?: string;
     avoidTolls?: boolean;
-    vehicleType?: "car" | "truck";
+    vehicleType?: 'car' | 'truck';
   }
 ): Promise<RouteData> => {
   try {
-    logger.info("[HERE-API] Calculating route", { origin, destination, options });
+    logger.info('[HERE-API] Calculating route', { origin, destination, options });
 
-    const { data, error } = await supabase.functions.invoke("calculate-route", {
+    const { data, error } = await supabase.functions.invoke('calculate-route', {
       body: {
         origin,
         destination,
@@ -375,30 +374,30 @@ export const calculateRoute = async (
     });
 
     if (error) {
-      logger.error("[HERE-API] Route calculation failed", error);
+      logger.error('[HERE-API] Route calculation failed', error);
       throw new Error(`Route-Berechnung fehlgeschlagen: ${error.message}`);
     }
 
-    logger.info("[HERE-API] Route calculated successfully", {
+    logger.info('[HERE-API] Route calculated successfully', {
       distance: data.distance,
       duration: data.duration,
     });
 
     return data as RouteData;
   } catch (error) {
-    logger.error("[HERE-API] Unexpected error", error);
+    logger.error('[HERE-API] Unexpected error', error);
     throw error;
   }
 };
 
 /**
  * Geocodiert eine Adresse zu GPS-Koordinaten
- *
+ * 
  * @param address - Vollständige Adresse (z.B. "Marienplatz 1, 80331 München")
  * @returns GPS-Koordinaten
- *
+ * 
  * @throws {Error} Wenn Adresse nicht gefunden wird
- *
+ * 
  * @example
  * ```typescript
  * const coords = await geocodeAddress("Marienplatz 1, München");
@@ -407,7 +406,7 @@ export const calculateRoute = async (
  */
 export const geocodeAddress = async (address: string): Promise<{ lat: number; lng: number }> => {
   try {
-    const { data, error } = await supabase.functions.invoke("geocode", {
+    const { data, error } = await supabase.functions.invoke('geocode', {
       body: { address },
     });
 
@@ -415,36 +414,36 @@ export const geocodeAddress = async (address: string): Promise<{ lat: number; ln
 
     return { lat: data.lat, lng: data.lng };
   } catch (error) {
-    logger.error("[HERE-API] Geocoding failed", error);
+    logger.error('[HERE-API] Geocoding failed', error);
     throw error;
   }
 };
-````
+```
 
 ---
 
 ### 5. ERROR-HANDLING (ZENTRALISIERT)
 
-````typescript
+```typescript
 // src/lib/error-handler.ts
 
 /**
  * Zentrales Error-Handling für MyDispatch
- *
+ * 
  * @module error-handler
  */
 
-import { toast } from "@/hooks/use-toast";
-import * as Sentry from "@sentry/react";
-import { logger } from "./logger";
+import { toast } from '@/hooks/use-toast';
+import * as Sentry from '@sentry/react';
+import { logger } from './logger';
 
 /**
  * Behandelt Fehler systemweit
- *
+ * 
  * @param error - Fehler-Objekt
  * @param userMessage - Benutzerfreundliche Fehlermeldung
  * @param options - Zusätzliche Optionen
- *
+ * 
  * @example
  * ```typescript
  * try {
@@ -473,7 +472,7 @@ export const handleError = (
   if (import.meta.env.PROD) {
     Sentry.captureException(error, {
       tags: {
-        component: "error-handler",
+        component: 'error-handler',
       },
       extra: {
         userMessage,
@@ -485,16 +484,16 @@ export const handleError = (
   // 3. User-Toast
   if (showToast) {
     toast({
-      title: "Fehler",
+      title: 'Fehler',
       description: userMessage,
-      variant: "destructive",
+      variant: 'destructive',
     });
   }
 };
 
 /**
  * Behandelt Erfolgs-Meldungen
- *
+ * 
  * @param message - Erfolgs-Nachricht
  * @param options - Zusätzliche Optionen
  */
@@ -507,12 +506,12 @@ export const handleSuccess = (
   logger.info(message, options?.context);
 
   toast({
-    title: "Erfolg",
+    title: 'Erfolg',
     description: message,
-    variant: "default",
+    variant: 'default',
   });
 };
-````
+```
 
 ---
 
@@ -563,10 +562,10 @@ import { iconSizes } from '@/lib/design-system';
 
 ## 📦 KOMPONENTEN-TEMPLATE
 
-````typescript
+```typescript
 /**
  * BookingCard - Zeigt eine Buchung als Card an
- *
+ * 
  * @component
  * @example
  * ```tsx
@@ -647,7 +646,7 @@ export const BookingCard = ({
     </Card>
   );
 };
-````
+```
 
 ---
 

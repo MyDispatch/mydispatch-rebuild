@@ -15,10 +15,10 @@
    ✅ Context-aware Navigation
    ================================================================================== */
 
-import { cn } from "@/lib/utils";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { getHomeRoute } from "@/lib/navigation-helpers";
-import { Logo } from "@/components/shared/Logo";
+import { cn } from '@/lib/utils';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { getHomeRoute } from '@/lib/navigation-helpers';
+import { Logo } from '@/components/shared/Logo';
 
 interface AuthHeaderProps {
   companyName?: string;
@@ -26,7 +26,11 @@ interface AuthHeaderProps {
   className?: string;
 }
 
-export function AuthHeader({ companyName = "MyDispatch", logoUrl, className }: AuthHeaderProps) {
+export function AuthHeader({ 
+  companyName = 'MyDispatch', 
+  logoUrl,
+  className 
+}: AuthHeaderProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -37,7 +41,7 @@ export function AuthHeader({ companyName = "MyDispatch", logoUrl, className }: A
   };
 
   return (
-    <header
+    <header 
       className={cn(
         "fixed top-0 left-0 right-0 z-30 bg-gradient-to-b from-white to-slate-50 border-b border-slate-200 shadow-md h-16",
         className
@@ -53,7 +57,7 @@ export function AuthHeader({ companyName = "MyDispatch", logoUrl, className }: A
           >
             <Logo />
           </button>
-
+          
           {/* CTA Button */}
           <button
             onClick={handleNavigateHome}

@@ -1,5 +1,4 @@
 # 📊 SYSTEM AUDIT V18.3.24
-
 **Vollständiger Überblick über alle Systeme, Schemas & Vorgaben**
 
 Datum: 18.01.2025  
@@ -45,18 +44,18 @@ MASTER_VORGABEN_CHECKLISTE_V18.3.24.md (Oberste Instanz)
 ```css
 :root {
   /* ✅ PRIMÄRE FARBEN (Erlaubt) */
-  --primary: 40 31% 88%; /* #EADEBD - Beige/Gold - Hauptfarbe */
-  --foreground: 225 31% 28%; /* #323D5E - Dunkelblau - Text */
-  --background: 0 0% 100%; /* #FFFFFF - Weiß */
-  --muted: 210 40% 96.1%; /* #F9FAFB - Gedämpft */
-  --muted-foreground: 215.4 16.3% 46.9%; /* #64748B */
-  --border: 214.3 31.8% 91.4%; /* #E2E8F0 */
-
+  --primary: 40 31% 88%;        /* #EADEBD - Beige/Gold - Hauptfarbe */
+  --foreground: 225 31% 28%;    /* #323D5E - Dunkelblau - Text */
+  --background: 0 0% 100%;      /* #FFFFFF - Weiß */
+  --muted: 210 40% 96.1%;       /* #F9FAFB - Gedämpft */
+  --muted-foreground: 215.4 16.3% 46.9%;  /* #64748B */
+  --border: 214.3 31.8% 91.4%;  /* #E2E8F0 */
+  
   /* ✅ AMPEL-SYSTEM (Nur für Status/Badges) */
-  --status-success: 142 71% 45%; /* #22c55e - Grün */
-  --status-warning: 48 96% 53%; /* #eab308 - Gelb */
-  --status-error: 0 84% 60%; /* #ef4444 - Rot */
-
+  --status-success: 142 71% 45%;   /* #22c55e - Grün */
+  --status-warning: 48 96% 53%;    /* #eab308 - Gelb */
+  --status-error: 0 84% 60%;       /* #ef4444 - Rot */
+  
   /* ❌ DEPRECATED (Nicht mehr verwenden!) */
   /* --accent: 45 31% 54%;          VERBOTEN! */
   /* --accent-foreground: ...        VERBOTEN! */
@@ -89,7 +88,6 @@ background: hsl(var(--primary))
 ```
 
 **Geschützte Dateien:**
-
 - `src/components/layout/Header.tsx`
 - `src/components/layout/Footer.tsx`
 - `src/components/layout/AppSidebar.tsx`
@@ -105,9 +103,9 @@ background: hsl(var(--primary))
 ```css
 :root {
   /* Font-Familie */
-  --font-base: "Inter", system-ui, -apple-system, sans-serif;
-  --font-headline: "Geist", "Inter", sans-serif;
-
+  --font-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-headline: 'Geist', 'Inter', sans-serif;
+  
   /* Font-Größen (Fluid) */
   --font-display: clamp(3rem, 5vw, 4.5rem);
   --font-h1: clamp(2rem, 4vw, 3rem);
@@ -185,13 +183,13 @@ export const TARIFFS: TariffDefinition[] = [
 **Hook:** `useTariffLimits` (`src/hooks/use-tariff-limits.tsx`)
 
 ```typescript
-import { useTariffLimits } from "@/hooks/use-tariff-limits";
+import { useTariffLimits } from '@/hooks/use-tariff-limits';
 
 const { canAdd, showLimitWarning } = useTariffLimits();
 
 // Beispiel: Neuen Fahrer hinzufügen
-if (!canAdd("drivers")) {
-  showLimitWarning("drivers");
+if (!canAdd('drivers')) {
+  showLimitWarning('drivers');
   return;
 }
 ```
@@ -203,8 +201,8 @@ import { UpgradePrompt } from '@/components/shared/UpgradePrompt';
 
 if (!hasFeatureAccess(productId, 'partner_management')) {
   return (
-    <UpgradePrompt
-      feature="Partner-Netzwerk"
+    <UpgradePrompt 
+      feature="Partner-Netzwerk" 
       requiredTariff="Business"
       variant="fullscreen"
     />
@@ -221,9 +219,9 @@ if (!hasFeatureAccess(productId, 'partner_management')) {
 
 ```typescript
 // Frontend triggert Sync:
-import { triggerStripeSyncEdgeFunction } from "@/lib/stripe/tariff-sync";
+import { triggerStripeSyncEdgeFunction } from '@/lib/stripe/tariff-sync';
 
-await triggerStripeSyncEdgeFunction("business");
+await triggerStripeSyncEdgeFunction('business');
 ```
 
 **Status:** ✅ Produktiv
@@ -239,13 +237,15 @@ await triggerStripeSyncEdgeFunction("business");
 ```typescript
 // ✅ RICHTIG:
 const { data } = await supabase
-  .from("bookings")
-  .select("*")
-  .eq("company_id", profile.company_id)
-  .eq("archived", false);
+  .from('bookings')
+  .select('*')
+  .eq('company_id', profile.company_id)
+  .eq('archived', false);
 
 // ❌ FALSCH:
-const { data } = await supabase.from("bookings").select("*");
+const { data } = await supabase
+  .from('bookings')
+  .select('*');
 ```
 
 **Status:** 🔒 KRITISCH - IMMER beachten!
@@ -257,15 +257,18 @@ const { data } = await supabase.from("bookings").select("*");
 ```typescript
 // ✅ RICHTIG:
 await supabase
-  .from("bookings")
-  .update({
-    archived: true,
-    archived_at: new Date().toISOString(),
+  .from('bookings')
+  .update({ 
+    archived: true, 
+    archived_at: new Date().toISOString() 
   })
-  .eq("id", bookingId);
+  .eq('id', bookingId);
 
 // ❌ FALSCH:
-await supabase.from("bookings").delete().eq("id", bookingId);
+await supabase
+  .from('bookings')
+  .delete()
+  .eq('id', bookingId);
 ```
 
 **Status:** 🔒 KRITISCH - IMMER beachten!
@@ -363,17 +366,16 @@ text-green-*, text-red-* // Generische Tailwind-Farben verboten
 
 ```typescript
 // Währung (DIN 5008)
-formatCurrency(1234.56); // "1.234,56 €"
+formatCurrency(1234.56)  // "1.234,56 €"
 
 // Datum
-formatDate(new Date()); // "18.01.2025"
+formatDate(new Date())   // "18.01.2025"
 
 // Zeit
-formatTime(new Date()); // "14:30"
+formatTime(new Date())   // "14:30"
 ```
 
 **Neue Deutsche Rechtschreibung:**
-
 - "Straße" (nicht "Strasse")
 - "dass" (Konjunktion)
 - "kennenlernen" (zusammen)
@@ -385,12 +387,12 @@ formatTime(new Date()); // "14:30"
 **Typen:**
 
 ```typescript
-type Salutation = "Herr" | "Frau" | "Divers" | null;
-type Title = "Dr." | "Prof." | "Dr. med." | null;
+type Salutation = 'Herr' | 'Frau' | 'Divers' | null;
+type Title = 'Dr.' | 'Prof.' | 'Dr. med.' | null;
 
 // Beispiele:
-("Sehr geehrte Frau Prof. Schmidt,");
-("Guten Tag Alex Müller,"); // Divers
+"Sehr geehrte Frau Prof. Schmidt,"
+"Guten Tag Alex Müller," // Divers
 ```
 
 **Status:** ✅ Produktiv
@@ -439,23 +441,19 @@ CREATE TYPE payment_status AS ENUM ('pending', 'paid', 'overdue', 'cancelled');
 ### 8.1 Core Hooks
 
 **Authentifizierung:**
-
 - `useAuth()` - User, Profile, Company
 - `useSubscription()` - Aktueller Tarif, hasAccess()
 
 **Entities:**
-
 - `useBookings()` - Aufträge mit company_id Filter
 - `useCustomers()` - Kunden mit company_id Filter
 - `useDrivers()` - Fahrer mit company_id Filter
 - `useVehicles()` - Fahrzeuge mit company_id Filter
 
 **Dashboard:**
-
 - `useDashboardStats()` - Live-KPIs (Materialized View)
 
 **Tarif:**
-
 - `useTariffLimits()` - Limit-Enforcement
 
 **Status:** ✅ Produktiv
@@ -463,13 +461,11 @@ CREATE TYPE payment_status AS ENUM ('pending', 'paid', 'overdue', 'cancelled');
 ### 8.2 Utility Functions
 
 **Formatierung:**
-
 - `formatCurrency(value)` - "1.234,56 €"
 - `formatDate(date)` - "18.01.2025"
 - `formatTime(date)` - "14:30"
 
 **Validation:**
-
 - `handleError(error, message)` - Zentrales Error-Handling
 - `handleSuccess(message)` - Toast-Benachrichtigung
 
@@ -499,13 +495,11 @@ const HERE_API_KEY = import.meta.env.VITE_HERE_API_KEY;
 ### 9.2 Stripe
 
 **Produkte:**
-
 - Starter (39 €/Monat)
 - Business (79 €/Monat)
 - Enterprise (Custom)
 
 **Sync:**
-
 - `sync-tariff-to-stripe` Edge Function
 - Metadata-Update via Stripe API
 
@@ -515,7 +509,6 @@ const HERE_API_KEY = import.meta.env.VITE_HERE_API_KEY;
 
 **Anzahl:** 25+ Workflows
 **Features:**
-
 - Email-Versand (Bestätigungen, Erinnerungen)
 - Automatisierungen (Buchungen, Rechnungen)
 - Partner-Benachrichtigungen (Business+)
@@ -529,7 +522,6 @@ const HERE_API_KEY = import.meta.env.VITE_HERE_API_KEY;
 ### 10.1 Quality Gates
 
 **Pre-Commit Hook:**
-
 - Farb-Validierung (kein accent)
 - Icon-Farben (text-foreground)
 - Security (kein DELETE)
@@ -558,34 +550,33 @@ npm run build
 
 ### Haupt-Dokumente
 
-| Datei                                    | Zweck                        | Priorität | Status   |
-| ---------------------------------------- | ---------------------------- | --------- | -------- |
-| `MASTER_VORGABEN_CHECKLISTE_V18.3.24.md` | Oberste Instanz, Checklisten | 🔴 P0     | ✅ Aktiv |
-| `QUALITY_GATES_V18.3.24.md`              | Automatische Validierung     | 🔴 P0     | ✅ Aktiv |
-| `SYSTEM_AUDIT_V18.3.24.md`               | Überblick (diese Datei)      | 🟡 P1     | ✅ Aktiv |
-| `INSTRUCTIONS_GUIDELINES_V18.3_FINAL.md` | Coding Standards             | 🔴 P0     | ✅ Aktiv |
-| `SYSTEM_VORGABEN_V18.3.24_FINAL.md`      | System-Regeln                | 🔴 P0     | ✅ Aktiv |
-| `BRANDING_VORGABEN_V18.3.24_FINAL.md`    | Branding-Regeln              | 🔴 P0     | ✅ Aktiv |
-| `TARIFF_SYSTEM_V18.3.24.md`              | Tarif-System                 | 🟡 P1     | ✅ Aktiv |
-| `ICON_GUIDELINES.md`                     | Icon-Farben                  | 🟡 P1     | ✅ Aktiv |
+| Datei | Zweck | Priorität | Status |
+|-------|-------|-----------|--------|
+| `MASTER_VORGABEN_CHECKLISTE_V18.3.24.md` | Oberste Instanz, Checklisten | 🔴 P0 | ✅ Aktiv |
+| `QUALITY_GATES_V18.3.24.md` | Automatische Validierung | 🔴 P0 | ✅ Aktiv |
+| `SYSTEM_AUDIT_V18.3.24.md` | Überblick (diese Datei) | 🟡 P1 | ✅ Aktiv |
+| `INSTRUCTIONS_GUIDELINES_V18.3_FINAL.md` | Coding Standards | 🔴 P0 | ✅ Aktiv |
+| `SYSTEM_VORGABEN_V18.3.24_FINAL.md` | System-Regeln | 🔴 P0 | ✅ Aktiv |
+| `BRANDING_VORGABEN_V18.3.24_FINAL.md` | Branding-Regeln | 🔴 P0 | ✅ Aktiv |
+| `TARIFF_SYSTEM_V18.3.24.md` | Tarif-System | 🟡 P1 | ✅ Aktiv |
+| `ICON_GUIDELINES.md` | Icon-Farben | 🟡 P1 | ✅ Aktiv |
 
 ### Implementierungs-Dateien
 
-| Datei                                     | Zweck               | Status       |
-| ----------------------------------------- | ------------------- | ------------ |
-| `src/lib/design-tokens.ts`                | Design-Token-System | ✅ Produktiv |
-| `src/index.css`                           | CSS-Variablen (HSL) | ✅ Produktiv |
-| `tailwind.config.ts`                      | Tailwind-Theme      | ✅ Produktiv |
-| `src/lib/tariff/tariff-definitions.ts`    | Tarif-Definitionen  | ✅ Produktiv |
-| `src/hooks/use-tariff-limits.tsx`         | Limit-Enforcement   | ✅ Produktiv |
-| `src/components/shared/UpgradePrompt.tsx` | Upgrade-UI          | ✅ Produktiv |
+| Datei | Zweck | Status |
+|-------|-------|--------|
+| `src/lib/design-tokens.ts` | Design-Token-System | ✅ Produktiv |
+| `src/index.css` | CSS-Variablen (HSL) | ✅ Produktiv |
+| `tailwind.config.ts` | Tailwind-Theme | ✅ Produktiv |
+| `src/lib/tariff/tariff-definitions.ts` | Tarif-Definitionen | ✅ Produktiv |
+| `src/hooks/use-tariff-limits.tsx` | Limit-Enforcement | ✅ Produktiv |
+| `src/components/shared/UpgradePrompt.tsx` | Upgrade-UI | ✅ Produktiv |
 
 ---
 
 ## 1️⃣2️⃣ ÄNDERUNGSHISTORIE
 
 ### V18.3.24 (18.01.2025) - AKTUELL
-
 - ✅ accent-Farbe systemweit entfernt
 - ✅ MASTER_VORGABEN_CHECKLISTE erstellt
 - ✅ QUALITY_GATES implementiert
@@ -594,14 +585,12 @@ npm run build
 - ✅ Branding-Vorgaben verschärft
 
 ### V18.3.23 (17.01.2025)
-
 - ✅ Tariff-System mit Feature-Gating
 - ✅ TariffFeatureDialog optimiert
 - ✅ Stripe-Synchronisation
 - ✅ Limit-Enforcement
 
 ### V18.3.0 (16.01.2025)
-
 - ✅ Design-Freeze etabliert
 - ✅ Icon-Guidelines
 - ✅ Multi-Tenant Security
@@ -626,7 +615,6 @@ npm run build
 ```
 
 **Kritische Vorgaben:**
-
 1. ❌ KEIN accent mehr (nur primary/foreground)
 2. 🔒 IMMER company_id filtern
 3. 🗑️ NIEMALS DELETE (nur Archiving)

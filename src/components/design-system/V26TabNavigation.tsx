@@ -7,8 +7,8 @@
    ✅ Responsive Grid Layout
    ================================================================================== */
 
-import { ReactNode } from "react";
-import { cn } from "@/lib/utils";
+import { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 interface V26TabItem {
   id: string;
@@ -29,7 +29,7 @@ export function V26TabNavigation({
   className,
 }: V26TabNavigationProps) {
   return (
-    <div className={cn("w-full", className)}>
+    <div className={cn('w-full', className)}>
       <div
         className="grid gap-2 p-1.5 rounded-lg bg-slate-100"
         style={{
@@ -41,10 +41,10 @@ export function V26TabNavigation({
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
             className={cn(
-              "text-xs sm:text-sm py-2.5 sm:py-3 min-h-[44px] rounded-lg font-semibold transition-all",
-              activeTab === tab.id
-                ? "bg-slate-900 text-white shadow-md"
-                : "bg-transparent text-slate-900 hover:bg-slate-200"
+              'text-xs sm:text-sm py-2.5 sm:py-3 min-h-[44px] rounded-lg font-semibold transition-all',
+              activeTab === tab.id 
+                ? 'bg-slate-900 text-white shadow-md'
+                : 'bg-transparent text-slate-900 hover:bg-slate-200'
             )}
           >
             {tab.label}

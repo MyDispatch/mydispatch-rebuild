@@ -7,30 +7,26 @@
    - Zentrale Fehlerbehandlung
    ================================================================================== */
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "./use-auth";
-import { handleError, handleSuccess } from "@/lib/error-handler";
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from './use-auth';
+import { handleError, handleSuccess } from '@/lib/error-handler';
 
 export function useDocuments() {
   const { profile } = useAuth();
   const queryClient = useQueryClient();
 
   // Fetch Documents
-  const {
-    data: documents = [],
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["documents", profile?.company_id],
+  const { data: documents = [], isLoading, error } = useQuery({
+    queryKey: ['documents', profile?.company_id],
     queryFn: async () => {
       if (!profile?.company_id) return [];
 
       const { data, error } = await supabase
-        .from("documents")
-        .select("*")
-        .eq("company_id", profile.company_id)
-        .order("created_at", { ascending: false });
+        .from('documents')
+        .select('*')
+        .eq('company_id', profile.company_id)
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
       return data || [];
@@ -44,10 +40,10 @@ export function useDocuments() {
   // Create Document
   const createDocument = useMutation({
     mutationFn: async (documentData: any) => {
-      if (!profile?.company_id) throw new Error("Company ID fehlt");
+      if (!profile?.company_id) throw new Error('Company ID fehlt');
 
       const { data, error } = await supabase
-        .from("documents")
+        .from('documents')
         .insert({
           ...documentData,
           company_id: profile.company_id,
@@ -60,11 +56,11 @@ export function useDocuments() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["documents", profile?.company_id] });
-      handleSuccess("Dokument erfolgreich hochgeladen");
+      queryClient.invalidateQueries({ queryKey: ['documents', profile?.company_id] });
+      handleSuccess('Dokument erfolgreich hochgeladen');
     },
     onError: (error) => {
-      handleError(error, "Dokument konnte nicht hochgeladen werden");
+      handleError(error, 'Dokument konnte nicht hochgeladen werden');
     },
   });
 
@@ -72,10 +68,10 @@ export function useDocuments() {
   const updateDocument = useMutation({
     mutationFn: async ({ id, ...updateData }: any) => {
       const { data, error } = await supabase
-        .from("documents")
+        .from('documents')
         .update(updateData)
-        .eq("id", id)
-        .eq("company_id", profile?.company_id)
+        .eq('id', id)
+        .eq('company_id', profile?.company_id)
         .select()
         .single();
 
@@ -83,11 +79,11 @@ export function useDocuments() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["documents", profile?.company_id] });
-      handleSuccess("Dokument erfolgreich aktualisiert");
+      queryClient.invalidateQueries({ queryKey: ['documents', profile?.company_id] });
+      handleSuccess('Dokument erfolgreich aktualisiert');
     },
     onError: (error) => {
-      handleError(error, "Dokument konnte nicht aktualisiert werden");
+      handleError(error, 'Dokument konnte nicht aktualisiert werden');
     },
   });
 
@@ -95,22 +91,22 @@ export function useDocuments() {
   const deleteDocument = useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase
-        .from("documents")
-        .update({
-          archived: true,
-          archived_at: new Date().toISOString(),
+        .from('documents')
+        .update({ 
+          archived: true, 
+          archived_at: new Date().toISOString() 
         })
-        .eq("id", id)
-        .eq("company_id", profile?.company_id);
+        .eq('id', id)
+        .eq('company_id', profile?.company_id);
 
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["documents", profile?.company_id] });
-      handleSuccess("Dokument archiviert");
+      queryClient.invalidateQueries({ queryKey: ['documents', profile?.company_id] });
+      handleSuccess('Dokument archiviert');
     },
     onError: (error) => {
-      handleError(error, "Dokument konnte nicht gelöscht werden");
+      handleError(error, 'Dokument konnte nicht gelöscht werden');
     },
   });
 
@@ -118,19 +114,19 @@ export function useDocuments() {
   const sendReminder = useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase
-        .from("documents")
+        .from('documents')
         .update({ reminder_sent: true })
-        .eq("id", id)
-        .eq("company_id", profile?.company_id);
+        .eq('id', id)
+        .eq('company_id', profile?.company_id);
 
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["documents", profile?.company_id] });
-      handleSuccess("Erinnerung versendet");
+      queryClient.invalidateQueries({ queryKey: ['documents', profile?.company_id] });
+      handleSuccess('Erinnerung versendet');
     },
     onError: (error) => {
-      handleError(error, "Erinnerung konnte nicht versendet werden");
+      handleError(error, 'Erinnerung konnte nicht versendet werden');
     },
   });
 

@@ -202,7 +202,12 @@ export function isDegradedMode(): boolean {
 }
 
 export function getDegradationLevel(): "normal" | "partial" | "severe" {
-  const cachedKeys = ["system_config", "tasks", "execution_logs", "stats"];
+  const cachedKeys = [
+    "system_config",
+    "tasks",
+    "execution_logs",
+    "stats",
+  ];
 
   const degradedCount = cachedKeys.filter((key) => fallbackCache.has(key)).length;
 
@@ -234,7 +239,10 @@ export function loadFromLocalStorage<T>(key: string): T | null {
   return null;
 }
 
-export function ultimateFallback<T>(key: string, defaultValue: T): T {
+export function ultimateFallback<T>(
+  key: string,
+  defaultValue: T
+): T {
   // Try localStorage first
   const stored = loadFromLocalStorage<T>(key);
   if (stored) {

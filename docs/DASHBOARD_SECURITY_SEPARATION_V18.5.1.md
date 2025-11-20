@@ -12,13 +12,11 @@
 **KRITISCH:** MyDispatch unterscheidet **ZWEI KOMPLETT GETRENNTE** Dashboard-Bereiche:
 
 ### 1. `/dashboard` - KUNDEN-DASHBOARD
-
 **Zielgruppe:** MyDispatch Unternehmer-Kunden (Externe Nutzer)  
 **Zugriff:** Alle authentifizierten Kunden  
 **Zweck:** Geschäftsverwaltung (Aufträge, Fahrer, Fahrzeuge, Kunden, Finanzen)
 
 ### 2. `/master` - MASTER-DASHBOARD
-
 **Zielgruppe:** MyDispatch-Team (Systembetreiber)  
 **Zugriff:** **NUR** Accounts mit `role = 'master'`  
 **Zweck:** System-Überwachung, Monitoring, Admin-Tools, Alerts
@@ -170,7 +168,6 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
 ### Kunden-Dashboard (`/dashboard`)
 
 **Erlaubte Komponenten:**
-
 - ✅ `RevenueChart` (Umsatz-Entwicklung)
 - ✅ `HEREMapComponent` (Live-Karte)
 - ✅ `Schnellzugriff` (4 Hauptaktionen)
@@ -185,7 +182,6 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
 - ✅ `PredictiveDemandWidget` (KI-Prognosen, Business-Tier)
 
 **VERBOTEN:**
-
 - ❌ `AlertWidget` (System-Alerts)
 - ❌ `PerformanceWidget` (Response Times, DB-Latenz)
 - ❌ `ErrorLogWidget` (Latest Errors, Sentry)
@@ -202,7 +198,6 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
 ### Master-Dashboard (`/master`)
 
 **Nur für Master-Accounts sichtbar:**
-
 - ✅ `AlertWidget` (System-Alerts) ← **NEU in BATCH 10**
 - ✅ KPI-Karten (Gesamt-Unternehmen, Terminierungen, Umsatz)
 - ✅ Terminierungs-Tab (Kunden sperren/entsperren)
@@ -210,7 +205,6 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
 - ✅ Company-Management (Alle MyDispatch-Kunden verwalten)
 
 **Zukünftige System-Widgets:**
-
 - 🔄 `PerformanceWidget` (Response Times, DB-Latenz)
 - 🔄 `ErrorLogWidget` (Latest Errors, 404s, Sentry)
 - 🔄 `UserActivityWidget` (Active Users, Sessions)
@@ -227,7 +221,7 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
 
 ```tsx
 // ❌ FALSCH: Nur Frontend-Check (kann manipuliert werden!)
-const isMaster = localStorage.getItem("role") === "master"; // UNSICHER!
+const isMaster = localStorage.getItem('role') === 'master'; // UNSICHER!
 
 if (isMaster) {
   return <MasterDashboard />;
@@ -235,7 +229,7 @@ if (isMaster) {
 
 // ✅ RICHTIG: Server-Side Validation + Frontend-Check
 const { roles } = useAuth(); // Lädt Rollen aus Supabase via RLS
-const isMaster = roles.includes("master");
+const isMaster = roles.includes('master');
 
 if (isMaster) {
   return (
@@ -281,28 +275,28 @@ export async function logMasterAction(
   targetCompanyId: string,
   details: Record<string, any>
 ) {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+  const { data: { user } } = await supabase.auth.getUser();
+  
   if (!user) {
-    throw new Error("Unauthorized");
+    throw new Error('Unauthorized');
   }
 
-  await supabase.from("audit_logs").insert({
-    actor_id: user.id,
-    action,
-    target_company_id: targetCompanyId,
-    details,
-    timestamp: new Date().toISOString(),
-  });
+  await supabase
+    .from('audit_logs')
+    .insert({
+      actor_id: user.id,
+      action,
+      target_company_id: targetCompanyId,
+      details,
+      timestamp: new Date().toISOString(),
+    });
 }
 
 // Beispiel: Terminierung loggen
-await logMasterAction("terminate_company", companyId, {
-  reason: "Non-payment",
-  previous_status: "active",
-  new_status: "terminated",
+await logMasterAction('terminate_company', companyId, {
+  reason: 'Non-payment',
+  previous_status: 'active',
+  new_status: 'terminated',
 });
 ```
 
@@ -311,7 +305,6 @@ await logMasterAction("terminate_company", companyId, {
 ## ⚠️ ALARM-TRIGGER
 
 **SOFORT ESKALIEREN bei:**
-
 1. System-Komponenten im Kunden-Dashboard gefunden
 2. `/master` Route OHNE `requiredRole="master"`
 3. Role-Check nur Client-Side (ohne Server-Validation)
@@ -324,7 +317,6 @@ await logMasterAction("terminate_company", companyId, {
 ## ✅ CHECKLISTE VOR COMMIT
 
 Dashboard-Trennung:
-
 - [ ] System-Komponenten NUR im `/master`?
 - [ ] Kunden-Dashboard (`/dashboard`) enthält KEINE System-Daten?
 - [ ] `/master` Route mit `requiredRole="master"` geschützt?
@@ -352,25 +344,22 @@ Dashboard-Trennung:
 Wenn `/master` Route noch NICHT mit `requiredRole` geschützt ist:
 
 ### Phase 1: User-Roles-Tabelle erstellen (falls noch nicht vorhanden)
-
 ```bash
 # Migration ausführen (siehe SQL oben)
 supabase db push
 ```
 
 ### Phase 2: Master-Accounts identifizieren
-
 ```sql
 -- Füge MyDispatch-Team Accounts hinzu
 INSERT INTO public.user_roles (user_id, role)
-VALUES
+VALUES 
   ('UUID_TEAM_MEMBER_1', 'master'),
   ('UUID_TEAM_MEMBER_2', 'master'),
   ('UUID_TEAM_MEMBER_3', 'master');
 ```
 
 ### Phase 3: Route schützen
-
 ```typescript
 // src/config/routes.config.tsx
 {
@@ -384,7 +373,6 @@ VALUES
 ```
 
 ### Phase 4: Testing
-
 - ✅ Als Kunde: `/master` öffnen → **Zugriff verweigert**
 - ✅ Als Master: `/master` öffnen → **Zugriff gewährt**
 - ✅ Direkter URL-Zugriff: `/master` → **Redirect wenn nicht Master**

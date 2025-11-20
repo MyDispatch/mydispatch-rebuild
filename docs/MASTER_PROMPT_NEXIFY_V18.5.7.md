@@ -62,14 +62,12 @@ Bei JEDER Aufgabe fragen:
 ## 📚 PFLICHT-DOKUMENTE (IMMER LESEN!)
 
 ### Core (KRITISCH):
-
 - **docs/SHARED_KNOWLEDGE_V18.5.1.md** ⭐⭐⭐ (Zentrale Wissensquelle)
 - **docs/MOBILE_FIRST_GRID_SYSTEM_V18.5.1.md** ⭐⭐⭐
 - **docs/RECHTLICHE_COMPLIANCE_VORGABEN_V18.5.1.md** ⭐⭐⭐
 - **docs/SEITEN_PLANUNGSPROZESS_V18.5.1.md** ⭐⭐⭐
 
 ### Supporting:
-
 - DESIGN_SYSTEM_VORGABEN_V18.3.md
 - MOBILE_LAYOUT_STANDARDS_V18.3.md
 - LEGAL_COMPLIANCE_V18.3.24.md
@@ -81,11 +79,9 @@ Bei JEDER Aufgabe fragen:
 ### 1. VERPFLICHTENDER KERNWERT: INTEGRATION-FIRST-PRINZIP
 
 **Priorität: Nutzung statt Neuerstellung**
-
 - Bevor eine neue Integration erstellt wird, ist zwingend die Nutzung, Optimierung und Anpassung bestehender Integrationen zu prüfen.
 
 **Harmonie & Abstimmung**
-
 - Alle genutzten Integrationen sind logisch und vollständig durchdacht perfekt aufeinander abzustimmen und bis ins kleinste Detail zu optimieren.
 
 ---
@@ -93,13 +89,11 @@ Bei JEDER Aufgabe fragen:
 ### 2. Mobile-First (NIEMALS Desktop-First!)
 
 **Touch-Targets:**
-
 ```css
 min-h-[44px]  /* Minimum Touch-Target (Apple/Google Guidelines) */
 ```
 
 **Breakpoints:**
-
 ```typescript
 Mobile:  375px
 Tablet:  768px
@@ -107,7 +101,6 @@ Desktop: 1920px
 ```
 
 **Grid-Patterns:**
-
 ```tsx
 // HERO-GRID (Marketing)
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -124,7 +117,6 @@ Desktop: 1920px
 ### 3. Rechtliche Compliance (VERPFLICHTEND!)
 
 **DSGVO:** Datenschutzhinweis bei JEDEM Formular
-
 ```tsx
 <div className="text-xs text-muted-foreground mt-4 p-3 bg-muted/50 rounded-lg">
   <p>🔒 Ihre Daten werden verschlüsselt übertragen...</p>
@@ -134,7 +126,6 @@ Desktop: 1920px
 **AI Act:** KI-Kennzeichnung (Icon + Text) bei JEDER KI-Antwort
 
 **TMG:** Impressum/Datenschutz/AGB Links in JEDEM Footer
-
 ```tsx
 <Link to="/impressum">Impressum</Link>
 <Link to="/datenschutz">Datenschutz</Link>
@@ -166,11 +157,9 @@ className="bg-[#EADEBD]"
 ### 5. Design-System
 
 **VERBOTEN:**
-
 - text-white, bg-black, Direct Colors
 
 **PFLICHT:**
-
 - Semantic Tokens (index.css, tailwind.config.ts)
 - Shadcn-Varianten anpassen (nicht inline überschreiben!)
 
@@ -182,8 +171,8 @@ className="bg-[#EADEBD]"
 
 ```typescript
 // ✅ IMMER zentrale Quellen
-import { PRICING_TIERS } from "@/data/pricing-tiers";
-import { getTariffById } from "@/lib/tariff/tariff-definitions";
+import { PRICING_TIERS } from '@/data/pricing-tiers';
+import { getTariffById } from '@/lib/tariff/tariff-definitions';
 
 // ❌ NIEMALS hardcoden
 const price = 39; // FALSCH!
@@ -237,27 +226,27 @@ const data: any = ...; // FALSCH!
 → ERSTELLE INFRASTRUKTUR-BATCH (PRIO 1)  
 → WARTE AUF FREIGABE
 
-| Check                     | Status | Details zur Validierung                                                                                                 |
-| ------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------- |
-| **Brain-System Hook**     | ✅     | Existiert src/hooks/use-brain-system.ts? → Prüfe Integration in kritische Seiten.                                       |
-| **Shared Knowledge**      | ✅     | Existiert SHARED_KNOWLEDGE_V18.5.1.md?                                                                                  |
-| **React Query Migration** | [ ]    | Konsolidiere queryKeys (client.ts ↔ query-keys.ts). Audit: Wieviele useQuery ohne Factory? (Ziel: < 40% Rest-Queries). |
-| **Doc-AI Sync**           | [ ]    | Existiert Edge Function 'doc-ai-sync' und Real-Time Channel 'doc-ai-queue'?                                             |
-| **Error Boundaries**      | ✅     | Global und Page-Level aktiv.                                                                                            |
-| **Pricing Validation**    | ✅     | use-pricing-validation.ts aktiv in App.tsx (Dev-Modus).                                                                 |
-| **CI/CD Governance**      | ✅     | Governance-Job in ci.yml aktiv.                                                                                         |
+| Check | Status | Details zur Validierung |
+|-------|--------|-------------------------|
+| **Brain-System Hook** | ✅ | Existiert src/hooks/use-brain-system.ts? → Prüfe Integration in kritische Seiten. |
+| **Shared Knowledge** | ✅ | Existiert SHARED_KNOWLEDGE_V18.5.1.md? |
+| **React Query Migration** | [ ] | Konsolidiere queryKeys (client.ts ↔ query-keys.ts). Audit: Wieviele useQuery ohne Factory? (Ziel: < 40% Rest-Queries). |
+| **Doc-AI Sync** | [ ] | Existiert Edge Function 'doc-ai-sync' und Real-Time Channel 'doc-ai-queue'? |
+| **Error Boundaries** | ✅ | Global und Page-Level aktiv. |
+| **Pricing Validation** | ✅ | use-pricing-validation.ts aktiv in App.tsx (Dev-Modus). |
+| **CI/CD Governance** | ✅ | Governance-Job in ci.yml aktiv. |
 
 ---
 
 ## ⏱️ ZEITANGABEN (AI-ZEITEN!)
 
 ```yaml
-Einfache Component: 5-15 Sekunden
-Mittlere Component: 15-30 Sekunden
-Komplexe Component: 30-60 Sekunden
-Seiten-Planung: 2-5 Minuten
+Einfache Component:    5-15 Sekunden
+Mittlere Component:    15-30 Sekunden
+Komplexe Component:    30-60 Sekunden
+Seiten-Planung:        2-5 Minuten
 Neue Seite (komplett): 5-15 Minuten
-Testing (pro Seite): 3-5 Minuten
+Testing (pro Seite):   3-5 Minuten
 ```
 
 ---
@@ -265,7 +254,6 @@ Testing (pro Seite): 3-5 Minuten
 ## ✅ AUTOMATISIERUNGS-CHECKS
 
 ### Pre-Implementation:
-
 - [ ] SEITEN-PLANUNGSPROZESS durchgeführt?
 - [ ] Docs gelesen (Grid, Legal, Design)?
 - [ ] Mobile-First Grid-Pattern gewählt?
@@ -273,7 +261,6 @@ Testing (pro Seite): 3-5 Minuten
 - [ ] Best-Practice-Alternativen geprüft?
 
 ### Post-Implementation:
-
 - [ ] Mobile-Tests (375px, 414px, 768px, 1024px, 1920px)?
 - [ ] Touch-Target-Test (≥ 44px)?
 - [ ] DSGVO-Hinweise (bei Formularen)?
@@ -302,7 +289,6 @@ Testing (pro Seite): 3-5 Minuten
 **VORGABE:** Wenn du wichtige Fragen hast, frage gerne!
 
 Beispiele:
-
 - "Pascal, soll die neue Statistik-Seite auch GPS-Daten anzeigen? (Betrifft DSGVO-Compliance)"
 - "Welcher Tarif soll Zugriff auf das neue Feature haben? (Business+ oder Starter?)"
 - "Soll das neue Formular Pflichtfelder haben? (Betrifft UX)"
@@ -338,7 +324,6 @@ Beispiele:
 ## 📝 CHANGELOG
 
 ### V18.5.7 (2025-10-24)
-
 - **NEU:** Master-Prompt vollständig konsolidiert
 - **NEU:** Infrastruktur-Checks erweitert (CI/CD Governance)
 - **ERWEITERT:** Integration-First-Prinzip als Kernwert verankert
@@ -346,7 +331,6 @@ Beispiele:
 - **SICHERHEIT:** Build-Blockade bei Verstößen aktiv
 
 ### V18.5.1 (2025-10-24)
-
 - **NEU:** SHARED_KNOWLEDGE_V18.5.1.md erstellt
 - **NEU:** Brain-System Hook Integration
 - **NEU:** CI/CD Governance-Step implementiert

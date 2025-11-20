@@ -7,16 +7,16 @@
    ✅ WCAG 2.1 AA
    ================================================================================== */
 
-import { useState, useEffect } from "react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { Cookie, Settings } from "lucide-react";
-import { useAuth } from "@/hooks/use-auth";
-import { logger } from "@/lib/logger";
-import { useCookieConsent } from "@/hooks/use-cookie-consent";
+import { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { Cookie, Settings } from 'lucide-react';
+import { useAuth } from '@/hooks/use-auth';
+import { logger } from '@/lib/logger';
+import { useCookieConsent } from '@/hooks/use-cookie-consent';
 
 interface CookiePreferences {
   necessary: boolean;
@@ -33,41 +33,41 @@ export function V28CookieConsent() {
     functional: false,
     analytics: false,
   });
-
+  
   // ✅ MISSION II: TanStack Query Hook statt direktem Supabase-Call
   const { upsertConsent } = useCookieConsent(profile?.id);
 
   useEffect(() => {
     try {
-      const consent = localStorage.getItem("mydispatch_cookie_consent");
+      const consent = localStorage.getItem('mydispatch_cookie_consent');
       if (!consent) {
         setShowBanner(true);
       } else {
         // SECURITY FIX: Validate JSON before parsing
         const saved = JSON.parse(consent);
-
+        
         // SECURITY FIX: Validate structure
         if (
-          typeof saved === "object" &&
+          typeof saved === 'object' &&
           saved !== null &&
-          typeof saved.necessary === "boolean" &&
-          typeof saved.functional === "boolean" &&
-          typeof saved.analytics === "boolean"
+          typeof saved.necessary === 'boolean' &&
+          typeof saved.functional === 'boolean' &&
+          typeof saved.analytics === 'boolean'
         ) {
           setPreferences(saved);
         } else {
           // Invalid format - show banner
-          localStorage.removeItem("mydispatch_cookie_consent");
+          localStorage.removeItem('mydispatch_cookie_consent');
           setShowBanner(true);
         }
       }
     } catch (error) {
       // SECURITY FIX: Handle corrupted localStorage
-      logger.error("Cookie consent parsing error", error as Error, {
-        component: "V28CookieConsent",
-        action: "loadConsent",
+      logger.error('Cookie consent parsing error', error as Error, {
+        component: 'V28CookieConsent',
+        action: 'loadConsent'
       });
-      localStorage.removeItem("mydispatch_cookie_consent");
+      localStorage.removeItem('mydispatch_cookie_consent');
       setShowBanner(true);
     }
   }, []);
@@ -75,27 +75,27 @@ export function V28CookieConsent() {
   const saveConsent = async (prefs: CookiePreferences) => {
     // SECURITY FIX: Validate preferences before saving
     if (
-      typeof prefs.necessary !== "boolean" ||
-      typeof prefs.functional !== "boolean" ||
-      typeof prefs.analytics !== "boolean"
+      typeof prefs.necessary !== 'boolean' ||
+      typeof prefs.functional !== 'boolean' ||
+      typeof prefs.analytics !== 'boolean'
     ) {
-      logger.error("Invalid cookie preferences format", undefined, {
-        component: "V28CookieConsent",
-        action: "saveConsent",
-        metadata: { prefs },
+      logger.error('Invalid cookie preferences format', undefined, {
+        component: 'V28CookieConsent',
+        action: 'saveConsent',
+        metadata: { prefs }
       });
       return;
     }
 
     try {
-      localStorage.setItem("mydispatch_cookie_consent", JSON.stringify(prefs));
+      localStorage.setItem('mydispatch_cookie_consent', JSON.stringify(prefs));
     } catch (error) {
-      logger.error("localStorage save error", error as Error, {
-        component: "V28CookieConsent",
-        action: "saveToLocalStorage",
+      logger.error('localStorage save error', error as Error, {
+        component: 'V28CookieConsent',
+        action: 'saveToLocalStorage'
       });
     }
-
+    
     // ✅ MISSION II: TanStack Query Hook statt direktem Supabase-Call
     if (profile?.id) {
       try {
@@ -107,10 +107,10 @@ export function V28CookieConsent() {
           consented_at: new Date().toISOString(),
         });
       } catch (error) {
-        logger.error("Cookie consent save error", error as Error, {
-          component: "V28CookieConsent",
-          action: "saveToDB",
-          userId: profile.id,
+        logger.error('Cookie consent save error', error as Error, {
+          component: 'V28CookieConsent',
+          action: 'saveToDB',
+          userId: profile.id
         });
       }
     }
@@ -157,45 +157,55 @@ export function V28CookieConsent() {
           </CardHeader>
           <CardContent className="space-y-3">
             <p className="text-sm text-muted-foreground">
-              Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Notwendige Cookies sind für
-              die Funktionalität der Website erforderlich. Funktionale und Analytische Cookies
-              helfen uns, unseren Service zu optimieren.
+              Wir verwenden Cookies, um Ihre Erfahrung zu verbessern. Notwendige Cookies sind für die 
+              Funktionalität der Website erforderlich. Funktionale und Analytische Cookies helfen uns, 
+              unseren Service zu optimieren.
             </p>
             <p className="text-xs text-muted-foreground">
-              Mit "Alle akzeptieren" stimmen Sie der Verwendung aller Cookies zu. Mit "Nur
-              notwendige" werden nur technisch erforderliche Cookies verwendet. Sie können Ihre
-              Einstellungen jederzeit in den{" "}
+              Mit "Alle akzeptieren" stimmen Sie der Verwendung aller Cookies zu. Mit "Nur notwendige" 
+              werden nur technisch erforderliche Cookies verwendet. Sie können Ihre Einstellungen jederzeit 
+              in den{' '}
               <button
                 onClick={() => setShowSettings(true)}
                 className="underline hover:text-foreground"
               >
                 Cookie-Einstellungen
-              </button>{" "}
+              </button>{' '}
               ändern.
             </p>
             <p className="text-xs text-muted-foreground">
-              Weitere Informationen finden Sie in unserer{" "}
+              Weitere Informationen finden Sie in unserer{' '}
               <a href="/datenschutz" className="underline hover:text-foreground">
                 Datenschutzerklärung
-              </a>
-              .
+              </a>.
             </p>
           </CardContent>
           <CardFooter className="flex flex-col sm:flex-row gap-2 pt-3">
-            <V28Button
-              variant="secondary"
+            <Button
+              variant="outline"
+              size="sm"
               onClick={() => setShowSettings(true)}
               className="w-full sm:w-auto"
             >
-              <Settings className="mr-2 h-4 w-4" />
+              <Settings className="h-4 w-4" />
               Einstellungen
-            </V28Button>
-            <V28Button variant="secondary" onClick={acceptNecessary} className="w-full sm:w-auto">
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={acceptNecessary}
+              className="w-full sm:w-auto"
+            >
               Nur notwendige
-            </V28Button>
-            <V28Button onClick={acceptAll} variant="primary" className="w-full sm:w-auto">
+            </Button>
+            <Button
+              onClick={acceptAll}
+              variant="default"
+              size="sm"
+              className="w-full sm:w-auto"
+            >
               Alle akzeptieren
-            </V28Button>
+            </Button>
           </CardFooter>
         </Card>
       </div>
@@ -216,12 +226,12 @@ export function V28CookieConsent() {
                 <div className="space-y-1 flex-1">
                   <Label className="text-base font-semibold">Notwendige Cookies</Label>
                   <p className="text-sm text-muted-foreground">
-                    Diese Cookies sind für die Grundfunktionen der Website erforderlich und können
-                    nicht deaktiviert werden.
+                    Diese Cookies sind für die Grundfunktionen der Website erforderlich und können nicht 
+                    deaktiviert werden.
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    <span className="font-medium">Beispiele:</span> Session-Management,
-                    Authentifizierung, Sicherheit
+                    <span className="font-medium">Beispiele:</span> Session-Management, Authentifizierung, 
+                    Sicherheit
                   </p>
                 </div>
                 <Switch checked disabled />
@@ -237,8 +247,8 @@ export function V28CookieConsent() {
                     Diese Cookies ermöglichen erweiterte Funktionen und Personalisierung.
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    <span className="font-medium">Beispiele:</span> Sprach-Einstellungen,
-                    Dashboard-Layout, Favoriten
+                    <span className="font-medium">Beispiele:</span> Sprach-Einstellungen, Dashboard-Layout, 
+                    Favoriten
                   </p>
                 </div>
                 <Switch
@@ -256,8 +266,7 @@ export function V28CookieConsent() {
                 <div className="space-y-1 flex-1">
                   <Label className="text-base font-semibold">Analytische Cookies</Label>
                   <p className="text-sm text-muted-foreground">
-                    Diese Cookies helfen uns, die Nutzung der Website zu verstehen und zu
-                    verbessern.
+                    Diese Cookies helfen uns, die Nutzung der Website zu verstehen und zu verbessern.
                   </p>
                   <p className="text-xs text-muted-foreground">
                     <span className="font-medium">Anbieter:</span> Google Analytics (anonymisiert)
@@ -285,27 +294,32 @@ export function V28CookieConsent() {
                 <li>Recht auf Datenübertragbarkeit</li>
               </ul>
               <p className="text-xs">
-                Weitere Informationen finden Sie in unserer{" "}
+                Weitere Informationen finden Sie in unserer{' '}
                 <a href="/datenschutz" className="underline hover:text-foreground">
                   Datenschutzerklärung
-                </a>
-                .
+                </a>.
               </p>
             </div>
           </div>
 
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-2 pt-4 border-t">
-            <V28Button variant="secondary" onClick={acceptNecessary} className="w-full sm:w-auto">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={acceptNecessary}
+              className="w-full sm:w-auto"
+            >
               Nur notwendige
-            </V28Button>
-            <V28Button
+            </Button>
+            <Button
               onClick={() => saveConsent(preferences)}
-              variant="primary"
+              variant="default"
+              size="sm"
               className="w-full sm:w-auto"
             >
               Einstellungen speichern
-            </V28Button>
+            </Button>
           </div>
         </DialogContent>
       </Dialog>

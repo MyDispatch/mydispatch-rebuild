@@ -14,13 +14,11 @@ Performance-Monitoring-Widget für das Master-Dashboard erstellen, um Echtzeit-P
 
 ## ✅ ABGESCHLOSSENE AUFGABEN
 
-### 1. **Performance Monitoring Widget**
-
+### 1. **Performance Monitoring Widget** 
 **Datei:** `src/components/dashboard/PerformanceMonitoringWidget.tsx`  
 **Status:** ✅ Erstellt
 
 **Features:**
-
 - ✅ Echtzeit-Performance-Metriken (Response Time, Uptime 7d/30d)
 - ✅ System-Health-Status (Alle Systeme OK / Probleme erkannt)
 - ✅ Kritische Issues & Warnungen Anzeige
@@ -30,31 +28,26 @@ Performance-Monitoring-Widget für das Master-Dashboard erstellen, um Echtzeit-P
 - ✅ Design-System-Compliance: Semantic Tokens, CI-Farben
 
 **Datenquellen:**
-
 - `monitoring_logs` (via Heartbeat History)
 - `agent_status` (Aktuelle Agent-Status)
 - `heartbeat_history` (Performance-Verlauf)
 
 **Integration:**
-
 - Hook: `use-agent-health.ts` (bereits vorhanden, keine Änderung nötig!)
 - Design-Pattern: `StatisticsWidget.tsx` als Vorlage
 
 ---
 
 ### 2. **Dashboard-Integration**
-
 **Datei:** `src/pages/Index.tsx`  
 **Status:** ✅ Integriert
 
 **Änderungen:**
-
 - ✅ Import: `PerformanceMonitoringWidget` hinzugefügt
 - ✅ Platzierung: Nach `StatisticsWidget` (Zeile 720)
 - ✅ LAYOUT FREEZE COMPLIANCE: Keine Design-/Layout-Änderungen!
 
 **Position im Dashboard:**
-
 ```
 Right Column (4 cols - Monitoring-Bereich):
 1. Dringende Aktionen
@@ -71,29 +64,26 @@ Right Column (4 cols - Monitoring-Bereich):
 ## 📊 METRIKEN
 
 ### Performance-Widget Metriken
-
-| Metrik          | Quelle                                             | Update-Intervall |
-| --------------- | -------------------------------------------------- | ---------------- |
-| Response Time   | `heartbeat_history.avg_response_time_ms`           | 1 Minute         |
-| Uptime 7d       | Berechnet aus `heartbeat_history` (letzte 7 Tage)  | 5 Minuten        |
-| Uptime 30d      | Berechnet aus `heartbeat_history` (letzte 30 Tage) | 5 Minuten        |
-| System Health   | `heartbeat_history.all_agents_healthy`             | 1 Minute         |
-| Critical Issues | `heartbeat_history.critical_issues`                | 1 Minute         |
-| Warnings        | `heartbeat_history.warnings`                       | 1 Minute         |
+| Metrik | Quelle | Update-Intervall |
+|--------|--------|------------------|
+| Response Time | `heartbeat_history.avg_response_time_ms` | 1 Minute |
+| Uptime 7d | Berechnet aus `heartbeat_history` (letzte 7 Tage) | 5 Minuten |
+| Uptime 30d | Berechnet aus `heartbeat_history` (letzte 30 Tage) | 5 Minuten |
+| System Health | `heartbeat_history.all_agents_healthy` | 1 Minute |
+| Critical Issues | `heartbeat_history.critical_issues` | 1 Minute |
+| Warnings | `heartbeat_history.warnings` | 1 Minute |
 
 ### Performance-Schwellenwerte
-
-| Metrik        | Success | Warning    | Error    |
-| ------------- | ------- | ---------- | -------- |
+| Metrik | Success | Warning | Error |
+|--------|---------|---------|-------|
 | Response Time | < 500ms | 500-1000ms | > 1000ms |
-| Uptime        | > 99%   | 95-99%     | < 95%    |
+| Uptime | > 99% | 95-99% | < 95% |
 
 ---
 
 ## 🔄 INTEGRATION-FIRST-PRINZIP
 
 ### ✅ GENUTZT (Keine Neuerstellung!)
-
 1. **Hook:** `use-agent-health.ts` (bereits vorhanden)
    - Liefert: Latest Heartbeat, History, Agent Status, Uptime Trends
    - Refetch-Intervalle: 1min (Latest), 5min (History), 30s (Status)
@@ -107,7 +97,6 @@ Right Column (4 cols - Monitoring-Bereich):
    - Kompakte Darstellung (80px Höhe)
 
 ### ✅ OPTIMIERT (Perfekte Abstimmung!)
-
 - Performance-Widget nutzt exakt gleiche Datenstruktur wie `use-agent-health.ts`
 - Design-Konsistenz mit bestehenden Dashboard-Widgets
 - Keine Redundanzen, keine doppelten Datenabfragen
@@ -117,7 +106,6 @@ Right Column (4 cols - Monitoring-Bereich):
 ## 🎨 DESIGN-SYSTEM-COMPLIANCE
 
 ### ✅ Semantic Tokens
-
 ```typescript
 // Farben
 bg-card, text-foreground, text-muted-foreground
@@ -136,7 +124,6 @@ uppercase, tracking-wide
 ```
 
 ### ✅ CI-Farben Integration
-
 - Primary: `hsl(var(--primary))` für Charts
 - Foreground: `hsl(var(--foreground))` für Text
 - Status-Colors: Success, Warning, Error für Health-Status
@@ -146,14 +133,12 @@ uppercase, tracking-wide
 ## 🧪 VALIDIERUNG
 
 ### ✅ PRE-IMPLEMENTATION (Audit)
-
 - [x] CQR-Queue geprüft (0 offene Fragen)
 - [x] Integration-First: `use-agent-health.ts` Hook genutzt
 - [x] Design-System-Vorgaben befolgt
 - [x] Layout Freeze Compliance sichergestellt
 
 ### ✅ POST-IMPLEMENTATION (Validierung)
-
 - [x] Mobile-First Design (responsive bis 375px)
 - [x] Touch-Targets ≥ 44px (Button-Elemente)
 - [x] Performance < 3s (Widget lädt unter 1s)
@@ -164,34 +149,31 @@ uppercase, tracking-wide
 
 ## 📈 ERFOLGS-METRIKEN
 
-| Metrik            | Ziel             | Erreicht |
-| ----------------- | ---------------- | -------- |
-| Integration-First | 100%             | ✅ 100%  |
-| Design-Konsistenz | 100%             | ✅ 100%  |
-| Performance       | < 3s             | ✅ < 1s  |
-| Code-Qualität     | A                | ✅ A     |
-| Layout Freeze     | Keine Verletzung | ✅ OK    |
+| Metrik | Ziel | Erreicht |
+|--------|------|----------|
+| Integration-First | 100% | ✅ 100% |
+| Design-Konsistenz | 100% | ✅ 100% |
+| Performance | < 3s | ✅ < 1s |
+| Code-Qualität | A | ✅ A |
+| Layout Freeze | Keine Verletzung | ✅ OK |
 
 ---
 
 ## 🔒 WORKFLOW-COMPLIANCE
 
 ### ✅ PHASE 1: SELBSTREFLEXION
-
 - [x] Code-Prüfung (zuletzt geänderte Dateien gelesen)
 - [x] Fehler-Log geprüft (keine kritischen Fehler)
 - [x] Design-Tokens geprüft (index.css, tailwind.config.ts)
 - [x] Wissensabgleich (Master-Prompt, Grid-System, Compliance)
 
 ### ✅ PHASE 2: PLANUNG
-
 - [x] IST-Analyse (bestehende Hooks, Components geprüft)
 - [x] Integration-First (use-agent-health.ts identifiziert & genutzt)
 - [x] CQR-Prüfung (0 offene Fragen)
 - [x] Plan präsentiert & Freigabe erhalten
 
 ### ✅ PHASE 3: IMPLEMENTATION
-
 - [x] Performance-Widget erstellt
 - [x] Dashboard-Integration (ohne Layout-Änderung)
 - [x] Tests durchgeführt (Mobile, Design, Performance)
@@ -225,7 +207,6 @@ uppercase, tracking-wide
 ## 🎓 LESSONS LEARNED
 
 ### ✅ ERFOLGE
-
 1. **Integration-First funktioniert perfekt!**
    - `use-agent-health.ts` Hook war bereits vorhanden
    - Keine Neuerstellung nötig, nur Nutzung
@@ -242,7 +223,6 @@ uppercase, tracking-wide
    - Keine Design-Breaks
 
 ### 🔍 VERBESSERUNGSPOTENTIAL
-
 1. **Alert-Schwellenwerte konfigurierbar machen**
    - Aktuell: Hardcoded (< 500ms = Success)
    - Zukunft: User-definierte Schwellenwerte in Settings
@@ -260,7 +240,6 @@ uppercase, tracking-wide
 ## 🚀 NÄCHSTE SCHRITTE
 
 ### BATCH 13-15 (Vorgeschlagen)
-
 1. **Security Linter Warnings** (49 Non-Critical)
    - RLS Policies Review & Optimierung
    - Security Best Practices

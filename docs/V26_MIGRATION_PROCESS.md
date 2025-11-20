@@ -1,5 +1,4 @@
 # V26.0 MIGRATIONS-PROZESS - STANDARD-VORGEHEN
-
 > **Version:** 26.0  
 > **Erstellt:** 2025-01-26  
 > **Status:** ✅ Verbindlich für alle Migrationen
@@ -17,7 +16,6 @@ Dieser Prozess beschreibt das Standard-Vorgehen für die Migration bestehender S
 ### SCHRITT 1: ANALYSE
 
 **Aktionen:**
-
 1. Bestehende Seite/Komponente öffnen und analysieren
 2. UI-Elemente identifizieren (Buttons, Cards, Inputs, etc.)
 3. Prüfen: Welche V26-Komponenten existieren bereits?
@@ -30,13 +28,11 @@ Dieser Prozess beschreibt das Standard-Vorgehen für die Migration bestehender S
 ### SCHRITT 2: KOMPONENTEN KOPIEREN
 
 **Aktionen:**
-
 1. Bestehende V26-Komponenten als Vorlage verwenden
 2. Kopieren und anpassen für spezifischen Use-Case
 3. Neue Komponente mit eindeutigem Namen erstellen
 
 **Beispiel:**
-
 ```tsx
 // VORLAGE: V26Button.tsx
 // KOPIERT & ANGEPASST: V26AuthButton.tsx (falls spezifische Auth-Funktionalität nötig)
@@ -50,7 +46,6 @@ Dieser Prozess beschreibt das Standard-Vorgehen für die Migration bestehender S
 ### SCHRITT 3: NEUE KOMPONENTEN ERSTELLEN
 
 **Aktionen:**
-
 1. Neue Komponente in `src/components/design-system/` erstellen
 2. KERNFARBEN aus `pricing-colors.ts` importieren
 3. Props-Interface mit TypeScript definieren
@@ -58,7 +53,6 @@ Dieser Prozess beschreibt das Standard-Vorgehen für die Migration bestehender S
 5. Responsive Sizing (Mobile-First)
 
 **Template:**
-
 ```tsx
 import { KERNFARBEN } from '@/lib/design-system/pricing-colors';
 import { cn } from '@/lib/utils';
@@ -91,7 +85,6 @@ export function V26[Name]({ ...props }: V26[Name]Props) {
 ### SCHRITT 4: KOMPONENTEN DOKUMENTIEREN
 
 **Aktionen:**
-
 1. Markdown-Dokumentation in `docs/` erstellen
 2. Props-Tabelle mit Typen
 3. Verwendungsbeispiele
@@ -99,29 +92,23 @@ export function V26[Name]({ ...props }: V26[Name]Props) {
 5. Verbotene Patterns
 
 **Template:**
-
-````markdown
+```markdown
 # V26.[NAME] COMPONENT
 
 ## Props
-
 | Prop | Typ | Default | Beschreibung |
-| ---- | --- | ------- | ------------ |
-| ...  | ... | ...     | ...          |
+|------|-----|---------|--------------|
+| ... | ... | ... | ... |
 
 ## Verwendung
-
 ```tsx
 <V26[Name] {...props} />
 ```
-````
 
 ## Design-Specs
-
 - Farbe: ...
 - Hover: ...
-
-````
+```
 
 ---
 
@@ -135,14 +122,13 @@ export function V26[Name]({ ...props }: V26[Name]Props) {
 ```tsx
 // V26 [Category] Components
 export { V26NewComponent } from './V26NewComponent';
-````
+```
 
 ---
 
 ### SCHRITT 6: SEITE MIGRIEREN
 
 **Aktionen:**
-
 1. Alte UI-Elemente durch V26-Komponenten ersetzen
 2. KERNFARBEN für alle Inline-Styles verwenden
 3. Direct Colors eliminieren (`text-white`, `bg-[#...]`)
@@ -150,7 +136,6 @@ export { V26NewComponent } from './V26NewComponent';
 5. Responsive Klassen (`text-sm sm:text-base`)
 
 **Migrations-Reihenfolge:**
-
 1. Imports ergänzen
 2. Buttons migrieren
 3. Cards migrieren
@@ -159,17 +144,18 @@ export { V26NewComponent } from './V26NewComponent';
 6. Verbleibende Styles auf KERNFARBEN umstellen
 
 **Beispiel:**
-
 ```tsx
 // ❌ ALT
-<button className="bg-primary text-white rounded-lg px-4 py-2">Aktion</button>;
+<button className="bg-primary text-white rounded-lg px-4 py-2">
+  Aktion
+</button>
 
 // ✅ NEU
-import { V26Button } from "@/components/design-system";
+import { V26Button } from '@/components/design-system';
 
 <V26Button variant="primary" onClick={handleAction}>
   Aktion
-</V26Button>;
+</V26Button>
 ```
 
 ---
@@ -177,34 +163,28 @@ import { V26Button } from "@/components/design-system";
 ### SCHRITT 7: MIGRATIONS-LOG ERSTELLEN
 
 **Aktionen:**
-
 1. Neues Markdown-Dokument in `docs/` erstellen
 2. Änderungen dokumentieren (Was, Warum, Vorher/Nachher)
 3. Verwendete KERNFARBEN auflisten
 4. Screenshots/Metriken hinzufügen
 
 **Template:**
-
 ```markdown
 # MIGRATION LOG V26.0 - [SEITEN-NAME]
 
 ## ZIEL
-
 Migration der [Seite/Komponente] auf V26.0 Design System
 
 ## DURCHGEFÜHRTE ÄNDERUNGEN
-
 1. [Component].tsx - [Was wurde geändert]
 2. ...
 
 ## VERWENDETE KERNFARBEN
-
 - dunkelblau: [Verwendung]
 - beige: [Verwendung]
-  ...
+...
 
 ## ERGEBNIS
-
 ✅ 100% KERNFARBEN-Compliance
 ✅ Alle Direct Colors eliminiert
 ```
@@ -216,7 +196,6 @@ Migration der [Seite/Komponente] auf V26.0 Design System
 Nach jeder Migration prüfen:
 
 ### Design-Compliance
-
 - [ ] Nur KERNFARBEN verwendet (keine Direct Colors)
 - [ ] Nur V26-Komponenten verwendet
 - [ ] `font-sans` auf allen Text-Elementen
@@ -224,14 +203,12 @@ Nach jeder Migration prüfen:
 - [ ] Touch-Targets ≥ 44px
 
 ### Funktionalität
-
 - [ ] Alle Funktionen arbeiten wie vorher
 - [ ] Keine Regression (Visual Testing)
 - [ ] Keine Console-Errors
 - [ ] TypeScript-Errors behoben
 
 ### Dokumentation
-
 - [ ] Neue Komponenten dokumentiert
 - [ ] Migrations-Log erstellt
 - [ ] Exports in index.ts ergänzt
@@ -241,18 +218,16 @@ Nach jeder Migration prüfen:
 ## 🚫 HÄUFIGE FEHLER
 
 ### 1. Bestehende Exports überschreiben
-
 ```tsx
 // ❌ FALSCH - Überschreibt alles
-export { V26Button } from "./V26Button";
+export { V26Button } from './V26Button';
 
 // ✅ RICHTIG - Erweitert bestehende Exports
 // ... bestehende Exports
-export { V26Button } from "./V26Button";
+export { V26Button } from './V26Button';
 ```
 
 ### 2. Direct Colors verwenden
-
 ```tsx
 // ❌ FALSCH
 className="text-white bg-[#323D5E]"
@@ -263,7 +238,6 @@ style={{ color: KERNFARBEN.beige, backgroundColor: KERNFARBEN.dunkelblau }}
 ```
 
 ### 3. Unnötige Komponenten erstellen
-
 ```tsx
 // ❌ FALSCH - Neue Komponente für Standard-Button
 export function MyCustomButton() { ... }
@@ -273,7 +247,6 @@ export function MyCustomButton() { ... }
 ```
 
 ### 4. Inkonsistente Hover-Effekte
-
 ```tsx
 // ❌ FALSCH - Custom Hover
 className="hover:bg-primary"
@@ -290,14 +263,14 @@ onMouseEnter={(e) => {
 
 Jede Migration sollte folgende Ziele erreichen:
 
-| Metrik                     | Ziel |
-| -------------------------- | ---- |
-| KERNFARBEN-Compliance      | 100% |
+| Metrik | Ziel |
+|--------|------|
+| KERNFARBEN-Compliance | 100% |
 | V26-Komponenten-Verwendung | 100% |
-| Direct Colors eliminiert   | 100% |
-| TypeScript-Errors          | 0    |
-| Funktionalitäts-Erhalt     | 100% |
-| Dokumentations-Coverage    | 100% |
+| Direct Colors eliminiert | 100% |
+| TypeScript-Errors | 0 |
+| Funktionalitäts-Erhalt | 100% |
+| Dokumentations-Coverage | 100% |
 
 ---
 

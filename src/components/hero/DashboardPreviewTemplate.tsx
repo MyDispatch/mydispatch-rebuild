@@ -7,17 +7,15 @@
    ✅ V40.14: Inline-Styles eliminiert → CSS-Klassen
    ================================================================================== */
 
-import { FileText, Euro, Users, Car, Clock, TrendingUp } from "lucide-react";
-import { StatCard } from "@/components/smart-templates/StatCard";
-import { DashboardActivityItem } from "./DashboardActivityItem";
+import { FileText, Euro, Users, Car, Clock, TrendingUp } from 'lucide-react';
+import { StatCard } from '@/components/smart-templates/StatCard';
+import { DashboardActivityItem } from './DashboardActivityItem';
 
 interface DashboardPreviewTemplateProps {
   animationDelay?: string;
 }
 
-export function DashboardPreviewTemplate({
-  animationDelay = "0.6s",
-}: DashboardPreviewTemplateProps) {
+export function DashboardPreviewTemplate({ animationDelay = '0.6s' }: DashboardPreviewTemplateProps) {
   return (
     <div className="hero-dashboard-preview hidden lg:block animate-fade-in v26-delay-500">
       <div className="relative">
@@ -26,6 +24,7 @@ export function DashboardPreviewTemplate({
 
         {/* Premium Dashboard Mockup Container */}
         <div className="hero-dashboard-preview__container relative rounded-3xl overflow-hidden shadow-2xl transition-transform duration-500 hover-scale">
+
           {/* Premium Dashboard Header */}
           <div className="hero-dashboard-preview__header px-8 py-6 border-b backdrop-blur-sm">
             <div className="flex items-center justify-between">
@@ -43,7 +42,9 @@ export function DashboardPreviewTemplate({
                 </div>
               </div>
               <div className="hero-dashboard-preview__live-badge px-3 py-1.5 rounded-lg backdrop-blur-sm animate-pulse">
-                <span className="font-sans text-xs font-bold">Live</span>
+                <span className="font-sans text-xs font-bold">
+                  Live
+                </span>
               </div>
             </div>
           </div>
@@ -52,18 +53,8 @@ export function DashboardPreviewTemplate({
           <div className="p-8 space-y-6">
             {/* KPI Cards Grid */}
             <div className="grid grid-cols-2 gap-4">
-              <StatCard
-                icon={FileText}
-                label="Aufträge"
-                value="142"
-                change={{ value: 12, trend: "up" }}
-              />
-              <StatCard
-                icon={Euro}
-                label="Umsatz"
-                value="12.5k"
-                change={{ value: 8, trend: "up" }}
-              />
+              <StatCard icon={FileText} label="Aufträge" value="142" change={{ value: 12, trend: 'up' }} />
+              <StatCard icon={Euro} label="Umsatz" value="12.5k" change={{ value: 8, trend: 'up' }} />
               <StatCard icon={Users} label="Fahrer" value="28" />
               <StatCard icon={Car} label="Fahrzeuge" value="35" />
             </div>

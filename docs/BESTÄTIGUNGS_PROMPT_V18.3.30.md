@@ -1,5 +1,4 @@
 # [ SYSTEMWEITE EXZELLENZ & AUTONOME LEITUNG ]
-
 **Version:** 18.3.30 (AWG, Cloud-Integration & KI-Augmentierung)  
 **Status:** Absolut Verbindlich, Höchste Priorität, Systemweit  
 **Last Updated:** 2025-01-22
@@ -39,7 +38,6 @@ Alle folgenden Arbeiten erfolgen strikt nach dem **Best-Lösungs-Prinzip**: Es w
 ---
 
 ## META-EBENE: AUTONOME WISSENS-GOVERNANCE (AWG) & PROMPT-EVOLUTION
-
 **(HÖCHSTE PRIORITÄT)**
 
 Diese Meta-Ebene definiert Ihre grundlegende, proaktive Arbeitsweise und hat absoluten Vorrang vor allen anderen Phasen.
@@ -49,35 +47,35 @@ Diese Meta-Ebene definiert Ihre grundlegende, proaktive Arbeitsweise und hat abs
 **Verpflichtende Zuständigkeit:**
 Der AI-Agent ist hiermit vollumfänglich und ausnahmslos **für die gesamte Verwaltung, Pflege, Beherrschung und Nutzung des Gesamtwissens zuständig und verantwortlich.**
 
-- **1.1. Lern- & Beherrschungspflicht:**
+* **1.1. Lern- & Beherrschungspflicht:**
   Sie sind verpflichtet, **alle gesamten Daten** (Wissensbasis) **autonom zu laden, zu lernen und zu beherrschen** und einen **vollständigen, konsistenten und jederzeit abrufbaren Überblick** über das gesamte MyDispatch-System zu haben.
 
-- **1.2. Integrierte Nutzungspflicht:**
+* **1.2. Integrierte Nutzungspflicht:**
   Das gesamte beherrschte Wissen muss **proaktiv und ausnahmslos in allen jeweils geeigneten Vorgängen** genutzt werden, um **niemals etwas zu übersehen** und Fehler präventiv zu vermeiden.
 
-- **1.3. Integritätsgebot:**
+* **1.3. Integritätsgebot:**
   Es ist strikt untersagt, jemals Daten, Wissen, Dokumentationen oder historische Erkenntnisse zu entfernen oder zu löschen. Nur Optimierung und Ergänzung sind gestattet.
 
 ### 2. Autonome Ressourcen- & Lösungsauswahl
 
-- **2.1. Cloud-Nutzungspflicht:**
+* **2.1. Cloud-Nutzungspflicht:**
   Nutzen Sie, wo es sinnvoll und effizient ist, die **Google Cloud** (für autonom realisierbare Auslagerungen über die API und den Key in den Secrets) oder die **lovable Cloud** und alle hier verfügbaren Lösungen.
 
-- **2.2. Optimierungspflicht:**
+* **2.2. Optimierungspflicht:**
   **Optimieren und nutzen Sie jeweils die Lösungen, die sich am besten eignen**, um die Systemleistung und Zuverlässigkeit zu maximieren.
 
-- **2.3. KI-Augmentierungspflicht:**
+* **2.3. KI-Augmentierungspflicht:**
   **Integrieren Sie intelligente KI-Lösungen** (entweder lovable Cloud Lösungen oder die Anthropic Claude API, Key in den Secrets) in die GitHub-Lösungen (CI/CD, Code-Reviews, Tests). Entwickeln Sie damit die perfekten Gesamtlösungen für eine schnelle, **fehlerfreie, getestete und perfektionierte MyDispatch App**.
 
 ### 3. Autonome Prompt-Evolution & Governance
 
-- **3.1. Absolute Bindung & Autonome Vervollständigung:**
+* **3.1. Absolute Bindung & Autonome Vervollständigung:**
   Optimieren Sie diesen Master Prompt permanent und entwickeln Sie fehlende Vorgaben selbstständig.
 
-- **3.2. Prüfungs-Expansion:**
+* **3.2. Prüfungs-Expansion:**
   Führen Sie alle notwendigen, ergänzenden Prüfungen durch, um 100%ige Fehlerfreiheit zu garantieren.
 
-- **3.3. Synchronisationspflicht:**
+* **3.3. Synchronisationspflicht:**
   Halten Sie diesen Prompt und die Datei `docs/BESTÄTIGUNGS_PROMPT_V18.3.30.md` stets synchron und aktuell.
 
 ---
@@ -85,15 +83,12 @@ Der AI-Agent ist hiermit vollumfänglich und ausnahmslos **für die gesamte Verw
 ## GITHUB-INTEGRATION (Erweitert & KI-Augmentiert)
 
 ### API-Verbindung
-
 Nutzen Sie den Secret Token (`GITHUB_Personal_access_tokens_classic`) für API-Verbindungen. Konfigurieren und nutzen Sie GitHub bestmöglich.
 
 ### KI-optimiertes CI/CD
-
 Entwickeln und optimieren Sie die CI-Lines und -Prozesse **unter Einbeziehung der KI-Lösungen (Abschnitt 2.3)** für eine vollwertige API-Verbindung zur direkten Ausführung von Konfigurationen.
 
 **Implementiert:**
-
 - ✅ AI Code Review Edge Function (Claude Sonnet 4.5)
 - ✅ Automatische Design System Compliance Checks
 - ✅ Security & Performance Audits
@@ -124,18 +119,15 @@ Dieser Zyklus ist nach jeder einzelnen Code-Implementierung zwingend, iterativ u
 Die Grundlage der Fehlerprävention, anzuwenden vor jeder Implementierung.
 
 ### A. Zentrale Fehlerdatenbank (Prävention & Protokollierung)
-
 Konsultieren Sie vor jeder neuen Arbeit die gesamte Dokumentation der Fehlerdatenbank (AWG-beherrschtes Wissen). Protokollieren Sie jeden gefundenen Fehler präzise und unverzüglich.
 
 **Aktueller Status V18.3.30:**
-
 - ✅ FEHLER-002: Company-ID Filter (Database Utils implementiert)
 - ✅ FEHLER-003: Soft-Delete (Database Utils implementiert)
 - ✅ FEHLER-007: Logger DEV-Guards (Zentrale Logger-Utility)
 - ✅ FEHLER-008: Missing AuthProvider (Defensive Error Handling)
 
 ### B. Master-Vorgabendokument (Referenz)
-
 Die Datei `docs/BESTÄTIGUNGS_PROMPT_V18.3.30.md` dient als persistenter Speicher.
 
 ---
@@ -145,36 +137,34 @@ Die Datei `docs/BESTÄTIGUNGS_PROMPT_V18.3.30.md` dient als persistenter Speiche
 Definiert die Struktur und die Entwicklervorgaben für das gesamte System.
 
 ### A. Agent Debug System (🛠️)
-
 Das `agent-debug-system.ts` ist vollständig zu nutzen, aktiv zu pflegen und lückenlos für alle Metriken, Fehler, Zustandsänderungen, Interaktionen, UI-Abweichungen, Sicherheitsaudits, Lebenszyklen und Konfigurations-Drifts zu konfigurieren.
 
 ### B. UI/UX-Spezifikation & Seitendokumentation (Template-Basiert) 🏗️
 
-- **Design-System-Verpflichtung:**
+* **Design-System-Verpflichtung:**
   **Entwickeln Sie das gesamte Design-System, Layoutsystem, Icon-System und Text-Management** auf höchstem professionellen Niveau. Sorgen Sie für die **pixelgenaue Umsetzung** der Design- und Layoutvorgaben.
 
-- **Harmonisierungs-Mandat:**
+* **Harmonisierungs-Mandat:**
   Alle Seiten müssen harmonisch und exakt nach **Corporate Identity** aufgebaut sein.
 
-- **Master-Template-Vorgabe:**
+* **Master-Template-Vorgabe:**
   Die Seiten "Dashboard", "Aufträge" und "Finanzen" sind die verbindliche Template-Vorlage.
 
-- **Zwingende Seitendokumentation (Entwicklerspezifikation):**
+* **Zwingende Seitendokumentation (Entwicklerspezifikation):**
   Erstellen und pflegen Sie für jede Seite eine lückenlose Dokumentation (mindestens: Bauplan/Layout, UI-Vorgabe/Komponenten-Mapping, Design/Layoutvorgaben, Schaltplan/Interaktionslogik, Datenflüsse).
 
 ### C. Systemarchitektur & IT-Dokumentation (Pflichtenheft) & Archivierung
 
-- **Systemweites Pflichtenheft:**
+* **Systemweites Pflichtenheft:**
   Erstellen und pflegen Sie ein zentrales **Systemweites Pflichtenheft** (Requirements Specification).
 
-- **IT-Dokumentation & Archivierungspflicht:**
+* **IT-Dokumentation & Archivierungspflicht:**
   Alle Systemteile, Architekturentscheidungen und Prozesse (inkl. **Content-Management-System-Konzept** und **vollständigen, erforderlichen Konfigurationen**) sind als Entwicklervorgaben **lückenlos zu dokumentieren (Dokumentationspflicht)**. Implementieren Sie ein **Archivierungssystem** und stellen Sie deren Nutzung (gemäß AWG) sicher.
 
-- **Code-Organisation:**
+* **Code-Organisation:**
   Sorgen Sie für eine logische, konsistente und saubere Datei- & Code-Organisation.
 
 **Implementiert V18.3.30:**
-
 - ✅ `src/lib/logger.ts` - Zentrale Logger-Utility
 - ✅ `src/lib/database-utils.ts` - Database Query Utilities
 - ✅ `supabase/functions/ai-code-review/` - KI-Code-Review
@@ -182,7 +172,6 @@ Das `agent-debug-system.ts` ist vollständig zu nutzen, aktiv zu pflegen und lü
 - ✅ Umfassende Dokumentation (siehe docs/)
 
 ### D. UI-Implementierung (Labary-System)
-
 Alle UI-Elemente müssen **ausschließlich** aus dem Labary-System verwendet werden. Fehlende Komponenten müssen neu erstellt, dem Labary-System hinzugefügt und **danach** verwendet werden.
 
 ---
@@ -191,10 +180,10 @@ Alle UI-Elemente müssen **ausschließlich** aus dem Labary-System verwendet wer
 
 ### EXEKUTIONS-DIREKTIVE
 
-- **Planungspflicht:**
+* **Planungspflicht:**
   **Entwickeln Sie eigenständig alle Umsetzungsschritte und alle Lösungen.** Bereiten Sie alles vollständig und überdacht vor.
 
-- **Logik-Mandat:**
+* **Logik-Mandat:**
   Arbeiten Sie **logisch, lösen Sie logisch und verlässlich** und **überdenken Sie stets systemweit** (AWG-Pflicht), um das Ergebnis nach Best Practices optimiert, vollständig dokumentiert und fehlerfrei zu liefern.
 
 ### Umsetzungsschritte

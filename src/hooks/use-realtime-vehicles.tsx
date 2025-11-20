@@ -6,10 +6,10 @@
    - Company-Isolation via RLS
    ================================================================================== */
 
-import { useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { useQueryClient } from "@tanstack/react-query";
-import { logger } from "@/lib/logger";
+import { useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useQueryClient } from '@tanstack/react-query';
+import { logger } from '@/lib/logger';
 
 /**
  * Hook für Realtime-Updates von Fahrzeugen
@@ -20,27 +20,27 @@ export const useRealtimeVehicles = () => {
 
   useEffect(() => {
     const channel = supabase
-      .channel("vehicles-realtime-updates")
+      .channel('vehicles-realtime-updates')
       .on(
-        "postgres_changes",
+        'postgres_changes',
         {
-          event: "*",
-          schema: "public",
-          table: "vehicles",
+          event: '*',
+          schema: 'public',
+          table: 'vehicles'
         },
         (payload) => {
-          logger.info("📡 Realtime Vehicle Update", {
-            eventType: payload.eventType,
+          logger.info('📡 Realtime Vehicle Update', { 
+            eventType: payload.eventType, 
             data: payload.new,
-            component: "useRealtimeVehicles",
+            component: 'useRealtimeVehicles' 
           });
-
+          
           // Invalidiere Queries
-          queryClient.invalidateQueries({ queryKey: ["vehicles"] });
-
+          queryClient.invalidateQueries({ queryKey: ['vehicles'] });
+          
           // Bei Status-Änderung auch Dashboard aktualisieren
-          if (payload.new && typeof payload.new === "object" && "status" in payload.new) {
-            queryClient.invalidateQueries({ queryKey: ["dashboard-stats"] });
+          if (payload.new && typeof payload.new === 'object' && 'status' in payload.new) {
+            queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] });
           }
         }
       )

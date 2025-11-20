@@ -58,7 +58,7 @@
 
 /**
  * AUTOMATISIERTES FEHLER-SCAN-SYSTEM
- *
+ * 
  * Nutzt agent-debug-system.ts für:
  * - Vollständigen Codebase-Scan
  * - Fehler-Kategorisierung
@@ -78,7 +78,7 @@ interface ErrorScanReport {
 interface PrioritizedError {
   id: string;
   category: string;
-  severity: "critical" | "high" | "medium" | "low";
+  severity: 'critical' | 'high' | 'medium' | 'low';
   file: string;
   line: number;
   autoFixable: boolean;
@@ -91,44 +91,41 @@ interface PrioritizedError {
 ### **Phase 2: Batch-Fix-Strategie (80% Auto-Fix)**
 
 #### **Batch 1: Design-System (Auto-Fix: 90%)**
-
 ```typescript
 // Priority 1: CRITICAL (accent removal)
 // Estimated Time: 2 hours
 // Files: ~50
 
 const designSystemBatch = {
-  name: "Design System Violations",
+  name: 'Design System Violations',
   autoFixRate: 0.9,
-  files: ["src/components/**/*.tsx"],
+  files: ['src/components/**/*.tsx'],
   fixes: [
-    { pattern: /accent/g, replacement: "primary" },
-    { pattern: /text-white/g, replacement: "text-foreground" },
-    { pattern: /bg-black/g, replacement: "bg-background" },
-  ],
+    { pattern: /accent/g, replacement: 'primary' },
+    { pattern: /text-white/g, replacement: 'text-foreground' },
+    { pattern: /bg-black/g, replacement: 'bg-background' },
+  ]
 };
 ```
 
 #### **Batch 2: Mobile-First (Auto-Fix: 70%)**
-
 ```typescript
 // Priority 2: HIGH (touch targets, responsive)
 // Estimated Time: 3 hours
 // Files: ~40
 
 const mobileFirstBatch = {
-  name: "Mobile-First Violations",
+  name: 'Mobile-First Violations',
   autoFixRate: 0.7,
-  files: ["src/pages/**/*.tsx", "src/components/**/*.tsx"],
+  files: ['src/pages/**/*.tsx', 'src/components/**/*.tsx'],
   fixes: [
     { pattern: /<Button([^>]*)>/g, replacement: '<Button$1 className="min-h-[44px]">' },
-    { pattern: /text-(xs|sm|base)/g, replacement: "text-$1 sm:text-base md:text-lg" },
-  ],
+    { pattern: /text-(xs|sm|base)/g, replacement: 'text-$1 sm:text-base md:text-lg' },
+  ]
 };
 ```
 
 #### **Batch 3: Security (Manual: 80%)**
-
 ```typescript
 // Priority 3: CRITICAL (security issues)
 // Estimated Time: 8 hours
@@ -136,38 +133,34 @@ const mobileFirstBatch = {
 // ⚠️ REQUIRES MANUAL REVIEW
 
 const securityBatch = {
-  name: "Security Violations",
+  name: 'Security Violations',
   autoFixRate: 0.2,
-  files: ["src/hooks/**/*.tsx", "src/pages/**/*.tsx"],
+  files: ['src/hooks/**/*.tsx', 'src/pages/**/*.tsx'],
   manualReview: true,
   fixes: [
-    {
-      pattern: /\.select\((.*?)\)(?!.*company_id)/g,
-      replacement: '.select($1).eq("company_id", companyId)',
-    },
-    { pattern: /\.delete\(\)/g, replacement: ".update({ deleted_at: new Date().toISOString() })" },
-  ],
+    { pattern: /\.select\((.*?)\)(?!.*company_id)/g, 
+      replacement: '.select($1).eq("company_id", companyId)' },
+    { pattern: /\.delete\(\)/g, 
+      replacement: '.update({ deleted_at: new Date().toISOString() })' },
+  ]
 };
 ```
 
 #### **Batch 4: Accessibility (Auto-Fix: 60%)**
-
 ```typescript
 // Priority 4: MEDIUM (a11y)
 // Estimated Time: 4 hours
 // Files: ~35
 
 const a11yBatch = {
-  name: "Accessibility Issues",
+  name: 'Accessibility Issues',
   autoFixRate: 0.6,
-  files: ["src/components/**/*.tsx"],
+  files: ['src/components/**/*.tsx'],
   fixes: [
     { pattern: /<img([^>]*?)(?!alt)/g, replacement: '<img$1 alt=""' },
-    {
-      pattern: /<Button([^>]*?)>\s*<(.*?Icon)/g,
-      replacement: '<Button$1 aria-label="Action"><$2Icon',
-    },
-  ],
+    { pattern: /<Button([^>]*?)>\s*<(.*?Icon)/g, 
+      replacement: '<Button$1 aria-label="Action"><$2Icon' },
+  ]
 };
 ```
 
@@ -178,39 +171,33 @@ const a11yBatch = {
 ### **Woche 1: Critical & High (70% aller Fehler)**
 
 **Tag 1-2: Design System + Security (CRITICAL)**
-
 - ✅ Automated Design-System-Fixes (90% auto)
 - ⚠️ Manual Security Review + Fixes
 - 📊 Estimated: ~600 Fehler behoben
 
 **Tag 3-4: Mobile-First + Performance (HIGH)**
-
 - ✅ Automated Mobile-First-Fixes (70% auto)
 - ✅ Performance-Optimierungen (lazy loading, deps)
 - 📊 Estimated: ~400 Fehler behoben
 
 **Tag 5: Accessibility (MEDIUM)**
-
 - ✅ Automated A11y-Fixes (60% auto)
 - 📊 Estimated: ~200 Fehler behoben
 
 ### **Woche 2: Code Quality + Remaining (30%)**
 
 **Tag 6-7: Code Quality**
-
 - 🔧 Try-Catch-Blocks hinzufügen
 - 🔧 Utils für Formatter
 - 🔧 TODO/FIXME aufräumen
 - 📊 Estimated: ~200 Fehler behoben
 
 **Tag 8-9: Integration Testing**
-
 - 🧪 E2E-Tests für kritische Flows
 - 🧪 Regression-Testing
 - 🔍 Final Review
 
 **Tag 10: Dokumentation + Deployment**
-
 - 📝 Changelog erstellen
 - 📝 Migration-Guide
 - 🚀 Production Deployment
@@ -224,9 +211,9 @@ const a11yBatch = {
 ```typescript
 // scripts/automated-error-scan.ts
 
-import { agentDebugSystem } from "@/lib/agent-debug-system";
-import { glob } from "glob";
-import { readFileSync, writeFileSync } from "fs";
+import { agentDebugSystem } from '@/lib/agent-debug-system';
+import { glob } from 'glob';
+import { readFileSync, writeFileSync } from 'fs';
 
 interface ScanOptions {
   includePatterns: string[];
@@ -237,7 +224,7 @@ interface ScanOptions {
 
 async function scanCodebase(options: ScanOptions) {
   const files = await glob(options.includePatterns, {
-    ignore: options.excludePatterns,
+    ignore: options.excludePatterns
   });
 
   const allErrors: any[] = [];
@@ -248,22 +235,20 @@ async function scanCodebase(options: ScanOptions) {
     byCategory: {},
     bySeverity: {},
     autoFixable: 0,
-    files: [],
+    files: []
   };
 
   for (const file of files) {
-    const content = readFileSync(file, "utf-8");
-    const result = await agentDebugSystem.scanFiles([
-      {
-        path: file,
-        content,
-      },
-    ]);
+    const content = readFileSync(file, 'utf-8');
+    const result = await agentDebugSystem.scanFiles([{ 
+      path: file, 
+      content 
+    }]);
 
     if (result.totalErrors > 0) {
       scanResults.files.push({
         path: file,
-        errors: result.errors,
+        errors: result.errors
       });
       allErrors.push(...result.errors);
     }
@@ -271,12 +256,14 @@ async function scanCodebase(options: ScanOptions) {
 
   // Aggregate results
   scanResults.totalErrors = allErrors.length;
-  scanResults.autoFixable = allErrors.filter((e) => e.autoFixable).length;
+  scanResults.autoFixable = allErrors.filter(e => e.autoFixable).length;
 
   // Group by category
-  allErrors.forEach((error) => {
-    scanResults.byCategory[error.category] = (scanResults.byCategory[error.category] || 0) + 1;
-    scanResults.bySeverity[error.severity] = (scanResults.bySeverity[error.severity] || 0) + 1;
+  allErrors.forEach(error => {
+    scanResults.byCategory[error.category] = 
+      (scanResults.byCategory[error.category] || 0) + 1;
+    scanResults.bySeverity[error.severity] = 
+      (scanResults.bySeverity[error.severity] || 0) + 1;
   });
 
   // Generate fix suggestions
@@ -284,28 +271,36 @@ async function scanCodebase(options: ScanOptions) {
     scanResults.fixes = generateBatchFixes(allErrors);
   }
 
-  writeFileSync(options.outputFile, JSON.stringify(scanResults, null, 2));
+  writeFileSync(
+    options.outputFile,
+    JSON.stringify(scanResults, null, 2)
+  );
 
   return scanResults;
 }
 
 // Run scan
 scanCodebase({
-  includePatterns: ["src/**/*.tsx", "src/**/*.ts"],
-  excludePatterns: ["**/node_modules/**", "**/*.test.ts", "**/*.spec.ts"],
-  outputFile: "docs/ERROR_SCAN_REPORT.json",
-  generateFixes: true,
-}).then((results) => {
-  console.log("\n🎯 SCAN COMPLETE\n");
+  includePatterns: [
+    'src/**/*.tsx',
+    'src/**/*.ts'
+  ],
+  excludePatterns: [
+    '**/node_modules/**',
+    '**/*.test.ts',
+    '**/*.spec.ts'
+  ],
+  outputFile: 'docs/ERROR_SCAN_REPORT.json',
+  generateFixes: true
+}).then(results => {
+  console.log('\n🎯 SCAN COMPLETE\n');
   console.log(`Total Errors: ${results.totalErrors}`);
-  console.log(
-    `Auto-Fixable: ${results.autoFixable} (${Math.round((results.autoFixable / results.totalErrors) * 100)}%)`
-  );
-  console.log("\nBy Category:");
+  console.log(`Auto-Fixable: ${results.autoFixable} (${Math.round(results.autoFixable / results.totalErrors * 100)}%)`);
+  console.log('\nBy Category:');
   Object.entries(results.byCategory).forEach(([cat, count]) => {
     console.log(`  ${cat}: ${count}`);
   });
-  console.log("\nBy Severity:");
+  console.log('\nBy Severity:');
   Object.entries(results.bySeverity).forEach(([sev, count]) => {
     console.log(`  ${sev}: ${count}`);
   });
@@ -317,8 +312,8 @@ scanCodebase({
 ```typescript
 // scripts/batch-fix-runner.ts
 
-import { readFileSync, writeFileSync } from "fs";
-import { glob } from "glob";
+import { readFileSync, writeFileSync } from 'fs';
+import { glob } from 'glob';
 
 interface BatchFix {
   name: string;
@@ -334,7 +329,7 @@ async function runBatchFix(batch: BatchFix) {
   let filesChanged = 0;
 
   for (const file of files) {
-    let content = readFileSync(file, "utf-8");
+    let content = readFileSync(file, 'utf-8');
     const originalContent = content;
 
     // Apply fix
@@ -348,9 +343,9 @@ async function runBatchFix(batch: BatchFix) {
 
     // Save if changed
     if (content !== originalContent) {
-      writeFileSync(file, content, "utf-8");
+      writeFileSync(file, content, 'utf-8');
       filesChanged++;
-
+      
       // Count fixes
       const matches = originalContent.match(batch.pattern);
       fixedCount += matches?.length || 0;
@@ -363,38 +358,40 @@ async function runBatchFix(batch: BatchFix) {
 // Example: Run Design System Batch
 const designSystemBatches: BatchFix[] = [
   {
-    name: "Remove accent color",
+    name: 'Remove accent color',
     pattern: /\baccent\b/g,
-    replacement: "primary",
-    files: ["src/**/*.tsx", "src/**/*.ts"],
-    verify: (content) => !content.includes("accent"),
+    replacement: 'primary',
+    files: ['src/**/*.tsx', 'src/**/*.ts'],
+    verify: (content) => !content.includes('accent')
   },
   {
-    name: "Replace text-white with text-foreground",
+    name: 'Replace text-white with text-foreground',
     pattern: /text-white(?!\s*\/\*|\s*\/\/)/g,
-    replacement: "text-foreground",
-    files: ["src/**/*.tsx"],
+    replacement: 'text-foreground',
+    files: ['src/**/*.tsx'],
     verify: (content) => {
       // Verify no text-white outside comments
-      const lines = content.split("\n");
-      return !lines.some(
-        (line) => line.includes("text-white") && !line.includes("//") && !line.includes("/*")
+      const lines = content.split('\n');
+      return !lines.some(line => 
+        line.includes('text-white') && 
+        !line.includes('//') && 
+        !line.includes('/*')
       );
-    },
-  },
+    }
+  }
 ];
 
 // Run all batches
 (async () => {
-  console.log("\n🚀 STARTING BATCH FIXES\n");
-
+  console.log('\n🚀 STARTING BATCH FIXES\n');
+  
   for (const batch of designSystemBatches) {
     console.log(`Running: ${batch.name}...`);
     const result = await runBatchFix(batch);
     console.log(`✅ Fixed ${result.fixedCount} occurrences in ${result.filesChanged} files\n`);
   }
-
-  console.log("🎉 BATCH FIXES COMPLETE\n");
+  
+  console.log('🎉 BATCH FIXES COMPLETE\n');
 })();
 ```
 
@@ -403,7 +400,6 @@ const designSystemBatches: BatchFix[] = [
 ## 📊 ERFOLGSKRITERIEN
 
 ### **KPIs nach Woche 1:**
-
 - ✅ 70% aller Fehler behoben (1050/1500)
 - ✅ Alle CRITICAL-Fehler behoben
 - ✅ Alle HIGH-Fehler behoben
@@ -411,7 +407,6 @@ const designSystemBatches: BatchFix[] = [
 - ✅ TypeScript ohne Fehler
 
 ### **KPIs nach Woche 2:**
-
 - ✅ 95% aller Fehler behoben (1425/1500)
 - ✅ Alle Automated Tests grün
 - ✅ Lighthouse Score > 90
@@ -419,7 +414,6 @@ const designSystemBatches: BatchFix[] = [
 - ✅ Production Deployment erfolgreich
 
 ### **Qualitätsmetriken:**
-
 - Code Coverage: > 80%
 - Performance Budget: < 3s FCP
 - Accessibility Score: 100
@@ -431,18 +425,15 @@ const designSystemBatches: BatchFix[] = [
 ## 🔗 INTEGRATION MIT BESTEHENDEN SYSTEMEN
 
 ### **1. Brain-Query-System**
-
 - Vor jeder Fix-Session: Brain-Query für Best Practices
 - Nach jedem Batch: Dokumentation im Knowledge-System
 
 ### **2. Agent-Debug-System**
-
 - Continous Monitoring während Fixes
 - Real-time Fehler-Tracking
 - Auto-Regression-Detection
 
 ### **3. CI/CD-Pipeline**
-
 - Pre-Commit-Hooks für neue Fehler
 - Automated Testing nach jedem Batch
 - Deployment nur bei 0 Errors

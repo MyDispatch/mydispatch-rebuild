@@ -10,16 +10,16 @@
    - Einheitliches Eye-Icon für Details
    ================================================================================== */
 
-import { ReactNode } from "react";
-import { MainLayout } from "@/components/layout/MainLayout";
-import { DashboardBreadcrumb } from "@/components/layout/DashboardBreadcrumb";
-import { PageHeaderWithKPIs } from "@/components/shared/PageHeaderWithKPIs";
-import { DashboardSection } from "@/components/shared/DashboardSection";
-import { Input } from "@/lib/compat";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
-import { Search } from "lucide-react";
-import { LucideIcon } from "lucide-react";
+import { ReactNode } from 'react';
+import { MainLayout } from '@/components/layout/MainLayout';
+import { DashboardBreadcrumb } from '@/components/layout/DashboardBreadcrumb';
+import { PageHeaderWithKPIs } from '@/components/shared/PageHeaderWithKPIs';
+import { DashboardSection } from '@/components/shared/DashboardSection';
+import { Input } from '@/lib/compat';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { Search } from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
 
 interface KPICardData {
   title: string;
@@ -34,19 +34,19 @@ interface QuickAction {
   label: string;
   icon: LucideIcon;
   onClick: () => void;
-  variant?: "default" | "outline" | "ghost";
+  variant?: 'default' | 'outline' | 'ghost';
 }
 
 interface DashboardPageTemplateProps {
   // SEO & Layout
   pageTitle: string;
   pageDescription: string;
-  background?: "white" | "canvas" | "orbs-light";
-
+  background?: 'white' | 'canvas' | 'orbs-light';
+  
   // KPIs & Actions
   kpis: [KPICardData, KPICardData, KPICardData];
   quickActions: [QuickAction, QuickAction];
-
+  
   // Search & Filter
   searchTerm: string;
   onSearchChange: (value: string) => void;
@@ -54,17 +54,17 @@ interface DashboardPageTemplateProps {
   showArchived: boolean;
   onArchivedChange: (value: boolean) => void;
   archivedLabel?: string;
-
+  
   // Section Content
   sectionIcon: LucideIcon;
   sectionTitle: string;
   sectionBadge?: string | number;
   children: ReactNode;
-
+  
   // Quick Actions Panel (NEU V2.0)
   quickActionsPanelConfig?: {
     enabled?: boolean; // Default: false (opt-in für Migration)
-    variant?: "compact" | "standard"; // Default: 'standard'
+    variant?: 'compact' | 'standard'; // Default: 'standard'
     contextWidget?: ReactNode; // Custom Widget oder nutze context-widgets
   };
 }
@@ -72,15 +72,15 @@ interface DashboardPageTemplateProps {
 export function DashboardPageTemplate({
   pageTitle,
   pageDescription,
-  background = "canvas",
+  background = 'canvas',
   kpis,
   quickActions,
   searchTerm,
   onSearchChange,
-  searchPlaceholder = "Durchsuchen...",
+  searchPlaceholder = 'Durchsuchen...',
   showArchived,
   onArchivedChange,
-  archivedLabel = "Archivierte anzeigen",
+  archivedLabel = 'Archivierte anzeigen',
   sectionIcon,
   sectionTitle,
   sectionBadge,
@@ -96,7 +96,7 @@ export function DashboardPageTemplate({
           <div className="space-y-6">
             {/* Breadcrumbs */}
             <DashboardBreadcrumb />
-
+            
             {/* KPIs + Schnellzugriff */}
             <div className="mb-6">
               <PageHeaderWithKPIs
@@ -130,12 +130,16 @@ export function DashboardPageTemplate({
             </div>
 
             {/* Zentraler Bereich */}
-            <DashboardSection icon={sectionIcon} title={sectionTitle} badge={sectionBadge}>
+            <DashboardSection
+              icon={sectionIcon}
+              title={sectionTitle}
+              badge={sectionBadge}
+            >
               {children}
             </DashboardSection>
           </div>
         </div>
-
+        
         {/* Quick Actions Panel (NEU V2.0) */}
         {showQuickActionsPanel && (
           <aside className="hidden xl:block w-80 shrink-0">

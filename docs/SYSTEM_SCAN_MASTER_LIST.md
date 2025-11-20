@@ -1,5 +1,4 @@
 # 🔍 SYSTEM SCAN - MASTER-LISTE ALLER OFFENEN PUNKTE
-
 ## VOLLSTÄNDIGE KONSOLIDIERUNGS-ANALYSE
 
 **Status:** 🔴 IN PROGRESS  
@@ -22,7 +21,6 @@
 ## 🎯 P0 - KRITISCHE BLOCKER (24)
 
 ### CONFIG SYSTEM (8 Punkte) ✅ COMPLETE
-
 - [x] **P0.1** Zentrale Config Registry erstellen `/config/index.ts` ✅
 - [x] **P0.2** Pricing Plans Config zentralisieren (aktuell in 3+ Dateien) ✅
 - [x] **P0.3** Navigation Config zentralisieren ✅
@@ -33,7 +31,6 @@
 - [x] **P0.8** Environment Config harmonisieren ✅
 
 ### CONTENT MANAGEMENT (6 Punkte) ✅ COMPLETE
-
 - [x] **P0.9** Zentrale Content Registry erstellen `/config/content.ts` ✅
 - [x] **P0.10** Hardcoded Texte identifizieren (→ Migration in Phase 2)
 - [x] **P0.11** Button-Texte zentralisieren ✅
@@ -42,7 +39,6 @@
 - [x] **P0.14** Success Messages zentralisieren ✅
 
 ### COMPONENT LIBRARY (5 Punkte)
-
 - [ ] **P0.15** Component Library Completion (42/61 → 61/61)
 - [ ] **P0.16** V28 Component Standards enforcement (ESLint Rules)
 - [ ] **P0.17** Component Reusability Audit (Duplikate eliminieren)
@@ -50,7 +46,6 @@
 - [ ] **P0.19** Component Tests vervollständigen (aktuell 60% Coverage)
 
 ### DOCUMENTATION (5 Punkte)
-
 - [ ] **P0.20** Doc-Hierarchie implementieren (00-META, 01-STRATEGY, etc.)
 - [ ] **P0.21** Redundante Docs konsolidieren (45+ Dateien)
 - [ ] **P0.22** Auto-Doc-Generation System aufsetzen
@@ -62,7 +57,6 @@
 ## 🔥 P1 - HOHE PRIORITÄT (38)
 
 ### SEITEN - PRE-LOGIN (9 Punkte)
-
 **Fehlend: 9 von 25 Seiten**
 
 - [ ] **P1.1** `/features/fahrer-fahrzeuge` erstellen (Hero + Grid)
@@ -76,7 +70,6 @@
 - [ ] **P1.9** `/branchen/limousinen` erstellen
 
 ### GRAFIKEN (9 Punkte)
-
 **Fehlend: 9 Hero-Grafiken**
 
 - [ ] **P1.10** Hero-Grafik: Fahrer & Fahrzeuge Management
@@ -92,7 +85,6 @@
 ### COMPONENTS FEHLEND (19 Punkte)
 
 **Layout Components (5):**
-
 - [ ] **P1.19** Container (Standard-Container mit Padding)
 - [ ] **P1.20** Grid (Responsive Grid System)
 - [ ] **P1.21** Flex (Flexbox Wrapper)
@@ -100,33 +92,28 @@
 - [ ] **P1.23** Spacer (Dynamic Spacing)
 
 **Navigation (3):**
-
 - [ ] **P1.24** DropdownMenu (Mobile Navigation)
 - [ ] **P1.25** Breadcrumb (Page Navigation)
 - [ ] **P1.26** Tabs (Content Tabs)
 
 **Content (4):**
-
 - [ ] **P1.27** Hero (Wiederverwendbar für alle Seiten)
 - [ ] **P1.28** FeatureGrid (3-spaltig, responsive)
 - [ ] **P1.29** Testimonial (Einzelner Testimonial)
 - [ ] **P1.30** Avatar (User Avatar)
 
 **Feedback (4):**
-
 - [ ] **P1.31** Alert (Info/Warning/Error Alerts)
 - [ ] **P1.32** Tooltip (Hover Tooltips)
 - [ ] **P1.33** Popover (Click Popovers)
 - [ ] **P1.34** Skeleton (Loading Placeholders)
 
 **Forms (3):**
-
 - [ ] **P1.35** FormField (Wiederverwendbares Form Field)
 - [ ] **P1.36** DatePicker (Date Selection)
 - [ ] **P1.37** FileUpload (File Upload Component)
 
 ### TESTING (1 Punkt)
-
 - [ ] **P1.38** Test Automation System (Template-basiert)
 
 ---
@@ -134,7 +121,6 @@
 ## ⚡ P2 - MEDIUM PRIORITÄT (65)
 
 ### SEITEN - OPTIMIERUNG (5 Punkte)
-
 **Bestehende Seiten verbessern:**
 
 - [ ] **P2.1** Home (/) - V28.1 Migration finalisieren
@@ -144,7 +130,6 @@
 - [ ] **P2.5** Docs (/docs) - Navigation Improvement
 
 ### ERROR HANDLING (8 Punkte)
-
 - [ ] **P2.6** Global Error Handler erstellen `/lib/errors/index.ts`
 - [ ] **P2.7** Error Logging zentralisieren
 - [ ] **P2.8** Error Display Component erstellen
@@ -155,7 +140,6 @@
 - [ ] **P2.13** 404/500 Error Pages optimieren
 
 ### VALIDATION (7 Punkte)
-
 - [ ] **P2.14** Zentrale Validation Registry `/config/validation.ts`
 - [ ] **P2.15** Zod Schemas konsolidieren (aktuell verstreut)
 - [ ] **P2.16** Email Validation standardisieren
@@ -165,7 +149,6 @@
 - [ ] **P2.20** Client + Server Validation Sync
 
 ### PERFORMANCE (10 Punkte)
-
 - [ ] **P2.21** Bundle Size Analyse (Target: <250KB)
 - [ ] **P2.22** Code Splitting implementieren
 - [ ] **P2.23** Lazy Loading für alle Routes
@@ -178,7 +161,6 @@
 - [ ] **P2.30** CLS <0.1 sicherstellen
 
 ### SECURITY (8 Punkte)
-
 - [ ] **P2.31** Input Sanitization überall (DOMPurify)
 - [ ] **P2.32** XSS Prevention Audit
 - [ ] **P2.33** CSRF Protection implementieren
@@ -189,7 +171,6 @@
 - [ ] **P2.38** Security Headers (CSP, HSTS, etc.)
 
 ### ACCESSIBILITY (7 Punkte)
-
 - [ ] **P2.39** WCAG 2.1 AA Audit für alle Seiten
 - [ ] **P2.40** Keyboard Navigation vollständig
 - [ ] **P2.41** Focus Management überall
@@ -199,7 +180,6 @@
 - [ ] **P2.45** Axe Core Tests für alle Seiten
 
 ### SEO (6 Punkte)
-
 - [ ] **P2.46** Meta Tags für alle Seiten
 - [ ] **P2.47** Schema.org strukturierte Daten
 - [ ] **P2.48** Canonical URLs setzen
@@ -208,7 +188,6 @@
 - [ ] **P2.51** Open Graph Tags (Social Sharing)
 
 ### CI/CD (8 Punkte)
-
 - [ ] **P2.52** Automated Testing Pipeline
 - [ ] **P2.53** Visual Regression Tests (Percy/Chromatic)
 - [ ] **P2.54** E2E Tests (Playwright)
@@ -219,7 +198,6 @@
 - [ ] **P2.59** Monitoring & Alerts Integration
 
 ### MOBILE (6 Punkte)
-
 - [ ] **P2.60** Mobile Testing (iPhone, Android)
 - [ ] **P2.61** Touch Targets ≥44px überall
 - [ ] **P2.62** Swipe Gestures (wo sinnvoll)
@@ -232,39 +210,30 @@
 ## 📋 KATEGORISIERUNG NACH THEMENBEREICHEN
 
 ### 1️⃣ CONFIG & ARCHITECTURE (16 Punkte)
-
 `P0.1-8, P0.9-14, P2.14-15`
 
 ### 2️⃣ COMPONENTS (24 Punkte)
-
 `P0.15-19, P1.19-37`
 
 ### 3️⃣ PAGES & CONTENT (14 Punkte)
-
 `P1.1-9, P2.1-5`
 
 ### 4️⃣ GRAPHICS & ASSETS (9 Punkte)
-
 `P1.10-18`
 
 ### 5️⃣ TESTING & QA (8 Punkte)
-
 `P0.19, P1.38, P2.39-45, P2.52-55`
 
 ### 6️⃣ PERFORMANCE (10 Punkte)
-
 `P2.21-30`
 
 ### 7️⃣ SECURITY (8 Punkte)
-
 `P2.31-38`
 
 ### 8️⃣ ERROR HANDLING (8 Punkte)
-
 `P2.6-13`
 
 ### 9️⃣ DOCUMENTATION (5 Punkte)
-
 `P0.20-24`
 
 ---
@@ -274,7 +243,7 @@
 **Blocker-Kette (MUSS in dieser Reihenfolge):**
 
 ```
-1. Config System (P0.1-8)
+1. Config System (P0.1-8) 
    ↓
 2. Content Management (P0.9-14)
    ↓
@@ -286,7 +255,6 @@
 ```
 
 **Parallel möglich:**
-
 - Graphics (P1.10-18) kann parallel zu Components laufen
 - Error Handling (P2.6-13) kann parallel zu Components
 - Validation (P2.14-20) kann parallel zu Components
@@ -296,7 +264,6 @@
 ## 🎯 IMPLEMENTIERUNGS-PHASEN
 
 ### PHASE 1: FOUNDATION (Woche 1)
-
 **Ziel:** Zentrale Systeme aufbauen
 
 - [ ] Config System (P0.1-8)
@@ -309,7 +276,6 @@
 ---
 
 ### PHASE 2: COMPONENTS (Woche 2)
-
 **Ziel:** Component Library vervollständigen
 
 - [ ] Layout Components (P1.19-23)
@@ -323,7 +289,6 @@
 ---
 
 ### PHASE 3: PAGES (Woche 3)
-
 **Ziel:** Fehlende Seiten implementieren
 
 - [ ] Features Pages (P1.1-6)
@@ -335,7 +300,6 @@
 ---
 
 ### PHASE 4: QUALITY (Woche 4)
-
 **Ziel:** Qualitäts-Standards erfüllen
 
 - [ ] Performance Optimization (P2.21-30)
@@ -348,7 +312,6 @@
 ---
 
 ### PHASE 5: AUTOMATION (Woche 5)
-
 **Ziel:** CI/CD & Testing automatisieren
 
 - [ ] Test Automation (P1.38, P2.52-55)
@@ -362,7 +325,6 @@
 ## 🚨 KRITISCHE FEHLER-QUELLEN (aus LESSONS_LEARNED)
 
 ### Top 5 Fehler-Muster:
-
 1. **Component-Duplikation** (60% aller Fehler)
 2. **V26-Komponenten Verwendung** (80% Design-Breaks)
 3. **Fehlende Type Definitions** (40% TypeScript Errors)
@@ -370,7 +332,6 @@
 5. **Hardcoded Texte** (50% Content Maintenance Issues)
 
 ### Prävention durch Zentrale Systeme:
-
 - ✅ Component Registry (verhindert Duplikation)
 - ✅ ESLint Rules (verhindert V26-Verwendung)
 - ✅ Type Templates (verhindert fehlende Types)
@@ -382,7 +343,6 @@
 ## 📊 SUCCESS METRICS
 
 **Vor Zentralisierung:**
-
 - Config Files: 20+ verstreut
 - Content: Hardcoded in 50+ Components
 - Components: 42/61 (69%)
@@ -391,7 +351,6 @@
 - Design Violations: ~40%
 
 **Nach Zentralisierung (Ziel):**
-
 - Config Files: 1 zentrale Registry
 - Content: 1 Content Management System
 - Components: 61/61 (100%)
@@ -404,14 +363,12 @@
 ## ⏭️ NÄCHSTE SCHRITTE (DIESE SESSION)
 
 **SOFORT:**
-
 1. [ ] Diese Master-Liste mit User validieren
 2. [ ] Phase 1 (Foundation) starten
 3. [ ] Config System Design erstellen
 4. [ ] Content Management System Design
 
 **PARALLEL:**
-
 - [ ] Graphics Pipeline aufsetzen (P1.10-18)
 - [ ] Component Templates erstellen
 - [ ] Test Automation planen

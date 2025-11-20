@@ -10,11 +10,9 @@
 ## 1. PROJEKTÜBERSICHT
 
 ### 1.1 Systembeschreibung
-
 **MyDispatch** ist ein vollständiges Transport-Management-System (TMS) für Logistikunternehmen zur Verwaltung von Aufträgen, Fahrzeugen, Fahrern, Kunden und Finanzen.
 
 ### 1.2 Systemarchitektur
-
 - **Frontend:** React 18.3+ mit TypeScript
 - **Styling:** Tailwind CSS mit Custom Design System
 - **Backend:** Supabase (PostgreSQL, Auth, Storage, Edge Functions)
@@ -23,7 +21,6 @@
 - **UI-Komponenten:** Radix UI (Labary-System)
 
 ### 1.3 Deployment
-
 - **Development:** Lovable Cloud Preview
 - **Production:** Lovable Cloud Deploy
 - **Database:** Lovable Cloud (Supabase)
@@ -35,21 +32,18 @@
 ### 2.1 Benutzerverwaltung & Authentifizierung
 
 #### F-AUTH-001: Benutzerregistrierung
-
 - Email/Passwort-basierte Registrierung
 - Auto-Confirm Email aktiviert (Development)
 - Company-ID Zuordnung bei Registrierung
 - Profile-Erstellung mit Metadaten
 
 #### F-AUTH-002: Benutzeranmeldung
-
 - Email/Passwort-Login
 - Session-Management via Supabase Auth
 - Remember-Me-Funktion
 - Password-Reset-Flow
 
 #### F-AUTH-003: Rollensystem
-
 - **Rollen:**
   - `admin`: Volle System-Rechte
   - `dispatcher`: Auftrags- & Fahrer-Management
@@ -58,7 +52,6 @@
   - `customer`: Kunden-Portal-Zugriff
 
 #### F-AUTH-004: Multi-Tenancy
-
 - Strikte Datentrennung via `company_id`
 - Alle Queries filtern nach `company_id`
 - RLS Policies erzwingen Company-Isolation
@@ -66,7 +59,6 @@
 ### 2.2 Dashboard & Übersichten
 
 #### F-DASH-001: Hauptdashboard (DashboardV18_3)
-
 - **KPIs:**
   - Aktive Aufträge (Heute/Gesamt)
   - Offene Rechnungen (Betrag/Anzahl)
@@ -78,14 +70,12 @@
   - Letzte Aktivitäten (Timeline)
 
 #### F-DASH-002: Dokument-Ablauf-Dashboard
-
 - Ablaufende Dokumente (30/60/90 Tage)
 - Filterfunktion nach Typ
 - Sortierung nach Ablaufdatum
 - Archivierte Dokumente ausblenden
 
 #### F-DASH-003: Statistiken
-
 - Echtzeit-Updates via Supabase Functions
 - Materialized Views für Performance
 - Company-ID-Filter auf allen Stats
@@ -93,7 +83,6 @@
 ### 2.3 Auftragsverwaltung
 
 #### F-ORDER-001: Auftragserfassung
-
 - **Pflichtfelder:**
   - Auftragsnummer (auto-generiert)
   - Kunde (Dropdown)
@@ -107,7 +96,6 @@
   - Referenznummer
 
 #### F-ORDER-002: Auftragsübersicht
-
 - Tabellenansicht mit StandardTableTemplate
 - Filter: Status, Datum, Kunde, Fahrer
 - Suche: Auftragsnummer, Adresse
@@ -115,7 +103,6 @@
 - Bulk-Selection für Massenaktionen
 
 #### F-ORDER-003: Auftragsstatus
-
 - **Status-Workflow:**
   1. `pending` → Neu erstellt
   2. `confirmed` → Bestätigt
@@ -125,14 +112,12 @@
   6. `cancelled` → Storniert
 
 #### F-ORDER-004: Auftragszuweisung
-
 - Fahrer-Auswahl via Dropdown
 - Automatische Benachrichtigung an Fahrer
 - Status-Update auf `assigned`
 - Fahrzeug-Zuweisung optional
 
 #### F-ORDER-005: Auftragsdetails
-
 - EnhancedDetailDialog mit Action-Set "Booking"
 - Aktionen: Bearbeiten, PDF, Email, Archivieren
 - Related Entities: Kunde, Fahrer, Rechnung
@@ -141,7 +126,6 @@
 ### 2.4 Kunden-Management
 
 #### F-CUST-001: Kundenerfassung
-
 - **Pflichtfelder:**
   - Name
   - Email ODER Telefon
@@ -153,21 +137,18 @@
   - Notizen
 
 #### F-CUST-002: Kundenübersicht
-
 - StandardTableTemplate
 - Filter: Status, Region
 - Suche: Name, Email, Firma
 - Sortierung: Name, Erstelldatum
 
 #### F-CUST-003: Kundendetails
-
 - EnhancedDetailDialog
 - Related Entities: Aufträge, Rechnungen
 - Kommunikationshistorie
 - Dokumente
 
 #### F-CUST-004: Kundenkategorien
-
 - B2B / B2C Klassifizierung
 - VIP-Status
 - Zahlungskonditionen-Kategorien
@@ -175,7 +156,6 @@
 ### 2.5 Fahrer-Management
 
 #### F-DRIVER-001: Fahrererfassung
-
 - **Pflichtfelder:**
   - Vorname, Nachname
   - Email
@@ -188,14 +168,12 @@
   - Notizen
 
 #### F-DRIVER-002: Fahrerübersicht
-
 - Tab-Navigation: Aktive / Archivierte
 - StandardTableTemplate
 - Filter: Status, Qualifikation
 - Detail-Button am Zeilenende
 
 #### F-DRIVER-003: Fahrerdetails
-
 - EnhancedDetailDialog mit Action-Set "Driver"
 - Dokumenten-Management (Führerschein, ADR, etc.)
 - Zugewiesene Aufträge
@@ -203,7 +181,6 @@
 - Verfügbarkeitsstatus
 
 #### F-DRIVER-004: Dokument-Ablauf-Tracking
-
 - Automatische Warnung bei Ablauf <30 Tage
 - Status-Indikator (Grün/Gelb/Rot)
 - Erinnerungs-Funktion
@@ -211,7 +188,6 @@
 ### 2.6 Fahrzeug-Management
 
 #### F-VEHICLE-001: Fahrzeugerfassung
-
 - **Pflichtfelder:**
   - Kennzeichen
   - Fahrzeugtyp
@@ -224,14 +200,12 @@
   - GPS-Tracker-ID
 
 #### F-VEHICLE-002: Fahrzeugübersicht
-
 - Tab-Navigation: Aktive / Archivierte
 - StandardTableTemplate
 - Filter: Typ, Verfügbarkeit
 - Detail-Button am Zeilenende
 
 #### F-VEHICLE-003: Fahrzeugdetails
-
 - EnhancedDetailDialog mit Action-Set "Vehicle"
 - Dokumenten-Management (TÜV, Versicherung, etc.)
 - Wartungshistorie
@@ -239,7 +213,6 @@
 - GPS-Tracking-Integration (optional)
 
 #### F-VEHICLE-004: Wartungsplanung
-
 - Regelmäßige Wartungsintervalle
 - Automatische Erinnerungen
 - Wartungskosten-Tracking
@@ -247,14 +220,12 @@
 ### 2.7 Finanz-Management
 
 #### F-FIN-001: Rechnungserstellung
-
 - Manuelle Rechnungserstellung
 - Automatische Rechnungserstellung aus Auftrag
 - Rechnungsnummer (auto-generiert)
 - Mehrwertsteuer-Berechnung (19% / 7% / 0%)
 
 #### F-FIN-002: Rechnungsübersicht
-
 - Tab-Navigation: Rechnungen / Angebote / Gutschriften
 - StandardTableTemplate
 - Filter: Status, Datum, Kunde
@@ -262,27 +233,23 @@
 - Bulk-Export (PDF, CSV)
 
 #### F-FIN-003: Rechnungsdetails
-
 - EnhancedDetailDialog mit Action-Set "Invoice"
 - Aktionen: PDF, Email, Mahnung, Storno
 - Zahlungsstatus-Tracking
 - Related Entities: Kunde, Auftrag
 
 #### F-FIN-004: Zahlungsverfolgung
-
 - Status: Offen / Bezahlt / Überfällig / Storniert
 - Automatische Mahnstufen
 - Zahlungseingangs-Buchung
 - Zahlungserinnerungen
 
 #### F-FIN-005: Kostenstellen
-
 - Kategorisierung von Ausgaben
 - Budget-Tracking pro Kostenstelle
 - Reports & Auswertungen
 
 #### F-FIN-006: Dashboard
-
 - Offene Forderungen (Gesamt)
 - Überfällige Rechnungen
 - Umsatz (Monat/Jahr)
@@ -291,13 +258,11 @@
 ### 2.8 Dokument-Management
 
 #### F-DOC-001: Dokumenten-Upload
-
 - Dateitypen: PDF, JPG, PNG, DOCX
 - Max. Dateigröße: 10 MB
 - Automatische Thumbnail-Generierung
 
 #### F-DOC-002: Dokumenten-Kategorien
-
 - Führerscheine
 - TÜV-Bescheinigungen
 - Versicherungen
@@ -306,14 +271,12 @@
 - Rechnungsbelege
 
 #### F-DOC-003: Dokumenten-Ablauf
-
 - Ablaufdatum-Tracking
 - Automatische Benachrichtigungen
 - Status-Indikatoren
 - Filter nach Ablauf-Status
 
 #### F-DOC-004: Archivierung
-
 - Soft-Delete (is_archived Flag)
 - Archiv-Ansicht
 - Wiederherstellungs-Funktion
@@ -321,21 +284,18 @@
 ### 2.9 Kommunikation
 
 #### F-COMM-001: AI-Support-Chat
-
 - Integrierter Chat-Bot
 - Kontext-basierte Antworten
 - Ticket-Erstellung aus Chat
 - Chat-Historie
 
 #### F-COMM-002: Email-Versand
-
 - Rechnungs-Versand per Email
 - Auftragsbestätigungen
 - Erinnerungen & Mahnungen
 - Template-basiert
 
 #### F-COMM-003: Benachrichtigungen
-
 - In-App-Benachrichtigungen
 - Toast-Nachrichten
 - Ablauf-Warnungen
@@ -344,26 +304,22 @@
 ### 2.10 Fahrer-App
 
 #### F-APP-001: Fahrer-Login
-
 - Separate Fahrer-Auth
 - QR-Code-Login (optional)
 - Biometrische Authentifizierung (optional)
 
 #### F-APP-002: Fahrer-Dashboard
-
 - Heutige Aufträge
 - Auftragsstatus-Update
 - Navigation zu Adressen
 - Foto-Upload (POD - Proof of Delivery)
 
 #### F-APP-003: Auftragsliste
-
 - Zugewiesene Aufträge
 - Filter: Heute / Anstehend / Abgeschlossen
 - Sortierung: Zeit, Priorität
 
 #### F-APP-004: Auftragsdetails
-
 - Abhol-/Lieferadresse
 - Kontaktdaten
 - Frachtdetails
@@ -371,7 +327,6 @@
 - Navigation-Integration
 
 #### F-APP-005: Status-Updates
-
 - Status-Änderung per Button
 - Foto-Upload bei Zustellung
 - Unterschrift-Capture (optional)
@@ -380,25 +335,21 @@
 ### 2.11 Kunden-Portal
 
 #### F-PORTAL-001: Kunden-Login
-
 - Separate Kunden-Auth
 - Password-Reset
 - Session-Management
 
 #### F-PORTAL-002: Auftragsübersicht
-
 - Eigene Aufträge anzeigen
 - Filter: Status, Datum
 - Tracking-Link (optional)
 
 #### F-PORTAL-003: Auftragserstellung
-
 - Self-Service Auftragserfassung
 - Adress-Validierung
 - Sofortpreis-Kalkulation (optional)
 
 #### F-PORTAL-004: Rechnungen
-
 - Rechnungsübersicht
 - Download als PDF
 - Zahlungsstatus
@@ -410,19 +361,16 @@
 ### 3.1 Performance
 
 #### NF-PERF-001: Ladezeiten
-
 - Initiales Laden: <2s
 - Navigation zwischen Seiten: <500ms
 - API-Response: <1s (95. Perzentil)
 
 #### NF-PERF-002: Datenbankoptimierung
-
 - Materialized Views für Dashboards
 - Indizes auf alle Foreign Keys
 - Query-Performance-Monitoring
 
 #### NF-PERF-003: Caching
-
 - TanStack Query Cache: 5 Min
 - Supabase Connection Pooling
 - Browser-Cache für Static Assets
@@ -430,28 +378,24 @@
 ### 3.2 Sicherheit
 
 #### NF-SEC-001: Authentifizierung
-
 - Passwort-Mindestlänge: 8 Zeichen
 - Password-Hashing via Supabase Auth
 - Session-Timeout: 24h
 - Auto-Logout bei Inaktivität: 30 Min
 
 #### NF-SEC-002: Autorisierung
-
 - RLS Policies auf allen Tabellen
 - Company-ID-Filter auf alle Queries
 - Rollenbasierte Zugriffskontrollen
 - API-Key-Management für Integrations
 
 #### NF-SEC-003: Datenschutz
-
 - DSGVO-Konformität
 - Soft-Delete (keine Hard-Deletes)
 - Daten-Archivierung nach 7 Jahren
 - Audit-Logs für kritische Aktionen
 
 #### NF-SEC-004: Input-Validierung
-
 - Zod-Schemas für alle Forms
 - SQL-Injection-Prevention (Supabase RLS)
 - XSS-Prevention (React Escaping)
@@ -460,28 +404,24 @@
 ### 3.3 Usability
 
 #### NF-UX-001: Responsive Design
-
 - Mobile-First Approach
 - Breakpoints: 640px, 768px, 1024px, 1280px
 - Touch-Targets: min-h-[44px]
 - Keine horizontalen Scrolls
 
 #### NF-UX-002: Accessibility
-
 - WCAG 2.1 Level AA
 - Keyboard-Navigation
 - Screen-Reader-Support
 - Kontrast-Verhältnis >4.5:1
 
 #### NF-UX-003: Internationalisierung
-
 - Deutsche UI (Primary)
 - Datum/Zeit-Formate: DE (DD.MM.YYYY)
 - Währung: EUR
 - Vorbereitung für i18n (optional)
 
 #### NF-UX-004: Error-Handling
-
 - Benutzerfreundliche Fehlermeldungen
 - Toast-Notifications
 - Fallback-UIs bei Fehlern
@@ -490,28 +430,24 @@
 ### 3.4 Wartbarkeit
 
 #### NF-MAINT-001: Code-Qualität
-
 - TypeScript Strict Mode
 - ESLint + Prettier
 - 0 TypeScript Errors
 - Komponenten <300 Zeilen
 
 #### NF-MAINT-002: Dokumentation
-
 - JSDoc für komplexe Funktionen
 - README für jedes Modul
 - Seitendokumentation (Phase 3B)
 - Pflichtenheft (dieses Dokument)
 
 #### NF-MAINT-003: Testing
-
 - Unit-Tests für Utils
 - Integration-Tests für kritische Flows
 - E2E-Tests für Happy-Paths
 - Test-Coverage >80% (Ziel)
 
 #### NF-MAINT-004: Versionierung
-
 - Git-basiert
 - Semantic Versioning
 - Changelog
@@ -520,19 +456,16 @@
 ### 3.5 Skalierbarkeit
 
 #### NF-SCAL-001: Datenbank
-
 - Horizontal Scaling via Supabase
 - Connection Pooling
 - Partitioning bei >1M Rows (optional)
 
 #### NF-SCAL-002: Backend
-
 - Serverless Edge Functions
 - Auto-Scaling via Supabase
 - Rate-Limiting
 
 #### NF-SCAL-003: Frontend
-
 - Code-Splitting
 - Lazy-Loading für Routes
 - Image-Optimization
@@ -545,7 +478,6 @@
 ### 4.1 Haupttabellen
 
 #### profiles
-
 - `id` (uuid, PK)
 - `user_id` (uuid, FK → auth.users)
 - `company_id` (uuid, FK → companies)
@@ -555,7 +487,6 @@
 - `created_at` (timestamp)
 
 #### companies
-
 - `id` (uuid, PK)
 - `name` (text)
 - `slug` (text, unique)
@@ -563,7 +494,6 @@
 - `created_at` (timestamp)
 
 #### bookings (Aufträge)
-
 - `id` (uuid, PK)
 - `company_id` (uuid, FK)
 - `booking_number` (text, unique)
@@ -577,7 +507,6 @@
 - `created_at` (timestamp)
 
 #### customers (Kunden)
-
 - `id` (uuid, PK)
 - `company_id` (uuid, FK)
 - `name` (text)
@@ -588,7 +517,6 @@
 - `created_at` (timestamp)
 
 #### drivers (Fahrer)
-
 - `id` (uuid, PK)
 - `company_id` (uuid, FK)
 - `first_name` (text)
@@ -601,7 +529,6 @@
 - `created_at` (timestamp)
 
 #### vehicles (Fahrzeuge)
-
 - `id` (uuid, PK)
 - `company_id` (uuid, FK)
 - `license_plate` (text)
@@ -612,7 +539,6 @@
 - `created_at` (timestamp)
 
 #### invoices (Rechnungen)
-
 - `id` (uuid, PK)
 - `company_id` (uuid, FK)
 - `invoice_number` (text, unique)
@@ -625,7 +551,6 @@
 - `created_at` (timestamp)
 
 #### documents (Dokumente)
-
 - `id` (uuid, PK)
 - `company_id` (uuid, FK)
 - `entity_type` (text) -- 'driver', 'vehicle', 'booking'
@@ -639,7 +564,6 @@
 ### 4.2 Views & Materialized Views
 
 #### dashboard_stats (MV)
-
 - `company_id` (uuid)
 - `active_bookings_today` (int)
 - `total_active_bookings` (int)
@@ -649,27 +573,22 @@
 - `pending_documents` (int)
 
 #### mv_document_expiry_dashboard (MV)
-
 - Ablaufende Dokumente gruppiert nach Zeitfenstern
 
 #### v_all_expiring_documents (View)
-
 - Vereinheitlichte Sicht auf alle ablaufenden Dokumente
 
 ### 4.3 Functions
 
 #### get_dashboard_stats(p_company_id uuid)
-
 - Security Definer Function
 - Liefert Dashboard-KPIs
 
 #### get_document_expiry_dashboard(p_company_id uuid)
-
 - Security Definer Function
 - Liefert Dokument-Ablauf-Daten
 
 #### get_expiring_documents(p_company_id uuid)
-
 - Security Definer Function
 - Liefert alle ablaufenden Dokumente
 
@@ -680,7 +599,6 @@
 ### 5.1 Farbschema (Semantic Tokens)
 
 #### Light Mode
-
 - `background`: hsl(0 0% 100%)
 - `foreground`: hsl(222.2 84% 4.9%)
 - `primary`: hsl(222.2 47.4% 11.2%)
@@ -694,7 +612,6 @@
 - `card-foreground`: hsl(222.2 84% 4.9%)
 
 #### Dark Mode
-
 - `background`: hsl(222.2 84% 4.9%)
 - `foreground`: hsl(210 40% 98%)
 - `primary`: hsl(210 40% 98%)
@@ -708,7 +625,6 @@
 - `card-foreground`: hsl(210 40% 98%)
 
 #### Status Colors
-
 - `status-success`: hsl(142.1 76.2% 36.3%)
 - `status-warning`: hsl(38 92% 50%)
 - `status-error`: hsl(0 84.2% 60.2%)
@@ -729,27 +645,23 @@
 ### 5.4 Komponenten
 
 #### StandardTableTemplate
-
 - Einheitliche Tabellenstruktur
 - Detail-Button am Zeilenende
 - Bulk-Selection Support
 - Rechtskonforme Zeitstempel (created_at)
 
 #### EnhancedDetailDialog
-
 - Alle Aktionen im PopUp
 - Vordefinierte Action-Sets
 - Related Entities Integration
 - Doppelte Bestätigung für kritische Aktionen
 
 #### Buttons
-
 - Varianten: default, secondary, outline, ghost, destructive
 - Größen: sm (h-9), default (h-10), lg (h-11)
 - Touch-Targets: min-h-[44px] auf Mobile
 
 #### Forms
-
 - Zod-basierte Validation
 - React Hook Form
 - Error-States
@@ -762,19 +674,16 @@
 ### 6.1 Testing-Strategie
 
 #### Unit-Tests
-
 - Utils (format-utils, validation-utils)
 - Helpers
 - Isolated Functions
 
 #### Integration-Tests
-
 - Form-Submissions
 - API-Calls
 - State-Management
 
 #### E2E-Tests
-
 - Auftragserstellung (Ende-zu-Ende)
 - Rechnungserstellung & Versand
 - Fahrer-Zuweisung
@@ -837,28 +746,24 @@
 ## 8. ROADMAP & ZUKÜNFTIGE FEATURES
 
 ### Phase 1 (Q1 2025) - ABGESCHLOSSEN
-
 - ✅ Core-System (Auth, Dashboard, CRUD)
 - ✅ Design-System Migration (V18.3.24)
 - ✅ Template-System (V18.3)
 - ✅ Security-Audit (V18.3.25)
 
 ### Phase 2 (Q2 2025) - IN ARBEIT
-
 - 🔄 Seitendokumentation (Phase 3B)
 - 🔄 Pflichtenheft (Phase 3C)
 - 🔄 Mobile-App-Optimization
 - 🔄 Performance-Tuning
 
 ### Phase 3 (Q3 2025) - GEPLANT
-
 - 📋 GPS-Tracking-Integration
 - 📋 Automatische Routenplanung
 - 📋 WhatsApp-Integration für Notifications
 - 📋 Preiskalkulations-Engine
 
 ### Phase 4 (Q4 2025) - VISION
-
 - 📋 Machine-Learning für Auftragsprognosen
 - 📋 Multi-Language Support (EN, FR, PL)
 - 📋 Mobile-App (React Native)
@@ -886,8 +791,8 @@
 
 ### 9.3 Änderungshistorie
 
-| Version | Datum      | Änderung            | Autor    |
-| ------- | ---------- | ------------------- | -------- |
+| Version | Datum | Änderung | Autor |
+|---------|-------|----------|-------|
 | 18.3.27 | 2025-10-21 | Initiale Erstellung | AI Agent |
 
 ---

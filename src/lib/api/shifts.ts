@@ -2,10 +2,10 @@
  * HYPERION PHASE 2: Shifts API Module
  */
 
-import { TypedSupabaseClient, handleApiError } from "./client";
-import { Tables } from "@/integrations/supabase/types";
+import { TypedSupabaseClient, handleApiError } from './client';
+import { Tables } from '@/integrations/supabase/types';
 
-export type Shift = Tables<"shifts">;
+export type Shift = Tables<'shifts'>;
 
 export interface ShiftFilters {
   driver_id?: string;
@@ -40,16 +40,16 @@ export function createShiftsApi(supabase: TypedSupabaseClient): ShiftsApi {
     async list(filters = {}) {
       try {
         const query = supabase
-          .from("shifts")
-          .select("*")
-          .order("shift_start_time", { ascending: false });
+          .from('shifts')
+          .select('*')
+          .order('shift_start_time', { ascending: false });
 
         const conditions: any[] = [];
-
-        if (filters.driver_id) conditions.push(["driver_id", "eq", filters.driver_id]);
-        if (filters.date_from) conditions.push(["shift_start_time", "gte", filters.date_from]);
-        if (filters.date_to) conditions.push(["shift_end_time", "lte", filters.date_to]);
-        if (filters.status) conditions.push(["status", "eq", filters.status]);
+        
+        if (filters.driver_id) conditions.push(['driver_id', 'eq', filters.driver_id]);
+        if (filters.date_from) conditions.push(['shift_start_time', 'gte', filters.date_from]);
+        if (filters.date_to) conditions.push(['shift_end_time', 'lte', filters.date_to]);
+        if (filters.status) conditions.push(['status', 'eq', filters.status]);
 
         let finalQuery: any = query;
         for (const [field, op, value] of conditions) {
@@ -57,58 +57,69 @@ export function createShiftsApi(supabase: TypedSupabaseClient): ShiftsApi {
         }
 
         const { data, error } = await finalQuery;
-        if (error) handleApiError(error, "shifts.list");
+        if (error) handleApiError(error, 'shifts.list');
         return data || [];
       } catch (error) {
-        handleApiError(error, "shifts.list");
+        handleApiError(error, 'shifts.list');
       }
     },
 
     async getById(id) {
       try {
-        const { data, error } = await supabase.from("shifts").select("*").eq("id", id).single();
+        const { data, error } = await supabase
+          .from('shifts')
+          .select('*')
+          .eq('id', id)
+          .single();
 
-        if (error) handleApiError(error, "shifts.getById");
+        if (error) handleApiError(error, 'shifts.getById');
         return data!;
       } catch (error) {
-        handleApiError(error, "shifts.getById");
+        handleApiError(error, 'shifts.getById');
       }
     },
 
     async create(input) {
       try {
-        const { data, error } = await supabase.from("shifts").insert([input]).select().single();
+        const { data, error } = await supabase
+          .from('shifts')
+          .insert([input])
+          .select()
+          .single();
 
-        if (error) handleApiError(error, "shifts.create");
+        if (error) handleApiError(error, 'shifts.create');
         return data!;
       } catch (error) {
-        handleApiError(error, "shifts.create");
+        handleApiError(error, 'shifts.create');
       }
     },
 
     async update(id, updates) {
       try {
         const { data, error } = await supabase
-          .from("shifts")
+          .from('shifts')
           .update(updates)
-          .eq("id", id)
+          .eq('id', id)
           .select()
           .single();
 
-        if (error) handleApiError(error, "shifts.update");
+        if (error) handleApiError(error, 'shifts.update');
         return data!;
       } catch (error) {
-        handleApiError(error, "shifts.update");
+        handleApiError(error, 'shifts.update');
       }
     },
 
     async delete(id) {
       try {
-        const { error } = await supabase.from("shifts").delete().eq("id", id);
+        const { error } = await supabase
+          .from('shifts')
+          .delete()
+          .eq('id', id);
 
-        if (error) handleApiError(error, "shifts.delete");
+        if (error) handleApiError(error, 'shifts.delete');
       } catch (error) {
-        handleApiError(error, "shifts.delete");
+        handleApiError(error, 'shifts.delete');
       }
     },
   };

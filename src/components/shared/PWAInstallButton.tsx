@@ -6,14 +6,14 @@
    Autor: NeXify AI MASTER
    ================================================================================== */
 
-import { useState, useEffect } from "react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Download, X } from "lucide-react";
-import { useDeviceType } from "@/hooks/use-device-type";
+import { useState, useEffect } from 'react';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Download, X } from 'lucide-react';
+import { useDeviceType } from '@/hooks/use-device-type';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
 export function PWAInstallButton() {
@@ -24,7 +24,7 @@ export function PWAInstallButton() {
 
   useEffect(() => {
     // Check if already installed
-    if (window.matchMedia("(display-mode: standalone)").matches) {
+    if (window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true);
       return;
     }
@@ -36,11 +36,11 @@ export function PWAInstallButton() {
       setShowButton(true);
     };
 
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
     // Check if app is already installed
     const checkInstalled = () => {
-      if (window.matchMedia("(display-mode: standalone)").matches) {
+      if (window.matchMedia('(display-mode: standalone)').matches) {
         setIsInstalled(true);
         setShowButton(false);
       }
@@ -50,7 +50,7 @@ export function PWAInstallButton() {
     const interval = setInterval(checkInstalled, 1000);
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       clearInterval(interval);
     };
   }, []);
@@ -61,7 +61,7 @@ export function PWAInstallButton() {
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
 
-    if (outcome === "accepted") {
+    if (outcome === 'accepted') {
       setIsInstalled(true);
       setShowButton(false);
     }
@@ -83,7 +83,9 @@ export function PWAInstallButton() {
       <div className="bg-white rounded-lg shadow-lg border border-slate-200 p-4 max-w-sm">
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex-1">
-            <h3 className="font-semibold text-slate-900 text-sm mb-1">MyDispatch installieren</h3>
+            <h3 className="font-semibold text-slate-900 text-sm mb-1">
+              MyDispatch installieren
+            </h3>
             <p className="text-xs text-slate-600">
               Installieren Sie MyDispatch für schnelleren Zugriff und Offline-Nutzung.
             </p>
@@ -106,7 +108,12 @@ export function PWAInstallButton() {
             <Download className="h-4 w-4 mr-2" />
             Installieren
           </V28Button>
-          <V28Button onClick={handleDismiss} variant="ghost" size="sm" className="min-h-[44px]">
+          <V28Button
+            onClick={handleDismiss}
+            variant="ghost"
+            size="sm"
+            className="min-h-[44px]"
+          >
             Später
           </V28Button>
         </div>

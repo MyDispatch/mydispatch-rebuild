@@ -16,54 +16,32 @@
    - Fallback: /unternehmer?tenant=id (Legacy-Support)
    ================================================================================== */
 
-import { useState } from "react";
-import { useSearchParams, useParams, Link, useNavigate } from "react-router-dom";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Phone, Mail, MapPin, Clock, UserPlus, Shield, FileText } from "lucide-react";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { BookingWidget } from "@/components/booking/BookingWidget";
-import { IntelligentAIChat } from "@/components/shared/IntelligentAIChat";
-import { WaveBackground } from "@/components/enhanced/WaveBackground";
-import { OptimizedImage } from "@/components/shared/OptimizedImage";
-import { formatBusinessHours } from "@/lib/business-hours-formatter";
-import { usePublicCompany } from "@/hooks/use-public-company";
-import { useDeviceType } from "@/hooks/use-device-type";
-import { cn } from "@/lib/utils";
-import { AuthHeader } from "@/components/auth/AuthHeader";
-import { TenantLandingFooter } from "@/components/tenant/TenantLandingFooter";
-import { getPortalPrimaryColor } from "@/lib/portal-theme";
-
-// 🔒 SECURITY: Interface matches companies_public_info view (safe fields only)
-interface CompanyData {
-  id: string;
-  name: string;
-  company_slug: string | null;
-  logo_url: string | null;
-  primary_color: string | null;
-  landingpage_title: string | null;
-  landingpage_hero_text: string | null;
-  landingpage_description: string | null;
-  city: string | null;
-  postal_code: string | null;
-  phone: string | null;
-  email: string | null;
-  business_hours: any;
-  widget_button_text: string | null;
-  widget_size: string | null;
-  widget_show_phone: boolean | null;
-  landingpage_enabled: boolean | null;
-  widget_enabled: boolean | null;
-}
+import { useState } from 'react';
+import { useSearchParams, useParams, Link, useNavigate } from 'react-router-dom';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Phone, Mail, MapPin, Clock, UserPlus, Shield, FileText } from 'lucide-react';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { BookingWidget } from '@/components/booking/BookingWidget';
+import { IntelligentAIChat } from '@/components/shared/IntelligentAIChat';
+import { WaveBackground } from '@/components/enhanced/WaveBackground';
+import { OptimizedImage } from '@/components/shared/OptimizedImage';
+import { formatBusinessHours } from '@/lib/business-hours-formatter';
+import { usePublicCompany, type CompanyData } from '@/hooks/use-public-company';
+import { useDeviceType } from '@/hooks/use-device-type';
+import { cn } from '@/lib/utils';
+import { AuthHeader } from '@/components/auth/AuthHeader';
+import { TenantLandingFooter } from '@/components/tenant/TenantLandingFooter';
+import { getPortalPrimaryColor } from '@/lib/portal-theme';
 
 export default function Unternehmer() {
   const { slug } = useParams();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { isMobile } = useDeviceType();
-
-  const tenantId = searchParams.get("tenant") || searchParams.get("id");
-
+  
+  const tenantId = searchParams.get('tenant') || searchParams.get('id');
+  
   const [bookingOpen, setBookingOpen] = useState(false);
 
   // React Query Hook für automatische Updates
@@ -78,12 +56,12 @@ export default function Unternehmer() {
   // Solution: Show booking widget for ALL companies - tariff enforcement happens on backend
   const hasBookingAccess = (company as any)?.widget_enabled || false;
   const hasCustomerPortal = company?.landingpage_enabled || false;
-
+  
   // Navigation handler for auth buttons
   const handleAuthNavigation = () => {
     if (company?.company_slug) {
-      sessionStorage.setItem("landing_company_slug", company.company_slug);
-      sessionStorage.setItem("landing_company_id", company.id);
+      sessionStorage.setItem('landing_company_slug', company.company_slug);
+      sessionStorage.setItem('landing_company_id', company.id);
       navigate(`/auth?company=${company.company_slug}`);
     }
   };
@@ -105,7 +83,7 @@ export default function Unternehmer() {
             <p className="text-muted-foreground mb-4">
               Die angeforderte Landingpage existiert nicht oder ist nicht verfügbar.
             </p>
-            <V28Button variant="primary" onClick={() => navigate("/")}>
+            <V28Button variant="primary" onClick={() => navigate('/')}>
               Zur Startseite
             </V28Button>
           </CardContent>
@@ -121,72 +99,64 @@ export default function Unternehmer() {
     <>
       <SEOHead
         title={company.landingpage_title || `${company.name} - Ihr Taxi- & Mietwagenservice`}
-        description={
-          company.landingpage_description ||
-          `Professioneller Taxi- und Mietwagenservice von ${company.name}. Jetzt buchen!`
-        }
-        canonical={
-          company.company_slug ? `/${company.company_slug}` : `/unternehmer?tenant=${company.id}`
-        }
+        description={company.landingpage_description || `Professioneller Taxi- und Mietwagenservice von ${company.name}. Jetzt buchen!`}
+        canonical={company.company_slug ? `/${company.company_slug}` : `/unternehmer?tenant=${company.id}`}
       />
 
       <div className="flex flex-col w-full bg-background">
         {/* UNIFIED HEADER V18.5.1 - EXAKT wie Marketing/Auth */}
-        <AuthHeader companyName={company.name} logoUrl={company.logo_url || undefined} />
+        <AuthHeader 
+          companyName={company.name}
+          logoUrl={company.logo_url || undefined}
+        />
 
         {/* Hero Section - V28.1 Split Layout mit Clean Background */}
         <section className="relative overflow-hidden mt-14 sm:mt-16 min-h-screen flex items-center bg-slate-50">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
               {/* Left Column: Content */}
-              <div
-                className={cn(
-                  "space-y-6 animate-fade-in",
-                  isMobile ? "text-center" : "text-center lg:text-left"
-                )}
-              >
+              <div className={cn(
+                "space-y-6 animate-fade-in",
+                isMobile ? "text-center" : "text-center lg:text-left"
+              )}>
                 {/* Company Logo Badge */}
                 {company.logo_url && (
-                  <div
-                    className={cn(
-                      "inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-slate-700/10 border border-slate-700/30",
-                      isMobile && "mx-auto"
-                    )}
-                  >
-                    <img src={company.logo_url} alt={company.name} className="h-7 object-contain" />
+                  <div className={cn(
+                    "inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-slate-700/10 border border-slate-700/30",
+                    isMobile && "mx-auto"
+                  )}>
+                    <img 
+                      src={company.logo_url} 
+                      alt={company.name} 
+                      className="h-7 object-contain" 
+                    />
                   </div>
                 )}
 
                 {/* Headline */}
-                <h1
-                  className={cn(
-                    "font-extrabold leading-tight text-slate-900",
-                    isMobile ? "text-4xl sm:text-5xl" : "text-5xl lg:text-7xl"
-                  )}
-                >
-                  {company.landingpage_title || "Ihr professioneller Fahrservice"}
+                <h1 className={cn(
+                  "font-extrabold leading-tight text-slate-900",
+                  isMobile ? "text-4xl sm:text-5xl" : "text-5xl lg:text-7xl"
+                )}>
+                  {company.landingpage_title || 'Ihr professioneller Fahrservice'}
                 </h1>
 
                 {/* Hero Text */}
-                <p
-                  className={cn(
-                    "text-slate-600 leading-relaxed",
-                    isMobile ? "text-lg" : "text-lg lg:text-2xl"
-                  )}
-                >
-                  {company.landingpage_hero_text || "Buchen Sie bequem online. Verfügbar 24/7."}
+                <p className={cn(
+                  "text-slate-600 leading-relaxed",
+                  isMobile ? "text-lg" : "text-lg lg:text-2xl"
+                )}>
+                  {company.landingpage_hero_text || 'Buchen Sie bequem online. Verfügbar 24/7.'}
                 </p>
 
                 {/* CTAs with Auth Navigation */}
-                <div
-                  className={cn(
-                    "flex flex-col sm:flex-row gap-4",
-                    isMobile ? "items-stretch" : "items-center lg:justify-start justify-center"
-                  )}
-                >
+                <div className={cn(
+                  "flex flex-col sm:flex-row gap-4",
+                  isMobile ? "items-stretch" : "items-center lg:justify-start justify-center"
+                )}>
                   {company.phone && (
                     <a href={`tel:${company.phone}`} className={cn(isMobile && "w-full")}>
-                      <V28Button
+                      <V28Button 
                         variant="primary"
                         size="lg"
                         fullWidth={isMobile}
@@ -198,7 +168,7 @@ export default function Unternehmer() {
                     </a>
                   )}
                   {hasBookingAccess && (company as any).widget_enabled && (
-                    <V28Button
+                    <V28Button 
                       variant="secondary"
                       size="lg"
                       onClick={() => setBookingOpen(true)}
@@ -206,18 +176,16 @@ export default function Unternehmer() {
                       iconPosition="left"
                       fullWidth={isMobile}
                     >
-                      {company.widget_button_text || "Online buchen"}
+                      {company.widget_button_text || 'Online buchen'}
                     </V28Button>
                   )}
                 </div>
 
                 {/* Trust Indicators - Mobile Optimized */}
-                <div
-                  className={cn(
-                    "flex flex-wrap gap-3 sm:gap-4 text-sm sm:text-base",
-                    isMobile ? "justify-center" : "justify-center lg:justify-start"
-                  )}
-                >
+                <div className={cn(
+                  "flex flex-wrap gap-3 sm:gap-4 text-sm sm:text-base",
+                  isMobile ? "justify-center" : "justify-center lg:justify-start"
+                )}>
                   <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-full shadow-sm">
                     <div className="h-2 w-2 rounded-full bg-slate-500 animate-pulse" />
                     <span className="font-medium text-slate-700">24/7 verfügbar</span>
@@ -267,9 +235,9 @@ export default function Unternehmer() {
                 <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
                   Melden Sie sich an, um Ihre Fahrten zu verwalten und Buchungen einzusehen.
                 </p>
-
+                
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <V28Button
+                  <V28Button 
                     variant="secondary"
                     size="lg"
                     onClick={handleAuthNavigation}
@@ -278,7 +246,11 @@ export default function Unternehmer() {
                   >
                     Kundenbereich Login
                   </V28Button>
-                  <V28Button variant="secondary" size="lg" onClick={handleAuthNavigation}>
+                  <V28Button 
+                    variant="secondary"
+                    size="lg"
+                    onClick={handleAuthNavigation}
+                  >
                     Noch kein Konto? Jetzt registrieren
                   </V28Button>
                 </div>
@@ -298,7 +270,7 @@ export default function Unternehmer() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="hover-lift card-hover animate-fade-in">
+                <Card className="hover-lift card-hover animate-fade-in">
                 <CardContent className="p-6 text-center">
                   <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 shadow-elegant">
                     <Phone className="h-7 w-7 text-foreground" />
@@ -310,10 +282,7 @@ export default function Unternehmer() {
                 </CardContent>
               </Card>
 
-              <Card
-                className="hover-lift card-hover animate-fade-in"
-                style={{ animationDelay: "0.1s" }}
-              >
+              <Card className="hover-lift card-hover animate-fade-in" style={{ animationDelay: '0.1s' }}>
                 <CardContent className="p-6 text-center">
                   <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 shadow-elegant">
                     <MapPin className="h-7 w-7 text-foreground" />
@@ -325,10 +294,7 @@ export default function Unternehmer() {
                 </CardContent>
               </Card>
 
-              <Card
-                className="hover-lift card-hover animate-fade-in"
-                style={{ animationDelay: "0.2s" }}
-              >
+              <Card className="hover-lift card-hover animate-fade-in" style={{ animationDelay: '0.2s' }}>
                 <CardContent className="p-6 text-center">
                   <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 shadow-elegant">
                     <Shield className="h-7 w-7 text-foreground" />
@@ -340,10 +306,7 @@ export default function Unternehmer() {
                 </CardContent>
               </Card>
 
-              <Card
-                className="hover-lift card-hover animate-fade-in"
-                style={{ animationDelay: "0.3s" }}
-              >
+              <Card className="hover-lift card-hover animate-fade-in" style={{ animationDelay: '0.3s' }}>
                 <CardContent className="p-6 text-center">
                   <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4 shadow-elegant">
                     <FileText className="h-7 w-7 text-foreground" />
@@ -362,7 +325,9 @@ export default function Unternehmer() {
         <section className="py-12 sm:py-16 bg-background relative">
           <WaveBackground position="bottom" color="primary" opacity={0.05} />
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl relative z-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">Unsere Leistungen</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4">
+              Unsere Leistungen
+            </h2>
             <p className="text-center text-muted-foreground mb-8 sm:mb-12 max-w-2xl mx-auto">
               Von Flughafentransfer bis Geschäftsreisen - wir sind Ihr zuverlässiger Partner
             </p>
@@ -375,8 +340,7 @@ export default function Unternehmer() {
                     Flughafentransfer
                   </h3>
                   <p className="text-muted-foreground mb-3">
-                    Sicherer und komfortabler Transfer zu allen deutschen und internationalen
-                    Flughäfen.
+                    Sicherer und komfortabler Transfer zu allen deutschen und internationalen Flughäfen.
                   </p>
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start gap-2">
@@ -514,7 +478,9 @@ export default function Unternehmer() {
                     {(company.postal_code || company.city) && (
                       <div className="flex items-start gap-3 p-2 -mx-2">
                         <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-foreground mt-1" />
-                        <span>{[company.postal_code, company.city].filter(Boolean).join(" ")}</span>
+                        <span>
+                          {[company.postal_code, company.city].filter(Boolean).join(' ')}
+                        </span>
                       </div>
                     )}
                   </div>
@@ -529,13 +495,13 @@ export default function Unternehmer() {
                     Öffnungszeiten
                   </h3>
                   <div className="space-y-2">
-                    {company.business_hours && typeof company.business_hours === "object" ? (
+                    {company.business_hours && typeof company.business_hours === 'object' ? (
                       Object.entries(company.business_hours).map(([day, hours]) => (
                         <div key={day} className="flex justify-between text-sm">
                           <span className="font-medium">{day}</span>
                           <span className="text-muted-foreground">
-                            {String(hours).toLowerCase() === "geschlossen"
-                              ? "Geschlossen"
+                            {String(hours).toLowerCase() === 'geschlossen' 
+                              ? 'Geschlossen' 
                               : `${hours} Uhr`}
                           </span>
                         </div>
@@ -555,13 +521,19 @@ export default function Unternehmer() {
               <div className="mt-8 sm:mt-12 text-center">
                 <Card className="max-w-2xl mx-auto glass-strong card-hover shadow-elegant">
                   <CardContent className="p-6 sm:p-8">
-                    <h3 className="text-xl sm:text-2xl font-bold mb-4">Online-Buchung verfügbar</h3>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-4">
+                      Online-Buchung verfügbar
+                    </h3>
                     <p className="text-muted-foreground mb-6">
-                      Buchen Sie Ihre Fahrt bequem online und profitieren Sie von unserem
+                      Buchen Sie Ihre Fahrt bequem online und profitieren Sie von unserem 
                       erstklassigen Service. Verfügbar 24/7.
                     </p>
-                    <V28Button variant="primary" size="lg" onClick={() => setBookingOpen(true)}>
-                      {company.widget_button_text || "Jetzt buchen"}
+                    <V28Button
+                      variant="primary"
+                      size="lg"
+                      onClick={() => setBookingOpen(true)}
+                    >
+                      {company.widget_button_text || 'Jetzt buchen'}
                     </V28Button>
                   </CardContent>
                 </Card>
@@ -573,22 +545,34 @@ export default function Unternehmer() {
               <div className="mt-8 sm:mt-12 text-center">
                 <Card className="max-w-2xl mx-auto glass-strong card-hover shadow-elegant">
                   <CardContent className="p-6 sm:p-8">
-                    <h3 className="text-xl sm:text-2xl font-bold mb-4">Kontaktieren Sie uns</h3>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-4">
+                      Kontaktieren Sie uns
+                    </h3>
                     <p className="text-muted-foreground mb-6">
-                      Für Buchungen und Anfragen kontaktieren Sie uns bitte telefonisch oder per
-                      E-Mail. Wir sind gerne für Sie da!
+                      Für Buchungen und Anfragen kontaktieren Sie uns bitte telefonisch 
+                      oder per E-Mail. Wir sind gerne für Sie da!
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       {company.phone && (
                         <a href={`tel:${company.phone}`}>
-                          <V28Button variant="primary" size="lg" icon={Phone} iconPosition="left">
+                          <V28Button
+                            variant="primary"
+                            size="lg"
+                            icon={Phone}
+                            iconPosition="left"
+                          >
                             Jetzt anrufen
                           </V28Button>
                         </a>
                       )}
                       {company.email && (
                         <a href={`mailto:${company.email}`}>
-                          <V28Button variant="secondary" size="lg" icon={Mail} iconPosition="left">
+                          <V28Button
+                            variant="secondary"
+                            size="lg"
+                            icon={Mail}
+                            iconPosition="left"
+                          >
                             E-Mail schreiben
                           </V28Button>
                         </a>
@@ -604,18 +588,20 @@ export default function Unternehmer() {
               <div className="mt-8 sm:mt-12 text-center">
                 <Card className="max-w-2xl mx-auto glass-strong card-hover shadow-elegant">
                   <CardContent className="p-6 sm:p-8">
-                    <h3 className="text-xl sm:text-2xl font-bold mb-4">Kundenportal-Zugang</h3>
+                    <h3 className="text-xl sm:text-2xl font-bold mb-4">
+                      Kundenportal-Zugang
+                    </h3>
                     <p className="text-muted-foreground mb-6">
-                      Bereits Kunde? Melden Sie sich an, um Ihre Buchungen zu verwalten und Ihren
-                      Buchungsverlauf einzusehen.
+                      Bereits Kunde? Melden Sie sich an, um Ihre Buchungen zu verwalten 
+                      und Ihren Buchungsverlauf einzusehen.
                     </p>
                     <V28Button
                       variant="primary"
                       size="lg"
                       onClick={() => {
                         // Store Company Context für Auth-Page Redirect
-                        sessionStorage.setItem("landing_company_slug", company.company_slug || "");
-                        sessionStorage.setItem("landing_company_id", company.id);
+                        sessionStorage.setItem('landing_company_slug', company.company_slug || '');
+                        sessionStorage.setItem('landing_company_id', company.id);
                         navigate(`/auth?company=${company.company_slug}`);
                       }}
                       icon={UserPlus}
@@ -631,7 +617,10 @@ export default function Unternehmer() {
         </section>
 
         {/* TENANT FOOTER V28.1 - Company-spezifische Legal Dialogs */}
-        <TenantLandingFooter companyName={company.name} primaryColor={primaryColor} />
+        <TenantLandingFooter
+          companyName={company.name}
+          primaryColor={primaryColor}
+        />
 
         {/* Booking Widget Dialog - NUR Business/Enterprise */}
         {company && hasBookingAccess && (company as any).widget_enabled && (
@@ -646,18 +635,19 @@ export default function Unternehmer() {
 
         {/* INTELLIGENT AI CHAT für Landing-Page (Endkunden-Support) */}
         {company && hasBookingAccess && (
-          <IntelligentAIChat
+          <IntelligentAIChat 
             isPublicLanding={true}
             companyData={{
               id: company.id,
               name: company.name,
               phone: company.phone || undefined,
               email: company.email || undefined,
-              address: [company.postal_code, company.city].filter(Boolean).join(" ") || undefined,
+              address: [company.postal_code, company.city].filter(Boolean).join(' ') || undefined,
               business_hours: company.business_hours,
             }}
           />
         )}
+
       </div>
     </>
   );

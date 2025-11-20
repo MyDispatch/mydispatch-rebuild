@@ -7,20 +7,20 @@
    ✅ ARIA Accessible + Keyboard Navigation
    ================================================================================== */
 
-import { useState, useRef, useEffect, useCallback } from "react";
-import { Send, Bot, X, Minimize2, Maximize2, Paperclip, Upload } from "lucide-react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Textarea } from "@/components/ui/textarea";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Card } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { supabase } from "@/integrations/supabase/client";
-import { useAuth } from "@/hooks/use-auth";
-import { toast } from "@/hooks/use-toast";
-import { handleError } from "@/lib/error-handler";
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { Send, Bot, X, Minimize2, Maximize2, Paperclip, Upload } from 'lucide-react';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Textarea } from '@/components/ui/textarea';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Card } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/use-auth';
+import { toast } from '@/hooks/use-toast';
+import { handleError } from '@/lib/error-handler';
 
 interface Message {
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
   content: string;
   attachmentUrl?: string;
   attachmentName?: string;
@@ -35,12 +35,11 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
   const { session } = useAuth();
   const [messages, setMessages] = useState<Message[]>([
     {
-      role: "assistant",
-      content:
-        "Hallo! Ich bin der Master-Agent. Wie kann ich dir helfen?\n\n💡 Tipp: Du kannst Dateien hochladen (.pdf, .md, .txt, .png, .jpg) bis 5MB.",
+      role: 'assistant',
+      content: 'Hallo! Ich bin der Master-Agent. Wie kann ich dir helfen?\n\n💡 Tipp: Du kannst Dateien hochladen (.pdf, .md, .txt, .png, .jpg) bis 5MB.',
     },
   ]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -57,72 +56,67 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
   }, [messages]);
 
   // File Upload Handler
-  const uploadFile = useCallback(
-    async (file: File): Promise<string | null> => {
-      if (!session?.user?.id) {
-        toast({ title: "Fehler", description: "Nicht angemeldet", variant: "destructive" });
-        return null;
-      }
+  const uploadFile = useCallback(async (file: File): Promise<string | null> => {
+    if (!session?.user?.id) {
+      toast({ title: 'Fehler', description: 'Nicht angemeldet', variant: 'destructive' });
+      return null;
+    }
 
-      // Validate File Type
-      const allowedTypes = [
-        "application/pdf",
-        "text/markdown",
-        "text/plain",
-        "image/png",
-        "image/jpeg",
-      ];
-      if (!allowedTypes.includes(file.type)) {
-        toast({
-          title: "Ungültiger Dateityp",
-          description: "Erlaubt: .pdf, .md, .txt, .png, .jpg",
-          variant: "destructive",
-        });
-        return null;
-      }
+    // Validate File Type
+    const allowedTypes = ['application/pdf', 'text/markdown', 'text/plain', 'image/png', 'image/jpeg'];
+    if (!allowedTypes.includes(file.type)) {
+      toast({
+        title: 'Ungültiger Dateityp',
+        description: 'Erlaubt: .pdf, .md, .txt, .png, .jpg',
+        variant: 'destructive',
+      });
+      return null;
+    }
 
-      // Validate File Size (5MB)
-      if (file.size > 5 * 1024 * 1024) {
-        toast({
-          title: "Datei zu groß",
-          description: "Maximal 5MB erlaubt",
-          variant: "destructive",
-        });
-        return null;
-      }
+    // Validate File Size (5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: 'Datei zu groß',
+        description: 'Maximal 5MB erlaubt',
+        variant: 'destructive',
+      });
+      return null;
+    }
 
-      try {
-        setUploadProgress(0);
-        const fileName = `${Date.now()}-${file.name}`;
-        const filePath = `${session.user.id}/${fileName}`;
+    try {
+      setUploadProgress(0);
+      const fileName = `${Date.now()}-${file.name}`;
+      const filePath = `${session.user.id}/${fileName}`;
 
-        const { data, error } = await supabase.storage.from("chat-uploads").upload(filePath, file, {
-          cacheControl: "3600",
+      const { data, error } = await supabase.storage
+        .from('chat-uploads')
+        .upload(filePath, file, {
+          cacheControl: '3600',
           upsert: false,
         });
 
-        if (error) throw error;
+      if (error) throw error;
 
-        // Get Public URL (private bucket, so signed URL)
-        const { data: urlData } = supabase.storage.from("chat-uploads").getPublicUrl(filePath);
+      // Get Public URL (private bucket, so signed URL)
+      const { data: urlData } = supabase.storage
+        .from('chat-uploads')
+        .getPublicUrl(filePath);
 
-        setUploadProgress(100);
-        toast({ title: "Upload erfolgreich", description: file.name });
-        return urlData.publicUrl;
-      } catch (error) {
-        handleError(error, "Upload fehlgeschlagen", { title: "Upload Error" });
-        toast({
-          title: "Upload fehlgeschlagen",
-          description: error instanceof Error ? error.message : "Unbekannter Fehler",
-          variant: "destructive",
-        });
-        return null;
-      } finally {
-        setUploadProgress(0);
-      }
-    },
-    [session, toast]
-  );
+      setUploadProgress(100);
+      toast({ title: 'Upload erfolgreich', description: file.name });
+      return urlData.publicUrl;
+    } catch (error) {
+      handleError(error, 'Upload fehlgeschlagen', { title: 'Upload Error' });
+      toast({
+        title: 'Upload fehlgeschlagen',
+        description: error instanceof Error ? error.message : 'Unbekannter Fehler',
+        variant: 'destructive',
+      });
+      return null;
+    } finally {
+      setUploadProgress(0);
+    }
+  }, [session, toast]);
 
   // Handle File Selection
   const handleFileSelect = useCallback(
@@ -136,7 +130,7 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
         setInput((prev) => `${prev}\n\n📎 Hochgeladen: [${file.name}](${url})`);
       }
       setSelectedFile(null);
-      if (fileInputRef.current) fileInputRef.current.value = "";
+      if (fileInputRef.current) fileInputRef.current.value = '';
     },
     [uploadFile]
   );
@@ -184,11 +178,11 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
   const streamChat = async (userMessage: Message) => {
     try {
       const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/master-chat`;
-
+      
       const response = await fetch(CHAT_URL, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY}`,
         },
         body: JSON.stringify({ messages: [...messages, userMessage] }),
@@ -200,20 +194,20 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let textBuffer = "";
-      let assistantContent = "";
+      let textBuffer = '';
+      let assistantContent = '';
 
       // Upsert assistant message progressively
       const upsertAssistant = (chunk: string) => {
         assistantContent += chunk;
         setMessages((prev) => {
           const last = prev[prev.length - 1];
-          if (last?.role === "assistant") {
+          if (last?.role === 'assistant') {
             return prev.map((m, i) =>
               i === prev.length - 1 ? { ...m, content: assistantContent } : m
             );
           }
-          return [...prev, { role: "assistant", content: assistantContent }];
+          return [...prev, { role: 'assistant', content: assistantContent }];
         });
       };
 
@@ -224,16 +218,16 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
         textBuffer += decoder.decode(value, { stream: true });
 
         let newlineIndex: number;
-        while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
+        while ((newlineIndex = textBuffer.indexOf('\n')) !== -1) {
           let line = textBuffer.slice(0, newlineIndex);
           textBuffer = textBuffer.slice(newlineIndex + 1);
 
-          if (line.endsWith("\r")) line = line.slice(0, -1);
-          if (line.startsWith(":") || line.trim() === "") continue;
-          if (!line.startsWith("data: ")) continue;
+          if (line.endsWith('\r')) line = line.slice(0, -1);
+          if (line.startsWith(':') || line.trim() === '') continue;
+          if (!line.startsWith('data: ')) continue;
 
           const jsonStr = line.slice(6).trim();
-          if (jsonStr === "[DONE]") break;
+          if (jsonStr === '[DONE]') break;
 
           try {
             const parsed = JSON.parse(jsonStr);
@@ -241,7 +235,7 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
             if (content) upsertAssistant(content);
           } catch {
             // Incomplete JSON - put it back
-            textBuffer = line + "\n" + textBuffer;
+            textBuffer = line + '\n' + textBuffer;
             break;
           }
         }
@@ -249,11 +243,11 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
 
       // Final flush
       if (textBuffer.trim()) {
-        for (const raw of textBuffer.split("\n")) {
-          if (!raw || raw.startsWith(":")) continue;
-          if (!raw.startsWith("data: ")) continue;
+        for (const raw of textBuffer.split('\n')) {
+          if (!raw || raw.startsWith(':')) continue;
+          if (!raw.startsWith('data: ')) continue;
           const jsonStr = raw.slice(6).trim();
-          if (jsonStr === "[DONE]") continue;
+          if (jsonStr === '[DONE]') continue;
           try {
             const parsed = JSON.parse(jsonStr);
             const content = parsed.choices?.[0]?.delta?.content;
@@ -262,12 +256,12 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
         }
       }
     } catch (error) {
-      handleError(error, "Master-Chat Stream-Fehler", { title: "Chat Stream Error" });
+      handleError(error, 'Master-Chat Stream-Fehler', { title: 'Chat Stream Error' });
       setMessages((prev) => [
         ...prev,
         {
-          role: "assistant",
-          content: "⚠️ Fehler bei der Verbindung zum Master-Agent. Bitte versuche es erneut.",
+          role: 'assistant',
+          content: '⚠️ Fehler bei der Verbindung zum Master-Agent. Bitte versuche es erneut.',
         },
       ]);
     }
@@ -276,9 +270,9 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
-    const userMessage: Message = { role: "user", content: input.trim() };
+    const userMessage: Message = { role: 'user', content: input.trim() };
     setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+    setInput('');
     setIsLoading(true);
 
     await streamChat(userMessage);
@@ -286,7 +280,7 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
@@ -299,11 +293,11 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
       className={`
         fixed z-50 bg-background/95 backdrop-blur-sm border-2 shadow-2xl
         transition-all duration-300
-        ${isMinimized ? "h-14" : "h-[500px]"}
-        ${isDragging ? "border-primary border-4 ring-4 ring-primary/30" : "border-primary/20"}
+        ${isMinimized ? 'h-14' : 'h-[500px]'}
+        ${isDragging ? 'border-primary border-4 ring-4 ring-primary/30' : 'border-primary/20'}
         ${
           // Mobile: Bottom-Fixed / Desktop: Right-Sidebar
-          "bottom-4 right-4 w-[calc(100vw-2rem)] sm:w-96 md:bottom-4 md:right-4"
+          'bottom-4 right-4 w-[calc(100vw-2rem)] sm:w-96 md:bottom-4 md:right-4'
         }
       `}
       aria-label="Master Agent Chat"
@@ -325,9 +319,13 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
             size="sm"
             onClick={() => setIsMinimized(!isMinimized)}
             className="h-7 w-7"
-            aria-label={isMinimized ? "Maximize Chat" : "Minimize Chat"}
+            aria-label={isMinimized ? 'Maximize Chat' : 'Minimize Chat'}
           >
-            {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+            {isMinimized ? (
+              <Maximize2 className="h-4 w-4" />
+            ) : (
+              <Minimize2 className="h-4 w-4" />
+            )}
           </V28Button>
           {onClose && (
             <V28Button
@@ -352,7 +350,9 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
               <div className="absolute inset-0 z-10 bg-primary/10 backdrop-blur-sm flex items-center justify-center border-2 border-dashed border-primary rounded-lg m-4">
                 <div className="text-center">
                   <Upload className="h-12 w-12 text-primary mx-auto mb-2" />
-                  <p className="text-sm font-semibold text-primary">Datei hier ablegen</p>
+                  <p className="text-sm font-semibold text-primary">
+                    Datei hier ablegen
+                  </p>
                   <p className="text-xs text-muted-foreground mt-1">
                     .pdf, .md, .txt, .png, .jpg (max 5MB)
                   </p>
@@ -364,15 +364,15 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
               {messages.map((msg, idx) => (
                 <div
                   key={idx}
-                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
+                  className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
                     className={`
                       max-w-[85%] rounded-lg px-3 py-2 text-sm
                       ${
-                        msg.role === "user"
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted text-foreground"
+                        msg.role === 'user'
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted text-foreground'
                       }
                     `}
                   >
@@ -387,11 +387,11 @@ export function MasterChatWidget({ isOpen = true, onClose }: MasterChatWidgetPro
                       <span className="w-2 h-2 bg-foreground/50 rounded-full animate-bounce" />
                       <span
                         className="w-2 h-2 bg-foreground/50 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.1s" }}
+                        style={{ animationDelay: '0.1s' }}
                       />
                       <span
                         className="w-2 h-2 bg-foreground/50 rounded-full animate-bounce"
-                        style={{ animationDelay: "0.2s" }}
+                        style={{ animationDelay: '0.2s' }}
                       />
                     </div>
                   </div>

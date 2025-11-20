@@ -9,11 +9,9 @@
 ## 🚨 KRITISCHES PROBLEM: HEX-FARBEN IN HSL-SYSTEM
 
 ### Problem-Beschreibung
-
 Das MyDispatch-System verwendet ein HSL-basiertes Farbsystem in `index.css` und `tailwind.config.ts`. Die Datei `unified-design-tokens.ts` verwendete jedoch Hex-Farben (#EADEBD, #323D5E), was zu **falschen Farbdarstellungen** führte, wenn diese Werte in Style-Objekten verwendet wurden.
 
 ### Symptome
-
 - Badge-Farben wurden nicht korrekt angezeigt
 - Beige (#EADEBD) erschien als gelb/falsche Farbe
 - Inkonsistenz zwischen CSS-Variablen und JavaScript-Tokens
@@ -25,7 +23,6 @@ Das MyDispatch-System verwendet ein HSL-basiertes Farbsystem in `index.css` und 
 ### Durchgeführte Änderungen
 
 #### 1. `unified-design-tokens.ts` - Basis-Farben
-
 ```typescript
 // ❌ VORHER (HEX)
 dunkelblau: '#323D5E',
@@ -39,7 +36,6 @@ weiss: 'hsl(0, 0%, 100%)',
 ```
 
 #### 2. Alle weiteren Hex-Farben konvertiert
-
 ```typescript
 // Status-Farben
 danger_red: 'hsl(0, 84%, 60%)',        // vorher #EF4444
@@ -53,7 +49,6 @@ border_neutral: 'hsl(220, 13%, 91%)',  // vorher #E5E7EB
 ```
 
 #### 3. Helper-Funktionen aktualisiert
-
 ```typescript
 // getCardStyle() und getPanelStyle()
 backgroundColor: 'hsl(0, 0%, 100%)',  // vorher '#FFFFFF'
@@ -65,23 +60,22 @@ backgroundColor: 'hsl(0, 0%, 100%)',  // vorher '#FFFFFF'
 
 ### Wichtige Farben (HEX → HSL)
 
-| Farbe           | HEX     | HSL                | Verwendung              |
-| --------------- | ------- | ------------------ | ----------------------- |
-| Dunkelblau      | #323D5E | hsl(225, 31%, 28%) | CI-Hauptfarbe, Primär   |
-| Beige           | #EADEBD | hsl(42, 49%, 78%)  | CI-Akzentfarbe, Premium |
-| Weiß            | #FFFFFF | hsl(0, 0%, 100%)   | Hintergrund, Text       |
-| Beige Hell      | #F9FAFB | hsl(42, 49%, 98%)  | Canvas, Card-BG         |
-| Dunkelblau Hell | #3F4C70 | hsl(225, 31%, 35%) | Hover, Active           |
-| Grau Border     | #E5E7EB | hsl(220, 13%, 91%) | Borders, Dividers       |
-| Rot Status      | #EF4444 | hsl(0, 84%, 60%)   | Error, Destructive      |
-| Orange Warning  | #F59E0B | hsl(43, 96%, 53%)  | Warning                 |
+| Farbe | HEX | HSL | Verwendung |
+|-------|-----|-----|------------|
+| Dunkelblau | #323D5E | hsl(225, 31%, 28%) | CI-Hauptfarbe, Primär |
+| Beige | #EADEBD | hsl(42, 49%, 78%) | CI-Akzentfarbe, Premium |
+| Weiß | #FFFFFF | hsl(0, 0%, 100%) | Hintergrund, Text |
+| Beige Hell | #F9FAFB | hsl(42, 49%, 98%) | Canvas, Card-BG |
+| Dunkelblau Hell | #3F4C70 | hsl(225, 31%, 35%) | Hover, Active |
+| Grau Border | #E5E7EB | hsl(220, 13%, 91%) | Borders, Dividers |
+| Rot Status | #EF4444 | hsl(0, 84%, 60%) | Error, Destructive |
+| Orange Warning | #F59E0B | hsl(43, 96%, 53%) | Warning |
 
 ---
 
 ## 📋 COMPLIANCE-CHECK
 
 ### Pre-Commit Checklist
-
 - [ ] Keine Hex-Farben (#...) in unified-design-tokens.ts
 - [ ] Alle Farben entweder als HSL oder RGBA definiert
 - [ ] index.css verwendet HSL ohne hsl() Wrapper (z.B. `225 31% 28%`)
@@ -89,7 +83,6 @@ backgroundColor: 'hsl(0, 0%, 100%)',  // vorher '#FFFFFF'
 - [ ] unified-design-tokens.ts verwendet vollständige HSL (z.B. `hsl(225, 31%, 28%)`)
 
 ### Grep-Befehle zur Überprüfung
-
 ```bash
 # Finde verbleibende Hex-Farben in unified-design-tokens.ts
 grep -n "#[0-9A-Fa-f]\{6\}" src/lib/design-system/unified-design-tokens.ts
@@ -111,13 +104,11 @@ grep -n "#[0-9A-Fa-f]\{6\}" src/lib/design-system/unified-design-tokens.ts
 ## ✅ QUALITÄTSSICHERUNG
 
 ### Test-Szenarien
-
 1. **Badge-Farben:** Beige und Dunkelblau müssen korrekt angezeigt werden
 2. **Consistency:** Farben in CSS und JS müssen identisch sein
 3. **Hover-States:** Alle interaktiven Farben müssen funktionieren
 
 ### Visuelle Validierung
-
 - [ ] -20% Badge zeigt korrektes Beige (hsl(42, 49%, 78%))
 - [ ] "Empfohlen" Badge zeigt korrektes Beige
 - [ ] Standard-Badge zeigt korrektes Dunkelblau (hsl(225, 31%, 28%))
@@ -137,7 +128,6 @@ grep -n "#[0-9A-Fa-f]\{6\}" src/lib/design-system/unified-design-tokens.ts
 ## 📝 CHANGELOG
 
 ### V1.0 (2025-01-15)
-
 - ✅ Alle Hex-Farben in HSL konvertiert
 - ✅ unified-design-tokens.ts vollständig HSL-basiert
 - ✅ Systemweite Farbkonsistenz hergestellt

@@ -14,8 +14,8 @@
    - Layout-Shift-Prevention: Ja (scrollTo vor Render)
    ================================================================================== */
 
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export function ScrollToTop() {
   const { pathname } = useLocation();
@@ -30,16 +30,16 @@ export function ScrollToTop() {
 
 /**
  * UPGRADE-PATH (OPTIONAL):
- *
+ * 
  * Wenn Projekt auf Data Router API umgestellt wird:
  * 1. BrowserRouter → createBrowserRouter
  * 2. ScrollToTop → ScrollRestoration (von react-router-dom)
  * 3. Besseres Verhalten (History-aware Scroll-Restoration)
- *
+ * 
  * Migration-Beispiel:
  * ```tsx
  * import { createBrowserRouter, RouterProvider, ScrollRestoration } from 'react-router-dom';
- *
+ * 
  * const router = createBrowserRouter([
  *   {
  *     path: '/',
@@ -50,7 +50,7 @@ export function ScrollToTop() {
  *     }))
  *   }
  * ]);
- *
+ * 
  * function App() {
  *   return (
  *     <RouterProvider router={router}>

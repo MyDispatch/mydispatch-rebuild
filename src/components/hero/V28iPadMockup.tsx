@@ -8,29 +8,28 @@
    ✅ V28.1 Design System Compliance
    ================================================================================== */
 
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 interface V28iPadMockupProps {
   children: ReactNode;
   className?: string;
-  tiltDirection?: "left" | "right";
+  tiltDirection?: 'left' | 'right';
 }
 
-export function V28iPadMockup({
-  children,
-  className = "",
-  tiltDirection = "left",
+export function V28iPadMockup({ 
+  children, 
+  className = '',
+  tiltDirection = 'left'
 }: V28iPadMockupProps) {
-  const transform3D =
-    tiltDirection === "left"
-      ? "rotateY(-8deg) rotateX(2deg) translateZ(0)"
-      : "rotateY(8deg) rotateX(2deg) translateZ(0)";
+  const transform3D = tiltDirection === 'left'
+    ? 'rotateY(-8deg) rotateX(2deg) translateZ(0)'
+    : 'rotateY(8deg) rotateX(2deg) translateZ(0)';
 
   return (
-    <div
+    <div 
       className={`relative ${className}`}
       style={{
-        perspective: "2000px",
+        perspective: '2000px',
       }}
     >
       {/* iPad-Container mit 3D-Transform */}
@@ -38,9 +37,9 @@ export function V28iPadMockup({
         className="relative transform transition-transform duration-500 hover:scale-[1.03]"
         style={{
           transform: transform3D,
-          transformStyle: "preserve-3d",
-          willChange: "transform",
-          backfaceVisibility: "hidden",
+          transformStyle: 'preserve-3d',
+          willChange: 'transform',
+          backfaceVisibility: 'hidden',
         }}
         role="img"
         aria-label="MyDispatch Dashboard Vorschau auf iPad Pro"
@@ -50,7 +49,9 @@ export function V28iPadMockup({
           {/* Screen */}
           <div className="relative rounded-[1.75rem] overflow-hidden bg-white shadow-inner">
             {/* Dashboard Content */}
-            <div className="relative z-10">{children}</div>
+            <div className="relative z-10">
+              {children}
+            </div>
           </div>
 
           {/* Home Button (unten mittig) */}

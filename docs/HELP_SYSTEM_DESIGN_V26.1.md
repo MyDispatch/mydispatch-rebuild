@@ -22,7 +22,6 @@ Dieses Dokument definiert das **Help-System** für MyDispatch, das höchste Nutz
 **Verwendung:** Für kurze Erklärungen direkt am UI-Element
 
 **Design:**
-
 ```typescript
 import { Tooltip } from '@/components/ui/tooltip';
 import { HelpCircle } from 'lucide-react';
@@ -33,7 +32,6 @@ import { HelpCircle } from 'lucide-react';
 ```
 
 **Platzierung:**
-
 - Rechts neben Label/Heading
 - Konsistente Position systemweit
 - Nicht im Fokus-Flow (kein Tab-Index)
@@ -45,7 +43,6 @@ import { HelpCircle } from 'lucide-react';
 **Verwendung:** Für längere Erklärungen zu Sektionen/Features
 
 **Design:**
-
 ```typescript
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Info } from 'lucide-react';
@@ -59,7 +56,6 @@ import { Info } from 'lucide-react';
 ```
 
 **Arten:**
-
 - Info (blau): Allgemeine Informationen
 - Success (grün): Erfolgsmeldungen
 - Warning (gelb): Warnungen
@@ -72,7 +68,6 @@ import { Info } from 'lucide-react';
 **Verwendung:** Für umfangreiche Erklärungen parallel zur Arbeit
 
 **Design:**
-
 ```typescript
 <div className="fixed right-0 top-16 w-80 h-full bg-card border-l p-4 overflow-y-auto">
   <h3 className="font-bold mb-4">Hilfe: {currentSection}</h3>
@@ -83,7 +78,6 @@ import { Info } from 'lucide-react';
 ```
 
 **Features:**
-
 - Kontextabhängig (zeigt Hilfe zur aktuellen Seite)
 - Durchsuchbar
 - Mit Screenshots/Illustrationen
@@ -96,12 +90,11 @@ import { Info } from 'lucide-react';
 **Verwendung:** Für neue Nutzer beim ersten Login
 
 **Design:**
-
 ```typescript
 import { WelcomeWizard } from '@/components/onboarding/WelcomeWizard';
 
 // Zeigt Step-by-Step Anleitung
-<WelcomeWizard
+<WelcomeWizard 
   steps={[
     { title: 'Willkommen', content: '...' },
     { title: 'Auftrag erstellen', content: '...' },
@@ -112,7 +105,6 @@ import { WelcomeWizard } from '@/components/onboarding/WelcomeWizard';
 ```
 
 **Features:**
-
 - Interaktiver Walkthrough
 - Überspringbar
 - Wiederaufrufbar über Hilfe-Menü
@@ -124,7 +116,6 @@ import { WelcomeWizard } from '@/components/onboarding/WelcomeWizard';
 **Verwendung:** Schriftliche Dokumentation ohne Videos
 
 **Struktur:**
-
 ```
 docs/
 ├── GETTING_STARTED.md          # Erste Schritte
@@ -138,7 +129,6 @@ docs/
 ```
 
 **Format:**
-
 - Schritt-für-Schritt Anleitungen
 - Screenshots mit Beschriftungen
 - Klare Beispiele
@@ -151,7 +141,6 @@ docs/
 **Verwendung:** Hilfreiche Fehlermeldungen in Formularen
 
 **Design:**
-
 ```typescript
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -170,7 +159,6 @@ const schema = z.object({
 ```
 
 **Prinzipien:**
-
 - Konkrete Fehlerbeschreibung (nicht "Ungültige Eingabe")
 - Lösungsvorschlag (z.B. "Format: +49 123 456789")
 - Inline neben Feld
@@ -183,7 +171,6 @@ const schema = z.object({
 **Verwendung:** Hilfreiche Anleitung wenn keine Daten vorhanden
 
 **Design:**
-
 ```typescript
 import { EmptyState } from '@/components/shared/EmptyState';
 
@@ -199,7 +186,6 @@ import { EmptyState } from '@/components/shared/EmptyState';
 ```
 
 **Prinzipien:**
-
 - Erklärt Zustand
 - Zeigt nächsten Schritt
 - Call-to-Action Button
@@ -212,7 +198,6 @@ import { EmptyState } from '@/components/shared/EmptyState';
 **Verwendung:** Erweiterte Features ausblendbar für Anfänger
 
 **Design:**
-
 ```typescript
 const [showAdvanced, setShowAdvanced] = useState(false);
 
@@ -220,15 +205,15 @@ const [showAdvanced, setShowAdvanced] = useState(false);
   {/* Basis-Felder */}
   <Input label="Name" />
   <Input label="E-Mail" />
-
+  
   {/* Erweiterte Felder */}
-  <button
+  <button 
     onClick={() => setShowAdvanced(!showAdvanced)}
     className="text-sm text-primary mt-2"
   >
     {showAdvanced ? 'Weniger Optionen' : 'Erweiterte Optionen'}
   </button>
-
+  
   {showAdvanced && (
     <div className="mt-4 space-y-4 border-t pt-4">
       <Input label="Abteilung" />
@@ -239,7 +224,6 @@ const [showAdvanced, setShowAdvanced] = useState(false);
 ```
 
 **Prinzipien:**
-
 - Einfache Basis-Ansicht
 - Erweiterte Features auf Wunsch
 - Klar gekennzeichnet
@@ -252,7 +236,6 @@ const [showAdvanced, setShowAdvanced] = useState(false);
 **Verwendung:** Tastaturkürzel für Power-User
 
 **Design:**
-
 ```typescript
 import { Dialog } from '@/components/ui/dialog';
 
@@ -285,7 +268,6 @@ import { Dialog } from '@/components/ui/dialog';
 **Verwendung:** Hilfe durchsuchen direkt in der App
 
 **Design:**
-
 ```typescript
 import { Command } from '@/components/ui/command';
 
@@ -305,7 +287,6 @@ import { Command } from '@/components/ui/command';
 ```
 
 **Features:**
-
 - Fuzzy Search
 - Kategorisiert
 - Mit Direktlinks
@@ -316,9 +297,7 @@ import { Command } from '@/components/ui/command';
 ## 📐 DESIGN STANDARDS
 
 ### Hilfe-Icons
-
 **MANDATORY:** Immer `HelpCircle` verwenden
-
 ```typescript
 import { HelpCircle } from 'lucide-react';
 
@@ -326,14 +305,12 @@ import { HelpCircle } from 'lucide-react';
 ```
 
 ### Farben
-
 - Info: `text-primary` / `bg-primary/10`
 - Success: `text-status-success` / `bg-status-success/10`
 - Warning: `text-status-warning` / `bg-status-warning/10`
 - Error: `text-status-error` / `bg-status-error/10`
 
 ### Positioning
-
 ```typescript
 // Tooltip neben Label
 <div className="flex items-center gap-2">
@@ -349,20 +326,17 @@ import { HelpCircle } from 'lucide-react';
 ## 🎓 CONTENT GUIDELINES
 
 ### Ton & Stil
-
 - **Freundlich:** "Willkommen" statt "Bitte beachten Sie"
 - **Konkret:** "Klicken Sie auf 'Speichern'" statt "Bestätigen Sie"
 - **Kurz:** Max. 2-3 Sätze pro Tooltip
 - **Aktiv:** "Erstellen Sie" statt "Es kann erstellt werden"
 
 ### Struktur
-
 1. **Was:** Was macht diese Funktion?
 2. **Warum:** Warum ist sie nützlich?
 3. **Wie:** Wie verwende ich sie?
 
 **Beispiel:**
-
 ```
 Auftrag erstellen
 -----------------
@@ -379,13 +353,11 @@ Dies ermöglicht die Zuweisung von Fahrzeugen und Fahrern.
 ## 📱 MOBILE HELP
 
 ### Touch-Friendly
-
 - Touch-Targets ≥44px
 - Tooltips auf Touch öffnen (nicht Hover)
 - Swipe-Gestures für Hilfe-Sidebar
 
 ### Vereinfachte Ansicht
-
 - Weniger Text auf Mobile
 - Größere Icons
 - Bottom Sheets statt Sidebar
@@ -410,7 +382,6 @@ Für jede neue Seite/Feature:
 ## ✅ QUALITÄTSSICHERUNG
 
 ### Testing
-
 1. **Usability Test:** Neuer Nutzer ohne Schulung
 2. **A11y Test:** Screen Reader kompatibel
 3. **Mobile Test:** Touch-Bedienung funktioniert

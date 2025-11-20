@@ -22,7 +22,6 @@ Diese Dokumentation ist **veraltet** und wurde durch die neue Master-Spezifikati
 ## 🎯 ÄNDERUNGEN PHASE 2
 
 ### 1. Master-Chat Integration in `/dashboard`
-
 - **Komponente:** `MasterChatWidget` (src/components/master/MasterChatWidget.tsx)
 - **Integration:** In `src/pages/Index.tsx` am Ende der Layout-Section
 - **Responsive:**
@@ -34,7 +33,6 @@ Diese Dokumentation ist **veraltet** und wurde durch die neue Master-Spezifikati
   - ARIA Accessible + Keyboard Navigation
 
 ### 2. Edge Function: `master-chat`
-
 - **Pfad:** `supabase/functions/master-chat/index.ts`
 - **Model:** google/gemini-2.5-flash via Lovable AI Gateway
 - **System-Prompt:** Master-Agent (Dashboard-Analysen, Code-Checks, Orchestrierung)
@@ -45,16 +43,14 @@ Diese Dokumentation ist **veraltet** und wurde durch die neue Master-Spezifikati
 - **Error-Handling:** 429 (Rate Limit), 402 (Payment), 500 (Gateway Error)
 
 ### 3. Route-Config Update
-
 - **Neue Route:** `/master` (protected, layout: main, requiredRole: 'master')
 - **Icon:** Crown
 - **Meta:** Master Control Center (AI-Agent Orchestrierung)
 
 ### 4. KPIs & Charts (Platzhalter-Daten)
-
 - **KPI Grid:** 4 Cards (Aktive Aufträge, Umsatz Heute, Aktive Fahrer, Verfügbare Fahrzeuge)
 - **Icons:** `h-4 w-4 text-muted-foreground` (Semantic Tokens)
-- **Charts:**
+- **Charts:** 
   - Revenue BarChart (recharts@2.15.4, height=300, fill=primary)
   - Order Status PieChart (Donut, innerRadius=60, outerRadius=80)
 - **Timeline:** Recent Activities (space-y-4, bg-primary Dots)
@@ -64,7 +60,6 @@ Diese Dokumentation ist **veraltet** und wurde durch die neue Master-Spezifikati
 ## 📊 NÄCHSTE SCHRITTE (PHASE 3)
 
 ### Datenfluss & Interaktionen
-
 1. **Queries mit TanStack:**
    - `get_dashboard_stats` (RPC, refetch 30s)
    - `revenue` (bookings grouped by date, 7 days)
@@ -86,20 +81,17 @@ Diese Dokumentation ist **veraltet** und wurde durch die neue Master-Spezifikati
 ## 🔧 TECHNICAL DETAILS
 
 ### Dependencies (neu hinzugefügt):
-
 - `@supabase/auth-js@2.72.0`
 - `@supabase/functions-js@2.5.0`
 - `@supabase/postgrest-js@1.21.4`
 - `@supabase/realtime-js@2.15.5`
 
 ### Secrets (konfiguriert):
-
 - ✅ `CLAUDE_4_5_KEY`
 - ✅ `OPENROUTER_KEY`
 - ✅ `LOVABLE_API_KEY`
 
 ### Build-Status:
-
 - ✅ TypeScript Compilation
 - ✅ Edge Function Deployment (auto via config.toml)
 - ✅ Responsive Layout Test (Mobile/Desktop)

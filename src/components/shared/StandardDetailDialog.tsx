@@ -9,23 +9,23 @@
    - Doppelte Bestätigung für kritische Aktionen
    ================================================================================== */
 
-import { ReactNode } from "react";
-import { EnhancedDetailDialog, DetailAction } from "@/components/templates/EnhancedDetailDialog";
-import { Eye } from "lucide-react";
-import { V28Button } from "@/components/design-system/V28Button";
+import { ReactNode } from 'react';
+import { EnhancedDetailDialog, DetailAction } from '@/components/templates/EnhancedDetailDialog';
+import { Eye } from 'lucide-react';
+import { V28Button } from '@/components/design-system/V28Button';
 
 interface StandardDetailDialogProps {
   // Dialog State
   open: boolean;
   onOpenChange: (open: boolean) => void;
-
+  
   // Content
   title: string;
   children: ReactNode;
   editForm?: ReactNode;
   createdAt?: string;
   relatedEntities?: ReactNode;
-
+  
   // Actions
   actions?: DetailAction[];
   onEdit?: () => void;
@@ -41,7 +41,7 @@ interface DetailTriggerProps {
 /**
  * Standardisierter Trigger-Button (Eye-Icon) für Detailansichten
  */
-export function DetailTrigger({ onClick, label = "Details" }: DetailTriggerProps) {
+export function DetailTrigger({ onClick, label = 'Details' }: DetailTriggerProps) {
   return (
     <V28Button
       variant="ghost"

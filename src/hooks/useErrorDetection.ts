@@ -6,8 +6,8 @@
    ✅ Auto-logs to error_logs table
    ================================================================================== */
 
-import { useEffect } from "react";
-import { useErrorDetectionContext } from "@/components/debug/ErrorDetectionProvider";
+import { useEffect } from 'react';
+import { useErrorDetectionContext } from '@/components/debug/ErrorDetectionProvider';
 
 interface UseErrorDetectionOptions {
   validateForms?: boolean;
@@ -29,17 +29,17 @@ export function useErrorDetection(options: UseErrorDetectionOptions = {}) {
     // Form Validation
     if (options.validateForms !== false && config.validateForms) {
       const validateForms = () => {
-        const forms = document.querySelectorAll("form");
+        const forms = document.querySelectorAll('form');
         forms.forEach((form) => {
-          const inputs = form.querySelectorAll("input, textarea, select");
+          const inputs = form.querySelectorAll('input, textarea, select');
           inputs.forEach((input) => {
             // Check for missing labels
             if (!input.id || !document.querySelector(`label[for="${input.id}"]`)) {
               addWarning({
                 id: `form-label-${Date.now()}`,
-                message: `Input without label: ${(input as HTMLInputElement).name || "unnamed"}`,
+                message: `Input without label: ${(input as HTMLInputElement).name || 'unnamed'}`,
                 timestamp: Date.now(),
-                source: options.componentName || "useErrorDetection",
+                source: options.componentName || 'useErrorDetection',
               });
             }
 
@@ -49,7 +49,7 @@ export function useErrorDetection(options: UseErrorDetectionOptions = {}) {
                 id: `form-validation-${Date.now()}`,
                 message: `Required input without validation pattern: ${(input as HTMLInputElement).name}`,
                 timestamp: Date.now(),
-                source: options.componentName || "useErrorDetection",
+                source: options.componentName || 'useErrorDetection',
               });
             }
           });
@@ -68,9 +68,9 @@ export function useErrorDetection(options: UseErrorDetectionOptions = {}) {
         if (renderTime > 100) {
           addWarning({
             id: `perf-render-${Date.now()}`,
-            message: `Slow component render: ${options.componentName || "unknown"} took ${renderTime.toFixed(0)}ms`,
+            message: `Slow component render: ${options.componentName || 'unknown'} took ${renderTime.toFixed(0)}ms`,
             timestamp: Date.now(),
-            source: options.componentName || "useErrorDetection",
+            source: options.componentName || 'useErrorDetection',
           });
         }
       };

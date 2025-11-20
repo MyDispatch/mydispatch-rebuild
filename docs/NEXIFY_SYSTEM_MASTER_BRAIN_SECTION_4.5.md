@@ -2,7 +2,7 @@
 
 **Status:** ✅ MANDATORY & BINDING  
 **Dokumentation:** `docs/DASHBOARD_SPECIAL_REQUIREMENTS_V26.1.md`  
-**Gültigkeit:** SYSTEMWEIT für alle Agenten
+**Gültigkeit:** SYSTEMWEIT für alle Agenten  
 
 ---
 
@@ -13,7 +13,6 @@
 **Komponente:** `src/components/dashboard/DashboardInfoPanel.tsx`
 
 #### Positionierung (CRITICAL):
-
 ```tsx
 position: fixed;
 z-index: 30;
@@ -21,16 +20,15 @@ bottom: 48px;      // 48px ÜBER dem Standard-Footer
 height: 80px;      // Feste Höhe (kompakt)
 
 // Dynamische Breite (Sidebar-responsive)
-sidebarExpanded
+sidebarExpanded 
   ? 'left-[560px] w-[calc(100%-560px)]'    // Expanded: 560px links
   : 'left-[384px] w-[calc(100%-384px)]'    // Collapsed: 384px links
 ```
 
 #### Content-Area Anpassung (MANDATORY):
-
 ```tsx
 // Desktop (mit InfoPanel)
-<div className="pb-[128px]">
+<div className="pb-[128px]"> 
   {/* 48px (Footer) + 80px (InfoPanel) = 128px */}
 </div>
 
@@ -41,7 +39,6 @@ sidebarExpanded
 ```
 
 #### Scrollable-Container:
-
 ```tsx
 // Scrollable-Area mit InfoPanel-Rücksicht
 <div className="h-[calc(100vh-256px)]">
@@ -73,8 +70,8 @@ html, body {
 ```css
 /* Webkit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 6px; /* Schmal */
-  height: 0px; /* Horizontal verboten */
+  width: 6px;             /* Schmal */
+  height: 0px;            /* Horizontal verboten */
 }
 
 ::-webkit-scrollbar-track {
@@ -82,7 +79,7 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--border)); /* Hintergrundfarbe - fast unsichtbar */
+  background: hsl(var(--border));  /* Hintergrundfarbe - fast unsichtbar */
   border-radius: 3px;
   transition: background 0.2s ease;
 }
@@ -102,7 +99,7 @@ html, body {
 
 ```css
 aside::-webkit-scrollbar {
-  width: 4px; /* Noch schmaler */
+  width: 4px;              /* Noch schmaler */
 }
 
 aside::-webkit-scrollbar-thumb {
@@ -131,36 +128,34 @@ aside::-webkit-scrollbar-thumb {
 ### 🔧 SUB-AGENTEN-INTEGRATION
 
 #### ai-code-analyzer (Violations erkennen):
-
 ```typescript
 const SCROLLBAR_VIOLATIONS = [
-  {
-    pattern: /overflow-x:\s*(auto|scroll)/,
-    severity: "CRITICAL",
-    message: "Horizontale Scrollbars verboten",
+  { 
+    pattern: /overflow-x:\s*(auto|scroll)/, 
+    severity: 'CRITICAL',
+    message: 'Horizontale Scrollbars verboten'
   },
-  {
-    pattern: /::-webkit-scrollbar\s*{\s*background:\s*(?!transparent)/,
-    severity: "HIGH",
-    message: "Scrollbar-Track muss transparent sein",
+  { 
+    pattern: /::-webkit-scrollbar\s*{\s*background:\s*(?!transparent)/, 
+    severity: 'HIGH',
+    message: 'Scrollbar-Track muss transparent sein'
   },
-  {
-    pattern: /scrollbar-color:\s*(?!hsl\(var\(--border\)\))/,
-    severity: "MEDIUM",
-    message: "Scrollbar muss Hintergrundfarbe nutzen",
+  { 
+    pattern: /scrollbar-color:\s*(?!hsl\(var\(--border\)\))/, 
+    severity: 'MEDIUM',
+    message: 'Scrollbar muss Hintergrundfarbe nutzen'
   },
 ];
 ```
 
 #### ai-code-migrator (Auto-Fix):
-
 ```typescript
 // Fix 1: Entferne overflow-x
-style={{ overflowX: 'auto' }}
+style={{ overflowX: 'auto' }}  
 →  className="overflow-y-auto"
 
 // Fix 2: Verwende scrollbar-hide
-style={{ scrollbarWidth: 'none' }}
+style={{ scrollbarWidth: 'none' }}  
 →  className="scrollbar-hide"
 
 // Fix 3: Dashboard-Spacing
@@ -169,31 +164,30 @@ style={{ scrollbarWidth: 'none' }}
 ```
 
 #### ai-visual-validator (Screenshot-Prüfung):
-
 ```typescript
 async function validateScrollbars(screenshot: Buffer) {
   const issues = [];
-
+  
   // Prüfe auf sichtbare horizontale Scrollbars
   if (detectHorizontalScrollbar(screenshot)) {
     issues.push({
-      severity: "CRITICAL",
-      message: "Horizontale Scrollbar erkannt",
+      severity: 'CRITICAL',
+      message: 'Horizontale Scrollbar erkannt',
       location: getScrollbarLocation(screenshot),
     });
   }
-
+  
   // Prüfe Scrollbar-Farbe (muss Hintergrundfarbe sein)
   const scrollbarColor = extractScrollbarColor(screenshot);
-  if (scrollbarColor !== "hsl(var(--border))") {
+  if (scrollbarColor !== 'hsl(var(--border))') {
     issues.push({
-      severity: "HIGH",
-      message: "Scrollbar nicht in Hintergrundfarbe",
-      expected: "hsl(var(--border))",
+      severity: 'HIGH',
+      message: 'Scrollbar nicht in Hintergrundfarbe',
+      expected: 'hsl(var(--border))',
       actual: scrollbarColor,
     });
   }
-
+  
   return issues;
 }
 ```
@@ -216,7 +210,6 @@ Für JEDEN Dashboard-Component:
 ### 📊 METRIKEN
 
 **Dashboard-Spezial-Violations:**
-
 - InfoPanel Positioning: ✅ Compliant (inline-style CRITICAL erlaubt)
 - Scrollbar-Violations: ✅ 0 (systemweit compliant)
 

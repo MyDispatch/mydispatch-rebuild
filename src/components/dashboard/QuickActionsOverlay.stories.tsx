@@ -4,16 +4,16 @@
    Stories for the QuickActionsOverlay component
    ================================================================================== */
 
-import type { Meta, StoryObj } from "@storybook/react";
-import { QuickActionsOverlay } from "./QuickActionsOverlay";
+import type { Meta, StoryObj } from '@storybook/react';
+import { QuickActionsOverlay } from './QuickActionsOverlay';
 
 const meta: Meta<typeof QuickActionsOverlay> = {
-  title: "Dashboard/QuickActionsOverlay",
+  title: 'Dashboard/QuickActionsOverlay',
   component: QuickActionsOverlay,
   parameters: {
-    layout: "padded",
+    layout: 'padded',
   },
-  tags: ["autodocs"],
+  tags: ['autodocs'],
 };
 
 export default meta;
@@ -25,7 +25,7 @@ export const Default: Story = {
     pendingBookings: 5,
     availableDrivers: 12,
     availableVehicles: 18,
-    todayRevenue: 3450.5,
+    todayRevenue: 3450.50,
   },
 };
 
@@ -35,7 +35,7 @@ export const HighActivity: Story = {
     pendingBookings: 23,
     availableDrivers: 8,
     availableVehicles: 15,
-    todayRevenue: 8750.0,
+    todayRevenue: 8750.00,
   },
 };
 
@@ -45,7 +45,7 @@ export const LowActivity: Story = {
     pendingBookings: 1,
     availableDrivers: 20,
     availableVehicles: 25,
-    todayRevenue: 450.0,
+    todayRevenue: 450.00,
   },
 };
 
@@ -55,7 +55,7 @@ export const NoPendingBookings: Story = {
     pendingBookings: 0,
     availableDrivers: 15,
     availableVehicles: 20,
-    todayRevenue: 1200.0,
+    todayRevenue: 1200.00,
   },
 };
 
@@ -65,7 +65,7 @@ export const LimitedResources: Story = {
     pendingBookings: 15,
     availableDrivers: 2,
     availableVehicles: 3,
-    todayRevenue: 5500.0,
+    todayRevenue: 5500.00,
   },
 };
 

@@ -6,26 +6,26 @@
    - Streaming-Antworten
    ================================================================================== */
 
-import React, { useState, useEffect, useRef } from "react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/lib/compat";
-import { MessageCircle, X, Send, Bot, User, Crown, TrendingUp, AlertTriangle } from "lucide-react";
-import { useLocation } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import { useAccountType } from "@/hooks/use-account-type";
-import { useAuth } from "@/hooks/use-auth";
-import { handleError } from "@/lib/error-handler";
+import React, { useState, useEffect, useRef } from 'react';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/lib/compat';
+import { MessageCircle, X, Send, Bot, User, Crown, TrendingUp, AlertTriangle } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+import { cn } from '@/lib/utils';
+import { useAccountType } from '@/hooks/use-account-type';
+import { useAuth } from '@/hooks/use-auth';
+import { handleError } from '@/lib/error-handler';
 
 interface Message {
-  role: "user" | "assistant";
+  role: 'user' | 'assistant';
   content: string;
 }
 
 export function AISupportWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
@@ -33,7 +33,7 @@ export function AISupportWidget() {
   const { profile, company } = useAuth();
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -43,61 +43,58 @@ export function AISupportWidget() {
   const getPageContext = () => {
     const path = location.pathname;
     const contexts: Record<string, string> = {
-      "/": "Dashboard - Übersicht über Aufträge, Fahrer und Fahrzeuge",
-      "/auftraege": "Auftragsverwaltung - Buchungen anlegen und verwalten",
-      "/fahrer": "Fahrerverwaltung - Fahrer anlegen und organisieren",
-      "/fahrzeuge": "Fahrzeugverwaltung - Fahrzeugflotte verwalten",
-      "/kunden": "Kundenverwaltung - Kunden anlegen und pflegen",
-      "/partner": "Partner-Netzwerk - Kooperationen verwalten",
-      "/schichtzettel": "Schichtzettel - Schichten dokumentieren",
-      "/rechnungen": "Rechnungsverwaltung - Rechnungen erstellen",
-      "/statistiken": "Statistiken - Auswertungen und Analysen",
-      "/unternehmen": "Unternehmenseinstellungen",
-      "/master-dashboard": "Master-Dashboard - Alle Unternehmen verwalten",
+      '/': 'Dashboard - Übersicht über Aufträge, Fahrer und Fahrzeuge',
+      '/auftraege': 'Auftragsverwaltung - Buchungen anlegen und verwalten',
+      '/fahrer': 'Fahrerverwaltung - Fahrer anlegen und organisieren',
+      '/fahrzeuge': 'Fahrzeugverwaltung - Fahrzeugflotte verwalten',
+      '/kunden': 'Kundenverwaltung - Kunden anlegen und pflegen',
+      '/partner': 'Partner-Netzwerk - Kooperationen verwalten',
+      '/schichtzettel': 'Schichtzettel - Schichten dokumentieren',
+      '/rechnungen': 'Rechnungsverwaltung - Rechnungen erstellen',
+      '/statistiken': 'Statistiken - Auswertungen und Analysen',
+      '/unternehmen': 'Unternehmenseinstellungen',
+      '/master-dashboard': 'Master-Dashboard - Alle Unternehmen verwalten',
     };
-    return contexts[path] || "MyDispatch Dashboard";
+    return contexts[path] || 'MyDispatch Dashboard';
   };
 
   const masterQuickActions = [
     {
       icon: AlertTriangle,
-      label: "Gefährdete Accounts",
-      prompt:
-        "Analysiere alle Companies: Welche sind gefährdet durch Zahlungsverzug, geringe Nutzung oder Support-Tickets? Sortiert nach Kündigungsrisiko.",
+      label: 'Gefährdete Accounts',
+      prompt: 'Analysiere alle Companies: Welche sind gefährdet durch Zahlungsverzug, geringe Nutzung oder Support-Tickets? Sortiert nach Kündigungsrisiko.',
     },
     {
       icon: TrendingUp,
-      label: "Top Performer",
-      prompt:
-        "Zeige die Top 10 Companies nach Umsatz, Aufträgen und Nutzungsintensität. Welche Erfolgsfaktoren haben diese?",
+      label: 'Top Performer',
+      prompt: 'Zeige die Top 10 Companies nach Umsatz, Aufträgen und Nutzungsintensität. Welche Erfolgsfaktoren haben diese?',
     },
     {
       icon: Crown,
-      label: "Upselling-Chancen",
-      prompt:
-        "Welche Starter-Accounts sollten auf Business upgraden? Analysiere Nutzung, Fahreranzahl und Feature-Bedarf.",
+      label: 'Upselling-Chancen',
+      prompt: 'Welche Starter-Accounts sollten auf Business upgraden? Analysiere Nutzung, Fahreranzahl und Feature-Bedarf.',
     },
   ];
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
 
-    const userMessage: Message = { role: "user", content: input };
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+    const userMessage: Message = { role: 'user', content: input };
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
     setIsLoading(true);
 
     try {
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-support-chat`,
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY}`,
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY}`,
           },
           body: JSON.stringify({
-            messages: messages.concat(userMessage).map((m) => ({
+            messages: messages.concat(userMessage).map(m => ({
               role: m.role,
               content: m.content,
             })),
@@ -109,15 +106,15 @@ export function AISupportWidget() {
       );
 
       if (!response.ok || !response.body) {
-        throw new Error("Fehler beim Abrufen der Antwort");
+        throw new Error('Fehler beim Abrufen der Antwort');
       }
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let assistantContent = "";
-      let textBuffer = "";
+      let assistantContent = '';
+      let textBuffer = '';
 
-      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
 
       while (true) {
         const { done, value } = await reader.read();
@@ -126,23 +123,23 @@ export function AISupportWidget() {
         textBuffer += decoder.decode(value, { stream: true });
 
         let newlineIndex: number;
-        while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
+        while ((newlineIndex = textBuffer.indexOf('\n')) !== -1) {
           let line = textBuffer.slice(0, newlineIndex);
           textBuffer = textBuffer.slice(newlineIndex + 1);
 
-          if (line.endsWith("\r")) line = line.slice(0, -1);
-          if (line.startsWith(":") || line.trim() === "") continue;
-          if (!line.startsWith("data: ")) continue;
+          if (line.endsWith('\r')) line = line.slice(0, -1);
+          if (line.startsWith(':') || line.trim() === '') continue;
+          if (!line.startsWith('data: ')) continue;
 
           const jsonStr = line.slice(6).trim();
-          if (jsonStr === "[DONE]") break;
+          if (jsonStr === '[DONE]') break;
 
           try {
             const parsed = JSON.parse(jsonStr);
             const content = parsed.choices?.[0]?.delta?.content as string | undefined;
             if (content) {
               assistantContent += content;
-              setMessages((prev) => {
+              setMessages(prev => {
                 const newMessages = [...prev];
                 newMessages[newMessages.length - 1].content = assistantContent;
                 return newMessages;
@@ -150,18 +147,18 @@ export function AISupportWidget() {
             }
           } catch {
             // Incomplete JSON, put it back
-            textBuffer = line + "\n" + textBuffer;
+            textBuffer = line + '\n' + textBuffer;
             break;
           }
         }
       }
     } catch (error) {
-      handleError(error, "AI-Chat Fehler");
-      setMessages((prev) => [
+      handleError(error, 'AI-Chat Fehler');
+      setMessages(prev => [
         ...prev,
         {
-          role: "assistant",
-          content: "Entschuldigung, es gab einen Fehler. Bitte versuchen Sie es erneut.",
+          role: 'assistant',
+          content: 'Entschuldigung, es gab einen Fehler. Bitte versuchen Sie es erneut.',
         },
       ]);
     } finally {
@@ -170,7 +167,7 @@ export function AISupportWidget() {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
@@ -190,9 +187,9 @@ export function AISupportWidget() {
       )}
 
       {/* Chat Widget */}
-      {isOpen && (
-        <Card className="fixed bottom-6 right-6 w-96 h-[500px] shadow-2xl z-50 flex flex-col">
-          <CardHeader className="bg-primary text-primary-foreground rounded-t-lg flex flex-row items-center justify-between p-4 pb-4">
+        {isOpen && (
+          <Card className="fixed bottom-6 right-6 w-96 h-[500px] shadow-2xl z-50 flex flex-col">
+            <CardHeader className="bg-primary text-primary-foreground rounded-t-lg flex flex-row items-center justify-between p-4 pb-4">
             <div className="flex items-center gap-2">
               <Bot className="h-5 w-5" />
               <CardTitle className="text-base">MyDispatch AI-Support</CardTitle>
@@ -205,17 +202,14 @@ export function AISupportWidget() {
             >
               <X className="h-4 w-4" />
             </V28Button>
-          </CardHeader>
+            </CardHeader>
 
-          {/* EU AI Act 2024/1689 Art. 50 & 52 Transparenz-Hinweis */}
-          <div className="px-4 py-2 bg-muted/30 text-xs text-muted-foreground">
-            ℹ️ AI-System: Gemini 2.5 Flash | Zweck: Support & Analyse |{" "}
-            <a href="/datenschutz" target="_blank" className="underline hover:text-foreground">
-              Datenschutz
-            </a>
-          </div>
+            {/* EU AI Act 2024/1689 Art. 50 & 52 Transparenz-Hinweis */}
+            <div className="px-4 py-2 bg-muted/30 text-xs text-muted-foreground">
+              ℹ️ AI-System: Gemini 2.5 Flash | Zweck: Support & Analyse | <a href="/datenschutz" target="_blank" className="underline hover:text-foreground">Datenschutz</a>
+            </div>
 
-          <CardContent className="flex-1 overflow-y-auto p-4 space-y-4 mt-px">
+            <CardContent className="flex-1 overflow-y-auto p-4 space-y-4 mt-px">
             {messages.length === 0 && (
               <div className="text-center text-muted-foreground text-sm mt-8">
                 {permissions.canAccessMasterDashboard ? (
@@ -224,14 +218,12 @@ export function AISupportWidget() {
                   <Bot className="h-12 w-12 mx-auto mb-4 text-foreground" />
                 )}
                 <p className="font-semibold mb-2">
-                  {permissions.canAccessMasterDashboard
-                    ? "Master AI-Assistent"
-                    : "Wie kann ich Ihnen helfen?"}
+                  {permissions.canAccessMasterDashboard ? 'Master AI-Assistent' : 'Wie kann ich Ihnen helfen?'}
                 </p>
                 <p className="text-xs mb-4">
                   {permissions.canAccessMasterDashboard
-                    ? "Terminierung, Performance-Analyse, Churn-Prediction und Upselling."
-                    : "Ich beantworte Fragen zur Software, helfe bei der Disposition und gebe Optimierungsempfehlungen."}
+                    ? 'Terminierung, Performance-Analyse, Churn-Prediction und Upselling.'
+                    : 'Ich beantworte Fragen zur Software, helfe bei der Disposition und gebe Optimierungsempfehlungen.'}
                 </p>
 
                 {/* Master Quick Actions */}
@@ -261,26 +253,26 @@ export function AISupportWidget() {
               <div
                 key={index}
                 className={cn(
-                  "flex gap-2 items-start",
-                  message.role === "user" ? "justify-end" : "justify-start"
+                  'flex gap-2 items-start',
+                  message.role === 'user' ? 'justify-end' : 'justify-start'
                 )}
               >
-                {message.role === "assistant" && (
+                {message.role === 'assistant' && (
                   <div className="bg-primary rounded-full p-2 flex-shrink-0">
                     <Bot className="h-4 w-4 text-primary-foreground" />
                   </div>
                 )}
                 <div
                   className={cn(
-                    "rounded-lg p-3 max-w-[80%] text-sm",
-                    message.role === "user"
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-foreground"
+                    'rounded-lg p-3 max-w-[80%] text-sm',
+                    message.role === 'user'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted text-foreground'
                   )}
                 >
                   {message.content}
                 </div>
-                {message.role === "user" && (
+                {message.role === 'user' && (
                   <div className="bg-foreground rounded-full p-2 flex-shrink-0">
                     <User className="h-4 w-4 text-background" />
                   </div>
@@ -296,10 +288,10 @@ export function AISupportWidget() {
                 <div className="bg-muted rounded-lg p-3 text-sm">
                   <div className="flex gap-1">
                     <span className="animate-bounce">●</span>
-                    <span className="animate-bounce" style={{ animationDelay: "0.2s" }}>
+                    <span className="animate-bounce" style={{ animationDelay: '0.2s' }}>
                       ●
                     </span>
-                    <span className="animate-bounce" style={{ animationDelay: "0.4s" }}>
+                    <span className="animate-bounce" style={{ animationDelay: '0.4s' }}>
                       ●
                     </span>
                   </div>

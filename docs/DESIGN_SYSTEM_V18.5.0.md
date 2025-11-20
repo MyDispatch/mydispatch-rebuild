@@ -97,7 +97,7 @@ export function KPICard({
   };
 
   return (
-    <Card
+    <Card 
       className={cn(
         "cursor-pointer transition-all hover:shadow-md h-full",
         getStatusColor()
@@ -115,7 +115,7 @@ export function KPICard({
               <h3 className="text-xl sm:text-2xl font-bold mt-0.5 sm:mt-1">{value}</h3>
             </div>
           </div>
-
+          
           {trend && (
             <Badge variant="outline" className="gap-1 text-[10px] sm:text-xs">
               {trendDirection === 'up' ? (
@@ -160,7 +160,6 @@ export function KPICard({
 ```
 
 **Verwendung:**
-
 ```typescript
 <KPICard
   title="Aufträge"
@@ -202,7 +201,7 @@ export function StatusIndicator({
   className
 }: StatusIndicatorProps) {
   const config = getStatusConfig(status, type);
-
+  
   const dotSizes = {
     sm: 'w-1.5 h-1.5',
     md: 'w-2 h-2',
@@ -223,8 +222,8 @@ export function StatusIndicator({
         config.dotColor
       )} />
       {showLabel && (
-        <Badge
-          variant="outline"
+        <Badge 
+          variant="outline" 
           className={cn(
             textSizes[size],
             config.badgeColor
@@ -241,30 +240,30 @@ export function StatusIndicator({
 function getStatusConfig(status: string, type: StatusType) {
   const configs = {
     booking: {
-      pending: {
-        label: 'Ausstehend',
-        dotColor: 'bg-status-warning',
-        badgeColor: 'border-status-warning/20 bg-status-warning/5 text-status-warning-foreground'
+      pending: { 
+        label: 'Ausstehend', 
+        dotColor: 'bg-status-warning', 
+        badgeColor: 'border-status-warning/20 bg-status-warning/5 text-status-warning-foreground' 
       },
-      confirmed: {
-        label: 'Bestätigt',
-        dotColor: 'bg-status-success',
-        badgeColor: 'border-status-success/20 bg-status-success/5 text-status-success-foreground'
+      confirmed: { 
+        label: 'Bestätigt', 
+        dotColor: 'bg-status-success', 
+        badgeColor: 'border-status-success/20 bg-status-success/5 text-status-success-foreground' 
       },
-      in_progress: {
-        label: 'In Bearbeitung',
-        dotColor: 'bg-primary',
-        badgeColor: 'border-primary/20 bg-primary/5 text-primary-foreground'
+      in_progress: { 
+        label: 'In Bearbeitung', 
+        dotColor: 'bg-primary', 
+        badgeColor: 'border-primary/20 bg-primary/5 text-primary-foreground' 
       },
-      completed: {
-        label: 'Abgeschlossen',
-        dotColor: 'bg-status-success',
-        badgeColor: 'border-status-success/20 bg-status-success/5 text-status-success-foreground'
+      completed: { 
+        label: 'Abgeschlossen', 
+        dotColor: 'bg-status-success', 
+        badgeColor: 'border-status-success/20 bg-status-success/5 text-status-success-foreground' 
       },
-      cancelled: {
-        label: 'Storniert',
-        dotColor: 'bg-status-error',
-        badgeColor: 'border-status-error/20 bg-status-error/5 text-status-error-foreground'
+      cancelled: { 
+        label: 'Storniert', 
+        dotColor: 'bg-status-error', 
+        badgeColor: 'border-status-error/20 bg-status-error/5 text-status-error-foreground' 
       }
     },
     driver: {
@@ -287,13 +286,12 @@ function getStatusConfig(status: string, type: StatusType) {
 ```
 
 **Verwendung:**
-
 ```typescript
-<StatusIndicator
-  status="completed"
-  type="booking"
-  size="md"
-  showLabel={true}
+<StatusIndicator 
+  status="completed" 
+  type="booking" 
+  size="md" 
+  showLabel={true} 
 />
 ```
 
@@ -339,8 +337,8 @@ export function DetailDialog<T>({
         <div className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {fields.map((field, idx) => (
-              <div
-                key={idx}
+              <div 
+                key={idx} 
                 className={cn(
                   "space-y-1",
                   field.fullWidth && "sm:col-span-2"
@@ -369,7 +367,6 @@ export function DetailDialog<T>({
 ```
 
 **Verwendung:**
-
 ```typescript
 <DetailDialog
   open={detailDialogOpen}
@@ -412,11 +409,11 @@ export interface EmptyStateProps {
   action?: React.ReactNode;
 }
 
-export function EmptyState({
-  icon: Icon,
-  title,
-  description,
-  action
+export function EmptyState({ 
+  icon: Icon, 
+  title, 
+  description, 
+  action 
 }: EmptyStateProps) {
   return (
     <Card className="border-dashed border-2">
@@ -434,7 +431,6 @@ export function EmptyState({
 ```
 
 **Verwendung:**
-
 ```typescript
 <EmptyState
   icon={FileText}
@@ -552,8 +548,8 @@ export function SearchableSelect({
       </PopoverTrigger>
       <PopoverContent className="w-full p-0">
         <Command>
-          <CommandInput
-            placeholder={searchPlaceholder}
+          <CommandInput 
+            placeholder={searchPlaceholder} 
             value={search}
             onValueChange={setSearch}
           />
@@ -613,7 +609,7 @@ export function AddressInput({ value, onChange, label, required }: AddressInputP
           {required && <span className="text-destructive ml-1">*</span>}
         </Label>
       )}
-
+      
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         <div className="sm:col-span-3">
           <Input
@@ -631,7 +627,7 @@ export function AddressInput({ value, onChange, label, required }: AddressInputP
           />
         </div>
       </div>
-
+      
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         <div>
           <Input
@@ -749,11 +745,11 @@ export function DataTable<T extends { id: string }>({
 
 ```typescript
 export const spacing = {
-  xs: "gap-1", // 4px
-  sm: "gap-2", // 8px
-  md: "gap-4", // 16px
-  lg: "gap-6", // 24px
-  xl: "gap-8", // 32px
+  xs: "gap-1",     // 4px
+  sm: "gap-2",     // 8px
+  md: "gap-4",     // 16px
+  lg: "gap-6",     // 24px
+  xl: "gap-8",     // 32px
   "2xl": "gap-12", // 48px
 };
 
@@ -768,15 +764,15 @@ export const padding = {
 
 ```typescript
 export const typography = {
-  display: "text-display", // 48px → 64px
-  h1: "text-heading-1", // 36px → 48px
-  h2: "text-heading-2", // 30px → 36px
-  h3: "text-heading-3", // 24px → 30px
-  body: "text-body", // 16px → 18px
-  bodyLg: "text-body-lg", // 18px → 20px
-  bodySm: "text-body-sm", // 14px → 16px
-  caption: "text-xs", // 12px
-  badge: "text-[10px] uppercase", // 10px
+  display: "text-display",       // 48px → 64px
+  h1: "text-heading-1",          // 36px → 48px
+  h2: "text-heading-2",          // 30px → 36px
+  h3: "text-heading-3",          // 24px → 30px
+  body: "text-body",             // 16px → 18px
+  bodyLg: "text-body-lg",        // 18px → 20px
+  bodySm: "text-body-sm",        // 14px → 16px
+  caption: "text-xs",            // 12px
+  badge: "text-[10px] uppercase",// 10px
 };
 ```
 
@@ -784,11 +780,11 @@ export const typography = {
 
 ```typescript
 export const iconSizes = {
-  xs: "h-3 w-3", // 12px
-  sm: "h-4 w-4", // 16px
-  md: "h-5 w-5", // 20px
-  lg: "h-6 w-6", // 24px
-  xl: "h-8 w-8", // 32px
+  xs: "h-3 w-3",   // 12px
+  sm: "h-4 w-4",   // 16px
+  md: "h-5 w-5",   // 20px
+  lg: "h-6 w-6",   // 24px
+  xl: "h-8 w-8",   // 32px
   "2xl": "h-12 w-12", // 48px
 };
 ```
@@ -801,12 +797,12 @@ export const iconSizes = {
 
 ```typescript
 // ❌ FALSCH: Monolithische Komponente
-<SuperTable
-  columns={...}
-  data={...}
-  filters={...}
-  pagination={...}
-  actions={...}
+<SuperTable 
+  columns={...} 
+  data={...} 
+  filters={...} 
+  pagination={...} 
+  actions={...} 
   toolbar={...}
 />
 
@@ -845,7 +841,7 @@ export const iconSizes = {
 
 ```typescript
 // ✅ RICHTIG: ARIA-Labels, Keyboard-Navigation
-<button
+<button 
   aria-label="Auftrag erstellen"
   onClick={handleCreate}
   onKeyDown={(e) => e.key === 'Enter' && handleCreate()}

@@ -20,6 +20,25 @@
    ================================================================================== */
 
 @layer base {
+  /* Anti-Aliasing und Font-Smoothing für bessere Darstellung */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  html {
+    font-feature-settings: "kern" 1;
+    font-kerning: normal;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  body {
+    font-smooth: always;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  
   /* Global Typography Defaults */
   :root {
     word-break: normal;

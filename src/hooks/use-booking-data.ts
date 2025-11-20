@@ -9,9 +9,9 @@
    - Error handling with silent fallback
    ================================================================================== */
 
-import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { handleError } from "@/lib/error-handler";
+import { useState, useEffect } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { handleError } from '@/lib/error-handler';
 
 interface Customer {
   id: string;
@@ -62,14 +62,14 @@ export function useBookingData(companyId?: string) {
     if (!companyId) return;
     try {
       const { data, error } = await supabase
-        .from("customers")
-        .select("id, first_name, last_name, is_manually_created, phone, email")
-        .eq("company_id", companyId);
+        .from('customers')
+        .select('id, first_name, last_name, is_manually_created, phone, email')
+        .eq('company_id', companyId);
 
       if (error) throw error;
       setCustomers(data || []);
     } catch (error) {
-      handleError(error, "Fehler beim Laden der Kunden", { showToast: false });
+      handleError(error, 'Fehler beim Laden der Kunden', { showToast: false });
     }
   };
 
@@ -77,15 +77,15 @@ export function useBookingData(companyId?: string) {
     if (!companyId) return;
     try {
       const { data, error } = await supabase
-        .from("drivers")
-        .select("id, first_name, last_name, license_number, shift_status, phone")
-        .eq("company_id", companyId)
-        .eq("archived", false);
+        .from('drivers')
+        .select('id, first_name, last_name, license_number, shift_status, phone')
+        .eq('company_id', companyId)
+        .eq('archived', false);
 
       if (error) throw error;
       setDrivers(data || []);
     } catch (error) {
-      handleError(error, "Fehler beim Laden der Fahrer", { showToast: false });
+      handleError(error, 'Fehler beim Laden der Fahrer', { showToast: false });
     }
   };
 
@@ -93,15 +93,15 @@ export function useBookingData(companyId?: string) {
     if (!companyId) return;
     try {
       const { data, error } = await supabase
-        .from("vehicles")
-        .select("id, license_plate, vehicle_class, status")
-        .eq("company_id", companyId)
-        .eq("archived", false);
+        .from('vehicles')
+        .select('id, license_plate, vehicle_class, status')
+        .eq('company_id', companyId)
+        .eq('archived', false);
 
       if (error) throw error;
       setVehicles(data || []);
     } catch (error) {
-      handleError(error, "Fehler beim Laden der Fahrzeuge", { showToast: false });
+      handleError(error, 'Fehler beim Laden der Fahrzeuge', { showToast: false });
     }
   };
 
@@ -109,15 +109,15 @@ export function useBookingData(companyId?: string) {
     if (!companyId) return;
     try {
       const { data, error } = await supabase
-        .from("cost_centers")
-        .select("id, name")
-        .eq("company_id", companyId)
-        .eq("active", true);
+        .from('cost_centers')
+        .select('id, name')
+        .eq('company_id', companyId)
+        .eq('active', true);
 
       if (error) throw error;
       setCostCenters(data || []);
     } catch (error) {
-      handleError(error, "Fehler beim Laden der Kostenstellen", { showToast: false });
+      handleError(error, 'Fehler beim Laden der Kostenstellen', { showToast: false });
     }
   };
 
@@ -125,15 +125,15 @@ export function useBookingData(companyId?: string) {
     if (!companyId) return;
     try {
       const { data, error } = await supabase
-        .from("partners")
-        .select("id, name, provision_amount, phone, email")
-        .eq("company_id", companyId)
-        .eq("archived", false);
+        .from('partners')
+        .select('id, name, provision_amount, phone, email')
+        .eq('company_id', companyId)
+        .eq('archived', false);
 
       if (error) throw error;
       setPartners(data || []);
     } catch (error) {
-      handleError(error, "Fehler beim Laden der Partner", { showToast: false });
+      handleError(error, 'Fehler beim Laden der Partner', { showToast: false });
     }
   };
 

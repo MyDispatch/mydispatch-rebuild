@@ -24,13 +24,21 @@ const NotFound = () => {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-primary/30">
       <div className="text-center space-y-6 max-w-md">
-        <h1 className="text-6xl sm:text-8xl font-bold text-foreground">404</h1>
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">Seite nicht gefunden</h2>
+        <h1 className="text-6xl sm:text-8xl font-bold text-foreground">
+          404
+        </h1>
+        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">
+          Seite nicht gefunden
+        </h2>
         <p className="text-muted-foreground">
           Die von Ihnen gesuchte Seite existiert nicht oder wurde verschoben.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <V28Button className="min-h-[44px]" variant="primary" onClick={() => navigate("/")}>
+          <V28Button
+            className="min-h-[44px]"
+            variant="primary"
+            onClick={() => navigate('/')}
+          >
             <Home className="mr-2 h-4 w-4" />
             Zur Startseite
           </V28Button>

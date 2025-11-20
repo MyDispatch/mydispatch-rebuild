@@ -8,61 +8,61 @@
    - CI-Compliance Status
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import {
-  Shield,
-  AlertTriangle,
-  CheckCircle,
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { 
+  Shield, 
+  AlertTriangle, 
+  CheckCircle, 
   TrendingUp,
   GitBranch,
   Package,
-  FileWarning,
-} from "lucide-react";
+  FileWarning
+} from 'lucide-react';
 
 interface GovernanceMetric {
   label: string;
   value: number;
   target: number;
-  status: "success" | "warning" | "error";
+  status: 'success' | 'warning' | 'error';
   icon: React.ElementType;
 }
 
 const GOVERNANCE_METRICS: GovernanceMetric[] = [
   {
-    label: "Code-Drift Score",
+    label: 'Code-Drift Score',
     value: 95,
     target: 90,
-    status: "success",
+    status: 'success',
     icon: GitBranch,
   },
   {
-    label: "ARCA-Fehlerrate",
+    label: 'ARCA-Fehlerrate',
     value: 5,
     target: 10,
-    status: "success",
+    status: 'success',
     icon: AlertTriangle,
   },
   {
-    label: "CI-Compliance",
+    label: 'CI-Compliance',
     value: 100,
     target: 95,
-    status: "success",
+    status: 'success',
     icon: Shield,
   },
   {
-    label: "Dependency Health",
+    label: 'Dependency Health',
     value: 88,
     target: 85,
-    status: "success",
+    status: 'success',
     icon: Package,
   },
   {
-    label: "Doc Consistency",
+    label: 'Doc Consistency',
     value: 92,
     target: 90,
-    status: "success",
+    status: 'success',
     icon: FileWarning,
   },
 ];
@@ -80,18 +80,20 @@ export function ProactiveGovernanceWidget() {
             <Shield className="h-5 w-5 text-foreground" />
             <span className="text-foreground">Proaktive Governance</span>
           </CardTitle>
-          <Badge className="bg-status-success/10 text-status-success">{averageScore}% Gesund</Badge>
+          <Badge className="bg-status-success/10 text-status-success">
+            {averageScore}% Gesund
+          </Badge>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
         {GOVERNANCE_METRICS.map((metric) => {
           const Icon = metric.icon;
           const statusColor =
-            metric.status === "success"
-              ? "text-status-success"
-              : metric.status === "warning"
-                ? "text-status-warning"
-                : "text-status-error";
+            metric.status === 'success'
+              ? 'text-status-success'
+              : metric.status === 'warning'
+              ? 'text-status-warning'
+              : 'text-status-error';
 
           return (
             <div key={metric.label} className="space-y-2">

@@ -17,7 +17,7 @@ export function unique<T>(array: T[]): T[] {
 
 export function uniqueBy<T>(array: T[], key: keyof T): T[] {
   const seen = new Set();
-  return array.filter((item) => {
+  return array.filter(item => {
     const value = item[key];
     if (seen.has(value)) return false;
     seen.add(value);
@@ -25,7 +25,7 @@ export function uniqueBy<T>(array: T[], key: keyof T): T[] {
   });
 }
 
-export function compact<T>(array: (T | null | undefined | false | "" | 0)[]): T[] {
+export function compact<T>(array: (T | null | undefined | false | '' | 0)[]): T[] {
   return array.filter(Boolean) as T[];
 }
 
@@ -35,9 +35,9 @@ export function filterByKeys<T extends Record<string, any>>(
   keys: (keyof T)[]
 ): T[] {
   const term = searchTerm.toLowerCase();
-  return array.filter((item) =>
-    keys.some((key) => {
-      const value = String(item[key] || "").toLowerCase();
+  return array.filter(item =>
+    keys.some(key => {
+      const value = String(item[key] || '').toLowerCase();
       return value.includes(term);
     })
   );
@@ -48,31 +48,28 @@ export function filterByKeys<T extends Record<string, any>>(
 // ============================================================================
 
 export function groupBy<T>(array: T[], key: keyof T): Record<string, T[]> {
-  return array.reduce(
-    (groups, item) => {
-      const groupKey = String(item[key]);
-      if (!groups[groupKey]) {
-        groups[groupKey] = [];
-      }
-      groups[groupKey].push(item);
-      return groups;
-    },
-    {} as Record<string, T[]>
-  );
+  return array.reduce((groups, item) => {
+    const groupKey = String(item[key]);
+    if (!groups[groupKey]) {
+      groups[groupKey] = [];
+    }
+    groups[groupKey].push(item);
+    return groups;
+  }, {} as Record<string, T[]>);
 }
 
-export function groupByFunction<T>(array: T[], fn: (item: T) => string): Record<string, T[]> {
-  return array.reduce(
-    (groups, item) => {
-      const key = fn(item);
-      if (!groups[key]) {
-        groups[key] = [];
-      }
-      groups[key].push(item);
-      return groups;
-    },
-    {} as Record<string, T[]>
-  );
+export function groupByFunction<T>(
+  array: T[],
+  fn: (item: T) => string
+): Record<string, T[]> {
+  return array.reduce((groups, item) => {
+    const key = fn(item);
+    if (!groups[key]) {
+      groups[key] = [];
+    }
+    groups[key].push(item);
+    return groups;
+  }, {} as Record<string, T[]>);
 }
 
 // ============================================================================
@@ -87,18 +84,21 @@ export function chunk<T>(array: T[], size: number): T[][] {
   return chunks;
 }
 
-export function partition<T>(array: T[], predicate: (item: T) => boolean): [T[], T[]] {
+export function partition<T>(
+  array: T[],
+  predicate: (item: T) => boolean
+): [T[], T[]] {
   const truthy: T[] = [];
   const falsy: T[] = [];
-
-  array.forEach((item) => {
+  
+  array.forEach(item => {
     if (predicate(item)) {
       truthy.push(item);
     } else {
       falsy.push(item);
     }
   });
-
+  
   return [truthy, falsy];
 }
 
@@ -106,41 +106,45 @@ export function partition<T>(array: T[], predicate: (item: T) => boolean): [T[],
 // ARRAY SORTING
 // ============================================================================
 
-export function sortBy<T>(array: T[], key: keyof T, order: "asc" | "desc" = "asc"): T[] {
+export function sortBy<T>(array: T[], key: keyof T, order: 'asc' | 'desc' = 'asc'): T[] {
   return [...array].sort((a, b) => {
     const aVal = a[key];
     const bVal = b[key];
-
+    
     if (aVal === bVal) return 0;
-
+    
     const comparison = aVal < bVal ? -1 : 1;
-    return order === "asc" ? comparison : -comparison;
+    return order === 'asc' ? comparison : -comparison;
   });
 }
 
-export function sortByDate<T>(array: T[], key: keyof T, order: "asc" | "desc" = "desc"): T[] {
+export function sortByDate<T>(
+  array: T[],
+  key: keyof T,
+  order: 'asc' | 'desc' = 'desc'
+): T[] {
   return [...array].sort((a, b) => {
     const aDate = new Date(String(a[key]));
     const bDate = new Date(String(b[key]));
-
+    
     const comparison = aDate.getTime() - bDate.getTime();
-    return order === "asc" ? comparison : -comparison;
+    return order === 'asc' ? comparison : -comparison;
   });
 }
 
 export function sortByMultiple<T>(
   array: T[],
-  keys: { key: keyof T; order?: "asc" | "desc" }[]
+  keys: { key: keyof T; order?: 'asc' | 'desc' }[]
 ): T[] {
   return [...array].sort((a, b) => {
-    for (const { key, order = "asc" } of keys) {
+    for (const { key, order = 'asc' } of keys) {
       const aVal = a[key];
       const bVal = b[key];
-
+      
       if (aVal === bVal) continue;
-
+      
       const comparison = aVal < bVal ? -1 : 1;
-      return order === "asc" ? comparison : -comparison;
+      return order === 'asc' ? comparison : -comparison;
     }
     return 0;
   });
@@ -187,11 +191,11 @@ export function dropRight<T>(array: T[], count: number): T[] {
 // ============================================================================
 
 export function findByKey<T>(array: T[], key: keyof T, value: any): T | undefined {
-  return array.find((item) => item[key] === value);
+  return array.find(item => item[key] === value);
 }
 
 export function findIndexByKey<T>(array: T[], key: keyof T, value: any): number {
-  return array.findIndex((item) => item[key] === value);
+  return array.findIndex(item => item[key] === value);
 }
 
 export function includes<T>(array: T[], value: T): boolean {
@@ -199,11 +203,11 @@ export function includes<T>(array: T[], value: T): boolean {
 }
 
 export function includesAny<T>(array: T[], values: T[]): boolean {
-  return values.some((value) => array.includes(value));
+  return values.some(value => array.includes(value));
 }
 
 export function includesAll<T>(array: T[], values: T[]): boolean {
-  return values.every((value) => array.includes(value));
+  return values.every(value => array.includes(value));
 }
 
 // ============================================================================
@@ -215,14 +219,11 @@ export function count<T>(array: T[], predicate: (item: T) => boolean): number {
 }
 
 export function countBy<T>(array: T[], key: keyof T): Record<string, number> {
-  return array.reduce(
-    (counts, item) => {
-      const value = String(item[key]);
-      counts[value] = (counts[value] || 0) + 1;
-      return counts;
-    },
-    {} as Record<string, number>
-  );
+  return array.reduce((counts, item) => {
+    const value = String(item[key]);
+    counts[value] = (counts[value] || 0) + 1;
+    return counts;
+  }, {} as Record<string, number>);
 }
 
 // ============================================================================
@@ -235,11 +236,11 @@ export function isEqual<T>(array1: T[], array2: T[]): boolean {
 }
 
 export function difference<T>(array1: T[], array2: T[]): T[] {
-  return array1.filter((item) => !array2.includes(item));
+  return array1.filter(item => !array2.includes(item));
 }
 
 export function intersection<T>(array1: T[], array2: T[]): T[] {
-  return array1.filter((item) => array2.includes(item));
+  return array1.filter(item => array2.includes(item));
 }
 
 export function union<T>(array1: T[], array2: T[]): T[] {

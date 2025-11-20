@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { V28Tooltip } from "./V28Tooltip";
-import { V28Button } from "./V28Button";
-import { Info, HelpCircle } from "lucide-react";
+import type { Meta, StoryObj } from '@storybook/react';
+import { V28Tooltip } from './V28Tooltip';
+import { V28Button } from './V28Button';
+import { Info, HelpCircle } from 'lucide-react';
 
 const meta: Meta<typeof V28Tooltip> = {
-  title: "Design System/Atoms/V28Tooltip",
+  title: 'Design System/Atoms/V28Tooltip',
   component: V28Tooltip,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   argTypes: {
     side: {
-      control: "select",
-      options: ["top", "right", "bottom", "left"],
+      control: 'select',
+      options: ['top', 'right', 'bottom', 'left'],
     },
     align: {
-      control: "select",
-      options: ["start", "center", "end"],
+      control: 'select',
+      options: ['start', 'center', 'end'],
     },
   },
 };
@@ -24,7 +24,7 @@ type Story = StoryObj<typeof V28Tooltip>;
 
 export const Default: Story = {
   args: {
-    content: "Dies ist ein Tooltip",
+    content: 'Dies ist ein Tooltip',
     children: <V28Button variant="secondary">Hover mich</V28Button>,
   },
 };

@@ -5,8 +5,8 @@
    ✅ Nutze V28HeroPremium direkt für neue Implementierungen
    ================================================================================== */
 
-import { ReactNode } from "react";
-import { V28HeroPremium } from "@/components/hero/V28HeroPremium";
+import { ReactNode } from 'react';
+import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
 
 interface V26PricingHeroProps {
   title: string;
@@ -23,8 +23,8 @@ export function V26PricingHero({ title, subtitle, children }: V26PricingHeroProp
       subtitle={subtitle}
       description={children}
       primaryCTA={{
-        label: "Jetzt starten",
-        onClick: () => (window.location.href = "/auth?mode=signup"),
+        label: 'Jetzt starten',
+        onClick: () => window.location.href = '/auth?mode=signup'
       }}
     />
   );

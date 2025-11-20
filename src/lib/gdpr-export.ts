@@ -7,14 +7,14 @@
    - DSGVO-konform (30-Tage-Löschfrist)
    ================================================================================== */
 
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from '@/integrations/supabase/client';
 
 interface CustomerDataExport {
   personal_data: any;
   bookings: any[];
   invoices: any[];
   export_date: string;
-  format: "JSON" | "PDF";
+  format: 'JSON' | 'PDF';
 }
 
 /**
@@ -22,34 +22,34 @@ interface CustomerDataExport {
  */
 export const exportCustomerData = async (
   customerId: string,
-  format: "JSON" | "PDF" = "JSON"
+  format: 'JSON' | 'PDF' = 'JSON'
 ): Promise<CustomerDataExport | null> => {
   try {
     // 1. Fetch Customer Data
     const { data: customer, error: customerError } = await supabase
-      .from("customers")
-      .select("*")
-      .eq("id", customerId)
+      .from('customers')
+      .select('*')
+      .eq('id', customerId)
       .single();
-
+    
     if (customerError) throw customerError;
 
     // 2. Fetch Bookings
     const { data: bookings, error: bookingsError } = await supabase
-      .from("bookings")
-      .select("*")
-      .eq("customer_id", customerId)
-      .order("created_at", { ascending: false });
-
+      .from('bookings')
+      .select('*')
+      .eq('customer_id', customerId)
+      .order('created_at', { ascending: false });
+    
     if (bookingsError) throw bookingsError;
 
     // 3. Fetch Invoices
     const { data: invoices, error: invoicesError } = await supabase
-      .from("invoices")
-      .select("*")
-      .eq("customer_id", customerId)
-      .order("created_at", { ascending: false });
-
+      .from('invoices')
+      .select('*')
+      .eq('customer_id', customerId)
+      .order('created_at', { ascending: false });
+    
     if (invoicesError) throw invoicesError;
 
     // 4. Create Export
@@ -58,16 +58,16 @@ export const exportCustomerData = async (
       bookings: bookings || [],
       invoices: invoices || [],
       export_date: new Date().toISOString(),
-      format,
+      format
     };
 
     // 5. If JSON, return directly
-    if (format === "JSON") {
+    if (format === 'JSON') {
       return exportData;
     }
 
     // 6. If PDF, generate PDF (using jsPDF)
-    if (format === "PDF") {
+    if (format === 'PDF') {
       // PDF generation will be handled by Edge Function
       // For now, return JSON (PDF will be sent via email)
       return exportData;
@@ -75,7 +75,7 @@ export const exportCustomerData = async (
 
     return exportData;
   } catch (error) {
-    console.error("Customer data export failed:", error);
+    console.error('Customer data export failed:', error);
     return null;
   }
 };
@@ -83,12 +83,12 @@ export const exportCustomerData = async (
 /**
  * Download Data Export as File
  */
-export const downloadDataExport = (data: CustomerDataExport, filename: string = "my-data") => {
+export const downloadDataExport = (data: CustomerDataExport, filename: string = 'my-data') => {
   const json = JSON.stringify(data, null, 2);
-  const blob = new Blob([json], { type: "application/json" });
+  const blob = new Blob([json], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
-
-  const link = document.createElement("a");
+  
+  const link = document.createElement('a');
   link.href = url;
   link.download = `${filename}-${Date.now()}.json`;
   document.body.appendChild(link);
@@ -103,11 +103,11 @@ export const downloadDataExport = (data: CustomerDataExport, filename: string = 
 export const sendDataExportEmail = async (
   customerId: string,
   companyId: string,
-  format: "JSON" | "PDF" = "JSON",
+  format: 'JSON' | 'PDF' = 'JSON',
   recipientEmail?: string
 ): Promise<boolean> => {
   try {
-    const { data, error } = await supabase.functions.invoke("send-data-export", {
+    const { data, error } = await supabase.functions.invoke('send-data-export', {
       body: {
         customer_id: customerId,
         company_id: companyId,
@@ -120,7 +120,7 @@ export const sendDataExportEmail = async (
 
     return data?.success === true;
   } catch (error) {
-    console.error("Send data export email failed:", error);
+    console.error('Send data export email failed:', error);
     return false;
   }
 };
@@ -134,11 +134,11 @@ export const requestAccountDeletion = async (
   reason?: string
 ): Promise<boolean> => {
   try {
-    console.log("Deletion request for customer:", customerId, "Reason:", reason);
+    console.log('Deletion request for customer:', customerId, 'Reason:', reason);
     // TODO: Implement when deletion_requests table exists
     return true;
   } catch (error) {
-    console.error("Account deletion request failed:", error);
+    console.error('Account deletion request failed:', error);
     return false;
   }
 };
@@ -149,6 +149,6 @@ export const requestAccountDeletion = async (
  */
 export const getDeletionRequestStatus = async (
   customerId: string
-): Promise<"none" | "pending" | "approved" | "rejected"> => {
-  return "none";
+): Promise<'none' | 'pending' | 'approved' | 'rejected'> => {
+  return 'none';
 };

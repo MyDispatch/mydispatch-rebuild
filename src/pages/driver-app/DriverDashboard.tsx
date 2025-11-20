@@ -1,30 +1,20 @@
-import { useState, useEffect } from "react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Card } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
+import { useState, useEffect } from 'react';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Card } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 import {
-  Menu,
-  Bell,
-  MapPin,
-  Clock,
-  Euro,
-  TrendingUp,
-  Car,
-  CheckCircle,
-  XCircle,
-  AlertCircle,
-  Wifi,
-  WifiOff,
-} from "lucide-react";
-import officialLogo from "@/assets/mydispatch-logo-official.png";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { formatCurrency } from "@/lib/format-utils";
-import { SwipeableBookingCard } from "@/components/driver/SwipeableBookingCard";
-import { isOnline, setupOfflineListener } from "@/lib/offline-manager";
-import { toast } from "sonner";
-import { supabase } from "@/integrations/supabase/client";
-import { handleError } from "@/lib/error-handler";
+  Menu, Bell, MapPin, Clock, Euro, TrendingUp,
+  Car, CheckCircle, XCircle, AlertCircle, Wifi, WifiOff
+} from 'lucide-react';
+import officialLogo from '@/assets/mydispatch-logo-official.png';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { formatCurrency } from '@/lib/format-utils';
+import { SwipeableBookingCard } from '@/components/driver/SwipeableBookingCard';
+import { isOnline, setupOfflineListener } from '@/lib/offline-manager';
+import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
+import { handleError } from '@/lib/error-handler';
 
 export default function DriverDashboard() {
   const [isDriverOnline, setIsDriverOnline] = useState(false);
@@ -32,11 +22,11 @@ export default function DriverDashboard() {
 
   // Mock data
   const driverStats = {
-    todayEarnings: 145.5,
+    todayEarnings: 145.50,
     todayRides: 8,
-    weeklyEarnings: 892.0,
+    weeklyEarnings: 892.00,
     rating: 4.8,
-    completionRate: 98,
+    completionRate: 98
   };
 
   const upcomingBookings: Array<{
@@ -46,26 +36,26 @@ export default function DriverDashboard() {
     time: string;
     distance: string;
     price: number;
-    status: "confirmed" | "pending";
+    status: 'confirmed' | 'pending';
   }> = [
     {
-      id: "1",
-      pickup: "München Hauptbahnhof",
-      destination: "Flughafen München",
-      time: "14:30",
-      distance: "28 km",
-      price: 45.0,
-      status: "confirmed" as const,
+      id: '1',
+      pickup: 'München Hauptbahnhof',
+      destination: 'Flughafen München',
+      time: '14:30',
+      distance: '28 km',
+      price: 45.00,
+      status: 'confirmed' as const
     },
     {
-      id: "2",
-      pickup: "Marienplatz",
-      destination: "BMW Welt",
-      time: "16:15",
-      distance: "12 km",
-      price: 25.0,
-      status: "pending" as const,
-    },
+      id: '2',
+      pickup: 'Marienplatz',
+      destination: 'BMW Welt',
+      time: '16:15',
+      distance: '12 km',
+      price: 25.00,
+      status: 'pending' as const
+    }
   ];
 
   // Phase 2.2: Offline-Status Monitoring
@@ -73,11 +63,11 @@ export default function DriverDashboard() {
     const cleanup = setupOfflineListener(
       () => {
         setIsNetworkOnline(true);
-        toast.success("Verbindung wiederhergestellt");
+        toast.success('Verbindung wiederhergestellt');
       },
       () => {
         setIsNetworkOnline(false);
-        toast.error("Keine Internetverbindung");
+        toast.error('Keine Internetverbindung');
       }
     );
     return cleanup;
@@ -86,40 +76,40 @@ export default function DriverDashboard() {
   const handleAcceptBooking = async (bookingId: string) => {
     try {
       const { error } = await supabase
-        .from("bookings")
+        .from('bookings')
         .update({
-          status: "confirmed", // V32.5: 'confirmed' ist der korrekte BookingStatus für angenommene Aufträge
-          updated_at: new Date().toISOString(),
+          status: 'confirmed', // V32.5: 'confirmed' ist der korrekte BookingStatus für angenommene Aufträge
+          updated_at: new Date().toISOString()
         })
-        .eq("id", bookingId);
+        .eq('id', bookingId);
 
       if (error) throw error;
 
-      toast.success("Auftrag angenommen");
+      toast.success('Auftrag angenommen');
       // Optionally reload bookings or update local state
     } catch (error) {
-      handleError(error, "Fehler beim Annehmen des Auftrags");
-      toast.error("Auftrag konnte nicht angenommen werden");
+      handleError(error, 'Fehler beim Annehmen des Auftrags');
+      toast.error('Auftrag konnte nicht angenommen werden');
     }
   };
 
   const handleDeclineBooking = async (bookingId: string) => {
     try {
       const { error } = await supabase
-        .from("bookings")
+        .from('bookings')
         .update({
-          status: "cancelled", // V32.5: 'cancelled' ist der korrekte BookingStatus für abgelehnte Aufträge
-          updated_at: new Date().toISOString(),
+          status: 'cancelled', // V32.5: 'cancelled' ist der korrekte BookingStatus für abgelehnte Aufträge
+          updated_at: new Date().toISOString()
         })
-        .eq("id", bookingId);
+        .eq('id', bookingId);
 
       if (error) throw error;
 
-      toast.info("Auftrag abgelehnt");
+      toast.info('Auftrag abgelehnt');
       // Optionally reload bookings or update local state
     } catch (error) {
-      handleError(error, "Fehler beim Ablehnen des Auftrags");
-      toast.error("Auftrag konnte nicht abgelehnt werden");
+      handleError(error, 'Fehler beim Ablehnen des Auftrags');
+      toast.error('Auftrag konnte nicht abgelehnt werden');
     }
   };
 
@@ -133,19 +123,15 @@ export default function DriverDashboard() {
         {/* Header */}
         <div className="bg-gradient-to-r from-primary to-primary-glow p-6 rounded-b-3xl shadow-lg">
           <div className="flex items-center justify-between mb-6">
-            <V28Button
-              variant="secondary"
-              size="sm"
-              className="text-foreground hover:text-foreground/80"
-            >
+            <V28Button variant="secondary" size="sm" className="text-foreground hover:text-foreground/80">
               <Menu className="h-6 w-6" />
             </V28Button>
-            <img src={officialLogo} alt="MyDispatch" className="h-10 w-auto object-contain" />
-            <V28Button
-              variant="secondary"
-              size="sm"
-              className="text-foreground hover:text-foreground/80 relative"
-            >
+            <img
+              src={officialLogo}
+              alt="MyDispatch"
+              className="h-10 w-auto object-contain"
+            />
+            <V28Button variant="secondary" size="sm" className="text-foreground hover:text-foreground/80 relative">
               <Bell className="h-6 w-6" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-status-error rounded-full" />
             </V28Button>
@@ -155,9 +141,7 @@ export default function DriverDashboard() {
           <div className="flex items-center space-x-4 mb-6">
             <Avatar className="h-16 w-16 border-2 border-foreground/20">
               <AvatarImage src="/placeholder-avatar.jpg" />
-              <AvatarFallback className="bg-primary text-primary-foreground text-xl">
-                MM
-              </AvatarFallback>
+              <AvatarFallback className="bg-primary text-primary-foreground text-xl">MM</AvatarFallback>
             </Avatar>
             <div className="flex-1">
               <h2 className="text-xl font-bold text-foreground">Max Mustermann</h2>
@@ -167,13 +151,15 @@ export default function DriverDashboard() {
                   {[...Array(5)].map((_, i) => (
                     <span
                       key={i}
-                      className={`text-sm ${i < Math.floor(driverStats.rating) ? "text-primary" : "text-muted-foreground/30"}`}
+                      className={`text-sm ${i < Math.floor(driverStats.rating) ? 'text-primary' : 'text-muted-foreground/30'}`}
                     >
                       ★
                     </span>
                   ))}
                 </div>
-                <span className="text-foreground text-sm font-medium">{driverStats.rating}</span>
+                <span className="text-foreground text-sm font-medium">
+                  {driverStats.rating}
+                </span>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -186,7 +172,7 @@ export default function DriverDashboard() {
               )}
               <V28Button
                 onClick={() => setIsDriverOnline(!isDriverOnline)}
-                variant={isDriverOnline ? "primary" : "secondary"}
+                variant={isDriverOnline ? 'primary' : 'secondary'}
                 className="rounded-full px-6 shadow-lg min-h-[44px]"
               >
                 {isDriverOnline ? (
@@ -195,7 +181,7 @@ export default function DriverDashboard() {
                     Online
                   </>
                 ) : (
-                  "Offline"
+                  'Offline'
                 )}
               </V28Button>
             </div>
@@ -213,7 +199,9 @@ export default function DriverDashboard() {
             <Card className="bg-card backdrop-blur-sm p-3 text-center border-0">
               <Car className="h-5 w-5 text-foreground mx-auto mb-1" />
               <p className="text-xs text-muted-foreground">Fahrten</p>
-              <p className="text-lg font-bold text-foreground">{driverStats.todayRides}</p>
+              <p className="text-lg font-bold text-foreground">
+                {driverStats.todayRides}
+              </p>
             </Card>
             <Card className="bg-card backdrop-blur-sm p-3 text-center border-0">
               <TrendingUp className="h-5 w-5 text-foreground mx-auto mb-1" />
@@ -230,8 +218,12 @@ export default function DriverDashboard() {
           {/* Upcoming Bookings */}
           <div>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-foreground">Anstehende Aufträge</h3>
-              <Badge variant="secondary">{upcomingBookings.length} Aufträge</Badge>
+              <h3 className="text-lg font-bold text-foreground">
+                Anstehende Aufträge
+              </h3>
+              <Badge variant="secondary">
+                {upcomingBookings.length} Aufträge
+              </Badge>
             </div>
 
             {/* Phase 2.2: Swipeable Cards */}
@@ -249,7 +241,9 @@ export default function DriverDashboard() {
 
           {/* Performance Card */}
           <Card className="p-5 bg-gradient-to-br from-card to-primary/5 border-border">
-            <h3 className="text-lg font-bold text-foreground mb-4">Ihre Leistung</h3>
+            <h3 className="text-lg font-bold text-foreground mb-4">
+              Ihre Leistung
+            </h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <p className="text-sm text-muted-foreground mb-1">Abschlussrate</p>
@@ -272,13 +266,15 @@ export default function DriverDashboard() {
                     {[...Array(5)].map((_, i) => (
                       <span
                         key={i}
-                        className={`text-lg ${i < Math.floor(driverStats.rating) ? "text-primary" : "text-muted-foreground"}`}
+                        className={`text-lg ${i < Math.floor(driverStats.rating) ? 'text-primary' : 'text-muted-foreground'}`}
                       >
                         ★
                       </span>
                     ))}
                   </div>
-                  <span className="text-sm font-bold text-foreground">{driverStats.rating}</span>
+                  <span className="text-sm font-bold text-foreground">
+                    {driverStats.rating}
+                  </span>
                 </div>
               </div>
             </div>

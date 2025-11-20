@@ -9,7 +9,6 @@
 ## 🎯 ZWECK
 
 Dieses Dokument dokumentiert:
-
 1. **Migration-Dependencies** - Welche Migration hängt von welcher Function/Tabelle ab?
 2. **Restore-Probleme** - Was kann beim Restore schiefgehen?
 3. **Manual Fixes** - Wie löse ich Restore-Probleme manuell?
@@ -21,14 +20,12 @@ Dieses Dokument dokumentiert:
 ## 📊 MIGRATION DEPENDENCIES
 
 ### Migration: `20251024203559_6f58d675-4666-4b91-a56e-5d23e21c345f.sql`
-
 **Title:** V18.5.13 Data-RAG & Task-Queue  
 **Erstellt:** 2025-10-24
 
 #### ABHÄNGIGKEIT: `is_master_account()` Function
 
 **Genutzt in Zeilen:**
-
 - Zeile 170: `data_rag_tasks` RLS-Policy
 - Zeile 183: `data_rag_documents` RLS-Policy
 - Zeile 196: `scheduled_tasks` RLS-Policy
@@ -36,7 +33,6 @@ Dieses Dokument dokumentiert:
 - Zeile 205: `task_queue` RLS-Policy
 
 **Beispiel:**
-
 ```sql
 -- Zeile 170
 CREATE POLICY "Master accounts have full access to all data_rag_tasks"
@@ -50,7 +46,6 @@ USING (is_master_account((SELECT auth.uid())));
 **Szenario:** Migration wird vor Function-Definition ausgeführt
 
 **Fehler:**
-
 ```
 ERROR: function is_master_account(uuid) does not exist
 HINT: No function matches the given name and argument types.
@@ -61,11 +56,9 @@ HINT: No function matches the given name and argument types.
 ---
 
 ### Migration: `20251024120516_*.sql` (vermutlich)
-
 **Title:** Master-Account Function Definition (vermutlich)
 
 **Definiert:**
-
 ```sql
 CREATE OR REPLACE FUNCTION public.is_master_account(_user_id uuid)
 RETURNS boolean
@@ -99,7 +92,6 @@ $$;
 ### Fix #1: `is_master_account()` fehlt bei Restore
 
 **Symptom:**
-
 ```
 ERROR: function is_master_account(uuid) does not exist
 ```
@@ -107,7 +99,6 @@ ERROR: function is_master_account(uuid) does not exist
 **Lösung: Manuelle Function-Erstellung VORHER**
 
 **Schritt 1:** Erstelle Function manuell
-
 ```sql
 CREATE OR REPLACE FUNCTION public.is_master_account(_user_id uuid)
 RETURNS boolean
@@ -133,14 +124,12 @@ $$;
 ```
 
 **Schritt 2:** Verifiziere Function
-
 ```sql
 SELECT public.is_master_account('00000000-0000-0000-0000-000000000000');
 -- Expected: false (oder true falls JWT mit Master-Email)
 ```
 
 **Schritt 3:** Führe fehlgeschlagene Migration erneut aus
-
 ```bash
 # Via Lovable Cloud:
 # Migrations werden automatisch neu versucht
@@ -151,7 +140,6 @@ SELECT public.is_master_account('00000000-0000-0000-0000-000000000000');
 ### Fix #2: Zirkuläre RLS-Dependencies
 
 **Symptom:**
-
 ```
 ERROR: infinite recursion detected in policy for relation "user_roles"
 ```
@@ -159,7 +147,6 @@ ERROR: infinite recursion detected in policy for relation "user_roles"
 **Ursache:** Function nutzt DB-Lookup statt JWT
 
 **Lösung:**
-
 1. Prüfe, ob `is_master_account()` JWT nutzt (NICHT DB-Lookup!)
 2. Falls DB-Lookup: Siehe `docs/SECURITY_ARCHITECTURE.md` für korrektes Pattern
 
@@ -183,13 +170,11 @@ ERROR: infinite recursion detected in policy for relation "user_roles"
 ### Wie finde ich Dependencies?
 
 **Schritt 1:** Suche nach Function-Aufrufen in Migrations
-
 ```bash
 grep -r "is_master_account" supabase/migrations/
 ```
 
 **Schritt 2:** Prüfe RLS-Policies
-
 ```sql
 SELECT tablename, policyname, definition
 FROM pg_policies
@@ -203,17 +188,14 @@ WHERE definition LIKE '%is_master_account%';
 ## 📚 BEST PRACTICES
 
 ### Practice #1: Functions VOR RLS-Policies
-
 ✅ Definiere Functions IMMER in früheren Migrations  
 ✅ RLS-Policies, die Functions nutzen, kommen SPÄTER
 
 ### Practice #2: Idempotente Functions
-
 ✅ Nutze `CREATE OR REPLACE FUNCTION` (nicht `CREATE FUNCTION`)  
 ✅ Ermöglicht Re-Run bei Fehlern
 
 ### Practice #3: Dependency-Dokumentation
-
 ✅ JEDE Migration, die Functions nutzt → Hier dokumentieren!  
 ✅ JEDE neue Function → Migration-Timestamp notieren
 
@@ -221,10 +203,10 @@ WHERE definition LIKE '%is_master_account%';
 
 ## 🚨 CRITICAL FUNCTIONS (Required by Multiple Migrations)
 
-| Function                        | Used By         | Defined In                          |
-| ------------------------------- | --------------- | ----------------------------------- |
-| `is_master_account(uuid)`       | 5+ RLS-Policies | `20251024120516_*.sql` (vermutlich) |
-| (weitere bei Bedarf hinzufügen) |                 |                                     |
+| Function | Used By | Defined In |
+|----------|---------|------------|
+| `is_master_account(uuid)` | 5+ RLS-Policies | `20251024120516_*.sql` (vermutlich) |
+| (weitere bei Bedarf hinzufügen) | | |
 
 ---
 

@@ -1,5 +1,4 @@
 # V26.0 AUTH COMPONENTS
-
 > **Version:** 26.0  
 > **Letzte Aktualisierung:** 2025-01-26  
 > **Status:** ✅ Production Ready
@@ -19,7 +18,6 @@ Spezialisierte Komponenten für Authentication-Seiten basierend auf dem V26.0 "B
 **Datei:** `src/components/design-system/V26AuthCard.tsx`
 
 #### Design
-
 - **Gradient:** Weiß → Beige (5% Opacity)
 - **Border:** Dunkelblau (20% Opacity)
 - **Hover:** Border auf 40% Opacity
@@ -29,19 +27,21 @@ Spezialisierte Komponenten für Authentication-Seiten basierend auf dem V26.0 "B
 #### Verwendung
 
 ```tsx
-import { V26AuthCard } from "@/components/design-system";
+import { V26AuthCard } from '@/components/design-system';
 
 <V26AuthCard>
-  <form onSubmit={handleLogin}>{/* Auth Form Content */}</form>
-</V26AuthCard>;
+  <form onSubmit={handleLogin}>
+    {/* Auth Form Content */}
+  </form>
+</V26AuthCard>
 ```
 
 #### Props
 
-| Prop        | Typ         | Default | Beschreibung            |
-| ----------- | ----------- | ------- | ----------------------- |
-| `children`  | `ReactNode` | -       | Card-Inhalt             |
-| `className` | `string`    | -       | Zusätzliche CSS-Klassen |
+| Prop | Typ | Default | Beschreibung |
+|------|-----|---------|--------------|
+| `children` | `ReactNode` | - | Card-Inhalt |
+| `className` | `string` | - | Zusätzliche CSS-Klassen |
 
 ---
 
@@ -50,7 +50,6 @@ import { V26AuthCard } from "@/components/design-system";
 **Datei:** `src/components/design-system/V26AuthInput.tsx`
 
 #### Design
-
 - **Border:** border_neutral (Standard), Dunkelblau (Focus)
 - **Text:** text_primary
 - **Placeholder:** text_tertiary
@@ -60,7 +59,7 @@ import { V26AuthCard } from "@/components/design-system";
 #### Verwendung
 
 ```tsx
-import { V26AuthInput } from "@/components/design-system";
+import { V26AuthInput } from '@/components/design-system';
 
 <V26AuthInput
   label="E-Mail"
@@ -68,15 +67,15 @@ import { V26AuthInput } from "@/components/design-system";
   placeholder="name@firma.de"
   required
   disabled={loading}
-/>;
+/>
 ```
 
 #### Props
 
-| Prop       | Typ                   | Default | Beschreibung                  |
-| ---------- | --------------------- | ------- | ----------------------------- |
-| `label`    | `string`              | -       | Optional Label oberhalb Input |
-| `...props` | `InputHTMLAttributes` | -       | Alle Standard-Input-Props     |
+| Prop | Typ | Default | Beschreibung |
+|------|-----|---------|--------------|
+| `label` | `string` | - | Optional Label oberhalb Input |
+| `...props` | `InputHTMLAttributes` | - | Alle Standard-Input-Props |
 
 ---
 
@@ -87,47 +86,52 @@ import { V26AuthInput } from "@/components/design-system";
 #### Design
 
 **Selected State:**
-
 - Ring: 2px Dunkelblau
 - Shadow: xl mit Dunkelblau-Tönung (15% Opacity)
 - Check-Icon: Dunkelblauer Kreis mit beigem Check
 
 **Unselected State:**
-
 - Border: border_neutral_soft
 - Hover: Border border_neutral + translateY(-2px)
 
 #### Verwendung
 
 ```tsx
-import { V26TariffCard } from "@/components/design-system";
-import { Rocket, Building2 } from "lucide-react";
+import { V26TariffCard } from '@/components/design-system';
+import { Rocket, Building2 } from 'lucide-react';
 
 <V26TariffCard
   name="Starter"
   price={39}
   icon={Rocket}
-  features={["Bis zu 3 Fahrer/Fahrzeuge", "Basisdisposition", "Kunden-/Fahrerverwaltung"]}
-  limitations={["Kein Partner-Management", "Keine Live-Traffic-Infos"]}
-  isSelected={selectedTariff === "starter"}
-  onClick={() => setSelectedTariff("starter")}
+  features={[
+    'Bis zu 3 Fahrer/Fahrzeuge',
+    'Basisdisposition',
+    'Kunden-/Fahrerverwaltung',
+  ]}
+  limitations={[
+    'Kein Partner-Management',
+    'Keine Live-Traffic-Infos',
+  ]}
+  isSelected={selectedTariff === 'starter'}
+  onClick={() => setSelectedTariff('starter')}
   badge="Empfohlen"
-/>;
+/>
 ```
 
 #### Props
 
-| Prop          | Typ          | Default | Beschreibung                    |
-| ------------- | ------------ | ------- | ------------------------------- |
-| `name`        | `string`     | -       | Tarif-Name                      |
-| `price`       | `number`     | -       | Monatspreis in Euro             |
-| `icon`        | `LucideIcon` | -       | Icon-Komponente                 |
-| `features`    | `string[]`   | -       | Feature-Liste (mit Check-Icons) |
-| `limitations` | `string[]`   | `[]`    | Optional: Limitation-Liste      |
-| `isSelected`  | `boolean`    | -       | Selected State                  |
-| `onClick`     | `() => void` | -       | Click-Handler                   |
-| `badge`       | `string`     | -       | Optional: Badge-Text            |
-| `className`   | `string`     | -       | Zusätzliche CSS-Klassen         |
+| Prop | Typ | Default | Beschreibung |
+|------|-----|---------|--------------|
+| `name` | `string` | - | Tarif-Name |
+| `price` | `number` | - | Monatspreis in Euro |
+| `icon` | `LucideIcon` | - | Icon-Komponente |
+| `features` | `string[]` | - | Feature-Liste (mit Check-Icons) |
+| `limitations` | `string[]` | `[]` | Optional: Limitation-Liste |
+| `isSelected` | `boolean` | - | Selected State |
+| `onClick` | `() => void` | - | Click-Handler |
+| `badge` | `string` | - | Optional: Badge-Text |
+| `className` | `string` | - | Zusätzliche CSS-Klassen |
 
 ---
 
@@ -136,7 +140,7 @@ import { Rocket, Building2 } from "lucide-react";
 ### Login-Form mit V26AuthCard
 
 ```tsx
-import { V26AuthCard, V26AuthInput, V26Button } from "@/components/design-system";
+import { V26AuthCard, V26AuthInput, V26Button } from '@/components/design-system';
 
 <V26AuthCard>
   <form onSubmit={handleLogin} className="space-y-6 p-8">
@@ -144,7 +148,13 @@ import { V26AuthCard, V26AuthInput, V26Button } from "@/components/design-system
       Anmelden
     </h2>
 
-    <V26AuthInput label="E-Mail" type="email" name="email" placeholder="name@firma.de" required />
+    <V26AuthInput
+      label="E-Mail"
+      type="email"
+      name="email"
+      placeholder="name@firma.de"
+      required
+    />
 
     <V26AuthInput
       label="Passwort"
@@ -158,37 +168,37 @@ import { V26AuthCard, V26AuthInput, V26Button } from "@/components/design-system
       Anmelden
     </V26Button>
   </form>
-</V26AuthCard>;
+</V26AuthCard>
 ```
 
 ### Tarif-Auswahl für Registrierung
 
 ```tsx
-import { V26TariffCard } from "@/components/design-system";
-import { Rocket, Building2 } from "lucide-react";
+import { V26TariffCard } from '@/components/design-system';
+import { Rocket, Building2 } from 'lucide-react';
 
-const [selectedTariff, setSelectedTariff] = useState<"starter" | "business">("starter");
+const [selectedTariff, setSelectedTariff] = useState<'starter' | 'business'>('starter');
 
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
   <V26TariffCard
     name="Starter"
     price={39}
     icon={Rocket}
-    features={["Feature 1", "Feature 2", "Feature 3"]}
-    isSelected={selectedTariff === "starter"}
-    onClick={() => setSelectedTariff("starter")}
+    features={['Feature 1', 'Feature 2', 'Feature 3']}
+    isSelected={selectedTariff === 'starter'}
+    onClick={() => setSelectedTariff('starter')}
   />
 
   <V26TariffCard
     name="Business"
     price={99}
     icon={Building2}
-    features={["Feature 1", "Feature 2", "Feature 3"]}
-    isSelected={selectedTariff === "business"}
-    onClick={() => setSelectedTariff("business")}
+    features={['Feature 1', 'Feature 2', 'Feature 3']}
+    isSelected={selectedTariff === 'business'}
+    onClick={() => setSelectedTariff('business')}
     badge="Empfohlen"
   />
-</div>;
+</div>
 ```
 
 ---
@@ -196,20 +206,17 @@ const [selectedTariff, setSelectedTariff] = useState<"starter" | "business">("st
 ## ✅ DESIGN-VORGABEN
 
 ### Input-Field-Hierarchie
-
 - **Label:** text_primary, font-medium, text-xs sm:text-sm
 - **Input-Text:** text_primary, text-sm sm:text-base
 - **Placeholder:** text_tertiary (automatisch)
 - **Focus:** Dunkelblauer Ring (3px, 10% Opacity)
 
 ### Tariff-Card-Hierarchie
-
 - **Selected:** Ring (2px) + Shadow (xl) + Check-Icon
 - **Unselected:** Border (border_neutral_soft) + Hover-Lift
 - **Badge:** Dunkelblau Background, Beiger Text
 
 ### Auth-Card-Gradient
-
 - **Start:** KERNFARBEN.weiss (100%)
 - **End:** KERNFARBEN.beige (5% Opacity)
 - **Direction:** 135deg (diagonal)
@@ -219,7 +226,6 @@ const [selectedTariff, setSelectedTariff] = useState<"starter" | "business">("st
 ## 🚫 VERBOTEN
 
 ### Direct Input-Styles
-
 ```tsx
 // ❌ FALSCH - Shadcn Input ohne V26-Styling
 <Input type="email" placeholder="..." />
@@ -229,7 +235,6 @@ const [selectedTariff, setSelectedTariff] = useState<"starter" | "business">("st
 ```
 
 ### Custom Tariff-Cards
-
 ```tsx
 // ❌ FALSCH - Custom Card-Implementation
 <Card className={selectedTariff === 'starter' ? 'border-primary' : ''}>
@@ -246,7 +251,6 @@ const [selectedTariff, setSelectedTariff] = useState<"starter" | "business">("st
 ```
 
 ### Inkonsistente Focus-Styles
-
 ```tsx
 // ❌ FALSCH - Custom Focus-Ring
 <input className="focus:ring-primary" />
@@ -260,7 +264,6 @@ const [selectedTariff, setSelectedTariff] = useState<"starter" | "business">("st
 ## 📊 MIGRATIONS-CHECKLIST
 
 Für jede Auth-Seite:
-
 - [ ] Auth-Card durch `V26AuthCard` ersetzen
 - [ ] Alle Input-Fields durch `V26AuthInput` ersetzen
 - [ ] Tarif-Auswahl durch `V26TariffCard` ersetzen

@@ -1,10 +1,10 @@
-import { MapPin, Calendar, User, Euro, ChevronRight } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
-import { de } from "date-fns/locale";
-import { formatCurrency } from "@/lib/format-utils";
-import { cn } from "@/lib/utils";
+import { MapPin, Calendar, User, Euro, ChevronRight } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { format } from 'date-fns';
+import { de } from 'date-fns/locale';
+import { formatCurrency } from '@/lib/format-utils';
+import { cn } from '@/lib/utils';
 
 interface MobileBookingCardProps {
   booking: {
@@ -23,27 +23,26 @@ interface MobileBookingCardProps {
 }
 
 const statusConfig = {
-  pending: { label: "Ausstehend", variant: "outline" as const },
-  confirmed: { label: "Bestätigt", variant: "default" as const },
-  in_progress: { label: "In Bearbeitung", variant: "default" as const },
-  completed: { label: "Abgeschlossen", variant: "secondary" as const },
-  cancelled: { label: "Storniert", variant: "destructive" as const },
+  pending: { label: 'Ausstehend', variant: 'outline' as const },
+  confirmed: { label: 'Bestätigt', variant: 'default' as const },
+  in_progress: { label: 'In Bearbeitung', variant: 'default' as const },
+  completed: { label: 'Abgeschlossen', variant: 'secondary' as const },
+  cancelled: { label: 'Storniert', variant: 'destructive' as const },
 };
 
 export function MobileBookingCard({ booking, onClick }: MobileBookingCardProps) {
-  const customerName =
-    booking.customer_name ||
-    (booking.customer_first_name && booking.customer_last_name
+  const customerName = booking.customer_name || 
+    (booking.customer_first_name && booking.customer_last_name 
       ? `${booking.customer_first_name} ${booking.customer_last_name}`
-      : "Unbekannt");
+      : 'Unbekannt');
 
   const statusInfo = statusConfig[booking.status as keyof typeof statusConfig] || {
     label: booking.status,
-    variant: "outline" as const,
+    variant: 'outline' as const
   };
 
   return (
-    <Card
+    <Card 
       className="p-4 cursor-pointer hover:bg-primary/5 active:scale-[0.98] transition-all duration-200 touch-manipulation"
       onClick={onClick}
     >
@@ -77,9 +76,7 @@ export function MobileBookingCard({ booking, onClick }: MobileBookingCardProps) 
         )}
         <div className="flex items-center gap-2">
           <Calendar className="h-4 w-4 text-foreground shrink-0" />
-          <span>
-            {format(new Date(booking.pickup_datetime), "dd.MM.yyyy HH:mm", { locale: de })}
-          </span>
+          <span>{format(new Date(booking.pickup_datetime), 'dd.MM.yyyy HH:mm', { locale: de })}</span>
         </div>
       </div>
 

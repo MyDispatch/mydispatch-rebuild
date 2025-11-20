@@ -15,7 +15,6 @@
 ## 🛡️ AUTOMATISCHE GUARDS
 
 ### 1. Pre-Commit Hook
-
 **Datei:** `.husky/pre-commit`
 
 ```bash
@@ -47,7 +46,6 @@ echo "✅ All checks passed"
 ```
 
 **Setup:**
-
 ```bash
 npm install --save-dev husky
 npx husky install
@@ -57,7 +55,6 @@ npx husky add .husky/pre-commit
 ---
 
 ### 2. Git Commit Message Validation
-
 **Datei:** `.husky/commit-msg`
 
 ```bash
@@ -94,15 +91,14 @@ fi
 ## 🚨 QUALITY RULES
 
 ### Regel 1: Keine direkten Lucide-Imports
-
 ```tsx
 // ❌ FALSCH
-import { Check, X } from "lucide-react";
-<Check className="h-4 w-4" />;
+import { Check, X } from 'lucide-react';
+<Check className="h-4 w-4" />
 
 // ✅ RICHTIG
-import { Icon } from "@/components/design-system";
-<Icon name="Check" className="h-4 w-4" />;
+import { Icon } from '@/components/design-system';
+<Icon name="Check" className="h-4 w-4" />
 ```
 
 **Warum:** Zentrale Icon-Verwaltung, einfacher Austausch
@@ -110,14 +106,13 @@ import { Icon } from "@/components/design-system";
 ---
 
 ### Regel 2: Keine hardcoded Pricing-Daten
-
 ```tsx
 // ❌ FALSCH
-<p>Nur 39€ pro Monat</p>;
+<p>Nur 39€ pro Monat</p>
 
 // ✅ RICHTIG
-import { PRICING_TIERS } from "@/data/pricing-tiers";
-<p>Nur {PRICING_TIERS.starter.price}€ pro Monat</p>;
+import { PRICING_TIERS } from '@/data/pricing-tiers';
+<p>Nur {PRICING_TIERS.starter.price}€ pro Monat</p>
 ```
 
 **Warum:** Single Source of Truth, keine Inkonsistenzen
@@ -125,7 +120,6 @@ import { PRICING_TIERS } from "@/data/pricing-tiers";
 ---
 
 ### Regel 3: Keine direkten Farben
-
 ```tsx
 // ❌ FALSCH
 <div className="text-white bg-blue-500">
@@ -139,7 +133,6 @@ import { PRICING_TIERS } from "@/data/pricing-tiers";
 ---
 
 ### Regel 4: DSGVO-Consent auf Auth-Seiten
-
 ```tsx
 // ❌ FALSCH
 <LoginForm />
@@ -154,7 +147,6 @@ import { PRICING_TIERS } from "@/data/pricing-tiers";
 ---
 
 ### Regel 5: Dashboard-Cards mit h-full
-
 ```tsx
 // ❌ FALSCH
 <Card>
@@ -172,18 +164,17 @@ import { PRICING_TIERS } from "@/data/pricing-tiers";
 ---
 
 ### Regel 6: Keine console.log in Production
-
 ```tsx
 // ❌ FALSCH
-console.log("User clicked:", data);
+console.log('User clicked:', data);
 
 // ✅ RICHTIG
 // DEV: Debug user interaction
-console.log("User clicked:", data);
+console.log('User clicked:', data);
 
 // Oder für Production:
-import * as Sentry from "@sentry/react";
-Sentry.captureMessage("User clicked", { extra: { data } });
+import * as Sentry from '@sentry/react';
+Sentry.captureMessage('User clicked', { extra: { data } });
 ```
 
 **Warum:** Saubere Console, Performance
@@ -191,7 +182,6 @@ Sentry.captureMessage("User clicked", { extra: { data } });
 ---
 
 ### Regel 7: Verbotene Marketing-Claims
-
 ```tsx
 // ❌ FALSCH
 <p>30 Tage kostenlos testen</p>
@@ -207,7 +197,6 @@ Sentry.captureMessage("User clicked", { extra: { data } });
 ## 📊 CI/CD INTEGRATION
 
 ### GitHub Actions Workflow
-
 **Datei:** `.github/workflows/quality-check.yml`
 
 ```yaml
@@ -222,27 +211,27 @@ on:
 jobs:
   quality:
     runs-on: ubuntu-latest
-
+    
     steps:
       - uses: actions/checkout@v3
-
+      
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
-
+          node-version: '18'
+          
       - name: Install dependencies
         run: npm ci
-
+        
       - name: Type Check
         run: npm run type-check
-
+        
       - name: Code Quality Guard
         run: tsx scripts/code-quality-guard.ts
-
+        
       - name: Format Check
         run: npm run format:check
-
+        
       - name: Build Check
         run: npm run build
 ```
@@ -270,7 +259,6 @@ jobs:
 ## 🎯 ENTWICKLER-WORKFLOW
 
 ### Täglich vor Commit:
-
 ```bash
 # 1. Code-Qualität prüfen
 npm run quality:check
@@ -286,7 +274,6 @@ git commit -m "feat(feature): Add new feature"
 ```
 
 ### Bei HMR-Problemen:
-
 ```bash
 # Force HMR Update
 npm run hmr:force
@@ -297,13 +284,11 @@ npm run hmr:force
 ## 🚀 INSTALLATION
 
 ### 1. Dependencies installieren
-
 ```bash
 npm install --save-dev husky prettier eslint typescript tsx glob
 ```
 
 ### 2. Husky Setup
-
 ```bash
 npx husky install
 npx husky add .husky/pre-commit "npm run pre-commit"
@@ -311,7 +296,6 @@ npx husky add .husky/commit-msg "sh scripts/validate-commit-msg.sh"
 ```
 
 ### 3. VS Code Integration
-
 **Datei:** `.vscode/settings.json`
 
 ```json
@@ -332,7 +316,6 @@ npx husky add .husky/commit-msg "sh scripts/validate-commit-msg.sh"
 ## 📈 METRIKEN & REPORTING
 
 ### Wöchentlicher Quality Report
-
 **Datei:** `scripts/weekly-quality-report.ts`
 
 ```typescript

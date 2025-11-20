@@ -1,5 +1,4 @@
 # 📋 PRE-LOGIN SEITEN - VOLLSTÄNDIGER PLAN
-
 **Status:** 📝 DOKUMENTATION FÜR SPÄTER  
 **Zweck:** Alle öffentlichen Seiten (vor Login) V28.1-konform fertigstellen  
 **Datum:** 2025-10-28  
@@ -26,14 +25,13 @@
 ### 1. CORE MARKETING PAGES (6 Seiten)
 
 #### 1.1 Startseite (/)
-
 - **Route:** `/`
 - **Component:** `src/pages/Home.tsx`
 - **Status:** ✅ EXISTIERT
 - **V28.1 Status:** ✅ KONFORM (zuletzt überprüft 2025-10-28)
 - **Layout:** MarketingLayout
 - **Hero:** Split Layout mit Dashboard-Grafik
-- **Sections:**
+- **Sections:** 
   - Hero mit CTA
   - Feature Grid (6 Features)
   - Dashboard Preview (Slider)
@@ -45,14 +43,13 @@
 - **Schema.org:** ✅ softwareApplicationSchema
 - **Responsive:** ✅ xs–2xl optimiert
 - **Accessibility:** ✅ WCAG 2.1 AA
-- **Grafiken:**
+- **Grafiken:** 
   - Dashboard-Mockup im Hero
   - Feature-Icons
   - Testimonial-Avatare
 - **Letzte Änderung:** 2025-10-27 (V28.1 Migration)
 
 #### 1.2 Preise & Tarife (/pricing)
-
 - **Route:** `/pricing`
 - **Component:** `src/pages/Pricing.tsx`
 - **Status:** ✅ EXISTIERT
@@ -74,7 +71,6 @@
 - **Letzte Änderung:** 2025-10-28 (Fleet Add-On Icon)
 
 #### 1.3 Dokumentation (/docs)
-
 - **Route:** `/docs`
 - **Component:** `src/pages/Docs.tsx`
 - **Status:** ✅ EXISTIERT
@@ -94,7 +90,6 @@
   - [ ] Responsive xs-2xl testen
 
 #### 1.4 FAQ (/faq)
-
 - **Route:** `/faq`
 - **Component:** `src/pages/FAQ.tsx`
 - **Status:** ✅ EXISTIERT
@@ -114,7 +109,6 @@
   - [ ] Responsive testen
 
 #### 1.5 NeXify IT-Service (/nexify-support)
-
 - **Route:** `/nexify-support`
 - **Component:** `src/pages/NeXifySupport.tsx`
 - **Status:** ✅ EXISTIERT
@@ -128,7 +122,6 @@
   - [ ] Content-Review (ist aktuell?)
 
 #### 1.6 Kontakt (/contact)
-
 - **Route:** `/contact`
 - **Component:** `src/pages/Contact.tsx`
 - **Status:** ✅ EXISTIERT
@@ -154,7 +147,6 @@
 ### 2. LEGAL PAGES (4 Seiten)
 
 #### 2.1 Impressum (/impressum)
-
 - **Route:** `/impressum`
 - **Component:** `src/pages/Impressum.tsx`
 - **Status:** ✅ EXISTIERT
@@ -169,7 +161,6 @@
   - [ ] V28.1 Typography konform?
 
 #### 2.2 Datenschutz (/datenschutz)
-
 - **Route:** `/datenschutz`
 - **Component:** `src/pages/Datenschutz.tsx`
 - **Status:** ✅ EXISTIERT
@@ -189,7 +180,6 @@
   - [ ] DSGVO-Vollständigkeit prüfen
 
 #### 2.3 AGB (/agb)
-
 - **Route:** `/agb`
 - **Component:** `src/pages/AGB.tsx`
 - **Status:** ✅ EXISTIERT
@@ -204,7 +194,6 @@
   - [ ] Tarif-spezifische Klauseln aktualisieren?
 
 #### 2.4 Nutzungsbedingungen (/terms)
-
 - **Route:** `/terms`
 - **Component:** `src/pages/Terms.tsx`
 - **Status:** ✅ EXISTIERT (Alias oder separate?)
@@ -223,7 +212,6 @@
 ### ALLE SEITEN MÜSSEN HABEN:
 
 #### 1. Design System Compliance
-
 ```typescript
 ✅ V28.1 Design Tokens (slate-Palette)
 ✅ Tailwind Semantic Classes (bg-slate-50, text-slate-900)
@@ -233,7 +221,6 @@
 ```
 
 #### 2. Typography Hierarchy
-
 ```
 H1: text-3xl sm:text-4xl md:text-5xl (Hero-Titel)
 H2: text-2xl sm:text-3xl md:text-4xl (Section-Titel)
@@ -243,7 +230,6 @@ Small: text-sm
 ```
 
 #### 3. Spacing System
-
 ```
 Sections: py-16 md:py-20 lg:py-24
 Cards: p-6 md:p-8
@@ -252,7 +238,6 @@ Container: max-w-7xl mx-auto px-4 sm:px-6 lg:px-8
 ```
 
 #### 4. Color Palette (V28.1)
-
 ```css
 Primary Text: text-slate-900
 Secondary Text: text-slate-600
@@ -264,7 +249,6 @@ Success: bg-green-500
 ```
 
 #### 5. Component Standards
-
 ```tsx
 // Hero Pattern
 <V28MarketingSection
@@ -283,9 +267,9 @@ Success: bg-green-500
 </V28MarketingCard>
 
 // Accordion
-<V28AccordionItem
-  value="item-1"
-  question="..."
+<V28AccordionItem 
+  value="item-1" 
+  question="..." 
   answer="..."
 />
 ```
@@ -295,7 +279,6 @@ Success: bg-green-500
 ## 🔒 RECHTLICHE COMPLIANCE (ALLE SEITEN)
 
 ### DSGVO / GDPR
-
 - [ ] Alle Formulare haben Datenschutz-Checkbox
 - [ ] Datenschutzhinweis unter Formularen
 - [ ] Footer-Links zu Impressum/Datenschutz/AGB auf ALLEN Seiten
@@ -303,7 +286,6 @@ Success: bg-green-500
 - [ ] Google Maps API Consent (falls Maps eingebunden)
 
 ### SEO Requirements
-
 - [ ] SEOHead Component auf JEDER Seite
 - [ ] Title: 50-60 Zeichen
 - [ ] Description: 150-160 Zeichen
@@ -312,7 +294,6 @@ Success: bg-green-500
 - [ ] Schema.org Markup (je nach Seiten-Typ)
 
 ### Accessibility (WCAG 2.1 AA)
-
 - [ ] Farbkontrast min 4.5:1
 - [ ] Touch-Targets min 44x44px
 - [ ] Keyboard Navigation vollständig
@@ -325,7 +306,6 @@ Success: bg-green-500
 ## 📊 QUALITÄTS-CHECKLISTE (Pro Seite)
 
 ### VISUAL / DESIGN
-
 - [ ] V28.1 Design Tokens durchgängig
 - [ ] Keine inline styles
 - [ ] Keine Hex-Codes direkt
@@ -334,7 +314,6 @@ Success: bg-green-500
 - [ ] V28-Components genutzt
 
 ### RESPONSIVE
-
 - [ ] Mobile (320px-640px) ✓
 - [ ] Tablet (640px-1024px) ✓
 - [ ] Desktop (1024px-1920px) ✓
@@ -342,7 +321,6 @@ Success: bg-green-500
 - [ ] No horizontal scroll
 
 ### PERFORMANCE
-
 - [ ] Lighthouse Score >90
 - [ ] Images optimiert (WebP + Fallback)
 - [ ] Lazy Loading (außer Above-the-Fold)
@@ -350,7 +328,6 @@ Success: bg-green-500
 - [ ] Fast Load Time (< 3s)
 
 ### SEO & ACCESSIBILITY
-
 - [ ] SEOHead implementiert
 - [ ] Schema.org Markup
 - [ ] Alt-Texte für Bilder
@@ -359,7 +336,6 @@ Success: bg-green-500
 - [ ] Keyboard Navigation
 
 ### FUNCTIONALITY
-
 - [ ] Alle Links funktional
 - [ ] Forms validiert (Zod)
 - [ ] Error Handling
@@ -367,7 +343,6 @@ Success: bg-green-500
 - [ ] Success Messages
 
 ### LEGAL
-
 - [ ] Datenschutz-Hinweis (bei Forms)
 - [ ] Footer-Links (Impressum/Datenschutz/AGB)
 - [ ] Cookie-Consent (falls nötig)
@@ -378,11 +353,9 @@ Success: bg-green-500
 ## 🚀 IMPLEMENTIERUNGS-PLAN (Priorisiert)
 
 ### PHASE 1: BESTANDSAUFNAHME (1-2 Stunden)
-
 **Ziel:** IST-Zustand JEDER Seite dokumentieren
 
 **Pro Seite:**
-
 1. Screenshot (Desktop + Mobile)
 2. V28.1 Compliance Check
 3. Layout-Struktur dokumentieren
@@ -398,7 +371,6 @@ Success: bg-green-500
 ### PHASE 2: PRIORISIERTE FIXES (2-4 Tage)
 
 #### **P0 - KRITISCH (Sofort):**
-
 1. **Home (/)** - V28.1 Final-Check
 2. **Pricing (/pricing)** - V28.1 Final-Check
 3. **Impressum** - Layout-Konsistenz + Content-Check
@@ -406,25 +378,21 @@ Success: bg-green-500
 5. **AGB** - Layout-Konsistenz + Content-Check
 
 **Warum P0?**
-
 - Am meisten Traffic
 - Rechtlich verpflichtend
 - Erste Impression für User
 
 #### **P1 - WICHTIG (Danach):**
-
 6. **Contact (/contact)** - Layout-Optimierung + Hero-Grafik
 7. **FAQ (/faq)** - V28AccordionItem Migration
 8. **Docs (/docs)** - V28.1 Compliance
 9. **NeXify Support** - Layout-Review
 
 **Warum P1?**
-
 - Wichtige User-Journey-Touchpoints
 - Conversion-relevant
 
 #### **P2 - OPTIONAL (Falls Zeit):**
-
 10. **Terms (/terms)** - Alias-Check oder Content-Vervollständigung
 
 ---
@@ -432,7 +400,6 @@ Success: bg-green-500
 ### PHASE 3: FINAL QUALITY GATE (1 Tag)
 
 **Cross-Check ALLER Seiten:**
-
 - [ ] Lighthouse Score >90 (ALLE Seiten)
 - [ ] Mobile Test (iPhone/Android)
 - [ ] Cross-Browser (Chrome, Firefox, Safari)
@@ -446,20 +413,17 @@ Success: bg-green-500
 ## 📁 GRAFIK-INVENTAR & NEEDS
 
 ### EXISTIERENDE GRAFIKEN (Prüfen):
-
 - ⚠️ Dashboard-Mockup (Home Hero)
 - ⚠️ Feature-Icons (Home Feature Grid)
 - ⚠️ Testimonial-Avatare (Home Social Proof)
 - ⚠️ Fleet-Driver-Icon (Pricing Add-On) ✅ NEU erstellt 2025-10-28
 
 ### FEHLENDE GRAFIKEN (Falls nötig):
-
 - ❌ hero-contact.svg (Contact Hero) - Optional
 - ❌ hero-docs.svg (Docs Hero) - Optional
 - ❌ hero-support.svg (NeXify Support) - Optional
 
 **Entscheidung:** Brauchen wir Hero-Grafiken für Contact/Docs/Support?
-
 - **PRO:** Konsistenz, visueller Impact
 - **CONTRA:** Pricing/FAQ/Legal haben auch keine
 
@@ -470,7 +434,6 @@ Success: bg-green-500
 ## 🔄 UPDATE-WORKFLOW (Wenn Implementation startet)
 
 ### VOR JEDER SEITEN-BEARBEITUNG:
-
 ```
 1. □ AVOIDABLE_ERRORS.md lesen (7-Step Workflow)
 2. □ PROJECT_MEMORY.md lesen
@@ -482,7 +445,6 @@ Success: bg-green-500
 ```
 
 ### NACH JEDER SEITEN-ÄNDERUNG:
-
 ```
 1. □ Screenshot vom SOLL-Status machen
 2. □ Lighthouse Score prüfen
@@ -498,21 +460,20 @@ Success: bg-green-500
 
 ### AKTUELLER STATUS (2025-10-28):
 
-| #   | Seite       | Route           | V28.1 Status | Lighthouse | Mobile | A11y | Legal | Last Check |
-| --- | ----------- | --------------- | ------------ | ---------- | ------ | ---- | ----- | ---------- |
-| 1   | Startseite  | /               | ✅ KONFORM   | ⚠️         | ⚠️     | ⚠️   | ✅    | 2025-10-28 |
-| 2   | Preise      | /pricing        | ✅ KONFORM   | ⚠️         | ⚠️     | ⚠️   | ✅    | 2025-10-28 |
-| 3   | Docs        | /docs           | ✅ KONFORM   | -          | -      | -    | ✅    | 2025-10-28 |
-| 4   | FAQ         | /faq            | ✅ KONFORM   | -          | -      | -    | ✅    | 2025-10-28 |
-| 5   | Support     | /nexify-support | ✅ KONFORM   | -          | -      | -    | ✅    | 2025-10-28 |
-| 6   | Kontakt     | /contact        | ✅ KONFORM   | -          | -      | -    | ✅    | 2025-10-28 |
-| 7   | Impressum   | /impressum      | 🔄 IN ARBEIT | -          | -      | -    | ✅    | 2025-10-28 |
-| 8   | Datenschutz | /datenschutz    | ⚠️ TODO      | -          | -      | -    | ✅    | -          |
-| 9   | AGB         | /agb            | ⚠️ TODO      | -          | -      | -    | ✅    | -          |
-| 10  | Terms       | /terms          | ⚠️ TODO      | -          | -      | -    | ✅    | -          |
+| # | Seite | Route | V28.1 Status | Lighthouse | Mobile | A11y | Legal | Last Check |
+|---|-------|-------|--------------|------------|--------|------|-------|------------|
+| 1 | Startseite | / | ✅ KONFORM | ⚠️ | ⚠️ | ⚠️ | ✅ | 2025-10-28 |
+| 2 | Preise | /pricing | ✅ KONFORM | ⚠️ | ⚠️ | ⚠️ | ✅ | 2025-10-28 |
+| 3 | Docs | /docs | ✅ KONFORM | - | - | - | ✅ | 2025-10-28 |
+| 4 | FAQ | /faq | ✅ KONFORM | - | - | - | ✅ | 2025-10-28 |
+| 5 | Support | /nexify-support | ✅ KONFORM | - | - | - | ✅ | 2025-10-28 |
+| 6 | Kontakt | /contact | ✅ KONFORM | - | - | - | ✅ | 2025-10-28 |
+| 7 | Impressum | /impressum | 🔄 IN ARBEIT | - | - | - | ✅ | 2025-10-28 |
+| 8 | Datenschutz | /datenschutz | ⚠️ TODO | - | - | - | ✅ | - |
+| 9 | AGB | /agb | ⚠️ TODO | - | - | - | ✅ | - |
+| 10 | Terms | /terms | ⚠️ TODO | - | - | - | ✅ | - |
 
 **LEGENDE:**
-
 - ✅ = Complete
 - ⚠️ = Needs Check
 - ❌ = Critical Issue
@@ -523,7 +484,6 @@ Success: bg-green-500
 ## 🎯 NÄCHSTE SCHRITTE (Wenn Implementation startet)
 
 ### STEP 1: IST-ANALYSE (Zuerst!)
-
 ```bash
 # Für JEDE Seite:
 1. Screenshot Desktop (1920px)
@@ -535,7 +495,6 @@ Success: bg-green-500
 ```
 
 ### STEP 2: PRIORISIERTE FIXES
-
 ```
 P0 (Sofort):
 - Home V28.1 Final-Check
@@ -553,7 +512,6 @@ P2 (Optional):
 ```
 
 ### STEP 3: FINAL QUALITY GATE
-
 ```
 - Lighthouse Score >90 (ALLE)
 - Mobile Test (ALLE)
@@ -567,7 +525,6 @@ P2 (Optional):
 ## 📚 VERWANDTE DOKUMENTATION
 
 **VERPFLICHTEND LESEN VOR START:**
-
 - `AVOIDABLE_ERRORS.md` (7-Step Workflow)
 - `PROJECT_MEMORY.md` (Kritische Erinnerungen)
 - `DESIGN_SYSTEM_V28_1_ABSOLUTE.md` (Design-Regeln)

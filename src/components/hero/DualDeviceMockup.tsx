@@ -6,34 +6,34 @@
    ✅ Ultra-HD rendering support
    ================================================================================== */
 
-import { ReactNode } from "react";
-import { V28iPadMockupHD } from "./V28iPadMockupHD";
-import { IPhoneMockupHD } from "./IPhoneMockupHD";
-import { cn } from "@/lib/utils";
-import type { RenderingResolution } from "@/lib/rendering-quality";
+import { ReactNode } from 'react';
+import { V28iPadMockupHD } from './V28iPadMockupHD';
+import { IPhoneMockupHD } from './IPhoneMockupHD';
+import { cn } from '@/lib/utils';
+import type { RenderingResolution } from '@/lib/rendering-quality';
 
 interface DualDeviceMockupProps {
   dashboardContent: ReactNode;
-  ipadTilt?: "left" | "right";
-  iphoneTilt?: "left" | "right";
-  layout?: "side-by-side" | "stacked";
+  ipadTilt?: 'left' | 'right';
+  iphoneTilt?: 'left' | 'right';
+  layout?: 'side-by-side' | 'stacked';
   resolution?: RenderingResolution;
   className?: string;
 }
 
 export function DualDeviceMockup({
   dashboardContent,
-  ipadTilt = "left",
-  iphoneTilt = "right",
-  layout = "side-by-side",
-  resolution = "retina",
-  className,
+  ipadTilt = 'left',
+  iphoneTilt = 'right',
+  layout = 'side-by-side',
+  resolution = 'retina',
+  className
 }: DualDeviceMockupProps) {
   return (
-    <div
+    <div 
       className={cn(
         "hidden md:flex gap-8 items-center justify-center",
-        layout === "side-by-side" ? "lg:flex-row flex-col" : "flex-col",
+        layout === 'side-by-side' ? 'lg:flex-row flex-col' : 'flex-col',
         className
       )}
     >
@@ -47,7 +47,9 @@ export function DualDeviceMockup({
       {/* iPhone Mockup (kleiner, rechts daneben) */}
       <div className="w-full lg:w-[35%] md:w-[50%] max-w-md">
         <IPhoneMockupHD tiltDirection={iphoneTilt} resolution={resolution}>
-          <div className="scale-[0.8] origin-top">{dashboardContent}</div>
+          <div className="scale-[0.8] origin-top">
+            {dashboardContent}
+          </div>
         </IPhoneMockupHD>
       </div>
     </div>

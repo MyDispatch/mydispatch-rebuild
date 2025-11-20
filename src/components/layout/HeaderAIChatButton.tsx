@@ -6,11 +6,11 @@
    - Unobtrusive Design, aber immer sichtbar
    ================================================================================== */
 
-import React from "react";
-import { V28Button } from "@/components/design-system/V28Button";
-import { MessageCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useDeviceType } from "@/hooks/use-device-type";
+import React from 'react';
+import { V28Button } from '@/components/design-system/V28Button';
+import { MessageCircle } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { useDeviceType } from '@/hooks/use-device-type';
 
 interface HeaderAIChatButtonProps {
   onClick: () => void;
@@ -40,7 +40,7 @@ export function HeaderAIChatButton({ onClick, className }: HeaderAIChatButtonPro
           <span className="font-medium">AI-Assistent</span>
         </>
       )}
-
+      
       {/* Pulse Animation für Aufmerksamkeit (optional) */}
       <span className="absolute top-0 right-0 flex h-2 w-2">
         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>

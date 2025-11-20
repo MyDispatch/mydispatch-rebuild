@@ -8,22 +8,23 @@
    ✅ Premium-Feeling durchgängig
    ================================================================================== */
 
-import { useState } from "react";
-import { Sparkles, Rocket, Building2, Crown, Truck, ChevronDown, Euro } from "lucide-react";
-import { SEOHead } from "@/components/shared/SEOHead";
-import { MarketingLayout } from "@/components/layout/MarketingLayout";
-import { useNavigate, Link } from "react-router-dom";
-import { pricingSchema } from "@/lib/schema-org";
-import { cn } from "@/lib/utils";
+import { useState } from 'react';
+import { Sparkles, Rocket, Building2, Crown, Truck, ChevronDown, Euro } from 'lucide-react';
+import { SEOHead } from '@/components/shared/SEOHead';
+import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { useNavigate, Link } from 'react-router-dom';
+import { pricingSchema } from '@/lib/schema-org';
+import { cn } from '@/lib/utils';
 
-import { V28HeroPremium } from "@/components/hero";
-import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
-import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
-import { V28BillingToggle } from "@/components/design-system/V28BillingToggle";
-import { V28InfoBox } from "@/components/design-system/V28InfoBox";
-import { V28FeatureListItem } from "@/components/design-system/V28FeatureListItem";
-import { V28Button } from "@/components/design-system/V28Button";
-import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28HeroPremium } from '@/components/hero';
+import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
+import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
+import { V28BillingToggle } from '@/components/design-system/V28BillingToggle';
+import { V28InfoBox } from '@/components/design-system/V28InfoBox';
+import { V28FeatureListItem } from '@/components/design-system/V28FeatureListItem';
+import { V28Button } from '@/components/design-system/V28Button';
+import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
+
 
 // V28.1 Professional Gray-Blue Design
 import {
@@ -32,7 +33,7 @@ import {
   V28ComparisonTable,
   V28AccordionItem,
   TariffFeatureDialog,
-} from "@/components/pricing";
+} from '@/components/pricing';
 
 // Accordion für FAQ
 import {
@@ -40,7 +41,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from '@/components/ui/accordion';
 
 // Zentrale Tarif-Definitionen
 import {
@@ -48,17 +49,17 @@ import {
   COMPARISON_FEATURES,
   getTariffById,
   ADDON_FLEET_EXTENSION,
-} from "@/lib/tariff/tariff-definitions";
-import { FAQ_DATA } from "@/data/faq-data";
+} from '@/lib/tariff/tariff-definitions';
+import { FAQ_DATA } from '@/data/faq-data';
 
 // Icon-Mapping für Tarife
 const getTariffIcon = (tariffId: string) => {
   switch (tariffId) {
-    case "starter":
+    case 'starter':
       return Rocket;
-    case "business":
+    case 'business':
       return Building2;
-    case "enterprise":
+    case 'enterprise':
       return Crown;
     default:
       return Rocket;
@@ -67,9 +68,9 @@ const getTariffIcon = (tariffId: string) => {
 
 // Dynamische Vergleichs-Daten
 const getComparisonData = () => {
-  const starter = getTariffById("starter");
-  const business = getTariffById("business");
-  const enterprise = getTariffById("enterprise");
+  const starter = getTariffById('starter');
+  const business = getTariffById('business');
+  const enterprise = getTariffById('enterprise');
 
   return COMPARISON_FEATURES.map((cf) => {
     const starterFeature = starter?.features.find((f) => f.id === cf.key);
@@ -87,14 +88,14 @@ const getComparisonData = () => {
 
 export default function Pricing() {
   const navigate = useNavigate();
-  const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">("monthly");
-  const [selectedTariff, setSelectedTariff] = useState<(typeof ALL_TARIFFS)[0] | null>(null);
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
+  const [selectedTariff, setSelectedTariff] = useState<typeof ALL_TARIFFS[0] | null>(null);
 
   const comparisonData = getComparisonData();
 
   const handleSubscribe = (tariffId: string) => {
-    if (tariffId === "enterprise") {
-      navigate("/contact");
+    if (tariffId === 'enterprise') {
+      navigate('/contact');
       return;
     }
     const billingParam = billingPeriod;
@@ -109,13 +110,13 @@ export default function Pricing() {
         canonical="/pricing"
         schema={pricingSchema}
         keywords={[
-          "Taxi Software Preise",
-          "Mietwagen Software Kosten",
-          "Dispositionssoftware Tarife",
-          "MyDispatch Preise",
-          "Flottenmanagement Abo",
-          "DSGVO-konforme Taxi-Software",
-          "Made in Germany Dispositionssoftware",
+          'Taxi Software Preise',
+          'Mietwagen Software Kosten',
+          'Dispositionssoftware Tarife',
+          'MyDispatch Preise',
+          'Flottenmanagement Abo',
+          'DSGVO-konforme Taxi-Software',
+          'Made in Germany Dispositionssoftware',
         ]}
       />
 
@@ -128,18 +129,18 @@ export default function Pricing() {
         subtitle="Flexibles Preismodell, das mit Ihrem Unternehmen wächst"
         description="Keine versteckten Kosten, monatlich kündbar, 20% Rabatt bei jährlicher Zahlung"
         primaryCTA={{
-          label: "Jetzt starten",
-          onClick: () => navigate("/auth?mode=signup"),
+          label: 'Jetzt starten',
+          onClick: () => navigate('/auth?mode=signup')
         }}
         secondaryCTA={{
-          label: "Demo ansehen",
-          onClick: () => navigate("/demo"),
+          label: 'Demo ansehen',
+          onClick: () => navigate('/demo')
         }}
         visual={<PremiumDashboardContent pageType="pricing" />}
         businessMetrics={[
-          { label: "Tarife", value: "3", sublabel: "zur Auswahl" },
-          { label: "Rabatt", value: "-20%", sublabel: "bei Jahresabo" },
-          { label: "Kündbar", value: "Monatlich", sublabel: "flexibel" },
+          { label: 'Tarife', value: '3', sublabel: 'zur Auswahl' },
+          { label: 'Rabatt', value: '-20%', sublabel: 'bei Jahresabo' },
+          { label: 'Kündbar', value: 'Monatlich', sublabel: 'flexibel' }
         ]}
         trustElements={true}
       />
@@ -167,32 +168,33 @@ export default function Pricing() {
               const TariffIcon = getTariffIcon(tariff.id);
 
               return (
-                <div key={tariff.id} className="transition-all duration-300">
+                <div
+                  key={tariff.id}
+                  className="transition-all duration-300"
+                >
                   <div className="flex flex-col h-full">
                     <V28PricingCard
                       name={tariff.name}
                       description={tariff.description}
                       price={
-                        billingPeriod === "monthly"
+                        billingPeriod === 'monthly'
                           ? tariff.priceMonthlyFormatted
                           : tariff.priceYearlyFormatted
                       }
-                      priceDetail={billingPeriod === "monthly" ? "pro Monat" : "pro Jahr"}
+                      priceDetail={billingPeriod === 'monthly' ? 'pro Monat' : 'pro Jahr'}
                       icon={TariffIcon}
                       badge={tariff.badge}
                       highlighted={tariff.highlighted}
                       ctaLabel={tariff.ctaText}
-                      ctaVariant={tariff.highlighted ? "primary" : "secondary"}
-                      features={displayedFeatures.map((f) => ({ text: f.name, included: true }))}
+                      ctaVariant={tariff.highlighted ? 'primary' : 'secondary'}
+                      features={displayedFeatures.map(f => ({ text: f.name, included: true }))}
                       hasMoreFeatures={hasMoreFeatures}
                       onCTAClick={() => handleSubscribe(tariff.id)}
-                      onShowAllFeatures={
-                        hasMoreFeatures ? () => setSelectedTariff(tariff) : undefined
-                      }
+                      onShowAllFeatures={hasMoreFeatures ? () => setSelectedTariff(tariff) : undefined}
                       className="animate-fade-in flex-1"
                     />
                     <div className="mt-4">
-                      <Link
+                      <Link 
                         to={`/pricing/${tariff.id}`}
                         className="block text-center text-sm text-slate-600 hover:text-slate-900 font-medium transition-colors py-2"
                       >
@@ -210,24 +212,22 @@ export default function Pricing() {
             <V28InfoBox type="legal" title="Rechtliche Hinweise">
               <div className="space-y-3">
                 <p>
-                  <strong className="text-slate-900">Datenschutz:</strong> Alle Tarife sind
-                  DSGVO-konform. Ihre Daten werden ausschließlich in Deutschland gespeichert und
-                  verarbeitet.
+                  <strong className="text-slate-900">Datenschutz:</strong> Alle Tarife sind DSGVO-konform. Ihre Daten werden
+                  ausschließlich in Deutschland gespeichert und verarbeitet.
                 </p>
                 <p>
-                  <strong className="text-slate-900">Vertragslaufzeit:</strong> Alle Tarife sind
-                  monatlich kündbar. Bei jährlicher Zahlung erhalten Sie einen Rabatt von 20% und
-                  können zum Ende der Jahresperiode kündigen.
+                  <strong className="text-slate-900">Vertragslaufzeit:</strong> Alle Tarife sind monatlich kündbar. Bei
+                  jährlicher Zahlung erhalten Sie einen Rabatt von 20% und können zum Ende der
+                  Jahresperiode kündigen.
                 </p>
                 <p>
-                  <strong className="text-slate-900">Zahlungsmodalitäten:</strong> Wir akzeptieren
-                  alle gängigen Kreditkarten und SEPA-Lastschrift über unseren Zahlungspartner
-                  Stripe.
+                  <strong className="text-slate-900">Zahlungsmodalitäten:</strong> Wir akzeptieren alle gängigen
+                  Kreditkarten und SEPA-Lastschrift über unseren Zahlungspartner Stripe.
                 </p>
                 <p>
-                  <strong className="text-slate-900">Datenaufbewahrung:</strong> Gemäß § 51 PBefG
-                  werden Auftragsdaten für 10 Jahre aufbewahrt. Personenbezogene Daten werden nach
-                  Vertragsende gemäß DSGVO gelöscht.
+                  <strong className="text-slate-900">Datenaufbewahrung:</strong> Gemäß § 51 PBefG werden Auftragsdaten für
+                  10 Jahre aufbewahrt. Personenbezogene Daten werden nach Vertragsende gemäß DSGVO
+                  gelöscht.
                 </p>
               </div>
             </V28InfoBox>
@@ -248,11 +248,11 @@ export default function Pricing() {
             icon={Truck}
             title="Fleet & Driver Add-On"
             price={
-              billingPeriod === "monthly"
+              billingPeriod === 'monthly'
                 ? ADDON_FLEET_EXTENSION.priceMonthlyFormatted
                 : ADDON_FLEET_EXTENSION.priceYearlyFormatted
             }
-            priceLabel={billingPeriod === "monthly" ? "pro Monat" : "pro Jahr"}
+            priceLabel={billingPeriod === 'monthly' ? 'pro Monat' : 'pro Jahr'}
             description="Nur für Starter-Tarif. Pro zusätzlichem Fahrzeug oder Fahrer über die ersten 3 hinaus. Beliebig erweiterbar. Sofort aktiv. Monatlich kündbar."
             highlighted={true}
           />
@@ -318,8 +318,7 @@ export default function Pricing() {
             </h2>
 
             <p className="font-sans text-base md:text-lg lg:text-xl text-center leading-relaxed max-w-3xl mx-auto text-slate-600">
-              Starten Sie noch heute mit MyDispatch und optimieren Sie Ihre Disposition.
-              DSGVO-konform, Made in Germany, monatlich kündbar.
+              Starten Sie noch heute mit MyDispatch und optimieren Sie Ihre Disposition. DSGVO-konform, Made in Germany, monatlich kündbar.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch pt-4">

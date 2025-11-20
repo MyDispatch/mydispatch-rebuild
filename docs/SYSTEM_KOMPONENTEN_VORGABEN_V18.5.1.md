@@ -144,17 +144,14 @@ export function AlertWidget() {
 ## 📋 SYSTEM-KOMPONENTEN LISTE
 
 ### Bereits Integriert (Master-Dashboard):
-
 - ✅ `AlertWidget` (System-Alerts, NEU in BATCH 10)
 
 ### Business-Widgets (Kunden-Dashboard):
-
 - ✅ `WeatherWidget` (Wetter-Daten für Tourenplanung)
 - ✅ `TrafficWidget` (Verkehrslage)
 - ✅ `PredictiveDemandWidget` (KI-Prognosen, Business-Tier)
 
 ### Zukünftige System-Widgets (Master-Dashboard):
-
 - 🔄 `PerformanceWidget` (Response Times, DB-Latenz)
 - 🔄 `ErrorLogWidget` (Latest Errors, 404s, Sentry)
 - 🔄 `UserActivityWidget` (Active Users, Sessions)
@@ -168,24 +165,21 @@ export function AlertWidget() {
 ## 🎨 DESIGN-VORGABEN
 
 ### Widget-Größe (Responsive):
-
 ```typescript
 // Master-Dashboard: Begrenzte Breite für bessere Lesbarkeit
-className = "lg:max-w-md"; // Max 448px auf Desktop
+className="lg:max-w-md"  // Max 448px auf Desktop
 
 // Alternative: Volle Breite (wenn mehrere Widgets nebeneinander)
-className = "w-full";
+className="w-full"
 ```
 
 ### Widget-Höhe:
-
 ```typescript
 // IMMER flexible Höhe für Grid-Konsistenz
-className = "h-full";
+className="h-full"
 ```
 
 ### Spacing:
-
 ```typescript
 // Konsistentes Spacing (siehe DESIGN_SYSTEM_VORGABEN_V18.3.md)
 <div className="space-y-4 sm:space-y-6">
@@ -195,13 +189,12 @@ className = "h-full";
 ```
 
 ### Farben (NIEMALS direkt!):
-
 ```typescript
 // ❌ FALSCH
-className = "text-red-500 bg-white";
+className="text-red-500 bg-white"
 
 // ✅ RICHTIG: Semantic Tokens
-className = "text-destructive bg-background";
+className="text-destructive bg-background"
 ```
 
 ---
@@ -227,7 +220,7 @@ export default function MasterDashboard() {
   return (
     <DashboardLayout title="Master-Dashboard" description="System-Überwachung">
       <div className="space-y-6">
-
+        
         {/* KPIs (volle Breite, 4 Karten) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <KPICard title="Gesamt" value={stats.total} icon={Building2} />
@@ -263,7 +256,6 @@ export default function MasterDashboard() {
 ## ✅ CHECKLISTE
 
 Vor Commit (System-Komponente):
-
 - [ ] Widget im Master-Dashboard (`/master`) integriert (NICHT `/dashboard`)?
 - [ ] NICHT im Kunden-Dashboard platziert?
 - [ ] Begrenzte Breite (`lg:max-w-md`) oder Grid genutzt?

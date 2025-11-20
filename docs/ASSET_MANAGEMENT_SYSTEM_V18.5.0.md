@@ -1,5 +1,4 @@
 # ASSET-MANAGEMENT SYSTEM V18.5.0
-
 ## MyDispatch Premium+ - Design-First Development
 
 > **Version:** 18.5.0  
@@ -23,11 +22,9 @@
 ## 📁 ASSET-KATEGORIEN
 
 ### 1. Design Tokens (Basis-Ebene)
-
 **Speicherort:** `src/index.css` + `tailwind.config.ts`
 
 #### 1.1 Farben (HSL-basiert)
-
 ```css
 /* src/index.css */
 :root {
@@ -35,7 +32,7 @@
   --primary: 221 83% 53%;
   --primary-glow: 221 83% 70%;
   --primary-dark: 221 83% 35%;
-
+  
   /* Semantic Colors */
   --background: 0 0% 100%;
   --foreground: 222 47% 11%;
@@ -43,13 +40,13 @@
   --card-foreground: 222 47% 11%;
   --muted: 210 40% 96%;
   --muted-foreground: 215 16% 47%;
-
+  
   /* Status Colors */
   --status-success: 142 71% 45%;
   --status-warning: 38 92% 50%;
   --status-error: 0 84% 60%;
   --status-info: 199 89% 48%;
-
+  
   /* Portal-Specific */
   --portal-customer: 262 83% 58%;
   --portal-driver: 24 95% 53%;
@@ -68,7 +65,6 @@
 ```
 
 #### 1.2 Typography (Fluid Sizing)
-
 ```css
 /* src/index.css */
 :root {
@@ -85,22 +81,20 @@
 ```
 
 #### 1.3 Spacing (Konsistent)
-
 ```css
 /* src/index.css */
 :root {
-  --spacing-xs: 0.25rem; /* 4px */
-  --spacing-sm: 0.5rem; /* 8px */
-  --spacing-md: 1rem; /* 16px */
-  --spacing-lg: 1.5rem; /* 24px */
-  --spacing-xl: 2rem; /* 32px */
-  --spacing-2xl: 3rem; /* 48px */
-  --spacing-3xl: 4rem; /* 64px */
+  --spacing-xs: 0.25rem;    /* 4px */
+  --spacing-sm: 0.5rem;     /* 8px */
+  --spacing-md: 1rem;       /* 16px */
+  --spacing-lg: 1.5rem;     /* 24px */
+  --spacing-xl: 2rem;       /* 32px */
+  --spacing-2xl: 3rem;      /* 48px */
+  --spacing-3xl: 4rem;      /* 64px */
 }
 ```
 
 #### 1.4 Shadows & Effects
-
 ```css
 /* src/index.css */
 :root {
@@ -109,30 +103,22 @@
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
   --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.4);
-
+  
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: all 0.15s ease-in-out;
 }
 ```
 
 **Validierung:**
-
 ```typescript
 // src/lib/design-system.ts
 export function validateDesignToken(token: string): boolean {
   const validTokens = [
-    "primary",
-    "secondary",
-    "background",
-    "foreground",
-    "status-success",
-    "status-warning",
-    "status-error",
-    "portal-customer",
-    "portal-driver",
-    "portal-admin",
+    'primary', 'secondary', 'background', 'foreground',
+    'status-success', 'status-warning', 'status-error',
+    'portal-customer', 'portal-driver', 'portal-admin'
   ];
-
+  
   return validTokens.includes(token);
 }
 
@@ -143,17 +129,16 @@ export function hasHardcodedColors(className: string): boolean {
     /text-\[#[0-9a-fA-F]+\]/,
     /bg-\[#[0-9a-fA-F]+\]/,
     /rgb\(/,
-    /rgba\(/,
+    /rgba\(/
   ];
-
-  return hardcodedPatterns.some((pattern) => pattern.test(className));
+  
+  return hardcodedPatterns.some(pattern => pattern.test(className));
 }
 ```
 
 ---
 
 ### 2. Icon Library (Lucide React)
-
 **Speicherort:** `src/lib/icon-registry.ts`
 
 ```typescript
@@ -175,7 +160,7 @@ export const ICON_REGISTRY = {
     close: X,
     arrowRight: ArrowRight
   },
-
+  
   // Primary Actions
   primary: {
     truck: Truck,
@@ -184,7 +169,7 @@ export const ICON_REGISTRY = {
     mapPin: MapPin,
     barChart: BarChart3
   },
-
+  
   // Secondary Actions
   secondary: {
     settings: Settings,
@@ -196,7 +181,7 @@ export const ICON_REGISTRY = {
     edit: Edit,
     trash: Trash2
   },
-
+  
   // Status Indicators
   status: {
     success: CheckCircle,
@@ -204,14 +189,14 @@ export const ICON_REGISTRY = {
     error: XCircle,
     pending: Clock
   },
-
+  
   // Communication
   communication: {
     phone: Phone,
     mail: Mail,
     message: MessageSquare
   },
-
+  
   // Media
   media: {
     fileText: FileText,
@@ -220,7 +205,7 @@ export const ICON_REGISTRY = {
     download: Download,
     upload: Upload
   },
-
+  
   // Financial
   financial: {
     dollar: DollarSign,
@@ -247,27 +232,26 @@ const TruckIcon = ICON_REGISTRY.primary.truck;
 ```
 
 **Validierung:**
-
 ```typescript
 export function validateIconUsage(component: string): {
   valid: boolean;
   issues: string[];
 } {
   const issues: string[] = [];
-
+  
   // Check for hardcoded sizes
-  if (component.match(/h-\d+ w-\d+/) && !component.includes("iconSizes")) {
-    issues.push("Hardcoded icon size - use iconSizes from design-system");
+  if (component.match(/h-\d+ w-\d+/) && !component.includes('iconSizes')) {
+    issues.push('Hardcoded icon size - use iconSizes from design-system');
   }
-
+  
   // Check for direct imports
   if (component.match(/import \{ \w+ \} from ['"]lucide-react['"]/)) {
-    issues.push("Direct icon import - use ICON_REGISTRY");
+    issues.push('Direct icon import - use ICON_REGISTRY');
   }
-
+  
   return {
     valid: issues.length === 0,
-    issues,
+    issues
   };
 }
 ```
@@ -275,11 +259,9 @@ export function validateIconUsage(component: string): {
 ---
 
 ### 3. Component Library (Shadcn + Custom)
-
 **Speicherort:** `src/components/`
 
 #### 3.1 Base Components (Shadcn)
-
 ```
 src/components/ui/
 ├── button.tsx
@@ -295,7 +277,6 @@ src/components/ui/
 ```
 
 #### 3.2 Shared Components (Custom)
-
 ```typescript
 // src/components/shared/StatusIndicator.tsx
 import { ICON_REGISTRY } from '@/lib/icon-registry';
@@ -309,7 +290,7 @@ interface StatusIndicatorProps {
 
 export function StatusIndicator({ status, label, size = 'md' }: StatusIndicatorProps) {
   const Icon = ICON_REGISTRY.status[status];
-
+  
   return (
     <div className={cn(
       'flex items-center gap-2',
@@ -333,43 +314,40 @@ export function StatusIndicator({ status, label, size = 'md' }: StatusIndicatorP
 ```
 
 **Component Registry:**
-
 ```typescript
 // src/lib/component-registry.ts
 export const COMPONENT_REGISTRY = {
   // Shared Components
   shared: {
-    statusIndicator: () => import("@/components/shared/StatusIndicator"),
-    emptyState: () => import("@/components/shared/EmptyState"),
-    bulkActionBar: () => import("@/components/shared/BulkActionBar"),
-    detailDialog: () => import("@/components/shared/DetailDialog"),
-    searchableSelect: () => import("@/components/shared/SearchableSelect"),
+    statusIndicator: () => import('@/components/shared/StatusIndicator'),
+    emptyState: () => import('@/components/shared/EmptyState'),
+    bulkActionBar: () => import('@/components/shared/BulkActionBar'),
+    detailDialog: () => import('@/components/shared/DetailDialog'),
+    searchableSelect: () => import('@/components/shared/SearchableSelect')
   },
-
+  
   // Form Components
   forms: {
-    personFormFields: () => import("@/components/forms/PersonFormFields"),
-    addressInput: () => import("@/components/forms/AddressInput"),
-    inlineCustomerForm: () => import("@/components/forms/InlineCustomerForm"),
+    personFormFields: () => import('@/components/forms/PersonFormFields'),
+    addressInput: () => import('@/components/forms/AddressInput'),
+    inlineCustomerForm: () => import('@/components/forms/InlineCustomerForm')
   },
-
+  
   // Dashboard Widgets
   widgets: {
-    statsCard: () => import("@/components/dashboard/StatsCard"),
-    recentActivity: () => import("@/components/dashboard/RecentActivity"),
-    predictiveDemand: () => import("@/components/dashboard/PredictiveDemandWidget"),
-  },
+    statsCard: () => import('@/components/dashboard/StatsCard'),
+    recentActivity: () => import('@/components/dashboard/RecentActivity'),
+    predictiveDemand: () => import('@/components/dashboard/PredictiveDemandWidget')
+  }
 } as const;
 ```
 
 ---
 
 ### 4. Image Assets
-
 **Speicherort:** `public/assets/` oder `src/assets/`
 
 #### 4.1 Struktur
-
 ```
 public/assets/
 ├── images/
@@ -398,7 +376,6 @@ public/assets/
 ```
 
 #### 4.2 Asset-Specs
-
 ```yaml
 # assets/asset-specs.yml
 images:
@@ -408,19 +385,19 @@ images:
     format: webp
     quality: 85
     fallback: jpg
-
+  
   marketing:
     width: 800
     height: 600
     format: webp
     quality: 80
     fallback: jpg
-
+  
   avatars:
     format: svg
     fallback: png
     size: 256x256
-
+  
   logos:
     format: svg
     variants:
@@ -436,7 +413,6 @@ optimization:
 ```
 
 #### 4.3 Asset-Helper
-
 ```typescript
 // src/lib/asset-helper.ts
 export const ASSETS = {
@@ -472,7 +448,6 @@ import { ASSETS } from '@/lib/asset-helper';
 ## 🤖 AUTOMATISIERTE ASSET-GENERIERUNG
 
 ### 1. Image Optimization
-
 ```bash
 # scripts/optimize-images.sh
 #!/bin/bash
@@ -486,10 +461,10 @@ done
 for img in public/assets/images/**/*.webp; do
   # 1920w (Desktop)
   cwebp -q 85 -resize 1920 0 "$img" -o "${img%.*}-1920w.webp"
-
+  
   # 1280w (Tablet)
   cwebp -q 80 -resize 1280 0 "$img" -o "${img%.*}-1280w.webp"
-
+  
   # 768w (Mobile)
   cwebp -q 75 -resize 768 0 "$img" -o "${img%.*}-768w.webp"
 done
@@ -498,7 +473,6 @@ echo "✅ Image optimization complete!"
 ```
 
 ### 2. Icon Extraction
-
 ```bash
 # scripts/extract-icons.sh
 #!/bin/bash
@@ -513,7 +487,6 @@ node scripts/validate-icons.js
 ```
 
 ### 3. Design Token Validation
-
 ```bash
 # scripts/validate-design-tokens.sh
 #!/bin/bash
@@ -554,7 +527,6 @@ fi
 ## 📋 PRE-DEVELOPMENT CHECKLIST
 
 ### Phase 1: Design Tokens (MUSS abgeschlossen sein)
-
 - [ ] `index.css` - Alle HSL-Farben definiert
 - [ ] `tailwind.config.ts` - Semantic Classes erweitert
 - [ ] `design-system.ts` - TypeScript Helpers erstellt
@@ -562,14 +534,12 @@ fi
 - [ ] WCAG 2.1 AA - Kontraste geprüft (min 4.5:1)
 
 ### Phase 2: Icon Library (MUSS abgeschlossen sein)
-
 - [ ] `icon-registry.ts` - Alle Icons kategorisiert
 - [ ] Icon Sizes - Helper erstellt
 - [ ] Validation - `validateIconUsage()` implementiert
 - [ ] Usage Audit - Keine direkten Lucide-Imports
 
 ### Phase 3: Component Library (MUSS abgeschlossen sein)
-
 - [ ] Shadcn Components - Alle 50+ Komponenten installiert
 - [ ] Custom Components - StatusIndicator, EmptyState, etc.
 - [ ] Form Components - PersonFormFields, AddressInput, etc.
@@ -577,7 +547,6 @@ fi
 - [ ] Storybook (optional) - Component Previews
 
 ### Phase 4: Image Assets (MUSS abgeschlossen sein)
-
 - [ ] Folder Structure - `/assets/` angelegt
 - [ ] Hero Images - Optimiert (WebP, 1920x1080)
 - [ ] Marketing Images - Optimiert (WebP, 800x600)
@@ -587,7 +556,6 @@ fi
 - [ ] Asset Helper - `asset-helper.ts` erstellt
 
 ### Phase 5: Validation (MUSS vor Code-Start laufen)
-
 - [ ] Design Token Audit - 0 hardcoded colors
 - [ ] Icon Audit - 0 direct imports
 - [ ] Image Audit - Alle optimiert
@@ -601,7 +569,6 @@ fi
 ### Beispiel: Neue Seite "Fahrzeugverwaltung"
 
 #### Schritt 1: Asset-Anforderungen definieren (5min)
-
 ```yaml
 # assets/requirements/fahrzeugverwaltung.yml
 page: Fahrzeugverwaltung
@@ -632,7 +599,6 @@ components:
 ```
 
 #### Schritt 2: Fehlende Assets generieren (10min)
-
 ```bash
 # 1. Prüfe vorhandene Assets
 npm run check-assets --requirements=assets/requirements/fahrzeugverwaltung.yml
@@ -656,7 +622,6 @@ npm run generate-component --name=VehicleCard --type=custom
 ```
 
 #### Schritt 3: Asset-Validierung (2min)
-
 ```bash
 npm run validate-assets --requirements=assets/requirements/fahrzeugverwaltung.yml
 
@@ -670,7 +635,6 @@ npm run validate-assets --requirements=assets/requirements/fahrzeugverwaltung.ym
 ```
 
 #### Schritt 4: Code-Entwicklung (15min)
-
 ```bash
 # Jetzt ERST Code schreiben!
 npm run generate-page --name=Fahrzeugverwaltung --assets=validated
@@ -685,21 +649,18 @@ npm run generate-page --name=Fahrzeugverwaltung --assets=validated
 ## 🎯 SUCCESS METRICS
 
 ### Asset-Verfügbarkeit
-
 - **Vor Development:** 100% Assets bereit
 - **Design-Violations:** 0
 - **Hardcoded Values:** 0
 - **WCAG Kontraste:** 100% AAA
 
 ### Performance
-
 - **Bundle Size:** <1.5MB
 - **Image Optimization:** 100% WebP
 - **Lazy Loading:** 100%
 - **CDN Upload:** Automatisch
 
 ### Entwicklungsgeschwindigkeit
-
 - **Asset-Generierung:** <10min/Feature
 - **Validation:** <2min/Feature
 - **Rework-Rate:** <5% (statt 30%)

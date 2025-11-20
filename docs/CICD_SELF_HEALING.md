@@ -7,14 +7,12 @@
 ## 🎯 Features Übersicht
 
 ### 🔧 Auto-Fix (Self-Healing)
-
 - ✅ Automatische ESLint-Reparatur
 - ✅ Prettier-Formatierung
 - ✅ TypeScript Error-Fixes
 - ✅ Automatische Commits `[skip ci]`
 
 ### Pipeline Jobs:
-
 1. **auto-fix** - Repariert Code automatisch
 2. **quality-check** - ESLint, TypeScript, Prettier, Complexity
 3. **build** - Vite Build + Bundle Analysis
@@ -31,13 +29,11 @@
 ## 🛠️ Auto-Fix Script
 
 Manueller Aufruf:
-
 ```bash
 node scripts/auto-fix.js
 ```
 
 Behebt automatisch:
-
 - ESLint errors
 - Prettier formatting
 - Unused imports

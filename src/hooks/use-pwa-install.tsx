@@ -8,11 +8,11 @@
    - CRITICAL FIX V18.2.24: Defensive React Import für Bundle-Stabilität
    ================================================================================== */
 
-import * as React from "react";
+import * as React from 'react';
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
-  userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
 interface PWAInstallState {
@@ -26,7 +26,7 @@ interface PWAInstallState {
 export function usePWAInstall(): PWAInstallState {
   // CRITICAL FIX V18.2.24: Defensive React Check für Bundle-Stabilität
   // Verhindert "Cannot read properties of null (reading 'useState')" Fehler
-  if (typeof React === "undefined" || !React.useState) {
+  if (typeof React === 'undefined' || !React.useState) {
     // Fallback wenn React nicht verfügbar (SSR, Bundle-Fehler, etc.)
     return {
       isInstallable: false,
@@ -44,16 +44,15 @@ export function usePWAInstall(): PWAInstallState {
 
   React.useEffect(() => {
     // Check if app is already installed
-    if (window.matchMedia("(display-mode: standalone)").matches) {
+    if (window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true);
       return;
     }
 
     // Check for iOS Safari
     const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
-    const isInStandaloneMode =
-      "standalone" in window.navigator && (window.navigator as any).standalone;
-
+    const isInStandaloneMode = ('standalone' in window.navigator) && (window.navigator as any).standalone;
+    
     if (isIOSDevice && !isInStandaloneMode) {
       setIsIOS(true);
       setIsInstallable(true);
@@ -74,12 +73,13 @@ export function usePWAInstall(): PWAInstallState {
       setDeferredPrompt(null);
     };
 
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-    window.addEventListener("appinstalled", handleAppInstalled);
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-      window.removeEventListener("appinstalled", handleAppInstalled);
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
 
@@ -92,7 +92,7 @@ export function usePWAInstall(): PWAInstallState {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
 
-      if (outcome === "accepted") {
+      if (outcome === 'accepted') {
         setIsInstalled(true);
       }
 

@@ -19,8 +19,8 @@
 ### **Import**
 
 ```typescript
-import { UniversalDownload } from "@/components/shared/UniversalDownload";
-import type { DownloadType } from "@/components/shared/UniversalDownload";
+import { UniversalDownload } from '@/components/shared/UniversalDownload';
+import type { DownloadType } from '@/components/shared/UniversalDownload';
 ```
 
 ---
@@ -40,19 +40,19 @@ import type { DownloadType } from "@/components/shared/UniversalDownload";
 
 ### **Props**
 
-| Prop           | Type                                               | Required | Default                    | Description                  |
-| -------------- | -------------------------------------------------- | -------- | -------------------------- | ---------------------------- |
-| `type`         | `'pdf' \| 'csv' \| 'json' \| 'zip' \| 'xlsx'`      | ✅ Yes   | -                          | Download type                |
-| `data`         | `any`                                              | ✅ Yes   | -                          | Data to export               |
-| `filename`     | `string`                                           | ❌ No    | `'export'`                 | Filename (without extension) |
-| `buttonLabel`  | `string`                                           | ❌ No    | `'Als {TYPE} exportieren'` | Button label                 |
-| `variant`      | `'default' \| 'outline' \| 'ghost' \| 'secondary'` | ❌ No    | `'outline'`                | Button variant               |
-| `showProgress` | `boolean`                                          | ❌ No    | `true`                     | Show progress indicator      |
-| `className`    | `string`                                           | ❌ No    | -                          | Custom classes               |
-| `portal`       | `'entrepreneur' \| 'customer' \| 'driver'`         | ❌ No    | -                          | Portal-specific theming      |
-| `size`         | `'default' \| 'sm' \| 'lg' \| 'icon'`              | ❌ No    | `'default'`                | Button size                  |
-| `disabled`     | `boolean`                                          | ❌ No    | `false`                    | Disabled state               |
-| `onExport`     | `() => Promise<void>`                              | ❌ No    | -                          | Custom export function       |
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `type` | `'pdf' \| 'csv' \| 'json' \| 'zip' \| 'xlsx'` | ✅ Yes | - | Download type |
+| `data` | `any` | ✅ Yes | - | Data to export |
+| `filename` | `string` | ❌ No | `'export'` | Filename (without extension) |
+| `buttonLabel` | `string` | ❌ No | `'Als {TYPE} exportieren'` | Button label |
+| `variant` | `'default' \| 'outline' \| 'ghost' \| 'secondary'` | ❌ No | `'outline'` | Button variant |
+| `showProgress` | `boolean` | ❌ No | `true` | Show progress indicator |
+| `className` | `string` | ❌ No | - | Custom classes |
+| `portal` | `'entrepreneur' \| 'customer' \| 'driver'` | ❌ No | - | Portal-specific theming |
+| `size` | `'default' \| 'sm' \| 'lg' \| 'icon'` | ❌ No | `'default'` | Button size |
+| `disabled` | `boolean` | ❌ No | `false` | Disabled state |
+| `onExport` | `() => Promise<void>` | ❌ No | - | Custom export function |
 
 ---
 
@@ -73,7 +73,6 @@ import type { DownloadType } from "@/components/shared/UniversalDownload";
 ```
 
 **Features:**
-
 - ✅ Automatic header detection
 - ✅ BOM for Excel compatibility
 - ✅ Semicolon delimiter (`;`)
@@ -93,7 +92,6 @@ import type { DownloadType } from "@/components/shared/UniversalDownload";
 ```
 
 **Features:**
-
 - ✅ Pretty-printed (2 spaces)
 - ✅ Full object/array support
 - ✅ Nested structures
@@ -178,7 +176,7 @@ import type { DownloadType } from "@/components/shared/UniversalDownload";
 ### **Import**
 
 ```typescript
-import { UniversalUpload } from "@/components/shared/UniversalUpload";
+import { UniversalUpload } from '@/components/shared/UniversalUpload';
 ```
 
 ---
@@ -201,19 +199,19 @@ import { UniversalUpload } from "@/components/shared/UniversalUpload";
 
 ### **Props**
 
-| Prop          | Type                                       | Required | Default             | Description             |
-| ------------- | ------------------------------------------ | -------- | ------------------- | ----------------------- |
-| `accept`      | `string[]`                                 | ✅ Yes   | -                   | Accepted file types     |
-| `maxSize`     | `number`                                   | ✅ Yes   | -                   | Max file size in MB     |
-| `onUpload`    | `(files: File[]) => Promise<void>`         | ✅ Yes   | -                   | Upload handler          |
-| `maxFiles`    | `number`                                   | ❌ No    | `1`                 | Max number of files     |
-| `dragAndDrop` | `boolean`                                  | ❌ No    | `true`              | Enable drag & drop      |
-| `showPreview` | `boolean`                                  | ❌ No    | `true`              | Show file preview       |
-| `className`   | `string`                                   | ❌ No    | -                   | Custom classes          |
-| `portal`      | `'entrepreneur' \| 'customer' \| 'driver'` | ❌ No    | -                   | Portal-specific theming |
-| `disabled`    | `boolean`                                  | ❌ No    | `false`             | Disabled state          |
-| `buttonLabel` | `string`                                   | ❌ No    | `'Datei auswählen'` | Button label            |
-| `description` | `string`                                   | ❌ No    | -                   | Description text        |
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `accept` | `string[]` | ✅ Yes | - | Accepted file types |
+| `maxSize` | `number` | ✅ Yes | - | Max file size in MB |
+| `onUpload` | `(files: File[]) => Promise<void>` | ✅ Yes | - | Upload handler |
+| `maxFiles` | `number` | ❌ No | `1` | Max number of files |
+| `dragAndDrop` | `boolean` | ❌ No | `true` | Enable drag & drop |
+| `showPreview` | `boolean` | ❌ No | `true` | Show file preview |
+| `className` | `string` | ❌ No | - | Custom classes |
+| `portal` | `'entrepreneur' \| 'customer' \| 'driver'` | ❌ No | - | Portal-specific theming |
+| `disabled` | `boolean` | ❌ No | `false` | Disabled state |
+| `buttonLabel` | `string` | ❌ No | `'Datei auswählen'` | Button label |
+| `description` | `string` | ❌ No | - | Description text |
 
 ---
 
@@ -288,7 +286,7 @@ import { supabase } from '@/integrations/supabase/client';
       const { data, error } = await supabase.storage
         .from('documents')
         .upload(`${Date.now()}-${file.name}`, file);
-
+      
       if (error) throw error;
     }
   }}

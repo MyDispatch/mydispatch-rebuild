@@ -17,7 +17,7 @@ export interface AssignmentCandidate {
   distance: number; // km
   eta: number; // minutes
   currentLoad: number; // 0-1
-  status: "available" | "busy" | "offline" | "break";
+  status: 'available' | 'busy' | 'offline' | 'break';
   vehicleClass?: string;
   experienceScore?: number; // 0-100
 }
@@ -25,7 +25,7 @@ export interface AssignmentCandidate {
 export interface AssignmentResult {
   candidates: AssignmentCandidate[];
   bestMatch: AssignmentCandidate | null;
-  assignmentLevel: "success" | "warning" | "error";
+  assignmentLevel: 'success' | 'warning' | 'error';
   message: string;
 }
 
@@ -39,14 +39,17 @@ export function calculateDistance(
   const R = 6371; // Erdradius in km
   const dLat = toRad(to.lat - from.lat);
   const dLng = toRad(to.lng - from.lng);
-
+  
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRad(from.lat)) * Math.cos(toRad(to.lat)) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
-
+    Math.cos(toRad(from.lat)) *
+      Math.cos(toRad(to.lat)) *
+      Math.sin(dLng / 2) *
+      Math.sin(dLng / 2);
+  
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   const distance = R * c;
-
+  
   return Math.round(distance * 10) / 10; // 1 Nachkommastelle
 }
 
@@ -73,7 +76,7 @@ export function calculateETA(
 export function calculateAssignmentScore(
   driverPosition: { lat: number; lng: number },
   pickupLocation: { lat: number; lng: number },
-  driverStatus: "available" | "busy" | "offline" | "break",
+  driverStatus: 'available' | 'busy' | 'offline' | 'break',
   currentLoad: number, // 0-1
   vehicleClass: string,
   requiredClass: string,
@@ -86,17 +89,17 @@ export function calculateAssignmentScore(
   score -= distance * 3; // -3 Punkte pro km (sehr wichtig!)
 
   // 2. Status Penalty
-  if (driverStatus === "busy") score -= 30;
-  if (driverStatus === "offline") score -= 100; // Disqualify
-  if (driverStatus === "break") score -= 50;
+  if (driverStatus === 'busy') score -= 30;
+  if (driverStatus === 'offline') score -= 100; // Disqualify
+  if (driverStatus === 'break') score -= 50;
 
   // 3. Vehicle Class Match
   if (vehicleClass !== requiredClass) {
     // Check if vehicle class is "higher" (z.B. Van statt Sedan = OK)
-    const classHierarchy = ["economy", "sedan", "kombi", "van", "luxury"];
+    const classHierarchy = ['economy', 'sedan', 'kombi', 'van', 'luxury'];
     const driverClassIndex = classHierarchy.indexOf(vehicleClass);
     const requiredClassIndex = classHierarchy.indexOf(requiredClass);
-
+    
     if (driverClassIndex < requiredClassIndex) {
       score -= 25; // Wrong class (lower)
     } else if (driverClassIndex > requiredClassIndex) {
@@ -125,13 +128,13 @@ export function getTopAssignmentCandidates(
     id: string;
     name: string;
     position: { lat: number; lng: number };
-    status: "available" | "busy" | "offline" | "break";
+    status: 'available' | 'busy' | 'offline' | 'break';
     currentLoad?: number;
     vehicleClass?: string;
     experienceScore?: number;
   }>,
   pickupLocation: { lat: number; lng: number },
-  requiredClass: string = "sedan"
+  requiredClass: string = 'sedan'
 ): AssignmentCandidate[] {
   return drivers
     .map((driver) => {
@@ -142,7 +145,7 @@ export function getTopAssignmentCandidates(
         pickupLocation,
         driver.status,
         driver.currentLoad || 0,
-        driver.vehicleClass || "sedan",
+        driver.vehicleClass || 'sedan',
         requiredClass,
         driver.experienceScore || 70
       );
@@ -167,10 +170,12 @@ export function getTopAssignmentCandidates(
 /**
  * Ermittelt das Assignment-Level (Ampelsystem)
  */
-export function getAssignmentLevel(score: number): "success" | "warning" | "error" {
-  if (score >= 75) return "success"; // Grün (Optimal)
-  if (score >= 50) return "warning"; // Gelb (OK)
-  return "error"; // Rot (Suboptimal)
+export function getAssignmentLevel(
+  score: number
+): 'success' | 'warning' | 'error' {
+  if (score >= 75) return 'success'; // Grün (Optimal)
+  if (score >= 50) return 'warning'; // Gelb (OK)
+  return 'error'; // Rot (Suboptimal)
 }
 
 /**
@@ -181,13 +186,13 @@ export function smartAssignment(
     id: string;
     name: string;
     position: { lat: number; lng: number };
-    status: "available" | "busy" | "offline" | "break";
+    status: 'available' | 'busy' | 'offline' | 'break';
     currentLoad?: number;
     vehicleClass?: string;
     experienceScore?: number;
   }>,
   pickupLocation: { lat: number; lng: number },
-  requiredClass: string = "sedan"
+  requiredClass: string = 'sedan'
 ): AssignmentResult {
   const candidates = getTopAssignmentCandidates(drivers, pickupLocation, requiredClass);
 
@@ -195,18 +200,18 @@ export function smartAssignment(
     return {
       candidates: [],
       bestMatch: null,
-      assignmentLevel: "error",
-      message: "Keine verfügbaren Fahrer gefunden",
+      assignmentLevel: 'error',
+      message: 'Keine verfügbaren Fahrer gefunden',
     };
   }
 
   const bestMatch = candidates[0];
   const assignmentLevel = getAssignmentLevel(bestMatch.score);
 
-  let message = "";
-  if (assignmentLevel === "success") {
+  let message = '';
+  if (assignmentLevel === 'success') {
     message = `Optimaler Match gefunden: ${bestMatch.driverName} (${bestMatch.distance} km, ${bestMatch.eta} Min)`;
-  } else if (assignmentLevel === "warning") {
+  } else if (assignmentLevel === 'warning') {
     message = `Fahrer gefunden, aber nicht optimal: ${bestMatch.driverName} (${bestMatch.distance} km, ${bestMatch.eta} Min)`;
   } else {
     message = `Suboptimaler Match: ${bestMatch.driverName} (${bestMatch.distance} km, ${bestMatch.eta} Min)`;

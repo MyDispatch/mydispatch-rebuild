@@ -8,11 +8,11 @@
    ✅ Progress indicator
    ================================================================================== */
 
-import { useState, useRef, DragEvent } from "react";
-import { cn } from "@/lib/utils";
-import { Upload, File, X } from "lucide-react";
-import { V28Button } from "./V28Button";
-import { V28Progress } from "./V28Progress";
+import { useState, useRef, DragEvent } from 'react';
+import { cn } from '@/lib/utils';
+import { Upload, File, X } from 'lucide-react';
+import { V28Button } from './V28Button';
+import { V28Progress } from './V28Progress';
 
 interface V28FileUploadProps {
   onUpload: (files: File[]) => Promise<void>;
@@ -95,7 +95,7 @@ export function V28FileUpload({
         setUploading(false);
       }, 1000);
     } catch (error) {
-      console.error("Upload failed:", error);
+      console.error('Upload failed:', error);
       setUploading(false);
       setProgress(0);
     }
@@ -106,7 +106,7 @@ export function V28FileUpload({
   };
 
   return (
-    <div className={cn("space-y-4", className)}>
+    <div className={cn('space-y-4', className)}>
       {/* Drop zone */}
       <div
         onDragOver={handleDragOver}
@@ -114,9 +114,11 @@ export function V28FileUpload({
         onDrop={handleDrop}
         onClick={() => inputRef.current?.click()}
         className={cn(
-          "border-2 border-dashed rounded-xl p-8 text-center cursor-pointer",
-          "transition-colors duration-200",
-          isDragging ? "border-slate-700 bg-slate-50" : "border-slate-300 hover:border-slate-400"
+          'border-2 border-dashed rounded-xl p-8 text-center cursor-pointer',
+          'transition-colors duration-200',
+          isDragging
+            ? 'border-slate-700 bg-slate-50'
+            : 'border-slate-300 hover:border-slate-400'
         )}
       >
         <Upload className="h-12 w-12 mx-auto mb-4 text-slate-400" />
@@ -124,8 +126,8 @@ export function V28FileUpload({
           Dateien hierher ziehen oder klicken zum Auswählen
         </p>
         <p className="text-xs text-slate-500">
-          {accept ? `Erlaubte Formate: ${accept}` : "Alle Dateiformate erlaubt"}
-          {" · "}
+          {accept ? `Erlaubte Formate: ${accept}` : 'Alle Dateiformate erlaubt'}
+          {' · '}
           Max. {(maxSize / 1024 / 1024).toFixed(0)}MB
         </p>
       </div>
@@ -143,11 +145,18 @@ export function V28FileUpload({
       {files.length > 0 && (
         <div className="space-y-2">
           {files.map((file, index) => (
-            <div key={index} className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+            <div
+              key={index}
+              className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg"
+            >
               <File className="h-5 w-5 text-slate-600 flex-shrink-0" />
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-slate-900 truncate">{file.name}</p>
-                <p className="text-xs text-slate-600">{(file.size / 1024).toFixed(1)} KB</p>
+                <p className="text-sm font-medium text-slate-900 truncate">
+                  {file.name}
+                </p>
+                <p className="text-xs text-slate-600">
+                  {(file.size / 1024).toFixed(1)} KB
+                </p>
               </div>
               <button
                 onClick={() => removeFile(index)}
@@ -161,12 +170,18 @@ export function V28FileUpload({
       )}
 
       {/* Upload progress */}
-      {uploading && <V28Progress value={progress} label="Uploading..." />}
+      {uploading && (
+        <V28Progress value={progress} label="Uploading..." />
+      )}
 
       {/* Upload button */}
       {files.length > 0 && !uploading && (
-        <V28Button onClick={handleUpload} variant="primary" fullWidth>
-          {files.length} {files.length === 1 ? "Datei" : "Dateien"} hochladen
+        <V28Button
+          onClick={handleUpload}
+          variant="primary"
+          fullWidth
+        >
+          {files.length} {files.length === 1 ? 'Datei' : 'Dateien'} hochladen
         </V28Button>
       )}
     </div>

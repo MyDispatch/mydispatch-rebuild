@@ -18,7 +18,6 @@
 ## 🔍 ROOT CAUSE ANALYSE
 
 ### **Container-Hierarchie:**
-
 ```
 main (overflow-x-hidden)
 └── Card (overflow-visible ✅)
@@ -37,22 +36,19 @@ main (overflow-x-hidden)
 ### **Gefundene Fehlerquellen:**
 
 1. **badge.tsx (KRITISCH):**
-
    ```tsx
    // Line 7: overflow-hidden verhindert Badge-Sichtbarkeit
-   "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs
+   "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs 
     font-semibold pointer-events-none whitespace-nowrap overflow-hidden"
    ```
 
 2. **main Element:**
-
    ```tsx
    // Line 445: overflow-x-hidden kann y-Axis beeinflussen
    <main className="... overflow-x-hidden">
    ```
 
 3. **TabsContent:**
-
    ```tsx
    // Line 504: Kein overflow-visible
    <TabsContent value="signup" className="mt-4 sm:mt-6">
@@ -71,23 +67,19 @@ main (overflow-x-hidden)
 ### **Strategie: Multi-Layer Fix**
 
 **Layer 1: Badge Component**
-
 - Entferne `overflow-hidden` aus base classes
 - Behalte `whitespace-nowrap` für Text-Protection
 
 **Layer 2: Container Overflow**
-
 - Setze `overflow-visible` auf TabsContent
 - Setze `overflow-visible` auf form
 - main bleibt `overflow-x-hidden` (nur x-Axis)
 
 **Layer 3: Z-Index Optimization**
-
 - Badge z-index erhöhen auf z-30
 - Stelle sicher, dass Badge über allen anderen Elementen ist
 
 **Layer 4: Position Fine-Tuning**
-
 - Badge-Position optimieren (eventuell -top-4 statt -top-3)
 - Ensure parent div hat genug negative margin
 
@@ -96,18 +88,16 @@ main (overflow-x-hidden)
 ## 🔧 IMPLEMENTATION PLAN
 
 ### **Schritt 1: Badge Component Fix**
-
 ```tsx
 // src/components/ui/badge.tsx
 const badgeVariants = cva(
-  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs 
    font-semibold pointer-events-none whitespace-nowrap", // REMOVED: overflow-hidden
   // ...
 );
 ```
 
 ### **Schritt 2: Container Overflow Chain**
-
 ```tsx
 // src/pages/Auth.tsx
 
@@ -130,7 +120,6 @@ const badgeVariants = cva(
 ```
 
 ### **Schritt 3: Z-Index Adjustment**
-
 - Badge z-index: 20 → 30
 - Stelle sicher, dass keine anderen Elemente z-index > 30 haben in diesem Container
 
@@ -139,7 +128,6 @@ const badgeVariants = cva(
 ## 🧪 TESTING PLAN
 
 ### **Visual Tests:**
-
 1. ✅ Badge sichtbar auf Desktop (1920px)
 2. ✅ Badge sichtbar auf Tablet (768px)
 3. ✅ Badge sichtbar auf Mobile (375px)
@@ -147,7 +135,6 @@ const badgeVariants = cva(
 5. ✅ Badge ist zentriert über Business-Tarif Card
 
 ### **Functional Tests:**
-
 1. ✅ Badge hat keine Interaktion (pointer-events-none)
 2. ✅ Tarif-Auswahl funktioniert weiterhin
 3. ✅ Keine Layout-Shifts durch Badge
@@ -158,12 +145,10 @@ const badgeVariants = cva(
 ## 📊 SUCCESS METRICS
 
 **Vor Fix:**
-
 - Badge sichtbar: ❌ 0%
 - User-Zufriedenheit: ⚠️ Problem gemeldet
 
 **Nach Fix (Erwartung):**
-
 - Badge sichtbar: ✅ 100%
 - Kein Overflow: ✅ 100%
 - Layout stabil: ✅ 100%
@@ -176,7 +161,6 @@ const badgeVariants = cva(
 Falls Fix nicht funktioniert:
 
 **Option A: Badge innerhalb Label**
-
 ```tsx
 <Label className="relative overflow-visible pt-10">
   <div className="absolute top-2 left-1/2 -translate-x-1/2 z-10">
@@ -187,7 +171,6 @@ Falls Fix nicht funktioniert:
 ```
 
 **Option B: Badge außerhalb RadioGroup**
-
 ```tsx
 <div className="relative">
   <div className="absolute -top-10 left-1/2 -translate-x-1/2">
@@ -198,7 +181,6 @@ Falls Fix nicht funktioniert:
 ```
 
 **Option C: Badge als separates Element**
-
 ```tsx
 <div className="flex flex-col items-center gap-2">
   <ResponsiveBadge>Beliebt</ResponsiveBadge>

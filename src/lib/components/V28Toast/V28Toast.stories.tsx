@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { V28Toast, V28ToastProvider } from "./index";
-import { useState } from "react";
-import { V28Button } from "@/components/design-system/V28Button";
+import type { Meta, StoryObj } from '@storybook/react';
+import { V28Toast, V28ToastProvider } from './index';
+import { useState } from 'react';
+import { V28Button } from '@/components/design-system/V28Button';
 
 const meta: Meta<typeof V28Toast> = {
-  title: "Design System/V28Toast",
+  title: 'Design System/V28Toast',
   component: V28Toast,
-  tags: ["autodocs"],
+  tags: ['autodocs'],
   decorators: [
     (Story) => (
       <V28ToastProvider>
@@ -24,9 +24,7 @@ export const Default: Story = {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <V28Button variant="primary" onClick={() => setOpen(true)}>
-          Show Toast
-        </V28Button>
+        <V28Button variant="primary" onClick={() => setOpen(true)}>Show Toast</V28Button>
         <V28Toast
           open={open}
           onOpenChange={setOpen}
@@ -43,9 +41,7 @@ export const Success: Story = {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <V28Button variant="primary" onClick={() => setOpen(true)}>
-          Show Success
-        </V28Button>
+        <V28Button variant="primary" onClick={() => setOpen(true)}>Show Success</V28Button>
         <V28Toast
           open={open}
           onOpenChange={setOpen}
@@ -63,9 +59,7 @@ export const Error: Story = {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <V28Button variant="primary" onClick={() => setOpen(true)}>
-          Show Error
-        </V28Button>
+        <V28Button variant="primary" onClick={() => setOpen(true)}>Show Error</V28Button>
         <V28Toast
           open={open}
           onOpenChange={setOpen}
@@ -83,9 +77,7 @@ export const Warning: Story = {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <V28Button variant="primary" onClick={() => setOpen(true)}>
-          Show Warning
-        </V28Button>
+        <V28Button variant="primary" onClick={() => setOpen(true)}>Show Warning</V28Button>
         <V28Toast
           open={open}
           onOpenChange={setOpen}
@@ -103,9 +95,7 @@ export const WithAction: Story = {
     const [open, setOpen] = useState(false);
     return (
       <>
-        <V28Button variant="primary" onClick={() => setOpen(true)}>
-          Show with Action
-        </V28Button>
+        <V28Button variant="primary" onClick={() => setOpen(true)}>Show with Action</V28Button>
         <V28Toast
           open={open}
           onOpenChange={setOpen}
@@ -113,8 +103,8 @@ export const WithAction: Story = {
           title="Update Available"
           description="A new version is available"
           action={{
-            label: "Update",
-            onClick: () => alert("Updating..."),
+            label: 'Update',
+            onClick: () => alert('Updating...'),
           }}
         />
       </>

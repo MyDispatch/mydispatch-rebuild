@@ -7,11 +7,11 @@
    ================================================================================== */
 
 export interface ContextScope {
-  intent: "debug" | "implement" | "refactor" | "document" | "analyze";
+  intent: 'debug' | 'implement' | 'refactor' | 'document' | 'analyze';
   targetEntities?: string[];
   requiredDocs?: string[];
   excludeDocs?: string[];
-  priority: "critical" | "high" | "medium" | "low";
+  priority: 'critical' | 'high' | 'medium' | 'low';
 }
 
 export interface FilteredContext {
@@ -19,7 +19,7 @@ export interface FilteredContext {
   relevantFiles: string[];
   relevantDocs: string[];
   irrelevantFiles: string[];
-  contextSize: "minimal" | "focused" | "comprehensive" | "full";
+  contextSize: 'minimal' | 'focused' | 'comprehensive' | 'full';
   estimatedTokens: number;
 }
 
@@ -32,7 +32,12 @@ export class ContextFilter {
 
   // Datei-Kategorien für intelligentes Filtering
   private readonly FILE_CATEGORIES = {
-    core: ["src/App.tsx", "src/main.tsx", "src/index.css", "tailwind.config.ts"],
+    core: [
+      'src/App.tsx',
+      'src/main.tsx',
+      'src/index.css',
+      'tailwind.config.ts',
+    ],
     hooks: /src\/hooks\/use-.*\.tsx/,
     components: /src\/components\/.*/,
     pages: /src\/pages\/.*/,
@@ -44,29 +49,29 @@ export class ContextFilter {
   // Intent-basierte Kontext-Regeln
   private readonly INTENT_RULES = {
     debug: {
-      priority: ["core", "hooks", "lib"],
+      priority: ['core', 'hooks', 'lib'],
       excludeDocs: true,
-      contextSize: "focused" as const,
+      contextSize: 'focused' as const,
     },
     implement: {
-      priority: ["components", "hooks", "lib"],
+      priority: ['components', 'hooks', 'lib'],
       excludeDocs: false,
-      contextSize: "focused" as const,
+      contextSize: 'focused' as const,
     },
     refactor: {
-      priority: ["core", "components", "hooks"],
+      priority: ['core', 'components', 'hooks'],
       excludeDocs: true,
-      contextSize: "comprehensive" as const,
+      contextSize: 'comprehensive' as const,
     },
     document: {
-      priority: ["docs"],
+      priority: ['docs'],
       excludeDocs: false,
-      contextSize: "minimal" as const,
+      contextSize: 'minimal' as const,
     },
     analyze: {
-      priority: ["core", "hooks", "components", "pages"],
+      priority: ['core', 'hooks', 'components', 'pages'],
       excludeDocs: false,
-      contextSize: "full" as const,
+      contextSize: 'full' as const,
     },
   };
 
@@ -90,7 +95,7 @@ export class ContextFilter {
     // 1. Kategorisiere Files
     for (const file of availableFiles) {
       const category = this.categorizeFile(file);
-
+      
       // Prüfe ob Kategorie in Priority-Liste
       if (category && rules.priority.includes(category)) {
         relevantFiles.push(file);
@@ -106,18 +111,18 @@ export class ContextFilter {
     let relevantDocs: string[] = [];
     if (!rules.excludeDocs) {
       relevantDocs = scope.requiredDocs || [];
-
+      
       // Auto-Include: MASTER_PROMPT bei implement/refactor
-      if (["implement", "refactor"].includes(scope.intent)) {
-        if (!relevantDocs.includes("MASTER_PROMPT_V18.2.md")) {
-          relevantDocs.push("MASTER_PROMPT_V18.2.md");
+      if (['implement', 'refactor'].includes(scope.intent)) {
+        if (!relevantDocs.includes('MASTER_PROMPT_V18.2.md')) {
+          relevantDocs.push('MASTER_PROMPT_V18.2.md');
         }
       }
-
+      
       // Auto-Include: PROJECT_STATUS bei analyze
-      if (scope.intent === "analyze") {
-        if (!relevantDocs.includes("PROJECT_STATUS.md")) {
-          relevantDocs.push("PROJECT_STATUS.md");
+      if (scope.intent === 'analyze') {
+        if (!relevantDocs.includes('PROJECT_STATUS.md')) {
+          relevantDocs.push('PROJECT_STATUS.md');
         }
       }
     }
@@ -161,7 +166,7 @@ export class ContextFilter {
    */
   private matchesTarget(file: string, targets: string[]): boolean {
     const fileLower = file.toLowerCase();
-    return targets.some((target) => fileLower.includes(target.toLowerCase()));
+    return targets.some(target => fileLower.includes(target.toLowerCase()));
   }
 
   /**
@@ -170,12 +175,12 @@ export class ContextFilter {
   private determineContextSize(
     fileCount: number,
     docCount: number,
-    suggestedSize: "minimal" | "focused" | "comprehensive" | "full"
-  ): "minimal" | "focused" | "comprehensive" | "full" {
+    suggestedSize: 'minimal' | 'focused' | 'comprehensive' | 'full'
+  ): 'minimal' | 'focused' | 'comprehensive' | 'full' {
     // Override bei zu vielen Files
-    if (fileCount > 50) return "focused";
-    if (fileCount > 100) return "minimal";
-
+    if (fileCount > 50) return 'focused';
+    if (fileCount > 100) return 'minimal';
+    
     return suggestedSize;
   }
 
@@ -185,8 +190,8 @@ export class ContextFilter {
   private estimateTokens(files: string[], docs: string[]): number {
     const avgFileTokens = 500; // Durchschnitt pro File
     const avgDocTokens = 2000; // Durchschnitt pro Doc
-
-    return files.length * avgFileTokens + docs.length * avgDocTokens;
+    
+    return (files.length * avgFileTokens) + (docs.length * avgDocTokens);
   }
 
   /**
@@ -201,14 +206,11 @@ Context Size: ${filtered.contextSize}
 Estimated Tokens: ${filtered.estimatedTokens}
 
 Relevant Files: ${filtered.relevantFiles.length}
-${filtered.relevantFiles
-  .slice(0, 10)
-  .map((f) => `  - ${f}`)
-  .join("\n")}
-${filtered.relevantFiles.length > 10 ? `  ... and ${filtered.relevantFiles.length - 10} more` : ""}
+${filtered.relevantFiles.slice(0, 10).map(f => `  - ${f}`).join('\n')}
+${filtered.relevantFiles.length > 10 ? `  ... and ${filtered.relevantFiles.length - 10} more` : ''}
 
 Relevant Docs: ${filtered.relevantDocs.length}
-${filtered.relevantDocs.map((d) => `  - ${d}`).join("\n")}
+${filtered.relevantDocs.map(d => `  - ${d}`).join('\n')}
 
 Excluded Files: ${filtered.irrelevantFiles.length}
 ======================================
@@ -227,9 +229,9 @@ export const contextFilter = ContextFilter.getInstance();
 export function filterForDebugging(targetFiles: string[] = []): FilteredContext {
   return contextFilter.filter(
     {
-      intent: "debug",
+      intent: 'debug',
       targetEntities: targetFiles,
-      priority: "critical",
+      priority: 'critical',
     },
     [] // Files werden durch targetFiles spezifiziert
   );
@@ -237,14 +239,14 @@ export function filterForDebugging(targetFiles: string[] = []): FilteredContext 
 
 export function filterForImplementation(
   targetEntities: string[],
-  requiredDocs: string[] = ["MASTER_PROMPT_V18.2.md"]
+  requiredDocs: string[] = ['MASTER_PROMPT_V18.2.md']
 ): FilteredContext {
   return contextFilter.filter(
     {
-      intent: "implement",
+      intent: 'implement',
       targetEntities,
       requiredDocs,
-      priority: "high",
+      priority: 'high',
     },
     []
   );
@@ -256,10 +258,10 @@ export function filterForRefactoring(
 ): FilteredContext {
   return contextFilter.filter(
     {
-      intent: "refactor",
+      intent: 'refactor',
       targetEntities,
       excludeDocs,
-      priority: "medium",
+      priority: 'medium',
     },
     []
   );

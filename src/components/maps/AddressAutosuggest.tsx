@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-import { Input } from "@/lib/compat";
-import { MapPin, Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { logger } from "@/lib/logger";
+import { useState, useEffect, useRef } from 'react';
+import { Input } from '@/lib/compat';
+import { MapPin, Loader2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { logger } from '@/lib/logger';
 
 interface Suggestion {
   id: string;
@@ -23,8 +23,8 @@ export const AddressAutosuggest = ({
   value,
   onChange,
   onSelect,
-  placeholder = "Adresse eingeben",
-  className,
+  placeholder = 'Adresse eingeben',
+  className
 }: AddressAutosuggestProps) => {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -39,8 +39,8 @@ export const AddressAutosuggest = ({
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export const AddressAutosuggest = ({
         );
 
         if (!response.ok) {
-          throw new Error("Autosuggest API Fehler");
+          throw new Error('Autosuggest API Fehler');
         }
 
         const data = await response.json();
@@ -75,15 +75,15 @@ export const AddressAutosuggest = ({
             id: item.id,
             address: item.address?.label || item.title,
             lat: item.position.lat,
-            lng: item.position.lng,
+            lng: item.position.lng
           }));
 
         setSuggestions(newSuggestions);
         setShowSuggestions(true);
       } catch (error) {
-        logger.error("[AddressAutosuggest] Autosuggest Fehler", error as Error, {
-          component: "AddressAutosuggest",
-          action: "fetchSuggestions",
+        logger.error('[AddressAutosuggest] Autosuggest Fehler', error as Error, {
+          component: 'AddressAutosuggest',
+          action: 'fetchSuggestions'
         });
         setSuggestions([]);
       } finally {
@@ -106,7 +106,7 @@ export const AddressAutosuggest = ({
   };
 
   return (
-    <div ref={wrapperRef} className={cn("relative", className)}>
+    <div ref={wrapperRef} className={cn('relative', className)}>
       <div className="relative">
         <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input

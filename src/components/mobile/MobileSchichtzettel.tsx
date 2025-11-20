@@ -15,18 +15,18 @@
    - Quick-Actions (Genehmigen, PDF-Export)
    ================================================================================== */
 
-import { useState, useMemo } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Plus, Search, RefreshCw, Calendar, Clock, Euro, Download, Check } from "lucide-react";
-import { MobileFilterBar } from "./MobileFilterBar";
-import { MobileInput } from "./MobileInput";
-import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
-import { de } from "date-fns/locale";
-import { formatCurrency, formatTime } from "@/lib/index";
-import { EmptyState } from "@/components/shared/EmptyState";
-import { StatusIndicator } from "@/components/shared/StatusIndicator";
+import { useState, useMemo } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Plus, Search, RefreshCw, Calendar, Clock, Euro, Download, Check } from 'lucide-react';
+import { MobileFilterBar } from './MobileFilterBar';
+import { MobileInput } from './MobileInput';
+import { Badge } from '@/components/ui/badge';
+import { format } from 'date-fns';
+import { de } from 'date-fns/locale';
+import { formatCurrency, formatTime } from '@/lib/index';
+import { EmptyState } from '@/components/shared/EmptyState';
+import { StatusIndicator } from '@/components/shared/StatusIndicator';
 
 interface Shift {
   id: string;
@@ -62,10 +62,10 @@ export function MobileSchichtzettel({
   onShiftClick,
   onRefresh,
   onApprove,
-  onExportPDF,
+  onExportPDF
 }: MobileSchichtzettelProps) {
-  const [activeFilter, setActiveFilter] = useState("all");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
   // V40.0: Memoized date calculations for performance
   const dateRanges = useMemo(() => {
@@ -73,7 +73,7 @@ export function MobileSchichtzettel({
     today.setHours(0, 0, 0, 0);
     const weekAgo = new Date(today);
     weekAgo.setDate(today.getDate() - 7);
-
+    
     return { today, weekAgo };
   }, []);
 
@@ -91,7 +91,7 @@ export function MobileSchichtzettel({
     let weekCount = 0;
     let pastCount = 0;
 
-    shifts.forEach((shift) => {
+    shifts.forEach(shift => {
       const shiftDate = normalizeDateToMidnight(new Date(shift.date));
       const shiftTime = shiftDate.getTime();
       const todayTime = today.getTime();
@@ -112,17 +112,17 @@ export function MobileSchichtzettel({
   // V40.0: Memoized filtered shifts (optimized)
   const filteredShifts = useMemo(() => {
     const { today, weekAgo } = dateRanges;
-
-    return shifts.filter((shift) => {
+    
+    return shifts.filter(shift => {
       // Date filter
-      if (activeFilter !== "all") {
+      if (activeFilter !== 'all') {
         const shiftDate = normalizeDateToMidnight(new Date(shift.date));
-
-        if (activeFilter === "today" && shiftDate.getTime() !== today.getTime()) {
+        
+        if (activeFilter === 'today' && shiftDate.getTime() !== today.getTime()) {
           return false;
-        } else if (activeFilter === "week" && (shiftDate < weekAgo || shiftDate > today)) {
+        } else if (activeFilter === 'week' && (shiftDate < weekAgo || shiftDate > today)) {
           return false;
-        } else if (activeFilter === "past" && shiftDate >= today) {
+        } else if (activeFilter === 'past' && shiftDate >= today) {
           return false;
         }
       }
@@ -140,29 +140,26 @@ export function MobileSchichtzettel({
     });
   }, [shifts, activeFilter, searchQuery, dateRanges]);
 
-  const filters = useMemo(
-    () => [
-      { id: "all", label: "Alle", count: filterCounts.allCount },
-      { id: "today", label: "Heute", count: filterCounts.todayCount },
-      { id: "week", label: "Diese Woche", count: filterCounts.weekCount },
-      { id: "past", label: "Vergangene", count: filterCounts.pastCount },
-    ],
-    [filterCounts]
-  );
+  const filters = useMemo(() => [
+    { id: 'all', label: 'Alle', count: filterCounts.allCount },
+    { id: 'today', label: 'Heute', count: filterCounts.todayCount },
+    { id: 'week', label: 'Diese Woche', count: filterCounts.weekCount },
+    { id: 'past', label: 'Vergangene', count: filterCounts.pastCount },
+  ], [filterCounts]);
 
   // V40.0: Centralized status logic (from @/lib/index or shared utils)
 
   const getShiftStatus = (shift: Shift) => {
     if (shift.approved_by_company && shift.confirmed_by_driver) {
-      return { type: "success" as const, label: "Abgeschlossen" };
+      return { type: 'success' as const, label: 'Abgeschlossen' };
     }
     if (shift.approved_by_company && !shift.confirmed_by_driver) {
-      return { type: "warning" as const, label: "Warte auf Fahrer" };
+      return { type: 'warning' as const, label: 'Warte auf Fahrer' };
     }
     if (!shift.approved_by_company && shift.confirmed_by_driver) {
-      return { type: "warning" as const, label: "Warte auf Genehmigung" };
+      return { type: 'warning' as const, label: 'Warte auf Genehmigung' };
     }
-    return { type: "pending" as const, label: "Offen" };
+    return { type: 'pending' as const, label: 'Offen' };
   };
 
   const getTotalEarnings = (shift: Shift) => {
@@ -187,7 +184,7 @@ export function MobileSchichtzettel({
           disabled={isLoading}
           className="h-11 w-11 shrink-0"
         >
-          <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
+          <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
         </V28Button>
       </div>
 
@@ -199,7 +196,7 @@ export function MobileSchichtzettel({
 
       <div className="flex items-center justify-between px-1">
         <span className="text-sm font-medium text-muted-foreground">
-          {filteredShifts.length} {filteredShifts.length === 1 ? "Schicht" : "Schichten"}
+          {filteredShifts.length} {filteredShifts.length === 1 ? 'Schicht' : 'Schichten'}
         </span>
       </div>
 
@@ -213,14 +210,14 @@ export function MobileSchichtzettel({
         </div>
       ) : filteredShifts.length > 0 ? (
         <div className="space-y-4">
-          {filteredShifts.map((shift) => {
+          {filteredShifts.map(shift => {
             const status = getShiftStatus(shift);
             const canApprove = !shift.approved_by_company && onApprove;
             const canExport = shift.approved_by_company && shift.confirmed_by_driver && onExportPDF;
-
+            
             return (
-              <Card
-                key={shift.id}
+              <Card 
+                key={shift.id} 
                 className="cursor-pointer hover:bg-primary/5 transition-colors"
                 onClick={() => onShiftClick(shift)}
               >
@@ -230,22 +227,24 @@ export function MobileSchichtzettel({
                       <div className="flex items-center gap-2 mb-1">
                         <Calendar className="h-4 w-4 text-muted-foreground" />
                         <span className="font-semibold text-base">
-                          {format(new Date(shift.date), "dd.MM.yyyy", { locale: de })}
+                          {format(new Date(shift.date), 'dd.MM.yyyy', { locale: de })}
                         </span>
                       </div>
                       <p className="text-sm text-muted-foreground">
-                        {shift.license_plate || "Kein Fahrzeug"}
+                        {shift.license_plate || 'Kein Fahrzeug'}
                       </p>
                     </div>
-                    <StatusIndicator type={status.type} label={status.label} size="sm" />
+                    <StatusIndicator 
+                      type={status.type}
+                      label={status.label}
+                      size="sm"
+                    />
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 mb-3 text-sm">
                     <div className="flex items-center gap-2">
                       <Clock className="h-4 w-4 text-muted-foreground" />
-                      <span>
-                        {formatTime(shift.shift_start_time)} - {formatTime(shift.shift_end_time)}
-                      </span>
+                      <span>{formatTime(shift.shift_start_time)} - {formatTime(shift.shift_end_time)}</span>
                     </div>
                     {shift.total_km && (
                       <div className="text-right">
@@ -292,11 +291,12 @@ export function MobileSchichtzettel({
       ) : (
         <EmptyState
           icon={<Calendar className="h-16 w-16" />}
-          title={searchQuery ? "Keine Ergebnisse" : "Keine Schichten"}
-          description={
-            searchQuery ? "Versuche einen anderen Suchbegriff" : "Erstelle deine erste Schicht"
+          title={searchQuery ? 'Keine Ergebnisse' : 'Keine Schichten'}
+          description={searchQuery 
+            ? 'Versuche einen anderen Suchbegriff'
+            : 'Erstelle deine erste Schicht'
           }
-          actionLabel={!searchQuery ? "Neue Schicht" : undefined}
+          actionLabel={!searchQuery ? 'Neue Schicht' : undefined}
           onAction={!searchQuery ? onCreateNew : undefined}
         />
       )}

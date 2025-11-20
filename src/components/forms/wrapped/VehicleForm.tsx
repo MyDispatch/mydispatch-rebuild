@@ -2,15 +2,15 @@
    VEHICLE FORM - Wrapped UnifiedForm for Vehicles
    ================================================================================== */
 
-import { UseFormReturn } from "react-hook-form";
-import { UnifiedForm, FormField } from "../UnifiedForm";
-import { FORM_FIELDS_REGISTRY } from "@/config/form-fields-registry";
+import { UseFormReturn } from 'react-hook-form';
+import { UnifiedForm, FormField } from '../UnifiedForm';
+import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 
 interface VehicleFormProps {
   form: UseFormReturn<any>;
   onSubmit: (data: any) => Promise<void>;
-  mode?: "inline" | "dialog";
-  portal?: "entrepreneur" | "customer" | "driver";
+  mode?: 'inline' | 'dialog';
+  portal?: 'entrepreneur' | 'customer' | 'driver';
   dialogOpen?: boolean;
   onDialogOpenChange?: (open: boolean) => void;
   loading?: boolean;
@@ -19,8 +19,8 @@ interface VehicleFormProps {
 export function VehicleForm({
   form,
   onSubmit,
-  mode = "dialog",
-  portal = "entrepreneur",
+  mode = 'dialog',
+  portal = 'entrepreneur',
   dialogOpen,
   onDialogOpenChange,
   loading,

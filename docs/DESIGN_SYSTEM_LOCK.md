@@ -9,7 +9,7 @@
 
 ## 🎯 ÜBERSICHT & DESIGN-HIERARCHIE
 
-Ab Version 32.1 ist das Design-System **systemweit gesperrt**.
+Ab Version 32.1 ist das Design-System **systemweit gesperrt**. 
 
 ### 🌐 NEUE DESIGN-HIERARCHIE (V32.1):
 
@@ -27,10 +27,9 @@ Ab Version 32.1 ist das Design-System **systemweit gesperrt**.
 ## 🔒 SYSTEMWEIT GESPERRTE MASTER-KOMPONENTEN (NEU!)
 
 ### 1️⃣ Header (SYSTEMWEIT EINZIG ERLAUBT):
-
 ```typescript
 // ✅ EINZIGER erlaubter Header im GESAMTEN System:
-import { Header } from "@/components/layout/Header";
+import { Header } from '@/components/layout/Header';
 
 // Quelle: Öffentlicher Bereich
 // Status: SYSTEMWEIT LOCKED
@@ -38,10 +37,9 @@ import { Header } from "@/components/layout/Header";
 ```
 
 ### 2️⃣ Sidebar (SYSTEMWEIT EINZIG ERLAUBT):
-
 ```typescript
 // ✅ EINZIGE erlaubte Sidebar im GESAMTEN System:
-import { Sidebar } from "@/components/layout/Sidebar";
+import { Sidebar } from '@/components/layout/Sidebar';
 
 // Quelle: Öffentlicher Bereich
 // Status: SYSTEMWEIT LOCKED
@@ -49,10 +47,9 @@ import { Sidebar } from "@/components/layout/Sidebar";
 ```
 
 ### 3️⃣ Hero (SYSTEMWEIT EINZIG ERLAUBT):
-
 ```typescript
 // ✅ EINZIGE erlaubte Hero-Komponente im GESAMTEN System:
-import { V28HeroPremium } from "@/components/hero";
+import { V28HeroPremium } from '@/components/hero';
 
 // Quelle: Öffentlicher Bereich
 // Status: SYSTEMWEIT LOCKED
@@ -64,20 +61,17 @@ import { V28HeroPremium } from "@/components/hero";
 ## ✅ WEITERE ERLAUBTE KOMPONENTEN
 
 ### Hero-System
-
 - **V28HeroPremium** (einzige Hero-Komponente)
 - **V28Hero3DBackgroundPremium** (einziger Background)
 - **PremiumDashboardContent** (für Hero-Visuals)
 
 ### Layout-System
-
 - **MarketingLayout** (für Marketing-Seiten)
 - **V28MarketingSection** (für Content-Sections)
 - **PageShell** (für Seiten-Wrapper - falls vorhanden)
 - **SectionLayout** (für Content-Sections - falls vorhanden)
 
 ### Design-Components
-
 - **V28MarketingCard**
 - **V28IconBox**
 - **V28Button**
@@ -85,7 +79,6 @@ import { V28HeroPremium } from "@/components/hero";
 - **V28DashboardCard** (falls vorhanden)
 
 ### Weitere erlaubte Komponenten
-
 - **TrustIndicators**
 - **PWAInstallButton**
 - **SEOHead**
@@ -98,41 +91,38 @@ import { V28HeroPremium } from "@/components/hero";
 ## ❌ VERBOTENE KOMPONENTEN (SYSTEMWEIT!)
 
 ### ⚠️ Master-Komponenten (KRITISCH - V32.1):
-
 ```typescript
 // ❌ VERBOTEN: Alternative Header erstellen
-DashboardHeader;
-UnternehmerHeader;
-CustomHeader;
-AppHeader;
-MainHeader;
+DashboardHeader
+UnternehmerHeader
+CustomHeader
+AppHeader
+MainHeader
 // → Nutze NUR: Header aus öffentlichem Bereich
 
 // ❌ VERBOTEN: Alternative Sidebar erstellen
-DashboardSidebar;
-UnternehmerSidebar;
-CustomSidebar;
-AppSidebar;
-MainSidebar;
+DashboardSidebar
+UnternehmerSidebar
+CustomSidebar
+AppSidebar
+MainSidebar
 // → Nutze NUR: Sidebar aus öffentlichem Bereich
 
 // ❌ VERBOTEN: Alternative Hero erstellen
-DashboardHero;
-UnternehmerHero;
-CustomHero;
-AppHero;
-MainHero;
+DashboardHero
+UnternehmerHero
+CustomHero
+AppHero
+MainHero
 // → Nutze NUR: V28HeroPremium
 ```
 
 ### Alte Hero-Komponenten (ARCHIVIERT)
-
 - ❌ ~~V28HeroWithLiveDashboard~~ → Nutze **V28HeroPremium**
 - ❌ ~~HeroIpadShowcase~~ → Nutze **V28HeroPremium**
 - ❌ ~~HeroSection~~ → Nutze **V28HeroPremium**
 
 ### Custom Backgrounds (ARCHIVIERT)
-
 - ❌ ~~HeroBackgroundOrbs~~ → Nutze **V28Hero3DBackgroundPremium**
 - ❌ ~~V28Hero3DBackground~~ → Nutze **V28Hero3DBackgroundPremium**
 - ❌ ~~V28Hero3DBackgroundClean~~ → Nutze **V28Hero3DBackgroundPremium**
@@ -140,7 +130,6 @@ MainHero;
 - ❌ ~~V28HeroBackground~~ → Nutze **V28Hero3DBackgroundPremium**
 
 ### Custom Layout-Wrapper
-
 - ❌ Keine manuellen `<div>` mit Padding/Margin
 - ❌ Keine `<Container>` Komponenten (falls nicht dokumentiert)
 - ❌ Keine `<Box>` Komponenten (falls nicht dokumentiert)
@@ -165,12 +154,11 @@ style={{ color: '#FF0000' }} // ❌ Keine Inline-Styles
 ```
 
 ### Semantic Tokens (erlaubt)
-
 ```tsx
 // ✅ ERLAUBT - Semantic Tokens aus index.css
-className = "bg-background text-foreground";
-className = "bg-muted text-muted-foreground";
-className = "border-border bg-card";
+className="bg-background text-foreground"
+className="bg-muted text-muted-foreground"
+className="border-border bg-card"
 ```
 
 ---
@@ -178,9 +166,8 @@ className = "border-border bg-card";
 ## 🎨 FARB-AUSNAHMEN (V32.1)
 
 ### Status-Indicators (Einzige Ausnahme)
-
 - ✅ `bg-green-500/50/600/700` - Live, Aktiv, Verfügbar
-- ✅ `bg-red-500/50/600/700` - Kritisch, Offline, Überfällig
+- ✅ `bg-red-500/50/600/700` - Kritisch, Offline, Überfällig  
 - ✅ `bg-yellow-500/50/600/700` - Warnung, In Bearbeitung
 
 **Markierung:** Alle Exceptions mit `{/* ✅ Status Exception */}` kommentieren.
@@ -190,26 +177,22 @@ Siehe: [COLOR_EXCEPTIONS.md](./COLOR_EXCEPTIONS.md)
 ## 🧱 INLINE-STYLES AUSNAHMEN (V32.1)
 
 ### Erlaubt
-
 - 3D-Background Animationen (`V28Hero3DBackground*.tsx`)
 - Recharts Tooltips
 
 ### Verboten - Nutze Tailwind
-
 - Animation-Delays → `animate-fade-in-delay-{100-500}`
 - Grid-Layouts → `grid-cols-{n}`
 
 ## 📐 ERLAUBTE CSS-PATTERNS
 
 ### ✅ Tailwind-Native
-
 ```tsx
-className = "bg-gradient-to-r from-slate-50 to-slate-100";
-className = "animate-fade-in-delay-400";
+className="bg-gradient-to-r from-slate-50 to-slate-100"
+className="animate-fade-in-delay-400"
 ```
 
 ### ❌ Inline-Styles
-
 ```tsx
 // ❌ VERBOTEN
 <div style={{ background: 'red' }}>...</div>
@@ -221,7 +204,6 @@ className = "animate-fade-in-delay-400";
 ## 🏗️ ERLAUBTE HERO-STRUKTUR
 
 ### Standard Hero-Pattern
-
 ```tsx
 import { V28HeroPremium } from '@/components/hero';
 import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
@@ -233,10 +215,10 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
   title="Haupttitel"
   subtitle="Untertitel"
   description="Beschreibung..."
-  primaryCTA={{
-    label: "CTA",
-    onClick: () => {...},
-    icon: Icon
+  primaryCTA={{ 
+    label: "CTA", 
+    onClick: () => {...}, 
+    icon: Icon 
   }}
   showPWAButton={true}
   visual={<PremiumDashboardContent pageType="home" />}
@@ -248,9 +230,7 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
 ```
 
 ### PremiumDashboardContent Konfiguration
-
 **Verfügbare pageTypes:**
-
 - `'home'` - Home-Dashboard mit KPIs
 - `'features'` - Feature-Dashboard
 - `'pricing'` - Pricing-Dashboard
@@ -265,11 +245,11 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
 ```tsx
 <MarketingLayout>
   <V28HeroPremium {...} />
-
+  
   <V28MarketingSection background="canvas" | "white">
     <V28MarketingCard>...</V28MarketingCard>
   </V28MarketingSection>
-
+  
   <V28MarketingSection background="white">
     <V28IconBox>...</V28IconBox>
   </V28MarketingSection>
@@ -281,7 +261,6 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
 ## 🔍 VALIDIERUNG
 
 ### Automatische Prüfung
-
 ```bash
 # Pre-Build Validation
 npm run validate:design-lock
@@ -295,7 +274,6 @@ npm run validate:design-lock
 ```
 
 ### CI/CD Integration
-
 - ✅ Design Lock wird bei jedem Build geprüft
 - ✅ Build schlägt fehl bei kritischen Violations
 - ✅ Warnungen werden ausgegeben, stoppen Build aber nicht
@@ -307,13 +285,15 @@ npm run validate:design-lock
 ### V28HeroWithLiveDashboard → V28HeroPremium
 
 #### ❌ ALT
-
 ```tsx
-<V28HeroWithLiveDashboard pageType="terms" customTitle="Titel" customSubtitle="Untertitel" />
+<V28HeroWithLiveDashboard
+  pageType="terms"
+  customTitle="Titel"
+  customSubtitle="Untertitel"
+/>
 ```
 
 #### ✅ NEU
-
 ```tsx
 <V28HeroPremium
   variant="features"
@@ -327,13 +307,15 @@ npm run validate:design-lock
 ### HeroIpadShowcase → V28HeroPremium
 
 #### ❌ ALT
-
 ```tsx
-<HeroIpadShowcase title="Titel" description="Text" imagePath="/image.png" />
+<HeroIpadShowcase
+  title="Titel"
+  description="Text"
+  imagePath="/image.png"
+/>
 ```
 
 #### ✅ NEU
-
 ```tsx
 <V28HeroPremium
   variant="features"
@@ -349,21 +331,16 @@ npm run validate:design-lock
 ## 🚨 FEHLER-BEHEBUNG
 
 ### Build schlägt fehl: "V28HeroWithLiveDashboard ist verboten"
-
 **Lösung:** Ersetze durch `V28HeroPremium` (siehe Migration-Guide oben)
 
 ### Build schlägt fehl: "Nur slate-Farben erlaubt"
-
 **Lösung:** Ersetze z.B. `bg-blue-500` durch `bg-slate-500`
 
 ### Build schlägt fehl: "Inline-Styles verboten"
-
 **Lösung:** Ersetze `style={{ ... }}` durch Tailwind-Klassen
 
 ### Build schlägt fehl: "Nur V28Hero3DBackgroundPremium erlaubt"
-
-**Lösung:**
-
+**Lösung:** 
 - Importiere nicht mehr manuell andere Background-Komponenten
 - `V28HeroPremium` verwendet automatisch `V28Hero3DBackgroundPremium`
 

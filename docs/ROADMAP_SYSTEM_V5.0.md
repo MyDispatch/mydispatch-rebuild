@@ -22,7 +22,6 @@ Das Roadmap-System V5.0 ist ein **vollautomatisches, datenbankgesteuertes Progre
 ## 🗄️ DATENBANK-SCHEMA
 
 ### Tabelle 1: `roadmap_tasks`
-
 ```sql
 CREATE TABLE roadmap_tasks (
   id UUID PRIMARY KEY,
@@ -47,7 +46,6 @@ CREATE TABLE roadmap_tasks (
 ```
 
 ### Tabelle 2: `roadmap_progress`
-
 ```sql
 CREATE TABLE roadmap_progress (
   id UUID PRIMARY KEY,
@@ -61,7 +59,6 @@ CREATE TABLE roadmap_progress (
 ```
 
 ### Tabelle 3: `roadmap_auto_check_log`
-
 ```sql
 CREATE TABLE roadmap_auto_check_log (
   id UUID PRIMARY KEY,
@@ -80,13 +77,11 @@ CREATE TABLE roadmap_auto_check_log (
 ## 🔧 EDGE FUNCTIONS
 
 ### 1. `roadmap-auto-checker`
-
 **Pfad:** `supabase/functions/roadmap-auto-checker/index.ts`
 
 **Zweck:** Automatisch prüfen, welche Roadmap-Tasks parallel zum aktuellen AI-Task erledigt werden können.
 
 **Input:**
-
 ```typescript
 {
   current_task_description: string;  // "Implementing Contact Page Hero"
@@ -96,14 +91,13 @@ CREATE TABLE roadmap_auto_check_log (
 ```
 
 **Output:**
-
 ```typescript
 {
   opportunistic_tasks: Array<{
     task_id: string;
     title: string;
-    match_score: number; // 0.0 - 1.0
-    match_reason: string; // "File overlap, Keywords: contact, hero"
+    match_score: number;             // 0.0 - 1.0
+    match_reason: string;            // "File overlap, Keywords: contact, hero"
     estimated_hours: number;
   }>;
   total_checked: number;
@@ -112,7 +106,6 @@ CREATE TABLE roadmap_auto_check_log (
 ```
 
 **Matching-Logik:**
-
 1. **File-Overlap (40%):** Prüft ob `affected_files` überlappen
 2. **Page-Overlap (40%):** Prüft ob `related_pages` überlappen
 3. **Keyword-Matching (20%):** Vergleicht Schlüsselwörter aus Task-Titel/Beschreibung
@@ -122,7 +115,6 @@ CREATE TABLE roadmap_auto_check_log (
 ---
 
 ### 2. `roadmap-weekly-report`
-
 **Pfad:** `supabase/functions/roadmap-weekly-report/index.ts`
 
 **Zweck:** Wöchentlichen Report über Roadmap-Fortschritt generieren.
@@ -130,15 +122,14 @@ CREATE TABLE roadmap_auto_check_log (
 **Automatische Ausführung:** Jeden Montag 09:00 UTC (via Supabase Cron)
 
 **Output:**
-
 ```typescript
 {
   report_date: string;
   period: "Last 7 Days";
-  completion_percent: number; // Gesamt-Fortschritt %
-  completed_tasks_week: number; // Tasks erledigt diese Woche
-  total_hours_week: number; // Stunden investiert
-  velocity: string; // "1.2 tasks/day"
+  completion_percent: number;        // Gesamt-Fortschritt %
+  completed_tasks_week: number;      // Tasks erledigt diese Woche
+  total_hours_week: number;          // Stunden investiert
+  velocity: string;                  // "1.2 tasks/day"
   blocked_tasks: number;
   top_completed: Array<{
     task_id: string;
@@ -161,29 +152,24 @@ CREATE TABLE roadmap_auto_check_log (
 ## ⚛️ REACT HOOK
 
 ### `useRoadmapAutoCheck`
-
 **Pfad:** `src/hooks/roadmap/useRoadmapAutoCheck.ts`
 
 **Zweck:** Auto-Check bei jeder Code-Änderung (Dev-Mode only).
 
 **Verwendung:**
-
 ```tsx
-import { useRoadmapAutoCheck } from "@/hooks/roadmap/useRoadmapAutoCheck";
+import { useRoadmapAutoCheck } from '@/hooks/roadmap/useRoadmapAutoCheck';
 
 export default function Contact() {
   useRoadmapAutoCheck({
     enabled: true,
-    current_task: "Implementing Contact Page Hero Section",
-    affected_files: ["src/pages/Contact.tsx", "src/components/v28/V28PricingHero.tsx"],
-    affected_pages: ["contact"],
+    current_task: 'Implementing Contact Page Hero Section',
+    affected_files: ['src/pages/Contact.tsx', 'src/components/v28/V28PricingHero.tsx'],
+    affected_pages: ['contact'],
     onOpportunisticTasksFound: (tasks) => {
-      console.log(
-        "🚀 Consider also working on:",
-        tasks.map((t) => t.title)
-      );
+      console.log('🚀 Consider also working on:', tasks.map(t => t.title));
       // Optional: Toast-Notification anzeigen
-    },
+    }
   });
 
   return <div>...</div>;
@@ -191,7 +177,6 @@ export default function Contact() {
 ```
 
 **Features:**
-
 - ✅ Nur in Dev-Mode aktiv (`import.meta.env.PROD === false`)
 - ✅ Debounced (2s Verzögerung)
 - ✅ Console-Logging für Entwickler
@@ -202,13 +187,11 @@ export default function Contact() {
 ## 📊 DASHBOARD WIDGET
 
 ### `RoadmapProgressWidget`
-
 **Pfad:** `src/components/dashboard/RoadmapProgressWidget.tsx`
 
 **Zweck:** Live-Visualisierung des Roadmap-Fortschritts im Dashboard.
 
 **Features:**
-
 - ✅ Gesamt-Fortschritt (%) mit Progress-Bar
 - ✅ Status-Breakdown (Completed/In Progress/Pending)
 - ✅ Priority-Breakdown (P0/P1/P2)
@@ -216,9 +199,8 @@ export default function Contact() {
 - ✅ Auto-Refresh alle 30s
 
 **Integration:**
-
 ```tsx
-import { RoadmapProgressWidget } from "@/components/dashboard/RoadmapProgressWidget";
+import { RoadmapProgressWidget } from '@/components/dashboard/RoadmapProgressWidget';
 
 export function Dashboard() {
   return (
@@ -256,7 +238,7 @@ if (roadmapCheck.data.opportunistic_tasks.length > 0) {
     console.log(`  Effort: ${task.estimated_hours}h`);
   });
   console.groupEnd();
-
+  
   // AI-Entscheidung:
   // - Match > 80%: AUTOMATISCH parallel erledigen
   // - Match 60-80%: User fragen "Soll ich auch X erledigen?"
@@ -278,34 +260,34 @@ const knowledgeCheck = await supabase.functions.invoke('mandatory-knowledge-chec
 ```typescript
 // Task als completed markieren
 await supabase
-  .from("roadmap_tasks")
+  .from('roadmap_tasks')
   .update({
-    status: "completed",
+    status: 'completed',
     actual_hours: 0.15, // Real gemessene Zeit
-    completed_at: new Date().toISOString(),
+    completed_at: new Date().toISOString()
   })
-  .eq("task_id", "DESIGN-004");
+  .eq('task_id', 'DESIGN-004');
 
 // Progress-Log erstellen
-await supabase.from("roadmap_progress").insert({
-  task_id: "DESIGN-004",
+await supabase.from('roadmap_progress').insert({
+  task_id: 'DESIGN-004',
   progress_percent: 100,
-  current_phase: "completed",
-  notes: "Automatically completed during Contact Page implementation",
+  current_phase: 'completed',
+  notes: 'Automatically completed during Contact Page implementation'
 });
 
 // Auto-Learning protokollieren
-await supabase.functions.invoke("auto-learn-from-actions", {
+await supabase.functions.invoke('auto-learn-from-actions', {
   body: {
-    pattern_type: "roadmap_task_completion",
+    pattern_type: 'roadmap_task_completion',
     success: true,
     context: {
-      task_id: "DESIGN-004",
-      parallel_with: "Contact Page Hero Implementation",
-      time_saved: "0.13h",
+      task_id: 'DESIGN-004',
+      parallel_with: 'Contact Page Hero Implementation',
+      time_saved: '0.13h'
     },
-    learnings: "Hero-Grafik parallel zur Page-Implementation erledigt → Effizienter!",
-  },
+    learnings: 'Hero-Grafik parallel zur Page-Implementation erledigt → Effizienter!'
+  }
 });
 ```
 
@@ -328,16 +310,16 @@ await supabase.functions.invoke("auto-learn-from-actions", {
 
 ### 8 P0-Tasks implementiert:
 
-| Task-ID     | Title                      | Category       | Hours | Status  |
-| ----------- | -------------------------- | -------------- | ----- | ------- |
-| CONTENT-001 | Heroes-Section erweitern   | content        | 0.13h | pending |
-| CONTENT-002 | Features-Section erstellen | content        | 0.42h | pending |
-| CONTENT-006 | Content-Types erweitern    | content        | 0.13h | pending |
-| DESIGN-001  | Design-Prinzipien          | design         | 0.17h | pending |
-| PAGE-001    | Routing erweitern          | page_migration | 0.08h | pending |
-| PAGE-002    | FeatureDetailPage Template | component      | 0.58h | pending |
-| DOC-001     | PAGES_DESIGN_OVERVIEW      | documentation  | 0.50h | pending |
-| DOC-002     | IMPLEMENTATION_CHECKLIST   | documentation  | 0.42h | pending |
+| Task-ID | Title | Category | Hours | Status |
+|---------|-------|----------|-------|--------|
+| CONTENT-001 | Heroes-Section erweitern | content | 0.13h | pending |
+| CONTENT-002 | Features-Section erstellen | content | 0.42h | pending |
+| CONTENT-006 | Content-Types erweitern | content | 0.13h | pending |
+| DESIGN-001 | Design-Prinzipien | design | 0.17h | pending |
+| PAGE-001 | Routing erweitern | page_migration | 0.08h | pending |
+| PAGE-002 | FeatureDetailPage Template | component | 0.58h | pending |
+| DOC-001 | PAGES_DESIGN_OVERVIEW | documentation | 0.50h | pending |
+| DOC-002 | IMPLEMENTATION_CHECKLIST | documentation | 0.42h | pending |
 
 **Gesamt:** 2.43h (P0-Tasks)
 
@@ -357,7 +339,7 @@ await supabase.functions.invoke("auto-learn-from-actions", {
 
 ```sql
 INSERT INTO roadmap_tasks (
-  task_id, title, description, category, priority,
+  task_id, title, description, category, priority, 
   estimated_hours, auto_checkable, affected_files, related_pages, completion_criteria
 ) VALUES (
   'NEW-TASK-001',
@@ -376,8 +358,8 @@ INSERT INTO roadmap_tasks (
 ### Task-Status aktualisieren:
 
 ```sql
-UPDATE roadmap_tasks
-SET status = 'in_progress'
+UPDATE roadmap_tasks 
+SET status = 'in_progress' 
 WHERE task_id = 'CONTENT-001';
 ```
 

@@ -4,26 +4,26 @@
    Zentrale Kontrollstelle für Admins zur Überwachung aller System-Fehler
    ================================================================================== */
 
-import { useState, useEffect } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { V28Button } from "@/components/design-system/V28Button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  AlertCircle,
-  AlertTriangle,
-  Info,
-  RefreshCw,
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { V28Button } from '@/components/design-system/V28Button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { 
+  AlertCircle, 
+  AlertTriangle, 
+  Info, 
+  RefreshCw, 
   MessageSquare,
   CheckCircle2,
   TrendingUp,
-  Clock,
-} from "lucide-react";
-import { getErrorStats, type TrackedError } from "@/lib/error-tracker";
-import { sendErrorToChat } from "@/lib/error-to-chat-pipeline";
-import { logDebug } from "@/lib/logger";
-import { handleSuccess, handleError } from "@/lib/error-handler";
+  Clock
+} from 'lucide-react';
+import { getErrorStats, type TrackedError } from '@/lib/error-tracker';
+import { sendErrorToChat } from '@/lib/error-to-chat-pipeline';
+import { logDebug } from '@/lib/logger';
+import { handleSuccess, handleError } from '@/lib/error-handler';
 
 const ErrorMonitor = () => {
   const [stats, setStats] = useState(getErrorStats());
@@ -34,7 +34,7 @@ const ErrorMonitor = () => {
 
     const interval = setInterval(() => {
       setStats(getErrorStats());
-      logDebug("[ErrorMonitor] Stats refreshed", { totalErrors: stats.totalErrors });
+      logDebug('[ErrorMonitor] Stats refreshed', { totalErrors: stats.totalErrors });
     }, 5000); // Refresh every 5 seconds
 
     return () => clearInterval(interval);
@@ -45,13 +45,13 @@ const ErrorMonitor = () => {
   };
 
   const getSeverityBadge = (severity: string) => {
-    const variants: Record<string, "destructive" | "secondary" | "outline" | "default"> = {
-      critical: "destructive",
-      high: "destructive",
-      medium: "secondary",
-      low: "outline",
+    const variants: Record<string, 'destructive' | 'secondary' | 'outline' | 'default'> = {
+      critical: 'destructive',
+      high: 'destructive',
+      medium: 'secondary',
+      low: 'outline',
     };
-    return variants[severity] || "default";
+    return variants[severity] || 'default';
   };
 
   const getCategoryIcon = (category: string) => {
@@ -69,12 +69,12 @@ const ErrorMonitor = () => {
     try {
       const success = await sendErrorToChat(error);
       if (success) {
-        handleSuccess("Fehler-Bericht in Zwischenablage kopiert. Fügen Sie ihn im Chat ein.");
+        handleSuccess('Fehler-Bericht in Zwischenablage kopiert. Fügen Sie ihn im Chat ein.');
       } else {
-        handleError(new Error("Failed"), "Fehler-Bericht konnte nicht erstellt werden");
+        handleError(new Error('Failed'), 'Fehler-Bericht konnte nicht erstellt werden');
       }
     } catch (err) {
-      handleError(err, "Fehler beim Senden an Chat");
+      handleError(err, 'Fehler beim Senden an Chat');
     }
   };
 
@@ -88,11 +88,16 @@ const ErrorMonitor = () => {
         {/* Header Controls */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Badge variant={stats.totalErrors === 0 ? "outline" : "destructive"}>
+            <Badge variant={stats.totalErrors === 0 ? 'outline' : 'destructive'}>
               {stats.totalErrors} Fehler
             </Badge>
             {stats.totalErrors > 0 && (
-              <V28Button variant="secondary" size="sm" onClick={handleRefresh} className="gap-2">
+              <V28Button
+                variant="secondary"
+                size="sm"
+                onClick={handleRefresh}
+                className="gap-2"
+              >
                 <RefreshCw className="h-4 w-4" />
                 Aktualisieren
               </V28Button>
@@ -100,16 +105,12 @@ const ErrorMonitor = () => {
           </div>
           <div className="flex items-center gap-2">
             <V28Button
-              variant={autoRefresh ? "primary" : "secondary"}
+              variant={autoRefresh ? 'primary' : 'secondary'}
               size="sm"
               onClick={() => setAutoRefresh(!autoRefresh)}
             >
-              {autoRefresh ? (
-                <CheckCircle2 className="h-4 w-4 mr-2" />
-              ) : (
-                <Clock className="h-4 w-4 mr-2" />
-              )}
-              Auto-Refresh {autoRefresh ? "An" : "Aus"}
+              {autoRefresh ? <CheckCircle2 className="h-4 w-4 mr-2" /> : <Clock className="h-4 w-4 mr-2" />}
+              Auto-Refresh {autoRefresh ? 'An' : 'Aus'}
             </V28Button>
           </div>
         </div>
@@ -209,24 +210,15 @@ const ErrorMonitor = () => {
               </TabsContent>
 
               <TabsContent value="critical">
-                <ErrorList
-                  errors={stats.recentErrors.filter((e) => e.severity === "critical")}
-                  onSendToChat={handleSendToChat}
-                />
+                <ErrorList errors={stats.recentErrors.filter(e => e.severity === 'critical')} onSendToChat={handleSendToChat} />
               </TabsContent>
 
               <TabsContent value="high">
-                <ErrorList
-                  errors={stats.recentErrors.filter((e) => e.severity === "high")}
-                  onSendToChat={handleSendToChat}
-                />
+                <ErrorList errors={stats.recentErrors.filter(e => e.severity === 'high')} onSendToChat={handleSendToChat} />
               </TabsContent>
 
               <TabsContent value="medium">
-                <ErrorList
-                  errors={stats.recentErrors.filter((e) => e.severity === "medium")}
-                  onSendToChat={handleSendToChat}
-                />
+                <ErrorList errors={stats.recentErrors.filter(e => e.severity === 'medium')} onSendToChat={handleSendToChat} />
               </TabsContent>
             </Tabs>
           </CardContent>
@@ -255,34 +247,23 @@ const ErrorList = ({ errors, onSendToChat }: ErrorListProps) => {
     <ScrollArea className="h-[400px]">
       <div className="space-y-3">
         {errors.map((error, index) => (
-          <Card
-            key={index}
-            className="border-l-4"
-            style={{
-              borderLeftColor:
-                error.severity === "critical"
-                  ? "hsl(var(--destructive))"
-                  : error.severity === "high"
-                    ? "hsl(var(--warning))"
-                    : "hsl(var(--muted-foreground))",
-            }}
-          >
+          <Card key={index} className="border-l-4" style={{ 
+            borderLeftColor: error.severity === 'critical' ? 'hsl(var(--destructive))' : 
+                            error.severity === 'high' ? 'hsl(var(--warning))' : 
+                            'hsl(var(--muted-foreground))'
+          }}>
             <CardContent className="p-4">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1 space-y-2">
                   <div className="flex items-center gap-2">
-                    <Badge
-                      variant={
-                        error.severity === "critical" || error.severity === "high"
-                          ? "destructive"
-                          : "secondary"
-                      }
-                    >
+                    <Badge variant={error.severity === 'critical' || error.severity === 'high' ? 'destructive' : 'secondary'}>
                       {error.category}
                     </Badge>
-                    <Badge variant="outline">{error.severity}</Badge>
+                    <Badge variant="outline">
+                      {error.severity}
+                    </Badge>
                     <span className="text-xs text-muted-foreground">
-                      {new Date(error.timestamp).toLocaleString("de-DE")}
+                      {new Date(error.timestamp).toLocaleString('de-DE')}
                     </span>
                   </div>
 

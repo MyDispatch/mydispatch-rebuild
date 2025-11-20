@@ -249,27 +249,27 @@ export class WidgetErrorBoundary extends Component<WidgetErrorBoundaryProps, Sta
 
 ### Logger-Utility
 
-````typescript
+```typescript
 // src/lib/logger.ts
 
 /**
  * Strukturiertes Logging-System für MyDispatch
- *
+ * 
  * @module logger
  * @description Zentrales Logging mit verschiedenen Log-Levels
- *
+ * 
  * @example
  * ```typescript
  * import { logger } from '@/lib/logger';
- *
+ * 
  * logger.info('[Booking] Auftrag erstellt', { bookingId, customerId });
  * logger.error('[API] Fehler beim Laden', error as Error, { endpoint: '/bookings' });
  * ```
  */
 
-import * as Sentry from "@sentry/react";
+import * as Sentry from '@sentry/react';
 
-type LogLevel = "debug" | "info" | "warn" | "error";
+type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
 interface LogContext {
   [key: string]: any;
@@ -284,7 +284,7 @@ class Logger {
    */
   debug(message: string, context?: LogContext): void {
     if (this.isDev) {
-      console.debug(`[DEBUG] ${message}`, context || "");
+      console.debug(`[DEBUG] ${message}`, context || '');
     }
   }
 
@@ -293,11 +293,11 @@ class Logger {
    * Allgemeine Informationen (z.B. "Buchung erstellt")
    */
   info(message: string, context?: LogContext): void {
-    console.log(`[INFO] ${message}`, context || "");
+    console.log(`[INFO] ${message}`, context || '');
 
     if (!this.isDev) {
       Sentry.captureMessage(message, {
-        level: "info",
+        level: 'info',
         extra: context,
       });
     }
@@ -308,10 +308,10 @@ class Logger {
    * Warnungen (z.B. "API-Rate-Limit erreicht")
    */
   warn(message: string, context?: LogContext): void {
-    console.warn(`[WARN] ${message}`, context || "");
+    console.warn(`[WARN] ${message}`, context || '');
 
     Sentry.captureMessage(message, {
-      level: "warning",
+      level: 'warning',
       extra: context,
     });
   }
@@ -321,7 +321,7 @@ class Logger {
    * Fehler (z.B. "Buchung fehlgeschlagen")
    */
   error(message: string, error: Error, context?: LogContext): void {
-    console.error(`[ERROR] ${message}`, error, context || "");
+    console.error(`[ERROR] ${message}`, error, context || '');
 
     Sentry.captureException(error, {
       tags: {
@@ -337,12 +337,16 @@ class Logger {
   /**
    * Schreibt Error in Supabase error_logs Tabelle
    */
-  private async logToDatabase(message: string, error: Error, context?: LogContext): Promise<void> {
+  private async logToDatabase(
+    message: string,
+    error: Error,
+    context?: LogContext
+  ): Promise<void> {
     try {
-      const { supabase } = await import("@/integrations/supabase/client");
-      const { profile } = await import("@/hooks/use-auth");
+      const { supabase } = await import('@/integrations/supabase/client');
+      const { profile } = await import('@/hooks/use-auth');
 
-      await supabase.from("error_logs").insert({
+      await supabase.from('error_logs').insert({
         error_type: error.name,
         error_message: error.message,
         error_stack: error.stack,
@@ -355,13 +359,13 @@ class Logger {
       });
     } catch (err) {
       // Fallback: Logging zu Datenbank fehlgeschlagen
-      console.error("[LOGGER] Failed to log to database", err);
+      console.error('[LOGGER] Failed to log to database', err);
     }
   }
 }
 
 export const logger = new Logger();
-````
+```
 
 ---
 
@@ -372,15 +376,15 @@ export const logger = new Logger();
 ```typescript
 // src/lib/sentry-integration.ts
 
-import * as Sentry from "@sentry/react";
-import { BrowserTracing } from "@sentry/tracing";
+import * as Sentry from '@sentry/react';
+import { BrowserTracing } from '@sentry/tracing';
 
 /**
  * Initialisiert Sentry mit optimierten Settings
  */
 export const initSentry = () => {
   if (!import.meta.env.VITE_SENTRY_DSN) {
-    console.warn("[SENTRY] DSN nicht konfiguriert - Sentry deaktiviert");
+    console.warn('[SENTRY] DSN nicht konfiguriert - Sentry deaktiviert');
     return;
   }
 
@@ -398,7 +402,7 @@ export const initSentry = () => {
 
     integrations: [
       new BrowserTracing({
-        tracingOrigins: ["localhost", "app.mydispatch.de", /^\//],
+        tracingOrigins: ['localhost', 'app.mydispatch.de', /^\//],
       }),
       new Sentry.Replay({
         maskAllText: true, // DSGVO: Alle Texte maskieren
@@ -412,12 +416,12 @@ export const initSentry = () => {
       if (event.user) {
         delete event.user.email;
         delete event.user.username;
-        event.user.id = "[REDACTED]";
+        event.user.id = '[REDACTED]';
       }
 
       // Entferne Query-Params aus URLs
       if (event.request?.url) {
-        event.request.url = event.request.url.split("?")[0];
+        event.request.url = event.request.url.split('?')[0];
       }
 
       return event;
@@ -425,15 +429,15 @@ export const initSentry = () => {
 
     // Ignore-Liste (bekannte, harmlose Fehler)
     ignoreErrors: [
-      "ResizeObserver loop limit exceeded",
-      "Non-Error promise rejection captured",
-      "Network request failed", // Offline-Fehler
+      'ResizeObserver loop limit exceeded',
+      'Non-Error promise rejection captured',
+      'Network request failed', // Offline-Fehler
     ],
   });
 };
 
 // src/main.tsx
-import { initSentry } from "./lib/sentry-integration";
+import { initSentry } from './lib/sentry-integration';
 
 initSentry();
 ```
@@ -548,7 +552,7 @@ AS $$
 BEGIN
   DELETE FROM error_logs
   WHERE created_at < NOW() - INTERVAL '90 days';
-
+  
   RAISE NOTICE 'Cleaned up error logs older than 90 days';
 END;
 $$;
@@ -569,7 +573,7 @@ SELECT cron.schedule(
 
 ```sql
 -- Error-Rate (letzte 24h)
-SELECT
+SELECT 
   DATE_TRUNC('hour', created_at) AS hour,
   COUNT(*) AS error_count,
   COUNT(DISTINCT user_id) AS affected_users
@@ -579,7 +583,7 @@ GROUP BY hour
 ORDER BY hour DESC;
 
 -- Top-Errors (letzte 7 Tage)
-SELECT
+SELECT 
   error_type,
   error_message,
   COUNT(*) AS occurrences,

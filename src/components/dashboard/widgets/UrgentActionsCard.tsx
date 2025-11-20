@@ -7,13 +7,13 @@
    ✅ Warnungen, Überfällige Rechnungen, Fahrzeug-Wartung
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle, Badge } from "@/lib/compat";
-import { AlertTriangle, FileText, Wrench, ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Card, CardContent, CardHeader, CardTitle, Badge } from '@/lib/compat';
+import { AlertTriangle, FileText, Wrench, ArrowRight } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface UrgentAction {
   id: string;
-  type: "warning" | "overdue" | "maintenance";
+  type: 'warning' | 'overdue' | 'maintenance';
   title: string;
   description: string;
   count?: number;
@@ -31,9 +31,9 @@ const iconMap = {
 };
 
 const colorMap = {
-  warning: "text-amber-600 bg-amber-50 border-amber-200",
-  overdue: "text-red-600 bg-red-50 border-red-200",
-  maintenance: "text-blue-600 bg-blue-50 border-blue-200",
+  warning: 'text-amber-600 bg-amber-50 border-amber-200',
+  overdue: 'text-red-600 bg-red-50 border-red-200',
+  maintenance: 'text-blue-600 bg-blue-50 border-blue-200',
 };
 
 export function UrgentActionsCard({ actions }: UrgentActionsCardProps) {
@@ -66,22 +66,26 @@ export function UrgentActionsCard({ actions }: UrgentActionsCardProps) {
                 <AlertTriangle className="h-6 w-6 text-green-600" />
               </div>
             </div>
-            <p className="text-sm font-medium text-slate-600">Keine dringenden Aktionen</p>
-            <p className="text-xs text-slate-500 mt-1">Alles unter Kontrolle</p>
+            <p className="text-sm font-medium text-slate-600">
+              Keine dringenden Aktionen
+            </p>
+            <p className="text-xs text-slate-500 mt-1">
+              Alles unter Kontrolle
+            </p>
           </div>
         ) : (
           <div className="space-y-2">
             {actions.map((action, index) => {
               const Icon = iconMap[action.type];
               const colors = colorMap[action.type];
-
+              
               return (
                 <div
                   key={action.id}
                   className={cn(
-                    "p-3 rounded-lg border cursor-pointer transition-all duration-200 hover:shadow-md",
+                    'p-3 rounded-lg border cursor-pointer transition-all duration-200 hover:shadow-md',
                     colors,
-                    "animate-fade-in"
+                    'animate-fade-in'
                   )}
                   style={{ animationDelay: `${index * 50}ms` }}
                   onClick={action.onClick}
@@ -90,17 +94,18 @@ export function UrgentActionsCard({ actions }: UrgentActionsCardProps) {
                     <Icon className="h-4 w-4 mt-0.5 shrink-0" />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2 mb-1">
-                        <p className="text-sm font-semibold truncate">{action.title}</p>
+                        <p className="text-sm font-semibold truncate">
+                          {action.title}
+                        </p>
                         {action.count && (
-                          <Badge
-                            variant="outline"
-                            className="h-5 px-1.5 text-xs font-bold shrink-0"
-                          >
+                          <Badge variant="outline" className="h-5 px-1.5 text-xs font-bold shrink-0">
                             {action.count}
                           </Badge>
                         )}
                       </div>
-                      <p className="text-xs line-clamp-2">{action.description}</p>
+                      <p className="text-xs line-clamp-2">
+                        {action.description}
+                      </p>
                     </div>
                     <ArrowRight className="h-4 w-4 shrink-0 opacity-50" />
                   </div>
