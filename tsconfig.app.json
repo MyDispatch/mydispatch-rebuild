@@ -14,12 +14,12 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Linting */
+    /* Linting - Phase 1: Gradual Strictness */
     "strict": false,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitAny": false,
-    "noFallthroughCasesInSwitch": false,
+    "noUnusedLocals": true,         // ✅ Phase 1: Detect unused code
+    "noUnusedParameters": true,     // ✅ Phase 1: Detect unused params
+    "noImplicitAny": false,         // ⏳ Phase 2: Enable after Phase 1
+    "noFallthroughCasesInSwitch": true,  // ✅ Safe to enable
 
     /* Path Mapping */
     "paths": {
