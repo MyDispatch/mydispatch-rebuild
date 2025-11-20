@@ -10,7 +10,6 @@ import App from "./App.tsx";
 import "./index.css";
 import "./styles/mobile-first.css";
 import "./styles/mobile-optimized.css";
-import { initSentry } from "./lib/sentry-integration";
 import { initPerformanceMonitoring } from "./lib/performance-monitoring";
 import { initGlobalErrorHandlers } from "./lib/error-tracking";
 import ProductionErrorMonitor from "./utils/errorMonitoring";
@@ -37,12 +36,6 @@ if (import.meta.env.PROD) {
   }
 }
 
-try {
-  initSentry();
-} catch {
-  // Silent fail
-}
-
 // Production: Chunk Load Error Handler with One-Shot Guard
 // Prevents infinite reload loops while handling dynamic import failures
 if (import.meta.env.PROD) {
@@ -56,11 +49,11 @@ if (import.meta.env.PROD) {
       // ONE-SHOT GUARD: Only reload ONCE per session to prevent infinite loops
       const RELOAD_KEY = 'chunk-reload-attempted';
       const hasReloaded = sessionStorage.getItem(RELOAD_KEY);
-      
+
       if (hasReloaded) {
         // Already reloaded once - show error instead of looping
         console.error('❌ Chunk load failed after reload. Please refresh manually.', event);
-        
+
         // Show user-friendly error (NO auto-reload)
         const errorDiv = document.createElement('div');
         errorDiv.innerHTML = `
@@ -106,7 +99,7 @@ if (import.meta.env.PROD) {
       // First time - mark as reloaded and reload
       console.warn('⚠️ Chunk load failed - reloading once...', event);
       sessionStorage.setItem(RELOAD_KEY, 'true');
-      
+
       // Clear caches and reload
       if ('caches' in window) {
         caches.keys().then(names => {
@@ -145,16 +138,16 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
       const registration = await navigator.serviceWorker.register('/sw.js', {
         scope: '/',
       });
-      
+
       console.log('[PWA] Service Worker registered:', registration.scope);
-      
+
       // Check for updates on page load
       registration.update();
-      
+
       // Listen for new service worker installation
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
-        
+
         if (newWorker) {
           newWorker.addEventListener('statechange', () => {
             if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
@@ -164,13 +157,13 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
           });
         }
       });
-      
+
       // Handle controller change (when new SW takes over)
       navigator.serviceWorker.addEventListener('controllerchange', () => {
         console.log('[PWA] New service worker activated - reloading...');
         window.location.reload();
       });
-      
+
     } catch (error) {
       console.error('[PWA] Service Worker registration failed:', error);
     }
@@ -180,7 +173,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
 // Show update prompt - Non-intrusive notification
 function showUpdatePrompt(registration: ServiceWorkerRegistration) {
   console.log('[PWA] Update available - showing prompt');
-  
+
   // Create update notification element
   const updateBanner = document.createElement('div');
   updateBanner.id = 'sw-update-banner';
@@ -248,9 +241,9 @@ function showUpdatePrompt(registration: ServiceWorkerRegistration) {
       }
     </style>
   `;
-  
+
   document.body.appendChild(updateBanner);
-  
+
   // Update button - triggers skip waiting
   document.getElementById('sw-update-btn')?.addEventListener('click', () => {
     if (registration.waiting) {
@@ -259,7 +252,7 @@ function showUpdatePrompt(registration: ServiceWorkerRegistration) {
     }
     updateBanner.remove();
   });
-  
+
   // Dismiss button
   document.getElementById('sw-dismiss-btn')?.addEventListener('click', () => {
     updateBanner.remove();

@@ -1,10 +1,9 @@
 /* ==================================================================================
-   ERROR BOUNDARY - Sentry Integration
+   ERROR BOUNDARY - Basic Error Handling (Sentry removed)
    ==================================================================================
-   Fängt React-Fehler ab und sendet sie an Sentry
+   Fängt React-Fehler ab und zeigt Fallback UI
    ================================================================================== */
 
-import * as Sentry from '@sentry/react';
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { V28Button } from '@/components/design-system/V28Button';
 
@@ -29,18 +28,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Sende Fehler an Sentry
-    Sentry.captureException(error, {
-      contexts: {
-        react: {
-          componentStack: errorInfo.componentStack,
-        },
-      },
-      tags: {
-        errorBoundary: true,
-      },
-    });
-
+    // Log error (Sentry removed)
     console.error('[ErrorBoundary] Caught error:', error, errorInfo);
   }
 
@@ -87,4 +75,3 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
-
