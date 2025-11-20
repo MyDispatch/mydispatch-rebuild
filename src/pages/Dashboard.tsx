@@ -23,7 +23,7 @@ import { ActivityItem } from '@/components/dashboard/ActivityItem';
 import { FeatureGate } from '@/components/shared/FeatureGate';
 import { useFeatureAccess } from '@/components/shared/FeatureGate';
 import { formatCurrency } from '@/lib/format-utils';
-import { 
+import {
   FileText, Users, Euro, Plus, Calendar, TrendingUp,
   Clock, CheckCircle2, ArrowRight, Zap, TrendingUp as TrendIcon,
   MapPin, Car, BarChart3, Building2, Globe, MessageSquare,
@@ -46,7 +46,7 @@ export default function Dashboard() {
     const bookings = stats?.bookings_today ?? 0;
     const drivers = stats?.active_drivers ?? 0;
     const revenue = stats?.revenue_today ?? 0;
-    
+
     const baseCards = [
       {
         title: 'Heutige Aufträge',
@@ -347,8 +347,8 @@ export default function Dashboard() {
 
       {/* V33.0: Schnellzugriff Sidebar (rechts) - Desktop only - KONSISTENT MIT RECHNUNGEN */}
       {!isMobile && (
-        <aside 
-          className="fixed right-0 top-16 bottom-0 bg-white border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300"
+        <aside
+          className="fixed right-0 top-16 bottom-0 bg-background border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300"
           style={{
             width: '320px', // ✅ Feste professionelle Breite - immer sichtbar!
           }}
@@ -359,7 +359,7 @@ export default function Dashboard() {
               <span className="w-1 h-4 rounded-full bg-slate-700" />
               Schnellzugriff
             </h3>
-            
+
             {quickActions.map((action, index) => (
               <V28Button
                 key={index}
@@ -377,7 +377,7 @@ export default function Dashboard() {
           {/* Live-Status Stats */}
           <div className="p-4 space-y-3">
             <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-2">Live-Status</h4>
-            
+
             <div className="space-y-2">
               {/* Heutige Aufträge */}
               <div className="p-3 bg-muted rounded-lg border border-border">
@@ -390,7 +390,7 @@ export default function Dashboard() {
                   {formatCurrency(stats?.revenue_today ?? 0)} Umsatz
                 </p>
               </div>
-              
+
               {/* Aktive Fahrer */}
               <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
                 <div className="flex items-center justify-between mb-1">
@@ -400,7 +400,7 @@ export default function Dashboard() {
                 <p className="text-2xl font-bold text-blue-700">{stats?.active_drivers ?? 0}</p>
                 <p className="text-xs text-blue-500 mt-1">Im Dienst</p>
               </div>
-              
+
               {/* Trend Anzeige */}
               {stats?.bookings_trend && (
                 <div className="p-3 bg-green-50 rounded-lg border border-green-200">

@@ -908,7 +908,7 @@ const Fahrer = () => {
       {/* V33.0: Schnellzugriff Sidebar (rechts) - Desktop only */}
       {!isMobile && (
         <aside
-          className="fixed right-0 top-16 bottom-0 bg-white border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300"
+          className="fixed right-0 top-16 bottom-0 bg-background border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300"
           style={{
             width: "320px",
           }}
