@@ -10,7 +10,7 @@ import App from "./App.tsx";
 import "./index.css";
 import "./styles/mobile-first.css";
 import "./styles/mobile-optimized.css";
-import { initSentry } from "./lib/sentry-integration";
+// import { initSentry } from "./lib/sentry-integration"; // DISABLED: Sentry not installed
 import { initPerformanceMonitoring } from "./lib/performance-monitoring";
 import { initGlobalErrorHandlers } from "./lib/error-tracking";
 import ProductionErrorMonitor from "./utils/errorMonitoring";
@@ -37,11 +37,11 @@ if (import.meta.env.PROD) {
   }
 }
 
-try {
-  initSentry();
-} catch {
-  // Silent fail
-}
+// try {
+//   initSentry(); // DISABLED: Sentry not installed
+// } catch {
+//   // Silent fail
+// }
 
 // V6.0.4: CHUNK LOAD ERROR HANDLER - Robust fallback for failed chunk loads
 window.addEventListener('error', (event: ErrorEvent) => {
