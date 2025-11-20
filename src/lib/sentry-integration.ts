@@ -6,74 +6,19 @@
    RESILIENT: Graceful fallback ohne DSN-Zwang
    ================================================================================== */
 
-import * as Sentry from '@sentry/react';
+// import * as Sentry from '@sentry/react'; // DISABLED: Sentry not installed
 import { supabase } from '@/integrations/supabase/client';
 
 /**
  * Initialize Sentry mit DSGVO-konformen Einstellungen
  * Graceful fallback wenn VITE_SENTRY_DSN nicht gesetzt
+ *
+ * DISABLED: Sentry package not installed, function is a no-op
  */
 export function initSentry() {
-  // DEFENSIVE: Try-Catch um komplette Init-Funktion
-  try {
-    const sentryDsn = import.meta.env.VITE_SENTRY_DSN;
-    
-    // Graceful exit wenn kein DSN verfügbar (Silent - NIEMALS crashen!)
-    if (!sentryDsn) {
-      return;
-    }
-    
-    // Nur in Production initialisieren
-    if (!import.meta.env.PROD) {
-      return;
-    }
-
-    Sentry.init({
-    dsn: sentryDsn,
-    integrations: [
-      Sentry.browserTracingIntegration(),
-      Sentry.replayIntegration({
-        maskAllText: true, // DSGVO: Alle Texte maskieren
-        blockAllMedia: true, // DSGVO: Keine Medien aufzeichnen
-      }),
-    ],
-    tracesSampleRate: 0.1, // 10% Performance-Monitoring
-    replaysSessionSampleRate: 0.1,
-    replaysOnErrorSampleRate: 1.0,
-    
-    // DSGVO: PII entfernen
-    beforeSend(event, hint) {
-      // Entferne sensible Daten
-      if (event.user) {
-        delete event.user.email;
-        delete event.user.ip_address;
-      }
-      
-      // Anonymisiere URLs (entferne Query-Parameter)
-      if (event.request?.url) {
-        event.request.url = event.request.url.split('?')[0];
-      }
-      
-      return event;
-    },
-    
-    // Ignoriere bekannte harmlose Fehler
-    ignoreErrors: [
-      'ResizeObserver loop limit exceeded',
-      'Non-Error promise rejection captured',
-      'Network request failed',
-      'ChunkLoadError',
-      'Failed to fetch',
-      'Script error',
-    ],
-  });
-  } catch {
-    // KRITISCH: Sentry-Init darf NIEMALS die App crashen!
-    // Silent fail - KEINE console-Ausgaben
-  }
-}
-
-/**
+  // No-op: Sentry not installed
+  return;
+}/**
  * Sende Critical Errors zu n8n für Alerts (Email/Slack)
  */
 export async function sendErrorToN8n(
@@ -127,15 +72,17 @@ async function getErrorRate(): Promise<number> {
 
 /**
  * Log Error zu ai_actions_log UND Sentry
+ *
+ * DISABLED: Sentry package not installed
  */
 export async function captureError(
   error: Error,
   context: Record<string, any> = {}
 ): Promise<void> {
-  // Log zu Sentry
-  Sentry.captureException(error, {
-    contexts: { custom: context },
-  });
+  // Log zu Sentry - DISABLED: Sentry not installed
+  // Sentry.captureException(error, {
+  //   contexts: { custom: context },
+  // });
 
   // Log zu ai_actions_log (für interne Analyse)
   try {

@@ -4,7 +4,7 @@
    Fängt React-Fehler ab und sendet sie an Sentry
    ================================================================================== */
 
-import * as Sentry from '@sentry/react';
+// import * as Sentry from '@sentry/react'; // DISABLED: Sentry not installed
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { V28Button } from '@/components/design-system/V28Button';
 
@@ -29,17 +29,17 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Sende Fehler an Sentry
-    Sentry.captureException(error, {
-      contexts: {
-        react: {
-          componentStack: errorInfo.componentStack,
-        },
-      },
-      tags: {
-        errorBoundary: true,
-      },
-    });
+    // Sende Fehler an Sentry - DISABLED: Sentry not installed
+    // Sentry.captureException(error, {
+    //   contexts: {
+    //     react: {
+    //       componentStack: errorInfo.componentStack,
+    //     },
+    //   },
+    //   tags: {
+    //     errorBoundary: true,
+    //   },
+    // });
 
     console.error('[ErrorBoundary] Caught error:', error, errorInfo);
   }
@@ -87,4 +87,3 @@ export class ErrorBoundary extends Component<Props, State> {
     return this.props.children;
   }
 }
-
