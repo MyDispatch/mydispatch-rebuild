@@ -271,12 +271,12 @@ export default function Auth() {
           // V32.7: Nur user_roles-Tabelle als Single Source of Truth
           const isMaster = userRoles?.role === 'master';
 
-          logger.debug('[Auth] Role-Check', { 
-            email, 
-            isMaster, 
-            userRolesData: userRoles, 
+          logger.debug('[Auth] Role-Check', {
+            email,
+            isMaster,
+            userRolesData: userRoles,
             userId: userData.user.id,
-            component: 'Auth' 
+            component: 'Auth'
           });
 
           // V43.1: Master-Users gehen auch zu /dashboard (keine separate /master Route)
@@ -296,11 +296,11 @@ export default function Auth() {
 
           // Otherwise: Use standard redirect logic (Entrepreneur)
           const redirectRoute = getLoginRedirectRoute('entrepreneur', searchParams);
-          logger.debug('[Auth] Entrepreneur-Redirect', { 
-            email, 
-            redirectRoute, 
+          logger.debug('[Auth] Entrepreneur-Redirect', {
+            email,
+            redirectRoute,
             isMaster: false,
-            component: 'Auth' 
+            component: 'Auth'
           });
           navigate(redirectRoute);
           return;
@@ -681,7 +681,7 @@ export default function Auth() {
                         >
                           <span
                             className={cn(
-                              "inline-block h-4 w-4 transform rounded-full bg-white transition-transform",
+                              "inline-block h-4 w-4 transform rounded-full bg-background transition-transform",
                               billingPeriod === 'yearly' ? "translate-x-6" : "translate-x-1"
                             )}
                           />
@@ -722,7 +722,7 @@ export default function Auth() {
                             "mt-6 relative overflow-hidden rounded-2xl border-2 transition-all duration-300 group",
                             fleetAddonEnabled
                               ? "border-slate-400 bg-slate-50 shadow-lg"
-                              : "border-slate-200 bg-white hover:border-slate-300 hover:shadow-md"
+                              : "border-slate-200 bg-background hover:border-slate-300 hover:shadow-md"
                           )}
                         >
                           {/* Checkbox - Top Right */}
