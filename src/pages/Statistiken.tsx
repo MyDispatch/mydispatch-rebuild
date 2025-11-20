@@ -53,7 +53,7 @@ const Statistiken = () => {
       navigate('/auth', { replace: true });
     }
   }, [loading, profile, navigate]);
-  
+
   // V18.3: Echte Daten aus Dashboard-Stats & Extended Stats
   const { data: dashboardStats } = useDashboardStats();
   const { topDrivers, partnerPerformance, dailyRevenue, isLoading } = useExtendedStatistics();
@@ -65,7 +65,7 @@ const Statistiken = () => {
   const totalVehicles = dashboardStats?.total_vehicles || 0;
 
   // Berechne Auslastung (Vereinfacht: Aufträge / Fahrer * 10)
-  const utilization = totalDrivers > 0 
+  const utilization = totalDrivers > 0
     ? Math.min(100, Math.round((completedBookings / totalDrivers / 30) * 100))
     : 0;
 
@@ -225,12 +225,12 @@ const Statistiken = () => {
   if (isMobile) {
     return (
       <>
-        <SEOHead 
+        <SEOHead
           title="Statistiken"
           description="MyDispatch Statistiken: Erweiterte Auswertungen, KPIs und Berichte für Ihr Taxi- und Mietwagenunternehmen."
           canonical="/statistiken"
         />
-        
+
         <FeatureGate requiredTariff="Business" feature="Erweiterte Statistiken">
           <MobileStatistiken
             stats={{
@@ -256,8 +256,8 @@ const Statistiken = () => {
               revenue: partner.total_revenue,
               provision: calculateProvision(partner.total_revenue, partner.provision_rate),
               provisionRate: partner.provision_rate,
-              trend: partner.trend_percentage >= 0 
-                ? `+${partner.trend_percentage}%` 
+              trend: partner.trend_percentage >= 0
+                ? `+${partner.trend_percentage}%`
                 : `${partner.trend_percentage}%`,
             }))}
             dailyRevenue={dailyRevenue.map(d => ({
@@ -276,12 +276,12 @@ const Statistiken = () => {
   // Desktop-Layout
   return (
     <>
-      <SEOHead 
+      <SEOHead
         title="Statistiken"
         description="MyDispatch Statistiken: Erweiterte Auswertungen, KPIs und Berichte für Ihr Taxi- und Mietwagenunternehmen."
         canonical="/statistiken"
       />
-      
+
       <FeatureGate requiredTariff="Business" feature="Erweiterte Statistiken">
         <StandardPageLayout
           title="Statistiken & Berichte"
@@ -369,8 +369,8 @@ const Statistiken = () => {
                 revenue: partner.total_revenue,
                 provision: calculateProvision(partner.total_revenue, partner.provision_rate),
                 provisionRate: partner.provision_rate,
-                trend: partner.trend_percentage >= 0 
-                  ? `+${partner.trend_percentage}%` 
+                trend: partner.trend_percentage >= 0
+                  ? `+${partner.trend_percentage}%`
                   : `${partner.trend_percentage}%`,
               }))}
               onPartnerClick={(partnerId) => navigate(`/partner?id=${partnerId}`)}
@@ -385,50 +385,6 @@ const Statistiken = () => {
             }}
           />
         </StandardPageLayout>
-
-        {/* ✅ V28.1: RIGHT SIDEBAR - Fixed 320px (hidden < md) - Design Tokens */}
-        {!isMobile && (
-          <aside className="fixed right-0 top-16 bottom-0 w-80 bg-card border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300">
-            <div className="p-4 space-y-4">
-              <div>
-                <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider mb-3 flex items-center gap-2">
-                  <span className="w-1 h-4 rounded-full bg-primary" />
-                  Live-Status
-                </h3>
-                <div className="space-y-3">
-                  <div className="p-3 bg-muted rounded-lg border border-border">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-medium text-muted-foreground">Aufträge (heute)</span>
-                      <FileText className="h-4 w-4 text-muted-foreground" />
-                    </div>
-                    <p className="text-2xl font-bold text-foreground">{liveStats?.bookings_today || 0}</p>
-                    <p className="text-xs text-muted-foreground mt-1">Heute aktiv</p>
-                  </div>
-
-                  <div className="p-3 bg-status-success/10 rounded-lg border border-status-success/20">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-medium text-status-success">Umsatz (heute)</span>
-                      <Euro className="h-4 w-4 text-status-success" />
-                    </div>
-                    <p className="text-lg font-bold text-status-success">
-                      {formatCurrency(liveStats?.revenue_today || 0)}
-                    </p>
-                    <p className="text-xs text-status-success/70 mt-1">Heute</p>
-                  </div>
-
-                  <div className="p-3 bg-primary/10 rounded-lg border border-primary/20">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-xs font-medium text-primary">Auslastung</span>
-                      <Car className="h-4 w-4 text-primary" />
-                    </div>
-                    <p className="text-2xl font-bold text-primary">{utilization}%</p>
-                    <p className="text-xs text-primary/70 mt-1">Durchschnitt</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </aside>
-        )}
       </FeatureGate>
     </>
   );
