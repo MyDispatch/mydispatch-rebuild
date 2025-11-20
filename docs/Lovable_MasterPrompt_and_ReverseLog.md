@@ -12,21 +12,23 @@
 MyDispatch ist eine vollständige, produktionsreife Dispositions-Software für Taxi-, Mietwagen- und Limousinen-Services.
 
 ### System Status (V6.0.2)
-| Metrik | Status | Details |
-|--------|--------|---------|
-| TypeScript Errors | ✅ 0 | Komplett type-safe |
-| Build Success | ✅ 100% | Keine Build-Fehler |
-| Critical Known Issues | ✅ 0 | Alle Blocker resolved |
-| RLS Policies | ✅ 41+ | Vollständige Absicherung |
-| Design System | ✅ V28.1 | Slate-Palette konform |
-| Error Prevention | ✅ 5-Tier | GlobalErrorBoundary aktiv |
-| Production-Ready | ✅ YES | GO-LIVE APPROVED |
+
+| Metrik                | Status    | Details                   |
+| --------------------- | --------- | ------------------------- |
+| TypeScript Errors     | ✅ 0      | Komplett type-safe        |
+| Build Success         | ✅ 100%   | Keine Build-Fehler        |
+| Critical Known Issues | ✅ 0      | Alle Blocker resolved     |
+| RLS Policies          | ✅ 41+    | Vollständige Absicherung  |
+| Design System         | ✅ V28.1  | Slate-Palette konform     |
+| Error Prevention      | ✅ 5-Tier | GlobalErrorBoundary aktiv |
+| Production-Ready      | ✅ YES    | GO-LIVE APPROVED          |
 
 ---
 
 ## 🏗️ SYSTEM ARCHITECTURE
 
 ### Technology Stack
+
 ```typescript
 // Frontend
 - React 18.3.1 (mit TypeScript)
@@ -51,6 +53,7 @@ MyDispatch ist eine vollständige, produktionsreife Dispositions-Software für T
 ```
 
 ### Design System V28.1
+
 ```css
 /* MANDATORY: Nur Slate-Palette verwenden! */
 /* ❌ VERBOTEN: text-white, bg-black, border-white */
@@ -73,6 +76,7 @@ border-slate-300  /* Hover Borders */
 ```
 
 ### Component Architecture
+
 ```typescript
 // Component Naming Convention
 src/components/
@@ -103,10 +107,12 @@ src/components/
 ## 🔄 REVERSE PROMPTS (für Wiederverwendung)
 
 ### RP1: Complete System Analysis
+
 ```markdown
 **PROMPT:** "Führe vollständige System-Analyse durch"
 
 **SCHRITTE:**
+
 1. Lade ALLE unresolved Known Issues aus DB
 2. Prüfe TypeScript Errors: `npx tsc --noEmit`
 3. Prüfe Build: `npm run build`
@@ -116,27 +122,34 @@ src/components/
 7. Kategorisiere: BLOCKER | FIX_NOW | POST_GOLIVE
 
 **OUTPUT:**
+
 - System Status Report (wie V6.0.2 Summary)
 - Priorisierte Issue-Liste
 - Empfohlene Nächste Schritte
 ```
 
 ### RP2: Marketing Content Compliance Check
-```markdown
+
+````markdown
 **PROMPT:** "Prüfe Marketing-Content auf Compliance-Verstöße"
 
 **CHECKS:**
+
 1. **User Count Mentions (VERBOTEN):**
    ```bash
    grep -r "Über.*Unternehmen\|[0-9]+\+?\s*(Nutzer|Unternehmen)" src/
    ```
-   ❌ "Über 500 Unternehmen", "1000+ Nutzer"
-   ✅ "Erfolgreiche Unternehmen deutschlandweit"
+````
+
+❌ "Über 500 Unternehmen", "1000+ Nutzer"
+✅ "Erfolgreiche Unternehmen deutschlandweit"
 
 2. **Branchen-Bezeichnungen (KORREKT):**
+
    ```bash
    grep -r "Taxi-Zentralen\|Mietwagenunternehmen\|Limousinenunternehmen" src/
    ```
+
    ❌ "Taxi-Zentralen", "Mietwagenunternehmen", "Limousinenunternehmen"
    ✅ "Taxiunternehmen", "Mietwagen-Services", "Limousinen-Services"
 
@@ -148,6 +161,7 @@ src/components/
    ✅ FileText, File, CreditCard, Scroll
 
 **DATEIEN ZU PRÜFEN:**
+
 - src/config/pages/pre-login-pages.ts
 - src/lib/content/branchen-texts.ts
 - src/pages/FAQ.tsx
@@ -155,7 +169,8 @@ src/components/
 - src/config/content.ts
 - src/config/seo.ts
 - src/data/testimonials.ts
-```
+
+````
 
 ### RP3: Design System Migration
 ```markdown
@@ -166,43 +181,47 @@ src/components/
    ```typescript
    // ❌ FALSCH:
    className="text-white bg-black border-white"
-   
+
    // ✅ RICHTIG:
    className="text-slate-900 bg-slate-50 border-slate-200"
-   ```
+````
 
 2. **Button-Migration:**
+
    ```typescript
    // ❌ ALT:
    import { Button } from "@/components/ui/button";
-   
+
    // ✅ NEU:
    import { V28Button } from "@/components/v28/V28Button";
-   
+
    <V28Button variant="primary" size="lg">
      Jetzt starten
    </V28Button>
    ```
 
 3. **Card-Migration:**
+
    ```typescript
    // ❌ ALT:
    import { Card } from "@/components/ui/card";
-   
+
    // ✅ NEU:
    import { V28Card } from "@/components/v28/V28Card";
-   
+
    <V28Card variant="elevated" padding="lg">
      {content}
    </V28Card>
    ```
 
 **VALIDATION:**
+
 - Keine `text-white`, `bg-black`, `border-white` mehr
 - Alle Buttons nutzen V28Button
 - Alle Cards nutzen V28Card
 - Mobile-First (min-h-[44px] für Touch-Targets)
-```
+
+````
 
 ### RP4: Database Migration mit RLS
 ```markdown
@@ -222,11 +241,11 @@ CREATE TABLE public.table_name (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   company_id UUID NOT NULL REFERENCES public.companies(id) ON DELETE CASCADE,
   user_id UUID NOT NULL,
-  
+
   -- Feature-specific columns
   name TEXT NOT NULL,
   description TEXT,
-  
+
   -- Audit columns
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -302,14 +321,16 @@ CREATE INDEX idx_table_name_created_at ON public.table_name(created_at DESC);
 -- [ ] Indexes created?
 -- [ ] Triggers for updated_at?
 -- ==================================================================================
-```
+````
 
 **VALIDATION:**
+
 ```bash
 # Nach Migration:
 supabase db lint  # Muss CLEAN sein!
 ```
-```
+
+````
 
 ### RP5: Edge Function Creation (Deno)
 ```markdown
@@ -385,15 +406,17 @@ Deno.serve(async (req) => {
     );
   }
 });
-```
+````
 
 **CRITICAL LEARNINGS:**
+
 1. ✅ `import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.75.0';`
 2. ❌ `import { createClient } from 'npm:@supabase/supabase-js@2';`
 3. ✅ IMMER Environment Variables validieren
 4. ✅ Comprehensive Debug Logging
 5. ✅ CORS Headers für ALLE Responses
-```
+
+````
 
 ### RP6: React Hook Rules Compliance
 ```markdown
@@ -403,45 +426,49 @@ Deno.serve(async (req) => {
 ```typescript
 // ❌ FALSCH: useCallback in JSX
 onClick={useCallback(() => navigate('/page'), [])}
-```
+````
 
 **SOLUTION:**
+
 ```typescript
 // ✅ RICHTIG: useCallback im Component-Scope
 const handleNavigate = useCallback(() => {
-  navigate('/page');
+  navigate("/page");
 }, [navigate]);
 
 // Dann in JSX:
-onClick={handleNavigate}
+onClick = { handleNavigate };
 ```
 
 **RULE:**
+
 - **ALLE Hooks MÜSSEN im Component-Scope definiert sein**
 - **NIEMALS Hooks conditional oder in JSX aufrufen**
 - **IMMER gleiche Reihenfolge bei jedem Render**
 
 **VALIDATION:**
+
 ```bash
 # Suche nach Hook-Violations:
 grep -r "onClick.*useCallback\|onClick.*useState" src/
 ```
-```
+
+````
 
 ---
 
 ## 📚 KNOWN ISSUES ARCHIVE (Resolved)
 
 ### DEBT-001: Dollar-Icons (RESOLVED 2025-10-31)
-**Problem:** DollarSign/Receipt Icons verstoßen gegen CURRENCY_GUIDELINES  
-**Solution:** Alle Dollar-Icons entfernt, ersetzt durch FileText/CreditCard  
-**Prevention:** Vor Icon-Auswahl CURRENCY_GUIDELINES.md prüfen  
-**Files Changed:** 0 (bereits korrekt)  
+**Problem:** DollarSign/Receipt Icons verstoßen gegen CURRENCY_GUIDELINES
+**Solution:** Alle Dollar-Icons entfernt, ersetzt durch FileText/CreditCard
+**Prevention:** Vor Icon-Auswahl CURRENCY_GUIDELINES.md prüfen
+**Files Changed:** 0 (bereits korrekt)
 
 ### DEBT-002-007: User Count Mentions (RESOLVED 2025-10-31)
-**Problem:** "Über 500 Unternehmen" verboten laut User-Vorgabe  
-**Solution:** Ersetzt durch wertorientierte Aussagen ("Erfolgreiche Unternehmen deutschlandweit")  
-**Prevention:** Grep-Check vor Marketing-Content-Änderungen  
+**Problem:** "Über 500 Unternehmen" verboten laut User-Vorgabe
+**Solution:** Ersetzt durch wertorientierte Aussagen ("Erfolgreiche Unternehmen deutschlandweit")
+**Prevention:** Grep-Check vor Marketing-Content-Änderungen
 **Files Changed:**
 - src/config/pages/pre-login-pages.ts
 - src/lib/content/branchen-texts.ts
@@ -449,29 +476,29 @@ grep -r "onClick.*useCallback\|onClick.*useState" src/
 - src/pages/NexifyITService.tsx
 
 ### DEBT-008: Branchen-Bezeichnungen (RESOLVED 2025-10-31)
-**Problem:** "Taxi-Zentralen", "Mietwagenunternehmen", "Limousinenunternehmen" falsch  
-**Solution:** Korrigiert zu "Taxiunternehmen", "Mietwagen-Services", "Limousinen-Services"  
-**Prevention:** branchen-texts.ts als Single Source of Truth  
+**Problem:** "Taxi-Zentralen", "Mietwagenunternehmen", "Limousinenunternehmen" falsch
+**Solution:** Korrigiert zu "Taxiunternehmen", "Mietwagen-Services", "Limousinen-Services"
+**Prevention:** branchen-texts.ts als Single Source of Truth
 **Files Changed:**
 - src/config/branchen.ts
 - src/config/content.ts
 - src/config/seo.ts
 
 ### DEBT-009: Schema-Duplication in Auftraege.tsx (RESOLVED 2025-10-30)
-**Problem:** BookingForm integriert, aber Schema blieb inline (1506 LOC)  
-**Solution:** Schema extrahiert zu src/schemas/booking.schema.ts  
-**Prevention:** Bei Component-Integration IMMER auch Schema extrahieren  
+**Problem:** BookingForm integriert, aber Schema blieb inline (1506 LOC)
+**Solution:** Schema extrahiert zu src/schemas/booking.schema.ts
+**Prevention:** Bei Component-Integration IMMER auch Schema extrahieren
 
 ### DEBT-010: Rendered More Hooks Error (RESOLVED 2025-10-31)
-**Problem:** `useCallback` conditional in JSX aufgerufen  
-**Solution:** Alle Callbacks zu Component-Scope verschoben  
-**Prevention:** NIEMALS Hooks in JSX oder conditional  
+**Problem:** `useCallback` conditional in JSX aufgerufen
+**Solution:** Alle Callbacks zu Component-Scope verschoben
+**Prevention:** NIEMALS Hooks in JSX oder conditional
 **Files Changed:** src/pages/Index.tsx
 
 ### DEBT-011: DashboardInfoBoard Deprecated (RESOLVED 2025-01-31)
-**Problem:** DashboardInfoBoard wurde zurückgezogen, aber Docs zeigten es als "implementiert"  
-**Solution:** Alle DashboardInfoBoard-Referenzen aus Docs entfernt, 5 Docs archiviert  
-**Prevention:** Code-Reality-Check vor Dokumentations-Commit  
+**Problem:** DashboardInfoBoard wurde zurückgezogen, aber Docs zeigten es als "implementiert"
+**Solution:** Alle DashboardInfoBoard-Referenzen aus Docs entfernt, 5 Docs archiviert
+**Prevention:** Code-Reality-Check vor Dokumentations-Commit
 **Files Changed:**
 - src/components/layout/MainLayout.tsx (marginLeft: 880px → 560px)
 - docs/PROJECT_MEMORY.md (Dashboard Sidebars: 2-Sidebar System FINAL)
@@ -480,30 +507,30 @@ grep -r "onClick.*useCallback\|onClick.*useState" src/
 **Root Cause:** Designentscheidung - 2 Sidebars (AppSidebar + DashboardSidebar) statt 3 Components
 
 ### DEBT-012: Knowledge Base CHECK CONSTRAINT (DOCUMENTED 2025-10-31)
-**Problem:** knowledge_base.category hat CHECK CONSTRAINT (nur 8 Kategorien erlaubt)  
-**Impact:** feature_catalog & faq Daten können NICHT eingefügt werden  
-**Attempted Solution:** Migration mit INSERT INTO knowledge_base (category, ...)  
-**Migration Failed:** CHECK CONSTRAINT violation (category not in allowed values)  
-**Actual Solution:** Feature-Katalog & FAQs bleiben hardcoded (Design-Entscheidung)  
-**Prevention:** VOR Migration CHECK CONSTRAINTS validieren  
+**Problem:** knowledge_base.category hat CHECK CONSTRAINT (nur 8 Kategorien erlaubt)
+**Impact:** feature_catalog & faq Daten können NICHT eingefügt werden
+**Attempted Solution:** Migration mit INSERT INTO knowledge_base (category, ...)
+**Migration Failed:** CHECK CONSTRAINT violation (category not in allowed values)
+**Actual Solution:** Feature-Katalog & FAQs bleiben hardcoded (Design-Entscheidung)
+**Prevention:** VOR Migration CHECK CONSTRAINTS validieren
 
 **Files:**
 - `src/config/pages/pre-login-pages.ts` (Features: 12 Entries)
 - `src/pages/FAQ.tsx` (FAQs: 15 Entries in 5 Kategorien)
 
-**Status:** DOCUMENTED (Not a blocker - intentional design decision)  
-**Priority:** LOW (funktioniert perfekt hardcoded)  
-**Future:** Optional - CHECK CONSTRAINT erweitern um feature_catalog/faq  
+**Status:** DOCUMENTED (Not a blocker - intentional design decision)
+**Priority:** LOW (funktioniert perfekt hardcoded)
+**Future:** Optional - CHECK CONSTRAINT erweitern um feature_catalog/faq
 
 **Erlaubte Kategorien:** design_system, component_pattern, bug_fix, best_practice,
 anti_pattern, custom_hook, autonomous_tool, edge_function
 
 ### DEBT-013: Invalid Modulepreload Hints (RESOLVED 2025-10-31)
-**Problem:** Modulepreload-Hints zeigten auf Dev-Paths statt Production-Bundle  
-**Impact:** CRITICAL - Homepage lud nur via Navigation, NICHT direkter Load  
-**Root Cause:** `/src/pages/Home.tsx` existiert NICHT in Production (`/assets/js/Home-[hash].js`)  
-**Solution:** Modulepreload-Hints ENTFERNT (index.html Zeile 25-29)  
-**Prevention:** NIEMALS Modulepreload für lazy() Chunks mit dynamic hash!  
+**Problem:** Modulepreload-Hints zeigten auf Dev-Paths statt Production-Bundle
+**Impact:** CRITICAL - Homepage lud nur via Navigation, NICHT direkter Load
+**Root Cause:** `/src/pages/Home.tsx` existiert NICHT in Production (`/assets/js/Home-[hash].js`)
+**Solution:** Modulepreload-Hints ENTFERNT (index.html Zeile 25-29)
+**Prevention:** NIEMALS Modulepreload für lazy() Chunks mit dynamic hash!
 
 **Why This Failed:**
 - Vite generiert: `/assets/js/Home-[hash].js` (random hash bei jedem Build)
@@ -526,12 +553,12 @@ anti_pattern, custom_hook, autonomous_tool, edge_function
 - `src/App.tsx` (Prefetch-Logic BEREITS aktiv V6.0.4)
 - `src/main.tsx` (Chunk-Error-Handler BEREITS aktiv V6.0.4)
 
-**Status:** ✅ RESOLVED  
-**Priority:** CRITICAL  
-**Time Taken:** 25 Minuten  
+**Status:** ✅ RESOLVED
+**Priority:** CRITICAL
+**Time Taken:** 25 Minuten
 **Lesson Learned:** Siehe `docs/LESSONS_LEARNED.md` Learning #10
 
-**Lesson Learned:** IMMER CHECK CONSTRAINTS checken vor Migration-Plan!  
+**Lesson Learned:** IMMER CHECK CONSTRAINTS checken vor Migration-Plan!
 → Siehe `docs/LESSONS_LEARNED.md` Learning #9
 
 ---
@@ -542,7 +569,7 @@ anti_pattern, custom_hook, autonomous_tool, edge_function
 ```typescript
 /**
  * ✅ BEST PRACTICE: Small, Focused Components
- * 
+ *
  * DO:
  * - Component <500 LOC
  * - Single Responsibility
@@ -563,34 +590,34 @@ export const SmallComponent = ({ title, onAction }: Props) => {
     </V28Card>
   );
 };
-```
+````
 
 ### 2. Error Handling
+
 ```typescript
 /**
  * ✅ BEST PRACTICE: Comprehensive Error Handling
  */
 
 try {
-  const { data, error } = await supabase
-    .from('table')
-    .select('*');
+  const { data, error } = await supabase.from("table").select("*");
 
   if (error) {
-    logger.error('Query failed', { error, component: 'MyComponent' });
-    toast.error('Fehler beim Laden der Daten');
+    logger.error("Query failed", { error, component: "MyComponent" });
+    toast.error("Fehler beim Laden der Daten");
     return;
   }
 
   // Success handling
-  toast.success('Daten erfolgreich geladen');
+  toast.success("Daten erfolgreich geladen");
 } catch (error) {
-  logger.error('Unexpected error', { error, component: 'MyComponent' });
-  toast.error('Ein unerwarteter Fehler ist aufgetreten');
+  logger.error("Unexpected error", { error, component: "MyComponent" });
+  toast.error("Ein unerwarteter Fehler ist aufgetreten");
 }
 ```
 
 ### 3. React Query Usage
+
 ```typescript
 /**
  * ✅ BEST PRACTICE: React Query für alle Supabase Queries
@@ -603,7 +630,7 @@ const { data, isLoading, error } = useQuery({
       .from('bookings')
       .select('*')
       .eq('company_id', companyId);
-    
+
     if (error) throw error;
     return data;
   },
@@ -619,6 +646,7 @@ if (error) return <ErrorMessage error={error} />;
 ## 🚀 DEPLOYMENT RUNBOOK
 
 ### Pre-Deployment Checklist
+
 ```bash
 # 1. TypeScript Check
 npx tsc --noEmit
@@ -642,6 +670,7 @@ grep -r "text-white\|bg-black\|border-white" src/ | wc -l
 ```
 
 ### Deployment Steps
+
 ```bash
 # 1. Git Commit
 git add .
@@ -658,6 +687,7 @@ git push origin main --tags
 ```
 
 ### Post-Deployment Verification
+
 ```bash
 # 1. Health Check
 curl https://mydispatch.de/health
@@ -680,15 +710,17 @@ curl https://mydispatch.de/health
 ## 📊 METRICS & MONITORING
 
 ### Production Metrics (Target)
-| Metrik | Target | Aktuell |
-|--------|--------|---------|
-| Uptime | >99.9% | - |
-| TTFB | <200ms | - |
-| Lighthouse Score | >90 | - |
-| Error Rate | <0.1% | - |
-| API Response Time | <500ms | - |
+
+| Metrik            | Target | Aktuell |
+| ----------------- | ------ | ------- |
+| Uptime            | >99.9% | -       |
+| TTFB              | <200ms | -       |
+| Lighthouse Score  | >90    | -       |
+| Error Rate        | <0.1%  | -       |
+| API Response Time | <500ms | -       |
 
 ### Error Monitoring
+
 ```typescript
 // Sentry Integration aktiv
 // Logs gehen in:
@@ -702,6 +734,7 @@ curl https://mydispatch.de/health
 ## 📝 VERSION HISTORY
 
 ### V6.0.2 (2025-10-31) - PRODUCTION READY
+
 - ✅ 10 Critical Issues resolved
 - ✅ Marketing Content Compliance
 - ✅ Branchen-Bezeichnungen korrigiert
@@ -709,12 +742,14 @@ curl https://mydispatch.de/health
 - ✅ Master Documentation created
 
 ### V6.0.0 (2025-01-30)
+
 - ✅ Error Prevention System Complete
 - ✅ 5-Tier Error Boundaries
 - ✅ Production Error Monitoring
 - ✅ Knowledge-Driven Development
 
 ### V28.2.20 (2025-10-30)
+
 - ✅ V28.1 Design System Complete
 - ✅ Dashboard Harmonization
 - ✅ Portal Optimization
@@ -725,10 +760,12 @@ curl https://mydispatch.de/health
 ## 🔄 REVERSE PROMPTS V6.0.3 (NEW!)
 
 ### RP20: Component Deprecation Workflow
-```markdown
+
+````markdown
 **PROMPT:** "Deprecate Component X und synchronisiere ALLE Docs"
 
 **WORKFLOW:**
+
 1. **Code-Änderung:**
    - Component aus Imports entfernen
    - Layout-Berechnungen anpassen
@@ -740,6 +777,7 @@ curl https://mydispatch.de/health
    mv docs/*COMPONENT_NAME*.md docs/archive/deprecated/component-name/
    echo "# DEPRECATED - siehe docs/V*.0_FINAL.md" > docs/archive/deprecated/component-name/README.md
    ```
+````
 
 3. **Neue Master-Doc:**
    - Erstelle `docs/V*.0_COMPONENT_FINAL.md`
@@ -754,12 +792,13 @@ curl https://mydispatch.de/health
    - MYDISPATCH_COMPLETE_SYSTEM_DOCUMENTATION.md
 
 5. **Knowledge-Base Sync:**
+
    ```sql
    -- Markiere alte Entries als deprecated
    UPDATE knowledge_base
    SET is_deprecated = true, updated_at = NOW()
    WHERE content::text ILIKE '%ComponentName%';
-   
+
    -- Füge neue Doc ein
    INSERT INTO knowledge_base (...) VALUES (...);
    ```
@@ -774,7 +813,8 @@ curl https://mydispatch.de/health
    - [ ] User-Review erhalten?
 
 **OUTPUT:** Vollständig synchronisierte Dokumentation ohne Widersprüche
-```
+
+````
 
 ### RP21: Full Documentation Health-Check
 ```markdown
@@ -785,33 +825,36 @@ curl https://mydispatch.de/health
    ```bash
    # Finde Components in Code
    find src/components -name "*.tsx" | sort
-   
+
    # Finde Components in Docs
    grep -r "import.*from.*components" docs/ | sort | uniq
-   
+
    # Vergleiche: Sind ALLE Code-Components dokumentiert?
-   ```
+````
 
 2. **Deprecated Components:**
+
    ```bash
    # Finde deprecated Imports in Code
    grep -r "DashboardInfoBoard\|OtherDeprecated" src/
-   
+
    # Falls Matches: → FEHLER! Deprecated Components noch im Code!
    ```
 
 3. **Doc-Versionen:**
+
    ```bash
    # Finde alle V*.0 Docs
    ls docs/V*.md | sort
-   
+
    # Prüfe: Ist neueste Version als "FINAL" markiert?
    grep "FINAL\|PRODUCTION-READY" docs/V*.md
    ```
 
 4. **Knowledge-Base Freshness:**
+
    ```sql
-   SELECT 
+   SELECT
      title,
      doc_version,
      updated_at,
@@ -820,22 +863,25 @@ curl https://mydispatch.de/health
    FROM knowledge_base
    ORDER BY updated_at DESC
    LIMIT 20;
-   
+
    -- Erwartung: Alle wichtigen Docs < 7 Tage alt
    ```
 
 5. **Archive Integrity:**
+
    ```bash
    # Prüfe ob Archive READMEs haben
    find docs/archive -type d -exec test ! -f {}/README.md \; -print
-   
+
    # Sollte leer sein!
    ```
 
 **OUTPUT:**
+
 - Documentation Health Score: X/100
 - Inkonsistenzen: [Liste]
 - Aktionen nötig: [Liste]
+
 ```
 
 ---
@@ -848,3 +894,4 @@ curl https://mydispatch.de/health
 - `CHANGELOG.md` - Detaillierte Versionshistorie
 - `V32.0_LAYOUT_FINAL.md` - Final Layout System
 - `V32.1_DOCUMENTATION_COMPLETE.md` - Full System Sync Status
+```

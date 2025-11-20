@@ -9,12 +9,14 @@
 ## 🎯 PROBLEM GELÖST
 
 ### ❌ Alt (FALSCH):
+
 - Keine Anrede/Titel-Felder
 - Kunden können nicht direkt in Formularen angelegt werden
 - Uneinheitliche Formulare
 - Keine Notizen/Adressen
 
 ### ✅ Neu (KORREKT):
+
 - **Anrede (Herr/Frau/Divers)** systemweit
 - **Titel (Dr./Prof./etc.)** optional
 - **Inline-Kunden-Erstellung** im Auftragsformular
@@ -57,9 +59,11 @@ CREATE INDEX idx_drivers_name ON public.drivers(first_name, last_name);
 ## 🧩 KOMPONENTEN ERSTELLT
 
 ### 1. PersonFormFields.tsx ✅
+
 **Pfad:** `src/components/forms/PersonFormFields.tsx`
 
 **Features:**
+
 - Anrede-Select (Herr/Frau/Divers) - **PFLICHT**
 - Titel-Select (Dr./Prof./etc.) - Optional
 - Vor-/Nachname - **PFLICHT**
@@ -70,23 +74,26 @@ CREATE INDEX idx_drivers_name ON public.drivers(first_name, last_name);
 - CI-Farben konform
 
 **Verwendung:**
+
 ```tsx
-import { PersonFormFields } from '@/components/forms/PersonFormFields';
+import { PersonFormFields } from "@/components/forms/PersonFormFields";
 
 <PersonFormFields
   formData={formData}
-  onChange={(field, value) => setFormData(prev => ({ ...prev, [field]: value }))}
-  requiredFields={['salutation', 'first_name', 'last_name', 'phone']}
+  onChange={(field, value) => setFormData((prev) => ({ ...prev, [field]: value }))}
+  requiredFields={["salutation", "first_name", "last_name", "phone"]}
   showExtendedFields={true}
-/>
+/>;
 ```
 
 ---
 
 ### 2. InlineCustomerForm.tsx ✅
+
 **Pfad:** `src/components/forms/InlineCustomerForm.tsx`
 
 **Features:**
+
 - Inline-Erstellung (OHNE Seitenwechsel!)
 - Nutzt PersonFormFields intern
 - Automatische Auswahl nach Erstellung
@@ -94,19 +101,22 @@ import { PersonFormFields } from '@/components/forms/PersonFormFields';
 - Vollständige DSGVO-Konformität
 
 **Verwendung:**
-```tsx
-import { InlineCustomerForm } from '@/components/forms/InlineCustomerForm';
 
-{showInlineForm && (
-  <InlineCustomerForm
-    onCustomerCreated={(customerId) => {
-      setFormData({ ...formData, customer_id: customerId });
-      setShowInlineForm(false);
-      fetchCustomers();
-    }}
-    onCancel={() => setShowInlineForm(false)}
-  />
-)}
+```tsx
+import { InlineCustomerForm } from "@/components/forms/InlineCustomerForm";
+
+{
+  showInlineForm && (
+    <InlineCustomerForm
+      onCustomerCreated={(customerId) => {
+        setFormData({ ...formData, customer_id: customerId });
+        setShowInlineForm(false);
+        fetchCustomers();
+      }}
+      onCancel={() => setShowInlineForm(false)}
+    />
+  );
+}
 ```
 
 ---
@@ -114,17 +124,21 @@ import { InlineCustomerForm } from '@/components/forms/InlineCustomerForm';
 ## 📄 SEITEN-INTEGRATION
 
 ### ✅ Auftraege.tsx (TEILWEISE)
+
 **Was funktioniert:**
+
 - Import der Komponenten
 - State für `showInlineCustomerForm`
 - Inline-Formular wird angezeigt
 
 **Was noch zu tun ist:**
+
 - Formular-Struktur korrigieren (JSX-Fehler beheben)
 - "Neu"-Button korrekt platzieren
 - Conditional Rendering optimieren
 
 **Korrekter Code-Ansatz:**
+
 ```tsx
 // 1. Import
 import { InlineCustomerForm } from '@/components/forms/InlineCustomerForm';
@@ -166,11 +180,11 @@ const [showInlineCustomerForm, setShowInlineCustomerForm] = useState(false);
           {/* Kunden-Liste */}
         </Select>
       </div>
-      
+
       {/* Restliche Felder */}
       <Input placeholder="Abholzeit" />
       {/* ... */}
-      
+
       <Button type="submit">Erstellen</Button>
     </form>
   )}
@@ -180,32 +194,36 @@ const [showInlineCustomerForm, setShowInlineCustomerForm] = useState(false);
 ---
 
 ### ⏳ Kunden.tsx (AUSSTEHEND)
+
 **Zu tun:**
+
 1. Import PersonFormFields
 2. Formular-State anpassen:
+
 ```tsx
 const [formData, setFormData] = useState({
-  salutation: '',
-  title: '',
-  first_name: '',
-  last_name: '',
-  email: '',
-  phone: '',
-  address: '',
-  notes: '',
+  salutation: "",
+  title: "",
+  first_name: "",
+  last_name: "",
+  email: "",
+  phone: "",
+  address: "",
+  notes: "",
   has_portal_access: false,
   credit_limit: 0,
 });
 ```
+
 3. PersonFormFields einbinden
 4. Zusätzliche Felder (Portal-Zugang, Kreditlimit) nach PersonFormFields
 5. Supabase INSERT mit korrekten Typen:
+
 ```tsx
-const { data, error } = await supabase
-  .from('customers')
-  .insert([{
+const { data, error } = await supabase.from("customers").insert([
+  {
     company_id: profile.company_id,
-    salutation: (formData.salutation as 'Herr' | 'Frau' | 'Divers' | null) || null,
+    salutation: (formData.salutation as "Herr" | "Frau" | "Divers" | null) || null,
     title: formData.title || null,
     first_name: formData.first_name,
     last_name: formData.last_name,
@@ -215,13 +233,16 @@ const { data, error } = await supabase
     notes: formData.notes || null,
     has_portal_access: formData.has_portal_access,
     credit_limit: formData.credit_limit,
-  }]);
+  },
+]);
 ```
 
 ---
 
 ### ⏳ Fahrer.tsx (AUSSTEHEND)
+
 **Zu tun:**
+
 1. Import PersonFormFields
 2. Formular-State anpassen (inkl. Anrede/Titel)
 3. PersonFormFields einbinden
@@ -232,23 +253,25 @@ const { data, error } = await supabase
 ## 🚨 TYPESCRIPT-VORGABEN
 
 ### ✅ RICHTIG:
+
 ```tsx
-const { data, error } = await supabase
-  .from('customers')
-  .insert([{  // Array-Syntax verwenden!
-    salutation: (formData.salutation as 'Herr' | 'Frau' | 'Divers' | null) || null,
+const { data, error } = await supabase.from("customers").insert([
+  {
+    // Array-Syntax verwenden!
+    salutation: (formData.salutation as "Herr" | "Frau" | "Divers" | null) || null,
     // ... rest
-  }]);
+  },
+]);
 ```
 
 ### ❌ FALSCH:
+
 ```tsx
-const { data, error } = await supabase
-  .from('customers')
-  .insert({  // Objekt ohne Array - FEHLER!
-    salutation: formData.salutation,  // String nicht kompatibel - FEHLER!
-    // ... rest
-  });
+const { data, error } = await supabase.from("customers").insert({
+  // Objekt ohne Array - FEHLER!
+  salutation: formData.salutation, // String nicht kompatibel - FEHLER!
+  // ... rest
+});
 ```
 
 ---
@@ -256,11 +279,13 @@ const { data, error } = await supabase
 ## 📝 CHECKLISTE FÜR JEDE SEITE
 
 ### Vor der Implementierung:
+
 - [ ] PersonFormFields.tsx vorhanden?
 - [ ] InlineCustomerForm.tsx vorhanden? (wenn nötig)
 - [ ] Datenbank-Migration durchgeführt?
 
 ### Bei der Implementierung:
+
 - [ ] Import der Komponenten
 - [ ] State für Anrede/Titel/Adresse/Notizen
 - [ ] PersonFormFields korrekt eingebunden
@@ -271,6 +296,7 @@ const { data, error } = await supabase
 - [ ] CI-Farben (bg-background, text-accent)
 
 ### Nach der Implementierung:
+
 - [ ] TypeScript-Errors behoben?
 - [ ] Build erfolgreich?
 - [ ] Formular funktioniert?
@@ -282,6 +308,7 @@ const { data, error } = await supabase
 ## 🎯 NÄCHSTE SCHRITTE
 
 ### Sprint 1 (SOFORT):
+
 1. ✅ Datenbank-Migration (DONE)
 2. ✅ PersonFormFields.tsx (DONE)
 3. ✅ InlineCustomerForm.tsx (DONE)
@@ -291,6 +318,7 @@ const { data, error } = await supabase
 7. ⏳ Fahrer.tsx integrieren
 
 ### Sprint 2 (SPÄTER):
+
 8. ⏳ Partner.tsx integrieren
 9. ⏳ Einstellungen.tsx (User-Profile)
 10. ⏳ Tabellen-Darstellung anpassen (Anrede/Titel anzeigen)
@@ -300,12 +328,14 @@ const { data, error } = await supabase
 ## 📞 HILFE & SUPPORT
 
 ### Bei Problemen:
+
 1. **TypeScript-Errors:** Prüfe Type-Casting (`as 'Herr' | 'Frau' | 'Divers' | null`)
 2. **INSERT-Fehler:** Verwende Array-Syntax `insert([{...}])`
 3. **JSX-Errors:** Prüfe alle öffnenden/schließenden Tags
 4. **Formular lädt nicht:** Prüfe Conditional Rendering (? :)
 
 ### Referenz-Dateien:
+
 - `src/components/forms/PersonFormFields.tsx` - Haupt-Komponente
 - `src/components/forms/InlineCustomerForm.tsx` - Inline-Erstellung
 - `FORMS_DOCUMENTATION.md` - Vollständige Doku

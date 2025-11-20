@@ -15,7 +15,7 @@
    console.error('message') → logger.error('message')
    ================================================================================== */
 
-type LogLevel = 'debug' | 'info' | 'warn' | 'error';
+type LogLevel = "debug" | "info" | "warn" | "error";
 
 interface LoggerConfig {
   enabled: boolean;
@@ -34,14 +34,14 @@ class Logger {
 
   constructor(config?: Partial<LoggerConfig>) {
     // ✅ FIX P1.11: Deno Edge Function kompatibel (Type-safe check)
-    const isDeno = typeof globalThis !== 'undefined' && 'Deno' in globalThis;
-    const isDev = isDeno 
-      ? (globalThis as any).Deno?.env?.get('ENVIRONMENT') !== 'production'
-      : import.meta.env?.DEV ?? false;
-    
+    const isDeno = typeof globalThis !== "undefined" && "Deno" in globalThis;
+    const isDev = isDeno
+      ? (globalThis as any).Deno?.env?.get("ENVIRONMENT") !== "production"
+      : (import.meta.env?.DEV ?? false);
+
     this.config = {
       enabled: isDev,
-      minLevel: 'debug',
+      minLevel: "debug",
       ...config,
     };
   }
@@ -52,44 +52,44 @@ class Logger {
   }
 
   private formatMessage(level: LogLevel, message: string, ...args: any[]): any[] {
-    const prefix = this.config.prefix ? `[${this.config.prefix}]` : '';
-    const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
-    
+    const prefix = this.config.prefix ? `[${this.config.prefix}]` : "";
+    const timestamp = new Date().toISOString().split("T")[1].split(".")[0];
+
     const emoji = {
-      debug: '🔍',
-      info: 'ℹ️',
-      warn: '⚠️',
-      error: '❌',
+      debug: "🔍",
+      info: "ℹ️",
+      warn: "⚠️",
+      error: "❌",
     }[level];
 
     return [`${emoji} ${timestamp} ${prefix} ${message}`, ...args];
   }
 
   debug(message: string | any, ...args: any[]): void {
-    if (this.shouldLog('debug')) {
-      const msg = typeof message === 'string' ? message : JSON.stringify(message);
-      console.log(...this.formatMessage('debug', msg, ...args));
+    if (this.shouldLog("debug")) {
+      const msg = typeof message === "string" ? message : JSON.stringify(message);
+      console.log(...this.formatMessage("debug", msg, ...args));
     }
   }
 
   info(message: string | any, ...args: any[]): void {
-    if (this.shouldLog('info')) {
-      const msg = typeof message === 'string' ? message : JSON.stringify(message);
-      console.info(...this.formatMessage('info', msg, ...args));
+    if (this.shouldLog("info")) {
+      const msg = typeof message === "string" ? message : JSON.stringify(message);
+      console.info(...this.formatMessage("info", msg, ...args));
     }
   }
 
   warn(message: string | any, ...args: any[]): void {
-    if (this.shouldLog('warn')) {
-      const msg = typeof message === 'string' ? message : JSON.stringify(message);
-      console.warn(...this.formatMessage('warn', msg, ...args));
+    if (this.shouldLog("warn")) {
+      const msg = typeof message === "string" ? message : JSON.stringify(message);
+      console.warn(...this.formatMessage("warn", msg, ...args));
     }
   }
 
   error(message: string | any, ...args: any[]): void {
-    if (this.shouldLog('error')) {
-      const msg = typeof message === 'string' ? message : JSON.stringify(message);
-      console.error(...this.formatMessage('error', msg, ...args));
+    if (this.shouldLog("error")) {
+      const msg = typeof message === "string" ? message : JSON.stringify(message);
+      console.error(...this.formatMessage("error", msg, ...args));
     }
   }
 
@@ -103,13 +103,13 @@ class Logger {
 
   // Console.group/groupEnd support
   group(label: string): void {
-    if (this.shouldLog('debug') && console.group) {
+    if (this.shouldLog("debug") && console.group) {
       console.group(label);
     }
   }
 
   groupEnd(): void {
-    if (this.shouldLog('debug') && console.groupEnd) {
+    if (this.shouldLog("debug") && console.groupEnd) {
       console.groupEnd();
     }
   }
@@ -129,9 +129,9 @@ export const logError = (message: string | any, ...args: any[]) => logger.error(
 
 // Example usage:
 // import { logger, createLogger, logDebug } from '@/lib/logger';
-// 
+//
 // logger.debug('App initialized');
 // logDebug('Legacy style'); // Also works
-// 
+//
 // const dbLogger = createLogger('Database');
 // dbLogger.info('Query executed', { rows: 42 });

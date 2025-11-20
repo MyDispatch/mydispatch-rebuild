@@ -46,10 +46,10 @@ serve(async (req) => {
 
     // Input Validation
     if (!input.address || typeof input.address !== "string") {
-      return new Response(
-        JSON.stringify({ error: "address is required and must be a string" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "address is required and must be a string" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     console.log("[GEOCODE-ADDRESS] Geocoding address:", input.address);
@@ -86,15 +86,15 @@ serve(async (req) => {
     const hereApiKey = Deno.env.get("HERE_API_KEY") || Deno.env.get("VITE_HERE_API_KEY");
     if (!hereApiKey) {
       console.error("[GEOCODE-ADDRESS] HERE API Key not found");
-      return new Response(
-        JSON.stringify({ error: "HERE API Key not configured" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "HERE API Key not configured" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 3. Call HERE Geocoding API
     const hereUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${encodeURIComponent(input.address)}&apiKey=${hereApiKey}`;
-    
+
     const hereResponse = await fetch(hereUrl);
     if (!hereResponse.ok) {
       console.error("[GEOCODE-ADDRESS] HERE API error:", hereResponse.status);
@@ -105,10 +105,10 @@ serve(async (req) => {
 
     // 4. Parse HERE Response
     if (!hereData.items || hereData.items.length === 0) {
-      return new Response(
-        JSON.stringify({ error: "Address not found" }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Address not found" }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const item = hereData.items[0];
@@ -128,9 +128,8 @@ serve(async (req) => {
 
     // 5. Cache Result (if enabled and company_id provided)
     if (input.cache !== false && input.company_id) {
-      await supabase
-        .from("geocoding_cache")
-        .upsert({
+      await supabase.from("geocoding_cache").upsert(
+        {
           company_id: input.company_id,
           address: input.address.toLowerCase().trim(),
           lat: result.lat,
@@ -141,22 +140,24 @@ serve(async (req) => {
           country: result.country,
           confidence: result.confidence,
           cached_at: new Date().toISOString(),
-        }, {
+        },
+        {
           onConflict: "address,company_id",
-        });
+        }
+      );
     }
 
     console.log("[GEOCODE-ADDRESS] Successfully geocoded:", result.formatted_address);
 
-    return new Response(
-      JSON.stringify(result),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
-    );
+    return new Response(JSON.stringify(result), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 200,
+    });
   } catch (error) {
     console.error("[GEOCODE-ADDRESS] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });

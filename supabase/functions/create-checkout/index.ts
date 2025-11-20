@@ -18,8 +18,8 @@ const corsHeaders = {
 
 interface CreateCheckoutInput {
   company_id: string;
-  tariff_id: 'starter' | 'business' | 'enterprise';
-  billing_period: 'monthly' | 'yearly';
+  tariff_id: "starter" | "business" | "enterprise";
+  billing_period: "monthly" | "yearly";
   user_id: string;
   success_url: string;
   cancel_url: string;
@@ -51,10 +51,10 @@ serve(async (req) => {
     const stripeSecretKey = Deno.env.get("STRIPE_SECRET_KEY");
     if (!stripeSecretKey) {
       console.error("[CREATE-CHECKOUT] Stripe Secret Key not found");
-      return new Response(
-        JSON.stringify({ error: "Stripe not configured" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Stripe not configured" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const stripe = new Stripe(stripeSecretKey, {
@@ -63,9 +63,9 @@ serve(async (req) => {
 
     // 2. Get Tariff Definitions (from centralized source)
     const { data: tariffData } = await supabase
-      .from('tariff_definitions')
-      .select('*')
-      .eq('id', input.tariff_id)
+      .from("tariff_definitions")
+      .select("*")
+      .eq("id", input.tariff_id)
       .single();
 
     if (!tariffData) {
@@ -77,28 +77,31 @@ serve(async (req) => {
       // Fallback auf Environment Variables wenn gesetzt
       const TARIFF_PRICES: Record<string, { monthly: string; yearly: string }> = {
         starter: {
-          monthly: Deno.env.get('STRIPE_PRICE_STARTER_MONTHLY') || 'price_1SIBMrLX5M8TT990zBX6gWOm',
-          yearly: Deno.env.get('STRIPE_PRICE_STARTER_YEARLY') || 'price_1SIbRALX5M8TT990B81vhHPT',
+          monthly: Deno.env.get("STRIPE_PRICE_STARTER_MONTHLY") || "price_1SIBMrLX5M8TT990zBX6gWOm",
+          yearly: Deno.env.get("STRIPE_PRICE_STARTER_YEARLY") || "price_1SIbRALX5M8TT990B81vhHPT",
         },
         business: {
-          monthly: Deno.env.get('STRIPE_PRICE_BUSINESS_MONTHLY') || 'price_1SIBN9LX5M8TT990mxE8owxm',
-          yearly: Deno.env.get('STRIPE_PRICE_BUSINESS_YEARLY') || 'price_1SIbRKLX5M8TT990e1vX4ebf',
+          monthly:
+            Deno.env.get("STRIPE_PRICE_BUSINESS_MONTHLY") || "price_1SIBN9LX5M8TT990mxE8owxm",
+          yearly: Deno.env.get("STRIPE_PRICE_BUSINESS_YEARLY") || "price_1SIbRKLX5M8TT990e1vX4ebf",
         },
       };
 
       const priceId = TARIFF_PRICES[input.tariff_id]?.[input.billing_period];
       if (!priceId) {
         return new Response(
-          JSON.stringify({ error: `Invalid tariff or billing period: ${input.tariff_id}/${input.billing_period}` }),
+          JSON.stringify({
+            error: `Invalid tariff or billing period: ${input.tariff_id}/${input.billing_period}`,
+          }),
           { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
 
       // 3. Get or Create Stripe Customer
       const { data: company } = await supabase
-        .from('companies')
-        .select('stripe_customer_id, email, name')
-        .eq('id', input.company_id)
+        .from("companies")
+        .select("stripe_customer_id, email, name")
+        .eq("id", input.company_id)
         .single();
 
       let customerId = company?.stripe_customer_id;
@@ -118,16 +121,16 @@ serve(async (req) => {
 
         // Save to database
         await supabase
-          .from('companies')
+          .from("companies")
           .update({ stripe_customer_id: customerId })
-          .eq('id', input.company_id);
+          .eq("id", input.company_id);
       }
 
       // 4. Create Checkout Session
       const session = await stripe.checkout.sessions.create({
         customer: customerId,
-        mode: 'subscription',
-        payment_method_types: ['card'],
+        mode: "subscription",
+        payment_method_types: ["card"],
         line_items: [
           {
             price: priceId,
@@ -164,15 +167,15 @@ serve(async (req) => {
     }
 
     // TODO: Implement with tariff_definitions table
-    return new Response(
-      JSON.stringify({ error: "Tariff definitions table not yet implemented" }),
-      { status: 501, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: "Tariff definitions table not yet implemented" }), {
+      status: 501,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (error) {
     console.error("[CREATE-CHECKOUT] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });

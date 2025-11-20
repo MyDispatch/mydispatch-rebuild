@@ -5,15 +5,15 @@
    Redirect für bestehende Bookmarks und Links
    ================================================================================== */
 
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Unternehmen = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
     // Redirect zu Einstellungen-Tab "Unternehmen"
-    navigate('/einstellungen?tab=company', { replace: true });
+    navigate("/einstellungen?tab=company", { replace: true });
   }, [navigate]);
 
   return null;

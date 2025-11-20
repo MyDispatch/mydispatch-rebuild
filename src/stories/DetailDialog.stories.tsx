@@ -2,13 +2,13 @@
    STORYBOOK: DETAIL DIALOG
    ================================================================================== */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { DetailDialog } from '@/components/shared/DetailDialog';
+import type { Meta, StoryObj } from "@storybook/react";
+import { DetailDialog } from "@/components/shared/DetailDialog";
 
 const meta: Meta<typeof DetailDialog> = {
-  title: 'Shared/DetailDialog',
+  title: "Shared/DetailDialog",
   component: DetailDialog,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -17,11 +17,11 @@ type Story = StoryObj<typeof DetailDialog>;
 export const CustomerDetails: Story = {
   args: {
     open: true,
-    onOpenChange: (open: boolean) => console.log('Dialog state:', open),
-    title: 'Kunden-Details',
+    onOpenChange: (open: boolean) => console.log("Dialog state:", open),
+    title: "Kunden-Details",
     createdAt: new Date().toISOString(),
-    onEdit: () => console.log('Edit clicked'),
-    onArchive: async () => console.log('Archive clicked'),
+    onEdit: () => console.log("Edit clicked"),
+    onArchive: async () => console.log("Archive clicked"),
     children: (
       <div className="space-y-4">
         <div>
@@ -40,11 +40,11 @@ export const CustomerDetails: Story = {
 export const DriverDetails: Story = {
   args: {
     open: true,
-    onOpenChange: (open: boolean) => console.log('Dialog state:', open),
-    title: 'Fahrer-Details',
+    onOpenChange: (open: boolean) => console.log("Dialog state:", open),
+    title: "Fahrer-Details",
     createdAt: new Date().toISOString(),
-    onEdit: () => console.log('Edit clicked'),
-    onArchive: async () => console.log('Archive clicked'),
+    onEdit: () => console.log("Edit clicked"),
+    onArchive: async () => console.log("Archive clicked"),
     children: (
       <div className="space-y-4">
         <div>

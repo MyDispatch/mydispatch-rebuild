@@ -1,8 +1,8 @@
-import * as React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '@/hooks/use-auth';
-import { logger } from '@/lib/logger';
-import { LoadingPage } from '@/components/shared/LoadingPage';
+import * as React from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
+import { logger } from "@/lib/logger";
+import { LoadingPage } from "@/components/shared/LoadingPage";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -16,10 +16,12 @@ export function ProtectedRoute({ children, requiredRole }: ProtectedRouteProps) 
     authState = useAuth();
   } catch (error) {
     // Fallback: Redirect to login if AuthProvider missing
-    logger.error('[ProtectedRoute] useAuth failed', error as Error, { component: 'ProtectedRoute' });
+    logger.error("[ProtectedRoute] useAuth failed", error as Error, {
+      component: "ProtectedRoute",
+    });
     return <Navigate to="/auth" replace />;
   }
-  
+
   const { user, loading, roles } = authState;
 
   if (loading) {

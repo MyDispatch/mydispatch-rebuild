@@ -21,7 +21,7 @@ interface ChatConsentEmailRequest {
   first_name: string;
   last_name: string;
   company_name: string;
-  entity_type: 'driver' | 'customer' | 'entrepreneur';
+  entity_type: "driver" | "customer" | "entrepreneur";
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -30,9 +30,16 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { user_id, email, first_name, last_name, company_name, entity_type }: ChatConsentEmailRequest = await req.json();
+    const {
+      user_id,
+      email,
+      first_name,
+      last_name,
+      company_name,
+      entity_type,
+    }: ChatConsentEmailRequest = await req.json();
 
-    console.log('[ChatConsentEmail] Sending consent email to:', email);
+    console.log("[ChatConsentEmail] Sending consent email to:", email);
 
     // Supabase Client für Token-Generierung
     const supabaseAdmin = createClient(
@@ -53,29 +60,26 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Speichere Token in chat_consent
     const { error: tokenError } = await supabaseAdmin
-      .from('chat_consent')
+      .from("chat_consent")
       .update({
         confirmation_token: token,
         confirmation_token_expires_at: expiresAt.toISOString(),
         confirmation_email_sent: true,
         confirmation_email_sent_at: new Date().toISOString(),
       })
-      .eq('user_id', user_id);
+      .eq("user_id", user_id);
 
     if (tokenError) {
-      console.error('[ChatConsentEmail] Token save error:', tokenError);
+      console.error("[ChatConsentEmail] Token save error:", tokenError);
       throw tokenError;
     }
 
     // Bestätigungs-URL
-    const confirmUrl = `${Deno.env.get("SUPABASE_URL")?.replace('/rest/v1', '')}/confirm-chat?token=${token}`;
+    const confirmUrl = `${Deno.env.get("SUPABASE_URL")?.replace("/rest/v1", "")}/confirm-chat?token=${token}`;
 
     // Entity-spezifische Texte
-    const entityText = entity_type === 'driver' 
-      ? 'Fahrer' 
-      : entity_type === 'customer' 
-        ? 'Kunde' 
-        : 'Teammitglied';
+    const entityText =
+      entity_type === "driver" ? "Fahrer" : entity_type === "customer" ? "Kunde" : "Teammitglied";
 
     // Email versenden
     const emailResponse = await resend.emails.send({
@@ -165,21 +169,18 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log('[ChatConsentEmail] Email sent successfully:', emailResponse);
+    console.log("[ChatConsentEmail] Email sent successfully:", emailResponse);
 
     return new Response(JSON.stringify({ success: true, emailResponse }), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders },
     });
   } catch (error: any) {
-    console.error('[ChatConsentEmail] Error:', error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
-    );
+    console.error("[ChatConsentEmail] Error:", error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
+    });
   }
 };
 

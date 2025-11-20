@@ -1,18 +1,18 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
   }
 
   try {
     const { scan_result, apply_fixes = false } = await req.json();
-    
+
     if (!scan_result || !scan_result.detailed_results) {
       throw new Error("Scan-Ergebnis ist erforderlich");
     }
@@ -36,20 +36,20 @@ serve(async (req) => {
           // Für jetzt: Logge Fixes
           console.log(`Would fix: ${issue.file}`);
           console.log(`Replace: ${issue.code} -> ${issue.replacement}`);
-          
+
           fixes.push({
             file: issue.file,
             issue: issue.issue,
-            status: 'success',
-            details: `Würde ersetzen: ${issue.code.substring(0, 50)}... mit ${issue.replacement.substring(0, 50)}...`
+            status: "success",
+            details: `Würde ersetzen: ${issue.code.substring(0, 50)}... mit ${issue.replacement.substring(0, 50)}...`,
           });
           successfulFixes++;
         } else {
           fixes.push({
             file: issue.file,
             issue: issue.issue,
-            status: 'success',
-            details: 'Fix vorbereitet (apply_fixes=false)'
+            status: "success",
+            details: "Fix vorbereitet (apply_fixes=false)",
           });
           successfulFixes++;
         }
@@ -58,8 +58,8 @@ serve(async (req) => {
         fixes.push({
           file: issue.file,
           issue: issue.issue,
-          status: 'failed',
-          details: fixError instanceof Error ? fixError.message : 'Unknown error'
+          status: "failed",
+          details: fixError instanceof Error ? fixError.message : "Unknown error",
         });
         failedFixes++;
       }
@@ -70,24 +70,21 @@ serve(async (req) => {
       total_fixes: autoFixableIssues.length,
       successful_fixes: successfulFixes,
       failed_fixes: failedFixes,
-      fixes: fixes
+      fixes: fixes,
     };
 
-    return new Response(
-      JSON.stringify(result),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200,
-      },
-    );
+    return new Response(JSON.stringify(result), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 200,
+    });
   } catch (error) {
     console.error("Auto-Fix Error:", error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }),
-      { 
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
+      {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 400,
-      },
+      }
     );
   }
 });

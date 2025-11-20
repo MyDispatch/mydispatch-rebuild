@@ -7,25 +7,25 @@
    ✅ Systemweite Konsistenz
    ================================================================================== */
 
-import { ButtonHTMLAttributes, ReactNode } from 'react';
-import { V28Button } from '@/components/design-system/V28Button';
-import { LucideIcon } from 'lucide-react';
+import { ButtonHTMLAttributes, ReactNode } from "react";
+import { V28Button } from "@/components/design-system/V28Button";
+import { LucideIcon } from "lucide-react";
 
 interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   // Content
   children: ReactNode;
   icon?: LucideIcon;
-  iconPosition?: 'left' | 'right';
-  
+  iconPosition?: "left" | "right";
+
   // Variants
-  variant?: 'primary' | 'secondary' | 'ghost' | 'destructive';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "ghost" | "destructive";
+  size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
-  
+
   // Behavior
   loading?: boolean;
   disabled?: boolean;
-  
+
   // Styling
   className?: string;
 }
@@ -33,14 +33,14 @@ interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function ActionButton({
   children,
   icon,
-  iconPosition = 'left',
-  variant = 'primary',
-  size = 'md',
+  iconPosition = "left",
+  variant = "primary",
+  size = "md",
   fullWidth = false,
   loading = false,
   disabled = false,
   className,
-  type = 'button',
+  type = "button",
   onClick,
   ...props
 }: ActionButtonProps) {
@@ -65,22 +65,22 @@ export function ActionButton({
 
 /**
  * USAGE EXAMPLES:
- * 
+ *
  * // Primary Button
  * <ActionButton variant="primary" onClick={handleSave}>
  *   Speichern
  * </ActionButton>
- * 
+ *
  * // Secondary Button with Icon
  * <ActionButton variant="secondary" icon={Plus} iconPosition="left">
  *   Neuer Eintrag
  * </ActionButton>
- * 
+ *
  * // Ghost Button
  * <ActionButton variant="ghost" onClick={handleCancel}>
  *   Abbrechen
  * </ActionButton>
- * 
+ *
  * // Full Width Loading Button
  * <ActionButton variant="primary" fullWidth loading>
  *   Speichern

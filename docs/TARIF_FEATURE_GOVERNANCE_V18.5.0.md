@@ -18,18 +18,21 @@
 ## 📊 TARIF-ÜBERSICHT
 
 ### **Starter-Tarif (39 €/Monat)**
+
 - **Fahrer/Fahrzeuge:** Max. 3
 - **Benutzer:** 1
 - **Aufträge:** Unbegrenzt
 - **Partner:** ❌ NICHT verfügbar
 
 ### **Business-Tarif (99 €/Monat)** ⭐ Empfohlen
+
 - **Fahrer/Fahrzeuge:** Unbegrenzt
 - **Benutzer:** 5
 - **Aufträge:** Unbegrenzt
 - **Partner:** ✅ Unbegrenzt
 
 ### **Enterprise-Tarif (Auf Anfrage)**
+
 - **Fahrer/Fahrzeuge:** Unbegrenzt
 - **Benutzer:** Unbegrenzt
 - **Aufträge:** Unbegrenzt
@@ -43,42 +46,45 @@
 ### **Navigation & Sidebar**
 
 #### ✅ STARTER: Sichtbare Links
+
 ```typescript
 const STARTER_ROUTES = [
-  '/dashboard',           // ✅ Vorhanden
-  '/auftraege',          // ✅ Vorhanden
-  '/kunden',             // ✅ Vorhanden
-  '/fahrer',             // ✅ Vorhanden (Max. 3)
-  '/fahrzeuge',          // ✅ Vorhanden (Max. 3)
-  '/rechnungen',         // ✅ Vorhanden
-  '/angebote',           // ✅ Vorhanden
-  '/office',             // ✅ Vorhanden
-  '/einstellungen',      // ✅ Vorhanden
-]
+  "/dashboard", // ✅ Vorhanden
+  "/auftraege", // ✅ Vorhanden
+  "/kunden", // ✅ Vorhanden
+  "/fahrer", // ✅ Vorhanden (Max. 3)
+  "/fahrzeuge", // ✅ Vorhanden (Max. 3)
+  "/rechnungen", // ✅ Vorhanden
+  "/angebote", // ✅ Vorhanden
+  "/office", // ✅ Vorhanden
+  "/einstellungen", // ✅ Vorhanden
+];
 ```
 
 #### ❌ STARTER: NICHT sichtbare Links
+
 ```typescript
 const STARTER_HIDDEN_ROUTES = [
-  '/partner',            // ❌ Komplett versteckt (Business+)
-  '/statistiken',        // ❌ Komplett versteckt (Business+)
-  '/kommunikation',      // ❌ Komplett versteckt (Business+)
-  '/dokumente',          // ❌ Komplett versteckt (Business+)
-  '/schichtzettel',      // ❌ Komplett versteckt (Business+)
-  '/kostenstellen',      // ❌ Komplett versteckt (Business+)
-]
+  "/partner", // ❌ Komplett versteckt (Business+)
+  "/statistiken", // ❌ Komplett versteckt (Business+)
+  "/kommunikation", // ❌ Komplett versteckt (Business+)
+  "/dokumente", // ❌ Komplett versteckt (Business+)
+  "/schichtzettel", // ❌ Komplett versteckt (Business+)
+  "/kostenstellen", // ❌ Komplett versteckt (Business+)
+];
 ```
 
 #### ✅ BUSINESS: Zusätzliche Links
+
 ```typescript
 const BUSINESS_ADDITIONAL_ROUTES = [
-  '/partner',            // ✅ NEU verfügbar
-  '/statistiken',        // ✅ NEU verfügbar
-  '/kommunikation',      // ✅ NEU verfügbar
-  '/dokumente',          // ✅ NEU verfügbar
-  '/schichtzettel',      // ✅ NEU verfügbar
-  '/kostenstellen',      // ✅ NEU verfügbar
-]
+  "/partner", // ✅ NEU verfügbar
+  "/statistiken", // ✅ NEU verfügbar
+  "/kommunikation", // ✅ NEU verfügbar
+  "/dokumente", // ✅ NEU verfügbar
+  "/schichtzettel", // ✅ NEU verfügbar
+  "/kostenstellen", // ✅ NEU verfügbar
+];
 ```
 
 ---
@@ -86,40 +92,48 @@ const BUSINESS_ADDITIONAL_ROUTES = [
 ## 🎨 UI-PATTERNS
 
 ### Pattern 1: **Feature komplett versteckt** (Starter)
+
 ```tsx
 // Sidebar-Link für Partner (NICHT im Starter-Tarif)
-{hasFeatureAccess(userProductId, 'partners') && (
-  <SidebarMenuButton asChild>
-    <Link to="/partner">
-      <Users className="h-4 w-4" />
-      <span>Partner-Netzwerk</span>
-    </Link>
-  </SidebarMenuButton>
-)}
+{
+  hasFeatureAccess(userProductId, "partners") && (
+    <SidebarMenuButton asChild>
+      <Link to="/partner">
+        <Users className="h-4 w-4" />
+        <span>Partner-Netzwerk</span>
+      </Link>
+    </SidebarMenuButton>
+  );
+}
 ```
 
 ### Pattern 2: **Feature ausgegraut mit Upgrade-Button** (Starter auf Dashboard)
+
 ```tsx
 // Dashboard-Widget für Live-Karte (im Starter ausgegraut)
-<Card className={cn(
-  "border border-border",
-  !hasFeatureAccess(userProductId, 'gps') && "opacity-50 pointer-events-none"
-)}>
+<Card
+  className={cn(
+    "border border-border",
+    !hasFeatureAccess(userProductId, "gps") && "opacity-50 pointer-events-none"
+  )}
+>
   <CardHeader>
     <CardTitle>Live-Karte</CardTitle>
-    {!hasFeatureAccess(userProductId, 'gps') && (
-      <Badge variant="secondary" className="ml-2">Business+</Badge>
+    {!hasFeatureAccess(userProductId, "gps") && (
+      <Badge variant="secondary" className="ml-2">
+        Business+
+      </Badge>
     )}
   </CardHeader>
   <CardContent>
-    {hasFeatureAccess(userProductId, 'gps') ? (
+    {hasFeatureAccess(userProductId, "gps") ? (
       <LiveMapWidget />
     ) : (
       <div className="flex flex-col items-center justify-center py-8 space-y-4">
         <p className="text-sm text-muted-foreground text-center">
           Live-GPS-Tracking verfügbar im Business-Tarif
         </p>
-        <Button variant="secondary" onClick={() => navigate('/pricing')}>
+        <Button variant="secondary" onClick={() => navigate("/pricing")}>
           Jetzt upgraden
         </Button>
       </div>
@@ -129,38 +143,40 @@ const BUSINESS_ADDITIONAL_ROUTES = [
 ```
 
 ### Pattern 3: **Limitiertes Feature mit Counter** (Fahrer-Limit)
+
 ```tsx
 // Fahrer-Seite: Limit-Anzeige für Starter (Max. 3)
 <div className="flex items-center justify-between mb-4">
   <h2 className="text-2xl font-bold">Fahrer</h2>
   <div className="flex items-center gap-4">
     {!hasUnlimitedDrivers(userProductId) && (
-      <Badge variant="outline">
-        {currentDriverCount} / 3 Fahrer
-      </Badge>
+      <Badge variant="outline">{currentDriverCount} / 3 Fahrer</Badge>
     )}
-    <Button 
+    <Button
       onClick={() => setShowCreateDialog(true)}
-      disabled={exceedsLimit(userProductId, 'drivers', currentDriverCount)}
+      disabled={exceedsLimit(userProductId, "drivers", currentDriverCount)}
     >
       <Plus className="h-4 w-4 mr-2" />
       Neuer Fahrer
     </Button>
   </div>
-</div>
+</div>;
 
-{exceedsLimit(userProductId, 'drivers', currentDriverCount) && (
-  <Alert variant="warning" className="mb-4">
-    <AlertCircle className="h-4 w-4" />
-    <AlertTitle>Fahrer-Limit erreicht</AlertTitle>
-    <AlertDescription>
-      Sie haben das Maximum von 3 Fahrern erreicht. 
-      <Button variant="link" onClick={() => navigate('/pricing')}>
-        Upgraden Sie jetzt auf Business
-      </Button> für unbegrenzte Fahrer.
-    </AlertDescription>
-  </Alert>
-)}
+{
+  exceedsLimit(userProductId, "drivers", currentDriverCount) && (
+    <Alert variant="warning" className="mb-4">
+      <AlertCircle className="h-4 w-4" />
+      <AlertTitle>Fahrer-Limit erreicht</AlertTitle>
+      <AlertDescription>
+        Sie haben das Maximum von 3 Fahrern erreicht.
+        <Button variant="link" onClick={() => navigate("/pricing")}>
+          Upgraden Sie jetzt auf Business
+        </Button>{" "}
+        für unbegrenzte Fahrer.
+      </AlertDescription>
+    </Alert>
+  );
+}
 ```
 
 ---
@@ -169,49 +185,54 @@ const BUSINESS_ADDITIONAL_ROUTES = [
 
 ### **CORE-FEATURES** (Basis-Funktionen)
 
-| Feature | Starter | Business | Enterprise |
-|---------|---------|----------|------------|
-| **Dashboard** | ✅ Basis | ✅ + Live-Widgets | ✅ + Custom |
-| **Aufträge** | ✅ Unbegrenzt | ✅ + Smart-Assign | ✅ + API |
-| **Kunden** | ✅ Basis | ✅ + Portal | ✅ + White-Label |
-| **Fahrer** | ✅ Max. 3 | ✅ Unbegrenzt | ✅ Unbegrenzt |
-| **Fahrzeuge** | ✅ Max. 3 | ✅ Unbegrenzt | ✅ Unbegrenzt |
-| **Rechnungen** | ✅ Basis | ✅ Basis | ✅ Basis |
-| **Angebote** | ✅ Basis | ✅ Basis | ✅ Basis |
+| Feature        | Starter       | Business          | Enterprise       |
+| -------------- | ------------- | ----------------- | ---------------- |
+| **Dashboard**  | ✅ Basis      | ✅ + Live-Widgets | ✅ + Custom      |
+| **Aufträge**   | ✅ Unbegrenzt | ✅ + Smart-Assign | ✅ + API         |
+| **Kunden**     | ✅ Basis      | ✅ + Portal       | ✅ + White-Label |
+| **Fahrer**     | ✅ Max. 3     | ✅ Unbegrenzt     | ✅ Unbegrenzt    |
+| **Fahrzeuge**  | ✅ Max. 3     | ✅ Unbegrenzt     | ✅ Unbegrenzt    |
+| **Rechnungen** | ✅ Basis      | ✅ Basis          | ✅ Basis         |
+| **Angebote**   | ✅ Basis      | ✅ Basis          | ✅ Basis         |
 
 ### **PREMIUM-FEATURES** (Business+)
 
-| Feature | Starter | Business | Enterprise | Route |
-|---------|---------|----------|------------|-------|
-| **Partner-Management** | ❌ | ✅ | ✅ | `/partner` |
-| **Statistiken** | ❌ | ✅ | ✅ | `/statistiken` |
-| **Live-Traffic** | ❌ | ✅ | ✅ | (Dashboard-Widget) |
-| **GPS-Tracking** | ❌ | ✅ | ✅ | (Dashboard-Widget) |
-| **Team-Chat** | ❌ | ✅ | ✅ | `/kommunikation` |
-| **Dokumente** | ❌ | ✅ | ✅ | `/dokumente` |
-| **Schichtplanung** | ❌ | ✅ | ✅ | `/schichtzettel` |
-| **Kostenstellen** | ❌ | ✅ | ✅ | `/kostenstellen` |
-| **Workflow-Automation** | ❌ | ✅ (n8n) | ✅ (n8n) | (Einstellungen) |
-| **API-Zugang** | ❌ | ✅ | ✅ | (Einstellungen) |
+| Feature                 | Starter | Business | Enterprise | Route              |
+| ----------------------- | ------- | -------- | ---------- | ------------------ |
+| **Partner-Management**  | ❌      | ✅       | ✅         | `/partner`         |
+| **Statistiken**         | ❌      | ✅       | ✅         | `/statistiken`     |
+| **Live-Traffic**        | ❌      | ✅       | ✅         | (Dashboard-Widget) |
+| **GPS-Tracking**        | ❌      | ✅       | ✅         | (Dashboard-Widget) |
+| **Team-Chat**           | ❌      | ✅       | ✅         | `/kommunikation`   |
+| **Dokumente**           | ❌      | ✅       | ✅         | `/dokumente`       |
+| **Schichtplanung**      | ❌      | ✅       | ✅         | `/schichtzettel`   |
+| **Kostenstellen**       | ❌      | ✅       | ✅         | `/kostenstellen`   |
+| **Workflow-Automation** | ❌      | ✅ (n8n) | ✅ (n8n)   | (Einstellungen)    |
+| **API-Zugang**          | ❌      | ✅       | ✅         | (Einstellungen)    |
 
 ### **ENTERPRISE-FEATURES** (Enterprise only)
 
-| Feature | Starter | Business | Enterprise | Route |
-|---------|---------|----------|------------|-------|
-| **White-Label** | ❌ | ❌ | ✅ | (Einstellungen) |
-| **Custom Integrationen** | ❌ | ❌ | ✅ | (Kontakt) |
-| **Dedizierter Manager** | ❌ | ❌ | ✅ | (Kontakt) |
-| **SLA-Garantie** | ❌ | ❌ | ✅ | (Kontakt) |
+| Feature                  | Starter | Business | Enterprise | Route           |
+| ------------------------ | ------- | -------- | ---------- | --------------- |
+| **White-Label**          | ❌      | ❌       | ✅         | (Einstellungen) |
+| **Custom Integrationen** | ❌      | ❌       | ✅         | (Kontakt)       |
+| **Dedizierter Manager**  | ❌      | ❌       | ✅         | (Kontakt)       |
+| **SLA-Garantie**         | ❌      | ❌       | ✅         | (Kontakt)       |
 
 ---
 
 ## 🛠️ IMPLEMENTIERUNGS-HELPER
 
 ### **React Hook: `useTariffAccess`**
+
 ```typescript
 // src/hooks/use-tariff-access.ts
-import { useAuth } from '@/hooks/use-auth';
-import { getTariffByProductId, hasFeatureAccess, exceedsLimit } from '@/lib/tariff/tariff-definitions';
+import { useAuth } from "@/hooks/use-auth";
+import {
+  getTariffByProductId,
+  hasFeatureAccess,
+  exceedsLimit,
+} from "@/lib/tariff/tariff-definitions";
 
 export function useTariffAccess() {
   const { user, subscription } = useAuth();
@@ -221,31 +242,32 @@ export function useTariffAccess() {
   return {
     // Feature-Zugriff
     hasFeature: (module: string) => hasFeatureAccess(productId, module),
-    
+
     // Limit-Prüfung
-    exceedsLimit: (resource: 'drivers' | 'vehicles' | 'users', current: number) => 
+    exceedsLimit: (resource: "drivers" | "vehicles" | "users", current: number) =>
       exceedsLimit(productId, resource, current),
-    
+
     // Tarif-Info
     tariff,
-    tariffId: tariff?.id || 'starter',
-    isStarter: tariff?.id === 'starter',
-    isBusiness: tariff?.id === 'business',
-    isEnterprise: tariff?.id === 'enterprise',
+    tariffId: tariff?.id || "starter",
+    isStarter: tariff?.id === "starter",
+    isBusiness: tariff?.id === "business",
+    isEnterprise: tariff?.id === "enterprise",
   };
 }
 ```
 
 ### **Component: `<UpgradePrompt />`**
+
 ```tsx
 // src/components/shared/UpgradePrompt.tsx
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { useNavigate } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
 
 interface UpgradePromptProps {
   featureName: string;
-  requiredTier: 'Business' | 'Enterprise';
+  requiredTier: "Business" | "Enterprise";
 }
 
 export function UpgradePrompt({ featureName, requiredTier }: UpgradePromptProps) {
@@ -256,14 +278,12 @@ export function UpgradePrompt({ featureName, requiredTier }: UpgradePromptProps)
       <Badge variant="secondary" className="text-sm px-4 py-2">
         {requiredTier}+
       </Badge>
-      <h3 className="text-xl font-bold text-foreground">
-        {featureName}
-      </h3>
+      <h3 className="text-xl font-bold text-foreground">{featureName}</h3>
       <p className="text-sm text-muted-foreground max-w-md">
-        Dieses Feature ist im {requiredTier}-Tarif verfügbar.
-        Upgraden Sie jetzt für den vollen Funktionsumfang.
+        Dieses Feature ist im {requiredTier}-Tarif verfügbar. Upgraden Sie jetzt für den vollen
+        Funktionsumfang.
       </p>
-      <Button variant="secondary" onClick={() => navigate('/pricing')}>
+      <Button variant="secondary" onClick={() => navigate("/pricing")}>
         Jetzt upgraden
       </Button>
     </div>
@@ -278,14 +298,16 @@ export function UpgradePrompt({ featureName, requiredTier }: UpgradePromptProps)
 ### **KRITISCH: Niemals Client-Side-Only Checks!**
 
 ❌ **FALSCH:**
+
 ```typescript
 // NUR Client-Side Check (kann umgangen werden!)
-if (userTier === 'starter') {
+if (userTier === "starter") {
   // Feature blockieren
 }
 ```
 
 ✅ **RICHTIG:**
+
 ```typescript
 // 1. Client-Side Check (für UX)
 if (!hasFeatureAccess(productId, 'partners')) {
@@ -306,6 +328,7 @@ if (!hasFeatureAccess(subscription.product_id, 'partners')) {
 ```
 
 ### **RLS Policy für Partner-Tabelle**
+
 ```sql
 -- Nur Business+ Kunden können Partner erstellen
 CREATE POLICY "Only Business+ can create partners"
@@ -330,9 +353,10 @@ USING (
 ## 📚 VERWENDUNG IM CODE
 
 ### Beispiel: Sidebar-Navigation
+
 ```tsx
 // src/components/layout/AppSidebar.tsx
-import { useTariffAccess } from '@/hooks/use-tariff-access';
+import { useTariffAccess } from "@/hooks/use-tariff-access";
 
 export function AppSidebar() {
   const { hasFeature } = useTariffAccess();
@@ -345,7 +369,7 @@ export function AppSidebar() {
       </SidebarMenuItem>
 
       {/* Business+ Features */}
-      {hasFeature('partners') && (
+      {hasFeature("partners") && (
         <SidebarMenuItem>
           <Link to="/partner">
             Partner-Netzwerk
@@ -354,7 +378,7 @@ export function AppSidebar() {
         </SidebarMenuItem>
       )}
 
-      {hasFeature('statistics') && (
+      {hasFeature("statistics") && (
         <SidebarMenuItem>
           <Link to="/statistiken">Statistiken</Link>
         </SidebarMenuItem>
@@ -365,10 +389,11 @@ export function AppSidebar() {
 ```
 
 ### Beispiel: Dashboard mit Feature-Gates
+
 ```tsx
 // src/pages/Dashboard.tsx
-import { useTariffAccess } from '@/hooks/use-tariff-access';
-import { UpgradePrompt } from '@/components/shared/UpgradePrompt';
+import { useTariffAccess } from "@/hooks/use-tariff-access";
+import { UpgradePrompt } from "@/components/shared/UpgradePrompt";
 
 export default function Dashboard() {
   const { hasFeature, isStarter } = useTariffAccess();
@@ -386,13 +411,10 @@ export default function Dashboard() {
           {isStarter && <Badge variant="secondary">Business+</Badge>}
         </CardHeader>
         <CardContent>
-          {hasFeature('gps') ? (
+          {hasFeature("gps") ? (
             <LiveMapWidget />
           ) : (
-            <UpgradePrompt 
-              featureName="Live-GPS-Tracking" 
-              requiredTier="Business" 
-            />
+            <UpgradePrompt featureName="Live-GPS-Tracking" requiredTier="Business" />
           )}
         </CardContent>
       </Card>

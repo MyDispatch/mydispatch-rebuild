@@ -16,12 +16,12 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog';
-import { AlertCircle, CheckCircle2, AlertTriangle } from 'lucide-react';
-import { useState } from 'react';
-import { logger } from '@/lib/logger';
+} from "@/components/ui/alert-dialog";
+import { AlertCircle, CheckCircle2, AlertTriangle } from "lucide-react";
+import { useState } from "react";
+import { logger } from "@/lib/logger";
 
-export type ConfirmVariant = 'default' | 'destructive' | 'warning';
+export type ConfirmVariant = "default" | "destructive" | "warning";
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -41,10 +41,10 @@ export function ConfirmDialog({
   onConfirm,
   title,
   description,
-  confirmLabel = 'Bestätigen',
-  cancelLabel = 'Abbrechen',
-  variant = 'default',
-  loading = false
+  confirmLabel = "Bestätigen",
+  cancelLabel = "Abbrechen",
+  variant = "default",
+  loading = false,
 }: ConfirmDialogProps) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -54,7 +54,9 @@ export function ConfirmDialog({
       await onConfirm();
       onOpenChange(false);
     } catch (error) {
-      logger.error('[ConfirmDialog] Confirm action failed', error as Error, { component: 'ConfirmDialog' });
+      logger.error("[ConfirmDialog] Confirm action failed", error as Error, {
+        component: "ConfirmDialog",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -62,9 +64,9 @@ export function ConfirmDialog({
 
   const getIcon = () => {
     switch (variant) {
-      case 'destructive':
+      case "destructive":
         return <AlertCircle className="h-6 w-6 text-status-error" />;
-      case 'warning':
+      case "warning":
         return <AlertTriangle className="h-6 w-6 text-status-warning" />;
       default:
         return <CheckCircle2 className="h-6 w-6 text-foreground" />;
@@ -73,12 +75,12 @@ export function ConfirmDialog({
 
   const getButtonVariant = () => {
     switch (variant) {
-      case 'destructive':
-        return 'destructive';
-      case 'warning':
-        return 'default';
+      case "destructive":
+        return "destructive";
+      case "warning":
+        return "default";
       default:
-        return 'default';
+        return "default";
     }
   };
 
@@ -93,15 +95,15 @@ export function ConfirmDialog({
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={isLoading || loading}>
-            {cancelLabel}
-          </AlertDialogCancel>
+          <AlertDialogCancel disabled={isLoading || loading}>{cancelLabel}</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleConfirm}
             disabled={isLoading || loading}
-            className={getButtonVariant() === 'destructive' ? 'bg-status-error hover:bg-status-error/90' : ''}
+            className={
+              getButtonVariant() === "destructive" ? "bg-status-error hover:bg-status-error/90" : ""
+            }
           >
-            {isLoading || loading ? 'Lädt...' : confirmLabel}
+            {isLoading || loading ? "Lädt..." : confirmLabel}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -124,8 +126,8 @@ export function useConfirm() {
     onConfirm?: () => void | Promise<void>;
   }>({
     open: false,
-    title: '',
-    description: ''
+    title: "",
+    description: "",
   });
 
   const confirm = (options: {
@@ -138,14 +140,14 @@ export function useConfirm() {
   }) => {
     setState({
       open: true,
-      ...options
+      ...options,
     });
   };
 
   const dialog = (
     <ConfirmDialog
       open={state.open}
-      onOpenChange={(open) => setState(s => ({ ...s, open }))}
+      onOpenChange={(open) => setState((s) => ({ ...s, open }))}
       onConfirm={state.onConfirm || (() => {})}
       title={state.title}
       description={state.description}

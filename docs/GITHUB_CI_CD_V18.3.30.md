@@ -3,6 +3,7 @@
 ## 🎯 Übersicht
 
 MyDispatch nutzt vollautomatisierte GitHub Actions Workflows mit **AI-Integration** (Claude Sonnet 4.5) für:
+
 - **Automatisches Code-Review** bei Pull Requests
 - **Design-System-Compliance** Prüfung
 - **Security-Audit** (company_id, DELETE, RLS)
@@ -16,10 +17,12 @@ MyDispatch nutzt vollautomatisierte GitHub Actions Workflows mit **AI-Integratio
 ### Workflow: `ai-code-review.yml`
 
 **Trigger:**
+
 - Pull Requests zu `main`, `develop`, `feature/**`, `bugfix/**`
 - Manual Dispatch mit PR-Nummer
 
 **Funktionen:**
+
 1. **Automatisches Code-Review:**
    - Analysiert alle geänderten `.tsx`, `.ts`, `.jsx`, `.js`, `.css` Dateien
    - Ruft Supabase Edge Function `ai-code-review` auf
@@ -43,11 +46,13 @@ MyDispatch nutzt vollautomatisierte GitHub Actions Workflows mit **AI-Integratio
    - ❌ **CRITICAL ISSUES:** Merge blockiert
 
 **Edge Function:** `supabase/functions/ai-code-review/index.ts`
+
 - Model: `claude-sonnet-4-5` (Anthropic API)
 - Max Tokens: 4096
 - Timeout: 60s
 
 **Secrets benötigt:**
+
 - `ANTHROPIC_API_KEY` (Claude API)
 - `GITHUB_Personal_access_tokens_classic` (Optional für Kommentare)
 - `SUPABASE_URL`
@@ -60,35 +65,43 @@ MyDispatch nutzt vollautomatisierte GitHub Actions Workflows mit **AI-Integratio
 ### Workflow: `design-system-audit.yml`
 
 **Trigger:**
+
 - Push/PR zu `main`, `develop`, `feature/**`, `bugfix/**`
 - Nur bei Änderungen in `.tsx`, `.ts`, `.css`, `tailwind.config.ts`
 
 **Prüfungen:**
 
 #### 1. Direkte Farben (CRITICAL)
+
 ```bash
 # Verbotene Patterns:
 text-white, bg-white, text-black, bg-black
 text-gray-*, bg-gray-*, border-white, border-black
 ```
+
 **Fehler:** FEHLER-001 in ERROR_DATABASE  
 **Fix:** Semantic Tokens verwenden (`text-foreground`, `bg-card`)
 
 #### 2. Accent Color Usage (CRITICAL)
+
 ```bash
 # Verboten (außer sidebar-accent):
 accent (ohne "sidebar-" Präfix)
 ```
+
 **Fix:** `primary` oder `secondary` verwenden
 
 #### 3. Hex/RGB Colors (HIGH)
+
 ```bash
 # Verboten:
 #FFFFFF, #000, rgb(255,255,255), rgba(...)
 ```
+
 **Fix:** HSL Semantic Tokens aus `src/index.css`
 
 **Ausgabe:**
+
 - ✅ 0 Violations → **PASSED**
 - ❌ >0 Violations → **FAILED** (Merge blockiert)
 
@@ -99,38 +112,38 @@ accent (ohne "sidebar-" Präfix)
 ### Workflow: `security-audit.yml`
 
 **Trigger:**
+
 - Pull Requests zu `main`, `develop`
 - Push zu `main` (bei Migrations)
 
 **Prüfungen:**
 
 #### 1. Missing company_id Filter (HIGH)
+
 ```tsx
 // ❌ VIOLATION
-const { data } = await supabase.from('bookings').select('*');
+const { data } = await supabase.from("bookings").select("*");
 
 // ✅ FIX
-const { data } = await supabase
-  .from('bookings')
-  .select('*')
-  .eq('company_id', companyId);
+const { data } = await supabase.from("bookings").select("*").eq("company_id", companyId);
 ```
+
 **Referenz:** FEHLER-002 in ERROR_DATABASE
 
 #### 2. DELETE Statements (CRITICAL)
+
 ```tsx
 // ❌ VIOLATION
-await supabase.from('bookings').delete().eq('id', id);
+await supabase.from("bookings").delete().eq("id", id);
 
 // ✅ FIX (Soft Delete)
-await supabase
-  .from('bookings')
-  .update({ deleted_at: new Date().toISOString() })
-  .eq('id', id);
+await supabase.from("bookings").update({ deleted_at: new Date().toISOString() }).eq("id", id);
 ```
+
 **Referenz:** FEHLER-003 in ERROR_DATABASE
 
 #### 3. auth.users in RLS (CRITICAL)
+
 ```sql
 -- ❌ VIOLATION
 CREATE POLICY "customer_view" ON bookings
@@ -144,9 +157,11 @@ CREATE POLICY "customer_view" ON bookings
     customer_email = auth.jwt() ->> 'email'
   );
 ```
+
 **Referenz:** FEHLER-005 in ERROR_DATABASE
 
 #### 4. Hardcoded Secrets (CRITICAL)
+
 ```tsx
 // ❌ VIOLATION
 const apiKey = "sk-1234567890abcdef";
@@ -156,6 +171,7 @@ const apiKey = import.meta.env.VITE_API_KEY;
 ```
 
 **Ausgabe:**
+
 - ❌ CRITICAL >0 → **FAILED** (Merge blockiert)
 - ⚠️ HIGH >0 → **WARNING** (Merge erlaubt, Review empfohlen)
 - ✅ 0 Violations → **PASSED**
@@ -164,11 +180,11 @@ const apiKey = import.meta.env.VITE_API_KEY;
 
 ## 📊 Workflow-Übersicht
 
-| Workflow | Trigger | Blockiert Merge? | AI-Integration |
-|----------|---------|------------------|----------------|
-| **AI Code Review** | PR | Ja (bei Critical) | ✅ Claude Sonnet 4.5 |
-| **Design-System Audit** | Push/PR | Ja (bei Violations) | ❌ Regex-basiert |
-| **Security Audit** | PR/Push | Ja (bei Critical) | ❌ Regex-basiert |
+| Workflow                | Trigger | Blockiert Merge?    | AI-Integration       |
+| ----------------------- | ------- | ------------------- | -------------------- |
+| **AI Code Review**      | PR      | Ja (bei Critical)   | ✅ Claude Sonnet 4.5 |
+| **Design-System Audit** | Push/PR | Ja (bei Violations) | ❌ Regex-basiert     |
+| **Security Audit**      | PR/Push | Ja (bei Critical)   | ❌ Regex-basiert     |
 
 ---
 
@@ -212,6 +228,7 @@ git push
 ### Empfohlener Ablauf:
 
 1. **Feature-Branch erstellen:**
+
    ```bash
    git checkout -b feature/neue-funktion
    ```
@@ -223,15 +240,17 @@ git push
    - Try-Catch in async Funktionen
 
 3. **Pre-Commit-Check (lokal):**
+
    ```bash
    # Design-System prüfen
    grep -rn "text-white\|bg-white" src/
-   
+
    # Security prüfen
    grep -rn "\.delete()" src/
    ```
 
 4. **Push & PR erstellen:**
+
    ```bash
    git push origin feature/neue-funktion
    # PR auf GitHub erstellen
@@ -275,18 +294,21 @@ Security Audit:
 ## 🎯 Best Practices
 
 ### 1. Vor dem Commit:
+
 - [ ] `grep -rn "text-white\|bg-white" src/` → 0 Treffer
 - [ ] `grep -rn "\.delete()" src/` → 0 Treffer
 - [ ] `grep -rn "accent" src/` → Nur `sidebar-accent`
 - [ ] Alle Queries haben `.eq('company_id', companyId)`
 
 ### 2. Bei PR:
+
 - [ ] Aussagekräftiger Titel
 - [ ] Beschreibung: Was, Warum, Wie
 - [ ] Link zu Ticket/Issue
 - [ ] Screenshots (bei UI-Änderungen)
 
 ### 3. Nach AI-Review:
+
 - [ ] Alle Vorschläge gelesen
 - [ ] Critical Issues behoben
 - [ ] Warnings dokumentiert (falls akzeptabel)
@@ -299,6 +321,7 @@ Security Audit:
 
 **Problem:** "ANTHROPIC_API_KEY not configured"  
 **Lösung:** Secret in Supabase hinzufügen:
+
 ```bash
 supabase secrets set ANTHROPIC_API_KEY="sk-ant-..."
 ```
@@ -313,6 +336,7 @@ supabase secrets set ANTHROPIC_API_KEY="sk-ant-..."
 
 **Problem:** "Direct colors found"  
 **Lösung:** Siehe FEHLER-001 in ERROR_DATABASE
+
 ```tsx
 // ❌ Falsch
 <div className="bg-white text-black">
@@ -343,16 +367,19 @@ supabase secrets set ANTHROPIC_API_KEY="sk-ant-..."
 ## 🚀 Nächste Schritte
 
 ### Kurzfristig (1 Woche):
+
 - [ ] Playwright-Tests in CI integrieren
 - [ ] Mobile-First Audit Workflow
 - [ ] Performance-Budget Checks
 
 ### Mittelfristig (1 Monat):
+
 - [ ] Visual Regression Tests (Percy/Chromatic)
 - [ ] Automated Accessibility Tests (Axe)
 - [ ] Lighthouse CI
 
 ### Langfristig (3 Monate):
+
 - [ ] E2E-Tests für alle Critical Paths
 - [ ] Load Testing in Staging
 - [ ] Canary Deployments

@@ -9,6 +9,7 @@
 ## 🎯 VISION
 
 MyDispatch entwickelt sich zu einer **AI-First-Plattform**, die:
+
 - Sich selbst optimiert und erweitert
 - Kunden automatisch gewinnt, pflegt und betreut
 - Höchste Qualitätsstandards automatisch einhält
@@ -19,8 +20,10 @@ MyDispatch entwickelt sich zu einer **AI-First-Plattform**, die:
 ## 🏗️ SYSTEM-KOMPONENTEN
 
 ### 1. INTELLIGENT AI-CHAT (✅ Implementiert)
+
 **Status:** Production V18.2.30  
 **Features:**
+
 - Dual-Mode: App-Mode (B2B) + Landing-Mode (B2C)
 - Streaming Responses (Gemini 2.5 Flash)
 - Kontext-Awareness
@@ -29,9 +32,11 @@ MyDispatch entwickelt sich zu einer **AI-First-Plattform**, die:
 **Datei:** `src/components/shared/IntelligentAIChat.tsx`
 
 ### 2. AI-MAIL-MARKETING-SYSTEM (🚧 In Entwicklung)
+
 **Ziel:** Automatisierte, rechtskonforme Kundengewinnung
 
 **Features:**
+
 - Web-Scraping für Lead-Generierung
 - AI-generierte Mail-Templates (DIN 5008)
 - DSGVO-konforme Double-Opt-In-Prozesse
@@ -41,6 +46,7 @@ MyDispatch entwickelt sich zu einer **AI-First-Plattform**, die:
 - Bounce-Handling
 
 **Komponenten:**
+
 - `src/components/marketing/EmailCampaignBuilder.tsx`
 - `src/components/marketing/LeadScanner.tsx`
 - `src/components/marketing/EmailTemplateGenerator.tsx`
@@ -48,9 +54,11 @@ MyDispatch entwickelt sich zu einer **AI-First-Plattform**, die:
 - `supabase/functions/web-lead-scanner/index.ts`
 
 ### 3. AI-CRM-SYSTEM (🚧 In Entwicklung)
+
 **Ziel:** Intelligente Kundenbetreuung & Retention
 
 **Features:**
+
 - Automatische Lead-Qualifizierung
 - Sentiment-Analyse von Kundenkommunikation
 - Churn-Prediction
@@ -59,6 +67,7 @@ MyDispatch entwickelt sich zu einer **AI-First-Plattform**, die:
 - Customer-Journey-Tracking
 
 **Komponenten:**
+
 - `src/components/crm/LeadQualificationDashboard.tsx`
 - `src/components/crm/CustomerHealthScore.tsx`
 - `src/components/crm/AutomatedFollowUpEngine.tsx`
@@ -66,8 +75,10 @@ MyDispatch entwickelt sich zu einer **AI-First-Plattform**, die:
 - `supabase/functions/ai-sentiment-analysis/index.ts`
 
 ### 4. AI-CODE-REVIEW-SYSTEM (✅ Implementiert)
+
 **Status:** Production V18.3.30  
 **Features:**
+
 - GitHub CI/CD Integration
 - Automatische Code-Quality-Checks
 - Design-System-Compliance
@@ -76,9 +87,11 @@ MyDispatch entwickelt sich zu einer **AI-First-Plattform**, die:
 **Datei:** `supabase/functions/ai-code-review/index.ts`
 
 ### 5. SELF-HEALING-SYSTEM (🔮 Geplant)
+
 **Ziel:** Automatische Fehlerkorrektur
 
 **Features:**
+
 - Error-Pattern-Detection
 - Automatische Code-Patches
 - Rollback bei kritischen Fehlern
@@ -89,18 +102,21 @@ MyDispatch entwickelt sich zu einer **AI-First-Plattform**, die:
 ## 📊 QUALITÄTS-FRAMEWORK
 
 ### STUFE 1: AUTOMATISCHE VALIDIERUNG
+
 - TypeScript: 0 Errors (zwingend)
 - ESLint: 0 Violations
 - Design-System: 100% Compliance
 - Security-Scan: 0 CRITICAL
 
 ### STUFE 2: AI-POWERED REVIEW
+
 - Code-Quality-Score (0-100)
 - Maintainability-Index
 - Test-Coverage-Analyse
 - Performance-Profiling
 
 ### STUFE 3: SELF-OPTIMIZATION
+
 - Automatische Refactorings
 - Performance-Optimierungen
 - Security-Patches
@@ -133,24 +149,28 @@ graph TD
 ## 🚀 IMPLEMENTIERUNGS-ROADMAP
 
 ### PHASE 1: FOUNDATION (✅ Abgeschlossen)
+
 - [x] Intelligent AI-Chat System
 - [x] AI Code-Review Integration
 - [x] Design-System V18.5.0
 - [x] Quality-Standards V18.5.0
 
 ### PHASE 2: MARKETING-AUTOMATION (🚧 Current)
+
 - [ ] Web Lead Scanner
 - [ ] AI Email Template Generator
 - [ ] Campaign Management Dashboard
 - [ ] DSGVO-Compliance-Module
 
 ### PHASE 3: CRM-INTELLIGENCE (⏳ Next)
+
 - [ ] Lead Qualification System
 - [ ] Sentiment Analysis Engine
 - [ ] Churn Prediction Model
 - [ ] Automated Follow-Up System
 
 ### PHASE 4: SELF-OPTIMIZATION (🔮 Future)
+
 - [ ] Error-Pattern-Learning
 - [ ] Automatic Refactoring
 - [ ] Performance Self-Tuning
@@ -160,22 +180,23 @@ graph TD
 
 ## 📈 SUCCESS-METRIKEN
 
-| Kategorie | Metrik | Zielwert | Aktuell |
-|-----------|--------|----------|---------|
-| **Code-Qualität** | TypeScript Errors | 0 | 0 ✅ |
-| **Code-Qualität** | Maintainability Index | >80 | - |
-| **Marketing** | Lead Conversion Rate | >5% | - |
-| **Marketing** | Email Open Rate | >25% | - |
-| **CRM** | Customer Satisfaction | >4.5/5 | - |
-| **CRM** | Churn Rate | <10% | - |
-| **Automation** | Manual Intervention | <5% | - |
-| **Performance** | Response Time | <200ms | - |
+| Kategorie         | Metrik                | Zielwert | Aktuell |
+| ----------------- | --------------------- | -------- | ------- |
+| **Code-Qualität** | TypeScript Errors     | 0        | 0 ✅    |
+| **Code-Qualität** | Maintainability Index | >80      | -       |
+| **Marketing**     | Lead Conversion Rate  | >5%      | -       |
+| **Marketing**     | Email Open Rate       | >25%     | -       |
+| **CRM**           | Customer Satisfaction | >4.5/5   | -       |
+| **CRM**           | Churn Rate            | <10%     | -       |
+| **Automation**    | Manual Intervention   | <5%      | -       |
+| **Performance**   | Response Time         | <200ms   | -       |
 
 ---
 
 ## 🔒 SECURITY & COMPLIANCE
 
 ### DSGVO-ANFORDERUNGEN
+
 - ✅ Double-Opt-In für alle Marketing-Mails
 - ✅ Widerrufsrecht in jedem Mail
 - ✅ Datenschutzerklärung verlinkt
@@ -183,11 +204,13 @@ graph TD
 - ✅ Einwilligungs-Protokollierung
 
 ### DIN-NORMEN
+
 - ✅ DIN 5008 (Geschäftsbriefe)
 - ✅ DIN 676 (Rechnungen)
 - ✅ DIN 14096-1 (E-Mail-Header)
 
 ### RECHTLICHE ASPEKTE
+
 - ✅ UWG (Wettbewerbsrecht)
 - ✅ TMG (Impressumspflicht)
 - ✅ BGB (Vertragsrecht)
@@ -198,6 +221,7 @@ graph TD
 ## 💡 BEST PRACTICES
 
 ### DO's ✅
+
 - **Modulare Architektur:** Kleine, fokussierte Komponenten
 - **Type-Safety:** Strikte TypeScript-Typisierung
 - **Error-Handling:** Defensives Programming überall
@@ -206,6 +230,7 @@ graph TD
 - **Documentation:** Inline-Docs + Markdown-Specs
 
 ### DON'Ts ❌
+
 - **Monolithen:** Keine riesigen Dateien (max. 500 LOC)
 - **Any-Types:** Niemals `any` verwenden
 - **Direct-Colors:** Nur Semantic Tokens

@@ -2,7 +2,7 @@
 
 **Status:** ✅ FINAL - NIEMALS ÄNDERN!  
 **Datum:** 26.10.2025  
-**Version:** 1.0  
+**Version:** 1.0
 
 ---
 
@@ -31,6 +31,7 @@ Alle Buttons im MyDispatch-System MÜSSEN eine **2px Umrandung** haben:
 ## 📋 IMPLEMENTIERUNGSREGELN
 
 ### V26Button (Standard)
+
 ```tsx
 // ✅ KORREKT - 2px Umrandung
 <V26Button variant="primary">Speichern</V26Button>
@@ -43,6 +44,7 @@ borderColor: KERNFARBEN.dunkelblau
 ```
 
 ### V26HeroButton (Landing Pages)
+
 ```tsx
 // ✅ KORREKT - 2px weiße Umrandung
 <V26HeroButton variant="primary" icon={BadgeCheck}>
@@ -64,6 +66,7 @@ borderColor: KERNFARBEN.weiss
 ## ❌ VERBOTEN
 
 ### NIEMALS VERWENDEN:
+
 - ❌ 1px Umrandung (zu dünn, nicht sichtbar genug)
 - ❌ Keine Umrandung bei outline-Buttons
 - ❌ Uneinheitliche Border-Breiten
@@ -74,19 +77,22 @@ borderColor: KERNFARBEN.weiss
 ## 🔍 BETROFFENE KOMPONENTEN
 
 ### Library-Komponenten (26.10.2025)
+
 ✅ `src/components/design-system/V26Button.tsx` - 2px Border auf primary & secondary  
-✅ `src/components/design-system/V26HeroButton.tsx` - 2px Border auf beiden Varianten  
+✅ `src/components/design-system/V26HeroButton.tsx` - 2px Border auf beiden Varianten
 
 ### Verwendung in Seiten
+
 ✅ `src/pages/Home.tsx` - V26HeroButton mit 2px Border  
 ✅ `src/pages/Pricing.tsx` - V26Button mit 2px Border  
-✅ `src/pages/Auth.tsx` - V26Button mit 2px Border  
+✅ `src/pages/Auth.tsx` - V26Button mit 2px Border
 
 ---
 
 ## ⚠️ WARTUNG & UPDATES
 
 Bei **JEDEM** neuen Button:
+
 1. ✅ Verwende ausschließlich V26Button oder V26HeroButton
 2. ✅ Niemals custom Buttons ohne 2px Border erstellen
 3. ✅ Prüfe visuelle Konsistenz
@@ -105,6 +111,7 @@ grep -r "border.*none" src/components/**/Button*.tsx
 ```
 
 **Sofort korrigieren auf:**
+
 - `borderWidth: '2px'`
 - `borderStyle: 'solid'`
 - Korrekten KERNFARBEN verwenden

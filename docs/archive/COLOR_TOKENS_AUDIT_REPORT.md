@@ -26,22 +26,22 @@ Das Farbsystem von MyDispatch V26.1 ist **nahezu perfekt implementiert**. Alle K
 
 ```typescript
 // ✅ KERNFARBEN V26.1 - Perfekt definiert
-dunkelblau: '#323D5E'  // HSL: 225° 31% 28%
-beige:      '#EADEBD'  // HSL: 42° 49% 78%
-weiss:      '#FFFFFF'  // HSL: 0° 0% 100%
-canvas:     '#F9FAFB'  // HSL: 42° 49% 98%
+dunkelblau: "#323D5E"; // HSL: 225° 31% 28%
+beige: "#EADEBD"; // HSL: 42° 49% 78%
+weiss: "#FFFFFF"; // HSL: 0° 0% 100%
+canvas: "#F9FAFB"; // HSL: 42° 49% 98%
 ```
 
 ### Status-Farben (Ampel-System)
 
 ```typescript
 // ✅ WCAG AA Konform (≥ 4.5:1 auf Weiß)
-status_success: 'hsl(142 71% 45%)'  // Grün  - Kontrast: 4.89:1 ✅
-status_warning: 'hsl(43 96% 56%)'   // Gelb  - Kontrast: 1.95:1* ⚠️
-status_error:   'hsl(0 72% 51%)'    // Rot   - Kontrast: 4.52:1 ✅
+status_success: "hsl(142 71% 45%)"; // Grün  - Kontrast: 4.89:1 ✅
+status_warning: "hsl(43 96% 56%)"; // Gelb  - Kontrast: 1.95:1* ⚠️
+status_error: "hsl(0 72% 51%)"; // Rot   - Kontrast: 4.52:1 ✅
 ```
 
-> *⚠️ Hinweis: Warning nutzt schwarzen Text (`foreground: #000`) für maximalen Kontrast (10.52:1) ✅
+> \*⚠️ Hinweis: Warning nutzt schwarzen Text (`foreground: #000`) für maximalen Kontrast (10.52:1) ✅
 
 ---
 
@@ -49,49 +49,49 @@ status_error:   'hsl(0 72% 51%)'    // Rot   - Kontrast: 4.52:1 ✅
 
 ### Beige-Varianten (100% Vollständig)
 
-| Variant | Opacity | Verwendung | Status |
-|---------|---------|------------|--------|
-| `beige_05` | 5% | Subtile Backgrounds | ✅ |
-| `beige_15` | 15% | Card Backgrounds | ✅ |
-| `beige_20` | 20% | Standard Borders | ✅ |
-| `beige_30` | 30% | Hover Borders | ✅ |
-| `beige_40` | 40% | Active States | ✅ |
-| `beige_50` | 50% | Overlays | ✅ |
-| `beige_80` | 80% | Intensive Overlays | ✅ |
+| Variant    | Opacity | Verwendung          | Status |
+| ---------- | ------- | ------------------- | ------ |
+| `beige_05` | 5%      | Subtile Backgrounds | ✅     |
+| `beige_15` | 15%     | Card Backgrounds    | ✅     |
+| `beige_20` | 20%     | Standard Borders    | ✅     |
+| `beige_30` | 30%     | Hover Borders       | ✅     |
+| `beige_40` | 40%     | Active States       | ✅     |
+| `beige_50` | 50%     | Overlays            | ✅     |
+| `beige_80` | 80%     | Intensive Overlays  | ✅     |
 
 ### Beige-Glow-Varianten (13 Varianten)
 
 ```typescript
 // ✅ Alle Glow-Effekte definiert
-beige_glow_06: 'rgba(234, 222, 189, 0.06)'
-beige_glow_08: 'rgba(234, 222, 189, 0.08)'
-beige_glow_12: 'rgba(234, 222, 189, 0.12)'
-beige_glow_13: 'rgba(234, 222, 189, 0.13)'  // ← Icon-Boxen
-beige_glow_15: 'rgba(234, 222, 189, 0.15)'
-beige_glow_19: 'rgba(234, 222, 189, 0.19)'
-beige_glow_20: 'rgba(234, 222, 189, 0.20)'
-beige_glow_21: 'rgba(234, 222, 189, 0.21)'
-beige_glow_25: 'rgba(234, 222, 189, 0.25)'
-beige_glow_30: 'rgba(234, 222, 189, 0.30)'
-beige_glow_40: 'rgba(234, 222, 189, 0.40)'
-beige_glow_50: 'rgba(234, 222, 189, 0.50)'
-beige_glow_80: 'rgba(234, 222, 189, 0.80)'
+beige_glow_06: "rgba(234, 222, 189, 0.06)";
+beige_glow_08: "rgba(234, 222, 189, 0.08)";
+beige_glow_12: "rgba(234, 222, 189, 0.12)";
+beige_glow_13: "rgba(234, 222, 189, 0.13)"; // ← Icon-Boxen
+beige_glow_15: "rgba(234, 222, 189, 0.15)";
+beige_glow_19: "rgba(234, 222, 189, 0.19)";
+beige_glow_20: "rgba(234, 222, 189, 0.20)";
+beige_glow_21: "rgba(234, 222, 189, 0.21)";
+beige_glow_25: "rgba(234, 222, 189, 0.25)";
+beige_glow_30: "rgba(234, 222, 189, 0.30)";
+beige_glow_40: "rgba(234, 222, 189, 0.40)";
+beige_glow_50: "rgba(234, 222, 189, 0.50)";
+beige_glow_80: "rgba(234, 222, 189, 0.80)";
 ```
 
 ### Dunkelblau-Overlay-Varianten (10 Varianten)
 
 ```typescript
 // ✅ Alle Overlay-Effekte definiert
-dunkelblau_overlay_03: 'rgba(50, 61, 94, 0.03)'
-dunkelblau_overlay_05: 'rgba(50, 61, 94, 0.05)'
-dunkelblau_overlay_10: 'rgba(50, 61, 94, 0.10)'  // ← Tab Navigation
-dunkelblau_overlay_15: 'rgba(50, 61, 94, 0.15)'
-dunkelblau_overlay_25: 'rgba(50, 61, 94, 0.25)'
-dunkelblau_overlay_30: 'rgba(50, 61, 94, 0.30)'
-dunkelblau_overlay_37: 'rgba(50, 61, 94, 0.37)'
-dunkelblau_overlay_50: 'rgba(50, 61, 94, 0.50)'
-dunkelblau_overlay_60: 'rgba(50, 61, 94, 0.60)'
-dunkelblau_overlay_70: 'rgba(50, 61, 94, 0.70)'
+dunkelblau_overlay_03: "rgba(50, 61, 94, 0.03)";
+dunkelblau_overlay_05: "rgba(50, 61, 94, 0.05)";
+dunkelblau_overlay_10: "rgba(50, 61, 94, 0.10)"; // ← Tab Navigation
+dunkelblau_overlay_15: "rgba(50, 61, 94, 0.15)";
+dunkelblau_overlay_25: "rgba(50, 61, 94, 0.25)";
+dunkelblau_overlay_30: "rgba(50, 61, 94, 0.30)";
+dunkelblau_overlay_37: "rgba(50, 61, 94, 0.37)";
+dunkelblau_overlay_50: "rgba(50, 61, 94, 0.50)";
+dunkelblau_overlay_60: "rgba(50, 61, 94, 0.60)";
+dunkelblau_overlay_70: "rgba(50, 61, 94, 0.70)";
 ```
 
 ---
@@ -104,15 +104,15 @@ dunkelblau_overlay_70: 'rgba(50, 61, 94, 0.70)'
 /* PERFEKT IMPLEMENTIERT */
 :root {
   /* Basis-Farben */
-  --background: 0 0% 100%;           /* Reinweiß */
-  --foreground: 225 31% 28%;         /* #323D5E - Dunkelblau */
-  
+  --background: 0 0% 100%; /* Reinweiß */
+  --foreground: 225 31% 28%; /* #323D5E - Dunkelblau */
+
   /* Dunkelblau Varianten */
   --dunkelblau: 225 31% 28%;
   --dunkelblau-80: 225 31% 28% / 0.8;
   --dunkelblau-cc: 225 31% 28% / 0.8;
   --dunkelblau-99: 225 31% 28% / 0.6;
-  
+
   /* Beige Varianten */
   --beige: 42 49% 78%;
   --beige-80: 42 49% 78% / 0.8;
@@ -121,7 +121,7 @@ dunkelblau_overlay_70: 'rgba(50, 61, 94, 0.70)'
   --beige-glow-15: 42 49% 78% / 0.15;
   --beige-glow-30: 42 49% 78% / 0.3;
   --beige-glow-40: 42 49% 78% / 0.4;
-  
+
   /* Premium White & Canvas */
   --weiss: 0 0% 100%;
   --canvas: 42 49% 98%;
@@ -195,15 +195,15 @@ colors: {
 
 ### ✅ Alle Kombinationen Geprüft
 
-| Text-Farbe | BG-Farbe | Kontrast | WCAG AA | Status |
-|------------|----------|----------|---------|--------|
-| Dunkelblau (#323D5E) | Weiß (#FFFFFF) | **10.52:1** | ≥4.5:1 | ✅ PERFEKT |
-| Dunkelblau (#323D5E) | Beige (#EADEBD) | **5.86:1** | ≥4.5:1 | ✅ GUT |
-| Beige (#EADEBD) | Dunkelblau (#323D5E) | **5.86:1** | ≥4.5:1 | ✅ GUT |
-| Weiß (#FFFFFF) | Dunkelblau (#323D5E) | **10.52:1** | ≥4.5:1 | ✅ PERFEKT |
-| Success Green | Weiß | **4.89:1** | ≥4.5:1 | ✅ GUT |
-| Error Red | Weiß | **4.52:1** | ≥4.5:1 | ✅ GUT |
-| Warning Yellow | Schwarz | **10.52:1** | ≥4.5:1 | ✅ PERFEKT |
+| Text-Farbe           | BG-Farbe             | Kontrast    | WCAG AA | Status     |
+| -------------------- | -------------------- | ----------- | ------- | ---------- |
+| Dunkelblau (#323D5E) | Weiß (#FFFFFF)       | **10.52:1** | ≥4.5:1  | ✅ PERFEKT |
+| Dunkelblau (#323D5E) | Beige (#EADEBD)      | **5.86:1**  | ≥4.5:1  | ✅ GUT     |
+| Beige (#EADEBD)      | Dunkelblau (#323D5E) | **5.86:1**  | ≥4.5:1  | ✅ GUT     |
+| Weiß (#FFFFFF)       | Dunkelblau (#323D5E) | **10.52:1** | ≥4.5:1  | ✅ PERFEKT |
+| Success Green        | Weiß                 | **4.89:1**  | ≥4.5:1  | ✅ GUT     |
+| Error Red            | Weiß                 | **4.52:1**  | ≥4.5:1  | ✅ GUT     |
+| Warning Yellow       | Schwarz              | **10.52:1** | ≥4.5:1  | ✅ PERFEKT |
 
 ### ✅ Design-Regeln Eingehalten
 
@@ -272,7 +272,7 @@ wrong: "text-white bg-[#EADEBD]",
 
 ```tsx
 // Zeile 44
-className="text-muted-foreground"
+className = "text-muted-foreground";
 ```
 
 **Status:** ✅ **Korrekt** (Nutzt Semantic Token via Tailwind)
@@ -285,59 +285,130 @@ className="text-muted-foreground"
 
 ```css
 /* === COLOR UTILITIES === */
-.v26-bg-dunkelblau { background-color: hsl(var(--dunkelblau)); }
-.v26-text-dunkelblau { color: hsl(var(--dunkelblau)); }
-.v26-border-dunkelblau { border-color: hsl(var(--dunkelblau)); }
+.v26-bg-dunkelblau {
+  background-color: hsl(var(--dunkelblau));
+}
+.v26-text-dunkelblau {
+  color: hsl(var(--dunkelblau));
+}
+.v26-border-dunkelblau {
+  border-color: hsl(var(--dunkelblau));
+}
 
-.v26-bg-beige { background-color: hsl(var(--beige)); }
-.v26-text-beige { color: hsl(var(--beige)); }
-.v26-border-beige { border-color: hsl(var(--beige)); }
+.v26-bg-beige {
+  background-color: hsl(var(--beige));
+}
+.v26-text-beige {
+  color: hsl(var(--beige));
+}
+.v26-border-beige {
+  border-color: hsl(var(--beige));
+}
 
 /* Beige Opacity Variants */
-.v26-bg-beige-05 { background-color: rgba(234, 222, 189, 0.05); }
-.v26-bg-beige-10 { background-color: rgba(234, 222, 189, 0.10); }
-.v26-bg-beige-15 { background-color: rgba(234, 222, 189, 0.15); }
-.v26-bg-beige-20 { background-color: rgba(234, 222, 189, 0.20); }
-.v26-bg-beige-30 { background-color: rgba(234, 222, 189, 0.30); }
+.v26-bg-beige-05 {
+  background-color: rgba(234, 222, 189, 0.05);
+}
+.v26-bg-beige-10 {
+  background-color: rgba(234, 222, 189, 0.1);
+}
+.v26-bg-beige-15 {
+  background-color: rgba(234, 222, 189, 0.15);
+}
+.v26-bg-beige-20 {
+  background-color: rgba(234, 222, 189, 0.2);
+}
+.v26-bg-beige-30 {
+  background-color: rgba(234, 222, 189, 0.3);
+}
 
 /* Beige Border Variants */
-.v26-border-beige-19 { border-color: rgba(234, 222, 189, 0.19); }
-.v26-border-beige-20 { border-color: rgba(234, 222, 189, 0.20); }
-.v26-border-beige-25 { border-color: rgba(234, 222, 189, 0.25); }
-.v26-border-beige-30 { border-color: rgba(234, 222, 189, 0.30); }
-.v26-border-beige-31 { border-color: rgba(234, 222, 189, 0.31); }
-.v26-border-beige-37 { border-color: rgba(234, 222, 189, 0.37); }
+.v26-border-beige-19 {
+  border-color: rgba(234, 222, 189, 0.19);
+}
+.v26-border-beige-20 {
+  border-color: rgba(234, 222, 189, 0.2);
+}
+.v26-border-beige-25 {
+  border-color: rgba(234, 222, 189, 0.25);
+}
+.v26-border-beige-30 {
+  border-color: rgba(234, 222, 189, 0.3);
+}
+.v26-border-beige-31 {
+  border-color: rgba(234, 222, 189, 0.31);
+}
+.v26-border-beige-37 {
+  border-color: rgba(234, 222, 189, 0.37);
+}
 
 /* Beige Glow Variants */
-.v26-bg-beige-glow-06 { background-color: rgba(234, 222, 189, 0.06); }
-.v26-bg-beige-glow-08 { background-color: rgba(234, 222, 189, 0.08); }
-.v26-bg-beige-glow-12 { background-color: rgba(234, 222, 189, 0.12); }
-.v26-bg-beige-glow-13 { background-color: rgba(234, 222, 189, 0.13); }
-.v26-bg-beige-glow-15 { background-color: rgba(234, 222, 189, 0.15); }
-.v26-bg-beige-glow-19 { background-color: rgba(234, 222, 189, 0.19); }
-.v26-bg-beige-glow-20 { background-color: rgba(234, 222, 189, 0.20); }
+.v26-bg-beige-glow-06 {
+  background-color: rgba(234, 222, 189, 0.06);
+}
+.v26-bg-beige-glow-08 {
+  background-color: rgba(234, 222, 189, 0.08);
+}
+.v26-bg-beige-glow-12 {
+  background-color: rgba(234, 222, 189, 0.12);
+}
+.v26-bg-beige-glow-13 {
+  background-color: rgba(234, 222, 189, 0.13);
+}
+.v26-bg-beige-glow-15 {
+  background-color: rgba(234, 222, 189, 0.15);
+}
+.v26-bg-beige-glow-19 {
+  background-color: rgba(234, 222, 189, 0.19);
+}
+.v26-bg-beige-glow-20 {
+  background-color: rgba(234, 222, 189, 0.2);
+}
 
 /* Dunkelblau Overlay Variants */
-.v26-bg-dunkelblau-overlay-03 { background-color: rgba(50, 61, 94, 0.03); }
-.v26-bg-dunkelblau-overlay-05 { background-color: rgba(50, 61, 94, 0.05); }
-.v26-bg-dunkelblau-overlay-10 { background-color: rgba(50, 61, 94, 0.10); }
-.v26-bg-dunkelblau-overlay-15 { background-color: rgba(50, 61, 94, 0.15); }
+.v26-bg-dunkelblau-overlay-03 {
+  background-color: rgba(50, 61, 94, 0.03);
+}
+.v26-bg-dunkelblau-overlay-05 {
+  background-color: rgba(50, 61, 94, 0.05);
+}
+.v26-bg-dunkelblau-overlay-10 {
+  background-color: rgba(50, 61, 94, 0.1);
+}
+.v26-bg-dunkelblau-overlay-15 {
+  background-color: rgba(50, 61, 94, 0.15);
+}
 
 /* White Overlay Variants */
-.v26-bg-white-overlay-06 { background-color: rgba(255, 255, 255, 0.06); }
-.v26-bg-white-overlay-13 { background-color: rgba(255, 255, 255, 0.13); }
-.v26-bg-white-overlay-80 { background-color: rgba(255, 255, 255, 0.80); }
+.v26-bg-white-overlay-06 {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+.v26-bg-white-overlay-13 {
+  background-color: rgba(255, 255, 255, 0.13);
+}
+.v26-bg-white-overlay-80 {
+  background-color: rgba(255, 255, 255, 0.8);
+}
 
 /* Text Color Semantic Tokens */
-.v26-text-primary { color: hsl(var(--foreground)); }
-.v26-text-secondary { color: rgba(50, 61, 94, 0.8); }
-.v26-text-tertiary { color: rgba(50, 61, 94, 0.6); }
+.v26-text-primary {
+  color: hsl(var(--foreground));
+}
+.v26-text-secondary {
+  color: rgba(50, 61, 94, 0.8);
+}
+.v26-text-tertiary {
+  color: rgba(50, 61, 94, 0.6);
+}
 
 /* Border Accent Variants */
-.v26-border-accent-20 { border-color: rgba(234, 222, 189, 0.2); }
+.v26-border-accent-20 {
+  border-color: rgba(234, 222, 189, 0.2);
+}
 ```
 
 **Impact:**
+
 - ✅ **60% weniger Inline-Styles** benötigt
 - ✅ **Bessere Performance** (CSS gecacht)
 - ✅ **Einfacheres Refactoring**

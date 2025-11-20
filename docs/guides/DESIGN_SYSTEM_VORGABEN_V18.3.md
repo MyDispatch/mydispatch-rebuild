@@ -9,6 +9,7 @@
 ## 🎯 ZIELSETZUNG
 
 Alle Seiten und Komponenten MÜSSEN perfekt ausgerichtet sein:
+
 - ✅ Keine ungewollten Lücken zwischen Elementen
 - ✅ Konsistente Abstände (gap, padding, margin)
 - ✅ Perfekte Ausrichtung horizontal und vertikal
@@ -19,24 +20,26 @@ Alle Seiten und Komponenten MÜSSEN perfekt ausgerichtet sein:
 ## 📐 SPACING-SYSTEM (Tailwind)
 
 ### Standard-Abstände
+
 ```tsx
 // Gap zwischen Grid-Items
-gap-4      // 1rem (16px) - STANDARD für Desktop
-gap-6      // 1.5rem (24px) - Große Abstände
-gap-3      // 0.75rem (12px) - Mobile
+gap - 4; // 1rem (16px) - STANDARD für Desktop
+gap - 6; // 1.5rem (24px) - Große Abstände
+gap - 3; // 0.75rem (12px) - Mobile
 
 // Padding
-p-6        // Innen-Abstand für Cards (Desktop)
-p-4        // Innen-Abstand für Cards (Mobile)
-py-8       // Vertikale Sektion-Abstände
-px-4       // Horizontale Container-Padding
+p - 6; // Innen-Abstand für Cards (Desktop)
+p - 4; // Innen-Abstand für Cards (Mobile)
+py - 8; // Vertikale Sektion-Abstände
+px - 4; // Horizontale Container-Padding
 
 // Margin
-mb-6       // Abstand zwischen Sektionen
-mt-4       // Abstand zwischen Elementen
+mb - 6; // Abstand zwischen Sektionen
+mt - 4; // Abstand zwischen Elementen
 ```
 
 ### KRITISCH: Konsistente Grid-Gaps
+
 ```tsx
 // ❌ FALSCH: Unterschiedliche Gaps
 <div className="grid gap-4">
@@ -56,19 +59,25 @@ mt-4       // Abstand zwischen Elementen
 ## 🎨 CARD-SYSTEM
 
 ### Standard Card-Struktur
+
 ```tsx
 <Card>
-  <CardHeader className="pb-3"> {/* Reduzierter Bottom-Padding */}
+  <CardHeader className="pb-3">
+    {" "}
+    {/* Reduzierter Bottom-Padding */}
     <CardTitle>Titel</CardTitle>
     <CardDescription>Beschreibung</CardDescription>
   </CardHeader>
-  <CardContent className="space-y-4"> {/* Interne Abstände */}
+  <CardContent className="space-y-4">
+    {" "}
+    {/* Interne Abstände */}
     {/* Content */}
   </CardContent>
 </Card>
 ```
 
 ### Card-Varianten
+
 ```tsx
 // Volle Breite (Charts, Maps)
 <Card>
@@ -93,24 +102,29 @@ mt-4       // Abstand zwischen Elementen
 ## 📱 RESPONSIVE GRID-SYSTEM
 
 ### Dashboard-Layout (Standard)
+
 ```tsx
-<div className="space-y-6 sm:space-y-8"> {/* Responsive Spacing */}
+<div className="space-y-6 sm:space-y-8">
+  {" "}
+  {/* Responsive Spacing */}
   {/* KPI Cards */}
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
     {/* 1 Spalte Mobile, 2 Tablet, 4 Desktop */}
   </div>
-  
   {/* Widget Grid */}
   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
     {/* 1 Spalte Mobile/Tablet, 3 Desktop */}
   </div>
-  
   {/* Map + Widgets */}
   <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <div className="lg:col-span-2"> {/* Map: 2/3 */}
+    <div className="lg:col-span-2">
+      {" "}
+      {/* Map: 2/3 */}
       {/* Map Component */}
     </div>
-    <div className="space-y-6"> {/* Widgets: 1/3 */}
+    <div className="space-y-6">
+      {" "}
+      {/* Widgets: 1/3 */}
       {/* Weather, Traffic */}
     </div>
   </div>
@@ -118,6 +132,7 @@ mt-4       // Abstand zwischen Elementen
 ```
 
 ### Responsive Breakpoints
+
 ```tsx
 // Mobile First Approach
 sm:  640px  // Small devices (Tablets)
@@ -139,6 +154,7 @@ className="
 ## 🎯 ALIGNMENT-SYSTEM
 
 ### Horizontal Alignment
+
 ```tsx
 // Flex Container
 <div className="flex items-center justify-between gap-4">
@@ -152,6 +168,7 @@ className="
 ```
 
 ### Vertical Spacing
+
 ```tsx
 // Space-Y (bevorzugt für vertikale Stacks)
 <div className="space-y-4">
@@ -172,6 +189,7 @@ className="
 ## 🖼️ WIDGET-HEIGHTS
 
 ### Konsistente Höhen
+
 ```tsx
 // Maps
 h-[400px] sm:h-[500px] lg:h-[600px]  // Responsive Height
@@ -187,6 +205,7 @@ h-[400px]  // Matches content height
 ```
 
 ### Aspect Ratios (Alternative)
+
 ```tsx
 // Für responsive Verhältnisse
 <div className="aspect-video">  {/* 16:9 */}
@@ -199,11 +218,12 @@ h-[400px]  // Matches content height
 ## 🎨 OVERLAY-SYSTEM (Maps, Charts)
 
 ### Standard Overlay Pattern
+
 ```tsx
 <div className="relative">
   {/* Base Content - IMMER im DOM */}
   <div ref={contentRef} className="w-full h-[500px]" />
-  
+
   {/* Loading Overlay */}
   {loading && (
     <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
@@ -213,7 +233,7 @@ h-[400px]  // Matches content height
       </div>
     </div>
   )}
-  
+
   {/* Error Overlay */}
   {error && (
     <div className="absolute inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center">
@@ -237,18 +257,15 @@ h-[400px]  // Matches content height
 ## 📄 SEITEN-LAYOUT-STRUKTUR
 
 ### DashboardLayout Wrapper
+
 ```tsx
-<DashboardLayout
-  title="Dashboard"
-  description="SEO Description"
-  canonical="/"
->
+<DashboardLayout title="Dashboard" description="SEO Description" canonical="/">
   <div className="space-y-6 sm:space-y-8 overflow-x-hidden max-w-full">
     {/* Header Section */}
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
       {/* Header Content */}
     </div>
-    
+
     {/* Content Sections */}
     <section className="grid ...">...</section>
     <section className="grid ...">...</section>
@@ -257,6 +274,7 @@ h-[400px]  // Matches content height
 ```
 
 ### StandardPageLayout Wrapper
+
 ```tsx
 <StandardPageLayout
   title="Seiten-Titel"
@@ -264,9 +282,7 @@ h-[400px]  // Matches content height
   canonical="/route"
   showBackButton={true}
 >
-  <div className="space-y-6">
-    {/* Page Content */}
-  </div>
+  <div className="space-y-6">{/* Page Content */}</div>
 </StandardPageLayout>
 ```
 
@@ -275,6 +291,7 @@ h-[400px]  // Matches content height
 ## 🎯 QUICK REFERENCE - Häufige Patterns
 
 ### Card Grid (Dashboard Widgets)
+
 ```tsx
 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
   <Card>...</Card>
@@ -284,6 +301,7 @@ h-[400px]  // Matches content height
 ```
 
 ### Two Column Layout (60/40)
+
 ```tsx
 <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
   <div className="lg:col-span-3">{/* 60% */}</div>
@@ -292,6 +310,7 @@ h-[400px]  // Matches content height
 ```
 
 ### Stacked Content with Consistent Spacing
+
 ```tsx
 <div className="space-y-6">
   <section>...</section>

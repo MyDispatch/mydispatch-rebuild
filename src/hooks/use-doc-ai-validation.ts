@@ -1,16 +1,21 @@
-import { useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
-import { logDebug, logError } from '@/lib/logger';
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { logDebug, logError } from "@/lib/logger";
 
 interface ValidationRequest {
   id: string;
-  category: 'Design-Konsistenz' | 'Rechtliche Compliance' | 'Mobile-First' | 'Performance' | 'Sicherheit';
+  category:
+    | "Design-Konsistenz"
+    | "Rechtliche Compliance"
+    | "Mobile-First"
+    | "Performance"
+    | "Sicherheit";
   context: string;
   question: string;
   files: string[];
   options: string[];
-  priority: 'KRITISCH' | 'HOCH' | 'NORMAL';
+  priority: "KRITISCH" | "HOCH" | "NORMAL";
   blocks: string;
   timestamp: string;
 }
@@ -20,16 +25,16 @@ interface ValidationAnswer {
   answer: string;
   documentation: string;
   answeredAt: string;
-  answeredBy: 'NeXify';
+  answeredBy: "NeXify";
 }
 
 /**
  * React Hook für Doc-AI Validation Protocol
- * 
+ *
  * VERWENDUNG (Doc-AI):
  * - createValidationRequest() → Frage stellen
  * - getDesignReferences() → Eigenständig prüfen
- * 
+ *
  * VERWENDUNG (NeXify):
  * - checkQueue() → Prüf-Queue checken (PHASE 1)
  * - answerRequest() → Frage beantworten
@@ -42,46 +47,45 @@ export function useDocAIValidation() {
   /**
    * Doc-AI: Prüfanfrage erstellen
    */
-  const createValidationRequest = async (request: Omit<ValidationRequest, 'id' | 'timestamp'>) => {
+  const createValidationRequest = async (request: Omit<ValidationRequest, "id" | "timestamp">) => {
     setIsLoading(true);
-    
+
     try {
       const validationRequest: ValidationRequest = {
         ...request,
         id: `REQ-${Date.now()}`,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       };
 
-      logDebug('[Doc-AI] Creating validation request', { id: validationRequest.id });
-      
-      const { data, error } = await supabase.functions.invoke('manage-docs', {
-        body: { 
-          action: 'create-validation-request',
-          validationRequest 
-        }
+      logDebug("[Doc-AI] Creating validation request", { id: validationRequest.id });
+
+      const { data, error } = await supabase.functions.invoke("manage-docs", {
+        body: {
+          action: "create-validation-request",
+          validationRequest,
+        },
       });
 
       if (error) throw error;
 
       toast({
-        title: 'Prüfanfrage erstellt',
+        title: "Prüfanfrage erstellt",
         description: `${validationRequest.id} wurde an NeXify gesendet.`,
       });
 
       return validationRequest;
-
     } catch (err) {
-      logError({ 
-        message: '[Doc-AI] Validation Request Error', 
-        context: err 
+      logError({
+        message: "[Doc-AI] Validation Request Error",
+        context: err,
       });
-      
+
       toast({
-        title: 'Fehler',
-        description: 'Prüfanfrage konnte nicht erstellt werden.',
-        variant: 'destructive'
+        title: "Fehler",
+        description: "Prüfanfrage konnte nicht erstellt werden.",
+        variant: "destructive",
       });
-      
+
       return null;
     } finally {
       setIsLoading(false);
@@ -93,27 +97,26 @@ export function useDocAIValidation() {
    */
   const getDesignReferences = async (pages: string[]) => {
     setIsLoading(true);
-    
+
     try {
-      logDebug('[Doc-AI] Getting design references', { pages });
-      
-      const { data, error } = await supabase.functions.invoke('manage-docs', {
-        body: { 
-          action: 'get-design-references',
-          pages 
-        }
+      logDebug("[Doc-AI] Getting design references", { pages });
+
+      const { data, error } = await supabase.functions.invoke("manage-docs", {
+        body: {
+          action: "get-design-references",
+          pages,
+        },
       });
 
       if (error) throw error;
 
       return data.designReferences;
-
     } catch (err) {
-      logError({ 
-        message: '[Doc-AI] Design References Error', 
-        context: err 
+      logError({
+        message: "[Doc-AI] Design References Error",
+        context: err,
       });
-      
+
       return null;
     } finally {
       setIsLoading(false);
@@ -134,39 +137,38 @@ export function useDocAIValidation() {
    */
   const answerRequest = async (requestId: string, answer: ValidationAnswer) => {
     setIsLoading(true);
-    
+
     try {
-      logDebug('[NeXify] Answering validation request', { requestId });
-      
-      const { data, error } = await supabase.functions.invoke('manage-docs', {
-        body: { 
-          action: 'answer-validation-request',
+      logDebug("[NeXify] Answering validation request", { requestId });
+
+      const { data, error } = await supabase.functions.invoke("manage-docs", {
+        body: {
+          action: "answer-validation-request",
           requestId,
-          answer 
-        }
+          answer,
+        },
       });
 
       if (error) throw error;
 
       toast({
-        title: 'Prüfanfrage beantwortet',
+        title: "Prüfanfrage beantwortet",
         description: `${requestId} wurde beantwortet. Doc-AI wurde getriggert.`,
       });
 
       return data;
-
     } catch (err) {
-      logError({ 
-        message: '[NeXify] Answer Request Error', 
-        context: err 
+      logError({
+        message: "[NeXify] Answer Request Error",
+        context: err,
       });
-      
+
       toast({
-        title: 'Fehler',
-        description: 'Antwort konnte nicht übermittelt werden.',
-        variant: 'destructive'
+        title: "Fehler",
+        description: "Antwort konnte nicht übermittelt werden.",
+        variant: "destructive",
       });
-      
+
       return null;
     } finally {
       setIsLoading(false);
@@ -177,12 +179,12 @@ export function useDocAIValidation() {
    * NeXify: Doc-AI triggern (nach Antwort)
    */
   const triggerDocAI = async (requestId: string) => {
-    logDebug('[NeXify] Triggering Doc-AI', { requestId });
-    
+    logDebug("[NeXify] Triggering Doc-AI", { requestId });
+
     // In Production: WebSocket/SSE Trigger
     // For now: use logger
-    logDebug('[NeXify] Doc-AI getriggert', { requestId });
-    
+    logDebug("[NeXify] Doc-AI getriggert", { requestId });
+
     return true;
   };
 
@@ -190,12 +192,12 @@ export function useDocAIValidation() {
     // Doc-AI Methods
     createValidationRequest,
     getDesignReferences,
-    
+
     // NeXify Methods
     checkQueue,
     answerRequest,
     triggerDocAI,
-    
-    isLoading
+
+    isLoading,
   };
 }

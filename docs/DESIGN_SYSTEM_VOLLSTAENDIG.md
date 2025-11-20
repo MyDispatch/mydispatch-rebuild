@@ -1,4 +1,5 @@
 # 🎨 VOLLSTÄNDIGE DESIGN SYSTEM & COMPONENT LIBRARY ERSTELLUNG
+
 ## MIT STRIKTER ENFORCEMENT & DOKUMENTATIONS-PFLICHT
 
 ---
@@ -8,6 +9,7 @@
 Erstelle eine **vollständige, konsistente, wiederverwendbare Component Library** die als **EINZIGE Quelle** für alle UI-Elemente dient.
 
 **ABSOLUTES GESETZ:**
+
 - ❌ **NIEMALS** Components außerhalb der Library erstellen
 - ❌ **NIEMALS** direkt in Pages hardcoded UI schreiben
 - ✅ **IMMER** zuerst Library prüfen
@@ -22,7 +24,7 @@ Erstelle eine **vollständige, konsistente, wiederverwendbare Component Library*
 
 **Erstelle: `/config/design-tokens.ts`**
 
-/**
+/\*\*
 
 DESIGN TOKENS - V28.1
 
@@ -37,7 +39,7 @@ ALLE Components MÜSSEN diese Tokens nutzen
 Änderungen NUR hier vornehmen
 
 Nach Änderungen: Alle Components testen
-*/
+\*/
 
 // ============================================================================
 // COLORS
@@ -493,6 +495,7 @@ import { fontVariables } from './fonts'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 return (
+
 <html lang="de" className={fontVariables}>
 <body className="font-primary">
 {children}
@@ -609,23 +612,23 @@ text
 // components/ui/foundation/Button/Button.types.ts
 import { ReactNode, MouseEvent } from 'react'
 
-/**
+/\*\*
 
 Button Variants
 
 Definiert die visuellen Styles des Buttons
-*/
+\*/
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'link' | 'danger'
 
-/**
+/\*\*
 
 Button Sizes
 
 Definiert die Größe des Buttons
-*/
+\*/
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
-/**
+/\*\*
 
 Button Props
 
@@ -644,37 +647,37 @@ export interface ButtonProps {
 /* Visual variant of the button */
 variant?: ButtonVariant
 
-/** Size of the button */
+/\*_ Size of the button _/
 size?: ButtonSize
 
-/** Disabled state */
+/\*_ Disabled state _/
 disabled?: boolean
 
-/** Loading state (shows spinner, disables button) */
+/\*_ Loading state (shows spinner, disables button) _/
 loading?: boolean
 
-/** Full width button */
+/\*_ Full width button _/
 fullWidth?: boolean
 
-/** Icon element */
+/\*_ Icon element _/
 icon?: ReactNode
 
-/** Icon position */
+/\*_ Icon position _/
 iconPosition?: 'left' | 'right'
 
-/** Click handler */
+/\*_ Click handler _/
 onClick?: (event: MouseEvent<HTMLButtonElement>) => void
 
-/** Button type */
+/\*_ Button type _/
 type?: 'button' | 'submit' | 'reset'
 
-/** Button content */
+/\*_ Button content _/
 children: ReactNode
 
-/** Additional CSS classes */
+/\*_ Additional CSS classes _/
 className?: string
 
-/** ARIA label (for accessibility) */
+/\*_ ARIA label (for accessibility) _/
 'aria-label'?: string
 }
 
@@ -689,7 +692,7 @@ import { designTokens } from '@/config/design-tokens'
 import { Spinner } from '@/components/ui/feedback/Spinner'
 import type { ButtonProps } from './Button.types'
 
-/**
+/\*\*
 
 Button Component
 
@@ -744,75 +747,78 @@ danger: bg-danger text-white hover:bg-danger-dark active:bg-danger-700 focus:rin
 text
 // Size Styles (using Design Tokens)
 const sizeStyles = {
-  xs: 'px-3 py-1.5 text-xs',
-  sm: 'px-4 py-2 text-sm',
-  md: 'px-6 py-2.5 text-base',
-  lg: 'px-8 py-3 text-lg',
-  xl: 'px-10 py-4 text-xl',
+xs: 'px-3 py-1.5 text-xs',
+sm: 'px-4 py-2 text-sm',
+md: 'px-6 py-2.5 text-base',
+lg: 'px-8 py-3 text-lg',
+xl: 'px-10 py-4 text-xl',
 }
 
 // Icon Size Mapping
 const iconSizes = {
-  xs: 'w-3 h-3',
-  sm: 'w-4 h-4',
-  md: 'w-5 h-5',
-  lg: 'w-6 h-6',
-  xl: 'w-7 h-7',
+xs: 'w-3 h-3',
+sm: 'w-4 h-4',
+md: 'w-5 h-5',
+lg: 'w-6 h-6',
+xl: 'w-7 h-7',
 }
 
 const isDisabled = disabled || loading
 
 return (
-  <button
-    ref={ref}
-    type={type}
-    disabled={isDisabled}
-    onClick={onClick}
-    aria-label={ariaLabel}
-    aria-busy={loading}
-    className={cn(
-      // Base Styles
-      'inline-flex items-center justify-center',
-      'font-semibold',
-      'rounded-lg',
-      'transition-all duration-150',
-      'focus:outline-none',
-      'disabled:opacity-50 disabled:cursor-not-allowed',
-      
+<button
+ref={ref}
+type={type}
+disabled={isDisabled}
+onClick={onClick}
+aria-label={ariaLabel}
+aria-busy={loading}
+className={cn(
+// Base Styles
+'inline-flex items-center justify-center',
+'font-semibold',
+'rounded-lg',
+'transition-all duration-150',
+'focus:outline-none',
+'disabled:opacity-50 disabled:cursor-not-allowed',
+
       // Variant
       variantStyles[variant],
-      
+
       // Size
       sizeStyles[size],
-      
+
       // Full Width
       fullWidth && 'w-full',
-      
+
       // Custom className
       className
     )}
-  >
+
+>
+
     {/* Loading Spinner */}
     {loading && (
       <Spinner size={size} className="mr-2" />
     )}
-    
+
     {/* Icon (Left) */}
     {!loading && icon && iconPosition === 'left' && (
       <span className={cn(iconSizes[size], 'mr-2')}>
         {icon}
       </span>
     )}
-    
+
     {/* Children */}
     {children}
-    
+
     {/* Icon (Right) */}
     {!loading && icon && iconPosition === 'right' && (
       <span className={cn(iconSizes[size], 'ml-2')}>
         {icon}
       </span>
     )}
+
   </button>
 )
 }
@@ -881,9 +887,9 @@ expect(button.firstChild).toContain(icon)
 
 // Change position
 rerender(
-  <Button icon={<span data-testid="icon">→</span>} iconPosition="right">
-    With Icon
-  </Button>
+<Button icon={<span data-testid="icon">→</span>} iconPosition="right">
+With Icon
+</Button>
 )
 
 // Icon should be after text
@@ -1046,11 +1052,11 @@ REGEL 1: NIEMALS Components außerhalb der Library erstellen
 tsx
 // page.tsx
 function MyPage() {
-  return (
-    <button className="bg-blue-500 text-white px-4 py-2 rounded">
-      Click me
-    </button>
-  )
+return (
+<button className="bg-blue-500 text-white px-4 py-2 rounded">
+Click me
+</button>
+)
 }
 ✅ RICHTIG:
 
@@ -1059,11 +1065,11 @@ tsx
 import { Button } from '@/components/ui/foundation/Button'
 
 function MyPage() {
-  return (
-    <Button variant="primary">
-      Click me
-    </Button>
-  )
+return (
+<Button variant="primary">
+Click me
+</Button>
+)
 }
 REGEL 2: IMMER ZUERST Component Registry prüfen
 WORKFLOW:
@@ -1082,6 +1088,7 @@ REGEL 3: Keine Hardcoded Values
 ❌ VERBOTEN:
 
 tsx
+
 <div style={{ color: '#3B82F6' }}>
   Text
 </div>
@@ -1095,6 +1102,7 @@ import { designTokens } from '@/config/design-tokens'
 </div>
 
 // ODER mit Tailwind:
+
 <div className="text-primary">
   Text
 </div>
@@ -1103,13 +1111,13 @@ REGEL 4: Props statt Customization
 
 tsx
 <Button className="!bg-red-500">
-  Delete
+Delete
 </Button>
 ✅ RICHTIG:
 
 tsx
 <Button variant="danger">
-  Delete
+Delete
 </Button>
 Falls Variant fehlt → Component erweitern, nicht überschreiben!
 
@@ -1119,23 +1127,24 @@ Composition Pattern
 
 tsx
 <Card>
-  <Card.Header>
-    <Heading level={3}>Title</Heading>
-    <Badge>New</Badge>
-  </Card.Header>
-  
-  <Card.Body>
-    <Text>Content here</Text>
-  </Card.Body>
-  
-  <Card.Footer>
-    <Button>Action</Button>
-  </Card.Footer>
+<Card.Header>
+<Heading level={3}>Title</Heading>
+<Badge>New</Badge>
+</Card.Header>
+
+<Card.Body>
+<Text>Content here</Text>
+</Card.Body>
+
+<Card.Footer>
+<Button>Action</Button>
+</Card.Footer>
 </Card>
 Semantic HTML
 ✅ Nutze semantische Components:
 
 tsx
+
 <Header>
   <Nav>
     <NavLink href="/">Home</NavLink>
@@ -1223,29 +1232,29 @@ message: 'Hardcoded hex colors are not allowed. Use design tokens from @/config/
 text
 // Verhindere inline styles mit hardcoded values
 'react/forbid-dom-props': [
-  'error',
-  {
-    forbid: [
-      {
-        propName: 'style',
-        message: 'Inline styles with hardcoded values are discouraged. Use Tailwind classes or design tokens.',
-      },
-    ],
-  },
+'error',
+{
+forbid: [
+{
+propName: 'style',
+message: 'Inline styles with hardcoded values are discouraged. Use Tailwind classes or design tokens.',
+},
+],
+},
 ],
 
 // Erzwinge Button Import aus Library
 'no-restricted-imports': [
-  'error',
-  {
-    patterns: [
-      {
-        group: ['**/pages/**/*', '**/app/**/*'],
-        importNames: ['button'],
-        message: 'Import Button from @/components/ui/foundation/Button instead of creating custom buttons.',
-      },
-    ],
-  },
+'error',
+{
+patterns: [
+{
+group: ['**/pages/**/*', '**/app/**/*'],
+importNames: ['button'],
+message: 'Import Button from @/components/ui/foundation/Button instead of creating custom buttons.',
+},
+],
+},
 ],
 },
 }
@@ -1336,10 +1345,10 @@ text
 
 **Erstelle: `/scripts/validate-components.ts`**
 
-/**
+/\*\*
 
 Validates that no hardcoded UI elements exist outside of component library
-*/
+\*/
 import fs from 'fs'
 import path from 'path'
 import { glob } from 'glob'
@@ -1359,7 +1368,7 @@ const FORBIDDEN_PATTERNS = [
 ]
 
 async function validateFiles() {
-const files = await glob('src/{app,pages}//*.{ts,tsx}', {
+const files = await glob('src/{app,pages}//\*.{ts,tsx}', {
 ignore: ['/node_modules/', '/.next/**']
 })
 
@@ -1371,15 +1380,15 @@ const lines = content.split('\n')
 
 text
 lines.forEach((line, index) => {
-  FORBIDDEN_PATTERNS.forEach((pattern) => {
-    if (pattern.test(line)) {
-      violations.push({
-        file,
-        line: index + 1,
-        pattern: pattern.toString()
-      })
-    }
-  })
+FORBIDDEN_PATTERNS.forEach((pattern) => {
+if (pattern.test(line)) {
+violations.push({
+file,
+line: index + 1,
+pattern: pattern.toString()
+})
+}
+})
 })
 }
 
@@ -1391,7 +1400,7 @@ console.error( Pattern: ${pattern}\n)
 })
 
 text
-console.error('\n⚠️  Use components from @/components/ui instead of hardcoded UI elements!')
+console.error('\n⚠️ Use components from @/components/ui instead of hardcoded UI elements!')
 process.exit(1)
 }
 

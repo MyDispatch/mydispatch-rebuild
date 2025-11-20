@@ -30,29 +30,22 @@ export function LoadingFallback() {
       <div className="flex flex-col items-center gap-4 max-w-md text-center px-4">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
         <p className="text-sm text-muted-foreground">Lädt...</p>
-        
+
         {showReloadButton && (
           <div className="mt-4 p-4 border border-border rounded-lg space-y-3">
             <p className="text-sm text-foreground font-medium">
               Das Laden dauert ungewöhnlich lange
             </p>
-            <V28Button 
-              onClick={handleReload}
-              variant="secondary"
-              size="sm"
-              className="gap-2"
-            >
+            <V28Button onClick={handleReload} variant="secondary" size="sm" className="gap-2">
               <RefreshCw className="h-4 w-4" />
               Seite neu laden
             </V28Button>
           </div>
         )}
-        
+
         <noscript>
           <div className="mt-4 p-4 bg-destructive/10 rounded-lg text-center">
-            <p className="text-sm text-destructive font-medium">
-              JavaScript ist erforderlich
-            </p>
+            <p className="text-sm text-destructive font-medium">JavaScript ist erforderlich</p>
             <p className="text-xs text-muted-foreground mt-2">
               Bitte aktivieren Sie JavaScript in Ihrem Browser, um MyDispatch zu nutzen.
             </p>

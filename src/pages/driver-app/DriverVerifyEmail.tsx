@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/components/ui/input';
-import { ArrowLeft, Mail } from 'lucide-react';
-import officialLogo from '@/assets/mydispatch-logo-official.png';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { useToast } from '@/hooks/use-toast';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Input } from "@/components/ui/input";
+import { ArrowLeft, Mail } from "lucide-react";
+import officialLogo from "@/assets/mydispatch-logo-official.png";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { useToast } from "@/hooks/use-toast";
 
 export default function DriverVerifyEmail() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [code, setCode] = useState(['', '', '', '', '', '']);
+  const [code, setCode] = useState(["", "", "", "", "", ""]);
 
   const handleCodeChange = (index: number, value: string) => {
     if (value.length <= 1 && /^\d*$/.test(value)) {
@@ -28,7 +28,7 @@ export default function DriverVerifyEmail() {
   };
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
-    if (e.key === 'Backspace' && !code[index] && index > 0) {
+    if (e.key === "Backspace" && !code[index] && index > 0) {
       const prevInput = document.getElementById(`code-${index - 1}`);
       prevInput?.focus();
     }
@@ -36,13 +36,13 @@ export default function DriverVerifyEmail() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const verificationCode = code.join('');
-    
+    const verificationCode = code.join("");
+
     if (verificationCode.length !== 6) {
       toast({
-        title: 'Ungültiger Code',
-        description: 'Bitte geben Sie den vollständigen 6-stelligen Code ein',
-        variant: 'destructive'
+        title: "Ungültiger Code",
+        description: "Bitte geben Sie den vollständigen 6-stelligen Code ein",
+        variant: "destructive",
       });
       return;
     }
@@ -52,19 +52,19 @@ export default function DriverVerifyEmail() {
     try {
       // NOTE: Email-Verifikation via Supabase Auth geplant (V18.4+)
       // Aktueller Placeholder simuliert erfolgreiche Verifikation
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       toast({
-        title: 'E-Mail bestätigt',
-        description: 'Ihr Konto wurde erfolgreich verifiziert'
+        title: "E-Mail bestätigt",
+        description: "Ihr Konto wurde erfolgreich verifiziert",
       });
-      
-      navigate('/driver/onboarding');
+
+      navigate("/driver/onboarding");
     } catch (error) {
       toast({
-        title: 'Verifizierung fehlgeschlagen',
-        description: 'Der eingegebene Code ist ungültig',
-        variant: 'destructive'
+        title: "Verifizierung fehlgeschlagen",
+        description: "Der eingegebene Code ist ungültig",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -73,16 +73,16 @@ export default function DriverVerifyEmail() {
 
   const handleResend = async () => {
     try {
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       toast({
-        title: 'Code erneut gesendet',
-        description: 'Bitte überprüfen Sie Ihr Postfach'
+        title: "Code erneut gesendet",
+        description: "Bitte überprüfen Sie Ihr Postfach",
       });
     } catch (error) {
       toast({
-        title: 'Fehler',
-        description: 'Code konnte nicht erneut gesendet werden',
-        variant: 'destructive'
+        title: "Fehler",
+        description: "Code konnte nicht erneut gesendet werden",
+        variant: "destructive",
       });
     }
   };
@@ -99,16 +99,12 @@ export default function DriverVerifyEmail() {
           <V28Button
             variant="secondary"
             size="sm"
-            onClick={() => navigate('/driver/register')}
+            onClick={() => navigate("/driver/register")}
             className="rounded-full"
           >
             <ArrowLeft className="h-5 w-5 text-foreground" />
           </V28Button>
-          <img 
-            src={officialLogo} 
-            alt="MyDispatch Logo" 
-            className="h-10 w-auto object-contain"
-          />
+          <img src={officialLogo} alt="MyDispatch Logo" className="h-10 w-auto object-contain" />
           <div className="w-10" />
         </div>
 
@@ -124,9 +120,7 @@ export default function DriverVerifyEmail() {
 
             {/* Title */}
             <div className="text-center space-y-2">
-              <h1 className="text-3xl font-bold text-foreground">
-                E-Mail bestätigen
-              </h1>
+              <h1 className="text-3xl font-bold text-foreground">E-Mail bestätigen</h1>
               <p className="text-muted-foreground">
                 Wir haben Ihnen einen 6-stelligen Code an Ihre E-Mail-Adresse gesendet
               </p>
@@ -158,15 +152,13 @@ export default function DriverVerifyEmail() {
                 size="lg"
                 className="w-full"
               >
-                {isLoading ? 'Wird bestätigt...' : 'Bestätigen'}
+                {isLoading ? "Wird bestätigt..." : "Bestätigen"}
               </V28Button>
             </form>
 
             {/* Resend Link */}
             <div className="text-center pt-4">
-              <p className="text-muted-foreground text-sm mb-2">
-                Code nicht erhalten?
-              </p>
+              <p className="text-muted-foreground text-sm mb-2">Code nicht erhalten?</p>
               <button
                 onClick={handleResend}
                 className="text-primary hover:text-primary/80 font-semibold"

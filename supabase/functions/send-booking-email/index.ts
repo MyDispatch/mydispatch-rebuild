@@ -47,12 +47,14 @@ serve(async (req) => {
     // 1. Get Booking Details
     const { data: booking, error: bookingError } = await supabase
       .from("bookings")
-      .select(`
+      .select(
+        `
         *,
         customer:customers(*),
         driver:drivers(*),
         company:companies(*)
-      `)
+      `
+      )
       .eq("id", input.booking_id)
       .eq("company_id", input.company_id)
       .eq("archived", false)
@@ -60,34 +62,35 @@ serve(async (req) => {
 
     if (bookingError || !booking) {
       console.error("[SEND-BOOKING-EMAIL] Booking not found:", bookingError);
-      return new Response(
-        JSON.stringify({ error: "Booking not found" }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Booking not found" }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 2. Determine Recipient Email
-    const recipientEmail = input.recipient_email || 
+    const recipientEmail =
+      input.recipient_email ||
       (booking.customer && booking.customer.email) ||
       (booking.company && booking.company.email);
 
     if (!recipientEmail) {
-      return new Response(
-        JSON.stringify({ error: "Recipient email not found" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Recipient email not found" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 3. Get Resend API Key
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     const resendDomain = Deno.env.get("RESEND_DOMAIN") || "mydispatch.com";
-    
+
     if (!resendApiKey) {
       console.error("[SEND-BOOKING-EMAIL] Resend API Key not found");
-      return new Response(
-        JSON.stringify({ error: "Email service not configured" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Email service not configured" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 4. Generate Email Content
@@ -97,7 +100,7 @@ serve(async (req) => {
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${resendApiKey}`,
+        Authorization: `Bearer ${resendApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -118,16 +121,14 @@ serve(async (req) => {
     const resendData = await resendResponse.json();
 
     // 6. Log Email Sent
-    await supabase
-      .from("email_logs")
-      .insert({
-        company_id: input.company_id,
-        booking_id: input.booking_id,
-        recipient_email: recipientEmail,
-        email_type: input.email_type,
-        sent_at: new Date().toISOString(),
-        resend_id: resendData.id,
-      });
+    await supabase.from("email_logs").insert({
+      company_id: input.company_id,
+      booking_id: input.booking_id,
+      recipient_email: recipientEmail,
+      email_type: input.email_type,
+      sent_at: new Date().toISOString(),
+      resend_id: resendData.id,
+    });
 
     console.log("[SEND-BOOKING-EMAIL] Email sent successfully:", resendData.id);
 
@@ -142,19 +143,24 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error("[SEND-BOOKING-EMAIL] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
 
 // Generate Email Content
-function generateEmailContent(booking: any, emailType: string): { subject: string; html: string; text: string } {
+function generateEmailContent(
+  booking: any,
+  emailType: string
+): { subject: string; html: string; text: string } {
   const bookingNumber = booking.booking_number || booking.id.slice(0, 8);
   const pickupAddress = booking.pickup_address || "N/A";
   const dropoffAddress = booking.dropoff_address || "N/A";
-  const bookingDate = booking.pickup_time ? new Date(booking.pickup_time).toLocaleDateString("de-DE") : "N/A";
+  const bookingDate = booking.pickup_time
+    ? new Date(booking.pickup_time).toLocaleDateString("de-DE")
+    : "N/A";
 
   let subject = "";
   let html = "";

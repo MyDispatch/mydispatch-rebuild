@@ -14,6 +14,7 @@ Visuelle Aufwertung aller MyDispatch-Seiten auf Premium-Niveau durch Integration
 ### Was ändert sich?
 
 ✅ **Erlaubt (Visuelle Verbesserungen):**
+
 - Moderne Card-Designs mit Gradients
 - Dekorative Wellen-Elemente
 - Illustrierte Icons und Grafiken
@@ -22,6 +23,7 @@ Visuelle Aufwertung aller MyDispatch-Seiten auf Premium-Niveau durch Integration
 - Responsive Grids
 
 ❌ **Verboten (Design-Freeze):**
+
 - Header-Höhe (bleibt h-16 / 60px)
 - Sidebar-Breite (bleibt w-16/w-60)
 - Footer-Padding (bleibt py-2)
@@ -76,17 +78,20 @@ src/components/enhanced/
 #### Priority 1: Dashboard ⭐⭐⭐
 
 **Vorher:**
+
 - 4 statische KPI-Cards
 - Basic Tabellen
 - Wenig visuelles Feedback
 
 **Nachher:**
+
 - Gradient KPI-Cards mit Animationen
 - Live-Status-Indikatoren
 - Wellen-Dekoration
 - Illustrierte "Dringende Aktionen"
 
 **Template-Integration:**
+
 - Welcome-Screen-Illustration → Dashboard-Hero
 - Status-Cards → Fahrer/Fahrzeug-Übersicht
 - Gradient-Header → KPI-Section
@@ -94,24 +99,28 @@ src/components/enhanced/
 #### Priority 2: Aufträge (Bookings) ⭐⭐
 
 **Nachher:**
+
 - Card-Grid statt Tabelle (Mobile)
 - Status-Badges mit Icons
 - Zeit-Indikator mit Animation
 - Pickup/Destination mit MapPin-Icons
 
 **Template-Integration:**
+
 - Booking-Cards → Dashboard-Style
 - Status-System → Template-Badges
 
 #### Priority 3: Fahrer & Fahrzeuge ⭐⭐
 
 **Nachher:**
+
 - Live-Status mit Pulse-Animation
 - Dokument-Status-Ampel prominent
 - GPS-Indikator mit grünem Dot
 - Foto-Avatars mit Border
 
 **Template-Integration:**
+
 - Profile-Photo-Design → Fahrer-Cards
 - Document-Status → Ampel-System
 
@@ -370,7 +379,7 @@ animation: {
   trend="+12%"
   trendDirection="up"
   gradient="primary"
-  onClick={() => navigate('/auftraege')}
+  onClick={() => navigate("/auftraege")}
 />
 ```
 
@@ -382,9 +391,9 @@ animation: {
   count={availableDrivers.length}
   status="online"
   pulse={true}
-  onClick={() => navigate('/fahrer?status=available')}
+  onClick={() => navigate("/fahrer?status=available")}
 >
-  {availableDrivers.map(driver => (
+  {availableDrivers.map((driver) => (
     <DriverMiniCard key={driver.id} {...driver} />
   ))}
 </StatusCard>
@@ -394,9 +403,7 @@ animation: {
 
 ```tsx
 <div className="relative overflow-hidden">
-  <div className="content relative z-10">
-    {/* Your content */}
-  </div>
+  <div className="content relative z-10">{/* Your content */}</div>
   <WaveBackground color="primary" opacity={0.1} />
 </div>
 ```

@@ -44,7 +44,7 @@
 ### **2.2 Console-Statement Cleanup**
 
 - [ ] ⚠️ Console-statements DEV-guarded (72 → <10)
-- [ ] ⚠️ Production-only logger verwendet (no console.*)
+- [ ] ⚠️ Production-only logger verwendet (no console.\*)
 - [ ] ⚠️ Auto-fix script executed (docs/scripts/console-cleanup.sh)
 
 ### **2.3 Schema Duplication**
@@ -184,15 +184,15 @@
 
 ## 📊 SUCCESS METRICS (30 DAYS POST-LAUNCH)
 
-| Metric | Target | Measurement |
-|--------|--------|-------------|
-| Error Detection Time | <30s | Timestamp diff (error → log) |
-| User-Reported Errors | <2/month | Support ticket count |
-| Build Success Rate | >95% | CI/CD pipeline success % |
-| TypeScript Errors | 0 | `npx tsc --noEmit` output |
-| Lighthouse Score | >95 | PageSpeed Insights |
-| P95 Latency | <500ms | Performance monitoring |
-| AI Prediction Accuracy | >90% | `ai_learning_patterns` success rate |
+| Metric                 | Target   | Measurement                         |
+| ---------------------- | -------- | ----------------------------------- |
+| Error Detection Time   | <30s     | Timestamp diff (error → log)        |
+| User-Reported Errors   | <2/month | Support ticket count                |
+| Build Success Rate     | >95%     | CI/CD pipeline success %            |
+| TypeScript Errors      | 0        | `npx tsc --noEmit` output           |
+| Lighthouse Score       | >95      | PageSpeed Insights                  |
+| P95 Latency            | <500ms   | Performance monitoring              |
+| AI Prediction Accuracy | >90%     | `ai_learning_patterns` success rate |
 
 ---
 
@@ -207,6 +207,7 @@
 **Problem:** 72 Console-statements gefunden (console.log, console.warn, console.error)
 
 **Solution:**
+
 ```bash
 # Run auto-fix script
 npm run scripts/console-cleanup.sh
@@ -221,10 +222,11 @@ npm run scripts/console-cleanup.sh
 **Problem:** Inline bookingSchema in `src/pages/Auftraege.tsx` (Zeile 252-283)
 
 **Solution:**
+
 ```typescript
 // REMOVE: Zeile 252-283
 // ADD:
-import { bookingSchema } from '@/schemas/booking.schema';
+import { bookingSchema } from "@/schemas/booking.schema";
 ```
 
 ### **Issue #3: Validation Hooks Performance**
@@ -236,6 +238,7 @@ import { bookingSchema } from '@/schemas/booking.schema';
 **Problem:** Validation Hooks laufen in Production (Performance-Impact)
 
 **Solution:**
+
 ```typescript
 // Alle Validation Hooks DEV-guarded
 if (import.meta.env.DEV) {

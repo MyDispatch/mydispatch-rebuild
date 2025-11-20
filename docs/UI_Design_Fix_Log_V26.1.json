@@ -106,22 +106,14 @@
       "file": "src/components/layout/MainLayout.tsx",
       "violations": 12,
       "auto_fixable": 8,
-      "issues": [
-        "Inline paddingBottom (4x)",
-        "Custom transitions (4x)",
-        "Hardcoded widths (4x)"
-      ]
+      "issues": ["Inline paddingBottom (4x)", "Custom transitions (4x)", "Hardcoded widths (4x)"]
     },
     {
       "rank": 5,
       "file": "src/components/dashboard/TrafficWidget.tsx",
       "violations": 10,
       "auto_fixable": 8,
-      "issues": [
-        "CSS custom properties (4x)",
-        "Inline colors (3x)",
-        "Custom animations (3x)"
-      ]
+      "issues": ["CSS custom properties (4x)", "Inline colors (3x)", "Custom animations (3x)"]
     }
   ],
   "auto_fix_patterns": [

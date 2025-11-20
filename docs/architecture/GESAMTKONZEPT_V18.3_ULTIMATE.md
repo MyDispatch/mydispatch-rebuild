@@ -31,22 +31,23 @@ MyDispatch V18.3 erweitert die solide V18.2.31-Basis um intelligente Dashboard-F
 ## 🏗️ SYSTEM-ARCHITEKTUR V18.3
 
 ### Tech-Stack (unverändert)
+
 ```yaml
 Frontend:
   - React 18.3.1 + TypeScript
   - Vite Build-System
   - TailwindCSS + shadcn/ui
   - React Query (TanStack)
-  
+
 Backend:
   - Supabase (PostgreSQL)
   - Edge Functions (Deno)
   - Lovable Cloud
-  
+
 Maps & Location:
   - HERE Maps API v3.1
   - GPS-Tracking (24h Auto-Delete)
-  
+
 Integrations:
   - n8n Workflows (25+)
   - Resend (Email)
@@ -74,6 +75,7 @@ src/components/dashboard/
 **Komponente:** `DashboardKPICards.tsx`
 
 **Features:**
+
 - ✅ Echtzeit-Daten aus `dashboard_stats` Materialized View
 - ✅ 4 KPI-Cards: Aufträge, Umsatz, Fahrer, Fahrzeuge
 - ✅ Drill-Down-Navigation (Click → Detail-Seite)
@@ -82,6 +84,7 @@ src/components/dashboard/
 - ✅ Responsive Grid (1/2/4 Spalten)
 
 **Datenquelle:**
+
 ```typescript
 interface DashboardStats {
   company_id: string;
@@ -101,10 +104,11 @@ interface DashboardStats {
 ```
 
 **Verwendung:**
-```tsx
-import { DashboardKPICards } from '@/components/dashboard/DashboardKPICards';
 
-<DashboardKPICards />
+```tsx
+import { DashboardKPICards } from "@/components/dashboard/DashboardKPICards";
+
+<DashboardKPICards />;
 // Zeigt 4 Cards mit Live-Daten
 // Click auf Card → Navigation zu Detail-Seite
 ```
@@ -112,15 +116,18 @@ import { DashboardKPICards } from '@/components/dashboard/DashboardKPICards';
 ### 1.2 Smart Widgets (✅ Implementiert)
 
 #### A) UrgentActionsWidget
+
 **Zweck:** Dringende Aufgaben prominent anzeigen
 
 **Features:**
+
 - Ablaufende Dokumente (Führerscheine, TÜV)
 - Überfällige Rechnungen
 - Nicht zugewiesene Aufträge
 - Click-to-Action (Direct Navigation)
 
 **Implementierung:**
+
 ```tsx
 <UrgentActionsWidget
   expiringDocuments={3}
@@ -131,15 +138,18 @@ import { DashboardKPICards } from '@/components/dashboard/DashboardKPICards';
 ```
 
 #### B) ResourceStatusWidget
+
 **Zweck:** Live-Status von Fahrern & Fahrzeugen
 
 **Features:**
+
 - Fahrer-Status (Verfügbar, Busy, Offline)
 - Mini-Karten mit Avatar & Stats
 - Fahrzeug-Verfügbarkeit
 - Echtzeit-Updates (planned: GPS-Integration)
 
 **Implementierung:**
+
 ```tsx
 <ResourceStatusWidget
   availableDrivers={[...]} // Top 3
@@ -151,27 +161,30 @@ import { DashboardKPICards } from '@/components/dashboard/DashboardKPICards';
 ```
 
 #### C) RevenueBreakdownWidget (Business+)
+
 **Zweck:** Detaillierte Umsatz-Aufschlüsselung
 
 **Features:**
+
 - Zahlungsmethoden-Breakdown (Bar, Rechnung, Karte)
 - Prozentuale Verteilung
 - Vergleich (Gestern, Letzte Woche, Letzter Monat)
 - Tarif-gesperrt für Starter
 
 **Implementierung:**
+
 ```tsx
 <RevenueBreakdownWidget
   total={2800}
   breakdown={[
-    { label: 'Bar', value: 980, percentage: 35 },
-    { label: 'Rechnung', value: 1624, percentage: 58 },
-    { label: 'Karte', value: 196, percentage: 7 }
+    { label: "Bar", value: 980, percentage: 35 },
+    { label: "Rechnung", value: 1624, percentage: 58 },
+    { label: "Karte", value: 196, percentage: 7 },
   ]}
   comparison={{
     yesterday: 2520,
     lastWeek: 18200,
-    lastMonth: 72000
+    lastMonth: 72000,
   }}
 />
 ```
@@ -181,6 +194,7 @@ import { DashboardKPICards } from '@/components/dashboard/DashboardKPICards';
 **Komponente:** `ActivityTimeline.tsx`
 
 **Neue Features:**
+
 - Status-Badges (Success, Warning, Error, Info)
 - Meta-Informationen (Preis, Fahrer, etc.)
 - Action-Buttons (Details, GPS, Erinnerung senden)
@@ -188,26 +202,27 @@ import { DashboardKPICards } from '@/components/dashboard/DashboardKPICards';
 - "Alle anzeigen" Button
 
 **Verwendung:**
+
 ```tsx
 <ActivityTimeline
   activities={[
     {
-      id: '1',
-      time: 'vor 10 Min',
-      type: 'booking',
+      id: "1",
+      time: "vor 10 Min",
+      type: "booking",
       icon: FileText,
-      title: 'Neuer Auftrag',
-      description: 'BK-1234 | Max → München Flughafen',
-      status: 'info',
+      title: "Neuer Auftrag",
+      description: "BK-1234 | Max → München Flughafen",
+      status: "info",
       meta: [
-        { label: 'Preis', value: '150,00 €' },
-        { label: 'Fahrer', value: 'Peter Schmidt' }
+        { label: "Preis", value: "150,00 €" },
+        { label: "Fahrer", value: "Peter Schmidt" },
       ],
       actions: [
-        { label: 'Details', onClick: () => {} },
-        { label: 'GPS', onClick: () => {} }
-      ]
-    }
+        { label: "Details", onClick: () => {} },
+        { label: "GPS", onClick: () => {} },
+      ],
+    },
   ]}
   maxItems={5}
 />
@@ -222,6 +237,7 @@ import { DashboardKPICards } from '@/components/dashboard/DashboardKPICards';
 **Komponente:** `HEREMapComponent.tsx`
 
 **Aktueller Stand:**
+
 - ✅ HERE Maps API v3.1 integriert
 - ✅ Karten-Anzeige funktional
 - ✅ Error Handling & Loading States
@@ -231,29 +247,30 @@ import { DashboardKPICards } from '@/components/dashboard/DashboardKPICards';
 **Geplante Erweiterungen (Phase 2):**
 
 #### A) Fahrzeug-Marker (GPS-Positionen)
+
 ```typescript
 // GPS-Positionen aus DB laden
 const { data: positions } = useQuery({
-  queryKey: ['gps-positions', companyId],
+  queryKey: ["gps-positions", companyId],
   queryFn: async () => {
     const { data } = await supabase
-      .from('gps_positions')
-      .select('*, vehicles(license_plate), drivers(first_name, last_name)')
-      .eq('company_id', companyId)
-      .gte('timestamp', new Date(Date.now() - 5 * 60 * 1000)) // Letzte 5 Min
-      .order('timestamp', { ascending: false });
+      .from("gps_positions")
+      .select("*, vehicles(license_plate), drivers(first_name, last_name)")
+      .eq("company_id", companyId)
+      .gte("timestamp", new Date(Date.now() - 5 * 60 * 1000)) // Letzte 5 Min
+      .order("timestamp", { ascending: false });
     return data;
   },
-  refetchInterval: 30000 // Alle 30 Sek
+  refetchInterval: 30000, // Alle 30 Sek
 });
 
 // Marker auf Karte rendern
-positions?.forEach(pos => {
+positions?.forEach((pos) => {
   const marker = new H.map.Marker(
     { lat: pos.latitude, lng: pos.longitude },
-    { 
+    {
       icon: createVehicleIcon(pos.shift_status),
-      data: { vehicleId: pos.vehicle_id }
+      data: { vehicleId: pos.vehicle_id },
     }
   );
   map.addObject(marker);
@@ -261,12 +278,16 @@ positions?.forEach(pos => {
 ```
 
 #### B) Status-Icons für Marker
+
 ```typescript
 const createVehicleIcon = (status: ShiftStatus) => {
-  const color = status === 'available' ? '#22c55e' : // success
-                status === 'busy' ? '#eab308' :      // warning
-                '#6b7280';                            // neutral/offline
-  
+  const color =
+    status === "available"
+      ? "#22c55e" // success
+      : status === "busy"
+        ? "#eab308" // warning
+        : "#6b7280"; // neutral/offline
+
   return new H.map.Icon(`
     <svg width="32" height="32">
       <circle cx="16" cy="16" r="14" fill="${color}" />
@@ -277,8 +298,9 @@ const createVehicleIcon = (status: ShiftStatus) => {
 ```
 
 #### C) Click-to-Details
+
 ```typescript
-map.addEventListener('tap', (evt) => {
+map.addEventListener("tap", (evt) => {
   if (evt.target instanceof H.map.Marker) {
     const vehicleId = evt.target.getData().vehicleId;
     navigate(`/fahrer?tab=vehicles&id=${vehicleId}`);
@@ -287,23 +309,22 @@ map.addEventListener('tap', (evt) => {
 ```
 
 #### D) Auftrags-Routen
+
 ```typescript
 // Route zwischen Pickup & Dropoff visualisieren
 const router = platform.getRoutingService();
 router.calculateRoute(
   {
-    routingMode: 'fast',
-    transportMode: 'car',
+    routingMode: "fast",
+    transportMode: "car",
     origin: `${pickup.lat},${pickup.lng}`,
     destination: `${dropoff.lat},${dropoff.lng}`,
-    return: 'polyline'
+    return: "polyline",
   },
   (result) => {
-    const linestring = H.geo.LineString.fromFlexiblePolyline(
-      result.routes[0].sections[0].polyline
-    );
+    const linestring = H.geo.LineString.fromFlexiblePolyline(result.routes[0].sections[0].polyline);
     const routeLine = new H.map.Polyline(linestring, {
-      style: { strokeColor: 'hsl(var(--primary))', lineWidth: 4 }
+      style: { strokeColor: "hsl(var(--primary))", lineWidth: 4 },
     });
     map.addObject(routeLine);
   }
@@ -311,27 +332,30 @@ router.calculateRoute(
 ```
 
 #### E) Traffic-Layer
+
 ```typescript
 // Verkehrsdaten einblenden
-const trafficLayer = platform.getMapTileService({
-  type: 'traffic'
-}).createTileLayer('traffic', 'traffictile', 256, 'png8');
+const trafficLayer = platform
+  .getMapTileService({
+    type: "traffic",
+  })
+  .createTileLayer("traffic", "traffictile", 256, "png8");
 
 map.addLayer(trafficLayer);
 ```
 
 ### 2.2 Geplante Karten-Features
 
-| Feature | Priorität | Tarif | Status |
-|---------|-----------|-------|--------|
-| Fahrzeug-Marker (GPS) | 🔴 P0 | Alle | 📋 Geplant |
-| Status-Icons | 🔴 P0 | Alle | 📋 Geplant |
-| Click-to-Details | 🔴 P0 | Alle | 📋 Geplant |
-| Auftrags-Routen | 🟡 P1 | Business+ | 📋 Geplant |
-| Traffic-Layer | 🟡 P1 | Business+ | 📋 Geplant |
-| Geofencing-Zonen | 🟢 P2 | Enterprise | 📋 Geplant |
-| Historische Routen | 🟢 P2 | Enterprise | 📋 Geplant |
-| Heatmap (Auslastung) | 🟢 P2 | Business+ | 📋 Geplant |
+| Feature               | Priorität | Tarif      | Status     |
+| --------------------- | --------- | ---------- | ---------- |
+| Fahrzeug-Marker (GPS) | 🔴 P0     | Alle       | 📋 Geplant |
+| Status-Icons          | 🔴 P0     | Alle       | 📋 Geplant |
+| Click-to-Details      | 🔴 P0     | Alle       | 📋 Geplant |
+| Auftrags-Routen       | 🟡 P1     | Business+  | 📋 Geplant |
+| Traffic-Layer         | 🟡 P1     | Business+  | 📋 Geplant |
+| Geofencing-Zonen      | 🟢 P2     | Enterprise | 📋 Geplant |
+| Historische Routen    | 🟢 P2     | Enterprise | 📋 Geplant |
+| Heatmap (Auslastung)  | 🟢 P2     | Business+  | 📋 Geplant |
 
 ---
 
@@ -342,42 +366,43 @@ map.addLayer(trafficLayer);
 **Ziel:** Reduktion von 18-20 auf 14 Menüpunkte (-22%)
 
 **Neue Struktur:**
+
 ```typescript
 const menuStructure = [
   {
-    label: '🏠 HAUPTBEREICH',
+    label: "🏠 HAUPTBEREICH",
     items: [
-      { title: 'Dashboard', url: '/dashboard' },
-      { title: 'Aufträge & Angebote', url: '/auftraege' } // ⭐ MERGED
-    ]
+      { title: "Dashboard", url: "/dashboard" },
+      { title: "Aufträge & Angebote", url: "/auftraege" }, // ⭐ MERGED
+    ],
   },
   {
-    label: '📊 VERWALTUNG',
+    label: "📊 VERWALTUNG",
     items: [
-      { title: 'Kunden', url: '/kunden' },
-      { title: 'Fahrer & Fahrzeuge', url: '/fahrer' }, // ⭐ GROUPED
-      { title: 'Schichten & Zeiten', url: '/schichtzettel' },
-      { title: 'Rechnungen & Zahlungen', url: '/rechnungen' }, // ⭐ MERGED
-      { title: 'Kostenstellen', url: '/kostenstellen' },
-      { title: 'Dokumente & Ablauf', url: '/dokumente' }
-    ]
+      { title: "Kunden", url: "/kunden" },
+      { title: "Fahrer & Fahrzeuge", url: "/fahrer" }, // ⭐ GROUPED
+      { title: "Schichten & Zeiten", url: "/schichtzettel" },
+      { title: "Rechnungen & Zahlungen", url: "/rechnungen" }, // ⭐ MERGED
+      { title: "Kostenstellen", url: "/kostenstellen" },
+      { title: "Dokumente & Ablauf", url: "/dokumente" },
+    ],
   },
   {
-    label: '💼 GESCHÄFT',
+    label: "💼 GESCHÄFT",
     items: [
-      { title: 'Partner-Netzwerk', url: '/partner', badge: 'Business+' },
-      { title: 'Statistiken & Reports', url: '/statistiken', badge: 'Business+' },
-      { title: 'Landingpage-Editor', url: '/landingpage', badge: 'Business+' }
-    ]
+      { title: "Partner-Netzwerk", url: "/partner", badge: "Business+" },
+      { title: "Statistiken & Reports", url: "/statistiken", badge: "Business+" },
+      { title: "Landingpage-Editor", url: "/landingpage", badge: "Business+" },
+    ],
   },
   {
-    label: '🛠️ SYSTEM',
+    label: "🛠️ SYSTEM",
     items: [
-      { title: 'Team-Chat', url: '/kommunikation' },
-      { title: 'E-Mail & Vorlagen', url: '/office' },
-      { title: 'Einstellungen', url: '/einstellungen' }
-    ]
-  }
+      { title: "Team-Chat", url: "/kommunikation" },
+      { title: "E-Mail & Vorlagen", url: "/office" },
+      { title: "Einstellungen", url: "/einstellungen" },
+    ],
+  },
 ];
 ```
 
@@ -386,6 +411,7 @@ const menuStructure = [
 **Neue Komponente:** `BulkActionBar.tsx`
 
 **Features:**
+
 - Multi-Select in allen Tabellen
 - Bulk Status-Change
 - Bulk PDF-Export
@@ -393,15 +419,16 @@ const menuStructure = [
 - Bulk Archivierung
 
 **Verwendung:**
+
 ```tsx
 <BulkActionBar
   selectedCount={selectedIds.length}
   onClearSelection={() => setSelectedIds([])}
   actions={[
-    { label: 'Status ändern', icon: RefreshCw, onClick: handleBulkStatus },
-    { label: 'PDF exportieren', icon: FileDown, onClick: handleBulkPDF },
-    { label: 'E-Mail versenden', icon: Mail, onClick: handleBulkEmail },
-    { label: 'Archivieren', icon: Archive, onClick: handleBulkArchive }
+    { label: "Status ändern", icon: RefreshCw, onClick: handleBulkStatus },
+    { label: "PDF exportieren", icon: FileDown, onClick: handleBulkPDF },
+    { label: "E-Mail versenden", icon: Mail, onClick: handleBulkEmail },
+    { label: "Archivieren", icon: Archive, onClick: handleBulkArchive },
   ]}
 />
 ```
@@ -411,12 +438,14 @@ const menuStructure = [
 **Neue Komponente:** `GlobalSearchDialog.tsx`
 
 **Features:**
+
 - Keyboard Shortcut (Cmd/Ctrl + K)
 - Fuzzy Search über alle Entities
 - Recent Searches
 - Direct Navigation
 
 **Verwendung:**
+
 ```tsx
 // Keyboard Shortcut
 useEffect(() => {
@@ -453,6 +482,7 @@ useEffect(() => {
 **Edge Function:** `ai-smart-assignment`
 
 **Input:**
+
 ```typescript
 {
   booking_id: 'uuid',
@@ -464,31 +494,33 @@ useEffect(() => {
 ```
 
 **AI-Scoring (0-100):**
+
 ```typescript
-const score = 
-  (proximity * 0.3) +      // 30% Nähe zum Abholort
-  (availability * 0.25) +  // 25% Verfügbarkeit
-  (vehicle_match * 0.20) + // 20% Fahrzeug-Match
-  (workload * 0.15) +      // 15% Auslastung
-  (rating * 0.05) +        // 5% Rating
-  (experience * 0.05);     // 5% Erfahrung
+const score =
+  proximity * 0.3 + // 30% Nähe zum Abholort
+  availability * 0.25 + // 25% Verfügbarkeit
+  vehicle_match * 0.2 + // 20% Fahrzeug-Match
+  workload * 0.15 + // 15% Auslastung
+  rating * 0.05 + // 5% Rating
+  experience * 0.05; // 5% Erfahrung
 ```
 
 **Output:**
+
 ```typescript
 {
   recommendations: [
     {
-      driver_id: 'uuid',
-      driver_name: 'Peter Schmidt',
-      vehicle_id: 'uuid',
-      vehicle_plate: 'M-PS 123',
+      driver_id: "uuid",
+      driver_name: "Peter Schmidt",
+      vehicle_id: "uuid",
+      vehicle_plate: "M-PS 123",
       score: 92,
       eta_minutes: 8,
-      confidence: 'high',
-      reason: 'Optimal: Nur 2 km entfernt, verfügbar, passendes Fahrzeug'
-    }
-  ]
+      confidence: "high",
+      reason: "Optimal: Nur 2 km entfernt, verfügbar, passendes Fahrzeug",
+    },
+  ];
 }
 ```
 
@@ -497,25 +529,27 @@ const score =
 **Edge Function:** `ai-demand-prediction`
 
 **Features:**
+
 - Nachfrage-Prognose (Wochentag, Tageszeit, Wetter)
 - Umsatz-Forecasting
 - Wartungs-Vorhersagen
 - Churn-Predictions (Master)
 
 **Verwendung:**
+
 ```tsx
 <PredictionChart
   predictions={[
-    { time: '14:00', expected_bookings: 8, confidence: 85 },
-    { time: '15:00', expected_bookings: 12, confidence: 78 },
-    { time: '16:00', expected_bookings: 15, confidence: 92 } // Peak!
+    { time: "14:00", expected_bookings: 8, confidence: 85 },
+    { time: "15:00", expected_bookings: 12, confidence: 78 },
+    { time: "16:00", expected_bookings: 15, confidence: 92 }, // Peak!
   ]}
   recommendations={[
     {
-      type: 'info',
-      message: '16:00 Uhr: Hohe Nachfrage erwartet (15 Aufträge)',
-      action: 'Zusätzliche Fahrer einplanen'
-    }
+      type: "info",
+      message: "16:00 Uhr: Hohe Nachfrage erwartet (15 Aufträge)",
+      action: "Zusätzliche Fahrer einplanen",
+    },
   ]}
 />
 ```
@@ -525,22 +559,24 @@ const score =
 **Edge Function:** `ai-document-ocr`
 
 **Features:**
+
 - Auto-Extract Führerschein-Daten
 - Auto-Extract TÜV-Daten
 - Confidence-Scoring
 - Auto-Fill Formulare
 
 **Verwendung:**
+
 ```tsx
 <DocumentUploadForm
   onUpload={async (file) => {
     const extracted = await extractDocumentData(file);
     if (extracted.confidence > 0.9) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        ...extracted.extracted_data
+        ...extracted.extracted_data,
       }));
-      toast.success('Daten automatisch erkannt und ausgefüllt');
+      toast.success("Daten automatisch erkannt und ausgefüllt");
     }
   }}
 />
@@ -551,6 +587,7 @@ const score =
 ## 📋 IMPLEMENTIERUNGSPLAN
 
 ### ✅ Phase 1: Dashboard Foundation (FERTIG)
+
 **Zeitaufwand:** 12 Stunden  
 **Status:** ✅ ABGESCHLOSSEN
 
@@ -564,6 +601,7 @@ const score =
 - [x] Dokumentation erstellt
 
 ### 📋 Phase 2: UX Enhancement (GEPLANT)
+
 **Zeitaufwand:** 22 Stunden  
 **Priorität:** 🟡 WICHTIG
 
@@ -573,6 +611,7 @@ const score =
 - [ ] Grouped Pages (4h)
 
 ### 📋 Phase 3: Live-Karte & Tracking (GEPLANT)
+
 **Zeitaufwand:** 16 Stunden  
 **Priorität:** 🔴 KRITISCH
 
@@ -582,6 +621,7 @@ const score =
 - [ ] Traffic-Layer Integration (2h)
 
 ### 📋 Phase 4: AI-Features (GEPLANT)
+
 **Zeitaufwand:** 38 Stunden  
 **Priorität:** 🟢 ENHANCEMENT
 
@@ -595,24 +635,26 @@ const score =
 
 ### Messbare Verbesserungen
 
-| Metrik | V18.2.31 | V18.3 Ziel | Status |
-|--------|----------|------------|--------|
-| Navigation-Items | 18-20 | 14 (-22%) | 📋 Geplant |
-| Dashboard-Widgets | 4 statisch | 8+ live | ✅ Erreicht |
-| Click-to-Action | 3-5 Klicks | 1-2 Klicks | ✅ Erreicht |
-| KPI-Refresh | Manual | Auto (1min) | ✅ Erreicht |
-| Bulk-Operations | ❌ Keine | ✅ 5 Aktionen | 📋 Geplant |
-| AI-Features | 1 (Support) | 5+ | 📋 Geplant |
+| Metrik            | V18.2.31    | V18.3 Ziel    | Status      |
+| ----------------- | ----------- | ------------- | ----------- |
+| Navigation-Items  | 18-20       | 14 (-22%)     | 📋 Geplant  |
+| Dashboard-Widgets | 4 statisch  | 8+ live       | ✅ Erreicht |
+| Click-to-Action   | 3-5 Klicks  | 1-2 Klicks    | ✅ Erreicht |
+| KPI-Refresh       | Manual      | Auto (1min)   | ✅ Erreicht |
+| Bulk-Operations   | ❌ Keine    | ✅ 5 Aktionen | 📋 Geplant  |
+| AI-Features       | 1 (Support) | 5+            | 📋 Geplant  |
 
 ### User-Experience-Ziele
 
 **✅ Erreicht:**
+
 - Informativere Dashboards mit Echtzeit-Daten
 - Actionable Widgets statt statische KPIs
 - Prominente Anzeige dringender Aufgaben
 - Responsive Design systemweit
 
 **📋 Geplant:**
+
 - Schnellere Navigation durch Konsolidierung
 - Effizienz-Steigerung durch Bulk-Aktionen
 - Global Search für schnellen Zugriff
@@ -684,18 +726,21 @@ Legacy-Dokumentation:
 ## 🚀 NEXT STEPS
 
 ### Sofort (Diese Woche)
+
 1. ✅ Dashboard-KPI-Cards implementiert
 2. ✅ Smart Widgets erweitert
 3. ✅ Layout-Spacing systemweit angepasst
 4. 📋 GPS-Marker auf Karte (Phase 3)
 
 ### Nächste Woche
+
 1. Sidebar-Konsolidierung
 2. Bulk-Aktionen
 3. Global Search
 4. Auftrags-Routen auf Karte
 
 ### Nächste 4 Wochen
+
 1. Smart Assignment (AI)
 2. Predictive Analytics (AI)
 3. Document OCR (Enterprise)
@@ -715,5 +760,6 @@ Hauptsitz: Niederlande
 ---
 
 **Version History:**
+
 - V18.3.0 (18.10.2025) - Initial Release (Phase 1 Complete)
 - V18.2.31 (15.10.2025) - Production Ready Base

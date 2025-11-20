@@ -8,9 +8,9 @@
    ERSETZT: Card-Component für neue Features
    ================================================================================== */
 
-import React from 'react';
-import { CARD_STYLES, SPACING } from '@/lib/design-system';
-import { cn } from '@/lib/utils';
+import React from "react";
+import { CARD_STYLES, SPACING } from "@/lib/design-system";
+import { cn } from "@/lib/utils";
 
 // ==================================================================================
 // TYPES
@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils';
 
 interface EnhancedCardProps {
   children: React.ReactNode;
-  variant?: 'default' | 'hover' | 'interactive';
+  variant?: "default" | "hover" | "interactive";
   compact?: boolean;
   className?: string;
   onClick?: () => void;
@@ -57,27 +57,22 @@ interface CardFooterProps {
 
 export function EnhancedCard({
   children,
-  variant = 'default',
+  variant = "default",
   compact = false,
   className,
   onClick,
 }: EnhancedCardProps) {
   const variantClass = {
-    default: '',
+    default: "",
     hover: CARD_STYLES.hover,
     interactive: CARD_STYLES.interactive,
   }[variant];
-  
+
   return (
     <div
-      className={cn(
-        CARD_STYLES.base,
-        variantClass,
-        onClick && 'cursor-pointer',
-        className
-      )}
+      className={cn(CARD_STYLES.base, variantClass, onClick && "cursor-pointer", className)}
       onClick={onClick}
-      role={onClick ? 'button' : undefined}
+      role={onClick ? "button" : undefined}
       tabIndex={onClick ? 0 : undefined}
     >
       {children}
@@ -91,10 +86,7 @@ export function EnhancedCard({
 
 export function EnhancedCardHeader({ children, compact = false, className }: CardHeaderProps) {
   return (
-    <div className={cn(
-      compact ? CARD_STYLES.headerCompact : CARD_STYLES.header,
-      className
-    )}>
+    <div className={cn(compact ? CARD_STYLES.headerCompact : CARD_STYLES.header, className)}>
       {children}
     </div>
   );
@@ -102,46 +94,31 @@ export function EnhancedCardHeader({ children, compact = false, className }: Car
 
 export function EnhancedCardTitle({ children, className }: CardTitleProps) {
   return (
-    <h3 className={cn(
-      'text-2xl font-semibold leading-none tracking-tight text-foreground',
-      className
-    )}>
+    <h3
+      className={cn(
+        "text-2xl font-semibold leading-none tracking-tight text-foreground",
+        className
+      )}
+    >
       {children}
     </h3>
   );
 }
 
 export function EnhancedCardDescription({ children, className }: CardDescriptionProps) {
-  return (
-    <p className={cn(
-      'text-sm text-muted-foreground',
-      className
-    )}>
-      {children}
-    </p>
-  );
+  return <p className={cn("text-sm text-muted-foreground", className)}>{children}</p>;
 }
 
 export function EnhancedCardContent({ children, compact = false, className }: CardContentProps) {
   return (
-    <div className={cn(
-      compact ? CARD_STYLES.contentCompact : CARD_STYLES.content,
-      className
-    )}>
+    <div className={cn(compact ? CARD_STYLES.contentCompact : CARD_STYLES.content, className)}>
       {children}
     </div>
   );
 }
 
 export function EnhancedCardFooter({ children, className }: CardFooterProps) {
-  return (
-    <div className={cn(
-      CARD_STYLES.footer,
-      className
-    )}>
-      {children}
-    </div>
-  );
+  return <div className={cn(CARD_STYLES.footer, className)}>{children}</div>;
 }
 
 // ==================================================================================

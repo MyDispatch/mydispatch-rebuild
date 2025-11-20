@@ -21,10 +21,10 @@
    ✅ V28CookieConsent Integration (Global)
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { AuthHeader } from '@/components/auth/AuthHeader';
-import { AuthFooter } from '@/components/auth/AuthFooter';
-import { V28ChatWidget } from '@/components/chat/V28ChatWidget';
+import { ReactNode } from "react";
+import { AuthHeader } from "@/components/auth/AuthHeader";
+import { AuthFooter } from "@/components/auth/AuthFooter";
+import { V28ChatWidget } from "@/components/chat/V28ChatWidget";
 
 interface AuthPageLayoutProps {
   children: ReactNode;
@@ -32,31 +32,25 @@ interface AuthPageLayoutProps {
   logoUrl?: string;
 }
 
-export function AuthPageLayout({ 
-  children, 
-  companyName = 'MyDispatch',
-  logoUrl 
+export function AuthPageLayout({
+  children,
+  companyName = "MyDispatch",
+  logoUrl,
 }: AuthPageLayoutProps) {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       {/* Header - Fixed Top (z-30) */}
-      <AuthHeader 
-        companyName={companyName}
-        logoUrl={logoUrl}
-      />
-      
+      <AuthHeader companyName={companyName} logoUrl={logoUrl} />
+
       {/* Main Content - Scrollable mit pb für Footer (h-16 mobile, h-12 desktop) */}
-      <main className="flex-1 pt-20 sm:pt-16 pb-20 sm:pb-16">
-        {children}
-      </main>
-      
+      <main className="flex-1 pt-20 sm:pt-16 pb-20 sm:pb-16">{children}</main>
+
       {/* Footer - Fixed Bottom (z-20) */}
       <AuthFooter />
-      
+
       {/* Cookie Consent - Global (z-60 - highest priority) */}
-      <div className="z-[60] relative">
-      </div>
-      
+      <div className="z-[60] relative"></div>
+
       {/* Chat Widget - Global (z-50 button, z-[70] dialog) */}
       <div className="[&>button]:z-50 [&>div[role='dialog']]:z-[70]">
         <V28ChatWidget />

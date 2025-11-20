@@ -4,4 +4,4 @@
    Zentrale Exports für alle Page-Configs
    ================================================================================== */
 
-export * from './pre-login-pages';
+export * from "./pre-login-pages";

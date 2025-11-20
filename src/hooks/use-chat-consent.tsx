@@ -2,16 +2,16 @@
    USE CHAT CONSENT HOOK - DSGVO-konformes Einwilligungsmanagement
    ================================================================================== */
 
-import { useState, useEffect } from 'react';
-import { useAuth } from './use-auth';
-import { supabase } from '@/integrations/supabase/client';
-import { handleError, handleSuccess } from '@/lib/error-handler';
+import { useState, useEffect } from "react";
+import { useAuth } from "./use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { handleError, handleSuccess } from "@/lib/error-handler";
 
 interface ChatConsent {
   id: string;
   user_id: string;
   company_id: string;
-  entity_type: 'entrepreneur' | 'driver' | 'customer';
+  entity_type: "entrepreneur" | "driver" | "customer";
   consent_given: boolean;
   consent_given_at: string | null;
   consent_method: string | null;
@@ -39,15 +39,15 @@ export function useChatConsent() {
 
     try {
       const { data, error } = await supabase
-        .from('chat_consent')
-        .select('*')
-        .eq('user_id', user.id)
+        .from("chat_consent")
+        .select("*")
+        .eq("user_id", user.id)
         .maybeSingle();
 
       if (error) throw error;
       setConsent(data as ChatConsent | null);
     } catch (error) {
-      handleError(error, 'Einwilligungsstatus konnte nicht geladen werden', { showToast: false });
+      handleError(error, "Einwilligungsstatus konnte nicht geladen werden", { showToast: false });
     } finally {
       setLoading(false);
     }
@@ -59,28 +59,31 @@ export function useChatConsent() {
     setUpdating(true);
     try {
       const { data, error } = await supabase
-        .from('chat_consent')
-        .upsert({
-          user_id: user.id,
-          company_id: profile.company_id,
-          entity_type: 'entrepreneur', // Default, kann später angepasst werden
-          consent_given: true,
-          consent_given_at: new Date().toISOString(),
-          consent_method: 'manual',
-          opt_out: false,
-        }, {
-          onConflict: 'user_id'
-        })
+        .from("chat_consent")
+        .upsert(
+          {
+            user_id: user.id,
+            company_id: profile.company_id,
+            entity_type: "entrepreneur", // Default, kann später angepasst werden
+            consent_given: true,
+            consent_given_at: new Date().toISOString(),
+            consent_method: "manual",
+            opt_out: false,
+          },
+          {
+            onConflict: "user_id",
+          }
+        )
         .select()
         .single();
 
       if (error) throw error;
       setConsent(data as ChatConsent);
-      
+
       // KEIN Reload mehr nötig - Trigger fügt User automatisch zu Company-Chat hinzu
-      handleSuccess('Team-Chat wurde aktiviert. Sie können nun chatten!');
+      handleSuccess("Team-Chat wurde aktiviert. Sie können nun chatten!");
     } catch (error) {
-      handleError(error, 'Einwilligung konnte nicht gespeichert werden');
+      handleError(error, "Einwilligung konnte nicht gespeichert werden");
     } finally {
       setUpdating(false);
     }
@@ -92,23 +95,23 @@ export function useChatConsent() {
     setUpdating(true);
     try {
       const { data, error } = await supabase
-        .from('chat_consent')
+        .from("chat_consent")
         .update({
           opt_out: true,
           opt_out_at: new Date().toISOString(),
           opt_out_reason: reason || null,
         })
-        .eq('user_id', user.id)
+        .eq("user_id", user.id)
         .select()
         .single();
 
       if (error) throw error;
       setConsent(data as ChatConsent);
-      
+
       // KEIN Reload - Opt-Out-Trigger entfernt User automatisch
-      handleSuccess('Sie wurden vom Team-Chat abgemeldet');
+      handleSuccess("Sie wurden vom Team-Chat abgemeldet");
     } catch (error) {
-      handleError(error, 'Widerruf konnte nicht gespeichert werden');
+      handleError(error, "Widerruf konnte nicht gespeichert werden");
     } finally {
       setUpdating(false);
     }
@@ -120,20 +123,20 @@ export function useChatConsent() {
     setUpdating(true);
     try {
       const { data, error } = await supabase
-        .from('chat_consent')
+        .from("chat_consent")
         .update({
           opt_out: false,
           opt_out_at: null,
           opt_out_reason: null,
         })
-        .eq('user_id', user.id)
+        .eq("user_id", user.id)
         .select()
         .single();
 
       if (error) throw error;
       setConsent(data as ChatConsent);
     } catch (error) {
-      handleError(error, 'Erneute Teilnahme konnte nicht angefordert werden');
+      handleError(error, "Erneute Teilnahme konnte nicht angefordert werden");
     } finally {
       setUpdating(false);
     }

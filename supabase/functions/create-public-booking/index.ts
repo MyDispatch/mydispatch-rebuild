@@ -30,10 +30,10 @@ serve(async (req) => {
 
     // 1. Prüfen ob Kunde bereits existiert (E-Mail + company_id)
     const { data: existingCustomer } = await supabaseAdmin
-      .from('customers')
-      .select('id')
-      .eq('email', customer.email)
-      .eq('company_id', customer.company_id)
+      .from("customers")
+      .select("id")
+      .eq("email", customer.email)
+      .eq("company_id", customer.company_id)
       .single();
 
     let customerId = existingCustomer?.id;
@@ -41,9 +41,9 @@ serve(async (req) => {
     // 2. Kunde erstellen falls noch nicht vorhanden
     if (!customerId) {
       const { data: newCustomer, error: customerError } = await supabaseAdmin
-        .from('customers')
+        .from("customers")
         .insert(customer)
-        .select('id')
+        .select("id")
         .single();
 
       if (customerError) throw customerError;
@@ -52,7 +52,7 @@ serve(async (req) => {
 
     // 3. Buchung erstellen
     const { data: newBooking, error: bookingError } = await supabaseAdmin
-      .from('bookings')
+      .from("bookings")
       .insert({
         ...booking,
         customer_id: customerId,
@@ -64,14 +64,14 @@ serve(async (req) => {
 
     // 4. E-Mail-Benachrichtigung senden (optional)
     try {
-      await supabaseAdmin.functions.invoke('send-booking-email', {
+      await supabaseAdmin.functions.invoke("send-booking-email", {
         body: {
           bookingId: newBooking.id,
-          type: 'new_booking_public'
-        }
+          type: "new_booking_public",
+        },
       });
     } catch (emailError) {
-      console.error('E-Mail-Versand fehlgeschlagen:', emailError);
+      console.error("E-Mail-Versand fehlgeschlagen:", emailError);
       // Nicht kritisch, Buchung ist trotzdem erfolgreich
     }
 
@@ -87,10 +87,10 @@ serve(async (req) => {
       }
     );
   } catch (error: any) {
-    console.error('create-public-booking error:', error);
+    console.error("create-public-booking error:", error);
     return new Response(
       JSON.stringify({
-        error: error.message || 'Fehler bei der Buchungserstellung',
+        error: error.message || "Fehler bei der Buchungserstellung",
       }),
       {
         headers: { ...corsHeaders, "Content-Type": "application/json" },

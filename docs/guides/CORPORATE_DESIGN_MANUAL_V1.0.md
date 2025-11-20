@@ -35,6 +35,7 @@ Marke: MyDispatch by RideHub Solutions
 ### 1.2 Verbindlichkeit
 
 Alle in diesem Manual festgelegten Gestaltungsrichtlinien sind **verbindlich** für:
+
 - Geschäftsausstattung (Visitenkarten, Briefpapier, etc.)
 - Marketingmaterialien (Broschüren, Flyer, Plakate)
 - Digitale Medien (Website, Software, Social Media)
@@ -44,6 +45,7 @@ Alle in diesem Manual festgelegten Gestaltungsrichtlinien sind **verbindlich** f
 ### 1.3 Geltungsbereich
 
 Diese Richtlinien gelten für:
+
 - Interne Mitarbeiter von RideHub Solutions
 - Externe Agenturen und Dienstleister
 - Partner und Franchisegeber
@@ -56,6 +58,7 @@ Diese Richtlinien gelten für:
 ### 2.1 Marken-DNA
 
 **MyDispatch** steht für:
+
 - **Professionalität** – Moderne, zuverlässige Dispositionslösungen
 - **Effizienz** – Intelligente Prozesse für Taxi- und Mietwagenunternehmen
 - **Innovation** – Digitale Transformation der Branche
@@ -63,12 +66,12 @@ Diese Richtlinien gelten für:
 
 ### 2.2 Marken-Werte
 
-| Wert | Bedeutung |
-|------|-----------|
-| **Zuverlässigkeit** | Stabile Software, 24/7 verfügbar |
-| **Transparenz** | Klare Preise, offene Kommunikation |
-| **Qualität** | Premium-Features zu fairen Konditionen |
-| **Partnerschaft** | Langfristige Kundenbeziehungen |
+| Wert                | Bedeutung                              |
+| ------------------- | -------------------------------------- |
+| **Zuverlässigkeit** | Stabile Software, 24/7 verfügbar       |
+| **Transparenz**     | Klare Preise, offene Kommunikation     |
+| **Qualität**        | Premium-Features zu fairen Konditionen |
+| **Partnerschaft**   | Langfristige Kundenbeziehungen         |
 
 ### 2.3 Markenversprechen
 
@@ -104,6 +107,7 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 ### 3.2 Primärlogo-Beschreibung
 
 **Haupt-Logo:**
+
 - "MyDispatch" Schriftzug in Dunkelblau (#323D5E)
 - Standort-Pin-Icon (°) über dem "i"
 - Gepunktete Linie mit Pfeil (→) als Trenner
@@ -112,12 +116,12 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 
 ### 3.3 Logo-Varianten
 
-| Variante | Verwendung | Hintergrund | URL |
-|----------|------------|-------------|-----|
-| **Primär** | Standard (Dunkelblau auf transparent) | Alle Medien | `/logo.png` |
-| **Icon** | App-Icon, Favicon | Dunkelblau mit weißem Auto-Icon | `/favicon.png` |
-| **Icon 192px** | PWA, Mobile Apps | Größere Version | `/icon-192.png` |
-| **Icon 512px** | High-DPI Displays | Höchste Auflösung | `/icon-512.png` |
+| Variante       | Verwendung                            | Hintergrund                     | URL             |
+| -------------- | ------------------------------------- | ------------------------------- | --------------- |
+| **Primär**     | Standard (Dunkelblau auf transparent) | Alle Medien                     | `/logo.png`     |
+| **Icon**       | App-Icon, Favicon                     | Dunkelblau mit weißem Auto-Icon | `/favicon.png`  |
+| **Icon 192px** | PWA, Mobile Apps                      | Größere Version                 | `/icon-192.png` |
+| **Icon 512px** | High-DPI Displays                     | Höchste Auflösung               | `/icon-512.png` |
 
 **Hinweis:** Bei hellen Hintergründen das Primär-Logo verwenden, bei dunklen Hintergründen ggf. eine invertierte Version erstellen (bei Bedarf an info@my-dispatch.de anfragen).
 
@@ -141,17 +145,18 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 
 ### 3.5 Mindestgrößen
 
-| Medium | Mindestbreite | Mindesthöhe |
-|--------|---------------|-------------|
-| **Print** | 20 mm | 20 mm |
-| **Digital** | 64 px | 64 px |
-| **Visitenkarte** | 15 mm | 15 mm |
-| **Website-Favicon** | 32 px | 32 px |
-| **App-Icon** | 192 px | 192 px |
+| Medium              | Mindestbreite | Mindesthöhe |
+| ------------------- | ------------- | ----------- |
+| **Print**           | 20 mm         | 20 mm       |
+| **Digital**         | 64 px         | 64 px       |
+| **Visitenkarte**    | 15 mm         | 15 mm       |
+| **Website-Favicon** | 32 px         | 32 px       |
+| **App-Icon**        | 192 px        | 192 px      |
 
 ### 3.6 Verbotene Logo-Verwendungen
 
 ❌ **NIEMALS:**
+
 1. Logo verzerren (nur proportional skalieren)
 2. Logo drehen oder kippen
 3. Farben des Logos ändern
@@ -161,6 +166,7 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 7. Transparenz unter 100% verwenden
 
 ✅ **IMMER:**
+
 1. Originaldatei verwenden (PNG mit Transparenz)
 2. Proportionen beibehalten
 3. Ausreichend Kontrast sicherstellen
@@ -174,14 +180,15 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 
 #### **Primary** – Beige/Gold (Hauptakzentfarbe)
 
-| Format | Wert |
-|--------|------|
-| **HSL** | `40° 31% 88%` |
-| **HEX** | `#EADEBD` |
-| **RGB** | `234, 222, 189` |
-| **CMYK** | `0% 5% 19% 8%` |
+| Format   | Wert            |
+| -------- | --------------- |
+| **HSL**  | `40° 31% 88%`   |
+| **HEX**  | `#EADEBD`       |
+| **RGB**  | `234, 222, 189` |
+| **CMYK** | `0% 5% 19% 8%`  |
 
 **Verwendung:**
+
 - Buttons und Call-to-Actions
 - Hervorhebungen in Texten
 - Akzente in Grafiken
@@ -191,14 +198,15 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 
 #### **Foreground** – Dunkelgrau/Blau (Haupttextfarbe)
 
-| Format | Wert |
-|--------|------|
-| **HSL** | `225° 31% 28%` |
-| **HEX** | `#323D5E` |
-| **RGB** | `50, 61, 94` |
+| Format   | Wert             |
+| -------- | ---------------- |
+| **HSL**  | `225° 31% 28%`   |
+| **HEX**  | `#323D5E`        |
+| **RGB**  | `50, 61, 94`     |
 | **CMYK** | `47% 35% 0% 63%` |
 
 **Verwendung:**
+
 - Haupttext (Body Copy)
 - Überschriften
 - Icons (Standard)
@@ -208,14 +216,15 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 
 #### **Accent** – Braun/Gold (Sekundärakzent)
 
-| Format | Wert |
-|--------|------|
-| **HSL** | `31° 26% 38%` |
-| **HEX** | `#856D4B` |
-| **RGB** | `133, 109, 75` |
+| Format   | Wert             |
+| -------- | ---------------- |
+| **HSL**  | `31° 26% 38%`    |
+| **HEX**  | `#856D4B`        |
+| **RGB**  | `133, 109, 75`   |
 | **CMYK** | `0% 18% 44% 48%` |
 
 **Verwendung:**
+
 - Links und Hover-States
 - Sekundäre Buttons
 - Dekorative Elemente
@@ -227,14 +236,15 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 
 #### **Background** – Hellgrau (Hintergrund)
 
-| Format | Wert |
-|--------|------|
-| **HSL** | `0° 0% 98%` |
-| **HEX** | `#FAFAFA` |
-| **RGB** | `250, 250, 250` |
-| **CMYK** | `0% 0% 0% 2%` |
+| Format   | Wert            |
+| -------- | --------------- |
+| **HSL**  | `0° 0% 98%`     |
+| **HEX**  | `#FAFAFA`       |
+| **RGB**  | `250, 250, 250` |
+| **CMYK** | `0% 0% 0% 2%`   |
 
 **Verwendung:**
+
 - Seiten-Hintergrund
 - Card-Hintergründe
 - Alternating Rows in Tabellen
@@ -243,14 +253,15 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 
 #### **Muted** – Mittelgrau (Sekundärtext)
 
-| Format | Wert |
-|--------|------|
-| **HSL** | `240° 4% 46%` |
-| **HEX** | `#707078` |
-| **RGB** | `112, 112, 120` |
-| **CMYK** | `7% 7% 0% 53%` |
+| Format   | Wert            |
+| -------- | --------------- |
+| **HSL**  | `240° 4% 46%`   |
+| **HEX**  | `#707078`       |
+| **RGB**  | `112, 112, 120` |
+| **CMYK** | `7% 7% 0% 53%`  |
 
 **Verwendung:**
+
 - Nebentexte (z.B. "vor 2 Stunden")
 - Platzhalter-Texte
 - Deaktivierte Elemente
@@ -262,14 +273,15 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 
 #### **Success** – Grün (Erfolg)
 
-| Format | Wert |
-|--------|------|
-| **HSL** | `142° 71% 45%` |
-| **HEX** | `#22C55E` |
-| **RGB** | `34, 197, 94` |
+| Format   | Wert             |
+| -------- | ---------------- |
+| **HSL**  | `142° 71% 45%`   |
+| **HEX**  | `#22C55E`        |
+| **RGB**  | `34, 197, 94`    |
 | **CMYK** | `83% 0% 52% 23%` |
 
 **Verwendung:**
+
 - Erfolgs-Meldungen
 - Bestätigte Aufträge
 - Positive KPIs
@@ -279,14 +291,15 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 
 #### **Warning** – Gelb/Orange (Warnung)
 
-| Format | Wert |
-|--------|------|
-| **HSL** | `38° 92% 50%` |
-| **HEX** | `#F59E0B` |
-| **RGB** | `245, 158, 11` |
+| Format   | Wert            |
+| -------- | --------------- |
+| **HSL**  | `38° 92% 50%`   |
+| **HEX**  | `#F59E0B`       |
+| **RGB**  | `245, 158, 11`  |
 | **CMYK** | `0% 36% 96% 4%` |
 
 **Verwendung:**
+
 - Warnhinweise
 - Auslaufende Dokumente
 - Aufmerksamkeits-Benachrichtigungen
@@ -296,14 +309,15 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 
 #### **Error** – Rot (Fehler)
 
-| Format | Wert |
-|--------|------|
-| **HSL** | `0° 72% 51%` |
-| **HEX** | `#DC2626` |
-| **RGB** | `220, 38, 38` |
+| Format   | Wert             |
+| -------- | ---------------- |
+| **HSL**  | `0° 72% 51%`     |
+| **HEX**  | `#DC2626`        |
+| **RGB**  | `220, 38, 38`    |
 | **CMYK** | `0% 83% 83% 14%` |
 
 **Verwendung:**
+
 - Fehlermeldungen
 - Kritische Warnungen
 - Abgelaufene Dokumente
@@ -314,23 +328,28 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 ### 4.4 Farbverwendungsregeln
 
 #### **Hierarchie:**
+
 1. **Primär (Beige/Gold)** – Hauptakzente (max. 20% der Fläche)
 2. **Foreground (Dunkelgrau)** – Text und Icons (60-70%)
 3. **Accent (Braun/Gold)** – Sekundärakzente (10-15%)
 4. **Background (Hellgrau)** – Hintergrund (Rest)
 
 #### **Kombinationsregeln:**
+
 ✅ **Erlaubt:**
+
 - Primary + Foreground (Button auf dunklem Hintergrund)
 - Accent + Background (Link auf hellem Hintergrund)
 - Foreground + Background (Text auf Seite)
 
 ❌ **Verboten:**
+
 - Primary + Accent (zu wenig Kontrast)
 - Warning + Error (Verwirrungsgefahr)
 - Status-Farben auf Icons (nur in `StatusIndicator`)
 
 #### **Barrierefreiheit (WCAG 2.1 AA):**
+
 - **Mindestkontrast Text:** 4,5:1 (Normal), 3:1 (Groß)
 - **Mindestkontrast UI-Elemente:** 3:1
 - **Geprüfte Kombinationen:**
@@ -349,6 +368,7 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 **Verwendung:** Website, Software-Oberfläche, digitale Dokumente
 
 **Verfügbarkeit:**
+
 - Google Fonts: `https://fonts.google.com/specimen/Inter`
 - Lizenzen: Open Font License (kostenlos)
 
@@ -368,6 +388,7 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 **Verwendung:** Code-Beispiele, technische Dokumentation
 
 **Verfügbarkeit:**
+
 - Download: `https://vercel.com/font`
 - Lizenzen: Open Font License (kostenlos)
 
@@ -378,6 +399,7 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 **Verwendung:** Wenn Inter nicht verfügbar (z.B. Office-Dokumente)
 
 **Schriftschnitte:**
+
 - Arial Regular (statt Inter Regular)
 - Arial Bold (statt Inter SemiBold/Bold)
 
@@ -386,6 +408,7 @@ MyDispatch digitalisiert und optimiert die Auftragsverwaltung für Taxi- und Mie
 ### 5.2 Typografie-Hierarchie
 
 #### **Display (Hero-Headlines)**
+
 - **Schriftgröße:** 48px / 3rem (Desktop), 32px / 2rem (Mobile)
 - **Gewicht:** Bold (700)
 - **Zeilenhöhe:** 1,1 (110%)
@@ -400,6 +423,7 @@ Ihre Disposition. Intelligent gesteuert.
 ---
 
 #### **Heading 1 (Hauptüberschriften)**
+
 - **Schriftgröße:** 32px / 2rem (Desktop), 24px / 1,5rem (Mobile)
 - **Gewicht:** SemiBold (600)
 - **Zeilenhöhe:** 1,2 (120%)
@@ -413,6 +437,7 @@ Dashboard
 ---
 
 #### **Heading 2 (Sekundärüberschriften)**
+
 - **Schriftgröße:** 24px / 1,5rem (Desktop), 20px / 1,25rem (Mobile)
 - **Gewicht:** SemiBold (600)
 - **Zeilenhöhe:** 1,3 (130%)
@@ -425,6 +450,7 @@ Dringende Aktionen
 ---
 
 #### **Heading 3 (Unterüberschriften)**
+
 - **Schriftgröße:** 20px / 1,25rem (Desktop), 18px / 1,125rem (Mobile)
 - **Gewicht:** Medium (500)
 - **Zeilenhöhe:** 1,4 (140%)
@@ -437,6 +463,7 @@ Kunde hinzufügen
 ---
 
 #### **Body (Fließtext)**
+
 - **Schriftgröße:** 16px / 1rem (Desktop), 14px / 0,875rem (Mobile)
 - **Gewicht:** Regular (400)
 - **Zeilenhöhe:** 1,6 (160%)
@@ -450,6 +477,7 @@ MyDispatch ist eine moderne Dispositionssoftware für Taxi- und Mietwagenunterne
 ---
 
 #### **Small (Klein-Texte)**
+
 - **Schriftgröße:** 14px / 0,875rem (Desktop), 12px / 0,75rem (Mobile)
 - **Gewicht:** Regular (400)
 - **Zeilenhöhe:** 1,5 (150%)
@@ -462,6 +490,7 @@ Erstellt am 15.01.2025 um 14:30 Uhr
 ---
 
 #### **Extra Small (Mikro-Texte)**
+
 - **Schriftgröße:** 12px / 0,75rem (Desktop), 10px / 0,625rem (Mobile)
 - **Gewicht:** Regular (400)
 - **Zeilenhöhe:** 1,4 (140%)
@@ -476,24 +505,28 @@ NEU
 ### 5.3 Typografische Regeln
 
 #### **Deutsche Rechtschreibung (Reform 2006):**
+
 - ✅ "dass" (nicht "daß")
 - ✅ "Straße" (nicht "Strasse" – außer Schweiz)
 - ✅ "Fußzeile" (nicht "Fusszeile")
 - ✅ Komma vor "und" nur bei Nebensätzen
 
 #### **Formatierung:**
+
 - **Fett:** Wichtige Begriffe, Warnungen
 - **Kursiv:** Zitate, Fremdwörter, Betonungen
 - **Kapitälchen:** NIEMALS in Fließtext (nur Headlines)
 - **Unterstrichen:** NIEMALS (nur Links)
 
 #### **Zahlen und Einheiten:**
+
 - Währung: `1.234,56 €` (Punkt als Tausender, Komma als Dezimal)
 - Datum: `15.01.2025` (DD.MM.YYYY)
 - Uhrzeit: `14:30 Uhr` (24h-Format)
 - Telefon: `+49 30 1234567` (Ländervorwahl + Leerzeichen)
 
 #### **Anführungszeichen:**
+
 - Deutsch: `„Zitat"` (99-unten, 66-oben)
 - Alternativ: `»Zitat«` (Guillemets)
 - NIEMALS: `"Zitat"` (englisch)
@@ -505,6 +538,7 @@ NEU
 ### 6.1 Grid-System (12 Spalten)
 
 **Desktop (≥1024px):**
+
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │ 10  │ 11  │ 12  │
@@ -518,6 +552,7 @@ NEU
 ---
 
 **Tablet (≥768px):**
+
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │
@@ -531,6 +566,7 @@ NEU
 ---
 
 **Mobile (<768px):**
+
 ```
 ┌───────────┬───────────┬───────────┬───────────┐
 │     1     │     2     │     3     │     4     │
@@ -545,12 +581,12 @@ NEU
 
 ### 6.2 Responsive Breakpoints
 
-| Name | Breite | Verwendung |
-|------|--------|------------|
-| **Mobile** | < 768px | Smartphones |
-| **Tablet** | 768px - 1023px | Tablets |
-| **Desktop** | 1024px - 1439px | Laptops |
-| **Large** | ≥ 1440px | Desktop-Monitore |
+| Name        | Breite          | Verwendung       |
+| ----------- | --------------- | ---------------- |
+| **Mobile**  | < 768px         | Smartphones      |
+| **Tablet**  | 768px - 1023px  | Tablets          |
+| **Desktop** | 1024px - 1439px | Laptops          |
+| **Large**   | ≥ 1440px        | Desktop-Monitore |
 
 ---
 
@@ -558,16 +594,16 @@ NEU
 
 **Basis:** `4px` (0,25rem)
 
-| Stufe | Wert | Verwendung |
-|-------|------|------------|
-| **xs** | 4px | Icon-Abstände, Badges |
-| **sm** | 8px | Button-Padding (vertikal) |
-| **md** | 12px | Gutter (Mobile) |
-| **base** | 16px | Standard-Gap |
-| **lg** | 24px | Gutter (Desktop), Card-Padding |
-| **xl** | 32px | Abschnitt-Abstände |
-| **2xl** | 48px | Seitenränder (Desktop) |
-| **3xl** | 64px | Hero-Sections |
+| Stufe    | Wert | Verwendung                     |
+| -------- | ---- | ------------------------------ |
+| **xs**   | 4px  | Icon-Abstände, Badges          |
+| **sm**   | 8px  | Button-Padding (vertikal)      |
+| **md**   | 12px | Gutter (Mobile)                |
+| **base** | 16px | Standard-Gap                   |
+| **lg**   | 24px | Gutter (Desktop), Card-Padding |
+| **xl**   | 32px | Abschnitt-Abstände             |
+| **2xl**  | 48px | Seitenränder (Desktop)         |
+| **3xl**  | 64px | Hero-Sections                  |
 
 **Regel:** Immer Vielfache von 4px verwenden!
 
@@ -576,6 +612,7 @@ NEU
 ### 6.4 Card-System
 
 **Standard-Card:**
+
 ```
 ┌─────────────────────────────────────┐
 │ Header (Padding: 24px, gap: 8px)    │ ← CardHeader
@@ -589,6 +626,7 @@ NEU
 ```
 
 **Spezifikationen:**
+
 - **Border-Radius:** 12px (0,75rem)
 - **Border:** 1px solid hsl(240° 6% 90%)
 - **Shadow:** 0 1px 3px rgba(0,0,0,0.1)
@@ -601,16 +639,19 @@ NEU
 ### 6.5 Drucklayouts
 
 #### **DIN A4 (210 × 297 mm):**
+
 - **Seitenränder:** 25mm (oben/unten), 20mm (links/rechts)
 - **Satzspiegel:** 170 × 247 mm
 - **Beschnitt:** 3mm (Bleed)
 
 #### **Visitenkarte (85 × 55 mm):**
+
 - **Seitenränder:** 5mm (alle Seiten)
 - **Druckbereich:** 75 × 45 mm
 - **Beschnitt:** 2mm
 
 #### **Flyer DIN A5 (148 × 210 mm):**
+
 - **Seitenränder:** 15mm (oben/unten), 12mm (links/rechts)
 - **Satzspiegel:** 124 × 180 mm
 - **Beschnitt:** 3mm
@@ -622,18 +663,21 @@ NEU
 ### 7.1 Fotografie-Stil
 
 **Charakter:**
+
 - Authentisch und professionell
 - Menschen in realen Arbeitssituationen
 - Moderne, helle Umgebungen
 - Fokus auf Technologie und Mobilität
 
 **Technische Anforderungen:**
+
 - **Auflösung:** Mindestens 300 dpi (Print), 72 dpi (Web)
 - **Format:** JPG (Fotos), PNG (mit Transparenz)
 - **Farbprofil:** sRGB (Web), CMYK (Print)
 - **Seitenverhältnis:** 16:9 (Standard), 4:3 (Portrait)
 
 **Motive:**
+
 - ✅ Taxi-Fahrer in Fahrzeugen
 - ✅ Disponenten an Arbeitsplätzen
 - ✅ Moderne Fahrzeuge (außen/innen)
@@ -643,6 +687,7 @@ NEU
 - ❌ Unnatürliche Posen
 
 **Bildbearbeitung:**
+
 - **Helligkeit:** Leicht aufgehellt (10-15%)
 - **Kontrast:** Moderat erhöht (5-10%)
 - **Sättigung:** Natural (keine Überbearbeitung)
@@ -653,17 +698,20 @@ NEU
 ### 7.2 Icon-System
 
 **Stil:**
+
 - Linienbasiert (Outline-Style)
 - Einheitliche Strichstärke: 2px
 - Gerundete Ecken (Rounded)
 - Minimalistisch
 
 **Farben (CI-konform):**
+
 - ✅ **Standard:** `Foreground (#323D5E)` – Dunkelgrau/Blau
 - ✅ **Deaktiviert:** `Muted (#707078)` – Mittelgrau
 - ✅ **Accent:** `Accent (#856D4B)` – Braun/Gold (nur CTA)
 
 **VERBOTEN:**
+
 - ❌ **NIEMALS** Status-Farben auf Icons (Grün/Gelb/Rot)
 - ❌ Status-Farben nur in `StatusIndicator`-Komponente
 
@@ -677,6 +725,7 @@ NEU
 | **Hero** | 48px | Landingpage-Icons |
 
 **Icon-Bibliothek:**
+
 - **Primär:** Lucide Icons (`https://lucide.dev`)
 - **Fallback:** Heroicons (`https://heroicons.com`)
 
@@ -687,6 +736,7 @@ NEU
 **AKTUELL:** Keine Illustrationen definiert.
 
 **OPTIONAL (Zukünftig):**
+
 - Flacher Stil (Flat Design)
 - MyDispatch-Farbpalette
 - Minimalistisch, geometrisch
@@ -701,6 +751,7 @@ NEU
 #### **Visitenkarte (85 × 55 mm)**
 
 **Vorderseite:**
+
 ```
 ┌───────────────────────────────────────┐
 │                                       │
@@ -717,6 +768,7 @@ NEU
 ```
 
 **Spezifikationen:**
+
 - Logo: 15mm × 15mm (oben links)
 - Name: Inter SemiBold 14pt
 - Funktion: Inter Regular 10pt
@@ -725,6 +777,7 @@ NEU
 - Textfarbe: Foreground (#323D5E)
 
 **Rückseite:**
+
 - Vollflächig: Primary (#EADEBD)
 - Logo: Zentriert, 20mm × 20mm (Negativ-Variante)
 - Slogan: "Ihre Disposition. Intelligent gesteuert." (Inter Light 8pt, Foreground)
@@ -734,6 +787,7 @@ NEU
 #### **Briefpapier (DIN A4)**
 
 **Kopfzeile:**
+
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │ [LOGO]  MyDispatch                                               │
@@ -743,6 +797,7 @@ NEU
 ```
 
 **Fußzeile:**
+
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │ RideHub Solutions • Ensbachmühle 4 • 94571 Schaufling           │
@@ -752,6 +807,7 @@ NEU
 ```
 
 **Spezifikationen:**
+
 - Seitenränder: 25mm (oben/unten), 20mm (links/rechts)
 - Logo: 25mm × 25mm (oben links)
 - Kopfzeile-Schrift: Inter Regular 8pt
@@ -764,6 +820,7 @@ NEU
 #### **Titelseite (DIN A5)**
 
 **Layout:**
+
 ```
 ┌─────────────────────────────────┐
 │                                 │
@@ -781,6 +838,7 @@ NEU
 ```
 
 **Spezifikationen:**
+
 - Hero-Bild: 148 × 105 mm (70% der Höhe)
 - Headline: Inter Bold 24pt, Foreground
 - Subline: Inter Regular 14pt, Muted
@@ -792,6 +850,7 @@ NEU
 #### **Innenseite (Beispiel)**
 
 **Dreispalten-Layout:**
+
 ```
 ┌──────────┬──────────┬──────────┐
 │ Feature 1│ Feature 2│ Feature 3│
@@ -803,6 +862,7 @@ NEU
 ```
 
 **Spezifikationen:**
+
 - Spalten: 3 (Grid 4-4-4)
 - Gutter: 12mm
 - Icon-Größe: 32px
@@ -815,6 +875,7 @@ NEU
 #### **Master-Layout:**
 
 **Titelfolie:**
+
 ```
 ┌─────────────────────────────────────┐
 │ [LOGO]                              │
@@ -829,6 +890,7 @@ NEU
 ```
 
 **Inhaltsfolie:**
+
 ```
 ┌─────────────────────────────────────┐
 │ [LOGO] Folientitel                  │
@@ -844,6 +906,7 @@ NEU
 ```
 
 **Spezifikationen:**
+
 - Format: 16:9 (1920 × 1080 px)
 - Seitenränder: 80px (alle Seiten)
 - Logo: 80px × 80px (oben links)
@@ -858,16 +921,17 @@ NEU
 
 #### **Formate und Größen:**
 
-| Plattform | Format | Größe (px) | Verwendung |
-|-----------|--------|------------|------------|
-| **LinkedIn Post** | 1:1 | 1200 × 1200 | Feed-Posts |
-| **LinkedIn Header** | 4:1 | 1584 × 396 | Profil-Banner |
-| **Facebook Post** | 1,91:1 | 1200 × 630 | Link-Shares |
-| **Instagram Post** | 1:1 | 1080 × 1080 | Feed |
-| **Instagram Story** | 9:16 | 1080 × 1920 | Stories |
-| **Twitter Header** | 3:1 | 1500 × 500 | Profil-Banner |
+| Plattform           | Format | Größe (px)  | Verwendung    |
+| ------------------- | ------ | ----------- | ------------- |
+| **LinkedIn Post**   | 1:1    | 1200 × 1200 | Feed-Posts    |
+| **LinkedIn Header** | 4:1    | 1584 × 396  | Profil-Banner |
+| **Facebook Post**   | 1,91:1 | 1200 × 630  | Link-Shares   |
+| **Instagram Post**  | 1:1    | 1080 × 1080 | Feed          |
+| **Instagram Story** | 9:16   | 1080 × 1920 | Stories       |
+| **Twitter Header**  | 3:1    | 1500 × 500  | Profil-Banner |
 
 **Design-Regeln:**
+
 - **Logo:** Immer sichtbar (Ecke oder Wasserzeichen)
 - **Text:** Maximal 20% der Bildfläche (Facebook-Regel)
 - **CTA:** Klarer Call-to-Action (z.B. "Jetzt testen")
@@ -880,6 +944,7 @@ NEU
 #### **Seitentür (Beispiel Taxi):**
 
 **Layout:**
+
 ```
 ┌─────────────────────────────────────┐
 │                                     │
@@ -892,12 +957,14 @@ NEU
 ```
 
 **Spezifikationen:**
+
 - Logo: 40cm × 40cm (gut lesbar bei 5m Entfernung)
 - URL: Inter Bold 8cm Höhe
 - Farben: Weiß auf Fahrzeugfarbe ODER Foreground auf weiß
 - Material: Hochwertige Plotterfolie (5 Jahre UV-beständig)
 
 **Heckscheibe (Optional):**
+
 - Logo: 20cm × 20cm (zentriert)
 - Slogan: "Ihre Disposition. Intelligent gesteuert." (5cm Höhe)
 
@@ -908,6 +975,7 @@ NEU
 #### **Roll-Up Banner (85 × 200 cm):**
 
 **Layout:**
+
 ```
 ┌───────────────┐
 │               │ ← Hero-Bild (50cm)
@@ -925,6 +993,7 @@ NEU
 ```
 
 **Spezifikationen:**
+
 - Auflösung: 300 dpi (mindestens 1004 × 2362 px)
 - Farbprofil: CMYK
 - Dateityp: PDF/X-3
@@ -936,13 +1005,13 @@ NEU
 
 ### 9.1 Papierformate
 
-| Format | Größe (mm) | Verwendung |
-|--------|------------|------------|
-| **DIN A4** | 210 × 297 | Briefpapier, Broschüren |
-| **DIN A5** | 148 × 210 | Flyer, Postkarten |
-| **DIN A6** | 105 × 148 | Postkarten |
-| **DIN Lang** | 110 × 220 | Briefumschläge |
-| **Visitenkarte** | 85 × 55 | Standard-Visitenkarte |
+| Format           | Größe (mm) | Verwendung              |
+| ---------------- | ---------- | ----------------------- |
+| **DIN A4**       | 210 × 297  | Briefpapier, Broschüren |
+| **DIN A5**       | 148 × 210  | Flyer, Postkarten       |
+| **DIN A6**       | 105 × 148  | Postkarten              |
+| **DIN Lang**     | 110 × 220  | Briefumschläge          |
+| **Visitenkarte** | 85 × 55    | Standard-Visitenkarte   |
 
 ---
 
@@ -950,16 +1019,17 @@ NEU
 
 **Alle Primärfarben als CMYK:**
 
-| Farbe | CMYK-Wert |
-|-------|-----------|
-| **Primary (Beige/Gold)** | `C:0% M:5% Y:19% K:8%` |
+| Farbe                       | CMYK-Wert                |
+| --------------------------- | ------------------------ |
+| **Primary (Beige/Gold)**    | `C:0% M:5% Y:19% K:8%`   |
 | **Foreground (Dunkelgrau)** | `C:47% M:35% Y:0% K:63%` |
-| **Accent (Braun/Gold)** | `C:0% M:18% Y:44% K:48%` |
-| **Success (Grün)** | `C:83% M:0% Y:52% K:23%` |
-| **Warning (Gelb/Orange)** | `C:0% M:36% Y:96% K:4%` |
-| **Error (Rot)** | `C:0% M:83% Y:83% K:14%` |
+| **Accent (Braun/Gold)**     | `C:0% M:18% Y:44% K:48%` |
+| **Success (Grün)**          | `C:83% M:0% Y:52% K:23%` |
+| **Warning (Gelb/Orange)**   | `C:0% M:36% Y:96% K:4%`  |
+| **Error (Rot)**             | `C:0% M:83% Y:83% K:14%` |
 
 **Druckverfahren:**
+
 - **Offset-Druck:** Standard für Broschüren, Visitenkarten
 - **Digital-Druck:** Kleine Auflagen (< 500 Stück)
 - **Siebdruck:** Textilien, Werbeartikel
@@ -969,14 +1039,17 @@ NEU
 ### 9.3 Beschnitt und Sicherheitsabstände
 
 **Beschnitt (Bleed):**
+
 - Standard: **3mm** (über Seitenkante hinaus)
 - Wichtige Elemente: **5mm** Abstand zum Schnitt
 
 **Sicherheitszone:**
+
 - Text und Logo: Mindestens **5mm** vom Schnitt entfernt
 - Kritische Elemente: **10mm** Abstand
 
 **Beispiel DIN A4:**
+
 ```
 ┌─────────────────────────────────┐
 │ ← 3mm Bleed                     │
@@ -997,15 +1070,16 @@ NEU
 
 ### 9.4 Dateiformate
 
-| Format | Verwendung | Spezifikationen |
-|--------|------------|-----------------|
-| **PDF/X-3** | Druckdaten | CMYK, Schriften eingebettet |
-| **PNG** | Logos, Web-Grafiken | Transparenz, RGB, 72-300 dpi |
-| **JPG** | Fotos | RGB/CMYK, Qualität 90-100% |
-| **SVG** | Logos (Vektor) | Skalierbar, für Web |
-| **EPS** | Logos (Vektor) | Für Druckereien |
+| Format      | Verwendung          | Spezifikationen              |
+| ----------- | ------------------- | ---------------------------- |
+| **PDF/X-3** | Druckdaten          | CMYK, Schriften eingebettet  |
+| **PNG**     | Logos, Web-Grafiken | Transparenz, RGB, 72-300 dpi |
+| **JPG**     | Fotos               | RGB/CMYK, Qualität 90-100%   |
+| **SVG**     | Logos (Vektor)      | Skalierbar, für Web          |
+| **EPS**     | Logos (Vektor)      | Für Druckereien              |
 
 **Datenübergabe an Druckerei:**
+
 1. PDF/X-3 oder PDF/X-4
 2. Schriften in Pfade umwandeln ODER einbetten
 3. CMYK-Farbprofil (ISO Coated v2)
@@ -1016,14 +1090,15 @@ NEU
 
 ### 9.5 Papiersorten
 
-| Sorte | Grammatur | Verwendung |
-|-------|-----------|------------|
-| **Recycling-Offset** | 80-100 g/m² | Briefpapier, Dokumente |
-| **Matt-gestrichenes Papier** | 130-170 g/m² | Broschüren, Flyer |
-| **Glanz-Papier** | 150-250 g/m² | Hochglanz-Broschüren |
-| **Karton** | 300-400 g/m² | Visitenkarten, Postkarten |
+| Sorte                        | Grammatur    | Verwendung                |
+| ---------------------------- | ------------ | ------------------------- |
+| **Recycling-Offset**         | 80-100 g/m²  | Briefpapier, Dokumente    |
+| **Matt-gestrichenes Papier** | 130-170 g/m² | Broschüren, Flyer         |
+| **Glanz-Papier**             | 150-250 g/m² | Hochglanz-Broschüren      |
+| **Karton**                   | 300-400 g/m² | Visitenkarten, Postkarten |
 
 **Empfehlung:**
+
 - **Standard:** Matt-gestrichenes Papier 150 g/m² (Premium-Optik)
 - **Visitenkarten:** Karton 350 g/m², matt oder seidenmatt
 - **Umweltfreundlich:** Recycling-Papier mit Blauer Engel-Siegel
@@ -1035,6 +1110,7 @@ NEU
 ### 10.1 Do's and Don'ts
 
 #### **✅ DO's – IMMER:**
+
 1. **Originaldateien verwenden** (Logo als PNG/SVG)
 2. **CI-Farben exakt einhalten** (HEX/CMYK-Werte)
 3. **Schutzraum um Logo beachten** (Höhe × 0,25)
@@ -1047,6 +1123,7 @@ NEU
 10. **Druckdaten als PDF/X-3** (CMYK, Schriften eingebettet)
 
 #### **❌ DON'Ts – NIEMALS:**
+
 1. **Logo verzerren** (nur proportional skalieren)
 2. **Farben ändern** (keine eigenen Farbtöne erfinden)
 3. **Status-Farben auf Icons** (nur Foreground/Muted/Accent)
@@ -1065,12 +1142,14 @@ NEU
 **Vor Druckfreigabe prüfen:**
 
 #### **Inhaltlich:**
+
 - [ ] Texte korrekturgelesen (Rechtschreibung, Grammatik)
 - [ ] Kontaktdaten aktuell (Telefon, E-Mail, Website)
 - [ ] Impressum vollständig (bei Broschüren)
 - [ ] Call-to-Action klar formuliert
 
 #### **Gestalterisch:**
+
 - [ ] Logo korrekt platziert (Schutzraum eingehalten)
 - [ ] CI-Farben verwendet (CMYK-Werte geprüft)
 - [ ] Schriftarten korrekt (Inter oder Arial)
@@ -1078,6 +1157,7 @@ NEU
 - [ ] Kontraste ausreichend (4,5:1 für Text)
 
 #### **Technisch:**
+
 - [ ] PDF/X-3 Format
 - [ ] CMYK-Farbprofil (ISO Coated v2)
 - [ ] Beschnitt angelegt (3mm)
@@ -1086,6 +1166,7 @@ NEU
 - [ ] Endformat korrekt (z.B. DIN A4: 210 × 297 mm)
 
 #### **Druckerei-Absprache:**
+
 - [ ] Papierwahl bestätigt (Grammatur, Sorte)
 - [ ] Veredelungen geklärt (Lackierung, Prägung)
 - [ ] Auflage festgelegt
@@ -1097,20 +1178,24 @@ NEU
 ### 10.3 Freigabeprozess
 
 **Stufe 1: Interne Review**
+
 - Grafikdesigner erstellt Entwurf
 - Marketing-Team prüft CI-Konformität
 - Fachabteilung prüft Inhalte
 
 **Stufe 2: Management-Freigabe**
+
 - Geschäftsführung prüft strategische Ausrichtung
 - Freigabe oder Änderungswünsche
 
 **Stufe 3: Druckfreigabe**
+
 - Technische Prüfung (PDF/X-3, CMYK, Beschnitt)
 - Druckerei erhält finale Daten
 - Druckmuster bei Bedarf
 
 **Stufe 4: Finale Qualitätskontrolle**
+
 - Druckmuster prüfen (Farben, Schnitt, Papier)
 - Freigabe zur Produktion
 - Lagerung und Verteilung
@@ -1119,17 +1204,19 @@ NEU
 
 ### 10.4 Ansprechpartner
 
-**Allgemeine Anfragen & Support:**  
-- **E-Mail:** info@my-dispatch.de  
-- **Telefon:** +49 170 8004423  
-- **Geschäftszeiten:** Mo-Fr: 09:00 - 17:00 Uhr  
-- **E-Mail-Support:** 24/7 (Reaktionszeit < 24h)  
+**Allgemeine Anfragen & Support:**
+
+- **E-Mail:** info@my-dispatch.de
+- **Telefon:** +49 170 8004423
+- **Geschäftszeiten:** Mo-Fr: 09:00 - 17:00 Uhr
+- **E-Mail-Support:** 24/7 (Reaktionszeit < 24h)
 - **Aufgaben:** CI-Fragen, Designvorlagen, Druckfreigaben, Strategische Entscheidungen
 
-**Inhaber & Geschäftsführung:**  
-- **Name:** Ibrahim SIMSEK  
-- **Unternehmen:** RideHub Solutions  
-- **Adresse:** Ensbachmühle 4, 94571 Schaufling, Deutschland  
+**Inhaber & Geschäftsführung:**
+
+- **Name:** Ibrahim SIMSEK
+- **Unternehmen:** RideHub Solutions
+- **Adresse:** Ensbachmühle 4, 94571 Schaufling, Deutschland
 - **E-Mail:** info@my-dispatch.de
 
 ---
@@ -1146,16 +1233,19 @@ Inhaber: Ibrahim SIMSEK
 Ensbachmühle 4, 94571 Schaufling, Deutschland
 
 **Erlaubte Nutzung:**
+
 - Interne Mitarbeiter von RideHub Solutions für Geschäftszwecke
 - Autorisierte Partner mit schriftlicher Genehmigung
 - Kunden in Zusammenhang mit MyDispatch-Services
 
 **Untersagte Nutzung:**
+
 - Kommerzielle Nutzung ohne Lizenz
 - Veränderung des Logos
 - Verwendung in irreführendem Kontext
 
 **Bei Verstößen:**
+
 - Abmahnung und Unterlassungserklärung
 - Schadensersatzforderungen möglich
 - Kontakt: info@my-dispatch.de
@@ -1165,6 +1255,7 @@ Ensbachmühle 4, 94571 Schaufling, Deutschland
 ### 11.2 Copyright
 
 **Urheberrechte:**
+
 - Alle Inhalte dieses Manuals: © 2025 RideHub Solutions (Marke: MyDispatch)
 - Logo und Marke: © 2025 RideHub Solutions
 - Fotomaterial: Lizenzen gemäß Bildnachweis
@@ -1175,6 +1266,7 @@ Inhaber: Ibrahim SIMSEK
 Ensbachmühle 4, 94571 Schaufling, Deutschland
 
 **Lizenzierte Schriftarten:**
+
 - Inter: Open Font License (SIL OFL 1.1) – frei verwendbar
 - Geist: Open Font License (SIL OFL 1.1) – frei verwendbar
 
@@ -1192,6 +1284,7 @@ Inhaber: Ibrahim SIMSEK
 E-Mail: info@my-dispatch.de
 
 **Änderungshistorie:**
+
 - **Version 1.0** (Januar 2025) – Erstveröffentlichung
 
 ---
@@ -1201,14 +1294,17 @@ E-Mail: info@my-dispatch.de
 ### 12.1 Farbpaletten-Download
 
 **CMYK-Palette (Adobe Swatch):**
+
 - Datei: `MyDispatch_CMYK.ase`
 - Enthält: Primary, Foreground, Accent, Status-Farben
 
 **RGB-Palette (Web):**
+
 - Datei: `MyDispatch_RGB.ase`
 - Enthält: Alle Farben als HEX/HSL
 
 **Pantone (Optional):**
+
 - Primary: Pantone 468 C (nächster Wert)
 - Foreground: Pantone 5395 C
 - Accent: Pantone 7505 C
@@ -1241,6 +1337,7 @@ Kontakt: info@my-dispatch.de
 ### 12.3 Vorlagen-Bibliothek
 
 **Verfügbare Vorlagen:**
+
 - Visitenkarte (InDesign + PDF)
 - Briefpapier (Word + PDF)
 - PowerPoint-Master (16:9)

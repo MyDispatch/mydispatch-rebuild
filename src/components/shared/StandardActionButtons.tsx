@@ -8,14 +8,9 @@
    - V28 Premium Design (rounded-xl, shadow-sm/md, scale)
    ================================================================================== */
 
-import { V28Button } from '@/components/design-system/V28Button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { Eye, Edit, Archive, Trash2 } from 'lucide-react';
+import { V28Button } from "@/components/design-system/V28Button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Eye, Edit, Archive, Trash2 } from "lucide-react";
 
 interface StandardActionButtonsProps {
   onViewDetails?: () => void;
@@ -26,7 +21,7 @@ interface StandardActionButtonsProps {
   showEdit?: boolean;
   showArchive?: boolean;
   showDelete?: boolean;
-  size?: 'default' | 'sm' | 'lg' | 'icon';
+  size?: "default" | "sm" | "lg" | "icon";
 }
 
 export function StandardActionButtons({
@@ -38,11 +33,11 @@ export function StandardActionButtons({
   showEdit = true,
   showArchive = true,
   showDelete = false,
-  size = 'sm',
+  size = "sm",
 }: StandardActionButtonsProps) {
   // Map size to V28Button sizes
-  const v28Size = size === 'default' ? 'md' : size === 'icon' ? 'sm' : size;
-  
+  const v28Size = size === "default" ? "md" : size === "icon" ? "sm" : size;
+
   return (
     <div className="flex justify-end gap-2">
       <TooltipProvider>

@@ -36,13 +36,13 @@ serve(async (req) => {
     if (!ANTHROPIC_API_KEY) {
       console.error(`${API_KEY_SECRET} ist nicht in Supabase Secrets konfiguriert`);
       return new Response(
-        JSON.stringify({ 
+        JSON.stringify({
           error: "AI-Konfiguration fehlt",
-          details: "API-Key nicht gefunden"
+          details: "API-Key nicht gefunden",
         }),
-        { 
-          status: 500, 
-          headers: { ...corsHeaders, "Content-Type": "application/json" } 
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
         }
       );
     }
@@ -53,9 +53,9 @@ serve(async (req) => {
     if (!messages || !Array.isArray(messages)) {
       return new Response(
         JSON.stringify({ error: "Ungültiges Request-Format: 'messages' Array erforderlich" }),
-        { 
-          status: 400, 
-          headers: { ...corsHeaders, "Content-Type": "application/json" } 
+        {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
         }
       );
     }
@@ -77,7 +77,7 @@ MyDispatch Kernwerte:
 
     // 🚨 KRITISCH: Nur Claude Sonnet 4.5 verwenden
     console.log(`[AI] Verwende ${AI_PROVIDER}/${AI_MODEL}`);
-    
+
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -98,16 +98,16 @@ MyDispatch Kernwerte:
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Anthropic API Error:", response.status, errorText);
-      
+
       return new Response(
-        JSON.stringify({ 
+        JSON.stringify({
           error: "AI API Fehler",
           status: response.status,
-          details: errorText
+          details: errorText,
         }),
-        { 
-          status: 500, 
-          headers: { ...corsHeaders, "Content-Type": "application/json" } 
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
         }
       );
     }
@@ -118,21 +118,20 @@ MyDispatch Kernwerte:
         ...corsHeaders,
         "Content-Type": "text/event-stream",
         "Cache-Control": "no-cache",
-        "Connection": "keep-alive",
+        Connection: "keep-alive",
       },
     });
-
   } catch (error) {
     console.error("Edge Function Error:", error);
-    
+
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         error: "Interner Server-Fehler",
-        message: error instanceof Error ? error.message : String(error)
+        message: error instanceof Error ? error.message : String(error),
       }),
-      { 
-        status: 500, 
-        headers: { ...corsHeaders, "Content-Type": "application/json" } 
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
     );
   }

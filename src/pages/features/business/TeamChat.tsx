@@ -2,26 +2,42 @@
    FEATURE DETAIL PAGE: Team-Chat
    ================================================================================== */
 
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { V28HeroPremium } from '@/components/hero';
-import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { V28Button } from '@/components/design-system/V28Button';
-import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
-import { MessageSquare, Users, Paperclip, Bell } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { V28HeroPremium } from "@/components/hero";
+import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
+import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
+import { V28Button } from "@/components/design-system/V28Button";
+import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
+import { MessageSquare, Users, Paperclip, Bell } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function TeamChatPage() {
   const navigate = useNavigate();
 
   const features = [
-    { icon: MessageSquare, title: 'Gruppen-Chats', description: 'Erstellen Sie Chat-Räume für Teams und Schichten' },
-    { icon: Users, title: 'Direkt-Nachrichten', description: 'Private 1:1-Kommunikation zwischen Mitarbeitern' },
-    { icon: Paperclip, title: 'Datei-Sharing', description: 'Teilen Sie Dokumente, Bilder und Dateien' },
-    { icon: Bell, title: 'Push-Benachrichtigungen', description: 'Sofortige Benachrichtigungen bei neuen Nachrichten' },
+    {
+      icon: MessageSquare,
+      title: "Gruppen-Chats",
+      description: "Erstellen Sie Chat-Räume für Teams und Schichten",
+    },
+    {
+      icon: Users,
+      title: "Direkt-Nachrichten",
+      description: "Private 1:1-Kommunikation zwischen Mitarbeitern",
+    },
+    {
+      icon: Paperclip,
+      title: "Datei-Sharing",
+      description: "Teilen Sie Dokumente, Bilder und Dateien",
+    },
+    {
+      icon: Bell,
+      title: "Push-Benachrichtigungen",
+      description: "Sofortige Benachrichtigungen bei neuen Nachrichten",
+    },
   ];
 
   return (
@@ -41,12 +57,12 @@ export default function TeamChatPage() {
         subtitle="Integrierte Team-Kommunikation"
         description="Keine zusätzlichen Messenger-Apps mehr nötig."
         primaryCTA={{
-          label: 'Jetzt starten',
-          onClick: () => navigate('/auth?mode=signup')
+          label: "Jetzt starten",
+          onClick: () => navigate("/auth?mode=signup"),
         }}
         secondaryCTA={{
-          label: 'Mehr erfahren',
-          onClick: () => navigate('/pricing')
+          label: "Mehr erfahren",
+          onClick: () => navigate("/pricing"),
         }}
         visual={<PremiumDashboardContent pageType="features" />}
         trustElements={true}
@@ -71,7 +87,7 @@ export default function TeamChatPage() {
             <V28TariffBadge label="Business" />
             <V28TariffBadge label="Enterprise" />
           </div>
-          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
             Tarife vergleichen
           </V28Button>
         </div>

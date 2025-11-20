@@ -4,21 +4,21 @@
    Erweiterte Aktivitäts-Timeline mit Actions und Status-Badges + Pagination
    ================================================================================== */
 
-import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/lib/compat';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Badge } from '@/lib/compat';
-import { 
-  FileText, 
-  CheckCircle, 
-  AlertCircle, 
-  Users, 
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/lib/compat";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Badge } from "@/lib/compat";
+import {
+  FileText,
+  CheckCircle,
+  AlertCircle,
+  Users,
   Car,
   Clock,
   ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+  ChevronRight,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface TimelineAction {
   label: string;
@@ -28,11 +28,11 @@ interface TimelineAction {
 interface TimelineItem {
   id: string;
   time: string;
-  type: 'booking' | 'payment' | 'warning' | 'driver' | 'vehicle' | 'invoice';
+  type: "booking" | "payment" | "warning" | "driver" | "vehicle" | "invoice";
   icon: any;
   title: string;
   description: string;
-  status?: 'success' | 'warning' | 'error' | 'info';
+  status?: "success" | "warning" | "error" | "info";
   meta?: { label: string; value: string }[];
   actions?: TimelineAction[];
 }
@@ -42,40 +42,37 @@ interface ActivityTimelineProps {
   maxItems?: number;
 }
 
-export function ActivityTimeline({ 
-  activities,
-  maxItems = 5 
-}: ActivityTimelineProps) {
+export function ActivityTimeline({ activities, maxItems = 5 }: ActivityTimelineProps) {
   const navigate = useNavigate();
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   const totalPages = Math.ceil(activities.length / maxItems);
   const startIndex = (currentPage - 1) * maxItems;
   const displayedActivities = activities.slice(startIndex, startIndex + maxItems);
 
   const getStatusColor = (status?: string) => {
     switch (status) {
-      case 'success':
-        return 'bg-status-success/10 border-status-success/20';
-      case 'warning':
-        return 'bg-status-warning/10 border-status-warning/20';
-      case 'error':
-        return 'bg-status-error/10 border-status-error/20';
+      case "success":
+        return "bg-status-success/10 border-status-success/20";
+      case "warning":
+        return "bg-status-warning/10 border-status-warning/20";
+      case "error":
+        return "bg-status-error/10 border-status-error/20";
       default:
-        return 'bg-primary/10 border-primary/20';
+        return "bg-primary/10 border-primary/20";
     }
   };
 
   const getStatusBadgeVariant = (status?: string) => {
     switch (status) {
-      case 'success':
-        return 'default';
-      case 'warning':
-        return 'secondary';
-      case 'error':
-        return 'destructive';
+      case "success":
+        return "default";
+      case "warning":
+        return "secondary";
+      case "error":
+        return "destructive";
       default:
-        return 'outline';
+        return "outline";
     }
   };
 
@@ -114,16 +111,16 @@ export function ActivityTimeline({
                 return (
                   <div key={activity.id} className="relative">
                     {/* Timeline Line */}
-                    {!isLast && (
-                      <div className="absolute left-4 top-10 bottom-0 w-px bg-border" />
-                    )}
+                    {!isLast && <div className="absolute left-4 top-10 bottom-0 w-px bg-border" />}
 
                     <div className="flex gap-2.5">
                       {/* Icon */}
-                      <div className={`
+                      <div
+                        className={`
                         relative z-10 flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center
                         border-2 ${getStatusColor(activity.status)}
-                      `}>
+                      `}
+                      >
                         <Icon className="h-4 w-4 text-foreground" />
                       </div>
 
@@ -133,7 +130,7 @@ export function ActivityTimeline({
                           <div className="flex items-center gap-2">
                             <h4 className="text-xs font-semibold">{activity.title}</h4>
                             {activity.status && (
-                              <Badge 
+                              <Badge
                                 variant={getStatusBadgeVariant(activity.status)}
                                 className="text-[8px] px-1 py-0"
                               >
@@ -197,7 +194,7 @@ export function ActivityTimeline({
                 >
                   <ChevronLeft className="h-4 w-4 text-foreground" />
                 </V28Button>
-                
+
                 <span className="text-[10px] text-muted-foreground">
                   Seite {currentPage} von {totalPages}
                 </span>

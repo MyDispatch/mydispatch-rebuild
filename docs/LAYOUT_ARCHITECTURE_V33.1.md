@@ -10,6 +10,7 @@
 ## 📚 VERSION HISTORY
 
 ### V33.4 (2025-01-31) - BACKGROUND-SYSTEM ROUTING-BASED
+
 - ✅ Background-Steuerung über `routes.config.tsx` (zentral)
 - ✅ KEINE Background-Props in Pages mehr nötig
 - ✅ Type-Safe Background-Control via RouteConfig
@@ -17,16 +18,17 @@
 - ✅ Vollständige Dokumentation in `docs/BACKGROUND_SYSTEM_V33.4.md`
 
 ### V33.3 (2025-01-31) - MASTER DASHBOARD FIX
+
 - ✅ Quick Actions Panel Positioning (transition-none, explizites right: 0px)
 - ✅ KEINE Layout-Duplikationen mehr (0 grep Matches)
 
 ### V33.1 (2025-10-31) - FINAL STANDARDIZATION
+
 - ✅ Alle Protected Pages nutzen Fragment-Wrapper (`<>`) + `layout: 'main'`
 - ✅ Z-Index Hierarchy standardisiert
 - ✅ Background-System eingeführt (white, canvas, orbs-light)
 
 ---
-
 
 ## 📐 SYSTEM-HIERARCHIE
 
@@ -65,6 +67,7 @@ App.tsx (Root)
 ### 1. MarketingLayout (Public Pages)
 
 **Verwendung:**
+
 ```typescript
 // routes.config.tsx
 {
@@ -89,15 +92,17 @@ export default function Features() {
 ```
 
 **Komponenten:**
+
 - **Sidebar:** Marketing-Navigation (64px → 240px hover, z-40)
 - **Header:** Logo, CTA-Buttons (64px, z-40)
 - **Footer:** Copyright, Legal Links (32px, z-20)
-- **Background:** 
+- **Background:**
   - `white` (Default): Pure weiß
   - `canvas`: Slate-50 Background
   - `orbs-light`: Weiß + Floating Orbs
 
 **Pages (16 Total):**
+
 - `/` (Home)
 - `/features` (Features)
 - `/pricing` (Pricing)
@@ -112,13 +117,14 @@ export default function Features() {
 - `/terms` (Terms)
 - `/nutzungsbedingungen` (Nutzungsbedingungen)
 - `/nexify-support` (NeXify Support)
-- + Feature Detail Pages
+- - Feature Detail Pages
 
 ---
 
 ### 2. MainLayout (Protected Pages)
 
 **Verwendung:**
+
 ```typescript
 // routes.config.tsx
 {
@@ -142,17 +148,19 @@ export default function Index() {
 ```
 
 **Komponenten:**
+
 - **AppSidebar:** App-Navigation (64px → 240px hover, z-40)
 - **DashboardSidebar:** Quick-Links (320px, nur `/dashboard`, z-10)
 - **Header:** User-Profil, Search, AI-Button (64px, z-40)
 - **Footer:** Copyright, Legal Links (48px, z-20)
 - **Quick Actions Panel:** System-Actions (280px, nur `/master`, z-30)
-- **Background:** 
+- **Background:**
   - `white` (Default): Pure weiß
   - `canvas`: Slate-50 Background
   - `orbs-light`: Weiß + Floating Orbs
 
 **Pages (29 Total):**
+
 - `/dashboard` (Dashboard)
 - `/master` (Master Dashboard)
 - `/auftraege` (Aufträge)
@@ -164,7 +172,7 @@ export default function Index() {
 - `/dokumente` (Dokumente)
 - `/statistiken` (Statistiken)
 - `/einstellungen` (Einstellungen)
-- + 18 weitere Protected Routes
+- - 18 weitere Protected Routes
 
 ---
 
@@ -174,16 +182,17 @@ Aus `src/lib/constants.ts`:
 
 ```typescript
 export const Z_INDEX_HIERARCHY = {
-  base: 0,                  // Base Content
-  dashboardSidebar: 10,     // DashboardSidebar (320px)
-  quickActionsPanel: 30,    // Quick Actions Panel (280px)
-  header: 40,               // Header & AppSidebar
-  dialogs: 50,              // GlobalSearchDialog
-  notifications: 100,       // IntelligentAIChat, Toasts
+  base: 0, // Base Content
+  dashboardSidebar: 10, // DashboardSidebar (320px)
+  quickActionsPanel: 30, // Quick Actions Panel (280px)
+  header: 40, // Header & AppSidebar
+  dialogs: 50, // GlobalSearchDialog
+  notifications: 100, // IntelligentAIChat, Toasts
 } as const;
 ```
 
 **Implementierung:**
+
 - **Header:** `z-40` (inline style)
 - **Footer:** `z-20` (inline style)
 - **AppSidebar:** `z-40` (className)
@@ -198,6 +207,7 @@ export const Z_INDEX_HIERARCHY = {
 ## 📱 RESPONSIVE VERHALTEN
 
 ### Desktop (1920x1080)
+
 ```
 ┌─────────────────────────────────────────────────────────┐
 │ Header (64px, z-40)                                     │
@@ -214,16 +224,19 @@ export const Z_INDEX_HIERARCHY = {
 ```
 
 **Sidebar-Toggle:**
+
 - **Collapsed:** 64px (nur Icons)
 - **Expanded:** 240px (Icons + Text)
 - **Transition:** 600ms cubic-bezier(0.4, 0, 0.2, 1)
 - **Trigger:** `onMouseEnter` / `onMouseLeave`
 
 **Dashboard-Spezifikum:**
+
 - **DashboardSidebar:** Zusätzliche 320px links
 - **Main Content Margin:** 384px (collapsed) / 560px (expanded)
 
 ### Tablet (768x1024)
+
 ```
 ┌─────────────────────────────────────────────────────────┐
 │ Header (64px, z-40)                                     │
@@ -238,6 +251,7 @@ export const Z_INDEX_HIERARCHY = {
 ```
 
 ### Mobile (375x667)
+
 ```
 ┌─────────────────────────────────────────────────────────┐
 │ MobileHeader (56px, z-40)                               │
@@ -263,45 +277,54 @@ export const Z_INDEX_HIERARCHY = {
 ### Unterstützte Varianten:
 
 #### 1. `background="white"` (Default)
+
 ```css
 bg-white
 ```
+
 Pure weißer Hintergrund, keine Orbs, keine Texturen.
 
 #### 2. `background="canvas"`
+
 ```css
 bg-slate-50
 ```
+
 Slate-50 Canvas-Hintergrund, subtle, professionell.
 
 #### 3. `background="orbs-light"` (Premium)
+
 ```css
 bg-white relative overflow-hidden
 ```
 
 **Floating Orbs:**
+
 ```tsx
-{background === 'orbs-light' && (
-  <>
-    <div 
-      className="absolute top-[10%] right-[5%] w-[350px] h-[350px] 
+{
+  background === "orbs-light" && (
+    <>
+      <div
+        className="absolute top-[10%] right-[5%] w-[350px] h-[350px] 
         bg-slate-100 rounded-full blur-2xl opacity-20 
-        pointer-events-none animate-pulse" 
-      style={{ animationDuration: '10s' }}
-      aria-hidden="true"
-    />
-    <div 
-      className="absolute bottom-[15%] left-[5%] w-[300px] h-[300px] 
+        pointer-events-none animate-pulse"
+        style={{ animationDuration: "10s" }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-[15%] left-[5%] w-[300px] h-[300px] 
         bg-slate-200 rounded-full blur-2xl opacity-15 
-        pointer-events-none animate-pulse" 
-      style={{ animationDuration: '15s', animationDelay: '3s' }}
-      aria-hidden="true"
-    />
-  </>
-)}
+        pointer-events-none animate-pulse"
+        style={{ animationDuration: "15s", animationDelay: "3s" }}
+        aria-hidden="true"
+      />
+    </>
+  );
+}
 ```
 
 **Verwendung:**
+
 ```typescript
 // MarketingLayout
 <MarketingLayout background="orbs-light">
@@ -319,6 +342,7 @@ bg-white relative overflow-hidden
 ## 🚫 ANTI-PATTERNS (VERMEIDEN!)
 
 ### ❌ NIEMALS: Verschachtelte Layouts
+
 ```typescript
 // ❌ FALSCH
 export default function MyPage() {
@@ -355,6 +379,7 @@ export default function MyPage() {
 ```
 
 ### ❌ NIEMALS: Layout-Prop in routes.config OHNE Wrapper
+
 ```typescript
 // ❌ FALSCH
 // routes.config.tsx: layout: 'none'
@@ -378,6 +403,7 @@ export default function MyPage() {
 ```
 
 ### ❌ NIEMALS: Direkte Z-Index-Werte ohne Constants
+
 ```typescript
 // ❌ FALSCH
 <div className="z-50">...</div>
@@ -397,17 +423,18 @@ import { Z_INDEX_HIERARCHY } from '@/lib/constants';
 export const DESIGN_TOKENS = {
   motion: {
     duration: {
-      default: '300ms',   // Buttons, Hover
-      slow: '600ms',      // Sidebar, Layout-Shifts
+      default: "300ms", // Buttons, Hover
+      slow: "600ms", // Sidebar, Layout-Shifts
     },
     timing: {
-      easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
+      easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
     },
   },
 };
 ```
 
 **Sidebar-Toggle:**
+
 ```typescript
 style={{
   transitionDuration: '600ms',
@@ -416,10 +443,11 @@ style={{
 ```
 
 **Header/Footer Sync:**
+
 ```typescript
 style={{
   transition: `
-    left 600ms cubic-bezier(0.4, 0, 0.2, 1), 
+    left 600ms cubic-bezier(0.4, 0, 0.2, 1),
     width 600ms cubic-bezier(0.4, 0, 0.2, 1)
   `,
 }}
@@ -430,18 +458,21 @@ style={{
 ## 📦 COMPONENT-EXPORTE
 
 ### MarketingLayout
+
 ```typescript
-import { MarketingLayout } from '@/components/layout/MarketingLayoutNew';
+import { MarketingLayout } from "@/components/layout/MarketingLayoutNew";
 ```
 
 ### MainLayout
+
 ```typescript
-import { MainLayout } from '@/components/layout/MainLayout';
+import { MainLayout } from "@/components/layout/MainLayout";
 ```
 
 ### useMainLayout (Shared State)
+
 ```typescript
-import { useMainLayout } from '@/hooks/use-main-layout';
+import { useMainLayout } from "@/hooks/use-main-layout";
 
 const { sidebarExpanded, setSidebarExpanded } = useMainLayout();
 ```
@@ -451,6 +482,7 @@ const { sidebarExpanded, setSidebarExpanded } = useMainLayout();
 ## ✅ TESTING CHECKLISTE
 
 ### Visual Regression Tests:
+
 - [ ] Desktop (1920x1080): Sidebar-Toggle smooth
 - [ ] Desktop: KEINE doppelten Header/Footer
 - [ ] Desktop: Floating Orbs sichtbar (orbs-light Pages)
@@ -460,12 +492,14 @@ const { sidebarExpanded, setSidebarExpanded } = useMainLayout();
 - [ ] Mobile (375x667): MobileHeader, MobileBottomNav, KEINE Desktop-Sidebars
 
 ### Functional Tests:
+
 - [ ] Sidebar-Toggle: 64px ↔ 240px (600ms Transition)
 - [ ] Header/Footer: Sync mit Sidebar-Breite
 - [ ] Background-System: white, canvas, orbs-light funktionieren
 - [ ] Z-Index: Header (40) > Quick Actions (30) > DashboardSidebar (10)
 
 ### Accessibility Tests:
+
 - [ ] Touch-Targets: Min. 44x44px
 - [ ] Keyboard-Navigation: Fokus sichtbar
 - [ ] Screen Reader: Sidebar-Labels korrekt
@@ -486,6 +520,7 @@ const { sidebarExpanded, setSidebarExpanded } = useMainLayout();
 ## 🚀 CHANGELOG
 
 ### V33.1 (2025-10-31) - LAYOUT-CLEANUP
+
 - ✅ Z-Index Fix: Header auf z-40, Footer auf z-20
 - ✅ MarketingLayout Background-System: Floating Orbs hinzugefügt
 - ✅ DashboardLayout.tsx entfernt (obsolet)
@@ -493,6 +528,7 @@ const { sidebarExpanded, setSidebarExpanded } = useMainLayout();
 - ✅ Vollständige Dokumentation erstellt
 
 ### V33.0 (2025-10-30) - INITIAL CLEANUP
+
 - ✅ MasterDashboard.tsx entfernt (obsolet)
 - ✅ Protected Pages: DashboardLayout-Wrapper entfernt
 - ✅ Template-Components: SEOHead direkt hinzugefügt
@@ -502,16 +538,19 @@ const { sidebarExpanded, setSidebarExpanded } = useMainLayout();
 **Problem:** Einige Pages wrapped sich SELBST in `<MainLayout>`, obwohl `routes.config.tsx` bereits `layout: 'main'` setzte → Doppelte Header/Footer
 
 **Root Cause:**
+
 - Protected Pages importierten `<MainLayout>` direkt
 - `App.tsx` wrapped BEREITS via `routes.config.tsx` (`layout: 'main'`)
 - Resultat: `<MainLayout><MainLayout>...</MainLayout></MainLayout>` (Verschachtelung)
 
 **Lösung:**
+
 1. **ALLE** Protected Pages nutzen NUR Fragment-Wrapper (`<>`)
 2. `layout: 'main'` in `routes.config.tsx` sorgt für automatisches Wrapping in `App.tsx`
 3. Public Pages nutzen `layout: 'none'` und wrappen sich SELBST in `<MarketingLayout>`
 
 **Betroffene Dateien:**
+
 - ✅ `Dokumente.tsx`: Fragment-Schließung korrigiert (Zeile 439)
 - ✅ `Kommunikation.tsx`: Fragment-Schließung korrigiert (Zeile 802)
 - ✅ `Schichtzettel.tsx`: `<MainLayout>`-Wrapper entfernt, `SEOHead` hinzugefügt
@@ -519,6 +558,7 @@ const { sidebarExpanded, setSidebarExpanded } = useMainLayout();
 - ✅ `Master.tsx`: Bereits in V33.1 gefixt
 
 **Erfolgs-Kriterien:**
+
 - ✅ 0 Build-Errors
 - ✅ KEINE doppelten Header/Footer auf ALLEN Protected Pages
 - ✅ KEINE verschachtelten Layouts mehr
@@ -526,6 +566,7 @@ const { sidebarExpanded, setSidebarExpanded } = useMainLayout();
 - ✅ Alle Pages haben `<SEOHead>` mit korrekten Meta-Daten
 
 **NEUE MANDATORY REGEL:**
+
 ```typescript
 // ❌ NIEMALS in Protected Pages:
 import { MainLayout } from '@/components/layout/MainLayout';

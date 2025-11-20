@@ -27,6 +27,7 @@
 **Aus `supabase/config.toml` identifiziert:**
 
 #### AI & Machine Learning (25 Functions)
+
 - ✅ `ai-auto-fix-generator` - Auto-Fix für Code-Issues
 - ✅ `ai-chat-example` - Beispiel-Chat
 - ✅ `ai-code-analyzer` - Code-Analyse
@@ -54,6 +55,7 @@
 - ✅ `dashboard-ai-assistant` - Dashboard AI Assistant
 
 #### System & Automation (30 Functions)
+
 - ✅ `alert-manager` - Alert-Management
 - ✅ `auto-doc-updater` - Auto-Doc-Updates
 - ✅ `auto-healer` - Auto-Healing
@@ -91,6 +93,7 @@
 - ✅ `wiki-to-yaml-parser` - Wiki-to-YAML Parser
 
 #### API & Integration (15 Functions)
+
 - ✅ `api-connection-manager` - API-Connection-Management
 - ✅ `geocode-address` - Adress-Geocoding
 - ✅ `geocode-company-address` - Company-Adress-Geocoding
@@ -108,6 +111,7 @@
 - ✅ `send-nexify-contact` - NeXify-Contact
 
 #### Security & Compliance (10 Functions)
+
 - ✅ `check-document-expiry` - Dokument-Ablauf-Prüfung
 - ✅ `clean-old-booking-data` - Alte Daten-Bereinigung
 - ✅ `cleanup-gps-positions` - GPS-Positions-Bereinigung
@@ -122,6 +126,7 @@
 - ✅ `pre-go-live-validation` - Pre-Go-Live-Validierung
 
 #### Business Logic (20 Functions)
+
 - ✅ `check-subscription` - Subscription-Check
 - ✅ `create-checkout` - Checkout-Erstellung
 - ✅ `create-daily-room` - Daily-Room-Erstellung
@@ -144,6 +149,7 @@
 - ✅ `sync-form-fields-to-knowledge-base` - Form-Fields-to-KB-Sync
 
 #### Design & UI (8 Functions)
+
 - ✅ `generate-hero-image` - Hero-Image-Generierung
 - ✅ `sync-layout-standards` - Layout-Standards-Sync
 - ✅ `sync-pricing-tariffs` - Pricing-Tariffs-Sync
@@ -155,6 +161,7 @@
 - ✅ `kronos-executor` - Kronos Executor
 
 #### Utility & Support (12 Functions)
+
 - ✅ `bot-webhook` - Bot-Webhook
 - ✅ `clear-cache` - Cache-Clearing
 - ✅ `confirm-chat-consent` - Chat-Consent-Bestätigung
@@ -166,6 +173,7 @@
 - ✅ `manage-docs` - Doc-Management
 
 #### NeXify AI MASTER (3 Functions)
+
 - ✅ `nexify-compliance-automation` - Compliance-Automation
 - ✅ `nexify-initialize-database` - DB-Initialisierung
 - ⏳ `nexify-quality-monitor` - Quality-Monitor (NEU)
@@ -177,6 +185,7 @@
 ### 2.1 Implementiert (3/120+)
 
 **✅ Bereits implementiert:**
+
 1. `nexify-compliance-automation` - Compliance-Automation
 2. `nexify-initialize-database` - DB-Initialisierung
 3. `nexify-quality-monitor` - Quality-Monitor (NEU)
@@ -184,6 +193,7 @@
 ### 2.2 Zu implementieren (117+ Functions)
 
 **Priorität P0 (Kritisch - Sofort):**
+
 - ⏳ `ai-smart-assignment` - Smart Assignment (AI-Feature)
 - ⏳ `ai-support-chat` - Support-Chat (AI-Feature)
 - ⏳ `ai-document-ocr` - Document OCR (AI-Feature)
@@ -201,12 +211,14 @@
 - ⏳ `cleanup-gps-positions` - GPS-Cleanup (DSGVO Compliance)
 
 **Priorität P1 (Wichtig - Diese Woche):**
+
 - ⏳ Alle AI-Functions (25 Functions)
 - ⏳ Alle System-Automation-Functions (30 Functions)
 - ⏳ Alle Security-Functions (10 Functions)
 - ⏳ Alle Business-Logic-Functions (20 Functions)
 
 **Priorität P2 (Nice-to-Have - Nächste Woche):**
+
 - ⏳ Alle Design-UI-Functions (8 Functions)
 - ⏳ Alle Utility-Functions (12 Functions)
 
@@ -217,12 +229,14 @@
 ### 3.1 Komponenten (SOLL)
 
 **Hero-System:**
+
 - ✅ `V28HeroPremium` - Implementiert
 - ✅ `V28Hero3DBackgroundPremium` - Implementiert
 - ✅ `V28DashboardPreview` - Implementiert
 - ✅ `V28iPadMockup` - Implementiert
 
 **Dashboard-System:**
+
 - ✅ `UniversalQuickActionsPanel` - Implementiert
 - ✅ `SystemStatusWidget` - Implementiert
 - ✅ `QuickStatsWidget` - Implementiert
@@ -230,6 +244,7 @@
 - ✅ `UpcomingEventsWidget` - Implementiert
 
 **Form-System:**
+
 - ⏳ Alle Form-Komponenten mit Validierung
 - ⏳ Alle Form-Komponenten mit Error-Handling
 - ⏳ Alle Form-Komponenten mit Loading-States
@@ -237,11 +252,13 @@
 ### 3.2 Hooks (SOLL)
 
 **Implementiert:**
+
 - ✅ `useQuickActionsPanel` - Implementiert
 - ✅ `useAuth` - Implementiert
 - ✅ `useSubscription` - Implementiert
 
 **Zu implementieren:**
+
 - ⏳ `useBookings` - Bookings-Hook
 - ⏳ `useCustomers` - Customers-Hook
 - ⏳ `useDrivers` - Drivers-Hook
@@ -258,11 +275,13 @@
 ### 4.1 Database Functions (SOLL)
 
 **Implementiert:**
+
 - ✅ `store_nexify_memory` - NeXify Memory
 - ✅ `get_nexify_memory` - NeXify Memory Retrieval
 - ✅ `update_nexify_updated_at` - Update Timestamp
 
 **Zu implementieren:**
+
 - ⏳ `archive_record` - Archiving (Soft Delete)
 - ⏳ `check_company_access` - Company Access Check
 - ⏳ `validate_booking` - Booking Validation
@@ -273,6 +292,7 @@
 ### 4.2 RLS Policies (SOLL)
 
 **Status:**
+
 - ⏳ Alle Tabellen MÜSSEN RLS aktiviert haben
 - ⏳ Alle Policies MÜSSEN company_id Filter haben
 - ⏳ Alle Policies MÜSSEN archivierte Records ausschließen
@@ -284,6 +304,7 @@
 ### 5.1 Phase 1: Kritische Funktionen (P0) - SOFORT
 
 **Edge Functions:**
+
 1. ✅ `nexify-compliance-automation` - DONE
 2. ✅ `nexify-initialize-database` - DONE
 3. ⏳ `ai-smart-assignment` - IN PROGRESS
@@ -296,11 +317,13 @@
 10. ⏳ `check-document-expiry` - IN PROGRESS
 
 **Frontend:**
+
 1. ⏳ `useBookings` Hook - IN PROGRESS
 2. ⏳ `useGeocode` Hook - IN PROGRESS
 3. ⏳ Formatting Utilities (DIN 5008) - IN PROGRESS
 
 **Backend:**
+
 1. ⏳ RLS Policies für alle Tabellen - IN PROGRESS
 2. ⏳ Archive Functions - IN PROGRESS
 3. ⏳ Validation Functions - IN PROGRESS
@@ -308,6 +331,7 @@
 ### 5.2 Phase 2: Wichtige Funktionen (P1) - DIESE WOCHE
 
 **Edge Functions:**
+
 - Alle AI-Functions (25)
 - Alle System-Automation-Functions (30)
 - Alle Security-Functions (10)
@@ -316,6 +340,7 @@
 ### 5.3 Phase 3: Nice-to-Have (P2) - NÄCHSTE WOCHE
 
 **Edge Functions:**
+
 - Alle Design-UI-Functions (8)
 - Alle Utility-Functions (12)
 
@@ -326,31 +351,32 @@
 ### 6.1 Edge Functions Best Practices
 
 **✅ ZWINGEND:**
+
 ```typescript
 // 1. Error Handling (IMMER)
 try {
   // Function Logic
 } catch (error) {
-  console.error('[FUNCTION_NAME] Error:', error);
-  return new Response(
-    JSON.stringify({ error: error.message }),
-    { status: 500, headers: corsHeaders }
-  );
+  console.error("[FUNCTION_NAME] Error:", error);
+  return new Response(JSON.stringify({ error: error.message }), {
+    status: 500,
+    headers: corsHeaders,
+  });
 }
 
 // 2. Input Validation (IMMER)
 const { data, error } = await supabase
-  .from('table')
-  .select('*')
-  .eq('company_id', companyId) // IMMER company_id Filter
-  .eq('archived', false); // IMMER archived Filter
+  .from("table")
+  .select("*")
+  .eq("company_id", companyId) // IMMER company_id Filter
+  .eq("archived", false); // IMMER archived Filter
 
 if (error) throw error;
 if (!data || data.length === 0) {
-  return new Response(
-    JSON.stringify({ error: 'Not found' }),
-    { status: 404, headers: corsHeaders }
-  );
+  return new Response(JSON.stringify({ error: "Not found" }), {
+    status: 404,
+    headers: corsHeaders,
+  });
 }
 
 // 3. CORS Headers (IMMER)
@@ -360,8 +386,8 @@ const corsHeaders = {
 };
 
 // 4. Logging (IMMER)
-console.log('[FUNCTION_NAME] Action:', action);
-console.log('[FUNCTION_NAME] Result:', result);
+console.log("[FUNCTION_NAME] Action:", action);
+console.log("[FUNCTION_NAME] Result:", result);
 
 // 5. Type Safety (IMMER)
 interface FunctionInput {
@@ -375,23 +401,24 @@ const input: FunctionInput = await req.json();
 ### 6.2 Frontend Hooks Best Practices
 
 **✅ ZWINGEND:**
+
 ```typescript
 // 1. Error Handling (IMMER)
 export function useBookings() {
   const { profile } = useAuth();
-  
+
   return useQuery({
     queryKey: ['bookings', profile?.company_id],
     queryFn: async () => {
       if (!profile?.company_id) throw new Error('No company_id');
-      
+
       const { data, error } = await supabase
         .from('bookings')
         .select('*')
         .eq('company_id', profile.company_id)
         .eq('archived', false)
         .order('created_at', { ascending: false });
-      
+
       if (error) throw error;
       return data;
     },
@@ -419,6 +446,7 @@ if (error) return <Error message={error.message} />;
 ### 6.3 Database Functions Best Practices
 
 **✅ ZWINGEND:**
+
 ```sql
 -- 1. RLS IMMER aktivieren
 ALTER TABLE table_name ENABLE ROW LEVEL SECURITY;
@@ -447,13 +475,13 @@ BEGIN
   IF company_id_param IS NULL THEN
     RAISE EXCEPTION 'company_id is required';
   END IF;
-  
+
   -- Archive
   EXECUTE format(
     'UPDATE %I SET archived = true, archived_at = NOW() WHERE id = $1 AND company_id = $2',
     table_name
   ) USING record_id, company_id_param;
-  
+
   RETURN TRUE;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -462,6 +490,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 ### 6.4 Component Best Practices
 
 **✅ ZWINGEND:**
+
 ```typescript
 // 1. Props Interface (IMMER)
 interface ComponentProps {
@@ -498,6 +527,7 @@ className="px-4 sm:px-8 py-4 sm:py-6"
 ### 7.1 Testing (ZWINGEND)
 
 **Jede Funktion MUSS haben:**
+
 - ✅ Unit Tests (Vitest)
 - ✅ Integration Tests (Vitest)
 - ✅ E2E Tests (Playwright) - für kritische Flows
@@ -506,6 +536,7 @@ className="px-4 sm:px-8 py-4 sm:py-6"
 ### 7.2 Code Review (ZWINGEND)
 
 **Jede Funktion MUSS:**
+
 - ✅ TypeScript Strict Mode
 - ✅ ESLint Errors: 0
 - ✅ Prettier Formatted
@@ -516,6 +547,7 @@ className="px-4 sm:px-8 py-4 sm:py-6"
 ### 7.3 Documentation (ZWINGEND)
 
 **Jede Funktion MUSS dokumentiert sein:**
+
 - ✅ JSDoc Kommentare
 - ✅ README.md im Function-Ordner
 - ✅ Type Definitions
@@ -526,22 +558,24 @@ className="px-4 sm:px-8 py-4 sm:py-6"
 ## 8. NÄCHSTE SCHRITTE
 
 ### Sofort (P0):
+
 1. ⏳ Kritische Edge Functions implementieren (10 Functions)
 2. ⏳ Kritische Frontend Hooks implementieren (3 Hooks)
 3. ⏳ RLS Policies für alle Tabellen
 4. ⏳ Formatting Utilities (DIN 5008)
 
 ### Diese Woche (P1):
+
 1. ⏳ Alle AI-Functions (25 Functions)
 2. ⏳ Alle System-Automation-Functions (30 Functions)
 3. ⏳ Alle Security-Functions (10 Functions)
 4. ⏳ Alle Business-Logic-Functions (20 Functions)
 
 ### Nächste Woche (P2):
+
 1. ⏳ Alle Design-UI-Functions (8 Functions)
 2. ⏳ Alle Utility-Functions (12 Functions)
 
 ---
 
 **Bereit für vollständige Implementierung, Pascal!** 🚀
-

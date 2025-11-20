@@ -9,27 +9,33 @@
    ✅ Vollständiger Kontakt-Form mit Validierung
    ================================================================================== */
 
-import { useState } from 'react';
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { Section, Container, Grid, Stack, Flex } from '@/components/ui/layout';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { V28Button } from '@/components/design-system/V28Button';
-import { V28InfoBox } from '@/components/design-system/V28InfoBox';
-import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
-import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
-  Code, 
-  Server, 
-  Shield, 
-  Zap, 
-  Clock, 
+import { useState } from "react";
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { Section, Container, Grid, Stack, Flex } from "@/components/ui/layout";
+import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
+import { V28Button } from "@/components/design-system/V28Button";
+import { V28InfoBox } from "@/components/design-system/V28InfoBox";
+import { V28HeroPremium } from "@/components/hero/V28HeroPremium";
+import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Code,
+  Server,
+  Shield,
+  Zap,
+  Clock,
   Users,
   Database,
   Cloud,
@@ -39,24 +45,24 @@ import {
   Sparkles,
   Loader2,
   Star,
-  Cpu
-} from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+  Cpu,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
-import { z } from 'zod';
-import { organizationSchema } from '@/lib/schema-org';
-import { CheckCircle2, TrendingUp, Award } from 'lucide-react';
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { z } from "zod";
+import { organizationSchema } from "@/lib/schema-org";
+import { CheckCircle2, TrendingUp, Award } from "lucide-react";
 
 // Validation Schema
 const contactSchema = z.object({
-  name: z.string().trim().min(2, 'Name muss mindestens 2 Zeichen lang sein').max(100),
-  email: z.string().trim().email('Bitte geben Sie eine gültige E-Mail-Adresse ein').max(255),
-  phone: z.string().trim().max(50).optional().or(z.literal('')),
-  company: z.string().trim().max(100).optional().or(z.literal('')),
-  service: z.string().optional().or(z.literal('')),
-  message: z.string().trim().min(10, 'Nachricht muss mindestens 10 Zeichen lang sein').max(2000)
+  name: z.string().trim().min(2, "Name muss mindestens 2 Zeichen lang sein").max(100),
+  email: z.string().trim().email("Bitte geben Sie eine gültige E-Mail-Adresse ein").max(255),
+  phone: z.string().trim().max(50).optional().or(z.literal("")),
+  company: z.string().trim().max(100).optional().or(z.literal("")),
+  service: z.string().optional().or(z.literal("")),
+  message: z.string().trim().min(10, "Nachricht muss mindestens 10 Zeichen lang sein").max(2000),
 });
 
 export default function NeXifySupport() {
@@ -64,12 +70,12 @@ export default function NeXifySupport() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    service: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    service: "",
+    message: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -81,19 +87,18 @@ export default function NeXifySupport() {
     try {
       const validatedData = contactSchema.parse(formData);
 
-      const { data, error } = await supabase.functions.invoke('send-nexify-contact', {
-        body: validatedData
+      const { data, error } = await supabase.functions.invoke("send-nexify-contact", {
+        body: validatedData,
       });
 
-      if (error) throw new Error(error.message || 'Fehler beim Senden der Anfrage');
+      if (error) throw new Error(error.message || "Fehler beim Senden der Anfrage");
 
       toast({
-        title: 'Anfrage erfolgreich gesendet!',
-        description: 'Sie erhalten in Kürze eine Bestätigungs-E-Mail.',
+        title: "Anfrage erfolgreich gesendet!",
+        description: "Sie erhalten in Kürze eine Bestätigungs-E-Mail.",
       });
-      
-      setFormData({ name: '', email: '', phone: '', company: '', service: '', message: '' });
 
+      setFormData({ name: "", email: "", phone: "", company: "", service: "", message: "" });
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         const fieldErrors: Record<string, string> = {};
@@ -106,13 +111,13 @@ export default function NeXifySupport() {
         toast({
           title: "Validierungsfehler",
           description: "Bitte überprüfen Sie Ihre Eingaben",
-          variant: "destructive"
+          variant: "destructive",
         });
       } else {
         toast({
-          title: 'Fehler',
-          description: error.message || 'Anfrage fehlgeschlagen',
-          variant: 'destructive'
+          title: "Fehler",
+          description: error.message || "Anfrage fehlgeschlagen",
+          variant: "destructive",
         });
       }
     } finally {
@@ -123,94 +128,90 @@ export default function NeXifySupport() {
   const services = [
     {
       icon: Code,
-      title: 'Landingpage-Entwicklung',
-      price: 'ab 590€',
-      description: 'MyDispatch Widget-Integration, Responsive Design, SEO-optimiert, DSGVO-konform, 2-4 Wochen Umsetzungszeit.'
+      title: "Landingpage-Entwicklung",
+      price: "ab 590€",
+      description:
+        "MyDispatch Widget-Integration, Responsive Design, SEO-optimiert, DSGVO-konform, 2-4 Wochen Umsetzungszeit.",
     },
     {
       icon: Server,
-      title: 'API-Integrationen',
-      price: 'ab 699€',
-      description: 'Externe Systeme anbinden: Zahlungsanbieter, E-Mail-Marketing, Buchhaltung, Webhooks und Monitoring.'
+      title: "API-Integrationen",
+      price: "ab 699€",
+      description:
+        "Externe Systeme anbinden: Zahlungsanbieter, E-Mail-Marketing, Buchhaltung, Webhooks und Monitoring.",
     },
     {
       icon: Shield,
-      title: 'Security & Compliance',
-      price: 'ab 490€',
-      description: 'DSGVO-Audit, Security-Tests, ISO 27001 Beratung, Penetration Tests und Compliance-Checks.'
+      title: "Security & Compliance",
+      price: "ab 490€",
+      description:
+        "DSGVO-Audit, Security-Tests, ISO 27001 Beratung, Penetration Tests und Compliance-Checks.",
     },
     {
       icon: Zap,
-      title: 'Business Automatisierung',
-      price: 'ab 399€',
-      description: 'E-Mail-Marketing Automation, Lead-Management, KI-Chatbot Integration und Workflow-Optimierung.'
+      title: "Business Automatisierung",
+      price: "ab 399€",
+      description:
+        "E-Mail-Marketing Automation, Lead-Management, KI-Chatbot Integration und Workflow-Optimierung.",
     },
     {
       icon: Database,
-      title: 'Datenbank-Migration',
-      price: 'ab 490€',
-      description: 'Import bestehender Daten, Synchronisation, Backup-Strategien und Performance-Optimierung.'
+      title: "Datenbank-Migration",
+      price: "ab 490€",
+      description:
+        "Import bestehender Daten, Synchronisation, Backup-Strategien und Performance-Optimierung.",
     },
     {
       icon: Cloud,
-      title: 'DevOps & Infrastructure',
-      price: 'auf Anfrage',
-      description: 'CI/CD Pipelines, Docker/Kubernetes, Monitoring, Logging und automatisierte Deployments.'
+      title: "DevOps & Infrastructure",
+      price: "auf Anfrage",
+      description:
+        "CI/CD Pipelines, Docker/Kubernetes, Monitoring, Logging und automatisierte Deployments.",
     },
   ];
 
   const supportPackages = [
     {
       icon: Clock,
-      title: 'Standard Support',
-      description: 'Reaktionszeit: 24h',
-      price: 'Inkludiert',
-      features: [
-        'E-Mail Support',
-        'Ticket-System',
-        'Wissensdatenbank',
-        'Community Forum'
-      ]
+      title: "Standard Support",
+      description: "Reaktionszeit: 24h",
+      price: "Inkludiert",
+      features: ["E-Mail Support", "Ticket-System", "Wissensdatenbank", "Community Forum"],
     },
     {
       icon: Users,
-      title: 'Priority Support',
-      description: 'Reaktionszeit: 4h',
-      price: 'ab 199€/Monat',
+      title: "Priority Support",
+      description: "Reaktionszeit: 4h",
+      price: "ab 199€/Monat",
       features: [
-        'Telefon & E-Mail',
-        'Prioritäts-Tickets',
-        'Direkter Entwickler-Kontakt',
-        'Monatliche Reviews'
+        "Telefon & E-Mail",
+        "Prioritäts-Tickets",
+        "Direkter Entwickler-Kontakt",
+        "Monatliche Reviews",
       ],
-      highlighted: true
+      highlighted: true,
     },
     {
       icon: MessageSquare,
-      title: 'Enterprise Support',
-      description: 'Reaktionszeit: 1h',
-      price: 'Auf Anfrage',
-      features: [
-        '24/7 Hotline',
-        'Dedicated Account Manager',
-        'On-Site Besuche',
-        'Custom SLA'
-      ]
-    }
+      title: "Enterprise Support",
+      description: "Reaktionszeit: 1h",
+      price: "Auf Anfrage",
+      features: ["24/7 Hotline", "Dedicated Account Manager", "On-Site Besuche", "Custom SLA"],
+    },
   ];
 
   const stats = [
-    { value: '15+', label: 'Jahre Erfahrung', sublabel: 'Digitalisierung & KI' },
-    { value: 'Premium', label: 'Enterprise Support', sublabel: 'Persönlich betreut' },
-    { value: '500+', label: 'Projekte realisiert', sublabel: 'Web & Automation' },
-    { value: '98%', label: 'Kundenzufriedenheit', sublabel: 'Positive Bewertungen' }
+    { value: "15+", label: "Jahre Erfahrung", sublabel: "Digitalisierung & KI" },
+    { value: "Premium", label: "Enterprise Support", sublabel: "Persönlich betreut" },
+    { value: "500+", label: "Projekte realisiert", sublabel: "Web & Automation" },
+    { value: "98%", label: "Kundenzufriedenheit", sublabel: "Positive Bewertungen" },
   ];
 
   // Business Metrics für Hero (wie auf Home.tsx)
   const businessMetrics = [
-    { label: 'Jahre Erfahrung', value: '15+', sublabel: 'Digitalisierung & KI' },
-    { label: 'Projekte', value: '500+', sublabel: 'realisiert' },
-    { label: 'Zufriedenheit', value: '98%', sublabel: 'Kundenbewertung' }
+    { label: "Jahre Erfahrung", value: "15+", sublabel: "Digitalisierung & KI" },
+    { label: "Projekte", value: "500+", sublabel: "realisiert" },
+    { label: "Zufriedenheit", value: "98%", sublabel: "Kundenbewertung" },
   ];
 
   return (
@@ -221,12 +222,12 @@ export default function NeXifySupport() {
         canonical="/nexify-support"
         schema={organizationSchema}
         keywords={[
-          'NeXify Support',
-          'MyDispatch Support',
-          'Landingpage Entwicklung',
-          'API Integration',
-          'Business Automatisierung',
-          'DSGVO-konform',
+          "NeXify Support",
+          "MyDispatch Support",
+          "Landingpage Entwicklung",
+          "API Integration",
+          "Business Automatisierung",
+          "DSGVO-konform",
         ]}
       />
 
@@ -241,13 +242,11 @@ export default function NeXifySupport() {
         subtitle="Über 15 Jahre Expertise in IT-Lösungen"
         description="Spezialisierte IT-Dienstleistungen für Taxi-, Mietwagen- und Limousinenunternehmen. Von der Landingpage bis zur kompletten API-Integration."
         primaryCTA={{
-          label: 'Jetzt anfragen',
-          onClick: () => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+          label: "Jetzt anfragen",
+          onClick: () => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" }),
         }}
         businessMetrics={businessMetrics}
-        visual={
-          <PremiumDashboardContent pageType="nexify-support" />
-        }
+        visual={<PremiumDashboardContent pageType="nexify-support" />}
       />
 
       {/* ==================================================================================
@@ -298,9 +297,10 @@ export default function NeXifySupport() {
           {supportPackages.map((option, idx) => (
             <V28MarketingCard
               key={idx}
-              className={option.highlighted 
-                ? 'ring-2 ring-slate-700 shadow-2xl transform md:scale-[1.05]' 
-                : ''
+              className={
+                option.highlighted
+                  ? "ring-2 ring-slate-700 shadow-2xl transform md:scale-[1.05]"
+                  : ""
               }
             >
               <Stack spacing="lg">
@@ -310,24 +310,17 @@ export default function NeXifySupport() {
                     <h3 className="font-sans text-xl font-semibold text-slate-900 mb-1">
                       {option.title}
                     </h3>
-                    <p className="font-sans text-sm text-slate-600">
-                      {option.description}
-                    </p>
+                    <p className="font-sans text-sm text-slate-600">{option.description}</p>
                   </div>
                 </Flex>
 
                 <div>
-                  <div className="font-sans text-3xl font-bold text-slate-900">
-                    {option.price}
-                  </div>
+                  <div className="font-sans text-3xl font-bold text-slate-900">{option.price}</div>
                 </div>
 
                 <ul className="space-y-2">
                   {option.features.map((feature, fIdx) => (
-                    <li 
-                      key={fIdx}
-                      className="flex items-start gap-2 text-sm text-slate-600"
-                    >
+                    <li key={fIdx} className="flex items-start gap-2 text-sm text-slate-600">
                       <span className="text-slate-700 font-bold">✓</span>
                       {feature}
                     </li>
@@ -335,9 +328,11 @@ export default function NeXifySupport() {
                 </ul>
 
                 <V28Button
-                  variant={option.highlighted ? 'primary' : 'secondary'}
+                  variant={option.highlighted ? "primary" : "secondary"}
                   size="md"
-                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() =>
+                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                  }
                   className="w-full"
                 >
                   Jetzt anfragen
@@ -453,7 +448,9 @@ export default function NeXifySupport() {
                       className="mt-2"
                       disabled={isSubmitting}
                     />
-                    {errors.message && <p className="text-sm text-red-600 mt-1">{errors.message}</p>}
+                    {errors.message && (
+                      <p className="text-sm text-red-600 mt-1">{errors.message}</p>
+                    )}
                   </div>
 
                   <V28Button
@@ -469,10 +466,11 @@ export default function NeXifySupport() {
 
                   <V28InfoBox type="legal">
                     <p className="text-xs text-slate-600">
-                      Ihre Daten werden gemäß DSGVO verarbeitet. Weitere Informationen in unserer{' '}
+                      Ihre Daten werden gemäß DSGVO verarbeitet. Weitere Informationen in unserer{" "}
                       <a href="/datenschutz" className="underline hover:text-slate-900">
                         Datenschutzerklärung
-                      </a>.
+                      </a>
+                      .
                     </p>
                   </V28InfoBox>
                 </Stack>
@@ -485,10 +483,8 @@ export default function NeXifySupport() {
                 <V28MarketingCard>
                   <Stack spacing="md" align="center">
                     <V28IconBox icon={Mail} variant="slate" />
-                    <h3 className="font-sans text-lg font-semibold text-slate-900">
-                      E-Mail
-                    </h3>
-                    <a 
+                    <h3 className="font-sans text-lg font-semibold text-slate-900">E-Mail</h3>
+                    <a
                       href="mailto:support@nexify.nl"
                       className="font-sans text-base text-slate-600 hover:text-slate-900 transition-colors"
                     >
@@ -500,10 +496,8 @@ export default function NeXifySupport() {
                 <V28MarketingCard>
                   <Stack spacing="md" align="center">
                     <V28IconBox icon={Phone} variant="slate" />
-                    <h3 className="font-sans text-lg font-semibold text-slate-900">
-                      Telefon
-                    </h3>
-                    <a 
+                    <h3 className="font-sans text-lg font-semibold text-slate-900">Telefon</h3>
+                    <a
                       href="tel:+49123456789"
                       className="font-sans text-base text-slate-600 hover:text-slate-900 transition-colors"
                     >
@@ -519,7 +513,8 @@ export default function NeXifySupport() {
                       Erreichbarkeit
                     </h3>
                     <p className="font-sans text-sm text-center text-slate-600">
-                      Mo-Fr: 9:00 - 18:00 Uhr<br />
+                      Mo-Fr: 9:00 - 18:00 Uhr
+                      <br />
                       24/7 Priority & Enterprise Support
                     </p>
                   </Stack>
@@ -537,32 +532,34 @@ export default function NeXifySupport() {
         <Container size="lg" padding="lg">
           <div className="text-center">
             <Stack spacing="lg" align="center">
-              <h2 
+              <h2
                 className="font-sans font-bold tracking-tight text-slate-900"
-                style={{ 
-                  fontSize: 'clamp(2rem, 3vw + 1rem, 3rem)',
-                  textWrap: 'balance'
+                style={{
+                  fontSize: "clamp(2rem, 3vw + 1rem, 3rem)",
+                  textWrap: "balance",
                 }}
               >
                 Bereit für professionellen IT-Support?
               </h2>
 
-              <p 
+              <p
                 className="font-sans leading-relaxed max-w-2xl text-center text-slate-600"
-                style={{ 
-                  fontSize: 'clamp(1rem, 1.25vw + 0.25rem, 1.25rem)',
-                  textWrap: 'pretty'
+                style={{
+                  fontSize: "clamp(1rem, 1.25vw + 0.25rem, 1.25rem)",
+                  textWrap: "pretty",
                 }}
               >
-                Kontaktieren Sie uns für ein unverbindliches Beratungsgespräch. 
-                Wir finden die passende Lösung für Ihre Anforderungen.
+                Kontaktieren Sie uns für ein unverbindliches Beratungsgespräch. Wir finden die
+                passende Lösung für Ihre Anforderungen.
               </p>
 
               <Flex justify="center" gap="md">
                 <V28Button
                   variant="primary"
                   size="lg"
-                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() =>
+                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                  }
                 >
                   <Mail className="w-5 h-5 mr-2" />
                   Kontakt aufnehmen
@@ -571,7 +568,7 @@ export default function NeXifySupport() {
                 <V28Button
                   variant="secondary"
                   size="lg"
-                  onClick={() => window.open('tel:+49123456789')}
+                  onClick={() => window.open("tel:+49123456789")}
                 >
                   <Phone className="w-5 h-5 mr-2" />
                   Anrufen

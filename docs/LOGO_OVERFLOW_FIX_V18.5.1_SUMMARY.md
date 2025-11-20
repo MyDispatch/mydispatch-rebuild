@@ -9,16 +9,18 @@
 ## 🎯 Was wurde gefixt?
 
 ### **Problem:**
+
 - Logo + Text im Header überlappten sich
 - Unprofessionelles Erscheinungsbild
 - Mobile-Ansicht besonders betroffen
 
 ### **Root Cause:**
+
 ```tsx
 // AuthHeader.tsx Zeile 47-56
 <div className="flex items-center gap-3">
   <img src={officialLogo} className="h-8 max-w-[140px]" />
-  <span className="text-lg">{companyName}</span>  {/* ❌ REDUNDANT! */}
+  <span className="text-lg">{companyName}</span> {/* ❌ REDUNDANT! */}
 </div>
 ```
 
@@ -27,6 +29,7 @@
 ## ✅ Implementierte Lösung
 
 ### **1. Text entfernt (Logo reicht!)**
+
 ```tsx
 // VORHER: Logo + Text
 <div>
@@ -39,6 +42,7 @@
 ```
 
 ### **2. Strikte Max-Width**
+
 ```tsx
 // Progressive Enhancement
 className="
@@ -54,12 +58,12 @@ className="
 
 ## 📊 Impact
 
-| Aspekt | Vorher | Nachher |
-|--------|--------|---------|
-| Logo-Overflow | ❌ Ja | ✅ Nein |
-| Text-Redundanz | ❌ Ja | ✅ Nein |
-| Mobile-Platz | 🟡 Eng | ✅ Optimal |
-| Professionalität | 🟡 Mittel | ✅ Hoch |
+| Aspekt           | Vorher    | Nachher    |
+| ---------------- | --------- | ---------- |
+| Logo-Overflow    | ❌ Ja     | ✅ Nein    |
+| Text-Redundanz   | ❌ Ja     | ✅ Nein    |
+| Mobile-Platz     | 🟡 Eng    | ✅ Optimal |
+| Professionalität | 🟡 Mittel | ✅ Hoch    |
 
 ---
 

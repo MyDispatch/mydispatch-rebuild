@@ -33,59 +33,69 @@ serve(async (req) => {
     const input: SendBookingPDFInput = await req.json();
 
     if (!input.booking_id || !input.company_id) {
-      return new Response(
-        JSON.stringify({ error: "booking_id and company_id are required" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "booking_id and company_id are required" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Get Booking Details
     const { data: booking, error: bookingError } = await supabase
       .from("bookings")
-      .select(`
+      .select(
+        `
         *,
         customer:customers(*),
         driver:drivers(*),
         company:companies(*)
-      `)
+      `
+      )
       .eq("id", input.booking_id)
       .eq("company_id", input.company_id)
       .single();
 
     if (bookingError || !booking) {
-      return new Response(
-        JSON.stringify({ error: "Booking not found" }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Booking not found" }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Determine Recipient Email
-    const recipientEmail = input.recipient_email || 
+    const recipientEmail =
+      input.recipient_email ||
       (booking.customer && booking.customer.email) ||
       (booking.company && booking.company.email);
 
     if (!recipientEmail) {
-      return new Response(
-        JSON.stringify({ error: "Recipient email not found" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Recipient email not found" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Get Resend API Key
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     const resendDomain = Deno.env.get("RESEND_DOMAIN") || "mydispatch.com";
-    
+
     if (!resendApiKey) {
-      return new Response(
-        JSON.stringify({ error: "Email service not configured" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Email service not configured" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Generate PDF HTML (using invoice template structure)
     const bookingNumber = booking.booking_number || booking.id.slice(0, 8);
-    const pickupDate = booking.pickup_time ? new Date(booking.pickup_time).toLocaleDateString("de-DE") : "N/A";
-    const pickupTime = booking.pickup_time ? new Date(booking.pickup_time).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) : "N/A";
+    const pickupDate = booking.pickup_time
+      ? new Date(booking.pickup_time).toLocaleDateString("de-DE")
+      : "N/A";
+    const pickupTime = booking.pickup_time
+      ? new Date(booking.pickup_time).toLocaleTimeString("de-DE", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+      : "N/A";
 
     const pdfHTML = generateBookingPDFHTML(booking, bookingNumber, pickupDate, pickupTime);
 
@@ -97,7 +107,7 @@ serve(async (req) => {
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${resendApiKey}`,
+        Authorization: `Bearer ${resendApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -126,7 +136,7 @@ serve(async (req) => {
         attachments: [
           {
             filename: `Auftrag_${bookingNumber}.pdf`,
-            content: pdfBuffer.toString('base64'),
+            content: pdfBuffer.toString("base64"),
           },
         ],
       }),
@@ -140,16 +150,14 @@ serve(async (req) => {
     const resendData = await resendResponse.json();
 
     // Log Email Sent
-    await supabase
-      .from("email_logs")
-      .insert({
-        company_id: input.company_id,
-        booking_id: input.booking_id,
-        recipient_email: recipientEmail,
-        email_type: "booking_pdf",
-        sent_at: new Date().toISOString(),
-        resend_id: resendData.id,
-      });
+    await supabase.from("email_logs").insert({
+      company_id: input.company_id,
+      booking_id: input.booking_id,
+      recipient_email: recipientEmail,
+      email_type: "booking_pdf",
+      sent_at: new Date().toISOString(),
+      resend_id: resendData.id,
+    });
 
     return new Response(
       JSON.stringify({
@@ -162,15 +170,20 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error("[SEND-BOOKING-PDF] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
 
 // Generate Booking PDF HTML
-function generateBookingPDFHTML(booking: any, bookingNumber: string, pickupDate: string, pickupTime: string): string {
+function generateBookingPDFHTML(
+  booking: any,
+  bookingNumber: string,
+  pickupDate: string,
+  pickupTime: string
+): string {
   return `
 <!DOCTYPE html>
 <html lang="de">
@@ -205,9 +218,9 @@ function generateBookingPDFHTML(booking: any, bookingNumber: string, pickupDate:
   
   <div class="address-block">
     <div style="font-size: 11pt; line-height: 1.5;">
-      <strong>${booking.customer?.first_name || ''} ${booking.customer?.last_name || ''}</strong><br>
-      ${booking.customer?.address || ''}<br>
-      ${booking.customer?.postal_code || ''} ${booking.customer?.city || ''}
+      <strong>${booking.customer?.first_name || ""} ${booking.customer?.last_name || ""}</strong><br>
+      ${booking.customer?.address || ""}<br>
+      ${booking.customer?.postal_code || ""} ${booking.customer?.city || ""}
     </div>
   </div>
   
@@ -226,24 +239,36 @@ function generateBookingPDFHTML(booking: any, bookingNumber: string, pickupDate:
         <th>Datum & Uhrzeit</th>
         <td>${pickupDate} um ${pickupTime}</td>
       </tr>
-      ${booking.price ? `
+      ${
+        booking.price
+          ? `
       <tr>
         <th>Preis</th>
-        <td>${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(booking.price)}</td>
+        <td>${new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(booking.price)}</td>
       </tr>
-      ` : ''}
-      ${booking.passengers ? `
+      `
+          : ""
+      }
+      ${
+        booking.passengers
+          ? `
       <tr>
         <th>Passagiere</th>
         <td>${booking.passengers}</td>
       </tr>
-      ` : ''}
-      ${booking.vehicle_type ? `
+      `
+          : ""
+      }
+      ${
+        booking.vehicle_type
+          ? `
       <tr>
         <th>Fahrzeugtyp</th>
         <td>${booking.vehicle_type}</td>
       </tr>
-      ` : ''}
+      `
+          : ""
+      }
     </table>
   </div>
   
@@ -262,8 +287,7 @@ async function generatePDFFromHTML(html: string): Promise<Buffer> {
   // - Puppeteer (headless Chrome)
   // - html2pdf.js
   // - Or external PDF service API
-  
-  // For now, return empty buffer (will be implemented)
-  return Buffer.from('');
-}
 
+  // For now, return empty buffer (will be implemented)
+  return Buffer.from("");
+}

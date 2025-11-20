@@ -8,31 +8,31 @@
    - Semantic Memory Index
    ================================================================================== */
 
-import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { handleError, handleWarning } from '@/lib/error-handler';
-import { 
-  Brain, 
-  CheckCircle, 
-  AlertTriangle, 
-  Clock, 
-  Database, 
-  Network, 
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { handleError, handleWarning } from "@/lib/error-handler";
+import {
+  Brain,
+  CheckCircle,
+  AlertTriangle,
+  Clock,
+  Database,
+  Network,
   FileText,
   Activity,
   Zap,
-  Shield
-} from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/use-auth';
+  Shield,
+} from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
 
 interface AgentAction {
   id: string;
-  type: 'query' | 'mutation' | 'edge_function' | 'validation';
-  status: 'pending' | 'success' | 'error';
+  type: "query" | "mutation" | "edge_function" | "validation";
+  status: "pending" | "success" | "error";
   description: string;
   timestamp: string;
   duration_ms?: number;
@@ -40,20 +40,20 @@ interface AgentAction {
 }
 
 interface SystemHealth {
-  database: 'healthy' | 'degraded' | 'offline';
-  edge_functions: 'healthy' | 'degraded' | 'offline';
-  cache: 'healthy' | 'degraded' | 'offline';
-  realtime: 'healthy' | 'degraded' | 'offline';
+  database: "healthy" | "degraded" | "offline";
+  edge_functions: "healthy" | "degraded" | "offline";
+  cache: "healthy" | "degraded" | "offline";
+  realtime: "healthy" | "degraded" | "offline";
 }
 
 export function AgentDashboard() {
   const { profile } = useAuth();
   const [actions, setActions] = useState<AgentAction[]>([]);
   const [health, setHealth] = useState<SystemHealth>({
-    database: 'healthy',
-    edge_functions: 'healthy',
-    cache: 'healthy',
-    realtime: 'healthy',
+    database: "healthy",
+    edge_functions: "healthy",
+    cache: "healthy",
+    realtime: "healthy",
   });
   const [loading, setLoading] = useState(true);
 
@@ -67,18 +67,18 @@ export function AgentDashboard() {
   const fetchAgentLogs = async () => {
     try {
       const { data, error } = await supabase
-        .from('system_logs')
-        .select('*')
-        .eq('company_id', profile?.company_id)
-        .order('created_at', { ascending: false })
+        .from("system_logs")
+        .select("*")
+        .eq("company_id", profile?.company_id)
+        .order("created_at", { ascending: false })
         .limit(50);
 
       if (error) throw error;
 
-      const mappedActions: AgentAction[] = (data || []).map(log => ({
+      const mappedActions: AgentAction[] = (data || []).map((log) => ({
         id: log.id,
         type: determineActionType(log.message),
-        status: log.level === 'error' ? 'error' : 'success',
+        status: log.level === "error" ? "error" : "success",
         description: log.message,
         timestamp: log.created_at,
         context: log.context,
@@ -86,7 +86,7 @@ export function AgentDashboard() {
 
       setActions(mappedActions);
     } catch (error) {
-      handleError(error, 'Fehler beim Laden der Agent-Logs', { showToast: false });
+      handleError(error, "Fehler beim Laden der Agent-Logs", { showToast: false });
     } finally {
       setLoading(false);
     }
@@ -96,39 +96,39 @@ export function AgentDashboard() {
     try {
       // Database Health Check
       // ✅ V18.5.0: System Health Check - Public Query (kein company_id Filter nötig)
-      const { error: dbError } = await supabase.from('companies').select('id').limit(1);
-      
+      const { error: dbError } = await supabase.from("companies").select("id").limit(1);
+
       // Edge Functions Health Check
-      const { error: efError } = await supabase.functions.invoke('health-check');
+      const { error: efError } = await supabase.functions.invoke("health-check");
 
       setHealth({
-        database: dbError ? 'degraded' : 'healthy',
-        edge_functions: efError ? 'degraded' : 'healthy',
-        cache: 'healthy', // Placeholder (React Query immer healthy)
-        realtime: 'healthy', // Placeholder
+        database: dbError ? "degraded" : "healthy",
+        edge_functions: efError ? "degraded" : "healthy",
+        cache: "healthy", // Placeholder (React Query immer healthy)
+        realtime: "healthy", // Placeholder
       });
     } catch (error) {
-      handleError(error, 'Health-Check fehlgeschlagen', { showToast: false });
+      handleError(error, "Health-Check fehlgeschlagen", { showToast: false });
     }
   };
 
-  const determineActionType = (message: string): AgentAction['type'] => {
-    if (message.includes('query') || message.includes('fetch')) return 'query';
-    if (message.includes('mutation') || message.includes('update')) return 'mutation';
-    if (message.includes('edge') || message.includes('function')) return 'edge_function';
-    return 'validation';
+  const determineActionType = (message: string): AgentAction["type"] => {
+    if (message.includes("query") || message.includes("fetch")) return "query";
+    if (message.includes("mutation") || message.includes("update")) return "mutation";
+    if (message.includes("edge") || message.includes("function")) return "edge_function";
+    return "validation";
   };
 
-  const getHealthColor = (status: 'healthy' | 'degraded' | 'offline') => {
-    if (status === 'healthy') return 'text-status-success';
-    if (status === 'degraded') return 'text-status-warning';
-    return 'text-status-error';
+  const getHealthColor = (status: "healthy" | "degraded" | "offline") => {
+    if (status === "healthy") return "text-status-success";
+    if (status === "degraded") return "text-status-warning";
+    return "text-status-error";
   };
 
-  const getHealthBadge = (status: 'healthy' | 'degraded' | 'offline') => {
-    if (status === 'healthy') return 'success';
-    if (status === 'degraded') return 'warning';
-    return 'error';
+  const getHealthBadge = (status: "healthy" | "degraded" | "offline") => {
+    if (status === "healthy") return "success";
+    if (status === "degraded") return "warning";
+    return "error";
   };
 
   if (loading) {
@@ -177,11 +177,18 @@ export function AgentDashboard() {
                       <Database className={`h-5 w-5 ${getHealthColor(health.database)}`} />
                       <span className="font-semibold">Database</span>
                     </div>
-                    <Badge className={`bg-status-${getHealthBadge(health.database)} text-status-${getHealthBadge(health.database)}-foreground`}>
+                    <Badge
+                      className={`bg-status-${getHealthBadge(health.database)} text-status-${getHealthBadge(health.database)}-foreground`}
+                    >
                       {health.database}
                     </Badge>
                   </div>
-                  <Progress value={health.database === 'healthy' ? 100 : health.database === 'degraded' ? 50 : 0} className="h-2" />
+                  <Progress
+                    value={
+                      health.database === "healthy" ? 100 : health.database === "degraded" ? 50 : 0
+                    }
+                    className="h-2"
+                  />
                 </CardContent>
               </Card>
 
@@ -192,11 +199,22 @@ export function AgentDashboard() {
                       <Zap className={`h-5 w-5 ${getHealthColor(health.edge_functions)}`} />
                       <span className="font-semibold">Edge Functions</span>
                     </div>
-                    <Badge className={`bg-status-${getHealthBadge(health.edge_functions)} text-status-${getHealthBadge(health.edge_functions)}-foreground`}>
+                    <Badge
+                      className={`bg-status-${getHealthBadge(health.edge_functions)} text-status-${getHealthBadge(health.edge_functions)}-foreground`}
+                    >
                       {health.edge_functions}
                     </Badge>
                   </div>
-                  <Progress value={health.edge_functions === 'healthy' ? 100 : health.edge_functions === 'degraded' ? 50 : 0} className="h-2" />
+                  <Progress
+                    value={
+                      health.edge_functions === "healthy"
+                        ? 100
+                        : health.edge_functions === "degraded"
+                          ? 50
+                          : 0
+                    }
+                    className="h-2"
+                  />
                 </CardContent>
               </Card>
 
@@ -207,7 +225,9 @@ export function AgentDashboard() {
                       <Activity className={`h-5 w-5 ${getHealthColor(health.cache)}`} />
                       <span className="font-semibold">Cache (RQ)</span>
                     </div>
-                    <Badge className={`bg-status-${getHealthBadge(health.cache)} text-status-${getHealthBadge(health.cache)}-foreground`}>
+                    <Badge
+                      className={`bg-status-${getHealthBadge(health.cache)} text-status-${getHealthBadge(health.cache)}-foreground`}
+                    >
                       {health.cache}
                     </Badge>
                   </div>
@@ -222,7 +242,9 @@ export function AgentDashboard() {
                       <Network className={`h-5 w-5 ${getHealthColor(health.realtime)}`} />
                       <span className="font-semibold">Realtime</span>
                     </div>
-                    <Badge className={`bg-status-${getHealthBadge(health.realtime)} text-status-${getHealthBadge(health.realtime)}-foreground`}>
+                    <Badge
+                      className={`bg-status-${getHealthBadge(health.realtime)} text-status-${getHealthBadge(health.realtime)}-foreground`}
+                    >
                       {health.realtime}
                     </Badge>
                   </div>
@@ -241,13 +263,13 @@ export function AgentDashboard() {
                   <p>Keine Aktionen protokolliert</p>
                 </div>
               ) : (
-                actions.map(action => (
+                actions.map((action) => (
                   <Card key={action.id} className="p-4">
                     <div className="flex items-start justify-between">
                       <div className="flex items-start gap-3 flex-1">
-                        {action.status === 'success' ? (
+                        {action.status === "success" ? (
                           <CheckCircle className="h-5 w-5 text-foreground mt-0.5" />
-                        ) : action.status === 'error' ? (
+                        ) : action.status === "error" ? (
                           <AlertTriangle className="h-5 w-5 text-foreground mt-0.5" />
                         ) : (
                           <Clock className="h-5 w-5 text-foreground mt-0.5" />
@@ -258,7 +280,7 @@ export function AgentDashboard() {
                               {action.type}
                             </Badge>
                             <span className="text-xs text-muted-foreground">
-                              {new Date(action.timestamp).toLocaleString('de-DE')}
+                              {new Date(action.timestamp).toLocaleString("de-DE")}
                             </span>
                           </div>
                           <p className="text-sm">{action.description}</p>
@@ -306,7 +328,6 @@ export function AgentDashboard() {
               </CardContent>
             </Card>
           </TabsContent>
-
         </Tabs>
       </CardContent>
     </Card>

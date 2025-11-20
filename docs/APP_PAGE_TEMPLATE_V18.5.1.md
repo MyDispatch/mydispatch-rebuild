@@ -14,6 +14,7 @@
 ### Was bedeutet das?
 
 Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
+
 - **1:1 identische Layout-Struktur** wie Fahrer & Fahrzeuge verwenden
 - **Gleiches Tab-System** (vollfächig, keine Abrundungen an Verbindungen)
 - **Gleiche KPI-Cards** (oben, responsive Grid)
@@ -28,22 +29,22 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 
 ### ✅ Verwenden App-Template (PFLICHT)
 
-| Seite | Route | Status | Tab-System | Besonderheiten |
-|-------|-------|--------|------------|----------------|
-| **Fahrer & Fahrzeuge** | `/fahrer` | ✅ Master | Ja (2 Tabs) | Original-Template |
-| **Aufträge** | `/auftraege` | 🔄 TODO | Ja (3 Tabs) | Aufträge/Angebote/Archiv |
-| **Dashboard** | `/dashboard` | 🔄 TODO | Nein | KPI-Cards + Widgets |
-| **Kunden** | `/kunden` | 🔄 TODO | Nein | Liste + Details |
-| **Partner** | `/partner` | 🔄 TODO | Nein | Liste + Provisionen |
-| **Rechnungen** | `/rechnungen` | 🔄 TODO | Ja (2 Tabs) | Rechnungen/Mahnungen |
+| Seite                  | Route         | Status    | Tab-System  | Besonderheiten           |
+| ---------------------- | ------------- | --------- | ----------- | ------------------------ |
+| **Fahrer & Fahrzeuge** | `/fahrer`     | ✅ Master | Ja (2 Tabs) | Original-Template        |
+| **Aufträge**           | `/auftraege`  | 🔄 TODO   | Ja (3 Tabs) | Aufträge/Angebote/Archiv |
+| **Dashboard**          | `/dashboard`  | 🔄 TODO   | Nein        | KPI-Cards + Widgets      |
+| **Kunden**             | `/kunden`     | 🔄 TODO   | Nein        | Liste + Details          |
+| **Partner**            | `/partner`    | 🔄 TODO   | Nein        | Liste + Provisionen      |
+| **Rechnungen**         | `/rechnungen` | 🔄 TODO   | Ja (2 Tabs) | Rechnungen/Mahnungen     |
 
 ### ❌ Verwenden NICHT App-Template
 
-| Seite | Route | Grund |
-|-------|-------|-------|
-| **Home** | `/` | Public Marketing (anderes Template) |
-| **Auth** | `/auth` | Login/Register (vereinfacht) |
-| **Alle Marketing** | `/*` | Public Pages (HOME_DESIGN_TEMPLATE) |
+| Seite              | Route   | Grund                               |
+| ------------------ | ------- | ----------------------------------- |
+| **Home**           | `/`     | Public Marketing (anderes Template) |
+| **Auth**           | `/auth` | Login/Register (vereinfacht)        |
+| **Alle Marketing** | `/*`    | Public Pages (HOME_DESIGN_TEMPLATE) |
 
 ---
 
@@ -56,7 +57,9 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 ### ✅ KORREKT: Tailwind CSS Hero-Bereich
 
 ```tsx
-{/* Hero-Bereich - Tailwind CSS Design */}
+{
+  /* Hero-Bereich - Tailwind CSS Design */
+}
 <div className="relative w-full h-[200px] sm:h-[250px] lg:h-[300px] mb-6 rounded-lg overflow-hidden bg-gradient-to-br from-primary via-primary/80 to-secondary/30 shadow-lg">
   <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
     <div className="mb-4 p-6 rounded-full bg-foreground/10 backdrop-blur-sm">
@@ -65,12 +68,10 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
     <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">
       [Seitenname]
     </h2>
-    <p className="text-sm sm:text-base text-foreground/80 max-w-2xl">
-      [Beschreibung]
-    </p>
+    <p className="text-sm sm:text-base text-foreground/80 max-w-2xl">[Beschreibung]</p>
   </div>
   <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
-</div>
+</div>;
 ```
 
 ### ❌ FALSCH: JPG/PNG Bilder
@@ -81,12 +82,14 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 ```
 
 **Workflow bei neuer Seite:**
+
 1. Icon aus Lucide React wählen (kontextbezogen)
 2. Tailwind CSS Hero-Bereich wie oben kopieren
 3. Icon, Titel und Beschreibung anpassen
 4. NIEMALS JPG/PNG Bilder erstellen oder verwenden!
 
 **Beispiele:**
+
 - `/fahrer` → Icon: `Users`, Text: "Fahrer & Fahrzeuge"
 - `/auftraege` → Icon: `FileText`, Text: "Aufträge"
 - `/kunden` → Icon: `Users`, Text: "Kunden"
@@ -97,12 +100,14 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 ## 🎨 GRAFIK-ANFORDERUNGEN
 
 **KRITISCH:** Grafiken NUR für:
+
 - **Logos** (PNG mit Transparenz)
 - **Marketing-Fotos** (JPG, z.B. Team-Fotos, Produktbilder)
 - **Screenshots** (PNG/JPG, z.B. Dashboard-Previews)
 - **Icons** (SVG via Lucide React, NIEMALS als Dateien!)
 
 **NIEMALS Grafiken für:**
+
 - Hero-Bereiche (→ Tailwind CSS!)
 - Hintergründe (→ Tailwind Gradienten!)
 - Dekorative Elemente (→ Tailwind CSS!)
@@ -122,8 +127,8 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 >
   {/* 0. Hero-Grafik (individuell pro Seite) */}
   <div className="relative w-full h-[200px] sm:h-[250px] lg:h-[300px] mb-6 rounded-lg overflow-hidden">
-    <img 
-      src={heroImage} 
+    <img
+      src={heroImage}
       alt="Fahrer & Fahrzeuge - MyDispatch Dashboard"
       className="w-full h-full object-cover"
     />
@@ -168,6 +173,7 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 **KRITISCH:** Tabs MÜSSEN die gesamte verfügbare Breite ausfüllen und an Verbindungsstellen KEINE Abrundungen haben.
 
 **CSS-Specs:**
+
 ```tsx
 // TabsList
 <TabsList className="
@@ -187,19 +193,19 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
   px-4 py-3                // Padding innen
   text-sm font-medium      // Typografie
   rounded-none             // KEINE Abrundungen (wichtig!)
-  
+
   // Erste Tab: NUR links oben abgerundet
   first:rounded-tl-lg
-  
+
   // Letzte Tab: NUR rechts oben abgerundet
   last:rounded-tr-lg
-  
+
   // Aktiver State
   data-[state=active]:bg-background
   data-[state=active]:text-foreground
   data-[state=active]:border-b-2
   data-[state=active]:border-primary
-  
+
   // Hover State (inaktive Tabs)
   data-[state=inactive]:hover:bg-muted/80
   data-[state=inactive]:hover:text-foreground
@@ -207,6 +213,7 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 ```
 
 **Visualisierung:**
+
 ```
 ┌────────────────────┬────────────────────┐  ← TabsList (w-full, p-0)
 │     Fahrer         │     Fahrzeuge      │  ← TabsTrigger (flex-1, rounded-none)
@@ -218,18 +225,19 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 ```
 
 **VERBOTEN:**
+
 ```tsx
 // ❌ NIEMALS Abrundungen zwischen Tabs
-"rounded-md"
-"rounded-l-md rounded-r-md"
-"[&:not(:first-child):not(:last-child)]:rounded-sm"
+"rounded-md";
+"rounded-l-md rounded-r-md";
+"[&:not(:first-child):not(:last-child)]:rounded-sm";
 
 // ❌ NIEMALS feste Breiten
-"w-[200px]"
-"max-w-xs"
+"w-[200px]";
+"max-w-xs";
 
 // ✅ IMMER flex-1 für gleichmäßige Verteilung
-"flex-1"
+"flex-1";
 ```
 
 ---
@@ -237,34 +245,32 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 ## 🎨 KPI-CARDS (SYSTEMWEIT IDENTISCH)
 
 **Specs:**
+
 ```tsx
-<Card className="
+<Card
+  className="
   p-4 sm:p-6                    // Responsive Padding
   bg-card                       // Hintergrund
   border border-border          // Border
   shadow-sm hover:shadow-md     // Hover-Effect
   transition-all duration-200   // Animation
-">
+"
+>
   <CardHeader className="pb-2">
     <div className="flex items-center justify-between">
-      <CardTitle className="text-sm font-medium text-muted-foreground">
-        {title}
-      </CardTitle>
+      <CardTitle className="text-sm font-medium text-muted-foreground">{title}</CardTitle>
       <Icon className="h-4 w-4 text-muted-foreground" />
     </div>
   </CardHeader>
   <CardContent>
-    <div className="text-2xl sm:text-3xl font-bold text-foreground">
-      {value}
-    </div>
-    <p className="text-xs text-muted-foreground mt-1">
-      {description}
-    </p>
+    <div className="text-2xl sm:text-3xl font-bold text-foreground">{value}</div>
+    <p className="text-xs text-muted-foreground mt-1">{description}</p>
   </CardContent>
 </Card>
 ```
 
 **Grid-Layout:**
+
 ```tsx
 // Mobile (1 Spalte) → Tablet (2 Spalten) → Desktop (4 Spalten)
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
@@ -280,13 +286,16 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 ## 🎨 SEARCH & FILTER BAR (SYSTEMWEIT IDENTISCH)
 
 **Specs:**
+
 ```tsx
-<div className="
+<div
+  className="
   flex flex-col sm:flex-row  // Mobile Stack, Desktop Row
   gap-4                      // Consistent Gap
   mb-6                       // Margin Bottom
   items-start sm:items-center // Alignment
-">
+"
+>
   {/* Search Input */}
   <div className="relative flex-1 w-full">
     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -300,11 +309,7 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 
   {/* Filter Toggle */}
   <div className="flex items-center gap-2">
-    <Switch
-      checked={showArchived}
-      onCheckedChange={setShowArchived}
-      id="show-archived"
-    />
+    <Switch checked={showArchived} onCheckedChange={setShowArchived} id="show-archived" />
     <Label htmlFor="show-archived" className="text-sm">
       Archivierte anzeigen
     </Label>
@@ -317,6 +322,7 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 ## 🎨 TABLE-KOMPONENTEN (SYSTEMWEIT IDENTISCH)
 
 **Basis-Struktur:**
+
 ```tsx
 <div className="rounded-md border">
   <Table>
@@ -324,10 +330,7 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
       <TableRow>
         {/* Bulk-Select Checkbox (optional) */}
         <TableHead className="w-[50px]">
-          <Checkbox
-            checked={allSelected}
-            onCheckedChange={onToggleSelectAll}
-          />
+          <Checkbox checked={allSelected} onCheckedChange={onToggleSelectAll} />
         </TableHead>
         <TableHead>Spalte 1</TableHead>
         <TableHead>Spalte 2</TableHead>
@@ -356,17 +359,19 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
       ))}
     </TableBody>
   </Table>
-</div>
+</div>;
 
-{/* BulkActionBar (erscheint bei Auswahl) */}
+{
+  /* BulkActionBar (erscheint bei Auswahl) */
+}
 <BulkActionBar
   selectedCount={selectedIds.size}
   onClearSelection={clearSelection}
   actions={[
-    { label: 'Bearbeiten', icon: Edit, onClick: handleBulkEdit },
-    { label: 'Archivieren', icon: Archive, onClick: handleBulkArchive, variant: 'destructive' },
+    { label: "Bearbeiten", icon: Edit, onClick: handleBulkEdit },
+    { label: "Archivieren", icon: Archive, onClick: handleBulkArchive, variant: "destructive" },
   ]}
-/>
+/>;
 ```
 
 ---
@@ -374,6 +379,7 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 ## 🎨 DIALOGS (CRUD-OPERATIONEN)
 
 **Specs:**
+
 ```tsx
 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
   <DialogContent className="
@@ -484,11 +490,13 @@ Alle geschützten App-Seiten (Dashboard-Bereich) MÜSSEN:
 ### Neue interne App-Seite erstellen (Step-by-Step)
 
 **1. Fahrer & Fahrzeuge als Basis kopieren**
+
 ```bash
 cp src/pages/Fahrer.tsx src/pages/NeueSeite.tsx
 ```
 
 **2. Struktur anpassen (NUR Inhalte ändern)**
+
 ```tsx
 // ❌ NICHT Layout ändern
 // ❌ NICHT neue Tab-Styles erstellen
@@ -502,6 +510,7 @@ const stats = [
 ```
 
 **3. Tab-System anpassen (falls nötig)**
+
 ```tsx
 <Tabs value={currentTab} onValueChange={...}>
   <TabsList className="w-full">
@@ -520,6 +529,7 @@ const stats = [
 ```
 
 **4. Route registrieren**
+
 ```tsx
 // src/routes.config.tsx
 {
@@ -576,6 +586,7 @@ const stats = [
 ## 🔗 VERKNÜPFTE DOKUMENTE
 
 Diese Vorgaben basieren auf:
+
 - `MASTER_INDEX_V18.5.1.md` - Zentrale Übersicht
 - `DESIGN_SYSTEM_V18.5.0.md` - Design-Vorgaben
 - `SYSTEM_DESIGN_PRINCIPLES_V18.5.0.md` - Zentralisierungs-Prinzipien
@@ -586,29 +597,32 @@ Diese Vorgaben basieren auf:
 
 ## 📈 SUCCESS METRICS
 
-| Metrik | Zielwert | Prüfung |
-|--------|----------|---------|
-| Layout-Consistency | 100% | Visueller Check |
-| Tab-System Compliance | 100% | Code Review |
-| Mobile-First Compliance | 100% | Device Testing |
-| Lighthouse Score | > 90 | Automated |
-| Table-Performance < 1s | 100% | Performance Monitoring |
+| Metrik                  | Zielwert | Prüfung                |
+| ----------------------- | -------- | ---------------------- |
+| Layout-Consistency      | 100%     | Visueller Check        |
+| Tab-System Compliance   | 100%     | Code Review            |
+| Mobile-First Compliance | 100%     | Device Testing         |
+| Lighthouse Score        | > 90     | Automated              |
+| Table-Performance < 1s  | 100%     | Performance Monitoring |
 
 ---
 
 ## 🚀 ROLLOUT-PLAN
 
 ### Phase 1: Basis-Templates (KW 43/2025)
+
 - [x] Fahrer & Fahrzeuge (Master-Template)
 - [ ] Aufträge (3 Tabs)
 - [ ] Kunden (Liste + Details)
 
 ### Phase 2: Erweiterte Seiten (KW 44/2025)
+
 - [ ] Partner (Provisionen)
 - [ ] Rechnungen (2 Tabs)
 - [ ] Statistiken (Dashboards)
 
 ### Phase 3: Optimierung (KW 45/2025)
+
 - [ ] Performance-Optimierung
 - [ ] A/B-Testing Setup
 - [ ] Analytics Integration

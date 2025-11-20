@@ -2,11 +2,11 @@
    PARTNER REQUEST DIALOG - Anfrage an anderen MyDispatch-Nutzer
    ================================================================================== */
 
-import { useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
-import { handleError } from '@/lib/error-handler';
-import { usePartnerRequests } from '@/hooks/use-partner-requests';
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { handleError } from "@/lib/error-handler";
+import { usePartnerRequests } from "@/hooks/use-partner-requests";
 import {
   Dialog,
   DialogContent,
@@ -14,12 +14,12 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/lib/compat';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Loader2 } from 'lucide-react';
+} from "@/components/ui/dialog";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Input } from "@/lib/compat";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Loader2 } from "lucide-react";
 
 interface PartnerRequestDialogProps {
   open: boolean;
@@ -34,22 +34,22 @@ export function PartnerRequestDialog({
   currentCompanyId,
   onSuccess,
 }: PartnerRequestDialogProps) {
-  const [targetCompanyId, setTargetCompanyId] = useState('');
-  const [message, setMessage] = useState('');
+  const [targetCompanyId, setTargetCompanyId] = useState("");
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
-  
+
   // ✅ MISSION II: TanStack Query Hook statt direktem Supabase-Call
   const { createRequest } = usePartnerRequests(currentCompanyId);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!targetCompanyId.trim()) {
       toast({
-        title: 'Fehler',
-        description: 'Bitte geben Sie eine MyDispatch-ID ein.',
-        variant: 'destructive',
+        title: "Fehler",
+        description: "Bitte geben Sie eine MyDispatch-ID ein.",
+        variant: "destructive",
       });
       return;
     }
@@ -59,16 +59,16 @@ export function PartnerRequestDialog({
     try {
       // Prüfen ob Ziel-Company existiert
       const { data: targetCompany, error: companyError } = await supabase
-        .from('companies')
-        .select('id, name')
-        .eq('id', targetCompanyId)
+        .from("companies")
+        .select("id, name")
+        .eq("id", targetCompanyId)
         .single();
 
       if (companyError || !targetCompany) {
         toast({
-          title: 'Fehler',
-          description: 'Unternehmen nicht gefunden. Bitte prüfen Sie die MyDispatch-ID.',
-          variant: 'destructive',
+          title: "Fehler",
+          description: "Unternehmen nicht gefunden. Bitte prüfen Sie die MyDispatch-ID.",
+          variant: "destructive",
         });
         setLoading(false);
         return;
@@ -76,16 +76,18 @@ export function PartnerRequestDialog({
 
       // Prüfen ob bereits eine Verbindung oder Anfrage existiert
       const { data: existingRequest } = await supabase
-        .from('partner_requests')
-        .select('id, status')
-        .or(`and(requesting_company_id.eq.${currentCompanyId},target_company_id.eq.${targetCompanyId}),and(requesting_company_id.eq.${targetCompanyId},target_company_id.eq.${currentCompanyId})`)
+        .from("partner_requests")
+        .select("id, status")
+        .or(
+          `and(requesting_company_id.eq.${currentCompanyId},target_company_id.eq.${targetCompanyId}),and(requesting_company_id.eq.${targetCompanyId},target_company_id.eq.${currentCompanyId})`
+        )
         .maybeSingle();
 
       if (existingRequest) {
         toast({
-          title: 'Anfrage bereits vorhanden',
-          description: `Es existiert bereits eine ${existingRequest.status === 'pending' ? 'ausstehende' : existingRequest.status === 'accepted' ? 'akzeptierte' : 'abgelehnte'} Anfrage.`,
-          variant: 'destructive',
+          title: "Anfrage bereits vorhanden",
+          description: `Es existiert bereits eine ${existingRequest.status === "pending" ? "ausstehende" : existingRequest.status === "accepted" ? "akzeptierte" : "abgelehnte"} Anfrage.`,
+          variant: "destructive",
         });
         setLoading(false);
         return;
@@ -99,17 +101,17 @@ export function PartnerRequestDialog({
       });
 
       toast({
-        title: 'Anfrage gesendet',
+        title: "Anfrage gesendet",
         description: `Partner-Anfrage wurde an ${targetCompany.name} gesendet.`,
       });
 
       // Reset form
-      setTargetCompanyId('');
-      setMessage('');
+      setTargetCompanyId("");
+      setMessage("");
       onOpenChange(false);
       onSuccess?.();
     } catch (error: any) {
-      handleError(error, 'Partner-Anfrage konnte nicht gesendet werden');
+      handleError(error, "Partner-Anfrage konnte nicht gesendet werden");
     } finally {
       setLoading(false);
     }
@@ -122,7 +124,8 @@ export function PartnerRequestDialog({
           <DialogHeader>
             <DialogTitle>Neuen Partner hinzufügen</DialogTitle>
             <DialogDescription>
-              Geben Sie die MyDispatch-ID des Unternehmens ein, mit dem Sie eine Partnerschaft eingehen möchten.
+              Geben Sie die MyDispatch-ID des Unternehmens ein, mit dem Sie eine Partnerschaft
+              eingehen möchten.
             </DialogDescription>
           </DialogHeader>
 

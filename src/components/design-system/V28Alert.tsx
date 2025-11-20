@@ -7,14 +7,14 @@
    ✅ Title and description
    ================================================================================== */
 
-import { ReactNode, useState } from 'react';
-import { cn } from '@/lib/utils';
-import { X, Info, CheckCircle, AlertTriangle, XCircle } from 'lucide-react';
+import { ReactNode, useState } from "react";
+import { cn } from "@/lib/utils";
+import { X, Info, CheckCircle, AlertTriangle, XCircle } from "lucide-react";
 
 interface V28AlertProps {
   children: ReactNode;
   title?: string;
-  variant?: 'info' | 'success' | 'warning' | 'error';
+  variant?: "info" | "success" | "warning" | "error";
   closable?: boolean;
   onClose?: () => void;
   className?: string;
@@ -23,7 +23,7 @@ interface V28AlertProps {
 export function V28Alert({
   children,
   title,
-  variant = 'info',
+  variant = "info",
   closable = false,
   onClose,
   className,
@@ -47,12 +47,12 @@ export function V28Alert({
   return (
     <div
       className={cn(
-        'rounded-xl p-4 border',
+        "rounded-xl p-4 border",
         // Variant styles
-        variant === 'info' && 'bg-blue-50 border-blue-200 text-blue-900',
-        variant === 'success' && 'bg-green-50 border-green-200 text-green-900',
-        variant === 'warning' && 'bg-amber-50 border-amber-200 text-amber-900',
-        variant === 'error' && 'bg-red-50 border-red-200 text-red-900',
+        variant === "info" && "bg-blue-50 border-blue-200 text-blue-900",
+        variant === "success" && "bg-green-50 border-green-200 text-green-900",
+        variant === "warning" && "bg-amber-50 border-amber-200 text-amber-900",
+        variant === "error" && "bg-red-50 border-red-200 text-red-900",
         className
       )}
     >
@@ -60,11 +60,11 @@ export function V28Alert({
         {/* Icon */}
         <Icon
           className={cn(
-            'h-5 w-5 flex-shrink-0 mt-0.5',
-            variant === 'info' && 'text-blue-600',
-            variant === 'success' && 'text-green-600',
-            variant === 'warning' && 'text-amber-600',
-            variant === 'error' && 'text-red-600'
+            "h-5 w-5 flex-shrink-0 mt-0.5",
+            variant === "info" && "text-blue-600",
+            variant === "success" && "text-green-600",
+            variant === "warning" && "text-amber-600",
+            variant === "error" && "text-red-600"
           )}
         />
 

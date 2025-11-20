@@ -7,9 +7,9 @@
    - Data-Memory Health
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Database, Shield, Zap, CheckCircle } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Database, Shield, Zap, CheckCircle } from "lucide-react";
 
 export function DataRAGStatus() {
   return (
@@ -49,13 +49,17 @@ export function DataRAGStatus() {
         <div className="space-y-2">
           <p className="text-xs font-medium text-muted-foreground">Erlaubte Tabellen:</p>
           <div className="flex flex-wrap gap-1">
-            {['companies', 'pricing_tiers', 'feature_flags', 'system_config', 'subscription_plans'].map(
-              (table) => (
-                <Badge key={table} variant="outline" className="text-xs">
-                  {table}
-                </Badge>
-              )
-            )}
+            {[
+              "companies",
+              "pricing_tiers",
+              "feature_flags",
+              "system_config",
+              "subscription_plans",
+            ].map((table) => (
+              <Badge key={table} variant="outline" className="text-xs">
+                {table}
+              </Badge>
+            ))}
           </div>
         </div>
 

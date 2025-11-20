@@ -1,21 +1,21 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { V28Dropdown } from './V28Dropdown';
-import { V28Button } from './V28Button';
-import { Edit, Trash2, Eye, Copy, Download, MoreVertical } from 'lucide-react';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { V28Dropdown } from "./V28Dropdown";
+import { V28Button } from "./V28Button";
+import { Edit, Trash2, Eye, Copy, Download, MoreVertical } from "lucide-react";
+import { useState } from "react";
 
 const meta: Meta<typeof V28Dropdown> = {
-  title: 'Design System/Atoms/V28Dropdown',
+  title: "Design System/Atoms/V28Dropdown",
   component: V28Dropdown,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     side: {
-      control: 'select',
-      options: ['top', 'right', 'bottom', 'left'],
+      control: "select",
+      options: ["top", "right", "bottom", "left"],
     },
     align: {
-      control: 'select',
-      options: ['start', 'center', 'end'],
+      control: "select",
+      options: ["start", "center", "end"],
     },
   },
 };
@@ -26,9 +26,9 @@ type Story = StoryObj<typeof V28Dropdown>;
 export const Default: Story = {
   args: {
     items: [
-      { label: 'Option 1', value: 'opt1' },
-      { label: 'Option 2', value: 'opt2' },
-      { label: 'Option 3', value: 'opt3' },
+      { label: "Option 1", value: "opt1" },
+      { label: "Option 2", value: "opt2" },
+      { label: "Option 3", value: "opt3" },
     ],
     children: <V28Button variant="secondary">Optionen</V28Button>,
   },
@@ -36,35 +36,35 @@ export const Default: Story = {
 
 export const WithIcons: Story = {
   render: () => {
-    const [lastAction, setLastAction] = useState('');
-    
+    const [lastAction, setLastAction] = useState("");
+
     return (
       <div className="space-y-4">
         <V28Dropdown
           items={[
             {
-              label: 'Bearbeiten',
-              value: 'edit',
+              label: "Bearbeiten",
+              value: "edit",
               icon: <Edit className="h-4 w-4" />,
-              onSelect: () => setLastAction('Bearbeiten ausgewählt'),
+              onSelect: () => setLastAction("Bearbeiten ausgewählt"),
             },
             {
-              label: 'Ansehen',
-              value: 'view',
+              label: "Ansehen",
+              value: "view",
               icon: <Eye className="h-4 w-4" />,
-              onSelect: () => setLastAction('Ansehen ausgewählt'),
+              onSelect: () => setLastAction("Ansehen ausgewählt"),
             },
             {
-              label: 'Kopieren',
-              value: 'copy',
+              label: "Kopieren",
+              value: "copy",
               icon: <Copy className="h-4 w-4" />,
-              onSelect: () => setLastAction('Kopieren ausgewählt'),
+              onSelect: () => setLastAction("Kopieren ausgewählt"),
             },
             {
-              label: 'Löschen',
-              value: 'delete',
+              label: "Löschen",
+              value: "delete",
               icon: <Trash2 className="h-4 w-4" />,
-              onSelect: () => setLastAction('Löschen ausgewählt'),
+              onSelect: () => setLastAction("Löschen ausgewählt"),
             },
           ]}
         >
@@ -72,9 +72,7 @@ export const WithIcons: Story = {
             Aktionen
           </V28Button>
         </V28Dropdown>
-        {lastAction && (
-          <p className="text-sm text-muted-foreground">Letzte Aktion: {lastAction}</p>
-        )}
+        {lastAction && <p className="text-sm text-muted-foreground">Letzte Aktion: {lastAction}</p>}
       </div>
     );
   },
@@ -85,23 +83,23 @@ export const BookingActions: Story = {
     <V28Dropdown
       items={[
         {
-          label: 'Details anzeigen',
-          value: 'view',
+          label: "Details anzeigen",
+          value: "view",
           icon: <Eye className="h-4 w-4" />,
         },
         {
-          label: 'Buchung bearbeiten',
-          value: 'edit',
+          label: "Buchung bearbeiten",
+          value: "edit",
           icon: <Edit className="h-4 w-4" />,
         },
         {
-          label: 'Rechnung herunterladen',
-          value: 'download',
+          label: "Rechnung herunterladen",
+          value: "download",
           icon: <Download className="h-4 w-4" />,
         },
         {
-          label: 'Buchung stornieren',
-          value: 'delete',
+          label: "Buchung stornieren",
+          value: "delete",
           icon: <Trash2 className="h-4 w-4" />,
         },
       ]}
@@ -115,9 +113,9 @@ export const WithDisabled: Story = {
   render: () => (
     <V28Dropdown
       items={[
-        { label: 'Verfügbar', value: 'available' },
-        { label: 'Deaktiviert', value: 'disabled', disabled: true },
-        { label: 'Aktiv', value: 'active' },
+        { label: "Verfügbar", value: "available" },
+        { label: "Deaktiviert", value: "disabled", disabled: true },
+        { label: "Aktiv", value: "active" },
       ]}
     >
       <V28Button variant="secondary">Status auswählen</V28Button>
@@ -130,8 +128,8 @@ export const Positions: Story = {
     <div className="flex items-center justify-center gap-8 p-12">
       <V28Dropdown
         items={[
-          { label: 'Option 1', value: 'opt1' },
-          { label: 'Option 2', value: 'opt2' },
+          { label: "Option 1", value: "opt1" },
+          { label: "Option 2", value: "opt2" },
         ]}
         side="left"
       >
@@ -140,8 +138,8 @@ export const Positions: Story = {
 
       <V28Dropdown
         items={[
-          { label: 'Option 1', value: 'opt1' },
-          { label: 'Option 2', value: 'opt2' },
+          { label: "Option 1", value: "opt1" },
+          { label: "Option 2", value: "opt2" },
         ]}
         side="top"
       >
@@ -150,8 +148,8 @@ export const Positions: Story = {
 
       <V28Dropdown
         items={[
-          { label: 'Option 1', value: 'opt1' },
-          { label: 'Option 2', value: 'opt2' },
+          { label: "Option 1", value: "opt1" },
+          { label: "Option 2", value: "opt2" },
         ]}
         side="bottom"
       >
@@ -160,8 +158,8 @@ export const Positions: Story = {
 
       <V28Dropdown
         items={[
-          { label: 'Option 1', value: 'opt1' },
-          { label: 'Option 2', value: 'opt2' },
+          { label: "Option 1", value: "opt1" },
+          { label: "Option 2", value: "opt2" },
         ]}
         side="right"
       >

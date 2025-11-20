@@ -1,16 +1,19 @@
 # DASHBOARD STANDARDS V28.1
 
 ## Overview
+
 This document defines the mandatory standards for all dashboard pages to ensure consistency and optimal user experience across the MyDispatch platform.
 
 ## Dashboard Sidebar System
 
 Every Dashboard page uses a consistent 2-sidebar layout:
+
 - **Left:** AppSidebar (240px expanded, 64px collapsed)
 - **Right:** DashboardSidebar (320px fixed, area-specific navigation)
 - **Center:** Content Area (marginLeft: 560px/384px)
 
 ### Layout Structure
+
 ```typescript
 import { useMainLayout } from '@/hooks/use-main-layout';
 
@@ -21,10 +24,10 @@ export default function DashboardPage() {
     <>
       <AppSidebar />
       <DashboardSidebar />
-      <main 
-        style={{ 
+      <main
+        style={{
           marginLeft: sidebarExpanded ? '560px' : '384px',
-          transitionDuration: '300ms' 
+          transitionDuration: '300ms'
         }}
       >
         {/* Content */}
@@ -35,6 +38,7 @@ export default function DashboardPage() {
 ```
 
 ### Layout Calculations
+
 - **Sidebar Expanded:** 240px (AppSidebar) + 320px (DashboardSidebar) = **560px**
 - **Sidebar Collapsed:** 64px (AppSidebar) + 320px (DashboardSidebar) = **384px**
 
@@ -58,11 +62,13 @@ export default function DashboardPage() {
 ## Export Button Standards
 
 ### Positioning
+
 - **Location:** Within page content (not in separate InfoBoard)
 - **Background:** Integrated with page design
 - **Layout:** Horizontal button group or vertical stack
 
 ### Button Configuration
+
 ```tsx
 <UniversalDownload
   type="pdf|xlsx|csv"
@@ -76,21 +82,25 @@ export default function DashboardPage() {
 ```
 
 ### Consistent Spacing
+
 - Gap between buttons: `gap-2` or `gap-4`
 - Responsive layout: Stack on mobile, horizontal on desktop
 
 ## Responsive Behavior
 
 ### Desktop (≥1024px)
+
 - Both sidebars visible
 - Full content width available
 - Smooth transitions
 
 ### Tablet (768px - 1023px)
+
 - Sidebars may collapse
 - Content adjusts accordingly
 
 ### Mobile (<768px)
+
 - Sidebars hidden by default
 - Hamburger menu toggle
 - Bottom navigation bar
@@ -98,13 +108,14 @@ export default function DashboardPage() {
 ## Layout Shifts Prevention
 
 ### Main Content Margin
+
 The main content area MUST adjust its margin based on sidebar state:
 
 ```tsx
-<main 
+<main
   className="transition-[margin] duration-300"
   style={{
-    marginLeft: sidebarExpanded ? '560px' : '384px',
+    marginLeft: sidebarExpanded ? "560px" : "384px",
     // AppSidebar + DashboardSidebar (NO InfoBoard!)
   }}
 >
@@ -113,6 +124,7 @@ The main content area MUST adjust its margin based on sidebar state:
 ```
 
 ### Transition Smoothness
+
 - Duration: 300ms
 - Timing function: `cubic-bezier(0.4, 0, 0.2, 1)`
 - All elements transition simultaneously
@@ -120,6 +132,7 @@ The main content area MUST adjust its margin based on sidebar state:
 ## Design System Compliance
 
 ### Colors (V28.1 Slate System)
+
 - Background: `bg-white`
 - Borders: `border-slate-200`
 - Text primary: `text-slate-900`
@@ -128,12 +141,14 @@ The main content area MUST adjust its margin based on sidebar state:
 - Section backgrounds: `bg-slate-50`
 
 ### Typography
+
 - Section titles: `text-sm font-semibold text-slate-900`
 - KPI labels: `text-xs text-slate-600`
 - KPI values: `text-sm font-bold text-slate-900`
 - Export heading: `text-xs font-semibold text-slate-600 uppercase tracking-wider`
 
 ### Spacing
+
 - Section padding: `p-4`
 - Inter-section borders: `border-b border-slate-200`
 - KPI gap: `space-y-2`
@@ -141,6 +156,7 @@ The main content area MUST adjust its margin based on sidebar state:
 - Export buttons gap: `gap-2`
 
 ### Shadows & Effects
+
 - InfoBoard shadow: `shadow-lg`
 - Card hover: `hover:bg-slate-100 transition-colors`
 - Smooth transitions: `transition-all duration-300`
@@ -148,18 +164,21 @@ The main content area MUST adjust its margin based on sidebar state:
 ## Testing Requirements
 
 ### Visual Regression
+
 - All dashboard pages MUST pass visual regression tests
 - Sidebar positioning consistency verified
 - Export buttons visibility verified
 - Responsive behavior tested at all breakpoints
 
 ### Functional Testing
+
 - Export functionality verified for PDF, Excel, CSV
 - Data accuracy verified
 - Responsive layout verified
 - Navigation functionality verified
 
 ### Accessibility
+
 - All interactive elements keyboard accessible
 - Proper ARIA labels on all buttons
 - Color contrast ≥4.5:1
@@ -168,6 +187,7 @@ The main content area MUST adjust its margin based on sidebar state:
 ## Common Pitfalls to Avoid
 
 ❌ **Don't:**
+
 - Hardcode sidebar positioning
 - Use different export button styling per dashboard
 - Use custom colors outside V28.1 system
@@ -175,6 +195,7 @@ The main content area MUST adjust its margin based on sidebar state:
 - Skip responsive testing
 
 ✅ **Do:**
+
 - Use configuration-based approach
 - Maintain consistent export button positioning
 - Use V28.1 design tokens exclusively

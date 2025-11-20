@@ -19,6 +19,7 @@ Dies führt zu **unsichtbarem Text** und ist einer der häufigsten Fehler.
 ### 1️⃣ Dark Backgrounds (`bg-primary`, `bg-secondary`, `bg-accent`)
 
 #### **Text:**
+
 - ✅ `text-white`
 - ✅ `text-primary-foreground`
 - ✅ `text-white/90` (für Sekundär-Text)
@@ -26,11 +27,13 @@ Dies führt zu **unsichtbarem Text** und ist einer der häufigsten Fehler.
 - ❌ `text-muted-foreground` (unsichtbar!)
 
 #### **Icons:**
+
 - ✅ `text-white`
 - ✅ `className="text-white"` im Icon-Component
 - ❌ `text-foreground`
 
 #### **Buttons:**
+
 - ✅ `bg-background/20 text-white hover:bg-background/30`
 - ✅ `bg-white/10 text-white hover:bg-white/20`
 - ❌ Standard Button Variants (falsche Farben)
@@ -48,17 +51,11 @@ Dies führt zu **unsichtbarem Text** und ist einer der häufigsten Fehler.
 
     {/* Navigation mit weißen Icons */}
     <nav className="flex items-center gap-1">
-      <Button 
-        variant="ghost" 
-        className="bg-background/20 text-white hover:bg-background/30"
-      >
+      <Button variant="ghost" className="bg-background/20 text-white hover:bg-background/30">
         <Icon name="Home" className="h-4 w-4 text-white" />
         Home
       </Button>
-      <Button 
-        variant="ghost" 
-        className="bg-background/20 text-white hover:bg-background/30"
-      >
+      <Button variant="ghost" className="bg-background/20 text-white hover:bg-background/30">
         Login
       </Button>
     </nav>
@@ -79,7 +76,9 @@ Dies führt zu **unsichtbarem Text** und ist einer der häufigsten Fehler.
 
     {/* ❌ FEHLER: Standard Button hat falsche Farben */}
     <nav className="flex items-center gap-1">
-      <Button variant="ghost"> {/* ❌ */}
+      <Button variant="ghost">
+        {" "}
+        {/* ❌ */}
         <Icon name="Home" className="h-4 w-4" />
         Home
       </Button>
@@ -93,16 +92,19 @@ Dies führt zu **unsichtbarem Text** und ist einer der häufigsten Fehler.
 ### 2️⃣ Light Backgrounds (`bg-background`, `bg-card`, `bg-muted`)
 
 #### **Text:**
+
 - ✅ `text-foreground`
 - ✅ `text-muted-foreground`
 - ❌ `text-white` (zu hell)
 
 #### **Icons:**
+
 - ✅ `text-foreground`
 - ✅ `text-muted-foreground`
 - ❌ `text-white`
 
 #### **Buttons:**
+
 - ✅ Standard Button Variants (`default`, `outline`, `ghost`)
 
 #### **Beispiel - KORREKT:**
@@ -113,7 +115,7 @@ Dies führt zu **unsichtbarem Text** und ist einer der häufigsten Fehler.
     {/* Standard Farben auf hellem Hintergrund */}
     <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
     <p className="text-muted-foreground">Übersicht</p>
-    
+
     {/* Standard Button Variants funktionieren */}
     <Button variant="default">Neuer Auftrag</Button>
     <Button variant="outline">Abbrechen</Button>
@@ -131,9 +133,7 @@ Behandeln wie **Dark Backgrounds**, wenn Gradient dunkel endet:
 <div className="bg-gradient-to-br from-primary to-primary/80">
   <h2 className="text-white">Premium Features</h2>
   <Icon name="Star" className="text-white" />
-  <Button className="bg-background/20 text-white hover:bg-background/30">
-    Mehr erfahren
-  </Button>
+  <Button className="bg-background/20 text-white hover:bg-background/30">Mehr erfahren</Button>
 </div>
 ```
 
@@ -146,18 +146,14 @@ Behandeln wie **Dark Backgrounds**, wenn Gradient dunkel endet:
 **Datei:** `src/components/design-system/DarkBackgroundButton.tsx`
 
 ```tsx
-import { Button, ButtonProps } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
+import { Button, ButtonProps } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface DarkBackgroundButtonProps extends ButtonProps {
   // Props
 }
 
-export function DarkBackgroundButton({ 
-  className, 
-  children, 
-  ...props 
-}: DarkBackgroundButtonProps) {
+export function DarkBackgroundButton({ className, children, ...props }: DarkBackgroundButtonProps) {
   return (
     <Button
       variant="ghost"
@@ -227,13 +223,13 @@ grep -rn "text-muted-foreground.*bg-primary\|bg-primary.*text-muted-foreground" 
 
 ## 🎨 QUICK REFERENCE
 
-| Background | Text | Icons | Buttons |
-|------------|------|-------|---------|
-| `bg-primary` | `text-white` | `text-white` | `bg-background/20 text-white hover:bg-background/30` |
-| `bg-secondary` | `text-white` | `text-white` | `bg-background/20 text-white hover:bg-background/30` |
-| `bg-accent` | `text-white` | `text-white` | `bg-background/20 text-white hover:bg-background/30` |
-| `bg-background` | `text-foreground` | `text-foreground` | Standard Variants |
-| `bg-card` | `text-foreground` | `text-foreground` | Standard Variants |
+| Background      | Text              | Icons             | Buttons                                              |
+| --------------- | ----------------- | ----------------- | ---------------------------------------------------- |
+| `bg-primary`    | `text-white`      | `text-white`      | `bg-background/20 text-white hover:bg-background/30` |
+| `bg-secondary`  | `text-white`      | `text-white`      | `bg-background/20 text-white hover:bg-background/30` |
+| `bg-accent`     | `text-white`      | `text-white`      | `bg-background/20 text-white hover:bg-background/30` |
+| `bg-background` | `text-foreground` | `text-foreground` | Standard Variants                                    |
+| `bg-card`       | `text-foreground` | `text-foreground` | Standard Variants                                    |
 
 ---
 

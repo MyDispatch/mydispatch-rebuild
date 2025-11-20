@@ -7,8 +7,8 @@
    - Variants für active/inactive
    ================================================================================== */
 
-import { Check, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Check, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface V28TariffBadgeProps {
   label: string;
@@ -18,15 +18,15 @@ interface V28TariffBadgeProps {
 
 export function V28TariffBadge({ label, active = true, className }: V28TariffBadgeProps) {
   const Icon = active ? Check : X;
-  
+
   return (
-    <span className={cn(
-      "inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-200",
-      active 
-        ? "bg-slate-600 text-white hover:bg-slate-700" 
-        : "bg-slate-200 text-slate-400",
-      className
-    )}>
+    <span
+      className={cn(
+        "inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-200",
+        active ? "bg-slate-600 text-white hover:bg-slate-700" : "bg-slate-200 text-slate-400",
+        className
+      )}
+    >
       <Icon className="h-4 w-4 shrink-0" />
       <span>{label}</span>
     </span>

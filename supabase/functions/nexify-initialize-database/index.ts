@@ -142,22 +142,20 @@ serve(async (req) => {
     ];
 
     // 2. SOLL-Vorgaben in Datenbank einfügen
-    const { error: insertError } = await supabase
-      .from("nexify_soll_vorgaben")
-      .upsert(
-        sollVorgaben.map((v) => ({
-          category: v.category,
-          rule_id: v.rule_id,
-          title: v.title,
-          description: v.description,
-          priority: v.priority,
-          rule_type: v.rule_type,
-          validation_pattern: v.validation_pattern,
-          check_function: v.check_function,
-          tags: v.tags,
-        })),
-        { onConflict: "rule_id" }
-      );
+    const { error: insertError } = await supabase.from("nexify_soll_vorgaben").upsert(
+      sollVorgaben.map((v) => ({
+        category: v.category,
+        rule_id: v.rule_id,
+        title: v.title,
+        description: v.description,
+        priority: v.priority,
+        rule_type: v.rule_type,
+        validation_pattern: v.validation_pattern,
+        check_function: v.check_function,
+        tags: v.tags,
+      })),
+      { onConflict: "rule_id" }
+    );
 
     if (insertError) {
       console.error("[NEXIFY] Error inserting SOLL-Vorgaben:", insertError);
@@ -167,29 +165,27 @@ serve(async (req) => {
     console.log(`[NEXIFY] Inserted ${sollVorgaben.length} SOLL-Vorgaben`);
 
     // 3. NeXify AI MASTER als Agent registrieren
-    const { error: agentError } = await supabase
-      .from("nexify_agent_team")
-      .upsert(
-        {
-          agent_name: "NeXify AI MASTER",
-          agent_role: "master",
-          agent_capabilities: {
-            capabilities: [
-              "code_analysis",
-              "compliance_checking",
-              "workflow_automation",
-              "decision_making",
-              "learning",
-              "memory_management",
-              "team_coordination",
-              "quality_assurance",
-            ],
-          },
-          agent_status: "active",
-          communication_protocol: "direct_to_pascal",
+    const { error: agentError } = await supabase.from("nexify_agent_team").upsert(
+      {
+        agent_name: "NeXify AI MASTER",
+        agent_role: "master",
+        agent_capabilities: {
+          capabilities: [
+            "code_analysis",
+            "compliance_checking",
+            "workflow_automation",
+            "decision_making",
+            "learning",
+            "memory_management",
+            "team_coordination",
+            "quality_assurance",
+          ],
         },
-        { onConflict: "agent_name" }
-      );
+        agent_status: "active",
+        communication_protocol: "direct_to_pascal",
+      },
+      { onConflict: "agent_name" }
+    );
 
     if (agentError) {
       console.error("[NEXIFY] Error inserting agent:", agentError);
@@ -256,52 +252,50 @@ serve(async (req) => {
     console.log(`[NEXIFY] Stored ${initialMemory.length} initial memories`);
 
     // 5. Initial Quality Gate registrieren
-    const { error: gateError } = await supabase
-      .from("nexify_quality_gates")
-      .upsert(
-        [
-          {
-            gate_name: "pre_commit_quality",
-            gate_type: "pre_commit",
-            description: "Pre-Commit Quality Gate",
-            checks: ["type_check", "lint", "format_check", "unit_tests_changed"],
-            thresholds: {
-              typescript_errors: 0,
-              eslint_errors: 0,
-              test_failures: 0,
-            },
-            blocking: true,
-            enabled: true,
+    const { error: gateError } = await supabase.from("nexify_quality_gates").upsert(
+      [
+        {
+          gate_name: "pre_commit_quality",
+          gate_type: "pre_commit",
+          description: "Pre-Commit Quality Gate",
+          checks: ["type_check", "lint", "format_check", "unit_tests_changed"],
+          thresholds: {
+            typescript_errors: 0,
+            eslint_errors: 0,
+            test_failures: 0,
           },
-          {
-            gate_name: "pre_push_quality",
-            gate_type: "pre_push",
-            description: "Pre-Push Quality Gate",
-            checks: ["full_test_suite", "e2e_tests", "compliance_check"],
-            thresholds: {
-              test_coverage: 80,
-              e2e_failures: 0,
-              critical_violations: 0,
-            },
-            blocking: true,
-            enabled: true,
+          blocking: true,
+          enabled: true,
+        },
+        {
+          gate_name: "pre_push_quality",
+          gate_type: "pre_push",
+          description: "Pre-Push Quality Gate",
+          checks: ["full_test_suite", "e2e_tests", "compliance_check"],
+          thresholds: {
+            test_coverage: 80,
+            e2e_failures: 0,
+            critical_violations: 0,
           },
-          {
-            gate_name: "pre_merge_quality",
-            gate_type: "pre_merge",
-            description: "Pre-Merge Quality Gate",
-            checks: ["full_quality_check", "performance_check", "security_check"],
-            thresholds: {
-              lighthouse_score: 90,
-              bundle_size_kb: 3000,
-              security_issues: 0,
-            },
-            blocking: true,
-            enabled: true,
+          blocking: true,
+          enabled: true,
+        },
+        {
+          gate_name: "pre_merge_quality",
+          gate_type: "pre_merge",
+          description: "Pre-Merge Quality Gate",
+          checks: ["full_quality_check", "performance_check", "security_check"],
+          thresholds: {
+            lighthouse_score: 90,
+            bundle_size_kb: 3000,
+            security_issues: 0,
           },
-        ],
-        { onConflict: "gate_name" }
-      );
+          blocking: true,
+          enabled: true,
+        },
+      ],
+      { onConflict: "gate_name" }
+    );
 
     if (gateError) {
       console.error("[NEXIFY] Error inserting quality gates:", gateError);
@@ -337,4 +331,3 @@ serve(async (req) => {
     );
   }
 });
-

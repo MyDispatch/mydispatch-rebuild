@@ -1,14 +1,14 @@
-import { useCallback } from 'react';
-import { logger } from '@/lib/logger';
+import { useCallback } from "react";
+import { logger } from "@/lib/logger";
 
 /**
  * Memoization Hook für Event-Handler
- * 
+ *
  * Verhindert unnötige Re-Renders von Child-Components
  * Performance-Verbesserung: 40-60% weniger Re-Renders
- * 
+ *
  * Siehe: docs/OPTIMIERUNGSPOTENZIAL_V18.5.1.md
- * 
+ *
  * @example
  * const handleClick = useMemoizedCallback(
  *   (id: string) => deleteItem(id),
@@ -25,7 +25,7 @@ export const useMemoizedCallback = <T extends (...args: any[]) => any>(
 
 /**
  * Memoization Hook für Form-Handler
- * 
+ *
  * @example
  * const handleSubmit = useFormHandler(
  *   async (data) => await submitForm(data),
@@ -41,7 +41,7 @@ export const useFormHandler = <T>(
       try {
         await handler(data);
       } catch (error) {
-        logger.error('Form handler error', error as Error, { component: 'useFormHandler' });
+        logger.error("Form handler error", error as Error, { component: "useFormHandler" });
         throw error;
       }
     },
@@ -52,7 +52,7 @@ export const useFormHandler = <T>(
 
 /**
  * Memoization Hook für Toggle-Handler
- * 
+ *
  * @example
  * const toggleHandler = useToggleHandler(setIsOpen, [setIsOpen]);
  */
@@ -69,17 +69,14 @@ export const useToggleHandler = (
 
 /**
  * Memoization Hook für Filter-Handler
- * 
+ *
  * @example
  * const handleFilter = useFilterHandler(
  *   (value) => setFilter(value),
  *   [setFilter]
  * );
  */
-export const useFilterHandler = <T>(
-  handler: (value: T) => void,
-  deps: React.DependencyList
-) => {
+export const useFilterHandler = <T>(handler: (value: T) => void, deps: React.DependencyList) => {
   return useCallback(
     (value: T) => {
       handler(value);

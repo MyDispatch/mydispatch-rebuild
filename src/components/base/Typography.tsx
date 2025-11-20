@@ -8,9 +8,9 @@
    NUTZUNG: <Heading level={1}>Titel</Heading>
    ================================================================================== */
 
-import React from 'react';
-import { TYPOGRAPHY } from '@/lib/design-system';
-import { cn } from '@/lib/utils';
+import React from "react";
+import { TYPOGRAPHY } from "@/lib/design-system";
+import { cn } from "@/lib/utils";
 
 // ==================================================================================
 // HEADING COMPONENT
@@ -30,12 +30,8 @@ export function Heading({ level, children, className }: HeadingProps) {
     3: TYPOGRAPHY.h3,
     4: TYPOGRAPHY.h4,
   };
-  
-  return (
-    <Tag className={cn(styleMap[level], className)}>
-      {children}
-    </Tag>
-  );
+
+  return <Tag className={cn(styleMap[level], className)}>{children}</Tag>;
 }
 
 // ==================================================================================
@@ -44,22 +40,18 @@ export function Heading({ level, children, className }: HeadingProps) {
 
 interface BodyProps {
   children: React.ReactNode;
-  size?: 'small' | 'default' | 'large';
+  size?: "small" | "default" | "large";
   className?: string;
 }
 
-export function Body({ children, size = 'default', className }: BodyProps) {
+export function Body({ children, size = "default", className }: BodyProps) {
   const sizeMap = {
     small: TYPOGRAPHY.bodySmall,
     default: TYPOGRAPHY.body,
     large: TYPOGRAPHY.bodyLarge,
   };
-  
-  return (
-    <p className={cn(sizeMap[size], className)}>
-      {children}
-    </p>
-  );
+
+  return <p className={cn(sizeMap[size], className)}>{children}</p>;
 }
 
 // ==================================================================================
@@ -75,10 +67,7 @@ interface LabelProps {
 
 export function Label({ children, htmlFor, required, className }: LabelProps) {
   return (
-    <label
-      htmlFor={htmlFor}
-      className={cn(TYPOGRAPHY.label, className)}
-    >
+    <label htmlFor={htmlFor} className={cn(TYPOGRAPHY.label, className)}>
       {children}
       {required && <span className="text-destructive ml-1">*</span>}
     </label>
@@ -95,11 +84,7 @@ interface CaptionProps {
 }
 
 export function Caption({ children, className }: CaptionProps) {
-  return (
-    <span className={cn(TYPOGRAPHY.caption, className)}>
-      {children}
-    </span>
-  );
+  return <span className={cn(TYPOGRAPHY.caption, className)}>{children}</span>;
 }
 
 // ==================================================================================
@@ -108,22 +93,18 @@ export function Caption({ children, className }: CaptionProps) {
 
 interface MetricProps {
   value: string | number;
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   className?: string;
 }
 
-export function Metric({ value, size = 'medium', className }: MetricProps) {
+export function Metric({ value, size = "medium", className }: MetricProps) {
   const sizeMap = {
     small: TYPOGRAPHY.metricSmall,
     medium: TYPOGRAPHY.metricMedium,
     large: TYPOGRAPHY.metricLarge,
   };
-  
-  return (
-    <span className={cn(sizeMap[size], className)}>
-      {value}
-    </span>
-  );
+
+  return <span className={cn(sizeMap[size], className)}>{value}</span>;
 }
 
 // ==================================================================================
@@ -140,20 +121,16 @@ interface LinkProps {
 export function Link({ children, href, onClick, className }: LinkProps) {
   if (href) {
     return (
-      <a
-        href={href}
-        className={cn(TYPOGRAPHY.link, className)}
-        onClick={onClick}
-      >
+      <a href={href} className={cn(TYPOGRAPHY.link, className)} onClick={onClick}>
         {children}
       </a>
     );
   }
-  
+
   return (
     <button
       type="button"
-      className={cn(TYPOGRAPHY.link, 'border-0 bg-transparent p-0', className)}
+      className={cn(TYPOGRAPHY.link, "border-0 bg-transparent p-0", className)}
       onClick={onClick}
     >
       {children}

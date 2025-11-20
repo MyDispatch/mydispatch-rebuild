@@ -34,6 +34,7 @@ src/
 ### **2. Separation of Concerns**
 
 **✅ DO:**
+
 - Business Logic → Custom Hooks (`useOrders`, `useDrivers`)
 - UI Logic → Components (`OrderCard`, `DriverTable`)
 - Data Fetching → React Query Hooks
@@ -41,6 +42,7 @@ src/
 - Routing Logic → `navigation-helpers.ts`
 
 **❌ DON'T:**
+
 - Business Logic in Components
 - Data Fetching in Components (außer via Hooks)
 - Inline Styles oder Direct Colors
@@ -50,6 +52,7 @@ src/
 ## 🎨 DESIGN SYSTEM HIERARCHY
 
 ### **Level 1: Design Tokens (index.css)**
+
 ```css
 :root {
   --primary: 35 88% 85%;
@@ -60,6 +63,7 @@ src/
 ```
 
 ### **Level 2: Tailwind Config (tailwind.config.ts)**
+
 ```typescript
 theme: {
   extend: {
@@ -72,18 +76,21 @@ theme: {
 ```
 
 ### **Level 3: Base Components (components/ui/)**
+
 ```tsx
 // Shadcn Components mit Design-System Integration
 <Button variant="default" />
 ```
 
 ### **Level 4: Shared Components (components/shared/)**
+
 ```tsx
 // Business Components mit Base Components
 <StatusIndicator status="success" />
 ```
 
 ### **Level 5: Page Components (pages/)**
+
 ```tsx
 // Route-basierte Pages mit Shared Components
 <OrdersPage />
@@ -94,12 +101,14 @@ theme: {
 ## 🔒 QUALITY GATES
 
 ### **Pre-Implementation Checklist**
+
 - [ ] Relevante Docs gelesen? (Design System, Spacing, Typography)
 - [ ] Existing Components überprüft?
 - [ ] Design-System Tokens verfügbar?
 - [ ] Mobile-First Approach geplant?
 
 ### **Implementation Checklist**
+
 - [ ] Semantic Tokens verwendet (KEINE Direct Colors)?
 - [ ] Responsive Breakpoints definiert?
 - [ ] Accessibility (ARIA, Alt-Text) implementiert?
@@ -107,6 +116,7 @@ theme: {
 - [ ] Error Boundaries vorhanden?
 
 ### **Post-Implementation Checklist**
+
 - [ ] Mobile-Ansicht getestet (375px, 768px, 1920px)?
 - [ ] Text-Overflow verhindert?
 - [ ] Spacing korrekt (Header, Content, Footer)?
@@ -118,6 +128,7 @@ theme: {
 ## 📱 RESPONSIVE DESIGN PATTERN
 
 ### **Breakpoints (Tailwind Default)**
+
 ```typescript
 sm: '640px',   // Mobile Landscape
 md: '768px',   // Tablet
@@ -127,6 +138,7 @@ xl: '1280px',  // Large Desktop
 ```
 
 ### **Mobile-First Pattern**
+
 ```tsx
 // ✅ RICHTIG: Von klein nach groß
 <div className="text-sm md:text-base lg:text-lg">
@@ -140,11 +152,10 @@ xl: '1280px',  // Large Desktop
 ```
 
 ### **Touch Targets (Mobile)**
+
 ```tsx
 // Mindestens 44x44px für Touch-Elemente
-<Button className="min-h-[44px] min-w-[44px]">
-  Touch-Safe
-</Button>
+<Button className="min-h-[44px] min-w-[44px]">Touch-Safe</Button>
 ```
 
 ---
@@ -152,6 +163,7 @@ xl: '1280px',  // Large Desktop
 ## 🧩 COMPONENT PATTERNS
 
 ### **1. Container Pattern**
+
 ```tsx
 // Consistent Padding & Max-Width
 <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
@@ -160,6 +172,7 @@ xl: '1280px',  // Large Desktop
 ```
 
 ### **2. Card Pattern**
+
 ```tsx
 // Standard Card mit Header/Content/Footer
 <Card>
@@ -176,21 +189,23 @@ xl: '1280px',  // Large Desktop
 ```
 
 ### **3. Form Pattern**
+
 ```tsx
 // React Hook Form mit Zod Validation
 const form = useForm<FormData>({
   resolver: zodResolver(schema),
-  defaultValues: {}
+  defaultValues: {},
 });
 
 <Form {...form}>
   <form onSubmit={form.handleSubmit(onSubmit)}>
     <FormField name="field" />
   </form>
-</Form>
+</Form>;
 ```
 
 ### **4. Loading/Error Pattern**
+
 ```tsx
 // Consistent Loading & Error States
 if (isLoading) return <LoadingSpinner />;
@@ -205,6 +220,7 @@ return <DataDisplay data={data} />;
 ## 🎯 TEXT & TYPOGRAPHY SAFEGUARDS
 
 ### **Overflow Prevention**
+
 ```tsx
 // IMMER bei Text-Elementen
 <div className="overflow-hidden">
@@ -215,19 +231,17 @@ return <DataDisplay data={data} />;
 ```
 
 ### **Badge/Chip Pattern**
+
 ```tsx
 // Whitespace-nowrap + Overflow Protection
-<Badge className="whitespace-nowrap overflow-hidden">
-  Status
-</Badge>
+<Badge className="whitespace-nowrap overflow-hidden">Status</Badge>
 ```
 
 ### **Headline Pattern**
+
 ```tsx
 // Keine Umbrüche bei Headlines
-<h1 className="text-2xl font-bold hyphens-none whitespace-normal">
-  Headline ohne Trennung
-</h1>
+<h1 className="text-2xl font-bold hyphens-none whitespace-normal">Headline ohne Trennung</h1>
 ```
 
 ---
@@ -235,15 +249,17 @@ return <DataDisplay data={data} />;
 ## 🔄 STATE MANAGEMENT
 
 ### **React Query (Data Fetching)**
+
 ```tsx
 const { data, isLoading, error } = useQuery({
-  queryKey: ['orders'],
+  queryKey: ["orders"],
   queryFn: fetchOrders,
   staleTime: 5 * 60 * 1000, // 5 minutes
 });
 ```
 
 ### **Zustand (Global State)**
+
 ```tsx
 const useStore = create((set) => ({
   user: null,
@@ -252,12 +268,13 @@ const useStore = create((set) => ({
 ```
 
 ### **Context (Feature State)**
+
 ```tsx
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const useTheme = () => {
   const context = useContext(ThemeContext);
-  if (!context) throw new Error('useTheme must be used within ThemeProvider');
+  if (!context) throw new Error("useTheme must be used within ThemeProvider");
   return context;
 };
 ```
@@ -267,8 +284,9 @@ export const useTheme = () => {
 ## 🛣️ ROUTING ARCHITECTURE
 
 ### **Context-Aware Navigation**
+
 ```tsx
-import { getHomeRoute, navigateToAuth } from '@/lib/navigation-helpers';
+import { getHomeRoute, navigateToAuth } from "@/lib/navigation-helpers";
 
 // Dynamische Home-Route basierend auf Context
 const homeRoute = getHomeRoute(searchParams);
@@ -276,6 +294,7 @@ navigate(homeRoute);
 ```
 
 ### **Protected Routes**
+
 ```tsx
 <ProtectedRoute>
   <AdminDashboard />
@@ -287,6 +306,7 @@ navigate(homeRoute);
 ## 🧪 TESTING STRATEGY
 
 ### **Visual Testing Checklist**
+
 - [ ] Mobile (375px) - iPhone SE
 - [ ] Tablet (768px) - iPad
 - [ ] Desktop (1280px) - Standard Laptop
@@ -294,6 +314,7 @@ navigate(homeRoute);
 - [ ] Extra Large (2560px) - 4K
 
 ### **Functional Testing**
+
 - [ ] Buttons clickable & working
 - [ ] Forms validieren korrekt
 - [ ] Error States werden angezeigt
@@ -301,6 +322,7 @@ navigate(homeRoute);
 - [ ] Navigation funktioniert
 
 ### **Accessibility Testing**
+
 - [ ] Keyboard Navigation
 - [ ] Screen Reader Compatibility
 - [ ] Color Contrast (WCAG 2.1 AA)
@@ -311,27 +333,25 @@ navigate(homeRoute);
 ## 📊 PERFORMANCE OPTIMIZATION
 
 ### **Code Splitting**
+
 ```tsx
 // Lazy Loading für Pages
-const Dashboard = lazy(() => import('@/pages/Dashboard'));
+const Dashboard = lazy(() => import("@/pages/Dashboard"));
 
 <Suspense fallback={<LoadingSpinner />}>
   <Dashboard />
-</Suspense>
+</Suspense>;
 ```
 
 ### **Image Optimization**
+
 ```tsx
 // Lazy Loading & Responsive Images
-<img 
-  src={image} 
-  alt="Description"
-  loading="lazy"
-  className="w-full h-auto object-cover"
-/>
+<img src={image} alt="Description" loading="lazy" className="w-full h-auto object-cover" />
 ```
 
 ### **Memoization**
+
 ```tsx
 // React.memo für teure Components
 export const ExpensiveComponent = React.memo(({ data }) => {
@@ -349,6 +369,7 @@ const sortedData = useMemo(() => {
 ## 🚨 ERROR HANDLING
 
 ### **Error Boundaries**
+
 ```tsx
 <ErrorBoundary fallback={<ErrorFallback />}>
   <App />
@@ -356,13 +377,14 @@ const sortedData = useMemo(() => {
 ```
 
 ### **Try-Catch Pattern**
+
 ```tsx
 try {
   await riskyOperation();
-  toast.success('Erfolg!');
+  toast.success("Erfolg!");
 } catch (error) {
-  console.error('Error:', error);
-  toast.error('Fehler aufgetreten');
+  console.error("Error:", error);
+  toast.error("Fehler aufgetreten");
 }
 ```
 
@@ -371,18 +393,19 @@ try {
 ## 📚 DOCUMENTATION REQUIREMENTS
 
 ### **Component Documentation**
+
 ```tsx
 /**
  * StatusIndicator Component
- * 
+ *
  * @param status - 'success' | 'warning' | 'error'
  * @param label - Optional label text
  * @param size - 'sm' | 'md' | 'lg'
- * 
+ *
  * @example
  * <StatusIndicator status="success" label="Aktiv" />
  */
-export function StatusIndicator({ status, label, size = 'md' }: Props) {
+export function StatusIndicator({ status, label, size = "md" }: Props) {
   // ...
 }
 ```
@@ -392,6 +415,7 @@ export function StatusIndicator({ status, label, size = 'md' }: Props) {
 ## 🎯 SUCCESS METRICS
 
 **Frontend Quality:**
+
 - ✅ 0 Console Errors in Production
 - ✅ 0 Layout Shifts (CLS < 0.1)
 - ✅ 100% Mobile Responsiveness
@@ -400,6 +424,7 @@ export function StatusIndicator({ status, label, size = 'md' }: Props) {
 - ✅ 100% TypeScript Coverage
 
 **Code Quality:**
+
 - ✅ Alle Components dokumentiert
 - ✅ Alle Props typisiert
 - ✅ Keine Direct Colors

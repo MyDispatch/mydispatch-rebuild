@@ -7,12 +7,12 @@
    - Production-optimiert
    ================================================================================== */
 
-import { onCLS, onINP, onLCP, onFCP, onTTFB, type Metric } from 'web-vitals';
-import { supabase } from '@/integrations/supabase/client';
-import { logger } from '@/lib/logger';
+import { onCLS, onINP, onLCP, onFCP, onTTFB, type Metric } from "web-vitals";
+import { supabase } from "@/integrations/supabase/client";
+import { logger } from "@/lib/logger";
 
 interface PerformanceMetric {
-  metric_name: 'CLS' | 'INP' | 'LCP' | 'FCP' | 'TTFB';
+  metric_name: "CLS" | "INP" | "LCP" | "FCP" | "TTFB";
   metric_value: number;
   rating: string;
   route: string;
@@ -29,21 +29,19 @@ async function sendToAnalytics(metric: Metric) {
     if (import.meta.env.DEV) return;
 
     const performanceMetric: PerformanceMetric = {
-      metric_name: metric.name as 'CLS' | 'INP' | 'LCP' | 'FCP' | 'TTFB',
+      metric_name: metric.name as "CLS" | "INP" | "LCP" | "FCP" | "TTFB",
       metric_value: metric.value,
       rating: metric.rating,
       route: window.location.pathname,
       user_agent: navigator.userAgent,
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
     };
 
-    await supabase
-      .from('performance_metrics')
-      .insert(performanceMetric);
+    await supabase.from("performance_metrics").insert(performanceMetric);
   } catch (error) {
     // Silent fail - Performance-Tracking darf App nicht beeinträchtigen
     if (import.meta.env.DEV) {
-      logger.debug('Performance metric error', { error, component: 'PerformanceMonitoring' });
+      logger.debug("Performance metric error", { error, component: "PerformanceMonitoring" });
     }
   }
 }
@@ -55,29 +53,33 @@ async function sendToAnalytics(metric: Metric) {
 export function initPerformanceMonitoring() {
   // Nur in Production
   if (import.meta.env.DEV) {
-    logger.info('Performance monitoring disabled in development', { component: 'PerformanceMonitoring' });
+    logger.info("Performance monitoring disabled in development", {
+      component: "PerformanceMonitoring",
+    });
     return;
   }
 
   try {
     // Cumulative Layout Shift
     onCLS(sendToAnalytics);
-    
+
     // Interaction to Next Paint (ersetzt FID)
     onINP(sendToAnalytics);
-    
+
     // Largest Contentful Paint
     onLCP(sendToAnalytics);
-    
+
     // First Contentful Paint
     onFCP(sendToAnalytics);
-    
+
     // Time to First Byte
     onTTFB(sendToAnalytics);
 
-    logger.info('Performance monitoring initialized', { component: 'PerformanceMonitoring' });
+    logger.info("Performance monitoring initialized", { component: "PerformanceMonitoring" });
   } catch (error) {
-    logger.error('Failed to initialize performance monitoring', error as Error, { component: 'PerformanceMonitoring' });
+    logger.error("Failed to initialize performance monitoring", error as Error, {
+      component: "PerformanceMonitoring",
+    });
   }
 }
 
@@ -88,21 +90,22 @@ export function measurePerformance(name: string, startMark: string, endMark: str
   try {
     performance.mark(endMark);
     const measure = performance.measure(name, startMark, endMark);
-    
+
     const metric: Metric = {
-      name: 'CLS', // Placeholder, wird nicht verwendet
+      name: "CLS", // Placeholder, wird nicht verwendet
       value: measure.duration,
-      rating: measure.duration < 1000 ? 'good' : measure.duration < 2500 ? 'needs-improvement' : 'poor',
+      rating:
+        measure.duration < 1000 ? "good" : measure.duration < 2500 ? "needs-improvement" : "poor",
       delta: 0,
-      navigationType: 'navigate',
+      navigationType: "navigate",
       id: crypto.randomUUID(),
-      entries: []
+      entries: [],
     };
-    
+
     sendToAnalytics(metric);
   } catch (error) {
     if (import.meta.env.DEV) {
-      logger.debug('Performance measurement error', { error, component: 'PerformanceMonitoring' });
+      logger.debug("Performance measurement error", { error, component: "PerformanceMonitoring" });
     }
   }
 }
@@ -115,7 +118,7 @@ export function startPerformanceMark(name: string) {
     performance.mark(name);
   } catch (error) {
     if (import.meta.env.DEV) {
-      logger.debug('Performance mark error', { error, component: 'PerformanceMonitoring' });
+      logger.debug("Performance mark error", { error, component: "PerformanceMonitoring" });
     }
   }
 }

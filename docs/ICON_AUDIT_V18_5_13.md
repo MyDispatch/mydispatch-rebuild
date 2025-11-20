@@ -15,6 +15,7 @@ Systemweite Überprüfung und Korrektur aller Icon-Farben gemäß `ICON_GUIDELIN
 ## ✅ ERLAUBTE FARBEN
 
 Icons dürfen NUR diese Farben verwenden:
+
 - `text-foreground` (Haupt-Icon-Farbe, dunkel/grau)
 - `text-muted-foreground` (Sekundär, für disabled states)
 - `text-accent` (Special CTA, braun/gold)
@@ -24,6 +25,7 @@ Icons dürfen NUR diese Farben verwenden:
 ## ❌ VERBOTENE FARBEN
 
 Icons dürfen NICHT verwenden:
+
 - `text-status-success/warning/error` (NUR für Badges, Dots, Backgrounds!)
 - `text-green-*`, `text-red-*`, `text-yellow-*`, `text-blue-*` (Generische Tailwind-Farben)
 - `text-white`, `text-black` (Direkte Farben)
@@ -59,6 +61,7 @@ Icons dürfen NICHT verwenden:
 ## 🛠️ KORREKTUREN (BATCH)
 
 ### Batch 1: Dashboard-Widgets
+
 ```typescript
 // ❌ VORHER
 <AlertCircle className="h-5 w-5 text-status-error" />
@@ -68,7 +71,9 @@ Icons dürfen NICHT verwenden:
 ```
 
 ### Batch 2: Status-Anzeigen
+
 Status-Farben bleiben NUR in:
+
 - Badge backgrounds (`bg-status-error/10`)
 - Border colors (`border-status-success/20`)
 - Text in Badges (`text-status-warning` innerhalb von Badges)
@@ -98,6 +103,7 @@ Status-Farben bleiben NUR in:
 ## 🎯 KORREKTUR-PLAN
 
 ### Phase 1: Kritische Icons (JETZT)
+
 - [x] MetricCard.tsx
 - [ ] PasswordStrengthIndicator.tsx
 - [ ] ActivityTimeline.tsx
@@ -105,15 +111,18 @@ Status-Farben bleiben NUR in:
 - [ ] PerformanceMonitoringWidget.tsx
 
 ### Phase 2: Dashboard-Widgets
+
 - [ ] TopCustomersWidget.tsx
 - [ ] TrafficWidget.tsx
 - [ ] UrgentActionsWidget.tsx
 - [ ] WeatherWidget.tsx
 
 ### Phase 3: Dev-Tools
+
 - [ ] BrainValidationReport.tsx (spezielle Behandlung für Dev-Reports)
 
 ### Phase 4: Master-Components
+
 - [ ] OptimizationTracker.tsx
 - [ ] CIGuidelineModal.tsx (nur wo nötig)
 

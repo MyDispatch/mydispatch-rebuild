@@ -8,14 +8,14 @@
    ✅ German error messages
    ================================================================================== */
 
-import { supabase } from '@/integrations/supabase/client';
-import { logger } from '@/lib/logger';
+import { supabase } from "@/integrations/supabase/client";
+import { logger } from "@/lib/logger";
 
 interface ErrorReport {
   error_message: string;
   error_stack?: string;
   error_category: string;
-  severity: 'low' | 'medium' | 'high' | 'critical';
+  severity: "low" | "medium" | "high" | "critical";
   context: Record<string, any>;
   timestamp: number;
 }
@@ -32,18 +32,18 @@ export class ProductionErrorMonitor {
    */
   static initialize(): void {
     if (this.initialized) return;
-    
+
     // Only run in Production
     if (!import.meta.env.PROD) {
-      logger.info('[ProductionErrorMonitor] Development mode - skipping initialization');
+      logger.info("[ProductionErrorMonitor] Development mode - skipping initialization");
       return;
     }
 
     // Global error handler
-    window.addEventListener('error', this.handleGlobalError.bind(this));
-    
+    window.addEventListener("error", this.handleGlobalError.bind(this));
+
     // Unhandled promise rejection handler
-    window.addEventListener('unhandledrejection', this.handleUnhandledRejection.bind(this));
+    window.addEventListener("unhandledrejection", this.handleUnhandledRejection.bind(this));
 
     // Flush errors every 30 seconds
     this.flushInterval = setInterval(() => {
@@ -53,14 +53,14 @@ export class ProductionErrorMonitor {
     }, 30000);
 
     // Flush on page unload
-    window.addEventListener('beforeunload', () => {
+    window.addEventListener("beforeunload", () => {
       if (this.errorQueue.length > 0) {
         this.flushErrorQueue();
       }
     });
 
     this.initialized = true;
-    logger.info('[ProductionErrorMonitor] Initialized');
+    logger.info("[ProductionErrorMonitor] Initialized");
   }
 
   /**
@@ -68,14 +68,14 @@ export class ProductionErrorMonitor {
    */
   private static handleGlobalError(event: ErrorEvent): void {
     // Skip cross-origin errors (CORS)
-    if (event.message === 'Script error.' && !event.filename) {
+    if (event.message === "Script error." && !event.filename) {
       return;
     }
 
     const error: ErrorReport = {
       error_message: event.message,
-      error_stack: event.error?.stack || 'No stack trace available',
-      error_category: 'window_error',
+      error_stack: event.error?.stack || "No stack trace available",
+      error_category: "window_error",
       severity: this.calculateSeverity(event.message),
       context: {
         filename: event.filename,
@@ -96,9 +96,9 @@ export class ProductionErrorMonitor {
   private static handleUnhandledRejection(event: PromiseRejectionEvent): void {
     const error: ErrorReport = {
       error_message: event.reason?.message || String(event.reason),
-      error_stack: event.reason?.stack || 'No stack trace available',
-      error_category: 'promise_rejection',
-      severity: this.calculateSeverity(event.reason?.message || ''),
+      error_stack: event.reason?.stack || "No stack trace available",
+      error_category: "promise_rejection",
+      severity: this.calculateSeverity(event.reason?.message || ""),
       context: {
         reason: event.reason,
         userAgent: navigator.userAgent,
@@ -117,7 +117,7 @@ export class ProductionErrorMonitor {
     // Duplicate Detection (same error within 5 min)
     const errorKey = `${error.error_category}:${error.error_message}`;
     const lastSeen = this.seenErrors.get(errorKey);
-    
+
     if (lastSeen && Date.now() - lastSeen < 5 * 60 * 1000) {
       // Duplicate - skip
       return;
@@ -127,7 +127,7 @@ export class ProductionErrorMonitor {
     this.errorQueue.push(error);
 
     // Flush immediately for critical errors
-    if (error.severity === 'critical') {
+    if (error.severity === "critical") {
       this.flushErrorQueue();
     }
   }
@@ -142,8 +142,8 @@ export class ProductionErrorMonitor {
     this.errorQueue = []; // Clear queue
 
     try {
-      const { error } = await supabase.from('error_logs').insert(
-        errors.map(err => ({
+      const { error } = await supabase.from("error_logs").insert(
+        errors.map((err) => ({
           error_message: err.error_message,
           error_stack: err.error_stack,
           error_category: err.error_category,
@@ -156,8 +156,8 @@ export class ProductionErrorMonitor {
 
       logger.info(`[ProductionErrorMonitor] Flushed ${errors.length} errors to Supabase`);
     } catch (flushError) {
-      logger.error('[ProductionErrorMonitor] Failed to flush errors:', flushError);
-      
+      logger.error("[ProductionErrorMonitor] Failed to flush errors:", flushError);
+
       // Re-queue errors (with limit to prevent memory leak)
       if (this.errorQueue.length < 100) {
         this.errorQueue.push(...errors);
@@ -176,37 +176,37 @@ export class ProductionErrorMonitor {
   /**
    * Calculate Error Severity
    */
-  private static calculateSeverity(message: string): 'low' | 'medium' | 'high' | 'critical' {
+  private static calculateSeverity(message: string): "low" | "medium" | "high" | "critical" {
     // Critical Patterns
     if (
-      message.includes('ChunkLoadError') ||
-      message.includes('Hydration failed') ||
-      message.includes('white screen') ||
-      message.includes('Cannot read properties of undefined')
+      message.includes("ChunkLoadError") ||
+      message.includes("Hydration failed") ||
+      message.includes("white screen") ||
+      message.includes("Cannot read properties of undefined")
     ) {
-      return 'critical';
+      return "critical";
     }
 
     // High Severity
     if (
-      message.includes('Network Error') ||
-      message.includes('Failed to fetch') ||
-      message.includes('TypeError') ||
-      message.includes('ReferenceError')
+      message.includes("Network Error") ||
+      message.includes("Failed to fetch") ||
+      message.includes("TypeError") ||
+      message.includes("ReferenceError")
     ) {
-      return 'high';
+      return "high";
     }
 
     // Medium Severity
     if (
-      message.includes('Warning') ||
-      message.includes('Deprecated') ||
-      message.includes('timeout')
+      message.includes("Warning") ||
+      message.includes("Deprecated") ||
+      message.includes("timeout")
     ) {
-      return 'medium';
+      return "medium";
     }
 
-    return 'low';
+    return "low";
   }
 
   /**
@@ -214,7 +214,7 @@ export class ProductionErrorMonitor {
    */
   static reportError(
     error: Error | string,
-    category: string = 'manual_report',
+    category: string = "manual_report",
     context: Record<string, any> = {}
   ): void {
     const errorReport: ErrorReport = {

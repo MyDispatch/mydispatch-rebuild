@@ -8,17 +8,20 @@
 ## ✅ BEREITS ERLEDIGT
 
 ### Code-Änderungen
+
 - ✅ Edge Function `ai-support-chat` auf Anthropic umgestellt
 - ✅ API-Keys in `.env.local` gespeichert
 - ✅ Projekt-spezifische Trennung implementiert
 
 ### Scripts erstellt
+
 - ✅ `scripts/set-supabase-secrets-direct.ps1` - Secrets Anleitung
 - ✅ `scripts/deploy-migrations.ps1` - Migrations Check
 - ✅ `scripts/deploy-edge-functions.ps1` - Edge Functions Check
 - ✅ `scripts/deploy-all-migrations.sql` - Kombinierte SQL (Referenz)
 
 ### Frontend Build
+
 - ⏳ Build läuft im Hintergrund (prüfe Status)
 
 ---
@@ -26,10 +29,12 @@
 ## ⏳ AUSSTEHEND - MANUELLE AUSFÜHRUNG ERFORDERLICH
 
 ### 1. Supabase Secrets setzen
+
 **Status:** ⏳ Muss manuell gesetzt werden  
 **URL:** https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/settings/secrets
 
 **Secrets:**
+
 ```
 ANTHROPIC_API_KEY = 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
 RESEND_API_KEY = re_QLd5UEuy_65ESCwqXFrSaHzuSTaS8LTGd
@@ -38,10 +43,12 @@ DAILY_API_KEY = e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441d72
 ```
 
 ### 2. Migrations ausführen
+
 **Status:** ⏳ Muss manuell ausgeführt werden  
 **URL:** https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/sql/new
 
 **Migrations (7):**
+
 1. `supabase/migrations/20250131_nexify_master_system.sql`
 2. `supabase/migrations/20250131_nexify_crm_system.sql`
 3. `supabase/migrations/20250131_system_health_tables.sql`
@@ -51,10 +58,12 @@ DAILY_API_KEY = e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441d72
 7. `supabase/migrations/20250131000003_fix_master_login.sql`
 
 ### 3. Edge Functions deployen
+
 **Status:** ⏳ Muss manuell deployed werden  
 **URL:** https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/functions
 
 **Edge Functions (9):**
+
 1. `fix-master-login`
 2. `nexify-auto-load-context`
 3. `nexify-project-context`
@@ -66,10 +75,12 @@ DAILY_API_KEY = e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441d72
 9. `ai-support-chat` ✅ (bereits auf Anthropic umgestellt)
 
 ### 4. Frontend Build
+
 **Status:** ⏳ Läuft im Hintergrund  
 **Prüfe:** `dist/` Ordner nach Build
 
 ### 5. Cursor Extensions
+
 **Status:** ⏳ Muss manuell konfiguriert werden  
 **Vorgehen:** Command Palette (Ctrl+Shift+P) → "Configure Prompt Saver/Manager"
 
@@ -80,11 +91,13 @@ DAILY_API_KEY = e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441d72
 ## 🔧 TECHNISCHE HINDERNISSE
 
 ### Supabase CLI
+
 - ❌ Kann nicht global installiert werden (npm limitation)
 - ✅ Alternative: Supabase Dashboard oder lokale Installation
 - ✅ Scripts bereiten alles vor
 
 ### API-Zugriff
+
 - ⚠️ Supabase Management API benötigt Access Token
 - ✅ Alternative: Dashboard für manuelle Konfiguration
 
@@ -101,4 +114,3 @@ DAILY_API_KEY = e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441d72
 ---
 
 **Status:** ⏳ Deployment-Scripts vorbereitet - manuelle Ausführung über Dashboard erforderlich
-

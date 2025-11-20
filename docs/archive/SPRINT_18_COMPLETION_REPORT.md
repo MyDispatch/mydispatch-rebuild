@@ -21,6 +21,7 @@
 **Datei:** `src/pages/Dokumente.tsx`
 
 **Änderungen:**
+
 - ✅ StandardPageLayout-Integration (statt DashboardLayout)
 - ✅ Stats-Cards mit Live-Ablauf-Daten hinzugefügt:
   - Abgelaufen (AlertTriangle Icon) - Rot
@@ -36,11 +37,13 @@
 - ✅ Status-Ampel-System für Ablaufdaten
 
 **Entfernte Duplikate:**
+
 - ❌ Manuelle Header-Struktur
 - ❌ Eigenes Card-Layout
 - ❌ Redundanter Search-Input
 
 **Konsistenz:**
+
 - ✅ Stats-Cards oben (4 Karten)
 - ✅ Suche zentral in StandardPageLayout
 - ✅ EmptyState bei 0 Dokumenten
@@ -54,45 +57,62 @@
 ## 🔧 TECHNISCHE DETAILS
 
 ### Spezielle Features
+
 Die Dokumente-Seite hat ein einzigartiges Ablaufdatum-Tracking-System:
+
 - **Ablauf-Status-Berechnung:** Rot (abgelaufen), Gelb (< 30 Tage), Grün (> 30 Tage)
 - **Stats-Cards:** Zeigen sofort kritische Dokumente (Abgelaufen/Bald Ablaufend)
 - **StatusIndicator:** Visuelles Ampel-System in Tabelle
 - **DetailDialog:** Zeigt vollständige Dokument-Details + Download-Link
 
 ### Stats-Berechnung
+
 ```tsx
 const stats = useMemo(() => {
-  const expired = documents.filter(doc => getExpiryStatus(doc.expiry_date) === 'error').length;
-  const expiringSoon = documents.filter(doc => getExpiryStatus(doc.expiry_date) === 'warning').length;
-  const valid = documents.filter(doc => getExpiryStatus(doc.expiry_date) === 'success').length;
+  const expired = documents.filter((doc) => getExpiryStatus(doc.expiry_date) === "error").length;
+  const expiringSoon = documents.filter(
+    (doc) => getExpiryStatus(doc.expiry_date) === "warning"
+  ).length;
+  const valid = documents.filter((doc) => getExpiryStatus(doc.expiry_date) === "success").length;
   const total = documents.length;
 
   return [
-    { label: 'Abgelaufen', value: expired, icon: <AlertTriangle />, valueClassName: 'text-destructive' },
-    { label: 'Läuft bald ab', value: expiringSoon, icon: <Clock />, valueClassName: 'text-status-warning' },
-    { label: 'Gültig', value: valid, icon: <CheckCircle />, valueClassName: 'text-status-success' },
-    { label: 'Gesamt', value: total, icon: <FolderOpen /> },
+    {
+      label: "Abgelaufen",
+      value: expired,
+      icon: <AlertTriangle />,
+      valueClassName: "text-destructive",
+    },
+    {
+      label: "Läuft bald ab",
+      value: expiringSoon,
+      icon: <Clock />,
+      valueClassName: "text-status-warning",
+    },
+    { label: "Gültig", value: valid, icon: <CheckCircle />, valueClassName: "text-status-success" },
+    { label: "Gesamt", value: total, icon: <FolderOpen /> },
   ];
 }, [documents]);
 ```
 
 ### Ablauf-Status-Logik
+
 ```tsx
 const getExpiryStatus = (expiryDate: string | null) => {
-  if (!expiryDate) return 'neutral';
-  
+  if (!expiryDate) return "neutral";
+
   const expiry = new Date(expiryDate);
   const now = new Date();
   const daysUntilExpiry = Math.ceil((expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 
-  if (daysUntilExpiry < 0) return 'error';       // Abgelaufen
-  if (daysUntilExpiry <= 30) return 'warning';   // Läuft bald ab
-  return 'success';                              // Gültig
+  if (daysUntilExpiry < 0) return "error"; // Abgelaufen
+  if (daysUntilExpiry <= 30) return "warning"; // Läuft bald ab
+  return "success"; // Gültig
 };
 ```
 
 ### Build-Status
+
 ```
 ✅ TypeScript: 0 Errors
 ✅ JSX-Struktur: Vollständig korrekt
@@ -103,12 +123,14 @@ const getExpiryStatus = (expiryDate: string | null) => {
 ```
 
 ### Performance
+
 - ✅ Stats-Berechnung mit useMemo optimiert
 - ✅ Ablauf-Status-Berechnung nur bei Änderungen
 - ✅ Keine unnötigen Re-Renders
 - ✅ EmptyState statt leere Tabelle
 
 ### Accessibility
+
 - ✅ Semantic HTML
 - ✅ ARIA-Labels vorhanden
 - ✅ StatusIndicator screen-reader-freundlich
@@ -118,19 +140,19 @@ const getExpiryStatus = (expiryDate: string | null) => {
 
 ## 📋 MIGRIERTE SEITEN (GESAMT)
 
-| Seite | Status | Sprint | Bemerkung |
-|-------|--------|--------|-----------|
-| Rechnungen | ✅ | 15 | Vollständig |
-| Kunden | ✅ | 15 | Vollständig |
-| Aufträge | ✅ | 16 | Vollständig + Dialog-Fix |
-| Fahrzeuge | ✅ | 16 | Vollständig |
-| Angebote | ✅ | 16 | Vollständig |
-| Fahrer | ✅ | 16 | Vollständig + Stats |
-| Partner | ✅ | 17 | Vollständig + Tabs-System |
-| **Dokumente** | ✅ | **18** | **NEU MIGRIERT + Ablauf-Tracking** |
-| Kostenstellen | ⏳ | 19 | Geplant |
-| Schichtzettel | ⏳ | 20 | Geplant |
-| Office | ⏳ | 21 | Geplant |
+| Seite         | Status | Sprint | Bemerkung                          |
+| ------------- | ------ | ------ | ---------------------------------- |
+| Rechnungen    | ✅     | 15     | Vollständig                        |
+| Kunden        | ✅     | 15     | Vollständig                        |
+| Aufträge      | ✅     | 16     | Vollständig + Dialog-Fix           |
+| Fahrzeuge     | ✅     | 16     | Vollständig                        |
+| Angebote      | ✅     | 16     | Vollständig                        |
+| Fahrer        | ✅     | 16     | Vollständig + Stats                |
+| Partner       | ✅     | 17     | Vollständig + Tabs-System          |
+| **Dokumente** | ✅     | **18** | **NEU MIGRIERT + Ablauf-Tracking** |
+| Kostenstellen | ⏳     | 19     | Geplant                            |
+| Schichtzettel | ⏳     | 20     | Geplant                            |
+| Office        | ⏳     | 21     | Geplant                            |
 
 **Fortschritt:** 8/11 Seiten (73%) ✅
 
@@ -139,6 +161,7 @@ const getExpiryStatus = (expiryDate: string | null) => {
 ## 🎯 QUALITÄTSSICHERUNG
 
 ### Checkliste (alle ✅)
+
 - [x] Layout-Konsistenz: Header 60px, Sidebar 64/240px
 - [x] Mobile-First: Breakpoints korrekt (<768px)
 - [x] CI-Farben: #EADEBD, #323D5E, #856d4b
@@ -159,21 +182,25 @@ const getExpiryStatus = (expiryDate: string | null) => {
 ## 🐛 BEHOBENE FEHLER
 
 ### 1. **Fehlende Stats-Cards**
+
 **Problem:** Keine Übersicht über Ablaufdaten  
 **Lösung:** 4 Stats-Cards mit useMemo (Abgelaufen, Bald Ablaufend, Gültig, Gesamt)  
 **Datei:** Dokumente.tsx (Stats-Calculation)
 
 ### 2. **Manuelle Header-Struktur**
+
 **Problem:** Inkonsistenter Header (nicht StandardPageLayout)  
 **Lösung:** StandardPageLayout mit Props (title, subtitle, onCreateNew)  
 **Datei:** Dokumente.tsx (Layout-Migration)
 
 ### 3. **Keine EmptyState**
+
 **Problem:** Leere Tabelle statt EmptyState  
 **Lösung:** EmptyState mit Such-Modus (isSearchResult)  
 **Datei:** Dokumente.tsx (EmptyState-Integration)
 
 ### 4. **Inkonsistente Action-Buttons**
+
 **Problem:** Eigener Eye-Button statt StandardActionButtons  
 **Lösung:** StandardActionButtons mit nur Details-Button  
 **Datei:** Dokumente.tsx (Action-Buttons)
@@ -191,6 +218,7 @@ const getExpiryStatus = (expiryDate: string | null) => {
 ## 🚀 NÄCHSTE SCHRITTE (Sprint 19)
 
 ### 1. **Kostenstellen-Seite Migration** (P0)
+
 - StandardPageLayout-Integration
 - Stats-Cards (Aktiv, Inaktiv, Budget Gesamt, Ausgaben Gesamt)
 - Budget-Tracking-Visualisierung (Fortschrittsbalken)
@@ -198,11 +226,13 @@ const getExpiryStatus = (expiryDate: string | null) => {
 - Filter für Aktiv/Inaktiv
 
 ### 2. **Schichtzettel-Seite Analyse** (P1)
+
 - Layout-Analyse (Kalender-Ansicht? Tages-/Wochen-/Monats-Ansicht?)
 - Prüfen, ob StandardPageLayout kompatibel ist
 - Ggf. spezielles Layout erforderlich (Kalender-Grid)
 
 ### 3. **Office-Seite Analyse** (P1)
+
 - Layout-Analyse
 - E-Mail/Brief-Templates-System
 - Prüfen, ob StandardPageLayout kompatibel ist
@@ -213,17 +243,20 @@ const getExpiryStatus = (expiryDate: string | null) => {
 ## 💡 LESSONS LEARNED
 
 ### Was gut lief:
+
 - ✅ Stats-Cards zeigen sofort kritische Dokumente (Abgelaufen/Bald Ablaufend)
 - ✅ EmptyState korrekt mit Such-Modus integriert
 - ✅ StandardActionButtons (nur Details) sinnvoll für Dokumente
 - ✅ Footer mit Dokumenttypen-Hinweisen beibehalten
 
 ### Was verbessert wurde:
+
 - ✅ useMemo für Stats-Berechnung (Performance)
 - ✅ Ablauf-Status-Logik zentral in getExpiryStatus()
 - ✅ DetailDialog mit Download-Link gut positioniert
 
 ### Für nächsten Sprint:
+
 - 📝 Kostenstellen-Seite: Budget-Tracking-Visualisierung entwickeln
 - 📝 Schichtzettel-Seite: Kalender-Ansicht analysieren
 - 📝 Office-Seite: Tabs-System prüfen

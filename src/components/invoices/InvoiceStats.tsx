@@ -16,10 +16,10 @@ interface InvoiceStatsProps {
 export function InvoiceStats({ invoices }: InvoiceStatsProps) {
   const stats = {
     total: invoices.length,
-    draft: invoices.filter(i => i.status === 'draft').length,
-    sent: invoices.filter(i => i.status === 'sent').length,
-    paid: invoices.filter(i => i.status === 'paid').length,
-    overdue: invoices.filter(i => i.status === 'overdue').length,
+    draft: invoices.filter((i) => i.status === "draft").length,
+    sent: invoices.filter((i) => i.status === "sent").length,
+    paid: invoices.filter((i) => i.status === "paid").length,
+    overdue: invoices.filter((i) => i.status === "overdue").length,
     totalAmount: invoices.reduce((sum, i) => sum + i.total_amount, 0),
   };
 
@@ -28,7 +28,7 @@ export function InvoiceStats({ invoices }: InvoiceStatsProps) {
       title: "Gesamt",
       value: stats.total,
       icon: FileText,
-      description: `${new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(stats.totalAmount)}`,
+      description: `${new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" }).format(stats.totalAmount)}`,
     },
     {
       title: "Versendet",

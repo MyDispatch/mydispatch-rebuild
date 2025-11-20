@@ -21,6 +21,7 @@ MyDispatch ist eine eigenständige Marke. Alle externen Referenzen (insbesondere
 ## 🚫 REGEL 1: KEINE KOSTENLOSEN TESTS
 
 ### Verboten:
+
 - ❌ "14 Tage kostenlos testen"
 - ❌ "Kostenlose Testphase"
 - ❌ "Geld-zurück-Garantie für Tests"
@@ -28,18 +29,22 @@ MyDispatch ist eine eigenständige Marke. Alle externen Referenzen (insbesondere
 - ❌ Trial-Accounts, Demo-Accounts (außer intern)
 
 ### Erlaubt:
+
 - ✅ "Monatlich kündbar" (keine Mindestlaufzeit)
 - ✅ "Jetzt starten" (ohne "kostenlos")
 - ✅ "Jetzt Tarif wählen"
 
 ### Ausnahme (NUR intern):
+
 **Test-Accounts für Entwicklung:**
+
 - courbois1981@gmail.com
 - demo@my-dispatch.de
 
 Diese können Tarife frei wechseln (via Tariff-Switcher in Einstellungen). NIEMALS öffentlich zeigen oder erwähnen!
 
 ### Begründung:
+
 MyDispatch ist ein professionelles B2B-Tool. Kostenlose Tests würden den Wert des Produkts mindern. Nutzer sollen direkt in einen Tarif einsteigen (monatlich kündbar).
 
 ---
@@ -47,6 +52,7 @@ MyDispatch ist ein professionelles B2B-Tool. Kostenlose Tests würden den Wert d
 ## 🔒 REGEL 2: TECHNISCHE DETAILS VERBERGEN
 
 ### Verboten auf öffentlichen Seiten:
+
 - ❌ "React", "Vite", "TailwindCSS", "TypeScript"
 - ❌ "Supabase", "Postgres", "PostgreSQL"
 - ❌ "Lovable", "lovable.dev", "lovable.app"
@@ -54,6 +60,7 @@ MyDispatch ist ein professionelles B2B-Tool. Kostenlose Tests würden den Wert d
 - ❌ Framework-Namen
 
 ### Erlaubt auf öffentlichen Seiten:
+
 - ✅ "Cloud-basiert"
 - ✅ "Browser-basiert" oder "Web-Anwendung"
 - ✅ "Progressive Web App (PWA)"
@@ -64,6 +71,7 @@ MyDispatch ist ein professionelles B2B-Tool. Kostenlose Tests würden den Wert d
 ### Ausnahmen (gesetzlich vorgeschrieben):
 
 #### In Datenschutzerklärung:
+
 ```text
 ERLAUBT (technisch notwendig):
 - "SSL/TLS-Verschlüsselung"
@@ -78,10 +86,13 @@ VERBOTEN:
 ```
 
 #### In AGB/Impressum:
+
 Nur Kontaktdaten, keine Tech-Details.
 
 ### Begründung:
+
 Nutzer sollen nicht sehen, wie MyDispatch gebaut wurde. Das erhöht:
+
 - Marken-Autonomie
 - Wettbewerbs-Vorteil (Konkurrenz kopiert nicht einfach)
 - Professionalität (Nutzer denken nicht an "billiges Framework")
@@ -91,6 +102,7 @@ Nutzer sollen nicht sehen, wie MyDispatch gebaut wurde. Das erhöht:
 ## 🏷️ REGEL 3: KONSEQUENTES BRANDING
 
 ### Marken-Namen:
+
 ```text
 ✅ RICHTIG:
 - "MyDispatch"
@@ -107,6 +119,7 @@ Nutzer sollen nicht sehen, wie MyDispatch gebaut wurde. Das erhöht:
 ```
 
 ### KI-Features:
+
 ```text
 ✅ RICHTIG:
 - "MyDispatch AI" (allgemein)
@@ -125,6 +138,7 @@ AUSNAHME (Datenschutz):
 ```
 
 ### Hosting-Referenzen:
+
 ```text
 ✅ RICHTIG (Datenschutz):
 - "Google Cloud Platform"
@@ -142,6 +156,7 @@ AUSNAHME (Datenschutz):
 ## 📄 REGEL 4: DATENSCHUTZ-SPEZIFISCH
 
 ### Hosting-Sektion (Datenschutz.tsx):
+
 ```markdown
 **Hosting & Infrastruktur**
 
@@ -154,6 +169,7 @@ AUSNAHME (Datenschutz):
 ```
 
 ### KI-Sektion (Datenschutz.tsx):
+
 ```markdown
 **KI-Assistent & Chatbot**
 
@@ -168,23 +184,27 @@ AUSNAHME (Datenschutz):
 ## 🔍 PRÜFLISTE VOR COMMIT
 
 ### Öffentliche Seiten:
+
 - [ ] Keine "kostenlos testen" Erwähnungen
 - [ ] Keine Tech-Stack-Namen (React, Vite, Supabase, etc.)
 - [ ] Keine "Lovable"-Referenzen
 - [ ] Nur "MyDispatch" / "MyDispatch AI"
 
 ### Rechtliche Seiten (Datenschutz, AGB, Impressum):
+
 - [ ] "Google Cloud Platform" statt "Lovable Cloud"
 - [ ] "MyDispatch AI" statt "Lovable AI"
 - [ ] Keine "Supabase"-Erwähnungen
 - [ ] Gesetzlich vorgeschriebene Tech-Details ERLAUBT (SSL, KI-Modelle)
 
 ### Interne Seiten:
+
 - [ ] Test-Account-Features NUR für whitelisted E-Mails
 - [ ] Keine öffentliche Erwähnung von Test-Accounts
 - [ ] Tariff-Switcher nur für courbois1981@gmail.com / demo@my-dispatch.de
 
 ### Code-Kommentare:
+
 - [ ] "Lovable Cloud" → "Backend" oder "Google Cloud"
 - [ ] "Lovable AI" → "MyDispatch AI"
 

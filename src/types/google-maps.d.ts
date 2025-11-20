@@ -140,10 +140,18 @@ declare namespace google {
     }
 
     namespace event {
-      function addListener(instance: any, eventName: string, handler: (...args: any[]) => void): MapsEventListener;
+      function addListener(
+        instance: any,
+        eventName: string,
+        handler: (...args: any[]) => void
+      ): MapsEventListener;
       function removeListener(listener: MapsEventListener): void;
       function trigger(instance: any, eventName: string, ...args: any[]): void;
-      function addListenerOnce(instance: any, eventName: string, handler: (...args: any[]) => void): MapsEventListener;
+      function addListenerOnce(
+        instance: any,
+        eventName: string,
+        handler: (...args: any[]) => void
+      ): MapsEventListener;
     }
   }
 }

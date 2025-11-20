@@ -8,12 +8,19 @@
    ✅ Portal-theming ready
    ================================================================================== */
 
-import { useState, useEffect, useRef } from 'react';
-import { Check, ChevronsUpDown, Search, Loader2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { useState, useEffect, useRef } from "react";
+import { Check, ChevronsUpDown, Search, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { V28Button } from "@/components/design-system/V28Button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 export interface SearchableSelectOption {
   value: string;
@@ -33,30 +40,31 @@ interface SearchableSelectProps {
   disabled?: boolean;
   loading?: boolean;
   className?: string;
-  portal?: 'entrepreneur' | 'customer' | 'driver';
+  portal?: "entrepreneur" | "customer" | "driver";
 }
 
 export function SearchableSelect({
   options,
   value,
   onValueChange,
-  placeholder = 'Auswählen...',
-  searchPlaceholder = 'Suchen...',
-  emptyText = 'Keine Ergebnisse gefunden',
+  placeholder = "Auswählen...",
+  searchPlaceholder = "Suchen...",
+  emptyText = "Keine Ergebnisse gefunden",
   disabled = false,
   loading = false,
   className,
   portal,
 }: SearchableSelectProps) {
   const [open, setOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
 
   const selectedOption = options.find((option) => option.value === value);
 
   // Filter options based on search
-  const filteredOptions = options.filter(option =>
-    option.label.toLowerCase().includes(searchValue.toLowerCase()) ||
-    option.description?.toLowerCase().includes(searchValue.toLowerCase())
+  const filteredOptions = options.filter(
+    (option) =>
+      option.label.toLowerCase().includes(searchValue.toLowerCase()) ||
+      option.description?.toLowerCase().includes(searchValue.toLowerCase())
   );
 
   return (
@@ -68,8 +76,8 @@ export function SearchableSelect({
           aria-expanded={open}
           disabled={disabled || loading}
           className={cn(
-            'w-full justify-between',
-            !selectedOption && 'text-muted-foreground',
+            "w-full justify-between",
+            !selectedOption && "text-muted-foreground",
             className
           )}
         >
@@ -108,9 +116,9 @@ export function SearchableSelect({
                   value={option.value}
                   disabled={option.disabled}
                   onSelect={() => {
-                    onValueChange(option.value === value ? '' : option.value);
+                    onValueChange(option.value === value ? "" : option.value);
                     setOpen(false);
-                    setSearchValue('');
+                    setSearchValue("");
                   }}
                   className="gap-2"
                 >
@@ -125,8 +133,8 @@ export function SearchableSelect({
                   </div>
                   <Check
                     className={cn(
-                      'ml-auto h-4 w-4 shrink-0',
-                      value === option.value ? 'opacity-100' : 'opacity-0'
+                      "ml-auto h-4 w-4 shrink-0",
+                      value === option.value ? "opacity-100" : "opacity-0"
                     )}
                   />
                 </CommandItem>

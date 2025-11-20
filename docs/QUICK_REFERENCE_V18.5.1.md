@@ -8,16 +8,16 @@
 
 ```tsx
 // Header-Content
-className="pt-14 sm:pt-16 pb-16 sm:pb-20"
+className = "pt-14 sm:pt-16 pb-16 sm:pb-20";
 
 // Modal
-className="mt-14 sm:mt-16 max-h-[calc(90vh-4rem)]"
+className = "mt-14 sm:mt-16 max-h-[calc(90vh-4rem)]";
 
 // Card
-className="p-4 sm:p-6 md:p-8 gap-4 sm:gap-6"
+className = "p-4 sm:p-6 md:p-8 gap-4 sm:gap-6";
 
 // Section
-className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8"
+className = "py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8";
 ```
 
 ---
@@ -75,16 +75,16 @@ className="overflow-y-auto max-h-[calc(100vh-14rem)]"
 
 ```tsx
 // Mobile-First Gaps
-className="gap-3 sm:gap-4 md:gap-6"
+className = "gap-3 sm:gap-4 md:gap-6";
 
 // Mobile-First Padding
-className="p-4 sm:p-6 md:p-8"
+className = "p-4 sm:p-6 md:p-8";
 
 // Touch Targets
-className="min-h-[44px] min-w-[44px]"
+className = "min-h-[44px] min-w-[44px]";
 
 // Logo Sizing
-className="h-7 sm:h-8 max-w-[120px] sm:max-w-[160px] md:max-w-[180px] object-contain"
+className = "h-7 sm:h-8 max-w-[120px] sm:max-w-[160px] md:max-w-[180px] object-contain";
 ```
 
 ---
@@ -93,13 +93,13 @@ className="h-7 sm:h-8 max-w-[120px] sm:max-w-[160px] md:max-w-[180px] object-con
 
 ```tsx
 // ✅ RICHTIG
-className="text-foreground bg-background"
-className="text-primary-foreground bg-primary"
-className="text-muted-foreground"
+className = "text-foreground bg-background";
+className = "text-primary-foreground bg-primary";
+className = "text-muted-foreground";
 
 // ❌ FALSCH
-className="text-white bg-black"
-className="text-[#323D5E]"
+className = "text-white bg-black";
+className = "text-[#323D5E]";
 ```
 
 ---
@@ -119,6 +119,7 @@ className="text-[#323D5E]"
 
 **Version:** V18.5.1  
 **Siehe auch:**
+
 - SPACING_SYSTEM_V18.5.1.md
 - TYPOGRAPHY_LINE_BREAK_SYSTEM_V18.5.1.md
 - DESIGN_SYSTEM_V18_5_0.md

@@ -2,26 +2,34 @@
    FEATURE DETAIL PAGE: Landingpage (Info)
    ================================================================================== */
 
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { V28HeroPremium } from '@/components/hero';
-import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { V28Button } from '@/components/design-system/V28Button';
-import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
-import { Globe, Smartphone, Zap, CheckCircle } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { V28HeroPremium } from "@/components/hero";
+import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
+import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
+import { V28Button } from "@/components/design-system/V28Button";
+import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
+import { Globe, Smartphone, Zap, CheckCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function LandingpagePage() {
   const navigate = useNavigate();
 
   const features = [
-    { icon: Globe, title: 'Eigene Webseite', description: 'Professionelle Landingpage mit Ihrem Logo und Design' },
-    { icon: Smartphone, title: 'Mobile-optimiert', description: 'Perfekte Darstellung auf allen Geräten' },
-    { icon: Zap, title: 'Schnelle Einrichtung', description: 'In unter 10 Minuten online' },
-    { icon: CheckCircle, title: 'SEO-optimiert', description: 'Besser gefunden werden in Google' },
+    {
+      icon: Globe,
+      title: "Eigene Webseite",
+      description: "Professionelle Landingpage mit Ihrem Logo und Design",
+    },
+    {
+      icon: Smartphone,
+      title: "Mobile-optimiert",
+      description: "Perfekte Darstellung auf allen Geräten",
+    },
+    { icon: Zap, title: "Schnelle Einrichtung", description: "In unter 10 Minuten online" },
+    { icon: CheckCircle, title: "SEO-optimiert", description: "Besser gefunden werden in Google" },
   ];
 
   return (
@@ -36,23 +44,23 @@ export default function LandingpagePage() {
       <V28HeroPremium
         variant="features"
         backgroundVariant="3d-premium"
-        badge={{ text: 'Core Feature', icon: Globe }}
+        badge={{ text: "Core Feature", icon: Globe }}
         title="Professionelle Landingpage für Ihr Taxi-Unternehmen"
         subtitle="Eigene Website mit Buchungswidget - in wenigen Minuten online"
         description="Präsentieren Sie Ihr Unternehmen modern und professionell. Ihre Kunden buchen direkt online - ohne Umwege."
         primaryCTA={{
-          label: 'Jetzt starten',
-          onClick: () => navigate('/auth?mode=signup')
+          label: "Jetzt starten",
+          onClick: () => navigate("/auth?mode=signup"),
         }}
         secondaryCTA={{
-          label: 'Demo ansehen',
-          onClick: () => navigate('/demo')
+          label: "Demo ansehen",
+          onClick: () => navigate("/demo"),
         }}
         visual={<PremiumDashboardContent pageType="features" />}
         businessMetrics={[
-          { label: 'Setup-Zeit', value: '<5 Min', sublabel: 'sofort live' },
-          { label: 'Design', value: 'Responsive', sublabel: 'alle Geräte' },
-          { label: 'Buchungen', value: '24/7', sublabel: 'online möglich' }
+          { label: "Setup-Zeit", value: "<5 Min", sublabel: "sofort live" },
+          { label: "Design", value: "Responsive", sublabel: "alle Geräte" },
+          { label: "Buchungen", value: "24/7", sublabel: "online möglich" },
         ]}
         trustElements={true}
       />
@@ -76,7 +84,7 @@ export default function LandingpagePage() {
             <V28TariffBadge label="Business" />
             <V28TariffBadge label="Enterprise" />
           </div>
-          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
             Tarife vergleichen
           </V28Button>
         </div>

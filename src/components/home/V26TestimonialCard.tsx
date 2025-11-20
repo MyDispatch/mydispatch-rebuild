@@ -6,9 +6,9 @@
    ✅ Smooth Hover-Effekte
    ================================================================================== */
 
-import { useState } from 'react';
-import { Sparkles } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface V26TestimonialCardProps {
   quote: string;
@@ -33,17 +33,12 @@ export function V26TestimonialCard({ quote, company, rating }: V26TestimonialCar
         {/* Stars */}
         <div className="flex gap-1">
           {[...Array(5)].map((_, i) => (
-            <Sparkles
-              key={i}
-              className="h-5 w-5 text-slate-400 fill-slate-400"
-            />
+            <Sparkles key={i} className="h-5 w-5 text-slate-400 fill-slate-400" />
           ))}
         </div>
 
         {/* Quote */}
-        <p className="font-sans text-base leading-relaxed text-slate-700">
-          "{quote}"
-        </p>
+        <p className="font-sans text-base leading-relaxed text-slate-700">"{quote}"</p>
 
         {/* Company Info */}
         <div className="flex items-center gap-3 pt-2">
@@ -51,15 +46,10 @@ export function V26TestimonialCard({ quote, company, rating }: V26TestimonialCar
             {company.charAt(0)}
           </div>
           <div>
-            <div className="font-sans font-semibold text-sm text-slate-900">
-              {company}
-            </div>
+            <div className="font-sans font-semibold text-sm text-slate-900">{company}</div>
             <div className="flex gap-1 mt-1">
               {[...Array(rating)].map((_, i) => (
-                <Sparkles
-                  key={i}
-                  className="h-3 w-3 text-slate-400 fill-slate-400"
-                />
+                <Sparkles key={i} className="h-3 w-3 text-slate-400 fill-slate-400" />
               ))}
             </div>
           </div>

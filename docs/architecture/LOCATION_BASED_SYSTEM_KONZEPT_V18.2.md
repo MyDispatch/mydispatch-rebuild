@@ -28,43 +28,43 @@ MyDispatch muss **location-aware** werden. Jedes Unternehmen hat einen Standort 
 // companies Tabelle (ERWEITERN)
 interface Company {
   // ... existing fields
-  
+
   // LOCATION-BASED (NEU)
-  address: string;           // "Maximilianstraße 12, 80539 München"
-  street: string;            // "Maximilianstraße"
-  street_number: string;     // "12"
-  postal_code: string;       // "80539"
-  city: string;              // "München"
-  
+  address: string; // "Maximilianstraße 12, 80539 München"
+  street: string; // "Maximilianstraße"
+  street_number: string; // "12"
+  postal_code: string; // "80539"
+  city: string; // "München"
+
   // GEO-KOORDINATEN (NEU - für GPS/Maps)
-  latitude: number;          // 48.1351
-  longitude: number;         // 11.5820
-  
+  latitude: number; // 48.1351
+  longitude: number; // 11.5820
+
   // LOCATION-METADATA (NEU)
-  timezone: string;          // "Europe/Berlin"
-  country_code: string;      // "DE"
-  phone_prefix: string;      // "+49"
-  
+  timezone: string; // "Europe/Berlin"
+  country_code: string; // "DE"
+  phone_prefix: string; // "+49"
+
   // ANSPRECHPARTNER (NEU - systemweit)
-  representative_salutation: 'Herr' | 'Frau' | 'Divers';
-  representative_title: string;        // "Dr."
-  representative_first_name: string;   // "Max"
-  representative_last_name: string;    // "Mustermann"
+  representative_salutation: "Herr" | "Frau" | "Divers";
+  representative_title: string; // "Dr."
+  representative_first_name: string; // "Max"
+  representative_last_name: string; // "Mustermann"
 }
 ```
 
 ### 2. Location-Based Feature Matrix
 
-| **Feature** | **Abhängig von** | **Implementierung** | **Status** |
-|-------------|------------------|---------------------|------------|
-| **Weather Widget** | `company.city` | OpenWeatherMap API | ✅ Implementiert (manuell) |
-| **Traffic Widget** | `company.latitude`, `company.longitude` | HERE Traffic API | ✅ Implementiert (hardcoded München) |
-| **GPS Live-Map Zentrum** | `company.latitude`, `company.longitude` | HERE Maps v3 `setCenter()` | ❌ Fehlt |
-| **Booking-Widget City Default** | `company.city` | Pre-fill Dropdowns | ❌ Fehlt |
-| **Anrede-Felder** | `ENUM salutation` | Systemweite Komponente | 🟡 Teilweise (inkonsistent) |
-| **Adress-Felder** | `street`, `street_number`, `postal_code`, `city` | AddressInput.tsx | 🟡 Vorhanden, nicht überall genutzt |
-| **Timezone Handling** | `company.timezone` | date-fns-tz | ❌ Fehlt |
-| **Phone Number Validation** | `company.phone_prefix` | libphonenumber-js | ❌ Fehlt |
+| **Feature**                     | **Abhängig von**                                 | **Implementierung**        | **Status**                           |
+| ------------------------------- | ------------------------------------------------ | -------------------------- | ------------------------------------ |
+| **Weather Widget**              | `company.city`                                   | OpenWeatherMap API         | ✅ Implementiert (manuell)           |
+| **Traffic Widget**              | `company.latitude`, `company.longitude`          | HERE Traffic API           | ✅ Implementiert (hardcoded München) |
+| **GPS Live-Map Zentrum**        | `company.latitude`, `company.longitude`          | HERE Maps v3 `setCenter()` | ❌ Fehlt                             |
+| **Booking-Widget City Default** | `company.city`                                   | Pre-fill Dropdowns         | ❌ Fehlt                             |
+| **Anrede-Felder**               | `ENUM salutation`                                | Systemweite Komponente     | 🟡 Teilweise (inkonsistent)          |
+| **Adress-Felder**               | `street`, `street_number`, `postal_code`, `city` | AddressInput.tsx           | 🟡 Vorhanden, nicht überall genutzt  |
+| **Timezone Handling**           | `company.timezone`                               | date-fns-tz                | ❌ Fehlt                             |
+| **Phone Number Validation**     | `company.phone_prefix`                           | libphonenumber-js          | ❌ Fehlt                             |
 
 ---
 
@@ -76,7 +76,7 @@ interface Company {
 
 ```sql
 -- LOCATION-BASED ERWEITERUNGEN
-ALTER TABLE companies 
+ALTER TABLE companies
 ADD COLUMN street TEXT,
 ADD COLUMN street_number TEXT,
 ADD COLUMN postal_code TEXT,
@@ -122,21 +122,24 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 serve(async (req) => {
   const { address } = await req.json();
   const HERE_API_KEY = Deno.env.get("HERE_API_KEY");
-  
+
   // HERE Geocoding API
   const response = await fetch(
     `https://geocode.search.hereapi.com/v1/geocode?q=${encodeURIComponent(address)}&apiKey=${HERE_API_KEY}`
   );
-  
+
   const data = await response.json();
   const position = data.items?.[0]?.position;
-  
-  return new Response(JSON.stringify({
-    latitude: position?.lat,
-    longitude: position?.lng,
-  }), {
-    headers: { "Content-Type": "application/json" },
-  });
+
+  return new Response(
+    JSON.stringify({
+      latitude: position?.lat,
+      longitude: position?.lng,
+    }),
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
 });
 ```
 
@@ -159,10 +162,10 @@ serve(async (req) => {
     <CardContent className="space-y-6">
       {/* Address Input Component */}
       <AddressInput
-        street={companyData.street || ''}
-        streetNumber={companyData.street_number || ''}
-        postalCode={companyData.postal_code || ''}
-        city={companyData.city || ''}
+        street={companyData.street || ""}
+        streetNumber={companyData.street_number || ""}
+        postalCode={companyData.postal_code || ""}
+        city={companyData.city || ""}
         onAddressChange={(address) => {
           setCompanyData({
             ...companyData,
@@ -174,14 +177,14 @@ serve(async (req) => {
             address: `${address.street} ${address.streetNumber}, ${address.postalCode} ${address.city}`,
           });
         }}
-        onStreetChange={(value) => setCompanyData({...companyData, street: value})}
-        onStreetNumberChange={(value) => setCompanyData({...companyData, street_number: value})}
-        onPostalCodeChange={(value) => setCompanyData({...companyData, postal_code: value})}
-        onCityChange={(value) => setCompanyData({...companyData, city: value})}
+        onStreetChange={(value) => setCompanyData({ ...companyData, street: value })}
+        onStreetNumberChange={(value) => setCompanyData({ ...companyData, street_number: value })}
+        onPostalCodeChange={(value) => setCompanyData({ ...companyData, postal_code: value })}
+        onCityChange={(value) => setCompanyData({ ...companyData, city: value })}
         label="Firmenadresse"
         placeholder="Straße eingeben..."
       />
-      
+
       {/* Koordinaten-Anzeige (readonly) */}
       {companyData.latitude && companyData.longitude && (
         <div className="p-4 bg-muted rounded-md">
@@ -191,7 +194,7 @@ serve(async (req) => {
           </p>
         </div>
       )}
-      
+
       {/* Live-Preview: Wetter */}
       {companyData.city && (
         <div>
@@ -212,13 +215,13 @@ serve(async (req) => {
 
 ```tsx
 // VORHER (hardcoded):
-<WeatherWidget city="München" />
+<WeatherWidget city="München" />;
 
 // NACHHER (dynamic):
 export function WeatherWidget() {
   const { company } = useAuth();
-  
-  return <LiveWeather city={company?.city || 'München'} />;
+
+  return <LiveWeather city={company?.city || "München"} />;
 }
 ```
 
@@ -226,25 +229,23 @@ export function WeatherWidget() {
 
 ```tsx
 // VORHER (hardcoded München-Koordinaten):
-const routes = [
-  { name: 'A9 München-Nord', origin: '48.1351,11.5820' },
-];
+const routes = [{ name: "A9 München-Nord", origin: "48.1351,11.5820" }];
 
 // NACHHER (dynamic um Firmenstandort):
 const { company } = useAuth();
 
 const routes = [
-  { 
-    name: `${company.city} Zentrum`, 
-    origin: `${company.latitude},${company.longitude}` 
+  {
+    name: `${company.city} Zentrum`,
+    origin: `${company.latitude},${company.longitude}`,
   },
-  { 
-    name: `${company.city} Nord`, 
-    origin: `${company.latitude + 0.05},${company.longitude}` 
+  {
+    name: `${company.city} Nord`,
+    origin: `${company.latitude + 0.05},${company.longitude}`,
   },
-  { 
-    name: `${company.city} Süd`, 
-    origin: `${company.latitude - 0.05},${company.longitude}` 
+  {
+    name: `${company.city} Süd`,
+    origin: `${company.latitude - 0.05},${company.longitude}`,
   },
 ];
 ```
@@ -256,35 +257,31 @@ const routes = [
 export function LiveMap() {
   const { company } = useAuth();
   const mapRef = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     if (!mapRef.current || !company?.latitude || !company?.longitude) return;
-    
+
     const platform = new H.service.Platform({
       apikey: HERE_API_KEY,
     });
-    
+
     const defaultLayers = platform.createDefaultLayers();
-    const map = new H.Map(
-      mapRef.current,
-      defaultLayers.vector.normal.map,
-      {
-        // DYNAMISCHES ZENTRUM BASIEREND AUF FIRMENSTANDORT
-        center: { lat: company.latitude, lng: company.longitude },
-        zoom: 12,
-      }
-    );
-    
+    const map = new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
+      // DYNAMISCHES ZENTRUM BASIEREND AUF FIRMENSTANDORT
+      center: { lat: company.latitude, lng: company.longitude },
+      zoom: 12,
+    });
+
     // Firmen-Marker hinzufügen
     const companyMarker = new H.map.Marker({
       lat: company.latitude,
       lng: company.longitude,
     });
     map.addObject(companyMarker);
-    
+
     // ... rest of map logic
   }, [company]);
-  
+
   return <div ref={mapRef} className="h-full w-full" />;
 }
 ```
@@ -298,19 +295,23 @@ export function LiveMap() {
 **Status:** 🟡 Teilweise implementiert (inkonsistent)
 
 **Implementierte Stellen:**
+
 - ✅ `PersonFormFields.tsx` (Komponente vorhanden)
 - ✅ `InlineCustomerForm.tsx` (nutzt PersonFormFields)
 - ✅ Fahrer.tsx (formData.salutation)
 - ✅ Kunden.tsx (formData.salutation)
 
 **Fehlende Stellen:**
+
 - ❌ `UnifiedForm.tsx` (Aufträge/Angebote/Rechnungen) - Kunden-Anrede fehlt!
 - ❌ `PartnerForm.tsx` (Partner) - Anrede fehlt!
 - ❌ `ShiftForm.tsx` (Schichtzettel) - Fahrer-Anrede fehlt (aber eigentlich nicht nötig)
 - ❌ Einstellungen Tab "Unternehmensprofil" - Repräsentanten-Anrede fehlt!
 
 **TODO:**
+
 1. `UnifiedForm.tsx` erweitern:
+
    ```tsx
    // Kunden-Sektion:
    <PersonFormFields
@@ -321,11 +322,13 @@ export function LiveMap() {
        last_name: formData.customer_last_name,
        // ...
      }}
-     onChange={(field, value) => setFormData({
-       ...formData,
-       [`customer_${field}`]: value,
-     })}
-     isRequired={(field) => ['salutation', 'first_name', 'last_name'].includes(field)}
+     onChange={(field, value) =>
+       setFormData({
+         ...formData,
+         [`customer_${field}`]: value,
+       })
+     }
+     isRequired={(field) => ["salutation", "first_name", "last_name"].includes(field)}
    />
    ```
 
@@ -341,11 +344,13 @@ export function LiveMap() {
          first_name: companyData.representative_first_name,
          last_name: companyData.representative_last_name,
        }}
-       onChange={(field, value) => setCompanyData({
-         ...companyData,
-         [`representative_${field}`]: value,
-       })}
-       isRequired={(field) => ['salutation', 'first_name', 'last_name'].includes(field)}
+       onChange={(field, value) =>
+         setCompanyData({
+           ...companyData,
+           [`representative_${field}`]: value,
+         })
+       }
+       isRequired={(field) => ["salutation", "first_name", "last_name"].includes(field)}
      />
    </div>
    ```
@@ -355,21 +360,25 @@ export function LiveMap() {
 **Status:** 🟡 AddressInput.tsx vorhanden, aber nicht überall genutzt
 
 **Implementierte Stellen:**
+
 - ✅ `InlineCustomerForm.tsx` (nutzt AddressInput)
 - ✅ Aufträge (pickup_address, dropoff_address als Text-Felder - MANUELL!)
 
 **Fehlende Stellen:**
+
 - ❌ Kunden.tsx - Nutzt NICHT AddressInput! (formData.address als einzelnes Feld)
 - ❌ Fahrer.tsx - Nutzt NICHT AddressInput! (formData.address als einzelnes Feld)
 - ❌ Einstellungen Tab 2 (Unternehmensprofil) - Nutzt einzelnes address-Feld!
 - ❌ Einstellungen Tab 8 (Standort) - MUSS AddressInput nutzen! ⭐ NEU
 
 **TODO:**
+
 1. **Kunden.tsx refactoren:**
+
    ```tsx
    // VORHER: Einzelnes address-Feld
    <Input value={formData.address} onChange={...} />
-   
+
    // NACHHER: AddressInput-Komponente
    <AddressInput
      street={formData.street || ''}
@@ -409,28 +418,28 @@ export function LiveMap() {
 // src/components/booking/BookingWidget.tsx
 export function BookingWidget({ companySlug }: { companySlug: string }) {
   const [company, setCompany] = useState<Company | null>(null);
-  
+
   useEffect(() => {
     // Company-Daten abrufen
     const fetchCompany = async () => {
       const { data } = await supabase
-        .from('companies')
-        .select('*')
-        .eq('company_slug', companySlug)
+        .from("companies")
+        .select("*")
+        .eq("company_slug", companySlug)
         .single();
-      
+
       setCompany(data);
     };
-    
+
     fetchCompany();
   }, [companySlug]);
-  
+
   const [formData, setFormData] = useState({
-    pickup_city: company?.city || '',  // PRE-FILL!
-    dropoff_city: company?.city || '',  // PRE-FILL!
+    pickup_city: company?.city || "", // PRE-FILL!
+    dropoff_city: company?.city || "", // PRE-FILL!
     // ...
   });
-  
+
   return (
     <form>
       {/* Abholort */}
@@ -510,6 +519,7 @@ export function BookingWidget({ companySlug }: { companySlug: string }) {
 ## 🚀 IMPLEMENTIERUNGS-REIHENFOLGE
 
 **Sprint 28 (7 Tage):**
+
 - Tag 1-2: Datenbank-Migration + Edge Function
 - Tag 3-4: Einstellungen Tab 8 (Standort)
 - Tag 5: Location-Aware Widgets
@@ -517,11 +527,13 @@ export function BookingWidget({ companySlug }: { companySlug: string }) {
 - Tag 7: Anrede-Konsistenz (UnifiedForm, Einstellungen)
 
 **Sprint 29 (3 Tage):**
+
 - Tag 1: Phone Number Validation
 - Tag 2: Timezone Handling
 - Tag 3: Geocoding Cache
 
 **Sprint 30 (2 Tage):**
+
 - Tag 1: Booking-Widget Location Defaults
 - Tag 2: Master-Dashboard Location Analytics
 
@@ -530,16 +542,19 @@ export function BookingWidget({ companySlug }: { companySlug: string }) {
 ## 🎯 ERFOLGSKRITERIEN
 
 **Location-Based System:**
+
 - [x] Unternehmen in München → München-Wetter, München-Verkehr, München-GPS-Zentrum
 - [x] Unternehmen in Köln → Köln-Wetter, Köln-Verkehr, Köln-GPS-Zentrum
 - [x] Adress-Änderung → Automatisches Geocoding → Alle Widgets aktualisieren sich
 
 **Adress-/Anrede-Konsistenz:**
+
 - [x] Alle Forms nutzen AddressInput.tsx (street, street_number, postal_code, city)
 - [x] Alle Forms nutzen PersonFormFields.tsx (salutation, title, first_name, last_name)
 - [x] Keine inkonsistenten Einzelfelder mehr
 
 **User Experience:**
+
 - [x] Einstellungen → Standort ändern → Live-Preview von Wetter
 - [x] GPS-Karte zentriert sich automatisch auf neuen Standort
 - [x] Booking-Widget pre-filled mit Firmenstadt
@@ -571,10 +586,10 @@ return {
 ```tsx
 // STANDARD PATTERN (überall identisch):
 <AddressInput
-  street={formData.street || ''}
-  streetNumber={formData.street_number || ''}
-  postalCode={formData.postal_code || ''}
-  city={formData.city || ''}
+  street={formData.street || ""}
+  streetNumber={formData.street_number || ""}
+  postalCode={formData.postal_code || ""}
+  city={formData.city || ""}
   onAddressChange={(address) => {
     setFormData({
       ...formData,
@@ -585,10 +600,10 @@ return {
       address: `${address.street} ${address.streetNumber}, ${address.postalCode} ${address.city}`,
     });
   }}
-  onStreetChange={(value) => setFormData({...formData, street: value})}
-  onStreetNumberChange={(value) => setFormData({...formData, street_number: value})}
-  onPostalCodeChange={(value) => setFormData({...formData, postal_code: value})}
-  onCityChange={(value) => setFormData({...formData, city: value})}
+  onStreetChange={(value) => setFormData({ ...formData, street: value })}
+  onStreetNumberChange={(value) => setFormData({ ...formData, street_number: value })}
+  onPostalCodeChange={(value) => setFormData({ ...formData, postal_code: value })}
+  onCityChange={(value) => setFormData({ ...formData, city: value })}
 />
 ```
 

@@ -6,7 +6,7 @@
    - Click-to-Details Navigation
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -14,10 +14,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Star, TrendingUp } from 'lucide-react';
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Star, TrendingUp } from "lucide-react";
 
 interface DriverRankingData {
   rank: number;
@@ -37,25 +37,25 @@ interface DriverRankingTableProps {
 
 export function DriverRankingTable({ data, onClick }: DriverRankingTableProps) {
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
+    return new Intl.NumberFormat("de-DE", {
+      style: "currency",
+      currency: "EUR",
       minimumFractionDigits: 0,
     }).format(value);
   };
 
   const getRankBadge = (rank: number) => {
-    if (rank === 1) return { icon: '🏆', variant: 'default' as const, label: 'Top 1' };
-    if (rank === 2) return { icon: '🥈', variant: 'secondary' as const, label: 'Top 2' };
-    if (rank === 3) return { icon: '🥉', variant: 'secondary' as const, label: 'Top 3' };
+    if (rank === 1) return { icon: "🏆", variant: "default" as const, label: "Top 1" };
+    if (rank === 2) return { icon: "🥈", variant: "secondary" as const, label: "Top 2" };
+    if (rank === 3) return { icon: "🥉", variant: "secondary" as const, label: "Top 3" };
     return null;
   };
 
   const getInitials = (name: string) => {
     return name
-      .split(' ')
+      .split(" ")
       .map((n) => n[0])
-      .join('')
+      .join("")
       .toUpperCase()
       .slice(0, 2);
   };
@@ -98,15 +98,13 @@ export function DriverRankingTable({ data, onClick }: DriverRankingTableProps) {
                   return (
                     <TableRow
                       key={driver.driver_id}
-                      className={onClick ? 'cursor-pointer hover:bg-muted/50' : ''}
+                      className={onClick ? "cursor-pointer hover:bg-muted/50" : ""}
                       onClick={() => onClick?.(driver.driver_id)}
                     >
                       <TableCell className="font-medium">
                         <div className="flex items-center gap-1">
                           {driver.rank}
-                          {rankBadge && (
-                            <span className="text-lg">{rankBadge.icon}</span>
-                          )}
+                          {rankBadge && <span className="text-lg">{rankBadge.icon}</span>}
                         </div>
                       </TableCell>
                       <TableCell>
@@ -139,9 +137,7 @@ export function DriverRankingTable({ data, onClick }: DriverRankingTableProps) {
                         {driver.rating !== undefined && (
                           <div className="flex items-center justify-end gap-1">
                             <Star className="h-4 w-4 fill-status-warning text-status-warning" />
-                            <span className="text-sm font-medium">
-                              {driver.rating.toFixed(1)}
-                            </span>
+                            <span className="text-sm font-medium">{driver.rating.toFixed(1)}</span>
                           </div>
                         )}
                       </TableCell>

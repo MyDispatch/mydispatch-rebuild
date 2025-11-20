@@ -4,7 +4,12 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -16,9 +21,18 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
-        serif: ['Playfair Display', 'Georgia', 'serif'],
-        mono: ['SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'Consolas', 'monospace'],
+        sans: [
+          "Inter",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "Roboto",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif",
+        ],
+        serif: ["Playfair Display", "Georgia", "serif"],
+        mono: ["SF Mono", "Monaco", "Cascadia Code", "Roboto Mono", "Consolas", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -121,16 +135,16 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        'elegant': 'var(--shadow-elegant)',
-        'glow': 'var(--shadow-glow)',
-        'sharp': 'var(--shadow-sharp)',
-        'crisp': 'var(--shadow-crisp)',
-        'card': 'var(--shadow-card)',
-        'card-hover': 'var(--shadow-card-hover)',
+        elegant: "var(--shadow-elegant)",
+        glow: "var(--shadow-glow)",
+        sharp: "var(--shadow-sharp)",
+        crisp: "var(--shadow-crisp)",
+        card: "var(--shadow-card)",
+        "card-hover": "var(--shadow-card-hover)",
         // V26.1 Extensions
-        'glow-beige': '0 0 20px hsl(var(--beige-glow-30))',
-        'glow-beige-lg': '0 0 30px hsl(var(--beige-glow-40))',
-        'hero-map': '0 10px 40px rgba(0, 0, 0, 0.1)',
+        "glow-beige": "0 0 20px hsl(var(--beige-glow-30))",
+        "glow-beige-lg": "0 0 30px hsl(var(--beige-glow-40))",
+        "hero-map": "0 10px 40px rgba(0, 0, 0, 0.1)",
       },
       keyframes: {
         "accordion-down": {
@@ -195,8 +209,8 @@ export default {
         "slide-out-left": "slide-out-left 0.3s ease-out",
         "bounce-subtle": "bounce-subtle 2s ease-in-out infinite",
         "pulse-glow": "pulse-glow 3s ease-in-out infinite",
-        "enter": "fade-in 0.3s ease-out, scale-in 0.2s ease-out",
-        "exit": "fade-out 0.3s ease-out, scale-out 0.2s ease-out",
+        enter: "fade-in 0.3s ease-out, scale-in 0.2s ease-out",
+        exit: "fade-out 0.3s ease-out, scale-out 0.2s ease-out",
         // V32.1: Animation Delay Classes
         "fade-in-delay-100": "fade-in 0.5s ease-out 0.1s forwards",
         "fade-in-delay-200": "fade-in 0.5s ease-out 0.2s forwards",
@@ -232,9 +246,9 @@ export default {
         },
         // V28.3: Pixel-Perfect GPU Acceleration
         ".pixel-perfect": {
-          "transform": "translateZ(0)",
+          transform: "translateZ(0)",
           "backface-visibility": "hidden",
-          "perspective": "1000px",
+          perspective: "1000px",
         },
       });
     }),

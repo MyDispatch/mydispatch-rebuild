@@ -4,10 +4,10 @@
    React Hook für KI-Bildgenerierung
    ================================================================================== */
 
-import { useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
-import { logger } from '@/lib/logger';
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { logger } from "@/lib/logger";
 
 interface GenerateOptions {
   prompt: string;
@@ -27,27 +27,27 @@ export function useHeroImageGenerator() {
     setLoading(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('generate-hero-image', {
+      const { data, error } = await supabase.functions.invoke("generate-hero-image", {
         body: options,
       });
 
       if (error) throw error;
 
       if (!data.success) {
-        throw new Error(data.error || 'Image generation failed');
+        throw new Error(data.error || "Image generation failed");
       }
 
-      toast.success('Hero-Image erfolgreich generiert', {
+      toast.success("Hero-Image erfolgreich generiert", {
         description: `Für Seite: ${options.page}`,
       });
 
       return data;
     } catch (error: any) {
-      logger.error('[useHeroImageGenerator] Error', error, { 
-        component: 'useHeroImageGenerator',
-        page: options.page 
+      logger.error("[useHeroImageGenerator] Error", error, {
+        component: "useHeroImageGenerator",
+        page: options.page,
       });
-      toast.error('Bildgenerierung fehlgeschlagen', {
+      toast.error("Bildgenerierung fehlgeschlagen", {
         description: error.message,
       });
       return null;

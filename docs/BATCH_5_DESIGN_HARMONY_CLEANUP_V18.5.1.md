@@ -9,11 +9,13 @@
 ## 🎯 ZIELE
 
 ### 1. **Dead Code Removal**
+
 - ✅ `DashboardKPICards.tsx` entfernen (ersetzt durch `PageHeaderWithKPIs`)
 - ✅ Unused Import aus `Index.tsx` entfernen (line 36)
 - ⏳ Weitere unused Components identifizieren
 
 ### 2. **E2E Test-Erweiterung**
+
 - ✅ Accessibility Tests (`tests/e2e/accessibility/wcag-compliance.spec.ts`)
   - WCAG 2.1 AA Compliance
   - Heading Hierarchy (H1 → H2 → H3)
@@ -29,6 +31,7 @@
   - Asset Compression (gzip/brotli)
 
 ### 3. **Doc-Upgrades**
+
 - ⏳ V18.3 → V18.5.1 wo nötig
 - ⏳ Veraltete Docs archivieren
 - ✅ FEHLER_LOG bereits aktuell (V18.5.1)
@@ -40,6 +43,7 @@
 ### Dead Code Removal
 
 **1. DashboardKPICards.tsx gelöscht:**
+
 ```bash
 ❌ ENTFERNT: src/components/dashboard/DashboardKPICards.tsx (197 Zeilen)
 
@@ -50,6 +54,7 @@ GRUND:
 ```
 
 **2. Index.tsx Cleanup:**
+
 ```tsx
 // ❌ VORHER (Line 36):
 // ❌ REMOVED: DashboardKPICards (nicht verwendet - wir nutzen PageHeaderWithKPIs)
@@ -65,6 +70,7 @@ GRUND:
 **File:** `tests/e2e/accessibility/wcag-compliance.spec.ts`
 
 **Tests:**
+
 - ✅ Heading Hierarchy (H1 → H2 → H3, keine Sprünge)
 - ✅ Alt Attributes auf allen Images
 - ✅ Touch Target Sizes (≥ 44px, Apple/Google Guidelines)
@@ -73,6 +79,7 @@ GRUND:
 - ✅ Aria-Labels auf Icon-Only Buttons
 
 **Tested Pages:**
+
 - `/` (Home)
 - `/dashboard` (Dashboard)
 - `/auftraege` (Aufträge)
@@ -85,6 +92,7 @@ GRUND:
 **File:** `tests/e2e/performance/bundle-size.spec.ts`
 
 **Tests:**
+
 - ✅ Bundle Size Budget (< 1.5MB total)
   - Scripts, Stylesheets, Images, Fonts
   - Separate Logging für jede Kategorie
@@ -100,16 +108,19 @@ GRUND:
 ## 📊 SUCCESS METRICS
 
 ### Dead Code Removal
+
 - ✅ `DashboardKPICards.tsx` gelöscht (-197 Zeilen)
 - ✅ Unused Import aus `Index.tsx` entfernt
 - 🎯 Target: 80% Reduktion Component-Duplikate → **100% erreicht** (DashboardKPICards = einziges Duplikat)
 
 ### E2E Test-Erweiterung
+
 - ✅ 7 neue Accessibility Tests
 - ✅ 4 neue Performance Tests
 - 🎯 Target: 70% Test Coverage → **+20% (jetzt bei 60%)**
 
 ### Bundle Size Optimization
+
 - 🎯 Target: < 1.5MB total
 - 🎯 Scripts: < 800KB
 - 🎯 Stylesheets: < 200KB
@@ -121,20 +132,23 @@ GRUND:
 ## 🔄 NEXT STEPS (BATCH 6)
 
 ### Priority 1 (Critical)
+
 - [ ] Doc-Upgrades (V18.3 → V18.5.1)
   - AGENT_DEBUG_SYSTEM_V18.3.25.md
   - AI_INTEGRATION_V18.3.30.md
-  - BESTÄTIGUNGS_PROMPT_V18.3.*.md (mehrere Versionen)
+  - BESTÄTIGUNGS_PROMPT_V18.3.\*.md (mehrere Versionen)
   - Weitere 138 Dateien mit "V18.3"
 - [ ] Veraltete Docs archivieren
 - [ ] Visual Regression Tests (Playwright Screenshots)
 
 ### Priority 2 (Important)
+
 - [ ] Weitere unused Imports identifizieren
 - [ ] Component Library Vorbereitung (Storybook)
 - [ ] API Documentation Update
 
 ### Priority 3 (Nice-to-Have)
+
 - [ ] Lighthouse CI Integration
 - [ ] Bundle Analyzer Report
 - [ ] Dependency Audit
@@ -144,6 +158,7 @@ GRUND:
 ## 📖 DOCUMENTATION STRUCTURE
 
 ### Core Files
+
 ```
 docs/
 ├── BATCH_5_DESIGN_HARMONY_CLEANUP_V18.5.1.md (diese Datei)
@@ -155,6 +170,7 @@ docs/
 ```
 
 ### Test Files
+
 ```
 tests/e2e/
 ├── accessibility/
@@ -174,16 +190,19 @@ tests/e2e/
 ## 🎓 LESSONS LEARNED
 
 ### Dead Code Management
+
 1. **Component-Duplikate frühzeitig erkennen:** DashboardKPICards hätte nie entstehen sollen
 2. **Single Source of Truth:** PageHeaderWithKPIs ist das Standard-Pattern
 3. **Migration-Plan:** Alte Components müssen sofort nach Migration gelöscht werden
 
 ### E2E Testing
+
 1. **Accessibility ist KRITISCH:** WCAG 2.1 AA als Minimum-Standard
 2. **Performance Budget:** Bundle Size muss kontinuierlich überwacht werden
 3. **Code Splitting funktioniert:** Lazy Loading reduziert Initial Load
 
 ### Doc-Hygiene
+
 1. **Versionierung konsequent:** Alle Docs auf V18.5.1 bringen
 2. **Archivierung:** Alte Versionen (V18.3) in `/docs/archive/` verschieben
 3. **Doc-AI nutzen:** Automatische Konsistenz-Checks

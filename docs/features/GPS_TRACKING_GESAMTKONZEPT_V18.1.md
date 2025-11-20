@@ -1,4 +1,5 @@
 # GPS-Tracking Gesamtkonzept MyDispatch V18.1
+
 **Status:** 🟢 Produktionsbereit | **Datum:** 17.10.2025 | **Version:** 1.0 FINAL
 
 ## 🎯 Executive Summary
@@ -6,7 +7,9 @@
 **Vollständiges Multi-Role GPS-Tracking-System für MyDispatch**
 
 ### Vision:
+
 Ein rechtssicheres, DSGVO-konformes GPS-Tracking-System, das:
+
 - **Dispatcher** in Echtzeit Fahrzeuge/Fahrer überwachen lässt
 - **Fahrer** automatisch während der Schicht trackt (PWA-basiert)
 - **Kunden** ihren zugewiesenen Fahrer bei aktiver Fahrt sehen können
@@ -65,6 +68,7 @@ Ein rechtssicheres, DSGVO-konformes GPS-Tracking-System, das:
 **Dashboard-Ansicht:** Desktop/Tablet (Live-Map)
 
 **Kann:**
+
 - ✅ Alle eigenen Fahrzeuge/Fahrer in Echtzeit sehen
 - ✅ GPS-History der letzten 24h abrufen
 - ✅ Aufträge tracken (Start → Ziel)
@@ -74,11 +78,13 @@ Ein rechtssicheres, DSGVO-konformes GPS-Tracking-System, das:
 - ✅ Reports exportieren (PDF/Excel)
 
 **Kann NICHT:**
+
 - ❌ GPS-Daten von fremden Unternehmen sehen
 - ❌ GPS außerhalb der Schichtzeit tracken
 - ❌ GPS-Daten älter als 24h abrufen
 
 **UI-Komponenten:**
+
 - `src/components/dashboard/LiveMap.tsx` (HERE Maps)
 - `src/components/dashboard/VehicleList.tsx` (Fahrzeug-Status)
 - `src/components/dashboard/DriverList.tsx` (Fahrer-Status)
@@ -89,6 +95,7 @@ Ein rechtssicheres, DSGVO-konformes GPS-Tracking-System, das:
 **App-Ansicht:** Mobile PWA (installierbar)
 
 **Kann:**
+
 - ✅ Schicht starten/beenden
 - ✅ Eigene GPS-Position sehen
 - ✅ Zugewiesene Aufträge sehen
@@ -97,17 +104,20 @@ Ein rechtssicheres, DSGVO-konformes GPS-Tracking-System, das:
 - ✅ Offline-Tracking (IndexedDB-Queue)
 
 **Kann NICHT:**
+
 - ❌ GPS-Tracking außerhalb der Schicht
 - ❌ Andere Fahrer tracken
 - ❌ Kunden-Position sehen (nur Adresse)
 
 **GPS-Verhalten:**
+
 - **Schicht-Start:** GPS-Tracking aktiviert (alle 10s Update)
 - **Während Schicht:** Kontinuierliches Tracking, Offline-Support
 - **Schicht-Ende:** GPS-Tracking gestoppt, Queue geleert
 - **Pause:** GPS weiterhin aktiv, Status "break"
 
 **UI-Komponenten:**
+
 - `src/pages/DriverTracking.tsx` (Schicht-Management)
 - `src/components/driver/ShiftControls.tsx` (Start/Stop)
 - `src/components/driver/CurrentPosition.tsx` (GPS-Status)
@@ -118,6 +128,7 @@ Ein rechtssicheres, DSGVO-konformes GPS-Tracking-System, das:
 **Portal-Ansicht:** Mobile PWA (ohne Installation)
 
 **Kann:**
+
 - ✅ Zugewiesenen Fahrer tracken (NUR bei aktiver Fahrt)
 - ✅ ETA sehen (dynamisch mit Traffic)
 - ✅ Fahrer-Details sehen (Name, Fahrzeug, Foto)
@@ -125,16 +136,19 @@ Ein rechtssicheres, DSGVO-konformes GPS-Tracking-System, das:
 - ✅ Push-Benachrichtigungen (Fahrer unterwegs, Fahrer angekommen)
 
 **Kann NICHT:**
+
 - ❌ Fahrer vor Fahrt-Start tracken
 - ❌ Fahrer nach Fahrt-Ende tracken
 - ❌ Andere Aufträge sehen
 - ❌ Historie abrufen
 
 **GPS-Freigabe:**
+
 - Tracking wird **automatisch aktiviert** bei Buchungs-Status "in_progress"
 - Tracking wird **automatisch deaktiviert** bei Status "completed" oder "cancelled"
 
 **UI-Komponenten:**
+
 - `src/pages/CustomerTracking.tsx` (Fahrer-Tracking)
 - `src/components/customer/LiveDriverMap.tsx` (HERE Maps)
 - `src/components/customer/ETADisplay.tsx` (Dynamisches ETA)
@@ -147,13 +161,14 @@ Ein rechtssicheres, DSGVO-konformes GPS-Tracking-System, das:
 ### Neue Tabellen:
 
 #### 1. vehicle_positions (GPS-Haupttabelle)
+
 ```sql
 CREATE TABLE vehicle_positions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   vehicle_id UUID NOT NULL REFERENCES vehicles(id) ON DELETE CASCADE,
   driver_id UUID REFERENCES drivers(id) ON DELETE SET NULL,
   shift_id UUID REFERENCES shifts(id) ON DELETE SET NULL,
-  
+
   -- GPS-Daten
   latitude NUMERIC(9,6) NOT NULL,
   longitude NUMERIC(9,6) NOT NULL,
@@ -161,28 +176,28 @@ CREATE TABLE vehicle_positions (
   altitude NUMERIC(7,2), -- Meter
   speed NUMERIC(5,2), -- km/h
   heading NUMERIC(5,2), -- Grad (0-360)
-  
+
   -- Metadaten
   timestamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   company_id UUID NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
-  
+
   -- Offline-Sync
   synced BOOLEAN DEFAULT true,
   client_timestamp TIMESTAMPTZ,
-  
+
   -- Index für Performance
   CONSTRAINT vehicle_positions_company_id_fkey FOREIGN KEY (company_id) REFERENCES companies(id)
 );
 
 -- Indexes für schnelle Queries
-CREATE INDEX idx_vehicle_positions_vehicle_timestamp 
+CREATE INDEX idx_vehicle_positions_vehicle_timestamp
   ON vehicle_positions (vehicle_id, timestamp DESC);
-  
-CREATE INDEX idx_vehicle_positions_company_timestamp 
+
+CREATE INDEX idx_vehicle_positions_company_timestamp
   ON vehicle_positions (company_id, timestamp DESC);
-  
-CREATE INDEX idx_vehicle_positions_driver_timestamp 
-  ON vehicle_positions (driver_id, timestamp DESC) 
+
+CREATE INDEX idx_vehicle_positions_driver_timestamp
+  ON vehicle_positions (driver_id, timestamp DESC)
   WHERE driver_id IS NOT NULL;
 
 -- Partitionierung für Performance (optional bei >1M Zeilen/Monat)
@@ -192,13 +207,13 @@ CREATE INDEX idx_vehicle_positions_driver_timestamp
 -- RLS Policies
 ALTER TABLE vehicle_positions ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "company_isolation_vehicle_positions_select" 
+CREATE POLICY "company_isolation_vehicle_positions_select"
   ON vehicle_positions FOR SELECT
   USING (company_id IN (
     SELECT company_id FROM profiles WHERE user_id = auth.uid()
   ));
 
-CREATE POLICY "company_isolation_vehicle_positions_insert" 
+CREATE POLICY "company_isolation_vehicle_positions_insert"
   ON vehicle_positions FOR INSERT
   WITH CHECK (company_id IN (
     SELECT company_id FROM profiles WHERE user_id = auth.uid()
@@ -206,6 +221,7 @@ CREATE POLICY "company_isolation_vehicle_positions_insert"
 ```
 
 #### 2. booking_tracking (Auftrag-spezifisches Tracking)
+
 ```sql
 CREATE TABLE booking_tracking (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -213,36 +229,36 @@ CREATE TABLE booking_tracking (
   driver_id UUID NOT NULL REFERENCES drivers(id) ON DELETE CASCADE,
   vehicle_id UUID NOT NULL REFERENCES vehicles(id) ON DELETE CASCADE,
   company_id UUID NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
-  
+
   -- Tracking-Status
   tracking_enabled BOOLEAN DEFAULT false,
   tracking_started_at TIMESTAMPTZ,
   tracking_ended_at TIMESTAMPTZ,
-  
+
   -- Kunde-Sichtbarkeit
   customer_can_track BOOLEAN DEFAULT false,
   customer_tracking_token TEXT UNIQUE, -- Für öffentlichen Zugriff (ohne Login)
-  
+
   -- Statistiken
   total_distance_meters NUMERIC(10,2),
   actual_duration_seconds INTEGER,
-  
+
   -- Zeitstempel
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
-  
+
   CONSTRAINT booking_tracking_booking_id_key UNIQUE (booking_id)
 );
 
 -- Index
-CREATE INDEX idx_booking_tracking_token 
-  ON booking_tracking (customer_tracking_token) 
+CREATE INDEX idx_booking_tracking_token
+  ON booking_tracking (customer_tracking_token)
   WHERE customer_tracking_token IS NOT NULL;
 
 -- RLS Policies
 ALTER TABLE booking_tracking ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "company_isolation_booking_tracking" 
+CREATE POLICY "company_isolation_booking_tracking"
   ON booking_tracking FOR SELECT
   USING (
     company_id IN (
@@ -256,36 +272,37 @@ CREATE POLICY "company_isolation_booking_tracking"
 ```
 
 #### 3. gps_consent (DSGVO-Einwilligungen)
+
 ```sql
 CREATE TABLE gps_consent (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   driver_id UUID NOT NULL REFERENCES drivers(id) ON DELETE CASCADE,
   company_id UUID NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
-  
+
   -- Einwilligung
   consent_given BOOLEAN DEFAULT false,
   consent_given_at TIMESTAMPTZ,
   consent_text TEXT NOT NULL, -- Vollständiger Text der Einwilligung
-  
+
   -- Widerruf
   consent_revoked BOOLEAN DEFAULT false,
   consent_revoked_at TIMESTAMPTZ,
-  
+
   -- IP & User-Agent für Beweissicherung
   ip_address INET,
   user_agent TEXT,
-  
+
   -- Zeitstempel
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
-  
+
   CONSTRAINT gps_consent_driver_id_key UNIQUE (driver_id)
 );
 
 -- RLS Policies
 ALTER TABLE gps_consent ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "company_isolation_gps_consent" 
+CREATE POLICY "company_isolation_gps_consent"
   ON gps_consent FOR ALL
   USING (company_id IN (
     SELECT company_id FROM profiles WHERE user_id = auth.uid()
@@ -293,29 +310,30 @@ CREATE POLICY "company_isolation_gps_consent"
 ```
 
 #### 4. geofence_zones (Geofencing für Alerts)
+
 ```sql
 CREATE TABLE geofence_zones (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   company_id UUID NOT NULL REFERENCES companies(id) ON DELETE CASCADE,
-  
+
   -- Zone-Daten
   name TEXT NOT NULL,
   zone_type TEXT NOT NULL, -- 'airport', 'station', 'service_area', 'custom'
-  
+
   -- Geometrie (Kreis oder Polygon)
   center_lat NUMERIC(9,6) NOT NULL,
   center_lng NUMERIC(9,6) NOT NULL,
   radius_meters INTEGER NOT NULL DEFAULT 500,
   polygon_coords JSONB, -- Array von {lat, lng} für Polygone
-  
+
   -- Alert-Einstellungen
   alert_on_enter BOOLEAN DEFAULT true,
   alert_on_exit BOOLEAN DEFAULT false,
   alert_recipients JSONB, -- Array von User-IDs
-  
+
   -- Status
   active BOOLEAN DEFAULT true,
-  
+
   -- Zeitstempel
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
@@ -324,7 +342,7 @@ CREATE TABLE geofence_zones (
 -- RLS Policies
 ALTER TABLE geofence_zones ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "company_isolation_geofence_zones" 
+CREATE POLICY "company_isolation_geofence_zones"
   ON geofence_zones FOR ALL
   USING (company_id IN (
     SELECT company_id FROM profiles WHERE user_id = auth.uid()
@@ -334,6 +352,7 @@ CREATE POLICY "company_isolation_geofence_zones"
 ### Bestehende Tabellen (Erweitert):
 
 #### shifts (GPS-Verknüpfung)
+
 ```sql
 -- Neue Spalten hinzufügen
 ALTER TABLE shifts ADD COLUMN IF NOT EXISTS gps_tracking_enabled BOOLEAN DEFAULT false;
@@ -343,6 +362,7 @@ ALTER TABLE shifts ADD COLUMN IF NOT EXISTS total_distance_km NUMERIC(10,2);
 ```
 
 #### bookings (Tracking-Status)
+
 ```sql
 -- Neue Spalten hinzufügen
 ALTER TABLE bookings ADD COLUMN IF NOT EXISTS driver_location_shared BOOLEAN DEFAULT false;
@@ -516,6 +536,7 @@ ALTER TABLE bookings ADD COLUMN IF NOT EXISTS customer_notified_driver_arrived B
 ### DSGVO-Anforderungen:
 
 #### 1. Rechtsgrundlage (Art. 6 DSGVO)
+
 ```
 ✅ Einwilligung (Art. 6 Abs. 1 lit. a):
    → GPS-Tracking nur nach expliziter Zustimmung des Fahrers
@@ -523,32 +544,34 @@ ALTER TABLE bookings ADD COLUMN IF NOT EXISTS customer_notified_driver_arrived B
 
 ✅ Vertragserfüllung (Art. 6 Abs. 1 lit. b):
    → Kunde-Tracking zur Erfüllung des Beförderungsvertrags
-   
+
 ✅ Berechtigtes Interesse (Art. 6 Abs. 1 lit. f):
    → Dispatcher-Tracking zur Disposition & Sicherheit
 ```
 
 #### 2. Datensparsamkeit (Art. 5 Abs. 1 lit. c)
+
 ```
 ✅ Minimale Daten:
    → Nur GPS-Koordinaten, kein Bewegungsprofil
    → Keine Speicherung von Zwischenstopps
-   
+
 ✅ Zeitliche Begrenzung:
    → GPS-Daten nur während Schicht
    → Auto-Delete nach 24h (cleanup-gps-positions)
-   
+
 ✅ Zweckbindung:
    → GPS nur für Disposition, nicht für Leistungsüberwachung
 ```
 
 #### 3. Transparenz (Art. 13 DSGVO)
+
 ```
 ✅ Informationspflichten:
    → Einwilligungs-Dialog mit vollständigem DSGVO-Text
    → Datenschutzerklärung mit GPS-Abschnitt
    → Cookie-Banner (GPS = kein Cookie, aber Info)
-   
+
 ✅ Inhalte:
    → Wer: MyDispatch GmbH
    → Was: GPS-Koordinaten (lat/lng), Geschwindigkeit
@@ -558,19 +581,20 @@ ALTER TABLE bookings ADD COLUMN IF NOT EXISTS customer_notified_driver_arrived B
 ```
 
 #### 4. Technische Maßnahmen (Art. 32 DSGVO)
+
 ```
 ✅ Verschlüsselung:
    → HTTPS/WSS für alle GPS-Übertragungen
    → Supabase Row-Level Security (RLS)
-   
+
 ✅ Zugriffskontrolle:
    → Company-Isolation (company_id in allen Queries)
    → Role-Based Access (Dispatcher/Fahrer/Kunde)
-   
+
 ✅ Pseudonymisierung:
    → customer_tracking_token statt User-ID
    → Keine IP-Speicherung von GPS-Daten
-   
+
 ✅ Logging:
    → Audit-Log für GPS-Zugriffe (wer, wann, warum)
    → system_logs für alle kritischen Aktionen
@@ -579,22 +603,24 @@ ALTER TABLE bookings ADD COLUMN IF NOT EXISTS customer_notified_driver_arrived B
 ### PBefG-Konformität:
 
 #### § 21 PBefG: Betriebspflicht & Datenerhebung
+
 ```
 ✅ GPS-Tracking als Betriebsmittel:
    → Zur Erfüllung der Beförderungspflicht (§ 22 PBefG)
    → Zur Fahrzeugverfolgung bei Haftungsfällen (§ 44 PBefG)
-   
+
 ✅ Speicherfrist: 30 Tage (gesetzlich)
    → MyDispatch: 24h (strengerer Standard!)
 ```
 
 #### § 26 BDSG: Beschäftigtendatenschutz
+
 ```
 ✅ Fahrer-GPS als Arbeitnehmerdaten:
    → Nur für Dispositionszwecke, NICHT für Leistungskontrolle
    → Keine Geschwindigkeits-Auswertung
    → Keine Pausen-Überwachung
-   
+
 ✅ Betriebsvereinbarung empfohlen:
    → Zwischen Unternehmer und Fahrern
    → Regelt GPS-Nutzung transparent
@@ -603,6 +629,7 @@ ALTER TABLE bookings ADD COLUMN IF NOT EXISTS customer_notified_driver_arrived B
 ### EU Data Act (2024):
 
 #### Art. 6: Datenzugang für Verbraucher
+
 ```
 ✅ Kunden haben Recht auf ihre GPS-Daten:
    → Download der eigenen Fahrten (PDF/JSON)
@@ -616,23 +643,24 @@ ALTER TABLE bookings ADD COLUMN IF NOT EXISTS customer_notified_driver_arrived B
 ### Phase 1: Backend (Edge Functions)
 
 #### 1. calculate-eta (ETA mit Traffic)
+
 ```typescript
 // supabase/functions/calculate-eta/index.ts
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
     const { driverPosition, customerAddress } = await req.json();
-    const HERE_API_KEY = Deno.env.get('HERE_API_KEY');
+    const HERE_API_KEY = Deno.env.get("HERE_API_KEY");
 
     // 1. Geocode Customer Address
     const geocodeRes = await fetch(
@@ -644,76 +672,84 @@ serve(async (req) => {
     // 2. Calculate Route with Traffic
     const routeRes = await fetch(
       `https://router.hereapi.com/v8/routes?` +
-      `transportMode=car&` +
-      `origin=${driverPosition.lat},${driverPosition.lng}&` +
-      `destination=${destination.lat},${destination.lng}&` +
-      `return=summary,polyline&` +
-      `departureTime=now&` +
-      `apiKey=${HERE_API_KEY}`
+        `transportMode=car&` +
+        `origin=${driverPosition.lat},${driverPosition.lng}&` +
+        `destination=${destination.lat},${destination.lng}&` +
+        `return=summary,polyline&` +
+        `departureTime=now&` +
+        `apiKey=${HERE_API_KEY}`
     );
     const routeData = await routeRes.json();
     const route = routeData.routes[0].sections[0].summary;
 
-    return new Response(JSON.stringify({
-      eta_seconds: route.duration,
-      eta_minutes: Math.ceil(route.duration / 60),
-      distance_meters: route.length,
-      distance_km: (route.length / 1000).toFixed(1),
-      polyline: routeData.routes[0].sections[0].polyline,
-      traffic_delay_seconds: route.duration - route.baseDuration,
-    }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({
+        eta_seconds: route.duration,
+        eta_minutes: Math.ceil(route.duration / 60),
+        distance_meters: route.length,
+        distance_km: (route.length / 1000).toFixed(1),
+        polyline: routeData.routes[0].sections[0].polyline,
+        traffic_delay_seconds: route.duration - route.baseDuration,
+      }),
+      {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
-    console.error('ETA Calculation Error:', error);
+    console.error("ETA Calculation Error:", error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
 });
 ```
 
 #### 2. cleanup-gps-positions (24h Auto-Delete)
+
 ```typescript
 // supabase/functions/cleanup-gps-positions/index.ts
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 serve(async (req) => {
   const supabase = createClient(
-    Deno.env.get('SUPABASE_URL') ?? '',
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    Deno.env.get("SUPABASE_URL") ?? "",
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
   );
 
   try {
     // Delete GPS data older than 24 hours
     const { data, error } = await supabase
-      .from('vehicle_positions')
+      .from("vehicle_positions")
       .delete()
-      .lt('timestamp', new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
+      .lt("timestamp", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString());
 
     if (error) throw error;
 
     console.log(`Deleted ${data?.length || 0} old GPS positions`);
 
-    return new Response(JSON.stringify({
-      success: true,
-      deleted_count: data?.length || 0,
-    }), {
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({
+        success: true,
+        deleted_count: data?.length || 0,
+      }),
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
-    console.error('Cleanup Error:', error);
+    console.error("Cleanup Error:", error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 });
 ```
 
 **Cron-Job Setup:**
+
 ```sql
 -- In Supabase: Cron Extension aktivieren
 CREATE EXTENSION IF NOT EXISTS pg_cron;
@@ -730,15 +766,16 @@ SELECT cron.schedule(
 ```
 
 #### 3. notify-customer (Push-Benachrichtigungen)
+
 ```typescript
 // supabase/functions/notify-customer/index.ts
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 serve(async (req) => {
   const supabase = createClient(
-    Deno.env.get('SUPABASE_URL') ?? '',
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+    Deno.env.get("SUPABASE_URL") ?? "",
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
   );
 
   const { bookingId, eventType } = await req.json();
@@ -747,16 +784,16 @@ serve(async (req) => {
   try {
     // 1. Fetch Booking + Customer
     const { data: booking, error: bookingError } = await supabase
-      .from('bookings')
-      .select('*, customers(*), drivers(*)')
-      .eq('id', bookingId)
+      .from("bookings")
+      .select("*, customers(*), drivers(*)")
+      .eq("id", bookingId)
       .single();
 
     if (bookingError) throw bookingError;
 
     // 2. Create Tracking Token
     const { data: tracking } = await supabase
-      .from('booking_tracking')
+      .from("booking_tracking")
       .insert({
         booking_id: bookingId,
         driver_id: booking.driver_id,
@@ -770,44 +807,49 @@ serve(async (req) => {
       .single();
 
     // 3. Send E-Mail via Resend
-    const RESEND_API_KEY = Deno.env.get('RESEND_API_KEY');
+    const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
     const trackingUrl = `https://my-dispatch.de/tracking/${tracking.customer_tracking_token}`;
 
     const emailBody = {
-      from: 'MyDispatch <noreply@my-dispatch.de>',
+      from: "MyDispatch <noreply@my-dispatch.de>",
       to: booking.customers.email,
       subject: getEmailSubject(eventType),
       html: getEmailHTML(eventType, booking.drivers, trackingUrl),
     };
 
-    await fetch('https://api.resend.com/emails', {
-      method: 'POST',
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
       headers: {
-        'Authorization': `Bearer ${RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(emailBody),
     });
 
     return new Response(JSON.stringify({ success: true }), {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error('Notification Error:', error);
+    console.error("Notification Error:", error);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
   }
 });
 
 function getEmailSubject(eventType: string): string {
   switch (eventType) {
-    case 'driver_assigned': return 'Ihr Fahrer wurde zugewiesen';
-    case 'driver_on_way': return 'Ihr Fahrer ist unterwegs';
-    case 'driver_nearby': return 'Ihr Fahrer ist gleich da!';
-    case 'driver_arrived': return 'Ihr Fahrer ist angekommen';
-    default: return 'MyDispatch Benachrichtigung';
+    case "driver_assigned":
+      return "Ihr Fahrer wurde zugewiesen";
+    case "driver_on_way":
+      return "Ihr Fahrer ist unterwegs";
+    case "driver_nearby":
+      return "Ihr Fahrer ist gleich da!";
+    case "driver_arrived":
+      return "Ihr Fahrer ist angekommen";
+    default:
+      return "MyDispatch Benachrichtigung";
   }
 }
 
@@ -816,8 +858,8 @@ function getEmailHTML(eventType: string, driver: any, trackingUrl: string): stri
     <h2>${getEmailSubject(eventType)}</h2>
     <p>Ihr Fahrer <strong>${driver.first_name} ${driver.last_name}</strong> ist auf dem Weg zu Ihnen.</p>
     <p><a href="${trackingUrl}">Klicken Sie hier, um die Fahrt live zu verfolgen</a></p>
-    <p>Fahrzeug: ${driver.vehicle?.license_plate || 'N/A'}</p>
-    <p>Telefon: ${driver.phone || 'N/A'}</p>
+    <p>Fahrzeug: ${driver.vehicle?.license_plate || "N/A"}</p>
+    <p>Telefon: ${driver.phone || "N/A"}</p>
     <br>
     <p style="color: #666;">Diese E-Mail wurde automatisch von MyDispatch versendet.</p>
   `;
@@ -827,6 +869,7 @@ function getEmailHTML(eventType: string, driver: any, trackingUrl: string): stri
 ### Phase 2: Frontend (React Components)
 
 #### 1. LiveMap.tsx (Dispatcher) - Migration zu HERE Maps
+
 ```typescript
 // src/components/dashboard/LiveMap.tsx
 import { useEffect, useState, useRef } from 'react';
@@ -976,6 +1019,7 @@ export function LiveMap() {
 ```
 
 #### 2. DriverTracking.tsx (Fahrer-App)
+
 ```typescript
 // src/pages/DriverTracking.tsx (bereits vorhanden, erweitern)
 import { useState, useEffect } from 'react';
@@ -1083,7 +1127,7 @@ export default function DriverTracking() {
       if (error) throw error;
     } catch (error) {
       console.error('Failed to send GPS data, saving offline:', error);
-      
+
       // Save to IndexedDB for offline support
       const db = await openDB('gps-queue', 1, {
         upgrade(db) {
@@ -1164,6 +1208,7 @@ export default function DriverTracking() {
 ```
 
 #### 3. CustomerTracking.tsx (Kunden-Portal)
+
 ```typescript
 // src/pages/CustomerTracking.tsx (NEU)
 import { useEffect, useState, useRef } from 'react';
@@ -1331,8 +1376,8 @@ export default function CustomerTracking() {
     <div className="container mx-auto p-4 space-y-4">
       <Card className="p-6">
         <div className="flex items-center gap-4 mb-4">
-          <img 
-            src={tracking.drivers.profile_image_url || '/placeholder-avatar.png'} 
+          <img
+            src={tracking.drivers.profile_image_url || '/placeholder-avatar.png'}
             alt={tracking.drivers.first_name}
             className="w-16 h-16 rounded-full"
           />
@@ -1364,7 +1409,7 @@ export default function CustomerTracking() {
           </div>
         </div>
 
-        <a 
+        <a
           href={`tel:${tracking.drivers.phone}`}
           className="mt-4 flex items-center justify-center gap-2 bg-accent text-white rounded-lg py-3 hover:bg-accent/90"
         >
@@ -1390,36 +1435,42 @@ export default function CustomerTracking() {
 ## 📋 Sprint 27: GPS-Tracking Implementation (7 Tage)
 
 ### Tag 1: Datenbank-Schema
+
 - [ ] Migration: vehicle_positions, booking_tracking, gps_consent, geofence_zones
 - [ ] RLS Policies testen
 - [ ] Indexes erstellen
 - [ ] Cron-Job für Cleanup einrichten
 
 ### Tag 2-3: Edge Functions
+
 - [ ] calculate-eta implementieren
 - [ ] cleanup-gps-positions implementieren
 - [ ] notify-customer implementieren
 - [ ] Tests für alle Functions
 
 ### Tag 4: Fahrer-App (PWA)
+
 - [ ] DriverTracking.tsx erweitern
 - [ ] GPS-Consent-Dialog
 - [ ] Offline-Support (IndexedDB)
 - [ ] Service Worker konfigurieren
 
 ### Tag 5: Dispatcher-Dashboard
+
 - [ ] LiveMap.tsx zu HERE Maps migrieren
 - [ ] Realtime-Updates implementieren
 - [ ] Marker-System mit Status-Farben
 - [ ] InfoBubbles mit Aktionen
 
 ### Tag 6: Kunden-Portal
+
 - [ ] CustomerTracking.tsx implementieren
 - [ ] Token-basierter Zugriff (ohne Login)
 - [ ] ETA-Display mit Traffic
 - [ ] Push-Benachrichtigungen (optional)
 
 ### Tag 7: Testing & Dokumentation
+
 - [ ] E2E-Tests (alle Rollen)
 - [ ] Performance-Tests (1000+ Marker)
 - [ ] DSGVO-Checkliste abarbeiten
@@ -1430,6 +1481,7 @@ export default function CustomerTracking() {
 ## 🎯 Erfolgskriterien
 
 ### Must-Have:
+
 - ✅ Dispatcher sieht alle Fahrzeuge in Echtzeit (<10s Latency)
 - ✅ Fahrer-GPS funktioniert offline (IndexedDB-Queue)
 - ✅ Kunden können ihren Fahrer tracken (nur bei aktiver Fahrt)
@@ -1438,6 +1490,7 @@ export default function CustomerTracking() {
 - ✅ Mobile-First PWA funktioniert auf iOS & Android
 
 ### Nice-to-Have (Sprint 28+):
+
 - ⚪ Geofencing-Alerts (Flughafen-Zone)
 - ⚪ Historical Tracking (24h Replay)
 - ⚪ Push-Benachrichtigungen für Kunden
@@ -1447,14 +1500,14 @@ export default function CustomerTracking() {
 
 ## 📊 Performance-Ziele
 
-| Metrik | Ziel | Messung |
-|--------|------|---------|
-| GPS-Update-Frequenz | 10s | watchPosition interval |
-| Map-Load-Time | <2s | Lighthouse |
-| Marker-Update-Latency | <5s | Realtime-Subscription |
-| Offline-Sync-Time | <30s | IndexedDB → Supabase |
-| ETA-Berechnung | <1s | Edge Function Response |
-| 24h-Cleanup-Duration | <10s | Cron-Job Execution |
+| Metrik                | Ziel | Messung                |
+| --------------------- | ---- | ---------------------- |
+| GPS-Update-Frequenz   | 10s  | watchPosition interval |
+| Map-Load-Time         | <2s  | Lighthouse             |
+| Marker-Update-Latency | <5s  | Realtime-Subscription  |
+| Offline-Sync-Time     | <30s | IndexedDB → Supabase   |
+| ETA-Berechnung        | <1s  | Edge Function Response |
+| 24h-Cleanup-Duration  | <10s | Cron-Job Execution     |
 
 ---
 

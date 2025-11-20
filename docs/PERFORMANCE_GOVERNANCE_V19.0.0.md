@@ -18,32 +18,32 @@ MyDispatch verpflichtet sich zu **erstklassiger Performance** und exzellenter Us
 
 ### Core Web Vitals (Google Standards)
 
-| Metrik | Ziel | Akzeptabel | Quelle |
-|--------|------|------------|--------|
-| **LCP** (Largest Contentful Paint) | < 1.5s | < 2.5s | Core Web Vitals |
-| **FID** (First Input Delay) | < 50ms | < 100ms | Core Web Vitals |
-| **CLS** (Cumulative Layout Shift) | < 0.05 | < 0.1 | Core Web Vitals |
-| **FCP** (First Contentful Paint) | < 1.0s | < 1.8s | Lighthouse |
-| **TTI** (Time to Interactive) | < 2.5s | < 3.8s | Lighthouse |
-| **TBT** (Total Blocking Time) | < 150ms | < 300ms | Lighthouse |
+| Metrik                             | Ziel    | Akzeptabel | Quelle          |
+| ---------------------------------- | ------- | ---------- | --------------- |
+| **LCP** (Largest Contentful Paint) | < 1.5s  | < 2.5s     | Core Web Vitals |
+| **FID** (First Input Delay)        | < 50ms  | < 100ms    | Core Web Vitals |
+| **CLS** (Cumulative Layout Shift)  | < 0.05  | < 0.1      | Core Web Vitals |
+| **FCP** (First Contentful Paint)   | < 1.0s  | < 1.8s     | Lighthouse      |
+| **TTI** (Time to Interactive)      | < 2.5s  | < 3.8s     | Lighthouse      |
+| **TBT** (Total Blocking Time)      | < 150ms | < 300ms    | Lighthouse      |
 
 ### Lighthouse Score
 
-| Kategorie | Ziel | Akzeptabel |
-|-----------|------|------------|
-| **Performance** | > 95 | > 90 |
-| **Accessibility** | > 95 | > 90 |
-| **Best Practices** | > 95 | > 90 |
-| **SEO** | > 95 | > 90 |
+| Kategorie          | Ziel | Akzeptabel |
+| ------------------ | ---- | ---------- |
+| **Performance**    | > 95 | > 90       |
+| **Accessibility**  | > 95 | > 90       |
+| **Best Practices** | > 95 | > 90       |
+| **SEO**            | > 95 | > 90       |
 
 ### Bundle Size
 
-| Asset-Typ | Ziel | Akzeptabel |
-|-----------|------|------------|
-| **Initial JS** | < 200 KB | < 300 KB |
-| **Initial CSS** | < 50 KB | < 100 KB |
-| **Images (pro Bild)** | < 100 KB | < 200 KB |
-| **Fonts (gesamt)** | < 100 KB | < 150 KB |
+| Asset-Typ             | Ziel     | Akzeptabel |
+| --------------------- | -------- | ---------- |
+| **Initial JS**        | < 200 KB | < 300 KB   |
+| **Initial CSS**       | < 50 KB  | < 100 KB   |
+| **Images (pro Bild)** | < 100 KB | < 200 KB   |
+| **Fonts (gesamt)**    | < 100 KB | < 150 KB   |
 
 ---
 
@@ -54,6 +54,7 @@ MyDispatch verpflichtet sich zu **erstklassiger Performance** und exzellenter Us
 **Pflicht:** Alle Routes müssen lazy-loaded sein
 
 **Implementierung:**
+
 ```typescript
 // ✅ RICHTIG: Lazy Loading
 import { lazy, Suspense } from 'react';
@@ -82,9 +83,10 @@ import Dashboard from '@/pages/Dashboard';
 **Pflicht:** Alle Bilder müssen optimiert sein
 
 **Implementierung:**
+
 ```typescript
 // ✅ RICHTIG: Optimierte Bilder mit lazy loading
-<img 
+<img
   src="/images/hero.webp" // WebP-Format!
   alt="MyDispatch Hero"
   loading="lazy" // Native lazy loading
@@ -95,12 +97,12 @@ import Dashboard from '@/pages/Dashboard';
 
 // ✅ RICHTIG: Responsive Images
 <picture>
-  <source 
-    srcSet="/images/hero-mobile.webp" 
+  <source
+    srcSet="/images/hero-mobile.webp"
     media="(max-width: 640px)"
   />
-  <source 
-    srcSet="/images/hero-desktop.webp" 
+  <source
+    srcSet="/images/hero-desktop.webp"
     media="(min-width: 641px)"
   />
   <img src="/images/hero-desktop.webp" alt="Hero" />
@@ -111,6 +113,7 @@ import Dashboard from '@/pages/Dashboard';
 ```
 
 **Bild-Optimierungs-Prozess:**
+
 1. Format: WebP (Fallback: JPEG/PNG)
 2. Kompression: TinyPNG / ImageOptim
 3. Responsive Sizes: Mobile (375px, 640px), Desktop (1024px, 1920px)
@@ -121,21 +124,16 @@ import Dashboard from '@/pages/Dashboard';
 **Pflicht:** Fonts müssen preloaded und optimiert sein
 
 **Implementierung:**
+
 ```html
 <!-- In index.html: Preload kritischer Fonts -->
-<link 
-  rel="preload" 
-  href="/fonts/Inter-Regular.woff2" 
-  as="font" 
-  type="font/woff2"
-  crossorigin
-/>
+<link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
 
 <!-- Font-Display: swap für schnelleres Rendering -->
 <style>
   @font-face {
-    font-family: 'Inter';
-    src: url('/fonts/Inter-Regular.woff2') format('woff2');
+    font-family: "Inter";
+    src: url("/fonts/Inter-Regular.woff2") format("woff2");
     font-display: swap; /* Kritisch! */
     font-weight: 400;
   }
@@ -143,6 +141,7 @@ import Dashboard from '@/pages/Dashboard';
 ```
 
 **Font-Loading-Strategie:**
+
 1. WOFF2-Format verwenden (beste Kompression)
 2. `font-display: swap` für alle Fonts
 3. Nur benötigte Weights laden (400, 600, 700 für Inter)
@@ -153,13 +152,14 @@ import Dashboard from '@/pages/Dashboard';
 **Pflicht:** Alle Server-Requests müssen gecached werden
 
 **Implementierung:**
+
 ```typescript
 // ✅ RICHTIG: React Query Caching
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 function useTariffs() {
   return useQuery({
-    queryKey: ['tariffs'],
+    queryKey: ["tariffs"],
     queryFn: fetchTariffs,
     staleTime: 5 * 60 * 1000, // 5 Minuten
     cacheTime: 10 * 60 * 1000, // 10 Minuten
@@ -169,7 +169,7 @@ function useTariffs() {
 // ❌ FALSCH: Unkontrolliertes Fetching
 function Component() {
   const [data, setData] = useState(null);
-  
+
   useEffect(() => {
     fetchTariffs().then(setData); // Kein Caching!
   }, []);
@@ -177,6 +177,7 @@ function Component() {
 ```
 
 **Caching-Strategie:**
+
 - **Static Data (Tarife, Features):** staleTime: 5-10 Minuten
 - **User Data (Profile, Bookings):** staleTime: 1-2 Minuten
 - **Real-Time Data (GPS):** staleTime: 0 (immer fresh)
@@ -186,6 +187,7 @@ function Component() {
 **Pflicht:** Teure Berechnungen und Komponenten memoizen
 
 **Implementierung:**
+
 ```typescript
 // ✅ RICHTIG: Memoized Component
 const TariffCard = React.memo(({ tariff }: TariffCardProps) => {
@@ -214,19 +216,20 @@ function Component({ tariffs }) {
 **Pflicht:** Listen mit >100 Elementen müssen virtualized sein
 
 **Implementierung:**
+
 ```typescript
 // ✅ RICHTIG: Virtual Scrolling
 import { useVirtualizer } from '@tanstack/react-virtual';
 
 function LongList({ items }: { items: any[] }) {
   const parentRef = React.useRef<HTMLDivElement>(null);
-  
+
   const virtualizer = useVirtualizer({
     count: items.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 50, // Geschätzte Höhe pro Item
   });
-  
+
   return (
     <div ref={parentRef} style={{ height: '400px', overflow: 'auto' }}>
       <div style={{ height: `${virtualizer.getTotalSize()}px` }}>
@@ -255,9 +258,10 @@ function LongList({ items }: { items: any[] }) {
 **Pflicht:** Komplexe Animationen müssen hardware-beschleunigt sein
 
 **Implementierung:**
+
 ```typescript
 // ✅ RICHTIG: Hardware-Beschleunigung
-<div 
+<div
   style={{
     transform: 'translateX(0)', // Erzwingt Compositing-Layer
     willChange: 'transform', // Hint für Browser
@@ -274,7 +278,7 @@ function LongList({ items }: { items: any[] }) {
 </div>
 
 // ❌ FALSCH: Nicht-hardware-beschleunigte Animation
-<div 
+<div
   style={{
     marginTop: '0', // Kein Compositing!
     transition: 'margin-top 0.3s',
@@ -288,11 +292,13 @@ function LongList({ items }: { items: any[] }) {
 ```
 
 **Hardware-Beschleunigte Eigenschaften:**
+
 - `transform` (translateX, translateY, scale, rotate)
 - `opacity`
 - `filter` (blur, brightness, etc.)
 
 **NICHT hardware-beschleunigt:**
+
 - `margin`, `padding`
 - `width`, `height`
 - `top`, `left`, `right`, `bottom`
@@ -302,6 +308,7 @@ function LongList({ items }: { items: any[] }) {
 **Pflicht:** Häufige Events (Scroll, Resize, Input) müssen gedrosselt werden
 
 **Implementierung:**
+
 ```typescript
 // ✅ RICHTIG: Debounced Input
 import { useDebouncedCallback } from 'use-debounce';
@@ -314,9 +321,9 @@ function SearchInput() {
     },
     500 // 500ms Debounce
   );
-  
+
   return (
-    <input 
+    <input
       type="text"
       onChange={(e) => debouncedSearch(e.target.value)}
     />
@@ -326,7 +333,7 @@ function SearchInput() {
 // ❌ FALSCH: Ungethrottled Event
 function SearchInput() {
   return (
-    <input 
+    <input
       type="text"
       onChange={(e) => searchTariffs(e.target.value)} // Auf jeden Keystroke!
     />
@@ -360,11 +367,12 @@ jobs:
           urls: |
             http://localhost:3000/
             http://localhost:3000/pricing
-          configPath: './lighthouserc.json'
+          configPath: "./lighthouserc.json"
           uploadArtifacts: true
 ```
 
 **Lighthouse-Config (`lighthouserc.json`):**
+
 ```json
 {
   "ci": {
@@ -391,13 +399,13 @@ jobs:
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite';
-import { visualizer } from 'rollup-plugin-visualizer';
+import { defineConfig } from "vite";
+import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
   plugins: [
     visualizer({
-      filename: './dist/stats.html',
+      filename: "./dist/stats.html",
       open: true,
       gzipSize: true,
       brotliSize: true,
@@ -408,9 +416,9 @@ export default defineConfig({
       output: {
         manualChunks: {
           // Code-Splitting: Vendor-Chunks
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-accordion'],
-          'query-vendor': ['@tanstack/react-query'],
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "ui-vendor": ["@radix-ui/react-dialog", "@radix-ui/react-accordion"],
+          "query-vendor": ["@tanstack/react-query"],
         },
       },
     },
@@ -424,7 +432,7 @@ export default defineConfig({
 
 ```typescript
 // src/lib/performance/web-vitals.ts
-import { onCLS, onFID, onLCP, onFCP, onTTFB } from 'web-vitals';
+import { onCLS, onFID, onLCP, onFCP, onTTFB } from "web-vitals";
 
 function sendToAnalytics(metric: any) {
   // Sende an Analytics (z.B. Google Analytics, Sentry)
@@ -440,7 +448,7 @@ export function initPerformanceMonitoring() {
 }
 
 // In App.tsx
-import { initPerformanceMonitoring } from '@/lib/performance/web-vitals';
+import { initPerformanceMonitoring } from "@/lib/performance/web-vitals";
 
 useEffect(() => {
   initPerformanceMonitoring();
@@ -489,6 +497,7 @@ useEffect(() => {
 ## 🔗 VERWANDTE DOKUMENTATION
 
 **Hierarchie:**
+
 ```
 MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 ├─ PERFORMANCE_GOVERNANCE_V19.0.0.md (Diese Datei)
@@ -497,6 +506,7 @@ MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 ```
 
 **Externe Ressourcen:**
+
 - [Web Vitals](https://web.dev/vitals/)
 - [Lighthouse](https://developers.google.com/web/tools/lighthouse)
 - [React Performance](https://react.dev/learn/render-and-commit)
@@ -509,6 +519,7 @@ MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 ### V19.0.0 (2025-10-25) - INITIAL RELEASE
 
 **🎯 NEU:**
+
 - Performance-Ziele definiert (Core Web Vitals, Lighthouse, Bundle Size)
 - Pflicht-Optimierungen dokumentiert (Code-Splitting, Images, Fonts, Caching, Memoization)
 - Hardware-Beschleunigung für Animationen (`will-change`, `transform`)
@@ -516,6 +527,7 @@ MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 - Performance-Checkliste bereitgestellt
 
 **🔗 Integration:**
+
 - Verknüpft mit MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md
 - Verknüpft mit DESIGN_TOKEN_GOVERNANCE_V19.0.0.md
 - Bindend für alle Entwicklungen

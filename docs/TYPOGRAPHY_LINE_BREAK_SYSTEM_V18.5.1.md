@@ -9,6 +9,7 @@
 ## 🎯 ZIELSETZUNG
 
 Systemweite, harmonische Text-Umbrüche für:
+
 - **Saubere Zeilenumbrüche**
 - **Wort-Trennung (Hyphenation)**
 - **Overflow-Prevention**
@@ -25,14 +26,14 @@ Systemweite, harmonische Text-Umbrüche für:
 /* Global Defaults (index.css) */
 :root {
   /* Base Typography */
-  word-break: normal;           /* Standard Umbruch */
-  overflow-wrap: break-word;    /* Lange Wörter umbrechen */
-  hyphens: manual;              /* Manuelle Silbentrennung */
+  word-break: normal; /* Standard Umbruch */
+  overflow-wrap: break-word; /* Lange Wörter umbrechen */
+  hyphens: manual; /* Manuelle Silbentrennung */
 }
 
 /* German Language Support */
 :lang(de) {
-  hyphens: auto;                /* Automatische Silbentrennung */
+  hyphens: auto; /* Automatische Silbentrennung */
   hyphenate-limit-chars: 6 3 2; /* Min 6 chars, 3 vor, 2 nach */
 }
 ```
@@ -83,6 +84,7 @@ Systemweite, harmonische Text-Umbrüche für:
 ```
 
 **Regeln:**
+
 - ✅ `hyphens-none` (keine Trennung)
 - ✅ `break-words` (Wort-Umbruch bei Bedarf)
 - ✅ `line-clamp-X` bei sehr langen Titeln
@@ -104,6 +106,7 @@ Systemweite, harmonische Text-Umbrüche für:
 ```
 
 **Regeln:**
+
 - ✅ `hyphens-auto` (Deutsch)
 - ✅ `break-words` (Overflow-Protection)
 - ✅ `leading-relaxed` (Zeilenabstand 1.625)
@@ -124,6 +127,7 @@ Systemweite, harmonische Text-Umbrüche für:
 ```
 
 **Regeln:**
+
 - ✅ `whitespace-nowrap` + `truncate` für Single-Line
 - ✅ `hyphens-none` für kurze Texte
 - ✅ `break-words` als Fallback
@@ -143,6 +147,7 @@ Systemweite, harmonische Text-Umbrüche für:
 ```
 
 **Regeln:**
+
 - ✅ `whitespace-nowrap` (Desktop)
 - ✅ Responsive Padding anpassen
 - ✅ `break-words` nur Mobile-Fallback
@@ -168,6 +173,7 @@ Systemweite, harmonische Text-Umbrüche für:
 ```
 
 **Regeln:**
+
 - ✅ `truncate` + `max-w-X` (Standard)
 - ✅ `title` Attribut für vollen Text
 - ✅ `break-words` nur bei Multi-Line
@@ -188,6 +194,7 @@ Systemweite, harmonische Text-Umbrüche für:
 ```
 
 **Regeln:**
+
 - ✅ `whitespace-nowrap` (immer)
 - ✅ `truncate` + `max-w-X` bei Bedarf
 - ❌ Keine Umbrüche in Badges
@@ -202,7 +209,7 @@ Systemweite, harmonische Text-Umbrüche für:
 :lang(de) {
   hyphens: auto;
   hyphenate-limit-chars: 6 3 2;
-  
+
   /* Wörter-Minimum */
   word-spacing: normal;
   letter-spacing: normal;
@@ -213,7 +220,7 @@ Systemweite, harmonische Text-Umbrüche für:
 
 ```css
 :lang(en) {
-  hyphens: none;  /* Englisch: keine Auto-Trennung */
+  hyphens: none; /* Englisch: keine Auto-Trennung */
   word-spacing: normal;
 }
 ```
@@ -272,9 +279,7 @@ Systemweite, harmonische Text-Umbrüche für:
 
 ```tsx
 // 3 Zeilen max mit Ellipsis
-<div className="line-clamp-3 break-words hyphens-auto">
-  {longDescription}
-</div>
+<div className="line-clamp-3 break-words hyphens-auto">{longDescription}</div>
 ```
 
 ### 2. EXPANDABLE TEXT
@@ -283,13 +288,11 @@ Systemweite, harmonische Text-Umbrüche für:
 const [expanded, setExpanded] = useState(false);
 
 <div>
-  <p className={expanded ? "break-words hyphens-auto" : "line-clamp-3"}>
-    {longText}
-  </p>
+  <p className={expanded ? "break-words hyphens-auto" : "line-clamp-3"}>{longText}</p>
   <Button onClick={() => setExpanded(!expanded)}>
     {expanded ? "Weniger anzeigen" : "Mehr anzeigen"}
   </Button>
-</div>
+</div>;
 ```
 
 ### 3. GRADIENT FADE-OUT
@@ -303,7 +306,7 @@ const [expanded, setExpanded] = useState(false);
 }
 
 .text-fade-gradient::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -314,9 +317,7 @@ const [expanded, setExpanded] = useState(false);
 ```
 
 ```tsx
-<div className="text-fade-gradient break-words hyphens-auto">
-  {longText}
-</div>
+<div className="text-fade-gradient break-words hyphens-auto">{longText}</div>
 ```
 
 ---
@@ -399,33 +400,33 @@ export default {
     extend: {
       // Line Clamp
       lineClamp: {
-        5: '5',
-        6: '6',
-        7: '7',
-        8: '8',
+        5: "5",
+        6: "6",
+        7: "7",
+        8: "8",
       },
-      
+
       // Letter Spacing (für Headlines)
       letterSpacing: {
-        tighter: '-0.05em',
-        tight: '-0.025em',
-        normal: '0',
-        wide: '0.025em',
-        wider: '0.05em',
-        widest: '0.1em',
+        tighter: "-0.05em",
+        tight: "-0.025em",
+        normal: "0",
+        wide: "0.025em",
+        wider: "0.05em",
+        widest: "0.1em",
       },
-      
+
       // Word Spacing
       wordSpacing: {
-        normal: 'normal',
-        wide: '0.125rem',
-        wider: '0.25rem',
+        normal: "normal",
+        wide: "0.125rem",
+        wider: "0.25rem",
       },
     },
   },
   plugins: [
     // Line Clamp Plugin
-    require('@tailwindcss/line-clamp'),
+    require("@tailwindcss/line-clamp"),
   ],
 };
 ```
@@ -442,12 +443,12 @@ export default {
   --font-line-height-normal: 1.5;
   --font-line-height-relaxed: 1.625;
   --font-line-height-loose: 2;
-  
+
   /* Hyphenation */
   --hyphenate-limit-chars: 6 3 2;
-  
+
   /* Max Widths für Lesbarkeit */
-  --prose-max-width: 65ch;      /* Optimal: 45-75 Zeichen */
+  --prose-max-width: 65ch; /* Optimal: 45-75 Zeichen */
   --prose-narrow: 45ch;
   --prose-wide: 80ch;
 }
@@ -465,14 +466,14 @@ export default {
 
 ## 📊 SUCCESS METRICS
 
-| Metrik | Ziel | Status |
-|--------|------|--------|
-| Silbentrennung (DE) | Auto | ✅ |
-| Overflow Prevention | 100% | ✅ |
-| Line-Height Konsistenz | 100% | ✅ |
-| Responsive Typography | 100% | ✅ |
-| Language Support | DE/EN | ✅ |
-| Truncate mit max-w | 100% | ✅ |
+| Metrik                 | Ziel  | Status |
+| ---------------------- | ----- | ------ |
+| Silbentrennung (DE)    | Auto  | ✅     |
+| Overflow Prevention    | 100%  | ✅     |
+| Line-Height Konsistenz | 100%  | ✅     |
+| Responsive Typography  | 100%  | ✅     |
+| Language Support       | DE/EN | ✅     |
+| Truncate mit max-w     | 100%  | ✅     |
 
 ---
 

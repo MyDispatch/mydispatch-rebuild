@@ -4,22 +4,22 @@
    Tests for consistent DashboardInfoBoard presence and export functionality
    ================================================================================== */
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
 const DASHBOARD_PAGES = [
-  'kunden',
-  'rechnungen',
-  'statistiken',
-  'auftraege',
-  'fahrer',
-  'fahrzeuge',
-  'partner',
-  'kostenstellen',
-  'disposition',
-  'dokumente',
+  "kunden",
+  "rechnungen",
+  "statistiken",
+  "auftraege",
+  "fahrer",
+  "fahrzeuge",
+  "partner",
+  "kostenstellen",
+  "disposition",
+  "dokumente",
 ];
 
-test.describe('Dashboard Consistency Tests', () => {
+test.describe("Dashboard Consistency Tests", () => {
   test.beforeEach(async ({ page }) => {
     // Login (if auth is required)
     // await page.goto('/login');
@@ -28,10 +28,10 @@ test.describe('Dashboard Consistency Tests', () => {
     // await page.click('button[type="submit"]');
   });
 
-  test('all dashboards have InfoBoard', async ({ page }) => {
+  test("all dashboards have InfoBoard", async ({ page }) => {
     for (const dashboard of DASHBOARD_PAGES) {
       await page.goto(`/${dashboard}`);
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState("networkidle");
 
       // Check InfoBoard presence
       const infoBoard = page.locator('[data-testid="dashboard-infoboard"]');
@@ -47,10 +47,10 @@ test.describe('Dashboard Consistency Tests', () => {
     }
   });
 
-  test('all dashboards have export buttons', async ({ page }) => {
+  test("all dashboards have export buttons", async ({ page }) => {
     for (const dashboard of DASHBOARD_PAGES) {
       await page.goto(`/${dashboard}`);
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState("networkidle");
 
       // Check export buttons presence
       const pdfButton = page.locator('button:has-text("PDF")').first();
@@ -63,9 +63,9 @@ test.describe('Dashboard Consistency Tests', () => {
     }
   });
 
-  test('InfoBoard responds to sidebar expansion', async ({ page }) => {
-    await page.goto('/kunden');
-    await page.waitForLoadState('networkidle');
+  test("InfoBoard responds to sidebar expansion", async ({ page }) => {
+    await page.goto("/kunden");
+    await page.waitForLoadState("networkidle");
 
     // Get initial InfoBoard position
     const infoBoard = page.locator('[data-testid="dashboard-infoboard"]');
@@ -83,12 +83,12 @@ test.describe('Dashboard Consistency Tests', () => {
     }
   });
 
-  test('export buttons are consistently positioned', async ({ page }) => {
+  test("export buttons are consistently positioned", async ({ page }) => {
     const positions: Record<string, { x: number; y: number }> = {};
 
     for (const dashboard of DASHBOARD_PAGES.slice(0, 3)) {
       await page.goto(`/${dashboard}`);
-      await page.waitForLoadState('networkidle');
+      await page.waitForLoadState("networkidle");
 
       const pdfButton = page.locator('button:has-text("PDF")').first();
       const box = await pdfButton.boundingBox();
@@ -106,11 +106,11 @@ test.describe('Dashboard Consistency Tests', () => {
     expect(xRange).toBeLessThan(50);
   });
 
-  test('InfoBoard has correct responsive behavior', async ({ page }) => {
+  test("InfoBoard has correct responsive behavior", async ({ page }) => {
     // Test desktop view
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await page.goto('/kunden');
-    await page.waitForLoadState('networkidle');
+    await page.goto("/kunden");
+    await page.waitForLoadState("networkidle");
 
     const infoBoard = page.locator('[data-testid="dashboard-infoboard"]');
     await expect(infoBoard).toBeVisible();
@@ -130,27 +130,27 @@ test.describe('Dashboard Consistency Tests', () => {
     // (Depending on your implementation)
   });
 
-  test('InfoBoard KPIs display correct data', async ({ page }) => {
-    await page.goto('/kunden');
-    await page.waitForLoadState('networkidle');
+  test("InfoBoard KPIs display correct data", async ({ page }) => {
+    await page.goto("/kunden");
+    await page.waitForLoadState("networkidle");
 
     const infoBoard = page.locator('[data-testid="dashboard-infoboard"]');
 
     // Check KPI section exists
-    const kpiSection = infoBoard.locator('text=Schnellübersicht');
+    const kpiSection = infoBoard.locator("text=Schnellübersicht");
     await expect(kpiSection).toBeVisible();
 
     // Check at least one KPI is displayed
-    const kpiValues = infoBoard.locator('.font-bold.text-slate-900');
+    const kpiValues = infoBoard.locator(".font-bold.text-slate-900");
     await expect(kpiValues.first()).toBeVisible();
   });
 
-  test('export functionality triggers correctly', async ({ page }) => {
-    await page.goto('/kunden');
-    await page.waitForLoadState('networkidle');
+  test("export functionality triggers correctly", async ({ page }) => {
+    await page.goto("/kunden");
+    await page.waitForLoadState("networkidle");
 
     // Listen for download events
-    const downloadPromise = page.waitForEvent('download', { timeout: 10000 });
+    const downloadPromise = page.waitForEvent("download", { timeout: 10000 });
 
     // Click PDF export button
     const pdfButton = page.locator('button:has-text("PDF")').first();

@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
-import { resilientQuery } from '@/lib/supabase-resilient-client';
-import { createLogger } from '@/lib/logger';
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { resilientQuery } from "@/lib/supabase-resilient-client";
+import { createLogger } from "@/lib/logger";
 
-const logger = createLogger('KnowledgeBase');
+const logger = createLogger("KnowledgeBase");
 
 interface KnowledgeQueryResult {
   id: string;
@@ -52,7 +52,7 @@ export function useKnowledgeBase() {
   ): Promise<KnowledgeQueryResponse | null> => {
     setIsQuerying(true);
     try {
-      const { data, error } = await supabase.functions.invoke('ai-knowledge-query', {
+      const { data, error } = await supabase.functions.invoke("ai-knowledge-query", {
         body: {
           query,
           category_filter: categoryFilter,
@@ -61,16 +61,17 @@ export function useKnowledgeBase() {
       });
 
       if (error) {
-        if (import.meta.env.DEV) console.error('Knowledge query error:', error);
-        toast.error('Fehler bei Knowledge-Base Abfrage');
+        if (import.meta.env.DEV) console.error("Knowledge query error:", error);
+        toast.error("Fehler bei Knowledge-Base Abfrage");
         return null;
       }
 
-      if (import.meta.env.DEV) console.log(`✅ Knowledge query: ${data.total} results for "${query}"`);
+      if (import.meta.env.DEV)
+        console.log(`✅ Knowledge query: ${data.total} results for "${query}"`);
       return data;
     } catch (err) {
-      if (import.meta.env.DEV) console.error('Unexpected error in queryKnowledge:', err);
-      toast.error('Unerwarteter Fehler bei Knowledge-Base Abfrage');
+      if (import.meta.env.DEV) console.error("Unexpected error in queryKnowledge:", err);
+      toast.error("Unerwarteter Fehler bei Knowledge-Base Abfrage");
       return null;
     } finally {
       setIsQuerying(false);
@@ -83,27 +84,29 @@ export function useKnowledgeBase() {
   const parseDocument = async (
     markdownContent: string,
     filePath: string,
-    docVersion: string = 'V19.0.0'
+    docVersion: string = "V19.0.0"
   ): Promise<DocParserResponse | null> => {
     setIsParsing(true);
     try {
       logger.debug(`Parsing document: ${filePath}`);
 
       const { data, error } = await resilientQuery(
-        () => supabase.functions.invoke('ai-doc-parser', {
-          body: {
-            markdown_content: markdownContent,
-            file_path: filePath,
-            doc_version: docVersion,
-          },
-        }),
+        () =>
+          supabase.functions.invoke("ai-doc-parser", {
+            body: {
+              markdown_content: markdownContent,
+              file_path: filePath,
+              doc_version: docVersion,
+            },
+          }),
         { maxRetries: 3, baseDelay: 2000 }
       );
 
       if (error) {
-        if (import.meta.env.DEV) console.warn('[useKnowledgeBase] Parse failed after retries:', error);
-        toast.error('Dokument-Parsing fehlgeschlagen', {
-          description: 'Bitte versuche es später erneut',
+        if (import.meta.env.DEV)
+          console.warn("[useKnowledgeBase] Parse failed after retries:", error);
+        toast.error("Dokument-Parsing fehlgeschlagen", {
+          description: "Bitte versuche es später erneut",
         });
         return null;
       }
@@ -114,11 +117,12 @@ export function useKnowledgeBase() {
         );
       }
 
-      if (import.meta.env.DEV) console.log(`✅ Doc parsed: ${filePath} - ${data.extracted_count} entries extracted`);
+      if (import.meta.env.DEV)
+        console.log(`✅ Doc parsed: ${filePath} - ${data.extracted_count} entries extracted`);
       return data;
     } catch (err) {
-      if (import.meta.env.DEV) console.error('[useKnowledgeBase] Parse exception:', err);
-      toast.error('Dokument-Parsing fehlgeschlagen');
+      if (import.meta.env.DEV) console.error("[useKnowledgeBase] Parse exception:", err);
+      toast.error("Dokument-Parsing fehlgeschlagen");
       return null;
     } finally {
       setIsParsing(false);
@@ -131,17 +135,17 @@ export function useKnowledgeBase() {
   const getKnowledgeByCategory = async (category: string) => {
     try {
       const { data, error } = await supabase
-        .from('knowledge_base')
-        .select('*')
-        .eq('category', category)
-        .eq('is_deprecated', false)
-        .order('confidence_score', { ascending: false });
+        .from("knowledge_base")
+        .select("*")
+        .eq("category", category)
+        .eq("is_deprecated", false)
+        .order("confidence_score", { ascending: false });
 
       if (error) throw error;
       return data;
     } catch (err) {
-      logger.error('Error fetching knowledge by category:', err);
-      toast.error('Fehler beim Laden der Knowledge-Base Einträge');
+      logger.error("Error fetching knowledge by category:", err);
+      toast.error("Fehler beim Laden der Knowledge-Base Einträge");
       return [];
     }
   };
@@ -151,12 +155,12 @@ export function useKnowledgeBase() {
    */
   const checkKnowledgeFreshness = async () => {
     try {
-      const { data, error } = await supabase.rpc('check_knowledge_freshness');
+      const { data, error } = await supabase.rpc("check_knowledge_freshness");
 
       if (error) throw error;
       return data;
     } catch (err) {
-      logger.error('Error checking knowledge freshness:', err);
+      logger.error("Error checking knowledge freshness:", err);
       return [];
     }
   };

@@ -9,11 +9,13 @@
 ## 🎯 WIKI SPEICHERORT (ABSOLUTER PFAD)
 
 ### Haupt-Wiki-Dokument:
+
 ```
 C:\Users\pcour\mydispatch-rebuild\docs\NEXIFY_WIKI_V1.0.md
 ```
 
 ### Relativer Pfad (vom Projekt-Root):
+
 ```
 docs/NEXIFY_WIKI_V1.0.md
 ```
@@ -25,33 +27,41 @@ docs/NEXIFY_WIKI_V1.0.md
 ### Core Dokumente (Priority 1 - IMMER laden):
 
 1. **Haupt-Wiki:**
+
    ```
    docs/NEXIFY_WIKI_V1.0.md
    ```
+
    - 2,252 Zeilen
    - Komplettes Knowledge System
    - Critical Issues, Kernprinzipien, Supabase Tables
 
 2. **Project Memory:**
+
    ```
    docs/PROJECT_MEMORY.md
    ```
+
    - Aktuelle Session-Kontext
    - Development Sessions
    - Technische Details
 
 3. **Component Registry:**
+
    ```
    docs/COMPONENT_REGISTRY.md
    ```
+
    - 21+ aktive Komponenten
    - Deprecated Components
    - Usage Guides
 
 4. **Lessons Learned:**
+
    ```
    docs/LESSONS_LEARNED.md
    ```
+
    - 13 Learnings
    - Anti-Patterns
    - Best Practices
@@ -60,6 +70,7 @@ docs/NEXIFY_WIKI_V1.0.md
    ```
    docs/DESIGN_SYSTEM_LOCK.md
    ```
+
    - V28.1 Mandatory Rules
    - Design Token System
    - Layout Freeze Protection
@@ -71,11 +82,13 @@ docs/NEXIFY_WIKI_V1.0.md
 ### Option 1: Cursor Memory (EMPFOHLEN)
 
 **Cursor Memory File erstellen:**
+
 ```
 .cursor/memory/nexify-wiki.md
 ```
 
 **Inhalt:**
+
 ```markdown
 # NeXify Wiki Auto-Load
 
@@ -96,6 +109,7 @@ Command: "Lade das NeXify Wiki"
 **Endpoint:** `/functions/v1/brain-query`
 
 **Request:**
+
 ```json
 {
   "query": "session_init",
@@ -107,6 +121,7 @@ Command: "Lade das NeXify Wiki"
 ```
 
 **Fallback bei Fehler:**
+
 - Lade `docs/NEXIFY_WIKI_V1.0.md` direkt
 - Lade `docs/COMPONENT_REGISTRY.md`
 - Lade `docs/LESSONS_LEARNED.md`
@@ -114,11 +129,13 @@ Command: "Lade das NeXify Wiki"
 ### Option 3: Cursor Rules File (PERMANENT)
 
 **Cursor Rules erstellen:**
+
 ```
 .cursorrules
 ```
 
 **Inhalt:**
+
 ```
 # NeXify Wiki Auto-Load Rules
 
@@ -141,22 +158,23 @@ Trigger: "Lade das NeXify Wiki"
 1. **User schreibt:** `"Lade das NeXify Wiki"`
 
 2. **AI führt aus:**
+
    ```typescript
    // 1. Versuche Supabase Edge Function
-   const { data } = await supabase.functions.invoke('brain-query', {
-     body: { query: 'session_init' }
+   const { data } = await supabase.functions.invoke("brain-query", {
+     body: { query: "session_init" },
    });
-   
+
    // 2. Falls Fehler: Fallback auf lokale Docs
    if (error) {
-     await readFile('docs/NEXIFY_WIKI_V1.0.md');
-     await readFile('docs/COMPONENT_REGISTRY.md');
-     await readFile('docs/LESSONS_LEARNED.md');
-     await readFile('docs/DESIGN_SYSTEM_LOCK.md');
+     await readFile("docs/NEXIFY_WIKI_V1.0.md");
+     await readFile("docs/COMPONENT_REGISTRY.md");
+     await readFile("docs/LESSONS_LEARNED.md");
+     await readFile("docs/DESIGN_SYSTEM_LOCK.md");
    }
-   
+
    // 3. Status-Report ausgeben
-   console.log('✅ NEXIFY WIKI V1.0 LOADED');
+   console.log("✅ NEXIFY WIKI V1.0 LOADED");
    ```
 
 3. **Kontext ist gesetzt:**
@@ -170,6 +188,7 @@ Trigger: "Lade das NeXify Wiki"
 ## 🔍 VERIFIKATION
 
 ### Wiki-Location prüfen:
+
 ```bash
 # PowerShell:
 Test-Path "C:\Users\pcour\mydispatch-rebuild\docs\NEXIFY_WIKI_V1.0.md"
@@ -178,6 +197,7 @@ Test-Path "C:\Users\pcour\mydispatch-rebuild\docs\NEXIFY_WIKI_V1.0.md"
 ```
 
 ### Alle Core Docs prüfen:
+
 ```powershell
 $docs = @(
     "docs/NEXIFY_WIKI_V1.0.md",
@@ -201,6 +221,7 @@ foreach ($doc in $docs) {
 ## 🚀 QUICK REFERENCE
 
 **Für AI-Agenten:**
+
 ```
 Wiki-Hauptdokument: docs/NEXIFY_WIKI_V1.0.md
 Absoluter Pfad: C:\Users\pcour\mydispatch-rebuild\docs\NEXIFY_WIKI_V1.0.md
@@ -209,6 +230,7 @@ Fallback: Lokale Dateien laden (falls Edge Function fehlschlägt)
 ```
 
 **Für Entwickler:**
+
 ```
 Alle Wiki-Docs: docs/*.md
 Haupt-Wiki: docs/NEXIFY_WIKI_V1.0.md
@@ -221,7 +243,3 @@ Location-Doc: docs/NEXIFY_WIKI_LOCATION.md (diese Datei)
 **Version:** 1.0.0  
 **Erstellt:** 2025-01-31  
 **Status:** ✅ PRODUCTION-READY
-
-
-
-

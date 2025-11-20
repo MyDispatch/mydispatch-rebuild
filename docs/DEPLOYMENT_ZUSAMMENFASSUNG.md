@@ -8,11 +8,13 @@
 ## 🎯 WAS ERLEDIGT WURDE
 
 ### 1. Code-Änderungen ✅
+
 - ✅ Edge Function `ai-support-chat` auf Anthropic (Claude) umgestellt
 - ✅ API-Keys sicher in `.env.local` gespeichert
 - ✅ Projekt-spezifische Trennung implementiert
 
 ### 2. Dokumentation ✅
+
 - ✅ `docs/API_KEYS_MANAGEMENT.md` - API-Keys Übersicht
 - ✅ `docs/PROJEKT_SPEZIFISCHE_TRENNUNG.md` - Projekt-Trennung
 - ✅ `docs/MYDISPATCH_API_KEYS_VOLLSTAENDIG.md` - Vollständige Keys
@@ -21,11 +23,13 @@
 - ✅ `DEPLOYMENT_ANLEITUNG.md` - Vollständige Anleitung
 
 ### 3. Scripts ✅
+
 - ✅ `scripts/set-supabase-secrets.ps1` - Secrets setzen
 - ✅ `scripts/deploy-all.ps1` - Vollständiges Deployment
 - ✅ `.cursor/github-pat-config.ps1` - Cursor Config
 
 ### 4. Konfigurationen ✅
+
 - ✅ `.env.local` - Frontend Environment Variables
 - ✅ `.env.local.example` - Template
 - ✅ `.cursor/mcp-config.json` - Tavily MCP API
@@ -37,6 +41,7 @@
 ### Zu deployende Items (24 total)
 
 **Database Migrations (7):**
+
 1. `20250131_nexify_master_system.sql`
 2. `20250131_nexify_crm_system.sql`
 3. `20250131_system_health_tables.sql`
@@ -46,6 +51,7 @@
 7. `20250131000003_fix_master_login.sql`
 
 **Edge Functions (9):**
+
 1. `fix-master-login`
 2. `nexify-auto-load-context`
 3. `nexify-project-context`
@@ -57,6 +63,7 @@
 9. `ai-support-chat` (✅ auf Anthropic umgestellt)
 
 **Frontend Code (5):**
+
 1. `src/components/ErrorBoundary.tsx`
 2. `src/components/settings/LetterheadUpload.tsx`
 3. `src/lib/email-templates-branded.ts`
@@ -64,6 +71,7 @@
 5. `src/components/settings/BrandingSection.tsx` (LetterheadUpload Integration)
 
 **Konfigurationen (4):**
+
 1. Supabase Secrets (Anthropic, Resend, Daily)
 2. Storage Bucket `company-letterheads`
 3. Cron Jobs (4 Jobs)
@@ -74,11 +82,13 @@
 ## 🔐 API-KEYS STATUS
 
 ### ✅ Gespeichert
+
 - ✅ Google API Key → `.env.local`
 - ✅ Daily API Key → `.env.local`
 - ✅ Tavily MCP API → `.cursor/mcp-config.json`
 
 ### ⏳ Muss gesetzt werden
+
 - ⏳ Anthropic API Key → Supabase Secrets
 - ⏳ Resend API Key → Supabase Secrets
 - ⏳ Resend Domain → Supabase Secrets
@@ -99,4 +109,3 @@
 ---
 
 **Alle Vorbereitungen sind abgeschlossen!** ✅
-

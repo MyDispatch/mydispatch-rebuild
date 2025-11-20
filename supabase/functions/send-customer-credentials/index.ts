@@ -9,8 +9,6 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
 
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
-
-
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -42,12 +40,8 @@ const handler = async (req: Request): Promise<Response> => {
     const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
     if (userError || !userData.user) throw new Error("Unauthorized");
 
-    const { 
-      customerEmail, 
-      customerName, 
-      companyName, 
-      temporaryPassword 
-    }: CredentialsEmailRequest = await req.json();
+    const { customerEmail, customerName, companyName, temporaryPassword }: CredentialsEmailRequest =
+      await req.json();
 
     console.log("[CREDENTIALS-EMAIL] Sending to:", customerEmail);
 
@@ -56,14 +50,14 @@ const handler = async (req: Request): Promise<Response> => {
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${RESEND_API_KEY}`,
+        Authorization: `Bearer ${RESEND_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         from: "MyDispatch <no-reply@mydispatch.de>",
         to: [customerEmail],
         subject: `Ihre Zugangsdaten für das Kunden-Portal von ${companyName}`,
-      html: `
+        html: `
         <!DOCTYPE html>
         <html>
         <head>
@@ -120,8 +114,8 @@ const handler = async (req: Request): Promise<Response> => {
           </div>
         </body>
         </html>
-      `
-      })
+      `,
+      }),
     });
 
     if (!emailResponse.ok) {
@@ -133,22 +127,22 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("[CREDENTIALS-EMAIL] Email sent:", emailData);
 
-    return new Response(JSON.stringify({ 
-      success: true,
-      emailResponse: emailData
-    }), {
-      status: 200,
-      headers: { "Content-Type": "application/json", ...corsHeaders },
-    });
-  } catch (error: any) {
-    console.error("[CREDENTIALS-EMAIL] Error:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({
+        success: true,
+        emailResponse: emailData,
+      }),
       {
-        status: 500,
+        status: 200,
         headers: { "Content-Type": "application/json", ...corsHeaders },
       }
     );
+  } catch (error: any) {
+    console.error("[CREDENTIALS-EMAIL] Error:", error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
+    });
   }
 };
 

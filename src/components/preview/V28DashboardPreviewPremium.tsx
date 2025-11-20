@@ -8,18 +8,16 @@
    ✅ Optimiert für scale(0.7) im iPad-Mockup
    ================================================================================== */
 
-import { formatCurrency } from '@/lib/format-utils';
-import { FileText, Users, Car, Euro, MapPin, Activity } from 'lucide-react';
-import { V28StatCard, V28DashboardSection, V28DashboardCard } from '@/components/design-system';
-import { DataGrid } from '@/components/smart-templates';
+import { formatCurrency } from "@/lib/format-utils";
+import { FileText, Users, Car, Euro, MapPin, Activity } from "lucide-react";
+import { V28StatCard, V28DashboardSection, V28DashboardCard } from "@/components/design-system";
+import { DataGrid } from "@/components/smart-templates";
 
 interface V28DashboardPreviewPremiumProps {
   scale?: number;
 }
 
-export function V28DashboardPreviewPremium({ 
-  scale = 1 
-}: V28DashboardPreviewPremiumProps) {
+export function V28DashboardPreviewPremium({ scale = 1 }: V28DashboardPreviewPremiumProps) {
   // Premium Demo-Daten mit realistischen Werten
   const demoStats = {
     bookings: 127,
@@ -30,26 +28,26 @@ export function V28DashboardPreviewPremium({
       bookings: 12.5,
       revenue: 8.3,
       drivers: 0,
-      vehicles: 0
-    }
+      vehicles: 0,
+    },
   };
 
   // Realistische Fahrzeug-Positionen für Karte (Berlin-Koordinaten)
   const vehiclePositions = [
-    { lat: 52.52, lng: 13.405, status: 'busy' },
-    { lat: 52.51, lng: 13.39, status: 'available' },
-    { lat: 52.53, lng: 13.42, status: 'busy' },
-    { lat: 52.50, lng: 13.41, status: 'available' },
-    { lat: 52.52, lng: 13.38, status: 'busy' },
+    { lat: 52.52, lng: 13.405, status: "busy" },
+    { lat: 52.51, lng: 13.39, status: "available" },
+    { lat: 52.53, lng: 13.42, status: "busy" },
+    { lat: 52.5, lng: 13.41, status: "available" },
+    { lat: 52.52, lng: 13.38, status: "busy" },
   ];
 
   return (
-    <div 
-      style={{ 
+    <div
+      style={{
         transform: `scale(${scale})`,
-        transformOrigin: 'top left',
+        transformOrigin: "top left",
         width: `${100 / scale}%`,
-        height: `${100 / scale}%`
+        height: `${100 / scale}%`,
       }}
       className="bg-slate-50 min-h-screen"
     >
@@ -58,14 +56,13 @@ export function V28DashboardPreviewPremium({
         <V28DashboardSection background="white" className="py-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">
-                Dashboard
-              </h1>
+              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">Dashboard</h1>
               <p className="text-base text-slate-600 mt-2">
-                Heute • {new Date().toLocaleDateString('de-DE', { 
-                  weekday: 'long', 
-                  day: '2-digit', 
-                  month: 'long' 
+                Heute •{" "}
+                {new Date().toLocaleDateString("de-DE", {
+                  weekday: "long",
+                  day: "2-digit",
+                  month: "long",
                 })}
               </p>
             </div>
@@ -80,32 +77,24 @@ export function V28DashboardPreviewPremium({
             <V28StatCard
               label="Aufträge heute"
               value={demoStats.bookings}
-              change={{ value: demoStats.trends.bookings, trend: 'up' }}
+              change={{ value: demoStats.trends.bookings, trend: "up" }}
               icon={FileText}
             />
             <V28StatCard
               label="Umsatz heute"
               value={formatCurrency(demoStats.revenue)}
-              change={{ value: demoStats.trends.revenue, trend: 'up' }}
+              change={{ value: demoStats.trends.revenue, trend: "up" }}
               icon={Euro}
             />
-            <V28StatCard
-              label="Aktive Fahrer"
-              value={demoStats.drivers}
-              icon={Users}
-            />
-            <V28StatCard
-              label="Verfügbare Fahrzeuge"
-              value={demoStats.vehicles}
-              icon={Car}
-            />
+            <V28StatCard label="Aktive Fahrer" value={demoStats.drivers} icon={Users} />
+            <V28StatCard label="Verfügbare Fahrzeuge" value={demoStats.vehicles} icon={Car} />
           </DataGrid>
         </V28DashboardSection>
 
         {/* Live-Karte Section */}
         <V28DashboardSection background="white" className="py-8">
-          <V28DashboardCard 
-            title="Live-Karte" 
+          <V28DashboardCard
+            title="Live-Karte"
             description="Fahrzeugstandorte in Echtzeit"
             icon={MapPin}
           >
@@ -114,7 +103,13 @@ export function V28DashboardPreviewPremium({
               <div className="absolute inset-0 opacity-20">
                 <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                   <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-slate-300"/>
+                    <path
+                      d="M 40 0 L 0 0 0 40"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="0.5"
+                      className="text-slate-300"
+                    />
                   </pattern>
                   <rect width="100%" height="100%" fill="url(#grid)" />
                 </svg>
@@ -128,7 +123,7 @@ export function V28DashboardPreviewPremium({
                   style={{
                     left: `${20 + idx * 15}%`,
                     top: `${30 + (idx % 2) * 20}%`,
-                    backgroundColor: pos.status === 'busy' ? '#ef4444' : '#22c55e',
+                    backgroundColor: pos.status === "busy" ? "#ef4444" : "#22c55e",
                   }}
                 >
                   <Car className="w-4 h-4 text-white" />
@@ -161,32 +156,27 @@ export function V28DashboardPreviewPremium({
 
         {/* Activity List */}
         <V28DashboardSection background="white" className="py-8">
-          <V28DashboardCard 
-            title="Letzte Aktivitäten" 
-            icon={Activity}
-          >
+          <V28DashboardCard title="Letzte Aktivitäten" icon={Activity}>
             <div className="space-y-3">
               {[
-                { time: 'vor 2 Min', text: 'Auftrag #5247 abgeschlossen', status: 'success' },
-                { time: 'vor 5 Min', text: 'Neuer Auftrag #5248 erstellt', status: 'info' },
-                { time: 'vor 12 Min', text: 'Fahrer zugewiesen #5246', status: 'info' },
-                { time: 'vor 18 Min', text: 'Auftrag #5245 abgeschlossen', status: 'success' },
+                { time: "vor 2 Min", text: "Auftrag #5247 abgeschlossen", status: "success" },
+                { time: "vor 5 Min", text: "Neuer Auftrag #5248 erstellt", status: "info" },
+                { time: "vor 12 Min", text: "Fahrer zugewiesen #5246", status: "info" },
+                { time: "vor 18 Min", text: "Auftrag #5245 abgeschlossen", status: "success" },
               ].map((activity, idx) => (
-                <div 
+                <div
                   key={idx}
                   className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className={`w-2 h-2 rounded-full ${
-                      activity.status === 'success' ? 'bg-green-500' : 'bg-blue-500'
-                    }`} />
-                    <span className="text-sm text-slate-900 font-medium">
-                      {activity.text}
-                    </span>
+                    <div
+                      className={`w-2 h-2 rounded-full ${
+                        activity.status === "success" ? "bg-green-500" : "bg-blue-500"
+                      }`}
+                    />
+                    <span className="text-sm text-slate-900 font-medium">{activity.text}</span>
                   </div>
-                  <span className="text-xs text-slate-600">
-                    {activity.time}
-                  </span>
+                  <span className="text-xs text-slate-600">{activity.time}</span>
                 </div>
               ))}
             </div>

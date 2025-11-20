@@ -16,35 +16,45 @@ Diese Writing Standards wurden 1:1 aus der Pricing Page V26.0 extrahiert und sin
 ## ✍️ TON & STIL (KERNPRINZIPIEN)
 
 ### 1. Prägnanz über Ausschweifung
+
 **Beispiel:** "Klar. Fair. Zukunftssicher."
+
 - Kurze, klare Sätze
 - Keine Füllwörter
 - Maximal 20 Wörter pro Satz (Durchschnitt: 12-15)
 - Punkt-Sätze für Überschriften
 
 ### 2. Direkte Ansprache
+
 **Beispiel:** "Entdecken Sie unsere flexiblen Tarife"
+
 - Sie-Form (formell, aber zugänglich)
 - Aktive Verben
 - Direkte Handlungsaufforderungen
 - Keine Passivkonstruktionen
 
 ### 3. Nutzenversprechen statt Features
+
 **Beispiel:** "Unbegrenzt erweiterbar. Sofort aktiv. Monatlich kündbar."
+
 - Nutzen zuerst, dann Features
 - Konkrete Vorteile statt abstrakte Beschreibungen
 - Messbare Werte wo möglich
 - Keine Marketingphrasen
 
 ### 4. Vertrauensbildung durch Transparenz
+
 **Beispiel:** "Alle Features und Leistungsmerkmale der Tarife im direkten Vergleich – transparent und übersichtlich."
+
 - Ehrliche Kommunikation
 - Keine versteckten Kosten
 - Klare Bedingungen
 - Fakten statt Versprechen
 
 ### 5. Professionell aber zugänglich
+
 **Beispiel:** "Passen Sie MyDispatch an Ihre Bedürfnisse an"
+
 - Fachbegriffe nur wenn nötig
 - Erklärungen bei komplexen Themen
 - Freundlicher, aber professioneller Ton
@@ -57,6 +67,7 @@ Diese Writing Standards wurden 1:1 aus der Pricing Page V26.0 extrahiert und sin
 ### Überschriften-Hierarchie
 
 #### H1 (Hauptüberschrift)
+
 ```
 Format: Kurz. Prägnant. Einprägsam.
 Länge: 3-6 Worte
@@ -65,6 +76,7 @@ Regel: Punkt-Sätze, keine Verben
 ```
 
 #### H2 (Sektionsüberschriften)
+
 ```
 Format: Beschreibend, aber kompakt
 Länge: 2-5 Worte
@@ -73,6 +85,7 @@ Regel: Nomen-Konstruktion, keine Verben
 ```
 
 #### H3 (Subsektionen)
+
 ```
 Format: Klar beschreibend
 Länge: 2-6 Worte
@@ -83,27 +96,30 @@ Regel: Feature/Produkt-Name
 ### Beschreibungen (Body Copy)
 
 #### Standard-Beschreibung
+
 ```
 Länge: 15-25 Worte
 Struktur: Nutzen → Details → Call-to-Action
-Beispiel: "Entwickelt für moderne Taxi- und Mietwagenunternehmen. 
+Beispiel: "Entwickelt für moderne Taxi- und Mietwagenunternehmen.
 Volle Kontrolle über Ihre Flotte. Jederzeit skalierbar."
 ```
 
 #### Feature-Beschreibung
+
 ```
 Länge: 10-20 Worte
 Struktur: Was → Wie → Wann
-Beispiel: "Pro zusätzlichem Fahrzeug oder Fahrer über die ersten 3 hinaus. 
+Beispiel: "Pro zusätzlichem Fahrzeug oder Fahrer über die ersten 3 hinaus.
 Unbegrenzt erweiterbar. Sofort aktiv. Monatlich kündbar."
 ```
 
 #### Detailbeschreibung
+
 ```
 Länge: 20-40 Worte
 Struktur: Problem → Lösung → Nutzen
-Beispiel: "Gemäß PBefG § 51 und Handelsrecht werden Auftragsdaten für 
-10 Jahre aufbewahrt. Personenbezogene Daten werden nach Vertragsende 
+Beispiel: "Gemäß PBefG § 51 und Handelsrecht werden Auftragsdaten für
+10 Jahre aufbewahrt. Personenbezogene Daten werden nach Vertragsende
 bzw. auf Antrag gemäß DSGVO gelöscht."
 ```
 
@@ -115,7 +131,9 @@ bzw. auf Antrag gemäß DSGVO gelöscht."
 
 ```css
 /* Überschriften: balance (gleichmäßige Zeilenverteilung) */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   text-wrap: balance;
 }
 
@@ -140,18 +158,21 @@ Feature-Listen: Max. 50 Zeichen
 ### Bevorzugte Konstruktionen
 
 #### Aktiv statt Passiv
+
 ```
 ❌ "Es wird ermöglicht, dass..."
 ✅ "Sie können..."
 ```
 
 #### Konkret statt abstrakt
+
 ```
 ❌ "Optimierte Prozesse für Effizienzsteigerung"
 ✅ "Sparen Sie 2 Stunden täglich durch automatisierte Abläufe"
 ```
 
 #### Nutzen statt Features
+
 ```
 ❌ "Cloud-basierte Architektur mit Hochverfügbarkeit"
 ✅ "Zugriff von überall. Immer verfügbar. Automatische Backups."
@@ -209,6 +230,7 @@ Zeiten: "24/7 verfügbar" (Kurzform)
 ## 🎯 CALL-TO-ACTION (CTA)
 
 ### Primäre CTAs
+
 ```
 Format: Imperativ + Nutzen
 Länge: 2-4 Worte
@@ -219,6 +241,7 @@ Beispiele:
 ```
 
 ### Sekundäre CTAs
+
 ```
 Format: Beschreibend + Einladend
 Länge: 2-5 Worte
@@ -229,6 +252,7 @@ Beispiele:
 ```
 
 ### Tertiäre CTAs (Links)
+
 ```
 Format: Kontext-bezogen
 Beispiel: "Weitere Details in unserer Datenschutzerklärung"

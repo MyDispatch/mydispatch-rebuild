@@ -4,20 +4,20 @@
    Automatisches Pingen, Response-Time-Tracking, Retry mit Exponential Backoff
    ================================================================================== */
 
-import { supabase } from '@/integrations/supabase/client';
-import { trackAPIError } from './error-tracker';
+import { supabase } from "@/integrations/supabase/client";
+import { trackAPIError } from "./error-tracker";
 
 export interface APIEndpoint {
   name: string;
   url: string;
-  method: 'GET' | 'POST';
+  method: "GET" | "POST";
   timeout?: number;
-  criticalityLevel: 'critical' | 'high' | 'medium' | 'low';
+  criticalityLevel: "critical" | "high" | "medium" | "low";
 }
 
 export interface HealthStatus {
   endpoint: string;
-  status: 'healthy' | 'degraded' | 'down';
+  status: "healthy" | "degraded" | "down";
   responseTime: number;
   lastChecked: string;
   errorCount: number;
@@ -47,12 +47,12 @@ class APIHealthMonitor {
   }
 
   private async checkAllEndpoints(endpoints: APIEndpoint[]): Promise<void> {
-    await Promise.allSettled(endpoints.map(e => this.checkEndpoint(e)));
+    await Promise.allSettled(endpoints.map((e) => this.checkEndpoint(e)));
   }
 
   private async checkEndpoint(endpoint: APIEndpoint): Promise<void> {
     let lastError: Error | null = null;
-    
+
     for (let attempt = 0; attempt <= this.MAX_RETRIES; attempt++) {
       try {
         const startTime = Date.now();
@@ -68,7 +68,11 @@ class APIHealthMonitor {
         const responseTime = Date.now() - startTime;
 
         if (response.ok) {
-          this.updateHealthStatus(endpoint.name, { status: 'healthy', responseTime, errorCount: 0 });
+          this.updateHealthStatus(endpoint.name, {
+            status: "healthy",
+            responseTime,
+            errorCount: 0,
+          });
           return;
         }
         throw new Error(`HTTP ${response.status}`);
@@ -79,16 +83,19 @@ class APIHealthMonitor {
     }
 
     if (lastError) {
-      this.updateHealthStatus(endpoint.name, { status: 'down', responseTime: -1, errorCount: 1 });
+      this.updateHealthStatus(endpoint.name, { status: "down", responseTime: -1, errorCount: 1 });
       await trackAPIError(endpoint.url, 0, lastError.message);
     }
   }
 
-  private updateHealthStatus(endpoint: string, updates: Partial<Omit<HealthStatus, 'endpoint' | 'lastChecked'>>): void {
+  private updateHealthStatus(
+    endpoint: string,
+    updates: Partial<Omit<HealthStatus, "endpoint" | "lastChecked">>
+  ): void {
     const existing = this.healthStatuses.get(endpoint);
     this.healthStatuses.set(endpoint, {
       endpoint,
-      status: updates.status || 'healthy',
+      status: updates.status || "healthy",
       responseTime: updates.responseTime ?? existing?.responseTime ?? 0,
       lastChecked: new Date().toISOString(),
       errorCount: (existing?.errorCount || 0) + (updates.errorCount || 0),
@@ -106,19 +113,19 @@ class APIHealthMonitor {
   isRateLimited(endpoint: string): boolean {
     const limit = this.rateLimits.get(endpoint);
     if (!limit) return false;
-    
+
     const now = Date.now();
     if (now >= limit.until) {
       this.rateLimits.delete(endpoint);
       return false;
     }
-    
+
     return true;
   }
 
   setRateLimit(endpoint: string, retryAfterSeconds: number): void {
     this.rateLimits.set(endpoint, {
-      until: Date.now() + (retryAfterSeconds * 1000),
+      until: Date.now() + retryAfterSeconds * 1000,
       retryAfter: retryAfterSeconds,
     });
   }
@@ -133,7 +140,7 @@ class APIHealthMonitor {
   }
 
   private delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
 

@@ -40,9 +40,13 @@
 4. ✅ Korrekte User-Data-Handling
 
 **Code:**
+
 ```typescript
 // Normalize email (handle comma instead of dot - common typo)
-const normalizedEmail = email.replace(/@gmail,com/g, '@gmail.com').toLowerCase().trim();
+const normalizedEmail = email
+  .replace(/@gmail,com/g, "@gmail.com")
+  .toLowerCase()
+  .trim();
 
 // Try with normalized email first
 const { data, error } = await supabase.auth.signInWithPassword({
@@ -51,10 +55,14 @@ const { data, error } = await supabase.auth.signInWithPassword({
 });
 
 // Master check with normalized email
-const normalizedEmailForCheck = (email || '').replace(/@gmail,com/g, '@gmail.com').toLowerCase().trim();
-const isMaster = userRoles?.role === 'master' || 
-                profile.role === 'master' || 
-                normalizedEmailForCheck === 'courbois1981@gmail.com';
+const normalizedEmailForCheck = (email || "")
+  .replace(/@gmail,com/g, "@gmail.com")
+  .toLowerCase()
+  .trim();
+const isMaster =
+  userRoles?.role === "master" ||
+  profile.role === "master" ||
+  normalizedEmailForCheck === "courbois1981@gmail.com";
 ```
 
 ---
@@ -88,6 +96,7 @@ const isMaster = userRoles?.role === 'master' ||
 **Integration:** `src/pages/Auth.tsx`
 
 **Features:**
+
 - ✅ Automatischer Versand nach Registrierung
 - ✅ Willkommensnachricht
 - ✅ Login-Daten
@@ -95,9 +104,10 @@ const isMaster = userRoles?.role === 'master' ||
 - ✅ Next Steps
 
 **Trigger:**
+
 ```typescript
 // Nach erfolgreicher Registrierung
-await supabase.functions.invoke('send-registration-confirmation', {
+await supabase.functions.invoke("send-registration-confirmation", {
   body: {
     user_id: authData.user.id,
     email: signupData.email,
@@ -129,19 +139,21 @@ await supabase.functions.invoke('send-registration-confirmation', {
 **Integration:** `src/lib/gdpr-export.ts`
 
 **Features:**
+
 - ✅ JSON-Export per E-Mail
 - ✅ PDF-Export per E-Mail (vorbereitet)
 - ✅ GDPR-konform (DSGVO Art. 15)
 - ✅ Automatischer Versand
 
 **Usage:**
+
 ```typescript
-import { sendDataExportEmail } from '@/lib/gdpr-export';
+import { sendDataExportEmail } from "@/lib/gdpr-export";
 
 await sendDataExportEmail(
   customerId,
   companyId,
-  'JSON', // or 'PDF'
+  "JSON", // or 'PDF'
   recipientEmail
 );
 ```
@@ -157,14 +169,16 @@ await sendDataExportEmail(
 **Library:** `src/lib/booking-pdf.ts`
 
 **Features:**
+
 - ✅ PDF-Generierung für Aufträge
 - ✅ Per E-Mail versenden
 - ✅ Professionelles Design (DIN A4)
 - ✅ Alle Auftragsdetails
 
 **Usage:**
+
 ```typescript
-import { sendBookingPDF } from '@/lib/booking-pdf';
+import { sendBookingPDF } from "@/lib/booking-pdf";
 
 await sendBookingPDF(
   bookingId,
@@ -184,6 +198,7 @@ await sendBookingPDF(
 **Status:** ✅ FUNKTIONIERT
 
 **Features:**
+
 - ✅ Webhook für externe GPS-Geräte
 - ✅ Device-ID → Driver-Zuordnung
 - ✅ Position-Updates in `driver_positions`
@@ -192,10 +207,12 @@ await sendBookingPDF(
 - ✅ DSGVO: Automatischer 24h-Delete
 
 **Tables:**
+
 - `gps_devices` - Device-ID → Driver-Zuordnung
 - `driver_positions` - Aktuelle Positionen
 
 **Flow:**
+
 ```
 GPS Device → Webhook → Device Lookup → Update Position → Brain Log
 ```
@@ -242,8 +259,8 @@ GPS Device → Webhook → Device Lookup → Update Position → Brain Log
 **Pascal, alle Lücken sind vollständig geschlossen!** ✅
 
 Das System ist jetzt vollumfänglich fertiggestellt für:
+
 - ✅ E-Mail-System (Registrierung, Zahlung, Passwort, Buchungen, Datenexport)
 - ✅ PDF-Versand (Aufträge)
 - ✅ GPS-Tracking
 - ✅ Login-Problem behoben
-

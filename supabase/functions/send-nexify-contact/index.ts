@@ -21,7 +21,7 @@ async function sendEmail(to: string[], subject: string, html: string, replyTo?: 
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${RESEND_API_KEY}`,
+      Authorization: `Bearer ${RESEND_API_KEY}`,
     },
     body: JSON.stringify({
       from: "MyDispatch NeXify <onboarding@resend.dev>",
@@ -46,7 +46,8 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { name, email, phone, company, service, message }: NexifyContactRequest = await req.json();
+    const { name, email, phone, company, service, message }: NexifyContactRequest =
+      await req.json();
 
     console.log("Processing NeXify contact from:", email);
 
@@ -56,7 +57,7 @@ const handler = async (req: Request): Promise<Response> => {
       database: "Datenbankanbindung (ab 490€)",
       api: "API-Verbindung (ab 699€)",
       automation: "Business Automatisierung",
-      other: "Sonstiges / Beratung"
+      other: "Sonstiges / Beratung",
     };
 
     const serviceName = service ? serviceNames[service] || service : "Nicht ausgewählt";
@@ -69,11 +70,11 @@ const handler = async (req: Request): Promise<Response> => {
         <h1>Neue NeXify Anfrage</h1>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>E-Mail:</strong> ${email}</p>
-        ${phone ? `<p><strong>Telefon:</strong> ${phone}</p>` : ''}
-        ${company ? `<p><strong>Unternehmen:</strong> ${company}</p>` : ''}
+        ${phone ? `<p><strong>Telefon:</strong> ${phone}</p>` : ""}
+        ${company ? `<p><strong>Unternehmen:</strong> ${company}</p>` : ""}
         <p><strong>Service:</strong> ${serviceName}</p>
         <p><strong>Nachricht:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
+        <p>${message.replace(/\n/g, "<br>")}</p>
       `,
       email
     );

@@ -386,10 +386,10 @@ WHERE id = 1;
 
 ```typescript
 // Self-Healing Query verwenden
-const result = await SelfHealing.query(
-  () => supabase.from("table").select("*"),
-  { operationName: "fetch_data", fallbackValue: [] }
-);
+const result = await SelfHealing.query(() => supabase.from("table").select("*"), {
+  operationName: "fetch_data",
+  fallbackValue: [],
+});
 
 // Fallback-Daten persistieren
 if (result.recovered) {

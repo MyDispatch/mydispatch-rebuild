@@ -119,13 +119,14 @@ async function logExecution(
 
 function log(level: string, message: string, data?: Record<string, unknown>) {
   const timestamp = new Date().toISOString();
-  const prefix = {
-    info: "ℹ️",
-    success: "✅",
-    warning: "⚠️",
-    error: "❌",
-    debug: "🔍",
-  }[level] || "•";
+  const prefix =
+    {
+      info: "ℹ️",
+      success: "✅",
+      warning: "⚠️",
+      error: "❌",
+      debug: "🔍",
+    }[level] || "•";
 
   console.log(`[${timestamp}] ${prefix} ${message}`);
   if (data) {
@@ -141,10 +142,7 @@ function log(level: string, message: string, data?: Record<string, unknown>) {
  * Get system configuration
  */
 async function getSystemConfig(): Promise<SystemConfig | null> {
-  const { data, error } = await supabase
-    .from("autonomous_system_config")
-    .select("*")
-    .single();
+  const { data, error } = await supabase.from("autonomous_system_config").select("*").single();
 
   if (error) {
     log("error", "Failed to get system config", { error });
@@ -412,19 +410,16 @@ async function executeLevel3Task(task: AutonomousTask): Promise<ExecutionResult>
     const changes = generateChanges(task);
 
     // Create GitKraken patch
-    const { data, error } = await supabase.functions.invoke(
-      "create-gitkraken-patch",
-      {
-        body: {
-          task_id: task.id,
-          repository: "MyDispatch/mydispatch-rebuild",
-          changes,
-          description: task.description,
-          priority: task.priority,
-          files_affected: (task.task_data?.files as string[]) || [],
-        },
-      }
-    );
+    const { data, error } = await supabase.functions.invoke("create-gitkraken-patch", {
+      body: {
+        task_id: task.id,
+        repository: "MyDispatch/mydispatch-rebuild",
+        changes,
+        description: task.description,
+        priority: task.priority,
+        files_affected: (task.task_data?.files as string[]) || [],
+      },
+    });
 
     if (error) {
       throw new Error(`Failed to create patch: ${error.message}`);

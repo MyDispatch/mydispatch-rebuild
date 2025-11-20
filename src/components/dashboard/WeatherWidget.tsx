@@ -4,20 +4,31 @@
    Zeigt erweiterte Wetterdaten mit mehr professionellen Metriken
    ================================================================================== */
 
-import { useEffect, useState } from 'react';
-import { handleError } from '@/lib/error-handler';
-import { formatDistance } from '@/lib';
-import { Cloud, CloudRain, CloudSnow, Sun, Wind, Droplets, Gauge, Eye, AlertCircle, MapPin } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
-import { supabase } from '@/integrations/supabase/client';
-import { Badge } from '@/lib/compat';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { useCompanyLocation } from '@/hooks/use-company-location';
-import { apiHealthMonitor } from '@/lib/api-health-monitor';
-import { toast } from '@/hooks/use-toast';
-import { V28Button } from '@/components/design-system/V28Button';
-import { useNavigate } from 'react-router-dom';
-import { isValidWeatherResponse, validateApiResponse } from '@/types/api-schemas';
+import { useEffect, useState } from "react";
+import { handleError } from "@/lib/error-handler";
+import { formatDistance } from "@/lib";
+import {
+  Cloud,
+  CloudRain,
+  CloudSnow,
+  Sun,
+  Wind,
+  Droplets,
+  Gauge,
+  Eye,
+  AlertCircle,
+  MapPin,
+} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/lib/compat";
+import { supabase } from "@/integrations/supabase/client";
+import { Badge } from "@/lib/compat";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useCompanyLocation } from "@/hooks/use-company-location";
+import { apiHealthMonitor } from "@/lib/api-health-monitor";
+import { toast } from "@/hooks/use-toast";
+import { V28Button } from "@/components/design-system/V28Button";
+import { useNavigate } from "react-router-dom";
+import { isValidWeatherResponse, validateApiResponse } from "@/types/api-schemas";
 
 interface WeatherData {
   temp: number;
@@ -62,8 +73,8 @@ export function WeatherWidget() {
 
     const fetchWeather = async () => {
       try {
-        if (apiHealthMonitor.isRateLimited('get-weather')) {
-          const retryAfter = apiHealthMonitor.getRetryAfter('get-weather');
+        if (apiHealthMonitor.isRateLimited("get-weather")) {
+          const retryAfter = apiHealthMonitor.getRetryAfter("get-weather");
           toast({
             title: "Wetterdaten limitiert",
             description: `Nächster Versuch in ${retryAfter}s möglich.`,
@@ -74,15 +85,15 @@ export function WeatherWidget() {
           return;
         }
 
-        const city = location?.city?.trim() || 'München';
-        
-        const { data, error } = await supabase.functions.invoke('get-weather', {
+        const city = location?.city?.trim() || "München";
+
+        const { data, error } = await supabase.functions.invoke("get-weather", {
           body: { city: String(city) },
         });
 
         if (error) {
-          if (error.message?.includes('429')) {
-            apiHealthMonitor.setRateLimit('get-weather', 60);
+          if (error.message?.includes("429")) {
+            apiHealthMonitor.setRateLimit("get-weather", 60);
             toast({
               title: "Zu viele Anfragen",
               description: "Automatischer Retry in 60s.",
@@ -98,14 +109,17 @@ export function WeatherWidget() {
 
         if (data) {
           // Validate response format
-          const validatedData = validateApiResponse(data, isValidWeatherResponse, 'Weather');
+          const validatedData = validateApiResponse(data, isValidWeatherResponse, "Weather");
           setWeather(validatedData);
           setError(false);
-          
-          localStorage.setItem(cacheKey, JSON.stringify({ 
-            data: validatedData, 
-            timestamp: Date.now() 
-          }));
+
+          localStorage.setItem(
+            cacheKey,
+            JSON.stringify({
+              data: validatedData,
+              timestamp: Date.now(),
+            })
+          );
         }
       } catch (err) {
         setError(true);
@@ -122,13 +136,13 @@ export function WeatherWidget() {
     if (!weather) return <Cloud className="h-6 w-6 text-muted-foreground" />;
 
     const desc = weather.description.toLowerCase();
-    if (desc.includes('regen') || desc.includes('rain')) {
+    if (desc.includes("regen") || desc.includes("rain")) {
       return <CloudRain className="h-6 w-6 text-foreground" />;
     }
-    if (desc.includes('schnee') || desc.includes('snow')) {
+    if (desc.includes("schnee") || desc.includes("snow")) {
       return <CloudSnow className="h-6 w-6 text-muted-foreground" />;
     }
-    if (desc.includes('wolke') || desc.includes('cloud')) {
+    if (desc.includes("wolke") || desc.includes("cloud")) {
       return <Cloud className="h-6 w-6 text-muted-foreground" />;
     }
     return <Sun className="h-6 w-6 text-foreground" />;
@@ -139,10 +153,10 @@ export function WeatherWidget() {
     const desc = weather.description.toLowerCase();
     return (
       weather.temp < 0 ||
-      desc.includes('schnee') ||
-      desc.includes('snow') ||
-      desc.includes('gewitter') ||
-      desc.includes('thunder')
+      desc.includes("schnee") ||
+      desc.includes("snow") ||
+      desc.includes("gewitter") ||
+      desc.includes("thunder")
     );
   };
 
@@ -153,17 +167,18 @@ export function WeatherWidget() {
           <div className="flex items-center justify-between">
             <CardTitle className="text-[10px] font-semibold text-foreground uppercase tracking-wider flex items-center gap-1.5">
               <Cloud className="h-4 w-4 text-foreground" />
-              {location?.city || 'Wetter'}
+              {location?.city || "Wetter"}
             </CardTitle>
-            <Badge variant="secondary" className="text-[9px] px-1.5 py-0.5 bg-status-success/10 text-status-success border-status-success/20">
+            <Badge
+              variant="secondary"
+              className="text-[9px] px-1.5 py-0.5 bg-status-success/10 text-status-success border-status-success/20"
+            >
               Live
             </Badge>
           </div>
         </CardHeader>
         <CardContent className="flex-1 flex items-center justify-center pb-4">
-          <div className="animate-pulse text-muted-foreground text-xs">
-            Lädt Wetterdaten...
-          </div>
+          <div className="animate-pulse text-muted-foreground text-xs">Lädt Wetterdaten...</div>
         </CardContent>
       </Card>
     );
@@ -175,9 +190,12 @@ export function WeatherWidget() {
         <div className="flex items-center justify-between">
           <CardTitle className="text-[10px] font-semibold text-foreground uppercase tracking-wider flex items-center gap-1.5">
             <Cloud className="h-4 w-4 text-foreground" />
-            {location?.city || 'Wetter'}
+            {location?.city || "Wetter"}
           </CardTitle>
-          <Badge variant="secondary" className="text-[9px] px-1.5 py-0.5 bg-status-success/10 text-status-success border-status-success/20">
+          <Badge
+            variant="secondary"
+            className="text-[9px] px-1.5 py-0.5 bg-status-success/10 text-status-success border-status-success/20"
+          >
             Live
           </Badge>
         </div>
@@ -187,9 +205,7 @@ export function WeatherWidget() {
           <div className="flex flex-col items-center justify-center h-full gap-3 px-4 py-6">
             <MapPin className="h-6 w-6 text-muted-foreground" />
             <div className="text-center space-y-1">
-              <p className="text-xs font-medium text-foreground">
-                GPS-Koordinaten fehlen
-              </p>
+              <p className="text-xs font-medium text-foreground">GPS-Koordinaten fehlen</p>
               <p className="text-[10px] text-muted-foreground">
                 Bitte hinterlegen Sie Ihre Firmenadresse
               </p>
@@ -198,7 +214,7 @@ export function WeatherWidget() {
               size="sm"
               variant="secondary"
               className="text-[11px] h-8 px-3"
-              onClick={() => navigate('/einstellungen?tab=standort')}
+              onClick={() => navigate("/einstellungen?tab=standort")}
             >
               Jetzt einrichten
             </V28Button>
@@ -207,7 +223,9 @@ export function WeatherWidget() {
           <>
             <div className="flex items-center justify-between mb-2">
               <div>
-                <p className="text-3xl font-bold text-foreground tracking-tight">{weather?.temp}°C</p>
+                <p className="text-3xl font-bold text-foreground tracking-tight">
+                  {weather?.temp}°C
+                </p>
                 <p className="text-[11px] text-muted-foreground capitalize mt-1">
                   {weather?.description}
                 </p>
@@ -221,17 +239,19 @@ export function WeatherWidget() {
                 <div>
                   <p className="text-[9px] text-muted-foreground">Luftfeucht.</p>
                   <p className="text-[11px] font-semibold text-foreground">
-                    {weather?.humidity || 'N/A'}%
+                    {weather?.humidity || "N/A"}%
                   </p>
                 </div>
               </div>
-              
+
               <div className="flex items-center gap-1.5 p-1.5 rounded-md bg-card border">
                 <Wind className="h-4 w-4 text-foreground flex-shrink-0" />
                 <div>
                   <p className="text-[9px] text-muted-foreground">Wind</p>
                   <p className="text-[11px] font-semibold text-foreground">
-                    {(weather?.wind_speed || weather?.windSpeed) ? `${Math.round(weather.wind_speed || weather.windSpeed || 0)} km/h` : 'N/A'}
+                    {weather?.wind_speed || weather?.windSpeed
+                      ? `${Math.round(weather.wind_speed || weather.windSpeed || 0)} km/h`
+                      : "N/A"}
                   </p>
                 </div>
               </div>
@@ -241,7 +261,7 @@ export function WeatherWidget() {
                 <div>
                   <p className="text-[9px] text-muted-foreground">Luftdruck</p>
                   <p className="text-[11px] font-semibold text-foreground">
-                    {weather?.pressure || 'N/A'} hPa
+                    {weather?.pressure || "N/A"} hPa
                   </p>
                 </div>
               </div>
@@ -251,7 +271,7 @@ export function WeatherWidget() {
                 <div>
                   <p className="text-[9px] text-muted-foreground">Sicht</p>
                   <p className="text-[11px] font-semibold text-foreground">
-                    {weather?.visibility ? formatDistance(weather.visibility) : 'N/A'}
+                    {weather?.visibility ? formatDistance(weather.visibility) : "N/A"}
                   </p>
                 </div>
               </div>

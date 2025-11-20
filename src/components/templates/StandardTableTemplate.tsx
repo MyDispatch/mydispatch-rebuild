@@ -9,14 +9,21 @@
    ✅ Responsive Design
    ================================================================================== */
 
-import { ReactNode, memo } from 'react';
-import { format } from 'date-fns';
-import { de } from 'date-fns/locale';
-import { Eye } from 'lucide-react';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { EmptyState } from '@/components/shared/EmptyState';
+import { ReactNode, memo } from "react";
+import { format } from "date-fns";
+import { de } from "date-fns/locale";
+import { Eye } from "lucide-react";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { EmptyState } from "@/components/shared/EmptyState";
 
 export interface TableColumn<T> {
   key: keyof T | string;
@@ -60,23 +67,17 @@ function StandardTableTemplateComponent<T extends { id: string; created_at: stri
   onToggleSelection,
   onToggleSelectAll,
   showBulkSelect = false,
-  emptyTitle = 'Keine Einträge gefunden',
-  emptyDescription = 'Es sind noch keine Einträge vorhanden',
+  emptyTitle = "Keine Einträge gefunden",
+  emptyDescription = "Es sind noch keine Einträge vorhanden",
   emptyIcon,
   showCreatedAt = true, // V18.3: Default true für Rechtssicherheit
 }: StandardTableTemplateProps<T>) {
   // Check if all items are selected
-  const isAllSelected = data.length > 0 && data.every(item => selectedIds.includes(item.id));
+  const isAllSelected = data.length > 0 && data.every((item) => selectedIds.includes(item.id));
   const isSomeSelected = selectedIds.length > 0 && !isAllSelected;
 
   if (data.length === 0) {
-    return (
-      <EmptyState
-        icon={emptyIcon}
-        title={emptyTitle}
-        description={emptyDescription}
-      />
-    );
+    return <EmptyState icon={emptyIcon} title={emptyTitle} description={emptyDescription} />;
   }
 
   return (
@@ -90,7 +91,9 @@ function StandardTableTemplateComponent<T extends { id: string; created_at: stri
                 <Checkbox
                   checked={isAllSelected}
                   onCheckedChange={onToggleSelectAll}
-                  className={isSomeSelected && !isAllSelected ? "data-[state=checked]:bg-primary" : ""}
+                  className={
+                    isSomeSelected && !isAllSelected ? "data-[state=checked]:bg-primary" : ""
+                  }
                   aria-label="Alle auswählen"
                 />
               </TableHead>
@@ -98,25 +101,18 @@ function StandardTableTemplateComponent<T extends { id: string; created_at: stri
 
             {/* Spalten-Header */}
             {columns.map((column) => (
-              <TableHead
-                key={String(column.key)}
-                className={column.className}
-              >
+              <TableHead key={String(column.key)} className={column.className}>
                 {column.header}
               </TableHead>
             ))}
 
             {/* V18.3: Rechtlich erforderlich - Eingangsdatum IMMER anzeigen */}
             {showCreatedAt && (
-              <TableHead className="w-[140px] hidden xl:table-cell">
-                Eingegangen
-              </TableHead>
+              <TableHead className="w-[140px] hidden xl:table-cell">Eingegangen</TableHead>
             )}
 
             {/* Detail-Button Spalte (IMMER am Ende) */}
-            <TableHead className="w-[100px] text-center">
-              Details
-            </TableHead>
+            <TableHead className="w-[100px] text-center">Details</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -142,20 +138,17 @@ function StandardTableTemplateComponent<T extends { id: string; created_at: stri
 
                 {/* Spalten-Content */}
                 {columns.map((column) => (
-                  <TableCell
-                    key={String(column.key)}
-                    className={column.className}
-                  >
+                  <TableCell key={String(column.key)} className={column.className}>
                     {column.render
                       ? column.render(item)
-                      : String(item[column.key as keyof T] || '-')}
+                      : String(item[column.key as keyof T] || "-")}
                   </TableCell>
                 ))}
 
                 {/* V18.3: Rechtlich erforderlich - Eingangszeitstempel */}
                 {showCreatedAt && (
                   <TableCell className="text-xs text-muted-foreground hidden xl:table-cell">
-                    {format(new Date(item.created_at), 'dd.MM.yyyy HH:mm', { locale: de })}
+                    {format(new Date(item.created_at), "dd.MM.yyyy HH:mm", { locale: de })}
                   </TableCell>
                 )}
 
@@ -180,4 +173,6 @@ function StandardTableTemplateComponent<T extends { id: string; created_at: stri
   );
 }
 
-export const StandardTableTemplate = memo(StandardTableTemplateComponent) as typeof StandardTableTemplateComponent;
+export const StandardTableTemplate = memo(
+  StandardTableTemplateComponent
+) as typeof StandardTableTemplateComponent;

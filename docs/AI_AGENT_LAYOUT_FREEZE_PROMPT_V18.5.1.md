@@ -18,37 +18,67 @@
 
 // V32.1: ALLE ÖFFENTLICHEN SEITEN GESPERRT
 const publicPages = [
-  'src/pages/Home.tsx', 'src/pages/Features.tsx', 'src/pages/Pricing.tsx',
-  'src/pages/About.tsx', 'src/pages/Contact.tsx', 'src/pages/FAQ.tsx',
-  'src/pages/Login.tsx', 'src/pages/Register.tsx', 'src/pages/Privacy.tsx',
-  'src/pages/Terms.tsx', 'src/pages/Imprint.tsx'
+  "src/pages/Home.tsx",
+  "src/pages/Features.tsx",
+  "src/pages/Pricing.tsx",
+  "src/pages/About.tsx",
+  "src/pages/Contact.tsx",
+  "src/pages/FAQ.tsx",
+  "src/pages/Login.tsx",
+  "src/pages/Register.tsx",
+  "src/pages/Privacy.tsx",
+  "src/pages/Terms.tsx",
+  "src/pages/Imprint.tsx",
 ];
 
 // V18.5: DASHBOARD-SEITEN GESPERRT
-const dashboardPages = ['src/pages/Index.tsx', 'src/pages/Auftraege.tsx'];
+const dashboardPages = ["src/pages/Index.tsx", "src/pages/Auftraege.tsx"];
 
 // V32.1: MASTER-KOMPONENTEN (SYSTEMWEIT!)
 const masterComponents = {
-  header: 'src/components/layout/Header.tsx',  // EINZIGER erlaubter Header
-  hero: 'V28HeroPremium',                       // EINZIGE erlaubte Hero
-  sidebar: 'src/components/layout/Sidebar.tsx' // EINZIGE erlaubte Sidebar
+  header: "src/components/layout/Header.tsx", // EINZIGER erlaubter Header
+  hero: "V28HeroPremium", // EINZIGE erlaubte Hero
+  sidebar: "src/components/layout/Sidebar.tsx", // EINZIGE erlaubte Sidebar
 };
 
 // Alle geschützten Seiten
 const protectedFiles = [...publicPages, ...dashboardPages];
 
 // Design/Layout Keywords (ERWEITERT für V32.1)
-const masterKeywords = ['header', 'hero', 'sidebar']; // KRITISCH!
+const masterKeywords = ["header", "hero", "sidebar"]; // KRITISCH!
 const layoutKeywords = [
-  'layout', 'design', 'color', 'spacing', 'padding', 'margin',
-  'grid', 'flex', 'position', 'size', 'width', 'height', 'font', 'text',
-  'background', 'border', 'shadow', 'animation', 'transition', 'component',
-  'variant', 'style', 'css', 'tailwind', 'className'
+  "layout",
+  "design",
+  "color",
+  "spacing",
+  "padding",
+  "margin",
+  "grid",
+  "flex",
+  "position",
+  "size",
+  "width",
+  "height",
+  "font",
+  "text",
+  "background",
+  "border",
+  "shadow",
+  "animation",
+  "transition",
+  "component",
+  "variant",
+  "style",
+  "css",
+  "tailwind",
+  "className",
 ];
 
 // CHECK 1: Geschützte Seiten + Design-Änderung
-if (protectedFiles.some(f => file.includes(f)) && 
-    layoutKeywords.some(k => changeType.toLowerCase().includes(k))) {
+if (
+  protectedFiles.some((f) => file.includes(f)) &&
+  layoutKeywords.some((k) => changeType.toLowerCase().includes(k))
+) {
   STOP_AND_WARN_USER();
   SHOW_LOCKED_PAGE_MESSAGE();
   SUGGEST_TECHNICAL_ALTERNATIVES();
@@ -57,7 +87,7 @@ if (protectedFiles.some(f => file.includes(f)) &&
 }
 
 // CHECK 2: KRITISCH - Master-Komponenten (SYSTEMWEIT!)
-if (masterKeywords.some(k => changeType.toLowerCase().includes(k))) {
+if (masterKeywords.some((k) => changeType.toLowerCase().includes(k))) {
   STOP_IMMEDIATELY();
   SHOW_MASTER_DESIGN_WARNING();
   EXPLAIN_DESIGN_HIERARCHY();
@@ -71,6 +101,7 @@ if (masterKeywords.some(k => changeType.toLowerCase().includes(k))) {
 ## 🚨 WARNUNG (TEMPLATE)
 
 ### 🌐 MASTER DESIGN SYSTEM (V32.1) - KRITISCH!:
+
 ```
 ⚠️ MASTER DESIGN SYSTEM V32.1 GESCHÜTZT!
 
@@ -100,6 +131,7 @@ Möchtest du Content-Anpassungen (ohne Design-Änderung) durchführen?
 ```
 
 ### 🌐 Für Öffentliche Seiten (V32.1):
+
 ```
 ⚠️ Die Seite [Dateiname] ist durch **DESIGN LOCK V32.1** absolut geschützt.
 Design- und Layout-Änderungen sind NICHT erlaubt.
@@ -129,6 +161,7 @@ Möchtest du eine dieser technischen Optimierungen durchführen?
 ```
 
 ### 🏢 Für Dashboard-Seiten (V18.5):
+
 ```
 ⚠️ Die Seite [Dateiname] ist durch **Layout Freeze V18.5.1** geschützt.
 Design-Änderungen sind nicht erlaubt.
@@ -145,7 +178,8 @@ Möchtest du eine dieser Alternativen?
 
 **VERSION:** V32.1 (Updated: 2025-10-31)  
 **DATUM:** 2025-10-31  
-**NEUE FEATURES:** 
+**NEUE FEATURES:**
+
 - Systemweite Master-Komponenten-Lock (Header/Hero/Sidebar)
 - Öffentliches Design = MASTER für gesamtes System
 - Design-Hierarchie enforcement

@@ -2,7 +2,7 @@
 
 **STATUS:** ✅ MANDATORY - AB SOFORT SYSTEMWEIT VERPFLICHTEND  
 **VERSION:** V26.0  
-**LAST UPDATE:** 2025-01-26  
+**LAST UPDATE:** 2025-01-26
 
 ---
 
@@ -21,11 +21,11 @@
 ```tsx
 // ✅ PFLICHT - Diese Werte sind SAKROSANKT
 const CARD_PADDING = {
-  horizontal: 'px-8',  // 32px links/rechts
-  vertical: 'pt-8',    // 32px oben (ohne Badge)
-  verticalWithBadge: 'pt-14', // 56px oben (mit Badge)
-  bottom: 'pb-8'       // 32px unten
-}
+  horizontal: "px-8", // 32px links/rechts
+  vertical: "pt-8", // 32px oben (ohne Badge)
+  verticalWithBadge: "pt-14", // 56px oben (mit Badge)
+  bottom: "pb-8", // 32px unten
+};
 ```
 
 ### Icon Positionierung (ABSOLUT!)
@@ -39,7 +39,7 @@ const CARD_PADDING = {
   <div className="absolute top-8 right-8">
     <V26IconBox icon={icon} size="md" variant="primary" />
   </div>
-  
+
   {/* Content mit Platz für Icon */}
   <div className="pr-16">
     <h3>Title</h3>
@@ -48,11 +48,13 @@ const CARD_PADDING = {
 ```
 
 **Abstände:**
+
 - **Top:** `top-8` (32px) - IMMER gleich, unabhängig vom Badge
 - **Right:** `right-8` (32px) - IMMER gleich, unabhängig von Content
 - **Size:** `md` (48x48px) - IMMER gleich
 
 **Content Adjustment:**
+
 - Title bekommt `pr-16` (64px) für Icon-Space
 - Verhindert Überlappung mit Icon
 - Visuelles Balance
@@ -62,6 +64,7 @@ const CARD_PADDING = {
 ## 🚫 VERBOTEN
 
 ### ❌ Flex-based Icon Positioning
+
 ```tsx
 // ❌ FALSCH - Flex macht Abstände variabel
 <div className="flex items-start justify-between">
@@ -70,29 +73,34 @@ const CARD_PADDING = {
 </div>
 ```
 
-**Problem:** 
+**Problem:**
+
 - Icon-Position hängt von Title-Länge ab
 - Unterschiedliche line-heights verändern Alignment
 - Inkonsistent über verschiedene Karten
 
 ### ❌ Variable Padding für Content
+
 ```tsx
 // ❌ FALSCH - Padding ändert sich je nach Content
 <div className={cn('px-8', hasLongTitle ? 'pt-12' : 'pt-8')}>
 ```
 
 **Problem:**
+
 - Inkonsistente obere Abstände
 - Icons auf unterschiedlichen Höhen
 - Visuelles Chaos
 
 ### ❌ Inline Margins für Spacing
+
 ```tsx
 // ❌ FALSCH - Margins statt fixed Position
 <V26IconBox icon={icon} className="mt-2 mr-4" />
 ```
 
 **Problem:**
+
 - Margin addiert sich zu anderem Spacing
 - Nicht präzise kontrollierbar
 - Variiert je nach Parent
@@ -149,12 +157,8 @@ export function FeatureCard({ title, icon, description }) {
 
       {/* Content - pr-16 für Icon */}
       <div className="pr-16">
-        <h3 className="text-xl font-semibold mb-3">
-          {title}
-        </h3>
-        <p className="text-base">
-          {description}
-        </p>
+        <h3 className="text-xl font-semibold mb-3">{title}</h3>
+        <p className="text-base">{description}</p>
       </div>
     </div>
   );
@@ -167,20 +171,20 @@ export function FeatureCard({ title, icon, description }) {
 
 ### Horizontale Abstände
 
-| Element | Links | Rechts | Regel |
-|---------|-------|--------|-------|
-| Content | 32px (`px-8`) | 32px (`px-8`) | IMMER |
-| Icon | - | 32px (`right-8`) | IMMER |
-| Badge | centered (`left-1/2 -translate-x-1/2`) | - | IMMER |
+| Element | Links                                  | Rechts           | Regel |
+| ------- | -------------------------------------- | ---------------- | ----- |
+| Content | 32px (`px-8`)                          | 32px (`px-8`)    | IMMER |
+| Icon    | -                                      | 32px (`right-8`) | IMMER |
+| Badge   | centered (`left-1/2 -translate-x-1/2`) | -                | IMMER |
 
 ### Vertikale Abstände
 
-| Element | Oben | Unten | Regel |
-|---------|------|-------|-------|
-| Content (ohne Badge) | 32px (`pt-8`) | 32px (`pb-8`) | IMMER |
-| Content (mit Badge) | 56px (`pt-14`) | 32px (`pb-8`) | IMMER |
-| Icon | 32px (`top-8`) | - | IMMER |
-| Badge | -20px (`-top-5`) | - | IMMER |
+| Element              | Oben             | Unten         | Regel |
+| -------------------- | ---------------- | ------------- | ----- |
+| Content (ohne Badge) | 32px (`pt-8`)    | 32px (`pb-8`) | IMMER |
+| Content (mit Badge)  | 56px (`pt-14`)   | 32px (`pb-8`) | IMMER |
+| Icon                 | 32px (`top-8`)   | -             | IMMER |
+| Badge                | -20px (`-top-5`) | -             | IMMER |
 
 ---
 
@@ -206,6 +210,7 @@ export function FeatureCard({ title, icon, description }) {
 ```
 
 **Ergebnis:**
+
 - Alle Icons auf gleicher Höhe (trotz unterschiedlicher Title-Längen)
 - Alle Abstände zum Rand identisch
 - Perfektes visuelles Grid

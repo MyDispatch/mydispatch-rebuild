@@ -12,17 +12,17 @@ MyDispatch bietet ein **3-Tier-System** (Starter, Business, Enterprise) mit diff
 
 ### **TARIF-MATRIX (LANDINGPAGE)**
 
-| Feature | Starter | Business | Enterprise |
-|---------|---------|----------|------------|
-| **Landingpage verfügbar** | ✅ JA | ✅ JA | ✅ JA |
-| **Gebrandetes Design** | ✅ Logo, Farbe | ✅ Logo, Farbe | ✅ Logo, Farbe |
-| **Unternehmer/Fahrer-Login** | ✅ JA | ✅ JA | ✅ JA |
-| **Buchungswidget** | ❌ NEIN | ✅ JA | ✅ JA |
-| **Kunden-Registrierung** | ❌ NEIN | ✅ JA | ✅ JA |
-| **Kunden-Login-Portal** | ❌ NEIN | ✅ JA | ✅ JA |
-| **AI-Chatbot** | ❌ NEIN | ✅ JA | ✅ JA |
-| **Rechtliche Popups** | ✅ JA | ✅ JA | ✅ JA |
-| **Footer "Powered by MyDispatch"** | ✅ MIT Link | ✅ MIT Link | ❌ KEIN Link |
+| Feature                            | Starter        | Business       | Enterprise     |
+| ---------------------------------- | -------------- | -------------- | -------------- |
+| **Landingpage verfügbar**          | ✅ JA          | ✅ JA          | ✅ JA          |
+| **Gebrandetes Design**             | ✅ Logo, Farbe | ✅ Logo, Farbe | ✅ Logo, Farbe |
+| **Unternehmer/Fahrer-Login**       | ✅ JA          | ✅ JA          | ✅ JA          |
+| **Buchungswidget**                 | ❌ NEIN        | ✅ JA          | ✅ JA          |
+| **Kunden-Registrierung**           | ❌ NEIN        | ✅ JA          | ✅ JA          |
+| **Kunden-Login-Portal**            | ❌ NEIN        | ✅ JA          | ✅ JA          |
+| **AI-Chatbot**                     | ❌ NEIN        | ✅ JA          | ✅ JA          |
+| **Rechtliche Popups**              | ✅ JA          | ✅ JA          | ✅ JA          |
+| **Footer "Powered by MyDispatch"** | ✅ MIT Link    | ✅ MIT Link    | ❌ KEIN Link   |
 
 ---
 
@@ -70,8 +70,10 @@ Gebrandete Landingpage System
 ```typescript
 export function isEnterpriseTier(productId: string | null | undefined): boolean {
   if (!productId) return false;
-  return (PRODUCT_IDS.enterprise as readonly string[]).includes(productId) || 
-         productId.toLowerCase().includes('enterprise');
+  return (
+    (PRODUCT_IDS.enterprise as readonly string[]).includes(productId) ||
+    productId.toLowerCase().includes("enterprise")
+  );
 }
 ```
 
@@ -80,6 +82,7 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 ✅ **NEUE KOMPONENTE:** `LegalDialog`
 
 **Features:**
+
 - **Impressum:** § 5 TMG, EU-Streitschlichtung
 - **Datenschutz:** DSGVO-konform, SSL/TLS, Hosting
 - **AGB:** §§ 1-9 (Vertragsrecht, Haftung, Stornierung)
@@ -91,22 +94,28 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 ✅ **AKTUALISIERT:**
 
 **Neue Features:**
+
 - **Rechtliche Popups:** Buttons öffnen `LegalDialog` statt externe Links
 - **Footer-Logik:** Enterprise-Accounts haben KEINEN "Powered by MyDispatch" Link
 - **Tarif-Checks:** Verwendet zentrale Utils (`isBusinessTier`, `isEnterpriseTier`)
 - **Icons:** FileText, Shield, Scale für Rechtliche Links
 
 **Footer-Code:**
+
 ```jsx
-{/* Powered by MyDispatch - NUR Starter/Business, NICHT Enterprise */}
-{!isEnterprise && (
-  <p className="text-xs text-muted-foreground mt-4">
-    Powered by{' '}
-    <a href="/home" className="hover:text-foreground">
-      MyDispatch
-    </a>
-  </p>
-)}
+{
+  /* Powered by MyDispatch - NUR Starter/Business, NICHT Enterprise */
+}
+{
+  !isEnterprise && (
+    <p className="text-xs text-muted-foreground mt-4">
+      Powered by{" "}
+      <a href="/home" className="hover:text-foreground">
+        MyDispatch
+      </a>
+    </p>
+  );
+}
 ```
 
 ### **4. Auth.tsx (Login/Registrierung)**
@@ -114,6 +123,7 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 ✅ **BESTEHT BEREITS:**
 
 **Gebrandeter Modus:**
+
 - Query-Parameter: `?company=<id>`
 - Lädt Company-Branding (Logo, Farbe)
 - Header wird gebranded
@@ -137,15 +147,15 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 
     {/* Rechtliche Links - POPUPS statt externe Links */}
     <div className="flex flex-wrap justify-center gap-4 mt-2">
-      <button onClick={() => setLegalDialog('impressum')}>
+      <button onClick={() => setLegalDialog("impressum")}>
         <FileText className="h-3 w-3" />
         Impressum
       </button>
-      <button onClick={() => setLegalDialog('datenschutz')}>
+      <button onClick={() => setLegalDialog("datenschutz")}>
         <Shield className="h-3 w-3" />
         Datenschutz
       </button>
-      <button onClick={() => setLegalDialog('agb')}>
+      <button onClick={() => setLegalDialog("agb")}>
         <Scale className="h-3 w-3" />
         AGB
       </button>
@@ -165,7 +175,7 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 
 ```jsx
 <LegalDialog
-  open={legalDialog === 'impressum'}
+  open={legalDialog === "impressum"}
   onOpenChange={() => setLegalDialog(null)}
   type="impressum"
   companyName={company.name}
@@ -174,6 +184,7 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 ```
 
 **Dialog-Features:**
+
 - `max-w-2xl`: Optimale Breite
 - `max-h-[80vh]`: Maximale Höhe 80% Viewport
 - `ScrollArea`: Scrollbar bei langen Texten
@@ -184,12 +195,14 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 ## 🔐 DSGVO & RECHTLICHE KONFORMITÄT
 
 ### **Impressum (§ 5 TMG)**
+
 - ✅ Unternehmensangaben
 - ✅ Kontaktdaten
 - ✅ EU-Streitschlichtung (https://ec.europa.eu/consumers/odr)
 - ✅ Haftungsausschluss (§§ 7-10 TMG)
 
 ### **Datenschutzerklärung (DSGVO)**
+
 - ✅ Art. 13 DSGVO (Informationspflichten)
 - ✅ SSL/TLS-Verschlüsselung
 - ✅ Hosting-Hinweise
@@ -197,6 +210,7 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 - ✅ Buchungsanfragen-Datenverarbeitung
 
 ### **AGB (§§ 305 ff. BGB)**
+
 - ✅ Geltungsbereich
 - ✅ Vertragsschluss
 - ✅ Leistungsumfang
@@ -213,9 +227,9 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 ### **CI-Farben (UNVERÄNDERLICH)**
 
 ```css
---primary: 40 31% 88%;       /* #EADEBD - Beige/Gold */
---foreground: 225 31% 28%;   /* #323D5E - Dunkelgrau/Blau */
---accent: 31 26% 38%;        /* #856d4b - Braun/Gold */
+--primary: 40 31% 88%; /* #EADEBD - Beige/Gold */
+--foreground: 225 31% 28%; /* #323D5E - Dunkelgrau/Blau */
+--accent: 31 26% 38%; /* #856d4b - Braun/Gold */
 ```
 
 ### **Gebrandete Elemente**
@@ -229,11 +243,11 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 
 ## 📊 TARIF-VERGLEICH
 
-| Tarif | Preis/Monat | Landingpage | Buchungswidget | Footer-Link |
-|-------|-------------|-------------|----------------|-------------|
-| **Starter** | 39€ | ✅ Info-only | ❌ | ✅ MIT Link |
-| **Business** | 99€ | ✅ Full-Featured | ✅ | ✅ MIT Link |
-| **Enterprise** | Custom | ✅ Full-Featured | ✅ | ❌ KEIN Link |
+| Tarif          | Preis/Monat | Landingpage      | Buchungswidget | Footer-Link  |
+| -------------- | ----------- | ---------------- | -------------- | ------------ |
+| **Starter**    | 39€         | ✅ Info-only     | ❌             | ✅ MIT Link  |
+| **Business**   | 99€         | ✅ Full-Featured | ✅             | ✅ MIT Link  |
+| **Enterprise** | Custom      | ✅ Full-Featured | ✅             | ❌ KEIN Link |
 
 ---
 
@@ -252,6 +266,7 @@ https://mydispatch.de/auth?company=<company-id>
 ```
 
 **Automatisch gebrandet:**
+
 - Logo aus Company-Entity
 - Primary-Color aus Company-Entity
 - "Zurück zur Landingpage" Button
@@ -260,9 +275,7 @@ https://mydispatch.de/auth?company=<company-id>
 
 ```jsx
 // Automatisch über Footer-Buttons
-<button onClick={() => setLegalDialog('impressum')}>
-  Impressum
-</button>
+<button onClick={() => setLegalDialog("impressum")}>Impressum</button>
 ```
 
 ---
@@ -275,19 +288,19 @@ graph TD
     B -->|Starter| C[Info-only: Telefon/E-Mail]
     B -->|Business| D[Buchungswidget + AI-Chat]
     B -->|Enterprise| E[Wie Business + kein Footer-Link]
-    
+
     C --> F[Unternehmer-Login Button]
     D --> F
     E --> F
-    
+
     F --> G[Auth.tsx mit Company-Branding]
     G --> H[Login Success]
     H --> I[Redirect zu Dashboard]
-    
+
     C --> J[Rechtliche Links im Footer]
     D --> J
     E --> J
-    
+
     J --> K[LegalDialog öffnet sich]
     K --> L[Impressum/Datenschutz/AGB]
 ```
@@ -297,14 +310,17 @@ graph TD
 ## 📁 DATEIEN
 
 ### **Neu erstellt:**
+
 - `src/components/shared/LegalDialog.tsx` ⭐ NEU
 
 ### **Aktualisiert:**
+
 - `src/lib/subscription-utils.ts` (isEnterpriseTier)
 - `src/pages/Unternehmer.tsx` (Footer-Logik, Rechtliche Dialoge)
 - `MASTER_PROMPT_V18.2.md` (Version 18.2.2, AI-System-Memory)
 
 ### **Bestehend (unverändert):**
+
 - `src/pages/Auth.tsx` (bereits gebrandet via ?company=<id>)
 - `src/pages/LandingpageKonfigurator.tsx`
 - `src/hooks/use-account-type.tsx`
@@ -315,6 +331,7 @@ graph TD
 ## ✅ QUALITÄTSSICHERUNG
 
 ### **Checkliste:**
+
 - ✅ Tarif-Checks zentral in `subscription-utils.ts`
 - ✅ Enterprise-Tarif erkennt fehlenden Footer-Link
 - ✅ Rechtliche Dialoge DSGVO-konform
@@ -327,6 +344,7 @@ graph TD
 - ✅ SEO-optimiert (Meta-Tags, Schema.org)
 
 ### **Tests:**
+
 1. **Starter-Account:** Landingpage ohne Widget, MIT Footer-Link
 2. **Business-Account:** Landingpage mit Widget, MIT Footer-Link
 3. **Enterprise-Account:** Landingpage mit Widget, OHNE Footer-Link
@@ -338,6 +356,7 @@ graph TD
 ## 📈 NEXT STEPS (Optional)
 
 ### **Sprint 28 (Erweiterungen):**
+
 1. **Kunden-Portal:** Registrierung/Login für Business+ (bereits Auth.tsx vorhanden)
 2. **Buchungs-Tracking:** Token-basierter Zugriff für Kunden
 3. **Zahlungsintegration:** Stripe Checkout in Buchungswidget

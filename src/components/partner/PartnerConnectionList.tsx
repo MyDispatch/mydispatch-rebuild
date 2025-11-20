@@ -2,10 +2,10 @@
    PARTNER CONNECTION LIST - Übersicht aktiver Partner-Verbindungen
    ================================================================================== */
 
-import { useEffect, useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
-import { handleError } from '@/lib/error-handler';
+import { useEffect, useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { handleError } from "@/lib/error-handler";
 import {
   Table,
   TableBody,
@@ -13,12 +13,21 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
-import { Trash2, Car, Users, Percent, Loader2 } from 'lucide-react';
+} from "@/components/ui/table";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { Trash2, Car, Users, Percent, Loader2 } from "lucide-react";
 
 interface PartnerConnection {
   id: string;
@@ -50,8 +59,8 @@ export function PartnerConnectionList({ currentCompanyId }: PartnerConnectionLis
   const fetchConnections = async () => {
     try {
       const { data, error } = await supabase
-        .from('partner_connections')
-        .select('*')
+        .from("partner_connections")
+        .select("*")
         .or(`company_a_id.eq.${currentCompanyId},company_b_id.eq.${currentCompanyId}`);
 
       if (error) throw error;
@@ -59,12 +68,13 @@ export function PartnerConnectionList({ currentCompanyId }: PartnerConnectionLis
       // Fetch partner company details
       const connectionsWithPartner = await Promise.all(
         (data || []).map(async (conn) => {
-          const partnerId = conn.company_a_id === currentCompanyId ? conn.company_b_id : conn.company_a_id;
-          
+          const partnerId =
+            conn.company_a_id === currentCompanyId ? conn.company_b_id : conn.company_a_id;
+
           const { data: company } = await supabase
-            .from('companies')
-            .select('id, name, email')
-            .eq('id', partnerId)
+            .from("companies")
+            .select("id, name, email")
+            .eq("id", partnerId)
             .single();
 
           return {
@@ -76,7 +86,7 @@ export function PartnerConnectionList({ currentCompanyId }: PartnerConnectionLis
 
       setConnections(connectionsWithPartner);
     } catch (error: any) {
-      handleError(error, 'Partner-Verbindungen konnten nicht geladen werden', { showToast: false });
+      handleError(error, "Partner-Verbindungen konnten nicht geladen werden", { showToast: false });
     } finally {
       setLoading(false);
     }
@@ -87,13 +97,13 @@ export function PartnerConnectionList({ currentCompanyId }: PartnerConnectionLis
 
     // Realtime-Updates für neue Connections
     const channel = supabase
-      .channel('partner_connections_changes')
+      .channel("partner_connections_changes")
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: '*',
-          schema: 'public',
-          table: 'partner_connections',
+          event: "*",
+          schema: "public",
+          table: "partner_connections",
         },
         () => {
           fetchConnections();
@@ -113,25 +123,25 @@ export function PartnerConnectionList({ currentCompanyId }: PartnerConnectionLis
     try {
       // SECURITY: Use Archiving instead of DELETE (SOLL-Vorgabe V18.3.24)
       const { error } = await supabase
-        .from('partner_connections')
-        .update({ 
-          archived: true, 
-          archived_at: new Date().toISOString() 
+        .from("partner_connections")
+        .update({
+          archived: true,
+          archived_at: new Date().toISOString(),
         })
-        .eq('id', selectedConnection);
+        .eq("id", selectedConnection);
 
       if (error) throw error;
 
       toast({
-        title: 'Verbindung archiviert',
-        description: 'Die Partner-Verbindung wurde erfolgreich archiviert.',
+        title: "Verbindung archiviert",
+        description: "Die Partner-Verbindung wurde erfolgreich archiviert.",
       });
 
       fetchConnections();
       setDeleteDialogOpen(false);
       setSelectedConnection(null);
     } catch (error: any) {
-      handleError(error, 'Verbindung konnte nicht archiviert werden');
+      handleError(error, "Verbindung konnte nicht archiviert werden");
     } finally {
       setDeleting(false);
     }
@@ -187,7 +197,7 @@ export function PartnerConnectionList({ currentCompanyId }: PartnerConnectionLis
                 {connections.map((connection) => (
                   <TableRow key={connection.id}>
                     <TableCell className="font-medium">
-                      {connection.partner_company?.name || 'Unbekannt'}
+                      {connection.partner_company?.name || "Unbekannt"}
                     </TableCell>
                     <TableCell className="hidden sm:table-cell text-sm text-muted-foreground">
                       {connection.partner_company?.email}
@@ -247,7 +257,8 @@ export function PartnerConnectionList({ currentCompanyId }: PartnerConnectionLis
           <AlertDialogHeader>
             <AlertDialogTitle>Partner-Verbindung beenden</AlertDialogTitle>
             <AlertDialogDescription>
-              Möchten Sie diese Partner-Verbindung wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.
+              Möchten Sie diese Partner-Verbindung wirklich löschen? Diese Aktion kann nicht
+              rückgängig gemacht werden.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

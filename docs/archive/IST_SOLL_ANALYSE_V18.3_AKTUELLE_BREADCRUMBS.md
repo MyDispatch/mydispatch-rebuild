@@ -1,4 +1,5 @@
 # 🔍 IST-/SOLL-ZUSTANDSANALYSE MyDispatch V18.3.18
+
 **Datum:** 19.10.2025, 12:00 Uhr (CEST)  
 **Durchgeführt von:** AI Agent (Claude)  
 **Fokus:** Breadcrumbs-Implementierung & Systemweite Konsistenz  
@@ -10,22 +11,23 @@
 
 ### Gesamtbewertung
 
-| Bereich | IST-Status | SOLL-Status | Übereinstimmung | Priorität |
-|---------|------------|-------------|-----------------|-----------|
-| **Breadcrumbs-System** | ✅ 100% | ✅ 100% | **100% ✅** | 🔴 P0 |
-| **Layout-Konsistenz** | ✅ 100% | ✅ 100% | **100% ✅** | 🔴 P0 |
-| **Mobile-Integration** | ✅ 100% | ✅ 100% | **100% ✅** | 🔴 P0 |
-| **Navigation-Struktur** | ✅ 100% | ✅ 100% | **100% ✅** | 🔴 P0 |
-| **TypeScript/ESLint** | ✅ 0 Errors | ✅ 0 Errors | **100% ✅** | 🔴 P0 |
-| **Edge Functions (Code)** | ✅ Fixed | ✅ Fixed | **100% ✅** | 🟡 P1 |
-| **Edge Functions (Deployed)** | ⚠️ Alt | ✅ Neu | **0% ❌** | 🔴 P0 |
-| **Supabase Linter** | ⚠️ 3 Warnings | ✅ 0 Warnings | **67% ⚠️** | 🟡 P1 |
-| **Design-System** | ✅ 100% | ✅ 100% | **100% ✅** | 🔴 P0 |
-| **V18.3 Features** | ✅ 100% | ✅ 100% | **100% ✅** | 🟡 P1 |
+| Bereich                       | IST-Status    | SOLL-Status   | Übereinstimmung | Priorität |
+| ----------------------------- | ------------- | ------------- | --------------- | --------- |
+| **Breadcrumbs-System**        | ✅ 100%       | ✅ 100%       | **100% ✅**     | 🔴 P0     |
+| **Layout-Konsistenz**         | ✅ 100%       | ✅ 100%       | **100% ✅**     | 🔴 P0     |
+| **Mobile-Integration**        | ✅ 100%       | ✅ 100%       | **100% ✅**     | 🔴 P0     |
+| **Navigation-Struktur**       | ✅ 100%       | ✅ 100%       | **100% ✅**     | 🔴 P0     |
+| **TypeScript/ESLint**         | ✅ 0 Errors   | ✅ 0 Errors   | **100% ✅**     | 🔴 P0     |
+| **Edge Functions (Code)**     | ✅ Fixed      | ✅ Fixed      | **100% ✅**     | 🟡 P1     |
+| **Edge Functions (Deployed)** | ⚠️ Alt        | ✅ Neu        | **0% ❌**       | 🔴 P0     |
+| **Supabase Linter**           | ⚠️ 3 Warnings | ✅ 0 Warnings | **67% ⚠️**      | 🟡 P1     |
+| **Design-System**             | ✅ 100%       | ✅ 100%       | **100% ✅**     | 🔴 P0     |
+| **V18.3 Features**            | ✅ 100%       | ✅ 100%       | **100% ✅**     | 🟡 P1     |
 
 **Gesamt-Score:** 🟢 **96% PRODUKTIONSREIF** (4% Minor Issues)
 
 **Kritische Erkenntnisse:**
+
 - ✅ Breadcrumbs sind **vollständig und korrekt** implementiert (Home-Icon → Seitenname)
 - ✅ Alle Seiten haben **konsistentes Layout** mit korrektem Spacing
 - ✅ Mobile-Optimierung **100% funktional**
@@ -39,6 +41,7 @@
 ### 1.1 Komponenten-Struktur
 
 **IST-Zustand:**
+
 ```typescript
 // Breadcrumbs.tsx - Standalone-Komponente (75 Zeilen)
 ✅ Defensive Programming (React-Availability-Check)
@@ -55,11 +58,13 @@
 ```
 
 **SOLL-Zustand:**
+
 ```typescript
 // Genau wie IST - zu 100% erfüllt ✅
 ```
 
 **Verifizierung:**
+
 ```bash
 ✅ src/components/shared/Breadcrumbs.tsx - EXISTS, 109 Zeilen
 ✅ Defensive Programming: Zeilen 16-35
@@ -76,6 +81,7 @@
 ### 1.2 Layout-Integration
 
 **IST-Zustand:**
+
 ```typescript
 // DashboardLayout.tsx (42 Zeilen)
 ✅ Importiert Breadcrumbs: Zeile 12
@@ -102,11 +108,13 @@
 ```
 
 **SOLL-Zustand:**
+
 ```typescript
 // Genau wie IST - zu 100% erfüllt ✅
 ```
 
 **Verifizierung:**
+
 ```bash
 ✅ src/components/layout/DashboardLayout.tsx - EXISTS, korrekt
 ✅ src/components/layout/StandardPageLayout.tsx - EXISTS, korrekt
@@ -123,22 +131,23 @@
 
 **IST-Zustand:**
 
-| Seite | Layout | Breadcrumbs | Mobile | Status |
-|-------|--------|-------------|--------|--------|
-| **Index.tsx (Dashboard)** | DashboardLayout | ✅ (verborgen auf /) | ✅ MobileDashboard | ✅ |
-| **Auftraege.tsx** | StandardPageLayout | ✅ Home → Aufträge | ✅ MobileAuftraege | ✅ |
-| **Kunden.tsx** | StandardPageLayout | ✅ Home → Kunden | ✅ MobileKunden | ✅ |
-| **Fahrer.tsx** | StandardPageLayout | ✅ Home → Fahrer | ✅ MobileFahrer | ✅ |
-| **Rechnungen.tsx** | StandardPageLayout | ✅ Home → Rechnungen | ✅ MobileRechnungen | ✅ |
-| **Schichtzettel.tsx** | StandardPageLayout | ✅ Home → Schichtzettel | ✅ MobileSchichtzettel | ✅ |
-| **Dokumente.tsx** | StandardPageLayout | ✅ Home → Dokumente | ✅ MobileDokumente | ✅ |
-| **Kostenstellen.tsx** | StandardPageLayout | ✅ Home → Kostenstellen | ✅ MobileKostenstellen | ✅ |
-| **Partner.tsx** | StandardPageLayout | ✅ Home → Partner | ✅ MobilePartner | ✅ |
-| **Einstellungen.tsx** | DashboardLayout | ✅ Home → Einstellungen | ✅ Tabs responsive | ✅ |
-| **Statistiken.tsx** | DashboardLayout | ✅ Home → Statistiken | ✅ Responsive | ✅ |
-| **TeamChat.tsx** | DashboardLayout | ✅ Home → Kommunikation | ✅ Responsive | ✅ |
+| Seite                     | Layout             | Breadcrumbs             | Mobile                 | Status |
+| ------------------------- | ------------------ | ----------------------- | ---------------------- | ------ |
+| **Index.tsx (Dashboard)** | DashboardLayout    | ✅ (verborgen auf /)    | ✅ MobileDashboard     | ✅     |
+| **Auftraege.tsx**         | StandardPageLayout | ✅ Home → Aufträge      | ✅ MobileAuftraege     | ✅     |
+| **Kunden.tsx**            | StandardPageLayout | ✅ Home → Kunden        | ✅ MobileKunden        | ✅     |
+| **Fahrer.tsx**            | StandardPageLayout | ✅ Home → Fahrer        | ✅ MobileFahrer        | ✅     |
+| **Rechnungen.tsx**        | StandardPageLayout | ✅ Home → Rechnungen    | ✅ MobileRechnungen    | ✅     |
+| **Schichtzettel.tsx**     | StandardPageLayout | ✅ Home → Schichtzettel | ✅ MobileSchichtzettel | ✅     |
+| **Dokumente.tsx**         | StandardPageLayout | ✅ Home → Dokumente     | ✅ MobileDokumente     | ✅     |
+| **Kostenstellen.tsx**     | StandardPageLayout | ✅ Home → Kostenstellen | ✅ MobileKostenstellen | ✅     |
+| **Partner.tsx**           | StandardPageLayout | ✅ Home → Partner       | ✅ MobilePartner       | ✅     |
+| **Einstellungen.tsx**     | DashboardLayout    | ✅ Home → Einstellungen | ✅ Tabs responsive     | ✅     |
+| **Statistiken.tsx**       | DashboardLayout    | ✅ Home → Statistiken   | ✅ Responsive          | ✅     |
+| **TeamChat.tsx**          | DashboardLayout    | ✅ Home → Kommunikation | ✅ Responsive          | ✅     |
 
 **SOLL-Zustand:**
+
 ```typescript
 // Alle Seiten MÜSSEN:
 ✅ Breadcrumbs haben (Home-Icon → Seitenname)
@@ -148,6 +157,7 @@
 ```
 
 **Verifizierung:**
+
 ```bash
 ✅ Alle 12 Seiten geprüft
 ✅ Alle nutzen DashboardLayout ODER StandardPageLayout
@@ -159,6 +169,7 @@
 **Bewertung:** ✅ **IST = SOLL (100%)**
 
 **Beispiel-Code (Auftraege.tsx):**
+
 ```typescript
 // VORHER (Falsch - keine Breadcrumbs):
 return (
@@ -190,6 +201,7 @@ return (
 ### 2.1 Design-System-Konformität
 
 **IST-Zustand:**
+
 ```typescript
 // Header (60px)
 ✅ h-16 (fixed)
@@ -218,12 +230,14 @@ return (
 ```
 
 **SOLL-Zustand:**
+
 ```typescript
 // Genau wie IST - zu 100% erfüllt ✅
 // DESIGN-FREEZE: KEINE Änderungen erlaubt!
 ```
 
 **Verifizierung:**
+
 ```bash
 ✅ src/components/layout/Header.tsx - h-16 (Zeile 42)
 ✅ src/components/layout/MainLayout.tsx - pt-24 (Zeile 47, 60)
@@ -239,6 +253,7 @@ return (
 ### 2.2 Mobile-Optimierung
 
 **IST-Zustand:**
+
 ```typescript
 // Breakpoints (TailwindCSS)
 ✅ Mobile: < 640px (sm:)
@@ -269,6 +284,7 @@ return (
 ```
 
 **SOLL-Zustand:**
+
 ```typescript
 // Genau wie IST - zu 100% erfüllt ✅
 // Mobile-First Approach ✅
@@ -276,6 +292,7 @@ return (
 ```
 
 **Verifizierung:**
+
 ```bash
 ✅ src/hooks/use-device-type.tsx - EXISTS
 ✅ src/components/mobile/ - 12 Components
@@ -293,6 +310,7 @@ return (
 ### 3.1 Sidebar-Struktur (V18.3)
 
 **IST-Zustand:**
+
 ```typescript
 // AppSidebar.tsx - 4 Sektionen, 14 Items
 🏠 HAUPTBEREICH (2 Items)
@@ -319,12 +337,14 @@ return (
 ```
 
 **SOLL-Zustand (V18.3 Konzept):**
+
 ```typescript
 // Genau wie IST - zu 100% erfüllt ✅
 // REDUZIERUNG: 18-20 Items → 14 Items (-22% ✅)
 ```
 
 **Verifizierung:**
+
 ```bash
 ✅ src/components/layout/AppSidebar.tsx - EXISTS
 ✅ 4 Sektionen implementiert
@@ -340,6 +360,7 @@ return (
 ### 3.2 Tab-Navigation (Merged Pages)
 
 **IST-Zustand:**
+
 ```typescript
 // Auftraege.tsx - Merged mit Angebote
 ✅ URL: /auftraege?tab=auftraege|angebote
@@ -358,19 +379,21 @@ return (
 ✅ Separate Tabellen (DriversTable, VehiclesTable)
 
 // Einstellungen.tsx - 11 Tabs
-✅ Subscription | Company | Landingpage | Profile | Team | 
-   Payment | Notifications | Privacy | Workflows (Master) | 
+✅ Subscription | Company | Landingpage | Profile | Team |
+   Payment | Notifications | Privacy | Workflows (Master) |
    System | Location
 ✅ URL-Parameter für Tab-Navigation (?tab=company)
 ✅ Responsive TabsList (grid-cols-2 sm:4)
 ```
 
 **SOLL-Zustand:**
+
 ```typescript
 // Genau wie IST - zu 100% erfüllt ✅
 ```
 
 **Verifizierung:**
+
 ```bash
 ✅ src/pages/Auftraege.tsx - Tab-System aktiv (Zeile 185-225)
 ✅ src/pages/Fahrer.tsx - Tab-System aktiv
@@ -388,6 +411,7 @@ return (
 ### 4.1 Code-Status (100% OK)
 
 **IST-Zustand:**
+
 ```typescript
 // get-weather/index.ts - FIXED ✅
 ✅ Akzeptiert: { city?, lat?, lng? }
@@ -409,6 +433,7 @@ return (
 ```
 
 **SOLL-Zustand:**
+
 ```typescript
 // Genau wie IST - Code ist perfekt ✅
 ```
@@ -420,6 +445,7 @@ return (
 ### 4.2 Deployment-Status (0% KRITISCH ❌)
 
 **IST-Zustand:**
+
 ```typescript
 // Network-Logs zeigen:
 ❌ get-weather deployed: ALTE VERSION
@@ -434,6 +460,7 @@ return (
 ```
 
 **SOLL-Zustand:**
+
 ```typescript
 ✅ get-weather deployed: NEUE VERSION
    Request: { lat: 52.026, lng: 8.53666 }
@@ -445,6 +472,7 @@ return (
 ```
 
 **Impact:**
+
 ```
 🔴 KRITISCH: Live-Widgets (Wetter, Verkehr) zeigen Fehlermeldungen
 🔴 User-Experience beeinträchtigt (Business+ Features nicht funktional)
@@ -453,6 +481,7 @@ return (
 ```
 
 **Fix-Anleitung:**
+
 ```bash
 # Option 1: Manuelles Re-Deployment (Supabase CLI)
 supabase functions deploy get-weather
@@ -479,17 +508,19 @@ verify_jwt = false
 ### 5.1 Security Definer View (MEDIUM Risk)
 
 **IST-Zustand:**
+
 ```sql
 -- companies_with_full_address View
-CREATE VIEW companies_with_full_address 
+CREATE VIEW companies_with_full_address
 WITH (security_definer = true) AS
-SELECT 
+SELECT
   c.*,
   CONCAT_WS(', ', c.street, c.street_number, c.postal_code, c.city) as full_address
 FROM companies c;
 ```
 
 **Problem:**
+
 ```
 ⚠️ Security Definer = true umgeht RLS Policies
 ⚠️ Best Practice: Views ohne Security Definer + eigene RLS
@@ -497,10 +528,11 @@ FROM companies c;
 ```
 
 **SOLL-Zustand:**
+
 ```sql
 -- Option 1: Security Definer entfernen (PREFERRED)
 CREATE OR REPLACE VIEW companies_with_full_address AS
-SELECT 
+SELECT
   c.*,
   CONCAT_WS(', ', c.street, c.street_number, c.postal_code, c.city) as full_address
 FROM companies c;
@@ -522,10 +554,11 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ### 5.2 Materialized View in API (LOW Risk)
 
 **IST-Zustand:**
+
 ```sql
 -- dashboard_stats Materialized View
 CREATE MATERIALIZED VIEW dashboard_stats AS
-SELECT 
+SELECT
   company_id,
   COUNT(*) FILTER (WHERE status = 'completed') as completed_bookings,
   -- ... weitere Metriken
@@ -539,6 +572,7 @@ CREATE POLICY "Users can view their company stats" ...
 ```
 
 **Problem:**
+
 ```
 ⚠️ Materialized Views können Stale Data enthalten
 ⚠️ Supabase-Empfehlung: Über Function exponieren (mehr Control)
@@ -546,6 +580,7 @@ CREATE POLICY "Users can view their company stats" ...
 ```
 
 **SOLL-Zustand:**
+
 ```sql
 -- Option 1: Über Function exponieren (OPTIONAL)
 CREATE FUNCTION get_dashboard_stats(p_company_id UUID)
@@ -565,6 +600,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ### 5.3 Password Leak Protection Disabled (LOW Risk)
 
 **IST-Zustand:**
+
 ```typescript
 // Supabase Auth Config
 {
@@ -575,6 +611,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ```
 
 **Problem:**
+
 ```
 ⚠️ User können kompromittierte Passwörter nutzen
 ⚠️ DSGVO/Security-Best-Practice
@@ -582,6 +619,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ```
 
 **SOLL-Zustand:**
+
 ```typescript
 // Über supabase--configure-auth Tool ODER Dashboard
 {
@@ -592,6 +630,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ```
 
 **Fix-Anleitung:**
+
 ```typescript
 // Via Lovable supabase--configure-auth Tool:
 // (Tool wird automatisch invoken)
@@ -606,6 +645,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ### 6.1 Dashboard-Transformation
 
 **IST-Zustand:**
+
 ```typescript
 // Index.tsx (Dashboard)
 ✅ DashboardKPICards (Live-Daten via useDashboardStats)
@@ -620,6 +660,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ```
 
 **SOLL-Zustand:**
+
 ```typescript
 // Genau wie IST - zu 100% erfüllt (Code-seitig) ✅
 ```
@@ -632,6 +673,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ### 6.2 Business Intelligence
 
 **IST-Zustand:**
+
 ```typescript
 // Statistiken.tsx
 ✅ RevenueChart (30-Tage-Verlauf, interaktiv)
@@ -648,6 +690,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ```
 
 **SOLL-Zustand:**
+
 ```typescript
 // Genau wie IST - zu 100% erfüllt ✅
 ```
@@ -659,6 +702,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ### 6.3 Bereichs-Vernetzung
 
 **IST-Zustand:**
+
 ```typescript
 // RelatedEntityCard Component
 ✅ src/components/shared/RelatedEntityCard.tsx - EXISTS
@@ -680,6 +724,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ```
 
 **SOLL-Zustand:**
+
 ```typescript
 // Genau wie IST - zu 100% erfüllt ✅
 ```
@@ -691,6 +736,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ### 6.4 AI-Features
 
 **IST-Zustand (Code):**
+
 ```typescript
 // Smart Assignment (Business+)
 ✅ supabase/functions/ai-smart-assignment/index.ts - EXISTS
@@ -718,6 +764,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ```
 
 **IST-Zustand (Deployment):**
+
 ```toml
 # supabase/config.toml
 [functions.ai-document-ocr]
@@ -729,6 +776,7 @@ verify_jwt = true
 ```
 
 **SOLL-Zustand:**
+
 ```toml
 # supabase/config.toml
 [functions.ai-document-ocr]
@@ -753,6 +801,7 @@ verify_jwt = true
 #### 1. Edge Functions Re-Deployment ❌
 
 **Problem:**
+
 ```
 get-weather und get-traffic sind nicht deployed
 → WeatherWidget und TrafficWidget zeigen Fehler
@@ -760,6 +809,7 @@ get-weather und get-traffic sind nicht deployed
 ```
 
 **Fix:**
+
 ```bash
 # Option 1: Manuell
 supabase functions deploy get-weather
@@ -785,6 +835,7 @@ verify_jwt = false
 #### 2. config.toml vervollständigen ⚠️
 
 **Problem:**
+
 ```
 ai-smart-assignment und ai-demand-prediction fehlen in config.toml
 → Möglicherweise nicht deployed
@@ -792,6 +843,7 @@ ai-smart-assignment und ai-demand-prediction fehlen in config.toml
 ```
 
 **Fix:**
+
 ```toml
 # supabase/config.toml ergänzen:
 
@@ -818,6 +870,7 @@ verify_jwt = true
 #### 3. Security Definer View entfernen ⚠️
 
 **Problem:**
+
 ```
 companies_with_full_address View mit security_definer = true
 → Umgeht RLS Policies
@@ -825,10 +878,11 @@ companies_with_full_address View mit security_definer = true
 ```
 
 **Fix:**
+
 ```sql
 -- Migration erstellen:
 CREATE OR REPLACE VIEW companies_with_full_address AS
-SELECT 
+SELECT
   c.*,
   CONCAT_WS(', ', c.street, c.street_number, c.postal_code, c.city) as full_address
 FROM companies c;
@@ -845,12 +899,14 @@ ALTER VIEW companies_with_full_address SET (security_invoker = true);
 #### 4. Password Leak Protection aktivieren ✅
 
 **Problem:**
+
 ```
 password_protect_against_leaked: false
 → User können kompromittierte Passwörter nutzen
 ```
 
 **Fix:**
+
 ```typescript
 // Via supabase--configure-auth Tool
 // (Wird automatisch invoken)
@@ -866,12 +922,14 @@ password_protect_against_leaked: false
 #### 5. Materialized View via Function exponieren (Optional)
 
 **Problem:**
+
 ```
 dashboard_stats Materialized View direkt über API exposed
 → Funktioniert, aber könnte über Function mehr Control haben
 ```
 
 **Fix:**
+
 ```sql
 -- Optional: Über Function exponieren
 CREATE FUNCTION get_dashboard_stats(p_company_id UUID)
@@ -891,21 +949,22 @@ $$ LANGUAGE sql SECURITY DEFINER;
 
 **Kategorien:**
 
-| Kategorie | Score | Status |
-|-----------|-------|--------|
-| **Breadcrumbs-System** | 100% | ✅ PERFEKT |
-| **Layout-Konsistenz** | 100% | ✅ PERFEKT |
-| **Mobile-Optimierung** | 100% | ✅ PERFEKT |
-| **Navigation-Struktur** | 100% | ✅ PERFEKT |
-| **TypeScript/ESLint** | 100% | ✅ PERFEKT |
-| **Design-System** | 100% | ✅ PERFEKT |
-| **V18.3 Features (Code)** | 100% | ✅ PERFEKT |
-| **Edge Functions (Code)** | 100% | ✅ PERFEKT |
-| **Edge Functions (Deployed)** | 0% | ❌ KRITISCH |
-| **Supabase Linter** | 67% | ⚠️ MINOR |
-| **AI-Features (Config)** | 33% | ⚠️ MINOR |
+| Kategorie                     | Score | Status      |
+| ----------------------------- | ----- | ----------- |
+| **Breadcrumbs-System**        | 100%  | ✅ PERFEKT  |
+| **Layout-Konsistenz**         | 100%  | ✅ PERFEKT  |
+| **Mobile-Optimierung**        | 100%  | ✅ PERFEKT  |
+| **Navigation-Struktur**       | 100%  | ✅ PERFEKT  |
+| **TypeScript/ESLint**         | 100%  | ✅ PERFEKT  |
+| **Design-System**             | 100%  | ✅ PERFEKT  |
+| **V18.3 Features (Code)**     | 100%  | ✅ PERFEKT  |
+| **Edge Functions (Code)**     | 100%  | ✅ PERFEKT  |
+| **Edge Functions (Deployed)** | 0%    | ❌ KRITISCH |
+| **Supabase Linter**           | 67%   | ⚠️ MINOR    |
+| **AI-Features (Config)**      | 33%   | ⚠️ MINOR    |
 
 **Was funktioniert perfekt:**
+
 - ✅ Breadcrumbs sind vollständig implementiert (Home-Icon → Seitenname)
 - ✅ Alle Seiten haben konsistentes Layout mit korrektem Spacing
 - ✅ Mobile-Optimierung ist 100% funktional
@@ -915,12 +974,14 @@ $$ LANGUAGE sql SECURITY DEFINER;
 - ✅ V18.3 Features: Code ist vollständig und korrekt
 
 **Was muss behoben werden:**
+
 - ❌ **KRITISCH:** Edge Functions (get-weather, get-traffic) müssen re-deployed werden
 - ⚠️ **WICHTIG:** config.toml vervollständigen (AI-Functions registrieren)
 - ⚠️ **WICHTIG:** Security Definer View entfernen (Best Practice)
 - ✅ **OPTIONAL:** Password Leak Protection aktivieren (Enhancement)
 
 **Empfehlung:**
+
 ```
 🟢 GO-LIVE NACH HOTFIX
 
@@ -938,16 +999,19 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ## 🎯 NEXT STEPS
 
 ### Sofort (Heute):
+
 1. ✅ Edge Functions re-deployen (get-weather, get-traffic)
 2. ✅ config.toml vervollständigen (ai-smart-assignment, ai-demand-prediction)
 3. ✅ Smoke-Test durchführen (Weather/Traffic Widgets prüfen)
 
 ### Diese Woche:
+
 4. ⚠️ Security Definer View entfernen (Migration)
 5. ⚠️ Supabase Linter Warnings dokumentieren
 6. ✅ Password Leak Protection aktivieren
 
 ### Nächste Woche (Optional):
+
 7. 🟢 Materialized View via Function exponieren (Performance-Test)
 8. 🟢 Lighthouse-Score messen (Target: >85)
 9. 🟢 Bundle-Size optimieren (aktuell: +50 KB für V18.3)
@@ -957,6 +1021,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 ## ✅ ABSCHLUSS-CHECKLISTE
 
 ### Code-Qualität:
+
 - [x] TypeScript-Errors: 0
 - [x] ESLint-Warnings: 0
 - [x] Console-Errors (Runtime): 0
@@ -964,6 +1029,7 @@ $$ LANGUAGE sql SECURITY DEFINER;
 - [x] Build erfolgreich (Vite)
 
 ### Layout-Konsistenz:
+
 - [x] Breadcrumbs auf allen Seiten (außer Dashboard-Root)
 - [x] Header: 60px (h-16)
 - [x] Sidebar: 64px/240px
@@ -972,12 +1038,14 @@ $$ LANGUAGE sql SECURITY DEFINER;
 - [x] Spacing konsistent
 
 ### Mobile-Optimierung:
+
 - [x] Responsive Breakpoints (sm:, md:, lg:, xl:)
 - [x] Mobile-Komponenten (12x dediziert)
 - [x] Touch-Targets: 44x44px (min)
 - [x] Breadcrumbs mobile-optimiert (hidden Home-Text)
 
 ### Design-System:
+
 - [x] CI-Farben: HSL-Format, Semantic Tokens
 - [x] Keine Hardcoded-Colors
 - [x] Icon-Farben: text-foreground (NIEMALS Ampelfarben)
@@ -985,12 +1053,14 @@ $$ LANGUAGE sql SECURITY DEFINER;
 - [x] Spacing-System: consistent (pt-24, mb-6, py-2)
 
 ### V18.3 Features:
+
 - [x] Dashboard-Transformation (KPI-Cards, Widgets)
 - [x] Business Intelligence (Charts, Rankings, Export)
 - [x] Bereichs-Vernetzung (Related Entities, Bulk-Aktionen)
 - [x] AI-Features (Code vollständig)
 
 ### Deployment:
+
 - [ ] Edge Functions deployed (get-weather, get-traffic) ← **KRITISCH**
 - [ ] config.toml vollständig ← **WICHTIG**
 - [ ] Supabase Linter Warnings behoben ← **OPTIONAL**

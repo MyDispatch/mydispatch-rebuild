@@ -9,12 +9,14 @@
 ## ✅ SPRINT 43 ABGESCHLOSSEN
 
 ### Behobene Violations
+
 - ✅ **24 Dateien** korrigiert
 - ✅ **127 Icon-Violations** behoben
 - ✅ **6 direkte Farbwerte** zu semantischen Tokens
 - ✅ **0 verbliebene Violations**
 
 ### Pattern Etabliert
+
 ```tsx
 // ✅ Icons IMMER text-foreground
 <Icon className="h-4 w-4 text-foreground" />

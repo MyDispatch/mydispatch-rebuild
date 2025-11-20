@@ -40,9 +40,9 @@ serve(async (req) => {
 
     // Hole Schichtzettel-Daten
     const { data: shift, error } = await supabaseClient
-      .from('shifts')
-      .select('*, drivers(first_name, last_name), vehicles(license_plate)')
-      .eq('id', shiftId)
+      .from("shifts")
+      .select("*, drivers(first_name, last_name), vehicles(license_plate)")
+      .eq("id", shiftId)
       .single();
 
     if (error) throw error;
@@ -52,25 +52,22 @@ serve(async (req) => {
     const exportData = {
       shift,
       generatedAt: new Date().toISOString(),
-      format: 'json', // Später: 'pdf'
+      format: "json", // Später: 'pdf'
     };
 
-    return new Response(
-      JSON.stringify(exportData),
-      { 
-        headers: { 
-          ...corsHeaders, 
-          "Content-Type": "application/json",
-          "Content-Disposition": `attachment; filename="schichtzettel-${shiftId}.json"`
-        }, 
-        status: 200 
-      }
-    );
+    return new Response(JSON.stringify(exportData), {
+      headers: {
+        ...corsHeaders,
+        "Content-Type": "application/json",
+        "Content-Disposition": `attachment; filename="schichtzettel-${shiftId}.json"`,
+      },
+      status: 200,
+    });
   } catch (error: any) {
-    console.error('Fehler beim Export:', error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
-    );
+    console.error("Fehler beim Export:", error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 500,
+    });
   }
 });

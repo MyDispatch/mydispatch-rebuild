@@ -18,21 +18,23 @@ Secret Name:     RESEND_API_KEY
 
 ## 👥 Master Users
 
-| Email | Passwort | Rolle | Name |
-|-------|----------|-------|------|
+| Email                  | Passwort      | Rolle  | Name            |
+| ---------------------- | ------------- | ------ | --------------- |
 | courbois1981@gmail.com | 1def!xO2022!! | master | Pascal Courbois |
-| pascal@nexify.ai | 1def!xO2022!! | master | Pascal Nexify |
-| master@nexify.ai | 1def!xO2022!! | master | Master Admin |
+| pascal@nexify.ai       | 1def!xO2022!! | master | Pascal Nexify   |
+| master@nexify.ai       | 1def!xO2022!! | master | Master Admin    |
 
 ## 🚀 Quick Commands
 
 ### Setup starten
+
 ```powershell
 cd C:\Users\pcour\Desktop\mydispatch-rebuild\supabase
 .\quick_start.ps1
 ```
 
 ### SQL ausführen
+
 ```powershell
 # Im Browser öffnen und setup_master_users.sql kopieren
 # Oder mit Supabase CLI:

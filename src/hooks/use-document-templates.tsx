@@ -7,27 +7,31 @@
    - Zentrale Fehlerbehandlung
    ================================================================================== */
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from './use-auth';
-import { handleError, handleSuccess } from '@/lib/error-handler';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "./use-auth";
+import { handleError, handleSuccess } from "@/lib/error-handler";
 
 export function useDocumentTemplates() {
   const { profile } = useAuth();
   const queryClient = useQueryClient();
 
   // Fetch Document Templates
-  const { data: templates = [], isLoading, error } = useQuery({
-    queryKey: ['document-templates', profile?.company_id],
+  const {
+    data: templates = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["document-templates", profile?.company_id],
     queryFn: async () => {
       if (!profile?.company_id) return [];
 
       const { data, error } = await supabase
-        .from('document_templates')
-        .select('*')
-        .eq('company_id', profile.company_id)
-        .eq('is_active', true)
-        .order('name');
+        .from("document_templates")
+        .select("*")
+        .eq("company_id", profile.company_id)
+        .eq("is_active", true)
+        .order("name");
 
       if (error) throw error;
       return data || [];
@@ -41,10 +45,10 @@ export function useDocumentTemplates() {
   // Create Document Template
   const createTemplate = useMutation({
     mutationFn: async (templateData: any) => {
-      if (!profile?.company_id) throw new Error('Company ID fehlt');
+      if (!profile?.company_id) throw new Error("Company ID fehlt");
 
       const { data, error } = await supabase
-        .from('document_templates')
+        .from("document_templates")
         .insert({
           ...templateData,
           company_id: profile.company_id,
@@ -57,11 +61,11 @@ export function useDocumentTemplates() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['document-templates', profile?.company_id] });
-      handleSuccess('Dokumenten-Vorlage erfolgreich erstellt');
+      queryClient.invalidateQueries({ queryKey: ["document-templates", profile?.company_id] });
+      handleSuccess("Dokumenten-Vorlage erfolgreich erstellt");
     },
     onError: (error) => {
-      handleError(error, 'Dokumenten-Vorlage konnte nicht erstellt werden');
+      handleError(error, "Dokumenten-Vorlage konnte nicht erstellt werden");
     },
   });
 
@@ -69,10 +73,10 @@ export function useDocumentTemplates() {
   const updateTemplate = useMutation({
     mutationFn: async ({ id, ...updateData }: any) => {
       const { data, error } = await supabase
-        .from('document_templates')
+        .from("document_templates")
         .update(updateData)
-        .eq('id', id)
-        .eq('company_id', profile?.company_id)
+        .eq("id", id)
+        .eq("company_id", profile?.company_id)
         .select()
         .single();
 
@@ -80,11 +84,11 @@ export function useDocumentTemplates() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['document-templates', profile?.company_id] });
-      handleSuccess('Dokumenten-Vorlage erfolgreich aktualisiert');
+      queryClient.invalidateQueries({ queryKey: ["document-templates", profile?.company_id] });
+      handleSuccess("Dokumenten-Vorlage erfolgreich aktualisiert");
     },
     onError: (error) => {
-      handleError(error, 'Dokumenten-Vorlage konnte nicht aktualisiert werden');
+      handleError(error, "Dokumenten-Vorlage konnte nicht aktualisiert werden");
     },
   });
 
@@ -92,19 +96,19 @@ export function useDocumentTemplates() {
   const deleteTemplate = useMutation({
     mutationFn: async (id: string) => {
       const { error } = await supabase
-        .from('document_templates')
+        .from("document_templates")
         .update({ is_active: false })
-        .eq('id', id)
-        .eq('company_id', profile?.company_id);
+        .eq("id", id)
+        .eq("company_id", profile?.company_id);
 
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['document-templates', profile?.company_id] });
-      handleSuccess('Dokumenten-Vorlage deaktiviert');
+      queryClient.invalidateQueries({ queryKey: ["document-templates", profile?.company_id] });
+      handleSuccess("Dokumenten-Vorlage deaktiviert");
     },
     onError: (error) => {
-      handleError(error, 'Dokumenten-Vorlage konnte nicht deaktiviert werden');
+      handleError(error, "Dokumenten-Vorlage konnte nicht deaktiviert werden");
     },
   });
 

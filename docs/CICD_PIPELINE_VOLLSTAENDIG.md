@@ -1,4 +1,5 @@
 # 🚀 VOLLSTÄNDIGE CI/CD PIPELINE MIT GITHUB ACTIONS
+
 ## DAUERHAFT & KONSEQUENT AUTOMATISIERTE QUALITÄTSSICHERUNG
 
 ---
@@ -6,6 +7,7 @@
 ## 🎯 MISSION
 
 Implementiere eine **vollautomatische, mehrstufige CI/CD Pipeline** die:
+
 - ✅ **Jeden Commit** automatisch testet
 - ✅ **Jeden Pull Request** validiert
 - ✅ **Code Qualität** erzwingt
@@ -14,6 +16,7 @@ Implementiere eine **vollautomatische, mehrstufige CI/CD Pipeline** die:
 - ✅ **Sicherheit** garantiert
 
 **ABSOLUTE REGEL:**
+
 - ❌ **KEIN Code** ohne Tests darf in Production
 - ❌ **KEIN Merge** ohne erfolgreiche CI/CD
 - ✅ **ALLE Checks** müssen grün sein
@@ -33,8 +36,8 @@ staging (pre-production)
 ↑
 develop (development)
 ↑
-feature/* (feature branches)
-hotfix/* (emergency fixes)
+feature/_ (feature branches)
+hotfix/_ (emergency fixes)
 
 text
 
@@ -122,7 +125,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...
 SUPABASE_SERVICE_ROLE_KEY=eyJ...
 
 Email (Resend)
-RESEND_API_KEY=re_...
+RESEND*API_KEY=re*...
 
 Analytics
 NEXT_PUBLIC_PLAUSIBLE_DOMAIN=mydispatch.de
@@ -155,8 +158,8 @@ text
 "lint": "next lint",
 "lint:fix": "next lint --fix",
 "type-check": "tsc --noEmit",
-"format": "prettier --write "/*.{ts,tsx,md,json}"",
-"format:check": "prettier --check "/*.{ts,tsx,md,json}"",
+"format": "prettier --write "/_.{ts,tsx,md,json}"",
+"format:check": "prettier --check "/_.{ts,tsx,md,json}"",
 
 text
 "test": "vitest run",
@@ -230,466 +233,428 @@ runs-on: ubuntu-latest
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Install dependencies
-    run: npm ci
-    
-  - name: Cache node_modules
-    uses: actions/cache@v3
-    with:
-      path: node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-============================================================================
-JOB 2: LINT & FORMAT CHECK
-============================================================================
-lint:
-name: Lint & Format Check
-runs-on: ubuntu-latest
-needs: setup
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Install dependencies
+  run: npm ci
+- name: Cache node_modules
+  uses: actions/cache@v3
+  with:
+  path: node_modules
+  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+  ============================================================================
+  JOB 2: LINT & FORMAT CHECK
+  ============================================================================
+  lint:
+  name: Lint & Format Check
+  runs-on: ubuntu-latest
+  needs: setup
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Restore cache
-    uses: actions/cache@v3
-    with:
-      path: node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      
-  - name: Run ESLint
-    run: npm run lint
-    
-  - name: Check formatting
-    run: npm run format:check
-============================================================================
-JOB 3: TYPE CHECK
-============================================================================
-type-check:
-name: TypeScript Type Check
-runs-on: ubuntu-latest
-needs: setup
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Restore cache
+  uses: actions/cache@v3
+  with:
+  path: node_modules
+  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+- name: Run ESLint
+  run: npm run lint
+- name: Check formatting
+  run: npm run format:check
+  ============================================================================
+  JOB 3: TYPE CHECK
+  ============================================================================
+  type-check:
+  name: TypeScript Type Check
+  runs-on: ubuntu-latest
+  needs: setup
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Restore cache
-    uses: actions/cache@v3
-    with:
-      path: node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      
-  - name: Run type check
-    run: npm run type-check
-============================================================================
-JOB 4: UNIT TESTS
-============================================================================
-test:
-name: Unit & Integration Tests
-runs-on: ubuntu-latest
-needs: setup
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Restore cache
+  uses: actions/cache@v3
+  with:
+  path: node_modules
+  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+- name: Run type check
+  run: npm run type-check
+  ============================================================================
+  JOB 4: UNIT TESTS
+  ============================================================================
+  test:
+  name: Unit & Integration Tests
+  runs-on: ubuntu-latest
+  needs: setup
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Restore cache
-    uses: actions/cache@v3
-    with:
-      path: node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      
-  - name: Run tests with coverage
-    run: npm run test:coverage
-    
-  - name: Upload coverage to Codecov
-    uses: codecov/codecov-action@v3
-    with:
-      token: ${{ secrets.CODECOV_TOKEN }}
-      files: ./coverage/coverage-final.json
-      fail_ci_if_error: true
-      
-  - name: Check coverage thresholds
-    run: |
-      COVERAGE=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Restore cache
+  uses: actions/cache@v3
+  with:
+  path: node_modules
+  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+- name: Run tests with coverage
+  run: npm run test:coverage
+- name: Upload coverage to Codecov
+  uses: codecov/codecov-action@v3
+  with:
+  token: ${{ secrets.CODECOV_TOKEN }}
+  files: ./coverage/coverage-final.json
+  fail_ci_if_error: true
+- name: Check coverage thresholds
+  run: |
+  COVERAGE=$(cat coverage/coverage-summary.json | jq '.total.lines.pct')
       if (( $(echo "$COVERAGE < 80" | bc -l) )); then
-        echo "Coverage is below 80%: $COVERAGE%"
-        exit 1
-      fi
-============================================================================
-JOB 5: E2E TESTS
-============================================================================
-e2e:
-name: E2E Tests (Playwright)
-runs-on: ubuntu-latest
-needs: setup
+  echo "Coverage is below 80%: $COVERAGE%"
+  exit 1
+  fi
+  ============================================================================
+  JOB 5: E2E TESTS
+  ============================================================================
+  e2e:
+  name: E2E Tests (Playwright)
+  runs-on: ubuntu-latest
+  needs: setup
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Restore cache
-    uses: actions/cache@v3
-    with:
-      path: node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      
-  - name: Install Playwright browsers
-    run: npx playwright install --with-deps
-    
-  - name: Build application
-    run: npm run build
-    env:
-      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-      
-  - name: Run E2E tests
-    run: npm run test:e2e
-    
-  - name: Upload Playwright report
-    if: always()
-    uses: actions/upload-artifact@v3
-    with:
-      name: playwright-report
-      path: playwright-report/
-      retention-days: 30
-============================================================================
-JOB 6: ACCESSIBILITY TESTS
-============================================================================
-accessibility:
-name: Accessibility Tests
-runs-on: ubuntu-latest
-needs: setup
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Restore cache
+  uses: actions/cache@v3
+  with:
+  path: node_modules
+  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+- name: Install Playwright browsers
+  run: npx playwright install --with-deps
+- name: Build application
+  run: npm run build
+  env:
+  NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+- name: Run E2E tests
+  run: npm run test:e2e
+- name: Upload Playwright report
+  if: always()
+  uses: actions/upload-artifact@v3
+  with:
+  name: playwright-report
+  path: playwright-report/
+  retention-days: 30
+  ============================================================================
+  JOB 6: ACCESSIBILITY TESTS
+  ============================================================================
+  accessibility:
+  name: Accessibility Tests
+  runs-on: ubuntu-latest
+  needs: setup
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Restore cache
-    uses: actions/cache@v3
-    with:
-      path: node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      
-  - name: Build application
-    run: npm run build
-    
-  - name: Start server
-    run: npm start &
-    
-  - name: Wait for server
-    run: npx wait-on http://localhost:3000
-    
-  - name: Run axe accessibility tests
-    run: |
-      npx axe-cli http://localhost:3000 \
-        http://localhost:3000/pricing \
-        http://localhost:3000/features \
-        --exit
-============================================================================
-JOB 7: SECURITY SCAN
-============================================================================
-security:
-name: Security Scan
-runs-on: ubuntu-latest
-needs: setup
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Restore cache
+  uses: actions/cache@v3
+  with:
+  path: node_modules
+  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+- name: Build application
+  run: npm run build
+- name: Start server
+  run: npm start &
+- name: Wait for server
+  run: npx wait-on http://localhost:3000
+- name: Run axe accessibility tests
+  run: |
+  npx axe-cli http://localhost:3000 \
+   http://localhost:3000/pricing \
+   http://localhost:3000/features \
+   --exit
+  ============================================================================
+  JOB 7: SECURITY SCAN
+  ============================================================================
+  security:
+  name: Security Scan
+  runs-on: ubuntu-latest
+  needs: setup
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    with:
-      fetch-depth: 0 # Full history for secret scanning
-      
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Run npm audit
-    run: npm audit --production --audit-level=moderate
-    
-  - name: Secret scanning with TruffleHog
-    uses: trufflesecurity/trufflehog@v3
-    with:
-      path: ./
-      base: ${{ github.event.repository.default_branch }}
-      head: HEAD
-      
-  - name: Dependency review
-    uses: actions/dependency-review-action@v3
-    if: github.event_name == 'pull_request'
-============================================================================
-JOB 8: BUILD
-============================================================================
-build:
-name: Build Application
-runs-on: ubuntu-latest
-needs: [lint, type-check, test]
+
+- name: Checkout code
+  uses: actions/checkout@v4
+  with:
+  fetch-depth: 0 # Full history for secret scanning
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Run npm audit
+  run: npm audit --production --audit-level=moderate
+- name: Secret scanning with TruffleHog
+  uses: trufflesecurity/trufflehog@v3
+  with:
+  path: ./
+  base: ${{ github.event.repository.default_branch }}
+  head: HEAD
+- name: Dependency review
+  uses: actions/dependency-review-action@v3
+  if: github.event_name == 'pull_request'
+  ============================================================================
+  JOB 8: BUILD
+  ============================================================================
+  build:
+  name: Build Application
+  runs-on: ubuntu-latest
+  needs: [lint, type-check, test]
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Restore cache
-    uses: actions/cache@v3
-    with:
-      path: node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      
-  - name: Build
-    run: npm run build
-    env:
-      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-      
-  - name: Check build size
-    run: |
-      SIZE=$(du -sb .next | cut -f1)
-      MAX_SIZE=$((250 * 1024 * 1024)) # 250MB
-      if [ $SIZE -gt $MAX_SIZE ]; then
-        echo "Build size exceeds 250MB: $(($SIZE / 1024 / 1024))MB"
-        exit 1
-      fi
-      
-  - name: Upload build artifact
-    uses: actions/upload-artifact@v3
-    with:
-      name: build
-      path: .next/
-      retention-days: 1
-============================================================================
-JOB 9: LIGHTHOUSE CI
-============================================================================
-lighthouse:
-name: Lighthouse Performance Check
-runs-on: ubuntu-latest
-needs: build
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Restore cache
+  uses: actions/cache@v3
+  with:
+  path: node_modules
+  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+- name: Build
+  run: npm run build
+  env:
+  NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+- name: Check build size
+  run: |
+  SIZE=$(du -sb .next | cut -f1)
+      MAX_SIZE=$((250 _ 1024 _ 1024)) # 250MB
+  if [ $SIZE -gt $MAX_SIZE ]; then
+  echo "Build size exceeds 250MB: $(($SIZE / 1024 / 1024))MB"
+  exit 1
+  fi
+- name: Upload build artifact
+  uses: actions/upload-artifact@v3
+  with:
+  name: build
+  path: .next/
+  retention-days: 1
+  ============================================================================
+  JOB 9: LIGHTHOUSE CI
+  ============================================================================
+  lighthouse:
+  name: Lighthouse Performance Check
+  runs-on: ubuntu-latest
+  needs: build
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Download build artifact
-    uses: actions/download-artifact@v3
-    with:
-      name: build
-      path: .next/
-      
-  - name: Restore cache
-    uses: actions/cache@v3
-    with:
-      path: node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      
-  - name: Start server
-    run: npm start &
-    
-  - name: Wait for server
-    run: npx wait-on http://localhost:3000
-    
-  - name: Run Lighthouse CI
-    uses: treosh/lighthouse-ci-action@v10
-    with:
-      urls: |
-        http://localhost:3000
-        http://localhost:3000/pricing
-        http://localhost:3000/features
-      configPath: './lighthouserc.json'
-      uploadArtifacts: true
-      temporaryPublicStorage: true
-============================================================================
-JOB 10: VISUAL REGRESSION (Chromatic)
-============================================================================
-visual-regression:
-name: Visual Regression Tests
-runs-on: ubuntu-latest
-needs: build
-if: github.event_name == 'pull_request'
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Download build artifact
+  uses: actions/download-artifact@v3
+  with:
+  name: build
+  path: .next/
+- name: Restore cache
+  uses: actions/cache@v3
+  with:
+  path: node_modules
+  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+- name: Start server
+  run: npm start &
+- name: Wait for server
+  run: npx wait-on http://localhost:3000
+- name: Run Lighthouse CI
+  uses: treosh/lighthouse-ci-action@v10
+  with:
+  urls: |
+  http://localhost:3000
+  http://localhost:3000/pricing
+  http://localhost:3000/features
+  configPath: './lighthouserc.json'
+  uploadArtifacts: true
+  temporaryPublicStorage: true
+  ============================================================================
+  JOB 10: VISUAL REGRESSION (Chromatic)
+  ============================================================================
+  visual-regression:
+  name: Visual Regression Tests
+  runs-on: ubuntu-latest
+  needs: build
+  if: github.event_name == 'pull_request'
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    with:
-      fetch-depth: 0 # Required for Chromatic
-      
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Restore cache
-    uses: actions/cache@v3
-    with:
-      path: node_modules
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      
-  - name: Run Chromatic
-    uses: chromaui/action@v1
-    with:
-      projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-      exitZeroOnChanges: true
-      autoAcceptChanges: main
-============================================================================
-JOB 11: DEPLOY TO STAGING
-============================================================================
-deploy-staging:
-name: Deploy to Staging
-runs-on: ubuntu-latest
-needs: [build, e2e, accessibility, security, lighthouse]
-if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
-environment:
-name: staging
-url: https://staging.mydispatch.de
+
+- name: Checkout code
+  uses: actions/checkout@v4
+  with:
+  fetch-depth: 0 # Required for Chromatic
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Restore cache
+  uses: actions/cache@v3
+  with:
+  path: node_modules
+  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+- name: Run Chromatic
+  uses: chromaui/action@v1
+  with:
+  projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+  exitZeroOnChanges: true
+  autoAcceptChanges: main
+  ============================================================================
+  JOB 11: DEPLOY TO STAGING
+  ============================================================================
+  deploy-staging:
+  name: Deploy to Staging
+  runs-on: ubuntu-latest
+  needs: [build, e2e, accessibility, security, lighthouse]
+  if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
+  environment:
+  name: staging
+  url: https://staging.mydispatch.de
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Deploy to Vercel (Staging)
-    uses: amondnet/vercel-action@v25
-    with:
-      vercel-token: ${{ secrets.VERCEL_TOKEN }}
-      vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-      vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-      vercel-args: '--prod'
-      scope: ${{ secrets.VERCEL_ORG_ID }}
-      
-  - name: Notify Slack
-    uses: slackapi/slack-github-action@v1.24.0
-    with:
-      webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-      webhook-type: incoming-webhook
-      payload: |
-        {
-          "text": "✅ Staging Deployment Successful",
-          "blocks": [
-            {
-              "type": "section",
-              "text": {
-                "type": "mrkdwn",
-                "text": "Deployment to *Staging* completed successfully!\n*URL:* https://staging.mydispatch.de\n*Commit:* ${{ github.sha }}"
-              }
-            }
-          ]
-        }
-============================================================================
-JOB 12: DEPLOY TO PRODUCTION
-============================================================================
-deploy-production:
-name: Deploy to Production
-runs-on: ubuntu-latest
-needs: [build, e2e, accessibility, security, lighthouse]
-if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-environment:
-name: production
-url: https://mydispatch.de
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Deploy to Vercel (Staging)
+  uses: amondnet/vercel-action@v25
+  with:
+  vercel-token: ${{ secrets.VERCEL_TOKEN }}
+  vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+  vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+  vercel-args: '--prod'
+  scope: ${{ secrets.VERCEL_ORG_ID }}
+- name: Notify Slack
+  uses: slackapi/slack-github-action@v1.24.0
+  with:
+  webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+  webhook-type: incoming-webhook
+  payload: |
+  {
+  "text": "✅ Staging Deployment Successful",
+  "blocks": [
+  {
+  "type": "section",
+  "text": {
+  "type": "mrkdwn",
+  "text": "Deployment to *Staging* completed successfully!\n*URL:* https://staging.mydispatch.de\n*Commit:* ${{ github.sha }}"
+  }
+  }
+  ]
+  }
+  ============================================================================
+  JOB 12: DEPLOY TO PRODUCTION
+  ============================================================================
+  deploy-production:
+  name: Deploy to Production
+  runs-on: ubuntu-latest
+  needs: [build, e2e, accessibility, security, lighthouse]
+  if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+  environment:
+  name: production
+  url: https://mydispatch.de
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Deploy to Vercel (Production)
-    uses: amondnet/vercel-action@v25
-    with:
-      vercel-token: ${{ secrets.VERCEL_TOKEN }}
-      vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-      vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-      vercel-args: '--prod'
-      scope: ${{ secrets.VERCEL_ORG_ID }}
-      
-  - name: Create Sentry release
-    uses: getsentry/action-release@v1
-    env:
-      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-      SENTRY_ORG: mydispatch
-      SENTRY_PROJECT: web
-    with:
-      environment: production
-      version: ${{ github.sha }}
-      
-  - name: Notify Slack
-    uses: slackapi/slack-github-action@v1.24.0
-    with:
-      webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-      webhook-type: incoming-webhook
-      payload: |
-        {
-          "text": "🚀 Production Deployment Successful",
-          "blocks": [
-            {
-              "type": "section",
-              "text": {
-                "type": "mrkdwn",
-                "text": "Deployment to *Production* completed successfully!\n*URL:* https://mydispatch.de\n*Commit:* ${{ github.sha }}\n*Author:* ${{ github.actor }}"
-              }
-            }
-          ]
-        }
-text
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Deploy to Vercel (Production)
+  uses: amondnet/vercel-action@v25
+  with:
+  vercel-token: ${{ secrets.VERCEL_TOKEN }}
+  vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+  vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+  vercel-args: '--prod'
+  scope: ${{ secrets.VERCEL_ORG_ID }}
+- name: Create Sentry release
+  uses: getsentry/action-release@v1
+  env:
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+  SENTRY_ORG: mydispatch
+  SENTRY_PROJECT: web
+  with:
+  environment: production
+  version: ${{ github.sha }}
+- name: Notify Slack
+  uses: slackapi/slack-github-action@v1.24.0
+  with:
+  webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+  webhook-type: incoming-webhook
+  payload: |
+  {
+  "text": "🚀 Production Deployment Successful",
+  "blocks": [
+  {
+  "type": "section",
+  "text": {
+  "type": "mrkdwn",
+  "text": "Deployment to *Production* completed successfully!\n*URL:* https://mydispatch.de\n*Commit:* ${{ github.sha }}\n*Author:* ${{ github.actor }}"
+  }
+  }
+  ]
+  }
+  text
 
 ### 3.2 Pull Request Checks Workflow
 
@@ -712,123 +677,116 @@ runs-on: ubuntu-latest
 
 text
 steps:
-  - name: Check PR title
-    uses: amannn/action-semantic-pull-request@v5
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    with:
-      types: |
-        feat
-        fix
-        docs
-        style
-        refactor
-        perf
-        test
-        chore
-      requireScope: false
-      
-  - name: Check PR size
-    uses: actions/github-script@v6
-    with:
-      script: |
-        const pr = context.payload.pull_request
-        const additions = pr.additions
-        const deletions = pr.deletions
-        const changes = additions + deletions
-        
-        const MAX_CHANGES = 1000
-        
-        if (changes > MAX_CHANGES) {
-          core.setFailed(`PR too large: ${changes} changes (max: ${MAX_CHANGES}). Please split into smaller PRs.`)
-        }
-        
-  - name: Check for CHANGELOG update
-    uses: actions/github-script@v6
-    with:
-      script: |
-        const pr = context.payload.pull_request
-        const files = await github.rest.pulls.listFiles({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          pull_number: pr.number
-        })
-        
-        const hasChangelog = files.data.some(file => 
-          file.filename.includes('CHANGELOG.md')
-        )
-        
-        if (!hasChangelog && !pr.title.startsWith('docs:') && !pr.title.startsWith('chore:')) {
-          core.warning('⚠️ CHANGELOG.md not updated. Consider adding an entry.')
-        }
-============================================================================
-COMPONENT REGISTRY CHECK
-============================================================================
-component-registry-check:
-name: Check Component Registry Update
-runs-on: ubuntu-latest
 
-text
-steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Check if new components added
-    uses: actions/github-script@v6
-    with:
-      script: |
-        const pr = context.payload.pull_request
-        const files = await github.rest.pulls.listFiles({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          pull_number: pr.number
-        })
-        
-        const newComponents = files.data.filter(file =>
-          file.filename.includes('components/ui/') &&
-          file.filename.endsWith('.tsx') &&
-          file.status === 'added'
-        )
-        
-        if (newComponents.length > 0) {
-          const hasRegistryUpdate = files.data.some(file =>
-            file.filename.includes('COMPONENT_REGISTRY.md')
+- name: Check PR title
+  uses: amannn/action-semantic-pull-request@v5
+  env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  with:
+  types: |
+  feat
+  fix
+  docs
+  style
+  refactor
+  perf
+  test
+  chore
+  requireScope: false
+- name: Check PR size
+  uses: actions/github-script@v6
+  with:
+  script: |
+  const pr = context.payload.pull_request
+  const additions = pr.additions
+  const deletions = pr.deletions
+  const changes = additions + deletions
+      const MAX_CHANGES = 1000
+
+      if (changes > MAX_CHANGES) {
+        core.setFailed(`PR too large: ${changes} changes (max: ${MAX_CHANGES}). Please split into smaller PRs.`)
+      }
+- name: Check for CHANGELOG update
+  uses: actions/github-script@v6
+  with:
+  script: |
+  const pr = context.payload.pull_request
+  const files = await github.rest.pulls.listFiles({
+  owner: context.repo.owner,
+  repo: context.repo.repo,
+  pull_number: pr.number
+  })
+          const hasChangelog = files.data.some(file =>
+            file.filename.includes('CHANGELOG.md')
           )
-          
-          if (!hasRegistryUpdate) {
-            core.setFailed('❌ New components added but COMPONENT_REGISTRY.md not updated!')
+
+          if (!hasChangelog && !pr.title.startsWith('docs:') && !pr.title.startsWith('chore:')) {
+            core.warning('⚠️ CHANGELOG.md not updated. Consider adding an entry.')
           }
-        }
-============================================================================
-BUNDLE SIZE CHECK
-============================================================================
-bundle-size:
-name: Check Bundle Size
-runs-on: ubuntu-latest
+  ============================================================================
+  COMPONENT REGISTRY CHECK
+  ============================================================================
+  component-registry-check:
+  name: Check Component Registry Update
+  runs-on: ubuntu-latest
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Install dependencies
-    run: npm ci
-    
-  - name: Build
-    run: npm run build
-    
-  - name: Analyze bundle size
-    uses: andresz1/size-limit-action@v1
-    with:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
-      skip_step: install
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Check if new components added
+  uses: actions/github-script@v6
+  with:
+  script: |
+  const pr = context.payload.pull_request
+  const files = await github.rest.pulls.listFiles({
+  owner: context.repo.owner,
+  repo: context.repo.repo,
+  pull_number: pr.number
+  })
+          const newComponents = files.data.filter(file =>
+            file.filename.includes('components/ui/') &&
+            file.filename.endsWith('.tsx') &&
+            file.status === 'added'
+          )
+
+          if (newComponents.length > 0) {
+            const hasRegistryUpdate = files.data.some(file =>
+              file.filename.includes('COMPONENT_REGISTRY.md')
+            )
+
+            if (!hasRegistryUpdate) {
+              core.setFailed('❌ New components added but COMPONENT_REGISTRY.md not updated!')
+            }
+          }
+  ============================================================================
+  BUNDLE SIZE CHECK
+  ============================================================================
+  bundle-size:
+  name: Check Bundle Size
+  runs-on: ubuntu-latest
+
 text
+steps:
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Install dependencies
+  run: npm ci
+- name: Build
+  run: npm run build
+- name: Analyze bundle size
+  uses: andresz1/size-limit-action@v1
+  with:
+  github_token: ${{ secrets.GITHUB_TOKEN }}
+  skip_step: install
+  text
 
 ### 3.3 Dependency Update Workflow
 
@@ -838,8 +796,9 @@ name: Dependency Updates
 
 on:
 schedule:
-- cron: '0 2 * * 1' # Every Monday at 2 AM
-workflow_dispatch: # Manual trigger
+
+- cron: '0 2 \* \* 1' # Every Monday at 2 AM
+  workflow_dispatch: # Manual trigger
 
 jobs:
 update-dependencies:
@@ -848,35 +807,32 @@ runs-on: ubuntu-latest
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      
-  - name: Update dependencies
-    run: |
-      npm update
-      npm audit fix
-      
-  - name: Create Pull Request
-    uses: peter-evans/create-pull-request@v5
-    with:
-      token: ${{ secrets.GITHUB_TOKEN }}
-      commit-message: 'chore: update dependencies'
-      title: 'chore: Weekly dependency updates'
-      body: |
-        Automated dependency updates
-        
-        - Updates all dependencies to latest versions
-        - Runs `npm audit fix` for security patches
-        
-        Please review changes before merging.
-      branch: chore/dependency-updates
-      labels: dependencies
-text
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+- name: Update dependencies
+  run: |
+  npm update
+  npm audit fix
+- name: Create Pull Request
+  uses: peter-evans/create-pull-request@v5
+  with:
+  token: ${{ secrets.GITHUB_TOKEN }}
+  commit-message: 'chore: update dependencies'
+  title: 'chore: Weekly dependency updates'
+  body: |
+  Automated dependency updates
+          - Updates all dependencies to latest versions
+          - Runs `npm audit fix` for security patches
+
+          Please review changes before merging.
+        branch: chore/dependency-updates
+        labels: dependencies
+  text
 
 ### 3.4 Stale PR/Issue Cleanup
 
@@ -886,30 +842,32 @@ name: Close Stale Issues and PRs
 
 on:
 schedule:
-- cron: '0 0 * * *' # Daily
+
+- cron: '0 0 \* \* \*' # Daily
 
 jobs:
 stale:
 runs-on: ubuntu-latest
 steps:
-- uses: actions/stale@v8
-with:
-repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-text
-      # Stale Issues
-      stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity. It will be closed in 7 days if no further activity occurs.'
-      close-issue-message: 'This issue was automatically closed due to inactivity.'
-      days-before-issue-stale: 60
-      days-before-issue-close: 7
-      stale-issue-label: 'stale'
-      
+- uses: actions/stale@v8
+  with:
+  repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+text # Stale Issues
+stale-issue-message: 'This issue has been automatically marked as stale because it has not had recent activity. It will be closed in 7 days if no further activity occurs.'
+close-issue-message: 'This issue was automatically closed due to inactivity.'
+days-before-issue-stale: 60
+days-before-issue-close: 7
+stale-issue-label: 'stale'
+
       # Stale PRs
       stale-pr-message: 'This PR has been automatically marked as stale because it has not had recent activity. It will be closed in 7 days if no further activity occurs.'
       close-pr-message: 'This PR was automatically closed due to inactivity.'
       days-before-pr-stale: 30
       days-before-pr-close: 7
       stale-pr-label: 'stale'
+
 text
 
 ---
@@ -936,18 +894,19 @@ text
 "categories:seo": ["error", {"minScore": 0.95}],
 
 text
-    "first-contentful-paint": ["error", {"maxNumericValue": 1500}],
-    "largest-contentful-paint": ["error", {"maxNumericValue": 2500}],
-    "cumulative-layout-shift": ["error", {"maxNumericValue": 0.1}],
-    "total-blocking-time": ["error", {"maxNumericValue": 300}],
-    
+"first-contentful-paint": ["error", {"maxNumericValue": 1500}],
+"largest-contentful-paint": ["error", {"maxNumericValue": 2500}],
+"cumulative-layout-shift": ["error", {"maxNumericValue": 0.1}],
+"total-blocking-time": ["error", {"maxNumericValue": 300}],
+
     "resource-summary:script:size": ["error", {"maxNumericValue": 250000}],
     "resource-summary:stylesheet:size": ["error", {"maxNumericValue": 50000}],
     "resource-summary:image:size": ["error", {"maxNumericValue": 1000000}]
-  }
+
+}
 },
 "upload": {
-  "target": "temporary-public-storage"
+"target": "temporary-public-storage"
 }
 }
 }
@@ -987,7 +946,7 @@ statements: 80,
 },
 resolve: {
 alias: {
-'@': path.resolve(__dirname, './src'),
+'@': path.resolve(\_\_dirname, './src'),
 },
 },
 })
@@ -1008,6 +967,7 @@ on:
 workflow_run:
 workflows: ["CI/CD Pipeline"]
 types:
+
 - completed
 
 jobs:
@@ -1016,8 +976,9 @@ runs-on: ubuntu-latest
 
 text
 steps:
-  - name: Notify on failure
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+
+- name: Notify on failure
+  if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     uses: slackapi/slack-github-action@v1.24.0
     with:
       webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -1031,11 +992,11 @@ steps:
               "text": {
                 "type": "mrkdwn",
                 "text": "*CI/CD Pipeline Failed* 🚨\n*Branch:* ${{ github.ref }}\n*Commit:* ${{ github.sha }}\n*Author:* ${{ github.actor }}\n<${{ github.event.workflow_run.html_url }}|View Workflow>"
-              }
-            }
-          ]
-        }
-text
+  }
+  }
+  ]
+  }
+  text
 
 ### 5.2 Status Badge for README
 
@@ -1068,12 +1029,13 @@ description: 'Environment to rollback'
 required: true
 type: choice
 options:
+
 - staging
 - production
-commit_sha:
-description: 'Commit SHA to rollback to'
-required: true
-type: string
+  commit_sha:
+  description: 'Commit SHA to rollback to'
+  required: true
+  type: string
 
 jobs:
 rollback:
@@ -1083,50 +1045,46 @@ environment: ${{ github.event.inputs.environment }}
 
 text
 steps:
-  - name: Checkout specific commit
-    uses: actions/checkout@v4
-    with:
-      ref: ${{ github.event.inputs.commit_sha }}
-      
-  - name: Setup Node.js
-    uses: actions/setup-node@v4
-    with:
-      node-version: '20'
-      cache: 'npm'
-      
-  - name: Install dependencies
-    run: npm ci
-    
-  - name: Build
-    run: npm run build
-    
-  - name: Deploy to Vercel
-    uses: amondnet/vercel-action@v25
-    with:
-      vercel-token: ${{ secrets.VERCEL_TOKEN }}
-      vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-      vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-      vercel-args: '--prod'
-      
-  - name: Notify Slack
-    uses: slackapi/slack-github-action@v1.24.0
-    with:
-      webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
-      webhook-type: incoming-webhook
-      payload: |
-        {
-          "text": "⏪ Rollback Completed",
-          "blocks": [
-            {
-              "type": "section",
-              "text": {
-                "type": "mrkdwn",
-                "text": "*Rollback to ${{ github.event.inputs.commit_sha }}*\n*Environment:* ${{ github.event.inputs.environment }}\n*Initiated by:* ${{ github.actor }}"
-              }
-            }
-          ]
-        }
-text
+
+- name: Checkout specific commit
+  uses: actions/checkout@v4
+  with:
+  ref: ${{ github.event.inputs.commit_sha }}
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+  node-version: '20'
+  cache: 'npm'
+- name: Install dependencies
+  run: npm ci
+- name: Build
+  run: npm run build
+- name: Deploy to Vercel
+  uses: amondnet/vercel-action@v25
+  with:
+  vercel-token: ${{ secrets.VERCEL_TOKEN }}
+  vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+  vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+  vercel-args: '--prod'
+- name: Notify Slack
+  uses: slackapi/slack-github-action@v1.24.0
+  with:
+  webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+  webhook-type: incoming-webhook
+  payload: |
+  {
+  "text": "⏪ Rollback Completed",
+  "blocks": [
+  {
+  "type": "section",
+  "text": {
+  "type": "mrkdwn",
+  "text": "*Rollback to ${{ github.event.inputs.commit_sha }}*\n*Environment:* ${{ github.event.inputs.environment }}\n*Initiated by:* ${{ github.actor }}"
+  }
+  }
+  ]
+  }
+  text
 
 ### 6.2 Preview Deployments
 
@@ -1145,28 +1103,27 @@ runs-on: ubuntu-latest
 
 text
 steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
-    
-  - name: Deploy to Vercel (Preview)
-    uses: amondnet/vercel-action@v25
-    id: vercel-deploy
-    with:
-      vercel-token: ${{ secrets.VERCEL_TOKEN }}
-      vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-      vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-      
-  - name: Comment PR with preview URL
-    uses: actions/github-script@v6
-    with:
-      script: |
-        github.rest.issues.createComment({
-          issue_number: context.issue.number,
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          body: `🚀 **Preview Deployment**\n\n✅ Preview deployed successfully!\n\n**Preview URL:** ${{ steps.vercel-deploy.outputs.preview-url }}\n\nThis preview will be automatically updated on new commits.`
-        })
-text
+
+- name: Checkout code
+  uses: actions/checkout@v4
+- name: Deploy to Vercel (Preview)
+  uses: amondnet/vercel-action@v25
+  id: vercel-deploy
+  with:
+  vercel-token: ${{ secrets.VERCEL_TOKEN }}
+  vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+  vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+- name: Comment PR with preview URL
+  uses: actions/github-script@v6
+  with:
+  script: |
+  github.rest.issues.createComment({
+  issue_number: context.issue.number,
+  owner: context.repo.owner,
+  repo: context.repo.repo,
+  body: `🚀 **Preview Deployment**\n\n✅ Preview deployed successfully!\n\n**Preview URL:** ${{ steps.vercel-deploy.outputs.preview-url }}\n\nThis preview will be automatically updated on new commits.`
+  })
+  text
 
 ---
 
@@ -1181,13 +1138,14 @@ Overview
 Unser CI/CD System automatisiert Quality Assurance und Deployment.
 
 Pipeline Stages
+
 1. Setup (1-2 Min)
-Dependency Installation
+   Dependency Installation
 
 Cache Management
 
 2. Quality Checks (3-5 Min)
-✅ Linting (ESLint)
+   ✅ Linting (ESLint)
 
 ✅ Formatting (Prettier)
 
@@ -1198,28 +1156,28 @@ Cache Management
 ✅ Coverage Check (min 80%)
 
 3. Integration Tests (5-10 Min)
-✅ E2E Tests (Playwright)
+   ✅ E2E Tests (Playwright)
 
 ✅ Accessibility Tests (axe-core)
 
 ✅ Visual Regression (Chromatic)
 
 4. Security (2-3 Min)
-✅ npm audit
+   ✅ npm audit
 
 ✅ Secret Scanning (TruffleHog)
 
 ✅ Dependency Review
 
 5. Performance (3-5 Min)
-✅ Build Size Check
+   ✅ Build Size Check
 
 ✅ Lighthouse CI
 
 ✅ Bundle Analysis
 
 6. Deployment (3-5 Min)
-✅ Deploy to Staging (auto)
+   ✅ Deploy to Staging (auto)
 
 ✅ Deploy to Production (manual approval)
 
@@ -1227,13 +1185,13 @@ Total Duration: ~15-30 Min
 
 Branch Strategy
 text
-main (production)    → Auto-deploy to Production (after approval)
-  ↑
-staging              → Auto-deploy to Staging
-  ↑
-develop              → Auto-deploy to Development
-  ↑
-feature/xyz          → Preview Deployment
+main (production) → Auto-deploy to Production (after approval)
+↑
+staging → Auto-deploy to Staging
+↑
+develop → Auto-deploy to Development
+↑
+feature/xyz → Preview Deployment
 Pull Request Workflow
 Create Feature Branch:
 
@@ -1326,10 +1284,13 @@ Common Issues:
 Fix & Retry:
 
 bash
+
 # Fix locally
+
 npm run validate
 
 # If all pass:
+
 git add .
 git commit --amend
 git push --force

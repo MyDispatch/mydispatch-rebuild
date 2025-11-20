@@ -7,10 +7,18 @@
    ✅ 7-Tage-Verlauf mit Tooltips
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
-import { TrendingUp } from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { formatCurrency } from '@/lib/format-utils';
+import { Card, CardContent, CardHeader, CardTitle } from "@/lib/compat";
+import { TrendingUp } from "lucide-react";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { formatCurrency } from "@/lib/format-utils";
 
 interface RevenueData {
   date: string;
@@ -21,7 +29,7 @@ interface RevenueChartProps {
   data: RevenueData[];
   trend?: {
     value: number;
-    direction: 'up' | 'down';
+    direction: "up" | "down";
   };
 }
 
@@ -42,20 +50,21 @@ export function RevenueChart({ data, trend }: RevenueChartProps) {
             </CardTitle>
           </div>
           {trend && (
-            <div className={`flex items-center gap-1 px-2 py-1 rounded-lg ${
-              trend.direction === 'up' ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-600' // ✅ Status Exception
-            }`}>
-              <TrendingUp className={`h-3 w-3 ${trend.direction === 'down' ? 'rotate-180' : ''}`} />
+            <div
+              className={`flex items-center gap-1 px-2 py-1 rounded-lg ${
+                trend.direction === "up" ? "bg-green-50 text-green-600" : "bg-red-50 text-red-600" // ✅ Status Exception
+              }`}
+            >
+              <TrendingUp className={`h-3 w-3 ${trend.direction === "down" ? "rotate-180" : ""}`} />
               <span className="text-xs font-bold">
-                {trend.value > 0 ? '+' : ''}{trend.value}%
+                {trend.value > 0 ? "+" : ""}
+                {trend.value}%
               </span>
             </div>
           )}
         </div>
         <div className="flex items-baseline gap-2 mt-2">
-          <p className="text-2xl font-bold text-slate-900">
-            {formatCurrency(total)}
-          </p>
+          <p className="text-2xl font-bold text-slate-900">{formatCurrency(total)}</p>
           <span className="text-xs font-medium text-slate-600">
             Ø {formatCurrency(average)}/Tag
           </span>
@@ -73,21 +82,21 @@ export function RevenueChart({ data, trend }: RevenueChartProps) {
             <CartesianGrid strokeDasharray="3 3" stroke="rgb(226 232 240)" />
             <XAxis
               dataKey="date"
-              tick={{ fontSize: 10, fill: 'rgb(100 116 139)' }}
+              tick={{ fontSize: 10, fill: "rgb(100 116 139)" }}
               stroke="rgb(203 213 225)"
             />
             <YAxis
-              tick={{ fontSize: 10, fill: 'rgb(100 116 139)' }}
+              tick={{ fontSize: 10, fill: "rgb(100 116 139)" }}
               stroke="rgb(203 213 225)"
               tickFormatter={(value) => `${value}€`}
             />
             <Tooltip
-              formatter={(value: number) => [formatCurrency(value), 'Umsatz']}
+              formatter={(value: number) => [formatCurrency(value), "Umsatz"]}
               contentStyle={{
-                backgroundColor: 'white',
-                border: '1px solid rgb(226 232 240)',
-                borderRadius: '8px',
-                fontSize: '12px',
+                backgroundColor: "white",
+                border: "1px solid rgb(226 232 240)",
+                borderRadius: "8px",
+                fontSize: "12px",
               }}
             />
             <Area

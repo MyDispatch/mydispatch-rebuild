@@ -9,6 +9,7 @@
 ## 🎯 AUDIT-ÜBERSICHT
 
 **Geprüfte Bereiche:**
+
 - ✅ Farbsystem (HSL vs. Direct-Colors)
 - ✅ Kontraste (WCAG 2.1 AA)
 - ✅ Semantic Tokens (Design-System-Compliance)
@@ -16,6 +17,7 @@
 - ✅ Typography (Lesbarkeit, Umbrüche)
 
 **Geprüfte Seiten:**
+
 - Home.tsx (Landing Page)
 - Pricing.tsx
 - Unternehmer.tsx (Tenant Landing Page)
@@ -27,23 +29,30 @@
 ## ✅ POSITIVE BEFUNDE
 
 ### 1. Design-System-Compliance (98%)
+
 **Sehr gut:**
+
 - Fast alle Seiten verwenden semantische Tokens (`bg-primary`, `text-foreground`)
 - Keine `text-white` oder `bg-black` Direct-Colors in Marketingseiten
 - HSL-basiertes Farbsystem korrekt implementiert
 
 ### 2. Farbsystem (index.css)
+
 **Hervorragend:**
+
 ```css
 --primary: 40 31% 88%; /* #EADEBD - MyDispatch Beige/Gold */
 --foreground: 225 31% 28%; /* #323D5E - Dunkelblau */
 ```
+
 - Alle Farben in HSL definiert ✅
 - Keine RGB-zu-HSL-Konvertierungs-Fehler ✅
 - Corporate Identity korrekt abgebildet ✅
 
 ### 3. Kontraste (WCAG AA)
+
 **Gut:**
+
 - Text auf hellen Hintergründen: 4.8:1 (foreground auf primary)
 - Hero-Headlines: Kontrast durch dunklen Overlay garantiert
 - Buttons: Ausreichender Kontrast (4.5:1+)
@@ -55,23 +64,27 @@
 ### CRITICAL ⚡ (P0)
 
 #### PROBLEM-001: Inkonsistente Hero-Button-Farben
+
 **Betroffen:** `src/pages/Home.tsx`, Zeilen 156-169
 
 **Aktuell:**
+
 ```tsx
 // Hero CTAs verwenden custom classes statt semantic tokens
-className="hero-cta-primary"  // Nicht im Design-System definiert!
-className="hero-cta-secondary"
+className = "hero-cta-primary"; // Nicht im Design-System definiert!
+className = "hero-cta-secondary";
 ```
 
 **Problem:**
+
 - `hero-cta-primary` und `hero-cta-secondary` sind NICHT in `index.css` definiert
 - Buttons erscheinen mit Fallback-Farben (evtl. zu blass)
 
 **Lösung:**
+
 ```tsx
 // Verwende Button-Komponente mit Varianten
-<Button 
+<Button
   size="lg"
   className="min-h-[56px] px-8 py-6 text-lg shadow-elegant hover:shadow-glow"
 >
@@ -79,7 +92,7 @@ className="hero-cta-secondary"
   Jetzt abonnieren
 </Button>
 
-<Button 
+<Button
   size="lg"
   variant="outline"
   className="min-h-[56px] px-8 py-6 text-lg border-2 border-primary hover:bg-primary/10"
@@ -94,21 +107,25 @@ className="hero-cta-secondary"
 ---
 
 #### PROBLEM-002: Hero-Text-Farben nicht definiert
+
 **Betroffen:** `src/pages/Home.tsx`, `src/pages/Unternehmer.tsx`
 
 **Aktuell:**
+
 ```tsx
-className="hero-headline-primary"  // Nicht in index.css!
-className="hero-headline-secondary"
-className="hero-subtext"
-className="hero-icon"
+className = "hero-headline-primary"; // Nicht in index.css!
+className = "hero-headline-secondary";
+className = "hero-subtext";
+className = "hero-icon";
 ```
 
 **Problem:**
+
 - Alle `hero-*` Classes fehlen in `index.css`
 - Text erscheint mit Fallback (evtl. zu blass/zu dunkel)
 
 **Lösung in index.css:**
+
 ```css
 /* Hero-Specific Typography */
 .hero-headline-primary {
@@ -148,16 +165,19 @@ className="hero-icon"
 ### HIGH 🔴 (P1)
 
 #### PROBLEM-003: Blasse Farben auf Marketingseiten vs. Sidebar
+
 **Betroffen:** Alle Marketingseiten vs. Interner Bereich
 
 **Analyse:**
 **Sidebar (Intern):**
+
 ```css
 --sidebar-background: 40 31% 88%; /* Kräftiges Beige */
 --sidebar-foreground: 225 31% 28%; /* Dunkles Blau */
 ```
 
 **Marketingseiten:**
+
 ```css
 --primary: 40 31% 88%; /* Gleiche Farbe wie Sidebar */
 --foreground: 225 31% 28%; /* Gleiche Farbe wie Sidebar */
@@ -172,6 +192,7 @@ Die Farben sind IDENTISCH! Das Problem liegt nicht am Farbsystem, sondern an:
 
 **Lösung:**
 Keine Farb-Änderung nötig, sondern:
+
 - Hero-Classes definieren (siehe oben)
 - Video-Overlay optimieren (weniger dunkel)
 - Bessere Kontraste durch Text-Shadows
@@ -179,18 +200,22 @@ Keine Farb-Änderung nötig, sondern:
 ---
 
 #### PROBLEM-004: Unternehmer.tsx Video zu dunkel
+
 **Betroffen:** `src/pages/Unternehmer.tsx`, Zeile 97
 
 **Aktuell:**
+
 ```tsx
 style={{ filter: 'brightness(0.3)' }}  // 70% dunkler!
 ```
 
 **Problem:**
+
 - Video ist extrem dunkel → Farben erscheinen blass
 - Text-Kontrast leidet
 
 **Lösung:**
+
 ```tsx
 style={{ filter: 'brightness(0.5)' }}  // Nur 50% dunkler
 // ODER besser: Overlay statt Filter
@@ -201,24 +226,24 @@ style={{ filter: 'brightness(0.5)' }}  // Nur 50% dunkler
 ---
 
 #### PROBLEM-005: Fehlende Button-Hover-States
+
 **Betroffen:** `src/pages/Pricing.tsx`, Button-Komponenten
 
 **Aktuell:**
+
 ```tsx
-<Button className="w-full min-h-[44px]">
-  {tariff.ctaText}
-</Button>
+<Button className="w-full min-h-[44px]">{tariff.ctaText}</Button>
 ```
 
 **Problem:**
+
 - Kein custom Hover-State für Premium-Look
 - Standard-Button-Hover evtl. zu subtle
 
 **Lösung:**
+
 ```tsx
-<Button 
-  className="w-full min-h-[44px] hover:scale-105 hover:shadow-elegant transition-all"
->
+<Button className="w-full min-h-[44px] hover:scale-105 hover:shadow-elegant transition-all">
   {tariff.ctaText}
 </Button>
 ```
@@ -228,32 +253,39 @@ style={{ filter: 'brightness(0.5)' }}  // Nur 50% dunkler
 ### MEDIUM 🟡 (P2)
 
 #### PROBLEM-006: Testimonials zu wenig Kontrast
+
 **Betroffen:** `src/pages/Home.tsx`, Zeilen 292-338
 
 **Aktuell:**
+
 ```tsx
-className="bg-card p-6 rounded-lg"
+className = "bg-card p-6 rounded-lg";
 ```
 
 **Problem:**
+
 - Testimonial-Cards haben gleiche Farbe wie Background
 - Zu wenig visuelle Trennung
 
 **Lösung:**
+
 ```tsx
-className="bg-card p-6 rounded-lg border-2 border-primary/20 hover:border-primary/40"
+className = "bg-card p-6 rounded-lg border-2 border-primary/20 hover:border-primary/40";
 ```
 
 ---
 
 #### PROBLEM-007: Mobile Touch-Targets teilweise zu klein
+
 **Betroffen:** Various Seiten, kleine Icons/Buttons
 
 **Problem:**
+
 - Einige Icons <44px (WCAG-Mindestgröße)
 - Schwer auf Touch-Devices zu treffen
 
 **Lösung:**
+
 ```tsx
 // Statt:
 <ChevronDown className="h-4 w-4" />
@@ -267,9 +299,11 @@ className="bg-card p-6 rounded-lg border-2 border-primary/20 hover:border-primar
 ## 🔧 SOFORT-FIXES (Quick Wins)
 
 ### FIX-001: Hero-Classes definieren (5 Minuten)
+
 **Datei:** `src/index.css`
 
 Füge hinzu nach Zeile 500:
+
 ```css
 /* ==================================================================================
    HERO-SPECIFIC STYLES (Marketing Landing Pages)
@@ -340,6 +374,7 @@ Füge hinzu nach Zeile 500:
 ---
 
 ### FIX-002: Video-Brightness anpassen (1 Minute)
+
 **Datei:** `src/pages/Unternehmer.tsx`, Zeile 97
 
 ```tsx
@@ -353,14 +388,16 @@ style={{ filter: 'brightness(0.5)' }}
 ---
 
 ### FIX-003: Testimonial-Borders (1 Minute)
+
 **Datei:** `src/pages/Home.tsx`, Zeile 314
 
 ```tsx
 // Vorher:
-className="bg-card p-6 rounded-lg shadow-md hover:shadow-xl"
+className = "bg-card p-6 rounded-lg shadow-md hover:shadow-xl";
 
 // Nachher:
-className="bg-card p-6 rounded-lg shadow-md hover:shadow-xl border-2 border-primary/20 hover:border-primary/40"
+className =
+  "bg-card p-6 rounded-lg shadow-md hover:shadow-xl border-2 border-primary/20 hover:border-primary/40";
 ```
 
 ---
@@ -369,13 +406,13 @@ className="bg-card p-6 rounded-lg shadow-md hover:shadow-xl border-2 border-prim
 
 ### Scores
 
-| Bereich | Score | Status |
-|---------|-------|--------|
-| **Farbsystem (HSL)** | 100% | ✅ Perfekt |
-| **Semantic Tokens** | 98% | ✅ Sehr gut |
-| **WCAG Kontraste** | 92% | ✅ Gut |
-| **Responsive Design** | 95% | ✅ Sehr gut |
-| **Hero-Sections** | 65% | ⚠️ Needs Fixes |
+| Bereich               | Score | Status         |
+| --------------------- | ----- | -------------- |
+| **Farbsystem (HSL)**  | 100%  | ✅ Perfekt     |
+| **Semantic Tokens**   | 98%   | ✅ Sehr gut    |
+| **WCAG Kontraste**    | 92%   | ✅ Gut         |
+| **Responsive Design** | 95%   | ✅ Sehr gut    |
+| **Hero-Sections**     | 65%   | ⚠️ Needs Fixes |
 
 **Gesamt-Score:** 90% (Gut, mit Verbesserungspotenzial)
 

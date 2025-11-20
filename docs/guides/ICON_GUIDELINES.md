@@ -2,7 +2,7 @@
 
 **Status:** ✅ FINAL - NIEMALS ÄNDERN!  
 **Datum:** 14.10.2025  
-**Version:** 1.0  
+**Version:** 1.0
 
 ---
 
@@ -30,6 +30,7 @@
 ## ❌ VERBOTENE FARBEN
 
 ### NIEMALS VERWENDEN:
+
 - ❌ `text-status-success` (Nur für StatusIndicator-Badges!)
 - ❌ `text-status-warning` (Nur für StatusIndicator-Badges!)
 - ❌ `text-status-error` (Nur für StatusIndicator-Badges!)
@@ -43,6 +44,7 @@
 ## 📋 IMPLEMENTIERUNGSREGELN
 
 ### Standard-Icons (Check, X, etc.)
+
 ```tsx
 // ✅ KORREKT - CI-konform
 <Check className="h-4 w-4 text-foreground" />
@@ -54,6 +56,7 @@
 ```
 
 ### Status-Badges (Ampel-System)
+
 ```tsx
 // ✅ KORREKT - Nur für StatusIndicator-Component!
 <StatusIndicator type="success" label="Aktiv" />
@@ -71,9 +74,9 @@ Das **Ampel-System** (Rot/Gelb/Grün) ist **AUSSCHLIESSLICH** für `StatusIndica
 
 ```tsx
 // EINZIG ERLAUBTE VERWENDUNG VON AMPELFARBEN
-<StatusIndicator 
-  type="success"  // Grün: hsl(142 76% 36%)
-  label="Aktiv" 
+<StatusIndicator
+  type="success" // Grün: hsl(142 76% 36%)
+  label="Aktiv"
 />
 ```
 
@@ -84,17 +87,19 @@ Das **Ampel-System** (Rot/Gelb/Grün) ist **AUSSCHLIESSLICH** für `StatusIndica
 ## 📦 FLEET & DRIVER ADD-ON (KRITISCH!)
 
 ### ✅ KORREKTE DEFINITION
+
 ```tsx
 const FLEET_ADDON = {
-  name: 'Fleet & Driver Erweiterung',
-  price: 9,  // PAUSCHAL, NICHT PRO EINHEIT!
-  priceId: 'price_1SDSo1LX5M8TT990Az2dOJgv',
-  productId: 'prod_T9mMIE0Vq22m74',
-  description: 'Unbegrenzte Fahrzeuge und Fahrer für 9€/Monat pauschal',
+  name: "Fleet & Driver Erweiterung",
+  price: 9, // PAUSCHAL, NICHT PRO EINHEIT!
+  priceId: "price_1SDSo1LX5M8TT990Az2dOJgv",
+  productId: "prod_T9mMIE0Vq22m74",
+  description: "Unbegrenzte Fahrzeuge und Fahrer für 9€/Monat pauschal",
 };
 ```
 
 ### 📌 WICHTIGE REGEL
+
 - **9€/Monat pauschal** = Unbegrenzte Fahrzeuge & Fahrer
 - **NICHT** 9€ pro Fahrzeug oder Fahrer!
 - **KEINE** Mengen-Eingabe nötig (nur Checkbox: Ja/Nein)
@@ -104,6 +109,7 @@ const FLEET_ADDON = {
 ## 🔍 DATEIEN MIT ICON-VERWENDUNG
 
 ### Geprüfte & Korrigierte Dateien (14.10.2025 - UPDATE 16:45 Uhr)
+
 ✅ `src/pages/Auth.tsx` - Check/X Icons → text-foreground | State-Fix (addonEnabled)  
 ✅ `src/pages/Pricing.tsx` - Alle Icons → text-foreground | Kommentar korrigiert (pauschal)  
 ✅ `src/pages/Angebote.tsx` - Action-Buttons → text-foreground  
@@ -113,6 +119,7 @@ const FLEET_ADDON = {
 ✅ `src/pages/Statistiken.tsx` - Trend-Text → text-foreground
 
 ### Nicht-betroffen (Ampel-System korrekt)
+
 ✅ `src/components/shared/StatusIndicator.tsx` - Ampelfarben bleiben!
 
 ---
@@ -120,6 +127,7 @@ const FLEET_ADDON = {
 ## ⚠️ WARTUNG & UPDATES
 
 Bei **JEDEM** neuen Feature mit Icons:
+
 1. ✅ Icons MÜSSEN `text-foreground` oder `text-muted-foreground` verwenden
 2. ✅ Ampelfarben NUR für `StatusIndicator`-Component
 3. ✅ Fleet & Driver Add-On = 9€ pauschal (NICHT pro Einheit)
@@ -139,6 +147,7 @@ grep -r "text-status-warning" src/pages/*.tsx
 ```
 
 **Sofort korrigieren auf:**
+
 - `text-foreground` (Standard)
 - `text-muted-foreground` (Deaktiviert)
 

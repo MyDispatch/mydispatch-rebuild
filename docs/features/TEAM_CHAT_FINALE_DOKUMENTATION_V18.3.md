@@ -1,7 +1,8 @@
 # 💬 TEAM-KOMMUNIKATION - Finale Produktions-Dokumentation V18.3
+
 **Datum:** 19.10.2025  
 **Version:** V18.3 Production  
-**Status:** ✅ PRODUKTIONSREIF  
+**Status:** ✅ PRODUKTIONSREIF
 
 ---
 
@@ -19,6 +20,7 @@ Das Team-Kommunikationssystem ist ein internes WhatsApp-ähnliches Chat-System f
 ## 🎯 SYSTEM-ANFORDERUNGEN
 
 ### Voraussetzungen (KRITISCH)
+
 ```
 ✅ Mindestens 2 User im selben Unternehmen (company_id)
 ✅ Beide User müssen Profile in `profiles`-Tabelle haben
@@ -26,6 +28,7 @@ Das Team-Kommunikationssystem ist ein internes WhatsApp-ähnliches Chat-System f
 ```
 
 ### Warum funktioniert Chat NICHT mit nur 1 User?
+
 ```
 ❌ Solo-Conversations werden gefiltert (Design-Entscheidung)
 ❌ ParticipantSelector zeigt keine Teilnehmer an
@@ -37,6 +40,7 @@ Das Team-Kommunikationssystem ist ein internes WhatsApp-ähnliches Chat-System f
 ## 🏗️ SYSTEM-ARCHITEKTUR
 
 ### Datenbank-Schema
+
 ```sql
 -- Chat Conversations (Haupt-Entity)
 CREATE TABLE chat_conversations (
@@ -74,6 +78,7 @@ CREATE TABLE chat_messages (
 ```
 
 ### RLS Policies (Multi-Tenant-Security)
+
 ```sql
 -- Conversations: Nur eigene Company
 CREATE POLICY "Users can view conversations in their company"
@@ -84,7 +89,7 @@ USING (company_id IN (SELECT company_id FROM profiles WHERE user_id = auth.uid()
 CREATE POLICY "Users can view participants in their conversations"
 ON chat_participants FOR SELECT
 USING (conversation_id IN (
-  SELECT id FROM chat_conversations 
+  SELECT id FROM chat_conversations
   WHERE company_id IN (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ));
 
@@ -101,6 +106,7 @@ USING (conversation_id IN (
 ## 🔄 KOMPONENTEN-STRUKTUR
 
 ### 1. TeamChat.tsx (Haupt-Seite)
+
 **Verantwortung:** Layout, State-Management, Conversation-Selection
 
 ```typescript
@@ -113,6 +119,7 @@ USING (conversation_id IN (
 ```
 
 ### 2. ConversationList.tsx (Gesprächsliste)
+
 **Verantwortung:** Anzeige aller Conversations mit Unread-Badges
 
 ```typescript
@@ -127,6 +134,7 @@ USING (conversation_id IN (
 ```
 
 ### 3. ChatWindow.tsx (Nachrichten-Thread)
+
 **Verantwortung:** Nachrichten anzeigen & senden, Datei-Upload
 
 ```typescript
@@ -139,6 +147,7 @@ USING (conversation_id IN (
 ```
 
 ### 4. ParticipantSelector.tsx (Teilnehmer-Auswahl)
+
 **Verantwortung:** Neue Conversation erstellen, Teilnehmer auswählen
 
 ```typescript
@@ -151,6 +160,7 @@ USING (conversation_id IN (
 ```
 
 ### 5. CallInterface.tsx (Audio/Video)
+
 **Verantwortung:** Daily.co iFrame, Call-Controls
 
 ```typescript
@@ -166,12 +176,15 @@ USING (conversation_id IN (
 ## 🐛 BEKANNTE PROBLEME & LÖSUNGEN
 
 ### Problem 1: "Keine Namen angezeigt"
-**Root Cause:**  
+
+**Root Cause:**
+
 - User ist einziges Teammitglied
 - Alle Conversations sind Solo-Conversations (nur 1 Participant)
 - Solo-Conversations werden gefiltert → Keine Anzeige
 
-**Lösung:**  
+**Lösung:**
+
 ```
 ✅ Prominent Empty-State mit "Team einladen"-Button
 ✅ Klare Anleitung: Einstellungen → Team
@@ -179,11 +192,14 @@ USING (conversation_id IN (
 ```
 
 ### Problem 2: "Daily.co Fehler: account-missing-payment-method"
-**Root Cause:**  
+
+**Root Cause:**
+
 - Daily.co Account benötigt Zahlungsmethode
 - Free-Plan unterstützt keine API-Calls mehr
 
-**Lösung:**  
+**Lösung:**
+
 ```
 ✅ Call-Buttons deaktiviert (disabled={true})
 ✅ Tooltips: "Sprachanruf starten (Beta)"
@@ -192,19 +208,22 @@ USING (conversation_id IN (
 ```
 
 ### Problem 3: "Solo-Conversations in DB"
-**Root Cause:**  
+
+**Root Cause:**
+
 - Alte Bugs haben Conversations mit nur 1 Participant erstellt
 
-**Cleanup (Optional):**  
+**Cleanup (Optional):**
+
 ```sql
 -- Archiviere Solo-Conversations
-UPDATE chat_conversations 
-SET archived = true 
+UPDATE chat_conversations
+SET archived = true
 WHERE id IN (
-  SELECT c.id 
+  SELECT c.id
   FROM chat_conversations c
   WHERE (
-    SELECT COUNT(*) FROM chat_participants 
+    SELECT COUNT(*) FROM chat_participants
     WHERE conversation_id = c.id
   ) <= 1
 );
@@ -273,6 +292,7 @@ WHERE id IN (
 ### Empty-States (Hierarchie)
 
 **Level 1: Keine Teammitglieder (Kritisch)**
+
 ```tsx
 // Prominent Card mit Call-to-Action
 <Card className="border-2 border-accent bg-accent/5">
@@ -285,6 +305,7 @@ WHERE id IN (
 ```
 
 **Level 2: ParticipantSelector leer**
+
 ```tsx
 <EmptyState>
   <Icon: Users (groß)>
@@ -295,6 +316,7 @@ WHERE id IN (
 ```
 
 **Level 3: ConversationList leer (nach Filter)**
+
 ```tsx
 <EmptyState>
   <Icon: MessageSquare (klein)>
@@ -305,6 +327,7 @@ WHERE id IN (
 ```
 
 ### Design-System-Farben (CI-konform)
+
 ```tsx
 // ✅ KORREKT: Semantische Tokens
 Avatar: bg-primary/10 text-primary border border-primary/20
@@ -321,9 +344,11 @@ bg-blue-500, text-white, bg-gray-100 etc.
 ## 🔧 DAILY.CO INTEGRATION (OPTIONAL)
 
 ### Status: ⚠️ BETA - Deaktiviert
+
 **Fehler:** `account-missing-payment-method`
 
 ### Aktivierung (wenn Payment konfiguriert):
+
 ```typescript
 // TeamChat.tsx - Call-Buttons aktivieren
 <Button
@@ -339,12 +364,14 @@ bg-blue-500, text-white, bg-gray-100 etc.
 ```
 
 ### Daily.co Setup-Schritte:
+
 1. ✅ Secret `DAILY_API_KEY` ist bereits konfiguriert
 2. ❌ **TODO:** Daily.co Dashboard → Billing → Zahlungsmethode hinzufügen
 3. ✅ Edge Function `create-daily-room` ist bereit
 4. ✅ Hook `use-daily-call.tsx` ist implementiert
 
 ### Alternative (Ohne Daily.co):
+
 ```typescript
 // Option 1: Supabase OpenAI Realtime API (Voice-Only)
 // → Kein Video, aber Voice-Chat ohne Daily.co
@@ -361,6 +388,7 @@ bg-blue-500, text-white, bg-gray-100 etc.
 ## 📱 MOBILE OPTIMIZATION
 
 ### Responsive Breakpoints
+
 ```tsx
 // Desktop (≥1024px): 2-Spalten (List + Chat)
 lg:grid-cols-4
@@ -374,16 +402,15 @@ grid-cols-1
 ```
 
 ### Mobile-Spezifische UI
+
 ```tsx
-{isMobile && (
-  <Button
-    variant="ghost"
-    size="sm"
-    onClick={() => setSelectedConversation(null)}
-  >
-    ← Zurück
-  </Button>
-)}
+{
+  isMobile && (
+    <Button variant="ghost" size="sm" onClick={() => setSelectedConversation(null)}>
+      ← Zurück
+    </Button>
+  );
+}
 ```
 
 ---
@@ -391,6 +418,7 @@ grid-cols-1
 ## 🧪 TESTING-CHECKLISTE
 
 ### Voraussetzungen
+
 - [ ] Mindestens 2 User-Accounts im selben Unternehmen
 - [ ] Beide User haben Profiles in `profiles`-Tabelle
 - [ ] Beide User können sich einloggen
@@ -398,6 +426,7 @@ grid-cols-1
 ### Test-Szenarien
 
 **Szenario 1: Neue Conversation erstellen**
+
 ```
 1. User A: Öffnet /kommunikation
 2. User A: Klickt "Neue Unterhaltung"
@@ -408,6 +437,7 @@ grid-cols-1
 ```
 
 **Szenario 2: Nachricht senden**
+
 ```
 1. User A: Öffnet Conversation mit User B
 2. User A: Schreibt "Hallo Test"
@@ -418,6 +448,7 @@ grid-cols-1
 ```
 
 **Szenario 3: Datei senden**
+
 ```
 1. User A: Klickt Büroklammer-Icon
 2. User A: Wählt Datei aus (z.B. PDF)
@@ -428,6 +459,7 @@ grid-cols-1
 ```
 
 **Szenario 4: Empty-State**
+
 ```
 1. Admin: Erstellt neuen Company-Account
 2. Admin: Loggt sich ein
@@ -441,35 +473,42 @@ grid-cols-1
 ## 🚨 HÄUFIGE FEHLER & FIXES
 
 ### Fehler 1: "Keine Namen angezeigt"
+
 **Ursache:** Nur 1 User im System  
 **Fix:** Team-Mitglieder einladen (Einstellungen → Team)
 
 ### Fehler 2: "Conversations leer"
+
 **Ursache:** Solo-Conversations werden gefiltert  
 **Fix:** Ist gewolltes Verhalten - siehe Empty-State
 
 ### Fehler 3: "Daily.co Fehler"
+
 **Ursache:** Zahlungsmethode fehlt  
 **Fix:** Call-Buttons sind deaktiviert (graceful degradation)
 
 ### Fehler 4: "Profile nicht gefunden"
+
 **Ursache:** `user_id` existiert nicht in `profiles`-Tabelle  
-**Fix:** 
+**Fix:**
+
 ```sql
 -- Prüfe ob Profile fehlen
-SELECT cp.user_id 
+SELECT cp.user_id
 FROM chat_participants cp
 LEFT JOIN profiles p ON cp.user_id = p.user_id
 WHERE p.user_id IS NULL;
 
 -- Cleanup: Entferne Participants ohne Profile
-DELETE FROM chat_participants 
+DELETE FROM chat_participants
 WHERE user_id NOT IN (SELECT user_id FROM profiles);
 ```
 
 ### Fehler 5: "Realtime funktioniert nicht"
+
 **Ursache:** Channel nicht subscribed oder falsche Filter  
 **Fix:**
+
 ```typescript
 // Prüfe subscription status
 const channel = supabase
@@ -485,6 +524,7 @@ const channel = supabase
 ## 🎯 PRODUCTION-CHECKLISTE
 
 ### Pre-Launch
+
 - [x] RLS Policies getestet (Multi-Tenant-Isolation)
 - [x] Solo-Conversations werden gefiltert
 - [x] Empty-States implementiert
@@ -496,9 +536,10 @@ const channel = supabase
 - [x] Loading-States überall
 
 ### Post-Launch Monitoring
+
 ```sql
 -- Anzahl aktiver Conversations pro Company
-SELECT 
+SELECT
   c.company_id,
   COUNT(*) as total_conversations,
   COUNT(*) FILTER (WHERE is_group = true) as group_chats,
@@ -508,7 +549,7 @@ WHERE archived = false
 GROUP BY c.company_id;
 
 -- Durchschnittliche Nachrichten pro Conversation
-SELECT 
+SELECT
   AVG(msg_count) as avg_messages_per_conversation
 FROM (
   SELECT conversation_id, COUNT(*) as msg_count
@@ -518,8 +559,8 @@ FROM (
 ) sub;
 
 -- Top 10 aktivste User (nach Nachrichten-Anzahl)
-SELECT 
-  p.first_name, p.last_name, 
+SELECT
+  p.first_name, p.last_name,
   COUNT(*) as total_messages
 FROM chat_messages m
 JOIN profiles p ON m.sender_id = p.user_id
@@ -534,6 +575,7 @@ LIMIT 10;
 ## 🔐 SECURITY & COMPLIANCE
 
 ### DSGVO-Konformität
+
 ```
 ✅ Multi-Tenant-Isolation (company_id)
 ✅ RLS Policies (jeder sieht nur eigene Daten)
@@ -543,11 +585,12 @@ LIMIT 10;
 ```
 
 ### Data Retention
+
 ```sql
 -- Optional: Auto-Cleanup nach 90 Tagen
 -- Edge Function: cleanup-old-chat-data
 
-DELETE FROM chat_messages 
+DELETE FROM chat_messages
 WHERE created_at < NOW() - INTERVAL '90 days'
   AND is_deleted = false;
 ```
@@ -557,6 +600,7 @@ WHERE created_at < NOW() - INTERVAL '90 days'
 ## 🚀 FUTURE ENHANCEMENTS
 
 ### V18.4 Roadmap
+
 - [ ] **Read-Receipts:** Zeige "Gelesen von 2 Personen"
 - [ ] **Typing-Indicators:** "Max schreibt..."
 - [ ] **Message-Reactions:** 👍 ❤️ 😂
@@ -567,6 +611,7 @@ WHERE created_at < NOW() - INTERVAL '90 days'
 - [ ] **Message-Forwarding:** Nachricht weiterleiten
 
 ### V18.5 Enterprise-Features
+
 - [ ] **E2E-Verschlüsselung:** Signal-Protocol Integration
 - [ ] **Compliance-Export:** DSGVO-Datenexport
 - [ ] **Audit-Trail:** Wer hat was wann gelesen
@@ -577,6 +622,7 @@ WHERE created_at < NOW() - INTERVAL '90 days'
 ## 📚 REFERENZEN
 
 ### Relevante Dateien
+
 ```
 src/pages/TeamChat.tsx              - Haupt-Seite
 src/components/chat/
@@ -588,6 +634,7 @@ src/hooks/use-daily-call.tsx         - Daily.co WebRTC Hook
 ```
 
 ### Datenbank-Tabellen
+
 ```
 chat_conversations                   - Conversations (Haupt-Entity)
 chat_participants                    - Many-to-Many (User ↔ Conversation)
@@ -597,6 +644,7 @@ companies                            - Multi-Tenant-Isolation
 ```
 
 ### Edge Functions
+
 ```
 create-daily-room                    - Erstellt Daily.co WebRTC-Room
 (Hinweis: Keine weiteren Functions notwendig)
@@ -610,6 +658,7 @@ create-daily-room                    - Erstellt Daily.co WebRTC-Room
 **Status:** ⚠️ **BETA** (Audio/Video via Daily.co)
 
 ### Was funktioniert:
+
 - ✅ Echtzeit-Chat zwischen Teammitgliedern
 - ✅ Dateifreigabe über Supabase Storage
 - ✅ Multi-Tenant-Isolation (100% sicher)
@@ -617,10 +666,12 @@ create-daily-room                    - Erstellt Daily.co WebRTC-Room
 - ✅ DSGVO-konform
 
 ### Was NICHT funktioniert:
+
 - ❌ Audio/Video-Calls (Daily.co Payment fehlt)
 - ❌ Solo-User sehen keine Conversations (Design-Entscheidung)
 
 ### Nächste Schritte:
+
 1. **Team einladen:** Einstellungen → Team → Neue User erstellen
 2. **Daily.co Payment:** (Optional) Zahlungsmethode hinterlegen
 3. **Testing:** Mit 2+ Users testen

@@ -15,14 +15,15 @@
 ## 1. RADIKALE SELBSTANALYSE – FEHLER-URSACHEN ERKENNEN
 
 Vor jeder Umsetzung MUSST du ehrlich beantworten:
+
 - Welche Fehler sind in diesem Bereich aktuell passiert? (Liste, beschreiben!)
 - WARUM sind sie passiert? (Selbstreflektiert!)
-    - Habe ich im Kontext geprüft?
-    - Habe ich ALLE relevanten Dateien gelesen?
-    - Habe ich Annahmen getroffen statt Fakten geprüft?
-    - Habe ich „halluziniert", Features angenommen oder zu eng fokussiert?
+  - Habe ich im Kontext geprüft?
+  - Habe ich ALLE relevanten Dateien gelesen?
+  - Habe ich Annahmen getroffen statt Fakten geprüft?
+  - Habe ich „halluziniert", Features angenommen oder zu eng fokussiert?
 
-*Dokumentiere jede Erkenntnis radikal ehrlich in LESSONS_LEARNED.md – Kein Vorgang ohne Eintrag!*
+_Dokumentiere jede Erkenntnis radikal ehrlich in LESSONS_LEARNED.md – Kein Vorgang ohne Eintrag!_
 
 ---
 
@@ -41,15 +42,18 @@ Vor jeder Umsetzung MUSST du ehrlich beantworten:
 ### Vor jeder Änderung:
 
 **A. Screenshot vom Ist-Status**
+
 - Dokumentiere sichtbar, was wirklich fehlt/wie es aussieht
 - Nutze `project_debug--sandbox-screenshot` Tool
 
 **B. ALLE betroffenen Dateien vollständig lesen** (nicht nur die offensichtliche Ziel-Datei!)
+
 - Tariflisten, Addon-Liste, alle zugehörigen Configs, Typisierungen, Slices, UI-Komponenten, Validierungsschemas etc.
 - Nicht nur UI! Auch Backend, API-Modelle, Validierungen
 - **KRITISCH:** Nutze `lov-view` für ALLE relevanten Dateien parallel!
 
 **C. Vergleiche, was implementiert ist vs. was du dachtest**
+
 - Liste alle Abweichungen!
 - Dokumentiere in LESSONS_LEARNED.md
 
@@ -58,6 +62,7 @@ Vor jeder Umsetzung MUSST du ehrlich beantworten:
 ## 4. PLAN VALIDIERUNG (User- oder Stakeholder-Feedback VOR CODE)
 
 Schreibe dem User:
+
 ```
 Ich sehe zurzeit folgende Probleme/Lücken:
 1. Problem X
@@ -79,6 +84,7 @@ Stimmst du zu? Soll ich so vorgehen?
 ## 5. NACH DEM FIX: CHECKLISTEN DURCHGEHEN!
 
 ### Post-Implementation Checklist:
+
 - □ Habe ich wirklich ALLE Lessons beherzigt?
 - □ Wurde nichts übersehen (neue vs. alte Fehler)?
 - □ Wurde die Doku (LESSONS_LEARNED.md/PROJECT_MEMORY.md) mit dem Learning ergänzt?
@@ -93,11 +99,13 @@ Stimmst du zu? Soll ich so vorgehen?
 ## 6. FEHLERKULTUR
 
 ### Grundsätze:
+
 - **JEDER Fehler ist ein Lernpunkt** – SOFORT dokumentieren, auch „banale"!
 - **Nie Fehler verstecken/ignorieren** – root cause analysieren und für die Zukunft Regeln bauen!
 - **KEIN "Wird schon laufen" – Alles VERIFIZIEREN, BEVOR Code!**
 
 ### Bei jedem Fehler:
+
 1. Root Cause Analysis durchführen
 2. In LESSONS_LEARNED.md dokumentieren
 3. In PROJECT_MEMORY.md "Kritische Erinnerungen" updaten
@@ -109,8 +117,10 @@ Stimmst du zu? Soll ich so vorgehen?
 ## 7. MASTER-WORKFLOW (7-STEP SYSTEM)
 
 ### STEP 1: SELBSTKRITISCHE FEHLER-ANALYSE
+
 **Zeit:** 3-5 Min  
 **Action:**
+
 - Welche Fehler sind in diesem Bereich passiert?
 - Warum sind sie passiert?
 - Was habe ich nicht geprüft?
@@ -121,8 +131,10 @@ Stimmst du zu? Soll ich so vorgehen?
 ---
 
 ### STEP 2: MANDATORISCHES VOLLSTÄNDIGES LESEN
+
 **Zeit:** 10-15 Min  
 **Action:**
+
 - MANDATORY_READING_LIST.md durchgehen
 - PROJECT_MEMORY.md lesen
 - COMPONENT_REGISTRY.md prüfen
@@ -140,8 +152,10 @@ Stimmst du zu? Soll ich so vorgehen?
 ---
 
 ### STEP 3: SCREENSHOTS / STATUS DOKU
+
 **Zeit:** 2-3 Min  
 **Action:**
+
 - Screenshot vom aktuellen Zustand machen
 - Visuell dokumentieren was fehlt/falsch ist
 - Mit User-Request abgleichen
@@ -151,8 +165,10 @@ Stimmst du zu? Soll ich so vorgehen?
 ---
 
 ### STEP 4: USER VALIDATION
+
 **Zeit:** Warte auf User-Feedback  
 **Action:**
+
 - Liste aller gefundenen Probleme
 - Liste aller geplanten Lösungen
 - User um Freigabe bitten
@@ -162,8 +178,10 @@ Stimmst du zu? Soll ich so vorgehen?
 ---
 
 ### STEP 5: IMPLEMENTATION
+
 **Zeit:** Je nach Scope  
 **Action:**
+
 - Code schreiben entsprechend approved Plan
 - V28.1 Design System einhalten
 - Bestehende Components nutzen
@@ -174,34 +192,39 @@ Stimmst du zu? Soll ich so vorgehen?
 ---
 
 ## ❌ ERROR #11: Component-Pfad Confusion (V28 Dashboard Preview)
+
 **Datum:** 2025-10-28  
 **Schwere:** MEDIUM  
 **Kategorie:** Import/Path Issues
 
 **Was ist passiert:**
+
 - Annahme: `V28DashboardPreview` liegt in `src/components/dashboard/`
 - Realität: Component liegt in `src/components/home/`
 - Build-Error: "Preview has not been built yet"
 
 **Root Cause:**
+
 - Halluzination basierend auf Component-Namen
 - Fehlende Verifikation gegen `filesExplorer.md`
 - TRIPLE-CHECK Phase 2 nicht durchgeführt
 
 **Prevention Pattern:**
+
 ```typescript
 // ❌ FALSCH - Blind importieren
-import { V28DashboardPreview } from '@/components/dashboard/V28DashboardPreview';
+import { V28DashboardPreview } from "@/components/dashboard/V28DashboardPreview";
 
 // ✅ RICHTIG - Erst filesExplorer.md prüfen
 // 1. filesExplorer.md öffnen
 // 2. Nach Component suchen
 // 3. Korrekten Pfad verifizieren
 // 4. Import von barrel export nutzen
-import { V28DashboardPreview } from '@/components/home';
+import { V28DashboardPreview } from "@/components/home";
 ```
 
 **Regel:**
+
 - IMMER `filesExplorer.md` VOR Import-Statements prüfen
 - NIEMALS Pfade annehmen basierend auf Component-Namen
 - Bei "Preview has not been built yet" → TRIPLE-CHECK Phase 2 durchführen
@@ -212,8 +235,10 @@ import { V28DashboardPreview } from '@/components/home';
 **TOTAL ERRORS DOCUMENTED:** 11
 
 ### STEP 6: POST-IMPLEMENTATION LESSONS LEARNED
+
 **Zeit:** 5-10 Min  
 **Action:**
+
 - LESSONS_LEARNED.md updaten
 - PROJECT_MEMORY.md "Kritische Erinnerungen" erweitern
 - COMPONENT_REGISTRY.md updaten (falls Components erstellt)
@@ -224,8 +249,10 @@ import { V28DashboardPreview } from '@/components/home';
 ---
 
 ### STEP 7: QUALITY VALIDATION
+
 **Zeit:** 3-5 Min  
 **Action:**
+
 - Post-Implementation Checklist durchgehen
 - Alle Viewports testen (Mobile, Tablet, Desktop)
 - Type Errors prüfen
@@ -238,6 +265,7 @@ import { V28DashboardPreview } from '@/components/home';
 ## 🚨 KONSEQUENZEN BEI NICHT-BEFOLGEN
 
 **Wenn dieser Workflow NICHT befolgt wird:**
+
 - ❌ Fehlerquote: 30%+
 - ❌ Zeit-Verschwendung: 45+ Min Debugging pro Fehler
 - ❌ Component-Duplikation: 20%+
@@ -246,6 +274,7 @@ import { V28DashboardPreview } from '@/components/home';
 - ❌ Code-Qualität: Niedrig
 
 **Wenn dieser Workflow befolgt wird:**
+
 - ✅ Fehlerquote: <5%
 - ✅ Zeit-Ersparnis: 60-80%
 - ✅ Component-Duplikation: 0%
@@ -257,13 +286,13 @@ import { V28DashboardPreview } from '@/components/home';
 
 ## 📊 ERFOLGS-METRIKEN
 
-| Metrik | Ohne Workflow | Mit Workflow | Verbesserung |
-|--------|---------------|--------------|--------------|
-| Fehlerquote | 30% | <5% | -83% |
-| Debugging-Zeit | 45 Min | 10 Min | -78% |
-| Code-Qualität | 70% | 95% | +36% |
-| Duplikationen | 20% | 0% | -100% |
-| Design-Breaks | 40% | 0% | -100% |
+| Metrik         | Ohne Workflow | Mit Workflow | Verbesserung |
+| -------------- | ------------- | ------------ | ------------ |
+| Fehlerquote    | 30%           | <5%          | -83%         |
+| Debugging-Zeit | 45 Min        | 10 Min       | -78%         |
+| Code-Qualität  | 70%           | 95%          | +36%         |
+| Duplikationen  | 20%           | 0%           | -100%        |
+| Design-Breaks  | 40%           | 0%           | -100%        |
 
 ---
 
@@ -284,46 +313,55 @@ import { V28DashboardPreview } from '@/components/home';
 ## 🎯 BEKANNTE FEHLER-MUSTER (KONTINUIERLICH ERWEITERN!)
 
 ### 1. Nicht alle Dateien gelesen
+
 **Symptom:** Implementation basiert auf Annahmen statt Fakten  
 **Beispiel:** Jahrespreise in Registrierung fehlen, weil Tarif-Definitionen nicht gelesen  
 **Lösung:** IMMER ALLE betroffenen Dateien parallel lesen (lov-view)
 
 ### 2. Component-Duplikation
+
 **Symptom:** Neue Component erstellt obwohl bereits vorhanden  
 **Beispiel:** Button neu implementiert statt bestehende zu nutzen  
 **Lösung:** COMPONENT_REGISTRY.md VOR jeder Component-Erstellung prüfen
 
 ### 3. V26 statt V28.1 verwendet
+
 **Symptom:** Alte Design System Tokens verwendet  
 **Beispiel:** `v26-` Classes oder `PRIMARY_COLORS_V28` inline  
 **Lösung:** DESIGN_SYSTEM_DOCUMENTATION_V28.1_FINAL.md vor jedem Styling lesen
 
 ### 4. Type Definitions vergessen
+
 **Symptom:** Props ohne explizite Types  
 **Beispiel:** `props: any` statt `interface ButtonProps`  
 **Lösung:** Type Definitions IMMER in separater `.types.ts` Datei
 
 ### 5. Inline Styles verwendet
+
 **Symptom:** `style={{ ... }}` statt Tailwind Classes  
 **Beispiel:** `style={{ color: '#3B82F6' }}`  
 **Lösung:** Nur Tailwind semantic tokens aus `design-tokens.ts`
 
 ### 6. Nicht mit User validiert
+
 **Symptom:** Implementation entspricht nicht User-Erwartung  
 **Beispiel:** Features implementiert die nicht gefordert waren  
 **Lösung:** IMMER Plan mit User validieren vor Implementation
 
 ### 7. Dashboard-Code geändert (GESPERRT!)
+
 **Symptom:** Dashboard-Dateien editiert obwohl Pre-Login-Focus aktiv  
 **Beispiel:** Sidebar/Widgets geändert  
 **Lösung:** PRE_LOGIN_FOCUS.md lesen - Dashboard ist GESPERRT!
 
 ### 8. Add-On Selection nicht sichtbar
+
 **Symptom:** UI-Element existiert aber nicht sichtbar  
 **Beispiel:** Fleet & Driver Add-On Auswahlfeld fehlt in Registrierung  
 **Lösung:** Screenshot machen + ALLE UI-relevanten Dateien lesen
 
 ### 9. Google API nicht integriert
+
 **Symptom:** Feature vorbereitet aber nicht implementiert  
 **Beispiel:** Adressvalidierung erwähnt aber Code fehlt  
 **Lösung:** Nach Implementation IMMER funktional testen
@@ -331,12 +369,14 @@ import { V28DashboardPreview } from '@/components/home';
 ---
 
 ### 10. Partial Data Loading (.select() zu spezifisch)
+
 **Symptom:** `.select('user_id')` statt `.select('*')`  
 **Beispiel:** Profile-Query lädt nur ID, keine weiteren Daten  
 **Folge:** Downstream-Bugs in useAuth(), useAccountType(), Master-Detection  
 **Lösung:** `.select('*')` für User-Daten, nur spezifische Selects bei >1000 Rows
 
 **Pattern Recognition:**
+
 ```typescript
 // ❌ GEFÄHRLICH - Führt zu Bugs
 .select('id')
@@ -354,40 +394,45 @@ import { V28DashboardPreview } from '@/components/home';
 ---
 
 ## ❌ ERROR #12: Hardcoded Navigation Routes in Auth-Flows
+
 **Datum:** 2025-10-29  
 **Schwere:** CRITICAL (P0)  
 **Kategorie:** Routing / Navigation
 
 **Was ist passiert:**
+
 - Auth.tsx hatte `navigate('/')` nach Login statt `navigate('/dashboard')`
 - User landeten auf Marketing-Startseite statt Dashboard
 - Dev-Log sagte "Navigation zu Dashboard" aber Code machte etwas anderes
 - Blockierte Master-Account Testing
 
 **Root Cause:**
+
 - Hardcoded Route ohne Context-Awareness
 - Ignorierte `?redirect=` Query-Parameter
 - Keine Nutzung von verfügbaren Helper-Functions
 - Inkonsistenz zwischen Log-Message und tatsächlichem Code
 
 **Prevention Pattern:**
+
 ```typescript
 // ❌ GEFÄHRLICH - Hardcoded Routes
-navigate('/');
-navigate('/dashboard');
-navigate('/portal');
+navigate("/");
+navigate("/dashboard");
+navigate("/portal");
 
 // ✅ SICHER - Helper Functions mit Context
-import { getLoginRedirectRoute } from '@/lib/navigation-helpers';
+import { getLoginRedirectRoute } from "@/lib/navigation-helpers";
 
 const redirectRoute = getLoginRedirectRoute(
-  'entrepreneur',  // or 'customer', 'driver'
-  searchParams     // supports ?redirect=/custom
+  "entrepreneur", // or 'customer', 'driver'
+  searchParams // supports ?redirect=/custom
 );
 navigate(redirectRoute);
 ```
 
 **Warum Helper besser:**
+
 1. **Context-Aware:** Berücksichtigt User-Role & Query-Parameter
 2. **DRY:** Zentrale Routing-Logik, nicht dupliziert
 3. **Testbar:** Einfacher zu mocken & zu testen
@@ -395,12 +440,14 @@ navigate(redirectRoute);
 5. **Flexible:** Unterstützt custom redirects via URL-Params
 
 **Regel:**
+
 - NIEMALS `navigate('/')` oder `navigate('/dashboard')` direkt in Auth-Flows
 - IMMER `getLoginRedirectRoute()` oder `getSignupRedirectRoute()` nutzen
 - Bei Logout: `getLogoutRedirectRoute(currentPath)` nutzen
 - Bei Entity-Navigation: `getEntityRoute(type, id)` nutzen
 
 **Validation Checklist:**
+
 - □ Kein hardcoded `navigate('/')` in Auth-Success-Handler?
 - □ Helper-Function importiert & verwendet?
 - □ searchParams als Parameter übergeben?
@@ -408,34 +455,40 @@ navigate(redirectRoute);
 - □ Alle User-Roles getestet (entrepreneur/customer/driver)?
 
 **Impact:**
+
 - Blockierte Login für Master-Account
 - User-Frustration durch falsche Landing-Page
 - Inconsistency zwischen Expectation & Reality
 - Time-Waste: 30+ Min Debugging
 
 **Files:**
+
 - `src/pages/Auth.tsx` (Zeile 154-162)
 - `src/lib/navigation-helpers.ts` (Helper-Functions)
 
 ---
 
 ## ❌ ERROR #13: V28.1 vs V26.1 Scrollbar Spec Conflict
+
 **Datum:** 2025-10-29  
 **Schwere:** MEDIUM  
 **Kategorie:** Design System Conflicts
 
 **Was ist passiert:**
+
 - V26.1 Spec forderte 4px Scrollbar (DASHBOARD_SPECIAL_REQUIREMENTS_V26.1.md)
 - V28.1 Premium fordert 0px scrollbar-los (User-Anforderung)
 - Implementation folgte V26.1, User wollte aber V28.1
 
 **Root Cause:**
+
 - Konflikt zwischen zwei Spezifikationen nicht erkannt
 - Keine Priorisierung dokumentiert
 - Neuere Spec (V28.1) nicht als führend identifiziert
 - User-Anforderung "scrollbalkenlos" nicht in Spezifikation übersetzt
 
 **Prevention Pattern:**
+
 ```css
 /* ❌ FALSCH - V26.1 Spec (veraltet) */
 aside[data-sidebar]::-webkit-scrollbar {
@@ -453,17 +506,20 @@ aside[data-sidebar] {
 ```
 
 **Regel:**
+
 - IMMER neuere Spec priorisieren (V28.1 > V26.1)
 - Bei Konflikten: User fragen welche Spec gilt
 - Spec-Hierarchie dokumentieren
 - User-Anforderungen > Legacy-Specs
 
 **Files:**
+
 - `src/index.css` (Zeile 98-106)
 - `src/components/layout/MainLayout.tsx` (Zeile 88-89)
 - `src/components/dashboard/DashboardSidebar.tsx` (Zeile 128-132)
 
 **Prevention:**
+
 - V28.1 ist führend für ALLE neuen Implementierungen
 - V26.1 nur für Legacy-Kompatibilität
 - Bei Konflikten: V28.1 gewinnt
@@ -472,27 +528,31 @@ aside[data-sidebar] {
 ---
 
 ## ❌ ERROR #14: Partial Refactoring (Phase 2 Incomplete)
+
 **Datum:** 2025-10-31  
 **Schwere:** CRITICAL (P0)  
 **Kategorie:** Technical Debt / Refactoring
 
 **Was ist passiert:**
+
 - Phase 2 Auftraege Cleanup sollte Code von 1506 → ~800 Zeilen reduzieren
 - BookingForm wurde integriert ✅
 - ABER: Inline bookingSchema (Zeile 252-323) wurde NICHT entfernt ❌
 - Result: 1506 Zeilen, Ziel verfehlt, Technical Debt erstellt
 
 **Root Cause:**
+
 - Component-Integration ohne vollständiges Code-Removal
 - TRIPLE-CHECK Phase 2 nicht durchgeführt
 - "Wird schon passen" Mentalität statt Validierung
 - Fehlende Post-Implementation Metrics (Zeilen-Count)
 
 **Prevention Pattern:**
-```typescript
+
+````typescript
 // ❌ GEFÄHRLICH - Partial Refactoring
 // 1. BookingForm erstellen ✅
-// 2. BookingForm integrieren ✅  
+// 2. BookingForm integrieren ✅
 // 3. Alten Code entfernen ❌ VERGESSEN!
 
 // ✅ CORRECT - Complete Refactoring
@@ -502,8 +562,8 @@ aside[data-sidebar] {
 ---
 
 ## ❌ ERROR #15: Partial Documentation Update (DEBT-011)
-**Datum:** 2025-01-31  
-**Schwere:** MEDIUM  
+**Datum:** 2025-01-31
+**Schwere:** MEDIUM
 **Kategorie:** Documentation Debt
 
 **Was ist passiert:**
@@ -531,15 +591,17 @@ ls docs/V*.md | tail -1
 
 # 4. Knowledge-Base synchronisiert?
 # → Supabase Query: SELECT * FROM knowledge_base WHERE is_deprecated = false;
-```
+````
 
 **Regel:**
+
 - IMMER Code-Changes zeitgleich in Docs reflektieren
 - Bei Component-Deprecation: SOFORT archivieren + README.md mit Deprecation-Notice
 - Knowledge-Base IMMER synchron halten (via SQL-Updates)
 - Bei mehreren Doc-Versionen: Alte Versionen archivieren
 
 **Validation Checklist:**
+
 - [ ] Code geändert → Doc aktualisiert?
 - [ ] Component deprecated → Docs archiviert?
 - [ ] Neue Master-Doc erstellt?
@@ -547,12 +609,14 @@ ls docs/V*.md | tail -1
 - [ ] User-Anforderung reflektiert?
 
 **Files:**
+
 - `src/components/layout/MainLayout.tsx` (marginLeft: 880px → 560px)
 - `docs/PROJECT_MEMORY.md` (Dashboard Sidebars aktualisiert)
 - `docs/V32.0_LAYOUT_FINAL.md` (NEU - Final Layout Dokumentation)
 - 5 Docs archiviert in `docs/archive/deprecated/dashboardinfoboard/`
 
 **Resolution (2025-01-31):**
+
 - ✅ 5 Docs archiviert (V31.5, V31.0, V30.0, PHASE_1_V28, V26_INFOBOARD)
 - ✅ 4 Kern-Docs aktualisiert (PROJECT_MEMORY, DASHBOARD_STANDARDS, etc.)
 - ✅ Neue Master-Doc erstellt: `V32.0_LAYOUT_FINAL.md`
@@ -566,7 +630,8 @@ ls docs/V*.md | tail -1
 // 3. CRITICAL: Alten Inline-Code LÖSCHEN (Zeile 252-323)
 // 4. VALIDATION: Zeilen-Count prüfen (1506 → ~800)
 // 5. TRIPLE-CHECK: Git Diff - wurde Code wirklich entfernt?
-```
+
+````
 
 **Regel:**
 - NIEMALS Partial Refactoring - entweder vollständig oder gar nicht!
@@ -596,8 +661,8 @@ ls docs/V*.md | tail -1
 ---
 
 ## ❌ ERROR #15: Validation Hooks in Production
-**Datum:** 2025-10-31  
-**Schwere:** CRITICAL (P0)  
+**Datum:** 2025-10-31
+**Schwere:** CRITICAL (P0)
 **Kategorie:** Performance / Production Issues
 
 **Was ist passiert:**
@@ -628,40 +693,47 @@ export function useDevValidation(pageName: string) {
 
 // Usage
 useDevValidation('Auftraege');
-```
+````
 
 **Regel:**
+
 - ALLE Development-Tools IMMER mit import.meta.env.DEV wrappen
 - Performance-kritische Validierung nur in DEV
 - Console-Logs nur in DEV
 - Bundle-Size Impact prüfen
 
 **Files:**
+
 - `src/pages/Auftraege.tsx` (und 38 weitere)
 - NEU: `src/hooks/use-dev-validation.ts`
 
 ---
 
 ## ❌ ERROR #16: Template erstellt aber nicht genutzt
+
 **Datum:** 2025-10-31  
 **Schwere:** HIGH  
 **Kategorie:** Code Duplication / Wasted Effort
 
 **Was ist passiert:**
+
 - StandardDashboardPage Template wurde erstellt ✅
 - Finanzen.tsx wurde erfolgreich migriert ✅
 - ABER: 36 weitere Dashboard-Seiten nutzen es NICHT ❌
 - Result: ~15.000 Zeilen Code-Duplikation bleiben
 
 **Root Cause:**
+
 - Template erstellt ohne Roll-out-Plan
 - "Build it and they will come" Mentalität
 - Kein proaktives Refactoring nach Success
 - Migration-Plan fehlte
 
 **Prevention Pattern:**
+
 ```markdown
 ## Template-Creation Protocol
+
 1. Template erstellen (z.B. StandardDashboardPage)
 2. Pilot-Migration (1-2 Seiten)
 3. SUCCESS-CHECK: Funktioniert, reduziert Code?
@@ -672,12 +744,14 @@ useDevValidation('Auftraege');
 ```
 
 **Regel:**
+
 - Bei erfolgreicher Template-Erstellung SOFORT Roll-out planen
 - Nicht warten bis "irgendwann mal Zeit ist"
 - Template-Pattern proaktiv verbreiten
 - Migration-Guide für andere Devs erstellen
 
 **Files:**
+
 - `src/components/templates/StandardDashboardPage.tsx` (funktioniert!)
 - 36 Dashboard-Seiten (warten auf Migration)
 
@@ -688,15 +762,18 @@ useDevValidation('Auftraege');
 ## ❌ ERROR #17: Sequential Code-Fixes (Ineffizient)
 
 **Was ist passiert:**
+
 - 99+ Design-Violations + 11 console-Statements zu beheben
 - Geschätzte Zeit: 2-3 Stunden (sequential)
 - Tatsächliche Zeit: 30 Minuten (parallel)
 
 **Root Cause:**
+
 - Sequential statt parallel Tool-Calls
 - Nicht erkannt: Viele ähnliche Fixes = Batch-Job
 
 **Prevention:**
+
 - Bei >5 ähnlichen Fixes → Parallel lov-line-replace
 - Alle Files gleichzeitig bearbeiten
 - 5x schneller als Sequential

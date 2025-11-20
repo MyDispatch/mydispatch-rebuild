@@ -7,12 +7,12 @@
    - Error Handling professionell
    ================================================================================== */
 
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface GeocodeRequest {
@@ -33,8 +33,8 @@ interface GeocodeResponse {
 
 serve(async (req) => {
   // Handle CORS preflight
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
   }
 
   try {
@@ -44,34 +44,34 @@ serve(async (req) => {
     // Input-Validierung
     if (!address || address.trim().length < 5) {
       return new Response(
-        JSON.stringify({ 
-          error: 'Ungültige Adresse. Bitte geben Sie eine vollständige Adresse ein.' 
+        JSON.stringify({
+          error: "Ungültige Adresse. Bitte geben Sie eine vollständige Adresse ein.",
         }),
-        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     // HERE Geocoding API
-    const hereApiKey = Deno.env.get('HERE_API_KEY');
+    const hereApiKey = Deno.env.get("HERE_API_KEY");
     if (!hereApiKey) {
-      console.error('HERE_API_KEY nicht konfiguriert');
-      return new Response(
-        JSON.stringify({ error: 'Geocoding-Service nicht verfügbar' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      console.error("HERE_API_KEY nicht konfiguriert");
+      return new Response(JSON.stringify({ error: "Geocoding-Service nicht verfügbar" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Geocoding Request
     const geocodeUrl = `https://geocode.search.hereapi.com/v1/geocode?q=${encodeURIComponent(address)}&apiKey=${hereApiKey}&lang=de`;
-    
+
     const geocodeResponse = await fetch(geocodeUrl);
-    
+
     if (!geocodeResponse.ok) {
-      console.error('HERE API Fehler:', geocodeResponse.status);
-      return new Response(
-        JSON.stringify({ error: 'Geocoding fehlgeschlagen' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      console.error("HERE API Fehler:", geocodeResponse.status);
+      return new Response(JSON.stringify({ error: "Geocoding fehlgeschlagen" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const geocodeData = await geocodeResponse.json();
@@ -79,8 +79,8 @@ serve(async (req) => {
     // Validiere Response
     if (!geocodeData.items || geocodeData.items.length === 0) {
       return new Response(
-        JSON.stringify({ error: 'Keine Ergebnisse für diese Adresse gefunden' }),
-        { status: 404, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: "Keine Ergebnisse für diese Adresse gefunden" }),
+        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
@@ -97,22 +97,21 @@ serve(async (req) => {
       postal_code: addressDetails.postalCode,
       city: addressDetails.city,
       country_code: addressDetails.countryCode,
-      timezone: firstResult.timeZone?.name || 'Europe/Berlin',
+      timezone: firstResult.timeZone?.name || "Europe/Berlin",
     };
 
-    return new Response(
-      JSON.stringify(response),
-      { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-    );
-
+    return new Response(JSON.stringify(response), {
+      status: 200,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (error) {
-    console.error('Geocoding Error:', error);
+    console.error("Geocoding Error:", error);
     return new Response(
-      JSON.stringify({ 
-        error: 'Interner Fehler beim Geocoding',
-        details: error instanceof Error ? error.message : 'Unbekannter Fehler'
+      JSON.stringify({
+        error: "Interner Fehler beim Geocoding",
+        details: error instanceof Error ? error.message : "Unbekannter Fehler",
       }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });

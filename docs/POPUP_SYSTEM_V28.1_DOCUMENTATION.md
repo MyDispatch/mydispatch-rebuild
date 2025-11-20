@@ -12,6 +12,7 @@
 Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispatch.
 
 **Design-Prinzipien:**
+
 - ✅ V28.1 Professional Gray-Blue Design
 - ✅ Flat Design (rounded-2xl Container)
 - ✅ Mobile-First & Tablet-Responsive
@@ -27,7 +28,7 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
 
 ```typescript
 // Dialog Container
-<DialogContent 
+<DialogContent
   className="max-w-3xl max-h-[90vh] p-0 overflow-hidden rounded-2xl border shadow-lg"
   style={{
     borderColor: PRIMARY_COLORS_V28.slate200,
@@ -37,6 +38,7 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
 ```
 
 **Eigenschaften:**
+
 - **Max Width:** `max-w-3xl` (768px) - Responsive auf allen Screens
 - **Max Height:** `max-h-[90vh]` - Verhindert Viewport-Overflow
 - **Padding:** `p-0` - Kein direktes Padding (Sections haben eigenes)
@@ -49,7 +51,7 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
 ### Header (Fixed)
 
 ```typescript
-<DialogHeader 
+<DialogHeader
   className="px-4 sm:px-6 pt-4 sm:pt-6 pb-4 border-b shrink-0"
   style={{ borderColor: PRIMARY_COLORS_V28.slate200 }}
 >
@@ -58,6 +60,7 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
 ```
 
 **Eigenschaften:**
+
 - **Position:** Fixed (shrink-0)
 - **Padding:** Mobile: `px-4 pt-4 pb-4`, Desktop: `px-6 pt-6 pb-4`
 - **Border:** 1px solid slate200 (unten)
@@ -65,13 +68,16 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
 - **Flex:** Flex-Column mit gap-3/4
 
 **Header-Struktur:**
+
 ```tsx
-{/* Icon + Title + Badge */}
+{
+  /* Icon + Title + Badge */
+}
 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
   {/* Icon + Title */}
   <div className="flex items-center gap-3 w-full sm:w-auto">
     {/* Icon Box */}
-    <div 
+    <div
       className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg flex items-center justify-center shrink-0"
       style={{
         background: `linear-gradient(135deg, ${PRIMARY_COLORS_V28.primaryLight} 0%, ${PRIMARY_COLORS_V28.slate100} 100%)`,
@@ -79,34 +85,34 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
     >
       <Icon style={{ color: PRIMARY_COLORS_V28.primary }} />
     </div>
-    
+
     {/* Title + Description */}
     <div className="flex-1 min-w-0">
-      <DialogTitle style={{ color: PRIMARY_COLORS_V28.slate900 }}>
-        Title
-      </DialogTitle>
+      <DialogTitle style={{ color: PRIMARY_COLORS_V28.slate900 }}>Title</DialogTitle>
       <DialogDescription style={{ color: PRIMARY_COLORS_V28.slate600 }}>
         Description
       </DialogDescription>
     </div>
   </div>
-  
+
   {/* Badge (optional) */}
-  <Badge style={{
-    background: PRIMARY_COLORS_V28.primary,
-    color: PRIMARY_COLORS_V28.white,
-  }}>
+  <Badge
+    style={{
+      background: PRIMARY_COLORS_V28.primary,
+      color: PRIMARY_COLORS_V28.white,
+    }}
+  >
     Badge Text
   </Badge>
-</div>
+</div>;
 ```
 
 ### Body (Scrollable)
 
 ```typescript
-<div 
+<div
   className="px-4 sm:px-6 py-4 overflow-y-auto flex-1"
-  style={{ 
+  style={{
     background: PRIMARY_COLORS_V28.slate50,
   }}
 >
@@ -115,34 +121,36 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
 ```
 
 **Eigenschaften:**
+
 - **Padding:** Mobile: `px-4 py-4`, Desktop: `px-6 py-4`
 - **Overflow:** `overflow-y-auto` - Scrollable bei Bedarf
 - **Flex:** `flex-1` - Nimmt verfügbaren Platz ein
 - **Background:** slate50 (unterscheidet sich von Header/Footer)
 
 **Content-Sections:**
+
 ```tsx
-{/* Section */}
+{
+  /* Section */
+}
 <div className="mb-6">
   {/* Section Title */}
-  <h3 
+  <h3
     className="text-xs sm:text-sm font-semibold mb-3"
     style={{ color: PRIMARY_COLORS_V28.slate600 }}
   >
     Section Title
   </h3>
-  
+
   {/* Section Content */}
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">
-    {/* Items */}
-  </div>
-</div>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3">{/* Items */}</div>
+</div>;
 ```
 
 ### Footer (Fixed)
 
 ```typescript
-<div 
+<div
   className="px-4 sm:px-6 py-4 border-t shrink-0"
   style={{
     borderColor: PRIMARY_COLORS_V28.slate200,
@@ -154,12 +162,14 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
 ```
 
 **Eigenschaften:**
+
 - **Position:** Fixed (shrink-0)
 - **Padding:** Mobile: `px-4 py-4`, Desktop: `px-6 py-4`
 - **Border:** 1px solid slate200 (oben)
 - **Background:** White (wie Container)
 
 **Button-Layout:**
+
 ```tsx
 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
   {/* Primary Button */}
@@ -172,7 +182,7 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
   >
     Primary Action
   </Button>
-  
+
   {/* Secondary Button */}
   <Button
     variant="outline"
@@ -194,23 +204,17 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
 ### Pattern 1: Info Card (Body Section)
 
 ```tsx
-<div 
+<div
   className="rounded-lg p-3 sm:p-4 border shadow-sm transition-all duration-300"
   style={{
     background: PRIMARY_COLORS_V28.white,
     borderColor: PRIMARY_COLORS_V28.slate200,
   }}
 >
-  <div 
-    className="text-xl sm:text-2xl font-bold"
-    style={{ color: PRIMARY_COLORS_V28.slate900 }}
-  >
+  <div className="text-xl sm:text-2xl font-bold" style={{ color: PRIMARY_COLORS_V28.slate900 }}>
     Value
   </div>
-  <div 
-    className="text-[10px] sm:text-xs mt-1"
-    style={{ color: PRIMARY_COLORS_V28.slate600 }}
-  >
+  <div className="text-[10px] sm:text-xs mt-1" style={{ color: PRIMARY_COLORS_V28.slate600 }}>
     Label
   </div>
 </div>
@@ -234,21 +238,15 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
     e.currentTarget.style.borderColor = PRIMARY_COLORS_V28.slate200;
   }}
 >
-  <Check 
-    className="h-4 w-4 sm:h-5 sm:w-5 shrink-0 mt-0.5" 
+  <Check
+    className="h-4 w-4 sm:h-5 sm:w-5 shrink-0 mt-0.5"
     style={{ color: PRIMARY_COLORS_V28.accent }}
   />
   <div className="flex-1 min-w-0">
-    <div 
-      className="text-xs sm:text-sm font-medium"
-      style={{ color: PRIMARY_COLORS_V28.slate900 }}
-    >
+    <div className="text-xs sm:text-sm font-medium" style={{ color: PRIMARY_COLORS_V28.slate900 }}>
       Feature Name
     </div>
-    <div 
-      className="text-[10px] sm:text-xs mt-1"
-      style={{ color: PRIMARY_COLORS_V28.slate600 }}
-    >
+    <div className="text-[10px] sm:text-xs mt-1" style={{ color: PRIMARY_COLORS_V28.slate600 }}>
       Feature Description
     </div>
   </div>
@@ -266,15 +264,12 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
     background: PRIMARY_COLORS_V28.slate100,
   }}
 >
-  <X 
+  <X
     className="h-4 w-4 sm:h-5 sm:w-5 shrink-0 mt-0.5"
     style={{ color: PRIMARY_COLORS_V28.slate300 }}
   />
   <div className="flex-1 min-w-0">
-    <div 
-      className="text-xs sm:text-sm"
-      style={{ color: PRIMARY_COLORS_V28.slate600 }}
-    >
+    <div className="text-xs sm:text-sm" style={{ color: PRIMARY_COLORS_V28.slate600 }}>
       Excluded Feature
     </div>
   </div>
@@ -286,23 +281,17 @@ Systemweites, konsistentes PopUp-Design für alle Dialog-Komponenten in MyDispat
 ### Pattern 4: Highlight Card (Accent)
 
 ```tsx
-<div 
+<div
   className="rounded-lg p-3 sm:p-4 border shadow-sm transition-all duration-300"
   style={{
     background: PRIMARY_COLORS_V28.accentLight,
     borderColor: PRIMARY_COLORS_V28.accent,
   }}
 >
-  <div 
-    className="text-xl sm:text-2xl font-bold"
-    style={{ color: PRIMARY_COLORS_V28.accent }}
-  >
+  <div className="text-xl sm:text-2xl font-bold" style={{ color: PRIMARY_COLORS_V28.accent }}>
     Special Value
   </div>
-  <div 
-    className="text-[10px] sm:text-xs mt-1"
-    style={{ color: PRIMARY_COLORS_V28.slate600 }}
-  >
+  <div className="text-[10px] sm:text-xs mt-1" style={{ color: PRIMARY_COLORS_V28.slate600 }}>
     Special Label
   </div>
 </div>
@@ -448,11 +437,17 @@ min-h-[44px]  /* Alle interaktiven Elemente */
 ### Step 1: Import Dependencies
 
 ```typescript
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { PRIMARY_COLORS_V28 } from '@/lib/design-system/unified-design-tokens-v28';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Check, X, Sparkles } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { PRIMARY_COLORS_V28 } from "@/lib/design-system/unified-design-tokens-v28";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Check, X, Sparkles } from "lucide-react";
 ```
 
 ### Step 2: Setup State
@@ -474,7 +469,7 @@ export function MyDialog({ open, onOpenChange, ... }: MyDialogProps) {
 ```tsx
 return (
   <Dialog open={open} onOpenChange={onOpenChange}>
-    <DialogContent 
+    <DialogContent
       className="max-w-3xl max-h-[90vh] p-0 overflow-hidden rounded-2xl border shadow-lg"
       style={{
         borderColor: PRIMARY_COLORS_V28.slate200,
@@ -482,7 +477,7 @@ return (
       }}
     >
       {/* Header */}
-      <DialogHeader 
+      <DialogHeader
         className="px-4 sm:px-6 pt-4 sm:pt-6 pb-4 border-b shrink-0"
         style={{ borderColor: PRIMARY_COLORS_V28.slate200 }}
       >
@@ -490,7 +485,7 @@ return (
       </DialogHeader>
 
       {/* Body */}
-      <div 
+      <div
         className="px-4 sm:px-6 py-4 overflow-y-auto flex-1"
         style={{ background: PRIMARY_COLORS_V28.slate50 }}
       >
@@ -498,7 +493,7 @@ return (
       </div>
 
       {/* Footer */}
-      <div 
+      <div
         className="px-4 sm:px-6 py-4 border-t shrink-0"
         style={{
           borderColor: PRIMARY_COLORS_V28.slate200,
@@ -538,11 +533,13 @@ return (
 ### Referenz-Implementation
 
 **TariffFeatureDialog.tsx** - Vollständige Implementierung aller Patterns:
+
 ```
 src/components/pricing/TariffFeatureDialog.tsx
 ```
 
 **Zeigt:**
+
 - ✅ Header mit Icon Box + Title + Badge
 - ✅ Scrollable Body mit slate50 Background
 - ✅ Info Cards (Limits & Kapazitäten)
@@ -556,6 +553,7 @@ src/components/pricing/TariffFeatureDialog.tsx
 ## 📝 CHANGELOG
 
 ### V28.1 (2025-10-28) - Initial Release
+
 - ✅ V28.1 Design System etabliert
 - ✅ Professional Gray-Blue Farben
 - ✅ Flat Design mit rounded-2xl Container
@@ -569,8 +567,8 @@ src/components/pricing/TariffFeatureDialog.tsx
 **Autor:** Lovable AI Agent  
 **Review:** Ibrahim (Design Owner)  
 **Status:** ✅ APPROVED & PRODUCTION-READY  
-**Letzte Aktualisierung:** 2025-10-28  
+**Letzte Aktualisierung:** 2025-10-28
 
 ---
 
-*Dieses Dokument definiert das Standard-PopUp-System für MyDispatch V28.1. Alle neuen Dialogs MÜSSEN diesem Pattern folgen.*
+_Dieses Dokument definiert das Standard-PopUp-System für MyDispatch V28.1. Alle neuen Dialogs MÜSSEN diesem Pattern folgen._

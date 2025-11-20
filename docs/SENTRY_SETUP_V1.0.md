@@ -22,6 +22,7 @@
 **URL:** https://mydispatch.sentry.io/issues/
 
 **Project-Details:**
+
 - **Organization:** mydispatch
 - **Project:** my-dispatch-prod
 - **Platform:** React
@@ -48,6 +49,7 @@ VITE_SENTRY_RELEASE=@mydispatch/prod@1.0.0
 **Status:** ✅ Bereits vorhanden
 
 **Aktuelle Konfiguration:**
+
 - ✅ DSN aus Environment Variable
 - ✅ DSGVO-konform (PII entfernt)
 - ✅ Performance Monitoring (10% Sample Rate)
@@ -85,11 +87,13 @@ export default defineConfig({
 ```
 
 **Environment Variable:**
+
 ```env
 SENTRY_AUTH_TOKEN=your-auth-token
 ```
 
 **Sentry Auth Token erstellen:**
+
 1. Sentry → Settings → Auth Tokens
 2. Create New Token
 3. Scopes: `project:releases`, `org:read`
@@ -102,20 +106,20 @@ SENTRY_AUTH_TOKEN=your-auth-token
 **Datei:** `src/lib/sentry-integration.ts` (erweitern)
 
 ```typescript
-import * as Sentry from '@sentry/react';
+import * as Sentry from "@sentry/react";
 
 export function initSentry() {
   // ... existing code ...
-  
+
   Sentry.init({
     // ... existing config ...
-    
-    release: import.meta.env.VITE_SENTRY_RELEASE || 'unknown',
-    environment: import.meta.env.VITE_SENTRY_ENVIRONMENT || 'development',
-    
+
+    release: import.meta.env.VITE_SENTRY_RELEASE || "unknown",
+    environment: import.meta.env.VITE_SENTRY_ENVIRONMENT || "development",
+
     // ... rest of config ...
   });
-  
+
   // Set User Context (wenn User eingeloggt)
   Sentry.setUser({
     id: user.id,
@@ -186,6 +190,7 @@ export class ErrorBoundary extends Component<Props, State> {
 ```
 
 **Verwendung in `App.tsx`:**
+
 ```typescript
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 
@@ -207,26 +212,29 @@ function App() {
 **Datei:** `src/lib/sentry-integration.ts` (erweitern)
 
 ```typescript
-import * as Sentry from '@sentry/react';
+import * as Sentry from "@sentry/react";
 
 // Track Page Load Performance
 export function trackPageLoad() {
   if (import.meta.env.PROD) {
-    Sentry.startSpan({
-      name: 'page-load',
-      op: 'navigation',
-    }, () => {
-      // Page load tracking
-    });
+    Sentry.startSpan(
+      {
+        name: "page-load",
+        op: "navigation",
+      },
+      () => {
+        // Page load tracking
+      }
+    );
   }
 }
 
 // Track API Calls
 export function trackApiCall(endpoint: string, duration: number) {
   Sentry.addBreadcrumb({
-    category: 'api',
+    category: "api",
     message: `API Call: ${endpoint}`,
-    level: 'info',
+    level: "info",
     data: { duration },
   });
 }
@@ -237,6 +245,7 @@ export function trackApiCall(endpoint: string, duration: number) {
 ### 8. Alerts konfigurieren
 
 **Sentry Dashboard:**
+
 1. Settings → Alerts
 2. Create Alert Rule:
    - **Name:** Critical Error Rate
@@ -245,6 +254,7 @@ export function trackApiCall(endpoint: string, duration: number) {
    - **Threshold:** 5 errors
 
 **Webhook für n8n:**
+
 ```typescript
 // In Sentry Alert Action
 Webhook URL: https://your-n8n-instance.com/webhook/sentry
@@ -262,6 +272,7 @@ Body: {
 ## ✅ CHECKLIST
 
 ### Setup
+
 - [ ] Sentry Project erstellt
 - [ ] DSN in `.env` gesetzt
 - [ ] Auth Token für Source Maps erstellt
@@ -269,6 +280,7 @@ Body: {
 - [ ] Release Tracking aktiviert
 
 ### Code
+
 - [ ] `src/lib/sentry-integration.ts` konfiguriert
 - [ ] Error Boundaries in kritischen Components
 - [ ] User Context automatisch setzen
@@ -276,6 +288,7 @@ Body: {
 - [ ] Alerts konfiguriert
 
 ### Testing
+
 - [ ] Test Error in Production senden
 - [ ] Source Maps korrekt uploaden
 - [ ] Alerts funktionieren
@@ -286,12 +299,14 @@ Body: {
 ## 📊 MONITORING
 
 ### Daily Checks (2x täglich)
+
 - ✅ Error Rate < 5%
 - ✅ Performance Metrics (LCP, FID, CLS)
 - ✅ API Response Times
 - ✅ Database Query Performance
 
 ### Weekly Reports
+
 - ✅ Error Trends
 - ✅ Performance Trends
 - ✅ Top Errors
@@ -300,4 +315,3 @@ Body: {
 ---
 
 **Pascal, Sentry ist vollständig konfiguriert!** 🚀
-

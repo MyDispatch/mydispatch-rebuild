@@ -1,15 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 export function useBookings() {
   return useQuery({
-    queryKey: ['bookings'],
+    queryKey: ["bookings"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('bookings')
-        .select('*')
-        .order('created_at', { ascending: false });
-      
+        .from("bookings")
+        .select("*")
+        .order("created_at", { ascending: false });
+
       if (error) throw error;
       return data;
     },
@@ -18,14 +18,10 @@ export function useBookings() {
 
 export function useBooking(id: string) {
   return useQuery({
-    queryKey: ['booking', id],
+    queryKey: ["booking", id],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('bookings')
-        .select('*')
-        .eq('id', id)
-        .single();
-      
+      const { data, error } = await supabase.from("bookings").select("*").eq("id", id).single();
+
       if (error) throw error;
       return data;
     },

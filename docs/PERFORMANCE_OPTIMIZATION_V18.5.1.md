@@ -25,6 +25,7 @@
 **Purpose:** Standardisierte React Query Konfiguration mit Best-Practice Defaults.
 
 **Features:**
+
 - ✅ Automatic Caching (5min stale time, 10min cache time)
 - ✅ Optimistic Updates für Mutations
 - ✅ Error-Handling mit Toast-Notifications
@@ -34,6 +35,7 @@
 **Usage:**
 
 #### Query (Daten lesen):
+
 ```typescript
 import { useOptimizedQuery } from '@/hooks/use-optimized-query';
 
@@ -58,6 +60,7 @@ function BookingsList() {
 ```
 
 #### Mutation (Daten ändern):
+
 ```typescript
 import { useOptimizedMutation } from '@/hooks/use-optimized-query';
 
@@ -80,7 +83,7 @@ function CreateBookingButton() {
   });
 
   return (
-    <Button 
+    <Button
       onClick={() => mutate({ customer: 'John Doe' })}
       disabled={isPending}
     >
@@ -91,6 +94,7 @@ function CreateBookingButton() {
 ```
 
 **Benefits:**
+
 - 🚀 60% weniger API-Calls (durch 5min Caching)
 - ⚡ Instant UI-Updates (durch Optimistic Updates)
 - 🛡️ Automatisches Rollback bei Errors
@@ -107,6 +111,7 @@ function CreateBookingButton() {
 **Varianten:**
 
 #### KPI-Skeleton:
+
 ```typescript
 import { SkeletonKPIGrid } from '@/components/shared/SkeletonCard';
 
@@ -128,6 +133,7 @@ function Dashboard() {
 ```
 
 #### Table-Skeleton:
+
 ```typescript
 import { SkeletonTable } from '@/components/shared/SkeletonCard';
 
@@ -141,6 +147,7 @@ function DataTable() {
 ```
 
 #### List-Skeleton:
+
 ```typescript
 import { SkeletonList } from '@/components/shared/SkeletonCard';
 
@@ -154,6 +161,7 @@ function ItemList() {
 ```
 
 #### Card-Skeleton:
+
 ```typescript
 import { SkeletonCard } from '@/components/shared/SkeletonCard';
 
@@ -167,6 +175,7 @@ function ContentCard() {
 ```
 
 **Benefits:**
+
 - 🎨 Professionelle Loading-States (keine blanken Seiten mehr)
 - ⚡ Wahrgenommene Performance verbessert (60% gefühlte Schnelligkeit)
 - 📱 Mobile-optimiert mit Pulse-Animation
@@ -179,21 +188,23 @@ function ContentCard() {
 ### Schritt 1: Alte useQuery durch useOptimizedQuery ersetzen
 
 **Vorher:**
+
 ```typescript
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 const { data } = useQuery({
-  queryKey: ['bookings'],
+  queryKey: ["bookings"],
   queryFn: fetchBookings,
 });
 ```
 
 **Nachher:**
+
 ```typescript
-import { useOptimizedQuery } from '@/hooks/use-optimized-query';
+import { useOptimizedQuery } from "@/hooks/use-optimized-query";
 
 const { data } = useOptimizedQuery({
-  queryKey: ['bookings'],
+  queryKey: ["bookings"],
   queryFn: fetchBookings,
 });
 ```
@@ -205,11 +216,13 @@ const { data } = useOptimizedQuery({
 ### Schritt 2: Loading-States durch Skeleton-Screens ersetzen
 
 **Vorher:**
+
 ```typescript
 if (isLoading) return <div>Lädt...</div>;
 ```
 
 **Nachher:**
+
 ```typescript
 import { SkeletonKPIGrid } from '@/components/shared/SkeletonCard';
 
@@ -223,31 +236,33 @@ if (isLoading) return <SkeletonKPIGrid count={4} />;
 ### Schritt 3: useMutation durch useOptimizedMutation ersetzen
 
 **Vorher:**
+
 ```typescript
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { toast } from 'sonner';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 const queryClient = useQueryClient();
 const mutation = useMutation({
   mutationFn: createBooking,
   onSuccess: () => {
-    toast.success('Erstellt!');
-    queryClient.invalidateQueries(['bookings']);
+    toast.success("Erstellt!");
+    queryClient.invalidateQueries(["bookings"]);
   },
   onError: () => {
-    toast.error('Fehler!');
+    toast.error("Fehler!");
   },
 });
 ```
 
 **Nachher:**
+
 ```typescript
-import { useOptimizedMutation } from '@/hooks/use-optimized-query';
+import { useOptimizedMutation } from "@/hooks/use-optimized-query";
 
 const mutation = useOptimizedMutation({
   mutationFn: createBooking,
-  queryKey: ['bookings'],
-  onSuccessMessage: 'Erstellt!',
+  queryKey: ["bookings"],
+  onSuccessMessage: "Erstellt!",
   optimisticUpdate: (newBooking) => newBooking,
 });
 ```
@@ -259,6 +274,7 @@ const mutation = useOptimizedMutation({
 ## 📊 PRIORISIERUNG
 
 ### Phase 1: High-Traffic Seiten ✅ KOMPLETT
+
 - ✅ `/dashboard` - Hauptseite (täglich 1000+ Views) - Memoized Filters
 - ✅ `/auftraege` - Auftrags-Management (täglich 500+ Views) - Memoized Filters
 - ✅ `/fahrer` - Fahrer-Management - Imports hinzugefügt
@@ -272,6 +288,7 @@ const mutation = useOptimizedMutation({
 ---
 
 ### Phase 2: Medium-Traffic Seiten (DIESE WOCHE)
+
 - 🔄 `/partner` - Partner-Verwaltung
 - 🔄 `/einstellungen` - Settings
 - 🔄 `/kommunikation` - AI-Chat
@@ -285,6 +302,7 @@ const mutation = useOptimizedMutation({
 ---
 
 ### Phase 3: Low-Traffic Seiten (NÄCHSTE WOCHE)
+
 - 🔄 Marketing-Pages (/, /pricing, /faq, etc.)
 - 🔄 Legal-Pages (/impressum, /datenschutz, etc.)
 - 🔄 Sonstige interne Seiten
@@ -302,16 +320,17 @@ const mutation = useOptimizedMutation({
 **Status:** ✅ BEREITS IMPLEMENTIERT in routes.config.tsx
 
 **Implementierung:**
+
 ```typescript
 // src/config/routes.config.tsx
-import { lazy } from 'react';
+import { lazy } from "react";
 
 export const routes: RouteConfig[] = [
   {
-    path: '/dashboard',
-    component: lazy(() => import('@/pages/Index')),
+    path: "/dashboard",
+    component: lazy(() => import("@/pages/Index")),
     protected: true,
-    layout: 'main',
+    layout: "main",
     // ...
   },
   // ... alle 50+ Routes sind lazy-loaded
@@ -331,6 +350,7 @@ export const routes: RouteConfig[] = [
 **Ziel:** 50% weniger Re-Renders
 
 **Features:**
+
 - ✅ `useMemoizedKPIs` - Universeller Hook für KPI-Berechnungen
 - ✅ `useMemoizedStats` - Statistik-Berechnungen
 - ✅ `useMemoizedFilter` - Filter-Operationen (Search)
@@ -339,12 +359,13 @@ export const routes: RouteConfig[] = [
 - ✅ Performance-Logging in Development (> 10ms Berechnungen)
 
 **Usage (KPIs):**
+
 ```typescript
 import { useMemoizedKPIs } from '@/hooks/use-memoized-kpis';
 
 function Dashboard() {
   const { data: bookings } = useQuery({ ... });
-  
+
   // ✅ KPIs werden nur bei bookings-Änderung neu berechnet
   const kpis = useMemoizedKPIs(() => [
     {
@@ -365,24 +386,25 @@ function Dashboard() {
 ```
 
 **Usage (Filter & Sort):**
+
 ```typescript
 import { useMemoizedFilter, useMemoizedSort } from '@/hooks/use-memoized-kpis';
 
 function BookingsList() {
   const { data: bookings } = useQuery({ ... });
   const [searchTerm, setSearchTerm] = useState('');
-  
+
   // ✅ Filter nur bei bookings/searchTerm Änderung
   const filteredBookings = useMemoizedFilter(
-    () => bookings.filter(b => 
+    () => bookings.filter(b =>
       b.customer.name.toLowerCase().includes(searchTerm.toLowerCase())
     ),
     [bookings, searchTerm]
   );
-  
+
   // ✅ Sort nur bei filteredBookings Änderung
   const sortedBookings = useMemoizedSort(
-    () => [...filteredBookings].sort((a, b) => 
+    () => [...filteredBookings].sort((a, b) =>
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     ),
     [filteredBookings]
@@ -418,9 +440,10 @@ function BookingsList() {
 **Ziel:** 70% kleinere Bilder
 
 **Implementation:**
+
 ```typescript
 // Convert to WebP + Lazy-Loading
-<img 
+<img
   src="/images/hero.webp"
   alt="Hero"
   loading="lazy"
@@ -429,6 +452,7 @@ function BookingsList() {
 ```
 
 **Tools:**
+
 - sharp (Node.js Image-Processor)
 - imagemin (Compression)
 - Vite-Plugin-ImageOptimizer
@@ -442,6 +466,7 @@ function BookingsList() {
 ## 📈 ERWARTETE ERGEBNISSE
 
 ### Vor Optimierung
+
 - Initial Load: **4.2s**
 - Time to Interactive: **6.8s**
 - Total Bundle Size: **1.2MB** (gzipped)
@@ -449,13 +474,15 @@ function BookingsList() {
 - API-Calls pro Page-Load: **~8**
 
 ### Nach Optimierung (Phase 1 ✅ IMPLEMENTIERT)
+
 - Initial Load: **1.5s** (⚡ -64%) ✅ Code-Splitting aktiv
 - Time to Interactive: **2.8s** (⚡ -59%) ✅ Lazy-Loading aktiv
 - Total Bundle Size: **480KB** (⚡ -60%) ✅ Route-basierte Chunks
 - Re-Renders pro User-Action: **~7** (🔄 -53%) ✅ Memoization AKTIV in Top-5 Pages
 - API-Calls pro Page-Load: **~4** (💾 -50%) ✅ React Query Caching aktiv
 
-**Status:** 
+**Status:**
+
 - ✅ Code-Splitting: AKTIV (routes.config.tsx)
 - ✅ Memoization: AKTIV in Top-5 Pages (Dashboard, Auftraege, Fahrer, Kunden, Rechnungen)
 - ✅ React Query: AKTIV (useBookings, useDrivers, useVehicles, useCustomers, useInvoices)
@@ -481,6 +508,7 @@ function BookingsList() {
 ## 📝 CHANGELOG
 
 ### V18.5.1 (2025-10-24)
+
 - ✅ Memoization-Hooks erstellt (use-memoized-kpis.ts)
   - useMemoizedKPIs (universell für KPI-Berechnungen)
   - useMemoizedStats (Statistiken)

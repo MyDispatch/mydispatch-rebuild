@@ -38,24 +38,24 @@
 
 ### Kritische PII-Tabellen (alle geschützt!):
 
-| Tabelle | RLS Enabled | Policies | Status | Priority |
-|---------|-------------|----------|--------|----------|
-| **profiles** | ✅ JA | **5 Policies** | ✅ PROTECTED | 🔴 CRITICAL |
-| **customers** | ✅ JA | **7 Policies** | ✅ PROTECTED | 🔴 CRITICAL |
-| **drivers** | ✅ JA | **4 Policies** | ✅ PROTECTED | 🔴 CRITICAL |
-| **companies** | ✅ JA | **3 Policies** | ✅ PROTECTED | 🔴 CRITICAL |
-| **partners** | ✅ JA | **4 Policies** | ✅ PROTECTED | 🟠 HIGH |
-| **calls** | ✅ JA | **3 Policies** | ✅ PROTECTED | 🟠 HIGH |
-| **chat_messages** | ✅ JA | **3 Policies** | ✅ PROTECTED | 🟠 HIGH |
-| **documents** | ✅ JA | **7 Policies** | ✅ PROTECTED | 🟠 HIGH |
+| Tabelle           | RLS Enabled | Policies       | Status       | Priority    |
+| ----------------- | ----------- | -------------- | ------------ | ----------- |
+| **profiles**      | ✅ JA       | **5 Policies** | ✅ PROTECTED | 🔴 CRITICAL |
+| **customers**     | ✅ JA       | **7 Policies** | ✅ PROTECTED | 🔴 CRITICAL |
+| **drivers**       | ✅ JA       | **4 Policies** | ✅ PROTECTED | 🔴 CRITICAL |
+| **companies**     | ✅ JA       | **3 Policies** | ✅ PROTECTED | 🔴 CRITICAL |
+| **partners**      | ✅ JA       | **4 Policies** | ✅ PROTECTED | 🟠 HIGH     |
+| **calls**         | ✅ JA       | **3 Policies** | ✅ PROTECTED | 🟠 HIGH     |
+| **chat_messages** | ✅ JA       | **3 Policies** | ✅ PROTECTED | 🟠 HIGH     |
+| **documents**     | ✅ JA       | **7 Policies** | ✅ PROTECTED | 🟠 HIGH     |
 
 ### Geschäftsdaten-Tabellen (alle geschützt!):
 
-| Tabelle | RLS Enabled | Policies | Status | Priority |
-|---------|-------------|----------|--------|----------|
-| **bookings** | ✅ JA | **10 Policies** | ✅ PROTECTED | 🟠 HIGH |
-| **invoices** | ✅ JA | **4 Policies** | ✅ PROTECTED | 🟠 HIGH |
-| **cost_centers** | ✅ JA | **4 Policies** | ✅ PROTECTED | 🟡 MEDIUM |
+| Tabelle          | RLS Enabled | Policies        | Status       | Priority  |
+| ---------------- | ----------- | --------------- | ------------ | --------- |
+| **bookings**     | ✅ JA       | **10 Policies** | ✅ PROTECTED | 🟠 HIGH   |
+| **invoices**     | ✅ JA       | **4 Policies**  | ✅ PROTECTED | 🟠 HIGH   |
+| **cost_centers** | ✅ JA       | **4 Policies**  | ✅ PROTECTED | 🟡 MEDIUM |
 
 **GESAMT:** 11/11 Tabellen mit RLS ✅  
 **POLICIES:** 54 Policies insgesamt  
@@ -68,6 +68,7 @@
 ### 🎖️ PERFEKTE RLS-IMPLEMENTIERUNG!
 
 **Highlights:**
+
 - ✅ **100% RLS Coverage** auf allen PII-Tabellen
 - ✅ **Keine öffentlich lesbaren PII-Tabellen**
 - ✅ **Umfassende Policy-Abdeckung** (54 Policies)
@@ -98,6 +99,7 @@ companies:       3 Policies ✅
 **Status:** ✅ **PASSED** (Zod Schemas implementiert)
 
 **Beispiele:**
+
 ```typescript
 // ✅ KORREKT: Zod Validation in Forms
 const contactSchema = z.object({
@@ -116,9 +118,10 @@ const contactSchema = z.object({
 **Status:** ✅ **PASSED** (Kein Raw SQL in Edge Functions)
 
 **Prüfung:**
+
 ```typescript
 // ✅ Alle Edge Functions nutzen Supabase Client
-const { data } = await supabase.from('table').select();
+const { data } = await supabase.from("table").select();
 
 // ❌ NICHT GEFUNDEN: Raw SQL Execution
 // supabase.rpc('execute_sql', { query: '...' })
@@ -129,6 +132,7 @@ const { data } = await supabase.from('table').select();
 **Status:** ✅ **PASSED** (Sanitization implementiert)
 
 **Findings:**
+
 - 5 Instanzen von `dangerouslySetInnerHTML`
 - Alle nutzen `sanitizeHelpContent()` oder sind intern generiert
 - Markdown-Rendering sollte reviewed werden (siehe Design Report)
@@ -138,6 +142,7 @@ const { data } = await supabase.from('table').select();
 **Status:** ✅ **PASSED** (Keine Secrets im Code)
 
 **Prüfung:**
+
 ```bash
 # Keine API-Keys im Code gefunden
 grep -r "apiKey\|api_key\|secret" src/ --exclude-dir=node_modules

@@ -11,6 +11,7 @@
 Das Archivierungssystem gewährleistet die **systematische Speicherung, Versionierung und Wiederauffindbarkeit** aller Projektdokumente, Aufträge, Konzepte, Vorgaben und gesammelten Wissensressourcen für MyDispatch.
 
 **Ziele:**
+
 1. ✅ Lückenlose Dokumentation aller Systemteile
 2. ✅ Versionskontrolle für alle Dokumente
 3. ✅ Schnelle Wiederauffindbarkeit (Suchfunktion)
@@ -92,6 +93,7 @@ docs/
 **Format:** `[KATEGORIE]_[NAME]_V[VERSION].md`
 
 **Beispiele:**
+
 ```
 ✅ BESTÄTIGUNGS_PROMPT_V18.3.28.md
 ✅ DASHBOARD_SPECIFICATION_V18.3.28.md
@@ -142,6 +144,7 @@ Jedes Dokument MUSS mit diesem Header beginnen:
 ### Versions-Management
 
 **Semantic Versioning:**
+
 ```
 MAJOR.MINOR.PATCH
 
@@ -160,6 +163,7 @@ Beispiel: V18.3.28
 4. **Deprecated:** Veraltet, durch neuere Version ersetzt
 
 **Archivierung:**
+
 ```bash
 # Bei neuer Major/Minor Version:
 mkdir docs/archive/v18.3.27
@@ -195,6 +199,7 @@ last_updated: "2025-10-21"
 ### Suchfunktion (Git-basiert)
 
 **Schnellsuche:**
+
 ```bash
 # Suche nach Keyword in allen Docs
 grep -r "XSS" docs/
@@ -207,6 +212,7 @@ grep -r "Status: Production-Ready" docs/
 ```
 
 **Erweiterte Suche (IDE):**
+
 - VSCode: Ctrl+Shift+F
 - Filter: `docs/**/*.md`
 
@@ -215,11 +221,13 @@ grep -r "Status: Production-Ready" docs/
 ## 📊 DOKUMENTATIONS-TYPEN
 
 ### 1. Master-Dokumente (PFLICHT)
+
 **Zweck:** Zentrale Systemvorgaben  
 **Update-Frequenz:** Bei jedem Major Feature  
 **Review-Zyklus:** Wöchentlich
 
 **Liste:**
+
 - BESTÄTIGUNGS_PROMPT_V18.3.28.md
 - PFLICHTENHEFT_V18.3.28.md
 - FEHLERDATENBANK_V18.3.28.md
@@ -228,11 +236,13 @@ grep -r "Status: Production-Ready" docs/
 ---
 
 ### 2. Seiten-Spezifikationen (PFLICHT)
+
 **Zweck:** Entwicklervorgaben für Seiten  
 **Update-Frequenz:** Bei UI-Änderungen  
 **Review-Zyklus:** Monatlich
 
 **Mindest-Inhalt:**
+
 1. **Bauplan:** Layout-Struktur (Grid, Sections)
 2. **UI-Vorgabe:** Komponenten-Mapping (Labary)
 3. **Design-Vorgaben:** Colors, Typography, Spacing
@@ -242,11 +252,13 @@ grep -r "Status: Production-Ready" docs/
 ---
 
 ### 3. Architektur-Dokumente (PFLICHT)
+
 **Zweck:** System-Design & API-Specs  
 **Update-Frequenz:** Bei Architektur-Änderungen  
 **Review-Zyklus:** Quarterly
 
 **Liste:**
+
 - API_DOCUMENTATION.md
 - DATABASE_SCHEMA.md
 - EDGE_FUNCTIONS.md
@@ -255,6 +267,7 @@ grep -r "Status: Production-Ready" docs/
 ---
 
 ### 4. Entwickler-Vorgaben (PFLICHT)
+
 **Zweck:** Coding-Standards & Workflows  
 **Update-Frequenz:** Bei Prozess-Änderungen  
 **Review-Zyklus:** Quarterly
@@ -262,6 +275,7 @@ grep -r "Status: Production-Ready" docs/
 ---
 
 ### 5. Reports & Analytics (AUTOMATISCH)
+
 **Zweck:** Test-Results, Performance-Audits  
 **Update-Frequenz:** Bei jedem CI/CD Run  
 **Retention:** 30 Tage
@@ -269,6 +283,7 @@ grep -r "Status: Production-Ready" docs/
 ---
 
 ### 6. Wissensressourcen (OPTIONAL)
+
 **Zweck:** Best Practices, Lessons Learned  
 **Update-Frequenz:** Ad-hoc  
 **Review-Zyklus:** Bei Bedarf
@@ -285,6 +300,7 @@ In `docs/BESTÄTIGUNGS_PROMPT_V18.3.28.md`:
 ## CHANGELOG
 
 ### V18.3.28 (2025-10-21)
+
 - **NEU:** Design-Perfektion als Kernziel hinzugefügt
 - **NEU:** Archivierungssystem & Content-Management-System-Konzept
 - **ERWEITERT:** Dokumentationspflicht in Phase 3C
@@ -292,6 +308,7 @@ In `docs/BESTÄTIGUNGS_PROMPT_V18.3.28.md`:
 - **BUILD:** Terser als Dependency hinzugefügt
 
 ### V18.3.27 (2025-10-21)
+
 - **SICHERHEIT:** Kritische XSS-Lücken behoben (5 Dateien)
 - **FEATURE:** GitHub-Integration aktiviert
 - **FEATURE:** E2E Test-Suite implementiert
@@ -307,6 +324,7 @@ In `docs/FEHLERDATENBANK_V18.3.28.md`:
 ## CHANGELOG
 
 ### 2025-10-21
+
 - [SEC-001] XSS in AI Chat behoben
 - [BUILD-001] Terser Dependency hinzugefügt
 - [DATA-001] Input-Validation als HIGH markiert
@@ -352,6 +370,7 @@ markdownlint docs/**/*.md
 ```
 
 **Regeln:**
+
 - Max. Zeilenlänge: 120 Zeichen
 - Konsistente Heading-Levels
 - Keine Trailing Spaces
@@ -361,12 +380,14 @@ markdownlint docs/**/*.md
 ### Automatische Generierung
 
 **Page Specification Generator:**
+
 ```bash
 # Erstellt neue Seitendoku aus Template
 npm run generate:page-spec -- --name="Dashboard"
 ```
 
 **API Doc Generator:**
+
 ```bash
 # Generiert API-Doku aus Supabase Schema
 npm run generate:api-docs
@@ -378,15 +399,16 @@ npm run generate:api-docs
 
 ### Dokumentations-Health
 
-| Metrik | Zielwert | Aktuell |
-|--------|----------|---------|
-| Seiten dokumentiert | 100% | 60% |
-| Docs mit Changelog | 100% | 80% |
-| Aktuelle Versionen | 100% | 100% |
-| Broken Links | 0 | 0 |
-| Durchschn. Doc-Alter | < 30d | 15d |
+| Metrik               | Zielwert | Aktuell |
+| -------------------- | -------- | ------- |
+| Seiten dokumentiert  | 100%     | 60%     |
+| Docs mit Changelog   | 100%     | 80%     |
+| Aktuelle Versionen   | 100%     | 100%    |
+| Broken Links         | 0        | 0       |
+| Durchschn. Doc-Alter | < 30d    | 15d     |
 
 **Tracking:**
+
 ```bash
 # Prüfung auf veraltete Docs (älter als 90 Tage)
 find docs/ -name "*.md" -mtime +90
@@ -433,11 +455,11 @@ jobs:
 
 ### Klassifizierungen
 
-| Klassifizierung | Zugriff | Beispiel-Docs |
-|-----------------|---------|---------------|
-| **Öffentlich** | Alle (inkl. GitHub Public) | README.md, CONTRIBUTING.md |
-| **Intern** | Entwickler-Team | Alle docs/* Dateien |
-| **Vertraulich** | Nur Senior Architect | API-Keys, Secrets (NICHT im Repo!) |
+| Klassifizierung | Zugriff                    | Beispiel-Docs                      |
+| --------------- | -------------------------- | ---------------------------------- |
+| **Öffentlich**  | Alle (inkl. GitHub Public) | README.md, CONTRIBUTING.md         |
+| **Intern**      | Entwickler-Team            | Alle docs/\* Dateien               |
+| **Vertraulich** | Nur Senior Architect       | API-Keys, Secrets (NICHT im Repo!) |
 
 **WICHTIG:** Niemals Secrets, Passwörter oder API-Keys in Docs committen!
 
@@ -448,6 +470,7 @@ jobs:
 ### Für neue Entwickler
 
 **Pflicht-Lektüre (in dieser Reihenfolge):**
+
 1. `BESTÄTIGUNGS_PROMPT_V18.3.28.md` (Master Prompt)
 2. `PFLICHTENHEFT_V18.3.28.md` (System-Übersicht)
 3. `DESIGN_SYSTEM_V18.3.28.md` (UI-Standards)
@@ -455,6 +478,7 @@ jobs:
 5. `GIT_WORKFLOW.md` (Branching-Strategie)
 
 **Praktische Übung:**
+
 - Erstelle eine neue Page Specification für eine Test-Seite
 - Committe gemäß Git-Workflow
 - Review durch Senior Architect
@@ -466,6 +490,7 @@ jobs:
 ### Quarterly Review (alle 3 Monate)
 
 **Aufgaben:**
+
 - [ ] Alle Master-Dokumente auf Aktualität prüfen
 - [ ] Veraltete Docs ins Archiv verschieben
 - [ ] Broken Links fixen
@@ -535,4 +560,4 @@ jobs:
 
 **END OF DOCUMENT**
 
-*Dieses Archivierungssystem ist verbindlich und muss bei allen Dokumentations-Aktivitäten befolgt werden.*
+_Dieses Archivierungssystem ist verbindlich und muss bei allen Dokumentations-Aktivitäten befolgt werden._

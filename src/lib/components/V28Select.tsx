@@ -3,16 +3,17 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { forwardRef, SelectHTMLAttributes } from 'react';
-import { cn } from '@/lib/utils';
-import { ChevronDown } from 'lucide-react';
+import { forwardRef, SelectHTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
+import { ChevronDown } from "lucide-react";
 
 export interface V28SelectOption {
   label: string;
   value: string;
 }
 
-export interface V28SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'value' | 'onChange'> {
+export interface V28SelectProps
+  extends Omit<SelectHTMLAttributes<HTMLSelectElement>, "value" | "onChange"> {
   options: V28SelectOption[];
   value?: string;
   onChange?: (value: string) => void;
@@ -42,13 +43,13 @@ export const V28Select = forwardRef<HTMLSelectElement, V28SelectProps>(
             value={value}
             onChange={(e) => onChange?.(e.target.value)}
             className={cn(
-              'flex h-10 w-full appearance-none rounded-md border bg-white px-3 py-2 text-sm pr-10',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2',
-              'disabled:cursor-not-allowed disabled:opacity-50',
-              'transition-all duration-300',
+              "flex h-10 w-full appearance-none rounded-md border bg-white px-3 py-2 text-sm pr-10",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2",
+              "disabled:cursor-not-allowed disabled:opacity-50",
+              "transition-all duration-300",
               error
-                ? 'border-red-500 focus-visible:ring-red-500'
-                : 'border-slate-200 dark:border-slate-700',
+                ? "border-red-500 focus-visible:ring-red-500"
+                : "border-slate-200 dark:border-slate-700",
               className
             )}
             {...props}
@@ -66,12 +67,10 @@ export const V28Select = forwardRef<HTMLSelectElement, V28SelectProps>(
           </select>
           <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
         </div>
-        {error && (
-          <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{error}</p>
-        )}
+        {error && <p className="mt-1.5 text-sm text-red-600 dark:text-red-400">{error}</p>}
       </div>
     );
   }
 );
 
-V28Select.displayName = 'V28Select';
+V28Select.displayName = "V28Select";

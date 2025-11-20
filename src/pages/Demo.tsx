@@ -8,37 +8,46 @@
    ✅ SEO-optimiert mit Schema.org
    ================================================================================== */
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
-import { V28DashboardPreview } from '@/components/home/V28DashboardPreview';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
-import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { V28HeroPremium } from "@/components/hero/V28HeroPremium";
+import { V28DashboardPreview } from "@/components/home/V28DashboardPreview";
+import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import {
-  Video, Users, Clock, CheckCircle2, Calendar,
-  Phone, Mail, Building2, MessageSquare
-} from 'lucide-react';
+  Video,
+  Users,
+  Clock,
+  CheckCircle2,
+  Calendar,
+  Phone,
+  Mail,
+  Building2,
+  MessageSquare,
+} from "lucide-react";
 
 const demoSchema = z.object({
-  name: z.string().trim().min(2, 'Name muss mindestens 2 Zeichen lang sein').max(100),
-  email: z.string().trim().email('Ungültige E-Mail-Adresse').max(255),
-  company: z.string().trim().min(2, 'Firmenname erforderlich').max(100),
+  name: z.string().trim().min(2, "Name muss mindestens 2 Zeichen lang sein").max(100),
+  email: z.string().trim().email("Ungültige E-Mail-Adresse").max(255),
+  company: z.string().trim().min(2, "Firmenname erforderlich").max(100),
   phone: z.string().trim().max(30).optional(),
   message: z.string().trim().max(1000).optional(),
-  agbAccepted: z.boolean().refine(val => val === true, 'Datenschutzerklärung muss akzeptiert werden'),
+  agbAccepted: z
+    .boolean()
+    .refine((val) => val === true, "Datenschutzerklärung muss akzeptiert werden"),
 });
 
 type DemoFormData = z.infer<typeof demoSchema>;
@@ -46,24 +55,24 @@ type DemoFormData = z.infer<typeof demoSchema>;
 const benefits = [
   {
     icon: Video,
-    title: 'Live-Demo',
-    description: '30-minütige persönliche Produktvorführung mit einem MyDispatch-Experten'
+    title: "Live-Demo",
+    description: "30-minütige persönliche Produktvorführung mit einem MyDispatch-Experten",
   },
   {
     icon: Users,
-    title: 'Individuelle Beratung',
-    description: 'Wir gehen auf Ihre spezifischen Anforderungen und Fragen ein'
+    title: "Individuelle Beratung",
+    description: "Wir gehen auf Ihre spezifischen Anforderungen und Fragen ein",
   },
   {
     icon: Clock,
-    title: 'Flexible Termine',
-    description: 'Wir passen uns Ihrem Zeitplan an - auch außerhalb der Geschäftszeiten'
+    title: "Flexible Termine",
+    description: "Wir passen uns Ihrem Zeitplan an - auch außerhalb der Geschäftszeiten",
   },
   {
     icon: CheckCircle2,
-    title: 'Unverbindlich',
-    description: 'Keine Verpflichtungen - lernen Sie MyDispatch in Ruhe kennen'
-  }
+    title: "Unverbindlich",
+    description: "Keine Verpflichtungen - lernen Sie MyDispatch in Ruhe kennen",
+  },
 ];
 
 export default function Demo() {
@@ -74,38 +83,38 @@ export default function Demo() {
   const form = useForm<DemoFormData>({
     resolver: zodResolver(demoSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      company: '',
-      phone: '',
-      message: '',
+      name: "",
+      email: "",
+      company: "",
+      phone: "",
+      message: "",
       agbAccepted: false,
-    }
+    },
   });
 
   const onSubmit = async (data: DemoFormData) => {
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.functions.invoke('send-demo-request', {
+      const { error } = await supabase.functions.invoke("send-demo-request", {
         body: {
           ...data,
           requestedAt: new Date().toISOString(),
-        }
+        },
       });
 
       if (error) throw error;
 
       toast({
-        title: 'Demo-Anfrage erhalten!',
-        description: 'Wir melden uns innerhalb von 24 Stunden bei Ihnen.',
+        title: "Demo-Anfrage erhalten!",
+        description: "Wir melden uns innerhalb von 24 Stunden bei Ihnen.",
       });
 
       form.reset();
     } catch (error: any) {
       toast({
-        title: 'Fehler',
-        description: error.message || 'Demo-Anfrage konnte nicht gesendet werden.',
-        variant: 'destructive'
+        title: "Fehler",
+        description: error.message || "Demo-Anfrage konnte nicht gesendet werden.",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
@@ -121,34 +130,40 @@ export default function Demo() {
         schema={{
           "@context": "https://schema.org",
           "@type": "ContactPage",
-          "name": "MyDispatch Live-Demo",
-          "description": "Unverbindliche Live-Demo anfragen"
+          name: "MyDispatch Live-Demo",
+          description: "Unverbindliche Live-Demo anfragen",
         }}
-        keywords={['MyDispatch Demo', 'Taxi Software Demo', 'Live Produktvorführung', 'Unverbindliche Demo', 'MyDispatch Vorführung']}
+        keywords={[
+          "MyDispatch Demo",
+          "Taxi Software Demo",
+          "Live Produktvorführung",
+          "Unverbindliche Demo",
+          "MyDispatch Vorführung",
+        ]}
       />
 
       {/* Hero Section - V28 HERO PREMIUM */}
       <V28HeroPremium
         variant="demo"
         backgroundVariant="3d-premium"
-        badge={{ text: 'Live-Demo', icon: Video }}
+        badge={{ text: "Live-Demo", icon: Video }}
         title="Erleben Sie MyDispatch in Aktion"
         subtitle="30-minütige persönliche Demo mit echten Taxi-Daten"
         description="Unsere Experten zeigen Ihnen live, wie MyDispatch Ihr Taxi-Unternehmen digitalisiert. Keine Verpflichtungen, nur Einblicke."
         primaryCTA={{
-          label: 'Demo-Termin buchen',
+          label: "Demo-Termin buchen",
           onClick: () => {
-            const formElement = document.getElementById('demo-form');
-            formElement?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const formElement = document.getElementById("demo-form");
+            formElement?.scrollIntoView({ behavior: "smooth", block: "start" });
           },
-          icon: Calendar
+          icon: Calendar,
         }}
         showPWAButton={true}
         visual={<V28DashboardPreview animationDelay="0.4s" title="my-dispatch.de/demo" />}
         businessMetrics={[
-          { label: 'Demo-Dauer', value: '30 Min', sublabel: 'unverbindlich' },
-          { label: 'Setup-Zeit', value: '<24h', sublabel: 'nach Vertragsabschluss' },
-          { label: 'Zufriedenheit', value: '4.8/5', sublabel: 'Kundenbewertung' }
+          { label: "Demo-Dauer", value: "30 Min", sublabel: "unverbindlich" },
+          { label: "Setup-Zeit", value: "<24h", sublabel: "nach Vertragsabschluss" },
+          { label: "Zufriedenheit", value: "4.8/5", sublabel: "Kundenbewertung" },
         ]}
       />
 
@@ -168,9 +183,7 @@ export default function Demo() {
               <h3 className="font-sans text-lg font-semibold text-slate-900 mb-2">
                 {benefit.title}
               </h3>
-              <p className="font-sans text-sm text-slate-600">
-                {benefit.description}
-              </p>
+              <p className="font-sans text-sm text-slate-600">{benefit.description}</p>
             </V28MarketingCard>
           ))}
         </div>
@@ -194,7 +207,7 @@ export default function Demo() {
                 <Label htmlFor="name">Name *</Label>
                 <Input
                   id="name"
-                  {...form.register('name')}
+                  {...form.register("name")}
                   placeholder="Ihr vollständiger Name"
                   className="mt-2"
                   disabled={isSubmitting}
@@ -209,7 +222,7 @@ export default function Demo() {
                 <Input
                   id="email"
                   type="email"
-                  {...form.register('email')}
+                  {...form.register("email")}
                   placeholder="ihre.email@firma.de"
                   className="mt-2"
                   disabled={isSubmitting}
@@ -223,13 +236,15 @@ export default function Demo() {
                 <Label htmlFor="company">Unternehmen *</Label>
                 <Input
                   id="company"
-                  {...form.register('company')}
+                  {...form.register("company")}
                   placeholder="Ihr Firmenname"
                   className="mt-2"
                   disabled={isSubmitting}
                 />
                 {form.formState.errors.company && (
-                  <p className="text-sm text-red-600 mt-1">{form.formState.errors.company.message}</p>
+                  <p className="text-sm text-red-600 mt-1">
+                    {form.formState.errors.company.message}
+                  </p>
                 )}
               </div>
 
@@ -238,7 +253,7 @@ export default function Demo() {
                 <Input
                   id="phone"
                   type="tel"
-                  {...form.register('phone')}
+                  {...form.register("phone")}
                   placeholder="+49 ..."
                   className="mt-2"
                   disabled={isSubmitting}
@@ -249,7 +264,7 @@ export default function Demo() {
                 <Label htmlFor="message">Nachricht (optional)</Label>
                 <Textarea
                   id="message"
-                  {...form.register('message')}
+                  {...form.register("message")}
                   placeholder="Haben Sie spezielle Fragen oder Anforderungen?"
                   className="mt-2"
                   rows={4}
@@ -260,12 +275,12 @@ export default function Demo() {
               <div className="flex items-start gap-2">
                 <Checkbox
                   id="agbAccepted"
-                  checked={form.watch('agbAccepted')}
-                  onCheckedChange={(checked) => form.setValue('agbAccepted', checked as boolean)}
+                  checked={form.watch("agbAccepted")}
+                  onCheckedChange={(checked) => form.setValue("agbAccepted", checked as boolean)}
                   disabled={isSubmitting}
                 />
                 <Label htmlFor="agbAccepted" className="text-sm text-slate-600 cursor-pointer">
-                  Ich akzeptiere die{' '}
+                  Ich akzeptiere die{" "}
                   <a href="/datenschutz" className="text-slate-900 hover:underline">
                     Datenschutzerklärung
                   </a>
@@ -282,7 +297,7 @@ export default function Demo() {
                 className="w-full"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Wird gesendet...' : 'Demo anfragen'}
+                {isSubmitting ? "Wird gesendet..." : "Demo anfragen"}
               </V28Button>
             </form>
           </V28MarketingCard>
@@ -331,13 +346,19 @@ export default function Demo() {
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
                       <Phone className="h-4 w-4 text-slate-700" />
-                      <a href="tel:+491708004423" className="text-sm text-slate-700 hover:text-slate-900 hover:underline">
+                      <a
+                        href="tel:+491708004423"
+                        className="text-sm text-slate-700 hover:text-slate-900 hover:underline"
+                      >
                         +49 170 8004423
                       </a>
                     </div>
                     <div className="flex items-center gap-2">
                       <Mail className="h-4 w-4 text-slate-700" />
-                      <a href="mailto:info@my-dispatch.de" className="text-sm text-slate-700 hover:text-slate-900 hover:underline">
+                      <a
+                        href="mailto:info@my-dispatch.de"
+                        className="text-sm text-slate-700 hover:text-slate-900 hover:underline"
+                      >
                         info@my-dispatch.de
                       </a>
                     </div>
@@ -378,20 +399,39 @@ export default function Demo() {
         <V28MarketingCard className="max-w-3xl mx-auto">
           <div className="space-y-6">
             <div>
-              <h4 className="font-sans text-lg font-semibold text-slate-900 mb-2">Ist die Demo unverbindlich?</h4>
-              <p className="text-sm text-slate-600">Ja, die Demo ist 100% unverbindlich. Es entstehen keine Kosten und Sie gehen keine Verpflichtungen ein.</p>
+              <h4 className="font-sans text-lg font-semibold text-slate-900 mb-2">
+                Ist die Demo unverbindlich?
+              </h4>
+              <p className="text-sm text-slate-600">
+                Ja, die Demo ist 100% unverbindlich. Es entstehen keine Kosten und Sie gehen keine
+                Verpflichtungen ein.
+              </p>
             </div>
             <div>
-              <h4 className="font-sans text-lg font-semibold text-slate-900 mb-2">Wie lange dauert die Demo?</h4>
-              <p className="text-sm text-slate-600">Die Demo dauert ca. 30 Minuten. Wir können die Zeit aber flexibel anpassen, falls Sie mehr Fragen haben.</p>
+              <h4 className="font-sans text-lg font-semibold text-slate-900 mb-2">
+                Wie lange dauert die Demo?
+              </h4>
+              <p className="text-sm text-slate-600">
+                Die Demo dauert ca. 30 Minuten. Wir können die Zeit aber flexibel anpassen, falls
+                Sie mehr Fragen haben.
+              </p>
             </div>
             <div>
-              <h4 className="font-sans text-lg font-semibold text-slate-900 mb-2">Was benötige ich für die Demo?</h4>
-              <p className="text-sm text-slate-600">Nur einen Computer mit Internetverbindung. Wir senden Ihnen einen Link für die Video-Demo per E-Mail.</p>
+              <h4 className="font-sans text-lg font-semibold text-slate-900 mb-2">
+                Was benötige ich für die Demo?
+              </h4>
+              <p className="text-sm text-slate-600">
+                Nur einen Computer mit Internetverbindung. Wir senden Ihnen einen Link für die
+                Video-Demo per E-Mail.
+              </p>
             </div>
             <div>
-              <h4 className="font-sans text-lg font-semibold text-slate-900 mb-2">Kann ich danach direkt starten?</h4>
-              <p className="text-sm text-slate-600">Ja! Nach der Demo können Sie sich direkt registrieren und mit MyDispatch starten.</p>
+              <h4 className="font-sans text-lg font-semibold text-slate-900 mb-2">
+                Kann ich danach direkt starten?
+              </h4>
+              <p className="text-sm text-slate-600">
+                Ja! Nach der Demo können Sie sich direkt registrieren und mit MyDispatch starten.
+              </p>
             </div>
           </div>
         </V28MarketingCard>

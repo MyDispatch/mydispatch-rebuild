@@ -15,11 +15,13 @@ Implementierung eines vollständigen Soft-Delete-Systems für `documents` und `p
 ## 📊 BETROFFENE TABELLEN
 
 ### 1. `documents` Tabelle
+
 **Aktuell:** Keine Archiving-Spalten  
 **Problem:** Hard-Delete-Operationen (3 Stellen im Code)  
 **Risiko:** Datenverlust, DSGVO-Non-Compliance
 
 ### 2. `partner_connections` Tabelle
+
 **Aktuell:** Keine Archiving-Spalten  
 **Problem:** Hard-Delete-Operationen (1 Stelle im Code)  
 **Risiko:** Historien-Verlust
@@ -36,18 +38,18 @@ Implementierung eines vollständigen Soft-Delete-Systems für `documents` und `p
 -- ==================================================================================
 
 -- 1. Documents Tabelle erweitern
-ALTER TABLE documents 
+ALTER TABLE documents
 ADD COLUMN IF NOT EXISTS archived BOOLEAN DEFAULT false,
 ADD COLUMN IF NOT EXISTS archived_at TIMESTAMPTZ;
 
 -- Index für Performance (nur nicht-archivierte Dokumente)
-CREATE INDEX IF NOT EXISTS idx_documents_archived 
-ON documents(archived) 
+CREATE INDEX IF NOT EXISTS idx_documents_archived
+ON documents(archived)
 WHERE archived = false;
 
 -- Index für Archiv-Berichte (wann wurde archiviert)
-CREATE INDEX IF NOT EXISTS idx_documents_archived_at 
-ON documents(archived_at) 
+CREATE INDEX IF NOT EXISTS idx_documents_archived_at
+ON documents(archived_at)
 WHERE archived = true;
 
 COMMENT ON COLUMN documents.archived IS 'Soft-Delete Flag - true wenn archiviert';
@@ -56,17 +58,17 @@ COMMENT ON COLUMN documents.archived_at IS 'Timestamp der Archivierung';
 -- ==================================================================================
 
 -- 2. Partner Connections Tabelle erweitern
-ALTER TABLE partner_connections 
+ALTER TABLE partner_connections
 ADD COLUMN IF NOT EXISTS archived BOOLEAN DEFAULT false,
 ADD COLUMN IF NOT EXISTS archived_at TIMESTAMPTZ;
 
 -- Index für Performance
-CREATE INDEX IF NOT EXISTS idx_partner_connections_archived 
-ON partner_connections(archived) 
+CREATE INDEX IF NOT EXISTS idx_partner_connections_archived
+ON partner_connections(archived)
 WHERE archived = false;
 
-CREATE INDEX IF NOT EXISTS idx_partner_connections_archived_at 
-ON partner_connections(archived_at) 
+CREATE INDEX IF NOT EXISTS idx_partner_connections_archived_at
+ON partner_connections(archived_at)
 WHERE archived = true;
 
 COMMENT ON COLUMN partner_connections.archived IS 'Soft-Delete Flag';
@@ -127,7 +129,7 @@ FOR UPDATE USING (
 
 -- View für archivierte Dokumente
 CREATE OR REPLACE VIEW archived_documents AS
-SELECT 
+SELECT
   id,
   entity_type,
   entity_id,
@@ -143,7 +145,7 @@ GRANT SELECT ON archived_documents TO authenticated;
 
 -- View für archivierte Partner-Verbindungen
 CREATE OR REPLACE VIEW archived_partner_connections AS
-SELECT 
+SELECT
   id,
   company_a_id,
   company_b_id,
@@ -166,13 +168,13 @@ SECURITY DEFINER
 AS $$
 BEGIN
   -- Lösche Dokumente die >2 Jahre archiviert sind
-  DELETE FROM documents 
-  WHERE archived = true 
+  DELETE FROM documents
+  WHERE archived = true
   AND archived_at < NOW() - INTERVAL '2 years';
-  
+
   -- Lösche Partner-Verbindungen die >2 Jahre archiviert sind
-  DELETE FROM partner_connections 
-  WHERE archived = true 
+  DELETE FROM partner_connections
+  WHERE archived = true
   AND archived_at < NOW() - INTERVAL '2 years';
 END;
 $$;
@@ -189,34 +191,38 @@ COMMENT ON FUNCTION cleanup_old_archives IS 'Löscht archivierte Daten älter al
 Nach erfolgreicher Migration müssen 4 Code-Stellen angepasst werden:
 
 ### Fix 1: InlineDocumentUpload.tsx
+
 ```typescript
 // Line 166-169
 const { error } = await supabase
-  .from('documents')
+  .from("documents")
   .update({ archived: true, archived_at: new Date().toISOString() })
-  .eq('id', docId);
+  .eq("id", docId);
 ```
 
 ### Fix 2: PartnerConnectionList.tsx
+
 ```typescript
 // Line 114-117
 const { error } = await supabase
-  .from('partner_connections')
+  .from("partner_connections")
   .update({ archived: true, archived_at: new Date().toISOString() })
-  .eq('id', selectedConnection);
+  .eq("id", selectedConnection);
 ```
 
 ### Fix 3: use-documents.tsx
+
 ```typescript
 // Line 93-97
 const { error } = await supabase
-  .from('documents')
+  .from("documents")
   .update({ archived: true, archived_at: new Date().toISOString() })
-  .eq('id', id)
-  .eq('company_id', profile?.company_id);
+  .eq("id", id)
+  .eq("company_id", profile?.company_id);
 ```
 
 ### Fix 4: use-offline-queue.tsx
+
 ```typescript
 // Line 118-120
 case 'delete':
@@ -245,11 +251,13 @@ Nach Migration und Code-Fixes:
 ## 📈 IMPACT
 
 **Vor Migration:**
+
 - ❌ Hard-Deletes (Datenverlust-Risiko)
 - ❌ Keine Archiv-Historie
 - ❌ DSGVO-Non-Compliance
 
 **Nach Migration:**
+
 - ✅ Soft-Deletes (Daten-Sicherheit)
 - ✅ Vollständige Archiv-Historie
 - ✅ DSGVO-konform

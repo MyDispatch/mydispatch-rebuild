@@ -16,12 +16,14 @@
 ### Problem
 
 **Symptome:**
+
 - Security Linter ERROR: "Security Definer View detected"
 - View `v_all_expiring_documents` ohne `security_invoker` Option
 - View umgeht RLS-Policies der Base-Tables
 - Potentielle Permission-Escalation (User sehen andere Companies)
 
 **Linter-Ausgabe:**
+
 ```
 ERROR 1: Security Definer View
 Level: ERROR
@@ -33,6 +35,7 @@ Risiko: View-Creator Permissions statt User Permissions
 ### Root Cause
 
 **Warum entstanden?**
+
 1. View ohne explizite `security_invoker` Option erstellt
 2. PostgreSQL Default (pre-V15): SECURITY DEFINER
 3. View läuft mit postgres-User Permissions
@@ -40,6 +43,7 @@ Risiko: View-Creator Permissions statt User Permissions
 5. Company-Isolation funktioniert NICHT
 
 **Code (VORHER):**
+
 ```sql
 CREATE VIEW public.v_all_expiring_documents
 -- KEINE security_invoker Option → SECURITY DEFINER (Default)
@@ -48,6 +52,7 @@ AS
 ```
 
 **Risiko:**
+
 ```sql
 -- User A (Company X) fragt View ab
 SELECT * FROM v_all_expiring_documents;
@@ -69,7 +74,7 @@ CREATE VIEW public.v_all_expiring_documents
 WITH (security_invoker = true)  -- ✅ FIX
 AS
 -- Original-Definition (identisch, 10 UNION ALL Queries)
-SELECT 
+SELECT
   d.id AS entity_id,
   'driver'::text AS entity_type,
   d.company_id,
@@ -88,11 +93,12 @@ WHERE (d.archived = false AND d.license_expiry_date IS NOT NULL)
 -- ... + 9 weitere UNION ALL Queries
 
 -- Kommentar für Dokumentation
-COMMENT ON VIEW public.v_all_expiring_documents IS 
+COMMENT ON VIEW public.v_all_expiring_documents IS
   'Vereint alle ablaufenden Dokumente. SECURITY INVOKER für RLS-Compliance.';
 ```
 
 **Migration-Steps:**
+
 1. ✅ View-Definition aus DB extrahiert
 2. ✅ View gedropped (mit CASCADE)
 3. ✅ View neu erstellt mit `security_invoker=true`
@@ -108,6 +114,7 @@ COMMENT ON VIEW public.v_all_expiring_documents IS
 ### Prävention
 
 **Pre-Implementation Checklist (für neue Views):**
+
 ```
 [ ] View-Zweck dokumentiert?
 [ ] SECURITY INVOKER explizit gesetzt?
@@ -117,6 +124,7 @@ COMMENT ON VIEW public.v_all_expiring_documents IS
 ```
 
 **View-Creation-Template:**
+
 ```sql
 CREATE VIEW public.[view_name]
 WITH (security_invoker = true)  -- ✅ IMMER!
@@ -127,12 +135,14 @@ AS
 ### Testing (NACH Migration)
 
 **Security Testing:**
+
 - [x] Security Linter ausgeführt (0 ERRORS) ✅
 - [x] RLS-Policies greifen (Company-Isolation funktioniert)
 - [x] View-Definition korrekt (10 UNION ALL Queries)
 - [x] Keine Breaking Changes (Funktionalität identisch)
 
 **Funktions-Testing:**
+
 ```sql
 -- Test 1: View gibt Daten zurück
 SELECT COUNT(*) FROM v_all_expiring_documents;
@@ -147,6 +157,7 @@ SELECT DISTINCT company_id FROM v_all_expiring_documents;
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Views sind gefährlich ohne SECURITY INVOKER:** Default umgeht RLS!
 2. **IMMER explizit setzen:** `security_invoker=true` bei JEDER View
 3. **Linter ernst nehmen:** ERROR-Level = Sofort beheben
@@ -173,13 +184,15 @@ SELECT DISTINCT company_id FROM v_all_expiring_documents;
 ### Problem
 
 **Symptome:**
+
 - Console Warning: `H.service.traffic.Service is deprecated and will be removed soon. Use HERE Traffic API v7 instead.`
 - Erscheint bei Auto-Refresh (alle 15s)
 - Funktionalität noch intakt, aber Zukunft unsicher
 
 **Console Log:**
+
 ```
-H.service.traffic.Service is deprecated and will be removed soon. 
+H.service.traffic.Service is deprecated and will be removed soon.
 Use HERE Traffic API v7 instead.
     at Bo (eval at <anonymous> (https://js.api.here.com/v3/3.1/mapsjs-core.js:78:72))
 ```
@@ -187,12 +200,14 @@ Use HERE Traffic API v7 instead.
 ### Root Cause
 
 **Warum entstanden?**
+
 1. TrafficWidget nutzt veraltete HERE Maps Traffic Service API
 2. HERE Maps migriert zu Traffic API v7
 3. Alte API funktioniert noch, aber Deprecation-Warning
 4. Zukünftige Breaking Changes möglich
 
 **Code (AKTUELL):**
+
 ```tsx
 // src/components/dashboard/TrafficWidget.tsx (vermutlich)
 // Nutzt wahrscheinlich: H.service.traffic.Service
@@ -216,6 +231,7 @@ fetch('https://data.traffic.hereapi.com/v7/flow?...')
 ```
 
 **Migration-Steps:**
+
 1. HERE Traffic API v7 Documentation studieren
 2. Neue API-Credentials prüfen (gleicher API-Key?)
 3. TrafficWidget auf v7 umstellen
@@ -230,6 +246,7 @@ fetch('https://data.traffic.hereapi.com/v7/flow?...')
 ### Prävention
 
 **Pre-Implementation Checklist (für Migration):**
+
 ```
 [ ] HERE Traffic API v7 Docs gelesen?
 [ ] Neue API-Endpoints identifiziert?
@@ -241,6 +258,7 @@ fetch('https://data.traffic.hereapi.com/v7/flow?...')
 ### Testing (NACH Migration)
 
 **Manual Testing:**
+
 - [ ] Traffic-Layer wird korrekt angezeigt
 - [ ] KEIN Deprecation-Warning mehr
 - [ ] Performance gleich oder besser
@@ -249,6 +267,7 @@ fetch('https://data.traffic.hereapi.com/v7/flow?...')
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Deprecation-Warnings ernst nehmen:** Früh migrieren, bevor Breaking Change
 2. **API-Updates tracken:** HERE Maps Changelog regelmäßig prüfen
 3. **Abstraktion hilft:** Traffic-Service sollte in separatem Service sein
@@ -271,21 +290,24 @@ fetch('https://data.traffic.hereapi.com/v7/flow?...')
 ### Problem
 
 **Symptome:**
+
 - Console Error: `IllegalOperationError` beim Entfernen von Markern
 - Fehler tritt beim Auto-Refresh (alle 15s) auf
 - Map-Funktionalität beeinträchtigt
 - User sieht: "Karte lädt nicht vollständig"
 
 **Code (VORHER):**
+
 ```tsx
 // ❌ Line 151-153: KEIN Try-Catch beim Marker-Cleanup
-markersRef.current.forEach(marker => map.removeObject(marker));
+markersRef.current.forEach((marker) => map.removeObject(marker));
 markersRef.current = [];
 ```
 
 ### Root Cause
 
 **Warum entstanden?**
+
 1. HERE Maps API wirft `IllegalOperationError` bei ungültigen Marker-Referenzen
 2. Marker können bereits entfernt sein (Race Condition)
 3. Keine Error-Behandlung bei Cleanup
@@ -298,18 +320,19 @@ markersRef.current = [];
 ```tsx
 // ✅ Lines 150-161: Try-Catch für stabilen Cleanup
 try {
-  markersRef.current.forEach(marker => {
+  markersRef.current.forEach((marker) => {
     if (marker && map) {
       map.removeObject(marker);
     }
   });
 } catch (err) {
-  logError({ message: '[HEREMap] Marker cleanup error', context: err });
+  logError({ message: "[HEREMap] Marker cleanup error", context: err });
 }
 markersRef.current = [];
 ```
 
 **Verbesserungen:**
+
 1. Try-Catch um Marker-Cleanup
 2. Null-Check für `marker` und `map`
 3. Error-Logging für Debugging
@@ -323,6 +346,7 @@ markersRef.current = [];
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] Alle API-Calls mit Try-Catch abgesichert?
 [ ] Null-Checks bei DOM-Manipulationen?
@@ -333,6 +357,7 @@ markersRef.current = [];
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Auto-Refresh (15s) ohne Errors
 - ✅ Marker erscheinen & verschwinden korrekt
 - ✅ Keine Console-Errors mehr
@@ -341,6 +366,7 @@ markersRef.current = [];
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Externe APIs immer absichern:** HERE Maps API kann Errors werfen
 2. **Race Conditions bedenken:** Marker können während Cleanup ungültig werden
 3. **Graceful Degradation:** Map muss bei Errors weiterlaufen
@@ -357,6 +383,7 @@ markersRef.current = [];
 ### Problem
 
 **Symptome:**
+
 - PageHeaderWithKPIs zeigt zu wenig Informationen
 - KEIN Ampel-System bei KPIs
 - KEINE SubMetrics (Details zu KPIs)
@@ -386,6 +413,7 @@ markersRef.current = [];
 ### Root Cause
 
 **Warum PageHeaderWithKPIs falsch war?**
+
 1. PageHeaderWithKPIs ist für **einfache Seiten** (Fahrer, Aufträge, Kunden)
 2. Dashboard braucht **DashboardKPICards** wegen:
    - Ampel-System (success/warning/error)
@@ -400,6 +428,7 @@ markersRef.current = [];
 **Fixed (NACHHER):**
 
 **1. DashboardKPICards statt PageHeaderWithKPIs:**
+
 ```tsx
 ✅ <DashboardKPICards />
 
@@ -412,6 +441,7 @@ markersRef.current = [];
 ```
 
 **2. Map mit fester Aspect-Ratio (KEIN h-full!):**
+
 ```tsx
 ✅ <Card className="overflow-hidden h-full">
 ✅   <div className="w-full aspect-[16/9] relative">
@@ -424,6 +454,7 @@ markersRef.current = [];
 ```
 
 **3. Alle Cards mit h-full + perfekte Ausrichtung:**
+
 ```tsx
 ✅ <div className="h-full">
 ✅   <UrgentActionsWidget ... />
@@ -437,6 +468,7 @@ markersRef.current = [];
 ```
 
 **4. Touch-Targets min-h-[44px] (Mobile):**
+
 ```tsx
 ✅ <Button
 ✅   className="w-full justify-start min-h-[44px]"
@@ -448,6 +480,7 @@ markersRef.current = [];
 ```
 
 **5. GPS-Tracking in HEREMap (BEREITS vorhanden!):**
+
 ```tsx
 // ✅ HEREMapComponent zeigt automatisch:
 // - Fahrer-Positionen (Grün = verfügbar, Gelb = beschäftigt)
@@ -465,6 +498,7 @@ markersRef.current = [];
 ### Prävention
 
 **Design-Entscheidung:**
+
 ```
 Dashboard → DashboardKPICards (Ampel + SubMetrics + Navigation)
 Seiten → PageHeaderWithKPIs (Einfache KPIs + Schnellzugriff)
@@ -473,6 +507,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ```
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] Dashboard verwendet DashboardKPICards?
 [ ] Map mit aspect-ratio (NICHT h-full)?
@@ -486,6 +521,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): 12-Column Grid (8/4), keine Overflows
 - ✅ Tablet (768px): Gestapelt, perfekte Ausrichtung
 - ✅ Mobile (375px): Single Column, Touch-Targets OK
@@ -499,6 +535,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Dashboard ≠ Seiten:** Dashboard braucht DashboardKPICards (mehr Infos)
 2. **PageHeaderWithKPIs für Seiten:** Einfache Seiten (Fahrer, Aufträge, Kunden)
 3. **Map Overflows:** NIEMALS h-full für Maps verwenden, immer aspect-ratio!
@@ -517,6 +554,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Problem
 
 **Symptome:**
+
 - Dashboard verwendet NICHT das APP_PAGE_TEMPLATE Pattern
 - KEINE PageHeaderWithKPIs (stattdessen DashboardKPICards)
 - KEINE 12-Column Grid-Struktur (stattdessen unstrukturiertes Layout)
@@ -525,6 +563,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 - Inkonsistent mit Fahrer.tsx, Auftraege.tsx, Kunden.tsx
 
 **Template-Regel (APP_PAGE_TEMPLATE_V18.5.1.md):**
+
 ```tsx
 // ✅ KORREKT: PageHeaderWithKPIs mit KPIGenerator
 <PageHeaderWithKPIs
@@ -546,6 +585,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ```
 
 **Visual (VORHER):**
+
 ```tsx
 // ❌ Line 292: DashboardKPICards (nicht Template-konform!)
 <DashboardKPICards />
@@ -567,6 +607,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Root Cause
 
 **Warum falsche Struktur?**
+
 1. Index.tsx wurde VOR APP_PAGE_TEMPLATE_V18.5.1 implementiert
 2. Migration auf neue Template-Rules unvollständig
 3. DashboardKPICards ist NICHT Teil des Standard-Templates
@@ -578,6 +619,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 **Fixed (NACHHER):**
 
 **1. PageHeaderWithKPIs mit KPIGenerator (Lines 282-312):**
+
 ```tsx
 ✅ <PageHeaderWithKPIs
 ✅   kpis={[
@@ -590,9 +632,9 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ✅     KPIGenerator.drivers.active(activeDrivers, totalDrivers),
 ✅   ]}
 ✅   quickActions={[
-✅     QuickActionsGenerator.custom({ 
-✅       label: 'Neuer Auftrag', 
-✅       icon: Plus, 
+✅     QuickActionsGenerator.custom({
+✅       label: 'Neuer Auftrag',
+✅       icon: Plus,
 ✅       onClick: () => navigate('/auftraege'),
 ✅     }),
 ✅   ]}
@@ -600,6 +642,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ```
 
 **2. 12-Column Grid-Layout (Lines 314-402):**
+
 ```tsx
 ✅ <section className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
 ✅   {/* Left Column - 8 cols */}
@@ -611,7 +654,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ✅     </div>
 ✅     {isBusinessActive && <PredictiveDemandWidget />}
 ✅   </div>
-✅ 
+✅
 ✅   {/* Right Column - 4 cols */}
 ✅   <div className="lg:col-span-4 space-y-4 lg:space-y-6">
 ✅     <WeatherWidget />
@@ -623,6 +666,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ```
 
 **3. Import-Fixes (Lines 43-44):**
+
 ```tsx
 ✅ import { PageHeaderWithKPIs } from '@/components/shared/PageHeaderWithKPIs';
 ✅ import { KPIGenerator, QuickActionsGenerator } from '@/lib/dashboard-automation';
@@ -630,6 +674,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ```
 
 **4. Activity Timeline (Lines 404-410):**
+
 ```tsx
 ✅ <section>
 ✅   <ActivityTimeline activities={activities} maxItems={10} />
@@ -644,6 +689,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] APP_PAGE_TEMPLATE_V18.5.1 vollständig befolgt?
 [ ] PageHeaderWithKPIs statt Custom-Header?
@@ -656,6 +702,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): 12-Column Grid korrekt (8+4)
 - ✅ Tablet (768px): Gestapelt, volle Breite
 - ✅ Mobile (375px): Single Column, scrollbar
@@ -667,6 +714,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Template ist PFLICHT:** APP_PAGE_TEMPLATE_V18.5.1 MUSS auf ALLE internen Seiten angewendet werden
 2. **PageHeaderWithKPIs ist Standard:** Ersetzt ALLE Custom-Header-Komponenten
 3. **KPIGenerator verwenden:** Konsistenz durch zentrale Generatoren
@@ -685,6 +733,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Problem
 
 **Symptome:**
+
 - Upgrade-Banner Card (Line 428) hatte KEIN `h-full`
 - Schnellaktionen Card (Line 378) hatte KEIN `h-full`
 - Umsatz-Breakdown Upgrade Card (Line 345) hatte KEIN `h-full`
@@ -692,6 +741,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 - Verstößt gegen DASHBOARD_LAYOUT_RULES_V18.5.1.md
 
 **Visual (VORHER):**
+
 ```tsx
 // ❌ Line 428: KEIN h-full
 <Card className="border-primary/20 bg-primary/5">
@@ -706,12 +756,14 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Root Cause
 
 **Warum entstanden?**
+
 1. Index.tsx (aktives Dashboard) hatte keine h-full-Regeln
 2. DashboardV18_3.tsx wurde fixiert, aber Index.tsx blieb unverändert
 3. Routing zeigte: `/dashboard` → `Index.tsx` (nicht DashboardV18_3!)
 4. Code-Review: Falsches Dashboard bearbeitet
 
 **Code (VORHER):**
+
 ```tsx
 // ❌ Lines 345, 378, 428: Cards OHNE h-full
 <Card className="border-primary/20 bg-primary/5">
@@ -722,16 +774,19 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 **Fixed (NACHHER):**
 
 **1. Upgrade-Banner (Line 428):**
+
 ```tsx
 ✅ <Card className="border-primary/20 bg-primary/5 h-full">
 ```
 
 **2. Schnellaktionen (Line 378):**
+
 ```tsx
 ✅ <Card className="h-full">
 ```
 
 **3. Umsatz-Breakdown Upgrade (Line 345):**
+
 ```tsx
 ✅ <Card className="border-primary/20 bg-primary/5 h-full">
 ✅ <CardContent className="pt-6 h-full flex items-center justify-center">
@@ -745,6 +800,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] Routing-Config prüfen: Welche Datei wird wirklich verwendet?
 [ ] Alle Cards in Grid haben h-full?
@@ -755,6 +811,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): Gleiche Höhen in Grid-Zeilen
 - ✅ Mobile (375px): Gleiche Höhen in Grid-Zeilen
 - ✅ Content overflow: Scrollt korrekt
@@ -762,6 +819,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Routing prüfen:** Immer `routes.config.tsx` checken, welche Datei wirklich verwendet wird!
 2. **h-full ist PFLICHT:** Für ALLE Cards in Grid-Layouts
 3. **Zentrale Justify:** Bei Upgrade-Cards mit `h-full` + `flex items-center justify-center`
@@ -777,12 +835,14 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Problem
 
 **Symptome:**
+
 - Dashboard verwendete teilweise inkonsistente Spacing
 - Section Spacing OK (space-y-6 sm:space-y-8)
 - Grid Gap OK (gap-4 lg:gap-6)
 - ABER: Inconsistent Kommentare
 
 **Visual (VORHER):**
+
 ```tsx
 // ✅ Line 264: OK
 <div className="space-y-6 sm:space-y-8">
@@ -797,11 +857,13 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Root Cause
 
 **Warum inkonsistent?**
+
 1. Code-Kommentare noch von V18.3.2
 2. Spacing selbst bereits korrekt (gap-4 lg:gap-6)
 3. Nur Kommentare veraltet
 
 **Code (VORHER):**
+
 ```tsx
 // ⚠️ Veralteter Kommentar
 {/* V18.3.2: Mobile-Optimiert - Grid Breakpoints */}
@@ -813,12 +875,14 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 **Fixed (NACHHER):**
 
 **1. Kommentar aktualisiert (Line 280):**
+
 ```tsx
 ✅ {/* Widgets Section - Mobile-Optimiert */}
 <section className="grid ... gap-4 lg:gap-6">
 ```
 
 **2. Spacing bleibt unverändert (bereits korrekt):**
+
 ```tsx
 ✅ gap-4 lg:gap-6           // Grid Gap
 ✅ space-y-6 sm:space-y-8   // Section Gap
@@ -832,6 +896,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] Kommentare auf aktuelle Version geprüft?
 [ ] Grid Gap: gap-4 lg:gap-6 (NIEMALS gap-3)
@@ -842,6 +907,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): Spacing 24px (lg:gap-6)
 - ✅ Tablet (768px): Spacing 16px (gap-4)
 - ✅ Mobile (375px): Spacing 16px (gap-4)
@@ -849,6 +915,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Kommentare pflegen:** Versions-Kommentare aktualisieren bei Updates
 2. **Spacing war korrekt:** gap-4 lg:gap-6 bereits verwendet
 
@@ -863,12 +930,14 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Problem
 
 **Symptome:**
+
 - Index.tsx (aktives Dashboard) hatte KEINE h-full an Grid-Cards
 - Führte zu ungleichen Höhen in Grid-Zeilen
 - Verstößt gegen DASHBOARD_LAYOUT_RULES_V18.5.1.md
 - DashboardV18_3.tsx wurde fixiert, aber Index.tsx blieb fehlerhaft
 
 **Visual (VORHER):**
+
 ```tsx
 // ❌ Line 345: KEIN h-full
 <Card className="border-primary/20 bg-primary/5">
@@ -883,12 +952,14 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Root Cause
 
 **Warum entstanden?**
+
 1. Routing zeigt: `/dashboard` → `Index.tsx` (nicht DashboardV18_3!)
 2. DashboardV18_3.tsx wurde fixiert (F-016), aber falsches Dashboard
 3. Index.tsx wurde nie auf h-full-Regeln geprüft
 4. Kritischer Fehler: Falsches File bearbeitet
 
 **Code (VORHER):**
+
 ```tsx
 // ❌ Cards in Grid OHNE h-full
 <Card className="border-primary/20 bg-primary/5">
@@ -900,6 +971,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 **Fixed (NACHHER):**
 
 **1. Alle Grid-Cards mit h-full:**
+
 ```tsx
 ✅ <Card className="border-primary/20 bg-primary/5 h-full">  // Line 345
 ✅ <Card className="h-full">                                // Line 378
@@ -907,6 +979,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ```
 
 **2. Content centering bei Upgrade-Cards:**
+
 ```tsx
 ✅ <CardContent className="pt-6 h-full flex items-center justify-center">
 ```
@@ -919,6 +992,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] routes.config.tsx prüfen: Welche Datei wird verwendet?
 [ ] Alle Cards in Grid haben h-full?
@@ -929,12 +1003,14 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): Gleiche Höhen in Grid-Zeilen
 - ✅ Mobile (375px): Gleiche Höhen in Grid-Zeilen
 
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Routing ist kritisch:** IMMER routes.config.tsx prüfen!
 2. **h-full ist PFLICHT:** Für ALLE Grid-Cards
 3. **Richtiges File bearbeiten:** Nicht nur DashboardV18_3, sondern Index.tsx!
@@ -950,12 +1026,14 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Problem
 
 **Symptome:**
+
 - Index.tsx (aktives Dashboard) hatte KEINEN Hero-Bereich
 - Verstößt gegen APP_PAGE_TEMPLATE_V18.5.1.md (VERPFLICHTEND!)
 - Nur h1 + p statt Tailwind CSS Hero
 - Inkonsistent mit Fahrer.tsx, Auftraege.tsx, Kunden.tsx
 
 **Template-Regel (APP_PAGE_TEMPLATE_V18.5.1.md Line 52-88):**
+
 ```tsx
 // ✅ KORREKT: Tailwind CSS Hero-Bereich
 <div className="relative w-full h-[200px] sm:h-[250px] lg:h-[300px] mb-6 rounded-lg overflow-hidden bg-gradient-to-br from-primary via-primary/80 to-secondary/30 shadow-lg">
@@ -969,6 +1047,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ```
 
 **Visual (VORHER):**
+
 ```tsx
 // ❌ Lines 264-274: NUR h1 + p (KEIN Hero!)
 <div className="space-y-6 sm:space-y-8">
@@ -986,12 +1065,14 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Root Cause
 
 **Warum fehlte Hero?**
+
 1. Index.tsx ist das ECHTE Dashboard (nicht DashboardV18_3!)
 2. Hero-Integration bei DashboardV18_3 durchgeführt (F-014), aber falsches File
 3. Index.tsx wurde nie auf APP_PAGE_TEMPLATE geprüft
 4. Kritischer Fehler: Routing-Mismatch
 
 **Code (VORHER):**
+
 ```tsx
 // ❌ KEIN Hero, nur Text
 <h1 className="text-3xl font-bold">Dashboard</h1>
@@ -1005,6 +1086,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 **Fixed (NACHHER):**
 
 **1. Hero-Bereich hinzugefügt (Lines 265-278):**
+
 ```tsx
 ✅ {/* Hero-Bereich V18.5.1 - Tailwind CSS Design (VERPFLICHTEND gemäß APP_PAGE_TEMPLATE) */}
 ✅ <div className="relative w-full h-[200px] sm:h-[250px] lg:h-[300px] rounded-lg overflow-hidden bg-gradient-to-br from-primary via-primary/80 to-secondary/30 shadow-lg">
@@ -1024,11 +1106,13 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ```
 
 **2. Icon importiert (Line 27):**
+
 ```tsx
 ✅ import { ..., LayoutDashboard } from 'lucide-react';
 ```
 
 **3. Professional Header vereinfacht (Lines 280-288):**
+
 ```tsx
 ✅ {/* Professional Header - Kompakt */}
 ✅ <section className="space-y-4">
@@ -1049,6 +1133,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] routes.config.tsx prüfen: Richtiges Dashboard?
 [ ] ALLE internen App-Seiten haben Hero-Bereich?
@@ -1060,6 +1145,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): Hero sichtbar, volle Breite
 - ✅ Tablet (768px): Hero sichtbar, korrekte Höhe (250px)
 - ✅ Mobile (375px): Hero sichtbar, kompakt (200px)
@@ -1070,6 +1156,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Routing ist KRITISCH:** IMMER routes.config.tsx prüfen!
 2. **Richtiges File bearbeiten:** Index.tsx ist das ECHTE Dashboard, nicht DashboardV18_3!
 3. **Hero ist PFLICHT:** APP_PAGE_TEMPLATE_V18.5.1 gilt für ALLE internen Seiten!
@@ -1086,12 +1173,14 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Problem
 
 **Symptome:**
+
 - Dashboard-Widgets hatten NICHT `h-full` an Cards
 - Führte zu ungleichen Höhen in Zeilen
 - Verstößt gegen DASHBOARD_LAYOUT_RULES_V18.5.1.md
 - Inkonsistent mit Fahrer.tsx, Auftraege.tsx, Kunden.tsx
 
 **Visual (VORHER):**
+
 ```tsx
 // ❌ Line 492: KEIN h-full
 <Card className="border shadow-sm">
@@ -1103,12 +1192,14 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Root Cause
 
 **Warum entstanden?**
+
 1. Dashboard wurde VOR DASHBOARD_LAYOUT_RULES_V18.5.1 erstellt
 2. Migration auf neue Layout-Rules unvollständig
 3. Andere Seiten (Fahrer, Auftraege) haben h-full, Dashboard NICHT
 4. Code-Review: h-full-Regel nicht systematisch geprüft
 
 **Code (VORHER):**
+
 ```tsx
 // ❌ Lines 492, 542: Cards OHNE h-full
 <Card className="border shadow-sm">
@@ -1122,16 +1213,19 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 **Fixed (NACHHER):**
 
 **1. Tagesübersicht (Line 492):**
+
 ```tsx
 ✅ <Card className="border shadow-sm h-full">
 ```
 
 **2. Offene Rechnungen (Line 542):**
+
 ```tsx
 ✅ <Card className="border shadow-sm h-full">
 ```
 
 **3. Live-Karte (Line 428):**
+
 ```tsx
 ✅ <div className="relative rounded-lg overflow-hidden shadow-sm border h-full">
 // Entfernt: min-h-[550px] (feste Höhe verstößt gegen Regeln!)
@@ -1145,6 +1239,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] Alle Cards in Grid haben h-full?
 [ ] Keine festen Höhen (min-h, max-h)?
@@ -1155,6 +1250,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): Gleiche Höhen in Zeilen
 - ✅ Mobile (375px): Gleiche Höhen in Zeilen
 - ✅ Content overflow: Scrollt korrekt (overflow-y-auto)
@@ -1162,6 +1258,7 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Systemweite Regeln:** DASHBOARD_LAYOUT_RULES MUSS auf ALLE Dashboard-Seiten angewendet werden
 2. **h-full ist PFLICHT:** Für Cards in Grid-Layouts (verhindert ungleiche Höhen)
 3. **Feste Höhen verboten:** min-h, max-h nur in Ausnahmefällen (z.B. aspect-ratio für Charts)
@@ -1178,11 +1275,13 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Problem
 
 **Symptome:**
+
 - Mobile View (isMobile) rendert MobileDashboard → Keine Breadcrumbs
 - Desktop View rendert DashboardLayout → Mit Breadcrumbs
 - Inkonsistenz zwischen Mobile & Desktop
 
 **Visual (VORHER):**
+
 ```tsx
 // Mobile (Lines 290-320)
 ❌ KEIN DashboardLayout → Keine Breadcrumbs
@@ -1194,12 +1293,14 @@ NIEMALS PageHeaderWithKPIs für Dashboard verwenden!
 ### Root Cause
 
 **Warum so implementiert?**
+
 1. MobileDashboard ist separate Component mit eigenem Layout
 2. Bewusste Design-Entscheidung: Mobile hat vereinfachtes UI
 3. Breadcrumbs auf Mobile < 375px oft zu lang (z.B. "Dashboard > Überblick")
 4. UX-Trade-off: Mehr Screen-Space vs. Breadcrumbs
 
 **Code:**
+
 ```tsx
 // Lines 289-321: Mobile View
 if (isMobile) {
@@ -1217,6 +1318,7 @@ if (isMobile) {
 **Entscheidung: AKZEPTIERT (kein Fix notwendig)**
 
 **Begründung:**
+
 - ✅ MobileDashboard ist eigenständige Component mit eigenem Layout-Konzept
 - ✅ Breadcrumbs auf < 768px oft zu lang für Dashboard-Titel
 - ✅ Konsistenz INNERHALB Mobile/Desktop, nicht ZWISCHEN
@@ -1224,6 +1326,7 @@ if (isMobile) {
 - ✅ Dashboard ist Startseite → Breadcrumbs "Home > Dashboard" redundant
 
 **Alternative (falls gewünscht):**
+
 ```tsx
 // Wrapper MobileDashboard in DashboardLayout
 if (isMobile) {
@@ -1243,6 +1346,7 @@ if (isMobile) {
 ### Prävention
 
 **Design-Prinzip:**
+
 - Mobile Views DÜRFEN eigenes Layout haben (vereinfacht, optimiert)
 - Breadcrumbs OPTIONAL auf Mobile (abhängig von Screen-Space)
 - Konsistenz INNERHALB eines Kontexts (Mobile/Desktop), nicht ZWISCHEN
@@ -1250,6 +1354,7 @@ if (isMobile) {
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Mobile != Desktop:** Mobile darf vereinfachtes Layout haben
 2. **UX > Konsistenz:** Trade-offs sind OK (Screen-Space vs. Breadcrumbs)
 3. **Startseite-Sonderfall:** Dashboard braucht keine Breadcrumbs ("Home > Dashboard" redundant)
@@ -1265,12 +1370,14 @@ if (isMobile) {
 ### Problem
 
 **Symptome:**
+
 - Dashboard hatte KEINEN Hero-Bereich
 - Verstößt gegen APP_PAGE_TEMPLATE_V18.5.1.md (VERPFLICHTEND!)
 - Alle anderen Seiten (Fahrer, Auftraege, Kunden) haben Hero-Bereiche
 - Inkonsistent mit Design-System
 
 **Template-Regel (APP_PAGE_TEMPLATE_V18.5.1.md Line 59-74):**
+
 ```tsx
 // ✅ KORREKT: Tailwind CSS Hero-Bereich
 <div className="relative w-full h-[200px] sm:h-[250px] lg:h-[300px] mb-6 rounded-lg overflow-hidden bg-gradient-to-br from-primary via-primary/80 to-secondary/30 shadow-lg">
@@ -1281,15 +1388,14 @@ if (isMobile) {
     <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2">
       [Seitenname]
     </h2>
-    <p className="text-sm sm:text-base text-foreground/80 max-w-2xl">
-      [Beschreibung]
-    </p>
+    <p className="text-sm sm:text-base text-foreground/80 max-w-2xl">[Beschreibung]</p>
   </div>
   <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
 </div>
 ```
 
 **Visual (VORHER):**
+
 ```
 Dashboard (VORHER):
 ┌─────────────────────────────────────┐
@@ -1310,12 +1416,14 @@ Fahrer.tsx (KORREKT):
 ### Root Cause
 
 **Warum fehlte Hero?**
+
 1. Dashboard wurde VOR APP_PAGE_TEMPLATE_V18.5.1 implementiert
 2. Migration auf neue Template-Rules unvollständig
 3. Hero-Integration bei anderen Seiten durchgeführt (F-005), Dashboard vergessen
 4. Keine automatische Validierung "Hero vorhanden?"
 
 **Code (VORHER):**
+
 ```tsx
 // ❌ Lines 343-363: Professional Header STATT Hero
 <div className="sticky top-0 z-20 bg-background/95 backdrop-blur-md ...">
@@ -1329,6 +1437,7 @@ Fahrer.tsx (KORREKT):
 **Fixed (NACHHER):**
 
 **1. Hero-Bereich hinzugefügt (Lines 345-362):**
+
 ```tsx
 ✅ {/* Hero-Bereich V18.5.1 - Tailwind CSS Design (VERPFLICHTEND gemäß APP_PAGE_TEMPLATE) */}
 ✅ <div className="relative w-full h-[200px] sm:h-[250px] lg:h-[300px] rounded-lg overflow-hidden bg-gradient-to-br from-primary via-primary/80 to-secondary/30 shadow-lg">
@@ -1348,11 +1457,13 @@ Fahrer.tsx (KORREKT):
 ```
 
 **2. Icon importiert (Line 58):**
+
 ```tsx
 ✅ import { ..., LayoutDashboard } from 'lucide-react';
 ```
 
 **3. Professional Header vereinfacht (Lines 364-379):**
+
 ```tsx
 ✅ {/* Professional Header - Kompakt */}
 ✅ <div className="flex items-center justify-between">
@@ -1373,6 +1484,7 @@ Fahrer.tsx (KORREKT):
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] ALLE internen App-Seiten haben Hero-Bereich?
 [ ] Hero verwendet Tailwind CSS (KEIN JPG)?
@@ -1382,6 +1494,7 @@ Fahrer.tsx (KORREKT):
 ```
 
 **Automated Check (TODO):**
+
 ```typescript
 // ESLint-Rule: enforce-hero-section
 // Warnt bei Seiten OHNE Hero-Bereich in src/pages/ (außer Marketing)
@@ -1390,6 +1503,7 @@ Fahrer.tsx (KORREKT):
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): Hero sichtbar, volle Breite
 - ✅ Tablet (768px): Hero sichtbar, korrekte Höhe (250px)
 - ✅ Mobile (375px): Hero sichtbar, kompakt (200px)
@@ -1400,6 +1514,7 @@ Fahrer.tsx (KORREKT):
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Template-Compliance:** APP_PAGE_TEMPLATE_V18.5.1 ist VERPFLICHTEND - KEINE Ausnahmen!
 2. **Systematische Migration:** Bei neuen Template-Rules ALLE Seiten prüfen
 3. **Hero ist PFLICHT:** Gilt für ALLE internen App-Seiten (außer Marketing mit eigenem Template)
@@ -1416,11 +1531,13 @@ Fahrer.tsx (KORREKT):
 ### Problem
 
 **Symptome:**
+
 - Dashboard verwendete `gap-3` (12px) statt standard `gap-4 lg:gap-6`
 - Verstößt gegen DASHBOARD_LAYOUT_RULES_V18.5.1.md
 - Inkonsistent mit Fahrer.tsx, Auftraege.tsx, Kunden.tsx
 
 **Design-System-Regel (DASHBOARD_LAYOUT_RULES Line 138-148):**
+
 ```tsx
 // ✅ KORREKT: Standard-Spacing
 <div className="grid gap-4 lg:gap-6">         // Grid Gap
@@ -1428,6 +1545,7 @@ Fahrer.tsx (KORREKT):
 ```
 
 **Visual (VORHER):**
+
 ```tsx
 // ❌ Line 424: gap-3 (12px) statt gap-4 lg:gap-6
 <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
@@ -1442,12 +1560,14 @@ Fahrer.tsx (KORREKT):
 ### Root Cause
 
 **Warum gap-3?**
+
 1. Dashboard hatte eigenes Spacing-System (kompakter)
 2. Nicht an DASHBOARD_LAYOUT_RULES_V18.5.1 angepasst
 3. Fahrer.tsx, Auftraege.tsx verwenden gap-4 lg:gap-6 (korrekt)
 4. Code-Review: Spacing-Inkonsistenz nicht erkannt
 
 **Code (VORHER):**
+
 ```tsx
 // ❌ Dashboard: gap-3 (12px)
 <div className="grid grid-cols-1 lg:grid-cols-12 gap-3">
@@ -1461,21 +1581,25 @@ Fahrer.tsx (KORREKT):
 **Fixed (NACHHER):**
 
 **1. Main Grid (Line 424):**
+
 ```tsx
 ✅ <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
 ```
 
 **2. Left Column (Line 426):**
+
 ```tsx
 ✅ <div className="lg:col-span-8 flex flex-col gap-4 lg:gap-6">
 ```
 
 **3. Right Column (Line 591):**
+
 ```tsx
 ✅ <div className="lg:col-span-4 flex flex-col gap-4 lg:gap-6">
 ```
 
 **4. Section Spacing (Line 343):**
+
 ```tsx
 ✅ <div className="space-y-6 sm:space-y-8">
 ```
@@ -1488,6 +1612,7 @@ Fahrer.tsx (KORREKT):
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] Grid Gap: gap-4 lg:gap-6 (NIEMALS gap-3)
 [ ] Section Gap: space-y-6 sm:space-y-8
@@ -1496,6 +1621,7 @@ Fahrer.tsx (KORREKT):
 ```
 
 **Automated Check (TODO):**
+
 ```typescript
 // ESLint-Rule: enforce-standard-spacing
 // Warnt bei gap-3 in Dashboard-Grids
@@ -1505,6 +1631,7 @@ Fahrer.tsx (KORREKT):
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): Spacing 24px (lg:gap-6)
 - ✅ Tablet (768px): Spacing 16px (gap-4)
 - ✅ Mobile (375px): Spacing 16px (gap-4)
@@ -1513,6 +1640,7 @@ Fahrer.tsx (KORREKT):
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Standard-Spacing:** gap-4 lg:gap-6 ist PFLICHT für Dashboard-Grids
 2. **gap-3 verboten:** Nur in Ausnahmefällen (z.B. kompakte Overlays)
 3. **Konsistenz prüfen:** Spacing MUSS auf ALLEN Dashboard-Seiten identisch sein
@@ -1529,12 +1657,14 @@ Fahrer.tsx (KORREKT):
 ### Problem
 
 **Symptome:**
+
 - Dashboard verwendete feste Höhen (`min-h-[550px]`, `style={{ height: '200px' }}`)
 - Verstößt gegen DASHBOARD_LAYOUT_RULES_V18.5.1.md
 - Führt zu Overflows auf kleineren Screens
 - Content nicht scrollbar wenn zu lang
 
 **Design-System-Regel (DASHBOARD_LAYOUT_RULES Lines 80-126):**
+
 ```
 REGEL: Gleiche Höhe in Zeile
 - ✅ KORREKT: Flexible Höhe mit h-full
@@ -1543,6 +1673,7 @@ REGEL: Gleiche Höhe in Zeile
 ```
 
 **Visual (VORHER):**
+
 ```tsx
 // ❌ Line 428: Feste min-h führt zu Overflow
 <div className="relative rounded-lg overflow-hidden shadow-sm border flex-1 min-h-[550px]">
@@ -1554,12 +1685,14 @@ REGEL: Gleiche Höhe in Zeile
 ### Root Cause
 
 **Warum feste Höhen?**
+
 1. Live-Karte sollte immer 550px hoch sein (Design-Entscheidung)
 2. Overlay-Widgets sollten 200px hoch sein (für 3 Widgets)
 3. Entwickler kannte DASHBOARD_LAYOUT_RULES_V18.5.1 nicht
 4. Keine Code-Review: Feste Höhen nicht erkannt
 
 **Code (VORHER):**
+
 ```tsx
 // ❌ Feste Höhen (verstößt gegen Regeln)
 <div className="... min-h-[550px]">           // Line 428
@@ -1571,6 +1704,7 @@ REGEL: Gleiche Höhe in Zeile
 **Fixed (NACHHER):**
 
 **1. Live-Karte (Line 428):**
+
 ```tsx
 // ✅ VORHER: min-h-[550px]
 // ✅ NACHHER: h-full (flexible Höhe)
@@ -1578,6 +1712,7 @@ REGEL: Gleiche Höhe in Zeile
 ```
 
 **2. Overlay-Widgets (Line 436):**
+
 ```tsx
 // ✅ VORHER: style={{ height: '200px' }}
 // ✅ NACHHER: h-[200px] (Tailwind-Class statt Inline-Style)
@@ -1585,6 +1720,7 @@ REGEL: Gleiche Höhe in Zeile
 ```
 
 **Begründung h-[200px] OK:**
+
 - Overlays sind Spezialfall (feste Höhe für 3 Widgets nebeneinander)
 - Keine Grid-Row-Siblings (kein Höhen-Matching nötig)
 - Tailwind-Class statt Inline-Style (Design-System-konform)
@@ -1597,6 +1733,7 @@ REGEL: Gleiche Höhe in Zeile
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] Keine festen Höhen (min-h, max-h) außer Charts?
 [ ] Keine Inline-Styles (style={})?
@@ -1605,6 +1742,7 @@ REGEL: Gleiche Höhe in Zeile
 ```
 
 **Automated Check (TODO):**
+
 ```typescript
 // ESLint-Rule: no-fixed-heights-dashboard
 // Warnt bei min-h-*, max-h-* in Dashboard-Grids
@@ -1615,12 +1753,14 @@ REGEL: Gleiche Höhe in Zeile
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): Live-Karte flexible Höhe, kein Overflow
 - ✅ Tablet (768px): Live-Karte flexible Höhe, kein Overflow
 - ✅ Mobile (375px): Live-Karte flexible Höhe, scrollbar bei langem Content
 - ✅ Overlay-Widgets: 200px hoch, 3 Widgets nebeneinander
 
 **Overflow-Test:**
+
 - ✅ Content > 550px: Scrollt korrekt (overflow-y-auto)
 - ✅ Content < 550px: Keine leeren Bereiche
 - ✅ Responsive: Höhe passt sich an Screen an
@@ -1628,6 +1768,7 @@ REGEL: Gleiche Höhe in Zeile
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **h-full ist PFLICHT:** Für Cards in Grid-Layouts (flexible Höhe)
 2. **Feste Höhen verboten:** min-h, max-h führen zu Overflows
 3. **Inline-Styles vermeiden:** Immer Tailwind-Classes verwenden
@@ -1645,6 +1786,7 @@ REGEL: Gleiche Höhe in Zeile
 ### Problem
 
 **Symptome:**
+
 - Dashboard (DashboardV18_3.tsx) verwendet INLINE KPI-Definitionen
 - NICHT konsistent mit anderen 5 Seiten (Auftraege, Fahrer, Kunden, Partner, Rechnungen)
 - Type-Assertion `as [any, any, any]` für Type-Unsafety
@@ -1652,6 +1794,7 @@ REGEL: Gleiche Höhe in Zeile
 - Code-Inkonsistenz im gesamten System
 
 **Visual (VORHER):**
+
 ```tsx
 // ❌ Line 367-397: INLINE KPIs (FALSCH)
 kpis={[
@@ -1687,12 +1830,14 @@ quickActions={[
 ```
 
 **System-Status:**
+
 - 5/6 Seiten: ✅ Verwenden KPIGenerator/QuickActionsGenerator
 - 1/6 Seite (Dashboard): ❌ Verwendet INLINE (inkonsistent)
 
 ### Root Cause
 
 **Warum entstanden?**
+
 1. Dashboard wurde bei initialer KPIGenerator-Migration (V18.5.1) **übersehen**
 2. Alle anderen Seiten (Auftraege, Fahrer, Kunden, Partner, Rechnungen) wurden migriert
 3. Dashboard verwendete weiterhin veraltetes INLINE-Pattern
@@ -1700,12 +1845,13 @@ quickActions={[
 5. Type-Assertion `as [any, any, any]` kaschierte Type-Probleme
 
 **Code (VORHER - Lines 43-46):**
+
 ```tsx
 // ❌ KEINE Imports für Automation-Library
-import { formatCurrency } from '@/lib/format-utils';
-import { RevenueChart, PaymentMethodsChart } from '@/components/dashboard/RevenueChart';
-import { MetricCard } from '@/components/dashboard/MetricCard';
-import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
+import { formatCurrency } from "@/lib/format-utils";
+import { RevenueChart, PaymentMethodsChart } from "@/components/dashboard/RevenueChart";
+import { MetricCard } from "@/components/dashboard/MetricCard";
+import { StatisticsWidget } from "@/components/dashboard/StatisticsWidget";
 // → KPIGenerator/QuickActionsGenerator fehlen!
 ```
 
@@ -1714,6 +1860,7 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
 **Fixed (NACHHER):**
 
 **1. Imports hinzugefügt (Lines 43-47):**
+
 ```tsx
 ✅ import { formatCurrency } from '@/lib/format-utils';
 ✅ import { RevenueChart, PaymentMethodsChart } from '@/components/dashboard/RevenueChart';
@@ -1723,16 +1870,17 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
 ```
 
 **2. KPIs zu KPIGenerator migriert (Lines 364-416):**
+
 ```tsx
 ✅ kpis={[
   KPIGenerator.custom({
     title: 'Aufträge heute',
     value: totalBookings,
     icon: FileText,
-    trend: yesterdayBookings > 0 
-      ? { 
-          value: Math.round(((totalBookings - yesterdayBookings) / yesterdayBookings) * 100), 
-          label: 'gestern' 
+    trend: yesterdayBookings > 0
+      ? {
+          value: Math.round(((totalBookings - yesterdayBookings) / yesterdayBookings) * 100),
+          label: 'gestern'
         }
       : undefined,
     subtitle: `${dashboardStats?.pending_bookings ?? 0} ausstehend`,
@@ -1742,10 +1890,10 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
     title: 'Umsatz heute',
     value: formatCurrency(todayTotal),
     icon: Euro,
-    trend: yesterdayRevenue > 0 
-      ? { 
-          value: Math.round(((todayTotal - yesterdayRevenue) / yesterdayRevenue) * 100), 
-          label: 'gestern' 
+    trend: yesterdayRevenue > 0
+      ? {
+          value: Math.round(((todayTotal - yesterdayRevenue) / yesterdayRevenue) * 100),
+          label: 'gestern'
         }
       : undefined,
     subtitle: `${todayBookings.length} bezahlt`,
@@ -1762,6 +1910,7 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
 ```
 
 **3. QuickActions zu QuickActionsGenerator migriert:**
+
 ```tsx
 ✅ quickActions={[
   QuickActionsGenerator.create(
@@ -1783,6 +1932,7 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
 ```
 
 **4. Type-Assertion entfernt:**
+
 ```tsx
 // ✅ VORHER: kpis={[...] as [any, any, any]}
 // ✅ NACHHER: kpis={[...]} → Type-Safe mit KPIGenerator!
@@ -1796,6 +1946,7 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] Alle PageHeaderWithKPIs-Seiten verwenden KPIGenerator?
 [ ] Keine INLINE KPI-Definitionen mehr?
@@ -1805,6 +1956,7 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
 ```
 
 **Automated Check (TODO):**
+
 ```typescript
 // ESLint-Rule: enforce-kpi-generator
 // Warnt bei INLINE KPI-Definitionen ohne KPIGenerator
@@ -1814,6 +1966,7 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
 ### Testing
 
 **Manual Testing:**
+
 - ✅ TypeScript kompiliert ohne Errors
 - ✅ KPIs verwenden KPIGenerator (SSOT)
 - ✅ QuickActions verwenden QuickActionsGenerator (SSOT)
@@ -1821,12 +1974,14 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
 - ✅ Konsistent mit anderen 5 Seiten
 
 **System-Status (NACHHER):**
+
 - 6/6 Seiten: ✅ Verwenden KPIGenerator/QuickActionsGenerator
 - 0/6 Seiten: ❌ Verwenden INLINE (100% Konsistenz!)
 
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Migration-Vollständigkeit:** Bei systemweiten Änderungen ALLE Seiten prüfen
 2. **KPIGenerator API:** `custom()` verwenden für erweiterte KPIs (trend, subtitle, miniChart)
 3. **QuickActionsGenerator API:** `custom()` für Objekt-Config, `create()` für Inline-Params
@@ -1834,6 +1989,7 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
 5. **Konsistenz-Check:** Systematisch alle PageHeaderWithKPIs-Verwendungen prüfen
 
 **Anwendung auf andere Projekte:**
+
 - ✅ Bei Migration: ALLE betroffenen Dateien systematisch durchgehen
 - ✅ Type-Assertions als Code-Smell behandeln
 - ✅ Konsistenz-Check nach jeder Migration
@@ -1850,12 +2006,14 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
 ### Problem
 
 **Symptome:**
+
 - Beim Navigieren zwischen Seiten behält React Router die Scroll-Position
 - Neue Seiten öffnen am alten Scroll-Punkt (z.B. am Seitenende)
 - Nutzer müssen manuell nach oben scrollen
 - Betrifft ALLE Seiten-Übergänge
 
 **User-Impact:**
+
 - Verwirrende UX (Seite scheint leer/kaputt)
 - Zusätzlicher Scroll-Aufwand
 - Nicht-intuitives Verhalten
@@ -1863,12 +2021,14 @@ import { StatisticsWidget } from '@/components/dashboard/StatisticsWidget';
 ### Root Cause
 
 **Warum entstanden?**
+
 - React Router (v6) speichert standardmäßig Scroll-Position zwischen Navigationen
 - KEINE ScrollRestoration-Komponente in App.tsx vorhanden
 - Browser-natives Back/Forward-Verhalten überschreibt Scroll-Position
 - Standard-Verhalten: Scroll-Position wird beibehalten (für Browser-Back-Button)
 
 **Code (VORHER):**
+
 ```tsx
 // ❌ App.tsx - KEINE Scroll-Restoration
 <BrowserRouter>
@@ -1891,6 +2051,7 @@ Custom `<ScrollToTop />` Component mit useEffect + useLocation
 **Fixed (NACHHER):**
 
 **1. ScrollToTop Component erstellt (src/components/shared/ScrollToTop.tsx):**
+
 ```tsx
 ✅ import { useEffect } from 'react';
 ✅ import { useLocation } from 'react-router-dom';
@@ -1907,11 +2068,13 @@ Custom `<ScrollToTop />` Component mit useEffect + useLocation
 ```
 
 **2. Import in App.tsx (Line 31):**
+
 ```tsx
 ✅ import { ScrollToTop } from "@/components/shared/ScrollToTop";
 ```
 
 **3. ScrollToTop einfügen (Line 150):**
+
 ```tsx
 ✅ {/* V18.5.1: ScrollToTop - Seiten öffnen IMMER oben (Custom Solution) */}
 ✅ <ScrollToTop />
@@ -1923,6 +2086,7 @@ Custom `<ScrollToTop />` Component mit useEffect + useLocation
 ```
 
 **Verhalten:**
+
 - Neue Navigation → Scroll to Top (0,0) ✅
 - Instant Scroll (keine smooth Animation für bessere UX)
 - Funktioniert mit BrowserRouter (Legacy API)
@@ -1936,6 +2100,7 @@ Custom `<ScrollToTop />` Component mit useEffect + useLocation
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] App.tsx: ScrollRestoration vorhanden?
 [ ] Navigation getestet: Seiten öffnen oben?
@@ -1943,6 +2108,7 @@ Custom `<ScrollToTop />` Component mit useEffect + useLocation
 ```
 
 **Testing:**
+
 ```
 1. Von Home → /auftraege navigieren → Seite scrollt nach unten
 2. Zurück zu Home → Scroll-Position sollte wiederhergestellt sein
@@ -1952,6 +2118,7 @@ Custom `<ScrollToTop />` Component mit useEffect + useLocation
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Navigation /home → /auftraege → Seite öffnet oben
 - ✅ Navigation /auftraege → /fahrer → Seite öffnet oben
 - ✅ Mobile (375px) → Gleiches Verhalten
@@ -1962,6 +2129,7 @@ Custom `<ScrollToTop />` Component mit useEffect + useLocation
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **ScrollRestoration benötigt Data Router:** Nicht kompatibel mit BrowserRouter
 2. **Custom Solution notwendig:** useEffect + useLocation funktioniert mit BrowserRouter
 3. **UX-kritisch:** Falsche Scroll-Position ist extrem verwirrend für Nutzer
@@ -1969,23 +2137,25 @@ Custom `<ScrollToTop />` Component mit useEffect + useLocation
 5. **Migration-Path:** Wenn Projekt auf createBrowserRouter umgestellt wird, kann ScrollRestoration verwendet werden
 
 **Verwendete Lösung:**
+
 ```tsx
 // Custom ScrollToTop Component (kompatibel mit BrowserRouter)
 function ScrollToTop() {
   const { pathname } = useLocation();
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-  
+
   return null;
 }
 ```
 
 **Upgrade-Path (Optional):**
+
 ```tsx
 // Migration zu Data Router API (React Router 6.4+)
-import { createBrowserRouter, RouterProvider, ScrollRestoration } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, ScrollRestoration } from "react-router-dom";
 
 const router = createBrowserRouter([
   // ... routes
@@ -2001,6 +2171,7 @@ function App() {
 ```
 
 **Anwendung auf andere Apps:**
+
 - ✅ ScrollRestoration in JEDER React Router App verwenden
 - ✅ Immer nach BrowserRouter einfügen (VOR Routes)
 - ✅ Navigation-Flow testen (nicht nur einzelne Seiten)
@@ -2016,6 +2187,7 @@ function App() {
 ### Problem
 
 **Symptome:**
+
 - Console-Logs: "⚠️ PRICING SYNC: 1 critical errors, 3 warnings"
 - `starter.stripeProductId`: Expected `prod_TEeg0ykplmGKd0`, got `prod_starter_2025`
 - `business.stripeProductId`: Expected `prod_TEegHmtpPZOZcG`, got `prod_business_2025`
@@ -2025,6 +2197,7 @@ function App() {
 - Feature-Gating könnte fehlschlagen
 
 **Visual (Console-Logs):**
+
 ```
 ⚠️ starter.stripeProductId: Expected prod_TEeg0ykplmGKd0, got prod_starter_2025
 ⚠️ business.stripeProductId: Expected prod_TEegHmtpPZOZcG, got prod_business_2025
@@ -2036,6 +2209,7 @@ function App() {
 ### Root Cause
 
 **Warum entstanden?**
+
 1. **Zwei Pricing-Quellen ohne Synchronisation:**
    - `src/data/pricing-tiers.ts` (Marketing) verwendete **PLACEHOLDER-IDs**
    - `src/lib/tariff/tariff-definitions.ts` (App-Logik) verwendete **ECHTE IDs** aus `subscription-utils.ts`
@@ -2043,6 +2217,7 @@ function App() {
 3. **Enterprise priceNumeric falsch:** 999 statt 0 (für "Auf Anfrage")
 
 **Code (VORHER):**
+
 ```tsx
 // ❌ src/data/pricing-tiers.ts (Lines 8-12):
 export const STRIPE_PRODUCT_IDS = {
@@ -2060,6 +2235,7 @@ priceNumeric: 999, // ❌ Sollte 0 sein
 **Fixed (NACHHER):**
 
 **1. Import echte IDs (Lines 1-16):**
+
 ```tsx
 ✅ import { PRODUCT_IDS } from '@/lib/subscription-utils';
 
@@ -2071,6 +2247,7 @@ priceNumeric: 999, // ❌ Sollte 0 sein
 ```
 
 **2. Enterprise priceNumeric korrigiert (Line 122):**
+
 ```tsx
 ✅ priceNumeric: 0, // FIX V18.5.1: 0 statt 999 (entspricht tariff-definitions.ts)
 ```
@@ -2083,6 +2260,7 @@ priceNumeric: 999, // ❌ Sollte 0 sein
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] Pricing-Änderungen: IMMER in BEIDEN Quellen (pricing-tiers.ts + tariff-definitions.ts)
 [ ] Stripe Product IDs: IMMER aus subscription-utils.ts importieren
@@ -2092,6 +2270,7 @@ priceNumeric: 999, // ❌ Sollte 0 sein
 ```
 
 **Automated Check:**
+
 - ✅ `use-pricing-validation.ts` erkennt Inkonsistenzen automatisch
 - ✅ Console-Warning bei Pricing-Sync-Errors
 - 🔄 TODO: CI/CD-Pipeline: Pricing-Validation als Pre-Commit-Hook
@@ -2099,6 +2278,7 @@ priceNumeric: 999, // ❌ Sollte 0 sein
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Console-Logs: Keine Pricing-Warnings mehr
 - ✅ Stripe-Checkout: Funktioniert mit echten IDs
 - ✅ Feature-Gating: Korrekte Tarif-Erkennung
@@ -2106,12 +2286,14 @@ priceNumeric: 999, // ❌ Sollte 0 sein
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Single Source of Truth:** Stripe Product IDs MÜSSEN aus `subscription-utils.ts` importiert werden
 2. **Validation-Hook nutzen:** `use-pricing-validation` ist KRITISCH - IMMER aktivieren in DEV
 3. **Enterprise-Sonderfall:** priceNumeric = 0 für "Auf Anfrage" (nicht 999)
 4. **Zwei Quellen = Inkonsistenz-Gefahr:** Marketing (pricing-tiers.ts) + App (tariff-definitions.ts) MÜSSEN synchron sein
 
 **Anwendung auf andere Daten:**
+
 - ✅ Alle zukünftigen Pricing-Änderungen: Import aus subscription-utils.ts
 - ✅ Validation-Hook: Standardmäßig aktiviert in App.tsx
 - ✅ CI/CD: Pricing-Validation als Quality-Gate
@@ -2127,6 +2309,7 @@ priceNumeric: 999, // ❌ Sollte 0 sein
 ### Problem
 
 **Symptome:**
+
 - MobileHeader.tsx hatte `bg-primary` statt Primary Gradient
 - AuthFooter.tsx hatte `from-background` statt Primary Gradient
 - AuthFooter.tsx verwendete `text-muted-foreground` statt `text-foreground/70`
@@ -2134,6 +2317,7 @@ priceNumeric: 999, // ❌ Sollte 0 sein
 - Verstößt gegen HEADER_FOOTER_UNIFIED_V18.5.1.md
 
 **Visual (VORHER):**
+
 ```
 MobileHeader:  bg-primary                ❌ (sollte Gradient sein)
 AuthFooter:    from-background           ❌ (sollte from-primary sein)
@@ -2145,6 +2329,7 @@ MobileHeader:  onClick fehlt             ❌ (sollte klickbar sein)
 ### Root Cause
 
 **Warum entstanden?**
+
 1. **MobileHeader:** Initiale Implementierung verwendete `bg-primary` (solid) statt Gradient
 2. **AuthFooter:** Kopiert von alter Version, die `from-background` verwendete
 3. **AuthFooter:** Text-Farben nicht angepasst an Primary BG (verwendete muted statt foreground/70)
@@ -2152,6 +2337,7 @@ MobileHeader:  onClick fehlt             ❌ (sollte klickbar sein)
 5. **Inkonsistenz:** MarketingLayout hatte bereits korrektes Design, aber nicht übernommen
 
 **Code (VORHER):**
+
 ```tsx
 // ❌ MobileHeader.tsx (Line 29):
 <header className="fixed top-0 left-0 right-0 h-14 bg-primary z-50 shadow-md border-b border-border">
@@ -2173,13 +2359,15 @@ className="fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-background t
 **Fixed (NACHHER):**
 
 **1. MobileHeader.tsx (Line 29) - Primary Gradient:**
+
 ```tsx
 ✅ <header className="fixed top-0 left-0 right-0 h-14 bg-gradient-to-r from-primary via-primary to-primary/95 z-50 shadow-lg border-b border-border/20">
 ```
 
 **2. MobileHeader.tsx (Lines 31-48) - Logo klickbar:**
+
 ```tsx
-✅ <div 
+✅ <div
     className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
     onClick={() => navigate('/dashboard')}
   >
@@ -2188,11 +2376,13 @@ className="fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-background t
 ```
 
 **3. AuthFooter.tsx (Line 25) - Primary Gradient:**
+
 ```tsx
 ✅ className="fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-primary via-primary to-primary/95 border-t border-border/20 backdrop-blur-sm"
 ```
 
 **4. AuthFooter.tsx (Lines 32-74) - Korrekte Text-Farben:**
+
 ```tsx
 ✅ <p className="text-[10px] text-foreground/90 font-medium">
 ✅ <Link className="text-[10px] text-foreground/70 hover:text-foreground">
@@ -2200,8 +2390,9 @@ className="fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-background t
 ```
 
 **5. Header.tsx (Lines 43-70) - Logo klickbar:**
+
 ```tsx
-✅ <img 
+✅ <img
     onClick={() => navigate(permissions.canAccessMasterDashboard ? '/master' : '/dashboard')}
     className="h-8 max-w-[160px] object-contain cursor-pointer hover:opacity-80 transition-opacity"
   />
@@ -2218,6 +2409,7 @@ className="fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-background t
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] Alle Header: bg-gradient-to-r from-primary via-primary to-primary/95
 [ ] Alle Footer: bg-gradient-to-t from-primary via-primary to-primary/95
@@ -2229,6 +2421,7 @@ className="fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-background t
 ```
 
 **Automated Check (TODO):**
+
 ```typescript
 // ESLint-Rule: enforce-primary-gradient-headers
 // Warnt bei bg-primary ohne Gradient in Header/Footer
@@ -2238,6 +2431,7 @@ className="fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-background t
 ### Testing
 
 **Manual Testing:**
+
 - ✅ /home (Marketing): Header/Footer Primary Gradient ✓
 - ✅ /auth: Header/Footer Primary Gradient ✓
 - ✅ /dashboard: Header/Footer Primary Gradient ✓
@@ -2248,6 +2442,7 @@ className="fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-background t
 - ✅ Logo klickbar zu /master (Master-Dashboard) ✓
 
 **Visual Regression Test:**
+
 - ✅ Screenshot /home: Primary Gradient sichtbar
 - ✅ Screenshot /dashboard: Primary Gradient sichtbar
 - ✅ Text-Kontraste: Alle ≥ WCAG AA (4.5:1)
@@ -2255,6 +2450,7 @@ className="fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-background t
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Single Source of Truth:** MarketingLayout war korrekt - hätte als Basis für ALLE dienen sollen
 2. **Copy-Paste gefährlich:** AuthFooter kopierte alte Version ohne Review
 3. **Logo-Interaktivität:** IMMER onClick-Handler bei Logos (UX-Standard!)
@@ -2262,6 +2458,7 @@ className="fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-background t
 5. **HEADER_FOOTER_UNIFIED befolgen:** Dokumentation existiert, wurde aber nicht konsequent angewendet
 
 **Anwendung auf andere Komponenten:**
+
 - ✅ Alle zukünftigen Header/Footer: Primary Gradient verwenden
 - ✅ Alle Logos: onClick-Handler hinzufügen
 - ✅ Text-Farben: Immer an BG-Farbe anpassen
@@ -2278,12 +2475,14 @@ className="fixed bottom-0 left-0 right-0 z-20 bg-gradient-to-t from-background t
 ### Problem
 
 **Symptome:**
+
 - Rechnungen.tsx hatte 2x PageHeaderWithKPIs im Desktop-View
 - Erste bei Zeile 558-565 (fix mit invoiceKPIs)
 - Zweite bei Zeile 592-649 (dynamisch, Tab-abhängig)
 - Redundanz, potenzielle Performance-Probleme
 
 **Visual:**
+
 ```
 Desktop View:
 ┌─────────────────────────────────────────┐
@@ -2300,11 +2499,13 @@ Desktop View:
 ### Root Cause
 
 **Warum entstanden?**
+
 - Initiale Implementierung: Fix PageHeaderWithKPIs für beide Tabs
 - Später: Tab-spezifische KPIs gewünscht → Zweites PageHeaderWithKPIs hinzugefügt
 - Erstes NICHT entfernt → Redundanz!
 
 **Code:**
+
 ```tsx
 // ✅ KORREKT (Zeile 558-565):
 <div className="mb-6">
@@ -2332,12 +2533,14 @@ Desktop View:
 ### Lösung
 
 **Fixed:**
+
 - ✅ Zweites PageHeaderWithKPIs entfernt (Zeilen 592-649)
 - ✅ Erstes bleibt (Zeilen 558-565, SSOT mit useMemo)
 - ✅ Tabs bleiben (Zeilen 567-589)
 - ✅ Tab-Content bleibt (ab Zeile 650+)
 
 **Ergebnis:**
+
 ```
 Desktop View (FINAL):
 ┌─────────────────────────────────────────┐
@@ -2359,6 +2562,7 @@ Desktop View (FINAL):
 ### Prävention
 
 **Pre-Commit Checklist:**
+
 ```
 [ ] Nur 1x PageHeaderWithKPIs pro View (Mobile/Desktop getrennt OK)
 [ ] KPIs mit useMemo + SSOT definiert
@@ -2367,6 +2571,7 @@ Desktop View (FINAL):
 ```
 
 **Automated Check (TODO):**
+
 ```typescript
 // ESLint-Rule: no-duplicate-kpi-components
 // Warnt bei mehrfachen PageHeaderWithKPIs im gleichen Scope
@@ -2375,6 +2580,7 @@ Desktop View (FINAL):
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): Nur 1x KPIs sichtbar
 - ✅ Mobile (375px): Nur 1x KPIs sichtbar
 - ✅ Tab-Switch funktioniert
@@ -2383,11 +2589,13 @@ Desktop View (FINAL):
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **SSOT strikt einhalten:** Wenn KPIs definiert sind (invoiceKPIs), IMMER diese verwenden
 2. **Alte Implementierung entfernen:** Wenn neue Logik hinzugefügt wird, alte IMMER prüfen & löschen
 3. **Code-Review:** Redundanzen erkennen BEVOR Merge
 
 **Anwendung auf andere Seiten:**
+
 - ✅ Partner.tsx: Nur 1x PageHeaderWithKPIs ✓
 - ✅ Kunden.tsx: Nur 1x PageHeaderWithKPIs ✓
 - ✅ Auftraege.tsx: Nur 1x PageHeaderWithKPIs ✓
@@ -2404,11 +2612,13 @@ Desktop View (FINAL):
 ### Problem
 
 **Symptome:**
+
 - Hero-Grafiken wurden erfolgreich generiert (hero-fahrer.jpg, hero-auftraege.jpg, hero-kunden.jpg)
 - ABER: Keine Integration in die entsprechenden Seiten
 - Template-Compliance verletzt (APP_PAGE_TEMPLATE fordert Hero pro Seite!)
 
 **Visual:**
+
 ```
 Assets erstellt:         ✅ src/assets/hero-*.jpg (3 Dateien)
 Integration in Code:     ❌ Keine Imports gefunden
@@ -2418,6 +2628,7 @@ Template-Compliance:     ❌ Verletzt
 ### Root Cause
 
 **Workflow-Fehler:**
+
 ```
 1. Phase 1: Hero-Grafiken generiert ✅
 2. Phase 2: Dokumentation aktualisiert ✅
@@ -2425,6 +2636,7 @@ Template-Compliance:     ❌ Verletzt
 ```
 
 **Warum vergessen?**
+
 - Fokus auf Asset-Erstellung & Dokumentation
 - Keine automatische Validierung "Asset erstellt → Integration geprüft"
 - Kein Pre-Commit Check für Asset-Verwendung
@@ -2434,51 +2646,54 @@ Template-Compliance:     ❌ Verletzt
 **Integriert in 3 Seiten:**
 
 **1. src/pages/Fahrer.tsx (Zeilen 79, 641-649)**
+
 ```tsx
 // Import
-import heroFahrer from '@/assets/hero-fahrer.jpg';
+import heroFahrer from "@/assets/hero-fahrer.jpg";
 
 // Hero-Section (direkt nach StandardPageLayout opening)
 <div className="relative w-full h-[200px] sm:h-[250px] lg:h-[300px] mb-6 rounded-lg overflow-hidden">
-  <img 
-    src={heroFahrer} 
+  <img
+    src={heroFahrer}
     alt="Fahrer & Fahrzeuge - MyDispatch Dashboard"
     className="w-full h-full object-cover"
   />
   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-</div>
+</div>;
 ```
 
 **2. src/pages/Auftraege.tsx (Zeilen 32, 810-818)**
+
 ```tsx
 // Import
-import heroAuftraege from '@/assets/hero-auftraege.jpg';
+import heroAuftraege from "@/assets/hero-auftraege.jpg";
 
 // Hero-Section
 <div className="relative w-full h-[200px] sm:h-[250px] lg:h-[300px] mb-6 rounded-lg overflow-hidden">
-  <img 
-    src={heroAuftraege} 
+  <img
+    src={heroAuftraege}
     alt="Aufträge - MyDispatch Dashboard"
     className="w-full h-full object-cover"
   />
   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-</div>
+</div>;
 ```
 
 **3. src/pages/Kunden.tsx (Zeilen 38, 200-208)**
+
 ```tsx
 // Import
-import heroKunden from '@/assets/hero-kunden.jpg';
+import heroKunden from "@/assets/hero-kunden.jpg";
 
 // Hero-Section
 <div className="relative w-full h-[200px] sm:h-[250px] lg:h-[300px] mb-6 rounded-lg overflow-hidden">
-  <img 
-    src={heroKunden} 
+  <img
+    src={heroKunden}
     alt="Kunden - MyDispatch Dashboard"
     className="w-full h-full object-cover"
   />
   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-</div>
+</div>;
 ```
 
 ### Betroffene Dateien
@@ -2496,6 +2711,7 @@ import heroKunden from '@/assets/hero-kunden.jpg';
 ### Prävention
 
 **Pre-Implementation Checklist (NEU):**
+
 ```
 [ ] Asset generiert?
 [ ] Asset gespeichert (src/assets/)?
@@ -2506,6 +2722,7 @@ import heroKunden from '@/assets/hero-kunden.jpg';
 ```
 
 **Automated Check (TODO):**
+
 ```bash
 # ESLint-Rule: unused-assets-check
 # Warnt bei Assets in src/assets/, die nirgendwo importiert werden
@@ -2516,6 +2733,7 @@ eslint-plugin-unused-assets:
 ```
 
 **Workflow-Update:**
+
 ```
 Asset-Erstellung:
 1. ✅ Asset generieren
@@ -2528,6 +2746,7 @@ Asset-Erstellung:
 ### Testing
 
 **Manual Testing:**
+
 - ✅ /fahrer → Hero sichtbar? → Screenshot erstellt
 - ✅ /auftraege → Hero sichtbar? → Screenshot erstellt
 - ✅ /kunden → Hero sichtbar? → Screenshot erstellt
@@ -2537,6 +2756,7 @@ Asset-Erstellung:
 - ✅ Gradient-Overlay vorhanden?
 
 **Automated Testing (TODO):**
+
 - [ ] Visual Regression Test (Playwright)
 - [ ] Asset-Usage-Test (alle Assets importiert?)
 - [ ] Accessibility Test (Alt-Text vorhanden?)
@@ -2544,12 +2764,14 @@ Asset-Erstellung:
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Niemals Asset-Erstellung & Integration trennen:** Immer im selben Workflow!
 2. **Sofortige Validierung:** Screenshot NACH Integration, nicht nur nach Erstellung
 3. **Automatisierung nötig:** ESLint-Plugin für unused-assets
 4. **Checkliste erweitern:** Asset-Integration als eigener Schritt
 
 **Anwendung auf andere Assets:**
+
 - ✅ Alle zukünftigen Hero-Grafiken: Sofort integrieren
 - ✅ Logos, Icons, Bilder: Gleicher Workflow
 - ✅ Dokumentations-Assets: Screenshot + Integration
@@ -2565,11 +2787,13 @@ Asset-Erstellung:
 ### Problem
 
 **Symptome:**
+
 - Tab-Buttons waren nicht vollfächig (füllten nicht gesamte Breite aus)
 - Abrundungen an Verbindungsstellen zwischen Tabs sahen unschön aus
 - Inkonsistente Darstellung auf Mobile vs. Desktop
 
 **Visual:**
+
 ```
 VORHER (Problematisch):
 ┌──────┐ ┌──────┐ ┌──────┐  ← Gaps zwischen Tabs
@@ -2582,19 +2806,20 @@ VORHER (Problematisch):
 **Datei:** `src/components/ui/tabs.tsx` (Zeilen 8-37)
 
 **Problematischer Code:**
+
 ```tsx
 // TabsList hatte:
-- "rounded-md"              // ❌ Vollständig abgerundet statt nur oben
-- "p-1"                     // ❌ Padding verhinderte vollfächige Tabs
-- "gap-1 md:gap-0"         // ❌ Gaps zwischen Tabs
-
-// TabsTrigger hatte:
-- "w-full md:w-auto"        // ❌ Desktop: Auto-Width statt flex-1
-- "first:rounded-l-sm last:rounded-r-sm [&:not(:first-child):not(:last-child)]:rounded-none"
-  // ❌ Komplexe Abrundungs-Logik, nicht für vollfächige Tabs geeignet
+-"rounded-md" - // ❌ Vollständig abgerundet statt nur oben
+  "p-1" - // ❌ Padding verhinderte vollfächige Tabs
+  "gap-1 md:gap-0" - // ❌ Gaps zwischen Tabs
+  // TabsTrigger hatte:
+  "w-full md:w-auto" - // ❌ Desktop: Auto-Width statt flex-1
+  "first:rounded-l-sm last:rounded-r-sm [&:not(:first-child):not(:last-child)]:rounded-none";
+// ❌ Komplexe Abrundungs-Logik, nicht für vollfächige Tabs geeignet
 ```
 
 **Warum war das falsch?**
+
 1. **Nicht vollfächig:** `w-auto` auf Desktop ließ Tabs schrumpfen
 2. **Unschöne Abrundungen:** Alle Ecken waren abgerundet, nicht nur außen
 3. **Gaps:** Padding und Gaps erzeugten Lücken zwischen Tabs
@@ -2603,6 +2828,7 @@ VORHER (Problematisch):
 ### Lösung
 
 **Fixed Code:**
+
 ```tsx
 // TabsList (Zeilen 8-21) - NEU:
 className={cn(
@@ -2626,6 +2852,7 @@ className={cn(
 ```
 
 **Visual:**
+
 ```
 NACHHER (Korrekt):
 ┌────────────────────┬────────────────────┐
@@ -2644,6 +2871,7 @@ NACHHER (Korrekt):
 ### Prävention
 
 **Pre-Commit Checklist für Tab-Systeme:**
+
 ```
 [ ] TabsList hat w-full (vollfächig)
 [ ] TabsList hat p-0 (kein Padding)
@@ -2656,6 +2884,7 @@ NACHHER (Korrekt):
 ```
 
 **ESLint-Rule (TODO):**
+
 ```json
 {
   "no-tab-gaps": "error",
@@ -2666,6 +2895,7 @@ NACHHER (Korrekt):
 ### Testing
 
 **Manual Testing:**
+
 - ✅ Desktop (1920px): Tabs füllen gesamte Breite aus
 - ✅ Tablet (768px): Tabs füllen gesamte Breite aus
 - ✅ Mobile (375px): Tabs füllen gesamte Breite aus
@@ -2675,18 +2905,21 @@ NACHHER (Korrekt):
 - ✅ Hover-State funktioniert
 
 **Automated Testing (TODO):**
+
 - [ ] Visual Regression Test (Playwright)
 - [ ] Accessibility Test (ARIA)
 
 ### Lessons Learned
 
 **Was haben wir gelernt?**
+
 1. **Design-System-Komponenten sorgfältig prüfen:** Shadcn/UI liefert gute Basis, aber nicht immer perfekt für unseren Use-Case
 2. **Vollfächige Tabs brauchen flex-1:** `w-full md:w-auto` funktioniert nicht für gleichmäßige Verteilung
 3. **Abrundungen strategisch setzen:** Nur außen (first/last), nie zwischen Tabs
 4. **Padding entfernen:** `p-0` in TabsList, damit Tabs komplett ausfüllen
 
 **Anwendung auf andere Komponenten:**
+
 - ✅ Button-Groups (ähnliche Logik)
 - ✅ Segmented Controls
 - ✅ Breadcrumbs
@@ -2702,6 +2935,7 @@ NACHHER (Korrekt):
 ### Problem
 
 **Symptome:**
+
 - Vorgaben gingen verloren
 - Fehler wiederholten sich
 - Inkonsistente Implementierungen
@@ -2710,6 +2944,7 @@ NACHHER (Korrekt):
 ### Root Cause
 
 **Keine strukturierte Dokumentation:**
+
 - Kein MASTER_INDEX (Übersicht fehlte)
 - Keine Versionierung
 - Keine Abhängigkeits-Tracking
@@ -2718,6 +2953,7 @@ NACHHER (Korrekt):
 ### Lösung
 
 **Erstellt:**
+
 - ✅ `MASTER_INDEX_V18.5.1.md` - Zentrale Übersicht
 - ✅ `WISSENS_DATENBANK_STRUKTUR_V18.5.1.md` - Wissensmanagement
 - ✅ `FEHLER_LOG_V18.5.1.md` - Dieses Dokument
@@ -2726,6 +2962,7 @@ NACHHER (Korrekt):
 ### Prävention
 
 **Erzwingungs-Mechanismus:**
+
 1. VOR jedem Task: MASTER_INDEX lesen
 2. Relevante Docs identifizieren
 3. Abhängigkeiten auflösen
@@ -2743,6 +2980,7 @@ NACHHER (Korrekt):
 ### Problem
 
 **Symptome:**
+
 - Browser-Tab-Bereich nicht vollständig ausgefüllt
 - Grauer Rand sichtbar
 - Unprofessionelles Erscheinungsbild
@@ -2750,6 +2988,7 @@ NACHHER (Korrekt):
 ### Root Cause
 
 **Grafik-Erstellung unvollständig:**
+
 - Original-Grafik hatte Browser-Chrome, aber unvollständig
 - Tab-Bereich hatte grauen Leerraum
 - Nicht die gesamte Browserfenster-Höhe genutzt
@@ -2757,6 +2996,7 @@ NACHHER (Korrekt):
 ### Lösung
 
 **Neue Grafik generiert:**
+
 - ✅ `hero-dashboard-screenshot-fixed.jpg` erstellt
 - ✅ Browser-Tab vollständig ausgefüllt
 - ✅ Professionelle Darstellung
@@ -2768,6 +3008,7 @@ NACHHER (Korrekt):
 ### Prävention
 
 **Grafik-Checkliste:**
+
 ```
 [ ] Browser-Tab vollständig sichtbar?
 [ ] Kein grauer Leerraum?
@@ -2787,6 +3028,7 @@ NACHHER (Korrekt):
 ### Problem
 
 **Symptome:**
+
 - Logo + Text im Header überlappten sich
 - Unprofessionelles Erscheinungsbild
 - Mobile besonders betroffen
@@ -2794,20 +3036,22 @@ NACHHER (Korrekt):
 ### Root Cause
 
 **Redundanter Text neben Logo:**
+
 ```tsx
 // FALSCH:
 <div>
   <img src={logo} className="h-8 max-w-[140px]" />
-  <span>{companyName}</span>  {/* ❌ REDUNDANT! */}
+  <span>{companyName}</span> {/* ❌ REDUNDANT! */}
 </div>
 ```
 
 ### Lösung
 
 **Text entfernt, strikte max-width:**
+
 ```tsx
 // RICHTIG:
-<img 
+<img
   src={logo}
   className="h-7 sm:h-8 max-w-[120px] sm:max-w-[160px] md:max-w-[180px] object-contain"
 />
@@ -2816,6 +3060,7 @@ NACHHER (Korrekt):
 ### Prävention
 
 **Pre-Commit Hook:**
+
 - ESLint-Rule: `no-logo-without-max-width`
 - Visual Regression Test (Playwright)
 
@@ -2825,21 +3070,21 @@ NACHHER (Korrekt):
 
 ### Nach Kategorie (2025-10-23)
 
-| Kategorie | Anzahl | Resolved | Open |
-|-----------|--------|----------|------|
-| Design-System | 2 | 2 | 0 |
-| Assets | 1 | 1 | 0 |
-| Workflow | 2 | 2 | 0 |
-| Code-Qualität | 1 | 1 | 0 |
-| **TOTAL** | **6** | **6** | **0** |
+| Kategorie     | Anzahl | Resolved | Open  |
+| ------------- | ------ | -------- | ----- |
+| Design-System | 2      | 2        | 0     |
+| Assets        | 1      | 1        | 0     |
+| Workflow      | 2      | 2        | 0     |
+| Code-Qualität | 1      | 1        | 0     |
+| **TOTAL**     | **6**  | **6**    | **0** |
 
 ### Nach Severity
 
-| Severity | Anzahl | Resolved | Open |
-|----------|--------|----------|------|
-| 🔴 HIGH | 1 | 1 | 0 |
-| 🟡 MEDIUM | 5 | 5 | 0 |
-| 🟢 LOW | 0 | 0 | 0 |
+| Severity  | Anzahl | Resolved | Open |
+| --------- | ------ | -------- | ---- |
+| 🔴 HIGH   | 1      | 1        | 0    |
+| 🟡 MEDIUM | 5      | 5        | 0    |
+| 🟢 LOW    | 0      | 0        | 0    |
 
 ### Durchschnittliche Resolution-Zeit
 
@@ -2859,6 +3104,7 @@ NACHHER (Korrekt):
 ### 1. Automatisierte Checks (TODO)
 
 **ESLint-Rules:**
+
 - `no-logo-without-max-width`
 - `no-tab-gaps`
 - `require-tab-flex-1`
@@ -2867,6 +3113,7 @@ NACHHER (Korrekt):
 - `no-duplicate-kpi-components` **NEW**
 
 **Visual Regression Tests:**
+
 - Playwright Screenshots (alle Breakpoints)
 - Compare before/after
 - Alert bei Abweichungen
@@ -2874,6 +3121,7 @@ NACHHER (Korrekt):
 ### 2. Pre-Commit Checklisten
 
 **Jeder Commit MUSS prüfen:**
+
 ```
 [ ] Design-System Compliance
 [ ] Mobile-First Compliance
@@ -2887,6 +3135,7 @@ NACHHER (Korrekt):
 ### 3. Wissens-Training
 
 **Vor jedem Task:**
+
 - MASTER_INDEX lesen
 - Relevante Docs identifizieren
 - Fehler-Log durchsuchen (ähnliche Probleme?)

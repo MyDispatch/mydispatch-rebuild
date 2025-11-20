@@ -4,21 +4,15 @@
    Audio/Video-Call UI mit Daily.co WebRTC-Integration
    ================================================================================== */
 
-import { useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/lib/compat';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Mic, MicOff, Video, VideoOff, PhoneOff, Monitor } from 'lucide-react';
-import { useDailyCall } from '@/hooks/use-daily-call';
+import { useState } from "react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/lib/compat";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Mic, MicOff, Video, VideoOff, PhoneOff, Monitor } from "lucide-react";
+import { useDailyCall } from "@/hooks/use-daily-call";
 
 interface CallInterfaceProps {
   open: boolean;
-  callType: 'audio' | 'video';
+  callType: "audio" | "video";
   conversationId: string;
   participantName: string;
   onClose: () => void;
@@ -32,7 +26,7 @@ export function CallInterface({
   onClose,
 }: CallInterfaceProps) {
   const [shouldInitCall, setShouldInitCall] = useState(false);
-  
+
   const { callState, iframeRef, joinCall, leaveCall, toggleVideo, toggleAudio, startScreenShare } =
     useDailyCall({
       conversationId,
@@ -65,11 +59,11 @@ export function CallInterface({
       <DialogContent className="max-w-6xl h-[700px] flex flex-col p-0">
         <DialogHeader className="px-6 pt-6">
           <DialogTitle>
-            {callType === 'video' ? 'Videoanruf' : 'Sprachanruf'} mit {participantName}
+            {callType === "video" ? "Videoanruf" : "Sprachanruf"} mit {participantName}
           </DialogTitle>
           <DialogDescription>
-            {callState.isConnecting && 'Verbinde mit Anruf...'}
-            {callState.isConnected && 'Verbunden'}
+            {callState.isConnecting && "Verbinde mit Anruf..."}
+            {callState.isConnected && "Verbunden"}
             {callState.error && `Fehler: ${callState.error}`}
           </DialogDescription>
         </DialogHeader>
@@ -80,14 +74,14 @@ export function CallInterface({
             <div className="absolute inset-0 flex items-center justify-center bg-video-background z-10">
               <div className="flex flex-col items-center gap-4">
                 <div className="p-4 bg-primary/10 rounded-full">
-                  {callType === 'video' ? (
+                  {callType === "video" ? (
                     <Video className="h-12 w-12 text-video-foreground" />
                   ) : (
                     <Mic className="h-12 w-12 text-video-foreground" />
                   )}
                 </div>
                 <p className="text-video-foreground text-lg">
-                  {callType === 'video' ? 'Videoanruf' : 'Sprachanruf'} mit {participantName}
+                  {callType === "video" ? "Videoanruf" : "Sprachanruf"} mit {participantName}
                 </p>
                 <V28Button onClick={handleJoinCall} size="lg" variant="primary" className="mt-2">
                   Anruf starten
@@ -95,7 +89,7 @@ export function CallInterface({
               </div>
             </div>
           )}
-          
+
           {callState.isConnecting && (
             <div className="absolute inset-0 flex items-center justify-center bg-video-background z-10">
               <div className="flex flex-col items-center gap-4">
@@ -142,7 +136,7 @@ export function CallInterface({
               )}
             </V28Button>
 
-            {callType === 'video' && (
+            {callType === "video" && (
               <>
                 <V28Button
                   variant="secondary"

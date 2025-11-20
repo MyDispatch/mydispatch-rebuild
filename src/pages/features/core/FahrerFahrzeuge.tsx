@@ -2,44 +2,69 @@
    FEATURE DETAIL PAGE: Fahrer & Fahrzeuge
    ================================================================================== */
 
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { V28HeroPremium } from '@/components/hero';
-import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { V28Button } from '@/components/design-system/V28Button';
-import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { V28HeroPremium } from "@/components/hero";
+import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
+import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
+import { V28Button } from "@/components/design-system/V28Button";
+import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
 
-import { Users, CheckCircle, Shield, Clock, FileText, Calendar } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Users, CheckCircle, Shield, Clock, FileText, Calendar } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function FahrerFahrzeugePage() {
   const navigate = useNavigate();
 
   const features = [
-    { icon: Users, title: 'Fahrer-Profile', description: 'Vollständige Verwaltung aller Fahrerinformationen mit Fotos und Dokumenten' },
-    { icon: FileText, title: 'Führerscheinverwaltung', description: 'Automatische Ablauferinnerungen für Führerscheine und Personenbeförderungsschein' },
-    { icon: Calendar, title: 'Schichtplanung', description: 'Digitale Schichtplanung mit Verfügbarkeitskalender' },
-    { icon: Shield, title: 'Fahrzeugdokumentation', description: 'TÜV, Versicherung, Zulassung – alle Dokumente zentral verwaltet' },
-    { icon: Clock, title: 'Zeiterfassung', description: 'Automatische Erfassung von Arbeitszeiten und Pausen' },
-    { icon: CheckCircle, title: 'Compliance', description: 'Einhaltung aller gesetzlichen Vorgaben und Fristen' },
+    {
+      icon: Users,
+      title: "Fahrer-Profile",
+      description: "Vollständige Verwaltung aller Fahrerinformationen mit Fotos und Dokumenten",
+    },
+    {
+      icon: FileText,
+      title: "Führerscheinverwaltung",
+      description:
+        "Automatische Ablauferinnerungen für Führerscheine und Personenbeförderungsschein",
+    },
+    {
+      icon: Calendar,
+      title: "Schichtplanung",
+      description: "Digitale Schichtplanung mit Verfügbarkeitskalender",
+    },
+    {
+      icon: Shield,
+      title: "Fahrzeugdokumentation",
+      description: "TÜV, Versicherung, Zulassung – alle Dokumente zentral verwaltet",
+    },
+    {
+      icon: Clock,
+      title: "Zeiterfassung",
+      description: "Automatische Erfassung von Arbeitszeiten und Pausen",
+    },
+    {
+      icon: CheckCircle,
+      title: "Compliance",
+      description: "Einhaltung aller gesetzlichen Vorgaben und Fristen",
+    },
   ];
 
   const useCases = [
     {
-      company: 'Taxi Berlin GmbH',
-      challenge: 'Verlust von 20% der Umsätze durch abgelaufene Führerscheine',
-      solution: 'Automatische Erinnerungen 30 Tage vor Ablauf',
-      result: '0 Ausfälle durch Dokumentenablauf im letzten Jahr'
+      company: "Taxi Berlin GmbH",
+      challenge: "Verlust von 20% der Umsätze durch abgelaufene Führerscheine",
+      solution: "Automatische Erinnerungen 30 Tage vor Ablauf",
+      result: "0 Ausfälle durch Dokumentenablauf im letzten Jahr",
     },
     {
-      company: 'Mietwagen Stuttgart',
-      challenge: 'Manuelle TÜV-Planung für 50 Fahrzeuge',
-      solution: 'Digitaler Wartungskalender mit Benachrichtigungen',
-      result: '90% Zeitersparnis bei der Fuhrpartverwaltung'
-    }
+      company: "Mietwagen Stuttgart",
+      challenge: "Manuelle TÜV-Planung für 50 Fahrzeuge",
+      solution: "Digitaler Wartungskalender mit Benachrichtigungen",
+      result: "90% Zeitersparnis bei der Fuhrpartverwaltung",
+    },
   ];
 
   return (
@@ -59,12 +84,12 @@ export default function FahrerFahrzeugePage() {
         subtitle="Behalten Sie den Überblick über Ihre gesamte Flotte und Ihr Team"
         description="Mit automatischen Ablauf-Erinnerungen und digitalen Schichtzetteln."
         primaryCTA={{
-          label: 'Jetzt starten',
-          onClick: () => navigate('/auth?mode=signup')
+          label: "Jetzt starten",
+          onClick: () => navigate("/auth?mode=signup"),
         }}
         secondaryCTA={{
-          label: 'Demo anfragen',
-          onClick: () => navigate('/demo')
+          label: "Demo anfragen",
+          onClick: () => navigate("/demo"),
         }}
         visual={<PremiumDashboardContent pageType="features" />}
         trustElements={true}
@@ -76,13 +101,15 @@ export default function FahrerFahrzeugePage() {
           <V28MarketingCard>
             <h3 className="text-xl font-bold text-slate-900 mb-4">Problem</h3>
             <p className="text-slate-600 leading-relaxed">
-              Abgelaufene Führerscheine, verpasste TÜV-Termine und manuelle Excel-Listen führen zu Compliance-Verstößen und Umsatzausfällen.
+              Abgelaufene Führerscheine, verpasste TÜV-Termine und manuelle Excel-Listen führen zu
+              Compliance-Verstößen und Umsatzausfällen.
             </p>
           </V28MarketingCard>
           <V28MarketingCard>
             <h3 className="text-xl font-bold text-slate-900 mb-4">Lösung</h3>
             <p className="text-slate-600 leading-relaxed">
-              MyDispatch überwacht alle Fristen automatisch und sendet rechtzeitig Erinnerungen – per E-Mail und Push-Benachrichtigung.
+              MyDispatch überwacht alle Fristen automatisch und sendet rechtzeitig Erinnerungen –
+              per E-Mail und Push-Benachrichtigung.
             </p>
           </V28MarketingCard>
         </div>
@@ -107,8 +134,12 @@ export default function FahrerFahrzeugePage() {
           {useCases.map((useCase, idx) => (
             <V28MarketingCard key={idx}>
               <h4 className="text-lg font-bold text-slate-900 mb-2">{useCase.company}</h4>
-              <p className="text-sm text-slate-600 mb-4"><strong>Herausforderung:</strong> {useCase.challenge}</p>
-              <p className="text-sm text-slate-600 mb-4"><strong>Lösung:</strong> {useCase.solution}</p>
+              <p className="text-sm text-slate-600 mb-4">
+                <strong>Herausforderung:</strong> {useCase.challenge}
+              </p>
+              <p className="text-sm text-slate-600 mb-4">
+                <strong>Lösung:</strong> {useCase.solution}
+              </p>
               <p className="text-sm text-slate-900 font-semibold">✅ {useCase.result}</p>
             </V28MarketingCard>
           ))}
@@ -124,7 +155,7 @@ export default function FahrerFahrzeugePage() {
             <V28TariffBadge label="Enterprise" />
           </div>
           <p className="text-slate-600 mb-8">Dieses Feature ist in allen Tarifen enthalten.</p>
-          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
             Tarife vergleichen
           </V28Button>
         </div>
@@ -134,16 +165,30 @@ export default function FahrerFahrzeugePage() {
       <V28MarketingSection background="canvas" title="Häufig gestellte Fragen">
         <div className="max-w-3xl mx-auto space-y-4">
           <V28MarketingCard>
-            <h4 className="text-lg font-bold text-slate-900 mb-2">Wie viele Fahrer kann ich verwalten?</h4>
-            <p className="text-slate-600">Im Starter-Tarif bis zu 3 Fahrer. Ab Business-Tarif unbegrenzt.</p>
+            <h4 className="text-lg font-bold text-slate-900 mb-2">
+              Wie viele Fahrer kann ich verwalten?
+            </h4>
+            <p className="text-slate-600">
+              Im Starter-Tarif bis zu 3 Fahrer. Ab Business-Tarif unbegrenzt.
+            </p>
           </V28MarketingCard>
           <V28MarketingCard>
-            <h4 className="text-lg font-bold text-slate-900 mb-2">Werden alle Dokumente automatisch überwacht?</h4>
-            <p className="text-slate-600">Ja, MyDispatch überwacht Führerschein, Personenbeförderungsschein, TÜV, Versicherung und Zulassung automatisch.</p>
+            <h4 className="text-lg font-bold text-slate-900 mb-2">
+              Werden alle Dokumente automatisch überwacht?
+            </h4>
+            <p className="text-slate-600">
+              Ja, MyDispatch überwacht Führerschein, Personenbeförderungsschein, TÜV, Versicherung
+              und Zulassung automatisch.
+            </p>
           </V28MarketingCard>
           <V28MarketingCard>
-            <h4 className="text-lg font-bold text-slate-900 mb-2">Kann ich eigene Dokumente hochladen?</h4>
-            <p className="text-slate-600">Ja, Sie können beliebige Dokumente (z.B. Arbeitsverträge, Schulungsnachweise) hochladen und verwalten.</p>
+            <h4 className="text-lg font-bold text-slate-900 mb-2">
+              Kann ich eigene Dokumente hochladen?
+            </h4>
+            <p className="text-slate-600">
+              Ja, Sie können beliebige Dokumente (z.B. Arbeitsverträge, Schulungsnachweise)
+              hochladen und verwalten.
+            </p>
           </V28MarketingCard>
         </div>
       </V28MarketingSection>
@@ -154,10 +199,10 @@ export default function FahrerFahrzeugePage() {
           Bereit für digitale Fahrer- und Fuhrpartverwaltung?
         </h2>
         <div className="flex gap-4 justify-center">
-          <V28Button variant="primary" size="lg" onClick={() => navigate('/auth?mode=signup')}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate("/auth?mode=signup")}>
             Jetzt starten
           </V28Button>
-          <V28Button variant="secondary" size="lg" onClick={() => navigate('/demo')}>
+          <V28Button variant="secondary" size="lg" onClick={() => navigate("/demo")}>
             Demo anfragen
           </V28Button>
         </div>

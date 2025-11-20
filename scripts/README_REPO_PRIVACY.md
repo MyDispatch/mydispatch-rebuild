@@ -25,6 +25,7 @@ cd C:\Users\pcour\mydispatch-rebuild
 ```
 
 **Beim Script:**
+
 - Token eingeben (wird sicher abgefragt)
 - Script findet automatisch ALLE Repositories
 - Zeigt Liste der öffentlichen Repositories
@@ -47,16 +48,19 @@ cd C:\Users\pcour\mydispatch-rebuild
 ## ⚠️ WICHTIGE HINWEISE
 
 ### API Rate Limiting
+
 - GitHub erlaubt 5,000 Requests/Stunde
 - Script wartet 500ms zwischen Requests
 - Bei vielen Repos kann es etwas dauern
 
 ### Token Sicherheit
+
 - Token wird nur im Speicher verwendet
 - Nach Script-Ende wird Token gelöscht
 - Niemals Token im Code committen!
 
 ### Fehlerbehandlung
+
 - Bei Fehlern wird das Repository übersprungen
 - Script läuft weiter für alle anderen
 - Zusammenfassung zeigt Erfolg/Fehler
@@ -83,11 +87,13 @@ gh repo list u4231458123-droid --limit 100
 Falls nur ein Repository auf privat gestellt werden soll:
 
 **Methode 1: Web Interface**
+
 1. Gehe zu: https://github.com/u4231458123-droid/[REPO-NAME]/settings
 2. Scrolle zu "Danger Zone"
 3. Klicke "Change visibility" → "Make private"
 
 **Methode 2: Einzel-Script**
+
 ```powershell
 .\scripts\make-repo-private.ps1
 ```
@@ -132,7 +138,3 @@ Fortfahren? (j/n): j
 
 **Erstellt:** 2025-01-31  
 **Status:** ✅ PRODUCTION-READY
-
-
-
-

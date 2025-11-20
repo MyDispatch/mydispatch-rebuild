@@ -9,6 +9,7 @@
 ## ✅ DEPLOYED COMPONENTS
 
 ### 1. Hygen Code Generator
+
 - **Status:** ✅ Installed
 - **Templates:**
   - `_templates/page/new/` - Golden Template Page Generator
@@ -20,6 +21,7 @@
   ```
 
 ### 2. Enhanced Husky Pre-Commit Hook
+
 - **Status:** ✅ Upgraded to V32.0
 - **Quality Gates (8):**
   1. ✅ Marketing Claims Validation
@@ -33,6 +35,7 @@
 - **Location:** `.husky/pre-commit`
 
 ### 3. CI/CD Workflows (3 NEW)
+
 - **Status:** ✅ Deployed
 - **Workflows:**
   1. `.github/workflows/performance.yml` - Weekly Lighthouse CI
@@ -44,6 +47,7 @@
   - Security: Daily 4 AM + PRs
 
 ### 4. npm Scripts Documentation
+
 - **Status:** ✅ Ready for Manual Addition
 - **Location:** `scripts/npm-scripts-to-add.json`
 - **Count:** 25+ scripts for:
@@ -54,6 +58,7 @@
   - Validation
 
 ### 5. Helper Scripts
+
 - **Status:** ✅ Created
 - **Scripts:**
   1. `scripts/check-rls-coverage.js` - Validates RLS policies
@@ -61,6 +66,7 @@
   3. `tests/e2e/visual/screenshots.spec.ts` - Screenshot capture
 
 ### 6. Lighthouse Budget
+
 - **Status:** ✅ Configured
 - **Location:** `lighthouse-budget.json`
 - **Thresholds:**
@@ -74,12 +80,14 @@
 ## 📋 MANUAL STEPS REQUIRED
 
 ### Step 1: Add npm Scripts to package.json
+
 ```bash
 # Open scripts/npm-scripts-to-add.json
 # Copy all scripts to package.json "scripts" section
 ```
 
 **Critical Scripts:**
+
 ```json
 {
   "generate:page": "hygen page new",
@@ -93,6 +101,7 @@
 ```
 
 ### Step 2: Verify Husky Installation
+
 ```bash
 # Ensure Husky is active
 npm run prepare
@@ -104,6 +113,7 @@ git commit -m "test: Verify Husky V32.0"
 ```
 
 ### Step 3: Test Code Generators
+
 ```bash
 # Generate test page
 npm run generate:page TestPage
@@ -115,6 +125,7 @@ npm run generate:component TestButton
 ```
 
 ### Step 4: Storybook Setup (Optional)
+
 ```bash
 # Install Storybook
 npx storybook@latest init --type react-vite
@@ -129,11 +140,13 @@ npx storybook@latest init --type react-vite
 ## 🎯 VALIDATION CHECKLIST
 
 ### Hygen
+
 - [ ] `npm run generate:page` works
 - [ ] `npm run generate:component` works
 - [ ] Generated files follow templates
 
 ### Husky
+
 - [ ] Pre-commit hook runs on `git commit`
 - [ ] Blocks commits with:
   - [ ] TypeScript errors
@@ -142,11 +155,13 @@ npx storybook@latest init --type react-vite
   - [ ] Marketing claims
 
 ### CI/CD
+
 - [ ] `performance.yml` scheduled for Monday 3 AM
 - [ ] `visual-ai.yml` triggers on component changes
 - [ ] `security.yml` runs daily at 4 AM
 
 ### Scripts
+
 - [ ] All 25+ scripts added to package.json
 - [ ] `npm run quality:full` runs successfully
 - [ ] `npm run test:e2e` executes Playwright tests
@@ -156,6 +171,7 @@ npx storybook@latest init --type react-vite
 ## 🚀 NEXT PHASE
 
 **Phase 2: Golden Template Enforcement**
+
 - Migrate `/fahrer` to exact copy of `/rechnungen`
 - Create Golden Template Validator Script
 - Ensure 100% structural match

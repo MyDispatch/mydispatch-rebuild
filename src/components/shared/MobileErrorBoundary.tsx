@@ -4,11 +4,11 @@
    Optimiert für Mobile-Geräte mit Touch-optimierten Recovery-Optionen
    ================================================================================== */
 
-import React from 'react';
-import { AlertTriangle, RefreshCw } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
-import { V28Button } from '@/components/design-system/V28Button';
-import { trackUIError } from '@/lib/error-tracker';
+import React from "react";
+import { AlertTriangle, RefreshCw } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import { V28Button } from "@/components/design-system/V28Button";
+import { trackUIError } from "@/lib/error-tracker";
 
 interface Props {
   children: React.ReactNode;
@@ -32,9 +32,9 @@ export class MobileErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Track error
-    trackUIError(this.props.componentName, 'mobile_render', error, {
+    trackUIError(this.props.componentName, "mobile_render", error, {
       componentStack: errorInfo.componentStack,
-      deviceType: 'mobile',
+      deviceType: "mobile",
       screenWidth: window.innerWidth,
     });
   }

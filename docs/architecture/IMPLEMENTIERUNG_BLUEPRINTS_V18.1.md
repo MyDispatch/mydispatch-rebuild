@@ -3,6 +3,7 @@
 ## 📐 Blueprint 1: Global Search System
 
 ### Dateistruktur
+
 ```
 src/
 ├── components/
@@ -19,6 +20,7 @@ src/
 ```
 
 ### Komponenten-Architektur
+
 ```typescript
 // src/components/search/GlobalSearch.tsx
 GlobalSearch
@@ -39,6 +41,7 @@ GlobalSearch
 ```
 
 ### Datenfluss
+
 ```
 User Input (Cmd+K)
     ↓
@@ -62,6 +65,7 @@ SearchResults Display
 ## 📐 Blueprint 2: React Query Cache System
 
 ### Migration-Plan
+
 ```typescript
 // VORHER (useState)
 const [bookings, setBookings] = useState([]);
@@ -74,6 +78,7 @@ const { data: bookings, isLoading, error, refetch } = useBookingsQuery();
 ```
 
 ### Cache-Strategie
+
 ```typescript
 // src/lib/react-query-config.ts
 export const queryClient = new QueryClient({
@@ -82,7 +87,7 @@ export const queryClient = new QueryClient({
       staleTime: 30000,        // 30s - Daten gelten als "frisch"
       cacheTime: 5 * 60 * 1000, // 5min - Cache-Aufbewahrung
       retry: 3,                 // 3x Retry bei Fehler
-      retryDelay: (attemptIndex) => 
+      retryDelay: (attemptIndex) =>
         Math.min(1000 * 2 ** attemptIndex, 30000), // Exponential Backoff
       refetchOnWindowFocus: false,
       refetchOnMount: true,
@@ -99,31 +104,32 @@ export const queryClient = new QueryClient({
 ```
 
 ### Optimistic Updates
+
 ```typescript
 // Beispiel: Auftrag-Status ändern
 const updateBookingMutation = useMutation({
   mutationFn: updateBooking,
   onMutate: async (newData) => {
     // Cancel laufende Queries
-    await queryClient.cancelQueries(['bookings']);
-    
+    await queryClient.cancelQueries(["bookings"]);
+
     // Snapshot des alten Zustands
-    const previousBookings = queryClient.getQueryData(['bookings']);
-    
+    const previousBookings = queryClient.getQueryData(["bookings"]);
+
     // Optimistic Update
-    queryClient.setQueryData(['bookings'], (old) => 
-      old.map(b => b.id === newData.id ? { ...b, ...newData } : b)
+    queryClient.setQueryData(["bookings"], (old) =>
+      old.map((b) => (b.id === newData.id ? { ...b, ...newData } : b))
     );
-    
+
     return { previousBookings };
   },
   onError: (err, newData, context) => {
     // Rollback bei Fehler
-    queryClient.setQueryData(['bookings'], context.previousBookings);
+    queryClient.setQueryData(["bookings"], context.previousBookings);
   },
   onSettled: () => {
     // Refetch nach Mutation
-    queryClient.invalidateQueries(['bookings']);
+    queryClient.invalidateQueries(["bookings"]);
   },
 });
 ```
@@ -133,6 +139,7 @@ const updateBookingMutation = useMutation({
 ## 📐 Blueprint 3: AI Smart Routing
 
 ### Edge Function Architektur
+
 ```typescript
 // supabase/functions/ai-smart-routing/index.ts
 
@@ -202,6 +209,7 @@ Ausgabe:
 ```
 
 ### Caching-Strategie
+
 ```typescript
 // Cache Routen für 30 Minuten
 // Key: origin_lat_lng + destination_lat_lng + pickup_time (gerundet auf 30min)
@@ -216,6 +224,7 @@ const cacheKey = `${origin.lat}_${origin.lng}_${destination.lat}_${destination.l
 ## 📐 Blueprint 4: Auto-Assignment System
 
 ### Algorithmus-Flowchart
+
 ```
 Neuer Auftrag erstellt
     ↓
@@ -270,6 +279,7 @@ Neuer Auftrag erstellt
 ```
 
 ### Implementierung
+
 ```typescript
 // src/lib/auto-assignment.ts
 
@@ -278,63 +288,61 @@ interface AssignmentScore {
   vehicle_id: string;
   total_score: number;
   factors: {
-    proximity: number;    // 0-100
+    proximity: number; // 0-100
     vehicle_match: number; // 0-100
-    workload: number;      // 0-100
-    availability: number;  // 0-100
+    workload: number; // 0-100
+    availability: number; // 0-100
   };
 }
 
-export async function calculateBestAssignment(
-  booking: Booking
-): Promise<AssignmentScore | null> {
+export async function calculateBestAssignment(booking: Booking): Promise<AssignmentScore | null> {
   // 1. Verfügbare Fahrer
   const availableDrivers = await supabase
-    .from('drivers')
-    .select('*, vehicle_positions(*)')
-    .eq('company_id', booking.company_id)
-    .eq('shift_status', 'available')
-    .eq('archived', false);
+    .from("drivers")
+    .select("*, vehicle_positions(*)")
+    .eq("company_id", booking.company_id)
+    .eq("shift_status", "available")
+    .eq("archived", false);
 
   if (!availableDrivers.data?.length) return null;
 
   // 2. Passende Fahrzeuge
   const matchingVehicles = await supabase
-    .from('vehicles')
-    .select('*')
-    .eq('company_id', booking.company_id)
-    .eq('status', 'available')
-    .eq('archived', false);
+    .from("vehicles")
+    .select("*")
+    .eq("company_id", booking.company_id)
+    .eq("status", "available")
+    .eq("archived", false);
 
   // 3. Scoring
   const scores: AssignmentScore[] = [];
-  
+
   for (const driver of availableDrivers.data) {
     for (const vehicle of matchingVehicles.data) {
       // Fahrzeugklasse-Match
       if (vehicle.vehicle_class !== booking.vehicle_type) continue;
-      
+
       // GPS-Distanz berechnen
       const distance = calculateDistance(
         driver.vehicle_positions?.[0],
         booking.pickup_location_coords
       );
-      
+
       const proximityScore = calculateProximityScore(distance);
       const vehicleMatchScore = vehicle.vehicle_class === booking.vehicle_type ? 100 : 80;
-      
+
       // Workload: Anzahl aktiver Aufträge
       const workload = await getDriverWorkload(driver.id);
       const workloadScore = calculateWorkloadScore(workload);
-      
-      const availabilityScore = driver.shift_status === 'available' ? 100 : 50;
-      
-      const totalScore = 
+
+      const availabilityScore = driver.shift_status === "available" ? 100 : 50;
+
+      const totalScore =
         proximityScore * 0.4 +
         vehicleMatchScore * 0.3 +
         workloadScore * 0.2 +
         availabilityScore * 0.1;
-      
+
       scores.push({
         driver_id: driver.id,
         vehicle_id: vehicle.id,
@@ -348,7 +356,7 @@ export async function calculateBestAssignment(
       });
     }
   }
-  
+
   // Bester Match
   return scores.sort((a, b) => b.total_score - a.total_score)[0] || null;
 }
@@ -359,6 +367,7 @@ export async function calculateBestAssignment(
 ## 📐 Blueprint 5: PDF/Excel Export
 
 ### Export-Architektur
+
 ```
 User klickt "Export"
     ↓
@@ -386,21 +395,22 @@ User erhält Download
 ```
 
 ### PDF-Template
+
 ```typescript
 // supabase/functions/generate-pdf/index.ts
 import { jsPDF } from "jspdf";
 
 // Company Branding laden
 const logo = await fetch(company.logo_url);
-const primaryColor = company.primary_color || '#EADEBD';
+const primaryColor = company.primary_color || "#EADEBD";
 
 // PDF erstellen
 const doc = new jsPDF();
 
 // Header mit Logo
-doc.addImage(logo, 'PNG', 10, 10, 50, 20);
+doc.addImage(logo, "PNG", 10, 10, 50, 20);
 doc.setFillColor(primaryColor);
-doc.rect(0, 0, 210, 40, 'F');
+doc.rect(0, 0, 210, 40, "F");
 
 // Titel
 doc.setFontSize(20);
@@ -408,27 +418,27 @@ doc.text(`Auftrags-Übersicht ${dateRange}`, 70, 20);
 
 // Tabelle
 doc.autoTable({
-  head: [['Datum', 'Auftragsnr.', 'Kunde', 'Start', 'Ziel', 'Preis']],
-  body: bookingsData.map(b => [
+  head: [["Datum", "Auftragsnr.", "Kunde", "Start", "Ziel", "Preis"]],
+  body: bookingsData.map((b) => [
     formatDate(b.pickup_date),
     b.booking_number,
     b.customer_name,
     b.pickup_location,
     b.dropoff_location,
-    formatCurrency(b.price)
+    formatCurrency(b.price),
   ]),
   startY: 50,
-  theme: 'grid',
+  theme: "grid",
   headStyles: { fillColor: primaryColor },
 });
 
 // Footer
 doc.setFontSize(10);
-doc.text(`Erstellt am ${new Date().toLocaleDateString('de-DE')}`, 10, 280);
+doc.text(`Erstellt am ${new Date().toLocaleDateString("de-DE")}`, 10, 280);
 doc.text(`Seite ${doc.internal.getNumberOfPages()}`, 180, 280);
 
 // Speichern
-const pdfBuffer = doc.output('arraybuffer');
+const pdfBuffer = doc.output("arraybuffer");
 ```
 
 ---
@@ -436,21 +446,22 @@ const pdfBuffer = doc.output('arraybuffer');
 ## 📐 Blueprint 6: PWA Installation
 
 ### Service Worker Strategie
+
 ```javascript
 // public/service-worker.js
 
 // Cache-Strategie
-const CACHE_NAME = 'mydispatch-v18.1';
+const CACHE_NAME = "mydispatch-v18.1";
 const CACHE_URLS = [
-  '/',
-  '/manifest.json',
-  '/index.css',
-  '/main.js',
+  "/",
+  "/manifest.json",
+  "/index.css",
+  "/main.js",
   // ... statische Assets
 ];
 
 // Install Event
-self.addEventListener('install', (event) => {
+self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(CACHE_URLS);
@@ -459,7 +470,7 @@ self.addEventListener('install', (event) => {
 });
 
 // Fetch Event (Network First, fallback zu Cache)
-self.addEventListener('fetch', (event) => {
+self.addEventListener("fetch", (event) => {
   event.respondWith(
     fetch(event.request)
       .then((response) => {
@@ -478,42 +489,43 @@ self.addEventListener('fetch', (event) => {
 });
 
 // Background Sync (Offline-Änderungen synchronisieren)
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'sync-bookings') {
+self.addEventListener("sync", (event) => {
+  if (event.tag === "sync-bookings") {
     event.waitUntil(syncOfflineBookings());
   }
 });
 ```
 
 ### PWA Prompt
+
 ```typescript
 // src/hooks/use-pwa-install.tsx
 export function usePWAInstall() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const [isInstallable, setIsInstallable] = useState(false);
-  
+
   useEffect(() => {
-    window.addEventListener('beforeinstallprompt', (e) => {
+    window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
       setIsInstallable(true);
     });
   }, []);
-  
+
   const promptInstall = async () => {
     if (!deferredPrompt) return;
-    
+
     deferredPrompt.prompt();
     const { outcome } = await deferredPrompt.userChoice;
-    
-    if (outcome === 'accepted') {
-      toast.success('MyDispatch wurde installiert!');
+
+    if (outcome === "accepted") {
+      toast.success("MyDispatch wurde installiert!");
     }
-    
+
     setDeferredPrompt(null);
     setIsInstallable(false);
   };
-  
+
   return { isInstallable, promptInstall };
 }
 ```
@@ -523,6 +535,7 @@ export function usePWAInstall() {
 ## 📐 Blueprint 7: Audit Logs System
 
 ### Datenbank-Schema
+
 ```sql
 CREATE TABLE audit_logs (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -544,6 +557,7 @@ CREATE INDEX idx_audit_logs_user ON audit_logs(user_id, created_at DESC);
 ```
 
 ### Logging-Middleware
+
 ```typescript
 // src/lib/audit-logger.ts
 export async function logAuditEvent({
@@ -555,12 +569,12 @@ export async function logAuditEvent({
 }: AuditEvent) {
   const { user } = await supabase.auth.getUser();
   const { profile } = await supabase
-    .from('profiles')
-    .select('company_id')
-    .eq('user_id', user.id)
+    .from("profiles")
+    .select("company_id")
+    .eq("user_id", user.id)
     .single();
-  
-  await supabase.from('audit_logs').insert({
+
+  await supabase.from("audit_logs").insert({
     company_id: profile.company_id,
     user_id: user.id,
     action,
@@ -575,8 +589,8 @@ export async function logAuditEvent({
 
 // Verwendung
 await logAuditEvent({
-  action: 'update',
-  entityType: 'booking',
+  action: "update",
+  entityType: "booking",
   entityId: booking.id,
   oldData: oldBooking,
   newData: newBooking,
@@ -588,6 +602,7 @@ await logAuditEvent({
 ## 🎯 Implementierungs-Reihenfolge
 
 ### SPRINT 1 (P0) - 5 Tage
+
 1. ✅ Datenbank-Indizes erstellen
 2. ✅ React Query Integration
 3. ✅ Error Handling + Retry
@@ -595,6 +610,7 @@ await logAuditEvent({
 5. ✅ Global Search (Basic)
 
 ### SPRINT 2 (P1) - 7 Tage
+
 6. ✅ AI Smart Routing
 7. ✅ Auto-Assignment
 8. ✅ PDF/Excel Export
@@ -602,6 +618,7 @@ await logAuditEvent({
 10. ✅ ETA-Updates
 
 ### SPRINT 3 (P2) - 7 Tage
+
 11. ✅ PWA Installation
 12. ✅ Weather-Alerts
 13. ✅ Traffic-Based-Pricing

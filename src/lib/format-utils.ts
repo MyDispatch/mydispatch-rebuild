@@ -9,9 +9,9 @@
  * ==================================================================================
  */
 
-import { format, parseISO } from 'date-fns';
-import { de } from 'date-fns/locale';
-import { logger } from '@/lib/logger';
+import { format, parseISO } from "date-fns";
+import { de } from "date-fns/locale";
+import { logger } from "@/lib/logger";
 
 /**
  * Währung formatieren (DIN 5008)
@@ -19,12 +19,12 @@ import { logger } from '@/lib/logger';
  */
 export function formatCurrency(amount: number | null | undefined): string {
   if (amount === null || amount === undefined) {
-    return '0,00 €';
+    return "0,00 €";
   }
-  
-  return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
+
+  return new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
   }).format(amount);
 }
 
@@ -33,14 +33,14 @@ export function formatCurrency(amount: number | null | undefined): string {
  * @example formatDate('2025-01-18') => "18.01.2025"
  */
 export function formatDate(dateString: string | null | undefined): string {
-  if (!dateString) return '-';
-  
+  if (!dateString) return "-";
+
   try {
-    const date = typeof dateString === 'string' ? parseISO(dateString) : dateString;
-    return format(date, 'dd.MM.yyyy', { locale: de });
+    const date = typeof dateString === "string" ? parseISO(dateString) : dateString;
+    return format(date, "dd.MM.yyyy", { locale: de });
   } catch (error) {
-    logger.error('Date formatting error', error as Error, { component: 'formatDate', dateString });
-    return '-';
+    logger.error("Date formatting error", error as Error, { component: "formatDate", dateString });
+    return "-";
   }
 }
 
@@ -49,14 +49,17 @@ export function formatDate(dateString: string | null | undefined): string {
  * @example formatDateTime('2025-01-18T14:30:00Z') => "18.01.2025 14:30"
  */
 export function formatDateTime(dateString: string | null | undefined): string {
-  if (!dateString) return '-';
-  
+  if (!dateString) return "-";
+
   try {
-    const date = typeof dateString === 'string' ? parseISO(dateString) : dateString;
-    return format(date, 'dd.MM.yyyy HH:mm', { locale: de });
+    const date = typeof dateString === "string" ? parseISO(dateString) : dateString;
+    return format(date, "dd.MM.yyyy HH:mm", { locale: de });
   } catch (error) {
-    logger.error('DateTime formatting error', error as Error, { component: 'formatDateTime', dateString });
-    return '-';
+    logger.error("DateTime formatting error", error as Error, {
+      component: "formatDateTime",
+      dateString,
+    });
+    return "-";
   }
 }
 
@@ -65,14 +68,14 @@ export function formatDateTime(dateString: string | null | undefined): string {
  * @example formatTime('2025-01-18T14:30:00Z') => "14:30"
  */
 export function formatTime(dateString: string | null | undefined): string {
-  if (!dateString) return '-';
-  
+  if (!dateString) return "-";
+
   try {
-    const date = typeof dateString === 'string' ? parseISO(dateString) : dateString;
-    return format(date, 'HH:mm', { locale: de });
+    const date = typeof dateString === "string" ? parseISO(dateString) : dateString;
+    return format(date, "HH:mm", { locale: de });
   } catch (error) {
-    logger.error('Time formatting error', error as Error, { component: 'formatTime', dateString });
-    return '-';
+    logger.error("Time formatting error", error as Error, { component: "formatTime", dateString });
+    return "-";
   }
 }
 
@@ -81,11 +84,11 @@ export function formatTime(dateString: string | null | undefined): string {
  */
 export function formatBookingStatus(status: string): string {
   const labelMap: Record<string, string> = {
-    pending: 'Ausstehend',
-    confirmed: 'Bestätigt',
-    in_progress: 'In Bearbeitung',
-    completed: 'Abgeschlossen',
-    cancelled: 'Storniert',
+    pending: "Ausstehend",
+    confirmed: "Bestätigt",
+    in_progress: "In Bearbeitung",
+    completed: "Abgeschlossen",
+    cancelled: "Storniert",
   };
   return labelMap[status] || status;
 }
@@ -95,11 +98,11 @@ export function formatBookingStatus(status: string): string {
  */
 export function formatInvoiceStatus(status: string): string {
   const labelMap: Record<string, string> = {
-    draft: 'Entwurf',
-    sent: 'Versendet',
-    paid: 'Bezahlt',
-    overdue: 'Überfällig',
-    cancelled: 'Storniert',
+    draft: "Entwurf",
+    sent: "Versendet",
+    paid: "Bezahlt",
+    overdue: "Überfällig",
+    cancelled: "Storniert",
   };
   return labelMap[status] || status;
 }
@@ -109,11 +112,11 @@ export function formatInvoiceStatus(status: string): string {
  */
 export function formatOfferStatus(status: string): string {
   const labelMap: Record<string, string> = {
-    draft: 'Entwurf',
-    sent: 'Versendet',
-    accepted: 'Angenommen',
-    declined: 'Abgelehnt',
-    expired: 'Abgelaufen',
+    draft: "Entwurf",
+    sent: "Versendet",
+    accepted: "Angenommen",
+    declined: "Abgelehnt",
+    expired: "Abgelaufen",
   };
   return labelMap[status] || status;
 }
@@ -123,10 +126,10 @@ export function formatOfferStatus(status: string): string {
  */
 export function formatShiftStatus(status: string): string {
   const labelMap: Record<string, string> = {
-    available: 'Verfügbar',
-    busy: 'Beschäftigt',
-    on_break: 'Pause',
-    offline: 'Offline',
+    available: "Verfügbar",
+    busy: "Beschäftigt",
+    on_break: "Pause",
+    offline: "Offline",
   };
   return labelMap[status] || status;
 }
@@ -136,10 +139,10 @@ export function formatShiftStatus(status: string): string {
  */
 export function formatPaymentStatus(status: string): string {
   const labelMap: Record<string, string> = {
-    pending: 'Ausstehend',
-    paid: 'Bezahlt',
-    failed: 'Fehlgeschlagen',
-    refunded: 'Erstattet',
+    pending: "Ausstehend",
+    paid: "Bezahlt",
+    failed: "Fehlgeschlagen",
+    refunded: "Erstattet",
   };
   return labelMap[status] || status;
 }
@@ -149,31 +152,31 @@ export function formatPaymentStatus(status: string): string {
  */
 export function formatVehicleClass(vehicleClass: string): string {
   const labelMap: Record<string, string> = {
-    'Standard Class': 'Standard',
-    'Business Class': 'Business',
-    'First Class': 'First',
-    'Van': 'Van',
-    'Bus': 'Bus',
+    "Standard Class": "Standard",
+    "Business Class": "Business",
+    "First Class": "First",
+    Van: "Van",
+    Bus: "Bus",
   };
   return labelMap[vehicleClass] || vehicleClass;
 }
 
 /**
  * Kombiniert Vor- und Nachnamen zu einem vollständigen Namen.
- * 
+ *
  * @example
  * getFullName('Max', 'Mustermann') // "Max Mustermann"
  * getFullName('Max', null) // "Max"
  * getFullName(null, null) // "Unbekannt"
- * 
+ *
  * WICHTIG: Weitere Name-Formatierungs-Funktionen in string-utils.ts:
  * - getInitials(firstName, lastName) → "MM"
  * - formatName(firstName, lastName, options) → Advanced formatting
  * - capitalizeWords(text) → "Max Mustermann"
  */
 export function getFullName(firstName: string | null, lastName: string | null): string {
-  if (!firstName && !lastName) return 'Unbekannt';
-  return [firstName, lastName].filter(Boolean).join(' ');
+  if (!firstName && !lastName) return "Unbekannt";
+  return [firstName, lastName].filter(Boolean).join(" ");
 }
 
 /**
@@ -181,10 +184,12 @@ export function getFullName(firstName: string | null, lastName: string | null): 
  * @example formatPercentage(99.8) => "99,8 %"
  */
 export function formatPercentage(value: number): string {
-  return value.toLocaleString('de-DE', {
-    minimumFractionDigits: 1,
-    maximumFractionDigits: 2,
-  }) + ' %'; // Leerzeichen vor %
+  return (
+    value.toLocaleString("de-DE", {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 2,
+    }) + " %"
+  ); // Leerzeichen vor %
 }
 
 /**
@@ -201,16 +206,16 @@ export function formatMilliseconds(value: number): string {
  * @example formatNumber(1234) => "1.234"
  */
 export function formatNumber(value: number): string {
-  return value.toLocaleString('de-DE');
+  return value.toLocaleString("de-DE");
 }
 
 /**
  * Formatiert relative Zeitangaben
  * @example formatRelativeTime(2, 'hours') => "vor 2 Stunden"
  */
-export function formatRelativeTime(value: number, unit: 'hours' | 'day' | 'days'): string {
+export function formatRelativeTime(value: number, unit: "hours" | "day" | "days"): string {
   const translations = {
-    hours: value === 1 ? 'vor 1 Stunde' : `vor ${value} Stunden`,
+    hours: value === 1 ? "vor 1 Stunde" : `vor ${value} Stunden`,
     day: `vor ${value} Tag`,
     days: `vor ${value} Tagen`,
   };

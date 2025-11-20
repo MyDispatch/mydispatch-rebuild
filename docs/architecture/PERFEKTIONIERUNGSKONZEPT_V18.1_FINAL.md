@@ -1,7 +1,9 @@
 # 🚀 MyDispatch Perfektionierungskonzept V18.1 FINAL
+
 **Gesamtkonzept für maximale Nutzerfreundlichkeit, Konsistenz und Effizienz**
 
 ## 📋 Inhaltsverzeichnis
+
 1. [Vision & Ziele](#vision--ziele)
 2. [Ist-Analyse aller Bereiche](#ist-analyse-aller-bereiche)
 3. [Konsistenz-Standards](#konsistenz-standards)
@@ -14,6 +16,7 @@
 ## 🎯 Vision & Ziele
 
 ### Kernziele
+
 1. **100% Konsistenz** - Jede Seite folgt identischen Patterns
 2. **GPS-First** - Echtzeit-Tracking in allen relevanten Bereichen
 3. **Effizienz-Maximum** - Weniger Klicks, mehr Übersicht
@@ -21,6 +24,7 @@
 5. **Mobile-Perfect** - Jeder Screen optimal auf Mobile
 
 ### Messbare KPIs
+
 - **Klicks pro Aktion**: Max. 3 Klicks zu jeder Funktion
 - **Ladezeit**: < 2 Sekunden pro Seitenwechsel
 - **GPS-Latency**: < 3 Sekunden Positions-Update
@@ -36,18 +40,21 @@
 **Status:** ✅ 85% - Gut, aber GPS-Integration fehlt
 
 **Aktuelle Features:**
+
 - Live-KPIs (Aufträge, Fahrer, Fahrzeuge, Umsatz)
 - Quick-Actions
 - Partner-Anfragen Badge
 - Weather/Traffic Widgets
 
 **Fehlende Funktionen:**
+
 - ❌ Live-Map mit Fahrzeug-Tracking
 - ❌ Aktive Aufträge mit ETA-Anzeige
 - ❌ Fahrer-Status-Übersicht mit GPS
 - ❌ Echtzeit-Benachrichtigungen
 
 **Optimierungen:**
+
 ```typescript
 // Dashboard Layout - 3-Spalten-Grid
 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -57,10 +64,10 @@
     <QuickActions />
     <ActiveBookings />
   </div>
-  
+
   {/* Spalte 2: Live-Map (2x größer) */}
   <div className="lg:col-span-2">
-    <LiveMap 
+    <LiveMap
       drivers={activeDrivers}
       bookings={activeBookings}
       showRoutes={true}
@@ -84,6 +91,7 @@
 **Status:** ✅ 90% - Sehr gut, GPS-Erweiterung nötig
 
 **Aktuelle Features:**
+
 - CRUD für Aufträge
 - Status-Änderungen (Ampel-System)
 - Filter & Suche
@@ -91,12 +99,14 @@
 - StandardActionButtons
 
 **Fehlende Funktionen:**
+
 - ❌ Live-ETA während Fahrt
 - ❌ Fahrer-Position auf Karte
 - ❌ Kunden-Tracking-Link generieren
 - ❌ Route-Optimierung für mehrere Aufträge
 
 **Optimierungen:**
+
 ```typescript
 // Auftrags-Detailansicht mit GPS
 <DetailDialog>
@@ -131,6 +141,7 @@
 ```
 
 **Neue Features:**
+
 1. **Live-ETA-Tracking** - Aktualisierung alle 30s während Fahrt
 2. **Kunden-Benachrichtigung** - Automatischer SMS/E-Mail-Versand mit Tracking-Link
 3. **Route-Optimierung** - Mehrere Aufträge optimal routen
@@ -143,17 +154,20 @@
 **Status:** ✅ 80% - Gut, ETA-Berechnung fehlt
 
 **Aktuelle Features:**
+
 - CRUD für Angebote
 - Umwandlung in Auftrag
 - Provisions-Berechnung
 - StandardActionButtons
 
 **Fehlende Funktionen:**
+
 - ❌ Echtzeit-ETA bei Angebots-Erstellung
 - ❌ Verkehrslage-basierte Preis-Anpassung
 - ❌ Alternative Routen vorschlagen
 
 **Optimierungen:**
+
 ```typescript
 // Angebots-Formular mit HERE API Integration
 <UnifiedForm>
@@ -165,7 +179,7 @@
       calculateETA(address, dropoffAddress);
     }}
   />
-  
+
   {/* Live-ETA-Anzeige */}
   {eta && (
     <Card className="bg-primary/5 p-4">
@@ -181,7 +195,7 @@
       </div>
     </Card>
   )}
-  
+
   {/* Preis-Kalkulation mit Verkehrs-Zuschlag */}
   <div className="grid grid-cols-2 gap-4">
     <div>
@@ -203,23 +217,26 @@
 **Status:** ✅ 85% - Gut, automatische Fahrt-Details fehlen
 
 **Aktuelle Features:**
+
 - CRUD für Rechnungen
 - PDF-Export
 - Zahlungserinnerungen
 - StandardActionButtons
 
 **Fehlende Funktionen:**
+
 - ❌ Automatische GPS-Daten in Rechnung (Fahrtstrecke, Dauer)
 - ❌ Fahrt-Nachweis mit Route-Map
 - ❌ Kilometerstand aus GPS berechnen
 
 **Optimierungen:**
+
 ```typescript
 // Rechnungs-Details mit GPS-Nachweis
 <PDFExportDialog>
   {/* Rechnungskopf */}
   <InvoiceHeader company={company} customer={customer} />
-  
+
   {/* Fahrt-Details aus GPS */}
   <div className="my-6 p-4 border rounded-lg">
     <h3 className="font-semibold mb-2">Fahrtnachweis</h3>
@@ -239,7 +256,7 @@
         </p>
       </div>
     </div>
-    
+
     {/* GPS-generierte Daten */}
     <div className="grid grid-cols-3 gap-4 mt-4">
       <div>
@@ -261,13 +278,13 @@
         </p>
       </div>
     </div>
-    
+
     {/* Mini-Map mit Route */}
     <div className="h-48 mt-4 rounded-lg overflow-hidden">
       <StaticRouteMap route={gpsData.routePoints} />
     </div>
   </div>
-  
+
   {/* Rechnungs-Positionen */}
   <InvoiceItems items={invoiceItems} />
 </PDFExportDialog>
@@ -280,23 +297,26 @@
 **Status:** ✅ 90% - Sehr gut, GPS-History fehlt
 
 **Aktuelle Features:**
+
 - CRUD für Kunden
 - Inline-Erstellung in Aufträgen
 - Adress-Autocomplete
 - StandardActionButtons
 
 **Fehlende Funktionen:**
+
 - ❌ Häufigste Abholorte (GPS-basiert)
 - ❌ Fahrt-History mit Karte
 - ❌ Stammkunden-Routen-Optimierung
 
 **Optimierungen:**
+
 ```typescript
 // Kunden-Detailansicht mit GPS-Insights
 <DetailDialog>
   {/* Header */}
   <CustomerHeader customer={customer} />
-  
+
   {/* Tabs */}
   <Tabs defaultValue="info">
     <TabsList>
@@ -305,7 +325,7 @@
       <TabsTrigger value="locations">Orte</TabsTrigger>
       <TabsTrigger value="history">Fahrt-History</TabsTrigger>
     </TabsList>
-    
+
     {/* Tab: Häufigste Orte (GPS-basiert) */}
     <TabsContent value="locations">
       <Card>
@@ -338,7 +358,7 @@
         </CardContent>
       </Card>
     </TabsContent>
-    
+
     {/* Tab: Fahrt-History mit Karte */}
     <TabsContent value="history">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -350,7 +370,7 @@
             </div>
           </CardContent>
         </Card>
-        
+
         {/* Liste */}
         <Card>
           <CardHeader>
@@ -388,18 +408,21 @@
 **Status:** ✅ 75% - Gut, GPS-Tracking-Integration fehlt
 
 **Aktuelle Features:**
+
 - CRUD für Fahrer
 - Schicht-Status
 - Dokumente-Verwaltung
 - StandardActionButtons
 
 **Fehlende Funktionen:**
+
 - ❌ Live-GPS-Position auf Karte
 - ❌ Echtzeit-Schicht-Tracking
 - ❌ Performance-Analyse (gefahrene km, Aufträge)
 - ❌ Fahrer-App-Zugang direkt zuweisen
 
 **Optimierungen:**
+
 ```typescript
 // Fahrer-Übersicht mit GPS-Status
 <StandardPageLayout
@@ -426,7 +449,7 @@
       </div>
     </CardContent>
   </Card>
-  
+
   {/* Fahrer-Liste mit GPS-Status */}
   <DriversTable
     drivers={drivers}
@@ -439,14 +462,14 @@
           "h-2 w-2 rounded-full",
           driver.gps_active ? "bg-status-success" : "bg-status-error"
         )} />
-        
+
         {/* Letzte Position */}
         {driver.last_position && (
           <span className="text-xs text-muted-foreground">
             Aktualisiert vor {getTimeSince(driver.last_position.timestamp)}
           </span>
         )}
-        
+
         {/* Tracking-Link */}
         <Button
           size="sm"
@@ -462,6 +485,7 @@
 ```
 
 **Neue Komponente: DriverDetailsDialog mit GPS**
+
 ```typescript
 // src/components/drivers/DriverDetailsDialog.tsx
 <DetailDialog>
@@ -472,7 +496,7 @@
       <TabsTrigger value="tracking">GPS-Tracking</TabsTrigger>
       <TabsTrigger value="performance">Performance</TabsTrigger>
     </TabsList>
-    
+
     {/* GPS-Tracking Tab */}
     <TabsContent value="tracking">
       <div className="space-y-6">
@@ -489,7 +513,7 @@
                 zoom={15}
               />
             </div>
-            
+
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label>Letztes Update</Label>
@@ -502,7 +526,7 @@
             </div>
           </CardContent>
         </Card>
-        
+
         {/* GPS-Einstellungen */}
         <Card>
           <CardHeader>
@@ -517,14 +541,14 @@
                   disabled
                 />
               </div>
-              
+
               <div>
                 <Label>Tracking-Intervall</Label>
                 <p className="text-sm text-muted-foreground">
                   Alle 10 Sekunden während Schicht
                 </p>
               </div>
-              
+
               <Button
                 variant="outline"
                 onClick={() => sendTrackingInvitation(driver)}
@@ -536,7 +560,7 @@
         </Card>
       </div>
     </TabsContent>
-    
+
     {/* Performance Tab */}
     <TabsContent value="performance">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -561,7 +585,7 @@
             </div>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardHeader>
             <CardTitle>Diesen Monat</CardTitle>
@@ -598,18 +622,21 @@
 **Status:** ✅ 80% - Gut, GPS-Tracking fehlt komplett
 
 **Aktuelle Features:**
+
 - CRUD für Fahrzeuge
 - Fahrzeugklassen
 - Dokumente-Verwaltung
 - StandardActionButtons
 
 **Fehlende Funktionen:**
+
 - ❌ Echtzeit-Position (über aktuellen Fahrer)
 - ❌ Kilometerstand-Tracking (GPS-basiert)
 - ❌ Wartungs-Erinnerungen basierend auf km
 - ❌ Fahrzeug-History mit Routen
 
 **Optimierungen:**
+
 ```typescript
 // Fahrzeug-Detailansicht mit GPS
 <DetailDialog>
@@ -620,7 +647,7 @@
       <TabsTrigger value="history">Fahrt-History</TabsTrigger>
       <TabsTrigger value="maintenance">Wartung</TabsTrigger>
     </TabsList>
-    
+
     {/* GPS-Position Tab */}
     <TabsContent value="tracking">
       {currentDriver ? (
@@ -640,7 +667,7 @@
                 zoom={15}
               />
             </div>
-            
+
             <div className="grid grid-cols-3 gap-4">
               <div>
                 <Label>Geschwindigkeit</Label>
@@ -665,7 +692,7 @@
         />
       )}
     </TabsContent>
-    
+
     {/* Wartung Tab mit GPS-basierten km */}
     <TabsContent value="maintenance">
       <Card>
@@ -683,12 +710,12 @@
                 Automatisch erfasst
               </p>
             </div>
-            
+
             <div>
               <Label>Letzte Wartung</Label>
               <p>{formatNumber(vehicle.last_maintenance_mileage)} km</p>
             </div>
-            
+
             <div>
               <Label>Nächste Wartung fällig bei</Label>
               <p>{formatNumber(vehicle.next_maintenance_mileage)} km</p>
@@ -696,7 +723,7 @@
                 In {vehicle.next_maintenance_mileage - vehicle.gps_mileage} km
               </p>
             </div>
-            
+
             {/* Wartungs-Warnung */}
             {vehicle.gps_mileage >= vehicle.next_maintenance_mileage - 500 && (
               <Alert variant="warning">
@@ -722,17 +749,20 @@
 **Status:** ✅ 85% - Gut, GPS-Ressourcen-Sharing fehlt
 
 **Aktuelle Features:**
+
 - Partner-Anfragen
 - Verbindungen
 - Provisions-Berechnung
 - Ressourcen-Sharing (Fahrer/Fahrzeuge)
 
 **Fehlende Funktionen:**
+
 - ❌ Echtzeit-Verfügbarkeit von Partner-Ressourcen
 - ❌ Partner-Fahrer auf eigener Karte
 - ❌ GPS-basierte Zuweisung (nächster Partner-Fahrer)
 
 **Optimierungen:**
+
 ```typescript
 // Partner-Übersicht mit GPS-Ressourcen
 <StandardPageLayout title="Partner">
@@ -755,7 +785,7 @@
       </div>
     </CardContent>
   </Card>
-  
+
   {/* Partner-Liste */}
   <PartnersTable
     partners={partners}
@@ -789,16 +819,19 @@
 **Status:** ✅ 85% - Gut, GPS-Integration fehlt
 
 **Aktuelle Features:**
+
 - Schichtplanung
 - Fahrer-/Fahrzeug-Zuweisung
 - Bestätigung durch Fahrer
 
 **Fehlende Funktionen:**
+
 - ❌ Automatische km-Erfassung aus GPS
 - ❌ Echtzeit-Schicht-Tracking
 - ❌ Automatische Pause-Erkennung
 
 **Optimierungen:**
+
 ```typescript
 // Schicht-Detailansicht mit GPS
 <DetailDialog>
@@ -813,12 +846,12 @@
           {formatDate(shift.date)} • {shift.shift_start_time} - {shift.shift_end_time}
         </p>
       </div>
-      <StatusIndicator 
-        status={shift.confirmed_by_driver ? 'success' : 'warning'} 
+      <StatusIndicator
+        status={shift.confirmed_by_driver ? 'success' : 'warning'}
         label={shift.confirmed_by_driver ? 'Bestätigt' : 'Ausstehend'}
       />
     </div>
-    
+
     {/* GPS-Tracking während Schicht */}
     {shift.is_active && (
       <Card>
@@ -834,7 +867,7 @@
               showStartEndMarkers={true}
             />
           </div>
-          
+
           <div className="grid grid-cols-4 gap-4">
             <div>
               <Label>Gefahrene km</Label>
@@ -864,7 +897,7 @@
         </CardContent>
       </Card>
     )}
-    
+
     {/* GPS-generierte Kilometer */}
     <Card>
       <CardHeader>
@@ -891,7 +924,7 @@
             </p>
           </div>
         </div>
-        
+
         <div className="mt-4 p-3 bg-primary/5 rounded-lg">
           <p className="text-sm text-muted-foreground">
             ℹ️ Kilometerstände werden automatisch aus GPS-Daten erfasst
@@ -899,7 +932,7 @@
         </div>
       </CardContent>
     </Card>
-    
+
     {/* Aufträge während Schicht */}
     <Card>
       <CardHeader>
@@ -938,17 +971,20 @@
 **Status:** ✅ 90% - Sehr gut, GPS-Sharing fehlt
 
 **Aktuelle Features:**
+
 - WhatsApp-ähnlicher Chat
 - Audio/Video-Calls (Daily.co)
 - Datei-Upload
 - Realtime-Updates
 
 **Fehlende Funktionen:**
+
 - ❌ Position im Chat teilen
 - ❌ "Ich bin unterwegs"-Nachricht mit ETA
 - ❌ Automatische Benachrichtigungen bei GPS-Events
 
 **Optimierungen:**
+
 ```typescript
 // Chat-Fenster mit GPS-Sharing
 <ChatWindow conversationId={conversationId}>
@@ -961,18 +997,18 @@
     >
       <MapPin className="h-4 w-4" />
     </Button>
-    
+
     <Input
       placeholder="Nachricht schreiben..."
       value={message}
       onChange={(e) => setMessage(e.target.value)}
     />
-    
+
     <Button onClick={handleSend}>
       Senden
     </Button>
   </div>
-  
+
   {/* GPS-Location-Message-Type */}
   {message.type === 'location' && (
     <div className="p-4 bg-primary/5 rounded-lg">
@@ -1002,7 +1038,7 @@
       </div>
     </div>
   )}
-  
+
   {/* ETA-Message-Type */}
   {message.type === 'eta' && (
     <div className="p-4 bg-primary/5 rounded-lg">
@@ -1030,16 +1066,19 @@
 **Status:** ✅ 85% - Gut, GPS-Daten-Integration fehlt
 
 **Aktuelle Features:**
+
 - E-Mail-Vorlagen
 - Brief-Erstellung
 - Resend.com-Integration
 
 **Fehlende Funktionen:**
+
 - ❌ Fahrtnachweis per E-Mail mit Karte
 - ❌ GPS-Daten in E-Mail-Templates
 - ❌ Automatische Kunden-Benachrichtigung bei Fahrt-Start
 
 **Optimierungen:**
+
 ```typescript
 // E-Mail-Template mit GPS-Daten
 const EMAIL_TEMPLATE_BOOKING_STARTED = `
@@ -1075,10 +1114,10 @@ const sendBookingStartedEmail = async (booking: Booking) => {
   const eta = await calculateETA(booking.pickup_address, booking.current_driver_position);
   const trackingUrl = await generateCustomerTrackingLink(booking.id);
   const staticMapUrl = await generateStaticMap(booking.route);
-  
-  await supabase.functions.invoke('send-template-email', {
+
+  await supabase.functions.invoke("send-template-email", {
     body: {
-      template: 'booking_started',
+      template: "booking_started",
       to: booking.customer.email,
       data: {
         customer_salutation: booking.customer.salutation,
@@ -1092,9 +1131,9 @@ const sendBookingStartedEmail = async (booking: Booking) => {
         tracking_url: trackingUrl,
         static_map_url: staticMapUrl,
         company_phone: booking.company.phone,
-        company_name: booking.company.name
-      }
-    }
+        company_name: booking.company.name,
+      },
+    },
   });
 };
 ```
@@ -1106,16 +1145,19 @@ const sendBookingStartedEmail = async (booking: Booking) => {
 **Status:** ✅ 80% - Gut, GPS-bezogene Dokumente fehlen
 
 **Aktuelle Features:**
+
 - Dokumente-Upload
 - Ablauf-Erinnerungen
 - Entitäts-Zuordnung
 
 **Fehlende Funktionen:**
+
 - ❌ Fahrtnachweis-Dokumente (GPS-generiert)
 - ❌ Schicht-Reports mit Routen-Karte
 - ❌ Automatische PDF-Generierung aus GPS-Daten
 
 **Optimierungen:**
+
 ```typescript
 // Dokumente mit GPS-Kategorie
 <StandardPageLayout title="Dokumente">
@@ -1134,13 +1176,13 @@ const sendBookingStartedEmail = async (booking: Booking) => {
         <SelectItem value="shift_report">Schicht-Report (GPS)</SelectItem>
       </SelectContent>
     </Select>
-    
+
     <Button onClick={handleGenerateTripReport}>
       <FileText className="h-4 w-4 mr-2" />
       Fahrtnachweis generieren
     </Button>
   </div>
-  
+
   {/* Dokumente-Tabelle */}
   <DocumentsTable documents={documents} />
 </StandardPageLayout>
@@ -1149,7 +1191,7 @@ const sendBookingStartedEmail = async (booking: Booking) => {
 const generateTripReport = async (bookingId: string) => {
   const booking = await getBooking(bookingId);
   const gpsData = await getGPSDataForBooking(bookingId);
-  
+
   const pdfContent = `
     <!DOCTYPE html>
     <html>
@@ -1171,7 +1213,7 @@ const generateTripReport = async (bookingId: string) => {
         <p>Auftrag-Nr: ${booking.id}</p>
         <p>Datum: ${formatDate(booking.pickup_time)}</p>
       </div>
-      
+
       <div class="section">
         <h2>Fahrt-Details</h2>
         <table>
@@ -1205,12 +1247,12 @@ const generateTripReport = async (bookingId: string) => {
           </tr>
         </table>
       </div>
-      
+
       <div class="section">
         <h2>Route</h2>
         <img src="${gpsData.staticMapUrl}" alt="Route" class="map" />
       </div>
-      
+
       <div class="section">
         <h2>Fahrer & Fahrzeug</h2>
         <table>
@@ -1228,7 +1270,7 @@ const generateTripReport = async (bookingId: string) => {
           </tr>
         </table>
       </div>
-      
+
       <div class="section">
         <p style="text-align: center; color: #666; font-size: 12px;">
           Dieser Fahrtnachweis wurde automatisch aus GPS-Daten generiert.
@@ -1237,11 +1279,11 @@ const generateTripReport = async (bookingId: string) => {
     </body>
     </html>
   `;
-  
+
   const { data } = await supabase.functions.invoke('generate-pdf', {
     body: { html: pdfContent }
   });
-  
+
   // Dokument speichern
   await supabase.from('documents').insert({
     name: `Fahrtnachweis_${booking.id}`,
@@ -1261,17 +1303,20 @@ const generateTripReport = async (bookingId: string) => {
 **Status:** ✅ 70% - Gut, GPS-basierte Statistiken fehlen
 
 **Aktuelle Features:**
+
 - Umsatz-Charts
 - Auftrags-Trends
 - Fahrer-Performance
 
 **Fehlende Funktionen:**
+
 - ❌ GPS-basierte km-Statistiken
 - ❌ Heatmap beliebter Routen
 - ❌ Durchschnittsgeschwindigkeit-Analyse
 - ❌ Effizienz-Analysen (Leerfahrten)
 
 **Optimierungen:**
+
 ```typescript
 // Statistiken mit GPS-Insights
 <StandardPageLayout title="Statistiken">
@@ -1282,7 +1327,7 @@ const generateTripReport = async (bookingId: string) => {
       <TabsTrigger value="drivers">Fahrer</TabsTrigger>
       <TabsTrigger value="gps">GPS-Analysen</TabsTrigger>
     </TabsList>
-    
+
     {/* GPS-Analysen Tab */}
     <TabsContent value="gps">
       <div className="space-y-6">
@@ -1312,7 +1357,7 @@ const generateTripReport = async (bookingId: string) => {
             trend={gpsStats.efficiencyTrend}
           />
         </div>
-        
+
         {/* Routen-Heatmap */}
         <Card>
           <CardHeader>
@@ -1327,7 +1372,7 @@ const generateTripReport = async (bookingId: string) => {
             </div>
           </CardContent>
         </Card>
-        
+
         {/* km-Verlauf Chart */}
         <Card>
           <CardHeader>
@@ -1341,17 +1386,17 @@ const generateTripReport = async (bookingId: string) => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line 
-                  type="monotone" 
-                  dataKey="km" 
-                  stroke="hsl(var(--accent))" 
+                <Line
+                  type="monotone"
+                  dataKey="km"
+                  stroke="hsl(var(--accent))"
                   strokeWidth={2}
                 />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
-        
+
         {/* Top-Routen */}
         <Card>
           <CardHeader>
@@ -1395,6 +1440,7 @@ const generateTripReport = async (bookingId: string) => {
 **Status:** ✅ 90% - Sehr gut
 
 **Aktuelle Features:**
+
 - Unternehmensdaten
 - Landingpage-Konfigurator
 - Logo-Upload
@@ -1409,16 +1455,19 @@ const generateTripReport = async (bookingId: string) => {
 **Status:** ✅ 85% - Gut, GPS-Einstellungen fehlen
 
 **Aktuelle Features:**
+
 - Profil-Einstellungen
 - Benachrichtigungen
 - Datenschutz
 
 **Fehlende Funktionen:**
+
 - ❌ GPS-Datenschutz-Einstellungen
 - ❌ Tracking-Intervall konfigurieren
 - ❌ GPS-Daten-Retention konfigurieren
 
 **Optimierungen:**
+
 ```typescript
 // Einstellungen mit GPS-Sektion
 <Tabs defaultValue="profile">
@@ -1428,7 +1477,7 @@ const generateTripReport = async (bookingId: string) => {
     <TabsTrigger value="gps">GPS & Tracking</TabsTrigger>
     <TabsTrigger value="privacy">Datenschutz</TabsTrigger>
   </TabsList>
-  
+
   {/* GPS-Einstellungen Tab */}
   <TabsContent value="gps">
     <Card>
@@ -1457,7 +1506,7 @@ const generateTripReport = async (bookingId: string) => {
             Kürzere Intervalle verbrauchen mehr Akku
           </p>
         </div>
-        
+
         {/* Daten-Retention */}
         <div>
           <Label>GPS-Daten aufbewahren</Label>
@@ -1476,7 +1525,7 @@ const generateTripReport = async (bookingId: string) => {
             Nach Ablauf werden GPS-Daten automatisch gelöscht
           </p>
         </div>
-        
+
         {/* Fahrer-Einwilligung erzwingen */}
         <div className="flex items-center justify-between">
           <div>
@@ -1487,7 +1536,7 @@ const generateTripReport = async (bookingId: string) => {
           </div>
           <Switch checked={requireConsent} onCheckedChange={setRequireConsent} />
         </div>
-        
+
         {/* Kunden-Tracking */}
         <div className="flex items-center justify-between">
           <div>
@@ -1498,7 +1547,7 @@ const generateTripReport = async (bookingId: string) => {
           </div>
           <Switch checked={customerTracking} onCheckedChange={setCustomerTracking} />
         </div>
-        
+
         {/* GPS-Datenschutz-Hinweis */}
         <Alert>
           <Info className="h-4 w-4" />
@@ -1526,7 +1575,7 @@ const generateTripReport = async (bookingId: string) => {
 <div className="space-y-6">
   {/* Breadcrumbs */}
   <Breadcrumbs />
-  
+
   {/* Header */}
   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
     <div>
@@ -1539,7 +1588,7 @@ const generateTripReport = async (bookingId: string) => {
       {actions}
     </div>
   </div>
-  
+
   {/* Stats (optional) */}
   {stats && (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -1548,7 +1597,7 @@ const generateTripReport = async (bookingId: string) => {
       ))}
     </div>
   )}
-  
+
   {/* Filter & Search */}
   <div className="flex flex-col sm:flex-row gap-4">
     <div className="flex-1">
@@ -1561,7 +1610,7 @@ const generateTripReport = async (bookingId: string) => {
     </div>
     {filters}
   </div>
-  
+
   {/* Content */}
   {children}
 </div>
@@ -1582,7 +1631,7 @@ const generateTripReport = async (bookingId: string) => {
   >
     <Eye className="h-4 w-4" />
   </Button>
-  
+
   {/* 2. Edit (Pencil) */}
   <Button
     variant="ghost"
@@ -1591,7 +1640,7 @@ const generateTripReport = async (bookingId: string) => {
   >
     <Pencil className="h-4 w-4" />
   </Button>
-  
+
   {/* 3. Archive (Archive) - NICHT Delete! */}
   <Button
     variant="ghost"
@@ -1600,13 +1649,14 @@ const generateTripReport = async (bookingId: string) => {
   >
     <Archive className="h-4 w-4" />
   </Button>
-  
+
   {/* 4. Zusätzliche Actions (optional) */}
   {extraActions}
 </div>
 ```
 
 **Icon-Farben-Regel:**
+
 - **Standard-Icons:** `text-foreground`
 - **Hover:** `hover:text-accent`
 - **Disabled:** `text-muted-foreground`
@@ -1648,7 +1698,7 @@ const generateTripReport = async (bookingId: string) => {
     </div>
     <StatusIndicator status={status} size="lg" />
   </div>
-  
+
   {/* Quick-Actions */}
   <div className="flex gap-2 mb-6">
     <Button variant="outline" onClick={onEdit}>
@@ -1664,7 +1714,7 @@ const generateTripReport = async (bookingId: string) => {
       Exportieren
     </Button>
   </div>
-  
+
   {/* Tabs */}
   <Tabs defaultValue="info">
     <TabsList>
@@ -1672,7 +1722,7 @@ const generateTripReport = async (bookingId: string) => {
       <TabsTrigger value="history">Historie</TabsTrigger>
       <TabsTrigger value="documents">Dokumente</TabsTrigger>
     </TabsList>
-    
+
     <TabsContent value="info">
       {/* Content */}
     </TabsContent>
@@ -1689,7 +1739,7 @@ const fields: FormField[] = [
   // Standard-Felder
   { name: 'name', label: 'Name', type: 'text', required: true },
   { name: 'email', label: 'E-Mail', type: 'email' },
-  
+
   // Adress-Felder mit Autocomplete (HERE API)
   {
     name: 'address',
@@ -1707,7 +1757,7 @@ const fields: FormField[] = [
     ),
     gridSpan: 'col-span-2'
   },
-  
+
   // Weitere Felder...
 ];
 
@@ -1730,7 +1780,7 @@ return (
 ```typescript
 // Desktop → Tablet → Mobile
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  
+
 // Stack → Row
 <div className="flex flex-col sm:flex-row gap-4">
 
@@ -1863,30 +1913,30 @@ ALTER TABLE companies ADD COLUMN IF NOT EXISTS customer_tracking_enabled BOOLEAN
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const { origin, destination, transportMode = 'car' } = await req.json();
+    const { origin, destination, transportMode = "car" } = await req.json();
 
-    const url = new URL('https://router.hereapi.com/v8/routes');
-    url.searchParams.append('origin', `${origin.lat},${origin.lng}`);
-    url.searchParams.append('destination', `${destination.lat},${destination.lng}`);
-    url.searchParams.append('transportMode', transportMode);
-    url.searchParams.append('return', 'summary,polyline');
-    url.searchParams.append('apikey', Deno.env.get('HERE_API_KEY')!);
+    const url = new URL("https://router.hereapi.com/v8/routes");
+    url.searchParams.append("origin", `${origin.lat},${origin.lng}`);
+    url.searchParams.append("destination", `${destination.lat},${destination.lng}`);
+    url.searchParams.append("transportMode", transportMode);
+    url.searchParams.append("return", "summary,polyline");
+    url.searchParams.append("apikey", Deno.env.get("HERE_API_KEY")!);
 
     const response = await fetch(url.toString());
     const data = await response.json();
 
     if (!data.routes || data.routes.length === 0) {
-      throw new Error('No route found');
+      throw new Error("No route found");
     }
 
     const route = data.routes[0];
@@ -1900,19 +1950,16 @@ serve(async (req) => {
         trafficDelay: Math.round((section.summary.duration - section.summary.baseDuration) / 60),
         polyline: section.polyline,
         departureTime: section.departure.time,
-        arrivalTime: section.arrival.time
+        arrivalTime: section.arrival.time,
       }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error('ETA calculation error:', error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { 
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-      }
-    );
+    console.error("ETA calculation error:", error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
 ```
@@ -1927,17 +1974,15 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 serve(async (req) => {
   try {
     const supabase = createClient(
-      Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
     // Hole Unternehmen mit GPS-Retention-Einstellungen
-    const { data: companies } = await supabase
-      .from('companies')
-      .select('id, gps_retention_hours');
+    const { data: companies } = await supabase.from("companies").select("id, gps_retention_hours");
 
     if (!companies) {
-      throw new Error('No companies found');
+      throw new Error("No companies found");
     }
 
     let totalDeleted = 0;
@@ -1948,10 +1993,10 @@ serve(async (req) => {
       cutoffDate.setHours(cutoffDate.getHours() - retentionHours);
 
       const { error, count } = await supabase
-        .from('vehicle_positions')
+        .from("vehicle_positions")
         .delete()
-        .eq('company_id', company.id)
-        .lt('timestamp', cutoffDate.toISOString());
+        .eq("company_id", company.id)
+        .lt("timestamp", cutoffDate.toISOString());
 
       if (error) {
         console.error(`Error deleting for company ${company.id}:`, error);
@@ -1963,18 +2008,18 @@ serve(async (req) => {
     console.log(`GPS cleanup completed: ${totalDeleted} positions deleted`);
 
     return new Response(
-      JSON.stringify({ 
-        success: true, 
-        deletedCount: totalDeleted 
+      JSON.stringify({
+        success: true,
+        deletedCount: totalDeleted,
       }),
-      { headers: { 'Content-Type': 'application/json' } }
+      { headers: { "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error('GPS cleanup error:', error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    console.error("GPS cleanup error:", error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 });
 ```
@@ -1987,12 +2032,12 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
@@ -2000,25 +2045,27 @@ serve(async (req) => {
     const { bookingId, notificationType } = await req.json();
 
     const supabase = createClient(
-      Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
     // Booking-Daten laden
     const { data: booking } = await supabase
-      .from('bookings')
-      .select(`
+      .from("bookings")
+      .select(
+        `
         *,
         customer:customers(*),
         driver:drivers(*),
         vehicle:vehicles(*),
         company:companies(*)
-      `)
-      .eq('id', bookingId)
+      `
+      )
+      .eq("id", bookingId)
       .single();
 
     if (!booking) {
-      throw new Error('Booking not found');
+      throw new Error("Booking not found");
     }
 
     // Tracking-Link generieren
@@ -2026,32 +2073,32 @@ serve(async (req) => {
     const expiresAt = new Date();
     expiresAt.setHours(expiresAt.getHours() + 24);
 
-    await supabase.from('booking_tracking').insert({
+    await supabase.from("booking_tracking").insert({
       booking_id: bookingId,
       tracking_token: trackingToken,
-      expires_at: expiresAt.toISOString()
+      expires_at: expiresAt.toISOString(),
     });
 
-    const trackingUrl = `${Deno.env.get('SITE_URL')}/tracking/${trackingToken}`;
+    const trackingUrl = `${Deno.env.get("SITE_URL")}/tracking/${trackingToken}`;
 
     // E-Mail-Inhalt basierend auf Typ
-    let subject = '';
-    let body = '';
+    let subject = "";
+    let body = "";
 
     switch (notificationType) {
-      case 'driver_assigned':
-        subject = 'Ihr Fahrer wurde zugewiesen';
+      case "driver_assigned":
+        subject = "Ihr Fahrer wurde zugewiesen";
         body = `
           <h2>Ihr Fahrer ist bereit</h2>
           <p>Ihr Fahrer ${booking.driver.first_name} ${booking.driver.last_name} wurde zugewiesen.</p>
           <p><strong>Fahrzeug:</strong> ${booking.vehicle.license_plate}</p>
           <p><strong>Abholung:</strong> ${booking.pickup_address}</p>
-          <p><strong>Zeit:</strong> ${new Date(booking.pickup_time).toLocaleString('de-DE')}</p>
+          <p><strong>Zeit:</strong> ${new Date(booking.pickup_time).toLocaleString("de-DE")}</p>
         `;
         break;
-        
-      case 'driver_on_way':
-        subject = 'Ihr Fahrer ist unterwegs';
+
+      case "driver_on_way":
+        subject = "Ihr Fahrer ist unterwegs";
         body = `
           <h2>Ihr Fahrer ist auf dem Weg</h2>
           <p>${booking.driver.first_name} ist unterwegs zu Ihrem Abholort.</p>
@@ -2060,9 +2107,9 @@ serve(async (req) => {
           </a></p>
         `;
         break;
-        
-      case 'driver_arrived':
-        subject = 'Ihr Fahrer ist angekommen';
+
+      case "driver_arrived":
+        subject = "Ihr Fahrer ist angekommen";
         body = `
           <h2>Ihr Fahrer ist da!</h2>
           <p>${booking.driver.first_name} ist an Ihrem Abholort angekommen.</p>
@@ -2072,34 +2119,31 @@ serve(async (req) => {
     }
 
     // E-Mail senden
-    const { error: emailError } = await supabase.functions.invoke('send-template-email', {
+    const { error: emailError } = await supabase.functions.invoke("send-template-email", {
       body: {
         to: booking.customer.email,
         subject,
-        html: body
-      }
+        html: body,
+      },
     });
 
     if (emailError) {
-      console.error('Email error:', emailError);
+      console.error("Email error:", emailError);
     }
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         success: true,
-        trackingUrl
+        trackingUrl,
       }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error('Notification error:', error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { 
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-      }
-    );
+    console.error("Notification error:", error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
 ```
@@ -2515,7 +2559,7 @@ export function DriverTracking() {
               <div>
                 <p className="text-sm text-muted-foreground">Geschwindigkeit</p>
                 <p className="font-mono">
-                  {position.coords.speed 
+                  {position.coords.speed
                     ? `${Math.round(position.coords.speed * 3.6)} km/h`
                     : '-'}
                 </p>
@@ -2572,35 +2616,41 @@ export function DriverTracking() {
 ### Sprint 27 (7 Tage) - GPS-Integration & Konsistenz
 
 #### Tag 1-2: Backend & Database
+
 - ✅ Database-Migration (alle Tabellen)
 - ✅ Edge Functions (calculate-eta, cleanup-gps-positions, notify-customer)
 - ✅ RLS Policies
 - ✅ Cron-Job Setup (cleanup alle 6h)
 
 #### Tag 3: Core GPS Components
+
 - ✅ LiveMap Component (HERE Maps)
 - ✅ DriverTracking Page
 - ✅ GPS Consent Dialog
 
 #### Tag 4: Dashboard Integration
+
 - ✅ Dashboard mit Live-Map
 - ✅ WeatherWidget / TrafficWidget
 - ✅ ActiveBookings mit ETAs
 - ✅ DriverStatusList
 
 #### Tag 5: Auftrags-Integration
+
 - ✅ BookingDetailsDialog mit GPS
 - ✅ ETA-Berechnung in Forms
 - ✅ Tracking-Link-Generator
 - ✅ Kunden-Benachrichtigungen
 
 #### Tag 6: Fahrer/Fahrzeuge GPS
+
 - ✅ DriversTable mit GPS-Status
 - ✅ DriverDetailsDialog (Tracking-Tab)
 - ✅ VehiclesTable mit Position
 - ✅ Performance-Statistiken
 
 #### Tag 7: Schichten & Dokumente
+
 - ✅ Schichtzettel mit GPS-km
 - ✅ GPS-Fahrtnachweis-Generator
 - ✅ Statistiken GPS-Tab
@@ -2610,16 +2660,19 @@ export function DriverTracking() {
 ### Sprint 28 (5 Tage) - Konsistenz-Verbesserungen
 
 #### Tag 1-2: Layout-Standardisierung
+
 - ✅ Alle Seiten auf StandardPageLayout migrieren
 - ✅ StandardActionButtons überall einsetzen
 - ✅ EmptyStates hinzufügen
 
 #### Tag 3-4: Detail-Dialogs überarbeiten
+
 - ✅ Einheitliche Tab-Struktur
 - ✅ GPS-Tabs hinzufügen wo relevant
 - ✅ Quick-Actions in Header
 
 #### Tag 5: Mobile-Optimierungen
+
 - ✅ Alle Breakpoints prüfen
 - ✅ Sheet-Navigation für Mobile
 - ✅ Touch-Optimierungen
@@ -2629,16 +2682,19 @@ export function DriverTracking() {
 ### Sprint 29 (3 Tage) - Feinschliff & Testing
 
 #### Tag 1: Performance-Optimierung
+
 - ✅ Code Splitting
 - ✅ Lazy Loading
 - ✅ Memoization
 
 #### Tag 2: Testing
+
 - ✅ GPS-Flow End-to-End
 - ✅ Mobile-Responsiveness
 - ✅ Browser-Kompatibilität
 
 #### Tag 3: Dokumentation
+
 - ✅ User-Guide GPS-Tracking
 - ✅ Admin-Handbuch
 - ✅ API-Dokumentation
@@ -2648,6 +2704,7 @@ export function DriverTracking() {
 ## ✅ Checkliste für Go-Live
 
 ### Funktional
+
 - [ ] GPS-Tracking funktioniert auf iOS/Android
 - [ ] Kunden-Tracking-Links funktionieren
 - [ ] ETA-Berechnung präzise
@@ -2655,6 +2712,7 @@ export function DriverTracking() {
 - [ ] Alle Benachrichtigungen funktionieren
 
 ### Design
+
 - [ ] Alle Seiten mit StandardPageLayout
 - [ ] StandardActionButtons überall konsistent
 - [ ] Keine direkten Farben (nur Semantic Tokens)
@@ -2662,18 +2720,21 @@ export function DriverTracking() {
 - [ ] EmptyStates vorhanden
 
 ### Performance
+
 - [ ] Ladezeit < 2s
 - [ ] GPS-Update < 3s Latency
 - [ ] Bundle-Size < 1.5MB
 - [ ] Lighthouse Score > 90
 
 ### Sicherheit
+
 - [ ] GPS-Consent erforderlich
 - [ ] RLS Policies aktiv
 - [ ] Daten-Retention eingestellt
 - [ ] Token-basierter Kunden-Zugang
 
 ### Dokumentation
+
 - [ ] User-Guide GPS
 - [ ] Admin-Handbuch
 - [ ] API-Docs
@@ -2683,14 +2744,14 @@ export function DriverTracking() {
 
 ## 🎯 Finale KPIs (nach Umsetzung)
 
-| Metrik | Vorher | Nachher | Verbesserung |
-|--------|--------|---------|--------------|
-| Klicks zu GPS-Tracking | - | 2 | ✨ NEU |
-| Klicks zu Auftrag-Details | 3 | 2 | 33% weniger |
-| Zeit bis ETA-Anzeige | - | 1s | ✨ NEU |
-| Konsistenz-Score | 70% | 100% | +30% |
-| Mobile-Score | 85% | 100% | +15% |
-| User-Satisfaction | 80% | 95%+ | +15% |
+| Metrik                    | Vorher | Nachher | Verbesserung |
+| ------------------------- | ------ | ------- | ------------ |
+| Klicks zu GPS-Tracking    | -      | 2       | ✨ NEU       |
+| Klicks zu Auftrag-Details | 3      | 2       | 33% weniger  |
+| Zeit bis ETA-Anzeige      | -      | 1s      | ✨ NEU       |
+| Konsistenz-Score          | 70%    | 100%    | +30%         |
+| Mobile-Score              | 85%    | 100%    | +15%         |
+| User-Satisfaction         | 80%    | 95%+    | +15%         |
 
 ---
 

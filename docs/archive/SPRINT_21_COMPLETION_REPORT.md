@@ -17,66 +17,71 @@ Migration der **Office-Seite** (Dokumentvorlagen & E-Mail-Vorlagen) zu `Standard
 ## ✅ DURCHGEFÜHRTE ÄNDERUNGEN
 
 ### 1. **Import-Optimierungen**
+
 ```tsx
 // Neu importiert
-import { useMemo } from 'react';
-import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
-import { EmptyState } from '@/components/shared/EmptyState';
+import { useMemo } from "react";
+import { StandardPageLayout } from "@/components/layout/StandardPageLayout";
+import { EmptyState } from "@/components/shared/EmptyState";
 
 // Entfernt (nicht mehr benötigt)
-import { DashboardLayout } from '@/components/layout/DashboardLayout';
-import { Plus, Eye, Copy, Trash2 } from 'lucide-react'; // Ungenutzte Icons
+import { DashboardLayout } from "@/components/layout/DashboardLayout";
+import { Plus, Eye, Copy, Trash2 } from "lucide-react"; // Ungenutzte Icons
 ```
 
 ### 2. **Stats-Cards Integration**
+
 ```tsx
-const stats = useMemo(() => [
-  {
-    label: 'Dokumentvorlagen',
-    value: documentTemplates.length.toString(),
-    icon: FileText,
-  },
-  {
-    label: 'E-Mail-Vorlagen',
-    value: emailTemplates.length.toString(),
-    icon: Mail,
-  },
-  {
-    label: 'Gesamt',
-    value: (documentTemplates.length + emailTemplates.length).toString(),
-    icon: FileText,
-  },
-], [documentTemplates.length, emailTemplates.length]);
+const stats = useMemo(
+  () => [
+    {
+      label: "Dokumentvorlagen",
+      value: documentTemplates.length.toString(),
+      icon: FileText,
+    },
+    {
+      label: "E-Mail-Vorlagen",
+      value: emailTemplates.length.toString(),
+      icon: Mail,
+    },
+    {
+      label: "Gesamt",
+      value: (documentTemplates.length + emailTemplates.length).toString(),
+      icon: FileText,
+    },
+  ],
+  [documentTemplates.length, emailTemplates.length]
+);
 ```
 
 **Optimierung:**
+
 - Live-Berechnung der Statistiken
 - `useMemo` für Performance
 - Klar getrennte Kategorien
 
 ### 3. **Such-Filter-Logik mit useMemo**
+
 ```tsx
-const filteredDocuments = useMemo(() => 
-  documentTemplates.filter(t => 
-    t.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ),
+const filteredDocuments = useMemo(
+  () => documentTemplates.filter((t) => t.name.toLowerCase().includes(searchTerm.toLowerCase())),
   [documentTemplates, searchTerm]
 );
 
-const filteredEmails = useMemo(() => 
-  emailTemplates.filter(t => 
-    t.name.toLowerCase().includes(searchTerm.toLowerCase())
-  ),
+const filteredEmails = useMemo(
+  () => emailTemplates.filter((t) => t.name.toLowerCase().includes(searchTerm.toLowerCase())),
   [emailTemplates, searchTerm]
 );
 ```
 
 **Vorteile:**
+
 - Keine redundante Filterung bei jedem Render
 - Optimierte Performance
 - Klare Trennung der Filter-Logik
 
 ### 4. **EmptyState Integration**
+
 ```tsx
 // Dokumentvorlagen
 {filteredDocuments.length === 0 ? (
@@ -104,11 +109,13 @@ const filteredEmails = useMemo(() =>
 ```
 
 **Unterscheidung:**
+
 - Leerer Zustand vs. Keine Suchergebnisse
 - Kontextspezifische Nachrichten
 - Einheitliches Design
 
 ### 5. **StandardPageLayout Integration**
+
 ```tsx
 <StandardPageLayout
   title="Office"
@@ -130,12 +137,14 @@ const filteredEmails = useMemo(() =>
 ```
 
 **Besonderheiten:**
+
 - Footer mit Platzhalter-Informationen direkt im Layout
 - Suche im Header (systemweit)
 - Stats zeigen Übersicht über beide Tab-Typen
 - Tabs bleiben im Content-Bereich
 
 ### 6. **Struktur-Bereinigung**
+
 ```tsx
 // VORHER
 <Card>
@@ -166,6 +175,7 @@ const filteredEmails = useMemo(() =>
 ```
 
 **Verbesserungen:**
+
 - Redundante Such-Felder entfernt (jetzt im Header)
 - Flachere Struktur
 - Klarere Hierarchie
@@ -175,17 +185,22 @@ const filteredEmails = useMemo(() =>
 ## 🎨 DESIGN-BESONDERHEITEN
 
 ### Tab-System beibehalten
+
 Die Office-Seite hat **keine Standard-Tabelle**, sondern ein **Tab-basiertes System**:
+
 - Tab 1: Dokumentvorlagen (Card-Grid)
 - Tab 2: E-Mail-Vorlagen (Card-Liste)
 
 **Lösung:**
+
 - Tabs bleiben im Content-Bereich
 - StandardPageLayout umschließt beide Tabs
 - Suche funktioniert tab-übergreifend
 
 ### Footer mit Platzhaltern
+
 Die Platzhalter-Informationen sind **essentiell** für diese Seite:
+
 ```tsx
 footerContent={
   <div className="bg-muted/50 p-4 rounded-lg text-xs sm:text-sm text-muted-foreground">
@@ -198,6 +213,7 @@ footerContent={
 ```
 
 **Wichtig:**
+
 - Zeigt dynamische Unternehmensdaten
 - Hilft Nutzern beim Bearbeiten
 - Immer sichtbar (nicht nur bei leerem Zustand)
@@ -207,6 +223,7 @@ footerContent={
 ## 📊 MIGRATION-STATUS
 
 ### ✅ Abgeschlossen (11/11 - 100%)
+
 1. ✅ Rechnungen
 2. ✅ Kunden
 3. ✅ Aufträge
@@ -226,12 +243,14 @@ footerContent={
 ## 🚀 VORTEILE DER MIGRATION
 
 ### Nutzer-Perspektive
+
 - ✅ **Konsistente Suche** - Tab-übergreifend im Header
 - ✅ **Live-Statistiken** - Sofortige Übersicht
 - ✅ **Klare EmptyStates** - Hilfreich bei leeren Zuständen
 - ✅ **Mobile-optimiert** - Tabs stapeln korrekt
 
 ### Entwickler-Perspektive
+
 - ✅ **Performance** - `useMemo` für Filter
 - ✅ **Wartbarkeit** - StandardPageLayout
 - ✅ **Konsistenz** - Wie alle anderen Seiten
@@ -242,6 +261,7 @@ footerContent={
 ## 🧪 TESTS DURCHGEFÜHRT
 
 ### Funktionale Tests
+
 - [x] Dokumentvorlagen werden geladen
 - [x] E-Mail-Vorlagen werden geladen
 - [x] Suche funktioniert in beiden Tabs
@@ -254,11 +274,13 @@ footerContent={
 - [x] Test-E-Mail-Dialog funktioniert
 
 ### Responsive Tests
+
 - [x] Desktop (1920px) - Perfekt
 - [x] Tablet (768px) - Tabs stapeln korrekt
 - [x] Mobile (375px) - Vollständig responsiv
 
 ### Performance Tests
+
 - [x] `useMemo` verhindert unnötige Re-Renders
 - [x] Keine Lags beim Tab-Wechsel
 - [x] Schnelle Suche (< 50ms)
@@ -268,9 +290,11 @@ footerContent={
 ## 📝 NÄCHSTE SCHRITTE
 
 ### ✅ Phase 1: CRUD-Migration (ABGESCHLOSSEN!)
+
 Alle 11 CRUD-Seiten sind jetzt zu StandardPageLayout migriert! 🎉
 
 ### 🔄 Phase 2: Weitere Optimierungen (Optional)
+
 1. **Table-Komponenten harmonisieren**
    - Alle Tabellen mit einheitlichem Design
    - Mobile-Responsive-Tables überall
@@ -295,11 +319,12 @@ Alle 11 CRUD-Seiten sind jetzt zu StandardPageLayout migriert! 🎉
 ✅ **Performance** mit `useMemo`  
 ✅ **Footer** mit Platzhaltern  
 ✅ **Tab-System** beibehalten  
-✅ **Mobile-optimiert**  
+✅ **Mobile-optimiert**
 
 **ALLE 11 CRUD-SEITEN SIND JETZT KONSISTENT! 🚀**
 
 Die systemweite Migration ist **VOLLSTÄNDIG ABGESCHLOSSEN**! Alle CRUD-Bereiche verwenden jetzt:
+
 - Identische Layouts
 - Einheitliche Action-Buttons (wo zutreffend)
 - Konsistente EmptyStates

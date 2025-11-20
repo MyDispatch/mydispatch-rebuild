@@ -13,29 +13,33 @@
 **KRITISCH:** Alle Auth-Seiten (inkl. Unternehmer-Landingpages) verwenden JETZT:
 
 **Header:**
-```tsx
-import { AuthHeader } from '@/components/auth/AuthHeader';
 
-<AuthHeader 
+```tsx
+import { AuthHeader } from "@/components/auth/AuthHeader";
+
+<AuthHeader
   companyName="Unternehmensname"
   logoUrl="/path/to/logo.png" // optional
-/>
+/>;
 ```
 
 **Footer:**
-```tsx
-import { AuthFooter } from '@/components/auth/AuthFooter';
 
-<AuthFooter />
+```tsx
+import { AuthFooter } from "@/components/auth/AuthFooter";
+
+<AuthFooter />;
 ```
 
 **Eigenschaften:**
+
 - ✅ Fixed Positioning (Header oben, Footer unten)
 - ✅ EXAKT gleiches Design wie Marketing-Seiten
 - ✅ Kein Logo-Overflow (max-width + object-contain)
 - ✅ DSGVO-konforme Legal-Links
 
 **Siehe Detaildokumentation:**
+
 - `docs/HEADER_FOOTER_UNIFIED_V18.5.0.md`
 - `docs/LOGO_OVERFLOW_FIX_V18.5.0.md`
 
@@ -58,25 +62,27 @@ Optimierung des Login-/Registrierungsflusses auf Unternehmer-Landingpages nach a
 ### 1. Input-Validierung mit Zod
 
 ```typescript
-import { z } from 'zod';
+import { z } from "zod";
 
 const loginSchema = z.object({
-  email: z.string().trim().email('Ungültige E-Mail-Adresse'),
-  password: z.string().min(6, 'Passwort muss mindestens 6 Zeichen lang sein'),
+  email: z.string().trim().email("Ungültige E-Mail-Adresse"),
+  password: z.string().min(6, "Passwort muss mindestens 6 Zeichen lang sein"),
 });
 
 const signupSchema = z.object({
-  email: z.string().trim().email('Ungültige E-Mail-Adresse'),
-  password: z.string()
-    .min(8, 'Passwort muss mindestens 8 Zeichen lang sein')
+  email: z.string().trim().email("Ungültige E-Mail-Adresse"),
+  password: z
+    .string()
+    .min(8, "Passwort muss mindestens 8 Zeichen lang sein")
     .refine(validateSecurePassword, (val) => ({
-      message: getPasswordErrorMessage(val)
+      message: getPasswordErrorMessage(val),
     })),
   // weitere Felder...
 });
 ```
 
 **Regeln:**
+
 - ✅ Client-side Validation mit Zod IMMER vor API-Calls
 - ✅ `.trim()` auf allen String-Inputs (entfernt Leerzeichen)
 - ✅ `.email()` für E-Mail-Validierung
@@ -101,6 +107,7 @@ export const validateSecurePassword = (password: string): boolean => {
 ```
 
 **Requirements:**
+
 - ✅ Min. 8 Zeichen
 - ✅ Min. 1 Großbuchstabe
 - ✅ Min. 1 Kleinbuchstabe
@@ -108,9 +115,11 @@ export const validateSecurePassword = (password: string): boolean => {
 - ✅ Min. 1 Sonderzeichen
 
 **UI-Component:**
+
 ```tsx
 <PasswordStrengthIndicator password={password} />
 ```
+
 - Live-Feedback während Eingabe
 - Visueller Stärke-Indikator (rot/gelb/grün)
 - Checkliste der Requirements
@@ -121,14 +130,15 @@ export const validateSecurePassword = (password: string): boolean => {
 
 ```typescript
 // ❌ VERBOTEN - Security-Leak!
-console.log('Login attempt:', email, password);
-console.log('Session:', session);
+console.log("Login attempt:", email, password);
+console.log("Session:", session);
 
 // ✅ ERLAUBT - Nur Fehler-Typen
-console.error('Auth error:', error.message); // NUR message, nicht full error
+console.error("Auth error:", error.message); // NUR message, nicht full error
 ```
 
 **Regel:**
+
 - ❌ NIEMALS Passwörter, Tokens, Sessions in Console loggen
 - ❌ NIEMALS vollständige Error-Objects (können Tokens enthalten)
 - ✅ NUR `error.message` für Debugging
@@ -148,17 +158,18 @@ if (session) {
   // IMMER Session UND User speichern
   setSession(session);
   setUser(session.user);
-  
+
   // Redirect basierend auf Company-Mode
-  if (searchParams.get('mode') === 'customer') {
-    navigate('/portal'); // Kunden-Portal
+  if (searchParams.get("mode") === "customer") {
+    navigate("/portal"); // Kunden-Portal
   } else {
-    navigate('/dashboard'); // Unternehmer-Dashboard
+    navigate("/dashboard"); // Unternehmer-Dashboard
   }
 }
 ```
 
 **Wichtig:**
+
 - ✅ Session UND User speichern (nicht nur User!)
 - ✅ `emailRedirectTo` bei Signup setzen (PFLICHT!)
 - ✅ `onAuthStateChange` Listener IMMER vor `getSession()`
@@ -171,20 +182,21 @@ if (session) {
 ```typescript
 const signUp = async (email: string, password: string) => {
   const redirectUrl = `${window.location.origin}/`;
-  
+
   const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       emailRedirectTo: redirectUrl, // PFLICHT!
-    }
+    },
   });
-  
+
   return { error };
 };
 ```
 
 **Warum PFLICHT?**
+
 - Ohne `emailRedirectTo` funktioniert Email-Bestätigung nicht
 - User landet nach Bestätigung auf falscher Seite
 - `window.location.origin` funktioniert in allen Environments
@@ -196,7 +208,7 @@ const signUp = async (email: string, password: string) => {
 ### Header mit Company-Logo
 
 ```tsx
-<header 
+<header
   className="fixed top-0 left-0 right-0 z-50 h-[60px] px-6"
   style={{ backgroundColor: company.primary_color }}
 >
@@ -209,6 +221,7 @@ const signUp = async (email: string, password: string) => {
 ```
 
 **Features:**
+
 - ✅ Company-Logo oder Name
 - ✅ Primary-Color als Hintergrund
 - ✅ Responsive (Mobile: kleineres Logo)
@@ -220,25 +233,20 @@ const signUp = async (email: string, password: string) => {
 ```tsx
 <Card className="w-full max-w-md mx-auto shadow-elegant">
   <CardHeader>
-    <CardTitle className="text-2xl font-bold text-center">
-      Willkommen zurück
-    </CardTitle>
+    <CardTitle className="text-2xl font-bold text-center">Willkommen zurück</CardTitle>
     <CardDescription className="text-center">
       Melden Sie sich mit Ihren Zugangsdaten an
     </CardDescription>
   </CardHeader>
-  
-  <CardContent>
-    {/* Login-Form */}
-  </CardContent>
-  
-  <CardFooter className="flex flex-col gap-4">
-    {/* Footer-Links (AGB, Datenschutz) */}
-  </CardFooter>
+
+  <CardContent>{/* Login-Form */}</CardContent>
+
+  <CardFooter className="flex flex-col gap-4">{/* Footer-Links (AGB, Datenschutz) */}</CardFooter>
 </Card>
 ```
 
 **Design-Tokens:**
+
 - ✅ `shadow-elegant` für Card
 - ✅ `text-foreground` für Texte
 - ✅ `bg-primary hover:bg-primary-glow` für Buttons
@@ -253,21 +261,22 @@ const signUp = async (email: string, password: string) => {
 ```typescript
 const getAuthErrorMessage = (error: any): string => {
   switch (error?.message) {
-    case 'Invalid login credentials':
-      return 'E-Mail oder Passwort falsch. Bitte versuchen Sie es erneut.';
-    case 'Email not confirmed':
-      return 'Bitte bestätigen Sie Ihre E-Mail-Adresse.';
-    case 'User already registered':
-      return 'Diese E-Mail-Adresse ist bereits registriert.';
-    case 'Password should be at least 6 characters':
-      return 'Passwort muss mindestens 6 Zeichen lang sein.';
+    case "Invalid login credentials":
+      return "E-Mail oder Passwort falsch. Bitte versuchen Sie es erneut.";
+    case "Email not confirmed":
+      return "Bitte bestätigen Sie Ihre E-Mail-Adresse.";
+    case "User already registered":
+      return "Diese E-Mail-Adresse ist bereits registriert.";
+    case "Password should be at least 6 characters":
+      return "Passwort muss mindestens 6 Zeichen lang sein.";
     default:
-      return 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.';
+      return "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.";
   }
 };
 ```
 
 **Toast-Notifications:**
+
 ```tsx
 toast({
   title: "Fehler beim Login",
@@ -284,20 +293,20 @@ toast({
 
 ```tsx
 <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground">
-  <button 
-    onClick={() => openLegalDialog('impressum')}
+  <button
+    onClick={() => openLegalDialog("impressum")}
     className="hover:text-foreground transition-colors"
   >
     Impressum
   </button>
-  <button 
-    onClick={() => openLegalDialog('datenschutz')}
+  <button
+    onClick={() => openLegalDialog("datenschutz")}
     className="hover:text-foreground transition-colors"
   >
     Datenschutz
   </button>
-  <button 
-    onClick={() => openLegalDialog('agb')}
+  <button
+    onClick={() => openLegalDialog("agb")}
     className="hover:text-foreground transition-colors"
   >
     AGB
@@ -306,6 +315,7 @@ toast({
 ```
 
 **Anforderungen:**
+
 - ✅ Impressum IMMER zugänglich
 - ✅ Datenschutzerklärung IMMER zugänglich
 - ✅ AGB vor Registrierung akzeptieren lassen
@@ -316,24 +326,20 @@ toast({
 
 ```tsx
 <div className="flex items-start gap-2">
-  <Checkbox 
-    id="consent" 
-    checked={consentGiven}
-    onCheckedChange={setConsentGiven}
-  />
+  <Checkbox id="consent" checked={consentGiven} onCheckedChange={setConsentGiven} />
   <Label htmlFor="consent" className="text-sm leading-relaxed">
-    Ich akzeptiere die{' '}
-    <button 
+    Ich akzeptiere die{" "}
+    <button
       type="button"
-      onClick={() => openLegalDialog('agb')}
+      onClick={() => openLegalDialog("agb")}
       className="text-primary hover:underline"
     >
       AGB
-    </button>
-    {' '}und{' '}
-    <button 
+    </button>{" "}
+    und{" "}
+    <button
       type="button"
-      onClick={() => openLegalDialog('datenschutz')}
+      onClick={() => openLegalDialog("datenschutz")}
       className="text-primary hover:underline"
     >
       Datenschutzerklärung
@@ -343,6 +349,7 @@ toast({
 ```
 
 **Validierung:**
+
 ```typescript
 if (!consentGiven) {
   toast({
@@ -378,6 +385,7 @@ if (!consentGiven) {
 ```
 
 **Touch-Targets:**
+
 - ✅ Min. 44px Höhe für Buttons/Inputs (Apple HIG)
 - ✅ Adequate Spacing zwischen Elementen
 - ✅ Große Tap-Areas für Links
@@ -405,6 +413,7 @@ if (!consentGiven) {
 ## ✅ Implementierungs-Checklist
 
 ### Security:
+
 - [x] Zod-Validierung für Login/Signup
 - [x] Sichere Passwort-Requirements
 - [x] PasswordStrengthIndicator Component
@@ -413,6 +422,7 @@ if (!consentGiven) {
 - [x] Session + User State Management
 
 ### UX:
+
 - [x] Automatische Redirects nach Login
 - [x] User-Friendly Error Messages
 - [x] Loading-States mit Spinner
@@ -420,6 +430,7 @@ if (!consentGiven) {
 - [x] Gebrandetes Design (Logo, Colors)
 
 ### Legal:
+
 - [x] Impressum Dialog vollständig
 - [x] Datenschutz Dialog vollständig
 - [x] AGB Dialog vollständig
@@ -427,6 +438,7 @@ if (!consentGiven) {
 - [x] Legal-Links immer zugänglich
 
 ### Mobile:
+
 - [x] Responsive Layout
 - [x] Touch-optimierte Targets (44px+)
 - [x] Mobile-Keyboard-Optimierung

@@ -5,6 +5,7 @@
 **Status:** Form-Registry erstellt, UnifiedForm V2.0 deployed
 
 **Neue Files:**
+
 - ✅ `src/config/form-fields-registry.ts` - Zentrale Field-Definitionen
 - ✅ `src/components/forms/UnifiedForm.tsx` (V2.0) - Dialog-Support integriert
 
@@ -13,6 +14,7 @@
 ## 🎯 MIGRATION WORKFLOW
 
 ### **ALT (FormDialog):**
+
 ```typescript
 import { FormDialog } from '@/components/dialogs/FormDialog';
 
@@ -30,6 +32,7 @@ import { FormDialog } from '@/components/dialogs/FormDialog';
 ```
 
 ### **NEU (UnifiedForm mit Dialog-Mode):**
+
 ```typescript
 import { UnifiedForm } from '@/components/forms/UnifiedForm';
 import { CUSTOMER_FIELDS } from '@/config/form-fields-registry';
@@ -53,6 +56,7 @@ import { CUSTOMER_FIELDS } from '@/config/form-fields-registry';
 ```
 
 **Benefits:**
+
 - ✅ **1 Component** statt 2 (FormDialog + Form)
 - ✅ **Type-Safe Fields** aus Registry
 - ✅ **Zentrale Field-Definitionen** (Labels ändern → überall updated)
@@ -63,6 +67,7 @@ import { CUSTOMER_FIELDS } from '@/config/form-fields-registry';
 ## 📚 FIELD REGISTRY USAGE
 
 ### **Option 1: Alle Fields eines Entity**
+
 ```typescript
 import { getFieldSet } from '@/config/form-fields-registry';
 
@@ -74,6 +79,7 @@ import { getFieldSet } from '@/config/form-fields-registry';
 ```
 
 ### **Option 2: Selektive Fields**
+
 ```typescript
 import { CUSTOMER_FIELDS } from '@/config/form-fields-registry';
 
@@ -90,6 +96,7 @@ import { CUSTOMER_FIELDS } from '@/config/form-fields-registry';
 ```
 
 ### **Option 3: Fields modifizieren**
+
 ```typescript
 <UnifiedForm
   fields={[
@@ -106,11 +113,13 @@ import { CUSTOMER_FIELDS } from '@/config/form-fields-registry';
 ## 🔄 MIGRATION CHECKLIST
 
 ### **Files zu LÖSCHEN nach Migration:**
+
 - [ ] `src/components/dialogs/FormDialog.tsx`
 - [ ] `src/components/mobile/MobileFormDialog.tsx`
 - [ ] `src/components/invoices/InvoiceFormDialog.tsx`
 
 ### **Pages zu MIGRIEREN:**
+
 - [ ] Auftraege.tsx (Booking Form)
 - [ ] Kunden.tsx (Customer Form)
 - [ ] Fahrer.tsx (Driver Form)
@@ -123,15 +132,17 @@ import { CUSTOMER_FIELDS } from '@/config/form-fields-registry';
 ## 🎨 DIALOG-MODE FEATURES
 
 ### **Sizes:**
+
 ```typescript
-dialogSize="sm"   // 425px (small dialogs, confirmations)
-dialogSize="md"   // 600px (standard forms)
-dialogSize="lg"   // 800px (default, most forms)
-dialogSize="xl"   // 1000px (complex forms)
-dialogSize="full" // 95vw (fullscreen forms)
+dialogSize = "sm"; // 425px (small dialogs, confirmations)
+dialogSize = "md"; // 600px (standard forms)
+dialogSize = "lg"; // 800px (default, most forms)
+dialogSize = "xl"; // 1000px (complex forms)
+dialogSize = "full"; // 95vw (fullscreen forms)
 ```
 
 ### **Auto-Close & Reset:**
+
 ```typescript
 <UnifiedForm
   mode="dialog"
@@ -142,6 +153,7 @@ dialogSize="full" // 95vw (fullscreen forms)
 ```
 
 ### **Multi-Step Forms:**
+
 ```typescript
 <UnifiedForm
   showProgress

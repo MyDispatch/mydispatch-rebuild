@@ -9,6 +9,7 @@
 ## 🎯 EXECUTIVE SUMMARY
 
 Unsere aktuelle Arbeitsweise ist **gut strukturiert** (Task-Management, Dokumentation, Standard-Prompts). Aber es gibt **signifikantes Verbesserungspotenzial** in:
+
 - Automatisierung (CI/CD, Tests)
 - Qualitätssicherung (Code-Review, Security)
 - Deployment-Sicherheit (Staging, Rollbacks)
@@ -21,6 +22,7 @@ Unsere aktuelle Arbeitsweise ist **gut strukturiert** (Task-Management, Dokument
 ## ✅ WAS LÄUFT BEREITS GUT
 
 ### 1. Strukturierte Entwicklung
+
 - ✅ **Task-Management-System** - Kategorisiert, priorisiert, tracked
 - ✅ **Standard-Folgeprompts** - Klare Kommunikation zwischen User & AI
 - ✅ **Zentrale Dokumentation** - Alle Specs, Guides, Reports dokumentiert
@@ -28,12 +30,14 @@ Unsere aktuelle Arbeitsweise ist **gut strukturiert** (Task-Management, Dokument
 - ✅ **Design System** - Semantic Tokens, kein Direct-Color-Chaos
 
 ### 2. Intelligente Systeme
+
 - ✅ **Brain-Query-System** - Knowledge-Retrieval für AI-Agent
 - ✅ **Self-Reflection** - Stündliche Analyse der Brain-Logs
 - ✅ **Link-Validierung** - Zentrale Dokumentation aller Links
 - ✅ **Backend-Mapping** - Vollständige DB-Frontend-Dokumentation
 
 ### 3. Sicherheit
+
 - ✅ **RLS Policies** - Alle Tabellen company_id-gesichert
 - ✅ **Type-Safety** - TypeScript 0 Errors
 - ✅ **Input-Validation** - Zod-Schemas
@@ -45,12 +49,15 @@ Unsere aktuelle Arbeitsweise ist **gut strukturiert** (Task-Management, Dokument
 ### CRITICAL ⚡ (P0) - Sofort implementieren
 
 #### OPT-001: Automatisierte Tests fehlen
+
 **Problem:**
+
 - Keine E2E-Tests (Playwright vorhanden, aber nicht genutzt)
 - Keine Unit-Tests
 - Manuelle Tests sind fehleranfällig & zeitaufwendig
 
 **Lösung:**
+
 ```bash
 # E2E-Tests für kritische User-Flows
 tests/e2e/
@@ -74,12 +81,15 @@ src/lib/__tests__/
 ---
 
 #### OPT-002: CI/CD-Pipeline fehlt
+
 **Problem:**
+
 - Manuelle Deployments
 - Keine automatischen Quality-Checks
 - Kein Staging-Environment
 
 **Lösung:**
+
 ```yaml
 # .github/workflows/ci.yml
 name: CI/CD Pipeline
@@ -107,7 +117,7 @@ jobs:
         run: npm run test:e2e
       - name: Build
         run: npm run build
-  
+
   deploy-staging:
     needs: test
     if: github.ref == 'refs/heads/develop'
@@ -115,7 +125,7 @@ jobs:
     steps:
       - name: Deploy to Staging
         run: npm run deploy:staging
-  
+
   deploy-production:
     needs: test
     if: github.ref == 'refs/heads/main'
@@ -132,11 +142,14 @@ jobs:
 ---
 
 #### OPT-003: Staging-Environment fehlt
+
 **Problem:**
+
 - Direkt auf Production testen ist riskant
 - Keine "Safe-Zone" für Experimente
 
 **Lösung:**
+
 ```bash
 # Umgebungen
 - Production:  my-dispatch.de
@@ -162,11 +175,14 @@ jobs:
 ### HIGH 🔴 (P1) - Diese Woche implementieren
 
 #### OPT-004: Code-Review-Prozess fehlt
+
 **Problem:**
+
 - Keine strukturierte Review-Phase
 - Fehler werden erst in Production entdeckt
 
 **Lösung:**
+
 ```bash
 # Git-Branch-Strategie
 main         # Production-Ready
@@ -202,36 +218,40 @@ main         # Production-Ready
 ---
 
 #### OPT-005: Performance-Monitoring fehlt
+
 **Problem:**
+
 - Keine Metriken für Ladezeiten, Bundle-Size, etc.
 - Performance-Probleme werden nicht proaktiv erkannt
 
 **Lösung:**
+
 ```typescript
 // src/lib/performance-monitoring.ts
-import { onCLS, onFID, onFCP, onLCP, onTTFB } from 'web-vitals';
+import { onCLS, onFID, onFCP, onLCP, onTTFB } from "web-vitals";
 
 export function initPerformanceMonitoring() {
   if (import.meta.env.PROD) {
-    onCLS(metric => sendToAnalytics('CLS', metric));
-    onFID(metric => sendToAnalytics('FID', metric));
-    onFCP(metric => sendToAnalytics('FCP', metric));
-    onLCP(metric => sendToAnalytics('LCP', metric));
-    onTTFB(metric => sendToAnalytics('TTFB', metric));
+    onCLS((metric) => sendToAnalytics("CLS", metric));
+    onFID((metric) => sendToAnalytics("FID", metric));
+    onFCP((metric) => sendToAnalytics("FCP", metric));
+    onLCP((metric) => sendToAnalytics("LCP", metric));
+    onTTFB((metric) => sendToAnalytics("TTFB", metric));
   }
 }
 
 async function sendToAnalytics(metric: string, value: any) {
-  await supabase.from('performance_metrics').insert({
+  await supabase.from("performance_metrics").insert({
     metric_name: metric,
     value: value.value,
     url: window.location.pathname,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 }
 ```
 
 **Tools:**
+
 - Lighthouse CI (automatische Audits)
 - Sentry (Frontend-Error-Tracking bereits vorhanden)
 - Supabase Analytics (Custom Performance-Metrics)
@@ -243,18 +263,21 @@ async function sendToAnalytics(metric: string, value: any) {
 ---
 
 #### OPT-006: Security-Scans automatisieren
+
 **Problem:**
+
 - RLS-Prüfung nur manuell via `supabase--linter`
 - Dependency-Vulnerabilities nicht automatisch geprüft
 
 **Lösung:**
+
 ```yaml
 # .github/workflows/security.yml
 name: Security Scan
 
 on:
   schedule:
-    - cron: '0 2 * * 1'  # Montags 2 Uhr
+    - cron: "0 2 * * 1" # Montags 2 Uhr
   push:
     branches: [main]
 
@@ -263,17 +286,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Dependency Check
         run: npm audit --audit-level=moderate
-      
+
       - name: Supabase RLS Linter
         run: npm run supabase:lint
-      
+
       - name: OWASP ZAP Scan
         uses: zaproxy/action-baseline@v0.7.0
         with:
-          target: 'https://my-dispatch.de'
+          target: "https://my-dispatch.de"
 ```
 
 **Impact:** Automatische Schwachstellen-Erkennung, DSGVO-Compliance
@@ -283,11 +306,14 @@ jobs:
 ---
 
 #### OPT-007: Changelog automatisch generieren
+
 **Problem:**
+
 - Manuelles Changelog-Pflegen ist fehleranfällig
 - User wissen nicht, was sich geändert hat
 
 **Lösung:**
+
 ```bash
 # Conventional Commits verwenden
 git commit -m "feat(booking): Add real-time ETA calculation"
@@ -315,12 +341,15 @@ CHANGELOG.md
 ### MEDIUM 🟡 (P2) - Nächsten Sprint
 
 #### OPT-008: Feature-Flags implementieren
+
 **Problem:**
+
 - Neue Features müssen sofort für alle live sein
 - Kein A/B-Testing möglich
 - Kein graduelles Rollout
 
 **Lösung:**
+
 ```typescript
 // src/lib/feature-flags.ts
 import { supabase } from '@/integrations/supabase/client';
@@ -334,10 +363,10 @@ export async function isFeatureEnabled(
     .select('enabled, rollout_percentage')
     .eq('feature_name', featureName)
     .single();
-  
+
   if (!data) return false;
   if (data.enabled === false) return false;
-  
+
   // Graduelles Rollout (0-100%)
   const hash = hashCompanyId(companyId);
   return hash < data.rollout_percentage;
@@ -347,14 +376,14 @@ export async function isFeatureEnabled(
 function EmailMarketingDashboard() {
   const { company } = useAuth();
   const [isEnabled, setIsEnabled] = useState(false);
-  
+
   useEffect(() => {
     isFeatureEnabled('email_marketing', company.id)
       .then(setIsEnabled);
   }, [company.id]);
-  
+
   if (!isEnabled) return <ComingSoon />;
-  
+
   return <EmailMarketingUI />;
 }
 ```
@@ -366,17 +395,22 @@ function EmailMarketingDashboard() {
 ---
 
 #### OPT-009: Rollback-Strategie dokumentieren
+
 **Problem:**
+
 - Wenn Production-Bug auftritt, keine klare Rollback-Prozedur
 
 **Lösung:**
-```markdown
+
+````markdown
 # ROLLBACK-STRATEGIE
 
 ## Szenarien
 
 ### 1. Frontend-Bug (kein DB-Schema-Change)
+
 **Rollback via Git:**
+
 ```bash
 # Letzten Commit rückgängig machen
 git revert HEAD
@@ -385,9 +419,12 @@ git push origin main
 # Automatisches Re-Deploy via CI/CD
 # Dauer: ~3-5 Minuten
 ```
+````
 
 ### 2. Backend-Bug (mit DB-Schema-Change)
+
 **Rollback via Supabase:**
+
 ```bash
 # Migration zurückrollen
 supabase db reset --linked
@@ -398,7 +435,9 @@ supabase db push --linked
 ```
 
 ### 3. Kritischer Production-Ausfall
+
 **Emergency-Rollback:**
+
 ```bash
 # Zu letztem stabilen Release
 git checkout tags/v18.4.0
@@ -415,11 +454,14 @@ UPDATE feature_flags SET enabled = false WHERE feature_name = 'buggy_feature';
 ---
 
 #### OPT-010: Dependency-Update-Strategie
+
 **Problem:**
+
 - Dependencies veralten schnell
 - Security-Patches nicht automatisch angewendet
 
 **Lösung:**
+
 ```yaml
 # .github/dependabot.yml
 version: 2
@@ -447,12 +489,15 @@ updates:
 ### LOW 🟢 (P3) - Nice-to-have
 
 #### OPT-011: Dokumentation automatisch generieren
+
 **Lösung:** TypeDoc für API-Dokumentation, Storybook für UI-Components
 
 #### OPT-012: Error-Tracking erweitern
+
 **Lösung:** Sentry Source-Maps hochladen für bessere Stack-Traces
 
 #### OPT-013: Lighthouse-Score automatisch tracken
+
 **Lösung:** Lighthouse CI in GitHub Actions
 
 ---
@@ -460,21 +505,25 @@ updates:
 ## 📊 IMPLEMENTIERUNGS-ROADMAP
 
 ### WOCHE 1 (Jetzt)
+
 - ✅ OPT-001: E2E-Tests für kritische Flows (Playwright)
 - ✅ OPT-002: GitHub Actions CI/CD Setup
 - ✅ OPT-003: Staging-Environment anlegen
 
 ### WOCHE 2
+
 - ✅ OPT-004: Git-Branch-Strategie + PR-Template
 - ✅ OPT-005: Performance-Monitoring implementieren
 - ✅ OPT-006: Security-Scans automatisieren
 
 ### WOCHE 3
+
 - ✅ OPT-007: Changelog automatisch generieren
 - ✅ OPT-008: Feature-Flags implementieren
 - ✅ OPT-009: Rollback-Strategie dokumentieren
 
 ### WOCHE 4+
+
 - ✅ OPT-010: Dependabot einrichten
 - ✅ OPT-011-013: Nice-to-have Features
 
@@ -483,28 +532,31 @@ updates:
 ## 📈 ERFOLGSMETRIKEN
 
 ### Vor Optimierung (Aktuell)
-| Metrik | Wert |
-|--------|------|
-| Deployment-Zeit | ~30 min (manuell) |
-| Test-Coverage | 0% |
-| Production-Bugs/Monat | ~8-12 |
-| Rollback-Zeit | ~2-3 Stunden |
-| Security-Audits | Manuell, unregelmäßig |
+
+| Metrik                | Wert                  |
+| --------------------- | --------------------- |
+| Deployment-Zeit       | ~30 min (manuell)     |
+| Test-Coverage         | 0%                    |
+| Production-Bugs/Monat | ~8-12                 |
+| Rollback-Zeit         | ~2-3 Stunden          |
+| Security-Audits       | Manuell, unregelmäßig |
 
 ### Nach Optimierung (Ziel)
-| Metrik | Ziel | Verbesserung |
-|--------|------|--------------|
-| Deployment-Zeit | ~3-5 min | 85% schneller |
-| Test-Coverage | >80% | +80% |
-| Production-Bugs/Monat | <2 | 75% weniger |
-| Rollback-Zeit | <5 min | 95% schneller |
-| Security-Audits | Automatisch täglich | 100% Coverage |
+
+| Metrik                | Ziel                | Verbesserung  |
+| --------------------- | ------------------- | ------------- |
+| Deployment-Zeit       | ~3-5 min            | 85% schneller |
+| Test-Coverage         | >80%                | +80%          |
+| Production-Bugs/Monat | <2                  | 75% weniger   |
+| Rollback-Zeit         | <5 min              | 95% schneller |
+| Security-Audits       | Automatisch täglich | 100% Coverage |
 
 ---
 
 ## 🎯 QUICK WINS (Heute noch umsetzbar)
 
 ### 1. TypeScript Strict-Mode aktivieren
+
 ```json
 // tsconfig.json
 {
@@ -517,6 +569,7 @@ updates:
 ```
 
 ### 2. ESLint-Regeln verschärfen
+
 ```json
 // .eslintrc.json
 {
@@ -529,6 +582,7 @@ updates:
 ```
 
 ### 3. Pre-Commit-Hooks einrichten
+
 ```bash
 npm install --save-dev husky lint-staged
 
@@ -547,6 +601,7 @@ npm install --save-dev husky lint-staged
 ```
 
 ### 4. Bundle-Analyzer aktivieren
+
 ```bash
 npm install --save-dev vite-plugin-bundle-analyzer
 

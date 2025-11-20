@@ -8,10 +8,10 @@
    ✅ Rounded Corners (rounded-lg)
    ================================================================================== */
 
-import React, { useState, useEffect, useRef } from 'react';
-import * as AccordionPrimitive from '@radix-ui/react-accordion';
-import { ChevronDown } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import React, { useState, useEffect, useRef } from "react";
+import * as AccordionPrimitive from "@radix-ui/react-accordion";
+import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface V28AccordionItemProps {
   question: string;
@@ -31,21 +31,21 @@ export function V28AccordionItem({ question, answer, value, isLast }: V28Accordi
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'data-state') {
-          const state = trigger.getAttribute('data-state');
-          setIsOpen(state === 'open');
+        if (mutation.attributeName === "data-state") {
+          const state = trigger.getAttribute("data-state");
+          setIsOpen(state === "open");
         }
       });
     });
 
     observer.observe(trigger, {
       attributes: true,
-      attributeFilter: ['data-state'],
+      attributeFilter: ["data-state"],
     });
 
     // Initial check
-    const initialState = trigger.getAttribute('data-state');
-    setIsOpen(initialState === 'open');
+    const initialState = trigger.getAttribute("data-state");
+    setIsOpen(initialState === "open");
 
     return () => observer.disconnect();
   }, []);
@@ -53,24 +53,24 @@ export function V28AccordionItem({ question, answer, value, isLast }: V28Accordi
   return (
     <AccordionPrimitive.Item
       value={value}
-      className={cn('px-6', !isLast && 'border-b border-slate-200')}
+      className={cn("px-6", !isLast && "border-b border-slate-200")}
     >
       <AccordionPrimitive.Header className="flex">
         <AccordionPrimitive.Trigger
           ref={triggerRef}
           className={cn(
-            'flex flex-1 items-center justify-between py-6 text-left font-semibold text-lg',
-            'transition-all duration-200 rounded-lg hover:no-underline',
+            "flex flex-1 items-center justify-between py-6 text-left font-semibold text-lg",
+            "transition-all duration-200 rounded-lg hover:no-underline",
             isOpen
-              ? 'bg-slate-100 text-slate-900 px-6 -mx-6'
-              : 'text-slate-900 hover:text-slate-700'
+              ? "bg-slate-100 text-slate-900 px-6 -mx-6"
+              : "text-slate-900 hover:text-slate-700"
           )}
         >
           <span>{question}</span>
           <ChevronDown
             className={cn(
-              'h-5 w-5 shrink-0 transition-transform duration-200',
-              isOpen ? 'rotate-180 text-slate-700' : 'text-slate-600'
+              "h-5 w-5 shrink-0 transition-transform duration-200",
+              isOpen ? "rotate-180 text-slate-700" : "text-slate-600"
             )}
           />
         </AccordionPrimitive.Trigger>
@@ -78,8 +78,8 @@ export function V28AccordionItem({ question, answer, value, isLast }: V28Accordi
       <AccordionPrimitive.Content className="overflow-hidden transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
         <div
           className={cn(
-            'text-base text-slate-600 pb-8 pt-4 leading-relaxed',
-            isOpen && 'px-6 -mx-6'
+            "text-base text-slate-600 pb-8 pt-4 leading-relaxed",
+            isOpen && "px-6 -mx-6"
           )}
         >
           {answer}

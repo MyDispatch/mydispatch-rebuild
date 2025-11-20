@@ -6,30 +6,30 @@
    - TypeScript-sicher mit Validierung
    ================================================================================== */
 
-import { useState, FormEvent } from 'react';
-import { useAuth } from '@/hooks/use-auth';
-import { supabase } from '@/integrations/supabase/client';
-import { handleError, handleSuccess } from '@/lib/error-handler';
+import { useState, FormEvent } from "react";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { handleError, handleSuccess } from "@/lib/error-handler";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/lib/compat';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+} from "@/components/ui/dialog";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Input } from "@/lib/compat";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { InlineCustomerForm } from '@/components/forms/InlineCustomerForm';
-import { UserPlus, FileText } from 'lucide-react';
+} from "@/components/ui/select";
+import { InlineCustomerForm } from "@/components/forms/InlineCustomerForm";
+import { UserPlus, FileText } from "lucide-react";
 
 interface Customer {
   id: string;
@@ -53,7 +53,7 @@ interface InvoiceFormData {
   due_date: string;
   description: string;
   invoice_number: string;
-  payment_method: 'bar' | 'rechnung' | 'ec_karte' | 'kreditkarte';
+  payment_method: "bar" | "rechnung" | "ec_karte" | "kreditkarte";
 }
 
 export function InvoiceFormDialog({
@@ -67,32 +67,32 @@ export function InvoiceFormDialog({
   const [loading, setLoading] = useState(false);
   const [showInlineCustomerForm, setShowInlineCustomerForm] = useState(false);
   const [formData, setFormData] = useState<InvoiceFormData>({
-    customer_id: '',
-    amount: '',
-    due_date: new Date().toISOString().split('T')[0],
-    description: '',
+    customer_id: "",
+    amount: "",
+    due_date: new Date().toISOString().split("T")[0],
+    description: "",
     invoice_number: `RE-${Date.now().toString().substring(0, 8)}`,
-    payment_method: 'rechnung',
+    payment_method: "rechnung",
   });
 
   const handleChange = (field: keyof InvoiceFormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!profile?.company_id) {
-      handleError(new Error('Kein Unternehmen gefunden'), 'Fehler');
+      handleError(new Error("Kein Unternehmen gefunden"), "Fehler");
       return;
     }
 
     // Validierung
     if (!formData.customer_id) {
-      handleError(new Error('Bitte wählen Sie einen Kunden'), 'Validierungsfehler');
+      handleError(new Error("Bitte wählen Sie einen Kunden"), "Validierungsfehler");
       return;
     }
     if (!formData.amount || parseFloat(formData.amount) <= 0) {
-      handleError(new Error('Bitte geben Sie einen gültigen Betrag ein'), 'Validierungsfehler');
+      handleError(new Error("Bitte geben Sie einen gültigen Betrag ein"), "Validierungsfehler");
       return;
     }
 
@@ -100,40 +100,42 @@ export function InvoiceFormDialog({
     try {
       // Erstelle eine Rechnung als Booking ohne echte Fahrt (manual_invoice = true)
       const { data, error } = await supabase
-        .from('bookings')
-        .insert([{
-          company_id: profile.company_id,
-          customer_id: formData.customer_id,
-          price: parseFloat(formData.amount),
-          payment_status: 'pending',
-          payment_method: formData.payment_method,
-          pickup_address: 'Manuelle Rechnung',
-          dropoff_address: formData.description || '-',
-          pickup_time: new Date().toISOString(),
-          status: 'completed', // Rechnung ist direkt "abgeschlossen"
-          notes: formData.description,
-          is_manual_invoice: true, // Flag für manuelle Rechnungen
-        }])
+        .from("bookings")
+        .insert([
+          {
+            company_id: profile.company_id,
+            customer_id: formData.customer_id,
+            price: parseFloat(formData.amount),
+            payment_status: "pending",
+            payment_method: formData.payment_method,
+            pickup_address: "Manuelle Rechnung",
+            dropoff_address: formData.description || "-",
+            pickup_time: new Date().toISOString(),
+            status: "completed", // Rechnung ist direkt "abgeschlossen"
+            notes: formData.description,
+            is_manual_invoice: true, // Flag für manuelle Rechnungen
+          },
+        ])
         .select()
         .single();
 
       if (error) throw error;
 
-      handleSuccess('Rechnung erfolgreich erstellt');
+      handleSuccess("Rechnung erfolgreich erstellt");
       onSuccess();
       onOpenChange(false);
-      
+
       // Reset Form
       setFormData({
-        customer_id: '',
-        amount: '',
-        due_date: new Date().toISOString().split('T')[0],
-        description: '',
+        customer_id: "",
+        amount: "",
+        due_date: new Date().toISOString().split("T")[0],
+        description: "",
         invoice_number: `RE-${Date.now().toString().substring(0, 8)}`,
-        payment_method: 'rechnung',
+        payment_method: "rechnung",
       });
     } catch (error) {
-      handleError(error, 'Fehler beim Erstellen der Rechnung');
+      handleError(error, "Fehler beim Erstellen der Rechnung");
     } finally {
       setLoading(false);
     }
@@ -155,7 +157,7 @@ export function InvoiceFormDialog({
         {showInlineCustomerForm ? (
           <InlineCustomerForm
             onCustomerCreated={(customerId) => {
-              setFormData(prev => ({ ...prev, customer_id: customerId }));
+              setFormData((prev) => ({ ...prev, customer_id: customerId }));
               setShowInlineCustomerForm(false);
               if (onCustomerCreated) onCustomerCreated();
             }}
@@ -180,14 +182,14 @@ export function InvoiceFormDialog({
               </div>
               <Select
                 value={formData.customer_id}
-                onValueChange={(value) => handleChange('customer_id', value)}
+                onValueChange={(value) => handleChange("customer_id", value)}
                 required
               >
                 <SelectTrigger id="customer_id">
                   <SelectValue placeholder="Kunde auswählen" />
                 </SelectTrigger>
                 <SelectContent>
-                  {customers.map(customer => (
+                  {customers.map((customer) => (
                     <SelectItem key={customer.id} value={customer.id}>
                       {customer.first_name} {customer.last_name}
                       {customer.email && ` (${customer.email})`}
@@ -203,13 +205,11 @@ export function InvoiceFormDialog({
               <Input
                 id="invoice_number"
                 value={formData.invoice_number}
-                onChange={(e) => handleChange('invoice_number', e.target.value)}
+                onChange={(e) => handleChange("invoice_number", e.target.value)}
                 placeholder="RE-12345678"
                 disabled
               />
-              <p className="text-xs text-muted-foreground">
-                Wird automatisch generiert
-              </p>
+              <p className="text-xs text-muted-foreground">Wird automatisch generiert</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -222,7 +222,7 @@ export function InvoiceFormDialog({
                   step="0.01"
                   min="0"
                   value={formData.amount}
-                  onChange={(e) => handleChange('amount', e.target.value)}
+                  onChange={(e) => handleChange("amount", e.target.value)}
                   placeholder="0,00"
                   required
                 />
@@ -235,7 +235,7 @@ export function InvoiceFormDialog({
                   id="due_date"
                   type="date"
                   value={formData.due_date}
-                  onChange={(e) => handleChange('due_date', e.target.value)}
+                  onChange={(e) => handleChange("due_date", e.target.value)}
                   required
                 />
               </div>
@@ -246,7 +246,7 @@ export function InvoiceFormDialog({
               <Label htmlFor="payment_method">Zahlungsmethode</Label>
               <Select
                 value={formData.payment_method}
-                onValueChange={(value) => handleChange('payment_method', value)}
+                onValueChange={(value) => handleChange("payment_method", value)}
               >
                 <SelectTrigger id="payment_method">
                   <SelectValue />
@@ -266,7 +266,7 @@ export function InvoiceFormDialog({
               <Textarea
                 id="description"
                 value={formData.description}
-                onChange={(e) => handleChange('description', e.target.value)}
+                onChange={(e) => handleChange("description", e.target.value)}
                 placeholder="Leistungsbeschreibung, Referenz, etc."
                 rows={3}
               />
@@ -283,7 +283,7 @@ export function InvoiceFormDialog({
                 Abbrechen
               </V28Button>
               <V28Button type="submit" variant="primary" disabled={loading}>
-                {loading ? 'Erstelle...' : 'Rechnung erstellen'}
+                {loading ? "Erstelle..." : "Rechnung erstellen"}
               </V28Button>
             </div>
           </form>

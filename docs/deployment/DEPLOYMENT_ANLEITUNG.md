@@ -20,6 +20,7 @@
 ### PHASE 1: Supabase Secrets setzen 🔐
 
 **Manuell in Supabase Dashboard:**
+
 1. Öffne: https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/settings/secrets
 2. Setze folgende Secrets:
 
@@ -33,6 +34,7 @@ DAILY_API_KEY = e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441d72
 ### PHASE 2: Database Migrations ausführen 📊
 
 **In Supabase Dashboard → SQL Editor:**
+
 1. Öffne: https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/sql/new
 2. Führe nacheinander aus:
 
@@ -49,6 +51,7 @@ DAILY_API_KEY = e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441d72
 ### PHASE 3: Edge Functions deployen ⚡
 
 **Option 1: Supabase CLI (falls installiert)**
+
 ```bash
 cd C:\Users\pcour\mydispatch-rebuild
 supabase functions deploy fix-master-login
@@ -63,10 +66,12 @@ supabase functions deploy ai-support-chat
 ```
 
 **Option 2: Supabase Dashboard**
+
 1. Öffne: https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/functions
 2. Deploye jede Funktion einzeln
 
 **Edge Functions:**
+
 - ✅ `fix-master-login`
 - ✅ `nexify-auto-load-context`
 - ✅ `nexify-project-context`
@@ -80,22 +85,26 @@ supabase functions deploy ai-support-chat
 ### PHASE 4: Frontend Build & Deploy 🎨
 
 **1. Dependencies installieren:**
+
 ```bash
 cd C:\Users\pcour\mydispatch-rebuild
 npm install
 ```
 
 **2. Build erstellen:**
+
 ```bash
 npm run build
 ```
 
 **3. Deploy zu Hosting:**
+
 - Vercel/Netlify/etc. (je nach Konfiguration)
 
 ### PHASE 5: Cursor Prompt Extensions 🔧
 
 **Manuell konfigurieren:**
+
 1. Öffne Cursor Command Palette: `Ctrl+Shift+P`
 2. Führe aus: `Configure Prompt Saver`
 3. GitHub Token eingeben: `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`
@@ -109,24 +118,29 @@ npm run build
 Nach jedem Schritt prüfen:
 
 ### Supabase Secrets
+
 - ✅ Secrets in Dashboard sichtbar
 - ✅ Keine Fehler beim Setzen
 
 ### Migrations
+
 - ✅ Alle 7 Migrations erfolgreich ausgeführt
 - ✅ Keine Fehler in SQL Editor
 
 ### Edge Functions
+
 - ✅ Alle 9 Functions deployed
 - ✅ Keine Fehler beim Deployment
 - ✅ Functions in Dashboard sichtbar
 
 ### Frontend
+
 - ✅ Build erfolgreich (`dist/` Ordner vorhanden)
 - ✅ Keine Build-Fehler
 - ✅ Deployed zu Hosting
 
 ### Cursor Extensions
+
 - ✅ Prompt Saver konfiguriert
 - ✅ Prompt Manager konfiguriert
 - ✅ Test: Prompt speichern/laden funktioniert
@@ -153,4 +167,3 @@ Nach jedem Schritt prüfen:
 ---
 
 **Alle Vorbereitungen sind abgeschlossen! Deployment kann jetzt starten.** 🚀
-

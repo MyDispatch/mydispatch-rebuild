@@ -9,6 +9,7 @@ Das MyDispatch Design-System basiert auf **100% HSL-basierten Semantic Tokens** 
 ## ⚠️ KRITISCHE REGELN
 
 ### ❌ VERBOTEN:
+
 ```css
 /* Niemals direkte Farben verwenden! */
 .wrong { color: #ffffff; }
@@ -21,14 +22,23 @@ Das MyDispatch Design-System basiert auf **100% HSL-basierten Semantic Tokens** 
 ```
 
 ### ✅ KORREKT:
+
 ```css
 /* Immer Semantic Tokens verwenden! */
-.correct { color: hsl(var(--foreground)); }
-.correct { background: hsl(var(--background)); }
-.correct { border-color: hsl(var(--border)); }
+.correct {
+  color: hsl(var(--foreground));
+}
+.correct {
+  background: hsl(var(--background));
+}
+.correct {
+  border-color: hsl(var(--border));
+}
 
 /* Tailwind mit Semantic Tokens */
-.correct { @apply text-foreground bg-background border-border }
+.correct {
+  @apply text-foreground bg-background border-border;
+}
 ```
 
 ---
@@ -38,44 +48,34 @@ Das MyDispatch Design-System basiert auf **100% HSL-basierten Semantic Tokens** 
 ### Light Mode (Default)
 
 #### Basis-Farben
+
 ```css
---background: 0 0% 100%         /* Weiß */
---foreground: 225 31% 28%       /* #323D5E - Dunkelblau (MyDispatch CI) */
-
---card: 0 0% 100%               /* Weiß */
---card-foreground: 225 31% 28%  /* Dunkelblau */
-
---popover: 0 0% 100%            /* Weiß */
---popover-foreground: 225 31% 28%
+--background: 0 0% 100% /* Weiß */ --foreground: 225 31% 28%
+  /* #323D5E - Dunkelblau (MyDispatch CI) */ --card: 0 0% 100% /* Weiß */ --card-foreground: 225 31%
+  28% /* Dunkelblau */ --popover: 0 0% 100% /* Weiß */ --popover-foreground: 225 31% 28%;
 ```
 
 #### MyDispatch CI-Farben
+
 ```css
---primary: 40 31% 88%           /* #EADEBD - Beige/Gold (Hauptfarbe) */
---primary-foreground: 225 31% 28% /* Dunkelblau */
---primary-glow: 40 41% 93%      /* Hellere Variante */
-
---secondary: 40 8% 95%          /* Helles Beige */
---secondary-foreground: 225 31% 28%
-
---accent: 40 31% 88%            /* Identisch zu primary */
---accent-foreground: 225 31% 28%
+--primary: 40 31% 88% /* #EADEBD - Beige/Gold (Hauptfarbe) */ --primary-foreground: 225 31% 28%
+  /* Dunkelblau */ --primary-glow: 40 41% 93% /* Hellere Variante */ --secondary: 40 8% 95%
+  /* Helles Beige */ --secondary-foreground: 225 31% 28% --accent: 40 31% 88%
+  /* Identisch zu primary */ --accent-foreground: 225 31% 28%;
 ```
 
 #### Funktionale Farben
-```css
---muted: 40 8% 95%              /* Gedämpftes Beige */
---muted-foreground: 225 20% 50% /* Mittleres Blau-Grau */
 
---destructive: 0 84% 60%        /* Rot */
---destructive-foreground: 0 0% 100% /* Weiß */
+```css
+--muted: 40 8% 95% /* Gedämpftes Beige */ --muted-foreground: 225 20% 50% /* Mittleres Blau-Grau */
+  --destructive: 0 84% 60% /* Rot */ --destructive-foreground: 0 0% 100% /* Weiß */;
 ```
 
 #### Interface-Elemente
+
 ```css
---border: 40 12% 88%            /* Helles Beige */
---input: 40 12% 88%             /* Helles Beige */
---ring: 40 31% 88%              /* Primary-Farbe für Focus */
+--border: 40 12% 88% /* Helles Beige */ --input: 40 12% 88% /* Helles Beige */ --ring: 40 31% 88%
+  /* Primary-Farbe für Focus */;
 ```
 
 ---
@@ -85,17 +85,13 @@ Das MyDispatch Design-System basiert auf **100% HSL-basierten Semantic Tokens** 
 **KRITISCH:** Niemals ändern! PBefG-konform für Taxi-Branche.
 
 ```css
---status-success: 142 76% 36%   /* Echtes Ampel-Grün */
---status-success-foreground: 0 0% 100%
-
---status-warning: 48 96% 53%    /* Echtes Ampel-Gelb */
---status-warning-foreground: 0 0% 0%
-
---status-error: 0 84% 60%       /* Echtes Ampel-Rot */
---status-error-foreground: 0 0% 100%
+--status-success: 142 76% 36% /* Echtes Ampel-Grün */ --status-success-foreground: 0 0% 100%
+  --status-warning: 48 96% 53% /* Echtes Ampel-Gelb */ --status-warning-foreground: 0 0% 0%
+  --status-error: 0 84% 60% /* Echtes Ampel-Rot */ --status-error-foreground: 0 0% 100%;
 ```
 
 **Verwendung:**
+
 ```tsx
 // ✅ Status-Badge
 <Badge className="bg-status-success text-status-success-foreground">
@@ -116,24 +112,25 @@ Das MyDispatch Design-System basiert auf **100% HSL-basierten Semantic Tokens** 
 ### Portal-Spezifische Farben (NEU V18.3.30)
 
 #### Fahrer-Portal
+
 ```css
---portal-fahrer: 220 14% 96%    /* Helles Blau-Grau */
---portal-fahrer-foreground: 225 31% 28%
+--portal-fahrer: 220 14% 96% /* Helles Blau-Grau */ --portal-fahrer-foreground: 225 31% 28%;
 ```
 
 #### Kunden-Portal
+
 ```css
---portal-kunde: 40 8% 98%       /* Extra-helles Beige */
---portal-kunde-foreground: 225 31% 28%
+--portal-kunde: 40 8% 98% /* Extra-helles Beige */ --portal-kunde-foreground: 225 31% 28%;
 ```
 
 #### Öffentliche Landingpages
+
 ```css
---portal-public: 0 0% 100%      /* Weiß */
---portal-public-foreground: 225 31% 28%
+--portal-public: 0 0% 100% /* Weiß */ --portal-public-foreground: 225 31% 28%;
 ```
 
 **Verwendung:**
+
 ```tsx
 // Fahrer-Portal Header
 <header className="bg-portal-fahrer text-portal-fahrer-foreground">
@@ -151,28 +148,23 @@ Das MyDispatch Design-System basiert auf **100% HSL-basierten Semantic Tokens** 
 
 ```css
 --video-background: 225 31% 15% /* Dunkler Hintergrund für bessere Sichtbarkeit */
---video-foreground: 0 0% 100%   /* Weiß */
+  --video-foreground: 0 0% 100% /* Weiß */;
 ```
 
 **Anwendung:**
+
 ```tsx
-<div className="bg-video-background text-video-foreground">
-  {/* Video-Interface */}
-</div>
+<div className="bg-video-background text-video-foreground">{/* Video-Interface */}</div>
 ```
 
 ---
 
 ### Sidebar
+
 ```css
---sidebar-background: 40 31% 88%
---sidebar-foreground: 225 31% 28%
---sidebar-primary: 225 31% 28%
---sidebar-primary-foreground: 40 31% 88%
---sidebar-accent: 40 31% 88%
---sidebar-accent-foreground: 225 31% 28%
---sidebar-border: 40 12% 88%
---sidebar-ring: 40 31% 88%
+--sidebar-background: 40 31% 88% --sidebar-foreground: 225 31% 28% --sidebar-primary: 225 31% 28%
+  --sidebar-primary-foreground: 40 31% 88% --sidebar-accent: 40 31% 88%
+  --sidebar-accent-foreground: 225 31% 28% --sidebar-border: 40 12% 88% --sidebar-ring: 40 31% 88%;
 ```
 
 ---
@@ -183,16 +175,14 @@ Alle Tokens haben Dark-Mode-Varianten:
 
 ```css
 .dark {
-  --background: 225 31% 15%     /* Dunkelblau */
-  --foreground: 40 31% 88%      /* Helles Beige */
-  --card: 225 31% 20%
-  --primary: 40 31% 88%         /* Invertiert */
-  --portal-fahrer: 220 14% 20%  /* Dark Mode Portal-Farben */
-  /* ... alle anderen Farben */
+  --background: 225 31% 15% /* Dunkelblau */ --foreground: 40 31% 88% /* Helles Beige */ --card: 225
+    31% 20% --primary: 40 31% 88% /* Invertiert */ --portal-fahrer: 220 14% 20%
+    /* Dark Mode Portal-Farben */ /* ... alle anderen Farben */;
 }
 ```
 
 **Automatische Dark Mode Unterstützung:**
+
 - `<html class="dark">` aktiviert automatisch alle Dark-Mode-Tokens
 - Kein manuelles Styling nötig
 - Alle Komponenten sind dark-mode-ready
@@ -202,11 +192,19 @@ Alle Tokens haben Dark-Mode-Varianten:
 ## 📐 Typografie
 
 ### Font-Familie
+
 ```css
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+font-family:
+  "Inter",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  sans-serif;
 ```
 
 **Features:**
+
 - ✅ Variable Font-Weight (100-900)
 - ✅ OpenType Features (`cv11`, `ss01`)
 - ✅ Optimale Lesbarkeit
@@ -214,18 +212,19 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
 ### Fluid Typography (Responsive Schriftgrößen)
 
 ```css
---font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem)   /* 12px → 14px */
---font-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem)    /* 14px → 16px */
---font-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem)   /* 16px → 18px */
---font-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem) /* 18px → 20px */
---font-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem)     /* 20px → 24px */
---font-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem)  /* 24px → 30px */
---font-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.25rem) /* 30px → 36px */
---font-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem)      /* 36px → 48px */
---font-5xl: clamp(3rem, 2.55rem + 2.25vw, 4rem)        /* 48px → 64px */
+--font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem) /* 12px → 14px */
+  --font-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem) /* 14px → 16px */
+  --font-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem) /* 16px → 18px */
+  --font-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem) /* 18px → 20px */
+  --font-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem) /* 20px → 24px */
+  --font-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem) /* 24px → 30px */
+  --font-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.25rem) /* 30px → 36px */
+  --font-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem) /* 36px → 48px */
+  --font-5xl: clamp(3rem, 2.55rem + 2.25vw, 4rem) /* 48px → 64px */;
 ```
 
 **Utility-Klassen:**
+
 ```css
 .text-display      /* --font-5xl, line-height: 1.1, font-weight: 800 */
 .text-heading-1    /* --font-4xl, line-height: 1.2, font-weight: 700 */
@@ -241,13 +240,14 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
 ## 🎬 Animationen & Transitionen
 
 ### Standard-Transitionen
+
 ```css
---transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1)
---transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)
---transition-smooth: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1)
+--transition-base: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) --transition-slow: all 0.3s
+  cubic-bezier(0.4, 0, 0.2, 1) --transition-smooth: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
 ```
 
 ### Keyframe-Animationen
+
 ```css
 /* Verfügbar via Tailwind */
 animate-fade-in         /* 0.3s ease-out */
@@ -267,17 +267,16 @@ animate-exit            /* Kombiniert fade + scale */
 ## 🎭 Premium-Effekte
 
 ### Shadows
+
 ```css
---shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05)
---shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1)
---shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1)
---shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1)
---shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25)
---shadow-elegant: 0 10px 30px -10px rgba(50, 61, 94, 0.3)
---shadow-glow: 0 0 40px rgba(234, 222, 189, 0.4)
+--shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05) --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1)
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1) --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1)
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25) --shadow-elegant: 0 10px 30px -10px
+  rgba(50, 61, 94, 0.3) --shadow-glow: 0 0 40px rgba(234, 222, 189, 0.4);
 ```
 
 **Utility-Klassen:**
+
 ```css
 .shadow-elegant  /* Premium-Shadow (MyDispatch CI-Farbe) */
 .shadow-glow     /* Leuchten-Effekt */
@@ -287,6 +286,7 @@ animate-exit            /* Kombiniert fade + scale */
 ```
 
 ### Glassmorphism
+
 ```css
 .glass {
   background: rgba(255, 255, 255, 0.1);
@@ -306,6 +306,7 @@ animate-exit            /* Kombiniert fade + scale */
 ## 📱 Responsive Design
 
 ### Breakpoints
+
 ```typescript
 sm:  640px  // Tablets
 md:  768px  // Desktop klein
@@ -315,6 +316,7 @@ xl:  1280px // Desktop XL
 ```
 
 ### Touch-Optimierung
+
 ```css
 /* Touch-Targets mind. 44px hoch */
 .min-h-[44px]  /* Buttons, Inputs */
@@ -322,6 +324,7 @@ xl:  1280px // Desktop XL
 ```
 
 ### Mobile-First Prinzipien
+
 - Container: Padding `1rem` auf Mobile, `2rem` auf Desktop
 - Kompaktere Abstände auf Mobile (`space-y-4` statt `space-y-6`)
 - Sticky Headers für bessere Navigation
@@ -331,24 +334,37 @@ xl:  1280px // Desktop XL
 ## 🔒 Kontrast-Regeln (WCAG 2.1 AA)
 
 ### Helle Hintergründe
+
 ```css
 /* bg-primary, bg-background, bg-card → Dunkler Text */
-.bg-primary { @apply text-primary-foreground } /* #323D5E - Dunkelblau */
-.bg-background { @apply text-foreground }
-.bg-card { @apply text-card-foreground }
+.bg-primary {
+  @apply text-primary-foreground;
+} /* #323D5E - Dunkelblau */
+.bg-background {
+  @apply text-foreground;
+}
+.bg-card {
+  @apply text-card-foreground;
+}
 ```
 
 ### Dunkle Hintergründe
+
 ```css
 /* bg-accent (wenn dunkel), bg-destructive, bg-status-success → Heller Text */
-.bg-destructive { @apply text-destructive-foreground } /* Weiß */
-.bg-status-success { @apply text-status-success-foreground }
+.bg-destructive {
+  @apply text-destructive-foreground;
+} /* Weiß */
+.bg-status-success {
+  @apply text-status-success-foreground;
+}
 ```
 
 ### Explizite Kontrast-Tokens
+
 ```css
---text-on-dark: 0 0% 100%       /* Weiß für dunkle Hintergründe */
---text-on-light: 225 31% 28%    /* Dunkel für helle Hintergründe */
+--text-on-dark: 0 0% 100% /* Weiß für dunkle Hintergründe */ --text-on-light: 225 31% 28%
+  /* Dunkel für helle Hintergründe */;
 ```
 
 ---
@@ -356,6 +372,7 @@ xl:  1280px // Desktop XL
 ## 📄 Textumbruch-Optimierung
 
 ### Deutsche Silbentrennung (DIN 5008)
+
 ```css
 body {
   hyphens: auto;
@@ -366,6 +383,7 @@ body {
 ```
 
 ### Utility-Klassen
+
 ```css
 .hero-text-no-hyphens          /* Keine Silbentrennung (Headlines) */
 .marketing-text-soft-hyphens   /* Sanfte Silbentrennung (8 4 4) */
@@ -380,6 +398,7 @@ body {
 ## 🛠️ Verwendung in Komponenten
 
 ### Button-Beispiel
+
 ```tsx
 import { Button } from "@/components/ui/button";
 
@@ -395,6 +414,7 @@ import { Button } from "@/components/ui/button";
 ```
 
 ### Card-Beispiel
+
 ```tsx
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -405,10 +425,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
   <CardContent>
     <p className="text-body text-muted-foreground">Content</p>
   </CardContent>
-</Card>
+</Card>;
 ```
 
 ### Alert-Beispiel
+
 ```tsx
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
@@ -429,6 +450,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 ## 🎨 Tailwind-Konfiguration
 
 ### Nutzung der Tokens
+
 ```tsx
 // Via Tailwind-Klassen
 <div className="bg-background text-foreground border-border">
@@ -437,13 +459,14 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 </div>
 
 // Via hsl() in Custom CSS
-<div style={{ 
+<div style={{
   background: 'hsl(var(--background))',
   color: 'hsl(var(--foreground))'
 }}>
 ```
 
 ### Verfügbare Farb-Tokens
+
 ```typescript
 // tailwind.config.ts
 colors: {
@@ -467,6 +490,7 @@ colors: {
 ## ✅ Qualitätskontrolle
 
 ### Checkliste für neue Komponenten
+
 - [ ] **Keine direkten Farben** (`#fff`, `white`, `gray-500`)
 - [ ] **Nur Semantic Tokens** (`text-foreground`, `bg-card`)
 - [ ] **Dark Mode getestet** (HTML-Klasse `.dark`)
@@ -482,32 +506,35 @@ colors: {
 
 ## 📊 Metriken
 
-| Kategorie | Status | Score |
-|-----------|--------|-------|
-| Semantic Tokens | ✅ 100% HSL | 100% |
-| Dark Mode Support | ✅ Vollständig | 100% |
-| Kontrast (WCAG AA) | ✅ Alle Kombinationen | 100% |
-| Responsive Design | ✅ Mobile-First | 100% |
-| Animationen | ✅ Smooth (60fps) | 100% |
-| Typografie | ✅ Fluid + DIN 5008 | 100% |
-| Portal-Tokens | ✅ NEU V18.3.30 | 100% |
-| **Gesamt** | **✅ PRODUCTION-READY** | **100%** |
+| Kategorie          | Status                  | Score    |
+| ------------------ | ----------------------- | -------- |
+| Semantic Tokens    | ✅ 100% HSL             | 100%     |
+| Dark Mode Support  | ✅ Vollständig          | 100%     |
+| Kontrast (WCAG AA) | ✅ Alle Kombinationen   | 100%     |
+| Responsive Design  | ✅ Mobile-First         | 100%     |
+| Animationen        | ✅ Smooth (60fps)       | 100%     |
+| Typografie         | ✅ Fluid + DIN 5008     | 100%     |
+| Portal-Tokens      | ✅ NEU V18.3.30         | 100%     |
+| **Gesamt**         | **✅ PRODUCTION-READY** | **100%** |
 
 ---
 
 ## 🚀 Nächste Schritte
 
 ### Kurzfristig
+
 - [ ] Alle bestehenden Komponenten auf Design-System migrieren
 - [ ] Automated Tests für Kontrast-Ratios
 - [ ] Storybook-Integration für alle Tokens
 
 ### Mittelfristig
+
 - [ ] Theming-API für Custom CI-Farben
 - [ ] Color-Picker für Landingpage-Konfigurator
 - [ ] A11y-Audit Tools Integration
 
 ### Langfristig
+
 - [ ] Multi-Brand Support (White-Label)
 - [ ] Design-Tokens als NPM-Package
 - [ ] Figma-Plugin für Token-Sync

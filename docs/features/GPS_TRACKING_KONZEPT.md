@@ -11,6 +11,7 @@
 
 **KRITISCHE VORGABE:** MyDispatch ist eine **100% Mobile-First Web-App** (PWA).  
 Es wird KEINE native App entwickelt. Alle GPS-Tracking-Funktionen laufen über:
+
 - **Browser Geolocation API** (für Fahrer auf Smartphones)
 - **Service Worker** (für Hintergrund-Tracking & Offline-Funktion)
 - **Supabase Realtime** (für Live-Datenübertragung)
@@ -27,7 +28,7 @@ Es wird KEINE native App entwickelt. Alle GPS-Tracking-Funktionen laufen über:
 
 useEffect(() => {
   if (!navigator.geolocation) {
-    toast.error('GPS nicht unterstützt');
+    toast.error("GPS nicht unterstützt");
     return;
   }
 
@@ -35,9 +36,9 @@ useEffect(() => {
   const watchId = navigator.geolocation.watchPosition(
     async (position) => {
       const { latitude, longitude, speed, heading } = position.coords;
-      
+
       // Sende Position an Supabase
-      await supabase.from('vehicle_positions').insert({
+      await supabase.from("vehicle_positions").insert({
         vehicle_id: currentVehicleId,
         driver_id: user.id,
         latitude,
@@ -48,8 +49,8 @@ useEffect(() => {
       });
     },
     (error) => {
-      console.error('GPS-Fehler:', error);
-      toast.error('GPS-Signal verloren');
+      console.error("GPS-Fehler:", error);
+      toast.error("GPS-Signal verloren");
     },
     {
       enableHighAccuracy: true,
@@ -63,6 +64,7 @@ useEffect(() => {
 ```
 
 **Funktionen:**
+
 - ✅ Automatisches GPS-Tracking im Browser
 - ✅ Alle 10 Sekunden Position-Update
 - ✅ Offline-Queue (bei Netzausfall → später sync)
@@ -78,21 +80,25 @@ useEffect(() => {
 useEffect(() => {
   // Supabase Realtime Channel
   const channel = supabase
-    .channel('vehicle-tracking')
-    .on('postgres_changes', {
-      event: 'INSERT',
-      schema: 'public',
-      table: 'vehicle_positions',
-      filter: `company_id=eq.${profile.company_id}`,
-    }, (payload) => {
-      const newPosition = payload.new as VehiclePosition;
-      
-      // Update Marker auf Map
-      updateMarkerPosition(newPosition.vehicle_id, {
-        lat: newPosition.latitude,
-        lng: newPosition.longitude,
-      });
-    })
+    .channel("vehicle-tracking")
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "vehicle_positions",
+        filter: `company_id=eq.${profile.company_id}`,
+      },
+      (payload) => {
+        const newPosition = payload.new as VehiclePosition;
+
+        // Update Marker auf Map
+        updateMarkerPosition(newPosition.vehicle_id, {
+          lat: newPosition.latitude,
+          lng: newPosition.longitude,
+        });
+      }
+    )
     .subscribe();
 
   return () => supabase.removeChannel(channel);
@@ -100,6 +106,7 @@ useEffect(() => {
 ```
 
 **Funktionen:**
+
 - ✅ Echtzeit-Karte mit allen Fahrzeugen
 - ✅ Farbcodierung (Grün/Rot/Grau/Gelb)
 - ✅ Click → Fahrzeug-Details + aktueller Auftrag
@@ -123,6 +130,7 @@ useEffect(() => {
 ```
 
 **Performance:**
+
 - **Latenz:** <500ms (Position → Map-Update)
 - **Datenvolumen:** ~5 KB pro Update (10s × 60min × 8h = 2.4 MB/Tag/Fahrzeug)
 - **Retention:** 24h Standard, 7 Tage bei Business+
@@ -146,7 +154,7 @@ CREATE TABLE vehicle_positions (
 );
 
 -- Index für Performance
-CREATE INDEX idx_vehicle_positions_latest 
+CREATE INDEX idx_vehicle_positions_latest
 ON vehicle_positions (vehicle_id, timestamp DESC);
 
 -- RLS Policy
@@ -170,17 +178,17 @@ ALTER PUBLICATION supabase_realtime ADD TABLE vehicle_positions;
 // Fahrer startet Schicht → GPS-Tracking aktiviert sich automatisch
 const handleStartShift = async () => {
   // 1. Schicht in DB anlegen
-  await supabase.from('shifts').insert({
+  await supabase.from("shifts").insert({
     driver_id: user.id,
     vehicle_id: selectedVehicleId,
-    date: new Date().toISOString().split('T')[0],
-    shift_start_time: new Date().toLocaleTimeString('de-DE'),
+    date: new Date().toISOString().split("T")[0],
+    shift_start_time: new Date().toLocaleTimeString("de-DE"),
     company_id: profile.company_id,
   });
 
   // 2. GPS-Tracking starten
   setTrackingActive(true);
-  toast.success('Schicht gestartet - GPS aktiv');
+  toast.success("Schicht gestartet - GPS aktiv");
 };
 ```
 
@@ -199,11 +207,14 @@ const handleEndShift = async () => {
   setTrackingActive(false);
 
   // 2. Schicht beenden
-  await supabase.from('shifts').update({
-    shift_end_time: new Date().toLocaleTimeString('de-DE'),
-  }).eq('id', currentShiftId);
+  await supabase
+    .from("shifts")
+    .update({
+      shift_end_time: new Date().toLocaleTimeString("de-DE"),
+    })
+    .eq("id", currentShiftId);
 
-  toast.success('Schicht beendet - GPS deaktiviert');
+  toast.success("Schicht beendet - GPS deaktiviert");
 };
 ```
 
@@ -241,12 +252,12 @@ const handleEndShift = async () => {
     - Disposition & Auftrags-Zuweisung
     - Kunden-Echtzeit-Info (ETA)
     - Sicherheit & Notfallhilfe
-    
+
     Ihre Daten werden:
     - NUR während aktiver Schicht erfasst
     - Nach 24h automatisch gelöscht (Standard-Tarif)
     - NICHT für Leistungsbewertung verwendet
-    
+
     Sie können die Einwilligung jederzeit widerrufen.
   </DialogDescription>
   <Checkbox onChange={handleConsentChange}>
@@ -256,6 +267,7 @@ const handleEndShift = async () => {
 ```
 
 **Datenaufbewahrung:**
+
 - **Starter:** 24h Retention
 - **Business:** 7 Tage Retention
 - **Enterprise:** Custom (max. 90 Tage gem. PBefG § 51)
@@ -364,11 +376,13 @@ const handleEndShift = async () => {
 ## 📈 PERFORMANCE & SKALIERUNG
 
 **Zielwerte:**
+
 - **Latenz:** <500ms (GPS-Update → Map-Render)
 - **Datenvolumen:** 2.4 MB/Tag/Fahrzeug (10s Intervall)
 - **Skalierung:** Bis 1000 aktive Fahrzeuge gleichzeitig
 
 **Optimierungen:**
+
 - Batch-Updates (alle 10s statt Realtime pro Position)
 - IndexedDB-Cache für Offline-Puffer
 - WebSocket statt HTTP Polling (Supabase Realtime)
@@ -383,7 +397,7 @@ const handleEndShift = async () => {
 ✅ **Sofortige Updates** (kein App-Store-Review)  
 ✅ **Niedrigere Kosten** (keine native App-Entwicklung)  
 ✅ **Offline-fähig** (Service Worker + IndexedDB)  
-✅ **DSGVO-konform** (Einwilligung + Auto-Delete)  
+✅ **DSGVO-konform** (Einwilligung + Auto-Delete)
 
 ---
 

@@ -1,6 +1,6 @@
-import { Label } from '@/components/ui/label';
-import { Input } from '@/lib/compat';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from "@/components/ui/label";
+import { Input } from "@/lib/compat";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface TrainStationPickupFieldsProps {
   formData: {
@@ -25,7 +25,7 @@ export function TrainStationPickupFields({ formData, onChange }: TrainStationPic
         <Input
           id="train_number"
           value={formData.train_number}
-          onChange={(e) => handleFieldChange('train_number', e.target.value)}
+          onChange={(e) => handleFieldChange("train_number", e.target.value)}
           placeholder="z.B. ICE 123"
         />
       </div>
@@ -36,7 +36,7 @@ export function TrainStationPickupFields({ formData, onChange }: TrainStationPic
           id="train_arrival_time"
           type="time"
           value={formData.arrival_time}
-          onChange={(e) => handleFieldChange('arrival_time', e.target.value)}
+          onChange={(e) => handleFieldChange("arrival_time", e.target.value)}
         />
       </div>
 
@@ -47,7 +47,7 @@ export function TrainStationPickupFields({ formData, onChange }: TrainStationPic
           type="number"
           min="0"
           value={formData.wait_time}
-          onChange={(e) => handleFieldChange('wait_time', e.target.value)}
+          onChange={(e) => handleFieldChange("wait_time", e.target.value)}
         />
       </div>
 
@@ -56,7 +56,7 @@ export function TrainStationPickupFields({ formData, onChange }: TrainStationPic
           <Checkbox
             id="train_meet_and_greet"
             checked={formData.meet_and_greet}
-            onCheckedChange={(checked) => handleFieldChange('meet_and_greet', !!checked)}
+            onCheckedChange={(checked) => handleFieldChange("meet_and_greet", !!checked)}
           />
           <Label htmlFor="train_meet_and_greet" className="cursor-pointer">
             Meet & Greet Service
@@ -69,7 +69,7 @@ export function TrainStationPickupFields({ formData, onChange }: TrainStationPic
             <Input
               id="train_name_sign"
               value={formData.name_sign}
-              onChange={(e) => handleFieldChange('name_sign', e.target.value)}
+              onChange={(e) => handleFieldChange("name_sign", e.target.value)}
               placeholder="Name für Abholschild"
             />
           </div>

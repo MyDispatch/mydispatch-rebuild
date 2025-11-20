@@ -10,12 +10,14 @@
 ## 🎯 KERN-ANFORDERUNGEN (OPTIMIERT & ERWEITERT)
 
 ### 1. **Eigenständiges Dashboard**
+
 - ✅ Separates GitHub Repo (`nexify-ai-master-dashboard`)
 - ✅ Eigene Supabase-Datenbank (getrenntes Schema, aber gleicher Supabase-Projekt)
 - ✅ Vollständig unabhängig von MyDispatch
 - ✅ Moderne Webanwendung als Desktop-App mit PWA
 
 ### 2. **NeXifyAI MASTER Integration**
+
 - ✅ Vollumfängliche Verbindung zum Cloud Agent
 - ✅ Echtzeit-Kommunikation via WebSocket/SSE
 - ✅ Chat-Interface für direkte Kommunikation
@@ -23,6 +25,7 @@
 - ✅ Command-Interface für direkte Steuerung
 
 ### 3. **Forget-Proof System Integration**
+
 - ✅ Vollumfänglich mit niemals vergessendem Gedächtnis
 - ✅ Auto-Load bei jedem Start
 - ✅ Knowledge Base Integration
@@ -31,6 +34,7 @@
 - ✅ Self-Reporting
 
 ### 4. **Cursor Integration**
+
 - ✅ **Option A:** Cursor API Integration (falls verfügbar)
 - ✅ **Option B:** Workaround via Terminal/SSH
 - ✅ **Option C:** Cursor Extension/Plugin
@@ -40,6 +44,7 @@
 - ✅ Deployment-Operations
 
 ### 5. **MASTER-ADMIN-RECHTE**
+
 - ✅ Vollständige System-Administration
 - ✅ Projekt-Management
 - ✅ User-Management
@@ -48,6 +53,7 @@
 - ✅ Backup & Restore
 
 ### 6. **Alle Verbindungen & Integrationen**
+
 - ✅ **Desktop Tab:** Browser-Integration
 - ✅ **Eigener Computer:** SSH/Remote-Access
 - ✅ **Hooks:** Webhooks für externe Systeme
@@ -55,6 +61,7 @@
 - ✅ **Marktplatz-Apps:** Integrationen (z.B. GitHub, Slack, etc.)
 
 ### 7. **Selbst-Erweiterungs-System**
+
 - ✅ Auto-Optimierung
 - ✅ Self-Learning
 - ✅ Feature-Requests automatisch umsetzen
@@ -63,6 +70,7 @@
 - ✅ Deployment-Automatisierung
 
 ### 8. **Deployment & Hosting**
+
 - ✅ Vercel Deployment
 - ✅ Credentials:
   - Benutzername: `courbois1981@gmail.com`
@@ -75,6 +83,7 @@
 ## 📋 TECHNISCHE SPEZIFIKATION
 
 ### Tech Stack
+
 - **Frontend:** React 18 + TypeScript + Vite
 - **Styling:** Tailwind CSS + shadcn/ui
 - **State Management:** Zustand / TanStack Query
@@ -84,6 +93,7 @@
 - **Deployment:** Vercel
 
 ### Projekt-Struktur
+
 ```
 nexify-ai-master-dashboard/
 ├── src/
@@ -125,6 +135,7 @@ nexify-ai-master-dashboard/
 ## 🔧 FEATURE-DETAILS
 
 ### 1. Dashboard-Übersicht
+
 - **Projekt-Übersicht:** Alle aktiven Projekte
 - **Agent-Status:** Online/Offline, Aktivität
 - **Quick Actions:** Häufig genutzte Aktionen
@@ -132,6 +143,7 @@ nexify-ai-master-dashboard/
 - **System Health:** Status aller Systeme
 
 ### 2. Chat-Interface
+
 - **Echtzeit-Chat** mit NeXifyAI MASTER
 - **Command-History:** Vorherige Befehle
 - **Code-Preview:** Code-Vorschau
@@ -139,6 +151,7 @@ nexify-ai-master-dashboard/
 - **Terminal-Integration:** Terminal-Output
 
 ### 3. Projekt-Management
+
 - **Projekt-Liste:** Alle Projekte
 - **Projekt-Details:** Vollständiger Kontext
 - **History:** Session-History
@@ -146,6 +159,7 @@ nexify-ai-master-dashboard/
 - **Deployment:** Deployment-Status
 
 ### 4. Admin-Panel
+
 - **User-Management:** Benutzer verwalten
 - **System-Config:** System-Konfiguration
 - **Logs:** System-Logs
@@ -153,6 +167,7 @@ nexify-ai-master-dashboard/
 - **Backup:** Backup & Restore
 
 ### 5. Integrationen
+
 - **GitHub:** Repository-Management
 - **Cursor:** Code-Editor-Integration
 - **Slack:** Notifications
@@ -160,6 +175,7 @@ nexify-ai-master-dashboard/
 - **Marketplace:** App-Integrationen
 
 ### 6. Selbst-Erweiterungs-System
+
 - **Feature-Requests:** Automatische Umsetzung
 - **Code-Generierung:** Auto-Code-Generation
 - **Testing:** Automatische Tests
@@ -173,6 +189,7 @@ nexify-ai-master-dashboard/
 ### Schema: `nexify_ai_master_dashboard`
 
 #### Tabelle: `dashboard_sessions`
+
 ```sql
 CREATE TABLE dashboard_sessions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -186,6 +203,7 @@ CREATE TABLE dashboard_sessions (
 ```
 
 #### Tabelle: `agent_commands`
+
 ```sql
 CREATE TABLE agent_commands (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -201,6 +219,7 @@ CREATE TABLE agent_commands (
 ```
 
 #### Tabelle: `cursor_operations`
+
 ```sql
 CREATE TABLE cursor_operations (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -218,9 +237,11 @@ CREATE TABLE cursor_operations (
 ## 🔄 EDGE FUNCTIONS
 
 ### 1. `nexify-ai-master-command`
+
 **Zweck:** Führt Befehle für NeXifyAI MASTER aus
 
 **Request:**
+
 ```json
 {
   "command": "Erstelle neue Komponente V28Button",
@@ -230,6 +251,7 @@ CREATE TABLE cursor_operations (
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -240,9 +262,11 @@ CREATE TABLE cursor_operations (
 ```
 
 ### 2. `nexify-ai-master-status`
+
 **Zweck:** Lädt Agent-Status
 
 **Request:**
+
 ```json
 {
   "include_activity": true,
@@ -251,9 +275,11 @@ CREATE TABLE cursor_operations (
 ```
 
 ### 3. `cursor-operation`
+
 **Zweck:** Führt Cursor-Operationen aus
 
 **Request:**
+
 ```json
 {
   "operation": "read_file",
@@ -267,24 +293,28 @@ CREATE TABLE cursor_operations (
 ## 🚀 DEPLOYMENT PLAN
 
 ### Phase 1: Setup (Sofort)
+
 - [ ] GitHub Repo erstellen
 - [ ] Projekt-Struktur aufbauen
 - [ ] Supabase Schema erstellen
 - [ ] Basic Dashboard implementieren
 
 ### Phase 2: Core Features (Tag 1-2)
+
 - [ ] NeXifyAI MASTER Integration
 - [ ] Forget-Proof System Integration
 - [ ] Chat-Interface
 - [ ] Projekt-Management
 
 ### Phase 3: Advanced Features (Tag 3-4)
+
 - [ ] Cursor Integration
 - [ ] Admin-Panel
 - [ ] Self-Erweiterungs-System
 - [ ] Integrationen
 
 ### Phase 4: PWA & Deployment (Tag 5)
+
 - [ ] PWA Setup
 - [ ] Vercel Deployment
 - [ ] Testing
@@ -295,6 +325,7 @@ CREATE TABLE cursor_operations (
 ## 📊 SUCCESS CRITERIA
 
 ### Functional
+
 - ✅ Dashboard lädt vollständig
 - ✅ NeXifyAI MASTER verbunden
 - ✅ Chat funktioniert
@@ -304,6 +335,7 @@ CREATE TABLE cursor_operations (
 - ✅ Deployment auf Vercel erfolgreich
 
 ### Technical
+
 - ✅ PWA installierbar
 - ✅ Offline-Funktionalität
 - ✅ Echtzeit-Updates
@@ -311,6 +343,7 @@ CREATE TABLE cursor_operations (
 - ✅ Performance optimiert
 
 ### User Experience
+
 - ✅ Moderne UI/UX
 - ✅ Responsive Design
 - ✅ Intuitive Navigation

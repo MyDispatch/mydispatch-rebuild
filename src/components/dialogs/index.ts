@@ -4,4 +4,4 @@
    ✅ V28DialogWrapper - Pre-Login Design für alle Dialogs
    ================================================================================== */
 
-export { V28DialogWrapper } from './V28DialogWrapper';
+export { V28DialogWrapper } from "./V28DialogWrapper";

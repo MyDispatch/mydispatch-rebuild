@@ -22,7 +22,8 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { driverEmail, driverName, companyName, invitationLink }: DriverInvitationRequest = await req.json();
+    const { driverEmail, driverName, companyName, invitationLink }: DriverInvitationRequest =
+      await req.json();
 
     const emailResponse = await resend.emails.send({
       from: fromEmail,
@@ -87,13 +88,10 @@ const handler = async (req: Request): Promise<Response> => {
     });
   } catch (error: any) {
     console.error("Error sending driver invitation email:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { "Content-Type": "application/json", ...corsHeaders },
-      }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json", ...corsHeaders },
+    });
   }
 };
 

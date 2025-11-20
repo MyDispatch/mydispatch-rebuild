@@ -6,9 +6,9 @@
    Sicher, testbar, mit Rollback-Mechanismus
    ================================================================================== */
 
-import { readFileSync, writeFileSync, copyFileSync, existsSync, mkdirSync } from 'fs';
-import { glob } from 'glob';
-import { join, dirname } from 'path';
+import { readFileSync, writeFileSync, copyFileSync, existsSync, mkdirSync } from "fs";
+import { glob } from "glob";
+import { join, dirname } from "path";
 
 interface BatchFix {
   name: string;
@@ -26,7 +26,7 @@ interface FixResult {
   errors: string[];
 }
 
-const BACKUP_DIR = '.lovable/backups';
+const BACKUP_DIR = ".lovable/backups";
 
 // Ensure backup directory exists
 if (!existsSync(BACKUP_DIR)) {
@@ -34,13 +34,13 @@ if (!existsSync(BACKUP_DIR)) {
 }
 
 async function runBatchFix(batch: BatchFix, dryRun: boolean = false): Promise<FixResult> {
-  console.log(`\n${'━'.repeat(70)}`);
+  console.log(`\n${"━".repeat(70)}`);
   console.log(`🔧 ${batch.name}`);
   console.log(`   Category: ${batch.category} | Priority: ${batch.priority}`);
-  console.log(`${'━'.repeat(70)}`);
+  console.log(`${"━".repeat(70)}`);
 
   const files = await glob(batch.files, {
-    ignore: ['**/node_modules/**', '**/dist/**', '**/.lovable/**']
+    ignore: ["**/node_modules/**", "**/dist/**", "**/.lovable/**"],
   });
 
   let fixedCount = 0;
@@ -49,7 +49,7 @@ async function runBatchFix(batch: BatchFix, dryRun: boolean = false): Promise<Fi
 
   for (const file of files) {
     try {
-      let content = readFileSync(file, 'utf-8');
+      let content = readFileSync(file, "utf-8");
       const originalContent = content;
 
       // Apply fix
@@ -71,11 +71,11 @@ async function runBatchFix(batch: BatchFix, dryRun: boolean = false): Promise<Fi
 
       if (!dryRun) {
         // Backup original
-        const backupPath = join(BACKUP_DIR, file.replace(/\//g, '_'));
+        const backupPath = join(BACKUP_DIR, file.replace(/\//g, "_"));
         copyFileSync(file, backupPath);
 
         // Save fixed file
-        writeFileSync(file, content, 'utf-8');
+        writeFileSync(file, content, "utf-8");
         filesChanged++;
 
         console.log(`  ✅ ${file}: ${count} fixes applied`);
@@ -99,52 +99,52 @@ async function runBatchFix(batch: BatchFix, dryRun: boolean = false): Promise<Fi
 
 const DESIGN_SYSTEM_BATCHES: BatchFix[] = [
   {
-    name: 'Remove accent color (CRITICAL)',
-    category: 'design-system',
+    name: "Remove accent color (CRITICAL)",
+    category: "design-system",
     priority: 100,
     pattern: /\baccent\b(?![-\w])/g,
-    replacement: 'primary',
-    files: ['src/**/*.tsx', 'src/**/*.ts', 'src/**/*.css'],
-    verify: (content) => !content.match(/\baccent\b(?![-\w])/)
+    replacement: "primary",
+    files: ["src/**/*.tsx", "src/**/*.ts", "src/**/*.css"],
+    verify: (content) => !content.match(/\baccent\b(?![-\w])/),
   },
   {
-    name: 'Replace text-white with text-foreground',
-    category: 'design-system',
+    name: "Replace text-white with text-foreground",
+    category: "design-system",
     priority: 90,
     pattern: /(?<!\/\/.*)\btext-white\b(?!\s*\/[*/])/g,
-    replacement: 'text-foreground',
-    files: ['src/**/*.tsx'],
+    replacement: "text-foreground",
+    files: ["src/**/*.tsx"],
   },
   {
-    name: 'Replace bg-white with bg-background',
-    category: 'design-system',
+    name: "Replace bg-white with bg-background",
+    category: "design-system",
     priority: 90,
     pattern: /(?<!\/\/.*)\bbg-white\b(?!\s*\/[*/])/g,
-    replacement: 'bg-background',
-    files: ['src/**/*.tsx'],
+    replacement: "bg-background",
+    files: ["src/**/*.tsx"],
   },
   {
-    name: 'Replace text-black with text-foreground',
-    category: 'design-system',
+    name: "Replace text-black with text-foreground",
+    category: "design-system",
     priority: 90,
     pattern: /(?<!\/\/.*)\btext-black\b(?!\s*\/[*/])/g,
-    replacement: 'text-foreground',
-    files: ['src/**/*.tsx'],
+    replacement: "text-foreground",
+    files: ["src/**/*.tsx"],
   },
   {
-    name: 'Replace bg-black with bg-background',
-    category: 'design-system',
+    name: "Replace bg-black with bg-background",
+    category: "design-system",
     priority: 90,
     pattern: /(?<!\/\/.*)\bbg-black\b(?!\s*\/[*/])/g,
-    replacement: 'bg-background',
-    files: ['src/**/*.tsx'],
+    replacement: "bg-background",
+    files: ["src/**/*.tsx"],
   },
 ];
 
 const MOBILE_FIRST_BATCHES: BatchFix[] = [
   {
-    name: 'Add min-height to buttons (Touch Target)',
-    category: 'mobile-first',
+    name: "Add min-height to buttons (Touch Target)",
+    category: "mobile-first",
     priority: 80,
     pattern: /<Button([^>]*?)(?!.*min-h-)(.*?)>/g,
     replacement: (match, before, after) => {
@@ -153,29 +153,29 @@ const MOBILE_FIRST_BATCHES: BatchFix[] = [
       }
       return `<Button${before} className="min-h-[44px]"${after}>`;
     },
-    files: ['src/**/*.tsx'],
+    files: ["src/**/*.tsx"],
   },
 ];
 
 const PERFORMANCE_BATCHES: BatchFix[] = [
   {
-    name: 'Add lazy loading to images',
-    category: 'performance',
+    name: "Add lazy loading to images",
+    category: "performance",
     priority: 70,
     pattern: /<img([^>]*?)(?!.*loading=)(.*?)>/g,
     replacement: '<img$1 loading="lazy"$2>',
-    files: ['src/**/*.tsx'],
+    files: ["src/**/*.tsx"],
   },
 ];
 
 const CODE_QUALITY_BATCHES: BatchFix[] = [
   {
-    name: 'Replace inline toLocaleString with formatCurrency',
-    category: 'code-quality',
+    name: "Replace inline toLocaleString with formatCurrency",
+    category: "code-quality",
     priority: 60,
     pattern: /(\w+)\.toLocaleString\(['"]de-DE['"],\s*\{[^}]*currency[^}]*\}\)/g,
-    replacement: 'formatCurrency($1)',
-    files: ['src/**/*.tsx', 'src/**/*.ts'],
+    replacement: "formatCurrency($1)",
+    files: ["src/**/*.tsx", "src/**/*.ts"],
   },
 ];
 
@@ -185,15 +185,15 @@ const CODE_QUALITY_BATCHES: BatchFix[] = [
 
 async function main() {
   const args = process.argv.slice(2);
-  const dryRun = args.includes('--dry-run') || args.includes('-d');
-  const category = args.find(arg => !arg.startsWith('-'));
+  const dryRun = args.includes("--dry-run") || args.includes("-d");
+  const category = args.find((arg) => !arg.startsWith("-"));
 
-  console.log('\n╔══════════════════════════════════════════════════════════════╗');
-  console.log('║             BATCH FIX RUNNER V18.5.0                        ║');
-  console.log('╚══════════════════════════════════════════════════════════════╝\n');
+  console.log("\n╔══════════════════════════════════════════════════════════════╗");
+  console.log("║             BATCH FIX RUNNER V18.5.0                        ║");
+  console.log("╚══════════════════════════════════════════════════════════════╝\n");
 
   if (dryRun) {
-    console.log('🔍 DRY RUN MODE - No files will be modified\n');
+    console.log("🔍 DRY RUN MODE - No files will be modified\n");
   }
 
   // Collect all batches
@@ -205,15 +205,13 @@ async function main() {
   ].sort((a, b) => b.priority - a.priority);
 
   // Filter by category if specified
-  const batchesToRun = category
-    ? allBatches.filter(b => b.category === category)
-    : allBatches;
+  const batchesToRun = category ? allBatches.filter((b) => b.category === category) : allBatches;
 
   if (batchesToRun.length === 0) {
-    console.log('❌ No batches found for category:', category);
-    console.log('\nAvailable categories:');
-    const categories = [...new Set(allBatches.map(b => b.category))];
-    categories.forEach(cat => console.log(`  • ${cat}`));
+    console.log("❌ No batches found for category:", category);
+    console.log("\nAvailable categories:");
+    const categories = [...new Set(allBatches.map((b) => b.category))];
+    categories.forEach((cat) => console.log(`  • ${cat}`));
     process.exit(1);
   }
 
@@ -230,28 +228,28 @@ async function main() {
     allErrors.push(...result.errors);
   }
 
-  console.log('\n' + '═'.repeat(70));
-  console.log('                         SUMMARY                              ');
-  console.log('═'.repeat(70));
+  console.log("\n" + "═".repeat(70));
+  console.log("                         SUMMARY                              ");
+  console.log("═".repeat(70));
   console.log(`✅ Total fixes applied: ${totalFixed}`);
   console.log(`📁 Files changed: ${totalFilesChanged}`);
   console.log(`❌ Errors encountered: ${allErrors.length}`);
 
   if (allErrors.length > 0) {
-    console.log('\n⚠️  Errors:');
-    allErrors.forEach(err => console.log(`  • ${err}`));
+    console.log("\n⚠️  Errors:");
+    allErrors.forEach((err) => console.log(`  • ${err}`));
   }
 
   if (dryRun) {
-    console.log('\n💡 Run without --dry-run to apply fixes');
+    console.log("\n💡 Run without --dry-run to apply fixes");
   } else {
     console.log(`\n💾 Backups saved to: ${BACKUP_DIR}`);
   }
 
-  console.log('\n🎉 Batch fixing complete!\n');
+  console.log("\n🎉 Batch fixing complete!\n");
 }
 
-main().catch(error => {
-  console.error('\n❌ Batch fix failed:', error);
+main().catch((error) => {
+  console.error("\n❌ Batch fix failed:", error);
   process.exit(1);
 });

@@ -1,4 +1,5 @@
 # 🚀 MyDispatch V18.1 - Optimierungs-Masterplan
+
 **Datum:** 15.10.2025  
 **Version:** V18.1 OPTIMIERUNGEN  
 **Status:** 🟢 In Implementierung
@@ -10,6 +11,7 @@
 Dieser Masterplan dokumentiert alle Optimierungen für MyDispatch V18.1, die ausschließlich mit vorhandenen APIs und Ressourcen umgesetzt werden. Keine neuen externen Dependencies erforderlich.
 
 **Vorhandene Ressourcen:**
+
 - ✅ Lovable AI (Gemini 2.5 Flash, GPT-5)
 - ✅ Google Maps API (Places, Directions, Geocoding)
 - ✅ HERE Traffic API
@@ -24,6 +26,7 @@ Dieser Masterplan dokumentiert alle Optimierungen für MyDispatch V18.1, die aus
 ## 🎯 Optimierungskategorien
 
 ### Kategorie A: Nutzeroptimierung (UX/UI)
+
 **Ziel:** Bedienung vereinfachen, Effizienz steigern
 
 1. **Global Search & Filter** (P0)
@@ -34,6 +37,7 @@ Dieser Masterplan dokumentiert alle Optimierungen für MyDispatch V18.1, die aus
 6. **Touch Gesten** (P2)
 
 ### Kategorie B: Technische Optimierungen
+
 **Ziel:** Performance, Stabilität, Sicherheit
 
 7. **Query-Optimierung & Indizes** (P0)
@@ -44,6 +48,7 @@ Dieser Masterplan dokumentiert alle Optimierungen für MyDispatch V18.1, die aus
 12. **Session Management** (P2)
 
 ### Kategorie C: AI-Powered Features
+
 **Ziel:** Intelligente Automatisierung mit Lovable AI
 
 13. **Smart Routing** (P1)
@@ -52,6 +57,7 @@ Dieser Masterplan dokumentiert alle Optimierungen für MyDispatch V18.1, die aus
 16. **Customer Chatbot** (P2)
 
 ### Kategorie D: Automatisierungen
+
 **Ziel:** Manuelle Arbeit reduzieren
 
 17. **Auto-Assignment** (P1)
@@ -60,6 +66,7 @@ Dieser Masterplan dokumentiert alle Optimierungen für MyDispatch V18.1, die aus
 20. **Payment Reminders** (P2)
 
 ### Kategorie E: Reporting & Analytics
+
 **Ziel:** Datentransparenz & Insights
 
 21. **PDF/Excel Export** (P1)
@@ -68,6 +75,7 @@ Dieser Masterplan dokumentiert alle Optimierungen für MyDispatch V18.1, die aus
 24. **Geographic Heatmaps** (P3)
 
 ### Kategorie F: Kommunikation
+
 **Ziel:** Echtzeit-Kommunikation
 
 25. **ETA-Updates** (P1)
@@ -113,22 +121,26 @@ Dieser Masterplan dokumentiert alle Optimierungen für MyDispatch V18.1, die aus
 ## 📐 Implementierungs-Phasen
 
 ### SPRINT 1: Foundation (P0 - Woche 1)
+
 **Dauer:** 5 Tage  
 **Ziel:** Kritische Performance & UX
 
 #### Tag 1-2: Database & Performance
+
 - [ ] Composite Indexes erstellen
 - [ ] Query-Optimierung (alle Entities)
 - [ ] React Query Integration
 - [ ] Debounced Search
 
 #### Tag 3-4: Error Handling & Logging
+
 - [ ] Zentrale ErrorBoundary
 - [ ] Retry-Mechanismus
 - [ ] User-Friendly Errors
 - [ ] Audit Logs System
 
 #### Tag 5: Global Search
+
 - [ ] Fuzzy Search Component
 - [ ] Filter-Presets
 - [ ] Keyboard Navigation
@@ -136,25 +148,30 @@ Dieser Masterplan dokumentiert alle Optimierungen für MyDispatch V18.1, die aus
 ---
 
 ### SPRINT 2: AI & Automation (P1 - Woche 2)
+
 **Dauer:** 7 Tage  
 **Ziel:** Intelligente Features
 
 #### Tag 1-2: Smart Routing
+
 - [ ] AI Route Optimization Edge Function
 - [ ] Traffic/Weather Integration
 - [ ] Historical Data Analysis
 
 #### Tag 2-3: Price Estimation
+
 - [ ] AI Price Calculator
 - [ ] Dynamic Pricing Logic
 - [ ] Distance/Time/Class Factors
 
 #### Tag 4-5: Auto-Assignment
+
 - [ ] Assignment Algorithm
 - [ ] Driver Availability Check
 - [ ] Vehicle Class Matching
 
 #### Tag 6-7: Export & Recurring
+
 - [ ] PDF/Excel Export Functions
 - [ ] Recurring Bookings System
 - [ ] ETA-Updates
@@ -162,21 +179,25 @@ Dieser Masterplan dokumentiert alle Optimierungen für MyDispatch V18.1, die aus
 ---
 
 ### SPRINT 3: Advanced Features (P2 - Woche 3)
+
 **Dauer:** 7 Tage  
 **Ziel:** Erweiterte Funktionen
 
 #### Tag 1-2: PWA & Mobile
+
 - [ ] Service Worker
 - [ ] PWA Manifest
 - [ ] Touch Gestures
 - [ ] Offline Support
 
 #### Tag 3-4: Weather & Traffic
+
 - [ ] Weather-Alert-System
 - [ ] Traffic-Based-Pricing
 - [ ] Auto-Notifications
 
 #### Tag 5-7: Dashboards & Analytics
+
 - [ ] Trend-Analysen
 - [ ] Custom Widget System
 - [ ] Heatmaps
@@ -188,15 +209,17 @@ Dieser Masterplan dokumentiert alle Optimierungen für MyDispatch V18.1, die aus
 ### 1. Global Search (P0)
 
 **Dateien:**
+
 - `src/components/search/GlobalSearch.tsx` (NEU)
 - `src/hooks/use-global-search.tsx` (NEU)
 - `src/lib/search-utils.ts` (NEU)
 
 **Funktionen:**
+
 ```typescript
 // Fuzzy Search mit Fuse.js (bereits in Dependencies)
 interface SearchResult {
-  type: 'booking' | 'customer' | 'driver' | 'vehicle' | 'partner';
+  type: "booking" | "customer" | "driver" | "vehicle" | "partner";
   id: string;
   title: string;
   subtitle: string;
@@ -216,6 +239,7 @@ interface FilterPreset {
 ```
 
 **Keyboard Shortcuts:**
+
 - `Ctrl+K` / `Cmd+K`: Search öffnen
 - `Ctrl+N`: Neuer Auftrag
 - `Ctrl+S`: Speichern
@@ -226,47 +250,49 @@ interface FilterPreset {
 ### 2. Query-Optimierung (P0)
 
 **Datenbank-Indizes:**
+
 ```sql
 -- Composite Indexes für schnellere Queries
-CREATE INDEX idx_bookings_company_archived_status 
+CREATE INDEX idx_bookings_company_archived_status
   ON bookings(company_id, archived, status);
 
-CREATE INDEX idx_bookings_company_pickup_date 
+CREATE INDEX idx_bookings_company_pickup_date
   ON bookings(company_id, pickup_date) WHERE archived = false;
 
-CREATE INDEX idx_drivers_company_status 
+CREATE INDEX idx_drivers_company_status
   ON drivers(company_id, shift_status) WHERE archived = false;
 
-CREATE INDEX idx_vehicles_company_status 
+CREATE INDEX idx_vehicles_company_status
   ON vehicles(company_id, status) WHERE archived = false;
 
-CREATE INDEX idx_customers_company_name 
+CREATE INDEX idx_customers_company_name
   ON customers(company_id, last_name, first_name) WHERE archived = false;
 
 -- Full-Text-Search Index
-CREATE INDEX idx_bookings_search 
-  ON bookings USING gin(to_tsvector('german', 
-    coalesce(pickup_location, '') || ' ' || 
+CREATE INDEX idx_bookings_search
+  ON bookings USING gin(to_tsvector('german',
+    coalesce(pickup_location, '') || ' ' ||
     coalesce(dropoff_location, '')
   ));
 ```
 
 **React Query Integration:**
+
 ```typescript
 // src/hooks/use-bookings-query.tsx
 export function useBookingsQuery() {
   const { profile } = useAuth();
-  
+
   return useQuery({
-    queryKey: ['bookings', profile?.company_id],
+    queryKey: ["bookings", profile?.company_id],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('bookings')
-        .select('*')
-        .eq('company_id', profile.company_id)
-        .eq('archived', false)
-        .order('pickup_date', { ascending: true });
-      
+        .from("bookings")
+        .select("*")
+        .eq("company_id", profile.company_id)
+        .eq("archived", false)
+        .order("pickup_date", { ascending: true });
+
       if (error) throw error;
       return data;
     },
@@ -282,6 +308,7 @@ export function useBookingsQuery() {
 ### 3. AI Smart Routing (P1)
 
 **Edge Function:**
+
 ```typescript
 // supabase/functions/ai-smart-routing/index.ts
 // Nutzt Lovable AI (Gemini 2.5 Flash) + Google Maps + HERE Traffic
@@ -308,6 +335,7 @@ Output:
 ```
 
 **AI-Prompt:**
+
 ```
 Analysiere folgende Route:
 - Start: {origin}
@@ -331,6 +359,7 @@ Antwort als JSON.
 ### 4. Auto-Assignment (P1)
 
 **Algorithmus:**
+
 ```typescript
 // src/lib/auto-assignment.ts
 
@@ -339,28 +368,26 @@ interface AssignmentScore {
   vehicle_id: string;
   score: number;
   factors: {
-    availability: number;    // 0-100
-    proximity: number;        // 0-100
-    vehicle_match: number;    // 0-100
-    workload: number;         // 0-100
+    availability: number; // 0-100
+    proximity: number; // 0-100
+    vehicle_match: number; // 0-100
+    workload: number; // 0-100
   };
 }
 
-async function calculateBestAssignment(
-  booking: Booking
-): Promise<AssignmentScore> {
+async function calculateBestAssignment(booking: Booking): Promise<AssignmentScore> {
   // 1. Verfügbare Fahrer finden
   const availableDrivers = await getAvailableDrivers(booking.pickup_date);
-  
+
   // 2. Passende Fahrzeuge finden
   const matchingVehicles = await getMatchingVehicles(booking.vehicle_class);
-  
+
   // 3. Scoring berechnen
   // Proximity: GPS-Distanz zum Abholort
   // Vehicle Match: Fahrzeugklasse-Übereinstimmung
   // Workload: Anzahl bereits zugewiesener Aufträge
   // Availability: Schicht-Status
-  
+
   return bestMatch;
 }
 ```
@@ -370,15 +397,18 @@ async function calculateBestAssignment(
 ### 5. PDF/Excel Export (P1)
 
 **Dateien:**
+
 - `src/lib/export-pdf.ts` (NEU)
 - `src/lib/export-excel.ts` (NEU)
 - `supabase/functions/generate-pdf/index.ts` (NEU)
 
 **Libraries:**
+
 - jsPDF (bereits vorhanden via Lovable)
 - xlsx (bereits vorhanden via Lovable)
 
 **Features:**
+
 - Aufträge-Liste exportieren
 - Rechnungen als PDF
 - Statistiken als Excel
@@ -389,11 +419,13 @@ async function calculateBestAssignment(
 ### 6. PWA Installation (P2)
 
 **Dateien:**
+
 - `public/manifest.json` (✅ bereits vorhanden)
 - `public/service-worker.js` (✅ bereits vorhanden)
 - `src/hooks/use-pwa-install.tsx` (NEU)
 
 **Features:**
+
 - Offline-Support für Dashboard
 - Add-to-Homescreen Prompt
 - Background Sync für Offline-Änderungen
@@ -404,6 +436,7 @@ async function calculateBestAssignment(
 ### 7. Weather-Alerts (P2)
 
 **Edge Function:**
+
 ```typescript
 // supabase/functions/weather-monitor/index.ts
 // Läuft alle 10 Minuten via Supabase Cron
@@ -417,6 +450,7 @@ async function calculateBestAssignment(
 ```
 
 **Resend E-Mail Template:**
+
 ```
 Betreff: ⚠️ Unwetterwarnung - {Stadt}
 
@@ -439,6 +473,7 @@ Ihr MyDispatch-Team
 ## 📊 IST-Analyse
 
 ### Datenbank (Stand V18.0)
+
 ```
 Tabellen: 28
 Entities: 16 (Booking, Driver, Vehicle, Customer, Partner, Shift, Quote, Invoice, ...)
@@ -449,6 +484,7 @@ Functions: 6
 ```
 
 ### Frontend (Stand V18.0)
+
 ```
 Pages: 42
 Forms: 20
@@ -459,6 +495,7 @@ State Management: useState (primär), React Query (minimal)
 ```
 
 ### Edge Functions (Stand V18.0)
+
 ```
 Functions: 22
 AI-Integration: ❌ FEHLT (außer Support-Chat)
@@ -468,6 +505,7 @@ Monitoring: ✅ Health-Checks (Master)
 ```
 
 ### Performance-Metriken (IST)
+
 ```
 Durchschnittliche Query-Zeit: ~250ms (ZU LANGSAM!)
 Dashboard Load: ~2s (OPTIMIERBAR!)
@@ -480,6 +518,7 @@ Bundle Size: ~1.2MB (OK)
 ## 🎯 SOLL-Zustände (V18.1)
 
 ### Datenbank (SOLL)
+
 ```
 Indizes: 15+ (Composite für alle Haupt-Queries)
 Query-Zeit: <100ms (60% Verbesserung)
@@ -488,6 +527,7 @@ Materialized Views: 2 (Statistiken, Partner-Übersicht)
 ```
 
 ### Frontend (SOLL)
+
 ```
 State Management: React Query (90% Coverage)
 Error Handling: Zentrale ErrorBoundary + Retry
@@ -497,6 +537,7 @@ PWA-Ready: ✅ Vollständig
 ```
 
 ### Performance-Metriken (SOLL)
+
 ```
 Query-Zeit: <100ms (60% schneller)
 Dashboard Load: <1s (50% schneller)
@@ -509,6 +550,7 @@ Offline-Fähigkeit: ✅ Aktiviert
 ## 🔒 Sicherheits-Checkliste
 
 ### Implementiert (V18.0)
+
 - [x] RLS Policies (52+)
 - [x] company_id Isolation
 - [x] Archiving statt DELETE
@@ -517,6 +559,7 @@ Offline-Fähigkeit: ✅ Aktiviert
 - [x] Stripe Webhooks
 
 ### Neu (V18.1)
+
 - [ ] Rate Limiting (Edge Functions)
 - [ ] Audit Logs (alle kritischen Aktionen)
 - [ ] Session Auto-Logout (24h)
@@ -528,16 +571,19 @@ Offline-Fähigkeit: ✅ Aktiviert
 ## 📈 Success Metrics
 
 ### Performance
+
 - [ ] Durchschnittliche Query-Zeit: <100ms
 - [ ] Dashboard Load: <1s
 - [ ] Mobile Lighthouse Score: >85
 
 ### User Experience
+
 - [ ] Global Search Nutzung: >50% der User
 - [ ] Auto-Assignment Nutzung: >70% der Aufträge
 - [ ] Export-Funktion Nutzung: >30% der User
 
 ### Business
+
 - [ ] Churn-Reduktion: -10%
 - [ ] Support-Tickets: -20%
 - [ ] User-Zufriedenheit: >4.5/5
@@ -547,23 +593,26 @@ Offline-Fähigkeit: ✅ Aktiviert
 ## 📝 Abhängigkeiten & Risiken
 
 ### Abhängigkeiten
+
 1. **React Query Migration**: Alle State-Management-Stellen müssen angepasst werden
 2. **Datenbank-Indizes**: Erfordert kurze Downtime (<5min)
 3. **AI-Features**: Lovable AI Quota (aktuell ausreichend)
 
 ### Risiken
-| Risiko | Wahrscheinlichkeit | Impact | Mitigation |
-|--------|-------------------|--------|------------|
-| Performance-Regression | Gering | Hoch | Rollback-Plan, Staging-Tests |
-| AI-Quota-Überschreitung | Mittel | Mittel | Rate Limiting, Fallback auf Basis-Logik |
-| Datenbank-Migration-Fehler | Gering | Hoch | Backup vor Migration, Rollback-Script |
-| User-Adoption niedrig | Mittel | Gering | Onboarding-Tour, Tooltips |
+
+| Risiko                     | Wahrscheinlichkeit | Impact | Mitigation                              |
+| -------------------------- | ------------------ | ------ | --------------------------------------- |
+| Performance-Regression     | Gering             | Hoch   | Rollback-Plan, Staging-Tests            |
+| AI-Quota-Überschreitung    | Mittel             | Mittel | Rate Limiting, Fallback auf Basis-Logik |
+| Datenbank-Migration-Fehler | Gering             | Hoch   | Backup vor Migration, Rollback-Script   |
+| User-Adoption niedrig      | Mittel             | Gering | Onboarding-Tour, Tooltips               |
 
 ---
 
 ## 📚 Dokumentations-Updates
 
 ### Neue Dokumentation
+
 - [x] `OPTIMIERUNGEN_V18.1_MASTERPLAN.md` (diese Datei)
 - [ ] `GLOBAL_SEARCH_GUIDE.md`
 - [ ] `AI_FEATURES_DOCUMENTATION.md`
@@ -572,6 +621,7 @@ Offline-Fähigkeit: ✅ Aktiviert
 - [ ] `PWA_INSTALLATION_GUIDE.md`
 
 ### Aktualisierte Dokumentation
+
 - [ ] `README.md` (neue Features)
 - [ ] `PROJECT_STATUS.md` (V18.1 Status)
 - [ ] `QUALITY_CHECKLIST.md` (neue Checks)
@@ -582,14 +632,17 @@ Offline-Fähigkeit: ✅ Aktiviert
 ## 🚦 Rollout-Plan
 
 ### Phase 1: Soft Launch (Master-Accounts)
+
 - Tage 1-3: Master-Accounts testen alle Features
 - Feedback sammeln, Bugfixes
 
 ### Phase 2: Beta (Business-Tarif)
+
 - Tage 4-7: Business-Kunden erhalten Zugang
 - Monitoring, Performance-Tracking
 
 ### Phase 3: Production (Alle)
+
 - Tag 8+: Rollout für alle Tarife
 - Continuous Monitoring
 
@@ -598,6 +651,7 @@ Offline-Fähigkeit: ✅ Aktiviert
 ## ✅ Abnahme-Kriterien
 
 ### Technisch
+
 - [ ] Alle Tests grün (Unit, Integration, E2E)
 - [ ] Bundle Size < 1.5MB
 - [ ] Lighthouse Score > 85 (Mobile)
@@ -605,6 +659,7 @@ Offline-Fähigkeit: ✅ Aktiviert
 - [ ] Keine Console-Errors
 
 ### Funktional
+
 - [ ] Global Search funktioniert
 - [ ] AI Smart Routing funktioniert
 - [ ] Auto-Assignment funktioniert
@@ -612,6 +667,7 @@ Offline-Fähigkeit: ✅ Aktiviert
 - [ ] PWA-Installation funktioniert
 
 ### Dokumentation
+
 - [ ] Alle Docs aktualisiert
 - [ ] User-Guide erstellt
 - [ ] Admin-Guide erstellt

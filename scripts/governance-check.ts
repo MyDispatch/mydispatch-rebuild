@@ -8,30 +8,30 @@
    - Validiert: Layout, Legal, Mobile, Colors, Production-Ready
    ================================================================================== */
 
-import { quickStartPage } from '../src/lib/brain-system';
-import type { ComprehensiveValidationResult } from '../src/lib/brain-system';
+import { quickStartPage } from "../src/lib/brain-system";
+import type { ComprehensiveValidationResult } from "../src/lib/brain-system";
 
 // Farben für CLI-Output
 const colors = {
-  reset: '\x1b[0m',
-  red: '\x1b[31m',
-  green: '\x1b[32m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  cyan: '\x1b[36m',
+  reset: "\x1b[0m",
+  red: "\x1b[31m",
+  green: "\x1b[32m",
+  yellow: "\x1b[33m",
+  blue: "\x1b[34m",
+  cyan: "\x1b[36m",
 };
 
 // Zu prüfende kritische Seiten
 const CRITICAL_PAGES: Array<{
-  entity: 'bookings' | 'customers' | 'drivers' | 'vehicles' | 'invoices' | 'partners';
+  entity: "bookings" | "customers" | "drivers" | "vehicles" | "invoices" | "partners";
   pagePath: string;
   displayName: string;
 }> = [
-  { entity: 'bookings', pagePath: '/auftraege', displayName: 'Aufträge' },
-  { entity: 'customers', pagePath: '/kunden', displayName: 'Kunden' },
-  { entity: 'drivers', pagePath: '/fahrer', displayName: 'Fahrer' },
-  { entity: 'vehicles', pagePath: '/fahrzeuge', displayName: 'Fahrzeuge' },
-  { entity: 'partners', pagePath: '/partner', displayName: 'Partner' },
+  { entity: "bookings", pagePath: "/auftraege", displayName: "Aufträge" },
+  { entity: "customers", pagePath: "/kunden", displayName: "Kunden" },
+  { entity: "drivers", pagePath: "/fahrer", displayName: "Fahrer" },
+  { entity: "vehicles", pagePath: "/fahrzeuge", displayName: "Fahrzeuge" },
+  { entity: "partners", pagePath: "/partner", displayName: "Partner" },
 ];
 
 interface GovernanceResults {
@@ -48,9 +48,15 @@ interface GovernanceResults {
  * Führt Governance-Check für alle kritischen Seiten aus
  */
 async function runGovernanceCheck(): Promise<GovernanceResults> {
-  console.log(`${colors.cyan}╔════════════════════════════════════════════════════════════════╗${colors.reset}`);
-  console.log(`${colors.cyan}║  CODE-GOVERNANCE CHECK V18.5.1                                 ║${colors.reset}`);
-  console.log(`${colors.cyan}╚════════════════════════════════════════════════════════════════╝${colors.reset}\n`);
+  console.log(
+    `${colors.cyan}╔════════════════════════════════════════════════════════════════╗${colors.reset}`
+  );
+  console.log(
+    `${colors.cyan}║  CODE-GOVERNANCE CHECK V18.5.1                                 ║${colors.reset}`
+  );
+  console.log(
+    `${colors.cyan}╚════════════════════════════════════════════════════════════════╝${colors.reset}\n`
+  );
 
   const results: GovernanceResults = {
     totalPages: CRITICAL_PAGES.length,
@@ -63,7 +69,9 @@ async function runGovernanceCheck(): Promise<GovernanceResults> {
   };
 
   for (const page of CRITICAL_PAGES) {
-    console.log(`${colors.blue}▶ Validiere: ${page.displayName} (${page.pagePath})${colors.reset}`);
+    console.log(
+      `${colors.blue}▶ Validiere: ${page.displayName} (${page.pagePath})${colors.reset}`
+    );
 
     try {
       const validationResult = await quickStartPage({
@@ -96,7 +104,7 @@ async function runGovernanceCheck(): Promise<GovernanceResults> {
       } else {
         console.log(`  ${colors.yellow}⚠ Nicht Production-Ready${colors.reset}`);
         if (validationResult.productionReady.blockers.length > 0) {
-          console.log(`    Blockers: ${validationResult.productionReady.blockers.join(', ')}`);
+          console.log(`    Blockers: ${validationResult.productionReady.blockers.join(", ")}`);
         }
       }
 
@@ -108,8 +116,7 @@ async function runGovernanceCheck(): Promise<GovernanceResults> {
         console.log(`  ${colors.yellow}⚠ ${warnings} Warnungen${colors.reset}`);
       }
 
-      console.log(''); // Leerzeile
-
+      console.log(""); // Leerzeile
     } catch (error) {
       console.error(`  ${colors.red}✗ Fehler bei Validierung: ${error}${colors.reset}\n`);
       results.failedPages++;
@@ -123,15 +130,21 @@ async function runGovernanceCheck(): Promise<GovernanceResults> {
  * Gibt Zusammenfassung aus
  */
 function printSummary(results: GovernanceResults) {
-  console.log(`${colors.cyan}═══════════════════════════════════════════════════════════════════${colors.reset}`);
+  console.log(
+    `${colors.cyan}═══════════════════════════════════════════════════════════════════${colors.reset}`
+  );
   console.log(`${colors.cyan}  ZUSAMMENFASSUNG${colors.reset}`);
-  console.log(`${colors.cyan}═══════════════════════════════════════════════════════════════════${colors.reset}\n`);
+  console.log(
+    `${colors.cyan}═══════════════════════════════════════════════════════════════════${colors.reset}\n`
+  );
 
   // Statistiken
   console.log(`  Geprüfte Seiten:       ${results.totalPages}`);
   console.log(`  Bestanden:             ${colors.green}${results.passedPages}${colors.reset}`);
   console.log(`  Fehlgeschlagen:        ${colors.red}${results.failedPages}${colors.reset}`);
-  console.log(`  Production-Ready:      ${colors.green}${results.productionReadyPages}${colors.reset}`);
+  console.log(
+    `  Production-Ready:      ${colors.green}${results.productionReadyPages}${colors.reset}`
+  );
   console.log(`  Fehler (gesamt):       ${colors.red}${results.totalErrors}${colors.reset}`);
   console.log(`  Warnungen (gesamt):    ${colors.yellow}${results.totalWarnings}${colors.reset}\n`);
 
@@ -139,14 +152,22 @@ function printSummary(results: GovernanceResults) {
   const successRate = Math.round((results.passedPages / results.totalPages) * 100);
   const productionRate = Math.round((results.productionReadyPages / results.totalPages) * 100);
 
-  console.log(`  Erfolgsrate:           ${successRate >= 80 ? colors.green : colors.red}${successRate}%${colors.reset}`);
-  console.log(`  Production-Ready Rate: ${productionRate >= 80 ? colors.green : colors.yellow}${productionRate}%${colors.reset}\n`);
+  console.log(
+    `  Erfolgsrate:           ${successRate >= 80 ? colors.green : colors.red}${successRate}%${colors.reset}`
+  );
+  console.log(
+    `  Production-Ready Rate: ${productionRate >= 80 ? colors.green : colors.yellow}${productionRate}%${colors.reset}\n`
+  );
 
   // Detaillierte Fehler
   if (results.totalErrors > 0) {
-    console.log(`${colors.cyan}═══════════════════════════════════════════════════════════════════${colors.reset}`);
+    console.log(
+      `${colors.cyan}═══════════════════════════════════════════════════════════════════${colors.reset}`
+    );
     console.log(`${colors.cyan}  FEHLERDETAILS${colors.reset}`);
-    console.log(`${colors.cyan}═══════════════════════════════════════════════════════════════════${colors.reset}\n`);
+    console.log(
+      `${colors.cyan}═══════════════════════════════════════════════════════════════════${colors.reset}\n`
+    );
 
     results.results.forEach((validation, pageName) => {
       if (validation.totalErrors > 0) {
@@ -184,12 +205,14 @@ function printSummary(results: GovernanceResults) {
           });
         }
 
-        console.log('');
+        console.log("");
       }
     });
   }
 
-  console.log(`${colors.cyan}═══════════════════════════════════════════════════════════════════${colors.reset}\n`);
+  console.log(
+    `${colors.cyan}═══════════════════════════════════════════════════════════════════${colors.reset}\n`
+  );
 }
 
 /**

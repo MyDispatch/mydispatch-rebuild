@@ -50,23 +50,27 @@
 # MyDispatch - Cursor Rules
 
 ## Project Context
+
 - React 18 + TypeScript + Vite + Supabase
 - Design System: V28.1 (PRODUCTION)
 - Layout System: FROZEN (no changes without approval)
 
 ## Code Standards
+
 - Always use V28.1 Design System Components
 - Check COMPONENT_REGISTRY before creating new components
 - Follow TypeScript strict mode where possible
 - Use Supabase client from @/integrations/supabase/client
 
 ## Critical Rules
+
 - NEVER create duplicate components
 - ALWAYS check component_registry first
 - NEVER modify frozen layouts
 - ALWAYS use V28Button, V28Badge, etc. (not shadcn directly)
 
 ## File Structure
+
 - Components: src/components/
 - Pages: src/pages/
 - Utils: src/lib/
@@ -74,6 +78,7 @@
 - Types: src/types/
 
 ## Knowledge Base
+
 - Always load NEXIFY_WIKI_V1.0.md at session start
 - Check FORGET_PROOF_SYSTEM_V1.0.md for validation rules
 - Refer to PROJECT_MEMORY for historical context
@@ -115,6 +120,7 @@
 **Prüfen:** `tsconfig.json` und `vite.config.ts`
 
 **Optimierung:**
+
 - ✅ `@/` Alias bereits vorhanden
 - ✅ Path Resolution funktioniert
 
@@ -170,6 +176,7 @@
 - ⚠️ Prüfen: Keine direkten shadcn/ui Components (außer als Basis)
 
 **Action Items:**
+
 - [ ] Audit: Alle Pages auf V28-Compliance prüfen
 - [ ] Ersetzen: Direkte shadcn/ui → V28-Components
 - [ ] Dokumentieren: Abweichungen in `DESIGN_SYSTEM_AUDIT.md`
@@ -187,6 +194,7 @@
 - ⚠️ Prüfen: Tablet-Optimierungen
 
 **Action Items:**
+
 - [ ] Touch-Target Audit (alle Buttons ≥48px)
 - [ ] Tablet Breakpoints prüfen
 - [ ] Mobile Navigation testen
@@ -203,6 +211,7 @@
 - ⚠️ Prüfen: Reduced Motion Support
 
 **Action Items:**
+
 - [ ] Animation-Duration standardisieren
 - [ ] Reduced Motion Media Query hinzufügen
 
@@ -214,10 +223,12 @@
 
 **Status:** ✅ GUT  
 **Aktuell:**
+
 - ✅ Lazy Loading für Routes
 - ✅ Component-level Code Splitting
 
 **Optimierung:**
+
 - [ ] Prefetching für kritische Routes
 - [ ] Image Lazy Loading
 - [ ] Route-based Code Splitting optimieren
@@ -228,9 +239,11 @@
 
 **Status:** ⚠️ OPTIMIERBAR  
 **Aktuell:**
+
 - `vite.config.ts`: `minify: false` (DEBUG)
 
 **Optimierung:**
+
 ```typescript
 // vite.config.ts - Production Build
 build: {
@@ -253,6 +266,7 @@ build: {
 ```
 
 **Action Items:**
+
 - [ ] Production Build konfigurieren
 - [ ] Bundle Analyzer installieren
 - [ ] Unused Dependencies entfernen
@@ -271,6 +285,7 @@ build: {
 - [ ] CDN Integration (optional)
 
 **Implementation:**
+
 ```typescript
 // src/lib/image-optimization.ts
 export const getOptimizedImageUrl = (src: string, width?: number): string => {
@@ -302,11 +317,12 @@ export const getOptimizedImageUrl = (src: string, width?: number): string => {
 **Optimierung:**
 
 **Migration erstellen:**
+
 ```sql
 -- Prüfe alle Tables auf RLS
-SELECT schemaname, tablename, rowsecurity 
-FROM pg_tables 
-WHERE schemaname = 'public' 
+SELECT schemaname, tablename, rowsecurity
+FROM pg_tables
+WHERE schemaname = 'public'
 ORDER BY tablename;
 
 -- Enable RLS für alle Tables ohne
@@ -319,6 +335,7 @@ CREATE POLICY "Users can view own data"
 ```
 
 **Action Items:**
+
 - [ ] RLS Audit für alle Tables
 - [ ] Policies für alle CRUD-Operationen
 - [ ] Testing mit verschiedenen Rollen
@@ -335,6 +352,7 @@ CREATE POLICY "Users can view own data"
 - [ ] Type-safe Environment Variables
 
 **Erstellen:** `.env.example`
+
 ```env
 VITE_SUPABASE_URL=https://your-project.supabase.co
 VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY=your-key
@@ -349,10 +367,12 @@ RESEND_DOMAIN=mydispatch.com
 
 **Status:** ✅ GUT  
 **Aktuell:**
+
 - ✅ `lib/sanitize.ts` vorhanden
 - ✅ DOMPurify integriert
 
 **Optimierung:**
+
 - [ ] Audit: Alle User-Inputs verwenden Sanitization
 - [ ] XSS Prevention Checklist
 
@@ -364,10 +384,12 @@ RESEND_DOMAIN=mydispatch.com
 
 **Status:** ⚠️ TEILWEISE  
 **Aktuell:**
+
 - `noImplicitAny: false`
 - `strictNullChecks: false`
 
 **Optimierung:**
+
 ```json
 // tsconfig.json - Schrittweise aktivieren
 {
@@ -383,6 +405,7 @@ RESEND_DOMAIN=mydispatch.com
 ```
 
 **Action Items:**
+
 - [ ] Schrittweise Strict Mode aktivieren
 - [ ] `any` Types eliminieren
 - [ ] Type Safety verbessern
@@ -399,14 +422,15 @@ RESEND_DOMAIN=mydispatch.com
 - [ ] Custom Rules für MyDispatch
 
 **Erweitern:** `eslint.config.js`
+
 ```javascript
 export default [
   // ... existing config
   {
     rules: {
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
-      'no-unused-vars': 'error',
-      '@typescript-eslint/no-explicit-any': 'warn',
+      "no-console": ["warn", { allow: ["warn", "error"] }],
+      "no-unused-vars": "error",
+      "@typescript-eslint/no-explicit-any": "warn",
     },
   },
 ];
@@ -418,14 +442,17 @@ export default [
 
 **Status:** ✅ GUT  
 **Aktuell:**
+
 - ✅ Vitest + Playwright
 
 **Optimierung:**
+
 - [ ] Test Coverage erhöhen (aktuell: ?)
 - [ ] E2E Tests für kritische Flows
 - [ ] Component Tests für V28-Components
 
 **Action Items:**
+
 - [ ] Coverage Report erstellen
 - [ ] Critical Paths testen
 - [ ] Component Tests schreiben
@@ -440,9 +467,10 @@ export default [
 **Optimierung:**
 
 **Migration erstellen:**
+
 ```sql
 -- Prüfe Indexes
-SELECT 
+SELECT
   tablename,
   indexname,
   indexdef
@@ -451,16 +479,17 @@ WHERE schemaname = 'public'
 ORDER BY tablename, indexname;
 
 -- Fehlende Indexes hinzufügen
-CREATE INDEX IF NOT EXISTS idx_bookings_company_status 
+CREATE INDEX IF NOT EXISTS idx_bookings_company_status
   ON bookings(company_id, status);
 
-CREATE INDEX IF NOT EXISTS idx_bookings_pickup_time 
+CREATE INDEX IF NOT EXISTS idx_bookings_pickup_time
   ON bookings(pickup_time);
 
 -- etc.
 ```
 
 **Action Items:**
+
 - [ ] Index Audit für alle Tables
 - [ ] Fehlende Indexes hinzufügen
 - [ ] Query Performance prüfen
@@ -497,12 +526,15 @@ CREATE INDEX IF NOT EXISTS idx_bookings_pickup_time
 **Optimierungen:**
 
 #### A. Cursor Rules
+
 - ✅ `.cursorrules` File (siehe oben)
 
 #### B. Code Snippets
+
 - ✅ TypeScript Snippets (siehe oben)
 
 #### C. Workspace Settings
+
 ```json
 // .vscode/settings.json (auch für Cursor)
 {
@@ -526,6 +558,7 @@ CREATE INDEX IF NOT EXISTS idx_bookings_pickup_time
 ```
 
 #### D. Cursor Context Files
+
 - ✅ `docs/NEXIFY_WIKI_V1.0.md` - Haupt-Wiki
 - ✅ `docs/FORGET_PROOF_SYSTEM_V1.0.md` - Validation Rules
 - ✅ `docs/COMPONENT_REGISTRY_V28.1.md` - Component Registry
@@ -577,10 +610,12 @@ npm run test:unit
 
 **Status:** ✅ GUT  
 **Aktuell:**
+
 - ✅ Sentry Integration
 - ✅ Error Boundaries
 
 **Optimierung:**
+
 - [ ] Error Rate Monitoring
 - [ ] Performance Monitoring
 - [ ] User Session Tracking
@@ -591,10 +626,12 @@ npm run test:unit
 
 **Status:** ✅ GUT  
 **Aktuell:**
+
 - ✅ Web Vitals Tracking
 - ✅ Performance Monitoring Library
 
 **Optimierung:**
+
 - [ ] Core Web Vitals Dashboard
 - [ ] Performance Budgets
 - [ ] Real User Monitoring (RUM)
@@ -643,6 +680,7 @@ jobs:
 ### 2. Supabase Migrations
 
 **Optimierung:**
+
 - [ ] Migration-Testing in CI
 - [ ] Rollback-Strategien
 - [ ] Database Backup vor Migration
@@ -750,4 +788,3 @@ jobs:
 ---
 
 **Pascal, alle Optimierungen sind dokumentiert und priorisiert!** 🚀
-

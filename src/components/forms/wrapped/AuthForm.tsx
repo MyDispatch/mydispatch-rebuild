@@ -6,15 +6,15 @@
    ✅ Conditional fields based on mode
    ================================================================================== */
 
-import { UseFormReturn } from 'react-hook-form';
-import { UnifiedForm, FormField } from '../UnifiedForm';
-import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
+import { UseFormReturn } from "react-hook-form";
+import { UnifiedForm, FormField } from "../UnifiedForm";
+import { FORM_FIELDS_REGISTRY } from "@/config/form-fields-registry";
 
 interface AuthFormProps {
   form: UseFormReturn<any>;
   onSubmit: (data: any) => Promise<void>;
-  mode: 'login' | 'signup' | 'reset';
-  portal?: 'entrepreneur' | 'customer' | 'driver';
+  mode: "login" | "signup" | "reset";
+  portal?: "entrepreneur" | "customer" | "driver";
   loading?: boolean;
   showCompanyName?: boolean; // Only for entrepreneur signup
 }
@@ -23,7 +23,7 @@ export function AuthForm({
   form,
   onSubmit,
   mode,
-  portal = 'entrepreneur',
+  portal = "entrepreneur",
   loading,
   showCompanyName = false,
 }: AuthFormProps) {
@@ -31,11 +31,11 @@ export function AuthForm({
 
   // Build fields based on mode
   const getFields = (): FormField[] => {
-    if (mode === 'login') {
+    if (mode === "login") {
       return [auth.loginEmail, auth.loginPassword];
     }
-    
-    if (mode === 'signup') {
+
+    if (mode === "signup") {
       const fields = [];
       if (showCompanyName) {
         fields.push(auth.signupCompanyName);
@@ -51,24 +51,30 @@ export function AuthForm({
       );
       return fields as FormField[];
     }
-    
+
     // Reset mode
     return [auth.resetEmail];
   };
 
   const getDialogTitle = () => {
     switch (mode) {
-      case 'login': return 'Anmelden';
-      case 'signup': return 'Registrieren';
-      case 'reset': return 'Passwort zurücksetzen';
+      case "login":
+        return "Anmelden";
+      case "signup":
+        return "Registrieren";
+      case "reset":
+        return "Passwort zurücksetzen";
     }
   };
 
   const getSubmitLabel = () => {
     switch (mode) {
-      case 'login': return 'Anmelden';
-      case 'signup': return 'Registrieren';
-      case 'reset': return 'Link senden';
+      case "login":
+        return "Anmelden";
+      case "signup":
+        return "Registrieren";
+      case "reset":
+        return "Link senden";
     }
   };
 
@@ -81,7 +87,7 @@ export function AuthForm({
       portal={portal}
       loading={loading}
       submitLabel={getSubmitLabel()}
-      resetOnSuccess={mode !== 'login'}
+      resetOnSuccess={mode !== "login"}
     />
   );
 }

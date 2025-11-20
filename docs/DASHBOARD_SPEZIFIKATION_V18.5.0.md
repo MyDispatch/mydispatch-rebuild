@@ -43,40 +43,43 @@
 ### LEFT COLUMN (8 Cols) - OPERATIONAL
 
 #### 1. QuickActions Widget
+
 **Titel:** "Schnellaktionen"  
 **CardDescription:** "Häufig verwendete Funktionen"
 
 **Buttons:**
+
 ```typescript
 const actions: QuickAction[] = [
   {
     icon: Plus,
-    label: 'Neuer Auftrag',
-    onClick: () => navigate('/auftraege?action=create'),
-    variant: 'primary',
+    label: "Neuer Auftrag",
+    onClick: () => navigate("/auftraege?action=create"),
+    variant: "primary",
   },
   {
     icon: UserPlus,
-    label: 'Neuer Kunde',
-    onClick: () => navigate('/kunden?action=create'),
-    variant: 'secondary',
+    label: "Neuer Kunde",
+    onClick: () => navigate("/kunden?action=create"),
+    variant: "secondary",
   },
   {
     icon: FileText,
-    label: 'Rechnung erstellen',
-    onClick: () => navigate('/finanzen?action=create-invoice'),
-    variant: 'secondary',
+    label: "Rechnung erstellen",
+    onClick: () => navigate("/finanzen?action=create-invoice"),
+    variant: "secondary",
   },
   {
     icon: MessageSquare,
-    label: 'Chat öffnen',
-    onClick: () => navigate('/chat'),
-    variant: 'secondary',
+    label: "Chat öffnen",
+    onClick: () => navigate("/chat"),
+    variant: "secondary",
   },
 ];
 ```
 
 **Design:**
+
 - Layout: 2x2 Grid (Desktop), 1 Column (Mobile)
 - Button Height: 80px (Desktop), 64px (Mobile)
 - Icon Size: `iconSizes.lg` (24px)
@@ -87,6 +90,7 @@ const actions: QuickAction[] = [
 #### 2. KPI-Cards (2x2 Grid)
 
 **KPI 1: Aktive Aufträge**
+
 ```typescript
 {
   title: 'Aktive Aufträge',
@@ -101,6 +105,7 @@ const actions: QuickAction[] = [
 ```
 
 **KPI 2: Offene Rechnungen**
+
 ```typescript
 {
   title: 'Offene Rechnungen',
@@ -115,6 +120,7 @@ const actions: QuickAction[] = [
 ```
 
 **KPI 3: Verfügbare Fahrer**
+
 ```typescript
 {
   title: 'Verfügbare Fahrer',
@@ -129,6 +135,7 @@ const actions: QuickAction[] = [
 ```
 
 **KPI 4: Ausstehende Dokumente**
+
 ```typescript
 {
   title: 'Ausstehende Dokumente',
@@ -143,6 +150,7 @@ const actions: QuickAction[] = [
 ```
 
 **Design:**
+
 - Grid: `grid-cols-1 md:grid-cols-2 gap-4`
 - Card Height: Auto (Content-driven)
 - Value Font: `text-3xl md:text-4xl font-bold`
@@ -155,29 +163,32 @@ const actions: QuickAction[] = [
 ---
 
 #### 3. Revenue Chart
+
 **Titel:** "Umsatzentwicklung"  
 **CardDescription:** "Letzte 30 Tage"
 
 **Chart-Typ:** Area Chart (Recharts)
 
 **Daten-Quelle:**
+
 ```typescript
 const { data } = useQuery({
-  queryKey: ['revenue-chart', companyId],
+  queryKey: ["revenue-chart", companyId],
   queryFn: async () => {
     const { data } = await CompanyQuery(supabase)
-      .from('bookings')
-      .select('pickup_time, price, payment_status, company_id')
-      .eq('company_id', companyId)
-      .gte('pickup_time', getDateDaysAgo(30))
-      .eq('payment_status', 'paid');
-    
+      .from("bookings")
+      .select("pickup_time, price, payment_status, company_id")
+      .eq("company_id", companyId)
+      .gte("pickup_time", getDateDaysAgo(30))
+      .eq("payment_status", "paid");
+
     return aggregateByDay(data);
   },
 });
 ```
 
 **Chart-Konfiguration:**
+
 ```typescript
 <ResponsiveContainer width="100%" height={300}>
   <AreaChart data={data}>
@@ -188,33 +199,34 @@ const { data } = useQuery({
       </linearGradient>
     </defs>
     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-    <XAxis 
-      dataKey="date" 
+    <XAxis
+      dataKey="date"
       stroke="hsl(var(--muted-foreground))"
       tick={{ fill: 'hsl(var(--muted-foreground))' }}
     />
-    <YAxis 
+    <YAxis
       stroke="hsl(var(--muted-foreground))"
       tick={{ fill: 'hsl(var(--muted-foreground))' }}
     />
-    <Tooltip 
+    <Tooltip
       contentStyle={{
         backgroundColor: 'hsl(var(--background))',
         border: '1px solid hsl(var(--border))',
       }}
     />
-    <Area 
-      type="monotone" 
-      dataKey="revenue" 
-      stroke="hsl(var(--primary))" 
-      fillOpacity={1} 
-      fill="url(#colorRevenue)" 
+    <Area
+      type="monotone"
+      dataKey="revenue"
+      stroke="hsl(var(--primary))"
+      fillOpacity={1}
+      fill="url(#colorRevenue)"
     />
   </AreaChart>
 </ResponsiveContainer>
 ```
 
 **Design:**
+
 - Chart Height: 300px (Desktop), 250px (Mobile)
 - Padding: `p-6`
 - Grid: `strokeDasharray="3 3"`
@@ -225,20 +237,22 @@ const { data } = useQuery({
 ### RIGHT COLUMN (4 Cols) - MONITORING
 
 #### 4. Fahrerverfügbarkeit Widget
+
 **Titel:** "Fahrerverfügbarkeit"  
 **CardDescription:** "Aktueller Status"
 
 **Daten-Quelle:**
+
 ```typescript
 const { data: drivers } = useQuery({
-  queryKey: ['driver-availability', companyId],
+  queryKey: ["driver-availability", companyId],
   queryFn: async () => {
     const { data } = await CompanyQuery(supabase)
-      .from('drivers')
-      .select('id, first_name, last_name, shift_status, company_id')
-      .eq('company_id', companyId)
-      .eq('archived', false);
-    
+      .from("drivers")
+      .select("id, first_name, last_name, shift_status, company_id")
+      .eq("company_id", companyId)
+      .eq("archived", false);
+
     return data;
   },
   refetchInterval: 60000, // Alle 60 Sekunden
@@ -246,16 +260,18 @@ const { data: drivers } = useQuery({
 ```
 
 **Status-Kategorien:**
+
 ```typescript
 const statusCounts = {
-  available: drivers.filter(d => d.shift_status === 'available').length,
-  on_shift: drivers.filter(d => d.shift_status === 'on_shift').length,
-  break: drivers.filter(d => d.shift_status === 'break').length,
-  off_duty: drivers.filter(d => d.shift_status === 'off_duty').length,
+  available: drivers.filter((d) => d.shift_status === "available").length,
+  on_shift: drivers.filter((d) => d.shift_status === "on_shift").length,
+  break: drivers.filter((d) => d.shift_status === "break").length,
+  off_duty: drivers.filter((d) => d.shift_status === "off_duty").length,
 };
 ```
 
 **UI-Layout:**
+
 ```typescript
 <div className="space-y-3">
   {Object.entries(statusCounts).map(([status, count]) => (
@@ -274,32 +290,35 @@ const statusCounts = {
 ```
 
 **Status-Farben:**
+
 ```typescript
 const statusColors = {
-  available: 'bg-status-success',
-  on_shift: 'bg-primary',
-  break: 'bg-status-warning',
-  off_duty: 'bg-muted',
+  available: "bg-status-success",
+  on_shift: "bg-primary",
+  break: "bg-status-warning",
+  off_duty: "bg-muted",
 };
 ```
 
 ---
 
 #### 5. Fahrzeugstatus Widget
+
 **Titel:** "Fahrzeugstatus"  
 **CardDescription:** "Verfügbarkeit"
 
 **Daten-Quelle:**
+
 ```typescript
 const { data: vehicles } = useQuery({
-  queryKey: ['vehicle-status', companyId],
+  queryKey: ["vehicle-status", companyId],
   queryFn: async () => {
     const { data } = await CompanyQuery(supabase)
-      .from('vehicles')
-      .select('id, license_plate, status, vehicle_class, company_id')
-      .eq('company_id', companyId)
-      .eq('archived', false);
-    
+      .from("vehicles")
+      .select("id, license_plate, status, vehicle_class, company_id")
+      .eq("company_id", companyId)
+      .eq("archived", false);
+
     return data;
   },
   refetchInterval: 60000,
@@ -331,12 +350,13 @@ const { data: vehicles } = useQuery({
 ```
 
 **Legende:**
+
 ```typescript
 <div className="grid grid-cols-2 gap-2 mt-4">
   {vehicleStatusData.map((item) => (
     <div key={item.name} className="flex items-center gap-2">
-      <div 
-        className="w-3 h-3 rounded-sm" 
+      <div
+        className="w-3 h-3 rounded-sm"
         style={{ backgroundColor: item.color }}
       />
       <span className="text-xs">{item.name}: {item.value}</span>
@@ -348,17 +368,20 @@ const { data: vehicles } = useQuery({
 ---
 
 #### 6. Ausstehende Dokumente Widget
+
 **Titel:** "Ausstehende Dokumente"  
 **CardDescription:** "Ablaufende Dokumente"
 
 **Daten-Quelle:**
+
 ```typescript
 const { data: expiringDocs } = useQuery({
-  queryKey: ['expiring-documents', companyId],
+  queryKey: ["expiring-documents", companyId],
   queryFn: async () => {
     const { data } = await CompanyQuery(supabase)
-      .from('documents')
-      .select(`
+      .from("documents")
+      .select(
+        `
         id,
         document_type,
         expiry_date,
@@ -367,12 +390,13 @@ const { data: expiringDocs } = useQuery({
         company_id,
         drivers(first_name, last_name),
         vehicles(license_plate)
-      `)
-      .eq('company_id', companyId)
-      .eq('archived', false)
-      .lte('expiry_date', getDateDaysFromNow(30))
-      .order('expiry_date', { ascending: true });
-    
+      `
+      )
+      .eq("company_id", companyId)
+      .eq("archived", false)
+      .lte("expiry_date", getDateDaysFromNow(30))
+      .order("expiry_date", { ascending: true });
+
     return data;
   },
   refetchInterval: 300000, // Alle 5 Minuten
@@ -380,19 +404,20 @@ const { data: expiringDocs } = useQuery({
 ```
 
 **UI-Liste:**
+
 ```typescript
 <div className="space-y-3">
   {expiringDocs.map((doc) => (
-    <div 
-      key={doc.id} 
+    <div
+      key={doc.id}
       className="flex items-start justify-between p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors cursor-pointer"
       onClick={() => navigate(`/dokumente?id=${doc.id}`)}
     >
       <div className="flex items-start gap-3">
         <AlertTriangle className={cn(
           "w-5 h-5 mt-0.5",
-          getDaysUntilExpiry(doc.expiry_date) <= 7 
-            ? "text-status-error" 
+          getDaysUntilExpiry(doc.expiry_date) <= 7
+            ? "text-status-error"
             : "text-status-warning"
         )} />
         <div>
@@ -416,6 +441,7 @@ const { data: expiringDocs } = useQuery({
 ```
 
 **Empty State:**
+
 ```typescript
 {expiringDocs.length === 0 && (
   <div className="text-center py-8 text-muted-foreground">
@@ -430,6 +456,7 @@ const { data: expiringDocs } = useQuery({
 ## 📱 RESPONSIVE VERHALTEN
 
 ### Desktop (≥1024px)
+
 ```css
 .dashboard-grid {
   display: grid;
@@ -447,6 +474,7 @@ const { data: expiringDocs } = useQuery({
 ```
 
 ### Tablet (768px - 1023px)
+
 ```css
 .dashboard-grid {
   grid-template-columns: repeat(8, 1fr);
@@ -463,6 +491,7 @@ const { data: expiringDocs } = useQuery({
 ```
 
 ### Mobile (<768px)
+
 ```css
 .dashboard-grid {
   grid-template-columns: 1fr;
@@ -480,6 +509,7 @@ const { data: expiringDocs } = useQuery({
 ## 🎨 DESIGN-STANDARDS
 
 ### Widget-Card-Struktur
+
 ```typescript
 <Card className="h-full">
   <CardHeader className="pb-3">
@@ -502,12 +532,14 @@ const { data: expiringDocs } = useQuery({
 ```
 
 ### Spacing-Standards
+
 - **Card Padding:** `p-6` (Desktop), `p-4` (Mobile)
 - **Card Gap:** `gap-6` (Desktop), `gap-4` (Mobile)
 - **Content Spacing:** `space-y-4`
 - **Section Spacing:** `mb-8`
 
 ### Typography-Standards
+
 - **Page Title:** `text-3xl md:text-4xl font-bold`
 - **Page Description:** `text-base md:text-lg text-muted-foreground`
 - **Card Title:** `text-base font-semibold`
@@ -516,6 +548,7 @@ const { data: expiringDocs } = useQuery({
 - **KPI Label:** `text-sm font-medium`
 
 ### Color-Standards (HSL)
+
 - **Primary:** `hsl(210, 100%, 50%)`
 - **Success:** `hsl(142, 76%, 36%)`
 - **Warning:** `hsl(38, 92%, 50%)`
@@ -527,6 +560,7 @@ const { data: expiringDocs } = useQuery({
 ## 🔄 DATA-REFRESH-STRATEGIE
 
 ### Refetch-Intervals
+
 ```typescript
 const queryConfig = {
   // Real-time kritisch (Fahrer, Fahrzeuge)
@@ -534,13 +568,13 @@ const queryConfig = {
     refetchInterval: 60000, // 1 Minute
     refetchOnWindowFocus: true,
   },
-  
+
   // Standard (Bookings, KPIs)
   standard: {
     refetchInterval: 300000, // 5 Minuten
     refetchOnWindowFocus: false,
   },
-  
+
   // Selten (Dokumente, Statistiken)
   infrequent: {
     refetchInterval: 600000, // 10 Minuten
@@ -550,12 +584,13 @@ const queryConfig = {
 ```
 
 ### Manual Refresh
+
 ```typescript
 const { refetch } = useQuery({...});
 
-<Button 
-  variant="ghost" 
-  size="sm" 
+<Button
+  variant="ghost"
+  size="sm"
   onClick={() => refetch()}
 >
   <RefreshCw className="w-4 h-4" />
@@ -567,38 +602,42 @@ const { refetch } = useQuery({...});
 ## 🎯 KPI-BERECHNUNGEN
 
 ### Aktive Aufträge
+
 ```sql
-SELECT COUNT(*) 
-FROM bookings 
-WHERE company_id = ? 
+SELECT COUNT(*)
+FROM bookings
+WHERE company_id = ?
   AND status IN ('confirmed', 'in_progress')
   AND pickup_time::date = CURRENT_DATE
   AND archived = false;
 ```
 
 ### Offene Rechnungen
+
 ```sql
-SELECT SUM(total_amount) 
-FROM invoices 
-WHERE company_id = ? 
+SELECT SUM(total_amount)
+FROM invoices
+WHERE company_id = ?
   AND payment_status = 'pending'
   AND archived = false;
 ```
 
 ### Verfügbare Fahrer
+
 ```sql
-SELECT COUNT(*) 
-FROM drivers 
-WHERE company_id = ? 
+SELECT COUNT(*)
+FROM drivers
+WHERE company_id = ?
   AND shift_status = 'available'
   AND archived = false;
 ```
 
 ### Ausstehende Dokumente
+
 ```sql
-SELECT COUNT(*) 
-FROM documents 
-WHERE company_id = ? 
+SELECT COUNT(*)
+FROM documents
+WHERE company_id = ?
   AND expiry_date <= CURRENT_DATE + INTERVAL '30 days'
   AND archived = false;
 ```

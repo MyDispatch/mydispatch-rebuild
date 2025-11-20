@@ -11,6 +11,7 @@
 **KRITISCH**: Alle Widget-Titel MÜSSEN systemweit **exakt gleich** lauten!
 
 ### Warum?
+
 - **Nutzerfreundlichkeit**: Keine Verwirrung durch unterschiedliche Bezeichnungen
 - **Konsistenz**: Professioneller, einheitlicher Auftritt
 - **Wiedererkennbarkeit**: Nutzer finden Funktionen schneller
@@ -21,29 +22,30 @@
 
 ### Linke Spalte (Operativ - 8 Cols)
 
-| Position | Widget | Titel (ZWINGEND) | Beschreibung |
-|----------|--------|------------------|--------------|
-| 1 | `RevenueChart` | **Umsatz-Entwicklung** | Chart mit 7-Tage-Verlauf |
-| 2 | `HEREMapComponent` | **Live-Karte** | Interaktive Karte mit GPS |
-| 3 | `Schnellzugriff` | **Schnellzugriff** | 4 Hauptaktions-Buttons |
-| 4 | `Tagesübersicht` | **Tagesübersicht** | Aufträge/Fahrer/Fahrzeuge heute |
-| 5 | `Offene Rechnungen` | **Offene Rechnungen** | Überfällig & Ausstehend |
+| Position | Widget              | Titel (ZWINGEND)       | Beschreibung                    |
+| -------- | ------------------- | ---------------------- | ------------------------------- |
+| 1        | `RevenueChart`      | **Umsatz-Entwicklung** | Chart mit 7-Tage-Verlauf        |
+| 2        | `HEREMapComponent`  | **Live-Karte**         | Interaktive Karte mit GPS       |
+| 3        | `Schnellzugriff`    | **Schnellzugriff**     | 4 Hauptaktions-Buttons          |
+| 4        | `Tagesübersicht`    | **Tagesübersicht**     | Aufträge/Fahrer/Fahrzeuge heute |
+| 5        | `Offene Rechnungen` | **Offene Rechnungen**  | Überfällig & Ausstehend         |
 
 ### Rechte Spalte (Monitoring - 4 Cols)
 
-| Position | Widget | Titel (ZWINGEND) | Beschreibung |
-|----------|--------|------------------|--------------|
-| 1 | `UrgentActionsWidget` | **Dringende Aktionen** | Kritische Hinweise ZUERST! |
-| 2 | `PaymentMethodsChart` | **Zahlungsarten** | Pie-Chart Bar/Rechnung/Karte |
-| 3 | `ResourceStatusWidget` | **Fahrer-Status** | Live-Status Fahrer + Fahrzeuge |
-| 4 | `StatisticsWidget` | **Vergleich & Trends** | Gestern/Woche/Monat |
-| 5 | `ActivityTimeline` | **Letzte Aktivitäten** | Live-Timeline Events |
+| Position | Widget                 | Titel (ZWINGEND)       | Beschreibung                   |
+| -------- | ---------------------- | ---------------------- | ------------------------------ |
+| 1        | `UrgentActionsWidget`  | **Dringende Aktionen** | Kritische Hinweise ZUERST!     |
+| 2        | `PaymentMethodsChart`  | **Zahlungsarten**      | Pie-Chart Bar/Rechnung/Karte   |
+| 3        | `ResourceStatusWidget` | **Fahrer-Status**      | Live-Status Fahrer + Fahrzeuge |
+| 4        | `StatisticsWidget`     | **Vergleich & Trends** | Gestern/Woche/Monat            |
+| 5        | `ActivityTimeline`     | **Letzte Aktivitäten** | Live-Timeline Events           |
 
 ---
 
 ## 🔤 NAMING-PATTERNS
 
 ### Widget-Titel (CardTitle)
+
 ```tsx
 // ✅ RICHTIG: Kurz, prägnant, eindeutig
 <CardTitle className="text-sm font-semibold">
@@ -57,6 +59,7 @@
 ```
 
 ### Sub-Headlines (CardDescription)
+
 ```tsx
 // ✅ RICHTIG: Ergänzende Info
 <CardDescription className="text-[10px]">
@@ -76,6 +79,7 @@
 ### Priorisierung (Top → Bottom)
 
 **Linke Spalte**: Operativ (Aktionen → Überblick)
+
 1. **Finanzen** (Revenue Chart)
 2. **Visueller Überblick** (Live-Karte)
 3. **Hauptaktionen** (Schnellzugriff)
@@ -83,6 +87,7 @@
 5. **Follow-up** (Offene Rechnungen)
 
 **Rechte Spalte**: Monitoring (Wichtig → Detail)
+
 1. **KRITISCH** (Dringende Aktionen) ← IMMER ZUERST!
 2. **Finanzen Detail** (Zahlungsarten)
 3. **Ressourcen Live** (Fahrer-Status)
@@ -94,6 +99,7 @@
 ## ❌ HÄUFIGE FEHLER (VERBOTEN!)
 
 ### 1. Inkonsistente Titel
+
 ```tsx
 // ❌ FALSCH: Verschiedene Bezeichnungen für gleiche Funktion
 <CardTitle>Fahrer Live-Status</CardTitle>      // Dashboard
@@ -105,6 +111,7 @@
 ```
 
 ### 2. Zu lange Titel
+
 ```tsx
 // ❌ FALSCH: Zu ausführlich
 <CardTitle>Statistik-Überblick über die letzten Tage</CardTitle>
@@ -114,6 +121,7 @@
 ```
 
 ### 3. Unspezifische Titel
+
 ```tsx
 // ❌ FALSCH: Zu allgemein
 <CardTitle>Übersicht</CardTitle>
@@ -127,6 +135,7 @@
 ```
 
 ### 4. Falsche Priorisierung
+
 ```tsx
 // ❌ FALSCH: Wichtiges am Ende
 <div className="lg:col-span-4 space-y-3">
@@ -193,17 +202,17 @@ Falls später Internationalisierung benötigt:
 // Titel-Keys (i18n)
 const WIDGET_TITLES = {
   de: {
-    revenue: 'Umsatz-Entwicklung',
-    driverStatus: 'Fahrer-Status',
-    urgentActions: 'Dringende Aktionen',
+    revenue: "Umsatz-Entwicklung",
+    driverStatus: "Fahrer-Status",
+    urgentActions: "Dringende Aktionen",
     // ...
   },
   en: {
-    revenue: 'Revenue Overview',
-    driverStatus: 'Driver Status',
-    urgentActions: 'Urgent Actions',
+    revenue: "Revenue Overview",
+    driverStatus: "Driver Status",
+    urgentActions: "Urgent Actions",
     // ...
-  }
+  },
 };
 ```
 

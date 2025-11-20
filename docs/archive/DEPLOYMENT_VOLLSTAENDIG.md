@@ -15,6 +15,7 @@
 ## ✅ ZU DEPLOYENDE FEATURES
 
 ### 1. NeXify Master System ✅
+
 - **Migrations:**
   - `20250131_nexify_master_system.sql`
 - **Edge Functions:**
@@ -24,10 +25,12 @@
   - `nexify-crm-sync`
 
 ### 2. NeXify CRM System ✅
+
 - **Migrations:**
   - `20250131_nexify_crm_system.sql`
 
 ### 3. System Monitoring (2x täglich) ✅
+
 - **Migrations:**
   - `20250131_system_health_tables.sql`
 - **Edge Functions:**
@@ -35,6 +38,7 @@
   - `auto-fix-issues`
 
 ### 4. Briefpapier-Upload ✅
+
 - **Migrations:**
   - `20250131_storage_letterheads.sql`
 - **Code:**
@@ -42,15 +46,18 @@
   - Integration in `BrandingSection.tsx`
 
 ### 5. E-Mail-Templates mit Branding ✅
+
 - **Code:**
   - `src/lib/email-templates-branded.ts`
 
 ### 6. Sentry Monitoring ✅
+
 - **Code:**
   - `src/components/ErrorBoundary.tsx`
   - Integration in `App.tsx`
 
 ### 7. Login-Fix ✅
+
 - **Edge Function:**
   - `fix-master-login` (NEU!)
 
@@ -61,6 +68,7 @@
 ### Schritt 1: Login-Problem beheben (SOFORT!)
 
 **Edge Function aufrufen:**
+
 ```bash
 # Via Supabase Dashboard oder:
 curl -X POST https://YOUR_PROJECT.supabase.co/functions/v1/fix-master-login \
@@ -70,10 +78,11 @@ curl -X POST https://YOUR_PROJECT.supabase.co/functions/v1/fix-master-login \
 ```
 
 **Oder in Supabase SQL Editor:**
+
 ```sql
 -- Prüfe ob User existiert
-SELECT id, email, email_confirmed_at 
-FROM auth.users 
+SELECT id, email, email_confirmed_at
+FROM auth.users
 WHERE email = 'courbois1981@gmail.com';
 
 -- Falls User existiert, prüfe Profile
@@ -87,21 +96,25 @@ SELECT * FROM profiles WHERE user_id = (SELECT id FROM auth.users WHERE email = 
 **In Supabase SQL Editor (Reihenfolge beachten!):**
 
 1. **NeXify Master System:**
+
    ```sql
    -- Migration: 20250131_nexify_master_system.sql
    ```
 
 2. **NeXify CRM System:**
+
    ```sql
    -- Migration: 20250131_nexify_crm_system.sql
    ```
 
 3. **System Health Tables:**
+
    ```sql
    -- Migration: 20250131_system_health_tables.sql
    ```
 
 4. **Storage Bucket:**
+
    ```sql
    -- Migration: 20250131_storage_letterheads.sql
    ```
@@ -135,6 +148,7 @@ supabase functions deploy create-master-user
 ```
 
 **Oder via Supabase Dashboard:**
+
 - Go to Edge Functions
 - Upload each function manually
 
@@ -143,6 +157,7 @@ supabase functions deploy create-master-user
 ### Schritt 4: Cron Jobs Konfigurieren
 
 **Option A: Supabase Dashboard**
+
 1. Database → Cron Jobs
 2. Create New Job für jeden:
 
@@ -168,6 +183,7 @@ supabase functions deploy create-master-user
    - Function: `auto-fix-issues`
 
 **Option B: SQL (nach Anpassung)**
+
 - Migration ausführen
 
 ---
@@ -207,6 +223,7 @@ npm run build
 ### Option 1: Edge Function aufrufen
 
 **Via Browser/Postman:**
+
 ```
 POST https://YOUR_PROJECT.supabase.co/functions/v1/fix-master-login
 Headers:
@@ -224,15 +241,15 @@ Body:
 
 ```sql
 -- 1. Prüfe ob User existiert
-SELECT id, email, email_confirmed_at 
-FROM auth.users 
+SELECT id, email, email_confirmed_at
+FROM auth.users
 WHERE email = 'courbois1981@gmail.com';
 
 -- 2. Falls User existiert, reset Password (via Admin API)
 -- Oder: Edge Function aufrufen
 
 -- 3. Prüfe Profile
-SELECT * FROM profiles 
+SELECT * FROM profiles
 WHERE user_id = (SELECT id FROM auth.users WHERE email = 'courbois1981@gmail.com');
 
 -- 4. Falls kein Profile, erstelle:
@@ -243,7 +260,7 @@ WHERE email = 'courbois1981@gmail.com'
 ON CONFLICT (user_id) DO UPDATE SET role = 'master';
 
 -- 5. Prüfe user_roles
-SELECT * FROM user_roles 
+SELECT * FROM user_roles
 WHERE user_id = (SELECT id FROM auth.users WHERE email = 'courbois1981@gmail.com');
 
 -- 6. Falls keine master role, erstelle:
@@ -259,11 +276,13 @@ ON CONFLICT (user_id, role) DO NOTHING;
 ## ✅ CHECKLIST
 
 ### Login-Fix
+
 - [ ] Edge Function `fix-master-login` deployen
 - [ ] Edge Function aufrufen (User erstellen/resetten)
 - [ ] Login testen
 
 ### Database Migrations
+
 - [ ] NeXify Master System Migration
 - [ ] NeXify CRM System Migration
 - [ ] System Health Tables Migration
@@ -271,6 +290,7 @@ ON CONFLICT (user_id, role) DO NOTHING;
 - [ ] Cron Jobs Migration (optional)
 
 ### Edge Functions
+
 - [ ] nexify-auto-load-context
 - [ ] nexify-project-context
 - [ ] nexify-crm-context
@@ -281,6 +301,7 @@ ON CONFLICT (user_id, role) DO NOTHING;
 - [ ] create-master-user
 
 ### Frontend
+
 - [ ] Environment Variables setzen
 - [ ] Build erfolgreich
 - [ ] Deploy erfolgreich
@@ -288,6 +309,7 @@ ON CONFLICT (user_id, role) DO NOTHING;
 - [ ] Briefpapier-Upload funktioniert
 
 ### Monitoring
+
 - [ ] Cron Jobs konfiguriert
 - [ ] Health Checks laufen (nach 24h prüfen)
 - [ ] Sentry Errors werden gesendet
@@ -297,6 +319,7 @@ ON CONFLICT (user_id, role) DO NOTHING;
 ## 📊 FILES ÜBERSICHT
 
 ### Migrations (7)
+
 1. `20250131_nexify_master_system.sql`
 2. `20250131_nexify_crm_system.sql`
 3. `20250131_system_health_tables.sql`
@@ -304,6 +327,7 @@ ON CONFLICT (user_id, role) DO NOTHING;
 5. `20250131_cron_jobs.sql`
 
 ### Edge Functions (8)
+
 1. `nexify-auto-load-context`
 2. `nexify-project-context`
 3. `nexify-crm-context`
@@ -314,6 +338,7 @@ ON CONFLICT (user_id, role) DO NOTHING;
 8. `create-master-user`
 
 ### Frontend Code
+
 - `src/components/ErrorBoundary.tsx`
 - `src/components/settings/LetterheadUpload.tsx`
 - `src/lib/email-templates-branded.ts`
@@ -325,8 +350,8 @@ ON CONFLICT (user_id, role) DO NOTHING;
 **Pascal, alles ist bereit für vollständiges Deployment!** 🚀
 
 **Nächste Schritte:**
+
 1. **Login-Fix:** Edge Function `fix-master-login` aufrufen
 2. **Migrations:** Alle ausführen
 3. **Edge Functions:** Alle deployen
 4. **Frontend:** Build & Deploy
-

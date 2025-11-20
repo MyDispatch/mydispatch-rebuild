@@ -9,17 +9,20 @@
 ## ✅ ABGESCHLOSSENE PHASE 1A: Chat-System (4 Dateien)
 
 ### 1. CallInterface.tsx ✅
+
 ```diff
 - console.log('Call joined successfully');
 - console.log('Call left');
 - console.error('Call error:', error);
 + // Handled via useDailyCall Hook (no logging needed)
 ```
+
 **Ergebnis:** 3 console.log/error entfernt
 
 ---
 
 ### 2. ChatWindow.tsx ✅
+
 ```diff
 + import { handleError } from '@/lib/error-handler';
 
@@ -35,11 +38,13 @@
 - toast.error(`Datei-Upload fehlgeschlagen: ${error.message}`);
 + handleError(error, 'Datei-Upload fehlgeschlagen');
 ```
+
 **Ergebnis:** 3 console.error → handleError migriert
 
 ---
 
 ### 3. ConversationList.tsx ✅
+
 ```diff
 + import { handleError } from '@/lib/error-handler';
 
@@ -49,11 +54,13 @@
 - console.error('Error fetching conversations:', conversationsError);
 + handleError(conversationsError, 'Gespräche konnten nicht geladen werden', { showToast: false });
 ```
+
 **Ergebnis:** 2 console.error → handleError migriert
 
 ---
 
 ### 4. ParticipantSelector.tsx ✅
+
 ```diff
 + import { handleError } from '@/lib/error-handler';
 
@@ -61,6 +68,7 @@
 - toast.error('Gespräch konnte nicht erstellt werden');
 + handleError(error, 'Gespräch konnte nicht erstellt werden');
 ```
+
 **Ergebnis:** 1 console.error → handleError migriert
 
 ---
@@ -68,6 +76,7 @@
 ## 📊 PHASE 1A METRIKEN
 
 ### Code-Cleanup
+
 - **Dateien migriert:** 4/4 (100%)
 - **console.log entfernt:** 2
 - **console.error eliminiert:** 7
@@ -75,6 +84,7 @@
 - **Import-Statements hinzugefügt:** 3
 
 ### Error Handling Verbesserung
+
 - **Vorher:** Inkonsistente Error-Meldungen (console.error + toast manuell)
 - **Nachher:** Zentralisiertes Error Handling (handleError)
 - **Vorteil:** Einheitliche UX, einfachere Wartung
@@ -84,6 +94,7 @@
 ## ⏳ NÄCHSTE PHASE 1B: Forms & Shared Components (11 Dateien)
 
 ### ✅ Migrierte Dateien (100% ABGESCHLOSSEN):
+
 1. ✅ BookingWidget.tsx (1 console.error) - handleError importiert & migriert
 2. ✅ ShiftForm.tsx (2 console.error) - handleError bereits vorhanden, 2 Stellen migriert
 3. ✅ ComprehensiveOnboarding.tsx (1 console.error) - handleError importiert & migriert
@@ -103,12 +114,14 @@
 ## 📊 PHASE 1B METRIKEN
 
 ### Code-Cleanup
+
 - **Dateien migriert:** 11/11 (100%)
 - **console.error eliminiert:** 14
 - **handleError Aufrufe hinzugefügt:** 14
 - **Import-Statements hinzugefügt:** 11
 
 ### Besondere Optimierungen
+
 - **showToast: false** für Silent Errors (Loading-Fehler)
 - **Duplikat-Vermeidung:** toast.error + console.error → handleError (automatische Toast)
 
@@ -117,12 +130,14 @@
 ## 🎯 GESAMTFORTSCHRITT WELLE 15
 
 ### Aktuell
+
 - **Phase 1A:** ✅ 100% (4/4 Dateien - Chat-System)
 - **Phase 1B:** ✅ 100% (11/11 Dateien - Forms & Shared)
 - **Phase 1C:** ✅ 100% (9/9 Dateien - Pages & PortalRoute)
 - **Phase 1D:** ⏳ NEXT (remove-background.ts Debug-Logs)
 
 ### Gesamt
+
 - **Dateien migriert:** 24/27 (88.9%)
 - **console.log/error eliminiert:** 33/52 (63.5%)
 - **Verbleibend:** 19 console.log/error (davon 8x remove-background.ts Debug-Code)

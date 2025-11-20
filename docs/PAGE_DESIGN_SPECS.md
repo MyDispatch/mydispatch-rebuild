@@ -35,18 +35,19 @@ Dieses Dokument enthält die extrahierten Design-Patterns aller Pages im Projekt
 ## 🏗️ STANDARD PATTERNS
 
 ### HERO-GRID (Startseite, Marketing)
+
 ```tsx
-<div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-  {/* Hero Content */}
-</div>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">{/* Hero Content */}</div>
 ```
 
 **Verwendung:**
+
 - `src/pages/Index.tsx`
 - `src/pages/NeXifySupport.tsx`
 - `src/pages/About.tsx`
 
 **Standards:**
+
 - Mobile: `grid-cols-1`, `gap-6`
 - Tablet: `md:grid-cols-2`, `gap-8`
 - Desktop: `lg:gap-12`
@@ -54,17 +55,18 @@ Dieses Dokument enthält die extrahierten Design-Patterns aller Pages im Projekt
 ---
 
 ### TARIF-KARTEN-GRID (Pricing, Features)
+
 ```tsx
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-  {/* Tarif Cards */}
-</div>
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">{/* Tarif Cards */}</div>
 ```
 
 **Verwendung:**
+
 - `src/pages/Pricing.tsx`
 - `src/pages/Features.tsx`
 
 **Standards:**
+
 - Mobile: `grid-cols-1`, `gap-6`
 - Tablet: `md:grid-cols-2`, `gap-6`
 - Desktop: `lg:grid-cols-3`, `gap-6`
@@ -72,38 +74,40 @@ Dieses Dokument enthält die extrahierten Design-Patterns aller Pages im Projekt
 ---
 
 ### DASHBOARD-GRID (Admin-Bereiche)
+
 ```tsx
-<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-  {/* Dashboard Sections */}
-</div>
+<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">{/* Dashboard Sections */}</div>
 ```
 
 **Verwendung:**
+
 - `src/pages/Index.tsx` (Main Dashboard)
 - `src/pages/Auftraege.tsx`
 - `src/pages/Fahrer.tsx`
 - `src/pages/Fahrzeuge.tsx`
 
 **Standards:**
+
 - Mobile: `grid-cols-1`, `gap-6`
 - Desktop: `lg:grid-cols-3`, `gap-6`
 
 ---
 
 ### FORM-LAYOUT (Formulare)
+
 ```tsx
 <div className="space-y-4">
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-    {/* Form Fields */}
-  </div>
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">{/* Form Fields */}</div>
 </div>
 ```
 
 **Verwendung:**
+
 - `src/components/bookings/BookingForm.tsx`
 - `src/components/drivers/DriverForm.tsx`
 
 **Standards:**
+
 - Outer spacing: `space-y-4`
 - Inner grid: `gap-4`
 - Breakpoint: `md:grid-cols-2`
@@ -113,9 +117,11 @@ Dieses Dokument enthält die extrahierten Design-Patterns aller Pages im Projekt
 ## 🔍 INKONSISTENZEN GEFUNDEN
 
 ### ⚠️ Gap-Wert-Chaos
+
 **Problem:** 12 verschiedene `gap-*` Werte im Projekt
 
 **Häufigkeit:**
+
 - `gap-6`: 47x ✅ (Standard)
 - `gap-4`: 23x ✅ (Forms)
 - `gap-8`: 12x ✅ (Hero)
@@ -124,15 +130,18 @@ Dieses Dokument enthält die extrahierten Design-Patterns aller Pages im Projekt
 - `gap-12`: 3x ⚠️ (zu groß, sollte `gap-8` sein)
 
 **Empfehlung:**
+
 - Standardisiere auf `gap-4`, `gap-6`, `gap-8`
 - Entferne `gap-2`, `gap-3`, `gap-12`
 
 ---
 
 ### ⚠️ Padding-Inkonsistenzen
+
 **Problem:** 18 verschiedene Padding-Werte
 
 **Häufigkeit:**
+
 - `p-6`: 89x ✅ (Standard)
 - `p-4`: 34x ✅ (Compact)
 - `px-6`: 28x ✅ (Horizontal)
@@ -140,6 +149,7 @@ Dieses Dokument enthält die extrahierten Design-Patterns aller Pages im Projekt
 - `p-3`: 9x ⚠️ (sollte `p-4` sein)
 
 **Empfehlung:**
+
 - Standardisiere auf `p-4`, `p-6`
 - Horizontal-only: `px-6`, `py-4`
 
@@ -148,12 +158,14 @@ Dieses Dokument enthält die extrahierten Design-Patterns aller Pages im Projekt
 ## 📋 PAGE-SPEZIFISCHE SPECS
 
 ### Index.tsx (Dashboard)
+
 **Grid Pattern:** DASHBOARD-GRID  
 **Container:** `max-w-7xl mx-auto px-6`  
 **Gap:** `gap-6`  
 **Breakpoints:** `lg:grid-cols-3`
 
 **Standards:**
+
 - Section spacing: `space-y-6`
 - Card padding: `p-6`
 - Button height: `h-11` (44px)
@@ -161,24 +173,28 @@ Dieses Dokument enthält die extrahierten Design-Patterns aller Pages im Projekt
 ---
 
 ### Auftraege.tsx
+
 **Grid Pattern:** DASHBOARD-GRID  
 **Container:** `max-w-7xl mx-auto px-6`  
 **Gap:** `gap-6`  
 **Table spacing:** `space-y-4`
 
 **Standards:**
+
 - Filter section: `gap-4`
 - Action buttons: `min-h-[44px]`
 
 ---
 
 ### Fahrer.tsx
+
 **Grid Pattern:** DASHBOARD-GRID  
 **Container:** `max-w-7xl mx-auto px-6`  
 **Gap:** `gap-6`  
 **Card grid:** `md:grid-cols-2 lg:grid-cols-3`
 
 **Standards:**
+
 - Status badges: `h-8` (32px)
 - Action buttons: `h-11` (44px)
 
@@ -187,22 +203,24 @@ Dieses Dokument enthält die extrahierten Design-Patterns aller Pages im Projekt
 ## 🚀 USAGE
 
 ### Knowledge-Base Integration
+
 Alle Patterns sind automatisch in `knowledge_base` gespeichert:
 
 ```sql
-SELECT * FROM knowledge_base 
+SELECT * FROM knowledge_base
 WHERE category = 'page_design_spec'
 ORDER BY created_at DESC;
 ```
 
 ### Automatische Validierung
+
 Verwende `useLayoutStandardsValidator` Hook:
 
 ```tsx
-import { useLayoutStandardsValidator } from '@/hooks/useLayoutStandardsValidator';
+import { useLayoutStandardsValidator } from "@/hooks/useLayoutStandardsValidator";
 
 function AuftraegePage() {
-  useLayoutStandardsValidator('Auftraege', '.main-content');
+  useLayoutStandardsValidator("Auftraege", ".main-content");
   // ...
 }
 ```
@@ -212,6 +230,7 @@ function AuftraegePage() {
 ## 📝 AUTO-UPDATE WORKFLOW
 
 Dieses Dokument wird automatisch aktualisiert bei:
+
 1. Push zu `main` Branch mit Änderungen in `src/pages/**`
 2. Manueller Trigger via Edge Function: `extract-page-design-specs`
 3. GitHub Action: `.github/workflows/sync-knowledge-base.yml`

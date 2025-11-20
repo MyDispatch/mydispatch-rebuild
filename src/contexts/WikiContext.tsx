@@ -6,8 +6,8 @@
    Accessible via useWiki() hook anywhere
    ================================================================================== */
 
-import { createContext, useContext, ReactNode } from 'react';
-import { useNeXifyWiki, WikiLoadResult } from '@/hooks/use-nexify-wiki';
+import { createContext, useContext, ReactNode } from "react";
+import { useNeXifyWiki, WikiLoadResult } from "@/hooks/use-nexify-wiki";
 
 interface WikiContextValue {
   wikiData: WikiLoadResult | null;
@@ -27,17 +27,13 @@ interface WikiProviderProps {
 export function WikiProvider({ children, autoLoad = true }: WikiProviderProps) {
   const wiki = useNeXifyWiki({ autoLoad, enableLogging: true });
 
-  return (
-    <WikiContext.Provider value={wiki}>
-      {children}
-    </WikiContext.Provider>
-  );
+  return <WikiContext.Provider value={wiki}>{children}</WikiContext.Provider>;
 }
 
 export function useWiki() {
   const context = useContext(WikiContext);
   if (context === undefined) {
-    throw new Error('useWiki must be used within a WikiProvider');
+    throw new Error("useWiki must be used within a WikiProvider");
   }
   return context;
 }

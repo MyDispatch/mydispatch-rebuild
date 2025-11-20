@@ -1,6 +1,6 @@
 /**
  * HYPERION PHASE 2: Global State Container
- * 
+ *
  * Zentraler State-Container mit Zustand für:
  * - Authentifizierung
  * - UI-State (Sidebar, Modals)
@@ -8,8 +8,8 @@
  * - Notifications
  */
 
-import { create } from 'zustand';
-import { devtools, persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { devtools, persist } from "zustand/middleware";
 
 // ============================================================================
 // AUTH STATE
@@ -35,9 +35,9 @@ export const useAuthStore = create<AuthState>()(
         setCompanyId: (companyId) => set({ companyId }),
         clearAuth: () => set({ user: null, companyId: null, isAuthenticated: false }),
       }),
-      { name: 'auth-storage' }
+      { name: "auth-storage" }
     ),
-    { name: 'AuthStore' }
+    { name: "AuthStore" }
   )
 );
 
@@ -64,7 +64,7 @@ export const useUIStore = create<UIState>()(
       openModal: (modalId) => set({ activeModal: modalId }),
       closeModal: () => set({ activeModal: null }),
     }),
-    { name: 'UIStore' }
+    { name: "UIStore" }
   )
 );
 
@@ -74,14 +74,14 @@ export const useUIStore = create<UIState>()(
 
 interface Notification {
   id: string;
-  type: 'success' | 'error' | 'warning' | 'info';
+  type: "success" | "error" | "warning" | "info";
   message: string;
   timestamp: number;
 }
 
 interface NotificationsState {
   notifications: Notification[];
-  addNotification: (notification: Omit<Notification, 'id' | 'timestamp'>) => void;
+  addNotification: (notification: Omit<Notification, "id" | "timestamp">) => void;
   removeNotification: (id: string) => void;
   clearNotifications: () => void;
 }
@@ -107,7 +107,7 @@ export const useNotificationsStore = create<NotificationsState>()(
         })),
       clearNotifications: () => set({ notifications: [] }),
     }),
-    { name: 'NotificationsStore' }
+    { name: "NotificationsStore" }
   )
 );
 
@@ -140,6 +140,6 @@ export const useDataCacheStore = create<DataCacheState>()(
       setCustomers: (customers) => set({ customers }),
       clearCache: () => set({ bookings: [], drivers: [], vehicles: [], customers: [] }),
     }),
-    { name: 'DataCacheStore' }
+    { name: "DataCacheStore" }
   )
 );

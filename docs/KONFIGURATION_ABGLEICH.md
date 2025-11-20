@@ -23,38 +23,38 @@
 
 ### 1.1 Projekt-Informationen
 
-| Parameter | Wert | Status |
-|-----------|------|--------|
-| Projekt-ID | `vsbqyqhzxmwezlhzdmfd` | ✅ |
-| Projekt-URL | `https://vsbqyqhzxmwezlhzdmfd.supabase.co` | ✅ |
-| Region | EU (Frankfurt) | ✅ |
-| Database | PostgreSQL 15 | ✅ |
+| Parameter   | Wert                                       | Status |
+| ----------- | ------------------------------------------ | ------ |
+| Projekt-ID  | `vsbqyqhzxmwezlhzdmfd`                     | ✅     |
+| Projekt-URL | `https://vsbqyqhzxmwezlhzdmfd.supabase.co` | ✅     |
+| Region      | EU (Frankfurt)                             | ✅     |
+| Database    | PostgreSQL 15                              | ✅     |
 
 ### 1.2 Authentication
 
-| Parameter | Wert | Status |
-|-----------|------|--------|
-| Email/Password | ✅ Aktiviert | ✅ |
-| Email-Verifizierung | Optional | ⚠️ Für Production: Aktivieren |
-| Password-Reset | ✅ Aktiviert | ✅ |
-| Session-Dauer | 1 Woche (Standard) | ✅ |
+| Parameter           | Wert               | Status                        |
+| ------------------- | ------------------ | ----------------------------- |
+| Email/Password      | ✅ Aktiviert       | ✅                            |
+| Email-Verifizierung | Optional           | ⚠️ Für Production: Aktivieren |
+| Password-Reset      | ✅ Aktiviert       | ✅                            |
+| Session-Dauer       | 1 Woche (Standard) | ✅                            |
 
 ### 1.3 Storage Buckets
 
-| Bucket | Typ | Status | File-Size-Limit |
-|--------|-----|--------|-----------------|
-| `documents` | Private | ✅ | 10MB |
-| `logos` | Public | ✅ | 5MB |
-| `master-chat` | Private | ✅ | 10MB |
+| Bucket        | Typ     | Status | File-Size-Limit |
+| ------------- | ------- | ------ | --------------- |
+| `documents`   | Private | ✅     | 10MB            |
+| `logos`       | Public  | ✅     | 5MB             |
+| `master-chat` | Private | ✅     | 10MB            |
 
 ### 1.4 Realtime Channels
 
-| Channel | Status | Beschreibung |
-|---------|--------|--------------|
-| `bookings` | ✅ | Auftrags-Updates |
-| `drivers` | ✅ | Fahrer-Updates |
-| `vehicles` | ✅ | Fahrzeug-Updates |
-| `customers` | ✅ | Kunden-Updates |
+| Channel     | Status | Beschreibung     |
+| ----------- | ------ | ---------------- |
+| `bookings`  | ✅     | Auftrags-Updates |
+| `drivers`   | ✅     | Fahrer-Updates   |
+| `vehicles`  | ✅     | Fahrzeug-Updates |
+| `customers` | ✅     | Kunden-Updates   |
 
 ---
 
@@ -62,10 +62,10 @@
 
 ### 2.1 API-Keys
 
-| Key | Verwendung | Status |
-|-----|------------|--------|
-| `STRIPE_SECRET_KEY` | Edge Functions | ✅ In Supabase Secrets |
-| `STRIPE_PUBLISHABLE_KEY` | Frontend | ✅ In .env |
+| Key                      | Verwendung     | Status                 |
+| ------------------------ | -------------- | ---------------------- |
+| `STRIPE_SECRET_KEY`      | Edge Functions | ✅ In Supabase Secrets |
+| `STRIPE_PUBLISHABLE_KEY` | Frontend       | ✅ In .env             |
 
 ### 2.2 Products & Prices
 
@@ -91,10 +91,10 @@
 
 ### 2.3 Webhooks
 
-| Parameter | Wert | Status |
-|-----------|------|--------|
-| Endpoint | `https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/stripe-webhook` | ⚠️ Zu prüfen |
-| Events | checkout.session.completed, customer.subscription.updated, ... | ⚠️ Zu prüfen |
+| Parameter | Wert                                                                   | Status       |
+| --------- | ---------------------------------------------------------------------- | ------------ |
+| Endpoint  | `https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/stripe-webhook` | ⚠️ Zu prüfen |
+| Events    | checkout.session.completed, customer.subscription.updated, ...         | ⚠️ Zu prüfen |
 
 ---
 
@@ -102,26 +102,26 @@
 
 ### 3.1 API-Keys
 
-| Parameter | Wert | Status |
-|-----------|------|--------|
-| `HERE_API_KEY` | In Supabase Secrets | ✅ |
+| Parameter      | Wert                | Status |
+| -------------- | ------------------- | ------ |
+| `HERE_API_KEY` | In Supabase Secrets | ✅     |
 
 ### 3.2 Services
 
-| Service | Verwendung | Status |
-|---------|------------|--------|
-| Geocoding | `geocode-address` Edge Function | ✅ |
-| Routing | Routing-Berechnung | ✅ |
-| Traffic | `get-traffic` Edge Function | ✅ |
-| Weather | `get-weather` Edge Function | ✅ |
+| Service   | Verwendung                      | Status |
+| --------- | ------------------------------- | ------ |
+| Geocoding | `geocode-address` Edge Function | ✅     |
+| Routing   | Routing-Berechnung              | ✅     |
+| Traffic   | `get-traffic` Edge Function     | ✅     |
+| Weather   | `get-weather` Edge Function     | ✅     |
 
 ### 3.3 Rate Limits
 
-| Service | Limit | Status |
-|---------|-------|--------|
+| Service   | Limit            | Status       |
+| --------- | ---------------- | ------------ |
 | Geocoding | 250 requests/day | ⚠️ Free Tier |
-| Routing | 250 requests/day | ⚠️ Free Tier |
-| Traffic | 250 requests/day | ⚠️ Free Tier |
+| Routing   | 250 requests/day | ⚠️ Free Tier |
+| Traffic   | 250 requests/day | ⚠️ Free Tier |
 
 ---
 
@@ -129,28 +129,28 @@
 
 ### 4.1 Environment Variables
 
-| Variable | Wert | Status |
-|----------|------|--------|
-| `VITE_SUPABASE_URL` | `https://vsbqyqhzxmwezlhzdmfd.supabase.co` | ✅ |
-| `VITE_SUPABASE_ANON_KEY` | `<ANON_KEY>` | ✅ |
-| `VITE_APP_URL` | `https://my-dispatch.de` | ✅ |
+| Variable                 | Wert                                       | Status |
+| ------------------------ | ------------------------------------------ | ------ |
+| `VITE_SUPABASE_URL`      | `https://vsbqyqhzxmwezlhzdmfd.supabase.co` | ✅     |
+| `VITE_SUPABASE_ANON_KEY` | `<ANON_KEY>`                               | ✅     |
+| `VITE_APP_URL`           | `https://my-dispatch.de`                   | ✅     |
 
 ### 4.2 Build-Konfiguration
 
-| Parameter | Wert | Status |
-|-----------|------|--------|
-| Framework | React 18 + Vite | ✅ |
-| TypeScript | ✅ Aktiviert | ✅ |
-| Path Aliases | `@/` → `src/` | ✅ |
+| Parameter    | Wert            | Status |
+| ------------ | --------------- | ------ |
+| Framework    | React 18 + Vite | ✅     |
+| TypeScript   | ✅ Aktiviert    | ✅     |
+| Path Aliases | `@/` → `src/`   | ✅     |
 
 ### 4.3 Design System
 
-| Parameter | Wert | Status |
-|-----------|------|--------|
-| Version | V28.1 / V32.1 | ✅ |
-| Komponenten | shadcn/ui + Custom | ✅ |
-| Farben | Professional Gray-Blue | ✅ |
-| Responsive | Mobile-First | ✅ |
+| Parameter   | Wert                   | Status |
+| ----------- | ---------------------- | ------ |
+| Version     | V28.1 / V32.1          | ✅     |
+| Komponenten | shadcn/ui + Custom     | ✅     |
+| Farben      | Professional Gray-Blue | ✅     |
+| Responsive  | Mobile-First           | ✅     |
 
 ---
 
@@ -158,25 +158,25 @@
 
 ### 5.1 Wichtige Edge Functions
 
-| Function | verify_jwt | Status | Beschreibung |
-|----------|-----------|--------|--------------|
-| `create-checkout` | ✅ true | ✅ | Stripe Checkout |
-| `check-subscription` | ✅ true | ✅ | Subscription-Status |
-| `ai-smart-assignment` | ❌ false | ✅ | AI Fahrerzuweisung |
-| `geocode-address` | ❌ false | ✅ | Adress-Geocoding |
-| `send-booking-email` | ✅ true | ✅ | Buchungs-Emails |
-| `master-chat` | ✅ true | ✅ | Master-Chat |
-| `nexify-project-management` | ⚠️ | ✅ | Projekt-Management |
+| Function                    | verify_jwt | Status | Beschreibung        |
+| --------------------------- | ---------- | ------ | ------------------- |
+| `create-checkout`           | ✅ true    | ✅     | Stripe Checkout     |
+| `check-subscription`        | ✅ true    | ✅     | Subscription-Status |
+| `ai-smart-assignment`       | ❌ false   | ✅     | AI Fahrerzuweisung  |
+| `geocode-address`           | ❌ false   | ✅     | Adress-Geocoding    |
+| `send-booking-email`        | ✅ true    | ✅     | Buchungs-Emails     |
+| `master-chat`               | ✅ true    | ✅     | Master-Chat         |
+| `nexify-project-management` | ⚠️         | ✅     | Projekt-Management  |
 
 ### 5.2 Environment Variables (Edge Functions)
 
-| Variable | Verwendung | Status |
-|----------|------------|--------|
-| `SUPABASE_URL` | Automatisch | ✅ |
-| `SUPABASE_SERVICE_ROLE_KEY` | Automatisch | ✅ |
-| `STRIPE_SECRET_KEY` | `create-checkout` | ✅ |
-| `HERE_API_KEY` | `geocode-address`, `get-traffic`, `get-weather` | ✅ |
-| `N8N_API_KEY` | `n8n-workflow-management` | ⚠️ Zu prüfen |
+| Variable                    | Verwendung                                      | Status       |
+| --------------------------- | ----------------------------------------------- | ------------ |
+| `SUPABASE_URL`              | Automatisch                                     | ✅           |
+| `SUPABASE_SERVICE_ROLE_KEY` | Automatisch                                     | ✅           |
+| `STRIPE_SECRET_KEY`         | `create-checkout`                               | ✅           |
+| `HERE_API_KEY`              | `geocode-address`, `get-traffic`, `get-weather` | ✅           |
+| `N8N_API_KEY`               | `n8n-workflow-management`                       | ⚠️ Zu prüfen |
 
 ---
 
@@ -195,10 +195,12 @@ VITE_APP_URL=https://my-dispatch.de
 ### 6.2 Edge Functions (Supabase Secrets)
 
 **Automatisch gesetzt:**
+
 - `SUPABASE_URL` ✅
 - `SUPABASE_SERVICE_ROLE_KEY` ✅
 
 **Manuell zu setzen:**
+
 - `STRIPE_SECRET_KEY` ✅
 - `HERE_API_KEY` ✅
 - `N8N_API_KEY` ⚠️ Zu prüfen
@@ -208,6 +210,7 @@ VITE_APP_URL=https://my-dispatch.de
 ## 📋 KONFIGURATIONS-CHECKLISTE
 
 ### Initial Setup:
+
 - [x] Supabase Projekt erstellt
 - [x] Database Migrations ausgeführt
 - [x] RLS Policies konfiguriert
@@ -218,12 +221,14 @@ VITE_APP_URL=https://my-dispatch.de
 - [x] Environment Variables gesetzt
 
 ### Tägliche Wartung:
+
 - [ ] Edge Function Logs prüfen
 - [ ] Database Performance prüfen
 - [ ] Stripe Webhooks prüfen
 - [ ] API Usage Limits prüfen
 
 ### Wöchentliche Wartung:
+
 - [ ] Dependencies Updates prüfen
 - [ ] Security Updates prüfen
 - [ ] Backup prüfen
@@ -234,6 +239,7 @@ VITE_APP_URL=https://my-dispatch.de
 ## ⚠️ OFFENE PUNKTE
 
 ### Zu prüfen:
+
 1. **Stripe Webhook Endpoint:**
    - Existiert Edge Function `stripe-webhook`?
    - Events konfiguriert?
@@ -248,9 +254,3 @@ VITE_APP_URL=https://my-dispatch.de
 ---
 
 **Pascal, alle Konfigurationen sind abgeglichen!** 🚀
-
-
-
-
-
-

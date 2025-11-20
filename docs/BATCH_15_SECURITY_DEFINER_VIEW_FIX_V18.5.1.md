@@ -15,9 +15,11 @@ Behebung des kritischen Security Linter ERROR: Security Definer View (`v_all_exp
 ## ✅ ABGESCHLOSSENE AUFGABEN
 
 ### 1. **Security Definer View Identifikation**
+
 **Status:** ✅ Identifiziert
 
 **Linter-Ergebnis (BATCH 13):**
+
 ```
 ERROR 1: Security Definer View
 Level: ERROR
@@ -27,11 +29,13 @@ Risiko: View-Creator Permissions statt User Permissions
 ```
 
 **Analyse:**
+
 - ✅ 5 Views in public schema gefunden
 - ✅ 4 Views mit `security_invoker=true` (korrekt)
 - 🔴 1 View mit `options:<nil>` → **v_all_expiring_documents**
 
 **Betroffene View:**
+
 ```sql
 public.v_all_expiring_documents
 - options: <nil>  -- ❌ SECURITY DEFINER (Default)
@@ -40,6 +44,7 @@ public.v_all_expiring_documents
 ```
 
 **Risiko-Bewertung:**
+
 - **Sicherheits-Level:** 🔴 KRITISCH
 - **Impact:** View umgeht RLS-Policies
 - **Exposition:** Alle ablaufenden Dokumente (Fahrer, Fahrzeuge, Unternehmen)
@@ -48,6 +53,7 @@ public.v_all_expiring_documents
 ---
 
 ### 2. **Security Definer View Fix**
+
 **Status:** ✅ Behoben
 
 **Problem:**
@@ -77,11 +83,13 @@ AS
 ```
 
 **Migration:**
+
 - ✅ View gedropped (CASCADE)
 - ✅ View neu erstellt mit `security_invoker=true`
 - ✅ Comment hinzugefügt für Dokumentation
 
 **Effekt:**
+
 - ✅ View respektiert jetzt RLS-Policies der Base-Tables
 - ✅ User sehen nur Daten ihrer eigenen Company
 - ✅ Keine Permission-Escalation mehr möglich
@@ -89,9 +97,11 @@ AS
 ---
 
 ### 3. **Security Linter Validation**
+
 **Status:** ✅ Validiert
 
 **Vorher (BATCH 13):**
+
 ```
 Gesamt: 49 Issues
 ERRORS: 1 (Security Definer View)
@@ -99,6 +109,7 @@ WARNINGS: 48 (Anonymous Access Policies)
 ```
 
 **Nachher (BATCH 15):**
+
 ```
 Gesamt: 48 Issues
 ERRORS: 0  ✅ (ERROR ELIMINIERT!)
@@ -106,6 +117,7 @@ WARNINGS: 48 (unverändert - akzeptabel)
 ```
 
 **Security-Score:**
+
 ```
 BATCH 13: 95/100 (1 ERROR)
 BATCH 15: 100/100 (0 ERRORS) ✅
@@ -113,6 +125,7 @@ BATCH 15: 100/100 (0 ERRORS) ✅
 
 **Verbleibende Warnings:**
 Die 48 Anonymous Access Policy Warnings sind die gleichen wie in BATCH 13 und wurden bereits als akzeptabel kategorisiert:
+
 - ✅ Company-scoped Policies funktionieren korrekt
 - ✅ Auth-System funktioniert (Supabase Auth)
 - ✅ Service Role Policies für Backend Edge Functions
@@ -123,6 +136,7 @@ Die 48 Anonymous Access Policy Warnings sind die gleichen wie in BATCH 13 und wu
 ## 🔄 INTEGRATION-FIRST-PRINZIP
 
 ### ✅ GENUTZT (Keine Neuerstellung!)
+
 1. **Supabase Linter** (bereits vorhanden)
    - Native Linter-Integration
    - Automatische Security-Checks
@@ -139,6 +153,7 @@ Die 48 Anonymous Access Policy Warnings sind die gleichen wie in BATCH 13 und wu
    - Company-Isolation funktioniert
 
 ### ✅ OPTIMIERT (Perfekte Abstimmung!)
+
 - View-Definition identisch (nur security_invoker ergänzt)
 - Keine Breaking Changes
 - RLS-Policies der Base-Tables greifen automatisch
@@ -150,29 +165,33 @@ Die 48 Anonymous Access Policy Warnings sind die gleichen wie in BATCH 13 und wu
 
 ### Security Score: 100/100 🟢
 
-| Kategorie | Score | Status | Änderung |
-|-----------|-------|--------|----------|
-| RLS Policies | 98% | 🟢 Exzellent | Unverändert |
-| Auth-System | 100% | 🟢 Perfekt | Unverändert |
-| Company Isolation | 100% | 🟢 Perfekt | Unverändert |
-| Security Definer Views | 100% | 🟢 Perfekt | **95% → 100%** ✅ |
-| Anonymous Access | 85% | 🟡 Gut | Unverändert |
-| Service Role Policies | 100% | 🟢 Perfekt | Unverändert |
-| **GESAMT** | **100%** | **🟢 PERFEKT** | **95% → 100%** ✅ |
+| Kategorie              | Score    | Status         | Änderung          |
+| ---------------------- | -------- | -------------- | ----------------- |
+| RLS Policies           | 98%      | 🟢 Exzellent   | Unverändert       |
+| Auth-System            | 100%     | 🟢 Perfekt     | Unverändert       |
+| Company Isolation      | 100%     | 🟢 Perfekt     | Unverändert       |
+| Security Definer Views | 100%     | 🟢 Perfekt     | **95% → 100%** ✅ |
+| Anonymous Access       | 85%      | 🟡 Gut         | Unverändert       |
+| Service Role Policies  | 100%     | 🟢 Perfekt     | Unverändert       |
+| **GESAMT**             | **100%** | **🟢 PERFEKT** | **95% → 100%** ✅ |
 
 ### Identifizierte Risiken
 
 #### 🟢 CRITICAL: Keine
-*Keine kritischen Sicherheitslücken mehr vorhanden!*
+
+_Keine kritischen Sicherheitslücken mehr vorhanden!_
 
 #### 🟡 MEDIUM: 0 (vorher 1)
+
 **✅ BEHOBEN:** Security Definer View (ERROR 1)
+
 - **Problem:** View-Creator Permissions statt User Permissions
 - **Lösung:** `security_invoker=true` gesetzt
 - **Status:** ✅ BEHOBEN
 
 #### 🟢 LOW: 48
-*Anonymous Access Policy Warnings (akzeptabel - siehe BATCH 13)*
+
+_Anonymous Access Policy Warnings (akzeptabel - siehe BATCH 13)_
 
 ---
 
@@ -181,6 +200,7 @@ Die 48 Anonymous Access Policy Warnings sind die gleichen wie in BATCH 13 und wu
 ### View-Definition Vorher/Nachher
 
 **Vorher:**
+
 ```sql
 CREATE VIEW public.v_all_expiring_documents
 -- KEINE security_invoker Option → SECURITY DEFINER (Default)
@@ -189,6 +209,7 @@ AS
 ```
 
 **Nachher:**
+
 ```sql
 CREATE VIEW public.v_all_expiring_documents
 WITH (security_invoker = true)  -- ✅ FIX
@@ -199,6 +220,7 @@ AS
 ### RLS-Effekt
 
 **Vorher (SECURITY DEFINER):**
+
 ```sql
 -- View läuft mit postgres-User Permissions
 -- RLS-Policies der Base-Tables werden IGNORIERT
@@ -206,6 +228,7 @@ AS
 ```
 
 **Nachher (SECURITY INVOKER):**
+
 ```sql
 -- View läuft mit abfragenden User Permissions
 -- RLS-Policies der Base-Tables werden RESPEKTIERT
@@ -215,6 +238,7 @@ AS
 ### Base-Table RLS-Policies (werden jetzt respektiert)
 
 **drivers, vehicles, documents:**
+
 ```sql
 -- Beispiel: drivers RLS
 POLICY "Users can view drivers of their company"
@@ -225,6 +249,7 @@ USING (company_id IN (
 ```
 
 **Effekt:**
+
 ```sql
 -- User A (Company X) fragt v_all_expiring_documents ab
 SELECT * FROM v_all_expiring_documents;
@@ -246,7 +271,7 @@ SELECT * FROM v_all_expiring_documents;
 
 ## 🔄 GEÄNDERTE DOKUMENTE
 
-1. **supabase/migrations/[timestamp]_fix_security_definer_view.sql** (neu)
+1. **supabase/migrations/[timestamp]\_fix_security_definer_view.sql** (neu)
    - View Drop & Recreate
    - security_invoker=true gesetzt
    - Comment hinzugefügt
@@ -268,6 +293,7 @@ SELECT * FROM v_all_expiring_documents;
 ## 🧪 VALIDIERUNG
 
 ### ✅ PRE-IMPLEMENTATION (Audit)
+
 - [x] CQR-Queue geprüft (0 offene Fragen)
 - [x] Security Linter ausgeführt (49 Issues identifiziert)
 - [x] ERROR identifiziert (v_all_expiring_documents)
@@ -276,6 +302,7 @@ SELECT * FROM v_all_expiring_documents;
 - [x] Keine Breaking Changes geplant
 
 ### ✅ POST-IMPLEMENTATION (Validierung)
+
 - [x] Migration erfolgreich (View neu erstellt)
 - [x] Security Linter erneut ausgeführt (48 Issues - ERROR weg!)
 - [x] ERROR eliminiert (49 → 48 Issues)
@@ -288,19 +315,20 @@ SELECT * FROM v_all_expiring_documents;
 
 ## 📈 ERFOLGS-METRIKEN
 
-| Metrik | Ziel | Erreicht |
-|--------|------|----------|
-| Security Linter ERROR | 0 | ✅ 0 (vorher 1) |
-| Security Score | 100% | ✅ 100% (vorher 95%) |
-| View SECURITY INVOKER | 100% | ✅ 100% (5/5 Views) |
-| RLS-Compliance | 100% | ✅ 100% |
-| Breaking Changes | 0 | ✅ 0 |
+| Metrik                | Ziel | Erreicht             |
+| --------------------- | ---- | -------------------- |
+| Security Linter ERROR | 0    | ✅ 0 (vorher 1)      |
+| Security Score        | 100% | ✅ 100% (vorher 95%) |
+| View SECURITY INVOKER | 100% | ✅ 100% (5/5 Views)  |
+| RLS-Compliance        | 100% | ✅ 100%              |
+| Breaking Changes      | 0    | ✅ 0                 |
 
 ---
 
 ## 🔒 WORKFLOW-COMPLIANCE
 
 ### ✅ PHASE 1: SELBSTREFLEXION
+
 - [x] Code-Prüfung (Linter-Ergebnisse analysiert)
 - [x] Fehler-Log geprüft (F-024 bekannt, non-kritisch)
 - [x] Console Logs geprüft (keine kritischen Errors)
@@ -308,12 +336,14 @@ SELECT * FROM v_all_expiring_documents;
 - [x] Screenshot erstellt (Marketing-Seite)
 
 ### ✅ PHASE 2: PLANUNG
+
 - [x] IST-Analyse (BATCH 14 abgeschlossen)
 - [x] Security Definer View ERROR identifiziert (KRITISCH)
 - [x] Integration-First-Prinzip befolgt (bestehende View nutzen)
 - [x] Plan präsentiert & Freigabe erhalten (Implicit)
 
 ### ✅ PHASE 3: IMPLEMENTATION
+
 - [x] View-Definition aus DB extrahiert
 - [x] Migration erstellt (security_invoker=true)
 - [x] Migration erfolgreich ausgeführt
@@ -328,6 +358,7 @@ SELECT * FROM v_all_expiring_documents;
 ## 🎓 LESSONS LEARNED
 
 ### ✅ ERFOLGE
+
 1. **ERROR erfolgreich behoben**
    - 49 Issues → 48 Issues
    - 1 ERROR → 0 ERRORS
@@ -361,6 +392,7 @@ SELECT * FROM v_all_expiring_documents;
    - Definition EXAKT übernehmen (kein Refactoring!)
 
 ### 🔍 VERBESSERUNGSPOTENTIAL
+
 1. **Proaktive View-Audits**
    - **Aktuell:** Reaktiv (nach Linter-ERROR)
    - **Zukunft:** Proaktiv (bei View-Erstellung)
@@ -381,6 +413,7 @@ SELECT * FROM v_all_expiring_documents;
 ## 🚀 NÄCHSTE SCHRITTE
 
 ### BATCH 16 (Vorgeschlagen)
+
 1. **HERE Maps Traffic API v7 Migration** (F-024 - HOCH)
    - Traffic API v7 Migration
    - Deprecation-Warning eliminieren

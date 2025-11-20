@@ -11,6 +11,7 @@
 ### **Phase 1: DSGVO-konformer Chat**
 
 #### V28ChatWidget - Consent-Dialog
+
 - **Datenschutz-Check:** Chat öffnet sich NUR nach DSGVO-Einwilligung
 - **localStorage-basiert:** Consent-Status wird Cookie-frei gespeichert (`chat_consent_given`)
 - **Consent-Dialog Components:**
@@ -21,6 +22,7 @@
 - **DSGVO Art. 6 Abs. 1 lit. a konform**
 
 **Dateien geändert:**
+
 - `src/components/chat/V28ChatWidget.tsx`
 
 ---
@@ -28,6 +30,7 @@
 ### **Phase 2: iPad-Mockup Hero-Grafik**
 
 #### V28iPadMockup Component (NEU!)
+
 - **Realistische iPad Pro 12.9" Frame:**
   - Frame: Slate-900 mit Ring
   - Home Button (unten mittig)
@@ -42,9 +45,11 @@
 - **Gestochenscharfe Bildqualität:** Keine Pixelierung durch korrektes `scale(1)` und `translateZ(0)`
 
 **Dateien erstellt:**
+
 - `src/components/hero/V28iPadMockup.tsx`
 
 #### V28TaxiDashboardPreview - iPad-Variante
+
 - **Neue Prop:** `variant?: 'dashboard' | 'compact' | 'support' | 'mobile' | 'fleet' | 'ipad'`
 - **iPad-Modus (`variant="ipad"`):**
   - Dashboard-Content OHNE Browser-Mockup
@@ -55,9 +60,11 @@
   - Keine Breaking Changes für existierende Implementierungen
 
 **Dateien geändert:**
+
 - `src/components/hero/V28TaxiDashboardPreview.tsx`
 
 #### Home.tsx - Hero-Section Integration
+
 - **Import:** `V28iPadMockup` hinzugefügt
 - **Visual-Prop Anpassung:**
   ```tsx
@@ -69,6 +76,7 @@
   ```
 
 **Dateien geändert:**
+
 - `src/pages/Home.tsx` (Zeile 48-50, 206-214)
 
 **Erwartetes Ergebnis:**
@@ -83,6 +91,7 @@
 ### **Phase 3: Final CTA Section - "Bereit für die digitale Transformation?"**
 
 #### Erweiterte Features
+
 - **Badge:** "Jetzt durchstarten" mit `BadgeCheck`-Icon
 - **Title:** Responsive Typography (`clamp(2rem, 3vw + 1rem, 3.5rem)`)
 - **Description:**
@@ -101,6 +110,7 @@
   - Floating Orbs (2x): `bg-slate-200` & `bg-slate-300`, `blur-3xl`, `animate-float-slow`
 
 **Dateien geändert:**
+
 - `src/pages/Home.tsx` (Zeile 455-515 ersetzt)
 
 **Erwartetes Ergebnis:**
@@ -115,20 +125,24 @@
 ### **Phase 4: Dokumentation**
 
 #### docs/COMPONENT_REGISTRY.md - Update
+
 - **V28iPadMockup** hinzugefügt (Chat Components Section)
 - **V28TaxiDashboardPreview** aktualisiert (neue `variant="ipad"`)
 - **V28ChatWidget** aktualisiert (DSGVO-Consent-Dialog)
 
 **Dateien geändert:**
+
 - `docs/COMPONENT_REGISTRY.md`
 
 #### docs/HOME_PAGE_PERFECTION_V28.3.md - Neu erstellt
+
 - Dokumentation aller 4 Phasen
 - Section-Reihenfolge (Von oben nach unten)
 - Testing-Checkliste (Desktop, Mobile, Accessibility)
 - Deployment-Status
 
 **Dateien erstellt:**
+
 - `docs/HOME_PAGE_PERFECTION_V28.3.md` (diese Datei)
 
 ---
@@ -148,6 +162,7 @@
 ## 🧪 TESTING-CHECKLISTE
 
 ### Desktop (1920x1080)
+
 - [x] iPad-Mockup erscheint schräg nach rechts gekippt (rotateY(15deg))
 - [x] Dashboard in iPad ist gestochen scharf (keine Pixelierung)
 - [x] Chat-Button öffnet Consent-Dialog beim ersten Klick
@@ -156,18 +171,21 @@
 - [x] Alle Sections sind harmonisch angeordnet
 
 ### Mobile (375x667)
+
 - [x] iPad-Mockup ist responsiv oder verborgen (lg:block)
 - [x] Chat-Consent-Dialog ist full-width
 - [x] Final CTA Buttons sind vertikal gestapelt
 - [x] Trust-Stats sind horizontal scrollbar oder vertikal gestapelt
 
 ### Accessibility (WCAG 2.1 AA)
+
 - [x] Chat-Consent-Dialog hat `role="dialog"`, `aria-modal="true"`
 - [x] Alle Buttons haben `aria-label` oder beschreibenden Text
 - [x] Keyboard-Navigation funktioniert (Tab, Enter, Escape)
 - [x] Screen-Reader kompatibel
 
 ### Performance
+
 - [x] iPad-Mockup lädt schnell (keine großen Bilder)
 - [x] Animationen laufen smooth (60 FPS)
 - [x] Chat-Consent-Check ist instant (<50ms)
@@ -178,6 +196,7 @@
 ## 🎨 DESIGN-COMPLIANCE
 
 ### V28.1 Design System
+
 - ✅ **Slate-Palette:** Ausschließlich `text-slate-*`, `bg-slate-*`, `border-slate-*`
 - ✅ **Keine Direct Colors:** Kein `text-white`, `bg-white`, `text-[#HEX]`
 - ✅ **Tailwind-Native:** Alle Farben aus `tailwind.config.ts`
@@ -185,6 +204,7 @@
 - ✅ **Semantic HTML:** `<section>`, `<div role="dialog">`, `<h2>`, `<p>`
 
 ### V28.1 Components
+
 - ✅ `V28iPadMockup` (NEU!)
 - ✅ `V28TaxiDashboardPreview` (erweitert um `variant="ipad"`)
 - ✅ `V28ChatWidget` (erweitert um DSGVO-Consent)
@@ -209,10 +229,12 @@
 ## 📦 DATEIÜBERSICHT
 
 ### Neue Dateien
+
 1. `src/components/hero/V28iPadMockup.tsx` (Phase 2)
 2. `docs/HOME_PAGE_PERFECTION_V28.3.md` (Phase 4)
 
 ### Geänderte Dateien
+
 1. `src/components/chat/V28ChatWidget.tsx` (Phase 1)
 2. `src/components/hero/V28TaxiDashboardPreview.tsx` (Phase 2)
 3. `src/pages/Home.tsx` (Phase 2 + 3)
@@ -232,19 +254,20 @@
 
 ## 📈 QUALITÄTSMETRIKEN
 
-| Metrik | Vorher (V28.2) | Nachher (V28.3) | Status |
-|--------|---------------|----------------|--------|
-| DSGVO-Compliance (Chat) | ❌ FEHLT | ✅ VOLLSTÄNDIG | ✅ UPGRADE |
-| Hero-Grafik (Premium) | 7/10 (Browser) | **10/10** (iPad) | ✅ PERFEKT |
-| Final CTA Section | 6/10 (Basic) | **10/10** (Premium) | ✅ UPGRADE |
-| Section-Flow | 8/10 | **10/10** | ✅ PERFEKT |
-| WOW-Faktor | 8/10 | **10/10** 🚀 | ✅ PERFEKT |
+| Metrik                  | Vorher (V28.2) | Nachher (V28.3)     | Status     |
+| ----------------------- | -------------- | ------------------- | ---------- |
+| DSGVO-Compliance (Chat) | ❌ FEHLT       | ✅ VOLLSTÄNDIG      | ✅ UPGRADE |
+| Hero-Grafik (Premium)   | 7/10 (Browser) | **10/10** (iPad)    | ✅ PERFEKT |
+| Final CTA Section       | 6/10 (Basic)   | **10/10** (Premium) | ✅ UPGRADE |
+| Section-Flow            | 8/10           | **10/10**           | ✅ PERFEKT |
+| WOW-Faktor              | 8/10           | **10/10** 🚀        | ✅ PERFEKT |
 
 ---
 
 ## 🔄 CHANGELOG
 
 ### V28.3.0 (2025-01-30)
+
 - ✅ **BREAKING:** Chat benötigt jetzt DSGVO-Consent (localStorage-basiert)
 - ✅ **NEW:** V28iPadMockup Component (3D-tilted iPad Pro Frame)
 - ✅ **NEW:** V28TaxiDashboardPreview `variant="ipad"` (ohne Browser-Mockup)
@@ -254,12 +277,14 @@
 - ✅ **DOCS:** COMPONENT_REGISTRY.md aktualisiert
 
 ### V28.2.0 (2025-01-29)
+
 - Chat-System integriert (ChatInterface mit AI-Backend)
 - Visual Micro-Optimierungen (Glow-Effekte, FAQ-Decorations)
 - Scroll-Animations (useIntersectionObserver Hook)
 - Testimonials mit Building2-Icon
 
 ### V28.1.0 (2025-01-28)
+
 - Initial V28.1 Design System Compliance
 - Slate-Farben statt Beige/Dunkelblau
 - V28HeroPremium mit Taxi-Dashboard-Preview

@@ -8,16 +8,16 @@
    - Touch-optimiert (min-h-[44px])
    ================================================================================== */
 
-import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Plus, Search, RefreshCw, Eye, Handshake, Network, Mail, Phone } from 'lucide-react';
-import { MobileFilterBar } from './MobileFilterBar';
-import { Input } from '@/lib/compat';
-import { EmptyState } from '@/components/shared/EmptyState';
-import { StatusIndicator, getPartnerStatusType } from '@/components/shared/StatusIndicator';
-import { Badge } from '@/components/ui/badge';
-import { formatCurrency } from '@/lib/index';
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Plus, Search, RefreshCw, Eye, Handshake, Network, Mail, Phone } from "lucide-react";
+import { MobileFilterBar } from "./MobileFilterBar";
+import { Input } from "@/lib/compat";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { StatusIndicator, getPartnerStatusType } from "@/components/shared/StatusIndicator";
+import { Badge } from "@/components/ui/badge";
+import { formatCurrency } from "@/lib/index";
 
 interface Partner {
   id: string;
@@ -42,16 +42,16 @@ export function MobilePartner({
   isLoading,
   onCreateNew,
   onPartnerClick,
-  onRefresh
+  onRefresh,
 }: MobilePartnerProps) {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Filter logic
-  const filteredPartners = partners.filter(partner => {
+  const filteredPartners = partners.filter((partner) => {
     // Status filter
-    if (activeFilter === 'active' && !partner.online_access_enabled) return false;
-    if (activeFilter === 'inactive' && partner.online_access_enabled) return false;
+    if (activeFilter === "active" && !partner.online_access_enabled) return false;
+    if (activeFilter === "inactive" && partner.online_access_enabled) return false;
 
     // Search filter
     if (searchQuery) {
@@ -69,14 +69,14 @@ export function MobilePartner({
   // Count by status
   const statusCounts = {
     all: partners.length,
-    active: partners.filter(p => p.online_access_enabled).length,
-    inactive: partners.filter(p => !p.online_access_enabled).length,
+    active: partners.filter((p) => p.online_access_enabled).length,
+    inactive: partners.filter((p) => !p.online_access_enabled).length,
   };
 
   const filters = [
-    { id: 'all', label: 'Alle', count: statusCounts.all },
-    { id: 'active', label: 'Aktiv', count: statusCounts.active },
-    { id: 'inactive', label: 'Inaktiv', count: statusCounts.inactive },
+    { id: "all", label: "Alle", count: statusCounts.all },
+    { id: "active", label: "Aktiv", count: statusCounts.active },
+    { id: "inactive", label: "Inaktiv", count: statusCounts.inactive },
   ];
 
   // Removed: Using central formatCurrency from @/lib/index
@@ -101,7 +101,7 @@ export function MobilePartner({
           disabled={isLoading}
           className="h-11 w-11 shrink-0"
         >
-          <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
         </V28Button>
       </div>
 
@@ -130,9 +130,9 @@ export function MobilePartner({
         </div>
       ) : filteredPartners.length > 0 ? (
         <div className="space-y-4">
-          {filteredPartners.map(partner => (
-            <Card 
-              key={partner.id} 
+          {filteredPartners.map((partner) => (
+            <Card
+              key={partner.id}
               className="cursor-pointer hover:bg-primary/5 transition-colors"
               onClick={() => onPartnerClick(partner)}
             >
@@ -141,7 +141,7 @@ export function MobilePartner({
                   <CardTitle className="text-lg">{partner.name}</CardTitle>
                   <StatusIndicator
                     type={getPartnerStatusType(partner.online_access_enabled)}
-                    label={partner.online_access_enabled ? 'Online' : 'Offline'}
+                    label={partner.online_access_enabled ? "Online" : "Offline"}
                     size="sm"
                   />
                 </div>
@@ -191,12 +191,11 @@ export function MobilePartner({
       ) : (
         <EmptyState
           icon={<Handshake className="h-16 w-16" />}
-          title={searchQuery ? 'Keine Partner gefunden' : 'Noch keine Partner'}
-          description={searchQuery 
-            ? 'Versuche einen anderen Suchbegriff'
-            : 'Füge deinen ersten Partner hinzu'
+          title={searchQuery ? "Keine Partner gefunden" : "Noch keine Partner"}
+          description={
+            searchQuery ? "Versuche einen anderen Suchbegriff" : "Füge deinen ersten Partner hinzu"
           }
-          actionLabel={!searchQuery ? 'Partner hinzufügen' : undefined}
+          actionLabel={!searchQuery ? "Partner hinzufügen" : undefined}
           onAction={!searchQuery ? onCreateNew : undefined}
         />
       )}

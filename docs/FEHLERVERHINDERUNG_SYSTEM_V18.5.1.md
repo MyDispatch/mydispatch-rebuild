@@ -10,6 +10,7 @@
 ## 🎯 ZIELSETZUNG
 
 Dieses Dokument definiert ein umfassendes System zur **präventiven Fehlervermeidung** in allen Bereichen:
+
 - ✅ Design & Layout Konsistenz
 - ✅ Rechtliche Compliance (DSGVO, PBefG, UStG)
 - ✅ Zentrale Datenverwaltung (Single Source of Truth)
@@ -23,6 +24,7 @@ Dieses Dokument definiert ein umfassendes System zur **präventiven Fehlervermei
 ### 1️⃣ DESIGN & LAYOUT FEHLER
 
 #### **Identifizierte Probleme:**
+
 - ❌ Inkonsistente Farben (`text-foreground` auf `primary` Background)
 - ❌ Falsche Button-Varianten in unterschiedlichen Kontexten
 - ❌ Uneinheitliche Abstände (padding, gap, margin)
@@ -33,18 +35,20 @@ Dieses Dokument definiert ein umfassendes System zur **präventiven Fehlervermei
 
 **Datei:** `docs/DARK_BACKGROUNDS_V18.5.2.md`
 
-```markdown
+````markdown
 # DARK BACKGROUNDS - COLOR RULES V18.5.2
 
 ## ABSOLUTE REGEL: Farben auf dunklen Hintergründen
 
 ### Dark Backgrounds (bg-primary, bg-secondary, bg-accent):
+
 - ✅ Text: `text-white` oder `text-primary-foreground`
 - ✅ Icons: `text-white`
 - ✅ Buttons: `bg-background/20` + `text-white` + `hover:bg-background/30`
 - ❌ NIEMALS: `text-foreground` oder `text-muted-foreground`
 
 ### Light Backgrounds (bg-background, bg-card):
+
 - ✅ Text: `text-foreground` oder `text-muted-foreground`
 - ✅ Icons: `text-foreground`
 - ✅ Buttons: Standard Button Variants
@@ -52,6 +56,7 @@ Dieses Dokument definiert ein umfassendes System zur **präventiven Fehlervermei
 ### Beispiele:
 
 **KORREKT:**
+
 ```tsx
 <div className="bg-primary">
   <Icon name="Menu" className="text-white" />
@@ -61,15 +66,18 @@ Dieses Dokument definiert ein umfassendes System zur **präventiven Fehlervermei
   </Button>
 </div>
 ```
+````
 
 **FALSCH:**
+
 ```tsx
 <div className="bg-primary">
   <Icon name="Menu" className="text-foreground" /> {/* ❌ Unsichtbar! */}
   <p className="text-muted-foreground">Navigation</p> {/* ❌ Unsichtbar! */}
 </div>
 ```
-```
+
+````
 
 ---
 
@@ -159,7 +167,7 @@ export const formatPrice = (price: number, currency: string = '€') => {
 export const getLimitText = (limit: number) => {
   return limit === Infinity ? 'Unbegrenzt' : `Max. ${limit}`;
 };
-```
+````
 
 **B) Unternehmensdaten** (bereits vorhanden in `src/lib/company-info.ts`)
 
@@ -177,63 +185,64 @@ export const getLimitText = (limit: number) => {
    ✅ Rechtssicher geprüft
    ================================================================================== */
 
-import { COMPANY_INFO } from '@/lib/company-info';
+import { COMPANY_INFO } from "@/lib/company-info";
 
 export const LEGAL_TEXTS = {
-  
   // DSGVO-konforme Cookie-Banner
   cookieBanner: {
-    title: 'Cookie-Einstellungen',
+    title: "Cookie-Einstellungen",
     description: `Wir verwenden Cookies, um Ihre Erfahrung auf unserer Website zu verbessern. Einige Cookies sind technisch notwendig, andere helfen uns, die Nutzung zu analysieren und Inhalte zu personalisieren.`,
     essential: {
-      title: 'Technisch notwendige Cookies',
-      description: 'Diese Cookies sind für die Grundfunktionen der Website erforderlich (z.B. Login, Warenkorb).',
-      required: true
+      title: "Technisch notwendige Cookies",
+      description:
+        "Diese Cookies sind für die Grundfunktionen der Website erforderlich (z.B. Login, Warenkorb).",
+      required: true,
     },
     analytics: {
-      title: 'Analyse-Cookies',
-      description: 'Diese Cookies helfen uns, die Nutzung der Website zu verstehen und zu verbessern.',
-      required: false
+      title: "Analyse-Cookies",
+      description:
+        "Diese Cookies helfen uns, die Nutzung der Website zu verstehen und zu verbessern.",
+      required: false,
     },
     buttons: {
-      acceptAll: 'Alle akzeptieren',
-      acceptEssential: 'Nur notwendige',
-      customize: 'Einstellungen'
-    }
+      acceptAll: "Alle akzeptieren",
+      acceptEssential: "Nur notwendige",
+      customize: "Einstellungen",
+    },
   },
 
   // DSGVO-Hinweise für Auth-Formulare
   authConsent: {
     registration: {
       text: `Mit der Registrierung stimmen Sie unseren <a href="/agb" class="underline">AGB</a> und unserer <a href="/datenschutz" class="underline">Datenschutzerklärung</a> zu. Ihre Daten werden gemäß Art. 6 Abs. 1 lit. b DSGVO zur Vertragserfüllung verarbeitet.`,
-      required: true
+      required: true,
     },
     newsletter: {
       text: `Ich möchte Updates und Neuigkeiten per E-Mail erhalten (widerrufbar gemäß Art. 7 Abs. 3 DSGVO).`,
-      required: false
-    }
+      required: false,
+    },
   },
 
   // PBefG-konforme Pflichtangaben
   pbefgNotices: {
     bookingConfirmation: `Gemäß § 51 PBefG werden folgende Daten für 1 Jahr aufbewahrt: Datum, Uhrzeit, Fahrziel, Fahrer-Name, KFZ-Kennzeichen.`,
     driverLicense: `Fahrerlaubnis der Klasse P (Taxi) oder Mietwagen-Konzession nach § 49 PBefG erforderlich.`,
-    insurance: `Pflichtversicherung nach § 2 Abs. 1 Nr. 4 PflVG erforderlich.`
+    insurance: `Pflichtversicherung nach § 2 Abs. 1 Nr. 4 PflVG erforderlich.`,
   },
 
   // Disclaimer für Marketing
   marketingDisclaimers: {
     noTrial: `❌ VERBOTEN: Aussagen wie "30 Tage kostenlos testen" oder "Gratis-Testphase"`,
     pricing: `Alle Preise verstehen sich in Euro (€) inkl. gesetzlicher Mehrwertsteuer.`,
-    contractTerms: `Vertragslaufzeit: Monatlich kündbar. Keine Mindestvertragslaufzeit.`
-  }
+    contractTerms: `Vertragslaufzeit: Monatlich kündbar. Keine Mindestvertragslaufzeit.`,
+  },
 } as const;
 
 // Helper Functions
 export const getCookieBannerText = () => LEGAL_TEXTS.cookieBanner;
-export const getAuthConsentText = (type: 'registration' | 'newsletter') => 
+export const getAuthConsentText = (type: "registration" | "newsletter") =>
   LEGAL_TEXTS.authConsent[type];
-export const getPBefGNotice = (type: keyof typeof LEGAL_TEXTS.pbefgNotices) => 
+export const getPBefGNotice = (type: keyof typeof LEGAL_TEXTS.pbefgNotices) =>
   LEGAL_TEXTS.pbefgNotices[type];
 ```
 
@@ -244,6 +253,7 @@ export const getPBefGNotice = (type: keyof typeof LEGAL_TEXTS.pbefgNotices) =>
 ### 3️⃣ DASHBOARD STANDARDS
 
 #### **Identifizierte Probleme:**
+
 - ❌ Cards überlappen sich
 - ❌ Inkonsistente Höhen
 - ❌ Falsche Grid-Layouts
@@ -253,40 +263,36 @@ export const getPBefGNotice = (type: keyof typeof LEGAL_TEXTS.pbefgNotices) =>
 
 **Datei:** `docs/DASHBOARD_LAYOUT_RULES_V18.5.1.md`
 
-```markdown
+````markdown
 # DASHBOARD LAYOUT RULES V18.5.1
 
 ## GRID-SYSTEM
 
 ### Desktop (lg+):
+
 ```tsx
 // Haupt-Grid: 12 Spalten
 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-  
   {/* Linke Spalte: 8 Spalten (66%) */}
-  <div className="lg:col-span-8 space-y-6">
-    {/* Widgets: 100% Breite */}
-  </div>
-  
+  <div className="lg:col-span-8 space-y-6">{/* Widgets: 100% Breite */}</div>
+
   {/* Rechte Spalte: 4 Spalten (33%) */}
-  <div className="lg:col-span-4 space-y-6">
-    {/* Widgets: 100% Breite */}
-  </div>
-  
+  <div className="lg:col-span-4 space-y-6">{/* Widgets: 100% Breite */}</div>
 </div>
 ```
+````
 
 ### Mobile (< lg):
+
 ```tsx
 // Mobile: Einzelne Spalte, gestapelt
-<div className="space-y-4">
-  {/* Alle Widgets: 100% Breite, vertikal gestapelt */}
-</div>
+<div className="space-y-4">{/* Alle Widgets: 100% Breite, vertikal gestapelt */}</div>
 ```
 
 ## CARD-HÖHEN
 
 ### Regel: Gleiche Höhe in Zeile
+
 ```tsx
 // ✅ KORREKT: h-full für flexible Höhe
 <Card className="h-full">
@@ -301,6 +307,7 @@ export const getPBefGNotice = (type: keyof typeof LEGAL_TEXTS.pbefgNotices) =>
 ## SPACING
 
 ### Standard-Abstände:
+
 - **Zwischen Cards:** `gap-4 lg:gap-6`
 - **Innerhalb Card:** `space-y-4`
 - **Card-Padding:** `p-4 lg:p-6`
@@ -309,7 +316,7 @@ export const getPBefGNotice = (type: keyof typeof LEGAL_TEXTS.pbefgNotices) =>
 ## WIDGET-TEMPLATE
 
 ```tsx
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 interface WidgetProps {
   // Props
@@ -322,14 +329,13 @@ export function StandardWidget({ ...props }: WidgetProps) {
         <CardTitle className="text-base">Widget-Titel</CardTitle>
         <CardDescription className="text-xs">Beschreibung</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
-        {/* Widget-Inhalt */}
-      </CardContent>
+      <CardContent className="space-y-4">{/* Widget-Inhalt */}</CardContent>
     </Card>
   );
 }
 ```
-```
+
+````
 
 ---
 
@@ -404,7 +410,7 @@ export function CookieBanner() {
           <p className="text-sm text-muted-foreground">
             {bannerText.description}
           </p>
-          
+
           {showSettings && (
             <div className="space-y-3">
               <div className="flex items-start gap-3">
@@ -431,8 +437,8 @@ export function CookieBanner() {
             <Button onClick={handleAcceptEssential} variant="outline" className="flex-1">
               {bannerText.buttons.acceptEssential}
             </Button>
-            <Button 
-              onClick={() => setShowSettings(!showSettings)} 
+            <Button
+              onClick={() => setShowSettings(!showSettings)}
               variant="ghost"
               className="flex-1"
             >
@@ -448,7 +454,7 @@ export function CookieBanner() {
     </div>
   );
 }
-```
+````
 
 **B) Auth-Consent Checkboxes**
 
@@ -462,11 +468,11 @@ export function CookieBanner() {
    ✅ Art. 7 Abs. 3 DSGVO (Widerruf)
    ================================================================================== */
 
-import { Checkbox } from '@/components/ui/checkbox';
-import { LEGAL_TEXTS } from '@/lib/legal/legal-texts';
+import { Checkbox } from "@/components/ui/checkbox";
+import { LEGAL_TEXTS } from "@/lib/legal/legal-texts";
 
 interface AuthConsentProps {
-  type: 'registration' | 'newsletter';
+  type: "registration" | "newsletter";
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
   error?: string;
@@ -483,7 +489,7 @@ export function AuthConsent({ type, checked, onCheckedChange, error }: AuthConse
           checked={checked}
           onCheckedChange={onCheckedChange}
           required={consentText.required}
-          className={error ? 'border-destructive' : ''}
+          className={error ? "border-destructive" : ""}
         />
         <label
           htmlFor={`consent-${type}`}
@@ -491,9 +497,7 @@ export function AuthConsent({ type, checked, onCheckedChange, error }: AuthConse
           dangerouslySetInnerHTML={{ __html: consentText.text }}
         />
       </div>
-      {error && (
-        <p className="text-xs text-destructive">{error}</p>
-      )}
+      {error && <p className="text-xs text-destructive">{error}</p>}
     </div>
   );
 }
@@ -504,6 +508,7 @@ export function AuthConsent({ type, checked, onCheckedChange, error }: AuthConse
 ### 5️⃣ TECHNISCHE FEHLERPRÄVENTION
 
 #### **Identifizierte Probleme:**
+
 - ❌ Weiße Seiten im Production Build
 - ❌ Keine automatische Fehlererkennung
 - ❌ Fehlende Build-Validierung
@@ -523,10 +528,10 @@ export function AuthConsent({ type, checked, onCheckedChange, error }: AuthConse
    Prüft Production Build auf kritische Fehler BEVOR Deployment
    ================================================================================== */
 
-import { exec } from 'child_process';
-import { promisify } from 'util';
-import fs from 'fs/promises';
-import path from 'path';
+import { exec } from "child_process";
+import { promisify } from "util";
+import fs from "fs/promises";
+import path from "path";
 
 const execAsync = promisify(exec);
 
@@ -534,48 +539,48 @@ interface BuildError {
   file: string;
   line?: number;
   message: string;
-  severity: 'critical' | 'warning';
+  severity: "critical" | "warning";
 }
 
 const errors: BuildError[] = [];
 
 async function runProductionBuild() {
-  console.log('🔨 Building production bundle...');
+  console.log("🔨 Building production bundle...");
   try {
-    const { stdout, stderr } = await execAsync('npm run build');
-    
+    const { stdout, stderr } = await execAsync("npm run build");
+
     // Check for console.log statements (DEV-only!)
-    if (stdout.includes('console.log') || stderr.includes('console.log')) {
+    if (stdout.includes("console.log") || stderr.includes("console.log")) {
       errors.push({
-        file: 'various',
-        message: 'console.log() statements detected in production build',
-        severity: 'warning'
+        file: "various",
+        message: "console.log() statements detected in production build",
+        severity: "warning",
       });
     }
 
     // Check for TypeScript errors
-    if (stderr.includes('TS') || stderr.includes('error TS')) {
+    if (stderr.includes("TS") || stderr.includes("error TS")) {
       errors.push({
-        file: 'various',
-        message: 'TypeScript compilation errors detected',
-        severity: 'critical'
+        file: "various",
+        message: "TypeScript compilation errors detected",
+        severity: "critical",
       });
     }
 
-    console.log('✅ Build completed');
+    console.log("✅ Build completed");
   } catch (error: any) {
     errors.push({
-      file: 'build',
+      file: "build",
       message: `Build failed: ${error.message}`,
-      severity: 'critical'
+      severity: "critical",
     });
   }
 }
 
 async function checkBundleSize() {
-  console.log('📦 Checking bundle size...');
-  const distPath = path.join(process.cwd(), 'dist');
-  
+  console.log("📦 Checking bundle size...");
+  const distPath = path.join(process.cwd(), "dist");
+
   try {
     const files = await fs.readdir(distPath, { recursive: true });
     let totalSize = 0;
@@ -591,71 +596,72 @@ async function checkBundleSize() {
     const sizeMB = (totalSize / (1024 * 1024)).toFixed(2);
     console.log(`   Bundle size: ${sizeMB} MB`);
 
-    if (totalSize > 1.5 * 1024 * 1024) { // >1.5MB
+    if (totalSize > 1.5 * 1024 * 1024) {
+      // >1.5MB
       errors.push({
-        file: 'dist',
+        file: "dist",
         message: `Bundle size too large: ${sizeMB} MB (max: 1.5 MB)`,
-        severity: 'warning'
+        severity: "warning",
       });
     }
   } catch (error: any) {
     errors.push({
-      file: 'dist',
+      file: "dist",
       message: `Could not check bundle size: ${error.message}`,
-      severity: 'warning'
+      severity: "warning",
     });
   }
 }
 
 async function checkForWhiteScreenIssues() {
-  console.log('🔍 Checking for white-screen issues...');
-  
-  const indexHtml = await fs.readFile(path.join(process.cwd(), 'dist', 'index.html'), 'utf-8');
-  
+  console.log("🔍 Checking for white-screen issues...");
+
+  const indexHtml = await fs.readFile(path.join(process.cwd(), "dist", "index.html"), "utf-8");
+
   // Check if main JS is referenced
-  if (!indexHtml.includes('.js')) {
+  if (!indexHtml.includes(".js")) {
     errors.push({
-      file: 'dist/index.html',
-      message: 'No JavaScript files referenced in index.html',
-      severity: 'critical'
+      file: "dist/index.html",
+      message: "No JavaScript files referenced in index.html",
+      severity: "critical",
     });
   }
 
   // Check if CSS is referenced
-  if (!indexHtml.includes('.css')) {
+  if (!indexHtml.includes(".css")) {
     errors.push({
-      file: 'dist/index.html',
-      message: 'No CSS files referenced in index.html',
-      severity: 'critical'
+      file: "dist/index.html",
+      message: "No CSS files referenced in index.html",
+      severity: "critical",
     });
   }
 }
 
 async function main() {
-  console.log('🚀 MyDispatch Production Build Validator\n');
+  console.log("🚀 MyDispatch Production Build Validator\n");
 
   await runProductionBuild();
   await checkBundleSize();
   await checkForWhiteScreenIssues();
 
-  console.log('\n📋 RESULTS:');
-  
+  console.log("\n📋 RESULTS:");
+
   if (errors.length === 0) {
-    console.log('✅ No issues found. Safe to deploy!');
+    console.log("✅ No issues found. Safe to deploy!");
     process.exit(0);
   }
 
-  const critical = errors.filter(e => e.severity === 'critical');
-  const warnings = errors.filter(e => e.severity === 'warning');
+  const critical = errors.filter((e) => e.severity === "critical");
+  const warnings = errors.filter((e) => e.severity === "warning");
 
   if (critical.length > 0) {
     console.log(`\n❌ CRITICAL ERRORS (${critical.length}):`);
-    critical.forEach(e => console.log(`   - ${e.file}: ${e.message}`));
+    critical.forEach((e) => console.log(`   - ${e.file}: ${e.message}`));
   }
 
   if (warnings.length > 0) {
     console.log(`\n⚠️  WARNINGS (${warnings.length}):`);
-    warnings.forEach(e => console.log(`   - ${e.file}: ${e.message}`));
+    warnings.forEach((e) => console.log(`   - ${e.file}: ${e.message}`));
   }
 
   process.exit(critical.length > 0 ? 1 : 0);
@@ -795,6 +801,7 @@ fi
 ## 📋 DEPLOYMENT-CHECKLISTE
 
 ### Pre-Commit (PFLICHT):
+
 - [ ] `npm run validate-all` erfolgreich
 - [ ] Keine TypeScript Errors
 - [ ] Keine Design-System Violations
@@ -802,6 +809,7 @@ fi
 - [ ] Alle Legal Links vorhanden
 
 ### Pre-Deploy (PFLICHT):
+
 - [ ] Production Build erfolgreich
 - [ ] Bundle Size < 1.5MB
 - [ ] Visual Regression Tests OK
@@ -813,11 +821,13 @@ fi
 ## 🔄 CONTINUOUS IMPROVEMENT
 
 ### Wöchentlich:
+
 - Neue Fehlerklassen dokumentieren
 - Validierungs-Skripte erweitern
 - Dokumentation aktualisieren
 
 ### Monatlich:
+
 - Design-System Review
 - Legal Compliance Audit
 - Performance Audit

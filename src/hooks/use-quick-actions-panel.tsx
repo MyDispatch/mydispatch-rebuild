@@ -4,8 +4,8 @@
    Context Provider für Quick Actions Panel Config-Passing von Pages → MainLayout
    ================================================================================== */
 
-import { createContext, useContext, useState, ReactNode } from 'react';
-import type { LucideIcon } from 'lucide-react';
+import { createContext, useContext, useState, ReactNode } from "react";
+import type { LucideIcon } from "lucide-react";
 
 interface QuickActionsPanelConfig {
   enabled: boolean;
@@ -14,7 +14,7 @@ interface QuickActionsPanelConfig {
     label: string;
     action: () => void;
     tooltip?: string;
-    variant?: 'quick-action-primary' | 'secondary';
+    variant?: "quick-action-primary" | "secondary";
   }>;
   recentActivities?: Array<{
     icon: LucideIcon;
@@ -39,7 +39,7 @@ const QuickActionsPanelContext = createContext<{
 
 export const QuickActionsPanelProvider = ({ children }: { children: ReactNode }) => {
   const [config, setConfig] = useState<QuickActionsPanelConfig | null>(null);
-  
+
   return (
     <QuickActionsPanelContext.Provider value={{ config, setConfig }}>
       {children}

@@ -4,10 +4,10 @@
    React Hook für Daily.co WebRTC-Integration
    ================================================================================== */
 
-import * as React from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { handleError, handleSuccess, handleInfo } from '@/lib/error-handler';
-import { logger } from '@/lib/logger';
+import * as React from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { handleError, handleSuccess, handleInfo } from "@/lib/error-handler";
+import { logger } from "@/lib/logger";
 
 interface DailyCallOptions {
   conversationId: string;
@@ -30,8 +30,10 @@ interface CallState {
 
 export function useDailyCall(options: DailyCallOptions) {
   // CRITICAL FIX V18.2.28: Defensive React Check (präventiv)
-  if (typeof React === 'undefined' || !React.useState || !React.useEffect) {
-    logger.error('[useDailyCall] React Hooks nicht verfügbar', undefined, { component: 'useDailyCall' });
+  if (typeof React === "undefined" || !React.useState || !React.useEffect) {
+    logger.error("[useDailyCall] React Hooks nicht verfügbar", undefined, {
+      component: "useDailyCall",
+    });
     // Fallback: Return dummy state
     return {
       callState: {
@@ -40,7 +42,7 @@ export function useDailyCall(options: DailyCallOptions) {
         roomUrl: null,
         participants: [],
         localParticipant: null,
-        error: 'React nicht verfügbar',
+        error: "React nicht verfügbar",
       },
       iframeRef: { current: null },
       joinCall: async () => {},
@@ -66,8 +68,8 @@ export function useDailyCall(options: DailyCallOptions) {
 
   // Load Daily.co script
   React.useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://unpkg.com/@daily-co/daily-js';
+    const script = document.createElement("script");
+    script.src = "https://unpkg.com/@daily-co/daily-js";
     script.async = true;
     document.body.appendChild(script);
 
@@ -78,9 +80,9 @@ export function useDailyCall(options: DailyCallOptions) {
 
   const createRoom = React.useCallback(async () => {
     try {
-      setCallState(prev => ({ ...prev, isConnecting: true, error: null }));
+      setCallState((prev) => ({ ...prev, isConnecting: true, error: null }));
 
-      const { data, error } = await supabase.functions.invoke('create-daily-room', {
+      const { data, error } = await supabase.functions.invoke("create-daily-room", {
         body: {
           conversationId: options.conversationId,
           participantNames: options.participantNames,
@@ -88,13 +90,13 @@ export function useDailyCall(options: DailyCallOptions) {
       });
 
       if (error) throw error;
-      if (!data?.success) throw new Error(data?.error || 'Failed to create room');
+      if (!data?.success) throw new Error(data?.error || "Failed to create room");
 
       return data.room.url;
     } catch (error: any) {
-      const errorMsg = error.message || 'Fehler beim Erstellen des Raums';
+      const errorMsg = error.message || "Fehler beim Erstellen des Raums";
       handleError(error, errorMsg);
-      setCallState(prev => ({ ...prev, error: errorMsg, isConnecting: false }));
+      setCallState((prev) => ({ ...prev, error: errorMsg, isConnecting: false }));
       options.onError?.(error);
       return null;
     }
@@ -105,7 +107,7 @@ export function useDailyCall(options: DailyCallOptions) {
       // Check if Daily.co SDK is loaded
       const DailyIframe = (window as any).DailyIframe;
       if (!DailyIframe) {
-        throw new Error('Daily.co SDK not loaded');
+        throw new Error("Daily.co SDK not loaded");
       }
 
       const roomUrl = await createRoom();
@@ -114,47 +116,47 @@ export function useDailyCall(options: DailyCallOptions) {
       const callFrame = DailyIframe.createFrame(iframeRef.current, {
         showLeaveButton: true,
         iframeStyle: {
-          width: '100%',
-          height: '100%',
-          border: '0',
-          borderRadius: '8px',
+          width: "100%",
+          height: "100%",
+          border: "0",
+          borderRadius: "8px",
         },
       });
 
       callFrameRef.current = callFrame;
 
       // Event Listeners
-      callFrame.on('joined-meeting', (event: any) => {
-        setCallState(prev => ({
+      callFrame.on("joined-meeting", (event: any) => {
+        setCallState((prev) => ({
           ...prev,
           isConnected: true,
           isConnecting: false,
           localParticipant: event.participants.local,
         }));
         options.onJoined?.();
-        handleSuccess('Mit Anruf verbunden');
+        handleSuccess("Mit Anruf verbunden");
       });
 
-      callFrame.on('participant-joined', (event: any) => {
-        setCallState(prev => ({
+      callFrame.on("participant-joined", (event: any) => {
+        setCallState((prev) => ({
           ...prev,
           participants: [...prev.participants, event.participant],
         }));
         options.onParticipantJoined?.(event.participant);
       });
 
-      callFrame.on('participant-left', (event: any) => {
-        setCallState(prev => ({
+      callFrame.on("participant-left", (event: any) => {
+        setCallState((prev) => ({
           ...prev,
           participants: prev.participants.filter(
-            p => p.session_id !== event.participant.session_id
+            (p) => p.session_id !== event.participant.session_id
           ),
         }));
         options.onParticipantLeft?.(event.participant);
       });
 
-      callFrame.on('left-meeting', () => {
-        setCallState(prev => ({
+      callFrame.on("left-meeting", () => {
+        setCallState((prev) => ({
           ...prev,
           isConnected: false,
           roomUrl: null,
@@ -162,23 +164,23 @@ export function useDailyCall(options: DailyCallOptions) {
           localParticipant: null,
         }));
         options.onLeft?.();
-        handleInfo('Anruf beendet');
+        handleInfo("Anruf beendet");
       });
 
-      callFrame.on('error', (event: any) => {
-        const error = new Error(event.errorMsg || 'Call error');
-        handleError(error, 'Anruffehler: ' + event.errorMsg);
-        setCallState(prev => ({ ...prev, error: event.errorMsg }));
+      callFrame.on("error", (event: any) => {
+        const error = new Error(event.errorMsg || "Call error");
+        handleError(error, "Anruffehler: " + event.errorMsg);
+        setCallState((prev) => ({ ...prev, error: event.errorMsg }));
         options.onError?.(error);
       });
 
       // Join the room
       await callFrame.join({ url: roomUrl });
 
-      setCallState(prev => ({ ...prev, roomUrl }));
+      setCallState((prev) => ({ ...prev, roomUrl }));
     } catch (error: any) {
-      handleError(error, 'Fehler beim Beitritt: ' + error.message);
-      setCallState(prev => ({
+      handleError(error, "Fehler beim Beitritt: " + error.message);
+      setCallState((prev) => ({
         ...prev,
         error: error.message,
         isConnecting: false,
@@ -195,7 +197,7 @@ export function useDailyCall(options: DailyCallOptions) {
         callFrameRef.current = null;
       }
     } catch (error: any) {
-      handleError(error, 'Fehler beim Verlassen des Anrufs');
+      handleError(error, "Fehler beim Verlassen des Anrufs");
     }
   }, []);
 
@@ -205,7 +207,7 @@ export function useDailyCall(options: DailyCallOptions) {
       const localVideo = callFrameRef.current.localVideo();
       await callFrameRef.current.setLocalVideo(!localVideo);
     } catch (error: any) {
-      handleError(error, 'Fehler beim Umschalten des Videos', { showToast: false });
+      handleError(error, "Fehler beim Umschalten des Videos", { showToast: false });
     }
   }, []);
 
@@ -215,7 +217,7 @@ export function useDailyCall(options: DailyCallOptions) {
       const localAudio = callFrameRef.current.localAudio();
       await callFrameRef.current.setLocalAudio(!localAudio);
     } catch (error: any) {
-      handleError(error, 'Fehler beim Umschalten des Audios', { showToast: false });
+      handleError(error, "Fehler beim Umschalten des Audios", { showToast: false });
     }
   }, []);
 
@@ -223,9 +225,9 @@ export function useDailyCall(options: DailyCallOptions) {
     if (!callFrameRef.current) return;
     try {
       await callFrameRef.current.startScreenShare();
-      handleSuccess('Bildschirmfreigabe gestartet');
+      handleSuccess("Bildschirmfreigabe gestartet");
     } catch (error: any) {
-      handleError(error, 'Bildschirmfreigabe fehlgeschlagen');
+      handleError(error, "Bildschirmfreigabe fehlgeschlagen");
     }
   }, []);
 
@@ -233,9 +235,9 @@ export function useDailyCall(options: DailyCallOptions) {
     if (!callFrameRef.current) return;
     try {
       await callFrameRef.current.stopScreenShare();
-      handleInfo('Bildschirmfreigabe beendet');
+      handleInfo("Bildschirmfreigabe beendet");
     } catch (error: any) {
-      handleError(error, 'Fehler beim Beenden der Bildschirmfreigabe');
+      handleError(error, "Fehler beim Beenden der Bildschirmfreigabe");
     }
   }, []);
 

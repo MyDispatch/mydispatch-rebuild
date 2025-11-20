@@ -3,6 +3,7 @@
 ## Übersicht
 
 Dieses Dokument beschreibt die vollständige Automatisierungs-Pipeline für MyDispatch mit:
+
 - ✅ GitHub Actions CI/CD
 - ✅ GitKraken AI Automation
 - ✅ Supabase Migrations & Functions
@@ -14,9 +15,11 @@ Dieses Dokument beschreibt die vollständige Automatisierungs-Pipeline für MyDi
 ## 1. GITHUB ACTIONS PIPELINE
 
 ### 1.1 CI Pipeline (.github/workflows/ci.yml)
+
 **Trigger**: Push auf main/develop, Pull Requests
 
 **Jobs**:
+
 - **Lint**: ESLint, TypeScript Type Checking
 - **Build**: Vite Production Build
 - **Test**: Unit Tests (Vitest), E2E Tests (Playwright)
@@ -24,16 +27,20 @@ Dieses Dokument beschreibt die vollständige Automatisierungs-Pipeline für MyDi
 - **Performance**: Lighthouse checks
 
 ### 1.2 Deploy Pipeline (.github/workflows/deploy.yml)
+
 **Trigger**: Push auf main, manual workflow_dispatch
 
 **Jobs**:
+
 - **Deploy**: Vercel Production Deployment
 - **Post-Deploy Tests**: Smoke Tests, Production E2E Tests
 
 ### 1.3 Supabase Pipeline (.github/workflows/supabase-deploy.yml)
+
 **Trigger**: Changes in supabase/ folder
 
 **Jobs**:
+
 - **Migrations**: Database migrations
 - **Functions**: Edge Functions deployment
 - **RLS Audit**: Row Level Security policy verification
@@ -43,9 +50,11 @@ Dieses Dokument beschreibt die vollständige Automatisierungs-Pipeline für MyDi
 ## 2. GITKRAKEN AI CONFIGURATION
 
 ### 2.1 Konfigurationsdatei
+
 **Datei**: `.gitkraken-ai-config.json`
 
 **Features**:
+
 - Automatische Commit-Message-Generierung
 - Branch-Naming-Konventionen
 - Pull Request Auto-Generation
@@ -55,30 +64,26 @@ Dieses Dokument beschreibt die vollständige Automatisierungs-Pipeline für MyDi
 ### 2.2 Automation Rules
 
 #### Auto-Commit
+
 ```json
 {
   "enabled": true,
-  "conditions": [
-    "lintPassed",
-    "buildSucceeded",
-    "testsPassedOrSkipped"
-  ]
+  "conditions": ["lintPassed", "buildSucceeded", "testsPassedOrSkipped"]
 }
 ```
 
 #### Auto-Push
+
 ```json
 {
   "enabled": true,
-  "conditions": [
-    "commitSucceeded",
-    "noConflicts"
-  ],
+  "conditions": ["commitSucceeded", "noConflicts"],
   "branches": ["main", "develop"]
 }
 ```
 
 #### Auto-Pull Request
+
 ```json
 {
   "enabled": true,
@@ -93,19 +98,23 @@ Dieses Dokument beschreibt die vollständige Automatisierungs-Pipeline für MyDi
 ## 3. QUALITY GATES
 
 ### 3.1 Lint Quality Gate
+
 - **Max Errors**: 0
 - **Max Warnings**: 100
 - **Block on Failure**: true
 
 ### 3.2 Build Quality Gate
+
 - **Timeout**: 300 seconds
 - **Block on Failure**: true
 
 ### 3.3 Test Quality Gate
+
 - **Min Coverage**: 70%
 - **Block on Failure**: false
 
 ### 3.4 Security Quality Gate
+
 - **Check Dependencies**: true
 - **Block on Critical**: true
 
@@ -114,11 +123,13 @@ Dieses Dokument beschreibt die vollständige Automatisierungs-Pipeline für MyDi
 ## 4. DEPLOYMENT STRATEGY
 
 ### 4.1 Staging Deployment
+
 - **Branch**: develop
 - **Environment**: staging
 - **Trigger**: Push to develop
 
 ### 4.2 Production Deployment
+
 - **Branch**: main
 - **Environment**: production
 - **Trigger**: Pull Request Merge
@@ -224,27 +235,26 @@ git commit
 ## 7. MONITORING & NOTIFICATIONS
 
 ### 7.1 GitHub Actions Status
+
 - Alle Workflows sind in `.github/workflows/` definiert
 - Status ist sichtbar in GitHub Actions Tab
 - Logs sind verfügbar für jede Workflow-Run
 
 ### 7.2 Slack Integration (optional)
+
 ```json
 {
   "slack": {
     "enabled": false,
     "webhook": "${SLACK_WEBHOOK_URL}",
     "channel": "#deployments",
-    "notifyOn": [
-      "deploymentSuccess",
-      "deploymentFailure",
-      "testFailure"
-    ]
+    "notifyOn": ["deploymentSuccess", "deploymentFailure", "testFailure"]
   }
 }
 ```
 
 ### 7.3 Email Notifications
+
 - Deployment Success/Failure
 - Critical Errors
 - Security Alerts
@@ -254,19 +264,25 @@ git commit
 ## 8. TROUBLESHOOTING
 
 ### Problem: GitHub Actions schlägt fehl
+
 **Lösung**:
+
 1. Überprüfe GitHub Secrets
 2. Überprüfe Workflow-Logs
 3. Verifiziere Vercel/Supabase Tokens
 
 ### Problem: GitKraken AI funktioniert nicht
+
 **Lösung**:
+
 1. Überprüfe OpenAI API Key
 2. Überprüfe `.gitkraken-ai-config.json`
 3. Starte GitKraken neu
 
 ### Problem: Deployment schlägt fehl
+
 **Lösung**:
+
 1. Überprüfe Build-Logs
 2. Überprüfe Environment Variables
 3. Überprüfe Vercel Project Settings
@@ -276,12 +292,14 @@ git commit
 ## 9. SICHERHEIT
 
 ### 9.1 Secrets Management
+
 - ✅ Alle Secrets in GitHub Secrets speichern
 - ✅ Tokens regelmäßig rotieren (monatlich)
 - ✅ Keine Secrets in Code committen
 - ✅ Verwende `.env.local` für lokale Entwicklung
 
 ### 9.2 Access Control
+
 - ✅ Nur autorisierte Reviewer können mergen
 - ✅ Production Deployment erfordert Approval
 - ✅ Alle Deployments sind geloggt
@@ -308,6 +326,7 @@ git commit
 **Maintainer**: courbois1981@gmail.com
 
 Für Fragen oder Probleme:
+
 1. Überprüfe diese Dokumentation
 2. Überprüfe GitHub Actions Logs
 3. Kontaktiere den Maintainer

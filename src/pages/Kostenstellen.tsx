@@ -7,31 +7,38 @@
    - Mobile-optimiert
    ================================================================================== */
 
-import { useState, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useAuth } from '@/hooks/use-auth';
-import { useCostCenters } from '@/hooks/use-cost-centers';
-import { useDeviceType } from '@/hooks/use-device-type';
-import { useTouchTargetValidation } from '@/hooks/validation/useTouchTargetValidation';
-import { useMainLayout } from '@/hooks/use-main-layout';
-import { MobileKostenstellen } from '@/components/mobile/MobileKostenstellen';
-import { V28Button } from '@/components/design-system/V28Button';
-import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
-import { EmptyState } from '@/components/shared/EmptyState';
-import { KPIGenerator, QuickActionsGenerator } from '@/lib/dashboard-automation';
-import { Plus, FolderTree, Download } from 'lucide-react';
-import { DetailDialog } from '@/components/shared/DetailDialog';
-import { StatusIndicator } from '@/components/shared/StatusIndicator';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { CostCenterForm } from '@/components/forms/wrapped/CostCenterForm';
-import { Eye, Edit } from 'lucide-react';
-import { StatCard } from '@/components/smart-templates/StatCard';
+import { useState, useMemo } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useAuth } from "@/hooks/use-auth";
+import { useCostCenters } from "@/hooks/use-cost-centers";
+import { useDeviceType } from "@/hooks/use-device-type";
+import { useTouchTargetValidation } from "@/hooks/validation/useTouchTargetValidation";
+import { useMainLayout } from "@/hooks/use-main-layout";
+import { MobileKostenstellen } from "@/components/mobile/MobileKostenstellen";
+import { V28Button } from "@/components/design-system/V28Button";
+import { StandardPageLayout } from "@/components/layout/StandardPageLayout";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { KPIGenerator, QuickActionsGenerator } from "@/lib/dashboard-automation";
+import { Plus, FolderTree, Download } from "lucide-react";
+import { DetailDialog } from "@/components/shared/DetailDialog";
+import { StatusIndicator } from "@/components/shared/StatusIndicator";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { CostCenterForm } from "@/components/forms/wrapped/CostCenterForm";
+import { Eye, Edit } from "lucide-react";
+import { StatCard } from "@/components/smart-templates/StatCard";
 
 // Zod Schema for Cost Center
 const costCenterSchema = z.object({
-  name: z.string().min(1, 'Name erforderlich'),
+  name: z.string().min(1, "Name erforderlich"),
   description: z.string().optional(),
   budget: z.number().optional(),
   active: z.boolean().default(true),
@@ -51,8 +58,9 @@ export default function Kostenstellen() {
   const { profile } = useAuth();
   const { isMobile } = useDeviceType();
   const { sidebarExpanded } = useMainLayout();
-  const { costCenters, isLoading, createCostCenter, updateCostCenter, deactivateCostCenter } = useCostCenters();
-  const [searchTerm, setSearchTerm] = useState('');
+  const { costCenters, isLoading, createCostCenter, updateCostCenter, deactivateCostCenter } =
+    useCostCenters();
+  const [searchTerm, setSearchTerm] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingCostCenter, setEditingCostCenter] = useState<CostCenter | null>(null);
   const [detailDialogOpen, setDetailDialogOpen] = useState(false);
@@ -61,8 +69,8 @@ export default function Kostenstellen() {
   const form = useForm({
     resolver: zodResolver(costCenterSchema),
     defaultValues: {
-      name: '',
-      description: '',
+      name: "",
+      description: "",
       budget: undefined,
       active: true,
     },
@@ -71,7 +79,7 @@ export default function Kostenstellen() {
   const handleSubmit = async (data: z.infer<typeof costCenterSchema>) => {
     const costCenterData = {
       name: data.name,
-      description: data.description || '',
+      description: data.description || "",
       active: data.active,
     };
 
@@ -96,7 +104,7 @@ export default function Kostenstellen() {
     setEditingCostCenter(costCenter);
     form.reset({
       name: costCenter.name,
-      description: costCenter.description || '',
+      description: costCenter.description || "",
       budget: undefined,
       active: costCenter.active,
     });
@@ -106,42 +114,48 @@ export default function Kostenstellen() {
   const resetForm = () => {
     setEditingCostCenter(null);
     form.reset({
-      name: '',
-      description: '',
+      name: "",
+      description: "",
       budget: undefined,
       active: true,
     });
   };
 
   const filteredCostCenters = useMemo(
-    () => costCenters.filter(cc =>
-      cc.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      cc.description?.toLowerCase().includes(searchTerm.toLowerCase())
-    ),
+    () =>
+      costCenters.filter(
+        (cc) =>
+          cc.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          cc.description?.toLowerCase().includes(searchTerm.toLowerCase())
+      ),
     [costCenters, searchTerm]
   );
 
   // V26.1: KPIs mit KPIGenerator
-  const kpis = useMemo(() => [
-    KPIGenerator.custom({
-      title: 'Aktive Kostenstellen',
-      value: costCenters.filter(cc => cc.active).length.toString(),
-      icon: FolderTree,
-      trend: undefined,
-    }),
-    KPIGenerator.custom({
-      title: 'Inaktiv',
-      value: costCenters.filter(cc => !cc.active).length.toString(),
-      icon: FolderTree,
-      trend: undefined,
-    }),
-    KPIGenerator.custom({
-      title: 'Gesamt',
-      value: costCenters.length.toString(),
-      icon: FolderTree,
-      trend: undefined,
-    }),
-  ] as [any, any, any], [costCenters]);
+  const kpis = useMemo(
+    () =>
+      [
+        KPIGenerator.custom({
+          title: "Aktive Kostenstellen",
+          value: costCenters.filter((cc) => cc.active).length.toString(),
+          icon: FolderTree,
+          trend: undefined,
+        }),
+        KPIGenerator.custom({
+          title: "Inaktiv",
+          value: costCenters.filter((cc) => !cc.active).length.toString(),
+          icon: FolderTree,
+          trend: undefined,
+        }),
+        KPIGenerator.custom({
+          title: "Gesamt",
+          value: costCenters.length.toString(),
+          icon: FolderTree,
+          trend: undefined,
+        }),
+      ] as [any, any, any],
+    [costCenters]
+  );
 
   if (isLoading) {
     return (
@@ -153,13 +167,13 @@ export default function Kostenstellen() {
 
   // V18.3: Mobile View - AUCH mit Layout für Breadcrumbs!
   if (isMobile) {
-  return (
-    <StandardPageLayout
-      title="Kostenstellen"
-      description="Projektbezogene Abrechnung und Kostenstellenverwaltung"
-      canonical="/kostenstellen"
-      background="orbs-light"
-      subtitle="Verwalten Sie Kostenstellen für projektbezogene Abrechnungen"
+    return (
+      <StandardPageLayout
+        title="Kostenstellen"
+        description="Projektbezogene Abrechnung und Kostenstellenverwaltung"
+        canonical="/kostenstellen"
+        background="orbs-light"
+        subtitle="Verwalten Sie Kostenstellen für projektbezogene Abrechnungen"
         searchValue={searchTerm}
         onSearchChange={setSearchTerm}
         searchPlaceholder="Kostenstellen durchsuchen..."
@@ -191,25 +205,20 @@ export default function Kostenstellen() {
       {/* ✅ V6.1: StatCards Pattern (Golden Template) */}
       <div className="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {kpis.map((kpi, index) => (
-          <StatCard
-            key={index}
-            label={kpi.title}
-            value={kpi.value}
-            icon={kpi.icon}
-          />
+          <StatCard key={index} label={kpi.title} value={kpi.value} icon={kpi.icon} />
         ))}
       </div>
 
       {filteredCostCenters.length === 0 ? (
         <EmptyState
           icon={<FolderTree className="w-full h-full" />}
-          title={searchTerm ? 'Keine Kostenstellen gefunden' : 'Noch keine Kostenstellen'}
+          title={searchTerm ? "Keine Kostenstellen gefunden" : "Noch keine Kostenstellen"}
           description={
             searchTerm
-              ? 'Versuchen Sie einen anderen Suchbegriff'
-              : 'Legen Sie Ihre erste Kostenstelle an'
+              ? "Versuchen Sie einen anderen Suchbegriff"
+              : "Legen Sie Ihre erste Kostenstelle an"
           }
-          actionLabel={searchTerm ? undefined : 'Kostenstelle anlegen'}
+          actionLabel={searchTerm ? undefined : "Kostenstelle anlegen"}
           onAction={searchTerm ? undefined : () => setIsDialogOpen(true)}
           isSearchResult={!!searchTerm}
         />
@@ -228,11 +237,11 @@ export default function Kostenstellen() {
               {filteredCostCenters.map((cc) => (
                 <TableRow key={cc.id} className="cursor-pointer hover:bg-slate-50">
                   <TableCell className="font-medium">{cc.name}</TableCell>
-                  <TableCell>{cc.description || '-'}</TableCell>
+                  <TableCell>{cc.description || "-"}</TableCell>
                   <TableCell>
                     <StatusIndicator
-                      type={cc.active ? 'success' : 'neutral'}
-                      label={cc.active ? 'Aktiv' : 'Inaktiv'}
+                      type={cc.active ? "success" : "neutral"}
+                      label={cc.active ? "Aktiv" : "Inaktiv"}
                       size="sm"
                     />
                   </TableCell>
@@ -248,11 +257,7 @@ export default function Kostenstellen() {
                       >
                         <Eye className="h-4 w-4" />
                       </V28Button>
-                      <V28Button
-                        variant="secondary"
-                        size="sm"
-                        onClick={() => handleEdit(cc)}
-                      >
+                      <V28Button variant="secondary" size="sm" onClick={() => handleEdit(cc)}>
                         <Edit className="h-4 w-4" />
                       </V28Button>
                     </div>
@@ -265,7 +270,10 @@ export default function Kostenstellen() {
           {/* Info-Box */}
           <div className="mt-6 bg-muted/50 p-4 rounded-lg text-xs sm:text-sm text-muted-foreground">
             <p className="font-medium mb-2">📋 Hinweis:</p>
-            <p>Kostenstellen werden pro Auftrag zugeordnet, nicht pro Kunde. Deaktivierte Kostenstellen können nicht mehr für neue Aufträge ausgewählt werden.</p>
+            <p>
+              Kostenstellen werden pro Auftrag zugeordnet, nicht pro Kunde. Deaktivierte
+              Kostenstellen können nicht mehr für neue Aufträge ausgewählt werden.
+            </p>
           </div>
         </>
       )}
@@ -305,8 +313,8 @@ export default function Kostenstellen() {
               <div>
                 <p className="text-sm text-muted-foreground">Status</p>
                 <StatusIndicator
-                  type={selectedCostCenter.active ? 'success' : 'neutral'}
-                  label={selectedCostCenter.active ? 'Aktiv' : 'Inaktiv'}
+                  type={selectedCostCenter.active ? "success" : "neutral"}
+                  label={selectedCostCenter.active ? "Aktiv" : "Inaktiv"}
                 />
               </div>
               {selectedCostCenter.description && (
@@ -319,6 +327,6 @@ export default function Kostenstellen() {
           </div>
         </DetailDialog>
       )}
-      </StandardPageLayout>
+    </StandardPageLayout>
   );
 }

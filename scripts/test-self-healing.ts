@@ -18,8 +18,8 @@ if (!SUPABASE_SERVICE_ROLE_KEY) {
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: {
     autoRefreshToken: false,
-    persistSession: false
-  }
+    persistSession: false,
+  },
 });
 
 // ==================================================================================
@@ -35,10 +35,7 @@ interface TestResult {
 
 const results: TestResult[] = [];
 
-async function runTest(
-  name: string,
-  testFn: () => Promise<void>
-): Promise<void> {
+async function runTest(name: string, testFn: () => Promise<void>): Promise<void> {
   const startTime = Date.now();
   console.log(`\n🧪 Running: ${name}`);
 
@@ -62,10 +59,7 @@ async function testSelfHealingQuery(): Promise<void> {
   console.log("Testing self-healing query with fallback...");
 
   // This should work even if database is unavailable
-  const { data } = await supabase
-    .from("autonomous_system_config")
-    .select("*")
-    .single();
+  const { data } = await supabase.from("autonomous_system_config").select("*").single();
 
   if (!data) {
     throw new Error("Failed to fetch config (even with fallback)");
@@ -159,9 +153,7 @@ async function testFallbackCache(): Promise<void> {
   };
 
   localStorage.setItem("autonomous_fallback_test", JSON.stringify(testData));
-  const retrieved = JSON.parse(
-    localStorage.getItem("autonomous_fallback_test") || "{}"
-  );
+  const retrieved = JSON.parse(localStorage.getItem("autonomous_fallback_test") || "{}");
 
   if (!retrieved.test) {
     throw new Error("Fallback cache not working");
@@ -283,12 +275,7 @@ async function testDatabaseResilience(): Promise<void> {
   // Test multiple rapid queries
   const queries = Array(10)
     .fill(null)
-    .map(() =>
-      supabase
-        .from("autonomous_system_config")
-        .select("id")
-        .single()
-    );
+    .map(() => supabase.from("autonomous_system_config").select("id").single());
 
   const results = await Promise.allSettled(queries);
   const successCount = results.filter((r) => r.status === "fulfilled").length;
@@ -373,7 +360,9 @@ async function runAllTests(): Promise<void> {
   console.log("==================================================================================");
   console.log(`Supabase URL: ${SUPABASE_URL}`);
   console.log(`Service Role Key: ${SUPABASE_SERVICE_ROLE_KEY ? "✅ Set" : "❌ Missing"}`);
-  console.log("==================================================================================\n");
+  console.log(
+    "==================================================================================\n"
+  );
 
   if (!SUPABASE_SERVICE_ROLE_KEY) {
     console.error("❌ SUPABASE_SERVICE_ROLE_KEY environment variable not set!");
@@ -397,7 +386,9 @@ async function runAllTests(): Promise<void> {
   const totalDuration = Date.now() - startTime;
 
   // Print summary
-  console.log("\n==================================================================================");
+  console.log(
+    "\n=================================================================================="
+  );
   console.log("TEST SUMMARY");
   console.log("==================================================================================");
 
@@ -421,7 +412,9 @@ async function runAllTests(): Promise<void> {
       });
   }
 
-  console.log("\n==================================================================================");
+  console.log(
+    "\n=================================================================================="
+  );
 
   // Exit with appropriate code
   process.exit(failedTests > 0 ? 1 : 0);

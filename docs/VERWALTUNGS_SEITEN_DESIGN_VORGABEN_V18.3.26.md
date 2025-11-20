@@ -12,10 +12,12 @@
 Diese Design-Vorgaben definieren das **verbindliche Layout, Struktur und UX-Pattern** für alle internen Verwaltungs-Seiten im MyDispatch-System.
 
 **Referenz-Implementierungen (EXAKT EINZUHALTEN):**
+
 1. ✅ **`src/pages/Index.tsx`** - Dashboard (441 Zeilen)
 2. ✅ **`src/pages/Auftraege.tsx`** - Aufträge (2167 Zeilen)
 
 **Diese Seiten sind die MASTER-VORLAGEN für:**
+
 - Layout-Struktur
 - Design-Tokens
 - Komponentennutzung
@@ -32,7 +34,7 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Struktur und UX-Patt
 **ALLE Verwaltungs-Seiten MÜSSEN `StandardPageLayout` verwenden:**
 
 ```tsx
-import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
+import { StandardPageLayout } from "@/components/layout/StandardPageLayout";
 
 export default function MeinePage() {
   return (
@@ -59,12 +61,14 @@ export default function MeinePage() {
 ```
 
 **Pflicht-Props:**
+
 - `title` - Seiten-Titel (SEO)
 - `description` - SEO-Beschreibung
 - `canonical` - Canonical URL
 - `subtitle` - Sichtbarer Untertitel unter Header
 
 **Optional (aber empfohlen):**
+
 - `onCreateNew` + `createButtonLabel` - Haupt-Aktion (z.B. "Auftrag anlegen")
 - `stats` - KPI-Cards Array (max. 4)
 - `searchValue` + `onSearchChange` - Suchfunktion
@@ -81,33 +85,34 @@ export default function MeinePage() {
 ```tsx
 const stats = [
   {
-    label: 'Gesamt',
-    value: '1.234',
+    label: "Gesamt",
+    value: "1.234",
     icon: <FileText className="h-4 w-4" />,
-    className: 'text-foreground', // Optional
+    className: "text-foreground", // Optional
   },
   {
-    label: 'Aktiv',
-    value: '856',
+    label: "Aktiv",
+    value: "856",
     icon: <CheckCircle className="h-4 w-4" />,
-    className: 'text-status-success',
+    className: "text-status-success",
   },
   {
-    label: 'Ausstehend',
-    value: '42',
+    label: "Ausstehend",
+    value: "42",
     icon: <Clock className="h-4 w-4" />,
-    className: 'text-status-warning',
+    className: "text-status-warning",
   },
   {
-    label: 'Archiviert',
-    value: '336',
+    label: "Archiviert",
+    value: "336",
     icon: <Archive className="h-4 w-4" />,
-    className: 'text-muted-foreground',
+    className: "text-muted-foreground",
   },
 ];
 ```
 
 **Regeln:**
+
 - ✅ Icons: `h-4 w-4` (Standard)
 - ✅ Farben: NUR `text-foreground`, `text-status-*`, `text-muted-foreground`
 - ❌ NIEMALS: `text-accent`, `text-green-500`, etc.
@@ -145,6 +150,7 @@ const stats = [
 ```
 
 **Regeln:**
+
 - ✅ Search Input: min-h-[44px]
 - ✅ Filter Switches: min-h-[44px] Touch-Target
 - ✅ Labels: mit `htmlFor` verbunden
@@ -194,7 +200,7 @@ if (isMobile) {
         data={filteredData}
         renderCard={(item) => <Card>...</Card>}
         onItemClick={handleClick}
-        entityLabel={{ singular: 'Element', plural: 'Elemente' }}
+        entityLabel={{ singular: "Element", plural: "Elemente" }}
         fabLabel="Neues Element"
         onFabClick={onCreate}
         fabIcon={Plus}
@@ -220,7 +226,7 @@ if (isMobile) {
 **✅ RICHTIG (DIALOG_LAYOUT Utils):**
 
 ```tsx
-import { DIALOG_LAYOUT } from '@/lib/utils/dialog-layout-utils';
+import { DIALOG_LAYOUT } from "@/lib/utils/dialog-layout-utils";
 
 <DialogContent className={DIALOG_LAYOUT.content}>
   <div className={DIALOG_LAYOUT.header}>
@@ -237,13 +243,18 @@ import { DIALOG_LAYOUT } from '@/lib/utils/dialog-layout-utils';
   </div>
 
   <div className={DIALOG_LAYOUT.footer}>
-    <Button type="submit" form="my-form">Speichern</Button>
-    <Button variant="outline" onClick={onClose}>Abbrechen</Button>
+    <Button type="submit" form="my-form">
+      Speichern
+    </Button>
+    <Button variant="outline" onClick={onClose}>
+      Abbrechen
+    </Button>
   </div>
-</DialogContent>
+</DialogContent>;
 ```
 
 **KRITISCH:**
+
 - ✅ IMMER `DIALOG_LAYOUT` verwenden
 - ✅ Form mit `id` Attribut + `form` Prop auf Button
 - ✅ Inputs: `min-h-[44px]`
@@ -255,22 +266,23 @@ import { DIALOG_LAYOUT } from '@/lib/utils/dialog-layout-utils';
 
 ### **Farben (100% Semantic)**
 
-| Verwendung | Token | Zweck |
-|------------|-------|-------|
-| **Primary Button** | `bg-primary text-primary-foreground` | Haupt-Aktionen |
-| **Secondary Button** | `bg-secondary text-secondary-foreground` | Sekundär-Aktionen |
-| **Outline Button** | `variant="outline"` | Tertiär-Aktionen |
-| **Text (Primary)** | `text-foreground` | Standard-Text |
-| **Text (Secondary)** | `text-muted-foreground` | Sekundär-Text |
-| **Background** | `bg-background` | Page Background |
-| **Card Background** | `bg-card` | Card Background |
-| **Muted Background** | `bg-muted` | Subtile Hintergründe |
-| **Border** | `border-border` | Standard Border |
-| **Status Success** | `text-status-success` | Erfolgs-Status (NUR für Badges/Status) |
-| **Status Warning** | `text-status-warning` | Warnung-Status (NUR für Badges/Status) |
-| **Status Error** | `text-destructive` | Fehler-Status (NUR für Badges/Status) |
+| Verwendung           | Token                                    | Zweck                                  |
+| -------------------- | ---------------------------------------- | -------------------------------------- |
+| **Primary Button**   | `bg-primary text-primary-foreground`     | Haupt-Aktionen                         |
+| **Secondary Button** | `bg-secondary text-secondary-foreground` | Sekundär-Aktionen                      |
+| **Outline Button**   | `variant="outline"`                      | Tertiär-Aktionen                       |
+| **Text (Primary)**   | `text-foreground`                        | Standard-Text                          |
+| **Text (Secondary)** | `text-muted-foreground`                  | Sekundär-Text                          |
+| **Background**       | `bg-background`                          | Page Background                        |
+| **Card Background**  | `bg-card`                                | Card Background                        |
+| **Muted Background** | `bg-muted`                               | Subtile Hintergründe                   |
+| **Border**           | `border-border`                          | Standard Border                        |
+| **Status Success**   | `text-status-success`                    | Erfolgs-Status (NUR für Badges/Status) |
+| **Status Warning**   | `text-status-warning`                    | Warnung-Status (NUR für Badges/Status) |
+| **Status Error**     | `text-destructive`                       | Fehler-Status (NUR für Badges/Status)  |
 
 **❌ VERBOTEN:**
+
 ```tsx
 // NIEMALS verwenden:
 text-accent
@@ -283,15 +295,16 @@ text-status-* auf Icons (NUR auf Status-Badges!)
 
 ### **Icons (Mobile-First)**
 
-| Context | Mobile | Tablet | Desktop |
-|---------|--------|--------|---------|
-| **Table Actions** | `h-4 w-4` | `h-4 w-4` | `h-4 w-4` |
-| **Card Headers** | `h-5 w-5` | `h-5 w-5` | `h-5 w-5` |
-| **Buttons (Standard)** | `h-4 w-4` | `h-4 w-4` | `h-4 w-4` |
-| **Buttons (Small)** | `h-4 w-4` | `h-4 w-4` | `h-4 w-4` |
-| **Empty State** | `h-16 w-16` | `h-16 w-16` | `h-16 w-16` |
+| Context                | Mobile      | Tablet      | Desktop     |
+| ---------------------- | ----------- | ----------- | ----------- |
+| **Table Actions**      | `h-4 w-4`   | `h-4 w-4`   | `h-4 w-4`   |
+| **Card Headers**       | `h-5 w-5`   | `h-5 w-5`   | `h-5 w-5`   |
+| **Buttons (Standard)** | `h-4 w-4`   | `h-4 w-4`   | `h-4 w-4`   |
+| **Buttons (Small)**    | `h-4 w-4`   | `h-4 w-4`   | `h-4 w-4`   |
+| **Empty State**        | `h-16 w-16` | `h-16 w-16` | `h-16 w-16` |
 
 **KRITISCH:**
+
 - ❌ NIEMALS `h-3 w-3` (zu klein!)
 - ✅ MINIMUM: `h-4 w-4` (16px)
 - ✅ Icons IMMER mit `text-foreground` oder `text-muted-foreground`
@@ -355,6 +368,7 @@ gap-4  sm:gap-6  md:gap-8
 ```
 
 **❌ VERBOTEN:**
+
 ```tsx
 <Button className="h-7">   // ❌ Zu klein!
 <Input className="h-8">    // ❌ Zu klein!
@@ -366,19 +380,19 @@ gap-4  sm:gap-6  md:gap-8
 
 ### **Pflicht-Komponenten für alle Seiten**
 
-| Komponente | Verwendung | Import |
-|------------|------------|--------|
-| **StandardPageLayout** | Page Wrapper | `@/components/layout/StandardPageLayout` |
-| **StandardActionButtons** | Table Actions | `@/components/shared/StandardActionButtons` |
-| **StatusIndicator** | Status-Anzeigen | `@/components/shared/StatusIndicator` |
-| **EmptyState** | Keine Daten | `@/components/shared/EmptyState` |
-| **DetailDialog** | Details anzeigen | `@/components/shared/DetailDialog` |
-| **MobileGridLayout** | Mobile View | `@/components/mobile/MobileGridLayout` |
+| Komponente                | Verwendung       | Import                                      |
+| ------------------------- | ---------------- | ------------------------------------------- |
+| **StandardPageLayout**    | Page Wrapper     | `@/components/layout/StandardPageLayout`    |
+| **StandardActionButtons** | Table Actions    | `@/components/shared/StandardActionButtons` |
+| **StatusIndicator**       | Status-Anzeigen  | `@/components/shared/StatusIndicator`       |
+| **EmptyState**            | Keine Daten      | `@/components/shared/EmptyState`            |
+| **DetailDialog**          | Details anzeigen | `@/components/shared/DetailDialog`          |
+| **MobileGridLayout**      | Mobile View      | `@/components/mobile/MobileGridLayout`      |
 
 ### **Standard Action Buttons (Desktop Tables)**
 
 ```tsx
-import { StandardActionButtons } from '@/components/shared/StandardActionButtons';
+import { StandardActionButtons } from "@/components/shared/StandardActionButtons";
 
 <StandardActionButtons
   onViewDetails={() => handleView(item)}
@@ -387,10 +401,11 @@ import { StandardActionButtons } from '@/components/shared/StandardActionButtons
   showViewDetails={true}
   showEdit={true}
   showArchive={item.active}
-/>
+/>;
 ```
 
 **Props:**
+
 - `onViewDetails` - Details-Dialog öffnen
 - `onEdit` - Edit-Dialog öffnen
 - `onArchive` - Element deaktivieren
@@ -401,19 +416,19 @@ import { StandardActionButtons } from '@/components/shared/StandardActionButtons
 ### **Status Indicator**
 
 ```tsx
-import { StatusIndicator } from '@/components/shared/StatusIndicator';
+import { StatusIndicator } from "@/components/shared/StatusIndicator";
 
 <StatusIndicator
-  type="success"    // success, warning, error, neutral, info
+  type="success" // success, warning, error, neutral, info
   label="Aktiv"
-  size="sm"         // sm, md, lg
-/>
+  size="sm" // sm, md, lg
+/>;
 ```
 
 ### **Empty State**
 
 ```tsx
-import { EmptyState } from '@/components/shared/EmptyState';
+import { EmptyState } from "@/components/shared/EmptyState";
 
 <EmptyState
   icon={<FileText className="w-full h-full" />}
@@ -422,7 +437,7 @@ import { EmptyState } from '@/components/shared/EmptyState';
   actionLabel="Auftrag anlegen"
   onAction={() => setDialogOpen(true)}
   isSearchResult={false}
-/>
+/>;
 ```
 
 ---
@@ -432,7 +447,7 @@ import { EmptyState } from '@/components/shared/EmptyState';
 ### **Mobile Detection**
 
 ```tsx
-import { useDeviceType } from '@/hooks/use-device-type';
+import { useDeviceType } from "@/hooks/use-device-type";
 
 const { isMobile, isTablet, isDesktop } = useDeviceType();
 
@@ -541,6 +556,7 @@ xl:   1280px  // Large Desktop
 ### **1. Dashboard (Index.tsx) - 441 Zeilen**
 
 **Struktur:**
+
 ```
 ┌─────────────────────────────────────────┐
 │ DashboardLayout                         │
@@ -557,6 +573,7 @@ xl:   1280px  // Large Desktop
 ```
 
 **Key Features:**
+
 - Realtime-Updates (useRealtimeBookings, etc.)
 - Tarif-basierte Widgets (isBusinessTier)
 - Mobile-optimiertes Layout
@@ -566,6 +583,7 @@ xl:   1280px  // Large Desktop
 ### **2. Aufträge (Auftraege.tsx) - 2167 Zeilen**
 
 **Struktur:**
+
 ```
 ┌─────────────────────────────────────────┐
 │ StandardPageLayout                      │
@@ -584,6 +602,7 @@ xl:   1280px  // Large Desktop
 ```
 
 **Key Features:**
+
 - Multi-Step Forms
 - AI-powered Features (Smart Assignment)
 - Inline Forms (Customer Creation)
@@ -606,12 +625,14 @@ xl:   1280px  // Large Desktop
 ### **Bei Design-Änderungen:**
 
 **❌ NICHT ERLAUBT ohne Approval:**
+
 - Layout-Struktur ändern
 - Neue Farb-Tokens einführen
 - Touch-Target-Größen reduzieren
 - Dialog-Layout-System ändern
 
 **✅ ERLAUBT:**
+
 - Funktionale Erweiterungen
 - Neue Komponenten (nach Pattern)
 - Performance-Optimierungen
@@ -624,6 +645,7 @@ xl:   1280px  // Large Desktop
 ### **Bei Konflikten zwischen Vorgaben:**
 
 **Hierarchie:**
+
 1. KNOWLEDGE_V18.3.25.txt (Höchste Priorität)
 2. VERWALTUNGS_SEITEN_DESIGN_VORGABEN_V18.3.26.md (Diese Datei)
 3. MASTER_VORGABEN_CHECKLISTE_V18.3.24.md
@@ -642,8 +664,8 @@ xl:   1280px  // Large Desktop
 
 ## 🎯 CHANGELOG
 
-| Version | Datum | Änderungen |
-|---------|-------|------------|
+| Version      | Datum      | Änderungen                                                |
+| ------------ | ---------- | --------------------------------------------------------- |
 | **V18.3.26** | 2025-10-21 | Initial Release - Basierend auf Index.tsx & Auftraege.tsx |
 
 ---

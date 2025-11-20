@@ -2,10 +2,7 @@
   "mcpServers": {
     "tavily": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-tavily"
-      ],
+      "args": ["-y", "@modelcontextprotocol/server-tavily"],
       "env": {
         "TAVILY_API_KEY": "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"
       }
@@ -15,4 +12,3 @@
     }
   }
 }
-

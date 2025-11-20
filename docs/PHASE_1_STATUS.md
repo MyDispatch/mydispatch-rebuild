@@ -3,11 +3,13 @@
 ## COMPLETED (2025-10-29)
 
 ### **Phase 1.1: Core Infrastructure** ✅
+
 - ✅ `src/config/form-fields-registry.ts` - Zentrale Field-Definitionen
 - ✅ `src/components/forms/UnifiedForm.tsx` V2.0 - Dialog-Mode integriert
 - ✅ `docs/FORM_MIGRATION_GUIDE.md` - Migration-Guide
 
 ### **Features Implemented:**
+
 - ✅ Dialog-Mode (kein FormDialog mehr nötig!)
 - ✅ Mobile-Responsive (auto-responsive)
 - ✅ Multi-Step Support
@@ -18,6 +20,7 @@
 ## PHASE 2 IN PROGRESS
 
 ### **Phase 2.1: KPI-Registry** 🔄
+
 - ✅ `src/config/kpi-registry.ts` - Zentrale KPI-Definitionen
 - ⏳ TypeScript-Fixes (minor)
 

@@ -9,6 +9,7 @@
 ## 🎯 MISSION
 
 Vollständige Migration des `/auth`-Bereichs auf das V26.0 Design System mit:
+
 - ✅ Neue V26-Komponenten für alle UI-Elemente
 - ✅ Icon-Position-Fix (Selected Indicator: UNTEN RECHTS)
 - ✅ Vollständige Rechtsvorgaben (DSGVO, PBefG § 51, AI Act, TMG)
@@ -25,25 +26,25 @@ Vollständige Migration des `/auth`-Bereichs auf das V26.0 Design System mit:
 **Zweck:** Standardisierte Checkbox mit Label
 
 **Features:**
+
 - Touch-Target: 44px+
 - Check-Icon bei Selected
 - Unterstützt ReactNode als Label
 - KERNFARBEN konform
 
 **Props:**
+
 ```typescript
-interface V26CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+interface V26CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
   label: string | React.ReactNode;
   error?: string;
 }
 ```
 
 **Verwendung:**
+
 ```tsx
-<V26Checkbox
-  name="chatConsent"
-  label={<div>Ich akzeptiere...</div>}
-/>
+<V26Checkbox name="chatConsent" label={<div>Ich akzeptiere...</div>} />
 ```
 
 ---
@@ -53,6 +54,7 @@ interface V26CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, '
 **Zweck:** Tab-Navigation für Auth & andere Bereiche
 
 **Features:**
+
 - Responsive Grid Layout (automatisch gleiche Breite)
 - Active State: Dunkelblau mit Beige-Text
 - Inactive State: Transparent mit Dunkelblau-Text
@@ -60,6 +62,7 @@ interface V26CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, '
 - Shadow bei Active
 
 **Props:**
+
 ```typescript
 interface V26TabNavigationProps {
   tabs: V26TabItem[];
@@ -75,12 +78,13 @@ interface V26TabItem {
 ```
 
 **Verwendung:**
+
 ```tsx
 <V26TabNavigation
   tabs={[
-    { id: 'login', label: 'Anmelden' },
-    { id: 'signup', label: 'Registrieren' },
-    { id: 'reset', label: 'Passwort' },
+    { id: "login", label: "Anmelden" },
+    { id: "signup", label: "Registrieren" },
+    { id: "reset", label: "Passwort" },
   ]}
   activeTab={activeTab}
   onTabChange={setActiveTab}
@@ -94,13 +98,15 @@ interface V26TabItem {
 **Zweck:** Standardisierte Links mit Hover-Effekt
 
 **Features:**
+
 - Underline mit Hover-Animation (no-underline on hover)
 - Dunkelblau-Farbe
 - Unterstützt React Router Links
-- Unterstützt externe Links (target="_blank", rel="noopener noreferrer")
+- Unterstützt externe Links (target="\_blank", rel="noopener noreferrer")
 - Focus-Ring
 
 **Props:**
+
 ```typescript
 interface V26LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   to?: string;
@@ -110,14 +116,19 @@ interface V26LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 ```
 
 **Verwendung:**
-```tsx
-{/* Internal Link */}
-<V26Link to="/datenschutz">Datenschutz</V26Link>
 
-{/* External Link */}
+```tsx
+{
+  /* Internal Link */
+}
+<V26Link to="/datenschutz">Datenschutz</V26Link>;
+
+{
+  /* External Link */
+}
 <V26Link to="https://example.com" external>
   Externe Seite
-</V26Link>
+</V26Link>;
 ```
 
 ---
@@ -127,6 +138,7 @@ interface V26LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 **Zweck:** Standardisiertes Logo-Component
 
 **Features:**
+
 - 3 Größen: sm (h-8), md (h-10), lg (h-14)
 - Optional: Custom Logo-URL
 - Fallback: Truck-Icon + Firmenname
@@ -134,24 +146,21 @@ interface V26LinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
 - Optional: onClick Handler
 
 **Props:**
+
 ```typescript
 interface V26LogoProps {
   companyName?: string;
   logoUrl?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   className?: string;
   onClick?: () => void;
 }
 ```
 
 **Verwendung:**
+
 ```tsx
-<V26Logo
-  companyName="MyDispatch"
-  logoUrl={logoUrl}
-  size="md"
-  onClick={() => navigate('/')}
-/>
+<V26Logo companyName="MyDispatch" logoUrl={logoUrl} size="md" onClick={() => navigate("/")} />
 ```
 
 ---
@@ -165,16 +174,21 @@ interface V26LogoProps {
 **Lösung:** Icon-Position von `top-4 right-4` → `bottom-4 right-4`
 
 **Code:**
+
 ```tsx
-{/* Selected Indicator - UNTEN RECHTS */}
-{isSelected && (
-  <div
-    className="absolute bottom-4 right-4 rounded-full p-1.5"
-    style={{ backgroundColor: KERNFARBEN.dunkelblau }}
-  >
-    <Check className="h-4 w-4" style={{ color: KERNFARBEN.beige }} />
-  </div>
-)}
+{
+  /* Selected Indicator - UNTEN RECHTS */
+}
+{
+  isSelected && (
+    <div
+      className="absolute bottom-4 right-4 rounded-full p-1.5"
+      style={{ backgroundColor: KERNFARBEN.dunkelblau }}
+    >
+      <Check className="h-4 w-4" style={{ color: KERNFARBEN.beige }} />
+    </div>
+  );
+}
 ```
 
 ---
@@ -182,6 +196,7 @@ interface V26LogoProps {
 ### 2. Legacy-Component-Elimination
 
 **Entfernte Komponenten:**
+
 - `AuthHeader` → Ersetzt durch `V26Logo` + Custom Header
 - `AuthFooter` → Ersetzt durch Custom Footer mit `V26Link`
 - Custom Tab-Navigation (buttons) → Ersetzt durch `V26TabNavigation`
@@ -195,21 +210,22 @@ interface V26LogoProps {
 ### Imports (NEU)
 
 ```typescript
-import { 
-  V26Button, 
-  V26AuthInput, 
-  V26TariffCard, 
-  V26AuthCard, 
-  V26InfoBox, 
+import {
+  V26Button,
+  V26AuthInput,
+  V26TariffCard,
+  V26AuthCard,
+  V26InfoBox,
   V26TabNavigation,
   V26Link,
   V26Checkbox,
-  V26Logo
-} from '@/components/design-system';
-import { KERNFARBEN } from '@/lib/design-system/pricing-colors';
+  V26Logo,
+} from "@/components/design-system";
+import { KERNFARBEN } from "@/lib/design-system/pricing-colors";
 ```
 
 **Entfernte Imports:**
+
 - `AuthHeader`
 - `AuthFooter`
 - `Link` (aus react-router-dom für rechtliche Links)
@@ -223,9 +239,9 @@ import { KERNFARBEN } from '@/lib/design-system/pricing-colors';
   {/* V26 Header mit Logo */}
   <header className="py-6 px-4 sm:px-6" style={{ backgroundColor: KERNFARBEN.weiss }}>
     <div className="container mx-auto">
-      <V26Logo 
-        companyName={companyName} 
-        logoUrl={logoUrl} 
+      <V26Logo
+        companyName={companyName}
+        logoUrl={logoUrl}
         size="md"
         onClick={() => navigate('/')}
       />
@@ -237,7 +253,7 @@ import { KERNFARBEN } from '@/lib/design-system/pricing-colors';
       <div className="p-6 sm:p-8">
         {/* V26 Tab Navigation */}
         <V26TabNavigation ... />
-        
+
         {/* Forms mit V26-Komponenten */}
         ...
       </div>
@@ -317,26 +333,32 @@ import { KERNFARBEN } from '@/lib/design-system/pricing-colors';
 ## 📊 METRIKEN
 
 ### Neue Komponenten: 4
+
 - V26Checkbox
 - V26TabNavigation
 - V26Link
 - V26Logo
 
 ### Aktualisierte Komponenten: 1
+
 - V26TariffCard (Icon-Position-Fix)
 
 ### Entfernte Komponenten: 2
+
 - AuthHeader
 - AuthFooter
 
 ### Migrierte Dateien: 1
+
 - src/pages/Auth.tsx
 
 ### Dokumentation: 2
+
 - docs/V26_COMPONENT_LIBRARY_COMPLETE.md (NEU)
 - docs/MIGRATION_V26_AUTH_FINAL_LOG.md (NEU)
 
 ### Library-Export:
+
 - src/components/design-system/index.ts (aktualisiert)
 
 ---
@@ -346,11 +368,13 @@ import { KERNFARBEN } from '@/lib/design-system/pricing-colors';
 **Ab sofort ist der `/auth`-Bereich gegen Design-Änderungen gesperrt.**
 
 **Erlaubt:**
+
 - ✅ Technische Optimierungen (Performance, Security)
 - ✅ Bug-Fixes
 - ✅ Accessibility-Verbesserungen
 
 **NICHT erlaubt:**
+
 - ❌ Design-Änderungen
 - ❌ Layout-Neuerungen
 - ❌ Farb-Änderungen

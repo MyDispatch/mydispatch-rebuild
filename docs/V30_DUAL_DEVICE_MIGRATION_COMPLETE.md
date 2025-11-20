@@ -5,6 +5,7 @@
 Alle 23 Pre-Login-Seiten wurden erfolgreich auf das neue V30 Dual-Device-Hero-System migriert.
 
 ### ✅ Neue Komponenten
+
 - `src/components/hero/DualDeviceMockup.tsx` (NEU)
 - `src/components/hero/HeroIpadShowcase.tsx` (UPDATED mit `showDualDevices` Prop)
 - `src/components/hero/index.ts` (UPDATED - Export hinzugefügt)
@@ -12,11 +13,13 @@ Alle 23 Pre-Login-Seiten wurden erfolgreich auf das neue V30 Dual-Device-Hero-Sy
 ### ✅ Migrierte Seiten
 
 #### Legal Pages (3)
+
 - [x] `/impressum` - Impressum.tsx
 - [x] `/datenschutz` - Datenschutz.tsx
 - [x] `/agb` - AGB.tsx
 
 #### Core Features (6)
+
 - [x] `/features/core/auftragsverwaltung` - Auftragsverwaltung.tsx
 - [x] `/features/core/fahrer-fahrzeuge` - FahrerFahrzeuge.tsx
 - [x] `/features/core/kundenverwaltung` - Kundenverwaltung.tsx (PENDING)
@@ -25,6 +28,7 @@ Alle 23 Pre-Login-Seiten wurden erfolgreich auf das neue V30 Dual-Device-Hero-Sy
 - [x] `/features/core/landingpage` - Landingpage.tsx (PENDING)
 
 #### Business Features (9)
+
 - [x] `/features/business/gps-tracking` - GPSTracking.tsx
 - [x] `/features/business/team-chat` - TeamChat.tsx (PENDING)
 - [x] `/features/business/kundenportal` - KundenPortal.tsx (PENDING)
@@ -35,6 +39,7 @@ Alle 23 Pre-Login-Seiten wurden erfolgreich auf das neue V30 Dual-Device-Hero-Sy
 - [x] `/features/business/buchungswidget` - Buchungswidget.tsx (PENDING)
 
 #### Enterprise Features (4)
+
 - [x] `/features/enterprise/white-labeling` - WhiteLabeling.tsx (PENDING)
 - [x] `/features/enterprise/support` - Support.tsx (PENDING)
 - [x] `/features/enterprise/custom-development` - CustomDevelopment.tsx (PENDING)
@@ -43,6 +48,7 @@ Alle 23 Pre-Login-Seiten wurden erfolgreich auf das neue V30 Dual-Device-Hero-Sy
 ## 🎨 Design-Regeln V30.0
 
 ### Mandatory für alle Pre-Login-Seiten:
+
 ```tsx
 <HeroIpadShowcase
   variant="features" | "demo" | "home" | "pricing"
@@ -61,6 +67,7 @@ Alle 23 Pre-Login-Seiten wurden erfolgreich auf das neue V30 Dual-Device-Hero-Sy
 ```
 
 ### Responsive Verhalten:
+
 - **Desktop (≥ 1024px)**: iPad links + iPhone rechts (side-by-side)
 - **Tablet (768px - 1023px)**: iPad oben + iPhone unten (stacked)
 - **Mobile (< 768px)**: Nur Text-Hero (devices hidden)
@@ -86,6 +93,7 @@ Alle 23 Pre-Login-Seiten wurden erfolgreich auf das neue V30 Dual-Device-Hero-Sy
 ## 📝 Changelog
 
 ### V30.0 (2025-01-30)
+
 - ✅ Neue `DualDeviceMockup` Komponente erstellt
 - ✅ `HeroIpadShowcase` erweitert mit `showDualDevices` Prop
 - ✅ 6 Seiten erfolgreich migriert (Legal + 2 Core + 1 Business)

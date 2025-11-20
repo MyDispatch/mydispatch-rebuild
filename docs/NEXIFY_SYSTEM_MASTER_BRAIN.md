@@ -1,4 +1,5 @@
 # 🧠 NEXIFY SYSTEM MASTER BRAIN V1.0
+
 > **THE SINGLE SOURCE OF TRUTH**  
 > **Erstellt:** 2025-10-27  
 > **Status:** ✅ ACTIVE & SELF-PERFECTING  
@@ -9,11 +10,13 @@
 ## 📑 INHALTSVERZEICHNIS
 
 ### 0. EXECUTIVE SUMMARY & SYSTEMÜBERBLICK
+
 - [0.1 Projekt-Übersicht](#01-projekt-übersicht)
 - [0.2 Aktuelle System-Metriken](#02-aktuelle-system-metriken)
 - [0.3 Technology Stack](#03-technology-stack)
 
 ### 1. AGENTEN-GOVERNANCE & HIERARCHIE
+
 - [1.1 Master/Sub-Agent Architecture](#11-mastersub-agent-architecture)
 - [1.2 Claude 4.5 Master-Reasoning](#12-claude-45-master-reasoning)
 - [1.3 Gemini 2.5 Flash Sub-Agent](#13-gemini-25-flash-sub-agent)
@@ -21,6 +24,7 @@
 - [1.5 Backend-Agenten-System V2.0 (AUTONOMOUS)](#15-backend-agenten-system-v20-autonomous)
 
 ### 2. PRÄZISIONS-PROZESS & FEHLER-ELIMINIERUNG
+
 - [2.1 Systemweite Diagnose](#21-systemweite-diagnose)
 - [2.2 Deep Critical Thinking](#22-deep-critical-thinking)
 - [2.3 Prädiktive Fehleranalyse](#23-prädiktive-fehleranalyse)
@@ -28,12 +32,14 @@
 - [2.5 Code-Qualität & Vereinfachung](#25-code-qualität--vereinfachung)
 
 ### 3. COMPLIANCE-CHECK & VALIDIERUNG
+
 - [3.1 Visuelle & Pixel-Perfektion](#31-visuelle--pixel-perfektion)
 - [3.2 Code-Integrität (CI/CD)](#32-code-integrität-cicd)
 - [3.3 Funktionalitäts-Validierung](#33-funktionalitäts-validierung)
 - [3.4 Quality Gates](#34-quality-gates)
 
 ### 4. DESIGN SYSTEM V26.1
+
 - [4.1 Unified Design Tokens](#41-unified-design-tokens)
 - [4.2 Kernfarben](#42-kernfarben)
 - [4.3 Component Library](#43-component-library)
@@ -41,37 +47,44 @@
 - [4.5 Dashboard-Besonderheiten & Scrollbar-Governance](#45-dashboard-besonderheiten--scrollbar-governance)
 
 ### 5. SYSTEMWEITE FEHLERANALYSE (V40.9)
+
 - [5.1 Identifizierte Critical Violations](#51-identifizierte-critical-violations)
 - [5.2 Inline-Style-Migrations-Plan](#52-inline-style-migrations-plan)
 - [5.3 Priorisierte Fehler-Liste](#53-priorisierte-fehler-liste)
 
 ### 6. PROJEKTSTRUKTUR & ARCHITEKTUR
+
 - [6.1 Core Pages](#61-core-pages)
 - [6.2 Component Organization](#62-component-organization)
 - [6.3 Backend (Supabase/Lovable Cloud)](#63-backend-supabaselovable-cloud)
 
 ### 7. WORKFLOWS & BEST PRACTICES
+
 - [7.1 Design-Sprint-Governance](#71-design-sprint-governance)
 - [7.2 Component-First Approach](#72-component-first-approach)
 - [7.3 Dokumentations-Governance](#73-dokumentations-governance)
 - [7.4 Testing & Deployment](#74-testing--deployment)
 
 ### 8. SESSION-HISTORIE & LESSONS LEARNED
+
 - [8.1 V40.0 - V40.9 Timeline](#81-v400---v409-timeline)
 - [8.2 Erfolgsmetriken](#82-erfolgsmetriken)
 - [8.3 Anti-Patterns](#83-anti-patterns)
 
 ### 9. LOVABLE AI AGENT CANVAS (VOLLSTÄNDIG)
+
 - [9.1 Canvas-Prinzipien](#91-canvas-prinzipien)
 - [9.2 Master/Sub-Hierarchie](#92-mastersub-hierarchie)
 - [9.3 Integrations](#93-integrations)
 
 ### 10. NEXT STEPS & ROADMAP
+
 - [10.1 Immediate (V40.11)](#101-immediate-v4011)
 - [10.2 Short-term (V40.12-V40.13)](#102-short-term-v4012-v4013)
 - [10.3 Mid-term](#103-mid-term)
 
 ### 11. BRAIN SYSTEM V1.0 - AUTONOMOUS QA
+
 - [11.1 System-Architektur](#111-system-architektur)
 - [11.2 Edge Functions](#112-edge-functions)
 - [11.3 Auto-Fix-Engine](#113-auto-fix-engine)
@@ -79,6 +92,7 @@
 - [11.5 Continuous Improvement Loop](#115-continuous-improvement-loop)
 
 ### 12. AKTUELLE FINDINGS & ACTION ITEMS
+
 - [12.1 V40.11 Brain System Findings](#121-v4011-brain-system-findings)
 - [12.2 Inline-Style-Migrations-Plan](#122-inline-style-migrations-plan)
 - [12.3 Spacing-Violations](#123-spacing-violations)
@@ -98,6 +112,7 @@
 Das Backend-Agenten-System V2.1 ist die **EINZIG ERLAUBTE** Methode für autonome Code-Migration, Validierung und Self-Healing. Alle Agenten nutzen **Gemini 2.5 Flash/Pro** (via Lovable AI Gateway) für schnelle, kosteneffiziente Operationen und **Claude 4.5** (Master) für komplexes Reasoning.
 
 **NEU in V2.1:**
+
 - ✅ **GitHub-Integration** für vollständigen Code-Zugriff
 - ✅ **Echte Code-Analyse** statt Simulation
 - ✅ **Automatische Migrations-Pipeline**
@@ -108,12 +123,14 @@ Das Backend-Agenten-System V2.1 ist die **EINZIG ERLAUBTE** Methode für autonom
 ### 🤖 SPEZIALISIERTE AGENTEN
 
 #### 1. CODE ANALYSIS AGENT (`ai-code-analyzer`)
+
 **Funktion:** AST-basierte Code-Analyse zur Identifikation von Violations
 **Model:** Gemini 2.5 Flash
 **Input:** File-Pfad oder Code-String
 **Output:** Strukturierte Violations-Liste
 
 **Fähigkeiten:**
+
 - AST-Parsing mit `ts-morph` (TypeScript Compiler API)
 - Pattern-Matching für Inline-Styles, Color-Violations, Token-Usage
 - Batch-Processing (50+ Files parallel)
@@ -122,6 +139,7 @@ Das Backend-Agenten-System V2.1 ist die **EINZIG ERLAUBTE** Methode für autonom
 **Edge Function:** `supabase/functions/ai-code-analyzer/index.ts`
 
 **API-Beispiel:**
+
 ```typescript
 POST /functions/v1/ai-code-analyzer
 {
@@ -154,12 +172,14 @@ Response:
 ---
 
 #### 2. MIGRATION AGENT (`ai-code-migrator`)
+
 **Funktion:** AST-basierte Code-Transformation und Auto-Fix
 **Model:** Gemini 2.5 Flash
 **Input:** Violations-Liste
 **Output:** Migrierte Code-Files + Diff-Report
 
 **Fähigkeiten:**
+
 - AST-Manipulation (Remove inline-styles, Add Tailwind classes)
 - Token-Mapping (UNIFIED_DESIGN_TOKENS → Tailwind)
 - Atomic-Commits (Eine Violation = Ein Commit)
@@ -169,6 +189,7 @@ Response:
 **Edge Function:** `supabase/functions/ai-code-migrator/index.ts`
 
 **API-Beispiel:**
+
 ```typescript
 POST /functions/v1/ai-code-migrator
 {
@@ -190,12 +211,14 @@ Response:
 ---
 
 #### 3. VISUAL VALIDATION AGENT (`ai-visual-validator`)
+
 **Funktion:** Pixel-perfekte visuelle Regression-Tests
 **Model:** Gemini 2.5 Pro (Vision) + Claude 4.5 (Analysis)
 **Input:** Page-Pfad, Viewport-Size
 **Output:** Screenshot + Pixel-Diff + Issue-Liste
 
 **Fähigkeiten:**
+
 - Full-Page-Screenshots mit Playwright (Scroll-Capture)
 - Multi-Viewport (Desktop, Tablet, Mobile)
 - Pixel-Diff mit Baseline-Vergleich
@@ -205,6 +228,7 @@ Response:
 **Edge Function:** `supabase/functions/ai-visual-validator/index.ts`
 
 **API-Beispiel:**
+
 ```typescript
 POST /functions/v1/ai-visual-validator
 {
@@ -238,12 +262,14 @@ Response:
 ---
 
 #### 4. SELF-HEALING AGENT (`ai-self-healer`)
+
 **Funktion:** Autonome Error-Analyse und Auto-Fix
 **Model:** Claude 4.5 (Reasoning) + Gemini 2.5 Flash (Implementation)
 **Input:** Error-Log, Stack-Trace
 **Output:** Root-Cause + Fix-Code + Validation
 
 **Fähigkeiten:**
+
 - Error-Pattern-Recognition
 - Multi-Source-Analysis (Console, Network, DB)
 - Root-Cause-Isolation (Deep Critical Thinking)
@@ -253,6 +279,7 @@ Response:
 **Edge Function:** `supabase/functions/ai-self-healer/index.ts`
 
 **API-Beispiel:**
+
 ```typescript
 POST /functions/v1/ai-self-healer
 {
@@ -292,12 +319,14 @@ Response:
 ---
 
 #### 5. MASTER ORCHESTRATOR (`ai-orchestrator`)
+
 **Funktion:** Zentraler Controller für alle Agenten
 **Model:** Claude 4.5 (Master-Reasoning)
 **Input:** High-Level-Task (z.B. "Migrate all inline-styles")
 **Output:** Execution-Plan + Delegations + Progress-Report
 
 **Fähigkeiten:**
+
 - Task-Breakdown (High-Level → Sub-Tasks)
 - Agent-Delegation mit Dependency-Management
 - Parallel-Execution-Scheduling
@@ -307,6 +336,7 @@ Response:
 **Edge Function:** `supabase/functions/ai-orchestrator/index.ts`
 
 **API-Beispiel:**
+
 ```typescript
 POST /functions/v1/ai-orchestrator
 {
@@ -378,6 +408,7 @@ graph TB
 ### 📦 TECHNISCHE IMPLEMENTATION
 
 #### Dependencies:
+
 ```json
 {
   "@ts-morph/common": "^0.25.0", // AST Parsing
@@ -388,6 +419,7 @@ graph TB
 ```
 
 #### Lovable AI Gateway Integration:
+
 ```typescript
 // Alle Agenten nutzen Lovable AI Gateway
 const LOVABLE_AI_URL = "https://ai.gateway.lovable.dev/v1/chat/completions";
@@ -415,6 +447,7 @@ async function callGemini(prompt: string) {
 ### 🔒 SECURITY & GOVERNANCE
 
 **ZWINGEND:**
+
 - Alle Edge Functions nutzen `verify_jwt = false` für autonomen Betrieb
 - Backups vor JEDER Migration (Rollback-Fähigkeit)
 - Atomic-Commits (Eine Änderung = Ein Commit)
@@ -422,6 +455,7 @@ async function callGemini(prompt: string) {
 - Error-Logging in Supabase (Tabelle: `agent_logs`)
 
 **Monitoring:**
+
 - Real-Time-Dashboard (Brain-System Integration)
 - Slack/Email-Notifications bei CRITICAL-Errors
 - Performance-Metriken (Duration, Success-Rate)
@@ -431,31 +465,34 @@ async function callGemini(prompt: string) {
 ### ✅ AKTIVIERUNG & USAGE
 
 **Aktivierung:**
+
 ```bash
 # Alle Edge Functions sind bereits in supabase/config.toml konfiguriert
 # Deployment erfolgt automatisch bei Git-Push
 ```
 
 **Frontend-Usage:**
+
 ```typescript
-import { useOrchestrator } from '@/hooks/use-orchestrator';
+import { useOrchestrator } from "@/hooks/use-orchestrator";
 
 const { startMigration, progress } = useOrchestrator();
 
 // Start inline-style migration
 await startMigration({
-  task: 'migrate-inline-styles',
-  scope: 'all',
+  task: "migrate-inline-styles",
+  scope: "all",
 });
 
 // Progress: { completed: 250, failed: 0, remaining: 256 }
 ```
 
 **CLI-Usage (für Master-Agent):**
+
 ```typescript
 // Via Supabase Function Invoke
-const { data } = await supabase.functions.invoke('ai-orchestrator', {
-  body: { task: 'migrate-inline-styles', scope: 'all' }
+const { data } = await supabase.functions.invoke("ai-orchestrator", {
+  body: { task: "migrate-inline-styles", scope: "all" },
 });
 ```
 
@@ -464,12 +501,14 @@ const { data } = await supabase.functions.invoke('ai-orchestrator', {
 ### 📊 ERFOLGSMETRIKEN
 
 **Target:**
+
 - **Automatisierungsrate:** 95%+ (nur 5% manuelle Reviews)
 - **Fehlerrate:** <1% (bei Auto-Fixes)
 - **Durchsatz:** 50+ Files/Minute
 - **Validierungs-Pass-Rate:** 98%+ (erste Iteration)
 
 **Aktuelle Metriken (V40.11 - GitHub-Integration):**
+
 - ✅ Backend-Agenten implementiert: 5/5 (V2.1)
 - ✅ GitHub-Integration: VOLLSTÄNDIG
   - brain-full-system-scan: GitHub Code-Zugriff ✅
@@ -505,6 +544,7 @@ const { data } = await supabase.functions.invoke('ai-orchestrator', {
 **Komponenten:**
 
 #### 1. Auto-Validator Hook (`useAutoValidator`)
+
 - **Datei:** `src/hooks/use-auto-validator.ts` ✅
 - **Funktion:** Automatische Code-Qualitäts-Checks alle 5 Minuten
 - **Features:**
@@ -515,6 +555,7 @@ const { data } = await supabase.functions.invoke('ai-orchestrator', {
 - **Integration:** `useAutoValidator(true, 300000);`
 
 #### 2. Doc-Sync Hook (`useDocSync`)
+
 - **Datei:** `src/hooks/use-doc-sync.ts` ✅
 - **Funktion:** Automatische Dokumentations-Synchronisation
 - **Features:**
@@ -525,6 +566,7 @@ const { data } = await supabase.functions.invoke('ai-orchestrator', {
 - **Integration:** `const { logSessionProgress } = useDocSync(true);`
 
 #### 3. Continuous Monitor Dashboard (`ContinuousMonitor.tsx`)
+
 - **Datei:** `src/components/brain-system/ContinuousMonitor.tsx` ✅
 - **Funktion:** Echtzeit-Status-Dashboard für Selbst-Optimierung
 - **Features:**
@@ -534,6 +576,7 @@ const { data } = await supabase.functions.invoke('ai-orchestrator', {
   - Last-Activity-Tracking
 
 #### 4. Chat-Styles CSS (`chat-styles.css`)
+
 - **Datei:** `src/components/chat/chat-styles.css` ✅
 - **Funktion:** CVA-Alternative für conditional Chat-Komponenten
 - **Features:**
@@ -546,6 +589,7 @@ const { data } = await supabase.functions.invoke('ai-orchestrator', {
 - **Nutzung:** `className="chat-message-bubble chat-message-bubble--own"`
 
 **Integration Beispiel:**
+
 ```typescript
 // In App.tsx oder Dashboard-Layout
 import { ContinuousMonitor } from '@/components/brain-system/ContinuousMonitor';
@@ -553,7 +597,7 @@ import { ContinuousMonitor } from '@/components/brain-system/ContinuousMonitor';
 function App() {
   return (
     <>
-      <ContinuousMonitor 
+      <ContinuousMonitor
         enableAutoValidation={true}
         enableDocSync={true}
       />
@@ -564,6 +608,7 @@ function App() {
 ```
 
 **Erfolgsmetriken:**
+
 - ✅ Auto-Validator: Aktiv (5min Intervall)
 - ✅ Doc-Sync: Aktiv (Session + Unload)
 - ✅ Dashboard: Implementiert & Live
@@ -572,6 +617,7 @@ function App() {
 ---
 
 **Integration:**
+
 ```typescript
 // In App.tsx oder Layout
 import { ContinuousMonitor } from '@/components/brain-system/ContinuousMonitor';
@@ -579,7 +625,7 @@ import { ContinuousMonitor } from '@/components/brain-system/ContinuousMonitor';
 function App() {
   return (
     <>
-      <ContinuousMonitor 
+      <ContinuousMonitor
         enableAutoValidation={true}
         enableDocSync={true}
       />
@@ -602,6 +648,7 @@ function App() {
 ### 0.1 Projekt-Übersicht
 
 **MyDispatch** ist eine Premium-Logistik- und Flottenmanagement-Plattform mit folgenden Kern-Features:
+
 - Hero-Qualität Design (V26.1 Standard)
 - DSGVO-konforme Kommunikation (Tone of Voice V19.0)
 - Echtzeit-Tracking (HERE Maps Integration)
@@ -617,6 +664,7 @@ function App() {
 **Status:** 🟢 PHASE 3 ABGESCHLOSSEN - PHASE 4 READY
 
 #### Code-Qualität-Metriken:
+
 ```
 Gesamt-Compliance:       98.5% (Target: 100%) [+1.3%]
 Inline-Style-Compliance: 12.5% (82/653 migriert) [+18 behoben]
@@ -626,6 +674,7 @@ Production-Ready:        95% (Target: 100%) [+3%]
 ```
 
 **Migration-Progress:**
+
 - ✅ V26-Design-System: 100% (6/6 Komponenten - Phase 1 Complete)
 - ✅ Hero-Dashboard-Komponenten: 100% (3/3 Komponenten - Phase 2 Complete)
 - ✅ Critical Pages: 100% (4/4 Pages - Phase 3 Complete)
@@ -636,14 +685,17 @@ Production-Ready:        95% (Target: 100%) [+3%]
 - ⏳ Remaining Pages: 0% (25 Pages to go - Phase 4)
 
 **Violations-Status:**
+
 - Start (V40.11): 183 Violations in 41 Files
 - Current (V40.13): 141 Violations in 31 Files
 - **Progress:** -42 Violations, -10 Files (22.9% improvement)
 
 #### Systemweite Infrastruktur:
-Token-Compliance:        100% (Critical Components)
-TypeScript Build:        ✅ 0 Errors
-Production-Ready:        🟢 95% (Critical Components: 100%)
+
+Token-Compliance: 100% (Critical Components)
+TypeScript Build: ✅ 0 Errors
+Production-Ready: 🟢 95% (Critical Components: 100%)
+
 ```
 
 #### Verbleibende Critical Issues:
@@ -672,24 +724,26 @@ Production-Ready:        🟢 95% (Critical Components: 100%)
 
 **Hierarchie-Modell:**
 ```
+
 ┌─────────────────────────────────────┐
-│   Master-Agent (Claude 4.5)        │
-│   - Complex Reasoning (77% SWE-bench)│
-│   - Architecture Design            │
-│   - Code Review & Validation       │
-│   - Visual Analysis (Pixel-Perfect)│
-│   - Strategic Planning (PLAN.md)   │
+│ Master-Agent (Claude 4.5) │
+│ - Complex Reasoning (77% SWE-bench)│
+│ - Architecture Design │
+│ - Code Review & Validation │
+│ - Visual Analysis (Pixel-Perfect)│
+│ - Strategic Planning (PLAN.md) │
 └──────────┬──────────────────────────┘
-           │ Delegation
-           ▼
+│ Delegation
+▼
 ┌─────────────────────────────────────┐
-│   Sub-Agent (Gemini 2.5 Flash)     │
-│   - Autonomous Code Execution      │
-│   - Refactoring & Style-Fixes      │
-│   - UI-Element Generation          │
-│   - Screenshot Creation (Playwright)│
-│   - Iterative Build Tasks          │
+│ Sub-Agent (Gemini 2.5 Flash) │
+│ - Autonomous Code Execution │
+│ - Refactoring & Style-Fixes │
+│ - UI-Element Generation │
+│ - Screenshot Creation (Playwright)│
+│ - Iterative Build Tasks │
 └─────────────────────────────────────┘
+
 ```
 
 **Kommunikationsprotokoll:**
@@ -748,30 +802,36 @@ Production-Ready:        🟢 95% (Critical Components: 100%)
 
 **PHASE 1: SELBSTREFLEXION & CODE-AUDIT (Master)**
 ```
+
 1. Governance-Check (NEXIFY_SYSTEM_MASTER_BRAIN.md)
 2. Code-Prüfung (Screenshots, Fehler-Identifikation)
 3. Fehler-Dokumentation (FEHLER_LOG)
 4. Wissensabgleich (MASTER_INDEX, LAYOUT_FREEZE)
 5. Design-System-Compliance (KERNFARBEN, Semantic Tokens)
+
 ```
 
 **PHASE 2: IST-ZUSTAND & PLANUNG (Master)**
 ```
+
 1. IST-Analyse (Layout Freeze Check, ToV Check)
 2. Planung (Design-System, Kommunikations-Stil, Doc-AI Sync)
 3. PLAN.md erstellen (Delegations-Doc für Sub)
 4. Präsentation (Freigabe-Prozess mit Kommunikations-Review)
+
 ```
 
 **PHASE 3: IMPLEMENTATION (Sub → Master)**
 ```
+
 1. Sub: Autonome Code-Umsetzung (gemäß PLAN.md)
 2. Sub: Design-System-Compliance Check (KERNFARBEN, Semantic Tokens)
 3. Sub: Kommunikations-Check (ToV, Markenwerte, Slogan)
 4. Sub: Umsetzung (Parallel Tool-Calls)
 5. Master: Qualitätssicherung (Mobile, Legal, Performance, Design, Kommunikation)
 6. Master: Post-Validation (validateDocConsistency)
-```
+
+````
 
 ---
 
@@ -865,7 +925,7 @@ Nach JEDER visuellen Änderung:
 1. **Gemini Sub-Agent:** Erstelle Live-Screenshot (gesamte Seite + Scroll)
    - Tool: `project_debug--sandbox-screenshot`
    - Path: Relevante Route (z.B. `/dokumente`, `/fahrer`)
-   
+
 2. **Claude Master-Agent:** Pixelgenaue Analyse
    - Abgleich mit V26.0-Referenzen (Home/Pricing)
    - Fehler DIREKT IM CODE lokalisieren
@@ -880,7 +940,7 @@ Nach JEDER visuellen Änderung:
 5. Sub: Korrekturen vornehmen
 6. Master: Erneuter Screenshot zur Validierung
 7. Master: Approval oder Iteration
-```
+````
 
 ### 3.2 Code-Integrität (CI/CD)
 
@@ -910,6 +970,7 @@ Nach JEDER visuellen Änderung:
 ### 3.3 Funktionalitäts-Validierung
 
 **AUTONOME SICHERSTELLUNG (DAUERHAFT):**
+
 - Umfassender Funktions-Check nach jeder Implementierung
 - Brain-System überwacht dauerhafte Funktionstüchtigkeit
 - Bei Abweichung: SOFORT Fehleranalyse & Korrektur
@@ -919,6 +980,7 @@ Nach JEDER visuellen Änderung:
 ### 3.4 Quality Gates
 
 **Pre-Commit Checks:**
+
 ```typescript
 // .husky/pre-commit
 1. Inline-Style Check (npm run check:inline-styles)
@@ -928,6 +990,7 @@ Nach JEDER visuellen Änderung:
 ```
 
 **Pre-Push Checks:**
+
 ```typescript
 // .husky/pre-push
 1. Visual Regression Tests (critical pages)
@@ -937,6 +1000,7 @@ Nach JEDER visuellen Änderung:
 ```
 
 **CI/CD Pipeline (GitHub Actions):**
+
 ```yaml
 # .github/workflows/quality.yml
 - Inline-Style Validation
@@ -956,53 +1020,54 @@ Nach JEDER visuellen Änderung:
 **Location:** `src/lib/design-system/unified-design-tokens.ts`
 
 **System-Struktur:**
+
 ```typescript
 export const UNIFIED_DESIGN_TOKENS = {
   colors: {
     // Core Brand
-    dunkelblau: 'hsl(222 32% 28%)',      // #323D5E (Primary)
-    beige: 'hsl(44 52% 85%)',            // #EADEBD (Secondary)
-    weiss: 'hsl(0 0% 100%)',             // #FFFFFF (Surface)
-    canvas: 'hsl(44 52% 98%)',           // #FEFCF8 (Off-White Background)
-    
+    dunkelblau: "hsl(222 32% 28%)", // #323D5E (Primary)
+    beige: "hsl(44 52% 85%)", // #EADEBD (Secondary)
+    weiss: "hsl(0 0% 100%)", // #FFFFFF (Surface)
+    canvas: "hsl(44 52% 98%)", // #FEFCF8 (Off-White Background)
+
     // Status Colors (Ampel-System)
-    status_success: 'hsl(142 76% 36%)',  // Grün
-    status_warning: 'hsl(38 92% 50%)',   // Gelb/Orange
-    status_error: 'hsl(0 84% 60%)',      // Rot
-    
+    status_success: "hsl(142 76% 36%)", // Grün
+    status_warning: "hsl(38 92% 50%)", // Gelb/Orange
+    status_error: "hsl(0 84% 60%)", // Rot
+
     // Text Colors (Semantic)
-    text_primary: 'hsl(222 32% 28%)',    // Dunkelblau
-    text_secondary: 'hsl(218 11% 46%)',  // Grau
-    text_tertiary: 'hsl(220 9% 65%)',    // Hellgrau
+    text_primary: "hsl(222 32% 28%)", // Dunkelblau
+    text_secondary: "hsl(218 11% 46%)", // Grau
+    text_tertiary: "hsl(220 9% 65%)", // Hellgrau
   },
-  
+
   spacing: {
     component: {
-      gap_cards: '0.75rem',              // 12px (Standard Dashboard)
-      card_padding: '0.75rem',           // 12px (Standard)
-    }
+      gap_cards: "0.75rem", // 12px (Standard Dashboard)
+      card_padding: "0.75rem", // 12px (Standard)
+    },
   },
-  
+
   radius: {
     component: {
-      card: '0.75rem',                   // 12px (Rounded-xl)
-      button: '0.75rem',                 // 12px
+      card: "0.75rem", // 12px (Rounded-xl)
+      button: "0.75rem", // 12px
     },
-    hero_map: '1rem',                    // 16px (Hero-Border)
+    hero_map: "1rem", // 16px (Hero-Border)
   },
-  
+
   shadow: {
     component: {
-      card_standard: '0 1px 3px rgba(0,0,0,0.1)',
-      card_hover: '0 4px 12px rgba(50,61,94,0.15)',
+      card_standard: "0 1px 3px rgba(0,0,0,0.1)",
+      card_hover: "0 4px 12px rgba(50,61,94,0.15)",
     },
-    hero_map: '0 10px 40px -10px rgba(50,61,94,0.25)',
+    hero_map: "0 10px 40px -10px rgba(50,61,94,0.25)",
   },
-  
+
   border: {
     component: {
-      card_standard: '2px solid',
-      card_hover: '2px solid',
+      card_standard: "2px solid",
+      card_hover: "2px solid",
     },
   },
 } as const;
@@ -1011,6 +1076,7 @@ export const UNIFIED_DESIGN_TOKENS = {
 ### 4.2 Kernfarben
 
 **MANDATORY Usage:**
+
 ```typescript
 // ❌ NIEMALS direkte Hex-Codes
 style={{ backgroundColor: '#323D5E' }}
@@ -1019,12 +1085,13 @@ style={{ backgroundColor: '#323D5E' }}
 className="bg-secondary text-secondary-foreground"
 
 // ✅ ODER UNIFIED_DESIGN_TOKENS (für Gradients)
-style={{ 
-  background: `linear-gradient(135deg, ${UNIFIED_DESIGN_TOKENS.colors.dunkelblau}, ${UNIFIED_DESIGN_TOKENS.colors.beige})` 
+style={{
+  background: `linear-gradient(135deg, ${UNIFIED_DESIGN_TOKENS.colors.dunkelblau}, ${UNIFIED_DESIGN_TOKENS.colors.beige})`
 }}
 ```
 
 **Farb-Mapping (Tailwind Config):**
+
 ```typescript
 // tailwind.config.ts
 theme: {
@@ -1045,6 +1112,7 @@ theme: {
 ### 4.3 Component Library
 
 **Organization:**
+
 ```
 src/components/
 ├── design-system/          # General UI Components
@@ -1065,6 +1133,7 @@ src/components/
 ```
 
 **Usage-Beispiele:**
+
 ```tsx
 // V26Button (Primary)
 <V26Button variant="primary" onClick={handleCreate}>
@@ -1090,17 +1159,19 @@ src/components/
 
 ```typescript
 export const MOTION_V26_1 = {
-  duration_default: '300ms',
-  ease_default: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  
+  duration_default: "300ms",
+  ease_default: "cubic-bezier(0.4, 0, 0.2, 1)",
+
   // Transitions
-  transition_sidebar: 'all 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-  transition_header: 'left 300ms cubic-bezier(0.4, 0, 0.2, 1), width 300ms cubic-bezier(0.4, 0, 0.2, 1)',
-  transition_content: 'margin 300ms cubic-bezier(0.4, 0, 0.2, 1)',
+  transition_sidebar: "all 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+  transition_header:
+    "left 300ms cubic-bezier(0.4, 0, 0.2, 1), width 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+  transition_content: "margin 300ms cubic-bezier(0.4, 0, 0.2, 1)",
 } as const;
 ```
 
 **Hover-Effekte (MANDATORY):**
+
 ```tsx
 // Card Hover (Standard)
 className="transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5"
@@ -1127,11 +1198,13 @@ style={{
 ### Quick Reference:
 
 **Dashboard InfoPanel (Fixed Footer):**
+
 - Position: `bottom: 48px` (48px über Standard-Footer)
 - Höhe: `80px` (fest)
 - Content Padding: `pb-[128px]` (Desktop), `pb-16` (Mobile)
 
 **Scrollbar-Regeln (SYSTEMWEIT):**
+
 - ❌ Horizontale Scrollbars: VERBOTEN (`overflow-x: hidden`)
 - ✅ Vertikale Scrollbars: 6px, Hintergrundfarbe (`hsl(var(--border))`)
 - ✅ Sidebar Scrollbars: 4px, fast unsichtbar
@@ -1146,6 +1219,7 @@ style={{
 ### 5.1 Identifizierte Critical Violations
 
 **Status (2025-10-27):**
+
 - **53 Inline-Styles eliminiert** (7.3% Progress)
 - **705 verbleibende Violations** in 114 Dateien
 - **0 TypeScript Errors**
@@ -1154,25 +1228,19 @@ style={{
 #### Bereits behobene Violations (V40.9):
 
 **Phase 2 Complete ✅:**
+
 1. **MetricCard.tsx** - 10 Inline-Styles → 100% Tailwind
    - `backgroundColor` → `bg-background`
    - `borderColor` → `border-primary/20`
    - Hover-Effekte → `hover:border-primary/40 hover:-translate-y-0.5`
    - Text-Farben → `text-foreground`, `text-muted-foreground`
-   
 2. **PageHeaderWithKPIs.tsx** - 14 Inline-Styles → 100% Tailwind
    - Card Styles → `border-secondary/20`
    - Button Primary → `bg-secondary text-secondary-foreground`
    - Button Secondary → `border-2 border-secondary hover:bg-secondary/10`
    - Hover-Effekte → `hover:scale-[1.02]`
 
-**Previous Fixes (V40.7):**
-3. **MarketingLayout.tsx** - 5 gap-Violations → Tailwind
-4. **MarketingLayoutNew.tsx** - 6 gap-Violations → Tailwind
-5. **MobileHeader.tsx** - 6 gap/padding-Violations → Tailwind
-6. **MobileMenu.tsx** - 2 gap-Violations → Tailwind
-7. **DashboardSidebar.tsx** - 8 padding/gap-Violations → Tailwind
-8. **RevenueChart.tsx** - 1 Tooltip padding → wrapperClassName
+**Previous Fixes (V40.7):** 3. **MarketingLayout.tsx** - 5 gap-Violations → Tailwind 4. **MarketingLayoutNew.tsx** - 6 gap-Violations → Tailwind 5. **MobileHeader.tsx** - 6 gap/padding-Violations → Tailwind 6. **MobileMenu.tsx** - 2 gap-Violations → Tailwind 7. **DashboardSidebar.tsx** - 8 padding/gap-Violations → Tailwind 8. **RevenueChart.tsx** - 1 Tooltip padding → wrapperClassName
 
 ### 5.2 Inline-Style-Migrations-Plan
 
@@ -1180,20 +1248,21 @@ style={{
 
 #### Priorisierte File-Liste:
 
-| Priority | File | Violations | Complexity | ETA |
-|----------|------|-----------|------------|-----|
-| 🔴 CRITICAL | ConversationList.tsx | 20+ | HIGH | 2h |
-| 🔴 CRITICAL | ChatWindow.tsx | 12x | MEDIUM | 1h |
-| 🟡 HIGH | HEREMapComponent.tsx | 8x | LOW | 30min |
-| 🟡 HIGH | PremiumTrafficDisplay.tsx | 3x | LOW | 20min |
-| 🟡 HIGH | PremiumWeatherDisplay.tsx | 3x | LOW | 20min |
-| 🟢 MEDIUM | ResourceStatusWidget.tsx | 5x | LOW | 30min |
-| 🟢 MEDIUM | PerformanceMonitoringWidget | 2x | LOW | 15min |
-| 🟢 MEDIUM | PredictiveDemandWidget | 2x | LOW | 15min |
+| Priority    | File                        | Violations | Complexity | ETA   |
+| ----------- | --------------------------- | ---------- | ---------- | ----- |
+| 🔴 CRITICAL | ConversationList.tsx        | 20+        | HIGH       | 2h    |
+| 🔴 CRITICAL | ChatWindow.tsx              | 12x        | MEDIUM     | 1h    |
+| 🟡 HIGH     | HEREMapComponent.tsx        | 8x         | LOW        | 30min |
+| 🟡 HIGH     | PremiumTrafficDisplay.tsx   | 3x         | LOW        | 20min |
+| 🟡 HIGH     | PremiumWeatherDisplay.tsx   | 3x         | LOW        | 20min |
+| 🟢 MEDIUM   | ResourceStatusWidget.tsx    | 5x         | LOW        | 30min |
+| 🟢 MEDIUM   | PerformanceMonitoringWidget | 2x         | LOW        | 15min |
+| 🟢 MEDIUM   | PredictiveDemandWidget      | 2x         | LOW        | 15min |
 
 #### Migration-Strategie (Automatisiert):
 
 **Pattern-Recognition:**
+
 ```typescript
 const INLINE_STYLE_PATTERNS = [
   // Padding → Tailwind
@@ -1202,30 +1271,31 @@ const INLINE_STYLE_PATTERNS = [
     replace: (_, px) => {
       const tailwind = PADDING_MAP[px]; // '12' → 'p-3'
       return `className="${tailwind}"`;
-    }
+    },
   },
-  
+
   // Gap → Tailwind
   {
     pattern: /style=\{\{\s*gap:\s*UNIFIED_DESIGN_TOKENS\.spacing\.(\w+)\s*\}\}/g,
     replace: (_, token) => {
       const tailwind = SPACING_MAP[token]; // md → gap-3
       return `className="${tailwind}"`;
-    }
+    },
   },
-  
+
   // Background Color → Tailwind
   {
     pattern: /style=\{\{\s*backgroundColor:\s*UNIFIED_DESIGN_TOKENS\.colors\.(\w+)\s*\}\}/g,
     replace: (_, color) => {
       const tailwind = COLOR_MAP[color]; // weiss → bg-white
       return `className="${tailwind}"`;
-    }
+    },
   },
 ];
 ```
 
 **Batch-Processing Script:**
+
 ```bash
 # Phase 3 Migration (Automated)
 npm run migrate:styles -- \
@@ -1243,12 +1313,14 @@ npm run migrate:styles -- \
 ### 5.3 Priorisierte Fehler-Liste
 
 #### BLOCKER #1: 705 Inline-Style-Violations
+
 - **Impact:** 🟡 MITTEL (Code-Qualität, Wartbarkeit)
 - **Status:** 7.3% BEHOBEN (53/729)
 - **Deadline:** V41.0 (1 Woche)
 - **Owner:** Sub-Agent (Gemini 2.5 Flash)
 
 #### BLOCKER #2: Doppelte "Antrags-Übersicht" (RESOLVED ✅)
+
 - **Impact:** 🔴 HOCH (User-facing Bug)
 - **Status:** ✅ RESOLVED (V40.9)
 - **Root Cause:** Falsche KPI-Titel in Dokumente.tsx
@@ -1260,30 +1332,33 @@ npm run migrate:styles -- \
 
 ### 6.1 Core Pages
 
-| Page | Path | Status | Latest Version |
-|------|------|--------|----------------|
-| **Dashboard** | `/` (Index.tsx) | ✅ Production | V40.4 |
-| **Dokumente** | `/dokumente` | ✅ Production | V40.9 ✅ Fixed |
-| **Fahrer** | `/fahrer` (Fahrer.tsx) | ✅ | V26.1 |
-| **Kunden** | `/kunden` (Kunden.tsx) | ✅ | V26.1 |
-| **Aufträge** | `/auftraege` (Auftraege.tsx) | ✅ | V26.1 |
-| **Fahrzeuge** | `/fahrzeuge` (Fahrzeuge.tsx) | ✅ | V26.1 |
-| **Schichtzettel** | `/schichtzettel` | ✅ | V40.2 |
+| Page              | Path                         | Status        | Latest Version |
+| ----------------- | ---------------------------- | ------------- | -------------- |
+| **Dashboard**     | `/` (Index.tsx)              | ✅ Production | V40.4          |
+| **Dokumente**     | `/dokumente`                 | ✅ Production | V40.9 ✅ Fixed |
+| **Fahrer**        | `/fahrer` (Fahrer.tsx)       | ✅            | V26.1          |
+| **Kunden**        | `/kunden` (Kunden.tsx)       | ✅            | V26.1          |
+| **Aufträge**      | `/auftraege` (Auftraege.tsx) | ✅            | V26.1          |
+| **Fahrzeuge**     | `/fahrzeuge` (Fahrzeuge.tsx) | ✅            | V26.1          |
+| **Schichtzettel** | `/schichtzettel`             | ✅            | V40.2          |
 
 ### 6.2 Component Organization
 
 **Design-System Components:**
+
 - `src/components/design-system/` - Allgemeine UI (V26Button, V26IconBox, V26InfoBox)
 - `src/components/hero/` - Hero-spezifische Komponenten
 - `src/components/pricing/` - Pricing-spezifische Komponenten
 - `src/components/dashboard/` - Dashboard-spezifische Komponenten
 
 **Shared Components:**
+
 - `src/components/shared/` - Geteilte Komponenten (PageHeaderWithKPIs ✅)
 - `src/components/layout/` - Layout-Komponenten (Header, Footer, Sidebar)
 
 **Library-Pflege-Regel:**
 Nach Fertigstellung jeder Komponente:
+
 1. ✅ Zur Library hinzufügen
 2. ✅ Strukturiert dokumentieren
 3. ✅ Barrel Export (`index.ts`) aktualisieren
@@ -1292,17 +1367,20 @@ Nach Fertigstellung jeder Komponente:
 ### 6.3 Backend (Supabase/Lovable Cloud)
 
 **Lovable Cloud (Supabase):**
+
 - Project ID: `vsbqyqhzxmwezlhzdmfd`
 - Status: ✅ ACTIVE
 - RLS: ✅ Enabled (Multi-Tenant)
 - Auth: ✅ Configured (Auto-Confirm Email)
 
 **Secrets (Auto-Provisioned):**
+
 - `ANTHROPIC_API_KEY` - Claude 4.5 Sonnet (Master-Agent)
 - `LOVABLE_API_KEY` - Gemini 2.5 Flash (Sub-Agent via Lovable AI Gateway)
 - `SUPABASE_URL`, `SUPABASE_ANON_KEY` - Auto-configured
 
 **Edge Functions:**
+
 - Path: `supabase/functions/`
 - Deployment: Automatic
 - Tool: `supabase--deploy_edge_functions`
@@ -1316,22 +1394,27 @@ Nach Fertigstellung jeder Komponente:
 **Obligatorischer Workflow für JEDEN Bereich:**
 
 #### SCHRITT 1: PRÜFUNG
+
 - [ ] Prüfe IST-Stand im gesamten Bereich
 - [ ] Analysiere alle UI-Elemente
 - [ ] Vergleiche mit Component Library
 
 #### SCHRITT 2: VERSTÄNDNIS & ÜBERDENKEN
+
 - [ ] Verstehe Anforderungen
 - [ ] Überdenke im Kontext der Gesamtanforderungen
 - [ ] Identifiziere Abhängigkeiten
 
 #### SCHRITT 3: UI-BIBLIOTHEK-CHECK
+
 - [ ] Prüfe aktuelle UI-Elemente in Library
 - [ ] Identifiziere fehlende Komponenten
 - [ ] Plane neue Komponenten
 
 #### SCHRITT 4: COMPONENT-FIRST
+
 **BEVOR** Hauptbereich-Implementierung:
+
 1. **Vorhandene Komponenten:** Nutze sie konsequent
 2. **Fehlende Komponenten:**
    - Erstelle vollständig nach V26.1 Design
@@ -1339,6 +1422,7 @@ Nach Fertigstellung jeder Komponente:
    - Update Barrel Exports
 
 #### SCHRITT 5: IMPLEMENTIERUNG
+
 - [ ] V26.1 Design vollständig und pixelgenau
 - [ ] Neue Schriftart: **Inter**
 - [ ] Neue Farben: **Token-basiert**
@@ -1346,18 +1430,22 @@ Nach Fertigstellung jeder Komponente:
 - [ ] Gesetzliche Vorgaben (DSGVO, Impressum)
 
 #### SCHRITT 6: FUNKTIONS-CHECK & FEHLERBEHEBUNG
+
 - [ ] Prüfe jede Funktion im Bereich
 - [ ] Finde und behebe ALLE Fehler
 - [ ] Finde systemweite Gesamtlösung
 - [ ] Setze vollständig um
 
 #### SCHRITT 7: LIB-PFLEGE
+
 - [ ] Füge neue UI-Elemente zur Library hinzu
 - [ ] Dokumentiere strukturiert und sortiert
 - [ ] Update Barrel Exports
 
 #### SCHRITT 8: DESIGN-SPERRE (FINALISIERUNG)
+
 Nach Fertigstellung:
+
 - [ ] Sperre gegen erneute Design-/Layout-Neuerungen
 - [ ] **Nach Sperre:** Nur noch technische Optimierungen, Fixes, Stabilisierungen
 
@@ -1366,12 +1454,14 @@ Nach Fertigstellung:
 **Paradigma:** "Build components, then use them"
 
 **MANDATORY Workflow:**
+
 1. **Check Library FIRST** - Existiert Komponente bereits?
 2. **If NO:** Create Component (V26.1 Standard)
 3. **Add to Library** - Dokumentiere & Export
 4. **Use Everywhere** - DRY-Prinzip
 
 **VERBOTEN:**
+
 - ❌ Wiederholenden Code schreiben
 - ❌ Komponenten ohne TypeScript-Interfaces
 - ❌ Komponenten ohne Hero-Qualität
@@ -1382,20 +1472,24 @@ Nach Fertigstellung:
 **POST-WORK (MANDATORY nach jeder Arbeit):**
 
 #### 1. DOKUMENTATIONS-AKTUALISIERUNG
+
 - [ ] Aktualisiere alle bisherigen Vorgaben in gesamter Dokumentation
 - [ ] Identifiziere und ersetze veraltete Vorgaben
 - [ ] Update `NEXIFY_SYSTEM_MASTER_BRAIN.md` (diese Datei)
 
 #### 2. PFLEGE
+
 - [ ] Pflege gesamte Dokumentation sauber und strukturiert
 - [ ] Sicherstelle Konsistenz
 
 #### 3. SYNCHRONITÄT
+
 - [ ] Schnellstmögliche Aktualisierung
 - [ ] Synchronität im gesamten System
 - [ ] Alle Docs auf neuestem Stand
 
 **Betroffene Dateien:**
+
 - `NEXIFY_SYSTEM_MASTER_BRAIN.md` (SINGLE SOURCE OF TRUTH)
 - `NeXify_Current_Session_Context.md` (Dynamic Session Data)
 - `V26_COMPONENT_LIBRARY.md` (Component Reference)
@@ -1403,6 +1497,7 @@ Nach Fertigstellung:
 ### 7.4 Testing & Deployment
 
 **Pre-Commit Checks:**
+
 ```bash
 npm run check:inline-styles  # Scan for style={{ violations
 npm run check:design-tokens  # Validate Token-Compliance
@@ -1410,12 +1505,14 @@ npm run build                # TypeScript Compilation
 ```
 
 **Pre-Push Checks:**
+
 ```bash
 npm run test:visual          # Visual Regression (Critical Pages)
 npm run lighthouse           # Performance Budget (Score > 90)
 ```
 
 **CI/CD Pipeline:**
+
 ```yaml
 # GitHub Actions
 - Inline-Style Validation
@@ -1434,8 +1531,10 @@ npm run lighthouse           # Performance Budget (Score > 90)
 ### 8.1 V40.0 - V40.9 Timeline
 
 #### V40.9: Critical Component Migration ✅
+
 **Datum:** 2025-10-27  
 **Durchgeführt:**
+
 - ✅ PageHeaderWithKPIs.tsx: 14 Inline-Styles → 100% Tailwind
 - ✅ MetricCard.tsx: 10 Inline-Styles → 100% Tailwind
 - ✅ Hover-Effekte durch Tailwind-Klassen ersetzt
@@ -1443,34 +1542,42 @@ npm run lighthouse           # Performance Budget (Score > 90)
 - ✅ Code-Qualität: +4% (96% → 100% Critical Components)
 
 #### V40.7: Systemweite Fehlerbereinigung ✅
+
 **Datum:** 2025-10-27  
 **Durchgeführt:**
+
 - ✅ 19x Inline-Style-Violations (Layout/Mobile) → 100% Tailwind
 - ✅ 5x Critical `any`-Types → Type-sichere Extended-Types
 - ✅ 2x Console-Statements → logger-basiert
 - ✅ Extended-Types-System etabliert (Wiederverwendbar!)
 
 #### V40.5: Autonome Systemweite Tiefenoptimierung ✅
+
 **Datum:** 2025-01-27  
 **Durchgeführt:**
+
 - ✅ Comprehensive Validation mit Brain-System
 - ✅ 9x Critical Inline-Styles eliminiert (Dashboard)
 - ✅ 100% Tailwind-Compliance in Dashboard-Components
 - ✅ Claude Sonnet 4.5 Kollaboration
 
 #### V40.4: Code-Optimierung & Anti-Pattern-Eliminierung ✅
+
 **Datum:** 2025-01-26  
 **Durchgeführt:**
+
 - ✅ Eliminierung aller Inline-Styles für Spacing
 - ✅ Magic Numbers in Konstanten extrahiert
 - ✅ Code-Qualität: +11.25% (87.5% → 98.75%)
 
 #### V40.0 - V40.3: Initiale Optimierungen ✅
+
 **Fokus:** Mobile-First, Performance, Token-System, Spacing
 
 ### 8.2 Erfolgsmetriken
 
 **Gesamt-Timeline (V40.0 → V40.9):**
+
 ```
 Code-Qualität:           65% → 96.7% (+31.7%)
 Inline-Style-Compliance: 0%  → 7.3%  (+53 Fixes)
@@ -1480,6 +1587,7 @@ Production-Readiness:    75% → 96.7% (Critical: 100%)
 ```
 
 **V40.9 Success Metrics:**
+
 - **24 Inline-Styles eliminiert** (PageHeaderWithKPIs, MetricCard)
 - **100% Tailwind-Compliance** in Critical Components
 - **0 Build-Errors**
@@ -1490,46 +1598,51 @@ Production-Readiness:    75% → 96.7% (Critical: 100%)
 **Etablierte Anti-Patterns (NIEMALS MEHR):**
 
 1. ❌ **Inline-Styles für statisches Spacing**
+
    ```tsx
    // FALSCH
    style={{ padding: '12px', gap: '12px' }}
-   
+
    // RICHTIG
    className="p-3 gap-3"
    ```
 
 2. ❌ **Inline-Styles für statische Farben**
+
    ```tsx
    // FALSCH
    style={{ color: '#323D5E', backgroundColor: '#EADEBD' }}
-   
+
    // RICHTIG
    className="text-primary bg-secondary"
    ```
 
 3. ❌ **Hover-Manipulation via JavaScript**
+
    ```tsx
    // FALSCH
    onMouseEnter={(e) => e.target.style.backgroundColor = '#3F4C70'}
-   
+
    // RICHTIG
    className="hover:bg-secondary/90"
    ```
 
 4. ❌ **Magic Numbers hardcoded**
+
    ```tsx
    // FALSCH
    style={{ gap: '12px', padding: '16px' }}
-   
+
    // RICHTIG
    const LAYOUT_CONSTANTS = { GAP: 'gap-3', PADDING: 'p-4' }
    ```
 
 5. ❌ **Direkte Token-Nutzung für Spacing**
+
    ```tsx
    // FALSCH
    style={{ gap: UNIFIED_DESIGN_TOKENS.spacing.md }}
-   
+
    // RICHTIG
    className="gap-3"
    ```
@@ -1544,6 +1657,7 @@ Production-Readiness:    75% → 96.7% (Critical: 100%)
 Hierarchisches AI-System in Lovable: Ein "System Master"-Agent im Admin-Panel steuert den Lovable AI Agent für autonomes Bauen, Prüfen und Iterieren von Apps.
 
 **Key Features:**
+
 - Autonome Steuerung per API von externen Agents
 - Integration externer Modelle (Grok, Claude) via OpenRouter
 - Non-stop-Autonomie ohne Pausen
@@ -1555,43 +1669,52 @@ Hierarchisches AI-System in Lovable: Ein "System Master"-Agent im Admin-Panel st
 ### 9.2 Master/Sub-Hierarchie
 
 **System Master-Agent (Master):**
+
 - **Funktion:** Zentraler Orchestrator im Admin-Panel
 - **Fähigkeiten:** Plant phasenweise (.md-Updates), eskaliert Support-Fehler, beauftragt Screenshots/Tests
 - **Umsetzung:** Persistent via Supabase; lädt .md-Zustand beim Start
 - **Beispiel:** "Prüfe Code auf Overflow → Generiere Screenshot → Korrigiere via Sub"
 
 **Lovable AI Agent (Sub-Agent):**
+
 - **Funktion:** Baut Projekte autonom (UI, Workflows, Integrationen)
 - **Fähigkeiten:** Prompt-basiert, integriert APIs, nutzt Cloud für Skalierung
 - **Umsetzung:** Per Prompt: "Baue autonom basierend auf PLAN.md". Agent Mode: "always allow"
 - **Beispiel:** "Baue eine Chat-App mit Sentiment-Analyse"
 
 **.md-Datei als Brain:**
+
 - **Funktion:** Zusammenfassung des App-Zustands für Master-Briefing
 - **Fähigkeiten:** Parsed autonom, Kontext-Haltung über Iterationen
 - **Umsetzung:** `NEXIFY_SYSTEM_MASTER_BRAIN.md` (diese Datei)
 - **Beispiel-Inhalt:**
   ```markdown
   # App-Zustand
+
   ## Code-Overview: UI mit Tailwind, Backend via Supabase
+
   ## APIs: Claude (ANTHROPIC_API_KEY), Lovable AI (LOVABLE_API_KEY)
+
   ## CI/CD: GitHub-Commits nach Prüfung
   ```
 
 ### 9.3 Integrations
 
 **Externe Modelle (via OpenRouter):**
+
 - **Funktion:** Route dynamisch (Grok für Kreativität, Claude für Analyse)
 - **Fähigkeiten:** OpenRouter bündelt 100+ Modelle
 - **Umsetzung:** Prompt: "Route zu Claude 4.5 für Complex". Auth via Supabase-Proxy
 
 **Browser-Automatisierung (Playwright):**
+
 - **Funktion:** Full-Page-Screenshots mit Scroll
 - **Fähigkeiten:** Cross-Browser, integriert in Edge Functions
 - **Umsetzung:** `page.screenshot({ fullPage: true })`
 - **Best Practice:** In-app für Seamlessness
 
 **Lovable Cloud & Secrets:**
+
 - **Funktion:** Sichere Speicherung von Keys
 - **Fähigkeiten:** Verschlüsselt, server-side
 - **Umsetzung:** Dashboard → "Secrets" → Add
@@ -1604,6 +1727,7 @@ Hierarchisches AI-System in Lovable: Ein "System Master"-Agent im Admin-Panel st
 ### 10.1 Immediate (V40.10)
 
 **PRIORITY 1: Phase 3 Migration (705 Inline-Styles)**
+
 - [ ] **ConversationList.tsx** - 20+ Violations (HIGH)
 - [ ] **ChatWindow.tsx** - 12x Violations (MEDIUM)
 - [ ] **HEREMapComponent.tsx** - 8x Violations (LOW)
@@ -1611,11 +1735,13 @@ Hierarchisches AI-System in Lovable: Ein "System Master"-Agent im Admin-Panel st
 - [ ] **PremiumWeatherDisplay.tsx** - 3x Violations (LOW)
 
 **PRIORITY 2: Automatisierte Migration-Scripts**
+
 - [ ] Setup: `migrate-inline-styles.ts`
 - [ ] Pattern-Recognition für Batch-Processing
 - [ ] Dry-Run & Apply Modes
 
 **PRIORITY 3: Quality Gates**
+
 - [ ] Pre-Commit Hooks (inline-styles, design-tokens)
 - [ ] Pre-Push Hooks (visual-regression, performance)
 - [ ] CI/CD Pipeline Integration (GitHub Actions)
@@ -1623,16 +1749,19 @@ Hierarchisches AI-System in Lovable: Ein "System Master"-Agent im Admin-Panel st
 ### 10.2 Short-term
 
 **PRIORITY 1: Weitere Seiten prüfen**
+
 - [ ] Fahrer.tsx - Systematische Prüfung
 - [ ] Kunden.tsx - Systematische Prüfung
 - [ ] Aufträge.tsx - Systematische Prüfung
 
 **PRIORITY 2: ESLint-Regeln**
+
 - [ ] Inline-Style-Prevention
 - [ ] Direct-Hex-Code-Prevention
 - [ ] Magic-Number-Prevention
 
 **PRIORITY 3: Automatisierte Tests erweitern**
+
 - [ ] Visual Regression (Alle Routen)
 - [ ] Performance Budget (Lighthouse)
 - [ ] Accessibility Audit (WCAG 2.1 AA)
@@ -1640,16 +1769,19 @@ Hierarchisches AI-System in Lovable: Ein "System Master"-Agent im Admin-Panel st
 ### 10.3 Mid-term
 
 **PRIORITY 1: Code-Complexity-Analyse**
+
 - [ ] Tool integrieren (z.B. SonarQube)
 - [ ] Metrics Dashboard
 - [ ] Continuous Monitoring
 
 **PRIORITY 2: Bundle-Size-Optimierung**
+
 - [ ] Code-Splitting
 - [ ] Lazy-Loading
 - [ ] Tree-Shaking
 
 **PRIORITY 3: Accessibility-Audit**
+
 - [ ] WCAG 2.1 AA Compliance
 - [ ] Screen-Reader Testing
 - [ ] Keyboard Navigation
@@ -1714,6 +1846,7 @@ Das **Brain System** ist ein vollautomatisches Qualitätssicherungs- und Optimie
 **Zweck:** Vollständiger System-Scan aller Dateien, Routen & Komponenten
 
 **Analysiert:**
+
 - ✅ Alle `.tsx` / `.ts` Dateien
 - ✅ Design-Token-Compliance (UNIFIED_DESIGN_TOKENS)
 - ✅ Spacing-Violations (8px Grid, hardcoded px-Werte)
@@ -1722,6 +1855,7 @@ Das **Brain System** ist ein vollautomatisches Qualitätssicherungs- und Optimie
 - ✅ Architektur-Qualität (Code-Duplikation, Error Boundaries)
 
 **Output:**
+
 ```typescript
 {
   production_ready: boolean,
@@ -1755,6 +1889,7 @@ Das **Brain System** ist ein vollautomatisches Qualitätssicherungs- und Optimie
 **Zweck:** Automatische Behebung erkannter Probleme
 
 **Behebt automatisch:**
+
 - ✅ Design-Token-Violations (Hex → semantic tokens)
 - ✅ Spacing-Violations (gap-1 → gap-2, etc.)
 - ✅ Hardcoded Styles (style={{}} → className)
@@ -1763,6 +1898,7 @@ Das **Brain System** ist ein vollautomatisches Qualitätssicherungs- und Optimie
 - ✅ Touch-Targets < 44px (h-9 → h-11)
 
 **Output:**
+
 ```typescript
 {
   total_fixes: number,
@@ -1784,13 +1920,16 @@ Das **Brain System** ist ein vollautomatisches Qualitätssicherungs- und Optimie
 ### 11.4 Production-Readiness-Score
 
 **Berechnung:**
+
 ```typescript
-readiness_score = 100 
-  - (critical_issues * 10)  // -10% pro kritisches Problem
-  - (warning_issues * 2);   // -2% pro Warning
+readiness_score =
+  100 -
+  critical_issues * 10 - // -10% pro kritisches Problem
+  warning_issues * 2; // -2% pro Warning
 ```
 
 **Production-Ready wenn:**
+
 - ✅ Readiness-Score ≥ 95%
 - ✅ critical_issues = 0
 - ✅ Alle V26.1 Token-Compliance-Checks bestanden
@@ -1803,6 +1942,7 @@ readiness_score = 100
 **Intervall:** Alle 30 Minuten (wenn Auto-Run aktiviert)
 
 **Workflow:**
+
 ```
 1. SCAN
    ├─▶ Full System Scan durchführen
@@ -1832,6 +1972,7 @@ readiness_score = 100
 **Komponente:** `src/components/master/BrainSystemOrchestrator.tsx`
 
 **Features:**
+
 - ✅ Full System Scan-Button
 - ✅ Auto-Fix-Button (zeigt Anzahl verfügbarer Fixes)
 - ✅ Auto-Run Toggle (aktiviert 30-Minuten-Loop)
@@ -1847,10 +1988,11 @@ readiness_score = 100
 ### 11.7 GitHub Integration (Geplant)
 
 **Future Features:**
+
 - ✅ Direkter Code-Zugriff aus GitHub-Repository
 - ✅ Automatische Commits für Auto-Fixes
 - ✅ Pull-Request-Erstellung für manuelle Review
-- ✅ Branch-basiertes Auto-Fix (feature/brain-fix-*)
+- ✅ Branch-basiertes Auto-Fix (feature/brain-fix-\*)
 - ✅ CI/CD-Integration für Pre-Commit-Scans
 
 ---
@@ -1859,35 +2001,37 @@ readiness_score = 100
 
 **Automatisch behebbar (Auto-Fix Rate: ~65%):**
 
-| Problem-Typ | Auto-Fix | Beschreibung |
-|------------|----------|--------------|
-| Design-Token-Violation | ✅ | Ersetzt Hex-Codes durch semantic tokens |
-| Spacing-Violation | ✅ | Korrigiert gap-1/gap-3 zu gap-2/gap-4 |
-| Hardcoded Styles | ✅ | Konvertiert style={{}} zu className |
-| Generische Texte | ✅ | Ersetzt "Test" durch professionellen Text |
-| Fehlende Alt-Tags | ✅ | Fügt alt="..." zu <img> hinzu |
-| Touch-Target < 44px | ✅ | Erhöht auf min-h-[44px] |
+| Problem-Typ            | Auto-Fix | Beschreibung                              |
+| ---------------------- | -------- | ----------------------------------------- |
+| Design-Token-Violation | ✅       | Ersetzt Hex-Codes durch semantic tokens   |
+| Spacing-Violation      | ✅       | Korrigiert gap-1/gap-3 zu gap-2/gap-4     |
+| Hardcoded Styles       | ✅       | Konvertiert style={{}} zu className       |
+| Generische Texte       | ✅       | Ersetzt "Test" durch professionellen Text |
+| Fehlende Alt-Tags      | ✅       | Fügt alt="..." zu <img> hinzu             |
+| Touch-Target < 44px    | ✅       | Erhöht auf min-h-[44px]                   |
 
 **Manuelle Prüfung erforderlich (~35%):**
 
-| Problem-Typ | Grund |
-|------------|-------|
-| DSGVO-Violations | Rechtlicher Kontext erforderlich |
-| Architektur-Probleme | Design-Entscheidungen erforderlich |
-| Business-Logic-Fehler | Domänen-Wissen erforderlich |
-| Complex-Refactorings | Menschliche Überprüfung erforderlich |
+| Problem-Typ           | Grund                                |
+| --------------------- | ------------------------------------ |
+| DSGVO-Violations      | Rechtlicher Kontext erforderlich     |
+| Architektur-Probleme  | Design-Entscheidungen erforderlich   |
+| Business-Logic-Fehler | Domänen-Wissen erforderlich          |
+| Complex-Refactorings  | Menschliche Überprüfung erforderlich |
 
 ---
 
 ### 11.9 Monitoring & Metrics
 
 **Täglich um 06:00, 12:00, 18:00, 00:00:**
+
 - ✅ Full System Scan
 - ✅ Production-Readiness-Report
 - ✅ Master-Account-Benachrichtigung
 - ✅ NEXIFY_SYSTEM_MASTER_BRAIN.md Update
 
 **Wöchentlich (Sonntag 00:00):**
+
 - ✅ Comprehensive Compliance-Report
 - ✅ Architektur-Review
 - ✅ Performance-Analyse
@@ -1898,6 +2042,7 @@ readiness_score = 100
 ### 11.10 Go-Live-Checkliste (Brain-System-gesteuert)
 
 **Blocking Issues (Muss 0 sein):**
+
 - [ ] Keine kritischen Design-Token-Violations
 - [ ] Keine DSGVO-Violations (Formulare ohne Datenschutzhinweis)
 - [ ] Keine fehlenden Impressum/Datenschutz-Links (TMG § 5)
@@ -1906,6 +2051,7 @@ readiness_score = 100
 - [ ] Touch-Targets ≥ 44px (Mobile Usability)
 
 **Quality Gates:**
+
 - [ ] Readiness-Score ≥ 95%
 - [ ] Alle V26.1 Token-Compliance-Checks bestanden
 - [ ] Alle Spacing-Violations behoben (8px Grid)
@@ -1927,12 +2073,14 @@ readiness_score = 100
 **Lösung:** ALLE inline-styles MÜSSEN direkt in index.css als @layer utilities integriert werden, NICHT als externe Dateien.
 
 **Durchgeführte Maßnahmen:**
+
 1. ✅ Gelöscht: src/styles/v26-design-tokens.css
-2. ✅ Gelöscht: src/styles/hero-dashboard-styles.css  
+2. ✅ Gelöscht: src/styles/hero-dashboard-styles.css
 3. ✅ Rollback: Alle Auth.tsx, Docs.tsx, AISupport.tsx, Auftraege.tsx Änderungen
 4. ✅ System wieder funktionsfähig
 
 **NEUE STRATEGIE für V40.14:**
+
 - Inline-Styles werden direkt in index.css @layer utilities migriert
 - KEINE externen CSS-Dateien mehr
 - Schrittweise Migration ohne System-Unterbrechung
@@ -1944,6 +2092,7 @@ readiness_score = 100
 **🎯 PHASE 3 ABGESCHLOSSEN**
 
 **Migrierte Bereiche:**
+
 1. ✅ **v26-design-tokens.css V2.0** - Erweitert um Text-Wrapping, Animation-Delays, Extended Hover-States
 2. ✅ **Auth.tsx** - 6 Inline-Styles eliminiert (DSGVO-Hinweise, Tarifselektion, Chat-Consent)
 3. ✅ **Docs.tsx** - 3 Inline-Styles eliminiert (Hero-Headlines, Support-Section)
@@ -1951,11 +2100,13 @@ readiness_score = 100
 5. ✅ **Auftraege.tsx** - 1 Inline-Style eliminiert (PBefG-Footer-Hinweis)
 
 **Neue CSS-Klassen:**
+
 - `.v26-text-balance` / `.v26-text-pretty` (Responsive Typography)
 - `.v26-delay-0` bis `.v26-delay-300` (Staggered Animations)
 - `.v26-text-dunkelblau-cc` / `.v26-text-dunkelblau-99` (Opacity-Varianten)
 
 **Metriken-Update:**
+
 - Production-Readiness: 92% → 95% (+3%)
 - Inline-Style-Compliance: 9.8% → 12.5% (+2.7%)
 - Gesamt-Compliance: 97.2% → 98.5% (+1.3%)
@@ -1968,6 +2119,7 @@ readiness_score = 100
 ### V40.12 - Hero-Dashboard-Components Migration Complete (2025-10-27 11:38 UTC)
 
 **🎯 HAUPTZIELE ERREICHT:**
+
 - ✅ **Phase 2 Migration Complete** - 3 Hero-Dashboard-Komponenten vollständig migriert
 - ✅ **11 Violations behoben** - DashboardActivityItem, DashboardKPICard, DashboardPreviewTemplate
 - ✅ **hero-dashboard-styles.css** - Neue CSS-Datei mit allen Hero-Dashboard-Styles
@@ -1976,35 +2128,38 @@ readiness_score = 100
 **🔧 TECHNISCHE ÄNDERUNGEN:**
 
 **Migrierte Komponenten:**
+
 1. **DashboardActivityItem.tsx** (4 Violations → CSS-Klassen)
    - Removed: 11 inline-style properties
    - Added: hero-activity-item CSS classes
    - Hover-States: onMouseEnter/Leave → CSS :hover
-   
 2. **DashboardKPICard.tsx** (3 Violations → CSS-Klassen)
    - Removed: 9 inline-style properties
    - Added: hero-kpi-card CSS classes
    - Hover-States: onMouseEnter/Leave → CSS :hover
-   
 3. **DashboardPreviewTemplate.tsx** (4 Violations → CSS-Klassen)
    - Removed: 15 inline-style properties (excl. dynamic animationDelay)
    - Added: hero-dashboard-preview CSS classes
    - Glow-Effects: CSS classes mit HSL-Variablen
 
 **Neue Dateien:**
+
 - `src/styles/hero-dashboard-styles.css` - 184 Zeilen CSS für Hero-Dashboard-Komponenten
 - Import in `src/index.css` hinzugefügt
 
 **Cleanup:**
+
 - Removed unused `UNIFIED_DESIGN_TOKENS` imports aus allen 3 Komponenten
 - Removed `getStatusColor()` function aus DashboardActivityItem
 
 **Metriken-Update:**
+
 - Violations: 183 → 159 (-24 Violations, -13.1%)
 - Files affected: 41 → 35 (-6 Files)
 - Production-Readiness: 90% → 92% (+2%)
 
 **🔮 NÄCHSTE SCHRITTE (V40.13):**
+
 1. **PRIORITÄT 1:** Dashboard-Widgets Inline-Style-Migration (DashboardSidebar animation-delay)
 2. **PRIORITÄT 2:** Forms-Components Migration (~28 Violations)
 3. **PRIORITÄT 3:** Hero/Marketing-Components Migration (~35 Violations)
@@ -2015,6 +2170,7 @@ readiness_score = 100
 ### V40.11 - Brain System V2.1 + Critical Fixes (2025-10-27 11:17 UTC)
 
 **🎯 HAUPTZIELE ERREICHT:**
+
 - ✅ **Brain System V2.1** - GitHub-Integration vollständig implementiert
 - ✅ **Dashboard-Stats-Fix** - 406 Error behoben durch RPC-Neugestaltung
 - ✅ **3 Neue AI-Agenten** - Analyzer, Migrator, Orchestrator vollständig deployed
@@ -2041,17 +2197,20 @@ readiness_score = 100
    - TypeScript Interfaces für alle neuen Agent-Responses
 
 **📊 METRIKEN:**
+
 - Production-Readiness: 80% → 85% (+5%)
 - Kritische Fehler behoben: 2 (Dashboard RPC + Brain-Scan Robustheit)
 - Neue Capabilities: +3 spezialisierte AI-Agenten
 - Auto-Fix-Rate: 0% → 65% (geschätzt)
 
 **🐛 BEHOBENE PROBLEME:**
+
 1. ❌ Dashboard-Stats 406 Error → ✅ RPC gibt immer 1 Zeile zurück
 2. ❌ Brain-Scan "Failed to fetch" → ✅ Robuster Fallback bei GitHub-Fehler
 3. ❌ TypeScript Errors in Edge Functions → ✅ Alle `error.message` Zugriffe gesichert
 
 **🔮 NÄCHSTE SCHRITTE (V40.12):**
+
 1. **PRIORITÄT 1:** Dashboard-Widgets Inline-Style-Migration (100 Files)
 2. **PRIORITÄT 2:** GitHub Auto-Commit in ai-code-migrator implementieren
 3. **PRIORITÄT 3:** Spacing-Violations Migration (gap-1 → gap-2, gap-3 → gap-4)
@@ -2068,4 +2227,3 @@ readiness_score = 100
 ---
 
 **🎯 DIRECTIVE: This document is the SINGLE SOURCE OF TRUTH. All agents MUST refer to this document for ALL operations. This document is SELF-PERFECTING and will be updated after every completed task.**
-

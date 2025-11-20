@@ -22,7 +22,7 @@ export function QuickStatsWidget({ stats }: QuickStatsWidgetProps) {
       {stats.map((stat, index) => (
         <div key={index} className="flex justify-between items-center text-xs">
           <span className="text-slate-600">{stat.label}</span>
-          <span className={`font-semibold ${stat.highlight ? 'text-blue-600' : 'text-slate-900'}`}>
+          <span className={`font-semibold ${stat.highlight ? "text-blue-600" : "text-slate-900"}`}>
             {stat.value}
           </span>
         </div>
@@ -33,7 +33,7 @@ export function QuickStatsWidget({ stats }: QuickStatsWidgetProps) {
 
 /**
  * USAGE EXAMPLE:
- * 
+ *
  * <QuickStatsWidget
  *   stats={[
  *     { label: 'Heute', value: '12', highlight: true },

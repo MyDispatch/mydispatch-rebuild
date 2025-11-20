@@ -6,8 +6,8 @@
    ✅ Smooth Hover-Effekte
    ================================================================================== */
 
-import { Check, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Check, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ComparisonFeature {
   name: string;
@@ -62,12 +62,14 @@ export function V26ComparisonTable({ features }: V26ComparisonTableProps) {
                       <X className="h-5 w-5 mx-auto text-slate-900/30" />
                     )}
                   </td>
-                  <td className={cn(
-                    "py-4 px-4 text-center bg-slate-100/90",
-                    isLastRow 
-                      ? "border-x-2 border-b-2 border-slate-900" 
-                      : "border-x-2 border-slate-900"
-                  )}>
+                  <td
+                    className={cn(
+                      "py-4 px-4 text-center bg-slate-100/90",
+                      isLastRow
+                        ? "border-x-2 border-b-2 border-slate-900"
+                        : "border-x-2 border-slate-900"
+                    )}
+                  >
                     {feature.business ? (
                       <Check className="h-5 w-5 mx-auto text-slate-900" />
                     ) : (

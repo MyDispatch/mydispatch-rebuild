@@ -8,6 +8,7 @@
 ## 📋 GEFUNDENE REPOSITORIES
 
 ### Repository #1: mydispatch-rebuild
+
 - **URL:** https://github.com/u4231458123-droid/mydispatch-rebuild.git
 - **Status:** ⚠️ ÖFFENTLICH → muss auf PRIVAT
 - **Aktueller Branch:** `main` (vermutlich)
@@ -19,6 +20,7 @@
 ### METHODE 1: GitHub Web Interface (EMPFOHLEN - SCHNELLSTE)
 
 **Schritte:**
+
 1. Öffne: https://github.com/u4231458123-droid/mydispatch-rebuild/settings
 2. Scrolle nach unten zu **"Danger Zone"**
 3. Klicke auf **"Change visibility"**
@@ -27,6 +29,7 @@
 6. ✅ FERTIG! (~30 Sekunden)
 
 **Alternative (falls Settings nicht verfügbar):**
+
 - Gehe zu: https://github.com/u4231458123-droid/mydispatch-rebuild
 - Klicke auf **"Settings"** (rechts oben)
 - Dann wie oben beschrieben
@@ -36,6 +39,7 @@
 ### METHODE 2: GitHub CLI (Automatisch)
 
 **Voraussetzung:**
+
 ```bash
 # GitHub CLI installieren:
 winget install GitHub.cli
@@ -46,6 +50,7 @@ gh auth login
 ```
 
 **Kommando:**
+
 ```powershell
 cd C:\Users\pcour\mydispatch-rebuild
 gh repo edit u4231458123-droid/mydispatch-rebuild --visibility private
@@ -60,12 +65,14 @@ gh repo edit u4231458123-droid/mydispatch-rebuild --visibility private
 **Script:** `scripts/make-repo-private.ps1`
 
 **Ausführen:**
+
 ```powershell
 cd C:\Users\pcour\mydispatch-rebuild
 .\scripts\make-repo-private.ps1
 ```
 
 **Token erstellen:** https://github.com/settings/tokens
+
 - Scope: `repo` (Full control of private repositories)
 
 ---
@@ -73,6 +80,7 @@ cd C:\Users\pcour\mydispatch-rebuild
 ## ✅ VERIFIKATION
 
 Nach dem Wechsel:
+
 ```powershell
 # Mit GitHub CLI:
 gh repo view u4231458123-droid/mydispatch-rebuild --json visibility
@@ -88,14 +96,11 @@ gh repo view u4231458123-droid/mydispatch-rebuild --json visibility
 
 1. **Alle Collaborators informieren** (falls vorhanden)
    - GitHub sendet automatische E-Mail-Benachrichtigung
-   
 2. **CI/CD Secrets prüfen**
    - GitHub Actions funktionieren weiterhin
    - Secrets bleiben erhalten
-   
 3. **Webhooks prüfen** (falls konfiguriert)
    - Webhooks funktionieren weiterhin
-   
 4. **Deployment-Pipelines prüfen**
    - Lovable Cloud: Sollte weiterhin funktionieren
    - Andere Services: Zugriff prüfen
@@ -105,6 +110,7 @@ gh repo view u4231458123-droid/mydispatch-rebuild --json visibility
 ## 📍 NeXify Wiki - Automatisches Laden
 
 ### Wiki-Speicherort:
+
 ```
 Haupt-Wiki: docs/NEXIFY_WIKI_V1.0.md
 Absoluter Pfad: C:\Users\pcour\mydispatch-rebuild\docs\NEXIFY_WIKI_V1.0.md
@@ -113,14 +119,17 @@ Absoluter Pfad: C:\Users\pcour\mydispatch-rebuild\docs\NEXIFY_WIKI_V1.0.md
 ### Automatisches Laden implementiert:
 
 **1. Cursor Rules File erstellt:**
+
 - `.cursorrules` (im Projekt-Root)
 - Lädt automatisch bei jedem Chat-Start
 
 **2. Location-Dokument erstellt:**
+
 - `docs/NEXIFY_WIKI_LOCATION.md`
 - Dokumentiert alle Wiki-Pfade
 
 **3. Workflow:**
+
 - User schreibt: `"Lade das NeXify Wiki"`
 - AI lädt automatisch:
   - `docs/NEXIFY_WIKI_V1.0.md` (Haupt-Wiki)
@@ -130,6 +139,7 @@ Absoluter Pfad: C:\Users\pcour\mydispatch-rebuild\docs\NEXIFY_WIKI_V1.0.md
   - `docs/DESIGN_SYSTEM_LOCK.md`
 
 **4. Fallback:**
+
 - Falls Supabase Edge Function fehlschlägt
 - Lädt lokale Dateien direkt
 
@@ -138,11 +148,13 @@ Absoluter Pfad: C:\Users\pcour\mydispatch-rebuild\docs\NEXIFY_WIKI_V1.0.md
 ## 🎯 GESAMTLÖSUNG - ZUSAMMENFASSUNG
 
 ### ✅ Repository Privacy:
+
 1. **Script bereitgestellt:** `scripts/make-repo-private.ps1`
 2. **Anleitung erstellt:** `scripts/make-repo-private.md`
 3. **Schnellste Methode:** GitHub Web Interface (30 Sekunden)
 
 ### ✅ NeXify Wiki Auto-Load:
+
 1. **Cursor Rules:** `.cursorrules` (automatisches Laden)
 2. **Location-Doc:** `docs/NEXIFY_WIKI_LOCATION.md` (Pfade dokumentiert)
 3. **Workflow:** Trigger `"Lade das NeXify Wiki"` → Auto-Load aller Docs
@@ -170,7 +182,3 @@ Absoluter Pfad: C:\Users\pcour\mydispatch-rebuild\docs\NEXIFY_WIKI_V1.0.md
 
 **Erstellt:** 2025-01-31  
 **Status:** ✅ COMPLETE - READY TO EXECUTE
-
-
-
-

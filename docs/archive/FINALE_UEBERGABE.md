@@ -28,6 +28,7 @@ Alle 12 Dashboard-Seiten wurden nach dem `/rechnungen`-Vorbild harmonisiert:
 - **6 weitere Seiten:** Via Batch-Skript harmonisiert (Auftraege, Fahrer, Kunden, Partner, Schichtzettel, Kommunikation)
 
 **Layout-Korrekturen:**
+
 - MainLayout Desktop `paddingTop`: 88px → 64px
 - MainLayout Mobile `paddingTop`: 80px → 56px
 - Right Sidebar Kollision behoben (`/statistiken` aus `rightSidebarPages` entfernt)
@@ -43,10 +44,12 @@ Alle hardcodierten Farben wurden durch Design Tokens ersetzt:
 ### 2.3. Performance-Optimierung ✅ 45% Reduzierung
 
 **Bundle-Size:**
+
 - **Vorher:** 1.07 MB Haupt-Chunk
 - **Nachher:** 594 KB größter Chunk
 
 **Code-Splitting implementiert:**
+
 - `react-vendor`: 163 KB (React Core isoliert)
 - `ui-vendor`: 134 KB (Radix UI isoliert)
 - `supabase`: 157 KB (Backend isoliert)
@@ -55,6 +58,7 @@ Alle hardcodierten Farben wurden durch Design Tokens ersetzt:
 - `export-libs`: 1.52 MB (Export nur bei Bedarf)
 
 **Production-Optimierungen:**
+
 - `drop_console: true` - Alle console.log entfernt
 - `drop_debugger: true` - Debugger entfernt
 - CSS Code-Splitting aktiviert
@@ -115,6 +119,7 @@ Das Deployment wird automatisch durch den GitHub-Push ausgelöst:
 3. ⏳ **Preview-URL wird generiert** - Verfügbar in ~2-3 Minuten
 
 **Preview-URL prüfen:**
+
 - Gehen Sie zu: https://vercel.com/mydispatchs-projects/mydispatch-rebuild
 - Klicken Sie auf den neuesten Deployment
 - Kopieren Sie die Preview-URL

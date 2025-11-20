@@ -6,13 +6,13 @@
    ✅ Optimiertes Caching mit React Query
    ================================================================================== */
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { createDriversApi, type DriverInsert, type DriverUpdate } from '@/api/drivers';
-import { useAuth } from './use-auth';
-import { queryKeys } from '@/lib/query-client';
-import { handleError, handleSuccess } from '@/lib/error-handler';
-import { useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { createDriversApi, type DriverInsert, type DriverUpdate } from "@/api/drivers";
+import { useAuth } from "./use-auth";
+import { queryKeys } from "@/lib/query-client";
+import { handleError, handleSuccess } from "@/lib/error-handler";
+import { useMemo } from "react";
 
 interface Driver {
   id?: string;
@@ -21,8 +21,8 @@ interface Driver {
   email?: string;
   phone?: string;
   license_number?: string;
-  shift_status?: 'offline' | 'on_duty' | 'available' | 'busy' | 'break';
-  salutation?: 'Herr' | 'Frau' | 'Divers';
+  shift_status?: "offline" | "on_duty" | "available" | "busy" | "break";
+  salutation?: "Herr" | "Frau" | "Divers";
   title?: string;
   address?: string;
   notes?: string;
@@ -45,8 +45,12 @@ export const useDrivers = () => {
   const api = useMemo(() => createDriversApi(supabase), []);
 
   // Fetch all drivers (via API Layer)
-  const { data: drivers = [], isLoading, error } = useQuery({
-    queryKey: queryKeys.drivers(profile?.company_id || ''),
+  const {
+    data: drivers = [],
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: queryKeys.drivers(profile?.company_id || ""),
     queryFn: async () => {
       if (!profile?.company_id) return [];
       return await api.list({ archived: false });
@@ -57,48 +61,48 @@ export const useDrivers = () => {
   // Create driver (via API Layer)
   const createDriver = useMutation({
     mutationFn: async (newDriver: DriverInsert) => {
-      if (!profile?.company_id) throw new Error('Company ID fehlt');
+      if (!profile?.company_id) throw new Error("Company ID fehlt");
       return await api.create({
         ...newDriver,
         company_id: profile.company_id,
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.drivers(profile?.company_id || '') });
-      handleSuccess('Fahrer erfolgreich erstellt');
+      queryClient.invalidateQueries({ queryKey: queryKeys.drivers(profile?.company_id || "") });
+      handleSuccess("Fahrer erfolgreich erstellt");
     },
     onError: (error) => {
-      handleError(error, 'Fahrer konnte nicht erstellt werden');
+      handleError(error, "Fahrer konnte nicht erstellt werden");
     },
   });
 
   // Update driver (via API Layer)
   const updateDriver = useMutation({
     mutationFn: async ({ id, ...updates }: DriverUpdate & { id: string }) => {
-      if (!profile?.company_id) throw new Error('Company ID fehlt');
+      if (!profile?.company_id) throw new Error("Company ID fehlt");
       return await api.update(id, updates);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.drivers(profile?.company_id || '') });
-      handleSuccess('Fahrer erfolgreich aktualisiert');
+      queryClient.invalidateQueries({ queryKey: queryKeys.drivers(profile?.company_id || "") });
+      handleSuccess("Fahrer erfolgreich aktualisiert");
     },
     onError: (error) => {
-      handleError(error, 'Fahrer konnte nicht aktualisiert werden');
+      handleError(error, "Fahrer konnte nicht aktualisiert werden");
     },
   });
 
   // Archive driver (via API Layer)
   const archiveDriver = useMutation({
     mutationFn: async (id: string) => {
-      if (!profile?.company_id) throw new Error('Company ID fehlt');
+      if (!profile?.company_id) throw new Error("Company ID fehlt");
       await api.archive(id);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.drivers(profile?.company_id || '') });
-      handleSuccess('Fahrer archiviert');
+      queryClient.invalidateQueries({ queryKey: queryKeys.drivers(profile?.company_id || "") });
+      handleSuccess("Fahrer archiviert");
     },
     onError: (error) => {
-      handleError(error, 'Fahrer konnte nicht archiviert werden');
+      handleError(error, "Fahrer konnte nicht archiviert werden");
     },
   });
 

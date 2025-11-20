@@ -35,11 +35,13 @@ mydispatch-rebuild/
 ## 🔐 API-KEYS - MYDISPATCH-SPEZIFISCH
 
 ### Frontend (`.env.local`)
+
 **Datei:** `.env.local` (in `.gitignore`)  
 **Projekt:** MyDispatch  
 **Status:** ✅ Gespeichert
 
 **MyDispatch Keys:**
+
 - ✅ `VITE_GOOGLE_API_KEY` → Google Maps
 - ✅ `VITE_DAILY_API_KEY` → Daily.co Video Calls
 - ⏳ `VITE_STRIPE_PUBLISHABLE_KEY` → Payment (aus Docs suchen)
@@ -47,22 +49,26 @@ mydispatch-rebuild/
 - ⏳ `VITE_SENTRY_DSN` → Error Tracking (aus Docs suchen)
 
 ### Backend (Supabase Secrets)
+
 **Ort:** Supabase Dashboard → Settings → Secrets  
 **Projekt:** MyDispatch Supabase Project  
 **Status:** ⏳ Muss konfiguriert werden
 
 **MyDispatch Secrets:**
+
 - ⏳ `ANTHROPIC_API_KEY` → Claude API (für Chat)
 - ⏳ `RESEND_API_KEY` → E-Mail-Versand
 - ⏳ `RESEND_DOMAIN` → Resend Domain-ID
 - ⏳ `DAILY_API_KEY` → Daily.co (falls Edge Functions benötigen)
 
 ### Cursor Extensions
+
 **Ort:** Cursor Settings / Secrets  
 **Projekt:** Global (für alle Projekte verwendbar)  
 **Status:** ⏳ Muss konfiguriert werden
 
 **Global Keys:**
+
 - ⏳ GitHub PAT (für Prompt Saver/Manager)
 - ✅ Tavily MCP API (bereits konfiguriert)
 
@@ -71,12 +77,14 @@ mydispatch-rebuild/
 ## 📋 REGELN FÜR PROJEKT-TRENNUNG
 
 ### ✅ ERLAUBT
+
 - ✅ MyDispatch-spezifische Konfigurationen in `.env.local`
 - ✅ MyDispatch-spezifische Docs in `docs/`
 - ✅ MyDispatch-spezifische Migrations in `supabase/migrations/`
 - ✅ MyDispatch-spezifische Edge Functions in `supabase/functions/`
 
 ### ❌ VERBOTEN
+
 - ❌ Projekt-übergreifende Konfigurationen
 - ❌ Hardcodierte Keys in Code
 - ❌ API-Keys in Git committen
@@ -109,6 +117,7 @@ mydispatch-rebuild/
 ## 📊 MYDISPATCH-SPEZIFISCHE KONFIGURATION
 
 ### Environment Variables
+
 **Datei:** `.env.local` (MyDispatch-spezifisch)
 
 ```env
@@ -122,6 +131,7 @@ VITE_DAILY_API_KEY=e4397b97b3227ce33788210723d0454edfbbb4bc487efe01ec372ca8cc441
 ```
 
 ### Supabase Secrets
+
 **Projekt:** MyDispatch Supabase Project
 
 ```env
@@ -136,6 +146,7 @@ RESEND_DOMAIN=b899dc5b-e1e7-486e-87ef-bccece2d3002
 ## 🚨 WICHTIGE HINWEISE
 
 ### Für AI Agent (NeXify AI MASTER)
+
 1. **IMMER zuerst in MyDispatch Docs suchen**
    - `docs/` durchsuchen
    - Projekt-spezifische Konfigurationen nutzen
@@ -156,6 +167,7 @@ RESEND_DOMAIN=b899dc5b-e1e7-486e-87ef-bccece2d3002
 ## ✅ CHECKLISTE
 
 ### MyDispatch-Konfiguration
+
 - [x] `.env.local` erstellt (MyDispatch-spezifisch)
 - [x] `.env.local.example` erstellt (Template)
 - [x] `.gitignore` prüft (`.env.local` enthalten)
@@ -163,6 +175,7 @@ RESEND_DOMAIN=b899dc5b-e1e7-486e-87ef-bccece2d3002
 - [x] Projekt-Trennung dokumentiert
 
 ### Ausstehend
+
 - [ ] Supabase Secrets setzen (MyDispatch Project)
 - [ ] Cursor Prompt Extensions konfigurieren (Global)
 - [ ] Stripe/HERE/Sentry Keys aus Docs suchen
@@ -181,4 +194,3 @@ RESEND_DOMAIN=b899dc5b-e1e7-486e-87ef-bccece2d3002
 
 **Status:** ✅ PROJEKT-TRENNUNG AKTIV  
 **Nächste Schritte:** Weitere Konfigurationen aus MyDispatch Docs suchen
-

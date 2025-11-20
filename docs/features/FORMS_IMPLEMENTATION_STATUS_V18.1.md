@@ -9,6 +9,7 @@
 ## ✅ ABGESCHLOSSENE SCHRITTE
 
 ### 1. Dokumentation erstellt ✅
+
 - **FORMS_FIELD_REQUIREMENTS.md** - Vollständige Felddokumentation
   - Alle Pflichtfelder und optionale Felder für Fahrer/Fahrzeuge/Kunden
   - Validierungsregeln (E-Mail, Telefon, Datum, Währung)
@@ -17,6 +18,7 @@
   - Datenbankfelder-Mapping
 
 ### 2. AddressInput-Komponente erstellt ✅
+
 - **src/components/forms/AddressInput.tsx**
   - Google Places Autocomplete Integration
   - Automatische Adressvervollständigung
@@ -26,9 +28,11 @@
   - Wiederverwendbar für alle Formulare
 
 ### 3. Datenbank-Migration abgeschlossen ✅
+
 - **Migration V18.1 erfolgreich ausgeführt**
-  
+
 #### drivers Tabelle erweitert:
+
 - ✅ salutation (salutation_type)
 - ✅ title (TEXT)
 - ✅ street, street_number, postal_code, city (TEXT)
@@ -38,6 +42,7 @@
 - ✅ Trigger: `generate_driver_address()` für automatische Adress-Generierung
 
 #### vehicles Tabelle erweitert:
+
 - ✅ brand, model (TEXT)
 - ✅ year (INTEGER mit Constraint)
 - ✅ tuev_expiry_date (DATE)
@@ -53,6 +58,7 @@
 - ✅ profile_image_url (TEXT)
 
 #### customers Tabelle erweitert:
+
 - ✅ customer_type (TEXT DEFAULT 'Privatkunde' mit Constraint)
 - ✅ company_name, tax_id (TEXT mit Constraints für Geschäftskunden)
 - ✅ street, street_number, postal_code, city (TEXT)
@@ -62,6 +68,7 @@
 - ✅ Trigger: `generate_customer_address()` für automatische Adress-Generierung
 
 #### Indexes erstellt:
+
 - ✅ idx_drivers_license_expiry, idx_drivers_salutation
 - ✅ idx_vehicles_tuev_expiry, idx_vehicles_brand, idx_vehicles_year
 - ✅ idx_customers_customer_type, idx_customers_city
@@ -71,11 +78,13 @@
 ## 🔄 NÄCHSTE SCHRITTE
 
 ### 1. Custom Hooks aktualisieren (Priorität: P0)
+
 - [ ] **use-drivers.tsx** - Felder hinzufügen
 - [ ] **use-vehicles.tsx** - Felder hinzufügen
 - [ ] **use-customers.tsx** - NEU erstellen (aktuell kein Hook)
 
 ### 2. Formulare erweitern (Priorität: P0)
+
 - [ ] **Fahrer.tsx** - Alle neuen Felder integrieren
   - Salutation & Title Dropdown
   - AddressInput Component
@@ -96,17 +105,20 @@
   - Zahlungsinformationen
 
 ### 3. Tabellen-Darstellung erweitern (Priorität: P1)
+
 - [ ] **DriversTable.tsx** - Anrede, Titel, Stadt anzeigen
 - [ ] **VehiclesTable.tsx** - Marke, Modell, Jahr anzeigen
 - [ ] **CustomersTable.tsx** - Kundentyp, Stadt anzeigen
 
 ### 4. Detail-Dialog erweitern (Priorität: P1)
+
 - [ ] **DetailDialog.tsx** - Alle neuen Felder anzeigen
   - Führerschein-Ablaufdatum mit Ampel-System
   - TÜV-Ablaufdatum mit Ampel-System
   - Versicherungs-Ende mit Ampel-System
 
 ### 5. Validierung & Testen (Priorität: P0)
+
 - [ ] Formular-Validierung (Zod-Schemas)
 - [ ] AddressInput Google Maps API-Schlüssel testen
 - [ ] Trigger-Funktionen testen
@@ -119,6 +131,7 @@
 ## 📋 BEKANNTE EINSCHRÄNKUNGEN
 
 ### Google Maps API
+
 - **WICHTIG:** Google Maps JavaScript API muss in `index.html` geladen werden:
   ```html
   <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>
@@ -126,11 +139,13 @@
 - API-Schlüssel muss in Secrets konfiguriert sein: `GOOGLE_API_KEY`
 
 ### Constraints
+
 - **Geschäftskunden:** Bei `customer_type = 'Geschäftskunde'` sind `company_name` und `tax_id` Pflicht
 - **Baujahr:** Nur Jahre zwischen 1900 und aktuelles Jahr + 1 erlaubt
 - **VIN:** Maximal 17 Zeichen
 
 ### Datenbank-Trigger
+
 - **Auto-Generierung:** `address` Feld wird automatisch generiert und kann nicht manuell gesetzt werden
 - **Trigger:** Bei jedem `INSERT` oder `UPDATE` werden Adressen neu generiert
 
@@ -141,9 +156,10 @@
 **7 Warnings nach Migration:**
 
 1-6. **Function Search Path Mutable** (6x)
-   - Betrifft: Neue Funktionen ohne `SET search_path`
-   - Status: ⚠️ Zu fixen
-   - Lösung: `SET search_path = public` zu Funktionen hinzufügen
+
+- Betrifft: Neue Funktionen ohne `SET search_path`
+- Status: ⚠️ Zu fixen
+- Lösung: `SET search_path = public` zu Funktionen hinzufügen
 
 7. **Leaked Password Protection Disabled**
    - Betrifft: Supabase Auth Config
@@ -156,16 +172,16 @@
 
 ## 📊 STATISTIKEN
 
-| Metrik | Wert |
-|--------|------|
-| **Neue Spalten (drivers)** | 9 |
-| **Neue Spalten (vehicles)** | 18 |
-| **Neue Spalten (customers)** | 15 |
-| **Neue Trigger** | 2 |
-| **Neue Functions** | 2 |
-| **Neue Indexes** | 6 |
-| **Neue Constraints** | 5 |
-| **Gesamt neue DB-Objekte** | 57 |
+| Metrik                       | Wert |
+| ---------------------------- | ---- |
+| **Neue Spalten (drivers)**   | 9    |
+| **Neue Spalten (vehicles)**  | 18   |
+| **Neue Spalten (customers)** | 15   |
+| **Neue Trigger**             | 2    |
+| **Neue Functions**           | 2    |
+| **Neue Indexes**             | 6    |
+| **Neue Constraints**         | 5    |
+| **Gesamt neue DB-Objekte**   | 57   |
 
 ---
 

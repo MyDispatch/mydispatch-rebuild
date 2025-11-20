@@ -9,6 +9,7 @@
 ## ✅ BEREITS UMGESETZT
 
 ### 1. PWA ✅
+
 - [x] `public/manifest.json` erstellt
 - [x] `public/sw.js` (Service Worker) erstellt
 - [x] `src/components/shared/PWAInstallButton.tsx` erstellt
@@ -16,10 +17,12 @@
 - [x] In `index.html` verlinkt
 
 ### 2. Production Build ✅
+
 - [x] `vite.config.ts`: `minify: 'terser'` aktiviert
 - [x] `cssCodeSplit: true` aktiviert
 
 ### 3. Login-Fix SQL ✅
+
 - [x] `supabase/migrations/20250131_fix_master_login_quick.sql` erstellt
 
 ---
@@ -41,6 +44,7 @@
 ### 2. Edge Functions (9)
 
 **Supabase CLI:**
+
 ```bash
 supabase functions deploy ai-support-chat
 supabase functions deploy fix-master-login
@@ -73,4 +77,3 @@ supabase functions deploy create-master-user
 ---
 
 **Pascal, Deployment-Vorbereitung ist abgeschlossen!** 🚀
-

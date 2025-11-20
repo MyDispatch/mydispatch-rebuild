@@ -23,42 +23,47 @@ KRITISCH: Da du die Knowledge Base nicht editieren kannst, MUSST du ein struktur
 Pflicht-Dokumentationsstruktur:
 text
 /docs
-  ├─ PROJECT_MEMORY.md           # Dein Haupt-Gedächtnis
-  ├─ COMPONENT_REGISTRY.md       # Alle Components (niemals neu erstellen!)
-  ├─ LESSONS_LEARNED.md          # Was hast du gelernt?
-  ├─ AVOIDABLE_ERRORS.md         # Bekannte Fehlerquellen
-  ├─ TECH_DEBT_LOG.md            # Technical Debt Tracking
-  ├─ PERFORMANCE_LOG.md          # Performance Metriken
-  ├─ SECURITY_AUDIT.md           # Security Findings
-  ├─ CHANGELOG.md                # Alle Änderungen chronologisch
-  ├─ ENVIRONMENT_STATUS.md       # Dev/Staging/Prod Status
-  ├─ GDPR_COMPLIANCE.md          # DSGVO Dokumentation
-  ├─ BACKUP_LOG.md               # Backup & Recovery Protokoll
-  ├─ filesExplorer.md            # File-Struktur Übersicht
-  └─ templates/
-      ├─ COMPONENT_TEMPLATE.md   # Standard Component Pattern
-      ├─ API_INTEGRATION_TEMPLATE.md
-      ├─ FORM_TEMPLATE.md
-      └─ TEST_TEMPLATE.md
+├─ PROJECT_MEMORY.md # Dein Haupt-Gedächtnis
+├─ COMPONENT_REGISTRY.md # Alle Components (niemals neu erstellen!)
+├─ LESSONS_LEARNED.md # Was hast du gelernt?
+├─ AVOIDABLE_ERRORS.md # Bekannte Fehlerquellen
+├─ TECH_DEBT_LOG.md # Technical Debt Tracking
+├─ PERFORMANCE_LOG.md # Performance Metriken
+├─ SECURITY_AUDIT.md # Security Findings
+├─ CHANGELOG.md # Alle Änderungen chronologisch
+├─ ENVIRONMENT_STATUS.md # Dev/Staging/Prod Status
+├─ GDPR_COMPLIANCE.md # DSGVO Dokumentation
+├─ BACKUP_LOG.md # Backup & Recovery Protokoll
+├─ filesExplorer.md # File-Struktur Übersicht
+└─ templates/
+├─ COMPONENT_TEMPLATE.md # Standard Component Pattern
+├─ API_INTEGRATION_TEMPLATE.md
+├─ FORM_TEMPLATE.md
+└─ TEST_TEMPLATE.md
+
 1. PROJECT_MEMORY.md - Dein Kern-Gedächtnis
-BEI JEDEM START: Diese Datei ZUERST lesen!
+   BEI JEDEM START: Diese Datei ZUERST lesen!
 
 text
+
 # 🧠 PROJECT MEMORY - Lovable AI Agent Gedächtnis
 
 ## Letzte Session
+
 - Datum: [AUTO-UPDATE bei jeder Session]
 - Letzte Aufgabe: [Was wurde zuletzt gemacht?]
 - Nächste Schritte: [Was kommt als nächstes?]
 - Context Size: [geschätzte Token-Nutzung]
 
 ## Aktueller Projekt-Status
+
 - Branch: main / develop / feature/xyz
 - Environment: Development / Staging / Production
 - Letzte Commits: [Wichtigste 3]
 - Offene Tasks: [Priorisiert]
 
 ## Tech-Stack (AUSWENDIG KENNEN!)
+
 - React 18.2+ mit TypeScript (strict mode)
 - Supabase (Auth, DB, Storage, Realtime)
 - TailwindCSS + shadcn/ui Components
@@ -68,6 +73,7 @@ text
 - Build: Vite 5.x
 
 ## Design System Tokens (IMMER nutzen!)
+
 // Farben
 primary: '#3B82F6'
 secondary: '#10B981'
@@ -87,6 +93,7 @@ sm: 640px, md: 768px, lg: 1024px, xl: 1280px
 text
 
 ## Kritische Erinnerungen
+
 ⚠️ NIEMALS Button Component neu erstellen - existiert bereits!
 ⚠️ IMMER Type Definitions explizit - du vergisst sie sonst
 ⚠️ AuthContext ist in src/contexts/AuthContext.tsx
@@ -94,12 +101,14 @@ text
 ⚠️ GitHub Actions brauchen 2-3 Min - nicht sofort neu triggern
 
 ## Häufige Halluzinationen (STOPP!)
+
 ❌ getUserProfile() existiert NICHT
 ❌ utils/validation.ts existiert NICHT → nutze src/lib/validators.ts
 ❌ formatDate() ist NICHT in utils/ → nutze src/lib/date-utils.ts
 ✅ IMMER erst in filesExplorer.md checken ob File existiert!
 
 ## Session Continuity Checklist
+
 Bei JEDEM Start:
 □ PROJECT_MEMORY.md vollständig lesen
 □ COMPONENT_REGISTRY.md durchsehen
@@ -109,14 +118,16 @@ Bei JEDEM Start:
 □ CHANGELOG.md für letzte Änderungen
 
 ---
-LAST UPDATE: [AUTO-UPDATE Timestamp]
-2. COMPONENT_REGISTRY.md - Component Tracking
+
+LAST UPDATE: [AUTO-UPDATE Timestamp] 2. COMPONENT_REGISTRY.md - Component Tracking
 text
+
 # 📦 COMPONENT REGISTRY
 
 ## ⚠️ REGEL: IMMER PRÜFEN OB COMPONENT EXISTIERT!
 
 Vor JEDER neuen Component-Erstellung:
+
 1. Diese Datei checken
 2. In Codebase suchen (via File Explorer)
 3. Nur wenn NICHT existiert → neu erstellen
@@ -125,6 +136,7 @@ Vor JEDER neuen Component-Erstellung:
 ## UI Components (shadcn/ui based)
 
 ### Button
+
 - **Path:** `src/components/ui/Button.tsx`
 - **Variants:** primary, secondary, outline, ghost, link
 - **Sizes:** sm, md, lg
@@ -133,12 +145,14 @@ Vor JEDER neuen Component-Erstellung:
 - **Docs:** Siehe shadcn/ui Button
 
 ### Input
+
 - **Path:** `src/components/ui/Input.tsx`
 - **Types:** text, email, password, number, tel
 - **Features:** Error states, icons, validation
 - **Pattern:** Nutze mit React Hook Form
 
 ### Card
+
 - **Path:** `src/components/ui/Card.tsx`
 - **Subcomponents:** CardHeader, CardContent, CardFooter
 - **Usage:** Standard Container für alle Sections
@@ -148,6 +162,7 @@ Vor JEDER neuen Component-Erstellung:
 ## Feature Components
 
 ### LoginForm
+
 - **Path:** `src/components/auth/LoginForm.tsx`
 - **Dependencies:** Button, Input, AuthContext, Zod
 - **Tests:** LoginForm.test.tsx
@@ -159,6 +174,7 @@ Vor JEDER neuen Component-Erstellung:
 ## Layout Components
 
 ### DashboardLayout
+
 - **Path:** `src/components/layouts/DashboardLayout.tsx`
 - **Features:** Sidebar, Header, Main Content Area
 - **Responsive:** Mobile collapsible sidebar
@@ -168,23 +184,26 @@ Vor JEDER neuen Component-Erstellung:
 ## 📝 UPDATE PROTOCOL
 
 Bei JEDER neuen Component:
+
 1. Sofort hier eintragen
 2. Path, Props, Usage dokumentieren
 3. filesExplorer.md aktualisieren
 4. CHANGELOG.md Eintrag
 
-LAST UPDATE: [Timestamp]
-3. LESSONS_LEARNED.md - Kontinuierliches Lernen
+LAST UPDATE: [Timestamp] 3. LESSONS_LEARNED.md - Kontinuierliches Lernen
 text
+
 # ✅ LESSONS LEARNED - Mein Lern-Protokoll
 
 ## Meta-Learning: Wie lerne ich?
+
 Ich lerne aus JEDEM Fehler und dokumentiere ihn hier.
 Diese Datei ist mein "zweites Gehirn" für Erfahrungswissen.
 
 ## Pattern: Erfolgreiche Lösungen
 
 ### [2025-10-28] Zod Schema Pattern
+
 **Situation:** Formular-Validation
 **Lösung:** Zentrales Zod Schema in separater Datei
 // src/schemas/auth.schema.ts
@@ -198,6 +217,7 @@ text
 **Nutze ab jetzt immer dieses Pattern!**
 
 ### [2025-10-27] Optional Chaining für User Properties
+
 **Problem:** Viele undefined errors bei user.name, user.email
 **Lösung:** IMMER optional chaining + nullish coalescing
 const userName = user?.name ?? 'Unbekannt'
@@ -209,12 +229,14 @@ text
 ## Anti-Patterns: Was NICHT funktioniert
 
 ### ❌ Component-Duplication
+
 **Fehler:** Button Component neu erstellt statt bestehende zu nutzen
 **Folge:** Inkonsistentes Design, Wartungsproblem
 **Fix:** IMMER erst COMPONENT_REGISTRY.md checken
 **Reminder:** Diese Datei vor JEDER Component-Erstellung lesen!
 
 ### ❌ Fehlende Type Definitions
+
 **Fehler:** Props ohne explizite Types definiert
 **Folge:** Type Errors später, schwer zu debuggen
 **Fix:** Immer interface/type für Props
@@ -229,6 +251,7 @@ text
 ## Performance Learnings
 
 ### [2025-10-26] React.memo() für Dashboard
+
 **Problem:** Unnötige Re-Renders bei jedem State Change
 **Lösung:** React.memo() + useMemo() für calculations
 **Ergebnis:** 40% schnellere Renders
@@ -237,6 +260,7 @@ text
 ## Security Learnings
 
 ### [2025-10-25] Supabase RLS ist PFLICHT
+
 **Fehler:** Daten ohne Row Level Security abgefragt
 **Risiko:** Potentieller Datenleak
 **Fix:** RLS Policies für JEDE Tabelle
@@ -245,6 +269,7 @@ text
 ## Testing Learnings
 
 ### [2025-10-24] E2E Tests sind Investment
+
 **Erkenntnis:** 2h E2E Tests schreiben spart 10h Debugging
 **Pattern:** Kritische User-Flows IMMER mit Playwright testen
 **Priority:** Login, Checkout, Data Submission
@@ -254,17 +279,21 @@ text
 ## 🔄 META-PROMPT OPTIMIERUNG
 
 ### Was funktioniert bei Pascals Prompts?
+
 - Konkrete, spezifische Anforderungen
 - User Stories mit Acceptance Criteria
 - Technische Details vorab geklärt
 
 ### Was führt zu Problemen?
+
 - Vage Anforderungen ("mach es schön")
 - Fehlender Context über Abhängigkeiten
 - Unklare Prioritäten
 
 ### Meine Optimierung:
+
 Ich frage IMMER nach wenn:
+
 - Requirements unklar
 - Technische Details fehlen
 - Abhängigkeiten ungeklärt
@@ -272,12 +301,13 @@ Ich frage IMMER nach wenn:
 ---
 
 LAST UPDATE: [Timestamp]
-AUTO-UPDATE: Bei jedem gelösten Problem eintragen!
-4. ENVIRONMENT_STATUS.md - Environment Management
+AUTO-UPDATE: Bei jedem gelösten Problem eintragen! 4. ENVIRONMENT_STATUS.md - Environment Management
 text
+
 # 🌍 ENVIRONMENT STATUS & PROTECTION
 
 ## Aktives Environment
+
 **Current:** Development ✓
 **Last Switch:** 2025-10-28 10:00 CET
 **Switched by:** Pascal
@@ -285,6 +315,7 @@ text
 ## Environment Overview
 
 ### 🟢 Development
+
 - **Branch:** develop
 - **URL:** http://localhost:5173
 - **Supabase:** dev-project-xyz
@@ -294,6 +325,7 @@ text
 - **Tests:** Unit + Integration required
 
 ### 🟡 Staging
+
 - **Branch:** staging
 - **URL:** https://staging.project.com
 - **Supabase:** staging-project-xyz
@@ -303,6 +335,7 @@ text
 - **Tests:** Unit + Integration + E2E required
 
 ### 🔴 Production
+
 - **Branch:** main
 - **URL:** https://project.com
 - **Supabase:** prod-project-xyz
@@ -347,6 +380,7 @@ text
 ## Environment Switch Protocol
 
 **Wann Environment wechseln?**
+
 - Development → Staging: Wenn Feature komplett & getestet
 - Staging → Production: Nach erfolgreichen Staging-Tests & Approval
 
@@ -400,17 +434,19 @@ text
 
 ---
 
-LAST UPDATE: [Timestamp]
-5. GDPR_COMPLIANCE.md - DSGVO Dokumentation
+LAST UPDATE: [Timestamp] 5. GDPR_COMPLIANCE.md - DSGVO Dokumentation
 text
+
 # 🔐 GDPR / DSGVO COMPLIANCE
 
 ## Data Protection Principles
 
 ### 1. Data Minimization
+
 **Regel:** Nur speichern was absolut nötig ist
 
 **Implementation:**
+
 - User Registration: nur Email + Password
 - Profil: nur benötigte Felder
 - Analytics: anonymisiert
@@ -439,6 +475,7 @@ name: string
 text
 
 ### 2. Purpose Limitation
+
 **Regel:** Daten nur für angegebenen Zweck nutzen
 
 **Documentation:** In Privacy Policy klar kommunizieren
@@ -447,6 +484,7 @@ text
 ### 3. Storage Limitation (Data Retention)
 
 **Retention Periods:**
+
 - **Active Users:** Unbegrenzt (solange Account aktiv)
 - **Inactive Users (>90 Tage keine Aktivität):** Erinnerung senden
 - **Inactive Users (>180 Tage):** Account-Archivierung Ankündigung
@@ -460,11 +498,13 @@ sql
 CREATE OR REPLACE FUNCTION cleanup_inactive_users()
 RETURNS void AS $$
 BEGIN
-  DELETE FROM users 
-  WHERE last_login < NOW() - INTERVAL '365 days'
-  AND deletion_requested = false;
+DELETE FROM users
+WHERE last_login < NOW() - INTERVAL '365 days'
+AND deletion_requested = false;
 END;
-$$ LANGUAGE plpgsql;
+
+$$
+LANGUAGE plpgsql;
 
 -- Cron Job (täglich)
 SELECT cron.schedule(
@@ -492,12 +532,12 @@ async function deleteUserAccount(userId: string) {
   // 1. Markiere als deletion_requested
   await supabase
     .from('users')
-    .update({ 
+    .update({
       deletion_requested: true,
       deletion_requested_at: new Date()
     })
     .eq('id', userId)
-  
+
   // 2. Schedule Deletion (nach 30 Tagen)
   await supabase
     .from('scheduled_deletions')
@@ -505,7 +545,7 @@ async function deleteUserAccount(userId: string) {
       user_id: userId,
       execute_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
     })
-  
+
   // 3. Send Confirmation Email
   await sendEmail({
     to: user.email,
@@ -523,19 +563,19 @@ async function exportUserData(userId: string) {
     .select('*')
     .eq('id', userId)
     .single()
-  
+
   const userPosts = await supabase
     .from('posts')
     .select('*')
     .eq('user_id', userId)
-  
+
   // Export als JSON
   const exportData = {
     user: userData,
     posts: userPosts,
     exported_at: new Date()
   }
-  
+
   return JSON.stringify(exportData, null, 2)
 }
 6. Security Measures
@@ -943,3 +983,4 @@ text
 ---
 
 **ENDE**
+$$

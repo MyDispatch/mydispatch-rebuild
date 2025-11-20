@@ -4,13 +4,17 @@
    Bedingtes Feld für manuelle Provisions-Eingabe in Aufträgen
    ================================================================================== */
 
-import { useState, useEffect } from 'react';
-import { Input } from '@/lib/compat';
-import { Label } from '@/components/ui/label';
-import { Info, AlertCircle } from 'lucide-react';
-import { calculateProvision, validateManualProvision, formatProvisionDisplay } from '@/lib/provision-utils';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Badge } from '@/lib/compat';
+import { useState, useEffect } from "react";
+import { Input } from "@/lib/compat";
+import { Label } from "@/components/ui/label";
+import { Info, AlertCircle } from "lucide-react";
+import {
+  calculateProvision,
+  validateManualProvision,
+  formatProvisionDisplay,
+} from "@/lib/provision-utils";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/lib/compat";
 
 interface ProvisionFieldProps {
   bookingPrice: number;
@@ -30,7 +34,7 @@ export function ProvisionField({
   const [manualValue, setManualValue] = useState<string>(
     currentManualProvision !== null && currentManualProvision !== undefined
       ? currentManualProvision.toString()
-      : ''
+      : ""
   );
   const [error, setError] = useState<string | undefined>();
 
@@ -49,7 +53,7 @@ export function ProvisionField({
     if (currentManualProvision !== null && currentManualProvision !== undefined) {
       setManualValue(currentManualProvision.toString());
     } else {
-      setManualValue('');
+      setManualValue("");
     }
   }, [currentManualProvision]);
 
@@ -68,7 +72,7 @@ export function ProvisionField({
   };
 
   const handleReset = () => {
-    setManualValue('');
+    setManualValue("");
     setError(undefined);
     onChange(null);
   };
@@ -79,7 +83,7 @@ export function ProvisionField({
         <Label htmlFor="manual-provision" className="text-sm font-medium">
           Provision (optional)
         </Label>
-        {automaticCalc.type === 'automatic' && (
+        {automaticCalc.type === "automatic" && (
           <Badge variant="outline" className="text-xs">
             Auto: {formatProvisionDisplay(automaticCalc)}
           </Badge>
@@ -94,14 +98,14 @@ export function ProvisionField({
           min="0"
           max={bookingPrice}
           placeholder={
-            automaticCalc.type === 'automatic'
+            automaticCalc.type === "automatic"
               ? `Standard: ${automaticCalc.amount.toFixed(2)} €`
-              : 'Manuellen Betrag eingeben'
+              : "Manuellen Betrag eingeben"
           }
           value={manualValue}
           onChange={(e) => handleChange(e.target.value)}
           disabled={disabled}
-          className={error ? 'border-destructive' : ''}
+          className={error ? "border-destructive" : ""}
         />
 
         {manualValue && (
@@ -122,14 +126,14 @@ export function ProvisionField({
         </Alert>
       )}
 
-      {!error && automaticCalc.type === 'automatic' && !manualValue && (
+      {!error && automaticCalc.type === "automatic" && !manualValue && (
         <Alert className="py-2 bg-muted/50">
           <Info className="h-4 w-4" />
           <AlertDescription className="text-xs">
-            Automatische Berechnung: {partnerProvisionRate}% von{' '}
-            {new Intl.NumberFormat('de-DE', {
-              style: 'currency',
-              currency: 'EUR',
+            Automatische Berechnung: {partnerProvisionRate}% von{" "}
+            {new Intl.NumberFormat("de-DE", {
+              style: "currency",
+              currency: "EUR",
             }).format(bookingPrice)}
           </AlertDescription>
         </Alert>

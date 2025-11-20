@@ -16,13 +16,13 @@
    ================================================================================== */
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.75.0';
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.75.0";
 
-const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY');
+const ANTHROPIC_API_KEY = Deno.env.get("ANTHROPIC_API_KEY");
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface SelfReportMetrics {
@@ -43,53 +43,53 @@ interface SelfReportInsights {
 }
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
     if (!ANTHROPIC_API_KEY) {
-      throw new Error('ANTHROPIC_API_KEY not configured');
+      throw new Error("ANTHROPIC_API_KEY not configured");
     }
 
-    const supabaseUrl = Deno.env.get('SUPABASE_URL');
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
     if (!supabaseUrl || !supabaseKey) {
-      throw new Error('Supabase credentials not configured');
+      throw new Error("Supabase credentials not configured");
     }
 
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    console.log('[Self-Report] Starting weekly analysis...');
+    console.log("[Self-Report] Starting weekly analysis...");
 
     // 1. Load Data from Last 7 Days
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
     const { data: learnings } = await supabase
-      .from('ai_learning_patterns')
-      .select('*')
-      .gte('learned_at', sevenDaysAgo.toISOString())
-      .order('learned_at', { ascending: false });
+      .from("ai_learning_patterns")
+      .select("*")
+      .gte("learned_at", sevenDaysAgo.toISOString())
+      .order("learned_at", { ascending: false });
 
     const { data: issues } = await supabase
-      .from('known_issues')
-      .select('*')
-      .order('severity', { ascending: false });
+      .from("known_issues")
+      .select("*")
+      .order("severity", { ascending: false });
 
     const { data: snippets } = await supabase
-      .from('code_snippets')
-      .select('*')
-      .gte('last_used', sevenDaysAgo.toISOString())
-      .order('usage_count', { ascending: false });
+      .from("code_snippets")
+      .select("*")
+      .gte("last_used", sevenDaysAgo.toISOString())
+      .order("usage_count", { ascending: false });
 
     const { data: actions } = await supabase
-      .from('ai_actions_log')
-      .select('*')
-      .gte('created_at', sevenDaysAgo.toISOString());
+      .from("ai_actions_log")
+      .select("*")
+      .gte("created_at", sevenDaysAgo.toISOString());
 
-    console.log('[Self-Report] Data loaded:', {
+    console.log("[Self-Report] Data loaded:", {
       learnings: learnings?.length || 0,
       issues: issues?.length || 0,
       snippets: snippets?.length || 0,
@@ -98,16 +98,18 @@ serve(async (req) => {
 
     // 2. Calculate Metrics
     const totalActions = actions?.length || 0;
-    const successfulActions = actions?.filter(a => a.success).length || 0;
+    const successfulActions = actions?.filter((a) => a.success).length || 0;
     const failedActions = totalActions - successfulActions;
 
     const totalIssues = issues?.length || 0;
-    const resolvedIssues = issues?.filter(i => i.resolved).length || 0;
-    const criticalIssues = issues?.filter(i => i.severity === 'critical' && !i.resolved).length || 0;
+    const resolvedIssues = issues?.filter((i) => i.resolved).length || 0;
+    const criticalIssues =
+      issues?.filter((i) => i.severity === "critical" && !i.resolved).length || 0;
 
     const metrics: SelfReportMetrics = {
       hallucination_rate: failedActions / (totalActions || 1),
-      knowledge_check_compliance: learnings?.filter(l => l.success).length / (learnings?.length || 1) || 1.0,
+      knowledge_check_compliance:
+        learnings?.filter((l) => l.success).length / (learnings?.length || 1) || 1.0,
       pattern_reuse_rate: (snippets?.length || 0) / (totalActions || 1),
       auto_fix_success_rate: successfulActions / (totalActions || 1),
       edge_function_error_rate: failedActions / (totalActions || 1),
@@ -140,30 +142,43 @@ Sei KONKRET und ACTIONABLE. Fokussiere dich auf die wichtigsten Erkenntnisse der
     const userPrompt = `Analysiere folgende Daten der letzten 7 Tage:
 
 **LEARNINGS:**
-${learnings?.slice(0, 10).map(l => `- ${l.pattern_type}: ${l.learnings} (Success: ${l.success})`).join('\n')}
+${learnings
+  ?.slice(0, 10)
+  .map((l) => `- ${l.pattern_type}: ${l.learnings} (Success: ${l.success})`)
+  .join("\n")}
 
 **CRITICAL ISSUES:**
-${issues?.filter(i => !i.resolved && i.severity === 'critical').map(i => `- ${i.title}: ${i.description}`).join('\n') || 'Keine kritischen Issues'}
+${
+  issues
+    ?.filter((i) => !i.resolved && i.severity === "critical")
+    .map((i) => `- ${i.title}: ${i.description}`)
+    .join("\n") || "Keine kritischen Issues"
+}
 
 **TOP PATTERNS:**
-${snippets?.slice(0, 5).map(s => `- ${s.snippet_name}: ${s.usage_count} Nutzungen`).join('\n') || 'Keine Pattern-Reuse'}
+${
+  snippets
+    ?.slice(0, 5)
+    .map((s) => `- ${s.snippet_name}: ${s.usage_count} Nutzungen`)
+    .join("\n") || "Keine Pattern-Reuse"
+}
 
 Erstelle einen Self-Report mit den wichtigsten Insights und Empfehlungen.`;
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
+        "Content-Type": "application/json",
+        "x-api-key": ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: "claude-sonnet-4-20250514",
         max_tokens: 4000,
         system: systemPrompt,
         messages: [
           {
-            role: 'user',
+            role: "user",
             content: userPrompt,
           },
         ],
@@ -172,7 +187,7 @@ Erstelle einen Self-Report mit den wichtigsten Insights und Empfehlungen.`;
 
     if (!response.ok) {
       const error = await response.text();
-      console.error('Claude API error:', error);
+      console.error("Claude API error:", error);
       throw new Error(`Claude API error: ${response.status}`);
     }
 
@@ -182,39 +197,37 @@ Erstelle einen Self-Report mit den wichtigsten Insights und Empfehlungen.`;
     // Parse JSON response
     let insights: SelfReportInsights;
     try {
-      const jsonMatch = insightsJson.match(/```json\n([\s\S]*?)\n```/) || 
-                       insightsJson.match(/\{[\s\S]*\}/);
-      const jsonContent = jsonMatch ? (jsonMatch[1] || jsonMatch[0]) : insightsJson;
+      const jsonMatch =
+        insightsJson.match(/```json\n([\s\S]*?)\n```/) || insightsJson.match(/\{[\s\S]*\}/);
+      const jsonContent = jsonMatch ? jsonMatch[1] || jsonMatch[0] : insightsJson;
       insights = JSON.parse(jsonContent);
     } catch (parseError) {
-      console.error('Failed to parse Claude response:', insightsJson);
-      throw new Error('Claude response was not valid JSON');
+      console.error("Failed to parse Claude response:", insightsJson);
+      throw new Error("Claude response was not valid JSON");
     }
 
-    console.log('[Self-Report] Insights generated:', insights);
+    console.log("[Self-Report] Insights generated:", insights);
 
     // 4. Insert Self-Report into Database
-    const { error: insertError } = await supabase
-      .from('ai_self_reports')
-      .insert({
-        report_date: new Date().toISOString(),
-        metrics: metrics,
-        insights: insights,
-        data_summary: {
-          learnings_count: learnings?.length || 0,
-          issues_resolved: resolvedIssues,
-          issues_pending: totalIssues - resolvedIssues,
-          actions_total: totalActions,
-          actions_successful: successfulActions,
-        },
-      });
+    const { error: insertError } = await supabase.from("ai_self_reports").insert({
+      report_date: new Date().toISOString(),
+      metrics: metrics,
+      insights: insights,
+      data_summary: {
+        learnings_count: learnings?.length || 0,
+        issues_resolved: resolvedIssues,
+        issues_pending: totalIssues - resolvedIssues,
+        actions_total: totalActions,
+        actions_successful: successfulActions,
+      },
+    });
 
     if (insertError) {
-      console.error('Failed to insert self-report:', insertError);
+      console.error("Failed to insert self-report:", insertError);
       throw insertError;
     }
 
-    console.log('[Self-Report] Report saved to database');
+    console.log("[Self-Report] Report saved to database");
 
     return new Response(
       JSON.stringify({
@@ -222,23 +235,22 @@ Erstelle einen Self-Report mit den wichtigsten Insights und Empfehlungen.`;
         report_date: new Date().toISOString(),
         metrics,
         insights,
-        message: 'Weekly self-report generated successfully',
+        message: "Weekly self-report generated successfully",
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
     );
-
   } catch (error) {
-    console.error('AI Self-Report Generator error:', error);
+    console.error("AI Self-Report Generator error:", error);
     return new Response(
       JSON.stringify({
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : "Unknown error",
         success: false,
       }),
       {
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
     );
   }

@@ -2,13 +2,14 @@
 
 **Status:** ✅ AKTIV - DIN A4, DIN 5008, DSGVO-konform  
 **Datum:** 21.10.2025  
-**Version:** V18.3.24  
+**Version:** V18.3.24
 
 ---
 
 ## 🎯 ZIELSETZUNG
 
 Professionelles PDF-System für alle Geschäftsdokumente:
+
 - ✅ DIN A4 Format (210mm x 297mm)
 - ✅ DIN 5008 (Deutsche Geschäftsbriefe)
 - ✅ DSGVO-konform (Datenschutzhinweise)
@@ -24,45 +25,46 @@ Professionelles PDF-System für alle Geschäftsdokumente:
 **Datei:** `src/lib/pdf/pdf-generator-invoice.ts`
 
 ```tsx
-import { generateInvoiceHTML, exportInvoicePDF } from '@/lib/pdf/pdf-generator-invoice';
+import { generateInvoiceHTML, exportInvoicePDF } from "@/lib/pdf/pdf-generator-invoice";
 
 const invoiceData = {
-  invoiceNumber: 'RE-2025-0001',
+  invoiceNumber: "RE-2025-0001",
   invoiceDate: new Date(),
   dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
-  
-  customerName: 'Max Mustermann GmbH',
-  customerAddress: 'Musterstraße 123',
-  customerPostal: '80331',
-  customerCity: 'München',
-  customerEmail: 'max@example.com',
-  
-  bookingNumber: 'BK-2025-0042',
+
+  customerName: "Max Mustermann GmbH",
+  customerAddress: "Musterstraße 123",
+  customerPostal: "80331",
+  customerCity: "München",
+  customerEmail: "max@example.com",
+
+  bookingNumber: "BK-2025-0042",
   bookingDate: new Date(),
-  
+
   items: [
     {
       position: 1,
-      description: 'Taxifahrt München Flughafen',
-      amount: 65.00,
-      details: 'Route: Marienplatz → Terminal 2',
+      description: "Taxifahrt München Flughafen",
+      amount: 65.0,
+      details: "Route: Marienplatz → Terminal 2",
     },
   ],
-  
-  subtotal: 65.00,
+
+  subtotal: 65.0,
   taxRate: 19,
   taxAmount: 12.35,
   total: 77.35,
-  
+
   paymentTermsDays: 14,
-  paymentMethod: 'Rechnung',
+  paymentMethod: "Rechnung",
 };
 
 // PDF exportieren
-await exportInvoicePDF(invoiceData, 'Rechnung_RE-2025-0001.pdf');
+await exportInvoicePDF(invoiceData, "Rechnung_RE-2025-0001.pdf");
 ```
 
 **Features:**
+
 - ✅ DIN 5008 Adressblock
 - ✅ Line Items mit Details
 - ✅ MwSt.-Berechnung (19%)
@@ -150,14 +152,14 @@ Sender Line:    Unter 27mm
 
 ```html
 <div class="dsgvo-info">
-  <strong>Datenschutzhinweis:</strong> 
-  Diese Rechnung enthält personenbezogene Daten, die gemäß 
-  Art. 6 Abs. 1 lit. b DSGVO zur Vertragserfüllung verarbeitet werden. 
-  Bei Fragen: datenschutz@my-dispatch.de
+  <strong>Datenschutzhinweis:</strong>
+  Diese Rechnung enthält personenbezogene Daten, die gemäß Art. 6 Abs. 1 lit. b DSGVO zur
+  Vertragserfüllung verarbeitet werden. Bei Fragen: datenschutz@my-dispatch.de
 </div>
 ```
 
 **Rechtslage:**
+
 - Art. 6 Abs. 1 lit. b DSGVO - Vertragserfüllung
 - Aufbewahrungspflicht: 10 Jahre (§ 147 AO)
 - Löschung: Nach Ablauf der Aufbewahrungspflicht
@@ -166,7 +168,7 @@ Sender Line:    Unter 27mm
 
 ```tsx
 // ❌ FALSCH
-await sendEmail(invoice, [customer.email, 'accounting@company.com']);
+await sendEmail(invoice, [customer.email, "accounting@company.com"]);
 
 // ✅ RICHTIG
 await sendEmail(invoice, [customer.email]); // Nur Kunde!
@@ -190,11 +192,11 @@ Gemäß § 51 PBefG müssen enthalten sein:
 ```tsx
 const rideReceipt = {
   // ... standard fields
-  route: 'Marienplatz → Flughafen München Terminal 2',
-  departureTime: new Date('2025-01-21T14:00:00'),
-  arrivalTime: new Date('2025-01-21T14:35:00'),
-  vehiclePlate: 'M-TX 1234',
-  driverName: 'Max Mustermann',
+  route: "Marienplatz → Flughafen München Terminal 2",
+  departureTime: new Date("2025-01-21T14:00:00"),
+  arrivalTime: new Date("2025-01-21T14:35:00"),
+  vehiclePlate: "M-TX 1234",
+  driverName: "Max Mustermann",
 };
 ```
 
@@ -211,7 +213,7 @@ npm install html2pdf.js
 ### Basic Usage
 
 ```tsx
-import { exportInvoicePDF } from '@/lib/pdf/pdf-generator-invoice';
+import { exportInvoicePDF } from "@/lib/pdf/pdf-generator-invoice";
 
 // In Component
 const handleDownloadPDF = async () => {
@@ -221,7 +223,7 @@ const handleDownloadPDF = async () => {
 <Button onClick={handleDownloadPDF}>
   <Download className="h-4 w-4 mr-2" />
   PDF herunterladen
-</Button>
+</Button>;
 ```
 
 ### Email-Versand
@@ -232,7 +234,7 @@ const html = generateInvoiceHTML(data);
 
 // Send via Resend
 await resend.emails.send({
-  from: 'noreply@my-dispatch.de',
+  from: "noreply@my-dispatch.de",
   to: customer.email,
   subject: `Rechnung ${data.invoiceNumber}`,
   html: html,
@@ -240,7 +242,7 @@ await resend.emails.send({
     {
       filename: `Rechnung_${data.invoiceNumber}.pdf`,
       content: await generatePDFBlob(html),
-    }
+    },
   ],
 });
 ```
@@ -256,8 +258,8 @@ await resend.emails.send({
 const customData = {
   ...invoiceData,
   customHeader: {
-    logo: '/custom-logo.png',
-    companyName: 'Taxi München GmbH',
+    logo: "/custom-logo.png",
+    companyName: "Taxi München GmbH",
     // ...
   },
 };
@@ -269,7 +271,7 @@ const customData = {
 // Add custom footer text
 const customData = {
   ...invoiceData,
-  footerNote: 'Vielen Dank für Ihr Vertrauen!',
+  footerNote: "Vielen Dank für Ihr Vertrauen!",
 };
 ```
 
@@ -286,6 +288,7 @@ Total Impact:    +155KB
 ```
 
 **Optimization:**
+
 - Lazy-load html2pdf.js nur bei PDF-Export
 - Templates als separate Files
 - Cache HTML-Templates
@@ -303,12 +306,14 @@ With Images:        ~3s
 ## ✅ CHECKLISTE VOR VERSAND
 
 ### Rechtlich
+
 - [ ] Alle Pflichtangaben enthalten (§ 14 UStG)
 - [ ] DSGVO-Hinweis vorhanden
 - [ ] Korrekte USt-ID & Steuernummer
 - [ ] PBefG-konform (bei Taxifahrten)
 
 ### Inhaltlich
+
 - [ ] Rechnungsnummer eindeutig
 - [ ] Datum korrekt
 - [ ] Kunde korrekt (Name, Adresse)
@@ -316,6 +321,7 @@ With Images:        ~3s
 - [ ] Zahlungsziel gesetzt
 
 ### Design
+
 - [ ] DIN A4 Format
 - [ ] MyDispatch Branding
 - [ ] Lesbare Schriftgröße (≥10pt)
@@ -332,6 +338,7 @@ Error: html2pdf is not defined
 ```
 
 **Lösung:** html2pdf.js installieren:
+
 ```bash
 npm install html2pdf.js
 ```
@@ -340,10 +347,10 @@ npm install html2pdf.js
 
 ```tsx
 // ❌ FALSCH
-new Date().toLocaleDateString('en-US')
+new Date().toLocaleDateString("en-US");
 
 // ✅ RICHTIG
-formatDate(new Date()) // aus format-utils.ts
+formatDate(new Date()); // aus format-utils.ts
 ```
 
 ### MwSt. falsch berechnet
@@ -353,7 +360,7 @@ formatDate(new Date()) // aus format-utils.ts
 const tax = subtotal * 0.19;
 
 // ✅ RICHTIG
-const tax = Math.round(subtotal * taxRate / 100 * 100) / 100;
+const tax = Math.round(((subtotal * taxRate) / 100) * 100) / 100;
 ```
 
 ---
@@ -361,6 +368,7 @@ const tax = Math.round(subtotal * taxRate / 100 * 100) / 100;
 ## 📞 SUPPORT
 
 Bei Fragen:
+
 - Dokumentation: `docs/PDF_SYSTEM_V18.3.24.md`
 - Code: `src/lib/pdf/`
 - DIN 5008: https://www.din-5008-richtlinien.de/

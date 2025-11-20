@@ -7,7 +7,7 @@
    ✅ Status Badge System
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon } from "lucide-react";
 
 interface DashboardActivityItemProps {
   icon: LucideIcon;
@@ -15,21 +15,19 @@ interface DashboardActivityItemProps {
   subtitle: string;
   time: string;
   statusText?: string;
-  statusType?: 'success' | 'info' | 'warning';
+  statusType?: "success" | "info" | "warning";
 }
 
-export function DashboardActivityItem({ 
-  icon: Icon, 
-  title, 
-  subtitle, 
+export function DashboardActivityItem({
+  icon: Icon,
+  title,
+  subtitle,
   time,
   statusText,
-  statusType = 'info',
+  statusType = "info",
 }: DashboardActivityItemProps) {
   return (
-    <div
-      className="hero-activity-item flex items-center gap-3 px-4 py-3 rounded-xl"
-    >
+    <div className="hero-activity-item flex items-center gap-3 px-4 py-3 rounded-xl">
       <div className="hero-activity-item__icon-box p-2 rounded-lg flex-shrink-0">
         <Icon className="hero-activity-item__icon h-3.5 w-3.5" />
       </div>
@@ -38,9 +36,7 @@ export function DashboardActivityItem({
           <span className="hero-activity-item__title font-sans text-sm font-semibold truncate">
             {title}
           </span>
-          <span className="hero-activity-item__time font-sans text-xs flex-shrink-0">
-            {time}
-          </span>
+          <span className="hero-activity-item__time font-sans text-xs flex-shrink-0">{time}</span>
         </div>
         <div className="flex items-center gap-2">
           <span className="hero-activity-item__subtitle font-sans text-xs truncate">
@@ -49,9 +45,11 @@ export function DashboardActivityItem({
           {statusText && (
             <span
               className={`hero-activity-item__status-badge ${
-                statusType === 'success' ? 'hero-activity-item__status-badge--success' : 
-                statusType === 'warning' ? 'hero-activity-item__status-badge--warning' : 
-                ''
+                statusType === "success"
+                  ? "hero-activity-item__status-badge--success"
+                  : statusType === "warning"
+                    ? "hero-activity-item__status-badge--warning"
+                    : ""
               } inline-flex items-center px-2 py-0.5 rounded text-xs font-medium flex-shrink-0`}
             >
               {statusText}

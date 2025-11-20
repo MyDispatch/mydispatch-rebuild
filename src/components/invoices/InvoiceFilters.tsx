@@ -1,6 +1,6 @@
-import { Input } from '@/lib/compat';
+import { Input } from "@/lib/compat";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/lib/compat';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/lib/compat";
 import { Search } from "lucide-react";
 type InvoiceStatus = "draft" | "sent" | "paid" | "overdue" | "cancelled";
 

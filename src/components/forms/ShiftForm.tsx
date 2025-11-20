@@ -22,19 +22,19 @@
    - DSGVO-konform mit company_id
    ================================================================================== */
 
-import { useState, useEffect, useMemo } from 'react';
-import { useAuth } from '@/hooks/use-auth.tsx';
-import { useShifts } from '@/hooks/use-shifts';
-import { supabase } from '@/integrations/supabase/client';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Input, Checkbox } from '@/lib/compat';
-import { Label } from '@/components/ui/label';
-import { handleError, handleSuccess } from '@/lib/error-handler';
-import { formatCurrency } from '@/lib/index';
-import { Loader2, Clock, Car, Euro, CheckCircle } from 'lucide-react';
-import { format } from 'date-fns';
-import { SearchableSelect } from '@/components/shared/SearchableSelect';
-import { V26InfoBox } from '@/components/design-system/V26InfoBox';
+import { useState, useEffect, useMemo } from "react";
+import { useAuth } from "@/hooks/use-auth.tsx";
+import { useShifts } from "@/hooks/use-shifts";
+import { supabase } from "@/integrations/supabase/client";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Input, Checkbox } from "@/lib/compat";
+import { Label } from "@/components/ui/label";
+import { handleError, handleSuccess } from "@/lib/error-handler";
+import { formatCurrency } from "@/lib/index";
+import { Loader2, Clock, Car, Euro, CheckCircle } from "lucide-react";
+import { format } from "date-fns";
+import { SearchableSelect } from "@/components/shared/SearchableSelect";
+import { V26InfoBox } from "@/components/design-system/V26InfoBox";
 
 interface ShiftFormProps {
   onSuccess: () => void;
@@ -72,16 +72,16 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
   const [formData, setFormData] = useState({
     driver_id: undefined as string | undefined,
     vehicle_id: undefined as string | undefined,
-    date: format(new Date(), 'yyyy-MM-dd'),
-    shift_start_time: '',
-    shift_end_time: '',
-    pause_start_time: '',
-    pause_end_time: '',
-    km_start: '',
-    km_end: '',
-    cash_earnings: '0',
-    card_earnings: '0',
-    invoice_earnings: '0',
+    date: format(new Date(), "yyyy-MM-dd"),
+    shift_start_time: "",
+    shift_end_time: "",
+    pause_start_time: "",
+    pause_end_time: "",
+    km_start: "",
+    km_end: "",
+    cash_earnings: "0",
+    card_earnings: "0",
+    invoice_earnings: "0",
     confirmed_by_driver: false,
   });
 
@@ -95,30 +95,30 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
   const fetchDrivers = async () => {
     try {
       const { data, error } = await supabase
-        .from('drivers')
-        .select('id, first_name, last_name')
-        .eq('company_id', profile?.company_id)
-        .order('last_name');
+        .from("drivers")
+        .select("id, first_name, last_name")
+        .eq("company_id", profile?.company_id)
+        .order("last_name");
 
       if (error) throw error;
       setDrivers(data || []);
     } catch (error) {
-      handleError(error, 'Fehler beim Laden der Fahrer', { showToast: false });
+      handleError(error, "Fehler beim Laden der Fahrer", { showToast: false });
     }
   };
 
   const fetchVehicles = async () => {
     try {
       const { data, error } = await supabase
-        .from('vehicles')
-        .select('id, license_plate, concession_number')
-        .eq('company_id', profile?.company_id)
-        .order('license_plate');
+        .from("vehicles")
+        .select("id, license_plate, concession_number")
+        .eq("company_id", profile?.company_id)
+        .order("license_plate");
 
       if (error) throw error;
       setVehicles(data || []);
     } catch (error) {
-      handleError(error, 'Fehler beim Laden der Fahrzeuge', { showToast: false });
+      handleError(error, "Fehler beim Laden der Fahrzeuge", { showToast: false });
     }
   };
 
@@ -142,46 +142,46 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
 
   // V40.0: Memoized total earnings
   const totalEarnings = useMemo(() => {
-    return safeParseFloat(formData.cash_earnings) +
-           safeParseFloat(formData.card_earnings) +
-           safeParseFloat(formData.invoice_earnings);
+    return (
+      safeParseFloat(formData.cash_earnings) +
+      safeParseFloat(formData.card_earnings) +
+      safeParseFloat(formData.invoice_earnings)
+    );
   }, [formData.cash_earnings, formData.card_earnings, formData.invoice_earnings]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // V40.0: Comprehensive Input Validation
     if (!formData.driver_id || !formData.vehicle_id) {
       handleError(
-        new Error('Missing required fields'), 
-        'Bitte wählen Sie Fahrer und Fahrzeug aus',
+        new Error("Missing required fields"),
+        "Bitte wählen Sie Fahrer und Fahrzeug aus",
         { showToast: true, logToSupabase: false }
       );
       return;
     }
 
     if (!formData.shift_start_time || !formData.shift_end_time) {
-      handleError(
-        new Error('Missing shift times'), 
-        'Bitte geben Sie Schichtzeiten an',
-        { showToast: true, logToSupabase: false }
-      );
+      handleError(new Error("Missing shift times"), "Bitte geben Sie Schichtzeiten an", {
+        showToast: true,
+        logToSupabase: false,
+      });
       return;
     }
 
     if (!formData.confirmed_by_driver) {
-      handleError(
-        new Error('Missing confirmation'), 
-        'Fahrer muss die Schichtdaten bestätigen',
-        { showToast: true, logToSupabase: false }
-      );
+      handleError(new Error("Missing confirmation"), "Fahrer muss die Schichtdaten bestätigen", {
+        showToast: true,
+        logToSupabase: false,
+      });
       return;
     }
 
     setLoading(true);
 
     try {
-      const selectedVehicle = vehicles.find(v => v.id === formData.vehicle_id);
+      const selectedVehicle = vehicles.find((v) => v.id === formData.vehicle_id);
       const totalKm = calculateTotalKm();
 
       // V40.0: Safe number parsing for all numeric fields
@@ -208,10 +208,13 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
       // ✅ MISSION II: TanStack Query Hook statt direktem Supabase-Call
       await createShift(shiftData);
 
-      handleSuccess('Schicht erfolgreich erfasst');
+      handleSuccess("Schicht erfolgreich erfasst");
       onSuccess();
     } catch (error) {
-      handleError(error, 'Schicht konnte nicht gespeichert werden', { showToast: true, logToSupabase: true });
+      handleError(error, "Schicht konnte nicht gespeichert werden", {
+        showToast: true,
+        logToSupabase: true,
+      });
     } finally {
       setLoading(false);
     }
@@ -241,7 +244,7 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
           <SearchableSelect
             options={vehicles.map((vehicle) => ({
               value: vehicle.id,
-              label: `${vehicle.license_plate}${vehicle.concession_number ? ` (${vehicle.concession_number})` : ''}`,
+              label: `${vehicle.license_plate}${vehicle.concession_number ? ` (${vehicle.concession_number})` : ""}`,
             }))}
             value={formData.vehicle_id}
             onValueChange={(value) => setFormData({ ...formData, vehicle_id: value })}
@@ -411,7 +414,9 @@ export function ShiftForm({ onSuccess, onCancel }: ShiftFormProps) {
         <Checkbox
           id="confirmed_by_driver"
           checked={formData.confirmed_by_driver}
-          onCheckedChange={(checked) => setFormData({ ...formData, confirmed_by_driver: checked as boolean })}
+          onCheckedChange={(checked) =>
+            setFormData({ ...formData, confirmed_by_driver: checked as boolean })
+          }
         />
         <div className="flex-1">
           <Label htmlFor="confirmed_by_driver" className="cursor-pointer flex items-center gap-2">

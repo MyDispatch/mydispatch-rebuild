@@ -8,6 +8,7 @@ Es hilft mir, **ALLE Fehler auf Anhieb zu erkennen**, bevor ich Code schreibe.
 ## 🔍 Was das System erkennt
 
 ### 1. Design-System Violations
+
 - ✅ Accent Color Usage (VERBOTEN!)
 - ✅ Direct Colors (text-white, bg-black, etc.)
 - ✅ Icon Colors (must be text-foreground)
@@ -15,18 +16,21 @@ Es hilft mir, **ALLE Fehler auf Anhieb zu erkennen**, bevor ich Code schreibe.
 - ✅ Emoji Usage (should use Lucide Icons)
 
 ### 2. Mobile-First Issues
+
 - ✅ Missing Touch Targets (min-h-[44px])
 - ✅ Non-Responsive Typography
 - ✅ Desktop-First Approach
 - ✅ Horizontal Scroll (VERBOTEN!)
 
 ### 3. Accessibility Issues
+
 - ✅ Images without alt text
 - ✅ Icon buttons without aria-label
 - ✅ Inputs without labels
 - ✅ Low color contrast
 
 ### 4. Code Quality Issues
+
 - ✅ Inline formatters (should use utils)
 - ✅ Separator in Dialogs (VERBOTEN!)
 - ✅ Manual Dialog Layout
@@ -42,13 +46,13 @@ Es hilft mir, **ALLE Fehler auf Anhieb zu erkennen**, bevor ich Code schreibe.
 
 // 2. Ich lese ALLE betroffenen Dateien
 const files = [
-  { path: 'src/pages/Auth.tsx', content: await readFile('...') },
-  { path: 'src/components/auth/LoginForm.tsx', content: await readFile('...') },
+  { path: "src/pages/Auth.tsx", content: await readFile("...") },
+  { path: "src/components/auth/LoginForm.tsx", content: await readFile("...") },
   // etc.
 ];
 
 // 3. Ich scanne ALLE Dateien
-import { AgentWorkflow } from '@/lib/agent-workflow';
+import { AgentWorkflow } from "@/lib/agent-workflow";
 
 const scanResult = await AgentWorkflow.scanFilesBeforeEditing(files);
 
@@ -67,7 +71,7 @@ console.log(summary);
 //  🔴 2 KRITISCHE Fehler (Security)
 //  🟠 15 WICHTIGE Fehler (Design System)
 //  🟡 8 MITTLERE Fehler (Mobile-First)
-//  
+//
 //  Soll ich alle Fehler auf einmal beheben?"
 
 // 7. User: "OK" → Ich erstelle Fix-Plan
@@ -79,6 +83,7 @@ const fixPlan = AgentWorkflow.generateFixPlan(scanResult);
 ## 🎬 Workflow-Beispiel
 
 ### Vorher (OHNE Agent Debug System)
+
 ```
 User: "Optimiere die Auth-Seite"
 Agent: *liest Auth.tsx*
@@ -94,6 +99,7 @@ Agent: *fixt 3 Fehler*
 ```
 
 ### Nachher (MIT Agent Debug System)
+
 ```
 User: "Optimiere die Auth-Seite"
 Agent: *liest ALLE Dateien*
@@ -112,24 +118,25 @@ User: 🎉
 
 ## 📊 Error Categories
 
-| Kategorie | Severity | Auto-Fix | Beschreibung |
-|-----------|----------|----------|--------------|
-| accent color | 🔴 CRITICAL | ✅ | Accent ist komplett entfernt |
-| missing company_id | 🔴 CRITICAL | ❌ | Security-Risiko |
-| DELETE statement | 🔴 CRITICAL | ✅ | Soft Delete verwenden |
-| icon color | 🔴 CRITICAL | ❌ | Nur text-foreground |
-| Separator in Dialog | 🔴 CRITICAL | ❌ | DIALOG_LAYOUT verwenden |
-| direct colors | 🟠 HIGH | ✅ | Semantic tokens verwenden |
-| emoji usage | 🟠 HIGH | ❌ | Lucide Icons verwenden |
-| missing touch targets | 🟠 HIGH | ✅ | min-h-[44px] hinzufügen |
-| non-responsive typo | 🟡 MEDIUM | ❌ | Breakpoints hinzufügen |
-| inline formatters | 🟡 MEDIUM | ✅ | Utils verwenden |
-| missing alt text | 🟡 MEDIUM | ❌ | Alt-Text hinzufügen |
-| missing aria-label | 🟡 MEDIUM | ❌ | Aria-Label hinzufügen |
+| Kategorie             | Severity    | Auto-Fix | Beschreibung                 |
+| --------------------- | ----------- | -------- | ---------------------------- |
+| accent color          | 🔴 CRITICAL | ✅       | Accent ist komplett entfernt |
+| missing company_id    | 🔴 CRITICAL | ❌       | Security-Risiko              |
+| DELETE statement      | 🔴 CRITICAL | ✅       | Soft Delete verwenden        |
+| icon color            | 🔴 CRITICAL | ❌       | Nur text-foreground          |
+| Separator in Dialog   | 🔴 CRITICAL | ❌       | DIALOG_LAYOUT verwenden      |
+| direct colors         | 🟠 HIGH     | ✅       | Semantic tokens verwenden    |
+| emoji usage           | 🟠 HIGH     | ❌       | Lucide Icons verwenden       |
+| missing touch targets | 🟠 HIGH     | ✅       | min-h-[44px] hinzufügen      |
+| non-responsive typo   | 🟡 MEDIUM   | ❌       | Breakpoints hinzufügen       |
+| inline formatters     | 🟡 MEDIUM   | ✅       | Utils verwenden              |
+| missing alt text      | 🟡 MEDIUM   | ❌       | Alt-Text hinzufügen          |
+| missing aria-label    | 🟡 MEDIUM   | ❌       | Aria-Label hinzufügen        |
 
 ## 🚀 Vorteile
 
 ### Für mich als AI Agent
+
 - ✅ Ich sehe ALLE Fehler VOR der Bearbeitung
 - ✅ Ich vergesse nichts mehr
 - ✅ Ich arbeite effizienter (1 Durchgang statt 10)
@@ -137,6 +144,7 @@ User: 🎉
 - ✅ Ich lerne aus jedem Scan
 
 ### Für den User
+
 - ✅ Weniger "Try to Fix" Zyklen
 - ✅ Schnellere Umsetzung
 - ✅ Höhere Code-Qualität
@@ -148,6 +156,7 @@ User: 🎉
 ### WANN verwenden?
 
 **IMMER bei:**
+
 - ✅ Seiten-Optimierungen
 - ✅ Komponenten-Refactoring
 - ✅ Design-System-Updates
@@ -155,6 +164,7 @@ User: 🎉
 - ✅ Accessibility-Verbesserungen
 
 **NICHT verwenden bei:**
+
 - ❌ Neue Datei-Erstellung (noch nichts zu scannen)
 - ❌ Reine Dokumentations-Änderungen
 - ❌ User-Fragen ohne Code-Änderungen
@@ -188,15 +198,18 @@ const plan = AgentWorkflow.generateFixPlan(result);
 ## 📈 Metriken
 
 ### Erfolgs-Metriken (Ziel)
+
 - ✅ 0 User-Rückfragen wegen vergessener Fehler
 - ✅ 0 "Try to Fix" Zyklen
 - ✅ 100% Fehler beim ersten Scan erkannt
 - ✅ 95%+ beim ersten Durchgang gefixt
 
 ### Tracking
+
 Alle Scans werden automatisch in `system_logs` geloggt:
+
 ```sql
-SELECT 
+SELECT
   context->>'url' as page,
   context->>'totalErrors' as errors,
   context->>'timestamp' as scanned_at
@@ -208,6 +221,7 @@ ORDER BY created_at DESC;
 ## 🔄 Continuous Improvement
 
 Das System lernt mit:
+
 - Neue Pattern-Erkennung hinzufügen
 - False Positives reduzieren
 - Neue Vorgaben integrieren
@@ -231,6 +245,7 @@ src/lib/
 ## 🎓 Best Practices
 
 ### DO ✅
+
 - Immer VOR Code-Änderungen scannen
 - Alle betroffenen Dateien einbeziehen
 - User-Summary generieren
@@ -239,6 +254,7 @@ src/lib/
 - Nach jedem Batch validieren
 
 ### DON'T ❌
+
 - Direkt Code schreiben ohne Scan
 - Nur Haupt-Datei scannen (Sub-Komponenten vergessen)
 - User mit technischem Report überfluten
@@ -248,12 +264,14 @@ src/lib/
 ## 🔮 Future Enhancements
 
 ### Phase 2
+
 - [ ] Screenshot-basierte Visual Regression Tests
 - [ ] Performance-Metriken (Lighthouse)
 - [ ] Bundle-Size-Analyse
 - [ ] Unused Code Detection
 
 ### Phase 3
+
 - [ ] Automatische Fix-Generierung
 - [ ] AI-powered Fix-Suggestions
 - [ ] Learning from User Feedback
@@ -262,6 +280,7 @@ src/lib/
 ## 📝 Changelog
 
 ### V18.3.25 (2025-10-21)
+
 - ✅ Initial Release
 - ✅ 4 Scanner implementiert
 - ✅ Workflow-Integration

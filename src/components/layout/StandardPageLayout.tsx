@@ -8,15 +8,15 @@
    - Mobile-optimiert
    ================================================================================== */
 
-import { V28Button } from '@/components/design-system/V28Button';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/lib/compat';
-import { format } from 'date-fns';
-import { de } from 'date-fns/locale';
-import { Activity, Archive, LucideIcon, Plus, Search } from 'lucide-react';
-import { ReactNode } from 'react';
+import { V28Button } from "@/components/design-system/V28Button";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/lib/compat";
+import { format } from "date-fns";
+import { de } from "date-fns/locale";
+import { Activity, Archive, LucideIcon, Plus, Search } from "lucide-react";
+import { ReactNode } from "react";
 
 interface StatCard {
   label: string;
@@ -32,7 +32,7 @@ interface StandardPageLayoutProps {
   canonical?: string;
 
   // Background (V28.1 Premium)
-  background?: 'white' | 'canvas' | 'orbs-light';
+  background?: "white" | "canvas" | "orbs-light";
 
   // Hero Section (optional)
   heroIcon?: LucideIcon;
@@ -76,20 +76,20 @@ export function StandardPageLayout({
   title,
   description,
   canonical,
-  background = 'canvas',
+  background = "canvas",
   heroIcon,
   heroTitle,
   heroSubtitle,
   heroBadge,
   subtitle,
   onCreateNew,
-  createButtonLabel = 'Neu erstellen',
+  createButtonLabel = "Neu erstellen",
   createButtonDisabled = false,
   headerExtra,
   stats,
   searchValue,
   onSearchChange,
-  searchPlaceholder = 'Suchen...',
+  searchPlaceholder = "Suchen...",
   onShowArchivedToggle,
   filterComponents,
   children,
@@ -104,7 +104,7 @@ export function StandardPageLayout({
       <SEOHead title={title} description={description} canonical={canonical} />
 
       <div
-        className={`space-y-6 font-sans bg-gradient-to-br from-slate-50 to-blue-50 ${className || ''}`}
+        className={`space-y-6 font-sans bg-gradient-to-br from-slate-50 to-blue-50 ${className || ""}`}
         style={style}
       >
         {/* HERO-BEREICH - Optional, Tailwind CSS Design */}
@@ -123,11 +123,7 @@ export function StandardPageLayout({
               <p className="text-sm sm:text-base text-foreground/80 max-w-2xl">
                 {heroSubtitle || description}
               </p>
-              {heroBadge && (
-                <div className="mt-3">
-                  {heroBadge}
-                </div>
-              )}
+              {heroBadge && <div className="mt-3">{heroBadge}</div>}
             </div>
             <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
           </div>
@@ -163,10 +159,10 @@ export function StandardPageLayout({
             {/* Datum & Zeit */}
             <div className="flex flex-col items-end">
               <span className="text-xl font-bold tabular-nums text-slate-800">
-                {format(new Date(), 'HH:mm:ss')}
+                {format(new Date(), "HH:mm:ss")}
               </span>
               <span className="text-xs font-semibold text-slate-700">
-                {format(new Date(), 'EEEE, dd. MMMM yyyy', { locale: de })}
+                {format(new Date(), "EEEE, dd. MMMM yyyy", { locale: de })}
               </span>
             </div>
 
@@ -186,7 +182,7 @@ export function StandardPageLayout({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {stats.map((stat, index) => {
               // Check if icon is a component or JSX element
-              const IconComponent = typeof stat.icon === 'function' ? stat.icon : null;
+              const IconComponent = typeof stat.icon === "function" ? stat.icon : null;
 
               return (
                 <Card key={index} className="shadow-lg">
@@ -194,7 +190,7 @@ export function StandardPageLayout({
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm text-slate-700 font-medium">{stat.label}</p>
-                        <p className={`text-2xl font-bold text-slate-800 ${stat.className || ''}`}>
+                        <p className={`text-2xl font-bold text-slate-800 ${stat.className || ""}`}>
                           {stat.value}
                         </p>
                       </div>
@@ -202,7 +198,7 @@ export function StandardPageLayout({
                         {IconComponent ? (
                           <IconComponent className="h-4 w-4" />
                         ) : (
-                          stat.icon as ReactNode
+                          (stat.icon as ReactNode)
                         )}
                       </div>
                     </div>
@@ -249,16 +245,12 @@ export function StandardPageLayout({
                 )}
               </div>
               {filterComponents && (
-                <div className="flex items-center gap-2">
-                  {filterComponents}
-                </div>
+                <div className="flex items-center gap-2">{filterComponents}</div>
               )}
             </div>
           </CardHeader>
 
-          <CardContent className="p-6">
-            {children}
-          </CardContent>
+          <CardContent className="p-6">{children}</CardContent>
         </Card>
 
         {/* FOOTER - Optional */}

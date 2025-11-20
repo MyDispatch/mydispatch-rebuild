@@ -28,6 +28,7 @@
 **Zeitaufwand:** 15 Minuten
 
 **Checkliste:**
+
 - [ ] Supabase Dashboard öffnen
   - [ ] Edge Function Logs prüfen (Fehler?)
   - [ ] Database Performance prüfen (langsame Queries?)
@@ -47,6 +48,7 @@
   - [ ] Status-Updates?
 
 **Bei Fehlern:**
+
 1. Sofort dokumentieren
 2. Priorität bestimmen (P0/P1/P2)
 3. Fix planen
@@ -61,6 +63,7 @@
 **Zeitaufwand:** 30 Minuten
 
 **Checkliste:**
+
 - [ ] Database Backup prüfen
 - [ ] Edge Functions Performance-Analyse
 - [ ] API Usage Limits prüfen
@@ -76,13 +79,16 @@
 ### 2.1 Frontend-Deployment
 
 **Voraussetzungen:**
+
 - ✅ Alle Tests bestanden
 - ✅ Code-Review abgeschlossen
 - ✅ Linting bestanden
 - ✅ Type-Check bestanden
 
 **Prozess:**
+
 1. **Branch erstellen:**
+
    ```bash
    git checkout -b feature/meine-feature
    ```
@@ -93,11 +99,13 @@
    - Linting fixen
 
 3. **Pre-Commit:**
+
    ```bash
    npm run quality:check
    ```
 
 4. **Commit & Push:**
+
    ```bash
    git add .
    git commit -m "feat: Meine Feature"
@@ -129,23 +137,28 @@
 ### 2.2 Edge Function Deployment
 
 **Voraussetzungen:**
+
 - ✅ Edge Function lokal getestet
 - ✅ Environment Variables gesetzt
 - ✅ Error-Handling implementiert
 
 **Prozess:**
+
 1. **Edge Function entwickeln:**
+
    ```bash
    cd supabase/functions/meine-function
    # Code schreiben
    ```
 
 2. **Lokal testen:**
+
    ```bash
    supabase functions serve meine-function
    ```
 
 3. **Deployen:**
+
    ```bash
    supabase functions deploy meine-function
    ```
@@ -165,17 +178,21 @@
 ### 2.3 Database Migration Deployment
 
 **Voraussetzungen:**
+
 - ✅ Migration lokal getestet
 - ✅ Rollback-Strategie vorhanden
 - ✅ Backup erstellt
 
 **Prozess:**
+
 1. **Migration erstellen:**
+
    ```bash
    supabase migration new meine_migration
    ```
 
 2. **SQL schreiben:**
+
    ```sql
    -- Migration-Datei
    CREATE TABLE ...
@@ -183,6 +200,7 @@
    ```
 
 3. **Lokal testen:**
+
    ```bash
    supabase db reset
    supabase migration up
@@ -194,6 +212,7 @@
    - Performance prüfen
 
 5. **Deployen:**
+
    ```bash
    supabase db push
    ```
@@ -210,6 +229,7 @@
 ### 3.1 Feature-Planung
 
 **Schritte:**
+
 1. **Anforderung klären:**
    - Was soll das Feature machen?
    - Welche User betrifft es?
@@ -240,7 +260,9 @@
 ### 3.2 Feature-Implementierung
 
 **Schritte:**
+
 1. **Branch erstellen:**
+
    ```bash
    git checkout -b feature/meine-feature
    ```
@@ -277,6 +299,7 @@
 ### 4.1 Bug-Report analysieren
 
 **Schritte:**
+
 1. **Bug verstehen:**
    - Was ist das Problem?
    - Wann tritt es auf?
@@ -301,7 +324,9 @@
 ### 4.2 Bug-Fix implementieren
 
 **Schritte:**
+
 1. **Branch erstellen:**
+
    ```bash
    git checkout -b fix/bug-beschreibung
    ```
@@ -332,6 +357,7 @@
 ### 5.1 Neue Tabelle erstellen
 
 **Checkliste:**
+
 - [ ] Migration erstellen
 - [ ] RLS aktivieren
 - [ ] RLS Policies erstellen
@@ -342,6 +368,7 @@
 - [ ] Rollback-Strategie dokumentieren
 
 **Beispiel:**
+
 ```sql
 -- Migration: 20250131000000_create_meine_tabelle.sql
 CREATE TABLE meine_tabelle (
@@ -368,6 +395,7 @@ USING (
 ### 5.2 Spalte hinzufügen
 
 **Checkliste:**
+
 - [ ] Migration erstellen
 - [ ] Default-Wert (falls nötig)
 - [ ] NULLABLE vs NOT NULL
@@ -382,6 +410,7 @@ USING (
 ### 6.1 Neue Edge Function erstellen
 
 **Checkliste:**
+
 - [ ] Edge Function erstellen
 - [ ] Error-Handling implementieren
 - [ ] Logging implementieren
@@ -392,6 +421,7 @@ USING (
 - [ ] Deployment testen
 
 **Template:**
+
 ```typescript
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.75.0";
@@ -414,15 +444,14 @@ serve(async (req) => {
 
     // Function logic here
 
-    return new Response(
-      JSON.stringify({ success: true }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ success: true }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
 ```
@@ -434,11 +463,13 @@ serve(async (req) => {
 ### 7.1 Unit Tests
 
 **Vor jedem Commit:**
+
 ```bash
 npm run test:unit
 ```
 
 **Test-Coverage:**
+
 ```bash
 npm run test:coverage
 ```
@@ -450,11 +481,13 @@ npm run test:coverage
 ### 7.2 E2E Tests
 
 **Vor jedem Deployment:**
+
 ```bash
 npm run test:e2e
 ```
 
 **Kritische Flows:**
+
 - Login/Logout
 - Booking erstellen
 - Rechnung erstellen
@@ -467,6 +500,7 @@ npm run test:e2e
 ### 8.1 Review-Checkliste
 
 **Code-Qualität:**
+
 - [ ] TypeScript korrekt?
 - [ ] Linting bestanden?
 - [ ] Formatting korrekt?
@@ -474,21 +508,25 @@ npm run test:e2e
 - [ ] Tests bestanden?
 
 **Funktionalität:**
+
 - [ ] Feature funktioniert?
 - [ ] Edge Cases abgedeckt?
 - [ ] Error-Handling vorhanden?
 
 **Performance:**
+
 - [ ] Keine unnötigen Re-Renders?
 - [ ] Queries optimiert?
 - [ ] Code-Splitting?
 
 **Security:**
+
 - [ ] RLS Policies korrekt?
 - [ ] Input-Validation?
 - [ ] Secrets nicht hardcoded?
 
 **Dokumentation:**
+
 - [ ] Code dokumentiert?
 - [ ] README aktualisiert?
 - [ ] Changelog aktualisiert?
@@ -496,9 +534,3 @@ npm run test:e2e
 ---
 
 **Pascal, alle täglichen Arbeitsabläufe sind dokumentiert!** 🚀
-
-
-
-
-
-

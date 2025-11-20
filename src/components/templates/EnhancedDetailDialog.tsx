@@ -8,7 +8,7 @@
    ✅ Doppelte Bestätigung für kritische Aktionen
    ================================================================================== */
 
-import { useState, ReactNode } from 'react';
+import { useState, ReactNode } from "react";
 import {
   Dialog,
   DialogContent,
@@ -16,40 +16,40 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  AlertDialog, 
-  AlertDialogAction, 
-  AlertDialogCancel, 
-  AlertDialogContent, 
-  AlertDialogDescription, 
-  AlertDialogFooter, 
-  AlertDialogHeader, 
-  AlertDialogTitle 
-} from '@/components/ui/alert-dialog';
-import { 
-  Eye, 
-  Edit, 
-  Archive, 
-  Trash2, 
-  Download, 
-  Mail, 
-  Send, 
+} from "@/components/ui/dialog";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
+  Eye,
+  Edit,
+  Archive,
+  Trash2,
+  Download,
+  Mail,
+  Send,
   Copy,
   Printer,
   Share2,
-  X 
-} from 'lucide-react';
-import { handleSuccess, handleError } from '@/lib/error-handler';
-import { DIALOG_LAYOUT } from '@/lib/dialog-layout-utils';
+  X,
+} from "lucide-react";
+import { handleSuccess, handleError } from "@/lib/error-handler";
+import { DIALOG_LAYOUT } from "@/lib/dialog-layout-utils";
 
 export interface DetailAction {
   label: string;
   icon: React.ElementType;
   onClick: () => void | Promise<void>;
-  variant?: 'default' | 'outline' | 'secondary' | 'destructive' | 'ghost';
+  variant?: "default" | "outline" | "secondary" | "destructive" | "ghost";
   requiresConfirmation?: boolean;
   confirmTitle?: string;
   confirmDescription?: string;
@@ -64,10 +64,10 @@ interface EnhancedDetailDialogProps {
   editForm?: ReactNode;
   createdAt?: string;
   relatedEntities?: ReactNode;
-  
+
   // V18.3: Erweiterte Actions
   actions?: DetailAction[];
-  
+
   // Legacy Support (wird über actions gemappt)
   onEdit?: () => void;
   onArchive?: () => Promise<void>;
@@ -99,32 +99,46 @@ export function EnhancedDetailDialog({
   // Legacy Support: Convert old props to new actions format
   const allActions: DetailAction[] = [
     ...actions,
-    ...(onEdit && !isEditing ? [{
-      label: 'Bearbeiten',
-      icon: Edit,
-      onClick: () => setIsEditing(true),
-      variant: 'default' as const,
-    }] : []),
-    ...(showArchive && onArchive ? [{
-      label: 'Archivieren',
-      icon: Archive,
-      onClick: onArchive,
-      variant: 'outline' as const,
-      requiresConfirmation: true,
-      confirmTitle: 'Archivieren bestätigen',
-      confirmDescription: 'Sind Sie sicher, dass Sie diesen Eintrag archivieren möchten? Archivierte Einträge können jederzeit wiederhergestellt werden.',
-      loadingLabel: 'Wird archiviert...',
-    }] : []),
-    ...(showDelete && onDelete ? [{
-      label: 'Löschen',
-      icon: Trash2,
-      onClick: onDelete,
-      variant: 'destructive' as const,
-      requiresConfirmation: true,
-      confirmTitle: 'Löschen bestätigen',
-      confirmDescription: 'Sind Sie absolut sicher? Diese Aktion kann nicht rückgängig gemacht werden.',
-      loadingLabel: 'Wird gelöscht...',
-    }] : []),
+    ...(onEdit && !isEditing
+      ? [
+          {
+            label: "Bearbeiten",
+            icon: Edit,
+            onClick: () => setIsEditing(true),
+            variant: "default" as const,
+          },
+        ]
+      : []),
+    ...(showArchive && onArchive
+      ? [
+          {
+            label: "Archivieren",
+            icon: Archive,
+            onClick: onArchive,
+            variant: "outline" as const,
+            requiresConfirmation: true,
+            confirmTitle: "Archivieren bestätigen",
+            confirmDescription:
+              "Sind Sie sicher, dass Sie diesen Eintrag archivieren möchten? Archivierte Einträge können jederzeit wiederhergestellt werden.",
+            loadingLabel: "Wird archiviert...",
+          },
+        ]
+      : []),
+    ...(showDelete && onDelete
+      ? [
+          {
+            label: "Löschen",
+            icon: Trash2,
+            onClick: onDelete,
+            variant: "destructive" as const,
+            requiresConfirmation: true,
+            confirmTitle: "Löschen bestätigen",
+            confirmDescription:
+              "Sind Sie absolut sicher? Diese Aktion kann nicht rückgängig gemacht werden.",
+            loadingLabel: "Wird gelöscht...",
+          },
+        ]
+      : []),
   ];
 
   const handleActionClick = async (action: DetailAction) => {
@@ -137,7 +151,7 @@ export function EnhancedDetailDialog({
     try {
       await action.onClick();
     } catch (error) {
-      handleError(error, 'Aktion fehlgeschlagen');
+      handleError(error, "Aktion fehlgeschlagen");
     } finally {
       setIsLoading(false);
     }
@@ -149,11 +163,11 @@ export function EnhancedDetailDialog({
     setIsLoading(true);
     try {
       await confirmAction.onClick();
-      handleSuccess(confirmAction.loadingLabel?.replace('Wird ', '') || 'Erfolgreich');
+      handleSuccess(confirmAction.loadingLabel?.replace("Wird ", "") || "Erfolgreich");
       setConfirmAction(null);
       onOpenChange(false);
     } catch (error) {
-      handleError(error, 'Aktion fehlgeschlagen');
+      handleError(error, "Aktion fehlgeschlagen");
     } finally {
       setIsLoading(false);
     }
@@ -166,15 +180,18 @@ export function EnhancedDetailDialog({
           <DialogHeader className={DIALOG_LAYOUT.header}>
             <DialogTitle className="text-xl">{title}</DialogTitle>
             <DialogDescription className="flex flex-col gap-1">
-              <span className="text-sm">{isEditing ? 'Bearbeitungsmodus aktiv' : 'Detailansicht'}</span>
+              <span className="text-sm">
+                {isEditing ? "Bearbeitungsmodus aktiv" : "Detailansicht"}
+              </span>
               {createdAt && (
                 <span className="text-xs text-muted-foreground font-medium">
-                  Eingegangen: {new Date(createdAt).toLocaleDateString('de-DE', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
+                  Eingegangen:{" "}
+                  {new Date(createdAt).toLocaleDateString("de-DE", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
                   })}
                 </span>
               )}
@@ -183,7 +200,10 @@ export function EnhancedDetailDialog({
 
           {/* Content mit Tab-Navigation (View/Edit) */}
           {editForm ? (
-            <Tabs value={isEditing ? 'edit' : 'view'} onValueChange={(v) => setIsEditing(v === 'edit')}>
+            <Tabs
+              value={isEditing ? "edit" : "view"}
+              onValueChange={(v) => setIsEditing(v === "edit")}
+            >
               <TabsList className="grid w-full grid-cols-2 gap-2">
                 <TabsTrigger value="view" className="flex items-center gap-2">
                   <Eye className="h-4 w-4" />
@@ -197,16 +217,14 @@ export function EnhancedDetailDialog({
 
               <TabsContent value="view" className={`mt-6 ${DIALOG_LAYOUT.body}`}>
                 {children}
-                
+
                 {/* Related Entities Section */}
                 {relatedEntities && (
                   <div className="mt-6 pt-6 border-t">
                     <h4 className="text-sm font-semibold text-muted-foreground mb-3">
                       Verknüpfte Daten
                     </h4>
-                    <div className="space-y-3">
-                      {relatedEntities}
-                    </div>
+                    <div className="space-y-3">{relatedEntities}</div>
                   </div>
                 )}
               </TabsContent>
@@ -218,43 +236,44 @@ export function EnhancedDetailDialog({
           ) : (
             <div className={`mt-6 ${DIALOG_LAYOUT.body}`}>
               {children}
-              
+
               {/* Related Entities Section */}
               {relatedEntities && (
                 <div className="mt-6 pt-6 border-t">
                   <h4 className="text-sm font-semibold text-muted-foreground mb-3">
                     Verknüpfte Daten
                   </h4>
-                  <div className="space-y-3">
-                    {relatedEntities}
-                  </div>
+                  <div className="space-y-3">{relatedEntities}</div>
                 </div>
               )}
             </div>
           )}
 
           {/* V18.3: Erweiterte Action-Buttons Footer */}
-          <DialogFooter className={`flex flex-col sm:flex-row gap-3 pt-6 border-t ${DIALOG_LAYOUT.footer}`}>
+          <DialogFooter
+            className={`flex flex-col sm:flex-row gap-3 pt-6 border-t ${DIALOG_LAYOUT.footer}`}
+          >
             <div className="flex flex-wrap gap-2 flex-1">
-              {!isEditing && allActions.map((action, index) => {
-                const Icon = action.icon;
-                return (
-                  <V28Button
-                    key={index}
-                    variant={action.variant === 'outline' ? 'secondary' : 'primary'}
-                    onClick={() => handleActionClick(action)}
-                    disabled={isLoading}
-                    className="flex items-center gap-2"
-                  >
-                    <Icon className="h-4 w-4" />
-                    {action.label}
-                  </V28Button>
-                );
-              })}
+              {!isEditing &&
+                allActions.map((action, index) => {
+                  const Icon = action.icon;
+                  return (
+                    <V28Button
+                      key={index}
+                      variant={action.variant === "outline" ? "secondary" : "primary"}
+                      onClick={() => handleActionClick(action)}
+                      disabled={isLoading}
+                      className="flex items-center gap-2"
+                    >
+                      <Icon className="h-4 w-4" />
+                      {action.label}
+                    </V28Button>
+                  );
+                })}
             </div>
-            
-            <V28Button 
-              variant="secondary" 
+
+            <V28Button
+              variant="secondary"
               onClick={() => onOpenChange(false)}
               className="flex items-center gap-2"
             >
@@ -269,9 +288,12 @@ export function EnhancedDetailDialog({
       <AlertDialog open={!!confirmAction} onOpenChange={() => setConfirmAction(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>{confirmAction?.confirmTitle || 'Aktion bestätigen'}</AlertDialogTitle>
+            <AlertDialogTitle>
+              {confirmAction?.confirmTitle || "Aktion bestätigen"}
+            </AlertDialogTitle>
             <AlertDialogDescription>
-              {confirmAction?.confirmDescription || 'Sind Sie sicher, dass Sie diese Aktion ausführen möchten?'}
+              {confirmAction?.confirmDescription ||
+                "Sind Sie sicher, dass Sie diese Aktion ausführen möchten?"}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
@@ -280,14 +302,12 @@ export function EnhancedDetailDialog({
               onClick={handleConfirmAction}
               disabled={isLoading}
               className={
-                confirmAction?.variant === 'destructive'
-                  ? 'bg-destructive hover:bg-destructive/90'
-                  : 'bg-primary hover:bg-primary/90'
+                confirmAction?.variant === "destructive"
+                  ? "bg-destructive hover:bg-destructive/90"
+                  : "bg-primary hover:bg-primary/90"
               }
             >
-              {isLoading 
-                ? confirmAction?.loadingLabel || 'Bitte warten...' 
-                : 'Bestätigen'}
+              {isLoading ? confirmAction?.loadingLabel || "Bitte warten..." : "Bestätigen"}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
@@ -307,24 +327,24 @@ export const createBookingActions = (
   onArchive: () => Promise<void>
 ): DetailAction[] => [
   {
-    label: 'PDF herunterladen',
+    label: "PDF herunterladen",
     icon: Download,
     onClick: onPDFDownload,
-    variant: 'outline',
+    variant: "outline",
   },
   {
-    label: 'E-Mail senden',
+    label: "E-Mail senden",
     icon: Mail,
     onClick: onSendEmail,
-    variant: 'outline',
+    variant: "outline",
   },
   {
-    label: 'Duplizieren',
+    label: "Duplizieren",
     icon: Copy,
     onClick: async () => {
-      handleSuccess('Auftrag wurde dupliziert');
+      handleSuccess("Auftrag wurde dupliziert");
     },
-    variant: 'secondary',
+    variant: "secondary",
   },
 ];
 
@@ -336,31 +356,31 @@ export const createInvoiceActions = (
   onMarkAsPaid: () => Promise<void>
 ): DetailAction[] => [
   {
-    label: 'PDF herunterladen',
+    label: "PDF herunterladen",
     icon: Download,
     onClick: onPDFDownload,
-    variant: 'outline',
+    variant: "outline",
   },
   {
-    label: 'Rechnung senden',
+    label: "Rechnung senden",
     icon: Mail,
     onClick: onSendInvoice,
-    variant: 'outline',
+    variant: "outline",
   },
   {
-    label: 'Zahlungserinnerung',
+    label: "Zahlungserinnerung",
     icon: Send,
     onClick: onSendReminder,
-    variant: 'secondary',
+    variant: "secondary",
   },
   {
-    label: 'Als bezahlt markieren',
+    label: "Als bezahlt markieren",
     icon: Download,
     onClick: onMarkAsPaid,
-    variant: 'default',
+    variant: "default",
     requiresConfirmation: true,
-    confirmTitle: 'Zahlung bestätigen',
-    confirmDescription: 'Wurde die Rechnung wirklich bezahlt?',
+    confirmTitle: "Zahlung bestätigen",
+    confirmDescription: "Wurde die Rechnung wirklich bezahlt?",
   },
 ];
 
@@ -371,16 +391,16 @@ export const createDriverActions = (
   onArchive: () => Promise<void>
 ): DetailAction[] => [
   {
-    label: 'Dokument-Erinnerung',
+    label: "Dokument-Erinnerung",
     icon: Mail,
     onClick: onSendDocumentReminder,
-    variant: 'outline',
+    variant: "outline",
   },
   {
-    label: 'Schichtplan anzeigen',
+    label: "Schichtplan anzeigen",
     icon: Eye,
     onClick: onViewSchedule,
-    variant: 'secondary',
+    variant: "secondary",
   },
 ];
 
@@ -391,15 +411,15 @@ export const createVehicleActions = (
   onArchive: () => Promise<void>
 ): DetailAction[] => [
   {
-    label: 'Wartung planen',
+    label: "Wartung planen",
     icon: Send,
     onClick: onScheduleMaintenance,
-    variant: 'outline',
+    variant: "outline",
   },
   {
-    label: 'Verlauf anzeigen',
+    label: "Verlauf anzeigen",
     icon: Eye,
     onClick: onViewHistory,
-    variant: 'secondary',
+    variant: "secondary",
   },
 ];

@@ -23,7 +23,7 @@ CREATE TABLE public.orders (
   order_number TEXT NOT NULL UNIQUE,
   customer_id UUID REFERENCES public.customers(id) ON DELETE SET NULL,
   driver_id UUID REFERENCES public.drivers(id) ON DELETE SET NULL,
-  
+
   -- Auftragsstatus
   status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN (
     'pending',      -- Neu eingetragen
@@ -33,14 +33,14 @@ CREATE TABLE public.orders (
     'completed',    -- Abgeschlossen
     'cancelled'     -- Storniert
   )),
-  
+
   -- Service-Typ
   service_type TEXT NOT NULL CHECK (service_type IN (
     'taxi',
     'rental',
     'limousine'
   )),
-  
+
   -- Adressen
   pickup_address TEXT NOT NULL,
   pickup_lat DECIMAL(10, 8),
@@ -48,18 +48,18 @@ CREATE TABLE public.orders (
   dropoff_address TEXT NOT NULL,
   dropoff_lat DECIMAL(10, 8),
   dropoff_lng DECIMAL(11, 8),
-  
+
   -- Zeitplanung
   pickup_time TIMESTAMP WITH TIME ZONE NOT NULL,
   estimated_dropoff_time TIMESTAMP WITH TIME ZONE,
   actual_pickup_time TIMESTAMP WITH TIME ZONE,
   actual_dropoff_time TIMESTAMP WITH TIME ZONE,
-  
+
   -- Preisgestaltung
   estimated_price DECIMAL(10, 2),
   final_price DECIMAL(10, 2),
   currency TEXT NOT NULL DEFAULT 'EUR',
-  
+
   -- Fahrzeugdetails
   vehicle_type TEXT CHECK (vehicle_type IN (
     'sedan',
@@ -70,7 +70,7 @@ CREATE TABLE public.orders (
   )),
   passenger_count INTEGER DEFAULT 1 CHECK (passenger_count > 0),
   luggage_count INTEGER DEFAULT 0 CHECK (luggage_count >= 0),
-  
+
   -- Zusatzinformationen
   notes TEXT,
   special_requirements TEXT,
@@ -80,7 +80,7 @@ CREATE TABLE public.orders (
     'invoice',
     'prepaid'
   )),
-  
+
   -- Tracking
   created_by UUID REFERENCES auth.users(id),
   assigned_by UUID REFERENCES auth.users(id),
@@ -99,7 +99,7 @@ CREATE INDEX idx_orders_created_at ON public.orders(created_at DESC);
 CREATE OR REPLACE FUNCTION generate_order_number()
 RETURNS TRIGGER AS $$
 BEGIN
-  NEW.order_number := 'ORD-' || TO_CHAR(now(), 'YYYYMMDD') || '-' || 
+  NEW.order_number := 'ORD-' || TO_CHAR(now(), 'YYYYMMDD') || '-' ||
     LPAD(NEXTVAL('order_number_seq')::TEXT, 4, '0');
   RETURN NEW;
 END;
@@ -122,20 +122,20 @@ EXECUTE FUNCTION public.update_updated_at_column();
 -- RLS Policies
 ALTER TABLE public.orders ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Users can view orders" 
-ON public.orders FOR SELECT 
+CREATE POLICY "Users can view orders"
+ON public.orders FOR SELECT
 USING (auth.uid() IS NOT NULL);
 
-CREATE POLICY "Users can create orders" 
-ON public.orders FOR INSERT 
+CREATE POLICY "Users can create orders"
+ON public.orders FOR INSERT
 WITH CHECK (auth.uid() = created_by);
 
-CREATE POLICY "Users can update orders" 
-ON public.orders FOR UPDATE 
+CREATE POLICY "Users can update orders"
+ON public.orders FOR UPDATE
 USING (auth.uid() IS NOT NULL);
 
-CREATE POLICY "Users can delete own orders" 
-ON public.orders FOR DELETE 
+CREATE POLICY "Users can delete own orders"
+ON public.orders FOR DELETE
 USING (auth.uid() = created_by);
 ```
 
@@ -158,7 +158,7 @@ export function Orders() {
         <h1 className="text-heading">Aufträge</h1>
         <CreateOrderButton />
       </div>
-      
+
       <OrdersFilters />
       <OrdersList />
     </div>
@@ -169,6 +169,7 @@ export function Orders() {
 ### **2. Orders Table Component**
 
 **Spalten:**
+
 - Auftragsnummer (Badge mit Status-Color)
 - Kunde (Name + Telefon)
 - Abholung (Adresse + Zeit)
@@ -179,6 +180,7 @@ export function Orders() {
 - Aktionen (View/Edit/Delete)
 
 **Features:**
+
 - Sortierung nach allen Spalten
 - Inline-Editing für Status
 - Drag & Drop für Fahrer-Zuweisung
@@ -188,6 +190,7 @@ export function Orders() {
 ### **3. Create/Edit Order Form**
 
 **Form-Felder gemäß [FORM_STANDARDS_V18.5.0.md]:**
+
 - Kunde auswählen (Autocomplete mit Search)
 - Service-Typ (Radio Group: Taxi/Mietwagen/Limousine)
 - Abhol-Adresse (Google Places Autocomplete)
@@ -201,6 +204,7 @@ export function Orders() {
 - Sonderanforderungen (Textarea)
 
 **Validation:**
+
 - Pflichtfelder: Kunde, Abhol-Adresse, Ziel, Abholzeit
 - Abholzeit muss in Zukunft liegen (außer bei Sofort-Aufträgen)
 - Passagieranzahl > 0
@@ -209,9 +213,10 @@ export function Orders() {
 ### **4. Order Detail View**
 
 **Sections:**
+
 - **Header:** Order Number, Status Badge, Created Date
 - **Customer Info:** Name, Phone, Email, Kundennummer
-- **Trip Details:** 
+- **Trip Details:**
   - Map mit Route (Leaflet/Mapbox)
   - Pickup & Dropoff mit Uhrzeiten
   - Geschätzte/Tatsächliche Fahrtdauer
@@ -239,6 +244,7 @@ stateDiagram-v2
 ```
 
 **Status-Transitions:**
+
 - `pending → confirmed`: Manuelle Bestätigung oder automatisch nach 5 Min
 - `confirmed → assigned`: Fahrer manuell oder automatisch zuweisen
 - `assigned → in_progress`: Fahrer-App meldet "Start"
@@ -258,6 +264,7 @@ stateDiagram-v2
 ```
 
 **Features:**
+
 - Google Maps Directions API Integration
 - Traffic-basierte Schätzungen
 - Preisberechnung basierend auf Distanz + Zeit
@@ -272,6 +279,7 @@ stateDiagram-v2
 ```
 
 **Logik:**
+
 - Verfügbare Fahrer in Reichweite finden
 - Matching nach Fahrzeugtyp
 - Ranking nach: Distanz, Bewertung, Verfügbarkeit
@@ -323,19 +331,19 @@ const channel = supabase
 :root {
   --status-pending: 220 13% 91%;
   --status-pending-foreground: 220 9% 46%;
-  
+
   --status-confirmed: 221 83% 53%;
   --status-confirmed-foreground: 0 0% 100%;
-  
+
   --status-assigned: 262 83% 58%;
   --status-assigned-foreground: 0 0% 100%;
-  
+
   --status-in-progress: 47 96% 53%;
   --status-in-progress-foreground: 26 83% 14%;
-  
+
   --status-completed: 142 71% 45%;
   --status-completed-foreground: 0 0% 100%;
-  
+
   --status-cancelled: 0 84% 60%;
   --status-cancelled-foreground: 0 0% 100%;
 }
@@ -370,27 +378,27 @@ const statusVariants = cva(
 
 ```typescript
 // tests/orders.spec.ts
-test('Create new order', async ({ page }) => {
-  await page.goto('/orders');
-  await page.click('text=Neuer Auftrag');
-  
+test("Create new order", async ({ page }) => {
+  await page.goto("/orders");
+  await page.click("text=Neuer Auftrag");
+
   // Fill form
-  await page.fill('[name="customer"]', 'Max Mustermann');
-  await page.fill('[name="pickup_address"]', 'Berlin Hauptbahnhof');
-  await page.fill('[name="dropoff_address"]', 'Berlin Tegel');
-  
+  await page.fill('[name="customer"]', "Max Mustermann");
+  await page.fill('[name="pickup_address"]', "Berlin Hauptbahnhof");
+  await page.fill('[name="dropoff_address"]', "Berlin Tegel");
+
   await page.click('button[type="submit"]');
-  
+
   // Verify
-  await expect(page.locator('text=Auftrag erstellt')).toBeVisible();
+  await expect(page.locator("text=Auftrag erstellt")).toBeVisible();
 });
 
-test('Filter orders by status', async ({ page }) => {
-  await page.goto('/orders');
-  await page.selectOption('[name="status"]', 'in_progress');
-  
+test("Filter orders by status", async ({ page }) => {
+  await page.goto("/orders");
+  await page.selectOption('[name="status"]', "in_progress");
+
   // Verify filtered
-  await expect(page.locator('.order-row')).toHaveCount(5);
+  await expect(page.locator(".order-row")).toHaveCount(5);
 });
 ```
 

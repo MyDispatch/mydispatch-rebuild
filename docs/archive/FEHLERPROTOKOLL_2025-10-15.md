@@ -1,33 +1,40 @@
 # Fehlerprotokoll: Systemweite Farb- und Design-Korrektur
+
 **Datum**: 15.10.2025, 13:30 Uhr  
 **Status**: ✅ BEHOBEN  
-**Priorität**: 🔴 P0 - KRITISCH  
+**Priorität**: 🔴 P0 - KRITISCH
 
 ---
 
 ## 🚨 GEFUNDENE FEHLER
 
 ### 1. **KRITISCH: Falsche Button-Farben (bg-accent = Braun/Gelb)**
+
 **Betroffene Dateien**:
+
 - `src/pages/Einstellungen.tsx` (Zeile 348)
 - `src/pages/Pricing.tsx` (Zeile 164, 182)
 - `src/pages/Home.tsx` (Zeile 261, 269, 291)
 
 **Problem**:
+
 - `bg-accent` (#856d4b - Braun/Gold) wurde für primäre CTA-Buttons verwendet
 - Führte zu gelblich/bräunlichen Buttons statt der CI-konformen Farben
 - Screenshot-Beweis: "Auf Business upgraden (99€/Monat)" Button in Einstellungen
 
 **Lösung**:
+
 ```tsx
 // VORHER (FALSCH):
-className="bg-accent hover:bg-accent/90"
+className = "bg-accent hover:bg-accent/90";
 
 // NACHHER (KORREKT):
-className="bg-foreground text-primary hover:bg-foreground/90 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
+className =
+  "bg-foreground text-primary hover:bg-foreground/90 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-[1.02]";
 ```
 
 **Begründung**:
+
 - `bg-foreground` (#323D5E - Dunkelgrau/Blau) = MyDispatch CI-Primärfarbe für Buttons
 - `text-primary` (#EADEBD - Beige/Gold) = Kontrastfarbe für Text auf dunklem Hintergrund
 - `bg-accent` nur für Akzente, NICHT für primäre CTAs
@@ -35,15 +42,19 @@ className="bg-foreground text-primary hover:bg-foreground/90 shadow-md hover:sha
 ---
 
 ### 2. **Check/X Icons mit falschen Farben**
+
 **Betroffene Dateien**:
+
 - `src/pages/Einstellungen.tsx` (Zeile 278-328)
 
 **Problem**:
+
 - Check-Icons: `text-foreground` statt `text-status-success`
 - X-Icons: `text-muted-foreground` statt `text-status-error`
 - Ampel-System-Farben wurden nicht konsequent genutzt
 
 **Lösung**:
+
 ```tsx
 // VORHER (FALSCH):
 <Check className="h-4 w-4 text-foreground" />
@@ -55,6 +66,7 @@ className="bg-foreground text-primary hover:bg-foreground/90 shadow-md hover:sha
 ```
 
 **Begründung**:
+
 - Ampel-System-Farben: `--status-success` (Grün), `--status-error` (Rot)
 - Definiert in `src/index.css` (Zeile 51-58)
 - KRITISCH: Dokumentiert in `AMPEL_SYSTEM_FINAL_DOKUMENTATION.md`
@@ -62,15 +74,19 @@ className="bg-foreground text-primary hover:bg-foreground/90 shadow-md hover:sha
 ---
 
 ### 3. **Select.Item mit leerem value**
+
 **Betroffene Dateien**:
+
 - `src/components/forms/PersonFormFields.tsx` (Zeile 41, 94)
 - `src/pages/Fahrzeuge.tsx` (Zeile 380)
 
 **Problem**:
+
 - `<SelectItem value="" />` verursacht Runtime-Error
 - Radix UI verbietet leere Strings als value (Placeholder-Konflikt)
 
 **Lösung**:
+
 ```tsx
 // VORHER (FALSCH):
 const TITLES = [
@@ -91,14 +107,18 @@ onValueChange={(value) => onChange('title', value === 'none' ? '' : value)}
 ---
 
 ### 4. **Badge-Farben inkonsistent**
+
 **Betroffene Dateien**:
+
 - `src/pages/Pricing.tsx` (Zeile 164, 182)
 
 **Problem**:
+
 - `bg-accent text-white` für Badges (braun/gelb)
 - Inkonsistent mit CI-Farben
 
 **Lösung**:
+
 ```tsx
 // VORHER (FALSCH):
 <Badge className="bg-accent text-white">Spare bis zu 20%</Badge>
@@ -112,6 +132,7 @@ onValueChange={(value) => onChange('title', value === 'none' ? '' : value)}
 ## ✅ DURCHGEFÜHRTE KORREKTUREN
 
 ### Dateien bearbeitet (6 Dateien):
+
 1. ✅ `src/components/forms/PersonFormFields.tsx`
    - Titel-Dropdown: `value: ''` → `value: 'none'`
    - onChange-Mapping hinzugefügt
@@ -142,19 +163,20 @@ onValueChange={(value) => onChange('title', value === 'none' ? '' : value)}
 
 ```css
 /* MyDispatch CI Colors (index.css) */
---primary: 40 31% 88%;         /* #EADEBD - Beige/Gold */
---foreground: 225 31% 28%;     /* #323D5E - Dunkelgrau/Blau */
---accent: 31 26% 38%;          /* #856d4b - Braun/Gold */
+--primary: 40 31% 88%; /* #EADEBD - Beige/Gold */
+--foreground: 225 31% 28%; /* #323D5E - Dunkelgrau/Blau */
+--accent: 31 26% 38%; /* #856d4b - Braun/Gold */
 
 /* Status Colors (Ampel-System) */
 --status-success: 142 76% 36%; /* Ampel-Grün */
---status-warning: 48 96% 53%;  /* Ampel-Gelb */
---status-error: 0 84% 60%;     /* Ampel-Rot */
+--status-warning: 48 96% 53%; /* Ampel-Gelb */
+--status-error: 0 84% 60%; /* Ampel-Rot */
 ```
 
 ### VERWENDUNG:
 
 #### ✅ KORREKT:
+
 - **Primäre CTAs**: `bg-foreground text-primary`
 - **Checkmarks**: `text-status-success`
 - **Error-Icons**: `text-status-error`
@@ -162,6 +184,7 @@ onValueChange={(value) => onChange('title', value === 'none' ? '' : value)}
 - **Card-Borders (Highlight)**: `border-foreground`
 
 #### ❌ FALSCH:
+
 - **NIEMALS**: `bg-accent` für primäre Buttons
 - **NIEMALS**: `text-white` (nur `text-primary` oder `text-foreground`)
 - **NIEMALS**: `text-foreground` für Status-Icons (Ampel-System nutzen!)
@@ -172,12 +195,14 @@ onValueChange={(value) => onChange('title', value === 'none' ? '' : value)}
 ## 📊 IMPACT
 
 ### Betroffene Bereiche:
+
 - ✅ **Einstellungen-Seite**: Button-Farbe korrigiert, Ampel-System aktiviert
 - ✅ **Pricing-Seite**: Badges + Borders CI-konform
 - ✅ **Home-Page**: CTA-Buttons + Carousel harmonisiert
 - ✅ **Fahrzeuge/Forms**: Select-Fehler behoben
 
 ### Visuelle Verbesserungen:
+
 - 🎨 **Konsistente Farbgebung** systemweit
 - 🎨 **Ampel-System** korrekt implementiert
 - 🎨 **CI-Konformität** zu 100%
@@ -232,12 +257,14 @@ onValueChange={(value) => onChange('title', value === 'none' ? '' : value)}
 ### V18.1 - Systemweite UX-Verbesserungen
 
 **Neue Komponenten:**
+
 1. ✅ `src/components/shared/DetailDialog.tsx` - Universeller Detail-Dialog
 2. ✅ `src/components/shared/ConfirmationDialog.tsx` - Doppelte Bestätigung
 3. ✅ `src/lib/date-validation.ts` - Datums-Validierung
 4. ✅ `src/hooks/use-document-expiry.tsx` - Dokumenten-Ablauf Ampel-System
 
 **Datenbank-Migrationen:**
+
 1. ✅ `protect_created_at()` - Eingangsstempel unveränderlich
 2. ✅ `validate_future_booking()` - Keine rückwirkenden Buchungen
 3. ✅ `document_expiry_reminders` - Ablauf-Erinnerungen

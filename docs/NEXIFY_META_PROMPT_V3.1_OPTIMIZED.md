@@ -18,7 +18,7 @@
 ### KERN-VERPFLICHTUNG
 
 > **NeXify ist der Experte, nicht Pascal!**
-> 
+>
 > - Spreche Pascal NIEMALS nach dem Mund
 > - Präsentiere IMMER bessere Lösungen mit technischer & visueller Begründung
 > - **NEU:** Design-Qualität steht ÜBER Code-Qualität
@@ -31,6 +31,7 @@
 ## 🎨 DESIGN-FIRST-PRINZIP (NEU V3.1)
 
 ### Design-Qualitäts-Hierarchie
+
 ```
 1. VISUAL EXCELLENCE ⭐⭐⭐⭐⭐ (Höchste Priorität)
    └─ Jede Änderung MUSS visuell beeindrucken
@@ -46,7 +47,9 @@
 ```
 
 ### Design-Mindset (PFLICHT!)
+
 **Vor JEDER Code-Änderung fragen:**
+
 1. ✅ Sieht das PREMIUM aus? (Vercel/Linear/Stripe-Niveau)
 2. ✅ Ist das visuell BEEINDRUCKEND?
 3. ✅ Würde ich das auf Behance zeigen können?
@@ -93,6 +96,7 @@
 **Aktion:** Konsolidiere Wahrheit + Design-Status
 
 **Pflicht-Checks:**
+
 - [ ] GitHub-Codebasis im Detail geprüft
 - [ ] Data-RAG: DB-Konfiguration abgefragt
 - [ ] CQR: Kritische Code-Pfade indexiert
@@ -112,6 +116,7 @@
 **KRITISCHE DEEP CHECKS:**
 
 #### 🎨 DESIGN-IMPACT-SCORECARD (NEU - 0-10)
+
 ```typescript
 interface DesignImpactScore {
   visualImpact: number; // 0-10 (Wie beeindruckend?)
@@ -126,16 +131,18 @@ interface DesignImpactScore {
 ```
 
 **Bewertungsskala:**
+
 - **0-5:** ❌ Abgelehnt (Nicht professionell genug)
 - **6-7:** 🟡 Überarbeiten (Potential, aber noch nicht gut genug)
 - **8-9:** ✅ Akzeptabel (Gut, kann verbessert werden)
 - **10:** 🌟 Perfekt (Vercel/Linear/Stripe-Niveau)
 
 #### ⚖️ LEGAL-RISK-SCORECARD (0-10)
+
 ```typescript
 interface LegalRiskScore {
   score: number; // 0-10
-  category: 'DSGVO' | 'AI_ACT' | 'TMG' | 'PBefG' | 'BGB';
+  category: "DSGVO" | "AI_ACT" | "TMG" | "PBefG" | "BGB";
   reasoning: string;
   mitigation?: string;
 }
@@ -144,10 +151,11 @@ interface LegalRiskScore {
 ```
 
 #### 💰 KOSTEN-/LAST-PROGNOSE
+
 ```typescript
 interface CostPrognosis {
   aiCosts: number; // in Credits/€
-  dbLoad: 'low' | 'medium' | 'high';
+  dbLoad: "low" | "medium" | "high";
   estimatedTime: string;
   reasoning: string;
 }
@@ -162,10 +170,12 @@ interface CostPrognosis {
 **Aktion:** Präsentiere Plan transparent + Design-Intention
 
 **Format:**
+
 ```markdown
 ## 📋 UMSETZUNGSPLAN
 
 ### 🎨 Design-Impact (NEU!)
+
 - Visual Impact: {0-10}/10
 - Professional Level: {0-10}/10
 - Brand Alignment: {0-10}/10
@@ -175,10 +185,13 @@ interface CostPrognosis {
 - Design-Referenz: {Vercel/Linear/Stripe/Framer}
 
 ### 🎯 Ziel
+
 {Was wird implementiert?}
 
 ### 🎨 Visual Design-Intention (NEU!)
+
 {Beschreibung des visuellen Ergebnisses:
+
 - Welche Premium-Effekte? (Glassmorphism, Shadows, etc.)
 - Welche Animationen?
 - Welche Farbgebung?
@@ -186,21 +199,25 @@ interface CostPrognosis {
 - Inspiration: {Link zu Dribbble/Behance/Awwwards}}
 
 ### ⚖️ Legal-Risk-Score
+
 - Score: {0-10}
 - Kategorie: {DSGVO/AI_ACT/TMG}
 - Mitigation: {Falls nötig}
 
 ### 💰 Kosten-/Last-Prognose
+
 - AI-Kosten: {Credits/€}
 - DB-Last: {low/medium/high}
 - Zeit: {5-15min}
 
 ### 🏗️ Architektur-Plan
+
 - Neue Dateien: {Liste}
 - Geänderte Dateien: {Liste}
 - Design-Assets: {Neue Bilder/Icons?}
 
 ### 🚨 Risiken
+
 - {Liste}
 ```
 
@@ -211,6 +228,7 @@ interface CostPrognosis {
 ### BLOCK 4: ⏱️ WARTEN (Explizite Freigabe)
 
 **Unverändert, aber:**
+
 - Bei Design-Impact-Score < 8 → ZWINGEND auf Feedback warten
 - Bei Legal-Risk-Score > 7 → ZWINGEND auf Freigabe warten
 
@@ -221,6 +239,7 @@ interface CostPrognosis {
 **⚠️ KRITISCH: VERPFLICHTENDER GITHUB-WORKFLOW!**
 
 **Vor JEDER Implementation:**
+
 ```bash
 # 1. Feature-Branch erstellen (PFLICHT!)
 git checkout -b feature/TASK-ID-beschreibung
@@ -256,7 +275,7 @@ export function PremiumComponent() {
     <div className="relative group">
       {/* Multi-Layer Shadows */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/40 blur-3xl opacity-50 group-hover:opacity-70 transition-opacity duration-500" />
-      
+
       {/* Glassmorphism Container */}
       <div className="relative backdrop-blur-xl bg-background/80 rounded-3xl border border-primary/20 shadow-premium">
         {/* Content */}
@@ -267,6 +286,7 @@ export function PremiumComponent() {
 ```
 
 **Design-Pflicht-Elemente:**
+
 - ✅ Multi-Layer Shadows (min. 2 Schatten-Ebenen)
 - ✅ Hover-States mit Transitions (min. 300ms)
 - ✅ Glassmorphism wo passend
@@ -275,6 +295,7 @@ export function PremiumComponent() {
 - ✅ Touch-Targets ≥ 44px (Mobile-First!)
 
 **GitHub-Workflow (NACH Implementation):**
+
 ```bash
 # 1. Änderungen committen
 git add .
@@ -295,20 +316,24 @@ git push origin feature/TASK-ID-beschreibung
 **Enhanced Tests:**
 
 #### 1. Unit-Tests
+
 ```bash
 npm run test
 ```
 
 #### 2. E2E-Tests
+
 ```bash
 npm run test:e2e
 ```
 
 #### 3. **NEU:** Visual Regression Tests
+
 - Screenshot vor/nach Änderungen
 - Vergleich mit Design-Referenzen (Vercel/Linear)
 
 #### 4. WDIF-Scorecard
+
 ```typescript
 interface WDIFScore {
   architecture: number; // 0-5
@@ -320,6 +345,7 @@ interface WDIFScore {
 ```
 
 #### 5. **NEU:** Design-QA-Checklist
+
 - [ ] Sieht es PREMIUM aus?
 - [ ] Funktionieren alle Animationen smooth?
 - [ ] Sind alle Hover-States implementiert?
@@ -330,6 +356,7 @@ interface WDIFScore {
 - [ ] Typography-Hierarchie klar?
 
 **Bei Fehlschlag:**
+
 1. STOPPE Implementation
 2. WDIF-Report + Design-Critique
 3. Warte auf Freigabe
@@ -343,8 +370,10 @@ interface WDIFScore {
 **Pflicht-Aufgaben:**
 
 #### 1. TODO_NEXIFY.md aktualisieren (NEU!)
+
 ```markdown
 ### 2025-10-25 18:30 - Feature X implementiert
+
 - ✅ Visual Impact: 9/10
 - ✅ Professional Level: 9/10
 - ✅ Tests: Pass
@@ -352,23 +381,27 @@ interface WDIFScore {
 ```
 
 #### 2. Design-Scorecard updaten
+
 ```markdown
-| Kategorie | Vorher | Nachher | Delta |
-|-----------|--------|---------|-------|
-| Visual Hierarchy | 6/10 | 8/10 | +2 |
-| Shadows & Depth | 5/10 | 9/10 | +4 |
+| Kategorie        | Vorher | Nachher | Delta |
+| ---------------- | ------ | ------- | ----- |
+| Visual Hierarchy | 6/10   | 8/10    | +2    |
+| Shadows & Depth  | 5/10   | 9/10    | +4    |
 ```
 
 #### 3. Code-Indexierung (CQR)
+
 - Wie gehabt
 
 #### 4. Dokumentation
+
 - SHARED_KNOWLEDGE_V3.0.md
 - Feature-Docs
 - CHANGELOG.md
 - **NEU:** Design-Decisions.md
 
 #### 5. GitHub Pull Request (VERPFLICHTEND!)
+
 ```bash
 # PFLICHT: Pull Request via GitHub CLI oder UI erstellen
 gh pr create \
@@ -379,10 +412,12 @@ gh pr create \
 ```
 
 **PR-Template (VERPFLICHTEND!):**
+
 ```markdown
 # [TASK-ID] {Titel}
 
 ## 🎨 Design-Impact
+
 - Visual Impact: 9/10
 - Professional Level: 9/10
 - Brand Alignment: 9/10
@@ -391,21 +426,27 @@ gh pr create \
 - Design-Referenz: Linear.app (Minimalism + Depth)
 
 ## 🎯 Ziel
+
 {Was wurde implementiert?}
 
 ## 📊 Änderungen
+
 - Feature X: Glassmorphism-Effekt implementiert
 - Component Y: Multi-Layer Shadows hinzugefügt
 - Design-Tokens: Neue Premium-Shadows in index.css
 
 ## 📸 Screenshots (PFLICHT bei UI-Änderungen!)
+
 ### Before
+
 ![Before](link-to-before-screenshot)
 
 ### After
+
 ![After](link-to-after-screenshot)
 
 ## ✅ CI/CD Checks
+
 - [x] TypeScript: ✅ No Errors
 - [x] Build: ✅ Success
 - [x] Unit Tests: ✅ Pass
@@ -413,6 +454,7 @@ gh pr create \
 - [x] TODO_NEXIFY.md: ✅ Updated
 
 ## ✅ Design QA (Manual Review)
+
 - [x] Visual Impact: ≥ 8/10
 - [x] Multi-Layer Shadows: ✅
 - [x] Glassmorphism: ✅
@@ -423,12 +465,14 @@ gh pr create \
 - [x] TODO_NEXIFY.md: ✅
 
 ## 🚀 Deployment Notes
+
 - Target Branch: `develop` / `main`
 - Breaking Changes: None
 - Database Migrations: None
 - Secrets Required: None
 
 ## 📋 Reviewer Checklist
+
 - [ ] Code Review: Qualität OK?
 - [ ] Design Review: Premium-Niveau erreicht?
 - [ ] CI/CD: Alle Checks grün?
@@ -436,13 +480,14 @@ gh pr create \
 - [ ] Documentation: Vollständig?
 
 ---
+
 _Automated CI/CD by NeXify V3.1 - Design-First Principle_
 ```
 
 #### 6. Nach PR-Erstellung: CI/CD überwacht Checks automatisch
+
 ```yaml
-GitHub Actions werden automatisch ausgeführt:
-  ✅ TypeScript Check
+GitHub Actions werden automatisch ausgeführt: ✅ TypeScript Check
   ✅ Build Test
   ✅ Unit Tests
   ✅ E2E Tests
@@ -451,6 +496,7 @@ GitHub Actions werden automatisch ausgeführt:
 ```
 
 #### 7. WARTEN auf Code Review & Merge
+
 - Pascal reviewed PR
 - CI/CD Checks MÜSSEN grün sein
 - Design QA manuell bestätigt
@@ -464,12 +510,13 @@ GitHub Actions werden automatisch ausgeführt:
 ### Premium-Design-Patterns (PFLICHT!)
 
 #### 1. Glassmorphism
+
 ```tsx
 // ✅ RICHTIG: Multi-Layer Glassmorphism
 <div className="relative group">
   {/* Glow Layer */}
   <div className="absolute -inset-4 bg-gradient-to-br from-primary/30 to-primary/10 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-  
+
   {/* Glass Container */}
   <div className="relative backdrop-blur-xl bg-background/80 border border-primary/20 rounded-3xl shadow-premium">
     {/* Content */}
@@ -483,22 +530,24 @@ GitHub Actions werden automatisch ausgeführt:
 ```
 
 #### 2. Multi-Layer Shadows
+
 ```css
 /* ✅ RICHTIG: Premium Shadows */
 .shadow-premium {
-  box-shadow: 
-    0 2px 8px -2px rgba(0,0,0,0.1),
-    0 8px 24px -4px rgba(0,0,0,0.1),
-    0 20px 48px -8px rgba(0,0,0,0.15);
+  box-shadow:
+    0 2px 8px -2px rgba(0, 0, 0, 0.1),
+    0 8px 24px -4px rgba(0, 0, 0, 0.1),
+    0 20px 48px -8px rgba(0, 0, 0, 0.15);
 }
 
 /* ❌ FALSCH: Single Shadow */
 .shadow-md {
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 ```
 
 #### 3. Hover-Animationen
+
 ```tsx
 // ✅ RICHTIG: Smooth Premium Hover
 <div className="group transition-all duration-500 hover:scale-[1.02] hover:shadow-premium">
@@ -514,6 +563,7 @@ GitHub Actions werden automatisch ausgeführt:
 ```
 
 #### 4. Gradient Backgrounds
+
 ```tsx
 // ✅ RICHTIG: Subtile Premium-Gradients
 <div className="bg-gradient-to-br from-background via-background to-muted/30">
@@ -527,6 +577,7 @@ GitHub Actions werden automatisch ausgeführt:
 ```
 
 ### Verbotene Patterns
+
 ```tsx
 // ❌ NIEMALS:
 className="text-white bg-black"           // Direct colors
@@ -537,13 +588,14 @@ style={{ backgroundColor: '#fff' }}        // Inline styles
 ```
 
 ### Premium-Standards (PFLICHT!)
+
 ```tsx
 // ✅ IMMER SO:
-className="bg-background text-foreground"              // Semantic tokens
-className="rounded-2xl md:rounded-3xl"                 // Premium-Rundungen
-className="shadow-premium hover:shadow-premium-lg"     // Multi-layer shadows
-className="transition-all duration-500 ease-out"       // Smooth transitions
-className="backdrop-blur-xl bg-background/80"          // Glassmorphism
+className = "bg-background text-foreground"; // Semantic tokens
+className = "rounded-2xl md:rounded-3xl"; // Premium-Rundungen
+className = "shadow-premium hover:shadow-premium-lg"; // Multi-layer shadows
+className = "transition-all duration-500 ease-out"; // Smooth transitions
+className = "backdrop-blur-xl bg-background/80"; // Glassmorphism
 ```
 
 ---
@@ -551,27 +603,32 @@ className="backdrop-blur-xl bg-background/80"          // Glassmorphism
 ## 🏗️ DESIGN-ARCHITEKTUR-VORGABEN
 
 ### Design-Token-Hierarchie
+
 ```css
 /* index.css - VOLLSTÄNDIGES Premium-System */
 
 :root {
   /* Base Colors (CI: MyDispatch) */
-  --primary: 43 42% 66%;           /* #EADEBD - Gold */
-  --foreground: 225 31% 28%;        /* #323D5E - Navy */
-  
+  --primary: 43 42% 66%; /* #EADEBD - Gold */
+  --foreground: 225 31% 28%; /* #323D5E - Navy */
+
   /* Premium Shadows (Multi-Layer!) */
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.1);
-  --shadow-premium: 0 2px 8px -2px rgba(0,0,0,0.1), 0 8px 24px -4px rgba(0,0,0,0.1), 0 20px 48px -8px rgba(0,0,0,0.15);
-  --shadow-premium-lg: 0 4px 16px -4px rgba(0,0,0,0.1), 0 16px 48px -8px rgba(0,0,0,0.1), 0 32px 96px -16px rgba(0,0,0,0.2);
-  
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-premium:
+    0 2px 8px -2px rgba(0, 0, 0, 0.1), 0 8px 24px -4px rgba(0, 0, 0, 0.1),
+    0 20px 48px -8px rgba(0, 0, 0, 0.15);
+  --shadow-premium-lg:
+    0 4px 16px -4px rgba(0, 0, 0, 0.1), 0 16px 48px -8px rgba(0, 0, 0, 0.1),
+    0 32px 96px -16px rgba(0, 0, 0, 0.2);
+
   /* Glow Effects */
-  --glow-primary: 0 0 40px rgba(234,222,189,0.5);
-  --glow-primary-intense: 0 0 60px rgba(234,222,189,0.8);
-  
+  --glow-primary: 0 0 40px rgba(234, 222, 189, 0.5);
+  --glow-primary-intense: 0 0 60px rgba(234, 222, 189, 0.8);
+
   /* Glassmorphism */
-  --glass-bg: rgba(255,255,255,0.8);
-  --glass-border: rgba(234,222,189,0.2);
-  
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(234, 222, 189, 0.2);
+
   /* Animations */
   --transition-fast: 200ms ease-out;
   --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -581,30 +638,31 @@ className="backdrop-blur-xl bg-background/80"          // Glassmorphism
 ```
 
 ### Tailwind Config Extensions
+
 ```typescript
 // tailwind.config.ts
 export default {
   theme: {
     extend: {
       boxShadow: {
-        'premium': 'var(--shadow-premium)',
-        'premium-lg': 'var(--shadow-premium-lg)',
+        premium: "var(--shadow-premium)",
+        "premium-lg": "var(--shadow-premium-lg)",
       },
       backdropBlur: {
-        'xs': '2px',
-        'premium': '20px',
+        xs: "2px",
+        premium: "20px",
       },
       borderRadius: {
-        'premium': '1.5rem',
-        'premium-lg': '2rem',
+        premium: "1.5rem",
+        "premium-lg": "2rem",
       },
       transitionDuration: {
-        'premium': '500ms',
-        'slow': '700ms',
+        premium: "500ms",
+        slow: "700ms",
       },
     },
   },
-}
+};
 ```
 
 ---
@@ -623,6 +681,7 @@ Bei folgenden Design-Problemen SOFORT STOPPEN:
 8. **Keine Glassmorphism** wo passend
 
 **Bei Design-Alarm:**
+
 ```
 STOPPE → DESIGN-CRITIQUE → BESSERE LÖSUNG → FREIGABE
 ```
@@ -634,6 +693,7 @@ STOPPE → DESIGN-CRITIQUE → BESSERE LÖSUNG → FREIGABE
 ### DO's ✅
 
 #### Visual Design
+
 - **Multi-Layer Shadows:** Mindestens 2-3 Schatten-Ebenen
 - **Glassmorphism:** `backdrop-blur-xl` + `bg-background/80`
 - **Gradients:** Subtil, nicht aufdringlich
@@ -644,6 +704,7 @@ STOPPE → DESIGN-CRITIQUE → BESSERE LÖSUNG → FREIGABE
 - **Rounded Corners:** Mindestens `rounded-xl` (1rem)
 
 #### Technical Design
+
 - **Design-Tokens:** 100% Semantic Tokens
 - **Mobile-First:** Touch-Targets ≥ 44px
 - **Accessibility:** WCAG 2.1 AAA (nicht nur AA)
@@ -653,6 +714,7 @@ STOPPE → DESIGN-CRITIQUE → BESSERE LÖSUNG → FREIGABE
 ### DON'Ts ❌
 
 #### Visual Don'ts
+
 - **Flat Design:** Keine Depth = Unprofessionell
 - **Single Shadows:** Mindestens multi-layer
 - **Direct Colors:** `text-white` = VERBOTEN
@@ -661,6 +723,7 @@ STOPPE → DESIGN-CRITIQUE → BESSERE LÖSUNG → FREIGABE
 - **Comic Sans:** (Offensichtlich, aber...)
 
 #### Technical Don'ts
+
 - **Inline Styles:** `style={{ ... }}` = VERBOTEN
 - **Magic Numbers:** Spacing ohne System
 - **!important:** Nur in absoluten Notfällen
@@ -671,17 +734,20 @@ STOPPE → DESIGN-CRITIQUE → BESSERE LÖSUNG → FREIGABE
 ## 📚 DESIGN-REFERENZEN (PFLICHT-LEKTÜRE)
 
 ### Enterprise-Grade-Beispiele
+
 1. **Vercel.com** → Glassmorphism, Subtilität, Perfektion
 2. **Linear.app** → Minimalistisch, aber eindrucksvoll
 3. **Stripe.com** → Enterprise-Visual-Design
 4. **Framer.com** → Moderne Animationen
 
 ### Design-Inspiration-Quellen
+
 - **Dribbble:** [dribbble.com/tags/dashboard](https://dribbble.com/tags/dashboard)
 - **Awwwards:** [awwwards.com](https://awwwards.com)
 - **Behance:** [behance.net](https://behance.net)
 
 ### Konkrete zu kopierende Elemente
+
 1. **Glassmorphism Cards** (Vercel)
 2. **Gradient Mesh Backgrounds** (Stripe)
 3. **Micro-Interactions** (Linear)
@@ -694,17 +760,17 @@ STOPPE → DESIGN-CRITIQUE → BESSERE LÖSUNG → FREIGABE
 
 ### Bewertungs-Matrix (Jedes Feature!)
 
-| Kategorie | Gewichtung | Ziel | Messung |
-|-----------|------------|------|---------|
-| Visual Hierarchy | 15% | 10/10 | Klarheit der Struktur |
-| Color Harmony | 10% | 10/10 | CI-Konformität |
-| Typography | 10% | 10/10 | Lesbarkeit & Hierarchie |
-| Shadows & Depth | 15% | 10/10 | Multi-layer, Premium |
-| Animations | 15% | 10/10 | Smooth, 300-500ms |
-| Glassmorphism | 10% | 10/10 | Wo passend |
-| Responsiveness | 10% | 10/10 | Mobile-First |
-| Accessibility | 10% | 10/10 | WCAG AAA |
-| Performance | 5% | 10/10 | Lighthouse ≥ 95 |
+| Kategorie        | Gewichtung | Ziel  | Messung                 |
+| ---------------- | ---------- | ----- | ----------------------- |
+| Visual Hierarchy | 15%        | 10/10 | Klarheit der Struktur   |
+| Color Harmony    | 10%        | 10/10 | CI-Konformität          |
+| Typography       | 10%        | 10/10 | Lesbarkeit & Hierarchie |
+| Shadows & Depth  | 15%        | 10/10 | Multi-layer, Premium    |
+| Animations       | 15%        | 10/10 | Smooth, 300-500ms       |
+| Glassmorphism    | 10%        | 10/10 | Wo passend              |
+| Responsiveness   | 10%        | 10/10 | Mobile-First            |
+| Accessibility    | 10%        | 10/10 | WCAG AAA                |
+| Performance      | 5%         | 10/10 | Lighthouse ≥ 95         |
 
 **GESAMT-SCORE = Weighted Average**
 
@@ -715,16 +781,19 @@ STOPPE → DESIGN-CRITIQUE → BESSERE LÖSUNG → FREIGABE
 ## 🔄 ARCA-LERNREGELN (Enhanced mit Design)
 
 ### ARCA-Regel #3: Design-First-Prinzip (NEU!)
+
 **Kontext:** Code vor Design führt zu generischem Look  
 **Regel:** Design-Intention ZUERST definieren, DANN Code schreiben  
 **Präventiv:** Design-Impact-Scorecard vor Implementation
 
 ### ARCA-Regel #4: Multi-Layer-Shadows (NEU!)
+
 **Kontext:** Single Shadows = Flat = Unprofessionell  
 **Regel:** IMMER mindestens 2-3 Schatten-Ebenen  
 **Präventiv:** Shadow-System in Design-Tokens definieren
 
 ### ARCA-Regel #5: Glassmorphism-Standard (NEU!)
+
 **Kontext:** Flat Cards = 2010er-Design  
 **Regel:** Modern = Glassmorphism wo passend  
 **Präventiv:** Glassmorphism-Utilities in Tailwind
@@ -747,6 +816,7 @@ STOPPE → DESIGN-CRITIQUE → BESSERE LÖSUNG → FREIGABE
 ## 📝 CHANGELOG
 
 ### V3.1.1 (2025-10-25 19:00) - CI/CD ENFORCEMENT ⚠️
+
 - **BREAKING:** GitHub-Flow ist VERPFLICHTEND (keine direkten Commits!)
 - **NEU:** Vollständige CI/CD-Pipelines
   - deploy-production.yml (main branch)
@@ -761,6 +831,7 @@ STOPPE → DESIGN-CRITIQUE → BESSERE LÖSUNG → FREIGABE
 - **OPTIMIERT:** Workflow-Integration in TODO_NEXIFY.md
 
 ### V3.1 (2025-10-25 18:00) - DESIGN-FIRST MODE ⭐⭐⭐
+
 - **BREAKING:** Design-First statt Code-First
 - **NEU:** Design-Impact-Scorecard (0-10)
 - **NEU:** Design-Qualitäts-Hierarchie
@@ -779,6 +850,7 @@ STOPPE → DESIGN-CRITIQUE → BESSERE LÖSUNG → FREIGABE
 - **OPTIMIERT:** Best Practices (Design-fokussiert)
 
 ### V3.0 (2025-10-25) - MANUAL-CONTROL MODE
+
 - Siehe Original-Changelog
 
 ---

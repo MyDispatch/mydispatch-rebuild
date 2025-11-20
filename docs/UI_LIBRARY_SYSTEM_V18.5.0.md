@@ -11,6 +11,7 @@
 Zentrale UI-Komponenten-Library für MyDispatch mit **100% V26.1 Design System Konformität**.
 
 **Prinzipien:**
+
 - ✅ UNIFIED_DESIGN_TOKENS als einzige Farbquelle
 - ✅ Mobile-First Responsive Design
 - ✅ Wiederverwendbarkeit über Seiten hinweg
@@ -24,11 +25,13 @@ Zentrale UI-Komponenten-Library für MyDispatch mit **100% V26.1 Design System K
 ### 1. V26.0 Design System Components (src/components/design-system/)
 
 #### V26Button.tsx
+
 **Verwendung:** Primary/Secondary Action-Buttons  
 **Props:**
+
 ```typescript
 interface V26ButtonProps {
-  variant: 'primary' | 'secondary';
+  variant: "primary" | "secondary";
   onClick: () => void;
   children: ReactNode;
   disabled?: boolean;
@@ -37,6 +40,7 @@ interface V26ButtonProps {
 ```
 
 **Beispiel:**
+
 ```tsx
 <V26Button variant="primary" onClick={handleSave}>
   Speichern
@@ -46,18 +50,21 @@ interface V26ButtonProps {
 ---
 
 #### V26IconBox.tsx
+
 **Verwendung:** Icon-Container mit Premium-Styling  
 **Design:** Dunkelblau Hintergrund, Beige Icon  
 **Props:**
+
 ```typescript
 interface V26IconBoxProps {
   icon: LucideIcon;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   className?: string;
 }
 ```
 
 **Beispiel:**
+
 ```tsx
 <V26IconBox icon={Users} size="md" />
 ```
@@ -65,18 +72,21 @@ interface V26IconBoxProps {
 ---
 
 #### V26InfoBox.tsx
+
 **Verwendung:** Notice-/Hinweis-Boxen  
 **Typen:** `info`, `warning`, `legal`  
 **Props:**
+
 ```typescript
 interface V26InfoBoxProps {
-  type: 'info' | 'warning' | 'legal';
+  type: "info" | "warning" | "legal";
   icon?: LucideIcon;
   children: ReactNode;
 }
 ```
 
 **Beispiel:**
+
 ```tsx
 <V26InfoBox type="legal" icon={Shield}>
   DSGVO-Hinweis: Ihre Daten werden verschlüsselt gespeichert.
@@ -90,14 +100,17 @@ interface V26InfoBoxProps {
 ### 2. V26.1 Dashboard Components (src/components/dashboard/) **⭐ NEU**
 
 #### V26DashboardCard.tsx
+
 **Verwendung:** Standardisiertes Card-Layout für Dashboard-Bereiche  
 **Features:**
+
 - ✅ Konsistente Border, Shadow, Radius
 - ✅ Premium Glow-Effekte
 - ✅ Header mit optionalem Icon & Action
 - ✅ Responsive Padding
 
 **Props:**
+
 ```typescript
 interface V26DashboardCardProps {
   title: string;
@@ -109,6 +122,7 @@ interface V26DashboardCardProps {
 ```
 
 **Beispiel:**
+
 ```tsx
 <V26DashboardCard
   title="Letzte Aufträge"
@@ -120,6 +134,7 @@ interface V26DashboardCardProps {
 ```
 
 **Verwendet in:**
+
 - Dashboard (Index.tsx)
 - Aufträge (Auftraege.tsx)
 - Kommunikation (Kommunikation.tsx)
@@ -127,14 +142,17 @@ interface V26DashboardCardProps {
 ---
 
 #### V26KPICard.tsx
+
 **Verwendung:** KPI-Darstellung mit Icon, Wert & Trend  
 **Features:**
+
 - ✅ Gradient Background (Weiß → Canvas)
 - ✅ Hover-Scale-Animation (1.02x)
 - ✅ Premium Glow-Effekte
 - ✅ Optional: Trend mit Pfeil-Indikator
 
 **Props:**
+
 ```typescript
 interface V26KPICardProps {
   label: string;
@@ -149,6 +167,7 @@ interface V26KPICardProps {
 ```
 
 **Beispiel:**
+
 ```tsx
 <V26KPICard
   label="Abgeschlossene Aufträge"
@@ -159,25 +178,30 @@ interface V26KPICardProps {
 ```
 
 **Verwendet in:**
+
 - Dashboard (Index.tsx)
 - Alle Dashboard-Seiten mit KPIs
 
 ---
 
 #### V26DashboardTable.tsx
+
 **Verwendung:** Standardisierte Tabelle mit Row/Cell-Komponenten  
 **Features:**
+
 - ✅ Responsive Design (Mobile-First)
 - ✅ Hover-Effekte auf Rows
 - ✅ Konsistente Spacing & Border
 - ✅ Clickable Rows
 
 **Components:**
+
 - `V26DashboardTable` - Container
 - `V26DashboardTableRow` - Zeile (clickable)
 - `V26DashboardTableCell` - Zelle
 
 **Props:**
+
 ```typescript
 interface V26DashboardTableProps {
   headers: string[];
@@ -198,9 +222,10 @@ interface V26DashboardTableCellProps {
 ```
 
 **Beispiel:**
+
 ```tsx
-<V26DashboardTable headers={['Name', 'Status', 'Datum', 'Aktionen']}>
-  {items.map(item => (
+<V26DashboardTable headers={["Name", "Status", "Datum", "Aktionen"]}>
+  {items.map((item) => (
     <V26DashboardTableRow key={item.id} onClick={() => handleView(item)}>
       <V26DashboardTableCell>{item.name}</V26DashboardTableCell>
       <V26DashboardTableCell>
@@ -208,7 +233,9 @@ interface V26DashboardTableCellProps {
       </V26DashboardTableCell>
       <V26DashboardTableCell>{formatDate(item.date)}</V26DashboardTableCell>
       <V26DashboardTableCell>
-        <Button variant="ghost" size="sm">Bearbeiten</Button>
+        <Button variant="ghost" size="sm">
+          Bearbeiten
+        </Button>
       </V26DashboardTableCell>
     </V26DashboardTableRow>
   ))}
@@ -216,6 +243,7 @@ interface V26DashboardTableCellProps {
 ```
 
 **Verwendet in:**
+
 - Aufträge (Auftraege.tsx)
 - Fahrer/Fahrzeuge (Fahrer.tsx)
 - Dokumente (Dokumente.tsx)
@@ -223,14 +251,17 @@ interface V26DashboardTableCellProps {
 ---
 
 #### V26FilterSection.tsx
+
 **Verwendung:** Filter-Leiste mit Search & Action-Buttons  
 **Features:**
+
 - ✅ Integrierte Search-Bar
 - ✅ Action-Buttons (Add, Export, etc.)
 - ✅ Responsive Layout
 - ✅ Konsistente Spacing
 
 **Props:**
+
 ```typescript
 interface V26FilterSectionProps {
   searchPlaceholder: string;
@@ -242,6 +273,7 @@ interface V26FilterSectionProps {
 ```
 
 **Beispiel:**
+
 ```tsx
 <V26FilterSection
   searchPlaceholder="Fahrer durchsuchen..."
@@ -261,30 +293,35 @@ interface V26FilterSectionProps {
 ```
 
 **Verwendet in:**
+
 - Alle Dashboard-Seiten mit Tabellen
 
 ---
 
 #### V26ActionButton.tsx
+
 **Verwendung:** Standardisierte Action-Buttons  
 **Varianten:**
+
 - `primary` - Dunkelblau mit Beige Text
 - `secondary` - Beige mit Dunkelblau Text
 - `outline` - Transparent mit Dunkelblau Border
 
 **Props:**
+
 ```typescript
 interface V26ActionButtonProps {
   onClick: () => void;
   icon?: LucideIcon;
   children: ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: "primary" | "secondary" | "outline";
   disabled?: boolean;
   className?: string;
 }
 ```
 
 **Beispiel:**
+
 ```tsx
 <V26ActionButton variant="primary" onClick={handleSave} icon={Save}>
   Speichern
@@ -292,6 +329,7 @@ interface V26ActionButtonProps {
 ```
 
 **Verwendet in:**
+
 - Alle Dashboard-Seiten
 
 ---
@@ -299,19 +337,22 @@ interface V26ActionButtonProps {
 ### 3. Shared Components (src/components/shared/)
 
 #### StatusIndicator.tsx
+
 **Verwendung:** Ampel-System für Status-Anzeige  
 **Typen:** `success` (Grün), `warning` (Gelb), `error` (Rot), `neutral` (Grau)
 
 **Props:**
+
 ```typescript
 interface StatusIndicatorProps {
-  type: 'success' | 'warning' | 'error' | 'neutral';
+  type: "success" | "warning" | "error" | "neutral";
   label?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
 }
 ```
 
 **Beispiel:**
+
 ```tsx
 <StatusIndicator type="success" label="Verfügbar" size="sm" />
 ```
@@ -319,9 +360,11 @@ interface StatusIndicatorProps {
 ---
 
 #### EmptyState.tsx
+
 **Verwendung:** Leere Zustände mit Icon, Text & Action
 
 **Props:**
+
 ```typescript
 interface EmptyStateProps {
   icon: ReactNode;
@@ -334,6 +377,7 @@ interface EmptyStateProps {
 ```
 
 **Beispiel:**
+
 ```tsx
 <EmptyState
   icon={<FileText className="w-full h-full" />}
@@ -347,9 +391,11 @@ interface EmptyStateProps {
 ---
 
 #### BulkActionBar.tsx
+
 **Verwendung:** Massenaktionen-Leiste bei Auswahl mehrerer Items
 
 **Props:**
+
 ```typescript
 interface BulkActionBarProps {
   selectedCount: number;
@@ -358,27 +404,28 @@ interface BulkActionBarProps {
     label: string;
     icon: LucideIcon;
     onClick: () => void;
-    variant?: 'default' | 'destructive';
+    variant?: "default" | "destructive";
   }>;
 }
 ```
 
 **Beispiel:**
+
 ```tsx
 <BulkActionBar
   selectedCount={3}
   onDeselectAll={() => clearSelection()}
   actions={[
     {
-      label: 'Archivieren',
+      label: "Archivieren",
       icon: Archive,
       onClick: handleBulkArchive,
     },
     {
-      label: 'Löschen',
+      label: "Löschen",
       icon: Trash,
       onClick: handleBulkDelete,
-      variant: 'destructive',
+      variant: "destructive",
     },
   ]}
 />
@@ -387,9 +434,11 @@ interface BulkActionBarProps {
 ---
 
 #### DetailDialog.tsx
+
 **Verwendung:** Detail-Ansichten mit Delete/Archive-Optionen
 
 **Props:**
+
 ```typescript
 interface DetailDialogProps {
   open: boolean;
@@ -405,6 +454,7 @@ interface DetailDialogProps {
 ```
 
 **Beispiel:**
+
 ```tsx
 <DetailDialog
   open={detailOpen}
@@ -421,13 +471,16 @@ interface DetailDialogProps {
 ---
 
 #### PageHeaderWithKPIs.tsx
+
 **Verwendung:** Header mit KPI-Cards & Quick-Actions  
 **Features:**
+
 - ✅ Responsive Grid (1-3 Spalten)
 - ✅ KPI-Cards mit Icons & Trends
 - ✅ Quick-Action-Buttons
 
 **Props:**
+
 ```typescript
 interface PageHeaderWithKPIsProps {
   kpis: [KPI, KPI, KPI]; // Genau 3 KPIs
@@ -437,16 +490,17 @@ interface PageHeaderWithKPIsProps {
 ```
 
 **Beispiel:**
+
 ```tsx
 <PageHeaderWithKPIs
   kpis={[
-    { title: 'Offen', value: 12, icon: Clock, trend: { value: 5, isUp: true } },
-    { title: 'Bestätigt', value: 45, icon: Check, trend: { value: 2, isUp: true } },
-    { title: 'Gesamt', value: 120, icon: FileText, trend: { value: 0, isUp: true } },
+    { title: "Offen", value: 12, icon: Clock, trend: { value: 5, isUp: true } },
+    { title: "Bestätigt", value: 45, icon: Check, trend: { value: 2, isUp: true } },
+    { title: "Gesamt", value: 120, icon: FileText, trend: { value: 0, isUp: true } },
   ]}
   quickActions={[
-    { label: 'Neuer Auftrag', icon: Plus, onClick: handleCreate },
-    { label: 'Exportieren', icon: Download, onClick: handleExport },
+    { label: "Neuer Auftrag", icon: Plus, onClick: handleCreate },
+    { label: "Exportieren", icon: Download, onClick: handleExport },
   ]}
   quickAccessTitle="Schnellzugriff"
 />
@@ -457,14 +511,17 @@ interface PageHeaderWithKPIsProps {
 ### 4. Form Components (src/components/forms/)
 
 #### PersonFormFields.tsx
+
 **Verwendung:** Personen-Daten-Formular (Name, Anrede, etc.)  
 **Integriert:** Anrede, Vorname, Nachname, Email, Telefon
 
 ---
 
 #### AddressInput.tsx
+
 **Verwendung:** Adress-Eingabe mit Google Places Autocomplete  
 **Features:**
+
 - ✅ Autocomplete via Google Maps API
 - ✅ Automatisches Splitting (Straße, PLZ, Stadt)
 - ✅ Manuelle Eingabe-Fallback
@@ -472,8 +529,10 @@ interface PageHeaderWithKPIsProps {
 ---
 
 #### InlineDocumentUpload.tsx
+
 **Verwendung:** Dokument-Upload inline in Formularen  
 **Features:**
+
 - ✅ Drag & Drop
 - ✅ File-Preview
 - ✅ Upload-Progress
@@ -484,6 +543,7 @@ interface PageHeaderWithKPIsProps {
 ### 5. Base Components (src/components/ui/)
 
 **Shadcn/UI Basis-Komponenten:**
+
 - `button.tsx`, `card.tsx`, `input.tsx`, `dialog.tsx`, `table.tsx`, etc.
 - **NIEMALS direkt ändern** - nur via Variants/Props erweitern
 
@@ -492,6 +552,7 @@ interface PageHeaderWithKPIsProps {
 ## 🎨 DESIGN TOKENS (src/lib/design-system/unified-design-tokens.ts)
 
 ### Farben
+
 ```typescript
 colors: {
   // Brand
@@ -499,16 +560,16 @@ colors: {
   beige: '#EADEBD',
   weiss: '#FFFFFF',
   canvas: '#F9FAFB',
-  
+
   // Semantic
   text_primary: 'hsl(222 47% 11%)',
   text_secondary: 'hsl(215 16% 47%)',
-  
+
   // Status
   status_success: 'hsl(142 76% 36%)',
   status_warning: 'hsl(38 92% 50%)',
   status_error: 'hsl(0 84% 60%)',
-  
+
   // Borders
   beige_border_19: 'hsla(46, 55%, 84%, 0.19)',
   beige_border_30: 'hsla(46, 55%, 84%, 0.30)',
@@ -516,6 +577,7 @@ colors: {
 ```
 
 ### Spacing
+
 ```typescript
 spacing: {
   xs: '0.25rem',    // 4px
@@ -534,6 +596,7 @@ spacing: {
 ```
 
 ### Borders
+
 ```typescript
 border: {
   width: {
@@ -550,6 +613,7 @@ border: {
 ```
 
 ### Shadows
+
 ```typescript
 shadow: {
   component: {
@@ -560,6 +624,7 @@ shadow: {
 ```
 
 ### Radius
+
 ```typescript
 radius: {
   component: {
@@ -575,6 +640,7 @@ radius: {
 ## ✅ BEST PRACTICES
 
 ### 1. Token-Compliance
+
 ```typescript
 // ❌ FALSCH: Direkte Farben
 <div className="bg-white text-black border-gray-200">
@@ -588,6 +654,7 @@ radius: {
 ```
 
 ### 2. Mobile-First Responsive
+
 ```typescript
 // ❌ FALSCH: Desktop-First
 <div className="text-base sm:text-sm">
@@ -597,6 +664,7 @@ radius: {
 ```
 
 ### 3. Component-Reuse
+
 ```typescript
 // ❌ FALSCH: Custom Card jedes Mal
 <Card className="p-6 border-2 border-[#EADEBD19] rounded-xl shadow-md">
@@ -608,6 +676,7 @@ radius: {
 ```
 
 ### 4. Spacing-Konsistenz
+
 ```typescript
 // ❌ FALSCH: Hardcoded px
 <div className="gap-3 p-5">
@@ -620,6 +689,7 @@ radius: {
 ```
 
 ### 5. Rundungen bei gestapelten Elementen
+
 ```typescript
 // ❌ FALSCH: Alle Ecken rund
 <div className="space-y-0">
@@ -644,19 +714,25 @@ radius: {
 ## 📦 EXPORT-STRUKTUR
 
 ### Dashboard Components (src/components/dashboard/index.ts)
+
 ```typescript
-export { V26DashboardCard } from './V26DashboardCard';
-export { V26KPICard } from './V26KPICard';
-export { V26DashboardTable, V26DashboardTableRow, V26DashboardTableCell } from './V26DashboardTable';
-export { V26FilterSection } from './V26FilterSection';
-export { V26ActionButton } from './V26ActionButton';
-export { DashboardInfoPanel } from './DashboardInfoPanel';
-export { DashboardSidebar } from './DashboardSidebar';
+export { V26DashboardCard } from "./V26DashboardCard";
+export { V26KPICard } from "./V26KPICard";
+export {
+  V26DashboardTable,
+  V26DashboardTableRow,
+  V26DashboardTableCell,
+} from "./V26DashboardTable";
+export { V26FilterSection } from "./V26FilterSection";
+export { V26ActionButton } from "./V26ActionButton";
+export { DashboardInfoPanel } from "./DashboardInfoPanel";
+export { DashboardSidebar } from "./DashboardSidebar";
 ```
 
 **Usage:**
+
 ```typescript
-import { V26DashboardCard, V26KPICard } from '@/components/dashboard';
+import { V26DashboardCard, V26KPICard } from "@/components/dashboard";
 ```
 
 ---
@@ -664,6 +740,7 @@ import { V26DashboardCard, V26KPICard } from '@/components/dashboard';
 ## 🚨 ANTI-PATTERNS (NEVER DO)
 
 ### 1. Direkte Farben
+
 ```typescript
 // ❌ NIEMALS
 className="text-white bg-black border-gray-200"
@@ -671,6 +748,7 @@ style={{ backgroundColor: '#323D5E' }}
 ```
 
 ### 2. Hardcoded Shadows/Borders
+
 ```typescript
 // ❌ NIEMALS
 className="shadow-md border-2"
@@ -678,6 +756,7 @@ style={{ boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}
 ```
 
 ### 3. Komponentenbasierter Duplicate-Code
+
 ```typescript
 // ❌ NIEMALS: Custom Card-Logik wiederholen
 function MyPage() {
@@ -700,6 +779,7 @@ function MyPage() {
 ```
 
 ### 4. Inline-Styles ohne Tokens
+
 ```typescript
 // ❌ NIEMALS
 <div style={{ padding: '24px', gap: '16px' }}>
@@ -716,6 +796,7 @@ function MyPage() {
 ## 📊 COVERAGE METRICS
 
 **Dashboard-Komponenten Nutzung:**
+
 - ✅ V26DashboardCard: 8 Seiten
 - ✅ V26KPICard: 6 Seiten
 - ✅ V26DashboardTable: 7 Seiten
@@ -723,6 +804,7 @@ function MyPage() {
 - ✅ V26ActionButton: 12 Seiten
 
 **Token-Compliance:**
+
 - ✅ 100% systemweit (Stand V39.0)
 - ✅ 0 direkte Hex-Codes in Components
 - ✅ 0 willkürliche px/rem-Werte

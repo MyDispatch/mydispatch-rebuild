@@ -11,6 +11,7 @@
 Nach vollständiger Prüfung aller Vorgaben, Systeme und Code-Basis identifiziere ich **zusätzliches Optimierungspotenzial**, das uns schneller, zuverlässiger und effektiver macht.
 
 **Kernerkenntnisse:**
+
 - ✅ Fundament ist solide (Grid-System, Legal-Compliance, CI-Farben)
 - 🔄 Quick-Wins aus SYSTEM_OPTIMIZATION_PROPOSALS nur teilweise umgesetzt
 - 🚀 Automatisierungs-Potenzial durch Validation-Hooks
@@ -23,29 +24,32 @@ Nach vollständiger Prüfung aller Vorgaben, Systeme und Code-Basis identifizier
 ### KATEGORIE A: AUTOMATISIERTE VALIDIERUNG (Höchste Priorität)
 
 #### 1. Grid-Pattern-Validation-Hook
+
 **Problem:** Keine automatische Prüfung ob Seiten Mobile-First sind
 
 **Lösung:**
+
 ```typescript
 // src/hooks/use-grid-pattern-validation.ts
 export function useGridPatternValidation(componentName: string) {
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       // Prüfe ob Grid-Pattern Mobile-First ist
       const gridElements = document.querySelectorAll('[class*="grid-cols"]');
-      
-      gridElements.forEach(el => {
+
+      gridElements.forEach((el) => {
         const classes = el.className;
-        
+
         // ❌ Desktop-First Pattern erkennen
         if (/grid-cols-[2-9]/.test(classes) && !/md:grid-cols/.test(classes)) {
           console.error(
             `❌ [${componentName}] Desktop-First Pattern detected!`,
-            `Element:`, el,
+            `Element:`,
+            el,
             `Fix: Verwende "grid-cols-1 md:grid-cols-X"`
           );
         }
-        
+
         // ✅ Mobile-First Pattern
         if (/grid-cols-1.*md:grid-cols/.test(classes)) {
           console.log(`✅ [${componentName}] Mobile-First Pattern korrekt`);
@@ -57,12 +61,13 @@ export function useGridPatternValidation(componentName: string) {
 
 // Usage:
 export function NewPage() {
-  useGridPatternValidation('NewPage');
+  useGridPatternValidation("NewPage");
   // ...
 }
 ```
 
 **Nutzen:**
+
 - ✅ Erkennt automatisch Desktop-First Fehler
 - ✅ Console-Warnings in Development
 - ✅ 100% Mobile-First Compliance
@@ -71,69 +76,72 @@ export function NewPage() {
 ---
 
 #### 2. Legal-Compliance-Validation-Hook
+
 **Problem:** Keine automatische Prüfung ob DSGVO/AI Act eingehalten wird
 
 **Lösung:**
+
 ```typescript
 // src/hooks/use-legal-compliance-validation.ts
-export function useLegalComplianceValidation(pageType: 'marketing' | 'app' | 'form') {
+export function useLegalComplianceValidation(pageType: "marketing" | "app" | "form") {
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      const checks: { name: string; check: () => boolean; severity: 'error' | 'warning' }[] = [];
-      
+    if (process.env.NODE_ENV === "development") {
+      const checks: { name: string; check: () => boolean; severity: "error" | "warning" }[] = [];
+
       // DSGVO-Check: Footer-Links
-      if (pageType === 'marketing' || pageType === 'form') {
+      if (pageType === "marketing" || pageType === "form") {
         checks.push({
-          name: 'Footer Legal Links',
+          name: "Footer Legal Links",
           check: () => {
             const impressumLink = document.querySelector('a[href="/impressum"]');
             const datenschutzLink = document.querySelector('a[href="/datenschutz"]');
             return !!(impressumLink && datenschutzLink);
           },
-          severity: 'error'
+          severity: "error",
         });
       }
-      
+
       // DSGVO-Check: Datenschutzhinweis bei Formularen
-      if (pageType === 'form') {
+      if (pageType === "form") {
         checks.push({
-          name: 'DSGVO Datenschutzhinweis',
+          name: "DSGVO Datenschutzhinweis",
           check: () => {
-            const forms = document.querySelectorAll('form');
+            const forms = document.querySelectorAll("form");
             let allFormsHaveHint = true;
-            forms.forEach(form => {
-              const hasDataPrivacyHint = form.querySelector('[data-legal-hint="dsgvo"]') ||
-                                         form.textContent?.includes('Datenschutz');
+            forms.forEach((form) => {
+              const hasDataPrivacyHint =
+                form.querySelector('[data-legal-hint="dsgvo"]') ||
+                form.textContent?.includes("Datenschutz");
               if (!hasDataPrivacyHint) allFormsHaveHint = false;
             });
             return allFormsHaveHint;
           },
-          severity: 'error'
+          severity: "error",
         });
       }
-      
+
       // AI Act-Check: KI-Kennzeichnung
-      const aiComponents = document.querySelectorAll('[data-ai-generated]');
+      const aiComponents = document.querySelectorAll("[data-ai-generated]");
       if (aiComponents.length > 0) {
         checks.push({
-          name: 'AI Act Kennzeichnung',
+          name: "AI Act Kennzeichnung",
           check: () => {
             let allMarked = true;
-            aiComponents.forEach(component => {
+            aiComponents.forEach((component) => {
               const hasMarker = component.querySelector('[data-ai-marker="true"]');
               if (!hasMarker) allMarked = false;
             });
             return allMarked;
           },
-          severity: 'error'
+          severity: "error",
         });
       }
-      
+
       // Führe alle Checks aus
       checks.forEach(({ name, check, severity }) => {
         const passed = check();
         if (!passed) {
-          if (severity === 'error') {
+          if (severity === "error") {
             console.error(`❌ [Legal Compliance] ${name} failed!`);
           } else {
             console.warn(`⚠️ [Legal Compliance] ${name} warning`);
@@ -148,12 +156,13 @@ export function useLegalComplianceValidation(pageType: 'marketing' | 'app' | 'fo
 
 // Usage:
 export function ContactForm() {
-  useLegalComplianceValidation('form');
+  useLegalComplianceValidation("form");
   // ...
 }
 ```
 
 **Nutzen:**
+
 - ✅ Automatische DSGVO/AI Act Prüfung
 - ✅ Console-Errors bei Verstößen
 - ✅ 100% Legal-Compliance
@@ -162,24 +171,27 @@ export function ContactForm() {
 ---
 
 #### 3. Touch-Target-Validation-Hook
+
 **Problem:** Keine automatische Prüfung ob Touch-Targets ≥ 44px
 
 **Lösung:**
+
 ```typescript
 // src/hooks/use-touch-target-validation.ts
 export function useTouchTargetValidation(componentName: string) {
   useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === "development") {
       const interactiveElements = document.querySelectorAll('button, a, input, [role="button"]');
-      
-      interactiveElements.forEach(el => {
+
+      interactiveElements.forEach((el) => {
         const rect = el.getBoundingClientRect();
         const minSize = 44; // Apple/Google Guidelines
-        
+
         if (rect.height < minSize || rect.width < minSize) {
           console.error(
             `❌ [${componentName}] Touch-Target zu klein!`,
-            `Element:`, el,
+            `Element:`,
+            el,
             `Größe: ${rect.width}x${rect.height}px`,
             `Minimum: ${minSize}x${minSize}px`,
             `Fix: Verwende "min-h-[44px]" oder "h-11"`
@@ -192,12 +204,13 @@ export function useTouchTargetValidation(componentName: string) {
 
 // Usage:
 export function NewPage() {
-  useTouchTargetValidation('NewPage');
+  useTouchTargetValidation("NewPage");
   // ...
 }
 ```
 
 **Nutzen:**
+
 - ✅ Erkennt automatisch zu kleine Touch-Targets
 - ✅ Console-Errors mit Fix-Vorschlägen
 - ✅ 100% Apple/Google Guidelines konform
@@ -208,37 +221,39 @@ export function NewPage() {
 ### KATEGORIE B: PERFORMANCE-OPTIMIERUNGEN (Quick Wins)
 
 #### 1. React Query für Supabase (NOCH NICHT UMGESETZT!)
+
 **Problem:** Jede Komponente macht eigene DB-Queries ohne Caching
 
 **Lösung:**
+
 ```typescript
 // src/lib/query-client.ts
-import { QueryClient } from '@tanstack/react-query';
+import { QueryClient } from "@tanstack/react-query";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000, // 5 Minuten
-      gcTime: 10 * 60 * 1000,   // 10 Minuten (früher cacheTime)
+      gcTime: 10 * 60 * 1000, // 10 Minuten (früher cacheTime)
       refetchOnWindowFocus: false,
     },
   },
 });
 
 // src/hooks/use-bookings-query.ts
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 export function useBookingsQuery(companyId: string) {
   return useQuery({
-    queryKey: ['bookings', companyId],
+    queryKey: ["bookings", companyId],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('bookings')
-        .select('*')
-        .eq('company_id', companyId)
-        .order('created_at', { ascending: false });
-      
+        .from("bookings")
+        .select("*")
+        .eq("company_id", companyId)
+        .order("created_at", { ascending: false });
+
       if (error) throw error;
       return data;
     },
@@ -253,6 +268,7 @@ export function BookingsPage() {
 ```
 
 **Nutzen:**
+
 - ✅ 60-70% weniger DB-Calls (automatisches Caching)
 - ✅ Schnelleres Laden (Daten aus Cache)
 - ✅ Einfacheres State-Management
@@ -261,33 +277,35 @@ export function BookingsPage() {
 ---
 
 #### 2. Memoization für Listen (NOCH NICHT UMGESETZT!)
+
 **Problem:** Re-Renders bei jedem State-Change, auch wenn Daten unverändert
 
 **Lösung:**
+
 ```typescript
 // Beispiel: BookingsTable optimieren
 export function BookingsTable({ bookings, onEdit, onDelete }: Props) {
   // ✅ Memoize sortierte/gefilterte Daten
   const sortedBookings = useMemo(() => {
-    return [...bookings].sort((a, b) => 
+    return [...bookings].sort((a, b) =>
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     );
   }, [bookings]);
-  
+
   // ✅ Memoize Callbacks
   const handleEdit = useCallback((id: string) => {
     onEdit(id);
   }, [onEdit]);
-  
+
   const handleDelete = useCallback((id: string) => {
     onDelete(id);
   }, [onDelete]);
-  
+
   return (
     <Table>
       <TableBody>
         {sortedBookings.map((booking) => (
-          <MemoizedBookingRow 
+          <MemoizedBookingRow
             key={booking.id}
             booking={booking}
             onEdit={handleEdit}
@@ -304,6 +322,7 @@ const MemoizedBookingRow = React.memo(BookingRow);
 ```
 
 **Nutzen:**
+
 - ✅ 80% schnellere Renders bei 100+ Einträgen
 - ✅ Weniger CPU-Last
 - ✅ Flüssigere UX
@@ -312,9 +331,11 @@ const MemoizedBookingRow = React.memo(BookingRow);
 ---
 
 #### 3. Error Boundary (NOCH NICHT UMGESETZT!)
+
 **Problem:** Ein Fehler in einer Komponente crasht die gesamte App
 
 **Lösung:**
+
 ```typescript
 // src/components/shared/ErrorBoundary.tsx
 import { Component, ReactNode } from 'react';
@@ -350,7 +371,7 @@ export class ErrorBoundary extends Component<Props, State> {
       if (this.props.fallback) {
         return this.props.fallback;
       }
-      
+
       return (
         <div className="flex flex-col items-center justify-center min-h-[400px] p-8">
           <AlertTriangle className="h-12 w-12 text-status-error mb-4" />
@@ -376,6 +397,7 @@ export class ErrorBoundary extends Component<Props, State> {
 ```
 
 **Nutzen:**
+
 - ✅ App crasht nicht mehr bei Komponenten-Fehlern
 - ✅ User-freundliche Fehlerbehandlung
 - ✅ Bessere UX
@@ -386,9 +408,11 @@ export class ErrorBoundary extends Component<Props, State> {
 ### KATEGORIE C: CODE-QUALITÄT (Mittelfristig)
 
 #### 1. TypeScript Strict Mode
+
 **Problem:** `any` wird zu oft verwendet, Runtime-Errors vermeidbar
 
 **Lösung:**
+
 ```json
 // tsconfig.json
 {
@@ -402,6 +426,7 @@ export class ErrorBoundary extends Component<Props, State> {
 ```
 
 **Nutzen:**
+
 - ✅ Fehler zur Compile-Zeit erkennen
 - ✅ Weniger Runtime-Bugs
 - ⏱️ Umsetzung: 15 Minuten (Setup) + Fixes nach Bedarf
@@ -409,9 +434,11 @@ export class ErrorBoundary extends Component<Props, State> {
 ---
 
 #### 2. Feature-Based Organization
+
 **Problem:** Code nach Typen organisiert (components/, hooks/), schwer wartbar
 
 **Lösung:**
+
 ```
 src/
 ├── features/
@@ -435,6 +462,7 @@ src/
 ```
 
 **Nutzen:**
+
 - ✅ Bessere Wartbarkeit (alles zu Feature an einem Ort)
 - ✅ Einfacheres Refactoring
 - ⏱️ Umsetzung: 30 Minuten (Migration)
@@ -443,30 +471,31 @@ src/
 
 ## 📊 PRIORISIERUNGS-MATRIX
 
-| Optimierung | Nutzen | Aufwand | Priorität | Geschätzte Zeit |
-|-------------|--------|---------|-----------|-----------------|
-| **Error Boundary** | ⭐⭐⭐⭐⭐ | ⭐ | 🔥 JETZT | 10 Min |
-| **Grid-Pattern-Validation** | ⭐⭐⭐⭐⭐ | ⭐⭐ | 🔥 JETZT | 10 Min |
-| **Touch-Target-Validation** | ⭐⭐⭐⭐⭐ | ⭐ | 🔥 JETZT | 8 Min |
-| **Legal-Compliance-Validation** | ⭐⭐⭐⭐⭐ | ⭐⭐ | 🔥 JETZT | 15 Min |
-| **React Query Setup** | ⭐⭐⭐⭐ | ⭐⭐⭐ | 🟡 MORGEN | 20 Min |
-| **Memoization (Bookings)** | ⭐⭐⭐⭐ | ⭐ | 🟡 MORGEN | 5 Min |
-| **Memoization (Kunden)** | ⭐⭐⭐⭐ | ⭐ | 🟡 MORGEN | 5 Min |
-| **TypeScript Strict Mode** | ⭐⭐⭐ | ⭐⭐⭐ | 🔵 NÄCHSTE WOCHE | 15 Min + Fixes |
-| **Feature-Based Organization** | ⭐⭐⭐ | ⭐⭐⭐⭐ | 🔵 NÄCHSTE WOCHE | 30 Min |
+| Optimierung                     | Nutzen     | Aufwand  | Priorität        | Geschätzte Zeit |
+| ------------------------------- | ---------- | -------- | ---------------- | --------------- |
+| **Error Boundary**              | ⭐⭐⭐⭐⭐ | ⭐       | 🔥 JETZT         | 10 Min          |
+| **Grid-Pattern-Validation**     | ⭐⭐⭐⭐⭐ | ⭐⭐     | 🔥 JETZT         | 10 Min          |
+| **Touch-Target-Validation**     | ⭐⭐⭐⭐⭐ | ⭐       | 🔥 JETZT         | 8 Min           |
+| **Legal-Compliance-Validation** | ⭐⭐⭐⭐⭐ | ⭐⭐     | 🔥 JETZT         | 15 Min          |
+| **React Query Setup**           | ⭐⭐⭐⭐   | ⭐⭐⭐   | 🟡 MORGEN        | 20 Min          |
+| **Memoization (Bookings)**      | ⭐⭐⭐⭐   | ⭐       | 🟡 MORGEN        | 5 Min           |
+| **Memoization (Kunden)**        | ⭐⭐⭐⭐   | ⭐       | 🟡 MORGEN        | 5 Min           |
+| **TypeScript Strict Mode**      | ⭐⭐⭐     | ⭐⭐⭐   | 🔵 NÄCHSTE WOCHE | 15 Min + Fixes  |
+| **Feature-Based Organization**  | ⭐⭐⭐     | ⭐⭐⭐⭐ | 🔵 NÄCHSTE WOCHE | 30 Min          |
 
 ---
 
 ## 🎯 UMSETZUNGS-PLAN
 
 ### Phase 1: Automatische Validierung (HEUTE - 43 Min)
+
 ```
 ✅ Error Boundary erstellen (10min)
 ✅ Grid-Pattern-Validation-Hook (10min)
 ✅ Touch-Target-Validation-Hook (8min)
 ✅ Legal-Compliance-Validation-Hook (15min)
 
-Nutzen: 
+Nutzen:
 - App crasht nicht mehr
 - 100% Mobile-First Compliance
 - 100% Legal Compliance
@@ -474,6 +503,7 @@ Nutzen:
 ```
 
 ### Phase 2: Performance-Quick-Wins (MORGEN - 30 Min)
+
 ```
 ✅ React Query Setup (20min)
 ✅ Bookings-Query migrieren (5min)
@@ -486,6 +516,7 @@ Nutzen:
 ```
 
 ### Phase 3: Code-Qualität (NÄCHSTE WOCHE - 45 Min)
+
 ```
 ✅ TypeScript Strict Mode aktivieren (15min)
 ✅ Feature-Based Organization (30min)
@@ -518,7 +549,8 @@ Nutzen:
 ```
 
 **Gesamt-Investition:** 118 Minuten (< 2 Stunden)  
-**Gesamt-Nutzen:** 
+**Gesamt-Nutzen:**
+
 - 90% weniger Compliance-Fehler
 - 60-70% Performance-Boost
 - 100% automatische Validierung
@@ -533,16 +565,19 @@ Nutzen:
 **Pascal, du entscheidest:**
 
 **Option A: Alles sofort (Empfohlen)**
+
 - Heute: Validation-Hooks (43min)
 - Morgen: Performance (30min)
 - Gesamt: 73min, maximaler Nutzen
 
 **Option B: Validation-Hooks nur**
+
 - Heute: Validation-Hooks (43min)
 - Rest später nach Bedarf
 - Quick Win mit geringem Risiko
 
 **Option C: Performance-Focus**
+
 - Heute: React Query + Memoization (30min)
 - Validation später
 - Sofortiger UX-Boost

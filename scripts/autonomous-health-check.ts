@@ -194,8 +194,7 @@ async function runHealthCheck(): Promise<HealthStatus> {
     failed_tasks: tasks?.filter((t) => t.status === "failed").length || 0,
     success_rate:
       tasks && tasks.length > 0
-        ? (tasks.filter((t) => t.status === "completed").length / tasks.length) *
-          100
+        ? (tasks.filter((t) => t.status === "completed").length / tasks.length) * 100
         : 0,
     last_execution: lastExecution,
   };
@@ -237,9 +236,7 @@ async function sendAlert(status: HealthStatus): Promise<void> {
           error_count: errorChecks.length,
           warning_count: warningChecks.length,
           errors: errorChecks.map((c) => `${c.name}: ${c.message}`).join("\n"),
-          warnings: warningChecks
-            .map((c) => `${c.name}: ${c.message}`)
-            .join("\n"),
+          warnings: warningChecks.map((c) => `${c.name}: ${c.message}`).join("\n"),
           summary: status.summary,
           timestamp: new Date().toISOString(),
         },
@@ -278,12 +275,8 @@ async function main() {
   console.log(`Total Tasks: ${status.summary.total_tasks}`);
   console.log(`Pending: ${status.summary.pending_tasks}`);
   console.log(`Failed: ${status.summary.failed_tasks}`);
-  console.log(
-    `Success Rate: ${status.summary.success_rate.toFixed(1)}%`
-  );
-  console.log(
-    `Last Execution: ${status.summary.last_execution || "Never"}`
-  );
+  console.log(`Success Rate: ${status.summary.success_rate.toFixed(1)}%`);
+  console.log(`Last Execution: ${status.summary.last_execution || "Never"}`);
 
   // Send alert if unhealthy
   await sendAlert(status);

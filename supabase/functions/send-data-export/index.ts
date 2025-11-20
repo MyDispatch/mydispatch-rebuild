@@ -49,19 +49,19 @@ serve(async (req) => {
       .single();
 
     if (customerError || !customer) {
-      return new Response(
-        JSON.stringify({ error: "Customer not found" }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Customer not found" }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const recipientEmail = input.recipient_email || customer.email;
 
     if (!recipientEmail) {
-      return new Response(
-        JSON.stringify({ error: "Recipient email not found" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Recipient email not found" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Fetch All Customer Data (GDPR Export)
@@ -89,12 +89,12 @@ serve(async (req) => {
     // Get Resend API Key
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     const resendDomain = Deno.env.get("RESEND_DOMAIN") || "mydispatch.com";
-    
+
     if (!resendApiKey) {
-      return new Response(
-        JSON.stringify({ error: "Email service not configured" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Email service not configured" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Prepare Attachment
@@ -103,12 +103,12 @@ serve(async (req) => {
     let attachmentMimeType: string;
 
     if (input.format === "JSON") {
-      attachmentContent = Buffer.from(JSON.stringify(exportData, null, 2)).toString('base64');
+      attachmentContent = Buffer.from(JSON.stringify(exportData, null, 2)).toString("base64");
       attachmentFilename = `meine-daten-${Date.now()}.json`;
       attachmentMimeType = "application/json";
     } else {
       // PDF Generation (TODO: Implement actual PDF generation)
-      attachmentContent = Buffer.from(JSON.stringify(exportData, null, 2)).toString('base64'); // Placeholder
+      attachmentContent = Buffer.from(JSON.stringify(exportData, null, 2)).toString("base64"); // Placeholder
       attachmentFilename = `meine-daten-${Date.now()}.pdf`;
       attachmentMimeType = "application/pdf";
     }
@@ -117,7 +117,7 @@ serve(async (req) => {
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${resendApiKey}`,
+        Authorization: `Bearer ${resendApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -158,16 +158,14 @@ serve(async (req) => {
     const resendData = await resendResponse.json();
 
     // Log Email Sent
-    await supabase
-      .from("email_logs")
-      .insert({
-        company_id: input.company_id,
-        customer_id: input.customer_id,
-        recipient_email: recipientEmail,
-        email_type: "data_export",
-        sent_at: new Date().toISOString(),
-        resend_id: resendData.id,
-      });
+    await supabase.from("email_logs").insert({
+      company_id: input.company_id,
+      customer_id: input.customer_id,
+      recipient_email: recipientEmail,
+      email_type: "data_export",
+      sent_at: new Date().toISOString(),
+      resend_id: resendData.id,
+    });
 
     return new Response(
       JSON.stringify({
@@ -180,10 +178,9 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error("[SEND-DATA-EXPORT] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
-

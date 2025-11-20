@@ -23,6 +23,7 @@ Dieses Dokument beschreibt das neu implementierte zentralisierte Template-System
 **Pfad**: `src/components/templates/StandardTableTemplate.tsx`
 
 #### Features:
+
 - ✅ Einheitliche Spalten-Struktur mit `TableColumn<T>` Interface
 - ✅ Bulk-Selection Support (Multi-Select)
 - ✅ Responsive Columns (hideOnMobile, hideOnTablet)
@@ -73,19 +74,19 @@ const columns: TableColumn<MyEntity>[] = [
 
 #### Props:
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `data` | `T[]` | ✅ | - | Array von Entities mit `id` und `created_at` |
-| `columns` | `TableColumn<T>[]` | ✅ | - | Spalten-Definitionen |
-| `onViewDetails` | `(item: T) => void` | ✅ | - | Handler für Detail-Button |
-| `selectedIds` | `string[]` | ❌ | `[]` | IDs der ausgewählten Items |
-| `onToggleSelection` | `(id: string) => void` | ❌ | - | Toggle einzelnes Item |
-| `onToggleSelectAll` | `() => void` | ❌ | - | Toggle alle Items |
-| `showBulkSelect` | `boolean` | ❌ | `false` | Zeige Bulk-Selection Checkboxes |
-| `showCreatedAt` | `boolean` | ❌ | `true` | Zeige Eingangszeitstempel (rechtlich erforderlich) |
-| `emptyTitle` | `string` | ❌ | - | Titel für Empty State |
-| `emptyDescription` | `string` | ❌ | - | Beschreibung für Empty State |
-| `emptyIcon` | `ReactNode` | ❌ | - | Icon für Empty State |
+| Prop                | Type                   | Required | Default | Description                                        |
+| ------------------- | ---------------------- | -------- | ------- | -------------------------------------------------- |
+| `data`              | `T[]`                  | ✅       | -       | Array von Entities mit `id` und `created_at`       |
+| `columns`           | `TableColumn<T>[]`     | ✅       | -       | Spalten-Definitionen                               |
+| `onViewDetails`     | `(item: T) => void`    | ✅       | -       | Handler für Detail-Button                          |
+| `selectedIds`       | `string[]`             | ❌       | `[]`    | IDs der ausgewählten Items                         |
+| `onToggleSelection` | `(id: string) => void` | ❌       | -       | Toggle einzelnes Item                              |
+| `onToggleSelectAll` | `() => void`           | ❌       | -       | Toggle alle Items                                  |
+| `showBulkSelect`    | `boolean`              | ❌       | `false` | Zeige Bulk-Selection Checkboxes                    |
+| `showCreatedAt`     | `boolean`              | ❌       | `true`  | Zeige Eingangszeitstempel (rechtlich erforderlich) |
+| `emptyTitle`        | `string`               | ❌       | -       | Titel für Empty State                              |
+| `emptyDescription`  | `string`               | ❌       | -       | Beschreibung für Empty State                       |
+| `emptyIcon`         | `ReactNode`            | ❌       | -       | Icon für Empty State                               |
 
 ---
 
@@ -94,6 +95,7 @@ const columns: TableColumn<MyEntity>[] = [
 **Pfad**: `src/components/templates/EnhancedDetailDialog.tsx`
 
 #### Features:
+
 - ✅ Erweiterte Action-Buttons (PDF, Email, Bearbeiten, Archivieren, etc.)
 - ✅ Kontext-abhängige Aktionen je Entität-Typ
 - ✅ Doppelte Bestätigung für kritische Aktionen
@@ -163,16 +165,16 @@ const customActions: DetailAction[] = [
 
 #### Props:
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `open` | `boolean` | ✅ | - | Dialog geöffnet |
-| `onOpenChange` | `(open: boolean) => void` | ✅ | - | Dialog schließen Handler |
-| `title` | `string` | ✅ | - | Dialog Titel |
-| `children` | `ReactNode` | ✅ | - | Detail-Content |
-| `editForm` | `ReactNode` | ❌ | - | Edit-Formular für Tab-Navigation |
-| `createdAt` | `string` | ❌ | - | Eingangszeitstempel (rechtlich erforderlich) |
-| `relatedEntities` | `ReactNode` | ❌ | - | Verknüpfte Daten-Sektion |
-| `actions` | `DetailAction[]` | ❌ | `[]` | Action-Buttons |
+| Prop              | Type                      | Required | Default | Description                                  |
+| ----------------- | ------------------------- | -------- | ------- | -------------------------------------------- |
+| `open`            | `boolean`                 | ✅       | -       | Dialog geöffnet                              |
+| `onOpenChange`    | `(open: boolean) => void` | ✅       | -       | Dialog schließen Handler                     |
+| `title`           | `string`                  | ✅       | -       | Dialog Titel                                 |
+| `children`        | `ReactNode`               | ✅       | -       | Detail-Content                               |
+| `editForm`        | `ReactNode`               | ❌       | -       | Edit-Formular für Tab-Navigation             |
+| `createdAt`       | `string`                  | ❌       | -       | Eingangszeitstempel (rechtlich erforderlich) |
+| `relatedEntities` | `ReactNode`               | ❌       | -       | Verknüpfte Daten-Sektion                     |
+| `actions`         | `DetailAction[]`          | ❌       | `[]`    | Action-Buttons                               |
 
 #### DetailAction Interface:
 
@@ -181,7 +183,7 @@ interface DetailAction {
   label: string;
   icon: React.ElementType;
   onClick: () => void | Promise<void>;
-  variant?: 'default' | 'outline' | 'secondary' | 'destructive' | 'ghost';
+  variant?: "default" | "outline" | "secondary" | "destructive" | "ghost";
   requiresConfirmation?: boolean;
   confirmTitle?: string;
   confirmDescription?: string;
@@ -192,6 +194,7 @@ interface DetailAction {
 #### Vordefinierte Action-Sets:
 
 ##### createBookingActions
+
 ```typescript
 const actions = createBookingActions(
   bookingId: string,
@@ -203,6 +206,7 @@ const actions = createBookingActions(
 ```
 
 ##### createInvoiceActions
+
 ```typescript
 const actions = createInvoiceActions(
   invoiceId: string,
@@ -215,6 +219,7 @@ const actions = createInvoiceActions(
 ```
 
 ##### createDriverActions
+
 ```typescript
 const actions = createDriverActions(
   driverId: string,
@@ -226,6 +231,7 @@ const actions = createDriverActions(
 ```
 
 ##### createVehicleActions
+
 ```typescript
 const actions = createVehicleActions(
   vehicleId: string,
@@ -244,7 +250,8 @@ const actions = createVehicleActions(
 
 **Problem gelöst**: Buttons in Tab-Listen kleben beim Hover visuell aneinander
 
-**Lösung**: 
+**Lösung**:
+
 ```tsx
 <TabsList className="grid w-full grid-cols-2 gap-2">
   <TabsTrigger value="fahrer" className="flex items-center gap-2">
@@ -275,6 +282,7 @@ const actions = createVehicleActions(
 ```
 
 **Features**:
+
 - `h-9 w-9`: Quadratischer Button (36x36px)
 - `hover:bg-accent/10`: Subtiler Hover-Effekt
 - `transition-colors`: Smooth Animation
@@ -316,12 +324,14 @@ const actions = createVehicleActions(
 ### Schritt-für-Schritt Anleitung:
 
 1. **Import Template-Komponenten**:
+
 ```typescript
-import { StandardTableTemplate, TableColumn } from '@/components/templates';
-import { EnhancedDetailDialog, createBookingActions } from '@/components/templates';
+import { StandardTableTemplate, TableColumn } from "@/components/templates";
+import { EnhancedDetailDialog, createBookingActions } from "@/components/templates";
 ```
 
 2. **Definiere Spalten**:
+
 ```typescript
 const columns: TableColumn<Booking>[] = [
   {
@@ -341,6 +351,7 @@ const columns: TableColumn<Booking>[] = [
 ```
 
 3. **Ersetze alte Table-Komponente**:
+
 ```typescript
 // VORHER
 <Table>
@@ -369,6 +380,7 @@ const columns: TableColumn<Booking>[] = [
 ```
 
 4. **Erweitere Detail-Dialog**:
+
 ```typescript
 // VORHER
 <DetailDialog
@@ -398,6 +410,7 @@ const columns: TableColumn<Booking>[] = [
 ## 📊 Betroffene Seiten
 
 ### ✅ Bereits migriert:
+
 - [ ] `/auftraege` (Aufträge & Angebote)
 - [ ] `/kunden` (Kunden)
 - [x] `/fahrer` (Fahrer) - Button-Spacing optimiert
@@ -407,6 +420,7 @@ const columns: TableColumn<Booking>[] = [
 - [ ] `/partner` (Partner-Netzwerk)
 
 ### 🔄 Next Steps (Sprint 48):
+
 1. Migriere `/auftraege` auf StandardTableTemplate
 2. Migriere `/kunden` auf StandardTableTemplate
 3. Migriere `/rechnungen` auf StandardTableTemplate
@@ -418,6 +432,7 @@ const columns: TableColumn<Booking>[] = [
 ## 🎓 Best Practices
 
 ### DO's ✅
+
 - Verwende `StandardTableTemplate` für ALLE neuen Listen
 - Definiere Spalten mit `TableColumn<T>` Interface
 - Nutze vordefinierte Action-Sets (`createBookingActions`, etc.)
@@ -426,6 +441,7 @@ const columns: TableColumn<Booking>[] = [
 - Implementiere `requiresConfirmation` für kritische Actions
 
 ### DON'Ts ❌
+
 - Keine Custom-Table-Implementierungen mehr
 - Keine Action-Buttons direkt in der Tabelle (nur Detail-Button)
 - Keine Inline-Formatierung von Zeitstempeln (nutze zentrale Funktion)
@@ -437,6 +453,7 @@ const columns: TableColumn<Booking>[] = [
 ## 🔧 Troubleshooting
 
 ### Problem: TypeScript-Fehler bei `TableColumn<T>`
+
 ```typescript
 // FALSCH
 const columns: TableColumn<MyType>[] = [
@@ -445,8 +462,8 @@ const columns: TableColumn<MyType>[] = [
 
 // RICHTIG
 const columns: TableColumn<MyType>[] = [
-  { 
-    key: 'name' as keyof MyType, 
+  {
+    key: 'name' as keyof MyType,
     header: 'Name',
     render: (item) => <span>{item.name}</span>
   }
@@ -454,6 +471,7 @@ const columns: TableColumn<MyType>[] = [
 ```
 
 ### Problem: Detail-Dialog öffnet nicht
+
 ```typescript
 // Sicherstellen, dass State korrekt gesetzt ist
 const [selectedItem, setSelectedItem] = useState<MyType | null>(null);
@@ -470,6 +488,7 @@ const handleViewDetails = (item: MyType) => {
 ## 📝 Changelog
 
 ### V18.3.24 (18.10.2025)
+
 - ✅ `StandardTableTemplate` erstellt
 - ✅ `EnhancedDetailDialog` erstellt
 - ✅ Vordefinierte Action-Sets implementiert

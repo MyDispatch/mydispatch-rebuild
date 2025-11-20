@@ -18,9 +18,9 @@
    npm run generate:dashboard -- --name="Auftraege" --title="Aufträge" --table="bookings"
    ================================================================================== */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -30,24 +30,24 @@ interface DashboardConfig {
   name: string; // Component name (e.g., "Auftraege")
   title: string; // Display title (e.g., "Aufträge")
   route: string; // Route path (e.g., "/auftraege")
-  
+
   // Data
   supabaseTable: string; // Main table (e.g., "bookings")
-  
+
   // KPIs
   kpis: Array<{
     label: string;
-    calculation: 'count' | 'sum' | 'avg' | 'custom';
+    calculation: "count" | "sum" | "avg" | "custom";
     field?: string; // For sum/avg
     customQuery?: string; // For custom calculations
     icon: string; // Lucide icon name
   }>;
-  
+
   // Features
   hasQuickActions: boolean;
   hasExport: boolean;
   hasFilters: boolean;
-  
+
   // Related Tables (for JOINs)
   relatedTables?: string[];
 }
@@ -146,48 +146,50 @@ export default function {{NAME}}() {
 
 function generateDashboard(config: DashboardConfig): string {
   const timestamp = new Date().toISOString();
-  
+
   // Extract all icon names
   const allIcons = new Set<string>();
-  config.kpis.forEach(kpi => allIcons.add(kpi.icon));
+  config.kpis.forEach((kpi) => allIcons.add(kpi.icon));
   if (config.hasQuickActions) {
-    allIcons.add('Plus');
-    allIcons.add('FileDown');
-    allIcons.add('Upload');
+    allIcons.add("Plus");
+    allIcons.add("FileDown");
+    allIcons.add("Upload");
   }
-  
+
   // Generate KPI States
   const kpiStates = config.kpis
     .map((kpi, i) => `  const [kpi${i}Value, setKpi${i}Value] = useState<number>(0);`)
-    .join('\n');
-  
+    .join("\n");
+
   // Generate KPI Calculations
   const kpiCalculations = config.kpis
     .map((kpi, i) => {
       switch (kpi.calculation) {
-        case 'count':
+        case "count":
           return `      setKpi${i}Value(fetchedData?.length || 0);`;
-        case 'sum':
+        case "sum":
           return `      setKpi${i}Value(fetchedData?.reduce((sum, item) => sum + (item.${kpi.field} || 0), 0) || 0);`;
-        case 'avg':
+        case "avg":
           return `      setKpi${i}Value(fetchedData?.length ? (fetchedData.reduce((sum, item) => sum + (item.${kpi.field} || 0), 0) / fetchedData.length) : 0);`;
-        case 'custom':
+        case "custom":
           return `      // Custom calculation: ${kpi.customQuery}`;
         default:
           return `      setKpi${i}Value(0);`;
       }
     })
-    .join('\n');
-  
+    .join("\n");
+
   // Generate KPIs Config
   const kpisConfig = config.kpis
-    .map((kpi, i) => `    {
+    .map(
+      (kpi, i) => `    {
       label: '${kpi.label}',
       value: kpi${i}Value,
       icon: ${kpi.icon},
-    }`)
-    .join(',\n');
-  
+    }`
+    )
+    .join(",\n");
+
   // Generate Quick Actions
   const quickActionsConfig = config.hasQuickActions
     ? `    {
@@ -208,8 +210,8 @@ function generateDashboard(config: DashboardConfig): string {
       action: () => toast.info('Export gestartet'),
       tooltip: 'Daten exportieren',
     }`
-    : '';
-  
+    : "";
+
   // Generate Export Config
   const exportConfig = config.hasExport
     ? `showExport={true}
@@ -218,8 +220,8 @@ function generateDashboard(config: DashboardConfig): string {
         formats: ['pdf', 'excel', 'csv'],
         onExport: (format) => toast.success(\`Export als \${format.toUpperCase()} gestartet\`),
       }}`
-    : '';
-  
+    : "";
+
   // Generate Filter Config
   const filterConfig = config.hasFilters
     ? `showFilters={true}
@@ -237,15 +239,14 @@ function generateDashboard(config: DashboardConfig): string {
           },
         ],
       }}`
-    : '';
-  
+    : "";
+
   // Replace placeholders
-  const output = TEMPLATE
-    .replace(/{{NAME}}/g, config.name)
+  const output = TEMPLATE.replace(/{{NAME}}/g, config.name)
     .replace(/{{TITLE}}/g, config.title)
     .replace(/{{TIMESTAMP}}/g, timestamp)
     .replace(/{{CONFIG_JSON}}/g, JSON.stringify(config, null, 2))
-    .replace(/{{ICONS}}/g, Array.from(allIcons).join(', '))
+    .replace(/{{ICONS}}/g, Array.from(allIcons).join(", "))
     .replace(/{{SUPABASE_TABLE}}/g, config.supabaseTable)
     .replace(/{{KPI_STATES}}/g, kpiStates)
     .replace(/{{KPI_CALCULATIONS}}/g, kpiCalculations)
@@ -253,15 +254,15 @@ function generateDashboard(config: DashboardConfig): string {
     .replace(/{{QUICK_ACTIONS_CONFIG}}/g, quickActionsConfig)
     .replace(/{{EXPORT_CONFIG}}/g, exportConfig)
     .replace(/{{FILTER_CONFIG}}/g, filterConfig);
-  
+
   return output;
 }
 
 // CLI Interface
 async function main() {
   const args = process.argv.slice(2);
-  
-  if (args.length === 0 || args.includes('--help')) {
+
+  if (args.length === 0 || args.includes("--help")) {
     console.log(`
 📦 Dashboard Generator V6.1
 
@@ -296,73 +297,67 @@ Example Config (dashboard-config.json):
     `);
     return;
   }
-  
+
   let config: DashboardConfig;
-  
+
   // Parse arguments
   const argMap = new Map<string, string>();
-  args.forEach(arg => {
-    const [key, value] = arg.split('=');
-    if (key.startsWith('--')) {
+  args.forEach((arg) => {
+    const [key, value] = arg.split("=");
+    if (key.startsWith("--")) {
       argMap.set(key.slice(2), value);
     }
   });
-  
-  if (argMap.has('config')) {
+
+  if (argMap.has("config")) {
     // Load from config file
-    const configPath = path.resolve(process.cwd(), argMap.get('config')!);
-    config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    const configPath = path.resolve(process.cwd(), argMap.get("config")!);
+    config = JSON.parse(fs.readFileSync(configPath, "utf-8"));
   } else {
     // Build from CLI args
-    const name = argMap.get('name');
-    const title = argMap.get('title');
-    const table = argMap.get('table');
-    
+    const name = argMap.get("name");
+    const title = argMap.get("title");
+    const table = argMap.get("table");
+
     if (!name || !title || !table) {
-      console.error('❌ Error: --name, --title, and --table are required');
+      console.error("❌ Error: --name, --title, and --table are required");
       process.exit(1);
     }
-    
+
     config = {
       name,
       title,
-      route: argMap.get('route') || `/${name.toLowerCase()}`,
+      route: argMap.get("route") || `/${name.toLowerCase()}`,
       supabaseTable: table,
-      kpis: [
-        { label: 'Gesamt', calculation: 'count', icon: 'FileText' },
-      ],
+      kpis: [{ label: "Gesamt", calculation: "count", icon: "FileText" }],
       hasQuickActions: true,
       hasExport: false,
       hasFilters: false,
     };
   }
-  
-  console.log('🚀 Generating Dashboard:', config.name);
-  
+
+  console.log("🚀 Generating Dashboard:", config.name);
+
   // Generate dashboard code
   const dashboardCode = generateDashboard(config);
-  
+
   // Write to file
-  const outputPath = path.resolve(
-    __dirname,
-    '../src/pages',
-    `${config.name}.tsx`
-  );
-  
-  fs.writeFileSync(outputPath, dashboardCode, 'utf-8');
-  
+  const outputPath = path.resolve(__dirname, "../src/pages", `${config.name}.tsx`);
+
+  fs.writeFileSync(outputPath, dashboardCode, "utf-8");
+
   console.log(`✅ Dashboard generated: ${outputPath}`);
   console.log(`📝 Route: ${config.route}`);
   console.log(`📊 KPIs: ${config.kpis.length}`);
-  console.log(`🎬 Quick Actions: ${config.hasQuickActions ? 'Yes' : 'No'}`);
-  console.log(`📤 Export: ${config.hasExport ? 'Yes' : 'No'}`);
-  console.log(`🔍 Filters: ${config.hasFilters ? 'Yes' : 'No'}`);
-  
-  console.log('\n⚠️  TODO:');
-  console.log('  1. Add route to src/App.tsx');
-  console.log('  2. Add to sidebar navigation');
-  console.log('  3. Implement StandardTableTemplate integration');
-  console.log('  4. Run npm run generate:dashboard:test');
+  console.log(`🎬 Quick Actions: ${config.hasQuickActions ? "Yes" : "No"}`);
+  console.log(`📤 Export: ${config.hasExport ? "Yes" : "No"}`);
+  console.log(`🔍 Filters: ${config.hasFilters ? "Yes" : "No"}`);
+
+  console.log("\n⚠️  TODO:");
+  console.log("  1. Add route to src/App.tsx");
+  console.log("  2. Add to sidebar navigation");
+  console.log("  3. Implement StandardTableTemplate integration");
+  console.log("  4. Run npm run generate:dashboard:test");
 }
 
 main().catch(console.error);

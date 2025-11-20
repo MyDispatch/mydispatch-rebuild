@@ -35,23 +35,23 @@ interface ComponentNameProps {
   // Required Props
   title: string;
   description: string;
-  
+
   // Optional Props
   icon?: typeof IconName;
   variant?: 'primary' | 'secondary';
   size?: 'sm' | 'md' | 'lg';
   className?: string;
-  
+
   // Children / Content
   children?: ReactNode;
-  
+
   // Callbacks
   onClick?: () => void;
   onHover?: () => void;
-  
+
   // Disabled State
   disabled?: boolean;
-  
+
   // Loading State (falls async)
   isLoading?: boolean;
 }
@@ -73,33 +73,33 @@ export function ComponentName({
   disabled = false,
   isLoading = false,
 }: ComponentNameProps) {
-  
+
   /* ==================================================================================
      STATE & HOOKS
      ================================================================================== */
-  
+
   // const [isHovered, setIsHovered] = useState(false);
   // const { data, isLoading } = useQuery(...);
-  
+
   /* ==================================================================================
      HELPER FUNCTIONS
      ================================================================================== */
-  
+
   const handleClick = () => {
     if (disabled || isLoading) return;
     onClick?.();
   };
-  
+
   /* ==================================================================================
      COMPUTED VALUES
      ================================================================================== */
-  
+
   const sizeClasses = {
     sm: 'text-sm p-2',
     md: 'text-base p-4',
     lg: 'text-lg p-6',
   };
-  
+
   const variantStyles = variant === 'primary'
     ? {
         backgroundColor: UNIFIED_DESIGN_TOKENS.colors.beige,
@@ -109,11 +109,11 @@ export function ComponentName({
         backgroundColor: UNIFIED_DESIGN_TOKENS.colors.dunkelblau,
         color: UNIFIED_DESIGN_TOKENS.colors.beige,
       };
-  
+
   /* ==================================================================================
      RENDER
      ================================================================================== */
-  
+
   return (
     <div
       className={cn(
@@ -135,13 +135,13 @@ export function ComponentName({
         {Icon && <Icon className="w-6 h-6" />}
         <h3 className="text-xl font-semibold">{title}</h3>
       </div>
-      
+
       {/* Description */}
       <p className="text-sm opacity-80 mb-4">{description}</p>
-      
+
       {/* Content */}
       {children}
-      
+
       {/* Loading State */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/10">
@@ -158,6 +158,7 @@ export function ComponentName({
 ## Checklist vor Component-Erstellung
 
 **IMMER vorher prüfen:**
+
 - [ ] COMPONENT_REGISTRY.md gecheckt - Component existiert NICHT
 - [ ] filesExplorer.md gecheckt - Pfad korrekt
 - [ ] Design System gecheckt - Welche V26 Components kann ich nutzen?
@@ -173,6 +174,7 @@ export function ComponentName({
 ## Best Practices
 
 ### ✅ DO
+
 - **UNIFIED_DESIGN_TOKENS** für alle Farben verwenden
 - **V26-Components** wiederverwenden (V26Button, V26Badge, V26IconBox)
 - **Explicit Types** für alle Props
@@ -182,6 +184,7 @@ export function ComponentName({
 - **Mobile-First** (responsive Breakpoints)
 
 ### ❌ DON'T
+
 - Direkte Hex-Werte (#323D5E) → UNIFIED_DESIGN_TOKENS verwenden!
 - Tailwind-Color-Classes (text-white) → Semantic Tokens!
 - Implicit any Types → Explicit interfaces!
@@ -213,6 +216,7 @@ src/components/
 ## Documentation Protocol
 
 **Nach Component-Erstellung:**
+
 1. ✅ In COMPONENT_REGISTRY.md eintragen
    - Path, Props, Status, Purpose
 2. ✅ In filesExplorer.md aktualisieren
@@ -221,11 +225,12 @@ src/components/
 5. ✅ Usage-Example dokumentieren
 
 **Barrel Export Beispiel:**
+
 ```typescript
 // src/components/design-system/index.ts
-export { V26Button } from './V26Button';
-export { V26Badge } from './V26Badge';
-export { ComponentName } from './ComponentName';
+export { V26Button } from "./V26Button";
+export { V26Badge } from "./V26Badge";
+export { ComponentName } from "./ComponentName";
 ```
 
 ---
@@ -241,14 +246,14 @@ describe('ComponentName', () => {
     render(<ComponentName title="Test" description="Test Description" />);
     expect(screen.getByText('Test')).toBeInTheDocument();
   });
-  
+
   it('handles click events', () => {
     const onClick = jest.fn();
     render(<ComponentName title="Test" description="Test" onClick={onClick} />);
     screen.getByRole('button').click();
     expect(onClick).toHaveBeenCalled();
   });
-  
+
   it('respects disabled state', () => {
     const onClick = jest.fn();
     render(<ComponentName title="Test" description="Test" onClick={onClick} disabled />);

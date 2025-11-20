@@ -13,41 +13,35 @@
    ✅ DSGVO-Compliant (24h Auto-Delete)
    ================================================================================== */
 
-import { useState, useEffect, useMemo } from 'react';
-import { HEREMap } from '@/components/maps/HEREMap';
-import { Card, CardContent, CardHeader, CardTitle, Badge } from '@/lib/compat';
-import { V28Button } from '@/components/design-system/V28Button';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
-import { 
-  Maximize2, 
-  Minimize2, 
-  MapPin, 
-  Users, 
-  Navigation, 
+import { useState, useEffect, useMemo } from "react";
+import { HEREMap } from "@/components/maps/HEREMap";
+import { Card, CardContent, CardHeader, CardTitle, Badge } from "@/lib/compat";
+import { V28Button } from "@/components/design-system/V28Button";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import {
+  Maximize2,
+  Minimize2,
+  MapPin,
+  Users,
+  Navigation,
   Filter,
   Sparkles,
   TrendingUp,
-  Clock
-} from 'lucide-react';
-import { logger } from '@/lib/logger';
-import { DRIVER_STATUS_CONFIG } from '@/lib/status-system';
-import { cn } from '@/lib/utils';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/lib/compat';
-import { HeatmapLayer, RouteLayer, ClusterLayer } from './MapLayers';
+  Clock,
+} from "lucide-react";
+import { logger } from "@/lib/logger";
+import { DRIVER_STATUS_CONFIG } from "@/lib/status-system";
+import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/lib/compat";
+import { HeatmapLayer, RouteLayer, ClusterLayer } from "./MapLayers";
 
 interface DriverPosition {
   driver_id: string;
   driver_name: string;
   latitude: number;
   longitude: number;
-  status: 'available' | 'busy' | 'offline' | 'break';
+  status: "available" | "busy" | "offline" | "break";
   vehicle_id?: string;
   license_plate?: string;
   updated_at: string;
@@ -59,7 +53,7 @@ interface EnhancedLiveMapProps {
   showRoutes?: boolean;
   showHeatmap?: boolean;
   showClusters?: boolean;
-  filterStatus?: 'all' | 'available' | 'busy' | 'offline';
+  filterStatus?: "all" | "available" | "busy" | "offline";
   onDriverClick?: (driverId: string) => void;
   onAssignment?: (assignmentData: any) => void;
 }
@@ -70,7 +64,7 @@ export function EnhancedLiveMap({
   showRoutes = true,
   showHeatmap = false,
   showClusters = true,
-  filterStatus: initialFilterStatus = 'all',
+  filterStatus: initialFilterStatus = "all",
   onDriverClick,
   onAssignment,
 }: EnhancedLiveMapProps) {
@@ -91,14 +85,14 @@ export function EnhancedLiveMap({
 
     // Realtime channel für vehicle_positions
     const channel = supabase
-      .channel('vehicle-positions-updates')
+      .channel("vehicle-positions-updates")
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: '*',
-          schema: 'public',
-          table: 'vehicle_positions',
-          filter: `company_id=eq.${companyId}`
+          event: "*",
+          schema: "public",
+          table: "vehicle_positions",
+          filter: `company_id=eq.${companyId}`,
         },
         () => {
           fetchLivePositions();
@@ -116,8 +110,9 @@ export function EnhancedLiveMap({
     try {
       // V29.1: Query vehicle_positions + JOIN drivers
       const { data: positions, error: posError } = await supabase
-        .from('vehicle_positions')
-        .select(`
+        .from("vehicle_positions")
+        .select(
+          `
           *,
           drivers:driver_id (
             id,
@@ -129,10 +124,11 @@ export function EnhancedLiveMap({
             id,
             license_plate
           )
-        `)
-        .eq('company_id', companyId)
-        .gte('timestamp', new Date(Date.now() - 3600000).toISOString()) // Last 1 hour
-        .order('timestamp', { ascending: false });
+        `
+        )
+        .eq("company_id", companyId)
+        .gte("timestamp", new Date(Date.now() - 3600000).toISOString()) // Last 1 hour
+        .order("timestamp", { ascending: false });
 
       if (posError) throw posError;
 
@@ -153,10 +149,10 @@ export function EnhancedLiveMap({
           driver_name: `${driver.first_name} ${driver.last_name}`,
           latitude: parseFloat(pos.latitude),
           longitude: parseFloat(pos.longitude),
-          status: driver.shift_status || 'offline',
+          status: driver.shift_status || "offline",
           vehicle_id: pos.vehicle_id,
           license_plate: pos.vehicles?.license_plate,
-          updated_at: pos.timestamp
+          updated_at: pos.timestamp,
         });
       });
 
@@ -166,34 +162,35 @@ export function EnhancedLiveMap({
       if (transformed.length > 0 && !isFullscreen) {
         setCenter({
           lat: transformed[0].latitude,
-          lng: transformed[0].longitude
+          lng: transformed[0].longitude,
         });
       }
     } catch (error) {
-      logger.error('[EnhancedLiveMap] Fehler beim Laden der Positionen', error as Error, {
-        component: 'EnhancedLiveMap',
-        companyId
+      logger.error("[EnhancedLiveMap] Fehler beim Laden der Positionen", error as Error, {
+        component: "EnhancedLiveMap",
+        companyId,
       });
     }
   };
 
   // ✅ V29.1: Filter by Status
   const filteredPositions = useMemo(() => {
-    if (filterStatus === 'all') return driverPositions;
-    return driverPositions.filter(pos => pos.status === filterStatus);
+    if (filterStatus === "all") return driverPositions;
+    return driverPositions.filter((pos) => pos.status === filterStatus);
   }, [driverPositions, filterStatus]);
 
   // ✅ V29.1: Traffic Light System Markers
   const markers = useMemo(() => {
-    return filteredPositions.map(pos => {
+    return filteredPositions.map((pos) => {
       const statusConfig = DRIVER_STATUS_CONFIG[pos.status];
-      const markerColor = statusConfig.level === 'success' 
-        ? 'hsl(142 76% 36%)' // Green
-        : statusConfig.level === 'warning'
-        ? 'hsl(38 92% 50%)' // Yellow
-        : statusConfig.level === 'error'
-        ? 'hsl(0 84% 60%)' // Red
-        : 'hsl(0 0% 60%)'; // Gray
+      const markerColor =
+        statusConfig.level === "success"
+          ? "hsl(142 76% 36%)" // Green
+          : statusConfig.level === "warning"
+            ? "hsl(38 92% 50%)" // Yellow
+            : statusConfig.level === "error"
+              ? "hsl(0 84% 60%)" // Red
+              : "hsl(0 0% 60%)"; // Gray
 
       return {
         lat: pos.latitude,
@@ -205,10 +202,10 @@ export function EnhancedLiveMap({
         },
         // Phase 2.1: GPU-Acceleration für smooth animations
         style: {
-          transform: 'translateZ(0)',
-          willChange: 'transform',
-          transition: 'all 1s ease-in-out'
-        }
+          transform: "translateZ(0)",
+          willChange: "transform",
+          transition: "all 1s ease-in-out",
+        },
       };
     });
   }, [filteredPositions, onDriverClick]);
@@ -216,15 +213,15 @@ export function EnhancedLiveMap({
   // ✅ V29.1: Statistics
   const stats = useMemo(() => {
     const total = driverPositions.length;
-    const available = driverPositions.filter(p => p.status === 'available').length;
-    const busy = driverPositions.filter(p => p.status === 'busy').length;
-    const offline = driverPositions.filter(p => p.status === 'offline').length;
+    const available = driverPositions.filter((p) => p.status === "available").length;
+    const busy = driverPositions.filter((p) => p.status === "busy").length;
+    const offline = driverPositions.filter((p) => p.status === "offline").length;
 
     return { total, available, busy, offline };
   }, [driverPositions]);
 
   return (
-    <Card 
+    <Card
       className={cn(
         "col-span-full transition-all duration-300",
         isFullscreen && "fixed inset-0 z-50 rounded-none"
@@ -238,11 +235,9 @@ export function EnhancedLiveMap({
                 <Navigation className="h-5 w-5 text-slate-900" />
                 Live-Karte
               </CardTitle>
-              <p className="text-sm text-slate-600 mt-1">
-                Echtzeit-GPS-Tracking Ihrer Flotte
-              </p>
+              <p className="text-sm text-slate-600 mt-1">Echtzeit-GPS-Tracking Ihrer Flotte</p>
             </div>
-            
+
             {/* Status-Filter */}
             <Select value={filterStatus} onValueChange={(val: any) => setFilterStatus(val)}>
               <SelectTrigger className="w-40">
@@ -279,7 +274,7 @@ export function EnhancedLiveMap({
               <Users className="h-4 w-4" />
               {filteredPositions.length} / {stats.total} Fahrer
             </Badge>
-            
+
             <Badge variant="outline" className="gap-2 bg-green-500/10 border-green-500/20">
               <MapPin className="h-4 w-4 text-green-600" />
               <span className="text-green-600">Live-Tracking</span>
@@ -297,16 +292,8 @@ export function EnhancedLiveMap({
             </V28Button>
 
             {/* Fullscreen Toggle */}
-            <V28Button
-              variant="secondary"
-              size="sm"
-              onClick={() => setIsFullscreen(!isFullscreen)}
-            >
-              {isFullscreen ? (
-                <Minimize2 className="h-4 w-4" />
-              ) : (
-                <Maximize2 className="h-4 w-4" />
-              )}
+            <V28Button variant="secondary" size="sm" onClick={() => setIsFullscreen(!isFullscreen)}>
+              {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
             </V28Button>
           </div>
         </div>
@@ -337,10 +324,7 @@ export function EnhancedLiveMap({
           center={center}
           zoom={isFullscreen ? 13 : 12}
           markers={markers}
-          className={cn(
-            "rounded-b-lg",
-            isFullscreen ? "h-screen" : "h-[600px]"
-          )}
+          className={cn("rounded-b-lg", isFullscreen ? "h-screen" : "h-[600px]")}
           onMapReady={(map) => setMapInstance(map)}
         />
 
@@ -354,20 +338,16 @@ export function EnhancedLiveMap({
           />
         )}
         {showRoutes && (
-          <RouteLayer
-            companyId={companyId}
-            visible={showRoutes}
-            mapInstance={mapInstance}
-          />
+          <RouteLayer companyId={companyId} visible={showRoutes} mapInstance={mapInstance} />
         )}
         {showClusters && (
           <ClusterLayer
-            drivers={filteredPositions.map(pos => ({
+            drivers={filteredPositions.map((pos) => ({
               id: pos.driver_id,
               latitude: pos.latitude,
               longitude: pos.longitude,
               label: pos.driver_name,
-              color: DRIVER_STATUS_CONFIG[pos.status].level === 'success' ? 'green' : 'yellow'
+              color: DRIVER_STATUS_CONFIG[pos.status].level === "success" ? "green" : "yellow",
             }))}
             visible={showClusters}
             mapInstance={mapInstance}

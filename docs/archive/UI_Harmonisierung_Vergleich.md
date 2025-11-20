@@ -9,15 +9,15 @@ Dieser Bericht dokumentiert die UI-Harmonisierung der drei Hauptseiten `/dashboa
 
 ## 2. Struktureller Vergleich
 
-| Kriterium | /dashboard | /einstellungen | /rechnungen (Referenz) |
-| :--- | :--- | :--- | :--- |
-| **Zeilen Code** | 284 | 264 | 864 |
-| **Layout-System** | ✅ StandardPageLayout | ❌ Eigenes Layout (Tabs) | ✅ StandardPageLayout |
-| **StatCards** | ✅ 3 StatCards | ❌ Keine (Settings-Seite) | ✅ 4 StatCards |
-| **Grid-Spacing** | ✅ gap-3 (konsistent) | ✅ gap-3 (konsistent) | ✅ gap-3 (konsistent) |
-| **Design Tokens** | ⚠️ 17 hardcodierte Farben | ✅ Vollständig harmonisiert | ⚠️ 10 hardcodierte Farben |
-| **Inline-Styles** | ✅ Keine | ✅ Keine | ⚠️ 1 gefunden |
-| **Mobile-Optimierung** | ✅ Vorhanden | ❓ Nicht erkennbar | ✅ Vorhanden |
+| Kriterium              | /dashboard                | /einstellungen              | /rechnungen (Referenz)    |
+| :--------------------- | :------------------------ | :-------------------------- | :------------------------ |
+| **Zeilen Code**        | 284                       | 264                         | 864                       |
+| **Layout-System**      | ✅ StandardPageLayout     | ❌ Eigenes Layout (Tabs)    | ✅ StandardPageLayout     |
+| **StatCards**          | ✅ 3 StatCards            | ❌ Keine (Settings-Seite)   | ✅ 4 StatCards            |
+| **Grid-Spacing**       | ✅ gap-3 (konsistent)     | ✅ gap-3 (konsistent)       | ✅ gap-3 (konsistent)     |
+| **Design Tokens**      | ⚠️ 17 hardcodierte Farben | ✅ Vollständig harmonisiert | ⚠️ 10 hardcodierte Farben |
+| **Inline-Styles**      | ✅ Keine                  | ✅ Keine                    | ⚠️ 1 gefunden             |
+| **Mobile-Optimierung** | ✅ Vorhanden              | ❓ Nicht erkennbar          | ✅ Vorhanden              |
 
 ## 3. Detaillierte Analyse
 
@@ -26,12 +26,14 @@ Dieser Bericht dokumentiert die UI-Harmonisierung der drei Hauptseiten `/dashboa
 **Status:** ✅ Harmonisiert (Spezialseite)
 
 **Struktur:**
+
 - Nutzt `StandardPageLayout` als Basis
 - 3 StatCards für KPI-Anzeige
 - Grid-Spacing konsistent (gap-3)
 - Mobile-Optimierung vorhanden
 
 **Verbleibende Optimierungen:**
+
 - ⚠️ 17 hardcodierte Slate-Farben sollten durch Design Tokens ersetzt werden
 
 **Begründung für Spezialbehandlung:**
@@ -42,6 +44,7 @@ Die Dashboard-Seite ist die zentrale Übersichtsseite und darf eine eigene, erwe
 **Status:** ✅ Harmonisiert (Spezialseite)
 
 **Struktur:**
+
 - Nutzt **eigenes Layout** (Tabs-basiert für verschiedene Einstellungsbereiche)
 - Keine StatCards (nicht relevant für Settings)
 - Grid-Spacing konsistent (gap-3)
@@ -55,6 +58,7 @@ Die Einstellungen-Seite hat eine funktional andere Struktur (Tabs für verschied
 **Status:** ✅ Referenz-Layout
 
 **Struktur:**
+
 - Nutzt `StandardPageLayout`
 - 4 StatCards für Rechnungs-KPIs
 - Grid-Spacing konsistent (gap-3)
@@ -62,6 +66,7 @@ Die Einstellungen-Seite hat eine funktional andere Struktur (Tabs für verschied
 - UniversalExportBar integriert
 
 **Verbleibende Optimierungen:**
+
 - ⚠️ 10 hardcodierte Slate-Farben sollten durch Design Tokens ersetzt werden
 - ⚠️ 1 Inline-Style entfernen
 
@@ -99,10 +104,10 @@ Alle drei Seiten folgen den gleichen Design-Prinzipien:
 ```typescript
 // Beispiel: Hardcodierte Farben ersetzen
 // Vorher:
-className="text-slate-700"
+className = "text-slate-700";
 
 // Nachher:
-className="text-foreground"
+className = "text-foreground";
 ```
 
 **Anzahl:** 17 Vorkommen
@@ -131,6 +136,7 @@ Die UI-Harmonisierung wurde erfolgreich abgeschlossen. Alle drei Seiten folgen d
 **Harmonisierungs-Grad:** 95%
 
 **Nächste Schritte:**
+
 1. Hardcodierte Farben in Dashboard.tsx durch Design Tokens ersetzen
 2. Hardcodierte Farben in Rechnungen.tsx durch Design Tokens ersetzen
 3. Inline-Style in Rechnungen.tsx entfernen

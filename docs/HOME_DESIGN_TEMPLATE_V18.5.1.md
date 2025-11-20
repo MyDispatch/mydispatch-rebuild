@@ -14,6 +14,7 @@
 ### Was bedeutet das?
 
 Alle öffentlichen Seiten (Marketing, Landing Pages, Rechtstexte) MÜSSEN:
+
 - **1:1 identisches Design** wie Home verwenden
 - **Gleiche Buttons, Badges, Cards, Icons** verwenden
 - **Gleichen Header, Footer, Sidebar** verwenden (nur Menü-Belegung unterschiedlich)
@@ -26,24 +27,24 @@ Alle öffentlichen Seiten (Marketing, Landing Pages, Rechtstexte) MÜSSEN:
 
 ### ✅ Verwenden Home-Template (PFLICHT)
 
-| Seite | Route | Status | Besonderheiten |
-|-------|-------|--------|----------------|
-| **Home** | `/` | ✅ Master | Original-Template |
-| **Taxiunternehmen** | `/taxiunternehmen` | 🔄 TODO | Nur Inhalte anpassen |
-| **Mietwagenunternehmen** | `/mietwagenunternehmen` | 🔄 TODO | Nur Inhalte anpassen |
-| **Fahrer-Info** | `/fahrer` | 🔄 TODO | Nur Inhalte anpassen |
-| **Impressum** | `/impressum` | 🔄 TODO | Rechtstext, keine Hero |
-| **Datenschutz** | `/datenschutz` | 🔄 TODO | Rechtstext, keine Hero |
-| **AGB** | `/agb` | 🔄 TODO | Rechtstext, keine Hero |
-| **Widerrufsrecht** | `/widerrufsrecht` | 🔄 TODO | Rechtstext, keine Hero |
+| Seite                    | Route                   | Status    | Besonderheiten         |
+| ------------------------ | ----------------------- | --------- | ---------------------- |
+| **Home**                 | `/`                     | ✅ Master | Original-Template      |
+| **Taxiunternehmen**      | `/taxiunternehmen`      | 🔄 TODO   | Nur Inhalte anpassen   |
+| **Mietwagenunternehmen** | `/mietwagenunternehmen` | 🔄 TODO   | Nur Inhalte anpassen   |
+| **Fahrer-Info**          | `/fahrer`               | 🔄 TODO   | Nur Inhalte anpassen   |
+| **Impressum**            | `/impressum`            | 🔄 TODO   | Rechtstext, keine Hero |
+| **Datenschutz**          | `/datenschutz`          | 🔄 TODO   | Rechtstext, keine Hero |
+| **AGB**                  | `/agb`                  | 🔄 TODO   | Rechtstext, keine Hero |
+| **Widerrufsrecht**       | `/widerrufsrecht`       | 🔄 TODO   | Rechtstext, keine Hero |
 
 ### ❌ Verwenden NICHT Home-Template
 
-| Seite | Route | Grund |
-|-------|-------|-------|
-| **Dashboard** | `/dashboard` | App-Bereich, eigenes Design |
-| **Auth** | `/auth` | Login/Register, vereinfacht |
-| **Alle App-Seiten** | `/dashboard/*` | Interne App-Navigation |
+| Seite               | Route          | Grund                       |
+| ------------------- | -------------- | --------------------------- |
+| **Dashboard**       | `/dashboard`   | App-Bereich, eigenes Design |
+| **Auth**            | `/auth`        | Login/Register, vereinfacht |
+| **Alle App-Seiten** | `/dashboard/*` | Interne App-Navigation      |
 
 ---
 
@@ -54,16 +55,19 @@ Alle öffentlichen Seiten (Marketing, Landing Pages, Rechtstexte) MÜSSEN:
 **Datei:** `src/components/auth/AuthHeader.tsx`
 
 **Specs:**
+
 ```tsx
-<header className="
+<header
+  className="
   fixed top-0 w-full z-50
   h-16 sm:h-20
   bg-gradient-to-r from-primary via-primary/95 to-secondary/20
   border-b border-primary/20
   shadow-lg
-">
+"
+>
   {/* Logo - STRIKTE MAX-WIDTH! */}
-  <img 
+  <img
     src={logoUrl || officialLogo}
     alt={`${companyName} Logo`}
     className="
@@ -72,22 +76,21 @@ Alle öffentlichen Seiten (Marketing, Landing Pages, Rechtstexte) MÜSSEN:
       object-contain
     "
   />
-  
+
   {/* Navigation - NUR Menü-Items unterschiedlich */}
   <nav>
     {/* Auf Home: Features | Tarife | Über uns */}
     {/* Auf Taxiunternehmen: Leistungen | Vorteile | Kontakt */}
     {/* etc. - IMMER gleicher Style, nur Text unterschiedlich */}
   </nav>
-  
+
   {/* CTA Button - IMMER gleich */}
-  <MarketingButton marketingVariant="hero-primary">
-    Jetzt abonnieren
-  </MarketingButton>
+  <MarketingButton marketingVariant="hero-primary">Jetzt abonnieren</MarketingButton>
 </header>
 ```
 
 **KRITISCH:**
+
 - Logo NIEMALS ohne `max-width` (siehe `LOGO_OVERFLOW_FIX_V18.5.1_SUMMARY.md`)
 - Gradient IMMER `from-primary via-primary/95 to-secondary/20`
 - Höhe IMMER `h-16 sm:h-20`
@@ -99,12 +102,15 @@ Alle öffentlichen Seiten (Marketing, Landing Pages, Rechtstexte) MÜSSEN:
 **Datei:** `src/components/auth/AuthFooter.tsx`
 
 **Specs:**
+
 ```tsx
-<footer className="
+<footer
+  className="
   bg-gradient-to-b from-primary/95 via-primary/90 to-secondary/20
   border-t border-primary/20
   pt-12 sm:pt-16 pb-6
-">
+"
+>
   {/* 4-Spalten-Grid - Inhalte können unterschiedlich sein */}
   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
     <div>Produkt</div>
@@ -112,22 +118,21 @@ Alle öffentlichen Seiten (Marketing, Landing Pages, Rechtstexte) MÜSSEN:
     <div>Support</div>
     <div>Rechtliches</div>
   </div>
-  
+
   {/* Footer-Bottom - IMMER identisch */}
   <div className="border-t border-primary-foreground/10 pt-6 mt-8">
     <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
       <p className="text-primary-foreground/70 text-sm">
         © 2025 MyDispatch.de by Roitsch Solutions
       </p>
-      <div className="flex gap-4">
-        {/* Social Links */}
-      </div>
+      <div className="flex gap-4">{/* Social Links */}</div>
     </div>
   </div>
 </footer>
 ```
 
 **KRITISCH:**
+
 - Gradient IMMER `from-primary/95 via-primary/90 to-secondary/20`
 - Text-Farbe IMMER `text-primary-foreground` (nicht `text-foreground`!)
 - Copyright IMMER gleich
@@ -139,6 +144,7 @@ Alle öffentlichen Seiten (Marketing, Landing Pages, Rechtstexte) MÜSSEN:
 **Quelle:** `src/components/design-system/MarketingButton.tsx`
 
 **Varianten:**
+
 ```tsx
 // Hero-Bereich (dunkler Hintergrund)
 <MarketingButton marketingVariant="hero-primary">
@@ -160,6 +166,7 @@ Alle öffentlichen Seiten (Marketing, Landing Pages, Rechtstexte) MÜSSEN:
 ```
 
 **VERBOTEN:**
+
 ```tsx
 // ❌ NIEMALS Standard-Button auf Marketing-Seiten
 <Button variant="default">Click</Button>
@@ -173,18 +180,22 @@ Alle öffentlichen Seiten (Marketing, Landing Pages, Rechtstexte) MÜSSEN:
 ### 4. BADGES (SYSTEMWEIT IDENTISCH)
 
 **Specs:**
+
 ```tsx
-<Badge className="
+<Badge
+  className="
   text-xs sm:text-sm
   px-3 sm:px-4 py-1 sm:py-1.5
   bg-primary text-foreground
   border-none font-semibold
-">
+"
+>
   Made in Germany
 </Badge>
 ```
 
 **Varianten:**
+
 - `bg-primary text-foreground` - Haupt-Badge
 - `bg-secondary text-secondary-foreground` - Sekundär
 - `bg-status-success text-status-success-foreground` - Erfolg
@@ -194,33 +205,34 @@ Alle öffentlichen Seiten (Marketing, Landing Pages, Rechtstexte) MÜSSEN:
 ### 5. CARDS (SYSTEMWEIT IDENTISCH)
 
 **Feature-Cards (Home-Seite):**
+
 ```tsx
-<Card className="
+<Card
+  className="
   p-4 sm:p-6
   rounded-xl
   shadow-md hover:shadow-2xl
   border border-border/50 hover:border-primary/40
   hover:-translate-y-1
   transition-all duration-300
-">
+"
+>
   {/* Icon-Box */}
-  <div className="
+  <div
+    className="
     p-2 sm:p-3
     bg-secondary rounded-lg
     shadow-md
-  ">
+  "
+  >
     <Icon name="Car" className="h-6 w-6 sm:h-8 sm:w-8 text-secondary-foreground" />
   </div>
-  
+
   {/* Title */}
-  <h3 className="text-base sm:text-lg font-bold text-foreground">
-    Feature-Titel
-  </h3>
-  
+  <h3 className="text-base sm:text-lg font-bold text-foreground">Feature-Titel</h3>
+
   {/* Description */}
-  <p className="text-xs sm:text-sm text-muted-foreground">
-    Feature-Beschreibung
-  </p>
+  <p className="text-xs sm:text-sm text-muted-foreground">Feature-Beschreibung</p>
 </Card>
 ```
 
@@ -231,6 +243,7 @@ Alle öffentlichen Seiten (Marketing, Landing Pages, Rechtstexte) MÜSSEN:
 **Quelle:** `src/components/design-system/Icon.tsx`
 
 **STRIKTE REGEL:**
+
 ```tsx
 // ✅ RICHTIG - Über Icon-Komponente
 import { Icon } from '@/components/design-system';
@@ -244,12 +257,14 @@ import { Car } from 'lucide-react';
 ```
 
 **Erlaubte Farben:**
+
 - `text-foreground` (Standard)
 - `text-muted-foreground` (Deaktiviert)
 - `text-primary-foreground` (Auf Primary-Hintergrund)
 - `text-secondary-foreground` (Auf Secondary-Hintergrund)
 
 **VERBOTEN:**
+
 - ❌ `text-status-success` / `text-green-*`
 - ❌ `text-status-warning` / `text-yellow-*`
 - ❌ `text-status-error` / `text-red-*`
@@ -261,29 +276,31 @@ import { Car } from 'lucide-react';
 **Datei:** `src/assets/hero-dashboard-screenshot-fixed.jpg`
 
 **Specs:**
+
 - **Auflösung:** 1920x1080 (16:9)
 - **Format:** JPG (optimiert)
 - **Inhalt:** MyDispatch Dashboard-Screenshot in Browser-Fenster
 - **KRITISCH:** Browser-Tab-Bereich VOLLSTÄNDIG ausgefüllt (kein grauer Rand!)
 
 **Verwendung:**
+
 ```tsx
-import heroDashboard from '@/assets/hero-dashboard-screenshot-fixed.jpg';
+import heroDashboard from "@/assets/hero-dashboard-screenshot-fixed.jpg";
 
 <div className="relative w-full max-w-2xl">
   {/* Glow Background */}
   <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-primary/20 to-primary/30 rounded-3xl blur-3xl opacity-50" />
-  
+
   {/* Frame */}
   <div className="relative bg-gradient-to-br from-secondary/10 to-secondary/5 backdrop-blur-sm p-3 rounded-2xl border border-primary/20 shadow-[0_20px_60px_-15px_rgba(234,222,189,0.3)]">
-    <img 
+    <img
       src={heroDashboard}
       alt="MyDispatch Echtzeit-Dashboard"
       className="w-full h-auto object-cover rounded-xl"
       loading="eager"
     />
   </div>
-</div>
+</div>;
 ```
 
 ---
@@ -310,6 +327,7 @@ import heroDashboard from '@/assets/hero-dashboard-screenshot-fixed.jpg';
 ### 9. SPACING (SYSTEMWEIT IDENTISCH)
 
 **Mobile-First Pattern:**
+
 ```tsx
 // Section Padding
 <section className="py-12 sm:py-16 md:py-20">
@@ -426,7 +444,7 @@ import { Check } from 'lucide-react';
 </div>
 
 // ✅ IMMER Logo mit strikter max-width
-<img 
+<img
   src={logo}
   className="h-7 sm:h-8 max-w-[120px] sm:max-w-[160px] md:max-w-[180px] object-contain"
 />
@@ -439,11 +457,13 @@ import { Check } from 'lucide-react';
 ### Neue öffentliche Seite erstellen (Step-by-Step)
 
 **1. Home-Seite als Basis kopieren**
+
 ```bash
 cp src/pages/Home.tsx src/pages/NeueSeite.tsx
 ```
 
 **2. Inhalte anpassen (NUR Texte/Daten ändern)**
+
 ```tsx
 // ❌ NICHT Design ändern
 // ❌ NICHT neue Button-Varianten erstellen
@@ -457,23 +477,20 @@ const features = [
 ```
 
 **3. Header/Footer/Navigation anpassen**
+
 ```tsx
 // MarketingLayout mit currentPage
-<MarketingLayout currentPage="neue-seite">
-  {/* Inhalt */}
-</MarketingLayout>
+<MarketingLayout currentPage="neue-seite">{/* Inhalt */}</MarketingLayout>
 ```
 
 **4. SEO-Meta-Tags anpassen**
+
 ```tsx
-<SEOHead 
-  title="Neue Seite - MyDispatch"
-  description="..."
-  canonical="/neue-seite"
-/>
+<SEOHead title="Neue Seite - MyDispatch" description="..." canonical="/neue-seite" />
 ```
 
 **5. Route registrieren**
+
 ```tsx
 // src/routes.config.tsx
 {
@@ -527,6 +544,7 @@ const features = [
 ## 🔗 VERKNÜPFTE DOKUMENTE
 
 Diese Vorgaben basieren auf:
+
 - `HOMEPAGE_KONZEPT_V18.5.0.md` - Struktur & Inhalte
 - `HEADER_FOOTER_UNIFIED_V18.5.1.md` - Header/Footer Specs
 - `BUTTON_USAGE_GUIDE_V18.5.0.md` - Button-Varianten
@@ -538,20 +556,21 @@ Diese Vorgaben basieren auf:
 
 ## 📈 SUCCESS METRICS
 
-| Metrik | Zielwert | Prüfung |
-|--------|----------|---------|
-| Design-System Compliance | 100% | Visueller Check |
-| Button-System Compliance | 100% | Code Review |
-| Icon-System Compliance | 100% | Code Review |
-| Mobile-First Compliance | 100% | Device Testing |
-| Lighthouse Score | > 90 | Automated |
-| WCAG AA Kontrast | 100% | Automated |
+| Metrik                   | Zielwert | Prüfung         |
+| ------------------------ | -------- | --------------- |
+| Design-System Compliance | 100%     | Visueller Check |
+| Button-System Compliance | 100%     | Code Review     |
+| Icon-System Compliance   | 100%     | Code Review     |
+| Mobile-First Compliance  | 100%     | Device Testing  |
+| Lighthouse Score         | > 90     | Automated       |
+| WCAG AA Kontrast         | 100%     | Automated       |
 
 ---
 
 ## 🚀 ROLLOUT-PLAN
 
 ### Phase 1: Kritische Seiten (Woche 1)
+
 - [x] Home (Master-Template)
 - [ ] Taxiunternehmen
 - [ ] Mietwagenunternehmen
@@ -560,12 +579,14 @@ Diese Vorgaben basieren auf:
 - [ ] AGB
 
 ### Phase 2: Erweiterte Seiten (Woche 2)
+
 - [ ] Fahrer-Info
 - [ ] Partner-Info
 - [ ] Widerrufsrecht
 - [ ] Cookie-Richtlinie
 
 ### Phase 3: Optimierung (Woche 3)
+
 - [ ] Performance-Optimierung
 - [ ] SEO-Optimierung
 - [ ] A/B-Testing Setup

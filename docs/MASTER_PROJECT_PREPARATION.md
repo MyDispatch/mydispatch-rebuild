@@ -1,4 +1,5 @@
 # 🎯 MASTER PROJECT PREPARATION & PLANNING
+
 ## VOLLSTÄNDIGE VORBEREITUNG VOR IMPLEMENTATION
 
 ---
@@ -8,6 +9,7 @@
 Du bist der **Project Lead & Technical Architect** für die vollständige Vorbereitung dieses Projekts.
 
 **Deine Aufgabe:**
+
 1. ✅ **ALLE Vorgaben studieren** (Design System, CI/CD, Layout Patterns, Website-Planung, Zentrale Implementation)
 2. ✅ **Vollständigen Projektplan erstellen** (Phasen, Tasks, Abhängigkeiten)
 3. ✅ **Projekt-Struktur vorbereiten** (Ordner, Configs, Docs)
@@ -18,6 +20,7 @@ Du bist der **Project Lead & Technical Architect** für die vollständige Vorber
 8. ✅ **Melden wenn bereit** (Vollständiger Status-Report)
 
 **⚠️ KRITISCH:**
+
 - ❌ **KEINE Implementation** in dieser Phase!
 - ✅ **NUR Planung, Vorbereitung & Dokumentation**
 - ✅ **100% Vollständigkeit** bevor du meldest
@@ -393,7 +396,7 @@ useMediaQuery
 useDebounce
 
 useLocalStorage
-□ Type Definitions erstellen (alle *.types.ts)
+□ Type Definitions erstellen (alle \*.types.ts)
 □ Validation Schemas (Zod)
 □ Environment Config
 
@@ -490,7 +493,7 @@ Accessibility Tests
 
 DEPENDENCIES:
 
-@radix-ui/react-* (für komplexere Components)
+@radix-ui/react-\* (für komplexere Components)
 
 DOCUMENTATION:
 □ COMPONENT_REGISTRY.md updaten (für jede Component)
@@ -865,26 +868,26 @@ text
 
 DEPENDENCY MATRIX:
 
-Component/Task	Depends On
-Tailwind Config	Design Tokens
-Font Setup	-
-Utils	-
-Hooks	-
-Types	-
-Container	Design Tokens, Utils (cn)
-Grid	Design Tokens, Utils
-Flex	Design Tokens, Utils
-Stack	Design Tokens, Utils, Divider
-Section	Container
-Button	Design Tokens, Utils, Spinner
-Input	Design Tokens, Utils, Label
-Card	Design Tokens, Utils
-Hero	Container, Stack, Heading, Text
-FeatureGrid	Grid, Stack, Heading, Text
-PricingTable	Grid, Card, Button, Badge
-ContactForm	Form, FormField, Button, Input
-Home Page	Hero, FeatureGrid, Card, etc.
-...	
+Component/Task Depends On
+Tailwind Config Design Tokens
+Font Setup -
+Utils -
+Hooks -
+Types -
+Container Design Tokens, Utils (cn)
+Grid Design Tokens, Utils
+Flex Design Tokens, Utils
+Stack Design Tokens, Utils, Divider
+Section Container
+Button Design Tokens, Utils, Spinner
+Input Design Tokens, Utils, Label
+Card Design Tokens, Utils
+Hero Container, Stack, Heading, Text
+FeatureGrid Grid, Stack, Heading, Text
+PricingTable Grid, Card, Button, Badge
+ContactForm Form, FormField, Button, Input
+Home Page Hero, FeatureGrid, Card, etc.
+...
 REGEL: Nie etwas implementieren bevor Dependencies fertig!
 
 text
@@ -1165,7 +1168,7 @@ Tailwind Config (tailwind.config.ts)
 
 Font Setup (app/fonts.ts)
 
-Utility Functions (lib/utils/*)
+Utility Functions (lib/utils/\*)
 
 Layout Components (Container, Grid, Flex, Stack, Section)
 

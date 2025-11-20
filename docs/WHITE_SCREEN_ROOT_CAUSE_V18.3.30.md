@@ -15,7 +15,7 @@
 
 ```typescript
 // ❌ FALSCH - verursacht Production Build Crash!
-component: lazy(() => 
+component: lazy(() =>
   import('@/pages/Portal')
     .catch(() => import('@/pages/enhanced/DashboardV18_3'))
 ),
@@ -75,10 +75,10 @@ component: lazy(() => import('@/pages/Portal')),
 
 ```typescript
 // ❌ NIEMALS
-lazy(() => import('./A').catch(() => import('./B')))
+lazy(() => import("./A").catch(() => import("./B")));
 
 // ✅ IMMER
-lazy(() => import('./A'))
+lazy(() => import("./A"));
 ```
 
 ### 2. Für Fallback-Logik: Router-Level

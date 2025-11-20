@@ -9,6 +9,7 @@
 ## 🎯 Zweck
 
 Dieser Standard-Folgeprompt dient zur strukturierten, effizienten Kommunikation nach Abschluss eines Vorgangs. Er stellt sicher, dass:
+
 - Automatische Qualitätsprüfungen durchgeführt wurden
 - Die nächste Aufgabe klar definiert ist
 - Feedback dokumentiert wird
@@ -40,6 +41,7 @@ Automatische Prüfungen:
 ## 🔄 Anwendungsfälle
 
 ### **1. Einfache Bestätigung + Neue Aufgabe**
+
 ```
 ✅ Erledigt!
 
@@ -56,6 +58,7 @@ Automatische Prüfungen:
 ```
 
 ### **2. Mit Feedback**
+
 ```
 ✅ Erledigt!
 
@@ -72,6 +75,7 @@ Automatische Prüfungen:
 ```
 
 ### **3. Fehler gefunden**
+
 ```
 ❌ Problem gefunden!
 
@@ -89,7 +93,9 @@ Automatische Prüfungen:
 ```
 
 ### **4. Vollautomatischer Modus (KEIN Folgeprompt nötig)**
+
 Wenn der AI-Agent im vollautomatischen Modus arbeitet, benötigst du KEINEN Folgeprompt. Der Agent:
+
 - Führt automatisch Brain-Queries durch
 - Validiert den Code
 - Deployed bei Erfolg
@@ -101,37 +107,41 @@ Wenn der AI-Agent im vollautomatischen Modus arbeitet, benötigst du KEINEN Folg
 
 ## 🚦 Wann welcher Modus?
 
-| Situation | Benötigst du einen Folgeprompt? | Grund |
-|-----------|----------------------------------|-------|
-| Neue Feature-Anfrage | ✅ Ja | Klare Aufgabe definieren |
-| Feedback zu Design | ✅ Ja | Änderungen kommunizieren |
-| Fehler melden | ✅ Ja | Problem beschreiben |
-| AI arbeitet automatisch | ❌ Nein | Pipeline läuft automatisch |
-| CI/CD deployed | ❌ Nein | Automatische Überwachung aktiv |
-| Self-Healing greift | ❌ Nein | System korrigiert sich selbst |
+| Situation               | Benötigst du einen Folgeprompt? | Grund                          |
+| ----------------------- | ------------------------------- | ------------------------------ |
+| Neue Feature-Anfrage    | ✅ Ja                           | Klare Aufgabe definieren       |
+| Feedback zu Design      | ✅ Ja                           | Änderungen kommunizieren       |
+| Fehler melden           | ✅ Ja                           | Problem beschreiben            |
+| AI arbeitet automatisch | ❌ Nein                         | Pipeline läuft automatisch     |
+| CI/CD deployed          | ❌ Nein                         | Automatische Überwachung aktiv |
+| Self-Healing greift     | ❌ Nein                         | System korrigiert sich selbst  |
 
 ---
 
 ## 📊 Automatische Prüfungen (Checkliste)
 
 ### **1. Brain-Query erfolgreich?**
+
 - Hat der AI-Agent das Knowledge-System abgefragt?
 - Wurden relevante Docs gefunden?
 - Logs in `brain_query_logs` vorhanden?
 
 ### **2. Design-System-Compliance?**
+
 - Werden Semantic Tokens verwendet (`index.css`, `tailwind.config.ts`)?
 - Keine Direct-Colors (`text-white`, `bg-black` etc.)?
 - Shadcn-Varianten korrekt angepasst?
 - **NEU V18.5.1:** Unified Header/Footer verwendet?
 
 ### **3. Tests bestanden?**
+
 - E2E-Tests (Playwright) grün?
 - TypeScript-Compiler-Fehler gelöst?
 - Lighthouse-Score > 90?
 - **NEU V18.5.1:** Logo-Overflow-Tests bestanden?
 
 ### **4. Dokumentation aktualisiert?**
+
 - Neue Features in entsprechender Spec dokumentiert?
 - README.md aktualisiert?
 - Changelog gepflegt?
@@ -142,6 +152,7 @@ Wenn der AI-Agent im vollautomatischen Modus arbeitet, benötigst du KEINEN Folg
 ## 🎯 Best Practices
 
 ### **DO's ✅**
+
 - **Klar & präzise:** "Implementiere die Driver-Seite" statt "Mach was mit Fahrern"
 - **Feedback geben:** "Farbe zu dunkel" statt nur "Nicht gut"
 - **Logs beifügen:** Bei Fehlern immer Console-Logs mitschicken
@@ -149,6 +160,7 @@ Wenn der AI-Agent im vollautomatischen Modus arbeitet, benötigst du KEINEN Folg
 - **Screenshots:** Bei visuellen Problemen Screenshots anfügen
 
 ### **DON'Ts ❌**
+
 - **Keine vagen Anfragen:** "Mach es schöner" ist nicht hilfreich
 - **Keine Mehrfach-Aufgaben:** Eine Aufgabe pro Prompt
 - **Keine Feature-Creep:** Nur das anfordern, was wirklich benötigt wird
@@ -160,6 +172,7 @@ Wenn der AI-Agent im vollautomatischen Modus arbeitet, benötigst du KEINEN Folg
 ## 🆕 Neu in V18.5.1
 
 ### **Fehlersuche-First Workflow**
+
 ```
 1. Fehler suchen → Alle finden
 2. Ursachen analysieren → Root Cause
@@ -170,6 +183,7 @@ Wenn der AI-Agent im vollautomatischen Modus arbeitet, benötigst du KEINEN Folg
 ```
 
 ### **Automatisierungs-Fokus**
+
 - ESLint-Rules für verbotene Patterns
 - Visual Regression Tests
 - Pre-Commit Hooks
@@ -189,13 +203,13 @@ Wenn der AI-Agent im vollautomatischen Modus arbeitet, benötigst du KEINEN Folg
 
 ## 📈 Erfolgskriterien
 
-| Metrik | Zielwert | V18.5.0 | V18.5.1 |
-|--------|----------|---------|---------|
-| Durchschnittliche Response-Zeit | < 30 Sekunden | 25s | 22s |
-| Erfolgsquote 1. Versuch | > 90% | 88% | 94% |
-| Manuelle Nachbesserungen | < 10% | 12% | 6% |
-| User-Zufriedenheit | > 4.5/5 | 4.4 | 4.7 |
-| Bug-Detection-Rate | > 95% | 85% | 98% |
+| Metrik                          | Zielwert      | V18.5.0 | V18.5.1 |
+| ------------------------------- | ------------- | ------- | ------- |
+| Durchschnittliche Response-Zeit | < 30 Sekunden | 25s     | 22s     |
+| Erfolgsquote 1. Versuch         | > 90%         | 88%     | 94%     |
+| Manuelle Nachbesserungen        | < 10%         | 12%     | 6%      |
+| User-Zufriedenheit              | > 4.5/5       | 4.4     | 4.7     |
+| Bug-Detection-Rate              | > 95%         | 85%     | 98%     |
 
 ---
 
@@ -227,8 +241,8 @@ graph TD
 
 ## 📞 Meta-Prompt für Custom Knowledge
 
-**Wichtig:** Der finale Meta-Prompt `MYDISPATCH_AI_AGENT_META_PROMPT_V18.5.1.md` 
-muss in Projekt-Settings → Custom Knowledge eingetragen werden, damit der AI-Agent 
+**Wichtig:** Der finale Meta-Prompt `MYDISPATCH_AI_AGENT_META_PROMPT_V18.5.1.md`
+muss in Projekt-Settings → Custom Knowledge eingetragen werden, damit der AI-Agent
 bei jedem Neustart optimal funktioniert.
 
 **Erledigt:** Pascal Courbois  

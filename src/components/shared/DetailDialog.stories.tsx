@@ -4,17 +4,17 @@
    Stories for the unified DetailDialog component
    ================================================================================== */
 
-import type { Meta, StoryObj } from '@storybook/react';
-import { DetailDialog } from './DetailDialog';
-import { Users, Car, FileText } from 'lucide-react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { DetailDialog } from "./DetailDialog";
+import { Users, Car, FileText } from "lucide-react";
 
 const meta: Meta<typeof DetailDialog> = {
-  title: 'Shared/DetailDialog',
+  title: "Shared/DetailDialog",
   component: DetailDialog,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -25,12 +25,12 @@ export const CustomerDetail: Story = {
   args: {
     open: true,
     onOpenChange: () => {},
-    title: 'Kunden-Details',
-    createdAt: '2025-01-28T10:00:00Z',
-    onEdit: () => console.log('Edit clicked'),
+    title: "Kunden-Details",
+    createdAt: "2025-01-28T10:00:00Z",
+    onEdit: () => console.log("Edit clicked"),
     onArchive: async () => {
-      console.log('Archive clicked');
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log("Archive clicked");
+      await new Promise((resolve) => setTimeout(resolve, 1000));
     },
     children: (
       <div className="space-y-4">
@@ -62,11 +62,11 @@ export const DriverDetailWithRelated: Story = {
   args: {
     open: true,
     onOpenChange: () => {},
-    title: 'Fahrer-Details',
-    createdAt: '2025-01-15T08:30:00Z',
-    onEdit: () => console.log('Edit clicked'),
+    title: "Fahrer-Details",
+    createdAt: "2025-01-15T08:30:00Z",
+    onEdit: () => console.log("Edit clicked"),
     onArchive: async () => {
-      console.log('Archive clicked');
+      console.log("Archive clicked");
     },
     children: (
       <div className="space-y-4">
@@ -111,11 +111,11 @@ export const VehicleDetail: Story = {
   args: {
     open: true,
     onOpenChange: () => {},
-    title: 'Fahrzeug-Details',
-    createdAt: '2025-01-10T12:00:00Z',
-    onEdit: () => console.log('Edit clicked'),
+    title: "Fahrzeug-Details",
+    createdAt: "2025-01-10T12:00:00Z",
+    onEdit: () => console.log("Edit clicked"),
     onDelete: async () => {
-      console.log('Delete clicked');
+      console.log("Delete clicked");
     },
     showArchive: false,
     showDelete: true,
@@ -149,11 +149,11 @@ export const InvoiceDetail: Story = {
   args: {
     open: true,
     onOpenChange: () => {},
-    title: 'Rechnungs-Details',
-    createdAt: '2025-01-20T14:30:00Z',
-    onEdit: () => console.log('Edit clicked'),
+    title: "Rechnungs-Details",
+    createdAt: "2025-01-20T14:30:00Z",
+    onEdit: () => console.log("Edit clicked"),
     onArchive: async () => {
-      console.log('Archive clicked');
+      console.log("Archive clicked");
     },
     children: (
       <div className="space-y-4">

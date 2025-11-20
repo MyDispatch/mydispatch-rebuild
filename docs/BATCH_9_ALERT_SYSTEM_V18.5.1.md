@@ -19,10 +19,12 @@ Vollständiges **Email-Alert-System** mit Integration in Watchdog-AI und Central
 **Migration:** `20251026_batch9_alert_system.sql`
 
 **Tabellen:**
+
 - ✅ `alert_policies` (Konfiguration: Wer bekommt welche Alerts?)
 - ✅ `alert_logs` (Historie aller Alerts mit Email-Status)
 
 **Features:**
+
 - RLS-Policies (Company-Isolation, Admin-Zugriff)
 - Cleanup-Function (>90 Tage)
 - Indexed für Performance
@@ -34,6 +36,7 @@ Vollständiges **Email-Alert-System** mit Integration in Watchdog-AI und Central
 **Datei:** `supabase/functions/alert-manager/index.ts`
 
 **Features:**
+
 - ✅ Email-Benachrichtigung via Resend (BESTEHENDE Integration!)
 - ✅ Alert-Policy-Check (wer bekommt Benachrichtigungen?)
 - ✅ HTML-Email-Template (branded, responsive)
@@ -41,6 +44,7 @@ Vollständiges **Email-Alert-System** mit Integration in Watchdog-AI und Central
 - ✅ Error-Handling & Logging
 
 **Email-Template:**
+
 - Branded (MyDispatch CI-Colors)
 - Severity-Badges (CRITICAL, WARNING, INFO)
 - Details (JSON-formatted)
@@ -53,11 +57,13 @@ Vollständiges **Email-Alert-System** mit Integration in Watchdog-AI und Central
 **Datei:** `supabase/functions/watchdog-monitor/index.ts` (erweitert)
 
 **Neu:**
+
 - ✅ Bei CRITICAL Findings → Alert-Manager aufrufen
 - ✅ Top 5 Findings in Email-Details
 - ✅ Error-Handling bei Alert-Fehlern
 
 **Trigger:**
+
 ```typescript
 if (criticalIssues.length > 0) {
   await supabase.functions.invoke("alert-manager", {
@@ -79,11 +85,13 @@ if (criticalIssues.length > 0) {
 **Datei:** `supabase/functions/central-brain/index.ts` (erweitert)
 
 **Neu:**
+
 - ✅ Bei degraded Health → Alert-Manager aufrufen
 - ✅ Unhealthy Agents in Email-Details
 - ✅ Uptime-Percentage in Alert
 
 **Trigger:**
+
 ```typescript
 if (criticalCount > 0 || !heartbeat.health.all_agents_healthy) {
   await supabase.functions.invoke("alert-manager", {
@@ -105,6 +113,7 @@ if (criticalCount > 0 || !heartbeat.health.all_agents_healthy) {
 **Datei:** `src/hooks/use-alert-system.ts`
 
 **Features:**
+
 - ✅ `useLatestAlerts()` (Refetch: 30s)
 - ✅ `useAlertHistory(days)` (Last 7 Days, Refetch: 60s)
 - ✅ `useAlertPolicies()` (Refetch: 5min)
@@ -113,8 +122,9 @@ if (criticalCount > 0 || !heartbeat.health.all_agents_healthy) {
 - ✅ `triggerManualAlert()` (für Testing)
 
 **Usage:**
+
 ```typescript
-import { useLatestAlerts, useResolveAlert } from '@/hooks/use-alert-system';
+import { useLatestAlerts, useResolveAlert } from "@/hooks/use-alert-system";
 
 const { data: alerts } = useLatestAlerts(10);
 const resolveAlert = useResolveAlert();
@@ -130,6 +140,7 @@ resolveAlert.mutate(alertId);
 **Datei:** `src/components/alerts/AlertDashboard.tsx`
 
 **Features:**
+
 - ✅ Statistics Cards (Total, Critical, Warning, Info)
 - ✅ Active Alerts List (Real-Time, 30s Refresh)
 - ✅ Resolve-Buttons (min-h-[44px] für Touch)
@@ -139,6 +150,7 @@ resolveAlert.mutate(alertId);
 - ✅ Details-Expander (JSON-Preview)
 
 **Design:**
+
 - Mobile-First (Responsive Grid)
 - Shadcn UI Components
 - CI-Colors (Primary, Accent, Success, Destructive)
@@ -176,7 +188,7 @@ resolveAlert.mutate(alertId);
 ### 1. Dashboard einbinden (React)
 
 ```tsx
-import { AlertDashboard } from '@/components/alerts/AlertDashboard';
+import { AlertDashboard } from "@/components/alerts/AlertDashboard";
 
 function AdminMonitoringPage() {
   return (
@@ -190,14 +202,13 @@ function AdminMonitoringPage() {
 ### 2. Manual Alert Trigger (Testing)
 
 ```typescript
-import { triggerManualAlert } from '@/hooks/use-alert-system';
+import { triggerManualAlert } from "@/hooks/use-alert-system";
 
 const handleTest = async () => {
-  await triggerManualAlert(
-    "critical",
-    "Test Alert: System degraded",
-    { test: true, timestamp: new Date().toISOString() }
-  );
+  await triggerManualAlert("critical", "Test Alert: System degraded", {
+    test: true,
+    timestamp: new Date().toISOString(),
+  });
 };
 ```
 
@@ -221,14 +232,14 @@ INSERT INTO public.alert_policies (
 
 ## 📈 ERFOLGSMETRIKEN
 
-| Metrik | Target | Status |
-|--------|--------|--------|
-| Integration-First | 100% | ✅ Resend, Central-Brain, Watchdog genutzt |
-| Email-Delivery-Rate | > 95% | ✅ Resend-Integration bewährt |
-| Alert-Response-Time | < 1 Min | ✅ Real-Time Edge Functions |
-| Dashboard-Ladezeit | < 2s | ✅ < 1s (React Query Caching) |
-| Mobile-Touch-Targets | ≥ 44px | ✅ Alle Buttons 44px+ |
-| RLS-Security | 100% | ✅ Company-Isolation perfekt |
+| Metrik               | Target  | Status                                     |
+| -------------------- | ------- | ------------------------------------------ |
+| Integration-First    | 100%    | ✅ Resend, Central-Brain, Watchdog genutzt |
+| Email-Delivery-Rate  | > 95%   | ✅ Resend-Integration bewährt              |
+| Alert-Response-Time  | < 1 Min | ✅ Real-Time Edge Functions                |
+| Dashboard-Ladezeit   | < 2s    | ✅ < 1s (React Query Caching)              |
+| Mobile-Touch-Targets | ≥ 44px  | ✅ Alle Buttons 44px+                      |
+| RLS-Security         | 100%    | ✅ Company-Isolation perfekt               |
 
 ---
 
@@ -241,7 +252,7 @@ graph TD
     B -->|Query| D[alert_policies]
     B -->|Send Email| E[Resend API]
     B -->|Log| F[alert_logs]
-    
+
     G[React Dashboard] -->|useQuery| F
     H[Admin] -->|Resolve| F
     I[Admin] -->|Configure| D
@@ -252,12 +263,14 @@ graph TD
 ## 🚨 ALARM-TRIGGER
 
 **Automatische Alerts bei:**
+
 - ❌ CRITICAL Findings (Watchdog-AI)
 - ❌ System Health Degraded (Central-Brain)
 - ❌ Agent in Error-State
 - ❌ Uptime < 95% (Critical)
 
 **Email wird NUR gesendet wenn:**
+
 - ✅ Alert-Policy für Severity aktiv
 - ✅ Email-Recipients konfiguriert
 - ✅ Resend API Key vorhanden

@@ -1,17 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { V28Select } from './V28Select';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { V28Select } from "./V28Select";
+import { useState } from "react";
 
 const meta: Meta<typeof V28Select> = {
-  title: 'Design System/V28Select',
+  title: "Design System/V28Select",
   component: V28Select,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     disabled: {
-      control: 'boolean',
+      control: "boolean",
     },
   },
 };
@@ -20,64 +20,64 @@ export default meta;
 type Story = StoryObj<typeof V28Select>;
 
 const simpleOptions = [
-  { label: 'Option 1', value: 'option1' },
-  { label: 'Option 2', value: 'option2' },
-  { label: 'Option 3', value: 'option3' },
+  { label: "Option 1", value: "option1" },
+  { label: "Option 2", value: "option2" },
+  { label: "Option 3", value: "option3" },
 ];
 
 const countryOptions = [
-  { label: 'United States', value: 'us' },
-  { label: 'United Kingdom', value: 'uk' },
-  { label: 'Germany', value: 'de' },
-  { label: 'France', value: 'fr' },
-  { label: 'Spain', value: 'es' },
+  { label: "United States", value: "us" },
+  { label: "United Kingdom", value: "uk" },
+  { label: "Germany", value: "de" },
+  { label: "France", value: "fr" },
+  { label: "Spain", value: "es" },
 ];
 
 export const Default: Story = {
   args: {
     options: simpleOptions,
-    placeholder: 'Select an option',
+    placeholder: "Select an option",
   },
 };
 
 export const WithLabel: Story = {
   args: {
-    label: 'Country',
+    label: "Country",
     options: countryOptions,
-    placeholder: 'Select country',
+    placeholder: "Select country",
   },
 };
 
 export const WithError: Story = {
   args: {
-    label: 'Required Field',
+    label: "Required Field",
     options: simpleOptions,
-    placeholder: 'Please select',
-    error: 'This field is required',
+    placeholder: "Please select",
+    error: "This field is required",
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: 'Disabled Select',
+    label: "Disabled Select",
     options: simpleOptions,
     disabled: true,
-    value: 'option1',
+    value: "option1",
   },
 };
 
 export const PreSelected: Story = {
   args: {
-    label: 'Pre-selected Value',
+    label: "Pre-selected Value",
     options: simpleOptions,
-    value: 'option2',
+    value: "option2",
   },
 };
 
 export const Controlled: Story = {
   render: () => {
-    const [value, setValue] = useState('');
-    
+    const [value, setValue] = useState("");
+
     return (
       <div className="w-96 space-y-4">
         <V28Select
@@ -99,9 +99,9 @@ export const Controlled: Story = {
 
 export const MultipleSelects: Story = {
   render: () => {
-    const [country, setCountry] = useState('');
-    const [option, setOption] = useState('');
-    
+    const [country, setCountry] = useState("");
+    const [option, setOption] = useState("");
+
     return (
       <div className="w-96 space-y-4">
         <V28Select
@@ -120,8 +120,16 @@ export const MultipleSelects: Story = {
         />
         {(country || option) && (
           <div className="text-sm text-slate-600">
-            {country && <div>Country: <strong>{country}</strong></div>}
-            {option && <div>Option: <strong>{option}</strong></div>}
+            {country && (
+              <div>
+                Country: <strong>{country}</strong>
+              </div>
+            )}
+            {option && (
+              <div>
+                Option: <strong>{option}</strong>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -131,11 +139,11 @@ export const MultipleSelects: Story = {
 
 export const DarkMode: Story = {
   args: {
-    label: 'Dark Mode Select',
+    label: "Dark Mode Select",
     options: simpleOptions,
-    placeholder: 'Select...',
+    placeholder: "Select...",
   },
   parameters: {
-    backgrounds: { default: 'dark' },
+    backgrounds: { default: "dark" },
   },
 };

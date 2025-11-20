@@ -1,4 +1,5 @@
 # 🚀 SPRINT 47: P2-OPTIMIERUNG & FINAL GO-LIVE V18.3.24
+
 **Datum:** 2025-10-20  
 **Status:** ⚠️ 99.5% REIFE - 3 ACTIONS PENDING  
 **Ziel:** 100% Reife durch Load-Testing, Sentry-DSGVO, Self-Reflection, Go-Live-Approval
@@ -8,11 +9,14 @@
 ## 📋 AUFGABEN-ÜBERSICHT
 
 ### ✅ 1. Load-Testing Konfiguration (>500 Fahrzeuge)
+
 **Status:** ✅ CONFIG ERSTELLT | ⚠️ EXECUTION PENDING  
 **Dateien:**
+
 - `load-test.yml` - NEU: Artillery-Konfiguration
 
 **Features:**
+
 - **5 Test-Phasen:**
   1. Warmup (10s, 5 req/s)
   2. Ramp-up (30s, 10→50 req/s)
@@ -32,6 +36,7 @@
   - Max Error-Rate: <5%
 
 **Execution (PENDING):**
+
 ```bash
 npm install -g artillery
 artillery run load-test.yml --output report.json
@@ -43,11 +48,14 @@ artillery report report.json --output report.html
 ---
 
 ### ✅ 2. Sentry DSGVO-Verifikation
+
 **Status:** ✅ IMPLEMENTIERT | ⚠️ DSN PENDING  
 **Dateien:**
+
 - `src/lib/sentry-integration.ts` - Bereits vorhanden (Sprint 46)
 
 **DSGVO-Features (bereits aktiv):**
+
 - PII-Anonymisierung: Email/IP entfernt
 - Replay-Masking: Texte maskiert, Medien blockiert
 - Trace-Sampling: 10% (nicht 100%)
@@ -55,14 +63,16 @@ artillery report report.json --output report.html
 - brain_logs-Integration: Für interne Analyse
 
 **PENDING:**
+
 - `VITE_SENTRY_DSN` in Lovable Cloud Secrets setzen
 - Sentry-Projekt erstellen: https://sentry.io/
 
 **Verifikation:**
+
 ```typescript
 // Test in Browser Console:
-import { captureError } from '@/lib/sentry-integration';
-captureError(new Error('Test-Error'), { test: true });
+import { captureError } from "@/lib/sentry-integration";
+captureError(new Error("Test-Error"), { test: true });
 // Prüfe: Sentry Dashboard + brain_logs Eintrag
 ```
 
@@ -71,11 +81,14 @@ captureError(new Error('Test-Error'), { test: true });
 ---
 
 ### ✅ 3. Self-Reflection Cron (Stündlich)
+
 **Status:** ✅ IMPLEMENTIERT | ⚠️ CRON PENDING  
 **Dateien:**
+
 - `supabase/functions/self-reflection/index.ts` - NEU: Gemini-basierte Analyse
 
 **Features:**
+
 - **Analyse-Intervall:** Stündlich (via n8n-Cron)
 - **Datenquelle:** brain_logs (letzte 1h, max 100 Einträge)
 - **Statistiken:**
@@ -90,6 +103,7 @@ captureError(new Error('Test-Error'), { test: true });
   - n8n-Alert bei kritischen Findings
 
 **Cron-Job aktivieren (PENDING):**
+
 ```sql
 SELECT cron.schedule(
   'self-reflection',
@@ -108,11 +122,14 @@ SELECT cron.schedule(
 ---
 
 ### ✅ 4. Go-Live-Checkliste & Final Review
+
 **Status:** ✅ VOLLSTÄNDIG  
 **Dateien:**
+
 - `GO_LIVE_CHECKLIST_V18.3.24.md` - NEU: Comprehensive Checklist
 
 **Inhalt:**
+
 - **6 Phasen:**
   1. Funktionalität (100%) - Alle Core-Features + AI + Integrations
   2. Sicherheit (100%) - DSGVO, RLS, Auth, Rate-Limiting
@@ -139,24 +156,25 @@ SELECT cron.schedule(
 
 ## 🎯 ERFOLGSKRITERIEN
 
-| Kriterium | Status | Details |
-|-----------|--------|---------|
-| Load-Testing Config | ✅ | artillery.yml ready |
-| Load-Test Execution | ⚠️ | PENDING - User action required |
-| Sentry Integration | ✅ | DSGVO-konform, n8n-Alerts |
-| Sentry DSN | ⚠️ | PENDING - User action required |
-| Self-Reflection Function | ✅ | Gemini-Analyse deployed |
-| Self-Reflection Cron | ⚠️ | PENDING - SQL execution required |
-| Go-Live-Checklist | ✅ | Vollständig dokumentiert |
+| Kriterium                | Status | Details                          |
+| ------------------------ | ------ | -------------------------------- |
+| Load-Testing Config      | ✅     | artillery.yml ready              |
+| Load-Test Execution      | ⚠️     | PENDING - User action required   |
+| Sentry Integration       | ✅     | DSGVO-konform, n8n-Alerts        |
+| Sentry DSN               | ⚠️     | PENDING - User action required   |
+| Self-Reflection Function | ✅     | Gemini-Analyse deployed          |
+| Self-Reflection Cron     | ⚠️     | PENDING - SQL execution required |
+| Go-Live-Checklist        | ✅     | Vollständig dokumentiert         |
 
 ---
 
 ## 📊 REIFE-SCORE
 
 **Vorher (Sprint 46):** 99%  
-**Nachher (Sprint 47):** **99.5%** ⚠️  
+**Nachher (Sprint 47):** **99.5%** ⚠️
 
 **Fehlende 0.5%:**
+
 - 0.2% Load-Test Execution (Verifikation >500 Fahrzeuge)
 - 0.2% Sentry-DSN Konfiguration (Error-Tracking aktiviert)
 - 0.1% Self-Reflection Cron (Autonome Self-Learning)
@@ -168,6 +186,7 @@ SELECT cron.schedule(
 ## 🔧 NÄCHSTE SCHRITTE (USER ACTIONS REQUIRED)
 
 ### 1. Load-Test ausführen
+
 ```bash
 # In lokalem Terminal (nach Git Pull)
 npm install -g artillery
@@ -177,17 +196,20 @@ artillery report report.json --output report.html
 ```
 
 **Erwartung:**
+
 - Success-Rate: >95%
 - p95 Response-Time: <2s
 - Max Error-Rate: <5%
 
 **Bei Failure:**
+
 - Retry 3x mit 1min Pause
 - Falls weiterhin Fehler: Prüfe Supabase Logs + HERE API Rate-Limit
 
 ---
 
 ### 2. Sentry-DSN konfigurieren
+
 1. Gehe zu https://sentry.io/ und erstelle Account
 2. Erstelle neues Projekt: "MyDispatch Production"
 3. Kopiere DSN (z.B. `https://abc123@o123.ingest.sentry.io/456`)
@@ -200,6 +222,7 @@ artillery report report.json --output report.html
 ---
 
 ### 3. Self-Reflection Cron aktivieren
+
 1. Gehe zu Lovable Cloud: Backend → SQL Editor
 2. Paste SQL aus `GO_LIVE_CHECKLIST_V18.3.24.md` (Abschnitt "PENDING ACTIONS #3")
 3. Execute SQL
@@ -217,6 +240,7 @@ artillery report report.json --output report.html
 **Keine kritischen Fehler**
 
 **Minor:**
+
 - Load-Test benötigt lokale Artillery-Installation (npm global)
 - Sentry-DSN muss vom Nutzer selbst erstellt werden (keine Automation möglich)
 - Self-Reflection Cron benötigt manuelle SQL-Ausführung (Sicherheit)
@@ -227,12 +251,13 @@ artillery report report.json --output report.html
 
 ```sql
 -- Automatisch geloggt via Edge Functions
-SELECT * FROM brain_logs 
+SELECT * FROM brain_logs
 WHERE agent_action IN ('self_reflection', 'n8n_scalability_check')
 ORDER BY created_at DESC LIMIT 10;
 ```
 
 **Expected Output (nach Self-Reflection Cron):**
+
 ```json
 {
   "agent_action": "self_reflection",
@@ -257,6 +282,7 @@ ORDER BY created_at DESC LIMIT 10;
 
 **Sprint 47 fast vollständig!**  
 99.5% Reife erreicht durch:
+
 - ✅ Load-Testing-Config (Artillery, 500 Fahrzeuge)
 - ✅ Sentry DSGVO-Verifikation (Code ready, DSN pending)
 - ✅ Self-Reflection Cron (Function deployed, Cron pending)
@@ -267,6 +293,7 @@ ORDER BY created_at DESC LIMIT 10;
 **DSGVO-konform:** JA (PII anonymisiert, GPS 24h-Delete)
 
 **Nach Completion der 3 Actions:**
+
 - Reife: **100%** ✅
 - Status: **GO-LIVE APPROVED** ✅
 - Deployment: **AUTOMATISCH** (Lovable Cloud)

@@ -17,11 +17,19 @@
   "current_structure": {
     "root": {
       "github": { "status": "good", "score": 95 },
-      "docs": { "status": "needs_improvement", "score": 60, "issues": ["redundancy", "outdated_files"] },
+      "docs": {
+        "status": "needs_improvement",
+        "score": 60,
+        "issues": ["redundancy", "outdated_files"]
+      },
       "src": { "status": "good", "score": 85, "issues": ["component_fragmentation"] },
       "public": { "status": "acceptable", "score": 70, "issues": ["asset_organization"] },
       "supabase": { "status": "excellent", "score": 100 },
-      "tests": { "status": "incomplete", "score": 40, "issues": ["missing_unit_tests", "incomplete_e2e"] },
+      "tests": {
+        "status": "incomplete",
+        "score": 40,
+        "issues": ["missing_unit_tests", "incomplete_e2e"]
+      },
       "scripts": { "status": "mostly_missing", "score": 20, "issues": ["no_automation"] }
     },
     "src_breakdown": {

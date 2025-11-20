@@ -7,9 +7,9 @@
    ✅ Toggle-fähig (visible prop)
    ================================================================================== */
 
-import { useEffect, useState, useMemo } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { logger } from '@/lib/logger';
+import { useEffect, useState, useMemo } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { logger } from "@/lib/logger";
 
 interface VehiclePosition {
   id: string;
@@ -38,7 +38,7 @@ export function HeatmapLayer({
   companyId,
   visible,
   mapInstance,
-  timeRange = 24
+  timeRange = 24,
 }: HeatmapLayerProps) {
   const [positions, setPositions] = useState<VehiclePosition[]>([]);
   const [heatmapObjects, setHeatmapObjects] = useState<any[]>([]);
@@ -54,15 +54,15 @@ export function HeatmapLayer({
       const since = new Date(Date.now() - timeRange * 3600000).toISOString();
 
       const { data, error } = await supabase
-        .from('vehicle_positions')
-        .select('id, latitude, longitude, driver_id, timestamp')
-        .eq('company_id', companyId)
-        .gte('timestamp', since);
+        .from("vehicle_positions")
+        .select("id, latitude, longitude, driver_id, timestamp")
+        .eq("company_id", companyId)
+        .gte("timestamp", since);
 
       if (error) throw error;
       setPositions(data || []);
     } catch (error) {
-      logger.error('[HeatmapLayer] Fehler beim Laden der Positionen', error as Error);
+      logger.error("[HeatmapLayer] Fehler beim Laden der Positionen", error as Error);
     }
   };
 
@@ -77,7 +77,7 @@ export function HeatmapLayer({
       const gridLat = Math.floor(pos.latitude * 100) / 100;
       const gridLng = Math.floor(pos.longitude * 100) / 100;
       const key = `${gridLat},${gridLng}`;
-      
+
       if (locationMap.has(key)) {
         const existing = locationMap.get(key)!;
         existing.count += 1;
@@ -85,19 +85,19 @@ export function HeatmapLayer({
         locationMap.set(key, {
           lat: gridLat,
           lng: gridLng,
-          count: 1
+          count: 1,
         });
       }
     });
 
-    const maxCount = Math.max(...Array.from(locationMap.values()).map(h => h.count), 1);
+    const maxCount = Math.max(...Array.from(locationMap.values()).map((h) => h.count), 1);
 
     return Array.from(locationMap.entries()).map(([key, value]) => ({
       latitude: value.lat,
       longitude: value.lng,
       intensity: value.count / maxCount, // Normalize 0-1
       count: value.count,
-      location: key
+      location: key,
     }));
   }, [positions, visible]);
 
@@ -105,32 +105,34 @@ export function HeatmapLayer({
   useEffect(() => {
     if (!mapInstance || !visible || hotspots.length === 0) {
       // Cleanup alte Objekte
-      heatmapObjects.forEach(obj => mapInstance?.removeObject(obj));
+      heatmapObjects.forEach((obj) => mapInstance?.removeObject(obj));
       setHeatmapObjects([]);
       return;
     }
 
     // Cleanup alte Objekte
-    heatmapObjects.forEach(obj => mapInstance.removeObject(obj));
+    heatmapObjects.forEach((obj) => mapInstance.removeObject(obj));
 
     const newObjects: any[] = [];
 
     hotspots.forEach((hotspot) => {
       // Farbe basierend auf Intensity
-      const color = hotspot.intensity > 0.7
-        ? 'rgba(239, 68, 68, 0.4)' // Rot (high)
-        : hotspot.intensity > 0.4
-        ? 'rgba(234, 179, 8, 0.4)' // Gelb (medium)
-        : 'rgba(34, 197, 94, 0.4)'; // Grün (low)
+      const color =
+        hotspot.intensity > 0.7
+          ? "rgba(239, 68, 68, 0.4)" // Rot (high)
+          : hotspot.intensity > 0.4
+            ? "rgba(234, 179, 8, 0.4)" // Gelb (medium)
+            : "rgba(34, 197, 94, 0.4)"; // Grün (low)
 
-      const stroke = hotspot.intensity > 0.7
-        ? 'rgba(239, 68, 68, 0.8)'
-        : hotspot.intensity > 0.4
-        ? 'rgba(234, 179, 8, 0.8)'
-        : 'rgba(34, 197, 94, 0.8)';
+      const stroke =
+        hotspot.intensity > 0.7
+          ? "rgba(239, 68, 68, 0.8)"
+          : hotspot.intensity > 0.4
+            ? "rgba(234, 179, 8, 0.8)"
+            : "rgba(34, 197, 94, 0.8)";
 
       // Radius basierend auf Intensity
-      const radius = 30 + (hotspot.intensity * 70); // 30-100px
+      const radius = 30 + hotspot.intensity * 70; // 30-100px
 
       // SVG Circle für Hotspot
       const svgCircle = `
@@ -158,13 +160,13 @@ export function HeatmapLayer({
       `;
 
       const icon = new (window as any).H.map.Icon(
-        'data:image/svg+xml,' + encodeURIComponent(svgCircle),
+        "data:image/svg+xml," + encodeURIComponent(svgCircle),
         { anchor: { x: radius, y: radius } }
       );
 
       const marker = new (window as any).H.map.Marker(
         { lat: hotspot.latitude, lng: hotspot.longitude },
-        { icon, data: { type: 'hotspot', count: hotspot.count } }
+        { icon, data: { type: "hotspot", count: hotspot.count } }
       );
 
       mapInstance.addObject(marker);
@@ -174,7 +176,7 @@ export function HeatmapLayer({
     setHeatmapObjects(newObjects);
 
     return () => {
-      newObjects.forEach(obj => mapInstance.removeObject(obj));
+      newObjects.forEach((obj) => mapInstance.removeObject(obj));
     };
   }, [mapInstance, visible, hotspots]);
 

@@ -13,6 +13,7 @@
 https://github.com/u4231458123-droid/mydispatch-rebuild/settings
 
 **Schritte:**
+
 1. Klicke auf den Link oben
 2. Scrolle nach unten zu **"Danger Zone"**
 3. Klicke auf **"Change visibility"**
@@ -29,6 +30,7 @@ https://github.com/u4231458123-droid/mydispatch-rebuild/settings
 https://github.com/u4231458123-droid?tab=repositories
 
 **Für jedes öffentliche Repository:**
+
 - Klicke auf Repository-Name
 - Klicke auf **"Settings"** (rechts oben)
 - Scrolle zu **"Danger Zone"** → **"Change visibility"** → **"Make private"**
@@ -54,7 +56,3 @@ Falls du zukünftig automatisch alle Repos auf privat setzen möchtest:
 
 **Erstellt:** 2025-01-31  
 **Empfohlen:** Web-Methode (schnellste ohne Token)
-
-
-
-

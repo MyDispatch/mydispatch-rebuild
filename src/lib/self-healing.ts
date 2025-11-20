@@ -311,17 +311,15 @@ export async function autoHealAutonomousSystem(): Promise<{
 
     // Auto-fix: Create default configuration
     console.log("🔧 Creating default system configuration...");
-    const { error: createError } = await autonomousClient
-      .from("autonomous_system_config")
-      .upsert({
-        id: 1,
-        enabled: true,
-        dry_run_mode: true,
-        autonomy_level: 2,
-        max_parallel_tasks: 5,
-        notification_email: "courbois1981@gmail.com",
-        emergency_stop: false,
-      });
+    const { error: createError } = await autonomousClient.from("autonomous_system_config").upsert({
+      id: 1,
+      enabled: true,
+      dry_run_mode: true,
+      autonomy_level: 2,
+      max_parallel_tasks: 5,
+      notification_email: "courbois1981@gmail.com",
+      emergency_stop: false,
+    });
 
     if (!createError) {
       fixes.push("Created default system configuration");
@@ -371,7 +369,7 @@ export async function autoHealAutonomousSystem(): Promise<{
   }
 
   // 4. Check for excessive failed tasks
-  const { data: recentTasks } = await selfHealingQuery<Pick<AutonomousTask, 'status'>[]>(
+  const { data: recentTasks } = await selfHealingQuery<Pick<AutonomousTask, "status">[]>(
     () =>
       autonomousClient
         .from("autonomous_tasks")

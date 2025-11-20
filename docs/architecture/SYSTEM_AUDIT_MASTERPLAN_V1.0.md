@@ -9,6 +9,7 @@
 ## 📋 AUDIT-BEREICHE (10 KATEGORIEN)
 
 ### 1. ⚡ SUPABASE BACKEND
+
 - [ ] Edge Functions (Deployment, Logs, Errors)
 - [ ] Database Schema (Tabellen, Relations, Constraints)
 - [ ] RLS Policies (Security, PII Protection)
@@ -17,6 +18,7 @@
 - [ ] Storage Buckets & Policies
 
 ### 2. 🎨 FRONTEND - REACT/TYPESCRIPT
+
 - [ ] TypeScript Errors (Build, Runtime)
 - [ ] Component Structure (Imports, Exports, Props)
 - [ ] React Hooks (Rules, Dependencies)
@@ -24,6 +26,7 @@
 - [ ] Routing (Paths, Guards, Redirects)
 
 ### 3. 🎯 DESIGN SYSTEM
+
 - [ ] Token Usage (Hardcoded Values)
 - [ ] Color System (WCAG, Kontrast)
 - [ ] Typography (Fluid, Responsive)
@@ -31,6 +34,7 @@
 - [ ] Motion & Transitions
 
 ### 4. 🔐 SECURITY & VALIDATION
+
 - [ ] Input Validation (Forms, API)
 - [ ] SQL Injection Prevention
 - [ ] XSS Protection
@@ -39,6 +43,7 @@
 - [ ] RLS Coverage (PII Tables)
 
 ### 5. 🌐 API & EXTERNAL CALLS
+
 - [ ] Supabase Client Usage
 - [ ] Edge Function Calls
 - [ ] External APIs (OpenRouter, etc.)
@@ -46,6 +51,7 @@
 - [ ] Error Handling
 
 ### 6. 📱 RESPONSIVE & ACCESSIBILITY
+
 - [ ] Mobile Breakpoints (xs-2xl)
 - [ ] Touch Targets (44px+)
 - [ ] Screen Reader Support
@@ -53,6 +59,7 @@
 - [ ] WCAG 2.1 AA Compliance
 
 ### 7. 🚀 PERFORMANCE
+
 - [ ] Bundle Size
 - [ ] Code Splitting
 - [ ] Lazy Loading
@@ -60,6 +67,7 @@
 - [ ] Database Query Optimization
 
 ### 8. 🧪 CODE QUALITY
+
 - [ ] ESLint Errors
 - [ ] TypeScript Strict Mode
 - [ ] Unused Imports/Variables
@@ -67,6 +75,7 @@
 - [ ] Dead Code
 
 ### 9. 📚 DOCUMENTATION
+
 - [ ] Code Comments
 - [ ] README Files
 - [ ] API Documentation
@@ -74,6 +83,7 @@
 - [ ] Deployment Guides
 
 ### 10. 🔄 CI/CD & BUILD
+
 - [ ] Build Errors
 - [ ] Pre-commit Hooks
 - [ ] Test Coverage
@@ -84,6 +94,7 @@
 ## 🛠️ PRÜFMETHODIK
 
 ### Phase 1: AUTOMATED SCANNING (20 min)
+
 ```bash
 # Supabase Linter
 supabase db lint
@@ -99,6 +110,7 @@ npm run lint
 ```
 
 ### Phase 2: MANUAL REVIEW (60 min)
+
 1. **Supabase Dashboard Review**
    - Alle Tabellen prüfen
    - RLS Policies analysieren
@@ -115,12 +127,14 @@ npm run lint
    - Responsive Design prüfen
 
 ### Phase 3: CLEANUP & FIX (120 min)
+
 1. Kritische Fehler beheben
 2. Warnungen addressieren
 3. Code refactoring
 4. Dokumentation updaten
 
 ### Phase 4: VERIFICATION (30 min)
+
 1. Alle Tests durchlaufen
 2. Build erfolgreich
 3. Deployment testen
@@ -133,6 +147,7 @@ npm run lint
 ### ✅ 1. SUPABASE EDGE FUNCTIONS
 
 **Prüfung:**
+
 - [ ] Alle Funktionen deployt
 - [ ] Keine Boot-Errors
 - [ ] CORS richtig konfiguriert
@@ -140,10 +155,12 @@ npm run lint
 - [ ] Logging implementiert
 
 **Tools:**
+
 - `supabase--edge-function-logs`
 - `supabase--analytics-query`
 
 **Fix-Strategie:**
+
 - Fehlerhafte Funktionen neu deployen
 - CORS Headers hinzufügen
 - Logging verbessern
@@ -153,6 +170,7 @@ npm run lint
 ### ✅ 2. DATABASE SCHEMA & RLS
 
 **Prüfung:**
+
 - [ ] Alle Tabellen haben RLS enabled
 - [ ] PII-Tabellen geschützt
 - [ ] Foreign Keys korrekt
@@ -160,21 +178,23 @@ npm run lint
 - [ ] Keine Check-Constraints für zeitbasierte Validierung
 
 **Tools:**
+
 - `supabase--linter`
 - `supabase--read-query`
 
 **SQL-Check:**
+
 ```sql
 -- Tabellen ohne RLS
-SELECT tablename 
-FROM pg_tables 
-WHERE schemaname = 'public' 
+SELECT tablename
+FROM pg_tables
+WHERE schemaname = 'public'
 AND NOT (SELECT relrowsecurity FROM pg_class WHERE relname = tablename);
 
 -- PII-Tabellen identifizieren
-SELECT table_name, column_name 
-FROM information_schema.columns 
-WHERE column_name ILIKE '%email%' 
+SELECT table_name, column_name
+FROM information_schema.columns
+WHERE column_name ILIKE '%email%'
    OR column_name ILIKE '%phone%'
    OR column_name ILIKE '%address%';
 ```
@@ -184,17 +204,20 @@ WHERE column_name ILIKE '%email%'
 ### ✅ 3. TYPESCRIPT & BUILD
 
 **Prüfung:**
+
 - [ ] `npm run build` läuft fehlerfrei
 - [ ] Keine TypeScript Errors
 - [ ] Alle Imports korrekt
 - [ ] Props-Interfaces vollständig
 
 **Command:**
+
 ```bash
 npm run build 2>&1 | tee build-errors.log
 ```
 
 **Häufige Fehler:**
+
 - Missing types
 - Unused variables
 - Import path errors
@@ -205,24 +228,27 @@ npm run build 2>&1 | tee build-errors.log
 ### ✅ 4. CONSOLE ERRORS
 
 **Prüfung:**
+
 - [ ] Keine `console.error` im Production-Code
 - [ ] Realtime-Channel-Errors behoben
 - [ ] Keine 404-Requests
 - [ ] Keine Auth-Errors
 
 **Tools:**
+
 - `lov-read-console-logs`
 - Browser DevTools
 
 **Fix-Liste:**
+
 ```typescript
 // ERLAUBT:
-console.info('[Feature] Info message')
-console.warn('[Feature] Warning message')
+console.info("[Feature] Info message");
+console.warn("[Feature] Warning message");
 
 // VERBOTEN (Production):
-console.error('[Feature] Error message')  // ❌
-console.log('Debug:', data)                // ❌
+console.error("[Feature] Error message"); // ❌
+console.log("Debug:", data); // ❌
 ```
 
 ---
@@ -230,6 +256,7 @@ console.log('Debug:', data)                // ❌
 ### ✅ 5. DESIGN SYSTEM VIOLATIONS
 
 **Prüfung:**
+
 - [ ] Keine Hardcoded Hex-Werte
 - [ ] Keine direkten Color-Klassen (text-white, bg-black)
 - [ ] Keine festen px-Werte für Typography
@@ -237,6 +264,7 @@ console.log('Debug:', data)                // ❌
 - [ ] Shadows aus SHADOW_SYSTEM
 
 **Regex-Scan:**
+
 ```bash
 # Hardcoded Hex
 grep -r "#[0-9A-Fa-f]{6}" src/ --exclude-dir=node_modules
@@ -253,6 +281,7 @@ grep -r "text-\[.*px\]" src/ --exclude-dir=node_modules
 ### ✅ 6. SECURITY AUDIT
 
 **Prüfung:**
+
 - [ ] Input Validation (Zod Schemas)
 - [ ] SQL Injection Prevention (kein Raw SQL in Edge Functions)
 - [ ] XSS Prevention (kein dangerouslySetInnerHTML)
@@ -260,21 +289,22 @@ grep -r "text-\[.*px\]" src/ --exclude-dir=node_modules
 - [ ] RLS auf allen PII-Tabellen
 
 **Kritische Checks:**
+
 ```typescript
 // ✅ RICHTIG: Zod Validation
 const contactSchema = z.object({
   email: z.string().email().max(255),
-  message: z.string().max(1000)
+  message: z.string().max(1000),
 });
 
 // ❌ FALSCH: Kein Validation
-const { email, message } = req.body;  // Unsicher!
+const { email, message } = req.body; // Unsicher!
 
 // ✅ RICHTIG: Supabase Client
-const { data } = await supabase.from('table').select();
+const { data } = await supabase.from("table").select();
 
 // ❌ FALSCH: Raw SQL
-const { data } = await supabase.rpc('execute_sql', { query: 'SELECT...' });
+const { data } = await supabase.rpc("execute_sql", { query: "SELECT..." });
 ```
 
 ---
@@ -282,6 +312,7 @@ const { data } = await supabase.rpc('execute_sql', { query: 'SELECT...' });
 ### ✅ 7. RESPONSIVE DESIGN
 
 **Prüfung:**
+
 - [ ] Mobile-First Design
 - [ ] Touch-Targets ≥ 44px
 - [ ] Breakpoints korrekt (sm, md, lg, xl, 2xl)
@@ -289,6 +320,7 @@ const { data } = await supabase.rpc('execute_sql', { query: 'SELECT...' });
 - [ ] Fluid Typography (clamp())
 
 **Test-Breakpoints:**
+
 ```css
 /* Mobile: 375px */
 /* Tablet: 768px */
@@ -302,6 +334,7 @@ const { data } = await supabase.rpc('execute_sql', { query: 'SELECT...' });
 ### ✅ 8. PERFORMANCE OPTIMIZATION
 
 **Prüfung:**
+
 - [ ] Code Splitting implementiert
 - [ ] Lazy Loading für Routes
 - [ ] Image Optimization
@@ -309,6 +342,7 @@ const { data } = await supabase.rpc('execute_sql', { query: 'SELECT...' });
 - [ ] Bundle Size < 1MB
 
 **Metrics:**
+
 ```bash
 # Bundle Size
 npm run build
@@ -326,6 +360,7 @@ ls -lh dist/assets/*.js
 ### ✅ 9. AUTH & REDIRECT
 
 **Prüfung:**
+
 - [ ] Site URL korrekt
 - [ ] Redirect URLs konfiguriert
 - [ ] Email Templates aktiv
@@ -333,6 +368,7 @@ ls -lh dist/assets/*.js
 - [ ] Protected Routes funktionieren
 
 **Config:**
+
 ```typescript
 // Supabase Auth Settings
 Site URL: https://[project-id].lovableproject.com
@@ -346,6 +382,7 @@ Redirect URLs:
 ### ✅ 10. DOCUMENTATION
 
 **Prüfung:**
+
 - [ ] README.md aktuell
 - [ ] Component Library dokumentiert
 - [ ] API Endpoints dokumentiert
@@ -353,6 +390,7 @@ Redirect URLs:
 - [ ] Troubleshooting-Guide
 
 **Erforderliche Docs:**
+
 ```markdown
 README.md
 SETUP.md
@@ -368,12 +406,12 @@ TROUBLESHOOTING.md
 
 ### Severity Levels
 
-| Level | Beschreibung | Beispiel | Action |
-|-------|-------------|----------|--------|
-| 🔴 **CRITICAL** | Blocker, verhindert Deployment | SQL Injection, RLS fehlt | Sofort fixen |
-| 🟠 **HIGH** | Schwerwiegend, muss behoben werden | TypeScript Error, Auth-Fehler | Fix in 24h |
-| 🟡 **MEDIUM** | Sollte behoben werden | Console.log, Hardcoded Color | Fix in 1 Woche |
-| 🟢 **LOW** | Nice-to-have | Kommentare fehlen, Refactoring | Optional |
+| Level           | Beschreibung                       | Beispiel                       | Action         |
+| --------------- | ---------------------------------- | ------------------------------ | -------------- |
+| 🔴 **CRITICAL** | Blocker, verhindert Deployment     | SQL Injection, RLS fehlt       | Sofort fixen   |
+| 🟠 **HIGH**     | Schwerwiegend, muss behoben werden | TypeScript Error, Auth-Fehler  | Fix in 24h     |
+| 🟡 **MEDIUM**   | Sollte behoben werden              | Console.log, Hardcoded Color   | Fix in 1 Woche |
+| 🟢 **LOW**      | Nice-to-have                       | Kommentare fehlen, Refactoring | Optional       |
 
 ### Scoring-Formel
 
@@ -408,6 +446,7 @@ npm run test
 ### Report-Output
 
 **Dateistruktur:**
+
 ```
 audit-reports/
 ├── 01_SUPABASE_AUDIT.md

@@ -5,11 +5,13 @@
 ### Erstellt:
 
 #### Design Token System
+
 - ✅ `src/lib/design-tokens.ts` - Zentrale CI-Farben, Spacing, Typography, Heights
 - ✅ Kein Blau außer Logo, nur CI-Farben systemweit
 - ✅ Validierungs-Functions (isCIColor, isValidIconColor)
 
 #### Base Components (src/components/base/)
+
 - ✅ `SafeIcon.tsx` - Erzwingt text-foreground auf Icons
 - ✅ `EnhancedCard.tsx` - CI-konforme Cards mit Design-Tokens
 - ✅ `Typography.tsx` - Heading, Body, Label, Metric (DIN 5008)
@@ -20,21 +22,25 @@
 - ✅ `index.ts` - Central Export
 
 #### Format-Utils Konsolidiert
+
 - ✅ `src/lib/format-utils.ts` erweitert mit allen Functions
 - ✅ formatPercentage, formatDistance, formatSpeed, formatDuration
 - ✅ formatFullName, formatLetterSalutation, formatAddressSingleLine, formatCoordinates
 
 #### Content Management System
+
 - ✅ `src/lib/content/de-DE.ts` - Alle Texte professionell & zentral
 - ✅ `src/lib/content/types.ts` - TypeScript-Types
 - ✅ `src/hooks/useContent.ts` - Type-Safe Content-Zugriff
 
 #### Coming Soon Seite
+
 - ✅ `src/pages/ComingSoon.tsx` - 35 Service-Erweiterungen mit Roadmap
 - ✅ Release-Dates: Nov 2025 - Nov 2026
 - ✅ Countdown-Timer, Feature-Teasers, Category-Filter
 
 #### Layout-System Zentralisiert
+
 - ✅ `src/components/layout/DashboardLayout.tsx` - Zentrales Padding (px-4 sm:px-6 lg:px-8 py-6 sm:py-8)
 - ✅ Alle Seiten nutzen DashboardLayout oder StandardPageLayout
 - ✅ Einheitliche Abstände systemweit
@@ -42,20 +48,23 @@
 ## Phase 2: CI-Cleanup ✅ ABGESCHLOSSEN (2025-01-20)
 
 ### Gesamtergebnis: 40 Violations behoben
+
 - ✅ Alle kritischen text-white/text-gray Violations behoben
-- ✅ Alle Gradient-Violations zu CI-Farben konvertiert  
+- ✅ Alle Gradient-Violations zu CI-Farben konvertiert
 - ✅ Home.tsx Hero-Section CI-konform mit drop-shadow
 - ✅ Nur Driver-App Auth-Forms behalten text-white (Design-legitimiert)
 
 ## Phase 3: Dashboard-Optimierung (IN ARBEIT)
 
 ### Sprint 3.1: KPI-Cards Enhanced ✅
+
 - ✅ DashboardKPICards.tsx - SubMetrics mit Status-Indikatoren
 - ✅ Prozent-Anzeigen für Umsatz (Bezahlt/Offen)
 - ✅ Intelligente Warning-Stati (Pending > 5, Revenue > 50%)
 - ✅ 4. Karte: Kunden statt Fahrzeuge (bessere Info)
 
 ### Sprint 3.2: Dashboard-Widgets (GEPLANT)
+
 - [ ] UrgentActionsWidget - Dringende Aktionen
 - [ ] ResourceStatusWidget - Live Fahrer-Status
 - [ ] RevenueBreakdownWidget - Umsatz-Breakdown
@@ -88,38 +97,45 @@
 **Gesamt behoben: 40 kritische Verstöße**
 
 ### Verbleibende Verstöße (~10 in Driver-App Auth-Forms):
-- [ ] src/pages/driver-app/*.tsx (10 text-white auf Auth-Forms - legitimiert durch dunkles Overlay-Design)
+
+- [ ] src/pages/driver-app/\*.tsx (10 text-white auf Auth-Forms - legitimiert durch dunkles Overlay-Design)
 
 **Kategorien:**
+
 1. **Icons mit text-accent** (~150) - PRÜFEN: Accent ist erlaubt, aber sparsam verwenden
 2. **Icons mit text-primary** (~50) - KRITISCH: Entfernen!
 3. **Icons mit Status-Farben** (~100) - VERBOTEN auf Icons, nur für Badges
 
 **Nächste Prioritäten:**
+
 - [ ] src/components/booking/BookingWidget.tsx (4 text-accent Verstöße)
-- [ ] src/components/chat/*.tsx (Multiple text-accent/primary)
-- [ ] src/components/dashboard/*.tsx (Weitere Widgets)
-- [ ] src/components/enhanced/*.tsx
-- [ ] src/pages/*.tsx (Alle Pages systematisch durchgehen)
+- [ ] src/components/chat/\*.tsx (Multiple text-accent/primary)
+- [ ] src/components/dashboard/\*.tsx (Weitere Widgets)
+- [ ] src/components/enhanced/\*.tsx
+- [ ] src/pages/\*.tsx (Alle Pages systematisch durchgehen)
 
 ## Phase 3: Systematischer CI-Sweep (GEPLANT)
 
 ### Sprint 3.1: Alle Dashboard-Komponenten
+
 - [ ] MetricCard, UrgentActionsWidget, ResourceStatusWidget
 - [ ] RevenueBreakdownWidget, PredictiveDemandWidget
 - [ ] WeatherWidget, TrafficWidget, LiveInfoWidget
 
 ### Sprint 3.2: Alle Form-Komponenten
+
 - [ ] DocumentUploadForm, PersonFormFields
 - [ ] InlineCustomerForm, AddressInput
 
 ### Sprint 3.3: Alle Pages
+
 - [ ] Systematisch durch alle 17 Pages
 - [ ] Besonders kritisch: Auftraege, Fahrer, Kunden
 
 ## Phase 4: API Layer & Refactoring (GEPLANT)
 
 ### Sprint 4.1: Zentrale API-Functions
+
 - [ ] src/lib/api/index.ts - Zentrale API-Functions
 - [ ] src/lib/api/hooks.ts - Custom Hooks
 - [ ] src/lib/api/error-handler.ts
@@ -127,6 +143,7 @@
 ## Erfolgs-Metriken:
 
 ### Phase 1: ✅ 100%
+
 - ✅ Design-Tokens: 100% zentral
 - ✅ Base-Components: 8 Components erstellt
 - ✅ Format-Utils: Konsolidiert in 1 Datei
@@ -135,6 +152,7 @@
 - ✅ Layout: 100% zentralisiert
 
 ### Phase 2: ✅ Kritische Komponenten behoben (5.9%)
+
 - ✅ Icon-Verstöße behoben: 19 von ~321 (5.9%)
 - ✅ Kritische Loader: 2/2 behoben (100%)
 - ✅ Kritische Gradients: 2/2 behoben (100%)
@@ -142,6 +160,7 @@
 - 🎯 Ziel: 100% CI-Konformität
 
 ### Nächste Schritte:
+
 1. ✅ Kritische Loader behoben (ProtectedRoute, PortalRoute)
 2. ✅ Kritische Gradients behoben (HEREDemo, LiveDriverMap)
 3. ⏳ BookingWidget text-accent prüfen (4 Stellen)

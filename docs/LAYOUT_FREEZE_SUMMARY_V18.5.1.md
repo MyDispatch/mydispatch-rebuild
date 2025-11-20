@@ -15,25 +15,29 @@ Das Layout Freeze System schützt fertiggestellte Dashboard-Seiten vor ungewollt
 
 ## 🔒 GESCHÜTZTE SEITEN
 
-| Seite | Datei | Geschützt seit |
-|-------|-------|----------------|
-| Dashboard | `src/pages/Index.tsx` | 2025-01-26 |
-| Aufträge | `src/pages/Auftraege.tsx` | 2025-01-26 |
+| Seite     | Datei                     | Geschützt seit |
+| --------- | ------------------------- | -------------- |
+| Dashboard | `src/pages/Index.tsx`     | 2025-01-26     |
+| Aufträge  | `src/pages/Auftraege.tsx` | 2025-01-26     |
 
 ## 📚 DOKUMENTATIONS-STRUKTUR
 
 ### 1. Kern-Dokumentation
+
 - **`LAYOUT_FREEZE_PROTECTION_V18.5.1.md`** - Vollständige Regeln & Policies
 - **`AI_AGENT_LAYOUT_FREEZE_PROMPT_V18.5.1.md`** - AI-Verhaltensregeln
 - **`LAYOUT_FREEZE_QUICK_REFERENCE.md`** - Schnell-Check für Entwickler
 
 ### 2. Integration in bestehende Docs
+
 - `SEITEN_PLANUNGSPROZESS_V18.5.1.md` - Layout Freeze Check als Step 0
 - `MYDISPATCH_AI_AGENT_META_PROMPT_V18.5.1.md` - Höchste Priorität Check
 - `MOBILE_FIRST_GRID_SYSTEM_V18.5.1.md` - Warnung für neue Seiten
 
 ### 3. Code-Marker
+
 Alle geschützten Dateien haben Header-Kommentar:
+
 ```typescript
 /* ==================================================================================
    ⚠️ LAYOUT FREEZE V18.5.1 - KEINE DESIGN/LAYOUT-ÄNDERUNGEN ERLAUBT!
@@ -47,14 +51,17 @@ Alle geschützten Dateien haben Header-Kommentar:
 ## 🛡️ SCHUTZ-EBENEN
 
 ### Ebene 1: Dokumentation
+
 - Klare Regeln in Markdown-Docs
 - In alle relevanten Dokumente integriert
 
 ### Ebene 2: Code-Kommentare
+
 - Header in geschützten Dateien
 - Inline-Warnungen bei kritischen Bereichen
 
 ### Ebene 3: AI-Prompt-Vorgaben
+
 - Automatische Checks im Meta-Prompt
 - Template-Antworten für Ablehnung
 - Alternative-Vorschläge-System
@@ -112,6 +119,7 @@ Trotz Layout Freeze sind folglich ERLAUBT:
 ## 🔄 WORKFLOW
 
 ### Für Entwickler:
+
 ```mermaid
 graph TD
     A[Änderung gewünscht] --> B{Geschützte Seite?}
@@ -126,22 +134,23 @@ graph TD
 ```
 
 ### Für AI-Agent:
+
 ```typescript
 async function beforeAnyChange(file: string, request: string) {
-  const protectedFiles = ['Index.tsx', 'Auftraege.tsx'];
-  const isProtected = protectedFiles.some(f => file.includes(f));
-  
+  const protectedFiles = ["Index.tsx", "Auftraege.tsx"];
+  const isProtected = protectedFiles.some((f) => file.includes(f));
+
   if (!isProtected) return PROCEED;
-  
-  const layoutKeywords = ['hero', 'header', 'kpi', 'grid', 'layout', 'design', 'color', 'spacing'];
-  const isLayoutChange = layoutKeywords.some(k => request.toLowerCase().includes(k));
-  
+
+  const layoutKeywords = ["hero", "header", "kpi", "grid", "layout", "design", "color", "spacing"];
+  const isLayoutChange = layoutKeywords.some((k) => request.toLowerCase().includes(k));
+
   if (isLayoutChange) {
     await warnUser();
     await suggestAlternatives();
     return WAIT_FOR_APPROVAL;
   }
-  
+
   return PROCEED;
 }
 ```
@@ -166,6 +175,7 @@ async function beforeAnyChange(file: string, request: string) {
 ## 📊 METRIKEN & ERFOLG
 
 **Erfolg wird gemessen an:**
+
 - Anzahl verhinderte ungewollte Layout-Änderungen
 - Zeit gespart durch klare Regeln
 - Konsistenz über Entwicklungs-Sprints

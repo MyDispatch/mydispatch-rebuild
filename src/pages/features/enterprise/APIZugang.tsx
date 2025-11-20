@@ -2,26 +2,34 @@
    FEATURE DETAIL PAGE: API-Zugang (V32.0 - Hero-Lock Compliant)
    ================================================================================== */
 
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
-import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { V28Button } from '@/components/design-system/V28Button';
-import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
-import { Terminal, Code, GitBranch, Shield } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { V28HeroPremium } from "@/components/hero/V28HeroPremium";
+import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
+import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
+import { V28Button } from "@/components/design-system/V28Button";
+import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
+import { Terminal, Code, GitBranch, Shield } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function APIZugangPage() {
   const navigate = useNavigate();
 
   const features = [
-    { icon: Terminal, title: 'REST API', description: 'Vollständige REST API mit allen Funktionen' },
-    { icon: Code, title: 'Webhooks', description: 'Echtzeit-Benachrichtigungen bei Events' },
-    { icon: GitBranch, title: 'Custom Integrationen', description: 'Anbindung an Ihre bestehenden Systeme' },
-    { icon: Shield, title: 'OAuth 2.0', description: 'Sichere Authentifizierung mit OAuth 2.0' },
+    {
+      icon: Terminal,
+      title: "REST API",
+      description: "Vollständige REST API mit allen Funktionen",
+    },
+    { icon: Code, title: "Webhooks", description: "Echtzeit-Benachrichtigungen bei Events" },
+    {
+      icon: GitBranch,
+      title: "Custom Integrationen",
+      description: "Anbindung an Ihre bestehenden Systeme",
+    },
+    { icon: Shield, title: "OAuth 2.0", description: "Sichere Authentifizierung mit OAuth 2.0" },
   ];
 
   return (
@@ -37,20 +45,20 @@ export default function APIZugangPage() {
         backgroundVariant="3d-premium"
         badge={{
           text: "Enterprise-Feature",
-          icon: Terminal
+          icon: Terminal,
         }}
         title="API-Zugang"
         subtitle="Vollständige REST API für Custom Integrationen"
         description="Binden Sie MyDispatch an Ihre bestehenden Systeme an. Mit Webhooks, OAuth 2.0 und umfangreicher Dokumentation."
         primaryCTA={{
           label: "Sales kontaktieren",
-          onClick: () => navigate('/contact')
+          onClick: () => navigate("/contact"),
         }}
         visual={<PremiumDashboardContent pageType="api-zugang" />}
         businessMetrics={[
-          { label: 'Endpoints', value: '150+', sublabel: 'REST API' },
-          { label: 'Requests', value: '99.9%', sublabel: 'Uptime' },
-          { label: 'Response', value: '<50ms', sublabel: 'durchschnittlich' }
+          { label: "Endpoints", value: "150+", sublabel: "REST API" },
+          { label: "Requests", value: "99.9%", sublabel: "Uptime" },
+          { label: "Response", value: "<50ms", sublabel: "durchschnittlich" },
         ]}
         trustElements={true}
       />

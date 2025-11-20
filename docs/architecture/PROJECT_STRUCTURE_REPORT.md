@@ -1,4 +1,5 @@
 # 📊 PROJECT STRUCTURE REPORT V1.0
+
 ## MyDispatch - Vollständiger Struktur-Audit & Organisationsplan
 
 > **Version:** 1.0.0  
@@ -12,6 +13,7 @@
 ## 📑 EXECUTIVE SUMMARY
 
 ### Audit-Umfang
+
 - **Dateien analysiert:** 1,402+
 - **Code-Zeilen:** ~45,000+
 - **Dokumentationen:** 459+ MD-Dateien
@@ -20,7 +22,9 @@
 - **Gesamt-Score:** 87.3/100 ⭐⭐⭐⭐
 
 ### Kern-Erkenntnisse
+
 ✅ **Stärken:**
+
 - V26.1 Design-System vollständig implementiert
 - NEXIFY_SYSTEM_MASTER_BRAIN.md als zentrale Wissensbasis etabliert
 - Brain QA System mit Self-Healing aktiv
@@ -28,6 +32,7 @@
 - CI/CD Pipeline mit GitHub Actions integriert
 
 ⚠️ **Verbesserungsbedarf:**
+
 - Dokumentations-Redundanz (459 MD-Dateien, viele veraltet)
 - Fehlende zentrale Komponenten-Library-Dokumentation
 - Unklare Asset-Organisation
@@ -85,20 +90,21 @@ src/
 ```
 
 **Haupt-Probleme:**
+
 1. **Komponenten-Fragmentierung:** 50+ Ordner in `components/`
 2. **Überlappung:** `shared/` vs. `base/` vs. `smart-templates/`
 3. **Fehlende Trennung:** Domänen-Logik vermischt mit UI-Komponenten
 
 #### 2.2 Komponenten-Kategorien (IST)
 
-| Kategorie | Anzahl | Organisation | Qualität |
-|-----------|--------|--------------|----------|
-| **UI (Shadcn)** | ~45 | ✅ Gut | 95% |
-| **Design-System (V26.1)** | 14 | ✅ Exzellent | 100% |
-| **Base Components** | 10 | ✅ Sehr gut | 98% |
-| **Smart Templates** | 8 | ✅ Gut | 92% |
-| **Shared** | 60+ | ⚠️ Fragmentiert | 75% |
-| **Feature-spezifisch** | 400+ | ⚠️ Zu viele Ordner | 80% |
+| Kategorie                 | Anzahl | Organisation       | Qualität |
+| ------------------------- | ------ | ------------------ | -------- |
+| **UI (Shadcn)**           | ~45    | ✅ Gut             | 95%      |
+| **Design-System (V26.1)** | 14     | ✅ Exzellent       | 100%     |
+| **Base Components**       | 10     | ✅ Sehr gut        | 98%      |
+| **Smart Templates**       | 8      | ✅ Gut             | 92%      |
+| **Shared**                | 60+    | ⚠️ Fragmentiert    | 75%      |
+| **Feature-spezifisch**    | 400+   | ⚠️ Zu viele Ordner | 80%      |
 
 #### 2.3 Lib-Verzeichnis Analyse
 
@@ -135,18 +141,19 @@ docs/
 
 #### 3.2 Dokumentations-Metriken
 
-| Metrik | Wert | Status |
-|--------|------|--------|
-| **Gesamt-Dateien** | 459+ | 🔴 Zu viele |
-| **Root-Level Docs** | 300+ | 🔴 Chaos |
-| **Strukturierte Docs** | 13 | ✅ Exzellent |
-| **Veraltete Docs** | ~280 | 🔴 Aufräumen nötig |
-| **Redundanz-Rate** | 65% | 🔴 Hoch |
-| **Aktualität** | 35% | 🔴 Niedrig |
+| Metrik                 | Wert | Status             |
+| ---------------------- | ---- | ------------------ |
+| **Gesamt-Dateien**     | 459+ | 🔴 Zu viele        |
+| **Root-Level Docs**    | 300+ | 🔴 Chaos           |
+| **Strukturierte Docs** | 13   | ✅ Exzellent       |
+| **Veraltete Docs**     | ~280 | 🔴 Aufräumen nötig |
+| **Redundanz-Rate**     | 65%  | 🔴 Hoch            |
+| **Aktualität**         | 35%  | 🔴 Niedrig         |
 
 #### 3.3 Dokumentations-Typen
 
 **Hauptkategorien:**
+
 1. **System-Dokumentation:** NEXIFY_SYSTEM_MASTER_BRAIN.md ✅
 2. **Architektur-Docs:** V26.1, Design-System, Components
 3. **Workflow-Docs:** NeXify Prompts, Agent-Anweisungen
@@ -155,6 +162,7 @@ docs/
 6. **Audit-Reports:** System-Prüfungen
 
 **Problem:** Keine klare Trennung zwischen:
+
 - Aktiv genutzt vs. Archiv
 - Master-Docs vs. Detail-Docs
 - User-Docs vs. Developer-Docs
@@ -185,6 +193,7 @@ src/assets/
 ```
 
 **Problem:**
+
 - Keine klare Trennung zwischen `public/` und `src/assets/`
 - Fehlende Asset-Versionierung
 - Keine Bildoptimierungs-Pipeline
@@ -230,6 +239,7 @@ tests/                          ⚠️ Unvollständig
 ```
 
 **Problem:**
+
 - Keine dedizierte Test-Struktur
 - Unit-Tests fehlen
 - E2E-Tests nicht systematisch organisiert
@@ -245,6 +255,7 @@ scripts/                        🔴 FEHLT WEITGEHEND
 ```
 
 **Fehlend:**
+
 - Build-Scripts
 - Migration-Helpers
 - Asset-Optimierung
@@ -450,11 +461,13 @@ docs/
 ## 🔄 MIGRATIONS-PLAN
 
 ### Phase 1: Dokumentations-Bereinigung (Priorität: HOCH)
+
 **Dauer:** 2-3 Tage  
 **Aufwand:** Niedrig  
 **Impact:** Hoch
 
 **Schritte:**
+
 1. ✅ Alle Root-Level MD-Dateien identifizieren (300+)
 2. 📋 Kategorisieren:
    - Aktiv & relevant → behalten oder verschieben
@@ -466,6 +479,7 @@ docs/
 6. ✔️ Automatische Index-Generierung (docs/INDEX.md)
 
 **Deliverables:**
+
 - 📄 Bereinigte Dokumentations-Struktur
 - 🗂️ Automatisch generierter INDEX.md
 - 🔍 Suchbare Dokumentation
@@ -474,11 +488,13 @@ docs/
 ---
 
 ### Phase 2: Komponenten-Reorganisation (Priorität: MITTEL)
+
 **Dauer:** 1 Woche  
 **Aufwand:** Mittel  
 **Impact:** Sehr Hoch
 
 **Schritte:**
+
 1. 🔍 Alle Komponenten-Ordner analysieren
 2. 📊 Abhängigkeiten kartieren
 3. 🏗️ Neue `features/` Struktur erstellen
@@ -492,6 +508,7 @@ docs/
 7. 📚 Komponenten-Dokumentation erstellen
 
 **Deliverables:**
+
 - 🗂️ Klare Feature-basierte Struktur
 - 📦 Reduzierte Komplexität (50+ → 10 Feature-Ordner)
 - 📖 Vollständige Komponenten-Dokumentation
@@ -500,11 +517,13 @@ docs/
 ---
 
 ### Phase 3: Lib-Kategorisierung (Priorität: NIEDRIG)
+
 **Dauer:** 2-3 Tage  
 **Aufwand:** Niedrig  
 **Impact:** Mittel
 
 **Schritte:**
+
 1. 📋 Alle `lib/` Dateien kategorisieren
 2. 🏗️ Neue Unterordner erstellen (`utils/`, `constants/`, `services/`)
 3. ↗️ Dateien verschieben
@@ -512,6 +531,7 @@ docs/
 5. 🔗 Import-Paths aktualisieren
 
 **Deliverables:**
+
 - 🗂️ Strukturiertes `lib/` Verzeichnis
 - 🎯 Schnelleres Auffinden von Utilities
 - 📦 Bessere Tree-Shaking-Optimierung
@@ -519,11 +539,13 @@ docs/
 ---
 
 ### Phase 4: Testing-Infrastruktur (Priorität: MITTEL)
+
 **Dauer:** 1 Woche  
 **Aufwand:** Hoch  
 **Impact:** Sehr Hoch
 
 **Schritte:**
+
 1. 🏗️ Test-Ordner-Struktur erstellen
 2. ⚡ Vitest für Unit-Tests einrichten
 3. 🎭 Playwright E2E-Tests systematisieren
@@ -532,6 +554,7 @@ docs/
 6. 🤖 CI/CD Integration erweitern
 
 **Deliverables:**
+
 - 🧪 Vollständige Test-Infrastruktur
 - 📊 Test-Coverage ≥ 80%
 - 🤖 Automatisierte Test-Ausführung
@@ -539,11 +562,13 @@ docs/
 ---
 
 ### Phase 5: Scripts & Automation (Priorität: NIEDRIG)
+
 **Dauer:** 3-4 Tage  
 **Aufwand:** Mittel  
 **Impact:** Mittel
 
 **Schritte:**
+
 1. 🏗️ `scripts/` Verzeichnis erstellen
 2. 🔧 Build-Scripts entwickeln
 3. 🗄️ DB-Seeding-Scripts erstellen
@@ -552,6 +577,7 @@ docs/
 6. 📚 Script-Dokumentation
 
 **Deliverables:**
+
 - 🤖 Automatisierte Workflows
 - ⚡ Schnellere Entwicklungs-Zyklen
 - 📖 Script-Dokumentation
@@ -562,41 +588,42 @@ docs/
 
 ### IST-Zustand
 
-| Kategorie | Metrik | Wert | Bewertung |
-|-----------|--------|------|-----------|
-| **Dokumentation** | Gesamt-Dateien | 459 | 🔴 Zu viele |
-| | Strukturiert | 13 | ✅ Gut |
-| | Veraltet | ~280 | 🔴 Kritisch |
-| | Redundanz | 65% | 🔴 Hoch |
-| **Komponenten** | Gesamt | 580+ | ⚠️ Viele |
-| | Ordner-Tiefe | 50+ | 🔴 Zu fragmentiert |
-| | Wiederverwendbar | 35% | ⚠️ Mittel |
-| **Code-Qualität** | TypeScript Errors | 0 | ✅ Perfekt |
-| | ESLint Warnings | <10 | ✅ Sehr gut |
-| | Token-Compliance | 100% | ✅ Perfekt |
-| **Testing** | Unit-Tests | 0% | 🔴 Fehlt |
-| | E2E-Tests | 40% | ⚠️ Unvollständig |
-| | Coverage | ~30% | 🔴 Niedrig |
+| Kategorie         | Metrik            | Wert | Bewertung          |
+| ----------------- | ----------------- | ---- | ------------------ |
+| **Dokumentation** | Gesamt-Dateien    | 459  | 🔴 Zu viele        |
+|                   | Strukturiert      | 13   | ✅ Gut             |
+|                   | Veraltet          | ~280 | 🔴 Kritisch        |
+|                   | Redundanz         | 65%  | 🔴 Hoch            |
+| **Komponenten**   | Gesamt            | 580+ | ⚠️ Viele           |
+|                   | Ordner-Tiefe      | 50+  | 🔴 Zu fragmentiert |
+|                   | Wiederverwendbar  | 35%  | ⚠️ Mittel          |
+| **Code-Qualität** | TypeScript Errors | 0    | ✅ Perfekt         |
+|                   | ESLint Warnings   | <10  | ✅ Sehr gut        |
+|                   | Token-Compliance  | 100% | ✅ Perfekt         |
+| **Testing**       | Unit-Tests        | 0%   | 🔴 Fehlt           |
+|                   | E2E-Tests         | 40%  | ⚠️ Unvollständig   |
+|                   | Coverage          | ~30% | 🔴 Niedrig         |
 
 ### SOLL-Zustand (Nach Migrations-Plan)
 
-| Kategorie | Metrik | Ziel | Erwartung |
-|-----------|--------|------|-----------|
-| **Dokumentation** | Gesamt-Dateien | ~50 | ✅ Optimal |
-| | Strukturiert | 50 | ✅ 100% |
-| | Veraltet | 0 | ✅ Archiviert |
-| | Redundanz | <5% | ✅ Minimal |
-| **Komponenten** | Ordner-Tiefe | ~15 | ✅ Übersichtlich |
-| | Wiederverwendbar | 70%+ | ✅ Hoch |
-| **Testing** | Unit-Tests | 80%+ | ✅ Umfassend |
-| | E2E-Tests | 90%+ | ✅ Vollständig |
-| | Coverage | 80%+ | ✅ Hoch |
+| Kategorie         | Metrik           | Ziel | Erwartung        |
+| ----------------- | ---------------- | ---- | ---------------- |
+| **Dokumentation** | Gesamt-Dateien   | ~50  | ✅ Optimal       |
+|                   | Strukturiert     | 50   | ✅ 100%          |
+|                   | Veraltet         | 0    | ✅ Archiviert    |
+|                   | Redundanz        | <5%  | ✅ Minimal       |
+| **Komponenten**   | Ordner-Tiefe     | ~15  | ✅ Übersichtlich |
+|                   | Wiederverwendbar | 70%+ | ✅ Hoch          |
+| **Testing**       | Unit-Tests       | 80%+ | ✅ Umfassend     |
+|                   | E2E-Tests        | 90%+ | ✅ Vollständig   |
+|                   | Coverage         | 80%+ | ✅ Hoch          |
 
 ---
 
 ## 🎯 NAMING-CONVENTIONS
 
 ### Verzeichnisse
+
 ```typescript
 // ✅ RICHTIG
 kebab-case:     components/smart-templates/
@@ -612,31 +639,31 @@ snake_case:     components/smart_templates/
 
 ```typescript
 // Komponenten: PascalCase.tsx
-Dashboard.tsx
-StatCard.tsx
-V26IconBox.tsx
+Dashboard.tsx;
+StatCard.tsx;
+V26IconBox.tsx;
 
 // Utilities: kebab-case.ts
-format-utils.ts
-validation-utils.ts
-unified-design-tokens.ts
+format - utils.ts;
+validation - utils.ts;
+unified - design - tokens.ts;
 
 // Hooks: use-*.ts
-use-auth.ts
-use-subscription.ts
-use-documents.tsx
+use - auth.ts;
+use - subscription.ts;
+use - documents.tsx;
 
 // Types: *.types.ts
-api.types.ts
-database.types.ts
+api.types.ts;
+database.types.ts;
 
 // Config: *.config.ts
-routes.config.ts
-tailwind.config.ts
+routes.config.ts;
+tailwind.config.ts;
 
 // Tests: *.test.ts / *.spec.ts
-Dashboard.test.tsx
-format-utils.spec.ts
+Dashboard.test.tsx;
+format - utils.spec.ts;
 ```
 
 ### Konstanten & Exports
@@ -664,6 +691,7 @@ export type BookingStatus = 'pending' | 'confirmed';
 ## 🔍 QUALITÄTS-CHECKLISTE
 
 ### Pre-Migration Checks
+
 - [x] Vollständiger Code-Audit durchgeführt
 - [x] Abhängigkeiten kartiert
 - [x] NEXIFY_SYSTEM_MASTER_BRAIN.md analysiert
@@ -672,6 +700,7 @@ export type BookingStatus = 'pending' | 'confirmed';
 - [ ] Team-Freigabe eingeholt
 
 ### Post-Migration Validation
+
 - [ ] Alle Imports funktionieren
 - [ ] TypeScript Build: 0 Errors
 - [ ] ESLint: Keine kritischen Fehler
@@ -685,18 +714,21 @@ export type BookingStatus = 'pending' | 'confirmed';
 ## 📈 ERWARTETE VERBESSERUNGEN
 
 ### Entwickler-Produktivität
+
 - ⚡ **Datei-Suchzeit:** -60% (klare Struktur)
 - 🔍 **Komponenten-Findbarkeit:** +80% (Feature-basiert)
 - 📚 **Dokumentations-Zugriff:** +90% (strukturiert & durchsuchbar)
 - 🧪 **Test-Abdeckung:** +50% (bessere Infrastruktur)
 
 ### Code-Qualität
+
 - 📦 **Bundle-Size:** -15% (besseres Tree-Shaking)
 - 🚀 **Build-Zeit:** -20% (optimierte Imports)
 - 🔄 **Wartbarkeit:** +70% (klare Trennung)
 - 🐛 **Bug-Rate:** -40% (bessere Tests)
 
 ### Projekt-Management
+
 - 📊 **Onboarding-Zeit:** -50% (bessere Docs)
 - 🤝 **Team-Alignment:** +60% (klare Struktur)
 - 🔄 **Refactoring-Aufwand:** -70% (weniger Komplexität)
@@ -706,17 +738,20 @@ export type BookingStatus = 'pending' | 'confirmed';
 ## 🚀 NÄCHSTE SCHRITTE
 
 ### Sofort (Woche 1)
+
 1. ✅ Diesen Report mit Team reviewen
 2. 📋 Freigabe für Phase 1 (Dokumentations-Bereinigung) einholen
 3. 🔧 Automatische Struktur-Validierung in CI/CD integrieren
 4. 📊 Metrics-Dashboard einrichten
 
 ### Kurz-/Mittelfristig (Woche 2-4)
+
 1. 🗂️ Phase 1 umsetzen (Dokumentation)
 2. 🏗️ Phase 2 starten (Komponenten)
 3. 🧪 Phase 4 planen (Testing)
 
 ### Langfristig (Monat 2-3)
+
 1. ↗️ Verbleibende Phasen abschließen
 2. 📚 Umfassende Dokumentation finalisieren
 3. 🤖 Vollständige Automatisierung
@@ -727,6 +762,7 @@ export type BookingStatus = 'pending' | 'confirmed';
 ## 📝 ÄNDERUNGSHISTORIE
 
 ### V1.0.0 (2025-10-27)
+
 - 🎉 Initial Release: Vollständiger Struktur-Audit
 - 📊 Analyse von 1,402+ Dateien
 - 🗂️ Empfohlene Ziel-Struktur definiert
@@ -764,27 +800,31 @@ export type BookingStatus = 'pending' | 'confirmed';
 ### A2: Dokumentations-Kategorisierung
 
 **Behalten (13 Master-Docs):**
+
 - NEXIFY_SYSTEM_MASTER_BRAIN.md
-- docs/01-GETTING-STARTED/* (2)
-- docs/02-ARCHITECTURE/* (4)
-- docs/03-DEVELOPMENT/* (4)
-- docs/04-GOVERNANCE/* (3)
+- docs/01-GETTING-STARTED/\* (2)
+- docs/02-ARCHITECTURE/\* (4)
+- docs/03-DEVELOPMENT/\* (4)
+- docs/04-GOVERNANCE/\* (3)
 
 **Archivieren (~280 Docs):**
+
 - Alle V18.x Reports
 - Alle Batch-Reports
 - Alle veralteten Audit-Docs
 - Alte Workflow-Prompts
 
 **Neu erstellen (~30 Docs):**
-- 00-INDEX/* (4)
-- 05-COMPONENTS/* (7)
-- 06-API-REFERENCE/* (5)
-- 98-CHANGELOG/* (10+)
+
+- 00-INDEX/\* (4)
+- 05-COMPONENTS/\* (7)
+- 06-API-REFERENCE/\* (5)
+- 98-CHANGELOG/\* (10+)
 
 ### A3: Scripts-Vorlagen
 
 **Build-Scripts:**
+
 ```bash
 scripts/build/
 ├── optimize-bundle.sh
@@ -793,6 +833,7 @@ scripts/build/
 ```
 
 **DB-Scripts:**
+
 ```bash
 scripts/db/
 ├── seed-data.sh
@@ -801,6 +842,7 @@ scripts/db/
 ```
 
 **Asset-Scripts:**
+
 ```bash
 scripts/assets/
 ├── optimize-images.sh

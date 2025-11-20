@@ -127,10 +127,7 @@ export function resetInitialization(): void {
 // ==================================================================================
 // AUTO-START ON IMPORT (if in production)
 // ==================================================================================
-if (
-  typeof window !== "undefined" &&
-  import.meta.env.VITE_AUTONOMOUS_MODE === "true"
-) {
+if (typeof window !== "undefined" && import.meta.env.VITE_AUTONOMOUS_MODE === "true") {
   // Auto-start after DOM is ready
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {

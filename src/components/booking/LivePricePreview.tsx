@@ -7,10 +7,10 @@
    - Fehlertoleranz mit Fallback
    ================================================================================== */
 
-import { useQuery } from '@tanstack/react-query';
-import { calculateFare, formatFare } from '@/lib/tariff-calculator';
-import { Euro, Loader2, AlertCircle } from 'lucide-react';
-import { Badge } from '@/lib/compat';
+import { useQuery } from "@tanstack/react-query";
+import { calculateFare, formatFare } from "@/lib/tariff-calculator";
+import { Euro, Loader2, AlertCircle } from "lucide-react";
+import { Badge } from "@/lib/compat";
 
 interface LivePricePreviewProps {
   pickup: string;
@@ -20,19 +20,23 @@ interface LivePricePreviewProps {
   className?: string;
 }
 
-export const LivePricePreview = ({ 
-  pickup, 
-  destination, 
+export const LivePricePreview = ({
+  pickup,
+  destination,
   companyId,
   dateTime,
-  className = '' 
+  className = "",
 }: LivePricePreviewProps) => {
-  const { data: price, isLoading, error } = useQuery({
-    queryKey: ['fare', pickup, destination, companyId, dateTime],
+  const {
+    data: price,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["fare", pickup, destination, companyId, dateTime],
     queryFn: () => calculateFare(pickup, destination, companyId, dateTime),
     enabled: !!pickup && !!destination && pickup.length > 3 && destination.length > 3,
     staleTime: 60000, // Cache 1min
-    retry: 1
+    retry: 1,
   });
 
   if (!pickup || !destination) {
@@ -67,9 +71,7 @@ export const LivePricePreview = ({
         <Euro className="h-5 w-5 text-primary" />
         <div>
           <p className="text-sm text-muted-foreground">Geschätzter Preis</p>
-          <p className="text-2xl font-bold text-foreground">
-            {formatFare(price)}
-          </p>
+          <p className="text-2xl font-bold text-foreground">{formatFare(price)}</p>
         </div>
       </div>
       <Badge variant="outline" className="text-xs">

@@ -1,22 +1,31 @@
 /**
  * CODE-CHECKER TRIGGER COMPONENT V1.0
- * 
+ *
  * Simpler Trigger für Claude 4.5 Code-Reviews.
  * Kann in Dashboard oder andere Pages integriert werden.
  */
 
 import { useState } from "react";
-import { V28Button } from '@/components/design-system/V28Button';
+import { V28Button } from "@/components/design-system/V28Button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/lib/compat";
 import { Badge } from "@/lib/compat";
 import { Textarea } from "@/lib/compat";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-import { Loader2, CheckCircle2, AlertTriangle, XCircle, FileCode, Database, GitBranch, Sparkles } from "lucide-react";
+import {
+  Loader2,
+  CheckCircle2,
+  AlertTriangle,
+  XCircle,
+  FileCode,
+  Database,
+  GitBranch,
+  Sparkles,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { logger } from "@/lib/logger";
 
-type ReportType = 'code' | 'database' | 'git' | 'full';
+type ReportType = "code" | "database" | "git" | "full";
 
 interface CheckerResult {
   success: boolean;
@@ -44,10 +53,10 @@ export function CodeCheckerTrigger({ className }: { className?: string }) {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<CheckerResult | null>(null);
   const [codeInput, setCodeInput] = useState("");
-  const [selectedType, setSelectedType] = useState<ReportType>('code');
+  const [selectedType, setSelectedType] = useState<ReportType>("code");
 
   const runCheck = async () => {
-    if (!codeInput.trim() && selectedType === 'code') {
+    if (!codeInput.trim() && selectedType === "code") {
       toast.error("Bitte Code eingeben");
       return;
     }
@@ -56,12 +65,12 @@ export function CodeCheckerTrigger({ className }: { className?: string }) {
     setResult(null);
 
     try {
-      const { data, error } = await supabase.functions.invoke('code-checker', {
+      const { data, error } = await supabase.functions.invoke("code-checker", {
         body: {
           reportType: selectedType,
-          code: selectedType === 'code' ? codeInput : undefined,
-          context: selectedType !== 'code' ? codeInput : undefined,
-        }
+          code: selectedType === "code" ? codeInput : undefined,
+          context: selectedType !== "code" ? codeInput : undefined,
+        },
       });
 
       if (error) throw error;
@@ -70,7 +79,7 @@ export function CodeCheckerTrigger({ className }: { className?: string }) {
 
       if (data.success) {
         toast.success(
-          data.issuesFound > 0 
+          data.issuesFound > 0
             ? `✅ Check abgeschlossen: ${data.issuesFound} Issues gefunden`
             : "✅ Keine Probleme gefunden!"
         );
@@ -78,7 +87,7 @@ export function CodeCheckerTrigger({ className }: { className?: string }) {
         toast.error("Check fehlgeschlagen");
       }
     } catch (err: any) {
-      logger.error("Check error", err, { component: 'CodeCheckerTrigger', action: 'runCheck' });
+      logger.error("Check error", err, { component: "CodeCheckerTrigger", action: "runCheck" });
       toast.error(`Fehler: ${err.message}`);
       setResult({ success: false });
     } finally {
@@ -93,17 +102,15 @@ export function CodeCheckerTrigger({ className }: { className?: string }) {
           <Sparkles className="h-5 w-5 text-primary" />
           <CardTitle>Claude 4.5 Code Checker</CardTitle>
         </div>
-        <CardDescription>
-          Automatische Code/DB-Reviews mit Claude Sonnet 4.5
-        </CardDescription>
+        <CardDescription>Automatische Code/DB-Reviews mit Claude Sonnet 4.5</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Type Selection */}
         <div className="flex flex-wrap gap-2">
           <V28Button
             size="sm"
-            variant={selectedType === 'code' ? 'primary' : 'secondary'}
-            onClick={() => setSelectedType('code')}
+            variant={selectedType === "code" ? "primary" : "secondary"}
+            onClick={() => setSelectedType("code")}
             className="h-8"
           >
             <FileCode className="h-3 w-3 mr-1.5" />
@@ -111,8 +118,8 @@ export function CodeCheckerTrigger({ className }: { className?: string }) {
           </V28Button>
           <V28Button
             size="sm"
-            variant={selectedType === 'database' ? 'primary' : 'secondary'}
-            onClick={() => setSelectedType('database')}
+            variant={selectedType === "database" ? "primary" : "secondary"}
+            onClick={() => setSelectedType("database")}
             className="h-8"
           >
             <Database className="h-3 w-3 mr-1.5" />
@@ -120,8 +127,8 @@ export function CodeCheckerTrigger({ className }: { className?: string }) {
           </V28Button>
           <V28Button
             size="sm"
-            variant={selectedType === 'git' ? 'primary' : 'secondary'}
-            onClick={() => setSelectedType('git')}
+            variant={selectedType === "git" ? "primary" : "secondary"}
+            onClick={() => setSelectedType("git")}
             className="h-8"
           >
             <GitBranch className="h-3 w-3 mr-1.5" />
@@ -129,8 +136,8 @@ export function CodeCheckerTrigger({ className }: { className?: string }) {
           </V28Button>
           <V28Button
             size="sm"
-            variant={selectedType === 'full' ? 'primary' : 'secondary'}
-            onClick={() => setSelectedType('full')}
+            variant={selectedType === "full" ? "primary" : "secondary"}
+            onClick={() => setSelectedType("full")}
             className="h-8"
           >
             <Sparkles className="h-3 w-3 mr-1.5" />
@@ -141,11 +148,11 @@ export function CodeCheckerTrigger({ className }: { className?: string }) {
         {/* Input */}
         <Textarea
           placeholder={
-            selectedType === 'code'
+            selectedType === "code"
               ? "Code-Snippet hier einfügen..."
-              : selectedType === 'database'
-              ? "DB-Query oder Schema hier einfügen..."
-              : "Kontext/Beschreibung hier eingeben..."
+              : selectedType === "database"
+                ? "DB-Query oder Schema hier einfügen..."
+                : "Kontext/Beschreibung hier eingeben..."
           }
           value={codeInput}
           onChange={(e) => setCodeInput(e.target.value)}
@@ -154,11 +161,7 @@ export function CodeCheckerTrigger({ className }: { className?: string }) {
         />
 
         {/* Trigger Button */}
-        <V28Button
-          onClick={runCheck}
-          disabled={loading}
-          className="w-full h-10"
-        >
+        <V28Button onClick={runCheck} disabled={loading} className="w-full h-10">
           {loading ? (
             <>
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
@@ -214,23 +217,19 @@ export function CodeCheckerTrigger({ className }: { className?: string }) {
                         <div className="flex items-center gap-2">
                           <Badge
                             variant={
-                              issue.severity === 'critical' || issue.severity === 'high'
-                                ? 'destructive'
-                                : 'secondary'
+                              issue.severity === "critical" || issue.severity === "high"
+                                ? "destructive"
+                                : "secondary"
                             }
                             className="text-[10px] h-4"
                           >
                             {issue.severity}
                           </Badge>
-                          <span className="text-xs text-muted-foreground">
-                            {issue.type}
-                          </span>
+                          <span className="text-xs text-muted-foreground">{issue.type}</span>
                         </div>
                         <p className="text-xs font-medium">{issue.description}</p>
                         {issue.fix && (
-                          <p className="text-xs text-muted-foreground">
-                            💡 {issue.fix}
-                          </p>
+                          <p className="text-xs text-muted-foreground">💡 {issue.fix}</p>
                         )}
                       </div>
                     ))}

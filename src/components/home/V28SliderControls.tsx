@@ -9,8 +9,8 @@
    ✅ Wiederverwendbar
    ================================================================================== */
 
-import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
-import { designTokens } from '@/config/design-tokens';
+import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
+import { designTokens } from "@/config/design-tokens";
 
 interface V28SliderControlsProps {
   currentSlide: number;
@@ -22,14 +22,14 @@ interface V28SliderControlsProps {
   onTogglePause?: () => void;
 }
 
-export function V28SliderControls({ 
-  currentSlide, 
-  totalSlides, 
-  onPrevious, 
-  onNext, 
+export function V28SliderControls({
+  currentSlide,
+  totalSlides,
+  onPrevious,
+  onNext,
   onDotClick,
   isPaused = false,
-  onTogglePause
+  onTogglePause,
 }: V28SliderControlsProps) {
   return (
     <div className="flex items-center justify-center gap-4 mt-8">
@@ -39,7 +39,9 @@ export function V28SliderControls({
           onClick={onTogglePause}
           className="p-2 rounded-xl border border-slate-200 bg-white transition-all duration-300 hover:shadow-md hover:scale-[1.02] shadow-sm"
           style={{ color: designTokens.colors.primary.DEFAULT }}
-          aria-label={isPaused ? "Automatische Wiedergabe starten" : "Automatische Wiedergabe pausieren"}
+          aria-label={
+            isPaused ? "Automatische Wiedergabe starten" : "Automatische Wiedergabe pausieren"
+          }
         >
           {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
         </button>
@@ -63,12 +65,13 @@ export function V28SliderControls({
             onClick={() => onDotClick(idx)}
             className="w-2 h-2 rounded-full transition-all duration-300"
             style={{
-              backgroundColor: idx === currentSlide 
-                ? designTokens.colors.primary.DEFAULT 
-                : designTokens.colors.slate[300]
+              backgroundColor:
+                idx === currentSlide
+                  ? designTokens.colors.primary.DEFAULT
+                  : designTokens.colors.slate[300],
             }}
             aria-label={`Gehe zu Slide ${idx + 1}`}
-            aria-current={idx === currentSlide ? 'true' : 'false'}
+            aria-current={idx === currentSlide ? "true" : "false"}
           />
         ))}
       </div>

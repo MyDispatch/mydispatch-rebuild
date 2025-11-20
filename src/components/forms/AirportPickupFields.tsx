@@ -1,6 +1,6 @@
-import { Label } from '@/components/ui/label';
-import { Input } from '@/lib/compat';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from "@/components/ui/label";
+import { Input } from "@/lib/compat";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface AirportPickupFieldsProps {
   formData: {
@@ -26,7 +26,7 @@ export function AirportPickupFields({ formData, onChange }: AirportPickupFieldsP
         <Input
           id="flight_number"
           value={formData.flight_number}
-          onChange={(e) => handleFieldChange('flight_number', e.target.value)}
+          onChange={(e) => handleFieldChange("flight_number", e.target.value)}
           placeholder="z.B. LH123"
         />
       </div>
@@ -36,7 +36,7 @@ export function AirportPickupFields({ formData, onChange }: AirportPickupFieldsP
         <Input
           id="terminal"
           value={formData.terminal}
-          onChange={(e) => handleFieldChange('terminal', e.target.value)}
+          onChange={(e) => handleFieldChange("terminal", e.target.value)}
           placeholder="z.B. Terminal 1"
         />
       </div>
@@ -47,7 +47,7 @@ export function AirportPickupFields({ formData, onChange }: AirportPickupFieldsP
           id="arrival_time"
           type="time"
           value={formData.arrival_time}
-          onChange={(e) => handleFieldChange('arrival_time', e.target.value)}
+          onChange={(e) => handleFieldChange("arrival_time", e.target.value)}
         />
       </div>
 
@@ -58,7 +58,7 @@ export function AirportPickupFields({ formData, onChange }: AirportPickupFieldsP
           type="number"
           min="0"
           value={formData.wait_time}
-          onChange={(e) => handleFieldChange('wait_time', e.target.value)}
+          onChange={(e) => handleFieldChange("wait_time", e.target.value)}
         />
       </div>
 
@@ -67,7 +67,7 @@ export function AirportPickupFields({ formData, onChange }: AirportPickupFieldsP
           <Checkbox
             id="meet_and_greet"
             checked={formData.meet_and_greet}
-            onCheckedChange={(checked) => handleFieldChange('meet_and_greet', !!checked)}
+            onCheckedChange={(checked) => handleFieldChange("meet_and_greet", !!checked)}
           />
           <Label htmlFor="meet_and_greet" className="cursor-pointer">
             Meet & Greet Service
@@ -80,7 +80,7 @@ export function AirportPickupFields({ formData, onChange }: AirportPickupFieldsP
             <Input
               id="name_sign"
               value={formData.name_sign}
-              onChange={(e) => handleFieldChange('name_sign', e.target.value)}
+              onChange={(e) => handleFieldChange("name_sign", e.target.value)}
               placeholder="Name für Abholschild"
             />
           </div>

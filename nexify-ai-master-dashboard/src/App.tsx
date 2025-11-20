@@ -1,21 +1,21 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { Layout } from './components/layout/Layout'
-import { Dashboard } from './pages/Dashboard'
-import { Chat } from './pages/Chat'
-import { Projects } from './pages/Projects'
-import { Admin } from './pages/Admin'
-import { useForgetProof } from './hooks/useForgetProof'
-import { useSelfExtension } from './hooks/useSelfExtension'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Layout } from "./components/layout/Layout";
+import { Dashboard } from "./pages/Dashboard";
+import { Chat } from "./pages/Chat";
+import { Projects } from "./pages/Projects";
+import { Admin } from "./pages/Admin";
+import { useForgetProof } from "./hooks/useForgetProof";
+import { useSelfExtension } from "./hooks/useSelfExtension";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 function App() {
   // Load Forget-Proof Context on App Start
-  useForgetProof()
+  useForgetProof();
 
   // Run Self-Extension System
-  useSelfExtension()
+  useSelfExtension();
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -30,7 +30,7 @@ function App() {
         </Layout>
       </BrowserRouter>
     </QueryClientProvider>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,15 +1,15 @@
-import { useNeXifyAI } from '../hooks/useNeXifyAI'
-import { FolderKanban, ExternalLink, GitBranch, Calendar } from 'lucide-react'
+import { useNeXifyAI } from "../hooks/useNeXifyAI";
+import { FolderKanban, ExternalLink, GitBranch, Calendar } from "lucide-react";
 
 export function Projects() {
-  const { projects, loading, error } = useNeXifyAI()
+  const { projects, loading, error } = useNeXifyAI();
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-slate-600">Lädt Projekte...</div>
       </div>
-    )
+    );
   }
 
   if (error) {
@@ -17,16 +17,14 @@ export function Projects() {
       <div className="flex items-center gap-2 text-red-600">
         <span>{error}</span>
       </div>
-    )
+    );
   }
 
   return (
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-slate-900">Projekte</h1>
-        <p className="mt-2 text-slate-600">
-          Verwalte alle deine Projekte
-        </p>
+        <p className="mt-2 text-slate-600">Verwalte alle deine Projekte</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -45,9 +43,13 @@ export function Projects() {
                   <p className="text-sm text-slate-600">{project.project_code}</p>
                 </div>
               </div>
-              <span className={`px-2 py-1 text-xs rounded-full ${
-                project.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'
-              }`}>
+              <span
+                className={`px-2 py-1 text-xs rounded-full ${
+                  project.status === "active"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-gray-100 text-gray-700"
+                }`}
+              >
                 {project.status}
               </span>
             </div>
@@ -113,5 +115,5 @@ export function Projects() {
         </div>
       )}
     </div>
-  )
+  );
 }

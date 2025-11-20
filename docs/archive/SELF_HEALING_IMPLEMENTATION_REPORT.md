@@ -125,10 +125,9 @@ getFallbackStats() - Dummy Statistiken
 const { data } = await supabase.from("table").select("*");
 
 // Nachher
-const result = await SelfHealing.query(
-  () => supabase.from("table").select("*"),
-  { fallbackValue: DEFAULT_VALUE }
-);
+const result = await SelfHealing.query(() => supabase.from("table").select("*"), {
+  fallbackValue: DEFAULT_VALUE,
+});
 ```
 
 **Alle 4 Queries jetzt mit:**

@@ -17,18 +17,21 @@ Das Fahrer-Portal ermöglicht Fahrern den Zugriff auf ihre persönlichen Daten, 
 ## ✅ IMPLEMENTIERTER STAND (V18.2.31)
 
 ### 1. Portal-Authentifizierung
+
 - ✅ Separate Login-Seite `/portal/auth`
 - ✅ Driver-spezifische RLS-Policies
 - ✅ Session-Management
 - ✅ Passwort-Reset
 
 ### 2. Basis-Features
+
 - ✅ Profil-Ansicht (readonly)
 - ✅ Schichten-Übersicht
 - ✅ Auftrags-Liste (zugewiesene)
 - ✅ Dokumente-Upload
 
 ### 3. GPS-Tracking
+
 - ✅ Live-Position senden (alle 30 Sek)
 - ✅ Shift-Status ändern (Available/Busy/Offline)
 - ✅ 24h Auto-Delete (DSGVO-konform)
@@ -42,15 +45,16 @@ Das Fahrer-Portal ermöglicht Fahrern den Zugriff auf ihre persönlichen Daten, 
 **Ziel:** Optimierte Ansicht für Smartphone-Nutzung
 
 **Features:**
+
 ```tsx
 // Fahrer-Dashboard (Mobile-optimiert)
 <DriverDashboard>
   {/* Status-Toggle (prominent) */}
   <StatusCard>
-    <StatusToggle 
+    <StatusToggle
       currentStatus="available"
       onChange={handleStatusChange}
-      options={['available', 'busy', 'break', 'offline']}
+      options={["available", "busy", "break", "offline"]}
     />
   </StatusCard>
 
@@ -59,24 +63,20 @@ Das Fahrer-Portal ermöglicht Fahrern den Zugriff auf ihre persönlichen Daten, 
     booking={nextBooking}
     eta={8} // Minuten
     actions={[
-      { label: 'Navigation starten', icon: Navigation },
-      { label: 'Kunde anrufen', icon: Phone }
+      { label: "Navigation starten", icon: Navigation },
+      { label: "Kunde anrufen", icon: Phone },
     ]}
   />
 
   {/* Heute-Statistik */}
-  <TodayStatsCard
-    rides={7}
-    revenue="450,00 €"
-    hours="6.5"
-    rating={4.8}
-  />
+  <TodayStatsCard rides={7} revenue="450,00 €" hours="6.5" rating={4.8} />
 </DriverDashboard>
 ```
 
 ### 2. Auftrags-Details (erweitert)
 
 **Features:**
+
 - Navigation-Integration (HERE Maps)
 - Kunden-Kontakt (Anruf-Button)
 - Sonderausstattung-Hinweise (Kindersitz, Rollstuhl)
@@ -84,6 +84,7 @@ Das Fahrer-Portal ermöglicht Fahrern den Zugriff auf ihre persönlichen Daten, 
 - Notizen vom Disponenten
 
 **Implementierung:**
+
 ```tsx
 <BookingDetailCard booking={booking}>
   {/* Route-Übersicht */}
@@ -98,7 +99,7 @@ Das Fahrer-Portal ermöglicht Fahrern den Zugriff auf ihre persönlichen Daten, 
   <CustomerInfo
     name={customer.name}
     phone={customer.phone}
-    onCall={() => window.location.href = `tel:${customer.phone}`}
+    onCall={() => (window.location.href = `tel:${customer.phone}`)}
   />
 
   {/* Spezial-Anforderungen */}
@@ -128,6 +129,7 @@ Das Fahrer-Portal ermöglicht Fahrern den Zugriff auf ihre persönlichen Daten, 
 **Ziel:** Nahtlose Integration mit HERE Maps / Apple Maps / Google Maps
 
 **Features:**
+
 ```tsx
 const startNavigation = (destination: string) => {
   // iOS: Apple Maps
@@ -140,7 +142,7 @@ const startNavigation = (destination: string) => {
   }
   // Fallback: HERE Maps Web
   else {
-    window.open(`https://share.here.com/l/${lat},${lng}`, '_blank');
+    window.open(`https://share.here.com/l/${lat},${lng}`, "_blank");
   }
 };
 
@@ -148,12 +150,13 @@ const startNavigation = (destination: string) => {
 <Button onClick={() => startNavigation(booking.dropoff_address)}>
   <Navigation className="h-4 w-4 mr-2" />
   Navigation starten
-</Button>
+</Button>;
 ```
 
 ### 4. Schicht-Management (erweitert)
 
 **Features:**
+
 - ✅ Schicht starten/beenden
 - ✅ Pause einlegen
 - 🆕 Break-Timer (automatisch)
@@ -161,6 +164,7 @@ const startNavigation = (destination: string) => {
 - 🆕 Überstunden-Anzeige
 
 **Implementierung:**
+
 ```tsx
 <ShiftManagement>
   {/* Schicht-Status */}
@@ -168,18 +172,11 @@ const startNavigation = (destination: string) => {
     isActive={shiftActive}
     startTime={shiftStart}
     duration="6:32"
-    breaks={[
-      { start: '10:15', end: '10:30', duration: '15 Min' }
-    ]}
+    breaks={[{ start: "10:15", end: "10:30", duration: "15 Min" }]}
   />
 
   {/* Lenk- & Ruhezeiten (PBefG-konform) */}
-  <DrivingTimeCard
-    drivingTime="5:45"
-    maxDrivingTime="9:00"
-    breaksDue={false}
-    nextBreakIn="3:15"
-  />
+  <DrivingTimeCard drivingTime="5:45" maxDrivingTime="9:00" breaksDue={false} nextBreakIn="3:15" />
 
   {/* Actions */}
   <div className="flex gap-2">
@@ -194,9 +191,7 @@ const startNavigation = (destination: string) => {
         </Button>
       </>
     ) : (
-      <Button onClick={startShift}>
-        Schicht starten
-      </Button>
+      <Button onClick={startShift}>Schicht starten</Button>
     )}
   </div>
 </ShiftManagement>
@@ -205,6 +200,7 @@ const startNavigation = (destination: string) => {
 ### 5. Einnahmen-Übersicht
 
 **Features:**
+
 - Tages-Umsatz (Brutto)
 - Wochen-Umsatz
 - Monats-Umsatz
@@ -212,30 +208,17 @@ const startNavigation = (destination: string) => {
 - Export als PDF
 
 **Implementierung:**
+
 ```tsx
 <RevenueOverview>
   {/* Heute */}
-  <RevenueCard
-    title="Heute"
-    amount="450,00 €"
-    rides={7}
-    avgPerRide="64,29 €"
-  />
+  <RevenueCard title="Heute" amount="450,00 €" rides={7} avgPerRide="64,29 €" />
 
   {/* Diese Woche */}
-  <RevenueCard
-    title="Diese Woche"
-    amount="2.150,00 €"
-    rides={32}
-    trend="+15%"
-  />
+  <RevenueCard title="Diese Woche" amount="2.150,00 €" rides={32} trend="+15%" />
 
   {/* Breakdown */}
-  <PaymentBreakdown
-    cash="315,00 €"
-    invoice="135,00 €"
-    card="0,00 €"
-  />
+  <PaymentBreakdown cash="315,00 €" invoice="135,00 €" card="0,00 €" />
 
   {/* Export */}
   <Button onClick={exportPDF}>
@@ -248,6 +231,7 @@ const startNavigation = (destination: string) => {
 ### 6. Dokumente-Management
 
 **Features:**
+
 - ✅ Upload (Führerschein, P-Schein)
 - ✅ Ablauf-Anzeige
 - 🆕 Foto-Upload direkt (Kamera)
@@ -255,6 +239,7 @@ const startNavigation = (destination: string) => {
 - 🆕 Erinnerungen
 
 **Implementierung:**
+
 ```tsx
 <DocumentsSection>
   {/* Führerschein */}
@@ -279,9 +264,7 @@ const startNavigation = (destination: string) => {
     <Alert variant="warning">
       <AlertTriangle className="h-4 w-4" />
       <AlertTitle>Dokument läuft ab</AlertTitle>
-      <AlertDescription>
-        Ihr Führerschein läuft in {daysUntilExpiry} Tagen ab.
-      </AlertDescription>
+      <AlertDescription>Ihr Führerschein läuft in {daysUntilExpiry} Tagen ab.</AlertDescription>
     </Alert>
   )}
 </DocumentsSection>
@@ -290,15 +273,17 @@ const startNavigation = (destination: string) => {
 ### 7. Nachrichten-Center
 
 **Features:**
+
 - Dispatch-Nachrichten empfangen
 - Push-Benachrichtigungen
 - Schnellantworten
 - Emojis
 
 **Implementierung:**
+
 ```tsx
 <MessagesCenter>
-  {messages.map(msg => (
+  {messages.map((msg) => (
     <MessageCard key={msg.id}>
       <div className="flex items-start gap-3">
         <Avatar>
@@ -308,9 +293,7 @@ const startNavigation = (destination: string) => {
         <div className="flex-1">
           <div className="flex items-center justify-between">
             <h4 className="font-semibold">{msg.sender.name}</h4>
-            <span className="text-xs text-muted-foreground">
-              {formatTime(msg.timestamp)}
-            </span>
+            <span className="text-xs text-muted-foreground">{formatTime(msg.timestamp)}</span>
           </div>
           <p className="text-sm">{msg.content}</p>
         </div>
@@ -318,13 +301,13 @@ const startNavigation = (destination: string) => {
 
       {/* Schnellantworten */}
       <div className="flex gap-2 mt-2">
-        <Button size="sm" variant="outline" onClick={() => reply('👍')}>
+        <Button size="sm" variant="outline" onClick={() => reply("👍")}>
           👍
         </Button>
-        <Button size="sm" variant="outline" onClick={() => reply('OK')}>
+        <Button size="sm" variant="outline" onClick={() => reply("OK")}>
           OK
         </Button>
-        <Button size="sm" variant="outline" onClick={() => reply('Bin unterwegs')}>
+        <Button size="sm" variant="outline" onClick={() => reply("Bin unterwegs")}>
           Bin unterwegs
         </Button>
       </div>
@@ -338,16 +321,18 @@ const startNavigation = (destination: string) => {
 **Ziel:** App funktioniert auch ohne Internetverbindung
 
 **Features:**
+
 - Offline-Queue für GPS-Positionen
 - Cached Auftrags-Daten
 - Sync bei Reconnect
 - Service Worker
 
 **Implementierung:**
+
 ```typescript
 // Service Worker Registration
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/service-worker.js');
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js");
 }
 
 // Offline Queue
@@ -355,15 +340,15 @@ const offlineQueue = new OfflineQueue();
 
 const sendGPSPosition = async (position: GPSPosition) => {
   try {
-    await supabase.from('gps_positions').insert(position);
+    await supabase.from("gps_positions").insert(position);
   } catch (error) {
     // Offline? Queue it
-    offlineQueue.add('gps_position', position);
+    offlineQueue.add("gps_position", position);
   }
 };
 
 // Sync on Reconnect
-window.addEventListener('online', async () => {
+window.addEventListener("online", async () => {
   await offlineQueue.flush();
 });
 ```
@@ -435,7 +420,7 @@ const handleRefresh = async () => {
 
 <PullToRefresh onRefresh={handleRefresh} refreshing={refreshing}>
   <BookingsList />
-</PullToRefresh>
+</PullToRefresh>;
 ```
 
 ### Large Touch Targets
@@ -452,6 +437,7 @@ const handleRefresh = async () => {
 ## 🎨 UI/UX-VORGABEN (Portal-spezifisch)
 
 ### CI-Farben (identisch zu Hauptapp)
+
 ```css
 --primary: 45 31% 54%;
 --foreground: 0 0% 20%;
@@ -459,6 +445,7 @@ const handleRefresh = async () => {
 ```
 
 ### Status-Farben
+
 ```tsx
 available: 'bg-status-success'  // Grün
 busy: 'bg-status-warning'       // Gelb
@@ -467,6 +454,7 @@ offline: 'bg-muted'             // Grau
 ```
 
 ### Typography (Mobile)
+
 ```css
 h1: text-2xl font-bold          /* Hauptüberschriften */
 h2: text-lg font-semibold       /* Card-Titel */
@@ -479,30 +467,35 @@ small: text-sm text-muted-foreground
 ## 📊 IMPLEMENTIERUNGSPLAN (Fahrer-Portal V18.3)
 
 ### Phase 1: Mobile Dashboard (4 Wochen)
+
 - [ ] Status-Toggle (prominent)
 - [ ] Nächster Auftrag Card
 - [ ] Heute-Statistik
 - [ ] Bottom Navigation
 
 ### Phase 2: Auftrags-Details (2 Wochen)
+
 - [ ] Erweiterte Detail-Ansicht
 - [ ] Navigation-Integration
 - [ ] Kunden-Kontakt
 - [ ] Spezial-Anforderungen
 
 ### Phase 3: Schicht-Management (3 Wochen)
+
 - [ ] Erweiterte Schicht-Kontrolle
 - [ ] Lenk- & Ruhezeiten-Tracker
 - [ ] Break-Timer
 - [ ] Überstunden-Berechnung
 
 ### Phase 4: Einnahmen & Dokumente (2 Wochen)
+
 - [ ] Einnahmen-Übersicht
 - [ ] PDF-Export
 - [ ] Foto-Upload (Kamera)
 - [ ] Dokument-Erinnerungen
 
 ### Phase 5: Nachrichten & Offline (3 Wochen)
+
 - [ ] Nachrichten-Center
 - [ ] Push-Benachrichtigungen
 - [ ] Offline-Modus (PWA)
@@ -517,5 +510,6 @@ small: text-sm text-muted-foreground
 ---
 
 **Version History:**
+
 - V18.3.0 (18.10.2025) - Konzept für Portal-Erweiterungen
 - V18.2.31 (15.10.2025) - Basis-Portal implementiert

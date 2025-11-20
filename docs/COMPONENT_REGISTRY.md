@@ -3,10 +3,12 @@
 ## ✅ ACTIVE COMPONENTS
 
 ### Design System
+
 - **shadcn/ui:** Button, Dialog, Input, Card, Badge, etc.
 - **V28 Design System:** V28Button, V28AuthCard, V28Badge, V28IconBox
 
 ### CitiesPremiumSection (V28.6 NEW!)
+
 - **Path:** `src/components/sections/CitiesPremiumSection.tsx`
 - **Purpose:** Premium-Lokales-SEO Section mit WaveBackground + Floating Orbs
 - **Props:**
@@ -22,6 +24,7 @@
 - **Usage:** `<CitiesPremiumSection cities={cityKeywords} maxVisible={30} />`
 
 ### ScrollToTopButton (V28.6 NEW!)
+
 - **Path:** `src/components/shared/ScrollToTopButton.tsx`
 - **Purpose:** Scroll-to-Top Button (erscheint ab 500px Scroll)
 - **Features:**
@@ -34,6 +37,7 @@
 ### Hero Components (V28)
 
 #### V28HeroPremium
+
 - **Path:** `src/components/hero/V28HeroPremium.tsx`
 - **Purpose:** Premium Hero Section mit Gradient + Animated Background
 - **Props:**
@@ -53,6 +57,7 @@
 ### Design System Components (V28)
 
 #### V28MarketingSection
+
 - **Path:** `src/components/design-system/V28MarketingSection.tsx`
 - **Purpose:** Section wrapper for marketing pages with consistent spacing
 - **Props:**
@@ -72,6 +77,7 @@
 ### Chat Components (V28.3)
 
 #### V28ChatWidget
+
 - **Path:** `src/components/chat/V28ChatWidget.tsx`
 - **Purpose:** Floating Chat-Button mit DSGVO-Consent (V28.3)
 - **Dependencies:** `ChatInterface` (lazy-loaded)
@@ -84,6 +90,7 @@
   - WCAG 2.1 AA konform
 
 #### ChatInterface
+
 - **Path:** `src/components/chat/ChatInterface.tsx`
 - **Purpose:** AI-Chat-Interface mit SSE-Streaming
 - **Backend:** Edge Function `ai-support-chat`
@@ -97,6 +104,7 @@
 ### ⚠️ DEPRECATED COMPONENTS
 
 #### ❌ V28TaxiDashboardPreview (DEPRECATED V28.6)
+
 - **Status:** ❌ DEPRECATED seit 2025-01-30
 - **Location:** `src/components/hero/V28TaxiDashboardPreview.tsx`
 - **Grund:** Design-Entscheidung - V28DashboardPreview ist Standard für ALLE Hero-Sektionen
@@ -122,6 +130,7 @@
 ### Hero Components (V28.3)
 
 #### V28DashboardPreview (STANDARD für ALLE Hero-Sektionen)
+
 - **Path:** `src/components/home/V28DashboardPreview.tsx`
 - **Purpose:** Premium Dashboard-Preview für Hero-Sektionen (V28.1 Standard)
 - **Usage:** `<V28DashboardPreview title="my-dispatch.de/page" animationDelay="0.4s" />`
@@ -139,10 +148,11 @@
 - **Used On:** Home, Features, Contact, Demo, FAQ, Docs, About (7/8 pages)
 
 #### V28iPadMockup (V28.5 Update)
+
 - **Path:** `src/components/hero/V28iPadMockup.tsx`
 - **Purpose:** Premium 3D-Tilted iPad Pro 12.9" Frame (V28.5)
 - **Usage:** `<V28iPadMockup tiltDirection="left">{children}</V28iPadMockup>`
-- **Props:** 
+- **Props:**
   - `children: ReactNode`
   - `className?: string`
   - `tiltDirection?: 'left' | 'right'` (Default: 'left')
@@ -156,6 +166,7 @@
   - Gestochenscharfe Bildqualität
 
 #### V28TaxiDashboardPreview
+
 - **Path:** `src/components/hero/V28TaxiDashboardPreview.tsx`
 - **Purpose:** Taxi-authentisches Dashboard (V28.3)
 - **Usage:** `<V28TaxiDashboardPreview variant="ipad" />`
@@ -169,6 +180,7 @@
 ### Dashboard Components (V32.5 NEW!)
 
 #### UniversalQuickActionsPanel
+
 - **Path:** `src/components/dashboard/UniversalQuickActionsPanel.tsx`
 - **Purpose:** Einheitliches Quick Actions Panel für alle Dashboards (V32.5)
 - **Usage:** `<UniversalQuickActionsPanel quickActions={[...]} recentActivities={[...]} contextWidget={{...}} />`
@@ -187,6 +199,7 @@
 #### Context Widgets (V32.5 NEW!)
 
 ##### SystemStatusWidget
+
 - **Path:** `src/components/dashboard/context-widgets/SystemStatusWidget.tsx`
 - **Purpose:** API/DB/Backend Status Anzeige
 - **Usage:** `<SystemStatusWidget />`
@@ -194,6 +207,7 @@
 - **Used On:** Master, Einstellungen
 
 ##### QuickStatsWidget
+
 - **Path:** `src/components/dashboard/context-widgets/QuickStatsWidget.tsx`
 - **Purpose:** Flexible Stats-Anzeige (1-3 Stats)
 - **Usage:** `<QuickStatsWidget stats={[{ label, value, icon }]} />`
@@ -201,6 +215,7 @@
 - **Used On:** Aufträge, Kunden, Fahrer, Rechnungen
 
 ##### ShortcutsWidget
+
 - **Path:** `src/components/dashboard/context-widgets/ShortcutsWidget.tsx`
 - **Purpose:** Link-Liste mit Icons
 - **Usage:** `<ShortcutsWidget shortcuts={[{ label, href, icon }]} />`
@@ -208,6 +223,7 @@
 - **Used On:** Office, Kommunikation
 
 ##### UpcomingEventsWidget
+
 - **Path:** `src/components/dashboard/context-widgets/UpcomingEventsWidget.tsx`
 - **Purpose:** Nächste 3 Events mit Timestamps
 - **Usage:** `<UpcomingEventsWidget events={[{ title, time, icon }]} />`
@@ -217,14 +233,16 @@
 ### Hooks
 
 #### useQuickActionsPanel (V32.5 NEW!)
+
 - **Path:** `src/hooks/use-quick-actions-panel.tsx`
 - **Purpose:** Context Hook für Quick Actions Panel Config (Cross-Component Communication)
 - **Returns:** `{ config, setConfig }`
 - **Usage:**
+
   ```typescript
   // Parent (MainLayout):
   const { config } = useQuickActionsPanel();
-  
+
   // Child (Dashboard Page):
   const { setConfig } = useQuickActionsPanel();
   useEffect(() => {
@@ -232,6 +250,7 @@
     return () => setConfig(null); // Cleanup
   }, [dependencies]);
   ```
+
 - **Provider:** `<QuickActionsPanelProvider>` in App.tsx
 - **Features:**
   - Child-to-Parent Communication
@@ -239,6 +258,7 @@
   - Type-safe Config Interface
 
 #### useIntersectionObserver
+
 - **Path:** `src/hooks/use-intersection-observer.ts`
 - **Purpose:** Trigger animations when elements enter viewport
 - **Returns:** `{ ref, isVisible }`
@@ -248,6 +268,7 @@
 ## ⚠️ DEPRECATED COMPONENTS
 
 ### ❌ DashboardInfoBoard.tsx (DEPRECATED V32.0)
+
 - **Status:** ❌ ARCHIVED seit 2025-01-31
 - **Location (Code):** `src/components/dashboard/DashboardInfoBoard.tsx` (existiert noch als File)
 - **Location (Docs):** `docs/archive/deprecated/dashboardinfoboard/`
@@ -267,6 +288,7 @@
   ```
 
 ### ⚠️ V26 Components (22+ Components)
+
 22+ V26-Components - **ESLint blocks new imports**
 
 See `docs/V28_MIGRATION_GUIDE.md` for migration paths.

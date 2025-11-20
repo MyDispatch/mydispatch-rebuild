@@ -4,7 +4,7 @@
    Trackt echte User-Performance Metriken (ohne DB vorerst - Local Storage)
    ================================================================================== */
 
-import { logger } from '@/lib/logger';
+import { logger } from "@/lib/logger";
 
 export interface PerformanceMetrics {
   url: string;
@@ -29,16 +29,16 @@ export async function trackPagePerformance(url: string) {
 
   try {
     // Wait for page to fully load
-    await new Promise(resolve => {
-      if (document.readyState === 'complete') {
+    await new Promise((resolve) => {
+      if (document.readyState === "complete") {
         resolve(null);
       } else {
-        window.addEventListener('load', resolve, { once: true });
+        window.addEventListener("load", resolve, { once: true });
       }
     });
 
     // Get performance data
-    const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
+    const perfData = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
     if (!perfData) return;
 
     // Calculate metrics
@@ -47,7 +47,10 @@ export async function trackPagePerformance(url: string) {
     const lcp = perfData.loadEventEnd - perfData.fetchStart;
 
     // Get connection info
-    const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+    const connection =
+      (navigator as any).connection ||
+      (navigator as any).mozConnection ||
+      (navigator as any).webkitConnection;
 
     const metrics: PerformanceMetrics = {
       url,
@@ -59,27 +62,29 @@ export async function trackPagePerformance(url: string) {
       user_agent: navigator.userAgent,
       viewport_width: window.innerWidth,
       viewport_height: window.innerHeight,
-      connection_type: connection?.effectiveType || 'unknown',
+      connection_type: connection?.effectiveType || "unknown",
       timestamp: new Date().toISOString(),
     };
 
     // Store locally for now
-    const stored = localStorage.getItem('performance_metrics') || '[]';
+    const stored = localStorage.getItem("performance_metrics") || "[]";
     const allMetrics = JSON.parse(stored);
     allMetrics.push(metrics);
-    
+
     // Keep only last 100 entries
     if (allMetrics.length > 100) {
       allMetrics.shift();
     }
-    
-    localStorage.setItem('performance_metrics', JSON.stringify(allMetrics));
-    
+
+    localStorage.setItem("performance_metrics", JSON.stringify(allMetrics));
+
     if (import.meta.env.DEV) {
-      logger.debug('[RUM] Performance tracked', { component: 'PerformanceMonitor', metrics });
+      logger.debug("[RUM] Performance tracked", { component: "PerformanceMonitor", metrics });
     }
   } catch (error) {
-    logger.error('[RUM] Failed to track performance', error as Error, { component: 'PerformanceMonitor' });
+    logger.error("[RUM] Failed to track performance", error as Error, {
+      component: "PerformanceMonitor",
+    });
   }
 }
 
@@ -91,17 +96,17 @@ export function observeWebVitals() {
 
   try {
     // Track First Input Delay (FID)
-    if ('PerformanceObserver' in window) {
+    if ("PerformanceObserver" in window) {
       const fidObserver = new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
           const fidEntry = entry as any;
           const fid = fidEntry.processingStart - fidEntry.startTime;
           if (import.meta.env.DEV) {
-            logger.debug('[RUM] FID', { component: 'PerformanceMonitor', fid: Math.round(fid) });
+            logger.debug("[RUM] FID", { component: "PerformanceMonitor", fid: Math.round(fid) });
           }
         }
       });
-      fidObserver.observe({ type: 'first-input', buffered: true });
+      fidObserver.observe({ type: "first-input", buffered: true });
 
       // Track Cumulative Layout Shift (CLS)
       let clsValue = 0;
@@ -110,16 +115,21 @@ export function observeWebVitals() {
           if (!(entry as any).hadRecentInput) {
             clsValue += (entry as any).value;
             if (import.meta.env.DEV) {
-              logger.debug('[RUM] CLS', { component: 'PerformanceMonitor', cls: Math.round(clsValue * 1000) / 1000 });
+              logger.debug("[RUM] CLS", {
+                component: "PerformanceMonitor",
+                cls: Math.round(clsValue * 1000) / 1000,
+              });
             }
           }
         }
       });
-      clsObserver.observe({ type: 'layout-shift', buffered: true });
+      clsObserver.observe({ type: "layout-shift", buffered: true });
     }
-    } catch (error) {
-      logger.error('[RUM] Failed to observe web vitals', error as Error, { component: 'PerformanceMonitor' });
-    }
+  } catch (error) {
+    logger.error("[RUM] Failed to observe web vitals", error as Error, {
+      component: "PerformanceMonitor",
+    });
+  }
 }
 
 /**
@@ -127,7 +137,7 @@ export function observeWebVitals() {
  */
 export function trackRouteChange(newPath: string) {
   if (import.meta.env.DEV) return;
-  
+
   // Track new page load
   trackPagePerformance(newPath);
 }
@@ -137,7 +147,7 @@ export function trackRouteChange(newPath: string) {
  */
 export function getPerformanceMetrics(): PerformanceMetrics[] {
   try {
-    const stored = localStorage.getItem('performance_metrics') || '[]';
+    const stored = localStorage.getItem("performance_metrics") || "[]";
     return JSON.parse(stored);
   } catch {
     return [];

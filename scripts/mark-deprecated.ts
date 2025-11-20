@@ -6,9 +6,9 @@
    Usage: tsx scripts/mark-deprecated.ts --pattern="V26*"
    ================================================================================== */
 
-import fs from 'fs';
-import path from 'path';
-import { glob } from 'glob';
+import fs from "fs";
+import path from "path";
+import { glob } from "glob";
 
 const DEPRECATION_COMMENT = `/* ==================================================================================
    ⚠️  DEPRECATED - LEGACY V26 COMPONENT
@@ -23,34 +23,34 @@ const DEPRECATION_COMMENT = `/* ================================================
 
 async function markDeprecated(pattern: string) {
   console.log(`🔍 Searching for files matching: ${pattern}`);
-  
-  const files = await glob(`src/**/${pattern}.tsx`, { ignore: 'node_modules/**' });
-  
+
+  const files = await glob(`src/**/${pattern}.tsx`, { ignore: "node_modules/**" });
+
   console.log(`📋 Found ${files.length} files to mark as deprecated`);
-  
+
   for (const file of files) {
-    const content = fs.readFileSync(file, 'utf-8');
-    
+    const content = fs.readFileSync(file, "utf-8");
+
     // Skip if already deprecated
-    if (content.includes('DEPRECATED')) {
+    if (content.includes("DEPRECATED")) {
       console.log(`⏭️  Skipping ${file} (already marked)`);
       continue;
     }
-    
+
     // Add deprecation comment at the top
     const newContent = DEPRECATION_COMMENT + content;
-    fs.writeFileSync(file, newContent, 'utf-8');
-    
+    fs.writeFileSync(file, newContent, "utf-8");
+
     console.log(`✅ Marked as deprecated: ${file}`);
   }
-  
+
   console.log(`\n✅ Deprecation marking complete!`);
   console.log(`📝 ${files.length} files marked as deprecated`);
 }
 
 // Parse CLI args
 const args = process.argv.slice(2);
-const patternArg = args.find(arg => arg.startsWith('--pattern='));
-const pattern = patternArg ? patternArg.split('=')[1] : 'V26*';
+const patternArg = args.find((arg) => arg.startsWith("--pattern="));
+const pattern = patternArg ? patternArg.split("=")[1] : "V26*";
 
 markDeprecated(pattern);

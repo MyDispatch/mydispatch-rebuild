@@ -21,6 +21,7 @@
 **Datei:** `src/pages/Fahrzeuge.tsx`
 
 **Änderungen:**
+
 - ✅ StandardPageLayout-Integration
 - ✅ Stats-Cards mit Live-Daten:
   - Verfügbar (Car Icon)
@@ -35,11 +36,13 @@
 - ✅ Mobile-Responsive (grid-cols-1 sm:2 lg:4)
 
 **Entfernte Duplikate:**
+
 - ❌ Alte Card-Struktur (Zeile 870-910)
 - ❌ Manuelle Header-Komponenten
 - ❌ Redundante Filter-UI
 
 **Konsistenz:**
+
 - ✅ "Fahrzeug hinzufügen" Button rechts oben
 - ✅ Suche links, Filter rechts
 - ✅ Action-Buttons rechtsbündig
@@ -53,6 +56,7 @@
 **Datei:** `src/pages/Angebote.tsx`
 
 **Änderungen:**
+
 - ✅ StandardPageLayout-Integration
 - ✅ Stats-Cards mit Live-Daten:
   - Offen (FileText Icon)
@@ -67,11 +71,13 @@
 - ✅ StatusIndicator für Angebots-Status
 
 **Entfernte Duplikate:**
+
 - ❌ Alte Card-Struktur (Zeile 1010-1117)
 - ❌ Manuelle Header-Komponenten
 - ❌ Redundante Filter-UI
 
 **Konsistenz:**
+
 - ✅ "Angebot erstellen" Button rechts oben
 - ✅ Suche links (keine Filter erforderlich)
 - ✅ Action-Buttons rechtsbündig
@@ -85,6 +91,7 @@
 **Datei:** `src/pages/Fahrer.tsx`
 
 **Änderungen:**
+
 - ✅ StandardPageLayout-Integration vollständig
 - ✅ Stats-Cards mit Live-Daten hinzugefügt:
   - Im Dienst (Users Icon) - `on_duty` Count
@@ -98,6 +105,7 @@
 - ✅ Mobile-Responsive
 
 **Konsistenz:**
+
 - ✅ "Fahrer hinzufügen" Button rechts oben
 - ✅ Suche links, Archive-Toggle rechts
 - ✅ Starter-Tarif-Limit (3 Fahrer) korrekt implementiert
@@ -111,6 +119,7 @@
 **Datei:** `src/components/shared/DetailDialog.tsx`
 
 **Änderungen:**
+
 - ✅ Bearbeitungs-Button systemweit integriert (onEdit prop)
 - ✅ Datum nach links verschoben (aus DialogTitle → DialogDescription)
 - ✅ Nicht mehr vom Schließen-Button verdeckt
@@ -119,6 +128,7 @@
 - ✅ Responsive Layout (flex-col sm:flex-row)
 
 **Neue Struktur:**
+
 ```tsx
 <DialogTitle>{title}</DialogTitle>
 <DialogDescription>
@@ -140,13 +150,15 @@
 
 ### 5. **Dialog-Button-Duplikate entfernt** (100%) ✨ NEU
 
-**Dateien:** 
+**Dateien:**
+
 - `src/pages/Fahrer.tsx` (Zeile 353-363)
 - `src/pages/Auftraege.tsx` (Zeile 640-650)
 
 **Problem:** DialogTrigger-Buttons innerhalb von Dialogen führten zu Duplikaten (Button unten im Dialog, der denselben Dialog öffnet)
 
-**Lösung:** 
+**Lösung:**
+
 - ❌ Entfernt: `<DialogTrigger asChild><Button>...</Button></DialogTrigger>`
 - ✅ Behalten: Nur externes Öffnen via `setIsDialogOpen(true)` durch Header-Button
 
@@ -157,6 +169,7 @@
 ## 🔧 TECHNISCHE DETAILS
 
 ### Build-Status
+
 ```
 ✅ TypeScript: 0 Errors
 ✅ JSX-Struktur: Vollständig korrekt
@@ -165,6 +178,7 @@
 ```
 
 ### Performance
+
 - ✅ VehiclesTable bereits memoized (React.memo)
 - ✅ DriversTable bereits memoized (React.memo)
 - ✅ Stats-Berechnung optimiert
@@ -172,6 +186,7 @@
 - ✅ Lazy Loading bereit
 
 ### Accessibility
+
 - ✅ Semantic HTML
 - ✅ ARIA-Labels vorhanden
 - ✅ Keyboard-Navigation funktioniert
@@ -181,19 +196,19 @@
 
 ## 📋 MIGRIERTE SEITEN (GESAMT)
 
-| Seite | Status | Sprint | Bemerkung |
-|-------|--------|--------|-----------|
-| Rechnungen | ✅ | 15 | Vollständig |
-| Kunden | ✅ | 15 | Vollständig |
-| Aufträge | ✅ | 16 | Vollständig + Dialog-Fix |
-| Fahrzeuge | ✅ | 16 | Vollständig |
-| Angebote | ✅ | 16 | Vollständig |
-| **Fahrer** | ✅ | **16** | **NEU MIGRIERT + Stats** |
-| Partner | 🟡 | 17 | Geplant (komplex, Tabs) |
-| Dokumente | ⏳ | 17 | Geplant |
-| Kostenstellen | ⏳ | 17 | Geplant |
-| Schichtzettel | ⏳ | 18 | Geplant |
-| Office | ⏳ | 18 | Geplant |
+| Seite         | Status | Sprint | Bemerkung                |
+| ------------- | ------ | ------ | ------------------------ |
+| Rechnungen    | ✅     | 15     | Vollständig              |
+| Kunden        | ✅     | 15     | Vollständig              |
+| Aufträge      | ✅     | 16     | Vollständig + Dialog-Fix |
+| Fahrzeuge     | ✅     | 16     | Vollständig              |
+| Angebote      | ✅     | 16     | Vollständig              |
+| **Fahrer**    | ✅     | **16** | **NEU MIGRIERT + Stats** |
+| Partner       | 🟡     | 17     | Geplant (komplex, Tabs)  |
+| Dokumente     | ⏳     | 17     | Geplant                  |
+| Kostenstellen | ⏳     | 17     | Geplant                  |
+| Schichtzettel | ⏳     | 18     | Geplant                  |
+| Office        | ⏳     | 18     | Geplant                  |
 
 **Fortschritt:** 6/11 Seiten (55%) ✅
 
@@ -202,6 +217,7 @@
 ## 🎯 QUALITÄTSSICHERUNG
 
 ### Checkliste (alle ✅)
+
 - [x] Layout-Konsistenz: Header 60px, Sidebar 64/240px
 - [x] Mobile-First: Breakpoints korrekt (<768px)
 - [x] CI-Farben: #EADEBD, #323D5E, #856d4b
@@ -220,31 +236,37 @@
 ## 🐛 BEHOBENE FEHLER
 
 ### 1. **JSX-Struktur-Fehler**
+
 **Problem:** Doppelte Card-Strukturen nach Migration  
 **Lösung:** Alte Card-Strukturen vollständig entfernt  
 **Dateien:** Fahrzeuge.tsx (Zeile 866-916), Angebote.tsx (Zeile 1006-1127)
 
 ### 2. **TypeScript Icon-Fehler**
+
 **Problem:** Icons als Type übergeben statt als JSX Element  
 **Lösung:** `icon: Car` → `icon: <Car className="h-4 w-4" />`  
 **Dateien:** Alle Stats-Arrays korrigiert
 
 ### 3. **DialogContent-Fehler**
+
 **Problem:** Fehlende </DialogContent> Tags  
 **Lösung:** Tags vor </Dialog> eingefügt  
 **Dateien:** Dialog-Strukturen korrigiert
 
 ### 4. **DetailDialog Datum-Verdeckung** ✨ NEU
+
 **Problem:** Datum rechts im DialogTitle wird vom Schließen-Button verdeckt  
 **Lösung:** Datum nach DialogDescription verschoben (unter Status-Text)  
 **Datei:** `src/components/shared/DetailDialog.tsx`
 
 ### 5. **Dialog-Button-Duplikate** ✨ NEU
+
 **Problem:** DialogTrigger-Buttons innerhalb von Dialogen erzeugen verwirrende Duplikate  
 **Lösung:** DialogTrigger entfernt, nur externes Öffnen via State  
 **Dateien:** Fahrer.tsx, Auftraege.tsx
 
 ### 6. **Fehlender Bearbeitungs-Button** ✨ NEU
+
 **Problem:** DetailDialog hatte keinen direkten Bearbeitungs-Button  
 **Lösung:** `onEdit` prop hinzugefügt, Button vor Archive/Delete positioniert  
 **Datei:** `src/components/shared/DetailDialog.tsx`
@@ -262,27 +284,32 @@
 ## 🚀 NÄCHSTE SCHRITTE (Sprint 17)
 
 ### 1. **Partner-Seite Migration** (P1 - Komplex)
+
 - Tab-System beibehalten (feature-spezifisch)
 - StandardPageLayout für Basis-Layout
 - Stats-Cards erstellen (Partner, Anfragen, Connections)
 - PartnerConnectionList/RequestDialog integrieren
 
 ### 2. **Dokumente-Seite Migration** (P0)
+
 - StandardPageLayout-Integration
 - Stats-Cards mit Ablauf-Status (Abgelaufen, Läuft bald ab, Gültig)
 - Dokumenten-Typ-Filter
 - InlineDocumentUpload integrieren
 
 ### 3. **Kostenstellen-Seite Migration** (P1)
+
 - StandardPageLayout-Integration
 - Stats-Cards (Aktiv/Inaktiv, Budget)
 - Budget-Tracking-Visualisierung
 
 ### 4. **Schichtzettel-Seite Prüfung** (P2)
+
 - Layout-Analyse (ggf. spezielles Layout erforderlich)
 - Kalender-Integration prüfen
 
 ### 5. **Office-Seite Prüfung** (P2)
+
 - Layout-Analyse
 - E-Mail/Brief-Templates-System
 
@@ -291,18 +318,21 @@
 ## 💡 LESSONS LEARNED
 
 ### Was gut lief:
+
 - ✅ Parallele Optimierungen effizient (DetailDialog + Page Migration)
 - ✅ Stats-Integration nahtlos und wiederverwendbar
 - ✅ DriversTable/VehiclesTable bereits optimal vorbereitet
 - ✅ DetailDialog-Optimierung profitiert ALLE Seiten gleichzeitig
 
 ### Was verbessert wurde:
+
 - ✅ DetailDialog jetzt mit Bearbeitungs-Button systemweit
 - ✅ Dialog-Duplikate eliminiert (saubere UX)
 - ✅ Datum-Positionierung optimiert (nicht verdeckt)
 - ✅ Stats-Formeln wiederverwendbar
 
 ### Für nächsten Sprint:
+
 - 📝 Partner-Seite: Tabs-System respektieren
 - 📝 Dokumente-Seite: InlineDocumentUpload-Integration testen
 - 📝 Komplexe Seiten (Schichtzettel, Office): Separate Analyse

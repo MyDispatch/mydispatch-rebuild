@@ -8,6 +8,7 @@
 ## ✅ HEUTE ERLEDIGT
 
 ### V28.1 Design System Migration
+
 1. ✅ V26 Components gelöscht (7 Files)
 2. ✅ unified-design-tokens-v28.ts entfernt
 3. ✅ Smart Templates → Pure Tailwind
@@ -15,7 +16,8 @@
 5. ✅ V26DashboardTable → shadcn/ui Table (3 Pages)
 6. ✅ Navigation Helper → Master-Role Support
 
-### Console.* Migration (10%)
+### Console.\* Migration (10%)
+
 - ✅ 5 Hooks DEV-guarded
 - ⏳ 185 verbleibend in 60 Files
 
@@ -23,7 +25,7 @@
 
 ## 🎯 NÄCHSTE PHASE
 
-**Sprint 45:** Console.* Bulk-Migration (6-8h)
+**Sprint 45:** Console.\* Bulk-Migration (6-8h)
 
 **ETA:** 30.10.2025
 

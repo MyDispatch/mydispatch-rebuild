@@ -7,18 +7,18 @@
    ✅ Data-Driven Approach
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LucideIcon, Check } from 'lucide-react';
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { DataGrid } from '@/components/smart-templates/DataGrid';
-import { ScrollToTopButton } from '@/components/shared/ScrollToTopButton';
-import { V28Button } from '@/components/design-system/V28Button';
+import { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
+import { LucideIcon, Check } from "lucide-react";
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { V28HeroPremium } from "@/components/hero/V28HeroPremium";
+import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
+import { DataGrid } from "@/components/smart-templates/DataGrid";
+import { ScrollToTopButton } from "@/components/shared/ScrollToTopButton";
+import { V28Button } from "@/components/design-system/V28Button";
 
 /* ==================================================================================
    TYPE DEFINITIONS
@@ -51,29 +51,29 @@ interface CTAButton {
   label: string;
   onClick?: () => void;
   href?: string;
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
 }
 
 export interface FeatureDetailTemplateProps {
   // SEO
   title: string;
   description: string;
-  
+
   // Hero
   featureName: string;
   featureTagline: string;
   featureDescription: string;
   heroGraphic?: ReactNode;
-  
+
   // Content Sections
   benefits: Benefit[];
   useCases: UseCase[];
   technicalSpecs?: TechnicalSpec[];
-  
+
   // CTAs
   primaryCTA?: CTAButton;
   secondaryCTA?: CTAButton;
-  
+
   // Layout
   currentPage?: string;
 }
@@ -111,17 +111,17 @@ export function FeatureDetailTemplate({
       }
     };
 
-    const isPrimary = cta.variant !== 'secondary';
+    const isPrimary = cta.variant !== "secondary";
 
     return (
       <V28Button
         onClick={handleClick}
         size="lg"
-        variant={isPrimary ? 'primary' : 'secondary'}
+        variant={isPrimary ? "primary" : "secondary"}
         className={
           isPrimary
-            ? 'h-12 px-8 font-semibold rounded-lg transition-all duration-300'
-            : 'h-12 px-8 font-semibold rounded-lg transition-all duration-300'
+            ? "h-12 px-8 font-semibold rounded-lg transition-all duration-300"
+            : "h-12 px-8 font-semibold rounded-lg transition-all duration-300"
         }
       >
         {cta.label}
@@ -143,17 +143,25 @@ export function FeatureDetailTemplate({
         title={featureName}
         subtitle={featureTagline}
         description={featureDescription}
-        primaryCTA={primaryCTA ? {
-          label: primaryCTA.label,
-          onClick: primaryCTA.onClick || (() => navigate(primaryCTA?.href || '/auth')),
-        } : {
-          label: 'Jetzt starten',
-          onClick: () => navigate('/auth')
-        }}
-        secondaryCTA={secondaryCTA ? {
-          label: secondaryCTA.label,
-          onClick: secondaryCTA.onClick || (() => navigate(secondaryCTA?.href || '/demo')),
-        } : undefined}
+        primaryCTA={
+          primaryCTA
+            ? {
+                label: primaryCTA.label,
+                onClick: primaryCTA.onClick || (() => navigate(primaryCTA?.href || "/auth")),
+              }
+            : {
+                label: "Jetzt starten",
+                onClick: () => navigate("/auth"),
+              }
+        }
+        secondaryCTA={
+          secondaryCTA
+            ? {
+                label: secondaryCTA.label,
+                onClick: secondaryCTA.onClick || (() => navigate(secondaryCTA?.href || "/demo")),
+              }
+            : undefined
+        }
         visual={heroGraphic}
       />
 
@@ -170,10 +178,7 @@ export function FeatureDetailTemplate({
               <V28MarketingCard key={benefit.id || `benefit-${idx}`}>
                 <div className="space-y-4">
                   {/* Icon */}
-                  <V28IconBox 
-                    icon={benefit.icon}
-                    variant="primary"
-                  />
+                  <V28IconBox icon={benefit.icon} variant="primary" />
 
                   {/* Badge */}
                   {benefit.badge && (
@@ -183,14 +188,10 @@ export function FeatureDetailTemplate({
                   )}
 
                   {/* Title */}
-                  <h3 className="text-xl font-semibold text-slate-900">
-                    {benefit.title}
-                  </h3>
+                  <h3 className="text-xl font-semibold text-slate-900">{benefit.title}</h3>
 
                   {/* Description */}
-                  <p className="text-base leading-relaxed text-slate-600">
-                    {benefit.description}
-                  </p>
+                  <p className="text-base leading-relaxed text-slate-600">{benefit.description}</p>
                 </div>
               </V28MarketingCard>
             ))}
@@ -211,23 +212,17 @@ export function FeatureDetailTemplate({
               <V28MarketingCard key={useCase.id || `usecase-${idx}`}>
                 <div className="space-y-6">
                   {/* Title */}
-                  <h3 className="text-2xl font-semibold text-slate-900">
-                    {useCase.title}
-                  </h3>
+                  <h3 className="text-2xl font-semibold text-slate-900">{useCase.title}</h3>
 
                   {/* Description */}
-                  <p className="text-base leading-relaxed text-slate-600">
-                    {useCase.description}
-                  </p>
+                  <p className="text-base leading-relaxed text-slate-600">{useCase.description}</p>
 
                   {/* Scenario */}
                   <div className="space-y-2">
                     <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
                       Szenario
                     </h4>
-                    <p className="text-sm leading-relaxed text-slate-600">
-                      {useCase.scenario}
-                    </p>
+                    <p className="text-sm leading-relaxed text-slate-600">{useCase.scenario}</p>
                   </div>
 
                   {/* Solution */}
@@ -235,9 +230,7 @@ export function FeatureDetailTemplate({
                     <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500">
                       Lösung
                     </h4>
-                    <p className="text-sm leading-relaxed text-slate-600">
-                      {useCase.solution}
-                    </p>
+                    <p className="text-sm leading-relaxed text-slate-600">{useCase.solution}</p>
                   </div>
 
                   {/* Results */}
@@ -248,7 +241,7 @@ export function FeatureDetailTemplate({
                       </h4>
                       <ul className="space-y-2">
                         {useCase.results.map((result, resultIdx) => (
-                          <li 
+                          <li
                             key={resultIdx}
                             className="flex items-start gap-2 text-sm text-slate-600"
                           >
@@ -279,17 +272,12 @@ export function FeatureDetailTemplate({
               <V28MarketingCard key={spec.id || `spec-${idx}`}>
                 <div className="space-y-4">
                   {/* Title */}
-                  <h3 className="text-lg font-semibold text-slate-900">
-                    {spec.title}
-                  </h3>
+                  <h3 className="text-lg font-semibold text-slate-900">{spec.title}</h3>
 
                   {/* Items List */}
                   <ul className="space-y-2">
                     {spec.items.map((item, itemIdx) => (
-                      <li 
-                        key={itemIdx}
-                        className="flex items-start gap-2 text-sm text-slate-600"
-                      >
+                      <li key={itemIdx} className="flex items-start gap-2 text-sm text-slate-600">
                         <Check className="h-4 w-4 text-slate-400 shrink-0 mt-0.5" />
                         <span>{item}</span>
                       </li>

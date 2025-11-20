@@ -27,10 +27,7 @@ interface TestResult {
 
 const results: TestResult[] = [];
 
-async function runTest(
-  name: string,
-  testFn: () => Promise<boolean>
-): Promise<void> {
+async function runTest(name: string, testFn: () => Promise<boolean>): Promise<void> {
   const start = Date.now();
   console.log(`\n🧪 Running: ${name}...`);
 
@@ -45,9 +42,7 @@ async function runTest(
       duration,
     });
 
-    console.log(
-      passed ? `✅ PASSED (${duration}ms)` : `❌ FAILED (${duration}ms)`
-    );
+    console.log(passed ? `✅ PASSED (${duration}ms)` : `❌ FAILED (${duration}ms)`);
   } catch (error) {
     const duration = Date.now() - start;
     results.push({
@@ -63,10 +58,7 @@ async function runTest(
 
 // Test 1: Database connectivity
 async function testDatabaseConnection(): Promise<boolean> {
-  const { data, error } = await supabase
-    .from("autonomous_system_config")
-    .select("*")
-    .single();
+  const { data, error } = await supabase.from("autonomous_system_config").select("*").single();
 
   if (error) {
     console.error("Database error:", error);
@@ -118,17 +110,14 @@ async function testPendingTasks(): Promise<boolean> {
 // Test 4: Edge Function deployment check
 async function testEdgeFunctionDeployed(): Promise<boolean> {
   try {
-    const response = await fetch(
-      `${SUPABASE_URL}/functions/v1/ai-agent-poll`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${SERVICE_ROLE_KEY}`,
-        },
-        body: JSON.stringify({}),
-      }
-    );
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-agent-poll`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${SERVICE_ROLE_KEY}`,
+      },
+      body: JSON.stringify({}),
+    });
 
     if (!response.ok) {
       console.error(`   HTTP ${response.status}: ${response.statusText}`);
@@ -171,10 +160,7 @@ async function testPostgresFunctions(): Promise<boolean> {
 
 // Test 6: System statistics view
 async function testSystemStats(): Promise<boolean> {
-  const { data, error } = await supabase
-    .from("autonomous_system_stats")
-    .select("*")
-    .single();
+  const { data, error } = await supabase.from("autonomous_system_stats").select("*").single();
 
   if (error) {
     console.error("Stats view error:", error);
@@ -207,10 +193,7 @@ async function testCreateTask(): Promise<boolean> {
 
 // Test 8: Execution logs accessible
 async function testExecutionLogs(): Promise<boolean> {
-  const { data, error } = await supabase
-    .from("autonomous_execution_logs")
-    .select("*")
-    .limit(5);
+  const { data, error } = await supabase.from("autonomous_execution_logs").select("*").limit(5);
 
   if (error) {
     console.error("Logs query error:", error);

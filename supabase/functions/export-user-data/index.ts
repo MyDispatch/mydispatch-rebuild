@@ -34,11 +34,8 @@ serve(async (req) => {
     };
 
     // Helper: Fetch data from table
-    const fetchTableData = async (table: string, userIdField = 'user_id') => {
-      const { data, error } = await supabase
-        .from(table)
-        .select('*')
-        .eq(userIdField, userId);
+    const fetchTableData = async (table: string, userIdField = "user_id") => {
+      const { data, error } = await supabase.from(table).select("*").eq(userIdField, userId);
 
       if (error) {
         console.error(`Error fetching ${table}:`, error);
@@ -48,146 +45,142 @@ serve(async (req) => {
     };
 
     // 1. PROFILE & ACCOUNT
-    if (categories.includes('profile')) {
+    if (categories.includes("profile")) {
       const { data: profile } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
+        .from("profiles")
+        .select("*")
+        .eq("id", userId)
         .single();
 
       exportData.categories.profile = {
-        description: 'Profil & Account-Daten',
-        data: profile || {}
+        description: "Profil & Account-Daten",
+        data: profile || {},
       };
     }
 
     // 2. BOOKINGS
-    if (categories.includes('bookings')) {
-      const bookings = await fetchTableData('bookings');
+    if (categories.includes("bookings")) {
+      const bookings = await fetchTableData("bookings");
       exportData.categories.bookings = {
-        description: 'Aufträge & Buchungen',
+        description: "Aufträge & Buchungen",
         count: bookings.length,
-        data: bookings
+        data: bookings,
       };
     }
 
     // 3. INVOICES
-    if (categories.includes('invoices')) {
-      const invoices = await fetchTableData('invoices');
+    if (categories.includes("invoices")) {
+      const invoices = await fetchTableData("invoices");
       exportData.categories.invoices = {
-        description: 'Rechnungen',
+        description: "Rechnungen",
         count: invoices.length,
-        data: invoices
+        data: invoices,
       };
     }
 
     // 4. CUSTOMERS
-    if (categories.includes('customers')) {
+    if (categories.includes("customers")) {
       // Nur Kunden der Company des Users
       const { data: profile } = await supabase
-        .from('profiles')
-        .select('company_id')
-        .eq('id', userId)
+        .from("profiles")
+        .select("company_id")
+        .eq("id", userId)
         .single();
 
       if (profile?.company_id) {
         const { data: customers } = await supabase
-          .from('customers')
-          .select('*')
-          .eq('company_id', profile.company_id);
+          .from("customers")
+          .select("*")
+          .eq("company_id", profile.company_id);
 
         exportData.categories.customers = {
-          description: 'Kundendaten (Ihres Unternehmens)',
+          description: "Kundendaten (Ihres Unternehmens)",
           count: customers?.length || 0,
-          data: customers || []
+          data: customers || [],
         };
       }
     }
 
     // 5. DRIVERS
-    if (categories.includes('drivers')) {
+    if (categories.includes("drivers")) {
       const { data: profile } = await supabase
-        .from('profiles')
-        .select('company_id')
-        .eq('id', userId)
+        .from("profiles")
+        .select("company_id")
+        .eq("id", userId)
         .single();
 
       if (profile?.company_id) {
         const { data: drivers } = await supabase
-          .from('drivers')
-          .select('*')
-          .eq('company_id', profile.company_id);
+          .from("drivers")
+          .select("*")
+          .eq("company_id", profile.company_id);
 
         exportData.categories.drivers = {
-          description: 'Fahrerdaten (Ihres Unternehmens)',
+          description: "Fahrerdaten (Ihres Unternehmens)",
           count: drivers?.length || 0,
-          data: drivers || []
+          data: drivers || [],
         };
       }
     }
 
     // 6. VEHICLES
-    if (categories.includes('vehicles')) {
+    if (categories.includes("vehicles")) {
       const { data: profile } = await supabase
-        .from('profiles')
-        .select('company_id')
-        .eq('id', userId)
+        .from("profiles")
+        .select("company_id")
+        .eq("id", userId)
         .single();
 
       if (profile?.company_id) {
         const { data: vehicles } = await supabase
-          .from('vehicles')
-          .select('*')
-          .eq('company_id', profile.company_id);
+          .from("vehicles")
+          .select("*")
+          .eq("company_id", profile.company_id);
 
         exportData.categories.vehicles = {
-          description: 'Fahrzeugdaten (Ihres Unternehmens)',
+          description: "Fahrzeugdaten (Ihres Unternehmens)",
           count: vehicles?.length || 0,
-          data: vehicles || []
+          data: vehicles || [],
         };
       }
     }
 
     // 7. DOCUMENTS
-    if (categories.includes('documents')) {
-      const documents = await fetchTableData('documents');
+    if (categories.includes("documents")) {
+      const documents = await fetchTableData("documents");
       exportData.categories.documents = {
-        description: 'Hochgeladene Dokumente',
+        description: "Hochgeladene Dokumente",
         count: documents.length,
-        data: documents
+        data: documents,
       };
     }
 
     // 8. AUDIT LOGS
-    if (categories.includes('audit')) {
-      const auditLogs = await fetchTableData('audit_logs');
+    if (categories.includes("audit")) {
+      const auditLogs = await fetchTableData("audit_logs");
       exportData.categories.audit_logs = {
-        description: 'Aktivitätsprotokolle (DSGVO Art. 15)',
+        description: "Aktivitätsprotokolle (DSGVO Art. 15)",
         count: auditLogs.length,
-        data: auditLogs
+        data: auditLogs,
       };
     }
 
     // DSGVO-Metadaten
     exportData.legal_notice = {
-      dsgvo_article: 'Art. 20 (Recht auf Datenübertragbarkeit)',
-      generated_by: 'MyDispatch DSGVO-Export-System',
-      format: 'JSON (maschinenlesbar)',
-      retention_period: 'Daten werden nach Export nicht gelöscht (siehe Datenschutzerklärung)',
+      dsgvo_article: "Art. 20 (Recht auf Datenübertragbarkeit)",
+      generated_by: "MyDispatch DSGVO-Export-System",
+      format: "JSON (maschinenlesbar)",
+      retention_period: "Daten werden nach Export nicht gelöscht (siehe Datenschutzerklärung)",
     };
 
-    return new Response(
-      JSON.stringify(exportData, null, 2),
-      {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
-    );
-
+    return new Response(JSON.stringify(exportData, null, 2), {
+      status: 200,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (error) {
     console.error("Data Export Error:", error);
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         error: error instanceof Error ? error.message : "Unknown error",
       }),
       {

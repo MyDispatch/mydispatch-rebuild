@@ -4,11 +4,19 @@
    Generiert konsistente KPIs für alle Dashboard-Seiten
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
-import { 
-  Users, FileText, Car, Receipt, Building2, DollarSign, 
-  TrendingUp, Clock, CheckCircle, AlertCircle 
-} from 'lucide-react';
+import { LucideIcon } from "lucide-react";
+import {
+  Users,
+  FileText,
+  Car,
+  Receipt,
+  Building2,
+  DollarSign,
+  TrendingUp,
+  Clock,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
 
 export interface KPIConfig {
   title: string;
@@ -29,20 +37,20 @@ export class KPIGenerator {
    */
   static customers = {
     total: (count: number): KPIConfig => ({
-      title: 'Kunden Gesamt',
+      title: "Kunden Gesamt",
       value: count,
       icon: Users,
     }),
-    
+
     portalAccess: (count: number, total: number): KPIConfig => ({
-      title: 'Portal-Zugang',
+      title: "Portal-Zugang",
       value: count,
       icon: CheckCircle,
       subtitle: `${((count / total) * 100).toFixed(0)}% aller Kunden`,
     }),
-    
+
     openInvoices: (count: number, amount: number): KPIConfig => ({
-      title: 'Offene Rechnungen',
+      title: "Offene Rechnungen",
       value: count,
       icon: FileText,
       subtitle: `${amount.toFixed(2)} €`,
@@ -54,23 +62,23 @@ export class KPIGenerator {
    */
   static bookings = {
     open: (count: number): KPIConfig => ({
-      title: 'Offene Aufträge',
+      title: "Offene Aufträge",
       value: count,
       icon: FileText,
     }),
-    
+
     today: (count: number, revenue: number): KPIConfig => ({
-      title: 'Aufträge Heute',
+      title: "Aufträge Heute",
       value: count,
       icon: Clock,
       subtitle: `Umsatz: ${revenue.toFixed(2)} €`,
     }),
-    
+
     monthRevenue: (amount: number, growth: number): KPIConfig => ({
-      title: 'Umsatz Monat',
+      title: "Umsatz Monat",
       value: `${amount.toFixed(2)} €`,
       icon: DollarSign,
-      trend: { value: growth, label: `${growth > 0 ? '+' : ''}${growth}% ggü. Vormonat` },
+      trend: { value: growth, label: `${growth > 0 ? "+" : ""}${growth}% ggü. Vormonat` },
     }),
   };
 
@@ -79,20 +87,20 @@ export class KPIGenerator {
    */
   static drivers = {
     total: (count: number): KPIConfig => ({
-      title: 'Fahrer Gesamt',
+      title: "Fahrer Gesamt",
       value: count,
       icon: Users,
     }),
-    
+
     active: (count: number, total: number): KPIConfig => ({
-      title: 'Aktiv',
+      title: "Aktiv",
       value: count,
       icon: CheckCircle,
       subtitle: `${((count / total) * 100).toFixed(0)}% verfügbar`,
     }),
-    
+
     inactive: (count: number): KPIConfig => ({
-      title: 'Inaktiv',
+      title: "Inaktiv",
       value: count,
       icon: AlertCircle,
     }),
@@ -103,20 +111,20 @@ export class KPIGenerator {
    */
   static vehicles = {
     total: (count: number): KPIConfig => ({
-      title: 'Fahrzeuge Gesamt',
+      title: "Fahrzeuge Gesamt",
       value: count,
       icon: Car,
     }),
-    
+
     available: (count: number, total: number): KPIConfig => ({
-      title: 'Verfügbar',
+      title: "Verfügbar",
       value: count,
       icon: CheckCircle,
       subtitle: `${((count / total) * 100).toFixed(0)}% einsatzbereit`,
     }),
-    
+
     maintenance: (count: number): KPIConfig => ({
-      title: 'In Wartung',
+      title: "In Wartung",
       value: count,
       icon: AlertCircle,
     }),
@@ -127,24 +135,24 @@ export class KPIGenerator {
    */
   static invoices = {
     open: (count: number, amount: number): KPIConfig => ({
-      title: 'Offene Rechnungen',
+      title: "Offene Rechnungen",
       value: count,
       icon: FileText,
       subtitle: `${amount.toFixed(2)} €`,
     }),
-    
+
     overdue: (count: number, amount: number): KPIConfig => ({
-      title: 'Überfällige Rechnungen',
+      title: "Überfällige Rechnungen",
       value: count,
       icon: AlertCircle,
       subtitle: `${amount.toFixed(2)} €`,
     }),
-    
+
     monthRevenue: (amount: number, growth: number): KPIConfig => ({
-      title: 'Umsatz Monat',
+      title: "Umsatz Monat",
       value: `${amount.toFixed(2)} €`,
       icon: TrendingUp,
-      trend: { value: growth, label: `${growth > 0 ? '+' : ''}${growth}% ggü. Vormonat` },
+      trend: { value: growth, label: `${growth > 0 ? "+" : ""}${growth}% ggü. Vormonat` },
     }),
   };
 
@@ -153,19 +161,19 @@ export class KPIGenerator {
    */
   static partners = {
     total: (count: number): KPIConfig => ({
-      title: 'Partner Gesamt',
+      title: "Partner Gesamt",
       value: count,
       icon: Building2,
     }),
-    
+
     active: (count: number): KPIConfig => ({
-      title: 'Aktive Partner',
+      title: "Aktive Partner",
       value: count,
       icon: CheckCircle,
     }),
-    
+
     monthProvision: (amount: number): KPIConfig => ({
-      title: 'Provision Monat',
+      title: "Provision Monat",
       value: `${amount.toFixed(2)} €`,
       icon: DollarSign,
     }),
@@ -186,16 +194,16 @@ export interface QuickActionConfig {
   label: string;
   icon: LucideIcon;
   onClick: () => void;
-  variant?: 'default' | 'outline' | 'ghost';
+  variant?: "default" | "outline" | "ghost";
 }
 
 export class QuickActionsGenerator {
   static create(label: string, icon: LucideIcon, onClick: () => void): QuickActionConfig {
-    return { label, icon, onClick, variant: 'default' };
+    return { label, icon, onClick, variant: "default" };
   }
 
   static export(icon: LucideIcon, onClick: () => void): QuickActionConfig {
-    return { label: 'Exportieren', icon, onClick, variant: 'outline' };
+    return { label: "Exportieren", icon, onClick, variant: "outline" };
   }
 
   static custom(config: QuickActionConfig): QuickActionConfig {

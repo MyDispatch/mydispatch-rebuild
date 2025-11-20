@@ -1,4 +1,5 @@
 # 🚀 TECHNISCHE OPTIMIERUNGEN V18.3
+
 **Vorschläge für MyDispatch - Systematische Weiterentwicklung**
 
 ---
@@ -6,12 +7,14 @@
 ## 🎯 Executive Summary
 
 Diese Dokumentation listet **ALLE identifizierten technischen Optimierungen** für MyDispatch auf, geordnet nach:
+
 1. **Priorität** (🔴 KRITISCH → 🟢 ENHANCEMENT)
 2. **Kategorien** (Backend, Frontend, DevOps, Security, UX)
 3. **Aufwand** (Stunden)
 4. **Business-Impact** (Geld, Zeit, Rechtssicherheit)
 
 **Aktuelle Metriken:**
+
 - ✅ 75% Code-Zentralisierung
 - ✅ 0 TypeScript-Errors
 - 🔄 127 Anti-Patterns identifiziert (Sprint 47)
@@ -29,6 +32,7 @@ Diese Dokumentation listet **ALLE identifizierten technischen Optimierungen** f�
 **Impact:** Veraltete Compliance-Daten im Dashboard
 
 **Lösung:**
+
 ```sql
 -- Supabase Cron-Extension verwenden
 CREATE EXTENSION IF NOT EXISTS pg_cron;
@@ -52,6 +56,7 @@ SELECT cron.schedule(
 **Impact:** Langsame Abfragen, hohe Ladezeiten
 
 **Lösung:** Range-Partitioning nach `pickup_time` (monatlich)
+
 ```sql
 -- Partitioning nach Monat
 CREATE TABLE bookings_2025_01 PARTITION OF bookings
@@ -71,7 +76,7 @@ BEGIN
   start_date := DATE_TRUNC('month', NOW() + INTERVAL '1 month');
   end_date := start_date + INTERVAL '1 month';
   partition_name := 'bookings_' || TO_CHAR(start_date, 'YYYY_MM');
-  
+
   EXECUTE format(
     'CREATE TABLE IF NOT EXISTS %I PARTITION OF bookings FOR VALUES FROM (%L) TO (%L)',
     partition_name, start_date, end_date
@@ -88,7 +93,8 @@ SELECT cron.schedule(
 ```
 
 **Aufwand:** 4 Stunden
-**Impact:** 
+**Impact:**
+
 - Query-Performance +60%
 - Skalierbar bis 1 Mio+ Einträge
 
@@ -100,6 +106,7 @@ SELECT cron.schedule(
 **Impact:** Langsame Filter-Abfragen
 
 **Lösung:**
+
 ```sql
 -- Bookings: Häufigste Filter
 CREATE INDEX CONCURRENTLY idx_bookings_company_status_date
@@ -123,7 +130,8 @@ CREATE INDEX CONCURRENTLY idx_documents_entity_expiry
 ```
 
 **Aufwand:** 2 Stunden
-**Impact:** 
+**Impact:**
+
 - Query-Performance +40%
 - Reduzierte DB-Load
 
@@ -137,24 +145,26 @@ CREATE INDEX CONCURRENTLY idx_documents_entity_expiry
 **Impact:** Connection-Limit erreicht, Errors
 
 **Lösung:** Supabase Pooler aktivieren (Transaction-Mode)
+
 ```typescript
 // Frontend: Pooler-URL verwenden
 const supabaseUrl = import.meta.env.VITE_SUPABASE_POOLER_URL || import.meta.env.VITE_SUPABASE_URL;
 
 const supabase = createClient(supabaseUrl, anonKey, {
   db: {
-    schema: 'public',
+    schema: "public",
   },
   global: {
     headers: {
-      'x-connection-type': 'pooler',
+      "x-connection-type": "pooler",
     },
   },
 });
 ```
 
 **Aufwand:** 1 Stunde
-**Impact:** 
+**Impact:**
+
 - Max. Connections: 15 → 1.000+
 - Stabilität +90%
 
@@ -166,6 +176,7 @@ const supabase = createClient(supabaseUrl, anonKey, {
 **Impact:** Schlechte UX bei großen Datenmengen
 
 **Lösung:** Full-Text-Search mit GIN-Indexes
+
 ```sql
 -- Customers: Kombinierter Search-Vector
 ALTER TABLE customers
@@ -188,7 +199,8 @@ ORDER BY ts_rank(search_vector, to_tsquery('german', 'max:* & mustermann:*')) DE
 ```
 
 **Aufwand:** 3 Stunden
-**Impact:** 
+**Impact:**
+
 - Search-Performance +800%
 - Fuzzy-Matching unterstützt
 
@@ -200,6 +212,7 @@ ORDER BY ts_rank(search_vector, to_tsquery('german', 'max:* & mustermann:*')) DE
 **Impact:** Datenverlust-Risiko bei Supabase-Ausfall
 
 **Lösung:** pg_dump Cron + S3-Upload
+
 ```bash
 #!/bin/bash
 # backup-db.sh (Edge Function via Cron)
@@ -220,7 +233,8 @@ find /tmp -name "mydispatch_backup_*.sql.gz" -mtime +30 -delete
 **Cron:** Täglich 03:00 Uhr
 
 **Aufwand:** 4 Stunden
-**Impact:** 
+**Impact:**
+
 - Disaster-Recovery innerhalb 1 Stunde
 - DSGVO-Konformität (Datensicherheit)
 
@@ -234,25 +248,24 @@ find /tmp -name "mydispatch_backup_*.sql.gz" -mtime +30 -delete
 **Impact:** Langsame Writes während Report-Generierung
 
 **Lösung:** Supabase Read Replicas
+
 ```typescript
 // Heavy Read-Only Queries an Replica
-const replicaClient = createClient(
-  process.env.SUPABASE_REPLICA_URL,
-  process.env.SUPABASE_ANON_KEY
-);
+const replicaClient = createClient(process.env.SUPABASE_REPLICA_URL, process.env.SUPABASE_ANON_KEY);
 
 // Statistiken-Reports
 const stats = await replicaClient
-  .from('bookings')
-  .select('*')
-  .gte('pickup_time', startDate)
-  .lte('pickup_time', endDate);
+  .from("bookings")
+  .select("*")
+  .gte("pickup_time", startDate)
+  .lte("pickup_time", endDate);
 ```
 
 **Kosten:** ~30€/Monat (Replica)
 
 **Aufwand:** 2 Stunden
-**Impact:** 
+**Impact:**
+
 - Main-DB entlastet
 - Report-Performance +50%
 
@@ -268,43 +281,42 @@ const stats = await replicaClient
 **Impact:** Schlechte UX (langsam wirkend)
 
 **Lösung:**
+
 ```typescript
 // Optimistic Update Pattern
 const updateBookingMutation = useMutation({
   mutationFn: async (data) => {
-    const { error } = await supabase
-      .from('bookings')
-      .update(data)
-      .eq('id', bookingId);
+    const { error } = await supabase.from("bookings").update(data).eq("id", bookingId);
     if (error) throw error;
   },
   onMutate: async (newData) => {
     // Cancel outgoing queries
-    await queryClient.cancelQueries({ queryKey: ['bookings'] });
-    
+    await queryClient.cancelQueries({ queryKey: ["bookings"] });
+
     // Snapshot previous value
-    const previousBookings = queryClient.getQueryData(['bookings']);
-    
+    const previousBookings = queryClient.getQueryData(["bookings"]);
+
     // Optimistically update cache
-    queryClient.setQueryData(['bookings'], (old) =>
-      old.map(b => b.id === bookingId ? { ...b, ...newData } : b)
+    queryClient.setQueryData(["bookings"], (old) =>
+      old.map((b) => (b.id === bookingId ? { ...b, ...newData } : b))
     );
-    
+
     return { previousBookings };
   },
   onError: (err, newData, context) => {
     // Rollback on error
-    queryClient.setQueryData(['bookings'], context.previousBookings);
-    toast.error('Fehler beim Speichern');
+    queryClient.setQueryData(["bookings"], context.previousBookings);
+    toast.error("Fehler beim Speichern");
   },
   onSettled: () => {
-    queryClient.invalidateQueries({ queryKey: ['bookings'] });
+    queryClient.invalidateQueries({ queryKey: ["bookings"] });
   },
 });
 ```
 
 **Aufwand:** 6 Stunden (alle Mutations)
-**Impact:** 
+**Impact:**
+
 - Gefühlte Performance +200%
 - Bessere UX
 
@@ -316,26 +328,27 @@ const updateBookingMutation = useMutation({
 **Impact:** Scrolling ruckelt, hoher RAM-Verbrauch
 
 **Lösung:** @tanstack/react-virtual
+
 ```typescript
 // VirtualizedTable.tsx
 import { useVirtualizer } from '@tanstack/react-virtual';
 
 function VirtualizedTable({ data }: { data: Booking[] }) {
   const parentRef = useRef<HTMLDivElement>(null);
-  
+
   const virtualizer = useVirtualizer({
     count: data.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 60, // Row-Height
     overscan: 10,
   });
-  
+
   return (
     <div ref={parentRef} style={{ height: '600px', overflow: 'auto' }}>
       <div style={{ height: `${virtualizer.getTotalSize()}px`, position: 'relative' }}>
         {virtualizer.getVirtualItems().map((virtualRow) => {
           const booking = data[virtualRow.index];
-          
+
           return (
             <div
               key={virtualRow.key}
@@ -359,7 +372,8 @@ function VirtualizedTable({ data }: { data: Booking[] }) {
 ```
 
 **Aufwand:** 4 Stunden
-**Impact:** 
+**Impact:**
+
 - Rendering-Performance +500%
 - Scrolling 60fps
 
@@ -371,6 +385,7 @@ function VirtualizedTable({ data }: { data: Booking[] }) {
 **Impact:** Langsame Ladezeit
 
 **Lösung:**
+
 ```typescript
 // Route-Based Code-Splitting
 const Dashboard = lazy(() => import('@/pages/Dashboard'));
@@ -386,7 +401,8 @@ const HeavyChart = lazy(() => import('@/components/charts/RevenueChart'));
 ```
 
 **Aufwand:** 2 Stunden
-**Impact:** 
+**Impact:**
+
 - Initial-Bundle: 2MB → 400KB (-80%)
 - Time-to-Interactive: -3s
 
@@ -400,28 +416,29 @@ const HeavyChart = lazy(() => import('@/components/charts/RevenueChart'));
 **Impact:** Schlechte UX bei schwacher Verbindung
 
 **Lösung:** Workbox mit Cache-First-Strategie
+
 ```typescript
 // vite-plugin-pwa config
 PWA({
-  strategies: 'injectManifest',
-  srcDir: 'src',
-  filename: 'sw.ts',
+  strategies: "injectManifest",
+  srcDir: "src",
+  filename: "sw.ts",
   manifest: {
-    name: 'MyDispatch',
-    short_name: 'MyDispatch',
-    theme_color: '#EADEBD',
+    name: "MyDispatch",
+    short_name: "MyDispatch",
+    theme_color: "#EADEBD",
     icons: [
-      { src: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { src: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+      { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
   },
   workbox: {
     runtimeCaching: [
       {
         urlPattern: /^https:\/\/.*\.supabase\.co\/.*$/,
-        handler: 'NetworkFirst',
+        handler: "NetworkFirst",
         options: {
-          cacheName: 'supabase-api',
+          cacheName: "supabase-api",
           expiration: {
             maxEntries: 100,
             maxAgeSeconds: 60 * 60 * 24, // 24h
@@ -430,9 +447,9 @@ PWA({
       },
       {
         urlPattern: /\.(js|css|png|jpg|jpeg|svg|woff2)$/,
-        handler: 'CacheFirst',
+        handler: "CacheFirst",
         options: {
-          cacheName: 'static-resources',
+          cacheName: "static-resources",
           expiration: {
             maxEntries: 200,
             maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Tage
@@ -441,11 +458,12 @@ PWA({
       },
     ],
   },
-})
+});
 ```
 
 **Aufwand:** 8 Stunden
-**Impact:** 
+**Impact:**
+
 - Offline-Nutzung (Read-Only)
 - PWA-Install möglich
 
@@ -457,6 +475,7 @@ PWA({
 **Impact:** Gefühlte Verzögerung
 
 **Lösung:**
+
 ```typescript
 // React Query Prefetch bei Hover
 const queryClient = useQueryClient();
@@ -484,7 +503,8 @@ useEffect(() => {
 ```
 
 **Aufwand:** 3 Stunden
-**Impact:** 
+**Impact:**
+
 - Navigation gefühlt instant
 - Bessere UX
 
@@ -498,35 +518,36 @@ useEffect(() => {
 **Impact:** UI friert ein
 
 **Lösung:**
+
 ```typescript
 // workers/sort-bookings.worker.ts
-self.addEventListener('message', (e: MessageEvent) => {
+self.addEventListener("message", (e: MessageEvent) => {
   const { data, sortKey, sortOrder } = e.data;
-  
+
   const sorted = data.sort((a, b) => {
-    if (sortOrder === 'asc') {
+    if (sortOrder === "asc") {
       return a[sortKey] > b[sortKey] ? 1 : -1;
     }
     return a[sortKey] < b[sortKey] ? 1 : -1;
   });
-  
+
   self.postMessage(sorted);
 });
 
 // Usage
-const sortWorker = new Worker(
-  new URL('./workers/sort-bookings.worker.ts', import.meta.url),
-  { type: 'module' }
-);
+const sortWorker = new Worker(new URL("./workers/sort-bookings.worker.ts", import.meta.url), {
+  type: "module",
+});
 
 sortWorker.postMessage({ data, sortKey, sortOrder });
-sortWorker.addEventListener('message', (e) => {
+sortWorker.addEventListener("message", (e) => {
   setSortedData(e.data);
 });
 ```
 
 **Aufwand:** 4 Stunden
-**Impact:** 
+**Impact:**
+
 - UI bleibt responsive
 - Sortierung +300% schneller
 
@@ -542,29 +563,30 @@ sortWorker.addEventListener('message', (e) => {
 **Impact:** Serverkosten explodieren
 
 **Lösung:** Upstash Redis Rate-Limiting
+
 ```typescript
 // Edge Function mit Rate-Limit
-import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 
 const redis = new Redis({
-  url: Deno.env.get('UPSTASH_REDIS_URL')!,
-  token: Deno.env.get('UPSTASH_REDIS_TOKEN')!,
+  url: Deno.env.get("UPSTASH_REDIS_URL")!,
+  token: Deno.env.get("UPSTASH_REDIS_TOKEN")!,
 });
 
 const ratelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(10, '10 s'), // 10 Requests / 10 Sekunden
+  limiter: Ratelimit.slidingWindow(10, "10 s"), // 10 Requests / 10 Sekunden
 });
 
 Deno.serve(async (req) => {
-  const ip = req.headers.get('x-forwarded-for') || 'unknown';
+  const ip = req.headers.get("x-forwarded-for") || "unknown";
   const { success } = await ratelimit.limit(ip);
-  
+
   if (!success) {
-    return new Response('Rate limit exceeded', { status: 429 });
+    return new Response("Rate limit exceeded", { status: 429 });
   }
-  
+
   // Normal processing
 });
 ```
@@ -572,7 +594,8 @@ Deno.serve(async (req) => {
 **Kosten:** Upstash Free Tier (10.000 Requests/Monat)
 
 **Aufwand:** 2 Stunden
-**Impact:** 
+**Impact:**
+
 - Schutz vor DDoS
 - Kostenersparnis
 
@@ -584,6 +607,7 @@ Deno.serve(async (req) => {
 **Impact:** Datenbank-Corruption möglich
 
 **Lösung:** Zod-Schemas auch in Edge Functions
+
 ```typescript
 // Zentrales Validation-Schema
 // src/lib/validation/schemas.ts (Frontend)
@@ -595,26 +619,24 @@ export const bookingSchema = z.object({
 });
 
 // Edge Function: Gleiche Schemas verwenden
-import { bookingSchema } from '../shared/validation.ts';
+import { bookingSchema } from "../shared/validation.ts";
 
 Deno.serve(async (req) => {
   const body = await req.json();
-  
+
   // Validation
   const result = bookingSchema.safeParse(body);
   if (!result.success) {
-    return new Response(
-      JSON.stringify({ error: result.error }),
-      { status: 400 }
-    );
+    return new Response(JSON.stringify({ error: result.error }), { status: 400 });
   }
-  
+
   // Proceed
 });
 ```
 
 **Aufwand:** 4 Stunden
-**Impact:** 
+**Impact:**
+
 - 100% sichere Inputs
 - Keine Datenbank-Corruption
 
@@ -626,21 +648,22 @@ Deno.serve(async (req) => {
 **Impact:** SQL-Injection möglich
 
 **Lösung:**
+
 ```typescript
 // ❌ FALSCH (String-Concatenation)
-const { data } = await supabase
-  .rpc('search_customers', { query: `name LIKE '%${searchTerm}%'` });
+const { data } = await supabase.rpc("search_customers", { query: `name LIKE '%${searchTerm}%'` });
 
 // ✅ RICHTIG (Parameterized Query)
 const { data } = await supabase
-  .from('customers')
-  .select('*')
-  .ilike('first_name', `%${searchTerm}%`)
-  .eq('company_id', companyId);
+  .from("customers")
+  .select("*")
+  .ilike("first_name", `%${searchTerm}%`)
+  .eq("company_id", companyId);
 ```
 
 **Aufwand:** 2 Stunden (Code-Review)
-**Impact:** 
+**Impact:**
+
 - SQL-Injection unmöglich
 - Security-Audit bestanden
 
@@ -654,6 +677,7 @@ const { data } = await supabase
 **Impact:** Cross-Site-Anfragen möglich
 
 **Lösung:**
+
 ```typescript
 // CSRF-Token im Cookie
 const csrfToken = crypto.randomUUID();
@@ -661,21 +685,22 @@ const csrfToken = crypto.randomUUID();
 // Response mit CSRF-Cookie
 return new Response(JSON.stringify({ success: true }), {
   headers: {
-    'Set-Cookie': `csrf_token=${csrfToken}; SameSite=Strict; Secure; HttpOnly`,
+    "Set-Cookie": `csrf_token=${csrfToken}; SameSite=Strict; Secure; HttpOnly`,
   },
 });
 
 // Validation in nachfolgenden Requests
-const cookieToken = req.headers.get('cookie')?.match(/csrf_token=([^;]+)/)?.[1];
-const headerToken = req.headers.get('x-csrf-token');
+const cookieToken = req.headers.get("cookie")?.match(/csrf_token=([^;]+)/)?.[1];
+const headerToken = req.headers.get("x-csrf-token");
 
 if (cookieToken !== headerToken) {
-  return new Response('CSRF validation failed', { status: 403 });
+  return new Response("CSRF validation failed", { status: 403 });
 }
 ```
 
 **Aufwand:** 3 Stunden
-**Impact:** 
+**Impact:**
+
 - CSRF-Angriffe verhindert
 - OWASP-konform
 
@@ -691,6 +716,7 @@ if (cookieToken !== headerToken) {
 **Impact:** Bugs werden spät entdeckt
 
 **Lösung:**
+
 ```typescript
 // Sentry-Integration (bereits vorhanden, erweitern)
 import * as Sentry from '@sentry/react';
@@ -699,7 +725,7 @@ Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
   environment: import.meta.env.MODE,
   tracesSampleRate: 1.0,
-  
+
   // Performance-Monitoring
   integrations: [
     new Sentry.BrowserTracing({
@@ -716,7 +742,7 @@ Sentry.init({
       blockAllMedia: false,
     }),
   ],
-  
+
   // Session Replay für Fehler-Analyse
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
@@ -738,16 +764,19 @@ Sentry.init({
 ```
 
 **BetterStack Uptime-Monitoring:**
+
 - API-Endpoints (alle 60s)
 - Edge Functions
 - Supabase DB
 
-**Kosten:** 
+**Kosten:**
+
 - Sentry: 26€/Monat (10K Events)
 - BetterStack: Free Tier (50 Checks)
 
 **Aufwand:** 4 Stunden
-**Impact:** 
+**Impact:**
+
 - MTTR (Mean Time To Recovery): -75%
 - Proaktive Error-Behebung
 
@@ -759,6 +788,7 @@ Sentry.init({
 **Impact:** Regressions werden nicht erkannt
 
 **Lösung:**
+
 ```typescript
 // tests/e2e/booking-flow.spec.ts
 import { test, expect } from '@playwright/test';
@@ -771,24 +801,24 @@ test.describe('Booking Flow', () => {
     await page.click('[type="submit"]');
     await expect(page).toHaveURL('/dashboard');
   });
-  
+
   test('Create new booking', async ({ page }) => {
     await page.goto('/auftraege');
     await page.click('button:has-text("Neuer Auftrag")');
-    
+
     await page.fill('[name="pickup_address"]', 'München Hauptbahnhof');
     await page.fill('[name="dropoff_address"]', 'München Flughafen');
     await page.fill('[name="pickup_time"]', '2025-02-01T10:00');
-    
+
     await page.click('button:has-text("Speichern")');
-    
+
     await expect(page.locator('text=Auftrag erfolgreich erstellt')).toBeVisible();
   });
-  
+
   test('Filter bookings by status', async ({ page }) => {
     await page.goto('/auftraege');
     await page.selectOption('[name="status"]', 'pending');
-    
+
     const rows = page.locator('[data-status="pending"]');
     await expect(rows).toHaveCount(await rows.count());
   });
@@ -810,7 +840,8 @@ jobs:
 ```
 
 **Aufwand:** 20 Stunden (Initial-Setup + Tests)
-**Impact:** 
+**Impact:**
+
 - Bug-Detection +90%
 - Regressions verhindert
 
@@ -822,6 +853,7 @@ jobs:
 **Impact:** Langsame App
 
 **Lösung:**
+
 ```yaml
 # lighthouserc.yml
 ci:
@@ -854,6 +886,7 @@ ci:
 ```
 
 **CI/CD Integration:**
+
 ```yaml
 # .github/workflows/lighthouse.yml
 - name: Run Lighthouse CI
@@ -863,7 +896,8 @@ ci:
 ```
 
 **Aufwand:** 2 Stunden
-**Impact:** 
+**Impact:**
+
 - Performance-Guarantees
 - Lighthouse-Score >90
 
@@ -879,6 +913,7 @@ ci:
 **Impact:** App wirkt langsam
 
 **Lösung:**
+
 ```typescript
 // Skeleton-Components für alle Tabellen
 function BookingsTableSkeleton() {
@@ -903,7 +938,8 @@ function BookingsTableSkeleton() {
 ```
 
 **Aufwand:** 4 Stunden (alle Seiten)
-**Impact:** 
+**Impact:**
+
 - Perceived Performance +50%
 - Bessere UX
 
@@ -915,6 +951,7 @@ function BookingsTableSkeleton() {
 **Impact:** Power-User unzufrieden
 
 **Lösung:**
+
 ```typescript
 // Global Keyboard-Shortcuts
 import { useHotkeys } from 'react-hotkeys-hook';
@@ -926,7 +963,7 @@ function GlobalShortcuts() {
   useHotkeys('ctrl+b', () => navigate('/auftraege'));
   useHotkeys('ctrl+,', () => navigate('/einstellungen'));
   useHotkeys('?', () => openShortcutsDialog());
-  
+
   return null;
 }
 
@@ -945,7 +982,8 @@ function GlobalShortcuts() {
 ```
 
 **Aufwand:** 3 Stunden
-**Impact:** 
+**Impact:**
+
 - Power-User-Zufriedenheit +80%
 - Accessibility verbessert
 
@@ -957,6 +995,7 @@ function GlobalShortcuts() {
 **Impact:** Schlechte UX
 
 **Lösung:**
+
 ```typescript
 // react-dropzone
 import { useDropzone } from 'react-dropzone';
@@ -975,7 +1014,7 @@ function DocumentUpload() {
       }
     },
   });
-  
+
   return (
     <div
       {...getRootProps()}
@@ -997,7 +1036,8 @@ function DocumentUpload() {
 ```
 
 **Aufwand:** 2 Stunden
-**Impact:** 
+**Impact:**
+
 - Upload-Convenience +100%
 - Bulk-Upload möglich
 
@@ -1007,32 +1047,33 @@ function DocumentUpload() {
 
 ### Nach Business-Impact (ROI)
 
-| Optimierung | Aufwand (h) | Impact | ROI-Score | Priorität |
-|-------------|-------------|---------|-----------|-----------|
-| **Materialized View Refresh** | 1 | Rechtssicherheit | 10/10 | 🔴 P0 |
-| **Input-Validation Backend** | 4 | Security | 9/10 | 🔴 P0 |
-| **Rate Limiting** | 2 | Kosten-Schutz | 9/10 | 🔴 P0 |
-| **Database Indexes** | 2 | Performance | 8/10 | 🔴 P0 |
-| **Optimistic Updates** | 6 | UX | 8/10 | 🟡 P1 |
-| **Skeleton-Loading** | 4 | UX | 7/10 | 🟡 P1 |
-| **Virtual Scrolling** | 4 | Performance | 7/10 | 🟡 P1 |
-| **Code-Splitting** | 2 | Performance | 7/10 | 🟡 P1 |
-| **Database Partitioning** | 4 | Scalability | 6/10 | 🟡 P1 |
-| **Full-Text-Search** | 3 | UX | 6/10 | 🟡 P1 |
-| **Monitoring (Sentry)** | 4 | Stability | 6/10 | 🟡 P1 |
-| **Connection Pooling** | 1 | Stability | 6/10 | 🟡 P1 |
-| **Service Worker (PWA)** | 8 | Offline-UX | 5/10 | 🟢 P2 |
-| **Keyboard-Shortcuts** | 3 | Power-User | 5/10 | 🟢 P2 |
-| **Drag & Drop** | 2 | UX | 5/10 | 🟢 P2 |
-| **E2E-Tests** | 20 | Quality | 5/10 | 🟢 P2 |
-| **Web Workers** | 4 | Performance | 4/10 | 🟢 P2 |
-| **Read Replicas** | 2 | Performance | 4/10 | 🟢 P2 |
-| **CSRF-Protection** | 3 | Security | 4/10 | 🟢 P2 |
-| **Prefetching** | 3 | UX | 4/10 | 🟢 P2 |
-| **Database Backup** | 4 | Disaster-Recovery | 3/10 | 🟢 P2 |
-| **Lighthouse CI** | 2 | Quality | 3/10 | 🟢 P2 |
+| Optimierung                   | Aufwand (h) | Impact            | ROI-Score | Priorität |
+| ----------------------------- | ----------- | ----------------- | --------- | --------- |
+| **Materialized View Refresh** | 1           | Rechtssicherheit  | 10/10     | 🔴 P0     |
+| **Input-Validation Backend**  | 4           | Security          | 9/10      | 🔴 P0     |
+| **Rate Limiting**             | 2           | Kosten-Schutz     | 9/10      | 🔴 P0     |
+| **Database Indexes**          | 2           | Performance       | 8/10      | 🔴 P0     |
+| **Optimistic Updates**        | 6           | UX                | 8/10      | 🟡 P1     |
+| **Skeleton-Loading**          | 4           | UX                | 7/10      | 🟡 P1     |
+| **Virtual Scrolling**         | 4           | Performance       | 7/10      | 🟡 P1     |
+| **Code-Splitting**            | 2           | Performance       | 7/10      | 🟡 P1     |
+| **Database Partitioning**     | 4           | Scalability       | 6/10      | 🟡 P1     |
+| **Full-Text-Search**          | 3           | UX                | 6/10      | 🟡 P1     |
+| **Monitoring (Sentry)**       | 4           | Stability         | 6/10      | 🟡 P1     |
+| **Connection Pooling**        | 1           | Stability         | 6/10      | 🟡 P1     |
+| **Service Worker (PWA)**      | 8           | Offline-UX        | 5/10      | 🟢 P2     |
+| **Keyboard-Shortcuts**        | 3           | Power-User        | 5/10      | 🟢 P2     |
+| **Drag & Drop**               | 2           | UX                | 5/10      | 🟢 P2     |
+| **E2E-Tests**                 | 20          | Quality           | 5/10      | 🟢 P2     |
+| **Web Workers**               | 4           | Performance       | 4/10      | 🟢 P2     |
+| **Read Replicas**             | 2           | Performance       | 4/10      | 🟢 P2     |
+| **CSRF-Protection**           | 3           | Security          | 4/10      | 🟢 P2     |
+| **Prefetching**               | 3           | UX                | 4/10      | 🟢 P2     |
+| **Database Backup**           | 4           | Disaster-Recovery | 3/10      | 🟢 P2     |
+| **Lighthouse CI**             | 2           | Quality           | 3/10      | 🟢 P2     |
 
 **Legende:**
+
 - 🔴 P0 (KRITISCH): Sprint 49-50
 - 🟡 P1 (WICHTIG): Sprint 51-52
 - 🟢 P2 (ENHANCEMENT): Sprint 53+
@@ -1040,6 +1081,7 @@ function DocumentUpload() {
 ### Nach Aufwand (Quick Wins)
 
 **< 2 Stunden:**
+
 1. Materialized View Refresh (1h) - 🔴 P0
 2. Connection Pooling (1h) - 🟡 P1
 3. Database Indexes (2h) - 🔴 P0
@@ -1049,18 +1091,7 @@ function DocumentUpload() {
 7. Lighthouse CI (2h) - 🟢 P2
 8. SQL-Injection-Review (2h) - 🔴 P0
 
-**2-5 Stunden:**
-9. Full-Text-Search (3h) - 🟡 P1
-10. Prefetching (3h) - 🟢 P2
-11. Keyboard-Shortcuts (3h) - 🟢 P2
-12. CSRF-Protection (3h) - 🟢 P2
-13. Input-Validation (4h) - 🔴 P0
-14. Database Partitioning (4h) - 🟡 P1
-15. Virtual Scrolling (4h) - 🟡 P1
-16. Skeleton-Loading (4h) - 🟡 P1
-17. Database Backup (4h) - 🟢 P2
-18. Web Workers (4h) - 🟢 P2
-19. Monitoring (4h) - 🟡 P1
+**2-5 Stunden:** 9. Full-Text-Search (3h) - 🟡 P1 10. Prefetching (3h) - 🟢 P2 11. Keyboard-Shortcuts (3h) - 🟢 P2 12. CSRF-Protection (3h) - 🟢 P2 13. Input-Validation (4h) - 🔴 P0 14. Database Partitioning (4h) - 🟡 P1 15. Virtual Scrolling (4h) - 🟡 P1 16. Skeleton-Loading (4h) - 🟡 P1 17. Database Backup (4h) - 🟢 P2 18. Web Workers (4h) - 🟢 P2 19. Monitoring (4h) - 🟡 P1
 
 ---
 
@@ -1068,17 +1099,18 @@ function DocumentUpload() {
 
 **Nach Implementierung ALLER P0+P1-Optimierungen:**
 
-| Metrik | Vorher | Nachher | Verbesserung |
-|--------|--------|---------|--------------|
-| **Initial Load Time** | 3.2s | 1.5s | -53% |
-| **Time-to-Interactive** | 4.8s | 2.1s | -56% |
-| **Query-Performance** | 850ms | 210ms | -75% |
-| **Bundle-Size** | 2.1MB | 420KB | -80% |
-| **Lighthouse-Score** | 78 | 94 | +16 |
-| **MTTR (Errors)** | 4h | 1h | -75% |
-| **Perceived Speed** | 6/10 | 9/10 | +50% |
+| Metrik                  | Vorher | Nachher | Verbesserung |
+| ----------------------- | ------ | ------- | ------------ |
+| **Initial Load Time**   | 3.2s   | 1.5s    | -53%         |
+| **Time-to-Interactive** | 4.8s   | 2.1s    | -56%         |
+| **Query-Performance**   | 850ms  | 210ms   | -75%         |
+| **Bundle-Size**         | 2.1MB  | 420KB   | -80%         |
+| **Lighthouse-Score**    | 78     | 94      | +16          |
+| **MTTR (Errors)**       | 4h     | 1h      | -75%         |
+| **Perceived Speed**     | 6/10   | 9/10    | +50%         |
 
 **Kosten-Impact:**
+
 - Server-Kosten: -40% (Rate-Limiting, Caching)
 - Development-Zeit: -30% (weniger Bugs)
 - Support-Anfragen: -50% (bessere UX)
@@ -1124,6 +1156,6 @@ Geschätzter Aufwand: 50 Stunden
 
 ---
 
-*Version: V18.3*
-*Datum: 18.01.2025*
-*Status: 🟡 PLANUNG - Bereit zur Umsetzung*
+_Version: V18.3_
+_Datum: 18.01.2025_
+_Status: 🟡 PLANUNG - Bereit zur Umsetzung_

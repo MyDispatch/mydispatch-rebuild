@@ -11,6 +11,7 @@
 **KRITISCH**: Es sind **KEINE Leerräume** in Dashboards erlaubt!
 
 ### Regel-Definition
+
 - Alle Spalten in einem Grid müssen **exakt gleich hoch** enden
 - Linke und rechte Spalten MÜSSEN **bündig abschließen**
 - **KEINE weißen Löcher** zwischen oder unter Cards
@@ -18,18 +19,22 @@
 - **JEDE SEITE** muss vollständig abschließen - keine Ausnahmen!
 
 ### Häufige Verstöße (VERBOTEN!)
+
 ❌ Linke Spalte endet früher als rechte Spalte
 ❌ Weiße Flächen unter Cards
 ❌ Doppelte/redundante Widgets (z.B. "Ressourcen-Status" zweimal)
 ❌ Hover-Icons ohne Farbe (Icons MÜSSEN bei Hover heller werden: `group-hover:text-accent`)
 
 ### Widget-Anordnung (LOGISCH & NUTZERFREUNDLICH)
+
 **WICHTIG**: Widgets müssen logisch gruppiert und priorisiert sein!
+
 - **Linke Spalte** (Operativ): Aktionen → Überblick → Follow-up
 - **Rechte Spalte** (Monitoring): Kritisch → Details → Historie
 - **Siehe auch**: `docs/DASHBOARD_NAMING_CONVENTIONS.md`
 
 ### Umsetzung
+
 ```tsx
 // ✅ RICHTIG: Linke Spalte füllen bis bündig mit rechter Spalte
 <div className="grid grid-cols-12 gap-3">
@@ -42,7 +47,7 @@
     </div>
     <Card /> {/* Schnellzugriff */}
   </div>
-  
+
   <div className="col-span-4 space-y-3">
     <Card /> {/* Payment Methods */}
     <Card /> {/* Urgent Actions */}
@@ -65,38 +70,47 @@
 ## 📐 CARD-STANDARDS
 
 ### 1. Card-Struktur (ZWINGEND)
+
 ```tsx
 // Standard Card-Template
-<Card className="border shadow-sm">          {/* KEIN h-full! */}
-  <CardHeader className="pb-2 pt-3">        {/* Kompakt */}
+<Card className="border shadow-sm">
+  {" "}
+  {/* KEIN h-full! */}
+  <CardHeader className="pb-2 pt-3">
+    {" "}
+    {/* Kompakt */}
     <CardTitle className="text-sm font-semibold">Titel</CardTitle>
   </CardHeader>
-  <CardContent className="pb-3">            {/* Einheitlich */}
+  <CardContent className="pb-3">
+    {" "}
+    {/* Einheitlich */}
     {/* Content */}
   </CardContent>
 </Card>
 ```
 
 ### 2. Padding-Standards
+
 ```tsx
 // Header
-pt-3    // 12px oben
-pb-2    // 8px unten
+pt - 3; // 12px oben
+pb - 2; // 8px unten
 
 // Content
-pb-3    // 12px unten
-p-2     // 8px für Items
+pb - 3; // 12px unten
+p - 2; // 8px für Items
 ```
 
 ### 3. Spacing-Standards
+
 ```tsx
 // Container
-space-y-3    // 12px zwischen Cards
-gap-3        // 12px Grid-Gap
+space - y - 3; // 12px zwischen Cards
+gap - 3; // 12px Grid-Gap
 
 // Elemente
-space-y-2    // 8px zwischen kleinen Items
-gap-2        // 8px kleiner Grid-Gap
+space - y - 2; // 8px zwischen kleinen Items
+gap - 2; // 8px kleiner Grid-Gap
 ```
 
 ---
@@ -104,6 +118,7 @@ gap-2        // 8px kleiner Grid-Gap
 ## 🎨 TYPOGRAFIE-STANDARDS
 
 ### Font-Größen
+
 ```tsx
 // Headlines
 text-sm      // 14px - Card-Titel
@@ -118,6 +133,7 @@ text-[8px]   // 8px - Badges (minimal)
 ```
 
 ### Icon-Größen
+
 ```tsx
 h-4 w-4      // 16px - Standard Card-Header
 h-3.5 w-3.5  // 14px - Timeline-Icons
@@ -130,6 +146,7 @@ h-2.5 w-2.5  // 10px - Mini-Icons (Trend)
 ## 📊 CHART-STANDARDS
 
 ### Höhen-Definitionen
+
 ```tsx
 // Area/Line Charts
 h-[140px]    // Kompakt für Revenue-Chart
@@ -142,12 +159,11 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ```
 
 ### Chart-Padding
+
 ```tsx
 <CardContent className="pt-1 pb-3">
   <div className="w-full h-[140px]">
-    <ResponsiveContainer>
-      {/* Chart */}
-    </ResponsiveContainer>
+    <ResponsiveContainer>{/* Chart */}</ResponsiveContainer>
   </div>
 </CardContent>
 ```
@@ -157,6 +173,7 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ## 🔴 GRID-LAYOUT-SYSTEM
 
 ### Dashboard-Grid (12 Spalten)
+
 ```tsx
 // Desktop: 8/4 Split
 <div className="grid grid-cols-12 gap-3">
@@ -169,6 +186,7 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ```
 
 ### Sub-Grids
+
 ```tsx
 // 2-Spalten (hälftig)
 <div className="grid grid-cols-2 gap-3">
@@ -185,24 +203,27 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ## 🎯 WIDGET-TYPEN
 
 ### 1. KPI-Cards (Top-Row)
+
 ```tsx
 <MetricCard
   title="Aufträge heute"
   value={totalBookings}
   icon={FileText}
-  trend={{ value: 12, label: 'gestern' }}
+  trend={{ value: 12, label: "gestern" }}
   subtitle="X ausstehend"
   miniChart={[...data]}
 />
 ```
 
 ### 2. Chart-Cards
+
 ```tsx
 <RevenueChart data={[...]} total={1234} />
 <PaymentMethodsChart data={[...]} />
 ```
 
 ### 3. Status-Widgets
+
 ```tsx
 <UrgentActionsWidget {...props} />
 <ResourceStatusWidget {...props} />
@@ -210,10 +231,11 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ```
 
 ### 4. Timeline-Widget
+
 ```tsx
-<ActivityTimeline 
-  activities={recentActivities} 
-  maxItems={5}  // Mit Pagination!
+<ActivityTimeline
+  activities={recentActivities}
+  maxItems={5} // Mit Pagination!
 />
 ```
 
@@ -222,6 +244,7 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ## ✅ QUALITÄTS-CHECKLISTE
 
 ### Vor jedem Dashboard-Deployment:
+
 - [ ] Linke Spalte endet bündig mit rechter Spalte
 - [ ] Keine leeren Flächen sichtbar
 - [ ] Alle Cards verwenden Standard-Paddings (`pt-3`, `pb-3`)
@@ -237,6 +260,7 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ## 🔧 HÄUFIGE FEHLER & LÖSUNGEN
 
 ### Problem: Weißfläche unter linker Spalte
+
 ```tsx
 // ❌ FALSCH
 <div className="col-span-8 space-y-4">
@@ -255,6 +279,7 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ```
 
 ### Problem: Zu viel Padding in Cards
+
 ```tsx
 // ❌ FALSCH
 <CardContent className="p-6">  // Zu viel Platz!
@@ -264,6 +289,7 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ```
 
 ### Problem: Charts zu hoch
+
 ```tsx
 // ❌ FALSCH
 <div className="h-[220px]">  // Zu groß!
@@ -277,6 +303,7 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ## 📱 RESPONSIVE DESIGN
 
 ### Breakpoints
+
 ```tsx
 // Mobile: < 768px
 <div className="grid grid-cols-1 gap-3">
@@ -289,6 +316,7 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ```
 
 ### Mobile-Optimierungen
+
 - Reduzierte Paddings: `p-3` → `p-2`
 - Kleinere Font-Größen
 - Single-Column-Layout
@@ -299,6 +327,7 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ## 🎨 CI-KONFORMITÄT
 
 ### Farben (HSL!)
+
 ```tsx
 --primary: 40 31% 88%        // #EADEBD
 --foreground: 225 31% 28%    // #323D5E
@@ -309,6 +338,7 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ```
 
 ### Icon-Farben (ZWINGEND!)
+
 ```tsx
 // ✅ RICHTIG
 <Icon className="h-4 w-4 text-foreground" />
@@ -322,6 +352,7 @@ h-[32px]     // Trend-Lines in KPI-Cards
 ## 🚀 WIEDERVERWENDBARKEIT
 
 Alle Dashboard-Seiten MÜSSEN diese Standards einhalten:
+
 - `/dashboard` (DashboardV18_3)
 - `/statistiken`
 - Zukünftige Dashboard-Views

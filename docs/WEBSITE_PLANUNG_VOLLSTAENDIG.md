@@ -1,4 +1,5 @@
 # 🎯 VOLLSTÄNDIGE WEBSITE-PLANUNG FÜR MYDISPATCH
+
 ## MIT COMPONENT LIBRARY, PERFORMANCE, TESTING, SECURITY & EMAIL STRATEGIE
 
 ## AUFGABE: DETAILLIERTE PLANUNG (KEINE UMSETZUNG!)
@@ -15,28 +16,28 @@ ALLE Components, Elemente und Designs MÜSSEN dem Design System V28.1 entspreche
 ### Design System V28.1 Integration
 
 **Farbschema (V28.1 Tokens):**
-/* Primary Colors */
+/_ Primary Colors _/
 --primary: #3B82F6;
 --primary-dark: #2563EB;
 --primary-light: #60A5FA;
 --primary-50: #EFF6FF;
 
-/* Secondary Colors */
+/_ Secondary Colors _/
 --secondary: #10B981;
 --secondary-dark: #059669;
 --secondary-light: #34D399;
 
-/* Accent Colors */
+/_ Accent Colors _/
 --accent: #F59E0B;
 --accent-dark: #D97706;
 
-/* Semantic Colors */
+/_ Semantic Colors _/
 --success: #10B981;
 --warning: #F59E0B;
 --danger: #EF4444;
 --info: #3B82F6;
 
-/* Neutrals */
+/_ Neutrals _/
 --gray-50: #F9FAFB;
 --gray-100: #F3F4F6;
 --gray-200: #E5E7EB;
@@ -48,7 +49,7 @@ ALLE Components, Elemente und Designs MÜSSEN dem Design System V28.1 entspreche
 --gray-800: #1F2937;
 --gray-900: #111827;
 
-/* Backgrounds */
+/_ Backgrounds _/
 --bg-primary: #FFFFFF;
 --bg-secondary: #F9FAFB;
 --bg-tertiary: #F3F4F6;
@@ -56,11 +57,11 @@ ALLE Components, Elemente und Designs MÜSSEN dem Design System V28.1 entspreche
 text
 
 **Typography System (V28.1):**
-/* Font Family */
+/_ Font Family _/
 --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-/* Font Sizes /
+/_ Font Sizes /
 --text-xs: 0.75rem; / 12px /
 --text-sm: 0.875rem; / 14px /
 --text-base: 1rem; / 16px /
@@ -70,21 +71,21 @@ text
 --text-3xl: 1.875rem; / 30px /
 --text-4xl: 2.25rem; / 36px /
 --text-5xl: 3rem; / 48px /
---text-6xl: 3.75rem; / 60px */
+--text-6xl: 3.75rem; / 60px _/
 
-/* Font Weights */
+/_ Font Weights _/
 --font-normal: 400;
 --font-medium: 500;
 --font-semibold: 600;
 --font-bold: 700;
 --font-extrabold: 800;
 
-/* Line Heights */
+/_ Line Heights _/
 --leading-tight: 1.25;
 --leading-normal: 1.5;
 --leading-relaxed: 1.75;
 
-/* Heading Styles */
+/_ Heading Styles _/
 H1: text-5xl (48px), font-extrabold, leading-tight, tracking-tight
 H2: text-4xl (36px), font-bold, leading-tight
 H3: text-3xl (30px), font-semibold, leading-normal
@@ -96,7 +97,7 @@ text
 
 **Spacing System (V28.1 - 4px Grid):**
 --spacing-0: 0;
---spacing-1: 0.25rem; /* 4px /
+--spacing-1: 0.25rem; /_ 4px /
 --spacing-2: 0.5rem; / 8px /
 --spacing-3: 0.75rem; / 12px /
 --spacing-4: 1rem; / 16px /
@@ -108,17 +109,17 @@ text
 --spacing-16: 4rem; / 64px /
 --spacing-20: 5rem; / 80px /
 --spacing-24: 6rem; / 96px /
---spacing-32: 8rem; / 128px */
+--spacing-32: 8rem; / 128px _/
 
 text
 
 **Border Radius (V28.1):**
 --radius-none: 0;
---radius-sm: 0.25rem; /* 4px /
+--radius-sm: 0.25rem; /_ 4px /
 --radius-md: 0.5rem; / 8px /
 --radius-lg: 0.75rem; / 12px /
 --radius-xl: 1rem; / 16px /
---radius-2xl: 1.5rem; / 24px */
+--radius-2xl: 1.5rem; / 24px _/
 --radius-full: 9999px;
 
 text
@@ -154,12 +155,12 @@ text
 --z-20: 20;
 --z-30: 30;
 --z-40: 40;
---z-50: 50; /* Modals, Overlays /
+--z-50: 50; /_ Modals, Overlays /
 --z-60: 60; / Tooltips /
 --z-70: 70; / Dropdowns /
 --z-80: 80; / Navigation /
 --z-90: 90; / Notifications /
---z-100: 100; / Critical Overlays */
+--z-100: 100; / Critical Overlays _/
 
 text
 
@@ -271,13 +272,13 @@ text
 
 **Tree Shaking Strategy:**
 // ❌ FALSCH - Importiert alles
-import _ from 'lodash'
+import \_ from 'lodash'
 
 // ✅ RICHTIG - Tree-shakeable
 import { debounce } from 'lodash-es'
 
 // ❌ FALSCH - Importiert alle Icons
-import * as Icons from 'lucide-react'
+import \* as Icons from 'lucide-react'
 
 // ✅ RICHTIG - Nur benötigte Icons
 import { ArrowRight, Check, X } from 'lucide-react'
@@ -296,6 +297,7 @@ Formate:
 
 Responsive Images:
 <picture>
+
 <source srcset="/hero.avif" type="image/avif">
 <source srcset="/hero.webp" type="image/webp">
 <img src="/hero.jpg" alt="..." loading="lazy" />
@@ -347,15 +349,15 @@ text
 ### Font Loading Optimization
 
 **Font Strategy:**
-/* Font Display Strategy /
+/_ Font Display Strategy /
 @font-face {
 font-family: 'Inter';
 src: url('/fonts/inter.woff2') format('woff2');
 font-display: swap; / FOIT vermeiden /
-font-weight: 400 800; / Variable Font */
+font-weight: 400 800; / Variable Font _/
 }
 
-/* Preload Critical Fonts */
+/_ Preload Critical Fonts _/
 
 <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 /* System Font Fallback */
@@ -367,19 +369,19 @@ text
 
 **HTTP Caching Headers:**
 Static Assets (1 year)
-/assets/**/*.{js,css,woff2}
+/assets/\*_/_.{js,css,woff2}
 Cache-Control: public, max-age=31536000, immutable
 
 Images (1 month)
-/images/**/*.{jpg,png,webp,avif}
+/images/\*_/_.{jpg,png,webp,avif}
 Cache-Control: public, max-age=2592000
 
 HTML (no cache - revalidate)
-/*.html
+/\*.html
 Cache-Control: no-cache, must-revalidate
 
 API Responses
-/api/**
+/api/\*\*
 Cache-Control: private, max-age=300
 
 text
@@ -405,7 +407,9 @@ text
 ### Third-Party Script Optimization
 
 **Third-Party Loading:**
+
 <!-- Analytics: Async & Defer --> <script async src="https://plausible.io/js/script.js"></script> <!-- Non-Critical Scripts: Defer --> <script defer src="/non-critical.js"></script> <!-- Lazy Load: Cookie Banner nur bei Bedarf --> <script> // Load cookie banner only wenn kein Consent if (!hasCookieConsent()) { loadScript('/cookie-banner.js') } </script>
+
 text
 
 ### Performance Monitoring
@@ -461,12 +465,12 @@ text
 ### Testing Pyramide
 
 text
-     /\
-    /E2E\         <- Wenige, kritische Flows
-   /------\
-  /Integr.\      <- Medium, Feature-Tests
- /----------\
-/ Unit Tests \   <- Viele, Component-Tests
+/\
+ /E2E\ <- Wenige, kritische Flows
+/------\
+ /Integr.\ <- Medium, Feature-Tests
+/----------\
+/ Unit Tests \ <- Viele, Component-Tests
 /--------------\
 
 text
@@ -581,14 +585,14 @@ await userEvent.click(screen.getByRole('button', { name: 'Demo anfragen' }))
 
 // Assert Success Message
 await waitFor(() => {
-  expect(screen.getByText(/Vielen Dank/i)).toBeInTheDocument()
+expect(screen.getByText(/Vielen Dank/i)).toBeInTheDocument()
 })
 
 // Assert Email Sent (Mock)
 expect(mockEmailService.sendDemoRequest).toHaveBeenCalledWith({
-  company: 'Test GmbH',
-  email: 'test@example.com',
-  fleetSize: '6-25'
+company: 'Test GmbH',
+email: 'test@example.com',
+fleetSize: '6-25'
 })
 })
 
@@ -843,6 +847,7 @@ expect(results).toHaveNoViolations()
 it('Modal has focus trap', async () => {
 const { container } = render(
 <Modal isOpen title="Test Modal">
+
 <p>Content</p>
 </Modal>
 )
@@ -897,6 +902,7 @@ jobs:
 unit-tests:
 runs-on: ubuntu-latest
 steps:
+
 - uses: actions/checkout@v3
 - uses: actions/setup-node@v3
 - run: npm ci
@@ -906,6 +912,7 @@ steps:
 e2e-tests:
 runs-on: ubuntu-latest
 steps:
+
 - uses: actions/checkout@v3
 - uses: actions/setup-node@v3
 - run: npm ci
@@ -915,15 +922,17 @@ steps:
 visual-regression:
 runs-on: ubuntu-latest
 steps:
+
 - uses: actions/checkout@v3
 - uses: chromaticqa/action@v1
-with:
-token: ${{ secrets.GITHUB_TOKEN }}
-projectToken: ${{ secrets.CHROMATIC_TOKEN }}
+  with:
+  token: ${{ secrets.GITHUB_TOKEN }}
+  projectToken: ${{ secrets.CHROMATIC_TOKEN }}
 
 a11y-tests:
 runs-on: ubuntu-latest
 steps:
+
 - uses: actions/checkout@v3
 - run: npm ci
 - run: npm run test:a11y
@@ -1062,7 +1071,7 @@ text
 // lib/rate-limit.ts
 import { Redis } from '@upstash/redis'
 
-const redis = new Redis({ /* config */ })
+const redis = new Redis({ /_ config _/ })
 
 export async function rateLimit(
 identifier: string, // IP oder User ID
@@ -1208,12 +1217,13 @@ jobs:
 scan:
 runs-on: ubuntu-latest
 steps:
+
 - uses: actions/checkout@v3
 - uses: trufflesecurity/trufflehog@v3
-with:
-path: ./
-base: main
-head: HEAD
+  with:
+  path: ./
+  base: main
+  head: HEAD
 
 text
 
@@ -1271,6 +1281,7 @@ userName,
 scheduledDate
 }) {
 return (
+
 <Html>
 <Head />
 <Preview>Ihre Demo-Anfrage wurde bestätigt</Preview>
@@ -1282,24 +1293,24 @@ return (
 </Section>
 
 text
-      {/* Content */}
-      <Section style={content}>
-        <Text style={heading}>Demo-Anfrage bestätigt</Text>
-        
+{/_ Content _/}
+<Section style={content}>
+<Text style={heading}>Demo-Anfrage bestätigt</Text>
+
         <Text style={text}>
           Hallo {userName},
         </Text>
-        
+
         <Text style={text}>
-          vielen Dank für Ihr Interesse an MyDispatch! Wir haben Ihre Demo-Anfrage 
+          vielen Dank für Ihr Interesse an MyDispatch! Wir haben Ihre Demo-Anfrage
           für <strong>{companyName}</strong> erhalten.
         </Text>
-        
+
         <Text style={text}>
-          Unser Team wird sich innerhalb von 24 Stunden bei Ihnen melden, 
+          Unser Team wird sich innerhalb von 24 Stunden bei Ihnen melden,
           um einen passenden Termin für Ihre persönliche Demo zu vereinbaren.
         </Text>
-        
+
         {scheduledDate && (
           <Section style={box}>
             <Text style={boxText}>
@@ -1307,16 +1318,16 @@ text
             </Text>
           </Section>
         )}
-        
+
         <Text style={text}>
           In der Zwischenzeit können Sie gerne unsere Ressourcen durchstöbern:
         </Text>
-        
+
         <Button style={button} href="https://mydispatch.de/features">
           Features entdecken
         </Button>
       </Section>
-      
+
       {/* Footer */}
       <Section style={footer}>
         <Text style={footerText}>
@@ -1324,7 +1335,7 @@ text
           Musterstraße 123<br />
           12345 Musterstadt
         </Text>
-        
+
         <Text style={footerText}>
           <a href="https://mydispatch.de/legal/datenschutz" style={link}>Datenschutz</a>
           {' | '}
@@ -1332,6 +1343,7 @@ text
         </Text>
       </Section>
     </Container>
+
   </Body>
 </Html>
 )
@@ -1465,10 +1477,7 @@ NEWSLETTER (Regular)
 ├─ CTAs
 └─ Unsubscribe Link
 
-OPTIONAL (Future):
-8. Password Reset (falls User Accounts)
-9. Account Verification
-10. Invoice/Receipt Emails (für Customers)
+OPTIONAL (Future): 8. Password Reset (falls User Accounts) 9. Account Verification 10. Invoice/Receipt Emails (für Customers)
 
 text
 
@@ -1638,7 +1647,9 @@ NICHT nutzen ohne Consent:
 text
 
 **Plausible Setup:**
+
 <!-- In <head> --> <script defer data-domain="mydispatch.de" src="https://plausible.io/js/script.js"></script> <!-- Custom Events --> <script> function trackEvent(eventName, props) { window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) } window.plausible(eventName, { props }) } // Usage trackEvent('Demo Request', { plan: 'Business' }) </script>
+
 text
 
 ### Tracking Events
@@ -1747,7 +1758,7 @@ content: params.get('utm_content')
 
 text
 if (Object.values(utm).some(v => v)) {
-  sessionStorage.setItem('utm', JSON.stringify(utm))
+sessionStorage.setItem('utm', JSON.stringify(utm))
 }
 },
 
@@ -1804,7 +1815,9 @@ text
 ### Favicons & App Icons
 
 **Icon Set (zu erstellen):**
+
 <!-- Favicons --> <link rel="icon" type="image/svg+xml" href="/favicon.svg"> <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"> <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> <!-- Apple Touch Icon --> <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> <!-- Android --> <link rel="manifest" href="/site.webmanifest"> <!-- Safari Pinned Tab --> <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3B82F6"> <!-- Microsoft --> <meta name="msapplication-TileColor" content="#3B82F6"> <meta name="theme-color" content="#ffffff"> ```
+
 Required Icon Sizes:
 
 text
@@ -1834,12 +1847,13 @@ OG IMAGES (zu erstellen):
    └─ Blog Posts: 1200x630px (dynamic)
 
 SPECS:
+
 - Format: JPG (best compatibility)
 - Max File Size: 200kb
 - Safe Area: 1200x600px (manche Plattformen croppen)
 - Text: Readable auch bei small sizes
-Illustrations & Graphics
-Illustration Style Guide:
+  Illustrations & Graphics
+  Illustration Style Guide:
 
 text
 ILLUSTRATION STYLE:
@@ -1852,35 +1866,40 @@ Art Style:
 
 Required Illustrations:
 □ Hero Section Illustration
-  - Taxi/Car with GPS tracking visual
-  - Dashboard UI elements
-  - Isometric city scene
-  
+
+- Taxi/Car with GPS tracking visual
+- Dashboard UI elements
+- Isometric city scene
+
 □ Feature Section Graphics (6x)
-  - GPS Tracking: Map with pins
-  - Dispatch: Car assignment visual
-  - Reports: Charts & graphs
-  - Mobile: Phone with app
-  - Automation: Gears/workflow
-  - Team: People collaborating
-  
+
+- GPS Tracking: Map with pins
+- Dispatch: Car assignment visual
+- Reports: Charts & graphs
+- Mobile: Phone with app
+- Automation: Gears/workflow
+- Team: People collaborating
+
 □ Empty States
-  - No data yet
-  - No results found
-  - No notifications
-  
+
+- No data yet
+- No results found
+- No notifications
+
 □ Error Pages
-  - 404 Not Found (friendly)
-  - 500 Server Error
-  - Offline
+
+- 404 Not Found (friendly)
+- 500 Server Error
+- Offline
 
 SOURCES:
+
 - Custom (Designer beauftragen)
 - unDraw (customizable, kostenlos)
 - Storyset (animated, kostenlos)
 - Illustrations.co (Premium)
-Icon Library
-Icon System:
+  Icon Library
+  Icon System:
 
 text
 ICON LIBRARY:
@@ -1908,13 +1927,14 @@ Standard Sizes:
 └─ xl: 48px
 
 Custom Icons (falls benötigt):
+
 - SVG Format
 - Viewbox: 0 0 24 24
 - Stroke-width: 2
 - Same style as Lucide
-🚨 ERROR PAGES
-404 - Not Found
-404 Page Design:
+  🚨 ERROR PAGES
+  404 - Not Found
+  404 Page Design:
 
 text
 STRUCTURE:
@@ -1927,9 +1947,9 @@ Hero Section:
 Content:
 ├─ Subtext: "Die Seite die Sie suchen wurde nicht gefunden."
 ├─ Mögliche Gründe:
-│   - URL falsch eingegeben
-│   - Seite wurde verschoben
-│   - Seite existiert nicht mehr
+│ - URL falsch eingegeben
+│ - Seite wurde verschoben
+│ - Seite existiert nicht mehr
 └─ Hilfreich sein!
 
 Actions:
@@ -1950,26 +1970,26 @@ Footer: Normal Footer (volle Navigation)
 text
 // pages/404.tsx
 export default function NotFound() {
-  return (
-    <Container className="py-24 text-center">
-      <div className="mb-8">
-        <h1 className="text-9xl font-extrabold text-primary">404</h1>
-        <img 
+return (
+<Container className="py-24 text-center">
+<div className="mb-8">
+<h1 className="text-9xl font-extrabold text-primary">404</h1>
+<img 
           src="/illustrations/404-not-found.svg" 
           alt="Page not found" 
           className="mx-auto w-96 my-8"
         />
-      </div>
-      
+</div>
+
       <h2 className="text-3xl font-bold mb-4">
         Diese Seite existiert nicht
       </h2>
-      
+
       <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-        Die Seite die Sie suchen wurde nicht gefunden. 
+        Die Seite die Sie suchen wurde nicht gefunden.
         Möglicherweise wurde die URL falsch eingegeben oder die Seite wurde verschoben.
       </p>
-      
+
       <div className="flex gap-4 justify-center mb-16">
         <Button variant="primary" href="/">
           Zur Startseite
@@ -1978,7 +1998,7 @@ export default function NotFound() {
           Alle Features
         </Button>
       </div>
-      
+
       <div>
         <h3 className="text-xl font-semibold mb-6">Beliebte Seiten</h3>
         <Grid cols={4} gap="lg">
@@ -1990,7 +2010,8 @@ export default function NotFound() {
         </Grid>
       </div>
     </Container>
-  )
+
+)
 }
 500 - Server Error
 500 Page Design:
@@ -2033,100 +2054,100 @@ CTA:
 Organization Schema
 text
 {
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "MyDispatch",
-  "applicationCategory": "BusinessApplication",
-  "applicationSubCategory": "Fleet Management Software",
-  "operatingSystem": "Web Browser, iOS, Android",
-  "description": "MyDispatch ist die führende Dispatch-Software für Taxi-, Mietwagen- und Limousinenunternehmen mit KI-gestützter Disposition und GPS-Echtzeit-Tracking.",
-  "url": "https://mydispatch.de",
-  "offers": {
-    "@type": "AggregateOffer",
-    "priceCurrency": "EUR",
-    "lowPrice": "49",
-    "highPrice": "499",
-    "offerCount": "4"
-  },
-  "provider": {
-    "@type": "Organization",
-    "name": "MyDispatch GmbH",
-    "url": "https://mydispatch.de",
-    "logo": "https://mydispatch.de/logo.png",
-    "sameAs": [
-      "https://www.linkedin.com/company/mydispatch"
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+49-xxx-xxxxxx",
-      "contactType": "Customer Service",
-      "areaServed": "DE",
-      "availableLanguage": "German"
-    }
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "reviewCount": "127"
-  },
-  "featureList": [
-    "GPS-Echtzeit-Tracking",
-    "KI-gestützte Disposition",
-    "Automatische Rechnungsstellung",
-    "Fahrer-Management",
-    "Fahrzeugverwaltung",
-    "Live-Traffic Integration"
-  ]
+"@context": "https://schema.org",
+"@type": "SoftwareApplication",
+"name": "MyDispatch",
+"applicationCategory": "BusinessApplication",
+"applicationSubCategory": "Fleet Management Software",
+"operatingSystem": "Web Browser, iOS, Android",
+"description": "MyDispatch ist die führende Dispatch-Software für Taxi-, Mietwagen- und Limousinenunternehmen mit KI-gestützter Disposition und GPS-Echtzeit-Tracking.",
+"url": "https://mydispatch.de",
+"offers": {
+"@type": "AggregateOffer",
+"priceCurrency": "EUR",
+"lowPrice": "49",
+"highPrice": "499",
+"offerCount": "4"
+},
+"provider": {
+"@type": "Organization",
+"name": "MyDispatch GmbH",
+"url": "https://mydispatch.de",
+"logo": "https://mydispatch.de/logo.png",
+"sameAs": [
+"https://www.linkedin.com/company/mydispatch"
+],
+"contactPoint": {
+"@type": "ContactPoint",
+"telephone": "+49-xxx-xxxxxx",
+"contactType": "Customer Service",
+"areaServed": "DE",
+"availableLanguage": "German"
+}
+},
+"aggregateRating": {
+"@type": "AggregateRating",
+"ratingValue": "4.8",
+"reviewCount": "127"
+},
+"featureList": [
+"GPS-Echtzeit-Tracking",
+"KI-gestützte Disposition",
+"Automatische Rechnungsstellung",
+"Fahrer-Management",
+"Fahrzeugverwaltung",
+"Live-Traffic Integration"
+]
 }
 FAQ Schema
 text
 {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Wie wird MyDispatch abgerechnet?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "MyDispatch wird monatlich abgerechnet. Sie können jederzeit kündigen ohne Vertragsbindung."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Ist MyDispatch DSGVO-konform?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Ja, MyDispatch ist vollständig DSGVO-konform. Alle Daten werden in EU-Rechenzentren gespeichert und entsprechen den höchsten Datenschutzstandards."
-      }
-    }
-  ]
+"@context": "https://schema.org",
+"@type": "FAQPage",
+"mainEntity": [
+{
+"@type": "Question",
+"name": "Wie wird MyDispatch abgerechnet?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "MyDispatch wird monatlich abgerechnet. Sie können jederzeit kündigen ohne Vertragsbindung."
+}
+},
+{
+"@type": "Question",
+"name": "Ist MyDispatch DSGVO-konform?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Ja, MyDispatch ist vollständig DSGVO-konform. Alle Daten werden in EU-Rechenzentren gespeichert und entsprechen den höchsten Datenschutzstandards."
+}
+}
+]
 }
 BreadcrumbList Schema
 text
 {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://mydispatch.de"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Features",
-      "item": "https://mydispatch.de/features"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "GPS-Tracking",
-      "item": "https://mydispatch.de/features/gps-tracking"
-    }
-  ]
+"@context": "https://schema.org",
+"@type": "BreadcrumbList",
+"itemListElement": [
+{
+"@type": "ListItem",
+"position": 1,
+"name": "Home",
+"item": "https://mydispatch.de"
+},
+{
+"@type": "ListItem",
+"position": 2,
+"name": "Features",
+"item": "https://mydispatch.de/features"
+},
+{
+"@type": "ListItem",
+"position": 3,
+"name": "GPS-Tracking",
+"item": "https://mydispatch.de/features/gps-tracking"
+}
+]
 }
 🚀 DEPLOYMENT & CI/CD
 Deployment Strategy
@@ -2154,83 +2175,62 @@ DEPLOYMENT ENVIRONMENTS:
    ├─ Database: Production DB
    ├─ Rollback plan ready
    └─ Monitoring active
-CI/CD Pipeline
-GitHub Actions Workflow:
+   CI/CD Pipeline
+   GitHub Actions Workflow:
 
 text
+
 # .github/workflows/deploy.yml
+
 name: Deploy
 
 on:
-  push:
-    branches: [main, staging, develop]
-  pull_request:
-    branches: [main]
+push:
+branches: [main, staging, develop]
+pull_request:
+branches: [main]
 
 jobs:
-  lint-and-type-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run type-check
+lint-and-type-check:
+runs-on: ubuntu-latest
+steps: - uses: actions/checkout@v3 - uses: actions/setup-node@v3 - run: npm ci - run: npm run lint - run: npm run type-check
 
-  test:
-    needs: lint-and-type-check
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - run: npm ci
-      - run: npm run test:coverage
-      - uses: codecov/codecov-action@v3
+test:
+needs: lint-and-type-check
+runs-on: ubuntu-latest
+steps: - uses: actions/checkout@v3 - uses: actions/setup-node@v3 - run: npm ci - run: npm run test:coverage - uses: codecov/codecov-action@v3
 
-  build:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/upload-artifact@v3
-        with:
-          name: build
-          path: dist/
+build:
+needs: test
+runs-on: ubuntu-latest
+steps: - uses: actions/checkout@v3 - uses: actions/setup-node@v3 - run: npm ci - run: npm run build - uses: actions/upload-artifact@v3
+with:
+name: build
+path: dist/
 
-  lighthouse:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: treosh/lighthouse-ci-action@v9
-        with:
-          urls: |
-            https://staging.mydispatch.de
-            https://staging.mydispatch.de/pricing
-          uploadArtifacts: true
-          temporaryPublicStorage: true
+lighthouse:
+needs: build
+runs-on: ubuntu-latest
+steps: - uses: actions/checkout@v3 - uses: treosh/lighthouse-ci-action@v9
+with:
+urls: |
+https://staging.mydispatch.de
+https://staging.mydispatch.de/pricing
+uploadArtifacts: true
+temporaryPublicStorage: true
 
-  deploy-staging:
-    if: github.ref == 'refs/heads/staging'
-    needs: [build, lighthouse]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: npm ci
-      - run: npm run deploy:staging
+deploy-staging:
+if: github.ref == 'refs/heads/staging'
+needs: [build, lighthouse]
+runs-on: ubuntu-latest
+steps: - uses: actions/checkout@v3 - run: npm ci - run: npm run deploy:staging
 
-  deploy-production:
-    if: github.ref == 'refs/heads/main'
-    needs: [build, lighthouse]
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-      - uses: actions/checkout@v3
-      - run: npm ci
-      - run: npm run deploy:production
+deploy-production:
+if: github.ref == 'refs/heads/main'
+needs: [build, lighthouse]
+runs-on: ubuntu-latest
+environment: production
+steps: - uses: actions/checkout@v3 - run: npm ci - run: npm run deploy:production
 Deployment Checklist
 Pre-Deployment Checklist (Production):
 
@@ -2256,32 +2256,32 @@ Sentry Integration:
 
 text
 // lib/sentry.ts
-import * as Sentry from '@sentry/nextjs'
+import \* as Sentry from '@sentry/nextjs'
 
 Sentry.init({
-  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
-  environment: process.env.NODE_ENV,
-  
-  // Performance Monitoring
-  tracesSampleRate: 0.1, // 10% of transactions
-  
-  // Error Filtering
-  beforeSend(event, hint) {
-    // Ignore known errors
-    if (event.exception?.values?.?.value?.includes('ResizeObserver')) {
-      return null
-    }
-    return event
-  },
-  
-  // Privacy
-  beforeBreadcrumb(breadcrumb) {
-    // Remove PII from breadcrumbs
-    if (breadcrumb.category === 'console') {
-      return null
-    }
-    return breadcrumb
-  }
+dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+environment: process.env.NODE_ENV,
+
+// Performance Monitoring
+tracesSampleRate: 0.1, // 10% of transactions
+
+// Error Filtering
+beforeSend(event, hint) {
+// Ignore known errors
+if (event.exception?.values?.?.value?.includes('ResizeObserver')) {
+return null
+}
+return event
+},
+
+// Privacy
+beforeBreadcrumb(breadcrumb) {
+// Remove PII from breadcrumbs
+if (breadcrumb.category === 'console') {
+return null
+}
+return breadcrumb
+}
 })
 Uptime Monitoring
 Uptime Monitoring Setup:
@@ -2310,89 +2310,94 @@ text
 
 // api/health/route.ts
 export async function GET() {
-  const start = Date.now()
-  
-  // Health Checks
-  const dbHealth = await checkDatabaseHealth()
-  const cacheHealth = await checkCacheHealth()
-  
-  const duration = Date.now() - start
-  
-  return Response.json({
-    status: 'healthy',
-    checks: {
-      database: dbHealth,
-      cache: cacheHealth
-    },
-    responseTime: duration
-  })
+const start = Date.now()
+
+// Health Checks
+const dbHealth = await checkDatabaseHealth()
+const cacheHealth = await checkCacheHealth()
+
+const duration = Date.now() - start
+
+return Response.json({
+status: 'healthy',
+checks: {
+database: dbHealth,
+cache: cacheHealth
+},
+responseTime: duration
+})
 }
 📦 DELIVERABLE - VOLLSTÄNDIG
 Erstelle einen umfassenden Planungs-Report mit:
 
 1. Component Library Planung
-text
-[Wie vorher definiert]
+   text
+   [Wie vorher definiert]
+
 - Component Inventory
 - Specifications
 - Design Tokens
 - Struktur
 - Implementierungs-Reihenfolge
+
 2. Website Struktur
-text
-[Wie vorher definiert]
+   text
+   [Wie vorher definiert]
+
 - Site Map
 - Navigation
 - URL Struktur
 - Internal Linking
+
 3. Page-by-Page Planning
-text
-[Wie vorher definiert]
+   text
+   [Wie vorher definiert]
+
 - Alle Seiten detailliert
 - Component Usage
 - Content Outline
 - SEO
+
 4. Performance Strategie ✨ NEU
-text
-4.1 Performance Budgets
-4.2 Code Splitting Strategy
-4.3 Bundle Optimization Plan
-4.4 Image Optimization Strategy
-4.5 Caching Strategy
-4.6 Critical CSS Plan
-4.7 Font Loading Strategy
-4.8 Third-Party Script Strategy
-4.9 Performance Monitoring Plan
+   text
+   4.1 Performance Budgets
+   4.2 Code Splitting Strategy
+   4.3 Bundle Optimization Plan
+   4.4 Image Optimization Strategy
+   4.5 Caching Strategy
+   4.6 Critical CSS Plan
+   4.7 Font Loading Strategy
+   4.8 Third-Party Script Strategy
+   4.9 Performance Monitoring Plan
 5. Testing Strategie ✨ NEU
-text
-5.1 Unit Testing Plan
-    ├─ Component Test Coverage
-    ├─ Test Templates
-    └─ Coverage Targets
+   text
+   5.1 Unit Testing Plan
+   ├─ Component Test Coverage
+   ├─ Test Templates
+   └─ Coverage Targets
 
 5.2 Integration Testing Plan
-    ├─ User Flow Tests
-    ├─ Form Tests
-    └─ Navigation Tests
+├─ User Flow Tests
+├─ Form Tests
+└─ Navigation Tests
 
 5.3 E2E Testing Plan
-    ├─ Critical Paths
-    ├─ Playwright Setup
-    └─ Test Scenarios
+├─ Critical Paths
+├─ Playwright Setup
+└─ Test Scenarios
 
 5.4 Visual Regression Testing
-    ├─ Component Screenshots
-    ├─ Page Screenshots
-    └─ Responsive Tests
+├─ Component Screenshots
+├─ Page Screenshots
+└─ Responsive Tests
 
 5.5 Accessibility Testing
-    ├─ Automated (axe-core)
-    ├─ Manual Checklist
-    └─ WCAG 2.1 AA Compliance
+├─ Automated (axe-core)
+├─ Manual Checklist
+└─ WCAG 2.1 AA Compliance
 
 5.6 CI/CD Integration
-    └─ GitHub Actions Workflows
-6. Security Strategie ✨ NEU
+└─ GitHub Actions Workflows 6. Security Strategie ✨ NEU
 text
 6.1 Security Headers Configuration
 6.2 Input Validation Strategy
@@ -2400,82 +2405,78 @@ text
 6.4 HTTPS & TLS Setup
 6.5 Dependency Security
 6.6 Secrets Management
-6.7 Security Monitoring
-7. Email System ✨ NEU
+6.7 Security Monitoring 7. Email System ✨ NEU
 text
 7.1 Email Provider Selection
 7.2 Email Templates
-    ├─ Demo Request Confirmation
-    ├─ Contact Form Confirmation
-    ├─ Newsletter Double Opt-in
-    ├─ Newsletter Welcome
-    └─ Team Notifications
+├─ Demo Request Confirmation
+├─ Contact Form Confirmation
+├─ Newsletter Double Opt-in
+├─ Newsletter Welcome
+└─ Team Notifications
 
 7.3 Email Sending Logic
 7.4 DSGVO Compliance (Emails)
-7.5 Unsubscribe Implementation
-8. Analytics & Tracking ✨ NEU
+7.5 Unsubscribe Implementation 8. Analytics & Tracking ✨ NEU
 text
 8.1 Analytics Provider (Plausible)
 8.2 Event Tracking Strategy
 8.3 Conversion Tracking
 8.4 Privacy-Compliant Tracking
-8.5 UTM Parameter Handling
-9. Brand Assets ✨ NEU
+8.5 UTM Parameter Handling 9. Brand Assets ✨ NEU
 text
 9.1 Logo Variants Specification
 9.2 Favicon & App Icon Sets
 9.3 Social Media Preview Images
 9.4 Illustration Style Guide
-9.5 Icon Library (Lucide React)
-10. Error Pages ✨ NEU
+9.5 Icon Library (Lucide React) 10. Error Pages ✨ NEU
 text
 10.1 404 Page Design & Content
 10.2 500 Page Design & Content
 10.3 403 Page (optional)
-10.4 Offline Page (PWA)
-11. Structured Data ✨ NEU
+10.4 Offline Page (PWA) 11. Structured Data ✨ NEU
 text
 11.1 Organization Schema
 11.2 Software Application Schema
 11.3 FAQ Schema
 11.4 BreadcrumbList Schema
-11.5 Review/Rating Schema
-12. Deployment & CI/CD ✨ NEU
+11.5 Review/Rating Schema 12. Deployment & CI/CD ✨ NEU
 text
 12.1 Environment Strategy
 12.2 CI/CD Pipeline
 12.3 Deployment Checklist
-12.4 Rollback Strategy
-13. Monitoring ✨ NEU
+12.4 Rollback Strategy 13. Monitoring ✨ NEU
 text
 13.1 Error Tracking (Sentry)
 13.2 Uptime Monitoring
 13.3 Performance Monitoring
-13.4 Alert Configuration
-14. Legal & Compliance
+13.4 Alert Configuration 14. Legal & Compliance
 text
 [Wie vorher - vollständig]
+
 - DSGVO
 - EU AI Act
 - PBefG
 - Cookie Policy
 - AGB & Impressum
+
 15. SEO Strategie
-text
-[Wie vorher]
+    text
+    [Wie vorher]
+
 - Keywords
 - Meta Tags
 - Schema.org
 - Internal Linking
+
 16. Implementierungs-Roadmap
-text
-16.1 Component Library (Wochen 1-5)
-16.2 Infrastructure Setup (Woche 6)
-     ├─ Email System
-     ├─ Analytics
-     ├─ Monitoring
-     └─ CI/CD
+    text
+    16.1 Component Library (Wochen 1-5)
+    16.2 Infrastructure Setup (Woche 6)
+    ├─ Email System
+    ├─ Analytics
+    ├─ Monitoring
+    └─ CI/CD
 
 16.3 Page Implementation (Wochen 7-11)
 16.4 Testing & QA (Woche 12)

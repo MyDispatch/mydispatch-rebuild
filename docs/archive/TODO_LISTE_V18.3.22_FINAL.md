@@ -27,12 +27,14 @@
 ## 🔄 PHASE 2: VERBLEIBENDE 34 DATEIEN
 
 ### Priorität 1 (Maps & Location)
+
 - [ ] `LiveMapHERE.tsx`
 - [ ] `LiveMap.tsx`
 - [ ] `LiveMapGoogle.tsx`
 - [ ] `AddressInput.tsx`
 
 ### Priorität 2 (Hooks)
+
 - [ ] `use-auth.tsx`
 - [ ] `use-company.tsx`
 - [ ] `use-bookings.tsx`
@@ -41,6 +43,7 @@
 - [ ] Weitere Hooks...
 
 ### Priorität 3 (Pages)
+
 - [ ] Diverse Page-Komponenten
 
 ---
@@ -48,14 +51,16 @@
 ## 🎯 NÄCHSTE SCHRITTE
 
 1. **Automatisches Bulk-Replace:**
+
    ```bash
    # Search-Replace in allen verbleibenden Dateien
    find src/ -name "*.tsx" -o -name "*.ts" | xargs sed -i 's/console\.log/logDebug/g'
    ```
 
 2. **Import-Statements hinzufügen:**
+
    ```typescript
-   import { logDebug, logError, logWarning } from '@/lib/logger';
+   import { logDebug, logError, logWarning } from "@/lib/logger";
    ```
 
 3. **Manuelle Korrekturen:**
@@ -72,14 +77,14 @@
 
 ## 📊 FORTSCHRITT
 
-| Kategorie | Violations | Behoben | Verbleibend |
-|-----------|-----------|---------|-------------|
-| Chat | 50 | 47 | 3 |
-| Dashboard | 15 | 15 | 0 |
-| Maps | ~20 | 0 | ~20 |
-| Hooks | ~25 | 0 | ~25 |
-| Pages | ~20 | 0 | ~20 |
-| **GESAMT** | **130** | **62** | **68** |
+| Kategorie  | Violations | Behoben | Verbleibend |
+| ---------- | ---------- | ------- | ----------- |
+| Chat       | 50         | 47      | 3           |
+| Dashboard  | 15         | 15      | 0           |
+| Maps       | ~20        | 0       | ~20         |
+| Hooks      | ~25        | 0       | ~25         |
+| Pages      | ~20        | 0       | ~20         |
+| **GESAMT** | **130**    | **62**  | **68**      |
 
 **Fortschritt:** 47.7% ✅
 

@@ -6,11 +6,12 @@
    - Zeichenzähler optional
    ================================================================================== */
 
-import { forwardRef, TextareaHTMLAttributes } from 'react';
-import { Label } from '@/components/ui/label';
-import { cn } from '@/lib/utils';
+import { forwardRef, TextareaHTMLAttributes } from "react";
+import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
-interface MobileTextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange'> {
+interface MobileTextareaProps
+  extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange"> {
   label?: string;
   error?: string;
   onChange?: (value: string) => void;
@@ -20,7 +21,20 @@ interface MobileTextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaEl
 }
 
 export const MobileTextarea = forwardRef<HTMLTextAreaElement, MobileTextareaProps>(
-  ({ label, error, onChange, maxLength, showCounter, currentLength, className, required, ...props }, ref) => {
+  (
+    {
+      label,
+      error,
+      onChange,
+      maxLength,
+      showCounter,
+      currentLength,
+      className,
+      required,
+      ...props
+    },
+    ref
+  ) => {
     return (
       <div className="space-y-2 w-full">
         {label && (
@@ -46,9 +60,7 @@ export const MobileTextarea = forwardRef<HTMLTextAreaElement, MobileTextareaProp
           {...props}
         />
         <div className="flex items-center justify-between">
-          {error && (
-            <p className="text-xs text-status-error">{error}</p>
-          )}
+          {error && <p className="text-xs text-status-error">{error}</p>}
           {showCounter && maxLength && (
             <p className="text-xs text-muted-foreground ml-auto">
               {currentLength || 0} / {maxLength}
@@ -60,4 +72,4 @@ export const MobileTextarea = forwardRef<HTMLTextAreaElement, MobileTextareaProp
   }
 );
 
-MobileTextarea.displayName = 'MobileTextarea';
+MobileTextarea.displayName = "MobileTextarea";

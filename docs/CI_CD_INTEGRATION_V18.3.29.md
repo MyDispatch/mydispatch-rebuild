@@ -21,34 +21,40 @@ MyDispatch verfügt über eine vollständige CI/CD Pipeline mit GitHub Actions f
 **Jobs:**
 
 #### Job 1: Code Quality Check ✅
+
 - TypeScript Type Check (0 Errors erlaubt)
 - ESLint (max 0 Warnings)
 - **Exit on Failure:** TypeScript Errors
 
 #### Job 2: Design System Compliance ✅
+
 - Prüft auf `accent` Farbe (❌ VERBOTEN)
 - Prüft auf direkte Farben (`text-white`, `bg-black`)
 - Prüft Icon-Größen (min 16px / h-4 w-4)
 - **Exit on Failure:** `accent` Violations
 
 #### Job 3: Security Scan ✅
+
 - npm audit (moderate+ Vulnerabilities)
 - Ungeschützte Console-Statements
 - DELETE Statement Detection (❌ VERBOTEN)
 - **Exit on Failure:** DELETE Statements gefunden
 
 #### Job 4: Build Test ✅
+
 - Production Build
 - Bundle Size Check
 - Artifact Upload (für Lighthouse)
 - **Exit on Failure:** Build Errors
 
 #### Job 5: Lighthouse CI ✅
+
 - Performance Audit (nur bei PRs)
 - Lighthouse Score Report
 - **Exit on Failure:** Nein (nur Warnung)
 
 #### Job 6: Quality Report ✅
+
 - Generiert Gesamt-Report
 - Artifact Upload (30 Tage)
 
@@ -61,6 +67,7 @@ MyDispatch verfügt über eine vollständige CI/CD Pipeline mit GitHub Actions f
 **Jobs:**
 
 #### Preview Deployment ✅
+
 - Pre-Deploy Checks (TypeScript, Build)
 - Auto-Deploy Notification
 - PR Comment (bei Pull Requests)
@@ -70,11 +77,12 @@ MyDispatch verfügt über eine vollständige CI/CD Pipeline mit GitHub Actions f
 
 ### 3. **Documentation Sync** (`.github/workflows/documentation-sync.yml`)
 
-**Trigger:** Push auf `main` (docs/** oder README.md) oder manuell
+**Trigger:** Push auf `main` (docs/\*\* oder README.md) oder manuell
 
 **Jobs:**
 
 #### Documentation Validation ✅
+
 - Prüft Vollständigkeit (8 Required Docs)
 - Generiert `docs/INDEX.md`
 - Auto-Commit & Push
@@ -112,6 +120,7 @@ GITHUB_TOKEN: (Auto-provided by GitHub)
 ```
 
 **Optional:**
+
 ```yaml
 LHCI_GITHUB_APP_TOKEN: (für Lighthouse CI - kann auch GITHUB_TOKEN nutzen)
 ```
@@ -121,12 +130,14 @@ LHCI_GITHUB_APP_TOKEN: (für Lighthouse CI - kann auch GITHUB_TOKEN nutzen)
 ## 📝 CODEOWNERS & PR TEMPLATE
 
 ### CODEOWNERS (`.github/CODEOWNERS`)
+
 - Auto-Assignment für kritische Files
 - Core System Files require owner review
 - Documentation requires owner review
 - Supabase Migrations require owner review
 
 ### PR Template (`.github/pull_request_template.md`)
+
 - **Zwingend:** 15+ Checkboxen vor Merge
 - Code Quality, Design System, Mobile-First, Security, Testing
 - Screenshots für UI-Changes
@@ -139,17 +150,20 @@ LHCI_GITHUB_APP_TOKEN: (für Lighthouse CI - kann auch GITHUB_TOKEN nutzen)
 ### Bei Development:
 
 1. **Feature Branch erstellen:**
+
    ```bash
    git checkout -b feature/new-feature
    ```
 
 2. **Code entwickeln und committen:**
+
    ```bash
    git add .
    git commit -m "feat: Add new feature"
    ```
 
 3. **Push und PR erstellen:**
+
    ```bash
    git push origin feature/new-feature
    # Create PR auf GitHub
@@ -169,11 +183,13 @@ LHCI_GITHUB_APP_TOKEN: (für Lighthouse CI - kann auch GITHUB_TOKEN nutzen)
 ### Bei Hotfixes:
 
 1. **Hotfix Branch von main:**
+
    ```bash
    git checkout -b hotfix/critical-bug
    ```
 
 2. **Fix implementieren:**
+
    ```bash
    git commit -m "fix: Critical production bug"
    ```
@@ -212,12 +228,14 @@ grep -r "DELETE FROM" src/ supabase/
 ## 📈 METRIKEN & MONITORING
 
 ### CI/CD Performance:
+
 - **Average CI Duration:** ~5-8 Minuten
 - **Build Time:** ~2 Minuten
 - **Design System Checks:** <30 Sekunden
 - **Security Scan:** ~1 Minute
 
 ### Success Rate:
+
 - **Build Success:** 98%+
 - **Design System Compliance:** 100% (seit V18.3.25)
 - **Security Pass:** 100% (seit V18.3.29)

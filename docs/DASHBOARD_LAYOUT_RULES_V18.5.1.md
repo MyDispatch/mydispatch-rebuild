@@ -9,6 +9,7 @@
 ## 🎯 ZIEL
 
 Alle Dashboard-Seiten MÜSSEN einheitliche Layouts haben:
+
 - ✅ Keine überlappenden Cards
 - ✅ Gleiche Höhen in Zeilen
 - ✅ Konsistente Abstände
@@ -37,7 +38,7 @@ Alle Dashboard-Seiten MÜSSEN einheitliche Layouts haben:
       <Widget className="h-full" />
       <Widget className="h-full" />
     </div>
-    
+
     {/* Rechte Spalte: 4 Spalten (33%) */}
     <div className="lg:col-span-4 space-y-4 lg:space-y-6">
       <Widget className="h-full" />
@@ -150,13 +151,13 @@ Alle Dashboard-Seiten MÜSSEN einheitliche Layouts haben:
 
 ### Responsive Spacing Table:
 
-| Element | Mobile | Desktop |
-|---------|--------|---------|
-| Section Gap | `space-y-6` | `sm:space-y-8` |
-| Grid Gap | `gap-4` | `lg:gap-6` |
-| Card Content | `space-y-3` | `space-y-4` |
-| Card Padding | `p-4` | `lg:p-6` |
-| Header Padding Bottom | `pb-3` | `pb-3` |
+| Element               | Mobile      | Desktop        |
+| --------------------- | ----------- | -------------- |
+| Section Gap           | `space-y-6` | `sm:space-y-8` |
+| Grid Gap              | `gap-4`     | `lg:gap-6`     |
+| Card Content          | `space-y-3` | `space-y-4`    |
+| Card Padding          | `p-4`       | `lg:p-6`       |
+| Header Padding Bottom | `pb-3`      | `pb-3`         |
 
 ---
 
@@ -165,8 +166,8 @@ Alle Dashboard-Seiten MÜSSEN einheitliche Layouts haben:
 ### Standard Widget Component:
 
 ```tsx
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface StandardWidgetProps {
   className?: string;
@@ -175,23 +176,14 @@ interface StandardWidgetProps {
   children: React.ReactNode;
 }
 
-export function StandardWidget({ 
-  className, 
-  title, 
-  description, 
-  children 
-}: StandardWidgetProps) {
+export function StandardWidget({ className, title, description, children }: StandardWidgetProps) {
   return (
     <Card className={cn("h-full", className)}>
       <CardHeader className="pb-3">
         <CardTitle className="text-base">{title}</CardTitle>
-        {description && (
-          <CardDescription className="text-xs">{description}</CardDescription>
-        )}
+        {description && <CardDescription className="text-xs">{description}</CardDescription>}
       </CardHeader>
-      <CardContent className="space-y-4">
-        {children}
-      </CardContent>
+      <CardContent className="space-y-4">{children}</CardContent>
     </Card>
   );
 }
@@ -200,13 +192,8 @@ export function StandardWidget({
 ### Nutzung:
 
 ```tsx
-<StandardWidget 
-  title="Dringende Aktionen" 
-  description="Erfordert Ihre Aufmerksamkeit"
->
-  <div className="space-y-3">
-    {/* Widget-Inhalt */}
-  </div>
+<StandardWidget title="Dringende Aktionen" description="Erfordert Ihre Aufmerksamkeit">
+  <div className="space-y-3">{/* Widget-Inhalt */}</div>
 </StandardWidget>
 ```
 
@@ -243,7 +230,7 @@ export function StandardWidget({
     <LiveMap className="h-full" />
     <RecentActivity className="h-full" />
   </div>
-  
+
   {/* Sidebar */}
   <div className="lg:col-span-4 space-y-4 lg:space-y-6">
     <QuickActions className="h-full" />
@@ -270,28 +257,27 @@ export function StandardWidget({
 ### Error 1: Cards überlappen sich
 
 **Problem:**
+
 ```tsx
 // ❌ FALSCH: Feste Höhen + mehr Inhalt = Überlappung
 <Card className="h-[300px]">
-  <CardContent>
-    {/* Viel Inhalt, der nicht passt */}
-  </CardContent>
+  <CardContent>{/* Viel Inhalt, der nicht passt */}</CardContent>
 </Card>
 ```
 
 **Lösung:**
+
 ```tsx
 // ✅ KORREKT: Flexible Höhe
 <Card className="h-full">
-  <CardContent>
-    {/* Inhalt passt sich an */}
-  </CardContent>
+  <CardContent>{/* Inhalt passt sich an */}</CardContent>
 </Card>
 ```
 
 ### Error 2: Ungleiche Höhen in Zeile
 
 **Problem:**
+
 ```tsx
 // ❌ FALSCH: Keine h-full = unterschiedliche Höhen
 <div className="grid grid-cols-3 gap-6">
@@ -302,6 +288,7 @@ export function StandardWidget({
 ```
 
 **Lösung:**
+
 ```tsx
 // ✅ KORREKT: h-full für gleiche Höhen
 <div className="grid grid-cols-3 gap-6">
@@ -314,6 +301,7 @@ export function StandardWidget({
 ### Error 3: Inkonsistente Abstände
 
 **Problem:**
+
 ```tsx
 // ❌ FALSCH: Verschiedene Gaps
 <div className="space-y-4">
@@ -325,6 +313,7 @@ export function StandardWidget({
 ```
 
 **Lösung:**
+
 ```tsx
 // ✅ KORREKT: Konsistente Gaps
 <div className="space-y-6 sm:space-y-8">
@@ -383,18 +372,21 @@ xl: 1280px  // Large Desktop
 ## ✅ CHECKLISTE VOR COMMIT
 
 ### Layout:
+
 - [ ] Alle Cards in Zeile haben `h-full`
 - [ ] Keine festen Höhen (außer Charts mit aspect-ratio)
 - [ ] Konsistente Gaps (`gap-4 lg:gap-6`)
 - [ ] Konsistente Sections Spacing (`space-y-6 sm:space-y-8`)
 
 ### Mobile:
+
 - [ ] Mobile-First Classes verwendet
 - [ ] Touch-Targets ≥ 44px
 - [ ] Grid-Cols: `grid-cols-1` als Basis
 - [ ] Auf Mobile (375px) getestet
 
 ### Content:
+
 - [ ] Keine Überlappungen
 - [ ] Content scrollt bei Bedarf (`overflow-y-auto`)
 - [ ] Keine horizontalen Scrollbars
@@ -411,6 +403,7 @@ xl: 1280px  // Large Desktop
 ---
 
 **Next Steps:**
+
 1. Apply to all Dashboard pages
 2. Create UI Library Components
 3. Set up Visual Regression Tests

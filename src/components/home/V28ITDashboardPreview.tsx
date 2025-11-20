@@ -7,19 +7,25 @@
    ✅ V28.1 Design System (Slate, Flat, Premium Shadows)
    ================================================================================== */
 
-import { Server, Shield, Clock, Monitor, Headphones, TrendingUp, CheckCircle2, AlertCircle } from 'lucide-react';
-import { V28BrowserMockup } from './V28BrowserMockup';
+import {
+  Server,
+  Shield,
+  Clock,
+  Monitor,
+  Headphones,
+  TrendingUp,
+  CheckCircle2,
+  AlertCircle,
+} from "lucide-react";
+import { V28BrowserMockup } from "./V28BrowserMockup";
 
 interface V28ITDashboardPreviewProps {
   animationDelay?: string;
 }
 
-export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboardPreviewProps) {
+export function V28ITDashboardPreview({ animationDelay = "0.6s" }: V28ITDashboardPreviewProps) {
   return (
-    <div 
-      className="hidden lg:block animate-fade-in"
-      style={{ animationDelay }}
-    >
+    <div className="hidden lg:block animate-fade-in" style={{ animationDelay }}>
       <V28BrowserMockup title="support.nexify.nl/dashboard">
         {/* Dashboard Header */}
         <div className="px-6 py-4 border-b border-slate-200 bg-slate-50">
@@ -35,7 +41,9 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 border border-green-200 rounded-lg">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-              <span className="font-sans text-xs font-semibold text-green-700">All Systems Operational</span>
+              <span className="font-sans text-xs font-semibold text-green-700">
+                All Systems Operational
+              </span>
             </div>
           </div>
         </div>
@@ -47,16 +55,12 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
             {/* Server Uptime Card */}
             <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-200">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-sans text-xs font-medium text-slate-600">
-                  Server Uptime
-                </span>
+                <span className="font-sans text-xs font-medium text-slate-600">Server Uptime</span>
                 <div className="p-1.5 rounded-lg bg-slate-50">
                   <Server className="w-4 h-4 text-slate-700" />
                 </div>
               </div>
-              <div className="font-sans text-2xl font-bold text-slate-900">
-                99.97%
-              </div>
+              <div className="font-sans text-2xl font-bold text-slate-900">99.97%</div>
               <div className="flex items-center gap-1 mt-1">
                 <TrendingUp className="w-3 h-3 text-green-600" />
                 <span className="font-sans text-xs font-semibold text-green-600">
@@ -68,37 +72,27 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
             {/* Open Tickets Card */}
             <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-200">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-sans text-xs font-medium text-slate-600">
-                  Open Tickets
-                </span>
+                <span className="font-sans text-xs font-medium text-slate-600">Open Tickets</span>
                 <div className="p-1.5 rounded-lg bg-slate-50">
                   <Headphones className="w-4 h-4 text-slate-700" />
                 </div>
               </div>
-              <div className="font-sans text-2xl font-bold text-slate-900">
-                12
-              </div>
+              <div className="font-sans text-2xl font-bold text-slate-900">12</div>
               <div className="flex items-center gap-1 mt-1">
                 <AlertCircle className="w-3 h-3 text-red-600" />
-                <span className="font-sans text-xs font-semibold text-red-600">
-                  3 Critical
-                </span>
+                <span className="font-sans text-xs font-semibold text-red-600">3 Critical</span>
               </div>
             </div>
 
             {/* Response Time Card */}
             <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-lg hover:shadow-xl transition-all duration-200">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-sans text-xs font-medium text-slate-600">
-                  Avg. Response
-                </span>
+                <span className="font-sans text-xs font-medium text-slate-600">Avg. Response</span>
                 <div className="p-1.5 rounded-lg bg-slate-50">
                   <Clock className="w-4 h-4 text-slate-700" />
                 </div>
               </div>
-              <div className="font-sans text-2xl font-bold text-slate-900">
-                45 Min
-              </div>
+              <div className="font-sans text-2xl font-bold text-slate-900">45 Min</div>
               <div className="flex items-center gap-1 mt-1">
                 <CheckCircle2 className="w-3 h-3 text-green-600" />
                 <span className="font-sans text-xs font-semibold text-green-600">
@@ -117,14 +111,10 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
                   <Shield className="w-4 h-4 text-slate-700" />
                 </div>
               </div>
-              <div className="font-sans text-2xl font-bold text-slate-900">
-                87
-              </div>
+              <div className="font-sans text-2xl font-bold text-slate-900">87</div>
               <div className="flex items-center gap-1 mt-1">
                 <div className="w-2 h-2 bg-green-500 rounded-full" />
-                <span className="font-sans text-xs font-semibold text-slate-600">
-                  24/7 Active
-                </span>
+                <span className="font-sans text-xs font-semibold text-slate-600">24/7 Active</span>
               </div>
             </div>
           </div>
@@ -135,7 +125,6 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
               Recent Activities
             </h4>
             <div className="space-y-2">
-              
               {/* Activity 1 - Completed */}
               <div className="p-3 rounded-lg bg-white border border-slate-200 shadow-md hover:shadow-lg transition-all duration-200">
                 <div className="flex items-start justify-between mb-2">
@@ -153,9 +142,7 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
                     </div>
                   </div>
                   <div className="px-2 py-1 rounded-md bg-green-100 border border-green-200">
-                    <span className="font-sans text-xs font-bold text-green-700">
-                      Erledigt
-                    </span>
+                    <span className="font-sans text-xs font-bold text-green-700">Erledigt</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between pl-9 pt-3">
@@ -163,9 +150,7 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
                     <Clock className="w-3 h-3" />
                     <span className="font-sans text-xs">11:30 Uhr</span>
                   </div>
-                  <span className="font-sans text-xs text-slate-600">
-                    45 Min
-                  </span>
+                  <span className="font-sans text-xs text-slate-600">45 Min</span>
                 </div>
               </div>
 
@@ -180,15 +165,11 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
                       <div className="font-sans text-sm font-semibold text-slate-900 mb-1">
                         Firewall-Update läuft...
                       </div>
-                      <div className="font-sans text-xs text-slate-600">
-                        Security-Patch 2024-10
-                      </div>
+                      <div className="font-sans text-xs text-slate-600">Security-Patch 2024-10</div>
                     </div>
                   </div>
                   <div className="px-2 py-1 rounded-md bg-blue-100 border border-blue-200">
-                    <span className="font-sans text-xs font-bold text-blue-700">
-                      Live
-                    </span>
+                    <span className="font-sans text-xs font-bold text-blue-700">Live</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between pl-9 pt-3">
@@ -196,9 +177,7 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
                     <Clock className="w-3 h-3" />
                     <span className="font-sans text-xs">12:45 Uhr</span>
                   </div>
-                  <span className="font-sans text-xs text-slate-600">
-                    In Progress
-                  </span>
+                  <span className="font-sans text-xs text-slate-600">In Progress</span>
                 </div>
               </div>
 
@@ -229,9 +208,7 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
                     <Clock className="w-3 h-3" />
                     <span className="font-sans text-xs">Geplant</span>
                   </div>
-                  <span className="font-sans text-xs text-slate-600">
-                    Heute
-                  </span>
+                  <span className="font-sans text-xs text-slate-600">Heute</span>
                 </div>
               </div>
             </div>

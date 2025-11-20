@@ -41,11 +41,13 @@
 ### CQR-Upgrade V18.5.8 (NEU):
 
 **Real-Time-Knowledge-Index-First:**
+
 - Nutze **vorrangig** den Real-Time-Knowledge-Index des Doc-AI Sync für die CQR
 - **Vorteil:** Reduziert Latency um 60-80% und verhindert Kontext-Verlust
 - **Fallback:** Nur bei Fehlen der Daten im Index auf Disk-Docs zurückgreifen
 
 **Implementierung:**
+
 ```typescript
 // ✅ RICHTIG: Real-Time Index First
 const knowledge = await getRealTimeKnowledge(query);
@@ -63,34 +65,40 @@ const docs = await readDocsFromDisk();
 ## 🏗️ VERPFLICHTENDE INFRASTRUKTUR-STRATEGIE
 
 ### 1. Brain-System (Erzwungene Validierung)
+
 - Automatische Validierung via CI/CD (Governance-Job)
 - Build-Blockade bei Verstößen
 
 ### 2. Shared Knowledge Base (RAG-Prinzip)
+
 - Zentrale Single Source of Truth
 - VERPFLICHTEND vor jeder Code-Änderung konsultieren
 
 ### 3. Doc-AI Sync (Real-Time Indexing) ⭐ AKTUALISIERT V18.5.8
 
 **Auto-Trigger & Real-Time Channel:**
+
 - Der NeXify ↔ Doc-AI Sync-Prozess MUSS auf **Auto-Trigger** und **Real-Time Channel** umgestellt werden
 - **KRITISCH:** Nach jedem erfolgreichen Commit MUSS der Agent geänderte, kritische Code-Stücke in den **Real-Time-Index** zur sofortigen Indexierung schreiben
 
 **Implementierung:**
+
 ```typescript
 // Nach jedem erfolgreichen Commit:
 await indexCriticalCodeChanges({
   files: changedFiles,
   timestamp: Date.now(),
-  commitHash: git.getCommitHash()
+  commitHash: git.getCommitHash(),
 });
 ```
 
 **Real-Time Channel:**
+
 - Channel-Name: `doc-ai-realtime`
 - Event-Types: `code-change`, `doc-update`, `validation-request`
 
 ### 4. Datenzugriff & Stabilität
+
 - React Query für 60% weniger DB-Calls
 - Error Boundaries für fehlerfreie UX
 
@@ -115,6 +123,7 @@ await indexCriticalCodeChanges({
 ## 📚 PFLICHT-DOKUMENTE (IMMER LESEN!)
 
 ### Core (KRITISCH):
+
 - **Real-Time-Knowledge-Index** ⭐⭐⭐ (Erste Anlaufstelle via CQR)
 - **docs/SHARED_KNOWLEDGE_V18.5.1.md** ⭐⭐⭐ (Zentrale Wissensquelle)
 - **docs/MOBILE_FIRST_GRID_SYSTEM_V18.5.1.md** ⭐⭐⭐
@@ -122,6 +131,7 @@ await indexCriticalCodeChanges({
 - **docs/SEITEN_PLANUNGSPROZESS_V18.5.1.md** ⭐⭐⭐
 
 ### Supporting:
+
 - DESIGN_SYSTEM_VORGABEN_V18.3.md
 - MOBILE_LAYOUT_STANDARDS_V18.3.md
 - LEGAL_COMPLIANCE_V18.3.24.md
@@ -133,9 +143,11 @@ await indexCriticalCodeChanges({
 ### 1. VERPFLICHTENDER KERNWERT: INTEGRATION-FIRST-PRINZIP
 
 **Priorität: Nutzung statt Neuerstellung**
+
 - Bevor eine neue Integration erstellt wird, ist zwingend die Nutzung, Optimierung und Anpassung bestehender Integrationen zu prüfen.
 
 **Harmonie & Abstimmung**
+
 - Alle genutzten Integrationen sind logisch und vollständig durchdacht perfekt aufeinander abzustimmen und bis ins kleinste Detail zu optimieren.
 
 ---
@@ -143,11 +155,13 @@ await indexCriticalCodeChanges({
 ### 2. Mobile-First (NIEMALS Desktop-First!)
 
 **Touch-Targets:**
+
 ```css
 min-h-[44px]  /* Minimum Touch-Target (Apple/Google Guidelines) */
 ```
 
 **Breakpoints:**
+
 ```typescript
 Mobile:  375px
 Tablet:  768px
@@ -155,6 +169,7 @@ Desktop: 1920px
 ```
 
 **Grid-Patterns:**
+
 ```tsx
 // HERO-GRID (Marketing)
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -171,6 +186,7 @@ Desktop: 1920px
 ### 3. Rechtliche Compliance (VERPFLICHTEND!)
 
 **DSGVO:** Datenschutzhinweis bei JEDEM Formular
+
 ```tsx
 <div className="text-xs text-muted-foreground mt-4 p-3 bg-muted/50 rounded-lg">
   <p>🔒 Ihre Daten werden verschlüsselt übertragen...</p>
@@ -180,6 +196,7 @@ Desktop: 1920px
 **AI Act:** KI-Kennzeichnung (Icon + Text) bei JEDER KI-Antwort
 
 **TMG:** Impressum/Datenschutz/AGB Links in JEDEM Footer
+
 ```tsx
 <Link to="/impressum">Impressum</Link>
 <Link to="/datenschutz">Datenschutz</Link>
@@ -211,9 +228,11 @@ className="bg-[#EADEBD]"
 ### 5. Design-System
 
 **VERBOTEN:**
+
 - text-white, bg-black, Direct Colors
 
 **PFLICHT:**
+
 - Semantic Tokens (index.css, tailwind.config.ts)
 - Shadcn-Varianten anpassen (nicht inline überschreiben!)
 
@@ -225,8 +244,8 @@ className="bg-[#EADEBD]"
 
 ```typescript
 // ✅ IMMER zentrale Quellen
-import { PRICING_TIERS } from '@/data/pricing-tiers';
-import { getTariffById } from '@/lib/tariff/tariff-definitions';
+import { PRICING_TIERS } from "@/data/pricing-tiers";
+import { getTariffById } from "@/lib/tariff/tariff-definitions";
 
 // ❌ NIEMALS hardcoden
 const price = 39; // FALSCH!
@@ -280,6 +299,7 @@ const data: any = ...; // FALSCH!
 **KRITISCH:** Jede Code-Änderung in kritischen Bereichen MUSS die Validierung bestehen.
 
 **Bei Fehlschlag:**
+
 1. **SOFORTIGER STOPP** der Implementierung
 2. **WDIF-Report erstellen** inkl. WDIF-Scorecard
 3. **ARCA-Pflicht prüfen:** Liegt der Fehler bei der Agenten-Logik (+1 Score)?
@@ -287,6 +307,7 @@ const data: any = ...; // FALSCH!
 5. **Freigabe abwarten**
 
 **WDIF-Score-System:**
+
 - **Architektur-Fehler:** +5 Punkte (kritisch)
 - **Dokumentations-Fehler:** +3 Punkte (mittel)
 - **Logik-Fehler (Agent):** +1 Punkt (niedrig) → **ARCA-Pflicht!**
@@ -298,10 +319,12 @@ const data: any = ...; // FALSCH!
 **Meta-Prompt Management mit ARCA ⭐ NEU V18.5.8:**
 
 **Pflicht zur Konsistenz & ARCA:**
+
 - NeXify ist verpflichtet, seinen Haupt-Prompt automatisch mit den Vorgaben aus dem META-PROMPT-NUTZER.md konsistent und aktuell zu halten
 - **ZUSÄTZLICH NEU:** Jeder aus der **ARCA** abgeleitete Lernschritt MUSS in den META-PROMPT-NUTZER.md integriert werden
 
 **ARCA-Integration-Prozess:**
+
 ```
 1. Fehler tritt auf (WDIF-Score: +1 Logik)
 2. Root-Cause analysieren
@@ -320,28 +343,28 @@ const data: any = ...; // FALSCH!
 → ERSTELLE INFRASTRUKTUR-BATCH (PRIO 1)  
 → WARTE AUF FREIGABE
 
-| Check | Status | Details zur Validierung |
-|-------|--------|-------------------------|
-| **Brain-System Hook** | ✅ | Existiert src/hooks/use-brain-system.ts? → Prüfe Integration in kritische Seiten. |
-| **Shared Knowledge** | ✅ | Existiert SHARED_KNOWLEDGE_V18.5.1.md? |
-| **React Query Migration** | ⏳ | Konsolidiere queryKeys (client.ts ↔ query-keys.ts). Audit: Wieviele useQuery ohne Factory? (Ziel: < 40% Rest-Queries). |
-| **Doc-AI Sync (Real-Time)** | [ ] | Existiert Edge Function 'doc-ai-sync' und Real-Time Indexing für kritische Code-Teile? ⭐ NEU |
-| **Error Boundaries** | ✅ | Global und Page-Level aktiv. |
-| **Pricing Validation** | ✅ | use-pricing-validation.ts aktiv in App.tsx (Dev-Modus). |
-| **CI/CD Governance** | ✅ | Governance-Job in ci.yml aktiv. |
+| Check                       | Status | Details zur Validierung                                                                                                 |
+| --------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------- |
+| **Brain-System Hook**       | ✅     | Existiert src/hooks/use-brain-system.ts? → Prüfe Integration in kritische Seiten.                                       |
+| **Shared Knowledge**        | ✅     | Existiert SHARED_KNOWLEDGE_V18.5.1.md?                                                                                  |
+| **React Query Migration**   | ⏳     | Konsolidiere queryKeys (client.ts ↔ query-keys.ts). Audit: Wieviele useQuery ohne Factory? (Ziel: < 40% Rest-Queries). |
+| **Doc-AI Sync (Real-Time)** | [ ]    | Existiert Edge Function 'doc-ai-sync' und Real-Time Indexing für kritische Code-Teile? ⭐ NEU                           |
+| **Error Boundaries**        | ✅     | Global und Page-Level aktiv.                                                                                            |
+| **Pricing Validation**      | ✅     | use-pricing-validation.ts aktiv in App.tsx (Dev-Modus).                                                                 |
+| **CI/CD Governance**        | ✅     | Governance-Job in ci.yml aktiv.                                                                                         |
 
 ---
 
 ## ⏱️ ZEITANGABEN (AI-ZEITEN!)
 
 ```yaml
-Einfache Component:    5-15 Sekunden
-Mittlere Component:    15-30 Sekunden
-Komplexe Component:    30-60 Sekunden
-Seiten-Planung:        2-5 Minuten
+Einfache Component: 5-15 Sekunden
+Mittlere Component: 15-30 Sekunden
+Komplexe Component: 30-60 Sekunden
+Seiten-Planung: 2-5 Minuten
 Neue Seite (komplett): 5-15 Minuten
-Testing (pro Seite):   3-5 Minuten
-Real-Time Indexing:    2-5 Sekunden
+Testing (pro Seite): 3-5 Minuten
+Real-Time Indexing: 2-5 Sekunden
 ```
 
 ---
@@ -366,6 +389,7 @@ Real-Time Indexing:    2-5 Sekunden
 ### V. Agenten-Logik (WDIF-Scorecard & ARCA) ⭐ NEU
 
 **WDIF-Score berechnen:**
+
 ```
 Score = Σ (Fehlertyp × Gewichtung)
 - Architektur: +5
@@ -374,6 +398,7 @@ Score = Σ (Fehlertyp × Gewichtung)
 ```
 
 **Root-Cause dokumentieren (ARCA):**
+
 ```markdown
 ## Root-Cause-Analyse (ARCA)
 
@@ -387,6 +412,7 @@ Score = Σ (Fehlertyp × Gewichtung)
 Wenn der Fehler bei der **Logik des Agenten** (+1) liegt, MUSS der Agent **sofort** eine neue, präventive Regel für den META-PROMPT-NUTZER.md erstellen, um diesen Fehler **dauerhaft** zu beheben.
 
 **Beispiel ARCA-Regel:**
+
 ```markdown
 ### [X]. NEUE REGEL: [Titel]
 
@@ -395,6 +421,7 @@ Wenn der Fehler bei der **Logik des Agenten** (+1) liegt, MUSS der Agent **sofor
 **Problem:** Der Agent hat [Beschreibung des Fehlers]
 
 **Präventive Regel:**
+
 - [Regel 1]
 - [Regel 2]
 
@@ -408,6 +435,7 @@ Wenn der Fehler bei der **Logik des Agenten** (+1) liegt, MUSS der Agent **sofor
 **VORGABE:** Wenn du wichtige Fragen hast, frage gerne!
 
 Beispiele:
+
 - "Pascal, soll die neue Statistik-Seite auch GPS-Daten anzeigen? (Betrifft DSGVO-Compliance)"
 - "Welcher Tarif soll Zugriff auf das neue Feature haben? (Business+ oder Starter?)"
 - "Soll das neue Formular Pflichtfelder haben? (Betrifft UX)"
@@ -444,6 +472,7 @@ Beispiele:
 ## 📝 CHANGELOG
 
 ### V18.5.8 (2025-10-24)
+
 - **NEU:** CQR-Upgrade mit Real-Time-Knowledge-Index-First
 - **NEU:** Doc-AI Sync auf Auto-Trigger & Real-Time Channel umgestellt
 - **NEU:** ARCA-Pflicht (Agent Root-Cause Analysis) bei Logik-Fehlern
@@ -453,6 +482,7 @@ Beispiele:
 - **ERWEITERT:** Alarm-Trigger um Governance-Verstöße
 
 ### V18.5.7 (2025-10-24)
+
 - **NEU:** Master-Prompt vollständig konsolidiert
 - **NEU:** Infrastruktur-Checks erweitert (CI/CD Governance)
 - **ERWEITERT:** Integration-First-Prinzip als Kernwert verankert

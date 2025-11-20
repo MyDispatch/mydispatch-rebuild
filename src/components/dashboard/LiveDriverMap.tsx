@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { HEREMap } from '@/components/maps/HEREMap';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/lib/compat';
-import { Badge } from '@/lib/compat';
-import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
-import { MapPin, Users, Navigation } from 'lucide-react';
-import { logger } from '@/lib/logger';
+import { useEffect, useState } from "react";
+import { HEREMap } from "@/components/maps/HEREMap";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/lib/compat";
+import { Badge } from "@/lib/compat";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { MapPin, Users, Navigation } from "lucide-react";
+import { logger } from "@/lib/logger";
 
 interface DriverPosition {
   driver_id: string;
@@ -28,14 +28,14 @@ export const LiveDriverMap = ({ companyId }: { companyId: string }) => {
 
     // Realtime updates via Supabase
     const channel = supabase
-      .channel('drivers-status')
+      .channel("drivers-status")
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: '*',
-          schema: 'public',
-          table: 'drivers',
-          filter: `company_id=eq.${companyId}`
+          event: "*",
+          schema: "public",
+          table: "drivers",
+          filter: `company_id=eq.${companyId}`,
         },
         () => {
           fetchDriverPositions();
@@ -55,9 +55,9 @@ export const LiveDriverMap = ({ companyId }: { companyId: string }) => {
   const fetchCompanyLocation = async () => {
     try {
       const { data, error } = await supabase
-        .from('companies')
-        .select('latitude, longitude')
-        .eq('id', companyId)
+        .from("companies")
+        .select("latitude, longitude")
+        .eq("id", companyId)
         .single();
 
       if (error) throw error;
@@ -68,10 +68,10 @@ export const LiveDriverMap = ({ companyId }: { companyId: string }) => {
         setCenter(location);
       }
     } catch (error) {
-      logger.error('[LiveDriverMap] Fehler beim Laden der Company-Location', error as Error, {
-        component: 'LiveDriverMap',
-        action: 'fetchCompanyLocation',
-        companyId
+      logger.error("[LiveDriverMap] Fehler beim Laden der Company-Location", error as Error, {
+        component: "LiveDriverMap",
+        action: "fetchCompanyLocation",
+        companyId,
       });
       // Keep default center
     }
@@ -81,17 +81,17 @@ export const LiveDriverMap = ({ companyId }: { companyId: string }) => {
     try {
       // Nutze bestehende drivers Tabelle
       const { data, error } = await supabase
-        .from('drivers')
-        .select('*')
-        .eq('company_id', companyId)
-        .eq('archived', false)
-        .in('shift_status', ['available', 'busy']);
+        .from("drivers")
+        .select("*")
+        .eq("company_id", companyId)
+        .eq("archived", false)
+        .in("shift_status", ["available", "busy"]);
 
       if (error) throw error;
 
       // Nutze echte Company-Location als Basis für Mock-Positionen
       const baseLocation = companyLocation || center;
-      
+
       // Mock GPS-Positionen um Company-Location (wird später durch echte GPS ersetzt)
       const positions: DriverPosition[] = (data || []).map((driver) => ({
         driver_id: driver.id,
@@ -99,31 +99,31 @@ export const LiveDriverMap = ({ companyId }: { companyId: string }) => {
         // Verteile Fahrer in ~5km Radius um Company-Location
         latitude: baseLocation.lat + (Math.random() - 0.5) * 0.05,
         longitude: baseLocation.lng + (Math.random() - 0.5) * 0.05,
-        status: driver.shift_status || 'available',
-        updated_at: new Date().toISOString()
+        status: driver.shift_status || "available",
+        updated_at: new Date().toISOString(),
       }));
 
       setDriverPositions(positions);
 
       // Center bleibt auf Company-Location, nicht auf erstem Fahrer
     } catch (error) {
-      logger.error('[LiveDriverMap] Fehler beim Laden der Fahrer', error as Error, {
-        component: 'LiveDriverMap',
-        action: 'fetchDriverPositions',
-        companyId
+      logger.error("[LiveDriverMap] Fehler beim Laden der Fahrer", error as Error, {
+        component: "LiveDriverMap",
+        action: "fetchDriverPositions",
+        companyId,
       });
       toast({
-        title: 'Fehler',
-        description: 'Fahrer-Positionen konnten nicht geladen werden',
-        variant: 'destructive'
+        title: "Fehler",
+        description: "Fahrer-Positionen konnten nicht geladen werden",
+        variant: "destructive",
       });
     }
   };
 
-  const markers = driverPositions.map(pos => ({
+  const markers = driverPositions.map((pos) => ({
     lat: pos.latitude,
     lng: pos.longitude,
-    label: pos.driver_name
+    label: pos.driver_name,
   }));
 
   return (
@@ -142,7 +142,10 @@ export const LiveDriverMap = ({ companyId }: { companyId: string }) => {
               <Users className="h-4 w-4" />
               {driverPositions.length} Fahrer online
             </Badge>
-            <Badge variant="outline" className="gap-2 bg-status-success/10 border-status-success/20">
+            <Badge
+              variant="outline"
+              className="gap-2 bg-status-success/10 border-status-success/20"
+            >
               <MapPin className="h-4 w-4 text-foreground" />
               <span className="text-status-success">Live-Tracking</span>
             </Badge>

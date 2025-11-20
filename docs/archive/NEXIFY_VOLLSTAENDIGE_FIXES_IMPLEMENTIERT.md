@@ -2,7 +2,7 @@
 
 **Erstellt:** 2025-01-31  
 **Status:** ✅ IN PROGRESS  
-**Autor:** NeXify AI MASTER  
+**Autor:** NeXify AI MASTER
 
 ---
 
@@ -13,6 +13,7 @@
 **Status:** ✅ IMPLEMENTIERT
 
 **Änderungen:**
+
 1. ✅ `Auth.tsx` - Master-Check hinzugefügt (Zeilen 201-220)
    - Prüft `user_roles` Tabelle
    - Prüft `profile.role`
@@ -25,6 +26,7 @@
    - Automatische Master-Konfiguration für courbois1981@gmail.com
 
 **Nächste Schritte:**
+
 - ⏳ Migration in Supabase ausführen
 - ⏳ User in Supabase Auth erstellen (falls nicht vorhanden)
 - ⏳ Testen: Login mit courbois1981@gmail.com → `/master`
@@ -36,6 +38,7 @@
 **Status:** ✅ IMPLEMENTIERT
 
 **Änderungen:**
+
 1. ✅ `supabase/functions/create-checkout/index.ts` erstellt
    - Stripe Checkout Session Erstellung
    - Customer-Erstellung (falls nicht vorhanden)
@@ -43,6 +46,7 @@
    - Environment Variables für Price IDs
 
 **Nächste Schritte:**
+
 - ⏳ Edge Function deployen
 - ⏳ Stripe Price IDs in Environment Variables setzen
 - ⏳ Frontend Checkout-Flow implementieren/prüfen
@@ -55,15 +59,18 @@
 **Status:** ✅ ANALYSIERT - TEILWEISE IMPLEMENTIERT
 
 **Gefundene FeatureGate-Implementierungen:**
+
 1. ✅ `Statistiken.tsx` - FeatureGate mit `requiredTariff="Business"` ✅
 2. ✅ `Partner.tsx` - FeatureGate mit `requiredTariff="Business"` ✅
 3. ⏳ `LandingpageKonfigurator.tsx` - KEIN FeatureGate gefunden ⚠️
 
 **Problem:**
+
 - LandingpageKonfigurator ist Business-Feature (laut tariff-definitions.ts)
 - Aber KEIN FeatureGate vorhanden
 
 **Fix erforderlich:**
+
 - ⏳ FeatureGate um LandingpageKonfigurator-Inhalt hinzufügen
 - ⏳ Alle anderen Business-Features prüfen
 
@@ -74,6 +81,7 @@
 **Status:** ⏳ IN PROGRESS
 
 **Zu prüfen:**
+
 - ⏳ Home.tsx Features vs. Implementierung
 - ⏳ Pricing.tsx Features vs. Implementierung
 - ⏳ Alle Features müssen existieren ODER entfernt werden
@@ -85,12 +93,14 @@
 **Status:** ✅ GEFUNDEN - FUNKTIONIERT
 
 **Gefundene Upload-Komponenten:**
+
 1. ✅ `DocumentUploadForm.tsx` - Dokumenten-Upload
 2. ✅ `UniversalUpload.tsx` - Universal Upload
 3. ✅ `LogoUpload.tsx` - Logo-Upload
 4. ✅ `V28FileUpload.tsx` - Design System Upload
 
 **Upload-Funktionalität:**
+
 - ✅ Supabase Storage Integration vorhanden
 - ✅ DocumentUploadForm mit OCR-Support (Enterprise)
 - ✅ File-Validation und Error-Handling
@@ -102,11 +112,13 @@
 ## 📋 NÄCHSTE SCHRITTE
 
 ### Sofort (P0):
+
 1. ⏳ Migration `20250131000003_fix_master_login.sql` in Supabase ausführen
 2. ⏳ FeatureGate zu LandingpageKonfigurator hinzufügen
 3. ⏳ Frontend Checkout-Flow implementieren/prüfen
 
 ### Heute (P1):
+
 4. ⏳ Marketingtext-Validierung vollständig
 5. ⏳ Alle Business-Features mit FeatureGate prüfen
 6. ⏳ Stripe Price IDs konfigurieren
@@ -114,9 +126,3 @@
 ---
 
 **Arbeite weiter autonom...** 🚀
-
-
-
-
-
-

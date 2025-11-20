@@ -6,35 +6,35 @@
  * Quality Gates V18.3.27
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const LOVABLE_API_KEY = process.env.LOVABLE_API_KEY;
 
-const SCREENSHOTS_DIR = path.join(__dirname, '../test-results/screenshots');
-const REPORT_FILE = path.join(__dirname, '../test-results/ai-report.json');
+const SCREENSHOTS_DIR = path.join(__dirname, "../test-results/screenshots");
+const REPORT_FILE = path.join(__dirname, "../test-results/ai-report.json");
 
 async function analyzeScreenshot(imagePath, pageName) {
   console.log(`Analyzing ${pageName}...`);
 
   // Read image as base64
   const imageBuffer = fs.readFileSync(imagePath);
-  const base64Image = imageBuffer.toString('base64');
+  const base64Image = imageBuffer.toString("base64");
 
   // Call Lovable AI Gateway
-  const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
-    method: 'POST',
+  const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    method: "POST",
     headers: {
-      'Authorization': `Bearer ${LOVABLE_API_KEY}`,
-      'Content-Type': 'application/json',
+      Authorization: `Bearer ${LOVABLE_API_KEY}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: 'google/gemini-2.5-flash',
+      model: "google/gemini-2.5-flash",
       messages: [
         {
-          role: 'system',
+          role: "system",
           content: `You are a UI/UX quality inspector for MyDispatch V18.3.27.
 Analyze the screenshot for design system compliance:
 
@@ -74,23 +74,23 @@ Return JSON with violations array:
   "touchTargets": true/false,
   "responsive": true/false,
   "corporateIdentity": true/false
-}`
+}`,
         },
         {
-          role: 'user',
+          role: "user",
           content: [
             {
-              type: 'text',
-              text: `Analyze this screenshot of "${pageName}" page. Check ALL design system compliance rules.`
+              type: "text",
+              text: `Analyze this screenshot of "${pageName}" page. Check ALL design system compliance rules.`,
             },
             {
-              type: 'image_url',
+              type: "image_url",
               image_url: {
-                url: `data:image/png;base64,${base64Image}`
-              }
-            }
-          ]
-        }
+                url: `data:image/png;base64,${base64Image}`,
+              },
+            },
+          ],
+        },
       ],
       max_tokens: 1000,
     }),
@@ -100,8 +100,8 @@ Return JSON with violations array:
     console.error(`AI analysis failed for ${pageName}:`, response.status);
     return {
       page: pageName,
-      error: 'Analysis failed',
-      violations: []
+      error: "Analysis failed",
+      violations: [],
     };
   }
 
@@ -115,7 +115,7 @@ Return JSON with violations array:
       const result = JSON.parse(jsonMatch[0]);
       return {
         page: pageName,
-        ...result
+        ...result,
       };
     }
   } catch (e) {
@@ -125,41 +125,42 @@ Return JSON with violations array:
   return {
     page: pageName,
     violations: [],
-    error: 'Could not parse AI response'
+    error: "Could not parse AI response",
   };
 }
 
 async function main() {
-  console.log('🤖 Starting AI Visual Analysis...\n');
+  console.log("🤖 Starting AI Visual Analysis...\n");
 
   if (!fs.existsSync(SCREENSHOTS_DIR)) {
-    console.error('Screenshots directory not found!');
-    console.log('Run: npm run test:screenshots first');
+    console.error("Screenshots directory not found!");
+    console.log("Run: npm run test:screenshots first");
     process.exit(1);
   }
 
   // Find all screenshots
-  const screenshots = fs.readdirSync(SCREENSHOTS_DIR)
-    .filter(file => file.endsWith('.png'))
-    .map(file => ({
+  const screenshots = fs
+    .readdirSync(SCREENSHOTS_DIR)
+    .filter((file) => file.endsWith(".png"))
+    .map((file) => ({
       path: path.join(SCREENSHOTS_DIR, file),
-      name: file.replace('.png', '')
+      name: file.replace(".png", ""),
     }));
 
   if (screenshots.length === 0) {
-    console.error('No screenshots found!');
+    console.error("No screenshots found!");
     process.exit(1);
   }
 
   console.log(`Found ${screenshots.length} screenshots to analyze\n`);
 
   const results = [];
-  
+
   // Analyze each screenshot
   for (const screenshot of screenshots) {
     const result = await analyzeScreenshot(screenshot.path, screenshot.name);
     results.push(result);
-    
+
     console.log(`✅ ${screenshot.name}`);
     if (result.violations && result.violations.length > 0) {
       console.log(`   ⚠️  ${result.violations.length} violations found`);
@@ -173,35 +174,35 @@ async function main() {
     totalViolations: results.reduce((sum, r) => sum + (r.violations?.length || 0), 0),
     results: results,
     summary: {
-      colorCompliant: results.filter(r => r.colorCompliance).length,
-      touchTargetsOk: results.filter(r => r.touchTargets).length,
-      responsiveOk: results.filter(r => r.responsive).length,
-      brandingOk: results.filter(r => r.corporateIdentity).length,
-    }
+      colorCompliant: results.filter((r) => r.colorCompliance).length,
+      touchTargetsOk: results.filter((r) => r.touchTargets).length,
+      responsiveOk: results.filter((r) => r.responsive).length,
+      brandingOk: results.filter((r) => r.corporateIdentity).length,
+    },
   };
 
   // Save report
   fs.mkdirSync(path.dirname(REPORT_FILE), { recursive: true });
   fs.writeFileSync(REPORT_FILE, JSON.stringify(report, null, 2));
 
-  console.log('\n📊 Analysis Complete!');
+  console.log("\n📊 Analysis Complete!");
   console.log(`Total violations: ${report.totalViolations}`);
   console.log(`Report saved to: ${REPORT_FILE}`);
 
   // Exit with error if critical violations found
   const criticalViolations = results
-    .flatMap(r => r.violations || [])
-    .filter(v => v.severity === 'error');
+    .flatMap((r) => r.violations || [])
+    .filter((v) => v.severity === "error");
 
   if (criticalViolations.length > 0) {
     console.error(`\n❌ ${criticalViolations.length} critical violations found!`);
     process.exit(1);
   }
 
-  console.log('\n✅ All checks passed!');
+  console.log("\n✅ All checks passed!");
 }
 
-main().catch(error => {
-  console.error('AI Analysis Error:', error);
+main().catch((error) => {
+  console.error("AI Analysis Error:", error);
   process.exit(1);
 });

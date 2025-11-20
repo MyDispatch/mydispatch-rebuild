@@ -18,6 +18,7 @@
 **Pfad:** Settings → Edge Functions → Secrets
 
 **Füge hinzu:**
+
 ```
 RESEND_API_KEY=re_QLd5UEuy_65ESCwqXFrSaHzuSTaS8LTGd
 ```
@@ -25,6 +26,7 @@ RESEND_API_KEY=re_QLd5UEuy_65ESCwqXFrSaHzuSTaS8LTGd
 ### Schritt 3: Edge Functions neu deployen (optional)
 
 Falls nötig, deploye die Email-Functions neu:
+
 ```bash
 supabase functions deploy send-password-reset
 supabase functions deploy send-demo-request
@@ -68,6 +70,7 @@ supabase secrets list
 Nach dem Setzen des Secrets:
 
 ### Test 1: Password Reset Email
+
 ```bash
 curl -X POST https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/send-password-reset \
   -H "Content-Type: application/json" \
@@ -75,6 +78,7 @@ curl -X POST https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/send-password
 ```
 
 ### Test 2: Demo Request Email
+
 ```bash
 curl -X POST https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/send-demo-request \
   -H "Content-Type: application/json" \
@@ -91,6 +95,7 @@ curl -X POST https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/send-demo-req
 ## 🔍 ERWARTETE ANTWORT
 
 **Erfolg:**
+
 ```json
 {
   "success": true,
@@ -99,6 +104,7 @@ curl -X POST https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/send-demo-req
 ```
 
 **Fehler (kein Secret):**
+
 ```json
 {
   "error": "Email service not configured"

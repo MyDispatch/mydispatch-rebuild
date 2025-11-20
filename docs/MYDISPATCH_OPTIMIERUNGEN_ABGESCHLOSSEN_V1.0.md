@@ -30,6 +30,7 @@
 **Date:** `src/pages/driver-app/DriverDashboard.tsx`
 
 **Änderungen:**
+
 - ✅ Supabase Integration für `handleAcceptBooking`
 - ✅ Supabase Integration für `handleDeclineBooking`
 - ✅ Error Handling mit `handleError`
@@ -37,22 +38,23 @@
 - ✅ Status-Update: `status = 'accepted'` / `status = 'declined'`
 
 **Code:**
+
 ```typescript
 const handleAcceptBooking = async (bookingId: string) => {
   try {
     const { error } = await supabase
-      .from('bookings')
-      .update({ 
-        status: 'accepted',
-        updated_at: new Date().toISOString()
+      .from("bookings")
+      .update({
+        status: "accepted",
+        updated_at: new Date().toISOString(),
       })
-      .eq('id', bookingId);
+      .eq("id", bookingId);
 
     if (error) throw error;
-    toast.success('Auftrag angenommen');
+    toast.success("Auftrag angenommen");
   } catch (error) {
-    handleError(error, 'Fehler beim Annehmen des Auftrags');
-    toast.error('Auftrag konnte nicht angenommen werden');
+    handleError(error, "Fehler beim Annehmen des Auftrags");
+    toast.error("Auftrag konnte nicht angenommen werden");
   }
 };
 ```
@@ -65,31 +67,30 @@ const handleAcceptBooking = async (bookingId: string) => {
 **Date:** `src/lib/tariff-calculator.ts`
 
 **Änderungen:**
+
 - ✅ HERE Maps Routing API v8 Integration
 - ✅ Fallback zu Mock Data bei API-Fehler
 - ✅ Environment Variable: `VITE_HERE_API_KEY`
 - ✅ Error Handling
 
 **Code:**
+
 ```typescript
-const getDistance = async (
-  pickup: string,
-  destination: string
-): Promise<DistanceData> => {
+const getDistance = async (pickup: string, destination: string): Promise<DistanceData> => {
   try {
     const HERE_API_KEY = import.meta.env.VITE_HERE_API_KEY;
-    
+
     if (!HERE_API_KEY) {
       return getMockDistance();
     }
 
     const response = await fetch(
       `https://router.hereapi.com/v8/routes?` +
-      `transportMode=car&` +
-      `origin=${encodeURIComponent(pickup)}&` +
-      `destination=${encodeURIComponent(destination)}&` +
-      `return=summary&` +
-      `apikey=${HERE_API_KEY}`
+        `transportMode=car&` +
+        `origin=${encodeURIComponent(pickup)}&` +
+        `destination=${encodeURIComponent(destination)}&` +
+        `return=summary&` +
+        `apikey=${HERE_API_KEY}`
     );
 
     // ... process response
@@ -107,28 +108,30 @@ const getDistance = async (
 **Date:** `src/lib/tariff-calculator.ts`
 
 **Änderungen:**
+
 - ✅ Supabase Query für `tariff_definitions` Table
 - ✅ Company-spezifische Tarife
 - ✅ Fallback zu Default Tariff
 - ✅ Error Handling
 
 **Code:**
+
 ```typescript
 const getTariffRules = async (companyId: string): Promise<TariffRules> => {
   try {
     const { data, error } = await supabase
-      .from('tariff_definitions')
-      .select('*')
-      .eq('company_id', companyId)
-      .eq('is_active', true)
-      .order('created_at', { ascending: false })
+      .from("tariff_definitions")
+      .select("*")
+      .eq("company_id", companyId)
+      .eq("is_active", true)
+      .order("created_at", { ascending: false })
       .limit(1)
       .maybeSingle();
 
     if (data) {
       return {
-        basePrice: data.base_price || 3.50,
-        pricePerKm: data.price_per_km || 2.20,
+        basePrice: data.base_price || 3.5,
+        pricePerKm: data.price_per_km || 2.2,
         // ... weitere Felder
       };
     }
@@ -245,4 +248,3 @@ const getTariffRules = async (companyId: string): Promise<TariffRules> => {
 Das Projekt ist jetzt vollumfänglich fertiggestellt für die technischen, visuellen und notwendigen Optimierungen nach Best Practices.
 
 **Verbleibende TODOs sind optional und nicht kritisch für die Funktionalität.**
-

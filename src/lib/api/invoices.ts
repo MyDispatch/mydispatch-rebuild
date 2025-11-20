@@ -2,10 +2,10 @@
  * HYPERION PHASE 2: Invoices API Module
  */
 
-import { TypedSupabaseClient, handleApiError } from './client';
-import { Tables, Enums } from '@/integrations/supabase/types';
+import { TypedSupabaseClient, handleApiError } from "./client";
+import { Tables, Enums } from "@/integrations/supabase/types";
 
-export type Invoice = Tables<'invoices'>;
+export type Invoice = Tables<"invoices">;
 
 export interface InvoiceFilters {
   status?: string;
@@ -39,87 +39,76 @@ export function createInvoicesApi(supabase: TypedSupabaseClient): InvoicesApi {
     async list(filters = {}) {
       try {
         let query = supabase
-          .from('invoices')
-          .select('*')
-          .order('invoice_date', { ascending: false });
+          .from("invoices")
+          .select("*")
+          .order("invoice_date", { ascending: false });
 
         if (filters.status) {
-          query = query.eq('status', filters.status);
+          query = query.eq("status", filters.status);
         }
         if (filters.customer_id) {
-          query = query.eq('customer_id', filters.customer_id);
+          query = query.eq("customer_id", filters.customer_id);
         }
         if (filters.date_from) {
-          query = query.gte('invoice_date', filters.date_from);
+          query = query.gte("invoice_date", filters.date_from);
         }
         if (filters.date_to) {
-          query = query.lte('invoice_date', filters.date_to);
+          query = query.lte("invoice_date", filters.date_to);
         }
 
         const { data, error } = await query;
-        if (error) handleApiError(error, 'invoices.list');
+        if (error) handleApiError(error, "invoices.list");
         return data || [];
       } catch (error) {
-        handleApiError(error, 'invoices.list');
+        handleApiError(error, "invoices.list");
       }
     },
 
     async getById(id) {
       try {
-        const { data, error } = await supabase
-          .from('invoices')
-          .select('*')
-          .eq('id', id)
-          .single();
+        const { data, error } = await supabase.from("invoices").select("*").eq("id", id).single();
 
-        if (error) handleApiError(error, 'invoices.getById');
+        if (error) handleApiError(error, "invoices.getById");
         return data!;
       } catch (error) {
-        handleApiError(error, 'invoices.getById');
+        handleApiError(error, "invoices.getById");
       }
     },
 
     async create(input) {
       try {
-        const { data, error } = await supabase
-          .from('invoices')
-          .insert([input])
-          .select()
-          .single();
+        const { data, error } = await supabase.from("invoices").insert([input]).select().single();
 
-        if (error) handleApiError(error, 'invoices.create');
+        if (error) handleApiError(error, "invoices.create");
         return data!;
       } catch (error) {
-        handleApiError(error, 'invoices.create');
+        handleApiError(error, "invoices.create");
       }
     },
 
     async update(id, updates) {
       try {
         const { data, error } = await supabase
-          .from('invoices')
+          .from("invoices")
           .update(updates)
-          .eq('id', id)
+          .eq("id", id)
           .select()
           .single();
 
-        if (error) handleApiError(error, 'invoices.update');
+        if (error) handleApiError(error, "invoices.update");
         return data!;
       } catch (error) {
-        handleApiError(error, 'invoices.update');
+        handleApiError(error, "invoices.update");
       }
     },
 
     async delete(id) {
       try {
-        const { error } = await supabase
-          .from('invoices')
-          .delete()
-          .eq('id', id);
+        const { error } = await supabase.from("invoices").delete().eq("id", id);
 
-        if (error) handleApiError(error, 'invoices.delete');
+        if (error) handleApiError(error, "invoices.delete");
       } catch (error) {
-        handleApiError(error, 'invoices.delete');
+        handleApiError(error, "invoices.delete");
       }
     },
   };

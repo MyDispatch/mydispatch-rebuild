@@ -4,10 +4,10 @@
    Dashboard-Statistiken mit Smart Caching
    ================================================================================== */
 
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from './use-auth';
-import { queryKeys } from '@/lib/query-client';
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "./use-auth";
+import { queryKeys } from "@/lib/query-client";
 
 interface DashboardStats {
   bookings_today: number;
@@ -25,8 +25,12 @@ export { type DashboardStats };
 export const useStatistics = () => {
   const { profile } = useAuth();
 
-  const { data: stats, isLoading, error } = useQuery({
-    queryKey: queryKeys.stats(profile?.company_id || ''),
+  const {
+    data: stats,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: queryKeys.stats(profile?.company_id || ""),
     queryFn: async (): Promise<DashboardStats> => {
       if (!profile?.company_id) {
         return {
@@ -42,16 +46,16 @@ export const useStatistics = () => {
       }
 
       const now = new Date();
-      const today = now.toISOString().split('T')[0];
-      
+      const today = now.toISOString().split("T")[0];
+
       // Wochenstart (Montag)
       const weekStart = new Date(now);
       weekStart.setDate(now.getDate() - now.getDay() + 1);
-      const weekStartStr = weekStart.toISOString().split('T')[0];
-      
+      const weekStartStr = weekStart.toISOString().split("T")[0];
+
       // Monatsstart
       const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-      const monthStartStr = monthStart.toISOString().split('T')[0];
+      const monthStartStr = monthStart.toISOString().split("T")[0];
 
       // Parallele Queries für Performance
       const [
@@ -66,74 +70,76 @@ export const useStatistics = () => {
       ] = await Promise.all([
         // Heutige Aufträge
         supabase
-          .from('bookings')
-          .select('*', { count: 'exact', head: true })
-          .eq('company_id', profile.company_id)
-          .gte('pickup_time', `${today}T00:00:00`)
-          .lte('pickup_time', `${today}T23:59:59`)
-          .eq('archived', false),
-        
+          .from("bookings")
+          .select("*", { count: "exact", head: true })
+          .eq("company_id", profile.company_id)
+          .gte("pickup_time", `${today}T00:00:00`)
+          .lte("pickup_time", `${today}T23:59:59`)
+          .eq("archived", false),
+
         // Aktive Fahrer
         supabase
-          .from('drivers')
-          .select('*', { count: 'exact', head: true })
-          .eq('company_id', profile.company_id)
-          .eq('shift_status', 'available')
-          .eq('archived', false),
-        
+          .from("drivers")
+          .select("*", { count: "exact", head: true })
+          .eq("company_id", profile.company_id)
+          .eq("shift_status", "available")
+          .eq("archived", false),
+
         // Fahrzeuge im Einsatz
         supabase
-          .from('vehicles')
-          .select('*', { count: 'exact', head: true })
-          .eq('company_id', profile.company_id)
-          .eq('status', 'im_einsatz')
-          .eq('archived', false),
-        
+          .from("vehicles")
+          .select("*", { count: "exact", head: true })
+          .eq("company_id", profile.company_id)
+          .eq("status", "im_einsatz")
+          .eq("archived", false),
+
         // Heutiger Umsatz
         supabase
-          .from('bookings')
-          .select('price')
-          .eq('company_id', profile.company_id)
-          .gte('pickup_time', `${today}T00:00:00`)
-          .lte('pickup_time', `${today}T23:59:59`)
-          .eq('archived', false),
-        
+          .from("bookings")
+          .select("price")
+          .eq("company_id", profile.company_id)
+          .gte("pickup_time", `${today}T00:00:00`)
+          .lte("pickup_time", `${today}T23:59:59`)
+          .eq("archived", false),
+
         // Wochenaufträge
         supabase
-          .from('bookings')
-          .select('*', { count: 'exact', head: true })
-          .eq('company_id', profile.company_id)
-          .gte('pickup_time', `${weekStartStr}T00:00:00`)
-          .eq('archived', false),
-        
+          .from("bookings")
+          .select("*", { count: "exact", head: true })
+          .eq("company_id", profile.company_id)
+          .gte("pickup_time", `${weekStartStr}T00:00:00`)
+          .eq("archived", false),
+
         // Wochenumsatz
         supabase
-          .from('bookings')
-          .select('price')
-          .eq('company_id', profile.company_id)
-          .gte('pickup_time', `${weekStartStr}T00:00:00`)
-          .eq('archived', false),
-        
+          .from("bookings")
+          .select("price")
+          .eq("company_id", profile.company_id)
+          .gte("pickup_time", `${weekStartStr}T00:00:00`)
+          .eq("archived", false),
+
         // Monatsaufträge
         supabase
-          .from('bookings')
-          .select('*', { count: 'exact', head: true })
-          .eq('company_id', profile.company_id)
-          .gte('pickup_time', `${monthStartStr}T00:00:00`)
-          .eq('archived', false),
-        
+          .from("bookings")
+          .select("*", { count: "exact", head: true })
+          .eq("company_id", profile.company_id)
+          .gte("pickup_time", `${monthStartStr}T00:00:00`)
+          .eq("archived", false),
+
         // Monatsumsatz
         supabase
-          .from('bookings')
-          .select('price')
-          .eq('company_id', profile.company_id)
-          .gte('pickup_time', `${monthStartStr}T00:00:00`)
-          .eq('archived', false),
+          .from("bookings")
+          .select("price")
+          .eq("company_id", profile.company_id)
+          .gte("pickup_time", `${monthStartStr}T00:00:00`)
+          .eq("archived", false),
       ]);
 
-      const todayRevenue = todayRevenueResult.data?.reduce((sum, b) => sum + (b.price || 0), 0) || 0;
+      const todayRevenue =
+        todayRevenueResult.data?.reduce((sum, b) => sum + (b.price || 0), 0) || 0;
       const weekRevenue = weekRevenueResult.data?.reduce((sum, b) => sum + (b.price || 0), 0) || 0;
-      const monthRevenue = monthRevenueResult.data?.reduce((sum, b) => sum + (b.price || 0), 0) || 0;
+      const monthRevenue =
+        monthRevenueResult.data?.reduce((sum, b) => sum + (b.price || 0), 0) || 0;
 
       return {
         bookings_today: todayBookingsResult.count || 0,

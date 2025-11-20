@@ -6,10 +6,10 @@
    - PWA-Offline-Unterstützung
    ================================================================================== */
 
-import { useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { useQueryClient } from '@tanstack/react-query';
-import { logDebug } from '@/lib/logger';
+import { useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { logDebug } from "@/lib/logger";
 
 /**
  * Hook für Realtime-Updates von Bookings
@@ -20,23 +20,23 @@ export const useRealtimeBookings = () => {
 
   useEffect(() => {
     const channel = supabase
-      .channel('bookings-realtime-updates')
+      .channel("bookings-realtime-updates")
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: '*', // INSERT, UPDATE, DELETE
-          schema: 'public',
-          table: 'bookings'
+          event: "*", // INSERT, UPDATE, DELETE
+          schema: "public",
+          table: "bookings",
         },
         (payload) => {
-          logDebug('📡 Realtime Booking Update', { 
-            eventType: payload.eventType, 
-            booking: payload.new 
+          logDebug("📡 Realtime Booking Update", {
+            eventType: payload.eventType,
+            booking: payload.new,
           });
-          
+
           // Invalidiere Queries für automatisches Re-Fetch
-          queryClient.invalidateQueries({ queryKey: ['bookings'] });
-          queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] });
+          queryClient.invalidateQueries({ queryKey: ["bookings"] });
+          queryClient.invalidateQueries({ queryKey: ["dashboard-stats"] });
         }
       )
       .subscribe();

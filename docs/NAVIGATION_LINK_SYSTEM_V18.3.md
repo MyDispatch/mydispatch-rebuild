@@ -17,7 +17,7 @@ Dieses Dokument definiert **systemweite Standards für Verlinkungen, Navigation 
 MyDispatch verwendet `react-router-dom` für clientseitiges Routing:
 
 ```tsx
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from "react-router-dom";
 ```
 
 ### Haupt-Routes-Struktur
@@ -53,11 +53,13 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 ### 1. Interne Links (React Router)
 
 **IMMER verwenden für:**
+
 - Navigation innerhalb der App
 - Alle internen Seiten
 - CTAs zu anderen App-Seiten
 
 **Syntax:**
+
 ```tsx
 import { Link } from 'react-router-dom';
 
@@ -77,6 +79,7 @@ navigate('/dashboard');
 ```
 
 **VERBOTEN:**
+
 ```tsx
 ❌ <a href="/pricing">Preise</a>  // FALSCH - lädt Seite neu!
 ❌ window.location.href = '/pricing'  // FALSCH - lädt Seite neu!
@@ -87,25 +90,23 @@ navigate('/dashboard');
 ### 2. Externe Links
 
 **Verwenden für:**
+
 - Links zu externen Websites
 - Social Media Links
 - Partner-Websites
 - Dokumentation (extern)
 
 **Syntax:**
+
 ```tsx
 // Externe Links MÜSSEN target="_blank" und rel haben
-<a 
-  href="https://example.com" 
-  target="_blank" 
-  rel="noopener noreferrer"
-  className="..."
->
+<a href="https://example.com" target="_blank" rel="noopener noreferrer" className="...">
   Externe Seite
 </a>
 ```
 
 **Sicherheit:**
+
 - `target="_blank"` → Öffnet in neuem Tab
 - `rel="noopener noreferrer"` → Verhindert Security Issues
 
@@ -114,6 +115,7 @@ navigate('/dashboard');
 ### 3. Legal Links (AGB, Datenschutz, Impressum)
 
 **Footer-Links:**
+
 ```tsx
 // Footer.tsx
 <footer>
@@ -141,32 +143,32 @@ navigate('/dashboard');
 
 ```tsx
 // In App.tsx oder Routes-Config
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '@/hooks/use-auth';
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
-  
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
-  
+
   if (!user) {
     return <Navigate to="/auth" replace />;
   }
-  
+
   return <>{children}</>;
 }
 
 // Usage
-<Route 
-  path="/dashboard" 
+<Route
+  path="/dashboard"
   element={
     <ProtectedRoute>
       <Dashboard />
     </ProtectedRoute>
-  } 
-/>
+  }
+/>;
 ```
 
 ---
@@ -182,9 +184,9 @@ const location = useLocation();
 
 const handleLogin = async () => {
   await loginUser(email, password);
-  
+
   // Redirect zu ursprünglicher Seite oder Dashboard
-  const from = location.state?.from || '/dashboard';
+  const from = location.state?.from || "/dashboard";
   navigate(from, { replace: true });
 };
 ```
@@ -194,7 +196,7 @@ const handleLogin = async () => {
 ```tsx
 const handleLogout = async () => {
   await logoutUser();
-  navigate('/auth', { replace: true });
+  navigate("/auth", { replace: true });
 };
 ```
 
@@ -204,21 +206,21 @@ const handleLogout = async () => {
 const navigate = useNavigate();
 
 // Einfache Navigation
-navigate('/dashboard');
+navigate("/dashboard");
 
 // Mit Replace (keine History)
-navigate('/dashboard', { replace: true });
+navigate("/dashboard", { replace: true });
 
 // Mit State
-navigate('/auftraege', { 
-  state: { 
-    filter: 'active' 
-  } 
+navigate("/auftraege", {
+  state: {
+    filter: "active",
+  },
 });
 
 // Zurück
-navigate(-1);  // Go back
-navigate(-2);  // Go back 2 steps
+navigate(-1); // Go back
+navigate(-2); // Go back 2 steps
 ```
 
 ---
@@ -230,16 +232,16 @@ navigate(-2);  // Go back 2 steps
 ```tsx
 // MobileBottomNav.tsx
 const navItems = [
-  { icon: Home, label: 'Home', path: '/dashboard' },
-  { icon: ClipboardList, label: 'Aufträge', path: '/auftraege' },
-  { icon: Users, label: 'Kunden', path: '/kunden' },
-  { icon: Car, label: 'Fahrer', path: '/fahrer' },
-  { icon: MoreHorizontal, label: 'Mehr', path: '/menu' },
+  { icon: Home, label: "Home", path: "/dashboard" },
+  { icon: ClipboardList, label: "Aufträge", path: "/auftraege" },
+  { icon: Users, label: "Kunden", path: "/kunden" },
+  { icon: Car, label: "Fahrer", path: "/fahrer" },
+  { icon: MoreHorizontal, label: "Mehr", path: "/menu" },
 ];
 
 <nav className="fixed bottom-0 left-0 right-0 z-50">
   {navItems.map((item) => (
-    <Link 
+    <Link
       key={item.path}
       to={item.path}
       className={cn(
@@ -251,10 +253,11 @@ const navItems = [
       <span className="text-xs">{item.label}</span>
     </Link>
   ))}
-</nav>
+</nav>;
 ```
 
 **KRITISCH:**
+
 - Min-Height 44px für Touch-Targets!
 - Active-State visuell hervorheben
 - Alle Links müssen zu existierenden Seiten führen
@@ -267,13 +270,8 @@ const navItems = [
 
 ```tsx
 // Pricing.tsx - Tarif-Cards
-<Button 
-  asChild 
-  className="w-full md:w-auto min-h-[44px]"
->
-  <Link to="/auth">
-    Jetzt starten
-  </Link>
+<Button asChild className="w-full md:w-auto min-h-[44px]">
+  <Link to="/auth">Jetzt starten</Link>
 </Button>
 ```
 
@@ -285,7 +283,7 @@ const navItems = [
   <Button asChild size="lg" className="min-h-[44px]">
     <Link to="/auth">Kostenlos registrieren</Link>
   </Button>
-  
+
   <Button asChild variant="outline" size="lg" className="min-h-[44px]">
     <Link to="/pricing">Preise ansehen</Link>
   </Button>
@@ -304,24 +302,20 @@ const navItems = [
 // pages/NotFound.tsx
 export function NotFound() {
   const navigate = useNavigate();
-  
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-bold">404</h1>
-        <p className="text-lg text-muted-foreground">
-          Seite nicht gefunden
-        </p>
-        <Button onClick={() => navigate('/dashboard')}>
-          Zurück zum Dashboard
-        </Button>
+        <p className="text-lg text-muted-foreground">Seite nicht gefunden</p>
+        <Button onClick={() => navigate("/dashboard")}>Zurück zum Dashboard</Button>
       </div>
     </div>
   );
 }
 
 // In Routes-Config
-<Route path="*" element={<NotFound />} />
+<Route path="*" element={<NotFound />} />;
 ```
 
 ---
@@ -348,21 +342,19 @@ export function NotFound() {
 ### useLocation für Active-State
 
 ```tsx
-import { useLocation, Link } from 'react-router-dom';
-import { cn } from '@/lib/utils';
+import { useLocation, Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 function NavItem({ to, children }: { to: string; children: React.ReactNode }) {
   const location = useLocation();
   const isActive = location.pathname === to;
-  
+
   return (
-    <Link 
+    <Link
       to={to}
       className={cn(
         "px-4 py-2 rounded-lg transition-colors",
-        isActive 
-          ? "bg-primary text-primary-foreground" 
-          : "hover:bg-muted"
+        isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted"
       )}
     >
       {children}
@@ -404,8 +396,8 @@ export function Breadcrumbs({ items }: { items: { label: string; path?: string }
 ```tsx
 // AppSidebar.tsx
 const sidebarItems = [
-  { icon: Home, label: 'Dashboard', path: '/dashboard', section: 'HAUPTBEREICH' },
-  { icon: ClipboardList, label: 'Aufträge', path: '/auftraege', section: 'HAUPTBEREICH' },
+  { icon: Home, label: "Dashboard", path: "/dashboard", section: "HAUPTBEREICH" },
+  { icon: ClipboardList, label: "Aufträge", path: "/auftraege", section: "HAUPTBEREICH" },
   // ... mehr Items
 ];
 
@@ -415,7 +407,7 @@ const sidebarItems = [
       <h3 className="text-xs font-semibold mb-2">{section}</h3>
       <div className="space-y-1">
         {sidebarItems
-          .filter(item => item.section === section)
+          .filter((item) => item.section === section)
           .map((item) => (
             <Link
               key={item.path}
@@ -432,7 +424,7 @@ const sidebarItems = [
       </div>
     </div>
   ))}
-</nav>
+</nav>;
 ```
 
 ---
@@ -443,18 +435,18 @@ const sidebarItems = [
 
 ```tsx
 // Mobile → Tablet → Desktop
-<Link 
+<Link
   to="/path"
   className={cn(
     // Mobile (< 768px)
     "min-h-[44px] px-4 py-2 text-sm",
-    
+
     // Tablet (768px - 1023px)
     "md:min-h-[48px] md:px-6 md:py-2.5 md:text-base",
-    
+
     // Desktop (≥ 1024px)
     "lg:px-8 lg:py-3 lg:text-lg",
-    
+
     // States
     "hover:bg-muted active:bg-muted/80 transition-colors"
   )}
@@ -468,6 +460,7 @@ const sidebarItems = [
 ## 🚀 BEST PRACTICES
 
 ### DO ✅
+
 - Verwende `<Link>` für interne Navigation
 - Setze `target="_blank"` und `rel` für externe Links
 - Implementiere Auth-Guards für protected Routes
@@ -477,6 +470,7 @@ const sidebarItems = [
 - Redirects nach Login/Logout
 
 ### DON'T ❌
+
 - Keine `<a href>` für interne Links
 - Keine fehlenden `rel` Attribute bei externen Links
 - Keine ungeschützten Protected Routes
@@ -492,18 +486,21 @@ const sidebarItems = [
 ### Häufige Link-Probleme
 
 **Problem:** Link lädt Seite neu statt clientseitig zu navigieren
+
 ```tsx
 ❌ <a href="/path">Link</a>
 ✅ <Link to="/path">Link</Link>
 ```
 
 **Problem:** Protected Route nicht geschützt
+
 ```tsx
 ❌ <Route path="/dashboard" element={<Dashboard />} />
 ✅ <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
 ```
 
 **Problem:** Externe Links ohne Security
+
 ```tsx
 ❌ <a href="https://example.com">Link</a>
 ✅ <a href="https://example.com" target="_blank" rel="noopener noreferrer">Link</a>

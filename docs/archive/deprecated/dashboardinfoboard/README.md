@@ -12,6 +12,7 @@
 
 **Grund:**  
 Die Design-Entscheidung wurde revidiert. Das finale Layout nutzt nur noch:
+
 - ✅ **Links:** AppSidebar (240px expanded, 64px collapsed)
 - ✅ **Rechts:** DashboardSidebar (320px fixed)
 - ✅ **Center:** Content Area (marginLeft: 560px/384px)
@@ -37,6 +38,7 @@ Diese Dateien enthalten veraltete Informationen über DashboardInfoBoard:
 **Siehe:** `docs/V32.0_LAYOUT_FINAL.md`
 
 **Final Layout (Production):**
+
 - AppSidebar (links) + DashboardSidebar (rechts) + Content (center)
 - Content-Margin: 560px (expanded) / 384px (collapsed)
 - Z-Index Hierarchy korrekt

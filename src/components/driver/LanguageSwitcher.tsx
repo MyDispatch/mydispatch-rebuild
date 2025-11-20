@@ -7,22 +7,16 @@
    - RTL-Support für Arabisch
    ================================================================================== */
 
-import { useTranslation } from 'react-i18next';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/lib/compat';
-import { Globe } from 'lucide-react';
-import { useEffect } from 'react';
+import { useTranslation } from "react-i18next";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/lib/compat";
+import { Globe } from "lucide-react";
+import { useEffect } from "react";
 
 const LANGUAGES = [
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
-  { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
-  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-  { code: 'ro', name: 'Română', flag: '🇷🇴' },
+  { code: "de", name: "Deutsch", flag: "🇩🇪" },
+  { code: "tr", name: "Türkçe", flag: "🇹🇷" },
+  { code: "ar", name: "العربية", flag: "🇸🇦" },
+  { code: "ro", name: "Română", flag: "🇷🇴" },
 ];
 
 export const LanguageSwitcher = () => {
@@ -30,21 +24,21 @@ export const LanguageSwitcher = () => {
 
   // Apply RTL for Arabic
   useEffect(() => {
-    if (i18n.language === 'ar') {
-      document.documentElement.dir = 'rtl';
-      document.documentElement.lang = 'ar';
+    if (i18n.language === "ar") {
+      document.documentElement.dir = "rtl";
+      document.documentElement.lang = "ar";
     } else {
-      document.documentElement.dir = 'ltr';
+      document.documentElement.dir = "ltr";
       document.documentElement.lang = i18n.language;
     }
   }, [i18n.language]);
 
   const handleLanguageChange = (langCode: string) => {
     i18n.changeLanguage(langCode);
-    localStorage.setItem('preferred-language', langCode);
+    localStorage.setItem("preferred-language", langCode);
   };
 
-  const currentLanguage = LANGUAGES.find(lang => lang.code === i18n.language) || LANGUAGES[0];
+  const currentLanguage = LANGUAGES.find((lang) => lang.code === i18n.language) || LANGUAGES[0];
 
   return (
     <Select value={i18n.language} onValueChange={handleLanguageChange}>

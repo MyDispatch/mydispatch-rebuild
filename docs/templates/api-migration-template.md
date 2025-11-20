@@ -15,6 +15,7 @@ This template provides a systematic approach to migrate direct backend calls to 
 ## 🎯 OBJECTIVE
 
 Replace all direct backend calls with:
+
 - ✅ TanStack Query hooks for data fetching
 - ✅ Centralized error handling
 - ✅ Optimized caching strategies
@@ -26,6 +27,7 @@ Replace all direct backend calls with:
 ## 📚 PREREQUISITES
 
 ### Required Dependencies
+
 ```json
 {
   "dependencies": {
@@ -36,6 +38,7 @@ Replace all direct backend calls with:
 ```
 
 ### Project Structure
+
 ```
 src/
 ├── lib/
@@ -57,6 +60,7 @@ src/
 ### Step 1: Identify Components to Migrate
 
 **Prompt to AI**:
+
 ```
 Scan the codebase for all direct backend calls (Supabase, Firebase, fetch, axios):
 
@@ -75,12 +79,13 @@ Scan the codebase for all direct backend calls (Supabase, Firebase, fetch, axios
 ```
 
 **Expected Output**:
+
 ```markdown
-| Component | Current Call | Priority | Estimated Effort |
-|-----------|--------------|----------|------------------|
-| BookingList.tsx | supabase.from('bookings').select() | P0 | 30 min |
-| DocumentUpload.tsx | supabase.from('documents').insert() | P0 | 20 min |
-| AuditLogger.tsx | supabase.from('audit_logs').insert() | P1 | 15 min |
+| Component          | Current Call                         | Priority | Estimated Effort |
+| ------------------ | ------------------------------------ | -------- | ---------------- |
+| BookingList.tsx    | supabase.from('bookings').select()   | P0       | 30 min           |
+| DocumentUpload.tsx | supabase.from('documents').insert()  | P0       | 20 min           |
+| AuditLogger.tsx    | supabase.from('audit_logs').insert() | P1       | 15 min           |
 ```
 
 ---
@@ -88,6 +93,7 @@ Scan the codebase for all direct backend calls (Supabase, Firebase, fetch, axios
 ### Step 2: Create Centralized Query Keys
 
 **Prompt to AI**:
+
 ```
 Create a centralized query key system in `src/lib/react-query/query-keys.ts`:
 
@@ -101,19 +107,19 @@ Create a centralized query key system in `src/lib/react-query/query-keys.ts`:
 ```typescript
 export const queryKeys = {
   // Bookings
-  bookings: (companyId?: string) => ['bookings', companyId] as const,
-  booking: (id: string) => ['bookings', id] as const,
-  
+  bookings: (companyId?: string) => ["bookings", companyId] as const,
+  booking: (id: string) => ["bookings", id] as const,
+
   // Users
-  users: (companyId?: string) => ['users', companyId] as const,
-  user: (id: string) => ['users', id] as const,
-  
+  users: (companyId?: string) => ["users", companyId] as const,
+  user: (id: string) => ["users", id] as const,
+
   // Documents
-  documents: (companyId?: string) => ['documents', companyId] as const,
-  document: (id: string) => ['documents', id] as const,
-  
+  documents: (companyId?: string) => ["documents", companyId] as const,
+  document: (id: string) => ["documents", id] as const,
+
   // Stats
-  stats: (companyId?: string) => ['stats', companyId] as const,
+  stats: (companyId?: string) => ["stats", companyId] as const,
 };
 
 export const invalidateQueries = {
@@ -129,6 +135,7 @@ export const invalidateQueries = {
 ### Step 3: Create API Client Factory
 
 **Prompt to AI**:
+
 ```
 Create an API client factory in `src/lib/api/index.ts`:
 
@@ -141,12 +148,12 @@ Create an API client factory in `src/lib/api/index.ts`:
 **File**: `src/lib/api/index.ts`
 
 ```typescript
-import { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from '@/integrations/supabase/types';
+import { SupabaseClient } from "@supabase/supabase-js";
+import { Database } from "@/integrations/supabase/types";
 
-export type BookingWithRelations = Database['public']['Tables']['bookings']['Row'] & {
-  driver?: Database['public']['Tables']['profiles']['Row'];
-  vehicle?: Database['public']['Tables']['vehicles']['Row'];
+export type BookingWithRelations = Database["public"]["Tables"]["bookings"]["Row"] & {
+  driver?: Database["public"]["Tables"]["profiles"]["Row"];
+  vehicle?: Database["public"]["Tables"]["vehicles"]["Row"];
 };
 
 export function createApiClient(supabase: SupabaseClient<Database>) {
@@ -154,25 +161,23 @@ export function createApiClient(supabase: SupabaseClient<Database>) {
     bookings: {
       async list(): Promise<BookingWithRelations[]> {
         const { data, error } = await supabase
-          .from('bookings')
-          .select(`
+          .from("bookings")
+          .select(
+            `
             *,
             driver:profiles!driver_id(id, full_name, email),
             vehicle:vehicles(id, license_plate, model)
-          `)
-          .eq('archived', false)
-          .order('created_at', { ascending: false });
+          `
+          )
+          .eq("archived", false)
+          .order("created_at", { ascending: false });
 
         if (error) throw error;
         return data as BookingWithRelations[];
       },
 
       async create(booking: Partial<BookingWithRelations>) {
-        const { data, error } = await supabase
-          .from('bookings')
-          .insert(booking)
-          .select()
-          .single();
+        const { data, error } = await supabase.from("bookings").insert(booking).select().single();
 
         if (error) throw error;
         return data;
@@ -180,9 +185,9 @@ export function createApiClient(supabase: SupabaseClient<Database>) {
 
       async update(id: string, updates: Partial<BookingWithRelations>) {
         const { data, error } = await supabase
-          .from('bookings')
+          .from("bookings")
           .update(updates)
-          .eq('id', id)
+          .eq("id", id)
           .select()
           .single();
 
@@ -191,10 +196,7 @@ export function createApiClient(supabase: SupabaseClient<Database>) {
       },
 
       async archive(id: string) {
-        const { error } = await supabase
-          .from('bookings')
-          .update({ archived: true })
-          .eq('id', id);
+        const { error } = await supabase.from("bookings").update({ archived: true }).eq("id", id);
 
         if (error) throw error;
       },
@@ -208,6 +210,7 @@ export function createApiClient(supabase: SupabaseClient<Database>) {
 ### Step 4: Create Domain Hook
 
 **Prompt to AI**:
+
 ```
 Create a hook for the [domain] using TanStack Query:
 
@@ -222,13 +225,13 @@ Create a hook for the [domain] using TanStack Query:
 **File**: `src/hooks/use-bookings.ts`
 
 ```typescript
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { createApiClient, BookingWithRelations } from '@/lib/api';
-import { useAuth } from './use-auth';
-import { queryKeys } from '@/lib/react-query/query-keys';
-import { toast } from 'sonner';
-import { useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { createApiClient, BookingWithRelations } from "@/lib/api";
+import { useAuth } from "./use-auth";
+import { queryKeys } from "@/lib/react-query/query-keys";
+import { toast } from "sonner";
+import { useMemo } from "react";
 
 export const useBookings = () => {
   const { profile } = useAuth();
@@ -237,7 +240,11 @@ export const useBookings = () => {
   const api = useMemo(() => createApiClient(supabase), []);
 
   // Fetch bookings
-  const { data: bookings, isLoading, error } = useQuery<BookingWithRelations[]>({
+  const {
+    data: bookings,
+    isLoading,
+    error,
+  } = useQuery<BookingWithRelations[]>({
     queryKey: queryKeys.bookings(profile?.company_id),
     queryFn: async () => {
       if (!profile?.company_id) return [];
@@ -250,7 +257,7 @@ export const useBookings = () => {
   // Create booking
   const createMutation = useMutation({
     mutationFn: async (booking: Partial<BookingWithRelations>) => {
-      if (!profile?.company_id) throw new Error('No company ID');
+      if (!profile?.company_id) throw new Error("No company ID");
       return await api.bookings.create({
         ...booking,
         company_id: profile.company_id,
@@ -258,10 +265,10 @@ export const useBookings = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.bookings(profile!.company_id!) });
-      toast.success('Booking created successfully');
+      toast.success("Booking created successfully");
     },
     onError: (error) => {
-      toast.error('Failed to create booking');
+      toast.error("Failed to create booking");
       console.error(error);
     },
   });
@@ -273,10 +280,10 @@ export const useBookings = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.bookings(profile!.company_id!) });
-      toast.success('Booking updated successfully');
+      toast.success("Booking updated successfully");
     },
     onError: (error) => {
-      toast.error('Failed to update booking');
+      toast.error("Failed to update booking");
       console.error(error);
     },
   });
@@ -288,10 +295,10 @@ export const useBookings = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.bookings(profile!.company_id!) });
-      toast.success('Booking archived');
+      toast.success("Booking archived");
     },
     onError: (error) => {
-      toast.error('Failed to archive booking');
+      toast.error("Failed to archive booking");
       console.error(error);
     },
   });
@@ -315,6 +322,7 @@ export const useBookings = () => {
 ### Step 5: Migrate Component
 
 **Before (Direct Supabase Calls)**:
+
 ```typescript
 import { supabase } from '@/integrations/supabase/client';
 import { useState, useEffect } from 'react';
@@ -353,6 +361,7 @@ export function BookingList() {
 ```
 
 **After (TanStack Query Hook)**:
+
 ```typescript
 import { useBookings } from '@/hooks/use-bookings';
 
@@ -376,21 +385,21 @@ export function BookingList() {
 ### Step 6: Handle Mutations
 
 **Before (Direct Insert)**:
+
 ```typescript
 const handleSubmit = async (data: BookingData) => {
-  const { error } = await supabase
-    .from('bookings')
-    .insert(data);
+  const { error } = await supabase.from("bookings").insert(data);
 
   if (error) {
-    toast.error('Failed to create booking');
+    toast.error("Failed to create booking");
     return;
   }
-  toast.success('Booking created');
+  toast.success("Booking created");
 };
 ```
 
 **After (Mutation Hook)**:
+
 ```typescript
 const { createBooking, isCreating } = useBookings();
 
@@ -421,6 +430,7 @@ After migration, verify:
 ## 🚀 ADVANCED PATTERNS
 
 ### Optimistic Updates
+
 ```typescript
 const updateMutation = useMutation({
   mutationFn: api.bookings.update,
@@ -433,7 +443,7 @@ const updateMutation = useMutation({
 
     // Optimistically update
     queryClient.setQueryData(queryKeys.bookings(), (old) =>
-      old.map(b => b.id === newBooking.id ? { ...b, ...newBooking } : b)
+      old.map((b) => (b.id === newBooking.id ? { ...b, ...newBooking } : b))
     );
 
     return { previousBookings };
@@ -449,6 +459,7 @@ const updateMutation = useMutation({
 ```
 
 ### Prefetching
+
 ```typescript
 const prefetchBooking = (id: string) => {
   queryClient.prefetchQuery({
@@ -463,6 +474,7 @@ const prefetchBooking = (id: string) => {
 ## 📈 EXPECTED OUTCOMES
 
 After migration:
+
 - ✅ 50% reduction in loading spinners (better caching)
 - ✅ 30% faster perceived performance (optimistic updates)
 - ✅ 80% reduction in error-related bugs (centralized error handling)
@@ -474,12 +486,15 @@ After migration:
 ## 🔧 TROUBLESHOOTING
 
 ### Issue: Stale data after mutation
+
 **Solution**: Ensure `queryClient.invalidateQueries()` is called in `onSuccess`
 
 ### Issue: Infinite loading state
+
 **Solution**: Check `enabled` condition in `useQuery` options
 
 ### Issue: TypeScript errors
+
 **Solution**: Ensure API client return types match Supabase schema types
 
 ---

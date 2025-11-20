@@ -10,7 +10,7 @@ graph TD
     A --> C[Unternehmer-Landingpage]
     A --> D[Fahrer-Portal]
     A --> E[Kunden-Portal]
-    
+
     B --> B1[Aufträge]
     B --> B2[Fahrer]
     B --> B3[Fahrzeuge]
@@ -18,15 +18,15 @@ graph TD
     B --> B5[Finanzen]
     B --> B6[Statistiken]
     B --> B7[Einstellungen]
-    
+
     C --> C1[Öffentliche Landingpage]
     C --> C2[Buchungswidget]
     C --> C3[Branding]
-    
+
     D --> D1[Fahreraufträge]
     D --> D2[Fahrzeugstatus]
     D --> D3[Einnahmen]
-    
+
     E --> E1[Buchungsverlauf]
     E --> E2[Neue Buchung]
     E --> E3[Rechnungen]
@@ -37,17 +37,20 @@ graph TD
 ## 🎯 1. Dashboard-Portal (Kunden-Dashboard)
 
 ### Zweck
+
 Zentrale Verwaltungsoberfläche für **MyDispatch Unternehmer-Kunden** (externe Nutzer).
 
 ### Zugriff
+
 - **URL:** `https://my-dispatch.de/dashboard` (nach Login)
 - **Auth:** Erfordert Login mit Unternehmer-Account
-- **Rollen:** 
+- **Rollen:**
   - Admin (volle Rechte)
   - Unternehmer (eigenes Unternehmen)
   - Disponent (eingeschränkt)
 
 ### 🚨 KRITISCH: Sicherheits-Trennung
+
 **NIEMALS** System-Daten oder Admin-Tools im Kunden-Dashboard anzeigen!  
 → Siehe `docs/DASHBOARD_SECURITY_SEPARATION_V18.5.1.md`
 
@@ -56,14 +59,17 @@ Zentrale Verwaltungsoberfläche für **MyDispatch Unternehmer-Kunden** (externe 
 ## 🛡️ 1.5. Master-Dashboard (System-Überwachung)
 
 ### Zweck
+
 **AUSSCHLIESSLICH** für MyDispatch-Team (Systembetreiber).
 
 ### Zugriff
+
 - **URL:** `https://my-dispatch.de/master`
 - **Auth:** Erfordert Login + `role = 'master'`
 - **Rollen:** Nur Master-Accounts (MyDispatch-Team)
 
 ### Features
+
 - ✅ System-Alerts & Monitoring
 - ✅ Performance-Metriken
 - ✅ Alle Unternehmen verwalten
@@ -71,7 +77,9 @@ Zentrale Verwaltungsoberfläche für **MyDispatch Unternehmer-Kunden** (externe 
 - ✅ System-Health-Checks
 
 ### 🔒 Sicherheit
+
 **VERPFLICHTEND:**
+
 - Route mit `requiredRole="master"` geschützt
 - Separate `user_roles` Tabelle mit RLS
 - Audit-Logging für alle Master-Aktionen
@@ -79,20 +87,21 @@ Zentrale Verwaltungsoberfläche für **MyDispatch Unternehmer-Kunden** (externe 
 
 ### Hauptbereiche
 
-| Route | Zweck | Zugriff |
-|-------|-------|---------|
-| `/` | Dashboard-Übersicht | Alle authentifizierten |
-| `/auftraege` | Auftragsverwaltung | Alle authentifizierten |
-| `/auftraege-new` | Neuer Auftrag | Alle authentifizierten |
-| `/fahrer` | Fahrerverwaltung | Unternehmer, Admin |
-| `/fahrzeuge` | Fahrzeugverwaltung | Unternehmer, Admin |
-| `/kunden` | Kundenverwaltung | Alle authentifizierten |
-| `/finanzen` | Finanzübersicht | Unternehmer, Admin |
-| `/statistiken` | Auswertungen | Unternehmer, Admin |
-| `/einstellungen` | Systemeinstellungen | Alle authentifizierten |
-| `/landingpage-konfigurator` | Landingpage-Editor | Unternehmer, Admin |
+| Route                       | Zweck               | Zugriff                |
+| --------------------------- | ------------------- | ---------------------- |
+| `/`                         | Dashboard-Übersicht | Alle authentifizierten |
+| `/auftraege`                | Auftragsverwaltung  | Alle authentifizierten |
+| `/auftraege-new`            | Neuer Auftrag       | Alle authentifizierten |
+| `/fahrer`                   | Fahrerverwaltung    | Unternehmer, Admin     |
+| `/fahrzeuge`                | Fahrzeugverwaltung  | Unternehmer, Admin     |
+| `/kunden`                   | Kundenverwaltung    | Alle authentifizierten |
+| `/finanzen`                 | Finanzübersicht     | Unternehmer, Admin     |
+| `/statistiken`              | Auswertungen        | Unternehmer, Admin     |
+| `/einstellungen`            | Systemeinstellungen | Alle authentifizierten |
+| `/landingpage-konfigurator` | Landingpage-Editor  | Unternehmer, Admin     |
 
 ### Logik & Konsistenz
+
 ✅ **Einheitliches Layout:** Alle Seiten nutzen `DashboardLayout`  
 ✅ **Mobile-optimiert:** Touch-freundliche Bedienung (min-height: 44px)  
 ✅ **Semantic Tokens:** Konsistente Farbgebung via Design-System  
@@ -103,31 +112,35 @@ Zentrale Verwaltungsoberfläche für **MyDispatch Unternehmer-Kunden** (externe 
 ## 🌐 2. Unternehmer-Landingpage (Öffentlich)
 
 ### Zweck
+
 Gebrandete, öffentliche Landingpage für jedes Taxi-/Mietwagenunternehmen.
 
 ### Zugriff
+
 - **URL:** `https://my-dispatch.de/{company-slug}` (z.B. `/nexify`)
 - **Auth:** Keine (öffentlich zugänglich)
 - **Konfiguration:** Via `/landingpage-konfigurator`
 
 ### Features nach Tarif
 
-| Feature | Starter | Business | Enterprise |
-|---------|---------|----------|------------|
-| Gebrandetes Design | ✅ | ✅ | ✅ |
-| Custom Domain-Slug | ✅ | ✅ | ✅ |
-| Logo & CI-Farben | ✅ | ✅ | ✅ |
-| Unternehmer-Login | ✅ | ✅ | ✅ |
-| Buchungswidget | ❌ | ✅ | ✅ |
-| Kunden-Portal | ❌ | ✅ | ✅ |
-| Fahrer-Portal | ❌ | ❌ | ✅ |
-| AI-Chatbot | ❌ | ❌ | ✅ |
-| Powered by Link | Ja | Ja | Optional |
+| Feature            | Starter | Business | Enterprise |
+| ------------------ | ------- | -------- | ---------- |
+| Gebrandetes Design | ✅      | ✅       | ✅         |
+| Custom Domain-Slug | ✅      | ✅       | ✅         |
+| Logo & CI-Farben   | ✅      | ✅       | ✅         |
+| Unternehmer-Login  | ✅      | ✅       | ✅         |
+| Buchungswidget     | ❌      | ✅       | ✅         |
+| Kunden-Portal      | ❌      | ✅       | ✅         |
+| Fahrer-Portal      | ❌      | ❌       | ✅         |
+| AI-Chatbot         | ❌      | ❌       | ✅         |
+| Powered by Link    | Ja      | Ja       | Optional   |
 
 ### Konfiguration
+
 **Zentral im Landingpage-Konfigurator (`/landingpage-konfigurator`):**
 
 #### Tab 1: Allgemein
+
 - **Landing-Domain (Slug):** URL-Slug (z.B. `taxi-muenchen`)
 - **Logo:** Upload & Verwaltung
 - **Primärfarbe:** CI-Farbe (Hex)
@@ -136,15 +149,18 @@ Gebrandete, öffentliche Landingpage für jedes Taxi-/Mietwagenunternehmen.
 - **Beschreibung:** Detailtext
 
 #### Tab 2: Widget
+
 - **Widget aktivieren:** Business+ Feature
 - **Button-Text:** Call-to-Action
 - **Widget-Größe:** Small, Medium, Large
 - **Telefon anzeigen:** Toggle
 
 #### Tab 3: Zeiten
+
 - **Geschäftszeiten:** Wochentage & Zeiten
 
 ### Technische Umsetzung
+
 ```typescript
 // Routing
 <Route path="/:slug" element={<Unternehmer />} />
@@ -162,14 +178,17 @@ const { data: company } = await supabase
 ## 👤 3. Fahrer-Portal
 
 ### Zweck
+
 Mobile App für Fahrer zur Auftragsannahme und -verwaltung.
 
 ### Zugriff
+
 - **URL:** `https://my-dispatch.de/fahrer-portal`
 - **Auth:** Fahrer-Login (eigener Credential-Typ)
 - **Verfügbarkeit:** Nur Enterprise-Tarif
 
 ### Features
+
 - ✅ Auftragsübersicht (zugewiesene Fahrten)
 - ✅ GPS-Navigation
 - ✅ Statusupdates (unterwegs, abgeschlossen)
@@ -178,6 +197,7 @@ Mobile App für Fahrer zur Auftragsannahme und -verwaltung.
 - ✅ Offline-Modus (PWA)
 
 ### Optimierung
+
 - **Mobile-First:** Touch-optimierte Bedienung
 - **PWA:** Installierbar als App
 - **Offline-Sync:** Automatische Synchronisation
@@ -187,14 +207,17 @@ Mobile App für Fahrer zur Auftragsannahme und -verwaltung.
 ## 👥 4. Kunden-Portal
 
 ### Zweck
+
 Self-Service-Portal für registrierte Endkunden.
 
 ### Zugriff
+
 - **URL:** `https://my-dispatch.de/kunden-portal`
 - **Auth:** Kunden-Login (eigener Credential-Typ)
 - **Verfügbarkeit:** Business+ Tarif
 
 ### Features
+
 - ✅ Buchungsverlauf
 - ✅ Neue Buchung erstellen
 - ✅ Rechnungen herunterladen
@@ -202,6 +225,7 @@ Self-Service-Portal für registrierte Endkunden.
 - ✅ Favoriten (Adressen, Fahrer)
 
 ### Logik
+
 - Kunden können sich selbst registrieren
 - DSGVO-konforme Datenspeicherung
 - Automatische Benachrichtigungen
@@ -211,6 +235,7 @@ Self-Service-Portal für registrierte Endkunden.
 ## ⚙️ Konfigurationszentralisierung
 
 ### ❌ VORHER (V18.3.29 - Verwirrend)
+
 ```
 Einstellungen > Branding
 ├── Logo ✅
@@ -227,6 +252,7 @@ Landingpage-Konfigurator
 ```
 
 ### ✅ JETZT (V18.3.30 - Logisch)
+
 ```
 Einstellungen > Branding
 ├── Logo ✅ (Corporate Identity)
@@ -255,6 +281,7 @@ Landingpage-Konfigurator (ALLES ZUR LANDINGPAGE)
 ## 🔒 Sicherheit & Zugriffskontrolle
 
 ### RLS-Policies
+
 ```sql
 -- Unternehmer können nur eigene Company bearbeiten
 CREATE POLICY "company_owner_access" ON companies
@@ -270,6 +297,7 @@ CREATE POLICY "customer_own_bookings" ON bookings
 ```
 
 ### Auth-Flows
+
 1. **Unternehmer/Admin:** Standard Email-Login → Dashboard
 2. **Fahrer:** Spezielle Fahrer-Credentials → Fahrer-Portal
 3. **Kunden:** Self-Service-Registrierung → Kunden-Portal
@@ -279,6 +307,7 @@ CREATE POLICY "customer_own_bookings" ON bookings
 ## 📱 Responsive Design
 
 ### Breakpoints (Tailwind)
+
 ```typescript
 sm:  640px  // Tablets
 md:  768px  // Desktop klein
@@ -288,6 +317,7 @@ xl:  1280px // Desktop XL
 ```
 
 ### Mobile-First Prinzipien
+
 - ✅ Touch-Targets mind. 44px hoch
 - ✅ Akkordeon-Navigation auf Mobile
 - ✅ Tabs auf Desktop
@@ -299,22 +329,19 @@ xl:  1280px // Desktop XL
 ## 🎨 Design-System
 
 ### Farben (Semantic Tokens)
+
 ```css
 /* index.css */
---primary: ...       /* CI-Hauptfarbe */
---secondary: ...     /* Sekundärfarbe */
---accent: ...        /* Akzentfarbe */
---background: ...    /* Hintergrund */
---foreground: ...    /* Text */
---muted: ...         /* Gedämpft */
---card: ...          /* Card-Hintergrund */
---status-success: ...
---status-warning: ...
---status-error: ...
+--primary: ... /* CI-Hauptfarbe */ --secondary: ... /* Sekundärfarbe */ --accent: ...
+  /* Akzentfarbe */ --background: ... /* Hintergrund */ --foreground: ... /* Text */ --muted: ...
+  /* Gedämpft */ --card: ... /* Card-Hintergrund */ --status-success: ... --status-warning: ...
+  --status-error: ...;
 ```
 
 ### Komponenten (Labary-System)
+
 Alle UI-Elemente ausschließlich aus `src/components/ui/`:
+
 - `Button`, `Input`, `Label`, `Textarea`
 - `Card`, `Alert`, `Dialog`, `Tabs`
 - `Switch`, `Select`, `Checkbox`
@@ -325,22 +352,25 @@ Alle UI-Elemente ausschließlich aus `src/components/ui/`:
 ## 🚀 Performance-Optimierungen
 
 ### Code-Splitting
+
 ```typescript
 // Lazy Loading für große Seiten
-const Statistiken = lazy(() => import('@/pages/Statistiken'));
-const Finanzen = lazy(() => import('@/pages/Finanzen'));
+const Statistiken = lazy(() => import("@/pages/Statistiken"));
+const Finanzen = lazy(() => import("@/pages/Finanzen"));
 ```
 
 ### React Query (Caching)
+
 ```typescript
 const { data: bookings } = useQuery({
-  queryKey: ['bookings', companyId],
+  queryKey: ["bookings", companyId],
   queryFn: fetchBookings,
   staleTime: 5 * 60 * 1000, // 5 Min
 });
 ```
 
 ### PWA (Progressive Web App)
+
 - ✅ Service Worker (Vite-PWA)
 - ✅ Offline-Unterstützung
 - ✅ Install Prompts
@@ -350,21 +380,22 @@ const { data: bookings } = useQuery({
 
 ## 📊 Qualitäts-Metriken
 
-| Bereich | Status | Score |
-|---------|--------|-------|
-| Portal-Struktur | ✅ Optimiert | 98% |
-| Konfiguration | ✅ Zentralisiert | 100% |
-| Responsive Design | ✅ Mobile-First | 95% |
-| Sicherheit (RLS) | ✅ Implementiert | 100% |
-| Performance | ✅ Optimiert | 92% |
-| Code-Qualität | ✅ Sauber | 96% |
-| **Gesamt** | **✅ PRODUCTION-READY** | **97%** |
+| Bereich           | Status                  | Score   |
+| ----------------- | ----------------------- | ------- |
+| Portal-Struktur   | ✅ Optimiert            | 98%     |
+| Konfiguration     | ✅ Zentralisiert        | 100%    |
+| Responsive Design | ✅ Mobile-First         | 95%     |
+| Sicherheit (RLS)  | ✅ Implementiert        | 100%    |
+| Performance       | ✅ Optimiert            | 92%     |
+| Code-Qualität     | ✅ Sauber               | 96%     |
+| **Gesamt**        | **✅ PRODUCTION-READY** | **97%** |
 
 ---
 
 ## 🔄 Migration & Upgrade-Pfad
 
 ### Von V18.3.29 zu V18.3.30
+
 1. ✅ Landingpage-Felder aus `BrandingSection.tsx` entfernt
 2. ✅ Alle Landingpage-Funktionen in `LandingpageKonfigurator.tsx` konsolidiert
 3. ✅ Status-Banner für Aktivierungshinweise hinzugefügt
@@ -372,6 +403,7 @@ const { data: bookings } = useQuery({
 5. ✅ Slug-Verwaltung mit Echtzeit-Feedback
 
 ### Nächste Schritte (Empfehlungen)
+
 - [ ] Fahrer-Portal PWA finalisieren
 - [ ] Kunden-Portal UI/UX-Test
 - [ ] AI-Chatbot Integration (Enterprise)

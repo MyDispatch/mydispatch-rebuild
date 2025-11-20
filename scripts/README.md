@@ -17,6 +17,7 @@
 **Zweck:** Führt automatisch alle kritischen und optionalen Checks aus
 
 **Features:**
+
 - ✅ Prüft Wiki-Verfügbarkeit (kritisch)
 - ✅ Prüft Credentials (kritisch)
 - ✅ Führt TypeScript Check aus (optional)
@@ -25,15 +26,18 @@
 - ✅ Exit Code basierend auf kritischen Fehlern
 
 **Verwendung:**
+
 ```bash
 npm run master:workflow
 ```
 
 **Exit Codes:**
+
 - `0` = Alle kritischen Checks erfolgreich
 - `1` = Kritischer Fehler gefunden
 
 **Optimal für:**
+
 - Automatische Ausführung bei Chat-Start
 - CI/CD Pipelines
 - Pre-Deployment Checks
@@ -49,6 +53,7 @@ npm run master:workflow
 **Zweck:** Führt alle Validierungs-Checks aus
 
 **Features:**
+
 - ✅ TypeScript Check
 - ✅ RLS Check
 - ✅ Deployment Validation
@@ -56,6 +61,7 @@ npm run master:workflow
 - ✅ Unterscheidung Erfolg/Warnung/Fehler
 
 **Verwendung:**
+
 ```bash
 npm run validate:all
 ```
@@ -67,12 +73,14 @@ npm run validate:all
 **Zweck:** Prüft Row Level Security Coverage
 
 **Features:**
+
 - ✅ Lädt automatisch Credentials aus `.env.local`
 - ✅ Erkennt erwartete Zustände
 - ✅ Exit Code 0 bei erwarteten Zuständen
 - ✅ Klare Fehlermeldungen
 
 **Verwendung:**
+
 ```bash
 npm run check:rls
 ```
@@ -84,12 +92,14 @@ npm run check:rls
 **Zweck:** Prüft alle Deployments
 
 **Features:**
+
 - ✅ Prüft alle 9 erwarteten Tabellen
 - ✅ Prüft RLS Policies
 - ✅ Unterscheidet Fehler/Warnung/Erwartet
 - ✅ Exit Code 0 wenn nur fehlende Tabellen
 
 **Verwendung:**
+
 ```bash
 npm run validate:deployments
 ```
@@ -105,17 +115,20 @@ npm run validate:deployments
 **Zweck:** GitHub Push mit Timeout-Behandlung
 
 **Features:**
+
 - ✅ Timeout für Git-Operationen (30s)
 - ✅ Automatisches Git Add + Commit + Push
 - ✅ PowerShell-optimiert
 - ✅ Alternative Methoden dokumentiert
 
 **Verwendung:**
+
 ```bash
 npm run git:push:safe
 ```
 
 **Fallback-Methoden:**
+
 1. GitHub Web UI
 2. GitHub Desktop
 3. PowerShell direkt
@@ -146,13 +159,13 @@ npm run git:push:safe
 
 ## 📋 SCRIPT-FEATURES ÜBERSICHT
 
-| Script | Kritisch | Auto-Load | Timeout | Exit Code Logic |
-|--------|----------|-----------|---------|-----------------|
-| master-workflow.js | ✅ Ja | ✅ Ja | ❌ Nein | ✅ Logisch |
-| validate-all.js | ❌ Nein | ✅ Ja | ❌ Nein | ✅ Logisch |
-| check-rls-coverage.js | ❌ Nein | ✅ Ja | ❌ Nein | ✅ Logisch |
-| validate-deployments.js | ❌ Nein | ✅ Ja | ❌ Nein | ✅ Logisch |
-| git-push-safe.js | ❌ Nein | ✅ Ja | ✅ Ja | ✅ Logisch |
+| Script                  | Kritisch | Auto-Load | Timeout | Exit Code Logic |
+| ----------------------- | -------- | --------- | ------- | --------------- |
+| master-workflow.js      | ✅ Ja    | ✅ Ja     | ❌ Nein | ✅ Logisch      |
+| validate-all.js         | ❌ Nein  | ✅ Ja     | ❌ Nein | ✅ Logisch      |
+| check-rls-coverage.js   | ❌ Nein  | ✅ Ja     | ❌ Nein | ✅ Logisch      |
+| validate-deployments.js | ❌ Nein  | ✅ Ja     | ❌ Nein | ✅ Logisch      |
+| git-push-safe.js        | ❌ Nein  | ✅ Ja     | ✅ Ja   | ✅ Logisch      |
 
 ---
 
@@ -161,6 +174,7 @@ npm run git:push:safe
 ### Error Handling
 
 Alle Scripts verwenden:
+
 - ✅ Try-Catch-Blöcke
 - ✅ Logische Exit Codes
 - ✅ Klare Fehlermeldungen
@@ -169,12 +183,14 @@ Alle Scripts verwenden:
 ### Credentials Loading
 
 Alle Scripts laden automatisch:
+
 - ✅ `.env.local` (höchste Priorität)
 - ✅ `.env` (Fallback)
 
 ### Timeout Handling
 
 Scripts mit Timeout:
+
 - ✅ `git-push-safe.js` (30s Timeout)
 
 ---
@@ -184,16 +200,19 @@ Scripts mit Timeout:
 ### Automatische Ausführung:
 
 **Bei Chat-Start:**
+
 ```bash
 npm run master:workflow
 ```
 
 **Vor Deployment:**
+
 ```bash
 npm run validate:all
 ```
 
 **Nach Deployment:**
+
 ```bash
 npm run validate:all
 npm run check:rls
@@ -211,10 +230,12 @@ npm run check:rls
 ### Kritische vs. Optionale Checks:
 
 **Kritisch:**
+
 - Wiki verfügbar
 - Credentials vorhanden
 
 **Optional:**
+
 - TypeScript Check
 - RLS Check
 - Deployment Validation
@@ -281,12 +302,14 @@ npm run lint                  # Lint
 ## 🎉 ERGEBNIS
 
 **Alle Scripts:**
+
 - ✅ Vollständig dokumentiert
 - ✅ Robust implementiert
 - ✅ Für autonome Ausführung optimiert
 - ✅ Im Projekt verankert
 
 **Bereit für:**
+
 - ✅ 24/7 autonome Ausführung
 - ✅ CI/CD Integration
 - ✅ Kontinuierliche Validierung

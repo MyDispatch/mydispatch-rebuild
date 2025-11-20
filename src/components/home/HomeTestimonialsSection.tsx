@@ -13,14 +13,14 @@ import { cn } from "@/lib/utils";
 export const HomeTestimonialsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isSliderPaused, setIsSliderPaused] = useState(false);
-  
+
   const testimonialsPerPage = 3;
   const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
 
   // Auto-play with pause control
   useEffect(() => {
     if (isSliderPaused) return;
-    
+
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % totalPages);
     }, 5000);
@@ -50,7 +50,7 @@ export const HomeTestimonialsSection = () => {
               >
                 {/* Hover-Glow */}
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
+
                 {/* Content */}
                 <div className="relative z-10">
                   {/* Rating Stars */}

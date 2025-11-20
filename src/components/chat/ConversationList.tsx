@@ -6,21 +6,21 @@
    ✅ Realtime-Updates & Premium-Design
    ================================================================================== */
 
-import { useEffect, useState } from 'react';
-import { useAuth } from '@/hooks/use-auth';
-import { supabase } from '@/integrations/supabase/client';
-import { Card } from '@/lib/compat';
-import { Input } from '@/lib/compat';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { Badge } from '@/lib/compat';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Search, MessageSquare } from 'lucide-react';
-import { formatDistanceToNow } from 'date-fns';
-import { de } from 'date-fns/locale';
-import { handleError } from '@/lib/error-handler';
-import { logError, logDebug, logWarning } from '@/lib/logger';
-import { cn } from '@/lib/utils';
-import './chat-styles.css';
+import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/use-auth";
+import { supabase } from "@/integrations/supabase/client";
+import { Card } from "@/lib/compat";
+import { Input } from "@/lib/compat";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/lib/compat";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Search, MessageSquare } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
+import { de } from "date-fns/locale";
+import { handleError } from "@/lib/error-handler";
+import { logError, logDebug, logWarning } from "@/lib/logger";
+import { cn } from "@/lib/utils";
+import "./chat-styles.css";
 
 interface Conversation {
   id: string;
@@ -46,57 +46,68 @@ interface ConversationListProps {
   onSelectConversation: (conversationId: string) => void;
 }
 
-export function ConversationList({ activeConversationId, onSelectConversation }: ConversationListProps) {
+export function ConversationList({
+  activeConversationId,
+  onSelectConversation,
+}: ConversationListProps) {
   const { user, profile } = useAuth();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (!user || !profile?.company_id) return;
 
     const fetchConversations = async () => {
       try {
-        logDebug('[ConversationList] Loading conversations for user', { userId: user.id });
+        logDebug("[ConversationList] Loading conversations for user", { userId: user.id });
 
         const { data: participantData, error: participantError } = await supabase
-          .from('chat_participants')
-          .select('conversation_id')
-          .eq('user_id', user.id);
+          .from("chat_participants")
+          .select("conversation_id")
+          .eq("user_id", user.id);
 
         if (participantError) {
-          logError({ message: 'Participant-Daten laden fehlgeschlagen', context: participantError });
-          handleError(participantError, 'Gesprächsteilnehmer konnten nicht geladen werden');
+          logError({
+            message: "Participant-Daten laden fehlgeschlagen",
+            context: participantError,
+          });
+          handleError(participantError, "Gesprächsteilnehmer konnten nicht geladen werden");
           setLoading(false);
           return;
         }
 
-        const conversationIds = participantData?.map(p => p.conversation_id) || [];
-        logDebug('[ConversationList] Found conversations', { count: conversationIds.length });
-        
+        const conversationIds = participantData?.map((p) => p.conversation_id) || [];
+        logDebug("[ConversationList] Found conversations", { count: conversationIds.length });
+
         if (conversationIds.length === 0) {
-          logDebug('[ConversationList] No conversations found');
+          logDebug("[ConversationList] No conversations found");
           setConversations([]);
           setLoading(false);
           return;
         }
 
         const { data: conversationsData, error: conversationsError } = await supabase
-          .from('chat_conversations')
-          .select('id, name, is_group, created_at, updated_at, company_id')
-          .in('id', conversationIds)
-          .eq('company_id', profile.company_id)
-          .eq('archived', false)
-          .order('updated_at', { ascending: false });
+          .from("chat_conversations")
+          .select("id, name, is_group, created_at, updated_at, company_id")
+          .in("id", conversationIds)
+          .eq("company_id", profile.company_id)
+          .eq("archived", false)
+          .order("updated_at", { ascending: false });
 
         if (conversationsError) {
-          logError({ message: '[ConversationList] Conversations Error', context: conversationsError });
-          handleError(conversationsError, 'Gespräche konnten nicht geladen werden');
+          logError({
+            message: "[ConversationList] Conversations Error",
+            context: conversationsError,
+          });
+          handleError(conversationsError, "Gespräche konnten nicht geladen werden");
           setLoading(false);
           return;
         }
 
-        logDebug('[ConversationList] Loaded conversations', { count: conversationsData?.length || 0 });
+        logDebug("[ConversationList] Loaded conversations", {
+          count: conversationsData?.length || 0,
+        });
 
         if (!conversationsData || conversationsData.length === 0) {
           setConversations([]);
@@ -104,158 +115,165 @@ export function ConversationList({ activeConversationId, onSelectConversation }:
           return;
         }
 
-        const allConvIds = conversationsData.map(c => c.id);
-        
+        const allConvIds = conversationsData.map((c) => c.id);
+
         const { data: allParticipantsData, error: participantsError } = await supabase
-          .from('chat_participants')
-          .select('conversation_id, user_id, last_read_at')
-          .in('conversation_id', allConvIds);
+          .from("chat_participants")
+          .select("conversation_id, user_id, last_read_at")
+          .in("conversation_id", allConvIds);
 
         if (participantsError) {
-          logError({ message: '[ConversationList] Participants Error', context: participantsError });
+          logError({
+            message: "[ConversationList] Participants Error",
+            context: participantsError,
+          });
         }
 
-        logDebug('[ConversationList] Loaded participants', { count: allParticipantsData?.length || 0 });
+        logDebug("[ConversationList] Loaded participants", {
+          count: allParticipantsData?.length || 0,
+        });
 
-        const allUserIds = [...new Set(
-          (allParticipantsData || [])
-            .map(p => p.user_id)
-            .filter(id => id && id !== user.id)
-        )];
-        
-        logDebug('[ConversationList] Loading profiles for users', { userCount: allUserIds.length });
+        const allUserIds = [
+          ...new Set(
+            (allParticipantsData || []).map((p) => p.user_id).filter((id) => id && id !== user.id)
+          ),
+        ];
+
+        logDebug("[ConversationList] Loading profiles for users", { userCount: allUserIds.length });
 
         if (allUserIds.length === 0) {
-          logWarning('[ConversationList] No other users found in conversations', {});
-          setConversations(conversationsData.map(conv => ({
-            ...conv,
-            participants: [],
-            last_message: undefined,
-            unread_count: 0,
-          })));
+          logWarning("[ConversationList] No other users found in conversations", {});
+          setConversations(
+            conversationsData.map((conv) => ({
+              ...conv,
+              participants: [],
+              last_message: undefined,
+              unread_count: 0,
+            }))
+          );
           setLoading(false);
           return;
         }
 
         const { data: allProfilesData, error: profilesError } = await supabase
-          .from('profiles')
-          .select('user_id, first_name, last_name')
-          .in('user_id', allUserIds);
+          .from("profiles")
+          .select("user_id, first_name, last_name")
+          .in("user_id", allUserIds);
 
         if (profilesError) {
-          logError({ message: '[ConversationList] Profiles Error', context: profilesError });
+          logError({ message: "[ConversationList] Profiles Error", context: profilesError });
         }
 
-        logDebug('[ConversationList] Loaded profiles', { count: allProfilesData?.length || 0 });
-        
+        logDebug("[ConversationList] Loaded profiles", { count: allProfilesData?.length || 0 });
+
         if (allProfilesData && allProfilesData.length > 0) {
-          logDebug('[ConversationList] Sample profile loaded', { sample: allProfilesData[0] });
+          logDebug("[ConversationList] Sample profile loaded", { sample: allProfilesData[0] });
         } else {
-          logWarning('[ConversationList] No profiles loaded - Names will be missing', {});
+          logWarning("[ConversationList] No profiles loaded - Names will be missing", {});
         }
 
         const lastMessagesResults = await Promise.all(
-          allConvIds.map(convId =>
+          allConvIds.map((convId) =>
             supabase
-              .from('chat_messages')
-              .select('conversation_id, message_text, created_at, sender_id')
-              .eq('conversation_id', convId)
-              .eq('is_deleted', false)
-              .order('created_at', { ascending: false })
+              .from("chat_messages")
+              .select("conversation_id, message_text, created_at, sender_id")
+              .eq("conversation_id", convId)
+              .eq("is_deleted", false)
+              .order("created_at", { ascending: false })
               .limit(1)
               .maybeSingle()
           )
         );
 
-        const profileMap = new Map(
-          (allProfilesData || []).map(p => [p.user_id, p])
-        );
-        
-        logDebug('[ConversationList] ProfileMap entries', { size: profileMap.size });
+        const profileMap = new Map((allProfilesData || []).map((p) => [p.user_id, p]));
+
+        logDebug("[ConversationList] ProfileMap entries", { size: profileMap.size });
         if (profileMap.size > 0) {
           const firstEntry = Array.from(profileMap.entries())[0];
-          logDebug('[ConversationList] ProfileMap sample', { entry: firstEntry });
+          logDebug("[ConversationList] ProfileMap sample", { entry: firstEntry });
         }
-        
+
         const participantsByConv = new Map<string, any[]>();
-        (allParticipantsData || []).forEach(p => {
+        (allParticipantsData || []).forEach((p) => {
           if (!participantsByConv.has(p.conversation_id)) {
             participantsByConv.set(p.conversation_id, []);
           }
           participantsByConv.get(p.conversation_id)?.push(p);
         });
-        
-        logDebug('[ConversationList] ParticipantsByConv created', { conversationCount: participantsByConv.size });
+
+        logDebug("[ConversationList] ParticipantsByConv created", {
+          conversationCount: participantsByConv.size,
+        });
 
         const lastMessageMap = new Map(
-          lastMessagesResults
-            .filter(r => r.data)
-            .map(r => [r.data!.conversation_id, r.data!])
+          lastMessagesResults.filter((r) => r.data).map((r) => [r.data!.conversation_id, r.data!])
         );
 
-        const enrichedConversations: Conversation[] = conversationsData
-          .map(conv => {
-            const convParticipants = participantsByConv.get(conv.id) || [];
-            const otherParticipants = convParticipants.filter(p => p.user_id !== user.id);
-            
-            logDebug('[ConversationList] Processing conversation', { 
-              convId: conv.id.substring(0, 8),
-              total: convParticipants.length,
-              others: otherParticipants.length
+        const enrichedConversations: Conversation[] = conversationsData.map((conv) => {
+          const convParticipants = participantsByConv.get(conv.id) || [];
+          const otherParticipants = convParticipants.filter((p) => p.user_id !== user.id);
+
+          logDebug("[ConversationList] Processing conversation", {
+            convId: conv.id.substring(0, 8),
+            total: convParticipants.length,
+            others: otherParticipants.length,
+          });
+
+          if (otherParticipants.length === 0) {
+            logWarning("[ConversationList] Solo conversation detected - showing with badge", {
+              convId: conv.id,
             });
-            
-            if (otherParticipants.length === 0) {
-              logWarning('[ConversationList] Solo conversation detected - showing with badge', { convId: conv.id });
-            }
-            
-            const participants = otherParticipants
-              .map(p => {
-                const profile = profileMap.get(p.user_id);
-                
-                if (!profile) {
-                  logWarning('[ConversationList] Profile NOT FOUND', { userId: p.user_id });
-                  return null;
-                }
-                
-                logDebug('[ConversationList] User profile found', { 
-                  userId: p.user_id.substring(0, 8),
-                  name: `${profile.first_name} ${profile.last_name}`
-                });
-                
-                return {
-                  user_id: p.user_id,
-                  first_name: profile.first_name || 'Unbekannt',
-                  last_name: profile.last_name || '',
-                };
-              })
-              .filter(p => p !== null) as Array<{
-                user_id: string;
-                first_name: string;
-                last_name: string;
-              }>;
-            
-            logDebug('[ConversationList] Final participants', { count: participants.length });
+          }
+
+          const participants = otherParticipants
+            .map((p) => {
+              const profile = profileMap.get(p.user_id);
+
+              if (!profile) {
+                logWarning("[ConversationList] Profile NOT FOUND", { userId: p.user_id });
+                return null;
+              }
+
+              logDebug("[ConversationList] User profile found", {
+                userId: p.user_id.substring(0, 8),
+                name: `${profile.first_name} ${profile.last_name}`,
+              });
+
+              return {
+                user_id: p.user_id,
+                first_name: profile.first_name || "Unbekannt",
+                last_name: profile.last_name || "",
+              };
+            })
+            .filter((p) => p !== null) as Array<{
+            user_id: string;
+            first_name: string;
+            last_name: string;
+          }>;
+
+          logDebug("[ConversationList] Final participants", { count: participants.length });
 
           const lastMsgData = lastMessageMap.get(conv.id);
           let lastMessage = undefined;
           if (lastMsgData) {
             const senderProfile = profileMap.get(lastMsgData.sender_id);
             lastMessage = {
-              message_text: lastMsgData.message_text || '',
+              message_text: lastMsgData.message_text || "",
               created_at: lastMsgData.created_at,
               sender_name: senderProfile
                 ? `${senderProfile.first_name} ${senderProfile.last_name}`
-                : 'Unbekannt',
+                : "Unbekannt",
             };
           }
 
-          const userParticipant = convParticipants.find(p => p.user_id === user.id);
+          const userParticipant = convParticipants.find((p) => p.user_id === user.id);
           const lastReadAt = userParticipant?.last_read_at || new Date(0).toISOString();
-          
-          const unreadCount = lastMessagesResults.filter(r => 
-            r.data?.conversation_id === conv.id &&
-            r.data?.sender_id !== user.id &&
-            new Date(r.data.created_at) > new Date(lastReadAt)
+
+          const unreadCount = lastMessagesResults.filter(
+            (r) =>
+              r.data?.conversation_id === conv.id &&
+              r.data?.sender_id !== user.id &&
+              new Date(r.data.created_at) > new Date(lastReadAt)
           ).length;
 
           return {
@@ -266,15 +284,17 @@ export function ConversationList({ activeConversationId, onSelectConversation }:
           };
         });
 
-        logDebug('[ConversationList] Successfully loaded conversations', { count: enrichedConversations.length });
+        logDebug("[ConversationList] Successfully loaded conversations", {
+          count: enrichedConversations.length,
+        });
         if (enrichedConversations.length > 0) {
-          logDebug('[ConversationList] Sample conversation', { sample: enrichedConversations[0] });
+          logDebug("[ConversationList] Sample conversation", { sample: enrichedConversations[0] });
         }
         setConversations(enrichedConversations);
       } catch (error) {
-        logError({ message: '[ConversationList] Unexpected error', context: error });
-        logError({ message: 'Gespräche laden fehlgeschlagen', context: error });
-        handleError(error, 'Gespräche konnten nicht geladen werden');
+        logError({ message: "[ConversationList] Unexpected error", context: error });
+        logError({ message: "Gespräche laden fehlgeschlagen", context: error });
+        handleError(error, "Gespräche konnten nicht geladen werden");
       } finally {
         setLoading(false);
       }
@@ -283,16 +303,16 @@ export function ConversationList({ activeConversationId, onSelectConversation }:
     fetchConversations();
 
     const channel = supabase
-      .channel('conversations-updates')
+      .channel("conversations-updates")
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: '*',
-          schema: 'public',
-          table: 'chat_messages',
+          event: "*",
+          schema: "public",
+          table: "chat_messages",
         },
         () => {
-          logDebug('[ConversationList] Realtime update detected, reloading conversations', {});
+          logDebug("[ConversationList] Realtime update detected, reloading conversations", {});
           fetchConversations();
         }
       )
@@ -318,36 +338,36 @@ export function ConversationList({ activeConversationId, onSelectConversation }:
 
   const getConversationName = (conv: Conversation) => {
     if (conv.name) return conv.name;
-    
+
     if (conv.participants.length === 0) {
-      return 'Nur Du';
+      return "Nur Du";
     }
-    
+
     if (conv.participants.length === 1) {
       const p = conv.participants[0];
-      const fullName = `${p.first_name || ''} ${p.last_name || ''}`.trim();
-      return fullName || 'Teammitglied';
+      const fullName = `${p.first_name || ""} ${p.last_name || ""}`.trim();
+      return fullName || "Teammitglied";
     }
-    
+
     const names = conv.participants
-      .map(p => p.first_name)
-      .filter(name => name && name !== 'Unbekannt')
+      .map((p) => p.first_name)
+      .filter((name) => name && name !== "Unbekannt")
       .slice(0, 3)
-      .join(', ');
-    
+      .join(", ");
+
     const remaining = conv.participants.length - 3;
     if (remaining > 0) {
       return `${names} +${remaining}`;
     }
-    
-    return names || 'Team-Gruppe';
+
+    return names || "Team-Gruppe";
   };
 
   const getInitials = (name: string) => {
     return name
-      .split(' ')
+      .split(" ")
       .map((n) => n[0])
-      .join('')
+      .join("")
       .toUpperCase()
       .slice(0, 2);
   };
@@ -356,9 +376,7 @@ export function ConversationList({ activeConversationId, onSelectConversation }:
     return (
       <Card className="border-2 border-beige-20 rounded-md bg-weiss shadow-card p-3">
         <div className="flex items-center justify-center h-64">
-          <p className="text-text-secondary">
-            Lade Gespräche...
-          </p>
+          <p className="text-text-secondary">Lade Gespräche...</p>
         </div>
       </Card>
     );
@@ -383,36 +401,35 @@ export function ConversationList({ activeConversationId, onSelectConversation }:
           <div className="flex flex-col items-center justify-center h-64 text-center p-4">
             <MessageSquare className="h-16 w-16 mb-4 text-dunkelblau/50" />
             <h4 className="font-semibold mb-2 text-text-primary">
-              {searchTerm ? 'Keine Gespräche gefunden' : 'Keine Gespräche'}
+              {searchTerm ? "Keine Gespräche gefunden" : "Keine Gespräche"}
             </h4>
             <p className="text-sm mb-4 max-w-xs text-text-secondary">
-              {searchTerm 
-                ? 'Versuchen Sie einen anderen Suchbegriff' 
-                : 'Sie haben noch keine Gespräche'}
+              {searchTerm
+                ? "Versuchen Sie einen anderen Suchbegriff"
+                : "Sie haben noch keine Gespräche"}
             </p>
           </div>
         ) : (
           <div className="flex flex-col gap-2">
-            {filteredConversations.every(c => c.participants.length === 0) && (
+            {filteredConversations.every((c) => c.participants.length === 0) && (
               <div className="chat-info-card">
                 <div className="flex items-start gap-2">
                   <MessageSquare className="h-4 w-4 mt-0.5 flex-shrink-0 text-foreground" />
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-semibold mb-1 text-foreground">
-                      Solo-Gespräche
-                    </p>
+                    <p className="text-xs font-semibold mb-1 text-foreground">Solo-Gespräche</p>
                     <p className="text-xs text-muted-foreground">
-                      Diese Gespräche enthalten nur Sie selbst. Laden Sie Teammitglieder ein, um zu chatten.
+                      Diese Gespräche enthalten nur Sie selbst. Laden Sie Teammitglieder ein, um zu
+                      chatten.
                     </p>
                   </div>
                 </div>
               </div>
             )}
-            
+
             {filteredConversations.map((conv) => {
               const isSolo = conv.participants.length === 0;
               const isActive = activeConversationId === conv.id;
-              
+
               return (
                 <div
                   key={conv.id}
@@ -425,7 +442,7 @@ export function ConversationList({ activeConversationId, onSelectConversation }:
                 >
                   <div className="flex items-start gap-4">
                     <Avatar className="h-10 w-10">
-                      <AvatarFallback 
+                      <AvatarFallback
                         className={cn(
                           "conversation-avatar-fallback",
                           isSolo && "conversation-avatar-fallback--solo",
@@ -443,8 +460,8 @@ export function ConversationList({ activeConversationId, onSelectConversation }:
                             {getConversationName(conv)}
                           </p>
                           {isSolo && (
-                            <Badge 
-                              variant="secondary" 
+                            <Badge
+                              variant="secondary"
                               className="text-[10px] px-1.5 py-0 flex-shrink-0"
                             >
                               Nur Du
@@ -466,9 +483,7 @@ export function ConversationList({ activeConversationId, onSelectConversation }:
                             {conv.last_message.sender_name}: {conv.last_message.message_text}
                           </p>
                           {conv.unread_count > 0 && !isActive && (
-                            <Badge className="conversation-unread-badge">
-                              {conv.unread_count}
-                            </Badge>
+                            <Badge className="conversation-unread-badge">{conv.unread_count}</Badge>
                           )}
                         </div>
                       )}

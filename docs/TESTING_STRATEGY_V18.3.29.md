@@ -1,4 +1,5 @@
 # 🧪 TESTING STRATEGY V18.3.29
+
 ## MyDispatch - Comprehensive Testing Standards
 
 **Status:** Production-Ready  
@@ -13,6 +14,7 @@
 **Ziel:** 100% Fehlerfreiheit durch systematisches, mehrschichtiges Testing.
 
 **Prinzipien:**
+
 1. **Test Pyramid:** 70% Unit, 20% Integration, 10% E2E
 2. **Test First:** Tests vor oder parallel zur Implementierung
 3. **Automated:** Alle Tests automatisiert in CI/CD
@@ -43,6 +45,7 @@
 ## 1️⃣ UNIT TESTS (70%)
 
 ### Technologie
+
 - **Framework:** Jest / Vitest
 - **Coverage:** > 80% (gemessen mit Istanbul)
 
@@ -65,39 +68,39 @@
 
 ```typescript
 // src/lib/formatters.test.ts
-import { formatCurrency, formatDate } from './formatters';
+import { formatCurrency, formatDate } from "./formatters";
 
-describe('formatCurrency', () => {
-  it('formats positive numbers correctly', () => {
-    expect(formatCurrency(1234.56)).toBe('1.234,56 €');
+describe("formatCurrency", () => {
+  it("formats positive numbers correctly", () => {
+    expect(formatCurrency(1234.56)).toBe("1.234,56 €");
   });
 
-  it('formats negative numbers correctly', () => {
-    expect(formatCurrency(-1234.56)).toBe('-1.234,56 €');
+  it("formats negative numbers correctly", () => {
+    expect(formatCurrency(-1234.56)).toBe("-1.234,56 €");
   });
 
-  it('handles zero', () => {
-    expect(formatCurrency(0)).toBe('0,00 €');
+  it("handles zero", () => {
+    expect(formatCurrency(0)).toBe("0,00 €");
   });
 
-  it('handles very large numbers', () => {
-    expect(formatCurrency(1000000)).toBe('1.000.000,00 €');
+  it("handles very large numbers", () => {
+    expect(formatCurrency(1000000)).toBe("1.000.000,00 €");
   });
 
-  it('respects currency parameter', () => {
-    expect(formatCurrency(100, 'USD')).toContain('$');
+  it("respects currency parameter", () => {
+    expect(formatCurrency(100, "USD")).toContain("$");
   });
 });
 
-describe('formatDate', () => {
-  it('formats date in German locale', () => {
-    const date = new Date('2025-10-21');
-    expect(formatDate(date, 'dd.MM.yyyy')).toBe('21.10.2025');
+describe("formatDate", () => {
+  it("formats date in German locale", () => {
+    const date = new Date("2025-10-21");
+    expect(formatDate(date, "dd.MM.yyyy")).toBe("21.10.2025");
   });
 
-  it('handles invalid dates gracefully', () => {
-    const invalidDate = new Date('invalid');
-    expect(formatDate(invalidDate)).toBe('Ungültiges Datum');
+  it("handles invalid dates gracefully", () => {
+    const invalidDate = new Date("invalid");
+    expect(formatDate(invalidDate)).toBe("Ungültiges Datum");
   });
 });
 ```
@@ -108,15 +111,15 @@ describe('formatDate', () => {
 
 ```typescript
 // src/lib/validation.test.ts
-import { validateOrder, formatValidationErrors } from './validation';
+import { validateOrder, formatValidationErrors } from "./validation";
 
-describe('Order Validation', () => {
-  it('accepts valid order data', () => {
+describe("Order Validation", () => {
+  it("accepts valid order data", () => {
     const validOrder = {
-      customer_id: '123e4567-e89b-12d3-a456-426614174000',
-      pickup_address: 'Test Str. 1, 12345 Berlin',
-      delivery_address: 'Test Str. 2, 54321 Hamburg',
-      pickup_date: new Date('2025-12-01'),
+      customer_id: "123e4567-e89b-12d3-a456-426614174000",
+      pickup_address: "Test Str. 1, 12345 Berlin",
+      delivery_address: "Test Str. 2, 54321 Hamburg",
+      pickup_date: new Date("2025-12-01"),
     };
 
     const result = validateOrder(validOrder);
@@ -126,11 +129,11 @@ describe('Order Validation', () => {
     }
   });
 
-  it('rejects order with invalid UUID', () => {
+  it("rejects order with invalid UUID", () => {
     const invalidOrder = {
-      customer_id: 'invalid-uuid',
-      pickup_address: 'Test Str. 1',
-      delivery_address: 'Test Str. 2',
+      customer_id: "invalid-uuid",
+      pickup_address: "Test Str. 1",
+      delivery_address: "Test Str. 2",
       pickup_date: new Date(),
     };
 
@@ -138,17 +141,17 @@ describe('Order Validation', () => {
     expect(result.success).toBe(false);
     if (!result.success) {
       const errors = formatValidationErrors(result.error);
-      expect(errors.customer_id).toContain('Ungültige ID');
+      expect(errors.customer_id).toContain("Ungültige ID");
     }
   });
 
-  it('rejects delivery date before pickup date', () => {
+  it("rejects delivery date before pickup date", () => {
     const invalidOrder = {
-      customer_id: '123e4567-e89b-12d3-a456-426614174000',
-      pickup_address: 'Test Str. 1',
-      delivery_address: 'Test Str. 2',
-      pickup_date: new Date('2025-12-01'),
-      delivery_date: new Date('2025-11-01'), // Before pickup!
+      customer_id: "123e4567-e89b-12d3-a456-426614174000",
+      pickup_address: "Test Str. 1",
+      delivery_address: "Test Str. 2",
+      pickup_date: new Date("2025-12-01"),
+      delivery_date: new Date("2025-11-01"), // Before pickup!
     };
 
     const result = validateOrder(invalidOrder);
@@ -163,41 +166,45 @@ describe('Order Validation', () => {
 
 ```typescript
 // src/hooks/useDebounce.test.ts
-import { renderHook, waitFor } from '@testing-library/react';
-import { useDebounce } from './useDebounce';
+import { renderHook, waitFor } from "@testing-library/react";
+import { useDebounce } from "./useDebounce";
 
-describe('useDebounce', () => {
-  it('debounces value changes', async () => {
-    const { result, rerender } = renderHook(
-      ({ value, delay }) => useDebounce(value, delay),
-      { initialProps: { value: 'initial', delay: 300 } }
-    );
+describe("useDebounce", () => {
+  it("debounces value changes", async () => {
+    const { result, rerender } = renderHook(({ value, delay }) => useDebounce(value, delay), {
+      initialProps: { value: "initial", delay: 300 },
+    });
 
-    expect(result.current).toBe('initial');
+    expect(result.current).toBe("initial");
 
     // Change value
-    rerender({ value: 'updated', delay: 300 });
-    expect(result.current).toBe('initial'); // Still old value
+    rerender({ value: "updated", delay: 300 });
+    expect(result.current).toBe("initial"); // Still old value
 
     // Wait for debounce
-    await waitFor(() => {
-      expect(result.current).toBe('updated');
-    }, { timeout: 500 });
+    await waitFor(
+      () => {
+        expect(result.current).toBe("updated");
+      },
+      { timeout: 500 }
+    );
   });
 
-  it('cancels previous debounce on new change', async () => {
-    const { result, rerender } = renderHook(
-      ({ value }) => useDebounce(value, 300),
-      { initialProps: { value: 'initial' } }
+  it("cancels previous debounce on new change", async () => {
+    const { result, rerender } = renderHook(({ value }) => useDebounce(value, 300), {
+      initialProps: { value: "initial" },
+    });
+
+    rerender({ value: "first" });
+    rerender({ value: "second" });
+    rerender({ value: "final" });
+
+    await waitFor(
+      () => {
+        expect(result.current).toBe("final");
+      },
+      { timeout: 500 }
     );
-
-    rerender({ value: 'first' });
-    rerender({ value: 'second' });
-    rerender({ value: 'final' });
-
-    await waitFor(() => {
-      expect(result.current).toBe('final');
-    }, { timeout: 500 });
 
     // Should NOT have been 'first' or 'second'
   });
@@ -209,6 +216,7 @@ describe('useDebounce', () => {
 ## 2️⃣ INTEGRATION TESTS (20%)
 
 ### Technologie
+
 - **Framework:** React Testing Library
 - **Mocking:** MSW (Mock Service Worker) für API-Calls
 
@@ -373,26 +381,26 @@ describe('CreateOrderForm', () => {
 
 ```typescript
 // src/services/orders.test.ts
-import { rest } from 'msw';
-import { setupServer } from 'msw/node';
-import { fetchOrders, createOrder } from './orders';
+import { rest } from "msw";
+import { setupServer } from "msw/node";
+import { fetchOrders, createOrder } from "./orders";
 
 const server = setupServer(
-  rest.get('/api/orders', (req, res, ctx) => {
+  rest.get("/api/orders", (req, res, ctx) => {
     return res(
       ctx.json([
-        { id: '1', order_number: 'ORD-001', status: 'pending' },
-        { id: '2', order_number: 'ORD-002', status: 'delivered' },
+        { id: "1", order_number: "ORD-001", status: "pending" },
+        { id: "2", order_number: "ORD-002", status: "delivered" },
       ])
     );
   }),
 
-  rest.post('/api/orders', async (req, res, ctx) => {
+  rest.post("/api/orders", async (req, res, ctx) => {
     const body = await req.json();
     return res(
       ctx.json({
-        id: '3',
-        order_number: 'ORD-003',
+        id: "3",
+        order_number: "ORD-003",
         ...body,
       })
     );
@@ -403,35 +411,35 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
-describe('Order API', () => {
-  it('fetches orders successfully', async () => {
+describe("Order API", () => {
+  it("fetches orders successfully", async () => {
     const orders = await fetchOrders();
 
     expect(orders).toHaveLength(2);
-    expect(orders[0].order_number).toBe('ORD-001');
+    expect(orders[0].order_number).toBe("ORD-001");
   });
 
-  it('creates order successfully', async () => {
+  it("creates order successfully", async () => {
     const newOrder = {
-      customer_id: '123',
-      pickup_address: 'Test',
-      delivery_address: 'Test',
+      customer_id: "123",
+      pickup_address: "Test",
+      delivery_address: "Test",
     };
 
     const createdOrder = await createOrder(newOrder);
 
-    expect(createdOrder.order_number).toBe('ORD-003');
+    expect(createdOrder.order_number).toBe("ORD-003");
     expect(createdOrder).toMatchObject(newOrder);
   });
 
-  it('handles API errors', async () => {
+  it("handles API errors", async () => {
     server.use(
-      rest.get('/api/orders', (req, res, ctx) => {
-        return res(ctx.status(500), ctx.json({ error: 'Internal Server Error' }));
+      rest.get("/api/orders", (req, res, ctx) => {
+        return res(ctx.status(500), ctx.json({ error: "Internal Server Error" }));
       })
     );
 
-    await expect(fetchOrders()).rejects.toThrow('Internal Server Error');
+    await expect(fetchOrders()).rejects.toThrow("Internal Server Error");
   });
 });
 ```
@@ -441,6 +449,7 @@ describe('Order API', () => {
 ## 3️⃣ E2E TESTS (10%)
 
 ### Technologie
+
 - **Framework:** Playwright
 - **Browser:** Chromium, Firefox, Safari (cross-browser)
 
@@ -464,33 +473,33 @@ describe('Order API', () => {
 
 ```typescript
 // tests/e2e/flows/order-creation.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('Order Creation Flow', () => {
+test.describe("Order Creation Flow", () => {
   test.beforeEach(async ({ page }) => {
     // Login
-    await page.goto('/login');
-    await page.fill('[name="email"]', 'test@mydispatch.de');
-    await page.fill('[name="password"]', 'TestPassword123!');
+    await page.goto("/login");
+    await page.fill('[name="email"]', "test@mydispatch.de");
+    await page.fill('[name="password"]', "TestPassword123!");
     await page.click('button[type="submit"]');
-    await expect(page).toHaveURL('/dashboard');
+    await expect(page).toHaveURL("/dashboard");
   });
 
-  test('complete order creation', async ({ page }) => {
+  test("complete order creation", async ({ page }) => {
     // Navigate to Orders
     await page.click('a[href="/orders"]');
-    await expect(page).toHaveURL('/orders');
+    await expect(page).toHaveURL("/orders");
 
     // Click "Neuer Auftrag"
     await page.click('button:has-text("Neuer Auftrag")');
 
     // Wait for dialog
-    await expect(page.locator('role=dialog')).toBeVisible();
+    await expect(page.locator("role=dialog")).toBeVisible();
 
     // Fill form
-    await page.selectOption('[name="customer_id"]', { label: 'Test Customer' });
-    await page.fill('[name="pickup_address"]', 'Berliner Str. 1, 10115 Berlin');
-    await page.fill('[name="delivery_address"]', 'Hamburger Str. 2, 20095 Hamburg');
+    await page.selectOption('[name="customer_id"]', { label: "Test Customer" });
+    await page.fill('[name="pickup_address"]', "Berliner Str. 1, 10115 Berlin");
+    await page.fill('[name="delivery_address"]', "Hamburger Str. 2, 20095 Hamburg");
 
     // Select date
     await page.click('[name="pickup_date"]');
@@ -500,43 +509,43 @@ test.describe('Order Creation Flow', () => {
     await page.click('button:has-text("Erstellen")');
 
     // Verify success
-    await expect(page.locator('text=Auftrag erstellt')).toBeVisible();
+    await expect(page.locator("text=Auftrag erstellt")).toBeVisible();
 
     // Verify in table
-    await expect(page.locator('table')).toContainText('Test Customer');
-    await expect(page.locator('table')).toContainText('Berliner Str. 1');
+    await expect(page.locator("table")).toContainText("Test Customer");
+    await expect(page.locator("table")).toContainText("Berliner Str. 1");
   });
 
-  test('shows validation errors', async ({ page }) => {
-    await page.goto('/orders');
+  test("shows validation errors", async ({ page }) => {
+    await page.goto("/orders");
     await page.click('button:has-text("Neuer Auftrag")');
 
     // Submit without filling
     await page.click('button:has-text("Erstellen")');
 
     // Expect validation errors
-    await expect(page.locator('text=Pflichtfeld')).toBeVisible();
-    await expect(page.locator('text=Pflichtfeld')).toHaveCount(3); // Customer, pickup, delivery
+    await expect(page.locator("text=Pflichtfeld")).toBeVisible();
+    await expect(page.locator("text=Pflichtfeld")).toHaveCount(3); // Customer, pickup, delivery
   });
 
-  test('prevents XSS injection', async ({ page }) => {
-    await page.goto('/orders');
+  test("prevents XSS injection", async ({ page }) => {
+    await page.goto("/orders");
     await page.click('button:has-text("Neuer Auftrag")');
 
     // Try XSS
     await page.selectOption('[name="customer_id"]', { index: 1 });
-    await page.fill('[name="pickup_address"]', 'Test');
-    await page.fill('[name="delivery_address"]', 'Test');
+    await page.fill('[name="pickup_address"]', "Test");
+    await page.fill('[name="delivery_address"]', "Test");
     await page.fill('[name="notes"]', '<script>alert("XSS")</script>');
 
     await page.click('button:has-text("Erstellen")');
 
     // Expect no alert (XSS blocked)
-    await expect(page).not.toHaveURL('about:blank'); // Would redirect if XSS worked
+    await expect(page).not.toHaveURL("about:blank"); // Would redirect if XSS worked
 
     // Verify sanitized data
-    await page.click('table tbody tr:first-child');
-    await expect(page.locator('text=<script>')).not.toBeVisible();
+    await page.click("table tbody tr:first-child");
+    await expect(page.locator("text=<script>")).not.toBeVisible();
   });
 });
 ```
@@ -547,15 +556,15 @@ test.describe('Order Creation Flow', () => {
 
 ```typescript
 // tests/e2e/compliance/mobile-responsive.spec.ts
-import { test, expect, devices } from '@playwright/test';
+import { test, expect, devices } from "@playwright/test";
 
-test.describe('Mobile Responsiveness', () => {
+test.describe("Mobile Responsiveness", () => {
   test.use({
-    ...devices['iPhone 12'],
+    ...devices["iPhone 12"],
   });
 
-  test('dashboard is mobile-friendly', async ({ page }) => {
-    await page.goto('/dashboard');
+  test("dashboard is mobile-friendly", async ({ page }) => {
+    await page.goto("/dashboard");
 
     // Check viewport
     const viewport = page.viewportSize();
@@ -569,10 +578,10 @@ test.describe('Mobile Responsiveness', () => {
     expect(secondCardBox?.y).toBeGreaterThan(firstCardBox!.y + firstCardBox!.height);
   });
 
-  test('touch targets are at least 44x44px', async ({ page }) => {
-    await page.goto('/orders');
+  test("touch targets are at least 44x44px", async ({ page }) => {
+    await page.goto("/orders");
 
-    const buttons = page.locator('button');
+    const buttons = page.locator("button");
     const count = await buttons.count();
 
     for (let i = 0; i < count; i++) {
@@ -592,12 +601,12 @@ test.describe('Mobile Responsiveness', () => {
 
 ### Coverage-Ziele
 
-| Metrik | Zielwert | Aktuell |
-|--------|----------|---------|
-| **Statements** | > 80% | - |
-| **Branches** | > 75% | - |
-| **Functions** | > 80% | - |
-| **Lines** | > 80% | - |
+| Metrik         | Zielwert | Aktuell |
+| -------------- | -------- | ------- |
+| **Statements** | > 80%    | -       |
+| **Branches**   | > 75%    | -       |
+| **Functions**  | > 80%    | -       |
+| **Lines**      | > 80%    | -       |
 
 ---
 
@@ -695,4 +704,4 @@ jobs:
 
 **END OF DOCUMENT**
 
-*Diese Testing-Standards sind verbindlich für alle Test-Entwicklungen in MyDispatch.*
+_Diese Testing-Standards sind verbindlich für alle Test-Entwicklungen in MyDispatch._

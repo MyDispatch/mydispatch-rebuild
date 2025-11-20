@@ -33,17 +33,17 @@ serve(async (req) => {
     const input: CreateMasterUserInput = await req.json();
 
     if (!input.email || !input.password) {
-      return new Response(
-        JSON.stringify({ error: "email and password are required" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "email and password are required" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const normalizedEmail = input.email.toLowerCase().trim();
 
     // Check if user exists
     const { data: existingUsers } = await supabase.auth.admin.listUsers();
-    const existingUser = existingUsers?.users?.find(u => u.email === normalizedEmail);
+    const existingUser = existingUsers?.users?.find((u) => u.email === normalizedEmail);
 
     if (input.action === "check") {
       return new Response(
@@ -60,10 +60,10 @@ serve(async (req) => {
     if (input.action === "create") {
       if (existingUser) {
         return new Response(
-          JSON.stringify({ 
+          JSON.stringify({
             error: "User already exists",
             user_id: existingUser.id,
-            suggestion: "Use 'reset' action to reset password"
+            suggestion: "Use 'reset' action to reset password",
           }),
           { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
@@ -79,30 +79,26 @@ serve(async (req) => {
       if (createError) throw createError;
 
       // Create master profile
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert({
-          user_id: newUser.user.id,
-          first_name: 'Pascal',
-          last_name: 'Courbois',
-          role: 'master',
-          company_id: null, // Master has no company
-        });
+      const { error: profileError } = await supabase.from("profiles").insert({
+        user_id: newUser.user.id,
+        first_name: "Pascal",
+        last_name: "Courbois",
+        role: "master",
+        company_id: null, // Master has no company
+      });
 
       if (profileError) {
-        console.warn('[CREATE-MASTER-USER] Profile creation failed:', profileError);
+        console.warn("[CREATE-MASTER-USER] Profile creation failed:", profileError);
       }
 
       // Create master role
-      const { error: roleError } = await supabase
-        .from('user_roles')
-        .insert({
-          user_id: newUser.user.id,
-          role: 'master',
-        });
+      const { error: roleError } = await supabase.from("user_roles").insert({
+        user_id: newUser.user.id,
+        role: "master",
+      });
 
       if (roleError) {
-        console.warn('[CREATE-MASTER-USER] Role creation failed:', roleError);
+        console.warn("[CREATE-MASTER-USER] Role creation failed:", roleError);
       }
 
       return new Response(
@@ -118,10 +114,10 @@ serve(async (req) => {
 
     if (input.action === "reset") {
       if (!existingUser) {
-        return new Response(
-          JSON.stringify({ error: "User not found" }),
-          { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: "User not found" }), {
+          status: 404,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
       }
 
       // Update password
@@ -152,10 +148,9 @@ serve(async (req) => {
     );
   } catch (error: any) {
     console.error("[CREATE-MASTER-USER] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
-

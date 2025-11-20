@@ -33,10 +33,10 @@ serve(async (req) => {
 
     // Hole alle Aufträge älter als 30 Tage
     const { data: oldBookings, error: selectError } = await supabaseClient
-      .from('bookings')
-      .select('id, company_id, pickup_date, customer_id')
-      .lt('pickup_date', thirtyDaysAgo.toISOString())
-      .eq('archived', false);
+      .from("bookings")
+      .select("id, company_id, pickup_date, customer_id")
+      .lt("pickup_date", thirtyDaysAgo.toISOString())
+      .eq("archived", false);
 
     if (selectError) throw selectError;
 
@@ -45,37 +45,39 @@ serve(async (req) => {
     for (const booking of oldBookings || []) {
       // Anonymisiere sensible Daten (PBefG § 21: Betriebspflicht endet nach 30 Tagen)
       const { error: updateError } = await supabaseClient
-        .from('bookings')
+        .from("bookings")
         .update({
-          pickup_address: '[GELÖSCHT - PBefG § 21]',
-          dropoff_address: '[GELÖSCHT - PBefG § 21]',
+          pickup_address: "[GELÖSCHT - PBefG § 21]",
+          dropoff_address: "[GELÖSCHT - PBefG § 21]",
           special_requests: null,
-          internal_notes: '[Daten nach 30 Tagen gelöscht]',
+          internal_notes: "[Daten nach 30 Tagen gelöscht]",
           archived: true,
         })
-        .eq('id', booking.id);
+        .eq("id", booking.id);
 
       if (!updateError) {
         deletedCount++;
-        
+
         // Protokolliere Löschvorgang
-        console.log(`[PBefG § 21] Auftrag ${booking.id} anonymisiert (Datum: ${booking.pickup_date})`);
+        console.log(
+          `[PBefG § 21] Auftrag ${booking.id} anonymisiert (Datum: ${booking.pickup_date})`
+        );
       }
     }
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         message: `${deletedCount} Aufträge nach PBefG § 21 anonymisiert`,
         checked: oldBookings?.length || 0,
-        threshold: thirtyDaysAgo.toISOString()
+        threshold: thirtyDaysAgo.toISOString(),
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
     );
   } catch (error: any) {
-    console.error('Fehler bei Daten-Löschung:', error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
-    );
+    console.error("Fehler bei Daten-Löschung:", error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 500,
+    });
   }
 });

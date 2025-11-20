@@ -5,7 +5,7 @@
    System Health, Decision Logs, Active Plans
    ================================================================================== */
 
-import { AgentDashboard as AgentDashboardComponent } from '@/components/shared/AgentDashboard';
+import { AgentDashboard as AgentDashboardComponent } from "@/components/shared/AgentDashboard";
 
 export default function AgentDashboard() {
   return <AgentDashboardComponent />;

@@ -8,12 +8,12 @@
 
 ## 📊 ZUSAMMENFASSUNG
 
-| Violation Type | Count | Severity | Fix Priority |
-|----------------|-------|----------|--------------|
-| **Hardcoded Text-Size** | 408 | 🟡 MEDIUM | Optional |
-| **Hardcoded Hex Colors** | 0 | ✅ OK | - |
-| **Direct Color Classes** | 0 | ✅ OK | - |
-| **dangerouslySetInnerHTML** | 5 | ✅ OK (sanitized) | - |
+| Violation Type              | Count | Severity          | Fix Priority |
+| --------------------------- | ----- | ----------------- | ------------ |
+| **Hardcoded Text-Size**     | 408   | 🟡 MEDIUM         | Optional     |
+| **Hardcoded Hex Colors**    | 0     | ✅ OK             | -            |
+| **Direct Color Classes**    | 0     | ✅ OK             | -            |
+| **dangerouslySetInnerHTML** | 5     | ✅ OK (sanitized) | -            |
 
 ---
 
@@ -31,25 +31,25 @@
 
 ```typescript
 // 1. src/components/dashboard/ActivityTimeline.tsx (10 Fälle)
-className="text-[10px]"
-className="text-[8px]"
-className="text-[11px]"
+className = "text-[10px]";
+className = "text-[8px]";
+className = "text-[11px]";
 
 // 2. src/components/dashboard/DashboardInfoPanel.tsx (6 Fälle)
-className="text-[10px] font-medium"
+className = "text-[10px] font-medium";
 
 // 3. src/components/dashboard/DashboardSidebar.tsx (5 Fälle)
-className="text-[11px] font-semibold"
-className="text-[10px] font-bold"
+className = "text-[11px] font-semibold";
+className = "text-[10px] font-bold";
 
 // 4. src/components/dashboard/PerformanceMonitoringWidget.tsx (5 Fälle)
-className="text-[11px]"
-className="text-[10px]"
-className="text-[9px]"
+className = "text-[11px]";
+className = "text-[10px]";
+className = "text-[9px]";
 
 // 5. src/components/auth/AuthFooter.tsx (6 Fälle)
-className="text-[10px] font-medium"
-className="text-[10px] text-muted-foreground"
+className = "text-[10px] font-medium";
+className = "text-[10px] text-muted-foreground";
 
 // ... und 49 weitere Dateien
 ```
@@ -70,6 +70,7 @@ className="text-[10px] text-muted-foreground"
 ```
 
 **Impact:**
+
 - **Responsive Design:** Fixed px-Werte skalieren nicht
 - **Accessibility:** Nutzer können Text-Größe nicht anpassen
 - **Maintainability:** Schwerer zu ändern (nicht zentral)
@@ -114,7 +115,8 @@ font-size: clamp(0.625rem, 0.6rem + 0.25vw, 0.75rem) // 10px → 12px
 ✅ Intern generiertes CSS (sicher)
 ```
 
-**Bewertung:** 
+**Bewertung:**
+
 - ✅ Alle Instanzen sind entweder sanitized oder intern generiert
 - ⚠️ `renderMarkdown()` sollte DOMPurify nutzen (zu prüfen)
 

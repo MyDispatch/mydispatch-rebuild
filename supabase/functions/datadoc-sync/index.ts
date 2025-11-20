@@ -70,10 +70,10 @@ serve(async (req) => {
   } catch (error) {
     console.error("[DATADOC-SYNC] Error:", error);
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    return new Response(
-      JSON.stringify({ success: false, error: errorMessage }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ success: false, error: errorMessage }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
 
@@ -212,7 +212,11 @@ async function syncExpectationSuites() {
       table: "agent_status",
       expectations: [
         { type: "column_exists", column: "agent_name" },
-        { type: "column_values_in_set", column: "status", values: ["idle", "working", "syncing", "error"] },
+        {
+          type: "column_values_in_set",
+          column: "status",
+          values: ["idle", "working", "syncing", "error"],
+        },
         { type: "column_not_null", column: "version" },
       ],
     },
@@ -221,7 +225,11 @@ async function syncExpectationSuites() {
       table: "monitoring_logs",
       expectations: [
         { type: "column_exists", column: "severity" },
-        { type: "column_values_in_set", column: "severity", values: ["info", "warning", "critical"] },
+        {
+          type: "column_values_in_set",
+          column: "severity",
+          values: ["info", "warning", "critical"],
+        },
         { type: "column_not_null", column: "message" },
       ],
     },

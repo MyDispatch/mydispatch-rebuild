@@ -1,4 +1,5 @@
 # 🔌 API DOCUMENTATION V18.3.29
+
 ## MyDispatch - RESTful API Reference
 
 **Status:** Production-Ready  
@@ -32,6 +33,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
@@ -79,6 +81,7 @@ Authorization: Bearer {access_token}
 ```
 
 **Query Parameters:**
+
 ```
 ?status=eq.pending           # Filter by status
 &pickup_date=gte.2025-01-01  # Date range
@@ -89,6 +92,7 @@ Authorization: Bearer {access_token}
 ```
 
 **Response:**
+
 ```json
 [
   {
@@ -118,6 +122,7 @@ Authorization: Bearer {access_token}
 ```
 
 **Response:**
+
 ```json
 {
   "id": "uuid",
@@ -130,7 +135,7 @@ Authorization: Bearer {access_token}
   "driver": {
     "id": "uuid",
     "full_name": "Max Mustermann"
-  },
+  }
   // ... rest of order data
 }
 ```
@@ -155,11 +160,12 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "id": "uuid",
   "order_number": "ORD-002",
-  "status": "pending",
+  "status": "pending"
   // ... rest of created order
 }
 ```
@@ -200,6 +206,7 @@ Authorization: Bearer {access_token}
 ```
 
 **Response:**
+
 ```json
 [
   {
@@ -245,6 +252,7 @@ Authorization: Bearer {access_token}
 ```
 
 **Response:**
+
 ```json
 [
   {
@@ -287,6 +295,7 @@ Authorization: Bearer {access_token}
 ```
 
 **Response:**
+
 ```json
 [
   {
@@ -297,10 +306,10 @@ Authorization: Bearer {access_token}
     "invoice_date": "2025-10-21",
     "due_date": "2025-11-21",
     "payment_status": "pending",
-    "subtotal": 100.00,
-    "tax_rate": 19.00,
-    "tax_amount": 19.00,
-    "total_amount": 119.00,
+    "subtotal": 100.0,
+    "tax_rate": 19.0,
+    "tax_amount": 19.0,
+    "total_amount": 119.0,
     "notes": "Payment due in 30 days"
   }
 ]
@@ -327,6 +336,7 @@ Content-Type: application/json
 ```
 
 **Automatic Calculations:**
+
 - `tax_amount` = `subtotal * (tax_rate / 100)`
 - `total_amount` = `subtotal + tax_amount`
 
@@ -348,13 +358,14 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
-  "total_revenue": 50000.00,
+  "total_revenue": 50000.0,
   "open_invoices_count": 5,
-  "open_invoices_total": 5000.00,
+  "open_invoices_total": 5000.0,
   "profit_margin": 25.5,
-  "avg_order_value": 150.00
+  "avg_order_value": 150.0
 }
 ```
 
@@ -374,6 +385,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 [
   { "month": "2025-01", "revenue": 4500 },
@@ -399,6 +411,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```
 Content-Type: application/pdf
 Content-Disposition: attachment; filename="Rechnung_INV-001.pdf"
@@ -421,6 +434,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -447,18 +461,18 @@ Content-Type: application/json
 
 ### HTTP Status Codes
 
-| Code | Meaning | Usage |
-|------|---------|-------|
-| `200` | OK | Successful GET, PATCH, DELETE |
-| `201` | Created | Successful POST |
-| `204` | No Content | Successful DELETE (no body) |
-| `400` | Bad Request | Invalid request data |
-| `401` | Unauthorized | Missing/invalid auth token |
-| `403` | Forbidden | Insufficient permissions (RLS) |
-| `404` | Not Found | Resource not found |
-| `409` | Conflict | Duplicate resource |
-| `422` | Unprocessable Entity | Validation error |
-| `500` | Internal Server Error | Server error |
+| Code  | Meaning               | Usage                          |
+| ----- | --------------------- | ------------------------------ |
+| `200` | OK                    | Successful GET, PATCH, DELETE  |
+| `201` | Created               | Successful POST                |
+| `204` | No Content            | Successful DELETE (no body)    |
+| `400` | Bad Request           | Invalid request data           |
+| `401` | Unauthorized          | Missing/invalid auth token     |
+| `403` | Forbidden             | Insufficient permissions (RLS) |
+| `404` | Not Found             | Resource not found             |
+| `409` | Conflict              | Duplicate resource             |
+| `422` | Unprocessable Entity  | Validation error               |
+| `500` | Internal Server Error | Server error                   |
 
 ---
 
@@ -497,10 +511,12 @@ Content-Type: application/json
 ## 📈 RATE LIMITING
 
 **Limits:**
+
 - **Anonymous:** 60 requests / minute
 - **Authenticated:** 300 requests / minute
 
 **Headers:**
+
 ```http
 X-RateLimit-Limit: 300
 X-RateLimit-Remaining: 250
@@ -594,31 +610,28 @@ curl -X POST https://vsbqyqhzxmwezlhzdmfd.supabase.co/rest/v1/orders \
 ### Supabase Client (TypeScript)
 
 ```typescript
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from "@/integrations/supabase/client";
 
 // List orders
 const { data, error } = await supabase
-  .from('orders')
-  .select('*, customer:customers(*), driver:drivers(*)')
-  .eq('status', 'pending')
-  .order('pickup_date', { ascending: false });
+  .from("orders")
+  .select("*, customer:customers(*), driver:drivers(*)")
+  .eq("status", "pending")
+  .order("pickup_date", { ascending: false });
 
 // Create order
 const { data, error } = await supabase
-  .from('orders')
+  .from("orders")
   .insert({
-    customer_id: 'uuid',
-    pickup_address: 'Test',
-    delivery_address: 'Test'
+    customer_id: "uuid",
+    pickup_address: "Test",
+    delivery_address: "Test",
   })
   .select()
   .single();
 
 // Update order
-const { error } = await supabase
-  .from('orders')
-  .update({ status: 'assigned' })
-  .eq('id', 'uuid');
+const { error } = await supabase.from("orders").update({ status: "assigned" }).eq("id", "uuid");
 ```
 
 ---
@@ -634,4 +647,4 @@ const { error } = await supabase
 
 **END OF DOCUMENT**
 
-*Diese API-Dokumentation ist verbindlich für alle Backend-Integrationen in MyDispatch.*
+_Diese API-Dokumentation ist verbindlich für alle Backend-Integrationen in MyDispatch._

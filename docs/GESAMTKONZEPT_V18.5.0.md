@@ -17,6 +17,7 @@ MyDispatch ist eine **Multi-Tenant SaaS-Plattform** für Taxi- und Mietwagenunte
 4. **Kunden-Portal** (Self-Service-Buchungen)
 
 **Technologie-Stack:**
+
 - **Frontend:** React 18, TypeScript, Tailwind CSS, Vite
 - **Backend:** Supabase (PostgreSQL, Edge Functions, Storage, Auth)
 - **State Management:** React Query (TanStack Query)
@@ -24,6 +25,7 @@ MyDispatch ist eine **Multi-Tenant SaaS-Plattform** für Taxi- und Mietwagenunte
 - **Deployment:** Lovable Cloud (Auto-Deploy, Zero-Downtime)
 
 **Business Model:**
+
 - **4 Tarife:** Free, Basic, Business, Business+, Enterprise
 - **Feature-Gates:** Booking Widget (Business+), Driver Portal (Enterprise)
 - **Revenue:** Subscription + Transaction Fees
@@ -42,36 +44,36 @@ graph TB
         DRIVER[Driver Portal PWA]
         CUSTOMER[Customer Portal]
     end
-    
+
     subgraph "State Management"
         RQ[React Query Cache]
         AUTH[Auth Context]
         TOAST[Toast System]
     end
-    
+
     subgraph "Backend (Supabase)"
         DB[(PostgreSQL)]
         EF[Edge Functions]
         STORAGE[Storage Buckets]
         REALTIME[Realtime Subscriptions]
     end
-    
+
     subgraph "External APIs"
         GOOGLE[Google Maps API]
         SENTRY[Sentry Monitoring]
         STRIPE[Stripe Payments]
     end
-    
+
     DASH --> RQ
     LAND --> RQ
     DRIVER --> RQ
     CUSTOMER --> RQ
-    
+
     RQ --> DB
     RQ --> EF
     RQ --> STORAGE
     RQ --> REALTIME
-    
+
     EF --> GOOGLE
     EF --> SENTRY
     EF --> STRIPE
@@ -114,12 +116,14 @@ Design System V18.3.30
 ```
 
 **Verbotene Patterns:**
+
 - ❌ `text-white`, `bg-black`, `text-blue-500`
 - ❌ `#hex-colors`, `rgb()`
 - ❌ Direktes `accent` Token (entfernt in V18.3.24)
 - ❌ Icons mit Status-Farben (`text-status-success`)
 
 **Erlaubt:**
+
 - ✅ `bg-primary`, `text-foreground`
 - ✅ `bg-card`, `text-muted-foreground`
 - ✅ `border-border`
@@ -135,18 +139,19 @@ Design System V18.3.30
 
 ```typescript
 // ✅ RICHTIG
-import { CompanyQuery } from '@/lib/database-utils';
+import { CompanyQuery } from "@/lib/database-utils";
 
 const bookings = await CompanyQuery(supabase)
-  .from('bookings')
-  .select('*')
-  .eq('company_id', profile.company_id);
+  .from("bookings")
+  .select("*")
+  .eq("company_id", profile.company_id);
 
 // ❌ FALSCH
-const bookings = await supabase.from('bookings').select('*');
+const bookings = await supabase.from("bookings").select("*");
 ```
 
 **Enforcement:**
+
 1. **RLS Policies** auf allen Tabellen (Supabase)
 2. **CompanyQuery Wrapper** (Type-Safe)
 3. **Security Scanner** (Agent Debug System)
@@ -160,15 +165,16 @@ const bookings = await supabase.from('bookings').select('*');
 
 ```typescript
 // ✅ RICHTIG
-import { softDelete } from '@/lib/database-utils';
+import { softDelete } from "@/lib/database-utils";
 
-await softDelete(supabase, 'drivers', driverId);
+await softDelete(supabase, "drivers", driverId);
 
 // ❌ FALSCH
-await supabase.from('drivers').delete().eq('id', driverId);
+await supabase.from("drivers").delete().eq("id", driverId);
 ```
 
 **Vorteile:**
+
 - DSGVO-konform (Wiederherstellen möglich)
 - PBefG-konform (7 Jahre Archivierung)
 - Audit-Trail erhalten
@@ -178,17 +184,20 @@ await supabase.from('drivers').delete().eq('id', driverId);
 ### Authentication & Authorization
 
 **Auth-Flow:**
+
 1. **Email/Password** (Standard)
 2. **JWT-basierte Sessions** (24h Lifetime)
 3. **Auto-Refresh** (Supabase SDK)
 4. **Role-Based Access Control** (Admin, Unternehmer, Disponent, Fahrer)
 
 **Implementierung:**
+
 - `use-auth.tsx` Hook (Zentral)
 - `ProtectedRoute` Component (Dashboard)
 - `PortalRoute` Component (Fahrer/Kunden)
 
 **RLS Policies:**
+
 ```sql
 -- Beispiel: Bookings
 CREATE POLICY "bookings_select" ON bookings
@@ -205,6 +214,7 @@ CREATE POLICY "bookings_select" ON bookings
 ### Core Tables (34 Tabellen)
 
 #### Companies (Multi-Tenant Root)
+
 ```sql
 CREATE TABLE companies (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -220,6 +230,7 @@ CREATE TABLE companies (
 ```
 
 #### Profiles (User-Company-Mapping)
+
 ```sql
 CREATE TABLE profiles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -234,6 +245,7 @@ CREATE TABLE profiles (
 ```
 
 #### Bookings (Core Entity)
+
 ```sql
 CREATE TABLE bookings (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -255,6 +267,7 @@ CREATE TABLE bookings (
 ```
 
 #### Drivers (Fahrer)
+
 ```sql
 CREATE TABLE drivers (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -273,6 +286,7 @@ CREATE TABLE drivers (
 ```
 
 **Weitere Core Tables:**
+
 - `vehicles` (Fahrzeuge)
 - `customers` (Kunden)
 - `partners` (Partner-Unternehmen)
@@ -364,17 +378,18 @@ CREATE INDEX idx_drivers_company ON drivers(company_id);
 **Route:** `/dashboard`, `/auftraege`, `/fahrer`, `/kunden`, etc.
 
 **Layout:**
+
 - **Sidebar:** 64px collapsed, 240px expanded (hover)
 - **Header:** 60px fixed, Company Logo, User Menu
 - **Content:** Responsive Grid (DashboardGrid)
 - **Footer:** Collapsible (Windows Taskbar Style)
 
 **Pages (18):**
+
 1. **Dashboard** (`/dashboard`)
    - KPI Cards (4): Umsatz, Aufträge, Fahrer, Kunden
    - Charts (3): Umsatz-Trend, Auslastung, Top-Fahrer
    - Quick Actions: Neuer Auftrag, Neuer Fahrer
-   
 2. **Aufträge** (`/auftraege`)
    - DataTable mit Filtering
    - Status-Filter, Datum-Filter
@@ -406,6 +421,7 @@ CREATE INDEX idx_drivers_company ON drivers(company_id);
    - Export-Funktionen
 
 **Feature-Gates:**
+
 - **Basic:** Aufträge, Fahrer, Fahrzeuge, Kunden
 - **Business:** Finanzen, Rechnungen, Kostenstellen
 - **Business+:** Statistiken, Partner, API-Zugang
@@ -418,31 +434,31 @@ CREATE INDEX idx_drivers_company ON drivers(company_id);
 **Route:** `/:slug` (z.B. `/nexify`)
 
 **Komponenten:**
+
 - **HeroSection** (Full-Screen)
   - Company Logo (300x100px)
   - Tagline (Custom)
   - CTA Buttons (2-3)
-  
 - **Services Section**
   - Icon + Text (Grid 3 Spalten)
-  
 - **Booking Widget** (Business+)
   - Address Autocomplete (Google Maps)
   - Date/Time Picker
   - Vehicle Selection
   - Instant Price Calculation
-  
 - **Footer**
   - Contact Info
   - Social Links
   - Legal Pages
 
 **Branding:**
+
 - **Primary Color:** `--primary-landingpage` (HEX aus DB)
 - **Logo:** `/storage/logos/${company_id}.png`
 - **Slug:** Unique URL (z.B. `/nexify`)
 
 **SEO-Optimierung:**
+
 ```html
 <title>{company.name} - Taxi & Mietwagen</title>
 <meta name="description" content="{company.description}" />
@@ -457,12 +473,14 @@ CREATE INDEX idx_drivers_company ON drivers(company_id);
 **Route:** `/fahrer-portal`
 
 **Features:**
+
 - **Mobile-First Design** (≥44px Touch Targets)
 - **Offline-Mode** (Service Worker + IndexedDB)
 - **GPS-Tracking** (Real-Time via Supabase Realtime)
 - **Biometric Auth** (Face ID, Fingerprint)
 
 **Pages:**
+
 1. **Onboarding** (`/fahrer/splash`, `/fahrer/welcome`)
 2. **Login** (`/fahrer/login`)
 3. **Dashboard** (`/fahrer/dashboard`)
@@ -475,6 +493,7 @@ CREATE INDEX idx_drivers_company ON drivers(company_id);
    - Monatsstatistiken
 
 **PWA-Konfiguration:**
+
 ```json
 {
   "name": "MyDispatch Driver",
@@ -497,12 +516,14 @@ CREATE INDEX idx_drivers_company ON drivers(company_id);
 **Route:** `/kunden-portal`
 
 **Features:**
+
 - **Self-Service Registrierung** (Email-Verifizierung)
 - **Buchungsverlauf** (DataTable)
 - **Neue Buchung** (Formular + Google Maps)
 - **Rechnungen** (PDF-Download)
 
 **Pages:**
+
 1. **Portal Login** (`/kunden-portal/login`)
 2. **Registrierung** (`/kunden-portal/register`)
 3. **Dashboard** (`/kunden-portal/dashboard`)
@@ -524,13 +545,15 @@ CREATE INDEX idx_drivers_company ON drivers(company_id);
 ### Frontend Performance
 
 **Code-Splitting:**
+
 ```typescript
 // React.lazy für Routes
-const Dashboard = lazy(() => import('@/pages/Dashboard'));
-const Auftraege = lazy(() => import('@/pages/Auftraege'));
+const Dashboard = lazy(() => import("@/pages/Dashboard"));
+const Auftraege = lazy(() => import("@/pages/Auftraege"));
 ```
 
 **Image Optimization:**
+
 ```typescript
 // WebP Format, Lazy Loading
 <img
@@ -543,12 +566,13 @@ const Auftraege = lazy(() => import('@/pages/Auftraege'));
 ```
 
 **React Query Caching:**
+
 ```typescript
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000, // 5 Min
-      gcTime: 10 * 60 * 1000,   // 10 Min
+      gcTime: 10 * 60 * 1000, // 10 Min
       refetchOnWindowFocus: true,
     },
   },
@@ -558,11 +582,13 @@ export const queryClient = new QueryClient({
 ### Backend Performance
 
 **Database Indexes:**
+
 - Foreign Keys: `company_id`, `user_id`, `driver_id`
 - Composite Indexes: `(company_id, status, deleted_at)`
 - Full-Text Search: `bookings.pickup_address`
 
 **Edge Function Optimization:**
+
 - **Cold Start:** <100ms (Deno Runtime)
 - **Execution Time:** <200ms (avg)
 - **Caching:** Redis (Supabase)
@@ -611,9 +637,9 @@ screens: {
 
 ```typescript
 // Example: format-utils.test.ts
-describe('formatCurrency', () => {
-  it('formats EUR correctly', () => {
-    expect(formatCurrency(1234.56, 'EUR')).toBe('1.234,56 €');
+describe("formatCurrency", () => {
+  it("formats EUR correctly", () => {
+    expect(formatCurrency(1234.56, "EUR")).toBe("1.234,56 €");
   });
 });
 ```
@@ -621,6 +647,7 @@ describe('formatCurrency', () => {
 ### E2E-Tests (Playwright)
 
 **Critical Paths:**
+
 1. **Login-Flow**
 2. **Booking-Creation**
 3. **Driver-Assignment**
@@ -628,12 +655,12 @@ describe('formatCurrency', () => {
 
 ```typescript
 // Example: booking.spec.ts
-test('create booking', async ({ page }) => {
-  await page.goto('/auftraege');
-  await page.click('text=Neuer Auftrag');
-  await page.fill('[name="pickup_address"]', 'Berlin Hauptbahnhof');
+test("create booking", async ({ page }) => {
+  await page.goto("/auftraege");
+  await page.click("text=Neuer Auftrag");
+  await page.fill('[name="pickup_address"]', "Berlin Hauptbahnhof");
   await page.click('button[type="submit"]');
-  await expect(page.locator('text=Auftrag erstellt')).toBeVisible();
+  await expect(page.locator("text=Auftrag erstellt")).toBeVisible();
 });
 ```
 
@@ -656,10 +683,10 @@ Sentry.init({
 ### Custom Logging
 
 ```typescript
-import { logger } from '@/lib/logger';
+import { logger } from "@/lib/logger";
 
-logger.info('[Booking] Created', { bookingId, companyId });
-logger.error('[API] Failed', error as Error, { endpoint });
+logger.info("[Booking] Created", { bookingId, companyId });
+logger.error("[API] Failed", error as Error, { endpoint });
 ```
 
 ### Health Checks
@@ -667,6 +694,7 @@ logger.error('[API] Failed', error as Error, { endpoint });
 **Endpoint:** `/health`
 
 **Checks:**
+
 - Database Connectivity
 - Edge Functions Status
 - Storage Availability

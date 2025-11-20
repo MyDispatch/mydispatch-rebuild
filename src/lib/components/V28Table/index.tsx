@@ -3,8 +3,8 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 export interface V28TableColumn<T> {
   key: string;
@@ -26,10 +26,15 @@ export function V28Table<T extends Record<string, any>>({
   data,
   onRowClick,
   className,
-  emptyMessage = 'No data available',
+  emptyMessage = "No data available",
 }: V28TableProps<T>) {
   return (
-    <div className={cn('w-full overflow-auto border border-slate-200 dark:border-slate-700', className)}>
+    <div
+      className={cn(
+        "w-full overflow-auto border border-slate-200 dark:border-slate-700",
+        className
+      )}
+    >
       <table className="w-full text-sm">
         <thead className="border-b border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-800">
           <tr>
@@ -37,7 +42,7 @@ export function V28Table<T extends Record<string, any>>({
               <th
                 key={column.key}
                 className={cn(
-                  'px-4 py-3 text-left font-medium text-slate-700 dark:text-slate-300',
+                  "px-4 py-3 text-left font-medium text-slate-700 dark:text-slate-300",
                   column.className
                 )}
               >
@@ -62,17 +67,15 @@ export function V28Table<T extends Record<string, any>>({
                 key={index}
                 onClick={() => onRowClick?.(item)}
                 className={cn(
-                  'bg-white dark:bg-slate-900',
-                  onRowClick && 'cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors'
+                  "bg-white dark:bg-slate-900",
+                  onRowClick &&
+                    "cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                 )}
               >
                 {columns.map((column) => (
                   <td
                     key={column.key}
-                    className={cn(
-                      'px-4 py-3 text-slate-900 dark:text-slate-100',
-                      column.className
-                    )}
+                    className={cn("px-4 py-3 text-slate-900 dark:text-slate-100", column.className)}
                   >
                     {column.render ? column.render(item) : item[column.key]}
                   </td>

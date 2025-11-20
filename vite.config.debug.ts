@@ -4,25 +4,25 @@ import path from "path";
 
 // DEBUG CONFIG: NO optimizations, NO minification
 export default defineConfig({
-  base: '/',
-  
+  base: "/",
+
   plugins: [react()],
-  
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  
+
   build: {
-    target: 'esnext',
+    target: "esnext",
     minify: false, // NO MINIFICATION
     cssCodeSplit: false,
     sourcemap: true,
-    
+
     rollupOptions: {
       output: {
-        format: 'es',
+        format: "es",
         // Keep everything readable
         compact: false,
         // No mangling

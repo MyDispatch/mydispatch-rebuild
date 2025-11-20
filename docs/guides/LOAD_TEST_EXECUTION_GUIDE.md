@@ -1,4 +1,5 @@
 # 📊 LOAD-TEST EXECUTION GUIDE - V18.3.24
+
 **Datum:** 2025-10-20  
 **Ziel:** >500 Fahrzeuge (50 req/s), >95% Success-Rate, <2s p95
 
@@ -7,12 +8,14 @@
 ## ⚙️ INSTALLATION
 
 ### Schritt 1: Artillery installieren
+
 ```bash
 # Global installation (einmalig)
 npm install -g artillery
 ```
 
 ### Schritt 2: Projekt auschecken
+
 ```bash
 # Falls noch nicht vorhanden
 git clone https://github.com/YOUR-USERNAME/mydispatch.git
@@ -24,6 +27,7 @@ cd mydispatch
 ## 🚀 TEST AUSFÜHRUNG
 
 ### Standard-Test (500 Fahrzeuge)
+
 ```bash
 # Ausführen mit Report-Output
 artillery run load-test.yml --output report.json
@@ -40,6 +44,7 @@ start report.html  # Windows
 ### Erweiterte Optionen
 
 #### Test mit angepasster Last (z.B. 1000 Fahrzeuge = 100 req/s)
+
 ```bash
 artillery run load-test.yml \
   --overrides '{"config": {"phases": [{"duration": 60, "arrivalRate": 100}]}}' \
@@ -47,6 +52,7 @@ artillery run load-test.yml \
 ```
 
 #### Test mit Environment-Variables
+
 ```bash
 # Setze VITE_SUPABASE_URL falls nicht in .env
 VITE_SUPABASE_URL=https://vsbqyqhzxmwezlhzdmfd.supabase.co \
@@ -54,6 +60,7 @@ artillery run load-test.yml --output report.json
 ```
 
 #### Test mit Verbose-Logging
+
 ```bash
 artillery run load-test.yml --output report.json --debug
 ```
@@ -63,15 +70,17 @@ artillery run load-test.yml --output report.json --debug
 ## 📈 ERWARTETE ERGEBNISSE
 
 ### Success-Kriterien
-| Metrik | Ziel | Akzeptabel | Kritisch |
-|--------|------|------------|----------|
-| Success-Rate | >95% | 90-95% | <90% |
-| p95 Response-Time | <2s | 2-3s | >3s |
-| p99 Response-Time | <3s | 3-5s | >5s |
-| Max Error-Rate | <5% | 5-10% | >10% |
-| Throughput | 50 req/s | 40-50 req/s | <40 req/s |
+
+| Metrik            | Ziel     | Akzeptabel  | Kritisch  |
+| ----------------- | -------- | ----------- | --------- |
+| Success-Rate      | >95%     | 90-95%      | <90%      |
+| p95 Response-Time | <2s      | 2-3s        | >3s       |
+| p99 Response-Time | <3s      | 3-5s        | >5s       |
+| Max Error-Rate    | <5%      | 5-10%       | >10%      |
+| Throughput        | 50 req/s | 40-50 req/s | <40 req/s |
 
 ### Beispiel-Output (Ideal)
+
 ```
 Summary report @ 05:15:00
 ------------------------------------------------------
@@ -102,7 +111,9 @@ Codes:
 ## 🔍 TROUBLESHOOTING
 
 ### Problem: Viele 500-Errors (>5%)
+
 **Lösung:**
+
 1. Prüfe Supabase Edge Function Logs:
    ```bash
    # Lovable Cloud → Backend → Edge Functions → Logs
@@ -114,7 +125,9 @@ Codes:
 3. Retry Test mit 30s Pause zwischen Phasen
 
 ### Problem: p95 >2s (langsame Responses)
+
 **Lösung:**
+
 1. Prüfe Materialized View Refresh:
    ```sql
    SELECT * FROM dashboard_stats; -- Sollte <5min alt sein
@@ -127,7 +140,9 @@ Codes:
    ```
 
 ### Problem: 429-Errors von Supabase (>10%)
+
 **Lösung:**
+
 1. Reduziere Last:
    ```bash
    # Teste mit 25 req/s statt 50
@@ -144,6 +159,7 @@ Codes:
 ## 📊 RESULTS INTERPRETATION
 
 ### Scenario-Breakdown
+
 ```
 Scenario: Dashboard Requests (40%)
   Success: 1180/1200 (98.3%)
@@ -167,6 +183,7 @@ Scenario: Live-Map Traffic/Weather (10%)
 ```
 
 ### Gesamtbewertung
+
 - **PASS:** Success >95%, p95 <2s, Errors <5%
 - **ACCEPTABLE:** Success 90-95%, p95 2-3s, Errors 5-10%
 - **FAIL:** Success <90%, p95 >3s, Errors >10%
@@ -176,16 +193,19 @@ Scenario: Live-Map Traffic/Weather (10%)
 ## 🎯 POST-TEST ACTIONS
 
 ### Bei PASS
+
 1. ✅ Markiere Load-Test als abgeschlossen in `GO_LIVE_CHECKLIST_V18.3.24.md`
 2. ✅ Commit Results: `git add report.html && git commit -m "Load-Test PASS (500 Vehicles)"`
 3. ✅ Weiter zu nächstem Schritt (Sentry-DSN)
 
 ### Bei ACCEPTABLE
+
 1. ⚠️ Dokumentiere Warnings in `SPRINT_47_P2_FINAL_GO_LIVE.md`
 2. ⚠️ Plan für Optimierung (z.B. HERE Rate-Limit erhöhen)
 3. ✅ Go-Live erlaubt (Minor Issues akzeptabel)
 
 ### Bei FAIL
+
 1. ❌ Analysiere Logs (Supabase, Sentry, HERE API)
 2. ❌ Fixe kritische Issues
 3. ❌ Retry Load-Test nach 10min Pause
@@ -196,12 +216,13 @@ Scenario: Live-Map Traffic/Weather (10%)
 ## 📝 DOCUMENTATION
 
 ### Log zu brain_logs
+
 ```typescript
 // Nach Test-Completion in Frontend:
-await supabase.from('brain_logs').insert({
-  agent_action: 'load_test_completed',
+await supabase.from("brain_logs").insert({
+  agent_action: "load_test_completed",
   input_context: {
-    test_type: '500_vehicles',
+    test_type: "500_vehicles",
     duration_seconds: 250,
     phases: 5,
   },
@@ -209,7 +230,7 @@ await supabase.from('brain_logs').insert({
     success_rate: 98.3,
     p95_ms: 980,
     error_rate: 1.7,
-    status: 'pass',
+    status: "pass",
   },
   success: true,
   confidence: 0.98,

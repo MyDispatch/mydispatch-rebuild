@@ -6,11 +6,11 @@
    ✅ Konsistentes Error-Handling
    ================================================================================== */
 
-import { TypedSupabaseClient, handleApiError } from './client';
-import { Tables } from '@/integrations/supabase/types';
+import { TypedSupabaseClient, handleApiError } from "./client";
+import { Tables } from "@/integrations/supabase/types";
 
-export type Driver = Tables<'drivers'>;
-export type DriverInsert = Omit<Driver, 'id' | 'created_at' | 'updated_at'>;
+export type Driver = Tables<"drivers">;
+export type DriverInsert = Omit<Driver, "id" | "created_at" | "updated_at">;
 export type DriverUpdate = Partial<DriverInsert>;
 
 export interface DriverFilters {
@@ -31,79 +31,68 @@ export function createDriversApi(supabase: TypedSupabaseClient): DriversApi {
     async list(filters = {}) {
       try {
         let query = supabase
-          .from('drivers')
-          .select('*')
-          .eq('archived', filters.archived ?? false)
-          .order('created_at', { ascending: false });
+          .from("drivers")
+          .select("*")
+          .eq("archived", filters.archived ?? false)
+          .order("created_at", { ascending: false });
 
         if (filters.shift_status) {
-          query = query.eq('shift_status', filters.shift_status as any);
+          query = query.eq("shift_status", filters.shift_status as any);
         }
 
         const { data, error } = await query;
-        if (error) handleApiError(error, 'drivers.list');
+        if (error) handleApiError(error, "drivers.list");
         return data || [];
       } catch (error) {
-        handleApiError(error, 'drivers.list');
+        handleApiError(error, "drivers.list");
       }
     },
 
     async getById(id) {
       try {
-        const { data, error } = await supabase
-          .from('drivers')
-          .select('*')
-          .eq('id', id)
-          .single();
+        const { data, error } = await supabase.from("drivers").select("*").eq("id", id).single();
 
-        if (error) handleApiError(error, 'drivers.getById');
+        if (error) handleApiError(error, "drivers.getById");
         return data!;
       } catch (error) {
-        handleApiError(error, 'drivers.getById');
+        handleApiError(error, "drivers.getById");
       }
     },
 
     async create(input) {
       try {
-        const { data, error } = await supabase
-          .from('drivers')
-          .insert([input])
-          .select()
-          .single();
+        const { data, error } = await supabase.from("drivers").insert([input]).select().single();
 
-        if (error) handleApiError(error, 'drivers.create');
+        if (error) handleApiError(error, "drivers.create");
         return data!;
       } catch (error) {
-        handleApiError(error, 'drivers.create');
+        handleApiError(error, "drivers.create");
       }
     },
 
     async update(id, updates) {
       try {
         const { data, error } = await supabase
-          .from('drivers')
+          .from("drivers")
           .update(updates)
-          .eq('id', id)
+          .eq("id", id)
           .select()
           .single();
 
-        if (error) handleApiError(error, 'drivers.update');
+        if (error) handleApiError(error, "drivers.update");
         return data!;
       } catch (error) {
-        handleApiError(error, 'drivers.update');
+        handleApiError(error, "drivers.update");
       }
     },
 
     async archive(id) {
       try {
-        const { error } = await supabase
-          .from('drivers')
-          .update({ archived: true })
-          .eq('id', id);
+        const { error } = await supabase.from("drivers").update({ archived: true }).eq("id", id);
 
-        if (error) handleApiError(error, 'drivers.archive');
+        if (error) handleApiError(error, "drivers.archive");
       } catch (error) {
-        handleApiError(error, 'drivers.archive');
+        handleApiError(error, "drivers.archive");
       }
     },
   };

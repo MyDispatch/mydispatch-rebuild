@@ -24,15 +24,18 @@
 ### 1.1 URL-Schema
 
 **Haupt-Landingpage**:
+
 - `https://mydispatch.de/` - Zentrale Homepage (für alle)
 - `https://app.mydispatch.de/` - Login-Bereich (Dashboard)
 
 **Company-spezifische Landingpages** (Multi-Tenant):
+
 - `https://app.mydispatch.de/:company_slug` (z.B. `/nexify`, `/taxi-mueller`)
 - Gebrandetes Design pro Company (Logo, Farben, Custom-Content)
 - Booking-Widget integriert (Business+ / Enterprise Tarife)
 
 **Datenbank-Schema**:
+
 ```sql
 -- companies.landingpage_* Felder (siehe BAUPLAN)
 landingpage_enabled BOOLEAN DEFAULT false,
@@ -104,6 +107,7 @@ company_slug TEXT UNIQUE
 ### 1.3 Company-Landingpage (Anpassbare Sektion)
 
 **Unterschiede zur Haupt-Homepage**:
+
 - **Branding**: Company-Logo statt MyDispatch-Logo
 - **Farben**: `companies.primary_color` (z.B. `#ff5733` für Nexify)
 - **Hero-Text**: `companies.landingpage_hero_text` (z.B. "Willkommen bei Nexify Taxi")
@@ -112,6 +116,7 @@ company_slug TEXT UNIQUE
 - **Booking-Widget**: Eingebettet (nur für Business+/Enterprise)
 
 **Beispiel**: `https://app.mydispatch.de/nexify`
+
 ```typescript
 // Route: /:slug
 const { slug } = useParams();
@@ -142,49 +147,59 @@ const { data: company } = useQuery({
 ### 2.1 On-Page-SEO (Pro Seite)
 
 **Pflichtfelder** (in `<head>`):
+
 ```html
 <!-- Title: Haupt-Keyword + Marke -->
 <title>MyDispatch - Dispositions-Software für Taxiunternehmen | Digitale Taxizentrale</title>
 
 <!-- Meta Description: Max. 160 Zeichen -->
-<meta name="description" content="MyDispatch ist die moderne Dispositions-Software für Taxi, Mietwagen & Lieferdienste. Echtzeit-Tracking, automatische Abrechnung & mehr. Jetzt kostenlos testen!">
+<meta
+  name="description"
+  content="MyDispatch ist die moderne Dispositions-Software für Taxi, Mietwagen & Lieferdienste. Echtzeit-Tracking, automatische Abrechnung & mehr. Jetzt kostenlos testen!"
+/>
 
 <!-- Keywords: Top 5-7 Keywords -->
-<meta name="keywords" content="Dispositions-Software, Taxi-Software, Mietwagen-Software, Taxizentrale, Fahrerverwaltung, Echtzeit-Tracking, Taxameter-Alternative">
+<meta
+  name="keywords"
+  content="Dispositions-Software, Taxi-Software, Mietwagen-Software, Taxizentrale, Fahrerverwaltung, Echtzeit-Tracking, Taxameter-Alternative"
+/>
 
 <!-- Open Graph (Facebook/LinkedIn) -->
-<meta property="og:title" content="MyDispatch - Dispositions-Software für Taxiunternehmen">
-<meta property="og:description" content="Moderne Dispositions-Software mit Echtzeit-Tracking, Fahrerverwaltung & mehr.">
-<meta property="og:image" content="https://mydispatch.de/og-image.png">
-<meta property="og:url" content="https://mydispatch.de/">
+<meta property="og:title" content="MyDispatch - Dispositions-Software für Taxiunternehmen" />
+<meta
+  property="og:description"
+  content="Moderne Dispositions-Software mit Echtzeit-Tracking, Fahrerverwaltung & mehr."
+/>
+<meta property="og:image" content="https://mydispatch.de/og-image.png" />
+<meta property="og:url" content="https://mydispatch.de/" />
 
 <!-- Twitter Card -->
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="MyDispatch - Dispositions-Software">
-<meta name="twitter:description" content="Digitale Taxizentrale für moderne Unternehmen.">
-<meta name="twitter:image" content="https://mydispatch.de/twitter-card.png">
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="MyDispatch - Dispositions-Software" />
+<meta name="twitter:description" content="Digitale Taxizentrale für moderne Unternehmen." />
+<meta name="twitter:image" content="https://mydispatch.de/twitter-card.png" />
 
 <!-- Canonical URL (gegen Duplicate Content) -->
-<link rel="canonical" href="https://mydispatch.de/">
+<link rel="canonical" href="https://mydispatch.de/" />
 
 <!-- Structured Data (JSON-LD) -->
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "MyDispatch",
-  "applicationCategory": "BusinessApplication",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "EUR"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "ratingCount": "127"
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "MyDispatch",
+    "applicationCategory": "BusinessApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "EUR"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "127"
+    }
   }
-}
 </script>
 ```
 
@@ -204,19 +219,19 @@ interface SEOHeadProps {
 export function SEOHead({ title, description, keywords, canonical, ogImage }: SEOHeadProps) {
   const fullTitle = `${title} | MyDispatch`;
   const defaultOgImage = 'https://mydispatch.de/og-image.png';
-  
+
   return (
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       {keywords && <meta name="keywords" content={keywords} />}
       {canonical && <link rel="canonical" href={canonical} />}
-      
+
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={ogImage || defaultOgImage} />
-      
+
       {/* Twitter */}
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
@@ -231,6 +246,7 @@ export function SEOHead({ title, description, keywords, canonical, ogImage }: SE
 ### 2.2 Keyword-Strategie
 
 **Primäre Keywords** (Haupt-Zielgruppe):
+
 1. **Dispositions-Software** (880 Suchvolumen/Monat, Konkurrenz: Mittel)
 2. **Taxi-Software** (1.200 Suchvolumen/Monat, Konkurrenz: Hoch)
 3. **Mietwagen-Software** (320 Suchvolumen/Monat, Konkurrenz: Niedrig)
@@ -238,6 +254,7 @@ export function SEOHead({ title, description, keywords, canonical, ogImage }: SE
 5. **Echtzeit-Tracking Taxi** (150 Suchvolumen/Monat, Konkurrenz: Mittel)
 
 **Long-Tail Keywords** (niedrige Konkurrenz, hohe Conversion):
+
 - "Dispositions-Software für kleine Taxiunternehmen"
 - "Taxi-Software mit Echtzeit-Karte"
 - "Digitale Taxizentrale Alternative"
@@ -245,6 +262,7 @@ export function SEOHead({ title, description, keywords, canonical, ogImage }: SE
 - "Mietwagen-Software mit Rechnungserstellung"
 
 **Content-Strategie** (Blog-Artikel für SEO):
+
 1. "Die 10 besten Dispositions-Software-Lösungen 2025" (Vergleich)
 2. "Taxi-Software: Darauf müssen Sie achten" (Ratgeber)
 3. "Fahrerverwaltung digitalisieren: Schritt-für-Schritt-Anleitung"
@@ -256,6 +274,7 @@ export function SEOHead({ title, description, keywords, canonical, ogImage }: SE
 ### 2.3 Technisches SEO
 
 **Performance-Anforderungen**:
+
 - Lighthouse Score: >90 (Desktop & Mobile)
 - Core Web Vitals:
   - LCP (Largest Contentful Paint): <2.5s
@@ -263,11 +282,13 @@ export function SEOHead({ title, description, keywords, canonical, ogImage }: SE
   - CLS (Cumulative Layout Shift): <0.1
 
 **Mobile-First**:
+
 - Responsive Design (Breakpoints: 320px, 768px, 1024px, 1440px)
 - Touch-optimierte Buttons (Min. 44x44px)
 - Viewport Meta-Tag: `<meta name="viewport" content="width=device-width, initial-scale=1">`
 
 **Sitemap.xml**:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -290,6 +311,7 @@ export function SEOHead({ title, description, keywords, canonical, ogImage }: SE
 ```
 
 **robots.txt**:
+
 ```
 User-agent: *
 Allow: /
@@ -305,22 +327,26 @@ Sitemap: https://mydispatch.de/sitemap.xml
 ### 3.1 Headline-Hierarchie
 
 **H1** (1x pro Seite):
+
 - Homepage: "MyDispatch - Ihre digitale Taxizentrale"
 - Preise: "Transparente Preise für jede Unternehmensgröße"
 - Features: "Alle Features im Überblick"
 
 **H2** (Sektionen):
+
 - "Warum MyDispatch?"
 - "Features im Detail"
 - "Unsere Kunden vertrauen uns"
 - "Häufig gestellte Fragen"
 
 **H3** (Sub-Sektionen):
+
 - "Fahrerverwaltung"
 - "Echtzeit-Disposition"
 - "Rechnungswesen"
 
 **Best Practices**:
+
 - ✅ Hauptkeyword im H1
 - ✅ Sekundär-Keywords in H2
 - ✅ Long-Tail-Keywords in H3
@@ -331,21 +357,25 @@ Sitemap: https://mydispatch.de/sitemap.xml
 ### 3.2 Call-to-Actions (CTAs)
 
 **Primäre CTAs** (Haupt-Conversion):
+
 - "Kostenlos testen" (14 Tage Trial)
 - "Demo vereinbaren" (Calendly-Link)
 - "Jetzt starten"
 
 **Sekundäre CTAs** (Soft-Conversion):
+
 - "Mehr erfahren"
 - "Features ansehen"
 - "Preise vergleichen"
 
 **Platzierung**:
+
 - Hero-Section: 2 CTAs (Primary + Secondary)
 - Nach jeder Feature-Section: 1 CTA
 - Footer: Final-CTA (groß, dunkler Hintergrund)
 
 **Button-Design**:
+
 ```tsx
 // Primary CTA
 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground h-12 px-8 text-lg">
@@ -363,14 +393,17 @@ Sitemap: https://mydispatch.de/sitemap.xml
 ### 3.3 Microcopy (UX-Texte)
 
 **Tooltips**:
+
 - "14 Tage kostenlos testen - keine Kreditkarte erforderlich"
 - "Jederzeit kündbar - keine Mindestlaufzeit"
 
 **Error-Messages**:
+
 - ❌ "Fehler" → ✅ "Ups, etwas ist schiefgelaufen"
 - ❌ "Ungültige E-Mail" → ✅ "Bitte geben Sie eine gültige E-Mail-Adresse ein"
 
 **Success-Messages**:
+
 - ✅ "Vielen Dank! Wir melden uns in 24h"
 - ✅ "Buchung erfolgreich - Bestätigung per E-Mail unterwegs"
 
@@ -381,6 +414,7 @@ Sitemap: https://mydispatch.de/sitemap.xml
 ### 4.1 Trust-Signals
 
 **Elemente** (sichtbar auf jeder Seite):
+
 1. **Security-Badges**:
    - "SSL-verschlüsselt" (🔒 Icon)
    - "DSGVO-konform"
@@ -396,6 +430,7 @@ Sitemap: https://mydispatch.de/sitemap.xml
    - "Datenmigration inklusive"
 
 **Platzierung**:
+
 - Trust-Section (direkt nach Hero)
 - Footer (Security-Badges)
 - Checkout-Seite (alle Trust-Signals)
@@ -405,6 +440,7 @@ Sitemap: https://mydispatch.de/sitemap.xml
 ### 4.2 A/B-Testing-Strategie
 
 **Test-Hypothesen** (Prio-1):
+
 1. **Hero-Headline**:
    - Variante A: "Ihre digitale Taxizentrale"
    - Variante B: "Dispositions-Software, die funktioniert"
@@ -421,6 +457,7 @@ Sitemap: https://mydispatch.de/sitemap.xml
    - Metrik: Conversion-Rate
 
 **Tools**:
+
 - Google Optimize (kostenlos)
 - Hotjar (Heatmaps, Recordings)
 - Google Analytics 4 (Funnel-Tracking)
@@ -430,6 +467,7 @@ Sitemap: https://mydispatch.de/sitemap.xml
 ### 4.3 Conversion-Funnel
 
 **Funnel-Schritte**:
+
 1. **Awareness**: Landingpage-Besuch (100%)
 2. **Interest**: Features-Section-Scroll (70%)
 3. **Desire**: Pricing-Section-View (40%)
@@ -437,6 +475,7 @@ Sitemap: https://mydispatch.de/sitemap.xml
 5. **Retention**: First-Login + Onboarding (10%)
 
 **Drop-Off-Analyse**:
+
 - Höchster Drop-Off: Awareness → Interest (30%)
 - Optimierung: Hero-Section überarbeiten (kürzerer Text, größeres CTA)
 
@@ -447,6 +486,7 @@ Sitemap: https://mydispatch.de/sitemap.xml
 ### 5.1 Hero-Image/Video
 
 **Option 1: Screenshot** (Dashboard-Ansicht)
+
 - Auflösung: 1920x1080px (16:9)
 - Format: WebP (mit JPEG-Fallback)
 - Dateigröße: <500 KB
@@ -455,6 +495,7 @@ Sitemap: https://mydispatch.de/sitemap.xml
 - **Tool**: [Mockuuups Studio](https://mockuuups.studio/) oder Figma
 
 **Option 2: 3D-Illustration**
+
 - Stil: Isometrisch, modern, clean
 - Farben: Primary (#323D5E), Accent (#856d4b), Weiß
 - Elemente: Taxi (3D), Fahrer (Icon), Smartphone (Buchungs-App), Karte
@@ -462,6 +503,7 @@ Sitemap: https://mydispatch.de/sitemap.xml
 - **Beispiel**: [Uber-Landing-Style](https://www.uber.com/de/)
 
 **Option 3: Video** (Produkt-Demo)
+
 - Länge: 60-90 Sekunden
 - Format: MP4 (H.264)
 - Auflösung: 1920x1080px (60fps)
@@ -480,6 +522,7 @@ Sitemap: https://mydispatch.de/sitemap.xml
 ### 5.2 Feature-Icons
 
 **Stil**: Outline-Icons (Lucide React)
+
 - Größe: 48x48px (Desktop), 32x32px (Mobile)
 - Stroke: 2px
 - Farbe: `hsl(var(--primary))` (Dunkelblau)
@@ -499,8 +542,9 @@ Sitemap: https://mydispatch.de/sitemap.xml
 | Mobile-App | 📱 | `Smartphone` |
 
 **Verwendung**:
+
 ```tsx
-import { Users, Calendar, MapPin } from 'lucide-react';
+import { Users, Calendar, MapPin } from "lucide-react";
 
 <div className="grid grid-cols-3 gap-6">
   <div className="text-center">
@@ -508,7 +552,7 @@ import { Users, Calendar, MapPin } from 'lucide-react';
     <h3>Fahrerverwaltung</h3>
   </div>
   {/* ... */}
-</div>
+</div>;
 ```
 
 ---
@@ -516,33 +560,26 @@ import { Users, Calendar, MapPin } from 'lucide-react';
 ### 5.3 Hintergrund-Grafiken
 
 **Gradient-Overlays**:
+
 ```css
 /* Hero-Section */
 .hero-gradient {
-  background: linear-gradient(135deg, 
-    hsl(var(--primary)) 0%, 
-    hsl(var(--accent)) 100%
-  );
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
 }
 
 /* Feature-Section (alternierend) */
 .feature-bg-1 {
-  background: linear-gradient(180deg, 
-    hsl(var(--background)) 0%, 
-    hsl(var(--secondary)) 100%
-  );
+  background: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--secondary)) 100%);
 }
 
 /* Final-CTA */
 .final-cta-gradient {
-  background: linear-gradient(135deg, 
-    #1a1f35 0%, 
-    hsl(var(--primary)) 100%
-  );
+  background: linear-gradient(135deg, #1a1f35 0%, hsl(var(--primary)) 100%);
 }
 ```
 
 **Pattern-Overlays** (Subtil):
+
 - **Dot-Grid**: 20px Abstand, 2px Dots, 5% Opacity
 - **Wavy-Lines**: SVG-Pattern, 10% Opacity
 - **Mesh-Gradient**: [meshgradient.com](https://meshgradient.com/)
@@ -554,6 +591,7 @@ import { Users, Calendar, MapPin } from 'lucide-react';
 **Größe**: 1200x630px (Facebook/LinkedIn-optimiert)
 **Format**: PNG oder JPEG
 **Inhalt**:
+
 - MyDispatch-Logo (links oben)
 - Headline: "Ihre digitale Taxizentrale"
 - Subline: "Moderne Dispositions-Software"
@@ -563,13 +601,14 @@ import { Users, Calendar, MapPin } from 'lucide-react';
 **Tool**: [Canva](https://www.canva.com/create/open-graph/) oder Figma
 
 **Generierung via Code** (dynamisch):
+
 ```typescript
 // supabase/functions/generate-og-image/
 import { ImageResponse } from 'https://deno.land/x/og_edge/mod.ts';
 
 export default async function handler(req: Request) {
   const { title, description } = await req.json();
-  
+
   return new ImageResponse(
     <div style={{
       display: 'flex',
@@ -603,16 +642,11 @@ export default async function handler(req: Request) {
     tier="Basic"
     price="49"
     period="Monat"
-    features={[
-      "Bis zu 5 Fahrer",
-      "Basis-Disposition",
-      "Standard-Support",
-      "Monatliche Abrechnung"
-    ]}
+    features={["Bis zu 5 Fahrer", "Basis-Disposition", "Standard-Support", "Monatliche Abrechnung"]}
     cta="Jetzt starten"
     variant="outline"
   />
-  
+
   {/* BUSINESS+ (Popular) */}
   <PricingCard
     tier="Business+"
@@ -624,12 +658,12 @@ export default async function handler(req: Request) {
       "Echtzeit-Tracking",
       "Automatische Zuweisung",
       "Kunden-Portal",
-      "Prioritäts-Support"
+      "Prioritäts-Support",
     ]}
     cta="Kostenlos testen"
     variant="primary"
   />
-  
+
   {/* ENTERPRISE */}
   <PricingCard
     tier="Enterprise"
@@ -639,7 +673,7 @@ export default async function handler(req: Request) {
       "Fahrer-Portal (PWA)",
       "Partner-Netzwerk",
       "Dedicated Account Manager",
-      "SLA-Garantie"
+      "SLA-Garantie",
     ]}
     cta="Kontakt aufnehmen"
     variant="outline"
@@ -671,13 +705,13 @@ export function PricingCard({ tier, price, period, badge, features, cta, variant
           {badge}
         </div>
       )}
-      
+
       <h3 className="text-2xl font-bold mb-2">{tier}</h3>
       <div className="flex items-baseline mb-6">
         <span className="text-5xl font-bold">{price === 'Individuell' ? '' : `${price}€`}</span>
         {period && <span className="text-muted-foreground ml-2">/ {period}</span>}
       </div>
-      
+
       <ul className="space-y-3 mb-8">
         {features.map((feature, i) => (
           <li key={i} className="flex items-start">
@@ -686,7 +720,7 @@ export function PricingCard({ tier, price, period, badge, features, cta, variant
           </li>
         ))}
       </ul>
-      
+
       <Button className={cn(
         "w-full",
         variant === 'primary' ? "bg-primary" : "variant-outline"
@@ -704,20 +738,20 @@ export function PricingCard({ tier, price, period, badge, features, cta, variant
 
 **Feature-Matrix** (Detaillierte Vergleichstabelle):
 
-| Feature | Basic | Business+ | Enterprise |
-|---------|-------|-----------|------------|
-| **Fahrer** | Bis 5 | Bis 20 | Unbegrenzt |
-| **Fahrzeuge** | Bis 10 | Bis 50 | Unbegrenzt |
-| **Echtzeit-Tracking** | ❌ | ✅ | ✅ |
-| **Automatische Zuweisung** | ❌ | ✅ | ✅ (KI-optimiert) |
-| **Kunden-Portal** | ❌ | ✅ | ✅ |
-| **Fahrer-Portal (PWA)** | ❌ | ❌ | ✅ |
-| **Partner-Netzwerk** | ❌ | ❌ | ✅ |
-| **Stripe-Integration** | ❌ | ✅ | ✅ |
-| **Support** | Standard (E-Mail) | Priorität (Chat) | Dedicated Manager |
-| **SLA-Garantie** | ❌ | ❌ | 99.9% Uptime |
-| **Datenmigration** | Selbst | ✅ Assistiert | ✅ Full-Service |
-| **Schulung** | Video-Tutorials | 1x Onboarding-Call | Individuelle Workshops |
+| Feature                    | Basic             | Business+          | Enterprise             |
+| -------------------------- | ----------------- | ------------------ | ---------------------- |
+| **Fahrer**                 | Bis 5             | Bis 20             | Unbegrenzt             |
+| **Fahrzeuge**              | Bis 10            | Bis 50             | Unbegrenzt             |
+| **Echtzeit-Tracking**      | ❌                | ✅                 | ✅                     |
+| **Automatische Zuweisung** | ❌                | ✅                 | ✅ (KI-optimiert)      |
+| **Kunden-Portal**          | ❌                | ✅                 | ✅                     |
+| **Fahrer-Portal (PWA)**    | ❌                | ❌                 | ✅                     |
+| **Partner-Netzwerk**       | ❌                | ❌                 | ✅                     |
+| **Stripe-Integration**     | ❌                | ✅                 | ✅                     |
+| **Support**                | Standard (E-Mail) | Priorität (Chat)   | Dedicated Manager      |
+| **SLA-Garantie**           | ❌                | ❌                 | 99.9% Uptime           |
+| **Datenmigration**         | Selbst            | ✅ Assistiert      | ✅ Full-Service        |
+| **Schulung**               | Video-Tutorials   | 1x Onboarding-Call | Individuelle Workshops |
 
 ---
 
@@ -727,23 +761,13 @@ export function PricingCard({ tier, price, period, badge, features, cta, variant
 
 ```tsx
 <div className="flex items-center justify-center gap-4 mb-8">
-  <span className={cn(
-    "text-lg font-medium",
-    !isYearly && "text-muted-foreground"
-  )}>
-    Monatlich
-  </span>
-  
+  <span className={cn("text-lg font-medium", !isYearly && "text-muted-foreground")}>Monatlich</span>
+
   <Switch checked={isYearly} onCheckedChange={setIsYearly} />
-  
-  <span className={cn(
-    "text-lg font-medium",
-    isYearly && "text-primary"
-  )}>
+
+  <span className={cn("text-lg font-medium", isYearly && "text-primary")}>
     Jährlich
-    <span className="ml-2 bg-accent text-white px-2 py-1 rounded text-sm">
-      Spare 20%
-    </span>
+    <span className="ml-2 bg-accent text-white px-2 py-1 rounded text-sm">Spare 20%</span>
   </span>
 </div>
 ```
@@ -768,20 +792,20 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    avatar: '/avatars/max-mueller.jpg',
-    name: 'Max Müller',
-    role: 'Geschäftsführer',
-    company: 'Taxi Müller GmbH',
+    avatar: "/avatars/max-mueller.jpg",
+    name: "Max Müller",
+    role: "Geschäftsführer",
+    company: "Taxi Müller GmbH",
     rating: 5,
-    text: 'MyDispatch hat unsere Disposition revolutioniert. Die automatische Fahrer-Zuweisung spart uns täglich 2 Stunden Arbeit!'
+    text: "MyDispatch hat unsere Disposition revolutioniert. Die automatische Fahrer-Zuweisung spart uns täglich 2 Stunden Arbeit!",
   },
   {
-    avatar: '/avatars/sarah-schmidt.jpg',
-    name: 'Sarah Schmidt',
-    role: 'Disponentin',
-    company: 'Nexify Rides',
+    avatar: "/avatars/sarah-schmidt.jpg",
+    name: "Sarah Schmidt",
+    role: "Disponentin",
+    company: "Nexify Rides",
     rating: 5,
-    text: 'Die Echtzeit-Karte ist ein Game-Changer. Wir haben jetzt volle Kontrolle über alle Fahrten.'
+    text: "Die Echtzeit-Karte ist ein Game-Changer. Wir haben jetzt volle Kontrolle über alle Fahrten.",
   },
   // ... 5-8 Testimonials total
 ];
@@ -790,8 +814,8 @@ const testimonials: Testimonial[] = [
 **Komponente**: `src/components/marketing/TestimonialCarousel.tsx`
 
 ```tsx
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 
 export function TestimonialCarousel() {
   return (
@@ -801,7 +825,7 @@ export function TestimonialCarousel() {
       slidesPerView={1}
       breakpoints={{
         768: { slidesPerView: 2 },
-        1024: { slidesPerView: 3 }
+        1024: { slidesPerView: 3 },
       }}
       autoplay={{ delay: 5000 }}
     >
@@ -815,19 +839,24 @@ export function TestimonialCarousel() {
               </Avatar>
               <div>
                 <div className="font-medium">{t.name}</div>
-                <div className="text-sm text-muted-foreground">{t.role}, {t.company}</div>
+                <div className="text-sm text-muted-foreground">
+                  {t.role}, {t.company}
+                </div>
               </div>
             </div>
-            
+
             <div className="flex gap-1 mb-3">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} className={cn(
-                  "w-4 h-4",
-                  i < t.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-                )} />
+                <Star
+                  key={i}
+                  className={cn(
+                    "w-4 h-4",
+                    i < t.rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+                  )}
+                />
               ))}
             </div>
-            
+
             <p className="text-sm">{t.text}</p>
           </div>
         </SwiperSlide>
@@ -847,9 +876,9 @@ export function TestimonialCarousel() {
 
 ```tsx
 const clientLogos = [
-  '/logos/client-1.png', // Anonymisiert: "Taxi München"
-  '/logos/client-2.png', // "Mietwagen Nord"
-  '/logos/client-3.png', // "Lieferservice Express"
+  "/logos/client-1.png", // Anonymisiert: "Taxi München"
+  "/logos/client-2.png", // "Mietwagen Nord"
+  "/logos/client-3.png", // "Lieferservice Express"
   // ... 10-15 Logos
 ];
 
@@ -857,7 +886,7 @@ const clientLogos = [
   {clientLogos.map((logo, i) => (
     <img key={i} src={logo} alt={`Kunde ${i + 1}`} className="h-12 object-contain" />
   ))}
-</div>
+</div>;
 ```
 
 ---
@@ -869,6 +898,7 @@ const clientLogos = [
 **Beispiel**: "Wie Taxi Müller 30% mehr Aufträge generierte"
 
 **Struktur**:
+
 1. **Hero**: Company-Logo, Headline, Key-Metric (z.B. "+30% Aufträge")
 2. **Challenge**: Problem vor MyDispatch
 3. **Solution**: Implementierung (Timeline, Features)
@@ -883,22 +913,19 @@ const clientLogos = [
 ### 8.1 Lazy-Loading
 
 **Bilder**:
+
 ```tsx
-<img 
-  src="/hero-image.webp" 
-  alt="MyDispatch Dashboard" 
-  loading="lazy"
-  decoding="async"
-/>
+<img src="/hero-image.webp" alt="MyDispatch Dashboard" loading="lazy" decoding="async" />
 ```
 
 **Komponenten** (React.lazy):
+
 ```tsx
-const TestimonialCarousel = React.lazy(() => import('./TestimonialCarousel'));
+const TestimonialCarousel = React.lazy(() => import("./TestimonialCarousel"));
 
 <Suspense fallback={<Skeleton className="h-64" />}>
   <TestimonialCarousel />
-</Suspense>
+</Suspense>;
 ```
 
 ---
@@ -915,8 +942,9 @@ const TestimonialCarousel = React.lazy(() => import('./TestimonialCarousel'));
 ```
 
 **Responsive Images**:
+
 ```tsx
-<img 
+<img
   srcSet="
     /hero-image-320.webp 320w,
     /hero-image-768.webp 768w,
@@ -935,14 +963,15 @@ const TestimonialCarousel = React.lazy(() => import('./TestimonialCarousel'));
 ### 8.3 Font-Loading
 
 **Google Fonts** (Self-Hosted):
+
 ```css
 /* Preload in <head> */
 <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>
 
 /* CSS */
 @font-face {
-  font-family: 'Inter';
-  src: url('/fonts/inter-var.woff2') format('woff2');
+  font-family: "Inter";
+  src: url("/fonts/inter-var.woff2") format("woff2");
   font-display: swap; /* Zeige Fallback-Font sofort */
 }
 ```
@@ -952,6 +981,7 @@ const TestimonialCarousel = React.lazy(() => import('./TestimonialCarousel'));
 ## ✅ IMPLEMENTATION CHECKLIST
 
 ### Phase 1: Landingpage-Grundstruktur (3h)
+
 - [ ] Hero-Section mit CTA
 - [ ] Trust-Section (Logo-Wall)
 - [ ] Features-Section (3 Spalten)
@@ -960,6 +990,7 @@ const TestimonialCarousel = React.lazy(() => import('./TestimonialCarousel'));
 - [ ] SEO-Head-Component
 
 ### Phase 2: Content & Grafiken (4h)
+
 - [ ] Hero-Image/Video erstellen
 - [ ] Feature-Icons integrieren
 - [ ] Testimonials schreiben
@@ -967,12 +998,14 @@ const TestimonialCarousel = React.lazy(() => import('./TestimonialCarousel'));
 - [ ] Responsive Design testen
 
 ### Phase 3: Company-Landingpages (2h)
+
 - [ ] /:slug Route implementieren
 - [ ] `get_public_company_info` RPC-Function
 - [ ] Booking-Widget integrieren
 - [ ] Custom-Branding (Logo, Farben)
 
 ### Phase 4: SEO & Performance (2h)
+
 - [ ] Sitemap.xml generieren
 - [ ] Structured Data (JSON-LD)
 - [ ] Lazy-Loading für Bilder
@@ -983,12 +1016,14 @@ const TestimonialCarousel = React.lazy(() => import('./TestimonialCarousel'));
 **Total Effort**: ~11 Stunden
 
 **Dependencies**:
+
 - ✅ Design-System finalisiert
 - ✅ Content-Texte geschrieben
 - ✅ Grafiken erstellt (Hero, Icons, OG-Image)
 - ✅ Testimonials gesammelt
 
 **Testing-Strategy**:
+
 1. Cross-Browser-Test (Chrome, Firefox, Safari, Edge)
 2. Mobile-Responsive-Test (iPhone, Android)
 3. Lighthouse-Audit (Desktop + Mobile)

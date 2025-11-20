@@ -4,38 +4,38 @@
    Einheitlicher Upgrade-Button für gesperrte Features
    ================================================================================== */
 
-import { Lock, ArrowRight } from 'lucide-react';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { useNavigate } from 'react-router-dom';
-import { getUpgradePath } from '@/lib/tariff/tariff-definitions';
-import { useAuth } from '@/hooks/use-auth';
+import { Lock, ArrowRight } from "lucide-react";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
+import { getUpgradePath } from "@/lib/tariff/tariff-definitions";
+import { useAuth } from "@/hooks/use-auth";
 
 interface UpgradePromptProps {
   featureName: string;
   featureDescription: string;
-  requiredTier: 'Business' | 'Enterprise';
-  variant?: 'inline' | 'card' | 'fullscreen';
+  requiredTier: "Business" | "Enterprise";
+  variant?: "inline" | "card" | "fullscreen";
 }
 
-export function UpgradePrompt({ 
-  featureName, 
-  featureDescription, 
+export function UpgradePrompt({
+  featureName,
+  featureDescription,
   requiredTier,
-  variant = 'card' 
+  variant = "card",
 }: UpgradePromptProps) {
   const navigate = useNavigate();
   const { company } = useAuth();
-  
+
   const upgradePath = getUpgradePath(company?.subscription_product_id);
-  
+
   const handleUpgrade = () => {
-    navigate('/pricing');
+    navigate("/pricing");
   };
-  
+
   // Inline-Variante (für kleine Bereiche)
-  if (variant === 'inline') {
+  if (variant === "inline") {
     return (
       <div className="flex items-center gap-2 p-2 bg-muted/30 border border-border rounded-md">
         <Lock className="h-4 w-4 text-muted-foreground" />
@@ -48,9 +48,9 @@ export function UpgradePrompt({
       </div>
     );
   }
-  
+
   // Fullscreen-Variante (für gesperrte Seiten)
-  if (variant === 'fullscreen') {
+  if (variant === "fullscreen") {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <Card className="max-w-md border-2 border-primary/20">
@@ -62,9 +62,7 @@ export function UpgradePrompt({
               {requiredTier}-Feature
             </Badge>
             <CardTitle className="text-2xl">{featureName}</CardTitle>
-            <CardDescription className="text-base">
-              {featureDescription}
-            </CardDescription>
+            <CardDescription className="text-base">{featureDescription}</CardDescription>
           </CardHeader>
           <CardContent className="text-center space-y-4">
             <p className="text-sm text-muted-foreground">
@@ -75,7 +73,7 @@ export function UpgradePrompt({
                 Upgrade auf {upgradePath.name} ab {upgradePath.priceMonthlyFormatted}/Monat
               </p>
             )}
-            <V28Button 
+            <V28Button
               variant="primary"
               className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
               onClick={handleUpgrade}
@@ -88,7 +86,7 @@ export function UpgradePrompt({
       </div>
     );
   }
-  
+
   // Card-Variante (Standard)
   return (
     <Card className="border-2 border-primary/20">
@@ -109,7 +107,7 @@ export function UpgradePrompt({
         </div>
       </CardHeader>
       <CardContent className="p-6">
-        <V28Button 
+        <V28Button
           variant="primary"
           className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
           onClick={handleUpgrade}

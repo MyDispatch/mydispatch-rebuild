@@ -6,14 +6,14 @@
    LOCATION-AWARE: Nutzt Firmenstandort für präzisere Vorschläge (V18.2.30)
    ================================================================================== */
 
-import { useState, useEffect, useRef } from 'react';
-import { Input } from '@/lib/compat';
-import { Label } from '@/components/ui/label';
-import { MapPin, Loader2, Lightbulb } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { supabase } from '@/integrations/supabase/client';
-import { handleError } from '@/lib/error-handler';
-import { useCompanyLocation } from '@/hooks/use-company-location';
+import { useState, useEffect, useRef } from "react";
+import { Input } from "@/lib/compat";
+import { Label } from "@/components/ui/label";
+import { MapPin, Loader2, Lightbulb } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { handleError } from "@/lib/error-handler";
+import { useCompanyLocation } from "@/hooks/use-company-location";
 
 interface AddressData {
   street: string;
@@ -64,13 +64,13 @@ export function AddressInput({
   disabled = false,
   className,
 }: AddressInputProps) {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
-  
+
   // Location-Aware: Nutzt Firmenstandort für präzisere Adresssuche (V18.2.30)
   const { location, hasCoordinates } = useCompanyLocation();
 
@@ -97,14 +97,14 @@ export function AddressInput({
           query: string;
           at?: string;
         }
-        
+
         const body: AutosuggestBody = { query: searchValue };
-        
+
         if (hasCoordinates && location?.latitude && location?.longitude) {
           body.at = `${location.latitude},${location.longitude}`;
         }
-        
-        const { data, error } = await supabase.functions.invoke('here-autosuggest', {
+
+        const { data, error } = await supabase.functions.invoke("here-autosuggest", {
           body,
           signal: abortControllerRef.current.signal,
         });
@@ -119,9 +119,9 @@ export function AddressInput({
           setShowDropdown(false);
         }
       } catch (error: any) {
-        if (error.name !== 'AbortError') {
-          handleError(error, 'Adresssuche fehlgeschlagen', { 
-            title: 'Autosuggest Fehler',
+        if (error.name !== "AbortError") {
+          handleError(error, "Adresssuche fehlgeschlagen", {
+            title: "Autosuggest Fehler",
             showToast: false,
           });
           setSuggestions([]);
@@ -148,8 +148,8 @@ export function AddressInput({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Adresse auswählen (HERE API liefert bereits vollständige Adressdaten)
@@ -172,7 +172,7 @@ export function AddressInput({
     }
 
     // UI zurücksetzen
-    setSearchValue('');
+    setSearchValue("");
     setSuggestions([]);
     setShowDropdown(false);
   };
@@ -201,7 +201,7 @@ export function AddressInput({
             </div>
           )}
         </div>
-        
+
         {/* Dropdown mit Vorschlägen */}
         {showDropdown && suggestions.length > 0 && (
           <div className="absolute z-50 w-full mt-1 bg-background border border-border rounded-md shadow-lg max-h-60 overflow-y-auto">
@@ -221,7 +221,7 @@ export function AddressInput({
             ))}
           </div>
         )}
-        
+
         {!searchValue && (
           <p className="text-xs text-muted-foreground flex items-center gap-1">
             <Lightbulb className="h-4 w-4 text-foreground" />
@@ -254,7 +254,7 @@ export function AddressInput({
             disabled={disabled}
           />
         </div>
-        
+
         <div>
           <Label htmlFor="streetNumber">
             Hausnr. {required && <span className="text-destructive">*</span>}

@@ -8,10 +8,10 @@
    - Integration mit VS Code
    ================================================================================== */
 
-import { watch } from 'fs';
-import { readFileSync, writeFileSync } from 'fs';
-import { glob } from 'glob';
-import { execSync } from 'child_process';
+import { watch } from "fs";
+import { readFileSync, writeFileSync } from "fs";
+import { glob } from "glob";
+import { execSync } from "child_process";
 
 interface WatchedFile {
   path: string;
@@ -26,50 +26,49 @@ const VALIDATION_RULES = {
   // Design System
   accentUsage: {
     pattern: /\baccent\b(?!.*\/\/|.*\/\*)/,
-    severity: 'critical',
-    autoFix: (content: string) => content.replace(/\baccent\b/g, 'primary'),
-    message: 'accent color detected - replacing with primary'
+    severity: "critical",
+    autoFix: (content: string) => content.replace(/\baccent\b/g, "primary"),
+    message: "accent color detected - replacing with primary",
   },
-  
+
   directColors: {
     pattern: /\b(text-white|bg-white|text-black|bg-black)\b(?!.*\/\/)/,
-    severity: 'critical',
+    severity: "critical",
     autoFix: (content: string) => {
       let fixed = content;
-      fixed = fixed.replace(/text-white(?!\s*\/)/g, 'text-foreground');
-      fixed = fixed.replace(/bg-white(?!\s*\/)/g, 'bg-background');
-      fixed = fixed.replace(/text-black(?!\s*\/)/g, 'text-foreground');
-      fixed = fixed.replace(/bg-black(?!\s*\/)/g, 'bg-foreground');
+      fixed = fixed.replace(/text-white(?!\s*\/)/g, "text-foreground");
+      fixed = fixed.replace(/bg-white(?!\s*\/)/g, "bg-background");
+      fixed = fixed.replace(/text-black(?!\s*\/)/g, "text-foreground");
+      fixed = fixed.replace(/bg-black(?!\s*\/)/g, "bg-foreground");
       return fixed;
     },
-    message: 'Direct colors detected - replacing with semantic tokens'
+    message: "Direct colors detected - replacing with semantic tokens",
   },
 
   // Security
   deleteStatement: {
     pattern: /\.delete\(\)(?!.*soft)/,
-    severity: 'critical',
-    autoFix: (content: string) => 
-      content.replace(/\.delete\(\)/g, '.update({ deleted_at: new Date().toISOString() })'),
-    message: 'DELETE detected - replacing with soft-delete'
+    severity: "critical",
+    autoFix: (content: string) =>
+      content.replace(/\.delete\(\)/g, ".update({ deleted_at: new Date().toISOString() })"),
+    message: "DELETE detected - replacing with soft-delete",
   },
 
   // Mobile-First
   smallTouchTarget: {
     pattern: /min-h-\[[1-3][0-9]px\]/,
-    severity: 'error',
-    autoFix: (content: string) => 
-      content.replace(/min-h-\[[1-3][0-9]px\]/g, 'min-h-[44px]'),
-    message: 'Touch target too small - fixing to 44px minimum'
+    severity: "error",
+    autoFix: (content: string) => content.replace(/min-h-\[[1-3][0-9]px\]/g, "min-h-[44px]"),
+    message: "Touch target too small - fixing to 44px minimum",
   },
 
   // Code Quality
   consoleLog: {
     pattern: /console\.(log|debug|info)(?!.*KEEP)/,
-    severity: 'warning',
+    severity: "warning",
     autoFix: null, // Manual review required
-    message: 'console.log detected - consider removing or using logDebug()'
-  }
+    message: "console.log detected - consider removing or using logDebug()",
+  },
 };
 
 function validateContent(content: string, file: string): { errors: string[]; fixed: string } {
@@ -79,8 +78,8 @@ function validateContent(content: string, file: string): { errors: string[]; fix
   for (const [name, rule] of Object.entries(VALIDATION_RULES)) {
     if (rule.pattern.test(content)) {
       errors.push(`[${rule.severity}] ${rule.message}`);
-      
-      if (rule.autoFix && rule.severity === 'critical') {
+
+      if (rule.autoFix && rule.severity === "critical") {
         fixed = rule.autoFix(fixed);
         console.log(`  ✅ Auto-fixed: ${name} in ${file}`);
       }
@@ -95,14 +94,14 @@ async function processFile(filePath: string) {
   isProcessing = true;
 
   try {
-    const content = readFileSync(filePath, 'utf-8');
+    const content = readFileSync(filePath, "utf-8");
     const { errors, fixed } = validateContent(content, filePath);
 
     if (errors.length > 0) {
       const fileInfo = watchedFiles.get(filePath) || {
         path: filePath,
         lastModified: Date.now(),
-        errorCount: 0
+        errorCount: 0,
       };
 
       fileInfo.errorCount = errors.length;
@@ -110,16 +109,16 @@ async function processFile(filePath: string) {
       watchedFiles.set(filePath, fileInfo);
 
       console.log(`\n⚠️  ${filePath}:`);
-      errors.forEach(err => console.log(`   ${err}`));
+      errors.forEach((err) => console.log(`   ${err}`));
 
       // Auto-fix if content changed
       if (fixed !== content) {
-        writeFileSync(filePath, fixed, 'utf-8');
+        writeFileSync(filePath, fixed, "utf-8");
         console.log(`   🔧 Auto-fixes applied\n`);
-        
+
         // Notify critical fixes
-        if (errors.some(e => e.includes('[critical]'))) {
-          notifyUser('Critical Violation Fixed', filePath);
+        if (errors.some((e) => e.includes("[critical]"))) {
+          notifyUser("Critical Violation Fixed", filePath);
         }
       }
     } else {
@@ -139,11 +138,11 @@ async function processFile(filePath: string) {
 function notifyUser(title: string, message: string) {
   // Try to send desktop notification (cross-platform)
   try {
-    if (process.platform === 'darwin') {
+    if (process.platform === "darwin") {
       execSync(`osascript -e 'display notification "${message}" with title "${title}"'`);
-    } else if (process.platform === 'linux') {
+    } else if (process.platform === "linux") {
       execSync(`notify-send "${title}" "${message}"`);
-    } else if (process.platform === 'win32') {
+    } else if (process.platform === "win32") {
       // Windows notification via PowerShell
       const ps = `
         [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null
@@ -169,13 +168,13 @@ function notifyUser(title: string, message: string) {
 }
 
 async function startMonitoring() {
-  console.log('🔍 MyDispatch Real-Time Monitor V18.5.0');
-  console.log('=========================================\n');
-  console.log('Watching src/ for quality violations...');
-  console.log('Press Ctrl+C to stop\n');
+  console.log("🔍 MyDispatch Real-Time Monitor V18.5.0");
+  console.log("=========================================\n");
+  console.log("Watching src/ for quality violations...");
+  console.log("Press Ctrl+C to stop\n");
 
   // Initial scan
-  const files = await glob('src/**/*.{ts,tsx}', { ignore: '**/node_modules/**' });
+  const files = await glob("src/**/*.{ts,tsx}", { ignore: "**/node_modules/**" });
   console.log(`📊 Initial scan of ${files.length} files...\n`);
 
   for (const file of files) {
@@ -183,19 +182,19 @@ async function startMonitoring() {
   }
 
   // Watch for changes
-  const watcher = watch('src', { recursive: true }, async (eventType, filename) => {
+  const watcher = watch("src", { recursive: true }, async (eventType, filename) => {
     if (!filename || !filename.match(/\.(tsx?|jsx?)$/)) return;
-    
+
     const filePath = `src/${filename}`;
-    
+
     // Debounce rapid changes
     setTimeout(() => {
       processFile(filePath);
     }, 500);
   });
 
-  console.log('\n✅ Monitoring active. Watching for changes...\n');
-  
+  console.log("\n✅ Monitoring active. Watching for changes...\n");
+
   // Status report every 30 seconds
   setInterval(() => {
     if (watchedFiles.size > 0) {
@@ -203,20 +202,20 @@ async function startMonitoring() {
       watchedFiles.forEach((file, path) => {
         console.log(`   - ${path}: ${file.errorCount} issues`);
       });
-      console.log('');
+      console.log("");
     }
   }, 30000);
 
   // Graceful shutdown
-  process.on('SIGINT', () => {
-    console.log('\n\n👋 Monitoring stopped');
+  process.on("SIGINT", () => {
+    console.log("\n\n👋 Monitoring stopped");
     console.log(`📊 Final stats: ${watchedFiles.size} files with remaining issues\n`);
     watcher.close();
     process.exit(0);
   });
 }
 
-startMonitoring().catch(error => {
-  console.error('❌ Monitor failed:', error);
+startMonitoring().catch((error) => {
+  console.error("❌ Monitor failed:", error);
   process.exit(1);
 });

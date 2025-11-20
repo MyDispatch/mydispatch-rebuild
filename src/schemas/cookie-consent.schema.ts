@@ -6,42 +6,27 @@
    ✅ Versioning support
    ================================================================================== */
 
-import { z } from 'zod';
+import { z } from "zod";
 
 // Cookie Consent Schema
 export const cookieConsentSchema = z.object({
   // Necessary cookies (always enabled, cannot be disabled)
-  necessary: z
-    .boolean()
-    .default(true),
-  
+  necessary: z.boolean().default(true),
+
   // Optional cookie categories
-  analytics: z
-    .boolean()
-    .default(false),
-  
-  marketing: z
-    .boolean()
-    .default(false),
-  
-  functional: z
-    .boolean()
-    .default(false),
-  
+  analytics: z.boolean().default(false),
+
+  marketing: z.boolean().default(false),
+
+  functional: z.boolean().default(false),
+
   // Metadata
-  timestamp: z
-    .date()
-    .default(() => new Date()),
-  
-  version: z
-    .string()
-    .default('1.0'),
-  
+  timestamp: z.date().default(() => new Date()),
+
+  version: z.string().default("1.0"),
+
   // User identification (optional, for authenticated users)
-  userId: z
-    .string()
-    .uuid()
-    .optional(),
+  userId: z.string().uuid().optional(),
 });
 
 // Cookie Settings Update Schema
@@ -53,7 +38,7 @@ export const cookieSettingsUpdateSchema = z.object({
 
 // Cookie Banner Response Schema
 export const cookieBannerResponseSchema = z.object({
-  action: z.enum(['accept-all', 'reject-all', 'customize']),
+  action: z.enum(["accept-all", "reject-all", "customize"]),
   settings: cookieSettingsUpdateSchema.optional(),
 });
 
@@ -78,7 +63,7 @@ export function validateCookieBannerResponse(data: unknown) {
 // Helper: Check if consent is required for a specific category
 export function isConsentRequired(category: keyof CookieConsent): boolean {
   // Necessary cookies never require consent (they're essential)
-  return category !== 'necessary';
+  return category !== "necessary";
 }
 
 // Helper: Get default consent state
@@ -89,6 +74,6 @@ export function getDefaultConsent(): CookieConsent {
     marketing: false,
     functional: false,
     timestamp: new Date(),
-    version: '1.0',
+    version: "1.0",
   };
 }

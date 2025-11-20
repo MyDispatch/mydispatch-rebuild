@@ -13,12 +13,12 @@
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
-const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY');
-const GITHUB_TOKEN = Deno.env.get('GITHUB_Personal_access_tokens_classic');
+const ANTHROPIC_API_KEY = Deno.env.get("ANTHROPIC_API_KEY");
+const GITHUB_TOKEN = Deno.env.get("GITHUB_Personal_access_tokens_classic");
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface CodeReviewRequest {
@@ -34,13 +34,13 @@ interface CodeReviewRequest {
 }
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
     if (!ANTHROPIC_API_KEY) {
-      throw new Error('ANTHROPIC_API_KEY not configured');
+      throw new Error("ANTHROPIC_API_KEY not configured");
     }
 
     const { files, context, prNumber, repoOwner, repoName }: CodeReviewRequest = await req.json();
@@ -99,32 +99,36 @@ Sei präzise, konstruktiv und priorisiere nach Severity.`;
 
     const userPrompt = `Review diese Code-Änderungen:
 
-${context ? `**Context:** ${context}\n\n` : ''}
+${context ? `**Context:** ${context}\n\n` : ""}
 
-${files.map(file => `
+${files
+  .map(
+    (file) => `
 **File:** ${file.path}
-${file.diff ? `\n**Diff:**\n\`\`\`diff\n${file.diff}\n\`\`\`\n` : ''}
+${file.diff ? `\n**Diff:**\n\`\`\`diff\n${file.diff}\n\`\`\`\n` : ""}
 **Content:**
 \`\`\`typescript
 ${file.content}
 \`\`\`
-`).join('\n---\n')}`;
+`
+  )
+  .join("\n---\n")}`;
 
     // Call Claude API
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
+        "Content-Type": "application/json",
+        "x-api-key": ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514', // Updated to latest Sonnet 4.5
+        model: "claude-sonnet-4-20250514", // Updated to latest Sonnet 4.5
         max_tokens: 4096,
         system: systemPrompt,
         messages: [
           {
-            role: 'user',
+            role: "user",
             content: userPrompt,
           },
         ],
@@ -133,7 +137,7 @@ ${file.content}
 
     if (!response.ok) {
       const error = await response.text();
-      console.error('Claude API error:', error);
+      console.error("Claude API error:", error);
       throw new Error(`Claude API error: ${response.status}`);
     }
 
@@ -156,11 +160,11 @@ ${file.content}
         await fetch(
           `https://api.github.com/repos/${repoOwner}/${repoName}/issues/${prNumber}/comments`,
           {
-            method: 'POST',
+            method: "POST",
             headers: {
-              'Authorization': `Bearer ${GITHUB_TOKEN}`,
-              'Content-Type': 'application/json',
-              'Accept': 'application/vnd.github.v3+json',
+              Authorization: `Bearer ${GITHUB_TOKEN}`,
+              "Content-Type": "application/json",
+              Accept: "application/vnd.github.v3+json",
             },
             body: JSON.stringify({
               body: `## 🤖 AI Code Review (Claude Sonnet 4.5)\n\n${reviewContent}\n\n---\n*Automated Review powered by Claude Sonnet 4.5 | MyDispatch V18.3.30*`,
@@ -168,25 +172,24 @@ ${file.content}
           }
         );
       } catch (err) {
-        console.error('Failed to post GitHub comment:', err);
+        console.error("Failed to post GitHub comment:", err);
         // Non-blocking - continue anyway
       }
     }
 
     return new Response(JSON.stringify(review), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
-
   } catch (error) {
-    console.error('AI Code Review error:', error);
+    console.error("AI Code Review error:", error);
     return new Response(
       JSON.stringify({
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : "Unknown error",
         approved: false,
       }),
       {
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
     );
   }

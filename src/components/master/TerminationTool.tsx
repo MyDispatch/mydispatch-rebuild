@@ -4,20 +4,20 @@
    Verwaltung säumiger Accounts, Mahnungen & Blockierungen (nur Master-Accounts)
    ================================================================================== */
 
-import { useEffect, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { useTerminationLogs } from '@/hooks/use-termination-logs';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/lib/compat';
-import { Textarea } from '@/components/ui/textarea';
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useTerminationLogs } from "@/hooks/use-termination-logs";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Input } from "@/lib/compat";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -25,7 +25,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
+} from "@/components/ui/table";
 import {
   Dialog,
   DialogContent,
@@ -33,12 +33,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { AlertTriangle, Ban, Mail, Eye, Clock, Euro } from 'lucide-react';
-import { formatCurrency, formatDate } from '@/lib/format-utils';
-import { handleError, handleSuccess } from '@/lib/error-handler';
+} from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AlertTriangle, Ban, Mail, Eye, Clock, Euro } from "lucide-react";
+import { formatCurrency, formatDate } from "@/lib/format-utils";
+import { handleError, handleSuccess } from "@/lib/error-handler";
 
 interface Company {
   id: string;
@@ -65,13 +65,17 @@ interface TerminationLog {
 
 export function TerminationTool() {
   const [companies, setCompanies] = useState<Company[]>([]);
-  const [filteredView, setFilteredView] = useState<'all' | 'overdue' | 'at_risk' | 'blocked'>('all');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [filteredView, setFilteredView] = useState<"all" | "overdue" | "at_risk" | "blocked">(
+    "all"
+  );
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
-  const [actionType, setActionType] = useState<'reminder' | 'warning' | 'block' | 'note'>('reminder');
-  const [notes, setNotes] = useState('');
+  const [actionType, setActionType] = useState<"reminder" | "warning" | "block" | "note">(
+    "reminder"
+  );
+  const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
-  
+
   // ✅ MISSION II: TanStack Query Hook statt direktem Supabase-Call
   const { logs = [], createLog } = useTerminationLogs(selectedCompany?.id);
 
@@ -82,14 +86,11 @@ export function TerminationTool() {
   // ✅ REMOVED: fetchLogs - now handled by useTerminationLogs hook
 
   const fetchCompanies = async () => {
-    const { data, error } = await supabase
-      .from('companies')
-      .select('*')
-      .order('name');
+    const { data, error } = await supabase.from("companies").select("*").order("name");
 
     if (error) {
-      handleError(error, 'Unternehmen konnten nicht geladen werden', {
-        title: 'Datenbankfehler',
+      handleError(error, "Unternehmen konnten nicht geladen werden", {
+        title: "Datenbankfehler",
         showToast: true,
       });
     } else {
@@ -103,21 +104,21 @@ export function TerminationTool() {
     let filtered = companies;
 
     // Filter nach Ansicht
-    if (filteredView === 'overdue') {
+    if (filteredView === "overdue") {
       filtered = companies.filter(
         (c) =>
           c.subscription_current_period_end &&
           new Date(c.subscription_current_period_end) < new Date()
       );
-    } else if (filteredView === 'at_risk') {
+    } else if (filteredView === "at_risk") {
       filtered = companies.filter(
         (c) =>
           c.subscription_current_period_end &&
           new Date(c.subscription_current_period_end) <
             new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
       );
-    } else if (filteredView === 'blocked') {
-      filtered = companies.filter((c) => c.subscription_status === 'blocked');
+    } else if (filteredView === "blocked") {
+      filtered = companies.filter((c) => c.subscription_status === "blocked");
     }
 
     // Suchfilter
@@ -138,18 +139,18 @@ export function TerminationTool() {
     setLoading(true);
 
     try {
-      if (actionType === 'block') {
+      if (actionType === "block") {
         // Account blockieren
         const { error } = await supabase
-          .from('companies')
-          .update({ subscription_status: 'blocked' })
-          .eq('id', selectedCompany.id);
+          .from("companies")
+          .update({ subscription_status: "blocked" })
+          .eq("id", selectedCompany.id);
 
         if (error) throw error;
-        handleSuccess('Account wurde blockiert');
-      } else if (actionType === 'reminder' || actionType === 'warning') {
+        handleSuccess("Account wurde blockiert");
+      } else if (actionType === "reminder" || actionType === "warning") {
         // E-Mail senden
-        const { error } = await supabase.functions.invoke('send-termination-email', {
+        const { error } = await supabase.functions.invoke("send-termination-email", {
           body: {
             company_id: selectedCompany.id,
             action_type: actionType,
@@ -157,7 +158,7 @@ export function TerminationTool() {
         });
 
         if (error) throw error;
-        handleSuccess('E-Mail wurde versendet');
+        handleSuccess("E-Mail wurde versendet");
       }
 
       // ✅ MISSION II: TanStack Query Hook statt direktem Supabase-Call
@@ -173,10 +174,10 @@ export function TerminationTool() {
 
       // Refresh companies
       fetchCompanies();
-      setNotes('');
+      setNotes("");
     } catch (error) {
-      handleError(error, 'Aktion konnte nicht ausgeführt werden', {
-        title: 'Fehler bei Terminierung',
+      handleError(error, "Aktion konnte nicht ausgeführt werden", {
+        title: "Fehler bei Terminierung",
         showToast: true,
       });
     } finally {
@@ -185,7 +186,7 @@ export function TerminationTool() {
   };
 
   const getStatusBadge = (company: Company) => {
-    if (company.subscription_status === 'blocked') {
+    if (company.subscription_status === "blocked") {
       return <Badge variant="destructive">Blockiert</Badge>;
     }
 
@@ -202,13 +203,23 @@ export function TerminationTool() {
         new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
     ) {
       return (
-        <Badge variant="outline" className="border-status-warning bg-status-warning/10 text-status-warning">
+        <Badge
+          variant="outline"
+          className="border-status-warning bg-status-warning/10 text-status-warning"
+        >
           Läuft bald ab
         </Badge>
       );
     }
 
-    return <Badge variant="outline" className="border-status-success bg-status-success/10 text-status-success">Aktiv</Badge>;
+    return (
+      <Badge
+        variant="outline"
+        className="border-status-success bg-status-success/10 text-status-success"
+      >
+        Aktiv
+      </Badge>
+    );
   };
 
   const filteredCompanies = getFilteredCompanies();
@@ -226,7 +237,7 @@ export function TerminationTool() {
         c.subscription_current_period_end &&
         new Date(c.subscription_current_period_end) < new Date()
     ).length,
-    blocked: companies.filter((c) => c.subscription_status === 'blocked').length,
+    blocked: companies.filter((c) => c.subscription_status === "blocked").length,
   };
 
   return (
@@ -324,17 +335,17 @@ export function TerminationTool() {
                   filteredCompanies.map((company) => (
                     <TableRow key={company.id}>
                       <TableCell className="font-medium">{company.name}</TableCell>
-                      <TableCell>{company.email || '-'}</TableCell>
+                      <TableCell>{company.email || "-"}</TableCell>
                       <TableCell>{getStatusBadge(company)}</TableCell>
                       <TableCell>
                         {company.subscription_current_period_end
                           ? formatDate(company.subscription_current_period_end)
-                          : '-'}
+                          : "-"}
                       </TableCell>
                       <TableCell className="text-right">
                         {formatCurrency(company.monthly_revenue || 0)}
                       </TableCell>
-                       <TableCell className="text-right">
+                      <TableCell className="text-right">
                         <Dialog>
                           <DialogTrigger asChild>
                             <V28Button
@@ -395,9 +406,7 @@ export function TerminationTool() {
 
                               {/* Notizen */}
                               <div className="space-y-2">
-                                <label className="text-sm font-medium">
-                                  Notizen (optional)
-                                </label>
+                                <label className="text-sm font-medium">Notizen (optional)</label>
                                 <Textarea
                                   value={notes}
                                   onChange={(e) => setNotes(e.target.value)}
@@ -409,19 +418,19 @@ export function TerminationTool() {
                               {/* Company-Info */}
                               <div className="bg-muted p-4 rounded-lg space-y-2">
                                 <p className="text-sm">
-                                  <strong>E-Mail:</strong> {company.email || 'Nicht hinterlegt'}
+                                  <strong>E-Mail:</strong> {company.email || "Nicht hinterlegt"}
                                 </p>
                                 <p className="text-sm">
                                   <strong>Abo-Status:</strong> {company.subscription_status}
                                 </p>
                                 <p className="text-sm">
-                                  <strong>Gültig bis:</strong>{' '}
+                                  <strong>Gültig bis:</strong>{" "}
                                   {company.subscription_current_period_end
                                     ? formatDate(company.subscription_current_period_end)
-                                    : '-'}
+                                    : "-"}
                                 </p>
                                 <p className="text-sm">
-                                  <strong>Monatsumsatz:</strong>{' '}
+                                  <strong>Monatsumsatz:</strong>{" "}
                                   {formatCurrency(company.monthly_revenue || 0)}
                                 </p>
                                 <p className="text-sm">
@@ -447,14 +456,14 @@ export function TerminationTool() {
                                               {formatDate(log.created_at)}
                                             </span>
                                           </div>
-                                           {log.notes && (
+                                          {log.notes && (
                                             <p className="text-xs text-muted-foreground mt-1">
                                               {log.notes}
                                             </p>
                                           )}
                                           {log.performer && (
                                             <p className="text-xs text-muted-foreground mt-1">
-                                              Durchgeführt von: {log.performer.first_name}{' '}
+                                              Durchgeführt von: {log.performer.first_name}{" "}
                                               {log.performer.last_name}
                                             </p>
                                           )}
@@ -471,7 +480,7 @@ export function TerminationTool() {
                                   variant="secondary"
                                   onClick={() => {
                                     setSelectedCompany(null);
-                                    setNotes('');
+                                    setNotes("");
                                   }}
                                 >
                                   Abbrechen
@@ -479,9 +488,9 @@ export function TerminationTool() {
                                 <V28Button
                                   onClick={handleAction}
                                   disabled={loading}
-                                  variant={actionType === 'block' ? 'destructive' : 'primary'}
+                                  variant={actionType === "block" ? "destructive" : "primary"}
                                 >
-                                  {loading ? 'Wird ausgeführt...' : 'Aktion ausführen'}
+                                  {loading ? "Wird ausgeführt..." : "Aktion ausführen"}
                                 </V28Button>
                               </div>
                             </div>

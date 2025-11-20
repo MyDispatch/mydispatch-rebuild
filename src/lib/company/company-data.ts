@@ -54,34 +54,35 @@ export interface CompanyData {
    ================================================================================== */
 
 export const MYDISPATCH_DATA: CompanyData = {
-  name: 'MyDispatch',
-  tagline: 'Smarte Auftrags- und Tourenplanung für KMU',
-  description: 'MyDispatch ist die moderne Lösung für effiziente Disposition, Tourenplanung und Auftragsmanagement. Speziell entwickelt für kleine und mittlere Unternehmen im Transport- und Logistikbereich.',
-  
+  name: "MyDispatch",
+  tagline: "Smarte Auftrags- und Tourenplanung für KMU",
+  description:
+    "MyDispatch ist die moderne Lösung für effiziente Disposition, Tourenplanung und Auftragsmanagement. Speziell entwickelt für kleine und mittlere Unternehmen im Transport- und Logistikbereich.",
+
   address: {
-    street: 'Musterstraße 123',
-    city: 'Berlin',
-    postalCode: '10115',
-    country: 'Deutschland',
+    street: "Musterstraße 123",
+    city: "Berlin",
+    postalCode: "10115",
+    country: "Deutschland",
   },
-  
+
   contact: {
-    email: 'info@mydispatch.de',
-    phone: '+49 30 12345678',
-    website: 'https://mydispatch.de',
+    email: "info@mydispatch.de",
+    phone: "+49 30 12345678",
+    website: "https://mydispatch.de",
   },
-  
+
   legal: {
-    companyName: 'MyDispatch GmbH',
-    legalForm: 'GmbH',
-    registrationNumber: 'HRB 123456 B',
-    taxId: 'DE123456789',
-    ceo: 'Max Mustermann',
+    companyName: "MyDispatch GmbH",
+    legalForm: "GmbH",
+    registrationNumber: "HRB 123456 B",
+    taxId: "DE123456789",
+    ceo: "Max Mustermann",
   },
-  
+
   socialMedia: {
-    linkedin: 'https://linkedin.com/company/mydispatch',
-    twitter: 'https://twitter.com/mydispatch',
+    linkedin: "https://linkedin.com/company/mydispatch",
+    twitter: "https://twitter.com/mydispatch",
   },
 };
 
@@ -90,34 +91,35 @@ export const MYDISPATCH_DATA: CompanyData = {
    ================================================================================== */
 
 export const NEXIFY_DATA: CompanyData = {
-  name: 'NeXify',
-  tagline: 'Digitale Transformation für den Mittelstand',
-  description: 'NeXify ist Ihr Partner für maßgeschneiderte Softwarelösungen und digitale Prozessoptimierung. Als Technologiepartner von MyDispatch entwickeln wir innovative Tools für moderne Unternehmen.',
-  
+  name: "NeXify",
+  tagline: "Digitale Transformation für den Mittelstand",
+  description:
+    "NeXify ist Ihr Partner für maßgeschneiderte Softwarelösungen und digitale Prozessoptimierung. Als Technologiepartner von MyDispatch entwickeln wir innovative Tools für moderne Unternehmen.",
+
   address: {
-    street: 'Innovationsweg 42',
-    city: 'München',
-    postalCode: '80331',
-    country: 'Deutschland',
+    street: "Innovationsweg 42",
+    city: "München",
+    postalCode: "80331",
+    country: "Deutschland",
   },
-  
+
   contact: {
-    email: 'kontakt@nexify.de',
-    phone: '+49 89 98765432',
-    website: 'https://nexify.de',
+    email: "kontakt@nexify.de",
+    phone: "+49 89 98765432",
+    website: "https://nexify.de",
   },
-  
+
   legal: {
-    companyName: 'NeXify Technologies GmbH',
-    legalForm: 'GmbH',
-    registrationNumber: 'HRB 987654 M',
-    taxId: 'DE987654321',
-    ceo: 'Dr. Anna Schmidt',
+    companyName: "NeXify Technologies GmbH",
+    legalForm: "GmbH",
+    registrationNumber: "HRB 987654 M",
+    taxId: "DE987654321",
+    ceo: "Dr. Anna Schmidt",
   },
-  
+
   socialMedia: {
-    linkedin: 'https://linkedin.com/company/nexify',
-    twitter: 'https://twitter.com/nexify_tech',
+    linkedin: "https://linkedin.com/company/nexify",
+    twitter: "https://twitter.com/nexify_tech",
   },
 };
 
@@ -136,11 +138,7 @@ export function formatAddress(address: CompanyAddress): string {
  * Formatiert eine Adresse als mehrzeiliges Array (für UI)
  */
 export function formatAddressMultiline(address: CompanyAddress): string[] {
-  return [
-    address.street,
-    `${address.postalCode} ${address.city}`,
-    address.country,
-  ];
+  return [address.street, `${address.postalCode} ${address.city}`, address.country];
 }
 
 /**
@@ -158,7 +156,7 @@ export function getContactInfo(company: CompanyData): string {
   if (company.contact.phone) {
     parts.push(company.contact.phone);
   }
-  return parts.join(' | ');
+  return parts.join(" | ");
 }
 
 /* ==================================================================================

@@ -1,4 +1,5 @@
 # V26.0 COMPONENT LIBRARY
+
 > **Version:** 26.0  
 > **Letzte Aktualisierung:** 2025-01-26  
 > **Status:** ✅ Production Ready
@@ -20,11 +21,13 @@ Zentrale, wiederverwendbare Komponenten für das V26.0 "BALANCED" Design System.
 #### Varianten
 
 **Primary Button:**
+
 - **Hintergrund:** Dunkelblau (`#323D5E`)
 - **Text:** Beige (`#EADEBD`)
 - **Hover:** Aufgehelltes Dunkelblau (`#3F4C70`) + Schatten + `scale(1.02)`
 
 **Secondary Button:**
+
 - **Hintergrund:** Weiß (`#FFFFFF`)
 - **Border:** 2px Dunkelblau
 - **Text:** Dunkelblau
@@ -55,14 +58,14 @@ import { Plus } from 'lucide-react';
 
 #### Props
 
-| Prop | Typ | Default | Beschreibung |
-|------|-----|---------|--------------|
-| `children` | `ReactNode` | - | Button-Inhalt (Text + Icons) |
-| `variant` | `'primary' \| 'secondary'` | `'primary'` | Button-Variante |
-| `onClick` | `() => void` | - | Click-Handler |
-| `disabled` | `boolean` | `false` | Deaktivierter Zustand |
-| `className` | `string` | - | Zusätzliche CSS-Klassen |
-| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | HTML Button Type |
+| Prop        | Typ                               | Default     | Beschreibung                 |
+| ----------- | --------------------------------- | ----------- | ---------------------------- |
+| `children`  | `ReactNode`                       | -           | Button-Inhalt (Text + Icons) |
+| `variant`   | `'primary' \| 'secondary'`        | `'primary'` | Button-Variante              |
+| `onClick`   | `() => void`                      | -           | Click-Handler                |
+| `disabled`  | `boolean`                         | `false`     | Deaktivierter Zustand        |
+| `className` | `string`                          | -           | Zusätzliche CSS-Klassen      |
+| `type`      | `'button' \| 'submit' \| 'reset'` | `'button'`  | HTML Button Type             |
 
 ---
 
@@ -71,6 +74,7 @@ import { Plus } from 'lucide-react';
 **Datei:** `src/components/design-system/V26IconBox.tsx`
 
 #### Design
+
 - **Hintergrund:** Dunkelblau (`#323D5E`)
 - **Icon-Farbe:** Beige (`#EADEBD`)
 - **Border-Radius:** `rounded-lg`
@@ -94,19 +98,19 @@ import { FileText, Users, Euro } from 'lucide-react';
 
 #### Props
 
-| Prop | Typ | Default | Beschreibung |
-|------|-----|---------|--------------|
-| `icon` | `LucideIcon` | - | Lucide Icon Component |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Icon-Container Größe |
-| `className` | `string` | - | Zusätzliche CSS-Klassen |
+| Prop        | Typ                    | Default | Beschreibung            |
+| ----------- | ---------------------- | ------- | ----------------------- |
+| `icon`      | `LucideIcon`           | -       | Lucide Icon Component   |
+| `size`      | `'sm' \| 'md' \| 'lg'` | `'md'`  | Icon-Container Größe    |
+| `className` | `string`               | -       | Zusätzliche CSS-Klassen |
 
 #### Größen-Mapping
 
-| Size | Container | Icon | Verwendung |
-|------|-----------|------|------------|
-| `sm` | 40x40px | 20x20px | Kompakte Listen, Badges |
-| `md` | 48x48px | 24x24px | KPI-Cards, Standard-UI |
-| `lg` | 64x64px | 32x32px | Hero-Sektionen, Features |
+| Size | Container | Icon    | Verwendung               |
+| ---- | --------- | ------- | ------------------------ |
+| `sm` | 40x40px   | 20x20px | Kompakte Listen, Badges  |
+| `md` | 48x48px   | 24x24px | KPI-Cards, Standard-UI   |
+| `lg` | 64x64px   | 32x32px | Hero-Sektionen, Features |
 
 ---
 
@@ -115,6 +119,7 @@ import { FileText, Users, Euro } from 'lucide-react';
 **Datei:** `src/components/design-system/V26InfoBox.tsx`
 
 #### Design
+
 - **Hintergrund:** Canvas (`#F9FAFB`)
 - **Text:** Semantic Text-Farben (primary/secondary)
 - **Border-Radius:** `rounded-lg`
@@ -123,14 +128,17 @@ import { FileText, Users, Euro } from 'lucide-react';
 #### Typen
 
 **Info (Standard):**
+
 - Icon: Info (ℹ️)
 - Farbe: Dunkelblau
 
 **Warning:**
+
 - Icon: AlertTriangle (⚠️)
 - Farbe: Orange (`#F59E0B`)
 
 **Legal:**
+
 - Icon: Scale (⚖️)
 - Farbe: Dunkelblau
 
@@ -162,12 +170,12 @@ import { V26InfoBox } from '@/components/design-system/V26InfoBox';
 
 #### Props
 
-| Prop | Typ | Default | Beschreibung |
-|------|-----|---------|--------------|
-| `children` | `ReactNode` | - | Inhalt der Box |
-| `type` | `'info' \| 'warning' \| 'legal'` | `'info'` | Box-Typ (bestimmt Icon + Farbe) |
-| `title` | `string` | - | Optionaler Titel mit Icon |
-| `className` | `string` | - | Zusätzliche CSS-Klassen |
+| Prop        | Typ                              | Default  | Beschreibung                    |
+| ----------- | -------------------------------- | -------- | ------------------------------- |
+| `children`  | `ReactNode`                      | -        | Inhalt der Box                  |
+| `type`      | `'info' \| 'warning' \| 'legal'` | `'info'` | Box-Typ (bestimmt Icon + Farbe) |
+| `title`     | `string`                         | -        | Optionaler Titel mit Icon       |
+| `className` | `string`                         | -        | Zusätzliche CSS-Klassen         |
 
 ---
 
@@ -176,10 +184,10 @@ import { V26InfoBox } from '@/components/design-system/V26InfoBox';
 ### KPI-Card mit V26IconBox
 
 ```tsx
-import { V26IconBox } from '@/components/design-system/V26IconBox';
-import { Card, CardContent } from '@/components/ui/card';
-import { KERNFARBEN } from '@/lib/design-system/pricing-colors';
-import { FileText } from 'lucide-react';
+import { V26IconBox } from "@/components/design-system/V26IconBox";
+import { Card, CardContent } from "@/components/ui/card";
+import { KERNFARBEN } from "@/lib/design-system/pricing-colors";
+import { FileText } from "lucide-react";
 
 <Card>
   <CardContent className="p-6">
@@ -195,22 +203,20 @@ import { FileText } from 'lucide-react';
       <V26IconBox icon={FileText} size="md" />
     </div>
   </CardContent>
-</Card>
+</Card>;
 ```
 
 ### Schnellzugriff mit V26Button
 
 ```tsx
-import { V26Button } from '@/components/design-system/V26Button';
-import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
-import { KERNFARBEN } from '@/lib/design-system/pricing-colors';
-import { Plus, Users } from 'lucide-react';
+import { V26Button } from "@/components/design-system/V26Button";
+import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
+import { KERNFARBEN } from "@/lib/design-system/pricing-colors";
+import { Plus, Users } from "lucide-react";
 
 <Card>
   <CardHeader>
-    <CardTitle style={{ color: KERNFARBEN.text_primary }}>
-      Schnellzugriff
-    </CardTitle>
+    <CardTitle style={{ color: KERNFARBEN.text_primary }}>Schnellzugriff</CardTitle>
   </CardHeader>
   <CardContent className="space-y-2">
     <V26Button variant="primary" onClick={handleCreateBooking}>
@@ -222,7 +228,7 @@ import { Plus, Users } from 'lucide-react';
       Neuer Kunde
     </V26Button>
   </CardContent>
-</Card>
+</Card>;
 ```
 
 ### Legal Notice mit V26InfoBox
@@ -231,15 +237,15 @@ import { Plus, Users } from 'lucide-react';
 import { V26InfoBox } from '@/components/design-system/V26InfoBox';
 
 <V26InfoBox type="legal" title="PBefG § 51 Hinweis">
-  Auftragsdaten werden gemäß PBefG § 51 für 10 Jahre aufbewahrt. 
+  Auftragsdaten werden gemäß PBefG § 51 für 10 Jahre aufbewahrt.
   Diese Frist ist gesetzlich vorgeschrieben und kann nicht verkürzt werden.
 </V26InfoBox>
 
 <V26InfoBox type="info" title="DSGVO-Hinweis">
-  Personenbezogene Daten werden nur für die Auftragsabwicklung verwendet. 
+  Personenbezogene Daten werden nur für die Auftragsabwicklung verwendet.
   Weitere Informationen finden Sie in unserer{' '}
-  <a 
-    href="/datenschutz" 
+  <a
+    href="/datenschutz"
     className="underline"
     style={{ color: KERNFARBEN.dunkelblau }}
   >
@@ -276,6 +282,7 @@ import { V26InfoBox } from '@/components/design-system/V26InfoBox';
 ## 🚫 VERBOTEN
 
 ### Direct Implementation
+
 ```tsx
 // ❌ FALSCH - Direct Styles
 <button style={{ backgroundColor: '#323D5E', color: '#EADEBD' }}>
@@ -289,6 +296,7 @@ import { V26InfoBox } from '@/components/design-system/V26InfoBox';
 ```
 
 ### Inkonsistente Icon-Container
+
 ```tsx
 // ❌ FALSCH - Direct Icon ohne Container
 <FileText className="h-6 w-6 text-blue-500" />
@@ -303,6 +311,7 @@ import { V26InfoBox } from '@/components/design-system/V26InfoBox';
 ```
 
 ### Custom Notice Boxen
+
 ```tsx
 // ❌ FALSCH - Custom Box
 <div className="bg-gray-50 p-4 rounded-lg text-sm">
@@ -320,6 +329,7 @@ import { V26InfoBox } from '@/components/design-system/V26InfoBox';
 ## 📊 MIGRATIONS-CHECKLIST
 
 Für jede Seite/Komponente:
+
 - [ ] Alle Buttons durch `V26Button` ersetzen
 - [ ] Alle Icon-Container durch `V26IconBox` ersetzen
 - [ ] Alle Notice-Boxen durch `V26InfoBox` ersetzen
@@ -332,16 +342,19 @@ Für jede Seite/Komponente:
 ## 🛠️ TESTING
 
 ### Visual Regression
+
 ```bash
 npm run test:visual
 ```
 
 ### Component Tests
+
 ```bash
 npm run test:components
 ```
 
 ### Accessibility Check
+
 ```bash
 npm run test:a11y
 ```

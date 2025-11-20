@@ -10,19 +10,19 @@
    ================================================================================== */
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.75.0';
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.75.0";
 
-const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY');
+const ANTHROPIC_API_KEY = Deno.env.get("ANTHROPIC_API_KEY");
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface MigrationTask {
   filePath: string;
   priority: number;
-  estimatedComplexity: 'low' | 'medium' | 'high';
+  estimatedComplexity: "low" | "medium" | "high";
   changes: {
     from: string;
     to: string;
@@ -39,37 +39,37 @@ interface MigrationPlan {
 }
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
     if (!ANTHROPIC_API_KEY) {
-      throw new Error('ANTHROPIC_API_KEY not configured');
+      throw new Error("ANTHROPIC_API_KEY not configured");
     }
 
-    const supabaseUrl = Deno.env.get('SUPABASE_URL');
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    const supabaseUrl = Deno.env.get("SUPABASE_URL");
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
     if (!supabaseUrl || !supabaseKey) {
-      throw new Error('Supabase credentials not configured');
+      throw new Error("Supabase credentials not configured");
     }
 
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Load known issue: ui/button Migration (Issue #5)
     const { data: knownIssues } = await supabase
-      .from('known_issues')
-      .select('*')
-      .ilike('title', '%button%')
-      .eq('resolved', false)
+      .from("known_issues")
+      .select("*")
+      .ilike("title", "%button%")
+      .eq("resolved", false)
       .limit(1)
       .single();
 
     if (!knownIssues) {
       return new Response(
-        JSON.stringify({ error: 'No ui/button migration issue found in known_issues table' }),
-        { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 404 }
+        JSON.stringify({ error: "No ui/button migration issue found in known_issues table" }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 404 }
       );
     }
 
@@ -125,25 +125,25 @@ Sei EXTREM PRÄZISE und gib für JEDE DER 33 DATEIEN konkrete Änderungen an.`;
 
     const userPrompt = `Erstelle Migration-Plan für diese ${affectedFiles.length} betroffenen Dateien:
 
-${affectedFiles.map((file: string, idx: number) => `${idx + 1}. ${file}`).join('\n')}
+${affectedFiles.map((file: string, idx: number) => `${idx + 1}. ${file}`).join("\n")}
 
 Analysiere JEDE Datei und gib konkrete from/to Änderungen zurück.`;
 
     // Call Claude API
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
+        "Content-Type": "application/json",
+        "x-api-key": ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: "claude-sonnet-4-20250514",
         max_tokens: 16000, // Erhöht für 33 Files
         system: systemPrompt,
         messages: [
           {
-            role: 'user',
+            role: "user",
             content: userPrompt,
           },
         ],
@@ -152,7 +152,7 @@ Analysiere JEDE Datei und gib konkrete from/to Änderungen zurück.`;
 
     if (!response.ok) {
       const error = await response.text();
-      console.error('Claude API error:', error);
+      console.error("Claude API error:", error);
       throw new Error(`Claude API error: ${response.status}`);
     }
 
@@ -163,18 +163,19 @@ Analysiere JEDE Datei und gib konkrete from/to Änderungen zurück.`;
     let migrationPlan: MigrationPlan;
     try {
       // Extract JSON from potential markdown code blocks
-      const jsonMatch = migrationPlanJson.match(/```json\n([\s\S]*?)\n```/) || 
-                       migrationPlanJson.match(/\{[\s\S]*\}/);
-      const jsonContent = jsonMatch ? (jsonMatch[1] || jsonMatch[0]) : migrationPlanJson;
+      const jsonMatch =
+        migrationPlanJson.match(/```json\n([\s\S]*?)\n```/) ||
+        migrationPlanJson.match(/\{[\s\S]*\}/);
+      const jsonContent = jsonMatch ? jsonMatch[1] || jsonMatch[0] : migrationPlanJson;
       migrationPlan = JSON.parse(jsonContent);
     } catch (parseError) {
-      console.error('Failed to parse Claude response:', migrationPlanJson);
-      throw new Error('Claude response was not valid JSON');
+      console.error("Failed to parse Claude response:", migrationPlanJson);
+      throw new Error("Claude response was not valid JSON");
     }
 
     // Log plan to Supabase
-    await supabase.from('ai_actions_log').insert({
-      action_type: 'migration_plan_created',
+    await supabase.from("ai_actions_log").insert({
+      action_type: "migration_plan_created",
       details: {
         totalFiles: migrationPlan.totalFiles,
         estimatedDuration: migrationPlan.estimatedDuration,
@@ -187,23 +188,22 @@ Analysiere JEDE Datei und gib konkrete from/to Änderungen zurück.`;
       JSON.stringify({
         success: true,
         plan: migrationPlan,
-        nextStep: 'Execute migration tasks sequentially',
+        nextStep: "Execute migration tasks sequentially",
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
     );
-
   } catch (error) {
-    console.error('AI Migration Orchestrator error:', error);
+    console.error("AI Migration Orchestrator error:", error);
     return new Response(
       JSON.stringify({
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : "Unknown error",
         success: false,
       }),
       {
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
     );
   }

@@ -7,15 +7,15 @@
    - Export-Buttons prominent
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Download, TrendingUp, Users, Trophy, Handshake } from 'lucide-react';
-import { StatCard } from '@/components/smart-templates/StatCard';
-import { useNavigate } from 'react-router-dom';
-import { Badge } from '@/components/ui/badge';
-import { formatCurrency } from '@/lib/index';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { cn } from '@/lib/utils';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Download, TrendingUp, Users, Trophy, Handshake } from "lucide-react";
+import { StatCard } from "@/components/smart-templates/StatCard";
+import { useNavigate } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
+import { formatCurrency } from "@/lib/index";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 
 interface MobileStatistikenProps {
   stats: {
@@ -66,7 +66,7 @@ export function MobileStatistiken({
 
   // Berechne letzte 7 Tage für Mini-Chart
   const last7Days = dailyRevenue.slice(-7);
-  const maxRevenue = Math.max(...last7Days.map(d => d.revenue));
+  const maxRevenue = Math.max(...last7Days.map((d) => d.revenue));
 
   return (
     <div className="space-y-6 pb-6">
@@ -74,26 +74,14 @@ export function MobileStatistiken({
       <div className="space-y-3">
         <div>
           <h1 className="text-2xl font-bold">Statistiken</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Erweiterte Auswertungen und Berichte
-          </p>
+          <p className="text-sm text-muted-foreground mt-1">Erweiterte Auswertungen und Berichte</p>
         </div>
         <div className="flex gap-2">
-          <V28Button 
-            variant="secondary" 
-            size="sm" 
-            onClick={onPDFExport}
-            className="flex-1"
-          >
+          <V28Button variant="secondary" size="sm" onClick={onPDFExport} className="flex-1">
             <Download className="h-4 w-4 mr-2" />
             PDF
           </V28Button>
-          <V28Button 
-            variant="secondary" 
-            size="sm" 
-            onClick={onExcelExport}
-            className="flex-1"
-          >
+          <V28Button variant="secondary" size="sm" onClick={onExcelExport} className="flex-1">
             <Download className="h-4 w-4 mr-2" />
             Excel
           </V28Button>
@@ -106,25 +94,25 @@ export function MobileStatistiken({
           label="Umsatz (Monat)"
           value={formatCurrency(stats.totalRevenue)}
           icon={TrendingUp}
-          change={{ value: 12, trend: 'up' }}
+          change={{ value: 12, trend: "up" }}
         />
         <StatCard
           label="Aufträge"
           value={stats.completedBookings.toString()}
           icon={TrendingUp}
-          change={{ value: 8, trend: 'up' }}
+          change={{ value: 8, trend: "up" }}
         />
         <StatCard
           label="Aktive Fahrer"
           value={stats.totalDrivers.toString()}
           icon={Users}
-          change={{ value: 2, trend: 'up' }}
+          change={{ value: 2, trend: "up" }}
         />
         <StatCard
           label="Auslastung"
           value={`${stats.utilization}%`}
           icon={TrendingUp}
-          change={{ value: 5, trend: 'up' }}
+          change={{ value: 5, trend: "up" }}
         />
       </div>
 
@@ -140,10 +128,10 @@ export function MobileStatistiken({
           <div className="space-y-3">
             {last7Days.map((day, index) => {
               const percentage = maxRevenue > 0 ? (day.revenue / maxRevenue) * 100 : 0;
-              const dayName = new Date(day.date).toLocaleDateString('de-DE', { 
-                weekday: 'short',
-                day: '2-digit',
-                month: '2-digit'
+              const dayName = new Date(day.date).toLocaleDateString("de-DE", {
+                weekday: "short",
+                day: "2-digit",
+                month: "2-digit",
               });
 
               return (
@@ -153,14 +141,12 @@ export function MobileStatistiken({
                     <span className="font-medium">{formatCurrency(day.revenue)}</span>
                   </div>
                   <div className="h-2 bg-muted rounded-full overflow-hidden">
-                    <div 
+                    <div
                       className="h-full bg-primary rounded-full transition-all duration-300"
                       style={{ width: `${percentage}%` }}
                     />
                   </div>
-                  <div className="text-xs text-muted-foreground">
-                    {day.bookings} Fahrten
-                  </div>
+                  <div className="text-xs text-muted-foreground">{day.bookings} Fahrten</div>
                 </div>
               );
             })}
@@ -188,20 +174,20 @@ export function MobileStatistiken({
                   <Avatar className="h-10 w-10">
                     <AvatarImage src={driver.avatar} />
                     <AvatarFallback className="bg-primary/10 text-foreground">
-                      {driver.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                      {driver.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")
+                        .slice(0, 2)}
                     </AvatarFallback>
                   </Avatar>
                   {driver.badge && (
-                    <div className="absolute -top-1 -right-1 text-lg">
-                      {driver.badge}
-                    </div>
+                    <div className="absolute -top-1 -right-1 text-lg">{driver.badge}</div>
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-sm truncate">
-                      {driver.name}
-                    </span>
+                    <span className="font-medium text-sm truncate">{driver.name}</span>
                     <Badge variant="outline" className="text-xs shrink-0">
                       #{driver.rank}
                     </Badge>
@@ -215,13 +201,13 @@ export function MobileStatistiken({
               </div>
             ))}
           </div>
-          
+
           {topDrivers.length > 5 && (
             <V28Button
               variant="secondary"
               size="sm"
               className="w-full mt-3"
-              onClick={() => navigate('/fahrer')}
+              onClick={() => navigate("/fahrer")}
             >
               Alle Fahrer anzeigen
             </V28Button>
@@ -247,9 +233,7 @@ export function MobileStatistiken({
                   className="flex items-center justify-between p-3 rounded-lg bg-muted/30 active:bg-muted/50 transition-colors touch-manipulation"
                 >
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-sm truncate">
-                      {partner.name}
-                    </div>
+                    <div className="font-medium text-sm truncate">{partner.name}</div>
                     <div className="flex items-center gap-3 mt-1 text-xs text-muted-foreground">
                       <span>{partner.bookings} Aufträge</span>
                       <span>•</span>
@@ -257,26 +241,26 @@ export function MobileStatistiken({
                     </div>
                   </div>
                   <div className="text-right shrink-0">
-                    <div className="text-sm font-medium">
-                      {formatCurrency(partner.revenue)}
-                    </div>
-                    <div className={cn(
-                      "text-xs font-medium",
-                      partner.trend.startsWith('+') ? "text-status-success" : "text-status-error"
-                    )}>
+                    <div className="text-sm font-medium">{formatCurrency(partner.revenue)}</div>
+                    <div
+                      className={cn(
+                        "text-xs font-medium",
+                        partner.trend.startsWith("+") ? "text-status-success" : "text-status-error"
+                      )}
+                    >
                       {partner.trend}
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            
+
             {partnerPerformance.length > 5 && (
               <V28Button
                 variant="secondary"
                 size="sm"
                 className="w-full mt-3"
-                onClick={() => navigate('/partner')}
+                onClick={() => navigate("/partner")}
               >
                 Alle Partner anzeigen
               </V28Button>
@@ -292,7 +276,8 @@ export function MobileStatistiken({
             <TrendingUp className="h-10 w-10 mx-auto text-foreground" />
             <h3 className="font-semibold text-sm">Detaillierte Berichte</h3>
             <p className="text-xs text-muted-foreground">
-              Für ausführliche Statistiken und erweiterte Analysen nutzen Sie bitte die Desktop-Version.
+              Für ausführliche Statistiken und erweiterte Analysen nutzen Sie bitte die
+              Desktop-Version.
             </p>
           </div>
         </CardContent>

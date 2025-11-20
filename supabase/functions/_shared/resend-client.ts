@@ -37,7 +37,7 @@ interface ResendResponse {
 export async function sendResendEmail(options: ResendEmailOptions): Promise<ResendResponse> {
   const resendApiKey = Deno.env.get("RESEND_API_KEY");
   const resendDomain = Deno.env.get("RESEND_DOMAIN") || "mydispatch.de";
-  
+
   if (!resendApiKey) {
     throw new Error("RESEND_API_KEY is not set");
   }
@@ -62,7 +62,7 @@ export async function sendResendEmail(options: ResendEmailOptions): Promise<Rese
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${resendApiKey}`,
+        Authorization: `Bearer ${resendApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(payload),
@@ -97,11 +97,11 @@ export async function sendResendEmailWithRetry(
       return await sendResendEmail(options);
     } catch (error: any) {
       lastError = error;
-      
+
       if (attempt < maxRetries) {
         // Exponential backoff: 1s, 2s, 4s
         const delay = Math.pow(2, attempt - 1) * 1000;
-        await new Promise(resolve => setTimeout(resolve, delay));
+        await new Promise((resolve) => setTimeout(resolve, delay));
         console.warn(`[RESEND] Retry attempt ${attempt}/${maxRetries} after ${delay}ms`);
       }
     }
@@ -109,4 +109,3 @@ export async function sendResendEmailWithRetry(
 
   throw lastError || new Error("Failed to send email after retries");
 }
-

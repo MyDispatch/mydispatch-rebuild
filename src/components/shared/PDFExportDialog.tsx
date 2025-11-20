@@ -27,7 +27,7 @@ interface PDFExportDialogProps {
   isOpen: boolean;
   onClose: () => void;
   onExport: (options: PDFExportOptions) => Promise<void>;
-  entityType: 'booking' | 'quote' | 'invoice';
+  entityType: "booking" | "quote" | "invoice";
 }
 
 export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFExportDialogProps) {
@@ -35,9 +35,9 @@ export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFEx
     includePrice: true,
     includePhone: true,
     includeCustomerDetails: true,
-    includeDriverDetails: entityType === 'booking',
-    includeVehicleDetails: entityType === 'booking',
-    includePaymentInfo: entityType === 'invoice',
+    includeDriverDetails: entityType === "booking",
+    includeVehicleDetails: entityType === "booking",
+    includePaymentInfo: entityType === "invoice",
     includeNotes: false,
   });
   const [isExporting, setIsExporting] = useState(false);
@@ -46,10 +46,10 @@ export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFEx
     setIsExporting(true);
     try {
       await onExport(options);
-      handleSuccess('PDF erfolgreich erstellt');
+      handleSuccess("PDF erfolgreich erstellt");
       onClose();
     } catch (error) {
-      handleError(error, 'Fehler beim Erstellen des PDFs');
+      handleError(error, "Fehler beim Erstellen des PDFs");
     } finally {
       setIsExporting(false);
     }
@@ -57,9 +57,12 @@ export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFEx
 
   const getTitle = () => {
     switch (entityType) {
-      case 'booking': return 'Auftrag als PDF exportieren';
-      case 'quote': return 'Angebot als PDF exportieren';
-      case 'invoice': return 'Rechnung als PDF exportieren';
+      case "booking":
+        return "Auftrag als PDF exportieren";
+      case "quote":
+        return "Angebot als PDF exportieren";
+      case "invoice":
+        return "Rechnung als PDF exportieren";
     }
   };
 
@@ -82,9 +85,7 @@ export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFEx
               <Checkbox
                 id="includePrice"
                 checked={options.includePrice}
-                onCheckedChange={(checked) => 
-                  setOptions({ ...options, includePrice: !!checked })
-                }
+                onCheckedChange={(checked) => setOptions({ ...options, includePrice: !!checked })}
               />
               <Label htmlFor="includePrice" className="cursor-pointer">
                 Preise anzeigen
@@ -95,9 +96,7 @@ export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFEx
               <Checkbox
                 id="includePhone"
                 checked={options.includePhone}
-                onCheckedChange={(checked) => 
-                  setOptions({ ...options, includePhone: !!checked })
-                }
+                onCheckedChange={(checked) => setOptions({ ...options, includePhone: !!checked })}
               />
               <Label htmlFor="includePhone" className="cursor-pointer">
                 Telefonnummern anzeigen
@@ -108,7 +107,7 @@ export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFEx
               <Checkbox
                 id="includeCustomerDetails"
                 checked={options.includeCustomerDetails}
-                onCheckedChange={(checked) => 
+                onCheckedChange={(checked) =>
                   setOptions({ ...options, includeCustomerDetails: !!checked })
                 }
               />
@@ -117,13 +116,13 @@ export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFEx
               </Label>
             </div>
 
-            {entityType === 'booking' && (
+            {entityType === "booking" && (
               <>
                 <div className="flex items-center gap-2">
                   <Checkbox
                     id="includeDriverDetails"
                     checked={options.includeDriverDetails}
-                    onCheckedChange={(checked) => 
+                    onCheckedChange={(checked) =>
                       setOptions({ ...options, includeDriverDetails: !!checked })
                     }
                   />
@@ -136,7 +135,7 @@ export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFEx
                   <Checkbox
                     id="includeVehicleDetails"
                     checked={options.includeVehicleDetails}
-                    onCheckedChange={(checked) => 
+                    onCheckedChange={(checked) =>
                       setOptions({ ...options, includeVehicleDetails: !!checked })
                     }
                   />
@@ -147,12 +146,12 @@ export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFEx
               </>
             )}
 
-            {entityType === 'invoice' && (
+            {entityType === "invoice" && (
               <div className="flex items-center gap-2">
                 <Checkbox
                   id="includePaymentInfo"
                   checked={options.includePaymentInfo}
-                  onCheckedChange={(checked) => 
+                  onCheckedChange={(checked) =>
                     setOptions({ ...options, includePaymentInfo: !!checked })
                   }
                 />
@@ -166,9 +165,7 @@ export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFEx
               <Checkbox
                 id="includeNotes"
                 checked={options.includeNotes}
-                onCheckedChange={(checked) => 
-                  setOptions({ ...options, includeNotes: !!checked })
-                }
+                onCheckedChange={(checked) => setOptions({ ...options, includeNotes: !!checked })}
               />
               <Label htmlFor="includeNotes" className="cursor-pointer">
                 Interne Notizen anzeigen
@@ -179,23 +176,23 @@ export function PDFExportDialog({ isOpen, onClose, onExport, entityType }: PDFEx
           <div className="bg-muted/50 p-3 rounded-lg text-xs text-muted-foreground">
             <p className="font-medium mb-1">💡 Hinweis:</p>
             <p>
-              Das PDF wird mit Ihrem Unternehmenslogo und in Ihren CI-Farben erstellt. 
-              Alle Angaben entsprechen den deutschen Formatierungen (TT.MM.JJJJ, 1.234,56 €).
+              Das PDF wird mit Ihrem Unternehmenslogo und in Ihren CI-Farben erstellt. Alle Angaben
+              entsprechen den deutschen Formatierungen (TT.MM.JJJJ, 1.234,56 €).
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-2">
-            <V28Button 
-              onClick={handleExport} 
+            <V28Button
+              onClick={handleExport}
               disabled={isExporting}
               variant="primary"
               className="flex-1"
             >
               <FileDown className="mr-2 h-4 w-4" />
-              {isExporting ? 'Erstelle PDF...' : 'PDF erstellen'}
+              {isExporting ? "Erstelle PDF..." : "PDF erstellen"}
             </V28Button>
-            <V28Button 
-              variant="secondary" 
+            <V28Button
+              variant="secondary"
               onClick={onClose}
               disabled={isExporting}
               className="flex-1"

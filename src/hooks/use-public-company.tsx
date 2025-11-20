@@ -6,24 +6,22 @@
    - Für nicht-authentifizierte Nutzer
    ================================================================================== */
 
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 export function usePublicCompany(slug?: string, tenantId?: string) {
   return useQuery({
-    queryKey: ['public-company', slug, tenantId],
+    queryKey: ["public-company", slug, tenantId],
     queryFn: async () => {
       if (!slug && !tenantId) return null;
 
       // 🔒 SECURITY: Use companies_public_info view (ONLY safe fields exposed)
-      let query = supabase
-        .from('companies_public_info')
-        .select('*');
+      let query = supabase.from("companies_public_info").select("*");
 
       if (slug) {
-        query = query.eq('company_slug', slug);
+        query = query.eq("company_slug", slug);
       } else if (tenantId) {
-        query = query.eq('id', tenantId);
+        query = query.eq("id", tenantId);
       }
 
       const { data, error } = await query.maybeSingle();

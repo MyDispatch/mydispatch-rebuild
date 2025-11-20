@@ -12,15 +12,18 @@
 Nach vollständiger Code-Analyse wurden folgende **kritische Probleme** identifiziert:
 
 ### 🔴 KRITISCH (Score 8-10)
+
 - **Design System Violations**: 265 Direct Color Usages
 - **Component Library Chaos**: 203 Dateien ohne klare Struktur
 - **Dokumentations-Überflutung**: 321 Docs mit 12.666 Überschriften
 
 ### 🟠 HOCH (Score 6-7)
+
 - **SEO-Lücken**: Nur 4 von ~50 Pages mit SEO-Tags
 - **Code Quality**: 160 TODOs/FIXMEs/Debug-Logs
 
 ### 🟡 MITTEL (Score 4-5)
+
 - **Content System**: Keine zentrale Verwaltung
 - **Dependency Management**: Unklare Struktur
 
@@ -30,10 +33,10 @@ Nach vollständiger Code-Analyse wurden folgende **kritische Probleme** identifi
 
 ```typescript
 interface LegalRiskScore {
-  score: 3;  // 0-10 (3 = GRÜN - Unkritisch)
-  category: 'REFACTORING';
-  reasoning: 'Rein technische Verbesserungen ohne rechtliche Implikationen. Keine DSGVO/AI-Act Änderungen.';
-  mitigation: 'Keine spezielle Mitigation nötig. Bestehende Funktionalität bleibt erhalten.';
+  score: 3; // 0-10 (3 = GRÜN - Unkritisch)
+  category: "REFACTORING";
+  reasoning: "Rein technische Verbesserungen ohne rechtliche Implikationen. Keine DSGVO/AI-Act Änderungen.";
+  mitigation: "Keine spezielle Mitigation nötig. Bestehende Funktionalität bleibt erhalten.";
 }
 ```
 
@@ -45,9 +48,9 @@ interface LegalRiskScore {
 
 ```typescript
 interface CostPrognosis {
-  aiCosts: 'Gering (ca. 50-100 Credits)';  // Code-Refactoring
-  dbLoad: 'low';  // Keine DB-Änderungen
-  estimatedTime: '2-4 Stunden (aufgeteilt in 7 Phasen)';
+  aiCosts: "Gering (ca. 50-100 Credits)"; // Code-Refactoring
+  dbLoad: "low"; // Keine DB-Änderungen
+  estimatedTime: "2-4 Stunden (aufgeteilt in 7 Phasen)";
   reasoning: `
     - Phase 1-2: Design System Cleanup (30-60min)
     - Phase 3-4: Component Library (45-90min) 
@@ -66,6 +69,7 @@ interface CostPrognosis {
 **Problem:** 265 Direct Color Violations, 17 Accent-Verwendungen
 
 **Lösung:**
+
 ```typescript
 // SCHRITT 1: Alle Direct Colors entfernen
 // Dateien: 29 betroffen
@@ -76,9 +80,9 @@ interface CostPrognosis {
 // - etc.
 
 // Ersetze:
-className="text-white bg-[#EADEBD]"
+className = "text-white bg-[#EADEBD]";
 // Durch:
-className="text-foreground bg-primary"
+className = "text-foreground bg-primary";
 
 // SCHRITT 2: Accent-Referenzen entfernen
 // Dateien: 7 betroffen
@@ -87,19 +91,22 @@ className="text-foreground bg-primary"
 // - src/index.css (bereits erledigt)
 
 // Ersetze:
-stroke="hsl(var(--accent))"
+stroke = "hsl(var(--accent))";
 // Durch:
-stroke="hsl(var(--primary))"
+stroke = "hsl(var(--primary))";
 ```
 
 **Neue Dateien:**
+
 - ❌ Keine (nur Edits)
 
 **Geänderte Dateien:**
+
 - 29 Component-Dateien
 - 7 Style-Dateien
 
 **Tests:**
+
 - E2E: Design-Token-Compliance
 - Unit: Color-Validator Tests
 
@@ -142,16 +149,19 @@ src/components/
 ```
 
 **Migration-Strategie:**
+
 - **Nicht** alle Dateien sofort verschieben
 - Schritt für Schritt bei Bedarf refactorn
 - Neue Components nach neuer Struktur anlegen
 - Legacy-Imports mit Aliases unterstützen
 
 **Neue Dateien:**
+
 - `src/components/README.md` - Component Library Docs
 - `src/components/index.ts` - Zentrale Exports
 
 **Geänderte Dateien:**
+
 - Keine sofortigen Änderungen (Schritt-für-Schritt Migration)
 
 ---
@@ -165,12 +175,13 @@ src/components/
 ```typescript
 // NEU: src/config/seo.config.ts
 export const SEO_DEFAULTS = {
-  siteName: 'MyDispatch',
-  defaultTitle: 'MyDispatch - Professionelle Taxi & Mietwagen Software',
-  titleTemplate: '%s | MyDispatch',
-  defaultDescription: 'DSGVO-konforme Taxi-Software Made in Germany. Disposition, Fuhrparkverwaltung, Fahrer-App & mehr.',
-  siteUrl: 'https://my-dispatch.de',
-  ogImage: '/og-image.jpg',
+  siteName: "MyDispatch",
+  defaultTitle: "MyDispatch - Professionelle Taxi & Mietwagen Software",
+  titleTemplate: "%s | MyDispatch",
+  defaultDescription:
+    "DSGVO-konforme Taxi-Software Made in Germany. Disposition, Fuhrparkverwaltung, Fahrer-App & mehr.",
+  siteUrl: "https://my-dispatch.de",
+  ogImage: "/og-image.jpg",
 };
 
 // NEU: src/hooks/use-seo.ts
@@ -181,15 +192,16 @@ export function useSEO(options: SEOOptions) {
 ```
 
 **Page-Template:**
+
 ```tsx
 // In jeder Page:
-import { useSEO } from '@/hooks/use-seo';
+import { useSEO } from "@/hooks/use-seo";
 
 export default function MyPage() {
   useSEO({
-    title: 'Dashboard',
-    description: 'Übersicht über alle Fahrten und Statistiken',
-    path: '/dashboard',
+    title: "Dashboard",
+    description: "Übersicht über alle Fahrten und Statistiken",
+    path: "/dashboard",
   });
 
   return <div>...</div>;
@@ -197,6 +209,7 @@ export default function MyPage() {
 ```
 
 **Neue Dateien:**
+
 - `src/config/seo.config.ts`
 - `src/hooks/use-seo.ts`
 - `public/og-image.jpg` (generiert)
@@ -204,6 +217,7 @@ export default function MyPage() {
 - `public/sitemap.xml`
 
 **Geänderte Dateien:**
+
 - ~50 Page-Komponenten (SEO-Hook hinzufügen)
 
 ---
@@ -238,10 +252,12 @@ import { CONTENT } from '@/config/content.config';
 ```
 
 **Neue Dateien:**
+
 - `src/config/content.config.ts`
 - `src/config/content.types.ts`
 
 **Geänderte Dateien:**
+
 - Marketing-Pages (Hardcoded Text → Content-Config)
 
 ---
@@ -265,9 +281,11 @@ import { CONTENT } from '@/config/content.config';
 ```
 
 **Neue Dateien:**
+
 - `.github/ISSUE_TEMPLATE/todo.md` - TODO Issue Template
 
 **Geänderte Dateien:**
+
 - ~30 Dateien mit Debug-Logs
 - ~15 Dateien mit TODOs
 
@@ -305,11 +323,13 @@ docs/
 ```
 
 **Aktion:**
+
 - **Löschen:** ~250 redundante/veraltete Docs
 - **Konsolidieren:** ~50 Docs in ~10 Master-Docs
 - **Behalten:** ~20 aktuelle Docs
 
 **Neue Dateien:**
+
 - `docs/README.md`
 - `docs/01-GETTING-STARTED/Quick-Reference.md`
 - Master-Docs in jedem Ordner
@@ -337,6 +357,7 @@ npx vite-bundle-visualizer
 ```
 
 **Neue Dateien:**
+
 - `docs/DEPENDENCY_REPORT.md`
 
 ---
@@ -344,6 +365,7 @@ npx vite-bundle-visualizer
 ## 🚨 RISIKEN & ABHÄNGIGKEITEN
 
 ### KRITISCHE RISIKEN:
+
 1. **Breaking Changes**: Component Library Migration könnte Imports brechen
    - **Mitigation**: Schritt-für-Schritt, mit Aliases
 
@@ -354,6 +376,7 @@ npx vite-bundle-visualizer
    - **Mitigation**: Feature-Branches, kleine PRs
 
 ### ABHÄNGIGKEITEN:
+
 - Phase 1 muss vor Phase 2 (Components nutzen Design System)
 - Phase 3 kann parallel zu Phase 1-2
 - Phase 5-7 können parallel
@@ -363,26 +386,31 @@ npx vite-bundle-visualizer
 ## 📊 SUCCESS METRICS
 
 ### DESIGN SYSTEM:
+
 - [ ] 0 Direct Color Violations
 - [ ] 0 Accent-Referenzen
 - [ ] 100% Semantic Token Usage
 
 ### COMPONENT LIBRARY:
+
 - [ ] Klare Ordnerstruktur dokumentiert
 - [ ] Zentrale Export-Datei
 - [ ] Migration-Plan erstellt
 
 ### SEO:
+
 - [ ] 100% Pages mit Meta-Tags
 - [ ] robots.txt + sitemap.xml vorhanden
 - [ ] Lighthouse SEO Score > 90
 
 ### CODE QUALITY:
+
 - [ ] 0 Debug-Logs in Production
 - [ ] < 10 TODOs im Code
 - [ ] 0 FIXME/HACK ohne Kommentar
 
 ### DOKUMENTATION:
+
 - [ ] < 50 Dokumentations-Dateien
 - [ ] Klare Navigations-Struktur
 - [ ] README.md als Einstieg

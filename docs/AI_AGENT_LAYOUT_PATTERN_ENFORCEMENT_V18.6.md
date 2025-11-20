@@ -13,12 +13,14 @@
 Der AI Agent MUSS das Layout Pattern System aus `docs/LAYOUT_PATTERN_SYSTEM_V18.6.md` nutzen.
 
 **NIEMALS:**
+
 - ❌ Hardcoded spacing values (`py-20`, `mt-10`, `gap-5`)
 - ❌ Inkonsistente Abstände
 - ❌ Custom Grid/Flex ohne Layout Components
 - ❌ Inline Styles für Spacing
 
 **IMMER:**
+
 - ✅ `Section` Component für Sections
 - ✅ `Container` Component für Content-Bereiche
 - ✅ `Grid` Component für Layouts
@@ -39,6 +41,7 @@ User: "Erstelle eine Features-Seite"
 ```
 
 **AI Agent denkt:**
+
 1. Welche Sections sind nötig? (Hero, Features Grid, CTA)
 2. Welche Layout Components brauche ich? (Section, Container, Grid)
 3. Welches Spacing ist passend? (xl für Hero, lg für Content)
@@ -70,6 +73,7 @@ User: "Erstelle eine Features-Seite"
 ### Phase 3: Self-Check
 
 **AI Agent prüft:**
+
 - [ ] Alle Sections nutzen `Section` Component
 - [ ] Alle Grids nutzen `Grid` Component
 - [ ] Keine hardcoded spacing values
@@ -83,12 +87,14 @@ User: "Erstelle eine Features-Seite"
 ### Szenario 1: User verwendet hardcoded Spacing
 
 **User-Code:**
+
 ```tsx
 <div className="py-20 mt-10">
   <div className="gap-5">
 ```
 
 **AI Agent Antwort:**
+
 ```
 ⚠️ Layout Pattern Violation!
 
@@ -105,11 +111,13 @@ Soll ich den Code korrigieren?
 ### Szenario 2: User fragt nach Custom Layout
 
 **User:**
+
 ```
 "Ich brauche ein Custom Grid mit 5 Spalten und 25px Gap"
 ```
 
 **AI Agent Antwort:**
+
 ```
 Das Layout Pattern System unterstützt 1-6 und 12 Spalten.
 Für 5 Spalten:
@@ -199,6 +207,7 @@ Aber ich empfehle stark, bei 32px zu bleiben.
 ```
 
 **Problem:**
+
 - Hardcoded spacing (py-20, px-10, mt-10, mb-8, gap-5)
 - Keine Layout Components
 - Inkonsistent
@@ -217,6 +226,7 @@ Aber ich empfehle stark, bei 32px zu bleiben.
 ```
 
 **Warum besser:**
+
 - Layout Components nutzen
 - Design System Spacing
 - Konsistent
@@ -231,6 +241,7 @@ Aber ich empfehle stark, bei 32px zu bleiben.
 Wenn das Layout Pattern System technisch NICHT möglich ist:
 
 1. **User informieren:**
+
 ```
 ⚠️ Layout Pattern Violation Notice:
 
@@ -247,6 +258,7 @@ Ist das okay?
 ```
 
 2. **Dokumentieren:**
+
 ```tsx
 /* ==================================================================================
    LAYOUT PATTERN EXCEPTION
@@ -266,23 +278,23 @@ Ist das okay?
 ### Example 1: Feature Page
 
 **User Request:**
+
 ```
 "Erstelle eine Seite mit Features in 3 Spalten"
 ```
 
 **AI Agent Response:**
+
 ```tsx
 <Section spacing="xl" background="white">
   <Container>
     <Stack spacing="lg" align="center" className="text-center mb-12">
       <h2 className="text-4xl font-bold">Features</h2>
-      <p className="text-lg text-slate-600 max-w-2xl">
-        Alle Features im Überblick
-      </p>
+      <p className="text-lg text-slate-600 max-w-2xl">Alle Features im Überblick</p>
     </Stack>
 
     <Grid cols={{ default: 1, md: 2, lg: 3 }} gap="lg">
-      {FEATURES.map(feature => (
+      {FEATURES.map((feature) => (
         <FeatureCard key={feature.id} {...feature} />
       ))}
     </Grid>
@@ -291,6 +303,7 @@ Ist das okay?
 ```
 
 **AI Agent erklärt:**
+
 ```
 ✅ Layout Pattern System korrekt angewendet:
 
@@ -308,6 +321,7 @@ Ist das okay?
 **AI Agent nutzt diese Checklist vor jedem Commit:**
 
 ### Layout Components
+
 - [ ] Alle Sections nutzen `Section` Component
 - [ ] Alle Content-Bereiche nutzen `Container`
 - [ ] Alle Grids nutzen `Grid` Component
@@ -315,17 +329,20 @@ Ist das okay?
 - [ ] Alle Stacks nutzen `Stack` Component
 
 ### Spacing
+
 - [ ] KEINE hardcoded spacing values
 - [ ] NUR Design System Spacing (sm/md/lg/xl/2xl)
 - [ ] Konsistente Abstände überall
 - [ ] Responsive Spacing
 
 ### HTML Structure
+
 - [ ] Semantic HTML Elements
 - [ ] Proper Heading Hierarchy
 - [ ] Accessibility-konform
 
 ### Responsive
+
 - [ ] Mobile-first Approach
 - [ ] Breakpoints korrekt (default/sm/md/lg/xl)
 - [ ] Touch-friendly (min 44x44px)

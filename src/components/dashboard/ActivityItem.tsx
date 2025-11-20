@@ -8,10 +8,10 @@
    - Timestamp-Formatting
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
-import { format } from 'date-fns';
-import { de } from 'date-fns/locale';
-import { cn } from '@/lib/utils';
+import { LucideIcon } from "lucide-react";
+import { format } from "date-fns";
+import { de } from "date-fns/locale";
+import { cn } from "@/lib/utils";
 
 interface ActivityItemProps {
   id: string;
@@ -19,15 +19,15 @@ interface ActivityItemProps {
   title: string;
   description: string;
   time: Date;
-  status: 'success' | 'info' | 'warning' | 'error';
+  status: "success" | "info" | "warning" | "error";
   className?: string;
 }
 
 const statusStyles = {
-  success: 'bg-status-success/10 text-status-success',
-  info: 'bg-primary/10 text-primary',
-  warning: 'bg-status-warning/10 text-status-warning',
-  error: 'bg-status-error/10 text-status-error',
+  success: "bg-status-success/10 text-status-success",
+  info: "bg-primary/10 text-primary",
+  warning: "bg-status-warning/10 text-status-warning",
+  error: "bg-status-error/10 text-status-error",
 };
 
 export function ActivityItem({
@@ -37,7 +37,7 @@ export function ActivityItem({
   description,
   time,
   status,
-  className
+  className,
 }: ActivityItemProps) {
   return (
     <div
@@ -47,10 +47,7 @@ export function ActivityItem({
       )}
     >
       {/* Icon */}
-      <div className={cn(
-        "p-2 rounded-lg shrink-0",
-        statusStyles[status]
-      )}>
+      <div className={cn("p-2 rounded-lg shrink-0", statusStyles[status])}>
         <Icon className="h-5 w-5" />
       </div>
 
@@ -62,7 +59,7 @@ export function ActivityItem({
 
       {/* Timestamp */}
       <time className="text-xs text-muted-foreground shrink-0">
-        {format(time, 'HH:mm', { locale: de })}
+        {format(time, "HH:mm", { locale: de })}
       </time>
     </div>
   );

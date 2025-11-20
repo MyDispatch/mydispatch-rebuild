@@ -9,44 +9,44 @@
    ✅ V27.0 NORDIC SKY KONFORM
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
-import { PRIMARY_COLORS_V27 } from '@/lib/design-system/unified-design-tokens';
-import { cn } from '@/lib/utils';
+import { LucideIcon } from "lucide-react";
+import { PRIMARY_COLORS_V27 } from "@/lib/design-system/unified-design-tokens";
+import { cn } from "@/lib/utils";
 
 interface V27IconBoxProps {
   icon: LucideIcon;
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'primary' | 'secondary';
-  shape?: 'circle' | 'soft' | 'squircle';
+  size?: "sm" | "md" | "lg";
+  variant?: "primary" | "secondary";
+  shape?: "circle" | "soft" | "squircle";
   className?: string;
 }
 
 const sizeMap = {
   sm: {
-    container: 'w-10 h-10',
-    icon: 'h-5 w-5',
+    container: "w-10 h-10",
+    icon: "h-5 w-5",
   },
   md: {
-    container: 'w-12 h-12',
-    icon: 'h-6 w-6',
+    container: "w-12 h-12",
+    icon: "h-6 w-6",
   },
   lg: {
-    container: 'w-16 h-16',
-    icon: 'h-8 w-8',
+    container: "w-16 h-16",
+    icon: "h-8 w-8",
   },
 };
 
 const shapeMap = {
-  circle: 'rounded-full',
-  soft: 'rounded-2xl',      // 16px - Empfohlen
-  squircle: 'rounded-3xl',  // 24px
+  circle: "rounded-full",
+  soft: "rounded-2xl", // 16px - Empfohlen
+  squircle: "rounded-3xl", // 24px
 };
 
 export function V27IconBox({
   icon: Icon,
-  size = 'md',
-  variant = 'primary',
-  shape = 'soft',
+  size = "md",
+  variant = "primary",
+  shape = "soft",
   className,
 }: V27IconBoxProps) {
   const sizes = sizeMap[size];
@@ -57,19 +57,15 @@ export function V27IconBox({
       className={cn(
         sizes.container,
         shapeClass,
-        'flex items-center justify-center shrink-0 border-[3px] transition-all duration-200',
+        "flex items-center justify-center shrink-0 border-[3px] transition-all duration-200",
         className
       )}
       style={{
-        backgroundColor: variant === 'primary' 
-          ? PRIMARY_COLORS_V27.indigo 
-          : PRIMARY_COLORS_V27.champagne,
-        borderColor: variant === 'primary' 
-          ? PRIMARY_COLORS_V27.champagne 
-          : PRIMARY_COLORS_V27.indigo,
-        color: variant === 'primary' 
-          ? PRIMARY_COLORS_V27.champagne 
-          : PRIMARY_COLORS_V27.indigo,
+        backgroundColor:
+          variant === "primary" ? PRIMARY_COLORS_V27.indigo : PRIMARY_COLORS_V27.champagne,
+        borderColor:
+          variant === "primary" ? PRIMARY_COLORS_V27.champagne : PRIMARY_COLORS_V27.indigo,
+        color: variant === "primary" ? PRIMARY_COLORS_V27.champagne : PRIMARY_COLORS_V27.indigo,
       }}
     >
       <Icon className={sizes.icon} />

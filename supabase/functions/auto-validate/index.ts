@@ -7,12 +7,12 @@
    - Basic Quality Metrics
    ================================================================================== */
 
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface ValidationResult {
@@ -28,13 +28,13 @@ interface ValidationResult {
 }
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const { entity_id, code, file_path } = await req.json();
@@ -47,18 +47,18 @@ serve(async (req) => {
     // Step 1: Basic TypeScript Syntax Validation
     try {
       // Check for common syntax issues
-      if (!code.includes('export')) {
-        warnings.push('No exports found - file may not be importable');
+      if (!code.includes("export")) {
+        warnings.push("No exports found - file may not be importable");
       }
 
       // Check for required imports
-      if (file_path?.includes('components') && !code.includes('import')) {
-        errors.push('Component file missing imports');
+      if (file_path?.includes("components") && !code.includes("import")) {
+        errors.push("Component file missing imports");
       }
 
       // Check for React imports (if component)
-      if (file_path?.includes('components') && !code.includes('React')) {
-        warnings.push('React component may be missing React import');
+      if (file_path?.includes("components") && !code.includes("React")) {
+        warnings.push("React component may be missing React import");
       }
 
       // Check for balanced brackets
@@ -73,7 +73,6 @@ serve(async (req) => {
       if (openParens !== closeParens) {
         errors.push(`Unbalanced parentheses: ${openParens} open, ${closeParens} close`);
       }
-
     } catch (syntaxError) {
       errors.push(`Syntax check failed: ${syntaxError}`);
     }
@@ -89,22 +88,24 @@ serve(async (req) => {
 
     // Check for common import issues
     for (const imp of imports) {
-      if (imp.startsWith('@/') && !imp.includes('/')) {
+      if (imp.startsWith("@/") && !imp.includes("/")) {
         warnings.push(`Potentially invalid import path: ${imp}`);
       }
-      
+
       // Check for node_modules imports
-      if (!imp.startsWith('.') && !imp.startsWith('@/') && !imp.startsWith('react')) {
+      if (!imp.startsWith(".") && !imp.startsWith("@/") && !imp.startsWith("react")) {
         warnings.push(`External dependency detected: ${imp}`);
       }
     }
 
     // Step 3: Quality Metrics
-    const lines = code.split('\n');
-    const linesOfCode = lines.filter(l => l.trim() && !l.trim().startsWith('//')).length;
-    
-    const exports = (code.match(/export\s+(default\s+)?(const|function|class|interface|type)/g) || []).length;
-    
+    const lines = code.split("\n");
+    const linesOfCode = lines.filter((l) => l.trim() && !l.trim().startsWith("//")).length;
+
+    const exports = (
+      code.match(/export\s+(default\s+)?(const|function|class|interface|type)/g) || []
+    ).length;
+
     // Simple complexity: count conditionals and loops
     const complexityIndicators = [
       ...code.matchAll(/if\s*\(/g),
@@ -134,27 +135,29 @@ serve(async (req) => {
 
     // Step 5: Log validation result
     if (entity_id) {
-      await supabase.from('execution_logs').insert({
+      await supabase.from("execution_logs").insert({
         entity_id,
-        action: 'validate',
-        status: valid ? 'completed' : 'failed',
+        action: "validate",
+        status: valid ? "completed" : "failed",
         details: result,
-        error_message: errors.length > 0 ? errors.join('; ') : null,
+        error_message: errors.length > 0 ? errors.join("; ") : null,
       });
 
       // Update entity status if failed
       if (!valid) {
         await supabase
-          .from('entities_queue')
+          .from("entities_queue")
           .update({
-            status: 'failed',
-            error_message: `Validation failed: ${errors.join('; ')}`,
+            status: "failed",
+            error_message: `Validation failed: ${errors.join("; ")}`,
           })
-          .eq('id', entity_id);
+          .eq("id", entity_id);
       }
     }
 
-    console.log(`[AUTO-VALIDATE] Result: ${valid ? 'VALID' : 'INVALID'}, ${errors.length} errors, ${warnings.length} warnings`);
+    console.log(
+      `[AUTO-VALIDATE] Result: ${valid ? "VALID" : "INVALID"}, ${errors.length} errors, ${warnings.length} warnings`
+    );
 
     return new Response(
       JSON.stringify({
@@ -162,20 +165,19 @@ serve(async (req) => {
         validation: result,
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       }
     );
-
   } catch (error) {
-    console.error('[AUTO-VALIDATE] Error:', error);
+    console.error("[AUTO-VALIDATE] Error:", error);
     return new Response(
       JSON.stringify({
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : "Unknown error",
         success: false,
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 500,
       }
     );

@@ -10,6 +10,7 @@
 ## 🎯 MISSION
 
 Die **Watchdog-AI** überwacht das gesamte MyDispatch-System 24/7 und stellt sicher, dass:
+
 - ✅ Alle Vorgaben eingehalten werden (Design, Layout, Mobile-First, Legal)
 - ✅ Keine Fehler unbemerkt bleiben
 - ✅ Performance-Budget eingehalten wird (< 3s Ladezeit, < 1.5MB Bundle)
@@ -58,6 +59,7 @@ Response:
 **File:** `supabase/functions/central-brain/index.ts`
 
 Das **Central Brain** orchestriert alle AI-Agenten:
+
 - **NeXify** (Lead AI Development Agent)
 - **Docs-Agent** (Dokumentations-Management)
 - **Watchdog-AI** (System-Überwachung)
@@ -83,6 +85,7 @@ Response:
 **File:** `supabase/functions/monitoring-cron/index.ts`
 
 Läuft automatisch alle 30 Minuten:
+
 1. Ruft Watchdog-AI auf (`action: "scan"`)
 2. Speichert Ergebnisse in `monitoring_logs` Tabelle
 3. Bei CRITICAL-Findings → Alarm an Central Brain
@@ -95,6 +98,7 @@ Läuft automatisch alle 30 Minuten:
 ### Frontend Monitoring
 
 **Checks:**
+
 - ✅ Direct Colors verwendet? (text-white, bg-black verboten)
 - ✅ Mobile-First eingehalten? (Touch-Targets ≥ 44px)
 - ✅ Semantic Tokens verwendet? (bg-primary, text-foreground)
@@ -102,6 +106,7 @@ Läuft automatisch alle 30 Minuten:
 - ✅ Hero-Bereiche korrekt? (Tailwind CSS, keine inline styles)
 
 **Tools:**
+
 - Playwright E2E Tests (automatisch)
 - Regex-Scans auf Dateien
 - Screenshot-Vergleiche (Visual Regression)
@@ -109,6 +114,7 @@ Läuft automatisch alle 30 Minuten:
 ### Backend Monitoring
 
 **Checks:**
+
 - ✅ RLS-Policies auf allen Tabellen?
 - ✅ API-Keys sicher gespeichert? (LOVABLE_API_KEY, etc.)
 - ✅ Edge Functions deployed & funktional?
@@ -116,6 +122,7 @@ Läuft automatisch alle 30 Minuten:
 - ✅ Realtime-Subscriptions aktiv?
 
 **Tools:**
+
 - Supabase Linter
 - Security Scanner
 - Edge Function Health Checks
@@ -123,6 +130,7 @@ Läuft automatisch alle 30 Minuten:
 ### Documentation Monitoring
 
 **Checks:**
+
 - ✅ Alle Docs auf V18.5.1 aktualisiert?
 - ✅ Veraltete Versionen (V18.3) archiviert?
 - ✅ Design-Referenzen konsistent?
@@ -130,6 +138,7 @@ Läuft automatisch alle 30 Minuten:
 - ✅ Keine widersprüchlichen Anweisungen?
 
 **Tools:**
+
 - Docs-Agent (manage-docs Edge Function)
 - Version-Checker Script
 - Cross-Reference Validator
@@ -137,6 +146,7 @@ Läuft automatisch alle 30 Minuten:
 ### Testing Monitoring
 
 **Checks:**
+
 - ✅ E2E Tests laufen erfolgreich?
 - ✅ Test Coverage ≥ 70%?
 - ✅ Keine flakey Tests?
@@ -144,6 +154,7 @@ Läuft automatisch alle 30 Minuten:
 - ✅ Performance Budget eingehalten?
 
 **Tools:**
+
 - Playwright Test Runner
 - Coverage Reporter
 - Bundle Analyzer
@@ -154,11 +165,11 @@ Läuft automatisch alle 30 Minuten:
 
 ### Severity Levels
 
-| Level | Beschreibung | Aktion |
-|-------|--------------|--------|
-| **INFO** | Hinweise, Best-Practice-Vorschläge | Logging, kein Alarm |
-| **WARNING** | Potenzielle Probleme, nicht kritisch | Benachrichtigung an NeXify |
-| **CRITICAL** | Fehler, System-Integrität gefährdet | Sofortiger Alarm, Auto-Rollback prüfen |
+| Level        | Beschreibung                         | Aktion                                 |
+| ------------ | ------------------------------------ | -------------------------------------- |
+| **INFO**     | Hinweise, Best-Practice-Vorschläge   | Logging, kein Alarm                    |
+| **WARNING**  | Potenzielle Probleme, nicht kritisch | Benachrichtigung an NeXify             |
+| **CRITICAL** | Fehler, System-Integrität gefährdet  | Sofortiger Alarm, Auto-Rollback prüfen |
 
 ### Alarm-Trigger (CRITICAL)
 
@@ -182,11 +193,11 @@ graph TD
     B -->|CRITICAL| C[Central Brain: Alert]
     B -->|WARNING| D[Central Brain: Log]
     B -->|INFO| E[Docs-Agent: Update]
-    
+
     C --> F[NeXify: Fix Priority 1]
     D --> G[NeXify: Fix Priority 2]
     E --> H[Docs-Agent: Dokumentieren]
-    
+
     F --> I[Watchdog-AI: Re-Scan]
     G --> I
     H --> I
@@ -195,12 +206,14 @@ graph TD
 ### Sync-Protocol
 
 **Alle 30 Minuten:**
+
 1. **Watchdog-AI** → Scan durchführen
 2. **Central Brain** → Ergebnisse aggregieren
 3. **NeXify** → Status abrufen, Fixes planen
 4. **Docs-Agent** → Erkenntnisse dokumentieren
 
 **Bei CRITICAL Findings:**
+
 1. **Watchdog-AI** → Sofort an Central Brain melden
 2. **Central Brain** → NeXify benachrichtigen (Priority 1)
 3. **NeXify** → Fix innerhalb 1 Stunde
@@ -233,6 +246,7 @@ CREATE INDEX idx_monitoring_logs_status ON monitoring_logs(status);
 **Route:** `/admin/monitoring`
 
 **Features:**
+
 - 📊 Real-Time System Health
 - 🔍 Latest Findings (letzten 24h)
 - 📈 Trend-Charts (Bundle Size, Load Time, Test Coverage)
@@ -244,18 +258,21 @@ CREATE INDEX idx_monitoring_logs_status ON monitoring_logs(status);
 ## 🚀 IMPLEMENTATION ROADMAP
 
 ### Phase 1: Foundation (BATCH 6)
+
 - [ ] `watchdog-monitor` Edge Function entwickeln
 - [ ] `central-brain` Edge Function entwickeln
 - [ ] Database Schema erstellen (`monitoring_logs`)
 - [ ] Basic Scans implementieren (Frontend, Backend)
 
 ### Phase 2: Integration (BATCH 7)
+
 - [ ] Cron Job Setup (alle 30min)
 - [ ] Alarm-System implementieren
 - [ ] Inter-Agent-Communication testen
 - [ ] Monitoring-Dashboard UI
 
 ### Phase 3: Optimization (BATCH 8)
+
 - [ ] Visual Regression Tests
 - [ ] Advanced Metrics (Code Coverage, Bundle Analysis)
 - [ ] Auto-Rollback bei CRITICAL Errors
@@ -265,13 +282,13 @@ CREATE INDEX idx_monitoring_logs_status ON monitoring_logs(status);
 
 ## 🎓 SUCCESS METRICS
 
-| Metrik | Ziel | Status |
-|--------|------|--------|
-| **Uptime** | 99.9% | 🔄 Monitoring |
-| **False Positives** | < 5% | 🔄 TBD |
-| **Response Time** | < 1h (CRITICAL) | 🔄 TBD |
-| **Scan Coverage** | 100% Codebase | 🔄 TBD |
-| **Alert Accuracy** | > 95% | 🔄 TBD |
+| Metrik              | Ziel            | Status        |
+| ------------------- | --------------- | ------------- |
+| **Uptime**          | 99.9%           | 🔄 Monitoring |
+| **False Positives** | < 5%            | 🔄 TBD        |
+| **Response Time**   | < 1h (CRITICAL) | 🔄 TBD        |
+| **Scan Coverage**   | 100% Codebase   | 🔄 TBD        |
+| **Alert Accuracy**  | > 95%           | 🔄 TBD        |
 
 ---
 

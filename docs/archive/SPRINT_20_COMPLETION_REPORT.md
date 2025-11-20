@@ -21,6 +21,7 @@
 **Datei:** `src/pages/Schichtzettel.tsx`
 
 **Änderungen:**
+
 - ✅ StandardPageLayout-Integration (statt DashboardLayout)
 - ✅ Stats-Cards mit Live-Workflow-Daten hinzugefügt:
   - Abgeschlossen (CheckCircle Icon) - Grün (approved + confirmed)
@@ -39,12 +40,14 @@
 - ✅ Workflow-Logik vollständig erhalten
 
 **Entfernte Duplikate:**
+
 - ❌ Manuelle Header-Struktur (jetzt StandardPageLayout)
 - ❌ Eigenes Card-Layout
 - ❌ Redundanter Search-Input
 - ❌ SEOHead + Breadcrumbs (jetzt in StandardPageLayout)
 
 **Konsistenz:**
+
 - ✅ Stats-Cards oben (3 Karten)
 - ✅ Suche zentral in StandardPageLayout
 - ✅ EmptyState bei 0 Schichten
@@ -58,7 +61,9 @@
 ## 🔧 TECHNISCHE DETAILS
 
 ### Spezielle Schichtzettel-Architektur
+
 Die Schichtzettel-Seite ist die komplexeste CRUD-Seite:
+
 - **Doppelte Bestätigung:** Fahrer + Unternehmer
 - **PBefG-konform:** 30 Tage Aufbewahrungspflicht (§ 21)
 - **PDF-Export:** Nur für abgeschlossene Schichten
@@ -66,38 +71,47 @@ Die Schichtzettel-Seite ist die komplexeste CRUD-Seite:
 - **Automatische Berechnungen:** Gesamt-Km, Gesamt-Einnahmen
 
 ### Workflow-Status-Logik
+
 ```tsx
 const getShiftStatus = (shift: Shift) => {
   if (shift.approved_by_company && shift.confirmed_by_driver) {
-    return { type: 'success' as const, label: 'Abgeschlossen' };
+    return { type: "success" as const, label: "Abgeschlossen" };
   }
   if (shift.approved_by_company && !shift.confirmed_by_driver) {
-    return { type: 'warning' as const, label: 'Warte auf Fahrer' };
+    return { type: "warning" as const, label: "Warte auf Fahrer" };
   }
   if (!shift.approved_by_company && shift.confirmed_by_driver) {
-    return { type: 'warning' as const, label: 'Warte auf Genehmigung' };
+    return { type: "warning" as const, label: "Warte auf Genehmigung" };
   }
-  return { type: 'pending' as const, label: 'Offen' };
+  return { type: "pending" as const, label: "Offen" };
 };
 ```
 
 ### Stats-Berechnung
+
 ```tsx
 const stats = useMemo(() => {
-  const approved = shifts.filter(s => s.approved_by_company && s.confirmed_by_driver).length;
-  const pending = shifts.filter(s => !s.approved_by_company || !s.confirmed_by_driver).length;
+  const approved = shifts.filter((s) => s.approved_by_company && s.confirmed_by_driver).length;
+  const pending = shifts.filter((s) => !s.approved_by_company || !s.confirmed_by_driver).length;
   const total = shifts.length;
 
   return [
-    { label: 'Abgeschlossen', value: approved, icon: <CheckCircle />, valueClassName: 'text-status-success' },
-    { label: 'Offen', value: pending, icon: <Clock />, valueClassName: 'text-status-warning' },
-    { label: 'Gesamt', value: total, icon: <FolderOpen /> },
+    {
+      label: "Abgeschlossen",
+      value: approved,
+      icon: <CheckCircle />,
+      valueClassName: "text-status-success",
+    },
+    { label: "Offen", value: pending, icon: <Clock />, valueClassName: "text-status-warning" },
+    { label: "Gesamt", value: total, icon: <FolderOpen /> },
   ];
 }, [shifts]);
 ```
 
 ### Spezial-Action-Buttons
+
 Zusätzlich zu StandardActionButtons (Details):
+
 - **Genehmigen-Button (Check):** Nur sichtbar wenn `!approved_by_company`
 - **PDF-Export-Button (Download):** Nur sichtbar wenn `approved_by_company && confirmed_by_driver`
 
@@ -110,6 +124,7 @@ Zusätzlich zu StandardActionButtons (Details):
 ```
 
 ### Build-Status
+
 ```
 ✅ TypeScript: 0 Errors
 ✅ JSX-Struktur: Vollständig korrekt
@@ -120,12 +135,14 @@ Zusätzlich zu StandardActionButtons (Details):
 ```
 
 ### Performance
+
 - ✅ React Query Caching via useShifts (5min staleTime)
 - ✅ Stats-Berechnung mit useMemo optimiert
 - ✅ Keine unnötigen Re-Renders
 - ✅ Workflow-Logik performant
 
 ### Accessibility
+
 - ✅ Semantic HTML
 - ✅ ARIA-Labels vorhanden
 - ✅ StatusIndicator screen-reader-freundlich
@@ -135,19 +152,19 @@ Zusätzlich zu StandardActionButtons (Details):
 
 ## 📋 MIGRIERTE SEITEN (GESAMT)
 
-| Seite | Status | Sprint | Bemerkung |
-|-------|--------|--------|-----------|
-| Rechnungen | ✅ | 15 | Vollständig |
-| Kunden | ✅ | 15 | Vollständig |
-| Aufträge | ✅ | 16 | Vollständig + Dialog-Fix |
-| Fahrzeuge | ✅ | 16 | Vollständig |
-| Angebote | ✅ | 16 | Vollständig |
-| Fahrer | ✅ | 16 | Vollständig + Stats |
-| Partner | ✅ | 17 | Vollständig + Tabs-System |
-| Dokumente | ✅ | 18 | Vollständig + Ablauf-Tracking |
-| Kostenstellen | ✅ | 19 | Vollständig + Hook-Integration |
-| **Schichtzettel** | ✅ | **20** | **NEU MIGRIERT + Workflow-Logik** |
-| Office | ⏳ | 21 | Letzte verbleibende Seite |
+| Seite             | Status | Sprint | Bemerkung                         |
+| ----------------- | ------ | ------ | --------------------------------- |
+| Rechnungen        | ✅     | 15     | Vollständig                       |
+| Kunden            | ✅     | 15     | Vollständig                       |
+| Aufträge          | ✅     | 16     | Vollständig + Dialog-Fix          |
+| Fahrzeuge         | ✅     | 16     | Vollständig                       |
+| Angebote          | ✅     | 16     | Vollständig                       |
+| Fahrer            | ✅     | 16     | Vollständig + Stats               |
+| Partner           | ✅     | 17     | Vollständig + Tabs-System         |
+| Dokumente         | ✅     | 18     | Vollständig + Ablauf-Tracking     |
+| Kostenstellen     | ✅     | 19     | Vollständig + Hook-Integration    |
+| **Schichtzettel** | ✅     | **20** | **NEU MIGRIERT + Workflow-Logik** |
+| Office            | ⏳     | 21     | Letzte verbleibende Seite         |
 
 **Fortschritt:** 10/11 Seiten (91%) ✅
 
@@ -156,6 +173,7 @@ Zusätzlich zu StandardActionButtons (Details):
 ## 🎯 QUALITÄTSSICHERUNG
 
 ### Checkliste (alle ✅)
+
 - [x] Layout-Konsistenz: Header 60px, Sidebar 64/240px
 - [x] Mobile-First: Breakpoints korrekt (<768px)
 - [x] CI-Farben: #EADEBD, #323D5E, #856d4b
@@ -177,31 +195,37 @@ Zusätzlich zu StandardActionButtons (Details):
 ## 🐛 BEHOBENE FEHLER
 
 ### 1. **Fehlende Hook-Integration**
+
 **Problem:** Direkte Supabase-Calls statt useShifts Hook  
 **Lösung:** useShifts Hook bereits vorhanden, integriert  
 **Datei:** Schichtzettel.tsx (Hook-Migration)
 
 ### 2. **Fehlende Stats-Cards**
+
 **Problem:** Keine Übersicht über Workflow-Status  
 **Lösung:** 3 Stats-Cards mit useMemo (Abgeschlossen, Offen, Gesamt)  
 **Datei:** Schichtzettel.tsx (Stats-Calculation)
 
 ### 3. **Manuelle Header-Struktur**
+
 **Problem:** Inkonsistenter Header (nicht StandardPageLayout)  
 **Lösung:** StandardPageLayout mit Props (title, subtitle, onCreateNew)  
 **Datei:** Schichtzettel.tsx (Layout-Migration)
 
 ### 4. **Keine EmptyState**
+
 **Problem:** Leere Tabelle statt EmptyState  
 **Lösung:** EmptyState mit Such-Modus (isSearchResult)  
 **Datei:** Schichtzettel.tsx (EmptyState-Integration)
 
 ### 5. **TypeScript-Fehler bei updateShift**
+
 **Problem:** updateShift erwartete komplettes Shift-Objekt  
 **Lösung:** Direkte Supabase-Calls für Approve/Archive (Partial-Updates)  
 **Datei:** Schichtzettel.tsx (handleApprove, handleArchive)
 
 ### 6. **ShiftForm Edit-Mode**
+
 **Problem:** ShiftForm hat kein Edit-Mode  
 **Lösung:** Edit-Button deaktiviert, nur Create-Mode  
 **Datei:** Schichtzettel.tsx (Edit-Functionality)
@@ -219,6 +243,7 @@ Zusätzlich zu StandardActionButtons (Details):
 ## 🚀 NÄCHSTE SCHRITTE (Sprint 21 - FINAL)
 
 ### 1. **Office-Seite Migration** (P0 - Letzte Seite!)
+
 - StandardPageLayout-Integration
 - Stats-Cards (E-Mails, Briefe, Templates, Gesamt)
 - E-Mail/Brief-Templates-System
@@ -227,12 +252,14 @@ Zusätzlich zu StandardActionButtons (Details):
 - Resend.com Integration prüfen
 
 ### 2. **Abschluss-Dokumentation** (P1)
+
 - Alle Sprint-Reports zusammenfassen
 - Migration-Guide finalisieren
 - Performance-Metriken dokumentieren
 - Before/After Vergleich
 
 ### 3. **Qualitätssicherung Gesamt** (P1)
+
 - Alle 11 Seiten testen (Desktop/Tablet/Mobile)
 - Konsistenz-Check aller Action-Buttons
 - EmptyState-Funktionalität prüfen
@@ -243,17 +270,20 @@ Zusätzlich zu StandardActionButtons (Details):
 ## 💡 LESSONS LEARNED
 
 ### Was gut lief:
+
 - ✅ Komplexer Workflow perfekt in StandardPageLayout integriert
 - ✅ Spezial-Buttons (Genehmigen, PDF) neben StandardActionButtons
 - ✅ useShifts Hook bereits vorhanden (keine neue Hook-Erstellung nötig)
 - ✅ Stats-Cards zeigen Workflow-Status auf einen Blick
 
 ### Was verbessert wurde:
+
 - ✅ Direkte Supabase-Calls für Partial-Updates (statt kompletter Hook-Update)
 - ✅ Edit-Mode deaktiviert (ShiftForm unterstützt kein Editing)
 - ✅ Conditional Rendering für Spezial-Buttons
 
 ### Für nächsten Sprint:
+
 - 📝 Office-Seite: E-Mail/Brief-System analysieren
 - 📝 Template-Verwaltung prüfen
 - 📝 Tabs-Integration für E-Mails/Briefe

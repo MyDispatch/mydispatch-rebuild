@@ -8,7 +8,7 @@
 
 ## 🎯 WARUM CONSOLE-LOG ELIMINATION?
 
-### Probleme mit unguarded console.* Calls
+### Probleme mit unguarded console.\* Calls
 
 1. **Security Risk:**
    - Sensitive data exposure in production
@@ -26,7 +26,7 @@
    - Console-API usage in production unintended
 
 4. **Terser Limitation:**
-   - Only eliminates STATIC console.* calls
+   - Only eliminates STATIC console.\* calls
    - Runtime calls (in functions, callbacks) remain
    - No control over conditional logging
 
@@ -38,30 +38,32 @@
 
 ```typescript
 // ❌ NIEMALS SO
-console.log('[Component] Debug');
-console.error('[Component] Error:', error);
-console.warn('[Component] Warning');
+console.log("[Component] Debug");
+console.error("[Component] Error:", error);
+console.warn("[Component] Warning");
 
 // ✅ IMMER SO
-import { logger } from '@/lib/logger';
+import { logger } from "@/lib/logger";
 
-logger.debug('[Component] Debug', { component: 'Component' });
-logger.error('[Component] Error', error, { component: 'Component' });
-logger.warn('[Component] Warning', { component: 'Component' });
+logger.debug("[Component] Debug", { component: "Component" });
+logger.error("[Component] Error", error, { component: "Component" });
+logger.warn("[Component] Warning", { component: "Component" });
 ```
 
 ### Vorteile
 
 1. **Automatic DEV-Guards:**
+
    ```typescript
-   logger.debug('Message'); // Nur in DEV (auto)
-   logger.info('Message');  // Production OK
+   logger.debug("Message"); // Nur in DEV (auto)
+   logger.info("Message"); // Production OK
    ```
 
 2. **Structured Logging:**
+
    ```typescript
-   logger.error('Error', error, {
-     component: 'Component',
+   logger.error("Error", error, {
+     component: "Component",
      context: { userId, action },
    });
    ```
@@ -84,14 +86,14 @@ logger.warn('[Component] Warning', { component: 'Component' });
 
 ```typescript
 // ❌ VORHER
-console.log('[BookingForm] Form submitted:', data);
+console.log("[BookingForm] Form submitted:", data);
 
 // ✅ NACHHER
-import { logger } from '@/lib/logger';
+import { logger } from "@/lib/logger";
 
-logger.info('[BookingForm] Form submitted', { 
-  component: 'BookingForm',
-  data 
+logger.info("[BookingForm] Form submitted", {
+  component: "BookingForm",
+  data,
 });
 ```
 
@@ -119,15 +121,15 @@ catch (error) {
 ```typescript
 // ❌ VORHER
 if (!companyId) {
-  console.warn('[Database] No company_id provided');
+  console.warn("[Database] No company_id provided");
 }
 
 // ✅ NACHHER
-import { logger } from '@/lib/logger';
+import { logger } from "@/lib/logger";
 
 if (!companyId) {
-  logger.warn('[Database] No company_id provided', {
-    component: 'Database'
+  logger.warn("[Database] No company_id provided", {
+    component: "Database",
   });
 }
 ```
@@ -137,15 +139,15 @@ if (!companyId) {
 ```typescript
 // ❌ VORHER
 if (import.meta.env.DEV) {
-  console.log('[Component] Render state:', state);
+  console.log("[Component] Render state:", state);
 }
 
 // ✅ NACHHER (einfacher!)
-import { logger } from '@/lib/logger';
+import { logger } from "@/lib/logger";
 
-logger.debug('[Component] Render state', { 
-  component: 'Component',
-  state 
+logger.debug("[Component] Render state", {
+  component: "Component",
+  state,
 });
 ```
 
@@ -183,20 +185,22 @@ grep -r "console\." src/ | grep -v "import.meta.env.DEV" | wc -l
 ### Manual Post-Processing
 
 **Wo nötig:**
+
 - Component-Context hinzufügen
 - Structured data formatieren
 - Error objects korrekt wrappen
 
 **Beispiel:**
+
 ```typescript
 // Nach Auto-Migration
-logger.info('[Component] Message');
+logger.info("[Component] Message");
 
 // Manual Enhancement
-logger.info('[Component] Message', {
-  component: 'ComponentName',
+logger.info("[Component] Message", {
+  component: "ComponentName",
   userId: user?.id,
-  timestamp: Date.now()
+  timestamp: Date.now(),
 });
 ```
 
@@ -232,10 +236,13 @@ fi
 // .eslintrc.js
 module.exports = {
   rules: {
-    'no-console': ['warn', {
-      allow: [] // Keine console.* erlaubt (außer DEV-guards)
-    }],
-  }
+    "no-console": [
+      "warn",
+      {
+        allow: [], // Keine console.* erlaubt (außer DEV-guards)
+      },
+    ],
+  },
 };
 ```
 
@@ -253,7 +260,7 @@ declare global {
 }
 
 // Force usage of logger
-import { logger } from './lib/logger';
+import { logger } from "./lib/logger";
 ```
 
 ---
@@ -263,38 +270,44 @@ import { logger } from './lib/logger';
 ### DO: ✅
 
 1. **Immer logger.ts verwenden:**
+
    ```typescript
-   import { logger } from '@/lib/logger';
+   import { logger } from "@/lib/logger";
    ```
 
 2. **Structured Logging:**
+
    ```typescript
-   logger.info('Message', { context: data });
+   logger.info("Message", { context: data });
    ```
 
 3. **Component Context:**
+
    ```typescript
-   logger.error('Error', error, { component: 'Component' });
+   logger.error("Error", error, { component: "Component" });
    ```
 
 4. **Production-Safe:**
    ```typescript
-   logger.debug('Dev info'); // Auto DEV-only
+   logger.debug("Dev info"); // Auto DEV-only
    ```
 
 ### DON'T: ❌
 
-1. **NIEMALS direkte console.* Calls:**
+1. **NIEMALS direkte console.\* Calls:**
+
    ```typescript
-   console.log('...'); // ❌ VERBOTEN
+   console.log("..."); // ❌ VERBOTEN
    ```
 
 2. **NIEMALS ohne Context:**
+
    ```typescript
-   logger.info('Error'); // ❌ Nicht aussagekräftig
+   logger.info("Error"); // ❌ Nicht aussagekräftig
    ```
 
 3. **NIEMALS in Production-Critical Code:**
+
    ```typescript
    // ❌ KRITISCHER FEHLER
    try {
@@ -306,38 +319,40 @@ import { logger } from './lib/logger';
 
 4. **NIEMALS multiple Logging-Systeme:**
    ```typescript
-   import { devLogger } from './dev-logger'; // ❌ VERBOTEN
-   import { logger } from './logger';        // ✅ KORREKT
+   import { devLogger } from "./dev-logger"; // ❌ VERBOTEN
+   import { logger } from "./logger"; // ✅ KORREKT
    ```
 
 ---
 
 ## 🔍 TROUBLESHOOTING
 
-### Problem 1: "console.* still in production build"
+### Problem 1: "console.\* still in production build"
 
 **Ursache:** Runtime console calls (in functions, callbacks)
 
 **Lösung:**
+
 ```typescript
 // ❌ PROBLEM
 const handler = () => {
-  console.log('Handler called'); // Runtime call, not eliminated
+  console.log("Handler called"); // Runtime call, not eliminated
 };
 
 // ✅ LÖSUNG
-import { logger } from '@/lib/logger';
+import { logger } from "@/lib/logger";
 
 const handler = () => {
-  logger.debug('Handler called', { component: 'Handler' });
+  logger.debug("Handler called", { component: "Handler" });
 };
 ```
 
-### Problem 2: "Too many console.* warnings"
+### Problem 2: "Too many console.\* warnings"
 
 **Ursache:** Unguarded console calls in source
 
 **Lösung:**
+
 ```bash
 # Find all unguarded calls
 grep -r "console\." src/ | grep -v "import.meta.env.DEV"
@@ -351,12 +366,13 @@ grep -r "console\." src/ | grep -v "import.meta.env.DEV"
 **Ursache:** Missing logger import or wrong path
 
 **Lösung:**
+
 ```typescript
 // ✅ KORREKT
-import { logger } from '@/lib/logger';
+import { logger } from "@/lib/logger";
 
 // ❌ FALSCH
-import { logger } from './logger'; // Relativer Pfad
+import { logger } from "./logger"; // Relativer Pfad
 ```
 
 ---
@@ -396,23 +412,23 @@ grep -r "console\." src/ | grep -v "import.meta.env.DEV" | wc -l
 2. **Production-Safe:** Automatic DEV-guards
 3. **Structured Logging:** Context immer included
 4. **Quality Gates:** Automated checks vor Deployment
-5. **Zero Tolerance:** Keine console.* in Production
+5. **Zero Tolerance:** Keine console.\* in Production
 
 ### Pattern-Zusammenfassung
 
 ```typescript
 // ❌ NIEMALS
-console.log('Message');
-console.error('Error');
-console.warn('Warning');
+console.log("Message");
+console.error("Error");
+console.warn("Warning");
 
 // ✅ IMMER
-import { logger } from '@/lib/logger';
+import { logger } from "@/lib/logger";
 
-logger.debug('Dev info', { context });    // Auto DEV-only
-logger.info('Info message', { context });  // Production OK
-logger.warn('Warning', { context });       // Production OK
-logger.error('Error', error, { context }); // Always logged
+logger.debug("Dev info", { context }); // Auto DEV-only
+logger.info("Info message", { context }); // Production OK
+logger.warn("Warning", { context }); // Production OK
+logger.error("Error", error, { context }); // Always logged
 ```
 
 ---

@@ -13,15 +13,15 @@ const corsHeaders = {
 };
 
 interface CheckRequest {
-  reportType: 'code' | 'database' | 'git' | 'full';
-  code?: string;           // Code-Snippet für Review
-  files?: string[];        // File-Paths für Review
-  dbQuery?: string;        // DB-Query für Analyse
-  context?: string;        // Zusätzlicher Kontext
+  reportType: "code" | "database" | "git" | "full";
+  code?: string; // Code-Snippet für Review
+  files?: string[]; // File-Paths für Review
+  dbQuery?: string; // DB-Query für Analyse
+  context?: string; // Zusätzlicher Kontext
 }
 
 interface ClaudeMessage {
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   content: string;
 }
 
@@ -45,8 +45,11 @@ serve(async (req) => {
 
     // User/Company Validation
     const token = authHeader.replace("Bearer ", "");
-    const { data: { user }, error: userError } = await supabase.auth.getUser(token);
-    
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser(token);
+
     if (userError || !user) {
       throw new Error("Invalid auth token");
     }
@@ -76,13 +79,13 @@ serve(async (req) => {
       .insert({
         company_id: profile.company_id,
         report_type: reportType,
-        status: 'pending',
-        source_type: 'manual',
+        status: "pending",
+        source_type: "manual",
         source_metadata: {
           user_id: user.id,
           timestamp: new Date().toISOString(),
-          report_type: reportType
-        }
+          report_type: reportType,
+        },
       })
       .select()
       .single();
@@ -121,9 +124,9 @@ WICHTIG: Deine Antwort MUSS IMMER valides JSON sein mit diesem Format:
 
 Bei fehlerfreiem Code: {"issues": [], "fixes": [], "summary": "Keine Probleme gefunden."}`;
 
-    let userPrompt = '';
-    
-    if (reportType === 'code') {
+    let userPrompt = "";
+
+    if (reportType === "code") {
       userPrompt = `**CODE REVIEW AUFTRAG**
 
 Prüfe folgenden Code auf:
@@ -132,12 +135,12 @@ Prüfe folgenden Code auf:
 - Security-Issues (SQL Injection, XSS, etc.)
 - Performance-Probleme
 
-${code ? `\n\nCode:\n\`\`\`typescript\n${code}\n\`\`\`` : ''}
-${files ? `\n\nFiles: ${files.join(', ')}` : ''}
-${context ? `\n\nKontext: ${context}` : ''}
+${code ? `\n\nCode:\n\`\`\`typescript\n${code}\n\`\`\`` : ""}
+${files ? `\n\nFiles: ${files.join(", ")}` : ""}
+${context ? `\n\nKontext: ${context}` : ""}
 
 Antwort als JSON.`;
-    } else if (reportType === 'database') {
+    } else if (reportType === "database") {
       userPrompt = `**DATABASE ANALYSE AUFTRAG**
 
 Prüfe folgende DB-Query/Schema auf:
@@ -146,11 +149,11 @@ Prüfe folgende DB-Query/Schema auf:
 - Fehlende Foreign Keys
 - RLS Policy Gaps
 
-${dbQuery ? `\n\nQuery:\n\`\`\`sql\n${dbQuery}\n\`\`\`` : ''}
-${context ? `\n\nKontext: ${context}` : ''}
+${dbQuery ? `\n\nQuery:\n\`\`\`sql\n${dbQuery}\n\`\`\`` : ""}
+${context ? `\n\nKontext: ${context}` : ""}
 
 Antwort als JSON.`;
-    } else if (reportType === 'git') {
+    } else if (reportType === "git") {
       userPrompt = `**GIT REVIEW AUFTRAG**
 
 Prüfe Git-Commits/Files auf:
@@ -158,7 +161,7 @@ Prüfe Git-Commits/Files auf:
 - Fehlende Tests
 - Console.logs/Debug-Code
 
-${context ? `\n\nKontext: ${context}` : ''}
+${context ? `\n\nKontext: ${context}` : ""}
 
 Antwort als JSON.`;
     } else {
@@ -166,14 +169,14 @@ Antwort als JSON.`;
 
 Führe umfassenden Check durch (Code + DB + Git).
 
-${context ? `\n\nKontext: ${context}` : ''}
+${context ? `\n\nKontext: ${context}` : ""}
 
 Antwort als JSON.`;
     }
 
     // Call Claude Sonnet 4.5
     console.log(`[CODE-CHECKER] Calling Claude Sonnet 4.5 for report ${report.id}`);
-    
+
     const claudeResponse = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -186,7 +189,7 @@ Antwort als JSON.`;
         max_tokens: 4096,
         temperature: 0.3, // Niedriger für präzise Analysen
         messages: [
-          { role: "user", content: systemPrompt + "\n\n" + userPrompt }
+          { role: "user", content: systemPrompt + "\n\n" + userPrompt },
         ] as ClaudeMessage[],
       }),
     });
@@ -194,21 +197,21 @@ Antwort als JSON.`;
     if (!claudeResponse.ok) {
       const errorText = await claudeResponse.text();
       console.error(`[CODE-CHECKER] Claude API Error (${claudeResponse.status}):`, errorText);
-      
+
       // Update report to error
       await supabase
         .from("checker_reports")
         .update({
-          status: 'error',
-          summary: `Claude API Error: ${claudeResponse.status} - ${errorText.slice(0, 500)}`
+          status: "error",
+          summary: `Claude API Error: ${claudeResponse.status} - ${errorText.slice(0, 500)}`,
         })
         .eq("id", report.id);
-      
+
       throw new Error(`Claude API failed: ${claudeResponse.status}`);
     }
 
     const claudeData = await claudeResponse.json();
-    const claudeText = claudeData.content?.[0]?.text || '';
+    const claudeText = claudeData.content?.[0]?.text || "";
     const tokensUsed = claudeData.usage?.total_tokens || 0;
 
     console.log(`[CODE-CHECKER] Claude response received, tokens: ${tokensUsed}`);
@@ -222,37 +225,40 @@ Antwort als JSON.`;
       parsedResult = JSON.parse(jsonString);
     } catch (e) {
       console.error(`[CODE-CHECKER] Failed to parse Claude JSON:`, claudeText);
-      
+
       // Fallback: Plain-Text Summary
       await supabase
         .from("checker_reports")
         .update({
-          status: 'warning',
+          status: "warning",
           summary: `Claude Response (nicht als JSON parsebar):\n\n${claudeText.slice(0, 2000)}`,
-          tokens_used: tokensUsed
+          tokens_used: tokensUsed,
         })
         .eq("id", report.id);
-      
-      return new Response(JSON.stringify({ 
-        success: false, 
-        reportId: report.id,
-        message: "Claude antwortete nicht im JSON-Format"
-      }), {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+
+      return new Response(
+        JSON.stringify({
+          success: false,
+          reportId: report.id,
+          message: "Claude antwortete nicht im JSON-Format",
+        }),
+        {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
     }
 
     // Update Report mit Results
     const { error: updateError } = await supabase
       .from("checker_reports")
       .update({
-        status: parsedResult.issues?.length > 0 ? 'warning' : 'success',
+        status: parsedResult.issues?.length > 0 ? "warning" : "success",
         issues: parsedResult.issues || [],
         fixes: parsedResult.fixes || [],
-        summary: parsedResult.summary || 'Keine Zusammenfassung verfügbar',
+        summary: parsedResult.summary || "Keine Zusammenfassung verfügbar",
         tokens_used: tokensUsed,
-        model_used: 'claude-sonnet-4-5'
+        model_used: "claude-sonnet-4-5",
       })
       .eq("id", report.id);
 
@@ -261,28 +267,35 @@ Antwort als JSON.`;
       throw updateError;
     }
 
-    console.log(`[CODE-CHECKER] Report ${report.id} completed: ${parsedResult.issues?.length || 0} issues found`);
+    console.log(
+      `[CODE-CHECKER] Report ${report.id} completed: ${parsedResult.issues?.length || 0} issues found`
+    );
 
     // Return Success
-    return new Response(JSON.stringify({
-      success: true,
-      reportId: report.id,
-      issuesFound: parsedResult.issues?.length || 0,
-      summary: parsedResult.summary,
-      data: parsedResult
-    }), {
-      status: 200,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
-
+    return new Response(
+      JSON.stringify({
+        success: true,
+        reportId: report.id,
+        issuesFound: parsedResult.issues?.length || 0,
+        summary: parsedResult.summary,
+        data: parsedResult,
+      }),
+      {
+        status: 200,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
     console.error("[CODE-CHECKER] Error:", error);
-    return new Response(JSON.stringify({ 
-      success: false, 
-      error: error instanceof Error ? error.message : "Unknown error" 
-    }), {
-      status: 500,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-    });
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
+      }),
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      }
+    );
   }
 });

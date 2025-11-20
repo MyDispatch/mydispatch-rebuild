@@ -11,14 +11,17 @@
 ## 📊 EXECUTIVE SUMMARY
 
 ### Zweck
+
 Die Documentation Page ist die zentrale Anlaufstelle für **Hilfe, Tutorials und Support** für bestehende und potenzielle Kunden.
 
 ### Zielgruppe
+
 - Neue Nutzer (Onboarding)
 - Bestehende Nutzer (Feature-Suche)
 - Entscheider (Pre-Sales-Informationen)
 
 ### Kernbotschaft
+
 > "Alles, was Sie über MyDispatch wissen müssen. Von Quick-Start bis zu erweiterten Features."
 
 ---
@@ -26,6 +29,7 @@ Die Documentation Page ist die zentrale Anlaufstelle für **Hilfe, Tutorials und
 ## 🏗️ ARCHITEKTUR-ENTSCHEIDUNGEN
 
 ### Layout
+
 ```typescript
 Layout: MarketingLayout
 Grid: DOCS-GRID (Sidebar + Content-Area)
@@ -33,22 +37,23 @@ Responsive: Mobile-First (Sidebar wird zu Dropdown auf Mobile)
 ```
 
 ### Component-Struktur
+
 ```typescript
 const PageStructure = {
-  Header: 'MarketingHeader',
+  Header: "MarketingHeader",
   Layout: {
-    Sidebar: 'DocsSidebar',      // Kategorie-Navigation
-    Content: 'DocsContent',       // Dynamischer Content-Bereich
+    Sidebar: "DocsSidebar", // Kategorie-Navigation
+    Content: "DocsContent", // Dynamischer Content-Bereich
   },
   Components: [
-    'DocsHeroSection',            // Hero + Search
-    'QuickStartSection',          // 5-Minuten Quick-Start
-    'CategoriesSection',          // Haupt-Kategorien (Cards)
-    'PopularArticlesSection',     // Top 5 meistgelesene Artikel
-    'VideoTutorialsSection',      // Video-Tutorials (optional)
-    'SupportCTASection',          // "Nicht gefunden? Support kontaktieren"
+    "DocsHeroSection", // Hero + Search
+    "QuickStartSection", // 5-Minuten Quick-Start
+    "CategoriesSection", // Haupt-Kategorien (Cards)
+    "PopularArticlesSection", // Top 5 meistgelesene Artikel
+    "VideoTutorialsSection", // Video-Tutorials (optional)
+    "SupportCTASection", // "Nicht gefunden? Support kontaktieren"
   ],
-  Footer: 'MarketingFooter',
+  Footer: "MarketingFooter",
 };
 ```
 
@@ -57,6 +62,7 @@ const PageStructure = {
 ## 📐 MOBILE-FIRST WIREFRAMES
 
 ### Mobile (375px)
+
 ```
 ┌─────────────────────────────────┐
 │  [Logo]          [Menü ☰]       │
@@ -101,6 +107,7 @@ const PageStructure = {
 ```
 
 ### Desktop (1920px)
+
 ```
 ┌───────────────────────────────────────────────────┐
 │  [Logo]      Features  Preise  Docs  Kontakt      │
@@ -138,6 +145,7 @@ const PageStructure = {
 ## 🎨 COMPONENT-BREAKDOWN
 
 ### Neu zu erstellen
+
 - [ ] `DocsHeroSection.tsx` (10min)
   - Search-Bar (Live-Suche)
   - Kategorie-Quick-Links
@@ -173,6 +181,7 @@ const PageStructure = {
   - Link zu Kontakt
 
 ### Wiederverwendbar
+
 - [x] `MarketingHeader`
 - [x] `MarketingFooter`
 - [x] `Input` (Search)
@@ -185,14 +194,17 @@ const PageStructure = {
 ## 🔒 RECHTLICHE COMPLIANCE
 
 ### DSGVO
+
 - [x] Kein Datenschutzhinweis (keine Formulare, nur Suche)
 - [x] Footer-Links vorhanden
 
 ### TMG
+
 - [x] Impressum-Link
 - [x] Datenschutz-Link
 
 ### AI Act (KRITISCH!)
+
 - [x] **Falls KI-gestützter Chat:** KI-Kennzeichnung VERPFLICHTEND!
 - [x] Icon + Text-Hinweis bei jeder KI-Antwort
 
@@ -202,23 +214,24 @@ const PageStructure = {
   <div className="flex items-start gap-2">
     <Bot className="h-5 w-5 text-primary shrink-0 mt-0.5" />
     <div className="text-xs text-muted-foreground">
-      <strong>KI-Assistent:</strong> Diese Antworten werden von einer 
-      künstlichen Intelligenz generiert. Prüfen Sie wichtige Informationen 
-      bitte selbst nach oder kontaktieren Sie unseren Support.
+      <strong>KI-Assistent:</strong> Diese Antworten werden von einer künstlichen Intelligenz
+      generiert. Prüfen Sie wichtige Informationen bitte selbst nach oder kontaktieren Sie unseren
+      Support.
     </div>
   </div>
 </div>
 ```
 
 ### Compliance-Matrix
+
 ```typescript
 const DocsPageCompliance = {
   DSGVO: {
-    datenschutzhinweis: false,  // Keine Formulare
+    datenschutzhinweis: false, // Keine Formulare
     footer_links: true,
   },
   AI_Act: {
-    ki_kennzeichnung: true,     // Falls Chat-Feature!
+    ki_kennzeichnung: true, // Falls Chat-Feature!
   },
   TMG: {
     impressum: true,
@@ -232,21 +245,24 @@ const DocsPageCompliance = {
 ## 🔍 SEO-STRATEGIE
 
 ### Primary Keywords
+
 - MyDispatch Dokumentation
 - MyDispatch Hilfe
 - MyDispatch Tutorial
 - MyDispatch Anleitung
 
 ### Secondary Keywords
+
 - Taxi Software Anleitung
 - Dispositionssoftware Hilfe
 - Fuhrparkverwaltung Tutorial
 
 ### Meta-Tags
+
 ```html
 <title>MyDispatch Dokumentation – Hilfe & Tutorials</title>
-<meta 
-  name="description" 
+<meta
+  name="description"
   content="Vollständige MyDispatch Dokumentation mit Tutorials, 
            Anleitungen und Quick-Start-Guide. Von Erste Schritte 
            bis zu erweiterten Features."
@@ -254,6 +270,7 @@ const DocsPageCompliance = {
 ```
 
 ### Structured Data (JSON-LD)
+
 ```json
 {
   "@context": "https://schema.org",
@@ -269,14 +286,17 @@ const DocsPageCompliance = {
 ## 📝 CONTENT-STRUKTUR
 
 ### Hero-Section
+
 **H1:** "MyDispatch Dokumentation"
 **P:** "Alles, was Sie über MyDispatch wissen müssen."
 **Search:** "Durchsuchen Sie 100+ Hilfe-Artikel..."
 
 ### Quick-Start-Section
+
 **H2:** "In 5 Minuten startklar"
 
 **Schritte:**
+
 1. **Account erstellen** - Registrierung & Tarif-Auswahl
 2. **Erstes Fahrzeug hinzufügen** - Kennzeichen, TÜV, Versicherung
 3. **Ersten Fahrer anlegen** - Name, P-Schein, Führerschein
@@ -286,6 +306,7 @@ const DocsPageCompliance = {
 ### Kategorien (Haupt)
 
 #### 📋 Erste Schritte (12 Artikel)
+
 - Account erstellen
 - Erstes Fahrzeug hinzufügen
 - Ersten Fahrer anlegen
@@ -295,6 +316,7 @@ const DocsPageCompliance = {
 - ...
 
 #### 🚗 Fuhrparkverwaltung (8 Artikel)
+
 - Fahrzeuge hinzufügen
 - TÜV-Erinnerungen einrichten
 - Wartungspläne erstellen
@@ -302,6 +324,7 @@ const DocsPageCompliance = {
 - ...
 
 #### 👨‍✈️ Fahrer & Personal (6 Artikel)
+
 - Fahrer anlegen
 - P-Schein-Verwaltung
 - Arbeitszeiten erfassen
@@ -309,6 +332,7 @@ const DocsPageCompliance = {
 - ...
 
 #### 📋 Auftragsverwaltung (10 Artikel)
+
 - Auftrag erstellen
 - Fahrer zuweisen
 - GPS-Tracking nutzen
@@ -316,6 +340,7 @@ const DocsPageCompliance = {
 - ...
 
 #### 💰 Finanzen & Rechnungen (7 Artikel)
+
 - Rechnungen erstellen
 - Abrechnungen durchführen
 - Umsätze analysieren
@@ -323,18 +348,21 @@ const DocsPageCompliance = {
 - ...
 
 #### 🔗 Partner-Netzwerk (5 Artikel)
+
 - Partner hinzufügen
 - Aufträge verteilen
 - Provisionen verwalten
 - ...
 
 #### 📊 Statistiken & Berichte (6 Artikel)
+
 - Dashboard-KPIs verstehen
 - Berichte exportieren
 - Kennzahlen analysieren
 - ...
 
 #### ⚙️ Einstellungen & Integration (8 Artikel)
+
 - Tarif wechseln
 - API-Zugang einrichten
 - Webhooks konfigurieren
@@ -342,12 +370,14 @@ const DocsPageCompliance = {
 - ...
 
 #### 🆘 Support & Troubleshooting (5 Artikel)
+
 - Häufige Fehler beheben
 - Support kontaktieren
 - Feedback geben
 - ...
 
 ### Beliebte Artikel (Top 5)
+
 1. **Wie erstelle ich einen Auftrag?** (500 Aufrufe)
 2. **GPS-Tracking einrichten** (450 Aufrufe)
 3. **Partner-Netzwerk nutzen** (400 Aufrufe)
@@ -355,6 +385,7 @@ const DocsPageCompliance = {
 5. **Tarif wechseln** (350 Aufrufe)
 
 ### Support-CTA-Section
+
 **H2:** "Nicht gefunden, wonach Sie suchen?"
 **P:** "Unser Support-Team hilft Ihnen gerne weiter."
 **CTA:** "Support kontaktieren"
@@ -369,34 +400,30 @@ const DocsPageCompliance = {
 
 ```tsx
 <div className="fixed bottom-24 right-4 z-50">
-  <Button 
-    size="lg" 
-    className="h-14 w-14 rounded-full shadow-lg"
-    onClick={() => setChatOpen(true)}
-  >
+  <Button size="lg" className="h-14 w-14 rounded-full shadow-lg" onClick={() => setChatOpen(true)}>
     <Bot className="h-6 w-6" />
   </Button>
-</div>
+</div>;
 
-{chatOpen && (
-  <Card className="fixed bottom-24 right-4 w-96 h-96 shadow-xl">
-    {/* KI-Kennzeichnung (VERPFLICHTEND!) */}
-    <div className="bg-primary/5 border-b border-primary/20 p-3">
-      <div className="flex items-start gap-2">
-        <Bot className="h-5 w-5 text-primary shrink-0" />
-        <div className="text-xs text-muted-foreground">
-          <strong>KI-Assistent:</strong> Antworten werden von KI generiert. 
-          Prüfen Sie wichtige Infos selbst nach.
+{
+  chatOpen && (
+    <Card className="fixed bottom-24 right-4 w-96 h-96 shadow-xl">
+      {/* KI-Kennzeichnung (VERPFLICHTEND!) */}
+      <div className="bg-primary/5 border-b border-primary/20 p-3">
+        <div className="flex items-start gap-2">
+          <Bot className="h-5 w-5 text-primary shrink-0" />
+          <div className="text-xs text-muted-foreground">
+            <strong>KI-Assistent:</strong> Antworten werden von KI generiert. Prüfen Sie wichtige
+            Infos selbst nach.
+          </div>
         </div>
       </div>
-    </div>
-    
-    {/* Chat-Content */}
-    <div className="p-4 overflow-y-auto">
-      {/* Messages */}
-    </div>
-  </Card>
-)}
+
+      {/* Chat-Content */}
+      <div className="p-4 overflow-y-auto">{/* Messages */}</div>
+    </Card>
+  );
+}
 ```
 
 ---
@@ -421,16 +448,19 @@ GESAMT:                  85min
 ## ✅ TESTING-CHECKLISTE
 
 ### Responsive-Tests
+
 - [ ] Mobile: Sidebar → Dropdown
 - [ ] Desktop: Sidebar sichtbar
 - [ ] Search funktioniert
 
 ### Accessibility-Tests
+
 - [ ] Sidebar-Navigation per Tastatur
 - [ ] Artikel-Links gut sichtbar
 - [ ] Kontrast ≥ 4.5:1
 
 ### AI-Compliance-Tests (falls Chat)
+
 - [ ] KI-Kennzeichnung bei JEDER Antwort
 - [ ] Icon + Text vorhanden
 - [ ] Disclaimer klar lesbar
@@ -447,6 +477,7 @@ GESAMT:                  85min
 ## 📝 CHANGELOG
 
 ### V18.5.8 (2025-10-24)
+
 - **ERSTELLT:** Documentation Page Spezifikation
 - **KRITISCH:** AI Act Compliance bei KI-Chat
 

@@ -15,15 +15,15 @@ const corsHeaders = {
 };
 
 interface ProjectInput {
-  action: 
-    | 'create_project'
-    | 'update_project'
-    | 'create_discussion'
-    | 'create_offer'
-    | 'create_implementation_plan'
-    | 'update_task_status'
-    | 'get_project_status'
-    | 'get_all_projects';
+  action:
+    | "create_project"
+    | "update_project"
+    | "create_discussion"
+    | "create_offer"
+    | "create_implementation_plan"
+    | "update_task_status"
+    | "get_project_status"
+    | "get_all_projects";
   data?: any;
 }
 
@@ -42,20 +42,20 @@ serve(async (req) => {
     console.log("[NEXIFY-PROJECT-MANAGEMENT] Action:", input.action);
 
     switch (input.action) {
-      case 'create_project': {
+      case "create_project": {
         // Generiere Projekt-Code
-        const { data: projectCode } = await supabase.rpc('generate_project_code');
-        
+        const { data: projectCode } = await supabase.rpc("generate_project_code");
+
         const { data, error } = await supabase
-          .from('nexify_projects')
+          .from("nexify_projects")
           .insert({
             project_code: projectCode,
             title: input.data.title,
             description: input.data.description,
-            category: input.data.category || 'feature',
-            priority: input.data.priority || 'medium',
-            status: 'idea',
-            idea_source: input.data.idea_source || 'pascal',
+            category: input.data.category || "feature",
+            priority: input.data.priority || "medium",
+            status: "idea",
+            idea_source: input.data.idea_source || "pascal",
             initial_requirements: input.data.requirements || {},
             business_value: input.data.business_value,
             tags: input.data.tags || [],
@@ -66,31 +66,31 @@ serve(async (req) => {
         if (error) throw error;
 
         // Log Session
-        await supabase.from('nexify_master_sessions').insert({
-          session_type: 'planning',
+        await supabase.from("nexify_master_sessions").insert({
+          session_type: "planning",
           project_id: data.id,
           topic: `Projekt erstellt: ${data.title}`,
           pascal_input: JSON.stringify(input.data),
           nexify_response: `Projekt ${data.project_code} erfolgreich erstellt`,
-          outcome: 'planning',
-          next_steps: ['Planung ausarbeiten', 'Mit Pascal besprechen'],
+          outcome: "planning",
+          next_steps: ["Planung ausarbeiten", "Mit Pascal besprechen"],
         });
 
-        return new Response(
-          JSON.stringify({ success: true, project: data }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
-        );
+        return new Response(JSON.stringify({ success: true, project: data }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 200,
+        });
       }
 
-      case 'create_discussion': {
+      case "create_discussion": {
         const { data, error } = await supabase
-          .from('nexify_project_discussions')
+          .from("nexify_project_discussions")
           .insert({
             project_id: input.data.project_id,
-            discussion_type: input.data.type || 'planning',
+            discussion_type: input.data.type || "planning",
             topic: input.data.topic,
             content: input.data.content,
-            initiated_by: input.data.initiated_by || 'pascal',
+            initiated_by: input.data.initiated_by || "pascal",
             decisions: input.data.decisions || [],
             action_items: input.data.action_items || [],
           })
@@ -99,18 +99,18 @@ serve(async (req) => {
 
         if (error) throw error;
 
-        return new Response(
-          JSON.stringify({ success: true, discussion: data }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
-        );
+        return new Response(JSON.stringify({ success: true, discussion: data }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 200,
+        });
       }
 
-      case 'create_offer': {
+      case "create_offer": {
         // Generiere Angebots-Nummer
-        const { data: offerNumber } = await supabase.rpc('generate_offer_number');
-        
+        const { data: offerNumber } = await supabase.rpc("generate_offer_number");
+
         const { data, error } = await supabase
-          .from('nexify_offers')
+          .from("nexify_offers")
           .insert({
             offer_number: offerNumber,
             project_id: input.data.project_id,
@@ -120,7 +120,7 @@ serve(async (req) => {
             deliverables: input.data.deliverables || [],
             exclusions: input.data.exclusions,
             estimated_hours: input.data.estimated_hours,
-            estimated_complexity: input.data.complexity || 'medium',
+            estimated_complexity: input.data.complexity || "medium",
             required_ai_agents: input.data.required_ai_agents || [],
             estimated_timeline_days: input.data.timeline_days,
             risks: input.data.risks || [],
@@ -129,7 +129,7 @@ serve(async (req) => {
             quality_standards: input.data.quality_standards || {},
             testing_approach: input.data.testing_approach,
             documentation_requirements: input.data.documentation_requirements,
-            status: 'draft',
+            status: "draft",
           })
           .select()
           .single();
@@ -138,23 +138,23 @@ serve(async (req) => {
 
         // Update Project
         await supabase
-          .from('nexify_projects')
+          .from("nexify_projects")
           .update({
             offer_created: true,
             offer_document: data,
-            status: 'planning',
+            status: "planning",
           })
-          .eq('id', input.data.project_id);
+          .eq("id", input.data.project_id);
 
-        return new Response(
-          JSON.stringify({ success: true, offer: data }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
-        );
+        return new Response(JSON.stringify({ success: true, offer: data }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 200,
+        });
       }
 
-      case 'create_implementation_plan': {
+      case "create_implementation_plan": {
         const { data, error } = await supabase
-          .from('nexify_implementation_plans')
+          .from("nexify_implementation_plans")
           .insert({
             project_id: input.data.project_id,
             offer_id: input.data.offer_id,
@@ -170,7 +170,7 @@ serve(async (req) => {
             start_date: input.data.start_date,
             estimated_end_date: input.data.estimated_end_date,
             milestones: input.data.milestones || [],
-            status: 'draft',
+            status: "draft",
           })
           .select()
           .single();
@@ -179,76 +179,72 @@ serve(async (req) => {
 
         // Update Project
         await supabase
-          .from('nexify_projects')
+          .from("nexify_projects")
           .update({
             implementation_plan: data,
-            status: 'approved',
+            status: "approved",
           })
-          .eq('id', input.data.project_id);
+          .eq("id", input.data.project_id);
 
-        return new Response(
-          JSON.stringify({ success: true, plan: data }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
-        );
+        return new Response(JSON.stringify({ success: true, plan: data }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 200,
+        });
       }
 
-      case 'get_project_status': {
+      case "get_project_status": {
         const { data: project } = await supabase
-          .from('nexify_projects')
-          .select(`
+          .from("nexify_projects")
+          .select(
+            `
             *,
             discussions:nexify_project_discussions(*),
             offers:nexify_offers(*),
             implementation_plans:nexify_implementation_plans(*),
             operational_status:nexify_operational_status(*)
-          `)
-          .eq('id', input.data.project_id)
+          `
+          )
+          .eq("id", input.data.project_id)
           .single();
 
         if (!project) {
-          return new Response(
-            JSON.stringify({ error: 'Project not found' }),
-            { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-          );
+          return new Response(JSON.stringify({ error: "Project not found" }), {
+            status: 404,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
         }
 
-        return new Response(
-          JSON.stringify({ success: true, project }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
-        );
+        return new Response(JSON.stringify({ success: true, project }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 200,
+        });
       }
 
-      case 'get_all_projects': {
+      case "get_all_projects": {
         const { data, error } = await supabase
-          .from('nexify_projects')
-          .select('*')
-          .order('created_at', { ascending: false });
+          .from("nexify_projects")
+          .select("*")
+          .order("created_at", { ascending: false });
 
         if (error) throw error;
 
-        return new Response(
-          JSON.stringify({ success: true, projects: data }),
-          { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
-        );
+        return new Response(JSON.stringify({ success: true, projects: data }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+          status: 200,
+        });
       }
 
       default:
-        return new Response(
-          JSON.stringify({ error: `Unknown action: ${input.action}` }),
-          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: `Unknown action: ${input.action}` }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
     }
   } catch (error) {
     console.error("[NEXIFY-PROJECT-MANAGEMENT] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
-
-
-
-
-
-

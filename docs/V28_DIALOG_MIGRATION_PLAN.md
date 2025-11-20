@@ -18,19 +18,19 @@ Alle bestehenden Dialog-Komponenten im System zu V28Dialog migrieren.
 
 ### ✅ Bereits V28.1-konform
 
-| Component | Path | Status | Notes |
-|-----------|------|--------|-------|
+| Component           | Path                                             | Status   | Notes                    |
+| ------------------- | ------------------------------------------------ | -------- | ------------------------ |
 | TariffFeatureDialog | `src/components/pricing/TariffFeatureDialog.tsx` | ✅ V28.1 | Referenz-Implementierung |
-| V28Dialog | `src/components/design-system/V28Dialog.tsx` | ✅ V28.1 | Master-Komponente |
+| V28Dialog           | `src/components/design-system/V28Dialog.tsx`     | ✅ V28.1 | Master-Komponente        |
 
 ### ⏳ Zu migrieren
 
-| Component | Path | Priority | Complexity | Estimated Time |
-|-----------|------|----------|------------|----------------|
-| DocumentationModal | `src/components/docs/DocumentationModal.tsx` | 🔴 HIGH | LOW | 30min |
-| Confirmation Dialogs | Various | 🟡 MEDIUM | LOW | 1-2h |
-| Form Dialogs | Various | 🟡 MEDIUM | MEDIUM | 2-3h |
-| Custom Modals | Various | 🟠 LOW | VARIES | 3-5h |
+| Component            | Path                                         | Priority  | Complexity | Estimated Time |
+| -------------------- | -------------------------------------------- | --------- | ---------- | -------------- |
+| DocumentationModal   | `src/components/docs/DocumentationModal.tsx` | 🔴 HIGH   | LOW        | 30min          |
+| Confirmation Dialogs | Various                                      | 🟡 MEDIUM | LOW        | 1-2h           |
+| Form Dialogs         | Various                                      | 🟡 MEDIUM | MEDIUM     | 2-3h           |
+| Custom Modals        | Various                                      | 🟠 LOW    | VARIES     | 3-5h           |
 
 ---
 
@@ -57,6 +57,7 @@ grep -r "@radix-ui/react-dialog" src/
 ## 📋 MIGRATION WORKFLOW
 
 ### PHASE 1: DOKUMENTATION (✅ DONE)
+
 - [x] V28Dialog Komponente erstellt
 - [x] POPUP_SYSTEM_V28.1.md dokumentiert
 - [x] Migration Plan erstellt
@@ -64,20 +65,23 @@ grep -r "@radix-ui/react-dialog" src/
 ### PHASE 2: SEARCH & AUDIT (⏳ TODO)
 
 **Schritt 1:** Alle Dialog-Komponenten finden
+
 ```bash
 npm run search:dialogs
 ```
 
 **Schritt 2:** Audit-Liste erstellen
+
 - Datei: `docs/DIALOG_AUDIT_LIST.md`
 - Format:
   ```markdown
   | Component | Path | Type | Priority | Notes |
-  |-----------|------|------|----------|-------|
-  | ... | ... | ... | ... | ... |
+  | --------- | ---- | ---- | -------- | ----- |
+  | ...       | ...  | ...  | ...      | ...   |
   ```
 
 **Schritt 3:** Komplexität bewerten
+
 - LOW: Einfache Dialogs (nur Text, 1-2 Buttons)
 - MEDIUM: Mittelkomplexe Dialogs (Forms, Listen)
 - HIGH: Komplexe Dialogs (Multi-Step, Tabs, große Content-Bereiche)
@@ -87,11 +91,13 @@ npm run search:dialogs
 **Pro Dialog:**
 
 1. **Backup erstellen**
+
    ```bash
    cp src/path/to/Component.tsx src/path/to/Component.tsx.backup
    ```
 
 2. **V28Dialog Import**
+
    ```tsx
    // VORHER
    import { Dialog, DialogContent, DialogHeader, ... } from '@/components/ui/dialog';
@@ -102,6 +108,7 @@ npm run search:dialogs
    ```
 
 3. **Props Mapping**
+
    ```tsx
    // VORHER
    <Dialog open={open} onOpenChange={setOpen}>
@@ -135,6 +142,7 @@ npm run search:dialogs
    ```
 
 4. **Colors zu PRIMARY_COLORS_V28**
+
    ```tsx
    // VORHER
    style={{ background: '#F1F5F9', color: '#1E293B' }}
@@ -145,6 +153,7 @@ npm run search:dialogs
    ```
 
 5. **Buttons zu V28Button**
+
    ```tsx
    // VORHER
    <Button variant="default" size="lg">
@@ -165,6 +174,7 @@ npm run search:dialogs
    - [ ] Functionality: Actions funktionieren
 
 7. **Cleanup**
+
    ```bash
    # Backup löschen (wenn alles funktioniert)
    rm src/path/to/Component.tsx.backup
@@ -217,6 +227,7 @@ echo "✅ Dialog compliance check passed"
 ### PHASE 5: VERIFICATION (⏳ TODO)
 
 **Final Checks:**
+
 - [ ] Keine ui/dialog Imports mehr (außer in V28Dialog)
 - [ ] Alle Dialogs nutzen PRIMARY_COLORS_V28
 - [ ] Alle Buttons sind V28Button
@@ -265,13 +276,13 @@ echo "   Backup saved at: $COMPONENT_PATH.backup"
 
 ### Completion Metrics
 
-| Phase | Status | Progress | ETA |
-|-------|--------|----------|-----|
-| 1. Documentation | ✅ DONE | 100% | - |
-| 2. Search & Audit | ⏳ TODO | 0% | 1h |
-| 3. Migration | ⏳ TODO | 0% | 5-10h |
-| 4. Enforcement | ⏳ TODO | 0% | 2h |
-| 5. Verification | ⏳ TODO | 0% | 1h |
+| Phase             | Status  | Progress | ETA   |
+| ----------------- | ------- | -------- | ----- |
+| 1. Documentation  | ✅ DONE | 100%     | -     |
+| 2. Search & Audit | ⏳ TODO | 0%       | 1h    |
+| 3. Migration      | ⏳ TODO | 0%       | 5-10h |
+| 4. Enforcement    | ⏳ TODO | 0%       | 2h    |
+| 5. Verification   | ⏳ TODO | 0%       | 1h    |
 
 **Gesamtfortschritt:** 20% (Phase 1 done)
 

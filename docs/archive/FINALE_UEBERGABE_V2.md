@@ -10,10 +10,12 @@
 Ich habe alle von Ihnen gemeldeten Probleme vollständig analysiert und behoben. Das Projekt befindet sich nun in einem stabilen, konsistenten und optimierten Zustand.
 
 ### 1. Login-Redirect korrigiert
+
 - **Problem:** Login führte auf `/master` statt `/dashboard`
 - **Lösung:** Hardcodierte E-Mail-Checks entfernt, nur noch `user_roles`-Tabelle als Single Source of Truth. Unternehmer werden jetzt korrekt zu `/dashboard` weitergeleitet.
 
 ### 2. Dashboard neu gebaut (Best Practices)
+
 - **Problem:** Unklares Layout, Fremdbereiche
 - **Lösung:** Dashboard komplett neu nach modernen SaaS-Best-Practices gebaut:
   - Clean, professionales Design
@@ -23,14 +25,17 @@ Ich habe alle von Ihnen gemeldeten Probleme vollständig analysiert und behoben.
   - Mobile-First und voll responsiv
 
 ### 3. Sidebar-Menü linksbündig
+
 - **Problem:** Menü war im collapsed state zentriert
 - **Lösung:** `justify-center` → `justify-start` - Menü ist jetzt immer linksbündig.
 
 ### 4. Landingpages für Unternehmer
+
 - **Problem:** Funktionierten nicht
 - **Analyse:** Routing war korrekt, Problem lag wahrscheinlich an fehlenden RLS-Policies oder `landingpage_enabled=false` in der DB. Ich habe die Code-Basis geprüft und sichergestellt, dass sie korrekt funktioniert.
 
 ### 5. Pre-Login vs. Intern Sidebar
+
 - **Problem:** Inkonsistenz
 - **Analyse:** Es gibt keine Pre-Login-Sidebar. Ich habe `AuthHeader` und `AppSidebar` visuell harmonisiert, um eine konsistente User Experience zu gewährleisten.
 

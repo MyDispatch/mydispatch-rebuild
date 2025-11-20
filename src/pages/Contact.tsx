@@ -7,114 +7,146 @@
    🔄 Build Cache Clear Trigger - 2025-01-30
    ================================================================================== */
 
-import { Link } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Phone, MapPin, Clock, Mail, MessageSquare } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { contactPageSchema } from '@/lib/schema-org';
-import { z } from 'zod';
-import { supabase } from '@/integrations/supabase/client';
-import { OpeningHours } from '@/components/office/OpeningHours';
-import { V28HeroPremium } from '@/components/hero';
-import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Phone, MapPin, Clock, Mail, MessageSquare } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { contactPageSchema } from "@/lib/schema-org";
+import { z } from "zod";
+import { supabase } from "@/integrations/supabase/client";
+import { OpeningHours } from "@/components/office/OpeningHours";
+import { V28HeroPremium } from "@/components/hero";
+import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
+import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 const contactSchema = z.object({
-  salutation: z.string().min(1, 'Anrede ist erforderlich'),
+  salutation: z.string().min(1, "Anrede ist erforderlich"),
   title: z.string().optional(),
-  name: z.string().trim().min(2, 'Name muss mindestens 2 Zeichen lang sein').max(100),
-  email: z.string().trim().email('Ungültige E-Mail-Adresse').max(255),
+  name: z.string().trim().min(2, "Name muss mindestens 2 Zeichen lang sein").max(100),
+  email: z.string().trim().email("Ungültige E-Mail-Adresse").max(255),
   phone: z.string().trim().max(30).optional(),
   company: z.string().trim().max(200).optional(),
-  subject: z.string().min(1, 'Betreff ist erforderlich'),
-  message: z.string().trim().min(10, 'Nachricht muss mindestens 10 Zeichen lang sein').max(5000),
-  dataProtection: z.boolean().refine(val => val === true, 'Datenschutzerklärung muss akzeptiert werden')
+  subject: z.string().min(1, "Betreff ist erforderlich"),
+  message: z.string().trim().min(10, "Nachricht muss mindestens 10 Zeichen lang sein").max(5000),
+  dataProtection: z
+    .boolean()
+    .refine((val) => val === true, "Datenschutzerklärung muss akzeptiert werden"),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
 const Contact = () => {
   const { toast } = useToast();
-  
+
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      salutation: '',
-      title: '',
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      subject: '',
-      message: '',
-      dataProtection: false
-    }
+      salutation: "",
+      title: "",
+      name: "",
+      email: "",
+      phone: "",
+      company: "",
+      subject: "",
+      message: "",
+      dataProtection: false,
+    },
   });
 
   const handleSubmit = async (data: ContactFormData) => {
     try {
-      const { error } = await supabase.functions.invoke('send-contact-email', {
-        body: data
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: data,
       });
-      
-      if (error) throw new Error(error.message || 'E-Mail konnte nicht gesendet werden');
-      
+
+      if (error) throw new Error(error.message || "E-Mail konnte nicht gesendet werden");
+
       toast({
-        title: 'Nachricht gesendet!',
-        description: 'Wir melden uns schnellstmöglich bei Ihnen.'
+        title: "Nachricht gesendet!",
+        description: "Wir melden uns schnellstmöglich bei Ihnen.",
       });
-      
+
       form.reset();
     } catch (error: any) {
       toast({
-        title: 'Fehler',
-        description: error.message || 'Nachricht konnte nicht gesendet werden.',
-        variant: 'destructive'
+        title: "Fehler",
+        description: error.message || "Nachricht konnte nicht gesendet werden.",
+        variant: "destructive",
       });
     }
   };
-  return <MarketingLayout currentPage="contact">
-      <SEOHead title="Kontakt" description="Kontaktieren Sie MyDispatch. Telefon: +49 170 8004423, E-Mail: info@my-dispatch.de. Wir helfen Ihnen gerne weiter." canonical="/contact" schema={contactPageSchema} keywords={['MyDispatch Kontakt', 'Taxi Software Support', 'MyDispatch Telefon', 'Dispositionssoftware Ansprechpartner', 'MyDispatch E-Mail']} />
-      
+  return (
+    <MarketingLayout currentPage="contact">
+      <SEOHead
+        title="Kontakt"
+        description="Kontaktieren Sie MyDispatch. Telefon: +49 170 8004423, E-Mail: info@my-dispatch.de. Wir helfen Ihnen gerne weiter."
+        canonical="/contact"
+        schema={contactPageSchema}
+        keywords={[
+          "MyDispatch Kontakt",
+          "Taxi Software Support",
+          "MyDispatch Telefon",
+          "Dispositionssoftware Ansprechpartner",
+          "MyDispatch E-Mail",
+        ]}
+      />
+
       {/* Hero Section - V32.0 PREMIUM DASHBOARD */}
       <V28HeroPremium
         variant="demo"
         backgroundVariant="3d-premium"
-        badge={{ text: 'Support & Hilfe', icon: MessageSquare }}
+        badge={{ text: "Support & Hilfe", icon: MessageSquare }}
         title="Persönlicher Support, wenn Sie ihn brauchen"
         subtitle="Unser deutschsprachiges Team beantwortet Ihre Fragen in der Regel innerhalb von 24 Stunden"
         description="Keine Callcenter, keine Warteschleifen - echte Taxi-Experten helfen Ihnen weiter."
         primaryCTA={{
-          label: 'Nachricht senden',
+          label: "Nachricht senden",
           onClick: () => {
-            const contactForm = document.getElementById('contact-form');
-            contactForm?.scrollIntoView({ behavior: 'smooth' });
-          }
+            const contactForm = document.getElementById("contact-form");
+            contactForm?.scrollIntoView({ behavior: "smooth" });
+          },
         }}
         secondaryCTA={{
-          label: 'Anrufen',
-          onClick: () => window.location.href = 'tel:+491708004423'
+          label: "Anrufen",
+          onClick: () => (window.location.href = "tel:+491708004423"),
         }}
         visual={<PremiumDashboardContent pageType="contact" />}
         businessMetrics={[
-          { label: 'Antwortzeit', value: '<2h', sublabel: 'werktags' },
-          { label: 'Zufriedenheit', value: '98%', sublabel: 'Kundenbewertung' },
-          { label: 'Unternehmen', value: '450+', sublabel: 'vertrauen uns' }
+          { label: "Antwortzeit", value: "<2h", sublabel: "werktags" },
+          { label: "Zufriedenheit", value: "98%", sublabel: "Kundenbewertung" },
+          { label: "Unternehmen", value: "450+", sublabel: "vertrauen uns" },
         ]}
         trustElements={true}
       />
 
       {/* Contact Info Cards Section */}
-      <V28MarketingSection background="canvas" title="Kontaktmöglichkeiten" description="Wählen Sie Ihren bevorzugten Kontaktweg">
+      <V28MarketingSection
+        background="canvas"
+        title="Kontaktmöglichkeiten"
+        description="Wählen Sie Ihren bevorzugten Kontaktweg"
+      >
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {/* E-Mail Card */}
           <V28MarketingCard className="text-center transition-all duration-300 hover:shadow-2xl hover:scale-[1.01]">
@@ -122,8 +154,13 @@ const Contact = () => {
               <V28IconBox icon={Mail} variant="slate" />
               <div className="text-center">
                 <h3 className="font-sans text-lg font-semibold text-slate-900 mb-2">E-Mail</h3>
-                <p className="font-sans text-sm text-slate-600 mb-3 text-center">Schreiben Sie uns</p>
-                <a href="mailto:info@my-dispatch.de" className="font-sans text-base text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center justify-center transition-colors">
+                <p className="font-sans text-sm text-slate-600 mb-3 text-center">
+                  Schreiben Sie uns
+                </p>
+                <a
+                  href="mailto:info@my-dispatch.de"
+                  className="font-sans text-base text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center justify-center transition-colors"
+                >
                   info@my-dispatch.de
                 </a>
               </div>
@@ -136,8 +173,13 @@ const Contact = () => {
               <V28IconBox icon={Phone} variant="slate" />
               <div className="text-center">
                 <h3 className="font-sans text-lg font-semibold text-slate-900 mb-2">Telefon</h3>
-                <p className="font-sans text-sm text-slate-600 mb-3 text-center">Rufen Sie uns an</p>
-                <a href="tel:+491708004423" className="font-sans text-base text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center justify-center transition-colors">
+                <p className="font-sans text-sm text-slate-600 mb-3 text-center">
+                  Rufen Sie uns an
+                </p>
+                <a
+                  href="tel:+491708004423"
+                  className="font-sans text-base text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center justify-center transition-colors"
+                >
                   +49 170 8004423
                 </a>
               </div>
@@ -149,7 +191,9 @@ const Contact = () => {
             <div className="flex flex-col items-center gap-4">
               <V28IconBox icon={Clock} variant="slate" />
               <div className="text-center w-full">
-                <h3 className="font-sans text-lg font-semibold text-slate-900 mb-2">Öffnungszeiten</h3>
+                <h3 className="font-sans text-lg font-semibold text-slate-900 mb-2">
+                  Öffnungszeiten
+                </h3>
                 <OpeningHours compact={false} showIcon={false} />
               </div>
             </div>
@@ -165,8 +209,12 @@ const Contact = () => {
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 mb-4">
                   <Mail className="w-8 h-8 text-slate-700" />
                 </div>
-                <h2 className="font-sans text-2xl font-semibold text-slate-900 mb-2">Nachricht senden</h2>
-                <p className="font-sans text-sm text-slate-600">Füllen Sie das Formular aus und wir melden uns schnellstmöglich</p>
+                <h2 className="font-sans text-2xl font-semibold text-slate-900 mb-2">
+                  Nachricht senden
+                </h2>
+                <p className="font-sans text-sm text-slate-600">
+                  Füllen Sie das Formular aus und wir melden uns schnellstmöglich
+                </p>
               </div>
 
               <Form {...form}>
@@ -203,7 +251,9 @@ const Contact = () => {
                       name="title"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-sans text-sm font-medium text-slate-700">Titel</FormLabel>
+                          <FormLabel className="font-sans text-sm font-medium text-slate-700">
+                            Titel
+                          </FormLabel>
                           <Select onValueChange={field.onChange} value={field.value || undefined}>
                             <FormControl>
                               <SelectTrigger className="border-slate-300 focus:border-slate-500 focus:ring-slate-500">
@@ -233,9 +283,9 @@ const Contact = () => {
                             Name <span className="text-red-600">*</span>
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              placeholder="Max Mustermann" 
+                            <Input
+                              {...field}
+                              placeholder="Max Mustermann"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -253,10 +303,10 @@ const Contact = () => {
                             E-Mail <span className="text-red-600">*</span>
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              type="email" 
-                              placeholder="max@example.com" 
+                            <Input
+                              {...field}
+                              type="email"
+                              placeholder="max@example.com"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -273,12 +323,14 @@ const Contact = () => {
                       name="phone"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-sans text-sm font-medium text-slate-700">Telefon</FormLabel>
+                          <FormLabel className="font-sans text-sm font-medium text-slate-700">
+                            Telefon
+                          </FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              type="tel" 
-                              placeholder="+49 123 456789" 
+                            <Input
+                              {...field}
+                              type="tel"
+                              placeholder="+49 123 456789"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -292,11 +344,13 @@ const Contact = () => {
                       name="company"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-sans text-sm font-medium text-slate-700">Unternehmen</FormLabel>
+                          <FormLabel className="font-sans text-sm font-medium text-slate-700">
+                            Unternehmen
+                          </FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              placeholder="Musterfirma GmbH" 
+                            <Input
+                              {...field}
+                              placeholder="Musterfirma GmbH"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -344,9 +398,9 @@ const Contact = () => {
                           Nachricht <span className="text-red-600">*</span>
                         </FormLabel>
                         <FormControl>
-                          <Textarea 
-                            {...field} 
-                            placeholder="Ihre Nachricht..." 
+                          <Textarea
+                            {...field}
+                            placeholder="Ihre Nachricht..."
                             rows={5}
                             className="border-slate-300 focus:border-slate-500 focus:ring-slate-500 resize-none"
                           />
@@ -374,10 +428,10 @@ const Contact = () => {
                             Datenschutz akzeptieren <span className="text-red-600">*</span>
                           </FormLabel>
                           <p className="font-sans text-xs text-slate-600">
-                            Ich stimme der{' '}
+                            Ich stimme der{" "}
                             <Link to="/datenschutz" className="underline hover:text-slate-900">
                               Datenschutzerklärung
-                            </Link>{' '}
+                            </Link>{" "}
                             zu.
                           </p>
                           <FormMessage className="text-xs" />
@@ -394,7 +448,7 @@ const Contact = () => {
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-sans font-semibold h-12 rounded-lg shadow-lg hover:shadow-xl transition-all"
                       variant="primary"
                     >
-                      {form.formState.isSubmitting ? 'Wird gesendet...' : 'Nachricht senden'}
+                      {form.formState.isSubmitting ? "Wird gesendet..." : "Nachricht senden"}
                     </V28Button>
                   </div>
                 </form>
@@ -402,88 +456,114 @@ const Contact = () => {
             </V28MarketingCard>
           </div>
 
-            {/* Additional Info */}
-            <div className="space-y-6">
-              <V28MarketingCard>
-                <div className="flex items-start gap-6">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-4">
-                      <V28IconBox icon={MapPin} variant="slate" />
-                      <h3 className="font-sans text-lg font-semibold text-slate-900">Unsere Adresse</h3>
-                    </div>
-                    <p className="font-sans text-sm text-slate-600 leading-relaxed text-left">
-                      RideHub Solutions<br />
-                      Ibrahim SIMSEK<br />
-                      Ensbachmühle 4<br />
-                      D-94571 Schaufling<br />
-                      Deutschland
-                    </p>
+          {/* Additional Info */}
+          <div className="space-y-6">
+            <V28MarketingCard>
+              <div className="flex items-start gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <V28IconBox icon={MapPin} variant="slate" />
+                    <h3 className="font-sans text-lg font-semibold text-slate-900">
+                      Unsere Adresse
+                    </h3>
                   </div>
-                  <div className="flex-shrink-0">
-                    <div className="relative w-24 h-24">
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 opacity-50"></div>
-                      <div className="absolute inset-2 rounded-xl bg-background shadow-lg flex items-center justify-center">
-                        <MapPin className="w-12 h-12 text-slate-700" strokeWidth={1.5} />
-                      </div>
+                  <p className="font-sans text-sm text-slate-600 leading-relaxed text-left">
+                    RideHub Solutions
+                    <br />
+                    Ibrahim SIMSEK
+                    <br />
+                    Ensbachmühle 4<br />
+                    D-94571 Schaufling
+                    <br />
+                    Deutschland
+                  </p>
+                </div>
+                <div className="flex-shrink-0">
+                  <div className="relative w-24 h-24">
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 opacity-50"></div>
+                    <div className="absolute inset-2 rounded-xl bg-background shadow-lg flex items-center justify-center">
+                      <MapPin className="w-12 h-12 text-slate-700" strokeWidth={1.5} />
                     </div>
                   </div>
                 </div>
-              </V28MarketingCard>
+              </div>
+            </V28MarketingCard>
 
-              <V28MarketingCard>
-                <div className="flex items-start gap-6">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-4">
-                      <V28IconBox icon={Mail} variant="slate" />
-                      <h3 className="font-sans text-lg font-semibold text-slate-900">Häufige Anfragen</h3>
-                    </div>
-                    <ul className="space-y-2">
-                      <li>
-                        <Link to="/pricing" className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors">
-                          → Welcher Tarif passt zu mir?
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/faq" className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors">
-                          → Häufig gestellte Fragen
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/docs" className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors">
-                          → Dokumentation & Anleitungen
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors">
-                          → Funktionen & Features
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/datenschutz" className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors">
-                          → Datenschutzerklärung
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/impressum" className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors">
-                          → Impressum
-                        </Link>
-                      </li>
-                    </ul>
+            <V28MarketingCard>
+              <div className="flex items-start gap-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <V28IconBox icon={Mail} variant="slate" />
+                    <h3 className="font-sans text-lg font-semibold text-slate-900">
+                      Häufige Anfragen
+                    </h3>
                   </div>
-                  <div className="flex-shrink-0">
-                    <div className="relative w-24 h-24">
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 opacity-50"></div>
-                      <div className="absolute inset-2 rounded-xl bg-background shadow-lg flex items-center justify-center">
-                        <Mail className="w-12 h-12 text-slate-700" strokeWidth={1.5} />
-                      </div>
+                  <ul className="space-y-2">
+                    <li>
+                      <Link
+                        to="/pricing"
+                        className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors"
+                      >
+                        → Welcher Tarif passt zu mir?
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/faq"
+                        className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors"
+                      >
+                        → Häufig gestellte Fragen
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/docs"
+                        className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors"
+                      >
+                        → Dokumentation & Anleitungen
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/"
+                        className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors"
+                      >
+                        → Funktionen & Features
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/datenschutz"
+                        className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors"
+                      >
+                        → Datenschutzerklärung
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/impressum"
+                        className="font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline min-h-[44px] inline-flex items-center transition-colors"
+                      >
+                        → Impressum
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                <div className="flex-shrink-0">
+                  <div className="relative w-24 h-24">
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 opacity-50"></div>
+                    <div className="absolute inset-2 rounded-xl bg-background shadow-lg flex items-center justify-center">
+                      <Mail className="w-12 h-12 text-slate-700" strokeWidth={1.5} />
                     </div>
                   </div>
                 </div>
-              </V28MarketingCard>
-            </div>
+              </div>
+            </V28MarketingCard>
           </div>
-        </V28MarketingSection>
+        </div>
+      </V28MarketingSection>
     </MarketingLayout>
-}
+  );
+};
 
 export default Contact;

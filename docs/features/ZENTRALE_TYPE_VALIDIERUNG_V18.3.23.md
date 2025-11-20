@@ -3,7 +3,9 @@
 ## Status: ✅ Implementiert
 
 ### Problem
+
 Frontend/Backend-Diskrepanzen bei API-Responses führten zu:
+
 - `N/A`-Anzeigen trotz vorhandener Daten
 - Unterschiedliche Field-Names (camelCase vs snake_case)
 - Fehlende Runtime-Validierung
@@ -19,8 +21,8 @@ export interface WeatherApiResponse {
   icon: string;
   location: string;
   humidity: number;
-  wind_speed: number;        // ✅ Konsistent: snake_case
-  pressure: number | null;   // ✅ Explizit: nullable
+  wind_speed: number; // ✅ Konsistent: snake_case
+  pressure: number | null; // ✅ Explizit: nullable
   visibility: number | null; // ✅ Explizit: nullable
 }
 
@@ -46,6 +48,7 @@ export function validateApiResponse<T>(
 ### Integration
 
 #### Backend (Edge Functions)
+
 ```typescript
 // supabase/functions/get-weather/index.ts
 
@@ -57,26 +60,27 @@ return new Response(
     location: city,
     humidity: weatherData.main.humidity,
     wind_speed: Math.round((weatherData.wind?.speed || 0) * 3.6),
-    pressure: weatherData.main?.pressure || null,  // ✅ Explizit null
-    visibility: weatherData.visibility || null,     // ✅ Explizit null
+    pressure: weatherData.main?.pressure || null, // ✅ Explizit null
+    visibility: weatherData.visibility || null, // ✅ Explizit null
   }),
-  { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+  { headers: { ...corsHeaders, "Content-Type": "application/json" } }
 );
 ```
 
 #### Frontend (Components)
+
 ```typescript
 // src/components/dashboard/WeatherWidget.tsx
 
-import { isValidWeatherResponse, validateApiResponse } from '@/types/api-schemas';
+import { isValidWeatherResponse, validateApiResponse } from "@/types/api-schemas";
 
-const { data, error } = await supabase.functions.invoke('get-weather', {
+const { data, error } = await supabase.functions.invoke("get-weather", {
   body: { city: String(city) },
 });
 
 if (data) {
   // ✅ Runtime-Validierung mit Type Guard
-  const validatedData = validateApiResponse(data, isValidWeatherResponse, 'Weather');
+  const validatedData = validateApiResponse(data, isValidWeatherResponse, "Weather");
   setWeather(validatedData);
 }
 ```
@@ -96,7 +100,7 @@ if (data) {
 export interface TrafficApiResponse {
   jam_factor: number;
   speed: number;
-  status: 'Frei' | 'Zähflüssig' | 'Stau' | 'Unbekannt';
+  status: "Frei" | "Zähflüssig" | "Stau" | "Unbekannt";
   error?: string;
 }
 
@@ -108,7 +112,7 @@ export interface DemandPredictionResponse {
     confidence: number;
   }>;
   recommendations: Array<{
-    type: 'info' | 'warning' | 'error';
+    type: "info" | "warning" | "error";
     message: string;
     action?: string;
   }>;
@@ -127,10 +131,10 @@ export interface DemandPredictionResponse {
 // ✅ RICHTIG: Validierung + Error Handling
 try {
   const data = await fetchWeatherData();
-  const validated = validateApiResponse(data, isValidWeatherResponse, 'Weather');
+  const validated = validateApiResponse(data, isValidWeatherResponse, "Weather");
   return validated;
 } catch (error) {
-  console.error('[Weather] API Error:', error);
+  console.error("[Weather] API Error:", error);
   return fallbackData;
 }
 

@@ -14,11 +14,13 @@ Dieser Prompt ist als **absolutes Gesetz** zu behandeln. Jede Anweisung, Regel, 
 **JEDE** Änderung, Ergänzung, Optimierung oder Bugfix, die während der Entwicklung implementiert wird, **MUSS ausnahmslos und sofort** als fixe Vorgabe in diesen Master-Prompt übernommen werden.
 
 **Dies verhindert:**
+
 - ❌ **Regression** (Wiederkehrende Fehler durch vergessene Fixes)
 - ❌ **Inkonsistenzen** (Nicht-dokumentierte Änderungen führen zu Chaos)
 - ❌ **Wissensverlust** (Undokumentierte Features werden übersehen/überschrieben)
 
 **Bei JEDER Code-Änderung ZWINGEND:**
+
 1. ✅ Dokumentiere die Änderung im relevanten Prompt-Abschnitt
 2. ✅ Aktualisiere `AI_SYSTEM_MEMORY.last_updated` und `.version`
 3. ✅ Ergänze neue Komponenten/Hooks/Functions in die Übersichten
@@ -30,9 +32,9 @@ Dieser Prompt ist als **absolutes Gesetz** zu behandeln. Jede Anweisung, Regel, 
 
 ### ⚠️ KRITISCHE DESIGN-FREEZE-REGEL
 
-- **Visuelles Design:** VOLLSTÄNDIG FINAL ✅  
-- **Funktionale Erweiterungen:** ERLAUBT ✅  
-- **Layout-Änderungen:** VERBOTEN ❌  
+- **Visuelles Design:** VOLLSTÄNDIG FINAL ✅
+- **Funktionale Erweiterungen:** ERLAUBT ✅
+- **Layout-Änderungen:** VERBOTEN ❌
 - **CI-Farben-Änderungen:** VERBOTEN ❌
 
 **42 Pages, 20 Forms und 40+ Komponenten** sind pixelgenau fixiert und mit folgender Kennzeichnung geschützt:
@@ -73,6 +75,7 @@ Dieser Prompt ist als **absolutes Gesetz** zu behandeln. Jede Anweisung, Regel, 
 ### **Expertise-Stack:**
 
 **Frontend:**
+
 - React 18.2.0, Vite, TypeScript
 - Tailwind CSS (HSL-basiert, Semantic Tokens)
 - Shadcn/UI (New York Style, 50+ Komponenten)
@@ -80,11 +83,13 @@ Dieser Prompt ist als **absolutes Gesetz** zu behandeln. Jede Anweisung, Regel, 
 - React Query (TanStack Query v5)
 
 **Backend:**
+
 - Supabase (Lovable Cloud: `vsbqyqhzxmwezlhzdmfd`)
 - Edge Functions (Deno)
 - Row Level Security (58+ Policies)
 
 **Integrationen:**
+
 - **Stripe** (exklusiv für Payments)
 - **Resend.com** (E-Mail-Versand)
 - **HERE API** (Maps, Geocoding, Routing, Traffic) ⭐ NEU V18.2
@@ -93,6 +98,7 @@ Dieser Prompt ist als **absolutes Gesetz** zu behandeln. Jede Anweisung, Regel, 
 - **Lovable AI** (AI-gestützte Features)
 
 **Standards:**
+
 - **DSGVO, BDSG, PBefG** (§§ 13, 21, 22, 23, 32, 38, 44, 51)
 - **HGB** (§§ 425, 449, 539, 542)
 - **EU AI Act** (2024/1689, Art. 5, 6, 50)
@@ -158,7 +164,7 @@ const AI_SYSTEM_MEMORY = {
   last_updated: "2025-10-17T13:30:00Z", // ⭐ V18.2.31: ULTIMATE PRODUCTION READY!
   project_name: "MyDispatch",
   version: "18.2.31",
-  
+
   // DESIGN-SYSTEM (LOCKED)
   design: {
     ci_colors: {
@@ -185,7 +191,7 @@ const AI_SYSTEM_MEMORY = {
     },
     status: "FINAL - NIEMALS ÄNDERN",
   },
-  
+
   // IMPLEMENTATION STATUS V18.2.31 - ULTIMATE PRODUCTION READY!
   implemented: {
     pages: 42,
@@ -199,7 +205,7 @@ const AI_SYSTEM_MEMORY = {
       "SpecialAccount", "VehiclePosition", "BookingTracking", "GPSConsent"
     ],
     hooks: [
-      "useAuth", "useSubscription", "useMasterAccount", 
+      "useAuth", "useSubscription", "useMasterAccount",
       "useAccountType", "useCompanyLocation", "useDailyCall",
       "useBookings", "usePartners", "useShifts", "useDrivers", "useVehicles"
     ],
@@ -225,7 +231,7 @@ const AI_SYSTEM_MEMORY = {
     n8n_integration: "100% FINAL ✅", // ⭐ V18.2.31: Vollständige n8n-Integration inkl. Credentials Setup!
     n8n_credentials_auto_setup: "ACTIVE ✅", // ⭐ V18.2.31: One-Click Setup für 9/10 API-Credentials!
   },
-  
+
   // NEW FEATURES V18.2.31 - ULTIMATE PRODUCTION READY!
   new_features: [
     "✅ n8n Integration 100% Complete (Workflows, Credentials, Webhook-Trigger)",
@@ -243,10 +249,10 @@ const AI_SYSTEM_MEMORY = {
     "✅ TariffSwitcher Runtime-Error Fix (Radix-UI Compliance)",
     "✅ 0 Runtime Errors, 0 Console Errors, 0 TODOs",
   ],
-  
+
   // IN PROGRESS
   in_progress: [],  // ⭐ V18.2.31: ALLE ARBEITEN ABGESCHLOSSEN! ZERO-DEFECT!
-  
+
   auto_update: true,
 };
     "  → Letzte 3 direkte Farben eliminiert (LandingpageKonfigurator, NeXifySupport)",
@@ -292,7 +298,7 @@ const AI_SYSTEM_MEMORY = {
     "HERE API Integration (Maps, Routing, Traffic, Geocoding)", // NÄCHSTER SPRINT
     "Standard-UI-Patterns Migration (StandardPageLayout, DetailDialog)", // NÄCHSTER SPRINT
   ],
-  
+
   // IN PROGRESS - SPRINT 28 ROADMAP
   in_progress: [
     "Pre-Action-Audit Integration in kritische Operationen (20%)",
@@ -302,7 +308,7 @@ const AI_SYSTEM_MEMORY = {
     "GPS-Tracking-System (0/10) - Sprint 28-29",
     "Performance-Optimierung (2/6) - Sprint 30",
   ],
-  
+
   // COMPLETED ✅
   completed: [
     "Production Ready Code: 138/138 Stellen (100%) ✅✅✅ V18.2.5 FINAL!",
@@ -320,7 +326,7 @@ const AI_SYSTEM_MEMORY = {
     "DetailDialog-System (100%) ✅",
     "Dokumenten-Ablauf-System (100%) ✅",
   ],
-  
+
   auto_update: true,
 };
 ```
@@ -335,14 +341,14 @@ const AI_SYSTEM_MEMORY = {
 
 ```css
 /* PRIMARY COLORS */
---primary: 40 31% 88%;         /* #EADEBD - Beige/Gold */
---foreground: 225 31% 28%;     /* #323D5E - Dunkelgrau/Blau */
---accent: 31 26% 38%;          /* #856d4b - Braun/Gold */
+--primary: 40 31% 88%; /* #EADEBD - Beige/Gold */
+--foreground: 225 31% 28%; /* #323D5E - Dunkelgrau/Blau */
+--accent: 31 26% 38%; /* #856d4b - Braun/Gold */
 
 /* SEMANTIC COLORS */
 --muted: 40 8% 95%;
 --destructive: 0 84% 60%;
---border: 40 12% 88%;  /* NUR Card-Borders! */
+--border: 40 12% 88%; /* NUR Card-Borders! */
 
 /* AMPEL-SYSTEM (KRITISCH - NIEMALS ÄNDERN!) */
 --status-success: 142 76% 36%;
@@ -367,6 +373,7 @@ const AI_SYSTEM_MEMORY = {
 ```
 
 **Regel:**
+
 - `bg-accent` → IMMER `text-primary-foreground` oder `text-accent-foreground`
 - `bg-destructive` → IMMER `text-destructive-foreground`
 - `bg-foreground` → IMMER `text-primary` (heller Text)
@@ -379,12 +386,13 @@ const AI_SYSTEM_MEMORY = {
 - **Dokumentation:** `AMPEL_SYSTEM_FINAL_DOKUMENTATION.md`
 
 **Helper-Functions:**
+
 ```javascript
-getBookingStatusType(status)
-getDriverStatusType(status)
-getVehicleStatusType(status)
-getDocumentExpiryType(expiryDate)
-getPaymentStatusType(status)
+getBookingStatusType(status);
+getDriverStatusType(status);
+getVehicleStatusType(status);
+getDocumentExpiryType(expiryDate);
+getPaymentStatusType(status);
 // ...weitere 10+ Helper-Functions
 ```
 
@@ -397,10 +405,10 @@ getPaymentStatusType(status)
 ```javascript
 // ALLE Entities MÜSSEN company_id haben!
 const { data } = await supabase
-  .from('bookings')
-  .select('*')
-  .eq('company_id', profile.company_id)  // ZWINGEND!
-  .eq('archived', false);
+  .from("bookings")
+  .select("*")
+  .eq("company_id", profile.company_id) // ZWINGEND!
+  .eq("archived", false);
 ```
 
 ### **RLS Policies (58+ total):**
@@ -410,8 +418,8 @@ CREATE POLICY "company_isolation_select" ON bookings
   FOR SELECT
   USING (
     company_id IN (
-      SELECT company_id 
-      FROM profiles 
+      SELECT company_id
+      FROM profiles
       WHERE user_id = auth.uid()
     )
   );
@@ -424,9 +432,9 @@ CREATE POLICY "company_isolation_select" ON bookings
 const handleArchive = async (id: string) => {
   const { error } = await supabase
     .from('bookings')
-    .update({ 
-      archived: true, 
-      archived_at: new Date().toISOString() 
+    .update({
+      archived: true,
+      archived_at: new Date().toISOString()
     })
     .eq('id', id)
     .eq('company_id', profile.company_id);
@@ -559,18 +567,19 @@ CREATE TABLE geofence_zones (
 
 ### **Warum HERE statt Google Maps?**
 
-| **Kriterium** | **HERE API** | **Google Maps API** |
-|---------------|-------------|---------------------|
-| **Kosten** | 250.000 Transaktionen/Monat GRATIS | $200 Kredit/Monat (~28.000 Requests) |
-| **Einsparung** | **~$744.000/Jahr** | Baseline |
-| **DACH-Qualität** | ⭐⭐⭐⭐⭐ (B2B-optimiert) | ⭐⭐⭐⭐ |
-| **Traffic-Daten** | Echtzeit, historisch | Echtzeit |
-| **DSGVO** | EU-Server verfügbar | US-Server primär |
-| **B2B-Fokus** | Taxi/Logistik-optimiert | Consumer-fokussiert |
+| **Kriterium**     | **HERE API**                       | **Google Maps API**                  |
+| ----------------- | ---------------------------------- | ------------------------------------ |
+| **Kosten**        | 250.000 Transaktionen/Monat GRATIS | $200 Kredit/Monat (~28.000 Requests) |
+| **Einsparung**    | **~$744.000/Jahr**                 | Baseline                             |
+| **DACH-Qualität** | ⭐⭐⭐⭐⭐ (B2B-optimiert)         | ⭐⭐⭐⭐                             |
+| **Traffic-Daten** | Echtzeit, historisch               | Echtzeit                             |
+| **DSGVO**         | EU-Server verfügbar                | US-Server primär                     |
+| **B2B-Fokus**     | Taxi/Logistik-optimiert            | Consumer-fokussiert                  |
 
 ### **Migrations-Phasen:**
 
 **Phase 1: Backend (Edge Functions)**
+
 ```typescript
 // calculate-route (NEU)
 // Input: waypoints[], optimize=true
@@ -585,6 +594,7 @@ CREATE TABLE geofence_zones (
 ```
 
 **Phase 2: Frontend (Komponenten)**
+
 ```jsx
 // LiveMap.tsx → HERE Maps API v3
 <div id="map" ref={mapRef} />
@@ -595,6 +605,7 @@ CREATE TABLE geofence_zones (
 ```
 
 **Phase 3: Neue Features**
+
 - **Route-Optimierung:** Multi-Waypoint-Routen (Business-Tarif)
 - **Traffic-Prediction:** Historische Daten für ETA
 - **Geofencing:** Automatische Benachrichtigungen
@@ -608,38 +619,38 @@ CREATE TABLE geofence_zones (
 ### **Account-Typen:**
 
 ```typescript
-type AccountType = 'normal' | 'test' | 'master';
+type AccountType = "normal" | "test" | "master";
 
 const SPECIAL_ACCOUNTS = {
   test: [
-    'courbois1981@gmail.com',  // Test-Account 1 (Business)
-    'demo@my-dispatch.de',      // Test-Account 2 (Business)
+    "courbois1981@gmail.com", // Test-Account 1 (Business)
+    "demo@my-dispatch.de", // Test-Account 2 (Business)
   ],
   master: [
-    'master@my-dispatch.de',    // Master-Dashboard
+    "master@my-dispatch.de", // Master-Dashboard
   ],
 };
 ```
 
 ### **Tarif-Matrix:**
 
-| **Feature** | **Starter** | **Business** | **Enterprise** | **Test** | **Master** |
-|-------------|-------------|--------------|----------------|----------|------------|
-| **Fahrer/Fahrzeuge** | Max. 3 | Unbegrenzt | Unbegrenzt | Unbegrenzt | Unbegrenzt |
-| **Partner-System** | ❌ | ✅ | ✅ | ✅ | ✅ |
-| **GPS-Tracking** | ❌ | ✅ | ✅ | ✅ | ✅ |
-| **Live-Map** | ❌ | ✅ | ✅ | ✅ | ✅ |
-| **Statistiken** | ❌ | ✅ | ✅ | ✅ | ✅ |
-| **Landingpage** | ❌ | ✅ | ✅ | ✅ | ✅ |
-| **Tarif-Switching** | ❌ | ❌ | ❌ | ✅ | ❌ |
-| **Master-Dashboard** | ❌ | ❌ | ❌ | ❌ | ✅ |
-| **Bypass Payment** | ❌ | ❌ | ❌ | ✅ | ✅ |
+| **Feature**          | **Starter** | **Business** | **Enterprise** | **Test**   | **Master** |
+| -------------------- | ----------- | ------------ | -------------- | ---------- | ---------- |
+| **Fahrer/Fahrzeuge** | Max. 3      | Unbegrenzt   | Unbegrenzt     | Unbegrenzt | Unbegrenzt |
+| **Partner-System**   | ❌          | ✅           | ✅             | ✅         | ✅         |
+| **GPS-Tracking**     | ❌          | ✅           | ✅             | ✅         | ✅         |
+| **Live-Map**         | ❌          | ✅           | ✅             | ✅         | ✅         |
+| **Statistiken**      | ❌          | ✅           | ✅             | ✅         | ✅         |
+| **Landingpage**      | ❌          | ✅           | ✅             | ✅         | ✅         |
+| **Tarif-Switching**  | ❌          | ❌           | ❌             | ✅         | ❌         |
+| **Master-Dashboard** | ❌          | ❌           | ❌             | ❌         | ✅         |
+| **Bypass Payment**   | ❌          | ❌           | ❌             | ✅         | ✅         |
 
 ### **Datenbank-Schema:**
 
 ```sql
 -- Erweitere companies-Tabelle
-ALTER TABLE companies 
+ALTER TABLE companies
 ADD COLUMN account_type TEXT DEFAULT 'normal' CHECK (account_type IN ('normal', 'test', 'master'));
 
 -- Neue Tabelle für Special Accounts
@@ -666,23 +677,22 @@ INSERT INTO special_accounts (user_email, account_type, can_switch_tariff, can_b
 // src/hooks/use-account-type.tsx
 export function useAccountType() {
   const { user, profile } = useAuth();
-  
+
   const accountType: AccountType = useMemo(() => {
-    if (!user?.email) return 'normal';
-    if (SPECIAL_ACCOUNTS.master.includes(user.email)) return 'master';
-    if (SPECIAL_ACCOUNTS.test.includes(user.email)) return 'test';
-    return 'normal';
+    if (!user?.email) return "normal";
+    if (SPECIAL_ACCOUNTS.master.includes(user.email)) return "master";
+    if (SPECIAL_ACCOUNTS.test.includes(user.email)) return "test";
+    return "normal";
   }, [user?.email]);
-  
+
   const permissions = {
-    canSwitchTariff: accountType === 'test',
-    canAccessMasterDashboard: accountType === 'master',
-    canBypassPayment: accountType === 'test' || accountType === 'master',
-    canAccessBusinessFeatures: 
-      accountType !== 'normal' || 
-      isBusinessTier(profile?.company?.subscription_product_id),
+    canSwitchTariff: accountType === "test",
+    canAccessMasterDashboard: accountType === "master",
+    canBypassPayment: accountType === "test" || accountType === "master",
+    canAccessBusinessFeatures:
+      accountType !== "normal" || isBusinessTier(profile?.company?.subscription_product_id),
   };
-  
+
   return { accountType, permissions };
 }
 ```
@@ -694,20 +704,20 @@ export function useAccountType() {
 export function TariffSwitcher() {
   const { accountType, permissions } = useAccountType();
   const { company } = useAuth();
-  
+
   if (!permissions.canSwitchTariff) return null;
-  
+
   const handleSwitch = async (targetTariff: 'starter' | 'business') => {
     const productId = PRODUCT_IDS[targetTariff][0]; // Monthly
     await supabase
       .from('companies')
       .update({ subscription_product_id: productId })
       .eq('id', company.id);
-    
+
     toast.success(`Tarif auf ${targetTariff.toUpperCase()} umgestellt`);
     window.location.reload();
   };
-  
+
   return (
     <Card>
       <CardHeader>
@@ -736,12 +746,12 @@ const menuStructure = [
     label: "System",
     items: [
       { title: "Unternehmen", url: "/unternehmen", icon: Building2 },
-      ...(accountType === 'master' ? [
-        { title: "Master-Dashboard", url: "/master-dashboard", icon: Crown }
-      ] : []),
-      { title: "Einstellungen", url: "/einstellungen", icon: Settings }
-    ]
-  }
+      ...(accountType === "master"
+        ? [{ title: "Master-Dashboard", url: "/master-dashboard", icon: Crown }]
+        : []),
+      { title: "Einstellungen", url: "/einstellungen", icon: Settings },
+    ],
+  },
 ];
 ```
 
@@ -755,15 +765,11 @@ const menuStructure = [
 const { accountType, permissions } = useAccountType();
 const { company } = useAuth();
 
-const showUpgradeButton = 
-  accountType === 'normal' && 
-  !permissions.canAccessBusinessFeatures;
+const showUpgradeButton = accountType === "normal" && !permissions.canAccessBusinessFeatures;
 
-{showUpgradeButton && (
-  <Button onClick={() => navigate('/pricing')}>
-    Auf Business upgraden
-  </Button>
-)}
+{
+  showUpgradeButton && <Button onClick={() => navigate("/pricing")}>Auf Business upgraden</Button>;
+}
 ```
 
 ---
@@ -774,16 +780,16 @@ const showUpgradeButton =
 
 ### **Tarif-Matrix (Landingpage):**
 
-| Feature | Starter | Business | Enterprise |
-|---------|---------|----------|------------|
-| **Landingpage** | ✅ JA | ✅ JA | ✅ JA |
-| **Gebrandetes Design** | ✅ Logo, Farbe | ✅ Logo, Farbe | ✅ Logo, Farbe |
-| **Unternehmer/Fahrer-Login** | ✅ JA | ✅ JA | ✅ JA |
-| **Buchungswidget** | ❌ NEIN | ✅ JA | ✅ JA |
-| **Kunden-Registrierung** | ❌ NEIN | ✅ JA | ✅ JA |
-| **AI-Chatbot** | ❌ NEIN | ✅ JA | ✅ JA |
-| **Rechtliche Popups** | ✅ JA | ✅ JA | ✅ JA |
-| **Footer "Powered by"** | ✅ MIT Link | ✅ MIT Link | ❌ KEIN Link |
+| Feature                      | Starter        | Business       | Enterprise     |
+| ---------------------------- | -------------- | -------------- | -------------- |
+| **Landingpage**              | ✅ JA          | ✅ JA          | ✅ JA          |
+| **Gebrandetes Design**       | ✅ Logo, Farbe | ✅ Logo, Farbe | ✅ Logo, Farbe |
+| **Unternehmer/Fahrer-Login** | ✅ JA          | ✅ JA          | ✅ JA          |
+| **Buchungswidget**           | ❌ NEIN        | ✅ JA          | ✅ JA          |
+| **Kunden-Registrierung**     | ❌ NEIN        | ✅ JA          | ✅ JA          |
+| **AI-Chatbot**               | ❌ NEIN        | ✅ JA          | ✅ JA          |
+| **Rechtliche Popups**        | ✅ JA          | ✅ JA          | ✅ JA          |
+| **Footer "Powered by"**      | ✅ MIT Link    | ✅ MIT Link    | ❌ KEIN Link   |
 
 ### **Subscription-Utils Erweitert:**
 
@@ -791,8 +797,10 @@ const showUpgradeButton =
 // src/lib/subscription-utils.ts
 export function isEnterpriseTier(productId: string | null | undefined): boolean {
   if (!productId) return false;
-  return (PRODUCT_IDS.enterprise as readonly string[]).includes(productId) || 
-         productId.toLowerCase().includes('enterprise');
+  return (
+    (PRODUCT_IDS.enterprise as readonly string[]).includes(productId) ||
+    productId.toLowerCase().includes("enterprise")
+  );
 }
 ```
 
@@ -801,7 +809,7 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 ```jsx
 // src/components/shared/LegalDialog.tsx
 <LegalDialog
-  open={legalDialog === 'impressum'}
+  open={legalDialog === "impressum"}
   onOpenChange={() => setLegalDialog(null)}
   type="impressum" // 'impressum' | 'datenschutz' | 'agb'
   companyName={company.name}
@@ -810,6 +818,7 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 ```
 
 **Features:**
+
 - ✅ **Impressum:** § 5 TMG, EU-Streitschlichtung
 - ✅ **Datenschutz:** DSGVO-konform, SSL/TLS
 - ✅ **AGB:** §§ 1-9 (Vertragsrecht, Haftung)
@@ -819,15 +828,19 @@ export function isEnterpriseTier(productId: string | null | undefined): boolean 
 ### **Footer-Logik (Unternehmer.tsx):**
 
 ```jsx
-{/* Powered by MyDispatch - NUR Starter/Business, NICHT Enterprise */}
-{!isEnterprise && (
-  <p className="text-xs text-muted-foreground mt-4">
-    Powered by{' '}
-    <a href="/home" className="hover:text-foreground">
-      MyDispatch
-    </a>
-  </p>
-)}
+{
+  /* Powered by MyDispatch - NUR Starter/Business, NICHT Enterprise */
+}
+{
+  !isEnterprise && (
+    <p className="text-xs text-muted-foreground mt-4">
+      Powered by{" "}
+      <a href="/home" className="hover:text-foreground">
+        MyDispatch
+      </a>
+    </p>
+  );
+}
 ```
 
 ### **Gebrandeter Login:**
@@ -837,6 +850,7 @@ URL: /auth?company=<company-id>
 ```
 
 **Automatisch gebrandet:**
+
 - Logo aus Company-Entity
 - Primary-Color aus Company-Entity
 - "Zurück zur Landingpage" Button
@@ -905,7 +919,7 @@ URL: /auth?company=<company-id>
   open={!!selectedId}
   onClose={() => setSelectedId(null)}
   title="Auftrags-Details"
-  tabs={['Allgemein', 'Dokumente', 'Historie']}
+  tabs={["Allgemein", "Dokumente", "Historie"]}
 >
   {tabContent}
 </DetailDialog>
@@ -967,6 +981,7 @@ const formatDate = (date: string) => {
 ## 📦 FUNKTIONSÜBERSICHT
 
 ### **Hauptbereich (Dashboard):**
+
 - Live-Updates (Aufträge, Fahrer, Umsatz) - Realtime 30s/10s
 - KPI-Cards mit Trends/Charts
 - Live-Map (HERE Maps) ⭐ NEU
@@ -974,33 +989,39 @@ const formatDate = (date: string) => {
 - Quick-Actions
 
 ### **Disposition:**
+
 - Aufträge (UnifiedForm, Partner-Filter ⭐ NEU)
 - Angebote/Rechnungen
 - Fahrzeugklassen (Economy, Business, First Class, Van/SUV)
 - GPS-Tracking Integration ⭐ NEU
 
 ### **Verwaltung:**
+
 - Kunden/Fahrer/Fahrzeuge/Partner
 - CRUD mit StandardPageLayout
 - Inline-Upload (Drag&Drop)
 - Status (Ampel-System)
 
 ### **Betrieb:**
+
 - Schichtzettel (GPS-Integration ⭐ NEU)
 - Kommunikation (Chat/Video via Daily.co)
 - Office (E-Mail/Brief-Templates)
 - Dokumente (Ablauf-Erinnerungen)
 
 ### **Reporting:**
+
 - Statistiken (Business+)
 - Kostenstellen
 
 ### **System:**
+
 - Unternehmen (Logo, Farbe, Landingpage)
 - Master-Dashboard (Terminierung, Performance) ⭐ NEU
 - Einstellungen (Tariff-Switcher für Test-Accounts) ⭐ NEU
 
 ### **GPS-Tracking (Business+):** ⭐ NEU V18.2
+
 - Driver PWA (Browser Geolocation)
 - Dispatcher Live-Map (HERE Maps)
 - Customer Token-Tracking
@@ -1018,18 +1039,18 @@ sequenceDiagram
     participant DB as vehicle_positions
     participant Dispatcher as Dispatcher-Map
     participant Customer as Kunden-Portal
-    
+
     Driver->>Driver: GPS-Einwilligung (DSGVO-Dialog)
     Driver->>Driver: Schicht starten
     loop Alle 10 Sekunden
         Driver->>DB: GPS-Position speichern
         DB-->>Dispatcher: Realtime-Update (Supabase Channel)
     end
-    
+
     Dispatcher->>DB: Booking-Tracking aktivieren
     DB->>Customer: Tracking-Link per E-Mail
     Customer->>DB: Token-basierter Zugriff
-    
+
     Driver->>Driver: Schicht beenden
     Note over DB: Auto-Delete nach 24h (Cron-Job)
 ```
@@ -1043,7 +1064,7 @@ graph TD
     B -->|Normal + Business| D[Feature zugänglich]
     B -->|Test Account| E[Feature zugänglich + Tariff-Switcher]
     B -->|Master Account| F[Feature zugänglich + Master-Dashboard]
-    
+
     C --> G[Redirect zu /pricing]
     G --> H[Stripe Checkout]
     H --> I[Webhook aktualisiert subscription_product_id]
@@ -1057,31 +1078,37 @@ graph TD
 ### **Sprint 27 (7 Tage) - GPS & HERE Migration:**
 
 **Tag 1-2: Backend**
+
 - ✅ DB-Migration (vehicle_positions, booking_tracking, gps_consent)
 - ✅ Edge Functions (calculate-eta, calculate-route, cleanup-gps-positions)
 - ✅ RLS Policies (company_id isolation)
 
 **Tag 3: Core GPS Components**
+
 - ✅ DriverTracking.tsx (PWA mit Geolocation API)
 - ✅ LiveMap.tsx (HERE Maps API v3)
 - ✅ Realtime-Subscriptions
 
 **Tag 4: Dashboard Integration**
+
 - ✅ GPS-Status-Widget
 - ✅ Live-Map Integration
 - ✅ Weather/Traffic-Widgets (HERE API)
 
 **Tag 5: Auftrags-Integration**
+
 - ✅ GPS-Tracking-Toggle in UnifiedForm
 - ✅ ETA-Berechnung (HERE API)
 - ✅ Customer-Tracking-Link-Versand
 
 **Tag 6: Fahrer/Fahrzeuge**
+
 - ✅ GPS-Consent-Dialog (DSGVO)
 - ✅ Position-History (24h)
 - ✅ Geofence-Alerts
 
 **Tag 7: Schichten & Dokumente**
+
 - ✅ GPS-Integration in Schichtzettel
 - ✅ Auto-Start/Stop bei Schicht
 - ✅ DSGVO-Dokumentation
@@ -1089,17 +1116,20 @@ graph TD
 ### **Sprint 28 (5 Tage) - Tariff Control & UI:**
 
 **Tag 1-2: Tarifsteuerung**
+
 - ✅ special_accounts Tabelle
 - ✅ useAccountType Hook
 - ✅ TariffSwitcher Komponente
 - ✅ Master-Dashboard-Link
 
 **Tag 3-4: StandardPageLayout Migration**
+
 - ✅ Aufträge, Angebote, Rechnungen
 - ✅ Kunden, Fahrer, Fahrzeuge
 - ✅ Partner, Schichten, Dokumente
 
 **Tag 5: DetailDialog Migration**
+
 - ✅ Tab-basierte Ansicht
 - ✅ Mobile-Optimierung
 - ✅ StandardActionButtons
@@ -1107,16 +1137,19 @@ graph TD
 ### **Sprint 29 (3 Tage) - Performance & Testing:**
 
 **Tag 1: Performance**
+
 - Code Splitting (React.lazy)
 - Bundle-Size Optimierung
 - Lighthouse Score > 90
 
 **Tag 2: Testing**
+
 - E2E-Tests für GPS-Tracking
 - Tariff-Control-Tests
 - Mobile-Responsive-Tests
 
 **Tag 3: Dokumentation**
+
 - Aktualisierung aller .md-Files
 - API-Dokumentation
 - User-Guides
@@ -1126,6 +1159,7 @@ graph TD
 ## 🔄 POST-UPDATE PFLICHT
 
 **NACH JEDER ÄNDERUNG:**
+
 - ✅ Aktualisiere `AI_SYSTEM_MEMORY.last_updated`
 - ✅ Dokumentiere in `PROJECT_STATUS.md`
 - ✅ Führe QA-Checks aus
@@ -1138,12 +1172,14 @@ graph TD
 **Status:** 🟢 Production Ready mit GPS-Tracking, HERE API und Tariff-Control
 
 **Änderungen ERLAUBT bei:**
+
 - ✅ Implementierung neuer Features
 - ✅ Performance-Optimierungen
 - ✅ Bugfixes
 - ✅ SEO-Optimierungen
 
 **Änderungen VERBOTEN bei:**
+
 - ❌ Design/Layout (Header/Footer/Sidebar FINAL)
 - ❌ CI-Farben (#EADEBD, #323D5E, #856d4b)
 - ❌ Ampel-System (StatusIndicator.tsx)

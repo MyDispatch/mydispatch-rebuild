@@ -11,11 +11,11 @@
 
 MyDispatch nutzt ein **3-Tarif-System** mit tarif-spezifischen Features:
 
-| Tarif | Preis | Features | Komponente |
-|-------|-------|----------|------------|
-| **Starter** | 39 €/Monat | Basis-Disposition, 3 Fahrer/Fahrzeuge, Standard-Support | Alle Basis-Features |
-| **Business** | 99 €/Monat | Unbegrenzt Fahrer/Fahrzeuge, Partner-Netzwerk, Statistiken, Live-Infos, Landingpage mit Buchung | `FeatureGate`, `Unternehmer.tsx` |
-| **Enterprise** | Auf Anfrage | Alle Business + White-Label, Custom-Integration, SLA, Schulungen | Wie Business + Master-Dashboard |
+| Tarif          | Preis       | Features                                                                                        | Komponente                       |
+| -------------- | ----------- | ----------------------------------------------------------------------------------------------- | -------------------------------- |
+| **Starter**    | 39 €/Monat  | Basis-Disposition, 3 Fahrer/Fahrzeuge, Standard-Support                                         | Alle Basis-Features              |
+| **Business**   | 99 €/Monat  | Unbegrenzt Fahrer/Fahrzeuge, Partner-Netzwerk, Statistiken, Live-Infos, Landingpage mit Buchung | `FeatureGate`, `Unternehmer.tsx` |
+| **Enterprise** | Auf Anfrage | Alle Business + White-Label, Custom-Integration, SLA, Schulungen                                | Wie Business + Master-Dashboard  |
 
 ---
 
@@ -40,11 +40,13 @@ import { FeatureGate } from '@/components/shared/FeatureGate';
 ```
 
 **Props:**
+
 - `requiredTariff`: `"Starter" | "Business" | "Enterprise"`
 - `featureName`: String (für Upgrade-Message)
 - `showUpgradeMessage`: Boolean (optional, default: true)
 
 **Verhalten:**
+
 - **Starter-User sieht Business-Feature**: Upgrade-Message mit Link zu `/pricing`
 - **Business-User**: Voller Zugang zu Business/Enterprise-Features
 - **Enterprise-User**: Voller Zugang zu allen Features
@@ -57,44 +59,56 @@ import { FeatureGate } from '@/components/shared/FeatureGate';
 
 ```tsx
 // Zeilen 83-84: Tarif-Erkennung
-const isBusiness = company?.subscription_product_id?.includes('business') || 
-                   company?.subscription_product_id?.includes('enterprise');
+const isBusiness =
+  company?.subscription_product_id?.includes("business") ||
+  company?.subscription_product_id?.includes("enterprise");
 
 // Zeile 199-208: Buchungs-Button (nur Business/Enterprise)
-{isBusiness && company.widget_enabled ? (
-  <Button onClick={() => setBookingOpen(true)}>
-    {company.widget_button_text || 'Jetzt buchen'}
-  </Button>
-) : null}
+{
+  isBusiness && company.widget_enabled ? (
+    <Button onClick={() => setBookingOpen(true)}>
+      {company.widget_button_text || "Jetzt buchen"}
+    </Button>
+  ) : null;
+}
 
 // Zeile 298-322: Online-Buchung Section (nur Business/Enterprise)
-{isBusiness && (
-  <Card>
-    <h3>Online-Buchung verfügbar</h3>
-    <Button onClick={() => setBookingOpen(true)}>Jetzt buchen</Button>
-  </Card>
-)}
+{
+  isBusiness && (
+    <Card>
+      <h3>Online-Buchung verfügbar</h3>
+      <Button onClick={() => setBookingOpen(true)}>Jetzt buchen</Button>
+    </Card>
+  );
+}
 
 // Zeile 325-365: Kontakt-Only Section (Starter-Tarif)
-{!isBusiness && (
-  <Card>
-    <h3>Kontaktieren Sie uns</h3>
-    <Button asChild><a href={`tel:${company.phone}`}>Anrufen</a></Button>
-  </Card>
-)}
+{
+  !isBusiness && (
+    <Card>
+      <h3>Kontaktieren Sie uns</h3>
+      <Button asChild>
+        <a href={`tel:${company.phone}`}>Anrufen</a>
+      </Button>
+    </Card>
+  );
+}
 
 // Zeile 408-416: Booking Widget Dialog (nur Business/Enterprise)
-{company && isBusiness && company.widget_enabled && (
-  <BookingWidget open={bookingOpen} onOpenChange={setBookingOpen} />
-)}
+{
+  company && isBusiness && company.widget_enabled && (
+    <BookingWidget open={bookingOpen} onOpenChange={setBookingOpen} />
+  );
+}
 
 // Zeile 419-421: AI Chatbot (nur Business/Enterprise)
-{company && isBusiness && (
-  <AISupportWidget />
-)}
+{
+  company && isBusiness && <AISupportWidget />;
+}
 ```
 
 **Datenbank-Fields:**
+
 - `companies.subscription_product_id`: `"starter" | "business" | "enterprise"`
 - `companies.landingpage_enabled`: Boolean (Aktivierung der Landingpage)
 - `companies.widget_enabled`: Boolean (Aktivierung des Buchungs-Widgets)
@@ -106,16 +120,13 @@ const isBusiness = company?.subscription_product_id?.includes('business') ||
 **Zeile 201-206: FeatureGate Wrapper**
 
 ```tsx
-<FeatureGate
-  requiredTariff="Business"
-  featureName="Partnerverwaltung"
-  showUpgradeMessage={true}
->
+<FeatureGate requiredTariff="Business" featureName="Partnerverwaltung" showUpgradeMessage={true}>
   {/* Gesamte Partner-Seite */}
 </FeatureGate>
 ```
 
 **Features:**
+
 - Partner-Netzwerk (MyDispatch-to-MyDispatch Verbindungen)
 - Externe Partner (ohne Login)
 - Anfragen senden/empfangen
@@ -138,6 +149,7 @@ const isBusiness = company?.subscription_product_id?.includes('business') ||
 ```
 
 **Features:**
+
 - Detaillierte KPIs (Umsatz, Aufträge, Auslastung)
 - Charts (Umsatzentwicklung, Top Fahrer, Heatmaps)
 - Exportfunktionen (CSV, PDF)
@@ -157,9 +169,7 @@ const isBusiness = company?.subscription_product_id?.includes('business') ||
         <Crown className="h-8 w-8 text-accent" />
       </div>
     </div>
-    <h3 className="text-xl font-semibold mb-2">
-      {featureName} ist ein Business-Feature
-    </h3>
+    <h3 className="text-xl font-semibold mb-2">{featureName} ist ein Business-Feature</h3>
     <p className="text-muted-foreground mb-6">
       Upgraden Sie auf Business, um diese und weitere Premium-Funktionen zu nutzen.
     </p>
@@ -194,23 +204,23 @@ const isBusiness = company?.subscription_product_id?.includes('business') ||
 
 ## 📊 TARIF-MATRIX (Feature-Übersicht)
 
-| Feature | Starter | Business | Enterprise |
-|---------|---------|----------|------------|
-| **Basis-Disposition** | ✅ | ✅ | ✅ |
-| **Aufträge/Kunden/Fahrer** | ✅ (max. 3) | ✅ (unbegrenzt) | ✅ (unbegrenzt) |
-| **Angebote/Rechnungen** | ✅ | ✅ | ✅ |
-| **Dokumente/Schichtzettel** | ✅ | ✅ | ✅ |
-| **Live-Map GPS-Tracking** | ✅ | ✅ | ✅ |
-| **Driver-Tracking (Mobile)** | ✅ | ✅ | ✅ |
-| **Partner-Netzwerk** | ❌ | ✅ | ✅ |
-| **Statistiken/Charts** | ❌ | ✅ | ✅ |
-| **Landingpage + Buchung** | ❌ | ✅ | ✅ |
-| **AI Chatbot (Landingpage)** | ❌ | ✅ | ✅ |
-| **API-Zugang** | ❌ | ✅ | ✅ |
-| **White-Label** | ❌ | ❌ | ✅ |
-| **Custom Integration** | ❌ | ❌ | ✅ |
-| **Dedizierter Support** | ❌ | ❌ | ✅ |
-| **SLA-Garantie** | ❌ | ❌ | ✅ |
+| Feature                      | Starter     | Business        | Enterprise      |
+| ---------------------------- | ----------- | --------------- | --------------- |
+| **Basis-Disposition**        | ✅          | ✅              | ✅              |
+| **Aufträge/Kunden/Fahrer**   | ✅ (max. 3) | ✅ (unbegrenzt) | ✅ (unbegrenzt) |
+| **Angebote/Rechnungen**      | ✅          | ✅              | ✅              |
+| **Dokumente/Schichtzettel**  | ✅          | ✅              | ✅              |
+| **Live-Map GPS-Tracking**    | ✅          | ✅              | ✅              |
+| **Driver-Tracking (Mobile)** | ✅          | ✅              | ✅              |
+| **Partner-Netzwerk**         | ❌          | ✅              | ✅              |
+| **Statistiken/Charts**       | ❌          | ✅              | ✅              |
+| **Landingpage + Buchung**    | ❌          | ✅              | ✅              |
+| **AI Chatbot (Landingpage)** | ❌          | ✅              | ✅              |
+| **API-Zugang**               | ❌          | ✅              | ✅              |
+| **White-Label**              | ❌          | ❌              | ✅              |
+| **Custom Integration**       | ❌          | ❌              | ✅              |
+| **Dedizierter Support**      | ❌          | ❌              | ✅              |
+| **SLA-Garantie**             | ❌          | ❌              | ✅              |
 
 ---
 
@@ -230,6 +240,7 @@ const isBusiness = company?.subscription_product_id?.includes('business') ||
 ```
 
 **DSGVO-Anforderungen:**
+
 - ✅ Alle Tarif-Daten sind mit `company_id` isoliert (RLS Policies)
 - ✅ Downgrade: Features werden deaktiviert, aber **Daten bleiben erhalten** (kein Löschen!)
 - ✅ Kündigung: Account wird **archiviert**, nicht gelöscht (30 Tage Widerruf)
@@ -242,20 +253,23 @@ const isBusiness = company?.subscription_product_id?.includes('business') ||
 
 ```tsx
 // Option 1: FeatureGate (empfohlen)
-import { FeatureGate } from '@/components/shared/FeatureGate';
+import { FeatureGate } from "@/components/shared/FeatureGate";
 
 <FeatureGate requiredTariff="Business" featureName="Mein neues Feature">
   <MyNewFeature />
-</FeatureGate>
+</FeatureGate>;
 
 // Option 2: Manuelle Prüfung (für komplexe Logik)
-import { useAuth } from '@/hooks/use-auth';
+import { useAuth } from "@/hooks/use-auth";
 
 const { company } = useAuth();
-const isBusiness = company?.subscription_product_id?.includes('business') || 
-                   company?.subscription_product_id?.includes('enterprise');
+const isBusiness =
+  company?.subscription_product_id?.includes("business") ||
+  company?.subscription_product_id?.includes("enterprise");
 
-{isBusiness ? <PremiumFeature /> : <UpgradeMessage />}
+{
+  isBusiness ? <PremiumFeature /> : <UpgradeMessage />;
+}
 ```
 
 ### **Sidebar-Navigation erweitern:**

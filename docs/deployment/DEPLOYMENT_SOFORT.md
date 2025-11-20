@@ -11,26 +11,29 @@
 ### Option 1: Supabase SQL Editor (Schnellste Methode)
 
 **1. Prüfe ob User existiert:**
+
 ```sql
-SELECT id, email, email_confirmed_at 
-FROM auth.users 
+SELECT id, email, email_confirmed_at
+FROM auth.users
 WHERE email = 'courbois1981@gmail.com';
 ```
 
 **2. Falls User existiert, prüfe Profile:**
+
 ```sql
-SELECT * FROM profiles 
+SELECT * FROM profiles
 WHERE user_id = (SELECT id FROM auth.users WHERE email = 'courbois1981@gmail.com');
 ```
 
 **3. Falls kein Profile oder falsche Rolle, fixe es:**
+
 ```sql
 -- Erstelle/Update Profile mit master role
 INSERT INTO profiles (user_id, first_name, last_name, role, company_id)
 SELECT id, 'Pascal', 'Courbois', 'master', NULL
 FROM auth.users
 WHERE email = 'courbois1981@gmail.com'
-ON CONFLICT (user_id) DO UPDATE 
+ON CONFLICT (user_id) DO UPDATE
 SET role = 'master', first_name = 'Pascal', last_name = 'Courbois';
 
 -- Erstelle/Update user_roles
@@ -47,6 +50,7 @@ WHERE email = 'courbois1981@gmail.com';
 ```
 
 **4. Falls User NICHT existiert, erstelle ihn:**
+
 ```sql
 -- User kann nur über Admin API oder Edge Function erstellt werden
 -- Nutze Edge Function: fix-master-login
@@ -57,9 +61,11 @@ WHERE email = 'courbois1981@gmail.com';
 ### Option 2: Edge Function aufrufen
 
 **Via Supabase Dashboard:**
+
 1. Go to Edge Functions
 2. Select `fix-master-login`
 3. Invoke with body:
+
 ```json
 {
   "email": "courbois1981@gmail.com",
@@ -69,6 +75,7 @@ WHERE email = 'courbois1981@gmail.com';
 ```
 
 **Via curl:**
+
 ```bash
 curl -X POST https://YOUR_PROJECT.supabase.co/functions/v1/fix-master-login \
   -H "Authorization: Bearer YOUR_SERVICE_ROLE_KEY" \
@@ -83,22 +90,26 @@ curl -X POST https://YOUR_PROJECT.supabase.co/functions/v1/fix-master-login \
 ### Wichtigste Migrations (in dieser Reihenfolge):
 
 1. **NeXify Master System:**
+
    ```sql
    -- 20250131_nexify_master_system.sql
    -- ODER: 20250131000002_nexify_project_management.sql
    ```
 
 2. **NeXify CRM System:**
+
    ```sql
    -- 20250131_nexify_crm_system.sql
    ```
 
 3. **System Health Tables:**
+
    ```sql
    -- 20250131_system_health_tables.sql
    ```
 
 4. **Storage Bucket (Briefpapier):**
+
    ```sql
    -- 20250131_storage_letterheads.sql
    ```
@@ -109,6 +120,7 @@ curl -X POST https://YOUR_PROJECT.supabase.co/functions/v1/fix-master-login \
    ```
 
 **Ausführen in Supabase SQL Editor:**
+
 - Copy & Paste jede Migration
 - Execute
 - Prüfe auf Fehler
@@ -120,11 +132,13 @@ curl -X POST https://YOUR_PROJECT.supabase.co/functions/v1/fix-master-login \
 ### Wichtigste Functions (in dieser Reihenfolge):
 
 **1. Login-Fix (SOFORT!):**
+
 ```bash
 supabase functions deploy fix-master-login
 ```
 
 **2. NeXify Master System:**
+
 ```bash
 supabase functions deploy nexify-auto-load-context
 supabase functions deploy nexify-project-context
@@ -133,12 +147,14 @@ supabase functions deploy nexify-crm-sync
 ```
 
 **3. System Monitoring:**
+
 ```bash
 supabase functions deploy daily-health-check
 supabase functions deploy auto-fix-issues
 ```
 
 **4. Login-Fix Alternative:**
+
 ```bash
 supabase functions deploy create-master-user
 ```
@@ -148,12 +164,14 @@ supabase functions deploy create-master-user
 ## ✅ CHECKLIST
 
 ### Login-Fix (SOFORT!)
+
 - [ ] Edge Function `fix-master-login` deployen
 - [ ] Edge Function aufrufen ODER SQL ausführen
 - [ ] Login testen mit: `courbois1981@gmail.com` / `1def!xO2022!!`
 - [ ] Master-Zugang funktioniert (`/master` Route)
 
 ### Database Migrations
+
 - [ ] NeXify Master System
 - [ ] NeXify CRM System
 - [ ] System Health Tables
@@ -161,6 +179,7 @@ supabase functions deploy create-master-user
 - [ ] Login-Fix Migration (falls vorhanden)
 
 ### Edge Functions
+
 - [ ] fix-master-login
 - [ ] nexify-auto-load-context
 - [ ] nexify-project-context
@@ -170,6 +189,7 @@ supabase functions deploy create-master-user
 - [ ] auto-fix-issues
 
 ### Frontend
+
 - [ ] Environment Variables setzen (Sentry DSN)
 - [ ] Build erfolgreich
 - [ ] Deploy erfolgreich
@@ -242,4 +262,3 @@ END $$;
 ---
 
 **Pascal, führe zuerst den Quick Fix Script aus, dann teste den Login!** 🚀
-

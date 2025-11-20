@@ -43,32 +43,17 @@
   "automationRules": {
     "autoCommit": {
       "enabled": true,
-      "conditions": [
-        "lintPassed",
-        "buildSucceeded",
-        "testsPassedOrSkipped"
-      ],
-      "excludePatterns": [
-        "*.lock",
-        "node_modules/",
-        "dist/",
-        ".env"
-      ]
+      "conditions": ["lintPassed", "buildSucceeded", "testsPassedOrSkipped"],
+      "excludePatterns": ["*.lock", "node_modules/", "dist/", ".env"]
     },
     "autoPush": {
       "enabled": true,
-      "conditions": [
-        "commitSucceeded",
-        "noConflicts"
-      ],
+      "conditions": ["commitSucceeded", "noConflicts"],
       "branches": ["main", "develop"]
     },
     "autoCreatePullRequest": {
       "enabled": true,
-      "conditions": [
-        "branchNameMatches",
-        "commitMessageValid"
-      ],
+      "conditions": ["branchNameMatches", "commitMessageValid"],
       "targetBranch": "main",
       "requireReview": true,
       "reviewers": ["courbois1981@gmail.com"]
@@ -78,10 +63,7 @@
     "githubActions": {
       "enabled": true,
       "triggerOn": ["push", "pullRequest"],
-      "workflows": [
-        "ci.yml",
-        "deploy.yml"
-      ]
+      "workflows": ["ci.yml", "deploy.yml"]
     },
     "supabase": {
       "enabled": true,

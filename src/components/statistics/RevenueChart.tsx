@@ -7,11 +7,20 @@
    - Recharts Integration
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { format, subDays } from 'date-fns';
-import { de } from 'date-fns/locale';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
+import { format, subDays } from "date-fns";
+import { de } from "date-fns/locale";
+import { Badge } from "@/components/ui/badge";
 
 interface RevenueDataPoint {
   date: string;
@@ -45,9 +54,9 @@ export function RevenueChart({
   onDayClick,
 }: RevenueChartProps) {
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
+    return new Intl.NumberFormat("de-DE", {
+      style: "currency",
+      currency: "EUR",
       minimumFractionDigits: 0,
     }).format(value);
   };
@@ -55,7 +64,7 @@ export function RevenueChart({
   const formatDate = (dateString: string) => {
     try {
       const date = new Date(dateString);
-      return format(date, 'dd.MM', { locale: de });
+      return format(date, "dd.MM", { locale: de });
     } catch {
       return dateString;
     }
@@ -66,7 +75,7 @@ export function RevenueChart({
       return (
         <div className="bg-card border rounded-lg p-3 shadow-lg">
           <p className="text-sm font-medium mb-1">
-            {format(new Date(payload[0].payload.date), 'dd. MMMM yyyy', { locale: de })}
+            {format(new Date(payload[0].payload.date), "dd. MMMM yyyy", { locale: de })}
           </p>
           <p className="text-sm text-primary font-semibold">
             Umsatz: {formatCurrency(payload[0].value)}
@@ -87,9 +96,9 @@ export function RevenueChart({
           <div>
             <CardTitle>Umsatzentwicklung (30 Tage)</CardTitle>
             <CardDescription className="mt-2">
-              Gesamt: <span className="font-semibold">{formatCurrency(totalRevenue)}</span>
-              {' '} | Bezahlt: <span className="text-status-success">{formatCurrency(paidRevenue)}</span>
-              {' '} | Offen: <span className="text-status-warning">{formatCurrency(pendingRevenue)}</span>
+              Gesamt: <span className="font-semibold">{formatCurrency(totalRevenue)}</span> |
+              Bezahlt: <span className="text-status-success">{formatCurrency(paidRevenue)}</span> |
+              Offen: <span className="text-status-warning">{formatCurrency(pendingRevenue)}</span>
             </CardDescription>
           </div>
           <div className="flex gap-2">
@@ -117,7 +126,7 @@ export function RevenueChart({
                 onDayClick(e.activePayload[0].payload.date);
               }
             }}
-            className={interactive ? 'cursor-pointer' : ''}
+            className={interactive ? "cursor-pointer" : ""}
           >
             <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
             <XAxis
@@ -137,8 +146,19 @@ export function RevenueChart({
               dataKey="revenue"
               stroke="hsl(var(--primary))"
               strokeWidth={2.5}
-              dot={{ fill: 'hsl(var(--primary))', r: 4, stroke: 'hsl(var(--background))', strokeWidth: 2 }}
-              activeDot={{ r: 6, fill: 'hsl(var(--primary))', stroke: 'hsl(var(--background))', strokeWidth: 2, cursor: interactive ? 'pointer' : 'default' }}
+              dot={{
+                fill: "hsl(var(--primary))",
+                r: 4,
+                stroke: "hsl(var(--background))",
+                strokeWidth: 2,
+              }}
+              activeDot={{
+                r: 6,
+                fill: "hsl(var(--primary))",
+                stroke: "hsl(var(--background))",
+                strokeWidth: 2,
+                cursor: interactive ? "pointer" : "default",
+              }}
             />
           </LineChart>
         </ResponsiveContainer>

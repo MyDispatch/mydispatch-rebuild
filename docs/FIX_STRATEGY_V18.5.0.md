@@ -11,6 +11,7 @@
 ### STEP 1: 502 ERROR ROOT CAUSE ANALYSIS (JETZT)
 
 **Vorgehen:**
+
 1. ✅ Console Logs geprüft → Keine kritischen Fehler
 2. ✅ Network Logs geprüft → **502 Cloudflare Error gefunden**
 3. ⏳ Build-Prozess analysieren
@@ -20,18 +21,21 @@
 **Hypothesen:**
 
 #### Hypothese #1: Vite Build Fehler
+
 - **Wahrscheinlichkeit:** 🟠 HOCH (60%)
 - **Ursache:** Production Build schlägt fehl oder produziert fehlerhafte Chunks
 - **Test:** Build lokal durchführen und prüfen
 - **Fix:** Build-Errors beheben
 
 #### Hypothese #2: Service Worker Konflikt
+
 - **Wahrscheinlichkeit:** 🟡 MITTEL (30%)
 - **Ursache:** Trotz Cleanup in `main.tsx` bleibt alter SW aktiv
 - **Test:** Browser DevTools → Application → Service Worker
 - **Fix:** Zusätzlicher Cleanup-Code
 
 #### Hypothese #3: Lazy Import Race Condition
+
 - **Wahrscheinlichkeit:** 🟢 NIEDRIG (10%)
 - **Ursache:** `.catch()` in lazy imports (wurde bereits in V18.3.30 gefixt)
 - **Test:** `routes.config.tsx` prüfen
@@ -49,12 +53,10 @@
 // ÄNDERUNG: Alle lazy imports mit Error Boundary wrappen
 
 // Vorher:
-component: lazy(() => import('@/pages/Dashboard'))
+component: lazy(() => import("@/pages/Dashboard"));
 
 // Nachher:
-component: lazy(() => import('@/pages/Dashboard')
-  .catch(() => import('@/pages/ErrorFallback'))
-)
+component: lazy(() => import("@/pages/Dashboard").catch(() => import("@/pages/ErrorFallback")));
 ```
 
 ```typescript
@@ -62,16 +64,13 @@ component: lazy(() => import('@/pages/Dashboard')
 // DATEI: src/components/invoices/InvoiceForm.tsx:195
 
 // Vorher:
-await supabase
-  .from('invoice_items')
-  .delete()
-  .eq('invoice_id', invoiceId);
+await supabase.from("invoice_items").delete().eq("invoice_id", invoiceId);
 
 // Nachher:
 await supabase
-  .from('invoice_items')
+  .from("invoice_items")
   .update({ archived: true, archived_at: new Date().toISOString() })
-  .eq('invoice_id', invoiceId);
+  .eq("invoice_id", invoiceId);
 ```
 
 ```typescript
@@ -79,7 +78,7 @@ await supabase
 // DATEI: src/lib/dialog-layout-utils.ts:39
 
 // Vorher:
-if (process.env.NODE_ENV !== 'development') return true;
+if (process.env.NODE_ENV !== "development") return true;
 
 // Nachher:
 if (!import.meta.env.DEV) return true;
@@ -90,6 +89,7 @@ if (!import.meta.env.DEV) return true;
 ### STEP 3: BUILD VALIDATION
 
 **Pre-Deploy Checklist:**
+
 - [ ] TypeScript Compile: `npx tsc --noEmit`
 - [ ] Build Test: `npm run build`
 - [ ] Preview Test: `npm run preview`
@@ -104,22 +104,26 @@ if (!import.meta.env.DEV) return true;
 ## 📊 FIX-PRIORISIERUNG
 
 ### P0 (BLOCKING - SOFORT):
+
 1. **502 Error** → App nicht erreichbar
 2. **Unhandled Throws** → Crash-Risiko
 3. **DELETE Statements** → Datenverlust-Risiko
 
 ### P1 (HIGH - HEUTE):
+
 4. **Console Logs** → Performance + Security
 5. **Navigation Bugs** → UX
 6. **HERE API 429** → Feature-Ausfall
 7. **process.env** → Build-Kompatibilität
 
 ### P2 (MEDIUM - DIESE WOCHE):
+
 8. **Security Warnings** → Datenleck-Risiko
 9. **API Error Handling** → Stabilität
 10. **Touch Targets** → Accessibility
 
 ### P3 (LOW - NÄCHSTE WOCHE):
+
 11. **Spacing** → Design-Konsistenz
 12. **Hex Colors** → Design-System
 
@@ -159,6 +163,7 @@ if (!import.meta.env.DEV) return true;
 ## 🎯 DEFINITION OF DONE
 
 ### Phase 1 (CRITICAL):
+
 ```
 ✅ App lädt in Production
 ✅ Keine 502 Errors
@@ -169,6 +174,7 @@ if (!import.meta.env.DEV) return true;
 ```
 
 ### Phase 2 (HIGH):
+
 ```
 ✅ Keine console.* in Production
 ✅ Navigation ohne Reload
@@ -179,6 +185,7 @@ if (!import.meta.env.DEV) return true;
 ```
 
 ### Phase 3 (MEDIUM):
+
 ```
 ✅ Alle Linter Warnings behoben
 ✅ Touch Targets ≥ 44px
@@ -187,6 +194,7 @@ if (!import.meta.env.DEV) return true;
 ```
 
 ### Phase 4 (LOW):
+
 ```
 ✅ Design System 100% compliant
 ✅ 8px Grid durchgesetzt
@@ -199,6 +207,7 @@ if (!import.meta.env.DEV) return true;
 ## 📈 MONITORING NACH FIXES
 
 ### Metriken tracken:
+
 - Build Success Rate
 - Error Rate (Sentry)
 - Page Load Time
@@ -209,6 +218,7 @@ if (!import.meta.env.DEV) return true;
 - User Satisfaction
 
 ### Alerts einrichten:
+
 - 502 Errors → Sofort
 - Build Fails → Sofort
 - Error Rate > 1% → Hoch

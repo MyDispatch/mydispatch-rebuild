@@ -8,19 +8,19 @@
  * ==================================================================================
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const DOCS_DIR = path.join(__dirname, '..', 'docs');
-const VERSION = 'V28.2.13';
-const DATE = new Date().toISOString().split('T')[0];
+const DOCS_DIR = path.join(__dirname, "..", "docs");
+const VERSION = "V28.2.13";
+const DATE = new Date().toISOString().split("T")[0];
 
 // ============================================================================
 // CHANGELOG UPDATE
 // ============================================================================
 function updateChangelog() {
-  const changelogPath = path.join(DOCS_DIR, 'CHANGELOG.md');
-  
+  const changelogPath = path.join(DOCS_DIR, "CHANGELOG.md");
+
   const newEntry = `
 ## ${VERSION} - Emergency Production Unblocking (${DATE})
 
@@ -51,24 +51,24 @@ function updateChangelog() {
 `;
 
   try {
-    let changelog = fs.readFileSync(changelogPath, 'utf8');
-    
+    let changelog = fs.readFileSync(changelogPath, "utf8");
+
     // Insert after header
-    const lines = changelog.split('\n');
-    const headerEnd = lines.findIndex(line => line.startsWith('## '));
-    
+    const lines = changelog.split("\n");
+    const headerEnd = lines.findIndex((line) => line.startsWith("## "));
+
     if (headerEnd === -1) {
       // No existing entries, append to end
       changelog += newEntry;
     } else {
       lines.splice(headerEnd, 0, newEntry);
-      changelog = lines.join('\n');
+      changelog = lines.join("\n");
     }
-    
+
     fs.writeFileSync(changelogPath, changelog);
-    console.log('✅ Updated CHANGELOG.md');
+    console.log("✅ Updated CHANGELOG.md");
   } catch (error) {
-    console.error('❌ Failed to update CHANGELOG.md:', error.message);
+    console.error("❌ Failed to update CHANGELOG.md:", error.message);
   }
 }
 
@@ -76,8 +76,8 @@ function updateChangelog() {
 // LESSONS LEARNED UPDATE
 // ============================================================================
 function updateLessonsLearned() {
-  const lessonsPath = path.join(DOCS_DIR, 'LESSONS_LEARNED.md');
-  
+  const lessonsPath = path.join(DOCS_DIR, "LESSONS_LEARNED.md");
+
   const newLesson = `
 ## Console-Log Migration Pattern (${DATE})
 
@@ -134,15 +134,15 @@ console.error('...'); // ❌ Pollutes production
 `;
 
   try {
-    let lessons = fs.readFileSync(lessonsPath, 'utf8');
-    
+    let lessons = fs.readFileSync(lessonsPath, "utf8");
+
     // Append to end
     lessons += newLesson;
-    
+
     fs.writeFileSync(lessonsPath, lessons);
-    console.log('✅ Updated LESSONS_LEARNED.md');
+    console.log("✅ Updated LESSONS_LEARNED.md");
   } catch (error) {
-    console.error('❌ Failed to update LESSONS_LEARNED.md:', error.message);
+    console.error("❌ Failed to update LESSONS_LEARNED.md:", error.message);
   }
 }
 
@@ -150,8 +150,8 @@ console.error('...'); // ❌ Pollutes production
 // PROJECT MEMORY UPDATE
 // ============================================================================
 function updateProjectMemory() {
-  const memoryPath = path.join(DOCS_DIR, 'PROJECT_MEMORY.md');
-  
+  const memoryPath = path.join(DOCS_DIR, "PROJECT_MEMORY.md");
+
   const sessionEntry = `
 ### Session ${DATE} - Emergency Production Unblocking
 
@@ -181,36 +181,36 @@ function updateProjectMemory() {
 `;
 
   try {
-    let memory = fs.readFileSync(memoryPath, 'utf8');
-    
+    let memory = fs.readFileSync(memoryPath, "utf8");
+
     // Find sessions section
-    const sessionIndex = memory.indexOf('## Development Sessions');
-    
+    const sessionIndex = memory.indexOf("## Development Sessions");
+
     if (sessionIndex !== -1) {
       // Insert after section header
-      const insertPos = memory.indexOf('\n', sessionIndex) + 1;
+      const insertPos = memory.indexOf("\n", sessionIndex) + 1;
       memory = memory.slice(0, insertPos) + sessionEntry + memory.slice(insertPos);
     } else {
       // Append to end
-      memory += '\n## Development Sessions\n' + sessionEntry;
+      memory += "\n## Development Sessions\n" + sessionEntry;
     }
-    
+
     fs.writeFileSync(memoryPath, memory);
-    console.log('✅ Updated PROJECT_MEMORY.md');
+    console.log("✅ Updated PROJECT_MEMORY.md");
   } catch (error) {
-    console.error('❌ Failed to update PROJECT_MEMORY.md:', error.message);
+    console.error("❌ Failed to update PROJECT_MEMORY.md:", error.message);
   }
 }
 
 // ============================================================================
 // MAIN
 // ============================================================================
-console.log('📝 Updating documentation for', VERSION);
-console.log('');
+console.log("📝 Updating documentation for", VERSION);
+console.log("");
 
 updateChangelog();
 updateLessonsLearned();
 updateProjectMemory();
 
-console.log('');
-console.log('🎉 Documentation update complete!');
+console.log("");
+console.log("🎉 Documentation update complete!");

@@ -44,9 +44,8 @@ supabase functions deploy nexify-compliance-automation
 ✅ **Workflow-Dokumentation:** Erstellt  
 ⏳ **Migration ausführen:** Pending  
 ⏳ **Edge Function deployen:** Pending  
-⏳ **Initial SOLL-Vorgaben laden:** Pending  
+⏳ **Initial SOLL-Vorgaben laden:** Pending
 
 ---
 
 **Bereit für erste Session mit Pascal!** 🚀
-

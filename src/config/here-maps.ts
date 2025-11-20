@@ -7,7 +7,7 @@
    - 250.000 Transaktionen/Monat GRATIS
    ================================================================================== */
 
-import { handleError } from '@/lib/error-handler';
+import { handleError } from "@/lib/error-handler";
 
 // HERE API Credentials (wird dynamisch via Edge Function geladen)
 let HERE_API_KEY_CACHE: string | null = null;
@@ -19,9 +19,9 @@ const CACHE_DURATION = 1000 * 60 * 60; // 1 Stunde
  */
 export const getHereApiKey = async (): Promise<string> => {
   const now = Date.now();
-  
+
   // Cache prüfen (1 Stunde gültig)
-  if (HERE_API_KEY_CACHE && (now - API_KEY_TIMESTAMP) < CACHE_DURATION) {
+  if (HERE_API_KEY_CACHE && now - API_KEY_TIMESTAMP < CACHE_DURATION) {
     return HERE_API_KEY_CACHE;
   }
 
@@ -30,7 +30,7 @@ export const getHereApiKey = async (): Promise<string> => {
       `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/get-here-api-key`,
       {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       }
     );
@@ -44,26 +44,24 @@ export const getHereApiKey = async (): Promise<string> => {
     API_KEY_TIMESTAMP = now;
     return data.apiKey;
   } catch (error) {
-    handleError(
-      error as Error,
-      'HERE API Key konnte nicht geladen werden',
-      { title: 'HERE Maps API Fehler' }
-    );
-    throw new Error('HERE API Key konnte nicht geladen werden');
+    handleError(error as Error, "HERE API Key konnte nicht geladen werden", {
+      title: "HERE Maps API Fehler",
+    });
+    throw new Error("HERE API Key konnte nicht geladen werden");
   }
 };
 
-export const HERE_API_KEY = ''; // Wird dynamisch via getHereApiKey() geladen
+export const HERE_API_KEY = ""; // Wird dynamisch via getHereApiKey() geladen
 
 // HERE Maps API v3.1 Script-URLs
-const HERE_CORE_SCRIPT = 'https://js.api.here.com/v3/3.1/mapsjs-core.js';
-const HERE_SERVICE_SCRIPT = 'https://js.api.here.com/v3/3.1/mapsjs-service.js';
-const HERE_UI_SCRIPT = 'https://js.api.here.com/v3/3.1/mapsjs-ui.js';
-const HERE_MAPEVENTS_SCRIPT = 'https://js.api.here.com/v3/3.1/mapsjs-mapevents.js';
-const HERE_CLUSTERING_SCRIPT = 'https://js.api.here.com/v3/3.1/mapsjs-clustering.js';
+const HERE_CORE_SCRIPT = "https://js.api.here.com/v3/3.1/mapsjs-core.js";
+const HERE_SERVICE_SCRIPT = "https://js.api.here.com/v3/3.1/mapsjs-service.js";
+const HERE_UI_SCRIPT = "https://js.api.here.com/v3/3.1/mapsjs-ui.js";
+const HERE_MAPEVENTS_SCRIPT = "https://js.api.here.com/v3/3.1/mapsjs-mapevents.js";
+const HERE_CLUSTERING_SCRIPT = "https://js.api.here.com/v3/3.1/mapsjs-clustering.js";
 
 // HERE Maps CSS
-const HERE_UI_CSS = 'https://js.api.here.com/v3/3.1/mapsjs-ui.css';
+const HERE_UI_CSS = "https://js.api.here.com/v3/3.1/mapsjs-ui.css";
 
 /**
  * Lädt die HERE Maps API v3.1 Scripts
@@ -95,16 +93,16 @@ export const loadHereMapsScript = (retryCount = 0): Promise<void> => {
         clearInterval(checkInterval);
         if (!window.H?.map?.Map) {
           if (retryCount < MAX_RETRIES) {
-            document.querySelectorAll('script[src*="here.com"]').forEach(s => s.remove());
-            document.querySelectorAll('link[href*="here.com"]').forEach(l => l.remove());
-            loadHereMapsScript(retryCount + 1).then(resolve).catch(reject);
+            document.querySelectorAll('script[src*="here.com"]').forEach((s) => s.remove());
+            document.querySelectorAll('link[href*="here.com"]').forEach((l) => l.remove());
+            loadHereMapsScript(retryCount + 1)
+              .then(resolve)
+              .catch(reject);
           } else {
-            handleError(
-              new Error('HERE Maps API Timeout'),
-              'Karte konnte nicht geladen werden',
-              { title: 'Maps API Fehler' }
-            );
-            reject(new Error('HERE Maps API Timeout'));
+            handleError(new Error("HERE Maps API Timeout"), "Karte konnte nicht geladen werden", {
+              title: "Maps API Fehler",
+            });
+            reject(new Error("HERE Maps API Timeout"));
           }
         }
       }, TIMEOUT_MS);
@@ -115,8 +113,8 @@ export const loadHereMapsScript = (retryCount = 0): Promise<void> => {
     // API Key wird dynamisch via Edge Function geladen - keine Prüfung hier
 
     // CSS laden
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
     link.href = HERE_UI_CSS;
     document.head.appendChild(link);
 
@@ -131,25 +129,25 @@ export const loadHereMapsScript = (retryCount = 0): Promise<void> => {
 
     let loadedCount = 0;
     const timeoutId = setTimeout(() => {
-      scripts.forEach(src => {
+      scripts.forEach((src) => {
         document.querySelector(`script[src="${src}"]`)?.remove();
       });
-      
+
       if (retryCount < MAX_RETRIES) {
-        loadHereMapsScript(retryCount + 1).then(resolve).catch(reject);
+        loadHereMapsScript(retryCount + 1)
+          .then(resolve)
+          .catch(reject);
       } else {
-        handleError(
-          new Error('HERE Maps Laden Timeout'),
-          'Karte konnte nicht geladen werden',
-          { title: 'Maps API Fehler' }
-        );
-        reject(new Error('HERE Maps API Timeout'));
+        handleError(new Error("HERE Maps Laden Timeout"), "Karte konnte nicht geladen werden", {
+          title: "Maps API Fehler",
+        });
+        reject(new Error("HERE Maps API Timeout"));
       }
     }, TIMEOUT_MS);
 
     const loadScript = (src: string): Promise<void> => {
       return new Promise((scriptResolve, scriptReject) => {
-        const script = document.createElement('script');
+        const script = document.createElement("script");
         script.src = src;
         script.async = false; // Sequenzielles Laden!
         script.defer = true;
@@ -168,9 +166,9 @@ export const loadHereMapsScript = (retryCount = 0): Promise<void> => {
           await loadScript(src);
           loadedCount++;
         }
-        
+
         clearTimeout(timeoutId);
-        
+
         // Warten auf H-Objekt
         const checkH = setInterval(() => {
           if (window.H?.map?.Map && window.H?.service && window.H?.ui) {
@@ -184,21 +182,21 @@ export const loadHereMapsScript = (retryCount = 0): Promise<void> => {
           if (window.H?.map?.Map) {
             resolve();
           } else {
-            reject(new Error('HERE Maps nicht vollständig initialisiert'));
+            reject(new Error("HERE Maps nicht vollständig initialisiert"));
           }
         }, 2000);
       } catch (error) {
         clearTimeout(timeoutId);
         if (retryCount < MAX_RETRIES) {
           setTimeout(() => {
-            loadHereMapsScript(retryCount + 1).then(resolve).catch(reject);
+            loadHereMapsScript(retryCount + 1)
+              .then(resolve)
+              .catch(reject);
           }, 1000);
         } else {
-          handleError(
-            error as Error,
-            'Karte konnte nicht geladen werden',
-            { title: 'Maps API Fehler' }
-          );
+          handleError(error as Error, "Karte konnte nicht geladen werden", {
+            title: "Maps API Fehler",
+          });
           reject(error);
         }
       }
@@ -211,7 +209,7 @@ export const loadHereMapsScript = (retryCount = 0): Promise<void> => {
  */
 export const createHerePlatform = async () => {
   if (!window.H) {
-    throw new Error('HERE Maps API nicht geladen');
+    throw new Error("HERE Maps API nicht geladen");
   }
 
   const apiKey = await getHereApiKey();

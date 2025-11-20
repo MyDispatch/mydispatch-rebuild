@@ -4,7 +4,7 @@
    Zentrale Type-Definitionen für wiederverwendbare Content-Strukturen
    ================================================================================== */
 
-import type { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from "lucide-react";
 
 // ==================================================================================
 // BASIC TYPES
@@ -27,7 +27,7 @@ export interface Action {
   label: string;
   onClick?: () => void;
   href?: string;
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?: "primary" | "secondary" | "outline" | "ghost";
 }
 
 // ==================================================================================
@@ -91,7 +91,7 @@ export interface CTASection {
   description: string;
   primaryButton: string;
   secondaryButton?: string;
-  background?: 'primary' | 'secondary' | 'gradient';
+  background?: "primary" | "secondary" | "gradient";
 }
 
 export interface StatsSection {

@@ -22,8 +22,9 @@ Diese Dokumentation ist **veraltet** und wurde durch die neue Master-Spezifikati
 ## 🎯 ÄNDERUNGEN PHASE 3
 
 ### 1. Supabase Storage Bucket 'chat-uploads'
+
 - **Migration:** Bucket erstellt (private, 5MB Limit)
-- **Allowed MIME Types:** 
+- **Allowed MIME Types:**
   - `application/pdf`
   - `text/markdown`
   - `text/plain`
@@ -35,6 +36,7 @@ Diese Dokumentation ist **veraltet** und wurde durch die neue Master-Spezifikati
   - ✅ Users can delete their own files
 
 ### 2. Master-Chat File-Upload Integration
+
 - **Features:**
   - File-Input Button (Paperclip Icon)
   - Drag-Drop Support (TODO Phase 4)
@@ -49,7 +51,8 @@ Diese Dokumentation ist **veraltet** und wurde durch die neue Master-Spezifikati
   - File-Path: `{user_id}/{timestamp}-{filename}`
 
 ### 3. Dashboard Queries (TanStack React Query)
-- **useRevenueData:** 
+
+- **useRevenueData:**
   - SELECT bookings (created_at, price)
   - Filter: last 7 days, company_id, status != 'cancelled'
   - Group by date (DD.MM)
@@ -66,6 +69,7 @@ Diese Dokumentation ist **veraltet** und wurde durch die neue Master-Spezifikati
   - TODO: Implement RPC `get_recent_activities` (Union von bookings/customers/drivers/vehicles)
 
 ### 4. States & Error-Handling
+
 - **Loading:** Skeleton (KPIs/Charts/Timeline/Chat)
 - **Error:** Toast + Fallback ("Network Error – Retry")
 - **Empty:** "Noch keine Daten vorhanden"
@@ -76,7 +80,8 @@ Diese Dokumentation ist **veraltet** und wurde durch die neue Master-Spezifikati
 ## 📊 NÄCHSTE SCHRITTE (PHASE 4)
 
 ### Design & Vorgaben
-1. **Typografie:** 
+
+1. **Typografie:**
    - text-xs muted (Descriptions/KPI)
    - text-sm (CardTitle)
 2. **Farben:**
@@ -96,18 +101,22 @@ Diese Dokumentation ist **veraltet** und wurde durch die neue Master-Spezifikati
 ## 🔧 TECHNICAL DETAILS
 
 ### Dependencies (neu hinzugefügt):
+
 - `@supabase/storage-js@2.12.2`
 
 ### New Hooks:
+
 - `use-dashboard-queries.tsx`:
   - `useRevenueData()`
   - `useOrderStatusData()`
   - `useRecentActivities()`
 
 ### Storage Buckets:
+
 - ✅ `chat-uploads` (private, 5MB, auth only)
 
 ### Build-Status:
+
 - ✅ TypeScript Compilation
 - ✅ Storage Migration Applied
 - ✅ File-Upload Tested (Client-Side)

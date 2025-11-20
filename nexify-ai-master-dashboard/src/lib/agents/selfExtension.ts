@@ -1,22 +1,22 @@
-import { supabase } from '../supabase/client'
+import { supabase } from "../supabase/client";
 
 export interface FeatureRequest {
-  id: string
-  title: string
-  description: string
-  priority: 'low' | 'medium' | 'high' | 'critical'
-  status: 'pending' | 'in_progress' | 'completed' | 'cancelled'
-  estimated_complexity: number // 1-10
-  created_at: string
+  id: string;
+  title: string;
+  description: string;
+  priority: "low" | "medium" | "high" | "critical";
+  status: "pending" | "in_progress" | "completed" | "cancelled";
+  estimated_complexity: number; // 1-10
+  created_at: string;
 }
 
 export interface OptimizationTask {
-  id: string
-  type: 'performance' | 'code_quality' | 'user_experience' | 'security'
-  description: string
-  current_metric: number
-  target_metric: number
-  status: 'pending' | 'in_progress' | 'completed'
+  id: string;
+  type: "performance" | "code_quality" | "user_experience" | "security";
+  description: string;
+  current_metric: number;
+  target_metric: number;
+  status: "pending" | "in_progress" | "completed";
 }
 
 export class SelfExtensionSystem {
@@ -26,7 +26,7 @@ export class SelfExtensionSystem {
   async analyzeCodeQuality(): Promise<OptimizationTask[]> {
     // TODO: Implementiere Code-Analyse
     // Kann Tools wie ESLint, TypeScript Compiler, etc. nutzen
-    return []
+    return [];
   }
 
   /**
@@ -35,7 +35,7 @@ export class SelfExtensionSystem {
   async analyzePerformance(): Promise<OptimizationTask[]> {
     // TODO: Implementiere Performance-Analyse
     // Kann Lighthouse, Web Vitals, etc. nutzen
-    return []
+    return [];
   }
 
   /**
@@ -44,37 +44,37 @@ export class SelfExtensionSystem {
   async generateFeatureRequests(): Promise<FeatureRequest[]> {
     // Analysiere Nutzungsdaten
     const { data: commands } = await supabase
-      .from('agent_commands')
-      .select('command_text, command_type')
-      .order('created_at', { ascending: false })
-      .limit(100)
+      .from("agent_commands")
+      .select("command_text, command_type")
+      .order("created_at", { ascending: false })
+      .limit(100);
 
-    if (!commands) return []
+    if (!commands) return [];
 
     // Analysiere häufige Patterns
-    const patterns: Record<string, number> = {}
+    const patterns: Record<string, number> = {};
     commands.forEach((cmd) => {
-      const key = cmd.command_type
-      patterns[key] = (patterns[key] || 0) + 1
-    })
+      const key = cmd.command_type;
+      patterns[key] = (patterns[key] || 0) + 1;
+    });
 
     // Generiere Feature-Requests basierend auf Patterns
-    const requests: FeatureRequest[] = []
+    const requests: FeatureRequest[] = [];
 
     // Beispiel: Wenn viele "deploy" Commands, könnte Auto-Deploy nützlich sein
     if (patterns.deploy && patterns.deploy > 10) {
       requests.push({
         id: `auto-deploy-${Date.now()}`,
-        title: 'Auto-Deploy Feature',
-        description: 'Automatisches Deployment nach erfolgreichen Tests',
-        priority: 'high',
-        status: 'pending',
+        title: "Auto-Deploy Feature",
+        description: "Automatisches Deployment nach erfolgreichen Tests",
+        priority: "high",
+        status: "pending",
         estimated_complexity: 7,
         created_at: new Date().toISOString(),
-      })
+      });
     }
 
-    return requests
+    return requests;
   }
 
   /**
@@ -106,13 +106,13 @@ export class SelfExtensionSystem {
    */
   async learnFromSuccess(): Promise<void> {
     const { data: successfulCommands } = await supabase
-      .from('agent_commands')
-      .select('*')
-      .eq('status', 'completed')
-      .order('created_at', { ascending: false })
-      .limit(50)
+      .from("agent_commands")
+      .select("*")
+      .eq("status", "completed")
+      .order("created_at", { ascending: false })
+      .limit(50);
 
-    if (!successfulCommands) return
+    if (!successfulCommands) return;
 
     // Analysiere Patterns und speichere in Knowledge Base
     for (const cmd of successfulCommands) {
@@ -121,11 +121,11 @@ export class SelfExtensionSystem {
         command_type: cmd.command_type,
         execution_time: cmd.execution_time_ms,
         success: true,
-      }
+      };
 
       // Speichere in ai_learning_patterns
-      await supabase.from('ai_learning_patterns').insert({
-        pattern_type: 'command_success',
+      await supabase.from("ai_learning_patterns").insert({
+        pattern_type: "command_success",
         success: true,
         context: {
           command: cmd.command_text,
@@ -133,7 +133,7 @@ export class SelfExtensionSystem {
         },
         learnings: JSON.stringify(pattern),
         confidence: 0.8,
-      })
+      });
     }
   }
 
@@ -142,26 +142,26 @@ export class SelfExtensionSystem {
    */
   async learnFromFailures(): Promise<void> {
     const { data: failedCommands } = await supabase
-      .from('agent_commands')
-      .select('*')
-      .eq('status', 'failed')
-      .order('created_at', { ascending: false })
-      .limit(50)
+      .from("agent_commands")
+      .select("*")
+      .eq("status", "failed")
+      .order("created_at", { ascending: false })
+      .limit(50);
 
-    if (!failedCommands) return
+    if (!failedCommands) return;
 
     // Analysiere Fehler-Patterns
     for (const cmd of failedCommands) {
       if (cmd.error_message) {
         // Speichere als Known Issue
-        await supabase.from('known_issues').insert({
-          issue_type: 'command_failure',
+        await supabase.from("known_issues").insert({
+          issue_type: "command_failure",
           description: `Command failed: ${cmd.command_text}`,
-          severity: 'medium',
+          severity: "medium",
           solution: cmd.error_message,
-          tags: ['command', 'error'],
+          tags: ["command", "error"],
           resolved: false,
-        })
+        });
       }
     }
   }
@@ -172,30 +172,30 @@ export class SelfExtensionSystem {
   async runSelfExtension(): Promise<void> {
     try {
       // 1. Lerne aus Erfolgen
-      await this.learnFromSuccess()
+      await this.learnFromSuccess();
 
       // 2. Lerne aus Fehlern
-      await this.learnFromFailures()
+      await this.learnFromFailures();
 
       // 3. Generiere Feature-Requests
-      const requests = await this.generateFeatureRequests()
+      const requests = await this.generateFeatureRequests();
 
       // 4. Analysiere Code-Qualität
-      const qualityTasks = await this.analyzeCodeQuality()
+      const qualityTasks = await this.analyzeCodeQuality();
 
       // 5. Analysiere Performance
-      const perfTasks = await this.analyzePerformance()
+      const perfTasks = await this.analyzePerformance();
 
       // Log Results
-      console.log('Self-Extension completed:', {
+      console.log("Self-Extension completed:", {
         featureRequests: requests.length,
         qualityTasks: qualityTasks.length,
         perfTasks: perfTasks.length,
-      })
+      });
     } catch (error) {
-      console.error('Error in self-extension:', error)
+      console.error("Error in self-extension:", error);
     }
   }
 }
 
-export const selfExtensionSystem = new SelfExtensionSystem()
+export const selfExtensionSystem = new SelfExtensionSystem();

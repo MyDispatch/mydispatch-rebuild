@@ -22,6 +22,7 @@
 ## 🎯 DASHBOARD (Index.tsx) - 19 FEATURES
 
 ### Visual Tests
+
 - [ ] Header Styling (Slate-900 text, correct spacing)
 - [ ] KPI Cards Layout (4 cards, correct grid)
 - [ ] Quick Actions Section (3 buttons, correct alignment)
@@ -29,6 +30,7 @@
 - [ ] Overall Color Palette (100% Slate, no Beige/Dunkelblau)
 
 ### Functional Tests
+
 - [ ] Live Time Display updates every second
 - [ ] KPI: Heutige Aufträge shows correct count
 - [ ] KPI: Umsatz shows correct amount (formatted)
@@ -41,11 +43,13 @@
 - [ ] Mobile: < 768px shows MobileDashboard
 
 ### Realtime Tests
+
 - [ ] New booking → KPI updates
 - [ ] Driver status change → Map updates
 - [ ] Vehicle status change → Map updates
 
 ### Performance Tests
+
 - [ ] Lighthouse Score > 90
 - [ ] Map loads < 2s
 
@@ -54,6 +58,7 @@
 ## 📦 AUFTRÄGE (Auftraege.tsx) - 20 FEATURES
 
 ### Functional Tests
+
 - [ ] Table: Sort by all columns
 - [ ] Table: Filter by status works
 - [ ] Table: Date range filter works
@@ -66,12 +71,13 @@
 - [ ] Realtime: New booking appears in table
 
 **Playwright Test:**
+
 ```typescript
-test('Auftraege - Table Sort', async ({ page }) => {
-  await page.goto('/auftraege');
+test("Auftraege - Table Sort", async ({ page }) => {
+  await page.goto("/auftraege");
   await page.click('[data-testid="table-header-date"]');
   const firstRow = await page.locator('[data-testid="booking-row"]').first().textContent();
-  expect(firstRow).toContain('2025');
+  expect(firstRow).toContain("2025");
 });
 ```
 

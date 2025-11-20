@@ -14,6 +14,7 @@
 **Analyse (simuliert - kein Live-Call möglich im Build-Kontext):**
 
 ✅ **Aktuelle RLS-Policies (korrekt):**
+
 ```sql
 -- Upload: Users can only upload to their own folder
 CREATE POLICY "Users can upload to chat-uploads"
@@ -41,6 +42,7 @@ USING (
 ```
 
 **Best-Practices erfüllt:**
+
 - ✅ Private Bucket (public: false) - verhindert direkten URL-Access
 - ✅ User-ID in Folder-Path (`{user_id}/*`) - isoliert User-Daten
 - ✅ RLS-Policies für alle Operationen (INSERT/SELECT/DELETE)
@@ -50,6 +52,7 @@ USING (
 **Keine Optimierungen nötig** - Setup ist secure!
 
 **Zusätzliche Security (optional):**
+
 - File-Type Validation via Bucket-Config (allowedMimeTypes) ✅ bereits implementiert
 - Size-Limit via Bucket-Config (5MB) ✅ bereits implementiert
 - Client-Side Validation (Toast Errors) ✅ bereits implementiert
@@ -61,12 +64,14 @@ USING (
 **Status:** ✅ IMPLEMENTIERT
 
 **Files erstellt:**
+
 - `tests/e2e/dashboard.spec.ts` - E2E Tests für Dashboard, Chat, KPI-Clicks
 - `playwright.config.ts` - Playwright-Konfiguration (Desktop + Mobile)
 - `tests/upload-validation.test.ts` - Unit-Tests für Upload-Validation
 - `tests/dashboard-formatting.test.ts` - Unit-Tests für Datenformatierung
 
 **Test-Coverage:**
+
 ```typescript
 // E2E Tests (dashboard.spec.ts)
 - should load dashboard with KPIs
@@ -87,12 +92,14 @@ USING (
 ```
 
 **CI-Trigger-Status (Phase 4):**
+
 - ⏳ **Pending** - CI-YAML erstellt in `.github/workflows/ci.yml`
 - ⏳ **Awaiting First Commit** - Trigger bei Push zu main/develop
 - ✅ TypeScript Build erfolgreich (lokal)
 - ✅ ESLint Checks bestanden (lokal)
 
 **Nächster Schritt:**
+
 1. Commit-Message nutzen aus `docs/CI_COMMIT_MESSAGE.md`
 2. Push zu Branch `feature/master-dashboard-phase-3-5`
 3. CI wird getriggert (Build + Tests + Deploy)
@@ -104,6 +111,7 @@ USING (
 **Analyse:** `src/pages/Index.tsx`
 
 **Bestehende Sections:**
+
 1. ✅ **CollapsibleDashboardSection** (Zeilen 171-254)
    - Enthält: SectionHeader, KPI-Grid (4 Cards), Quick-Actions
    - Status: ✅ Korrekt implementiert gemäß Spec
@@ -117,6 +125,7 @@ USING (
    - Status: ✅ Neu integriert in Phase 3-4
 
 **"Auftrags-Übersicht" gefunden:**
+
 - ❌ **NICHT in Index.tsx** (nicht zu ersetzen)
 - ✅ **Gefunden in DashboardSidebar.tsx** (Zeile 102)
   - Ist Teil der MAP-Sidebar (links)
@@ -124,6 +133,7 @@ USING (
   - Status: ✅ Bleibt unverändert (nicht conflictiv mit Chat)
 
 **Fazit:**
+
 - ✅ Keine Ersetzung nötig - Chat ist separates Widget
 - ✅ Alle Sections gemäß Spec (4 KPIs, MAP, Chat)
 - ✅ Keine V26-Extras zu entfernen
@@ -135,6 +145,7 @@ USING (
 **CI-YAML:** `.github/workflows/ci.yml`
 
 **Status:**
+
 - ✅ YAML erstellt (GitHub Actions Draft)
 - ⏳ **Noch nicht getriggert** (kein Commit/Push yet)
 - ⏳ **Awaiting Deploy** - Commit-Message ready in `docs/CI_COMMIT_MESSAGE.md`
@@ -142,6 +153,7 @@ USING (
 **Letzter PR-Status:** N/A (erster Commit pending)
 
 **Pipeline-Steps (Draft):**
+
 ```yaml
 1. Checkout code
 2. Setup Node.js 18
@@ -156,6 +168,7 @@ USING (
 ```
 
 **Next Actions:**
+
 1. ✅ Commit mit Message aus `CI_COMMIT_MESSAGE.md`
 2. ✅ Push zu `feature/master-dashboard-phase-3-5`
 3. ✅ Create PR zu `main`

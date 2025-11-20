@@ -5,17 +5,11 @@
    Registriert: Modal mit CI-konformer Dokumentation
    ================================================================================== */
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/lib/compat';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { V28Button } from '@/components/design-system/V28Button';
-import { BookOpen, X } from 'lucide-react';
-import { sanitizeHelpContent } from '@/lib/sanitize';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/lib/compat";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { V28Button } from "@/components/design-system/V28Button";
+import { BookOpen, X } from "lucide-react";
+import { sanitizeHelpContent } from "@/lib/sanitize";
 
 interface DocumentationModalProps {
   isOpen: boolean;
@@ -54,7 +48,7 @@ export function DocumentationModal({
         </DialogHeader>
 
         <ScrollArea className="h-[60vh] pr-4">
-          <div 
+          <div
             className="prose prose-sm max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-ul:text-muted-foreground"
             dangerouslySetInnerHTML={{ __html: sanitizeHelpContent(content) }}
           />

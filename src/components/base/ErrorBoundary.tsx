@@ -8,12 +8,12 @@
    NUTZUNG: <ErrorBoundary><YourComponent /></ErrorBoundary>
    ================================================================================== */
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { AlertCircle, RefreshCw } from 'lucide-react';
-import { V28Button } from '@/components/design-system/V28Button';
-import { EnhancedCard } from './EnhancedCard';
-import { SafeIcon } from './SafeIcon';
-import { logger } from '@/lib/logger';
+import React, { Component, ErrorInfo, ReactNode } from "react";
+import { AlertCircle, RefreshCw } from "lucide-react";
+import { V28Button } from "@/components/design-system/V28Button";
+import { EnhancedCard } from "./EnhancedCard";
+import { SafeIcon } from "./SafeIcon";
+import { logger } from "@/lib/logger";
 
 // ==================================================================================
 // TYPES
@@ -52,11 +52,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // Log Error
-    logger.error('ErrorBoundary caught error', error, { 
-      component: 'ErrorBoundary',
-      componentStack: errorInfo.componentStack 
+    logger.error("ErrorBoundary caught error", error, {
+      component: "ErrorBoundary",
+      componentStack: errorInfo.componentStack,
     });
-    
+
     // Custom Error Handler
     if (this.props.onError) {
       this.props.onError(error, errorInfo);
@@ -83,9 +83,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
           <EnhancedCard.Header>
             <div className="flex items-center gap-2">
               <SafeIcon icon={AlertCircle} size="lg" color="text-foreground" />
-              <EnhancedCard.Title>
-                Ein Fehler ist aufgetreten
-              </EnhancedCard.Title>
+              <EnhancedCard.Title>Ein Fehler ist aufgetreten</EnhancedCard.Title>
             </div>
             <EnhancedCard.Description>
               Die Komponente konnte nicht geladen werden.
@@ -96,15 +94,13 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             {/* Error Message (nur in Development) */}
             {import.meta.env.DEV && this.state.error && (
               <div className="p-4 bg-muted rounded-md">
-                <p className="text-sm font-mono text-destructive">
-                  {this.state.error.message}
-                </p>
+                <p className="text-sm font-mono text-destructive">{this.state.error.message}</p>
               </div>
             )}
 
             <p className="text-sm text-muted-foreground">
-              Bitte versuchen Sie es erneut. Falls das Problem weiterhin besteht,
-              kontaktieren Sie unseren Support.
+              Bitte versuchen Sie es erneut. Falls das Problem weiterhin besteht, kontaktieren Sie
+              unseren Support.
             </p>
           </EnhancedCard.Content>
 
@@ -137,18 +133,14 @@ export function ErrorFallback({ error, resetError }: ErrorFallbackProps) {
       <EnhancedCard.Header>
         <div className="flex items-center gap-2">
           <SafeIcon icon={AlertCircle} size="lg" color="text-foreground" />
-          <EnhancedCard.Title>
-            Ein Fehler ist aufgetreten
-          </EnhancedCard.Title>
+          <EnhancedCard.Title>Ein Fehler ist aufgetreten</EnhancedCard.Title>
         </div>
       </EnhancedCard.Header>
 
       <EnhancedCard.Content>
         {import.meta.env.DEV && (
           <div className="p-4 bg-muted rounded-md mb-4">
-            <p className="text-sm font-mono text-destructive">
-              {error.message}
-            </p>
+            <p className="text-sm font-mono text-destructive">{error.message}</p>
           </div>
         )}
 

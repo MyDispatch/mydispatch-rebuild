@@ -21,10 +21,7 @@ MyDispatch is a production-ready taxi & limousine dispatch management system bui
 
 ```typescript
 // ✅ CORRECT - Company-scoped query
-const { data } = await supabase
-  .from("customers")
-  .select("*")
-  .eq("company_id", companyId);
+const { data } = await supabase.from("customers").select("*").eq("company_id", companyId);
 
 // ❌ NEVER query without company_id filter (security violation)
 ```
@@ -259,8 +256,7 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ```typescript
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 // Error response pattern

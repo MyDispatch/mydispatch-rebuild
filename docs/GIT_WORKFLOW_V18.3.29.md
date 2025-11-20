@@ -1,4 +1,5 @@
 # 🔀 GIT WORKFLOW V18.3.29
+
 ## MyDispatch - Version Control Standards
 
 **Status:** Production-Ready  
@@ -56,6 +57,7 @@ refactor/simplify-validation
 ```
 
 **Regeln:**
+
 - Kleinbuchstaben + Bindestriche (kebab-case)
 - Präfix: `feature/`, `bugfix/`, `hotfix/`, `docs/`, `refactor/`
 - Beschreibend, aber kurz (max. 50 Zeichen)
@@ -79,25 +81,26 @@ refactor/simplify-validation
 
 ### Types
 
-| Type | Verwendung | Beispiel |
-|------|-----------|----------|
-| `feat` | Neues Feature | `feat(orders): add filter by status` |
-| `fix` | Bugfix | `fix(auth): resolve session timeout issue` |
-| `docs` | Dokumentation | `docs(readme): update installation steps` |
-| `style` | Code-Formatierung | `style(button): fix indentation` |
-| `refactor` | Code-Umstrukturierung | `refactor(validation): simplify schema` |
-| `perf` | Performance-Optimierung | `perf(queries): add index on orders table` |
-| `test` | Tests hinzufügen/ändern | `test(orders): add unit tests for filter` |
-| `build` | Build-System | `build(deps): upgrade react to 18.3` |
-| `ci` | CI/CD | `ci(github): add automated testing` |
-| `chore` | Wartungsarbeiten | `chore(deps): update dependencies` |
-| `revert` | Commit rückgängig machen | `revert: revert feat(orders)` |
+| Type       | Verwendung               | Beispiel                                   |
+| ---------- | ------------------------ | ------------------------------------------ |
+| `feat`     | Neues Feature            | `feat(orders): add filter by status`       |
+| `fix`      | Bugfix                   | `fix(auth): resolve session timeout issue` |
+| `docs`     | Dokumentation            | `docs(readme): update installation steps`  |
+| `style`    | Code-Formatierung        | `style(button): fix indentation`           |
+| `refactor` | Code-Umstrukturierung    | `refactor(validation): simplify schema`    |
+| `perf`     | Performance-Optimierung  | `perf(queries): add index on orders table` |
+| `test`     | Tests hinzufügen/ändern  | `test(orders): add unit tests for filter`  |
+| `build`    | Build-System             | `build(deps): upgrade react to 18.3`       |
+| `ci`       | CI/CD                    | `ci(github): add automated testing`        |
+| `chore`    | Wartungsarbeiten         | `chore(deps): update dependencies`         |
+| `revert`   | Commit rückgängig machen | `revert: revert feat(orders)`              |
 
 ---
 
 ### Scope (optional)
 
 **Module/Komponente:**
+
 - `auth`, `orders`, `dashboard`, `invoices`
 - `validation`, `sanitize`, `utils`
 - `ui`, `design-system`
@@ -107,12 +110,14 @@ refactor/simplify-validation
 ### Subject
 
 **Regeln:**
+
 - Imperativ, Präsens: "add", nicht "added" oder "adds"
 - Kleinbuchstaben (außer Eigennamen)
 - Kein Punkt am Ende
 - Max. 50 Zeichen
 
 **Beispiele:**
+
 ```
 ✅ feat(orders): add export to CSV functionality
 ✅ fix(auth): resolve token refresh race condition
@@ -128,11 +133,13 @@ refactor/simplify-validation
 ### Body (optional, empfohlen)
 
 **Verwendung:**
+
 - Erkläre das "Warum", nicht das "Was"
 - Max. 72 Zeichen pro Zeile
 - Leerzeile nach Subject
 
 **Beispiel:**
+
 ```
 fix(orders): prevent duplicate order creation
 
@@ -149,6 +156,7 @@ to prevent duplicate order_numbers.
 ### Footer (optional)
 
 **Breaking Changes:**
+
 ```
 feat(api): change invoice endpoint response format
 
@@ -157,6 +165,7 @@ Update all API consumers to use the new field name.
 ```
 
 **Issue References:**
+
 ```
 fix(auth): resolve session timeout
 
@@ -239,22 +248,28 @@ git push origin feature/invoice-pdf-download
 ### 2. Pull Request (PR) Guidelines
 
 **PR-Titel:**
+
 - Gleiche Konvention wie Commit-Messages
 - Beispiel: `feat(invoices): add PDF download functionality`
 
 **PR-Beschreibung (Template):**
+
 ```markdown
 ## Was wurde geändert?
+
 Beschreibung der Änderungen
 
 ## Warum?
+
 Begründung/Business-Value
 
 ## Wie testen?
+
 1. Schritt 1
 2. Schritt 2
 
 ## Checkliste
+
 - [ ] Tests geschrieben
 - [ ] Dokumentation aktualisiert
 - [ ] Code-Review durchgeführt
@@ -263,6 +278,7 @@ Begründung/Business-Value
 - [ ] Mobile getestet
 
 ## Screenshots (falls UI-Änderung)
+
 [Screenshots hier einfügen]
 
 Closes #123
@@ -273,6 +289,7 @@ Closes #123
 ### 3. Code-Review-Prozess
 
 **Reviewer-Checkliste:**
+
 - [ ] Code folgt Coding-Standards (docs/CODING_STANDARDS_V18.3.29.md)
 - [ ] Komponenten verwenden Design-System
 - [ ] Input-Validation & Sanitization vorhanden
@@ -283,6 +300,7 @@ Closes #123
 - [ ] Accessibility berücksichtigt
 
 **Approval-Regel:**
+
 - Mindestens 1 Approval vor Merge
 - CI/CD Pipeline muss grün sein
 
@@ -309,6 +327,7 @@ git push --force-with-lease
 ```
 
 **Empfehlung für MyDispatch:**
+
 - **Features:** Squash Merge (saubere History)
 - **Bugfixes:** Merge Commit (Traceability)
 - **Hotfixes:** Direct Merge (Schnelligkeit)
@@ -395,25 +414,31 @@ git push origin --tags
 ## [18.3.29] - 2025-10-21
 
 ### Added
+
 - **Invoices:** PDF download functionality (#234)
 - **Dashboard:** Real-time KPI updates (#245)
 - **Validation:** Comprehensive Zod schemas (#256)
 
 ### Fixed
+
 - **Auth:** Session timeout race condition (#267)
 - **Orders:** Duplicate order creation bug (#278)
 
 ### Changed
+
 - **Design System:** Updated icon colors (#289)
 - **Performance:** Optimized invoice queries (#290)
 
 ### Deprecated
+
 - None
 
 ### Removed
+
 - None
 
 ### Security
+
 - **Critical:** XSS vulnerability patched (#301)
 ```
 
@@ -424,6 +449,7 @@ git push origin --tags
 ### Branch Protection Rules (GitHub)
 
 **`main` Branch:**
+
 - ✅ Require pull request before merging
 - ✅ Require approvals (min. 1)
 - ✅ Require status checks to pass (CI/CD)
@@ -433,6 +459,7 @@ git push origin --tags
 - ❌ Allow deletions
 
 **`develop` Branch:**
+
 - ✅ Require pull request before merging
 - ✅ Require status checks to pass
 - ✅ Require conversation resolution
@@ -592,13 +619,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
       - run: npm ci
       - run: npm run type-check
       - run: npm run lint
       - run: npm run test
       - run: npm run build
-      
+
   e2e:
     runs-on: ubuntu-latest
     steps:
@@ -607,7 +634,7 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps
       - run: npm run test:e2e
-      
+
   security:
     runs-on: ubuntu-latest
     steps:
@@ -620,17 +647,20 @@ jobs:
 ## ✅ DAILY WORKFLOW CHECKLISTE
 
 **Morgens:**
+
 - [ ] `git checkout develop`
 - [ ] `git pull origin develop`
 - [ ] `npm install` (falls package.json geändert)
 
 **Während Entwicklung:**
+
 - [ ] Kleine, atomare Commits
 - [ ] Klare Commit-Messages (Conventional Commits)
 - [ ] Tests schreiben
 - [ ] Self-Review vor Push
 
 **Vor Feierabend:**
+
 - [ ] Alle Änderungen committen oder stashen
 - [ ] Branch pushen (Backup!)
 - [ ] PR erstellen wenn Feature fertig
@@ -648,4 +678,4 @@ jobs:
 
 **END OF DOCUMENT**
 
-*Dieser Git-Workflow ist verbindlich für alle Entwickler im MyDispatch-Projekt.*
+_Dieser Git-Workflow ist verbindlich für alle Entwickler im MyDispatch-Projekt._

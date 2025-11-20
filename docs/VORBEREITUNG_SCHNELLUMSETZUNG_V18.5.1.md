@@ -9,6 +9,7 @@
 ## ✅ BEREITS ERLEDIGT (Quick Wins)
 
 ### 1. Pricing Validation Hook (~3min) ✓
+
 - Automatische Prüfung pricing-tiers ↔ tariff-definitions
 - Console-Warnings bei Inkonsistenzen
 - Nur in Development aktiv
@@ -16,14 +17,17 @@
 **Nutzen:** Verhindert zukünftige Pricing-Fehler automatisch
 
 ### 2. Error Boundary (~bereits vorhanden) ✓
+
 - App crasht nicht mehr komplett bei Fehlern
 - User-freundliche Fehlerbehandlung
 
 ### 3. React Query (~bereits integriert) ✓
+
 - QueryClient bereits in App.tsx
 - Bereit für optimierte DB-Queries
 
 ### 4. OptimizedTable Component ✓
+
 - Template für performance-optimierte Tables
 - Ready to use in Fahrer/Fahrzeuge/Aufträge
 
@@ -39,6 +43,7 @@
 Statt alle Queries auf einmal zu migrieren (was fehleranfällig ist), sollten wir **nur die kritischsten** zuerst machen:
 
 **Priorität 1 (Heute):**
+
 ```typescript
 // Companies Query (läuft auf jeder Seite)
 // Aufträge Query (große Datenmenge)
@@ -46,6 +51,7 @@ Statt alle Queries auf einmal zu migrieren (was fehleranfällig ist), sollten wi
 ```
 
 **Priorität 2 (Morgen):**
+
 ```typescript
 // Fahrzeuge Query
 // Kunden Query
@@ -60,6 +66,7 @@ Statt alle Queries auf einmal zu migrieren (was fehleranfällig ist), sollten wi
 ### 1.2 Environment Variables dokumentieren
 
 **Aktuell fehlt:**
+
 ```bash
 # .env.example (erstellen!)
 VITE_SUPABASE_URL=your_url_here
@@ -79,11 +86,13 @@ VITE_SUPABASE_ANON_KEY=your_key_here
 Nicht alle Seiten gleich behandeln! Fokus auf **User-Impact**:
 
 **Kritische Paths (Performance = wichtig):**
+
 1. `/dashboard` - Erste Seite nach Login
 2. `/auftraege` - Wird am häufigsten benutzt
 3. `/fahrer` - Live-Updates wichtig
 
 **Weniger kritisch:**
+
 - `/einstellungen` - Wird selten benutzt
 - `/dokumente` - Kann langsamer sein
 
@@ -96,6 +105,7 @@ Nicht alle Seiten gleich behandeln! Fokus auf **User-Impact**:
 ### 2.1 Performance Baseline messen
 
 **Vor jeder Optimierung:**
+
 ```typescript
 // Performance-Monitoring einschalten
 npm run build
@@ -116,9 +126,10 @@ Notieren:
 ### 2.2 Table-Components identifizieren
 
 **Folgende Tables migrieren zu OptimizedTable:**
+
 ```typescript
 1. BookingsTable (/auftraege)      → PRIORITY 1
-2. DriversTable (/fahrer)          → PRIORITY 1  
+2. DriversTable (/fahrer)          → PRIORITY 1
 3. VehiclesTable (/fahrzeuge)      → PRIORITY 2
 4. CustomersTable (/kunden)        → PRIORITY 2
 5. PartnersTable (/partner)        → PRIORITY 3
@@ -135,11 +146,13 @@ Notieren:
 Nicht überall memoizen! Nur wo es wirklich hilft:
 
 **JA zu Memoization:**
+
 - Große Listen (>50 Items)
 - Teure Berechnungen (Statistiken, Aggregationen)
 - Event-Handler in Listen
 
 **NEIN zu Memoization:**
+
 - Kleine Komponenten
 - Simple Props
 - Statische Content
@@ -162,6 +175,7 @@ Du hast gefragt "was können wir vorbereiten" - hier ist meine ehrliche Antwort:
 **ABER:** Langfristig spart das Wochen an Debug-Zeit!
 
 **Vorbereitung:**
+
 1. Branch erstellen: `git checkout -b typescript-strict`
 2. In `tsconfig.json`: `"strict": true`
 3. Fehler-Liste generieren: `npm run build 2>&1 | tee errors.txt`
@@ -182,16 +196,18 @@ Du hast nach "schnell umsetzen" gefragt. Tests sind das Gegenteil von schnell.
 **ABER:** Ein simpler Smoke-Test (5min Setup) kann stundenlange Fehlersuche verhindern.
 
 **Minimaler Test:**
+
 ```typescript
 // tests/pricing-sync.test.ts
-describe('Pricing Consistency', () => {
-  it('should have matching prices', () => {
+describe("Pricing Consistency", () => {
+  it("should have matching prices", () => {
     // Prüft pricing-tiers ↔ tariff-definitions
   });
 });
 ```
 
 **Entscheidung liegt bei dir:**
+
 - JA → 30min heute investieren
 - NEIN → Aber dann müssen wir manuell testen
 
@@ -206,14 +222,16 @@ describe('Pricing Consistency', () => {
 ### Was du jetzt sofort machen solltest:
 
 **HEUTE (30min):**
+
 ```
 ✅ Companies Query zu React Query
-✅ Aufträge Query zu React Query  
+✅ Aufträge Query zu React Query
 ✅ .env.example erstellen
 ✅ Performance Baseline messen (Dashboard, Aufträge)
 ```
 
 **MORGEN (1h):**
+
 ```
 ✅ BookingsTable → OptimizedTable migrieren
 ✅ DriversTable → OptimizedTable migrieren
@@ -221,6 +239,7 @@ describe('Pricing Consistency', () => {
 ```
 
 **ÜBERMORGEN (1h):**
+
 ```
 ✅ VehiclesTable → OptimizedTable
 ✅ CustomersTable → OptimizedTable
@@ -230,6 +249,7 @@ describe('Pricing Consistency', () => {
 ### Was warten kann:
 
 **NÄCHSTE WOCHE:**
+
 - TypeScript Strict (schrittweise)
 - Test-Setup (optional)
 - Feature-Based Organization (nice-to-have)
@@ -243,11 +263,13 @@ describe('Pricing Consistency', () => {
 Du hast nach "schnell umsetzen" gefragt. Aber:
 
 **Schnell ≠ Gut**, wenn wir:
+
 - Keine Tests haben
 - Keine Performance-Baselines
 - Änderungen nicht messen
 
 **Meine Empfehlung:**
+
 - Heute: Quick Wins (30min)
 - Diese Woche: Schrittweise Optimierung (3-4h verteilt)
 - Nächste Woche: Technical Debt
@@ -259,23 +281,28 @@ Du hast nach "schnell umsetzen" gefragt. Aber:
 ## 📋 CHECKLISTE
 
 ### Vorbereitung (Jetzt):
+
 - [ ] .env.example erstellen
 - [ ] Performance-Baseline messen
 - [ ] Critical Paths dokumentieren
 
 ### Phase 1 (Heute):
+
 - [ ] Companies Query → React Query
 - [ ] Aufträge Query → React Query
 
 ### Phase 2 (Morgen):
+
 - [ ] BookingsTable → OptimizedTable
 - [ ] DriversTable → OptimizedTable
 
 ### Phase 3 (Übermorgen):
+
 - [ ] VehiclesTable → OptimizedTable
 - [ ] Restliche Queries migrieren
 
 ### Optional (Nächste Woche):
+
 - [ ] TypeScript Strict
 - [ ] Test Setup
 - [ ] Code Organization
@@ -287,16 +314,19 @@ Du hast nach "schnell umsetzen" gefragt. Aber:
 **Pascal, deine Entscheidung:**
 
 **Option A: Konservativ (Empfohlen)**
+
 - Heute nur Phase 1 (30min)
 - Morgen testen, dann Phase 2
 - Schrittweise & sicher
 
 **Option B: Aggressiv**
+
 - Heute Phase 1 + 2 (1.5h)
 - Morgen Phase 3
 - Schneller, aber riskanter
 
 **Option C: Minimal**
+
 - Nur Quick Wins (bereits erledigt!)
 - Keine weiteren Optimierungen jetzt
 - Focus auf Features

@@ -7,20 +7,20 @@
 **Datei:** `src/pages/Dashboard.tsx`
 
 ```tsx
-import { LiveDriverMap } from '@/components/dashboard/LiveDriverMap';
+import { LiveDriverMap } from "@/components/dashboard/LiveDriverMap";
 
 // Im Dashboard-Component:
 export default function Dashboard() {
   const { profile } = useAuth();
-  
+
   return (
     <div className="space-y-6">
       {/* Bestehende KPI-Cards */}
       <DashboardKPICards companyId={profile.company_id} />
-      
+
       {/* NEU: Live-Karte */}
       <LiveDriverMap companyId={profile.company_id} />
-      
+
       {/* Rest des Dashboards */}
     </div>
   );
@@ -36,13 +36,13 @@ export default function Dashboard() {
 **Datei:** `src/pages/Auftraege.tsx` oder Booking-Form-Component
 
 ```tsx
-import { AddressAutosuggest } from '@/components/maps/AddressAutosuggest';
-import { useState } from 'react';
+import { AddressAutosuggest } from "@/components/maps/AddressAutosuggest";
+import { useState } from "react";
 
 export default function BookingForm() {
-  const [pickupAddress, setPickupAddress] = useState('');
-  const [pickupCoords, setPickupCoords] = useState<{lat: number, lng: number} | null>(null);
-  
+  const [pickupAddress, setPickupAddress] = useState("");
+  const [pickupCoords, setPickupCoords] = useState<{ lat: number; lng: number } | null>(null);
+
   return (
     <form>
       {/* Abholadresse mit Autosuggest */}
@@ -51,11 +51,11 @@ export default function BookingForm() {
         onChange={setPickupAddress}
         onSelect={(suggestion) => {
           setPickupCoords({ lat: suggestion.lat, lng: suggestion.lng });
-          console.log('Koordinaten gespeichert:', suggestion);
+          console.log("Koordinaten gespeichert:", suggestion);
         }}
         placeholder="Abholadresse eingeben"
       />
-      
+
       {/* Zieladresse mit Autosuggest */}
       <AddressAutosuggest
         value={dropoffAddress}
@@ -78,36 +78,36 @@ export default function BookingForm() {
 **Datei:** Beliebige Komponente
 
 ```tsx
-import { useHERERouting } from '@/hooks/use-here-routing';
+import { useHERERouting } from "@/hooks/use-here-routing";
 
 export default function PriceCalculator() {
   const { calculateRoute, formatDistance, formatDuration, isCalculating } = useHERERouting();
   const [route, setRoute] = useState(null);
-  
+
   const handleCalculate = async () => {
     const result = await calculateRoute(
-      { lat: 48.1351, lng: 11.5820 }, // Abholadresse
-      { lat: 48.1500, lng: 11.5900 }, // Zieladresse
-      'taxi'
+      { lat: 48.1351, lng: 11.582 }, // Abholadresse
+      { lat: 48.15, lng: 11.59 }, // Zieladresse
+      "taxi"
     );
-    
+
     if (result) {
       setRoute(result);
-      console.log('Distanz:', formatDistance(result.distance));
-      console.log('Dauer:', formatDuration(result.duration));
-      
+      console.log("Distanz:", formatDistance(result.distance));
+      console.log("Dauer:", formatDuration(result.duration));
+
       // Preis berechnen (z.B. 2€/km)
       const price = (result.distance / 1000) * 2;
-      console.log('Preis:', price.toFixed(2), '€');
+      console.log("Preis:", price.toFixed(2), "€");
     }
   };
-  
+
   return (
     <div>
       <Button onClick={handleCalculate} disabled={isCalculating}>
-        {isCalculating ? 'Berechne...' : 'Route berechnen'}
+        {isCalculating ? "Berechne..." : "Route berechnen"}
       </Button>
-      
+
       {route && (
         <div className="mt-4 p-4 bg-muted rounded-lg">
           <p>Distanz: {formatDistance(route.distance)}</p>
@@ -127,44 +127,43 @@ export default function PriceCalculator() {
 **Datei:** Neue Seite `src/pages/LiveMap.tsx`
 
 ```tsx
-import { HEREMap } from '@/components/maps/HEREMap';
-import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { HEREMap } from "@/components/maps/HEREMap";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function LiveMapPage() {
   const [drivers, setDrivers] = useState([]);
-  
+
   useEffect(() => {
     // Fahrer laden
     fetchDrivers();
-    
+
     // Realtime-Updates
     const channel = supabase
-      .channel('drivers-map')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'drivers' }, fetchDrivers)
+      .channel("drivers-map")
+      .on("postgres_changes", { event: "*", schema: "public", table: "drivers" }, fetchDrivers)
       .subscribe();
-    
-    return () => { supabase.removeChannel(channel); };
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
-  
+
   const fetchDrivers = async () => {
-    const { data } = await supabase
-      .from('drivers')
-      .select('*')
-      .eq('archived', false);
+    const { data } = await supabase.from("drivers").select("*").eq("archived", false);
     setDrivers(data || []);
   };
-  
-  const markers = drivers.map(d => ({
+
+  const markers = drivers.map((d) => ({
     lat: 48.1351 + Math.random() * 0.05, // Mock GPS
-    lng: 11.5820 + Math.random() * 0.05,
-    label: `${d.first_name} ${d.last_name}`
+    lng: 11.582 + Math.random() * 0.05,
+    label: `${d.first_name} ${d.last_name}`,
   }));
-  
+
   return (
     <div className="h-screen w-full">
       <HEREMap
-        center={{ lat: 48.1351, lng: 11.5820 }}
+        center={{ lat: 48.1351, lng: 11.582 }}
         zoom={12}
         markers={markers}
         className="h-full"
@@ -218,9 +217,9 @@ const icon = new H.map.Icon(
 
 ```tsx
 const routeLine = new H.map.Polyline(lineString, {
-  style: { 
+  style: {
     strokeColor: '#22c55e', // Grün (Standard)
-    lineWidth: 4 
+    lineWidth: 4
   }
 });
 
@@ -274,6 +273,7 @@ const getCachedRoute = async (from, to) => {
 Aktuell: **Mock-Positionen** (keine echten GPS-Daten)
 
 Für echtes GPS-Tracking später:
+
 ```sql
 -- Migration: driver_positions Tabelle mit Auto-Delete
 CREATE TABLE driver_positions (
@@ -293,10 +293,10 @@ CREATE TABLE driver_positions (
 ```tsx
 // Vor GPS-Tracking prüfen:
 const { data: consent } = await supabase
-  .from('chat_consent')
-  .select('consent_given')
-  .eq('user_id', userId)
-  .eq('entity_type', 'driver')
+  .from("chat_consent")
+  .select("consent_given")
+  .eq("user_id", userId)
+  .eq("entity_type", "driver")
   .single();
 
 if (!consent?.consent_given) {
@@ -331,14 +331,12 @@ if (!consent?.consent_given) {
 ### Unit-Tests
 
 ```tsx
-import { render } from '@testing-library/react';
-import { HEREMap } from '@/components/maps/HEREMap';
+import { render } from "@testing-library/react";
+import { HEREMap } from "@/components/maps/HEREMap";
 
-test('HEREMap renders', () => {
-  const { container } = render(
-    <HEREMap center={{ lat: 48, lng: 11 }} />
-  );
-  expect(container.querySelector('.here-map')).toBeInTheDocument();
+test("HEREMap renders", () => {
+  const { container } = render(<HEREMap center={{ lat: 48, lng: 11 }} />);
+  expect(container.querySelector(".here-map")).toBeInTheDocument();
 });
 ```
 

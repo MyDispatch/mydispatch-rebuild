@@ -7,10 +7,10 @@
    - Type-Safe mit neuem Interface
    ================================================================================== */
 
-import { ReactNode, useState } from 'react';
-import { useSubscription } from '@/hooks/use-subscription';
-import { useAuth } from '@/hooks/use-auth';
-import { useAccountType } from '@/hooks/use-account-type';
+import { ReactNode, useState } from "react";
+import { useSubscription } from "@/hooks/use-subscription";
+import { useAuth } from "@/hooks/use-auth";
+import { useAccountType } from "@/hooks/use-account-type";
 import {
   Dialog,
   DialogContent,
@@ -18,21 +18,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from '@/components/ui/dialog';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Badge } from '@/components/ui/badge';
-import { Lock, Sparkles } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import { isBusinessTier } from '@/lib/subscription-utils';
+} from "@/components/ui/dialog";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Badge } from "@/components/ui/badge";
+import { Lock, Sparkles } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { isBusinessTier } from "@/lib/subscription-utils";
 
 interface FeatureGateProps {
-  requiredTariff: 'Business' | 'Enterprise';
+  requiredTariff: "Business" | "Enterprise";
   feature: string;
   children: ReactNode;
   fallback?: ReactNode;
   showBadge?: boolean;
-  badgePosition?: 'top-right' | 'top-left';
+  badgePosition?: "top-right" | "top-left";
 }
 
 export function FeatureGate({
@@ -41,7 +41,7 @@ export function FeatureGate({
   children,
   fallback,
   showBadge = false,
-  badgePosition = 'top-right',
+  badgePosition = "top-right",
 }: FeatureGateProps) {
   const { company, roles } = useAuth();
   const { accountType, permissions } = useAccountType();
@@ -52,7 +52,7 @@ export function FeatureGate({
   // Zugriffs-Logik (V18.3.19)
   const hasAccess = () => {
     // Admin hat immer Zugriff
-    if (roles.includes('admin')) return true;
+    if (roles.includes("admin")) return true;
 
     // Test & Master Accounts haben vollen Zugriff
     if (permissions.canAccessBusinessFeatures) return true;
@@ -67,16 +67,16 @@ export function FeatureGate({
     if (!productId) return false;
 
     // Business-Features: Business ODER Enterprise
-    if (requiredTariff === 'Business') {
+    if (requiredTariff === "Business") {
       return (
-        productId.toLowerCase().includes('business') ||
-        productId.toLowerCase().includes('enterprise')
+        productId.toLowerCase().includes("business") ||
+        productId.toLowerCase().includes("enterprise")
       );
     }
 
     // Enterprise-Features: Nur Enterprise
-    if (requiredTariff === 'Enterprise') {
-      return productId.toLowerCase().includes('enterprise');
+    if (requiredTariff === "Enterprise") {
+      return productId.toLowerCase().includes("enterprise");
     }
 
     return false;
@@ -92,8 +92,8 @@ export function FeatureGate({
           <Badge
             variant="outline"
             className={cn(
-              'absolute text-xs px-2 py-0.5',
-              badgePosition === 'top-right' ? 'top-2 right-2' : 'top-2 left-2'
+              "absolute text-xs px-2 py-0.5",
+              badgePosition === "top-right" ? "top-2 right-2" : "top-2 left-2"
             )}
           >
             <Sparkles className="h-4 w-4 mr-1" />
@@ -113,10 +113,7 @@ export function FeatureGate({
           <div className="text-center space-y-3">
             <div className="relative inline-block">
               <Lock className="h-10 w-10 text-muted-foreground" />
-              <Badge
-                variant="outline"
-                className="absolute -top-2 -right-2 text-xs"
-              >
+              <Badge variant="outline" className="absolute -top-2 -right-2 text-xs">
                 {requiredTariff}
               </Badge>
             </div>
@@ -126,11 +123,7 @@ export function FeatureGate({
                 Dieses Feature ist ab dem {requiredTariff}-Tarif verfügbar.
               </p>
             </div>
-            <V28Button
-              onClick={() => setShowUpgradeDialog(true)}
-              variant="primary"
-              size="sm"
-            >
+            <V28Button onClick={() => setShowUpgradeDialog(true)} variant="primary" size="sm">
               <Sparkles className="h-4 w-4 mr-2" />
               Jetzt upgraden
             </V28Button>
@@ -150,7 +143,7 @@ export function FeatureGate({
               {feature} ist ab dem {requiredTariff}-Tarif verfügbar.
             </DialogDescription>
           </DialogHeader>
-          
+
           <div className="py-4 space-y-3">
             <p className="text-sm text-muted-foreground">
               Upgraden Sie jetzt und profitieren Sie von:
@@ -182,7 +175,7 @@ export function FeatureGate({
             <V28Button
               onClick={() => {
                 setShowUpgradeDialog(false);
-                navigate('/pricing');
+                navigate("/pricing");
               }}
               className="w-full sm:w-auto"
             >
@@ -201,18 +194,18 @@ export function useFeatureAccess() {
   const { company, roles } = useAuth();
   const { accountType, permissions } = useAccountType();
   const { subscribed, productId, loading } = useSubscription();
-  
-  const isAdmin = roles.includes('admin');
-  
+
+  const isAdmin = roles.includes("admin");
+
   // Business-Zugriff: Admin ODER Test/Master ODER Business-Subscription
-  const isBusiness = 
+  const isBusiness =
     isAdmin ||
     permissions.canAccessBusinessFeatures ||
-    (subscribed && productId && (
-      productId.toLowerCase().includes('business') ||
-      productId.toLowerCase().includes('enterprise')
-    ));
-  
+    (subscribed &&
+      productId &&
+      (productId.toLowerCase().includes("business") ||
+        productId.toLowerCase().includes("enterprise")));
+
   // Starter: Subscribed aber kein Business
   const isStarter = subscribed && !isBusiness;
 
@@ -230,6 +223,6 @@ export function useFeatureAccess() {
     hasLandingpageConfigurator: isBusiness,
     maxDrivers: isAdmin || isBusiness ? Infinity : 3,
     maxVehicles: isAdmin || isBusiness ? Infinity : 3,
-    showUpgradeButton: accountType === 'normal' && !permissions.canAccessBusinessFeatures,
+    showUpgradeButton: accountType === "normal" && !permissions.canAccessBusinessFeatures,
   };
 }

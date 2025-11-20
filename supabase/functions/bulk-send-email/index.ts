@@ -1,13 +1,13 @@
 /**
  * Bulk Email Sending
  * V18.3 - Sprint 37: Bulk-Aktionen
- * 
+ *
  * Versendet Emails an mehrere Empfänger:
  * - Auftragsbestätigungen
  * - Rechnungen
  * - Zahlungserinnerungen
  * - Custom Messages
- * 
+ *
  * Verwendet Resend API
  */
 
@@ -15,71 +15,79 @@ import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.75.0";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
   // Handle CORS preflight
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
     // Get auth token
-    const authHeader = req.headers.get('Authorization');
+    const authHeader = req.headers.get("Authorization");
     if (!authHeader) {
-      throw new Error('Missing Authorization header');
+      throw new Error("Missing Authorization header");
     }
 
     // Create Supabase client
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     // Get Resend API key
-    const resendApiKey = Deno.env.get('RESEND_API_KEY');
+    const resendApiKey = Deno.env.get("RESEND_API_KEY");
     if (!resendApiKey) {
-      throw new Error('RESEND_API_KEY not configured');
+      throw new Error("RESEND_API_KEY not configured");
     }
 
     // Verify user and get company_id
-    const token = authHeader.replace('Bearer ', '');
-    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
-    
+    const token = authHeader.replace("Bearer ", "");
+    const {
+      data: { user },
+      error: authError,
+    } = await supabase.auth.getUser(token);
+
     if (authError || !user) {
-      throw new Error('Unauthorized');
+      throw new Error("Unauthorized");
     }
 
     // Get company_id
     const { data: profile, error: profileError } = await supabase
-      .from('profiles')
-      .select('company_id')
-      .eq('user_id', user.id)
+      .from("profiles")
+      .select("company_id")
+      .eq("user_id", user.id)
       .single();
 
     if (profileError || !profile) {
-      throw new Error('Profile not found');
+      throw new Error("Profile not found");
     }
 
     const company_id = profile.company_id;
 
     // Parse request body
-    const { 
-      entity_type, 
-      entity_ids, 
+    const {
+      entity_type,
+      entity_ids,
       email_type, // 'confirmation', 'invoice', 'reminder', 'custom'
       custom_subject,
-      custom_message 
+      custom_message,
     } = await req.json();
 
-    console.log('Bulk Email Send', { company_id, entity_type, count: entity_ids.length, email_type });
+    console.log("Bulk Email Send", {
+      company_id,
+      entity_type,
+      count: entity_ids.length,
+      email_type,
+    });
 
     // Fetch company data
     const { data: company, error: companyError } = await supabase
-      .from('companies')
-      .select('name, email, logo_url, email_signature')
-      .eq('id', company_id)
+      .from("companies")
+      .select("name, email, logo_url, email_signature")
+      .eq("id", company_id)
       .single();
 
     if (companyError) {
@@ -88,63 +96,67 @@ serve(async (req) => {
 
     // Fetch entities with customer data
     let entities: any[] = [];
-    
-    if (entity_type === 'bookings') {
+
+    if (entity_type === "bookings") {
       const { data, error } = await supabase
-        .from('bookings')
-        .select(`
+        .from("bookings")
+        .select(
+          `
           *,
           customers (first_name, last_name, email, phone)
-        `)
-        .eq('company_id', company_id)
-        .in('id', entity_ids)
-        .not('customers.email', 'is', null);
+        `
+        )
+        .eq("company_id", company_id)
+        .in("id", entity_ids)
+        .not("customers.email", "is", null);
 
       if (error) throw error;
       entities = data || [];
-    } else if (entity_type === 'invoices') {
+    } else if (entity_type === "invoices") {
       const { data, error } = await supabase
-        .from('invoices')
-        .select(`
+        .from("invoices")
+        .select(
+          `
           *,
           customers (first_name, last_name, email)
-        `)
-        .eq('company_id', company_id)
-        .in('id', entity_ids)
-        .not('customers.email', 'is', null);
+        `
+        )
+        .eq("company_id", company_id)
+        .in("id", entity_ids)
+        .not("customers.email", "is", null);
 
       if (error) throw error;
       entities = data || [];
     }
 
     // Filter entities with valid email addresses
-    const validEntities = entities.filter(e => e.customers?.email);
+    const validEntities = entities.filter((e) => e.customers?.email);
 
     if (validEntities.length === 0) {
-      throw new Error('Keine gültigen E-Mail-Adressen gefunden');
+      throw new Error("Keine gültigen E-Mail-Adressen gefunden");
     }
 
     // Send emails
     const results = [];
-    
+
     for (const entity of validEntities) {
       try {
         const emailContent = generateEmailContent(
-          entity, 
-          company, 
-          email_type, 
-          custom_subject, 
+          entity,
+          company,
+          email_type,
+          custom_subject,
           custom_message
         );
 
-        const response = await fetch('https://api.resend.com/emails', {
-          method: 'POST',
+        const response = await fetch("https://api.resend.com/emails", {
+          method: "POST",
           headers: {
-            'Authorization': `Bearer ${resendApiKey}`,
-            'Content-Type': 'application/json',
+            Authorization: `Bearer ${resendApiKey}`,
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            from: `${company.name} <${company.email || 'noreply@mydispatch.app'}>`,
+            from: `${company.name} <${company.email || "noreply@mydispatch.app"}>`,
             to: [entity.customers.email],
             subject: emailContent.subject,
             html: emailContent.html,
@@ -154,29 +166,28 @@ serve(async (req) => {
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || 'Failed to send email');
+          throw new Error(data.message || "Failed to send email");
         }
 
         results.push({
           entity_id: entity.id,
           recipient: entity.customers.email,
-          status: 'sent',
+          status: "sent",
           email_id: data.id,
         });
-
       } catch (error) {
         console.error(`Failed to send email for ${entity.id}:`, error);
         results.push({
           entity_id: entity.id,
           recipient: entity.customers.email,
-          status: 'failed',
-          error: error instanceof Error ? error.message : 'Unknown error',
+          status: "failed",
+          error: error instanceof Error ? error.message : "Unknown error",
         });
       }
     }
 
-    const successCount = results.filter(r => r.status === 'sent').length;
-    const failedCount = results.filter(r => r.status === 'failed').length;
+    const successCount = results.filter((r) => r.status === "sent").length;
+    const failedCount = results.filter((r) => r.status === "failed").length;
 
     return new Response(
       JSON.stringify({
@@ -186,14 +197,13 @@ serve(async (req) => {
         failed: failedCount,
         results,
       }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
-
   } catch (error) {
-    console.error('Error in bulk email send:', error);
+    console.error("Error in bulk email send:", error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });
@@ -208,22 +218,22 @@ function generateEmailContent(
   custom_subject?: string,
   custom_message?: string
 ): { subject: string; html: string } {
-  const customerName = `${entity.customers?.first_name || ''} ${entity.customers?.last_name || ''}`;
+  const customerName = `${entity.customers?.first_name || ""} ${entity.customers?.last_name || ""}`;
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('de-DE', {
-      style: 'currency',
-      currency: 'EUR',
+    return new Intl.NumberFormat("de-DE", {
+      style: "currency",
+      currency: "EUR",
     }).format(amount || 0);
   };
 
   const formatDate = (date: string) => {
-    return new Intl.DateTimeFormat('de-DE', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
+    return new Intl.DateTimeFormat("de-DE", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
     }).format(new Date(date));
   };
 
@@ -233,7 +243,7 @@ function generateEmailContent(
       subject: `Auftragsbestätigung - ${company.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          ${company.logo_url ? `<img src="${company.logo_url}" alt="${company.name}" style="max-width: 200px; margin-bottom: 20px;">` : ''}
+          ${company.logo_url ? `<img src="${company.logo_url}" alt="${company.name}" style="max-width: 200px; margin-bottom: 20px;">` : ""}
           <h2>Auftragsbestätigung</h2>
           <p>Sehr geehrte/r ${customerName},</p>
           <p>wir bestätigen Ihren Auftrag:</p>
@@ -252,7 +262,7 @@ function generateEmailContent(
       subject: `Rechnung ${entity.invoice_number} - ${company.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          ${company.logo_url ? `<img src="${company.logo_url}" alt="${company.name}" style="max-width: 200px; margin-bottom: 20px;">` : ''}
+          ${company.logo_url ? `<img src="${company.logo_url}" alt="${company.name}" style="max-width: 200px; margin-bottom: 20px;">` : ""}
           <h2>Rechnung ${entity.invoice_number}</h2>
           <p>Sehr geehrte/r ${customerName},</p>
           <p>anbei erhalten Sie Ihre Rechnung:</p>
@@ -271,7 +281,7 @@ function generateEmailContent(
       subject: `Zahlungserinnerung - ${company.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          ${company.logo_url ? `<img src="${company.logo_url}" alt="${company.name}" style="max-width: 200px; margin-bottom: 20px;">` : ''}
+          ${company.logo_url ? `<img src="${company.logo_url}" alt="${company.name}" style="max-width: 200px; margin-bottom: 20px;">` : ""}
           <h2>Zahlungserinnerung</h2>
           <p>Sehr geehrte/r ${customerName},</p>
           <p>wir möchten Sie freundlich an die ausstehende Zahlung erinnern:</p>
@@ -290,10 +300,10 @@ function generateEmailContent(
       subject: custom_subject || `Nachricht von ${company.name}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-          ${company.logo_url ? `<img src="${company.logo_url}" alt="${company.name}" style="max-width: 200px; margin-bottom: 20px;">` : ''}
+          ${company.logo_url ? `<img src="${company.logo_url}" alt="${company.name}" style="max-width: 200px; margin-bottom: 20px;">` : ""}
           <p>Sehr geehrte/r ${customerName},</p>
           <div style="margin: 20px 0;">
-            ${custom_message || ''}
+            ${custom_message || ""}
           </div>
           ${company.email_signature || `<p>Mit freundlichen Grüßen<br>${company.name}</p>`}
         </div>

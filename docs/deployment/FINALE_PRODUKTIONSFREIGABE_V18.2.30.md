@@ -8,6 +8,7 @@
 ## ✅ ALLE ARBEITEN ABGESCHLOSSEN
 
 ### Sprint 29-31 Kritische Fixes:
+
 1. ✅ RLS Infinite Recursion → SECURITY DEFINER Functions
 2. ✅ Breadcrumbs/SEOHead Context → Graceful Degradation
 3. ✅ Dashboard-Stats → TypeScript-Errors behoben
@@ -42,4 +43,4 @@
 
 ---
 
-*Erstellt: 17.10.2025 | Autor: AI Agent + Pascal Courbois*
+_Erstellt: 17.10.2025 | Autor: AI Agent + Pascal Courbois_

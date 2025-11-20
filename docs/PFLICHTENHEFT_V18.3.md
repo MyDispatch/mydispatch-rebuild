@@ -11,14 +11,17 @@
 ## 🎯 EXECUTIVE SUMMARY
 
 ### **Projektziel**
+
 MyDispatch ist eine **Cloud-basierte SaaS-Plattform** für Taxi- und Mietwagenunternehmen zur **vollständigen Digitalisierung** von Disposition, Fuhrparkverwaltung, Abrechnung und Kommunikation.
 
 ### **Zielgruppe**
+
 - **Primär:** Taxi- & Mietwagenunternehmen (5-500 Fahrzeuge)
 - **Sekundär:** Einzelfahrer (Taxi-Portal)
 - **Tertiär:** Endkunden (Buchungsportal)
 
 ### **Kernfunktionen (MVP)**
+
 1. ✅ **Auftragsverwaltung** (Bookings, Angebote, Tracking)
 2. ✅ **Fuhrparkmanagement** (Fahrzeuge, Fahrer, Dokumente)
 3. ✅ **Finanzwesen** (Rechnungen, Kostenstellen, Abrechnungen)
@@ -32,6 +35,7 @@ MyDispatch ist eine **Cloud-basierte SaaS-Plattform** für Taxi- und Mietwagenun
 ### **1. Technology Stack**
 
 #### **Frontend**
+
 ```yaml
 Framework: React 18.3+ (TypeScript)
 Build Tool: Vite 6+
@@ -46,6 +50,7 @@ Icons: Lucide React
 ```
 
 #### **Backend**
+
 ```yaml
 Platform: Lovable Cloud (Supabase-based)
 Database: PostgreSQL 15+ (Supabase)
@@ -56,6 +61,7 @@ Realtime: Supabase Realtime (WebSockets)
 ```
 
 #### **Infrastructure**
+
 ```yaml
 Hosting: Vercel / Netlify (CDN)
 DNS: Cloudflare
@@ -214,24 +220,24 @@ USING (
 ```css
 :root {
   /* CI Primary Colors */
-  --primary: 40 31% 88%;           /* Beige #EADEBD */
+  --primary: 40 31% 88%; /* Beige #EADEBD */
   --primary-foreground: 225 31% 28%; /* Navy #323D5E */
-  
+
   /* UI Base Colors */
-  --background: 40 8% 95%;          /* Light Beige #F8F7F4 */
-  --foreground: 225 31% 28%;        /* Navy #323D5E */
-  --card: 0 0% 100%;                /* White */
-  --card-foreground: 225 31% 28%;   /* Navy */
-  
+  --background: 40 8% 95%; /* Light Beige #F8F7F4 */
+  --foreground: 225 31% 28%; /* Navy #323D5E */
+  --card: 0 0% 100%; /* White */
+  --card-foreground: 225 31% 28%; /* Navy */
+
   /* Semantic Colors */
-  --success: 142 76% 36%;           /* Green #16A34A */
-  --warning: 38 92% 50%;            /* Orange #F59E0B */
-  --error: 0 84% 60%;               /* Red #EF4444 */
-  
+  --success: 142 76% 36%; /* Green #16A34A */
+  --warning: 38 92% 50%; /* Orange #F59E0B */
+  --error: 0 84% 60%; /* Red #EF4444 */
+
   /* Neutral Colors */
-  --muted: 210 40% 96%;             /* Light Gray */
-  --muted-foreground: 215 16% 47%;  /* Mid Gray */
-  --border: 214 32% 91%;            /* Border Gray */
+  --muted: 210 40% 96%; /* Light Gray */
+  --muted-foreground: 215 16% 47%; /* Mid Gray */
+  --border: 214 32% 91%; /* Border Gray */
 }
 ```
 
@@ -239,50 +245,113 @@ USING (
 
 ```css
 /* Font Family */
-font-family: 'Inter', system-ui, -apple-system, sans-serif;
+font-family:
+  "Inter",
+  system-ui,
+  -apple-system,
+  sans-serif;
 
 /* Font Sizes (Mobile-First) */
-.text-xs { font-size: 0.75rem; line-height: 1rem; }      /* 12px */
-.text-sm { font-size: 0.875rem; line-height: 1.25rem; }  /* 14px */
-.text-base { font-size: 1rem; line-height: 1.5rem; }     /* 16px */
-.text-lg { font-size: 1.125rem; line-height: 1.75rem; }  /* 18px */
-.text-xl { font-size: 1.25rem; line-height: 1.75rem; }   /* 20px */
-.text-2xl { font-size: 1.5rem; line-height: 2rem; }      /* 24px */
-.text-3xl { font-size: 1.875rem; line-height: 2.25rem; } /* 30px */
-.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }   /* 36px */
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+} /* 12px */
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+} /* 14px */
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+} /* 16px */
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+} /* 18px */
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+} /* 20px */
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+} /* 24px */
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+} /* 30px */
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+} /* 36px */
 
 /* Font Weights */
-.font-light { font-weight: 300; }
-.font-normal { font-weight: 400; }
-.font-medium { font-weight: 500; }
-.font-semibold { font-weight: 600; }
-.font-bold { font-weight: 700; }
-.font-extrabold { font-weight: 800; }
+.font-light {
+  font-weight: 300;
+}
+.font-normal {
+  font-weight: 400;
+}
+.font-medium {
+  font-weight: 500;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.font-bold {
+  font-weight: 700;
+}
+.font-extrabold {
+  font-weight: 800;
+}
 ```
 
 ### **3. Spacing (8px-Grid)**
 
 ```css
 /* Padding/Margin Scale */
-.p-0 { padding: 0; }          /* 0px */
-.p-1 { padding: 0.25rem; }    /* 4px */
-.p-2 { padding: 0.5rem; }     /* 8px */
-.p-3 { padding: 0.75rem; }    /* 12px */
-.p-4 { padding: 1rem; }       /* 16px */
-.p-6 { padding: 1.5rem; }     /* 24px */
-.p-8 { padding: 2rem; }       /* 32px */
-.p-12 { padding: 3rem; }      /* 48px */
+.p-0 {
+  padding: 0;
+} /* 0px */
+.p-1 {
+  padding: 0.25rem;
+} /* 4px */
+.p-2 {
+  padding: 0.5rem;
+} /* 8px */
+.p-3 {
+  padding: 0.75rem;
+} /* 12px */
+.p-4 {
+  padding: 1rem;
+} /* 16px */
+.p-6 {
+  padding: 1.5rem;
+} /* 24px */
+.p-8 {
+  padding: 2rem;
+} /* 32px */
+.p-12 {
+  padding: 3rem;
+} /* 48px */
 ```
 
 ### **4. Touch Targets (Mobile)**
 
 ```css
 /* Minimum Touch Target Size (WCAG 2.1 AAA) */
-.min-h-[44px] { min-height: 44px; }
-.min-w-[44px] { min-width: 44px; }
+.min-h-[44px] {
+  min-height: 44px;
+}
+.min-w-[44px] {
+  min-width: 44px;
+}
 
 /* Interactive Elements */
-button, a[role="button"], input, select {
+button,
+a[role="button"],
+input,
+select {
   min-height: 44px;
   min-width: 44px;
   padding: 0.5rem 1rem;
@@ -296,12 +365,14 @@ button, a[role="button"], input, select {
 ### **1. Authentication & Authorization**
 
 #### **A. User Authentication**
+
 - ✅ **Email + Password** (bcrypt hashing)
 - ✅ **Magic Link** (passwordless)
 - ✅ **OAuth** (Google, Microsoft) - Geplant Phase 2
 - ✅ **MFA (2FA)** - Geplant Phase 2
 
 #### **B. Session Management**
+
 - ✅ **JWT Tokens** (15 min exp, httpOnly cookies)
 - ✅ **Refresh Tokens** (7 Tage exp, secure storage)
 - ✅ **Auto-Logout** bei Inaktivität (30 min)
@@ -310,28 +381,31 @@ button, a[role="button"], input, select {
 
 ```typescript
 enum AppRole {
-  ADMIN = 'admin',           // Volle Rechte
-  DISPATCHER = 'dispatcher', // Disposition + Aufträge
-  DRIVER = 'driver',         // Fahrer-App (nur eigene Schichten)
-  CUSTOMER = 'customer'      // Kunden-Portal (nur eigene Buchungen)
+  ADMIN = "admin", // Volle Rechte
+  DISPATCHER = "dispatcher", // Disposition + Aufträge
+  DRIVER = "driver", // Fahrer-App (nur eigene Schichten)
+  CUSTOMER = "customer", // Kunden-Portal (nur eigene Buchungen)
 }
 ```
 
 ### **2. Data Protection (DSGVO)**
 
 #### **A. Privacy by Design**
+
 - ✅ **Datenminimierung:** Nur notwendige Daten
 - ✅ **Pseudonymisierung:** UUIDs statt incrementing IDs
 - ✅ **Verschlüsselung:** TLS 1.3, AES-256 at rest
 - ✅ **Löschkonzept:** Archivierung statt DELETE
 
 #### **B. User Rights**
+
 - ✅ **Auskunft (Art. 15)** - API Endpoint geplant
 - ✅ **Berichtigung (Art. 16)** - Self-Service möglich
 - ✅ **Löschung (Art. 17)** - Archivierung + Anonymisierung
 - ✅ **Datenübertragbarkeit (Art. 20)** - Export als JSON/CSV
 
 #### **C. Audit Logging**
+
 ```sql
 -- Alle kritischen Aktionen protokollieren
 audit_logs (
@@ -351,6 +425,7 @@ audit_logs (
 ### **3. Input Validation (Defense in Depth)**
 
 #### **Client-Side (React Hook Form + Zod)**
+
 ```typescript
 const bookingSchema = z.object({
   pickup_time: z.date().min(new Date(), "Future dates only"),
@@ -358,11 +433,12 @@ const bookingSchema = z.object({
   dropoff_address: z.string().min(5).max(500),
   passengers: z.number().int().min(1).max(8),
   luggage: z.number().int().min(0).max(8),
-  special_requests: z.string().max(1000).optional()
+  special_requests: z.string().max(1000).optional(),
 });
 ```
 
 #### **Server-Side (Database Trigger)**
+
 ```sql
 CREATE FUNCTION validate_booking_input()
 RETURNS TRIGGER AS $$
@@ -394,7 +470,7 @@ const { data } = await supabase
   .from('bookings')
   .select('*')
   .eq('customer_id', customerId); // ✅ Safe (Supabase Client)
-  
+
 // ❌ NIEMALS:
 // .query(`SELECT * FROM bookings WHERE customer_id = '${customerId}'`)
 ```
@@ -460,12 +536,14 @@ Supabase Realtime: Live updates für kritische Daten
 ## ♿ ACCESSIBILITY REQUIREMENTS (WCAG 2.1 AA)
 
 ### **1. Keyboard Navigation**
+
 - ✅ Alle Funktionen per Tastatur bedienbar
 - ✅ Sichtbarer Focus-State (ring-2 ring-primary)
 - ✅ Skip Links für Hauptinhalt
 - ✅ Tab-Reihenfolge logisch
 
 ### **2. Screen Reader Support**
+
 ```tsx
 // Beispiel: Accessible Button
 <button
@@ -479,12 +557,14 @@ Supabase Realtime: Live updates für kritische Daten
 ```
 
 ### **3. Kontrastverhältnis**
+
 - ✅ Text > 16px: 4.5:1
 - ✅ Text < 16px: 7:1
 - ✅ UI Components: 3:1
 - ✅ Icons: 3:1 (gegen Hintergrund)
 
 ### **4. Forms**
+
 ```tsx
 // Accessible Form Example
 <Label htmlFor="customer-name">
@@ -560,6 +640,7 @@ xl: '1280px'  /* Large Desktop */
 ```
 
 ### **4. Offline Support (Geplant Phase 2)**
+
 - ✅ Service Worker für static assets
 - ✅ IndexedDB für offline data
 - ✅ Sync API für Hintergrund-Sync
@@ -569,28 +650,32 @@ xl: '1280px'  /* Large Desktop */
 ## 🧪 TESTING REQUIREMENTS
 
 ### **1. Unit Tests (Jest + React Testing Library)**
+
 - ✅ **Coverage Target:** ≥ 80%
 - ✅ **Critical Paths:** 100% (Auth, Booking, Payment)
 
 ### **2. E2E Tests (Playwright)**
+
 ```typescript
 // Example: Booking Flow Test
-test('complete booking flow', async ({ page }) => {
-  await page.goto('/auftraege');
+test("complete booking flow", async ({ page }) => {
+  await page.goto("/auftraege");
   await page.click('[aria-label="Neuen Auftrag erstellen"]');
-  await page.fill('#pickup-address', 'München HBF');
-  await page.fill('#dropoff-address', 'Flughafen München');
+  await page.fill("#pickup-address", "München HBF");
+  await page.fill("#dropoff-address", "Flughafen München");
   await page.click('button[type="submit"]');
-  await expect(page.locator('.success-message')).toBeVisible();
+  await expect(page.locator(".success-message")).toBeVisible();
 });
 ```
 
 ### **3. Visual Regression Tests**
+
 - ✅ **Tool:** Playwright Screenshots
 - ✅ **Devices:** Desktop, Tablet, Mobile
 - ✅ **Themes:** Light + Dark Mode
 
 ### **4. Performance Tests**
+
 - ✅ **Tool:** Lighthouse CI
 - ✅ **Frequency:** Every deploy
 - ✅ **Budget:** See Performance Requirements
@@ -606,12 +691,12 @@ Development:
   Branch: develop
   URL: https://dev.my-dispatch.de
   Auto-deploy: On push
-  
+
 Staging:
   Branch: staging
   URL: https://staging.my-dispatch.de
   Auto-deploy: On push
-  
+
 Production:
   Branch: main
   URL: https://my-dispatch.de
@@ -634,14 +719,14 @@ jobs:
       - run: npm run test
       - run: npm run lint
       - run: npm run type-check
-      
+
   build:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - run: npm run build
       - run: npm run lighthouse:ci
-      
+
   deploy:
     needs: build
     if: github.ref == 'refs/heads/main'
@@ -659,7 +744,7 @@ Sentry.init({
   environment: process.env.VITE_ENVIRONMENT,
   tracesSampleRate: 0.1,
   replaysSessionSampleRate: 0.1,
-  replaysOnErrorSampleRate: 1.0
+  replaysOnErrorSampleRate: 1.0,
 });
 ```
 
@@ -668,6 +753,7 @@ Sentry.init({
 ## 📈 SUCCESS METRICS
 
 ### **Technical KPIs**
+
 - ✅ **Uptime:** 99.9% (SLA)
 - ✅ **Error Rate:** < 0.1%
 - ✅ **Lighthouse Score:** ≥ 95
@@ -675,6 +761,7 @@ Sentry.init({
 - ✅ **Bundle Size:** < 200 KB
 
 ### **Business KPIs**
+
 - ✅ **User Onboarding:** < 5 minutes
 - ✅ **Booking Creation Time:** < 2 minutes
 - ✅ **Support Tickets:** < 10/month
@@ -686,6 +773,7 @@ Sentry.init({
 ## 🔄 CHANGELOG
 
 ### **V18.3 (2025-10-21)**
+
 - ✅ Initial Release: Vollständiges Pflichtenheft
 - ✅ System Architecture dokumentiert
 - ✅ Security Requirements definiert

@@ -10,9 +10,9 @@
    - Knowledge Graph Navigation
    ================================================================================== */
 
-import { useState, useEffect, useCallback } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { logger } from '@/lib/logger';
+import { useState, useEffect, useCallback } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { logger } from "@/lib/logger";
 
 export interface WikiLoadResult {
   recentLearnings: any[];
@@ -34,7 +34,7 @@ interface UseNeXifyWikiOptions {
 
 export function useNeXifyWiki(options: UseNeXifyWikiOptions = {}) {
   const { autoLoad = true, enableLogging = true } = options;
-  
+
   const [wikiData, setWikiData] = useState<WikiLoadResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -42,26 +42,28 @@ export function useNeXifyWiki(options: UseNeXifyWikiOptions = {}) {
   const loadWiki = useCallback(async () => {
     setIsLoading(true);
     setError(null);
-    
+
     const startTime = performance.now();
 
     try {
       if (enableLogging) {
-        logger.info('[NeXify Wiki] Loading Wiki via brain-query...', { component: 'useNeXifyWiki' });
+        logger.info("[NeXify Wiki] Loading Wiki via brain-query...", {
+          component: "useNeXifyWiki",
+        });
       }
 
       // Call brain-query edge function (session initialization)
-      const { data, error: functionError } = await supabase.functions.invoke('brain-query', {
+      const { data, error: functionError } = await supabase.functions.invoke("brain-query", {
         body: {
-          action: 'session-init',
+          action: "session-init",
           options: {
             loadLearnings: true,
             loadIssues: true,
             loadComponents: true,
             loadBestPractices: true,
             loadSelfReport: true,
-          }
-        }
+          },
+        },
       });
 
       if (functionError) {
@@ -69,7 +71,7 @@ export function useNeXifyWiki(options: UseNeXifyWikiOptions = {}) {
       }
 
       if (!data || data.error) {
-        throw new Error(data?.error || 'Wiki load failed');
+        throw new Error(data?.error || "Wiki load failed");
       }
 
       const loadTime = performance.now() - startTime;
@@ -89,8 +91,8 @@ export function useNeXifyWiki(options: UseNeXifyWikiOptions = {}) {
       setWikiData(result);
 
       if (enableLogging) {
-        logger.info('[NeXify Wiki] ✅ Wiki loaded successfully', {
-          component: 'useNeXifyWiki',
+        logger.info("[NeXify Wiki] ✅ Wiki loaded successfully", {
+          component: "useNeXifyWiki",
           loadTime: result.loadTime,
           totalDocs: result.totalDocs,
           criticalIssues: result.criticalIssues.length,
@@ -99,13 +101,12 @@ export function useNeXifyWiki(options: UseNeXifyWikiOptions = {}) {
       }
 
       return result;
-
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      const errorMessage = err instanceof Error ? err.message : "Unknown error";
       setError(errorMessage);
-      
-      logger.error('[NeXify Wiki] Failed to load Wiki', err as Error, {
-        component: 'useNeXifyWiki',
+
+      logger.error("[NeXify Wiki] Failed to load Wiki", err as Error, {
+        component: "useNeXifyWiki",
       });
 
       return {

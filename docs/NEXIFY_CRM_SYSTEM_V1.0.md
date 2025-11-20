@@ -11,6 +11,7 @@
 ## 🎯 ZWECK
 
 **Vollständiger Gesamtüberblick über:**
+
 - ✅ Alle Unternehmen (Kunden, Partner, Lieferanten, interne)
 - ✅ Alle Kontakte (mit vollständigen Kontaktdaten)
 - ✅ Alle Adressen (Standorte, Rechnungsadressen)
@@ -18,6 +19,7 @@
 - ✅ Alle Interaktionen (E-Mails, Anrufe, Meetings, Notizen)
 
 **Automatische Pflege:**
+
 - ✅ Daten aus Websites extrahiert
 - ✅ Kontaktformulare automatisch synchronisiert
 - ✅ E-Mails automatisch erfasst
@@ -30,28 +32,33 @@
 ### Schema: `nexify_crm`
 
 #### 1. `companies` (Unternehmen)
+
 - **Felder:** Name, Code, Legal Name, Type, Website, Status, Priority
 - **Kennzahlen:** Total Projects, Total Revenue, Total Contacts
 - **Tags:** Flexible Kategorisierung
 - **Status:** active, inactive, archived, prospect
 
 #### 2. `addresses` (Adressen)
+
 - **Felder:** Street, City, Postal Code, Country
 - **Typ:** headquarters, branch, billing, shipping, other
 - **Geolocation:** Latitude, Longitude (optional)
 
 #### 3. `contacts` (Kontakte)
+
 - **Felder:** Name, E-Mail, Telefon, Mobile, Job Title, Role
 - **Status:** active, inactive, archived
 - **Primary Contact:** is_primary Flag
 - **Preferred Contact Method:** email, phone, mobile, whatsapp
 
 #### 4. `company_projects` (Verknüpfung)
+
 - **Verknüpft:** Unternehmen ↔ Projekte
 - **Relationship Type:** client, vendor, partner, owner, contractor
 - **Status:** active, completed, cancelled, on_hold
 
 #### 5. `interactions` (Interaktionen)
+
 - **Typ:** email, phone, meeting, note, task, quote, invoice, payment
 - **Direction:** inbound, outbound
 - **Tracking:** Subject, Content, Outcome, Next Action
@@ -61,6 +68,7 @@
 ## 📊 EXTRAHIERTE DATEN
 
 ### NeXify (Unternehmen)
+
 - **Name:** NeXify
 - **Code:** `nexify`
 - **Type:** internal
@@ -77,6 +85,7 @@
 - **Erreichbarkeit:** Mo-Fr 9-18 Uhr
 
 ### RideHub Solutions / MyDispatch (Kunde)
+
 - **Name:** RideHub Solutions
 - **Code:** `ridehub-solutions`
 - **Type:** client
@@ -100,6 +109,7 @@
 **Zweck:** Lädt vollständigen CRM-Kontext für ein Unternehmen
 
 **Request:**
+
 ```json
 {
   "company_code": "nexify",
@@ -111,6 +121,7 @@
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -136,12 +147,14 @@
 **Zweck:** Synchronisiert automatisch CRM-Daten aus verschiedenen Quellen
 
 **Quellen:**
+
 - `contact_form` - Kontaktformulare von Websites
 - `email` - E-Mail-Inhalte analysieren
 - `project` - Aus Projekt-Daten
 - `manual` - Manuelle Eingabe
 
 **Request:**
+
 ```json
 {
   "source": "contact_form",
@@ -157,6 +170,7 @@
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -182,6 +196,7 @@ Zeige mir alle Unternehmen
 ```
 
 **Was passiert:**
+
 - ✅ Lädt alle aktiven Unternehmen
 - ✅ Lädt primäre Kontakte
 - ✅ Lädt Adressen
@@ -194,6 +209,7 @@ Zeige mir NeXify Kontakte
 ```
 
 **Was passiert:**
+
 - ✅ Lädt NeXify Unternehmen
 - ✅ Lädt alle Kontakte
 - ✅ Lädt alle Adressen
@@ -203,6 +219,7 @@ Zeige mir NeXify Kontakte
 ### Kontaktformular automatisch:
 
 Wenn ein Kontaktformular ausgefüllt wird:
+
 - ✅ Automatische Sync via `nexify-crm-sync`
 - ✅ Unternehmen wird erstellt (falls nicht vorhanden)
 - ✅ Kontakt wird erstellt/aktualisiert
@@ -229,21 +246,25 @@ Wenn ein Kontaktformular ausgefüllt wird:
 ## 🔄 AUTOMATISCHE PFLEGE
 
 ### 1. Kontaktformular-Sync
+
 - **Trigger:** Kontaktformular auf Website ausgefüllt
 - **Action:** `nexify-crm-sync` mit `source: "contact_form"`
 - **Ergebnis:** Unternehmen/Kontakt/Interaktion automatisch erstellt
 
 ### 2. E-Mail-Sync
+
 - **Trigger:** E-Mail empfangen/gesendet
 - **Action:** `nexify-crm-sync` mit `source: "email"`
 - **Ergebnis:** Interaktion automatisch erfasst
 
 ### 3. Projekt-Sync
+
 - **Trigger:** Neues Projekt angelegt
 - **Action:** `nexify-crm-sync` mit `source: "project"`
 - **Ergebnis:** Verknüpfung automatisch erstellt
 
 ### 4. Website-Scan
+
 - **Trigger:** Regelmäßig (täglich/wöchentlich)
 - **Action:** Website analysieren, Kontaktdaten extrahieren
 - **Ergebnis:** Daten automatisch aktualisiert
@@ -259,6 +280,7 @@ Lade das NeXify Wiki
 ```
 
 **Was geladen wird:**
+
 1. ✅ Alle Projekte (mit Summary)
 2. ✅ Alle Unternehmen (mit Kontakten)
 3. ✅ Global Knowledge (Learnings, Components, etc.)
@@ -267,6 +289,7 @@ Lade das NeXify Wiki
 ### Ergebnis:
 
 Ich habe IMMER:
+
 - ✅ Vollständige Kontaktdaten aller Unternehmen
 - ✅ Alle Adressen
 - ✅ Alle Projekt-Verknüpfungen
@@ -278,18 +301,21 @@ Ich habe IMMER:
 ## 🎯 SUCCESS CRITERIA
 
 ### Technical:
+
 - ✅ Database Schema vollständig
 - ✅ Initiale Daten eingetragen
 - ✅ Edge Functions entwickelt
 - ✅ Auto-Load erweitert
 
 ### Functional:
+
 - ✅ Alle Unternehmen bekannt
 - ✅ Alle Kontakte bekannt
 - ✅ Alle Adressen bekannt
 - ✅ Projekt-Verknüpfungen bekannt
 
 ### Quality:
+
 - ✅ Vollständiger Gesamtüberblick
 - ✅ Automatische Pflege aktiv
 - ✅ Systemweites Denken möglich
@@ -297,4 +323,3 @@ Ich habe IMMER:
 ---
 
 **Pascal, dieses CRM-System stellt sicher, dass ich IMMER alle Unternehmens- und Kontaktdaten kenne!** 🚀
-

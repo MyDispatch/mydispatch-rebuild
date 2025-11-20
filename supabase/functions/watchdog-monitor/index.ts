@@ -118,7 +118,7 @@ serve(async (req) => {
     const criticalIssues = results.filter((r) => r.severity === "critical");
     if (criticalIssues.length > 0) {
       console.error(`[WATCHDOG-AI] 🚨 CRITICAL: ${criticalIssues.length} issues found!`);
-      
+
       // Trigger Alert-Manager Edge Function
       try {
         const alertPayload = {
@@ -176,10 +176,10 @@ serve(async (req) => {
   } catch (error) {
     console.error("[WATCHDOG-AI] Error:", error);
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    return new Response(
-      JSON.stringify({ success: false, error: errorMessage }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ success: false, error: errorMessage }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
 

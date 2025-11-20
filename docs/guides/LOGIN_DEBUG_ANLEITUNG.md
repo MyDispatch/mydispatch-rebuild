@@ -9,6 +9,7 @@
 ## ✅ AUTH-CODE IST KORREKT
 
 Die Login-Logik in `src/pages/Auth.tsx` ist vollständig implementiert:
+
 - ✅ `supabase.auth.signInWithPassword()` funktioniert
 - ✅ Error Handling vorhanden
 - ✅ Profile-Check nach Login
@@ -23,6 +24,7 @@ Die Login-Logik in `src/pages/Auth.tsx` ist vollständig implementiert:
 **URL:** https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/auth/users
 
 **Prüfe:**
+
 1. Gibt es registrierte Benutzer?
 2. Ist die E-Mail-Adresse bestätigt? (Confirmed Status)
 3. Hat der User ein Passwort gesetzt?
@@ -74,7 +76,7 @@ INSERT INTO public.profiles (
   created_at,
   updated_at
 )
-SELECT 
+SELECT
   id,
   'courbois1981@gmail.com',
   'master',
@@ -90,7 +92,7 @@ INSERT INTO public.user_roles (
   role,
   created_at
 )
-SELECT 
+SELECT
   id,
   'master',
   NOW()
@@ -109,15 +111,16 @@ ON CONFLICT (user_id, role) DO NOTHING;
 6. Speichern
 
 Dann SQL ausführen für Profile + Role:
+
 ```sql
 -- Profile + Role für neuen User
 INSERT INTO public.profiles (user_id, email, role)
-SELECT id, email, 'master' FROM auth.users 
+SELECT id, email, 'master' FROM auth.users
 WHERE email = 'courbois1981@gmail.com'
 ON CONFLICT (user_id) DO UPDATE SET role = 'master';
 
 INSERT INTO public.user_roles (user_id, role)
-SELECT id, 'master' FROM auth.users 
+SELECT id, 'master' FROM auth.users
 WHERE email = 'courbois1981@gmail.com'
 ON CONFLICT (user_id, role) DO NOTHING;
 ```
@@ -129,6 +132,7 @@ ON CONFLICT (user_id, role) DO NOTHING;
 **Pfad:** Authentication → Settings
 
 **Wichtige Einstellungen:**
+
 - ✅ Enable Email Confirmations: AUS (für Test) oder E-Mail SMTP korrekt
 - ✅ Enable Email Sign Ups: AN
 - ✅ Minimum Password Length: 6-8 Zeichen
@@ -148,6 +152,7 @@ ON CONFLICT (user_id, role) DO NOTHING;
    - Passwort: `TestPasswort123!`
 
 **Erwartete Logs:**
+
 ```
 [Auth] Login attempt { email: "courbois1981@gmail.com", ... }
 [Auth] Login successful { userId: "...", email: "...", ... }
@@ -156,14 +161,17 @@ ON CONFLICT (user_id, role) DO NOTHING;
 ```
 
 **Fehler-Logs:**
+
 ```
 [Auth] Login error { errorCode: 400, errorMessage: "Invalid login credentials" }
 ```
+
 → User existiert nicht oder falsches Passwort
 
 ```
 [Auth] Login error { errorMessage: "Email not confirmed" }
 ```
+
 → E-Mail muss bestätigt werden (siehe Schritt 2, Option B: Auto Confirm aktivieren)
 
 ---
@@ -208,6 +216,7 @@ curl -X POST 'https://vsbqyqhzxmwezlhzdmfd.supabase.co/auth/v1/token?grant_type=
 ```
 
 **Erfolg:**
+
 ```json
 {
   "access_token": "eyJhbG...",
@@ -217,12 +226,14 @@ curl -X POST 'https://vsbqyqhzxmwezlhzdmfd.supabase.co/auth/v1/token?grant_type=
 ```
 
 **Fehler:**
+
 ```json
 {
   "error": "invalid_grant",
   "error_description": "Invalid login credentials"
 }
 ```
+
 → User existiert nicht oder Passwort falsch
 
 ---

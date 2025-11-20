@@ -8,22 +8,22 @@
 
 export const getVehicleStatusLabel = (status: string): string => {
   const statusMap: Record<string, string> = {
-    'available': 'Verfügbar',
-    'im_einsatz': 'Im Einsatz',
-    'wartung': 'Wartung',
-    'defekt': 'Defekt',
+    available: "Verfügbar",
+    im_einsatz: "Im Einsatz",
+    wartung: "Wartung",
+    defekt: "Defekt",
   };
   return statusMap[status] || status;
 };
 
 export const getShiftStatusLabel = (status: string): string => {
   const statusMap: Record<string, string> = {
-    'available': 'Verfügbar',
-    'on_duty': 'Im Dienst',
-    'off_duty': 'Außer Dienst',
-    'busy': 'Beschäftigt',
-    'offline': 'Offline',
-    'break': 'Pause',
+    available: "Verfügbar",
+    on_duty: "Im Dienst",
+    off_duty: "Außer Dienst",
+    busy: "Beschäftigt",
+    offline: "Offline",
+    break: "Pause",
   };
   return statusMap[status] || status;
 };

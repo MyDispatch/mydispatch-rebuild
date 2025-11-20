@@ -6,8 +6,8 @@
    ✅ Error handling via handleSupabaseError
    ================================================================================== */
 
-import { supabase } from '@/integrations/supabase/client';
-import { handleSupabaseError } from './base';
+import { supabase } from "@/integrations/supabase/client";
+import { handleSupabaseError } from "./base";
 
 export interface Partner {
   id?: string;
@@ -25,11 +25,11 @@ export interface Partner {
 export const partnersAPI = {
   async getAll(companyId: string): Promise<Partner[]> {
     const { data, error } = await supabase
-      .from('partners')
-      .select('*')
-      .eq('company_id', companyId)
-      .eq('archived', false)
-      .order('created_at', { ascending: false });
+      .from("partners")
+      .select("*")
+      .eq("company_id", companyId)
+      .eq("archived", false)
+      .order("created_at", { ascending: false });
 
     if (error) throw handleSupabaseError(error);
     return data || [];
@@ -37,19 +37,19 @@ export const partnersAPI = {
 
   async getById(id: string, companyId: string): Promise<Partner> {
     const { data, error } = await supabase
-      .from('partners')
-      .select('*')
-      .eq('id', id)
-      .eq('company_id', companyId)
+      .from("partners")
+      .select("*")
+      .eq("id", id)
+      .eq("company_id", companyId)
       .single();
 
     if (error) throw handleSupabaseError(error);
     return data;
   },
 
-  async create(partner: Omit<Partner, 'id'>, companyId: string): Promise<Partner> {
+  async create(partner: Omit<Partner, "id">, companyId: string): Promise<Partner> {
     const { data, error } = await supabase
-      .from('partners')
+      .from("partners")
       .insert({
         ...partner,
         company_id: companyId,
@@ -63,10 +63,10 @@ export const partnersAPI = {
 
   async update(id: string, updates: Partial<Partner>, companyId: string): Promise<Partner> {
     const { data, error } = await supabase
-      .from('partners')
+      .from("partners")
       .update(updates)
-      .eq('id', id)
-      .eq('company_id', companyId)
+      .eq("id", id)
+      .eq("company_id", companyId)
       .select()
       .single();
 
@@ -76,10 +76,10 @@ export const partnersAPI = {
 
   async archive(id: string, companyId: string): Promise<void> {
     const { error } = await supabase
-      .from('partners')
+      .from("partners")
       .update({ archived: true })
-      .eq('id', id)
-      .eq('company_id', companyId);
+      .eq("id", id)
+      .eq("company_id", companyId);
 
     if (error) throw handleSupabaseError(error);
   },

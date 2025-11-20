@@ -8,25 +8,25 @@
    - Mobile-optimiert
    ================================================================================== */
 
-import { Card, CardContent } from '@/components/ui/card';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Badge } from '@/components/ui/badge';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { 
-  User, 
-  Users, 
-  Car, 
+import { Card, CardContent } from "@/components/ui/card";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  User,
+  Users,
+  Car,
   FileText,
-  Handshake, 
-  Phone, 
-  Mail, 
+  Handshake,
+  Phone,
+  Mail,
   MapPin,
   ExternalLink,
   LucideIcon,
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
+} from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export type EntityType = 'customer' | 'driver' | 'vehicle' | 'invoice' | 'partner';
+export type EntityType = "customer" | "driver" | "vehicle" | "invoice" | "partner";
 
 interface QuickAction {
   icon: LucideIcon;
@@ -41,7 +41,7 @@ interface RelatedEntityCardProps {
   value: string;
   meta?: string;
   avatar?: string;
-  status?: 'success' | 'warning' | 'error' | 'neutral';
+  status?: "success" | "warning" | "error" | "neutral";
   statusLabel?: string;
   location?: {
     latitude: number;
@@ -61,10 +61,10 @@ const entityIcons: Record<EntityType, LucideIcon> = {
 };
 
 const statusColors: Record<string, string> = {
-  success: 'bg-status-success/10 text-status-success border-status-success/20',
-  warning: 'bg-status-warning/10 text-status-warning border-status-warning/20',
-  error: 'bg-status-error/10 text-status-error border-status-error/20',
-  neutral: 'bg-muted text-muted-foreground border-border',
+  success: "bg-status-success/10 text-status-success border-status-success/20",
+  warning: "bg-status-warning/10 text-status-warning border-status-warning/20",
+  error: "bg-status-error/10 text-status-error border-status-error/20",
+  neutral: "bg-muted text-muted-foreground border-border",
 };
 
 export function RelatedEntityCard({
@@ -81,18 +81,18 @@ export function RelatedEntityCard({
   className,
 }: RelatedEntityCardProps) {
   const Icon = entityIcons[type];
-  
+
   const getInitials = (name: string) => {
     return name
-      .split(' ')
+      .split(" ")
       .map((n) => n[0])
-      .join('')
+      .join("")
       .toUpperCase()
       .slice(0, 2);
   };
 
   return (
-    <Card 
+    <Card
       className={cn(
         "group hover:border-primary/50 transition-all duration-200",
         onClick && "cursor-pointer hover:shadow-md",
@@ -107,9 +107,7 @@ export function RelatedEntityCard({
             {avatar ? (
               <Avatar className="h-10 w-10">
                 <AvatarImage src={avatar} alt={value} />
-                <AvatarFallback className="text-xs">
-                  {getInitials(value)}
-                </AvatarFallback>
+                <AvatarFallback className="text-xs">{getInitials(value)}</AvatarFallback>
               </Avatar>
             ) : (
               <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
@@ -121,35 +119,24 @@ export function RelatedEntityCard({
           {/* Content */}
           <div className="flex-1 min-w-0">
             {/* Label */}
-            <p className="text-xs text-muted-foreground mb-0.5">
-              {label}
-            </p>
+            <p className="text-xs text-muted-foreground mb-0.5">{label}</p>
 
             {/* Value */}
             <div className="flex items-center gap-2 mb-1">
-              <p className="font-medium text-sm truncate">
-                {value}
-              </p>
+              <p className="font-medium text-sm truncate">{value}</p>
               {onClick && (
                 <ExternalLink className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
               )}
             </div>
 
             {/* Meta */}
-            {meta && (
-              <p className="text-xs text-muted-foreground truncate">
-                {meta}
-              </p>
-            )}
+            {meta && <p className="text-xs text-muted-foreground truncate">{meta}</p>}
 
             {/* Status Badge */}
             {status && statusLabel && (
-              <Badge 
-                variant="outline" 
-                className={cn(
-                  "mt-2 text-[10px] px-1.5 py-0",
-                  statusColors[status]
-                )}
+              <Badge
+                variant="outline"
+                className={cn("mt-2 text-[10px] px-1.5 py-0", statusColors[status])}
               >
                 {statusLabel}
               </Badge>
@@ -157,8 +144,8 @@ export function RelatedEntityCard({
 
             {/* Location Badge */}
             {location && (
-              <Badge 
-                variant="outline" 
+              <Badge
+                variant="outline"
                 className="mt-2 text-[10px] px-1.5 py-0 bg-primary/10 text-primary border-primary/20"
               >
                 <MapPin className="h-2.5 w-2.5 mr-1" />
@@ -178,7 +165,7 @@ export function RelatedEntityCard({
                     onClick={(e) => {
                       e.stopPropagation();
                       if (action.onClick) action.onClick();
-                      if (action.href) window.open(action.href, '_blank');
+                      if (action.href) window.open(action.href, "_blank");
                     }}
                   >
                     <action.icon className="h-4 w-4 mr-1" />
@@ -200,19 +187,19 @@ export function RelatedEntityCard({
 export const getStandardActions = {
   phone: (phoneNumber: string): QuickAction => ({
     icon: Phone,
-    label: 'Anrufen',
+    label: "Anrufen",
     href: `tel:${phoneNumber}`,
   }),
-  
+
   email: (emailAddress: string): QuickAction => ({
     icon: Mail,
-    label: 'E-Mail',
+    label: "E-Mail",
     href: `mailto:${emailAddress}`,
   }),
-  
+
   gps: (onGPSClick: () => void): QuickAction => ({
     icon: MapPin,
-    label: 'GPS',
+    label: "GPS",
     onClick: onGPSClick,
   }),
 };

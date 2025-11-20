@@ -8,28 +8,28 @@
    ✅ V27.0 NORDIC SKY KONFORM
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { PRIMARY_COLORS_V27 } from '@/lib/design-system/unified-design-tokens';
-import { cn } from '@/lib/utils';
+import { ReactNode } from "react";
+import { PRIMARY_COLORS_V27 } from "@/lib/design-system/unified-design-tokens";
+import { cn } from "@/lib/utils";
 
 interface V27ButtonProps {
   children: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
   className?: string;
-  type?: 'button' | 'submit' | 'reset';
+  type?: "button" | "submit" | "reset";
 }
 
 export function V27Button({
   children,
   onClick,
   disabled = false,
-  variant = 'primary',
+  variant = "primary",
   className,
-  type = 'button',
+  type = "button",
 }: V27ButtonProps) {
-  const isPrimary = variant === 'primary';
+  const isPrimary = variant === "primary";
 
   return (
     <button
@@ -37,28 +37,28 @@ export function V27Button({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        'rounded-xl font-sans font-semibold text-base transition-all duration-200',
-        'h-12 px-8 flex items-center justify-center whitespace-nowrap',
-        'border-[3px]',
-        disabled && 'opacity-50 cursor-not-allowed',
-        !disabled && 'hover:scale-[1.02] active:scale-[0.98]',
+        "rounded-xl font-sans font-semibold text-base transition-all duration-200",
+        "h-12 px-8 flex items-center justify-center whitespace-nowrap",
+        "border-[3px]",
+        disabled && "opacity-50 cursor-not-allowed",
+        !disabled && "hover:scale-[1.02] active:scale-[0.98]",
         className
       )}
       style={{
-        backgroundColor: disabled 
-          ? 'hsl(220, 13%, 91%)' 
-          : isPrimary 
-            ? PRIMARY_COLORS_V27.indigo 
+        backgroundColor: disabled
+          ? "hsl(220, 13%, 91%)"
+          : isPrimary
+            ? PRIMARY_COLORS_V27.indigo
             : PRIMARY_COLORS_V27.champagne,
-        color: disabled 
-          ? 'hsl(220, 9%, 46%)' 
-          : isPrimary 
-            ? PRIMARY_COLORS_V27.champagne 
+        color: disabled
+          ? "hsl(220, 9%, 46%)"
+          : isPrimary
+            ? PRIMARY_COLORS_V27.champagne
             : PRIMARY_COLORS_V27.indigo,
-        borderColor: disabled 
-          ? 'hsl(220, 13%, 91%)' 
-          : isPrimary 
-            ? PRIMARY_COLORS_V27.champagne 
+        borderColor: disabled
+          ? "hsl(220, 13%, 91%)"
+          : isPrimary
+            ? PRIMARY_COLORS_V27.champagne
             : PRIMARY_COLORS_V27.indigo,
       }}
       onMouseEnter={(e) => {
@@ -68,7 +68,7 @@ export function V27Button({
       }}
       onMouseLeave={(e) => {
         if (!disabled) {
-          e.currentTarget.style.boxShadow = 'none';
+          e.currentTarget.style.boxShadow = "none";
         }
       }}
     >

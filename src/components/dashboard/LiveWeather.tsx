@@ -4,19 +4,23 @@
    Zeigt aktuelle Wetterdaten für die Disposition
    ================================================================================== */
 
-import { useState, useEffect } from 'react';
-import { handleError } from '@/lib/error-handler';
-import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
-import { Cloud, CloudRain, Sun, CloudSnow, Wind, Droplets } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { Skeleton } from '@/components/ui/skeleton';
-import { WeatherApiResponse, validateApiResponse, isValidWeatherResponse } from '@/types/api-schemas';
+import { useState, useEffect } from "react";
+import { handleError } from "@/lib/error-handler";
+import { Card, CardContent, CardHeader, CardTitle } from "@/lib/compat";
+import { Cloud, CloudRain, Sun, CloudSnow, Wind, Droplets } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  WeatherApiResponse,
+  validateApiResponse,
+  isValidWeatherResponse,
+} from "@/types/api-schemas";
 
 interface LiveWeatherProps {
   city?: string;
 }
 
-export function LiveWeather({ city = 'München' }: LiveWeatherProps) {
+export function LiveWeather({ city = "München" }: LiveWeatherProps) {
   const [weather, setWeather] = useState<WeatherApiResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -25,19 +29,19 @@ export function LiveWeather({ city = 'München' }: LiveWeatherProps) {
     const fetchWeather = async () => {
       try {
         setLoading(true);
-        const { data, error } = await supabase.functions.invoke('get-weather', {
-          body: { city }
+        const { data, error } = await supabase.functions.invoke("get-weather", {
+          body: { city },
         });
 
         if (error) throw error;
-        
+
         // ✅ ZENTRALE TYPE-VALIDIERUNG
-        const validatedData = validateApiResponse(data, isValidWeatherResponse, 'Weather');
+        const validatedData = validateApiResponse(data, isValidWeatherResponse, "Weather");
         setWeather(validatedData);
         setError(null);
       } catch (err: any) {
-        handleError(err, 'Wetterdaten konnten nicht geladen werden', { showToast: false });
-        setError('Wetter konnte nicht geladen werden');
+        handleError(err, "Wetterdaten konnten nicht geladen werden", { showToast: false });
+        setError("Wetter konnte nicht geladen werden");
       } finally {
         setLoading(false);
       }
@@ -51,9 +55,9 @@ export function LiveWeather({ city = 'München' }: LiveWeatherProps) {
 
   const getWeatherIcon = (description: string) => {
     const desc = description.toLowerCase();
-    if (desc.includes('regen') || desc.includes('rain')) return CloudRain;
-    if (desc.includes('schnee') || desc.includes('snow')) return CloudSnow;
-    if (desc.includes('sonne') || desc.includes('klar') || desc.includes('clear')) return Sun;
+    if (desc.includes("regen") || desc.includes("rain")) return CloudRain;
+    if (desc.includes("schnee") || desc.includes("snow")) return CloudSnow;
+    if (desc.includes("sonne") || desc.includes("klar") || desc.includes("clear")) return Sun;
     return Cloud;
   };
 
@@ -77,7 +81,7 @@ export function LiveWeather({ city = 'München' }: LiveWeatherProps) {
           <CardTitle className="text-lg">Wetter</CardTitle>
         </CardHeader>
         <CardContent className="p-6">
-          <p className="text-sm text-muted-foreground">{error || 'Keine Daten'}</p>
+          <p className="text-sm text-muted-foreground">{error || "Keine Daten"}</p>
         </CardContent>
       </Card>
     );
@@ -99,7 +103,7 @@ export function LiveWeather({ city = 'München' }: LiveWeatherProps) {
             <span className="text-3xl font-bold">{weather.temp}°C</span>
             <span className="text-sm text-muted-foreground capitalize">{weather.description}</span>
           </div>
-          
+
           {(weather.humidity || weather.wind_speed) && (
             <div className="flex items-center gap-4 pt-2 border-t">
               {weather.humidity && (

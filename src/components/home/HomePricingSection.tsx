@@ -41,7 +41,8 @@ export const HomePricingSection = () => {
             Transparente Preise, faire Konditionen
           </h2>
           <p className="font-sans text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-            Wählen Sie den Tarif, der zu Ihrer Flottengröße passt. Monatlich kündbar, ohne versteckte Kosten.
+            Wählen Sie den Tarif, der zu Ihrer Flottengröße passt. Monatlich kündbar, ohne
+            versteckte Kosten.
           </p>
         </div>
 
@@ -75,23 +76,25 @@ export const HomePricingSection = () => {
                   name={tariff.name}
                   description={tariff.description}
                   price={
-                    billingPeriod === 'monthly'
+                    billingPeriod === "monthly"
                       ? tariff.priceMonthlyFormatted
                       : tariff.priceYearlyFormatted
                   }
-                  priceDetail={billingPeriod === 'monthly' ? 'pro Monat' : 'pro Jahr'}
+                  priceDetail={billingPeriod === "monthly" ? "pro Monat" : "pro Jahr"}
                   icon={TariffIcon}
                   badge={tariff.badge}
                   highlighted={tariff.highlighted}
                   ctaLabel={tariff.ctaText}
-                  ctaVariant={tariff.highlighted ? 'primary' : 'secondary'}
-                  features={displayedFeatures.map(f => ({ text: f.name, included: true }))}
+                  ctaVariant={tariff.highlighted ? "primary" : "secondary"}
+                  features={displayedFeatures.map((f) => ({ text: f.name, included: true }))}
                   hasMoreFeatures={hasMoreFeatures}
-                  onCTAClick={() => navigate(tariff.id === 'enterprise' ? '/contact' : '/auth?mode=signup')}
-                  onShowAllFeatures={hasMoreFeatures ? () => navigate('/pricing') : undefined}
+                  onCTAClick={() =>
+                    navigate(tariff.id === "enterprise" ? "/contact" : "/auth?mode=signup")
+                  }
+                  onShowAllFeatures={hasMoreFeatures ? () => navigate("/pricing") : undefined}
                   className={cn(
                     "animate-fade-in",
-                    tariff.highlighted 
+                    tariff.highlighted
                       ? "hover:shadow-[0_20px_60px_-12px_rgba(71,85,105,0.3)] transition-all duration-300"
                       : "hover:shadow-2xl transition-shadow duration-300"
                   )}

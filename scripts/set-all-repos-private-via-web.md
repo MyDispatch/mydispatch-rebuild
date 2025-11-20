@@ -27,6 +27,7 @@ Da GitHub CLI nicht verfügbar ist und kein Token vorhanden, ist die **schnellst
 ## 📋 GEFUNDENE REPOSITORIES
 
 ### Repository #1:
+
 - **Name:** `mydispatch-rebuild`
 - **URL:** https://github.com/u4231458123-droid/mydispatch-rebuild
 - **Settings:** https://github.com/u4231458123-droid/mydispatch-rebuild/settings
@@ -47,6 +48,7 @@ winget install GitHub.cli
 ```
 
 Nach Installation:
+
 ```powershell
 gh auth login
 gh repo edit u4231458123-droid/mydispatch-rebuild --visibility private
@@ -56,7 +58,3 @@ gh repo edit u4231458123-droid/mydispatch-rebuild --visibility private
 
 **Erstellt:** 2025-01-31  
 **Status:** ✅ READY - Web-Methode ist die schnellste ohne Token
-
-
-
-

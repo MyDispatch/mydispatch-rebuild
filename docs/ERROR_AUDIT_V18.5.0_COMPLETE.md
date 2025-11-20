@@ -14,12 +14,14 @@
 MyDispatch ist nach dem Publish nicht verfügbar - **White Screen** sowohl in Production als auch Preview.
 
 **ROOT CAUSE gefunden:**
+
 ```
 Status: 502 Bad Gateway
 CF Error: Web server returned an unknown error
 ```
 
 **Betroffene URLs:**
+
 - Production: `https://532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b.lovableproject.com/`
 - Preview: `https://id-preview--532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b.lovable.app/`
 
@@ -32,6 +34,7 @@ CF Error: Web server returned an unknown error
 #### 1.1 WHITE SCREEN ROOT CAUSE (SEVERITY: 🔴 CRITICAL)
 
 **ERROR #1: Cloudflare 502 Bad Gateway**
+
 - **Datei:** Production Build
 - **Symptom:** Kompletter App-Crash, White Screen
 - **Network Log:** `CF Error: Web server returned an unknown error`
@@ -40,6 +43,7 @@ CF Error: Web server returned an unknown error
 - **Fix-Priorität:** 🔴 P0 - SOFORT
 
 **Mögliche Ursachen:**
+
 1. Service Worker Konflikt (trotz Cleanup in `main.tsx`)
 2. Vite Build Fehler (unbekannter Chunk)
 3. Lazy Import Race Condition
@@ -51,13 +55,11 @@ CF Error: Web server returned an unknown error
 #### 1.2 SECURITY VIOLATIONS (SEVERITY: 🔴 CRITICAL) - 43 Issues
 
 **ERROR #2: DELETE statt Soft-Delete**
+
 - **Datei:** `src/components/invoices/InvoiceForm.tsx:195`
 - **Code:**
   ```typescript
-  await supabase
-    .from('invoice_items')
-    .delete()
-    .eq('invoice_id', invoiceId);
+  await supabase.from("invoice_items").delete().eq("invoice_id", invoiceId);
   ```
 - **Problem:** Hard-Delete statt Archiving
 - **Fix:** Ersetzen mit `.update({ archived: true })`
@@ -65,6 +67,7 @@ CF Error: Web server returned an unknown error
 - **Fix-Priorität:** 🔴 P0
 
 **ERROR #3: 43 Supabase Linter Warnings**
+
 - **Quelle:** Supabase Linter
 - **Hauptproblem:** Anonymous Access Policies auf sensiblen Tabellen
 - **Betroffene Tabellen:**
@@ -74,6 +77,7 @@ CF Error: Web server returned an unknown error
 - **Fix-Priorität:** 🔴 P0
 
 **ERROR #4: 104 Unhandled Throw Errors**
+
 - **Anzahl:** 104 `throw new Error` Statements
 - **Beispiele:**
   - `src/components/dashboard/HEREMapComponent.tsx:67`
@@ -89,6 +93,7 @@ CF Error: Web server returned an unknown error
 #### 1.3 CODE QUALITY VIOLATIONS (SEVERITY: 🟠 HIGH) - 195 Issues
 
 **ERROR #5: 183 Console Statements in Production**
+
 - **Anzahl:** 183 `console.log/error/warn`
 - **Hauptdateien:**
   - `src/hooks/use-company-location.tsx` (12 Statements)
@@ -100,13 +105,14 @@ CF Error: Web server returned an unknown error
 - **Fix-Priorität:** 🟠 P1
 
 **ERROR #6: 12 window.location.href statt React Router**
+
 - **Anzahl:** 12 Fälle
 - **Hauptdateien:**
   - `src/components/layout/MarketingLayout.tsx:167,177`
   - `src/components/dashboard/HEREMapComponent.tsx:231,277`
   - `src/App.tsx:83`
   - `src/hooks/use-tariff-limits.tsx:102`
-- **Problem:** 
+- **Problem:**
   - Full Page Reload (Performance)
   - Verlust von App-State
   - Routing-Bug (siehe PRODUCTION_FIXES_V18.5.0.md Error #1)
@@ -115,11 +121,12 @@ CF Error: Web server returned an unknown error
 - **Fix-Priorität:** 🟠 P1
 
 **ERROR #7: process.env statt import.meta.env**
+
 - **Anzahl:** 1 Fall
 - **Datei:** `src/lib/dialog-layout-utils.ts:39`
 - **Code:**
   ```typescript
-  if (process.env.NODE_ENV !== 'development') return true;
+  if (process.env.NODE_ENV !== "development") return true;
   ```
 - **Problem:** Funktioniert nicht in Vite Production Build
 - **Fix:** `import.meta.env.DEV` verwenden
@@ -133,6 +140,7 @@ CF Error: Web server returned an unknown error
 #### 2.1 API/EXTERNAL DEPENDENCIES (SEVERITY: 🟠 HIGH) - 15 Issues
 
 **ERROR #8: HERE API 429 Rate Limit**
+
 - **Quelle:** Edge Function Logs
 - **Anzahl:** 2+ Requests
 - **Network Response:**
@@ -149,7 +157,7 @@ CF Error: Web server returned an unknown error
   - Live-Karte Dashboard
   - Routing-Funktionen
   - Traffic-Daten
-- **Fix:** 
+- **Fix:**
   1. Caching implementieren
   2. Rate-Limit-Handling
   3. Retry-Logik mit exponential backoff
@@ -157,10 +165,11 @@ CF Error: Web server returned an unknown error
 - **Fix-Priorität:** 🟠 P1
 
 **ERROR #9: Fehlende API Error Handler**
+
 - **Anzahl:** 326 API-Calls ohne Error Handler
 - **Beispiel:**
   ```typescript
-  const { data } = await supabase.from('bookings').select();
+  const { data } = await supabase.from("bookings").select();
   // Kein Error-Check!
   ```
 - **Fix:** Überall Error-Handler hinzufügen
@@ -172,6 +181,7 @@ CF Error: Web server returned an unknown error
 #### 2.2 MOBILE-FIRST VIOLATIONS (SEVERITY: 🟡 MEDIUM) - 326 Issues
 
 **ERROR #10: Kleine Touch Targets**
+
 - **Anzahl:** 1 gefundener Fall (mehr vermutlich vorhanden)
 - **Datei:** `src/components/shared/KPICard.tsx:51`
 - **Code:**
@@ -184,6 +194,7 @@ CF Error: Web server returned an unknown error
 - **Fix-Priorität:** 🟡 P2
 
 **ERROR #11: Spacing Inkonsistenzen**
+
 - **Anzahl:** 551 Fälle
 - **Problem:** Statt 8px Grid System wird `gap-1`, `gap-2`, `gap-3` verwendet
 - **Beispiele:**
@@ -200,11 +211,13 @@ CF Error: Web server returned an unknown error
 #### 3.1 DESIGN SYSTEM VIOLATIONS (SEVERITY: 🟢 LOW) - 34 Issues (BEREITS BEHOBEN)
 
 **ERROR #12: `accent` Color Referenzen**
+
 - **Status:** ✅ BEHOBEN (Batch 1 abgeschlossen)
 - **Anzahl:** 34 Fälle entfernt
 - **Dateien:** `index.css`, `design-tokens.ts`, `icon-registry.ts`, etc.
 
 **ERROR #13: Direct Hex Colors**
+
 - **Status:** ⚠️ TEILWEISE BEHOBEN
 - **Verbleibend:** ~120 Fälle (außer `CI_COLORS_HEX`)
 - **Fix-Priorität:** 🟢 P3
@@ -222,16 +235,16 @@ graph TD
     B --> D[Vite Build Fehler?]
     B --> E[Lazy Import Race?]
     B --> F[Router Config Fehler?]
-    
+
     C --> G[main.tsx SW Cleanup]
     D --> H[vite.config.ts Check]
     E --> I[routes.config.tsx Check]
     F --> I
-    
+
     G --> J[Test Build]
     H --> J
     I --> J
-    
+
     J --> K{Build OK?}
     K -->|Ja| L[Deploy]
     K -->|Nein| M[Fix Fehler]
@@ -240,15 +253,15 @@ graph TD
 
 ### Fehler-Cluster nach Auswirkung:
 
-| Fehler-Typ | Anzahl | Blocking? | Betroffene Features |
-|-----------|--------|-----------|---------------------|
-| 502 Error | 1 | ✅ Ja | Gesamte App |
-| Security | 148 | ✅ Ja | Datenlecks möglich |
-| API Fehler | 15 | ⚠️ Teilweise | Karten, Routing |
-| Console Logs | 183 | ❌ Nein | Performance |
-| Navigation | 12 | ❌ Nein | UX |
-| Mobile | 326 | ❌ Nein | Touch Usability |
-| Design | 862 | ❌ Nein | Visuelle Konsistenz |
+| Fehler-Typ   | Anzahl | Blocking?    | Betroffene Features |
+| ------------ | ------ | ------------ | ------------------- |
+| 502 Error    | 1      | ✅ Ja        | Gesamte App         |
+| Security     | 148    | ✅ Ja        | Datenlecks möglich  |
+| API Fehler   | 15     | ⚠️ Teilweise | Karten, Routing     |
+| Console Logs | 183    | ❌ Nein      | Performance         |
+| Navigation   | 12     | ❌ Nein      | UX                  |
+| Mobile       | 326    | ❌ Nein      | Touch Usability     |
+| Design       | 862    | ❌ Nein      | Visuelle Konsistenz |
 
 ---
 
@@ -278,7 +291,7 @@ graph TD
 
 4. **Console Logs entfernen** (ERROR #5)
    - [ ] Terser Config prüfen (sollte das bereits machen)
-   - [ ] Manuell alle console.* entfernen (außer Errors)
+   - [ ] Manuell alle console.\* entfernen (außer Errors)
    - [ ] `import.meta.env.DEV` Guards hinzufügen
 
 5. **Navigation-Bug fixen** (ERROR #6)
@@ -329,23 +342,27 @@ graph TD
 ## 🎯 ERFOLGS-KRITERIEN
 
 ### Phase 1 (CRITICAL):
+
 - ✅ App lädt ohne 502 Error
 - ✅ Keine White Screens mehr
 - ✅ Production Build erfolgreich
 - ✅ Alle lazy imports funktionieren
 
 ### Phase 2 (HIGH):
-- ✅ Keine console.* in Production
+
+- ✅ Keine console.\* in Production
 - ✅ Navigation ohne Full Page Reload
 - ✅ HERE API funktioniert zuverlässig
 - ✅ Keine process.env mehr
 
 ### Phase 3 (MEDIUM):
+
 - ✅ Alle Supabase Linter Warnings behoben
 - ✅ Error Handler überall vorhanden
 - ✅ Alle Touch Targets ≥ 44px
 
 ### Phase 4 (LOW):
+
 - ✅ 8px Grid System durchgesetzt
 - ✅ Keine Direct Hex Colors mehr
 - ✅ Design-System 100% compliant
@@ -355,6 +372,7 @@ graph TD
 ## 📈 METRIKEN
 
 ### Vor Fixes:
+
 - **Build Status:** ❌ FEHLGESCHLAGEN (502)
 - **Production:** ❌ NICHT VERFÜGBAR
 - **Preview:** ❌ NICHT VERFÜGBAR
@@ -362,6 +380,7 @@ graph TD
 - **Lighthouse Score:** N/A (App lädt nicht)
 
 ### Nach Fixes (ZIEL):
+
 - **Build Status:** ✅ ERFOLGREICH
 - **Production:** ✅ VERFÜGBAR
 - **Preview:** ✅ VERFÜGBAR

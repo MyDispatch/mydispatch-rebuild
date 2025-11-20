@@ -27,6 +27,7 @@
 **Command:** `npm run validate:all`
 
 **Was wird geprüft:**
+
 1. ✅ TypeScript Check
 2. ✅ RLS Check (Row Level Security)
 3. ✅ Deployment Validation (Tabellen, Functions, RLS)
@@ -34,6 +35,7 @@
 **Erwartete Ergebnisse:**
 
 **Vor Deployment:**
+
 ```
 ✅ TypeScript Check - Erfolgreich
 ⚠️  RLS Check - Erwartet (Migrations erforderlich)
@@ -41,6 +43,7 @@
 ```
 
 **Nach Deployment:**
+
 ```
 ✅ TypeScript Check - Erfolgreich
 ✅ RLS Check - Erfolgreich
@@ -48,6 +51,7 @@
 ```
 
 **Exit Codes:**
+
 - `0` = Erfolgreich oder erwartet
 - `1` = Echte Fehler gefunden
 
@@ -58,12 +62,14 @@
 **Zweck:** Prüft Row Level Security Coverage
 
 **Features:**
+
 - ✅ Lädt automatisch Credentials aus `.env.local`
 - ✅ Erkennt erwartete Zustände (RPC-Funktion fehlt)
 - ✅ Exit Code 0 bei erwarteten Zuständen
 - ✅ Klare, hilfreiche Fehlermeldungen
 
 **Erwartetes Verhalten:**
+
 - Vor Migrations: Warnung, Exit Code 0
 - Nach Migrations: Erfolg oder Liste fehlender RLS Policies
 
@@ -72,12 +78,14 @@
 **Zweck:** Prüft alle Deployments (Tabellen, Functions, RLS)
 
 **Features:**
+
 - ✅ Prüft alle 9 erwarteten Tabellen
 - ✅ Prüft RLS Policies
 - ✅ Unterscheidet Fehler/Warnung/Erwartet
 - ✅ Exit Code 0 wenn nur fehlende Tabellen (erwartet)
 
 **Erwartete Tabellen:**
+
 1. knowledge_base
 2. component_registry
 3. known_issues
@@ -93,6 +101,7 @@
 **Zweck:** Prüft TypeScript-Fehler
 
 **Features:**
+
 - ✅ Vollständige Type-Prüfung
 - ✅ Exit Code 0 wenn keine Fehler
 
@@ -105,12 +114,14 @@
 **Zweck:** GitHub Push mit Timeout-Behandlung
 
 **Features:**
+
 - ✅ Timeout für Git-Operationen (30 Sekunden)
 - ✅ Automatisches Git Add + Commit + Push
 - ✅ PowerShell-optimiert
 - ✅ Alternative Methoden dokumentiert
 
 **Verhalten bei Timeout:**
+
 - Gibt hilfreiche Hinweise aus
 - Dokumentiert Alternative-Methoden:
   1. GitHub Web UI
@@ -120,12 +131,14 @@
 **Fallback-Methoden:**
 
 **Option 1: GitHub Web UI**
+
 ```
 1. https://github.com/u4231458123-droid/mydispatch-rebuild
 2. Upload files → Commit
 ```
 
 **Option 2: PowerShell direkt**
+
 ```powershell
 git add .
 git commit -m "your message"
@@ -141,6 +154,7 @@ git push origin master
 **Datei:** `.env.local` (NIEMALS committen!)
 
 **Inhalt:**
+
 ```
 VITE_SUPABASE_URL=https://ygpwuiygivxoqtyoigtg.supabase.co
 SUPABASE_URL=https://ygpwuiygivxoqtyoigtg.supabase.co
@@ -149,6 +163,7 @@ SUPABASE_ACCESS_TOKEN=<access-token>
 ```
 
 **Wichtig:**
+
 - ✅ Service Role Key hat Admin-Rechte
 - ✅ NIEMALS öffentlich teilen
 - ✅ In `.gitignore` gespeichert
@@ -165,6 +180,7 @@ SUPABASE_ACCESS_TOKEN=<access-token>
 ### Erwartete Deployments (24 Items)
 
 #### Database Migrations (7):
+
 1. `20250131_nexify_master_system.sql` (🟡 HIGH)
 2. `20250131_nexify_crm_system.sql` (🟡 HIGH)
 3. `20250131_system_health_tables.sql` (🟢 MEDIUM)
@@ -174,6 +190,7 @@ SUPABASE_ACCESS_TOKEN=<access-token>
 7. `20250131000000_nexify_ai_master_database.sql` (🟡 HIGH)
 
 #### Edge Functions (8):
+
 1. `fix-master-login` (🔴 CRITICAL)
 2. `nexify-auto-load-context` (🟡 HIGH)
 3. `nexify-project-context` (🟡 HIGH)
@@ -184,6 +201,7 @@ SUPABASE_ACCESS_TOKEN=<access-token>
 8. `create-master-user` (🟡 HIGH)
 
 #### Frontend Code (5):
+
 1. `src/components/ErrorBoundary.tsx` (🟡 HIGH)
 2. `src/components/settings/LetterheadUpload.tsx` (🟡 HIGH)
 3. `src/lib/email-templates-branded.ts` (🟢 MEDIUM)
@@ -191,6 +209,7 @@ SUPABASE_ACCESS_TOKEN=<access-token>
 5. `src/components/settings/BrandingSection.tsx` (🟡 HIGH)
 
 #### Konfigurationen (4):
+
 1. Environment Variables (Sentry DSN) (🔴 CRITICAL)
 2. Storage Bucket `company-letterheads` (🟡 HIGH)
 3. Cron Jobs (4 Jobs) (🟢 MEDIUM)
@@ -205,6 +224,7 @@ SUPABASE_ACCESS_TOKEN=<access-token>
 **Auslöser:** Automatisch oder manuell
 
 **Schritte:**
+
 ```bash
 # 1. Alle Checks ausführen
 npm run validate:all
@@ -220,6 +240,7 @@ npm run validate:all
 **Auslöser:** Vor jedem Deployment
 
 **Schritte:**
+
 ```bash
 # 1. TypeScript Check
 npm run type-check
@@ -239,6 +260,7 @@ npm run validate:all
 **Auslöser:** Nach jedem Deployment
 
 **Schritte:**
+
 ```bash
 # 1. Deployment Validierung
 npm run validate:deployments
@@ -258,11 +280,13 @@ npm run build
 **Auslöser:** Bei erkannten Problemen
 
 **Prioritäten:**
+
 1. 🔴 CRITICAL - Sofort beheben
 2. 🟡 HIGH - Heute beheben
 3. 🟢 MEDIUM - Diese Woche beheben
 
 **Automatische Behebungen:**
+
 - ✅ Credentials prüfen und aktualisieren
 - ✅ Scripts verbessern
 - ✅ Dokumentation aktualisieren
@@ -277,6 +301,7 @@ npm run build
 **Datei:** `.husky/pre-commit`
 
 **Aktiviert:**
+
 1. ✅ TypeScript Check
 2. ✅ ESLint Check
 3. ✅ Prettier Check
@@ -284,12 +309,14 @@ npm run build
 5. ✅ RLS Coverage Check (non-blocking)
 
 **Verhalten:**
+
 - Blockiert bei echten Fehlern
 - Warnung bei fehlenden Credentials (non-blocking)
 
 ### Workflow: Post-Commit
 
 **Aktiviert:**
+
 1. ✅ Git Push (wenn möglich)
 2. ✅ Status Update
 3. ✅ Dokumentation Update
@@ -464,4 +491,3 @@ npm run git:push:safe
 **STATUS:** ✅ VOLLSTÄNDIG DOKUMENTIERT
 **ZUGRIFF:** 24/7 verfügbar
 **NÄCHSTE AKTUALISIERUNG:** Bei neuen Features/Änderungen
-

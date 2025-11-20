@@ -2,7 +2,7 @@
 
 **Status:** ✅ SYSTEMWEIT VERBINDLICH  
 **Datum:** 15.01.2025  
-**Version:** 18.2.7  
+**Version:** 18.2.7
 
 ---
 
@@ -17,6 +17,7 @@ Systemweite Vorgaben für perfekte deutsche Formatierung, Rechtschreibung nach a
 ### Grundregeln:
 
 #### 1. **ss vs. ß** (seit 2006)
+
 ```
 ✅ KORREKT:
 - dass (Konjunktion)
@@ -32,6 +33,7 @@ Systemweite Vorgaben für perfekte deutsche Formatierung, Rechtschreibung nach a
 ```
 
 #### 2. **Getrennt- und Zusammenschreibung**
+
 ```
 ✅ KORREKT:
 - infrage stellen (getrennt)
@@ -46,6 +48,7 @@ Systemweite Vorgaben für perfekte deutsche Formatierung, Rechtschreibung nach a
 ```
 
 #### 3. **Kommasetzung**
+
 ```
 ✅ KORREKT:
 - Er kam, um zu helfen. (Infinitiv mit "um...zu")
@@ -57,6 +60,7 @@ Systemweite Vorgaben für perfekte deutsche Formatierung, Rechtschreibung nach a
 ```
 
 #### 4. **Groß- und Kleinschreibung**
+
 ```
 ✅ KORREKT:
 - im Allgemeinen (Substantivierung)
@@ -78,13 +82,14 @@ Systemweite Vorgaben für perfekte deutsche Formatierung, Rechtschreibung nach a
 ## 🔢 ZAHLEN & WÄHRUNGEN (DIN 5008)
 
 ### Datumsformat:
+
 ```typescript
 // KORREKT (deutsches Format):
 const formatDate = (date: string) => {
-  return new Date(date).toLocaleDateString('de-DE', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
+  return new Date(date).toLocaleDateString("de-DE", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
   });
 };
 
@@ -92,12 +97,13 @@ const formatDate = (date: string) => {
 ```
 
 ### Uhrzeitformat:
+
 ```typescript
 // KORREKT (24-Stunden-Format):
 const formatTime = (date: string) => {
-  return new Date(date).toLocaleTimeString('de-DE', {
-    hour: '2-digit',
-    minute: '2-digit'
+  return new Date(date).toLocaleTimeString("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit",
   });
 };
 
@@ -105,12 +111,13 @@ const formatTime = (date: string) => {
 ```
 
 ### Währungsformat:
+
 ```typescript
 // KORREKT (€ mit Punkt als Tausendertrenner):
 const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR'
+  return new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
   }).format(amount);
 };
 
@@ -118,6 +125,7 @@ const formatCurrency = (amount: number) => {
 ```
 
 ### Zahlenformat:
+
 ```
 ✅ KORREKT:
 - 1.234.567,89 (Punkt als Tausendertrenner, Komma als Dezimaltrenn.)
@@ -135,6 +143,7 @@ const formatCurrency = (amount: number) => {
 ## 📐 TYPOGRAFIE & UMBRÜCHE
 
 ### Silbentrennung (CSS):
+
 ```css
 * {
   hyphens: auto;
@@ -146,6 +155,7 @@ const formatCurrency = (amount: number) => {
 ```
 
 ### Geschützte Leerzeichen:
+
 ```tsx
 // KORREKT:
 <span>42&nbsp;€</span>         // Zahl + Währung
@@ -159,6 +169,7 @@ const formatCurrency = (amount: number) => {
 ```
 
 ### Anführungszeichen:
+
 ```
 ✅ KORREKT:
 - „deutsche Anführungszeichen"
@@ -171,6 +182,7 @@ const formatCurrency = (amount: number) => {
 ```
 
 ### Gedankenstrich vs. Bindestrich:
+
 ```
 ✅ KORREKT:
 - Taxi- und Mietwagenunternehmen (Bindestrich, kein Leerzeichen)
@@ -187,14 +199,18 @@ const formatCurrency = (amount: number) => {
 ## 🎨 VISUELLE DARSTELLUNG
 
 ### Line-Height (Zeilenhöhe):
+
 ```css
 /* BODY TEXT */
-body, p {
+body,
+p {
   line-height: 1.5; /* DIN 1450 (Leserlichkeit) */
 }
 
 /* HEADLINES */
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   line-height: 1.2; /* Kompakter für Headlines */
 }
 
@@ -205,9 +221,11 @@ td {
 ```
 
 ### Letter-Spacing (Zeichenabstand):
+
 ```css
 /* FLIESSTEXT */
-body, p {
+body,
+p {
   letter-spacing: 0.01em; /* Minimal für bessere Lesbarkeit */
 }
 
@@ -223,11 +241,14 @@ button {
 ```
 
 ### Responsive Umbrüche:
+
 ```tsx
 // KORREKT (Mobile-First):
 <p className="text-sm sm:text-base lg:text-lg leading-relaxed">
-  Professionelle Disposition für Taxiunternehmen, Mietwagenunternehmen<br className="hidden sm:block" />
-  und Limousinen-Services – vollständige Fuhrparkverwaltung,<br className="hidden sm:block" />
+  Professionelle Disposition für Taxiunternehmen, Mietwagenunternehmen
+  <br className="hidden sm:block" />
+  und Limousinen-Services – vollständige Fuhrparkverwaltung,
+  <br className="hidden sm:block" />
   intelligente Auftragsvergabe in einer DSGVO-konformen Plattform
 </p>
 ```
@@ -237,9 +258,11 @@ button {
 ## 📱 MOBILE-OPTIMIERUNG
 
 ### Mindestgrößen (Accessibility):
+
 ```css
 /* TOUCH TARGETS (WCAG 2.1 AAA) */
-button, a {
+button,
+a {
   min-height: 44px; /* iOS-Standard */
   min-width: 44px;
 }
@@ -255,6 +278,7 @@ h1 {
 ```
 
 ### Viewport Meta-Tag:
+
 ```html
 <!-- KORREKT (bereits in index.html): -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -265,28 +289,31 @@ h1 {
 ## 🔤 ANREDE & TITEL (SYSTEMATISCH)
 
 ### Anrede-Optionen (PersonFormFields):
+
 ```typescript
 const ANREDE_OPTIONS = [
-  { value: 'Herr', label: 'Herr' },
-  { value: 'Frau', label: 'Frau' },
-  { value: 'Divers', label: 'Divers' },
+  { value: "Herr", label: "Herr" },
+  { value: "Frau", label: "Frau" },
+  { value: "Divers", label: "Divers" },
 ];
 ```
 
 ### Titel-Optionen:
+
 ```typescript
 const TITEL_OPTIONS = [
-  { value: '', label: 'Kein Titel' },
-  { value: 'Dr.', label: 'Dr.' },
-  { value: 'Prof.', label: 'Prof.' },
-  { value: 'Prof. Dr.', label: 'Prof. Dr.' },
+  { value: "", label: "Kein Titel" },
+  { value: "Dr.", label: "Dr." },
+  { value: "Prof.", label: "Prof." },
+  { value: "Prof. Dr.", label: "Prof. Dr." },
 ];
 ```
 
 ### Vollständige Anrede (E-Mail/Brief):
+
 ```tsx
 // KORREKT:
-const fullSalutation = `${anrede}${titel ? ' ' + titel : ''} ${vorname} ${nachname}`;
+const fullSalutation = `${anrede}${titel ? " " + titel : ""} ${vorname} ${nachname}`;
 
 // Ausgabe-Beispiele:
 // "Herr Dr. Max Mustermann"
@@ -295,11 +322,13 @@ const fullSalutation = `${anrede}${titel ? ' ' + titel : ''} ${vorname} ${nachna
 ```
 
 ### Briefanrede:
+
 ```tsx
 // KORREKT:
-const letterSalutation = anrede === 'Divers' 
-  ? `Guten Tag ${vorname} ${nachname},`
-  : `Sehr geehrte${anrede === 'Frau' ? '' : 'r'} ${anrede}${titel ? ' ' + titel : ''} ${nachname},`;
+const letterSalutation =
+  anrede === "Divers"
+    ? `Guten Tag ${vorname} ${nachname},`
+    : `Sehr geehrte${anrede === "Frau" ? "" : "r"} ${anrede}${titel ? " " + titel : ""} ${nachname},`;
 
 // Ausgabe-Beispiele:
 // "Sehr geehrter Herr Dr. Mustermann,"
@@ -312,17 +341,19 @@ const letterSalutation = anrede === 'Divers'
 ## 🏠 ADRESSFELDER (SYSTEMATISCH)
 
 ### Standard-Adressformat:
+
 ```typescript
 interface Address {
-  street: string;        // "Hauptstraße"
+  street: string; // "Hauptstraße"
   street_number: string; // "42a"
-  postal_code: string;   // "80331"
-  city: string;          // "München"
-  country?: string;      // "Deutschland" (optional)
+  postal_code: string; // "80331"
+  city: string; // "München"
+  country?: string; // "Deutschland" (optional)
 }
 ```
 
 ### Darstellung (Einzeilig):
+
 ```tsx
 // KORREKT:
 const addressSingleLine = `${street} ${street_number}, ${postal_code} ${city}`;
@@ -331,6 +362,7 @@ const addressSingleLine = `${street} ${street_number}, ${postal_code} ${city}`;
 ```
 
 ### Darstellung (Mehrzeilig):
+
 ```tsx
 // KORREKT:
 <div>
@@ -350,29 +382,31 @@ const addressSingleLine = `${street} ${street_number}, ${postal_code} ${city}`;
 ## 📊 DATEN-KONSISTENZ
 
 ### Pflichtfelder (Allgemein):
+
 ```typescript
 // KORREKT (Formulare):
 const requiredFields = {
-  anrede: true,         // Herr/Frau/Divers
-  vorname: true,        // Vorname
-  nachname: true,       // Nachname
-  street: true,         // Straße
-  street_number: true,  // Hausnummer
-  postal_code: true,    // PLZ
-  city: true,           // Ort
-  email: true,          // E-Mail
-  phone: true,          // Telefon
+  anrede: true, // Herr/Frau/Divers
+  vorname: true, // Vorname
+  nachname: true, // Nachname
+  street: true, // Straße
+  street_number: true, // Hausnummer
+  postal_code: true, // PLZ
+  city: true, // Ort
+  email: true, // E-Mail
+  phone: true, // Telefon
 };
 ```
 
 ### Optionale Felder:
+
 ```typescript
 // OPTIONAL:
 const optionalFields = {
-  titel: false,         // Dr., Prof. etc.
-  firma: false,         // Firmenname
+  titel: false, // Dr., Prof. etc.
+  firma: false, // Firmenname
   address_zusatz: false, // Adresszusatz (z.B. "Hinterhaus")
-  country: false,       // Land (Standard: Deutschland)
+  country: false, // Land (Standard: Deutschland)
 };
 ```
 
@@ -385,25 +419,25 @@ const optionalFields = {
 ```typescript
 // BEREITS IMPLEMENTIERT:
 export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
+  return new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
   }).format(amount);
 };
 
 export const formatDate = (date: string | Date): string => {
-  return new Date(date).toLocaleDateString('de-DE', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
+  return new Date(date).toLocaleDateString("de-DE", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
   });
 };
 
 // NEU (ERGÄNZEN):
 export const formatTime = (date: string | Date): string => {
-  return new Date(date).toLocaleTimeString('de-DE', {
-    hour: '2-digit',
-    minute: '2-digit',
+  return new Date(date).toLocaleTimeString("de-DE", {
+    hour: "2-digit",
+    minute: "2-digit",
   });
 };
 
@@ -412,14 +446,14 @@ export const formatDateTime = (date: string | Date): string => {
 };
 
 export const formatPercentage = (value: number): string => {
-  return `${value.toFixed(2).replace('.', ',')} %`;
+  return `${value.toFixed(2).replace(".", ",")} %`;
 };
 
 export const formatDistance = (meters: number): string => {
   if (meters < 1000) {
     return `${meters} m`;
   }
-  return `${(meters / 1000).toFixed(2).replace('.', ',')} km`;
+  return `${(meters / 1000).toFixed(2).replace(".", ",")} km`;
 };
 ```
 
@@ -428,6 +462,7 @@ export const formatDistance = (meters: number): string => {
 ## ✅ QUALITY CHECKLIST
 
 ### Bei JEDEM Commit:
+
 - [ ] Rechtschreibprüfung (neue deutsche Rechtschreibung)
 - [ ] ss/ß korrekt verwendet
 - [ ] Kommas nach aktuellen Regeln
@@ -445,12 +480,14 @@ export const formatDistance = (meters: number): string => {
 ## 📚 RESSOURCEN
 
 ### Offizielle Quellen:
+
 - [Duden Online](https://www.duden.de/)
 - [Rat für deutsche Rechtschreibung](http://www.rechtschreibrat.com/)
 - [DIN 5008 (Schreib- und Gestaltungsregeln)](https://de.wikipedia.org/wiki/DIN_5008)
 - [WCAG 2.1 (Accessibility)](https://www.w3.org/TR/WCAG21/)
 
 ### MyDispatch-spezifisch:
+
 - `src/lib/format-utils.ts` - Zentrale Formatierungs-Utils
 - `src/components/forms/PersonFormFields.tsx` - Anrede/Titel
 - `src/components/forms/AddressInput.tsx` - Adressfelder

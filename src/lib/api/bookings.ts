@@ -1,16 +1,16 @@
 /**
  * HYPERION PHASE 2: Bookings API Module
- * 
+ *
  * Alle CRUD-Operationen für Buchungen.
  * Kein direkter Supabase-Zugriff mehr in Hooks!
  */
 
-import { TypedSupabaseClient, handleApiError } from './client';
-import { Tables, Enums } from '@/integrations/supabase/types';
+import { TypedSupabaseClient, handleApiError } from "./client";
+import { Tables, Enums } from "@/integrations/supabase/types";
 
-export type Booking = Tables<'bookings'>;
-export type BookingStatus = Enums<'booking_status'>;
-export type PaymentStatus = Enums<'payment_status'>;
+export type Booking = Tables<"bookings">;
+export type BookingStatus = Enums<"booking_status">;
+export type PaymentStatus = Enums<"payment_status">;
 
 // ✅ HYPERION: Extended type with relations for frontend consumption
 export interface BookingWithRelations extends Booking {
@@ -71,114 +71,102 @@ export function createBookingsApi(supabase: TypedSupabaseClient): BookingsApi {
     async list(filters = {}) {
       try {
         let query = supabase
-          .from('bookings')
-          .select(`
+          .from("bookings")
+          .select(
+            `
             *,
             customer:customers(id, first_name, last_name, email),
             driver:drivers(id, first_name, last_name),
             vehicle:vehicles(id, license_plate, vehicle_class),
             partner:partners(id, name)
-          `)
-          .eq('archived', false)
-          .order('pickup_time', { ascending: false });
+          `
+          )
+          .eq("archived", false)
+          .order("pickup_time", { ascending: false });
 
         if (filters.status) {
-          query = query.eq('status', filters.status);
+          query = query.eq("status", filters.status);
         }
         if (filters.payment_status) {
-          query = query.eq('payment_status', filters.payment_status);
+          query = query.eq("payment_status", filters.payment_status);
         }
         if (filters.customer_id) {
-          query = query.eq('customer_id', filters.customer_id);
+          query = query.eq("customer_id", filters.customer_id);
         }
         if (filters.driver_id) {
-          query = query.eq('driver_id', filters.driver_id);
+          query = query.eq("driver_id", filters.driver_id);
         }
         if (filters.date_from) {
-          query = query.gte('pickup_time', filters.date_from);
+          query = query.gte("pickup_time", filters.date_from);
         }
         if (filters.date_to) {
-          query = query.lte('pickup_time', filters.date_to);
+          query = query.lte("pickup_time", filters.date_to);
         }
 
         const { data, error } = await query;
 
-        if (error) handleApiError(error, 'bookings.list');
+        if (error) handleApiError(error, "bookings.list");
         return data || [];
       } catch (error) {
-        handleApiError(error, 'bookings.list');
+        handleApiError(error, "bookings.list");
       }
     },
 
     async getById(id) {
       try {
-        const { data, error } = await supabase
-          .from('bookings')
-          .select('*')
-          .eq('id', id)
-          .single();
+        const { data, error } = await supabase.from("bookings").select("*").eq("id", id).single();
 
-        if (error) handleApiError(error, 'bookings.getById');
+        if (error) handleApiError(error, "bookings.getById");
         return data!;
       } catch (error) {
-        handleApiError(error, 'bookings.getById');
+        handleApiError(error, "bookings.getById");
       }
     },
 
     async create(input) {
       try {
-        const { data, error } = await supabase
-          .from('bookings')
-          .insert([input])
-          .select()
-          .single();
+        const { data, error } = await supabase.from("bookings").insert([input]).select().single();
 
-        if (error) handleApiError(error, 'bookings.create');
+        if (error) handleApiError(error, "bookings.create");
         return data!;
       } catch (error) {
-        handleApiError(error, 'bookings.create');
+        handleApiError(error, "bookings.create");
       }
     },
 
     async update(id, updates) {
       try {
         const { data, error } = await supabase
-          .from('bookings')
+          .from("bookings")
           .update(updates)
-          .eq('id', id)
+          .eq("id", id)
           .select()
           .single();
 
-        if (error) handleApiError(error, 'bookings.update');
+        if (error) handleApiError(error, "bookings.update");
         return data!;
       } catch (error) {
-        handleApiError(error, 'bookings.update');
+        handleApiError(error, "bookings.update");
       }
     },
 
     async delete(id) {
       try {
-        const { error } = await supabase
-          .from('bookings')
-          .delete()
-          .eq('id', id);
+        const { error } = await supabase.from("bookings").delete().eq("id", id);
 
-        if (error) handleApiError(error, 'bookings.delete');
+        if (error) handleApiError(error, "bookings.delete");
       } catch (error) {
-        handleApiError(error, 'bookings.delete');
+        handleApiError(error, "bookings.delete");
       }
     },
 
     async archive(id) {
       try {
-        const { error } = await supabase
-          .from('bookings')
-          .update({ archived: true })
-          .eq('id', id);
+        const { error } = await supabase.from("bookings").update({ archived: true }).eq("id", id);
 
-        if (error) handleApiError(error, 'bookings.archive');
+        if (error) handleApiError(error, "bookings.archive");
       } catch (error) {
-        handleApiError(error, 'bookings.archive');
+        handleApiError(error, "bookings.archive");
       }
     },
   };

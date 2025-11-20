@@ -12,14 +12,24 @@
    - 12-Column Grid-System
    ================================================================================== */
 
-import { V28Button } from '@/components/design-system/V28Button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { 
-  Car, Users, FileText, BarChart, Map, Smartphone, 
-  Code, Shield, Zap, ArrowRight, Check, MessageCircle
-} from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { V28Button } from "@/components/design-system/V28Button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Car,
+  Users,
+  FileText,
+  BarChart,
+  Map,
+  Smartphone,
+  Code,
+  Shield,
+  Zap,
+  ArrowRight,
+  Check,
+  MessageCircle,
+} from "lucide-react";
+import { useState, useEffect } from "react";
 
 export default function DesignPreview() {
   const [showChatbot, setShowChatbot] = useState(false);
@@ -41,25 +51,34 @@ export default function DesignPreview() {
               <span className="text-xl font-bold text-foreground">MyDispatch</span>
             </div>
             <nav className="hidden md:flex items-center gap-6">
-              <a href="#features" className="text-sm font-medium text-foreground hover:text-foreground/80 transition-colors">
+              <a
+                href="#features"
+                className="text-sm font-medium text-foreground hover:text-foreground/80 transition-colors"
+              >
                 Funktionen
               </a>
-              <a href="#pricing" className="text-sm font-medium text-foreground hover:text-foreground/80 transition-colors">
+              <a
+                href="#pricing"
+                className="text-sm font-medium text-foreground hover:text-foreground/80 transition-colors"
+              >
                 Preise
               </a>
-              <a href="#about" className="text-sm font-medium text-foreground hover:text-foreground/80 transition-colors">
+              <a
+                href="#about"
+                className="text-sm font-medium text-foreground hover:text-foreground/80 transition-colors"
+              >
                 Über uns
               </a>
             </nav>
             <div className="flex items-center gap-3">
-              <V28Button 
-                variant="secondary" 
+              <V28Button
+                variant="secondary"
                 size="sm"
                 className="border-secondary text-secondary hover:bg-secondary hover:text-secondary-foreground"
               >
                 Login
               </V28Button>
-              <V28Button 
+              <V28Button
                 size="sm"
                 className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
                 variant="primary"
@@ -85,20 +104,21 @@ export default function DesignPreview() {
                 Intelligent gesteuert.
               </h1>
               <p className="text-lg text-foreground/80 max-w-2xl">
-                MyDispatch revolutioniert die Taxi- und Mietwagendisposition mit KI-gestützter Routenoptimierung, 
-                Echtzeit-Tracking und automatisierter Auftragsvergabe. Sparen Sie Zeit, Kosten und steigern Sie die Kundenzufriedenheit.
+                MyDispatch revolutioniert die Taxi- und Mietwagendisposition mit KI-gestützter
+                Routenoptimierung, Echtzeit-Tracking und automatisierter Auftragsvergabe. Sparen Sie
+                Zeit, Kosten und steigern Sie die Kundenzufriedenheit.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <V28Button 
-                  size="lg" 
+                <V28Button
+                  size="lg"
                   className="bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-lg"
                   variant="primary"
                 >
                   Jetzt starten
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </V28Button>
-                <V28Button 
-                  size="lg" 
+                <V28Button
+                  size="lg"
                   variant="secondary"
                   className="border-foreground text-foreground hover:bg-foreground/10"
                 >
@@ -124,7 +144,7 @@ export default function DesignPreview() {
             {/* Hero-Image (5 Columns) */}
             <div className="lg:col-span-5">
               <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-4 border-background">
-                <img 
+                <img
                   src="/lovable-uploads/01b7e30a-fe5a-4b7d-b3db-2e60afb4bedc.png"
                   alt="Frau steigt in Taxi"
                   className="w-full h-full object-cover"
@@ -184,7 +204,8 @@ export default function DesignPreview() {
               Die Lösung: MyDispatch
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Eine zentrale Plattform, die alle Bereiche Ihrer Disposition automatisiert und optimiert
+              Eine zentrale Plattform, die alle Bereiche Ihrer Disposition automatisiert und
+              optimiert
             </p>
           </div>
 
@@ -193,34 +214,38 @@ export default function DesignPreview() {
             {[
               {
                 icon: Zap,
-                title: 'Echtzeit-Disposition',
-                description: 'Automatische Auftragsvergabe an den nächsten verfügbaren Fahrer mit KI-Optimierung'
+                title: "Echtzeit-Disposition",
+                description:
+                  "Automatische Auftragsvergabe an den nächsten verfügbaren Fahrer mit KI-Optimierung",
               },
               {
                 icon: Map,
-                title: 'Live-Tracking',
-                description: 'Verfolgen Sie Ihre gesamte Flotte in Echtzeit auf einer interaktiven Karte'
+                title: "Live-Tracking",
+                description:
+                  "Verfolgen Sie Ihre gesamte Flotte in Echtzeit auf einer interaktiven Karte",
               },
               {
                 icon: Smartphone,
-                title: 'Fahrer-App',
-                description: 'Native iOS/Android App für Fahrer mit Offline-Funktionalität'
+                title: "Fahrer-App",
+                description: "Native iOS/Android App für Fahrer mit Offline-Funktionalität",
               },
               {
                 icon: BarChart,
-                title: 'Business Intelligence',
-                description: 'Detaillierte Auswertungen, KPIs und Forecasting für bessere Entscheidungen'
+                title: "Business Intelligence",
+                description:
+                  "Detaillierte Auswertungen, KPIs und Forecasting für bessere Entscheidungen",
               },
               {
                 icon: Shield,
-                title: 'DSGVO-konform',
-                description: 'Höchste Sicherheitsstandards und vollständige Compliance mit deutschem Recht'
+                title: "DSGVO-konform",
+                description:
+                  "Höchste Sicherheitsstandards und vollständige Compliance mit deutschem Recht",
               },
               {
                 icon: Code,
-                title: 'API-Integration',
-                description: 'Offene Schnittstellen für nahtlose Integration in Ihre Systeme'
-              }
+                title: "API-Integration",
+                description: "Offene Schnittstellen für nahtlose Integration in Ihre Systeme",
+              },
             ].map((feature, idx) => (
               <Card key={idx} className="hover:shadow-lg transition-shadow border-primary/10">
                 <CardContent className="pt-6 space-y-3">
@@ -260,14 +285,15 @@ export default function DesignPreview() {
                 Aufträge im Blick – zu jeder Zeit
               </h2>
               <p className="text-lg text-muted-foreground">
-                Das Dashboard zeigt alle offenen, laufenden und abgeschlossenen Aufträge in Echtzeit. 
-                Filtern Sie nach Status, Fahrer oder Zeitraum und behalten Sie stets die volle Kontrolle.
+                Das Dashboard zeigt alle offenen, laufenden und abgeschlossenen Aufträge in
+                Echtzeit. Filtern Sie nach Status, Fahrer oder Zeitraum und behalten Sie stets die
+                volle Kontrolle.
               </p>
               <ul className="space-y-3">
                 {[
-                  'Automatische Auftragsvergabe basierend auf Standort und Verfügbarkeit',
-                  'Live-Status-Updates von Fahrern direkt im Dashboard',
-                  'Detaillierte Auftragshistorie mit GPS-Tracking und Zeitstempeln'
+                  "Automatische Auftragsvergabe basierend auf Standort und Verfügbarkeit",
+                  "Live-Status-Updates von Fahrern direkt im Dashboard",
+                  "Detaillierte Auftragshistorie mit GPS-Tracking und Zeitstempeln",
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-start gap-3">
                     <Check className="h-5 w-5 text-status-success mt-0.5 shrink-0" />
@@ -275,7 +301,10 @@ export default function DesignPreview() {
                   </li>
                 ))}
               </ul>
-              <V28Button className="bg-secondary text-secondary-foreground hover:bg-secondary/90" variant="primary">
+              <V28Button
+                className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                variant="primary"
+              >
                 Mehr erfahren
                 <ArrowRight className="ml-2 h-4 w-4" />
               </V28Button>
@@ -288,9 +317,7 @@ export default function DesignPreview() {
       <section id="pricing" className="py-16 sm:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
-              Transparente Preise
-            </h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Transparente Preise</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Wählen Sie das passende Paket für Ihr Unternehmen – ohne versteckte Kosten
             </p>
@@ -299,34 +326,43 @@ export default function DesignPreview() {
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
               {
-                name: 'Starter',
-                price: '49€',
-                period: '/Monat',
-                features: ['Bis 5 Fahrer', 'Basis-Features', 'Email-Support'],
-                highlight: false
+                name: "Starter",
+                price: "49€",
+                period: "/Monat",
+                features: ["Bis 5 Fahrer", "Basis-Features", "Email-Support"],
+                highlight: false,
               },
               {
-                name: 'Business',
-                price: '149€',
-                period: '/Monat',
-                features: ['Bis 20 Fahrer', 'Alle Features', 'Priority Support', 'API-Zugang'],
-                highlight: true
+                name: "Business",
+                price: "149€",
+                period: "/Monat",
+                features: ["Bis 20 Fahrer", "Alle Features", "Priority Support", "API-Zugang"],
+                highlight: true,
               },
               {
-                name: 'Enterprise',
-                price: 'Individuell',
-                period: '',
-                features: ['Keine Limit bei Fahrern', 'Custom Features', '24/7 Support', 'Dedicated Manager'],
-                highlight: false
-              }
+                name: "Enterprise",
+                price: "Individuell",
+                period: "",
+                features: [
+                  "Keine Limit bei Fahrern",
+                  "Custom Features",
+                  "24/7 Support",
+                  "Dedicated Manager",
+                ],
+                highlight: false,
+              },
             ].map((plan, idx) => (
-              <Card 
-                key={idx} 
-                className={plan.highlight ? 'border-secondary shadow-xl scale-105' : 'border-primary/10'}
+              <Card
+                key={idx}
+                className={
+                  plan.highlight ? "border-secondary shadow-xl scale-105" : "border-primary/10"
+                }
               >
                 <CardContent className="pt-6 space-y-6">
                   {plan.highlight && (
-                    <Badge className="bg-secondary text-secondary-foreground">Beliebteste Wahl</Badge>
+                    <Badge className="bg-secondary text-secondary-foreground">
+                      Beliebteste Wahl
+                    </Badge>
                   )}
                   <div>
                     <h3 className="text-2xl font-bold text-foreground">{plan.name}</h3>
@@ -343,15 +379,15 @@ export default function DesignPreview() {
                       </li>
                     ))}
                   </ul>
-                  <V28Button 
+                  <V28Button
                     className={
-                      plan.highlight 
-                        ? 'w-full bg-secondary text-secondary-foreground hover:bg-secondary/90' 
-                        : 'w-full bg-primary text-foreground hover:bg-primary/90'
+                      plan.highlight
+                        ? "w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+                        : "w-full bg-primary text-foreground hover:bg-primary/90"
                     }
                     variant="primary"
                   >
-                    {plan.name === 'Enterprise' ? 'Kontakt aufnehmen' : 'Jetzt starten'}
+                    {plan.name === "Enterprise" ? "Kontakt aufnehmen" : "Jetzt starten"}
                   </V28Button>
                 </CardContent>
               </Card>
@@ -371,7 +407,7 @@ export default function DesignPreview() {
               Starten Sie jetzt mit MyDispatch – monatlich kündbar, ohne Setup-Gebühr.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <V28Button 
+              <V28Button
                 size="lg"
                 className="bg-secondary text-secondary-foreground hover:bg-secondary/90 shadow-lg"
                 variant="primary"
@@ -379,7 +415,7 @@ export default function DesignPreview() {
                 Jetzt registrieren
                 <ArrowRight className="ml-2 h-5 w-5" />
               </V28Button>
-              <V28Button 
+              <V28Button
                 size="lg"
                 variant="secondary"
                 className="border-foreground text-foreground hover:bg-foreground/10"
@@ -407,25 +443,61 @@ export default function DesignPreview() {
             <div>
               <h4 className="font-semibold text-foreground mb-4">Produkt</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-foreground/70 hover:text-foreground">Funktionen</a></li>
-                <li><a href="#" className="text-foreground/70 hover:text-foreground">Preise</a></li>
-                <li><a href="#" className="text-foreground/70 hover:text-foreground">Demo</a></li>
+                <li>
+                  <a href="#" className="text-foreground/70 hover:text-foreground">
+                    Funktionen
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-foreground/70 hover:text-foreground">
+                    Preise
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-foreground/70 hover:text-foreground">
+                    Demo
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold text-foreground mb-4">Unternehmen</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-foreground/70 hover:text-foreground">Über uns</a></li>
-                <li><a href="#" className="text-foreground/70 hover:text-foreground">Karriere</a></li>
-                <li><a href="#" className="text-foreground/70 hover:text-foreground">Kontakt</a></li>
+                <li>
+                  <a href="#" className="text-foreground/70 hover:text-foreground">
+                    Über uns
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-foreground/70 hover:text-foreground">
+                    Karriere
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-foreground/70 hover:text-foreground">
+                    Kontakt
+                  </a>
+                </li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold text-foreground mb-4">Rechtliches</h4>
               <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-foreground/70 hover:text-foreground">Impressum</a></li>
-                <li><a href="#" className="text-foreground/70 hover:text-foreground">Datenschutz</a></li>
-                <li><a href="#" className="text-foreground/70 hover:text-foreground">AGB</a></li>
+                <li>
+                  <a href="#" className="text-foreground/70 hover:text-foreground">
+                    Impressum
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-foreground/70 hover:text-foreground">
+                    Datenschutz
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="text-foreground/70 hover:text-foreground">
+                    AGB
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -452,16 +524,16 @@ export default function DesignPreview() {
                   Haben Sie Fragen zu MyDispatch? Ich helfe gerne!
                 </p>
                 <div className="flex gap-2">
-                  <V28Button 
-                    size="sm" 
+                  <V28Button
+                    size="sm"
                     className="bg-secondary text-secondary-foreground hover:bg-secondary/90 text-xs h-7"
                     variant="primary"
                   >
                     Chat starten
                   </V28Button>
-                  <V28Button 
-                    size="sm" 
-                    variant="ghost" 
+                  <V28Button
+                    size="sm"
+                    variant="ghost"
                     className="text-xs h-7"
                     onClick={() => setShowChatbot(false)}
                   >
@@ -473,7 +545,7 @@ export default function DesignPreview() {
           </div>
 
           {/* Floating Button (Alternative) */}
-          <button 
+          <button
             className="w-14 h-14 rounded-full bg-secondary text-secondary-foreground shadow-xl hover:scale-110 transition-transform flex items-center justify-center"
             onClick={() => setShowChatbot(!showChatbot)}
           >

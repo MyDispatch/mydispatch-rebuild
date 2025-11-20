@@ -4,12 +4,12 @@
    Verhindert dass Seiten-Fehler die gesamte App crashen
    ================================================================================== */
 
-import React from 'react';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { V28Button } from '@/components/design-system/V28Button';
-import { trackUIError } from '@/lib/error-tracker';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { AlertTriangle, RefreshCw, Home } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { V28Button } from "@/components/design-system/V28Button";
+import { trackUIError } from "@/lib/error-tracker";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   children: React.ReactNode;
@@ -34,9 +34,9 @@ export class PageErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Track error
-    trackUIError(this.props.pageName, 'page_render', error, {
+    trackUIError(this.props.pageName, "page_render", error, {
       componentStack: errorInfo.componentStack,
-      severity: 'high',
+      severity: "high",
     });
 
     this.setState({
@@ -52,7 +52,7 @@ export class PageErrorBoundary extends React.Component<Props, State> {
 
   private handleGoHome = () => {
     this.setState({ hasError: false, error: null, errorInfo: null });
-    window.location.href = '/dashboard';
+    window.location.href = "/dashboard";
   };
 
   render() {
@@ -65,21 +65,18 @@ export class PageErrorBoundary extends React.Component<Props, State> {
                 <div className="rounded-full bg-destructive/10 p-3">
                   <AlertTriangle className="h-6 w-6 text-destructive" />
                 </div>
-                <CardTitle className="text-2xl">
-                  Seite nicht verfügbar
-                </CardTitle>
+                <CardTitle className="text-2xl">Seite nicht verfügbar</CardTitle>
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-muted-foreground">
-                Die Seite <span className="font-semibold">{this.props.pageName}</span> ist auf einen Fehler gestoßen und konnte nicht geladen werden.
+                Die Seite <span className="font-semibold">{this.props.pageName}</span> ist auf einen
+                Fehler gestoßen und konnte nicht geladen werden.
               </p>
 
               {this.state.error && (
                 <div className="bg-muted p-4 rounded-md">
-                  <p className="font-mono text-sm text-destructive">
-                    {this.state.error.message}
-                  </p>
+                  <p className="font-mono text-sm text-destructive">{this.state.error.message}</p>
                   {this.state.error.stack && (
                     <details className="mt-2">
                       <summary className="cursor-pointer text-xs text-muted-foreground hover:text-foreground">

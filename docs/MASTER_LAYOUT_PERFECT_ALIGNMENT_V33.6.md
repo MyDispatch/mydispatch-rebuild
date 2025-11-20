@@ -10,6 +10,7 @@
 ## 🎯 ZIEL
 
 Pixel-perfektes Alignment aller Layout-Komponenten im Master Dashboard:
+
 - **Header**, **Footer**, **AppSidebar**, **Main Content** und **Quick Actions Panel**
 - **KEINE Overlaps**, keine Lücken, keine visuellen Brüche
 - **100% responsive** und smooth Sidebar-Transitions
@@ -46,6 +47,7 @@ Pixel-perfektes Alignment aller Layout-Komponenten im Master Dashboard:
 **Problem:** Quick Actions Panel hatte `bottom: 48px`, aber Footer ist nur `32px` hoch (`h-8`)
 
 **Fix:**
+
 ```typescript
 // VORHER (Master.tsx Zeile 450):
 bottom: '48px',   // ❌ FALSCH - Footer ist nur 32px!
@@ -55,6 +57,7 @@ bottom: '32px',   // ✅ KORREKT - Footer h-8 = 32px
 ```
 
 **Auswirkung:**
+
 - **16px Lücke** zwischen Quick Actions Panel und Footer eliminiert
 - Perfektes Alignment vom Panel-Ende bis Footer-Beginn
 
@@ -65,9 +68,10 @@ bottom: '32px',   // ✅ KORREKT - Footer h-8 = 32px
 **Problem:** Main Content hatte `marginRight: 280px`, aber kein expliziter Gap zum Quick Actions Panel
 
 **Fix:**
+
 ```typescript
 // VORHER (Master.tsx Zeile 191-196):
-<div 
+<div
   className="w-full space-y-8 transition-all duration-300"
   style={{
     marginRight: isDesktop ? '280px' : '0px',
@@ -75,7 +79,7 @@ bottom: '32px',   // ✅ KORREKT - Footer h-8 = 32px
 >
 
 // NACHHER:
-<div 
+<div
   className="w-full space-y-8 transition-all duration-300"
   style={{
     marginRight: isDesktop ? '280px' : '0px',
@@ -85,6 +89,7 @@ bottom: '32px',   // ✅ KORREKT - Footer h-8 = 32px
 ```
 
 **Auswirkung:**
+
 - **24px Gap** zwischen Content und Quick Actions Panel
 - Verhindert visuelles "Ankleben" von Content an Panel
 - Konsistent mit MainLayout `paddingLeft/Right: 24px`
@@ -96,6 +101,7 @@ bottom: '32px',   // ✅ KORREKT - Footer h-8 = 32px
 **Problem:** Quick Actions Panel hatte keine visuellen Separatoren und schwache Opazität
 
 **Fix:**
+
 ```typescript
 // VORHER (Master.tsx Zeile 447-448):
 className="... bg-white/95 backdrop-blur-md border-l border-slate-200 ..."
@@ -109,12 +115,14 @@ style={{
 ```
 
 **Änderungen:**
+
 - `bg-white/95` → `bg-white/98` (höhere Opazität)
 - `backdrop-blur-md` → `backdrop-blur-lg` (stärkerer Blur)
 - `border-l` → `border-l-2` (2px Border wie V28.1 Spec)
 - Zusätzlicher `boxShadow` für Premium-Effekt links
 
 **Auswirkung:**
+
 - **V28.1 Pure Slate-Palette** konform
 - Visueller "Floating Panel"-Effekt
 - Bessere Lesbarkeit durch höhere Opazität
@@ -126,6 +134,7 @@ style={{
 **Problem:** Keine Debug-Logs für Viewport-Tracking
 
 **Fix:**
+
 ```typescript
 // VORHER (Master.tsx Zeile 87):
 const handleResize = () => setIsDesktop(window.innerWidth >= 1280);
@@ -134,12 +143,13 @@ const handleResize = () => setIsDesktop(window.innerWidth >= 1280);
 const handleResize = () => {
   const newIsDesktop = window.innerWidth >= 1280;
   setIsDesktop(newIsDesktop);
-  
-  console.log('[Master V33.6] Viewport:', window.innerWidth, 'Desktop:', newIsDesktop);
+
+  console.log("[Master V33.6] Viewport:", window.innerWidth, "Desktop:", newIsDesktop);
 };
 ```
 
 **Auswirkung:**
+
 - Einfachere Debugging während Entwicklung
 - Transparenz über Breakpoint-Wechsel
 
@@ -150,6 +160,7 @@ const handleResize = () => {
 **Problem:** Keine Dokumentation, warum `paddingLeft/Right: 24px` gesetzt ist
 
 **Fix:**
+
 ```typescript
 // VORHER (MainLayout.tsx Zeile 98-99):
 paddingLeft: '24px',
@@ -161,6 +172,7 @@ paddingRight: '24px',  // ✅ Innerer Abstand - kann von Pages überschrieben we
 ```
 
 **Auswirkung:**
+
 - Klarheit für zukünftige Entwickler
 - Verhindert versehentliches Überschreiben
 
@@ -168,14 +180,14 @@ paddingRight: '24px',  // ✅ Innerer Abstand - kann von Pages überschrieben we
 
 ## 🎨 Z-INDEX HIERARCHY
 
-| Component | Z-Index | Zweck |
-|-----------|---------|-------|
-| **Header** | 40 | Über allem |
-| **AppSidebar** | 40 | Gleiche Ebene wie Header |
-| **Quick Actions Panel** | 30 | Unter Header, über Content |
-| **Footer** | 20 | Unter Panels, über Content |
-| **DashboardSidebar** | 10 | Unter Footer (nur /dashboard) |
-| **Main Content** | 0 | Base Layer |
+| Component               | Z-Index | Zweck                         |
+| ----------------------- | ------- | ----------------------------- |
+| **Header**              | 40      | Über allem                    |
+| **AppSidebar**          | 40      | Gleiche Ebene wie Header      |
+| **Quick Actions Panel** | 30      | Unter Header, über Content    |
+| **Footer**              | 20      | Unter Panels, über Content    |
+| **DashboardSidebar**    | 10      | Unter Footer (nur /dashboard) |
+| **Main Content**        | 0       | Base Layer                    |
 
 **Quelle:** `src/lib/constants.ts` → `Z_INDEX_HIERARCHY`
 
@@ -184,6 +196,7 @@ paddingRight: '24px',  // ✅ Innerer Abstand - kann von Pages überschrieben we
 ## 📱 RESPONSIVE VERHALTEN
 
 ### **Desktop (≥1280px - Tailwind `xl:`):**
+
 - ✅ **AppSidebar:** 64px collapsed, 240px expanded
 - ✅ **Header:** Beginnt bei `left: 64px/240px`
 - ✅ **Main Content:** `marginRight: 280px + 24px paddingRight`
@@ -191,11 +204,13 @@ paddingRight: '24px',  // ✅ Innerer Abstand - kann von Pages überschrieben we
 - ✅ **Footer:** Beginnt bei `left: 64px/240px`, Höhe `32px`
 
 ### **Tablet (768px - 1279px):**
+
 - ✅ **Quick Actions Panel:** Hidden
 - ✅ **Main Content:** Full width ohne `marginRight`
 - ✅ **AppSidebar:** Weiterhin sichtbar
 
 ### **Mobile (<768px):**
+
 - ✅ **MobileHeader** + **MobileBottomNav** aktiv
 - ✅ **AppSidebar:** Hidden
 - ✅ **Quick Actions Panel:** Hidden
@@ -206,6 +221,7 @@ paddingRight: '24px',  // ✅ Innerer Abstand - kann von Pages überschrieben we
 ## ✅ ERFOLGS-KRITERIEN V33.6
 
 ### **Layout-Alignment:**
+
 - [x] Header beginnt bei `left: 64px/240px` (synchron mit AppSidebar)
 - [x] Footer beginnt bei `left: 64px/240px`, Höhe `32px`
 - [x] Quick Actions Panel `bottom: 32px` (korrekt aligned mit Footer)
@@ -214,17 +230,20 @@ paddingRight: '24px',  // ✅ Innerer Abstand - kann von Pages überschrieben we
 - [x] **KEINE Lücke** zwischen Quick Actions Panel und Footer
 
 ### **Visual Quality:**
+
 - [x] Quick Actions Panel Premium-Shadow links
 - [x] 2px Border (V28.1 Spec)
 - [x] `backdrop-blur-lg` für Premium-Effekt
 - [x] `bg-white/98` für höhere Opazität
 
 ### **Responsive:**
+
 - [x] Desktop (≥1280px): Quick Actions Panel sichtbar
 - [x] Tablet/Mobile (<1280px): Quick Actions Panel hidden
 - [x] Main Content passt `marginRight` dynamisch an
 
 ### **Performance:**
+
 - [x] Smooth 600ms Transitions (MainLayout synchron mit Header/Footer)
 - [x] Viewport-Tracking mit `useEffect` + Resize-Listener
 - [x] Keine Layout-Shifts beim Sidebar-Toggle
@@ -241,6 +260,7 @@ transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
 ```
 
 **Betroffene Komponenten:**
+
 - `MainLayout.tsx` → Main Content `marginLeft`
 - `Master.tsx` → Main Content `marginRight` (implizit via `transition-all`)
 - `Header.tsx` → `left` + `width`
@@ -253,22 +273,22 @@ transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
 
 ## 🐛 GELÖSTE PROBLEME
 
-| Problem | Root Cause | Fix |
-|---------|-----------|-----|
-| **16px Lücke** zwischen Quick Actions Panel und Footer | Quick Actions Panel `bottom: 48px`, aber Footer nur `32px` hoch | `bottom: 48px` → `bottom: 32px` |
-| **Content "klebt"** an Quick Actions Panel | Kein expliziter Gap zwischen Content und Panel | Zusätzliches `paddingRight: 24px` auf Main Content |
-| **Quick Actions Panel** wirkt nicht "floating" | Schwache Border (1px), schwache Opazität (`bg-white/95`) | Border 2px, Opazität `bg-white/98`, Premium-Shadow |
-| **Keine Debug-Logs** für Viewport-Tracking | Keine Transparenz über Breakpoint-Wechsel | `console.log` in `handleResize` |
+| Problem                                                | Root Cause                                                      | Fix                                                |
+| ------------------------------------------------------ | --------------------------------------------------------------- | -------------------------------------------------- |
+| **16px Lücke** zwischen Quick Actions Panel und Footer | Quick Actions Panel `bottom: 48px`, aber Footer nur `32px` hoch | `bottom: 48px` → `bottom: 32px`                    |
+| **Content "klebt"** an Quick Actions Panel             | Kein expliziter Gap zwischen Content und Panel                  | Zusätzliches `paddingRight: 24px` auf Main Content |
+| **Quick Actions Panel** wirkt nicht "floating"         | Schwache Border (1px), schwache Opazität (`bg-white/95`)        | Border 2px, Opazität `bg-white/98`, Premium-Shadow |
+| **Keine Debug-Logs** für Viewport-Tracking             | Keine Transparenz über Breakpoint-Wechsel                       | `console.log` in `handleResize`                    |
 
 ---
 
 ## 📂 GEÄNDERTE DATEIEN
 
-| Datei | Änderungen | Zeilen |
-|-------|-----------|--------|
-| **src/pages/Master.tsx** | Footer-Höhe korrigiert, Padding optimiert, Premium-Effekte, Debug-Logs | 87, 191-196, 446-454 |
-| **src/components/layout/MainLayout.tsx** | Kommentare hinzugefügt | 98-99 |
-| **docs/MASTER_LAYOUT_PERFECT_ALIGNMENT_V33.6.md** | Neue Dokumentation | (neu) |
+| Datei                                             | Änderungen                                                             | Zeilen               |
+| ------------------------------------------------- | ---------------------------------------------------------------------- | -------------------- |
+| **src/pages/Master.tsx**                          | Footer-Höhe korrigiert, Padding optimiert, Premium-Effekte, Debug-Logs | 87, 191-196, 446-454 |
+| **src/components/layout/MainLayout.tsx**          | Kommentare hinzugefügt                                                 | 98-99                |
+| **docs/MASTER_LAYOUT_PERFECT_ALIGNMENT_V33.6.md** | Neue Dokumentation                                                     | (neu)                |
 
 ---
 
@@ -309,12 +329,12 @@ Nach Implementierung:
 
 ## 📅 VERSION HISTORY
 
-| Version | Datum | Änderungen |
-|---------|-------|-----------|
+| Version   | Datum      | Änderungen                                                 |
+| --------- | ---------- | ---------------------------------------------------------- |
 | **V33.6** | 2025-01-31 | Footer-Höhe korrigiert, Padding optimiert, Premium-Effekte |
-| V33.5 | 2025-01-31 | Initial Master Layout Alignment |
-| V33.4 | 2025-01-31 | Background-System implementiert |
-| V33.1 | 2025-01-30 | Layout-Architektur dokumentiert |
+| V33.5     | 2025-01-31 | Initial Master Layout Alignment                            |
+| V33.4     | 2025-01-31 | Background-System implementiert                            |
+| V33.1     | 2025-01-30 | Layout-Architektur dokumentiert                            |
 
 ---
 
@@ -323,4 +343,4 @@ Nach Implementierung:
 
 ---
 
-*Erstellt von NeXify AI Agent V6.0 - Datum: 2025-01-31*
+_Erstellt von NeXify AI Agent V6.0 - Datum: 2025-01-31_

@@ -19,7 +19,7 @@ interface FixResult {
   fixes: Array<{
     issue: string;
     fix: string;
-    status: 'fixed' | 'failed' | 'skipped';
+    status: "fixed" | "failed" | "skipped";
     error?: string;
   }>;
   summary: {
@@ -49,9 +49,9 @@ serve(async (req) => {
     // 1. Fix: Orphaned bookings (ohne company_id)
     try {
       const { data: orphaned, error } = await supabase
-        .from('bookings')
-        .select('id, customer_id')
-        .is('company_id', null)
+        .from("bookings")
+        .select("id, customer_id")
+        .is("company_id", null)
         .limit(100);
 
       if (error) throw error;
@@ -60,29 +60,29 @@ serve(async (req) => {
         for (const booking of orphaned) {
           // Try to find company_id from customer
           const { data: customer } = await supabase
-            .from('customers')
-            .select('company_id')
-            .eq('id', booking.customer_id)
+            .from("customers")
+            .select("company_id")
+            .eq("id", booking.customer_id)
             .single();
 
           if (customer?.company_id) {
             const { error: updateError } = await supabase
-              .from('bookings')
+              .from("bookings")
               .update({ company_id: customer.company_id })
-              .eq('id', booking.id);
+              .eq("id", booking.id);
 
             if (!updateError) {
               result.fixes.push({
                 issue: `Orphaned booking ${booking.id}`,
-                fix: 'Set company_id from customer',
-                status: 'fixed',
+                fix: "Set company_id from customer",
+                status: "fixed",
               });
               result.summary.fixed++;
             } else {
               result.fixes.push({
                 issue: `Orphaned booking ${booking.id}`,
-                fix: 'Set company_id from customer',
-                status: 'failed',
+                fix: "Set company_id from customer",
+                status: "failed",
                 error: updateError.message,
               });
               result.summary.failed++;
@@ -90,8 +90,8 @@ serve(async (req) => {
           } else {
             result.fixes.push({
               issue: `Orphaned booking ${booking.id}`,
-              fix: 'Set company_id from customer',
-              status: 'skipped',
+              fix: "Set company_id from customer",
+              status: "skipped",
             });
             result.summary.skipped++;
           }
@@ -99,9 +99,9 @@ serve(async (req) => {
       }
     } catch (error: any) {
       result.fixes.push({
-        issue: 'Orphaned bookings check',
-        fix: 'Set company_id from customer',
-        status: 'failed',
+        issue: "Orphaned bookings check",
+        fix: "Set company_id from customer",
+        status: "failed",
         error: error.message,
       });
       result.summary.failed++;
@@ -110,35 +110,35 @@ serve(async (req) => {
     // 2. Fix: Missing profiles for users
     try {
       const { data: usersWithoutProfile, error } = await supabase
-        .from('auth.users')
-        .select('id, email')
-        .not('id', 'in', `(SELECT user_id FROM profiles)`);
+        .from("auth.users")
+        .select("id, email")
+        .not("id", "in", `(SELECT user_id FROM profiles)`);
 
       if (error) {
         // Query might not work directly, use alternative
-        const { data: profiles } = await supabase.from('profiles').select('user_id');
-        const profileUserIds = new Set(profiles?.map(p => p.user_id) || []);
-        
+        const { data: profiles } = await supabase.from("profiles").select("user_id");
+        const profileUserIds = new Set(profiles?.map((p) => p.user_id) || []);
+
         // This is a simplified check - in production, use a proper query
         result.fixes.push({
-          issue: 'Users without profiles',
-          fix: 'Check and create missing profiles',
-          status: 'skipped',
+          issue: "Users without profiles",
+          fix: "Check and create missing profiles",
+          status: "skipped",
         });
         result.summary.skipped++;
       } else if (usersWithoutProfile && usersWithoutProfile.length > 0) {
         result.fixes.push({
           issue: `${usersWithoutProfile.length} users without profiles`,
-          fix: 'Create missing profiles',
-          status: 'skipped', // Manual action required
+          fix: "Create missing profiles",
+          status: "skipped", // Manual action required
         });
         result.summary.skipped++;
       }
     } catch (error: any) {
       result.fixes.push({
-        issue: 'Users without profiles check',
-        fix: 'Create missing profiles',
-        status: 'failed',
+        issue: "Users without profiles check",
+        fix: "Create missing profiles",
+        status: "failed",
         error: error.message,
       });
       result.summary.failed++;
@@ -147,24 +147,24 @@ serve(async (req) => {
     // 3. Fix: Expired sessions cleanup
     try {
       const { error } = await supabase
-        .from('sessions')
+        .from("sessions")
         .delete()
-        .lt('expires_at', new Date().toISOString());
+        .lt("expires_at", new Date().toISOString());
 
       if (error) throw error;
 
       result.fixes.push({
-        issue: 'Expired sessions',
-        fix: 'Delete expired sessions',
-        status: 'fixed',
+        issue: "Expired sessions",
+        fix: "Delete expired sessions",
+        status: "fixed",
       });
       result.summary.fixed++;
     } catch (error: any) {
       // Table might not exist, skip
       result.fixes.push({
-        issue: 'Expired sessions cleanup',
-        fix: 'Delete expired sessions',
-        status: 'skipped',
+        issue: "Expired sessions cleanup",
+        fix: "Delete expired sessions",
+        status: "skipped",
       });
       result.summary.skipped++;
     }
@@ -172,25 +172,25 @@ serve(async (req) => {
     // 4. Fix: Clean up old logs (keep last 30 days)
     try {
       const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-      
+
       const { error } = await supabase
-        .from('ai_actions_log')
+        .from("ai_actions_log")
         .delete()
-        .lt('created_at', thirtyDaysAgo);
+        .lt("created_at", thirtyDaysAgo);
 
       if (error) throw error;
 
       result.fixes.push({
-        issue: 'Old logs cleanup',
-        fix: 'Delete logs older than 30 days',
-        status: 'fixed',
+        issue: "Old logs cleanup",
+        fix: "Delete logs older than 30 days",
+        status: "fixed",
       });
       result.summary.fixed++;
     } catch (error: any) {
       result.fixes.push({
-        issue: 'Old logs cleanup',
-        fix: 'Delete logs older than 30 days',
-        status: 'failed',
+        issue: "Old logs cleanup",
+        fix: "Delete logs older than 30 days",
+        status: "failed",
         error: error.message,
       });
       result.summary.failed++;
@@ -199,22 +199,21 @@ serve(async (req) => {
     result.summary.total = result.fixes.length;
 
     // Log fixes
-    await supabase.from('auto_fix_logs').insert({
+    await supabase.from("auto_fix_logs").insert({
       timestamp: result.timestamp,
       fixes: result.fixes,
       summary: result.summary,
     });
 
-    return new Response(
-      JSON.stringify(result),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
-    );
+    return new Response(JSON.stringify(result), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 200,
+    });
   } catch (error: any) {
     console.error("[AUTO-FIX-ISSUES] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
-

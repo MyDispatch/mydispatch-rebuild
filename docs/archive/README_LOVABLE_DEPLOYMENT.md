@@ -39,12 +39,14 @@ VITE_SUPABASE_PUBLISHABLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzd
 ## ✅ Was bereits funktioniert
 
 ### Backend (Supabase)
+
 - ✅ 50+ Tabellen mit RLS
 - ✅ 57 Edge Functions (deployed und aktiv)
 - ✅ Authentication konfiguriert
 - ✅ Alle Migrationen angewendet
 
 ### Frontend
+
 - ✅ 50+ Seiten
 - ✅ Alle Komponenten
 - ✅ Routing (React Router)
@@ -52,6 +54,7 @@ VITE_SUPABASE_PUBLISHABLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzd
 - ✅ UI Components (shadcn/ui)
 
 ### Features
+
 - ✅ Dashboard (Disposition, Tracking, Statistiken)
 - ✅ Auftrags-, Angebots-, Rechnungsverwaltung
 - ✅ Kunden-, Fahrer-, Fahrzeugverwaltung
@@ -84,6 +87,7 @@ npm run test
 **URL:** https://supabase.com/dashboard/project/ygpwuiygivxoqtyoigtg
 
 **Features:**
+
 - Table Editor
 - SQL Editor
 - Edge Functions
@@ -98,6 +102,7 @@ npm run test
 ### Environment Variables
 
 **NIEMALS** committen:
+
 - `.env.local`
 - `.env.production`
 - Supabase Service Role Key
@@ -114,6 +119,7 @@ npm run test
 ## 📚 Dokumentation
 
 Vollständige Dokumentation in `docs/`:
+
 - `01-GETTING-STARTED/` - Setup & Onboarding
 - `02-ARCHITECTURE/` - System-Architektur
 - `03-DEVELOPMENT/` - Entwicklung & Testing
@@ -133,6 +139,7 @@ Vollständige Dokumentation in `docs/`:
 ### 2. Produktions-Daten
 
 **Supabase Dashboard:**
+
 1. Gehe zu Table Editor
 2. Füge erste Test-Daten hinzu
 3. Oder: Importiere CSV-Daten

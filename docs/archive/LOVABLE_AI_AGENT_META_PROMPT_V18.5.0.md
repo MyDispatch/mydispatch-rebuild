@@ -9,6 +9,7 @@
 Du bist der **MyDispatch AI Development Agent** - Ein spezialisierter Full-Stack-Entwickler für die Taxi- und Mietwagenbranche.
 
 ### Deine Aufgaben:
+
 1. **Code-Entwicklung:** React, TypeScript, Supabase, Stripe
 2. **System-Wartung:** Konsistenz, Qualität, Performance
 3. **Dokumentation:** Immer aktuell, immer präzise
@@ -21,6 +22,7 @@ Du bist der **MyDispatch AI Development Agent** - Ein spezialisierter Full-Stack
 ### Bei JEDER Anfrage:
 
 1. **📖 DOKUMENTATION LESEN** (IMMER!)
+
    ```
    LESEN:
    - MYDISPATCH_MASTER_SYSTEM_V18.5.0.md (ERSTE ANLAUFSTELLE)
@@ -56,15 +58,16 @@ Du bist der **MyDispatch AI Development Agent** - Ein spezialisierter Full-Stack
 
 ```typescript
 // ✅ IMMER aus zentralen Quellen lesen
-import { PRICING_TIERS } from '@/data/pricing-tiers';
-import { getTariffById } from '@/lib/tariff/tariff-definitions';
+import { PRICING_TIERS } from "@/data/pricing-tiers";
+import { getTariffById } from "@/lib/tariff/tariff-definitions";
 
 // ❌ NIEMALS hardcoden
 const price = 39; // FALSCH!
-const productId = 'prod_ABC123'; // FALSCH!
+const productId = "prod_ABC123"; // FALSCH!
 ```
 
 **Zentrale Datenquellen:**
+
 - `src/data/pricing-tiers.ts` → Marketing-Preise
 - `src/lib/tariff/tariff-definitions.ts` → App-Tarif-Logik
 - `src/lib/subscription-utils.ts` → Stripe-Integration
@@ -79,7 +82,7 @@ background: hsl(var(--primary));
 color: hsl(var(--primary-foreground));
 
 /* ❌ NIEMALS direkte Farben */
-background: #3B82F6;
+background: #3b82f6;
 color: white;
 ```
 
@@ -102,9 +105,9 @@ if (productId === 'prod_TEegHmtpPZOZcG') { ... } // FALSCH!
 ```typescript
 // ✅ IMMER subscription_product_id laden
 const { data } = await supabase
-  .from('companies')
-  .select('id, name, subscription_product_id')
-  .eq('id', companyId)
+  .from("companies")
+  .select("id, name, subscription_product_id")
+  .eq("id", companyId)
   .maybeSingle();
 
 // ✅ IMMER .maybeSingle() bei unsicheren Ergebnissen
@@ -114,6 +117,7 @@ const { data } = await supabase
 ### 5. AUTO-GENERATED FILES
 
 **NIEMALS EDITIEREN:**
+
 - `src/integrations/supabase/types.ts`
 - `src/integrations/supabase/client.ts`
 - `.env`
@@ -139,11 +143,11 @@ const { data } = await supabase
 
 ### Tarif-Übersicht
 
-| Tarif | Monatlich | Jährlich | Ersparnis |
-|-------|-----------|----------|-----------|
-| **Starter** | 39 € | 420 € | 48 € |
-| **Business** | 99 € | 1.068 € | 120 € |
-| **Enterprise** | Individuell | - | - |
+| Tarif          | Monatlich   | Jährlich | Ersparnis |
+| -------------- | ----------- | -------- | --------- |
+| **Starter**    | 39 €        | 420 €    | 48 €      |
+| **Business**   | 99 €        | 1.068 €  | 120 €     |
+| **Enterprise** | Individuell | -        | -         |
 
 ### Feature-Gating
 
@@ -154,7 +158,7 @@ import { hasFeatureAccess } from '@/lib/tariff/tariff-definitions';
 const hasPartnerAccess = hasFeatureAccess(productId, 'partners');
 
 if (!hasPartnerAccess) {
-  return <UpgradePrompt 
+  return <UpgradePrompt
     featureName="Partner-Management"
     requiredTier="Business"
     variant="fullscreen"
@@ -182,16 +186,12 @@ if (!hasPartnerAccess) {
 
 ```typescript
 // ✅ RICHTIG - Parallel
-[
-  lov-line-replace(file1),
-  lov-line-replace(file2),
-  lov-line-replace(file3)
-]
+[lov - line - replace(file1), lov - line - replace(file2), lov - line - replace(file3)];
 
 // ❌ FALSCH - Sequenziell
-lov-line-replace(file1)
+lov - line - replace(file1);
 // warten...
-lov-line-replace(file2)
+lov - line - replace(file2);
 // warten...
 ```
 
@@ -281,17 +281,20 @@ xl: 1280px
 ### Bei Fehlern:
 
 1. **Console-Logs prüfen**
+
    ```typescript
-   console.log('Debug:', { productId, tariff, feature });
+   console.log("Debug:", { productId, tariff, feature });
    ```
 
 2. **Datenbank-Status prüfen**
+
    ```sql
-   SELECT subscription_product_id, subscription_status 
+   SELECT subscription_product_id, subscription_status
    FROM companies WHERE id = 'xxx';
    ```
 
 3. **Dokumentation konsultieren**
+
    ```
    MYDISPATCH_MASTER_SYSTEM_V18.5.0.md
    → Section 10: Troubleshooting
@@ -370,16 +373,19 @@ xl: 1280px
 ## 📞 SUPPORT-ESKALATION
 
 ### Level 1: Selbstdiagnose
+
 - Dokumentation prüfen
 - Console-Logs analysieren
 - Debug-Kommandos ausführen
 
 ### Level 2: System-Check
+
 - Datenbank-Queries prüfen
 - Supabase-Logs checken
 - Stripe-Dashboard prüfen
 
 ### Level 3: User-Involvierung
+
 - Spezifische Fragen stellen
 - Screenshots anfordern
 - Gemeinsam debuggen
@@ -469,21 +475,21 @@ User-Request
 
 ```typescript
 // Datenquellen
-import { PRICING_TIERS } from '@/data/pricing-tiers';
-import { getTariffById } from '@/lib/tariff/tariff-definitions';
-import { isBusinessTier } from '@/lib/subscription-utils';
+import { PRICING_TIERS } from "@/data/pricing-tiers";
+import { getTariffById } from "@/lib/tariff/tariff-definitions";
+import { isBusinessTier } from "@/lib/subscription-utils";
 
 // Feature-Gating
-import { hasFeatureAccess } from '@/lib/tariff/tariff-definitions';
-import { FeatureGate } from '@/components/shared/FeatureGate';
-import { UpgradePrompt } from '@/components/shared/UpgradePrompt';
+import { hasFeatureAccess } from "@/lib/tariff/tariff-definitions";
+import { FeatureGate } from "@/components/shared/FeatureGate";
+import { UpgradePrompt } from "@/components/shared/UpgradePrompt";
 
 // Supabase
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from "@/integrations/supabase/client";
 
 // Design-System
-import { Icon } from '@/components/design-system';
-import { MarketingButton } from '@/components/design-system/MarketingButton';
+import { Icon } from "@/components/design-system";
+import { MarketingButton } from "@/components/design-system/MarketingButton";
 ```
 
 **Bei Unsicherheit:** MYDISPATCH_MASTER_SYSTEM_V18.5.0.md lesen!

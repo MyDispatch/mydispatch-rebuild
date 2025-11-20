@@ -7,9 +7,9 @@
    - Bulk Actions (Overlay wenn Selection aktiv)
    ================================================================================== */
 
-import { V28Button } from '@/components/design-system/V28Button';
-import { BulkActionBar } from '@/components/shared/BulkActionBar';
-import { ActionConfig, BulkActionConfig } from '@/types/page-template';
+import { V28Button } from "@/components/design-system/V28Button";
+import { BulkActionBar } from "@/components/shared/BulkActionBar";
+import { ActionConfig, BulkActionConfig } from "@/types/page-template";
 
 interface ActionBarProps {
   primary?: ActionConfig[];
@@ -19,12 +19,12 @@ interface ActionBarProps {
   selectedIds?: string[];
 }
 
-export function ActionBar({ 
-  primary, 
-  secondary, 
-  bulk, 
+export function ActionBar({
+  primary,
+  secondary,
+  bulk,
   selectedCount = 0,
-  selectedIds = []
+  selectedIds = [],
 }: ActionBarProps) {
   // Wenn Bulk-Selection aktiv, zeige BulkActionBar
   if (bulk && selectedCount > 0 && selectedIds.length > 0) {
@@ -32,21 +32,21 @@ export function ActionBar({
       <BulkActionBar
         selectedCount={selectedCount}
         onClearSelection={bulk.onClear}
-        actions={bulk.actions.map(action => ({
+        actions={bulk.actions.map((action) => ({
           label: action.label,
           icon: action.icon,
           onClick: () => action.onClick(selectedIds),
-          variant: action.variant
+          variant: action.variant,
         }))}
       />
     );
   }
-  
+
   // Keine Actions definiert
   if (!primary && !secondary) {
     return null;
   }
-  
+
   // Standard Action Buttons
   return (
     <div className="flex items-center justify-between flex-wrap gap-3">
@@ -56,7 +56,13 @@ export function ActionBar({
           <V28Button
             key={i}
             onClick={action.onClick}
-            variant={action.variant === 'destructive' ? 'destructive' : action.variant === 'default' ? 'primary' : 'secondary'}
+            variant={
+              action.variant === "destructive"
+                ? "destructive"
+                : action.variant === "default"
+                  ? "primary"
+                  : "secondary"
+            }
             disabled={action.disabled}
             className="hover:text-foreground"
           >
@@ -70,7 +76,7 @@ export function ActionBar({
           </V28Button>
         ))}
       </div>
-      
+
       {/* Secondary Actions (Rechts) */}
       {secondary && secondary.length > 0 && (
         <div className="flex gap-2 flex-wrap">

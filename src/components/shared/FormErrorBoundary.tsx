@@ -4,11 +4,11 @@
    Verhindert dass Formular-Fehler andere Components crashen
    ================================================================================== */
 
-import React from 'react';
-import { AlertCircle, RefreshCw } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { V28Button } from '@/components/design-system/V28Button';
-import { trackUIError } from '@/lib/error-tracker';
+import React from "react";
+import { AlertCircle, RefreshCw } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { V28Button } from "@/components/design-system/V28Button";
+import { trackUIError } from "@/lib/error-tracker";
 
 interface Props {
   children: React.ReactNode;
@@ -32,9 +32,9 @@ export class FormErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Track error
-    trackUIError(this.props.formName, 'form_render', error, {
+    trackUIError(this.props.formName, "form_render", error, {
       componentStack: errorInfo.componentStack,
-      severity: 'medium',
+      severity: "medium",
     });
   }
 
@@ -57,12 +57,7 @@ export class FormErrorBoundary extends React.Component<Props, State> {
                 {this.state.error.message}
               </p>
             )}
-            <V28Button
-              size="sm"
-              variant="secondary"
-              onClick={this.handleReset}
-              className="gap-2"
-            >
+            <V28Button size="sm" variant="secondary" onClick={this.handleReset} className="gap-2">
               <RefreshCw className="h-4 w-4" />
               Erneut versuchen
             </V28Button>

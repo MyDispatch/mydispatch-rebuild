@@ -10,16 +10,19 @@
 ## 🎯 Grundprinzipien
 
 ### DRY (Don't Repeat Yourself)
+
 - Keine Code-Duplikation
 - Wiederverwendbare Komponenten/Hooks
 - Zentrale Utilities statt Copy-Paste
 
 ### KISS (Keep It Simple, Stupid)
+
 - Einfache Lösungen bevorzugen
 - Keine Over-Engineering
 - Lesbarkeit > Cleverness
 
 ### YAGNI (You Aren't Gonna Need It)
+
 - Nur Features implementieren, die gebraucht werden
 - Keine spekulativen Features
 - Refactoring when needed, not before
@@ -48,16 +51,16 @@ src/
 
 ```tsx
 // Components: PascalCase
-MyComponent.tsx
+MyComponent.tsx;
 
 // Hooks: camelCase mit "use" prefix
-use-my-hook.ts
+use - my - hook.ts;
 
 // Utils: camelCase
-format-utils.ts
+format - utils.ts;
 
 // Types: PascalCase mit .types.ts suffix
-my-types.types.ts
+my - types.types.ts;
 
 // Constants: UPPER_SNAKE_CASE
 const MAX_ITEMS = 10;
@@ -78,12 +81,12 @@ interface User {
 }
 
 function getUser(id: string): Promise<User> {
-  return fetch(`/api/users/${id}`).then(r => r.json());
+  return fetch(`/api/users/${id}`).then((r) => r.json());
 }
 
 // ❌ FALSCH - Any Types
 function getUser(id: any): any {
-  return fetch(`/api/users/${id}`).then(r => r.json());
+  return fetch(`/api/users/${id}`).then((r) => r.json());
 }
 ```
 
@@ -91,7 +94,7 @@ function getUser(id: any): any {
 
 ```tsx
 // Type für Unions, Intersections, Primitives
-type Status = 'active' | 'inactive';
+type Status = "active" | "inactive";
 type Point = { x: number; y: number };
 
 // Interface für Objekt-Shapes (erweiternbar)
@@ -114,7 +117,7 @@ function firstElement<T>(arr: T[]): T | undefined {
 }
 
 const num = firstElement([1, 2, 3]); // number | undefined
-const str = firstElement(['a', 'b']); // string | undefined
+const str = firstElement(["a", "b"]); // string | undefined
 ```
 
 ---
@@ -131,8 +134,8 @@ const str = firstElement(['a', 'b']); // string | undefined
    Usage: <ComponentName prop={value} />
    ================================================================================ */
 
-import { FC } from 'react';
-import { cn } from '@/lib/utils';
+import { FC } from "react";
+import { cn } from "@/lib/utils";
 
 interface ComponentProps {
   /** Description of prop */
@@ -140,15 +143,8 @@ interface ComponentProps {
   children?: React.ReactNode;
 }
 
-export const Component: FC<ComponentProps> = ({ 
-  className,
-  children 
-}) => {
-  return (
-    <div className={cn("base-classes", className)}>
-      {children}
-    </div>
-  );
+export const Component: FC<ComponentProps> = ({ className, children }) => {
+  return <div className={cn("base-classes", className)}>{children}</div>;
 };
 ```
 
@@ -159,7 +155,7 @@ export const Component: FC<ComponentProps> = ({
 function Component() {
   const [state, setState] = useState(0);
   const value = useMemo(() => expensiveCalc(), []);
-  
+
   return <div>{state}</div>;
 }
 
@@ -264,10 +260,10 @@ $$;
 
 ```tsx
 // ✅ RICHTIG - Immer importieren von zentraler Stelle
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from "@/integrations/supabase/client";
 
 // ❌ FALSCH - Eigene Instanz erstellen
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 const supabase = createClient(url, key);
 ```
 
@@ -279,12 +275,12 @@ const supabase = createClient(url, key);
 
 ```tsx
 // ✅ RICHTIG - Zod Schema Validation
-import { z } from 'zod';
+import { z } from "zod";
 
 const bookingSchema = z.object({
   pickup_time: z.date().min(new Date()),
   passengers: z.number().min(1).max(8),
-  pickup_address: z.string().max(500)
+  pickup_address: z.string().max(500),
 });
 
 // Validate before submitting
@@ -311,7 +307,7 @@ const sanitized = DOMPurify.sanitize(userInput);
 const apiKey = import.meta.env.VITE_API_KEY;
 
 // ❌ FALSCH - Hardcoded Secrets
-const apiKey = 'sk_test_123456789'; // NIEMALS!
+const apiKey = "sk_test_123456789"; // NIEMALS!
 ```
 
 ---
@@ -324,16 +320,14 @@ const apiKey = 'sk_test_123456789'; // NIEMALS!
 // ✅ RICHTIG - Comprehensive Error Handling
 async function fetchData() {
   try {
-    const { data, error } = await supabase
-      .from('bookings')
-      .select('*');
-    
+    const { data, error } = await supabase.from("bookings").select("*");
+
     if (error) throw error;
-    
+
     return data;
   } catch (error) {
-    console.error('Failed to fetch bookings:', error);
-    toast.error('Daten konnten nicht geladen werden');
+    console.error("Failed to fetch bookings:", error);
+    toast.error("Daten konnten nicht geladen werden");
     throw error; // Re-throw for upstream handling
   }
 }
@@ -355,17 +349,17 @@ async function fetchData() {
 ### Test Structure
 
 ```tsx
-describe('Component', () => {
-  it('should render correctly', () => {
+describe("Component", () => {
+  it("should render correctly", () => {
     render(<Component />);
-    expect(screen.getByText('Hello')).toBeInTheDocument();
+    expect(screen.getByText("Hello")).toBeInTheDocument();
   });
-  
-  it('should handle user interaction', async () => {
+
+  it("should handle user interaction", async () => {
     const user = userEvent.setup();
     render(<Component />);
-    
-    await user.click(screen.getByRole('button'));
+
+    await user.click(screen.getByRole("button"));
     expect(mockFn).toHaveBeenCalled();
   });
 });
@@ -391,10 +385,7 @@ describe('Component', () => {
  * @returns Distanz in Kilometern
  * @throws Error wenn Koordinaten ungültig
  */
-function calculateDistance(
-  from: Coordinates,
-  to: Coordinates
-): number {
+function calculateDistance(from: Coordinates, to: Coordinates): number {
   // Implementation
 }
 ```
@@ -425,10 +416,10 @@ for (const item of items) {
 ```tsx
 // ✅ RICHTIG - Stale Time setzen
 const { data } = useQuery({
-  queryKey: ['bookings'],
+  queryKey: ["bookings"],
   queryFn: fetchBookings,
   staleTime: 5 * 60 * 1000, // 5 Minuten
-  gcTime: 10 * 60 * 1000,   // 10 Minuten (vorher cacheTime)
+  gcTime: 10 * 60 * 1000, // 10 Minuten (vorher cacheTime)
 });
 ```
 
@@ -436,23 +427,17 @@ const { data } = useQuery({
 
 ```tsx
 // ✅ RICHTIG - Lazy Loading + Dimensions
-<img 
-  src={imageUrl}
-  loading="lazy"
-  width={800}
-  height={600}
-  alt="Descriptive text"
-/>
+<img src={imageUrl} loading="lazy" width={800} height={600} alt="Descriptive text" />
 ```
 
 ### Bundle Size Optimierung
 
 ```tsx
 // ✅ RICHTIG - Tree-shaking friendly imports
-import { debounce } from 'lodash-es';
+import { debounce } from "lodash-es";
 
 // ❌ FALSCH - Gesamte Library importieren
-import _ from 'lodash';
+import _ from "lodash";
 ```
 
 ---
@@ -480,6 +465,7 @@ import _ from 'lodash';
 ## 📝 Changelog
 
 ### V18.5.0 (2025-01-26)
+
 - Konsolidierung aus 15+ Development-Dokumenten
 - TypeScript Guidelines erweitert
 - Security Best Practices hinzugefügt

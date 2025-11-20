@@ -1,19 +1,19 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { ArrowLeft, Mail } from 'lucide-react';
-import officialLogo from '@/assets/mydispatch-logo-official.png';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ArrowLeft, Mail } from "lucide-react";
+import officialLogo from "@/assets/mydispatch-logo-official.png";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function DriverForgotPassword() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,22 +21,22 @@ export default function DriverForgotPassword() {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/driver/reset-password`
+        redirectTo: `${window.location.origin}/driver/reset-password`,
       });
 
       if (error) throw error;
-      
+
       toast({
-        title: 'E-Mail versendet',
-        description: 'Bitte überprüfen Sie Ihr Postfach für weitere Anweisungen'
+        title: "E-Mail versendet",
+        description: "Bitte überprüfen Sie Ihr Postfach für weitere Anweisungen",
       });
-      
+
       // Don't navigate automatically - user should click link in email
     } catch (error: any) {
       toast({
-        title: 'Fehler',
-        description: error?.message || 'E-Mail konnte nicht versendet werden',
-        variant: 'destructive'
+        title: "Fehler",
+        description: error?.message || "E-Mail konnte nicht versendet werden",
+        variant: "destructive",
       });
     } finally {
       setIsLoading(false);
@@ -55,16 +55,12 @@ export default function DriverForgotPassword() {
           <V28Button
             variant="secondary"
             size="sm"
-            onClick={() => navigate('/driver/login')}
+            onClick={() => navigate("/driver/login")}
             className="rounded-full"
           >
             <ArrowLeft className="h-5 w-5 text-foreground" />
           </V28Button>
-          <img 
-            src={officialLogo} 
-            alt="MyDispatch Logo" 
-            className="h-10 w-auto object-contain"
-          />
+          <img src={officialLogo} alt="MyDispatch Logo" className="h-10 w-auto object-contain" />
           <div className="w-10" />
         </div>
 
@@ -80,11 +76,10 @@ export default function DriverForgotPassword() {
 
             {/* Title */}
             <div className="text-center space-y-2">
-              <h1 className="text-3xl font-bold text-foreground">
-                Passwort vergessen?
-              </h1>
+              <h1 className="text-3xl font-bold text-foreground">Passwort vergessen?</h1>
               <p className="text-muted-foreground">
-                Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen Ihres Passworts
+                Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen
+                Ihres Passworts
               </p>
             </div>
 
@@ -115,14 +110,14 @@ export default function DriverForgotPassword() {
                 size="lg"
                 className="w-full mt-6"
               >
-                {isLoading ? 'Wird gesendet...' : 'Link senden'}
+                {isLoading ? "Wird gesendet..." : "Link senden"}
               </V28Button>
             </form>
 
             {/* Back to Login */}
             <div className="text-center pt-4">
               <button
-                onClick={() => navigate('/driver/login')}
+                onClick={() => navigate("/driver/login")}
                 className="text-primary hover:text-primary/80"
               >
                 Zurück zur Anmeldung

@@ -88,6 +88,7 @@ Master-Dashboard Phase 3-5: Vollständige Integration von AI-Chat, File-Upload (
 ## 📋 Testing
 
 ### Manual Testing
+
 1. Navigate to `/dashboard`
 2. Master-Chat öffnen (bottom-right Widget)
 3. Nachricht senden (Enter oder Send-Button)
@@ -96,6 +97,7 @@ Master-Dashboard Phase 3-5: Vollständige Integration von AI-Chat, File-Upload (
 6. Responsive testen (Mobile/Desktop)
 
 ### Automated Testing (TODO)
+
 - Unit: `npm run test:unit` (TODO implement)
 - Integration: `npm run test:integration` (TODO implement)
 - E2E: `npx playwright test` (TODO implement)
@@ -109,6 +111,7 @@ Master-Dashboard Phase 3-5: Vollständige Integration von AI-Chat, File-Upload (
 ## 📸 Screenshots
 
 (TODO: Playwright Full-Page Screenshots)
+
 - Desktop: `/dashboard` (1920x1080)
 - Mobile: `/dashboard` (375x667)
 

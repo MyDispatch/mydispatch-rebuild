@@ -33,40 +33,40 @@ serve(async (req) => {
     let result;
 
     switch (source) {
-      case 'contact_form':
+      case "contact_form":
         // Beispiel: Kontaktformular von Website
         result = await syncContactForm(supabase, data, auto_create);
         break;
-      
-      case 'email':
+
+      case "email":
         // Beispiel: E-Mail-Inhalt analysieren
         result = await syncFromEmail(supabase, data, auto_create);
         break;
-      
-      case 'project':
+
+      case "project":
         // Beispiel: Aus Projekt-Daten
         result = await syncFromProject(supabase, data, auto_create);
         break;
-      
+
       default:
-        return new Response(
-          JSON.stringify({ error: "Unknown source", success: false }),
-          { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: "Unknown source", success: false }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
     }
 
     return new Response(
       JSON.stringify({
         success: true,
-        ...result
+        ...result,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: error.message, success: false }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message, success: false }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
 
@@ -94,11 +94,11 @@ async function syncContactForm(supabase: any, data: any, autoCreate: boolean) {
           company_name: company,
           company_type: "prospect",
           status: "prospect",
-          source: "contact_form"
+          source: "contact_form",
         })
         .select()
         .single();
-      
+
       companyRecord = newCompany;
     }
   }
@@ -116,7 +116,7 @@ async function syncContactForm(supabase: any, data: any, autoCreate: boolean) {
 
     if (existing) {
       contactRecord = existing;
-      
+
       // Update falls nötig
       if (name && !existing.full_name.includes(name)) {
         await supabase
@@ -138,11 +138,11 @@ async function syncContactForm(supabase: any, data: any, autoCreate: boolean) {
           phone: phone,
           role: "contact",
           status: "active",
-          source: "contact_form"
+          source: "contact_form",
         })
         .select()
         .single();
-      
+
       contactRecord = newContact;
     }
   }
@@ -161,11 +161,11 @@ async function syncContactForm(supabase: any, data: any, autoCreate: boolean) {
         subject: subject || "Kontaktformular Anfrage",
         content: message,
         status: "completed",
-        created_by: "nexify-ai-master"
+        created_by: "nexify-ai-master",
       })
       .select()
       .single();
-    
+
     interactionRecord = interaction;
   }
 
@@ -176,8 +176,8 @@ async function syncContactForm(supabase: any, data: any, autoCreate: boolean) {
     created: {
       company: !companyRecord || companyRecord.id === companyRecord.id,
       contact: !contactRecord || contactRecord.id === contactRecord.id,
-      interaction: !!interactionRecord
-    }
+      interaction: !!interactionRecord,
+    },
   };
 }
 
@@ -190,4 +190,3 @@ async function syncFromProject(supabase: any, data: any, autoCreate: boolean) {
   // TODO: Implementiere Projekt-basierte Sync
   return { message: "Project sync not yet implemented" };
 }
-

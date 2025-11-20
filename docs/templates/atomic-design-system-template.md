@@ -9,6 +9,7 @@
 ## 📘 CONTEXT
 
 This template provides a step-by-step guide to create a production-ready atomic design system with:
+
 - ✅ Reusable UI components
 - ✅ Full Storybook documentation
 - ✅ Comprehensive unit tests
@@ -20,6 +21,7 @@ This template provides a step-by-step guide to create a production-ready atomic 
 ## 🎯 OBJECTIVE
 
 Establish a scalable, maintainable atomic design system that:
+
 1. Reduces code duplication
 2. Ensures design consistency
 3. Speeds up feature development
@@ -30,6 +32,7 @@ Establish a scalable, maintainable atomic design system that:
 ## 📚 PREREQUISITES
 
 ### Required Dependencies
+
 ```json
 {
   "dependencies": {
@@ -48,6 +51,7 @@ Establish a scalable, maintainable atomic design system that:
 ```
 
 ### Required Configuration
+
 1. Tailwind CSS configured
 2. Storybook set up
 3. Vitest + React Testing Library installed
@@ -59,6 +63,7 @@ Establish a scalable, maintainable atomic design system that:
 ### Step 1: Define Component Atoms
 
 **Prompt to AI**:
+
 ```
 Create a set of atomic UI components based on the following specifications:
 
@@ -138,6 +143,7 @@ V28Button.displayName = 'V28Button';
 ### Step 3: Create Storybook Stories
 
 **Prompt to AI**:
+
 ```
 For each component in `src/lib/components/`, create a corresponding Storybook story:
 
@@ -218,6 +224,7 @@ export const AllSizes: Story = {
 ### Step 4: Write Unit Tests
 
 **Prompt to AI**:
+
 ```
 For each component, create a unit test file:
 
@@ -297,23 +304,23 @@ describe('V28Button', () => {
     /* Primary Colors */
     --primary: 222 47% 11%;
     --primary-foreground: 210 40% 98%;
-    
+
     /* Secondary Colors */
     --secondary: 210 40% 96%;
     --secondary-foreground: 222 47% 11%;
-    
+
     /* Accent Colors */
     --accent: 210 40% 96%;
     --accent-foreground: 222 47% 11%;
-    
+
     /* Background */
     --background: 0 0% 100%;
     --foreground: 222 47% 11%;
-    
+
     /* Borders */
     --border: 214 32% 91%;
     --input: 214 32% 91%;
-    
+
     /* Status Colors */
     --success: 142 76% 36%;
     --warning: 38 92% 50%;
@@ -324,13 +331,13 @@ describe('V28Button', () => {
   .dark {
     --primary: 210 40% 98%;
     --primary-foreground: 222 47% 11%;
-    
+
     --secondary: 217 33% 17%;
     --secondary-foreground: 210 40% 98%;
-    
+
     --background: 222 47% 11%;
     --foreground: 210 40% 98%;
-    
+
     --border: 217 33% 17%;
     --input: 217 33% 17%;
   }
@@ -381,6 +388,7 @@ export function MyFeature() {
 ## 📈 EXPECTED OUTCOMES
 
 After implementing this template:
+
 - ✅ 5-10 reusable atomic components
 - ✅ 100% test coverage for new components
 - ✅ Full Storybook documentation
@@ -392,12 +400,15 @@ After implementing this template:
 ## 🔧 TROUBLESHOOTING
 
 ### Issue: Colors not applying
+
 **Solution**: Ensure `tailwind.config.ts` extends semantic tokens from `index.css`
 
 ### Issue: Storybook not showing stories
+
 **Solution**: Check `.storybook/main.ts` includes correct story paths
 
 ### Issue: Tests failing
+
 **Solution**: Ensure `vitest.config.ts` includes `@testing-library/jest-dom` setup
 
 ---

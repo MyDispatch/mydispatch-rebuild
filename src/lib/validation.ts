@@ -2,14 +2,14 @@
  * ========================================================================
  * ZENTRALE INPUT-VALIDATION V18.3.28
  * ========================================================================
- * 
+ *
  * Systemweites Validation-System basierend auf Zod.
  * PFLICHT: Alle User-Inputs MÜSSEN durch diese Schemas validiert werden.
- * 
+ *
  * VERWENDUNG:
  * ```tsx
  * import { OrderSchema, validateOrder } from '@/lib/validation';
- * 
+ *
  * const result = validateOrder(formData);
  * if (!result.success) {
  *   console.error(result.error.errors);
@@ -20,7 +20,7 @@
  * ========================================================================
  */
 
-import { z } from 'zod';
+import { z } from "zod";
 
 // ============================================================================
 // HELPER SCHEMAS
@@ -105,43 +105,43 @@ export const SafeTextSchema = z
 /**
  * Order Status Enum
  */
-export const OrderStatusSchema = z.enum([
-  'pending',
-  'assigned',
-  'in_transit',
-  'delivered',
-  'cancelled',
-], {
-  errorMap: () => ({ message: "Ungültiger Auftragsstatus" }),
-});
+export const OrderStatusSchema = z.enum(
+  ["pending", "assigned", "in_transit", "delivered", "cancelled"],
+  {
+    errorMap: () => ({ message: "Ungültiger Auftragsstatus" }),
+  }
+);
 
 /**
  * Order Creation Schema
  * Verwendet für Auftrags-Erstellung (POST /api/orders)
  */
-export const CreateOrderSchema = z.object({
-  customer_id: UUIDSchema,
-  pickup_address: AddressSchema,
-  delivery_address: AddressSchema,
-  pickup_date: z.coerce.date().refine(
-    (date) => date >= new Date(new Date().setHours(0, 0, 0, 0)),
-    { message: "Abholdatum darf nicht in der Vergangenheit liegen" }
-  ),
-  delivery_date: z.coerce.date().optional(),
-  notes: z.string().trim().max(1000).optional(),
-}).refine(
-  (data) => {
-    // Validierung: Lieferdatum muss nach Abholdatum sein
-    if (data.delivery_date && data.delivery_date < data.pickup_date) {
-      return false;
+export const CreateOrderSchema = z
+  .object({
+    customer_id: UUIDSchema,
+    pickup_address: AddressSchema,
+    delivery_address: AddressSchema,
+    pickup_date: z.coerce
+      .date()
+      .refine((date) => date >= new Date(new Date().setHours(0, 0, 0, 0)), {
+        message: "Abholdatum darf nicht in der Vergangenheit liegen",
+      }),
+    delivery_date: z.coerce.date().optional(),
+    notes: z.string().trim().max(1000).optional(),
+  })
+  .refine(
+    (data) => {
+      // Validierung: Lieferdatum muss nach Abholdatum sein
+      if (data.delivery_date && data.delivery_date < data.pickup_date) {
+        return false;
+      }
+      return true;
+    },
+    {
+      message: "Lieferdatum muss nach dem Abholdatum liegen",
+      path: ["delivery_date"],
     }
-    return true;
-  },
-  {
-    message: "Lieferdatum muss nach dem Abholdatum liegen",
-    path: ["delivery_date"],
-  }
-);
+  );
 
 /**
  * Order Update Schema
@@ -201,12 +201,7 @@ export const UpdateCustomerSchema = CreateCustomerSchema.partial();
 /**
  * Driver Status Enum
  */
-export const DriverStatusSchema = z.enum([
-  'available',
-  'on_duty',
-  'off_duty',
-  'on_break',
-], {
+export const DriverStatusSchema = z.enum(["available", "on_duty", "off_duty", "on_break"], {
   errorMap: () => ({ message: "Ungültiger Fahrerstatus" }),
 });
 
@@ -231,7 +226,7 @@ export const CreateDriverSchema = z.object({
     .trim()
     .min(2, { message: "Kennzeichen muss mindestens 2 Zeichen lang sein" })
     .max(20, { message: "Kennzeichen darf maximal 20 Zeichen lang sein" }),
-  status: DriverStatusSchema.default('available'),
+  status: DriverStatusSchema.default("available"),
 });
 
 /**
@@ -246,12 +241,7 @@ export const UpdateDriverSchema = CreateDriverSchema.partial();
 /**
  * User Role Enum
  */
-export const UserRoleSchema = z.enum([
-  'admin',
-  'dispatcher',
-  'driver',
-  'customer',
-], {
+export const UserRoleSchema = z.enum(["admin", "dispatcher", "driver", "customer"], {
   errorMap: () => ({ message: "Ungültige Benutzerrolle" }),
 });
 
@@ -302,18 +292,20 @@ export const SignupSchema = LoginSchema.extend({
 /**
  * Password Reset Schema
  */
-export const PasswordResetSchema = z.object({
-  password: z
-    .string()
-    .min(8, { message: "Passwort muss mindestens 8 Zeichen lang sein" })
-    .max(100, { message: "Passwort darf maximal 100 Zeichen lang sein" })
-    .regex(/[A-Z]/, { message: "Passwort muss mindestens einen Großbuchstaben enthalten" })
-    .regex(/[0-9]/, { message: "Passwort muss mindestens eine Zahl enthalten" }),
-  password_confirm: z.string(),
-}).refine((data) => data.password === data.password_confirm, {
-  message: "Passwörter stimmen nicht überein",
-  path: ["password_confirm"],
-});
+export const PasswordResetSchema = z
+  .object({
+    password: z
+      .string()
+      .min(8, { message: "Passwort muss mindestens 8 Zeichen lang sein" })
+      .max(100, { message: "Passwort darf maximal 100 Zeichen lang sein" })
+      .regex(/[A-Z]/, { message: "Passwort muss mindestens einen Großbuchstaben enthalten" })
+      .regex(/[0-9]/, { message: "Passwort muss mindestens eine Zahl enthalten" }),
+    password_confirm: z.string(),
+  })
+  .refine((data) => data.password === data.password_confirm, {
+    message: "Passwörter stimmen nicht überein",
+    path: ["password_confirm"],
+  });
 
 // ============================================================================
 // CONTACT FORM SCHEMAS
@@ -346,7 +338,7 @@ export const ContactFormSchema = z.object({
 /**
  * Generic Validation Function
  * Wraps Zod's safeParse mit TypeScript-Generics
- * 
+ *
  * @example
  * const result = validate(CreateOrderSchema, formData);
  * if (!result.success) { ... }
@@ -377,7 +369,7 @@ export const validateContactForm = (data: unknown) => validate(ContactFormSchema
 /**
  * Format Validation Errors für UI-Anzeige
  * Konvertiert Zod-Errors in benutzerfreundliche Fehlermeldungen
- * 
+ *
  * @example
  * const errors = formatValidationErrors(result.error);
  * // { email: "Ungültige E-Mail-Adresse", password: "Zu kurz" }
@@ -385,7 +377,7 @@ export const validateContactForm = (data: unknown) => validate(ContactFormSchema
 export function formatValidationErrors(error: z.ZodError): Record<string, string> {
   const formatted: Record<string, string> = {};
   error.errors.forEach((err) => {
-    const path = err.path.join('.');
+    const path = err.path.join(".");
     formatted[path] = err.message;
   });
   return formatted;
@@ -403,7 +395,7 @@ export function isValidDate(dateString: string): boolean {
 /**
  * Sanitize & Validate Combined
  * Für Felder die sowohl validiert als auch sanitized werden müssen
- * 
+ *
  * WICHTIG: Import sanitizeHTML separat aus @/lib/sanitize
  * Diese Funktion ist nur für Validation, Sanitization erfolgt separat!
  */
@@ -414,9 +406,9 @@ export function validateAndSanitize<T>(
 ): { success: true; data: T } | { success: false; error: z.ZodError } {
   // Pre-Processing: Sanitize string fields wenn sanitizeFn gegeben
   let processedData = data;
-  if (sanitizeFn && typeof data === 'object' && data !== null) {
+  if (sanitizeFn && typeof data === "object" && data !== null) {
     processedData = Object.entries(data).reduce((acc, [key, value]) => {
-      if (typeof value === 'string') {
+      if (typeof value === "string") {
         return { ...acc, [key]: sanitizeFn(value) };
       }
       return { ...acc, [key]: value };
@@ -453,40 +445,40 @@ export type UserRole = z.infer<typeof UserRoleSchema>;
 
 /**
  * VALIDATION RULES SUMMARY
- * 
+ *
  * EMAIL:
  * - Max 255 Zeichen
  * - RFC 5322 Format
- * 
+ *
  * PHONE:
  * - International Format (+49...)
  * - Max 20 Zeichen
- * 
+ *
  * ADDRESS:
  * - Min 5, Max 200 Zeichen
- * 
+ *
  * DATES:
  * - Future Dates: >= today
  * - Past Dates: <= today
- * 
+ *
  * TEXT:
  * - Safe Text: Max 1000 Zeichen
  * - WICHTIG: Lange Texte zusätzlich durch sanitizeHTML() laufen lassen!
- * 
+ *
  * PASSWORDS:
  * - Min 8 Zeichen
  * - Mind. 1 Großbuchstabe
  * - Mind. 1 Zahl
- * 
+ *
  * IDs:
  * - UUIDs (Supabase Standard)
- * 
+ *
  * VERWENDUNG IN KOMPONENTEN:
- * 
+ *
  * ```tsx
  * import { validateOrder, formatValidationErrors } from '@/lib/validation';
  * import { sanitizeHTML } from '@/lib/sanitize';
- * 
+ *
  * const handleSubmit = (formData) => {
  *   // 1. Validierung
  *   const result = validateOrder(formData);
@@ -495,10 +487,10 @@ export type UserRole = z.infer<typeof UserRoleSchema>;
  *     setErrors(errors);
  *     return;
  *   }
- * 
+ *
  *   // 2. Sanitization (wenn nötig für HTML-Rendering)
  *   const sanitizedNotes = sanitizeHTML(result.data.notes || '');
- * 
+ *
  *   // 3. API Call mit validierten Daten
  *   await createOrder({ ...result.data, notes: sanitizedNotes });
  * };

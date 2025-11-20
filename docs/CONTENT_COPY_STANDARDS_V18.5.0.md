@@ -1,4 +1,5 @@
 # MyDispatch Content & Copy Standards
+
 ## Verbindliche Kommunikations-Vorgaben V18.5.0 - PRODUCTION READY
 
 > **Status:** ✅ PRODUCTION READY  
@@ -27,12 +28,12 @@
 ```typescript
 interface StandardContactForm {
   // PFLICHT-FELDER (NIEMALS optional!)
-  anrede: 'Herr' | 'Frau' | 'Divers';
-  titel?: 'Dr.' | 'Prof.' | 'Prof. Dr.' | 'Dr. med.' | 'Dr. jur.';
+  anrede: "Herr" | "Frau" | "Divers";
+  titel?: "Dr." | "Prof." | "Prof. Dr." | "Dr. med." | "Dr. jur.";
   vorname: string;
   nachname: string;
   email: string;
-  
+
   // OPTIONAL
   firma?: string;
   telefon?: string;
@@ -44,14 +45,14 @@ interface StandardContactForm {
 
 ```typescript
 // ✅ RICHTIG - Vollständige Anrede
-"Sehr geehrter Herr Dr. Müller,"
-"Sehr geehrte Frau Prof. Schmidt,"
-"Guten Tag," // Bei Divers
+"Sehr geehrter Herr Dr. Müller,";
+"Sehr geehrte Frau Prof. Schmidt,";
+"Guten Tag,"; // Bei Divers
 
 // ❌ FALSCH - Informelle Anrede
-"Hallo Max,"
-"Hi,"
-"Hey Frau Müller,"
+"Hallo Max,";
+"Hi,";
+"Hey Frau Müller,";
 ```
 
 ---
@@ -71,18 +72,18 @@ interface StandardContactForm {
 
 ```typescript
 // ✅ RICHTIG - Professionell & Seriös
-"Optimieren Sie Ihre Disposition mit MyDispatch"
-"Effiziente Verwaltung Ihrer Fahrzeugflotte"
-"Transparente Abrechnung und Reporting"
-"Individuelle Beratung für Ihr Unternehmen"
-"Maßgeschneiderte Lösungen für Ihre Anforderungen"
+"Optimieren Sie Ihre Disposition mit MyDispatch";
+"Effiziente Verwaltung Ihrer Fahrzeugflotte";
+"Transparente Abrechnung und Reporting";
+"Individuelle Beratung für Ihr Unternehmen";
+"Maßgeschneiderte Lösungen für Ihre Anforderungen";
 
 // ❌ FALSCH - Zu informell oder billig
-"Hol dir jetzt MyDispatch!"
-"Mega-Deal nur heute!"
-"Nicht verpassen!"
-"Jetzt zuschlagen!"
-"Super günstig!"
+"Hol dir jetzt MyDispatch!";
+"Mega-Deal nur heute!";
+"Nicht verpassen!";
+"Jetzt zuschlagen!";
+"Super günstig!";
 ```
 
 ---
@@ -157,28 +158,28 @@ interface StandardContactForm {
 
 ### Primäre Aktionen
 
-| Aktion | Button-Text |
-|--------|-------------|
-| Speichern | "Speichern" |
-| Erstellen | "Erstellen" |
+| Aktion     | Button-Text  |
+| ---------- | ------------ |
+| Speichern  | "Speichern"  |
+| Erstellen  | "Erstellen"  |
 | Hinzufügen | "Hinzufügen" |
 | Bearbeiten | "Bearbeiten" |
-| Löschen | "Löschen" |
-| Abbrechen | "Abbrechen" |
+| Löschen    | "Löschen"    |
+| Abbrechen  | "Abbrechen"  |
 | Bestätigen | "Bestätigen" |
-| Senden | "Senden" |
+| Senden     | "Senden"     |
 
 ### Sekundäre Aktionen
 
-| Aktion | Button-Text |
-|--------|-------------|
+| Aktion      | Button-Text           |
+| ----------- | --------------------- |
 | Exportieren | "Als PDF exportieren" |
-| Drucken | "Drucken" |
-| Teilen | "Teilen" |
-| Archivieren | "Archivieren" |
-| Zurück | "Zurück" |
-| Weiter | "Weiter" |
-| Schließen | "Schließen" |
+| Drucken     | "Drucken"             |
+| Teilen      | "Teilen"              |
+| Archivieren | "Archivieren"         |
+| Zurück      | "Zurück"              |
+| Weiter      | "Weiter"              |
+| Schließen   | "Schließen"           |
 
 ---
 
@@ -220,7 +221,8 @@ toast({
 
 toast({
   title: "Keine Verbindung",
-  description: "Die Verbindung zum Server konnte nicht hergestellt werden. Bitte prüfen Sie Ihre Internetverbindung.",
+  description:
+    "Die Verbindung zum Server konnte nicht hergestellt werden. Bitte prüfen Sie Ihre Internetverbindung.",
   variant: "destructive",
 });
 
@@ -291,16 +293,16 @@ const validationMessages = {
 
 ```typescript
 // ✅ RICHTIG - Transparent & Ehrlich
-"Unsere Tarife sind auf Ihre Unternehmensgröße abgestimmt."
-"Kontaktieren Sie uns für ein individuelles Angebot."
-"Transparente Preisgestaltung ohne versteckte Kosten."
-"Tarife entsprechend Ihrer Anforderungen."
+"Unsere Tarife sind auf Ihre Unternehmensgröße abgestimmt.";
+"Kontaktieren Sie uns für ein individuelles Angebot.";
+"Transparente Preisgestaltung ohne versteckte Kosten.";
+"Tarife entsprechend Ihrer Anforderungen.";
 
 // ❌ FALSCH - Lockangebote
-"30 Tage kostenlos testen!"
-"Jetzt gratis starten!"
-"Keine Kreditkarte erforderlich!"
-"Für immer kostenlos!"
+"30 Tage kostenlos testen!";
+"Jetzt gratis starten!";
+"Keine Kreditkarte erforderlich!";
+"Für immer kostenlos!";
 ```
 
 ---
@@ -317,17 +319,17 @@ const placeholders = {
   email: "ihre.email@beispiel.de",
   telefon: "+49 123 456789",
   firma: "Ihre Firma GmbH",
-  
+
   // Adressen
   strasse: "Musterstraße 123",
   plz: "12345",
   ort: "Berlin",
   land: "Deutschland",
-  
+
   // Suche
   suche: "Suchen...",
   filter: "Filtern nach...",
-  
+
   // Nachrichten
   nachricht: "Ihre Nachricht an uns...",
   kommentar: "Optionaler Kommentar...",
@@ -431,9 +433,9 @@ interface CustomerForm {
 // NACHHER (Ergänzt, NICHT ersetzt!)
 interface CustomerForm {
   // NEU ERGÄNZT
-  anrede: 'Herr' | 'Frau' | 'Divers';
+  anrede: "Herr" | "Frau" | "Divers";
   titel?: string;
-  
+
   // BESTEHEND - UNVERÄNDERT!
   name: string;
   email: string;
@@ -446,7 +448,7 @@ interface CustomerForm {
 ```typescript
 // ✅ RICHTIG - Vollständiges Standard-Formular
 interface NewContactForm {
-  anrede: 'Herr' | 'Frau' | 'Divers'; // PFLICHT
+  anrede: "Herr" | "Frau" | "Divers"; // PFLICHT
   titel?: string; // OPTIONAL
   vorname: string; // PFLICHT
   nachname: string; // PFLICHT

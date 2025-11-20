@@ -37,11 +37,16 @@ const handler = async (req: Request): Promise<Response> => {
   try {
     const { name, email, phone, company, subject, message }: ContactRequest = await req.json();
 
-    console.log('[CONTACT-EMAIL] Received request:', { name, email, hasPhone: !!phone, hasCompany: !!company });
+    console.log("[CONTACT-EMAIL] Received request:", {
+      name,
+      email,
+      hasPhone: !!phone,
+      hasCompany: !!company,
+    });
 
     // ⚠️ KRITISCH: Server-seitige Validierung
     if (!name || !email || !message) {
-      console.error('[CONTACT-EMAIL] Validation failed: Missing required fields');
+      console.error("[CONTACT-EMAIL] Validation failed: Missing required fields");
       return new Response(
         JSON.stringify({ error: "Name, E-Mail und Nachricht sind Pflichtfelder" }),
         {
@@ -75,23 +80,31 @@ const handler = async (req: Request): Promise<Response> => {
                 <td style="padding: 12px 0; font-weight: bold; color: #323D5E;">E-Mail:</td>
                 <td style="padding: 12px 0;"><a href="mailto:${email}" style="color: #856d4b; text-decoration: none;">${email}</a></td>
               </tr>
-              ${phone ? `
+              ${
+                phone
+                  ? `
                 <tr style="border-bottom: 1px solid #e5e5e5;">
                   <td style="padding: 12px 0; font-weight: bold; color: #323D5E;">Telefon:</td>
                   <td style="padding: 12px 0; color: #666;">${phone}</td>
                 </tr>
-              ` : ''}
-              ${company ? `
+              `
+                  : ""
+              }
+              ${
+                company
+                  ? `
                 <tr style="border-bottom: 1px solid #e5e5e5;">
                   <td style="padding: 12px 0; font-weight: bold; color: #323D5E;">Firma:</td>
                   <td style="padding: 12px 0; color: #666;">${company}</td>
                 </tr>
-              ` : ''}
+              `
+                  : ""
+              }
             </table>
             
             <h2 style="color: #323D5E; margin-top: 30px;">Nachricht</h2>
             <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #856d4b; color: #333; line-height: 1.6;">
-              ${message.replace(/\n/g, '<br>')}
+              ${message.replace(/\n/g, "<br>")}
             </div>
             
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e5e5; text-align: center; color: #999; font-size: 12px;">
@@ -103,7 +116,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log('[CONTACT-EMAIL] Email to team sent successfully:', emailToTeam);
+    console.log("[CONTACT-EMAIL] Email to team sent successfully:", emailToTeam);
 
     // Bestätigungs-E-Mail an Absender
     const emailToSender = await resend.emails.send({
@@ -129,7 +142,7 @@ const handler = async (req: Request): Promise<Response> => {
             <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #856d4b; margin: 20px 0;">
               <p style="margin: 0; color: #666; font-size: 14px;"><strong>Ihre Nachricht:</strong></p>
               <p style="margin: 10px 0 0 0; color: #333; line-height: 1.6;">
-                ${message.replace(/\n/g, '<br>')}
+                ${message.replace(/\n/g, "<br>")}
               </p>
             </div>
             
@@ -153,7 +166,7 @@ const handler = async (req: Request): Promise<Response> => {
       `,
     });
 
-    console.log('[CONTACT-EMAIL] Confirmation email sent successfully:', emailToSender);
+    console.log("[CONTACT-EMAIL] Confirmation email sent successfully:", emailToSender);
 
     // NeXify Lead erstellen
     try {
@@ -161,43 +174,43 @@ const handler = async (req: Request): Promise<Response> => {
         const leadData = {
           full_name: name,
           email: email,
-          phone: phone || '',
-          company: company || '',
-          source: 'MyDispatch Kontaktformular',
-          status: 'new',
+          phone: phone || "",
+          company: company || "",
+          source: "MyDispatch Kontaktformular",
+          status: "new",
           interest: message,
-          notes: `Anfrage vom ${new Date().toLocaleDateString('de-DE')}\n\nBetreff: ${subject || 'Keine Angabe'}\n\nNachricht:\n${message}`,
-          last_contact_date: new Date().toISOString().split('T')[0],
+          notes: `Anfrage vom ${new Date().toLocaleDateString("de-DE")}\n\nBetreff: ${subject || "Keine Angabe"}\n\nNachricht:\n${message}`,
+          last_contact_date: new Date().toISOString().split("T")[0],
         };
 
         const nexifyResponse = await fetch(NEXIFY_API_URL, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'api_key': NEXIFY_API_KEY,
-            'Content-Type': 'application/json',
+            api_key: NEXIFY_API_KEY,
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(leadData),
         });
 
         if (nexifyResponse.ok) {
           const nexifyData = await nexifyResponse.json();
-          console.log('[CONTACT-EMAIL] NeXify Lead created successfully:', nexifyData);
+          console.log("[CONTACT-EMAIL] NeXify Lead created successfully:", nexifyData);
         } else {
           const errorText = await nexifyResponse.text();
-          console.error('[CONTACT-EMAIL] NeXify API error:', nexifyResponse.status, errorText);
+          console.error("[CONTACT-EMAIL] NeXify API error:", nexifyResponse.status, errorText);
         }
       } else {
-        console.warn('[CONTACT-EMAIL] NEXIFY_API_KEY not configured, skipping Lead creation');
+        console.warn("[CONTACT-EMAIL] NEXIFY_API_KEY not configured, skipping Lead creation");
       }
     } catch (nexifyError) {
-      console.error('[CONTACT-EMAIL] Failed to create NeXify Lead:', nexifyError);
+      console.error("[CONTACT-EMAIL] Failed to create NeXify Lead:", nexifyError);
       // Fehler nicht propagieren - E-Mail wurde bereits gesendet
     }
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         success: true,
-        message: "E-Mail erfolgreich versendet und Lead erstellt"
+        message: "E-Mail erfolgreich versendet und Lead erstellt",
       }),
       {
         status: 200,
@@ -208,10 +221,10 @@ const handler = async (req: Request): Promise<Response> => {
       }
     );
   } catch (error: any) {
-    console.error('[CONTACT-EMAIL] Error:', error);
+    console.error("[CONTACT-EMAIL] Error:", error);
     return new Response(
-      JSON.stringify({ 
-        error: error.message || "Fehler beim Senden der E-Mail"
+      JSON.stringify({
+        error: error.message || "Fehler beim Senden der E-Mail",
       }),
       {
         status: 500,

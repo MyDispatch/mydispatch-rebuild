@@ -9,20 +9,27 @@
    - Custom Content
    ================================================================================== */
 
-import { EmptyState } from '@/components/shared/EmptyState';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { ContentConfig } from '@/types/page-template';
+import { EmptyState } from "@/components/shared/EmptyState";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { ContentConfig } from "@/types/page-template";
 
 interface ContentAreaProps<T = any> extends ContentConfig<T> {}
 
-export function ContentArea<T = any>({ 
-  type, 
-  data, 
-  columns, 
-  renderItem, 
+export function ContentArea<T = any>({
+  type,
+  data,
+  columns,
+  renderItem,
   emptyState,
   onRowClick,
-  customContent
+  customContent,
 }: ContentAreaProps<T>) {
   // Empty State
   if (data.length === 0 && emptyState) {
@@ -31,20 +38,20 @@ export function ContentArea<T = any>({
       <EmptyState
         icon={<EmptyIcon className="h-16 w-16" />}
         title={emptyState.title}
-        description={emptyState.description || ''}
+        description={emptyState.description || ""}
         actionLabel={emptyState.action?.label}
         onAction={emptyState.action?.onClick}
       />
     );
   }
-  
+
   // Custom Content (höchste Priorität)
-  if (type === 'custom' && customContent) {
+  if (type === "custom" && customContent) {
     return <>{customContent}</>;
   }
-  
+
   // Table View
-  if (type === 'table' && columns && columns.length > 0) {
+  if (type === "table" && columns && columns.length > 0) {
     return (
       <div className="rounded-md border">
         <Table>
@@ -59,19 +66,18 @@ export function ContentArea<T = any>({
           </TableHeader>
           <TableBody>
             {data.map((item, rowIndex) => (
-              <TableRow 
+              <TableRow
                 key={rowIndex}
                 onClick={() => onRowClick?.(item)}
-                className={onRowClick ? 'cursor-pointer hover:bg-muted/50' : ''}
+                className={onRowClick ? "cursor-pointer hover:bg-muted/50" : ""}
               >
                 {columns.map((col) => (
                   <TableCell key={col.id}>
-                    {col.cell 
+                    {col.cell
                       ? col.cell(item)
-                      : col.accessorKey 
+                      : col.accessorKey
                         ? String(item[col.accessorKey])
-                        : '-'
-                    }
+                        : "-"}
                   </TableCell>
                 ))}
               </TableRow>
@@ -81,54 +87,45 @@ export function ContentArea<T = any>({
       </div>
     );
   }
-  
+
   // Grid View (3 Columns auf Desktop)
-  if (type === 'grid' && renderItem) {
+  if (type === "grid" && renderItem) {
     return (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {data.map((item, i) => (
-          <div key={i}>
-            {renderItem(item, i)}
-          </div>
+          <div key={i}>{renderItem(item, i)}</div>
         ))}
       </div>
     );
   }
-  
+
   // Cards View (Vertical Stack)
-  if (type === 'cards' && renderItem) {
+  if (type === "cards" && renderItem) {
     return (
       <div className="space-y-4">
         {data.map((item, i) => (
-          <div key={i}>
-            {renderItem(item, i)}
-          </div>
+          <div key={i}>{renderItem(item, i)}</div>
         ))}
       </div>
     );
   }
-  
+
   // Widgets View (Dashboard Grid)
-  if (type === 'widgets' && renderItem) {
+  if (type === "widgets" && renderItem) {
     return (
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {data.map((item, i) => (
-          <div key={i}>
-            {renderItem(item, i)}
-          </div>
+          <div key={i}>{renderItem(item, i)}</div>
         ))}
       </div>
     );
   }
-  
+
   // Fallback: Simple List
   return (
     <div className="space-y-2">
       {data.map((item, i) => (
-        <div 
-          key={i}
-          className="p-4 rounded-lg border border-border bg-card"
-        >
+        <div key={i} className="p-4 rounded-lg border border-border bg-card">
           {JSON.stringify(item)}
         </div>
       ))}

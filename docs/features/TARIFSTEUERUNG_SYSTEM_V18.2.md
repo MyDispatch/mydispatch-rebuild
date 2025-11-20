@@ -6,11 +6,11 @@ MyDispatch verwendet ein **3-Stufen-Tarifsystem** mit zentraler Steuerung über 
 
 ### Tarife
 
-| Tarif | Monatspreis | Product IDs | Features |
-|-------|-------------|-------------|----------|
-| **Starter** | 39€ | `prod_TEeg0ykplmGKd0`, `prod_TF5cFE5Fi5rBCz` | Basisdisposition, bis zu 3 Fahrer/Fahrzeuge, Info-Landingpage |
-| **Business** | 99€ | `prod_TEegHmtpPZOZcG`, `prod_TF5cnWFZYEQUsG` | Alle Starter-Features + Partner-Management, Buchungswidget, Kunden-Portal, Live-Traffic, Statistiken |
-| **Enterprise** | Custom | `prod_ENTERPRISE_ID_PLACEHOLDER` | Alle Business-Features + White-Label, Premium-Support |
+| Tarif          | Monatspreis | Product IDs                                  | Features                                                                                             |
+| -------------- | ----------- | -------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| **Starter**    | 39€         | `prod_TEeg0ykplmGKd0`, `prod_TF5cFE5Fi5rBCz` | Basisdisposition, bis zu 3 Fahrer/Fahrzeuge, Info-Landingpage                                        |
+| **Business**   | 99€         | `prod_TEegHmtpPZOZcG`, `prod_TF5cnWFZYEQUsG` | Alle Starter-Features + Partner-Management, Buchungswidget, Kunden-Portal, Live-Traffic, Statistiken |
+| **Enterprise** | Custom      | `prod_ENTERPRISE_ID_PLACEHOLDER`             | Alle Business-Features + White-Label, Premium-Support                                                |
 
 ## 📋 Zentrale Tarif-Utilities
 
@@ -18,15 +18,15 @@ MyDispatch verwendet ein **3-Stufen-Tarifsystem** mit zentraler Steuerung über 
 
 ```typescript
 export const PRODUCT_IDS = {
-  starter: ['prod_TEeg0ykplmGKd0', 'prod_TF5cFE5Fi5rBCz'],
-  business: ['prod_TEegHmtpPZOZcG', 'prod_TF5cnWFZYEQUsG'],
-  enterprise: ['prod_ENTERPRISE_ID_PLACEHOLDER']
-}
+  starter: ["prod_TEeg0ykplmGKd0", "prod_TF5cFE5Fi5rBCz"],
+  business: ["prod_TEegHmtpPZOZcG", "prod_TF5cnWFZYEQUsG"],
+  enterprise: ["prod_ENTERPRISE_ID_PLACEHOLDER"],
+};
 
-export function isBusinessTier(productId: string | null | undefined): boolean
-export function isStarterTier(productId: string | null | undefined): boolean
-export function isEnterpriseTier(productId: string | null | undefined): boolean
-export function getTierName(productId: string | null | undefined): string
+export function isBusinessTier(productId: string | null | undefined): boolean;
+export function isStarterTier(productId: string | null | undefined): boolean;
+export function isEnterpriseTier(productId: string | null | undefined): boolean;
+export function getTierName(productId: string | null | undefined): string;
 ```
 
 ## 🔑 Kritische Regel
@@ -43,11 +43,11 @@ export function getTierName(productId: string | null | undefined): string
 
 ```sql
 -- Tarif eines Unternehmens prüfen
-SELECT 
-  name, 
-  subscription_product_id, 
-  subscription_status 
-FROM companies 
+SELECT
+  name,
+  subscription_product_id,
+  subscription_status
+FROM companies
 WHERE id = 'company-uuid';
 ```
 
@@ -70,13 +70,14 @@ const companyTier = getTierName(brandedCompany.subscription_product_id);
 
 // UI anpassen
 <CardDescription>
-  {brandedCompany 
-    ? `Login für Mitarbeiter und Kunden${companyTier ? ` • ${companyTier}-Tarif` : ''}` 
+  {brandedCompany
+    ? `Login für Mitarbeiter und Kunden${companyTier ? ` • ${companyTier}-Tarif` : ''}`
     : 'Professionelle Dispositionssoftware'}
 </CardDescription>
 ```
 
 **Features:**
+
 - ✅ Lädt `subscription_product_id` beim Branding-Fetch
 - ✅ Zeigt korrekten Tarif-Namen an
 - ✅ Registrierung nur bei öffentlichem Login (nicht gebrandet)
@@ -87,9 +88,11 @@ const companyTier = getTierName(brandedCompany.subscription_product_id);
 
 ```typescript
 // Alle Company-Daten laden (inkl. subscription_product_id)
-const { data } = await supabase.from('companies').select('*')
-  .eq('company_slug', slug)
-  .eq('landingpage_enabled', true)
+const { data } = await supabase
+  .from("companies")
+  .select("*")
+  .eq("company_slug", slug)
+  .eq("landingpage_enabled", true)
   .maybeSingle();
 
 // Tarif-Checks
@@ -103,6 +106,7 @@ const hasCustomerPortal = isBusiness || isEnterprise;
 ```
 
 **Tarif-abhängige Features:**
+
 - ✅ **Booking-Widget:** Nur Business/Enterprise
 - ✅ **Kunden-Portal-Button:** Nur Business/Enterprise
 - ✅ **Footer "Powered by":** Starter/Business (nicht Enterprise)
@@ -120,6 +124,7 @@ const showStatistics = isBusinessTier(productId) || isEnterpriseTier(productId);
 ```
 
 **Tarif-abhängige Menüpunkte:**
+
 - ✅ **Partner:** Nur Business/Enterprise
 - ✅ **Statistiken:** Nur Business/Enterprise
 - ✅ **Office-Verwaltung:** Nur Business/Enterprise
@@ -139,6 +144,7 @@ const showStatistics = isBusinessTier(productId) || isEnterpriseTier(productId);
 ```
 
 **Geschützte Features:**
+
 - `booking_widget` → Business/Enterprise
 - `customer_portal` → Business/Enterprise
 - `partner_management` → Business/Enterprise
@@ -151,15 +157,15 @@ const showStatistics = isBusinessTier(productId) || isEnterpriseTier(productId);
 
 ```typescript
 const { data: companyData } = await supabase
-  .from('companies')
-  .select('subscription_product_id, subscription_status, subscription_current_period_end')
-  .eq('id', companyId)
+  .from("companies")
+  .select("subscription_product_id, subscription_status, subscription_current_period_end")
+  .eq("id", companyId)
   .single();
 
 return {
   productId: companyData.subscription_product_id,
   status: companyData.subscription_status,
-  currentPeriodEnd: companyData.subscription_current_period_end
+  currentPeriodEnd: companyData.subscription_current_period_end,
 };
 ```
 
@@ -168,7 +174,7 @@ return {
 **Datei:** `src/pages/Einstellungen.tsx`
 
 ```typescript
-<Badge 
+<Badge
   type={isBusinessTier(productId) ? 'success' : 'info'}
   label={isBusinessTier(productId) ? 'Business' : 'Starter'}
 />
@@ -194,6 +200,7 @@ USING (landingpage_enabled = true);
 ```
 
 **Felder öffentlich sichtbar:**
+
 - `id`, `name`, `logo_url`, `primary_color`, `company_slug`
 - `landingpage_title`, `landingpage_hero_text`, `landingpage_description`
 - `address`, `phone`, `email`, `business_hours`
@@ -216,21 +223,20 @@ USING (id IN (SELECT company_id FROM profiles WHERE user_id = auth.uid()));
 **Symptom:** Feature wird angezeigt obwohl Tarif nicht passt
 
 **Ursache:**
+
 ```typescript
 // ❌ FALSCH - subscription_product_id nicht geladen
-const { data } = await supabase
-  .from('companies')
-  .select('id, name, logo_url')
-  .eq('id', companyId);
+const { data } = await supabase.from("companies").select("id, name, logo_url").eq("id", companyId);
 ```
 
 **Lösung:**
+
 ```typescript
 // ✅ RICHTIG - subscription_product_id IMMER laden
 const { data } = await supabase
-  .from('companies')
-  .select('id, name, logo_url, subscription_product_id')
-  .eq('id', companyId);
+  .from("companies")
+  .select("id, name, logo_url, subscription_product_id")
+  .eq("id", companyId);
 ```
 
 ### Problem 2: Hardcodierte Tarif-Prüfung
@@ -238,12 +244,14 @@ const { data } = await supabase
 **Symptom:** Tarif-Check funktioniert nicht bei neuen Product IDs
 
 **Ursache:**
+
 ```typescript
 // ❌ FALSCH - Hardcodierte ID
 if (productId === 'prod_TEegHmtpPZOZcG') { ... }
 ```
 
 **Lösung:**
+
 ```typescript
 // ✅ RICHTIG - Zentrale Utility verwenden
 import { isBusinessTier } from '@/lib/subscription-utils';
@@ -255,12 +263,14 @@ if (isBusinessTier(productId)) { ... }
 **Symptom:** TypeScript-Fehler oder Runtime-Fehler
 
 **Ursache:**
+
 ```typescript
 // ❌ FALSCH - Keine Null-Prüfung
 const isBusiness = PRODUCT_IDS.business.includes(productId);
 ```
 
 **Lösung:**
+
 ```typescript
 // ✅ RICHTIG - Utility macht Null-Check automatisch
 const isBusiness = isBusinessTier(productId);
@@ -271,22 +281,20 @@ const isBusiness = isBusinessTier(productId);
 **Symptom:** Fehler "Expected one row, got zero"
 
 **Ursache:**
+
 ```typescript
 // ❌ FALSCH - single() wirft Fehler bei leerem Ergebnis
-const { data } = await supabase
-  .from('companies')
-  .select('*')
-  .eq('company_slug', slug)
-  .single();
+const { data } = await supabase.from("companies").select("*").eq("company_slug", slug).single();
 ```
 
 **Lösung:**
+
 ```typescript
 // ✅ RICHTIG - maybeSingle() gibt null bei leerem Ergebnis
 const { data } = await supabase
-  .from('companies')
-  .select('*')
-  .eq('company_slug', slug)
+  .from("companies")
+  .select("*")
+  .eq("company_slug", slug)
   .maybeSingle();
 ```
 
@@ -307,9 +315,9 @@ Bei Implementierung neuer Features:
 
 ### Test-Accounts
 
-| Email | Unternehmen | Tarif | Product ID |
-|-------|------------|-------|-----------|
-| `courbois1981@gmail.com` | Taxi123 | Business | `prod_TEegHmtpPZOZcG` |
+| Email                    | Unternehmen | Tarif    | Product ID            |
+| ------------------------ | ----------- | -------- | --------------------- |
+| `courbois1981@gmail.com` | Taxi123     | Business | `prod_TEegHmtpPZOZcG` |
 
 ### Test-Szenarien
 
@@ -347,15 +355,18 @@ Bei Implementierung neuer Features:
 ### Stripe Integration
 
 **Required Secrets:**
-- `STRIPE_SECRET_KEY` (sk_live_... oder sk_test_...)
+
+- `STRIPE_SECRET_KEY` (sk*live*... oder sk*test*...)
 - `STRIPE_CUSTOMER_PORTAL_URL`
 
 **Webhook-Endpunkte:**
+
 - `/api/stripe/webhook` (für Subscription-Updates)
 
 ### Supabase Configuration
 
 **Edge Functions:**
+
 - `create-checkout` - Stripe Checkout-Session erstellen
 - `check-subscription` - Subscription-Status prüfen
 - `customer-portal` - Stripe Customer Portal öffnen
@@ -365,9 +376,10 @@ Bei Implementierung neuer Features:
 Bei Problemen mit Tarifsteuerung:
 
 1. **Tarif in DB prüfen:**
+
    ```sql
-   SELECT name, subscription_product_id, subscription_status 
-   FROM companies 
+   SELECT name, subscription_product_id, subscription_status
+   FROM companies
    WHERE email = 'user@example.com';
    ```
 
@@ -381,9 +393,9 @@ Bei Problemen mit Tarifsteuerung:
 
 4. **Console-Logs aktivieren:**
    ```typescript
-   console.log('Company:', company);
-   console.log('Product ID:', company?.subscription_product_id);
-   console.log('Is Business:', isBusinessTier(company?.subscription_product_id));
+   console.log("Company:", company);
+   console.log("Product ID:", company?.subscription_product_id);
+   console.log("Is Business:", isBusinessTier(company?.subscription_product_id));
    ```
 
 ---

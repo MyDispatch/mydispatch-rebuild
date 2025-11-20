@@ -75,14 +75,14 @@ Das **MyDispatch Monitoring Dashboard** bietet Echtzeit-Überwachung aller Fehle
 ### **Query 1: Error Summary (Last 24h)**
 
 ```sql
-SELECT 
+SELECT
   severity,
   COUNT(*) as count,
   ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER (), 1) as percentage
 FROM error_logs
 WHERE created_at > NOW() - INTERVAL '24 hours'
 GROUP BY severity
-ORDER BY 
+ORDER BY
   CASE severity
     WHEN 'critical' THEN 1
     WHEN 'high' THEN 2
@@ -92,6 +92,7 @@ ORDER BY
 ```
 
 **Expected Output:**
+
 ```
 severity  | count | percentage
 ----------|-------|------------
@@ -104,7 +105,7 @@ low       |  47   |  33.1%
 ### **Query 2: Top Error Messages**
 
 ```sql
-SELECT 
+SELECT
   error_message,
   error_category,
   COUNT(*) as occurrences,
@@ -119,13 +120,13 @@ LIMIT 10;
 ### **Query 3: AI Learning Accuracy**
 
 ```sql
-SELECT 
+SELECT
   pattern_type,
   COUNT(*) as total_patterns,
   SUM(CASE WHEN success THEN 1 ELSE 0 END) as successful,
   ROUND(AVG(confidence), 3) as avg_confidence,
   ROUND(
-    SUM(CASE WHEN success THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 
+    SUM(CASE WHEN success THEN 1 ELSE 0 END) * 100.0 / COUNT(*),
     1
   ) as success_rate
 FROM ai_learning_patterns
@@ -135,6 +136,7 @@ ORDER BY total_patterns DESC;
 ```
 
 **Expected Output:**
+
 ```
 pattern_type       | total | successful | avg_confidence | success_rate
 -------------------|-------|------------|----------------|-------------
@@ -146,7 +148,7 @@ performance_issue  |  178  |    164     |     0.921      |    92.1%
 ### **Query 4: Error Trend (Last 7 Days)**
 
 ```sql
-SELECT 
+SELECT
   DATE(created_at) as date,
   severity,
   COUNT(*) as count
@@ -159,7 +161,7 @@ ORDER BY date DESC, severity;
 ### **Query 5: Recent Critical Errors**
 
 ```sql
-SELECT 
+SELECT
   error_message,
   error_category,
   context->>'url' as page_url,
@@ -189,33 +191,33 @@ const ErrorTrendChart = ({ data }) => {
         <XAxis dataKey="date" />
         <YAxis />
         <Tooltip />
-        <Area 
-          type="monotone" 
-          dataKey="critical" 
+        <Area
+          type="monotone"
+          dataKey="critical"
           stackId="1"
-          stroke="#ef4444" 
-          fill="#ef4444" 
+          stroke="#ef4444"
+          fill="#ef4444"
         />
-        <Area 
-          type="monotone" 
-          dataKey="high" 
+        <Area
+          type="monotone"
+          dataKey="high"
           stackId="1"
-          stroke="#f97316" 
-          fill="#f97316" 
+          stroke="#f97316"
+          fill="#f97316"
         />
-        <Area 
-          type="monotone" 
-          dataKey="medium" 
+        <Area
+          type="monotone"
+          dataKey="medium"
           stackId="1"
-          stroke="#eab308" 
-          fill="#eab308" 
+          stroke="#eab308"
+          fill="#eab308"
         />
-        <Area 
-          type="monotone" 
-          dataKey="low" 
+        <Area
+          type="monotone"
+          dataKey="low"
           stackId="1"
-          stroke="#22c55e" 
-          fill="#22c55e" 
+          stroke="#22c55e"
+          fill="#22c55e"
         />
       </AreaChart>
     </ResponsiveContainer>
@@ -277,7 +279,7 @@ RETURNS void AS $$
 BEGIN
   DELETE FROM error_logs
   WHERE created_at < NOW() - INTERVAL '90 days';
-  
+
   RAISE NOTICE 'Cleaned up error logs older than 90 days';
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;

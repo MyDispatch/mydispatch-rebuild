@@ -49,11 +49,13 @@ Diese Test-Suite prüft **ALLE** Vorgaben auf **ALLEN** Seiten systematisch:
 ## 🚀 Tests ausführen
 
 ### Alle Compliance-Tests ausführen
+
 ```bash
 npx playwright test tests/e2e/compliance
 ```
 
 ### Einzelne Kategorie ausführen
+
 ```bash
 # Design-Freeze
 npx playwright test tests/e2e/compliance/design-freeze.spec.ts
@@ -75,16 +77,19 @@ npx playwright test tests/e2e/compliance/functional.spec.ts
 ```
 
 ### UI-Mode (Interaktiv)
+
 ```bash
 npx playwright test tests/e2e/compliance --ui
 ```
 
 ### Parallele Ausführung (schneller)
+
 ```bash
 npx playwright test tests/e2e/compliance --workers=4
 ```
 
 ### Mit Reporter (HTML-Report)
+
 ```bash
 npx playwright test tests/e2e/compliance --reporter=html
 npx playwright show-report
@@ -96,32 +101,38 @@ npx playwright show-report
 
 ### ✅ Success-Kriterien (alle Tests bestanden)
 
-**Design-Freeze:** 
+**Design-Freeze:**
+
 - Alle Layout-Komponenten unverändert
 - CI-Farben konsistent verwendet
 - Icons mit text-foreground (keine Ampelfarben)
 
 **Lokalisierung:**
+
 - Währung: `1.234,56 €` (100% korrekt)
 - Datum: `15.01.2025 14:30` (100% korrekt)
 - Anrede: Förmlich mit Titel
 
 **Security:**
+
 - Multi-Tenancy: 100% gefiltert
 - Archiving: Kein DELETE-Button sichtbar
 - RLS: Nur eigene Company-Daten
 
 **Mobile:**
+
 - Touch-Targets: 100% ≥44px
 - Breakpoints: 768px, 1024px korrekt
 - Bottom-Nav: 5 Items sichtbar
 
 **Tariff-Control:**
+
 - Feature-Badges: Business+ markiert
 - Upgrade-Dialoge: Bei Starter sichtbar
 - Limits: Starter max. 100 Aufträge
 
 **Functional:**
+
 - Tab-Navigation: Aufträge/Angebote, Fahrer/Fahrzeuge
 - Action-Buttons: Eye, Edit, Archive (standardisiert)
 - Bulk-Aktionen: Multi-Select funktional
@@ -151,17 +162,20 @@ npx playwright show-report
 ## 🐛 Debugging
 
 ### Trace-Viewer
+
 ```bash
 npx playwright test tests/e2e/compliance --trace on
 npx playwright show-trace trace.zip
 ```
 
 ### Headed-Mode (Browser sichtbar)
+
 ```bash
 npx playwright test tests/e2e/compliance --headed
 ```
 
 ### Debug-Mode (Step-by-Step)
+
 ```bash
 npx playwright test tests/e2e/compliance --debug
 ```
@@ -171,6 +185,7 @@ npx playwright test tests/e2e/compliance --debug
 ## 📝 Test-Coverage
 
 ### Getestete Seiten (13 Routen)
+
 - `/dashboard` ✅
 - `/auftraege` ✅
 - `/kunden` ✅
@@ -186,6 +201,7 @@ npx playwright test tests/e2e/compliance --debug
 - `/einstellungen` ✅
 
 ### Getestete Vorgaben (100% Coverage)
+
 - Design-Freeze: **100%** (5 Regeln)
 - Lokalisierung: **100%** (4 Standards)
 - Security: **100%** (5 Policies)
@@ -198,11 +214,13 @@ npx playwright test tests/e2e/compliance --debug
 ## 🎯 Nächste Schritte
 
 1. **Tests ausführen:**
+
    ```bash
    npx playwright test tests/e2e/compliance
    ```
 
 2. **Report prüfen:**
+
    ```bash
    npx playwright show-report
    ```

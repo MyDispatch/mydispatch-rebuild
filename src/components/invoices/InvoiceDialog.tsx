@@ -1,9 +1,4 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { InvoiceForm } from "./InvoiceForm";
 
 interface InvoiceDialogProps {
@@ -17,9 +12,7 @@ export function InvoiceDialog({ open, onOpenChange, invoiceId }: InvoiceDialogPr
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>
-            {invoiceId ? "Rechnung bearbeiten" : "Neue Rechnung"}
-          </DialogTitle>
+          <DialogTitle>{invoiceId ? "Rechnung bearbeiten" : "Neue Rechnung"}</DialogTitle>
         </DialogHeader>
         <InvoiceForm
           invoiceId={invoiceId}

@@ -11,16 +11,18 @@
 ### 1. Design-Freeze-Regel
 
 **❌ NIEMALS ÄNDERN:**
+
 ```typescript
 // Geschützte Komponenten
-- src/components/layout/Header.tsx
-- src/components/layout/Footer.tsx
-- src/components/layout/AppSidebar.tsx
-- src/components/layout/MainLayout.tsx
-- src/components/layout/DashboardLayout.tsx
+-src / components / layout / Header.tsx -
+  src / components / layout / Footer.tsx -
+  src / components / layout / AppSidebar.tsx -
+  src / components / layout / MainLayout.tsx -
+  src / components / layout / DashboardLayout.tsx;
 ```
 
 **Geschützte Design-Werte:**
+
 ```css
 /* index.css - UNVERÄNDERLICH */
 Header: height: 60px;
@@ -33,14 +35,14 @@ Borders: Nur auf Cards (rounded-lg border);
 
 ```css
 /* PRIMÄR-FARBEN */
---primary: 45 31% 54%;        /* #A28A5B - Hauptfarbe */
---foreground: 0 0% 20%;       /* #333333 - Text */
---accent: 45 31% 54%;         /* #A28A5B - Akzent */
+--primary: 45 31% 54%; /* #A28A5B - Hauptfarbe */
+--foreground: 0 0% 20%; /* #333333 - Text */
+--accent: 45 31% 54%; /* #A28A5B - Akzent */
 
 /* AMPEL-SYSTEM (Nur für Status, NIEMALS auf Icons!) */
 --status-success: 142 71% 45%; /* #22c55e - Grün */
---status-warning: 48 96% 53%;  /* #eab308 - Gelb */
---status-error: 0 84% 60%;     /* #ef4444 - Rot */
+--status-warning: 48 96% 53%; /* #eab308 - Gelb */
+--status-error: 0 84% 60%; /* #ef4444 - Rot */
 
 /* SEMANTIC COLORS */
 --background: 0 0% 100%;
@@ -51,6 +53,7 @@ Borders: Nur auf Cards (rounded-lg border);
 ```
 
 **Icon-Farben (KRITISCH):**
+
 ```tsx
 // ✅ RICHTIG
 <FileText className="h-4 w-4 text-foreground" />
@@ -62,6 +65,7 @@ Borders: Nur auf Cards (rounded-lg border);
 ```
 
 **Status-Farben (nur für Badges/Dots):**
+
 ```tsx
 // ✅ RICHTIG
 <Badge variant="default" className="bg-status-success text-white" />
@@ -77,31 +81,20 @@ Borders: Nur auf Cards (rounded-lg border);
 
 ```typescript
 // ✅ ZWINGEND: company_id bei ALLEN Queries
-const { data } = await supabase
-  .from('bookings')
-  .select('*')
-  .eq('company_id', profile.company_id); // ← MANDATORY
+const { data } = await supabase.from("bookings").select("*").eq("company_id", profile.company_id); // ← MANDATORY
 
 // ❌ NIEMALS ohne company_id
-const { data } = await supabase
-  .from('bookings')
-  .select('*'); // ← UNSICHER!
+const { data } = await supabase.from("bookings").select("*"); // ← UNSICHER!
 ```
 
 ### 4. Archiving-System (NIEMALS DELETE)
 
 ```typescript
 // ✅ RICHTIG: Archivieren statt Löschen
-const { data } = await supabase
-  .from('drivers')
-  .update({ archived: true })
-  .eq('id', driverId);
+const { data } = await supabase.from("drivers").update({ archived: true }).eq("id", driverId);
 
 // ❌ FALSCH: DELETE verwenden
-const { data } = await supabase
-  .from('drivers')
-  .delete()
-  .eq('id', driverId); // ← VERBOTEN!
+const { data } = await supabase.from("drivers").delete().eq("id", driverId); // ← VERBOTEN!
 ```
 
 ---
@@ -147,6 +140,7 @@ xl: 1280px  /* Large Desktop */
 ```
 
 **Grid-Patterns:**
+
 ```tsx
 // 4-Column Layout
 grid-cols-1 md:grid-cols-2 lg:grid-cols-4
@@ -195,19 +189,17 @@ interface BookingCardProps {
 
 // ✅ Type Guards
 const isBooking = (data: unknown): data is Booking => {
-  return typeof data === 'object' && data !== null && 'id' in data;
+  return typeof data === "object" && data !== null && "id" in data;
 };
 
 // ✅ Generics
-function useEntity<T>(
-  tableName: string,
-  companyId: string
-): UseQueryResult<T[]> {
+function useEntity<T>(tableName: string, companyId: string): UseQueryResult<T[]> {
   // ...
 }
 
 // ❌ any vermeiden
-const handleData = (data: any) => { // ❌
+const handleData = (data: any) => {
+  // ❌
   // ...
 };
 ```
@@ -218,13 +210,13 @@ const handleData = (data: any) => { // ❌
 // ✅ Custom Hooks
 export function useBookings() {
   const { profile } = useAuth();
-  
+
   return useQuery({
-    queryKey: ['bookings', profile?.company_id],
+    queryKey: ["bookings", profile?.company_id],
     queryFn: async () => {
       // ...
     },
-    enabled: !!profile?.company_id
+    enabled: !!profile?.company_id,
   });
 }
 
@@ -235,7 +227,7 @@ const expensiveCalculation = useMemo(() => {
 
 // ✅ useCallback für Event Handlers
 const handleSubmit = useCallback(async (values) => {
-  await supabase.from('bookings').insert(values);
+  await supabase.from("bookings").insert(values);
 }, []);
 ```
 
@@ -243,18 +235,16 @@ const handleSubmit = useCallback(async (values) => {
 
 ```typescript
 // ✅ Mit handleError
-import { handleError, handleSuccess } from '@/lib/error-handler';
+import { handleError, handleSuccess } from "@/lib/error-handler";
 
 try {
-  const { data, error } = await supabase
-    .from('bookings')
-    .insert(booking);
-  
+  const { data, error } = await supabase.from("bookings").insert(booking);
+
   if (error) throw error;
-  handleSuccess('Auftrag erfolgreich erstellt');
+  handleSuccess("Auftrag erfolgreich erstellt");
   return data;
 } catch (error) {
-  handleError(error, 'Auftrag konnte nicht erstellt werden');
+  handleError(error, "Auftrag konnte nicht erstellt werden");
   throw error;
 }
 ```
@@ -267,14 +257,14 @@ try {
 
 ```typescript
 // ✅ RICHTIG
-"Straße"  // nach Langvokal
-"dass"    // Konjunktion
-"müssen"  // nach kurzem Vokal
+"Straße"; // nach Langvokal
+"dass"; // Konjunktion
+"müssen"; // nach kurzem Vokal
 
 // ❌ FALSCH
-"Strasse" // ❌
-"daß"     // ❌
-"muessen" // ❌
+"Strasse"; // ❌
+"daß"; // ❌
+"muessen"; // ❌
 ```
 
 ### Währungsformatierung (DIN 5008)
@@ -282,45 +272,42 @@ try {
 ```typescript
 // ✅ RICHTIG: Intl.NumberFormat
 const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
+  return new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
   }).format(amount);
 };
 
 // Output: "1.234,56 €"
 
 // ❌ FALSCH: US-Format
-"$1,234.56" // ❌
+("$1,234.56"); // ❌
 ```
 
 ### Datumsformatierung
 
 ```typescript
 // ✅ RICHTIG: DD.MM.YYYY
-import { format } from 'date-fns';
-import { de } from 'date-fns/locale';
+import { format } from "date-fns";
+import { de } from "date-fns/locale";
 
-const formatted = format(date, 'dd.MM.yyyy', { locale: de });
+const formatted = format(date, "dd.MM.yyyy", { locale: de });
 // Output: "15.10.2025"
 
 // ❌ FALSCH: MM/DD/YYYY
-"10/15/2025" // ❌
+("10/15/2025"); // ❌
 ```
 
 ### Anrede/Titel-System
 
 ```typescript
-type Salutation = 'Herr' | 'Frau' | 'Divers';
-type Title = 'Dr.' | 'Prof.' | 'Prof. Dr.';
+type Salutation = "Herr" | "Frau" | "Divers";
+type Title = "Dr." | "Prof." | "Prof. Dr.";
 
 // Verwendung
-const fullName = [
-  person.salutation,
-  person.title,
-  person.first_name,
-  person.last_name
-].filter(Boolean).join(' ');
+const fullName = [person.salutation, person.title, person.first_name, person.last_name]
+  .filter(Boolean)
+  .join(" ");
 
 // Output: "Herr Dr. Max Mustermann"
 ```
@@ -332,10 +319,10 @@ const fullName = [
 ### Dashboard-KPI-Cards
 
 ```tsx
-import { DashboardKPICards } from '@/components/dashboard/DashboardKPICards';
+import { DashboardKPICards } from "@/components/dashboard/DashboardKPICards";
 
 // Verwendung
-<DashboardKPICards />
+<DashboardKPICards />;
 
 // Features:
 // - Live-Daten aus dashboard_stats View
@@ -428,12 +415,18 @@ import { DashboardKPICards } from '@/components/dashboard/DashboardKPICards';
 
 ```tsx
 // ✅ RICHTIG: Container IMMER im DOM
-<div ref={mapRef} className="h-full w-full" />
-{loading && <LoadingOverlay />}
-{error && <ErrorOverlay />}
+<div ref={mapRef} className="h-full w-full" />;
+{
+  loading && <LoadingOverlay />;
+}
+{
+  error && <ErrorOverlay />;
+}
 
 // ❌ FALSCH: Conditional Rendering
-{!loading && <div ref={mapRef} />} // ❌
+{
+  !loading && <div ref={mapRef} />;
+} // ❌
 ```
 
 ### Async Platform IMMER awaiten
@@ -455,41 +448,41 @@ const map = new H.Map(...);
 ### dashboard_stats Hook
 
 ```typescript
-import { useDashboardStats } from '@/hooks/use-dashboard-stats';
+import { useDashboardStats } from "@/hooks/use-dashboard-stats";
 
 const { data: stats, isLoading } = useDashboardStats();
 
 // Verfügbare Felder:
-stats?.completed_bookings    // Gesamt-Aufträge
-stats?.confirmed_bookings    // Bestätigt
-stats?.pending_bookings      // Ausstehend
-stats?.cancelled_bookings    // Storniert
-stats?.total_revenue         // Gesamt-Umsatz
-stats?.paid_revenue          // Bezahlt
-stats?.pending_revenue       // Offen
-stats?.partner_bookings      // Partner-Aufträge
-stats?.total_customers       // Kunden
-stats?.total_drivers         // Fahrer
-stats?.total_vehicles        // Fahrzeuge
-stats?.last_refresh          // Letztes Update
+stats?.completed_bookings; // Gesamt-Aufträge
+stats?.confirmed_bookings; // Bestätigt
+stats?.pending_bookings; // Ausstehend
+stats?.cancelled_bookings; // Storniert
+stats?.total_revenue; // Gesamt-Umsatz
+stats?.paid_revenue; // Bezahlt
+stats?.pending_revenue; // Offen
+stats?.partner_bookings; // Partner-Aufträge
+stats?.total_customers; // Kunden
+stats?.total_drivers; // Fahrer
+stats?.total_vehicles; // Fahrzeuge
+stats?.last_refresh; // Letztes Update
 ```
 
 ### Weitere wichtige Hooks
 
 ```typescript
 // Auth & Company
-import { useAuth } from '@/hooks/use-auth';
+import { useAuth } from "@/hooks/use-auth";
 const { profile, company } = useAuth();
 
 // Subscription
-import { useSubscription } from '@/hooks/use-subscription';
+import { useSubscription } from "@/hooks/use-subscription";
 const { productId, isActive } = useSubscription();
 
 // Entities
-import { useBookings } from '@/hooks/use-bookings';
-import { useDrivers } from '@/hooks/use-drivers';
-import { useVehicles } from '@/hooks/use-vehicles';
-import { useCustomers } from '@/hooks/use-customers';
+import { useBookings } from "@/hooks/use-bookings";
+import { useDrivers } from "@/hooks/use-drivers";
+import { useVehicles } from "@/hooks/use-vehicles";
+import { useCustomers } from "@/hooks/use-customers";
 ```
 
 ---
@@ -533,9 +526,9 @@ const isExpiringSoon = (date: Date) => {
 
 // Status-Ampel
 const getStatus = (date: Date) => {
-  if (isExpired(date)) return 'error';
-  if (isExpiringSoon(date)) return 'warning';
-  return 'success';
+  if (isExpired(date)) return "error";
+  if (isExpiringSoon(date)) return "warning";
+  return "success";
 };
 ```
 
@@ -659,5 +652,6 @@ const amount = "$1,234.56";
 ---
 
 **Version History:**
+
 - V18.3.0 (18.10.2025) - Finale Instructions basierend auf Phase 1
 - V18.2.31 (15.10.2025) - Production Ready

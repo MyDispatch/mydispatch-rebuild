@@ -4,8 +4,8 @@
    React Hook für sichere Datenbankabfragen über DB-Query-Agent
    ================================================================================== */
 
-import { useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface QueryOptions {
   table: string;
@@ -35,11 +35,11 @@ export function useDbQueryAgent() {
   });
 
   const query = async <T = any>(options: QueryOptions): Promise<QueryResult<T>> => {
-    setResult(prev => ({ ...prev, loading: true, error: null }));
+    setResult((prev) => ({ ...prev, loading: true, error: null }));
 
     try {
       const { data: functionData, error: functionError } = await supabase.functions.invoke(
-        'db-query-agent',
+        "db-query-agent",
         {
           body: options,
         }
@@ -59,7 +59,7 @@ export function useDbQueryAgent() {
       if (!functionData.success) {
         const errorResult = {
           data: null,
-          error: functionData.error || 'Query failed',
+          error: functionData.error || "Query failed",
           loading: false,
           metrics: functionData.metrics || null,
         };
@@ -78,7 +78,7 @@ export function useDbQueryAgent() {
     } catch (error: any) {
       const errorResult = {
         data: null,
-        error: error.message || 'Unbekannter Fehler',
+        error: error.message || "Unbekannter Fehler",
         loading: false,
         metrics: null,
       };

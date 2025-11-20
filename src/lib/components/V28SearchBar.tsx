@@ -3,11 +3,12 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { forwardRef, InputHTMLAttributes } from 'react';
-import { cn } from '@/lib/utils';
-import { Search, X } from 'lucide-react';
+import { forwardRef, InputHTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
+import { Search, X } from "lucide-react";
 
-export interface V28SearchBarProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
+export interface V28SearchBarProps
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, "value" | "onChange"> {
   value: string;
   onChange: (value: string) => void;
   onClear?: () => void;
@@ -15,9 +16,9 @@ export interface V28SearchBarProps extends Omit<InputHTMLAttributes<HTMLInputEle
 }
 
 export const V28SearchBar = forwardRef<HTMLInputElement, V28SearchBarProps>(
-  ({ className, value, onChange, onClear, placeholder = 'Suchen...', ...props }, ref) => {
+  ({ className, value, onChange, onClear, placeholder = "Suchen...", ...props }, ref) => {
     const handleClear = () => {
-      onChange('');
+      onChange("");
       onClear?.();
     };
 
@@ -31,12 +32,12 @@ export const V28SearchBar = forwardRef<HTMLInputElement, V28SearchBarProps>(
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={cn(
-            'flex h-10 w-full rounded-md border bg-white pl-10 pr-10 py-2 text-sm',
-            'placeholder:text-slate-400',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2',
-            'disabled:cursor-not-allowed disabled:opacity-50',
-            'transition-all duration-300',
-            'border-slate-200 dark:border-slate-700',
+            "flex h-10 w-full rounded-md border bg-white pl-10 pr-10 py-2 text-sm",
+            "placeholder:text-slate-400",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2",
+            "disabled:cursor-not-allowed disabled:opacity-50",
+            "transition-all duration-300",
+            "border-slate-200 dark:border-slate-700",
             className
           )}
           {...props}
@@ -56,4 +57,4 @@ export const V28SearchBar = forwardRef<HTMLInputElement, V28SearchBarProps>(
   }
 );
 
-V28SearchBar.displayName = 'V28SearchBar';
+V28SearchBar.displayName = "V28SearchBar";

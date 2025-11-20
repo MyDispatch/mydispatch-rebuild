@@ -6,8 +6,8 @@
    ✅ Error handling via handleSupabaseError
    ================================================================================== */
 
-import { supabase } from '@/integrations/supabase/client';
-import { handleSupabaseError } from './base';
+import { supabase } from "@/integrations/supabase/client";
+import { handleSupabaseError } from "./base";
 
 export interface Invoice {
   id?: string;
@@ -38,10 +38,10 @@ export interface Invoice {
 export const invoicesAPI = {
   async getAll(companyId: string): Promise<Invoice[]> {
     const { data, error } = await supabase
-      .from('invoices')
-      .select('*')
-      .eq('company_id', companyId)
-      .order('created_at', { ascending: false });
+      .from("invoices")
+      .select("*")
+      .eq("company_id", companyId)
+      .order("created_at", { ascending: false });
 
     if (error) throw handleSupabaseError(error);
     return data || [];
@@ -49,19 +49,19 @@ export const invoicesAPI = {
 
   async getById(id: string, companyId: string): Promise<Invoice> {
     const { data, error } = await supabase
-      .from('invoices')
-      .select('*')
-      .eq('id', id)
-      .eq('company_id', companyId)
+      .from("invoices")
+      .select("*")
+      .eq("id", id)
+      .eq("company_id", companyId)
       .single();
 
     if (error) throw handleSupabaseError(error);
     return data;
   },
 
-  async create(invoice: Omit<Invoice, 'id'>, companyId: string): Promise<Invoice> {
+  async create(invoice: Omit<Invoice, "id">, companyId: string): Promise<Invoice> {
     const { data, error } = await supabase
-      .from('invoices')
+      .from("invoices")
       .insert({
         ...invoice,
         company_id: companyId,
@@ -75,10 +75,10 @@ export const invoicesAPI = {
 
   async update(id: string, updates: Partial<Invoice>, companyId: string): Promise<Invoice> {
     const { data, error } = await supabase
-      .from('invoices')
+      .from("invoices")
       .update(updates)
-      .eq('id', id)
-      .eq('company_id', companyId)
+      .eq("id", id)
+      .eq("company_id", companyId)
       .select()
       .single();
 

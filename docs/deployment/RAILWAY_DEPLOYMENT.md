@@ -7,6 +7,7 @@ Diese App nutzt **Vite Dev Server in Production** (Claude Sonnet 4.5 empfohlene 
 ### Warum Dev Server statt Production Build?
 
 Nach 15+ fehlgeschlagenen Build-Versuchen mit White Screen Problem hat Claude Sonnet 4.5 diese Lösung empfohlen:
+
 - ✅ Dev Server funktioniert perfekt
 - ✅ Alle Features funktionieren
 - ✅ Schnellere Umsetzung (2-4h statt Wochen)
@@ -30,6 +31,7 @@ railway init
 ```
 
 **ODER via Web:**
+
 1. Gehe zu https://railway.app
 2. "New Project" → "Deploy from GitHub repo"
 3. Wähle `u4231458123-droid/mydispatch-germany`
@@ -56,6 +58,7 @@ NODE_ENV=production
 ### 3. Build Settings
 
 Railway erkennt automatisch:
+
 - ✅ `Dockerfile.production`
 - ✅ Port 5173
 - ✅ Health Check
@@ -97,11 +100,13 @@ railway logs
 ### App startet nicht
 
 **Check 1:** Environment Variables gesetzt?
+
 ```bash
 railway variables
 ```
 
 **Check 2:** Logs prüfen
+
 ```bash
 railway logs --tail 100
 ```
@@ -111,6 +116,7 @@ railway logs --tail 100
 Railway setzt automatisch `PORT` Variable. Vite nutzt 5173.
 
 **Fix:** In `railway.json` ist bereits konfiguriert:
+
 ```json
 "startCommand": "npm run dev -- --host 0.0.0.0 --port ${PORT:-5173}"
 ```
@@ -140,10 +146,12 @@ git push origin main
 ## 💰 Kosten
 
 **Railway Free Tier:**
+
 - $5 Guthaben/Monat
 - Ausreichend für Testing
 
 **Railway Pro:**
+
 - $20/Monat
 - Unbegrenzte Projekte
 - Mehr RAM & CPU
@@ -159,6 +167,7 @@ git push origin main
 ## 📞 Support
 
 Bei Problemen:
+
 - Railway Discord: https://discord.gg/railway
 - Railway Docs: https://docs.railway.app
 - GitHub Issues: https://github.com/u4231458123-droid/mydispatch-germany/issues

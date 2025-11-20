@@ -26,31 +26,32 @@
 ## 🔄 SELF-REVIEW LOOP (PFLICHT)
 
 12. **Eigenen Code KRITISCH durchgehen, Checkliste:**
-   □ Stimmen alle Importe exakt mit filesExplorer.md/Konvention?
-   □ Sind ALLE genutzten Funktionen/Klassen garantiert existent – KEINE Halluzinationen, nichts "geraten"?
-   □ Überall Type-Safety, keine any, keine zu lockeren Typen?
-   □ Alle Guards/Validierungen und Fehlerfälle abgedeckt?
-   □ Überall aktuelle Patterns und Learnings angewandt?
-   □ Für alle Änderungen sinnvolle, vollständige Tests (Unit, e2e, a11y...)?
-   □ Kein Copy-Paste von Altlasten/Legacy, keine Duplikate?
-   □ Welche Lessons wurden beherzigt/beachtet, welche neu gelernt?
+    □ Stimmen alle Importe exakt mit filesExplorer.md/Konvention?
+    □ Sind ALLE genutzten Funktionen/Klassen garantiert existent – KEINE Halluzinationen, nichts "geraten"?
+    □ Überall Type-Safety, keine any, keine zu lockeren Typen?
+    □ Alle Guards/Validierungen und Fehlerfälle abgedeckt?
+    □ Überall aktuelle Patterns und Learnings angewandt?
+    □ Für alle Änderungen sinnvolle, vollständige Tests (Unit, e2e, a11y...)?
+    □ Kein Copy-Paste von Altlasten/Legacy, keine Duplikate?
+    □ Welche Lessons wurden beherzigt/beachtet, welche neu gelernt?
 
 13. **WENN Fehler oder Inkonsistenzen gefunden:**
-   → SOFORT korrigieren, Roots fixen.
-   → In **AVOIDABLE_ERRORS.md** und **LESSONS_LEARNED.md** präzise eintragen (WAS/Warum/Future Policy).
-   → Lessons Learned und learnings-lastige Commits/Reviews explizit referenzieren.
-   → Review erneut ab Start der Loop oder nächste Review-Aufgabe zuweisen.
+    → SOFORT korrigieren, Roots fixen.
+    → In **AVOIDABLE_ERRORS.md** und **LESSONS_LEARNED.md** präzise eintragen (WAS/Warum/Future Policy).
+    → Lessons Learned und learnings-lastige Commits/Reviews explizit referenzieren.
+    → Review erneut ab Start der Loop oder nächste Review-Aufgabe zuweisen.
 
 ---
 
 ## 📝 POST-IMPLEMENTATION & REVIEW
 
 14. **SOFORT nach Abschluss:**
-   - Dokumentation für **filesExplorer**, **COMPONENT_REGISTRY**, **CHANGELOG**, **PROJECT_MEMORY** und relevante weitere Knowledge Files UPDATEN und referenzieren.
-   - PR/Review ausschließlich nach sichtbarem Prüf-Kommentar in den Dokumentationsfiles zulassen!
-   - Dokumentations-Update explizit im Merge/Commit kommentieren.
-   - Finale Bestätigung (schriftlich, in Review oder Commit):  
-     "✅ Self-Review passed – keine Fehler gefunden/alle Learnings dokumentiert"
+
+- Dokumentation für **filesExplorer**, **COMPONENT_REGISTRY**, **CHANGELOG**, **PROJECT_MEMORY** und relevante weitere Knowledge Files UPDATEN und referenzieren.
+- PR/Review ausschließlich nach sichtbarem Prüf-Kommentar in den Dokumentationsfiles zulassen!
+- Dokumentations-Update explizit im Merge/Commit kommentieren.
+- Finale Bestätigung (schriftlich, in Review oder Commit):  
+  "✅ Self-Review passed – keine Fehler gefunden/alle Learnings dokumentiert"
 
 ---
 

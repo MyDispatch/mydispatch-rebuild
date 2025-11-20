@@ -3,29 +3,29 @@
  * HYPERION Phase 1.3 - Design System
  */
 
-import * as React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
-import { Loader2 } from 'lucide-react';
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
 
-const spinnerVariants = cva('animate-spin', {
+const spinnerVariants = cva("animate-spin", {
   variants: {
     size: {
-      sm: 'h-4 w-4',
-      md: 'h-6 w-6',
-      lg: 'h-8 w-8',
-      xl: 'h-12 w-12',
+      sm: "h-4 w-4",
+      md: "h-6 w-6",
+      lg: "h-8 w-8",
+      xl: "h-12 w-12",
     },
     variant: {
-      default: 'text-primary',
-      secondary: 'text-secondary',
-      destructive: 'text-destructive',
-      muted: 'text-muted-foreground',
+      default: "text-primary",
+      secondary: "text-secondary",
+      destructive: "text-destructive",
+      muted: "text-muted-foreground",
     },
   },
   defaultVariants: {
-    size: 'md',
-    variant: 'default',
+    size: "md",
+    variant: "default",
   },
 });
 
@@ -40,9 +40,9 @@ export const V28Spinner = React.forwardRef<HTMLDivElement, V28SpinnerProps>(
     return (
       <div
         ref={ref}
-        className={cn('flex flex-col items-center justify-center gap-2', className)}
+        className={cn("flex flex-col items-center justify-center gap-2", className)}
         role="status"
-        aria-label={label || 'Loading'}
+        aria-label={label || "Loading"}
         {...props}
       >
         <Loader2 className={cn(spinnerVariants({ size, variant }))} />
@@ -52,4 +52,4 @@ export const V28Spinner = React.forwardRef<HTMLDivElement, V28SpinnerProps>(
   }
 );
 
-V28Spinner.displayName = 'V28Spinner';
+V28Spinner.displayName = "V28Spinner";

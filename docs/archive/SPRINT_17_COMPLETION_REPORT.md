@@ -21,6 +21,7 @@
 **Datei:** `src/pages/Partner.tsx`
 
 **Änderungen:**
+
 - ✅ StandardPageLayout-Integration (statt DashboardLayout)
 - ✅ Stats-Cards mit Live-Daten hinzugefügt:
   - Gesamt (Users Icon) - Total Partners Count
@@ -37,10 +38,12 @@
 - ✅ Mobile-Responsive (grid-cols-1 sm:2 lg:4)
 
 **Entfernte Duplikate:**
+
 - ❌ Redundante Search-Input im Tab 3 (jetzt zentral in StandardPageLayout)
 - ❌ Manueller Header (jetzt via StandardPageLayout-Props)
 
 **Konsistenz:**
+
 - ✅ Stats-Cards oben (4 Karten)
 - ✅ Suche zentral in StandardPageLayout
 - ✅ Tabs-System unterhalb von Stats
@@ -53,29 +56,33 @@
 ## 🔧 TECHNISCHE DETAILS
 
 ### Spezielle Architektur
+
 Die Partner-Seite unterscheidet sich von anderen CRUD-Seiten:
+
 - **Tabs-System:** 3 verschiedene Ansichten statt einer einzigen Tabelle
 - **PartnerConnectionList:** Separate Komponente für MyDispatch-zu-MyDispatch Verbindungen
 - **PartnerRequestDialog:** Komplexer Dialog für Partner-Anfragen mit Company-Suche
 - **Hybrid-Ansatz:** Kombiniert StandardPageLayout mit Tabs für maximale Flexibilität
 
 ### Stats-Berechnung
+
 ```tsx
 const stats = useMemo(() => {
   const total = partners.length;
-  const onlineAccess = partners.filter(p => p.online_access_enabled).length;
+  const onlineAccess = partners.filter((p) => p.online_access_enabled).length;
   const offlineOnly = total - onlineAccess;
-  
+
   return [
-    { label: 'Gesamt', value: total, icon: <Users /> },
-    { label: 'Online-Zugang', value: onlineAccess, icon: <Network /> },
-    { label: 'Nur Offline', value: offlineOnly, icon: <Handshake /> },
-    { label: 'Offene Anfragen', value: pendingRequests.length, icon: <Send /> },
+    { label: "Gesamt", value: total, icon: <Users /> },
+    { label: "Online-Zugang", value: onlineAccess, icon: <Network /> },
+    { label: "Nur Offline", value: offlineOnly, icon: <Handshake /> },
+    { label: "Offene Anfragen", value: pendingRequests.length, icon: <Send /> },
   ];
 }, [partners, pendingRequests]);
 ```
 
 ### Build-Status
+
 ```
 ✅ TypeScript: 0 Errors
 ✅ JSX-Struktur: Vollständig korrekt
@@ -85,12 +92,14 @@ const stats = useMemo(() => {
 ```
 
 ### Performance
+
 - ✅ Stats-Berechnung mit useMemo optimiert
 - ✅ Tabs lazy-load Content on demand
 - ✅ PartnerConnectionList bereits optimiert
 - ✅ Keine unnötigen Re-Renders
 
 ### Accessibility
+
 - ✅ Semantic HTML
 - ✅ ARIA-Labels vorhanden
 - ✅ Tabs keyboard-navigable
@@ -100,19 +109,19 @@ const stats = useMemo(() => {
 
 ## 📋 MIGRIERTE SEITEN (GESAMT)
 
-| Seite | Status | Sprint | Bemerkung |
-|-------|--------|--------|-----------|
-| Rechnungen | ✅ | 15 | Vollständig |
-| Kunden | ✅ | 15 | Vollständig |
-| Aufträge | ✅ | 16 | Vollständig + Dialog-Fix |
-| Fahrzeuge | ✅ | 16 | Vollständig |
-| Angebote | ✅ | 16 | Vollständig |
-| Fahrer | ✅ | 16 | Vollständig + Stats |
-| **Partner** | ✅ | **17** | **NEU MIGRIERT + Tabs-System** |
-| Dokumente | ⏳ | 18 | Geplant |
-| Kostenstellen | ⏳ | 18 | Geplant |
-| Schichtzettel | ⏳ | 19 | Geplant |
-| Office | ⏳ | 19 | Geplant |
+| Seite         | Status | Sprint | Bemerkung                      |
+| ------------- | ------ | ------ | ------------------------------ |
+| Rechnungen    | ✅     | 15     | Vollständig                    |
+| Kunden        | ✅     | 15     | Vollständig                    |
+| Aufträge      | ✅     | 16     | Vollständig + Dialog-Fix       |
+| Fahrzeuge     | ✅     | 16     | Vollständig                    |
+| Angebote      | ✅     | 16     | Vollständig                    |
+| Fahrer        | ✅     | 16     | Vollständig + Stats            |
+| **Partner**   | ✅     | **17** | **NEU MIGRIERT + Tabs-System** |
+| Dokumente     | ⏳     | 18     | Geplant                        |
+| Kostenstellen | ⏳     | 18     | Geplant                        |
+| Schichtzettel | ⏳     | 19     | Geplant                        |
+| Office        | ⏳     | 19     | Geplant                        |
 
 **Fortschritt:** 7/11 Seiten (64%) ✅
 
@@ -121,6 +130,7 @@ const stats = useMemo(() => {
 ## 🎯 QUALITÄTSSICHERUNG
 
 ### Checkliste (alle ✅)
+
 - [x] Layout-Konsistenz: Header 60px, Sidebar 64/240px
 - [x] Mobile-First: Breakpoints korrekt (<768px)
 - [x] CI-Farben: #EADEBD, #323D5E, #856d4b
@@ -141,16 +151,19 @@ const stats = useMemo(() => {
 ## 🐛 BEHOBENE FEHLER
 
 ### 1. **Redundante Suchfunktion**
+
 **Problem:** Search-Input in Tab 3 war redundant (bereits in StandardPageLayout)  
 **Lösung:** Tab 3 Search-Input entfernt, zentrale Suche genutzt  
 **Datei:** Partner.tsx (Zeile 324-331)
 
 ### 2. **Fehlender Bearbeitungs-Button**
+
 **Problem:** DetailDialog hatte keinen onEdit für Partner  
 **Lösung:** onEdit={() => handleEdit(selectedPartner)} hinzugefügt  
 **Datei:** Partner.tsx (DetailDialog)
 
 ### 3. **Stats nicht berechnet**
+
 **Problem:** Keine Live-Daten für Partner-Übersicht  
 **Lösung:** useMemo mit 4 Stats-Karten (Gesamt, Online, Offline, Anfragen)  
 **Datei:** Partner.tsx (Stats-Calculation)
@@ -168,6 +181,7 @@ const stats = useMemo(() => {
 ## 🚀 NÄCHSTE SCHRITTE (Sprint 18)
 
 ### 1. **Dokumente-Seite Migration** (P0)
+
 - StandardPageLayout-Integration
 - Stats-Cards mit Ablauf-Status (Abgelaufen, Läuft bald ab, Gültig, Gesamt)
 - Dokumenten-Typ-Filter
@@ -175,17 +189,20 @@ const stats = useMemo(() => {
 - Ampel-System für Ablaufdaten
 
 ### 2. **Kostenstellen-Seite Migration** (P1)
+
 - StandardPageLayout-Integration
 - Stats-Cards (Aktiv/Inaktiv, Budget Gesamt, Ausgaben Gesamt)
 - Budget-Tracking-Visualisierung
 - Ausgaben-Historie pro Kostenstelle
 
 ### 3. **Schichtzettel-Seite Analyse** (P2)
+
 - Layout-Analyse (Kalender-Ansicht? Tages-/Wochen-/Monats-Ansicht?)
 - Prüfen, ob StandardPageLayout kompatibel ist
 - Ggf. spezielles Layout erforderlich
 
 ### 4. **Office-Seite Analyse** (P2)
+
 - Layout-Analyse
 - E-Mail/Brief-Templates-System
 - Prüfen, ob StandardPageLayout kompatibel ist
@@ -195,17 +212,20 @@ const stats = useMemo(() => {
 ## 💡 LESSONS LEARNED
 
 ### Was gut lief:
+
 - ✅ Tabs-System nahtlos in StandardPageLayout integriert
 - ✅ useMemo für Stats-Optimierung ideal
 - ✅ FeatureGate korrekt positioniert (außerhalb StandardPageLayout)
 - ✅ Komplexe Seite erfolgreich migriert ohne Funktionsverlust
 
 ### Was verbessert wurde:
+
 - ✅ Stats-Cards zeigen jetzt Live-Daten aus 2 Quellen (partners + pendingRequests)
 - ✅ Suchfunktion zentral statt verstreut
 - ✅ DetailDialog mit Bearbeitungs-Button systemweit
 
 ### Für nächsten Sprint:
+
 - 📝 Dokumente-Seite: InlineDocumentUpload-Integration testen
 - 📝 Kostenstellen-Seite: Budget-Tracking-Visualisierung entwickeln
 - 📝 Komplexe Seiten (Schichtzettel, Office): Separate Analyse vor Migration

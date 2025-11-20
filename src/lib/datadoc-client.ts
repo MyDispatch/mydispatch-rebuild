@@ -13,7 +13,7 @@
    Integration mit Datadoc.com API
    ================================================================================== */
 
-import { logger } from './logger';
+import { logger } from "./logger";
 
 interface DatadocConfig {
   baseUrl: string;
@@ -44,9 +44,9 @@ export class DatadocClient {
   constructor() {
     // Initialize from environment variables
     this.config = {
-      baseUrl: 'https://api.datadoc.com/v1',
-      keyId: import.meta.env.VITE_DATADOC_KEY_ID || '',
-      apiKey: import.meta.env.VITE_DATADOC_API_KEY || '',
+      baseUrl: "https://api.datadoc.com/v1",
+      keyId: import.meta.env.VITE_DATADOC_KEY_ID || "",
+      apiKey: import.meta.env.VITE_DATADOC_API_KEY || "",
       enabled: import.meta.env.PROD && !!import.meta.env.VITE_DATADOC_API_KEY,
     };
 
@@ -58,7 +58,7 @@ export class DatadocClient {
 
   /**
    * Log a metric to Datadoc
-   * 
+   *
    * @example
    * datadoc.logMetric({
    *   name: 'api.query.duration',
@@ -69,7 +69,7 @@ export class DatadocClient {
   async logMetric(metric: Metric): Promise<void> {
     if (!this.config.enabled) {
       if (import.meta.env.DEV) {
-        logger.debug('[Datadoc] Metric (disabled)', { component: 'DatadocClient', metric });
+        logger.debug("[Datadoc] Metric (disabled)", { component: "DatadocClient", metric });
       }
       return;
     }
@@ -78,7 +78,7 @@ export class DatadocClient {
       const payload = {
         ...metric,
         timestamp: metric.timestamp || new Date().toISOString(),
-        source: 'mydispatch-frontend',
+        source: "mydispatch-frontend",
         environment: import.meta.env.MODE,
       };
 
@@ -86,17 +86,17 @@ export class DatadocClient {
       this.queue.push(payload);
 
       // Flush immediately if critical metric
-      if (metric.tags?.priority === 'critical') {
+      if (metric.tags?.priority === "critical") {
         await this.flush();
       }
     } catch (error) {
-      logger.error('[Datadoc] Failed to log metric', error as Error, { metric });
+      logger.error("[Datadoc] Failed to log metric", error as Error, { metric });
     }
   }
 
   /**
    * Log an event to Datadoc
-   * 
+   *
    * @example
    * datadoc.logEvent({
    *   type: 'user.login',
@@ -106,7 +106,7 @@ export class DatadocClient {
   async logEvent(event: Event): Promise<void> {
     if (!this.config.enabled) {
       if (import.meta.env.DEV) {
-        logger.debug('[Datadoc] Event (disabled)', { component: 'DatadocClient', event });
+        logger.debug("[Datadoc] Event (disabled)", { component: "DatadocClient", event });
       }
       return;
     }
@@ -115,7 +115,7 @@ export class DatadocClient {
       const payload = {
         ...event,
         timestamp: event.timestamp || new Date().toISOString(),
-        source: 'mydispatch-frontend',
+        source: "mydispatch-frontend",
         environment: import.meta.env.MODE,
         // Remove PII for DSGVO compliance
         data: this.sanitizeData(event.data),
@@ -123,7 +123,7 @@ export class DatadocClient {
 
       this.queue.push(payload);
     } catch (error) {
-      logger.error('[Datadoc] Failed to log event', error as Error, { event });
+      logger.error("[Datadoc] Failed to log event", error as Error, { event });
     }
   }
 
@@ -133,11 +133,11 @@ export class DatadocClient {
   async trackAPICall(
     endpoint: string,
     duration: number,
-    status: 'success' | 'error',
+    status: "success" | "error",
     metadata?: Record<string, string>
   ): Promise<void> {
     await this.logMetric({
-      name: 'api.query.duration',
+      name: "api.query.duration",
       value: duration,
       tags: {
         endpoint,
@@ -156,7 +156,7 @@ export class DatadocClient {
     metadata?: Record<string, any>
   ): Promise<void> {
     await this.logEvent({
-      type: 'user.interaction',
+      type: "user.interaction",
       data: {
         action,
         component,
@@ -174,7 +174,7 @@ export class DatadocClient {
     metadata?: Record<string, any>
   ): Promise<void> {
     await this.logEvent({
-      type: 'error.occurred',
+      type: "error.occurred",
       data: {
         errorType,
         component,
@@ -194,11 +194,11 @@ export class DatadocClient {
 
     try {
       const response = await fetch(`${this.config.baseUrl}/batch`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'X-API-Key-ID': this.config.keyId,
-          'X-API-Key': this.config.apiKey,
-          'Content-Type': 'application/json',
+          "X-API-Key-ID": this.config.keyId,
+          "X-API-Key": this.config.apiKey,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ events: batch }),
       });
@@ -208,10 +208,10 @@ export class DatadocClient {
       }
 
       if (import.meta.env.DEV) {
-        logger.debug(`[Datadoc] Flushed ${batch.length} events`, { component: 'DatadocClient' });
+        logger.debug(`[Datadoc] Flushed ${batch.length} events`, { component: "DatadocClient" });
       }
     } catch (error) {
-      logger.error('[Datadoc] Failed to flush batch', error as Error);
+      logger.error("[Datadoc] Failed to flush batch", error as Error);
       // Re-queue on error
       this.queue.unshift(...batch);
     }
@@ -243,11 +243,11 @@ export class DatadocClient {
    */
   private sanitizeData(data: Record<string, any>): Record<string, any> {
     const sanitized = { ...data };
-    const piiFields = ['email', 'phone', 'name', 'firstName', 'lastName', 'address'];
+    const piiFields = ["email", "phone", "name", "firstName", "lastName", "address"];
 
     piiFields.forEach((field) => {
       if (sanitized[field]) {
-        sanitized[field] = '[REDACTED]';
+        sanitized[field] = "[REDACTED]";
       }
     });
 
@@ -266,8 +266,8 @@ export class DatadocClient {
 export const datadoc = new DatadocClient();
 
 // Auto-flush on page unload
-if (typeof window !== 'undefined') {
-  window.addEventListener('beforeunload', () => {
+if (typeof window !== "undefined") {
+  window.addEventListener("beforeunload", () => {
     datadoc.flushAll();
   });
 }

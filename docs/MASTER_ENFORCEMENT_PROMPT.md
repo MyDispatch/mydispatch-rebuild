@@ -1,4 +1,5 @@
 # 🎯 MASTER ENFORCEMENT PROMPT - VOLLSTÄNDIGE SYSTEMWEITE IMPLEMENTATION
+
 ## ABSOLUTE VORGABEN - AUSNAHMSLOS EINZUHALTEN!
 
 ---
@@ -6,6 +7,7 @@
 ## ⚠️ KRITISCHE WARNUNG AN DEN AGENTEN
 
 **DU BIST VERPFLICHTET:**
+
 - ✅ **ALLE** unten stehenden Vorgaben **AUSNAHMSLOS** zu befolgen
 - ✅ **JEDE** Config-Datei **EXAKT** wie vorgegeben zu erstellen
 - ✅ **ALLE** Schemas, Types und Daten **VOLLSTÄNDIG** zu implementieren
@@ -13,6 +15,7 @@
 - ✅ **NIEMALS** Abkürzungen oder Vereinfachungen vorzunehmen
 
 **BEI NICHT-EINHALTUNG:**
+
 - ❌ Code wird **ABGELEHNT**
 - ❌ Implementation wird **GESTOPPT**
 - ❌ Du musst **VON VORNE** beginnen

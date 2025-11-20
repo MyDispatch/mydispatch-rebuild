@@ -34,21 +34,21 @@ serve(async (req) => {
     const input: RegistrationConfirmationInput = await req.json();
 
     if (!input.user_id || !input.email) {
-      return new Response(
-        JSON.stringify({ error: "user_id and email are required" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "user_id and email are required" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Get Resend API Key
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     const resendDomain = Deno.env.get("RESEND_DOMAIN") || "mydispatch.com";
-    
+
     if (!resendApiKey) {
-      return new Response(
-        JSON.stringify({ error: "Email service not configured" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Email service not configured" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Get user profile
@@ -91,10 +91,10 @@ serve(async (req) => {
                       </p>
                       <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
                         <p style="margin: 0; color: #64748b; font-size: 14px;"><strong>E-Mail:</strong> ${input.email}</p>
-                        ${input.tariff ? `<p style="margin: 10px 0 0 0; color: #64748b; font-size: 14px;"><strong>Tarif:</strong> ${input.tariff}</p>` : ''}
+                        ${input.tariff ? `<p style="margin: 10px 0 0 0; color: #64748b; font-size: 14px;"><strong>Tarif:</strong> ${input.tariff}</p>` : ""}
                       </div>
                       <div style="text-align: center; margin: 30px 0;">
-                        <a href="${Deno.env.get('SUPABASE_URL') || 'https://mydispatch.app'}/auth" style="display: inline-block; padding: 14px 32px; background: #323D5E; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Jetzt anmelden</a>
+                        <a href="${Deno.env.get("SUPABASE_URL") || "https://mydispatch.app"}/auth" style="display: inline-block; padding: 14px 32px; background: #323D5E; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 16px;">Jetzt anmelden</a>
                       </div>
                       <p style="color: #64748b; font-size: 14px; line-height: 1.7; margin: 30px 0 0 0;">
                         <strong>Nächste Schritte:</strong><br>
@@ -119,14 +119,14 @@ serve(async (req) => {
         </body>
         </html>
       `,
-      text: `Willkommen bei MyDispatch!\n\nIhre Registrierung für ${companyName} war erfolgreich.\n\nE-Mail: ${input.email}\n\nJetzt anmelden: ${Deno.env.get('SUPABASE_URL') || 'https://mydispatch.app'}/auth`,
+      text: `Willkommen bei MyDispatch!\n\nIhre Registrierung für ${companyName} war erfolgreich.\n\nE-Mail: ${input.email}\n\nJetzt anmelden: ${Deno.env.get("SUPABASE_URL") || "https://mydispatch.app"}/auth`,
     };
 
     // Send Email via Resend
     const resendResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${resendApiKey}`,
+        Authorization: `Bearer ${resendApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -146,15 +146,13 @@ serve(async (req) => {
     const resendData = await resendResponse.json();
 
     // Log Email Sent
-    await supabase
-      .from("email_logs")
-      .insert({
-        user_id: input.user_id,
-        recipient_email: input.email,
-        email_type: "registration_confirmation",
-        sent_at: new Date().toISOString(),
-        resend_id: resendData.id,
-      });
+    await supabase.from("email_logs").insert({
+      user_id: input.user_id,
+      recipient_email: input.email,
+      email_type: "registration_confirmation",
+      sent_at: new Date().toISOString(),
+      resend_id: resendData.id,
+    });
 
     return new Response(
       JSON.stringify({
@@ -166,10 +164,9 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error("[SEND-REGISTRATION-CONFIRMATION] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
-

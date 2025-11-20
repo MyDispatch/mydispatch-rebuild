@@ -4,13 +4,13 @@
    Verwendet MobileGridLayout für standardisierte Struktur
    ================================================================================== */
 
-import { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Plus, Search, Mail, Phone, User, MapPin } from 'lucide-react';
-import { MobileGridLayout } from './MobileGridLayout';
-import { Badge } from '@/components/ui/badge';
-import { formatCurrency } from '@/lib/index';
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Plus, Search, Mail, Phone, User, MapPin } from "lucide-react";
+import { MobileGridLayout } from "./MobileGridLayout";
+import { Badge } from "@/components/ui/badge";
+import { formatCurrency } from "@/lib/index";
 
 interface Customer {
   id: string;
@@ -37,17 +37,17 @@ export function MobileKunden({
   isLoading,
   onCreateNew,
   onCustomerClick,
-  onRefresh
+  onRefresh,
 }: MobileKundenProps) {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Filter customers
-  const filteredCustomers = customers.filter(customer => {
+  const filteredCustomers = customers.filter((customer) => {
     // Type filter
-    if (activeFilter === 'business' && customer.is_manually_created) return false;
-    if (activeFilter === 'manual' && !customer.is_manually_created) return false;
-    if (activeFilter === 'portal' && !customer.has_portal_access) return false;
+    if (activeFilter === "business" && customer.is_manually_created) return false;
+    if (activeFilter === "manual" && !customer.is_manually_created) return false;
+    if (activeFilter === "portal" && !customer.has_portal_access) return false;
 
     // Search filter
     if (searchQuery) {
@@ -67,16 +67,16 @@ export function MobileKunden({
   // Count by type
   const typeCounts = {
     all: customers.length,
-    business: customers.filter(c => !c.is_manually_created).length,
-    manual: customers.filter(c => c.is_manually_created).length,
-    portal: customers.filter(c => c.has_portal_access).length,
+    business: customers.filter((c) => !c.is_manually_created).length,
+    manual: customers.filter((c) => c.is_manually_created).length,
+    portal: customers.filter((c) => c.has_portal_access).length,
   };
 
   const filters = [
-    { id: 'all', label: 'Alle', count: typeCounts.all },
-    { id: 'business', label: 'Geschäft', count: typeCounts.business },
-    { id: 'manual', label: 'Manuell', count: typeCounts.manual },
-    { id: 'portal', label: 'Portal', count: typeCounts.portal },
+    { id: "all", label: "Alle", count: typeCounts.all },
+    { id: "business", label: "Geschäft", count: typeCounts.business },
+    { id: "manual", label: "Manuell", count: typeCounts.manual },
+    { id: "portal", label: "Portal", count: typeCounts.portal },
   ];
 
   return (
@@ -113,10 +113,14 @@ export function MobileKunden({
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   {customer.is_manually_created && (
-                    <Badge variant="secondary" className="text-[10px]">Manuell</Badge>
+                    <Badge variant="secondary" className="text-[10px]">
+                      Manuell
+                    </Badge>
                   )}
                   {customer.has_portal_access && (
-                    <Badge variant="outline" className="text-[10px]">Portal</Badge>
+                    <Badge variant="outline" className="text-[10px]">
+                      Portal
+                    </Badge>
                   )}
                 </div>
               </div>
@@ -147,16 +151,16 @@ export function MobileKunden({
         </Card>
       )}
       onItemClick={onCustomerClick}
-      entityLabel={{ singular: 'Kunde', plural: 'Kunden' }}
+      entityLabel={{ singular: "Kunde", plural: "Kunden" }}
       fabLabel="Neuer Kunde"
       onFabClick={onCreateNew}
       fabIcon={Plus}
       emptyStateProps={{
         icon: <Search className="h-16 w-16" />,
-        noDataTitle: 'Keine Kunden',
-        noDataDescription: 'Erstelle deinen ersten Kunden',
-        noResultsTitle: 'Keine Ergebnisse',
-        noResultsDescription: 'Versuche einen anderen Suchbegriff'
+        noDataTitle: "Keine Kunden",
+        noDataDescription: "Erstelle deinen ersten Kunden",
+        noResultsTitle: "Keine Ergebnisse",
+        noResultsDescription: "Versuche einen anderen Suchbegriff",
       }}
     />
   );

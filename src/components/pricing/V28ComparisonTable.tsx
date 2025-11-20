@@ -10,8 +10,8 @@
    ✅ Clean borders - no gap-filling solutions
    ================================================================================== */
 
-import { Check, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
+import { Check, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface ComparisonFeature {
   name: string;

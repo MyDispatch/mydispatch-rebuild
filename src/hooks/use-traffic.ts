@@ -7,11 +7,15 @@
    ✅ Rate-Limit Handling (429 → Info statt Error)
    ================================================================================== */
 
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { queryKeys } from '@/lib/react-query/query-keys';
-import { handleInfo } from '@/lib/error-handler';
-import { TrafficApiResponse, validateApiResponse, isValidTrafficResponse } from '@/types/api-schemas';
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { queryKeys } from "@/lib/react-query/query-keys";
+import { handleInfo } from "@/lib/error-handler";
+import {
+  TrafficApiResponse,
+  validateApiResponse,
+  isValidTrafficResponse,
+} from "@/types/api-schemas";
 
 interface UseTrafficOptions {
   origin: string;
@@ -32,7 +36,7 @@ export function useTraffic({ origin, enabled = true, refetchInterval = 30000 }: 
   return useQuery({
     queryKey: queryKeys.traffic(origin),
     queryFn: async (): Promise<TrafficData> => {
-      const { data, error } = await supabase.functions.invoke('get-traffic', {
+      const { data, error } = await supabase.functions.invoke("get-traffic", {
         body: { origin },
       });
 
@@ -40,7 +44,7 @@ export function useTraffic({ origin, enabled = true, refetchInterval = 30000 }: 
       if (data?.retry_after) {
         handleInfo(
           `Verkehrsdaten werden in ${data.retry_after}s aktualisiert (API-Limit)`,
-          'Rate Limit'
+          "Rate Limit"
         );
         return data as TrafficData;
       }
@@ -50,13 +54,13 @@ export function useTraffic({ origin, enabled = true, refetchInterval = 30000 }: 
       }
 
       // ✅ TYPE VALIDATION
-      const validated = validateApiResponse(data, isValidTrafficResponse, 'Traffic');
-      
+      const validated = validateApiResponse(data, isValidTrafficResponse, "Traffic");
+
       return {
         jam_factor: validated.jam_factor,
         speed: validated.speed,
-        status: validated.status || 'Unbekannt',
-        route_summary: validated.route_summary || '',
+        status: validated.status || "Unbekannt",
+        route_summary: validated.route_summary || "",
         delay_seconds: validated.delay_seconds || 0,
       };
     },

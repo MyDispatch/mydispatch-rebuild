@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { V28Switch } from './index';
+import type { Meta, StoryObj } from "@storybook/react";
+import { V28Switch } from "./index";
 
 const meta: Meta<typeof V28Switch> = {
-  title: 'Design System/V28Switch',
+  title: "Design System/V28Switch",
   component: V28Switch,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
-    label: { control: 'text' },
-    disabled: { control: 'boolean' },
+    label: { control: "text" },
+    disabled: { control: "boolean" },
   },
 };
 
@@ -16,20 +16,20 @@ type Story = StoryObj<typeof V28Switch>;
 
 export const Default: Story = {
   args: {
-    label: 'Enable notifications',
+    label: "Enable notifications",
   },
 };
 
 export const Checked: Story = {
   args: {
-    label: 'Dark mode',
+    label: "Dark mode",
     defaultChecked: true,
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: 'Disabled switch',
+    label: "Disabled switch",
     disabled: true,
   },
 };

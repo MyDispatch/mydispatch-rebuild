@@ -22,6 +22,7 @@
 3. **Klicke:** "Add new secret"
 
 4. **Eingeben:**
+
    ```
    Name:  RESEND_API_KEY
    Value: re_WWtdb7JV_DJ9iJU4DJrc7ZLkFufufFxi5
@@ -38,6 +39,7 @@
 1. **Öffne:** https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/sql/new
 
 2. **Kopiere den Inhalt von:**
+
    ```
    C:\Users\pcour\Desktop\mydispatch-rebuild\supabase\setup_master_users.sql
    ```
@@ -64,16 +66,19 @@ supabase db push
 Nach erfolgreicher Ausführung des SQL-Skripts sind folgende Benutzer verfügbar:
 
 ### 1. Pascal Courbois (Primärer Admin)
+
 - **Email:** courbois1981@gmail.com
 - **Passwort:** 1def!xO2022!!
 - **Rolle:** master
 
 ### 2. Pascal Nexify
+
 - **Email:** pascal@nexify.ai
 - **Passwort:** 1def!xO2022!!
 - **Rolle:** master
 
 ### 3. Master Admin
+
 - **Email:** master@nexify.ai
 - **Passwort:** 1def!xO2022!!
 - **Rolle:** master
@@ -107,6 +112,7 @@ Nach erfolgreicher Ausführung des SQL-Skripts sind folgende Benutzer verfügbar
 ## 📝 Konfigurationsdateien
 
 Alle relevanten Dateien befinden sich in:
+
 ```
 C:\Users\pcour\Desktop\mydispatch-rebuild\supabase\
 ```
@@ -119,13 +125,13 @@ C:\Users\pcour\Desktop\mydispatch-rebuild\supabase\
 
 ## 🔗 Wichtige Links
 
-| Funktion | URL |
-|----------|-----|
-| **Dashboard** | https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd |
-| **SQL Editor** | https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/sql/new |
-| **Auth Users** | https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/auth/users |
-| **Functions** | https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/settings/functions |
-| **API Docs** | https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/api |
+| Funktion       | URL                                                                            |
+| -------------- | ------------------------------------------------------------------------------ |
+| **Dashboard**  | https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd                    |
+| **SQL Editor** | https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/sql/new            |
+| **Auth Users** | https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/auth/users         |
+| **Functions**  | https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/settings/functions |
+| **API Docs**   | https://supabase.com/dashboard/project/vsbqyqhzxmwezlhzdmfd/api                |
 
 ---
 

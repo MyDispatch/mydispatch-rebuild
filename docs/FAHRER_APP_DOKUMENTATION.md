@@ -27,16 +27,10 @@ Die MyDispatch Fahrer-App ist eine mobile-first Anwendung für Fahrer im MyDispa
 
 ```css
 /* Primary - Beige/Gold */
---primary: hsl(40, 31%, 88%) /* #EADEBD */
-
-/* Foreground - Dunkelblau */
---foreground: hsl(225, 31%, 28%) /* #323D5E */
-
-/* Accent - Gold-Braun */
---accent: hsl(45, 31%, 54%) /* #A28A5B */
-
-/* Background */
---background: #FEFFEE /* Helles Beige */
+--primary: hsl(40, 31%, 88%) /* #EADEBD */ /* Foreground - Dunkelblau */
+  --foreground: hsl(225, 31%, 28%) /* #323D5E */ /* Accent - Gold-Braun */
+  --accent: hsl(45, 31%, 54%) /* #A28A5B */ /* Background */ --background: #feffee
+  /* Helles Beige */;
 ```
 
 ### Typografie
@@ -82,15 +76,15 @@ src/
 
 ## 🚀 Routen-Übersicht
 
-| Route | Beschreibung | Auth | Layout |
-|-------|--------------|------|--------|
-| `/driver` | Splash-Screen (Auto-Redirect) | ❌ | none |
-| `/driver/welcome` | Welcome-Screen mit Feature-Liste | ❌ | none |
-| `/driver/login` | Login-Formular | ❌ | none |
-| `/driver/register` | Registrierung mit AGB-Zustimmung | ❌ | none |
-| `/driver/forgot-password` | Passwort zurücksetzen | ❌ | none |
-| `/driver/verify-email` | E-Mail-Verifizierung (6-stelliger Code) | ❌ | none |
-| `/driver/dashboard` | Haupt-Dashboard (Aufträge, Stats) | ✅ | none |
+| Route                     | Beschreibung                            | Auth | Layout |
+| ------------------------- | --------------------------------------- | ---- | ------ |
+| `/driver`                 | Splash-Screen (Auto-Redirect)           | ❌   | none   |
+| `/driver/welcome`         | Welcome-Screen mit Feature-Liste        | ❌   | none   |
+| `/driver/login`           | Login-Formular                          | ❌   | none   |
+| `/driver/register`        | Registrierung mit AGB-Zustimmung        | ❌   | none   |
+| `/driver/forgot-password` | Passwort zurücksetzen                   | ❌   | none   |
+| `/driver/verify-email`    | E-Mail-Verifizierung (6-stelliger Code) | ❌   | none   |
+| `/driver/dashboard`       | Haupt-Dashboard (Aufträge, Stats)       | ✅   | none   |
 
 ---
 
@@ -123,11 +117,11 @@ graph LR
 
 ```typescript
 interface RegisterFormData {
-  firstName: string;      // Pflichtfeld
-  lastName: string;       // Pflichtfeld
-  email: string;          // Pflichtfeld (E-Mail-Format)
-  phone: string;          // Pflichtfeld (Tel-Format)
-  password: string;       // Pflichtfeld (min. 8 Zeichen)
+  firstName: string; // Pflichtfeld
+  lastName: string; // Pflichtfeld
+  email: string; // Pflichtfeld (E-Mail-Format)
+  phone: string; // Pflichtfeld (Tel-Format)
+  password: string; // Pflichtfeld (min. 8 Zeichen)
   acceptedTerms: boolean; // Pflichtfeld (muss true sein)
   acceptedPrivacy: boolean; // Pflichtfeld (muss true sein)
 }
@@ -137,7 +131,7 @@ interface RegisterFormData {
 
 ```typescript
 interface LoginFormData {
-  email: string;    // Pflichtfeld (E-Mail-Format)
+  email: string; // Pflichtfeld (E-Mail-Format)
   password: string; // Pflichtfeld
 }
 ```
@@ -150,11 +144,11 @@ interface LoginFormData {
 
 ```typescript
 interface DriverStats {
-  todayEarnings: number;    // Tageseinnahmen (€)
-  todayRides: number;       // Anzahl Fahrten heute
-  weeklyEarnings: number;   // Wocheneinnahmen (€)
-  rating: number;           // Durchschnittsbewertung (0-5)
-  completionRate: number;   // Abschlussrate (%)
+  todayEarnings: number; // Tageseinnahmen (€)
+  todayRides: number; // Anzahl Fahrten heute
+  weeklyEarnings: number; // Wocheneinnahmen (€)
+  rating: number; // Durchschnittsbewertung (0-5)
+  completionRate: number; // Abschlussrate (%)
 }
 ```
 
@@ -163,12 +157,12 @@ interface DriverStats {
 ```typescript
 interface Booking {
   id: string;
-  pickup: string;           // Abholadresse
-  destination: string;      // Zieladresse
-  time: string;             // Abholzeit (HH:MM)
-  distance: string;         // Entfernung (z.B. "28 km")
-  price: number;            // Preis in Euro
-  status: 'confirmed' | 'pending'; // Status
+  pickup: string; // Abholadresse
+  destination: string; // Zieladresse
+  time: string; // Abholzeit (HH:MM)
+  distance: string; // Entfernung (z.B. "28 km")
+  price: number; // Preis in Euro
+  status: "confirmed" | "pending"; // Status
 }
 ```
 
@@ -267,7 +261,7 @@ interface Booking {
 
 ```typescript
 // TODO: Implementierung mit Supabase Auth
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from "@/integrations/supabase/client";
 
 // Registrierung
 const { data, error } = await supabase.auth.signUp({
@@ -278,15 +272,15 @@ const { data, error } = await supabase.auth.signUp({
       first_name: formData.firstName,
       last_name: formData.lastName,
       phone: formData.phone,
-      user_type: 'driver'
-    }
-  }
+      user_type: "driver",
+    },
+  },
 });
 
 // Login
 const { data, error } = await supabase.auth.signInWithPassword({
   email: formData.email,
-  password: formData.password
+  password: formData.password,
 });
 ```
 
@@ -371,10 +365,12 @@ CREATE POLICY "Drivers can update own data"
 ## 📞 Support & Kontakt
 
 **Technische Fragen:**
+
 - E-Mail: support@my-dispatch.de
 - Tel: +49 170 8004423
 
 **Dokumentation:**
+
 - Hauptdokumentation: `/docs/INSTRUCTIONS_GUIDELINES_V18.3_FINAL.md`
 - Mobile Standards: `/docs/MOBILE_LAYOUT_STANDARDS_V18.3.md`
 

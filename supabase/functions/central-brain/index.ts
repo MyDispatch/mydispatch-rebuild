@@ -98,17 +98,16 @@ serve(async (req) => {
         throw new Error(`Unknown action: ${action}`);
     }
 
-    return new Response(
-      JSON.stringify({ success: true, action, result }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ success: true, action, result }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (error) {
     console.error("[CENTRAL-BRAIN] Error:", error);
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    return new Response(
-      JSON.stringify({ success: false, error: errorMessage }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ success: false, error: errorMessage }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
 
@@ -133,7 +132,9 @@ async function syncAgents(supabase: any) {
   const outdated = agents.filter((a: AgentStatus) => a.version !== expectedVersion);
 
   if (outdated.length > 0) {
-    console.warn(`[CENTRAL-BRAIN] ⚠️ Outdated agents: ${outdated.map((a: any) => a.agent_name).join(", ")}`);
+    console.warn(
+      `[CENTRAL-BRAIN] ⚠️ Outdated agents: ${outdated.map((a: any) => a.agent_name).join(", ")}`
+    );
   }
 
   // Update last_sync_at for all agents
@@ -212,7 +213,9 @@ async function triggerWatchdogScan(supabase: any, scan_type: string) {
 async function orchestrateTask(supabase: any, payload: any) {
   const { task_type, agents_required, priority = "normal" } = payload;
 
-  console.log(`[CENTRAL-BRAIN] Orchestrating task: ${task_type}, Agents: ${agents_required.join(", ")}`);
+  console.log(
+    `[CENTRAL-BRAIN] Orchestrating task: ${task_type}, Agents: ${agents_required.join(", ")}`
+  );
 
   // 1. Check if all required agents are available
   const { data: agents, error } = await supabase
@@ -285,12 +288,16 @@ async function sendHeartbeat(supabase: any) {
   const healthyLogs = recentLogs?.filter((log: any) => log.severity === "info").length || 0;
   const uptimePercentage = parseFloat(((healthyLogs / totalLogs) * 100).toFixed(2));
 
-  const responseTimes = recentLogs
-    ?.map((log: any) => log.metadata?.response_time_ms)
-    .filter((time: any) => time !== undefined && time !== null) || [];
-  const avgResponseTime = responseTimes.length > 0
-    ? Math.round(responseTimes.reduce((sum: number, time: number) => sum + time, 0) / responseTimes.length)
-    : 250;
+  const responseTimes =
+    recentLogs
+      ?.map((log: any) => log.metadata?.response_time_ms)
+      .filter((time: any) => time !== undefined && time !== null) || [];
+  const avgResponseTime =
+    responseTimes.length > 0
+      ? Math.round(
+          responseTimes.reduce((sum: number, time: number) => sum + time, 0) / responseTimes.length
+        )
+      : 250;
 
   // 4. Build heartbeat payload
   const heartbeat = {
@@ -316,7 +323,7 @@ async function sendHeartbeat(supabase: any) {
   // 4.5. Trigger CRITICAL alerts if health degraded
   if (criticalCount > 0 || !heartbeat.health.all_agents_healthy) {
     console.warn("[CENTRAL-BRAIN] CRITICAL health detected, triggering alert...");
-    
+
     try {
       const alertPayload = {
         alert_type: "critical",
@@ -325,7 +332,9 @@ async function sendHeartbeat(supabase: any) {
         details: {
           critical_issues: criticalCount,
           warnings: warningCount,
-          unhealthy_agents: agents.filter((a: any) => a.status === "error").map((a: any) => a.agent_name),
+          unhealthy_agents: agents
+            .filter((a: any) => a.status === "error")
+            .map((a: any) => a.agent_name),
           uptime_percentage: uptimePercentage,
         },
         source: "central-brain",
@@ -346,16 +355,14 @@ async function sendHeartbeat(supabase: any) {
   }
 
   // 5. Save to heartbeat_history
-  const { error: historyError } = await supabase
-    .from("heartbeat_history")
-    .insert({
-      agent_health: heartbeat.agents,
-      critical_issues: heartbeat.health.critical_issues,
-      warnings: heartbeat.health.warnings,
-      all_agents_healthy: heartbeat.health.all_agents_healthy,
-      uptime_percentage: heartbeat.metrics.uptime_percentage,
-      avg_response_time_ms: heartbeat.metrics.avg_response_time_ms,
-    });
+  const { error: historyError } = await supabase.from("heartbeat_history").insert({
+    agent_health: heartbeat.agents,
+    critical_issues: heartbeat.health.critical_issues,
+    warnings: heartbeat.health.warnings,
+    all_agents_healthy: heartbeat.health.all_agents_healthy,
+    uptime_percentage: heartbeat.metrics.uptime_percentage,
+    avg_response_time_ms: heartbeat.metrics.avg_response_time_ms,
+  });
 
   if (historyError) {
     console.error("[CENTRAL-BRAIN] Failed to save heartbeat history:", historyError);

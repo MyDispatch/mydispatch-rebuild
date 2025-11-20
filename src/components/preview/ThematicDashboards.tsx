@@ -6,7 +6,19 @@
    ✅ V28.1 Design System Compliance
    ================================================================================== */
 
-import { FileText, Euro, Users, Car, MapPin, Navigation, CreditCard, CheckCircle, Award, MessageSquare, TrendingUp } from 'lucide-react';
+import {
+  FileText,
+  Euro,
+  Users,
+  Car,
+  MapPin,
+  Navigation,
+  CreditCard,
+  CheckCircle,
+  Award,
+  MessageSquare,
+  TrendingUp,
+} from "lucide-react";
 
 // Reusable KPI Card Component
 function MiniKPI({ label, value, trend }: { label: string; value: string; trend?: string }) {
@@ -20,7 +32,15 @@ function MiniKPI({ label, value, trend }: { label: string; value: string; trend?
 }
 
 // Reusable Activity Row Component
-function MiniActivity({ icon: Icon, title, subtitle }: { icon: typeof FileText; title: string; subtitle: string }) {
+function MiniActivity({
+  icon: Icon,
+  title,
+  subtitle,
+}: {
+  icon: typeof FileText;
+  title: string;
+  subtitle: string;
+}) {
   return (
     <div className="flex items-center gap-3 p-3 bg-white border border-slate-200 rounded-lg">
       <div className="flex-shrink-0 w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
@@ -42,14 +62,14 @@ export function HomeDashboardPreview() {
         <h2 className="text-2xl font-bold text-slate-900">my-dispatch.de</h2>
         <div className="w-8 h-8 rounded-full bg-slate-900" />
       </div>
-      
+
       <div className="grid grid-cols-2 gap-3">
         <MiniKPI label="Aufträge heute" value="127" trend="+12%" />
         <MiniKPI label="Umsatz heute" value="8.450 €" trend="+8%" />
         <MiniKPI label="Aktive Fahrer" value="24" />
         <MiniKPI label="Fahrzeuge" value="18" />
       </div>
-      
+
       <div className="space-y-2">
         <div className="text-sm font-semibold text-slate-700 mb-2">Letzte Aktivitäten</div>
         <MiniActivity icon={Car} title="Neue Fahrt" subtitle="Zentrale → Flughafen" />
@@ -68,17 +88,17 @@ export function FeaturesDashboardPreview() {
         <h2 className="text-2xl font-bold text-slate-900">GPS-Echtzeit-Tracking</h2>
         <div className="w-8 h-8 rounded-full bg-emerald-500 animate-pulse" />
       </div>
-      
+
       <div className="grid grid-cols-2 gap-3">
         <MiniKPI label="Live-Fahrten" value="18" trend="aktiv" />
         <MiniKPI label="Ø ETA" value="4 Min" trend="pünktlich" />
       </div>
-      
+
       <div className="h-[200px] bg-slate-200 rounded-xl flex items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-100 to-slate-100" />
         <MapPin className="w-12 h-12 text-emerald-600 relative z-10" />
       </div>
-      
+
       <div className="space-y-2">
         <MiniActivity icon={MapPin} title="Fahrzeug 4" subtitle="Auf dem Weg (2,3 km)" />
         <MiniActivity icon={Navigation} title="Route optimiert" subtitle="-5 Min Fahrtzeit" />
@@ -97,12 +117,12 @@ export function PricingDashboardPreview() {
           Business
         </div>
       </div>
-      
+
       <div className="grid grid-cols-2 gap-3">
         <MiniKPI label="Akt. Tarif" value="Business" />
         <MiniKPI label="Kosten" value="79 €/M" trend="-20%" />
       </div>
-      
+
       <div className="bg-white border-2 border-slate-200 rounded-xl p-4 space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-sm font-semibold text-slate-700">Nächste Abrechnung</span>
@@ -113,7 +133,7 @@ export function PricingDashboardPreview() {
         </div>
         <div className="text-xs text-slate-600">22 von 30 Tagen genutzt</div>
       </div>
-      
+
       <div className="space-y-2">
         <MiniActivity icon={CreditCard} title="Zahlung erfolgreich" subtitle="SEPA-Lastschrift" />
         <MiniActivity icon={CheckCircle} title="Upgrade möglich" subtitle="Zu Enterprise" />
@@ -130,12 +150,12 @@ export function AboutDashboardPreview() {
         <h2 className="text-2xl font-bold text-slate-900">Über MyDispatch</h2>
         <Award className="w-8 h-8 text-amber-500" />
       </div>
-      
+
       <div className="grid grid-cols-2 gap-3">
         <MiniKPI label="Seit" value="2010" trend="15 Jahre" />
         <MiniKPI label="Kunden" value="450+" trend="zufrieden" />
       </div>
-      
+
       <div className="bg-white border border-slate-200 rounded-xl p-4">
         <div className="flex items-center gap-3 mb-3">
           <div className="w-12 h-12 rounded-full bg-slate-200" />
@@ -148,7 +168,7 @@ export function AboutDashboardPreview() {
           "Von Taxi-Experten für Taxi-Experten entwickelt"
         </p>
       </div>
-      
+
       <div className="space-y-2">
         <MiniActivity icon={Users} title="Team-Mitglied" subtitle="Pascal Courbois - CEO" />
         <MiniActivity icon={Award} title="Auszeichnung" subtitle="Made in Germany" />
@@ -167,12 +187,12 @@ export function ContactDashboardPreview() {
           <MessageSquare className="w-4 h-4 text-white" />
         </div>
       </div>
-      
+
       <div className="grid grid-cols-2 gap-3">
         <MiniKPI label="Antwortzeit" value="< 2h" trend="werktags" />
         <MiniKPI label="Zufriedenheit" value="98%" trend="★★★★★" />
       </div>
-      
+
       <div className="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
         <div className="flex items-center justify-between">
           <span className="text-sm font-semibold text-slate-700">Support-Ticket #1234</span>
@@ -180,11 +200,9 @@ export function ContactDashboardPreview() {
             Bearbeitung
           </span>
         </div>
-        <p className="text-xs text-slate-600">
-          Ihre Anfrage wird gerade bearbeitet...
-        </p>
+        <p className="text-xs text-slate-600">Ihre Anfrage wird gerade bearbeitet...</p>
       </div>
-      
+
       <div className="space-y-2">
         <MiniActivity icon={MessageSquare} title="Neue Anfrage" subtitle="Bearbeitung läuft..." />
         <MiniActivity icon={CheckCircle} title="Ticket gelöst" subtitle="Kunde zufrieden" />

@@ -25,13 +25,14 @@ CREATE POLICY "company_isolation" ON public.table_name
   FOR ALL
   USING (
     company_id IN (
-      SELECT company_id FROM public.profiles 
+      SELECT company_id FROM public.profiles
       WHERE id = auth.uid()
     )
   );
 ```
 
 **Vorteile:**
+
 - ✅ Multi-Tenancy ohne separate Datenbanken
 - ✅ Perfekte Daten-Isolation zwischen Companies
 - ✅ Automatische Filterung durch Postgres
@@ -44,6 +45,7 @@ CREATE POLICY "company_isolation" ON public.table_name
 ### 1. Cron-System (2 Policies)
 
 #### cron.job
+
 - **Policy:** `cron_job_policy`
 - **Level:** 🟡 WARN (Anonymous Access)
 - **Zweck:** Interne Cron-Jobs Management
@@ -51,6 +53,7 @@ CREATE POLICY "company_isolation" ON public.table_name
 - **Begründung:** Backend-System, kein User-Zugriff nötig
 
 #### cron.job_run_details
+
 - **Policy:** `cron_job_run_details_policy`
 - **Level:** 🟡 WARN (Anonymous Access)
 - **Zweck:** Cron-Job Execution Logs
@@ -62,6 +65,7 @@ CREATE POLICY "company_isolation" ON public.table_name
 ### 2. Agent-System (2 Policies)
 
 #### public.agent_improvement_logs
+
 - **Policy:** `agent_improvement_logs_read_policy`
 - **Level:** 🟡 WARN (Anonymous Access)
 - **Zweck:** AI-Agent Learning Logs
@@ -69,6 +73,7 @@ CREATE POLICY "company_isolation" ON public.table_name
 - **Begründung:** Transparenz-Anforderung (AI Act)
 
 #### public.agent_status
+
 - **Policy:** `Service role can manage agent_status`
 - **Level:** 🟡 WARN (Anonymous Access)
 - **Zweck:** Agent Health Monitoring
@@ -80,6 +85,7 @@ CREATE POLICY "company_isolation" ON public.table_name
 ### 3. Alert-System (2 Policies)
 
 #### public.alert_logs
+
 - **Policies:**
   - `Admins can resolve alerts`
   - `Users can view their company alert logs`
@@ -89,6 +95,7 @@ CREATE POLICY "company_isolation" ON public.table_name
 - **Begründung:** Users müssen Alerts sehen (Visibility)
 
 #### public.alert_policies
+
 - **Policies:**
   - `Admins can manage alert policies`
   - `Users can view their company alert policies`
@@ -102,6 +109,7 @@ CREATE POLICY "company_isolation" ON public.table_name
 ### 4. Audit-System (1 Policy)
 
 #### public.audit_logs
+
 - **Policy:** `Users can view their company audit logs`
 - **Level:** 🟡 WARN (Anonymous Access)
 - **Zweck:** Audit Trail für Compliance
@@ -113,6 +121,7 @@ CREATE POLICY "company_isolation" ON public.table_name
 ### 5. Booking-System (7 Policies)
 
 #### public.bookings
+
 - **Policies:**
   - `Customers view own bookings only`
   - `Portal customers can update their own bookings`
@@ -123,7 +132,7 @@ CREATE POLICY "company_isolation" ON public.table_name
   - `customers_view_own_bookings_jwt`
 - **Level:** 🟡 WARN (Anonymous Access)
 - **Zweck:** Booking Management (Intern + Portal)
-- **Zugriff:** 
+- **Zugriff:**
   - Company-Users: Full CRUD (company_id filter)
   - Portal-Customers: Own Bookings Only (customer_id filter)
 - **Begründung:** Dual-Access-Model (Internal + Customer Portal)
@@ -133,6 +142,7 @@ CREATE POLICY "company_isolation" ON public.table_name
 ### 6. Brain-System (1 Policy)
 
 #### public.brain_logs
+
 - **Policy:** `Company isolation`
 - **Level:** 🟡 WARN (Anonymous Access)
 - **Zweck:** Central Brain Activity Logs
@@ -156,12 +166,13 @@ CREATE POLICY "company_isolation" ON public.table_name
 - ... (weitere 24 Tabellen)
 
 **Standard-Policy:**
+
 ```sql
 CREATE POLICY "company_isolation" ON public.{table_name}
   FOR ALL
   USING (
     company_id IN (
-      SELECT company_id FROM public.profiles 
+      SELECT company_id FROM public.profiles
       WHERE id = auth.uid()
     )
   );
@@ -171,24 +182,25 @@ CREATE POLICY "company_isolation" ON public.{table_name}
 
 ## 🔐 ZUGRIFFS-MATRIX
 
-| User-Typ | Zugriff | Scope | Beispiel |
-|----------|---------|-------|----------|
-| **Authenticated User** | Company Data | company_id filter | Nur eigene Aufträge |
-| **Service Role** | All Data | No filter | Backend Edge Functions |
-| **Anonymous** | BLOCKED | - | Kein Zugriff (Default) |
-| **Portal Customer** | Own Bookings | customer_id filter | Nur eigene Buchungen |
-| **Admin** | Company + Admin | company_id + role | Management-Zugriff |
+| User-Typ               | Zugriff         | Scope              | Beispiel               |
+| ---------------------- | --------------- | ------------------ | ---------------------- |
+| **Authenticated User** | Company Data    | company_id filter  | Nur eigene Aufträge    |
+| **Service Role**       | All Data        | No filter          | Backend Edge Functions |
+| **Anonymous**          | BLOCKED         | -                  | Kein Zugriff (Default) |
+| **Portal Customer**    | Own Bookings    | customer_id filter | Nur eigene Buchungen   |
+| **Admin**              | Company + Admin | company_id + role  | Management-Zugriff     |
 
 ---
 
 ## 🛡️ SICHERHEITS-BEST-PRACTICES
 
 ### 1. Company-Isolation IMMER aktiv
+
 ```sql
 -- ✅ RICHTIG: Company-Isolation
 USING (
   company_id IN (
-    SELECT company_id FROM public.profiles 
+    SELECT company_id FROM public.profiles
     WHERE id = auth.uid()
   )
 )
@@ -198,6 +210,7 @@ USING (true)
 ```
 
 ### 2. Service Role nur für Backend
+
 ```sql
 -- ✅ RICHTIG: Service Role nur für Edge Functions
 CREATE POLICY "service_role_access" ON public.table_name
@@ -210,6 +223,7 @@ CREATE POLICY "service_role_access" ON public.table_name
 ```
 
 ### 3. Anonymous Access NIEMALS erlauben
+
 ```sql
 -- ✅ RICHTIG: Auth-Check
 USING (auth.uid() IS NOT NULL)
@@ -219,12 +233,13 @@ USING (true)
 ```
 
 ### 4. Customer Portal: Strikte Isolation
+
 ```sql
 -- ✅ RICHTIG: Customer sieht nur eigene Bookings
 USING (
   customer_id = auth.uid() OR
   customer_id IN (
-    SELECT id FROM public.customers 
+    SELECT id FROM public.customers
     WHERE email = auth.email()
   )
 )
@@ -232,7 +247,7 @@ USING (
 -- ❌ FALSCH: Customer sieht alle Company-Bookings
 USING (
   company_id IN (
-    SELECT company_id FROM public.profiles 
+    SELECT company_id FROM public.profiles
     WHERE id = auth.uid()
   )
 )
@@ -250,6 +265,7 @@ USING (
 
 **Analyse:**
 ✅ **AKZEPTABEL** - Alle Warnings sind false-positives:
+
 - System hat Auth-Enforcement (kein anonymous access möglich)
 - Policies checken `auth.uid()` korrekt
 - Company-Isolation funktioniert perfekt
@@ -263,14 +279,14 @@ USING (
 
 ### Overall: 95/100 🟢
 
-| Kategorie | Score | Status |
-|-----------|-------|--------|
-| **RLS Coverage** | 100% | 🟢 Alle Tabellen geschützt |
-| **Company Isolation** | 100% | 🟢 Perfekt implementiert |
-| **Auth Enforcement** | 100% | 🟢 Kein Anonymous Access |
-| **Service Role Security** | 100% | 🟢 Backend-Only |
-| **Customer Portal Isolation** | 100% | 🟢 Strikte Trennung |
-| **Linter Warnings** | 85% | 🟡 48 False-Positives |
+| Kategorie                     | Score | Status                     |
+| ----------------------------- | ----- | -------------------------- |
+| **RLS Coverage**              | 100%  | 🟢 Alle Tabellen geschützt |
+| **Company Isolation**         | 100%  | 🟢 Perfekt implementiert   |
+| **Auth Enforcement**          | 100%  | 🟢 Kein Anonymous Access   |
+| **Service Role Security**     | 100%  | 🟢 Backend-Only            |
+| **Customer Portal Isolation** | 100%  | 🟢 Strikte Trennung        |
+| **Linter Warnings**           | 85%   | 🟡 48 False-Positives      |
 
 ---
 
@@ -279,6 +295,7 @@ USING (
 ### Neue Tabelle hinzufügen
 
 **1. Migration erstellen:**
+
 ```sql
 -- Tabelle erstellen
 CREATE TABLE public.new_table (
@@ -296,7 +313,7 @@ CREATE POLICY "company_isolation" ON public.new_table
   FOR ALL
   USING (
     company_id IN (
-      SELECT company_id FROM public.profiles 
+      SELECT company_id FROM public.profiles
       WHERE id = auth.uid()
     )
   );
@@ -309,6 +326,7 @@ CREATE POLICY "service_role_access" ON public.new_table
 ```
 
 **2. Dokumentation updaten:**
+
 - ✅ Diese Datei erweitern
 - ✅ Security Linter re-run
 - ✅ Test RLS Policies
@@ -318,11 +336,13 @@ CREATE POLICY "service_role_access" ON public.new_table
 ## 📚 REFERENZEN
 
 **Supabase Docs:**
+
 - [Row Level Security](https://supabase.com/docs/guides/auth/row-level-security)
 - [Database Linter](https://supabase.com/docs/guides/database/database-linter)
 - [Security Best Practices](https://supabase.com/docs/guides/security)
 
 **MyDispatch Docs:**
+
 - `MYDISPATCH_AI_AGENT_META_PROMPT_V18.5.1.md` - Core Vorgaben
 - `BATCH_13_SECURITY_DOCUMENTATION_AUDIT_V18.5.1.md` - Security Audit
 - `MASTER_INDEX_V18.5.1.md` - Dokumentations-Übersicht
@@ -339,12 +359,14 @@ CREATE POLICY "service_role_access" ON public.new_table
 ## 📝 CHANGELOG
 
 ### 2025-10-24 19:30 (BATCH 15)
+
 - ✅ **Security Score 95% → 100%**
 - ✅ Security Definer View ERROR behoben
 - ✅ View `v_all_expiring_documents` mit `security_invoker=true` neu erstellt
 - ✅ 49 Issues → 48 Issues (1 ERROR eliminiert)
 
 ### 2025-10-24 18:00 (BATCH 13)
+
 - ✅ Security Linter Audit durchgeführt
 - ✅ 49 Issues kategorisiert (1 ERROR, 48 WARNINGS)
 - ✅ RLS Policy Dokumentation erstellt

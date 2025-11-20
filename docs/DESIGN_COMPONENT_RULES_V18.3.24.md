@@ -1,4 +1,5 @@
 # 🎨 DESIGN COMPONENT RULES V18.3.24
+
 **Spezifische Komponenten-Regeln & Design-Patterns**
 
 Datum: 18.01.2025  
@@ -18,6 +19,7 @@ Dieses Dokument definiert **spezifische Design-Regeln für UI-Komponenten**, die
 ### Grundregeln
 
 **✅ Erlaubte Verwendungen:**
+
 ```tsx
 // Informative Labels (nicht interaktiv)
 <Badge>Empfohlen</Badge>
@@ -26,6 +28,7 @@ Dieses Dokument definiert **spezifische Design-Regeln für UI-Komponenten**, die
 ```
 
 **❌ VERBOTEN:**
+
 ```tsx
 // 1. Keine Hover-Effekte
 <Badge className="hover:bg-primary cursor-pointer" />  // ❌ FALSCH!
@@ -88,9 +91,7 @@ Dieses Dokument definiert **spezifische Design-Regeln für UI-Komponenten**, die
     </DialogHeader>
 
     {/* 2. CONTENT (innerhalb, scrollbar) */}
-    <ScrollArea className="max-h-[60vh]">
-      {/* Scrollbarer Content */}
-    </ScrollArea>
+    <ScrollArea className="max-h-[60vh]">{/* Scrollbarer Content */}</ScrollArea>
 
     {/* 3. FOOTER (innerhalb, unten fixiert) */}
     <div className="px-6 py-4 border-t bg-background">
@@ -104,6 +105,7 @@ Dieses Dokument definiert **spezifische Design-Regeln für UI-Komponenten**, die
 ### Dialog-Footer Regeln
 
 **❌ FALSCH:**
+
 ```tsx
 </DialogContent>  {/* Content schließt */}
 <div className="footer">  {/* Footer AUSSERHALB! */}
@@ -112,9 +114,10 @@ Dieses Dokument definiert **spezifische Design-Regeln für UI-Komponenten**, die
 ```
 
 **✅ RICHTIG:**
+
 ```tsx
   {/* Content */}
-  
+
   {/* Footer INNERHALB DialogContent */}
   <div className="px-6 py-4 border-t bg-background">
     <Button variant="secondary">Schließen</Button>  {/* Sichtbar! */}
@@ -144,14 +147,14 @@ Dieses Dokument definiert **spezifische Design-Regeln für UI-Komponenten**, die
 
 ### Button-Varianten-Matrix
 
-| Variante | Verwendung | Farbe | Hover |
-|----------|------------|-------|-------|
-| `default` | Primär-Aktion | `bg-primary` | `hover:bg-primary/90` |
-| `destructive` | Löschen/Stornieren | `bg-status-error` | `hover:bg-status-error/90` |
-| `outline` | Sekundär (hell) | `border` transparent | `hover:bg-muted` |
-| `secondary` | Sekundär (dunkel) | `bg-secondary` | `hover:bg-secondary/80` |
-| `ghost` | Tertiary/Subtle | transparent | `hover:bg-muted` |
-| `link` | Link-Style | transparent | `underline` |
+| Variante      | Verwendung         | Farbe                | Hover                      |
+| ------------- | ------------------ | -------------------- | -------------------------- |
+| `default`     | Primär-Aktion      | `bg-primary`         | `hover:bg-primary/90`      |
+| `destructive` | Löschen/Stornieren | `bg-status-error`    | `hover:bg-status-error/90` |
+| `outline`     | Sekundär (hell)    | `border` transparent | `hover:bg-muted`           |
+| `secondary`   | Sekundär (dunkel)  | `bg-secondary`       | `hover:bg-secondary/80`    |
+| `ghost`       | Tertiary/Subtle    | transparent          | `hover:bg-muted`           |
+| `link`        | Link-Style         | transparent          | `underline`                |
 
 ### Button-Größen
 
@@ -167,10 +170,7 @@ Dieses Dokument definiert **spezifische Design-Regeln für UI-Komponenten**, die
 ```tsx
 // Für hervorgehobene Aktionen (z.B. Business-Tarif)
 <Button
-  className={cn(
-    "flex-1",
-    tariff.highlighted && "bg-primary hover:bg-primary/90 text-foreground"
-  )}
+  className={cn("flex-1", tariff.highlighted && "bg-primary hover:bg-primary/90 text-foreground")}
 >
   {tariff.ctaText}
 </Button>
@@ -190,12 +190,8 @@ Dieses Dokument definiert **spezifische Design-Regeln für UI-Komponenten**, die
     <CardTitle>Titel</CardTitle>
     <CardDescription>Beschreibung</CardDescription>
   </CardHeader>
-  <CardContent className="space-y-4">
-    {/* Content */}
-  </CardContent>
-  <CardFooter>
-    {/* Optional: Buttons */}
-  </CardFooter>
+  <CardContent className="space-y-4">{/* Content */}</CardContent>
+  <CardFooter>{/* Optional: Buttons */}</CardFooter>
 </Card>
 ```
 
@@ -252,6 +248,7 @@ Dieses Dokument definiert **spezifische Design-Regeln für UI-Komponenten**, die
 ### Wann StatusIndicator verwenden?
 
 **✅ RICHTIG:**
+
 ```tsx
 // Nur für tatsächliche Status-Anzeigen:
 <StatusIndicator status="success">Auftrag bestätigt</StatusIndicator>
@@ -260,29 +257,30 @@ Dieses Dokument definiert **spezifische Design-Regeln für UI-Komponenten**, die
 ```
 
 **❌ FALSCH:**
+
 ```tsx
 // Nicht für allgemeine Icons:
-<CheckIcon className="text-status-success" />  // → Verwende text-foreground!
+<CheckIcon className="text-status-success" /> // → Verwende text-foreground!
 ```
 
 ### StatusIndicator-Implementation
 
 ```tsx
 interface StatusIndicatorProps {
-  status: 'success' | 'warning' | 'error' | 'info';
+  status: "success" | "warning" | "error" | "info";
   children: React.ReactNode;
 }
 
 const StatusIndicator = ({ status, children }: StatusIndicatorProps) => {
   const colors = {
-    success: 'text-status-success bg-status-success/10',
-    warning: 'text-status-warning bg-status-warning/10',
-    error: 'text-status-error bg-status-error/10',
-    info: 'text-muted-foreground bg-muted/10'
+    success: "text-status-success bg-status-success/10",
+    warning: "text-status-warning bg-status-warning/10",
+    error: "text-status-error bg-status-error/10",
+    info: "text-muted-foreground bg-muted/10",
   };
 
   return (
-    <div className={cn('px-2 py-1 rounded-full text-xs font-medium', colors[status])}>
+    <div className={cn("px-2 py-1 rounded-full text-xs font-medium", colors[status])}>
       {children}
     </div>
   );

@@ -8,32 +8,33 @@
    - WebP Support mit Fallback
    ================================================================================== */
 
-import { useState, ImgHTMLAttributes } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
+import { useState, ImgHTMLAttributes } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
-interface OptimizedImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'onLoad' | 'onError'> {
+interface OptimizedImageProps
+  extends Omit<ImgHTMLAttributes<HTMLImageElement>, "onLoad" | "onError"> {
   src: string;
   alt: string;
   width?: number;
   height?: number;
-  aspectRatio?: '16/9' | '4/3' | '1/1' | '3/2';
+  aspectRatio?: "16/9" | "4/3" | "1/1" | "3/2";
   className?: string;
   priority?: boolean; // Skip lazy loading for above-the-fold images
   srcSet?: string; // Custom srcSet (overrides retinaOptimized)
   sizes?: string; // Responsive sizes attribute
-  format?: 'webp' | 'avif' | 'png'; // Preferred format
+  format?: "webp" | "avif" | "png"; // Preferred format
   retinaOptimized?: boolean; // Auto-generate 2x/3x srcSet
 }
 
 /**
  * Performance-optimized image component
- * 
+ *
  * Features:
  * - Automatic lazy loading (unless priority=true)
  * - Progressive loading with skeleton
  * - Responsive sizing
  * - Fade-in transition
- * 
+ *
  * @example
  * ```tsx
  * <OptimizedImage
@@ -50,11 +51,11 @@ export const OptimizedImage = ({
   width,
   height,
   aspectRatio,
-  className = '',
+  className = "",
   priority = false,
   srcSet: customSrcSet,
-  sizes = '100vw',
-  format = 'webp',
+  sizes = "100vw",
+  format = "webp",
   retinaOptimized = false,
   ...props
 }: OptimizedImageProps) => {
@@ -73,52 +74,50 @@ export const OptimizedImage = ({
   // Calculate aspect ratio padding
   const aspectRatioPadding = aspectRatio
     ? {
-        '16/9': '56.25%',
-        '4/3': '75%',
-        '1/1': '100%',
-        '3/2': '66.67%',
+        "16/9": "56.25%",
+        "4/3": "75%",
+        "1/1": "100%",
+        "3/2": "66.67%",
       }[aspectRatio]
     : undefined;
 
   // Auto-generate Retina srcSet if enabled
-  const generatedSrcSet = retinaOptimized && !customSrcSet
-    ? `${src.replace(/\.(png|jpg|jpeg)$/i, `@2x.${format}`)} 2x, ${src.replace(/\.(png|jpg|jpeg)$/i, `@3x.${format}`)} 3x`
-    : customSrcSet;
+  const generatedSrcSet =
+    retinaOptimized && !customSrcSet
+      ? `${src.replace(/\.(png|jpg|jpeg)$/i, `@2x.${format}`)} 2x, ${src.replace(/\.(png|jpg|jpeg)$/i, `@3x.${format}`)} 3x`
+      : customSrcSet;
 
   // Determine if we should use <picture> for format fallbacks
-  const usePicture = format === 'webp' || format === 'avif';
+  const usePicture = format === "webp" || format === "avif";
 
   return (
-    <div className={`relative overflow-hidden ${className}`} style={{ paddingBottom: aspectRatioPadding }}>
+    <div
+      className={`relative overflow-hidden ${className}`}
+      style={{ paddingBottom: aspectRatioPadding }}
+    >
       {/* Skeleton while loading */}
-      {!loaded && !error && (
-        <Skeleton className="absolute inset-0 w-full h-full" />
-      )}
+      {!loaded && !error && <Skeleton className="absolute inset-0 w-full h-full" />}
 
       {/* Image with optional <picture> wrapper */}
-      {!error && (
-        usePicture ? (
+      {!error &&
+        (usePicture ? (
           <picture>
             {/* WebP/AVIF Source */}
-            <source 
-              type={`image/${format}`}
-              srcSet={generatedSrcSet || src}
-              sizes={sizes}
-            />
+            <source type={`image/${format}`} srcSet={generatedSrcSet || src} sizes={sizes} />
             {/* Fallback to original format */}
             <img
               src={src}
               alt={alt}
               width={width}
               height={height}
-              loading={priority ? 'eager' : 'lazy'}
+              loading={priority ? "eager" : "lazy"}
               decoding="async"
               onLoad={handleLoad}
               onError={handleError}
               className={`
                 absolute inset-0 w-full h-full object-cover
                 transition-opacity duration-500 image-rendering-crisp
-                ${loaded ? 'opacity-100' : 'opacity-0'}
+                ${loaded ? "opacity-100" : "opacity-0"}
               `}
               {...props}
             />
@@ -131,19 +130,18 @@ export const OptimizedImage = ({
             alt={alt}
             width={width}
             height={height}
-            loading={priority ? 'eager' : 'lazy'}
+            loading={priority ? "eager" : "lazy"}
             decoding="async"
             onLoad={handleLoad}
             onError={handleError}
             className={`
               absolute inset-0 w-full h-full object-cover
               transition-opacity duration-500 image-rendering-crisp
-              ${loaded ? 'opacity-100' : 'opacity-0'}
+              ${loaded ? "opacity-100" : "opacity-0"}
             `}
             {...props}
           />
-        )
-      )}
+        ))}
 
       {/* Error fallback */}
       {error && (

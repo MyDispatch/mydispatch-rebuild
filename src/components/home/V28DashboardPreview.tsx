@@ -16,8 +16,8 @@
    ```
    ================================================================================== */
 
-import { FileText, Euro, Users, Car, Clock, TrendingUp } from 'lucide-react';
-import { V28BrowserMockup } from './V28BrowserMockup';
+import { FileText, Euro, Users, Car, Clock, TrendingUp } from "lucide-react";
+import { V28BrowserMockup } from "./V28BrowserMockup";
 
 interface V28DashboardPreviewProps {
   animationDelay?: string;
@@ -29,14 +29,11 @@ interface V28DashboardPreviewProps {
  * Diese Component wird in V30.0 entfernt.
  */
 export function V28DashboardPreview({
-  animationDelay = '0.6s',
-  title = 'my-dispatch.de/dashboard'
+  animationDelay = "0.6s",
+  title = "my-dispatch.de/dashboard",
 }: V28DashboardPreviewProps) {
   return (
-    <div 
-      className="hidden lg:block animate-fade-in"
-      style={{ animationDelay }}
-    >
+    <div className="hidden lg:block animate-fade-in" style={{ animationDelay }}>
       <V28BrowserMockup title={title}>
         {/* Dashboard Header */}
         <div className="px-6 py-4 border-b border-slate-200 bg-slate-50">
@@ -46,18 +43,12 @@ export function V28DashboardPreview({
                 <TrendingUp className="w-5 h-5 text-slate-700" />
               </div>
               <div>
-                <h3 className="font-sans text-base font-bold text-slate-900">
-                  Live-Dashboard
-                </h3>
-                <p className="font-sans text-xs text-slate-600">
-                  Echtzeit-Übersicht
-                </p>
+                <h3 className="font-sans text-base font-bold text-slate-900">Live-Dashboard</h3>
+                <p className="font-sans text-xs text-slate-600">Echtzeit-Übersicht</p>
               </div>
             </div>
             <div className="px-2 py-1 rounded-lg bg-green-100 ring-1 ring-green-200">
-              <span className="font-sans text-xs font-bold text-green-700">
-                Live
-              </span>
+              <span className="font-sans text-xs font-bold text-green-700">Live</span>
             </div>
           </div>
         </div>
@@ -69,79 +60,55 @@ export function V28DashboardPreview({
             {/* Aufträge */}
             <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-lg hover:shadow-xl hover:scale-[1.01] transition-all duration-200 group">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-sans text-xs font-medium text-slate-600">
-                  Aufträge
-                </span>
+                <span className="font-sans text-xs font-medium text-slate-600">Aufträge</span>
                 <div className="p-1.5 rounded-lg bg-slate-50">
                   <FileText className="w-4 h-4 text-slate-700" />
                 </div>
               </div>
-              <div className="font-sans text-2xl font-bold text-slate-900">
-                142
-              </div>
+              <div className="font-sans text-2xl font-bold text-slate-900">142</div>
               <div className="flex items-center gap-1 mt-1">
                 <TrendingUp className="w-3 h-3 text-green-600" />
-                <span className="font-sans text-xs font-semibold text-green-600">
-                  +12%
-                </span>
+                <span className="font-sans text-xs font-semibold text-green-600">+12%</span>
               </div>
             </div>
 
             {/* Umsatz */}
             <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-lg hover:shadow-xl hover:scale-[1.01] transition-all duration-200 group">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-sans text-xs font-medium text-slate-600">
-                  Umsatz
-                </span>
+                <span className="font-sans text-xs font-medium text-slate-600">Umsatz</span>
                 <div className="p-1.5 rounded-lg bg-slate-50">
                   <Euro className="w-4 h-4 text-slate-700" />
                 </div>
               </div>
-              <div className="font-sans text-2xl font-bold text-slate-900">
-                12.5k
-              </div>
+              <div className="font-sans text-2xl font-bold text-slate-900">12.5k</div>
               <div className="flex items-center gap-1 mt-1">
                 <TrendingUp className="w-3 h-3 text-green-600" />
-                <span className="font-sans text-xs font-semibold text-green-600">
-                  +8%
-                </span>
+                <span className="font-sans text-xs font-semibold text-green-600">+8%</span>
               </div>
             </div>
 
             {/* Fahrer */}
             <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-lg hover:shadow-xl hover:scale-[1.01] transition-all duration-200 group">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-sans text-xs font-medium text-slate-600">
-                  Fahrer
-                </span>
+                <span className="font-sans text-xs font-medium text-slate-600">Fahrer</span>
                 <div className="p-1.5 rounded-lg bg-slate-50">
                   <Users className="w-4 h-4 text-slate-700" />
                 </div>
               </div>
-              <div className="font-sans text-2xl font-bold text-slate-900">
-                28
-              </div>
-              <div className="font-sans text-xs text-slate-500 mt-1">
-                Aktiv
-              </div>
+              <div className="font-sans text-2xl font-bold text-slate-900">28</div>
+              <div className="font-sans text-xs text-slate-500 mt-1">Aktiv</div>
             </div>
 
             {/* Fahrzeuge */}
             <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-lg hover:shadow-xl hover:scale-[1.01] transition-all duration-200 group">
               <div className="flex items-center justify-between mb-2">
-                <span className="font-sans text-xs font-medium text-slate-600">
-                  Fahrzeuge
-                </span>
+                <span className="font-sans text-xs font-medium text-slate-600">Fahrzeuge</span>
                 <div className="p-1.5 rounded-lg bg-slate-50">
                   <Car className="w-4 h-4 text-slate-700" />
                 </div>
               </div>
-              <div className="font-sans text-2xl font-bold text-slate-900">
-                35
-              </div>
-              <div className="font-sans text-xs text-slate-500 mt-1">
-                Im Einsatz
-              </div>
+              <div className="font-sans text-2xl font-bold text-slate-900">35</div>
+              <div className="font-sans text-xs text-slate-500 mt-1">Im Einsatz</div>
             </div>
           </div>
 
@@ -168,9 +135,7 @@ export function V28DashboardPreview({
                     </div>
                   </div>
                   <div className="px-2 py-0.5 rounded-md bg-green-100 ring-1 ring-green-200">
-                    <span className="font-sans text-xs font-bold text-green-700">
-                      Live
-                    </span>
+                    <span className="font-sans text-xs font-bold text-green-700">Live</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between pl-9">
@@ -178,9 +143,7 @@ export function V28DashboardPreview({
                     <Clock className="w-3 h-3" />
                     <span className="font-sans text-xs">12:45 Uhr</span>
                   </div>
-                  <span className="font-sans text-xs font-medium text-green-600">
-                    ETA: 13:20
-                  </span>
+                  <span className="font-sans text-xs font-medium text-green-600">ETA: 13:20</span>
                 </div>
               </div>
 
@@ -201,9 +164,7 @@ export function V28DashboardPreview({
                     </div>
                   </div>
                   <div className="px-2 py-0.5 rounded-md bg-slate-200">
-                    <span className="font-sans text-xs font-semibold text-slate-700">
-                      Erledigt
-                    </span>
+                    <span className="font-sans text-xs font-semibold text-slate-700">Erledigt</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between pl-9">
@@ -211,9 +172,7 @@ export function V28DashboardPreview({
                     <Clock className="w-3 h-3" />
                     <span className="font-sans text-xs">11:30 Uhr</span>
                   </div>
-                  <span className="font-sans text-xs font-medium text-slate-600">
-                    €85,50
-                  </span>
+                  <span className="font-sans text-xs font-medium text-slate-600">€85,50</span>
                 </div>
               </div>
 
@@ -234,9 +193,7 @@ export function V28DashboardPreview({
                     </div>
                   </div>
                   <div className="px-2 py-0.5 rounded-md border border-slate-300">
-                    <span className="font-sans text-xs font-semibold text-slate-700">
-                      14:00
-                    </span>
+                    <span className="font-sans text-xs font-semibold text-slate-700">14:00</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between pl-9">
@@ -244,9 +201,7 @@ export function V28DashboardPreview({
                     <Clock className="w-3 h-3" />
                     <span className="font-sans text-xs">Heute</span>
                   </div>
-                  <span className="font-sans text-xs font-medium text-slate-600">
-                    3.5 Std.
-                  </span>
+                  <span className="font-sans text-xs font-medium text-slate-600">3.5 Std.</span>
                 </div>
               </div>
             </div>

@@ -17,11 +17,13 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 ## ✅ IMPLEMENTIERTER STAND (V18.2.31)
 
 ### 1. Basis-Funktionalität
+
 - ✅ Booking-Widget (öffentlich)
 - ✅ Buchungs-Bestätigung per Email
 - ✅ Rechnung per Email
 
 ### 2. Limitierungen
+
 - ❌ Kein Login-Portal
 - ❌ Keine Buchungs-Historie
 - ❌ Keine Rechnungs-Übersicht
@@ -36,6 +38,7 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 **Ziel:** Self-Service-Portal für Geschäftskunden
 
 **Features:**
+
 ```tsx
 <CustomerPortalDashboard>
   {/* Willkommen */}
@@ -47,17 +50,17 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 
   {/* Schnellbuchung */}
   <QuickBookingCard
-    onBook={() => navigate('/portal/customer/book')}
+    onBook={() => navigate("/portal/customer/book")}
     recentRoutes={[
-      { from: 'München HBF', to: 'Flughafen' },
-      { from: 'Büro', to: 'Hotel Marriott' }
+      { from: "München HBF", to: "Flughafen" },
+      { from: "Büro", to: "Hotel Marriott" },
     ]}
   />
 
   {/* Letzte Buchungen */}
   <RecentBookingsCard
     bookings={recentBookings.slice(0, 5)}
-    onViewAll={() => navigate('/portal/customer/bookings')}
+    onViewAll={() => navigate("/portal/customer/bookings")}
   />
 
   {/* Offene Rechnungen */}
@@ -72,6 +75,7 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 ### 2. Buchungs-Historie
 
 **Features:**
+
 - Alle bisherigen Buchungen
 - Filter & Suche
 - Status-Übersicht
@@ -79,6 +83,7 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 - Wiederholung-Funktion
 
 **Implementierung:**
+
 ```tsx
 <BookingHistory>
   {/* Filter */}
@@ -88,29 +93,21 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
       <option value="completed">Abgeschlossen</option>
       <option value="cancelled">Storniert</option>
     </Select>
-    <DateRangePicker
-      startDate={startDate}
-      endDate={endDate}
-      onChange={handleDateChange}
-    />
+    <DateRangePicker startDate={startDate} endDate={endDate} onChange={handleDateChange} />
   </FilterBar>
 
   {/* Buchungen-Liste */}
   <div className="space-y-4">
-    {bookings.map(booking => (
+    {bookings.map((booking) => (
       <BookingCard key={booking.id}>
         <div className="flex justify-between items-start">
           <div>
-            <h3 className="font-semibold">
-              {format(booking.pickup_time, 'dd.MM.yyyy HH:mm')}
-            </h3>
+            <h3 className="font-semibold">{format(booking.pickup_time, "dd.MM.yyyy HH:mm")}</h3>
             <p className="text-sm text-muted-foreground">
               {booking.pickup_address} → {booking.dropoff_address}
             </p>
           </div>
-          <Badge variant={getStatusVariant(booking.status)}>
-            {booking.status}
-          </Badge>
+          <Badge variant={getStatusVariant(booking.status)}>{booking.status}</Badge>
         </div>
 
         <div className="flex gap-2 mt-3">
@@ -132,6 +129,7 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 ### 3. Rechnungs-Übersicht
 
 **Features:**
+
 - Alle Rechnungen
 - Zahlungsstatus
 - PDF-Download
@@ -139,6 +137,7 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 - Mahnwesen-Anzeige
 
 **Implementierung:**
+
 ```tsx
 <InvoiceOverview>
   {/* Finanz-Übersicht */}
@@ -146,37 +145,32 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
     <KPICard
       title="Offener Betrag"
       value={formatCurrency(totalOutstanding)}
-      variant={totalOutstanding > 0 ? 'warning' : 'success'}
+      variant={totalOutstanding > 0 ? "warning" : "success"}
     />
     <KPICard
       title="Kreditlimit"
       value={formatCurrency(customer.credit_limit)}
       progress={(totalOutstanding / customer.credit_limit) * 100}
     />
-    <KPICard
-      title="Umsatz (Jahr)"
-      value={formatCurrency(yearlyRevenue)}
-    />
+    <KPICard title="Umsatz (Jahr)" value={formatCurrency(yearlyRevenue)} />
   </FinancialSummary>
 
   {/* Rechnungen-Liste */}
   <InvoiceList>
-    {invoices.map(invoice => (
+    {invoices.map((invoice) => (
       <InvoiceCard key={invoice.id}>
         <div className="flex justify-between items-start">
           <div>
             <h3 className="font-semibold">{invoice.invoice_number}</h3>
             <p className="text-sm text-muted-foreground">
-              Datum: {format(invoice.invoice_date, 'dd.MM.yyyy')}
+              Datum: {format(invoice.invoice_date, "dd.MM.yyyy")}
             </p>
             <p className="text-sm text-muted-foreground">
-              Fällig: {format(invoice.due_date, 'dd.MM.yyyy')}
+              Fällig: {format(invoice.due_date, "dd.MM.yyyy")}
             </p>
           </div>
           <div className="text-right">
-            <p className="text-lg font-bold">
-              {formatCurrency(invoice.total)}
-            </p>
+            <p className="text-lg font-bold">{formatCurrency(invoice.total)}</p>
             <Badge variant={getPaymentStatusVariant(invoice.payment_status)}>
               {invoice.payment_status}
             </Badge>
@@ -188,7 +182,7 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
             <FileDown className="h-4 w-4 mr-2" />
             PDF
           </Button>
-          {invoice.payment_status === 'pending' && (
+          {invoice.payment_status === "pending" && (
             <Button size="sm" onClick={() => payOnline(invoice.id)}>
               <CreditCard className="h-4 w-4 mr-2" />
               Jetzt bezahlen
@@ -204,6 +198,7 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 ### 4. Erweiterte Buchungs-Optionen
 
 **Features:**
+
 - Template-Buchungen (Favoriten)
 - Wiederholende Buchungen (täglich, wöchentlich)
 - Multi-Stop-Buchungen
@@ -211,21 +206,15 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 - Sonderausstattung
 
 **Implementierung:**
+
 ```tsx
 <AdvancedBookingForm>
   {/* Buchungs-Template */}
-  <TemplateSelector
-    templates={savedTemplates}
-    onSelect={loadTemplate}
-  />
+  <TemplateSelector templates={savedTemplates} onSelect={loadTemplate} />
 
   {/* Wiederholung */}
   <RecurringOptions>
-    <Switch
-      checked={isRecurring}
-      onCheckedChange={setIsRecurring}
-      label="Wiederkehrende Buchung"
-    />
+    <Switch checked={isRecurring} onCheckedChange={setIsRecurring} label="Wiederkehrende Buchung" />
     {isRecurring && (
       <div className="space-y-3">
         <Select value={frequency} onChange={setFrequency}>
@@ -233,22 +222,14 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
           <option value="weekly">Wöchentlich</option>
           <option value="monthly">Monatlich</option>
         </Select>
-        <DatePicker
-          label="Endedatum"
-          value={endDate}
-          onChange={setEndDate}
-        />
+        <DatePicker label="Endedatum" value={endDate} onChange={setEndDate} />
       </div>
     )}
   </RecurringOptions>
 
   {/* Multi-Stop */}
   <MultiStopOptions>
-    <Button
-      type="button"
-      variant="outline"
-      onClick={addStop}
-    >
+    <Button type="button" variant="outline" onClick={addStop}>
       <Plus className="h-4 w-4 mr-2" />
       Zwischenstopp hinzufügen
     </Button>
@@ -286,34 +267,30 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 ### 5. Kostenstellen-Verwaltung
 
 **Features:**
+
 - Eigene Kostenstellen anlegen
 - Buchungen zuordnen
 - Auswertungen nach Kostenstelle
 - Export für Buchhaltung
 
 **Implementierung:**
+
 ```tsx
 <CostCenterManagement>
   {/* Kostenstellen-Liste */}
   <CostCenterList>
-    {costCenters.map(cc => (
+    {costCenters.map((cc) => (
       <CostCenterCard key={cc.id}>
         <div className="flex justify-between items-start">
           <div>
             <h3 className="font-semibold">{cc.name}</h3>
             <p className="text-sm text-muted-foreground">{cc.description}</p>
           </div>
-          <Badge variant="outline">
-            {cc.bookings_count} Fahrten
-          </Badge>
+          <Badge variant="outline">{cc.bookings_count} Fahrten</Badge>
         </div>
         <div className="mt-2">
-          <p className="text-lg font-bold">
-            {formatCurrency(cc.total_spending)}
-          </p>
-          <p className="text-xs text-muted-foreground">
-            Gesamtausgaben
-          </p>
+          <p className="text-lg font-bold">{formatCurrency(cc.total_spending)}</p>
+          <p className="text-xs text-muted-foreground">Gesamtausgaben</p>
         </div>
       </CostCenterCard>
     ))}
@@ -336,21 +313,23 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 ### 6. Live-Tracking (Aktive Fahrt)
 
 **Features:**
+
 - Echtzeit-Position des Fahrzeugs
 - ETA (Estimated Time of Arrival)
 - Fahrer-Info
 - Kontakt-Möglichkeit
 
 **Implementierung:**
+
 ```tsx
 <LiveTrackingView bookingId={activeBookingId}>
   {/* Karte mit Fahrzeug-Position */}
   <HEREMapComponent
     center={vehiclePosition}
     markers={[
-      { position: pickupLocation, type: 'pickup', label: 'Abholung' },
-      { position: vehiclePosition, type: 'vehicle', label: 'Fahrzeug' },
-      { position: dropoffLocation, type: 'dropoff', label: 'Ziel' }
+      { position: pickupLocation, type: "pickup", label: "Abholung" },
+      { position: vehiclePosition, type: "vehicle", label: "Fahrzeug" },
+      { position: dropoffLocation, type: "dropoff", label: "Ziel" },
     ]}
     route={plannedRoute}
   />
@@ -392,21 +371,19 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 ### 7. Profil-Verwaltung
 
 **Features:**
+
 - Stammdaten ändern
 - Rechnungsadresse
 - Präferenzen
 - Benachrichtigungen
 
 **Implementierung:**
+
 ```tsx
 <CustomerProfile>
   {/* Stammdaten */}
   <ProfileSection title="Stammdaten">
-    <PersonFormFields
-      form={profileForm}
-      showSalutation={true}
-      showTitle={true}
-    />
+    <PersonFormFields form={profileForm} showSalutation={true} showTitle={true} />
   </ProfileSection>
 
   {/* Rechnungsadresse */}
@@ -416,9 +393,7 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
       onCheckedChange={setUseSeparateBillingAddress}
       label="Abweichende Rechnungsadresse"
     />
-    {useSeparateBillingAddress && (
-      <AddressFields prefix="billing_" form={profileForm} />
-    )}
+    {useSeparateBillingAddress && <AddressFields prefix="billing_" form={profileForm} />}
   </ProfileSection>
 
   {/* Präferenzen */}
@@ -426,7 +401,7 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
     <Select
       label="Bevorzugte Fahrzeugklasse"
       value={preferences.vehicle_class}
-      onChange={(value) => updatePreference('vehicle_class', value)}
+      onChange={(value) => updatePreference("vehicle_class", value)}
     >
       <option value="Standard">Standard</option>
       <option value="Business">Business</option>
@@ -434,7 +409,7 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
     </Select>
     <Switch
       checked={preferences.auto_assign_cost_center}
-      onCheckedChange={(checked) => updatePreference('auto_assign_cost_center', checked)}
+      onCheckedChange={(checked) => updatePreference("auto_assign_cost_center", checked)}
       label="Kostenstelle automatisch zuweisen"
     />
   </ProfileSection>
@@ -443,17 +418,17 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
   <ProfileSection title="Benachrichtigungen">
     <Switch
       checked={notifications.booking_confirmation}
-      onCheckedChange={(checked) => updateNotification('booking_confirmation', checked)}
+      onCheckedChange={(checked) => updateNotification("booking_confirmation", checked)}
       label="Buchungsbestätigungen"
     />
     <Switch
       checked={notifications.invoice_received}
-      onCheckedChange={(checked) => updateNotification('invoice_received', checked)}
+      onCheckedChange={(checked) => updateNotification("invoice_received", checked)}
       label="Neue Rechnungen"
     />
     <Switch
       checked={notifications.payment_reminder}
-      onCheckedChange={(checked) => updateNotification('payment_reminder', checked)}
+      onCheckedChange={(checked) => updateNotification("payment_reminder", checked)}
       label="Zahlungserinnerungen"
     />
   </ProfileSection>
@@ -467,25 +442,27 @@ Das Kunden-Portal ermöglicht Geschäftskunden einen Self-Service-Zugang zur Buc
 ### Authentifizierung
 
 **Option 1: Magic-Link (empfohlen)**
+
 ```typescript
 // Passwordless Login
 const sendMagicLink = async (email: string) => {
   const { data, error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${window.location.origin}/portal/customer`
-    }
+      emailRedirectTo: `${window.location.origin}/portal/customer`,
+    },
   });
 };
 ```
 
 **Option 2: Passwort-Login**
+
 ```typescript
 // Standard Login
 const signIn = async (email: string, password: string) => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
-    password
+    password,
   });
 };
 ```
@@ -518,33 +495,39 @@ USING (customer_id IN (
 ## 📊 IMPLEMENTIERUNGSPLAN (Kunden-Portal V18.3)
 
 ### Phase 1: Basis-Portal (3 Wochen)
+
 - [ ] Dashboard
 - [ ] Buchungs-Historie
 - [ ] Magic-Link-Auth
 
 ### Phase 2: Rechnungen & Zahlung (2 Wochen)
+
 - [ ] Rechnungs-Übersicht
 - [ ] Online-Zahlung (Stripe)
 - [ ] PDF-Download
 
 ### Phase 3: Erweiterte Buchung (3 Wochen)
+
 - [ ] Templates
 - [ ] Wiederholende Buchungen
 - [ ] Multi-Stop
 - [ ] Sonderausstattung
 
 ### Phase 4: Kostenstellen (2 Wochen)
+
 - [ ] Kostenstellen-Verwaltung
 - [ ] Zuordnung bei Buchung
 - [ ] Auswertungen
 - [ ] CSV-Export
 
 ### Phase 5: Live-Tracking (2 Wochen)
+
 - [ ] Echtzeit-Karte
 - [ ] ETA-Anzeige
 - [ ] Fahrer-Kontakt
 
 ### Phase 6: Profil & Einstellungen (1 Woche)
+
 - [ ] Profil-Verwaltung
 - [ ] Präferenzen
 - [ ] Benachrichtigungen
@@ -558,4 +541,5 @@ USING (customer_id IN (
 ---
 
 **Version History:**
+
 - V18.3.0 (18.10.2025) - Konzept für Kunden-Portal

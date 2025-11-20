@@ -26,6 +26,7 @@
 ### 1.1 Kern-Prinzipien
 
 **Pascal's Vorgaben (ABSOLUT):**
+
 - ✅ **Professionelle Umsetzung** aller Aufgaben
 - ✅ **Qualitätssicherung** durch E2E-Tests, CI/CD-Prozesse
 - ✅ **Höchste Qualitätsstandards** für alle Arbeitsergebnisse
@@ -35,6 +36,7 @@
 ### 1.2 Definition of Done (DoD)
 
 **Eine Arbeit ist NUR dann "Done", wenn:**
+
 1. ✅ **Funktionalität:** Alle Anforderungen erfüllt
 2. ✅ **Code-Qualität:** 0 TypeScript-Errors, 0 ESLint-Warnings
 3. ✅ **Tests:** Alle relevanten Tests geschrieben und bestanden
@@ -53,52 +55,53 @@
 ### 2.1 Playwright Setup (SOLL)
 
 **Konfiguration:**
+
 ```typescript
 // playwright.config.ts
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
-  testDir: './tests/e2e',
+  testDir: "./tests/e2e",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: [
-    ['html'],
-    ['json', { outputFile: 'test-results/results.json' }],
-    ['junit', { outputFile: 'test-results/junit.xml' }]
+    ["html"],
+    ["json", { outputFile: "test-results/results.json" }],
+    ["junit", { outputFile: "test-results/junit.xml" }],
   ],
   use: {
-    baseURL: process.env.VITE_APP_URL || 'http://localhost:5173',
-    trace: 'on-first-retry',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    baseURL: process.env.VITE_APP_URL || "http://localhost:5173",
+    trace: "on-first-retry",
+    screenshot: "only-on-failure",
+    video: "retain-on-failure",
   },
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
     },
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
     },
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: "webkit",
+      use: { ...devices["Desktop Safari"] },
     },
     {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
+      name: "Mobile Chrome",
+      use: { ...devices["Pixel 5"] },
     },
     {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
+      name: "Mobile Safari",
+      use: { ...devices["iPhone 12"] },
     },
   ],
   webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:5173',
+    command: "npm run dev",
+    url: "http://localhost:5173",
     reuseExistingServer: !process.env.CI,
   },
 });
@@ -107,6 +110,7 @@ export default defineConfig({
 ### 2.2 E2E-Test-Kategorien (SOLL)
 
 **1. Critical User Flows:**
+
 - ✅ User Registration & Login
 - ✅ Dashboard Navigation
 - ✅ Booking Creation
@@ -115,22 +119,26 @@ export default defineConfig({
 - ✅ Invoice Generation
 
 **2. Design-System Compliance:**
+
 - ✅ CI-Farben korrekt (keine Hardcoding)
 - ✅ Hero Background Variant korrekt
 - ✅ Layout-Komponenten korrekt
 - ✅ Responsive Design korrekt
 
 **3. Feature-Gating:**
+
 - ✅ Starter-Features funktionieren
 - ✅ Business-Features gated korrekt
 - ✅ Enterprise-Features gated korrekt
 
 **4. Performance:**
+
 - ✅ Page Load Time < 3s
 - ✅ Time-to-Interactive < 5s
 - ✅ Bundle Size < 3MB
 
 **5. Accessibility:**
+
 - ✅ Keyboard Navigation
 - ✅ Screen Reader Compatibility
 - ✅ Touch Targets ≥ 44x44px
@@ -139,43 +147,43 @@ export default defineConfig({
 
 ```typescript
 // tests/e2e/auth.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('Authentication Flow', () => {
-  test('should login successfully', async ({ page }) => {
-    await page.goto('/auth');
-    await page.fill('[data-testid="email"]', 'test@example.com');
-    await page.fill('[data-testid="password"]', 'password123');
+test.describe("Authentication Flow", () => {
+  test("should login successfully", async ({ page }) => {
+    await page.goto("/auth");
+    await page.fill('[data-testid="email"]', "test@example.com");
+    await page.fill('[data-testid="password"]', "password123");
     await page.click('[data-testid="login-button"]');
-    await expect(page).toHaveURL('/dashboard');
+    await expect(page).toHaveURL("/dashboard");
     await expect(page.locator('[data-testid="user-menu"]')).toBeVisible();
   });
 
-  test('should show error on invalid credentials', async ({ page }) => {
-    await page.goto('/auth');
-    await page.fill('[data-testid="email"]', 'wrong@example.com');
-    await page.fill('[data-testid="password"]', 'wrong');
+  test("should show error on invalid credentials", async ({ page }) => {
+    await page.goto("/auth");
+    await page.fill('[data-testid="email"]', "wrong@example.com");
+    await page.fill('[data-testid="password"]', "wrong");
     await page.click('[data-testid="login-button"]');
     await expect(page.locator('[data-testid="error-message"]')).toBeVisible();
   });
 });
 
 // tests/e2e/design-system.spec.ts
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('Design System Compliance', () => {
-  test('CI-Farben nicht hardcoded', async ({ page }) => {
-    await page.goto('/');
+test.describe("Design System Compliance", () => {
+  test("CI-Farben nicht hardcoded", async ({ page }) => {
+    await page.goto("/");
     const styles = await page.evaluate(() => {
-      const elements = document.querySelectorAll('*');
+      const elements = document.querySelectorAll("*");
       const hardcodedColors = [];
-      elements.forEach(el => {
+      elements.forEach((el) => {
         const style = window.getComputedStyle(el);
         const color = style.color || style.backgroundColor;
-        if (color.includes('#EADEBD') || color.includes('#323D5E')) {
+        if (color.includes("#EADEBD") || color.includes("#323D5E")) {
           hardcodedColors.push({
             element: el.tagName,
-            color: color
+            color: color,
           });
         }
       });
@@ -184,10 +192,10 @@ test.describe('Design System Compliance', () => {
     expect(styles).toHaveLength(0);
   });
 
-  test('Hero Background Variant korrekt', async ({ page }) => {
-    await page.goto('/');
+  test("Hero Background Variant korrekt", async ({ page }) => {
+    await page.goto("/");
     const heroSection = page.locator('[data-testid="hero-section"]');
-    await expect(heroSection).toHaveAttribute('data-background-variant', '3d-premium');
+    await expect(heroSection).toHaveAttribute("data-background-variant", "3d-premium");
   });
 });
 ```
@@ -199,28 +207,23 @@ test.describe('Design System Compliance', () => {
 ### 3.1 Vitest Setup (SOLL)
 
 **Konfiguration:**
+
 ```typescript
 // vitest.config.ts
-import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react-swc';
-import path from 'path';
+import { defineConfig } from "vitest/config";
+import react from "@vitejs/plugin-react-swc";
+import path from "path";
 
 export default defineConfig({
   plugins: [react()],
   test: {
     globals: true,
-    environment: 'jsdom',
-    setupFiles: ['./tests/setup.ts'],
+    environment: "jsdom",
+    setupFiles: ["./tests/setup.ts"],
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'tests/',
-        '**/*.d.ts',
-        '**/*.config.*',
-        '**/mockData',
-      ],
+      provider: "v8",
+      reporter: ["text", "json", "html"],
+      exclude: ["node_modules/", "tests/", "**/*.d.ts", "**/*.config.*", "**/mockData"],
       thresholds: {
         lines: 80,
         functions: 80,
@@ -231,7 +234,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      "@": path.resolve(__dirname, "./src"),
     },
   },
 });
@@ -240,18 +243,21 @@ export default defineConfig({
 ### 3.2 Test-Kategorien (SOLL)
 
 **Unit Tests:**
+
 - ✅ Utility Functions
 - ✅ Hooks
 - ✅ Helper Functions
 - ✅ Formatting Functions
 
 **Integration Tests:**
+
 - ✅ API Integration
 - ✅ Component Integration
 - ✅ State Management
 - ✅ Form Handling
 
 **Component Tests:**
+
 - ✅ Rendering
 - ✅ User Interactions
 - ✅ Props Validation
@@ -261,39 +267,39 @@ export default defineConfig({
 
 ```typescript
 // tests/unit/formatting.test.ts
-import { describe, it, expect } from 'vitest';
-import { formatCurrency, formatDate, formatNumber } from '@/lib/formatting';
+import { describe, it, expect } from "vitest";
+import { formatCurrency, formatDate, formatNumber } from "@/lib/formatting";
 
-describe('Formatting Functions', () => {
-  describe('formatCurrency', () => {
-    it('should format EUR correctly (DIN 5008)', () => {
-      expect(formatCurrency(1234.56)).toBe('1.234,56 €');
-      expect(formatCurrency(1000)).toBe('1.000,00 €');
-      expect(formatCurrency(0)).toBe('0,00 €');
+describe("Formatting Functions", () => {
+  describe("formatCurrency", () => {
+    it("should format EUR correctly (DIN 5008)", () => {
+      expect(formatCurrency(1234.56)).toBe("1.234,56 €");
+      expect(formatCurrency(1000)).toBe("1.000,00 €");
+      expect(formatCurrency(0)).toBe("0,00 €");
     });
   });
 
-  describe('formatDate', () => {
-    it('should format date as DD.MM.YYYY', () => {
-      const date = new Date('2025-01-31');
-      expect(formatDate(date)).toBe('31.01.2025');
+  describe("formatDate", () => {
+    it("should format date as DD.MM.YYYY", () => {
+      const date = new Date("2025-01-31");
+      expect(formatDate(date)).toBe("31.01.2025");
     });
   });
 });
 
 // tests/integration/api.test.ts
-import { describe, it, expect } from 'vitest';
-import { createBooking } from '@/lib/api/bookings';
+import { describe, it, expect } from "vitest";
+import { createBooking } from "@/lib/api/bookings";
 
-describe('Booking API', () => {
-  it('should create booking with company_id', async () => {
+describe("Booking API", () => {
+  it("should create booking with company_id", async () => {
     const booking = await createBooking({
-      pickup_address: 'München',
-      dropoff_address: 'Flughafen',
-      company_id: 'test-company-id',
+      pickup_address: "München",
+      dropoff_address: "Flughafen",
+      company_id: "test-company-id",
     });
-    expect(booking).toHaveProperty('company_id');
-    expect(booking.company_id).toBe('test-company-id');
+    expect(booking).toHaveProperty("company_id");
+    expect(booking.company_id).toBe("test-company-id");
   });
 });
 ```
@@ -320,37 +326,37 @@ jobs:
   quality-check:
     name: Quality Assurance
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-      
+          node-version: "20"
+          cache: "npm"
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: TypeScript Check
         run: npm run type-check
-      
+
       - name: ESLint
         run: npm run lint
-      
+
       - name: Prettier Check
         run: npm run format:check
-      
+
       - name: Unit Tests
         run: npm run test:unit
-      
+
       - name: Coverage Report
         run: npm run test:coverage
-      
+
       - name: Build
         run: npm run build
-      
+
       - name: Upload Coverage
         uses: codecov/codecov-action@v3
         with:
@@ -359,28 +365,28 @@ jobs:
   e2e-tests:
     name: E2E Tests
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-      
+          node-version: "20"
+          cache: "npm"
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Install Playwright
         run: npx playwright install --with-deps
-      
+
       - name: Run E2E Tests
         run: npm run test:e2e
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-      
+
       - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v3
@@ -392,15 +398,15 @@ jobs:
   compliance-check:
     name: Compliance Check
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      
+          node-version: "20"
+
       - name: Run Compliance Check
         run: |
           curl -X POST \
@@ -408,7 +414,7 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{"action": "check_compliance", "scope": "incremental"}' \
             ${{ secrets.SUPABASE_URL }}/functions/v1/nexify-compliance-automation
-      
+
       - name: Check Violations
         run: |
           # Prüfe ob Critical/High Violations vorhanden
@@ -417,18 +423,18 @@ jobs:
   performance-check:
     name: Performance Check
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      
+          node-version: "20"
+
       - name: Build
         run: npm run build
-      
+
       - name: Lighthouse CI
         run: |
           npm install -g @lhci/cli
@@ -453,13 +459,8 @@ npm run test:unit:changed
 // package.json
 {
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{md,json}": [
-      "prettier --write"
-    ]
+    "*.{ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{md,json}": ["prettier --write"]
   }
 }
 ```
@@ -471,27 +472,32 @@ npm run test:unit:changed
 ### 5.1 Quality Gate Definition (SOLL)
 
 **Gate 1: Code-Qualität**
+
 - ✅ TypeScript: 0 Errors
 - ✅ ESLint: 0 Errors, < 5 Warnings
 - ✅ Prettier: 100% formatiert
 - ✅ Build: Erfolgreich
 
 **Gate 2: Test-Coverage**
+
 - ✅ Unit Tests: ≥ 80% Coverage
 - ✅ E2E Tests: Alle Critical Flows bestanden
 - ✅ Integration Tests: ≥ 70% Coverage
 
 **Gate 3: Compliance**
+
 - ✅ Design-System: 100% Compliance
 - ✅ SOLL-Vorgaben: 0 Critical, 0 High Violations
 - ✅ Security: 100% RLS Coverage
 
 **Gate 4: Performance**
+
 - ✅ Bundle Size: < 3.000 KB
 - ✅ Load Time: < 3s
 - ✅ Lighthouse Score: ≥ 90
 
 **Gate 5: Accessibility**
+
 - ✅ WCAG 2.1 AA: 100% konform
 - ✅ Keyboard Navigation: Vollständig
 - ✅ Screen Reader: Kompatibel
@@ -499,16 +505,19 @@ npm run test:unit:changed
 ### 5.2 Quality Gate Enforcement
 
 **Pre-Commit:**
+
 - Blockiert bei TypeScript-Errors
 - Blockiert bei ESLint-Errors
 - Blockiert bei Format-Violations
 
 **Pre-Push:**
+
 - Blockiert bei Test-Failures
 - Blockiert bei Coverage < 80%
 - Blockiert bei Critical Violations
 
 **Pre-Merge:**
+
 - Blockiert bei E2E-Test-Failures
 - Blockiert bei Performance-Regression
 - Blockiert bei Compliance-Violations
@@ -520,6 +529,7 @@ npm run test:unit:changed
 ### 6.1 NeXify AI MASTER Prüfprozess
 
 **Vor jeder Übergabe:**
+
 1. ✅ **Funktionalitäts-Check:** Alle Anforderungen erfüllt?
 2. ✅ **Code-Review:** Code-Qualität, Best Practices, Patterns
 3. ✅ **Test-Review:** Alle Tests geschrieben und bestanden?
@@ -530,6 +540,7 @@ npm run test:unit:changed
 8. ✅ **Self-Review:** Eigene Arbeit kritisch geprüft?
 
 **Prüf-Checkliste:**
+
 ```typescript
 interface QualityChecklist {
   functionality: boolean;
@@ -563,6 +574,7 @@ interface QualityChecklist {
 ### 6.2 Team-Prüfprozess
 
 **Für AI-Agenten-Team:**
+
 1. ✅ **Agent führt eigene Prüfung durch**
 2. ✅ **Agent dokumentiert Ergebnisse**
 3. ✅ **NeXify AI MASTER reviewt**
@@ -575,18 +587,21 @@ interface QualityChecklist {
 ### 7.1 Automatisierte Checks
 
 **Täglich (3:00 UTC):**
+
 - ✅ Full Compliance Check
 - ✅ Performance Monitoring
 - ✅ Test Coverage Report
 - ✅ Quality Metrics Report
 
 **Bei jedem Commit:**
+
 - ✅ Incremental Compliance Check
 - ✅ Unit Tests
 - ✅ TypeScript Check
 - ✅ ESLint Check
 
 **Bei jedem Push:**
+
 - ✅ Full Test Suite
 - ✅ E2E Tests
 - ✅ Performance Check
@@ -595,6 +610,7 @@ interface QualityChecklist {
 ### 7.2 Monitoring
 
 **Quality Metrics Dashboard:**
+
 - Test Coverage Trend
 - Compliance Violations Trend
 - Performance Metrics
@@ -608,6 +624,7 @@ interface QualityChecklist {
 ### 8.1 Quality Reports
 
 **Täglicher Report:**
+
 - Test Coverage
 - Compliance Status
 - Performance Metrics
@@ -615,6 +632,7 @@ interface QualityChecklist {
 - Resolved Violations
 
 **Wöchentlicher Report (für Pascal):**
+
 - Zusammenfassung der Woche
 - Quality Trends
 - Verbesserungen
@@ -624,17 +642,20 @@ interface QualityChecklist {
 ### 8.2 Metriken (SOLL)
 
 **Code-Qualität:**
+
 - TypeScript Errors: 0
 - ESLint Warnings: < 5
 - Test Coverage: ≥ 80%
 - Code Duplication: < 5%
 
 **Performance:**
+
 - Bundle Size: < 3.000 KB
 - Load Time: < 3s
 - Lighthouse Score: ≥ 90
 
 **Compliance:**
+
 - Design-System: 100%
 - SOLL-Vorgaben: 100%
 - Security: 100%
@@ -646,12 +667,14 @@ interface QualityChecklist {
 ### 9.1 Setup-Schritte
 
 **1. Test-Infrastruktur einrichten:**
+
 ```bash
 npm install -D @playwright/test @vitest/ui @testing-library/react @testing-library/jest-dom
 npx playwright install
 ```
 
 **2. Test-Scripts zu package.json hinzufügen:**
+
 ```json
 {
   "scripts": {
@@ -668,11 +691,13 @@ npx playwright install
 ```
 
 **3. CI/CD-Pipelines erstellen:**
+
 - `.github/workflows/ci.yml`
 - `.github/workflows/e2e.yml`
 - `.github/workflows/compliance.yml`
 
 **4. Quality Gates aktivieren:**
+
 - Husky Pre-Commit Hooks
 - Pre-Push Hooks
 - Pre-Merge Checks
@@ -684,6 +709,7 @@ npx playwright install
 ### 10.1 NeXify AI MASTER Standards
 
 **Ich (NeXify AI MASTER) garantiere:**
+
 - ✅ **Jede Arbeit** wird umfassend geprüft
 - ✅ **Alle Tests** werden geschrieben und bestanden
 - ✅ **Alle Quality Gates** werden erfüllt
@@ -693,6 +719,7 @@ npx playwright install
 ### 10.2 Team-Standards
 
 **Alle AI-Agenten im Team:**
+
 - ✅ Folgen denselben Quality Standards
 - ✅ Führen eigene Prüfungen durch
 - ✅ Dokumentieren alle Ergebnisse
@@ -704,4 +731,3 @@ npx playwright install
 **Version:** 1.0.0  
 **Status:** ✅ PRODUCTION-READY  
 **Gültigkeit:** ABSOLUT für NeXify AI MASTER und gesamtes Team
-

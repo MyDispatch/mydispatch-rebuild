@@ -1,4 +1,5 @@
 # 📊 DASHBOARD SPECIFICATION V18.3.28
+
 ## Entwicklervorgabe & Template-Master
 
 **Status:** Production-Ready (Master-Template)  
@@ -81,6 +82,7 @@ DashboardLayout (Wrapper)
 ```
 
 **Breakpoints:**
+
 - **Mobile (< 640px):** 1 Column (alle Elemente gestackt)
 - **Tablet (640px - 1023px):** 2 Columns für KPIs, 1 Column für Content
 - **Desktop (≥ 1024px):** 4 Columns für KPIs, 2/3 + 1/3 für Content
@@ -91,26 +93,26 @@ DashboardLayout (Wrapper)
 
 ### Verwendete Labary-Komponenten
 
-| UI-Element | Komponente | Pfad | Variante |
-|------------|-----------|------|----------|
-| **Layout** | DashboardLayout | `@/components/layouts/DashboardLayout` | - |
-| **KPI Cards** | KPICard | `@/components/design-system/KPICard` | default |
-| **Cards** | Card | `@/components/ui/card` | default |
-| **Buttons** | Button | `@/components/ui/button` | default, outline |
-| **Icons** | Icon (Lucide) | `lucide-react` | - |
-| **Charts** | LineChart | `recharts` | - |
-| **Table** | Table | `@/components/ui/table` | - |
-| **Badges** | Badge | `@/components/ui/badge` | default, secondary |
-| **Dialogs** | Dialog | `@/components/ui/dialog` | - |
-| **Tooltips** | Tooltip | `@/components/ui/tooltip` | - |
+| UI-Element    | Komponente      | Pfad                                   | Variante           |
+| ------------- | --------------- | -------------------------------------- | ------------------ |
+| **Layout**    | DashboardLayout | `@/components/layouts/DashboardLayout` | -                  |
+| **KPI Cards** | KPICard         | `@/components/design-system/KPICard`   | default            |
+| **Cards**     | Card            | `@/components/ui/card`                 | default            |
+| **Buttons**   | Button          | `@/components/ui/button`               | default, outline   |
+| **Icons**     | Icon (Lucide)   | `lucide-react`                         | -                  |
+| **Charts**    | LineChart       | `recharts`                             | -                  |
+| **Table**     | Table           | `@/components/ui/table`                | -                  |
+| **Badges**    | Badge           | `@/components/ui/badge`                | default, secondary |
+| **Dialogs**   | Dialog          | `@/components/ui/dialog`               | -                  |
+| **Tooltips**  | Tooltip         | `@/components/ui/tooltip`              | -                  |
 
 ---
 
 ### KPICard-Struktur (Beispiel)
 
 ```tsx
-import { KPICard } from '@/components/design-system/KPICard';
-import { Package } from 'lucide-react';
+import { KPICard } from "@/components/design-system/KPICard";
+import { Package } from "lucide-react";
 
 <KPICard
   title="Offene Aufträge"
@@ -119,10 +121,11 @@ import { Package } from 'lucide-react';
   icon={Package}
   trend="up"
   className="hover:shadow-lg transition-shadow"
-/>
+/>;
 ```
 
 **Props:**
+
 - `title`: string (KPI-Bezeichnung)
 - `value`: string | number (Hauptwert)
 - `subtitle`: string (Zusatzinfo, z.B. Vergleich)
@@ -135,7 +138,7 @@ import { Package } from 'lucide-react';
 ### Card-Struktur (Content-Cards)
 
 ```tsx
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 
 <Card>
   <CardHeader className="pb-3">
@@ -148,13 +151,12 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
     </div>
     <CardDescription>Letzte 5 erstellte Aufträge</CardDescription>
   </CardHeader>
-  <CardContent className="space-y-4">
-    {/* Table oder List */}
-  </CardContent>
-</Card>
+  <CardContent className="space-y-4">{/* Table oder List */}</CardContent>
+</Card>;
 ```
 
 **Card-Header-Pattern:**
+
 - `pb-3`: Reduzierter Bottom-Padding (statt default pb-6)
 - Flex-Layout für Title + Actions
 - CardDescription für Subtext
@@ -189,6 +191,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 ```
 
 **WICHTIG:**
+
 - `p-0` auf CardContent (kein Padding für Full-Width)
 - Loading-State als Overlay (nicht statt Content)
 - `loading="lazy"` für Performance
@@ -203,20 +206,21 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 
 ```css
 /* Primärfarben (MyDispatch CI) */
---primary: 40 31% 88%;           /* Beige/Gold */
+--primary: 40 31% 88%; /* Beige/Gold */
 --primary-foreground: 225 31% 28%; /* Dunkelblau */
 
 /* Text & Background */
---foreground: 225 31% 28%;       /* Haupttext */
---background: 0 0% 100%;         /* Hintergrund */
+--foreground: 225 31% 28%; /* Haupttext */
+--background: 0 0% 100%; /* Hintergrund */
 
 /* Status-Farben (NUR für Badges!) */
---status-success: 142 76% 36%;   /* Grün */
---status-warning: 48 96% 53%;    /* Gelb */
---status-error: 0 84% 60%;       /* Rot */
+--status-success: 142 76% 36%; /* Grün */
+--status-warning: 48 96% 53%; /* Gelb */
+--status-error: 0 84% 60%; /* Rot */
 ```
 
 **Icon-Farben:**
+
 ```tsx
 // ✅ RICHTIG
 <Icon name="TrendingUp" className="text-foreground" />
@@ -308,7 +312,7 @@ const Dashboard = () => {
   // ========================================================================
   // DATA FETCHING (React Query)
   // ========================================================================
-  
+
   // KPI: Offene Aufträge
   const { data: openOrders, isLoading: isLoadingOrders } = useQuery({
     queryKey: ['orders', 'open'],
@@ -318,7 +322,7 @@ const Dashboard = () => {
         .select('*')
         .eq('status', 'pending')
         .order('created_at', { ascending: false });
-      
+
       if (error) throw error;
       return data;
     },
@@ -333,7 +337,7 @@ const Dashboard = () => {
         .from('drivers')
         .select('*')
         .eq('status', 'on_duty');
-      
+
       if (error) throw error;
       return data;
     },
@@ -351,7 +355,7 @@ const Dashboard = () => {
   // ========================================================================
   // HANDLERS
   // ========================================================================
-  
+
   const handleCreateOrder = () => {
     // Open Dialog
     setSelectedOrder(null); // null = new order
@@ -383,13 +387,13 @@ const Dashboard = () => {
 
 ### User Interactions
 
-| Aktion | Trigger | Effekt | Feedback |
-|--------|---------|--------|----------|
-| **Auftrags-Click** | Table Row Click | Öffnet Order-Details | Highlight Row + Dialog |
-| **Neu-Button** | Button Click | Öffnet Create-Dialog | Dialog Slide-In |
-| **Refresh** | Button Click | Re-fetch alle Daten | Toast + Spinner |
-| **Filter** | Dropdown Change | Update Query-Filter | Table-Update |
-| **Date-Range** | DatePicker Change | Update Chart-Daten | Chart-Animation |
+| Aktion             | Trigger           | Effekt               | Feedback               |
+| ------------------ | ----------------- | -------------------- | ---------------------- |
+| **Auftrags-Click** | Table Row Click   | Öffnet Order-Details | Highlight Row + Dialog |
+| **Neu-Button**     | Button Click      | Öffnet Create-Dialog | Dialog Slide-In        |
+| **Refresh**        | Button Click      | Re-fetch alle Daten  | Toast + Spinner        |
+| **Filter**         | Dropdown Change   | Update Query-Filter  | Table-Update           |
+| **Date-Range**     | DatePicker Change | Update Chart-Daten   | Chart-Animation        |
 
 ---
 
@@ -399,21 +403,21 @@ const Dashboard = () => {
 // Supabase Realtime für Live-Updates
 useEffect(() => {
   const channel = supabase
-    .channel('dashboard-orders')
+    .channel("dashboard-orders")
     .on(
-      'postgres_changes',
+      "postgres_changes",
       {
-        event: '*',
-        schema: 'public',
-        table: 'orders'
+        event: "*",
+        schema: "public",
+        table: "orders",
       },
       (payload) => {
         // Invalidate Query bei Änderungen
-        queryClient.invalidateQueries({ queryKey: ['orders'] });
-        
+        queryClient.invalidateQueries({ queryKey: ["orders"] });
+
         // Optional: Toast-Benachrichtigung
-        if (payload.eventType === 'INSERT') {
-          toast.info('Neuer Auftrag erstellt');
+        if (payload.eventType === "INSERT") {
+          toast.info("Neuer Auftrag erstellt");
         }
       }
     )
@@ -473,7 +477,7 @@ POST /api/orders                             # Auftrag erstellen
 
 ```tsx
 const { data, error, isLoading } = useQuery({
-  queryKey: ['orders'],
+  queryKey: ["orders"],
   queryFn: fetchOrders,
   retry: 3,
   retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
@@ -486,9 +490,7 @@ if (error) {
         <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
         <p className="font-semibold mb-2">Fehler beim Laden</p>
         <p className="text-sm text-muted-foreground mb-4">{error.message}</p>
-        <Button onClick={() => queryClient.invalidateQueries(['orders'])}>
-          Neu laden
-        </Button>
+        <Button onClick={() => queryClient.invalidateQueries(["orders"])}>Neu laden</Button>
       </CardContent>
     </Card>
   );
@@ -509,7 +511,7 @@ if (error) {
     <KPICard {...} />
     <KPICard {...} />
   </div>
-  
+
   {/* Content: Full Width Stack */}
   <Card>Aktuelle Aufträge</Card>
   <Card>Karte</Card>
@@ -518,6 +520,7 @@ if (error) {
 ```
 
 **Optimierungen:**
+
 - Reduced Padding: `px-4` statt `px-6`
 - Smaller Gap: `gap-4` statt `gap-6`
 - Touch-Targets: Min. 44x44px
@@ -559,6 +562,7 @@ if (error) {
 **Implementierte Maßnahmen:**
 
 1. **Keyboard-Navigation:**
+
    ```tsx
    <Button
      onKeyDown={(e) => {
@@ -570,6 +574,7 @@ if (error) {
    ```
 
 2. **ARIA-Labels:**
+
    ```tsx
    <Button aria-label="Neuen Auftrag erstellen">
      <Plus className="h-4 w-4" />
@@ -577,11 +582,13 @@ if (error) {
    ```
 
 3. **Focus-States:**
+
    ```tsx
    <Card className="focus-within:ring-2 focus-within:ring-primary">
    ```
 
 4. **Screen-Reader-Texte:**
+
    ```tsx
    <span className="sr-only">Offene Aufträge: 24</span>
    ```
@@ -599,13 +606,13 @@ if (error) {
 
 ```tsx
 // Lazy-Loading für nicht-kritische Komponenten
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense } from "react";
 
-const PerformanceChart = lazy(() => import('@/components/charts/PerformanceChart'));
+const PerformanceChart = lazy(() => import("@/components/charts/PerformanceChart"));
 
 <Suspense fallback={<CardSkeleton />}>
   <PerformanceChart data={performanceData} />
-</Suspense>
+</Suspense>;
 ```
 
 ---
@@ -616,9 +623,9 @@ const PerformanceChart = lazy(() => import('@/components/charts/PerformanceChart
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000,      // 5 Minuten
-      cacheTime: 10 * 60 * 1000,     // 10 Minuten
-      refetchOnWindowFocus: false,    // Kein Auto-Refetch bei Tab-Wechsel
+      staleTime: 5 * 60 * 1000, // 5 Minuten
+      cacheTime: 10 * 60 * 1000, // 10 Minuten
+      refetchOnWindowFocus: false, // Kein Auto-Refetch bei Tab-Wechsel
     },
   },
 });
@@ -629,14 +636,14 @@ const queryClient = new QueryClient({
 ### Memoization
 
 ```tsx
-import { useMemo } from 'react';
+import { useMemo } from "react";
 
 const Dashboard = () => {
   const kpiData = useMemo(() => {
     return {
-      openOrders: orders?.filter(o => o.status === 'pending').length || 0,
-      todayOrders: orders?.filter(o => isToday(o.pickup_date)).length || 0,
-      activeDrivers: drivers?.filter(d => d.status === 'on_duty').length || 0,
+      openOrders: orders?.filter((o) => o.status === "pending").length || 0,
+      todayOrders: orders?.filter((o) => isToday(o.pickup_date)).length || 0,
+      activeDrivers: drivers?.filter((d) => d.status === "on_duty").length || 0,
     };
   }, [orders, drivers]);
 
@@ -659,12 +666,14 @@ const Dashboard = () => {
 ## ✅ IMPLEMENTIERUNGS-CHECKLISTE
 
 ### Pre-Development
+
 - [ ] Design System Review durchgeführt
 - [ ] Komponenten in Labary-System verfügbar geprüft
 - [ ] Fehlerdatenbank konsultiert (XSS-Prevention)
 - [ ] API-Endpunkte dokumentiert
 
 ### Development
+
 - [ ] Layout gemäß Bauplan implementiert
 - [ ] Alle Labary-Komponenten korrekt verwendet
 - [ ] Responsive Breakpoints getestet
@@ -673,6 +682,7 @@ const Dashboard = () => {
 - [ ] Realtime-Updates konfiguriert
 
 ### Testing
+
 - [ ] E2E Tests geschrieben (Playwright)
 - [ ] Mobile-Responsive getestet
 - [ ] Accessibility-Audit durchgeführt (Lighthouse)
@@ -680,6 +690,7 @@ const Dashboard = () => {
 - [ ] Cross-Browser Testing (Chrome, Safari, Firefox)
 
 ### Post-Development
+
 - [ ] Code-Review durch Senior Architect
 - [ ] Phase 1 QA-Zyklus durchlaufen
 - [ ] Fehlerdatenbank aktualisiert
@@ -689,4 +700,4 @@ const Dashboard = () => {
 
 **END OF DOCUMENT**
 
-*Diese Spezifikation ist verbindlich und muss bei allen Arbeiten an der Dashboard-Seite befolgt werden. Abweichungen sind zu dokumentieren und zu begründen.*
+_Diese Spezifikation ist verbindlich und muss bei allen Arbeiten an der Dashboard-Seite befolgt werden. Abweichungen sind zu dokumentieren und zu begründen._

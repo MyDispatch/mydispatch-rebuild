@@ -29,6 +29,7 @@ cp .env.example .env.local
 ```
 
 Fülle die Umgebungsvariablen aus:
+
 - `VITE_SUPABASE_URL` - Deine Supabase Project URL
 - `VITE_SUPABASE_ANON_KEY` - Dein Supabase Anon Key
 
@@ -80,6 +81,7 @@ supabase migration up
 ### NeXifyAI MASTER
 
 Das Dashboard kommuniziert mit NeXifyAI MASTER über:
+
 - Supabase Edge Functions
 - Real-time Subscriptions
 - REST API
@@ -87,6 +89,7 @@ Das Dashboard kommuniziert mit NeXifyAI MASTER über:
 ### Forget-Proof System
 
 Automatisches Laden des vollständigen Kontexts bei jedem Start:
+
 - Alle Projekte
 - Global Knowledge
 - CRM-Daten
@@ -95,6 +98,7 @@ Automatisches Laden des vollständigen Kontexts bei jedem Start:
 ## 📱 PWA
 
 Das Dashboard ist als PWA installierbar:
+
 - Installierbar auf Desktop
 - Offline-Funktionalität
 - Service Worker für Caching

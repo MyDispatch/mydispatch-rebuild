@@ -2,7 +2,7 @@
 
 **Status:** ✅ PRODUCTION - Führendes Design System  
 **Letztes Update:** 2025-01-28  
-**Gültig für:** Alle neuen Features ab sofort  
+**Gültig für:** Alle neuen Features ab sofort
 
 ---
 
@@ -11,6 +11,7 @@
 **Professional Minimalism** - Moderne, puristische B2B-Ästhetik für Unternehmenskunden.
 
 ### Kernprinzipien
+
 1. **Flat Design** - Keine 3D-Effekte, klare Flächen
 2. **Subtle Shadows** - Tailwind-Standard-Shadows (sm, lg, xl, 2xl)
 3. **Gray-Blue Palette** - Professional, neutral, zeitlos
@@ -22,34 +23,36 @@
 ## 🎨 FARBPALETTE V28.1
 
 ### Primärfarben (Slate-Based)
+
 ```typescript
 // Von unified-design-tokens-v28.ts
 PRIMARY_COLORS_V28 = {
   // Primary Action Color
-  primary: 'hsl(215, 16%, 47%)',        // slate-600
-  primaryHover: 'hsl(215, 19%, 35%)',   // slate-700
-  
+  primary: "hsl(215, 16%, 47%)", // slate-600
+  primaryHover: "hsl(215, 19%, 35%)", // slate-700
+
   // Neutral Colors
-  slate900: 'hsl(222, 47%, 11%)',       // Text Primary
-  slate800: 'hsl(217, 33%, 17%)',       // Text Strong
-  slate700: 'hsl(215, 19%, 35%)',       // Buttons
-  slate600: 'hsl(215, 16%, 47%)',       // Text Secondary
-  slate500: 'hsl(215, 14%, 61%)',       // Borders
-  slate400: 'hsl(215, 16%, 65%)',       // Disabled
-  slate300: 'hsl(215, 16%, 75%)',       // Borders Light
-  slate200: 'hsl(214, 20%, 85%)',       // Backgrounds
-  slate100: 'hsl(214, 32%, 91%)',       // Highlighted BG
-  slate50: 'hsl(210, 40%, 96%)',        // Canvas
-  
+  slate900: "hsl(222, 47%, 11%)", // Text Primary
+  slate800: "hsl(217, 33%, 17%)", // Text Strong
+  slate700: "hsl(215, 19%, 35%)", // Buttons
+  slate600: "hsl(215, 16%, 47%)", // Text Secondary
+  slate500: "hsl(215, 14%, 61%)", // Borders
+  slate400: "hsl(215, 16%, 65%)", // Disabled
+  slate300: "hsl(215, 16%, 75%)", // Borders Light
+  slate200: "hsl(214, 20%, 85%)", // Backgrounds
+  slate100: "hsl(214, 32%, 91%)", // Highlighted BG
+  slate50: "hsl(210, 40%, 96%)", // Canvas
+
   // Pure Backgrounds
-  white: 'hsl(0, 0%, 100%)',            // Card BG
-  
+  white: "hsl(0, 0%, 100%)", // Card BG
+
   // Glass Effect (optional)
-  glass: 'hsla(0, 0%, 100%, 0.7)',      // Glassmorphism
-}
+  glass: "hsla(0, 0%, 100%, 0.7)", // Glassmorphism
+};
 ```
 
 ### Tailwind-Klassen (Bevorzugt!)
+
 ```css
 /* Backgrounds */
 bg-slate-700    /* Primary Buttons */
@@ -70,6 +73,7 @@ border-slate-400   /* Ring/Highlight borders */
 ```
 
 ### Status-Farben (Portal Only!)
+
 ```css
 /* ⚠️ NUR in Portal-Bereichen, NIEMALS auf Marketing-Seiten! */
 bg-green-50     /* Success states */
@@ -82,6 +86,7 @@ bg-red-50       /* Error states */
 ## 🧱 KOMPONENTEN-SYSTEM V28.1
 
 ### V28Button - Modern Minimalism
+
 ```tsx
 // src/components/design-system/V28Button.tsx
 <V28Button variant="primary" size="lg">
@@ -102,6 +107,7 @@ bg-red-50       /* Error states */
 ```
 
 ### V28Badge - Flat & Clean
+
 ```tsx
 // src/components/design-system/V28Badge.tsx
 <V28Badge variant="primary">-20%</V28Badge>
@@ -114,6 +120,7 @@ bg-red-50       /* Error states */
 ```
 
 ### V28IconBox - Minimalist Icon Container
+
 ```tsx
 // src/components/design-system/V28IconBox.tsx
 <V28IconBox icon={Rocket} variant="primary" />
@@ -127,6 +134,7 @@ bg-red-50       /* Error states */
 ```
 
 ### V28PricingCard - Clean Pricing Display
+
 ```tsx
 // src/components/pricing/V28PricingCard.tsx
 <V28PricingCard
@@ -144,6 +152,7 @@ bg-red-50       /* Error states */
 ```
 
 ### V28ComparisonTable - Flat Table Design
+
 ```tsx
 // src/components/pricing/V28ComparisonTable.tsx
 <V28ComparisonTable features={comparisonData} />
@@ -155,13 +164,10 @@ bg-red-50       /* Error states */
 ```
 
 ### V28BillingToggle - Clean Toggle Switch
+
 ```tsx
 // src/components/design-system/V28BillingToggle.tsx
-<V28BillingToggle
-  billingPeriod={period}
-  onToggle={setPeriod}
-  discountText="-20%"
-/>
+<V28BillingToggle billingPeriod={period} onToggle={setPeriod} discountText="-20%" />
 
 // Container: bg-slate-100, border-slate-200, shadow-lg
 // Active Button: bg-white, shadow-md
@@ -174,6 +180,7 @@ bg-red-50       /* Error states */
 ## 📐 LAYOUT-STANDARDS V28.1
 
 ### Section Spacing
+
 ```css
 /* Standard Section */
 py-16 md:py-20 lg:py-24
@@ -186,6 +193,7 @@ py-12 md:py-16 lg:py-20
 ```
 
 ### Container & Max-Width
+
 ```css
 /* Standard Container */
 container mx-auto px-4 sm:px-6 lg:px-8
@@ -198,6 +206,7 @@ max-w-3xl   /* Text-heavy content */
 ```
 
 ### Grid Systems
+
 ```css
 /* 3-Column Cards (Pricing) */
 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10
@@ -211,6 +220,7 @@ grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8
 ## ✨ SHADOW-SYSTEM V28.1
 
 ### Standard Tailwind Shadows (ONLY!)
+
 ```css
 /* Card Standard */
 shadow-lg           /* Base card shadow */
@@ -232,6 +242,7 @@ hover:shadow-2xl    /* Card hover (from xl) */
 ## 🎭 HOVER & INTERACTION V28.1
 
 ### Hover-Patterns
+
 ```css
 /* Buttons */
 hover:scale-[1.02] hover:shadow-md
@@ -246,6 +257,7 @@ hover:text-slate-900 (from slate-600/700)
 ```
 
 ### Transitions
+
 ```css
 /* Standard */
 transition-all duration-200
@@ -262,6 +274,7 @@ transition-colors duration-150
 ## 📱 RESPONSIVE DESIGN
 
 ### Breakpoints
+
 ```typescript
 sm: 640px   // Small tablets
 md: 768px   // Tablets
@@ -270,6 +283,7 @@ xl: 1280px  // Large desktop
 ```
 
 ### Mobile-First Patterns
+
 ```css
 /* Text Sizes */
 text-sm md:text-base lg:text-lg
@@ -288,6 +302,7 @@ md:-translate-y-12 lg:-translate-y-16
 ## 🚫 VERBOTENE PATTERNS (V26 Legacy)
 
 ### ❌ Alte V26 Patterns - NICHT MEHR VERWENDEN!
+
 ```css
 /* ❌ FALSCH - V26 Colors */
 #EADEBD, #323D5E, v26-bg-dunkelblau, v26-text-beige
@@ -306,6 +321,7 @@ V26Button, V26Badge, V26IconBox (mit V26-Styling!)
 ```
 
 ### ✅ Korrekte V28.1 Patterns
+
 ```css
 /* ✅ RICHTIG - Slate Colors */
 bg-slate-700, text-slate-900, border-slate-200
@@ -330,23 +346,27 @@ V28Button, V28Badge, V28IconBox (mit V28.1-Styling!)
 Vor JEDEM Commit prüfen:
 
 ### Design System
+
 - [ ] Nur Slate-Farben verwendet (keine V26 Beige/Dunkelblau)?
 - [ ] Tailwind-Shadows verwendet (keine custom glow)?
 - [ ] Standard-Borders (1px) oder borderless (keine 2-3px)?
 - [ ] V28-Components importiert (nicht V26-Legacy)?
 
 ### Code Quality
+
 - [ ] Alle Imports existieren (filesExplorer.md gecheckt)?
 - [ ] Keine halluzinierten Funktionen?
 - [ ] Alle Props typisiert (kein `any`)?
 - [ ] DRY-Principle befolgt (keine Code-Duplication)?
 
 ### Responsive
+
 - [ ] Mobile-first Classes verwendet (text-sm md:text-base)?
 - [ ] Breakpoints konsistent (sm, md, lg, xl)?
 - [ ] Touch-Targets mindestens 44px (h-11 minimum)?
 
 ### Accessibility
+
 - [ ] Focus-States definiert (ring-2)?
 - [ ] Color-Contrast WCAG AAA (Slate erfüllt das)?
 - [ ] Alt-Texte für Icons/Bilder?
@@ -356,17 +376,20 @@ Vor JEDEM Commit prüfen:
 ## 📚 REFERENZ-DATEIEN
 
 ### Zentrale Token-Datei
+
 ```
 src/lib/design-system/unified-design-tokens-v28.ts
 ```
 
 ### V28.1 Components
+
 ```
 src/components/design-system/V28*.tsx
 src/components/pricing/V28*.tsx
 ```
 
 ### Template-Seite
+
 ```
 src/pages/Pricing.tsx  (✅ REFERENZ-IMPLEMENTIERUNG!)
 ```
@@ -376,6 +399,7 @@ src/pages/Pricing.tsx  (✅ REFERENZ-IMPLEMENTIERUNG!)
 ## 🔄 MIGRATION VON V26 → V28.1
 
 ### Automatische Replacements
+
 ```bash
 # Colors
 s/v26-bg-dunkelblau/bg-slate-700/g
@@ -393,6 +417,7 @@ s/drop-shadow-\[.*\]/shadow-xl/g
 ```
 
 ### Manuelle Checks
+
 1. Component-Imports aktualisieren
 2. Custom inline-styles entfernen
 3. Glow-Effekte durch Tailwind-Shadows ersetzen

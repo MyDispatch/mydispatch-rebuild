@@ -19,7 +19,7 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 CREATE POLICY "Drivers can view assigned bookings"
 ON bookings FOR SELECT
 USING (
-  driver_id = auth.uid() 
+  driver_id = auth.uid()
   AND status IN ('assigned', 'in_progress')
 );
 ```
@@ -33,11 +33,11 @@ USING (
 const supabase = createClient(url, SERVICE_ROLE_KEY); // ⛔ SECURITY VIOLATION
 
 // ✅ CORRECT: Use publishable key (RLS-protected)
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from "@/integrations/supabase/client";
 
 // ✅ CORRECT: Fetch API keys via Edge Function
-const { data } = await supabase.functions.invoke('get-api-key', {
-  body: { service: 'here_maps' },
+const { data } = await supabase.functions.invoke("get-api-key", {
+  body: { service: "here_maps" },
 });
 ```
 
@@ -60,7 +60,7 @@ RESEND_API_KEY=xxx # ⛔ NEVER in frontend
 
 ```typescript
 // Frontend validation (Zod)
-import { z } from 'zod';
+import { z } from "zod";
 
 const bookingSchema = z.object({
   customer_name: z.string().min(1).max(100),
@@ -72,8 +72,8 @@ const bookingSchema = z.object({
 // Backend validation (Edge Function)
 const { data, error } = bookingSchema.safeParse(requestBody);
 if (error) {
-  return new Response(JSON.stringify({ error: 'Invalid input' }), { 
-    status: 400 
+  return new Response(JSON.stringify({ error: "Invalid input" }), {
+    status: 400,
   });
 }
 ```
@@ -85,18 +85,15 @@ if (error) {
 ```typescript
 // ❌ DANGEROUS: String concatenation
 const { data } = await supabase
-  .from('bookings')
-  .select('*')
-  .filter('customer_name', 'eq', userInput); // If userInput contains SQL
+  .from("bookings")
+  .select("*")
+  .filter("customer_name", "eq", userInput); // If userInput contains SQL
 
 // ✅ SAFE: Supabase client handles parameterization
-const { data } = await supabase
-  .from('bookings')
-  .select('*')
-  .eq('customer_name', userInput); // Automatically escaped
+const { data } = await supabase.from("bookings").select("*").eq("customer_name", userInput); // Automatically escaped
 
 // ✅ SAFE: RPC with parameters
-const { data } = await supabase.rpc('search_bookings', {
+const { data } = await supabase.rpc("search_bookings", {
   search_term: userInput,
 });
 ```
@@ -126,20 +123,20 @@ import DOMPurify from 'dompurify';
 
 ```typescript
 const corsHeaders = {
-  'Access-Control-Allow-Origin': 'https://www.my-dispatch.de',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  "Access-Control-Allow-Origin": "https://www.my-dispatch.de",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
 
 Deno.serve(async (req) => {
   // Handle preflight
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   // Your logic here
   return new Response(JSON.stringify({ success: true }), {
-    headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 });
 ```
@@ -150,18 +147,18 @@ Deno.serve(async (req) => {
 
 ```typescript
 // Edge Function rate limiting
-import { rateLimit } from '@/lib/rate-limit';
+import { rateLimit } from "@/lib/rate-limit";
 
 Deno.serve(async (req) => {
-  const ip = req.headers.get('x-forwarded-for') || 'unknown';
-  
+  const ip = req.headers.get("x-forwarded-for") || "unknown";
+
   const { allowed, remaining } = await rateLimit(ip, {
-    limit: 100,      // 100 requests
-    window: 60000,   // per minute
+    limit: 100, // 100 requests
+    window: 60000, // per minute
   });
 
   if (!allowed) {
-    return new Response('Rate limit exceeded', { status: 429 });
+    return new Response("Rate limit exceeded", { status: 429 });
   }
 
   // Process request
@@ -178,19 +175,19 @@ Deno.serve(async (req) => {
 ```typescript
 // Use Supabase Vault for secrets
 const { data } = await supabase
-  .from('vault')
-  .select('decrypted_secret')
-  .eq('name', 'api_key')
+  .from("vault")
+  .select("decrypted_secret")
+  .eq("name", "api_key")
   .single();
 
 // Or encrypt manually
-import { createCipheriv, createDecipheriv, randomBytes } from 'crypto';
+import { createCipheriv, createDecipheriv, randomBytes } from "crypto";
 
 function encrypt(text: string, key: Buffer): string {
   const iv = randomBytes(16);
-  const cipher = createCipheriv('aes-256-cbc', key, iv);
+  const cipher = createCipheriv("aes-256-cbc", key, iv);
   const encrypted = Buffer.concat([cipher.update(text), cipher.final()]);
-  return iv.toString('hex') + ':' + encrypted.toString('hex');
+  return iv.toString("hex") + ":" + encrypted.toString("hex");
 }
 ```
 
@@ -200,11 +197,11 @@ function encrypt(text: string, key: Buffer): string {
 
 ```typescript
 // ❌ BAD: Log sensitive data
-console.log('User data:', { email, password, ssn });
+console.log("User data:", { email, password, ssn });
 
 // ✅ GOOD: Redact sensitive fields
-console.log('User data:', { 
-  email: email.replace(/(?<=.{2}).(?=.*@)/g, '*'),
+console.log("User data:", {
+  email: email.replace(/(?<=.{2}).(?=.*@)/g, "*"),
   user_id: userId,
 });
 
@@ -221,30 +218,28 @@ Sentry.captureException(error, {
 
 ```typescript
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'application/pdf'];
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "application/pdf"];
 
 async function handleFileUpload(file: File) {
   // Validate size
   if (file.size > MAX_FILE_SIZE) {
-    throw new Error('File too large');
+    throw new Error("File too large");
   }
 
   // Validate type
   if (!ALLOWED_TYPES.includes(file.type)) {
-    throw new Error('Invalid file type');
+    throw new Error("Invalid file type");
   }
 
   // Generate secure filename
-  const ext = file.name.split('.').pop();
+  const ext = file.name.split(".").pop();
   const filename = `${crypto.randomUUID()}.${ext}`;
 
   // Upload to Supabase Storage
-  const { data, error } = await supabase.storage
-    .from('documents')
-    .upload(filename, file, {
-      cacheControl: '3600',
-      upsert: false,
-    });
+  const { data, error } = await supabase.storage.from("documents").upload(filename, file, {
+    cacheControl: "3600",
+    upsert: false,
+  });
 
   return data?.path;
 }
@@ -259,10 +254,10 @@ async function handleFileUpload(file: File) {
 ```typescript
 // ✅ Refresh tokens automatically
 supabase.auth.onAuthStateChange((event, session) => {
-  if (event === 'TOKEN_REFRESHED') {
-    console.log('Token refreshed');
+  if (event === "TOKEN_REFRESHED") {
+    console.log("Token refreshed");
   }
-  if (event === 'SIGNED_OUT') {
+  if (event === "SIGNED_OUT") {
     // Clear local state
     localStorage.clear();
   }
@@ -287,13 +282,13 @@ await supabase.auth.signInWithPassword({
 ```typescript
 // Generate CSRF token
 const csrfToken = crypto.randomUUID();
-sessionStorage.setItem('csrf_token', csrfToken);
+sessionStorage.setItem("csrf_token", csrfToken);
 
 // Send with request
-const response = await fetch('/api/endpoint', {
-  method: 'POST',
+const response = await fetch("/api/endpoint", {
+  method: "POST",
   headers: {
-    'X-CSRF-Token': csrfToken,
+    "X-CSRF-Token": csrfToken,
   },
   body: JSON.stringify(data),
 });
@@ -307,12 +302,12 @@ const response = await fetch('/api/endpoint', {
 
 ```typescript
 async function logSecurityEvent(event: {
-  type: 'login' | 'logout' | 'access_denied' | 'suspicious_activity';
+  type: "login" | "logout" | "access_denied" | "suspicious_activity";
   user_id?: string;
   ip_address: string;
   details: string;
 }) {
-  await supabase.from('security_logs').insert({
+  await supabase.from("security_logs").insert({
     ...event,
     timestamp: new Date().toISOString(),
   });
@@ -320,10 +315,10 @@ async function logSecurityEvent(event: {
 
 // Usage
 await logSecurityEvent({
-  type: 'access_denied',
+  type: "access_denied",
   user_id: user.id,
-  ip_address: req.headers.get('x-forwarded-for'),
-  details: 'Attempted to access unauthorized resource',
+  ip_address: req.headers.get("x-forwarded-for"),
+  details: "Attempted to access unauthorized resource",
 });
 ```
 
@@ -334,7 +329,7 @@ await logSecurityEvent({
 ```typescript
 // ❌ BAD: Exposes internal details
 catch (error) {
-  return res.status(500).json({ 
+  return res.status(500).json({
     error: error.message, // "Database connection failed at 192.168.1.1"
     stack: error.stack,
   });
@@ -344,8 +339,8 @@ catch (error) {
 catch (error) {
   console.error('[ERROR]', error);
   await logError(error);
-  
-  return res.status(500).json({ 
+
+  return res.status(500).json({
     error: 'An error occurred. Please try again later.',
     errorId: generateErrorId(), // For support reference
   });
@@ -360,15 +355,15 @@ catch (error) {
 
 ```sql
 -- Soft delete for audit trail
-UPDATE customers 
-SET deleted_at = NOW(), 
+UPDATE customers
+SET deleted_at = NOW(),
     email = 'deleted@example.com',
     phone = NULL,
     address = NULL
 WHERE id = $1;
 
 -- Hard delete after retention period
-DELETE FROM customers 
+DELETE FROM customers
 WHERE deleted_at < NOW() - INTERVAL '30 days';
 ```
 
@@ -424,6 +419,7 @@ function App() {
 6. **Document:** Post-mortem in `docs/security/`
 
 **Emergency contacts:**
+
 - Primary: courbois1981@gmail.com
 - Supabase Support: https://supabase.com/support
 - Security: security@my-dispatch.de

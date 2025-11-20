@@ -8,31 +8,31 @@
    - Parent-Child-Relations
    ================================================================================== */
 
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    console.log('[WIKI-GRAPH] Starting Knowledge Graph Link Generation...');
+    console.log("[WIKI-GRAPH] Starting Knowledge Graph Link Generation...");
 
     // Get all active knowledge base entries
     const { data: allDocs, error: fetchError } = await supabase
-      .from('knowledge_base')
-      .select('id, title, content, tags, source_file')
-      .eq('is_deprecated', false);
+      .from("knowledge_base")
+      .select("id, title, content, tags, source_file")
+      .eq("is_deprecated", false);
 
     if (fetchError) {
       throw new Error(`Failed to fetch docs: ${fetchError.message}`);
@@ -55,14 +55,12 @@ serve(async (req) => {
 
         // 1. Shared Tags (high score)
         if (doc.tags && otherDoc.tags) {
-          const sharedTags = doc.tags.filter((tag: string) => 
-            otherDoc.tags.includes(tag)
-          );
+          const sharedTags = doc.tags.filter((tag: string) => otherDoc.tags.includes(tag));
           score += sharedTags.length * 3;
         }
 
         // 2. Title mentioned in content (high score)
-        if (doc.content && typeof doc.content === 'object') {
+        if (doc.content && typeof doc.content === "object") {
           const contentStr = JSON.stringify(doc.content).toLowerCase();
           if (contentStr.includes(otherDoc.title.toLowerCase())) {
             score += 5;
@@ -70,7 +68,7 @@ serve(async (req) => {
         }
 
         // 3. Source file reference
-        if (doc.content && typeof doc.content === 'object' && otherDoc.source_file) {
+        if (doc.content && typeof doc.content === "object" && otherDoc.source_file) {
           const contentStr = JSON.stringify(doc.content);
           if (contentStr.includes(otherDoc.source_file)) {
             score += 4;
@@ -88,9 +86,9 @@ serve(async (req) => {
 
       // Update document with related_knowledge_ids
       const { error: updateError } = await supabase
-        .from('knowledge_base')
+        .from("knowledge_base")
         .update({ related_knowledge_ids: topRelated })
-        .eq('id', doc.id);
+        .eq("id", doc.id);
 
       if (!updateError) {
         linksCreated += topRelated.length;
@@ -101,11 +99,11 @@ serve(async (req) => {
     }
 
     // Calculate coverage
-    const coverage = allDocs?.length 
-      ? ((docsProcessed / allDocs.length) * 100).toFixed(1)
-      : '0.0';
+    const coverage = allDocs?.length ? ((docsProcessed / allDocs.length) * 100).toFixed(1) : "0.0";
 
-    console.log(`[WIKI-GRAPH] ✅ Completed! ${linksCreated} links created across ${docsProcessed} docs (${coverage}% coverage)`);
+    console.log(
+      `[WIKI-GRAPH] ✅ Completed! ${linksCreated} links created across ${docsProcessed} docs (${coverage}% coverage)`
+    );
 
     return new Response(
       JSON.stringify({
@@ -114,24 +112,23 @@ serve(async (req) => {
         total_docs: allDocs?.length || 0,
         links_created: linksCreated,
         coverage_percent: parseFloat(coverage),
-        message: `Knowledge Graph created with ${linksCreated} links`
+        message: `Knowledge Graph created with ${linksCreated} links`,
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 200
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
       }
     );
-
   } catch (error) {
-    console.error('[WIKI-GRAPH] Error:', error);
+    console.error("[WIKI-GRAPH] Error:", error);
     return new Response(
       JSON.stringify({
-        error: error instanceof Error ? error.message : 'Unknown error',
-        success: false
+        error: error instanceof Error ? error.message : "Unknown error",
+        success: false,
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-        status: 500
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 500,
       }
     );
   }

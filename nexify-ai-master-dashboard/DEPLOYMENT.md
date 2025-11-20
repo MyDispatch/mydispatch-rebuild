@@ -34,6 +34,7 @@ supabase functions deploy nexify-ai-master-command
 ### 1.3 Environment Variables in Supabase
 
 Setze folgende Secrets in Supabase Dashboard:
+
 - `SUPABASE_URL` (automatisch gesetzt)
 - `SUPABASE_SERVICE_ROLE_KEY` (für Edge Functions)
 
@@ -105,6 +106,7 @@ git push -u origin main
 ## ✅ Verifizierung
 
 Nach dem Deployment sollte das Dashboard verfügbar sein unter:
+
 - **Production:** `https://nexify-ai-master-dashboard.vercel.app`
 - **Preview:** Jeder Branch hat eine eigene Preview-URL
 

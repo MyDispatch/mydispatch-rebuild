@@ -1,6 +1,6 @@
-import { useDeviceType } from '@/hooks/use-device-type';
-import { Home, ChevronRight } from 'lucide-react';
-import { useLocation, Link } from 'react-router-dom';
+import { useDeviceType } from "@/hooks/use-device-type";
+import { Home, ChevronRight } from "lucide-react";
+import { useLocation, Link } from "react-router-dom";
 
 export function DashboardBreadcrumb() {
   const { isMobile } = useDeviceType();
@@ -12,8 +12,8 @@ export function DashboardBreadcrumb() {
   }
 
   // Get current page name
-  const pathSegments = location.pathname.split('/').filter(Boolean);
-  const currentPage = pathSegments[pathSegments.length - 1] || 'dashboard';
+  const pathSegments = location.pathname.split("/").filter(Boolean);
+  const currentPage = pathSegments[pathSegments.length - 1] || "dashboard";
 
   return (
     <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">

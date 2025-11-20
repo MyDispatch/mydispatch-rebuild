@@ -5,13 +5,13 @@
 // Data Source: monitoring_logs, agent_status, heartbeat_history (via use-agent-health)
 // ==================================================================================
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
-import { Activity, TrendingUp, TrendingDown, AlertCircle, CheckCircle } from 'lucide-react';
-import { V28Button } from '@/components/design-system/V28Button';
-import { useNavigate } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import { useAgentHealth } from '@/hooks/use-agent-health';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { Card, CardContent, CardHeader, CardTitle } from "@/lib/compat";
+import { Activity, TrendingUp, TrendingDown, AlertCircle, CheckCircle } from "lucide-react";
+import { V28Button } from "@/components/design-system/V28Button";
+import { useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { useAgentHealth } from "@/hooks/use-agent-health";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 export function PerformanceMonitoringWidget() {
   const navigate = useNavigate();
@@ -26,9 +26,9 @@ export function PerformanceMonitoringWidget() {
 
   // Chart Data (Last 10 data points for compact view)
   const chartData = (heartbeatHistory || []).slice(-10).map((item) => ({
-    time: new Date(item.timestamp).toLocaleTimeString('de-DE', { 
-      hour: '2-digit', 
-      minute: '2-digit' 
+    time: new Date(item.timestamp).toLocaleTimeString("de-DE", {
+      hour: "2-digit",
+      minute: "2-digit",
     }),
     responseTime: item.avg_response_time_ms || 0,
     uptime: item.uptime_percentage || 0,
@@ -45,25 +45,35 @@ export function PerformanceMonitoringWidget() {
 
   const metrics = [
     {
-      label: 'Response Time',
+      label: "Response Time",
       value: `${avgResponseTime.toFixed(0)}ms`,
       trend: responseTimeTrend,
-      status: avgResponseTime < 500 ? 'success' : avgResponseTime < 1000 ? 'warning' : 'error',
-      subLabel: 'Durchschnitt',
+      status: avgResponseTime < 500 ? "success" : avgResponseTime < 1000 ? "warning" : "error",
+      subLabel: "Durchschnitt",
     },
     {
-      label: 'Uptime (7d)',
+      label: "Uptime (7d)",
       value: `${(uptime7d || currentUptime).toFixed(1)}%`,
       trend: 0,
-      status: (uptime7d || currentUptime) > 99 ? 'success' : (uptime7d || currentUptime) > 95 ? 'warning' : 'error',
-      subLabel: 'Letzte 7 Tage',
+      status:
+        (uptime7d || currentUptime) > 99
+          ? "success"
+          : (uptime7d || currentUptime) > 95
+            ? "warning"
+            : "error",
+      subLabel: "Letzte 7 Tage",
     },
     {
-      label: 'Uptime (30d)',
+      label: "Uptime (30d)",
       value: `${(uptime30d || currentUptime).toFixed(1)}%`,
       trend: 0,
-      status: (uptime30d || currentUptime) > 99 ? 'success' : (uptime30d || currentUptime) > 95 ? 'warning' : 'error',
-      subLabel: 'Letzte 30 Tage',
+      status:
+        (uptime30d || currentUptime) > 99
+          ? "success"
+          : (uptime30d || currentUptime) > 95
+            ? "warning"
+            : "error",
+      subLabel: "Letzte 30 Tage",
     },
   ];
 
@@ -97,7 +107,7 @@ export function PerformanceMonitoringWidget() {
             variant="secondary"
             size="sm"
             className="h-6 text-[11px] hover:bg-muted px-2"
-            onClick={() => navigate('/admin/monitoring')}
+            onClick={() => navigate("/admin/monitoring")}
           >
             Details →
           </V28Button>
@@ -105,10 +115,14 @@ export function PerformanceMonitoringWidget() {
       </CardHeader>
       <CardContent className="space-y-3 pb-3">
         {/* System Health Status */}
-        <div className={cn(
-          "flex items-center justify-between p-2 rounded-lg border",
-          allHealthy ? 'bg-status-success/5 border-status-success/20' : 'bg-status-error/5 border-status-error/20'
-        )}>
+        <div
+          className={cn(
+            "flex items-center justify-between p-2 rounded-lg border",
+            allHealthy
+              ? "bg-status-success/5 border-status-success/20"
+              : "bg-status-error/5 border-status-error/20"
+          )}
+        >
           <div className="flex items-center gap-2">
             {allHealthy ? (
               <CheckCircle className="h-4 w-4 text-foreground" />
@@ -116,7 +130,7 @@ export function PerformanceMonitoringWidget() {
               <AlertCircle className="h-4 w-4 text-foreground" />
             )}
             <span className="text-xs font-medium text-foreground">
-              {allHealthy ? 'Alle Systeme OK' : 'Systemprobleme erkannt'}
+              {allHealthy ? "Alle Systeme OK" : "Systemprobleme erkannt"}
             </span>
           </div>
           {(criticalIssues > 0 || warnings > 0) && (
@@ -138,21 +152,20 @@ export function PerformanceMonitoringWidget() {
         {/* Metrics Grid */}
         <div className="space-y-1.5">
           {metrics.map((metric, index) => (
-            <div 
-              key={index}
-              className="p-2 rounded-lg border bg-card"
-            >
+            <div key={index} className="p-2 rounded-lg border bg-card">
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[9px] font-medium text-muted-foreground uppercase tracking-wide">
                   {metric.label}
                 </span>
                 {metric.trend !== 0 && (
-                  <div className={cn(
-                    "flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[9px] font-semibold",
-                    metric.trend < 0 // For response time, lower is better
-                      ? 'bg-status-success/10 text-status-success'
-                      : 'bg-status-error/10 text-status-error'
-                  )}>
+                  <div
+                    className={cn(
+                      "flex items-center gap-1 px-1.5 py-0.5 rounded-md text-[9px] font-semibold",
+                      metric.trend < 0 // For response time, lower is better
+                        ? "bg-status-success/10 text-status-success"
+                        : "bg-status-error/10 text-status-error"
+                    )}
+                  >
                     {metric.trend < 0 ? (
                       <TrendingDown className="h-2.5 w-2.5" />
                     ) : (
@@ -163,19 +176,17 @@ export function PerformanceMonitoringWidget() {
                 )}
               </div>
               <div className="flex items-baseline justify-between">
-                <p className="text-base font-bold text-foreground">
-                  {metric.value}
-                </p>
-                <div className={cn(
-                  "h-2 w-2 rounded-full",
-                  metric.status === 'success' && 'bg-status-success',
-                  metric.status === 'warning' && 'bg-status-warning',
-                  metric.status === 'error' && 'bg-status-error'
-                )} />
+                <p className="text-base font-bold text-foreground">{metric.value}</p>
+                <div
+                  className={cn(
+                    "h-2 w-2 rounded-full",
+                    metric.status === "success" && "bg-status-success",
+                    metric.status === "warning" && "bg-status-warning",
+                    metric.status === "error" && "bg-status-error"
+                  )}
+                />
               </div>
-              <p className="text-[9px] text-muted-foreground mt-0.5">
-                {metric.subLabel}
-              </p>
+              <p className="text-[9px] text-muted-foreground mt-0.5">{metric.subLabel}</p>
             </div>
           ))}
         </div>
@@ -188,14 +199,14 @@ export function PerformanceMonitoringWidget() {
             </p>
             <ResponsiveContainer width="100%" height={80}>
               <LineChart data={chartData}>
-                <XAxis 
-                  dataKey="time" 
+                <XAxis
+                  dataKey="time"
                   tick={{ fontSize: 9 }}
                   stroke="hsl(var(--muted-foreground))"
                   tickLine={false}
                   axisLine={false}
                 />
-                <YAxis 
+                <YAxis
                   tick={{ fontSize: 9 }}
                   stroke="hsl(var(--muted-foreground))"
                   tickLine={false}
@@ -205,12 +216,12 @@ export function PerformanceMonitoringWidget() {
                 />
                 <Tooltip
                   wrapperClassName="recharts-tooltip--dashboard"
-                  formatter={(value: number) => [`${value.toFixed(0)}ms`, 'Response Time']}
+                  formatter={(value: number) => [`${value.toFixed(0)}ms`, "Response Time"]}
                 />
-                <Line 
-                  type="monotone" 
-                  dataKey="responseTime" 
-                  stroke="hsl(var(--primary))" 
+                <Line
+                  type="monotone"
+                  dataKey="responseTime"
+                  stroke="hsl(var(--primary))"
                   strokeWidth={2}
                   dot={false}
                 />

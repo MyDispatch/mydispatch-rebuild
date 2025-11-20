@@ -28,14 +28,15 @@
 </div>
 
 // ✅ NACHHER: Nur Logo, kein Text
-<img 
-  src={logoUrl || officialLogo} 
+<img
+  src={logoUrl || officialLogo}
   alt={`${companyName} Logo`}
   className="h-7 sm:h-8 max-w-[120px] sm:max-w-[160px] md:max-w-[180px] object-contain"
 />
 ```
 
 **Begründung:**
+
 - Logo ist self-explanatory (Branding)
 - Text ist redundant und verschwendet Platz
 - Mobile-First: Jeder Pixel zählt
@@ -57,6 +58,7 @@ md:max-w-[180px] /* Desktop: 180px MAX */
 ```
 
 **Warum gestaffelt?**
+
 - Mobile (375px): 120px = 32% der Breite (sicher)
 - Tablet (768px): 160px = 21% der Breite (komfortabel)
 - Desktop (1920px): 180px = 9% der Breite (perfekt)
@@ -66,10 +68,11 @@ md:max-w-[180px] /* Desktop: 180px MAX */
 ### **3. Object-Contain (PFLICHT)**
 
 ```tsx
-className="... object-contain"
+className = "... object-contain";
 ```
 
 **Effekt:**
+
 - Aspect-Ratio bleibt erhalten
 - Logo wird NIEMALS verzerrt
 - Logo wird NIEMALS beschnitten
@@ -85,9 +88,9 @@ className="... object-contain"
 // .eslintrc.js
 module.exports = {
   rules: {
-    'custom/no-logo-without-max-width': 'error',
-    'custom/no-logo-with-text-overlap': 'error',
-  }
+    "custom/no-logo-without-max-width": "error",
+    "custom/no-logo-with-text-overlap": "error",
+  },
 };
 ```
 
@@ -95,13 +98,13 @@ module.exports = {
 
 ```typescript
 // tests/logo-overflow.spec.ts
-test('Logo overflow prevention', async ({ page }) => {
+test("Logo overflow prevention", async ({ page }) => {
   // Mobile
   await page.setViewportSize({ width: 375, height: 667 });
   const mobileLogo = page.locator('header img[alt*="Logo"]');
   const mobileBox = await mobileLogo.boundingBox();
   expect(mobileBox.width).toBeLessThanOrEqual(120);
-  
+
   // Desktop
   await page.setViewportSize({ width: 1920, height: 1080 });
   const desktopBox = await mobileLogo.boundingBox();
@@ -152,7 +155,7 @@ echo "✅ Logo overflow checks passed"
 
 ```tsx
 // Correct Logo Implementation
-<img 
+<img
   src={logoUrl || defaultLogo}
   alt={`${companyName} Logo`}
   className="h-7 sm:h-8 max-w-[120px] sm:max-w-[160px] md:max-w-[180px] object-contain"
@@ -185,13 +188,13 @@ echo "✅ Logo overflow checks passed"
 
 ## 📊 Erfolgsmetriken
 
-| Metrik | V18.5.0 | V18.5.1 | Ziel |
-|--------|---------|---------|------|
-| Logo-Overflow-Incidents | 3 | 0 | 0 |
-| Max-Width-Compliance | 60% | 100% | 100% |
-| Object-Contain-Usage | 80% | 100% | 100% |
-| Logo+Text-Combinations | 2 | 0 | 0 |
-| Mobile-Overflow-Risk | HIGH | NONE | NONE |
+| Metrik                  | V18.5.0 | V18.5.1 | Ziel |
+| ----------------------- | ------- | ------- | ---- |
+| Logo-Overflow-Incidents | 3       | 0       | 0    |
+| Max-Width-Compliance    | 60%     | 100%    | 100% |
+| Object-Contain-Usage    | 80%     | 100%    | 100% |
+| Logo+Text-Combinations  | 2       | 0       | 0    |
+| Mobile-Overflow-Risk    | HIGH    | NONE    | NONE |
 
 ---
 

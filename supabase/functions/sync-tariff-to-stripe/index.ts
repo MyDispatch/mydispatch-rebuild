@@ -5,31 +5,31 @@
    ================================================================================== */
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import Stripe from 'https://esm.sh/stripe@14.21.0?target=deno';
+import Stripe from "https://esm.sh/stripe@14.21.0?target=deno";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface TariffSyncRequest {
-  tariff_id: 'starter' | 'business' | 'enterprise';
+  tariff_id: "starter" | "business" | "enterprise";
   metadata?: Record<string, string>;
 }
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const stripeKey = Deno.env.get('STRIPE_SECRET_KEY');
+    const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
     if (!stripeKey) {
-      throw new Error('STRIPE_SECRET_KEY nicht konfiguriert');
+      throw new Error("STRIPE_SECRET_KEY nicht konfiguriert");
     }
 
     const stripe = new Stripe(stripeKey, {
-      apiVersion: '2023-10-16',
+      apiVersion: "2023-10-16",
       httpClient: Stripe.createFetchHttpClient(),
     });
 
@@ -39,9 +39,9 @@ serve(async (req) => {
 
     // Map Tariff-IDs zu Stripe-Product-IDs
     const productIdMap = {
-      starter: 'prod_TEeg0ykplmGKd0',
-      business: 'prod_TEegHmtpPZOZcG',
-      enterprise: 'prod_ENTERPRISE_ID_PLACEHOLDER',
+      starter: "prod_TEeg0ykplmGKd0",
+      business: "prod_TEegHmtpPZOZcG",
+      enterprise: "prod_ENTERPRISE_ID_PLACEHOLDER",
     };
 
     const productId = productIdMap[tariff_id];
@@ -54,7 +54,7 @@ serve(async (req) => {
       metadata: {
         ...metadata,
         last_sync: new Date().toISOString(),
-        source: 'MyDispatch',
+        source: "MyDispatch",
       },
     });
 
@@ -68,19 +68,19 @@ serve(async (req) => {
         synced_at: new Date().toISOString(),
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       }
     );
   } catch (error) {
-    console.error('Fehler beim Tariff-Sync:', error);
-    
+    console.error("Fehler beim Tariff-Sync:", error);
+
     return new Response(
       JSON.stringify({
-        error: error instanceof Error ? error.message : 'Unbekannter Fehler',
+        error: error instanceof Error ? error.message : "Unbekannter Fehler",
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 500,
       }
     );

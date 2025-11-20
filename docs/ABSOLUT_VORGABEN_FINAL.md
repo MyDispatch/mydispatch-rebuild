@@ -11,6 +11,7 @@
 ### 🔒 GESPERRTE SEITEN (11 Total):
 
 #### Core Marketing (6 Seiten):
+
 1. **/** - Home (V28/V32.0 LOCKED)
 2. **/features** - Features (V28/V32.0 LOCKED)
 3. **/pricing** - Pricing (V28/V32.0 LOCKED)
@@ -19,10 +20,12 @@
 6. **/faq** - FAQ (V28/V32.0 LOCKED)
 
 #### Auth Pages (2 Seiten):
+
 7. **/login** - Login (V28/V32.0 LOCKED)
 8. **/register** - Register (V28/V32.0 LOCKED)
 
 #### Legal Pages (3 Seiten):
+
 9. **/privacy** - Privacy Policy (V28/V32.0 LOCKED)
 10. **/terms** - Terms of Service (V28/V32.0 LOCKED)
 11. **/imprint** - Impressum (V28/V32.0 LOCKED)
@@ -30,6 +33,7 @@
 ### 🚨 ABSOLUTE REGELN (UNUMGEHBAR):
 
 #### ❌ ABSOLUT VERBOTEN (KEINE AUSNAHMEN):
+
 - Design-Änderungen (Farben, Spacing, Fonts, Komponenten)
 - Layout-Änderungen (Hero, Sections, Grid-Struktur)
 - Neue UI-Features hinzufügen
@@ -41,6 +45,7 @@
 - Background-Varianten ändern (nur 3d-premium/flat erlaubt)
 
 #### ✅ NUR ERLAUBT (Technische Optimierungen):
+
 - Performance-Optimierungen (React.memo, Lazy Loading, Caching)
 - SEO-Optimierungen (Meta-Tags, Schema.org, Open Graph)
 - Accessibility-Verbesserungen (ARIA, Keyboard-Navigation)
@@ -50,6 +55,7 @@
 - Analytics & Monitoring
 
 #### 📋 Design-Lock Dokumentation:
+
 - **`docs/PUBLIC_PAGES_DESIGN_LOCK_V32.1.md`** - Vollständige Spezifikation (HAUPTDOKUMENT)
 - `docs/DESIGN_SYSTEM_LOCK.md` - Design-System V32.0
 - `docs/HERO_LOCK_FINAL_V32.0.md` - Hero-System
@@ -62,18 +68,45 @@
 ```typescript
 // VERPFLICHTEND vor JEDER Code-Änderung:
 const publicPages = [
-  'Home.tsx', 'Features.tsx', 'Pricing.tsx', 'About.tsx', 'Contact.tsx',
-  'FAQ.tsx', 'Login.tsx', 'Register.tsx', 'Privacy.tsx', 'Terms.tsx', 'Imprint.tsx'
+  "Home.tsx",
+  "Features.tsx",
+  "Pricing.tsx",
+  "About.tsx",
+  "Contact.tsx",
+  "FAQ.tsx",
+  "Login.tsx",
+  "Register.tsx",
+  "Privacy.tsx",
+  "Terms.tsx",
+  "Imprint.tsx",
 ];
 
 const designKeywords = [
-  'hero', 'layout', 'design', 'color', 'spacing', 'padding', 'margin',
-  'grid', 'flex', 'position', 'size', 'font', 'text', 'background',
-  'border', 'shadow', 'animation', 'component', 'variant'
+  "hero",
+  "layout",
+  "design",
+  "color",
+  "spacing",
+  "padding",
+  "margin",
+  "grid",
+  "flex",
+  "position",
+  "size",
+  "font",
+  "text",
+  "background",
+  "border",
+  "shadow",
+  "animation",
+  "component",
+  "variant",
 ];
 
-if (publicPages.some(page => file.includes(page)) && 
-    designKeywords.some(k => request.toLowerCase().includes(k))) {
+if (
+  publicPages.some((page) => file.includes(page)) &&
+  designKeywords.some((k) => request.toLowerCase().includes(k))
+) {
   STOP_AND_WARN_USER();
   SHOW_DESIGN_LOCK_MESSAGE();
   SUGGEST_TECHNICAL_ALTERNATIVES();
@@ -82,6 +115,7 @@ if (publicPages.some(page => file.includes(page)) &&
 ```
 
 ### ✅ ERFOLGS-KRITERIEN (ERFÜLLT):
+
 - ✅ Alle 11 öffentlichen Seiten sind V28/V32.0 konform
 - ✅ Design-System ist einheitlich (V28HeroPremium + Slate-Only)
 - ✅ Alle Seiten sind responsive (Mobile/Tablet/Desktop)

@@ -4,14 +4,14 @@
    Verwendet MobileGridLayout für standardisierte Struktur
    ================================================================================== */
 
-import { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Plus, Search, Building2, AlertCircle } from 'lucide-react';
-import { MobileGridLayout } from './MobileGridLayout';
-import { Progress } from '@/components/ui/progress';
-import { cn } from '@/lib/utils';
-import { formatCurrency, roundTo } from '@/lib/index';
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Plus, Search, Building2, AlertCircle } from "lucide-react";
+import { MobileGridLayout } from "./MobileGridLayout";
+import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
+import { formatCurrency, roundTo } from "@/lib/index";
 
 interface CostCenter {
   id: string;
@@ -36,33 +36,30 @@ export function MobileKostenstellen({
   isLoading,
   onCreateNew,
   onCostCenterClick,
-  onRefresh
+  onRefresh,
 }: MobileKostenstellenProps) {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredCostCenters = costCenters.filter(cc => {
-    if (activeFilter === 'active' && !cc.active) return false;
-    if (activeFilter === 'inactive' && cc.active) return false;
+  const filteredCostCenters = costCenters.filter((cc) => {
+    if (activeFilter === "active" && !cc.active) return false;
+    if (activeFilter === "inactive" && cc.active) return false;
 
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      return (
-        cc.name.toLowerCase().includes(query) ||
-        cc.description?.toLowerCase().includes(query)
-      );
+      return cc.name.toLowerCase().includes(query) || cc.description?.toLowerCase().includes(query);
     }
 
     return true;
   });
 
-  const activeCount = costCenters.filter(cc => cc.active).length;
-  const inactiveCount = costCenters.filter(cc => !cc.active).length;
+  const activeCount = costCenters.filter((cc) => cc.active).length;
+  const inactiveCount = costCenters.filter((cc) => !cc.active).length;
 
   const filters = [
-    { id: 'all', label: 'Alle', count: costCenters.length },
-    { id: 'active', label: 'Aktiv', count: activeCount },
-    { id: 'inactive', label: 'Inaktiv', count: inactiveCount },
+    { id: "all", label: "Alle", count: costCenters.length },
+    { id: "active", label: "Aktiv", count: activeCount },
+    { id: "inactive", label: "Inaktiv", count: inactiveCount },
   ];
 
   // Removed: Using central formatCurrency from @/lib/index
@@ -74,9 +71,9 @@ export function MobileKostenstellen({
 
   const getBudgetStatus = (spent: number, budget: number) => {
     const percentage = getBudgetPercentage(spent, budget);
-    if (percentage >= 100) return 'error';
-    if (percentage >= 80) return 'warning';
-    return 'success';
+    if (percentage >= 100) return "error";
+    if (percentage >= 80) return "warning";
+    return "success";
   };
 
   return (
@@ -95,7 +92,7 @@ export function MobileKostenstellen({
         const budget = cc.budget || 0;
         const percentage = getBudgetPercentage(spent, budget);
         const status = getBudgetStatus(spent, budget);
-        
+
         return (
           <Card className="cursor-pointer hover:bg-primary/5 transition-colors">
             <CardContent className="p-4">
@@ -106,13 +103,11 @@ export function MobileKostenstellen({
                     {cc.name}
                   </h3>
                   {cc.description && (
-                    <p className="text-sm text-muted-foreground line-clamp-1">
-                      {cc.description}
-                    </p>
+                    <p className="text-sm text-muted-foreground line-clamp-1">{cc.description}</p>
                   )}
                 </div>
-                <Badge variant={cc.active ? 'default' : 'outline'}>
-                  {cc.active ? 'Aktiv' : 'Inaktiv'}
+                <Badge variant={cc.active ? "default" : "outline"}>
+                  {cc.active ? "Aktiv" : "Inaktiv"}
                 </Badge>
               </div>
 
@@ -125,21 +120,23 @@ export function MobileKostenstellen({
                     </div>
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground">Verbraucht</span>
-                      <span className={cn(
-                        "font-semibold",
-                        status === 'error' && "text-destructive",
-                        status === 'warning' && "text-status-warning",
-                        status === 'success' && "text-status-success"
-                      )}>
+                      <span
+                        className={cn(
+                          "font-semibold",
+                          status === "error" && "text-destructive",
+                          status === "warning" && "text-status-warning",
+                          status === "success" && "text-status-success"
+                        )}
+                      >
                         {formatCurrency(spent)}
                       </span>
                     </div>
-                    <Progress 
-                      value={percentage} 
+                    <Progress
+                      value={percentage}
                       className={cn(
                         "h-2",
-                        status === 'error' && "[&>div]:bg-destructive",
-                        status === 'warning' && "[&>div]:bg-status-warning"
+                        status === "error" && "[&>div]:bg-destructive",
+                        status === "warning" && "[&>div]:bg-status-warning"
                       )}
                     />
                     <div className="flex items-center justify-between text-xs">
@@ -152,13 +149,13 @@ export function MobileKostenstellen({
                     </div>
                   </div>
 
-                  {status === 'error' && (
+                  {status === "error" && (
                     <div className="flex items-center gap-2 p-2 bg-destructive/10 rounded text-xs text-destructive">
                       <AlertCircle className="h-4 w-4 shrink-0" />
                       <span>Budget überschritten!</span>
                     </div>
                   )}
-                  {status === 'warning' && (
+                  {status === "warning" && (
                     <div className="flex items-center gap-2 p-2 bg-status-warning/10 rounded text-xs text-muted-foreground">
                       <AlertCircle className="h-4 w-4 shrink-0 text-foreground" />
                       <span>Budget bald erschöpft</span>
@@ -171,16 +168,16 @@ export function MobileKostenstellen({
         );
       }}
       onItemClick={onCostCenterClick}
-      entityLabel={{ singular: 'Kostenstelle', plural: 'Kostenstellen' }}
+      entityLabel={{ singular: "Kostenstelle", plural: "Kostenstellen" }}
       fabLabel="Neue Kostenstelle"
       onFabClick={onCreateNew}
       fabIcon={Plus}
       emptyStateProps={{
         icon: <Search className="h-16 w-16" />,
-        noDataTitle: 'Keine Kostenstellen',
-        noDataDescription: 'Erstelle deine erste Kostenstelle',
-        noResultsTitle: 'Keine Ergebnisse',
-        noResultsDescription: 'Versuche einen anderen Suchbegriff'
+        noDataTitle: "Keine Kostenstellen",
+        noDataDescription: "Erstelle deine erste Kostenstelle",
+        noResultsTitle: "Keine Ergebnisse",
+        noResultsDescription: "Versuche einen anderen Suchbegriff",
       }}
     />
   );

@@ -24,6 +24,7 @@
 ### KRITISCHE REGEL: SCHRIFTBILD-KONSISTENZ
 
 **VOR JEDER AUFGABE MIT TEXTEN/WERTEN:**
+
 1. ✅ Design-System prüfen (index.css + tailwind.config.ts)
 2. ✅ Typography-Klassen verwenden (NIEMALS custom font-size!)
 3. ✅ Semantic Tokens nutzen (text-foreground, text-muted-foreground)
@@ -169,7 +170,7 @@ import { DashboardDualPageTemplate } from '@/components/templates';
     <MetricCard ... />
     <MetricCard ... />
   </div>
-  
+
   {/* Schnellzugriff - 3 Spalten */}
   <div className="lg:col-span-3">
     <QuickAccessCard ... />
@@ -188,25 +189,25 @@ xl: 1280px (Large Desktop)
 
 ```typescript
 // 1. DashboardPageTemplate (1-Bereich)
-src/components/templates/DashboardPageTemplate.tsx
+src / components / templates / DashboardPageTemplate.tsx;
 
 // 2. DashboardDualPageTemplate (2-Bereiche)
-src/components/templates/DashboardDualPageTemplate.tsx
+src / components / templates / DashboardDualPageTemplate.tsx;
 
 // 3. DashboardSection (Bereichs-Container)
-src/components/shared/DashboardSection.tsx
+src / components / shared / DashboardSection.tsx;
 
 // 4. PageHeaderWithKPIs (KPIs + Actions)
-src/components/shared/PageHeaderWithKPIs.tsx
+src / components / shared / PageHeaderWithKPIs.tsx;
 
 // 5. StandardTableTemplate (Tabellen)
-src/components/templates/StandardTableTemplate.tsx
+src / components / templates / StandardTableTemplate.tsx;
 
 // 6. StandardDetailDialog (PopUps)
-src/components/shared/StandardDetailDialog.tsx
+src / components / shared / StandardDetailDialog.tsx;
 
 // 7. DetailTrigger (Eye-Icon Button)
-src/components/shared/StandardDetailDialog.tsx
+src / components / shared / StandardDetailDialog.tsx;
 ```
 
 ---
@@ -233,9 +234,9 @@ src/components/
 ```typescript
 // KPI-CARDS
 import { MetricCard } from '@/components/dashboard/MetricCard';
-<MetricCard 
-  title="Aktive Fahrer" 
-  value={12} 
+<MetricCard
+  title="Aktive Fahrer"
+  value={12}
   icon={Users}
   trend={{ value: 5, label: 'vs. Vormonat' }}
 />
@@ -246,15 +247,15 @@ import { StatusIndicator } from '@/components/shared/StatusIndicator';
 
 // EMPTY-STATE
 import { EmptyState } from '@/components/shared/EmptyState';
-<EmptyState 
-  title="Keine Daten" 
+<EmptyState
+  title="Keine Daten"
   description="Erstellen Sie einen neuen Eintrag"
   icon={Users}
 />
 
 // BULK-ACTION-BAR
 import { BulkActionBar } from '@/components/shared/BulkActionBar';
-<BulkActionBar 
+<BulkActionBar
   selectedCount={5}
   actions={bulkActions}
   onClear={clearSelection}
@@ -300,14 +301,14 @@ export default function PageName() {
   const { toast } = useToast();
   const { isMobile } = useDeviceType();
   const [searchParams, setSearchParams] = useSearchParams();
-  
+
   // React Query Hooks
   const { data, isLoading } = useData();
-  
+
   // Local State
   const [searchTerm, setSearchTerm] = useState('');
   const [showArchived, setShowArchived] = useState(false);
-  
+
   // ✅ PHASE 2: Berechnungen & Stats
   const stats = DashboardStatsCalculator.entity(data);
   const kpis: [any, any, any] = [
@@ -315,16 +316,16 @@ export default function PageName() {
     KPIGenerator.entity.active(stats.active),
     KPIGenerator.entity.custom(stats.custom),
   ];
-  
+
   // ✅ PHASE 3: Event-Handlers
   const handleCreate = () => { ... };
   const handleEdit = (item) => { ... };
-  
+
   // ✅ PHASE 4: Mobile-Redirect (falls nötig)
   if (isMobile) {
     return <MobilePage />;
   }
-  
+
   // ✅ PHASE 5: Render
   return (
     <DashboardPageTemplate ... />
@@ -362,25 +363,25 @@ feature_flags      → Feature-Control
 
 ```typescript
 // ✅ REACT QUERY (Standard)
-import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 const { data, isLoading } = useQuery({
-  queryKey: ['drivers', profile?.company_id],
+  queryKey: ["drivers", profile?.company_id],
   queryFn: async () => {
     const { data, error } = await supabase
-      .from('drivers')
-      .select('*')
-      .eq('company_id', profile?.company_id)
-      .eq('archived', false);
-    
+      .from("drivers")
+      .select("*")
+      .eq("company_id", profile?.company_id)
+      .eq("archived", false);
+
     if (error) throw error;
     return data;
   },
 });
 
 // ✅ REALTIME (für Live-Updates)
-import { useRealtimeDrivers } from '@/hooks/use-realtime-drivers';
+import { useRealtimeDrivers } from "@/hooks/use-realtime-drivers";
 useRealtimeDrivers(); // Automatische Updates
 ```
 

@@ -7,12 +7,12 @@
    ✅ Auto-Recovery mechanisms
    ================================================================================== */
 
-import React from 'react';
-import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
-import { Card, CardContent } from '@/lib/compat';
-import { V28Button } from '@/components/design-system/V28Button';
-import { logger } from '@/lib/logger';
-import { useErrorLogging } from '@/hooks/use-error-logging';
+import React from "react";
+import { AlertTriangle, RefreshCw, Home } from "lucide-react";
+import { Card, CardContent } from "@/lib/compat";
+import { V28Button } from "@/components/design-system/V28Button";
+import { logger } from "@/lib/logger";
+import { useErrorLogging } from "@/hooks/use-error-logging";
 
 interface Props {
   children: React.ReactNode;
@@ -30,11 +30,11 @@ interface State {
 export class GlobalErrorBoundary extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { 
-      hasError: false, 
-      error: null, 
+    this.state = {
+      hasError: false,
+      error: null,
       errorInfo: null,
-      errorCount: 0 
+      errorCount: 0,
     };
   }
 
@@ -44,10 +44,10 @@ export class GlobalErrorBoundary extends React.Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Increment error count
-    this.setState(prev => ({ errorCount: prev.errorCount + 1 }));
+    this.setState((prev) => ({ errorCount: prev.errorCount + 1 }));
 
     // Log to console in DEV
-    logger.error('GlobalErrorBoundary caught error', error, {
+    logger.error("GlobalErrorBoundary caught error", error, {
       componentStack: errorInfo.componentStack,
       errorCount: this.state.errorCount,
     });
@@ -70,7 +70,7 @@ export class GlobalErrorBoundary extends React.Component<Props, State> {
   };
 
   handleHome = () => {
-    window.location.href = '/';
+    window.location.href = "/";
   };
 
   handleRetry = () => {
@@ -114,11 +114,7 @@ export class GlobalErrorBoundary extends React.Component<Props, State> {
 
               {this.state.errorCount < 3 && (
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <V28Button
-                    onClick={this.handleRetry}
-                    className="flex-1"
-                    size="lg"
-                  >
+                  <V28Button onClick={this.handleRetry} className="flex-1" size="lg">
                     <RefreshCw className="h-4 w-4 mr-2" />
                     Erneut versuchen
                   </V28Button>
@@ -139,11 +135,7 @@ export class GlobalErrorBoundary extends React.Component<Props, State> {
                   <p className="text-sm text-status-warning">
                     Mehrfache Fehler erkannt. Bitte laden Sie die Seite neu.
                   </p>
-                  <V28Button
-                    onClick={this.handleReload}
-                    className="w-full"
-                    size="lg"
-                  >
+                  <V28Button onClick={this.handleReload} className="w-full" size="lg">
                     <RefreshCw className="h-4 w-4 mr-2" />
                     Seite neu laden
                   </V28Button>
@@ -164,25 +156,28 @@ export class GlobalErrorBoundary extends React.Component<Props, State> {
 
   private static calculateSeverity(message: string): string {
     // Critical Patterns
-    if (message.includes('ChunkLoadError') || 
-        message.includes('Hydration failed') ||
-        message.includes('white screen')) {
-      return 'critical';
+    if (
+      message.includes("ChunkLoadError") ||
+      message.includes("Hydration failed") ||
+      message.includes("white screen")
+    ) {
+      return "critical";
     }
-    
+
     // High Severity
-    if (message.includes('Cannot read properties') ||
-        message.includes('undefined is not') ||
-        message.includes('Network Error')) {
-      return 'high';
+    if (
+      message.includes("Cannot read properties") ||
+      message.includes("undefined is not") ||
+      message.includes("Network Error")
+    ) {
+      return "high";
     }
-    
+
     // Medium Severity
-    if (message.includes('Warning') ||
-        message.includes('Deprecated')) {
-      return 'medium';
+    if (message.includes("Warning") || message.includes("Deprecated")) {
+      return "medium";
     }
-    
-    return 'low';
+
+    return "low";
   }
 }

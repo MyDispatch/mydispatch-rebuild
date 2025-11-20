@@ -1,4 +1,5 @@
 # 🌐 LANDINGPAGE FINALE DOKUMENTATION V18.2.31
+
 ## ⚠️ ALLE ARBEITEN ABGESCHLOSSEN & PRODUKTIONSREIF
 
 **Datum:** 2025-10-18  
@@ -12,11 +13,13 @@
 ### 1. CHAT-SYSTEM-INTEGRATION ✅
 
 #### Implementierung
+
 - **Datei:** `src/pages/Unternehmer.tsx`
 - **Komponente:** `<IntelligentAIChat isPublicLanding={true} companyData={...} />`
 - **Status:** Vollständig integriert und getestet
 
 #### Features
+
 - ✅ B2C-orientierter Service-Chat
 - ✅ Firmenname dynamisch aus Datenbank
 - ✅ Kontaktdaten (Telefon, E-Mail) eingebunden
@@ -27,6 +30,7 @@
 - ✅ Minimierter Floating-Button mit "Service-Chat 💬"
 
 #### Kontext-Daten
+
 ```typescript
 companyData={{
   id: company.id,
@@ -39,6 +43,7 @@ companyData={{
 ```
 
 #### Standard-Fragen
+
 - "Wie kann ich eine Fahrt buchen?"
 - "Welche Fahrzeugtypen bieten Sie an?"
 - "Was kostet eine Fahrt zum Flughafen?"
@@ -50,6 +55,7 @@ companyData={{
 #### Datei: `src/components/booking/BookingWidget.tsx`
 
 #### Features
+
 - ✅ Öffentliches Buchungsformular ohne Login
 - ✅ Inline-Kunden-Erstellung (InlineCustomerForm)
 - ✅ Anrede/Titel-System (Herr/Frau/Divers + Dr./Prof.)
@@ -63,6 +69,7 @@ companyData={{
 - ✅ Email-Bestätigung an Kunde & Unternehmen
 
 #### Validierung
+
 - ✅ Pflichtfelder (Name, Telefon, E-Mail, Adressen)
 - ✅ Datum in Zukunft (min. +5 Minuten)
 - ✅ Email-Format (Zod-Schema)
@@ -73,18 +80,21 @@ companyData={{
 ### 3. UI/UX-OPTIMIERUNGEN ✅
 
 #### Layout
+
 - ✅ Fixed Header mit 60px Höhe
 - ✅ Sidebar 64px (collapsed) / 240px (expanded)
 - ✅ Footer mit py-2
 - ✅ Responsive Breakpoint: 768px
 
 #### Design-System
+
 - ✅ CI-Farben: `--accent`, `--accent-foreground`, `--primary`
 - ✅ Semantic Tokens statt Hardcoded-Farben
 - ✅ Dark/Light Mode Support
 - ✅ Icon-Farben IMMER `text-foreground` (nie Ampelfarben)
 
 #### Komponenten
+
 - ✅ Hero-Section mit Company-Name & Logo
 - ✅ Features-Grid (4 Spalten → 1 Spalte Mobile)
 - ✅ Testimonials-Carousel
@@ -99,6 +109,7 @@ companyData={{
 #### Edge Functions
 
 **create-public-booking** (`supabase/functions/create-public-booking/index.ts`)
+
 ```typescript
 - ✅ Öffentlich (verify_jwt = false)
 - ✅ CORS-Header
@@ -110,6 +121,7 @@ companyData={{
 ```
 
 **geocode-company-address** (`supabase/functions/geocode-company-address/index.ts`)
+
 ```typescript
 - ✅ HERE API Geocoding
 - ✅ Lat/Lng-Speicherung in companies-Tabelle
@@ -119,6 +131,7 @@ companyData={{
 #### Database-Schema
 
 **companies-Tabelle:**
+
 ```sql
 - company_slug TEXT UNIQUE (URL: /u/{slug})
 - latitude NUMERIC
@@ -128,6 +141,7 @@ companyData={{
 ```
 
 **bookings-Tabelle:**
+
 ```sql
 - is_public_booking BOOLEAN (für öffentliche Buchungen)
 - source TEXT (z.B. "landingpage")
@@ -138,6 +152,7 @@ companyData={{
 ### 5. SEO & PERFORMANCE ✅
 
 #### Meta-Tags
+
 ```html
 <title>{company.name} - Taxi & Mietwagen Online buchen</title>
 <meta name="description" content="Buchen Sie zuverlässig..." />
@@ -146,6 +161,7 @@ companyData={{
 ```
 
 #### Schema.org (JSON-LD)
+
 ```json
 {
   "@type": "TaxiService",
@@ -157,6 +173,7 @@ companyData={{
 ```
 
 #### Performance
+
 - ✅ Lazy Loading (React.lazy)
 - ✅ Code Splitting
 - ✅ Image Optimization (WebP)
@@ -167,6 +184,7 @@ companyData={{
 ### 6. MOBILE-OPTIMIERUNG ✅
 
 #### Responsive Design
+
 - ✅ Hero: Volle Breite (100vw) → Single Column
 - ✅ Features: 4 Spalten → 2 Spalten → 1 Spalte
 - ✅ Booking-Widget: Desktop-Layout → Mobile-Stacked
@@ -174,6 +192,7 @@ companyData={{
 - ✅ Navigation: Desktop-Menu → Mobile-Burger
 
 #### Touch-Optimierung
+
 - ✅ Button-Größen: min 44x44px
 - ✅ Input-Felder: Große Touch-Targets
 - ✅ Select-Dropdowns: Native Mobile-Picker
@@ -183,17 +202,20 @@ companyData={{
 ### 7. RECHTLICHE ABSICHERUNG ✅
 
 #### Pflichtangaben
+
 - ✅ Impressum (Link im Footer)
 - ✅ Datenschutz (Link im Footer)
 - ✅ AGB (Link im Footer)
 - ✅ Cookie-Consent (optional für Analytics)
 
 #### DSGVO
+
 - ✅ Datenschutz-Checkbox im Buchungsformular
 - ✅ Transparente Datenverarbeitung
 - ✅ Recht auf Löschung (via Email)
 
 #### PBefG
+
 - ✅ Bar-Zahlung bei Nicht-Geschäftskunden
 - ✅ Hinweis auf Bezahlung vor Ort
 - ✅ Keine Online-Zahlung (§51 PBefG)
@@ -202,18 +224,18 @@ companyData={{
 
 ## 🎯 FEATURE-MATRIX
 
-| Feature | Status | Getestet | Dokumentiert |
-|---------|--------|----------|--------------|
-| **Chat-System** | ✅ | ✅ | ✅ |
-| **Booking-Widget** | ✅ | ✅ | ✅ |
-| **Adress-Suche (HERE)** | ✅ | ✅ | ✅ |
-| **Inline-Kunden** | ✅ | ✅ | ✅ |
-| **Email-Bestätigung** | ✅ | ✅ | ✅ |
-| **Responsive Design** | ✅ | ✅ | ✅ |
-| **SEO-Optimierung** | ✅ | ✅ | ✅ |
-| **DSGVO-Konformität** | ✅ | ✅ | ✅ |
-| **Dark/Light Mode** | ✅ | ✅ | ✅ |
-| **Multi-Tenant** | ✅ | ✅ | ✅ |
+| Feature                 | Status | Getestet | Dokumentiert |
+| ----------------------- | ------ | -------- | ------------ |
+| **Chat-System**         | ✅     | ✅       | ✅           |
+| **Booking-Widget**      | ✅     | ✅       | ✅           |
+| **Adress-Suche (HERE)** | ✅     | ✅       | ✅           |
+| **Inline-Kunden**       | ✅     | ✅       | ✅           |
+| **Email-Bestätigung**   | ✅     | ✅       | ✅           |
+| **Responsive Design**   | ✅     | ✅       | ✅           |
+| **SEO-Optimierung**     | ✅     | ✅       | ✅           |
+| **DSGVO-Konformität**   | ✅     | ✅       | ✅           |
+| **Dark/Light Mode**     | ✅     | ✅       | ✅           |
+| **Multi-Tenant**        | ✅     | ✅       | ✅           |
 
 ---
 
@@ -246,18 +268,18 @@ supabase/functions/
 
 ### Manuelle Tests (Alle bestanden ✅)
 
-| Test | Ergebnis | Anmerkungen |
-|------|----------|-------------|
-| **Buchung ohne Login** | ✅ | Kunde wird inline erstellt |
-| **Email-Versand** | ✅ | Bestätigung an Kunde & Firma |
-| **Adress-Suche** | ✅ | HERE API liefert Vorschläge |
-| **Preis-Kalkulation** | ✅ | Sofortige Anzeige |
-| **Chat-Antworten** | ✅ | Professionell, 4-5 Sätze |
-| **Markdown-Formatierung** | ✅ | **Bold**, Listen, Absätze |
-| **Mobile-Ansicht** | ✅ | Responsive, Touch-optimiert |
-| **Dark Mode** | ✅ | Farben korrekt |
-| **SEO Meta-Tags** | ✅ | Alle gesetzt |
-| **DSGVO-Checkbox** | ✅ | Pflichtfeld |
+| Test                      | Ergebnis | Anmerkungen                  |
+| ------------------------- | -------- | ---------------------------- |
+| **Buchung ohne Login**    | ✅       | Kunde wird inline erstellt   |
+| **Email-Versand**         | ✅       | Bestätigung an Kunde & Firma |
+| **Adress-Suche**          | ✅       | HERE API liefert Vorschläge  |
+| **Preis-Kalkulation**     | ✅       | Sofortige Anzeige            |
+| **Chat-Antworten**        | ✅       | Professionell, 4-5 Sätze     |
+| **Markdown-Formatierung** | ✅       | **Bold**, Listen, Absätze    |
+| **Mobile-Ansicht**        | ✅       | Responsive, Touch-optimiert  |
+| **Dark Mode**             | ✅       | Farben korrekt               |
+| **SEO Meta-Tags**         | ✅       | Alle gesetzt                 |
+| **DSGVO-Checkbox**        | ✅       | Pflichtfeld                  |
 
 ### Browser-Kompatibilität ✅
 
@@ -273,17 +295,20 @@ supabase/functions/
 ## 🚀 DEPLOYMENT-STATUS
 
 ### Produktion
+
 - ✅ Live auf: `https://vsbqyqhzxmwezlhzdmfd.supabase.co`
 - ✅ Custom Domain: Konfigurierbar via `/u/{company-slug}`
 - ✅ HTTPS: Automatisch (Supabase)
 - ✅ CDN: Aktiviert
 
 ### Edge Functions
+
 - ✅ Deployed: 4/4 Functions
 - ✅ Logs: Monitoring aktiv
 - ✅ Errors: 0 in letzten 24h
 
 ### Database
+
 - ✅ Migrations: Alle ausgeführt
 - ✅ RLS: 58 Policies aktiv
 - ✅ Triggers: 12 aktiv
@@ -294,18 +319,21 @@ supabase/functions/
 ## 📊 PERFORMANCE-METRIKEN
 
 ### Lighthouse-Score (Desktop)
+
 - ✅ Performance: 95/100
 - ✅ Accessibility: 100/100
 - ✅ Best Practices: 100/100
 - ✅ SEO: 100/100
 
 ### Lighthouse-Score (Mobile)
+
 - ✅ Performance: 88/100
 - ✅ Accessibility: 100/100
 - ✅ Best Practices: 100/100
 - ✅ SEO: 100/100
 
 ### Ladezeiten
+
 - ✅ First Contentful Paint: < 1.2s
 - ✅ Time to Interactive: < 2.5s
 - ✅ Largest Contentful Paint: < 2.8s
@@ -315,6 +343,7 @@ supabase/functions/
 ## 🎨 DESIGN-KONSISTENZ
 
 ### CI-Konformität
+
 - ✅ Primary-Farbe: `hsl(var(--primary))`
 - ✅ Accent-Farbe: `hsl(var(--accent))`
 - ✅ Foreground: `hsl(var(--foreground))`
@@ -322,6 +351,7 @@ supabase/functions/
 - ✅ Layout: Header 60px, Sidebar 64px/240px, Footer py-2
 
 ### Typografie
+
 - ✅ Font: Inter (Google Fonts)
 - ✅ Line-Height: 1.5 (Fließtext), 1.2 (Überschriften)
 - ✅ Letter-Spacing: -0.01em (Überschriften)
@@ -332,16 +362,19 @@ supabase/functions/
 ## 🔒 SICHERHEIT
 
 ### Authentifizierung
+
 - ✅ Öffentliche Landingpage: Kein Login erforderlich
 - ✅ RLS: Policies für companies-Tabelle
 - ✅ CORS: Konfiguriert für Edge Functions
 
 ### Validierung
+
 - ✅ Frontend: react-hook-form + Zod
 - ✅ Backend: Edge Functions Validierung
 - ✅ SQL: Prepared Statements (automatisch via Supabase)
 
 ### Datenschutz
+
 - ✅ DSGVO-Checkbox: Pflicht
 - ✅ SSL/TLS: Automatisch
 - ✅ Email-Verschlüsselung: TLS
@@ -395,23 +428,26 @@ supabase/functions/
 **Qualität:** Premium  
 **Benutzer-Feedback:** ✅ "Perfekt gelöst"  
 **Technische Schuld:** Keine  
-**Wartungsbedarf:** Minimal  
+**Wartungsbedarf:** Minimal
 
 ---
 
 ## 📞 SUPPORT & WARTUNG
 
 ### Bei Fragen oder Problemen:
+
 1. Diese Dokumentation konsultieren
 2. CHAT_SYSTEM_FINALE_DOKUMENTATION_V18.2.31.md lesen
 3. MASTER_PROMPT_V18.2.md für System-Kontext
 
 ### Änderungen NUR für:
+
 - Bug-Fixes (Security, Performance)
 - Neue Features nach Kundenanfrage
 - Design-Anpassungen (CI-Änderungen)
 
 ### NIEMALS ändern:
+
 - Chat-System-Prompts (ohne Test)
 - Booking-Widget-Logik
 - RLS-Policies (ohne Security-Review)

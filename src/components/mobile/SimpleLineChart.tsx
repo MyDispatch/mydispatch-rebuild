@@ -7,7 +7,7 @@
    - Responsive & performant
    ================================================================================== */
 
-import { useMemo } from 'react';
+import { useMemo } from "react";
 
 interface DataPoint {
   date: string;
@@ -27,32 +27,34 @@ interface SimpleLineChartProps {
 export function SimpleLineChart({
   data,
   height = 200,
-  color = 'hsl(var(--primary))',
+  color = "hsl(var(--primary))",
   showGrid = true,
   showDots = true,
   formatValue = (v) => v.toFixed(0),
 }: SimpleLineChartProps) {
   const { points, maxValue, minValue } = useMemo(() => {
-    if (data.length === 0) return { points: '', maxValue: 0, minValue: 0 };
+    if (data.length === 0) return { points: "", maxValue: 0, minValue: 0 };
 
-    const values = data.map(d => d.value);
+    const values = data.map((d) => d.value);
     const max = Math.max(...values);
     const min = Math.min(...values);
     const range = max - min || 1; // Verhindere Division durch 0
 
     // SVG-Punkte berechnen (0-300 width, 0-height)
-    const svgPoints = data.map((d, i) => {
-      const x = (i / (data.length - 1)) * 300;
-      const y = height - ((d.value - min) / range) * (height - 20);
-      return `${x},${y}`;
-    }).join(' ');
+    const svgPoints = data
+      .map((d, i) => {
+        const x = (i / (data.length - 1)) * 300;
+        const y = height - ((d.value - min) / range) * (height - 20);
+        return `${x},${y}`;
+      })
+      .join(" ");
 
     return { points: svgPoints, maxValue: max, minValue: min };
   }, [data, height]);
 
   if (data.length === 0) {
     return (
-      <div 
+      <div
         className="flex items-center justify-center text-sm text-muted-foreground"
         style={{ height }}
       >
@@ -108,29 +110,21 @@ export function SimpleLineChart({
             <stop offset="100%" stopColor={color} stopOpacity="0" />
           </linearGradient>
         </defs>
-        <polygon
-          points={`0,${height} ${points} 300,${height}`}
-          fill="url(#gradient)"
-        />
+        <polygon points={`0,${height} ${points} 300,${height}`} fill="url(#gradient)" />
 
         {/* Dots (optional) */}
-        {showDots && data.map((d, i) => {
-          const x = (i / (data.length - 1)) * 300;
-          const y = height - ((d.value - minValue) / (maxValue - minValue || 1)) * (height - 20);
-          return (
-            <g key={i}>
-              <circle
-                cx={x}
-                cy={y}
-                r="4"
-                fill={color}
-                className="transition-all hover:r-6"
-              />
-              {/* Tooltip beim Hover */}
-              <title>{`${d.label || d.date}: ${formatValue(d.value)}`}</title>
-            </g>
-          );
-        })}
+        {showDots &&
+          data.map((d, i) => {
+            const x = (i / (data.length - 1)) * 300;
+            const y = height - ((d.value - minValue) / (maxValue - minValue || 1)) * (height - 20);
+            return (
+              <g key={i}>
+                <circle cx={x} cy={y} r="4" fill={color} className="transition-all hover:r-6" />
+                {/* Tooltip beim Hover */}
+                <title>{`${d.label || d.date}: ${formatValue(d.value)}`}</title>
+              </g>
+            );
+          })}
       </svg>
 
       {/* Y-Axis Labels */}

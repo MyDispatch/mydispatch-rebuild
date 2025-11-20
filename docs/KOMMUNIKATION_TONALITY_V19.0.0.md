@@ -11,6 +11,7 @@
 ## 📋 ÜBERSICHT
 
 Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern und intern kommuniziert. Es gilt für:
+
 - **Website & Marketing** (Landingpages, Pricing, Features)
 - **AI-System** (MyDispatch AI)
 - **E-Mail-Kommunikation** (Support, Sales, Billing)
@@ -24,11 +25,13 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 ### 1.1 Zielgruppe
 
 **Primär:**
+
 - Taxi-Unternehmen (Einzelunternehmer bis mittelständische Flotten)
 - Mietwagen-Unternehmen (mit und ohne Chauffeur)
 - Fuhrpark-Manager (in größeren Unternehmen)
 
 **Charakteristika:**
+
 - B2B-Kontext (geschäftliche Entscheidungen)
 - Kennt die Branche, aber nicht zwingend IT/Software
 - Wertschätzung von Transparenz, Rechtssicherheit, Zuverlässigkeit
@@ -43,20 +46,20 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 
 ### 1.3 Tone of Voice (ToV)
 
-| Dimension | Ausprägung | Beschreibung |
-|-----------|------------|--------------|
-| **Formalität** | Professionell, aber zugänglich | Siezen, aber nicht steif. Fachlich korrekt, aber verständlich. |
-| **Humor** | Zurückhaltend | Leichte, freundliche Formulierungen erlaubt. Keine Witze, kein Sarkasmus. |
-| **Enthusiasmus** | Moderat | Positiv und lösungsorientiert, aber nicht übertrieben enthusiastisch. |
-| **Respekt** | Hoch | Kunde ist Partner, keine Bevormundung. Expertise zeigen, ohne zu belehren. |
+| Dimension        | Ausprägung                     | Beschreibung                                                               |
+| ---------------- | ------------------------------ | -------------------------------------------------------------------------- |
+| **Formalität**   | Professionell, aber zugänglich | Siezen, aber nicht steif. Fachlich korrekt, aber verständlich.             |
+| **Humor**        | Zurückhaltend                  | Leichte, freundliche Formulierungen erlaubt. Keine Witze, kein Sarkasmus.  |
+| **Enthusiasmus** | Moderat                        | Positiv und lösungsorientiert, aber nicht übertrieben enthusiastisch.      |
+| **Respekt**      | Hoch                           | Kunde ist Partner, keine Bevormundung. Expertise zeigen, ohne zu belehren. |
 
 **Beispiel-Vergleich:**
 
-| ❌ Zu informell | ✅ Richtig | ❌ Zu formal |
-|----------------|-----------|-------------|
-| "Hey, check mal unsere Preise!" | "Entdecken Sie unsere Tarife – transparent und flexibel." | "Wir bitten Sie höflichst, unsere Preisliste zur Kenntnis zu nehmen." |
-| "Mega krasser Deal!" | "Sparen Sie bis zu 20% bei jährlicher Zahlung." | "Eine Reduktion des Gesamtbetrages um 20 Prozent wird gewährt." |
-| "Keine Ahnung? Kein Problem!" | "Gerne helfen wir Ihnen bei der Auswahl des passenden Tarifs." | "Sollten Sie Unklarheiten bzgl. der Tarifstruktur haben, stehen wir zur Verfügung." |
+| ❌ Zu informell                 | ✅ Richtig                                                     | ❌ Zu formal                                                                        |
+| ------------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| "Hey, check mal unsere Preise!" | "Entdecken Sie unsere Tarife – transparent und flexibel."      | "Wir bitten Sie höflichst, unsere Preisliste zur Kenntnis zu nehmen."               |
+| "Mega krasser Deal!"            | "Sparen Sie bis zu 20% bei jährlicher Zahlung."                | "Eine Reduktion des Gesamtbetrages um 20 Prozent wird gewährt."                     |
+| "Keine Ahnung? Kein Problem!"   | "Gerne helfen wir Ihnen bei der Auswahl des passenden Tarifs." | "Sollten Sie Unklarheiten bzgl. der Tarifstruktur haben, stehen wir zur Verfügung." |
 
 ---
 
@@ -67,6 +70,7 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 #### 2.1.1 Landingpages & Hero-Sections
 
 **Struktur:**
+
 ```
 [H1: Kernbotschaft - klar, prägnant, maximal 8 Wörter]
 [H2/Subline: Ergänzung, Nutzen, maximal 15 Wörter]
@@ -75,6 +79,7 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 ```
 
 **Beispiele:**
+
 ```
 ✅ H1: "Klar. Fair. Zukunftssicher."
    H2: "Die moderne Dispositionsplattform für Taxi- und Mietwagenunternehmen."
@@ -90,6 +95,7 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 #### 2.1.2 Pricing & Tarife
 
 **Pflicht-Elemente:**
+
 1. **Transparenz:** Alle Kosten klar aufschlüsseln
 2. **Keine versteckten Kosten:** Explizit erwähnen
 3. **Flexibilität betonen:** Monatlich kündbar, Upgrade jederzeit möglich
@@ -97,6 +103,7 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 5. **Trust-Badges:** Made in Germany, DSGVO-Logo
 
 **Formulierungen:**
+
 ```
 ✅ "Transparente Preise. Keine versteckten Kosten."
 ✅ "Monatlich kündbar. Jederzeit upgraden."
@@ -112,6 +119,7 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 #### 2.1.3 Feature-Beschreibungen
 
 **Struktur:**
+
 ```
 [Feature-Name: Klar, max. 4 Wörter]
 [Nutzen: Was bringt es dem Kunden? 1 Satz, max. 20 Wörter]
@@ -119,6 +127,7 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 ```
 
 **Beispiele:**
+
 ```
 ✅ "Auftragsverwaltung
    Verwalten Sie alle Fahrten zentral – von der Buchung bis zur Abrechnung."
@@ -138,6 +147,7 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 **Name:** MyDispatch AI (NICHT "Chat-Bot", "Assistant", "Helfer")  
 **Rolle:** Intelligenter Assistent für Disposition und Flottenverwaltung  
 **Persönlichkeit:**
+
 - Freundlich und hilfsbereit
 - Kompetent und lösungsorientiert
 - Transparent über Grenzen und Möglichkeiten
@@ -146,6 +156,7 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 #### 2.2.2 Antwort-Struktur
 
 **Standard-Antwort:**
+
 ```
 [Begrüßung/Bestätigung: Kurz, freundlich]
 [Hauptinhalt: Antwort auf die Frage, strukturiert, konkret]
@@ -154,14 +165,15 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 ```
 
 **Beispiele:**
+
 ```
 ✅ Nutzer: "Wie viele Fahrzeuge kann ich im Starter-Tarif verwalten?"
    AI: "Im Starter-Tarif können Sie bis zu 3 Fahrzeuge und 3 Fahrer verwalten.
-   
+
    Für größere Flotten empfehle ich Ihnen:
    • Fleet & Driver Add-On: 9 € pro zusätzlichem Fahrzeug/Fahrer
    • Business-Tarif: Unbegrenzt Fahrzeuge & Fahrer ab 89 € /Monat
-   
+
    Möchten Sie mehr über die Unterschiede erfahren?"
 
 ❌ Nutzer: "Wie viele Fahrzeuge kann ich im Starter-Tarif verwalten?"
@@ -176,12 +188,13 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 #### 2.2.3 Umgang mit Grenzen
 
 **Wenn die AI nicht weiterhelfen kann:**
+
 ```
 ✅ "Das ist eine spannende Anfrage! Für individuelle Anpassungen empfehle ich Ihnen, unser Sales-Team zu kontaktieren:
    • E-Mail: sales@mydispatch.de
    • Telefon: +49 (0) 123 456789
    • Kontaktformular: [Link]
-   
+
    Gerne helfe ich Ihnen bei anderen Fragen weiter."
 
 ❌ "Sorry, kann ich nicht. Viel Glück!"
@@ -189,11 +202,12 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 ```
 
 **Wenn Informationen fehlen:**
+
 ```
 ✅ "Um Ihnen optimal helfen zu können, benötige ich noch folgende Informationen:
    • [Information 1]
    • [Information 2]
-   
+
    Könnten Sie mir diese Details bitte mitteilen?"
 
 ❌ "Was meinst du? Keine Ahnung, was du willst."
@@ -203,19 +217,21 @@ Dieses Dokument definiert die Art und Weise, wie MyDispatch mit Kunden, Partnern
 #### 2.2.4 Rechtliche & DSGVO-Hinweise
 
 **Immer wenn personenbezogene Daten betroffen sind:**
+
 ```
 ✅ "Bitte beachten Sie: Für die Nutzung dieser Funktion benötigen wir Ihre Einwilligung gemäß DSGVO Art. 6 Abs. 1 lit. a.
-   
+
    Ihre Daten werden:
    • Verschlüsselt gespeichert
    • Nicht an Dritte weitergegeben
    • Nur für [Zweck] verwendet
    • Auf Wunsch jederzeit gelöscht
-   
+
    Weitere Informationen finden Sie in unserer Datenschutzerklärung: [Link]"
 ```
 
 **Bei AI-generierten Inhalten:**
+
 ```
 ✅ "Diese Antwort wurde von MyDispatch AI generiert. Bitte prüfen Sie wichtige Informationen stets in unserer offiziellen Dokumentation oder kontaktieren Sie unser Support-Team."
 ```
@@ -252,6 +268,7 @@ Diese E-Mail wurde von [Vorname] [Nachname] ([Position]) im Auftrag der [Firmenn
 #### 2.3.2 Beispiel-E-Mails
 
 **Support-Anfrage-Bestätigung:**
+
 ```
 Betreff: Ihre Support-Anfrage #12345
 
@@ -280,6 +297,7 @@ MyDispatch – simply arrive
 ```
 
 **Willkommens-E-Mail (nach Registrierung):**
+
 ```
 Betreff: Willkommen bei MyDispatch!
 
@@ -326,6 +344,7 @@ MyDispatch – simply arrive
 #### 2.4.2 Während der Konversation
 
 **Aktives Zuhören:**
+
 ```
 ✅ "Verstehe, Sie möchten also [Zusammenfassung des Anliegens]. Ist das richtig?"
 
@@ -335,11 +354,12 @@ MyDispatch – simply arrive
 ```
 
 **Lösungen präsentieren:**
+
 ```
 ✅ "Ich habe zwei Lösungsvorschläge für Sie:
    1. [Lösung 1: Beschreibung, Vor-/Nachteile]
    2. [Lösung 2: Beschreibung, Vor-/Nachteile]
-   
+
    Welche Variante würde Ihnen besser helfen?"
 
 ❌ "Machen Sie einfach [Lösung]. Das muss so." (Zu direktiv)
@@ -349,7 +369,7 @@ MyDispatch – simply arrive
 
 ```
 ✅ "Konnte ich Ihnen weiterhelfen? Falls Sie noch Fragen haben, melden Sie sich gerne jederzeit!
-   
+
    Ich wünsche Ihnen einen erfolgreichen Tag!"
 
 ❌ "Alles klar? Dann tschüss!" (Zu abrupt)
@@ -360,12 +380,14 @@ MyDispatch – simply arrive
 #### 2.5.1 Slack/Teams
 
 **Vorgaben:**
+
 - Klar und präzise
 - Kontext mitliefern (bei @mentions)
 - Threads nutzen (keine langen Channel-Discussions)
 - Emojis erlaubt, aber sparsam
 
 **Beispiele:**
+
 ```
 ✅ "@Sarah: Kannst du bitte den Bug in der Rechnungsstellung prüfen? Ticket #12345, betrifft Kundin Müller GmbH. Prio: Hoch. Deadline: heute 18 Uhr."
 
@@ -375,12 +397,14 @@ MyDispatch – simply arrive
 #### 2.5.2 Dokumentation (intern)
 
 **Vorgaben:**
+
 - Strukturiert (Markdown)
 - Versioniert (z.B. V19.0.0)
 - Änderungen im Changelog festhalten
 - Klare Abschnitte (H1, H2, H3)
 
 **Beispiel-Struktur:**
+
 ```markdown
 # [Dokumenten-Titel] V[Version]
 
@@ -389,13 +413,17 @@ MyDispatch – simply arrive
 **Gültig ab:** [Datum]
 
 ## Übersicht
+
 [...]
 
 ## Detailbeschreibung
+
 [...]
 
 ## Changelog
+
 ### V[Version] ([Datum])
+
 - [Änderung 1]
 - [Änderung 2]
 ```
@@ -407,6 +435,7 @@ MyDispatch – simply arrive
 ### 3.1 Sprache & Stil
 
 **Verboten:**
+
 - ❌ Übertriebene Superlative ("der beste", "einzigartig", "revolutionär")
 - ❌ Aggressive Sales-Taktik ("Nur heute!", "Letzter Chance!", "Jetzt oder nie!")
 - ❌ Technobabble ohne Erklärung ("leverage synergies", "disruptive blockchain AI")
@@ -418,6 +447,7 @@ MyDispatch – simply arrive
 ### 3.2 Rechtliche & DSGVO
 
 **Verboten:**
+
 - ❌ Unklare Datenschutz-Hinweise
 - ❌ Fehlende Einwilligungen bei personenbezogenen Daten
 - ❌ Vage Formulierungen bei rechtlichen Themen
@@ -427,6 +457,7 @@ MyDispatch – simply arrive
 ### 3.3 AI-System
 
 **Verboten:**
+
 - ❌ Erfinden von Funktionen oder Features
 - ❌ Ausgabe von falschen Informationen
 - ❌ Imitieren menschlicher Identitäten (z.B. "Ich bin Sarah")
@@ -440,6 +471,7 @@ MyDispatch – simply arrive
 ### 4.1 Allgemein
 
 **DO's:**
+
 - ✅ Klar und präzise formulieren
 - ✅ Kontext mitliefern
 - ✅ Strukturiert schreiben (Bullet-Points, Absätze)
@@ -450,6 +482,7 @@ MyDispatch – simply arrive
 - ✅ Trust-Signale einbauen (Made in Germany, DSGVO, etc.)
 
 **DON'Ts:**
+
 - ❌ Lange, verschachtelte Sätze
 - ❌ Fachjargon ohne Erklärung
 - ❌ Vage Formulierungen ("könnte", "vielleicht", "eventuell")
@@ -467,6 +500,7 @@ MyDispatch – simply arrive
 4. **Nachverfolgen:** Update alle 2-4 Stunden, finale Nachricht nach Behebung
 
 **Beispiel (Outage):**
+
 ```
 Betreff: [GELÖST] Technische Störung - MyDispatch
 
@@ -525,6 +559,7 @@ MyDispatch – simply arrive
 ### 5.2 A/B-Testing
 
 **Empfohlene Tests:**
+
 - Headlines (H1, H2)
 - CTA-Buttons (Text, Farbe, Position)
 - Feature-Beschreibungen (kurz vs. ausführlich)
@@ -532,6 +567,7 @@ MyDispatch – simply arrive
 - E-Mail-Betreffs (klar vs. neugierig)
 
 **Metriken:**
+
 - Conversion Rate (%)
 - Click-Through-Rate (%)
 - Bounce Rate (%)
@@ -543,12 +579,14 @@ MyDispatch – simply arrive
 ## 🔗 TEIL 6: VERWANDTE DOKUMENTATION
 
 **Hierarchie:**
+
 ```
 MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 └─ KOMMUNIKATION_TONALITY_V19.0.0.md (Diese Datei)
 ```
 
 **Weitere relevante Dokumente:**
+
 - `META_PROMPT_NUTZER_V19.0.0.md` (AI-Agent Steuerung)
 - `MYDISPATCH_AI_AGENT_META_PROMPT_V19.0.0.md` (AI-System Konfiguration)
 - `PRICING_DESIGN_SYSTEM_V26.0.md` (Design-Vorgaben für Pricing)
@@ -561,6 +599,7 @@ MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 ### V19.0.0 (2025-10-25) - INITIAL RELEASE
 
 **🎯 NEU:**
+
 - Zentrale Kommunikationsvorgaben erstellt
 - Tone of Voice definiert (professionell, freundlich, hilfsbereit)
 - Kanalspezifische Vorgaben (Website, AI, E-Mail, Chat, Intern)
@@ -569,6 +608,7 @@ MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md (Oberste Ebene)
 - Review-Checkliste & A/B-Testing-Empfehlungen
 
 **🔗 Integration:**
+
 - Verknüpft mit MYDISPATCH_CORPORATE_GOVERNANCE_V19.0.0.md
 - Bindend für alle Kommunikationskanäle
 - Referenziert in allen Meta-Prompts und Master-Prompts

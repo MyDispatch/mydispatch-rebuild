@@ -7,7 +7,7 @@
    ✅ Toggle-fähig (visible prop)
    ================================================================================== */
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from "react";
 
 interface DriverMarker {
   id: string;
@@ -37,7 +37,7 @@ export function ClusterLayer({
   visible,
   mapInstance,
   clusterThreshold = 3,
-  clusterRadius = 100
+  clusterRadius = 100,
 }: ClusterLayerProps) {
   const [clusterObjects, setClusterObjects] = useState<any[]>([]);
   const [currentZoom, setCurrentZoom] = useState(12);
@@ -50,10 +50,10 @@ export function ClusterLayer({
       setCurrentZoom(mapInstance.getZoom());
     };
 
-    mapInstance.addEventListener('mapviewchange', handleViewChange);
+    mapInstance.addEventListener("mapviewchange", handleViewChange);
 
     return () => {
-      mapInstance.removeEventListener('mapviewchange', handleViewChange);
+      mapInstance.removeEventListener("mapviewchange", handleViewChange);
     };
   }, [mapInstance]);
 
@@ -87,7 +87,7 @@ export function ClusterLayer({
       if (nearby.length + 1 >= clusterThreshold) {
         // Cluster erstellen
         const allDrivers = [driver, ...nearby];
-        allDrivers.forEach(d => clusteredDrivers.add(d.id));
+        allDrivers.forEach((d) => clusteredDrivers.add(d.id));
 
         // Center berechnen (Durchschnitt)
         const centerLat = allDrivers.reduce((sum, d) => sum + d.latitude, 0) / allDrivers.length;
@@ -97,7 +97,7 @@ export function ClusterLayer({
           latitude: centerLat,
           longitude: centerLng,
           count: allDrivers.length,
-          drivers: allDrivers
+          drivers: allDrivers,
         });
       }
     });
@@ -125,13 +125,13 @@ export function ClusterLayer({
   useEffect(() => {
     if (!mapInstance || !visible || clusters.length === 0) {
       // Cleanup alte Cluster
-      clusterObjects.forEach(obj => mapInstance?.removeObject(obj));
+      clusterObjects.forEach((obj) => mapInstance?.removeObject(obj));
       setClusterObjects([]);
       return;
     }
 
     // Cleanup alte Cluster
-    clusterObjects.forEach(obj => mapInstance.removeObject(obj));
+    clusterObjects.forEach((obj) => mapInstance.removeObject(obj));
 
     const newObjects: any[] = [];
 
@@ -164,7 +164,7 @@ export function ClusterLayer({
       `;
 
       const icon = new (window as any).H.map.Icon(
-        'data:image/svg+xml,' + encodeURIComponent(svgCluster),
+        "data:image/svg+xml," + encodeURIComponent(svgCluster),
         { anchor: { x: size / 2, y: size / 2 } }
       );
 
@@ -173,15 +173,15 @@ export function ClusterLayer({
         {
           icon,
           data: {
-            type: 'cluster',
+            type: "cluster",
             count: cluster.count,
-            drivers: cluster.drivers.map(d => d.label)
-          }
+            drivers: cluster.drivers.map((d) => d.label),
+          },
         }
       );
 
       // Click → Zoom In
-      marker.addEventListener('tap', () => {
+      marker.addEventListener("tap", () => {
         mapInstance.setCenter({ lat: cluster.latitude, lng: cluster.longitude });
         mapInstance.setZoom(mapInstance.getZoom() + 2);
       });
@@ -193,7 +193,7 @@ export function ClusterLayer({
     setClusterObjects(newObjects);
 
     return () => {
-      newObjects.forEach(obj => mapInstance.removeObject(obj));
+      newObjects.forEach((obj) => mapInstance.removeObject(obj));
     };
   }, [mapInstance, visible, clusters]);
 

@@ -7,44 +7,44 @@
    ✅ PBefG-konform (Taxi-Branche)
    ================================================================================== */
 
-import { formatCurrency, formatDate } from '@/lib/format-utils';
+import { formatCurrency, formatDate } from "@/lib/format-utils";
 
 // ==================================================================================
 // COMPANY DATA (MyDispatch)
 // ==================================================================================
 
 export const COMPANY_DATA = {
-  name: 'MyDispatch',
-  owner: 'RideHub Solutions',
-  ownerName: 'Ibrahim Simsek',
-  address: 'Ensbachmühle 4',
-  postal: '94571 Schaufling',
-  country: 'Deutschland',
-  phone: '+49 170 8004423',
-  email: 'info@my-dispatch.de',
-  web: 'www.my-dispatch.de',
-  
+  name: "MyDispatch",
+  owner: "RideHub Solutions",
+  ownerName: "Ibrahim Simsek",
+  address: "Ensbachmühle 4",
+  postal: "94571 Schaufling",
+  country: "Deutschland",
+  phone: "+49 170 8004423",
+  email: "info@my-dispatch.de",
+  web: "www.my-dispatch.de",
+
   // Rechtsangaben
   // ⚠️ PRODUCTION SETUP REQUIRED:
   // Diese Placeholder-Werte müssen in der Produktionsumgebung durch echte Firmendaten
   // aus der Datenbank oder Environment-Variablen ersetzt werden.
-  ustId: 'DE123456789', // ← Echte USt-IdNr. aus company.tax_id
-  steuernummer: '123/456/78901', // ← Echte Steuernummer aus company.tax_number
-  
+  ustId: "DE123456789", // ← Echte USt-IdNr. aus company.tax_id
+  steuernummer: "123/456/78901", // ← Echte Steuernummer aus company.tax_number
+
   // Banking
   // ⚠️ PRODUCTION SETUP REQUIRED:
   // Diese Banking-Informationen müssen aus den Company-Settings geladen werden.
-  bank: 'Sparkasse', // ← Aus company.bank_name
-  iban: 'DE89 3704 0044 0532 0130 00', // ← Aus company.iban
-  bic: 'COBADEFFXXX', // ← Aus company.bic
-  
+  bank: "Sparkasse", // ← Aus company.bank_name
+  iban: "DE89 3704 0044 0532 0130 00", // ← Aus company.iban
+  bic: "COBADEFFXXX", // ← Aus company.bic
+
   // DSGVO
-  dsgvoContact: 'datenschutz@my-dispatch.de',
-  
+  dsgvoContact: "datenschutz@my-dispatch.de",
+
   // Design
-  primaryColor: '#EADEBD', // hsl(40 31% 88%)
-  foregroundColor: '#323D5E', // hsl(225 31% 28%)
-  highlightColor: '#856d4b', // hsl(45 31% 54%) - Ersetzt accentColor
+  primaryColor: "#EADEBD", // hsl(40 31% 88%)
+  foregroundColor: "#323D5E", // hsl(225 31% 28%)
+  highlightColor: "#856d4b", // hsl(45 31% 54%) - Ersetzt accentColor
 };
 
 // ==================================================================================
@@ -56,38 +56,38 @@ export interface InvoiceData {
   invoiceNumber: string;
   invoiceDate: Date;
   dueDate?: Date;
-  
+
   // Customer
   customerName: string;
   customerAddress: string;
   customerPostal: string;
   customerCity: string;
   customerEmail?: string;
-  
+
   // Booking Reference
   bookingNumber?: string;
   bookingDate?: Date;
-  
+
   // Line Items
   items: InvoiceItem[];
-  
+
   // Amounts
   subtotal: number;
   taxRate: number; // 19% Standard
   taxAmount: number;
   total: number;
-  
+
   // Payments
   paidAmount?: number;
   remainingAmount?: number;
-  
+
   // Terms
   paymentTermsDays?: number; // Default: 14
-  paymentMethod?: 'Rechnung' | 'Bar' | 'Karte' | 'Überweisung';
-  
+  paymentMethod?: "Rechnung" | "Bar" | "Karte" | "Überweisung";
+
   // Notes
   notes?: string;
-  
+
   // DSGVO
   includeDsgvoInfo?: boolean;
 }
@@ -133,10 +133,11 @@ export function generateInvoiceHTML(data: InvoiceData): string {
     notes,
     includeDsgvoInfo = true,
   } = data;
-  
+
   // Calculate due date if not provided
-  const calculatedDueDate = dueDate || new Date(invoiceDate.getTime() + paymentTermsDays * 24 * 60 * 60 * 1000);
-  
+  const calculatedDueDate =
+    dueDate || new Date(invoiceDate.getTime() + paymentTermsDays * 24 * 60 * 60 * 1000);
+
   return `
 <!DOCTYPE html>
 <html lang="de">
@@ -390,7 +391,7 @@ export function generateInvoiceHTML(data: InvoiceData): string {
         <h2>RECHNUNG</h2>
         <p><strong>Rechnungsnummer:</strong> ${invoiceNumber}</p>
         <p><strong>Datum:</strong> ${formatDate(invoiceDate.toISOString())}</p>
-        ${bookingNumber ? `<p><strong>Auftrag:</strong> ${bookingNumber}</p>` : ''}
+        ${bookingNumber ? `<p><strong>Auftrag:</strong> ${bookingNumber}</p>` : ""}
       </div>
     </div>
     
@@ -403,15 +404,16 @@ export function generateInvoiceHTML(data: InvoiceData): string {
         <strong>${customerName}</strong><br>
         ${customerAddress}<br>
         ${customerPostal} ${customerCity}
-        ${customerEmail ? `<br>${customerEmail}` : ''}
+        ${customerEmail ? `<br>${customerEmail}` : ""}
       </div>
     </div>
     
     <!-- Invoice Title -->
     <div class="invoice-title">
-      ${bookingNumber 
-        ? `Rechnung für: Fahrtauftrag ${bookingNumber}${bookingDate ? ` vom ${formatDate(bookingDate.toISOString())}` : ''}`
-        : 'Rechnung für erbrachte Leistungen'
+      ${
+        bookingNumber
+          ? `Rechnung für: Fahrtauftrag ${bookingNumber}${bookingDate ? ` vom ${formatDate(bookingDate.toISOString())}` : ""}`
+          : "Rechnung für erbrachte Leistungen"
       }
     </div>
     
@@ -425,16 +427,20 @@ export function generateInvoiceHTML(data: InvoiceData): string {
         </tr>
       </thead>
       <tbody>
-        ${items.map(item => `
+        ${items
+          .map(
+            (item) => `
           <tr>
             <td>${item.position}</td>
             <td>
               ${item.description}
-              ${item.details ? `<br><span class="details">${item.details}</span>` : ''}
+              ${item.details ? `<br><span class="details">${item.details}</span>` : ""}
             </td>
             <td class="amount">${formatCurrency(item.amount)}</td>
           </tr>
-        `).join('')}
+        `
+          )
+          .join("")}
       </tbody>
     </table>
     
@@ -452,18 +458,26 @@ export function generateInvoiceHTML(data: InvoiceData): string {
         <span>Gesamtbetrag:</span>
         <span>${formatCurrency(total)}</span>
       </div>
-      ${paidAmount ? `
+      ${
+        paidAmount
+          ? `
         <div class="totals-row paid">
           <span>Bereits bezahlt:</span>
           <span>${formatCurrency(paidAmount)}</span>
         </div>
-      ` : ''}
-      ${remainingAmount ? `
+      `
+          : ""
+      }
+      ${
+        remainingAmount
+          ? `
         <div class="totals-row remaining">
           <span>Noch zu zahlen:</span>
           <span>${formatCurrency(remainingAmount)}</span>
         </div>
-      ` : ''}
+      `
+          : ""
+      }
     </div>
     
     <!-- Payment Terms -->
@@ -472,19 +486,23 @@ export function generateInvoiceHTML(data: InvoiceData): string {
       <p>
         <strong>Zahlbar innerhalb von ${paymentTermsDays} Tagen ohne Abzug.</strong><br>
         Zahlungsziel: ${formatDate(calculatedDueDate.toISOString())}
-        ${paymentMethod ? `<br>Zahlungsart: ${paymentMethod}` : ''}
+        ${paymentMethod ? `<br>Zahlungsart: ${paymentMethod}` : ""}
       </p>
-      ${notes ? `<p style="margin-top: 3mm;">${notes}</p>` : ''}
+      ${notes ? `<p style="margin-top: 3mm;">${notes}</p>` : ""}
     </div>
     
     <!-- DSGVO Info -->
-    ${includeDsgvoInfo ? `
+    ${
+      includeDsgvoInfo
+        ? `
       <div class="dsgvo-info">
         <strong>Datenschutzhinweis:</strong> 
         Diese Rechnung enthält personenbezogene Daten, die gemäß Art. 6 Abs. 1 lit. b DSGVO 
         zur Vertragserfüllung verarbeitet werden. Bei Fragen: ${COMPANY_DATA.dsgvoContact}
       </div>
-    ` : ''}
+    `
+        : ""
+    }
     
     <!-- Footer -->
     <div class="footer">
@@ -514,27 +532,27 @@ export function generateInvoiceHTML(data: InvoiceData): string {
  */
 export async function exportInvoicePDF(data: InvoiceData, filename?: string): Promise<void> {
   const html = generateInvoiceHTML(data);
-  
+
   // Create temporary container
-  const container = document.createElement('div');
+  const container = document.createElement("div");
   container.innerHTML = html;
-  container.style.position = 'absolute';
-  container.style.left = '-9999px';
+  container.style.position = "absolute";
+  container.style.left = "-9999px";
   document.body.appendChild(container);
-  
+
   try {
     // Dynamic import of html2pdf.js (optional dependency)
     // @ts-ignore - html2pdf.js may not be installed
-    const html2pdf = (await import('html2pdf.js')).default;
-    
+    const html2pdf = (await import("html2pdf.js")).default;
+
     const opt = {
       margin: 0, // Margins already in HTML
       filename: filename || `Rechnung_${data.invoiceNumber}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
+      image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
     };
-    
+
     await html2pdf().set(opt).from(container).save();
   } finally {
     // Cleanup

@@ -1,4 +1,5 @@
 # 🎨 COMPONENT USAGE GUIDE - V28.1
+
 ## Wie du das Design System richtig nutzt
 
 > **Version:** 28.1  
@@ -12,28 +13,22 @@
 ### REGEL 1: NIEMALS Components außerhalb der Library erstellen
 
 ❌ **VERBOTEN:**
+
 ```tsx
 // page.tsx
 function MyPage() {
-  return (
-    <button className="bg-slate-700 text-white px-8 py-3 rounded-xl">
-      Click me
-    </button>
-  );
+  return <button className="bg-slate-700 text-white px-8 py-3 rounded-xl">Click me</button>;
 }
 ```
 
 ✅ **RICHTIG:**
+
 ```tsx
 // page.tsx
-import { V28Button } from '@/components/design-system/V28Button';
+import { V28Button } from "@/components/design-system/V28Button";
 
 function MyPage() {
-  return (
-    <V28Button variant="primary">
-      Click me
-    </V28Button>
-  );
+  return <V28Button variant="primary">Click me</V28Button>;
 }
 ```
 
@@ -42,6 +37,7 @@ function MyPage() {
 ### REGEL 2: IMMER ZUERST Component Registry prüfen
 
 **WORKFLOW:**
+
 1. ✅ Brauchst du ein UI-Element?
 2. ✅ Öffne `docs/COMPONENT_REGISTRY.md`
 3. ✅ Suche nach ähnlicher Component (Ctrl+F / Cmd+F)
@@ -53,6 +49,7 @@ function MyPage() {
 ### REGEL 3: Keine Hardcoded Values
 
 ❌ **VERBOTEN:**
+
 ```tsx
 // Hardcoded Farben
 <div style={{ color: '#334155' }}>Text</div>
@@ -64,6 +61,7 @@ function MyPage() {
 ```
 
 ✅ **RICHTIG:**
+
 ```tsx
 // Design Tokens
 import { designTokens } from '@/config/design-tokens';
@@ -81,6 +79,7 @@ import { designTokens } from '@/config/design-tokens';
 ### REGEL 4: Props statt Customization
 
 ❌ **VERBOTEN:**
+
 ```tsx
 // Override mit wichtigen CSS
 <V28Button className="!bg-red-500">Delete</V28Button>
@@ -90,6 +89,7 @@ import { designTokens } from '@/config/design-tokens';
 ```
 
 ✅ **RICHTIG:**
+
 ```tsx
 // Falls Variant fehlt → Component erweitern
 <V28Button variant="danger">Delete</V28Button>
@@ -98,6 +98,7 @@ import { designTokens } from '@/config/design-tokens';
 ```
 
 **Falls Variant fehlt:**
+
 1. Component erweitern (neue Variant hinzufügen)
 2. NICHT mit className/style überschreiben!
 
@@ -108,16 +109,13 @@ import { designTokens } from '@/config/design-tokens';
 ### Component Composition Pattern
 
 ✅ **Nutze Component Composition:**
+
 ```tsx
 <V28MarketingCard>
   <Flex direction="col" gap="md">
     <V28IconBox icon={Truck} variant="primary" />
-    <h3 className="text-2xl font-semibold text-slate-900">
-      Feature Title
-    </h3>
-    <p className="text-slate-600 leading-relaxed">
-      Feature description here...
-    </p>
+    <h3 className="text-2xl font-semibold text-slate-900">Feature Title</h3>
+    <p className="text-slate-600 leading-relaxed">Feature description here...</p>
     <V28Button variant="secondary">Learn More</V28Button>
   </Flex>
 </V28MarketingCard>
@@ -128,15 +126,14 @@ import { designTokens } from '@/config/design-tokens';
 ### Layout Pattern System
 
 ✅ **Nutze Layout Components für ALLE Layouts:**
+
 ```tsx
 // Page Structure
 <Section spacing="xl" background="white">
   <Container size="xl" padding="lg">
     <Grid cols={{ default: 1, md: 2, lg: 3 }} gap="lg">
-      {items.map(item => (
-        <V28MarketingCard key={item.id}>
-          {/* Content */}
-        </V28MarketingCard>
+      {items.map((item) => (
+        <V28MarketingCard key={item.id}>{/* Content */}</V28MarketingCard>
       ))}
     </Grid>
   </Container>
@@ -144,13 +141,12 @@ import { designTokens } from '@/config/design-tokens';
 ```
 
 ❌ **NIEMALS:**
+
 ```tsx
 // Hardcoded Layout
 <div className="py-20 md:py-24">
   <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {/* Content */}
-    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">{/* Content */}</div>
   </div>
 </div>
 ```
@@ -160,13 +156,12 @@ import { designTokens } from '@/config/design-tokens';
 ### Semantic HTML
 
 ✅ **Nutze semantische Components:**
+
 ```tsx
 <Section spacing="xl" background="white" as="main">
   <Container size="xl">
     <Stack spacing="lg">
-      <h1 className="text-5xl md:text-6xl font-bold text-slate-900">
-        Title
-      </h1>
+      <h1 className="text-5xl md:text-6xl font-bold text-slate-900">Title</h1>
       <p className="text-lg text-slate-600">Description</p>
     </Stack>
   </Container>
@@ -180,6 +175,7 @@ import { designTokens } from '@/config/design-tokens';
 ### Workflow
 
 #### 1. Prüfe Necessity
+
 - ✅ Brauchst du wirklich eine neue Component?
 - ✅ Kann bestehende Component angepasst werden?
 - ✅ Ist Component wiederverwendbar?
@@ -187,11 +183,13 @@ import { designTokens } from '@/config/design-tokens';
 #### 2. Erstelle Component
 
 **Ordner-Struktur:**
+
 ```
 src/components/design-system/V28NewComponent.tsx
 ```
 
 **Component Template:**
+
 ```tsx
 /* ==================================================================================
    V28 NEW COMPONENT - BESCHREIBUNG
@@ -202,27 +200,27 @@ src/components/design-system/V28NewComponent.tsx
    ✅ Accessible
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { cn } from '@/lib/utils';
-import { designTokens } from '@/config/design-tokens';
+import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+import { designTokens } from "@/config/design-tokens";
 
 interface V28NewComponentProps {
   children: ReactNode;
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
   className?: string;
 }
 
 export function V28NewComponent({
   children,
-  variant = 'primary',
+  variant = "primary",
   className,
 }: V28NewComponentProps) {
   return (
     <div
       className={cn(
-        'rounded-xl p-6',
-        variant === 'primary' && 'bg-slate-100 text-slate-900',
-        variant === 'secondary' && 'bg-white border border-slate-200',
+        "rounded-xl p-6",
+        variant === "primary" && "bg-slate-100 text-slate-900",
+        variant === "secondary" && "bg-white border border-slate-200",
         className
       )}
     >
@@ -233,22 +231,21 @@ export function V28NewComponent({
 ```
 
 #### 3. Tests schreiben (Optional, aber empfohlen)
+
 ```tsx
 // src/components/design-system/V28NewComponent.test.tsx
-import { render, screen } from '@testing-library/react';
-import { V28NewComponent } from './V28NewComponent';
+import { render, screen } from "@testing-library/react";
+import { V28NewComponent } from "./V28NewComponent";
 
-describe('V28NewComponent', () => {
-  it('renders children correctly', () => {
+describe("V28NewComponent", () => {
+  it("renders children correctly", () => {
     render(<V28NewComponent>Test Content</V28NewComponent>);
-    expect(screen.getByText('Test Content')).toBeInTheDocument();
+    expect(screen.getByText("Test Content")).toBeInTheDocument();
   });
 
-  it('applies primary variant by default', () => {
-    const { container } = render(
-      <V28NewComponent>Content</V28NewComponent>
-    );
-    expect(container.firstChild).toHaveClass('bg-slate-100');
+  it("applies primary variant by default", () => {
+    const { container } = render(<V28NewComponent>Content</V28NewComponent>);
+    expect(container.firstChild).toHaveClass("bg-slate-100");
   });
 });
 ```
@@ -256,8 +253,10 @@ describe('V28NewComponent', () => {
 #### 4. Dokumentiere
 
 **Update COMPONENT_REGISTRY.md:**
-```markdown
+
+````markdown
 ### V28NewComponent
+
 - **Path:** `src/components/design-system/V28NewComponent.tsx`
 - **Status:** ✅ PRODUCTION
 - **Purpose:** [Beschreibung]
@@ -267,29 +266,31 @@ describe('V28NewComponent', () => {
   - `className?: string`
 - **Usage:**
   ```tsx
-  <V28NewComponent variant="primary">
-    Content
-  </V28NewComponent>
+  <V28NewComponent variant="primary">Content</V28NewComponent>
   ```
-```
+````
+
+````
 
 **Update CHANGELOG.md:**
 ```markdown
 ### [2025-10-28] V28.1 Component Library
 - Added: V28NewComponent - [Beschreibung]
-```
+````
 
 #### 5. Export
 
 **Update export file:**
+
 ```tsx
 // src/components/design-system/index.ts
-export { V28NewComponent } from './V28NewComponent';
+export { V28NewComponent } from "./V28NewComponent";
 ```
 
 #### 6. Review
 
 **Self-Review Checklist:**
+
 - [ ] Alle Design Tokens genutzt?
 - [ ] Type-safe (keine `any` types)?
 - [ ] Accessible (ARIA labels, semantic HTML)?
@@ -306,39 +307,34 @@ export { V28NewComponent } from './V28NewComponent';
 ### Richtige Imports
 
 ✅ **Design System Components:**
+
 ```tsx
 // V28 Components
-import { V28Button } from '@/components/design-system/V28Button';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
+import { V28Button } from "@/components/design-system/V28Button";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
 
 // Layout Components
-import { Container, Section, Grid, Flex, Stack } from '@/components/ui/layout';
+import { Container, Section, Grid, Flex, Stack } from "@/components/ui/layout";
 
 // Pricing Components
-import { 
-  V28PricingCard, 
-  V28PricingHero, 
-  V28AddonCard 
-} from '@/components/pricing';
+import { V28PricingCard, V28PricingHero, V28AddonCard } from "@/components/pricing";
 
 // Home Components
-import { 
-  V28HeroBackground, 
-  V28DashboardPreview 
-} from '@/components/home';
+import { V28HeroBackground, V28DashboardPreview } from "@/components/home";
 
 // Design Tokens
-import { designTokens } from '@/config/design-tokens';
+import { designTokens } from "@/config/design-tokens";
 ```
 
 ❌ **FALSCH:**
+
 ```tsx
 // Relative Imports
-import { V28Button } from '../../../components/design-system/V28Button';
+import { V28Button } from "../../../components/design-system/V28Button";
 
 // V26 Components (DEPRECATED!)
-import { V26Button } from '@/components/design-system/V26Button';
+import { V26Button } from "@/components/design-system/V26Button";
 ```
 
 ---
@@ -348,6 +344,7 @@ import { V26Button } from '@/components/design-system/V26Button';
 ### Design Tokens Usage
 
 ✅ **RICHTIG:**
+
 ```tsx
 import { designTokens } from '@/config/design-tokens';
 
@@ -371,12 +368,15 @@ import { designTokens } from '@/config/design-tokens';
 ### Responsive Design
 
 ✅ **Mobile-First:**
+
 ```tsx
-<div className="
+<div
+  className="
   text-base md:text-lg lg:text-xl
   p-4 md:p-6 lg:p-8
   grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
-">
+"
+>
   Content
 </div>
 ```
@@ -388,22 +388,20 @@ import { designTokens } from '@/config/design-tokens';
 ### 1. Component Duplication
 
 ❌ **FALSCH:**
+
 ```tsx
 // Neue Button Component erstellen
 export function MyButton({ children }: { children: ReactNode }) {
-  return (
-    <button className="bg-slate-700 text-white px-8 py-3 rounded-xl">
-      {children}
-    </button>
-  );
+  return <button className="bg-slate-700 text-white px-8 py-3 rounded-xl">{children}</button>;
 }
 ```
 
 ✅ **RICHTIG:**
+
 ```tsx
 // Bestehende Component nutzen
-import { V28Button } from '@/components/design-system/V28Button';
-<V28Button variant="primary">{children}</V28Button>
+import { V28Button } from "@/components/design-system/V28Button";
+<V28Button variant="primary">{children}</V28Button>;
 ```
 
 ---
@@ -411,6 +409,7 @@ import { V28Button } from '@/components/design-system/V28Button';
 ### 2. Fehlende Type Definitions
 
 ❌ **FALSCH:**
+
 ```tsx
 export function MyComponent(props: any) {
   return <div>{props.children}</div>;
@@ -418,16 +417,14 @@ export function MyComponent(props: any) {
 ```
 
 ✅ **RICHTIG:**
+
 ```tsx
 interface MyComponentProps {
   children: ReactNode;
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
 }
 
-export function MyComponent({ 
-  children, 
-  variant = 'primary' 
-}: MyComponentProps) {
+export function MyComponent({ children, variant = "primary" }: MyComponentProps) {
   return <div>{children}</div>;
 }
 ```
@@ -437,17 +434,21 @@ export function MyComponent({
 ### 3. Inline Styles ohne Tokens
 
 ❌ **FALSCH:**
+
 ```tsx
-<div style={{ 
-  color: '#334155',
-  fontSize: '18px',
-  padding: '24px'
-}}>
+<div
+  style={{
+    color: "#334155",
+    fontSize: "18px",
+    padding: "24px",
+  }}
+>
   Content
 </div>
 ```
 
 ✅ **RICHTIG:**
+
 ```tsx
 import { designTokens } from '@/config/design-tokens';
 
@@ -471,19 +472,20 @@ import { designTokens } from '@/config/design-tokens';
 
 ### Häufig genutzte Components
 
-| Component | Import | Usage |
-|-----------|--------|-------|
-| Button | `import { V28Button } from '@/components/design-system/V28Button'` | `<V28Button variant="primary">Text</V28Button>` |
-| Card | `import { V28MarketingCard } from '@/components/design-system/V28MarketingCard'` | `<V28MarketingCard>{children}</V28MarketingCard>` |
-| IconBox | `import { V28IconBox } from '@/components/design-system/V28IconBox'` | `<V28IconBox icon={Truck} variant="primary" />` |
-| Section | `import { Section } from '@/components/ui/layout'` | `<Section spacing="xl">{children}</Section>` |
-| Grid | `import { Grid } from '@/components/ui/layout'` | `<Grid cols={{ md: 2, lg: 3 }}>{children}</Grid>` |
+| Component | Import                                                                           | Usage                                             |
+| --------- | -------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Button    | `import { V28Button } from '@/components/design-system/V28Button'`               | `<V28Button variant="primary">Text</V28Button>`   |
+| Card      | `import { V28MarketingCard } from '@/components/design-system/V28MarketingCard'` | `<V28MarketingCard>{children}</V28MarketingCard>` |
+| IconBox   | `import { V28IconBox } from '@/components/design-system/V28IconBox'`             | `<V28IconBox icon={Truck} variant="primary" />`   |
+| Section   | `import { Section } from '@/components/ui/layout'`                               | `<Section spacing="xl">{children}</Section>`      |
+| Grid      | `import { Grid } from '@/components/ui/layout'`                                  | `<Grid cols={{ md: 2, lg: 3 }}>{children}</Grid>` |
 
 ---
 
 ## ✅ FINAL CHECKLIST
 
 Vor JEDEM Commit:
+
 - [ ] Keine hardcoded Farben
 - [ ] Keine hardcoded Spacings
 - [ ] Layout Components verwendet

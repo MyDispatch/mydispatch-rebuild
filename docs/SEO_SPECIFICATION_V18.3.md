@@ -10,12 +10,14 @@
 ## 📊 ZIELVORGABEN (QUALITY GATES)
 
 ### **Lighthouse Scores (Desktop & Mobile)**
+
 - ✅ **Performance:** ≥ 95 (Desktop), ≥ 85 (Mobile)
 - ✅ **SEO:** 100 (Perfect Score)
 - ✅ **Accessibility:** ≥ 95
 - ✅ **Best Practices:** 100
 
 ### **Core Web Vitals (Real User Metrics)**
+
 - ✅ **LCP (Largest Contentful Paint):** < 2.5s
 - ✅ **FID (First Input Delay):** < 100ms
 - ✅ **CLS (Cumulative Layout Shift):** < 0.1
@@ -29,23 +31,25 @@
 ### **1. SEOHead Component (src/components/shared/SEOHead.tsx)**
 
 **Verpflichtend für:**
+
 - ✅ Alle öffentlichen Marketing-Seiten
 - ✅ Alle Portal-Seiten (Unternehmer, Fahrer, Kunden)
 - ✅ Alle Content-Seiten (AGB, Datenschutz, Impressum, FAQ)
 
 **Implementierung:**
+
 ```tsx
-import { SEOHead } from '@/components/shared/SEOHead';
+import { SEOHead } from "@/components/shared/SEOHead";
 
 export default function PageName() {
   return (
     <>
-      <SEOHead 
+      <SEOHead
         title="Seitentitel (max 60 Zeichen)"
         description="Meta-Beschreibung mit Hauptkeyword (max 160 Zeichen)"
         canonical="/page-slug"
         type="website" // oder "article"
-        keywords={['Hauptkeyword', 'Sekundärkeyword', 'Tertiärkeyword']}
+        keywords={["Hauptkeyword", "Sekundärkeyword", "Tertiärkeyword"]}
         schema={/* JSON-LD Schema */}
       />
       {/* ... Rest der Seite */}
@@ -59,6 +63,7 @@ export default function PageName() {
 **Typen nach Seitentyp:**
 
 #### **A. Homepage & Landing Pages**
+
 ```json
 {
   "@context": "https://schema.org",
@@ -80,6 +85,7 @@ export default function PageName() {
 ```
 
 #### **B. FAQ-Seite**
+
 ```json
 {
   "@context": "https://schema.org",
@@ -98,6 +104,7 @@ export default function PageName() {
 ```
 
 #### **C. Kontakt-Seite**
+
 ```json
 {
   "@context": "https://schema.org",
@@ -116,6 +123,7 @@ export default function PageName() {
 ```
 
 #### **D. Artikel/Docs**
+
 ```json
 {
   "@context": "https://schema.org",
@@ -134,6 +142,7 @@ export default function PageName() {
 ## 📋 SEO CHECKLISTE PRO SEITE
 
 ### **Meta Tags (Pflicht)**
+
 - ✅ `<title>` - 50-60 Zeichen, Hauptkeyword vorne
 - ✅ `<meta name="description">` - 150-160 Zeichen
 - ✅ `<link rel="canonical">` - Eindeutige URL
@@ -141,6 +150,7 @@ export default function PageName() {
 - ✅ `<meta name="keywords">` - 3-5 Hauptkeywords
 
 ### **Open Graph (Social Sharing)**
+
 - ✅ `og:title` - Gleich wie `<title>`
 - ✅ `og:description` - Gleich wie Meta-Description
 - ✅ `og:type` - website oder article
@@ -149,12 +159,14 @@ export default function PageName() {
 - ✅ `og:locale` - de_DE
 
 ### **Twitter Cards**
+
 - ✅ `twitter:card` - summary_large_image
 - ✅ `twitter:title`
 - ✅ `twitter:description`
 - ✅ `twitter:image`
 
 ### **Strukturierter Content**
+
 - ✅ **H1:** Genau 1x pro Seite, < 70 Zeichen
 - ✅ **H2-H6:** Hierarchische Struktur
 - ✅ **Bilder:** Alt-Text mit Keyword
@@ -168,6 +180,7 @@ export default function PageName() {
 ### **Keyword-Strategie**
 
 #### **Primary Keywords (Volume: 1000-10000/mo)**
+
 - Taxi Software
 - Mietwagen Software
 - Dispositionssoftware
@@ -175,6 +188,7 @@ export default function PageName() {
 - Fuhrparkverwaltung
 
 #### **Secondary Keywords (Volume: 100-1000/mo)**
+
 - Taxi Disposition Deutschland
 - Mietwagen Verwaltung
 - Taxi App für Unternehmen
@@ -182,12 +196,14 @@ export default function PageName() {
 - Taxameter Software
 
 #### **Long-Tail Keywords (Volume: 10-100/mo)**
+
 - Beste Taxi Software Deutschland
 - Dispositionssoftware Made in Germany
 - Taxiunternehmen Software DSGVO-konform
 - Taxi Fuhrparkmanagement System
 
 ### **Content-Länge nach Seitentyp**
+
 - ✅ **Homepage:** 800-1200 Wörter
 - ✅ **Feature-Seiten:** 600-800 Wörter
 - ✅ **Pricing:** 400-600 Wörter
@@ -196,6 +212,7 @@ export default function PageName() {
 - ✅ **Legal (AGB/Datenschutz):** Vollständig nach DSGVO
 
 ### **Content-Struktur (Best Practice)**
+
 ```markdown
 # H1: Hauptüberschrift mit Primary Keyword
 
@@ -208,6 +225,7 @@ Absatz mit 100-150 Wörtern, Keyword-Dichte 1-2%.
 ### H3: Detail zu Feature 1
 
 Liste mit Benefits:
+
 - Benefit 1
 - Benefit 2
 - Benefit 3
@@ -232,6 +250,7 @@ Starke CTA mit Conversion-optimiertem Text.
 ### **Critical Rendering Path**
 
 #### **1. index.html Optimierungen**
+
 ```html
 <!-- DNS Prefetch für externe Ressourcen -->
 <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
@@ -245,9 +264,16 @@ Starke CTA mit Conversion-optimiertem Text.
 <!-- Critical CSS inline -->
 <style>
   /* Critical Above-the-Fold Styles */
-  :root { --background: 40 8% 95%; }
-  body { margin: 0; font-family: Inter, sans-serif; }
-  #root { min-height: 100vh; }
+  :root {
+    --background: 40 8% 95%;
+  }
+  body {
+    margin: 0;
+    font-family: Inter, sans-serif;
+  }
+  #root {
+    min-height: 100vh;
+  }
 </style>
 
 <!-- Async Font Loading -->
@@ -255,10 +281,11 @@ Starke CTA mit Conversion-optimiertem Text.
 ```
 
 #### **2. Image Optimization**
+
 ```tsx
 // PFLICHT: Alle Bilder optimiert
-<img 
-  src="/images/hero.webp" 
+<img
+  src="/images/hero.webp"
   alt="Descriptive Alt Text mit Keyword"
   width="800"
   height="600"
@@ -268,39 +295,43 @@ Starke CTA mit Conversion-optimiertem Text.
 ```
 
 #### **3. Code Splitting & Lazy Loading**
+
 ```tsx
 // Route-based Code Splitting
-const Dashboard = React.lazy(() => import('./pages/Dashboard'));
-const Auftraege = React.lazy(() => import('./pages/Auftraege'));
+const Dashboard = React.lazy(() => import("./pages/Dashboard"));
+const Auftraege = React.lazy(() => import("./pages/Auftraege"));
 
 // Component-based Lazy Loading
-const HeavyChart = React.lazy(() => import('./components/HeavyChart'));
+const HeavyChart = React.lazy(() => import("./components/HeavyChart"));
 ```
 
 #### **4. Critical CSS Extraction**
+
 - ✅ Above-the-fold CSS inline in `<head>`
 - ✅ Tailwind JIT für minimale Bundle-Größe
 - ✅ Keine unused CSS (PurgeCSS aktiv)
 
 ### **Bundle Size Targets**
+
 - ✅ **Initial JS Bundle:** < 200KB (gzipped)
 - ✅ **Initial CSS Bundle:** < 50KB (gzipped)
 - ✅ **Total Page Weight:** < 1MB (ohne dynamische Inhalte)
 - ✅ **Images:** WebP/AVIF, < 100KB pro Bild
 
 ### **Caching Strategy**
+
 ```typescript
 // Service Worker Config (workbox)
 workbox.routing.registerRoute(
   /\.(js|css|woff2)$/,
   new workbox.strategies.CacheFirst({
-    cacheName: 'static-resources',
+    cacheName: "static-resources",
     plugins: [
       new workbox.expiration.ExpirationPlugin({
         maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Tage
-        maxEntries: 50
-      })
-    ]
+        maxEntries: 50,
+      }),
+    ],
   })
 );
 ```
@@ -310,6 +341,7 @@ workbox.routing.registerRoute(
 ## 🔍 TECHNISCHES SEO
 
 ### **URL-Struktur**
+
 ```
 ✅ KORREKT:
 /taxi-software
@@ -324,6 +356,7 @@ workbox.routing.registerRoute(
 ```
 
 ### **Robots.txt**
+
 ```
 User-agent: *
 Allow: /
@@ -335,6 +368,7 @@ Sitemap: https://my-dispatch.de/sitemap.xml
 ```
 
 ### **Sitemap.xml**
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -349,6 +383,7 @@ Sitemap: https://my-dispatch.de/sitemap.xml
 ```
 
 ### **Canonical URLs**
+
 ```tsx
 // Immer vollständige URL mit Domain
 <link rel="canonical" href="https://my-dispatch.de/preise" />
@@ -362,6 +397,7 @@ Sitemap: https://my-dispatch.de/sitemap.xml
 ## 📱 MOBILE-FIRST SEO
 
 ### **Mobile Usability Checklist**
+
 - ✅ **Viewport Meta Tag:** `width=device-width, initial-scale=1.0`
 - ✅ **Touch Targets:** min 44x44px
 - ✅ **Responsive Images:** srcset + sizes
@@ -370,6 +406,7 @@ Sitemap: https://my-dispatch.de/sitemap.xml
 - ✅ **Horizontal Scroll:** Verboten (overflow-x: hidden)
 
 ### **Mobile Performance**
+
 - ✅ **3G Load Time:** < 5s
 - ✅ **Mobile LCP:** < 3s
 - ✅ **Mobile CLS:** < 0.1
@@ -379,22 +416,27 @@ Sitemap: https://my-dispatch.de/sitemap.xml
 ## 🛡️ SECURITY & SEO
 
 ### **HTTPS Enforcement**
+
 ```typescript
 // Middleware: Redirect HTTP → HTTPS
-if (req.protocol !== 'https') {
+if (req.protocol !== "https") {
   res.redirect(301, `https://${req.hostname}${req.url}`);
 }
 ```
 
 ### **Content Security Policy**
+
 ```html
-<meta http-equiv="Content-Security-Policy" 
-      content="default-src 'self'; 
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self'; 
                img-src 'self' data: https:; 
-               script-src 'self' 'unsafe-inline' https://fonts.googleapis.com;" />
+               script-src 'self' 'unsafe-inline' https://fonts.googleapis.com;"
+/>
 ```
 
 ### **Security Headers**
+
 ```
 X-Content-Type-Options: nosniff
 X-Frame-Options: DENY
@@ -407,6 +449,7 @@ Referrer-Policy: strict-origin-when-cross-origin
 ## 📊 MONITORING & ANALYTICS
 
 ### **Tools (Pflicht-Integration)**
+
 1. ✅ **Google Search Console** - Indexierung, Keywords, Fehler
 2. ✅ **Google Analytics 4** - Traffic, Conversions, Behavior
 3. ✅ **PageSpeed Insights** - Core Web Vitals (wöchentlich)
@@ -414,6 +457,7 @@ Referrer-Policy: strict-origin-when-cross-origin
 5. ✅ **Sentry** - Error Tracking & Performance Monitoring
 
 ### **KPIs (Key Performance Indicators)**
+
 - ✅ **Organic Traffic:** +20% QoQ
 - ✅ **Keyword Rankings:** Top 3 für Primary Keywords
 - ✅ **CTR (Search):** ≥ 5%
@@ -426,6 +470,7 @@ Referrer-Policy: strict-origin-when-cross-origin
 ## 🎯 QUALITY GATES (PRE-DEPLOY)
 
 ### **Automatisierte Checks (CI/CD Pipeline)**
+
 ```bash
 # Lighthouse CI (min. 95 Score)
 npm run lighthouse:ci
@@ -441,6 +486,7 @@ npm run budget:check
 ```
 
 ### **Manuelle Checks (Checkliste)**
+
 - [ ] Alle Seiten haben SEOHead
 - [ ] Meta-Descriptions < 160 Zeichen
 - [ ] Alle Bilder haben Alt-Text
@@ -455,6 +501,7 @@ npm run budget:check
 ## 📚 RESSOURCEN & TOOLS
 
 ### **SEO Tools**
+
 - [Google Search Console](https://search.google.com/search-console)
 - [PageSpeed Insights](https://pagespeed.web.dev/)
 - [Lighthouse CI](https://github.com/GoogleChrome/lighthouse-ci)
@@ -463,12 +510,14 @@ npm run budget:check
 - [Mobile-Friendly Test](https://search.google.com/test/mobile-friendly)
 
 ### **Performance Tools**
+
 - [WebPageTest](https://www.webpagetest.org/)
 - [GTmetrix](https://gtmetrix.com/)
 - [Pingdom](https://tools.pingdom.com/)
 - [Bundle Analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer)
 
 ### **Accessibility Tools**
+
 - [axe DevTools](https://www.deque.com/axe/devtools/)
 - [WAVE](https://wave.webaim.org/)
 - [Lighthouse Accessibility](https://web.dev/accessibility/)
@@ -478,6 +527,7 @@ npm run budget:check
 ## 🔄 CHANGELOG
 
 ### **V18.3 (2025-10-21)**
+
 - ✅ Initial Release: Vollständige SEO-Spezifikation
 - ✅ SEOHead Component dokumentiert
 - ✅ Performance-Targets definiert

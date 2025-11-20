@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { V28Checkbox } from './index';
+import type { Meta, StoryObj } from "@storybook/react";
+import { V28Checkbox } from "./index";
 
 const meta: Meta<typeof V28Checkbox> = {
-  title: 'Design System/V28Checkbox',
+  title: "Design System/V28Checkbox",
   component: V28Checkbox,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
-    label: { control: 'text' },
-    disabled: { control: 'boolean' },
+    label: { control: "text" },
+    disabled: { control: "boolean" },
   },
 };
 
@@ -16,20 +16,20 @@ type Story = StoryObj<typeof V28Checkbox>;
 
 export const Default: Story = {
   args: {
-    label: 'Accept terms and conditions',
+    label: "Accept terms and conditions",
   },
 };
 
 export const Checked: Story = {
   args: {
-    label: 'Email notifications',
+    label: "Email notifications",
     defaultChecked: true,
   },
 };
 
 export const Disabled: Story = {
   args: {
-    label: 'Disabled checkbox',
+    label: "Disabled checkbox",
     disabled: true,
   },
 };

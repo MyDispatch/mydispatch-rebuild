@@ -1,4 +1,5 @@
 # DESIGN-SYSTEM: HERO-SECTIONS AUF DUNKLEN HINTERGRÜNDEN
+
 **Version:** V18.3.21 FINAL  
 **Datum:** 19.10.2025  
 **Status:** ✅ PRODUKTIV - VERBINDLICH
@@ -21,18 +22,20 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ### Overlay-Konfiguration (PERFEKT)
 
 **Mittel-dunkler Overlay** für Video-Ästhetik:
+
 ```css
 .hero-dark-overlay {
   background: linear-gradient(
-    180deg, 
-    rgba(0, 0, 0, 0.40) 0%,   /* Oben: 40% Schwarz */
-    rgba(0, 0, 0, 0.50) 50%,  /* Mitte: 50% Schwarz */
-    rgba(0, 0, 0, 0.45) 100%  /* Unten: 45% Schwarz */
+    180deg,
+    rgba(0, 0, 0, 0.4) 0%,
+    /* Oben: 40% Schwarz */ rgba(0, 0, 0, 0.5) 50%,
+    /* Mitte: 50% Schwarz */ rgba(0, 0, 0, 0.45) 100% /* Unten: 45% Schwarz */
   );
 }
 ```
 
 **Rationale:**
+
 - Video bleibt sichtbar und dynamisch
 - Texte sind optimal lesbar (Kontrast: >4.5:1)
 - Weder zu hell (verwaschen) noch zu dunkel (erdrückend)
@@ -48,22 +51,22 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ```css
 .hero-headline-primary {
   color: hsl(var(--primary)) !important;
-  text-shadow: 
-    0 2px 12px rgba(234, 222, 189, 0.6),  /* Starker Glow */
-    0 0 20px rgba(234, 222, 189, 0.4);     /* Weiterer Glow */
+  text-shadow:
+    0 2px 12px rgba(234, 222, 189, 0.6),
+    /* Starker Glow */ 0 0 20px rgba(234, 222, 189, 0.4); /* Weiterer Glow */
 }
 ```
 
 **Verwendung:**
+
 ```tsx
 <h1>
-  <span className="hero-headline-primary">
-    MyDispatch
-  </span>
+  <span className="hero-headline-primary">MyDispatch</span>
 </h1>
 ```
 
 **Rationale:**
+
 - CI-Farbe prominent hervorgehoben
 - Doppelter Text-Shadow für optimale Lesbarkeit
 - Glow-Effekt verstärkt Markenwirkung
@@ -82,6 +85,7 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ```
 
 **Verwendung:**
+
 ```tsx
 <h1>
   <span className="hero-headline-primary">MyDispatch</span>
@@ -92,6 +96,7 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ```
 
 **Rationale:**
+
 - Weiß für maximale Lesbarkeit auf dunklem Hintergrund
 - Dunkler Schatten für Kontrast zum Video
 - **NICHT #323D5E** (wäre auf dunkel schlecht lesbar)
@@ -111,6 +116,7 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ```
 
 **Verwendung:**
+
 ```tsx
 <p className="hero-subtext text-lg sm:text-xl md:text-2xl">
   Professionelle Disposition für Taxiunternehmen...
@@ -118,6 +124,7 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ```
 
 **Rationale:**
+
 - Leicht reduzierte Opacity für visuelle Hierarchie
 - Weiß für Lesbarkeit auf dunklem Hintergrund
 
@@ -128,6 +135,7 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ### 1. Primary CTA Button
 
 **Farben:**
+
 - Background: `hsl(var(--primary))` = #EADEBD
 - Text: `hsl(var(--foreground))` = #323D5E
 
@@ -146,6 +154,7 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ```
 
 **Verwendung:**
+
 ```tsx
 <button className="hero-cta-primary">
   <BadgeCheck className="hero-icon" />
@@ -154,6 +163,7 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ```
 
 **Icon-Farbe:**
+
 ```css
 .hero-cta-primary .hero-icon {
   color: hsl(var(--foreground)) !important; /* #323D5E */
@@ -165,6 +175,7 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ### 2. Secondary CTA Button (Outline)
 
 **Farben:**
+
 - Border: `white`
 - Text: `white`
 - Background: `transparent`
@@ -182,6 +193,7 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ```
 
 **Verwendung:**
+
 ```tsx
 <button className="hero-cta-secondary">
   <Download className="hero-icon" />
@@ -190,6 +202,7 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ```
 
 **Icon-Farbe:**
+
 ```css
 .hero-cta-secondary .hero-icon {
   color: white !important;
@@ -205,20 +218,20 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 ```tsx
 <section className="-mt-6 h-screen flex items-center justify-center overflow-hidden relative">
   {/* Video Background */}
-  <video 
-    autoPlay 
-    loop 
-    muted 
+  <video
+    autoPlay
+    loop
+    muted
     playsInline
     className="absolute inset-0 w-full h-full object-cover"
-    style={{ filter: 'brightness(0.3)' }}
+    style={{ filter: "brightness(0.3)" }}
   >
     <source src="[VIDEO_URL]" type="video/mp4" />
   </video>
-  
+
   {/* Fallback Gradient Background */}
   <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-background to-accent/10"></div>
-  
+
   {/* Mittel-dunkler Overlay (PERFEKT) */}
   <div className="hero-dark-overlay absolute inset-0"></div>
 
@@ -235,9 +248,7 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 
       {/* Headline */}
       <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold leading-tight tracking-tight">
-        <span className="hero-headline-primary">
-          MyDispatch
-        </span>
+        <span className="hero-headline-primary">MyDispatch</span>
         <span className="hero-headline-secondary block mt-4 hyphens-auto">
           Die führende Software für Taxi- & Mietwagenunternehmen
         </span>
@@ -306,13 +317,13 @@ Diese Vorgaben definieren die **zentrale, wiederverwendbare Lösung** für Hero-
 
 ## 📊 KONTRAST-VORGABEN (WCAG AA)
 
-| Element | Hintergrund | Vordergrund | Kontrast | Status |
-|---------|-------------|-------------|----------|--------|
-| Primary Headline | Video + 45% Schwarz | #EADEBD + Glow | 6.2:1 | ✅ AAA |
-| Secondary Headline | Video + 45% Schwarz | #FFFFFF + Shadow | 12.5:1 | ✅ AAA |
-| Subtext | Video + 45% Schwarz | #FFFFFF 90% | 10.8:1 | ✅ AAA |
-| Primary Button | #EADEBD | #323D5E | 7.1:1 | ✅ AAA |
-| Secondary Button | Transparent | #FFFFFF | 12.5:1 | ✅ AAA |
+| Element            | Hintergrund         | Vordergrund      | Kontrast | Status |
+| ------------------ | ------------------- | ---------------- | -------- | ------ |
+| Primary Headline   | Video + 45% Schwarz | #EADEBD + Glow   | 6.2:1    | ✅ AAA |
+| Secondary Headline | Video + 45% Schwarz | #FFFFFF + Shadow | 12.5:1   | ✅ AAA |
+| Subtext            | Video + 45% Schwarz | #FFFFFF 90%      | 10.8:1   | ✅ AAA |
+| Primary Button     | #EADEBD             | #323D5E          | 7.1:1    | ✅ AAA |
+| Secondary Button   | Transparent         | #FFFFFF          | 12.5:1   | ✅ AAA |
 
 **Alle Werte übertreffen WCAG AAA (7:1)** ✅
 
@@ -331,6 +342,7 @@ Diese Hero-Lösung ist **zentral im Design-System** (`src/index.css`) definiert 
 - Weitere...
 
 **Verwendung:**
+
 1. Video/Bild als Background
 2. `.hero-dark-overlay` für Overlay
 3. Hero-Klassen für Texte/Buttons
@@ -340,12 +352,12 @@ Diese Hero-Lösung ist **zentral im Design-System** (`src/index.css`) definiert 
 
 ## 📝 ÄNDERUNGSPROTOKOLL
 
-| Version | Datum | Änderung | Grund |
-|---------|-------|----------|-------|
-| V18.3.21 | 19.10.2025 | Initial-Dokumentation | Hero-Lösung finalisiert |
-| - | - | Overlay: 40-50% Schwarz | Perfekte Balance |
-| - | - | Weiß für Haupttext | Lesbarkeit auf dunkel |
-| - | - | #EADEBD für Marke | CI-Farbe prominent |
+| Version  | Datum      | Änderung                | Grund                   |
+| -------- | ---------- | ----------------------- | ----------------------- |
+| V18.3.21 | 19.10.2025 | Initial-Dokumentation   | Hero-Lösung finalisiert |
+| -        | -          | Overlay: 40-50% Schwarz | Perfekte Balance        |
+| -        | -          | Weiß für Haupttext      | Lesbarkeit auf dunkel   |
+| -        | -          | #EADEBD für Marke       | CI-Farbe prominent      |
 
 ---
 

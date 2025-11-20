@@ -1,22 +1,22 @@
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const ANTHROPIC_API_KEY = Deno.env.get('ANTHROPIC_API_KEY');
+    const ANTHROPIC_API_KEY = Deno.env.get("ANTHROPIC_API_KEY");
     if (!ANTHROPIC_API_KEY) {
-      return new Response(
-        JSON.stringify({ error: 'ANTHROPIC_API_KEY not configured' }),
-        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-      );
+      return new Response(JSON.stringify({ error: "ANTHROPIC_API_KEY not configured" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const { graphicType, theme, elements, style } = await req.json();
@@ -25,7 +25,7 @@ serve(async (req) => {
     const prompt = `Generate a premium, professional ${graphicType} graphic for a taxi/rideshare platform.
 
 Theme: ${theme}
-Elements: ${elements.join(', ')}
+Elements: ${elements.join(", ")}
 Style: ${style}
 
 Design Guidelines:
@@ -48,19 +48,19 @@ Technical Requirements:
 
 Please provide the complete, production-ready SVG code with proper viewBox and dimensions.`;
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
+        "Content-Type": "application/json",
+        "x-api-key": ANTHROPIC_API_KEY,
+        "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-5',
+        model: "claude-sonnet-4-5",
         max_tokens: 4096,
         messages: [
           {
-            role: 'user',
+            role: "user",
             content: prompt,
           },
         ],
@@ -69,10 +69,10 @@ Please provide the complete, production-ready SVG code with proper viewBox and d
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Claude API Error:', errorText);
+      console.error("Claude API Error:", errorText);
       return new Response(
-        JSON.stringify({ error: 'Claude API request failed', details: errorText }),
-        { status: response.status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        JSON.stringify({ error: "Claude API request failed", details: errorText }),
+        { status: response.status, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
@@ -81,12 +81,12 @@ Please provide the complete, production-ready SVG code with proper viewBox and d
 
     // Extract SVG if wrapped in markdown code blocks
     let cleanedSvg = svgContent;
-    if (svgContent.includes('```svg')) {
+    if (svgContent.includes("```svg")) {
       const match = svgContent.match(/```svg\n([\s\S]*?)\n```/);
       if (match) {
         cleanedSvg = match[1];
       }
-    } else if (svgContent.includes('```')) {
+    } else if (svgContent.includes("```")) {
       const match = svgContent.match(/```\n([\s\S]*?)\n```/);
       if (match) {
         cleanedSvg = match[1];
@@ -94,20 +94,20 @@ Please provide the complete, production-ready SVG code with proper viewBox and d
     }
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         svg: cleanedSvg,
         graphicType,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
-    console.error('Error in ai-premium-graphics:', error);
+    console.error("Error in ai-premium-graphics:", error);
     return new Response(
-      JSON.stringify({ 
-        error: error instanceof Error ? error.message : 'Unknown error occurred'
+      JSON.stringify({
+        error: error instanceof Error ? error.message : "Unknown error occurred",
       }),
-      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });

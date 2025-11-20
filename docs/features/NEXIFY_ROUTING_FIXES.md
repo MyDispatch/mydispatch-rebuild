@@ -12,19 +12,23 @@
 ### Issue 1: `/kontakt` vs `/contact` - INKONSISTENZ
 
 **Problem:**
+
 - `/contact` ist in `routes.config.tsx` definiert (Zeile 303)
 - `/kontakt` wird in mehreren Dateien verwendet (z.B. `FleetDriverAddon.tsx`)
 
 **Fix:**
+
 - ✅ `/kontakt` als Alias-Route hinzufügen ODER alle Referenzen auf `/contact` ändern
 - **Empfehlung:** Alias-Route hinzufügen (SEO-freundlich)
 
 **Dateien mit `/kontakt`:**
+
 - `src/pages/pricing/addons/FleetDriverAddon.tsx` (Zeilen 94, 246)
 
 ### Issue 2: Auth-Seite Query-Parameter
 
 **Status:**
+
 - ✅ Auth-Route existiert: `/auth` -> `@/pages/Auth`
 - ⏳ Auth-Seite muss Query-Parameter verarbeiten:
   - `?company=slug` - Company-spezifische Auth
@@ -36,6 +40,7 @@
 ### Issue 3: Unternehmer-Landingpage Routing
 
 **Status:**
+
 - ✅ `handleAuthNavigation()` funktioniert korrekt
 - ✅ SessionStorage wird gesetzt
 - ✅ Navigation zu `/auth?company=slug` funktioniert
@@ -63,6 +68,7 @@
 ### Fix 2: Auth-Seite Query-Parameter-Validierung
 
 **Auth.tsx muss implementieren:**
+
 - `?company=slug` - Company Context aus SessionStorage laden
 - `?mode=signup` - Registrierungs-Modus
 - `?mode=login` - Login-Modus
@@ -76,6 +82,7 @@
 ### Alle Routen validiert:
 
 **✅ Public Routes:**
+
 - `/` - Home
 - `/auth` - Auth
 - `/contact` - Contact
@@ -87,6 +94,7 @@
 - `/:slug` - Dynamic Company Slug
 
 **✅ Driver-App Routes:**
+
 - `/driver/welcome`
 - `/driver/login`
 - `/driver/register`
@@ -95,6 +103,7 @@
 - `/driver/dashboard`
 
 **✅ Protected Routes:**
+
 - `/dashboard`
 - `/auftraege`
 - `/kunden`
@@ -106,6 +115,7 @@
 ## 📝 DESIGN/LAYOUT-ARBEITEN
 
 ### Unternehmer-Landingpage:
+
 - ✅ Hero-Section - Design korrekt
 - ✅ Features-Section - Design korrekt
 - ✅ Contact-Section - Design korrekt
@@ -113,6 +123,7 @@
 - ⏳ Loading-States - Zu prüfen
 
 ### Auth-Bereich:
+
 - ⏳ Auth-Seite Design - Zu prüfen
 - ⏳ Form-Layout - Zu prüfen
 - ⏳ Error-Handling-UI - Zu prüfen
@@ -121,4 +132,3 @@
 ---
 
 **Bereit für vollständige Implementierung, Pascal!** 🚀
-

@@ -1,11 +1,11 @@
-/* ==================================================================================
-   V26 AUTH HEADER/FOOTER MIGRATION LOG
-   ==================================================================================
-   Status: ABGESCHLOSSEN
-   Erstellt: 2025-01-26
-   Migration: /auth Header/Footer auf MarketingLayout-Standard
-   Governance: HEADER_FOOTER_LOGO_GOVERNANCE_V26.0 konform
-   ================================================================================== */
+/_ ==================================================================================
+V26 AUTH HEADER/FOOTER MIGRATION LOG
+==================================================================================
+Status: ABGESCHLOSSEN
+Erstellt: 2025-01-26
+Migration: /auth Header/Footer auf MarketingLayout-Standard
+Governance: HEADER_FOOTER_LOGO_GOVERNANCE_V26.0 konform
+================================================================================== _/
 
 # 🎯 MIGRATION-ZIEL
 
@@ -18,12 +18,13 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 ### 1. Header-Migration (Zeile 407-418 → 407-482)
 
 #### ❌ VORHER (Alt - Custom V26 Header):
+
 ```typescript
 <header className="py-6 px-4 sm:px-6" style={{ backgroundColor: KERNFARBEN.weiss }}>
   <div className="container mx-auto">
-    <V26Logo 
-      companyName={companyName} 
-      logoUrl={logoUrl} 
+    <V26Logo
+      companyName={companyName}
+      logoUrl={logoUrl}
       size="md"
       onClick={() => navigate('/')}
     />
@@ -32,6 +33,7 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 ```
 
 **Probleme:**
+
 - ❌ Custom-Header statt MarketingLayout-Standard
 - ❌ Verwendung von `brandedCompany.logo_url` (Unternehmer-Logo)
 - ❌ Nicht fixiert (kein `position: fixed`)
@@ -39,8 +41,9 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 - ❌ Nicht responsive optimiert
 
 #### ✅ NACHHER (Neu - MarketingLayout-konform):
+
 ```typescript
-<header 
+<header
   className="fixed top-0 left-0 right-0 z-30 bg-background"
   style={{
     boxShadow: DESIGN_TOKENS.elevation.sm,
@@ -48,18 +51,18 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
   }}
 >
   <div style={{ padding: `0 ${DESIGN_TOKENS.spacing.lg} 0 ${DESIGN_TOKENS.spacing.xl}` }}>
-    <div 
+    <div
       className="flex items-center justify-between"
       style={{ height: '64px' }}
     >
       {/* MyDispatch-Logo (ZWINGEND gemäß Governance) */}
-      <img 
-        src={officialLogo} 
+      <img
+        src={officialLogo}
         alt="MyDispatch - simply arrive"
         onClick={() => navigate('/')}
         className="h-8 max-w-[120px] sm:max-w-[160px] md:max-w-[180px] object-contain drop-shadow-sm cursor-pointer hover:opacity-80"
       />
-      
+
       {/* Action Buttons */}
       <div className="flex items-center" style={{ gap: DESIGN_TOKENS.spacing.md }}>
         <Button variant="ghost" onClick={() => setActiveTab('signup')}>
@@ -75,6 +78,7 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 ```
 
 **Verbesserungen:**
+
 - ✅ **Fixed positioning**: `position: fixed` für permanente Sichtbarkeit
 - ✅ **MyDispatch-Logo**: Verwendet `officialLogo` statt `brandedCompany.logo_url`
 - ✅ **Action-Buttons**: Registrieren & Anmelden Buttons hinzugefügt
@@ -87,6 +91,7 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 ### 2. Footer-Migration (Zeile 740-752 → 738-800)
 
 #### ❌ VORHER (Alt - Custom V26 Footer):
+
 ```typescript
 <footer className="py-6 px-4 sm:px-6" style={{ backgroundColor: KERNFARBEN.weiss }}>
   <div className="container mx-auto">
@@ -103,6 +108,7 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 ```
 
 **Probleme:**
+
 - ❌ Nicht fixiert (kein `position: fixed`)
 - ❌ Falsches Copyright-Format (`MyDispatch` statt `my-dispatch.de by RideHub Solutions`)
 - ❌ Fehlende "Made in Germany" Badge
@@ -110,8 +116,9 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 - ❌ Nicht responsive optimiert (Mobile/Desktop unterschiedliche Layouts)
 
 #### ✅ NACHHER (Neu - MarketingLayout-konform):
+
 ```typescript
-<footer 
+<footer
   className="fixed bottom-0 left-0 right-0 z-20 bg-background"
   style={{
     borderTop: `1px solid ${DESIGN_TOKENS.colors.border.DEFAULT}`,
@@ -158,6 +165,7 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 ```
 
 **Verbesserungen:**
+
 - ✅ **Fixed positioning**: `position: fixed` für permanente Sichtbarkeit
 - ✅ **Korrektes Copyright**: `© 2025 my-dispatch.de by RideHub Solutions`
 - ✅ **"Made in Germany" Badge**: Desktop-Version enthält Trust-Badge
@@ -170,17 +178,20 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 ### 3. Main-Content-Anpassung (Zeile 420)
 
 #### ❌ VORHER:
+
 ```typescript
 <main className="flex-1 flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16 md:py-20">
 ```
 
 #### ✅ NACHHER:
+
 ```typescript
 <main className="flex-1 flex items-center justify-center px-4 sm:px-6 py-12 sm:py-16 md:py-20 pt-24">
   {/* pt-24 für Header-Abstand */}
 ```
 
 **Begründung:**
+
 - Fixed Header benötigt `padding-top` im Main-Content, um Überlappung zu vermeiden
 - `pt-24` (96px) gibt ausreichend Abstand zum 64px Header
 
@@ -189,11 +200,13 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 ### 4. Entfernte Komponenten & Code-Bereinigung
 
 #### Entfernt:
+
 - ❌ `V26Logo` Component (nicht mehr benötigt)
 - ❌ `brandedCompany.logo_url` Logik (Logo ist jetzt immer MyDispatch)
 - ❌ Custom Header/Footer Styling
 
 #### Hinzugefügt:
+
 - ✅ `officialLogo` Import: `import officialLogo from '@/assets/mydispatch-logo-official.png'`
 - ✅ `DESIGN_TOKENS` Import: `import { DESIGN_TOKENS } from '@/lib/design-system/design-tokens'`
 - ✅ `Button` Import: `import { Button } from '@/components/ui/button'`
@@ -205,19 +218,19 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 
 ### ✅ HEADER_FOOTER_LOGO_GOVERNANCE_V26.0 Konformität:
 
-| Regel | Status | Implementierung |
-|-------|--------|-----------------|
-| MarketingLayout-Header verwendet | ✅ | Vollständig umgesetzt |
-| MyDispatch-Logo (ZWINGEND) | ✅ | `officialLogo` verwendet |
-| Kein Unternehmer-Logo | ✅ | `brandedCompany.logo_url` entfernt |
-| Fixed positioning | ✅ | `position: fixed` gesetzt |
-| Action-Buttons | ✅ | Registrieren & Anmelden hinzugefügt |
-| MarketingLayout-Footer verwendet | ✅ | Vollständig umgesetzt |
-| Copyright: RideHub Solutions | ✅ | Korrekt implementiert |
-| Legal Links vollständig | ✅ | Impressum, Datenschutz, AGB, Kontakt |
-| "Made in Germany" Badge | ✅ | Desktop-Version enthält Badge |
-| Responsive Design | ✅ | Mobile/Desktop-Layouts getrennt |
-| Design-Tokens konform | ✅ | 100% DESIGN_TOKENS-Nutzung |
+| Regel                            | Status | Implementierung                      |
+| -------------------------------- | ------ | ------------------------------------ |
+| MarketingLayout-Header verwendet | ✅     | Vollständig umgesetzt                |
+| MyDispatch-Logo (ZWINGEND)       | ✅     | `officialLogo` verwendet             |
+| Kein Unternehmer-Logo            | ✅     | `brandedCompany.logo_url` entfernt   |
+| Fixed positioning                | ✅     | `position: fixed` gesetzt            |
+| Action-Buttons                   | ✅     | Registrieren & Anmelden hinzugefügt  |
+| MarketingLayout-Footer verwendet | ✅     | Vollständig umgesetzt                |
+| Copyright: RideHub Solutions     | ✅     | Korrekt implementiert                |
+| Legal Links vollständig          | ✅     | Impressum, Datenschutz, AGB, Kontakt |
+| "Made in Germany" Badge          | ✅     | Desktop-Version enthält Badge        |
+| Responsive Design                | ✅     | Mobile/Desktop-Layouts getrennt      |
+| Design-Tokens konform            | ✅     | 100% DESIGN_TOKENS-Nutzung           |
 
 ---
 
@@ -226,12 +239,14 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 **Auth-Seite Header/Footer sind ab sofort DESIGN-FROZEN.**
 
 ### Erlaubt:
+
 - ✅ Bug-Fixes (Funktionale Fehler)
 - ✅ Performance-Optimierungen
 - ✅ Accessibility-Verbesserungen (WCAG 2.1 AA)
 - ✅ Security-Updates
 
 ### Verboten:
+
 - ❌ Design-Änderungen (Farben, Typografie, Layout)
 - ❌ Strukturelle Änderungen (Header/Footer-Komponenten austauschen)
 - ❌ Logo-Änderungen (MyDispatch-Logo ist zwingend)
@@ -242,17 +257,21 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 ## 📚 REFERENZEN
 
 ### Geänderte Dateien:
+
 - `src/pages/Auth.tsx` (Header: Zeile 407-482, Footer: Zeile 738-800)
 
 ### Neue Dokumentation:
+
 - `docs/HEADER_FOOTER_LOGO_GOVERNANCE_V26.0.md` - Systemweite Governance
 
 ### Verwandte Dokumentation:
+
 - `docs/DESIGN_SYSTEM_FINAL_V26.md` - V26.0 Design System
 - `docs/V26_COMPONENT_LIBRARY_COMPLETE.md` - UI-Komponenten-Bibliothek
 - `docs/MIGRATION_V26_AUTH_FINAL_LOG.md` - Allgemeine Auth-Migration
 
 ### Code-Referenzen:
+
 - **Marketing Header**: `src/components/layout/MarketingLayout.tsx` (Zeile 149-233)
 - **Marketing Footer**: `src/components/layout/MarketingLayout.tsx` (Zeile 243-352)
 - **MyDispatch-Logo**: `src/assets/mydispatch-logo-official.png`
@@ -262,6 +281,7 @@ Vollständige Umstellung der `/auth`-Seite auf den systemweiten MarketingLayout-
 ## 📝 CHANGELOG
 
 ### V26.0 (2025-01-26) - HEADER/FOOTER MIGRATION ABGESCHLOSSEN
+
 - Header auf MarketingLayout-Standard migriert
 - Footer auf MarketingLayout-Standard migriert
 - MyDispatch-Logo als zwingend definiert

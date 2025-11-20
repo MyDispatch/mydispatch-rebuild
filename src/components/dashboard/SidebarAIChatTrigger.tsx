@@ -6,9 +6,9 @@
    ✅ V28.1 Design System
    ================================================================================== */
 
-import { useState } from 'react';
-import { Bot } from 'lucide-react';
-import { AIChatDialog } from './AIChatDialog';
+import { useState } from "react";
+import { Bot } from "lucide-react";
+import { AIChatDialog } from "./AIChatDialog";
 
 export function SidebarAIChatTrigger() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -30,9 +30,7 @@ export function SidebarAIChatTrigger() {
             />
           </div>
         </div>
-        <p className="text-xs text-slate-500">
-          Klicken Sie hier, um den AI-Chat zu öffnen
-        </p>
+        <p className="text-xs text-slate-500">Klicken Sie hier, um den AI-Chat zu öffnen</p>
       </div>
 
       <AIChatDialog open={modalOpen} onOpenChange={setModalOpen} />

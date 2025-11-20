@@ -80,33 +80,33 @@
 CREATE TABLE tariff_system_v2 (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   tariff_id text UNIQUE NOT NULL,
-  
+
   -- Pricing
   price_monthly numeric NOT NULL,
   price_yearly numeric NOT NULL,
   currency text DEFAULT '€',
   discount_yearly_percent numeric DEFAULT 20,
-  
+
   -- Limits
   limit_drivers integer NOT NULL,
   limit_vehicles integer NOT NULL,
   limit_users integer NOT NULL,
   limit_bookings_monthly integer,
-  
+
   -- Features
   features jsonb NOT NULL DEFAULT '[]'::jsonb,
-  
+
   -- Stripe Integration
   stripe_product_ids text[] NOT NULL,
   stripe_price_id_monthly text,
   stripe_price_id_yearly text,
-  
+
   -- Marketing
   marketing_title text NOT NULL,
   marketing_subtitle text,
   marketing_description text,
   marketing_cta_text text DEFAULT 'Jetzt starten',
-  
+
   -- Meta
   is_active boolean DEFAULT true,
   display_order integer DEFAULT 0,
@@ -141,13 +141,13 @@ CREATE TABLE add_ons (
 
 ```sql
 -- Public Read (alle können Tarife sehen)
-CREATE POLICY "Public read access on tariff_system_v2" 
-ON tariff_system_v2 FOR SELECT 
+CREATE POLICY "Public read access on tariff_system_v2"
+ON tariff_system_v2 FOR SELECT
 USING (is_active = true);
 
 -- Master/Service Role Write (nur System kann editieren)
-CREATE POLICY "Service role can manage tariff_system_v2" 
-ON tariff_system_v2 FOR ALL 
+CREATE POLICY "Service role can manage tariff_system_v2"
+ON tariff_system_v2 FOR ALL
 USING (auth.jwt()->>'role' = 'service_role');
 ```
 
@@ -159,31 +159,31 @@ USING (auth.jwt()->>'role' = 'service_role');
 
 **Purpose:** Generiert automatisch TypeScript-Files aus `tariff_system_v2` DB
 
-**Trigger:** 
+**Trigger:**
+
 - Manuell via Supabase Function Call
 - Automatisch bei DB-Update (via Trigger)
 
 **Files Generated:**
+
 - `src/lib/tariff/tariff-definitions.ts`
 - `src/data/pricing-tiers.ts`
 - `src/lib/content/pricing-texts.ts`
 
 **API Call:**
+
 ```typescript
-const { data } = await supabase.functions.invoke('sync-tariff-system');
+const { data } = await supabase.functions.invoke("sync-tariff-system");
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
   "tariffs_count": 2,
   "addons_count": 1,
-  "generated_files": [
-    "tariff-definitions.ts",
-    "pricing-tiers.ts",
-    "pricing-texts.ts"
-  ]
+  "generated_files": ["tariff-definitions.ts", "pricing-tiers.ts", "pricing-texts.ts"]
 }
 ```
 
@@ -192,23 +192,26 @@ const { data } = await supabase.functions.invoke('sync-tariff-system');
 **Purpose:** Validiert Marketing-Texte gegen verbotene Claims
 
 **Validation Rules:**
+
 - ❌ "kostenlos testen"
 - ❌ "gratis test"
 - ❌ "free trial"
 - ❌ "14 Tage kostenlos"
-- ❌ "unbegrenzt.*starter" (falsche Pricing-Aussage)
+- ❌ "unbegrenzt.\*starter" (falsche Pricing-Aussage)
 
 **API Call:**
+
 ```typescript
-const { data } = await supabase.functions.invoke('validate-marketing-claims', {
+const { data } = await supabase.functions.invoke("validate-marketing-claims", {
   body: {
-    file_path: 'src/config/content.ts',
-    content: fileContent
-  }
+    file_path: "src/config/content.ts",
+    content: fileContent,
+  },
 });
 ```
 
 **Response:**
+
 ```json
 {
   "is_valid": false,
@@ -255,6 +258,7 @@ echo "✅ Marketing claims valid!"
 **Cron Schedule:** Every Monday 00:00 UTC
 
 **Checks:**
+
 1. `tariff-definitions.ts === tariff_system_v2` (DB-Sync)
 2. `pricing-tiers.ts === tariff_system_v2` (DB-Sync)
 3. No "kostenlos testen" occurrences in codebase
@@ -272,6 +276,7 @@ echo "✅ Marketing claims valid!"
 **Component:** `src/pages/pricing/addons/FleetDriverAddon.tsx`
 
 **Features:**
+
 - ✅ Dynamic Data Loading from `add_ons` table
 - ✅ Interactive Price Calculator
 - ✅ Feature List mit Icons
@@ -280,17 +285,19 @@ echo "✅ Marketing claims valid!"
 - ✅ CTA Section mit "Jetzt starten" / "Beratung anfragen"
 
 **Data Source:**
+
 ```typescript
 const { data: addOn } = await supabase
-  .from('add_ons')
-  .select('*')
-  .eq('add_on_id', 'fleet_driver_addon')
+  .from("add_ons")
+  .select("*")
+  .eq("add_on_id", "fleet_driver_addon")
   .single();
 ```
 
 ### 6.2 Future Add-Ons
 
 **Planned:**
+
 - Custom Modules Detail Page (`/pricing/addons/custom-modules`)
 - Enterprise Support Detail Page (`/pricing/addons/enterprise-support`)
 
@@ -301,6 +308,7 @@ const { data: addOn } = await supabase
 ### 7.1 From Old System → V2
 
 **Before (OLD):**
+
 ```typescript
 // src/lib/tariff/tariff-definitions.ts (manual edit)
 export const TARIFFS = [
@@ -314,10 +322,11 @@ export const PRICING_TIERS = [
 ```
 
 **After (V2):**
+
 ```sql
 -- Update DB → TypeScript Files werden automatisch generiert
-UPDATE tariff_system_v2 
-SET price_monthly = 45 
+UPDATE tariff_system_v2
+SET price_monthly = 45
 WHERE tariff_id = 'starter';
 
 -- Trigger ruft sync-tariff-system auf
@@ -367,11 +376,13 @@ INSERT INTO tariff_system_v2 (
 **Root Cause:** Keine automatische Validation vor Commit
 
 **Solution:**
+
 - ✅ `validate-marketing-claims` Edge Function deployed
 - ⏳ Pre-Commit Hook (geplant)
 - ✅ Weekly Audit (implementiert)
 
 **Prevention:**
+
 ```typescript
 // Nutze zentrale Texte aus content.ts
 import { HERO_CONTENT } from '@/config/content';
@@ -384,6 +395,7 @@ import { HERO_CONTENT } from '@/config/content';
 **Root Cause:** Manuelle Pflege in 3+ Files
 
 **Solution:**
+
 - ✅ Single Source of Truth (`tariff_system_v2`)
 - ✅ Auto-Sync via `sync-tariff-system`
 - ✅ Weekly Consistency Check
@@ -393,6 +405,7 @@ import { HERO_CONTENT } from '@/config/content';
 **Root Cause:** Nicht geplant in V1
 
 **Solution:**
+
 - ✅ `/pricing/addons/fleet-driver` erstellt
 - ⏳ `/pricing/addons/custom-modules` (geplant)
 
@@ -401,6 +414,7 @@ import { HERO_CONTENT } from '@/config/content';
 ## 9. FUTURE ROADMAP
 
 ### Phase 1: Foundation ✅ (COMPLETED)
+
 - [x] Tariff System V2 Database
 - [x] Initial Data seeded
 - [x] sync-tariff-system Edge Function
@@ -408,17 +422,20 @@ import { HERO_CONTENT } from '@/config/content';
 - [x] Fleet & Driver Add-On Detail Page
 
 ### Phase 2: Automation (Q1 2025)
+
 - [ ] Pre-Commit Hook für Marketing Validation
 - [ ] Weekly Audit Cron Job (deployed)
 - [ ] Auto-Trigger sync-tariff-system bei DB-Updates
 
 ### Phase 3: Enhancement (Q2 2025)
+
 - [ ] Custom Modules Detail Page
 - [ ] Enterprise Support Detail Page
 - [ ] A/B Testing für Pricing-Seiten
 - [ ] Dynamic Discount Calculator
 
 ### Phase 4: Analytics (Q3 2025)
+
 - [ ] Conversion Tracking per Tariff
 - [ ] Heatmaps auf Pricing-Seiten
 - [ ] User Feedback System
@@ -428,12 +445,14 @@ import { HERO_CONTENT } from '@/config/content';
 ## 📊 SUCCESS METRICS
 
 ### Technical Metrics
+
 - ✅ DB-Sync Latency: <100ms
 - ✅ Validation Accuracy: 100%
 - ✅ Zero-Hallucination Rate: 99%+
 - ✅ TypeScript Type-Safety: 100%
 
 ### Business Metrics
+
 - ⏳ Conversion Rate: (baseline wird gemessen)
 - ⏳ Add-On Attach Rate: (baseline wird gemessen)
 - ⏳ Upgrade Rate Starter → Business: (baseline wird gemessen)
@@ -443,25 +462,31 @@ import { HERO_CONTENT } from '@/config/content';
 ## 🎯 LESSONS LEARNED
 
 ### 1. NIEMALS Marketing-Versprechen ohne Validation
+
 **Problem:** "Kostenlos testen" wurde in Code geschrieben ohne Check
 
 **Prevention:**
+
 - ✅ Pre-Commit Hook validiert Texte
 - ✅ Edge Function `validate-marketing-claims`
 - ✅ Known-Issues-Entry warnt vor False Claims
 
 ### 2. Single Source of Truth für Pricing MANDATORY
+
 **Problem:** Tarif-Daten verstreut → Inkonsistenzen
 
 **Solution:**
+
 - ✅ `tariff_system_v2` Datenbank-Tabelle
 - ✅ Auto-Sync via Edge Function
 - ✅ TypeScript-Files werden generiert, NICHT manuell editiert
 
 ### 3. Autonomous Validation > Manual Reviews
+
 **Problem:** Pascal muss nicht manuell checken
 
 **Solution:**
+
 - ✅ Weekly Audit läuft automatisch
 - ✅ Violations in `known_issues` geloggt
 - ✅ Alert-System bei kritischen Problemen
@@ -473,9 +498,10 @@ import { HERO_CONTENT } from '@/config/content';
 **Owner:** Pascal Gerber  
 **AI Agent:** NeXify V6.0  
 **Knowledge Base:** `knowledge_base` table (category: `pricing_system`)  
-**Action Logs:** `ai_actions_log` table  
+**Action Logs:** `ai_actions_log` table
 
 **Emergency Contact:**
+
 - Check `ai_actions_log` für letzte Änderungen
 - Prüfe `known_issues` für aktuelle Probleme
 - Weekly Reports in `ai_self_reports`

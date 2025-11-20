@@ -10,6 +10,7 @@
 Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Pattern** für alle Taxi-/Mietwagen-Landingpages im MyDispatch-System. Jede Abweichung muss dokumentiert und begründet werden.
 
 **Kernziele:**
+
 - **100% Lesbarkeit** auf allen Hintergründen (Video, Bild, Farbe)
 - **WCAG AAA Konformität** für Text-Kontraste
 - **Responsive Excellence** von 320px bis 4K
@@ -32,6 +33,7 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
 ```
 
 **Regeln:**
+
 - ✅ **Fixed Positioning** mit `z-index: 50`
 - ✅ **Höhe:** 60px (Desktop), 56px (Mobile)
 - ✅ **Hintergrund:** `bg-primary` (dynamisch aus Company-Entity)
@@ -46,11 +48,11 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
 <section className="relative h-[calc(100vh-60px)] mt-[60px] overflow-hidden">
   {/* Video Background */}
   <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" />
-  
+
   {/* Dark Overlay für Lesbarkeit */}
   <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/65 to-black/60" />
   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-  
+
   {/* Content - Zweispaltig auf Desktop */}
   <div className="relative z-10 h-full container mx-auto">
     <div className="grid lg:grid-cols-2 gap-16 h-full items-center">
@@ -63,28 +65,35 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
 
 **Design-Tokens für Hero:**
 
-| Element | Klasse | Zweck |
-|---------|--------|-------|
-| **Badge** | `bg-white/10 border-white/30 text-white` | Logo/Branding Badge |
-| **H1 Headline** | `text-white text-7xl font-extrabold drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]` | Hauptüberschrift |
-| **Subtext** | `text-white/95 text-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]` | Hero-Text |
-| **CTA Primary** | `bg-primary hover:bg-primary-glow text-primary-foreground` | Haupt-Button |
-| **CTA Secondary** | `border-2 border-primary bg-background/90 backdrop-blur-md` | Sekundär-Button |
-| **Trust Indicators** | `text-white/90 text-base` | 24/7, Professionell, Zuverlässig |
-| **Stat Cards** | `bg-black/70 backdrop-blur-md border-white/30 text-white` | Desktop Statistik-Cards |
+| Element              | Klasse                                                                        | Zweck                            |
+| -------------------- | ----------------------------------------------------------------------------- | -------------------------------- |
+| **Badge**            | `bg-white/10 border-white/30 text-white`                                      | Logo/Branding Badge              |
+| **H1 Headline**      | `text-white text-7xl font-extrabold drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]` | Hauptüberschrift                 |
+| **Subtext**          | `text-white/95 text-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)]`               | Hero-Text                        |
+| **CTA Primary**      | `bg-primary hover:bg-primary-glow text-primary-foreground`                    | Haupt-Button                     |
+| **CTA Secondary**    | `border-2 border-primary bg-background/90 backdrop-blur-md`                   | Sekundär-Button                  |
+| **Trust Indicators** | `text-white/90 text-base`                                                     | 24/7, Professionell, Zuverlässig |
+| **Stat Cards**       | `bg-black/70 backdrop-blur-md border-white/30 text-white`                     | Desktop Statistik-Cards          |
 
 **Video-Overlay-Regel (WCAG AAA):**
+
 ```css
 /* Mittel-dunkel (40-50% Schwarz) für Video-Ästhetik UND Lesbarkeit */
 .hero-overlay-primary {
-  background: linear-gradient(to bottom right, rgba(0,0,0,0.70), rgba(0,0,0,0.65), rgba(0,0,0,0.60));
+  background: linear-gradient(
+    to bottom right,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.65),
+    rgba(0, 0, 0, 0.6)
+  );
 }
 .hero-overlay-bottom {
-  background: linear-gradient(to top, rgba(0,0,0,0.80), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
 }
 ```
 
 **Kontrast-Anforderungen:**
+
 - ✅ Weißer Text auf dunklem Overlay: **Mindestens 7:1** (WCAG AAA)
 - ✅ CTA-Buttons mit `bg-primary`: **Mindestens 7:1** mit `text-primary-foreground`
 - ❌ Niemals helle Text-Farben auf hellen Overlays!
@@ -105,6 +114,7 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
 ```
 
 **Feature-Card-Struktur:**
+
 ```tsx
 <Card className="hover-lift card-hover">
   <CardContent className="p-6 text-center">
@@ -118,6 +128,7 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
 ```
 
 **Regeln:**
+
 - ✅ Icons: `h-7 w-7` mit `text-foreground`
 - ✅ Icon-Hintergrund: `bg-primary/10` (10% Opacity für Subtilität)
 - ✅ Spacing: `gap-6` zwischen Cards
@@ -132,14 +143,13 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
   <WaveBackground position="bottom" color="primary" opacity={0.05} />
   <div className="container mx-auto relative z-10">
     <h2 className="text-3xl font-bold text-center mb-12">Unsere Leistungen</h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      {/* Service Cards mit Listen */}
-    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">{/* Service Cards mit Listen */}</div>
   </div>
 </section>
 ```
 
 **Service-Card-Struktur:**
+
 ```tsx
 <Card className="card-hover">
   <CardContent className="p-6">
@@ -172,11 +182,9 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
 ```
 
 **Kontakt-Link-Styling:**
+
 ```tsx
-<a 
-  href="tel:..." 
-  className="hover:text-primary transition-colors min-h-[44px] flex items-center"
->
+<a href="tel:..." className="hover:text-primary transition-colors min-h-[44px] flex items-center">
   {/* Mindesthöhe 44px für Touch-Targets (Apple HIG) */}
 </a>
 ```
@@ -189,7 +197,9 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
 <footer className="py-12 bg-muted/30 border-t relative">
   <WaveBackground position="top" color="primary" opacity={0.08} />
   <div className="container mx-auto px-4 text-center relative z-10">
-    <p className="text-sm text-muted-foreground">© {year} {company.name}</p>
+    <p className="text-sm text-muted-foreground">
+      © {year} {company.name}
+    </p>
     <div className="flex flex-wrap justify-center gap-6 mt-4">
       {/* Legal Links (Impressum, Datenschutz, AGB) */}
     </div>
@@ -203,6 +213,7 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
 ```
 
 **Footer-Positioning-Regel:**
+
 ```tsx
 /* Root Container MUSS flex-col sein */
 <div className="flex flex-col min-h-screen">
@@ -219,57 +230,64 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
 
 ### Farben (HSL-Basis, keine RGB!)
 
-| Token | HSL-Wert | Verwendung |
-|-------|----------|------------|
-| `--primary` | `40 31% 88%` | Company Primary Color (Beige/Gold) |
-| `--primary-glow` | `40 45% 92%` | Hover-State von Primary |
-| `--primary-foreground` | `225 31% 28%` | Text auf Primary (Dunkelblau) |
-| `--foreground` | `225 31% 28%` | Standard-Text-Farbe |
-| `--background` | `0 0% 100%` | Standard-Hintergrund (Weiß) |
-| `--muted` | `40 8% 95%` | Subtile Hintergründe |
-| `--muted-foreground` | `225 20% 50%` | Sekundärer Text |
-| `--border` | `40 12% 88%` | Border-Farbe |
+| Token                  | HSL-Wert      | Verwendung                         |
+| ---------------------- | ------------- | ---------------------------------- |
+| `--primary`            | `40 31% 88%`  | Company Primary Color (Beige/Gold) |
+| `--primary-glow`       | `40 45% 92%`  | Hover-State von Primary            |
+| `--primary-foreground` | `225 31% 28%` | Text auf Primary (Dunkelblau)      |
+| `--foreground`         | `225 31% 28%` | Standard-Text-Farbe                |
+| `--background`         | `0 0% 100%`   | Standard-Hintergrund (Weiß)        |
+| `--muted`              | `40 8% 95%`   | Subtile Hintergründe               |
+| `--muted-foreground`   | `225 20% 50%` | Sekundärer Text                    |
+| `--border`             | `40 12% 88%`  | Border-Farbe                       |
 
 ### Schatten (Premium Quality)
 
-| Token | Wert | Verwendung |
-|-------|------|------------|
-| `--shadow-elegant` | `0 10px 30px -10px rgba(50,61,94,0.3)` | Cards, Buttons |
-| `--shadow-glow` | `0 0 40px rgba(234,222,189,0.4)` | CTA-Hover, Hero-Elements |
+| Token              | Wert                                   | Verwendung               |
+| ------------------ | -------------------------------------- | ------------------------ |
+| `--shadow-elegant` | `0 10px 30px -10px rgba(50,61,94,0.3)` | Cards, Buttons           |
+| `--shadow-glow`    | `0 0 40px rgba(234,222,189,0.4)`       | CTA-Hover, Hero-Elements |
 
 ### Animationen
 
-| Klasse | Effekt |
-|--------|--------|
-| `hover-lift` | Lift um 4px + Shadow |
-| `card-hover` | Scale 1.01 + Shadow |
+| Klasse              | Effekt               |
+| ------------------- | -------------------- |
+| `hover-lift`        | Lift um 4px + Shadow |
+| `card-hover`        | Scale 1.01 + Shadow  |
 | `interactive-hover` | BG-Change + Lift 1px |
-| `smooth-hover` | BG-Transition 300ms |
+| `smooth-hover`      | BG-Transition 300ms  |
 
 ---
 
 ## 📱 Responsive Breakpoints
 
-| Breakpoint | Min-Width | Max-Width | Spacing | Font-Size |
-|------------|-----------|-----------|---------|-----------|
-| **Mobile** | 320px | 767px | px-4, gap-4 | text-base |
-| **Tablet** | 768px | 1023px | px-6, gap-6 | text-lg |
-| **Desktop** | 1024px | 1439px | px-8, gap-8 | text-xl |
-| **Wide** | 1440px+ | ∞ | px-8, gap-8 | text-2xl |
+| Breakpoint  | Min-Width | Max-Width | Spacing     | Font-Size |
+| ----------- | --------- | --------- | ----------- | --------- |
+| **Mobile**  | 320px     | 767px     | px-4, gap-4 | text-base |
+| **Tablet**  | 768px     | 1023px    | px-6, gap-6 | text-lg   |
+| **Desktop** | 1024px    | 1439px    | px-8, gap-8 | text-xl   |
+| **Wide**    | 1440px+   | ∞         | px-8, gap-8 | text-2xl  |
 
 **Mobile-First CSS:**
+
 ```css
 /* Base: Mobile */
-.hero-text { font-size: 1rem; }
+.hero-text {
+  font-size: 1rem;
+}
 
 /* Tablet */
 @media (min-width: 768px) {
-  .hero-text { font-size: 1.25rem; }
+  .hero-text {
+    font-size: 1.25rem;
+  }
 }
 
 /* Desktop */
 @media (min-width: 1024px) {
-  .hero-text { font-size: 1.5rem; }
+  .hero-text {
+    font-size: 1.5rem;
+  }
 }
 ```
 
@@ -280,24 +298,28 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
 ### ❌ Niemals verwenden:
 
 1. **Inline-Styles in TSX**
+
    ```tsx
    ❌ style={{ backgroundColor: '#EADEBD' }}
    ✅ className="bg-primary"
    ```
 
 2. **Direkte Farb-Klassen**
+
    ```tsx
    ❌ className="text-white bg-black"
    ✅ className="text-primary-foreground bg-primary"
    ```
 
 3. **Feste Pixel-Werte (außer Icons)**
+
    ```tsx
    ❌ className="text-[18px]"
    ✅ className="text-lg" (fluid-responsive)
    ```
 
 4. **Min-Height auf Sections (außer Hero)**
+
    ```tsx
    ❌ <section className="min-h-screen">
    ✅ <section className="py-16">
@@ -331,6 +353,7 @@ Diese Design-Vorgaben definieren das **verbindliche Layout, Styling und UX-Patte
 ## 🔧 Technische Implementation
 
 ### File-Struktur:
+
 ```
 src/pages/Unternehmer.tsx          # Haupt-Component
 src/components/booking/BookingWidget.tsx
@@ -341,6 +364,7 @@ docs/LANDINGPAGE_DESIGN_VORGABEN_V18.3.25.md  # Diese Datei
 ```
 
 ### Key Dependencies:
+
 - `react-router-dom` für Routing (`:slug` oder `?tenant=id`)
 - `@tanstack/react-query` für Company-Daten-Fetching
 - `lucide-react` für Icons (Tree-Shakeable)
@@ -350,14 +374,15 @@ docs/LANDINGPAGE_DESIGN_VORGABEN_V18.3.25.md  # Diese Datei
 
 ## 📈 Performance-Targets
 
-| Metrik | Target | Aktuell | Status |
-|--------|--------|---------|--------|
-| **LCP** | < 2.5s | 1.8s | ✅ |
-| **FID** | < 100ms | 60ms | ✅ |
-| **CLS** | < 0.1 | 0.05 | ✅ |
-| **Bundle Size** | < 300KB | 280KB | ✅ |
+| Metrik          | Target  | Aktuell | Status |
+| --------------- | ------- | ------- | ------ |
+| **LCP**         | < 2.5s  | 1.8s    | ✅     |
+| **FID**         | < 100ms | 60ms    | ✅     |
+| **CLS**         | < 0.1   | 0.05    | ✅     |
+| **Bundle Size** | < 300KB | 280KB   | ✅     |
 
 **Optimierungen:**
+
 - Lazy-Loading für Booking-Widget und AI-Chat
 - Video-Preload (nicht autodownload)
 - Font-Display: swap für Web-Fonts
@@ -367,8 +392,8 @@ docs/LANDINGPAGE_DESIGN_VORGABEN_V18.3.25.md  # Diese Datei
 
 ## 🔄 Change Log
 
-| Version | Datum | Änderungen |
-|---------|-------|------------|
+| Version      | Datum      | Änderungen                           |
+| ------------ | ---------- | ------------------------------------ |
 | **V18.3.25** | 2025-01-18 | Initial Release - Design finalisiert |
 
 ---

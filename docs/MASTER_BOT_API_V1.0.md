@@ -39,6 +39,7 @@ x-api-key: bot_live_<your_key_here>
 Holt alle registrierten Firmen mit Status und Subscription.
 
 **Request:**
+
 ```json
 {
   "action": "get-companies",
@@ -47,6 +48,7 @@ Holt alle registrierten Firmen mit Status und Subscription.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -71,6 +73,7 @@ Holt alle registrierten Firmen mit Status und Subscription.
 Gibt aktuelle System-Metriken zurück.
 
 **Request:**
+
 ```json
 {
   "action": "get-system-health",
@@ -79,6 +82,7 @@ Gibt aktuelle System-Metriken zurück.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -97,6 +101,7 @@ Gibt aktuelle System-Metriken zurück.
 Startet manuelles Backup der Datenbank.
 
 **Request:**
+
 ```json
 {
   "action": "trigger-backup",
@@ -105,6 +110,7 @@ Startet manuelles Backup der Datenbank.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -122,6 +128,7 @@ Startet manuelles Backup der Datenbank.
 Holt die neuesten System-Logs.
 
 **Request:**
+
 ```json
 {
   "action": "get-logs",
@@ -132,6 +139,7 @@ Holt die neuesten System-Logs.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -156,6 +164,7 @@ Holt die neuesten System-Logs.
 Führt vollständigen Sicherheitsscan durch.
 
 **Request:**
+
 ```json
 {
   "action": "run-security-scan",
@@ -164,6 +173,7 @@ Führt vollständigen Sicherheitsscan durch.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -196,11 +206,11 @@ API_KEY = "bot_live_your_key_here"
 def call_master_action(action: str, params: dict = None):
     """
     Ruft eine Master Bot API Action auf
-    
+
     Args:
         action: Name der Action (z.B. "get-companies")
         params: Optionale Parameter für die Action
-    
+
     Returns:
         Response-Data als Dictionary
     """
@@ -237,15 +247,15 @@ async function callMasterAction(action, params = {}) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "x-api-key": API_KEY
+      "x-api-key": API_KEY,
     },
-    body: JSON.stringify({ action, params })
+    body: JSON.stringify({ action, params }),
   });
-  
+
   if (!response.ok) {
     throw new Error(`API Error: ${response.status}`);
   }
-  
+
   return response.json();
 }
 
@@ -288,12 +298,12 @@ curl -X POST https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/bot-webhook \
 
 ### HTTP Status Codes
 
-| Code | Bedeutung | Action |
-|------|-----------|--------|
-| 200 | Erfolg | Request erfolgreich verarbeitet |
-| 400 | Bad Request | Ungültige Action oder Parameter |
-| 401 | Unauthorized | Fehlender oder ungültiger API Key |
-| 500 | Server Error | Interner Server-Fehler |
+| Code | Bedeutung    | Action                            |
+| ---- | ------------ | --------------------------------- |
+| 200  | Erfolg       | Request erfolgreich verarbeitet   |
+| 400  | Bad Request  | Ungültige Action oder Parameter   |
+| 401  | Unauthorized | Fehlender oder ungültiger API Key |
+| 500  | Server Error | Interner Server-Fehler            |
 
 ### Error Response Format
 
@@ -319,8 +329,8 @@ curl -X POST https://vsbqyqhzxmwezlhzdmfd.supabase.co/functions/v1/bot-webhook \
 Alle Bot-Actions werden automatisch geloggt in der `master_logs` Tabelle:
 
 ```sql
-SELECT * FROM master_logs 
-WHERE action_type = 'bot_webhook' 
+SELECT * FROM master_logs
+WHERE action_type = 'bot_webhook'
 ORDER BY created_at DESC;
 ```
 

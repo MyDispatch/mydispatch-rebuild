@@ -1,4 +1,5 @@
 # 🎯 CHAT-SYSTEM FINALE DOKUMENTATION V18.2.31
+
 ## ⚠️ DIESE EINSTELLUNGEN SIND FINAL UND DÜRFEN NIEMALS ÜBERSCHRIEBEN WERDEN!
 
 **Datum:** 2025-10-18  
@@ -23,11 +24,14 @@
 ## 1. SYSTEMÜBERSICHT
 
 ### Zielsetzung
+
 Professionelles Dual-Mode AI-Chat-System mit:
+
 - **App Mode:** B2B Software-Support für eingeloggte Nutzer
 - **Landing Mode:** B2C Service-Support für öffentliche Landingpages
 
 ### Technologie-Stack
+
 - **AI-Modell:** Google Gemini 2.5 Flash (via Lovable AI Gateway)
 - **Backend:** Supabase Edge Function `ai-support-chat`
 - **Frontend:** React-Komponente `IntelligentAIChat.tsx`
@@ -39,18 +43,19 @@ Professionelles Dual-Mode AI-Chat-System mit:
 
 ### Mode-Unterscheidung
 
-| Aspekt | App Mode | Landing Mode |
-|--------|----------|--------------|
-| **Zielgruppe** | B2B (Disponenten, Admin) | B2C (Endkunden) |
-| **Ton** | Professionell, sachlich | Freundlich, serviceorientiert |
-| **Kontext** | Software-Support, Rechtsfragen | Buchungen, Service-Anfragen |
-| **Verbote** | Alle Emojis | "MyDispatch", "Software", "System" |
-| **UI-Farben** | `text-accent-foreground` | `text-accent-foreground` |
-| **Avatar** | "AI" Text | `<Car />` Icon |
+| Aspekt         | App Mode                       | Landing Mode                       |
+| -------------- | ------------------------------ | ---------------------------------- |
+| **Zielgruppe** | B2B (Disponenten, Admin)       | B2C (Endkunden)                    |
+| **Ton**        | Professionell, sachlich        | Freundlich, serviceorientiert      |
+| **Kontext**    | Software-Support, Rechtsfragen | Buchungen, Service-Anfragen        |
+| **Verbote**    | Alle Emojis                    | "MyDispatch", "Software", "System" |
+| **UI-Farben**  | `text-accent-foreground`       | `text-accent-foreground`           |
+| **Avatar**     | "AI" Text                      | `<Car />` Icon                     |
 
 ### Kritische Regeln (NIEMALS BRECHEN!)
 
 #### App Mode
+
 ```typescript
 VERBOTEN:
 - ❌ Emojis in Antworten
@@ -65,6 +70,7 @@ PFLICHT:
 ```
 
 #### Landing Mode
+
 ```typescript
 VERBOTEN:
 - ❌ "MyDispatch" erwähnen
@@ -88,7 +94,7 @@ PFLICHT:
 #### System-Prompt Landing Mode (FINALE VERSION)
 
 ```typescript
-const systemPrompt = isPublicLanding ? 
+const systemPrompt = isPublicLanding ?
 `Sie sind der professionelle und freundliche Service-Assistent von ${contextObj.company?.name || 'diesem Taxi-Unternehmen'}.
 
 ABSOLUTE FORMATIERUNGS-REGELN (ZWINGEND EINHALTEN):
@@ -165,7 +171,7 @@ WICHTIG:
 #### System-Prompt App Mode (FINALE VERSION)
 
 ```typescript
-: 
+:
 `Sie sind der professionelle AI-Assistent von MyDispatch, einer Dispositionssoftware fuer Taxi- und Mietwagenunternehmen.
 
 ABSOLUTE FORMATIERUNGS-REGELN (ZWINGEND EINHALTEN):
@@ -213,18 +219,15 @@ WICHTIG:
 ### API-Konfiguration
 
 ```typescript
-const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
-  method: 'POST',
+const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+  method: "POST",
   headers: {
-    'Authorization': `Bearer ${LOVABLE_API_KEY}`,
-    'Content-Type': 'application/json',
+    Authorization: `Bearer ${LOVABLE_API_KEY}`,
+    "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    model: 'google/gemini-2.5-flash',
-    messages: [
-      { role: 'system', content: systemPrompt },
-      ...messages
-    ],
+    model: "google/gemini-2.5-flash",
+    messages: [{ role: "system", content: systemPrompt }, ...messages],
     stream: true,
   }),
 });
@@ -287,10 +290,10 @@ interface IntelligentAIChatProps {
 ```typescript
 const reader = response.body.getReader();
 const decoder = new TextDecoder();
-let assistantContent = '';
-let textBuffer = '';
+let assistantContent = "";
+let textBuffer = "";
 
-setMessages(prev => [...prev, { role: 'assistant', content: '', timestamp: new Date() }]);
+setMessages((prev) => [...prev, { role: "assistant", content: "", timestamp: new Date() }]);
 
 while (true) {
   const { done, value } = await reader.read();
@@ -299,30 +302,30 @@ while (true) {
   textBuffer += decoder.decode(value, { stream: true });
 
   let newlineIndex: number;
-  while ((newlineIndex = textBuffer.indexOf('\n')) !== -1) {
+  while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
     let line = textBuffer.slice(0, newlineIndex);
     textBuffer = textBuffer.slice(newlineIndex + 1);
 
-    if (line.endsWith('\r')) line = line.slice(0, -1);
-    if (line.startsWith(':') || line.trim() === '') continue;
-    if (!line.startsWith('data: ')) continue;
+    if (line.endsWith("\r")) line = line.slice(0, -1);
+    if (line.startsWith(":") || line.trim() === "") continue;
+    if (!line.startsWith("data: ")) continue;
 
     const jsonStr = line.slice(6).trim();
-    if (jsonStr === '[DONE]') break;
+    if (jsonStr === "[DONE]") break;
 
     try {
       const parsed = JSON.parse(jsonStr);
       const content = parsed.choices?.[0]?.delta?.content as string | undefined;
       if (content) {
         assistantContent += content;
-        setMessages(prev => {
+        setMessages((prev) => {
           const newMessages = [...prev];
           newMessages[newMessages.length - 1].content = assistantContent;
           return newMessages;
         });
       }
     } catch {
-      textBuffer = line + '\n' + textBuffer;
+      textBuffer = line + "\n" + textBuffer;
       break;
     }
   }
@@ -338,35 +341,37 @@ while (true) {
 ```typescript
 // Markdown-Rendering für Chat-Nachrichten (DIN 5008 konforme Abstände)
 const renderMarkdown = (content: string) => {
-  if (!content) return '';
-  
+  if (!content) return "";
+
   let html = content;
-  
+
   // Ersetze **Text** mit <strong>Text</strong>
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-  
+  html = html.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
   // Behandle nummerierte Listen (1. 2. 3.) mit korrekten Abständen
   html = html.replace(/^(\d+\.\s+.+?)$/gm, (match) => {
     return `<div class="mb-3">${match}</div>`;
   });
-  
+
   // Behandle Bullet-Listen (- ) mit korrekten Abständen
   html = html.replace(/^(-\s+.+?)$/gm, (match) => {
     return `<div class="mb-3">${match}</div>`;
   });
-  
+
   // Ersetze doppelte Zeilenumbrüche mit Absätzen (zwei Leerzeilen)
-  const paragraphs = html.split('\n\n');
-  html = paragraphs.map((para, idx) => {
-    // Wenn Paragraph bereits div-Strukturen enthält (Listen), nicht in <p> wrappen
-    if (para.includes('<div class="mb-3">')) {
-      return para;
-    }
-    // Normale Absätze
-    const cleanPara = para.replace(/\n/g, '<br/>');
-    return `<p class="mb-4 last:mb-0">${cleanPara}</p>`;
-  }).join('');
-  
+  const paragraphs = html.split("\n\n");
+  html = paragraphs
+    .map((para, idx) => {
+      // Wenn Paragraph bereits div-Strukturen enthält (Listen), nicht in <p> wrappen
+      if (para.includes('<div class="mb-3">')) {
+        return para;
+      }
+      // Normale Absätze
+      const cleanPara = para.replace(/\n/g, "<br/>");
+      return `<p class="mb-4 last:mb-0">${cleanPara}</p>`;
+    })
+    .join("");
+
   return html;
 };
 ```
@@ -374,7 +379,7 @@ const renderMarkdown = (content: string) => {
 ### JSX-Integration
 
 ```typescript
-<div 
+<div
   className="text-sm break-words [&>p]:mb-4 [&>p:last-child]:mb-0 [&_strong]:font-bold"
   dangerouslySetInnerHTML={{ __html: renderMarkdown(message.content) }}
 />
@@ -389,6 +394,7 @@ const renderMarkdown = (content: string) => {
 ✅ **Zeilenumbrüche:** Einzelne `\n` → `<br/>`
 
 ❌ **Verboten:**
+
 - `+++`, `===`, `###`, `***` (werden ignoriert)
 - Emojis in App Mode
 - Direkte HTML-Tags
@@ -432,15 +438,15 @@ const { company } = contextObj;
 
 ### UI-Unterschiede Landingpage
 
-| Element | Landingpage | App |
-|---------|-------------|-----|
-| **Button-Text** | "Service-Chat 💬" | "AI-Assistent" |
-| **Titel** | "{Company}-Assistent" | "MyDispatch AI-Assistent" |
-| **Begrüßung** | "Wie können wir Ihnen helfen?" | "Wie kann ich Sie unterstützen?" |
-| **Avatar** | `<Car />` Icon | "AI" Text |
-| **Transparenz-Hinweis** | ❌ Nicht angezeigt | ✅ Angezeigt |
-| **Kontext-Info** | ❌ Nicht angezeigt | ✅ Angezeigt |
-| **Kontakt-Button** | ✅ Phone-Button | ❌ Nicht angezeigt |
+| Element                 | Landingpage                    | App                              |
+| ----------------------- | ------------------------------ | -------------------------------- |
+| **Button-Text**         | "Service-Chat 💬"              | "AI-Assistent"                   |
+| **Titel**               | "{Company}-Assistent"          | "MyDispatch AI-Assistent"        |
+| **Begrüßung**           | "Wie können wir Ihnen helfen?" | "Wie kann ich Sie unterstützen?" |
+| **Avatar**              | `<Car />` Icon                 | "AI" Text                        |
+| **Transparenz-Hinweis** | ❌ Nicht angezeigt             | ✅ Angezeigt                     |
+| **Kontext-Info**        | ❌ Nicht angezeigt             | ✅ Angezeigt                     |
+| **Kontakt-Button**      | ✅ Phone-Button                | ❌ Nicht angezeigt               |
 
 ---
 
@@ -448,27 +454,29 @@ const { company } = contextObj;
 
 ### Test-Matrix (Alle bestanden ✅)
 
-| Test | Landing Mode | App Mode | Status |
-|------|--------------|----------|--------|
-| **Markdown Bold** | `**Text**` → Bold | `**Text**` → Bold | ✅ |
-| **Listen-Abstände** | `mb-3` spacing | `mb-3` spacing | ✅ |
-| **Absatz-Abstände** | `mb-4` zwischen Paragraphen | `mb-4` zwischen Paragraphen | ✅ |
-| **Farben** | `text-accent-foreground` | `text-accent-foreground` | ✅ |
-| **Avatar** | `<Car />` Icon sichtbar | "AI" Text sichtbar | ✅ |
-| **Verbote** | Keine "MyDispatch"-Erwähnung | Keine Emojis | ✅ |
-| **Antwortlänge** | Min. 4-5 Sätze | Min. 4-5 Sätze | ✅ |
-| **Streaming** | Token-by-Token | Token-by-Token | ✅ |
-| **Error-Handling** | Toast + Fallback | Toast + Fallback | ✅ |
+| Test                | Landing Mode                 | App Mode                    | Status |
+| ------------------- | ---------------------------- | --------------------------- | ------ |
+| **Markdown Bold**   | `**Text**` → Bold            | `**Text**` → Bold           | ✅     |
+| **Listen-Abstände** | `mb-3` spacing               | `mb-3` spacing              | ✅     |
+| **Absatz-Abstände** | `mb-4` zwischen Paragraphen  | `mb-4` zwischen Paragraphen | ✅     |
+| **Farben**          | `text-accent-foreground`     | `text-accent-foreground`    | ✅     |
+| **Avatar**          | `<Car />` Icon sichtbar      | "AI" Text sichtbar          | ✅     |
+| **Verbote**         | Keine "MyDispatch"-Erwähnung | Keine Emojis                | ✅     |
+| **Antwortlänge**    | Min. 4-5 Sätze               | Min. 4-5 Sätze              | ✅     |
+| **Streaming**       | Token-by-Token               | Token-by-Token              | ✅     |
+| **Error-Handling**  | Toast + Fallback             | Toast + Fallback            | ✅     |
 
 ### Benutzer-Feedback
 
 **Vor Optimierung:**
+
 - ❌ "19-Euro-Bot-Qualität"
 - ❌ "Viel zu kurze Antworten"
 - ❌ "Falsche Farben (dunkel auf dunkel)"
-- ❌ "Keine Formatierung (*** statt fett)"
+- ❌ "Keine Formatierung (\*\*\* statt fett)"
 
 **Nach Optimierung:**
+
 - ✅ "Perfekt"
 - ✅ "Professionelle Antworten"
 - ✅ "Korrekte CI-Farben"
@@ -481,6 +489,7 @@ const { company } = contextObj;
 ### Kritische Erkenntnisse
 
 #### 1. System-Prompt ist entscheidend
+
 ```typescript
 // ❌ FALSCH: Zu vage
 "Sie sind ein Assistent. Antworten Sie höflich."
@@ -510,10 +519,10 @@ const { company } = contextObj;
 
 ```typescript
 // ❌ FALSCH: Hardcoded
-className="text-white bg-black"
+className = "text-white bg-black";
 
 // ✅ RICHTIG: Semantic Tokens
-className="text-accent-foreground bg-accent"
+className = "text-accent-foreground bg-accent";
 ```
 
 **Lesson:** Nur `text-foreground`, `text-accent-foreground`, etc. verwenden.
@@ -522,7 +531,7 @@ className="text-accent-foreground bg-accent"
 
 ```typescript
 // ❌ FALSCH: Nur Zeilenumbrüche
-html = html.replace(/\n/g, '<br/>');
+html = html.replace(/\n/g, "<br/>");
 
 // ✅ RICHTIG: mb-3 für Listen
 html = html.replace(/^(\d+\.\s+.+?)$/gm, (match) => {
@@ -536,14 +545,10 @@ html = html.replace(/^(\d+\.\s+.+?)$/gm, (match) => {
 
 ```typescript
 // ❌ FALSCH: Gemischte Logik
-const prompt = isPublicLanding 
-  ? "Service oder Software..." 
-  : "Software oder Service...";
+const prompt = isPublicLanding ? "Service oder Software..." : "Software oder Service...";
 
 // ✅ RICHTIG: Vollständig getrennte Prompts
-const prompt = isPublicLanding 
-  ? LANDING_MODE_FULL_PROMPT 
-  : APP_MODE_FULL_PROMPT;
+const prompt = isPublicLanding ? LANDING_MODE_FULL_PROMPT : APP_MODE_FULL_PROMPT;
 ```
 
 **Lesson:** Keine Vermischung! Jeder Mode = eigener kompletter Prompt.
@@ -571,11 +576,13 @@ const prompt = isPublicLanding
 **WICHTIG:** Diese Konfiguration ist FINAL und PRODUKTIONSREIF.
 
 **Änderungen sind NUR erlaubt für:**
+
 - Bug-Fixes (z.B. Security)
 - Neue Standard-Antworten (nach gleichem Muster)
 - Performance-Optimierungen (ohne Logik-Änderung)
 
 **NIEMALS ändern:**
+
 - System-Prompt-Struktur
 - Markdown-Rendering-Logik
 - Farb-Schema
@@ -597,6 +604,7 @@ const prompt = isPublicLanding
 ## 📞 SUPPORT & FRAGEN
 
 Bei Fragen oder Problemen:
+
 1. Diese Dokumentation ZUERST lesen
 2. CHAT_SYSTEM_VORGABEN_V18.2.30.md konsultieren
 3. NICHT ohne Rücksprache ändern

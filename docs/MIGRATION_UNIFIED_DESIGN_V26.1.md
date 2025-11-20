@@ -16,12 +16,14 @@ Dieses Dokument beschreibt die Migration aller Komponenten zum **Unified Design 
 ## ✅ MIGRATIONS-STATUS
 
 ### Abgeschlossen
+
 - [x] `src/lib/design-system/unified-design-tokens.ts` - Erstellt
 - [x] `docs/UNIFIED_DESIGN_SYSTEM_V26.1.md` - Dokumentiert
 - [x] `src/components/dashboard/DashboardSidebar.tsx` - Migriert
 - [x] `src/components/dashboard/DashboardInfoPanel.tsx` - In Progress
 
 ### Ausstehend
+
 - [ ] `src/components/dashboard/CollapsibleDashboardSection.tsx`
 - [ ] `src/components/dashboard/PremiumWeatherDisplay.tsx`
 - [ ] `src/components/dashboard/PremiumTrafficDisplay.tsx`
@@ -41,16 +43,19 @@ Dieses Dokument beschreibt die Migration aller Komponenten zum **Unified Design 
 Für jede Komponente:
 
 ### 1. Import hinzufügen
+
 ```typescript
-import { 
+import {
   UNIFIED_DESIGN_TOKENS,
   getCardStyle,
-  getPanelStyle 
-} from '@/lib/design-system/unified-design-tokens';
+  getPanelStyle,
+} from "@/lib/design-system/unified-design-tokens";
 ```
 
 ### 2. Border ersetzen
+
 **Vorher:**
+
 ```typescript
 className="border-2 border-primary/20"
 // oder
@@ -58,6 +63,7 @@ style={{ border: '2px solid', borderColor: 'rgba(234, 222, 189, 0.2)' }}
 ```
 
 **Nachher:**
+
 ```typescript
 style={UNIFIED_DESIGN_TOKENS.border.styles.card_standard}
 // oder
@@ -65,7 +71,9 @@ style={getCardStyle('standard')}
 ```
 
 ### 3. Radius ersetzen
+
 **Vorher:**
+
 ```typescript
 className="rounded-xl"
 // oder
@@ -73,13 +81,16 @@ style={{ borderRadius: '12px' }}
 ```
 
 **Nachher:**
+
 ```typescript
 style={{ borderRadius: UNIFIED_DESIGN_TOKENS.radius.component.card }}
 // oder im getCardStyle() enthalten
 ```
 
 ### 4. Shadow ersetzen
+
 **Vorher:**
+
 ```typescript
 className="shadow-lg"
 // oder
@@ -87,13 +98,16 @@ style={{ boxShadow: '0 8px 16px rgba(0,0,0,0.1)' }}
 ```
 
 **Nachher:**
+
 ```typescript
 style={{ boxShadow: UNIFIED_DESIGN_TOKENS.shadow.component.card_standard }}
 // oder im getCardStyle() enthalten
 ```
 
 ### 5. Spacing ersetzen
+
 **Vorher:**
+
 ```typescript
 className="gap-4 p-4"
 // oder
@@ -101,16 +115,18 @@ style={{ gap: '1rem', padding: '1rem' }}
 ```
 
 **Nachher:**
+
 ```typescript
-style={{ 
+style={{
   gap: UNIFIED_DESIGN_TOKENS.spacing.component.gap_cards,
   padding: UNIFIED_DESIGN_TOKENS.spacing.component.card_padding
 }}
 ```
 
 ### 6. Icons prüfen
+
 ```typescript
-import { FileText } from 'lucide-react'; // ✅ Korrekt gemäß ICON_MAPPING
+import { FileText } from "lucide-react"; // ✅ Korrekt gemäß ICON_MAPPING
 
 // Statt verschiedene Icons für Aufträge:
 // ❌ Document, File, Receipt
@@ -122,7 +138,9 @@ import { FileText } from 'lucide-react'; // ✅ Korrekt gemäß ICON_MAPPING
 ## 🔄 MIGRATIONS-PATTERNS
 
 ### Pattern 1: Standard Card
+
 **Vorher:**
+
 ```typescript
 <div className="rounded-xl p-4 border-2 border-primary/20 shadow-md">
   Content
@@ -130,6 +148,7 @@ import { FileText } from 'lucide-react'; // ✅ Korrekt gemäß ICON_MAPPING
 ```
 
 **Nachher:**
+
 ```typescript
 <div style={getCardStyle('standard')}>
   Content
@@ -137,9 +156,11 @@ import { FileText } from 'lucide-react'; // ✅ Korrekt gemäß ICON_MAPPING
 ```
 
 ### Pattern 2: Hover Card
+
 **Vorher:**
+
 ```typescript
-<div 
+<div
   className="rounded-xl p-4 border-2 border-primary/20 shadow-md hover:shadow-lg"
   onMouseEnter={(e) => {
     e.currentTarget.style.borderColor = 'rgba(234, 222, 189, 0.4)';
@@ -151,8 +172,9 @@ import { FileText } from 'lucide-react'; // ✅ Korrekt gemäß ICON_MAPPING
 ```
 
 **Nachher:**
+
 ```typescript
-<div 
+<div
   style={getCardStyle('standard')}
   onMouseEnter={(e) => {
     Object.assign(e.currentTarget.style, getCardStyle('hover'));
@@ -166,9 +188,11 @@ import { FileText } from 'lucide-react'; // ✅ Korrekt gemäß ICON_MAPPING
 ```
 
 ### Pattern 3: Error/Status Card
+
 **Vorher:**
+
 ```typescript
-<div 
+<div
   className="rounded-xl p-4 border-2 bg-red-50 border-red-400"
   style={{ boxShadow: '0 0 12px rgba(239, 68, 68, 0.2)' }}
 >
@@ -177,8 +201,9 @@ import { FileText } from 'lucide-react'; // ✅ Korrekt gemäß ICON_MAPPING
 ```
 
 **Nachher:**
+
 ```typescript
-<div 
+<div
   style={{
     ...getCardStyle('error'),
     backgroundColor: `${DESIGN_TOKENS_V26_1.colors.status_error}15`
@@ -189,7 +214,9 @@ import { FileText } from 'lucide-react'; // ✅ Korrekt gemäß ICON_MAPPING
 ```
 
 ### Pattern 4: Grid Layout
+
 **Vorher:**
+
 ```typescript
 <div className="grid grid-cols-2 gap-2">
   <div className="rounded-xl p-3">...</div>
@@ -198,9 +225,10 @@ import { FileText } from 'lucide-react'; // ✅ Korrekt gemäß ICON_MAPPING
 ```
 
 **Nachher:**
+
 ```typescript
-<div 
-  className="grid grid-cols-2" 
+<div
+  className="grid grid-cols-2"
   style={{ gap: UNIFIED_DESIGN_TOKENS.spacing.component.gap_cards }}
 >
   <div style={{
@@ -221,6 +249,7 @@ import { FileText } from 'lucide-react'; // ✅ Korrekt gemäß ICON_MAPPING
 ## 🔍 SUCHE & ERSETZE
 
 ### Finde alte Patterns
+
 ```bash
 # Border
 grep -r "border-2" src/components/
@@ -245,25 +274,28 @@ grep -r "p-4" src/components/
 ## ⚠️ BEKANNTE PROBLEME
 
 ### Problem 1: Inline Styles vs. ClassName
+
 **Lösung:** Bevorzuge `style={}` für Token-basiertes Design über `className`
 
 ### Problem 2: Mehrfache Border-Definitionen
+
 **Lösung:** Verwende `...getCardStyle()` am Anfang, überschreibe nur spezifische Props
 
 ### Problem 3: Unterschiedliche Rundungen
+
 **Lösung:** Alle Cards verwenden `UNIFIED_DESIGN_TOKENS.radius.component.card`
 
 ---
 
 ## 📊 FORTSCHRITT
 
-| Kategorie | Abgeschlossen | Gesamt | % |
-|-----------|---------------|--------|---|
-| Dashboard | 2 | 8 | 25% |
-| Forms | 0 | 15 | 0% |
-| Dialogs | 0 | 10 | 0% |
-| Cards | 0 | 20 | 0% |
-| **Total** | **2** | **53** | **4%** |
+| Kategorie | Abgeschlossen | Gesamt | %      |
+| --------- | ------------- | ------ | ------ |
+| Dashboard | 2             | 8      | 25%    |
+| Forms     | 0             | 15     | 0%     |
+| Dialogs   | 0             | 10     | 0%     |
+| Cards     | 0             | 20     | 0%     |
+| **Total** | **2**         | **53** | **4%** |
 
 ---
 

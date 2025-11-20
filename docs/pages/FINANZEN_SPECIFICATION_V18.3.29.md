@@ -1,4 +1,5 @@
 # 💰 FINANZEN SPECIFICATION V18.3.29
+
 ## Entwicklervorgabe & Template-Master
 
 **Status:** Production-Ready (Master-Template)  
@@ -57,18 +58,18 @@ DashboardLayout (Wrapper)
 
 ### Verwendete Labary-Komponenten
 
-| UI-Element | Komponente | Pfad | Variante |
-|------------|-----------|------|----------|
-| **Layout** | DashboardLayout | `@/components/layouts/DashboardLayout` | - |
-| **KPI Cards** | KPICard | `@/components/design-system/KPICard` | financial |
-| **Charts** | LineChart, PieChart | `recharts` | - |
-| **Table** | Table | `@/components/ui/table` | default |
-| **Cards** | Card | `@/components/ui/card` | default |
-| **Badges** | ResponsiveBadge | `@/components/design-system/ResponsiveBadge` | payment status |
-| **Buttons** | Button | `@/components/ui/button` | default, outline |
-| **DatePicker** | DateRangePicker | `@/components/ui/date-range-picker` | month/quarter/year |
-| **Dialogs** | Dialog | `@/components/ui/dialog` | invoice form |
-| **Icons** | Icon (Lucide) | `lucide-react` | - |
+| UI-Element     | Komponente          | Pfad                                         | Variante           |
+| -------------- | ------------------- | -------------------------------------------- | ------------------ |
+| **Layout**     | DashboardLayout     | `@/components/layouts/DashboardLayout`       | -                  |
+| **KPI Cards**  | KPICard             | `@/components/design-system/KPICard`         | financial          |
+| **Charts**     | LineChart, PieChart | `recharts`                                   | -                  |
+| **Table**      | Table               | `@/components/ui/table`                      | default            |
+| **Cards**      | Card                | `@/components/ui/card`                       | default            |
+| **Badges**     | ResponsiveBadge     | `@/components/design-system/ResponsiveBadge` | payment status     |
+| **Buttons**    | Button              | `@/components/ui/button`                     | default, outline   |
+| **DatePicker** | DateRangePicker     | `@/components/ui/date-range-picker`          | month/quarter/year |
+| **Dialogs**    | Dialog              | `@/components/ui/dialog`                     | invoice form       |
+| **Icons**      | Icon (Lucide)       | `lucide-react`                               | -                  |
 
 ---
 
@@ -115,23 +116,23 @@ import { Euro, TrendingUp, FileText, Target } from 'lucide-react';
 // Payment Status Mapping
 const PAYMENT_STATUS_CONFIG = {
   paid: {
-    variant: 'success' as const,
-    label: 'Bezahlt',
+    variant: "success" as const,
+    label: "Bezahlt",
     icon: CheckCircle,
   },
   pending: {
-    variant: 'warning' as const,
-    label: 'Offen',
+    variant: "warning" as const,
+    label: "Offen",
     icon: Clock,
   },
   overdue: {
-    variant: 'destructive' as const,
-    label: 'Überfällig',
+    variant: "destructive" as const,
+    label: "Überfällig",
     icon: AlertCircle,
   },
   cancelled: {
-    variant: 'secondary' as const,
-    label: 'Storniert',
+    variant: "secondary" as const,
+    label: "Storniert",
     icon: XCircle,
   },
 };
@@ -141,7 +142,7 @@ const PAYMENT_STATUS_CONFIG = {
   variant={PAYMENT_STATUS_CONFIG[invoice.payment_status].variant}
   label={PAYMENT_STATUS_CONFIG[invoice.payment_status].label}
   icon={PAYMENT_STATUS_CONFIG[invoice.payment_status].icon}
-/>
+/>;
 ```
 
 ---
@@ -161,17 +162,17 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
     <ResponsiveContainer width="100%" height={350}>
       <LineChart data={revenueData}>
         <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-        <XAxis 
-          dataKey="month" 
+        <XAxis
+          dataKey="month"
           stroke="hsl(var(--muted-foreground))"
           fontSize={12}
         />
-        <YAxis 
+        <YAxis
           stroke="hsl(var(--muted-foreground))"
           fontSize={12}
           tickFormatter={(value) => `€${value}k`}
         />
-        <Tooltip 
+        <Tooltip
           contentStyle={{
             backgroundColor: 'hsl(var(--background))',
             border: '1px solid hsl(var(--border))',
@@ -179,10 +180,10 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
           }}
           formatter={(value: number) => [`€${value.toLocaleString()}`, 'Umsatz']}
         />
-        <Line 
-          type="monotone" 
-          dataKey="revenue" 
-          stroke="hsl(var(--chart-primary))" 
+        <Line
+          type="monotone"
+          dataKey="revenue"
+          stroke="hsl(var(--chart-primary))"
           strokeWidth={2}
           dot={{ fill: 'hsl(var(--chart-primary))' }}
         />
@@ -240,11 +241,11 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
   </TableHeader>
   <TableBody>
     {invoices.map((invoice) => (
-      <TableRow 
+      <TableRow
         key={invoice.id}
         className={cn(
           "cursor-pointer hover:bg-muted/50",
-          invoice.payment_status === 'overdue' && "bg-destructive/5"
+          invoice.payment_status === "overdue" && "bg-destructive/5"
         )}
       >
         <TableCell className="font-medium">{invoice.invoice_number}</TableCell>
@@ -253,10 +254,8 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
         <TableCell className="text-right font-semibold">
           {formatCurrency(invoice.total_amount)}
         </TableCell>
-        <TableCell>{format(invoice.invoice_date, 'dd.MM.yyyy')}</TableCell>
-        <TableCell>
-          {invoice.due_date ? format(invoice.due_date, 'dd.MM.yyyy') : '-'}
-        </TableCell>
+        <TableCell>{format(invoice.invoice_date, "dd.MM.yyyy")}</TableCell>
+        <TableCell>{invoice.due_date ? format(invoice.due_date, "dd.MM.yyyy") : "-"}</TableCell>
         <TableCell>
           <ResponsiveBadge
             variant={PAYMENT_STATUS_CONFIG[invoice.payment_status].variant}
@@ -283,7 +282,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
                 <Edit className="h-4 w-4 mr-2" />
                 Bearbeiten
               </DropdownMenuItem>
-              {invoice.payment_status === 'overdue' && (
+              {invoice.payment_status === "overdue" && (
                 <>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onClick={() => handleReminder(invoice)}>
@@ -308,11 +307,11 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 ```tsx
 <div className="sm:hidden space-y-4 p-4">
   {invoices.map((invoice) => (
-    <Card 
+    <Card
       key={invoice.id}
       className={cn(
         "cursor-pointer hover:shadow-md transition-shadow",
-        invoice.payment_status === 'overdue' && "border-destructive"
+        invoice.payment_status === "overdue" && "border-destructive"
       )}
     >
       <CardContent className="p-4 space-y-3">
@@ -327,26 +326,28 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
             label={PAYMENT_STATUS_CONFIG[invoice.payment_status].label}
           />
         </div>
-        
+
         {/* Amount (Prominent) */}
         <div className="py-2 border-y">
           <p className="text-2xl font-bold text-foreground">
             {formatCurrency(invoice.total_amount)}
           </p>
         </div>
-        
+
         {/* Details */}
         <div className="space-y-1 text-sm">
           <div className="flex justify-between">
             <span className="text-muted-foreground">Datum:</span>
-            <span>{format(invoice.invoice_date, 'dd.MM.yyyy')}</span>
+            <span>{format(invoice.invoice_date, "dd.MM.yyyy")}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-muted-foreground">Fällig:</span>
-            <span className={cn(
-              invoice.payment_status === 'overdue' && "text-destructive font-semibold"
-            )}>
-              {invoice.due_date ? format(invoice.due_date, 'dd.MM.yyyy') : '-'}
+            <span
+              className={cn(
+                invoice.payment_status === "overdue" && "text-destructive font-semibold"
+              )}
+            >
+              {invoice.due_date ? format(invoice.due_date, "dd.MM.yyyy") : "-"}
             </span>
           </div>
           <div className="flex justify-between">
@@ -354,10 +355,15 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
             <span>{invoice.order?.order_number}</span>
           </div>
         </div>
-        
+
         {/* Actions */}
         <div className="flex gap-2 pt-2">
-          <Button variant="outline" size="sm" className="flex-1" onClick={() => handleView(invoice)}>
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex-1"
+            onClick={() => handleView(invoice)}
+          >
             <Eye className="h-4 w-4 mr-1" />
             Ansehen
           </Button>
@@ -384,31 +390,31 @@ const FinancesPage = () => {
   // ========================================================================
   const [dateRange, setDateRange] = useState<DateRange>({
     from: startOfMonth(new Date()),
-    to: endOfMonth(new Date())
+    to: endOfMonth(new Date()),
   });
-  const [statusFilter, setStatusFilter] = useState<InvoiceStatus | 'all'>('all');
+  const [statusFilter, setStatusFilter] = useState<InvoiceStatus | "all">("all");
   const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
 
   // ========================================================================
   // DATA FETCHING
   // ========================================================================
-  
+
   // Invoices
   const { data: invoices, isLoading } = useQuery({
-    queryKey: ['invoices', statusFilter, dateRange],
+    queryKey: ["invoices", statusFilter, dateRange],
     queryFn: async () => {
       let query = supabase
-        .from('invoices')
-        .select('*, customer:customers(*), order:orders(*)')
-        .gte('invoice_date', dateRange.from.toISOString())
-        .lte('invoice_date', dateRange.to.toISOString())
-        .order('invoice_date', { ascending: false });
-      
-      if (statusFilter !== 'all') {
-        query = query.eq('payment_status', statusFilter);
+        .from("invoices")
+        .select("*, customer:customers(*), order:orders(*)")
+        .gte("invoice_date", dateRange.from.toISOString())
+        .lte("invoice_date", dateRange.to.toISOString())
+        .order("invoice_date", { ascending: false });
+
+      if (statusFilter !== "all") {
+        query = query.eq("payment_status", statusFilter);
       }
-      
+
       const { data, error } = await query;
       if (error) throw error;
       return data;
@@ -417,11 +423,11 @@ const FinancesPage = () => {
 
   // KPI Data
   const { data: kpiData } = useQuery({
-    queryKey: ['financial-kpis', dateRange],
+    queryKey: ["financial-kpis", dateRange],
     queryFn: async () => {
-      const { data, error } = await supabase.rpc('get_financial_kpis', {
+      const { data, error } = await supabase.rpc("get_financial_kpis", {
         start_date: dateRange.from.toISOString(),
-        end_date: dateRange.to.toISOString()
+        end_date: dateRange.to.toISOString(),
       });
       if (error) throw error;
       return data;
@@ -430,11 +436,11 @@ const FinancesPage = () => {
 
   // Chart Data
   const { data: revenueData } = useQuery({
-    queryKey: ['revenue-chart', dateRange],
+    queryKey: ["revenue-chart", dateRange],
     queryFn: async () => {
-      const { data, error } = await supabase.rpc('get_revenue_by_month', {
+      const { data, error } = await supabase.rpc("get_revenue_by_month", {
         start_date: dateRange.from.toISOString(),
-        end_date: dateRange.to.toISOString()
+        end_date: dateRange.to.toISOString(),
       });
       if (error) throw error;
       return data;
@@ -444,57 +450,53 @@ const FinancesPage = () => {
   // ========================================================================
   // MUTATIONS
   // ========================================================================
-  
+
   const createInvoiceMutation = useMutation({
     mutationFn: async (invoiceData: CreateInvoiceInput) => {
-      const { data, error } = await supabase
-        .from('invoices')
-        .insert(invoiceData)
-        .select()
-        .single();
+      const { data, error } = await supabase.from("invoices").insert(invoiceData).select().single();
       if (error) throw error;
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['invoices'] });
-      toast.success('Rechnung erstellt');
+      queryClient.invalidateQueries({ queryKey: ["invoices"] });
+      toast.success("Rechnung erstellt");
       setIsCreateDialogOpen(false);
     },
   });
 
   const sendReminderMutation = useMutation({
     mutationFn: async (invoiceId: string) => {
-      const { error } = await supabase.functions.invoke('send-payment-reminder', {
-        body: { invoice_id: invoiceId }
+      const { error } = await supabase.functions.invoke("send-payment-reminder", {
+        body: { invoice_id: invoiceId },
       });
       if (error) throw error;
     },
     onSuccess: () => {
-      toast.success('Zahlungserinnerung gesendet');
+      toast.success("Zahlungserinnerung gesendet");
     },
   });
 
   // ========================================================================
   // HANDLERS
   // ========================================================================
-  
+
   const handleDownloadPDF = async (invoice: Invoice) => {
     try {
-      const { data, error } = await supabase.functions.invoke('generate-invoice-pdf', {
-        body: { invoice_id: invoice.id }
+      const { data, error } = await supabase.functions.invoke("generate-invoice-pdf", {
+        body: { invoice_id: invoice.id },
       });
       if (error) throw error;
-      
+
       // Download PDF
-      const blob = new Blob([data], { type: 'application/pdf' });
+      const blob = new Blob([data], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
       a.download = `Rechnung_${invoice.invoice_number}.pdf`;
       a.click();
       URL.revokeObjectURL(url);
     } catch (error) {
-      toast.error('Fehler beim PDF-Download');
+      toast.error("Fehler beim PDF-Download");
     }
   };
 
@@ -536,27 +538,27 @@ export const formatCurrency = (amount: number, currency: string = 'EUR'): string
 ```typescript
 export const DATE_RANGE_PRESETS = {
   thisMonth: {
-    label: 'Dieser Monat',
+    label: "Dieser Monat",
     from: startOfMonth(new Date()),
     to: endOfMonth(new Date()),
   },
   lastMonth: {
-    label: 'Letzter Monat',
+    label: "Letzter Monat",
     from: startOfMonth(subMonths(new Date(), 1)),
     to: endOfMonth(subMonths(new Date(), 1)),
   },
   thisQuarter: {
-    label: 'Dieses Quartal',
+    label: "Dieses Quartal",
     from: startOfQuarter(new Date()),
     to: endOfQuarter(new Date()),
   },
   thisYear: {
-    label: 'Dieses Jahr',
+    label: "Dieses Jahr",
     from: startOfYear(new Date()),
     to: endOfYear(new Date()),
   },
   last12Months: {
-    label: 'Letzte 12 Monate',
+    label: "Letzte 12 Monate",
     from: subMonths(new Date(), 12),
     to: new Date(),
   },
@@ -650,4 +652,4 @@ CREATE TRIGGER check_overdue_invoices
 
 **END OF DOCUMENT**
 
-*Diese Spezifikation ist verbindlich und muss bei allen Arbeiten an der Finanzen-Seite befolgt werden.*
+_Diese Spezifikation ist verbindlich und muss bei allen Arbeiten an der Finanzen-Seite befolgt werden._

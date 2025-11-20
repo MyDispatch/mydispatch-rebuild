@@ -4,21 +4,21 @@
    Centralized hooks for Bookings data fetching
    ================================================================================== */
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { bookingsApi } from '@/api/bookings';
-import { toast } from 'sonner';
-import type { Booking, BookingInsert, BookingUpdate } from '@/api/types';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { bookingsApi } from "@/api/bookings";
+import { toast } from "sonner";
+import type { Booking, BookingInsert, BookingUpdate } from "@/api/types";
 
 /**
  * Query key factory for bookings
  */
 export const bookingsKeys = {
-  all: ['bookings'] as const,
-  lists: () => [...bookingsKeys.all, 'list'] as const,
+  all: ["bookings"] as const,
+  lists: () => [...bookingsKeys.all, "list"] as const,
   list: (filters?: any) => [...bookingsKeys.lists(), filters] as const,
-  details: () => [...bookingsKeys.all, 'detail'] as const,
+  details: () => [...bookingsKeys.all, "detail"] as const,
   detail: (id: string) => [...bookingsKeys.details(), id] as const,
-  byStatus: (status: string) => [...bookingsKeys.all, 'status', status] as const,
+  byStatus: (status: string) => [...bookingsKeys.all, "status", status] as const,
 };
 
 /**
@@ -45,7 +45,7 @@ export const useBooking = (id: string) => {
 /**
  * Get bookings by status
  */
-export const useBookingsByStatus = (status: Booking['status']) => {
+export const useBookingsByStatus = (status: Booking["status"]) => {
   return useQuery({
     queryKey: bookingsKeys.byStatus(status),
     queryFn: () => bookingsApi.getByStatus(status),
@@ -63,7 +63,7 @@ export const useCreateBooking = () => {
     mutationFn: (booking: BookingInsert) => bookingsApi.create(booking),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: bookingsKeys.lists() });
-      toast.success('Buchung erfolgreich erstellt');
+      toast.success("Buchung erfolgreich erstellt");
     },
     onError: (error: Error) => {
       toast.error(`Fehler beim Erstellen: ${error.message}`);
@@ -83,7 +83,7 @@ export const useUpdateBooking = () => {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: bookingsKeys.lists() });
       queryClient.invalidateQueries({ queryKey: bookingsKeys.detail(data.id) });
-      toast.success('Buchung erfolgreich aktualisiert');
+      toast.success("Buchung erfolgreich aktualisiert");
     },
     onError: (error: Error) => {
       toast.error(`Fehler beim Aktualisieren: ${error.message}`);
@@ -101,7 +101,7 @@ export const useDeleteBooking = () => {
     mutationFn: (id: string) => bookingsApi.delete(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: bookingsKeys.lists() });
-      toast.success('Buchung erfolgreich archiviert');
+      toast.success("Buchung erfolgreich archiviert");
     },
     onError: (error: Error) => {
       toast.error(`Fehler beim Löschen: ${error.message}`);

@@ -13,6 +13,7 @@
 **Gesamtergebnis:** 🟢 **SEHR GUT**
 
 Das MyDispatch-System zeigt eine **robuste Security-Architektur** mit:
+
 - ✅ Vollständige RLS-Coverage (75 Migrations, 396 Policies)
 - ✅ Multi-Tenant Isolation korrekt implementiert
 - ✅ Master-Account Security dokumentiert & reviewed
@@ -26,6 +27,7 @@ Das MyDispatch-System zeigt eine **robuste Security-Architektur** mit:
 ## 🎯 AUDIT-SCOPE
 
 ### Geprüfte Bereiche
+
 1. **RLS Policies** (alle 56 Tabellen)
 2. **Master-Account Authentication**
 3. **Multi-Tenant Isolation**
@@ -34,6 +36,7 @@ Das MyDispatch-System zeigt eine **robuste Security-Architektur** mit:
 6. **Sensitive Data Protection**
 
 ### Verwendete Tools
+
 - ✅ Supabase Security Linter
 - ✅ Manual Policy Review
 - ✅ Migration History Analysis
@@ -48,6 +51,7 @@ Das MyDispatch-System zeigt eine **robuste Security-Architektur** mit:
 **Status:** 🟢 EXCELLENT
 
 #### Coverage Analysis
+
 - **Total Tables:** 56
 - **RLS Enabled:** 56 (100%) ✅
 - **Total Policies:** 396
@@ -56,6 +60,7 @@ Das MyDispatch-System zeigt eine **robuste Security-Architektur** mit:
 #### Core Tables RLS Verification
 
 ##### ✅ companies
+
 ```sql
 ALTER TABLE public.companies ENABLE ROW LEVEL SECURITY;
 
@@ -70,7 +75,9 @@ USING (
   (SELECT role FROM profiles WHERE user_id = auth.uid()) = 'admin'
 );
 ```
+
 **Review:** ✅ SECURE
+
 - Company-Isolation korrekt
 - Admin-Only Updates
 - Keine Lücken
@@ -78,6 +85,7 @@ USING (
 ---
 
 ##### ✅ profiles
+
 ```sql
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
@@ -89,7 +97,9 @@ CREATE POLICY "Users can update their own profile"
 ON profiles FOR UPDATE
 USING (user_id = auth.uid());
 ```
+
 **Review:** ✅ SECURE
+
 - Company-weite Sichtbarkeit (erwünscht für Team-Features)
 - Self-Update Only
 - Keine Privilege-Escalation möglich
@@ -97,6 +107,7 @@ USING (user_id = auth.uid());
 ---
 
 ##### ✅ customers
+
 ```sql
 ALTER TABLE public.customers ENABLE ROW LEVEL SECURITY;
 
@@ -116,7 +127,9 @@ CREATE POLICY "Users can delete customers of their company"
 ON customers FOR DELETE
 USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid()));
 ```
+
 **Review:** ✅ SECURE
+
 - Full CRUD mit Company-Isolation
 - WITH CHECK verhindert Cross-Company Inserts
 - Korrekt implementiert
@@ -124,6 +137,7 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ---
 
 ##### ✅ drivers
+
 ```sql
 ALTER TABLE public.drivers ENABLE ROW LEVEL SECURITY;
 
@@ -133,16 +147,20 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 
 -- ... (weitere Policies analog zu customers)
 ```
+
 **Review:** ✅ SECURE
+
 - Identisches Pattern wie customers
 - Multi-Tenant Isolation gewährleistet
 
 ---
 
 ##### ✅ vehicles
+
 **Review:** ✅ SECURE (analog zu drivers)
 
 ##### ✅ bookings
+
 **Review:** ✅ SECURE (analog zu drivers)
 
 **Realtime Enabled:** ✅ YES (mit RLS-Schutz)
@@ -176,6 +194,7 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ```
 
 **Vorteile:**
+
 - ✅ Konsistent (Copy-Paste-Safe)
 - ✅ Einfach wartbar
 - ✅ Gut dokumentiert
@@ -208,11 +227,11 @@ DECLARE
 BEGIN
   -- Fetch email from JWT (not DB!)
   user_email := (auth.jwt() ->> 'email');
-  
+
   IF user_email IS NULL THEN
     RETURN false;
   END IF;
-  
+
   RETURN user_email = ANY(master_emails);
 END;
 $$;
@@ -221,6 +240,7 @@ $$;
 #### Security Analysis ✅
 
 **✅ Strengths:**
+
 1. **JWT-Based** (nicht DB-Lookup) → Keine Zirkularität
 2. **Hardcoded Emails** → Performance-optimiert (O(1))
 3. **SECURITY DEFINER** → Korrekt für RLS-Kontext
@@ -228,6 +248,7 @@ $$;
 5. **Dokumentiert** → `SECURITY_ARCHITECTURE.md` vorhanden
 
 **⚠️ Accepted Trade-Offs:**
+
 - Neue Master-Email erfordert Migration (akzeptiert: ~1x/Jahr)
 - Emails im Code sichtbar (akzeptiert: keine Secrets, nur Identifier)
 
@@ -246,6 +267,7 @@ $$;
 **Primary Key:** `company_id UUID`
 
 **Enforcement:**
+
 1. **RLS Policies** auf ALLEN Tabellen
 2. **Foreign Key Constraints** zu `companies(id)`
 3. **ON DELETE CASCADE** für automatische Cleanup
@@ -253,6 +275,7 @@ $$;
 **Test-Cases:**
 
 ##### ✅ Cross-Company Data Access Prevented
+
 ```sql
 -- User A (Company X) versucht Daten von Company Y zu lesen
 SELECT * FROM bookings WHERE company_id = 'company-y-uuid';
@@ -260,6 +283,7 @@ SELECT * FROM bookings WHERE company_id = 'company-y-uuid';
 ```
 
 ##### ✅ Cross-Company Data Insertion Prevented
+
 ```sql
 -- User A versucht Booking für Company Y zu erstellen
 INSERT INTO bookings (company_id, ...) VALUES ('company-y-uuid', ...);
@@ -267,6 +291,7 @@ INSERT INTO bookings (company_id, ...) VALUES ('company-y-uuid', ...);
 ```
 
 ##### ✅ Company Deletion Cascades
+
 ```sql
 -- Company deletion entfernt alle verknüpften Daten
 DELETE FROM companies WHERE id = 'company-x-uuid';
@@ -284,6 +309,7 @@ DELETE FROM companies WHERE id = 'company-x-uuid';
 #### Reviewed Functions
 
 ##### ✅ get_dashboard_stats_for_company
+
 ```sql
 CREATE OR REPLACE FUNCTION get_dashboard_stats_for_company(target_date DATE DEFAULT CURRENT_DATE)
 RETURNS TABLE (...) AS $$
@@ -291,8 +317,8 @@ DECLARE
   user_company_id UUID;
 BEGIN
   -- Company-ID aus auth.uid() holen
-  SELECT company_id INTO user_company_id 
-  FROM profiles 
+  SELECT company_id INTO user_company_id
+  FROM profiles
   WHERE user_id = auth.uid();
 
   -- Nur Daten der eigenen Company zurückgeben
@@ -303,6 +329,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 ```
 
 **Review:** ✅ SECURE
+
 - Company-Isolation korrekt implementiert
 - SECURITY DEFINER berechtigt (für RLS-Bypass nötig)
 - Keine Parameter-Injection möglich
@@ -310,6 +337,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 ---
 
 ##### ✅ handle_new_user
+
 ```sql
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
@@ -326,6 +354,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 ```
 
 **Review:** ✅ SECURE
+
 - Auto-Profile-Creation bei Signup
 - Company-ID aus Signup-Metadata
 - Korrekt implementiert
@@ -342,21 +371,22 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 ```typescript
 useEffect(() => {
-  const { data: { subscription } } = supabase.auth.onAuthStateChange(
-    (event, session) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        fetchUserData(session.user.id);
-      }
+  const {
+    data: { subscription },
+  } = supabase.auth.onAuthStateChange((event, session) => {
+    setSession(session);
+    setUser(session?.user ?? null);
+
+    if (session?.user) {
+      fetchUserData(session.user.id);
     }
-  );
+  });
   // ...
 }, []);
 ```
 
 **Review:** ✅ SECURE
+
 - Session-Management korrekt
 - useAuth Hook gut implementiert
 - No Auth-Bypass möglich
@@ -369,14 +399,13 @@ useEffect(() => {
 
 ```typescript
 const accountType = useMemo<AccountType>(() => {
-  if (!user?.email) return 'normal';
-  return SPECIAL_ACCOUNTS.master.includes(user.email) 
-    ? 'master' 
-    : 'normal';
+  if (!user?.email) return "normal";
+  return SPECIAL_ACCOUNTS.master.includes(user.email) ? "master" : "normal";
 }, [user?.email]);
 ```
 
 **Review:** ✅ SECURE
+
 - Frontend-Validation konsistent mit Backend
 - Master-Emails hardcoded (identisch zu DB-Function)
 - Keine Client-Side-Only Security (Backend hat RLS!)
@@ -390,17 +419,20 @@ const accountType = useMemo<AccountType>(() => {
 #### Classified Data
 
 ##### 🔴 HIGHLY SENSITIVE (PII)
+
 - `auth.users.email` ✅ Protected (Supabase Auth)
 - `profiles.phone` ✅ Protected (RLS)
 - `customers.email` ✅ Protected (RLS)
 - `customers.tax_id` ✅ Protected (RLS)
 
 ##### 🟡 MODERATELY SENSITIVE (Business Data)
+
 - `bookings.price` ✅ Protected (RLS)
 - `invoices.total` ✅ Protected (RLS)
 - `drivers.hourly_rate` ✅ Protected (RLS)
 
 ##### 🟢 LOW SENSITIVITY (Public Data)
+
 - `companies.name` ✅ Protected (RLS, nur eigene Company)
 - `vehicles.license_plate` ✅ Protected (RLS)
 
@@ -413,17 +445,20 @@ const accountType = useMemo<AccountType>(() => {
 **Status:** 🟢 EXCELLENT
 
 #### Realtime-Enabled Tables
+
 1. `bookings` ✅ RLS Active
 2. `drivers` ✅ RLS Active
 3. `vehicles` ✅ RLS Active
 4. `chat_messages` ✅ RLS Active
 
 **Configuration:**
+
 ```sql
 ALTER PUBLICATION supabase_realtime ADD TABLE public.bookings;
 ```
 
 **Review:** ✅ SECURE
+
 - Realtime respektiert RLS-Policies
 - Nur Company-eigene Updates empfangen
 - Kein Cross-Company Realtime-Leak
@@ -435,12 +470,14 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.bookings;
 ### Minor Issues (Non-Critical)
 
 #### Issue #1: Fehlende Rate-Limiting
+
 **Severity:** 🟡 MEDIUM  
 **Table:** `auth.users` (Supabase-managed)
 
 **Problem:** Keine explizite Rate-Limiting auf Login-Attempts
 
 **Recommendation:**
+
 ```sql
 -- Könnte in custom Auth-Edge-Function implementiert werden
 -- Oder via Supabase-Dashboard konfigurieren
@@ -451,11 +488,13 @@ ALTER PUBLICATION supabase_realtime ADD TABLE public.bookings;
 ---
 
 #### Issue #2: Keine Audit-Logging
+
 **Severity:** 🟡 MEDIUM
 
 **Problem:** Keine Audit-Logs für sensitive Operationen (z.B. DELETE)
 
 **Recommendation:**
+
 ```sql
 -- Audit-Log-Tabelle erstellen
 CREATE TABLE audit_logs (
@@ -480,6 +519,7 @@ CREATE TRIGGER audit_bookings_delete
 ---
 
 #### Issue #3: Password-Policy nicht dokumentiert
+
 **Severity:** 🟡 MEDIUM
 
 **Problem:** Password-Requirements nicht explizit definiert
@@ -487,6 +527,7 @@ CREATE TRIGGER audit_bookings_delete
 **Current:** Supabase Default (min. 6 Zeichen)
 
 **Recommendation:**
+
 - Dokumentieren in `SECURITY_ARCHITECTURE.md`
 - Ggf. verstärken auf min. 8 Zeichen + Complexity
 
@@ -495,11 +536,13 @@ CREATE TRIGGER audit_bookings_delete
 ---
 
 #### Issue #4: MFA nicht aktiviert
+
 **Severity:** 🟡 MEDIUM
 
 **Problem:** Multi-Factor Authentication optional, nicht erzwungen
 
 **Recommendation:**
+
 - MFA für Master-Accounts erzwingen
 - MFA für Admin-Accounts empfehlen
 
@@ -508,11 +551,13 @@ CREATE TRIGGER audit_bookings_delete
 ---
 
 #### Issue #5: Keine Input-Validation in Functions
+
 **Severity:** 🟢 LOW
 
 **Problem:** DB-Functions validieren Input-Parameter nicht explizit
 
 **Example:**
+
 ```sql
 CREATE FUNCTION get_dashboard_stats_for_company(target_date DATE)
 -- Was wenn target_date = '9999-12-31'?
@@ -520,6 +565,7 @@ CREATE FUNCTION get_dashboard_stats_for_company(target_date DATE)
 ```
 
 **Recommendation:**
+
 ```sql
 BEGIN
   IF target_date > CURRENT_DATE + INTERVAL '1 year' THEN
@@ -565,15 +611,15 @@ END;
 
 ## 📊 SECURITY SCORE BREAKDOWN
 
-| Kategorie | Score | Weight | Weighted |
-|-----------|-------|--------|----------|
-| RLS Coverage | 100/100 | 30% | 30.0 |
-| Multi-Tenant Isolation | 100/100 | 25% | 25.0 |
-| Auth System | 95/100 | 20% | 19.0 |
-| Function Security | 90/100 | 10% | 9.0 |
-| Data Protection | 95/100 | 10% | 9.5 |
-| Documentation | 85/100 | 5% | 4.25 |
-| **TOTAL** | **95.75/100** | **100%** | **96.75** |
+| Kategorie              | Score         | Weight   | Weighted  |
+| ---------------------- | ------------- | -------- | --------- |
+| RLS Coverage           | 100/100       | 30%      | 30.0      |
+| Multi-Tenant Isolation | 100/100       | 25%      | 25.0      |
+| Auth System            | 95/100        | 20%      | 19.0      |
+| Function Security      | 90/100        | 10%      | 9.0       |
+| Data Protection        | 95/100        | 10%      | 9.5       |
+| Documentation          | 85/100        | 5%       | 4.25      |
+| **TOTAL**              | **95.75/100** | **100%** | **96.75** |
 
 **Rounded Score:** 95/100 ⭐⭐⭐⭐⭐
 
@@ -582,19 +628,23 @@ END;
 ## 🎯 RECOMMENDATIONS
 
 ### Immediate Actions (P1)
+
 - ✅ **NONE** - Keine kritischen Issues!
 
 ### Short-Term (P2 - Next 2 Weeks)
+
 - [ ] Implement Rate-Limiting (Login-Attempts)
 - [ ] Enable MFA für Master-Accounts
 - [ ] Setup Audit-Logging für DELETE-Operations
 
 ### Mid-Term (P3 - Next Month)
+
 - [ ] Document Password-Policy
 - [ ] Add Input-Validation zu DB-Functions
 - [ ] Setup Security-Monitoring (Alerts)
 
 ### Long-Term (P4 - Next Quarter)
+
 - [ ] Implement SIEM-Integration
 - [ ] Setup Penetration-Testing (extern)
 - [ ] Review & Update Security-Docs quarterly
@@ -604,6 +654,7 @@ END;
 ## 📝 COMPLIANCE CHECKLIST
 
 ### GDPR / DSGVO ✅
+
 - [x] RLS schützt personenbezogene Daten
 - [x] Data Minimization (keine unnötigen Felder)
 - [x] Right to be Forgotten (CASCADE DELETE)
@@ -655,6 +706,7 @@ END;
 **Scheduled Date:** 2025-11-29 (monatlich)
 
 **Review-Scope:**
+
 - RLS Policies (neue Tabellen?)
 - Migration History (neue Functions?)
 - Security-Issues aus P2/P3 Backlog

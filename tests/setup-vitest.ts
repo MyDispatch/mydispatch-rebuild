@@ -3,9 +3,9 @@
  * Configures test environment for unit and integration tests
  */
 
-import { expect, afterEach, vi } from 'vitest';
-import { cleanup } from '@testing-library/react';
-import '@testing-library/jest-dom/vitest';
+import { expect, afterEach, vi } from "vitest";
+import { cleanup } from "@testing-library/react";
+import "@testing-library/jest-dom/vitest";
 
 // Cleanup after each test
 afterEach(() => {
@@ -13,7 +13,7 @@ afterEach(() => {
 });
 
 // Mock window.matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: vi.fn().mockImplementation((query) => ({
     matches: false,
@@ -49,7 +49,7 @@ global.ResizeObserver = class ResizeObserver {
 // Extend expect with custom matchers
 expect.extend({
   toBeValidRoute(received: string) {
-    const isValid = received.startsWith('/') && !received.includes('//');
+    const isValid = received.startsWith("/") && !received.includes("//");
     return {
       pass: isValid,
       message: () =>

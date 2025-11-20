@@ -7,9 +7,9 @@
    - Touch-optimiert (min 44px)
    ================================================================================== */
 
-import { V28Button } from '@/components/design-system/V28Button';
-import { FloatingActionConfig } from '@/types/page-template';
-import { cn } from '@/lib/utils';
+import { V28Button } from "@/components/design-system/V28Button";
+import { FloatingActionConfig } from "@/types/page-template";
+import { cn } from "@/lib/utils";
 
 interface FloatingActionsProps {
   actions: FloatingActionConfig[];
@@ -23,17 +23,17 @@ export function FloatingActions({ actions }: FloatingActionsProps) {
   return (
     <div className="fixed bottom-20 right-4 flex flex-col gap-3 z-40">
       {actions.map((action, i) => {
-        const variantMap: Record<string, 'primary' | 'secondary' | 'ghost' | 'destructive'> = {
-          'default': 'primary',
-          'outline': 'secondary',
-          'ghost': 'ghost',
-          'destructive': 'destructive'
+        const variantMap: Record<string, "primary" | "secondary" | "ghost" | "destructive"> = {
+          default: "primary",
+          outline: "secondary",
+          ghost: "ghost",
+          destructive: "destructive",
         };
         return (
           <V28Button
             key={i}
             onClick={action.onClick}
-            variant={variantMap[action.variant || 'default'] || 'primary'}
+            variant={variantMap[action.variant || "default"] || "primary"}
             className={cn(
               "h-14 w-14 rounded-full shadow-lg p-0",
               "hover:scale-110 active:scale-95 transition-transform"

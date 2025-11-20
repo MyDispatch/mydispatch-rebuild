@@ -10,6 +10,7 @@
 ## 🎯 ÜBERSICHT
 
 Diese Library dokumentiert **ALLE** wiederverwendbaren UI-Komponenten in MyDispatch mit:
+
 - ✅ Code-Beispielen
 - ✅ Props-Dokumentation
 - ✅ Use-Cases
@@ -21,12 +22,19 @@ Diese Library dokumentiert **ALLE** wiederverwendbaren UI-Komponenten in MyDispa
 ## 📦 KOMPONENTEN-KATEGORIEN
 
 ### 1. BUTTONS
+
 ### 2. BADGES & INDICATORS
+
 ### 3. CARDS & CONTAINERS
+
 ### 4. INPUTS & FORMS
+
 ### 5. DIALOGS & MODALS
+
 ### 6. LAYOUT-KOMPONENTEN
+
 ### 7. NAVIGATION
+
 ### 8. DATA-DISPLAY
 
 ---
@@ -42,58 +50,61 @@ Diese Library dokumentiert **ALLE** wiederverwendbaren UI-Komponenten in MyDispa
 **Varianten:**
 
 #### hero-primary
-```tsx
-import { MarketingButton } from '@/components/design-system/MarketingButton';
 
-<MarketingButton marketingVariant="hero-primary">
-  Jetzt abonnieren
-</MarketingButton>
+```tsx
+import { MarketingButton } from "@/components/design-system/MarketingButton";
+
+<MarketingButton marketingVariant="hero-primary">Jetzt abonnieren</MarketingButton>;
 ```
+
 - **Use-Case:** Primäre CTA auf Hero-Bereichen
 - **Style:** `bg-primary text-foreground` mit Hover-Glow
 - **Touch-Target:** ✅ 44px minimum
 
 #### hero-secondary
+
 ```tsx
-<MarketingButton marketingVariant="hero-secondary">
-  Mehr erfahren
-</MarketingButton>
+<MarketingButton marketingVariant="hero-secondary">Mehr erfahren</MarketingButton>
 ```
+
 - **Use-Case:** Sekundäre CTA auf Hero-Bereichen
 - **Style:** Transparent mit Border, Glassmorphism
 - **Important:** `!text-white` für Kontrast auf dunklen BGs
 
 #### cta-primary
+
 ```tsx
-<MarketingButton marketingVariant="cta-primary">
-  Kostenlos testen
-</MarketingButton>
+<MarketingButton marketingVariant="cta-primary">Kostenlos testen</MarketingButton>
 ```
+
 - **Use-Case:** Call-to-Action in Content-Bereichen
 - **Style:** `bg-primary` mit Shadow-Lift
 
 #### cta-secondary
+
 ```tsx
-<MarketingButton marketingVariant="cta-secondary">
-  Preise ansehen
-</MarketingButton>
+<MarketingButton marketingVariant="cta-secondary">Preise ansehen</MarketingButton>
 ```
+
 - **Use-Case:** Sekundäre CTAs in Content-Bereichen
 - **Style:** Border mit Hover-BG
 
 **Props:**
+
 ```typescript
 interface MarketingButtonProps extends ButtonProps {
-  marketingVariant?: 'hero-primary' | 'hero-secondary' | 'cta-primary' | 'cta-secondary';
+  marketingVariant?: "hero-primary" | "hero-secondary" | "cta-primary" | "cta-secondary";
 }
 ```
 
 **✅ DO:**
+
 - Marketing-Buttons NUR auf öffentlichen Marketing-Seiten
 - Immer `min-h-[44px]` für Touch-Targets
 - Hover-States für Interaktivität
 
 **❌ DON'T:**
+
 - Marketing-Buttons in internen App-Seiten (verwende App-Buttons!)
 - Direkte Color-Overrides via className
 - Touch-Targets < 44px
@@ -109,72 +120,77 @@ interface MarketingButtonProps extends ButtonProps {
 **Varianten:**
 
 #### default
-```tsx
-import { Button } from '@/components/ui/button';
 
-<Button variant="default">
-  Speichern
-</Button>
+```tsx
+import { Button } from "@/components/ui/button";
+
+<Button variant="default">Speichern</Button>;
 ```
+
 - **Use-Case:** Primäre Aktionen in Forms/Dialogs
 - **Style:** `bg-primary text-primary-foreground`
 
 #### secondary
+
 ```tsx
-<Button variant="secondary">
-  Abbrechen
-</Button>
+<Button variant="secondary">Abbrechen</Button>
 ```
+
 - **Use-Case:** Sekundäre Aktionen
 - **Style:** `bg-secondary text-secondary-foreground`
 
 #### outline
+
 ```tsx
-<Button variant="outline">
-  Exportieren
-</Button>
+<Button variant="outline">Exportieren</Button>
 ```
+
 - **Use-Case:** Tertiary Actions mit Border
 - **Style:** Transparent mit Border
 
 #### ghost
+
 ```tsx
 <Button variant="ghost">
   <Edit className="h-4 w-4" />
 </Button>
 ```
+
 - **Use-Case:** Icon-Buttons ohne BG
 - **Style:** Transparent, Hover: `bg-muted/80`
 
 #### destructive
+
 ```tsx
-<Button variant="destructive">
-  Löschen
-</Button>
+<Button variant="destructive">Löschen</Button>
 ```
+
 - **Use-Case:** Gefährliche Aktionen (Delete, Deactivate)
 - **Style:** `bg-destructive text-destructive-foreground`
 
 #### link
+
 ```tsx
-<Button variant="link">
-  Mehr Details
-</Button>
+<Button variant="link">Mehr Details</Button>
 ```
+
 - **Use-Case:** Text-Links mit Button-Padding
 - **Style:** `text-primary underline-offset-4`
 
 #### quickAction
+
 ```tsx
 <Button variant="quickAction">
   <Plus className="h-4 w-4 mr-2" />
   Neu
 </Button>
 ```
+
 - **Use-Case:** Quick-Action Buttons in Toolbars
 - **Style:** Kompakt mit Icon
 
 **Sizes:**
+
 ```tsx
 <Button size="sm">Klein</Button>
 <Button size="default">Standard</Button>
@@ -183,11 +199,13 @@ import { Button } from '@/components/ui/button';
 ```
 
 **✅ DO:**
+
 - App-Buttons für interne Seiten
 - Size="icon" für Icon-Only Buttons
 - Destructive für gefährliche Aktionen
 
 **❌ DON'T:**
+
 - Marketing-Varianten in App-Bereichen
 - Inline-Styles für Colors
 - Button ohne aria-label (bei icon-only)
@@ -209,51 +227,54 @@ import { AnimatedBadge } from '@/components/enhanced/AnimatedBadge';
 import { CheckCircle } from 'lucide-react';
 
 // Success Badge
-<AnimatedBadge 
-  label="Aktiv" 
+<AnimatedBadge
+  label="Aktiv"
   icon={CheckCircle}
   variant="success"
   glow
 />
 
 // Warning Badge
-<AnimatedBadge 
-  label="Ausstehend" 
+<AnimatedBadge
+  label="Ausstehend"
   variant="warning"
   pulse
 />
 
 // Error Badge
-<AnimatedBadge 
-  label="Abgelehnt" 
+<AnimatedBadge
+  label="Abgelehnt"
   variant="error"
 />
 
 // Info Badge
-<AnimatedBadge 
-  label="In Bearbeitung" 
+<AnimatedBadge
+  label="In Bearbeitung"
   variant="info"
 />
 ```
 
 **Props:**
+
 ```typescript
 interface AnimatedBadgeProps {
   label: string;
   icon?: LucideIcon;
-  variant?: 'default' | 'success' | 'warning' | 'error' | 'info';
-  pulse?: boolean;  // Animate pulse
-  glow?: boolean;   // Glow effect
+  variant?: "default" | "success" | "warning" | "error" | "info";
+  pulse?: boolean; // Animate pulse
+  glow?: boolean; // Glow effect
   className?: string;
 }
 ```
 
 **✅ DO:**
+
 - Status-Badges für Status-Anzeigen (Ampel-System)
 - Glow bei wichtigen States
 - Icons für bessere Erkennbarkeit
 
 **❌ DON'T:**
+
 - Zu viele Badges gleichzeitig (max 3 pro View)
 - Pulse bei unwichtigen States
 - Badges als Buttons verwenden
@@ -285,30 +306,25 @@ import { StatusIndicator } from '@/components/shared/StatusIndicator';
 **Purpose:** Dashboard KPI-Anzeige mit Icons.
 
 ```tsx
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Users } from 'lucide-react';
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Users } from "lucide-react";
 
 <Card className="p-4 sm:p-6 hover:shadow-md transition-all">
   <CardHeader className="pb-2">
     <div className="flex items-center justify-between">
-      <CardTitle className="text-sm font-medium text-muted-foreground">
-        Aktive Fahrer
-      </CardTitle>
+      <CardTitle className="text-sm font-medium text-muted-foreground">Aktive Fahrer</CardTitle>
       <Users className="h-4 w-4 text-muted-foreground" />
     </div>
   </CardHeader>
   <CardContent>
-    <div className="text-2xl sm:text-3xl font-bold text-foreground">
-      {value}
-    </div>
-    <p className="text-xs text-muted-foreground mt-1">
-      +12% vs. letzter Monat
-    </p>
+    <div className="text-2xl sm:text-3xl font-bold text-foreground">{value}</div>
+    <p className="text-xs text-muted-foreground mt-1">+12% vs. letzter Monat</p>
   </CardContent>
-</Card>
+</Card>;
 ```
 
 **Grid-Layout:**
+
 ```tsx
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
   <KPICard title="KPI 1" value={123} icon={Icon1} />
@@ -319,11 +335,13 @@ import { Users } from 'lucide-react';
 ```
 
 **✅ DO:**
+
 - Responsive Grid (1 col mobile, 2 tablet, 4 desktop)
 - Icons für schnelle Erkennbarkeit
 - Hover-Effects für Interaktivität
 
 **❌ DON'T:**
+
 - Zu viele KPIs gleichzeitig (max 4-6)
 - Lange Texte in KPI-Cards
 - KPIs ohne Kontext/Vergleich
@@ -338,9 +356,7 @@ import { Users } from 'lucide-react';
     <CardTitle>Titel</CardTitle>
     <CardDescription>Beschreibung</CardDescription>
   </CardHeader>
-  <CardContent>
-    {/* Content */}
-  </CardContent>
+  <CardContent>{/* Content */}</CardContent>
   <CardFooter>
     <Button>Action</Button>
   </CardFooter>
@@ -356,26 +372,23 @@ import { Users } from 'lucide-react';
 **Location:** `src/components/ui/input.tsx`
 
 ```tsx
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 <div className="space-y-2">
   <Label htmlFor="email">E-Mail</Label>
-  <Input 
-    id="email"
-    type="email" 
-    placeholder="name@firma.de"
-    className="w-full"
-  />
-</div>
+  <Input id="email" type="email" placeholder="name@firma.de" className="w-full" />
+</div>;
 ```
 
 **✅ DO:**
+
 - Label mit htmlFor (Accessibility!)
 - Placeholder für Beispiele
 - Type-Attribute (email, tel, number)
 
 **❌ DON'T:**
+
 - Label vergessen
 - Placeholder als Label missbrauchen
 - Ohne DSGVO-Hinweis bei Datensammlung
@@ -403,17 +416,17 @@ import { Label } from '@/components/ui/label';
 **Location:** `src/components/shared/SearchableSelect.tsx`
 
 ```tsx
-import { SearchableSelect } from '@/components/shared/SearchableSelect';
+import { SearchableSelect } from "@/components/shared/SearchableSelect";
 
 <SearchableSelect
   options={[
-    { value: '1', label: 'Option 1' },
-    { value: '2', label: 'Option 2' },
+    { value: "1", label: "Option 1" },
+    { value: "2", label: "Option 2" },
   ]}
   value={selectedValue}
   onChange={setSelectedValue}
   placeholder="Wählen Sie..."
-/>
+/>;
 ```
 
 ---
@@ -423,13 +436,13 @@ import { SearchableSelect } from '@/components/shared/SearchableSelect';
 **Location:** `src/components/forms/InlineCustomerForm.tsx`
 
 ```tsx
-import { InlineCustomerForm } from '@/components/forms/InlineCustomerForm';
+import { InlineCustomerForm } from "@/components/forms/InlineCustomerForm";
 
 <InlineCustomerForm
   onCustomerCreated={(customer) => {
-    console.log('Neuer Kunde:', customer);
+    console.log("Neuer Kunde:", customer);
   }}
-/>
+/>;
 ```
 
 ---
@@ -447,16 +460,14 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogFooter
-} from '@/components/ui/dialog';
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 <Dialog open={isOpen} onOpenChange={setIsOpen}>
   <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
     <DialogHeader>
       <DialogTitle>Dialog Titel</DialogTitle>
-      <DialogDescription>
-        Beschreibung des Dialogs
-      </DialogDescription>
+      <DialogDescription>Beschreibung des Dialogs</DialogDescription>
     </DialogHeader>
 
     {/* Content */}
@@ -468,21 +479,21 @@ import {
       <Button variant="outline" onClick={() => setIsOpen(false)}>
         Abbrechen
       </Button>
-      <Button type="submit">
-        Speichern
-      </Button>
+      <Button type="submit">Speichern</Button>
     </DialogFooter>
   </DialogContent>
-</Dialog>
+</Dialog>;
 ```
 
 **✅ DO:**
+
 - Max-Width für Lesbarkeit (max-w-2xl)
 - Max-Height für Mobile (max-h-[85vh])
 - Overflow-y-auto bei langem Content
 - DialogFooter mit Border-Top
 
 **❌ DON'T:**
+
 - Dialog ohne Close-Option
 - Zu breite Dialogs (> max-w-4xl)
 - Dialogs ohne Fokus-Trap
@@ -494,7 +505,7 @@ import {
 **Location:** `src/components/shared/DetailDialog.tsx`
 
 ```tsx
-import { DetailDialog } from '@/components/shared/DetailDialog';
+import { DetailDialog } from "@/components/shared/DetailDialog";
 
 <DetailDialog
   open={showDetail}
@@ -502,11 +513,11 @@ import { DetailDialog } from '@/components/shared/DetailDialog';
   title="Auftrag Details"
   data={selectedBooking}
   sections={[
-    { label: 'Kunde', value: booking.customer_name },
-    { label: 'Abholdatum', value: booking.pickup_date },
-    { label: 'Status', value: <StatusIndicator status={booking.status} /> },
+    { label: "Kunde", value: booking.customer_name },
+    { label: "Abholdatum", value: booking.pickup_date },
+    { label: "Status", value: <StatusIndicator status={booking.status} /> },
   ]}
-/>
+/>;
 ```
 
 ---
@@ -520,18 +531,15 @@ import { DetailDialog } from '@/components/shared/DetailDialog';
 **Purpose:** Layout für öffentliche Marketing-Seiten.
 
 ```tsx
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
 
 export default function PricingPage() {
-  return (
-    <MarketingLayout currentPage="pricing">
-      {/* Page Content */}
-    </MarketingLayout>
-  );
+  return <MarketingLayout currentPage="pricing">{/* Page Content */}</MarketingLayout>;
 }
 ```
 
 **Features:**
+
 - ✅ Primary Gradient Header
 - ✅ Primary Gradient Footer
 - ✅ Desktop Sidebar (64px/240px hover-expand)
@@ -547,18 +555,15 @@ export default function PricingPage() {
 **Purpose:** Layout für geschützte App-Seiten.
 
 ```tsx
-import { MainLayout } from '@/components/layout/MainLayout';
+import { MainLayout } from "@/components/layout/MainLayout";
 
 export default function DashboardPage() {
-  return (
-    <MainLayout>
-      {/* Page Content */}
-    </MainLayout>
-  );
+  return <MainLayout>{/* Page Content */}</MainLayout>;
 }
 ```
 
 **Features:**
+
 - ✅ App Sidebar (64px/240px)
 - ✅ Primary Gradient Header
 - ✅ Primary Gradient Footer
@@ -574,7 +579,7 @@ export default function DashboardPage() {
 **Purpose:** Wrapper für interne App-Seiten mit Titel & Actions.
 
 ```tsx
-import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
+import { StandardPageLayout } from "@/components/layout/StandardPageLayout";
 
 <StandardPageLayout
   title="Fahrer & Fahrzeuge"
@@ -583,11 +588,11 @@ import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
     <Button onClick={handleCreate}>
       <Plus className="h-4 w-4 mr-2" />
       Fahrer hinzufügen
-    </Button>
+    </Button>,
   ]}
 >
   {/* Page Content */}
-</StandardPageLayout>
+</StandardPageLayout>;
 ```
 
 ---
@@ -599,12 +604,13 @@ import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
 **Location:** `src/components/layout/AppSidebar.tsx`
 
 ```tsx
-import { AppSidebar } from '@/components/layout/AppSidebar';
+import { AppSidebar } from "@/components/layout/AppSidebar";
 
-<AppSidebar />
+<AppSidebar />;
 ```
 
 **Features:**
+
 - ✅ Active-Route Highlighting
 - ✅ Icon + Label
 - ✅ Collapsible (64px/240px)
@@ -617,9 +623,9 @@ import { AppSidebar } from '@/components/layout/AppSidebar';
 **Location:** `src/components/layout/MobileBottomNav.tsx`
 
 ```tsx
-import { MobileBottomNav } from '@/components/layout/MobileBottomNav';
+import { MobileBottomNav } from "@/components/layout/MobileBottomNav";
 
-<MobileBottomNav />
+<MobileBottomNav />;
 ```
 
 ---
@@ -637,8 +643,8 @@ import {
   TableRow,
   TableHead,
   TableBody,
-  TableCell
-} from '@/components/ui/table';
+  TableCell,
+} from "@/components/ui/table";
 
 <div className="rounded-md border">
   <Table>
@@ -665,15 +671,17 @@ import {
       ))}
     </TableBody>
   </Table>
-</div>
+</div>;
 ```
 
 **✅ DO:**
+
 - Rounded Border um Table
 - Text-right für Actions-Column
 - StatusIndicator für Status-Spalten
 
 **❌ DON'T:**
+
 - Tables ohne Border
 - Actions ohne Icon
 - Lange Texte ohne Truncate
@@ -685,25 +693,25 @@ import {
 **Location:** `src/components/shared/BulkActionBar.tsx`
 
 ```tsx
-import { BulkActionBar } from '@/components/shared/BulkActionBar';
+import { BulkActionBar } from "@/components/shared/BulkActionBar";
 
 <BulkActionBar
   selectedCount={selectedIds.size}
   onClearSelection={clearSelection}
   actions={[
     {
-      label: 'Bearbeiten',
+      label: "Bearbeiten",
       icon: Edit,
-      onClick: handleBulkEdit
+      onClick: handleBulkEdit,
     },
     {
-      label: 'Archivieren',
+      label: "Archivieren",
       icon: Archive,
       onClick: handleBulkArchive,
-      variant: 'destructive'
-    }
+      variant: "destructive",
+    },
   ]}
-/>
+/>;
 ```
 
 ---
@@ -722,27 +730,27 @@ import { BulkActionBar } from '@/components/shared/BulkActionBar';
 
 ```tsx
 // ✅ Korrekt: Von zentralen Komponenten importieren
-import { Button } from '@/components/ui/button';
-import { MarketingButton } from '@/components/design-system/MarketingButton';
+import { Button } from "@/components/ui/button";
+import { MarketingButton } from "@/components/design-system/MarketingButton";
 
 // ❌ Falsch: Direkt von node_modules
-import { Button } from '@radix-ui/react-button'; // NIEMALS!
+import { Button } from "@radix-ui/react-button"; // NIEMALS!
 ```
 
 ### Naming-Conventions
 
 ```tsx
 // Components: PascalCase
-MarketingButton.tsx
+MarketingButton.tsx;
 
 // Hooks: camelCase mit 'use' Prefix
-useAuth.ts
+useAuth.ts;
 
 // Utils: camelCase
-formatCurrency.ts
+formatCurrency.ts;
 
 // Constants: UPPER_SNAKE_CASE
-PRICING_TIERS.ts
+PRICING_TIERS.ts;
 ```
 
 ---

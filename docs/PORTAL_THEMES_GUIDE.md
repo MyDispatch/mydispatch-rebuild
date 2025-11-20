@@ -17,16 +17,19 @@ Das **Portal Theme System** stellt sicher, dass alle 3 Portale (Unternehmer, Kun
 ## 🎨 VERFÜGBARE PORTALE
 
 ### **1. Entrepreneur Portal (Unternehmer-Dashboard)**
+
 - **Primary Color:** `#3B82F6` (Blue)
 - **Accent Color:** `#10B981` (Green)
 - **Layout:** Sidebar-based
 
 ### **2. Customer Portal (Kunden-Portal)**
-- **Primary Color:** `#EADEBD` (Beige) *configurable per company!*
+
+- **Primary Color:** `#EADEBD` (Beige) _configurable per company!_
 - **Accent Color:** `#D4AF37` (Gold)
 - **Layout:** Minimal
 
 ### **3. Driver Portal (Fahrer-Portal)**
+
 - **Primary Color:** `#8B5CF6` (Purple)
 - **Accent Color:** `#EC4899` (Pink)
 - **Layout:** Mobile-first
@@ -38,12 +41,12 @@ Das **Portal Theme System** stellt sicher, dass alle 3 Portale (Unternehmer, Kun
 ### **1. Import**
 
 ```typescript
-import { 
+import {
   getPortalTheme,
   getPortalThemeClasses,
   applyPortalTheme,
-  type PortalType 
-} from '@/config/portal-themes';
+  type PortalType,
+} from "@/config/portal-themes";
 ```
 
 ---
@@ -51,7 +54,7 @@ import {
 ### **2. Get Portal Theme**
 
 ```typescript
-const theme = getPortalTheme('entrepreneur');
+const theme = getPortalTheme("entrepreneur");
 
 console.log(theme.primaryColor); // '#3B82F6'
 console.log(theme.layout); // 'sidebar'
@@ -75,13 +78,14 @@ const themeClasses = getPortalThemeClasses('customer');
 ```
 
 **Returns:**
+
 ```typescript
 {
   button: {
     primary: string;
     outline: string;
     ghost: string;
-  };
+  }
   card: string;
   background: string;
   text: string;
@@ -118,6 +122,7 @@ const buttonClasses = applyPortalTheme('driver', {
 ```
 
 **Internal Implementation:**
+
 ```typescript
 className={cn(
   'gap-2',
@@ -150,13 +155,13 @@ import { getPortalThemeClasses } from '@/config/portal-themes';
 
 function CustomComponent({ portal }: { portal: PortalType }) {
   const theme = getPortalThemeClasses(portal);
-  
+
   return (
     <div>
       <Button className={theme.button.primary}>
         Primäre Aktion
       </Button>
-      
+
       <Card className={theme.card}>
         <CardContent>
           Portal-spezifischer Content
@@ -177,7 +182,7 @@ function CustomComponent({ portal }: { portal: PortalType }) {
 // For Kundenportal: Primary Color kann per Company angepasst werden!
 const customTheme = {
   ...PORTAL_THEMES.customer,
-  primaryColor: companySettings.primaryColor || '#EADEBD',
+  primaryColor: companySettings.primaryColor || "#EADEBD",
 };
 ```
 
@@ -195,7 +200,7 @@ interface PortalTheme {
   backgroundColor: string;
   textColor: string;
   borderColor: string;
-  layout: 'sidebar' | 'minimal' | 'mobile-first';
+  layout: "sidebar" | "minimal" | "mobile-first";
   buttonStyle: {
     default: string;
     hover: string;
@@ -253,25 +258,25 @@ const theme = getPortalTheme('customer');
 // src/config/portal-themes.ts
 export const PORTAL_THEMES: Record<PortalType, PortalTheme> = {
   // ... bestehende Portale
-  
+
   // Neues Portal
   admin: {
-    name: 'Admin-Portal',
-    primaryColor: '#DC2626', // Red
-    accentColor: '#F59E0B', // Orange
-    backgroundColor: '#F9FAFB',
-    textColor: '#111827',
-    borderColor: '#E5E7EB',
-    layout: 'sidebar',
+    name: "Admin-Portal",
+    primaryColor: "#DC2626", // Red
+    accentColor: "#F59E0B", // Orange
+    backgroundColor: "#F9FAFB",
+    textColor: "#111827",
+    borderColor: "#E5E7EB",
+    layout: "sidebar",
     buttonStyle: {
-      default: 'bg-red-600 hover:bg-red-700 text-white',
-      hover: 'hover:bg-red-700',
-      active: 'active:bg-red-800',
+      default: "bg-red-600 hover:bg-red-700 text-white",
+      hover: "hover:bg-red-700",
+      active: "active:bg-red-800",
     },
     cardStyle: {
-      background: 'bg-white',
-      border: 'border border-red-200',
-      shadow: 'shadow hover:shadow-lg',
+      background: "bg-white",
+      border: "border border-red-200",
+      shadow: "shadow hover:shadow-lg",
     },
   },
 };
@@ -280,7 +285,7 @@ export const PORTAL_THEMES: Record<PortalType, PortalTheme> = {
 ### **2. Type Update**
 
 ```typescript
-export type PortalType = 'entrepreneur' | 'customer' | 'driver' | 'admin';
+export type PortalType = "entrepreneur" | "customer" | "driver" | "admin";
 ```
 
 ---
@@ -288,23 +293,23 @@ export type PortalType = 'entrepreneur' | 'customer' | 'driver' | 'admin';
 ## 🧪 TESTING
 
 ```typescript
-import { describe, it, expect } from 'vitest';
-import { getPortalTheme, getPortalThemeClasses } from '@/config/portal-themes';
+import { describe, it, expect } from "vitest";
+import { getPortalTheme, getPortalThemeClasses } from "@/config/portal-themes";
 
-describe('Portal Themes', () => {
-  it('should return correct theme for entrepreneur', () => {
-    const theme = getPortalTheme('entrepreneur');
-    expect(theme.primaryColor).toBe('#3B82F6');
-    expect(theme.layout).toBe('sidebar');
+describe("Portal Themes", () => {
+  it("should return correct theme for entrepreneur", () => {
+    const theme = getPortalTheme("entrepreneur");
+    expect(theme.primaryColor).toBe("#3B82F6");
+    expect(theme.layout).toBe("sidebar");
   });
-  
-  it('should return correct theme classes', () => {
-    const classes = getPortalThemeClasses('customer');
-    expect(classes.button.primary).toContain('bg-[#EADEBD]');
+
+  it("should return correct theme classes", () => {
+    const classes = getPortalThemeClasses("customer");
+    expect(classes.button.primary).toContain("bg-[#EADEBD]");
   });
-  
-  it('should detect dark mode correctly', () => {
-    const isDark = isPortalDarkMode('entrepreneur');
+
+  it("should detect dark mode correctly", () => {
+    const isDark = isPortalDarkMode("entrepreneur");
     expect(isDark).toBe(false);
   });
 });

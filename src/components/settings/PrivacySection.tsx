@@ -4,31 +4,33 @@
    DSGVO-Einstellungen + Chat-Consent
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { V28Button } from '@/components/design-system/V28Button';
-import { StatusIndicator } from '@/components/shared/StatusIndicator';
-import { useSettings } from '@/contexts/SettingsContext';
-import { useChatConsent } from '@/hooks/use-chat-consent';
-import { Separator } from '@/components/ui/separator';
-import { DataExportDialog } from '@/components/settings/DataExportDialog';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { V28Button } from "@/components/design-system/V28Button";
+import { StatusIndicator } from "@/components/shared/StatusIndicator";
+import { useSettings } from "@/contexts/SettingsContext";
+import { useChatConsent } from "@/hooks/use-chat-consent";
+import { Separator } from "@/components/ui/separator";
+import { DataExportDialog } from "@/components/settings/DataExportDialog";
 
 export function PrivacySection() {
   const { companyData, setCompanyData } = useSettings();
-  const { consent, hasActiveConsent, giveConsent, withdrawConsent, updating: consentUpdating } = useChatConsent();
+  const {
+    consent,
+    hasActiveConsent,
+    giveConsent,
+    withdrawConsent,
+    updating: consentUpdating,
+  } = useChatConsent();
 
   return (
     <div className="space-y-6">
       {/* DSGVO-Einstellungen */}
       <Card>
         <CardHeader>
-          <CardTitle>
-            Datenschutz-Einstellungen
-          </CardTitle>
-          <CardDescription>
-            DSGVO-konforme Datenverarbeitungs-Einwilligungen
-          </CardDescription>
+          <CardTitle>Datenschutz-Einstellungen</CardTitle>
+          <CardDescription>DSGVO-konforme Datenverarbeitungs-Einwilligungen</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between py-2">
@@ -55,7 +57,9 @@ export function PrivacySection() {
             <Switch
               id="privacy_marketing"
               checked={companyData.privacy_marketing || false}
-              onCheckedChange={(checked) => setCompanyData({ ...companyData, privacy_marketing: checked })}
+              onCheckedChange={(checked) =>
+                setCompanyData({ ...companyData, privacy_marketing: checked })
+              }
             />
           </div>
 
@@ -69,7 +73,9 @@ export function PrivacySection() {
             <Switch
               id="privacy_analytics"
               checked={companyData.privacy_analytics || false}
-              onCheckedChange={(checked) => setCompanyData({ ...companyData, privacy_analytics: checked })}
+              onCheckedChange={(checked) =>
+                setCompanyData({ ...companyData, privacy_analytics: checked })
+              }
             />
           </div>
         </CardContent>
@@ -78,9 +84,7 @@ export function PrivacySection() {
       {/* Chat-Consent */}
       <Card>
         <CardHeader>
-          <CardTitle>
-            Team-Chat Teilnahme
-          </CardTitle>
+          <CardTitle>Team-Chat Teilnahme</CardTitle>
           <CardDescription>
             Entscheiden Sie, ob Sie am Unternehmens-Chat teilnehmen möchten
           </CardDescription>
@@ -91,8 +95,8 @@ export function PrivacySection() {
               <Label>Chat-Status</Label>
               <div>
                 <StatusIndicator
-                  type={hasActiveConsent ? 'success' : 'neutral'}
-                  label={hasActiveConsent ? 'Teilnahme aktiv' : 'Nicht teilnehmend'}
+                  type={hasActiveConsent ? "success" : "neutral"}
+                  label={hasActiveConsent ? "Teilnahme aktiv" : "Nicht teilnehmend"}
                   size="md"
                 />
               </div>
@@ -104,7 +108,7 @@ export function PrivacySection() {
                 disabled={consentUpdating}
                 className="min-h-[44px] touch-manipulation"
               >
-                {consentUpdating ? 'Wird bearbeitet...' : 'Teilnahme beenden'}
+                {consentUpdating ? "Wird bearbeitet..." : "Teilnahme beenden"}
               </V28Button>
             ) : (
               <V28Button
@@ -112,7 +116,7 @@ export function PrivacySection() {
                 disabled={consentUpdating}
                 className="min-h-[44px] bg-primary hover:bg-primary/90 text-primary-foreground touch-manipulation"
               >
-                {consentUpdating ? 'Wird aktiviert...' : 'Am Chat teilnehmen'}
+                {consentUpdating ? "Wird aktiviert..." : "Am Chat teilnehmen"}
               </V28Button>
             )}
           </div>
@@ -120,8 +124,8 @@ export function PrivacySection() {
           <div className="bg-muted p-4 rounded-lg text-xs text-muted-foreground">
             <p className="font-medium mb-1">Hinweis:</p>
             <p>
-              Durch die Teilnahme am Team-Chat können Sie mit Ihren Kollegen 
-              kommunizieren. Sie können die Teilnahme jederzeit beenden.
+              Durch die Teilnahme am Team-Chat können Sie mit Ihren Kollegen kommunizieren. Sie
+              können die Teilnahme jederzeit beenden.
             </p>
           </div>
         </CardContent>
@@ -130,9 +134,7 @@ export function PrivacySection() {
       {/* DSGVO Art. 20: Datenübertragbarkeit */}
       <Card>
         <CardHeader>
-          <CardTitle>
-            Datenexport (DSGVO Art. 20)
-          </CardTitle>
+          <CardTitle>Datenexport (DSGVO Art. 20)</CardTitle>
           <CardDescription>
             Exportieren Sie Ihre personenbezogenen Daten im strukturierten Format
           </CardDescription>

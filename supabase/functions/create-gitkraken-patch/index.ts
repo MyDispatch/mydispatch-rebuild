@@ -13,8 +13,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.75.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface CreatePatchInput {
@@ -52,7 +51,8 @@ function validateInput(input: CreatePatchInput): { valid: boolean; error?: strin
     return { valid: false, error: "No changes provided" };
   }
 
-  if (input.changes.length > 1000000) { // 1MB limit
+  if (input.changes.length > 1000000) {
+    // 1MB limit
     return { valid: false, error: "Changes too large (max 1MB)" };
   }
 
@@ -144,20 +144,14 @@ serve(async (req) => {
         error: validation.error,
       });
 
-      return new Response(
-        JSON.stringify({ error: validation.error }),
-        {
-          status: 400,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
-      );
+      return new Response(JSON.stringify({ error: validation.error }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 4. Check system config
-    const { data: config } = await supabase
-      .from("autonomous_system_config")
-      .select("*")
-      .single();
+    const { data: config } = await supabase.from("autonomous_system_config").select("*").single();
 
     if (config?.emergency_stop) {
       console.warn("[GitKraken Patch] Emergency stop active");
@@ -177,35 +171,24 @@ serve(async (req) => {
     const rateLimitOk = await checkRateLimit(supabase, input.task_id);
     if (!rateLimitOk) {
       console.warn("[GitKraken Patch] Rate limit exceeded");
-      return new Response(
-        JSON.stringify({ error: "Rate limit exceeded (max 10 patches/hour)" }),
-        {
-          status: 429,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
-      );
+      return new Response(JSON.stringify({ error: "Rate limit exceeded (max 10 patches/hour)" }), {
+        status: 429,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 6. Get GitKraken API token
     const gkToken = Deno.env.get("GITKRAKEN_API_TOKEN");
     if (!gkToken) {
       console.error("[GitKraken Patch] API token not configured");
-      await logExecution(
-        supabase,
-        input.task_id,
-        "gitkraken_auth",
-        "failed",
-        null,
-        { error: "API token not configured" }
-      );
+      await logExecution(supabase, input.task_id, "gitkraken_auth", "failed", null, {
+        error: "API token not configured",
+      });
 
-      return new Response(
-        JSON.stringify({ error: "GitKraken API token not configured" }),
-        {
-          status: 500,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        }
-      );
+      return new Response(JSON.stringify({ error: "GitKraken API token not configured" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     await logExecution(supabase, input.task_id, "gitkraken_auth", "completed");
@@ -229,7 +212,7 @@ serve(async (req) => {
 ${input.description}
 
 ### Files Changed
-${input.files_affected.map(f => `- ${f}`).join("\n")}
+${input.files_affected.map((f) => `- ${f}`).join("\n")}
 
 ---
 
@@ -243,7 +226,7 @@ ${input.files_affected.map(f => `- ${f}`).join("\n")}
     const patchResponse = await fetch("https://api.gitkraken.dev/v1/patches", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${gkToken}`,
+        Authorization: `Bearer ${gkToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(patchPayload),
@@ -253,14 +236,10 @@ ${input.files_affected.map(f => `- ${f}`).join("\n")}
       const errorText = await patchResponse.text();
       console.error("[GitKraken Patch] API error:", errorText);
 
-      await logExecution(
-        supabase,
-        input.task_id,
-        "gitkraken_patch_creation",
-        "failed",
-        null,
-        { status: patchResponse.status, error: errorText }
-      );
+      await logExecution(supabase, input.task_id, "gitkraken_patch_creation", "failed", null, {
+        status: patchResponse.status,
+        error: errorText,
+      });
 
       throw new Error(`GitKraken API error: ${errorText}`);
     }
@@ -268,13 +247,10 @@ ${input.files_affected.map(f => `- ${f}`).join("\n")}
     const patch: GitKrakenPatchResponse = await patchResponse.json();
     console.log("[GitKraken Patch] Patch created:", patch.id);
 
-    await logExecution(
-      supabase,
-      input.task_id,
-      "gitkraken_patch_created",
-      "completed",
-      { patch_id: patch.id, patch_url: patch.url }
-    );
+    await logExecution(supabase, input.task_id, "gitkraken_patch_created", "completed", {
+      patch_id: patch.id,
+      patch_url: patch.url,
+    });
 
     // 8. Update task with patch URL
     await supabase
@@ -306,8 +282,7 @@ ${input.files_affected.map(f => `- ${f}`).join("\n")}
             priority: input.priority,
             files_count: input.files_affected.length,
             patch_url: patch.url,
-            review_instructions:
-              "Review the patch in GitKraken and approve to merge.",
+            review_instructions: "Review the patch in GitKraken and approve to merge.",
           },
         },
       });
@@ -315,14 +290,9 @@ ${input.files_affected.map(f => `- ${f}`).join("\n")}
       await logExecution(supabase, input.task_id, "notification_sent", "completed");
     } catch (emailError) {
       console.error("[GitKraken Patch] Email notification failed:", emailError);
-      await logExecution(
-        supabase,
-        input.task_id,
-        "notification_sent",
-        "failed",
-        null,
-        { error: String(emailError) }
-      );
+      await logExecution(supabase, input.task_id, "notification_sent", "failed", null, {
+        error: String(emailError),
+      });
       // Don't fail the whole operation if email fails
     }
 

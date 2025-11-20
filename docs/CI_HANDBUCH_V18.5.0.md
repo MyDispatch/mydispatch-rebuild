@@ -28,12 +28,13 @@
 **Datei:** `src/assets/mydispatch-logo-official.png`
 
 **Verwendung:**
+
 ```typescript
 import officialLogo from '@/assets/mydispatch-logo-official.png';
 
-<img 
-  src={officialLogo} 
-  alt="MyDispatch - simply arrive" 
+<img
+  src={officialLogo}
+  alt="MyDispatch - simply arrive"
   width="140"
   height="37"
   className="h-8 max-w-[160px] object-contain drop-shadow-sm"
@@ -41,6 +42,7 @@ import officialLogo from '@/assets/mydispatch-logo-official.png';
 ```
 
 **Maße:**
+
 - **Desktop:** 140×37px (h-8, max-w-[160px])
 - **Mobile:** 120×32px (h-6, max-w-[120px])
 
@@ -49,6 +51,7 @@ import officialLogo from '@/assets/mydispatch-logo-official.png';
 ### **Logo-Varianten**
 
 #### **1. Sidebar-Logo (Collapsed)**
+
 ```typescript
 // Initialen-Badge (64px Sidebar)
 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-md">
@@ -57,6 +60,7 @@ import officialLogo from '@/assets/mydispatch-logo-official.png';
 ```
 
 #### **2. Sidebar-Logo (Expanded)**
+
 ```typescript
 // 240px Sidebar
 <div className="flex items-center gap-2 px-4 animate-fade-in">
@@ -70,11 +74,12 @@ import officialLogo from '@/assets/mydispatch-logo-official.png';
 ```
 
 #### **3. Company-Logo (Header)**
+
 ```typescript
 // Wenn company.logo_url existiert
 company?.logo_url ? (
-  <img 
-    src={company.logo_url} 
+  <img
+    src={company.logo_url}
     alt={company.name || 'Logo'}
     width="149"
     height="40"
@@ -101,13 +106,15 @@ company?.logo_url ? (
 ### **Basis-Farben (HSL)**
 
 #### **Primary (Beige/Gold) - #EADEBD**
+
 ```css
---primary: 40 31% 88%;           /* hsl(40, 31%, 88%) */
+--primary: 40 31% 88%; /* hsl(40, 31%, 88%) */
 --primary-foreground: 225 31% 28%; /* #323D5E (Dunkelblau) */
---primary-glow: 40 41% 93%;       /* Hellere Variante */
+--primary-glow: 40 41% 93%; /* Hellere Variante */
 ```
 
 **Verwendung:**
+
 - Header-Hintergrund (Gradient)
 - Sidebar-Hintergrund
 - Primary Buttons
@@ -115,6 +122,7 @@ company?.logo_url ? (
 - Akzent-Elemente
 
 **Tailwind-Klassen:**
+
 ```css
 bg-primary
 text-primary-foreground
@@ -123,45 +131,53 @@ hover:bg-primary/90
 ```
 
 #### **Foreground (Dunkelblau) - #323D5E**
+
 ```css
---foreground: 225 31% 28%;        /* hsl(225, 31%, 28%) */
+--foreground: 225 31% 28%; /* hsl(225, 31%, 28%) */
 ```
 
 **Verwendung:**
+
 - Haupt-Textfarbe
 - Icons (default)
 - Überschriften
 - Button-Text auf hellem Hintergrund
 
 **Tailwind-Klassen:**
+
 ```css
 text-foreground
 border-foreground
 ```
 
 #### **Background (Weiß) - #FFFFFF**
+
 ```css
---background: 0 0% 100%;          /* hsl(0, 0%, 100%) */
+--background: 0 0% 100%; /* hsl(0, 0%, 100%) */
 ```
 
 **Verwendung:**
+
 - Seiten-Hintergrund
 - Card-Hintergrund
 - Dialogs, Modals
 
 #### **Muted (Hellgrau)**
+
 ```css
---muted: 40 8% 95%;               /* hsl(40, 8%, 95%) */
---muted-foreground: 225 20% 50%;  /* hsl(225, 20%, 50%) */
+--muted: 40 8% 95%; /* hsl(40, 8%, 95%) */
+--muted-foreground: 225 20% 50%; /* hsl(225, 20%, 50%) */
 ```
 
 **Verwendung:**
+
 - Sekundäre Hintergründe
 - Disabled States
 - Platzhalter-Texte
 - Beschreibungstexte
 
 **Tailwind-Klassen:**
+
 ```css
 bg-muted
 text-muted-foreground
@@ -171,18 +187,21 @@ hover:bg-muted/50
 ### **Status-Farben (Ampel-System)**
 
 #### **Success (Grün) - Echtes Ampel-Grün**
+
 ```css
---status-success: 142 76% 36%;          /* hsl(142, 76%, 36%) */
+--status-success: 142 76% 36%; /* hsl(142, 76%, 36%) */
 --status-success-foreground: 0 0% 100%; /* Weiß */
 ```
 
 **Verwendung:**
+
 - Status "Verfügbar" (Fahrer)
 - Bezahlte Rechnungen
 - Erfolgs-Meldungen
 - Bestätigte Aufträge
 
 **Tailwind-Klassen:**
+
 ```css
 bg-status-success
 text-status-success-foreground
@@ -191,18 +210,21 @@ border-status-success/20 bg-status-success/5 /* Subtile Hervorhebung */
 ```
 
 #### **Warning (Gelb) - Echtes Ampel-Gelb**
+
 ```css
---status-warning: 48 96% 53%;          /* hsl(48, 96%, 53%) */
+--status-warning: 48 96% 53%; /* hsl(48, 96%, 53%) */
 --status-warning-foreground: 0 0% 0%; /* Schwarz */
 ```
 
 **Verwendung:**
+
 - Status "Ausstehend"
 - Ablaufende Dokumente
 - Warnungen
 - Offene Rechnungen
 
 **Tailwind-Klassen:**
+
 ```css
 bg-status-warning
 text-status-warning-foreground
@@ -211,18 +233,21 @@ border-status-warning/20 bg-status-warning/5
 ```
 
 #### **Error (Rot) - Echtes Ampel-Rot**
+
 ```css
---status-error: 0 84% 60%;             /* hsl(0, 84%, 60%) */
+--status-error: 0 84% 60%; /* hsl(0, 84%, 60%) */
 --status-error-foreground: 0 0% 100%; /* Weiß */
 ```
 
 **Verwendung:**
+
 - Status "Storniert"
 - Überfällige Rechnungen
 - Fehler-Meldungen
 - Abgelaufene Dokumente
 
 **Tailwind-Klassen:**
+
 ```css
 bg-status-error
 text-status-error-foreground
@@ -233,33 +258,37 @@ border-status-error/20 bg-status-error/5
 ### **Portal-Farben**
 
 #### **Fahrer-Portal**
+
 ```css
---portal-fahrer: 220 14% 96%;          /* Helles Blau-Grau */
+--portal-fahrer: 220 14% 96%; /* Helles Blau-Grau */
 --portal-fahrer-foreground: 225 31% 28%;
 ```
 
 #### **Kunden-Portal**
+
 ```css
---portal-kunde: 40 8% 98%;             /* Extra-helles Beige */
+--portal-kunde: 40 8% 98%; /* Extra-helles Beige */
 --portal-kunde-foreground: 225 31% 28%;
 ```
 
 #### **Öffentliche Landingpages**
+
 ```css
---portal-public: 0 0% 100%;            /* Weiß */
+--portal-public: 0 0% 100%; /* Weiß */
 --portal-public-foreground: 225 31% 28%;
 ```
 
 ### **Chart-Farben (Datenvisualisierung)**
 
 ```css
---chart-primary: 31 26% 45%;    /* #9B7D57 - Helleres Braun/Gold */
---chart-secondary: 40 31% 70%;  /* #D4C5A3 - Mittleres Beige */
---chart-tertiary: 31 26% 55%;   /* #B89368 - Mittleres Braun */
---chart-grid: 40 12% 88%;       /* Identisch zu --border */
+--chart-primary: 31 26% 45%; /* #9B7D57 - Helleres Braun/Gold */
+--chart-secondary: 40 31% 70%; /* #D4C5A3 - Mittleres Beige */
+--chart-tertiary: 31 26% 55%; /* #B89368 - Mittleres Braun */
+--chart-grid: 40 12% 88%; /* Identisch zu --border */
 ```
 
 **Verwendung in Recharts:**
+
 ```typescript
 <Line dataKey="revenue" stroke="hsl(var(--chart-primary))" />
 <Bar dataKey="bookings" fill="hsl(var(--chart-secondary))" />
@@ -269,16 +298,19 @@ border-status-error/20 bg-status-error/5
 ### **Gradients**
 
 #### **Primary Gradient**
+
 ```css
 --gradient-primary: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-glow)) 100%);
 ```
 
 **Verwendung:**
+
 ```css
 bg-gradient-to-r from-primary via-primary to-primary/95
 ```
 
 #### **Hero Gradient**
+
 ```css
 --gradient-hero: linear-gradient(180deg, rgba(234, 222, 189, 0.1) 0%, rgba(50, 61, 94, 0.05) 100%);
 ```
@@ -296,6 +328,7 @@ bg-gradient-to-r from-primary via-primary to-primary/95
 ```
 
 **Tailwind-Klassen:**
+
 ```css
 shadow-sm
 shadow-md
@@ -313,12 +346,21 @@ shadow-glow    /* Glow-Effekt */
 ### **Schriftarten**
 
 #### **Primary Font: Inter**
+
 ```css
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+font-family:
+  "Inter",
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  "Helvetica Neue",
+  Arial,
+  sans-serif;
 
 /* OpenType Features */
-font-feature-settings: 'cv11', 'ss01';
-font-variation-settings: 'opsz' 32;
+font-feature-settings: "cv11", "ss01";
+font-variation-settings: "opsz" 32;
 
 /* Rendering */
 -webkit-font-smoothing: antialiased;
@@ -328,15 +370,17 @@ font-variation-settings: 'opsz' 32;
 **Verwendung:** Alle UI-Texte, Buttons, Formulare
 
 #### **Secondary Font: Playfair Display** (optional für Headlines)
+
 ```css
-font-family: 'Playfair Display', Georgia, serif;
+font-family: "Playfair Display", Georgia, serif;
 ```
 
 **Verwendung:** Hero-Headlines, Marketing-Texte
 
 #### **Monospace: SF Mono**
+
 ```css
-font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monospace;
+font-family: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, monospace;
 ```
 
 **Verwendung:** Code-Snippets, technische Daten, API-Responses
@@ -345,15 +389,15 @@ font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monosp
 
 ```css
 /* Responsive Font-Sizes */
---font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);     /* 12px → 14px */
---font-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem);      /* 14px → 16px */
---font-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);     /* 16px → 18px */
---font-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem);   /* 18px → 20px */
---font-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem);       /* 20px → 24px */
---font-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem);    /* 24px → 30px */
---font-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.25rem);  /* 30px → 36px */
---font-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem);        /* 36px → 48px */
---font-5xl: clamp(3rem, 2.55rem + 2.25vw, 4rem);          /* 48px → 64px */
+--font-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); /* 12px → 14px */
+--font-sm: clamp(0.875rem, 0.825rem + 0.25vw, 1rem); /* 14px → 16px */
+--font-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); /* 16px → 18px */
+--font-lg: clamp(1.125rem, 1.05rem + 0.375vw, 1.25rem); /* 18px → 20px */
+--font-xl: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem); /* 20px → 24px */
+--font-2xl: clamp(1.5rem, 1.35rem + 0.75vw, 1.875rem); /* 24px → 30px */
+--font-3xl: clamp(1.875rem, 1.65rem + 1.125vw, 2.25rem); /* 30px → 36px */
+--font-4xl: clamp(2.25rem, 1.95rem + 1.5vw, 3rem); /* 36px → 48px */
+--font-5xl: clamp(3rem, 2.55rem + 2.25vw, 4rem); /* 48px → 64px */
 ```
 
 ### **Utility-Klassen**
@@ -361,43 +405,43 @@ font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, monosp
 ```css
 /* Display (Hero-Titel) */
 .text-display {
-  font-size: var(--font-5xl);  /* 48px → 64px */
+  font-size: var(--font-5xl); /* 48px → 64px */
   line-height: 1.1;
   font-weight: 800;
 }
 
 /* Headings */
 .text-heading-1 {
-  font-size: var(--font-4xl);  /* 36px → 48px */
+  font-size: var(--font-4xl); /* 36px → 48px */
   line-height: 1.2;
   font-weight: 700;
 }
 
 .text-heading-2 {
-  font-size: var(--font-3xl);  /* 30px → 36px */
+  font-size: var(--font-3xl); /* 30px → 36px */
   line-height: 1.25;
   font-weight: 700;
 }
 
 .text-heading-3 {
-  font-size: var(--font-2xl);  /* 24px → 30px */
+  font-size: var(--font-2xl); /* 24px → 30px */
   line-height: 1.3;
   font-weight: 600;
 }
 
 /* Body */
 .text-body-lg {
-  font-size: var(--font-lg);   /* 18px → 20px */
+  font-size: var(--font-lg); /* 18px → 20px */
   line-height: 1.6;
 }
 
 .text-body {
-  font-size: var(--font-base);  /* 16px → 18px */
+  font-size: var(--font-base); /* 16px → 18px */
   line-height: 1.6;
 }
 
 .text-body-sm {
-  font-size: var(--font-sm);    /* 14px → 16px */
+  font-size: var(--font-sm); /* 14px → 16px */
   line-height: 1.5;
 }
 ```
@@ -429,16 +473,21 @@ text-status-success              /* Erfolgs-Text */
 ```css
 /* Systemweite Einstellungen */
 body {
-  hyphens: auto;                /* Deutsche Silbentrennung */
+  hyphens: auto; /* Deutsche Silbentrennung */
   -webkit-hyphens: auto;
   hyphenate-limit-chars: 6 3 3; /* Min. 6 Zeichen, 3 vor/nach Trennung */
   word-wrap: break-word;
   overflow-wrap: break-word;
-  word-break: normal;           /* NICHT break-all! */
+  word-break: normal; /* NICHT break-all! */
 }
 
 /* Headlines: Keine Silbentrennung */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   hyphens: none;
   -webkit-hyphens: none;
 }
@@ -456,11 +505,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .text-balance {
-  text-wrap: balance;  /* Gleichmäßige Zeilenverteilung */
+  text-wrap: balance; /* Gleichmäßige Zeilenverteilung */
 }
 
 .text-pretty {
-  text-wrap: pretty;   /* Verhindert Witwen/Waisen */
+  text-wrap: pretty; /* Verhindert Witwen/Waisen */
 }
 ```
 
@@ -471,6 +520,7 @@ h1, h2, h3, h4, h5, h6 {
 ### **Icon-Library: Lucide React**
 
 **Installation:**
+
 ```bash
 npm install lucide-react
 ```
@@ -478,34 +528,34 @@ npm install lucide-react
 ### **Standard-Icons**
 
 ```typescript
-import { 
-  Home,         // Dashboard
-  FileText,     // Aufträge
-  Users,        // Kunden, Fahrer
-  Car,          // Fahrzeuge
-  Receipt,      // Finanzen
-  Calendar,     // Schichten
-  FolderOpen,   // Dokumente
-  Euro,         // Kostenstellen
-  Handshake,    // Partner
-  TrendingUp,   // Statistiken
-  Settings,     // Einstellungen
-  MessageSquare,// Kommunikation
-  Building2,    // Landingpage
-  Plus,         // Hinzufügen
-  Search,       // Suche
-  Bot,          // AI-Support
-  LogOut,       // Abmelden
-  Crown,        // Premium-Feature
-  Lock,         // Gesperrt
-  Sparkles,     // AI/Magic
-  AlertTriangle,// Warnung
-  Check,        // Erfolg
-  Info,         // Information
-  MapPin,       // Standort
-  Phone,        // Telefon
-  Mail,         // E-Mail
-} from 'lucide-react';
+import {
+  Home, // Dashboard
+  FileText, // Aufträge
+  Users, // Kunden, Fahrer
+  Car, // Fahrzeuge
+  Receipt, // Finanzen
+  Calendar, // Schichten
+  FolderOpen, // Dokumente
+  Euro, // Kostenstellen
+  Handshake, // Partner
+  TrendingUp, // Statistiken
+  Settings, // Einstellungen
+  MessageSquare, // Kommunikation
+  Building2, // Landingpage
+  Plus, // Hinzufügen
+  Search, // Suche
+  Bot, // AI-Support
+  LogOut, // Abmelden
+  Crown, // Premium-Feature
+  Lock, // Gesperrt
+  Sparkles, // AI/Magic
+  AlertTriangle, // Warnung
+  Check, // Erfolg
+  Info, // Information
+  MapPin, // Standort
+  Phone, // Telefon
+  Mail, // E-Mail
+} from "lucide-react";
 ```
 
 ### **Icon-Größen**
@@ -513,16 +563,17 @@ import {
 ```typescript
 // Standard-Größen
 const iconSizes = {
-  xs: "h-3 w-3",    // 12px
-  sm: "h-4 w-4",    // 16px
-  md: "h-5 w-5",    // 20px (Standard)
-  lg: "h-6 w-6",    // 24px
-  xl: "h-8 w-8",    // 32px
+  xs: "h-3 w-3", // 12px
+  sm: "h-4 w-4", // 16px
+  md: "h-5 w-5", // 20px (Standard)
+  lg: "h-6 w-6", // 24px
+  xl: "h-8 w-8", // 32px
   "2xl": "h-12 w-12", // 48px
 };
 ```
 
 **Verwendung:**
+
 ```typescript
 <FileText className="h-5 w-5 text-foreground" />
 <Users className={cn("h-4 w-4", iconSizes.sm)} />
@@ -625,6 +676,7 @@ grid-cols-1 sm:grid-cols-2 gap-4
 ### **Layout-Komponenten**
 
 #### **Sidebar**
+
 ```css
 /* Collapsed */
 w-[64px]
@@ -638,6 +690,7 @@ w-60 (240px)
 ```
 
 #### **Header**
+
 ```css
 height: 60px (h-16)
 left: 64px → 240px (dynamisch)
@@ -649,6 +702,7 @@ width: 100%
 ```
 
 #### **Footer**
+
 ```css
 /* Normal */
 py-3 (12px)
@@ -660,6 +714,7 @@ max-height: 0 → 24 (96px)
 ```
 
 #### **Main Content**
+
 ```css
 /* Desktop */
 margin-left: 64px → 240px (transition)
@@ -689,6 +744,7 @@ padding: px-4 py-6
 ```
 
 **Status-Cards:**
+
 ```css
 /* Success */
 border-status-success/20 bg-status-success/5
@@ -735,15 +791,16 @@ border-primary/20 bg-primary/5
 ### **StatusIndicator**
 
 ```typescript
-<StatusIndicator 
-  status="completed" 
-  type="booking" 
-  size="md" 
-  showLabel={true} 
+<StatusIndicator
+  status="completed"
+  type="booking"
+  size="md"
+  showLabel={true}
 />
 ```
 
 **Status-Typen:**
+
 ```typescript
 // Bookings
 'pending' → warning (Gelb)
@@ -879,6 +936,7 @@ xl: 1280px   /* Extra large devices */
 ### **Responsive Patterns**
 
 #### **Stack → Grid**
+
 ```css
 /* Mobile: Vertikal gestapelt */
 grid-cols-1
@@ -891,6 +949,7 @@ lg:grid-cols-4
 ```
 
 #### **Hide/Show**
+
 ```css
 /* Mobile: Ausblenden */
 hidden sm:block      /* Nur ab sm sichtbar */
@@ -900,6 +959,7 @@ block lg:hidden      /* Nur bis lg sichtbar */
 ```
 
 #### **Text-Größen**
+
 ```css
 /* Responsive Font-Sizes */
 text-sm sm:text-base      /* 14px → 16px */
@@ -908,6 +968,7 @@ text-2xl sm:text-3xl      /* 24px → 30px */
 ```
 
 #### **Padding/Margin**
+
 ```css
 /* Responsive Spacing */
 p-4 sm:p-6 lg:p-8         /* 16px → 24px → 32px */
@@ -932,6 +993,7 @@ space-y-6 sm:space-y-8    /* 24px → 32px */
 ### **WCAG 2.1 AA Compliance**
 
 #### **Kontraste**
+
 ```css
 /* Mindest-Kontrast: 4.5:1 für Text */
 
@@ -946,6 +1008,7 @@ text-white on bg-primary            /* Weiß auf Beige */
 ```
 
 #### **Keyboard-Navigation**
+
 ```typescript
 // Tab-Index
 <button tabIndex={0}>Klickbar</button>
@@ -960,6 +1023,7 @@ focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
 ```
 
 #### **ARIA-Labels**
+
 ```typescript
 <button aria-label="Auftrag erstellen">
   <Plus className="h-5 w-5" />
@@ -976,6 +1040,7 @@ focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
 ```
 
 #### **Screen-Reader Only**
+
 ```css
 /* Utility-Klasse */
 .sr-only {
@@ -1015,7 +1080,7 @@ focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
 ✅ Loading/Error-States implementieren  
 ✅ Fluid Typography verwenden (text-body, text-heading-1)  
 ✅ Spacing-System nutzen (gap-4, space-y-6, p-4 sm:p-6)  
-✅ Icons aus Lucide React importieren  
+✅ Icons aus Lucide React importieren
 
 ---
 

@@ -7,7 +7,7 @@
    ================================================================================== */
 
 // import * as Sentry from '@sentry/react'; // DISABLED: Sentry not installed
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from "@/integrations/supabase/client";
 
 /**
  * Initialize Sentry mit DSGVO-konformen Einstellungen
@@ -18,7 +18,7 @@ import { supabase } from '@/integrations/supabase/client';
 export function initSentry() {
   // No-op: Sentry not installed
   return;
-}/**
+} /**
  * Sende Critical Errors zu n8n für Alerts (Email/Slack)
  */
 export async function sendErrorToN8n(
@@ -30,12 +30,12 @@ export async function sendErrorToN8n(
     const errorRate = await getErrorRate();
     if (errorRate < 0.1) return;
 
-    await supabase.functions.invoke('n8n-webhook-trigger', {
+    await supabase.functions.invoke("n8n-webhook-trigger", {
       body: {
-        event_type: 'critical_error',
+        event_type: "critical_error",
         payload: {
           error_message: error.message,
-          error_stack: error.stack?.split('\n').slice(0, 3).join('\n'), // DSGVO: Nur Top 3 Lines
+          error_stack: error.stack?.split("\n").slice(0, 3).join("\n"), // DSGVO: Nur Top 3 Lines
           error_rate: `${(errorRate * 100).toFixed(1)}%`,
           context: {
             route: window.location.pathname,
@@ -56,14 +56,14 @@ export async function sendErrorToN8n(
 async function getErrorRate(): Promise<number> {
   try {
     const { data, error } = await supabase
-      .from('ai_actions_log')
-      .select('success')
-      .gte('created_at', new Date(Date.now() - 60 * 60 * 1000).toISOString())
+      .from("ai_actions_log")
+      .select("success")
+      .gte("created_at", new Date(Date.now() - 60 * 60 * 1000).toISOString())
       .limit(100);
 
     if (error || !data || data.length === 0) return 0;
 
-    const errors = data.filter(log => log.success === false).length;
+    const errors = data.filter((log) => log.success === false).length;
     return errors / data.length;
   } catch {
     return 0;
@@ -75,10 +75,7 @@ async function getErrorRate(): Promise<number> {
  *
  * DISABLED: Sentry package not installed
  */
-export async function captureError(
-  error: Error,
-  context: Record<string, any> = {}
-): Promise<void> {
+export async function captureError(error: Error, context: Record<string, any> = {}): Promise<void> {
   // Log zu Sentry - DISABLED: Sentry not installed
   // Sentry.captureException(error, {
   //   contexts: { custom: context },
@@ -86,8 +83,8 @@ export async function captureError(
 
   // Log zu ai_actions_log (für interne Analyse)
   try {
-    await supabase.from('ai_actions_log').insert({
-      action_type: 'frontend_error',
+    await supabase.from("ai_actions_log").insert({
+      action_type: "frontend_error",
       task_description: error.message,
       metadata: {
         message: error.message,

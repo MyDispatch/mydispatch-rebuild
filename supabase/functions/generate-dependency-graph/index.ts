@@ -4,12 +4,12 @@
    Analysiert Entity-Dependencies und erstellt Execution-Plan (Topological Sort)
    ================================================================================== */
 
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface Entity {
@@ -20,26 +20,26 @@ interface Entity {
 }
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    console.log('[DEPENDENCY-GRAPH] Fetching entities...');
+    console.log("[DEPENDENCY-GRAPH] Fetching entities...");
 
     // Step 1: Fetch all entities
     const { data: entities, error } = await supabase
-      .from('entities_queue')
-      .select('id, entity_type, name, dependencies')
-      .eq('status', 'pending');
+      .from("entities_queue")
+      .select("id, entity_type, name, dependencies")
+      .eq("status", "pending");
 
     if (error) throw error;
     if (!entities || entities.length === 0) {
-      throw new Error('No pending entities found');
+      throw new Error("No pending entities found");
     }
 
     console.log(`[DEPENDENCY-GRAPH] Processing ${entities.length} entities`);
@@ -66,7 +66,7 @@ serve(async (req) => {
     // Step 3: Topological Sort (Kahn's Algorithm)
     const levels: Array<Array<{ key: string; entity: Entity }>> = [];
     const inDegree = new Map<string, number>();
-    
+
     // Calculate in-degrees
     for (const key of graph.keys()) {
       inDegree.set(key, 0);
@@ -81,7 +81,7 @@ serve(async (req) => {
     let currentLevel = 0;
     while (inDegree.size > 0) {
       const zeroInDegree: string[] = [];
-      
+
       for (const [key, degree] of inDegree.entries()) {
         if (degree === 0) {
           zeroInDegree.push(key);
@@ -89,12 +89,12 @@ serve(async (req) => {
       }
 
       if (zeroInDegree.length === 0 && inDegree.size > 0) {
-        console.error('[DEPENDENCY-GRAPH] Circular dependency detected!');
+        console.error("[DEPENDENCY-GRAPH] Circular dependency detected!");
         break;
       }
 
       levels.push(
-        zeroInDegree.map(key => ({
+        zeroInDegree.map((key) => ({
           key,
           entity: entityMap.get(key)!,
         }))
@@ -119,12 +119,9 @@ serve(async (req) => {
     // Step 4: Update entities with calculated levels
     for (let levelIndex = 0; levelIndex < levels.length; levelIndex++) {
       const levelEntities = levels[levelIndex];
-      
+
       for (const { entity } of levelEntities) {
-        await supabase
-          .from('entities_queue')
-          .update({ level: levelIndex })
-          .eq('id', entity.id);
+        await supabase.from("entities_queue").update({ level: levelIndex }).eq("id", entity.id);
       }
     }
 
@@ -151,20 +148,19 @@ serve(async (req) => {
         message: `Dependency graph created: ${levels.length} levels, ${entities.length} entities`,
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       }
     );
-
   } catch (error) {
-    console.error('[DEPENDENCY-GRAPH] Error:', error);
+    console.error("[DEPENDENCY-GRAPH] Error:", error);
     return new Response(
       JSON.stringify({
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: error instanceof Error ? error.message : "Unknown error",
         success: false,
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 500,
       }
     );

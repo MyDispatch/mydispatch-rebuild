@@ -8,15 +8,15 @@ Das MyDispatch-Projekt wurde einer umfassenden Analyse und systematischen Optimi
 
 ## 2. Wichtigste Ergebnisse
 
-| Bereich | Ergebnis |
-| :--- | :--- |
+| Bereich                   | Ergebnis                                                                                     |
+| :------------------------ | :------------------------------------------------------------------------------------------- |
 | **Layout-Harmonisierung** | ✅ **100% abgeschlossen** - Alle 12 Dashboard-Seiten nach `/rechnungen`-Vorbild harmonisiert |
-| **Design Token System** | ✅ **100% abgeschlossen** - Alle hardcodierten Farben durch Design Tokens ersetzt |
-| **Mobile-Responsiveness** | ✅ **Systemweit sichergestellt** - Alle Seiten mobil nutzbar |
-| **Performance** | ✅ **45% Reduzierung der Bundle-Größe** (1.07 MB → 594 KB) durch Code-Splitting |
-| **Security** | ✅ **High-Severity Vulnerability behoben** (xlsx → exceljs) |
-| **Code-Qualität** | ✅ **87% weniger ESLint-Errors** (1.086 → 155) durch pragmatische Config-Anpassung |
-| **Dependencies** | ✅ **Sichere Minor-Updates** durchgeführt, Major-Updates dokumentiert |
+| **Design Token System**   | ✅ **100% abgeschlossen** - Alle hardcodierten Farben durch Design Tokens ersetzt            |
+| **Mobile-Responsiveness** | ✅ **Systemweit sichergestellt** - Alle Seiten mobil nutzbar                                 |
+| **Performance**           | ✅ **45% Reduzierung der Bundle-Größe** (1.07 MB → 594 KB) durch Code-Splitting              |
+| **Security**              | ✅ **High-Severity Vulnerability behoben** (xlsx → exceljs)                                  |
+| **Code-Qualität**         | ✅ **87% weniger ESLint-Errors** (1.086 → 155) durch pragmatische Config-Anpassung           |
+| **Dependencies**          | ✅ **Sichere Minor-Updates** durchgeführt, Major-Updates dokumentiert                        |
 
 ## 3. Detaillierte Änderungen
 

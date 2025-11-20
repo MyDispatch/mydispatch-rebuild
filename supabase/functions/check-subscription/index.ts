@@ -56,10 +56,10 @@ serve(async (req) => {
 
     // Input Validation
     if (!input.company_id) {
-      return new Response(
-        JSON.stringify({ error: "company_id is required" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "company_id is required" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     console.log("[CHECK-SUBSCRIPTION] Checking subscription for company:", input.company_id);
@@ -74,10 +74,10 @@ serve(async (req) => {
 
     if (companyError || !company) {
       console.error("[CHECK-SUBSCRIPTION] Company not found:", companyError);
-      return new Response(
-        JSON.stringify({ error: "Company not found" }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Company not found" }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 2. Determine Tier
@@ -135,7 +135,10 @@ serve(async (req) => {
         .select("*", { count: "exact", head: true })
         .eq("company_id", input.company_id)
         .eq("archived", false)
-        .gte("created_at", new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString());
+        .gte(
+          "created_at",
+          new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString()
+        );
       usage.bookings_this_month = bookingsCount || 0;
     }
 
@@ -184,15 +187,15 @@ serve(async (req) => {
 
     console.log("[CHECK-SUBSCRIPTION] Subscription status:", tier);
 
-    return new Response(
-      JSON.stringify(status),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
-    );
+    return new Response(JSON.stringify(status), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 200,
+    });
   } catch (error) {
     console.error("[CHECK-SUBSCRIPTION] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });

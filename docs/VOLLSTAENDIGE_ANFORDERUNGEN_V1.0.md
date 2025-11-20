@@ -21,6 +21,7 @@
 **Priorität:** 🔴 CRITICAL
 
 #### Anforderungen:
+
 - ✅ Sentry SDK installiert (`@sentry/react`)
 - ⚠️ Sentry DSN konfiguriert (aus .env)
 - ⚠️ Sentry Project Setup (my-dispatch-prod)
@@ -31,6 +32,7 @@
 - ⚠️ Release Tracking
 
 #### Implementation:
+
 - [ ] Sentry DSN in `.env` setzen
 - [ ] `src/lib/sentry-integration.ts` vollständig konfigurieren
 - [ ] Source Maps Upload in Build-Prozess
@@ -47,6 +49,7 @@
 **Priorität:** 🔴 CRITICAL
 
 #### Anforderungen:
+
 - ⚠️ Automatische Checks 2x täglich (morgens + abends)
 - ⚠️ System Health Prüfung
 - ⚠️ Error Rate Monitoring
@@ -58,6 +61,7 @@
 - ⚠️ Report an Pascal bei kritischen Issues
 
 #### Implementation:
+
 - [ ] Edge Function: `daily-health-check` (Cron: 08:00 + 20:00)
 - [ ] Edge Function: `auto-fix-issues` (Cron: 08:05 + 20:05)
 - [ ] Edge Function: `performance-optimizer` (Cron: 08:10 + 20:10)
@@ -73,6 +77,7 @@
 **Priorität:** 🟡 HIGH
 
 #### Anforderungen:
+
 - ✅ `letterhead_url` Feld in `companies` Table vorhanden
 - ❌ Upload-UI in Settings fehlt
 - ❌ Supabase Storage Bucket: `company-letterheads`
@@ -81,6 +86,7 @@
 - ❌ Auftragsbestätigungen mit Briefpapier
 
 #### Implementation:
+
 - [ ] Component: `LetterheadUpload.tsx` (analog zu `LogoUpload.tsx`)
 - [ ] Supabase Storage: Bucket `company-letterheads` erstellen
 - [ ] Settings Page: Letterhead-Upload-UI hinzufügen
@@ -96,6 +102,7 @@
 **Priorität:** 🟡 HIGH
 
 #### Anforderungen:
+
 - ✅ E-Mail-Templates vorhanden
 - ⚠️ MyDispatch-Branding in Templates
 - ❌ Kundenspezifisches Design (Logo, Farben)
@@ -104,6 +111,7 @@
 - ❌ White-Label E-Mails (Business/Enterprise)
 
 #### Implementation:
+
 - [ ] E-Mail-Template-Base mit Company-Branding
 - [ ] Logo-Integration in alle Templates
 - [ ] Farben aus `company.primary_color` verwenden
@@ -119,6 +127,7 @@
 **Priorität:** 🔴 CRITICAL
 
 #### Starter-Tarif Features:
+
 - ✅ Bis zu 5 Fahrer & Fahrzeuge
 - ✅ GPS-Echtzeit-Tracking
 - ✅ Keine Begrenzung Aufträge
@@ -129,6 +138,7 @@
 - ✅ Basis Statistiken
 
 #### Business-Tarif Features:
+
 - ✅ Bis zu 25 Fahrer & Fahrzeuge
 - ✅ GPS-Echtzeit-Tracking
 - ✅ Keine Begrenzung Aufträge
@@ -141,6 +151,7 @@
 - ✅ Prioritäts-Support
 
 #### Enterprise-Tarif Features:
+
 - ✅ Keine Begrenzung Fahrer & Fahrzeuge
 - ✅ GPS-Echtzeit-Tracking
 - ✅ Keine Begrenzung Aufträge
@@ -156,6 +167,7 @@
 - ✅ On-Site Training
 
 #### Feature-Gating Check:
+
 - [ ] Alle Features in `src/config/features.ts` geprüft
 - [ ] Feature-Gating-Logik implementiert
 - [ ] UI-Locks für nicht verfügbare Features
@@ -169,6 +181,7 @@
 **Priorität:** 🟡 HIGH
 
 #### Fehlende Templates:
+
 - [ ] `emailVerificationTemplate` (AUTH-03)
 - [ ] `driverOnboardingCompleteTemplate` (DRIVER-02)
 - [ ] `shiftReminderTemplate` (DRIVER-03)
@@ -195,12 +208,14 @@
 **Priorität:** 🔴 CRITICAL
 
 #### Anforderungen:
+
 - ✅ Edge Function: `create-master-user` erstellt
 - ⚠️ User erstellen/resetten in Supabase
 - ⚠️ Passwort zurücksetzen
 - ⚠️ Email: `courbois1981@gmail.com` (NUR diese!)
 
 #### Implementation:
+
 - [ ] Edge Function deployen
 - [ ] Master-User erstellen/resetten
 - [ ] Login testen
@@ -214,12 +229,14 @@
 **Priorität:** 🟡 HIGH
 
 #### Anforderungen:
+
 - ⚠️ PDF-Generator mit Briefpapier-Integration
 - ⚠️ Rechnungen mit Briefpapier
 - ⚠️ Auftragsbestätigungen mit Briefpapier
 - ⚠️ Angebote mit Briefpapier
 
 #### Implementation:
+
 - [ ] `src/lib/pdf/pdf-generator-invoice.ts` erweitern
 - [ ] Briefpapier als Header/Footer
 - [ ] Fallback zu MyDispatch-Logo wenn kein Briefpapier
@@ -233,12 +250,14 @@
 **Priorität:** 🟡 HIGH
 
 #### Anforderungen:
+
 - ✅ JSON-Export vorhanden
 - ⚠️ PDF-Export fehlt
 - ⚠️ `deletion_requests` Table fehlt
 - ⚠️ Automatische Löschung nach 30 Tagen
 
 #### Implementation:
+
 - [ ] PDF-Export implementieren
 - [ ] `deletion_requests` Table erstellen
 - [ ] Edge Function: `request-deletion`
@@ -252,6 +271,7 @@
 **Priorität:** 🟢 MEDIUM
 
 #### Anforderungen:
+
 - ⚠️ Bundle Size optimieren
 - ⚠️ Image Optimization
 - ⚠️ Caching Strategy
@@ -259,6 +279,7 @@
 - ⚠️ Query Performance
 
 #### Implementation:
+
 - [ ] Production Build konfigurieren
 - [ ] Bundle Analyzer
 - [ ] Image WebP + Lazy Loading
@@ -270,18 +291,21 @@
 ## ✅ IMPLEMENTATION CHECKLIST
 
 ### Phase 1: Critical (Sofort)
+
 - [x] Login-Problem: Edge Function erstellt
 - [ ] Sentry vollständig konfigurieren
 - [ ] Monitoring-System (2x täglich) erstellen
 - [ ] Master-User erstellen/resetten
 
 ### Phase 2: High Priority (Diese Woche)
+
 - [ ] Briefpapier-Upload implementieren
 - [ ] E-Mail-Templates mit kundenspezifischem Design
 - [ ] PDF-Generation mit Briefpapier
 - [ ] Fehlende E-Mail-Templates erstellen
 
 ### Phase 3: Medium Priority (Nächste Woche)
+
 - [ ] Tarif-Features prüfen und sicherstellen
 - [ ] GDPR-Export vollständig
 - [ ] Performance-Optimierungen
@@ -292,18 +316,21 @@
 ## 📊 PRIORITÄTEN-ÜBERSICHT
 
 ### 🔴 CRITICAL (Sofort)
+
 1. Sentry vollständig einrichten
 2. Monitoring-System (2x täglich)
 3. Login-Problem beheben
 4. Master-User erstellen
 
 ### 🟡 HIGH (Diese Woche)
+
 5. Briefpapier-Upload
 6. E-Mail-Templates mit kundenspezifischem Design
 7. PDF-Generation mit Briefpapier
 8. Fehlende E-Mail-Templates
 
 ### 🟢 MEDIUM (Nächste Woche)
+
 9. Tarif-Features prüfen
 10. GDPR-Export vollständig
 11. Performance-Optimierungen
@@ -311,4 +338,3 @@
 ---
 
 **Pascal, alle Anforderungen sind dokumentiert und priorisiert!** 🚀
-

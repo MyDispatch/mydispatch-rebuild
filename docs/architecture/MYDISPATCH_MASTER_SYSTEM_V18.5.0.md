@@ -33,15 +33,15 @@ Frontend:
   - Vite (Build Tool)
   - TailwindCSS (Styling)
   - Shadcn/UI (Components)
-  
+
 Backend:
   - Supabase (Database, Auth, Edge Functions)
   - PostgreSQL (Database)
   - Row Level Security (RLS)
-  
+
 Payments:
   - Stripe (Subscriptions)
-  
+
 AI:
   - Lovable AI Gateway
   - Google Gemini 2.5 Flash (Default)
@@ -92,11 +92,11 @@ mydispatch/
 
 ### 2.2 Tarif-Übersicht
 
-| Tarif | Monatspreis | Jahrespreis | Ersparnis | Features |
-|-------|-------------|-------------|-----------|----------|
-| **Starter** | 39 € | 420 € | 48 € | Max. 3 Fahrer/Fahrzeuge, Basis-Features |
-| **Business** | 99 € | 1.068 € | 120 € | Unbegrenzt Fahrer/Fahrzeuge, Alle Features |
-| **Enterprise** | Individuell | Individuell | - | Custom Solutions, White-Label |
+| Tarif          | Monatspreis | Jahrespreis | Ersparnis | Features                                   |
+| -------------- | ----------- | ----------- | --------- | ------------------------------------------ |
+| **Starter**    | 39 €        | 420 €       | 48 €      | Max. 3 Fahrer/Fahrzeuge, Basis-Features    |
+| **Business**   | 99 €        | 1.068 €     | 120 €     | Unbegrenzt Fahrer/Fahrzeuge, Alle Features |
+| **Enterprise** | Individuell | Individuell | -         | Custom Solutions, White-Label              |
 
 ### 2.3 Feature-Matrix
 
@@ -145,17 +145,17 @@ mydispatch/
 
 ```typescript
 export const STRIPE_PRODUCT_IDS = {
-  STARTER: 'prod_starter_2025',
-  BUSINESS: 'prod_business_2025',
-  ENTERPRISE: 'prod_enterprise_2025',
+  STARTER: "prod_starter_2025",
+  BUSINESS: "prod_business_2025",
+  ENTERPRISE: "prod_enterprise_2025",
 } as const;
 
 // Legacy Product IDs (für Bestandskunden)
 export const PRODUCT_IDS = {
-  starter: ['prod_TEeg0ykplmGKd0', 'prod_TF5cFE5Fi5rBCz'],
-  business: ['prod_TEegHmtpPZOZcG', 'prod_TF5cnWFZYEQUsG'],
-  enterprise: ['prod_ENTERPRISE_ID_PLACEHOLDER']
-}
+  starter: ["prod_TEeg0ykplmGKd0", "prod_TF5cFE5Fi5rBCz"],
+  business: ["prod_TEegHmtpPZOZcG", "prod_TF5cnWFZYEQUsG"],
+  enterprise: ["prod_ENTERPRISE_ID_PLACEHOLDER"],
+};
 ```
 
 ### 2.5 Feature-Gating Implementation
@@ -165,12 +165,12 @@ export const PRODUCT_IDS = {
 import { hasFeatureAccess } from '@/lib/tariff/tariff-definitions';
 
 const hasPartnerAccess = hasFeatureAccess(
-  company?.subscription_product_id, 
+  company?.subscription_product_id,
   'partners'
 );
 
 if (!hasPartnerAccess) {
-  return <UpgradePrompt 
+  return <UpgradePrompt
     featureName="Partner-Management"
     requiredTier="Business"
     variant="fullscreen"
@@ -188,7 +188,7 @@ if (!hasPartnerAccess) {
 
 ```typescript
 // ✅ RICHTIG
-import { PRICING_TIERS } from '@/data/pricing-tiers';
+import { PRICING_TIERS } from "@/data/pricing-tiers";
 const starterPrice = PRICING_TIERS[0].priceNumeric;
 
 // ❌ FALSCH
@@ -197,19 +197,20 @@ const starterPrice = 39; // Hardcoded!
 
 ### 3.2 Zentrale Datenquellen
 
-| Datentyp | Datei | Beschreibung |
-|----------|-------|--------------|
-| Pricing | `src/data/pricing-tiers.ts` | Marketing-Preise & Features |
-| Tarife | `src/lib/tariff/tariff-definitions.ts` | App-Tarif-Logik |
-| FAQ | `src/data/faq-data.ts` | FAQ-Daten |
-| Testimonials | `src/data/testimonials.ts` | Kundenbewertungen |
-| Stripe IDs | `src/lib/subscription-utils.ts` | Stripe Product/Price IDs |
+| Datentyp     | Datei                                  | Beschreibung                |
+| ------------ | -------------------------------------- | --------------------------- |
+| Pricing      | `src/data/pricing-tiers.ts`            | Marketing-Preise & Features |
+| Tarife       | `src/lib/tariff/tariff-definitions.ts` | App-Tarif-Logik             |
+| FAQ          | `src/data/faq-data.ts`                 | FAQ-Daten                   |
+| Testimonials | `src/data/testimonials.ts`             | Kundenbewertungen           |
+| Stripe IDs   | `src/lib/subscription-utils.ts`        | Stripe Product/Price IDs    |
 
 ### 3.3 Automatische Synchronisation
 
 **ZIEL:** Änderung an einer Stelle = Überall aktualisiert
 
 **Verwendung auf Seiten:**
+
 ```typescript
 // Home.tsx, Pricing.tsx, Auth.tsx - ALLE nutzen dieselben Daten
 import { PRICING_TIERS } from '@/data/pricing-tiers';
@@ -229,21 +230,21 @@ import { PRICING_TIERS } from '@/data/pricing-tiers';
 /* index.css - Zentrale Farbdefinitionen */
 :root {
   /* Primary Colors */
-  --primary: 217 91% 60%;           /* Hauptfarbe (Blau) */
-  --primary-foreground: 0 0% 100%;  /* Text auf Primary */
-  
+  --primary: 217 91% 60%; /* Hauptfarbe (Blau) */
+  --primary-foreground: 0 0% 100%; /* Text auf Primary */
+
   /* Background */
-  --background: 0 0% 100%;          /* Weiß */
-  --foreground: 222 47% 11%;        /* Dunkelgrau (Text) */
-  
+  --background: 0 0% 100%; /* Weiß */
+  --foreground: 222 47% 11%; /* Dunkelgrau (Text) */
+
   /* Muted */
-  --muted: 210 40% 96%;             /* Hellgrau */
-  --muted-foreground: 215 16% 47%;  /* Grauer Text */
-  
+  --muted: 210 40% 96%; /* Hellgrau */
+  --muted-foreground: 215 16% 47%; /* Grauer Text */
+
   /* Status Colors */
-  --status-success: 142 71% 45%;    /* Grün */
-  --status-warning: 38 92% 50%;     /* Orange */
-  --status-error: 0 84% 60%;        /* Rot */
+  --status-success: 142 71% 45%; /* Grün */
+  --status-warning: 38 92% 50%; /* Orange */
+  --status-error: 0 84% 60%; /* Rot */
 }
 
 .dark {
@@ -286,11 +287,21 @@ spacing: {
 
 ```css
 /* Mobile First */
-@media (min-width: 640px)  { /* sm */ }
-@media (min-width: 768px)  { /* md */ }
-@media (min-width: 1024px) { /* lg */ }
-@media (min-width: 1280px) { /* xl */ }
-@media (min-width: 1536px) { /* 2xl */ }
+@media (min-width: 640px) {
+  /* sm */
+}
+@media (min-width: 768px) {
+  /* md */
+}
+@media (min-width: 1024px) {
+  /* lg */
+}
+@media (min-width: 1280px) {
+  /* xl */
+}
+@media (min-width: 1536px) {
+  /* 2xl */
+}
 ```
 
 ---
@@ -328,8 +339,8 @@ spacing: {
 
 ```typescript
 // Feature-Gate
-<FeatureGate 
-  requiredTariff="Business" 
+<FeatureGate
+  requiredTariff="Business"
   feature="partner_management"
 >
   <PartnerComponent />
@@ -432,14 +443,12 @@ spacing: {
 
 ```typescript
 // Edge Function: sync-tariff-to-stripe
-await supabase.functions.invoke('sync-tariff-to-stripe', {
-  body: { tariff_id: 'business' }
+await supabase.functions.invoke("sync-tariff-to-stripe", {
+  body: { tariff_id: "business" },
 });
 
 // Synchronisiert:
-- Product-Metadaten
-- Feature-Beschreibungen
-- Limit-Informationen
+-Product - Metadaten - Feature - Beschreibungen - Limit - Informationen;
 ```
 
 ### 7.3 Supabase Types
@@ -447,7 +456,7 @@ await supabase.functions.invoke('sync-tariff-to-stripe', {
 ```typescript
 // NIEMALS manuell editieren!
 // Auto-generiert aus DB-Schema
-src/integrations/supabase/types.ts
+src / integrations / supabase / types.ts;
 ```
 
 ---
@@ -458,7 +467,7 @@ src/integrations/supabase/types.ts
 
 ```typescript
 // ✅ RICHTIG
-import { PRICING_TIERS } from '@/data/pricing-tiers';
+import { PRICING_TIERS } from "@/data/pricing-tiers";
 
 // ❌ FALSCH
 const price = 39; // Hardcoded!
@@ -491,16 +500,13 @@ if (tier === 'business' || tier === 'enterprise') { ... }
 ```typescript
 // ✅ RICHTIG - subscription_product_id IMMER laden
 const { data } = await supabase
-  .from('companies')
-  .select('id, name, subscription_product_id')
-  .eq('id', companyId)
+  .from("companies")
+  .select("id, name, subscription_product_id")
+  .eq("id", companyId)
   .maybeSingle();
 
 // ❌ FALSCH - subscription_product_id fehlt
-const { data } = await supabase
-  .from('companies')
-  .select('id, name')
-  .eq('id', companyId);
+const { data } = await supabase.from("companies").select("id, name").eq("id", companyId);
 ```
 
 ### 8.5 Design-System
@@ -514,7 +520,7 @@ const { data } = await supabase
 
 /* ❌ FALSCH - Hardcoded Colors */
 .button {
-  background-color: #3B82F6;
+  background-color: #3b82f6;
   color: white;
 }
 ```
@@ -550,7 +556,7 @@ const { data } = await supabase
 
 - [ ] `pricing-tiers.ts` aktualisieren
 - [ ] `tariff-definitions.ts` synchronisieren
-- [ ] Jahrespreise berechnen (Monat * 12 - Rabatt)
+- [ ] Jahrespreise berechnen (Monat \* 12 - Rabatt)
 - [ ] Ersparnis-Anzeige prüfen
 - [ ] Home.tsx Check
 - [ ] Pricing.tsx Check
@@ -580,6 +586,7 @@ const { data } = await supabase
 **Problem:** Jahrespreise werden nicht angezeigt
 
 **Lösung:**
+
 ```typescript
 // Prüfen ob yearlyPrice gesetzt ist
 {tier.yearlyPrice && tier.id !== 'enterprise' && (
@@ -590,38 +597,40 @@ const { data } = await supabase
 **Problem:** Feature wird angezeigt obwohl Tarif falsch
 
 **Lösung:**
+
 ```typescript
 // subscription_product_id MUSS geladen werden
 const { data } = await supabase
-  .from('companies')
-  .select('*, subscription_product_id')
-  .eq('id', companyId);
+  .from("companies")
+  .select("*, subscription_product_id")
+  .eq("id", companyId);
 ```
 
 **Problem:** Tarif wird nicht erkannt
 
 **Lösung:**
+
 ```typescript
 // Utility-Funktionen verwenden
-import { isBusinessTier } from '@/lib/subscription-utils';
-console.log('Product ID:', company?.subscription_product_id);
-console.log('Is Business:', isBusinessTier(company?.subscription_product_id));
+import { isBusinessTier } from "@/lib/subscription-utils";
+console.log("Product ID:", company?.subscription_product_id);
+console.log("Is Business:", isBusinessTier(company?.subscription_product_id));
 ```
 
 ### 10.2 Debug-Kommandos
 
 ```typescript
 // Tarif-Informationen ausgeben
-console.log('Tariff:', getTariffByProductId(productId));
-console.log('Features:', tariff?.features);
-console.log('Limits:', tariff?.limits);
+console.log("Tariff:", getTariffByProductId(productId));
+console.log("Features:", tariff?.features);
+console.log("Limits:", tariff?.limits);
 
 // Subscription-Status prüfen
 const { data } = await supabase
-  .from('companies')
-  .select('subscription_product_id, subscription_status')
-  .eq('id', companyId);
-console.log('Subscription:', data);
+  .from("companies")
+  .select("subscription_product_id, subscription_status")
+  .eq("id", companyId);
+console.log("Subscription:", data);
 ```
 
 ---

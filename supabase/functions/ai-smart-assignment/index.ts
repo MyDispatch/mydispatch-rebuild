@@ -52,10 +52,10 @@ serve(async (req) => {
 
     // Input Validation
     if (!input.booking_id || !input.company_id) {
-      return new Response(
-        JSON.stringify({ error: "booking_id and company_id are required" }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "booking_id and company_id are required" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     console.log("[AI-SMART-ASSIGNMENT] Processing assignment for booking:", input.booking_id);
@@ -71,10 +71,10 @@ serve(async (req) => {
 
     if (bookingError || !booking) {
       console.error("[AI-SMART-ASSIGNMENT] Booking not found:", bookingError);
-      return new Response(
-        JSON.stringify({ error: "Booking not found" }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Booking not found" }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 2. Get Available Drivers
@@ -91,14 +91,14 @@ serve(async (req) => {
     }
 
     if (!drivers || drivers.length === 0) {
-      return new Response(
-        JSON.stringify({ error: "No available drivers found" }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "No available drivers found" }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 3. Get Active Bookings Count for each driver
-    const driverIds = drivers.map(d => d.id);
+    const driverIds = drivers.map((d) => d.id);
     const { data: activeBookings } = await supabase
       .from("bookings")
       .select("driver_id")
@@ -107,10 +107,13 @@ serve(async (req) => {
       .in("status", ["pending", "assigned", "in_progress"])
       .in("driver_id", driverIds);
 
-    const bookingsByDriver = (activeBookings || []).reduce((acc, b) => {
-      if (b.driver_id) acc[b.driver_id] = (acc[b.driver_id] || 0) + 1;
-      return acc;
-    }, {} as Record<string, number>);
+    const bookingsByDriver = (activeBookings || []).reduce(
+      (acc, b) => {
+        if (b.driver_id) acc[b.driver_id] = (acc[b.driver_id] || 0) + 1;
+        return acc;
+      },
+      {} as Record<string, number>
+    );
 
     // 4. Calculate Scores for each Driver
     const criteria = input.assignment_criteria || {
@@ -120,7 +123,7 @@ serve(async (req) => {
       workload: true,
     };
 
-    const scoredDrivers: (Driver & { score: number })[] = drivers.map(driver => {
+    const scoredDrivers: (Driver & { score: number })[] = drivers.map((driver) => {
       let score = 0;
 
       // Availability Score (0-30 points)
@@ -136,18 +139,23 @@ serve(async (req) => {
       // Workload Score (0-25 points) - Lower is better
       const workload = bookingsByDriver[driver.id] || 0;
       if (criteria.workload) {
-        score += Math.max(0, 25 - (workload * 5));
+        score += Math.max(0, 25 - workload * 5);
       }
 
       // Proximity Score (0-20 points) - If location data available
-      if (criteria.proximity && driver.current_location && booking.pickup_lat && booking.pickup_lng) {
+      if (
+        criteria.proximity &&
+        driver.current_location &&
+        booking.pickup_lat &&
+        booking.pickup_lng
+      ) {
         const distance = calculateDistance(
           driver.current_location.lat,
           driver.current_location.lng,
           booking.pickup_lat,
           booking.pickup_lng
         );
-        score += Math.max(0, 20 - (distance / 10)); // Max 20 points, decreases by distance
+        score += Math.max(0, 20 - distance / 10); // Max 20 points, decreases by distance
       }
 
       return {
@@ -162,7 +170,7 @@ serve(async (req) => {
 
     // 6. Check if preferred driver is available
     if (input.preferred_driver_id) {
-      const preferredDriver = scoredDrivers.find(d => d.id === input.preferred_driver_id);
+      const preferredDriver = scoredDrivers.find((d) => d.id === input.preferred_driver_id);
       if (preferredDriver && preferredDriver.is_available) {
         console.log("[AI-SMART-ASSIGNMENT] Using preferred driver:", preferredDriver.id);
         return new Response(
@@ -174,7 +182,7 @@ serve(async (req) => {
               name: preferredDriver.name,
               score: preferredDriver.score,
             },
-            alternatives: scoredDrivers.slice(0, 3).map(d => ({
+            alternatives: scoredDrivers.slice(0, 3).map((d) => ({
               id: d.id,
               name: d.name,
               score: d.score,
@@ -188,10 +196,10 @@ serve(async (req) => {
     // 7. Assign Best Driver
     const bestDriver = scoredDrivers[0];
     if (!bestDriver || !bestDriver.is_available) {
-      return new Response(
-        JSON.stringify({ error: "No suitable driver available" }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "No suitable driver available" }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 8. Update Booking
@@ -223,7 +231,7 @@ serve(async (req) => {
           rating: bestDriver.rating,
           active_bookings_count: bestDriver.active_bookings_count,
         },
-        alternatives: scoredDrivers.slice(1, 4).map(d => ({
+        alternatives: scoredDrivers.slice(1, 4).map((d) => ({
           id: d.id,
           name: d.name,
           score: d.score,
@@ -233,22 +241,24 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error("[AI-SMART-ASSIGNMENT] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
 
 // Helper: Calculate Distance (Haversine Formula)
 function calculateDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371; // Earth's radius in km
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLng = (lng2 - lng1) * Math.PI / 180;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-    Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLng / 2) *
+      Math.sin(dLng / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c; // Distance in km
 }

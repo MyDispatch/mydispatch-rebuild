@@ -18,12 +18,12 @@ Diese Fehlerdatenbank dient der **präventiven Qualitätssicherung** und **syste
 
 ### Severity-Level
 
-| Level | Bezeichnung | Beschreibung | Reaktionszeit |
-|-------|-------------|--------------|---------------|
-| **CRITICAL** | Systemkritisch | System funktionsunfähig, Datenverlust | Sofort |
-| **HIGH** | Hoch | Kernfunktion beeinträchtigt | < 4h |
-| **MEDIUM** | Mittel | Feature teilweise beeinträchtigt | < 24h |
-| **LOW** | Niedrig | Kosmetischer Fehler, Workaround verfügbar | < 7d |
+| Level        | Bezeichnung    | Beschreibung                              | Reaktionszeit |
+| ------------ | -------------- | ----------------------------------------- | ------------- |
+| **CRITICAL** | Systemkritisch | System funktionsunfähig, Datenverlust     | Sofort        |
+| **HIGH**     | Hoch           | Kernfunktion beeinträchtigt               | < 4h          |
+| **MEDIUM**   | Mittel         | Feature teilweise beeinträchtigt          | < 24h         |
+| **LOW**      | Niedrig        | Kosmetischer Fehler, Workaround verfügbar | < 7d          |
 
 ### Fehler-Kategorien
 
@@ -50,34 +50,39 @@ Diese Fehlerdatenbank dient der **präventiven Qualitätssicherung** und **syste
 Unvalidierte Nutzereingaben in `IntelligentAIChat.tsx`, `HelpSystem.tsx` und `DocumentationModal.tsx` ermöglichten Cross-Site-Scripting-Angriffe durch `dangerouslySetInnerHTML`.
 
 **Root Cause:**
+
 - Fehlende Input-Sanitization
 - Direktes Rendering von HTML ohne Validierung
 - Keine Content Security Policy
 
 **Implementierte Lösung:**
+
 ```typescript
 // src/lib/sanitize.ts
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
 
 export const sanitizeHTML = (html: string): string => {
   return DOMPurify.sanitize(html, {
-    ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li', 'code', 'pre'],
-    ALLOWED_ATTR: ['href', 'target', 'rel', 'class']
+    ALLOWED_TAGS: ["b", "i", "em", "strong", "a", "p", "br", "ul", "ol", "li", "code", "pre"],
+    ALLOWED_ATTR: ["href", "target", "rel", "class"],
   });
 };
 ```
 
 **Betroffene Dateien:**
+
 - `src/components/shared/IntelligentAIChat.tsx`
 - `src/components/help/HelpSystem.tsx` (2 Stellen)
 - `src/components/docs/DocumentationModal.tsx`
 
 **Präventionsmaßnahmen:**
+
 - ✅ Alle User-Inputs müssen durch `sanitizeHTML()` laufen
 - ✅ `dangerouslySetInnerHTML` nur mit sanitisierten Daten
 - ✅ Code-Review-Pflicht für alle Input-Handling-Komponenten
 
 **Verifizierung:**
+
 - [x] E2E Security Tests implementiert
 - [x] Manual Security Audit durchgeführt
 - [x] DOMPurify als Standard-Library dokumentiert
@@ -98,11 +103,13 @@ Build-Prozess schlug fehl mit `Cannot find module 'terser'`.
 Terser wurde als devDependency benötigt, war aber nicht in `package.json` definiert.
 
 **Implementierte Lösung:**
+
 ```bash
 npm install terser@latest --save-dev
 ```
 
 **Präventionsmaßnahmen:**
+
 - ✅ Dependency-Audit vor jedem Release
 - ✅ CI/CD Pipeline prüft Build-Prozess
 - ✅ Lock-Files werden versioniert
@@ -122,17 +129,20 @@ npm install terser@latest --save-dev
 Viele Formulare und API-Calls validieren User-Inputs nicht ausreichend.
 
 **Root Cause:**
+
 - Keine zentrale Validation-Library
 - Fehlende Zod-Schemas für alle Datenstrukturen
 - Backend-Validation unvollständig
 
 **Geplante Lösung:**
+
 1. Zentrale Validation-Library erstellen (`src/lib/validation.ts`)
 2. Zod-Schemas für alle Entitäten definieren
 3. Client & Server-Side Validation implementieren
 4. RLS Policies prüfen und härten
 
 **Betroffene Bereiche:**
+
 - Kontaktformulare
 - Auftrags-Erstellung
 - Profil-Bearbeitung
@@ -155,16 +165,19 @@ Viele Formulare und API-Calls validieren User-Inputs nicht ausreichend.
 Uneinheitliche `gap`, `margin`, `padding` Werte führen zu visueller Inkonsistenz.
 
 **Root Cause:**
+
 - Fehlende Design-System-Vorgaben (jetzt vorhanden: DESIGN_SYSTEM_VORGABEN_V18.3.md)
 - Entwickler verwenden ad-hoc Spacing-Werte
 - Keine Code-Review-Checks für Spacing
 
 **Implementierte Lösung:**
+
 - ✅ Design-System-Dokumentation erstellt
 - ✅ Standard-Spacing definiert (4px Grid)
 - ⚠️ Systemweite Durchsetzung ausstehend
 
 **Nächste Schritte:**
+
 1. Lint-Rules für Spacing-Compliance
 2. Automatische Formatierung
 3. Refactoring aller Seiten gemäß DESIGN_SYSTEM_VORGABEN_V18.3.md
@@ -182,15 +195,18 @@ Uneinheitliche `gap`, `margin`, `padding` Werte führen zu visueller Inkonsisten
 Icons werden fälschlicherweise mit Ampelfarben (grün/rot/gelb) eingefärbt statt mit `text-foreground`.
 
 **Root Cause:**
+
 - Fehlende Icon-Richtlinien
 - Verwechslung von Status-Badges und Icons
 
 **Implementierte Lösung:**
+
 - ✅ ICON_GUIDELINES.md erstellt (siehe Docs)
 - ✅ Design-System dokumentiert korrekte Icon-Farben
 - ✅ Dynamische Icon-Komponente erstellt (`Icon.tsx`)
 
 **Regel:**
+
 ```tsx
 // ✅ RICHTIG
 <Icon name="Camera" className="text-foreground" />
@@ -214,6 +230,7 @@ Icons werden fälschlicherweise mit Ampelfarben (grün/rot/gelb) eingefärbt sta
 Bilder werden nicht lazy-loaded, was Initial Load beeinträchtigt.
 
 **Geplante Lösung:**
+
 ```tsx
 <img src="..." alt="..." loading="lazy" />
 ```
@@ -226,41 +243,45 @@ Bilder werden nicht lazy-loaded, was Initial Load beeinträchtigt.
 
 ### Nach Kategorie (Stand: 2025-10-21)
 
-| Kategorie | Gesamt | Behoben | Offen | In Arbeit |
-|-----------|--------|---------|-------|-----------|
-| SECURITY | 1 | 1 | 0 | 0 |
-| BUILD | 1 | 1 | 0 | 0 |
-| DATA | 1 | 0 | 0 | 1 |
-| UI/UX | 2 | 1 | 0 | 1 |
-| PERFORMANCE | 1 | 0 | 1 | 0 |
-| **TOTAL** | **6** | **3** | **1** | **2** |
+| Kategorie   | Gesamt | Behoben | Offen | In Arbeit |
+| ----------- | ------ | ------- | ----- | --------- |
+| SECURITY    | 1      | 1       | 0     | 0         |
+| BUILD       | 1      | 1       | 0     | 0         |
+| DATA        | 1      | 0       | 0     | 1         |
+| UI/UX       | 2      | 1       | 0     | 1         |
+| PERFORMANCE | 1      | 0       | 1     | 0         |
+| **TOTAL**   | **6**  | **3**   | **1** | **2**     |
 
 ### Nach Severity
 
 | Severity | Anzahl | Behebungsquote |
-|----------|--------|----------------|
-| CRITICAL | 2 | 100% |
-| HIGH | 1 | 0% |
-| MEDIUM | 2 | 50% |
-| LOW | 1 | 0% |
+| -------- | ------ | -------------- |
+| CRITICAL | 2      | 100%           |
+| HIGH     | 1      | 0%             |
+| MEDIUM   | 2      | 50%            |
+| LOW      | 1      | 0%             |
 
 ---
 
 ## 🔄 LESSONS LEARNED
 
 ### 1. XSS-Prävention ist systemkritisch
+
 **Erkenntnis:** User-Inputs IMMER sanitizen, NIEMALS direkt rendern.  
 **Standard:** DOMPurify für alle HTML-Rendering-Operationen
 
 ### 2. Dependencies müssen explizit sein
+
 **Erkenntnis:** Implizite Dependencies führen zu Build-Failures.  
 **Standard:** Alle Dependencies explizit in package.json definieren
 
 ### 3. Design-System-Compliance von Anfang an
+
 **Erkenntnis:** Nachträgliche Harmonisierung ist 10x aufwändiger.  
 **Standard:** Template-basierte Entwicklung + Pre-Commit-Checks
 
 ### 4. Icon-Farben müssen semantisch sein
+
 **Erkenntnis:** Ampelfarben gehören NUR auf Status-Badges.  
 **Standard:** Icons verwenden `text-foreground` oder `text-primary`
 
@@ -288,13 +309,16 @@ Bei jedem neuen Fehler dieses Template verwenden:
 [Wie wurde es behoben?]
 
 **Betroffene Dateien:**
+
 - [Liste der Dateien]
 
 **Präventionsmaßnahmen:**
+
 - [ ] [Maßnahme 1]
 - [ ] [Maßnahme 2]
 
 **Verifizierung:**
+
 - [ ] Tests implementiert
 - [ ] Manual Verification
 - [ ] Code Review

@@ -3,6 +3,7 @@
 ## ÜBERSICHT
 
 Das Tariff-System V18.3.24 ist eine **zentrale, typsichere und Stripe-synchronisierte** Lösung für:
+
 - ✅ Tarif-Definitionen (Starter, Business, Enterprise)
 - ✅ Feature-Gating & Access-Control
 - ✅ Limit-Enforcement (Fahrer, Fahrzeuge, etc.)
@@ -42,15 +43,15 @@ supabase/functions/
 
 ```typescript
 interface TariffDefinition {
-  id: 'starter' | 'business' | 'enterprise';
+  id: "starter" | "business" | "enterprise";
   name: string;
   priceMonthly: number;
   priceYearly: number;
-  priceMonthlyFormatted: string;  // "39 €"
-  priceYearlyFormatted: string;   // "374,40 €"
-  yearlyDiscount: number;         // 93.60
+  priceMonthlyFormatted: string; // "39 €"
+  priceYearlyFormatted: string; // "374,40 €"
+  yearlyDiscount: number; // 93.60
   description: string;
-  badge?: string;                 // "Empfohlen"
+  badge?: string; // "Empfohlen"
   highlighted: boolean;
   stripeProductIds: readonly string[];
   stripePriceIds: {
@@ -60,7 +61,7 @@ interface TariffDefinition {
   limits: TariffLimit;
   features: TariffFeature[];
   ctaText: string;
-  ctaAction: 'signup' | 'contact' | 'upgrade';
+  ctaAction: "signup" | "contact" | "upgrade";
 }
 ```
 
@@ -68,7 +69,7 @@ interface TariffDefinition {
 
 ```typescript
 interface TariffLimit {
-  drivers: number;    // -1 = Unbegrenzt
+  drivers: number; // -1 = Unbegrenzt
   vehicles: number;
   bookings: number;
   partners: number;
@@ -80,12 +81,12 @@ interface TariffLimit {
 
 ```typescript
 interface TariffFeature {
-  id: string;             // Eindeutige ID
-  name: string;           // Anzeigename
+  id: string; // Eindeutige ID
+  name: string; // Anzeigename
   description?: string;
-  included: boolean;      // Im Tarif enthalten?
-  module?: string;        // Für Feature-Gating
-  route?: string;         // Für Navigation
+  included: boolean; // Im Tarif enthalten?
+  module?: string; // Für Feature-Gating
+  route?: string; // Für Navigation
 }
 ```
 
@@ -103,8 +104,8 @@ const { company } = useAuth();
 const hasPartnerAccess = hasFeatureAccess(company?.subscription_product_id, 'partners');
 
 if (!hasPartnerAccess) {
-  return <UpgradePrompt 
-    featureName="Partner-Management" 
+  return <UpgradePrompt
+    featureName="Partner-Management"
     featureDescription="Verwalten Sie Partnerfirmen und teilen Sie Aufträge"
     requiredTier="Business"
     variant="fullscreen"
@@ -143,17 +144,17 @@ import { FeatureGate } from '@/components/shared/FeatureGate';
 ### Hook: useTariffLimits
 
 ```typescript
-import { useTariffLimits } from '@/hooks/use-tariff-limits';
+import { useTariffLimits } from "@/hooks/use-tariff-limits";
 
 const { canAdd, tryAdd, showLimitWarning } = useTariffLimits();
 
 // Prüfe vor Erstellung
 const handleCreateDriver = () => {
-  if (!tryAdd('drivers')) {
+  if (!tryAdd("drivers")) {
     // Limit erreicht, Toast wird automatisch angezeigt
     return;
   }
-  
+
   // Erstelle Fahrer
   createDriver();
 };
@@ -162,11 +163,11 @@ const handleCreateDriver = () => {
 ### Automatische Limit-Warnung
 
 ```typescript
-if (canAdd('drivers')) {
+if (canAdd("drivers")) {
   // Erlaubt
 } else {
-  showLimitWarning('drivers');
-  // Toast: "Sie haben das Maximum von 3 Fahrern erreicht. 
+  showLimitWarning("drivers");
+  // Toast: "Sie haben das Maximum von 3 Fahrern erreicht.
   //         Upgraden Sie auf Business für unbegrenzte Nutzung."
 }
 ```
@@ -188,16 +189,16 @@ const { usage, limits } = useTariffLimits();
 ### Automatischer Sync bei Tarif-Änderungen
 
 ```typescript
-import { syncTariffToStripe } from '@/lib/stripe/tariff-sync';
+import { syncTariffToStripe } from "@/lib/stripe/tariff-sync";
 
 // Nach Änderung an Tarif-Definition
-await syncTariffToStripe('business');
+await syncTariffToStripe("business");
 ```
 
 ### Vollständiger Sync aller Tarife
 
 ```typescript
-import { syncAllTariffsToStripe } from '@/lib/stripe/tariff-sync';
+import { syncAllTariffsToStripe } from "@/lib/stripe/tariff-sync";
 
 await syncAllTariffsToStripe();
 ```
@@ -208,18 +209,19 @@ await syncAllTariffsToStripe();
 
 ```typescript
 // Aufruf via Frontend
-const { data } = await supabase.functions.invoke('sync-tariff-to-stripe', {
-  body: { 
-    tariff_id: 'business',
+const { data } = await supabase.functions.invoke("sync-tariff-to-stripe", {
+  body: {
+    tariff_id: "business",
     metadata: {
-      feature_count: '18',
-      last_updated: new Date().toISOString()
-    }
-  }
+      feature_count: "18",
+      last_updated: new Date().toISOString(),
+    },
+  },
 });
 ```
 
 **Was wird synchronisiert:**
+
 - ✅ Product-Metadaten (Features, Limits)
 - ✅ Beschreibung
 - ✅ Timestamps
@@ -242,6 +244,7 @@ import { ALL_TARIFFS } from '@/lib/tariff/tariff-definitions';
 ```
 
 **Änderungen propagieren automatisch zu:**
+
 - ✅ Pricing-Seite
 - ✅ Vergleichs-Tabelle
 - ✅ Feature-Gates
@@ -256,8 +259,8 @@ import { ALL_TARIFFS } from '@/lib/tariff/tariff-definitions';
 #### 1. Inline (für kleine Bereiche)
 
 ```typescript
-<UpgradePrompt 
-  featureName="Statistiken" 
+<UpgradePrompt
+  featureName="Statistiken"
   featureDescription="Erweiterte Reports und Analysen"
   requiredTier="Business"
   variant="inline"
@@ -267,8 +270,8 @@ import { ALL_TARIFFS } from '@/lib/tariff/tariff-definitions';
 #### 2. Card (Standard)
 
 ```typescript
-<UpgradePrompt 
-  featureName="Partner-Management" 
+<UpgradePrompt
+  featureName="Partner-Management"
   featureDescription="Verwalten Sie Partnerfirmen"
   requiredTier="Business"
   variant="card"
@@ -278,8 +281,8 @@ import { ALL_TARIFFS } from '@/lib/tariff/tariff-definitions';
 #### 3. Fullscreen (für gesperrte Seiten)
 
 ```typescript
-<UpgradePrompt 
-  featureName="Statistiken & Reports" 
+<UpgradePrompt
+  featureName="Statistiken & Reports"
   featureDescription="Umfassende Analysen Ihrer Geschäftsdaten"
   requiredTier="Business"
   variant="fullscreen"
@@ -291,10 +294,12 @@ import { ALL_TARIFFS } from '@/lib/tariff/tariff-definitions';
 ## BUSINESS-TARIF FEATURES (VOLLSTÄNDIG)
 
 ### Basis-Features
+
 - ✅ Unbegrenzt Fahrer/Fahrzeuge
 - ✅ Alle Starter-Features
 
 ### Premium-Features
+
 - ✅ Partner-Management
 - ✅ Live-Traffic & Wetter
 - ✅ Statistiken & Reports
@@ -304,6 +309,7 @@ import { ALL_TARIFFS } from '@/lib/tariff/tariff-definitions';
 - ✅ API-Zugang
 
 ### Erweiterte Features
+
 - ✅ GPS-Echtzeit-Tracking
 - ✅ Team-Chat
 - ✅ Dokumenten-Management
@@ -323,17 +329,20 @@ import { ALL_TARIFFS } from '@/lib/tariff/tariff-definitions';
 ### ✅ DO
 
 1. **Verwende zentrale Definitionen**
+
    ```typescript
-   import { getTariffById } from '@/lib/tariff/tariff-definitions';
-   const business = getTariffById('business');
+   import { getTariffById } from "@/lib/tariff/tariff-definitions";
+   const business = getTariffById("business");
    ```
 
 2. **Prüfe Limits vor Aktionen**
+
    ```typescript
-   if (!tryAdd('drivers')) return;
+   if (!tryAdd("drivers")) return;
    ```
 
 3. **Zeige Upgrade-Prompts**
+
    ```typescript
    if (!hasFeatureAccess(productId, 'statistics')) {
      return <UpgradePrompt ... />;
@@ -342,35 +351,38 @@ import { ALL_TARIFFS } from '@/lib/tariff/tariff-definitions';
 
 4. **Synchronisiere nach Änderungen**
    ```typescript
-   await syncTariffToStripe('business');
+   await syncTariffToStripe("business");
    ```
 
 ### ❌ DON'T
 
 1. **Keine Inline-Tarif-Daten**
+
    ```typescript
    // FALSCH
    const price = 99;
-   
+
    // RICHTIG
-   const business = getTariffById('business');
+   const business = getTariffById("business");
    const price = business.priceMonthly;
    ```
 
 2. **Keine manuellen Feature-Checks**
+
    ```typescript
    // FALSCH
    if (productId === 'prod_TEegHmtpPZOZcG') { ... }
-   
+
    // RICHTIG
    if (hasFeatureAccess(productId, 'partners')) { ... }
    ```
 
 3. **Keine Hardcoded-Limits**
+
    ```typescript
    // FALSCH
    if (drivers.length >= 3) { ... }
-   
+
    // RICHTIG
    if (exceedsLimit(productId, 'drivers', drivers.length)) { ... }
    ```
@@ -393,10 +405,8 @@ import { TariffSwitcher } from '@/components/settings/TariffSwitcher';
 1. **Limit-Erreicht**
    - Erstelle 3 Fahrer im Starter
    - Versuche 4. Fahrer zu erstellen → Toast-Warnung
-   
 2. **Feature-Gesperrt**
    - Öffne `/partner` im Starter → Upgrade-Prompt
-   
 3. **Upgrade-Flow**
    - Klicke "Upgrade" → Weiterleitung zu `/pricing`
 
@@ -426,20 +436,23 @@ import { TariffSwitcher } from '@/components/settings/TariffSwitcher';
 ### Schritte
 
 1. **Importiere Definitionen**
+
    ```typescript
-   import { getTariffByProductId } from '@/lib/tariff/tariff-definitions';
+   import { getTariffByProductId } from "@/lib/tariff/tariff-definitions";
    ```
 
 2. **Ersetze Inline-Checks**
+
    ```typescript
    // Alt
    if (isBusinessTier(productId)) { ... }
-   
+
    // Neu
    if (hasFeatureAccess(productId, 'partners')) { ... }
    ```
 
 3. **Füge Upgrade-Prompts hinzu**
+
    ```typescript
    if (!hasAccess) {
      return <UpgradePrompt ... />;
@@ -458,9 +471,9 @@ import { TariffSwitcher } from '@/components/settings/TariffSwitcher';
 ### Logs aktivieren
 
 ```typescript
-console.log('Tariff:', getTariffByProductId(company?.subscription_product_id));
-console.log('Feature Access:', hasFeatureAccess(productId, 'partners'));
-console.log('Limits:', useTariffLimits().limits);
+console.log("Tariff:", getTariffByProductId(company?.subscription_product_id));
+console.log("Feature Access:", hasFeatureAccess(productId, "partners"));
+console.log("Limits:", useTariffLimits().limits);
 ```
 
 ### Häufige Fehler
@@ -485,7 +498,7 @@ Das Tariff-System V18.3.24 stellt sicher:
 ✅ **Robustes Feature-Gating** auf allen Ebenen  
 ✅ **Limit-Enforcement** verhindert Übernutzung  
 ✅ **Benutzerfreundliche Upgrade-Prompts**  
-✅ **Versprechen werden eingehalten**  
+✅ **Versprechen werden eingehalten**
 
 **Status:** 🟢 Production Ready
 

@@ -7,11 +7,13 @@
 ### 🎯 Drei-Säulen-Ansatz: Mobile → Tablet → Desktop
 
 **PFLICHT:** Jede Komponente MUSS für ALLE drei Geräteklassen optimiert werden:
+
 - 📱 **Mobile** (< 768px): Touch-First, kompakt, vertikal
 - 📋 **Tablet** (768px - 1023px): Hybrid-Layout, moderate Dichte
 - 💻 **Desktop** (≥ 1024px): Information-Dense, horizontal
 
 ### 1. Analyse-Phase (IMMER ZUERST)
+
 - [ ] Alle betroffenen Dateien identifizieren
 - [ ] Abhängigkeiten und Schnittstellen dokumentieren
 - [ ] Bestehende Patterns prüfen (Mobile, Tablet, Desktop)
@@ -19,17 +21,20 @@
 - [ ] Tablet-spezifische Anforderungen identifizieren
 
 ### 2. Planungs-Phase
+
 - [ ] Design-Tokens definieren
 - [ ] Templates erstellen
 - [ ] Umsetzungsreihenfolge festlegen
 - [ ] Test-Strategie planen
 
 ### 3. Template-Erstellung
+
 - [ ] Basis-Templates für alle Komponententypen
 - [ ] Utility-Klassen definieren
 - [ ] Code-Snippets dokumentieren
 
 ### 4. Systemweite Umsetzung
+
 - [ ] Alle Seiten/Komponenten anpassen
 - [ ] Tests durchführen
 - [ ] Dokumentation aktualisieren
@@ -166,21 +171,23 @@ grid-gap: "gap-4 sm:gap-6"
         <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
         <span className="text-xs sm:text-sm">Badge Text</span>
       </div>
-      
+
       {/* Heading */}
       <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
         Hero Title
       </h1>
-      
+
       {/* Subtitle */}
       <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-4xl mx-auto px-2 sm:px-0">
         Hero Subtitle
       </p>
-      
+
       {/* CTAs */}
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 sm:pt-8">
         <Button className="w-full sm:w-auto min-h-[44px]">Primary CTA</Button>
-        <Button variant="outline" className="w-full sm:w-auto min-h-[44px]">Secondary CTA</Button>
+        <Button variant="outline" className="w-full sm:w-auto min-h-[44px]">
+          Secondary CTA
+        </Button>
       </div>
     </div>
   </div>
@@ -202,7 +209,7 @@ grid-gap: "gap-4 sm:gap-6"
         Section Description
       </p>
     </div>
-    
+
     {/* Grid */}
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       {items.map((item, idx) => (
@@ -259,7 +266,7 @@ grid-gap: "gap-4 sm:gap-6"
     <Label className="text-xs sm:text-sm">Label</Label>
     <Input className="min-h-[44px] text-sm sm:text-base" />
   </div>
-  
+
   <Button type="submit" className="w-full min-h-[44px]">
     Submit
   </Button>
@@ -273,6 +280,7 @@ grid-gap: "gap-4 sm:gap-6"
 ### ✅ Jede Komponente muss für ALLE drei Geräteklassen erfüllen:
 
 #### 📱 Mobile (< 768px) - PFLICHT:
+
 - [ ] **Touch-Targets**: Alle interaktiven Elemente ≥44px (min-h-[44px])
 - [ ] **Kompakte Typography**: text-sm, text-base (max)
 - [ ] **Kompakte Spacing**: p-4, gap-3
@@ -283,6 +291,7 @@ grid-gap: "gap-4 sm:gap-6"
 - [ ] **Readable Line Heights**: leading-relaxed
 
 #### 📋 Tablet (768px - 1023px) - NEU & PFLICHT:
+
 - [ ] **Touch-Targets**: Auch Tablets sind Touch! ≥44px (min-h-[44px])
 - [ ] **Moderate Typography**: md:text-base, md:text-lg, md:text-xl
 - [ ] **Moderate Spacing**: md:p-6, md:gap-4, md:gap-6
@@ -294,6 +303,7 @@ grid-gap: "gap-4 sm:gap-6"
 - [ ] **Bottom-Nav Hidden**: Auf Tablet versteckt
 
 #### 💻 Desktop (≥ 1024px) - PFLICHT:
+
 - [ ] **Information-Dense Typography**: lg:text-lg, lg:text-xl, lg:text-2xl
 - [ ] **Großzügige Spacing**: lg:p-8, lg:gap-8, xl:gap-10
 - [ ] **Große Icons**: lg:h-6 lg:w-6, lg:h-8 lg:w-8
@@ -303,8 +313,9 @@ grid-gap: "gap-4 sm:gap-6"
 - [ ] **Sidebar Expanded**: lg:w-64 (240px)
 
 ### 🔗 Navigation & Links - SYSTEMWEIT:
+
 - [ ] **Interne Links**: Verwende `<Link to="/path">` (react-router-dom)
-- [ ] **Externe Links**: target="_blank" rel="noopener noreferrer"
+- [ ] **Externe Links**: target="\_blank" rel="noopener noreferrer"
 - [ ] **CTAs funktional**: Alle Buttons führen zu korrekten Zielen
 - [ ] **Router Guards**: Auth-Protected Routes implementiert
 - [ ] **Redirects**: Nach Login zu Dashboard, etc.
@@ -317,6 +328,7 @@ grid-gap: "gap-4 sm:gap-6"
 ## Umsetzungs-Reihenfolge
 
 ### Phase 1: Öffentliche Marketing-Seiten (PRIORITÄT)
+
 1. ✅ Home.tsx (erledigt)
 2. Pricing.tsx
 3. Unternehmer.tsx
@@ -326,6 +338,7 @@ grid-gap: "gap-4 sm:gap-6"
 7. Auth.tsx
 
 ### Phase 2: Layout-Komponenten
+
 1. MarketingLayout.tsx
 2. DashboardLayout.tsx
 3. Header.tsx
@@ -334,6 +347,7 @@ grid-gap: "gap-4 sm:gap-6"
 6. MobileBottomNav.tsx
 
 ### Phase 3: Interne App-Seiten
+
 1. Dashboard/IndexNew.tsx
 2. Auftraege.tsx
 3. Kunden.tsx
@@ -346,7 +360,8 @@ grid-gap: "gap-4 sm:gap-6"
 10. Statistiken.tsx
 
 ### Phase 4: Mobile-Komponenten Review
-1. Alle /components/mobile/* prüfen
+
+1. Alle /components/mobile/\* prüfen
 2. MobileGridLayout optimieren
 3. MobileFormDialog optimieren
 4. Touch-Targets validieren
@@ -356,24 +371,29 @@ grid-gap: "gap-4 sm:gap-6"
 ## Testing-Strategie (ERWEITERT: Mobile + Tablet + Desktop)
 
 ### Device Tests - Drei-Säulen-Ansatz
+
 #### 📱 Mobile (< 768px)
+
 - iPhone SE (375px) ← Minimum
 - iPhone 14 (390px)
 - iPhone 14 Pro Max (430px)
 
 #### 📋 Tablet (768px - 1023px)
+
 - iPad Mini (768px) ← Tablet Minimum
 - iPad (810px)
 - iPad Pro 11" (834px)
 - iPad Pro 12.9" (1024px)
 
 #### 💻 Desktop (≥ 1024px)
+
 - Laptop (1280px)
 - Desktop (1440px)
 - Large Desktop (1920px)
 - 4K (2560px+)
 
 ### Playwright Tests (ERWEITERT)
+
 ```typescript
 // tests/e2e/compliance/mobile-responsive.spec.ts
 // Alle Tests müssen für ALLE drei Geräteklassen bestehen:
@@ -400,6 +420,7 @@ grid-gap: "gap-4 sm:gap-6"
 ```
 
 ### 📋 TABLET-KRITISCHE TEST-PUNKTE:
+
 - [ ] Sidebar auf Tablet collapsed aber sichtbar?
 - [ ] Touch-Targets auch auf Tablet ≥44px?
 - [ ] Moderate Schriftgrößen (md: Prefix)?
@@ -412,28 +433,25 @@ grid-gap: "gap-4 sm:gap-6"
 ## Code-Snippets Library
 
 ### Responsive Section Wrapper
+
 ```tsx
 <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-background via-muted/20 to-background">
-  <div className="container mx-auto max-w-6xl">
-    {/* content */}
-  </div>
+  <div className="container mx-auto max-w-6xl">{/* content */}</div>
 </section>
 ```
 
 ### Responsive Heading Group
+
 ```tsx
 <div className="text-center mb-8 sm:mb-12 md:mb-16">
   <Badge className="mb-3 sm:mb-4">Category</Badge>
-  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2">
-    Heading
-  </h2>
-  <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
-    Description
-  </p>
+  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 px-2">Heading</h2>
+  <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto px-4">Description</p>
 </div>
 ```
 
 ### Responsive Grid
+
 ```tsx
 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
   {items.map((item) => (
@@ -449,6 +467,7 @@ grid-gap: "gap-4 sm:gap-6"
 ## Best Practices (ERWEITERT: Drei-Säulen-Ansatz)
 
 ### DO ✅ - Mobile (< 768px)
+
 - Beginne IMMER mit Mobile-Werten (text-sm, p-4, gap-3)
 - Min-Höhe 44px für alle Touch-Elemente
 - w-full für Buttons
@@ -457,6 +476,7 @@ grid-gap: "gap-4 sm:gap-6"
 - Kompakte Abstände, große Touch-Targets
 
 ### DO ✅ - Tablet (768px - 1023px) - NEU!
+
 - Verwende EXPLIZIT md: Prefix für Tablet-Werte
 - Moderate Schriftgrößen (md:text-base, md:text-lg, md:text-xl)
 - Moderate Spacing (md:p-6, md:gap-4, md:gap-6)
@@ -467,6 +487,7 @@ grid-gap: "gap-4 sm:gap-6"
 - Teste auf iPad (768px) ← TABLET MINIMUM
 
 ### DO ✅ - Desktop (≥ 1024px)
+
 - Verwende lg: und xl: Prefixes für Desktop/Large
 - Information-Dense Layouts (lg:grid-cols-3, lg:grid-cols-4)
 - Großzügige Spacing (lg:p-8, lg:gap-8, xl:gap-10)
@@ -474,6 +495,7 @@ grid-gap: "gap-4 sm:gap-6"
 - Teste auf 1280px+ Displays
 
 ### DON'T ❌ - Kritische Anti-Patterns
+
 - ❌ Keine fixen Größen ohne Breakpoints (text-2xl → FALSCH!)
 - ❌ Keine Desktop-first Layouts
 - ❌ Keine Touch-Targets <44px (auch nicht auf Tablet!)
@@ -489,6 +511,7 @@ grid-gap: "gap-4 sm:gap-6"
 ## Dokumentation Updates
 
 Bei jeder Änderung:
+
 1. Diese Datei aktualisieren
 2. Sprint-Report ergänzen
 3. Changelog pflegen

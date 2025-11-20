@@ -5,6 +5,7 @@
 Analysiere **vollständig und detailliert** alle in den Docs vorhandenen Vorgaben, **mit Ausnahme aller, die explizit Design oder Layout betreffen** (Design Tokens, Komponenten-Styles, Spacing, Abstände, Farben, Typografie, Layout-Komponenten, Hero/Section Patterns, etc.).
 
 **Schließe ein:**
+
 - Prozesse
 - Qualitätssicherung
 - Testing-Strategien
@@ -38,19 +39,19 @@ Analysiere **vollständig und detailliert** alle in den Docs vorhandenen Vorgabe
 2. **Scanne JEDEN Absatz darauf, ob er NICHT zu Design/Layout gehört.**
 3. **Nimm JEDES relevante Statement (außer Design/Layout) in die Analyse auf.**
 4. **Sortiere Vorgaben nach folgenden Hauptthemen:**
-    - Projektstruktur & allgemeine Architektur
-    - Branch- und Release-Management
-    - Security & Datenschutz
-    - Testing & Quality Assurance
-    - Fehler-/Exception Handling
-    - Accessibility (ohne visuelle Aspekte)
-    - DevOps/CI/CD
-    - API-/Backend-Spezifikation
-    - Deployment/Environment Handling
-    - Documentation/Documentation Standards
-    - Workflow-Prozesse & Enforcements
-    - Datenmodelle & Validierung
-    - Sonstige System-Policies
+   - Projektstruktur & allgemeine Architektur
+   - Branch- und Release-Management
+   - Security & Datenschutz
+   - Testing & Quality Assurance
+   - Fehler-/Exception Handling
+   - Accessibility (ohne visuelle Aspekte)
+   - DevOps/CI/CD
+   - API-/Backend-Spezifikation
+   - Deployment/Environment Handling
+   - Documentation/Documentation Standards
+   - Workflow-Prozesse & Enforcements
+   - Datenmodelle & Validierung
+   - Sonstige System-Policies
 5. **Füge am Ende eine kompakte Master-Checkliste aller Non-Design-Vorgaben hinzu!**
 
 ## 🚨 ABER: KEIN EINZIGER DESIGN ODER LAYOUT-ABSCHNITT!

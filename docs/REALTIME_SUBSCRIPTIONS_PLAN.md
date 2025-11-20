@@ -9,6 +9,7 @@
 ## 📡 ACTIVE CHANNELS (4)
 
 ### 1. bookings-realtime-updates
+
 **Tables:** bookings  
 **Events:** INSERT, UPDATE, DELETE  
 **Subscribers:** Dashboard, Auftraege, HEREMapComponent
@@ -19,16 +20,20 @@ export function useRealtimeBookings() {
 
   useEffect(() => {
     const channel = supabase
-      .channel('bookings-realtime-updates')
-      .on('postgres_changes', {
-        event: '*',
-        schema: 'public',
-        table: 'bookings'
-      }, (payload) => {
-        console.log('[Realtime] Booking change:', payload);
-        queryClient.invalidateQueries({ queryKey: ['bookings'] });
-        queryClient.invalidateQueries({ queryKey: ['dashboard_stats'] });
-      })
+      .channel("bookings-realtime-updates")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "bookings",
+        },
+        (payload) => {
+          console.log("[Realtime] Booking change:", payload);
+          queryClient.invalidateQueries({ queryKey: ["bookings"] });
+          queryClient.invalidateQueries({ queryKey: ["dashboard_stats"] });
+        }
+      )
       .subscribe();
 
     return () => supabase.removeChannel(channel);
@@ -37,14 +42,17 @@ export function useRealtimeBookings() {
 ```
 
 ### 2. drivers-realtime-updates
+
 **Tables:** drivers  
 **Subscribers:** Dashboard, Fahrer, HEREMapComponent
 
 ### 3. vehicles-realtime-updates
+
 **Tables:** vehicles  
 **Subscribers:** Dashboard, Fahrzeuge, HEREMapComponent
 
 ### 4. chat-messages-realtime
+
 **Tables:** chat_messages  
 **Subscribers:** ChatWindow, Kommunikation
 

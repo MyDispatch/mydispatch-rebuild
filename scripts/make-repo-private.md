@@ -11,6 +11,7 @@
 ## 🚀 METHODE 1: GitHub Web Interface (SCHNELLSTE)
 
 ### Schritte:
+
 1. Gehe zu: https://github.com/u4231458123-droid/mydispatch-rebuild/settings
 2. Scrolle nach unten zu **"Danger Zone"**
 3. Klicke auf **"Change visibility"**
@@ -25,6 +26,7 @@
 ## 🤖 METHODE 2: GitHub CLI (Automatisch)
 
 ### Voraussetzungen:
+
 ```bash
 # GitHub CLI installieren (falls nicht vorhanden):
 # Windows: winget install GitHub.cli
@@ -35,6 +37,7 @@ gh auth login
 ```
 
 ### Kommando:
+
 ```bash
 cd C:\Users\pcour\mydispatch-rebuild
 gh repo edit u4231458123-droid/mydispatch-rebuild --visibility private
@@ -47,6 +50,7 @@ gh repo edit u4231458123-droid/mydispatch-rebuild --visibility private
 ## 📝 METHODE 3: GitHub API (PowerShell Script)
 
 ### Script erstellen:
+
 ```powershell
 # make-repo-private.ps1
 $repo = "u4231458123-droid/mydispatch-rebuild"
@@ -74,6 +78,7 @@ Write-Host "✅ Repository ist jetzt PRIVAT!" -ForegroundColor Green
 ```
 
 ### Ausführen:
+
 ```powershell
 .\scripts\make-repo-private.ps1
 ```
@@ -85,6 +90,7 @@ Write-Host "✅ Repository ist jetzt PRIVAT!" -ForegroundColor Green
 ## ✅ VERIFIKATION
 
 Nach dem Wechsel:
+
 ```bash
 # Repository-Status prüfen:
 gh repo view u4231458123-droid/mydispatch-rebuild --json visibility
@@ -107,7 +113,3 @@ gh repo view u4231458123-droid/mydispatch-rebuild --json visibility
 
 **Erstellt:** 2025-01-31  
 **Status:** ✅ READY TO EXECUTE
-
-
-
-

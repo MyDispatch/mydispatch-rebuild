@@ -1,6 +1,6 @@
 /**
  * DOKUMENTATIONS-ZEITSTEMPEL SYSTEM V18.5.1
- * 
+ *
  * Automatische Generierung korrekter deutscher Zeitstempel für alle Dokumentationen
  * Pascal, dies stellt sicher dass alle Docs konsistente deutsche Timestamps haben.
  */
@@ -10,10 +10,10 @@
  * Format: DD.MM.YYYY (z.B. 26.01.2025)
  */
 export function getGermanDate(date: Date = new Date()): string {
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
-  
+
   return `${day}.${month}.${year}`;
 }
 
@@ -23,9 +23,9 @@ export function getGermanDate(date: Date = new Date()): string {
  */
 export function getGermanDateTime(date: Date = new Date()): string {
   const dateStr = getGermanDate(date);
-  const hours = String(date.getHours()).padStart(2, '0');
-  const minutes = String(date.getMinutes()).padStart(2, '0');
-  
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
   return `${dateStr} ${hours}:${minutes}`;
 }
 
@@ -34,10 +34,10 @@ export function getGermanDateTime(date: Date = new Date()): string {
  * Format: YYYY-MM-DD (für Sortierung in Dateinamen)
  */
 export function getISODateGerman(date: Date = new Date()): string {
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
-  
+
   return `${year}-${month}-${day}`;
 }
 
@@ -48,8 +48,8 @@ export function getGermanTimezone(): string {
   // Deutschland ist UTC+1 (Winterzeit) oder UTC+2 (Sommerzeit)
   const date = new Date();
   const offset = -date.getTimezoneOffset() / 60;
-  
-  return offset === 1 ? 'MEZ' : 'MESZ';
+
+  return offset === 1 ? "MEZ" : "MESZ";
 }
 
 /**
@@ -58,19 +58,13 @@ export function getGermanTimezone(): string {
 export interface DocHeaderOptions {
   title: string;
   version: string;
-  status: 'Draft' | 'In Review' | 'Production-Ready' | 'Active' | 'Deprecated';
+  status: "Draft" | "In Review" | "Production-Ready" | "Active" | "Deprecated";
   author?: string;
   customDate?: Date;
 }
 
 export function generateDocHeader(options: DocHeaderOptions): string {
-  const {
-    title,
-    version,
-    status,
-    author = 'NeXify',
-    customDate,
-  } = options;
+  const { title, version, status, author = "NeXify", customDate } = options;
 
   const date = getGermanDate(customDate);
   const time = getGermanDateTime(customDate);
@@ -99,7 +93,7 @@ export interface ChangelogEntry {
 
 export function generateChangelogEntry(entry: ChangelogEntry): string {
   const date = getGermanDate(entry.customDate);
-  const changesList = entry.changes.map(c => `  - ${c}`).join('\n');
+  const changesList = entry.changes.map((c) => `  - ${c}`).join("\n");
 
   return `### ${entry.version} (${date})
 
@@ -111,9 +105,7 @@ ${changesList}
  * Generiert kompletten Changelog-Section
  */
 export function generateChangelog(entries: ChangelogEntry[]): string {
-  const changelog = entries
-    .map(entry => generateChangelogEntry(entry))
-    .join('\n');
+  const changelog = entries.map((entry) => generateChangelogEntry(entry)).join("\n");
 
   return `## 📝 Changelog
 
@@ -124,35 +116,32 @@ ${changelog}
 /**
  * Generiert Versionsnummer basierend auf Typ
  */
-export function generateVersion(
-  current: string,
-  type: 'major' | 'minor' | 'patch'
-): string {
-  const [major, minor, patch] = current.split('.').map(Number);
+export function generateVersion(current: string, type: "major" | "minor" | "patch"): string {
+  const [major, minor, patch] = current.split(".").map(Number);
 
   switch (type) {
-    case 'major':
+    case "major":
       return `${major + 1}.0.0`;
-    case 'minor':
+    case "minor":
       return `${major}.${minor + 1}.0`;
-    case 'patch':
+    case "patch":
       return `${major}.${minor}.${patch + 1}`;
   }
 }
 
 /**
  * USAGE EXAMPLES
- * 
+ *
  * ```typescript
  * import { generateDocHeader, generateChangelog } from '@/lib/doc-timestamps';
- * 
+ *
  * // Neues Dokument erstellen
  * const header = generateDocHeader({
  *   title: 'MyDispatch Feature Spec',
  *   version: 'V18.5.1',
  *   status: 'Production-Ready',
  * });
- * 
+ *
  * // Changelog generieren
  * const changelog = generateChangelog([
  *   {
@@ -169,7 +158,7 @@ export function generateVersion(
  *     ],
  *   },
  * ]);
- * 
+ *
  * const fullDoc = header + '\n' + changelog;
  * ```
  */

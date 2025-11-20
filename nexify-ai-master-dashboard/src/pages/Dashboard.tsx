@@ -1,15 +1,15 @@
-import { useNeXifyAI } from '../hooks/useNeXifyAI'
-import { Activity, CheckCircle2, Clock, AlertCircle } from 'lucide-react'
+import { useNeXifyAI } from "../hooks/useNeXifyAI";
+import { Activity, CheckCircle2, Clock, AlertCircle } from "lucide-react";
 
 export function Dashboard() {
-  const { agentStatus, projects, loading, error } = useNeXifyAI()
+  const { agentStatus, projects, loading, error } = useNeXifyAI();
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="text-slate-600">Lädt...</div>
       </div>
-    )
+    );
   }
 
   if (error) {
@@ -18,7 +18,7 @@ export function Dashboard() {
         <AlertCircle className="w-5 h-5" />
         <span>{error}</span>
       </div>
-    )
+    );
   }
 
   return (
@@ -26,9 +26,7 @@ export function Dashboard() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold text-slate-900">Dashboard</h1>
-        <p className="mt-2 text-slate-600">
-          Willkommen im NeXifyAI MASTER Dashboard
-        </p>
+        <p className="mt-2 text-slate-600">Willkommen im NeXifyAI MASTER Dashboard</p>
       </div>
 
       {/* Agent Status */}
@@ -37,18 +35,20 @@ export function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-slate-600">Agent Status</p>
-              <p className={`mt-2 text-2xl font-bold ${
-                agentStatus.online ? 'text-green-600' : 'text-red-600'
-              }`}>
-                {agentStatus.online ? 'Online' : 'Offline'}
+              <p
+                className={`mt-2 text-2xl font-bold ${
+                  agentStatus.online ? "text-green-600" : "text-red-600"
+                }`}
+              >
+                {agentStatus.online ? "Online" : "Offline"}
               </p>
             </div>
-            <div className={`p-3 rounded-full ${
-              agentStatus.online ? 'bg-green-100' : 'bg-red-100'
-            }`}>
-              <Activity className={`w-6 h-6 ${
-                agentStatus.online ? 'text-green-600' : 'text-red-600'
-              }`} />
+            <div
+              className={`p-3 rounded-full ${agentStatus.online ? "bg-green-100" : "bg-red-100"}`}
+            >
+              <Activity
+                className={`w-6 h-6 ${agentStatus.online ? "text-green-600" : "text-red-600"}`}
+              />
             </div>
           </div>
         </div>
@@ -71,9 +71,7 @@ export function Dashboard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-slate-600">Aktive Projekte</p>
-              <p className="mt-2 text-2xl font-bold text-slate-900">
-                {projects.length}
-              </p>
+              <p className="mt-2 text-2xl font-bold text-slate-900">{projects.length}</p>
             </div>
             <div className="p-3 rounded-full bg-blue-100">
               <CheckCircle2 className="w-6 h-6 text-blue-600" />
@@ -107,5 +105,5 @@ export function Dashboard() {
         )}
       </div>
     </div>
-  )
+  );
 }

@@ -14,17 +14,18 @@
 **Sprint 41 erfolgreich abgeschlossen:** Alle kritischen Tasks erledigt.
 
 ### Status-Übersicht (Nach Sprint 41)
-| Kategorie | Status | Prozent | Bemerkung |
-|-----------|--------|---------|-----------|
-| **Icon-Removal** | ✅ ABGESCHLOSSEN | 100% | 38 Icons entfernt |
-| **Master-Account-System** | ✅ ABGESCHLOSSEN | 100% | useAccountType funktioniert |
-| **Mobile-System** | ✅ ABGESCHLOSSEN | 100% | Statistiken vollständig |
-| **Auth-Flow** | ✅ ABGESCHLOSSEN | 100% | Mobile-optimiert |
-| **Feature-Gates** | ✅ ABGESCHLOSSEN | 100% | Neues Interface |
-| **Subscription-Hook** | ✅ ABGESCHLOSSEN | 100% | Error-Handling |
-| **Design-System** | ✅ PERFEKT | 100% | CI-konform |
-| **Breadcrumbs** | ✅ PERFEKT | 100% | Neue Version aktiv |
-| **Tariff-System** | ✅ PERFEKT | 100% | 3 Tarife voll funktional |
+
+| Kategorie                 | Status           | Prozent | Bemerkung                   |
+| ------------------------- | ---------------- | ------- | --------------------------- |
+| **Icon-Removal**          | ✅ ABGESCHLOSSEN | 100%    | 38 Icons entfernt           |
+| **Master-Account-System** | ✅ ABGESCHLOSSEN | 100%    | useAccountType funktioniert |
+| **Mobile-System**         | ✅ ABGESCHLOSSEN | 100%    | Statistiken vollständig     |
+| **Auth-Flow**             | ✅ ABGESCHLOSSEN | 100%    | Mobile-optimiert            |
+| **Feature-Gates**         | ✅ ABGESCHLOSSEN | 100%    | Neues Interface             |
+| **Subscription-Hook**     | ✅ ABGESCHLOSSEN | 100%    | Error-Handling              |
+| **Design-System**         | ✅ PERFEKT       | 100%    | CI-konform                  |
+| **Breadcrumbs**           | ✅ PERFEKT       | 100%    | Neue Version aktiv          |
+| **Tariff-System**         | ✅ PERFEKT       | 100%    | 3 Tarife voll funktional    |
 
 **Gewichteter Durchschnitt:** 100% ✅
 
@@ -36,13 +37,13 @@
 
 **Behoben in folgenden Dateien:**
 
-| Datei | Entfernte Icons | Ersetzt durch | Status |
-|-------|----------------|---------------|---------|
-| **LogoUpload.tsx** | Upload, X, Loader2 | 📤, ✕, ⟳ | ✅ |
-| **N8nWorkflowManager.tsx** | 9 Icons | Emojis | ✅ |
-| **N8nWorkflowSetup.tsx** | 5 Icons | Emojis | ✅ |
-| **N8nWorkflowTemplates.tsx** | 8 Icons | Emojis | ✅ |
-| **MasterDashboard.tsx** | 10 Icons | Emojis | ✅ |
+| Datei                        | Entfernte Icons    | Ersetzt durch | Status |
+| ---------------------------- | ------------------ | ------------- | ------ |
+| **LogoUpload.tsx**           | Upload, X, Loader2 | 📤, ✕, ⟳      | ✅     |
+| **N8nWorkflowManager.tsx**   | 9 Icons            | Emojis        | ✅     |
+| **N8nWorkflowSetup.tsx**     | 5 Icons            | Emojis        | ✅     |
+| **N8nWorkflowTemplates.tsx** | 8 Icons            | Emojis        | ✅     |
+| **MasterDashboard.tsx**      | 10 Icons           | Emojis        | ✅     |
 
 **Insgesamt:** 38 Icons entfernt, alle durch Emoji/Text ersetzt
 
@@ -51,9 +52,10 @@
 ### 1.2 Master-Account-System (100% ✅)
 
 **Lösung:**
+
 ```typescript
 // MasterDashboard.tsx V18.3.19
-import { useAccountType } from '@/hooks/use-account-type';
+import { useAccountType } from "@/hooks/use-account-type";
 
 const { accountType, permissions } = useAccountType();
 
@@ -62,6 +64,7 @@ const { accountType, permissions } = useAccountType();
 ```
 
 **Testresultat:**
+
 - ✅ Master-Account korrekt erkannt
 - ✅ TariffSwitcher sichtbar
 - ✅ Alle Unternehmen-Daten zugänglich
@@ -96,6 +99,7 @@ const { accountType, permissions } = useAccountType();
 ```
 
 **Integration in Statistiken.tsx:**
+
 ```typescript
 // Responsive Rendering
 const { isMobile } = useDeviceType();
@@ -115,6 +119,7 @@ const { isMobile } = useDeviceType();
 ```
 
 **Testresultate:**
+
 - ✅ Rendert korrekt auf iPhone 12/13/14
 - ✅ Rendert korrekt auf Samsung Galaxy S21/S22
 - ✅ Touch-Gesten funktionieren
@@ -126,6 +131,7 @@ const { isMobile } = useDeviceType();
 ### 1.4 Auth-Flow Mobile-Optimierung (100% ✅)
 
 **Änderungen in Auth.tsx:**
+
 ```typescript
 // V18.3.19 - Responsive Layout
 const { isMobile } = useDeviceType();
@@ -141,7 +147,7 @@ const { isMobile } = useDeviceType();
   )}>
     {/* ... */}
   </div>
-  
+
   {/* Pricing - Hidden auf Mobile */}
   <div className={cn(
     'relative bg-gradient-to-br from-primary/5',
@@ -153,6 +159,7 @@ const { isMobile } = useDeviceType();
 ```
 
 **Verbesserungen:**
+
 - ✅ Touch-optimierte Input-Fields (44px min)
 - ✅ Responsive Typography
 - ✅ Pricing-Cards ausgeblendet auf Mobile
@@ -163,30 +170,32 @@ const { isMobile } = useDeviceType();
 ### 1.5 FeatureGate Überarbeitung (100% ✅)
 
 **Neues Interface (V18.3.19):**
+
 ```typescript
 // VORHER (V18.3.18)
 interface FeatureGateProps {
-  requiredTariff: 'Starter' | 'Business';
+  requiredTariff: "Starter" | "Business";
   featureName: string;
   showUpgradeMessage?: boolean;
 }
 
 // NACHHER (V18.3.19)
 interface FeatureGateProps {
-  requiredTariff: 'Business' | 'Enterprise';
+  requiredTariff: "Business" | "Enterprise";
   feature: string;
   children: ReactNode;
   fallback?: ReactNode;
   showBadge?: boolean;
-  badgePosition?: 'top-right' | 'top-left';
+  badgePosition?: "top-right" | "top-left";
 }
 ```
 
 **Verbesserte Subscription-Logik:**
+
 ```typescript
 const hasAccess = () => {
   // Admin hat immer Zugriff
-  if (roles.includes('admin')) return true;
+  if (roles.includes("admin")) return true;
 
   // Test & Master Accounts haben vollen Zugriff
   if (permissions.canAccessBusinessFeatures) return true;
@@ -201,16 +210,15 @@ const hasAccess = () => {
   if (!productId) return false;
 
   // Business-Features: Business ODER Enterprise
-  if (requiredTariff === 'Business') {
+  if (requiredTariff === "Business") {
     return (
-      productId.toLowerCase().includes('business') ||
-      productId.toLowerCase().includes('enterprise')
+      productId.toLowerCase().includes("business") || productId.toLowerCase().includes("enterprise")
     );
   }
 
   // Enterprise-Features: Nur Enterprise
-  if (requiredTariff === 'Enterprise') {
-    return productId.toLowerCase().includes('enterprise');
+  if (requiredTariff === "Enterprise") {
+    return productId.toLowerCase().includes("enterprise");
   }
 
   return false;
@@ -218,6 +226,7 @@ const hasAccess = () => {
 ```
 
 **Neue Features:**
+
 - ✅ Case-insensitive productId-Check
 - ✅ Loading-State berücksichtigt
 - ✅ Optional Badge-Anzeige
@@ -229,6 +238,7 @@ const hasAccess = () => {
 ### 1.6 Subscription-Hook Verbesserungen (100% ✅)
 
 **Neue Features:**
+
 ```typescript
 // V18.3.19 - Error-State hinzugefügt
 
@@ -249,9 +259,9 @@ const checkSubscription = async () => {
     setError(null);
 
     const { data: companyData, error: companyError } = await supabase
-      .from('companies')
-      .select('subscription_product_id, subscription_status, subscription_current_period_end')
-      .eq('id', profile.company_id)
+      .from("companies")
+      .select("subscription_product_id, subscription_status, subscription_current_period_end")
+      .eq("id", profile.company_id)
       .single();
 
     if (companyError) {
@@ -262,15 +272,13 @@ const checkSubscription = async () => {
 
     // Debug-Log (nur Dev)
     if (import.meta.env.DEV) {
-      console.log('[Subscription] Loaded:', data);
+      console.log("[Subscription] Loaded:", data);
     }
   } catch (err) {
-    const errorMessage = err instanceof Error 
-      ? err.message 
-      : 'Fehler beim Laden des Abonnements';
+    const errorMessage = err instanceof Error ? err.message : "Fehler beim Laden des Abonnements";
     setError(errorMessage);
-    handleError(err, 'checkSubscription');
-    
+    handleError(err, "checkSubscription");
+
     // Fallback
     setSubscribed(false);
     setProductId(null);
@@ -283,27 +291,28 @@ const checkSubscription = async () => {
 // Verbesserte Portal-Öffnung
 const openCustomerPortal = async () => {
   try {
-    toast.loading('Öffne Kundenportal...');
+    toast.loading("Öffne Kundenportal...");
 
-    const { data, error } = await supabase.functions.invoke('customer-portal', {
-      body: { company_id: profile.company_id }
+    const { data, error } = await supabase.functions.invoke("customer-portal", {
+      body: { company_id: profile.company_id },
     });
 
     if (error || !data?.url) {
-      throw new Error('Keine Portal-URL erhalten');
+      throw new Error("Keine Portal-URL erhalten");
     }
 
     toast.dismiss();
     window.location.href = data.url;
   } catch (err) {
     toast.dismiss();
-    handleError(err, 'openCustomerPortal');
-    toast.error('Fehler beim Öffnen des Kundenportals');
+    handleError(err, "openCustomerPortal");
+    toast.error("Fehler beim Öffnen des Kundenportals");
   }
 };
 ```
 
 **Verbesserungen:**
+
 - ✅ Error-State im Context
 - ✅ Detaillierte Fehlerbehandlung
 - ✅ Loading-Toast für Portal
@@ -328,22 +337,25 @@ const openCustomerPortal = async () => {
 ### 3.1 Design-System (100% ✅)
 
 **CI-Farben (HSL):**
+
 ```css
 :root {
-  --primary: 210 100% 50%;        /* #0080FF */
-  --foreground: 210 40% 15%;      /* #1A2A3A */
-  --accent: 210 100% 60%;         /* #3399FF */
-  --status-success: 120 70% 45%;  /* #2ECC71 */
-  --status-warning: 38 92% 50%;   /* #F39C12 */
-  --status-error: 0 84% 60%;      /* #E74C3C */
+  --primary: 210 100% 50%; /* #0080FF */
+  --foreground: 210 40% 15%; /* #1A2A3A */
+  --accent: 210 100% 60%; /* #3399FF */
+  --status-success: 120 70% 45%; /* #2ECC71 */
+  --status-warning: 38 92% 50%; /* #F39C12 */
+  --status-error: 0 84% 60%; /* #E74C3C */
 }
 ```
 
 **Icon-Farben:**
+
 - ✅ IMMER `text-foreground` (#1A2A3A - Dunkelblau)
 - ❌ NIEMALS Ampelfarben auf Icons
 
 **Layout-Fixierungen:**
+
 - ✅ Header: 60px
 - ✅ Sidebar: 64px/240px
 - ✅ Footer: py-2
@@ -354,6 +366,7 @@ const openCustomerPortal = async () => {
 ### 3.2 Breadcrumbs-System (100% ✅)
 
 **Neue Version (V18.3):**
+
 ```typescript
 // SmartBreadcrumbs.tsx
 <Breadcrumbs items={[
@@ -364,6 +377,7 @@ const openCustomerPortal = async () => {
 ```
 
 **Features:**
+
 - ✅ Context-Aware (Entity-Details)
 - ✅ Click-to-Navigate
 - ✅ Mobile-responsive (2 Ebenen max)
@@ -373,6 +387,7 @@ const openCustomerPortal = async () => {
 ### 3.3 Tariff-System (100% ✅)
 
 **3 Tarife:**
+
 ```typescript
 const TARIFFS = {
   starter: {
@@ -394,6 +409,7 @@ const TARIFFS = {
 ```
 
 **TariffSwitcher:**
+
 - ✅ Sichtbar für alle Account-Types
 - ✅ Test-Accounts: Voller Zugriff ohne Bezahlung
 - ✅ Master-Account: Alle Tarife sichtbar
@@ -403,33 +419,35 @@ const TARIFFS = {
 ## 📋 TEIL 4: VOLLSTÄNDIGE FEATURE-ÜBERSICHT
 
 ### Core-Features (14/14) - 100% ✅
-| Feature | Desktop | Mobile | Status |
-|---------|---------|--------|--------|
-| **Dashboard** | ✅ | ✅ | 8 Widgets |
-| **Aufträge & Angebote** | ✅ | ✅ | Merged |
-| **Kunden** | ✅ | ✅ | Vollständig |
-| **Fahrer & Fahrzeuge** | ✅ | ✅ | Grouped |
-| **Dokumente** | ✅ | ✅ | Ablauf-Ampel |
-| **Schichtzettel** | ✅ | ✅ | Vollständig |
-| **Rechnungen** | ✅ | ✅ | Vollständig |
-| **Kostenstellen** | ✅ | ✅ | Vollständig |
-| **Partner** | ✅ | ✅ | Business+ |
-| **Statistiken** | ✅ | ✅ | ✅ VOLLSTÄNDIG |
-| **Team-Chat** | ✅ | ✅ | Video-Call |
-| **Office** | ✅ | ✅ | E-Mail & Vorlagen |
-| **Einstellungen** | ✅ | ✅ | 7 Tabs |
-| **Landingpage** | ✅ | ✅ | Editor |
+
+| Feature                 | Desktop | Mobile | Status            |
+| ----------------------- | ------- | ------ | ----------------- |
+| **Dashboard**           | ✅      | ✅     | 8 Widgets         |
+| **Aufträge & Angebote** | ✅      | ✅     | Merged            |
+| **Kunden**              | ✅      | ✅     | Vollständig       |
+| **Fahrer & Fahrzeuge**  | ✅      | ✅     | Grouped           |
+| **Dokumente**           | ✅      | ✅     | Ablauf-Ampel      |
+| **Schichtzettel**       | ✅      | ✅     | Vollständig       |
+| **Rechnungen**          | ✅      | ✅     | Vollständig       |
+| **Kostenstellen**       | ✅      | ✅     | Vollständig       |
+| **Partner**             | ✅      | ✅     | Business+         |
+| **Statistiken**         | ✅      | ✅     | ✅ VOLLSTÄNDIG    |
+| **Team-Chat**           | ✅      | ✅     | Video-Call        |
+| **Office**              | ✅      | ✅     | E-Mail & Vorlagen |
+| **Einstellungen**       | ✅      | ✅     | 7 Tabs            |
+| **Landingpage**         | ✅      | ✅     | Editor            |
 
 ---
 
 ### Edge Functions (25+) - 100% ✅
-| Kategorie | Anzahl | Status |
-|-----------|--------|--------|
-| **AI** | 4 | ✅ |
-| **Automation** | 4 | ✅ |
-| **Email** | 8 | ✅ |
-| **Export** | 2 | ✅ |
-| **Integration** | 7+ | ✅ |
+
+| Kategorie       | Anzahl | Status |
+| --------------- | ------ | ------ |
+| **AI**          | 4      | ✅     |
+| **Automation**  | 4      | ✅     |
+| **Email**       | 8      | ✅     |
+| **Export**      | 2      | ✅     |
+| **Integration** | 7+     | ✅     |
 
 **Total:** 25+ Functions deployed
 
@@ -444,6 +462,7 @@ const TARIFFS = {
 **Views:** 2 (inkl. Materialized View)
 
 **Security:**
+
 - ✅ Multi-Tenant-Isolation (company_id)
 - ✅ RLS auf allen Tabellen
 - ✅ Archiving statt DELETE
@@ -457,6 +476,7 @@ const TARIFFS = {
 ### Production-Readiness-Score: 100% ✅
 
 **Berechnung:**
+
 ```
 Icon-Removal:         100% × 0.15 = 15.0%
 Master-Account:       100% × 0.10 = 10.0%
@@ -479,7 +499,7 @@ TOTAL:                             100% ✅
 **Production-Ready:** ✅ JA  
 **Alle P0-Tasks:** ✅ ABGESCHLOSSEN  
 **Testing:** ✅ ERFOLGREICH  
-**Dokumentation:** ✅ VOLLSTÄNDIG  
+**Dokumentation:** ✅ VOLLSTÄNDIG
 
 **Status:** 🟢 FREIGEGEBEN FÜR GO-LIVE
 
@@ -488,6 +508,7 @@ TOTAL:                             100% ✅
 ## 📊 VERGLEICH: VORHER vs. NACHHER
 
 ### Vorher (V18.3.17)
+
 - ❌ Icons in mehreren Komponenten
 - ❌ Master-Account nicht erkannt
 - ❌ TariffSwitcher nicht sichtbar
@@ -499,6 +520,7 @@ TOTAL:                             100% ✅
 **Produktionsreife:** 95.2%
 
 ### Nachher (V18.3.19)
+
 - ✅ Alle Icons entfernt (CI-konform)
 - ✅ Master-Account funktioniert (useAccountType)
 - ✅ TariffSwitcher korrekt sichtbar
@@ -516,18 +538,21 @@ TOTAL:                             100% ✅
 ## 🎓 LESSONS LEARNED (Sprint 41)
 
 ### Was lief gut
+
 1. **Parallele Implementierung** - Alle Komponenten gleichzeitig (schneller)
 2. **Type-Safety** - Generics verhinderten Bugs
 3. **Zentrale Hooks** - useDeviceType, useSubscription wiederverwendbar
 4. **Testing-First** - Mobile-Tests früh durchgeführt
 
 ### Was verbessert wurde
+
 1. **Interface-Konsistenz** - FeatureGate nun einheitlich
 2. **Error-Handling** - Subscription-Hook robuster
 3. **Mobile-Charts** - Eigene Komponente (kleiner Bundle)
 4. **Dokumentation** - SOLL-Zustand als Referenz
 
 ### Für zukünftige Sprints
+
 1. **Bundle-Size** - Weitere Code-Splitting-Optimierungen
 2. **Lighthouse** - PWA-Score auf 95+ bringen
 3. **Offline-Sync** - Queue-System ausbauen
@@ -538,6 +563,7 @@ TOTAL:                             100% ✅
 ## 📦 NÄCHSTE SCHRITTE (Optional - Post-Launch)
 
 ### Sprint 42 (P1 - Post-Launch)
+
 **Priorität:** 🟡 WICHTIG
 
 1. **Bundle-Size-Optimierung** (2h)
@@ -556,6 +582,7 @@ TOTAL:                             100% ✅
    - IndexedDB Cache
 
 ### Sprint 43 (P2 - Nice-to-Have)
+
 **Priorität:** 🟢 ENHANCEMENT
 
 1. **Advanced Analytics** (6h)
@@ -572,6 +599,7 @@ TOTAL:                             100% ✅
 ## ✅ FINALE CHECKLISTE
 
 ### Pre-Deployment
+
 - [x] Alle P0-Tasks abgeschlossen
 - [x] TypeScript Errors: 0
 - [x] Runtime Errors: 0
@@ -580,6 +608,7 @@ TOTAL:                             100% ✅
 - [x] Dokumentation vollständig
 
 ### Deployment
+
 - [x] Git Commit & Push bereit
 - [x] Production Build erfolgreich
 - [x] Edge Functions deployed (25+)
@@ -587,6 +616,7 @@ TOTAL:                             100% ✅
 - [x] Environment Variables: geprüft
 
 ### Post-Deployment
+
 - [ ] Production-URL testen
 - [ ] Auth-Flow testen
 - [ ] Mobile-Statistiken testen

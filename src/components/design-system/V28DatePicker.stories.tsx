@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { V28DatePicker } from './V28DatePicker';
-import { useState } from 'react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { V28DatePicker } from "./V28DatePicker";
+import { useState } from "react";
 
 const meta: Meta<typeof V28DatePicker> = {
-  title: 'Design System/Atoms/V28DatePicker',
+  title: "Design System/Atoms/V28DatePicker",
   component: V28DatePicker,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -49,27 +49,14 @@ export const WithError: Story = {
 export const PreSelected: Story = {
   render: () => {
     const [date, setDate] = useState<Date>(new Date());
-    return (
-      <V28DatePicker
-        label="Startdatum"
-        value={date}
-        onChange={setDate}
-      />
-    );
+    return <V28DatePicker label="Startdatum" value={date} onChange={setDate} />;
   },
 };
 
 export const Disabled: Story = {
   render: () => {
     const [date, setDate] = useState<Date>();
-    return (
-      <V28DatePicker
-        label="Gesperrt"
-        value={date}
-        onChange={setDate}
-        disabled
-      />
-    );
+    return <V28DatePicker label="Gesperrt" value={date} onChange={setDate} disabled />;
   },
 };
 
@@ -77,7 +64,7 @@ export const BookingForm: Story = {
   render: () => {
     const [pickupDate, setPickupDate] = useState<Date>();
     const [returnDate, setReturnDate] = useState<Date>();
-    
+
     return (
       <div className="max-w-md space-y-4 rounded-lg border p-6">
         <h3 className="text-lg font-semibold">Neue Buchung</h3>
@@ -95,7 +82,8 @@ export const BookingForm: Story = {
         />
         {pickupDate && returnDate && (
           <p className="text-sm text-muted-foreground">
-            Dauer: {Math.ceil((returnDate.getTime() - pickupDate.getTime()) / (1000 * 60 * 60 * 24))} Tage
+            Dauer:{" "}
+            {Math.ceil((returnDate.getTime() - pickupDate.getTime()) / (1000 * 60 * 60 * 24))} Tage
           </p>
         )}
       </div>
@@ -108,24 +96,12 @@ export const MultipleFields: Story = {
     const [startDate, setStartDate] = useState<Date>();
     const [endDate, setEndDate] = useState<Date>();
     const [reminderDate, setReminderDate] = useState<Date>();
-    
+
     return (
       <div className="grid max-w-2xl gap-4">
-        <V28DatePicker
-          label="Startdatum"
-          value={startDate}
-          onChange={setStartDate}
-        />
-        <V28DatePicker
-          label="Enddatum"
-          value={endDate}
-          onChange={setEndDate}
-        />
-        <V28DatePicker
-          label="Erinnerung"
-          value={reminderDate}
-          onChange={setReminderDate}
-        />
+        <V28DatePicker label="Startdatum" value={startDate} onChange={setStartDate} />
+        <V28DatePicker label="Enddatum" value={endDate} onChange={setEndDate} />
+        <V28DatePicker label="Erinnerung" value={reminderDate} onChange={setReminderDate} />
       </div>
     );
   },

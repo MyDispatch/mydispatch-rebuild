@@ -16,47 +16,50 @@
 
 ### **🔴 KRITISCH (P1)**
 
-| # | Fehler | Datei | Zeile | Status |
-|---|--------|-------|-------|--------|
-| 1 | Direct Color `text-white` | `MarketingButton.tsx` | 20 | ✅ BEHOBEN |
-| 2 | Direct Color `text-white` | `Home.tsx` | 168 | ✅ BEHOBEN |
-| 3 | DB-Migration fehlgeschlagen | `performance_metrics` | - | 🔄 PRÜFEN |
+| #   | Fehler                      | Datei                 | Zeile | Status     |
+| --- | --------------------------- | --------------------- | ----- | ---------- |
+| 1   | Direct Color `text-white`   | `MarketingButton.tsx` | 20    | ✅ BEHOBEN |
+| 2   | Direct Color `text-white`   | `Home.tsx`            | 168   | ✅ BEHOBEN |
+| 3   | DB-Migration fehlgeschlagen | `performance_metrics` | -     | 🔄 PRÜFEN  |
 
 ### **🟠 WICHTIG (P2)**
 
-| # | Fehler | Anzahl | Auswirkung | Status |
-|---|--------|--------|------------|--------|
-| 4 | `<a href>` statt `Link` | 25 | Full-Page-Reload | ⏳ TODO |
-| 5 | Console.logs in Production | 188 | Bundle-Size, Performance | ⏳ TODO |
-| 6 | Canonical URL `/home` | Home.tsx | SEO-Problem | ✅ BEHOBEN |
+| #   | Fehler                     | Anzahl   | Auswirkung               | Status     |
+| --- | -------------------------- | -------- | ------------------------ | ---------- |
+| 4   | `<a href>` statt `Link`    | 25       | Full-Page-Reload         | ⏳ TODO    |
+| 5   | Console.logs in Production | 188      | Bundle-Size, Performance | ⏳ TODO    |
+| 6   | Canonical URL `/home`      | Home.tsx | SEO-Problem              | ✅ BEHOBEN |
 
 ### **🟢 OPTIMIERUNG (P3)**
 
-| # | Fehler | Beschreibung | Status |
-|---|--------|--------------|--------|
-| 7 | Dokumentation unvollständig | Fehlt in `/docs` | 🔄 IN ARBEIT |
-| 8 | Performance-Budget nicht enforced | CI/CD | ⏳ TODO |
-| 9 | E2E-Tests unvollständig | Playwright | ⏳ TODO |
+| #   | Fehler                            | Beschreibung     | Status       |
+| --- | --------------------------------- | ---------------- | ------------ |
+| 7   | Dokumentation unvollständig       | Fehlt in `/docs` | 🔄 IN ARBEIT |
+| 8   | Performance-Budget nicht enforced | CI/CD            | ⏳ TODO      |
+| 9   | E2E-Tests unvollständig           | Playwright       | ⏳ TODO      |
 
 ---
 
 ## 🔍 FEHLER-URSACHEN (Deep-Dive)
 
 ### **Fehler #1-2: Direct Colors**
+
 ```tsx
 // ❌ FALSCH:
-text-white, bg-white, text-black, bg-black
+(text - white, bg - white, text - black, bg - black);
 
 // ✅ RICHTIG:
-text-background, bg-background, text-foreground
+(text - background, bg - background, text - foreground);
 ```
 
-**Ursache:**  
+**Ursache:**
+
 - Alte Code-Patterns aus frühen Versionen
 - MarketingButton-Komponente nicht nach Vorgaben aktualisiert
 - Hero-Buttons verwendeten Shortcuts
 
-**Lösung:**  
+**Lösung:**
+
 - ✅ Semantic Tokens eingeführt
 - ✅ MarketingButton aktualisiert
 - ✅ Home.tsx korrigiert
@@ -64,16 +67,19 @@ text-background, bg-background, text-foreground
 ---
 
 ### **Fehler #3: DB-Migration**
+
 ```
 ERROR: policy "Public read for performance metrics" already exists
 ```
 
-**Ursache:**  
+**Ursache:**
+
 - Tabelle wurde bereits in früherer Migration teilweise erstellt
 - Policy-Namen kollidieren
 - Kein IF NOT EXISTS für Policies
 
-**Lösung:**  
+**Lösung:**
+
 - 🔄 Status prüfen via SQL-Query
 - ⏳ Nur fehlende Spalten/Policies hinzufügen
 - ⏳ Schema-Validierung durchführen
@@ -81,6 +87,7 @@ ERROR: policy "Public read for performance metrics" already exists
 ---
 
 ### **Fehler #4: <a href> statt Link**
+
 ```tsx
 // ❌ FALSCH (Full Page Reload):
 <a href="/datenschutz">Datenschutz</a>
@@ -90,6 +97,7 @@ ERROR: policy "Public read for performance metrics" already exists
 ```
 
 **Betroffene Dateien:**
+
 1. `Contact.tsx` - 2x
 2. `Datenschutz.tsx` - 4x
 3. `Impressum.tsx` - 6x
@@ -101,7 +109,8 @@ ERROR: policy "Public read for performance metrics" already exists
 9. `Auftraege.tsx` - 2x
 10. `Fahrer.tsx` - 1x
 
-**Auswirkung:**  
+**Auswirkung:**
+
 - Jeder Klick = kompletter Page-Reload
 - Verlust des React-States
 - Schlechte UX
@@ -113,6 +122,7 @@ ERROR: policy "Public read for performance metrics" already exists
 ---
 
 ### **Fehler #5: 188 Console Statements**
+
 ```typescript
 // Problematisch in Production:
 console.log('[PWA] Hook initialized', {...})
@@ -121,16 +131,19 @@ console.warn('[Breadcrumbs] React not available', ...)
 ```
 
 **Kategorien:**
+
 - Debug-Logs: 95 (console.log)
 - Error-Logs: 62 (console.error)
 - Warnings: 31 (console.warn)
 
 **Auswirkung:**
+
 - Bundle-Size +15KB
 - Performance-Overhead
 - Sicherheitsrisiko (exposes internals)
 
-**Lösung:**  
+**Lösung:**
+
 - ⏳ Vite terser config nutzt bereits `drop_console` in Production
 - ⏳ Zusätzlich: Logger-Utility erstellen für conditional logging
 - ⏳ Critical Errors bleiben, Debug-Logs entfernen
@@ -138,12 +151,13 @@ console.warn('[Breadcrumbs] React not available', ...)
 ---
 
 ### **Fehler #6: Canonical URL**
+
 ```tsx
 // ❌ FALSCH:
-canonical="/home"
+canonical = "/home";
 
 // ✅ RICHTIG:
-canonical="/"
+canonical = "/";
 ```
 
 **Status:** ✅ BEHOBEN
@@ -153,6 +167,7 @@ canonical="/"
 ## 🎯 GESAMT-ARCHITEKTUR STATUS
 
 ### **✅ FUNKTIONIERT:**
+
 1. Design-System (98% Compliance)
 2. Routing-System (React Router)
 3. Auth-System (Supabase)
@@ -163,6 +178,7 @@ canonical="/"
 8. Code-Splitting (React.lazy)
 
 ### **⚠️ VERBESSERUNGSBEDARF:**
+
 1. Performance-Monitoring (DB-Table erstellen)
 2. Error-Tracking (nutzt existierende Tabelle)
 3. Navigation (Link statt <a>)
@@ -170,6 +186,7 @@ canonical="/"
 5. Dokumentation (vervollständigen)
 
 ### **🔄 IN ARBEIT:**
+
 1. Cache-Clearing-Strategie (implementiert)
 2. Build-Version-System (implementiert)
 3. System-Status-Dokumentation (diese Datei)
@@ -179,6 +196,7 @@ canonical="/"
 ## 📋 LÖSUNGSPLAN (Priorisiert)
 
 ### **Phase 1: KRITISCH (JETZT)**
+
 - [x] Direct Colors entfernen (`text-white`)
 - [x] Canonical URL korrigieren
 - [ ] DB-Schema für Performance-Metrics validieren
@@ -186,12 +204,14 @@ canonical="/"
 - [x] Build-Version-System implementieren
 
 ### **Phase 2: WICHTIG (diese Woche)**
+
 - [ ] `<a href>` zu `Link` konvertieren (Top 10 critical)
 - [ ] Error-Tracking mit existierender Tabelle verbinden
 - [ ] Console-logs minimieren (Top 20 critical)
 - [ ] Performance-Budget CI/CD
 
 ### **Phase 3: OPTIMIERUNG (next sprint)**
+
 - [ ] Logger-Utility erstellen
 - [ ] E2E-Tests erweitern (Playwright)
 - [ ] Dokumentation vervollständigen
@@ -202,12 +222,14 @@ canonical="/"
 ## 🧪 VALIDIERUNG
 
 ### **Tests durchgeführt:**
+
 - ✅ Screenshot-Validierung → App läuft korrekt
 - ✅ Console-Logs Check → Keine Runtime-Errors
 - ✅ Network-Request Check → Keine Fehler
 - ✅ Build-Validation → TypeScript kompiliert
 
 ### **Tests ausstehend:**
+
 - ⏳ DB-Schema-Validierung
 - ⏳ Performance-Lighthouse-Audit
 - ⏳ E2E-Test-Suite
@@ -218,6 +240,7 @@ canonical="/"
 ## 📊 METRIKEN
 
 ### **Code-Qualität:**
+
 ```
 TypeScript Errors:  0 ✅
 ESLint Warnings:    0 ✅
@@ -228,6 +251,7 @@ Console Logs:       188 ⚠️
 ```
 
 ### **Performance:**
+
 ```
 Bundle Size:        ~800KB (gzipped) ✅
 Initial Load:       <3s ✅
@@ -237,6 +261,7 @@ Cache-Strategy:     Optimiert ✅
 ```
 
 ### **Design-System:**
+
 ```
 Semantic Tokens:    100% ✅ (nach Fix)
 HSL Colors:         100% ✅
@@ -249,23 +274,27 @@ Accessibility:      95% ✅
 ## 🎓 LESSONS LEARNED
 
 ### **1. Cache ist der #1 Feind**
+
 - Browser-Caches überleben Hard-Reloads
 - Service Worker sind persistent
 - Build-Version-Check ist essentiell
 - Multiple Cache-Layers brauchen multiple Strategien
 
 ### **2. Design-System-Compliance**
+
 - Direct Colors sind schwer zu finden (188 Dateien durchsucht)
 - Semantic Tokens müssen überall enforced werden
 - Alte Code-Patterns überleben Refactorings
 
 ### **3. DB-Migrations**
+
 - RLS-Policies können Tabellen-Erstellung blockieren
 - Reihenfolge ist kritisch: Table → Columns → Constraints → Policies
 - IF NOT EXISTS reicht nicht immer
 - Schema-Validierung vor Migration nötig
 
 ### **4. SPA-Navigation**
+
 - <a> Tags brechen SPA-Experience
 - Full-Page-Reloads verschwenden Ressourcen
 - React Router Link ist essentiell
@@ -291,16 +320,19 @@ Accessibility:      95% ✅
 ## 🚀 NÄCHSTE SCHRITTE
 
 ### **Sofort (heute noch):**
+
 1. ⏳ DB-Schema für performance_metrics validieren
 2. ⏳ Performance-Monitoring finalisieren
 3. ⏳ Dokumentation vervollständigen
 
 ### **Morgen:**
+
 1. ⏳ Top 10 `<a>` Tags zu `Link` konvertieren
 2. ⏳ Top 20 console.logs entfernen
 3. ⏳ E2E-Tests für Critical Paths
 
 ### **Diese Woche:**
+
 1. ⏳ Logger-Utility implementieren
 2. ⏳ Performance-Dashboard
 3. ⏳ Alle `<a>` Tags konvertieren
@@ -309,14 +341,14 @@ Accessibility:      95% ✅
 
 ## 📈 ERFOLGSKRITERIEN
 
-| Kriterium | Soll | Ist | Gap | Status |
-|-----------|------|-----|-----|--------|
-| Design-System Compliance | 100% | 100% | 0% | ✅ |
-| Performance Score | >90 | 92 | -2 | 🟢 |
-| Zero Direct Colors | 0 | 0 | 0 | ✅ |
-| Zero <a> Tags | 0 | 25 | +25 | 🔴 |
-| Console Logs | <10 | 188 | +178 | 🔴 |
-| Cache-Free Updates | Ja | Ja | - | ✅ |
+| Kriterium                | Soll | Ist  | Gap  | Status |
+| ------------------------ | ---- | ---- | ---- | ------ |
+| Design-System Compliance | 100% | 100% | 0%   | ✅     |
+| Performance Score        | >90  | 92   | -2   | 🟢     |
+| Zero Direct Colors       | 0    | 0    | 0    | ✅     |
+| Zero <a> Tags            | 0    | 25   | +25  | 🔴     |
+| Console Logs             | <10  | 188  | +178 | 🔴     |
+| Cache-Free Updates       | Ja   | Ja   | -    | ✅     |
 
 ---
 

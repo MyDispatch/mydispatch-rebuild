@@ -28,14 +28,14 @@ Das UniversalDownload-System bietet einheitliche Export-Funktionalität für all
 ### Basic Example
 
 ```tsx
-import { UniversalDownload } from '@/components/shared/UniversalDownload';
+import { UniversalDownload } from "@/components/shared/UniversalDownload";
 
 <UniversalDownload
   type="pdf"
   data={bookings}
   filename="auftraege-export"
   buttonLabel="Als PDF exportieren"
-/>
+/>;
 ```
 
 ### All Props
@@ -43,35 +43,35 @@ import { UniversalDownload } from '@/components/shared/UniversalDownload';
 ```tsx
 interface UniversalDownloadProps {
   /** Download Type */
-  type: 'pdf' | 'csv' | 'json' | 'zip' | 'xlsx';
-  
+  type: "pdf" | "csv" | "json" | "zip" | "xlsx";
+
   /** Data to download */
   data: any;
-  
+
   /** Filename (without extension) */
   filename?: string;
-  
+
   /** Button Label */
   buttonLabel?: string;
-  
+
   /** Button Variant */
-  variant?: 'default' | 'outline' | 'ghost' | 'secondary';
-  
+  variant?: "default" | "outline" | "ghost" | "secondary";
+
   /** Show Progress Indicator */
   showProgress?: boolean;
-  
+
   /** Custom className */
   className?: string;
-  
+
   /** Portal-Specific Theming */
-  portal?: 'entrepreneur' | 'customer' | 'driver';
-  
+  portal?: "entrepreneur" | "customer" | "driver";
+
   /** Size */
-  size?: 'default' | 'sm' | 'lg' | 'icon';
-  
+  size?: "default" | "sm" | "lg" | "icon";
+
   /** Disabled */
   disabled?: boolean;
-  
+
   /** Custom Export Function (overrides default) */
   onExport?: () => Promise<void>;
 }
@@ -105,20 +105,20 @@ interface UniversalDownloadProps {
 ### Direct API Usage
 
 ```tsx
-import { exportToPDF } from '@/lib/export/pdf-export';
+import { exportToPDF } from "@/lib/export/pdf-export";
 
 const blob = await exportToPDF(data, {
-  title: 'Fahrer-Übersicht',
-  subtitle: 'Aktive Fahrer',
-  companyName: 'MyDispatch GmbH',
-  orientation: 'landscape',
+  title: "Fahrer-Übersicht",
+  subtitle: "Aktive Fahrer",
+  companyName: "MyDispatch GmbH",
+  orientation: "landscape",
 });
 
 // Download
 const url = URL.createObjectURL(blob);
-const link = document.createElement('a');
+const link = document.createElement("a");
 link.href = url;
-link.download = 'fahrer.pdf';
+link.download = "fahrer.pdf";
 link.click();
 ```
 
@@ -147,19 +147,22 @@ link.click();
 ### Multi-Sheet Export
 
 ```tsx
-import { exportToXLSX } from '@/lib/export/xlsx-export';
+import { exportToXLSX } from "@/lib/export/xlsx-export";
 
-const blob = await exportToXLSX({
-  'Aufträge': bookings,
-  'Fahrer': drivers,
-  'Fahrzeuge': vehicles,
-}, {
-  columnWidths: {
-    'A': 20, // License Plate
-    'B': 30, // Customer Name
-    'C': 15, // Status
+const blob = await exportToXLSX(
+  {
+    Aufträge: bookings,
+    Fahrer: drivers,
+    Fahrzeuge: vehicles,
   },
-});
+  {
+    columnWidths: {
+      A: 20, // License Plate
+      B: 30, // Customer Name
+      C: 15, // Status
+    },
+  }
+);
 ```
 
 ---
@@ -195,25 +198,25 @@ Jedes Dashboard sollte Download-Buttons in konsistenter Position haben:
 // In DashboardInfoBoard oder Page-Footer
 <div className="p-4 bg-slate-50 border-t border-slate-200">
   <div className="flex flex-col gap-2">
-    <UniversalDownload 
-      type="pdf" 
-      data={currentData} 
+    <UniversalDownload
+      type="pdf"
+      data={currentData}
       filename={`${area}-${new Date().toISOString()}`}
       buttonLabel="Als PDF exportieren"
       variant="outline"
       className="w-full"
     />
-    <UniversalDownload 
-      type="xlsx" 
-      data={currentData} 
+    <UniversalDownload
+      type="xlsx"
+      data={currentData}
       filename={`${area}-${new Date().toISOString()}`}
       buttonLabel="Als Excel exportieren"
       variant="outline"
       className="w-full"
     />
-    <UniversalDownload 
-      type="csv" 
-      data={currentData} 
+    <UniversalDownload
+      type="csv"
+      data={currentData}
       filename={`${area}-${new Date().toISOString()}`}
       buttonLabel="Als CSV exportieren"
       variant="outline"
@@ -237,10 +240,10 @@ Falls Standard-Exports nicht ausreichen:
   onExport={async () => {
     // Custom PDF Generation
     const pdf = await generateInvoicePDF(invoice);
-    
+
     // Custom Download Logic
-    const blob = pdf.output('blob');
-    saveAs(blob, 'rechnung.pdf');
+    const blob = pdf.output("blob");
+    saveAs(blob, "rechnung.pdf");
   }}
 />
 ```
@@ -273,11 +276,11 @@ const exportData = bookings.map(booking => ({
 
 ### Bundle Sizes
 
-| Library | Size | Gzipped |
-|---------|------|---------|
-| jsPDF | ~180kb | ~60kb |
-| jspdf-autotable | ~40kb | ~15kb |
-| xlsx | ~450kb | ~120kb |
+| Library         | Size   | Gzipped |
+| --------------- | ------ | ------- |
+| jsPDF           | ~180kb | ~60kb   |
+| jspdf-autotable | ~40kb  | ~15kb   |
+| xlsx            | ~450kb | ~120kb  |
 
 **Total Impact:** ~670kb raw, ~195kb gzipped
 
@@ -315,8 +318,8 @@ autoTable(doc, {
 **Lösung:** BOM hinzufügen (bereits implementiert):
 
 ```tsx
-const BOM = '\uFEFF';
-return new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
+const BOM = "\uFEFF";
+return new Blob([BOM + csv], { type: "text/csv;charset=utf-8;" });
 ```
 
 ### Issue: Download startet nicht
@@ -324,7 +327,7 @@ return new Blob([BOM + csv], { type: 'text/csv;charset=utf-8;' });
 **Lösung:** Prüfe Popup-Blocker, verwende `document.createElement('a').click()`:
 
 ```tsx
-const link = document.createElement('a');
+const link = document.createElement("a");
 link.href = url;
 link.download = filename;
 document.body.appendChild(link);

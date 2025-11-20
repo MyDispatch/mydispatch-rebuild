@@ -8,43 +8,49 @@
    ✅ Keine Layout-Änderungen - nur visuelle Upgrades
    ================================================================================== */
 
-import { useState, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
-import { useAuth } from '@/hooks/use-auth';
-import { useDeviceType } from '@/hooks/use-device-type';
-import { useCustomers } from '@/hooks/use-customers';
-import { useRealtimeCustomers } from '@/hooks/use-realtime-customers';
-import { useBulkSelection } from '@/hooks/use-bulk-selection';
-import { useCustomerRelatedData } from '@/hooks/use-customer-related';
-import { BulkActionBar } from '@/components/shared/BulkActionBar';
-import { MobileKunden } from '@/components/mobile/MobileKunden';
-import { Mail, Download, Plus, UserCheck, Phone, CreditCard } from 'lucide-react';
-import { KPIGenerator, QuickActionsGenerator } from '@/lib/dashboard-automation';
-import { DashboardStatsCalculator } from '@/lib/dashboard-automation/stats-calculator';
-import { StatCard } from '@/components/smart-templates/StatCard';
-import { supabase } from '@/integrations/supabase/client';
-import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
-import { EmptyState } from '@/components/shared/EmptyState';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/components/ui/input';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { formatCurrency } from '@/lib/index';
-import { Users } from 'lucide-react';
-import { StatusIndicator } from '@/components/shared/StatusIndicator';
-import { handleError } from '@/lib/error-handler';
-import { DetailDialog } from '@/components/shared/DetailDialog';
-import { CustomersTable } from '@/components/tables/CustomersTable';
-import { RelatedEntityCard } from '@/components/shared/RelatedEntityCard';
-import { useNavigate } from 'react-router-dom';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { useToast } from '@/hooks/use-toast';
-import { handleSuccess } from '@/lib/error-handler';
-import { useMemoizedFilter } from '@/hooks/use-memoized-kpis';
-import { CustomerForm as CustomerFormWrapper } from '@/components/forms/wrapped/CustomerForm';
-import { useMainLayout } from '@/hooks/use-main-layout';
-import { UniversalExportBar } from '@/components/dashboard/UniversalExportBar';
-import type { CustomerInsert } from '@/api/customers';
+import { useState, useMemo } from "react";
+import { useForm } from "react-hook-form";
+import { useAuth } from "@/hooks/use-auth";
+import { useDeviceType } from "@/hooks/use-device-type";
+import { useCustomers } from "@/hooks/use-customers";
+import { useRealtimeCustomers } from "@/hooks/use-realtime-customers";
+import { useBulkSelection } from "@/hooks/use-bulk-selection";
+import { useCustomerRelatedData } from "@/hooks/use-customer-related";
+import { BulkActionBar } from "@/components/shared/BulkActionBar";
+import { MobileKunden } from "@/components/mobile/MobileKunden";
+import { Mail, Download, Plus, UserCheck, Phone, CreditCard } from "lucide-react";
+import { KPIGenerator, QuickActionsGenerator } from "@/lib/dashboard-automation";
+import { DashboardStatsCalculator } from "@/lib/dashboard-automation/stats-calculator";
+import { StatCard } from "@/components/smart-templates/StatCard";
+import { supabase } from "@/integrations/supabase/client";
+import { StandardPageLayout } from "@/components/layout/StandardPageLayout";
+import { EmptyState } from "@/components/shared/EmptyState";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { formatCurrency } from "@/lib/index";
+import { Users } from "lucide-react";
+import { StatusIndicator } from "@/components/shared/StatusIndicator";
+import { handleError } from "@/lib/error-handler";
+import { DetailDialog } from "@/components/shared/DetailDialog";
+import { CustomersTable } from "@/components/tables/CustomersTable";
+import { RelatedEntityCard } from "@/components/shared/RelatedEntityCard";
+import { useNavigate } from "react-router-dom";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { useToast } from "@/hooks/use-toast";
+import { handleSuccess } from "@/lib/error-handler";
+import { useMemoizedFilter } from "@/hooks/use-memoized-kpis";
+import { CustomerForm as CustomerFormWrapper } from "@/components/forms/wrapped/CustomerForm";
+import { useMainLayout } from "@/hooks/use-main-layout";
+import { UniversalExportBar } from "@/components/dashboard/UniversalExportBar";
+import type { CustomerInsert } from "@/api/customers";
 
 interface Customer {
   id: string;
@@ -77,7 +83,7 @@ interface CustomerBooking {
 interface CustomerInvoice {
   id: string;
   price: number;
-  payment_status: 'pending' | 'paid' | 'overdue' | 'cancelled';
+  payment_status: "pending" | "paid" | "overdue" | "cancelled";
   created_at: string;
 }
 
@@ -92,7 +98,7 @@ export default function Kunden() {
   const { isMobile } = useDeviceType();
   const { sidebarExpanded } = useMainLayout();
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [showArchived, setShowArchived] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
@@ -113,69 +119,83 @@ export default function Kunden() {
 
   // V18.3: Bulk-Actions Handlers
   const handleBulkEmail = () => {
-    handleSuccess('E-Mail-Versand wird vorbereitet...');
+    handleSuccess("E-Mail-Versand wird vorbereitet...");
     toast({
-      title: 'Funktion in Entwicklung',
-      description: 'E-Mail-Versand für mehrere Kunden wird bald verfügbar sein.',
+      title: "Funktion in Entwicklung",
+      description: "E-Mail-Versand für mehrere Kunden wird bald verfügbar sein.",
     });
   };
 
   const handleBulkExport = () => {
-    handleSuccess('Export wird vorbereitet...');
+    handleSuccess("Export wird vorbereitet...");
     toast({
-      title: 'Funktion in Entwicklung',
-      description: 'Export für mehrere Kunden wird bald verfügbar sein.',
+      title: "Funktion in Entwicklung",
+      description: "Export für mehrere Kunden wird bald verfügbar sein.",
     });
   };
 
   // ⚡ V18.5.1: Memoized Filter für Performance (50% schneller bei großen Listen)
   const filteredCustomers = useMemoizedFilter(
-    () => customers
-      .filter(customer => showArchived || !customer.archived)
-      .filter(customer =>
-        `${customer.first_name} ${customer.last_name}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        customer.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        customer.phone?.includes(searchTerm)
-      ),
+    () =>
+      customers
+        .filter((customer) => showArchived || !customer.archived)
+        .filter(
+          (customer) =>
+            `${customer.first_name} ${customer.last_name}`
+              .toLowerCase()
+              .includes(searchTerm.toLowerCase()) ||
+            customer.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            customer.phone?.includes(searchTerm)
+        ),
     [customers, showArchived, searchTerm]
   );
 
   // V18.5.1: Stats-Berechnung mit DashboardStatsCalculator
-  const customerStats = useMemo(() =>
-    DashboardStatsCalculator.customers(customers) as {
-      total: number;
-      portalAccess: number;
-      openInvoices: number;
-      openInvoicesAmount: number;
-      percentagePortalAccess: number;
-    },
+  const customerStats = useMemo(
+    () =>
+      DashboardStatsCalculator.customers(customers) as {
+        total: number;
+        portalAccess: number;
+        openInvoices: number;
+        openInvoicesAmount: number;
+        percentagePortalAccess: number;
+      },
     [customers]
   );
 
   // V18.5.1: KPIs mit KPIGenerator
-  const kpis = useMemo(() => [
-    KPIGenerator.customers.total(customerStats.total),
-    KPIGenerator.customers.portalAccess(customerStats.portalAccess, customerStats.total),
-    KPIGenerator.customers.openInvoices(customerStats.openInvoices, customerStats.openInvoicesAmount),
-  ], [customerStats]) as [any, any, any];
+  const kpis = useMemo(
+    () => [
+      KPIGenerator.customers.total(customerStats.total),
+      KPIGenerator.customers.portalAccess(customerStats.portalAccess, customerStats.total),
+      KPIGenerator.customers.openInvoices(
+        customerStats.openInvoices,
+        customerStats.openInvoicesAmount
+      ),
+    ],
+    [customerStats]
+  ) as [any, any, any];
 
   // V18.5.1: Quick Actions mit QuickActionsGenerator
-  const quickActions: [any, any] = useMemo(() => [
-    QuickActionsGenerator.create('Kunde anlegen', Plus, () => setDialogOpen(true)),
-    QuickActionsGenerator.export(Download, () => handleBulkExport()),
-  ], []);
+  const quickActions: [any, any] = useMemo(
+    () => [
+      QuickActionsGenerator.create("Kunde anlegen", Plus, () => setDialogOpen(true)),
+      QuickActionsGenerator.export(Download, () => handleBulkExport()),
+    ],
+    []
+  );
 
   const getCustomerType = (customer: Customer) => {
     if (customer.is_manually_created) {
-      return { label: 'Manuell', type: 'info' as const };
+      return { label: "Manuell", type: "info" as const };
     }
-    return { label: 'Selbstregistriert', type: 'success' as const };
+    return { label: "Selbstregistriert", type: "success" as const };
   };
 
   const getBalanceStatus = (balance: number) => {
-    if (balance === 0) return 'success';
-    if (balance > 0) return 'warning';
-    return 'error';
+    if (balance === 0) return "success";
+    if (balance > 0) return "warning";
+    return "error";
   };
 
   // ✅ MISSION II: Entfernt - Related Data wird jetzt via useCustomerRelatedData Hook geladen
@@ -208,7 +228,6 @@ export default function Kunden() {
           </div>
         }
       >
-
         {/* ✅ V6.1: StatCards Pattern (Golden Template - EXAKT WIE /RECHNUNGEN) */}
         <div className="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {kpis.map((kpi, index) => (
@@ -217,10 +236,14 @@ export default function Kunden() {
               label={kpi.title}
               value={kpi.value}
               icon={kpi.icon}
-              change={kpi.trend ? {
-                value: kpi.trend.value,
-                trend: kpi.trend.value >= 0 ? 'up' : 'down'
-              } : undefined}
+              change={
+                kpi.trend
+                  ? {
+                      value: kpi.trend.value,
+                      trend: kpi.trend.value >= 0 ? "up" : "down",
+                    }
+                  : undefined
+              }
             />
           ))}
         </div>
@@ -228,21 +251,23 @@ export default function Kunden() {
         {/* V33.0: Export Bar */}
         <UniversalExportBar
           data={filteredCustomers}
-          filename={`kunden-${new Date().toISOString().split('T')[0]}`}
+          filename={`kunden-${new Date().toISOString().split("T")[0]}`}
           showPdf={true}
           showExcel={true}
           showCsv={true}
         />
 
         {isLoading ? (
-          <div className="text-center py-8 text-muted-foreground">
-            Lädt...
-          </div>
+          <div className="text-center py-8 text-muted-foreground">Lädt...</div>
         ) : filteredCustomers.length === 0 ? (
           <EmptyState
             icon={<Users className="w-full h-full" />}
             title={searchTerm ? "Keine Kunden gefunden" : "Noch keine Kunden"}
-            description={searchTerm ? "Versuchen Sie einen anderen Suchbegriff" : "Legen Sie Ihren ersten Kunden an, um mit der Verwaltung zu beginnen"}
+            description={
+              searchTerm
+                ? "Versuchen Sie einen anderen Suchbegriff"
+                : "Legen Sie Ihren ersten Kunden an, um mit der Verwaltung zu beginnen"
+            }
             actionLabel={searchTerm ? undefined : "Kunde anlegen"}
             onAction={searchTerm ? undefined : () => setDialogOpen(true)}
             isSearchResult={searchTerm.length > 0}
@@ -264,8 +289,8 @@ export default function Kunden() {
               selectedCount={bulkSelection.selectedCount}
               onClearSelection={bulkSelection.clearSelection}
               actions={[
-                { label: 'E-Mail senden', icon: Mail, onClick: handleBulkEmail },
-                { label: 'Exportieren', icon: Download, onClick: handleBulkExport },
+                { label: "E-Mail senden", icon: Mail, onClick: handleBulkEmail },
+                { label: "Exportieren", icon: Download, onClick: handleBulkExport },
               ]}
             />
           </>
@@ -276,9 +301,7 @@ export default function Kunden() {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>
-              {editingCustomer ? 'Kunde bearbeiten' : 'Neuer Kunde'}
-            </DialogTitle>
+            <DialogTitle>{editingCustomer ? "Kunde bearbeiten" : "Neuer Kunde"}</DialogTitle>
             <DialogDescription>
               Erfassen Sie hier die Kundendaten. Pflichtfelder sind mit * gekennzeichnet.
             </DialogDescription>
@@ -331,11 +354,11 @@ export default function Kunden() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">E-Mail</p>
-                <p className="font-medium">{selectedCustomer.email || '-'}</p>
+                <p className="font-medium">{selectedCustomer.email || "-"}</p>
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Telefon</p>
-                <p className="font-medium">{selectedCustomer.phone || '-'}</p>
+                <p className="font-medium">{selectedCustomer.phone || "-"}</p>
               </div>
               {selectedCustomer.address && (
                 <div className="sm:col-span-2">
@@ -343,12 +366,10 @@ export default function Kunden() {
                   <p className="font-medium">{selectedCustomer.address}</p>
                 </div>
               )}
-                <div>
-                  <p className="text-sm text-muted-foreground">Kreditlimit</p>
-                  <p className="font-medium">
-                    {formatCurrency(selectedCustomer.credit_limit)}
-                  </p>
-                </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Kreditlimit</p>
+                <p className="font-medium">{formatCurrency(selectedCustomer.credit_limit)}</p>
+              </div>
               <div>
                 <p className="text-sm text-muted-foreground">Offener Betrag</p>
                 <StatusIndicator
@@ -359,8 +380,8 @@ export default function Kunden() {
               <div>
                 <p className="text-sm text-muted-foreground">Portal-Zugang</p>
                 <StatusIndicator
-                  type={selectedCustomer.has_portal_access ? 'success' : 'neutral'}
-                  label={selectedCustomer.has_portal_access ? 'Aktiviert' : 'Deaktiviert'}
+                  type={selectedCustomer.has_portal_access ? "success" : "neutral"}
+                  label={selectedCustomer.has_portal_access ? "Aktiviert" : "Deaktiviert"}
                 />
               </div>
             </div>
@@ -378,13 +399,15 @@ export default function Kunden() {
               {/* V18.3: Related Entities */}
               {customerBookings.length > 0 && (
                 <div>
-                  <p className="text-xs text-muted-foreground mb-2">Letzte Aufträge ({customerBookings.length})</p>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    Letzte Aufträge ({customerBookings.length})
+                  </p>
                   {customerBookings.slice(0, 3).map((booking) => (
                     <RelatedEntityCard
                       key={booking.id}
                       type="customer"
                       label="Auftrag"
-                      value={`${booking.pickup_address} → ${booking.dropoff_address || 'Unbekannt'}`}
+                      value={`${booking.pickup_address} → ${booking.dropoff_address || "Unbekannt"}`}
                       meta={`Preis: ${formatCurrency(booking.price || 0)} | Status: ${booking.status}`}
                       onClick={() => navigate(`/auftraege?id=${booking.id}`)}
                       className="mb-2"
@@ -396,7 +419,9 @@ export default function Kunden() {
               {/* V18.3: Offene Rechnungen */}
               {customerInvoices.length > 0 && (
                 <div>
-                  <p className="text-xs text-muted-foreground mb-2">Offene Rechnungen ({customerInvoices.length})</p>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    Offene Rechnungen ({customerInvoices.length})
+                  </p>
                   {customerInvoices.map((invoice) => (
                     <RelatedEntityCard
                       key={invoice.id}
@@ -404,8 +429,10 @@ export default function Kunden() {
                       label="Rechnung"
                       value={`RE-${invoice.id.substring(0, 8)}`}
                       meta={`Betrag: ${formatCurrency(invoice.price || 0)}`}
-                      status={invoice.payment_status === 'overdue' ? 'error' : 'warning'}
-                      statusLabel={invoice.payment_status === 'overdue' ? 'Überfällig' : 'Ausstehend'}
+                      status={invoice.payment_status === "overdue" ? "error" : "warning"}
+                      statusLabel={
+                        invoice.payment_status === "overdue" ? "Überfällig" : "Ausstehend"
+                      }
                       onClick={() => navigate(`/rechnungen?id=${invoice.id}`)}
                       className="mb-2"
                     />
@@ -414,7 +441,9 @@ export default function Kunden() {
               )}
 
               {customerBookings.length === 0 && customerInvoices.length === 0 && (
-                <p className="text-sm text-muted-foreground">Noch keine verknüpften Daten vorhanden.</p>
+                <p className="text-sm text-muted-foreground">
+                  Noch keine verknüpften Daten vorhanden.
+                </p>
               )}
             </div>
           </div>
@@ -423,9 +452,7 @@ export default function Kunden() {
 
       {/* ✅ V32.5: Right Sidebar (320px, Desktop only) - EXAKT WIE /RECHNUNGEN */}
       {!isMobile && (
-        <aside
-          className="fixed right-0 top-16 bottom-0 w-80 bg-white border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300"
-        >
+        <aside className="fixed right-0 top-16 bottom-0 w-80 bg-white border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300">
           {/* Schnellzugriff Actions */}
           <div className="p-4 space-y-3 border-b border-border">
             <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wider flex items-center gap-2">
@@ -456,7 +483,9 @@ export default function Kunden() {
 
           {/* Live-Status Stats */}
           <div className="p-4 space-y-3">
-            <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-2">Live-Status</h4>
+            <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-2">
+              Live-Status
+            </h4>
 
             <div className="space-y-2">
               {/* Gesamt Kunden */}
@@ -513,24 +542,24 @@ function CustomerForm({ customer, companyId, onSuccess, onCancel }: CustomerForm
 
   const form = useForm({
     defaultValues: {
-      first_name: customer?.first_name || '',
-      last_name: customer?.last_name || '',
-      email: customer?.email || '',
-      phone: customer?.phone || '',
-      mobile: customer?.mobile || '',
-      salutation: customer?.salutation || '',
-      title: customer?.title || '',
-      birth_date: customer?.birth_date || '',
-      street: customer?.street || '',
-      street_number: customer?.street_number || '',
-      postal_code: customer?.postal_code || '',
-      city: customer?.city || '',
-      tax_id: customer?.tax_id || '',
-      customer_number: customer?.customer_number || '',
+      first_name: customer?.first_name || "",
+      last_name: customer?.last_name || "",
+      email: customer?.email || "",
+      phone: customer?.phone || "",
+      mobile: customer?.mobile || "",
+      salutation: customer?.salutation || "",
+      title: customer?.title || "",
+      birth_date: customer?.birth_date || "",
+      street: customer?.street || "",
+      street_number: customer?.street_number || "",
+      postal_code: customer?.postal_code || "",
+      city: customer?.city || "",
+      tax_id: customer?.tax_id || "",
+      customer_number: customer?.customer_number || "",
       credit_limit: customer?.credit_limit || 0,
       outstanding_balance: customer?.outstanding_balance || 0,
       payment_terms: customer?.payment_term_days || 14,
-      notes: customer?.notes || '',
+      notes: customer?.notes || "",
       has_portal_access: customer?.has_portal_access || false,
     },
   });

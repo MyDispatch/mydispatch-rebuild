@@ -17,89 +17,89 @@
 export const colors = {
   // Primary (Slate - Professional)
   primary: {
-    DEFAULT: '#334155',      // slate-700
-    50: '#f8fafc',
-    100: '#f1f5f9',
-    200: '#e2e8f0',
-    300: '#cbd5e1',
-    400: '#94a3b8',
-    500: '#64748b',
-    600: '#475569',           // slate-600
-    700: '#334155',           // slate-700
-    800: '#1e293b',
-    900: '#0f172a',           // slate-900
-    950: '#020617',
+    DEFAULT: "#334155", // slate-700
+    50: "#f8fafc",
+    100: "#f1f5f9",
+    200: "#e2e8f0",
+    300: "#cbd5e1",
+    400: "#94a3b8",
+    500: "#64748b",
+    600: "#475569", // slate-600
+    700: "#334155", // slate-700
+    800: "#1e293b",
+    900: "#0f172a", // slate-900
+    950: "#020617",
   },
 
   // Neutrals (Gray Scale)
   gray: {
-    DEFAULT: '#6B7280',
-    50: '#F9FAFB',
-    100: '#F3F4F6',
-    200: '#E5E7EB',
-    300: '#D1D5DB',
-    400: '#9CA3AF',
-    500: '#6B7280',
-    600: '#4B5563',
-    700: '#374151',
-    800: '#1F2937',
-    900: '#111827',
-    950: '#030712',
+    DEFAULT: "#6B7280",
+    50: "#F9FAFB",
+    100: "#F3F4F6",
+    200: "#E5E7EB",
+    300: "#D1D5DB",
+    400: "#9CA3AF",
+    500: "#6B7280",
+    600: "#4B5563",
+    700: "#374151",
+    800: "#1F2937",
+    900: "#111827",
+    950: "#030712",
   },
 
   // Black & White
-  black: '#000000',
-  white: '#FFFFFF',
+  black: "#000000",
+  white: "#FFFFFF",
 
   // Background Colors (Semantic)
   bg: {
-    primary: '#FFFFFF',
-    secondary: '#F9FAFB',       // gray-50
-    tertiary: '#F3F4F6',        // gray-100
-    canvas: '#f8fafc',          // slate-50
-    inverse: '#0f172a',         // slate-900
+    primary: "#FFFFFF",
+    secondary: "#F9FAFB", // gray-50
+    tertiary: "#F3F4F6", // gray-100
+    canvas: "#f8fafc", // slate-50
+    inverse: "#0f172a", // slate-900
   },
 
   // Text Colors (Semantic)
   text: {
-    primary: '#0f172a',         // slate-900
-    secondary: '#475569',       // slate-600
-    tertiary: '#94a3b8',        // slate-400
-    inverse: '#FFFFFF',
-    muted: '#6B7280',           // gray-500
+    primary: "#0f172a", // slate-900
+    secondary: "#475569", // slate-600
+    tertiary: "#94a3b8", // slate-400
+    inverse: "#FFFFFF",
+    muted: "#6B7280", // gray-500
   },
 
   // Border Colors
   border: {
-    DEFAULT: '#e2e8f0',         // slate-200
-    light: '#f1f5f9',           // slate-100
-    dark: '#cbd5e1',            // slate-300
-    focus: '#334155',           // slate-700
+    DEFAULT: "#e2e8f0", // slate-200
+    light: "#f1f5f9", // slate-100
+    dark: "#cbd5e1", // slate-300
+    focus: "#334155", // slate-700
   },
 
   // Status Colors (Semantic)
   success: {
-    DEFAULT: '#10B981',
-    light: '#34D399',
-    dark: '#059669',
+    DEFAULT: "#10B981",
+    light: "#34D399",
+    dark: "#059669",
   },
 
   warning: {
-    DEFAULT: '#F59E0B',
-    light: '#FBBF24',
-    dark: '#D97706',
+    DEFAULT: "#F59E0B",
+    light: "#FBBF24",
+    dark: "#D97706",
   },
 
   danger: {
-    DEFAULT: '#EF4444',
-    light: '#F87171',
-    dark: '#DC2626',
+    DEFAULT: "#EF4444",
+    light: "#F87171",
+    dark: "#DC2626",
   },
 
   info: {
-    DEFAULT: '#3B82F6',
-    light: '#60A5FA',
-    dark: '#2563EB',
+    DEFAULT: "#3B82F6",
+    light: "#60A5FA",
+    dark: "#2563EB",
   },
 } as const;
 
@@ -116,19 +116,19 @@ export const typography = {
 
   // Font Sizes (rem based - 16px base)
   fontSize: {
-    xs: '0.75rem',      // 12px
-    sm: '0.875rem',     // 14px
-    base: '1rem',       // 16px
-    lg: '1.125rem',     // 18px
-    xl: '1.25rem',      // 20px
-    '2xl': '1.5rem',    // 24px
-    '3xl': '1.875rem',  // 30px
-    '4xl': '2.25rem',   // 36px
-    '5xl': '3rem',      // 48px
-    '6xl': '3.75rem',   // 60px
-    '7xl': '4.5rem',    // 72px
-    '8xl': '6rem',      // 96px
-    '9xl': '8rem',      // 128px
+    xs: "0.75rem", // 12px
+    sm: "0.875rem", // 14px
+    base: "1rem", // 16px
+    lg: "1.125rem", // 18px
+    xl: "1.25rem", // 20px
+    "2xl": "1.5rem", // 24px
+    "3xl": "1.875rem", // 30px
+    "4xl": "2.25rem", // 36px
+    "5xl": "3rem", // 48px
+    "6xl": "3.75rem", // 60px
+    "7xl": "4.5rem", // 72px
+    "8xl": "6rem", // 96px
+    "9xl": "8rem", // 128px
   },
 
   // Font Weights
@@ -156,12 +156,12 @@ export const typography = {
 
   // Letter Spacing
   letterSpacing: {
-    tighter: '-0.05em',
-    tight: '-0.025em',
-    normal: '0em',
-    wide: '0.025em',
-    wider: '0.05em',
-    widest: '0.1em',
+    tighter: "-0.05em",
+    tight: "-0.025em",
+    normal: "0em",
+    wide: "0.025em",
+    wider: "0.05em",
+    widest: "0.1em",
   },
 } as const;
 
@@ -170,52 +170,52 @@ export const typography = {
 // ============================================================================
 
 export const spacing = {
-  0: '0',
-  px: '1px',
-  0.5: '0.125rem',    // 2px
-  1: '0.25rem',       // 4px
-  1.5: '0.375rem',    // 6px
-  2: '0.5rem',        // 8px  - xs
-  2.5: '0.625rem',    // 10px
-  3: '0.75rem',       // 12px
-  3.5: '0.875rem',    // 14px
-  4: '1rem',          // 16px - sm
-  5: '1.25rem',       // 20px
-  6: '1.5rem',        // 24px - md
-  7: '1.75rem',       // 28px
-  8: '2rem',          // 32px - lg
-  9: '2.25rem',       // 36px
-  10: '2.5rem',       // 40px
-  11: '2.75rem',      // 44px
-  12: '3rem',         // 48px - xl
-  14: '3.5rem',       // 56px
-  16: '4rem',         // 64px - 2xl
-  20: '5rem',         // 80px
-  24: '6rem',         // 96px
-  28: '7rem',         // 112px
-  32: '8rem',         // 128px
-  36: '9rem',         // 144px
-  40: '10rem',        // 160px
-  44: '11rem',        // 176px
-  48: '12rem',        // 192px
-  52: '13rem',        // 208px
-  56: '14rem',        // 224px
-  60: '15rem',        // 240px
-  64: '16rem',        // 256px
-  72: '18rem',        // 288px
-  80: '20rem',        // 320px
-  96: '24rem',        // 384px
+  0: "0",
+  px: "1px",
+  0.5: "0.125rem", // 2px
+  1: "0.25rem", // 4px
+  1.5: "0.375rem", // 6px
+  2: "0.5rem", // 8px  - xs
+  2.5: "0.625rem", // 10px
+  3: "0.75rem", // 12px
+  3.5: "0.875rem", // 14px
+  4: "1rem", // 16px - sm
+  5: "1.25rem", // 20px
+  6: "1.5rem", // 24px - md
+  7: "1.75rem", // 28px
+  8: "2rem", // 32px - lg
+  9: "2.25rem", // 36px
+  10: "2.5rem", // 40px
+  11: "2.75rem", // 44px
+  12: "3rem", // 48px - xl
+  14: "3.5rem", // 56px
+  16: "4rem", // 64px - 2xl
+  20: "5rem", // 80px
+  24: "6rem", // 96px
+  28: "7rem", // 112px
+  32: "8rem", // 128px
+  36: "9rem", // 144px
+  40: "10rem", // 160px
+  44: "11rem", // 176px
+  48: "12rem", // 192px
+  52: "13rem", // 208px
+  56: "14rem", // 224px
+  60: "15rem", // 240px
+  64: "16rem", // 256px
+  72: "18rem", // 288px
+  80: "20rem", // 320px
+  96: "24rem", // 384px
 } as const;
 
 // Semantic Spacing (für Layout Components)
 export const layoutSpacing = {
-  none: '0',
-  xs: '0.5rem',       // 8px  (gap-2)
-  sm: '1rem',         // 16px (gap-4)
-  md: '1.5rem',       // 24px (gap-6) - DEFAULT
-  lg: '2rem',         // 32px (gap-8)
-  xl: '3rem',         // 48px (gap-12)
-  '2xl': '4rem',      // 64px (gap-16)
+  none: "0",
+  xs: "0.5rem", // 8px  (gap-2)
+  sm: "1rem", // 16px (gap-4)
+  md: "1.5rem", // 24px (gap-6) - DEFAULT
+  lg: "2rem", // 32px (gap-8)
+  xl: "3rem", // 48px (gap-12)
+  "2xl": "4rem", // 64px (gap-16)
 } as const;
 
 // ============================================================================
@@ -223,15 +223,15 @@ export const layoutSpacing = {
 // ============================================================================
 
 export const borderRadius = {
-  none: '0',
-  sm: '0.125rem',     // 2px
-  DEFAULT: '0.25rem', // 4px
-  md: '0.375rem',     // 6px
-  lg: '0.5rem',       // 8px
-  xl: '0.75rem',      // 12px
-  '2xl': '1rem',      // 16px
-  '3xl': '1.5rem',    // 24px
-  full: '9999px',
+  none: "0",
+  sm: "0.125rem", // 2px
+  DEFAULT: "0.25rem", // 4px
+  md: "0.375rem", // 6px
+  lg: "0.5rem", // 8px
+  xl: "0.75rem", // 12px
+  "2xl": "1rem", // 16px
+  "3xl": "1.5rem", // 24px
+  full: "9999px",
 } as const;
 
 // ============================================================================
@@ -239,16 +239,16 @@ export const borderRadius = {
 // ============================================================================
 
 export const shadows = {
-  none: 'none',
-  sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-  DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
-  md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)',
-  lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)',
-  xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
-  '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-  inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.05)',
+  none: "none",
+  sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+  DEFAULT: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)",
+  md: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1)",
+  lg: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)",
+  xl: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
+  "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+  inner: "inset 0 2px 4px 0 rgba(0, 0, 0, 0.05)",
   // Premium shadow für Pricing/Hero
-  glow: '0 0 40px rgba(51, 65, 85, 0.15)',  // slate-700 glow
+  glow: "0 0 40px rgba(51, 65, 85, 0.15)", // slate-700 glow
 } as const;
 
 // ============================================================================
@@ -256,22 +256,22 @@ export const shadows = {
 // ============================================================================
 
 export const transitions = {
-  none: 'none',
-  all: 'all 150ms ease-in-out',
-  fast: '150ms ease-in-out',
-  normal: '250ms ease-in-out',
-  slow: '350ms ease-in-out',
-  slower: '500ms ease-in-out',
+  none: "none",
+  all: "all 150ms ease-in-out",
+  fast: "150ms ease-in-out",
+  normal: "250ms ease-in-out",
+  slow: "350ms ease-in-out",
+  slower: "500ms ease-in-out",
 } as const;
 
 export const transitionProperty = {
-  none: 'none',
-  all: 'all',
-  DEFAULT: 'background-color, border-color, color, fill, stroke, opacity, box-shadow, transform',
-  colors: 'background-color, border-color, color, fill, stroke',
-  opacity: 'opacity',
-  shadow: 'box-shadow',
-  transform: 'transform',
+  none: "none",
+  all: "all",
+  DEFAULT: "background-color, border-color, color, fill, stroke, opacity, box-shadow, transform",
+  colors: "background-color, border-color, color, fill, stroke",
+  opacity: "opacity",
+  shadow: "box-shadow",
+  transform: "transform",
 } as const;
 
 // ============================================================================
@@ -279,11 +279,11 @@ export const transitionProperty = {
 // ============================================================================
 
 export const breakpoints = {
-  sm: '640px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1280px',
-  '2xl': '1536px',
+  sm: "640px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1280px",
+  "2xl": "1536px",
 } as const;
 
 // ============================================================================
@@ -291,7 +291,7 @@ export const breakpoints = {
 // ============================================================================
 
 export const zIndex = {
-  auto: 'auto',
+  auto: "auto",
   0: 0,
   10: 10,
   20: 20,
@@ -314,15 +314,15 @@ export const zIndex = {
 // ============================================================================
 
 export const animation = {
-  none: 'none',
-  spin: 'spin 1s linear infinite',
-  ping: 'ping 1s cubic-bezier(0, 0, 0.2, 1) infinite',
-  pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-  bounce: 'bounce 1s infinite',
-  fadeIn: 'fadeIn 0.3s ease-in',
-  fadeOut: 'fadeOut 0.3s ease-out',
-  slideIn: 'slideIn 0.3s ease-out',
-  slideOut: 'slideOut 0.3s ease-in',
+  none: "none",
+  spin: "spin 1s linear infinite",
+  ping: "ping 1s cubic-bezier(0, 0, 0.2, 1) infinite",
+  pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+  bounce: "bounce 1s infinite",
+  fadeIn: "fadeIn 0.3s ease-in",
+  fadeOut: "fadeOut 0.3s ease-out",
+  slideIn: "slideIn 0.3s ease-out",
+  slideOut: "slideOut 0.3s ease-in",
 } as const;
 
 // ============================================================================
@@ -330,14 +330,14 @@ export const animation = {
 // ============================================================================
 
 export const blur = {
-  none: '0',
-  sm: '4px',
-  DEFAULT: '8px',
-  md: '12px',
-  lg: '16px',
-  xl: '24px',
-  '2xl': '40px',
-  '3xl': '64px',
+  none: "0",
+  sm: "4px",
+  DEFAULT: "8px",
+  md: "12px",
+  lg: "16px",
+  xl: "24px",
+  "2xl": "40px",
+  "3xl": "64px",
 } as const;
 
 // ============================================================================

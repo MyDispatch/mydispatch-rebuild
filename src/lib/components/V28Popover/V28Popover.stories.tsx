@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { V28Popover } from './index';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Settings, User, Bell } from 'lucide-react';
+import type { Meta, StoryObj } from "@storybook/react";
+import { V28Popover } from "./index";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Settings, User, Bell } from "lucide-react";
 
 const meta: Meta<typeof V28Popover> = {
-  title: 'Design System/V28Popover',
+  title: "Design System/V28Popover",
   component: V28Popover,
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 };
 
 export default meta;
@@ -38,7 +38,9 @@ export const WithIcon: Story = {
         }
       >
         <div className="space-y-3">
-          <h4 className="font-semibold text-sm text-slate-900 dark:text-slate-100">Quick Settings</h4>
+          <h4 className="font-semibold text-sm text-slate-900 dark:text-slate-100">
+            Quick Settings
+          </h4>
           <div className="space-y-2">
             <button className="w-full text-left px-2 py-1.5 text-sm hover:bg-slate-100 dark:hover:bg-slate-700">
               Profile Settings

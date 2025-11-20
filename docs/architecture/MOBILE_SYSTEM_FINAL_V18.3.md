@@ -10,10 +10,10 @@
 ```tsx
 // Vertikale Filter-Bar (Standard für alle Mobile-Seiten)
 <div className="flex flex-col gap-2 w-full">
-  {filters.map(filter => (
+  {filters.map((filter) => (
     <Button
       key={filter.id}
-      variant={activeFilter === filter.id ? 'default' : 'outline'}
+      variant={activeFilter === filter.id ? "default" : "outline"}
       className="w-full min-h-[44px] justify-between"
     >
       <span>{filter.label}</span>
@@ -28,8 +28,9 @@
 ### ✅ Vollständig Implementiert
 
 #### 1. MobileAuftraege
+
 - **Location:** `src/components/mobile/MobileAuftraege.tsx`
-- **Features:** 
+- **Features:**
   - Vertikale Filter (Alle, Offen, Bestätigt, Aktiv, Abgeschlossen)
   - Search-Bar
   - Booking-Cards
@@ -37,6 +38,7 @@
 - **Status:** ✅ Production Ready
 
 #### 2. MobileFilterBar
+
 - **Location:** `src/components/mobile/MobileFilterBar.tsx`
 - **Features:**
   - Vertikale Button-Stapelung
@@ -46,6 +48,7 @@
 - **Status:** ✅ Production Ready
 
 #### 3. MobileKunden
+
 - **Location:** `src/components/mobile/MobileKunden.tsx`
 - **Features:**
   - Vertikale Filter (Alle, Geschäft, Manuell, Portal)
@@ -56,36 +59,43 @@
 ### 🔄 Zu Implementieren
 
 #### 4. MobileFahrer
+
 - **Filter:** Alle, Verfügbar, Im Einsatz, Offline
 - **Cards:** Fahrer-Info + GPS-Status + Dokumente-Ampel
 - **Actions:** Anrufen, Details
 
 #### 5. MobileFahrzeuge
+
 - **Filter:** Alle, Verfügbar, Gewartet, Offline
 - **Cards:** Kennzeichen + TÜV-Status + Wartung
 - **Actions:** Details, Wartung planen
 
 #### 6. MobileRechnungen
+
 - **Filter:** Alle, Offen, Bezahlt, Überfällig, Storniert
 - **Cards:** Rechnungsnummer + Betrag + Status
 - **Actions:** PDF, Email, Details
 
 #### 7. MobileSchichtzettel
+
 - **Filter:** Alle, Heute, Diese Woche, Vergangen
 - **Cards:** Datum + Fahrer + Stunden
 - **Actions:** PDF, Bearbeiten
 
 #### 8. MobileDokumente
+
 - **Filter:** Alle, Gültig, Läuft ab (<30 Tage), Abgelaufen
 - **Cards:** Dokumenttyp + Person + Ablaufdatum + Ampel
 - **Actions:** Ansehen, Hochladen
 
 #### 9. MobilePartner
+
 - **Filter:** Alle, Aktiv, Inaktiv
 - **Cards:** Name + Provision + Aufträge
 - **Actions:** Details, Kontakt
 
 #### 10. MobileKostenstellen
+
 - **Filter:** Alle, Aktiv, Inaktiv
 - **Cards:** Name + Budget + Verbrauch
 - **Actions:** Details, Bearbeiten
@@ -104,13 +114,13 @@
    - Touch-optimiert (min-h-[44px])
    ================================================================================== */
 
-import { useState } from 'react';
-import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Plus, Search, RefreshCw } from 'lucide-react';
-import { MobileFilterBar } from './MobileFilterBar';
-import { Input } from '@/components/ui/input';
-import { EmptyState } from '@/components/shared/EmptyState';
+import { useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Plus, Search, RefreshCw } from "lucide-react";
+import { MobileFilterBar } from "./MobileFilterBar";
+import { Input } from "@/components/ui/input";
+import { EmptyState } from "@/components/shared/EmptyState";
 
 interface MobileEntityProps {
   items: Entity[];
@@ -125,15 +135,15 @@ export function MobileEntity({
   isLoading,
   onCreateNew,
   onItemClick,
-  onRefresh
+  onRefresh,
 }: MobileEntityProps) {
-  const [activeFilter, setActiveFilter] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Filter logic
-  const filteredItems = items.filter(item => {
+  const filteredItems = items.filter((item) => {
     // Status filter
-    if (activeFilter !== 'all' && item.status !== activeFilter) {
+    if (activeFilter !== "all" && item.status !== activeFilter) {
       return false;
     }
 
@@ -149,14 +159,14 @@ export function MobileEntity({
   // Count by status
   const statusCounts = {
     all: items.length,
-    active: items.filter(i => i.status === 'active').length,
-    inactive: items.filter(i => i.status === 'inactive').length,
+    active: items.filter((i) => i.status === "active").length,
+    inactive: items.filter((i) => i.status === "inactive").length,
   };
 
   const filters = [
-    { id: 'all', label: 'Alle', count: statusCounts.all },
-    { id: 'active', label: 'Aktiv', count: statusCounts.active },
-    { id: 'inactive', label: 'Inaktiv', count: statusCounts.inactive },
+    { id: "all", label: "Alle", count: statusCounts.all },
+    { id: "active", label: "Aktiv", count: statusCounts.active },
+    { id: "inactive", label: "Inaktiv", count: statusCounts.inactive },
   ];
 
   return (
@@ -179,7 +189,7 @@ export function MobileEntity({
           disabled={isLoading}
           className="h-11 w-11 shrink-0"
         >
-          <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
+          <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} />
         </Button>
       </div>
 
@@ -208,9 +218,9 @@ export function MobileEntity({
         </div>
       ) : filteredItems.length > 0 ? (
         <div className="space-y-4">
-          {filteredItems.map(item => (
-            <Card 
-              key={item.id} 
+          {filteredItems.map((item) => (
+            <Card
+              key={item.id}
               className="p-4 cursor-pointer hover:bg-accent/5 transition-colors"
               onClick={() => onItemClick(item)}
             >
@@ -221,12 +231,11 @@ export function MobileEntity({
       ) : (
         <EmptyState
           icon={<Search className="h-16 w-16" />}
-          title={searchQuery ? 'Keine Ergebnisse' : 'Keine Einträge'}
-          description={searchQuery 
-            ? 'Versuche einen anderen Suchbegriff'
-            : 'Erstelle deinen ersten Eintrag'
+          title={searchQuery ? "Keine Ergebnisse" : "Keine Einträge"}
+          description={
+            searchQuery ? "Versuche einen anderen Suchbegriff" : "Erstelle deinen ersten Eintrag"
           }
-          actionLabel={!searchQuery ? 'Neu erstellen' : undefined}
+          actionLabel={!searchQuery ? "Neu erstellen" : undefined}
           onAction={!searchQuery ? onCreateNew : undefined}
         />
       )}
@@ -291,29 +300,34 @@ export function Kunden() {
 ## 🎯 Design-Vorgaben (Mobile)
 
 ### Layout
+
 - **Container-Padding:** Durch StandardPageLayout gemanagt (px-4)
 - **Spacing:** gap-2 zwischen Buttons, gap-4 zwischen Cards
 - **Max-Width:** Keine Einschränkung (w-full)
 
 ### Buttons
+
 - **Height:** min-h-[44px] (Apple HIG Touch Target)
 - **Width:** w-full für Filter, w-14 h-14 für FAB
 - **Padding:** px-4 für horizontales Padding
 - **Layout:** justify-between (Label links, Badge rechts)
 
 ### Filter
+
 - **Pattern:** Vertikale Stapelung (flex flex-col)
 - **Active State:** variant="default" + shadow-md
 - **Inactive State:** variant="outline"
 - **Badge:** Rechts mit Count, rounded-full
 
 ### Cards
+
 - **Padding:** p-4
 - **Hover:** hover:bg-accent/5
 - **Cursor:** cursor-pointer
 - **Transition:** transition-colors
 
 ### FAB (Floating Action Button)
+
 - **Position:** fixed bottom-24 right-4
 - **Size:** w-14 h-14
 - **Shadow:** shadow-2xl
@@ -321,6 +335,7 @@ export function Kunden() {
 - **Shape:** rounded-full
 
 ### Empty States
+
 - **Icon:** h-16 w-16
 - **Layout:** Centered
 - **Action:** Conditional (nur bei leerem Zustand)
@@ -328,17 +343,20 @@ export function Kunden() {
 ## 🚀 Implementierungs-Reihenfolge
 
 ### Phase 1: Kritische Seiten (Woche 1)
+
 1. ✅ Aufträge (Completed)
 2. ✅ Kunden (Completed)
 3. 🔄 Fahrer (Update auf neues Pattern)
 4. 🔄 Fahrzeuge (Update auf neues Pattern)
 
 ### Phase 2: Wichtige Seiten (Woche 2)
+
 5. Rechnungen
 6. Schichtzettel
 7. Dokumente
 
 ### Phase 3: Ergänzende Seiten (Woche 3)
+
 8. Partner
 9. Kostenstellen
 10. Statistiken (Spezialfall - Charts)
@@ -384,6 +402,7 @@ bg-primary text-primary-foreground shadow-2xl
 ## 🔧 Maintenance
 
 ### Neue Mobile-Seite hinzufügen:
+
 1. Kopiere Template aus dieser Dokumentation
 2. Passe Entity-Interface an
 3. Implementiere Filter-Logic
@@ -392,6 +411,7 @@ bg-primary text-primary-foreground shadow-2xl
 6. Teste alle Checkpoints
 
 ### Bestehende Seite aktualisieren:
+
 1. Ersetze horizontale Filter mit `MobileFilterBar`
 2. Stelle sicher: `flex flex-col gap-2 w-full`
 3. Entferne alle overflow-x-Logik

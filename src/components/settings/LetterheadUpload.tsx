@@ -16,7 +16,11 @@ interface LetterheadUploadProps {
   onUploadComplete: (url: string) => void;
 }
 
-export function LetterheadUpload({ companyId, currentLetterheadUrl, onUploadComplete }: LetterheadUploadProps) {
+export function LetterheadUpload({
+  companyId,
+  currentLetterheadUrl,
+  onUploadComplete,
+}: LetterheadUploadProps) {
   const [uploading, setUploading] = useState(false);
   const [preview, setPreview] = useState<string | null>(currentLetterheadUrl || null);
   const [dragActive, setDragActive] = useState(false);
@@ -50,11 +54,11 @@ export function LetterheadUpload({ companyId, currentLetterheadUrl, onUploadComp
 
   const handleFile = async (file: File) => {
     // Validierung: Nur Bildformate (PNG, JPG, PDF)
-    const validFormats = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'application/pdf'];
+    const validFormats = ["image/png", "image/jpeg", "image/jpg", "image/webp", "application/pdf"];
     if (!validFormats.includes(file.type)) {
       handleError(
-        new Error('Ungültiges Dateiformat'),
-        'Bitte wählen Sie eine PNG, JPG, WEBP oder PDF Datei',
+        new Error("Ungültiges Dateiformat"),
+        "Bitte wählen Sie eine PNG, JPG, WEBP oder PDF Datei",
         { showToast: true }
       );
       return;
@@ -62,11 +66,9 @@ export function LetterheadUpload({ companyId, currentLetterheadUrl, onUploadComp
 
     // Validierung: Max. 5MB (Briefpapier kann größer sein)
     if (file.size > 5 * 1024 * 1024) {
-      handleError(
-        new Error('Datei zu groß'),
-        'Die Datei darf maximal 5 MB groß sein',
-        { showToast: true }
-      );
+      handleError(new Error("Datei zu groß"), "Die Datei darf maximal 5 MB groß sein", {
+        showToast: true,
+      });
       return;
     }
 
@@ -74,7 +76,7 @@ export function LetterheadUpload({ companyId, currentLetterheadUrl, onUploadComp
 
     try {
       // Preview erstellen (nur für Bilder)
-      if (file.type.startsWith('image/')) {
+      if (file.type.startsWith("image/")) {
         const reader = new FileReader();
         reader.onloadend = () => {
           setPreview(reader.result as string);
@@ -86,40 +88,36 @@ export function LetterheadUpload({ companyId, currentLetterheadUrl, onUploadComp
       }
 
       // Dateiname: company_id + timestamp + extension
-      const fileExt = file.name.split('.').pop();
+      const fileExt = file.name.split(".").pop();
       const fileName = `${companyId}/${Date.now()}.${fileExt}`;
 
       // Upload zu Supabase Storage
       const { data, error } = await supabase.storage
-        .from('company-letterheads')
+        .from("company-letterheads")
         .upload(fileName, file, {
-          cacheControl: '3600',
-          upsert: false
+          cacheControl: "3600",
+          upsert: false,
         });
 
       if (error) throw error;
 
       // Public URL generieren
-      const { data: { publicUrl } } = supabase.storage
-        .from('company-letterheads')
-        .getPublicUrl(fileName);
+      const {
+        data: { publicUrl },
+      } = supabase.storage.from("company-letterheads").getPublicUrl(fileName);
 
       // URL in companies-Tabelle speichern
       const { error: updateError } = await supabase
-        .from('companies')
+        .from("companies")
         .update({ letterhead_url: publicUrl })
-        .eq('id', companyId);
+        .eq("id", companyId);
 
       if (updateError) throw updateError;
 
-      handleSuccess('Briefpapier erfolgreich hochgeladen', 'Erfolg');
+      handleSuccess("Briefpapier erfolgreich hochgeladen", "Erfolg");
       onUploadComplete(publicUrl);
     } catch (error) {
-      handleError(
-        error as Error, 
-        'Fehler beim Hochladen des Briefpapiers',
-        { showToast: true }
-      );
+      handleError(error as Error, "Fehler beim Hochladen des Briefpapiers", { showToast: true });
       setPreview(currentLetterheadUrl || null);
     } finally {
       setUploading(false);
@@ -131,21 +129,17 @@ export function LetterheadUpload({ companyId, currentLetterheadUrl, onUploadComp
     try {
       // URL in companies-Tabelle entfernen
       const { error } = await supabase
-        .from('companies')
+        .from("companies")
         .update({ letterhead_url: null })
-        .eq('id', companyId);
+        .eq("id", companyId);
 
       if (error) throw error;
 
       setPreview(null);
-      handleSuccess('Briefpapier erfolgreich entfernt', 'Erfolg');
-      onUploadComplete('');
+      handleSuccess("Briefpapier erfolgreich entfernt", "Erfolg");
+      onUploadComplete("");
     } catch (error) {
-      handleError(
-        error as Error, 
-        'Fehler beim Entfernen des Briefpapiers',
-        { showToast: true }
-      );
+      handleError(error as Error, "Fehler beim Entfernen des Briefpapiers", { showToast: true });
     } finally {
       setUploading(false);
     }
@@ -155,18 +149,16 @@ export function LetterheadUpload({ companyId, currentLetterheadUrl, onUploadComp
     <Card>
       <CardHeader>
         <CardTitle>Briefpapier</CardTitle>
-        <CardDescription>
-          Briefpapier hochladen (PNG, JPG, WEBP, PDF - max. 5 MB)
-        </CardDescription>
+        <CardDescription>Briefpapier hochladen (PNG, JPG, WEBP, PDF - max. 5 MB)</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Preview */}
         {preview && (
           <div className="relative w-full max-w-2xl mx-auto">
             <div className="aspect-[210/297] bg-muted rounded-lg flex items-center justify-center overflow-hidden border">
-              <img 
-                src={preview} 
-                alt="Briefpapier-Vorschau" 
+              <img
+                src={preview}
+                alt="Briefpapier-Vorschau"
                 className="max-h-full max-w-full object-contain"
               />
             </div>
@@ -185,9 +177,7 @@ export function LetterheadUpload({ companyId, currentLetterheadUrl, onUploadComp
         {/* Upload Area */}
         <div
           className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-            dragActive 
-              ? 'border-primary bg-primary/5' 
-              : 'border-border hover:border-primary/50'
+            dragActive ? "border-primary bg-primary/5" : "border-border hover:border-primary/50"
           }`}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
@@ -202,9 +192,9 @@ export function LetterheadUpload({ companyId, currentLetterheadUrl, onUploadComp
             onChange={handleChange}
             disabled={uploading}
           />
-          
-          <label 
-            htmlFor="letterhead-upload" 
+
+          <label
+            htmlFor="letterhead-upload"
             className="cursor-pointer flex flex-col items-center gap-2"
           >
             {uploading ? (
@@ -218,9 +208,7 @@ export function LetterheadUpload({ companyId, currentLetterheadUrl, onUploadComp
                 <p className="text-sm text-foreground font-medium">
                   Datei hier ablegen oder klicken zum Auswählen
                 </p>
-                <p className="text-xs text-muted-foreground">
-                  PNG, JPG, WEBP, PDF (max. 5 MB)
-                </p>
+                <p className="text-xs text-muted-foreground">PNG, JPG, WEBP, PDF (max. 5 MB)</p>
               </>
             )}
           </label>
@@ -236,4 +224,3 @@ export function LetterheadUpload({ companyId, currentLetterheadUrl, onUploadComp
     </Card>
   );
 }
-

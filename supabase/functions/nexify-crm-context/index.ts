@@ -20,14 +20,14 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
-    const { 
-      company_code, 
+    const {
+      company_code,
       company_id,
-      include_addresses = true, 
-      include_contacts = true, 
+      include_addresses = true,
+      include_contacts = true,
       include_projects = true,
       include_interactions = true,
-      interactions_limit = 20
+      interactions_limit = 20,
     } = await req.json();
 
     // Lade Unternehmen
@@ -39,12 +39,12 @@ serve(async (req) => {
         .select("*")
         .eq("company_code", company_code)
         .single();
-      
+
       if (error || !data) {
-        return new Response(
-          JSON.stringify({ error: "Company not found", success: false }),
-          { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: "Company not found", success: false }), {
+          status: 404,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
       }
       company = data;
     } else if (company_id) {
@@ -54,12 +54,12 @@ serve(async (req) => {
         .select("*")
         .eq("id", company_id)
         .single();
-      
+
       if (error || !data) {
-        return new Response(
-          JSON.stringify({ error: "Company not found", success: false }),
-          { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: "Company not found", success: false }), {
+          status: 404,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
       }
       company = data;
     } else {
@@ -71,12 +71,12 @@ serve(async (req) => {
         .eq("status", "active")
         .order("priority", { ascending: false })
         .order("company_name", { ascending: true });
-      
+
       if (error) {
-        return new Response(
-          JSON.stringify({ error: error.message, success: false }),
-          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: error.message, success: false }), {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
       }
 
       // Für jedes Unternehmen: Lade Details
@@ -84,13 +84,22 @@ serve(async (req) => {
         (data || []).map(async (comp: any) => {
           const [addressesResult, contactsResult, projectsResult] = await Promise.all([
             include_addresses
-              ? supabase.schema("nexify_crm").from("addresses").select("*").eq("company_id", comp.id)
+              ? supabase
+                  .schema("nexify_crm")
+                  .from("addresses")
+                  .select("*")
+                  .eq("company_id", comp.id)
               : Promise.resolve({ data: [], error: null }),
-            
+
             include_contacts
-              ? supabase.schema("nexify_crm").from("contacts").select("*").eq("company_id", comp.id).eq("status", "active")
+              ? supabase
+                  .schema("nexify_crm")
+                  .from("contacts")
+                  .select("*")
+                  .eq("company_id", comp.id)
+                  .eq("status", "active")
               : Promise.resolve({ data: [], error: null }),
-            
+
             include_projects
               ? (async () => {
                   const { data: companyProjects } = await supabase
@@ -99,7 +108,7 @@ serve(async (req) => {
                     .select("*")
                     .eq("company_id", comp.id)
                     .eq("status", "active");
-                  
+
                   // Lade Projekt-Details separat
                   if (companyProjects && companyProjects.length > 0) {
                     const projectIds = companyProjects.map((cp: any) => cp.project_id);
@@ -108,24 +117,24 @@ serve(async (req) => {
                       .from("nexify_projects")
                       .select("*")
                       .in("id", projectIds);
-                    
+
                     return {
                       data: companyProjects.map((cp: any) => ({
                         ...cp,
-                        project: projects?.find((p: any) => p.id === cp.project_id)
-                      }))
+                        project: projects?.find((p: any) => p.id === cp.project_id),
+                      })),
                     };
                   }
                   return { data: [] };
                 })()
-              : Promise.resolve({ data: [], error: null })
+              : Promise.resolve({ data: [], error: null }),
           ]);
 
           return {
             ...comp,
             addresses: addressesResult.data || [],
             contacts: contactsResult.data || [],
-            projects: projectsResult.data || []
+            projects: projectsResult.data || [],
           };
         })
       );
@@ -134,7 +143,7 @@ serve(async (req) => {
         JSON.stringify({
           success: true,
           companies: companiesWithDetails,
-          total: companiesWithDetails.length
+          total: companiesWithDetails.length,
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
@@ -143,54 +152,62 @@ serve(async (req) => {
     const companyId = company.id;
 
     // Parallel: Lade Addresses, Contacts, Projects, Interactions
-    const [addressesResult, contactsResult, projectsResult, interactionsResult] = await Promise.all([
-      include_addresses
-        ? supabase.schema("nexify_crm").from("addresses").select("*").eq("company_id", companyId)
-        : Promise.resolve({ data: [], error: null }),
-      
-      include_contacts
-        ? supabase.schema("nexify_crm").from("contacts").select("*").eq("company_id", companyId).eq("status", "active").order("is_primary", { ascending: false })
-        : Promise.resolve({ data: [], error: null }),
-      
-      include_projects
-        ? (async () => {
-            const { data: companyProjects } = await supabase
+    const [addressesResult, contactsResult, projectsResult, interactionsResult] = await Promise.all(
+      [
+        include_addresses
+          ? supabase.schema("nexify_crm").from("addresses").select("*").eq("company_id", companyId)
+          : Promise.resolve({ data: [], error: null }),
+
+        include_contacts
+          ? supabase
               .schema("nexify_crm")
-              .from("company_projects")
+              .from("contacts")
               .select("*")
               .eq("company_id", companyId)
-              .eq("status", "active");
-            
-            // Lade Projekt-Details separat
-            if (companyProjects && companyProjects.length > 0) {
-              const projectIds = companyProjects.map((cp: any) => cp.project_id);
-              const { data: projects } = await supabase
-                .schema("nexify_ai_master_knowledge_base")
-                .from("nexify_projects")
+              .eq("status", "active")
+              .order("is_primary", { ascending: false })
+          : Promise.resolve({ data: [], error: null }),
+
+        include_projects
+          ? (async () => {
+              const { data: companyProjects } = await supabase
+                .schema("nexify_crm")
+                .from("company_projects")
                 .select("*")
-                .in("id", projectIds);
-              
-              return {
-                data: companyProjects.map((cp: any) => ({
-                  ...cp,
-                  project: projects?.find((p: any) => p.id === cp.project_id)
-                }))
-              };
-            }
-            return { data: [] };
-          })()
-        : Promise.resolve({ data: [], error: null }),
-      
-      include_interactions
-        ? supabase
-            .schema("nexify_crm")
-            .from("interactions")
-            .select("*")
-            .eq("company_id", companyId)
-            .order("interaction_date", { ascending: false })
-            .limit(interactions_limit)
-        : Promise.resolve({ data: [], error: null })
-    ]);
+                .eq("company_id", companyId)
+                .eq("status", "active");
+
+              // Lade Projekt-Details separat
+              if (companyProjects && companyProjects.length > 0) {
+                const projectIds = companyProjects.map((cp: any) => cp.project_id);
+                const { data: projects } = await supabase
+                  .schema("nexify_ai_master_knowledge_base")
+                  .from("nexify_projects")
+                  .select("*")
+                  .in("id", projectIds);
+
+                return {
+                  data: companyProjects.map((cp: any) => ({
+                    ...cp,
+                    project: projects?.find((p: any) => p.id === cp.project_id),
+                  })),
+                };
+              }
+              return { data: [] };
+            })()
+          : Promise.resolve({ data: [], error: null }),
+
+        include_interactions
+          ? supabase
+              .schema("nexify_crm")
+              .from("interactions")
+              .select("*")
+              .eq("company_id", companyId)
+              .order("interaction_date", { ascending: false })
+              .limit(interactions_limit)
+          : Promise.resolve({ data: [], error: null }),
+      ]
+    );
 
     return new Response(
       JSON.stringify({
@@ -208,7 +225,7 @@ serve(async (req) => {
           notes: company.notes,
           total_projects: company.total_projects,
           total_contacts: company.total_contacts,
-          last_contact_at: company.last_contact_at
+          last_contact_at: company.last_contact_at,
         },
         addresses: include_addresses ? addressesResult.data || [] : undefined,
         contacts: include_contacts ? contactsResult.data || [] : undefined,
@@ -220,16 +237,15 @@ serve(async (req) => {
           total_projects: (projectsResult.data || []).length,
           total_interactions: (interactionsResult.data || []).length,
           primary_contact: (contactsResult.data || []).find((c: any) => c.is_primary),
-          primary_address: (addressesResult.data || []).find((a: any) => a.is_primary)
-        }
+          primary_address: (addressesResult.data || []).find((a: any) => a.is_primary),
+        },
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: error.message, success: false }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message, success: false }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
-

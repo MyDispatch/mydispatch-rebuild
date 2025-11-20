@@ -9,8 +9,9 @@
 ## 📊 Aktuelle MyDispatch Architektur
 
 ### ✅ Bestehende Features
+
 - **Taxi/Mietwagen-Disposition** - Custom-built
-- **Fahrer & Fahrzeug-Management** - Custom-built  
+- **Fahrer & Fahrzeug-Management** - Custom-built
 - **Auftragsverwaltung** - Custom-built
 - **GPS-Tracking** (HERE Maps) - Custom-built
 - **Schichtzettel & Zeiterfassung** - Custom-built
@@ -18,6 +19,7 @@
 - **CRM & Partner-Management** - Custom-built
 
 ### 🛠️ Tech Stack
+
 - **Frontend:** React 18 + TypeScript + Vite
 - **UI:** shadcn/ui (42+ Components) + Tailwind CSS
 - **Backend:** Supabase (PostgreSQL, Auth, Realtime, Storage)
@@ -28,15 +30,18 @@
 
 ## 🎯 Vercel Templates - Passende Kandidaten
 
-### 1. ⭐ **Admin Dashboard Templates** 
+### 1. ⭐ **Admin Dashboard Templates**
+
 **Sinnvoll für:** Fahrer-Dashboard & Dispatcher-Interface
 
 **Template-Kategorien:**
+
 - **Next.js Admin Templates** - Moderne Dashboard-Komponenten
 - **React Admin Panels** - Komplette Admin-UI-Kits
 - **Analytics Dashboards** - Für Statistiken & Reporting
 
 **Was übernehmen:**
+
 ```
 ✅ Moderne Tabellen-Komponenten (DataTables)
 ✅ Advanced Filter & Sort Funktionen
@@ -46,6 +51,7 @@
 ```
 
 **Was NICHT ersetzen:**
+
 ```
 ❌ Ihre Custom Dispatch-Logik
 ❌ Ihr Design System V28.1
@@ -55,14 +61,17 @@
 ---
 
 ### 2. 💰 **SaaS Templates**
+
 **Sinnvoll für:** Pricing, Onboarding, User Management
 
 **Template-Kategorien:**
+
 - **SaaS Starter Kits** - Authentication & Billing
 - **Multi-tenant Platforms** - Für Unternehmenskunden
 - **Subscription Management** - Stripe Integration
 
 **Was übernehmen:**
+
 ```
 ✅ Moderne Pricing-Tables (für Unternehmenskunden)
 ✅ Team-Management-UI
@@ -72,12 +81,13 @@
 ```
 
 **Integration:**
+
 ```typescript
 // Beispiel: Pricing-Integration
 import { PricingTable } from '@vercel/commerce'
 
 // Anpassen an MyDispatch Design System V28.1
-<PricingTable 
+<PricingTable
   variant="3d-premium"  // Hero System V31.5
   plans={mydispatchPlans}
   className="mydispatch-pricing"
@@ -86,15 +96,18 @@ import { PricingTable } from '@vercel/commerce'
 
 ---
 
-### 3. 🛍️ **E-Commerce Templates** 
+### 3. 🛍️ **E-Commerce Templates**
+
 **Sinnvoll für:** Fahrzeug-Buchung & Zusatzleistungen
 
 **Template-Kategorien:**
+
 - **Next.js Commerce** - Booking-Flows
 - **Product Catalogs** - Fahrzeug-Anzeige
 - **Checkout Flows** - Buchungs-Prozesse
 
 **Was übernehmen:**
+
 ```
 ✅ Moderne Produkt-Karten (für Fahrzeuge)
 ✅ Checkout-Prozess (für Buchungen)
@@ -104,6 +117,7 @@ import { PricingTable } from '@vercel/commerce'
 ```
 
 **MyDispatch Anwendung:**
+
 ```
 - Fahrzeug-Katalog → E-Commerce Product Grid
 - Buchungs-Flow → Checkout Process
@@ -113,14 +127,17 @@ import { PricingTable } from '@vercel/commerce'
 ---
 
 ### 4. 📱 **Mobile-First Templates**
+
 **Sinnvoll für:** Fahrer-App & Mobile Dispatch
 
 **Template-Kategorien:**
+
 - **PWA Starter Kits** - Progressive Web Apps
 - **Mobile-First Dashboards** - Touch-optimiert
 - **React Native Web** - Cross-platform
 
 **Was übernehmen:**
+
 ```
 ✅ Touch-optimierte Navigation
 ✅ Mobile Gestures (Swipe, Pull-to-Refresh)
@@ -132,14 +149,17 @@ import { PricingTable } from '@vercel/commerce'
 ---
 
 ### 5. 🤖 **AI/Chatbot Templates**
+
 **Sinnvoll für:** Customer Support & Dispatch-Assistenz
 
 **Template-Kategorien:**
+
 - **AI Chat Interfaces** - Für Kundenservice
 - **AI Assistants** - Für Dispatcher
 - **Chatbot UIs** - Für Fahrer-Support
 
 **Was übernehmen:**
+
 ```
 ✅ Chat-Interface-Komponenten
 ✅ AI-gestützte Suchfunktion
@@ -149,6 +169,7 @@ import { PricingTable } from '@vercel/commerce'
 ```
 
 **MyDispatch Integration:**
+
 ```
 - "Finde nächste verfügbare Fahrer" → AI Search
 - "Zeige Umsatz gestern" → AI Analytics
@@ -160,6 +181,7 @@ import { PricingTable } from '@vercel/commerce'
 ## 🚨 WAS NIEMALS ERSETZEN
 
 ### ❌ Core-Komponenten (Custom-built bleiben!)
+
 ```
 1. Dispatch-Logik (Auftragsverteilung)
 2. GPS-Tracking System (HERE Maps)
@@ -169,6 +191,7 @@ import { PricingTable } from '@vercel/commerce'
 ```
 
 ### ❌ Geschützte Systeme
+
 ```
 1. Design System V28.1 (FROZEN)
 2. Layout Components (FROZEN)
@@ -181,6 +204,7 @@ import { PricingTable } from '@vercel/commerce'
 ## 💡 Empfohlene Strategie
 
 ### Phase 1: Dashboard Modernisierung (Quick Win)
+
 ```
 ✅ Vercel Admin Dashboard Template
 ├── Moderne Tabellen für Auftrags-Übersicht
@@ -192,6 +216,7 @@ ROI: Sofort sichtbar, bessere UX
 ```
 
 ### Phase 2: Booking Flow Enhancement
+
 ```
 ✅ Next.js Commerce Template (Checkout)
 ├── Fahrzeug-Katalog modernisieren
@@ -203,6 +228,7 @@ ROI: Höhere Conversion-Rate
 ```
 
 ### Phase 3: Mobile Optimization
+
 ```
 ✅ PWA Starter Kit
 ├── Touch-optimierte Fahrer-App
@@ -214,6 +240,7 @@ ROI: Bessere Fahrer-Akzeptanz
 ```
 
 ### Phase 4: AI Integration (Future)
+
 ```
 ✅ AI Chat Template
 ├── Dispatcher-Assistent
@@ -229,26 +256,31 @@ ROI: Effizienzsteigerung 30%+
 ## 🎯 Konkrete Template-Empfehlungen
 
 ### 1. **Vercel Dashboard Template** ⭐⭐⭐⭐⭐
+
 **URL:** https://vercel.com/templates/next.js/admin-dashboard-template
 **Nutzen:** Komplett neue Dispatcher-Oberfläche
 **Integration:** 90% kompatibel mit aktuellem Stack
 
 ### 2. **Next.js SaaS Starter** ⭐⭐⭐⭐
+
 **URL:** https://vercel.com/templates/next.js/saas-starter-kit
 **Nutzen:** Team-Management, Pricing-Pages
 **Integration:** Pricing-Components übernehmen
 
 ### 3. **Next.js Commerce** ⭐⭐⭐⭐
+
 **URL:** https://vercel.com/templates/next.js/nextjs-commerce
 **Nutzen:** Fahrzeug-Katalog & Buchungs-Flow
 **Integration:** Checkout-Prozess adaptieren
 
 ### 4. **PWA Template** ⭐⭐⭐
+
 **URL:** https://vercel.com/templates/next.js/pwa
 **Nutzen:** Mobile Fahrer-App
 **Integration:** Neue Mobile-Version bauen
 
 ### 5. **AI Chatbot Template** ⭐⭐⭐
+
 **URL:** https://vercel.com/templates/next.js/ai-chatbot
 **Nutzen:** Customer Support & Dispatcher-Assistent
 **Integration:** Chat-Interface hinzufügen
@@ -302,13 +334,15 @@ npm test
 ## 🎯 Zusammenfassung
 
 ### ✅ SINNVOLL zu ersetzen/erweitern:
+
 1. **Dashboard-UI** → Moderne Admin-Templates
-2. **Booking-Flow** → Commerce-Templates  
+2. **Booking-Flow** → Commerce-Templates
 3. **Mobile-UI** → PWA-Templates
 4. **Chat-Support** → AI-Templates
 5. **Pricing-Pages** → SaaS-Templates
 
 ### ❌ NICHT ersetzen:
+
 1. Dispatch-Core-Logik
 2. GPS-Tracking-System
 3. Design System V28.1
@@ -316,6 +350,7 @@ npm test
 5. Bestehende Geschäftslogik
 
 ### 💰 ROI-Ranking:
+
 1. **Admin Dashboard** - Sofort sichtbar ⭐⭐⭐⭐⭐
 2. **Mobile PWA** - Fahrer-Zufriedenheit ⭐⭐⭐⭐⭐
 3. **Booking Flow** - Conversion-Rate ⭐⭐⭐⭐

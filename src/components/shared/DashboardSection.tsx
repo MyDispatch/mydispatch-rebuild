@@ -7,10 +7,10 @@
    - Konsistente Abstände
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { LucideIcon } from 'lucide-react';
+import { ReactNode } from "react";
+import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { LucideIcon } from "lucide-react";
 
 interface DashboardSectionProps {
   icon: LucideIcon;
@@ -19,12 +19,7 @@ interface DashboardSectionProps {
   children: ReactNode;
 }
 
-export function DashboardSection({
-  icon: Icon,
-  title,
-  badge,
-  children,
-}: DashboardSectionProps) {
+export function DashboardSection({ icon: Icon, title, badge, children }: DashboardSectionProps) {
   return (
     <Card className="overflow-hidden">
       {/* Header - Zentriert, Icon/Titel/Badge */}
@@ -41,9 +36,7 @@ export function DashboardSection({
       </div>
 
       {/* Content */}
-      <div className="p-6">
-        {children}
-      </div>
+      <div className="p-6">{children}</div>
     </Card>
   );
 }

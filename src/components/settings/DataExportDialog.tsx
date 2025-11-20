@@ -1,15 +1,21 @@
-import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Download, FileText, Loader2, CheckCircle2 } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from '@/hooks/use-auth';
-import { useToast } from '@/hooks/use-toast';
-import { handleError } from '@/lib/error-handler';
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Download, FileText, Loader2, CheckCircle2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/use-auth";
+import { useToast } from "@/hooks/use-toast";
+import { handleError } from "@/lib/error-handler";
 
 interface DataCategory {
   id: string;
@@ -20,52 +26,52 @@ interface DataCategory {
 
 const DATA_CATEGORIES: DataCategory[] = [
   {
-    id: 'profile',
-    label: 'Profil & Account',
-    description: 'Persönliche Informationen, Login-Daten',
-    tables: ['profiles'],
+    id: "profile",
+    label: "Profil & Account",
+    description: "Persönliche Informationen, Login-Daten",
+    tables: ["profiles"],
   },
   {
-    id: 'bookings',
-    label: 'Aufträge & Buchungen',
-    description: 'Alle Ihre Aufträge und Buchungen',
-    tables: ['bookings'],
+    id: "bookings",
+    label: "Aufträge & Buchungen",
+    description: "Alle Ihre Aufträge und Buchungen",
+    tables: ["bookings"],
   },
   {
-    id: 'invoices',
-    label: 'Rechnungen',
-    description: 'Alle Rechnungen und Zahlungen',
-    tables: ['invoices'],
+    id: "invoices",
+    label: "Rechnungen",
+    description: "Alle Rechnungen und Zahlungen",
+    tables: ["invoices"],
   },
   {
-    id: 'customers',
-    label: 'Kunden',
-    description: 'Kundendaten (soweit Sie Eigentümer sind)',
-    tables: ['customers'],
+    id: "customers",
+    label: "Kunden",
+    description: "Kundendaten (soweit Sie Eigentümer sind)",
+    tables: ["customers"],
   },
   {
-    id: 'drivers',
-    label: 'Fahrer',
-    description: 'Fahrerdaten Ihres Unternehmens',
-    tables: ['drivers'],
+    id: "drivers",
+    label: "Fahrer",
+    description: "Fahrerdaten Ihres Unternehmens",
+    tables: ["drivers"],
   },
   {
-    id: 'vehicles',
-    label: 'Fahrzeuge',
-    description: 'Fahrzeugdaten Ihres Unternehmens',
-    tables: ['vehicles'],
+    id: "vehicles",
+    label: "Fahrzeuge",
+    description: "Fahrzeugdaten Ihres Unternehmens",
+    tables: ["vehicles"],
   },
   {
-    id: 'documents',
-    label: 'Dokumente',
-    description: 'Hochgeladene Dokumente und Dateien',
-    tables: ['documents'],
+    id: "documents",
+    label: "Dokumente",
+    description: "Hochgeladene Dokumente und Dateien",
+    tables: ["documents"],
   },
   {
-    id: 'audit',
-    label: 'Aktivitätsprotokolle',
-    description: 'Ihre Systemaktivitäten (DSGVO Art. 15)',
-    tables: ['audit_logs'],
+    id: "audit",
+    label: "Aktivitätsprotokolle",
+    description: "Ihre Systemaktivitäten (DSGVO Art. 15)",
+    tables: ["audit_logs"],
   },
 ];
 
@@ -79,9 +85,7 @@ export function DataExportDialog() {
 
   const toggleCategory = (categoryId: string) => {
     setSelectedCategories((prev) =>
-      prev.includes(categoryId)
-        ? prev.filter((id) => id !== categoryId)
-        : [...prev, categoryId]
+      prev.includes(categoryId) ? prev.filter((id) => id !== categoryId) : [...prev, categoryId]
     );
   };
 
@@ -96,30 +100,30 @@ export function DataExportDialog() {
   const handleExport = async () => {
     if (selectedCategories.length === 0) {
       toast({
-        title: '⚠️ Keine Kategorien ausgewählt',
-        description: 'Bitte wählen Sie mindestens eine Kategorie aus.',
-        variant: 'destructive',
+        title: "⚠️ Keine Kategorien ausgewählt",
+        description: "Bitte wählen Sie mindestens eine Kategorie aus.",
+        variant: "destructive",
       });
       return;
     }
 
     setIsExporting(true);
     try {
-      const { data, error } = await supabase.functions.invoke('export-user-data', {
-        body: { 
+      const { data, error } = await supabase.functions.invoke("export-user-data", {
+        body: {
           userId: profile?.id,
-          categories: selectedCategories 
-        }
+          categories: selectedCategories,
+        },
       });
 
       if (error) throw error;
 
       // Download als JSON-Datei
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
-      a.download = `mydispatch-datenexport-${new Date().toISOString().split('T')[0]}.json`;
+      a.download = `mydispatch-datenexport-${new Date().toISOString().split("T")[0]}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -127,15 +131,15 @@ export function DataExportDialog() {
 
       setExportComplete(true);
       toast({
-        title: '✅ Datenexport erfolgreich',
-        description: 'Ihre Daten wurden als JSON-Datei heruntergeladen.',
+        title: "✅ Datenexport erfolgreich",
+        description: "Ihre Daten wurden als JSON-Datei heruntergeladen.",
       });
     } catch (error) {
-      handleError(error, 'Datenexport fehlgeschlagen', { title: 'Data Export Error' });
+      handleError(error, "Datenexport fehlgeschlagen", { title: "Data Export Error" });
       toast({
-        title: '❌ Export fehlgeschlagen',
-        description: error instanceof Error ? error.message : 'Unbekannter Fehler',
-        variant: 'destructive',
+        title: "❌ Export fehlgeschlagen",
+        description: error instanceof Error ? error.message : "Unbekannter Fehler",
+        variant: "destructive",
       });
     } finally {
       setIsExporting(false);
@@ -165,9 +169,9 @@ export function DataExportDialog() {
               <AlertDescription className="text-sm">
                 <p className="font-medium mb-2">Ihr Recht auf Datenübertragbarkeit</p>
                 <p>
-                  Gemäß <strong>DSGVO Art. 20</strong> haben Sie das Recht, Ihre personenbezogenen Daten 
-                  in einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten. Der Export 
-                  enthält alle Daten, die Sie in MyDispatch gespeichert haben.
+                  Gemäß <strong>DSGVO Art. 20</strong> haben Sie das Recht, Ihre personenbezogenen
+                  Daten in einem strukturierten, gängigen und maschinenlesbaren Format zu erhalten.
+                  Der Export enthält alle Daten, die Sie in MyDispatch gespeichert haben.
                 </p>
               </AlertDescription>
             </Alert>
@@ -198,10 +202,7 @@ export function DataExportDialog() {
                       onCheckedChange={() => toggleCategory(category.id)}
                     />
                     <div className="flex-1 space-y-1">
-                      <Label
-                        htmlFor={category.id}
-                        className="text-sm font-medium cursor-pointer"
-                      >
+                      <Label htmlFor={category.id} className="text-sm font-medium cursor-pointer">
                         {category.label}
                       </Label>
                       <p className="text-xs text-muted-foreground">{category.description}</p>

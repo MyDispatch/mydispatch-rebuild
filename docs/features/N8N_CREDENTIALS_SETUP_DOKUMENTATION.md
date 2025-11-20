@@ -93,8 +93,8 @@ n8n Credentials Storage (verschlüsselt)
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface CredentialSetupRequest {
@@ -103,49 +103,49 @@ interface CredentialSetupRequest {
 
 const handler = async (req: Request): Promise<Response> => {
   // CORS Preflight
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
     // 1. Request parsen
     const { credentials = [] }: CredentialSetupRequest = await req.json();
-    
+
     // 2. n8n Config aus Env laden
-    const n8nUrl = Deno.env.get('N8N_INSTANCE_URL');
-    const n8nApiKey = Deno.env.get('N8N_API_KEY');
-    
+    const n8nUrl = Deno.env.get("N8N_INSTANCE_URL");
+    const n8nApiKey = Deno.env.get("N8N_API_KEY");
+
     if (!n8nUrl || !n8nApiKey) {
-      throw new Error('n8n Configuration fehlt');
+      throw new Error("n8n Configuration fehlt");
     }
 
     // 3. Credential Mappings definieren
     const credentialMappings = {
       resend: {
-        name: 'MyDispatch Resend Account',
-        type: 'resendApi',
+        name: "MyDispatch Resend Account",
+        type: "resendApi",
         getData: () => {
-          const apiKey = Deno.env.get('RESEND_API_KEY');
-          if (!apiKey) throw new Error('RESEND_API_KEY nicht verfügbar');
+          const apiKey = Deno.env.get("RESEND_API_KEY");
+          if (!apiKey) throw new Error("RESEND_API_KEY nicht verfügbar");
           return { apiKey };
-        }
+        },
       },
       // ... weitere Mappings
     };
 
     // 4. Credentials erstellen
     const results = { created: [], failed: [] };
-    
+
     for (const [key, config] of Object.entries(credentialMappings)) {
       if (credentials.length > 0 && !credentials.includes(key)) continue;
-      
+
       try {
         const data = config.getData();
         const response = await fetch(`${n8nUrl}/api/v1/credentials`, {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'X-N8N-API-KEY': n8nApiKey,
-            'Content-Type': 'application/json',
+            "X-N8N-API-KEY": n8nApiKey,
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             name: config.name,
@@ -163,14 +163,14 @@ const handler = async (req: Request): Promise<Response> => {
           name: config.name,
           id: result.id,
         });
-        
+
         console.log(`[n8n Credentials] ✓ Created ${config.name}: ${result.id}`);
       } catch (error) {
         results.failed.push({
           name: key,
           error: error.message,
         });
-        
+
         console.error(`[n8n Credentials] ✗ Failed ${key}:`, error.message);
       }
     }
@@ -178,17 +178,14 @@ const handler = async (req: Request): Promise<Response> => {
     // 5. Response zurückgeben
     return new Response(JSON.stringify(results), {
       status: 200,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error('[n8n Credentials] Error:', error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      }
-    );
+    console.error("[n8n Credentials] Error:", error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 };
 
@@ -198,33 +195,36 @@ serve(handler);
 ### Wichtige Implementierungsdetails:
 
 #### 1. **getData() Logik:**
+
 Jedes Credential hat eine `getData()` Funktion, die die korrekten Daten für den n8n API-Request zurückgibt:
 
 ```typescript
 // Beispiel: HTTP Header Auth
 getData: () => {
-  const apiKey = Deno.env.get('DAILY_API_KEY');
-  if (!apiKey) throw new Error('API Key fehlt');
+  const apiKey = Deno.env.get("DAILY_API_KEY");
+  if (!apiKey) throw new Error("API Key fehlt");
   return {
-    name: 'Authorization',
-    value: `Bearer ${apiKey}`
+    name: "Authorization",
+    value: `Bearer ${apiKey}`,
   };
-}
+};
 
 // Beispiel: Native API
 getData: () => {
-  const apiKey = Deno.env.get('RESEND_API_KEY');
-  if (!apiKey) throw new Error('API Key fehlt');
+  const apiKey = Deno.env.get("RESEND_API_KEY");
+  if (!apiKey) throw new Error("API Key fehlt");
   return { apiKey };
-}
+};
 ```
 
 #### 2. **Error Handling:**
+
 - Fehlende API Keys werfen Errors → werden in `results.failed` gesammelt
 - HTTP-Fehler von n8n API → werden in `results.failed` gesammelt
 - Optional: `OPENAI_API_KEY` wirft nur Warning, kein Error
 
 #### 3. **Logging:**
+
 ```typescript
 console.log(`[n8n Credentials] ✓ Created ${config.name}: ${result.id}`);
 console.error(`[n8n Credentials] ✗ Failed ${key}:`, error.message);
@@ -251,13 +251,13 @@ export function N8nWorkflowSetup() {
       });
 
       if (error) throw error;
-      
+
       setCredentialsResult(data);
-      
+
       if (data.created.length > 0) {
         toast.success(`${data.created.length} Credentials erfolgreich erstellt`);
       }
-      
+
       if (data.failed.length > 0) {
         toast.error(`${data.failed.length} Credentials fehlgeschlagen`);
       }
@@ -278,7 +278,7 @@ export function N8nWorkflowSetup() {
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Button 
+        <Button
           onClick={handleSetupCredentials}
           disabled={isSettingUpCredentials}
         >
@@ -307,15 +307,18 @@ export function N8nWorkflowSetup() {
 ### Fehler 1: Supabase Credential - HTTP 400 (BEHOBEN ✅)
 
 **Problem:**
+
 ```
 HTTP 400: {"message":"request.body.data is not allowed to have the additional property \"apikey\""}
 ```
 
 **Root Cause:**
+
 - n8n's `httpHeaderAuth` Credential-Type akzeptiert nur `name` und `value`
 - Wir hatten zusätzlich `apikey` Property im `getData()` Return
 
 **Falsch:**
+
 ```typescript
 supabase: {
   type: 'httpHeaderAuth',
@@ -328,6 +331,7 @@ supabase: {
 ```
 
 **Richtig:**
+
 ```typescript
 supabase: {
   type: 'httpHeaderAuth',
@@ -339,6 +343,7 @@ supabase: {
 ```
 
 **Lesson Learned:**
+
 - IMMER die n8n API-Spezifikation für jeden Credential-Type beachten
 - `httpHeaderAuth` = nur `name` + `value`
 - Native APIs (Resend, Anthropic, etc.) = eigene Struktur
@@ -346,31 +351,37 @@ supabase: {
 ### Fehler 2: OpenAI Optional (BEHOBEN ✅)
 
 **Problem:**
+
 ```
 OPENAI_API_KEY nicht verfügbar
 ```
 
 **Root Cause:**
+
 - OpenAI API Key ist optional (User muss nicht unbedingt haben)
 - Error-Message war irreführend (sah aus wie kritischer Fehler)
 
 **Falsch:**
+
 ```typescript
-if (!apiKey) throw new Error('OPENAI_API_KEY nicht verfügbar');
+if (!apiKey) throw new Error("OPENAI_API_KEY nicht verfügbar");
 ```
 
 **Richtig:**
+
 ```typescript
-if (!apiKey) throw new Error('OPENAI_API_KEY nicht verfügbar (optional)');
+if (!apiKey) throw new Error("OPENAI_API_KEY nicht verfügbar (optional)");
 ```
 
 **Lesson Learned:**
+
 - Optionale API Keys müssen klar als "optional" gekennzeichnet werden
 - User soll nicht denken, Setup ist fehlgeschlagen nur weil optionale Keys fehlen
 
 ### Fehler 3: Credential-Type Mismatch (VERHINDERT ✅)
 
 **Potentielles Problem:**
+
 - Falsche Credential-Types führen zu 404/400 Errors in n8n
 
 **Prävention:**
@@ -378,19 +389,20 @@ Dokumentierte Liste aller n8n Credential-Types:
 
 ```typescript
 const VALID_N8N_CREDENTIAL_TYPES = [
-  'resendApi',           // Resend.com
-  'anthropicApi',        // Claude AI
-  'googleApi',           // Google Services
-  'hereApi',             // HERE Maps
-  'openWeatherMapApi',   // Weather API
-  'stripeApi',           // Stripe Payments
-  'httpHeaderAuth',      // Generic HTTP Header
-  'httpBasicAuth',       // Basic Authentication
-  'oAuth2Api',           // OAuth 2.0
+  "resendApi", // Resend.com
+  "anthropicApi", // Claude AI
+  "googleApi", // Google Services
+  "hereApi", // HERE Maps
+  "openWeatherMapApi", // Weather API
+  "stripeApi", // Stripe Payments
+  "httpHeaderAuth", // Generic HTTP Header
+  "httpBasicAuth", // Basic Authentication
+  "oAuth2Api", // OAuth 2.0
 ];
 ```
 
 **Lesson Learned:**
+
 - Credential-Types MÜSSEN exakt mit n8n-Spezifikation übereinstimmen
 - Typo in `type` Property = 404 Error
 
@@ -399,11 +411,13 @@ const VALID_N8N_CREDENTIAL_TYPES = [
 ## 📊 Erfolgsmetriken
 
 ### Setup-Erfolgsrate:
+
 - **Erfolgreich:** 9/10 (90%)
 - **Fehlgeschlagen:** 1/10 (10%, nur OpenAI - optional)
 - **Kritisch fehlgeschlagen:** 0/10 (0%) ✅
 
 ### API-Coverage:
+
 - **E-Mail:** ✅ Resend.com
 - **AI:** ✅ Anthropic Claude
 - **Maps:** ✅ Google Maps, HERE Maps
@@ -415,6 +429,7 @@ const VALID_N8N_CREDENTIAL_TYPES = [
 - **Optional:** ⚠️ OpenAI (nur wenn konfiguriert)
 
 ### Performance:
+
 - **Setup-Zeit:** ~5-8 Sekunden für alle 10 Credentials
 - **Fehlerrate:** 0% für konfigurierte API Keys
 - **User-Experience:** One-Click-Setup ✅
@@ -426,14 +441,14 @@ const VALID_N8N_CREDENTIAL_TYPES = [
 ### 1. Backend (Edge Function aufrufen):
 
 ```typescript
-const { data, error } = await supabase.functions.invoke('n8n-setup-credentials', {
+const { data, error } = await supabase.functions.invoke("n8n-setup-credentials", {
   body: {
-    credentials: [] // Leer = alle, oder z.B. ['resend', 'anthropic']
-  }
+    credentials: [], // Leer = alle, oder z.B. ['resend', 'anthropic']
+  },
 });
 
-console.log('Created:', data.created);
-console.log('Failed:', data.failed);
+console.log("Created:", data.created);
+console.log("Failed:", data.failed);
 ```
 
 ### 2. Frontend (Button-Click):
@@ -470,20 +485,23 @@ function Settings() {
 ## 🔒 Sicherheit
 
 ### API Key Storage:
+
 - ✅ Alle API Keys in Supabase Secrets (verschlüsselt)
 - ✅ Nie im Frontend-Code sichtbar
 - ✅ Nur Edge Functions haben Zugriff
 - ✅ n8n speichert Credentials verschlüsselt
 
 ### CORS:
+
 ```typescript
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 ```
 
 ### Authentication:
+
 - User muss in MyDispatch eingeloggt sein
 - Supabase Auth Token wird validiert
 - n8n API Key in Edge Function (nicht im Frontend)
@@ -495,12 +513,14 @@ const corsHeaders = {
 Wenn du ein neues Credential hinzufügen willst:
 
 1. ✅ **API Key in Supabase Secrets hinzufügen**
+
    ```bash
    # In Lovable UI: Settings → Secrets
    NEW_API_KEY=sk-xxxxx
    ```
 
 2. ✅ **Credential Mapping in Edge Function hinzufügen**
+
    ```typescript
    newService: {
      name: 'MyDispatch New Service',
@@ -518,10 +538,11 @@ Wenn du ein neues Credential hinzufügen willst:
    - Dokumentation: https://docs.n8n.io/integrations/
 
 4. ✅ **Testen**
+
    ```bash
    # In MyDispatch UI:
    Einstellungen → n8n Integration → Credentials Setup → Button klicken
-   
+
    # Expected Output:
    ✓ Created MyDispatch New Service: abc123
    ```

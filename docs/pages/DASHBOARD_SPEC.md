@@ -69,6 +69,7 @@
 
 **Labary-Komponente:** Custom Component  
 **Props:**
+
 ```typescript
 {
   heading: string;
@@ -78,11 +79,9 @@
 ```
 
 **Verwendung:**
+
 ```tsx
-<PageHeader 
-  heading="Dashboard"
-  description="Übersicht über Ihre wichtigsten Kennzahlen"
-/>
+<PageHeader heading="Dashboard" description="Übersicht über Ihre wichtigsten Kennzahlen" />
 ```
 
 ### 2.2 KPI Cards
@@ -91,12 +90,11 @@
 **Icon-Komponenten:** `lucide-react` Icons
 
 **Struktur:**
+
 ```tsx
 <Card>
   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-    <CardTitle className="text-sm font-medium">
-      {title}
-    </CardTitle>
+    <CardTitle className="text-sm font-medium">{title}</CardTitle>
     <Icon className="h-4 w-4 text-muted-foreground" />
   </CardHeader>
   <CardContent>
@@ -108,12 +106,12 @@
 
 **KPI-Definitionen:**
 
-| KPI | Icon | Datenquelle | Format |
-|-----|------|-------------|--------|
-| Aktive Aufträge (Heute) | `Package` | `dashboard_stats.active_bookings_today` | Number |
-| Offene Rechnungen | `FileText` | `dashboard_stats.open_invoices_amount` | Currency (EUR) |
-| Verfügbare Fahrer | `Users` | `dashboard_stats.available_drivers` | Number |
-| Wartende Dokumente | `AlertCircle` | `dashboard_stats.pending_documents` | Number |
+| KPI                     | Icon          | Datenquelle                             | Format         |
+| ----------------------- | ------------- | --------------------------------------- | -------------- |
+| Aktive Aufträge (Heute) | `Package`     | `dashboard_stats.active_bookings_today` | Number         |
+| Offene Rechnungen       | `FileText`    | `dashboard_stats.open_invoices_amount`  | Currency (EUR) |
+| Verfügbare Fahrer       | `Users`       | `dashboard_stats.available_drivers`     | Number         |
+| Wartende Dokumente      | `AlertCircle` | `dashboard_stats.pending_documents`     | Number         |
 
 ### 2.3 Charts
 
@@ -122,6 +120,7 @@
 **Labary-Komponente:** `recharts` (Bar, BarChart, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer)
 
 **Konfiguration:**
+
 ```tsx
 <Card>
   <CardHeader>
@@ -142,6 +141,7 @@
 ```
 
 **Datenformat:**
+
 ```typescript
 type RevenueData = {
   date: string; // "DD.MM"
@@ -154,6 +154,7 @@ type RevenueData = {
 **Labary-Komponente:** `recharts` (Pie, PieChart, Cell, ResponsiveContainer, Legend)
 
 **Konfiguration:**
+
 ```tsx
 <Card>
   <CardHeader>
@@ -162,14 +163,7 @@ type RevenueData = {
   <CardContent>
     <ResponsiveContainer width="100%" height={300}>
       <PieChart>
-        <Pie
-          data={statusData}
-          cx="50%"
-          cy="50%"
-          innerRadius={60}
-          outerRadius={80}
-          dataKey="value"
-        >
+        <Pie data={statusData} cx="50%" cy="50%" innerRadius={60} outerRadius={80} dataKey="value">
           {statusData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={STATUS_COLORS[entry.status]} />
           ))}
@@ -182,6 +176,7 @@ type RevenueData = {
 ```
 
 **Datenformat:**
+
 ```typescript
 type StatusData = {
   status: string; // "pending", "confirmed", "in_transit", "delivered"
@@ -191,6 +186,7 @@ type StatusData = {
 ```
 
 **Status-Farben:**
+
 ```typescript
 const STATUS_COLORS = {
   pending: "hsl(var(--status-warning))",
@@ -206,6 +202,7 @@ const STATUS_COLORS = {
 **Labary-Komponente:** `Card` + Custom Timeline Component
 
 **Struktur:**
+
 ```tsx
 <Card>
   <CardHeader>
@@ -232,6 +229,7 @@ const STATUS_COLORS = {
 ```
 
 **Datenformat:**
+
 ```typescript
 type Activity = {
   id: string;
@@ -287,7 +285,6 @@ type Activity = {
 - **KPI Cards:**
   - Mobile: Stack vertikal, 100% Breite
   - Tablet+: 2 Spalten
-  
 - **Charts:**
   - Mobile: Stack vertikal, 100% Breite
   - Desktop: 2 Spalten nebeneinander
@@ -326,10 +323,9 @@ Auto-Refresh (TanStack Query, 30s)
 
 ```typescript
 const { data: stats } = useQuery({
-  queryKey: ['dashboard-stats', companyId],
+  queryKey: ["dashboard-stats", companyId],
   queryFn: async () => {
-    const { data, error } = await supabase
-      .rpc('get_dashboard_stats', { p_company_id: companyId });
+    const { data, error } = await supabase.rpc("get_dashboard_stats", { p_company_id: companyId });
     if (error) throw error;
     return data;
   },
@@ -345,20 +341,20 @@ const { data: stats } = useQuery({
 
 ```typescript
 const { data: revenueData } = useQuery({
-  queryKey: ['revenue-chart', companyId],
+  queryKey: ["revenue-chart", companyId],
   queryFn: async () => {
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-    
+
     const { data, error } = await supabase
-      .from('bookings')
-      .select('created_at, total_price')
-      .eq('company_id', companyId)
-      .gte('created_at', sevenDaysAgo.toISOString())
-      .neq('status', 'cancelled');
-    
+      .from("bookings")
+      .select("created_at, total_price")
+      .eq("company_id", companyId)
+      .gte("created_at", sevenDaysAgo.toISOString())
+      .neq("status", "cancelled");
+
     if (error) throw error;
-    
+
     // Group by date and sum
     return groupByDate(data);
   },
@@ -374,16 +370,16 @@ const { data: revenueData } = useQuery({
 
 ```typescript
 const { data: statusData } = useQuery({
-  queryKey: ['status-chart', companyId],
+  queryKey: ["status-chart", companyId],
   queryFn: async () => {
     const { data, error } = await supabase
-      .from('bookings')
-      .select('status')
-      .eq('company_id', companyId)
-      .eq('is_archived', false);
-    
+      .from("bookings")
+      .select("status")
+      .eq("company_id", companyId)
+      .eq("is_archived", false);
+
     if (error) throw error;
-    
+
     // Count by status
     return countByStatus(data);
   },
@@ -399,13 +395,14 @@ const { data: statusData } = useQuery({
 
 ```typescript
 const { data: activities } = useQuery({
-  queryKey: ['activities', companyId],
+  queryKey: ["activities", companyId],
   queryFn: async () => {
     // Complex query combining multiple tables
     // Implementation via Edge Function (optional)
-    const { data, error } = await supabase
-      .rpc('get_recent_activities', { p_company_id: companyId });
-    
+    const { data, error } = await supabase.rpc("get_recent_activities", {
+      p_company_id: companyId,
+    });
+
     if (error) throw error;
     return data;
   },
@@ -463,11 +460,9 @@ if (!stats) return <DashboardEmpty />;
 - **Unit Tests:**
   - KPI Value Formatting
   - Chart Data Transformation
-  
 - **Integration Tests:**
   - Dashboard Stats API Call
   - Chart Rendering with Data
-  
 - **E2E Tests:**
   - Dashboard Load & Display
   - Navigation via KPI Cards
@@ -476,8 +471,8 @@ if (!stats) return <DashboardEmpty />;
 
 ## 6. ÄNDERUNGSHISTORIE
 
-| Version | Datum | Änderung | Autor |
-|---------|-------|----------|-------|
+| Version | Datum      | Änderung            | Autor    |
+| ------- | ---------- | ------------------- | -------- |
 | 18.3.27 | 2025-10-21 | Initiale Erstellung | AI Agent |
 
 ---

@@ -7,8 +7,8 @@
    ✅ Submit handling
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { cn } from '@/lib/utils';
+import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface V28FormProps {
   children: ReactNode;
@@ -18,10 +18,7 @@ interface V28FormProps {
 
 export function V28Form({ children, onSubmit, className }: V28FormProps) {
   return (
-    <form
-      onSubmit={onSubmit}
-      className={cn('space-y-6', className)}
-    >
+    <form onSubmit={onSubmit} className={cn("space-y-6", className)}>
       {children}
     </form>
   );
@@ -35,23 +32,15 @@ interface V28FormFieldProps {
   className?: string;
 }
 
-export function V28FormField({
-  label,
-  error,
-  required,
-  children,
-  className,
-}: V28FormFieldProps) {
+export function V28FormField({ label, error, required, children, className }: V28FormFieldProps) {
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn("space-y-2", className)}>
       <label className="block text-sm font-medium text-slate-700">
         {label}
         {required && <span className="text-red-600 ml-1">*</span>}
       </label>
       {children}
-      {error && (
-        <p className="text-sm text-red-600">{error}</p>
-      )}
+      {error && <p className="text-sm text-red-600">{error}</p>}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 # V26.0 INFOBOARD SYSTEM
+
 > **Version:** 26.0  
 > **Letzte Aktualisierung:** 2025-01-26  
 > **Status:** ✅ Production Ready
@@ -17,44 +18,50 @@ Das Infoboard-System (auch "Notice Board", "Hinweis-Panel") ist ein standardisie
 
 ### Design-Spezifikation
 
-| Element | Wert | Beschreibung |
-|---------|------|--------------|
-| **Hintergrund** | `#F9FAFB` (Canvas) | Neutrale, nicht-ablenkende Hintergrundfarbe |
-| **Border-Radius** | `8px` (rounded-lg) | Konsistent mit Card-Design |
-| **Padding** | `16px` (p-4) | Ausreichend Luft für Lesbarkeit |
-| **Text-Farbe** | `#374151` (text_secondary) | Optimale Lesbarkeit auf Canvas |
-| **Titel-Farbe** | `#111827` (text_primary) | Hervorhebung wichtiger Informationen |
-| **Icon-Größe** | `16px` (h-4 w-4) | Proportional zum Text |
-| **Schriftgröße** | `12px / 14px` (text-xs sm:text-sm) | Responsive Typografie |
+| Element           | Wert                               | Beschreibung                                |
+| ----------------- | ---------------------------------- | ------------------------------------------- |
+| **Hintergrund**   | `#F9FAFB` (Canvas)                 | Neutrale, nicht-ablenkende Hintergrundfarbe |
+| **Border-Radius** | `8px` (rounded-lg)                 | Konsistent mit Card-Design                  |
+| **Padding**       | `16px` (p-4)                       | Ausreichend Luft für Lesbarkeit             |
+| **Text-Farbe**    | `#374151` (text_secondary)         | Optimale Lesbarkeit auf Canvas              |
+| **Titel-Farbe**   | `#111827` (text_primary)           | Hervorhebung wichtiger Informationen        |
+| **Icon-Größe**    | `16px` (h-4 w-4)                   | Proportional zum Text                       |
+| **Schriftgröße**  | `12px / 14px` (text-xs sm:text-sm) | Responsive Typografie                       |
 
 ### Typen & Icons
 
 #### 1. Info (Standard)
+
 ```tsx
 <V26InfoBox type="info" title="Hinweis">
   Allgemeine Informationen für den Nutzer.
 </V26InfoBox>
 ```
+
 - **Icon:** `Info` (ℹ️)
 - **Icon-Farbe:** Dunkelblau (`#323D5E`)
 - **Verwendung:** Standard-Hinweise, Feature-Erklärungen, Tooltips
 
 #### 2. Warning
+
 ```tsx
 <V26InfoBox type="warning" title="Achtung">
   Wichtige Warnung für den Nutzer.
 </V26InfoBox>
 ```
+
 - **Icon:** `AlertTriangle` (⚠️)
 - **Icon-Farbe:** Orange (`#F59E0B`)
 - **Verwendung:** Warnungen, nicht-rückgängig machbare Aktionen
 
 #### 3. Legal
+
 ```tsx
 <V26InfoBox type="legal" title="Rechtlicher Hinweis">
   DSGVO- oder PBefG-relevante Information.
 </V26InfoBox>
 ```
+
 - **Icon:** `Scale` (⚖️)
 - **Icon-Farbe:** Dunkelblau (`#323D5E`)
 - **Verwendung:** DSGVO, PBefG, Compliance-Hinweise
@@ -70,8 +77,8 @@ Das Infoboard-System (auch "Notice Board", "Hinweis-Panel") ist ein standardisie
 
 ```tsx
 <V26InfoBox type="legal" title="PBefG § 51 Hinweis">
-  Auftragsdaten werden gemäß PBefG § 51 für 10 Jahre gespeichert. 
-  Diese Frist ist gesetzlich vorgeschrieben und kann nicht verkürzt werden.
+  Auftragsdaten werden gemäß PBefG § 51 für 10 Jahre gespeichert. Diese Frist ist gesetzlich
+  vorgeschrieben und kann nicht verkürzt werden.
 </V26InfoBox>
 ```
 
@@ -86,15 +93,16 @@ Das Infoboard-System (auch "Notice Board", "Hinweis-Panel") ist ein standardisie
 
 ```tsx
 <V26InfoBox type="legal" title="DSGVO-Hinweis">
-  Personenbezogene Daten werden nur für die Auftragsabwicklung verwendet. 
-  Weitere Informationen finden Sie in unserer{' '}
-  <a 
-    href="/datenschutz" 
+  Personenbezogene Daten werden nur für die Auftragsabwicklung verwendet. Weitere Informationen
+  finden Sie in unserer{" "}
+  <a
+    href="/datenschutz"
     className="underline font-semibold"
     style={{ color: KERNFARBEN.dunkelblau }}
   >
     Datenschutzerklärung
-  </a>.
+  </a>
+  .
 </V26InfoBox>
 ```
 
@@ -124,8 +132,8 @@ Das Infoboard-System (auch "Notice Board", "Hinweis-Panel") ist ein standardisie
 
 ```tsx
 <V26InfoBox title="Neue Funktion: Smart Assignment">
-  Mit Smart Assignment werden Aufträge automatisch dem optimalen Fahrer zugewiesen. 
-  Die KI berücksichtigt Standort, Verfügbarkeit und historische Daten.
+  Mit Smart Assignment werden Aufträge automatisch dem optimalen Fahrer zugewiesen. Die KI
+  berücksichtigt Standort, Verfügbarkeit und historische Daten.
 </V26InfoBox>
 ```
 
@@ -140,8 +148,8 @@ Das Infoboard-System (auch "Notice Board", "Hinweis-Panel") ist ein standardisie
 
 ```tsx
 <V26InfoBox type="warning" title="Achtung: Diese Aktion ist nicht rückgängig">
-  Gelöschte Aufträge können nicht wiederhergestellt werden. 
-  Die Daten werden dauerhaft aus dem System entfernt.
+  Gelöschte Aufträge können nicht wiederhergestellt werden. Die Daten werden dauerhaft aus dem
+  System entfernt.
 </V26InfoBox>
 ```
 
@@ -156,12 +164,8 @@ Das Infoboard-System (auch "Notice Board", "Hinweis-Panel") ist ein standardisie
 
 ```tsx
 <V26InfoBox title="Business-Feature">
-  Diese Funktion ist nur im Business-Tarif verfügbar.{' '}
-  <a 
-    href="/pricing" 
-    className="underline font-semibold"
-    style={{ color: KERNFARBEN.dunkelblau }}
-  >
+  Diese Funktion ist nur im Business-Tarif verfügbar.{" "}
+  <a href="/pricing" className="underline font-semibold" style={{ color: KERNFARBEN.dunkelblau }}>
     Jetzt upgraden
   </a>
 </V26InfoBox>
@@ -174,21 +178,25 @@ Das Infoboard-System (auch "Notice Board", "Hinweis-Panel") ist ein standardisie
 ## 🎨 DESIGN-REGELN
 
 ### Typografie
+
 - **Titel:** `font-semibold`, `text_primary`
 - **Body:** `font-normal`, `text_secondary`
 - **Links:** `underline`, `font-semibold`, Dunkelblau
 
 ### Spacing
+
 - **Padding:** `p-4` (16px)
 - **Margin Bottom (Titel):** `mb-2` (8px)
 - **Gap (Icon + Titel):** `gap-2` (8px)
 
 ### Farben
+
 - **Hintergrund:** IMMER `KERNFARBEN.canvas`
 - **Text:** IMMER `KERNFARBEN.text_secondary` (Body), `KERNFARBEN.text_primary` (Titel)
 - **Icons:** Typ-abhängig (siehe oben)
 
 ### Responsive
+
 - **Text-Größe:** `text-xs sm:text-sm` (12px → 14px)
 - **Padding:** Gleichbleibend auf allen Geräten
 
@@ -197,6 +205,7 @@ Das Infoboard-System (auch "Notice Board", "Hinweis-Panel") ist ein standardisie
 ## 🚫 VERBOTEN
 
 ### Direct Background-Colors
+
 ```tsx
 // ❌ FALSCH
 <div className="bg-gray-50 p-4">
@@ -210,6 +219,7 @@ Das Infoboard-System (auch "Notice Board", "Hinweis-Panel") ist ein standardisie
 ```
 
 ### Inkonsistente Icons
+
 ```tsx
 // ❌ FALSCH - Custom Icon ohne Komponente
 <div className="flex items-center gap-2">
@@ -224,6 +234,7 @@ Das Infoboard-System (auch "Notice Board", "Hinweis-Panel") ist ein standardisie
 ```
 
 ### Mehrere Typen in einer Box
+
 ```tsx
 // ❌ FALSCH - Vermischung von Typen
 <V26InfoBox type="warning">
@@ -241,21 +252,23 @@ Das Infoboard-System (auch "Notice Board", "Hinweis-Panel") ist ein standardisie
 
 ## 📊 PLATZIERUNGS-MATRIX
 
-| Kontext | Typ | Platzierung | Beispiel |
-|---------|-----|-------------|----------|
-| **Formular (DSGVO)** | Legal | Oberhalb Formular | Kunden-/Fahrer-Anlage |
-| **Dialog (PBefG)** | Legal | Footer | Auftrags-Details |
-| **Pflichtfelder** | Info | Unterhalb Titel | Alle Formulare |
-| **Lösch-Aktion** | Warning | Innerhalb Dialog | Bestätigungs-Dialog |
-| **Feature-Lock** | Info | Unterhalb Feature | Business-Tarif-Hinweis |
-| **Onboarding** | Info | Oberhalb Feature | Neue Funktionen |
+| Kontext              | Typ     | Platzierung       | Beispiel               |
+| -------------------- | ------- | ----------------- | ---------------------- |
+| **Formular (DSGVO)** | Legal   | Oberhalb Formular | Kunden-/Fahrer-Anlage  |
+| **Dialog (PBefG)**   | Legal   | Footer            | Auftrags-Details       |
+| **Pflichtfelder**    | Info    | Unterhalb Titel   | Alle Formulare         |
+| **Lösch-Aktion**     | Warning | Innerhalb Dialog  | Bestätigungs-Dialog    |
+| **Feature-Lock**     | Info    | Unterhalb Feature | Business-Tarif-Hinweis |
+| **Onboarding**       | Info    | Oberhalb Feature  | Neue Funktionen        |
 
 ---
 
 ## 🔄 MIGRATION VON ALT-SYSTEMEN
 
 ### Schritt 1: Identifizieren
+
 Suche nach Custom-Notice-Boxen:
+
 ```bash
 grep -r "bg-muted" src/
 grep -r "bg-gray-50" src/
@@ -263,11 +276,13 @@ grep -r "rounded-lg.*p-4" src/
 ```
 
 ### Schritt 2: Typ bestimmen
+
 - **Rechtlich (DSGVO, PBefG)?** → `type="legal"`
 - **Warnung?** → `type="warning"`
 - **Standard-Info?** → `type="info"` (Standard)
 
 ### Schritt 3: Ersetzen
+
 ```tsx
 // ALT
 <div className="bg-muted/50 p-4 rounded-lg text-xs sm:text-sm text-muted-foreground">
@@ -281,6 +296,7 @@ grep -r "rounded-lg.*p-4" src/
 ```
 
 ### Schritt 4: Testen
+
 - [ ] Visuelle Konsistenz (Canvas-Hintergrund)
 - [ ] Icon korrekt (Typ-abhängig)
 - [ ] Responsive (Mobile + Desktop)
@@ -291,6 +307,7 @@ grep -r "rounded-lg.*p-4" src/
 ## ✅ QUALITY CHECKLIST
 
 Für jede InfoBox:
+
 - [ ] Korrekte Komponente (`V26InfoBox`) verwendet
 - [ ] Passender `type` gewählt (info/warning/legal)
 - [ ] Titel vorhanden (falls relevant)
@@ -303,12 +320,12 @@ Für jede InfoBox:
 
 ## 📈 METRIKEN
 
-| Metrik | Ziel | Status |
-|--------|------|--------|
-| **Konsistenz** | 100% | ✅ |
-| **Typen-Abdeckung** | 3 Typen | ✅ |
-| **Accessibility** | WCAG AA | ✅ |
-| **Performance** | < 1ms Render | ✅ |
+| Metrik              | Ziel         | Status |
+| ------------------- | ------------ | ------ |
+| **Konsistenz**      | 100%         | ✅     |
+| **Typen-Abdeckung** | 3 Typen      | ✅     |
+| **Accessibility**   | WCAG AA      | ✅     |
+| **Performance**     | < 1ms Render | ✅     |
 
 ---
 

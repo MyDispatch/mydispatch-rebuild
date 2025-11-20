@@ -9,6 +9,7 @@
 ## 📐 LAYOUT-STRUKTUR ANALYSE
 
 ### **Hierarchie:**
+
 ```
 MainLayout (src/components/layout/MainLayout.tsx)
 ├── AppSidebar (64px/240px, fixed left, z-40)
@@ -45,6 +46,7 @@ Master.tsx (src/pages/Master.tsx)
 **Problem:** Content war nicht responsive und berücksichtigte Quick Actions Panel nicht
 
 **Lösung:**
+
 ```typescript
 // Master.tsx - Responsive Viewport Tracking
 const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1280);
@@ -56,7 +58,7 @@ useEffect(() => {
 }, []);
 
 // Main Content Container mit dynamischem Padding
-<div 
+<div
   className="w-full space-y-8 transition-all duration-300"
   style={{
     paddingLeft: '24px',
@@ -66,6 +68,7 @@ useEffect(() => {
 ```
 
 **Vorteile:**
+
 - ✅ Reaktive Anpassung bei Viewport-Änderung
 - ✅ Smooth Transition (300ms)
 - ✅ Kein Overlap zwischen Content und Quick Actions Panel
@@ -78,8 +81,9 @@ useEffect(() => {
 **Problem:** Quick Actions Panel erschien auf Mobile/Tablet und verdeckte Content
 
 **Lösung:**
+
 ```typescript
-<aside 
+<aside
   className="hidden xl:block fixed right-0 w-[280px] bg-white/95 backdrop-blur-md border-l border-slate-200 shadow-2xl z-30 overflow-y-auto"
   style={{
     top: '64px',    // Header Height
@@ -91,6 +95,7 @@ useEffect(() => {
 ```
 
 **Responsive Breakpoint:**
+
 - `hidden xl:block` → nur ab 1280px Viewport-Breite sichtbar
 - Mobile/Tablet: Quick Actions ausgeblendet, Content nutzt volle Breite
 
@@ -100,16 +105,17 @@ useEffect(() => {
 
 **Spacing-Matrix:**
 
-| Element | Desktop (≥1280px) | Tablet (768-1279px) | Mobile (<768px) |
-|---------|-------------------|---------------------|-----------------|
-| **AppSidebar** | 64px/240px (hover) | 64px | Hidden (MobileHeader) |
-| **Header** | 64px height | 64px height | 56px height (MobileHeader) |
-| **Footer** | 48px height | 48px height | Hidden (MobileBottomNav 64px) |
-| **Main Content Padding Left** | 24px | 24px | 16px (px-4) |
-| **Main Content Padding Right** | 304px (280px Panel + 24px Gap) | 24px | 16px (px-4) |
-| **Quick Actions Panel** | 280px (visible) | Hidden | Hidden |
+| Element                        | Desktop (≥1280px)              | Tablet (768-1279px) | Mobile (<768px)               |
+| ------------------------------ | ------------------------------ | ------------------- | ----------------------------- |
+| **AppSidebar**                 | 64px/240px (hover)             | 64px                | Hidden (MobileHeader)         |
+| **Header**                     | 64px height                    | 64px height         | 56px height (MobileHeader)    |
+| **Footer**                     | 48px height                    | 48px height         | Hidden (MobileBottomNav 64px) |
+| **Main Content Padding Left**  | 24px                           | 24px                | 16px (px-4)                   |
+| **Main Content Padding Right** | 304px (280px Panel + 24px Gap) | 24px                | 16px (px-4)                   |
+| **Quick Actions Panel**        | 280px (visible)                | Hidden              | Hidden                        |
 
 **Berechnung Desktop:**
+
 - Viewport Width: 1920px (Beispiel)
 - AppSidebar: 240px (expanded) / 64px (collapsed)
 - MainLayout marginLeft: 240px / 64px
@@ -140,6 +146,7 @@ Z-Index Hierarchy (Master Dashboard):
 ## 🎨 VISUAL PERFECTION
 
 ### **Header Integration:**
+
 ```
 ┌────────────────────────────────────────────────────────────┐
 │ Header (64px, z-40, fixed top)                            │
@@ -168,28 +175,31 @@ Z-Index Hierarchy (Master Dashboard):
 ## 🚀 RESPONSIVE BEHAVIOR
 
 ### **Desktop (≥1280px):**
+
 ```typescript
 // Main Content
-paddingLeft: '24px'
-paddingRight: '304px' // 280px Panel + 24px Gap
+paddingLeft: "24px";
+paddingRight: "304px"; // 280px Panel + 24px Gap
 
 // Quick Actions Panel
-display: 'block'
-width: '280px'
-position: 'fixed right'
+display: "block";
+width: "280px";
+position: "fixed right";
 ```
 
 ### **Tablet (768px - 1279px):**
+
 ```typescript
 // Main Content
-paddingLeft: '24px'
-paddingRight: '24px' // Volle Breite
+paddingLeft: "24px";
+paddingRight: "24px"; // Volle Breite
 
 // Quick Actions Panel
-display: 'none'
+display: "none";
 ```
 
 ### **Mobile (<768px):**
+
 ```typescript
 // Main Content (via MainLayout MobileHeader)
 paddingLeft: '16px' (px-4)
@@ -209,6 +219,7 @@ position: 'fixed bottom'
 ## ✅ ERFOLGS-KRITERIEN V33.5
 
 ### **Funktional:**
+
 - [x] Main Content passt sich dynamisch an Viewport an
 - [x] Quick Actions Panel nur auf Desktop sichtbar (≥1280px)
 - [x] Kein Overlap zwischen Content und Quick Actions
@@ -216,6 +227,7 @@ position: 'fixed bottom'
 - [x] Responsive Viewport-Tracking (useState + useEffect)
 
 ### **Visual:**
+
 - [x] 24px Gap zwischen Content und Quick Actions Panel
 - [x] Header (64px) und Footer (48px) korrekt berücksichtigt
 - [x] AppSidebar (64px/240px) marginLeft korrekt
@@ -223,6 +235,7 @@ position: 'fixed bottom'
 - [x] Floating Orbs Background (via routes.config.tsx background: 'orbs-light')
 
 ### **Performance:**
+
 - [x] Keine unnötigen Re-Renders durch Viewport-Tracking
 - [x] Debounced Resize Event (React State Update)
 - [x] Smooth CSS Transitions (transition-all duration-300)
@@ -232,20 +245,22 @@ position: 'fixed bottom'
 ## 🛠️ CODE-SNIPPETS
 
 ### **Responsive Viewport Tracking:**
+
 ```typescript
 // Master.tsx
 const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1280);
 
 useEffect(() => {
   const handleResize = () => setIsDesktop(window.innerWidth >= 1280);
-  window.addEventListener('resize', handleResize);
-  return () => window.removeEventListener('resize', handleResize);
+  window.addEventListener("resize", handleResize);
+  return () => window.removeEventListener("resize", handleResize);
 }, []);
 ```
 
 ### **Dynamic Content Padding:**
+
 ```typescript
-<div 
+<div
   className="w-full space-y-8 transition-all duration-300"
   style={{
     paddingLeft: '24px',
@@ -257,8 +272,9 @@ useEffect(() => {
 ```
 
 ### **Desktop-Only Quick Actions:**
+
 ```typescript
-<aside 
+<aside
   className="hidden xl:block fixed right-0 w-[280px]"
   style={{
     top: '64px',
@@ -276,6 +292,7 @@ useEffect(() => {
 ## 📈 NEXT STEPS (Optional)
 
 ### **Phase 1: Quick Actions auf Mobile/Tablet (Future)**
+
 ```typescript
 // Mobile: Quick Actions als Drawer/Dialog
 <Sheet>
@@ -291,6 +308,7 @@ useEffect(() => {
 ```
 
 ### **Phase 2: Dashboard-Sidebar Integration (Future)**
+
 ```typescript
 // Master.tsx könnte auch DashboardSidebar nutzen
 // Aktuell nur auf /dashboard aktiv (via MainLayout.tsx Zeile 61-75)
@@ -301,12 +319,14 @@ useEffect(() => {
 ## 🚨 WICHTIGE REGELN
 
 ### ✅ **DO's:**
+
 - Viewport-Tracking für responsive Layouts
 - Dynamic Padding basierend auf Viewport-Größe
 - `hidden xl:block` für Desktop-only Elemente
 - Smooth Transitions (transition-all duration-300)
 
 ### ❌ **DON'Ts:**
+
 - **NIEMALS** `window.innerWidth` direkt in JSX nutzen (nicht reaktiv!)
 - **NIEMALS** Quick Actions Panel auf Mobile ohne Drawer/Dialog zeigen
 - **NIEMALS** Content und Quick Actions überlappen lassen
@@ -316,19 +336,20 @@ useEffect(() => {
 
 ## 📝 VERBESSERUNGEN SEIT V33.3
 
-| Feature | V33.3 | V33.5 |
-|---------|-------|-------|
-| **Content Padding** | Fixed `max-w-[1600px] mx-auto px-6` | Dynamic `paddingRight: isDesktop ? '304px' : '24px'` |
-| **Quick Actions Visibility** | Immer sichtbar (auch Mobile) | `hidden xl:block` (nur Desktop) |
-| **Responsive Tracking** | Keine | `useState + useEffect` Viewport-Tracking |
-| **Smooth Transitions** | `transition-none` | `transition-all duration-300` |
-| **Gap zwischen Content/Panel** | Keine | 24px Gap (304px = 280px Panel + 24px) |
+| Feature                        | V33.3                               | V33.5                                                |
+| ------------------------------ | ----------------------------------- | ---------------------------------------------------- |
+| **Content Padding**            | Fixed `max-w-[1600px] mx-auto px-6` | Dynamic `paddingRight: isDesktop ? '304px' : '24px'` |
+| **Quick Actions Visibility**   | Immer sichtbar (auch Mobile)        | `hidden xl:block` (nur Desktop)                      |
+| **Responsive Tracking**        | Keine                               | `useState + useEffect` Viewport-Tracking             |
+| **Smooth Transitions**         | `transition-none`                   | `transition-all duration-300`                        |
+| **Gap zwischen Content/Panel** | Keine                               | 24px Gap (304px = 280px Panel + 24px)                |
 
 ---
 
 ## 🎉 FAZIT
 
 **V33.5 Master Layout Alignment:**
+
 - ✅ **Perfekte Integration** aller Layout-Komponenten (Header, Sidebar, Footer, Quick Actions)
 - ✅ **Responsive Design** (Desktop, Tablet, Mobile)
 - ✅ **Pixel-Perfect Spacing** (24px Gap, kein Overlap)

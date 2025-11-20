@@ -2,26 +2,38 @@
    FEATURE DETAIL PAGE: GPS-Tracking
    ================================================================================== */
 
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { V28HeroPremium } from '@/components/hero';
-import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { V28Button } from '@/components/design-system/V28Button';
-import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
-import { Navigation, MapPin, Clock, Shield } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { V28HeroPremium } from "@/components/hero";
+import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
+import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
+import { V28Button } from "@/components/design-system/V28Button";
+import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
+import { Navigation, MapPin, Clock, Shield } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function GPSTrackingPage() {
   const navigate = useNavigate();
 
   const features = [
-    { icon: MapPin, title: 'Live-Tracking', description: 'Sehen Sie alle Fahrzeuge in Echtzeit auf der Karte' },
-    { icon: Navigation, title: 'Routen-Historie', description: 'Gefahrene Routen nachvollziehbar speichern' },
-    { icon: Clock, title: 'Ankunftszeit', description: 'Genaue ETA-Berechnung für Kunden' },
-    { icon: Shield, title: 'Sicherheit', description: 'Fahrer-Sicherheit durch Standort-Überwachung' },
+    {
+      icon: MapPin,
+      title: "Live-Tracking",
+      description: "Sehen Sie alle Fahrzeuge in Echtzeit auf der Karte",
+    },
+    {
+      icon: Navigation,
+      title: "Routen-Historie",
+      description: "Gefahrene Routen nachvollziehbar speichern",
+    },
+    { icon: Clock, title: "Ankunftszeit", description: "Genaue ETA-Berechnung für Kunden" },
+    {
+      icon: Shield,
+      title: "Sicherheit",
+      description: "Fahrer-Sicherheit durch Standort-Überwachung",
+    },
   ];
 
   return (
@@ -41,8 +53,8 @@ export default function GPSTrackingPage() {
         subtitle="Immer wissen, wo Ihre Fahrzeuge sind"
         description="Live-Standortverfolgung, Routenoptimierung und automatische ETA-Berechnung."
         primaryCTA={{
-          label: 'Jetzt starten',
-          onClick: () => navigate('/auth?mode=signup')
+          label: "Jetzt starten",
+          onClick: () => navigate("/auth?mode=signup"),
         }}
         showPWAButton={true}
         visual={<PremiumDashboardContent pageType="features" />}
@@ -68,7 +80,7 @@ export default function GPSTrackingPage() {
             <V28TariffBadge label="Business" />
             <V28TariffBadge label="Enterprise" />
           </div>
-          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
             Tarife vergleichen
           </V28Button>
         </div>

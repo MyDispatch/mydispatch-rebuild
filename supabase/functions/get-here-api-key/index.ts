@@ -30,16 +30,16 @@ serve(async (req) => {
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(supabaseUrl, supabaseKey);
 
-    const input: GetKeyInput = await req.json() || {};
+    const input: GetKeyInput = (await req.json()) || {};
 
     // 1. Get HERE API Key from Environment
     const hereApiKey = Deno.env.get("HERE_API_KEY") || Deno.env.get("VITE_HERE_API_KEY");
     if (!hereApiKey) {
       console.error("[GET-HERE-API-KEY] HERE API Key not found");
-      return new Response(
-        JSON.stringify({ error: "HERE API Key not configured" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "HERE API Key not configured" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // 2. Check Subscription (if company_id provided)
@@ -52,23 +52,21 @@ serve(async (req) => {
         .single();
 
       if (!company || company.subscription_status !== "active") {
-        return new Response(
-          JSON.stringify({ error: "Active subscription required" }),
-          { status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: "Active subscription required" }), {
+          status: 403,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
       }
     }
 
     // 3. Log Usage (for monitoring)
     if (input.company_id) {
-      await supabase
-        .from("api_usage_logs")
-        .insert({
-          company_id: input.company_id,
-          api_name: "here_api",
-          purpose: input.purpose || "geocoding",
-          requested_at: new Date().toISOString(),
-        });
+      await supabase.from("api_usage_logs").insert({
+        company_id: input.company_id,
+        api_name: "here_api",
+        purpose: input.purpose || "geocoding",
+        requested_at: new Date().toISOString(),
+      });
     }
 
     console.log("[GET-HERE-API-KEY] API key provided for purpose:", input.purpose || "geocoding");
@@ -84,9 +82,9 @@ serve(async (req) => {
     );
   } catch (error) {
     console.error("[GET-HERE-API-KEY] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });

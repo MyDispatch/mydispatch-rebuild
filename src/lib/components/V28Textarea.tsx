@@ -11,8 +11,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-export interface V28TextareaProps
-  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
+export interface V28TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}
 
 const V28Textarea = React.forwardRef<HTMLTextAreaElement, V28TextareaProps>(
   ({ className, ...props }, ref) => {
@@ -37,13 +36,13 @@ export { V28Textarea };
 
 /**
  * USAGE EXAMPLES:
- * 
+ *
  * // Standard Textarea
  * <V28Textarea placeholder="Ihre Nachricht..." />
- * 
+ *
  * // Mit Custom Height
  * <V28Textarea className="min-h-[200px]" placeholder="Lange Nachricht..." />
- * 
+ *
  * // Disabled
  * <V28Textarea disabled value="Gesperrt" />
  */

@@ -1,27 +1,35 @@
 /**
  * Predictive Demand Widget
  * V18.3 - Sprint 39: Predictive Analytics
- * 
+ *
  * AI-basierte Nachfrage-Prognosen mit:
  * - Stündliche Vorhersagen (nächste 8 Stunden)
  * - Confidence-Levels
  * - Actionable Recommendations
  * - Interactive Chart
- * 
+ *
  * Business/Enterprise Feature
  */
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/lib/compat';
-import { Badge } from '@/lib/compat';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { V28Button } from '@/components/design-system/V28Button';
-import { TrendingUp, AlertCircle, Info, Clock, Zap } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { logger } from '@/lib/logger';
-import { useAuth } from '@/hooks/use-auth';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { startOfDay, subDays, format, addHours } from 'date-fns';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/lib/compat";
+import { Badge } from "@/lib/compat";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { V28Button } from "@/components/design-system/V28Button";
+import { TrendingUp, AlertCircle, Info, Clock, Zap } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { logger } from "@/lib/logger";
+import { useAuth } from "@/hooks/use-auth";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+import { startOfDay, subDays, format, addHours } from "date-fns";
 
 interface DemandPrediction {
   time: string;
@@ -30,7 +38,7 @@ interface DemandPrediction {
 }
 
 interface Recommendation {
-  type: 'info' | 'warning' | 'error';
+  type: "info" | "warning" | "error";
   message: string;
   action: string;
 }
@@ -62,31 +70,31 @@ export function PredictiveDemandWidget() {
       setError(null);
 
       if (!profile?.company_id) {
-        throw new Error('Keine Company-ID verfügbar');
+        throw new Error("Keine Company-ID verfügbar");
       }
 
       // ECHTE DATEN: Historische Buchungen der letzten 30 Tage analysieren
       const thirtyDaysAgo = startOfDay(subDays(new Date(), 30));
-      
+
       const { data: historicalBookings, error: dbError } = await supabase
-        .from('bookings')
-        .select('created_at, pickup_time')
-        .eq('company_id', profile.company_id)
-        .eq('archived', false)
-        .gte('created_at', thirtyDaysAgo.toISOString());
+        .from("bookings")
+        .select("created_at, pickup_time")
+        .eq("company_id", profile.company_id)
+        .eq("archived", false)
+        .gte("created_at", thirtyDaysAgo.toISOString());
 
       if (dbError) throw dbError;
 
       // Analyse: Buchungen pro Stunde
       const hourlyStats: { [hour: number]: number } = {};
-      (historicalBookings || []).forEach(booking => {
+      (historicalBookings || []).forEach((booking) => {
         const hour = new Date(booking.pickup_time || booking.created_at).getHours();
         hourlyStats[hour] = (hourlyStats[hour] || 0) + 1;
       });
 
       // Berechne Durchschnitt pro Stunde
       const avgPerHour: { [hour: number]: number } = {};
-      Object.keys(hourlyStats).forEach(hourStr => {
+      Object.keys(hourlyStats).forEach((hourStr) => {
         const hour = parseInt(hourStr);
         avgPerHour[hour] = Math.round(hourlyStats[hour] / 30); // 30 Tage
       });
@@ -96,7 +104,7 @@ export function PredictiveDemandWidget() {
       const predictions: DemandPrediction[] = [];
       let totalExpected = 0;
       let maxDemand = 0;
-      let peakHour = '';
+      let peakHour = "";
 
       for (let i = 0; i < 8; i++) {
         const hour = (currentHour + i) % 24;
@@ -107,11 +115,11 @@ export function PredictiveDemandWidget() {
         predictions.push({
           time: `${hour}:00`,
           expected_bookings: expectedBookings,
-          confidence: confidence
+          confidence: confidence,
         });
 
         totalExpected += expectedBookings;
-        
+
         if (expectedBookings > maxDemand) {
           maxDemand = expectedBookings;
           peakHour = `${hour}:00`;
@@ -125,24 +133,24 @@ export function PredictiveDemandWidget() {
 
       // Empfehlungen basierend auf ECHTEN Peak-Demand
       const recommendations: Recommendation[] = [];
-      
+
       if (maxDemand > 5) {
         recommendations.push({
-          type: 'warning',
+          type: "warning",
           message: `${peakHour}: Erhöhte Nachfrage erwartet (${maxDemand} Aufträge)`,
-          action: 'Zusätzliche Fahrer einplanen'
+          action: "Zusätzliche Fahrer einplanen",
         });
       } else if (totalExpected === 0) {
         recommendations.push({
-          type: 'info',
-          message: 'Keine historischen Buchungsdaten für diese Zeitfenster',
-          action: 'Prognose basiert auf 30-Tage-Durchschnitt'
+          type: "info",
+          message: "Keine historischen Buchungsdaten für diese Zeitfenster",
+          action: "Prognose basiert auf 30-Tage-Durchschnitt",
         });
       } else if (totalExpected < 5) {
         recommendations.push({
-          type: 'info',
-          message: 'Niedrige Nachfrage in den nächsten Stunden',
-          action: 'Wartungsarbeiten oder Schulungen planen'
+          type: "info",
+          message: "Niedrige Nachfrage in den nächsten Stunden",
+          action: "Wartungsarbeiten oder Schulungen planen",
         });
       }
 
@@ -157,36 +165,39 @@ export function PredictiveDemandWidget() {
           peak_hour: peakHour,
           peak_demand: maxDemand,
           total_expected: totalExpected,
-          confidence_avg: avgConfidence
-        }
+          confidence_avg: avgConfidence,
+        },
       });
     } catch (err) {
-      logger.error('[PredictiveDemandWidget] Error loading demand forecast', err as Error, {
-        component: 'PredictiveDemandWidget',
-        action: 'loadForecast'
+      logger.error("[PredictiveDemandWidget] Error loading demand forecast", err as Error, {
+        component: "PredictiveDemandWidget",
+        action: "loadForecast",
       });
-      setError(err instanceof Error ? err.message : 'Fehler beim Laden der Prognose');
+      setError(err instanceof Error ? err.message : "Fehler beim Laden der Prognose");
     } finally {
       setLoading(false);
     }
   };
 
   const getConfidenceColor = (confidence: number) => {
-    if (confidence >= 85) return 'text-status-success';
-    if (confidence >= 70) return 'text-status-warning';
-    return 'text-muted-foreground';
+    if (confidence >= 85) return "text-status-success";
+    if (confidence >= 70) return "text-status-warning";
+    return "text-muted-foreground";
   };
 
   const getRecommendationIcon = (type: string) => {
     switch (type) {
-      case 'warning': return AlertCircle;
-      case 'error': return AlertCircle;
-      default: return Info;
+      case "warning":
+        return AlertCircle;
+      case "error":
+        return AlertCircle;
+      default:
+        return Info;
     }
   };
 
-  const getRecommendationVariant = (type: string): 'default' | 'destructive' => {
-    return type === 'error' ? 'destructive' : 'default';
+  const getRecommendationVariant = (type: string): "default" | "destructive" => {
+    return type === "error" ? "destructive" : "default";
   };
 
   if (loading) {
@@ -196,7 +207,9 @@ export function PredictiveDemandWidget() {
           <CardTitle className="flex items-center gap-2">
             <Zap className="h-5 w-5 text-foreground" />
             Nachfrage-Prognose
-            <Badge variant="outline" className="ml-auto">AI</Badge>
+            <Badge variant="outline" className="ml-auto">
+              AI
+            </Badge>
           </CardTitle>
           <CardDescription>KI-basierte Vorhersage</CardDescription>
         </CardHeader>
@@ -216,23 +229,18 @@ export function PredictiveDemandWidget() {
           <CardTitle className="flex items-center gap-2">
             <Zap className="h-5 w-5 text-foreground" />
             Nachfrage-Prognose
-            <Badge variant="outline" className="ml-auto">AI</Badge>
+            <Badge variant="outline" className="ml-auto">
+              AI
+            </Badge>
           </CardTitle>
           <CardDescription>KI-basierte Vorhersage</CardDescription>
         </CardHeader>
         <CardContent className="p-6">
           <Alert variant="destructive">
             <AlertCircle className="h-4 w-4" />
-            <AlertDescription>
-              {error || 'Fehler beim Laden der Prognose'}
-            </AlertDescription>
+            <AlertDescription>{error || "Fehler beim Laden der Prognose"}</AlertDescription>
           </Alert>
-          <V28Button
-            variant="secondary"
-            size="sm"
-            onClick={loadForecast}
-            className="mt-4 w-full"
-          >
+          <V28Button variant="secondary" size="sm" onClick={loadForecast} className="mt-4 w-full">
             Erneut versuchen
           </V28Button>
         </CardContent>
@@ -247,7 +255,9 @@ export function PredictiveDemandWidget() {
           <div className="flex items-center gap-2">
             <Zap className="h-5 w-5 text-foreground" />
             <CardTitle>Nachfrage-Prognose</CardTitle>
-            <Badge variant="outline" className="ml-2">AI</Badge>
+            <Badge variant="outline" className="ml-2">
+              AI
+            </Badge>
           </div>
           <V28Button
             variant="secondary"
@@ -291,29 +301,22 @@ export function PredictiveDemandWidget() {
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={forecastData.predictions}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
-              <XAxis 
-                dataKey="time" 
-                stroke="hsl(var(--muted-foreground))"
-                fontSize={12}
-              />
-              <YAxis 
-                stroke="hsl(var(--muted-foreground))"
-                fontSize={12}
-              />
+              <XAxis dataKey="time" stroke="hsl(var(--muted-foreground))" fontSize={12} />
+              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
               <Tooltip
                 wrapperClassName="recharts-tooltip--dashboard"
                 formatter={(value: number, name: string) => {
-                  if (name === 'expected_bookings') return [value, 'Aufträge'];
-                  if (name === 'confidence') return [`${value}%`, 'Konfidenz'];
+                  if (name === "expected_bookings") return [value, "Aufträge"];
+                  if (name === "confidence") return [`${value}%`, "Konfidenz"];
                   return [value, name];
                 }}
               />
-              <Line 
-                type="monotone" 
-                dataKey="expected_bookings" 
-                stroke="hsl(var(--primary))" 
+              <Line
+                type="monotone"
+                dataKey="expected_bookings"
+                stroke="hsl(var(--primary))"
                 strokeWidth={2}
-                dot={{ fill: 'hsl(var(--primary))', r: 4 }}
+                dot={{ fill: "hsl(var(--primary))", r: 4 }}
                 activeDot={{ r: 6 }}
               />
             </LineChart>
@@ -327,11 +330,7 @@ export function PredictiveDemandWidget() {
             {forecastData.recommendations.map((rec, idx) => {
               const Icon = getRecommendationIcon(rec.type);
               return (
-                <Alert
-                  key={idx}
-                  variant={getRecommendationVariant(rec.type)}
-                  className="py-2"
-                >
+                <Alert key={idx} variant={getRecommendationVariant(rec.type)} className="py-2">
                   <Icon className="h-4 w-4" />
                   <AlertDescription className="text-xs">
                     <div className="font-medium">{rec.message}</div>

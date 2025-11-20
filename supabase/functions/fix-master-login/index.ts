@@ -25,13 +25,13 @@ serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseKey);
 
     const input = await req.json();
-    const email = (input.email || 'courbois1981@gmail.com').toLowerCase().trim();
-    const password = input.password || '1def!xO2022!!';
-    const action = input.action || 'create'; // 'create' | 'reset' | 'check'
+    const email = (input.email || "courbois1981@gmail.com").toLowerCase().trim();
+    const password = input.password || "1def!xO2022!!";
+    const action = input.action || "create"; // 'create' | 'reset' | 'check'
 
     // Check if user exists
     const { data: existingUsers } = await supabase.auth.admin.listUsers();
-    const existingUser = existingUsers?.users?.find(u => u.email === email);
+    const existingUser = existingUsers?.users?.find((u) => u.email === email);
 
     if (action === "check") {
       return new Response(
@@ -60,45 +60,39 @@ serve(async (req) => {
 
         // Ensure profile exists
         const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('user_id', existingUser.id)
+          .from("profiles")
+          .select("*")
+          .eq("user_id", existingUser.id)
           .maybeSingle();
 
         if (!profile) {
-          const { error: profileError } = await supabase
-            .from('profiles')
-            .insert({
-              user_id: existingUser.id,
-              first_name: 'Pascal',
-              last_name: 'Courbois',
-              role: 'master',
-              company_id: null,
-            });
-          if (profileError) console.warn('[FIX-MASTER-LOGIN] Profile creation failed:', profileError);
+          const { error: profileError } = await supabase.from("profiles").insert({
+            user_id: existingUser.id,
+            first_name: "Pascal",
+            last_name: "Courbois",
+            role: "master",
+            company_id: null,
+          });
+          if (profileError)
+            console.warn("[FIX-MASTER-LOGIN] Profile creation failed:", profileError);
         } else {
           // Update to master role
-          await supabase
-            .from('profiles')
-            .update({ role: 'master' })
-            .eq('user_id', existingUser.id);
+          await supabase.from("profiles").update({ role: "master" }).eq("user_id", existingUser.id);
         }
 
         // Ensure master role in user_roles
         const { data: roleCheck } = await supabase
-          .from('user_roles')
-          .select('*')
-          .eq('user_id', existingUser.id)
-          .eq('role', 'master')
+          .from("user_roles")
+          .select("*")
+          .eq("user_id", existingUser.id)
+          .eq("role", "master")
           .maybeSingle();
 
         if (!roleCheck) {
-          await supabase
-            .from('user_roles')
-            .insert({
-              user_id: existingUser.id,
-              role: 'master',
-            });
+          await supabase.from("user_roles").insert({
+            user_id: existingUser.id,
+            role: "master",
+          });
         }
 
         return new Response(
@@ -123,30 +117,26 @@ serve(async (req) => {
       if (createError) throw createError;
 
       // Create master profile
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert({
-          user_id: newUser.user.id,
-          first_name: 'Pascal',
-          last_name: 'Courbois',
-          role: 'master',
-          company_id: null,
-        });
+      const { error: profileError } = await supabase.from("profiles").insert({
+        user_id: newUser.user.id,
+        first_name: "Pascal",
+        last_name: "Courbois",
+        role: "master",
+        company_id: null,
+      });
 
       if (profileError) {
-        console.warn('[FIX-MASTER-LOGIN] Profile creation failed:', profileError);
+        console.warn("[FIX-MASTER-LOGIN] Profile creation failed:", profileError);
       }
 
       // Create master role
-      const { error: roleError } = await supabase
-        .from('user_roles')
-        .insert({
-          user_id: newUser.user.id,
-          role: 'master',
-        });
+      const { error: roleError } = await supabase.from("user_roles").insert({
+        user_id: newUser.user.id,
+        role: "master",
+      });
 
       if (roleError) {
-        console.warn('[FIX-MASTER-LOGIN] Role creation failed:', roleError);
+        console.warn("[FIX-MASTER-LOGIN] Role creation failed:", roleError);
       }
 
       return new Response(
@@ -163,10 +153,10 @@ serve(async (req) => {
 
     if (action === "reset") {
       if (!existingUser) {
-        return new Response(
-          JSON.stringify({ error: "User not found" }),
-          { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+        return new Response(JSON.stringify({ error: "User not found" }), {
+          status: 404,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
       }
 
       // Update password
@@ -197,10 +187,9 @@ serve(async (req) => {
     );
   } catch (error: any) {
     console.error("[FIX-MASTER-LOGIN] Error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message, details: error.toString() }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message, details: error.toString() }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
-

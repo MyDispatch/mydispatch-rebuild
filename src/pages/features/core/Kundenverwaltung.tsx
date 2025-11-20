@@ -2,26 +2,42 @@
    FEATURE DETAIL PAGE: Kundenverwaltung
    ================================================================================== */
 
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { V28HeroPremium } from '@/components/hero';
-import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { V28Button } from '@/components/design-system/V28Button';
-import { V28TariffBadge } from '@/components/design-system/V28TariffBadge';
-import { UserCheck, Users, Star, FileText, TrendingUp } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { V28HeroPremium } from "@/components/hero";
+import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
+import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
+import { V28Button } from "@/components/design-system/V28Button";
+import { V28TariffBadge } from "@/components/design-system/V28TariffBadge";
+import { UserCheck, Users, Star, FileText, TrendingUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function KundenverwaltungPage() {
   const navigate = useNavigate();
 
   const features = [
-    { icon: Users, title: 'Kunden-Profile', description: 'Vollständige Kundendaten mit Kontaktinformationen und Fahrhistorie' },
-    { icon: Star, title: 'VIP-Markierung', description: 'Markieren Sie wichtige Kunden für bevorzugte Behandlung' },
-    { icon: FileText, title: 'Fahrt-Historie', description: 'Alle vergangenen Fahrten eines Kunden auf einen Blick' },
-    { icon: TrendingUp, title: 'Umsatz-Tracking', description: 'Sehen Sie den Gesamtumsatz pro Kunde' },
+    {
+      icon: Users,
+      title: "Kunden-Profile",
+      description: "Vollständige Kundendaten mit Kontaktinformationen und Fahrhistorie",
+    },
+    {
+      icon: Star,
+      title: "VIP-Markierung",
+      description: "Markieren Sie wichtige Kunden für bevorzugte Behandlung",
+    },
+    {
+      icon: FileText,
+      title: "Fahrt-Historie",
+      description: "Alle vergangenen Fahrten eines Kunden auf einen Blick",
+    },
+    {
+      icon: TrendingUp,
+      title: "Umsatz-Tracking",
+      description: "Sehen Sie den Gesamtumsatz pro Kunde",
+    },
   ];
 
   return (
@@ -41,8 +57,8 @@ export default function KundenverwaltungPage() {
         subtitle="Alle Kundendaten zentral verwalten"
         description="Mit Fahrhistorie, VIP-Markierungen und automatischen Geburtstags-Grüßen."
         primaryCTA={{
-          label: 'Jetzt starten',
-          onClick: () => navigate('/auth?mode=signup')
+          label: "Jetzt starten",
+          onClick: () => navigate("/auth?mode=signup"),
         }}
         showPWAButton={true}
         visual={<PremiumDashboardContent pageType="features" />}
@@ -68,7 +84,7 @@ export default function KundenverwaltungPage() {
             <V28TariffBadge label="Business" />
             <V28TariffBadge label="Enterprise" />
           </div>
-          <V28Button variant="primary" size="lg" onClick={() => navigate('/pricing')}>
+          <V28Button variant="primary" size="lg" onClick={() => navigate("/pricing")}>
             Tarife vergleichen
           </V28Button>
         </div>

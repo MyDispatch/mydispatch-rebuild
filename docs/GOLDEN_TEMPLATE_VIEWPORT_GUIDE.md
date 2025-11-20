@@ -100,7 +100,7 @@ if (isMobile) {
 
 {/* ✅ Right Sidebar (MANDATORY!) */}
 {!isMobile && (
-  <aside 
+  <aside
     className="fixed right-0 top-16 bottom-0 bg-white border-l border-slate-200 shadow-lg z-20 overflow-y-auto hidden md:block"
     style={{ width: '320px' }}
   >
@@ -110,7 +110,7 @@ if (isMobile) {
         <span className="w-1 h-4 rounded-full bg-slate-700" />
         Schnellzugriff
       </h3>
-      
+
       <V28Button variant="primary" fullWidth icon={Plus}>
         Primäre Aktion
       </V28Button>
@@ -125,7 +125,7 @@ if (isMobile) {
       <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wider mb-2">
         Live-Status
       </h4>
-      
+
       <div className="space-y-2">
         {/* Mini-KPI Cards */}
         <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">
@@ -268,8 +268,8 @@ return <PageHeaderWithKPIs kpis={kpis} quickActions={quickActions} />;
 
 ```typescript
 // ❌ FALSCH: KPIs doppelt definieren
-const mobileKPIs = [{ title: 'Total', value: 42, icon: Users }];
-const desktopKPIs = [{ title: 'Total', value: 42, icon: Users }]; // Duplikat!
+const mobileKPIs = [{ title: "Total", value: 42, icon: Users }];
+const desktopKPIs = [{ title: "Total", value: 42, icon: Users }]; // Duplikat!
 ```
 
 ---
@@ -316,12 +316,12 @@ tsx scripts/validate-golden-templates.ts
 
 ## 🎨 BEISPIEL-SEITEN (100% COMPLIANT)
 
-| Seite | Mobile StatCards | Desktop PageHeaderWithKPIs | Right Sidebar | Status |
-|-------|------------------|---------------------------|---------------|--------|
-| `/rechnungen` | ✅ | ✅ | ✅ | ✅ MASTER |
-| `/fahrer` | ✅ | ✅ | ✅ | ✅ COMPLIANT |
-| `/auftraege` | ✅ | ✅ | ✅ | ✅ COMPLIANT |
-| `/kunden` | ✅ | ✅ | ✅ | ✅ COMPLIANT |
+| Seite         | Mobile StatCards | Desktop PageHeaderWithKPIs | Right Sidebar | Status       |
+| ------------- | ---------------- | -------------------------- | ------------- | ------------ |
+| `/rechnungen` | ✅               | ✅                         | ✅            | ✅ MASTER    |
+| `/fahrer`     | ✅               | ✅                         | ✅            | ✅ COMPLIANT |
+| `/auftraege`  | ✅               | ✅                         | ✅            | ✅ COMPLIANT |
+| `/kunden`     | ✅               | ✅                         | ✅            | ✅ COMPLIANT |
 
 ---
 

@@ -30,21 +30,21 @@ export function V26AccordionItem({ question, answer, value, isLast }: V26Accordi
 
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.attributeName === 'data-state') {
-          const state = trigger.getAttribute('data-state');
-          setIsOpen(state === 'open');
+        if (mutation.attributeName === "data-state") {
+          const state = trigger.getAttribute("data-state");
+          setIsOpen(state === "open");
         }
       });
     });
 
     observer.observe(trigger, {
       attributes: true,
-      attributeFilter: ['data-state'],
+      attributeFilter: ["data-state"],
     });
 
     // Initial check
-    const initialState = trigger.getAttribute('data-state');
-    setIsOpen(initialState === 'open');
+    const initialState = trigger.getAttribute("data-state");
+    setIsOpen(initialState === "open");
 
     return () => observer.disconnect();
   }, []);
@@ -59,14 +59,10 @@ export function V26AccordionItem({ question, answer, value, isLast }: V26Accordi
           ref={triggerRef}
           className={cn(
             "flex flex-1 items-center justify-between py-6 text-left font-sans hover:no-underline transition-all rounded-lg",
-            isOpen 
-              ? "bg-slate-900 text-slate-50 p-6 -mx-6" 
-              : "bg-transparent text-slate-900 px-0"
+            isOpen ? "bg-slate-900 text-slate-50 p-6 -mx-6" : "bg-transparent text-slate-900 px-0"
           )}
         >
-          <span className="text-lg font-semibold">
-            {question}
-          </span>
+          <span className="text-lg font-semibold">{question}</span>
           <ChevronDown
             className={cn(
               "h-5 w-5 shrink-0 transition-transform duration-200",
@@ -76,7 +72,7 @@ export function V26AccordionItem({ question, answer, value, isLast }: V26Accordi
         </AccordionPrimitive.Trigger>
       </AccordionPrimitive.Header>
       <AccordionPrimitive.Content className="overflow-hidden transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
-        <div 
+        <div
           className={cn(
             "font-sans text-base font-normal pb-8 pt-4 px-6 leading-relaxed text-slate-700",
             isOpen && "-mx-6"

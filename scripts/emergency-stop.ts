@@ -41,8 +41,10 @@ console.log(`Duration: ${durationHours} hours\n`);
   }
 
   console.log("✅ Emergency stop activated");
-  console.log(`Active until: ${new Date(Date.now() + durationHours * 60 * 60 * 1000).toISOString()}`);
+  console.log(
+    `Active until: ${new Date(Date.now() + durationHours * 60 * 60 * 1000).toISOString()}`
+  );
   console.log("\nTo deactivate:");
-  console.log('  psql> UPDATE autonomous_system_config SET emergency_stop = false WHERE id = 1;');
+  console.log("  psql> UPDATE autonomous_system_config SET emergency_stop = false WHERE id = 1;");
   process.exit(0);
 })();

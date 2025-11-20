@@ -9,6 +9,7 @@
 ## 📊 AKTUELLE COVERAGE
 
 ### Unit Tests
+
 - ✅ **Navigation Helpers** - 100% Coverage (60 Tests)
   - Route generation (getHomeRoute, getEntityRoute)
   - Auth navigation (navigateToAuth)
@@ -36,11 +37,13 @@
   - File Upload Validation
 
 ### Integration Tests
+
 - ⚠️ **E2E Tests** - Vorhanden, aber nicht ausgeführt
   - Master-Account Login Flow (17 Tests)
   - Auth Flow (5 Tests)
 
 ### Fehlende Coverage
+
 - ⚠️ **Components** - ~40% Coverage
   - AppSidebar, MasterUserManagement, SubscriptionSection
   - AISupportWidget, IntelligentAIChat
@@ -60,6 +63,7 @@
 ## 🎯 COVERAGE-ZIELE
 
 ### Kritische Systeme (Ziel: >90%)
+
 1. ✅ **Navigation System** - 100%
 2. ✅ **Account Type Detection** - 100%
 3. ✅ **Auth Integration** - 95%
@@ -67,11 +71,13 @@
 5. ⚠️ **Master-Account Flow** - 70% → Ziel: >90%
 
 ### Wichtige Systeme (Ziel: >80%)
+
 1. ⚠️ **Subscription Utils** - 0% → Ziel: >80%
 2. ⚠️ **FeatureGate Component** - 0% → Ziel: >80%
 3. ⚠️ **Performance Hooks** - 0% → Ziel: >80%
 
 ### Standard Systeme (Ziel: >70%)
+
 1. ✅ **Marketing Components** - 85%
 2. ✅ **Cookie Consent** - 90%
 3. ⚠️ **UI Components** - ~40% → Ziel: >70%
@@ -81,6 +87,7 @@
 ## 🚀 TEST-AUSFÜHRUNG
 
 ### Vitest Unit Tests
+
 ```bash
 # Alle Tests ausführen
 npm run test
@@ -99,6 +106,7 @@ npm run test:ui
 ```
 
 ### Playwright E2E Tests
+
 ```bash
 # Alle E2E Tests
 npm run test:e2e
@@ -118,6 +126,7 @@ npx playwright test --project=chromium
 ## 📝 SCRIPTS (package.json)
 
 **Hinzufügen zu package.json scripts:**
+
 ```json
 {
   "scripts": {
@@ -133,6 +142,7 @@ npx playwright test --project=chromium
 ```
 
 **Installation:**
+
 ```bash
 # Vitest Dependencies bereits installiert
 npm install --save-dev vitest @testing-library/react @testing-library/jest-dom @vitest/ui jsdom
@@ -146,54 +156,58 @@ npm install --save-dev @vitest/coverage-v8
 ## ✅ TESTING BEST PRACTICES
 
 ### 1. Unit Test Structure
+
 ```typescript
-describe('ComponentName', () => {
-  describe('Feature A', () => {
-    it('should do X when Y', () => {
+describe("ComponentName", () => {
+  describe("Feature A", () => {
+    it("should do X when Y", () => {
       // Arrange
-      const input = 'test';
-      
+      const input = "test";
+
       // Act
       const result = functionUnderTest(input);
-      
+
       // Assert
-      expect(result).toBe('expected');
+      expect(result).toBe("expected");
     });
   });
 });
 ```
 
 ### 2. Hook Testing
-```typescript
-import { renderHook, waitFor } from '@testing-library/react';
 
-it('should update state correctly', async () => {
+```typescript
+import { renderHook, waitFor } from "@testing-library/react";
+
+it("should update state correctly", async () => {
   const { result } = renderHook(() => useCustomHook());
-  
+
   // Wait for async updates
   await waitFor(() => {
     expect(result.current.loading).toBe(false);
   });
-  
+
   expect(result.current.data).toBeDefined();
 });
 ```
 
 ### 3. Mocking
+
 ```typescript
 // Mock entire module
-vi.mock('@/lib/utils', () => ({
-  formatDate: vi.fn(() => '2025-10-29'),
+vi.mock("@/lib/utils", () => ({
+  formatDate: vi.fn(() => "2025-10-29"),
 }));
 
 // Mock specific function
 const mockNavigate = vi.fn();
-vi.mock('react-router-dom', () => ({
+vi.mock("react-router-dom", () => ({
   useNavigate: () => mockNavigate,
 }));
 ```
 
 ### 4. Coverage Thresholds
+
 ```typescript
 // vitest.config.ts
 export default defineConfig({
@@ -215,6 +229,7 @@ export default defineConfig({
 ## 📊 COVERAGE-TRACKING
 
 ### Erstelle Coverage Reports
+
 ```bash
 # Generate HTML Report
 npm run test:coverage
@@ -224,12 +239,14 @@ open coverage/index.html
 ```
 
 ### Interpretiere Coverage-Metriken
+
 - **Lines:** % der ausgeführten Code-Zeilen
 - **Functions:** % der aufgerufenen Funktionen
 - **Branches:** % der getesteten if/else/switch Pfade
 - **Statements:** % der ausgeführten Statements
 
 ### Ziele pro Metric
+
 - ✅ Lines: >80%
 - ✅ Functions: >80%
 - ✅ Branches: >75%
@@ -240,18 +257,21 @@ open coverage/index.html
 ## 🎯 NÄCHSTE SCHRITTE
 
 ### Phase 1: Kritische Systeme (P1 - DIESE WOCHE)
+
 1. ✅ Navigation Helpers - COMPLETED (100%)
 2. ✅ Account Type Detection - COMPLETED (100%)
 3. ✅ Auth Integration - COMPLETED (95%)
 4. ⚠️ E2E-Tests ausführen (17 Master-Account Login Tests)
 
 ### Phase 2: Wichtige Systeme (P1 - NÄCHSTE WOCHE)
+
 1. ⚠️ useAuth Hook Tests (Unit + Integration)
 2. ⚠️ Subscription Utils Tests
 3. ⚠️ FeatureGate Component Tests
 4. ⚠️ Performance Hooks Tests
 
 ### Phase 3: Standard Systeme (P2)
+
 1. ⚠️ UI Component Tests (AppSidebar, MasterUserManagement)
 2. ⚠️ Validation Utils Tests
 3. ⚠️ Date Utils Tests
@@ -261,18 +281,21 @@ open coverage/index.html
 ## 📈 ERFOLGSMETRIKEN
 
 **Aktuell (V28.2.4):**
+
 - Unit Tests: ~65% Coverage (↑15% durch neue Tests)
 - Integration Tests: ~60% Coverage
 - E2E Tests: Vorhanden, nicht ausgeführt
 - **GESAMT: ~62% Coverage**
 
 **Ziel (V28.3.0):**
+
 - Unit Tests: >80% Coverage
 - Integration Tests: >70% Coverage
 - E2E Tests: 100% Passing
 - **GESAMT: >80% Coverage**
 
 **Akzeptanzkriterien:**
+
 - ✅ 0 TypeScript Errors
 - ✅ Alle Tests passing
 - ✅ Coverage >80% für kritische Systeme

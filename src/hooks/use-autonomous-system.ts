@@ -64,7 +64,7 @@ export function useAutonomousSystem() {
   } = useQuery({
     queryKey: ["autonomous-system-config"],
     queryFn: async () => {
-            const result = await SelfHealing.query(
+      const result = await SelfHealing.query(
         () => autonomousClient.from("autonomous_system_config").select("*").single(),
         {
           operationName: "fetch_autonomous_config",
@@ -168,7 +168,7 @@ export function useAutonomousSystem() {
   } = useQuery({
     queryKey: ["autonomous-system-stats"],
     queryFn: async () => {
-            const result = await SelfHealing.query(
+      const result = await SelfHealing.query(
         () => autonomousClient.from("autonomous_system_stats").select("*").single(),
         {
           operationName: "fetch_system_stats",
@@ -194,9 +194,13 @@ export function useAutonomousSystem() {
   // Mutation: Trigger manual poll (SELF-HEALING)
   const triggerPollMutation = useMutation({
     mutationFn: async () => {
-      const result = await SelfHealing.edgeFunction("ai-agent-poll", {}, {
-        maxRetries: 3,
-      });
+      const result = await SelfHealing.edgeFunction(
+        "ai-agent-poll",
+        {},
+        {
+          maxRetries: 3,
+        }
+      );
 
       if (result.error) {
         throw result.error;
@@ -226,7 +230,7 @@ export function useAutonomousSystem() {
       priority?: number;
       autonomy_level?: number;
     }) => {
-            const { data, error } = await supabase.rpc("create_autonomous_task", {
+      const { data, error } = await supabase.rpc("create_autonomous_task", {
         p_task_type: task.task_type,
         p_description: task.description,
         p_priority: task.priority || 5,
@@ -249,7 +253,7 @@ export function useAutonomousSystem() {
   // Mutation: Update system config
   const updateConfigMutation = useMutation({
     mutationFn: async (updates: Partial<AutonomousSystemConfig>) => {
-            const { data, error } = await supabase
+      const { data, error } = await supabase
         .from("autonomous_system_config")
         .update(updates)
         .eq("id", 1)
@@ -271,7 +275,7 @@ export function useAutonomousSystem() {
   // Mutation: Emergency stop
   const emergencyStopMutation = useMutation({
     mutationFn: async (params: { reason: string; hours?: number }) => {
-            const { data, error } = await supabase.rpc("emergency_stop_autonomous_system", {
+      const { data, error } = await supabase.rpc("emergency_stop_autonomous_system", {
         p_reason: params.reason,
         p_hours: params.hours || 24,
       });
@@ -296,9 +300,7 @@ export function useAutonomousSystem() {
     if (config.emergency_stop) return "stopped";
     if (!config.enabled) return "disabled";
 
-    const failureRate = stats.total_tasks > 0
-      ? stats.failed_tasks / stats.total_tasks
-      : 0;
+    const failureRate = stats.total_tasks > 0 ? stats.failed_tasks / stats.total_tasks : 0;
 
     if (failureRate > 0.5) return "critical";
     if (failureRate > 0.2) return "warning";

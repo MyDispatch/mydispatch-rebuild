@@ -36,11 +36,11 @@ serve(async (req) => {
     thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
 
     const { data: expiringDocs, error } = await supabaseClient
-      .from('documents')
-      .select('*, companies(name, email)')
-      .not('expiry_date', 'is', null)
-      .lte('expiry_date', thirtyDaysFromNow.toISOString())
-      .eq('reminder_sent', false);
+      .from("documents")
+      .select("*, companies(name, email)")
+      .not("expiry_date", "is", null)
+      .lte("expiry_date", thirtyDaysFromNow.toISOString())
+      .eq("reminder_sent", false);
 
     if (error) throw error;
 
@@ -48,11 +48,13 @@ serve(async (req) => {
 
     for (const doc of expiringDocs || []) {
       const expiryDate = new Date(doc.expiry_date);
-      const daysUntilExpiry = Math.ceil((expiryDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+      const daysUntilExpiry = Math.ceil(
+        (expiryDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+      );
 
       // Sende Erinnerung bei 30, 14, 7 Tagen
       if ([30, 14, 7].includes(daysUntilExpiry) || daysUntilExpiry < 0) {
-        const status = daysUntilExpiry < 0 ? 'ABGELAUFEN' : `läuft in ${daysUntilExpiry} Tagen ab`;
+        const status = daysUntilExpiry < 0 ? "ABGELAUFEN" : `läuft in ${daysUntilExpiry} Tagen ab`;
 
         await resend.emails.send({
           from: `MyDispatch <${resendDomain}>`,
@@ -63,7 +65,7 @@ serve(async (req) => {
             <p><strong>Dokument:</strong> ${doc.name}</p>
             <p><strong>Typ:</strong> ${doc.document_type}</p>
             <p><strong>Status:</strong> ${status}</p>
-            <p><strong>Ablaufdatum:</strong> ${new Date(doc.expiry_date).toLocaleDateString('de-DE')}</p>
+            <p><strong>Ablaufdatum:</strong> ${new Date(doc.expiry_date).toLocaleDateString("de-DE")}</p>
             <p>Bitte erneuern Sie das Dokument rechtzeitig.</p>
             <hr>
             <p><em>MyDispatch by RideHub Solutions</em></p>
@@ -71,27 +73,24 @@ serve(async (req) => {
         });
 
         // Markiere als erinnert
-        await supabaseClient
-          .from('documents')
-          .update({ reminder_sent: true })
-          .eq('id', doc.id);
+        await supabaseClient.from("documents").update({ reminder_sent: true }).eq("id", doc.id);
 
         sentCount++;
       }
     }
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         message: `${sentCount} Erinnerungen versendet`,
-        checked: expiringDocs?.length || 0 
+        checked: expiringDocs?.length || 0,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200 }
     );
   } catch (error: any) {
-    console.error('Fehler:', error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
-    );
+    console.error("Fehler:", error);
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 500,
+    });
   }
 });

@@ -14,12 +14,14 @@
 **Regel:** Alle UI-Komponenten MÜSSEN aus dem V28.1 Design System stammen!
 
 **Verboten:**
+
 - ❌ Neue Custom Components ohne Registrierung
 - ❌ Direkte shadcn/ui Components (außer als Basis für V28-Components)
 - ❌ Inline-Styles außerhalb des Design Systems
 - ❌ Hardcoded Colors (außer Design Tokens)
 
 **Erlaubt:**
+
 - ✅ V28Button, V28Badge, V28IconBox, etc.
 - ✅ Design Tokens aus `tailwind.config.ts`
 - ✅ Components aus `src/components/design-system/`
@@ -34,6 +36,7 @@
 **Regel:** Das Layout-System ist FROZEN - keine Änderungen ohne explizite Genehmigung!
 
 **Frozen Components:**
+
 - `MainLayout.tsx` - Portal/Dashboard Layout
 - `MarketingLayout.tsx` - Marketing-Seiten Layout
 - `AppSidebar.tsx` - App-Navigation
@@ -42,12 +45,14 @@
 - `UnifiedFooter.tsx` - Marketing Footer
 
 **Verboten:**
+
 - ❌ Layout-Struktur ändern
 - ❌ Sidebar-Position ändern
 - ❌ Header/Footer Struktur ändern
 - ❌ Layout-Props ohne Genehmigung erweitern
 
 **Erlaubt:**
+
 - ✅ Content innerhalb von Layouts
 - ✅ Bugfixes (mit Dokumentation)
 - ✅ Performance-Optimierungen (mit Dokumentation)
@@ -59,10 +64,12 @@
 **Regel:** Alle Hero-Sections MÜSSEN `backgroundVariant="3d-premium"` verwenden!
 
 **Verboten:**
+
 - ❌ Andere backgroundVariants
 - ❌ Custom Hero-Backgrounds ohne Genehmigung
 
 **Erlaubt:**
+
 - ✅ `backgroundVariant="3d-premium"` (Standard)
 - ✅ Content-Anpassungen innerhalb der Hero
 
@@ -80,6 +87,7 @@
 4. ✅ Sonst → bestehende Component verwenden/erweitern
 
 **Verboten:**
+
 - ❌ Duplikate erstellen
 - ❌ Unregistrierte Components
 - ❌ Components ohne Dokumentation
@@ -96,6 +104,7 @@
 4. ✅ Bei Fehlern: Explizite Warnung
 
 **Verboten:**
+
 - ❌ Aktionen ohne Wiki-Load
 - ❌ Hallucinated Functions erstellen
 - ❌ Code aus dem Gedächtnis (ohne Validierung)
@@ -113,6 +122,7 @@
 5. ✅ Error Handling für alle async Operations
 
 **Verboten:**
+
 - ❌ `any` Types (außer Legacy-Code)
 - ❌ Unbehandelte Promises
 - ❌ Console.logs in Production-Code
@@ -130,6 +140,7 @@
 4. ✅ Dokumentation
 
 **Verboten:**
+
 - ❌ Direkte DB-Änderungen ohne Migration
 - ❌ Tables ohne RLS
 - ❌ Policies ohne Testing
@@ -146,6 +157,7 @@
 4. ✅ Bundle Size Check
 
 **Verboten:**
+
 - ❌ Unnötige Re-Renders
 - ❌ Große Bundle-Sizes ohne Begründung
 - ❌ Unoptimierte Images
@@ -226,4 +238,3 @@ npm run validate:hero
 ---
 
 **Pascal, diese Regeln schützen das Projekt vor fehlerhaften Eingriffen!** 🛡️
-

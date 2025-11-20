@@ -18,11 +18,13 @@ Diese Shared Knowledge Base (SKB) ist die **zentrale Single Source of Truth** f�
 ## 🏗️ MOBILE-FIRST ARCHITEKTUR
 
 ### Breakpoints
+
 ```typescript
 sm:  640px   md:  768px   lg:  1024px   xl:  1280px   2xl: 1536px
 ```
 
 ### Grid-Patterns
+
 ```tsx
 // HERO-GRID (Marketing)
 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -35,6 +37,7 @@ sm:  640px   md:  768px   lg:  1024px   xl:  1280px   2xl: 1536px
 ```
 
 ### Touch-Targets
+
 ```css
 min-h-[44px]  /* Minimum Touch-Target */
 ```
@@ -44,12 +47,13 @@ min-h-[44px]  /* Minimum Touch-Target */
 ## 🎨 DESIGN-SYSTEM
 
 ### CI-Farben
+
 ```typescript
 // ✅ RICHTIG: Semantic Tokens
-className="bg-primary text-foreground"
+className = "bg-primary text-foreground";
 
 // ❌ FALSCH: Direkte Farben
-className="bg-[#EADEBD] text-white"  // VERBOTEN!
+className = "bg-[#EADEBD] text-white"; // VERBOTEN!
 ```
 
 ---
@@ -57,6 +61,7 @@ className="bg-[#EADEBD] text-white"  // VERBOTEN!
 ## 🔒 RECHTLICHE COMPLIANCE
 
 ### DSGVO (bei Formularen)
+
 ```tsx
 <div className="text-xs text-muted-foreground mt-4 p-3 bg-muted/50 rounded-lg">
   <p>🔒 Ihre Daten werden verschlüsselt übertragen...</p>
@@ -64,6 +69,7 @@ className="bg-[#EADEBD] text-white"  // VERBOTEN!
 ```
 
 ### Footer-Links (VERPFLICHTEND)
+
 ```tsx
 <Link to="/impressum">Impressum</Link>
 <Link to="/datenschutz">Datenschutz</Link>
@@ -75,10 +81,13 @@ className="bg-[#EADEBD] text-white"  // VERBOTEN!
 ## ⚙️ PERFORMANCE
 
 ### React Query (VERPFLICHTEND)
+
 ```typescript
 const { data } = useQuery({
-  queryKey: ['bookings'],
-  queryFn: async () => { /* ... */ },
+  queryKey: ["bookings"],
+  queryFn: async () => {
+    /* ... */
+  },
 });
 ```
 

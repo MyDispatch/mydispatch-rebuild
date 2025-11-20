@@ -1,4 +1,5 @@
 # DESIGN-SYSTEM REGEL: HOVER-FARBEN AUF HELLEN HINTERGRÜNDEN
+
 **Version:** V18.3.1  
 **Datum:** 21.01.2025  
 **Status:** 🔴 KRITISCH - SYSTEMWEIT BINDEND
@@ -10,6 +11,7 @@
 Auf hellen Hintergründen (bg-primary, bg-background, bg-card) sind **weiße oder helle Hover-Farben NICHT sichtbar**.
 
 **Beispiel:**
+
 ```tsx
 // ❌ FALSCH - Weiße Hover-Farbe auf hellem Hintergrund
 <Button variant="ghost">
@@ -33,10 +35,7 @@ Auf hellen Hintergründen (bg-primary, bg-background, bg-card) sind **weiße ode
 
 ```tsx
 // ✅ RICHTIG
-<Button 
-  variant="ghost" 
-  className="text-foreground hover:text-foreground"
->
+<Button variant="ghost" className="text-foreground hover:text-foreground">
   <Icon className="text-foreground" />
   Text
 </Button>
@@ -53,10 +52,7 @@ Auf hellen Hintergründen (bg-primary, bg-background, bg-card) sind **weiße ode
 
 ```tsx
 // ✅ RICHTIG
-<Button 
-  variant="default" 
-  className="bg-accent text-accent-foreground hover:text-white"
->
+<Button variant="default" className="bg-accent text-accent-foreground hover:text-white">
   <Icon className="text-white" />
   Text
 </Button>
@@ -70,17 +66,17 @@ Auf hellen Hintergründen (bg-primary, bg-background, bg-card) sind **weiße ode
 
 ```css
 /* Helle Hintergründe */
---primary: hsl(40 31% 88%);        /* #EADEBD - Beige/Gold */
---background: hsl(0 0% 100%);      /* #FFFFFF - Weiß */
---card: hsl(0 0% 100%);            /* #FFFFFF - Weiß */
+--primary: hsl(40 31% 88%); /* #EADEBD - Beige/Gold */
+--background: hsl(0 0% 100%); /* #FFFFFF - Weiß */
+--card: hsl(0 0% 100%); /* #FFFFFF - Weiß */
 
 /* Dunkle Hintergründe */
---accent: hsl(31 26% 38%);         /* #856d4b - Braun/Gold */
---foreground: hsl(225 31% 28%);    /* #323D5E - Dunkelblau */
+--accent: hsl(31 26% 38%); /* #856d4b - Braun/Gold */
+--foreground: hsl(225 31% 28%); /* #323D5E - Dunkelblau */
 
 /* Text-Farben */
---primary-foreground: hsl(225 31% 28%);  /* Dunkel für helle BG */
---accent-foreground: hsl(0 0% 100%);     /* Weiß für dunkle BG */
+--primary-foreground: hsl(225 31% 28%); /* Dunkel für helle BG */
+--accent-foreground: hsl(0 0% 100%); /* Weiß für dunkle BG */
 ```
 
 ---
@@ -92,20 +88,17 @@ Auf hellen Hintergründen (bg-primary, bg-background, bg-card) sind **weiße ode
 ```tsx
 // src/components/ui/button.tsx
 
-const buttonVariants = cva(
-  "...",
-  {
-    variants: {
-      variant: {
-        // ✅ RICHTIG: hover:text-foreground statt hover:text-accent-foreground
-        ghost: "text-foreground hover:bg-accent/10 hover:text-foreground hover:shadow-sm",
-        
-        // ✅ RICHTIG: hover:text-foreground auf hellem BG
-        outline: "border hover:bg-accent/10 hover:text-foreground",
-      }
-    }
-  }
-);
+const buttonVariants = cva("...", {
+  variants: {
+    variant: {
+      // ✅ RICHTIG: hover:text-foreground statt hover:text-accent-foreground
+      ghost: "text-foreground hover:bg-accent/10 hover:text-foreground hover:shadow-sm",
+
+      // ✅ RICHTIG: hover:text-foreground auf hellem BG
+      outline: "border hover:bg-accent/10 hover:text-foreground",
+    },
+  },
+});
 ```
 
 ### 2. Custom Buttons auf hellen Hintergründen

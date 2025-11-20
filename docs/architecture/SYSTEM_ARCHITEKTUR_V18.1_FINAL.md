@@ -1,4 +1,5 @@
 # 🏗️ MyDispatch V18.1 - Systemarchitektur & Bauplan
+
 **Status:** Production-Ready | **Datum:** 15.10.2025 | **Version:** 18.1 Final
 
 ---
@@ -13,20 +14,20 @@ graph TB
         RR[React Router]
         TW[Tailwind CSS]
     end
-    
+
     subgraph "State Management"
         Auth[Auth Context]
         Sub[Subscription Context]
         Offline[Offline Queue]
     end
-    
+
     subgraph "Backend Layer - Lovable Cloud"
         DB[(PostgreSQL + RLS)]
         EF[Edge Functions - 22 Functions]
         Storage[Supabase Storage]
         RT[Realtime Subscriptions]
     end
-    
+
     subgraph "External APIs"
         Google[Google Maps/Places/Geocoding]
         HERE[HERE Traffic/Routing]
@@ -37,16 +38,16 @@ graph TB
         AI[Lovable AI Gateway]
         Claude[Claude API]
     end
-    
+
     UI --> RQ
     RQ --> Auth
     RQ --> Sub
     UI --> Offline
-    
+
     RQ --> DB
     RQ --> EF
     Auth --> DB
-    
+
     EF --> Google
     EF --> HERE
     EF --> Weather
@@ -55,7 +56,7 @@ graph TB
     EF --> Daily
     EF --> AI
     EF --> Claude
-    
+
     DB --> RT
     RT --> UI
 ```
@@ -65,11 +66,13 @@ graph TB
 ## 🗂️ DATENBANK-ARCHITEKTUR (34 Tabellen)
 
 ### Core Entities (Multi-Tenant mit company_id)
+
 1. **companies** - Unternehmens-Stammdaten
 2. **profiles** - Benutzer-Profile
 3. **user_roles** - Rollen-Zuordnung (admin, driver, dispatcher)
 
 ### Operations
+
 4. **bookings** - Aufträge (Status, Preis, Partner-Provision)
 5. **drivers** - Fahrer (Schicht-Status, GPS-Tracking)
 6. **vehicles** - Fahrzeuge (Klassen, Status, Zuweisung)
@@ -78,25 +81,30 @@ graph TB
 9. **cost_centers** - Kostenstellen
 
 ### Communication
+
 10. **chat_conversations** - Gespräche
 11. **chat_messages** - Nachrichten (Text, Dateien)
 12. **chat_participants** - Teilnehmer
 13. **calls** - Anruf-Historie (Daily.co)
 
 ### Documents & Templates
+
 14. **documents** - Dokumente (Upload, OCR, Ablauf)
 15. **email_templates** - E-Mail-Vorlagen
 16. **document_templates** - Dokumenten-Vorlagen
 
 ### Partner Network (Business+)
+
 17. **partners** - Partner-Stammdaten
 18. **partner_requests** - Anfragen
 19. **partner_connections** - Verbindungen (Sync, Provision)
 
 ### Finance
+
 20. **payment_reminders** - Zahlungserinnerungen
 
 ### System & Monitoring
+
 21. **audit_logs** - Alle CRUD-Operationen (DSGVO, PBefG)
 22. **system_logs** - Fehler, Warnings, Info
 23. **performance_metrics** - Query-Zeiten, Render-Performance
@@ -104,10 +112,12 @@ graph TB
 25. **termination_logs** - Kündigungs-Historie (Master-only)
 
 ### User Preferences
+
 26. **filter_presets** - Gespeicherte Filter
 27. **onboarding_progress** - Wizard-Status
 
 ### GPS Tracking (V18.0)
+
 28. **vehicle_positions** - GPS-Koordinaten (Auto-Delete 24h)
 
 ---
@@ -115,6 +125,7 @@ graph TB
 ## 🔐 SICHERHEITS-ARCHITEKTUR
 
 ### RLS Policies (52+ Policies)
+
 ```sql
 -- Pattern für alle Entities:
 CREATE POLICY "company_isolation_select" ON <table>
@@ -139,14 +150,15 @@ CREATE POLICY "company_isolation_delete" ON <table>
 ```
 
 ### Archiving-System (DSGVO § 21, PBefG § 51)
+
 ```typescript
 // NIEMALS DELETE verwenden!
 const archiveEntity = async (id: string, table: string) => {
   const { error } = await supabase
     .from(table)
-    .update({ 
-      archived: true, 
-      archived_at: new Date().toISOString() 
+    .update({
+      archived: true,
+      archived_at: new Date().toISOString()
     })
     .eq('id', id)
     .eq('company_id', profile.company_id);
@@ -157,10 +169,17 @@ const archiveEntity = async (id: string, table: string) => {
 ```
 
 ### Audit-Logging (Compliance)
+
 ```typescript
 // Alle CRUD-Operationen loggen:
-const logAudit = async (action: string, entity_type: string, entity_id: string, old_data?: any, new_data?: any) => {
-  await supabase.from('audit_logs').insert({
+const logAudit = async (
+  action: string,
+  entity_type: string,
+  entity_id: string,
+  old_data?: any,
+  new_data?: any
+) => {
+  await supabase.from("audit_logs").insert({
     company_id: profile.company_id,
     user_id: user.id,
     action, // 'create', 'update', 'delete', 'archive'
@@ -179,14 +198,17 @@ const logAudit = async (action: string, entity_type: string, entity_id: string, 
 ## 🚀 EDGE FUNCTIONS (22 Functions)
 
 ### 1. AI & Support
+
 - `ai-support-chat` - Claude API Integration (System-Prompt mit Context)
 
 ### 2. Booking & Operations
+
 - `create-public-booking` - Widget-Buchungen (Kein Auth)
 - `send-booking-email` - Auftrags-Bestätigungen
 - `geocode-address` - Google Geocoding API
 
 ### 3. Communication
+
 - `create-daily-room` - Video/Audio-Calls (Daily.co)
 - `send-template-email` - Template-basierte E-Mails
 - `send-contact-email` - Kontaktformular
@@ -194,29 +216,36 @@ const logAudit = async (action: string, entity_type: string, entity_id: string, 
 - `send-password-reset` - Passwort-Reset
 
 ### 4. Subscriptions & Billing
+
 - `create-checkout` - Stripe Checkout Session
 - `customer-portal` - Stripe Customer Portal
 - `check-subscription` - Abo-Status prüfen
 
 ### 5. Live-Data & Weather
+
 - `get-weather` - OpenWeatherMap API
 - `get-traffic` - HERE Traffic API
 
 ### 6. Documents & Exports
+
 - `export-shift-pdf` - Schichtzettel-PDF
 
 ### 7. Automation & Cleanup
+
 - `check-document-expiry` - Ablauf-Erinnerungen (Cron)
 - `clean-old-booking-data` - 30-Tage-Löschung (Cron, PBefG § 21)
 - `cleanup-gps-positions` - 24h GPS-Löschung (Cron, DSGVO)
 
 ### 8. Monitoring & Health
+
 - `health-check` - Service-Status (Master-only)
 
 ### 9. Master-Dashboard
+
 - `send-termination-email` - Kündigungs-E-Mails
 
 ### 10. Testing
+
 - `generate-test-data` - Demo-Daten (Dev-only)
 
 ---
@@ -224,6 +253,7 @@ const logAudit = async (action: string, entity_type: string, entity_id: string, 
 ## 🎨 FRONTEND-ARCHITEKTUR
 
 ### Pages (42 Pages)
+
 ```
 Marketing:
 ├── Home.tsx (Landing)
@@ -271,6 +301,7 @@ Other:
 ### Components (40+ Komponenten)
 
 #### Shared
+
 - `StatusIndicator.tsx` - Ampel-System (6 Typen, 60+ Stellen, KRITISCH!)
 - `KPICard.tsx` - Dashboard-Karten mit Trends
 - `ErrorBoundary.tsx` - Fehler-Handling
@@ -285,6 +316,7 @@ Other:
 - `FeatureGate.tsx` - Tarif-Sperre
 
 #### Forms
+
 - `UnifiedForm.tsx` - Standard-Form-Layout
 - `PersonFormFields.tsx` - Anrede, Titel, Name
 - `InlineCustomerForm.tsx` - Kundenanlage in Aufträgen
@@ -295,6 +327,7 @@ Other:
 - `TrainStationPickupFields.tsx` - Bahnhof-Felder
 
 #### Dashboard
+
 - `LiveMap.tsx` - Google Maps mit Fahrzeug-Tracking
 - `LiveWeather.tsx` - Wetter-Widget
 - `LiveTraffic.tsx` - Verkehrs-Widget
@@ -303,27 +336,33 @@ Other:
 - `LiveInfoWidget.tsx` - Kombiniertes Widget
 
 #### Chat & Communication
+
 - `ConversationList.tsx` - Chat-Liste
 - `ChatWindow.tsx` - Nachrichten-Thread
 - `CallInterface.tsx` - Video/Audio-UI (Daily.co)
 - `ParticipantSelector.tsx` - Gesprächspartner wählen
 
 #### Partner
+
 - `PartnerConnectionList.tsx` - Verbindungen (Business+)
 - `PartnerRequestDialog.tsx` - Anfragen (Business+)
 
 #### Booking
+
 - `BookingWidget.tsx` - Public-Widget (Business+)
 - `ProvisionField.tsx` - Partner-Provision
 
 #### Master
+
 - `TerminationTool.tsx` - Kündigungs-Verwaltung
 
 #### Onboarding
+
 - `WelcomeWizard.tsx` - Basis-Wizard
 - `ComprehensiveOnboarding.tsx` - Erweiterter Wizard (6 Steps)
 
 #### Layout
+
 - `MainLayout.tsx` - App-Layout
 - `MarketingLayout.tsx` - Marketing-Layout
 - `DashboardLayout.tsx` - Dashboard-Layout (SEO)
@@ -332,6 +371,7 @@ Other:
 - `AppSidebar.tsx` - Sidebar (64px/240px)
 
 #### Routing
+
 - `ProtectedRoute.tsx` - Auth-Guard
 - `PortalRoute.tsx` - Portal-Guard
 
@@ -340,40 +380,47 @@ Other:
 ## 🎯 V18.1 NEUE FEATURES (19 Features)
 
 ### Implementiert (Phase 1 - 100%):
+
 ✅ **Database Optimizations** - 11 Indexes, Audit-Logging, Filter-Presets  
 ✅ **Performance-Monitoring** - performance_metrics Tabelle  
-✅ **Full-Text Search** - Indexes für Aufträge, Kunden, Fahrer  
+✅ **Full-Text Search** - Indexes für Aufträge, Kunden, Fahrer
 
 ### Zu implementieren (Phasen 2-7):
 
 #### Phase 2: Core UX + Performance (P0 - heute)
+
 1. **Global Search** - Cmd+K, Fuzzy-Matching, Realtime
 2. **React Query Integration** - Smart Caching, Auto-Refetch
 3. **Keyboard-Shortcuts** - 10 Shortcuts, Power-User
 4. **Enhanced Error Handling** - Retry-Mechanismus, Offline-Queue
 
 #### Phase 3: Smart Features (P0-P1 - morgen)
+
 5. **Adress-Autovervollständigung** - Google Places API
 6. **Echtzeit-ETA & Routing** - HERE/Google Integration
 7. **Intelligente Filter** - Quick-Filter, Gespeicherte Ansichten
 
 #### Phase 4: AI-Powered (P1 - diese Woche)
+
 8. **AI Smart Routing** - Auto-Disposition mit Gemini
 9. **AI Sentiment-Analyse** - Kunden-Zufriedenheit
 10. **AI Dokumenten-OCR** - Auto-Kategorisierung
 
 #### Phase 5: Automation (P1 - diese Woche)
+
 11. **Wetter-Warnungen** - Dashboard-Widget, Alerts
 12. **Verkehrs-Integration** - Live-Traffic, Alternative Routen
 13. **Automatische E-Mails** - Trigger-basiert, Templates
 14. **PDF-Export** - Aufträge, Rechnungen, Schichtzettel
 
 #### Phase 6: Mobile & PWA (P2 - nächste Woche)
+
 15. **PWA-Installation** - Offline-Modus, Install-Prompt
 16. **Push-Benachrichtigungen** - Web Push API
 17. **Chat-Dateianhänge** - Multimedia, Drag&Drop
 
 #### Phase 7: Master-Dashboard (P1 - nächste Woche)
+
 18. **Churn-Prediction** - AI-basiert, Auto-E-Mails
 19. **Performance-Dashboard** - Alle Companies, Charts
 
@@ -382,18 +429,21 @@ Other:
 ## 📊 PERFORMANCE-ZIELE V18.1
 
 ### Aktuell (V18.0):
+
 - Dashboard-Load: ~1.8s
 - Auftrags-Liste: ~1.2s (50 Einträge)
 - Suche: ~800ms
 - Bundle-Size: ~1.8MB
 
 ### Ziel (V18.1):
+
 - Dashboard-Load: **<1.0s** (-44%)
 - Auftrags-Liste: **<400ms** (-67%, mit React Query + Indexes)
 - Suche: **<200ms** (-75%, mit Full-Text Search + Fuzzy)
 - Bundle-Size: **<1.2MB** (-33%, mit Code-Splitting)
 
 ### Uptime-Ziel:
+
 - **99.99%** (mit Error Boundary + Retry + Offline-Queue)
 
 ---
@@ -401,6 +451,7 @@ Other:
 ## 🔄 DATENFLUSS-BEISPIELE
 
 ### 1. Auftrag erstellen
+
 ```mermaid
 sequenceDiagram
     User->>UI: Formular ausfüllen
@@ -415,6 +466,7 @@ sequenceDiagram
 ```
 
 ### 2. AI Smart Routing
+
 ```mermaid
 sequenceDiagram
     User->>UI: "Auto-Zuweisen" Klick
@@ -429,6 +481,7 @@ sequenceDiagram
 ```
 
 ### 3. GPS-Tracking (Fahrer-Portal)
+
 ```mermaid
 sequenceDiagram
     Driver->>Browser: Geolocation Permission
@@ -444,6 +497,7 @@ sequenceDiagram
 ## 🛠️ TECHNOLOGIE-STACK (FINAL)
 
 ### Frontend
+
 - **React** 18.3.1
 - **TypeScript** 5.x
 - **Vite** 5.x (Build-Tool)
@@ -458,12 +512,14 @@ sequenceDiagram
 - **date-fns** 3.6.0
 
 ### Backend (Lovable Cloud)
+
 - **Supabase** (PostgreSQL 15)
 - **Deno** (Edge Functions)
 - **Supabase Realtime** (WebSocket)
 - **Supabase Storage** (S3-kompatibel)
 
 ### External APIs
+
 - **Google Maps/Places/Geocoding** (GOOGLE_API_KEY)
 - **HERE Traffic/Routing** (HERE_API_KEY)
 - **OpenWeatherMap** (OPENWEATHERMAP_API_KEY)
@@ -479,11 +535,13 @@ sequenceDiagram
 ## 📝 NAMING CONVENTIONS
 
 ### Datenbank
+
 - Tabellen: `lowercase_underscore` (z.B. `chat_messages`)
 - Spalten: `lowercase_underscore` (z.B. `created_at`)
 - Enums: `PascalCase` (z.B. `BookingStatus`)
 
 ### Code
+
 - Komponenten: `PascalCase.tsx` (z.B. `StatusIndicator.tsx`)
 - Hooks: `use-kebab-case.tsx` (z.B. `use-auth.tsx`)
 - Utils: `kebab-case.ts` (z.B. `format-utils.ts`)
@@ -491,6 +549,7 @@ sequenceDiagram
 - Variablen: `camelCase` (z.B. `bookingData`)
 
 ### Edge Functions
+
 - Ordner: `kebab-case` (z.B. `send-booking-email`)
 - Datei: `index.ts` (immer)
 
@@ -499,38 +558,43 @@ sequenceDiagram
 ## 🔍 QUALITÄTS-CHECKS (GOLIVE)
 
 ### Code
+
 ✅ Keine TypeScript-Errors  
 ✅ Keine ESLint-Warnings  
 ✅ Keine console.log() in Production  
 ✅ Keine Mock-/Test-Daten  
-✅ Alle Imports korrekt  
+✅ Alle Imports korrekt
 
 ### Performance
+
 ✅ Lighthouse Score > 90  
 ✅ Bundle-Size < 1.5MB  
 ✅ First Contentful Paint < 1.5s  
-✅ Time to Interactive < 3s  
+✅ Time to Interactive < 3s
 
 ### Sicherheit
+
 ✅ Alle RLS-Policies aktiv  
 ✅ Kein SQL-Injection-Risiko  
 ✅ Alle Secrets in Supabase  
 ✅ HTTPS-only  
-✅ DSGVO-konform  
+✅ DSGVO-konform
 
 ### UX
+
 ✅ Mobile-Responsive (100%)  
 ✅ Accessibility (WCAG 2.1 AA)  
 ✅ Deutsche Lokalisierung (100%)  
 ✅ Error-Handling (Toasts)  
-✅ Loading-States (Skeleton)  
+✅ Loading-States (Skeleton)
 
 ### Business
+
 ✅ Stripe-Integration (Webhooks)  
 ✅ E-Mail-Versand (Resend)  
 ✅ GPS-Tracking (DSGVO)  
 ✅ Archiving-System (PBefG)  
-✅ Audit-Logging (Compliance)  
+✅ Audit-Logging (Compliance)
 
 ---
 

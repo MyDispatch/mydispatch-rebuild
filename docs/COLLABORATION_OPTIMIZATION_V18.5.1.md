@@ -9,6 +9,7 @@
 ## 🎯 ZIELSETZUNG
 
 Optimierung der AI-Human-Zusammenarbeit für:
+
 - **Höhere Effizienz**
 - **Bessere Qualität**
 - **Schnellere Iteration**
@@ -44,33 +45,43 @@ Optimierung der AI-Human-Zusammenarbeit für:
 #### A. REQUEST FORMAT
 
 **OPTIMAL:**
+
 ```markdown
 ## Problem
+
 [Klare Beschreibung des Problems]
 
 ## Ziel
+
 [Was soll erreicht werden]
 
 ## Kontext
+
 [Relevante Informationen]
 
 ## Constraints
+
 [Einschränkungen/Anforderungen]
 ```
 
 **Beispiel:**
+
 ```markdown
 ## Problem
+
 Logo überlappt auf Mobile-Geräten (< 375px)
 
 ## Ziel
+
 Responsive Logo-Sizing ohne Overflow
 
 ## Kontext
+
 - Betrifft AuthHeader.tsx
 - Muss mit CI-Farben funktionieren
 
 ## Constraints
+
 - Max-Width für Mobile: 120px
 - object-contain pflicht
 ```
@@ -78,6 +89,7 @@ Responsive Logo-Sizing ohne Overflow
 #### B. FEEDBACK FORMAT
 
 **OPTIMAL:**
+
 ```markdown
 ✅ Das ist gut: [...]
 ❌ Das muss angepasst werden: [...]
@@ -94,6 +106,7 @@ Responsive Logo-Sizing ohne Overflow
 "Implementiere komplettes Buchungssystem"
 
 **BESSER:**
+
 ```markdown
 Sprint 1: Datenbank-Schema
 Sprint 2: API Endpoints
@@ -108,6 +121,7 @@ Sprint 5: Testing
 "Fixe alle Spacing-Probleme"
 
 **BESSER:**
+
 ```markdown
 Phase 1: Header-Content Spacing
 Phase 2: Modal Spacing
@@ -152,11 +166,13 @@ interface PostImplementationChecklist {
 #### A. LIVING DOCUMENTATION
 
 **Prinzipien:**
+
 - Docs werden MIT dem Code aktualisiert
 - Nicht NACH dem Code
 - Versionierung synchron
 
 **Implementation:**
+
 ```bash
 # Git Hook: pre-commit
 if [changed files include src/]; then
@@ -184,11 +200,11 @@ Level 5: CHANGELOG.md           (History)
 ```typescript
 // Pre-Merge Checklist (Automated)
 const automatedChecks = [
-  'lintPass',           // ESLint ohne Errors
-  'testsPass',          // Alle Tests grün
-  'buildSuccess',       // Build erfolgreich
-  'typeCheck',          // TypeScript Errors = 0
-  'visualRegression',   // Screenshots matched
+  "lintPass", // ESLint ohne Errors
+  "testsPass", // Alle Tests grün
+  "buildSuccess", // Build erfolgreich
+  "typeCheck", // TypeScript Errors = 0
+  "visualRegression", // Screenshots matched
 ];
 ```
 
@@ -197,11 +213,11 @@ const automatedChecks = [
 ```typescript
 // Human Review Checklist
 const manualChecks = [
-  'designSystemCompliance',  // Semantic Tokens?
-  'responsiveDesign',        // Mobile-First?
-  'accessibility',           // WCAG 2.1 AA?
-  'performanceImpact',       // Bundle Size OK?
-  'securityConsiderations',  // Keine Leaks?
+  "designSystemCompliance", // Semantic Tokens?
+  "responsiveDesign", // Mobile-First?
+  "accessibility", // WCAG 2.1 AA?
+  "performanceImpact", // Bundle Size OK?
+  "securityConsiderations", // Keine Leaks?
 ];
 ```
 
@@ -231,11 +247,7 @@ const coverageTargets = {
 };
 
 // Critical Paths: 100%
-const criticalPaths = [
-  'auth/*',
-  'payment/*',
-  'booking/*',
-];
+const criticalPaths = ["auth/*", "payment/*", "booking/*"];
 ```
 
 ---
@@ -247,12 +259,12 @@ const criticalPaths = [
 ```typescript
 interface PerformanceMetrics {
   // Core Web Vitals
-  LCP: number;        // < 2.5s
-  FID: number;        // < 100ms
-  CLS: number;        // < 0.1
-  
+  LCP: number; // < 2.5s
+  FID: number; // < 100ms
+  CLS: number; // < 0.1
+
   // Custom Metrics
-  TTI: number;        // Time to Interactive
+  TTI: number; // Time to Interactive
   bundleSize: number; // Total JS Size
   imageWeight: number; // Total Image Size
 }
@@ -285,11 +297,11 @@ interface PerformanceMetrics {
 
 ```typescript
 enum ErrorSeverity {
-  CRITICAL,   // System down
-  HIGH,       // Feature broken
-  MEDIUM,     // UX degraded
-  LOW,        // Minor issue
-  INFO,       // FYI
+  CRITICAL, // System down
+  HIGH, // Feature broken
+  MEDIUM, // UX degraded
+  LOW, // Minor issue
+  INFO, // FYI
 }
 
 interface ErrorReport {
@@ -312,18 +324,23 @@ interface ErrorReport {
 ### Component: [Name]
 
 ### Description
+
 [Was ist das Problem?]
 
 ### Root Cause
+
 [Warum ist es passiert?]
 
 ### Immediate Fix
+
 [Schnelle Lösung]
 
 ### Long-term Solution
+
 [Nachhaltige Lösung]
 
 ### Prevention
+
 [Wie verhindern wir das in Zukunft?]
 ```
 
@@ -337,14 +354,17 @@ interface ErrorReport {
 ## Sprint Template
 
 ### Sprint Goal
+
 [Klares, messbares Ziel]
 
 ### Stories
+
 1. [Story 1] - Priority: High
 2. [Story 2] - Priority: Medium
 3. [Story 3] - Priority: Low
 
 ### Definition of Done
+
 - [ ] Code reviewed
 - [ ] Tests written
 - [ ] Documentation updated
@@ -352,6 +372,7 @@ interface ErrorReport {
 - [ ] QA approved
 
 ### Risks
+
 - [Risk 1]: Mitigation plan
 - [Risk 2]: Mitigation plan
 ```
@@ -360,10 +381,10 @@ interface ErrorReport {
 
 ```typescript
 interface SprintMetrics {
-  planned: number;      // Story Points
-  completed: number;    // Story Points
-  velocity: number;     // Average per Sprint
-  blockers: string[];   // What slowed us down
+  planned: number; // Story Points
+  completed: number; // Story Points
+  velocity: number; // Average per Sprint
+  blockers: string[]; // What slowed us down
 }
 ```
 
@@ -377,8 +398,8 @@ interface SprintMetrics {
 interface TechDebt {
   id: string;
   description: string;
-  impact: 'high' | 'medium' | 'low';
-  effort: 'high' | 'medium' | 'low';
+  impact: "high" | "medium" | "low";
+  effort: "high" | "medium" | "low";
   createdAt: Date;
   resolvedAt?: Date;
 }
@@ -392,19 +413,25 @@ interface TechDebt {
 ## ADR Template
 
 ### Context
+
 [Warum müssen wir diese Entscheidung treffen?]
 
 ### Decision
+
 [Was haben wir entschieden?]
 
 ### Consequences
+
 **Positiv:**
+
 - [Vorteil 1]
 
 **Negativ:**
+
 - [Nachteil 1]
 
 ### Alternatives Considered
+
 - [Alternative 1]: Warum abgelehnt
 - [Alternative 2]: Warum abgelehnt
 ```
@@ -416,28 +443,32 @@ interface TechDebt {
 ### Sofort (V18.5.1)
 
 1. **Communication Template aktivieren**
+
    ```markdown
    Verwende das Problem/Ziel/Kontext/Constraints Format
    ```
 
 2. **Quality Gates dokumentieren**
+
    ```markdown
    Pre/Post-Implementation Checklists erstellen
    ```
 
 3. **Error Report Template nutzen**
    ```markdown
-   Bei jedem Bug: ERROR_REPORT_*.md erstellen
+   Bei jedem Bug: ERROR*REPORT*\*.md erstellen
    ```
 
 ### Kurzfristig (V18.6.0)
 
 4. **Automated Checks implementieren**
+
    ```bash
    ESLint Rules + Pre-Commit Hooks
    ```
 
 5. **Test Coverage Target setzen**
+
    ```
    Ziel: 80% Coverage für kritische Pfade
    ```
@@ -450,13 +481,15 @@ interface TechDebt {
 ### Mittelfristig (V18.7.0)
 
 7. **Sprint Planning etablieren**
+
    ```markdown
    2-Wochen-Sprints mit klaren Goals
    ```
 
 8. **Tech Debt Register führen**
+
    ```typescript
-   Tracked in docs/TECH_DEBT.md
+   Tracked in docs / TECH_DEBT.md;
    ```
 
 9. **ADR Prozess einführen**
@@ -470,23 +503,23 @@ interface TechDebt {
 
 ### Prozess-Metriken
 
-| Metrik | Baseline | Ziel | Status |
-|--------|----------|------|--------|
-| Bug Fix Time | 2-4h | <1h | 🔄 |
-| Feature Delivery | 3-5d | <2d | 🔄 |
-| Code Review Time | 1-2d | <4h | 🔄 |
-| Documentation Lag | 1-3d | 0d | ✅ |
-| Test Coverage | 60% | 80% | 🔄 |
+| Metrik            | Baseline | Ziel | Status |
+| ----------------- | -------- | ---- | ------ |
+| Bug Fix Time      | 2-4h     | <1h  | 🔄     |
+| Feature Delivery  | 3-5d     | <2d  | 🔄     |
+| Code Review Time  | 1-2d     | <4h  | 🔄     |
+| Documentation Lag | 1-3d     | 0d   | ✅     |
+| Test Coverage     | 60%      | 80%  | 🔄     |
 
 ### Qualitäts-Metriken
 
-| Metrik | Baseline | Ziel | Status |
-|--------|----------|------|--------|
-| Design System Compliance | 85% | 100% | ✅ |
-| Mobile Responsiveness | 90% | 100% | ✅ |
-| WCAG 2.1 AA | 85% | 100% | ✅ |
-| Performance Score | 75 | 90+ | 🔄 |
-| Bundle Size | 800kb | <500kb | 🔄 |
+| Metrik                   | Baseline | Ziel   | Status |
+| ------------------------ | -------- | ------ | ------ |
+| Design System Compliance | 85%      | 100%   | ✅     |
+| Mobile Responsiveness    | 90%      | 100%   | ✅     |
+| WCAG 2.1 AA              | 85%      | 100%   | ✅     |
+| Performance Score        | 75       | 90+    | 🔄     |
+| Bundle Size              | 800kb    | <500kb | 🔄     |
 
 ---
 
@@ -498,18 +531,22 @@ interface TechDebt {
 ## Weekly Review Template
 
 ### Completed
+
 - [Item 1]
 - [Item 2]
 
 ### Blockers
+
 - [Blocker 1]: Status
 - [Blocker 2]: Status
 
 ### Learnings
+
 - [Learning 1]
 - [Learning 2]
 
 ### Next Week Focus
+
 - [Focus 1]
 - [Focus 2]
 ```
@@ -520,18 +557,22 @@ interface TechDebt {
 ## Retrospective Template
 
 ### What Went Well
+
 - [Success 1]
 - [Success 2]
 
 ### What Could Be Better
+
 - [Issue 1]: Action plan
 - [Issue 2]: Action plan
 
 ### Action Items
+
 - [ ] [Action 1] - Owner: [Name]
 - [ ] [Action 2] - Owner: [Name]
 
 ### Metrics Review
+
 - Velocity: [Number]
 - Quality: [Score]
 - Satisfaction: [Score]
@@ -580,17 +621,20 @@ interface TechDebt {
 ## New Team Member Checklist
 
 ### Day 1
+
 - [ ] Project setup complete
 - [ ] Access to repositories
-- [ ] Read DESIGN_SYSTEM_*.md
-- [ ] Read COLLABORATION_OPTIMIZATION_*.md
+- [ ] Read DESIGN*SYSTEM*\*.md
+- [ ] Read COLLABORATION*OPTIMIZATION*\*.md
 
 ### Week 1
+
 - [ ] First PR merged
 - [ ] Attended code review
 - [ ] Shadowed senior dev
 
 ### Month 1
+
 - [ ] Led feature implementation
 - [ ] Contributed to docs
 - [ ] Participated in retrospective
@@ -633,21 +677,25 @@ interface TechDebt {
 ## 💡 ZUSÄTZLICHE EMPFEHLUNGEN
 
 ### 1. Pair Programming Sessions
+
 - Komplexe Features gemeinsam entwickeln
 - Knowledge Transfer fördern
 - Code Quality erhöhen
 
 ### 2. Tech Talks
+
 - Neue Patterns vorstellen
 - Best Practices teilen
 - Learnings dokumentieren
 
 ### 3. Hackathons
+
 - Innovation fördern
 - Team Building
 - Proof of Concepts
 
 ### 4. Open Source Contributions
+
 - Community Engagement
 - Learning Opportunities
 - Brand Building

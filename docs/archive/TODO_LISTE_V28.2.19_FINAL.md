@@ -6,18 +6,20 @@
 ---
 
 ## ✅ PHASE 1 COMPLETE (V28.2.18)
+
 - ✅ Sidebar Scroll-Fix
-- ✅ Dashboard-Route Verification  
+- ✅ Dashboard-Route Verification
 - ✅ Portal-Dialogs Design-Check
 
 ## ✅ PHASE 2 COMPLETE (V28.2.19)
+
 - ✅ Design-Token Migration (Portal-Theming)
   - ✅ tailwind.config.ts: portal.customer/driver Tokens
   - ✅ UniversalDownload.tsx: bg-portal-customer
   - ✅ UniversalUpload.tsx: bg-portal-customer
 - ✅ Quick-Actions Integration (3 Seiten)
   - ✅ /auftraege
-  - ✅ /fahrer  
+  - ✅ /fahrer
   - ✅ /rechnungen
 - ✅ use-statistics.ts Hook erstellt
 

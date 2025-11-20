@@ -28,6 +28,7 @@
 ### 1.1 Tech-Stack (IST)
 
 **Frontend:**
+
 - React 18.3.1
 - TypeScript 5.8.3
 - Vite 5.4.19 (Build Tool)
@@ -38,6 +39,7 @@
 - Lucide React 0.546.0 (~460 Icons)
 
 **Backend:**
+
 - Supabase (PostgreSQL 15)
 - Supabase Auth (JWT)
 - Supabase Storage (2 Buckets)
@@ -45,6 +47,7 @@
 - Edge Functions (Deno) - 90+ Functions
 
 **Zusätzliche Dependencies:**
+
 - date-fns 3.6.0 (Datum-Formatierung)
 - react-hook-form 7.61.1 (Formular-Handling)
 - zod 3.25.76 (Schema-Validierung)
@@ -132,6 +135,7 @@ mydispatch-rebuild/
 ### 2.1 Pages (IST - 80+ Pages)
 
 **Öffentliche Seiten (Pre-Login):**
+
 - Home.tsx (Landing Page)
 - Features.tsx
 - Pricing.tsx
@@ -146,10 +150,12 @@ mydispatch-rebuild/
 - Impressum.tsx
 
 **Authentifizierung:**
+
 - Auth.tsx (Login/Register)
 - Login/Register Sub-Components
 
 **Dashboard-Seiten (Post-Login):**
+
 - Index.tsx (Main Dashboard)
 - Master.tsx (Master Dashboard)
 - Auftraege.tsx (Bookings & Quotes)
@@ -167,17 +173,20 @@ mydispatch-rebuild/
 - Einstellungen.tsx (Settings)
 
 **Feature-Seiten:**
+
 - features/business/ (8 Pages)
 - features/core/ (6 Pages)
 - features/enterprise/ (4 Pages)
 
 **Pricing-Seiten:**
+
 - pricing/StarterDetail.tsx
 - pricing/BusinessDetail.tsx
 - pricing/EnterpriseDetail.tsx
 - pricing/addons/FleetDriverAddon.tsx
 
 **Driver-App:**
+
 - driver-app/DriverLogin.tsx
 - driver-app/DriverDashboard.tsx
 - driver-app/DriverRegister.tsx
@@ -187,37 +196,46 @@ mydispatch-rebuild/
 - driver-app/DriverSplash.tsx
 
 **Customer-Portal:**
+
 - customer-portal/Privacy.tsx
 
 ### 2.2 Komponenten-Verzeichnisse (IST - 40+ Verzeichnisse)
 
 **Design-System:**
+
 - design-system/ (V28Button, V28Card, V28IconBox, V26IconBox, etc.)
 - hero/ (V28HeroPremium, V28Hero3DBackgroundPremium)
 - pricing/ (Pricing Components)
 
 **Layout:**
+
 - layout/ (Header, Footer, Sidebar, MainLayout, MarketingLayout, AuthPageLayout)
 
 **Dashboard:**
+
 - dashboard/ (DashboardSidebar, UniversalQuickActionsPanel, DashboardKPICards, etc.)
 - context-widgets/ (SystemStatusWidget, QuickStatsWidget, ShortcutsWidget, UpcomingEventsWidget)
 
 **Forms:**
+
 - forms/ (PersonFormFields, AddressInput, AirportPickupFields, etc.)
 
 **Tables:**
+
 - tables/ (BookingsTable, CustomersTable, DriversTable, VehiclesTable)
 
 **Shared:**
+
 - shared/ (StatusIndicator, KPICard, EmptyState, etc.)
 
 **UI (Shadcn):**
+
 - ui/ (Button, Card, Dialog, Input, etc. - 50+ Components)
 
 ### 2.3 Routing (IST)
 
 **Routing-System:**
+
 - React Router DOM v6
 - Lazy Loading für große Components
 - Route Config in `src/config/routes.config.ts` (wird dynamisch geladen)
@@ -226,6 +244,7 @@ mydispatch-rebuild/
 - Layout-System: `main`, `portal`, `auth`
 
 **Haupt-Routes:**
+
 - `/` → Home (Landing Page)
 - `/dashboard` → Index.tsx (Main Dashboard)
 - `/master` → Master.tsx (Master Dashboard)
@@ -245,6 +264,7 @@ mydispatch-rebuild/
 ### 3.1 Supabase Setup (IST)
 
 **Database:**
+
 - PostgreSQL 15
 - 32+ Tables
 - 58+ RLS Policies
@@ -253,6 +273,7 @@ mydispatch-rebuild/
 - 8 ENUMs
 
 **Tabellen (Kern-Entities):**
+
 - companies (Multi-Tenant Root)
 - profiles (User → Company Mapping)
 - bookings (Aufträge)
@@ -276,6 +297,7 @@ mydispatch-rebuild/
 - special_accounts
 
 **ENUMs:**
+
 - salutation ('Herr', 'Frau', 'Divers')
 - booking_status ('pending', 'confirmed', 'in_progress', 'completed', 'cancelled')
 - payment_status ('pending', 'paid', 'overdue', 'cancelled')
@@ -290,17 +312,20 @@ mydispatch-rebuild/
 **Kategorien:**
 
 **Auth & User Management (4):**
+
 - send-password-reset
 - send-customer-credentials
 - send-driver-invitation
 - send-termination-email
 
 **Payment & Subscriptions (3):**
+
 - create-checkout
 - check-subscription
 - customer-portal
 
 **Location & Maps (6):**
+
 - geocode-address
 - geocode-company-address
 - here-autosuggest
@@ -309,6 +334,7 @@ mydispatch-rebuild/
 - get-traffic
 
 **Email & Communication (5):**
+
 - send-contact-email
 - send-nexify-contact
 - send-booking-email
@@ -316,6 +342,7 @@ mydispatch-rebuild/
 - create-daily-room
 
 **AI-Features (10+):**
+
 - ai-support-chat
 - ai-smart-assignment
 - ai-demand-prediction
@@ -328,10 +355,12 @@ mydispatch-rebuild/
 - ai-migration-orchestrator
 
 **Bulk Operations (2):**
+
 - bulk-export-pdf
 - bulk-send-email
 
 **Maintenance & System (10+):**
+
 - check-document-expiry
 - clean-old-booking-data
 - cleanup-gps-positions
@@ -344,6 +373,7 @@ mydispatch-rebuild/
 - get-system-logs
 
 **n8n Integration (6):**
+
 - n8n-webhook-trigger
 - n8n-api-call
 - n8n-workflow-management
@@ -352,6 +382,7 @@ mydispatch-rebuild/
 - n8n-setup-all-workflows
 
 **NeXify Wiki System (10+):**
+
 - brain-query
 - brain-auto-fix
 - auto-learn-from-actions
@@ -365,6 +396,7 @@ mydispatch-rebuild/
 - doc-ai-sync
 
 **Weitere:**
+
 - alert-manager
 - auto-healer
 - auto-validate
@@ -414,16 +446,19 @@ mydispatch-rebuild/
 ### 4.1 Design-System Versionen (IST)
 
 **Aktuell aktiv:**
+
 - ✅ **V28.1** - Professional Minimalism (Auth & App)
 - ✅ **V32.0** - Slate-Only (Marketing-Seiten)
 - ✅ **V32.1** - Master Design System (Systemweite Hierarchie)
 - ✅ **V31.5** - Hero Background Standard
 
 **Deprecated (aber noch im Code vorhanden):**
+
 - ⚠️ **V26** - 22+ Components noch vorhanden (ESLint blockiert neue Imports)
 - ⚠️ **V26.1** - Legacy Components
 
 **Design-Token Systeme:**
+
 - `src/lib/design-system/unified-design-tokens.ts` (530 lines - CORE)
 - `src/config/design-tokens.ts` (V28.1 Slate)
 - `src/lib/design-system/pricing-colors.ts` (KERNFARBEN)
@@ -432,32 +467,30 @@ mydispatch-rebuild/
 ### 4.2 Farb-System (IST)
 
 **V28.1 Slate-Palette (Marketing):**
+
 ```css
---slate-50: hsl(210 40% 98%)
---slate-100: hsl(210 40% 96%)
---slate-200: hsl(214 32% 91%)
---slate-600: hsl(215 19% 35%)
---slate-700: hsl(215 25% 27%)
---slate-900: hsl(222 47% 11%)
+--slate-50: hsl(210 40% 98%) --slate-100: hsl(210 40% 96%) --slate-200: hsl(214 32% 91%)
+  --slate-600: hsl(215 19% 35%) --slate-700: hsl(215 25% 27%) --slate-900: hsl(222 47% 11%);
 ```
 
 **V18.5 CI-Farben (App):**
+
 ```css
---primary: 40 31% 88%        /* #EADEBD - Beige/Gold */
---foreground: 225 31% 28%     /* #323D5E - Dunkelgrau/Blau */
---accent: 31 26% 38%          /* #856d4b - Braun/Gold */
+--primary: 40 31% 88% /* #EADEBD - Beige/Gold */ --foreground: 225 31% 28%
+  /* #323D5E - Dunkelgrau/Blau */ --accent: 31 26% 38% /* #856d4b - Braun/Gold */;
 ```
 
 **Ampel-System:**
+
 ```css
---status-success: 142 71% 45%  /* Grün */
---status-warning: 43 96% 56%   /* Gelb */
---status-error: 0 72% 51%      /* Rot */
+--status-success: 142 71% 45% /* Grün */ --status-warning: 43 96% 56% /* Gelb */ --status-error: 0
+  72% 51% /* Rot */;
 ```
 
 ### 4.3 Komponenten-Status (IST)
 
 **V28.1 Hero-Qualität:**
+
 - ✅ V28IconBox
 - ✅ V26IconBox (Legacy, aber noch aktiv)
 - ✅ V28PerformanceBadge
@@ -467,6 +500,7 @@ mydispatch-rebuild/
 - ✅ V28iPadMockup
 
 **V32.5 Dashboard Components:**
+
 - ✅ UniversalQuickActionsPanel
 - ✅ DashboardSidebar
 - ✅ SystemStatusWidget
@@ -475,6 +509,7 @@ mydispatch-rebuild/
 - ✅ UpcomingEventsWidget
 
 **Layout Components:**
+
 - ✅ MainLayout (V32.5)
 - ✅ MarketingLayout
 - ✅ AuthPageLayout
@@ -489,6 +524,7 @@ mydispatch-rebuild/
 ### 5.1 Design-System Components (IST)
 
 **V28 Design System:**
+
 - V28Button (primary, secondary, ghost, destructive)
 - V28Card
 - V28IconBox
@@ -499,12 +535,14 @@ mydispatch-rebuild/
 - V28MarketingSection
 
 **Hero System:**
+
 - V28HeroPremium (Standard für ALLE Hero-Sektionen)
 - V28Hero3DBackgroundPremium
 - V28DashboardPreview
 - V28iPadMockup
 
 **Deprecated:**
+
 - V28TaxiDashboardPreview (DEPRECATED V28.6)
 - DashboardInfoBoard (DEPRECATED V32.0)
 - 22+ V26 Components (ESLint blockiert neue Imports)
@@ -512,16 +550,19 @@ mydispatch-rebuild/
 ### 5.2 Dashboard Components (IST)
 
 **Quick Actions:**
+
 - UniversalQuickActionsPanel (3-Card-System)
 - useQuickActionsPanel Hook (Context-basiert)
 
 **Context Widgets:**
+
 - SystemStatusWidget
 - QuickStatsWidget
 - ShortcutsWidget
 - UpcomingEventsWidget
 
 **Dashboard Widgets:**
+
 - DashboardKPICards
 - DashboardSidebar
 - HEREMapComponent
@@ -565,6 +606,7 @@ mydispatch-rebuild/
 ### 6.1 Sidebar-Struktur (IST)
 
 **4 Sektionen, 13 Items:**
+
 1. **HAUPTBEREICH** (2 Items)
    - Dashboard
    - Aufträge & Angebote
@@ -587,19 +629,23 @@ mydispatch-rebuild/
    - Einstellungen
 
 **Master-Account Extension:**
+
 - MASTER-BEREICH (für courbois1981@gmail.com)
 
 ### 6.2 Navigation-Features (IST)
 
 **Tab-Navigation:**
+
 - `/auftraege` → Aufträge/Angebote Tabs
 - `/fahrer` → Fahrer/Fahrzeuge Tabs
 - URL-Synchronisation via Query-Parameter
 
 **Breadcrumbs:**
+
 - SmartBreadcrumbs Component (Context-aware)
 
 **Global Search:**
+
 - GlobalSearchDialog Component (Cmd+K)
 
 ---
@@ -609,6 +655,7 @@ mydispatch-rebuild/
 ### 7.1 Implementierte Features (IST)
 
 **Core Features:**
+
 - ✅ Multi-Tenant-System (company_id, 58+ RLS Policies)
 - ✅ Archiving-System (kein DELETE)
 - ✅ Deutsche Formatierung (DIN 5008)
@@ -619,6 +666,7 @@ mydispatch-rebuild/
 - ✅ Feature-Gating (FeatureGate Component)
 
 **Business Features:**
+
 - ✅ Partner-Netzwerk (Business+)
 - ✅ Statistiken & Reports (Business+)
 - ✅ Smart Assignment (AI-basiert, Business+)
@@ -626,11 +674,13 @@ mydispatch-rebuild/
 - ✅ Bulk-Aktionen (Business+)
 
 **Enterprise Features:**
+
 - ✅ Document OCR (Enterprise)
 - ✅ API-Zugang (Enterprise)
 - ✅ White-Labeling (Enterprise)
 
 **Weitere Features:**
+
 - ✅ Booking-Widget
 - ✅ Kunden-Portal
 - ✅ Fahrer-Portal
@@ -649,6 +699,7 @@ mydispatch-rebuild/
 ### 7.2 AI-Features (IST)
 
 **Implementiert:**
+
 - ✅ AI-Support-Chat (Lovable AI)
 - ✅ Smart Assignment (Multi-Faktor-Scoring)
 - ✅ Predictive Analytics (Demand Forecasting)
@@ -664,6 +715,7 @@ mydispatch-rebuild/
 ### 8.1 Funktionale Kategorien (IST)
 
 **90+ Edge Functions** in folgenden Kategorien:
+
 - Auth & User Management (4)
 - Payment & Subscriptions (3)
 - Location & Maps (6)
@@ -678,6 +730,7 @@ mydispatch-rebuild/
 ### 8.2 Kritische Edge Functions (IST)
 
 **Production-Ready:**
+
 - ✅ brain-query (Session Init, Knowledge Base)
 - ✅ auto-learn-from-actions (Auto-Documentation)
 - ✅ sync-docs-to-knowledge-base (CI/CD Integration)
@@ -689,6 +742,7 @@ mydispatch-rebuild/
 - ✅ get-traffic (Traffic Data)
 
 **Status:**
+
 - ✅ 90+ Functions deployed
 - ⚠️ Einige Functions benötigen Re-Deployment (get-weather, get-traffic)
 
@@ -699,6 +753,7 @@ mydispatch-rebuild/
 ### 9.1 Dokumentations-Struktur (IST)
 
 **Root-Level Docs:**
+
 - MASTER_PROMPT_V18.2.md
 - LOVABLE_AI_AGENT_META_PROMPT_V18.5.1.md
 - DESIGN_SYSTEM_VORGABEN_V18.3.md
@@ -711,6 +766,7 @@ mydispatch-rebuild/
 - ANALYSE_ALLE_VORGABEN_REGELN_VERBOTE.md
 
 **docs/ Verzeichnis:**
+
 - NEXIFY_WIKI_V1.0.md (2,252 Zeilen - COMPLETE)
 - DESIGN_SYSTEM_V28_1_ABSOLUTE.md
 - LAYOUT_FREEZE_PROTECTION_V18.5.1.md
@@ -733,6 +789,7 @@ mydispatch-rebuild/
 - ABHÄNGIGKEITEN_MATRIX_V1.0.md
 
 **Gesamt:**
+
 - 100+ Markdown-Dateien
 - ~15,000+ Zeilen Dokumentation
 
@@ -741,6 +798,7 @@ mydispatch-rebuild/
 **Status:** ✅ PRODUCTION-READY - 100% COVERAGE
 
 **Supabase Knowledge Base:**
+
 - knowledge_base (Design System, Best Practices, Patterns)
 - component_registry (21+ Active Components)
 - known_issues (4 Critical Issues)
@@ -752,6 +810,7 @@ mydispatch-rebuild/
 - ai_self_reports (Wöchentliche Self-Reviews)
 
 **Edge Functions:**
+
 - brain-query (Session Init, Knowledge Queries)
 - auto-learn-from-actions (Auto-Documentation)
 - mandatory-knowledge-check (Pre-Implementation Check)
@@ -760,6 +819,7 @@ mydispatch-rebuild/
 - wiki-knowledge-graph (Knowledge Graph Links)
 
 **Coverage:**
+
 - ✅ Core Docs: 5/5
 - ✅ Design System Docs: 3/3
 - ✅ Layout System Docs: 5/5
@@ -774,32 +834,38 @@ mydispatch-rebuild/
 ### 10.1 Code-Qualität (IST)
 
 **TypeScript:**
+
 - ✅ Strict Mode aktiviert
 - ✅ 0 Errors (Target)
 - ✅ Type-Safety überall
 
 **ESLint:**
+
 - ✅ 0 Warnings (Target)
 - ✅ Pre-Commit Hooks aktiv (Husky V32.0)
 - ✅ 8 Quality Gates (Marketing Claims, TypeScript, Design System, Prettier, Emojis, ui/button)
 
 **Prettier:**
+
 - ✅ 100% Formatiert
 - ✅ Pre-Commit Check
 
 **Build:**
+
 - ✅ Build erfolgreich
 - ✅ Bundle-Size: ~2.850 KB (<3 MB ✅)
 
 ### 10.2 Performance (IST)
 
 **Frontend:**
+
 - Initial Load: ~2.3s
 - Time-to-Interactive: <5s
 - Bundle-Size: 2.850 KB
 - Lighthouse Score: >85
 
 **Backend:**
+
 - Dashboard-Stats Query: <200ms
 - Booking-List Query: <300ms
 - AI-Smart-Assignment: <1s
@@ -808,18 +874,22 @@ mydispatch-rebuild/
 ### 10.3 Security (IST)
 
 **RLS Policies:**
+
 - ✅ 58+ Policies aktiv
 - ✅ 100% Coverage (alle Tables)
 
 **Multi-Tenant:**
+
 - ✅ company_id mandatory in ALLEN Queries
 - ✅ Security Definer Functions
 
 **Archiving:**
+
 - ✅ Kein DELETE (nur Archiving)
 - ✅ archived + archived_at Fields
 
 **DSGVO:**
+
 - ✅ GPS 24h Auto-Delete
 - ✅ Consent-Management
 - ✅ Data-Export
@@ -831,6 +901,7 @@ mydispatch-rebuild/
 ### 11.1 Critical Issues (IST - 4)
 
 **Issue #1: Hallucinated Functions (Critical)**
+
 - ID: `afe0b51c-41db-44f0-b92d-295282c9f414`
 - Type: `hallucinated_function`
 - Severity: 🔴 CRITICAL
@@ -838,6 +909,7 @@ mydispatch-rebuild/
 - Prevention: Component Registry Check vor Erstellung
 
 **Issue #2: Hallucinated Functions - getUserProfile() Pattern (Critical)**
+
 - ID: `8b2d2afa-32dc-4558-9ad0-161386aba049`
 - Type: `hallucinated_function`
 - Severity: 🔴 CRITICAL
@@ -845,6 +917,7 @@ mydispatch-rebuild/
 - Prevention: Code Snippets Check
 
 **Issue #3: RLS Violation - Tables Without Policies (Critical)**
+
 - ID: `f498795b-1170-4ab0-b2c4-ee814d5be6b3`
 - Type: `rls_violation`
 - Severity: 🔴 CRITICAL
@@ -852,6 +925,7 @@ mydispatch-rebuild/
 - Prevention: supabase--linter Check
 
 **Issue #4: RLS Violation - Policy Creation Pattern (Critical)**
+
 - ID: `f46a7bc6-e86a-492b-a596-0d475ace02e7`
 - Type: `rls_violation`
 - Severity: 🔴 CRITICAL
@@ -861,12 +935,15 @@ mydispatch-rebuild/
 ### 11.2 Minor Issues (IST)
 
 **Edge Functions:**
+
 - ⚠️ get-weather, get-traffic benötigen Re-Deployment (lat/lng Support)
 
 **Supabase Linter:**
+
 - ⚠️ 3 Minor Warnings (Security Definer View, Password Leak Protection, Materialized View in API)
 
 **Design-System:**
+
 - ⚠️ 22+ V26 Components noch vorhanden (aber deprecated, ESLint blockiert neue Imports)
 
 ---
@@ -887,9 +964,11 @@ mydispatch-rebuild/
 ### Offene Punkte
 
 **P0 (Critical):**
+
 - Edge Functions Re-Deployment (get-weather, get-traffic) - 10 Min
 
 **P1 (Optional):**
+
 - Supabase Linter-Warnings beheben - 30 Min
 - V26 Components komplett entfernen (wenn gewünscht)
 
@@ -898,4 +977,3 @@ mydispatch-rebuild/
 **Erstellt:** 2025-01-31  
 **Version:** V32.5.0  
 **Status:** ✅ Vollständige IST-Analyse abgeschlossen
-

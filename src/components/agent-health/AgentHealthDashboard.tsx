@@ -10,13 +10,22 @@ import { V28Button } from "@/components/design-system/V28Button";
 import { useAgentHealth, triggerHeartbeat } from "@/hooks/use-agent-health";
 import { Activity, AlertCircle, CheckCircle2, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { logger } from "@/lib/logger";
 
 export const AgentHealthDashboard = () => {
-  const { latestHeartbeat, heartbeatHistory, agentStatus, uptime7d, uptime30d, isLoading } = useAgentHealth();
+  const { latestHeartbeat, heartbeatHistory, agentStatus, uptime7d, uptime30d, isLoading } =
+    useAgentHealth();
 
   const handleManualHeartbeat = async () => {
     try {
@@ -24,7 +33,9 @@ export const AgentHealthDashboard = () => {
       await triggerHeartbeat();
       toast.success("Heartbeat erfolgreich gesendet!");
     } catch (error) {
-      logger.error("[AGENT-HEALTH] Heartbeat failed", error instanceof Error ? error : undefined, { component: 'AgentHealthDashboard' });
+      logger.error("[AGENT-HEALTH] Heartbeat failed", error instanceof Error ? error : undefined, {
+        component: "AgentHealthDashboard",
+      });
       toast.error("Heartbeat fehlgeschlagen");
     }
   };
@@ -38,11 +49,12 @@ export const AgentHealthDashboard = () => {
   }
 
   // Prepare chart data
-  const chartData = heartbeatHistory?.map((h) => ({
-    time: format(new Date(h.timestamp), "HH:mm", { locale: de }),
-    uptime: h.uptime_percentage,
-    responseTime: h.avg_response_time_ms,
-  })) || [];
+  const chartData =
+    heartbeatHistory?.map((h) => ({
+      time: format(new Date(h.timestamp), "HH:mm", { locale: de }),
+      uptime: h.uptime_percentage,
+      responseTime: h.avg_response_time_ms,
+    })) || [];
 
   return (
     <div className="space-y-6">
@@ -77,7 +89,8 @@ export const AgentHealthDashboard = () => {
               {latestHeartbeat?.all_agents_healthy ? "Gesund" : "Probleme"}
             </div>
             <p className="text-xs text-muted-foreground">
-              {latestHeartbeat?.critical_issues || 0} Critical, {latestHeartbeat?.warnings || 0} Warnings
+              {latestHeartbeat?.critical_issues || 0} Critical, {latestHeartbeat?.warnings || 0}{" "}
+              Warnings
             </p>
           </CardContent>
         </Card>
@@ -89,7 +102,9 @@ export const AgentHealthDashboard = () => {
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent className="p-6">
-            <div className="text-2xl font-bold">{latestHeartbeat?.uptime_percentage.toFixed(2)}%</div>
+            <div className="text-2xl font-bold">
+              {latestHeartbeat?.uptime_percentage.toFixed(2)}%
+            </div>
             <p className="text-xs text-muted-foreground">
               7d: {uptime7d?.toFixed(2)}% | 30d: {uptime30d?.toFixed(2)}%
             </p>
@@ -122,7 +137,15 @@ export const AgentHealthDashboard = () => {
                   <p className="font-medium">{agent.agent_name}</p>
                   <p className="text-sm text-muted-foreground">Version {agent.version}</p>
                 </div>
-                <Badge variant={agent.status === "idle" ? "secondary" : agent.status === "working" ? "default" : "destructive"}>
+                <Badge
+                  variant={
+                    agent.status === "idle"
+                      ? "secondary"
+                      : agent.status === "working"
+                        ? "default"
+                        : "destructive"
+                  }
+                >
                   {agent.status}
                 </Badge>
               </div>
@@ -143,7 +166,13 @@ export const AgentHealthDashboard = () => {
               <XAxis dataKey="time" />
               <YAxis domain={[0, 100]} />
               <Tooltip />
-              <Line type="monotone" dataKey="uptime" stroke="hsl(var(--primary))" strokeWidth={2} name="Uptime %" />
+              <Line
+                type="monotone"
+                dataKey="uptime"
+                stroke="hsl(var(--primary))"
+                strokeWidth={2}
+                name="Uptime %"
+              />
             </LineChart>
           </ResponsiveContainer>
         </CardContent>
@@ -161,7 +190,13 @@ export const AgentHealthDashboard = () => {
               <XAxis dataKey="time" />
               <YAxis />
               <Tooltip />
-              <Line type="monotone" dataKey="responseTime" stroke="hsl(var(--primary))" strokeWidth={2} name="Response Time (ms)" />
+              <Line
+                type="monotone"
+                dataKey="responseTime"
+                stroke="hsl(var(--primary))"
+                strokeWidth={2}
+                name="Response Time (ms)"
+              />
             </LineChart>
           </ResponsiveContainer>
         </CardContent>

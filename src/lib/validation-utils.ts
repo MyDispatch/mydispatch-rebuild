@@ -24,7 +24,7 @@ export function isValidEmail(email: string): boolean {
 export const PHONE_REGEX = /^(\+49|0)[1-9]\d{1,14}$/;
 
 export function isValidPhone(phone: string): boolean {
-  const cleaned = phone.replace(/[\s\-\(\)]/g, '');
+  const cleaned = phone.replace(/[\s\-\(\)]/g, "");
   return PHONE_REGEX.test(cleaned);
 }
 
@@ -48,7 +48,7 @@ export const PASSWORD_PATTERNS = {
   uppercase: /[A-Z]/,
   lowercase: /[a-z]/,
   number: /\d/,
-  special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
+  special: /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/,
 } as const;
 
 export interface PasswordStrength {
@@ -66,8 +66,16 @@ export interface PasswordStrength {
 }
 
 const COMMON_PASSWORDS = [
-  'password', '123456', '12345678', 'qwerty', 'abc123',
-  'password123', '111111', '123123', 'admin', 'letmein',
+  "password",
+  "123456",
+  "12345678",
+  "qwerty",
+  "abc123",
+  "password123",
+  "111111",
+  "123123",
+  "admin",
+  "letmein",
 ];
 
 export function validatePassword(password: string): PasswordStrength {
@@ -85,11 +93,12 @@ export function validatePassword(password: string): PasswordStrength {
   const isValid = Object.values(checks).every(Boolean);
 
   const feedback: string[] = [];
-  if (!checks.minLength) feedback.push('Mindestens 8 Zeichen erforderlich');
-  if (!checks.hasUppercase || !checks.hasLowercase) feedback.push('Groß- und Kleinbuchstaben verwenden');
-  if (!checks.hasNumber) feedback.push('Mindestens eine Zahl hinzufügen');
-  if (!checks.hasSpecial) feedback.push('Mindestens ein Sonderzeichen verwenden');
-  if (!checks.notCommon) feedback.push('Zu häufiges Passwort - bitte ein sichereres wählen');
+  if (!checks.minLength) feedback.push("Mindestens 8 Zeichen erforderlich");
+  if (!checks.hasUppercase || !checks.hasLowercase)
+    feedback.push("Groß- und Kleinbuchstaben verwenden");
+  if (!checks.hasNumber) feedback.push("Mindestens eine Zahl hinzufügen");
+  if (!checks.hasSpecial) feedback.push("Mindestens ein Sonderzeichen verwenden");
+  if (!checks.notCommon) feedback.push("Zu häufiges Passwort - bitte ein sichereres wählen");
 
   return { score, isValid, feedback, checks };
 }
@@ -99,17 +108,17 @@ export function validatePassword(password: string): PasswordStrength {
 // ============================================================================
 
 export function isPositiveNumber(value: unknown): boolean {
-  return typeof value === 'number' && value > 0 && !isNaN(value);
+  return typeof value === "number" && value > 0 && !isNaN(value);
 }
 
 export function isValidPercentage(value: unknown): boolean {
-  return typeof value === 'number' && value >= 0 && value <= 100 && !isNaN(value);
+  return typeof value === "number" && value >= 0 && value <= 100 && !isNaN(value);
 }
 
 export function isValidCoordinate(lat: unknown, lng: unknown): boolean {
   return (
-    typeof lat === 'number' &&
-    typeof lng === 'number' &&
+    typeof lat === "number" &&
+    typeof lng === "number" &&
     lat >= -90 &&
     lat <= 90 &&
     lng >= -180 &&
@@ -138,11 +147,11 @@ export function hasMaxLength(value: string, maxLength: number): boolean {
 // ============================================================================
 
 export function isString(value: unknown): value is string {
-  return typeof value === 'string';
+  return typeof value === "string";
 }
 
 export function isNumber(value: unknown): value is number {
-  return typeof value === 'number' && !isNaN(value);
+  return typeof value === "number" && !isNaN(value);
 }
 
 export function isDate(value: unknown): value is Date {
@@ -157,7 +166,8 @@ export function isNonNull<T>(value: T | null | undefined): value is T {
 // URL VALIDATION
 // ============================================================================
 
-export const URL_REGEX = /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/;
+export const URL_REGEX =
+  /^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)$/;
 
 export function isValidURL(url: string): boolean {
   try {
@@ -185,7 +195,7 @@ export function isValidLicensePlate(plate: string): boolean {
 export const TAX_ID_REGEX = /^\d{10,11}$/;
 
 export function isValidTaxID(taxId: string): boolean {
-  const cleaned = taxId.replace(/[\s\-\/]/g, '');
+  const cleaned = taxId.replace(/[\s\-\/]/g, "");
   return TAX_ID_REGEX.test(cleaned);
 }
 
@@ -196,6 +206,6 @@ export function isValidTaxID(taxId: string): boolean {
 export const IBAN_REGEX = /^[A-Z]{2}\d{2}[A-Z0-9]{1,30}$/;
 
 export function isValidIBAN(iban: string): boolean {
-  const cleaned = iban.replace(/\s/g, '').toUpperCase();
+  const cleaned = iban.replace(/\s/g, "").toUpperCase();
   return IBAN_REGEX.test(cleaned) && cleaned.length >= 15 && cleaned.length <= 34;
 }

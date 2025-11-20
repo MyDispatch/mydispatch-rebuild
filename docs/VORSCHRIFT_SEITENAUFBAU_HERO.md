@@ -8,6 +8,7 @@
 ## STRIKTE LAYOUT/PATTERN-VORGABE (PRE-BEREICH)
 
 ### 1. HERO-PFLICHT (MIT GRAFIK, EXAKT WIE HOME)
+
 - **ALLE Seiten im Pre-Bereich VOR Login – außer /pricing und den Rechtsseiten – erhalten:**
   - Einen Hero-Bereich im exakt gleichen Aufbau, Qualität und mit gleichwertiger Grafik wie der Hero auf der Startseite (/).
   - Die Grafik muss angepasst auf das jeweilige Thema der Seite gestaltet sein (z.B. Features-Seite → Feature-Dashboard, Demo-Seite → Demo-Bezug etc.), aber IMMER auf gleichem Qualitätsniveau, Stil, Format und Responsiveness wie im Home-Hero.
@@ -16,12 +17,14 @@
     - Rechtsseiten: Keine Grafik, sondern Text-orientierter Hero wie Pricing, reduziert.
 
 ### 2. GRID-PFLICHT FÜR DIE INHALTSBEREICHE
+
 - **ALLE Pre-Seiten (außer Rechtsseiten) bekommen einen individuellen, zur Seite passenden Grid-Inhaltsbereich.**
   - Der Grid ist abgestimmt auf das jeweilige Content-/Feature-Set der Seite.
   - Keine Wiederverwendung oder Copy-Paste von anderen Seiten-Grids, sondern dokumentiert, individuell und thematisch angepasst.
   - Feste Regel: Kein einziger Content-Bereich außerhalb von Hero darf ohne Grid-Struktur angelegt werden.
 
 ### 3. GRAFIK- & QUALITÄTS-VERPFLICHTUNG
+
 - Für jede Seite ist VOR Implementation festgelegt, welches Grafik/Contentthema in den Hero kommt.
 - Die Grafiken MÜSSEN selben Qualitätsanspruch (Auflösung, Stil, Vektorqualität, Performance, Farbschema) wie die Home-Grafik haben.
 - Grafikquellen, Farbcodes, Responsive-Breakpoints, Format und Optimierungsstrategie sind DOKUMENTATIONSPFLICHTIG.
@@ -31,6 +34,7 @@
 ## 4. MASSIV VERSCHÄRFTE DOKUMENTATIONSPFLICHT (DOKU FIRST!)
 
 ### BEFORE IMPLEMENTATION:
+
 - Für JEDE Seite:
   - Seitenname, Zielgruppe, Zielsetzung, Content Modules (Hero, Grid, Footer etc.)
   - Hero-Grafik-Spezifikation: Thema, Stil, Farbpalette, Quellen, Qualitätssicherung/Review-Prozess
@@ -43,11 +47,13 @@
   - Akzeptanz (Reviewername, Datum, "Freigabe" vor Implementation)
 
 ### WHILE IMPLEMENTING:
+
 - JEDER Commit enthält Dokumentationshinweis auf aktualisierte Stellen im Design- und Seiten-Dokumentationsbereich.
 - Jede Änderung an Grafik, Grid, Hero wird SOFORT mit Screenshots, Changelog-Kommentar und Review/Reason dokumentiert.
 - Es gibt KEIN "stilles" Austauschen oder Ergänzen, JEDE Änderung ist versionskontrolliert und dokumentiert.
 
 ### AFTER IMPLEMENTATION:
+
 - Für jede Seite:
   - Screenshot Desktop, Tablet, Mobile nach Deployment in `/docs/PAGE_SCREENSHOTS/`
   - Umsetzung in `/docs/PAGE_IMPLEMENTATION_CHECKLIST.md` abgehakt

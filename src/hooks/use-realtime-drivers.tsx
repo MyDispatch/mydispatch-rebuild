@@ -6,10 +6,10 @@
    - Company-Isolation via RLS
    ================================================================================== */
 
-import { useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { useQueryClient } from '@tanstack/react-query';
-import { logger } from '@/lib/logger';
+import { useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { logger } from "@/lib/logger";
 
 /**
  * Hook für Realtime-Updates von Fahrern
@@ -20,27 +20,27 @@ export const useRealtimeDrivers = () => {
 
   useEffect(() => {
     const channel = supabase
-      .channel('drivers-realtime-updates')
+      .channel("drivers-realtime-updates")
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: '*',
-          schema: 'public',
-          table: 'drivers'
+          event: "*",
+          schema: "public",
+          table: "drivers",
         },
         (payload) => {
-          logger.info('📡 Realtime Driver Update', { 
-            eventType: payload.eventType, 
+          logger.info("📡 Realtime Driver Update", {
+            eventType: payload.eventType,
             data: payload.new,
-            component: 'useRealtimeDrivers' 
+            component: "useRealtimeDrivers",
           });
-          
+
           // Invalidiere Queries
-          queryClient.invalidateQueries({ queryKey: ['drivers'] });
-          
+          queryClient.invalidateQueries({ queryKey: ["drivers"] });
+
           // Bei Shift-Status-Änderung auch Dashboard aktualisieren
-          if (payload.new && typeof payload.new === 'object' && 'shift_status' in payload.new) {
-            queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] });
+          if (payload.new && typeof payload.new === "object" && "shift_status" in payload.new) {
+            queryClient.invalidateQueries({ queryKey: ["dashboard-stats"] });
           }
         }
       )

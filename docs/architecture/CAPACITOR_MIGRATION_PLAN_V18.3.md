@@ -13,12 +13,14 @@ Diese Dokumentation beschreibt die komplette Migration von MyDispatch zu einer H
 Nach Fertigstellung der Web-App V18.2 wird MyDispatch um native mobile Apps erweitert:
 
 ### ✅ Was bleibt erhalten:
+
 - 100% Web-App Funktionalität
 - Browser-Zugriff für alle Nutzer
 - PWA-Installation weiterhin möglich
 - Ein gemeinsamer Codebase
 
 ### ✅ Was hinzukommt:
+
 - Native iOS App (App Store)
 - Native Android App (Play Store)
 - Vollzugriff auf native Features (Kamera, GPS, Push-Notifications)
@@ -48,6 +50,7 @@ npx cap init
 ```
 
 **Konfigurationswerte:**
+
 - **App ID**: `app.lovable.532d4c5b6df34e1c93e44632fcf0ef9b`
 - **App Name**: `MyDispatch`
 - **Web Directory**: `dist`
@@ -56,28 +59,28 @@ npx cap init
 
 ```typescript
 // capacitor.config.ts
-import { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.532d4c5b6df34e1c93e44632fcf0ef9b',
-  appName: 'MyDispatch',
-  webDir: 'dist',
+  appId: "app.lovable.532d4c5b6df34e1c93e44632fcf0ef9b",
+  appName: "MyDispatch",
+  webDir: "dist",
   server: {
     // Hot-Reload während Entwicklung (optional)
-    url: 'https://532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b.lovableproject.com?forceHideBadge=true',
-    cleartext: true
+    url: "https://532d4c5b-6df3-4e1c-93e4-4632fcf0ef9b.lovableproject.com?forceHideBadge=true",
+    cleartext: true,
   },
   plugins: {
     SplashScreen: {
       launchShowDuration: 2000,
-      backgroundColor: '#1A1F2C',
+      backgroundColor: "#1A1F2C",
       showSpinner: true,
-      spinnerColor: '#9b87f5'
+      spinnerColor: "#9b87f5",
     },
     PushNotifications: {
-      presentationOptions: ['badge', 'sound', 'alert']
-    }
-  }
+      presentationOptions: ["badge", "sound", "alert"],
+    },
+  },
 };
 
 export default config;
@@ -119,24 +122,21 @@ npm install @capacitor/geolocation
 **Code-Änderung in `src/hooks/use-gps-tracking.tsx`:**
 
 ```typescript
-import { Geolocation } from '@capacitor/geolocation';
+import { Geolocation } from "@capacitor/geolocation";
 
 // Statt navigator.geolocation:
 const position = await Geolocation.getCurrentPosition({
   enableHighAccuracy: true,
   timeout: 10000,
-  maximumAge: 0
+  maximumAge: 0,
 });
 
 // Hintergrund-Tracking:
-const watchId = await Geolocation.watchPosition(
-  { enableHighAccuracy: true },
-  (position, err) => {
-    if (position) {
-      // GPS-Position speichern
-    }
+const watchId = await Geolocation.watchPosition({ enableHighAccuracy: true }, (position, err) => {
+  if (position) {
+    // GPS-Position speichern
   }
-);
+});
 ```
 
 #### 3.2 Push-Notifications
@@ -148,26 +148,26 @@ npm install @capacitor/push-notifications
 **Neue Datei: `src/hooks/use-push-notifications.tsx`:**
 
 ```typescript
-import { PushNotifications } from '@capacitor/push-notifications';
+import { PushNotifications } from "@capacitor/push-notifications";
 
 export const usePushNotifications = () => {
   const registerPush = async () => {
     // Permission anfordern
     const permStatus = await PushNotifications.requestPermissions();
-    
-    if (permStatus.receive === 'granted') {
+
+    if (permStatus.receive === "granted") {
       await PushNotifications.register();
     }
 
     // Token empfangen
-    PushNotifications.addListener('registration', (token) => {
-      console.log('Push Token:', token.value);
+    PushNotifications.addListener("registration", (token) => {
+      console.log("Push Token:", token.value);
       // An Backend senden
     });
 
     // Notification empfangen
-    PushNotifications.addListener('pushNotificationReceived', (notification) => {
-      console.log('Push received:', notification);
+    PushNotifications.addListener("pushNotificationReceived", (notification) => {
+      console.log("Push received:", notification);
     });
   };
 
@@ -184,16 +184,16 @@ npm install @capacitor/camera
 **Integration in `src/components/forms/DocumentUploadForm.tsx`:**
 
 ```typescript
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 const takePhoto = async () => {
   const image = await Camera.getPhoto({
     quality: 90,
     allowEditing: true,
     resultType: CameraResultType.DataUrl,
-    source: CameraSource.Camera
+    source: CameraSource.Camera,
   });
-  
+
   // Upload zu Supabase Storage
   const imageUrl = image.dataUrl;
   // ... existing upload logic
@@ -207,12 +207,14 @@ const takePhoto = async () => {
 #### 4.1 iOS App Store
 
 **Voraussetzungen:**
+
 - Apple Developer Account (99€/Jahr)
 - Mac mit Xcode
 - App Icons (alle Größen)
 - Screenshots (verschiedene Geräte)
 
 **Schritte:**
+
 1. Xcode öffnen: `npx cap open ios`
 2. Bundle ID setzen: `app.lovable.mydispatch`
 3. Signing & Capabilities konfigurieren
@@ -223,12 +225,14 @@ const takePhoto = async () => {
 #### 4.2 Android Play Store
 
 **Voraussetzungen:**
+
 - Google Play Developer Account (25€ einmalig)
 - Android Studio
 - App Icons & Feature Graphic
 - Screenshots
 
 **Schritte:**
+
 1. Android Studio öffnen: `npx cap open android`
 2. Package Name: `app.lovable.mydispatch`
 3. App Bundle erstellen (AAB)
@@ -258,7 +262,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
       - name: Install dependencies
         run: npm install
       - name: Build web
@@ -275,7 +279,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "18"
       - name: Install dependencies
         run: npm install
       - name: Build web
@@ -316,7 +320,7 @@ graph LR
     C --> F[Lovable Cloud]
     D --> G[Play Store]
     E --> H[App Store]
-    
+
     style A fill:#9b87f5,stroke:#7E69AB,stroke-width:2px,color:#fff
     style F fill:#22c55e,stroke:#16a34a,stroke-width:2px,color:#fff
     style G fill:#0EA5E9,stroke:#0284c7,stroke-width:2px,color:#fff
@@ -329,13 +333,13 @@ graph LR
 
 ### 1. Fahrer-App Optimierung
 
-| Feature | Vorher (PWA) | Nachher (Native) |
-|---------|--------------|------------------|
-| **GPS-Genauigkeit** | ±50m | ±5m |
-| **Hintergrund-Tracking** | ⚠️ Eingeschränkt | ✅ Unbegrenzt |
-| **Offline-Modus** | ⚠️ Service Worker | ✅ Natives Caching |
-| **Push-Notifications** | ⚠️ Browser-abhängig | ✅ Zuverlässig |
-| **Batterie-Optimierung** | ❌ Nein | ✅ Ja |
+| Feature                  | Vorher (PWA)        | Nachher (Native)   |
+| ------------------------ | ------------------- | ------------------ |
+| **GPS-Genauigkeit**      | ±50m                | ±5m                |
+| **Hintergrund-Tracking** | ⚠️ Eingeschränkt    | ✅ Unbegrenzt      |
+| **Offline-Modus**        | ⚠️ Service Worker   | ✅ Natives Caching |
+| **Push-Notifications**   | ⚠️ Browser-abhängig | ✅ Zuverlässig     |
+| **Batterie-Optimierung** | ❌ Nein             | ✅ Ja              |
 
 ### 2. Disponenten-Dashboard
 
@@ -354,15 +358,18 @@ graph LR
 ## 💰 Kosten & Ressourcen
 
 ### Einmalige Kosten
+
 - Apple Developer Account: **99€/Jahr**
 - Google Play Developer Account: **25€ einmalig**
 - App Icons & Design Assets: **~200€** (optional, kann intern erstellt werden)
 
 ### Laufende Kosten
+
 - App Store Renewal: **99€/Jahr**
 - Keine zusätzlichen Hosting-Kosten (nutzt bestehende Lovable Cloud)
 
 ### Zeitaufwand
+
 - **Initiales Setup**: 2-4 Stunden
 - **Native Features Integration**: 1-2 Tage
 - **App Store Submission**: 1 Tag (pro Plattform)
@@ -377,7 +384,6 @@ graph LR
 1. ✅ **Woche 1**: Capacitor Setup + Android App
    - Einfacher Start (kein Mac erforderlich)
    - Schnelleres Approval im Play Store
-   
 2. ✅ **Woche 2**: iOS App + Push-Notifications
    - Benötigt Mac für Xcode
    - Längeres Review-Verfahren (7-14 Tage)
@@ -411,11 +417,13 @@ graph LR
 ## 🆘 Support & Ressourcen
 
 ### Dokumentation
+
 - [Capacitor Docs](https://capacitorjs.com/docs)
 - [iOS Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines/)
 - [Android Material Design](https://material.io/design)
 
 ### Lovable Integration
+
 - Blog-Post: [Capacitor with Lovable](https://docs.lovable.dev/)
 - Community: [Lovable Discord](https://discord.com/channels/1119885301872070706)
 
@@ -427,10 +435,10 @@ graph LR
 
 **AKTION**: Diese Dokumentation erneut öffnen und Phase 1 starten
 
-**KONTAKT**: Lovable AI Assistant fragen: *"Ich bin bereit für die Capacitor-Migration aus CAPACITOR_MIGRATION_PLAN_V18.3.md - können wir starten?"*
+**KONTAKT**: Lovable AI Assistant fragen: _"Ich bin bereit für die Capacitor-Migration aus CAPACITOR_MIGRATION_PLAN_V18.3.md - können wir starten?"_
 
 ---
 
-*Dokumentiert: 18.10.2025*  
-*Version: V18.3 Draft*  
-*Status: 🔴 Warten auf Web-App Fertigstellung*
+_Dokumentiert: 18.10.2025_  
+_Version: V18.3 Draft_  
+_Status: 🔴 Warten auf Web-App Fertigstellung_

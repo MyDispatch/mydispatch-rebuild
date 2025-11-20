@@ -9,21 +9,25 @@
 ## 🎯 Architektur-Prinzipien
 
 ### 1. Mobile-First
+
 - Alle Features zuerst für Mobile (375px)
 - Progressive Enhancement zu Desktop
 - Touch-Targets ≥ 44px
 
 ### 2. Component-Driven
+
 - Atomic Design Prinzip
 - Wiederverwendbare Komponenten
 - Single Responsibility
 
 ### 3. Type-Safe
+
 - Strikte TypeScript Konfiguration
 - Zod Schema Validation
 - Supabase Type Generation
 
 ### 4. Security-First
+
 - RLS auf allen Tabellen
 - Input Validation (Client + Server)
 - XSS/SQL-Injection Prevention
@@ -33,6 +37,7 @@
 ## 📐 Tech Stack
 
 ### Frontend
+
 ```
 React 18.3+ (UI Library)
 ├── TypeScript 5+ (Type Safety)
@@ -43,6 +48,7 @@ React 18.3+ (UI Library)
 ```
 
 ### Backend (Lovable Cloud)
+
 ```
 Supabase (Backend-as-a-Service)
 ├── PostgreSQL (Database)
@@ -53,6 +59,7 @@ Supabase (Backend-as-a-Service)
 ```
 
 ### Testing
+
 ```
 Playwright (E2E Tests)
 ├── Vitest (Unit Tests)
@@ -124,7 +131,7 @@ sequenceDiagram
     participant React
     participant Supabase
     participant Database
-    
+
     User->>React: Login (email/pw)
     React->>Supabase: auth.signIn()
     Supabase->>Database: Verify credentials
@@ -148,7 +155,7 @@ sequenceDiagram
   --foreground: 225 31% 28%;
   --primary: 40 31% 88%;
   --secondary: 225 31% 28%;
-  
+
   /* Status Colors */
   --status-success: 142 71% 45%;
   --status-warning: 38 92% 50%;
@@ -189,7 +196,7 @@ CREATE TABLE bookings (
   company_id UUID NOT NULL,
   customer_id UUID NOT NULL,
   -- ... weitere Felder
-  CONSTRAINT fk_company FOREIGN KEY (company_id) 
+  CONSTRAINT fk_company FOREIGN KEY (company_id)
     REFERENCES companies(id) ON DELETE CASCADE
 );
 
@@ -289,14 +296,11 @@ Production (lovable.app)
 ```tsx
 // ✅ RICHTIG - React Query für Server-State
 const { data: bookings } = useQuery({
-  queryKey: ['bookings', companyId],
+  queryKey: ["bookings", companyId],
   queryFn: async () => {
-    const { data } = await supabase
-      .from('bookings')
-      .select('*')
-      .eq('company_id', companyId);
+    const { data } = await supabase.from("bookings").select("*").eq("company_id", companyId);
     return data;
-  }
+  },
 });
 
 // ✅ RICHTIG - useState für UI-State
@@ -305,12 +309,12 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 
 ### State-Kategorien
 
-| State-Art | Tool | Use Case |
-|-----------|------|----------|
-| Server-State | React Query | API-Daten, DB-Queries |
-| UI-State | useState | Modals, Dropdowns, Tabs |
-| Form-State | React Hook Form | Formulare |
-| Route-State | React Router | URL-Parameter |
+| State-Art    | Tool            | Use Case                |
+| ------------ | --------------- | ----------------------- |
+| Server-State | React Query     | API-Daten, DB-Queries   |
+| UI-State     | useState        | Modals, Dropdowns, Tabs |
+| Form-State   | React Hook Form | Formulare               |
+| Route-State  | React Router    | URL-Parameter           |
 
 ---
 
@@ -319,24 +323,27 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 ### Optimierungs-Strategien
 
 1. **Code-Splitting**
+
    ```tsx
-   const Dashboard = lazy(() => import('./pages/Dashboard'));
+   const Dashboard = lazy(() => import("./pages/Dashboard"));
    ```
 
 2. **React Query Caching**
+
    ```tsx
    staleTime: 5 * 60 * 1000, // 5min Cache
    cacheTime: 10 * 60 * 1000 // 10min Memory
    ```
 
 3. **Memoization**
+
    ```tsx
    const expensiveValue = useMemo(() => calculate(data), [data]);
    ```
 
 4. **Virtual Scrolling** (bei langen Listen)
    ```tsx
-   import { useVirtualizer } from '@tanstack/react-virtual';
+   import { useVirtualizer } from "@tanstack/react-virtual";
    ```
 
 ---
@@ -375,6 +382,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 ## 📝 Changelog
 
 ### V18.5.0 (2025-01-26)
+
 - Erstversion Architecture Overview
 - Tech Stack dokumentiert
 - Architektur-Patterns definiert

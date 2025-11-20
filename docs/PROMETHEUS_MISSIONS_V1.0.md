@@ -1,4 +1,5 @@
 # PROMETHEUS OPERATIONS PLAN V1.0
+
 **Status:** 🚀 ACTIVE  
 **Datum:** 2025-01-31  
 **Mission:** Hybride Migration zu perfekter HYPERION-Architektur
@@ -8,20 +9,24 @@
 ## 📊 STRATEGIC SITUATION (Verified Reality)
 
 ### ✅ GREEN ZONE (Foundation Complete)
-| System | Status | Coverage |
-|--------|--------|----------|
-| API Layer | ✅ 100% | 7/7 modules (bookings, drivers, vehicles, customers, partners, shifts, companies) |
-| Global State | ✅ 100% | 4/4 stores (auth, subscription, layout, bulk-selection) |
-| Documentation | ✅ LIVE | Master Index, Dependency Graphs, Self-Healing, Breaking Changes |
-| Design System | ⚡ 40% | V28 Components partial, Storybook configured |
+
+| System        | Status  | Coverage                                                                          |
+| ------------- | ------- | --------------------------------------------------------------------------------- |
+| API Layer     | ✅ 100% | 7/7 modules (bookings, drivers, vehicles, customers, partners, shifts, companies) |
+| Global State  | ✅ 100% | 4/4 stores (auth, subscription, layout, bulk-selection)                           |
+| Documentation | ✅ LIVE | Master Index, Dependency Graphs, Self-Healing, Breaking Changes                   |
+| Design System | ⚡ 40%  | V28 Components partial, Storybook configured                                      |
 
 ### ⚠️ YELLOW ZONE (Transformation Active)
+
 - **TanStack Query Migration:** 37/~150 components (25%)
 - **Custom Hooks:** ~80 domain-specific hooks exist
 - **API Abstraction:** High-level hooks (useBookings, useCustomers) operational
 
 ### 🔴 RED ZONE (Legacy Code)
+
 **Direct Supabase Calls Found:**
+
 1. `DriverTracking.tsx` - GPS position inserts
 2. `ChatWindow.tsx` - Message inserts
 3. `GlobalErrorBoundary.tsx` - Error logging
@@ -38,9 +43,11 @@
 ## 🎯 MISSION I: "ATLAS" (Atomic Design System)
 
 ### Objective
+
 Create complete atomic UI component library to accelerate Mission II.
 
 ### Phase 1.1: Core UI Atoms (First 10)
+
 ```yaml
 # UI-ATOMS-SPEC-V1.0.yaml
 
@@ -50,7 +57,7 @@ atoms:
     path: src/components/design-system/V28Button.tsx
     variants: [primary, secondary, outline, ghost, link]
     states: [default, hover, active, disabled, loading]
-    
+
   - name: V28Input
     status: 🔴 MISSING
     path: src/lib/components/V28Input.tsx
@@ -66,7 +73,7 @@ atoms:
         required: false
     states: [default, focus, error, disabled]
     design: "Tailwind slate palette, 1px borders"
-    
+
   - name: V28Card
     status: 🔴 MISSING
     path: src/lib/components/V28Card.tsx
@@ -80,7 +87,7 @@ atoms:
         type: LucideIcon
       - name: onClick
         type: () => void
-    
+
   - name: V28Badge
     status: 🔴 MISSING
     path: src/lib/components/V28Badge.tsx
@@ -92,7 +99,7 @@ atoms:
       - name: variant
         type: BadgeVariant
         required: true
-    
+
   - name: V28Select
     status: 🔴 MISSING
     path: src/lib/components/V28Select.tsx
@@ -107,7 +114,7 @@ atoms:
         type: string
       - name: error
         type: string
-    
+
   - name: V28Dialog
     status: 🔴 MISSING (Wrapper for Radix)
     path: src/lib/components/V28Dialog.tsx
@@ -121,7 +128,7 @@ atoms:
         type: string
       - name: description
         type: string
-    
+
   - name: V28Table
     status: 🔴 MISSING
     path: src/lib/components/V28Table.tsx
@@ -139,16 +146,16 @@ atoms:
       - filtering
       - pagination
       - bulk-selection
-    
+
   - name: V28StatusIndicator
     status: ✅ EXISTS
     path: src/components/shared/StatusIndicator.tsx
     variants: [success, warning, error, info, neutral]
-    
+
   - name: V28EmptyState
     status: ✅ EXISTS
     path: src/components/shared/EmptyState.tsx
-    
+
   - name: V28SearchBar
     status: 🔴 MISSING
     path: src/lib/components/V28SearchBar.tsx
@@ -164,6 +171,7 @@ atoms:
 ```
 
 ### Deliverables
+
 - [ ] 5 neue UI-Atome erstellt (V28Input, V28Card, V28Badge, V28Select, V28SearchBar)
 - [ ] 5 Storybook Stories geschrieben
 - [ ] Design-System Dokumentation aktualisiert
@@ -175,13 +183,14 @@ atoms:
 ### Cluster Analysis (P0 - Critical Components)
 
 #### Cluster 1: GPS/Tracking (P0)
+
 **Components:** 1  
 **Pattern:** Real-time position updates  
 **Migration Strategy:** Create `useVehicleTracking` mutation hook
 
 ```typescript
 // Target Architecture
-import { useVehicleTracking } from '@/hooks/use-vehicle-tracking';
+import { useVehicleTracking } from "@/hooks/use-vehicle-tracking";
 
 const { updatePosition } = useVehicleTracking();
 
@@ -195,18 +204,20 @@ await updatePosition({
 ```
 
 **Files:**
+
 - `src/pages/DriverTracking.tsx` (Line 85: direct supabase.from insert)
 
 ---
 
 #### Cluster 2: Chat/Communication (P0)
+
 **Components:** 1  
 **Pattern:** Message creation & file uploads  
 **Migration Strategy:** Create `useChatMessages` hook with mutations
 
 ```typescript
 // Target Architecture
-import { useChatMessages } from '@/hooks/use-chat-messages';
+import { useChatMessages } from "@/hooks/use-chat-messages";
 
 const { sendMessage, uploadFile } = useChatMessages(conversationId);
 
@@ -215,39 +226,44 @@ await uploadFile({ file: uploadedFile });
 ```
 
 **Files:**
+
 - `src/components/chat/ChatWindow.tsx` (Lines 193, 242: direct inserts)
 
 ---
 
 #### Cluster 3: Error Logging (P1)
+
 **Components:** 1  
 **Pattern:** Error tracking & AI learning  
 **Migration Strategy:** Create `useErrorLogging` hook
 
 ```typescript
 // Target Architecture
-import { useErrorLogging } from '@/hooks/use-error-logging';
+import { useErrorLogging } from "@/hooks/use-error-logging";
 
 const { logError, logLearning } = useErrorLogging();
 
 await logError({
   error_message: error.message,
-  error_category: 'react_error',
-  severity: 'high',
+  error_category: "react_error",
+  severity: "high",
 });
 ```
 
 **Files:**
+
 - `src/components/debug/GlobalErrorBoundary.tsx` (Lines 57, 75)
 
 ---
 
 #### Cluster 4: Form Submissions (P2)
+
 **Components:** 5  
 **Pattern:** Document/Shift/Partner/Cookie data creation  
 **Migration Strategy:** Integrate with existing API layer mutations
 
 **Files:**
+
 - `src/components/forms/DocumentUploadForm.tsx` (Line 152)
 - `src/components/forms/ShiftForm.tsx` (Line 187)
 - `src/components/master/TerminationTool.tsx` (Line 190)
@@ -259,6 +275,7 @@ await logError({
 ### Migration Execution Protocol
 
 **Per Component:**
+
 1. ✅ Identify direct `supabase.from()` call
 2. ✅ Create/use API layer function in `src/lib/api/`
 3. ✅ Create TanStack Query mutation hook in `src/hooks/`
@@ -268,6 +285,7 @@ await logError({
 7. ✅ Delete old direct DB access code
 
 **Priority Sequence:**
+
 1. **Week 1:** Cluster 1 (GPS Tracking) - CRITICAL for live operations
 2. **Week 2:** Cluster 2 (Chat) - HIGH user impact
 3. **Week 3:** Cluster 3 (Error Logging) - System health
@@ -278,24 +296,26 @@ await logError({
 ## 🎯 MISSION III: "CHRONICLE" (Living Documentation)
 
 ### Objective
+
 Auto-update documentation after every code change.
 
 ### Architecture
 
 #### Edge Function: `auto-doc-updater`
+
 ```typescript
 // supabase/functions/auto-doc-updater/index.ts
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
   }
 
   try {
@@ -304,16 +324,16 @@ serve(async (req) => {
 
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY not configured");
 
-    console.log('[Auto-Doc] Processing commit:', commitHash);
-    console.log('[Auto-Doc] Files changed:', filesChanged.length);
-    console.log('[Auto-Doc] Change type:', changeType);
+    console.log("[Auto-Doc] Processing commit:", commitHash);
+    console.log("[Auto-Doc] Files changed:", filesChanged.length);
+    console.log("[Auto-Doc] Change type:", changeType);
 
     // Analyze changes with Gemini 2.5 Flash
     const analysisPrompt = `
 Analyze this code change and update documentation:
 
 **Commit:** ${commitHash}
-**Files Changed:** ${filesChanged.join(', ')}
+**Files Changed:** ${filesChanged.join(", ")}
 **Change Type:** ${changeType}
 
 Tasks:
@@ -344,10 +364,13 @@ Return JSON:
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
         messages: [
-          { role: "system", content: "Documentation Automation Agent: Analyze code changes and update docs." },
-          { role: "user", content: analysisPrompt }
+          {
+            role: "system",
+            content: "Documentation Automation Agent: Analyze code changes and update docs.",
+          },
+          { role: "user", content: analysisPrompt },
         ],
-        response_format: { type: "json_object" }
+        response_format: { type: "json_object" },
       }),
     });
 
@@ -356,23 +379,22 @@ Return JSON:
     const aiData = await response.json();
     const result = JSON.parse(aiData.choices[0].message.content);
 
-    console.log('[Auto-Doc] AI Analysis:', result);
+    console.log("[Auto-Doc] AI Analysis:", result);
 
     return new Response(
       JSON.stringify({
         success: true,
         updates: result.updates,
         changelog: result.changelog,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
-
   } catch (error) {
-    console.error('[Auto-Doc] Error:', error);
+    console.error("[Auto-Doc] Error:", error);
     return new Response(
-      JSON.stringify({ error: error instanceof Error ? error.message : 'Unknown error' }),
-      { headers: { ...corsHeaders, 'Content-Type': 'application/json' }, status: 500 }
+      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
+      { headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 500 }
     );
   }
 });
@@ -381,6 +403,7 @@ Return JSON:
 ### Integration Points
 
 **GitHub Action Trigger:**
+
 ```yaml
 # .github/workflows/auto-doc-on-push.yml
 name: Auto-Update Docs
@@ -389,15 +412,15 @@ on:
   push:
     branches: [main]
     paths:
-      - 'src/**/*.tsx'
-      - 'src/**/*.ts'
+      - "src/**/*.tsx"
+      - "src/**/*.ts"
 
 jobs:
   update-docs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Trigger Doc Update
         run: |
           curl -X POST "${{ secrets.SUPABASE_URL }}/functions/v1/auto-doc-updater" \
@@ -411,24 +434,25 @@ jobs:
 ```
 
 **Manual Trigger (Development):**
+
 ```typescript
 // src/hooks/use-doc-updater.ts
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from "@/integrations/supabase/client";
 
 export function useDocUpdater() {
   const triggerUpdate = async (filesChanged: string[]) => {
-    const { data, error } = await supabase.functions.invoke('auto-doc-updater', {
+    const { data, error } = await supabase.functions.invoke("auto-doc-updater", {
       body: {
-        commitHash: 'manual-trigger',
+        commitHash: "manual-trigger",
         filesChanged,
-        changeType: 'manual'
-      }
+        changeType: "manual",
+      },
     });
-    
+
     if (error) throw error;
     return data;
   };
-  
+
   return { triggerUpdate };
 }
 ```
@@ -438,21 +462,24 @@ export function useDocUpdater() {
 ## 📈 METRICS & TRACKING
 
 ### Mission I (ATLAS) Progress
+
 - [ ] 0/5 new atoms created
 - [ ] 0/5 Storybook stories written
 - [ ] 0% Design System completion
 
 ### Mission II (STRANGLER FIG) Progress
-| Cluster | Priority | Components | Status | ETA |
-|---------|----------|------------|--------|-----|
-| GPS Tracking | P0 | 1 | 🔴 TODO | Week 1 |
-| Chat | P0 | 1 | 🔴 TODO | Week 2 |
-| Error Logging | P1 | 1 | 🔴 TODO | Week 3 |
-| Form Submissions | P2 | 5 | 🔴 TODO | Week 4 |
+
+| Cluster          | Priority | Components | Status  | ETA    |
+| ---------------- | -------- | ---------- | ------- | ------ |
+| GPS Tracking     | P0       | 1          | 🔴 TODO | Week 1 |
+| Chat             | P0       | 1          | 🔴 TODO | Week 2 |
+| Error Logging    | P1       | 1          | 🔴 TODO | Week 3 |
+| Form Submissions | P2       | 5          | 🔴 TODO | Week 4 |
 
 **Total:** 8 components to migrate (not 113!)
 
 ### Mission III (CHRONICLE) Progress
+
 - [ ] Edge Function created
 - [ ] GitHub Action configured
 - [ ] Manual trigger hook implemented
@@ -463,19 +490,23 @@ export function useDocUpdater() {
 ## 🎯 SUCCESS CRITERIA
 
 ### Week 1 Target
+
 - ✅ Mission I: 5 UI atoms created + Storybook stories
 - ✅ Mission II: GPS Tracking cluster migrated (1 component)
 - ✅ Mission III: Edge Function operational
 
 ### Week 2 Target
+
 - ✅ Mission II: Chat cluster migrated (1 component)
 - ✅ Mission III: First automated doc update from GitHub Action
 
 ### Week 3 Target
+
 - ✅ Mission II: Error Logging migrated (1 component)
 - ✅ Mission I: 5 additional UI atoms
 
 ### Week 4 Target
+
 - ✅ Mission II: All Form Submissions migrated (5 components)
 - ✅ 100% TanStack Query adoption for stateful operations
 - ✅ Zero direct Supabase calls in components

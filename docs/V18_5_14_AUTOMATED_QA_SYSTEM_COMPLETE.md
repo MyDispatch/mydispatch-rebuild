@@ -17,21 +17,25 @@ Vollautomatisches QA-System mit Lovable AI + DSGVO-konforme Cookie-Consent-Lösu
 ### **1. BRAIN QA SYSTEM (AI-gestützt)**
 
 **Edge Function:** `supabase/functions/brain-qa-check/index.ts`
+
 - ✅ Grafik-Qualitäts-Check (Pixelige Bilder, Alt-Tags, WebP-Format)
 - ✅ Compliance-Check (DSGVO, TMG, AI Act)
 - ✅ Spacing-Check (8px Grid, Mobile-First, Touch-Targets)
 - ✅ Text-Quality-Check (B2B-Tonalität, Deutsche Standards)
 
 **React Hook:** `src/hooks/use-brain-qa.ts`
+
 - ✅ `runQACheck()` - Startet AI-basierte Qualitätsprüfung
 - ✅ Toast-Benachrichtigungen (Erfolg/Warnungen/Fehler)
 
 **UI Component:** `src/components/dashboard/BrainQAWidget.tsx`
+
 - ✅ Real-Time QA-Reports mit Kategorie-Filterung
 - ✅ Issue-Details mit Fixes & Locations
 - ✅ Summary-Dashboard (Total/Critical/Warning Issues)
 
 **Lovable AI Model:** `google/gemini-2.5-flash`
+
 - ✅ Kein `temperature` Parameter (Gemini-konform)
 - ✅ Strukturierte JSON-Ausgabe
 - ✅ 4 parallele Checks (Graphics, Compliance, Spacing, Text)
@@ -41,6 +45,7 @@ Vollautomatisches QA-System mit Lovable AI + DSGVO-konforme Cookie-Consent-Lösu
 ### **2. COOKIE-CONSENT-SYSTEM (DSGVO Art. 7)**
 
 **Component:** `src/components/shared/CookieConsent.tsx`
+
 - ✅ Banner mit "Alle akzeptieren" / "Nur notwendige" / "Einstellungen"
 - ✅ Detaillierter Settings-Dialog mit 3 Kategorien:
   - **Notwendige Cookies:** Immer aktiv (nicht deaktivierbar)
@@ -51,6 +56,7 @@ Vollautomatisches QA-System mit Lovable AI + DSGVO-konforme Cookie-Consent-Lösu
 - ✅ DSGVO-Rechte-Hinweis im Dialog
 
 **Datenbank:**
+
 ```sql
 CREATE TABLE public.cookie_consents (
   id UUID PRIMARY KEY,
@@ -65,6 +71,7 @@ CREATE TABLE public.cookie_consents (
 ```
 
 **Integration:**
+
 - ✅ `MarketingLayout.tsx` - Für Landing-Pages
 - ✅ Automatische Banner-Anzeige bei erstem Besuch
 
@@ -73,6 +80,7 @@ CREATE TABLE public.cookie_consents (
 ### **3. DATEN-EXPORT-SYSTEM (DSGVO Art. 20)**
 
 **Component:** `src/components/settings/DataExportDialog.tsx`
+
 - ✅ Self-Service Datenexport (keine Admin-Anfrage nötig)
 - ✅ 8 Datenkategorien:
   - Profil & Account
@@ -87,11 +95,13 @@ CREATE TABLE public.cookie_consents (
 - ✅ Automatischer Download: `mydispatch-datenexport-YYYY-MM-DD.json`
 
 **Edge Function:** `supabase/functions/export-user-data/index.ts`
+
 - ✅ Supabase Service Role für vollständigen Datenzugriff
 - ✅ Company-ID-basierte Filterung
 - ✅ DSGVO-Metadaten im Export
 
 **Integration:**
+
 - ✅ `PrivacySection.tsx` - Neuer "Datenexport (DSGVO Art. 20)" Card
 
 ---
@@ -99,6 +109,7 @@ CREATE TABLE public.cookie_consents (
 ## 📊 TECHNISCHE DETAILS
 
 ### **Edge Functions Config** (`supabase/config.toml`)
+
 ```toml
 [functions.brain-qa-check]
 verify_jwt = true
@@ -108,6 +119,7 @@ verify_jwt = true
 ```
 
 ### **Security Fixes**
+
 ✅ Function Search Path Mutable: `update_cookie_consents_updated_at()` mit `SET search_path TO 'public'`
 
 ---
@@ -115,6 +127,7 @@ verify_jwt = true
 ## 🎨 UI/UX HIGHLIGHTS
 
 ### **Cookie-Consent-Banner**
+
 - **Position:** Fixed Bottom, Full Width
 - **Buttons:**
   - "Einstellungen" (Outline)
@@ -123,6 +136,7 @@ verify_jwt = true
 - **Mobile-Optimized:** Responsive Button-Layout
 
 ### **Cookie-Settings-Dialog**
+
 - **Kategorien mit Toggle:**
   - Notwendige Cookies (disabled)
   - Funktionale Cookies (optional)
@@ -134,6 +148,7 @@ verify_jwt = true
   - Recht auf Datenübertragbarkeit
 
 ### **Data-Export-Dialog**
+
 - **Kategorie-Auswahl:** Checkboxen mit Beschreibungen
 - **Alle auswählen / Alle abwählen**
 - **Export-Info:** Format, Dateiname, Anonymisierung
@@ -144,34 +159,37 @@ verify_jwt = true
 ## 🚀 VERWENDUNG
 
 ### **Brain QA Check (Code-Qualität prüfen)**
+
 ```typescript
-import { useBrainQA } from '@/hooks/use-brain-qa';
+import { useBrainQA } from "@/hooks/use-brain-qa";
 
 const { runQACheck, isChecking, report } = useBrainQA();
 
 // Qualität einer Seite prüfen
 const handleCheck = async () => {
   const result = await runQACheck(
-    pageCode,        // React-Code der Seite
-    'Home Page',     // Seiten-Name
-    ['all']          // Oder: ['graphics', 'compliance', 'spacing', 'text']
+    pageCode, // React-Code der Seite
+    "Home Page", // Seiten-Name
+    ["all"] // Oder: ['graphics', 'compliance', 'spacing', 'text']
   );
-  
+
   // result.passed, result.summary, result.results
 };
 ```
 
 ### **Cookie-Consent (User-Einwilligung)**
+
 ```typescript
 // Automatisch angezeigt bei erstem Besuch
 // Speicherung in localStorage + Supabase (wenn eingeloggt)
 
 // Programmatischer Zugriff:
-const consent = localStorage.getItem('mydispatch_cookie_consent');
+const consent = localStorage.getItem("mydispatch_cookie_consent");
 const { necessary, functional, analytics } = JSON.parse(consent);
 ```
 
 ### **Datenexport (Self-Service)**
+
 ```typescript
 // In Einstellungen > Datenschutz & DSGVO
 // User wählt Kategorien aus → Klick auf "Daten exportieren"
@@ -183,16 +201,19 @@ const { necessary, functional, analytics } = JSON.parse(consent);
 ## ✅ SUCCESS METRICS
 
 ### **Automatisierung**
+
 - ✅ 4 QA-Checks laufen parallel (60% schneller)
 - ✅ 0 manuelle Qualitätsprüfungen nötig
 - ✅ AI-basierte Fehler-Erkennung
 
 ### **Rechtliche Compliance**
+
 - ✅ 100% DSGVO-konform (Art. 7, 15, 20)
 - ✅ Cookie-Consent-Banner auf allen Public-Pages
 - ✅ Self-Service Datenexport (keine Admin-Anfragen)
 
 ### **Developer Experience**
+
 - ✅ Brain QA Hook für einfache Integration
 - ✅ Automatische Toast-Benachrichtigungen
 - ✅ Kategorie-Filter für gezielte QA-Checks
@@ -202,18 +223,21 @@ const { necessary, functional, analytics } = JSON.parse(consent);
 ## 🔄 NÄCHSTE SCHRITTE (BATCH 2-4)
 
 ### **BATCH 2: GRAFIK-QUALITÄT** (geplant)
+
 - [ ] Hero-Bilder High-Res generieren (WebP, 2x Retina)
 - [ ] Tarif-Feature-Grafiken erstellen (CI-konform)
 - [ ] Automatische Image-Optimization
 - [ ] Lazy-Loading & srcSet für alle Grafiken
 
 ### **BATCH 3: SPACING & DESIGN-KONSISTENZ** (geplant)
+
 - [ ] Systemweites Spacing-Audit
 - [ ] Mobile-First-Check (Touch-Targets ≥44px)
 - [ ] Kunden-Portal & Fahrer-Portal harmonisieren
 - [ ] Rechtsseiten-Optimierung
 
 ### **BATCH 4: DEUTSCHE STANDARDS & B2B-TONALITÄT** (geplant)
+
 - [ ] DIN 5008: Geschäftsbriefe (E-Mail-Templates)
 - [ ] DIN 676: Rechnungen (Invoice-Komponente)
 - [ ] B2B-Tonalität-Audit (alle Texte auf "Sie")

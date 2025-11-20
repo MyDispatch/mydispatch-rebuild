@@ -7,10 +7,10 @@
    ✅ Bar/Rechnung/Karte Distribution
    ================================================================================== */
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
-import { FileText } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
-import { formatCurrency } from '@/lib/format-utils';
+import { Card, CardContent, CardHeader, CardTitle } from "@/lib/compat";
+import { FileText } from "lucide-react";
+import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
+import { formatCurrency } from "@/lib/format-utils";
 
 interface PaymentMethod {
   name: string;
@@ -24,7 +24,7 @@ interface PaymentMethodsChartProps {
 
 export function PaymentMethodsChart({ data }: PaymentMethodsChartProps) {
   const total = data.reduce((sum, item) => sum + item.value, 0);
-  
+
   return (
     <Card className="bg-white border border-slate-200 shadow-sm hover:shadow-md transition-all duration-200">
       <CardHeader className="pb-3">
@@ -32,17 +32,13 @@ export function PaymentMethodsChart({ data }: PaymentMethodsChartProps) {
           <div className="p-2 rounded-lg bg-slate-100">
             <FileText className="h-4 w-4 text-slate-700" />
           </div>
-          <CardTitle className="text-sm font-semibold text-slate-900">
-            Zahlungsarten
-          </CardTitle>
+          <CardTitle className="text-sm font-semibold text-slate-900">Zahlungsarten</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="pb-3">
         {data.length === 0 || total === 0 ? (
           <div className="py-8 text-center">
-            <p className="text-sm font-medium text-slate-600">
-              Keine Daten verfügbar
-            </p>
+            <p className="text-sm font-medium text-slate-600">Keine Daten verfügbar</p>
           </div>
         ) : (
           <>
@@ -64,10 +60,10 @@ export function PaymentMethodsChart({ data }: PaymentMethodsChartProps) {
                 <Tooltip
                   formatter={(value: number) => formatCurrency(value)}
                   contentStyle={{
-                    backgroundColor: 'white',
-                    border: '1px solid rgb(226 232 240)',
-                    borderRadius: '8px',
-                    fontSize: '12px',
+                    backgroundColor: "white",
+                    border: "1px solid rgb(226 232 240)",
+                    borderRadius: "8px",
+                    fontSize: "12px",
                   }}
                 />
               </PieChart>
@@ -83,9 +79,7 @@ export function PaymentMethodsChart({ data }: PaymentMethodsChartProps) {
                       className="w-3 h-3 rounded-full"
                       style={{ backgroundColor: method.color }}
                     />
-                    <span className="text-xs font-medium text-slate-900">
-                      {method.name}
-                    </span>
+                    <span className="text-xs font-medium text-slate-900">{method.name}</span>
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-bold text-slate-900">

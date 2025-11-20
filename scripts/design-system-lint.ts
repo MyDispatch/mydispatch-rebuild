@@ -5,16 +5,16 @@
    Verhindert Design-System Violations durch Pre-Commit Check
    ================================================================================== */
 
-import { glob } from 'glob';
-import { readFileSync } from 'fs';
-import * as path from 'path';
+import { glob } from "glob";
+import { readFileSync } from "fs";
+import * as path from "path";
 
 interface Violation {
   file: string;
   line: number;
   column: number;
   message: string;
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | "high" | "medium" | "low";
   pattern: string;
 }
 
@@ -22,33 +22,33 @@ const FORBIDDEN_PATTERNS = [
   {
     pattern: /\baccent(-foreground)?\b/g,
     message: '❌ CRITICAL: Use "primary" instead of "accent"',
-    severity: 'critical' as const,
+    severity: "critical" as const,
   },
   {
     pattern: /\b(text-white|bg-white|text-black|bg-black)\b/g,
-    message: '❌ HIGH: Use semantic tokens (text-foreground, bg-background, etc.)',
-    severity: 'high' as const,
+    message: "❌ HIGH: Use semantic tokens (text-foreground, bg-background, etc.)",
+    severity: "high" as const,
   },
   {
     pattern: /<Separator[^>]*\/>/g,
-    message: '❌ MEDIUM: No <Separator /> in dialogs - use DIALOG_LAYOUT utilities',
-    severity: 'medium' as const,
+    message: "❌ MEDIUM: No <Separator /> in dialogs - use DIALOG_LAYOUT utilities",
+    severity: "medium" as const,
   },
   {
     pattern: /className=["'][^"']*\b(min-h-\[(?!44px|88px)[0-9]+px\])\b[^"']*["']/g,
-    message: '⚠️ LOW: Touch targets should be min-h-[44px] (or min-h-[88px] for textarea)',
-    severity: 'low' as const,
+    message: "⚠️ LOW: Touch targets should be min-h-[44px] (or min-h-[88px] for textarea)",
+    severity: "low" as const,
   },
   {
     pattern: /\bfrom-\[#[0-9a-fA-F]{6}\]/g,
-    message: '❌ HIGH: Use HSL colors from design system, not hex colors',
-    severity: 'high' as const,
+    message: "❌ HIGH: Use HSL colors from design system, not hex colors",
+    severity: "high" as const,
   },
 ];
 
 async function lintFile(filePath: string): Promise<Violation[]> {
-  const content = readFileSync(filePath, 'utf8');
-  const lines = content.split('\n');
+  const content = readFileSync(filePath, "utf8");
+  const lines = content.split("\n");
   const violations: Violation[] = [];
 
   lines.forEach((line, lineIndex) => {
@@ -73,10 +73,10 @@ async function lintFile(filePath: string): Promise<Violation[]> {
 }
 
 async function lintDesignSystem() {
-  console.log('🔍 Scanning for Design System Violations...\n');
+  console.log("🔍 Scanning for Design System Violations...\n");
 
-  const files = await glob('src/**/*.{ts,tsx}', {
-    ignore: ['**/node_modules/**', '**/dist/**', '**/build/**'],
+  const files = await glob("src/**/*.{ts,tsx}", {
+    ignore: ["**/node_modules/**", "**/dist/**", "**/build/**"],
   });
 
   const allViolations: Violation[] = [];
@@ -87,19 +87,19 @@ async function lintDesignSystem() {
   }
 
   // Group by severity
-  const critical = allViolations.filter(v => v.severity === 'critical');
-  const high = allViolations.filter(v => v.severity === 'high');
-  const medium = allViolations.filter(v => v.severity === 'medium');
-  const low = allViolations.filter(v => v.severity === 'low');
+  const critical = allViolations.filter((v) => v.severity === "critical");
+  const high = allViolations.filter((v) => v.severity === "high");
+  const medium = allViolations.filter((v) => v.severity === "medium");
+  const low = allViolations.filter((v) => v.severity === "low");
 
   // Print results
   if (allViolations.length === 0) {
-    console.log('✅ No design system violations found!');
-    console.log('🎉 All files are compliant with the design system.\n');
+    console.log("✅ No design system violations found!");
+    console.log("🎉 All files are compliant with the design system.\n");
     process.exit(0);
   }
 
-  console.log('❌ Design System Violations Found:\n');
+  console.log("❌ Design System Violations Found:\n");
   console.log(`  🔴 Critical: ${critical.length}`);
   console.log(`  🟠 High: ${high.length}`);
   console.log(`  🟡 Medium: ${medium.length}`);
@@ -108,8 +108,8 @@ async function lintDesignSystem() {
 
   // Print critical violations first
   if (critical.length > 0) {
-    console.log('🔴 CRITICAL VIOLATIONS (Must fix immediately):\n');
-    critical.forEach(v => {
+    console.log("🔴 CRITICAL VIOLATIONS (Must fix immediately):\n");
+    critical.forEach((v) => {
       console.log(`  ${path.relative(process.cwd(), v.file)}:${v.line}:${v.column}`);
       console.log(`    ${v.message}`);
       console.log(`    Found: "${v.pattern}"\n`);
@@ -118,8 +118,8 @@ async function lintDesignSystem() {
 
   // Print high violations
   if (high.length > 0 && high.length <= 20) {
-    console.log('🟠 HIGH PRIORITY VIOLATIONS:\n');
-    high.slice(0, 10).forEach(v => {
+    console.log("🟠 HIGH PRIORITY VIOLATIONS:\n");
+    high.slice(0, 10).forEach((v) => {
       console.log(`  ${path.relative(process.cwd(), v.file)}:${v.line}:${v.column}`);
       console.log(`    ${v.message}`);
       console.log(`    Found: "${v.pattern}"\n`);
@@ -130,9 +130,9 @@ async function lintDesignSystem() {
   }
 
   // Summary
-  console.log('📋 SUMMARY:\n');
-  console.log('  Please fix all critical violations before committing.');
-  console.log('  Run this script again after fixes to verify.\n');
+  console.log("📋 SUMMARY:\n");
+  console.log("  Please fix all critical violations before committing.");
+  console.log("  Run this script again after fixes to verify.\n");
 
   // Exit with error code if critical or high violations exist
   if (critical.length > 0 || high.length > 0) {
@@ -142,7 +142,7 @@ async function lintDesignSystem() {
   process.exit(0);
 }
 
-lintDesignSystem().catch(error => {
-  console.error('❌ Linter failed:', error);
+lintDesignSystem().catch((error) => {
+  console.error("❌ Linter failed:", error);
   process.exit(1);
 });

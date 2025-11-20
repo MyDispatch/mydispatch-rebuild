@@ -1,4 +1,5 @@
 # 📋 AUFTRÄGE SPECIFICATION V18.3.29
+
 ## Entwicklervorgabe & Template-Master
 
 **Status:** Production-Ready (Master-Template)  
@@ -105,21 +106,21 @@ DashboardLayout (Wrapper)
 
 ### Verwendete Labary-Komponenten
 
-| UI-Element | Komponente | Pfad | Variante |
-|------------|-----------|------|----------|
-| **Layout** | DashboardLayout | `@/components/layouts/DashboardLayout` | - |
-| **KPI Cards** | KPICard | `@/components/design-system/KPICard` | default |
-| **Table** | Table | `@/components/ui/table` | default |
-| **Cards** | Card | `@/components/ui/card` | default |
-| **Buttons** | Button | `@/components/ui/button` | default, outline, ghost |
-| **Input** | Input | `@/components/ui/input` | with icon |
-| **Select** | Select | `@/components/ui/select` | default |
-| **Tabs** | Tabs | `@/components/ui/tabs` | default |
-| **Dialog** | Dialog | `@/components/ui/dialog` | default |
-| **Badge** | ResponsiveBadge | `@/components/design-system/ResponsiveBadge` | status variants |
-| **Icons** | Icon (Lucide) | `lucide-react` | - |
-| **Dropdowns** | DropdownMenu | `@/components/ui/dropdown-menu` | - |
-| **DatePicker** | DateRangePicker | `@/components/ui/date-range-picker` | - |
+| UI-Element     | Komponente      | Pfad                                         | Variante                |
+| -------------- | --------------- | -------------------------------------------- | ----------------------- |
+| **Layout**     | DashboardLayout | `@/components/layouts/DashboardLayout`       | -                       |
+| **KPI Cards**  | KPICard         | `@/components/design-system/KPICard`         | default                 |
+| **Table**      | Table           | `@/components/ui/table`                      | default                 |
+| **Cards**      | Card            | `@/components/ui/card`                       | default                 |
+| **Buttons**    | Button          | `@/components/ui/button`                     | default, outline, ghost |
+| **Input**      | Input           | `@/components/ui/input`                      | with icon               |
+| **Select**     | Select          | `@/components/ui/select`                     | default                 |
+| **Tabs**       | Tabs            | `@/components/ui/tabs`                       | default                 |
+| **Dialog**     | Dialog          | `@/components/ui/dialog`                     | default                 |
+| **Badge**      | ResponsiveBadge | `@/components/design-system/ResponsiveBadge` | status variants         |
+| **Icons**      | Icon (Lucide)   | `lucide-react`                               | -                       |
+| **Dropdowns**  | DropdownMenu    | `@/components/ui/dropdown-menu`              | -                       |
+| **DatePicker** | DateRangePicker | `@/components/ui/date-range-picker`          | -                       |
 
 ---
 
@@ -132,7 +133,7 @@ DashboardLayout (Wrapper)
     <h1 className="text-3xl font-bold">Aufträge</h1>
     <p className="text-muted-foreground">Verwaltung aller Transportaufträge</p>
   </div>
-  
+
   {/* Right: Actions */}
   <div className="flex gap-2 w-full sm:w-auto">
     {/* Search */}
@@ -145,7 +146,7 @@ DashboardLayout (Wrapper)
         onChange={(e) => setSearchQuery(e.target.value)}
       />
     </div>
-    
+
     {/* New Order Button */}
     <Button onClick={handleCreateOrder}>
       <Plus className="h-4 w-4 mr-2" />
@@ -161,15 +162,15 @@ DashboardLayout (Wrapper)
 ### Status-Badge-System
 
 ```tsx
-import { ResponsiveBadge } from '@/components/design-system/ResponsiveBadge';
+import { ResponsiveBadge } from "@/components/design-system/ResponsiveBadge";
 
 // Status Mapping
 const STATUS_CONFIG: Record<OrderStatus, ResponsiveBadgeVariant> = {
-  pending: 'warning',      // Gelb
-  assigned: 'info',        // Blau
-  in_transit: 'processing',// Lila
-  delivered: 'success',    // Grün
-  cancelled: 'destructive' // Rot
+  pending: "warning", // Gelb
+  assigned: "info", // Blau
+  in_transit: "processing", // Lila
+  delivered: "success", // Grün
+  cancelled: "destructive", // Rot
 };
 
 // Verwendung
@@ -177,7 +178,7 @@ const STATUS_CONFIG: Record<OrderStatus, ResponsiveBadgeVariant> = {
   variant={STATUS_CONFIG[order.status]}
   label={getStatusLabel(order.status)}
   className="w-full sm:w-auto"
-/>
+/>;
 ```
 
 **WICHTIG:** Status-Badges verwenden das Ampelsystem, Icons NICHT!
@@ -207,11 +208,14 @@ const STATUS_CONFIG: Record<OrderStatus, ResponsiveBadgeVariant> = {
         <TableCell>{order.customer_name}</TableCell>
         <TableCell className="max-w-[200px] truncate">{order.pickup_address}</TableCell>
         <TableCell className="max-w-[200px] truncate">{order.delivery_address}</TableCell>
-        <TableCell>{format(order.pickup_date, 'dd.MM.yyyy')}</TableCell>
+        <TableCell>{format(order.pickup_date, "dd.MM.yyyy")}</TableCell>
         <TableCell>
-          <ResponsiveBadge variant={STATUS_CONFIG[order.status]} label={getStatusLabel(order.status)} />
+          <ResponsiveBadge
+            variant={STATUS_CONFIG[order.status]}
+            label={getStatusLabel(order.status)}
+          />
         </TableCell>
-        <TableCell>{order.driver?.full_name || '-'}</TableCell>
+        <TableCell>{order.driver?.full_name || "-"}</TableCell>
         <TableCell className="text-right">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -247,7 +251,9 @@ const STATUS_CONFIG: Record<OrderStatus, ResponsiveBadgeVariant> = {
 ### Mobile Card-Layout
 
 ```tsx
-{/* Mobile: Card List */}
+{
+  /* Mobile: Card List */
+}
 <div className="sm:hidden space-y-4 p-4">
   {orders.map((order) => (
     <Card key={order.id} className="cursor-pointer hover:shadow-md transition-shadow">
@@ -258,9 +264,12 @@ const STATUS_CONFIG: Record<OrderStatus, ResponsiveBadgeVariant> = {
             <p className="font-semibold">{order.order_number}</p>
             <p className="text-sm text-muted-foreground">{order.customer_name}</p>
           </div>
-          <ResponsiveBadge variant={STATUS_CONFIG[order.status]} label={getStatusLabel(order.status)} />
+          <ResponsiveBadge
+            variant={STATUS_CONFIG[order.status]}
+            label={getStatusLabel(order.status)}
+          />
         </div>
-        
+
         {/* Addresses */}
         <div className="space-y-2 text-sm">
           <div className="flex gap-2">
@@ -278,12 +287,12 @@ const STATUS_CONFIG: Record<OrderStatus, ResponsiveBadgeVariant> = {
             </div>
           </div>
         </div>
-        
+
         {/* Footer */}
         <div className="flex justify-between items-center pt-2 border-t">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Calendar className="h-4 w-4" />
-            {format(order.pickup_date, 'dd.MM.yyyy')}
+            {format(order.pickup_date, "dd.MM.yyyy")}
           </div>
           <Button variant="ghost" size="sm" onClick={() => handleEdit(order)}>
             Bearbeiten
@@ -292,7 +301,7 @@ const STATUS_CONFIG: Record<OrderStatus, ResponsiveBadgeVariant> = {
       </CardContent>
     </Card>
   ))}
-</div>
+</div>;
 ```
 
 ---
@@ -342,19 +351,19 @@ const STATUS_CONFIG: Record<OrderStatus, ResponsiveBadgeVariant> = {
 
 ```css
 /* Pending (Offen) */
---status-warning: 48 96% 53%;  /* Gelb */
+--status-warning: 48 96% 53%; /* Gelb */
 
 /* Assigned (Zugewiesen) */
---status-info: 217 91% 60%;    /* Blau */
+--status-info: 217 91% 60%; /* Blau */
 
 /* In Transit (Unterwegs) */
---status-processing: 262 83% 58%;  /* Lila */
+--status-processing: 262 83% 58%; /* Lila */
 
 /* Delivered (Erledigt) */
---status-success: 142 76% 36%;  /* Grün */
+--status-success: 142 76% 36%; /* Grün */
 
 /* Cancelled (Storniert) */
---status-error: 0 84% 60%;     /* Rot */
+--status-error: 0 84% 60%; /* Rot */
 ```
 
 ---
@@ -368,13 +377,13 @@ const OrdersPage = () => {
   // ========================================================================
   // STATE
   // ========================================================================
-  const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState<OrderStatus | 'all'>('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<OrderStatus | "all">("all");
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
-  const [sortBy, setSortBy] = useState<'date' | 'status' | 'customer'>('date');
+  const [sortBy, setSortBy] = useState<"date" | "status" | "customer">("date");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(20);
-  
+
   // Dialog States
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -384,36 +393,40 @@ const OrdersPage = () => {
   // ========================================================================
   // DATA FETCHING
   // ========================================================================
-  const { data: orders, isLoading, error } = useQuery({
-    queryKey: ['orders', statusFilter, searchQuery, dateRange, sortBy, currentPage],
+  const {
+    data: orders,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["orders", statusFilter, searchQuery, dateRange, sortBy, currentPage],
     queryFn: async () => {
       let query = supabase
-        .from('orders')
-        .select('*, customer:customers(*), driver:drivers(*)')
-        .order(sortBy === 'date' ? 'pickup_date' : sortBy, { ascending: false });
-      
+        .from("orders")
+        .select("*, customer:customers(*), driver:drivers(*)")
+        .order(sortBy === "date" ? "pickup_date" : sortBy, { ascending: false });
+
       // Filter by Status
-      if (statusFilter !== 'all') {
-        query = query.eq('status', statusFilter);
+      if (statusFilter !== "all") {
+        query = query.eq("status", statusFilter);
       }
-      
+
       // Search by Order Number
       if (searchQuery) {
-        query = query.ilike('order_number', `%${searchQuery}%`);
+        query = query.ilike("order_number", `%${searchQuery}%`);
       }
-      
+
       // Date Range Filter
       if (dateRange?.from) {
-        query = query.gte('pickup_date', dateRange.from.toISOString());
+        query = query.gte("pickup_date", dateRange.from.toISOString());
       }
       if (dateRange?.to) {
-        query = query.lte('pickup_date', dateRange.to.toISOString());
+        query = query.lte("pickup_date", dateRange.to.toISOString());
       }
-      
+
       // Pagination
       const start = (currentPage - 1) * itemsPerPage;
       query = query.range(start, start + itemsPerPage - 1);
-      
+
       const { data, error } = await query;
       if (error) throw error;
       return data;
@@ -423,9 +436,9 @@ const OrdersPage = () => {
 
   // KPI Counts
   const { data: kpiData } = useQuery({
-    queryKey: ['orders', 'kpis'],
+    queryKey: ["orders", "kpis"],
     queryFn: async () => {
-      const { data, error } = await supabase.rpc('get_order_kpis');
+      const { data, error } = await supabase.rpc("get_order_kpis");
       if (error) throw error;
       return data;
     },
@@ -436,17 +449,13 @@ const OrdersPage = () => {
   // ========================================================================
   const createMutation = useMutation({
     mutationFn: async (newOrder: CreateOrderInput) => {
-      const { data, error } = await supabase
-        .from('orders')
-        .insert(newOrder)
-        .select()
-        .single();
+      const { data, error } = await supabase.from("orders").insert(newOrder).select().single();
       if (error) throw error;
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
-      toast.success('Auftrag erstellt');
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      toast.success("Auftrag erstellt");
       setIsCreateDialogOpen(false);
     },
     onError: (error) => {
@@ -456,30 +465,24 @@ const OrdersPage = () => {
 
   const updateMutation = useMutation({
     mutationFn: async ({ id, updates }: { id: string; updates: Partial<Order> }) => {
-      const { error } = await supabase
-        .from('orders')
-        .update(updates)
-        .eq('id', id);
+      const { error } = await supabase.from("orders").update(updates).eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
-      toast.success('Auftrag aktualisiert');
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      toast.success("Auftrag aktualisiert");
       setIsEditDialogOpen(false);
     },
   });
 
   const deleteMutation = useMutation({
     mutationFn: async (id: string) => {
-      const { error } = await supabase
-        .from('orders')
-        .delete()
-        .eq('id', id);
+      const { error } = await supabase.from("orders").delete().eq("id", id);
       if (error) throw error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['orders'] });
-      toast.success('Auftrag gelöscht');
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+      toast.success("Auftrag gelöscht");
     },
   });
 
@@ -508,7 +511,7 @@ const OrdersPage = () => {
   };
 
   const handleStatusFilterChange = (status: string) => {
-    setStatusFilter(status as OrderStatus | 'all');
+    setStatusFilter(status as OrderStatus | "all");
     setCurrentPage(1); // Reset to first page
   };
 
@@ -517,14 +520,10 @@ const OrdersPage = () => {
   // ========================================================================
   useEffect(() => {
     const channel = supabase
-      .channel('orders-changes')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'orders' },
-        () => {
-          queryClient.invalidateQueries({ queryKey: ['orders'] });
-        }
-      )
+      .channel("orders-changes")
+      .on("postgres_changes", { event: "*", schema: "public", table: "orders" }, () => {
+        queryClient.invalidateQueries({ queryKey: ["orders"] });
+      })
       .subscribe();
 
     return () => {
@@ -540,18 +539,18 @@ const OrdersPage = () => {
 
 ### User Interactions
 
-| Aktion | Trigger | Effekt | Feedback |
-|--------|---------|--------|----------|
-| **Search** | Input onChange | Debounced Query Update | Table Update |
-| **Filter Status** | Tab Click | Update statusFilter | Highlight Active Tab |
-| **Date Range** | DatePicker Select | Update dateRange | Table Update |
-| **Sort** | Dropdown Change | Update sortBy | Table Reorder |
-| **Row Click** | Table Row Click | Open Order Details | Row Highlight |
-| **Create** | Button Click | Open Create Dialog | Dialog Slide-In |
-| **Edit** | Dropdown Item | Open Edit Dialog | Pre-filled Form |
-| **Assign Driver** | Dropdown Item | Open Assign Dialog | Driver Dropdown |
-| **Delete** | Dropdown Item | Confirm → Delete | Toast Notification |
-| **Pagination** | Page Click | Update currentPage | Table Update |
+| Aktion            | Trigger           | Effekt                 | Feedback             |
+| ----------------- | ----------------- | ---------------------- | -------------------- |
+| **Search**        | Input onChange    | Debounced Query Update | Table Update         |
+| **Filter Status** | Tab Click         | Update statusFilter    | Highlight Active Tab |
+| **Date Range**    | DatePicker Select | Update dateRange       | Table Update         |
+| **Sort**          | Dropdown Change   | Update sortBy          | Table Reorder        |
+| **Row Click**     | Table Row Click   | Open Order Details     | Row Highlight        |
+| **Create**        | Button Click      | Open Create Dialog     | Dialog Slide-In      |
+| **Edit**          | Dropdown Item     | Open Edit Dialog       | Pre-filled Form      |
+| **Assign Driver** | Dropdown Item     | Open Assign Dialog     | Driver Dropdown      |
+| **Delete**        | Dropdown Item     | Confirm → Delete       | Toast Notification   |
+| **Pagination**    | Page Click        | Update currentPage     | Table Update         |
 
 ---
 
@@ -573,7 +572,7 @@ GET  /api/orders/kpis
 ### Validation Schema (Zod)
 
 ```typescript
-import { CreateOrderSchema, validateOrder } from '@/lib/validation';
+import { CreateOrderSchema, validateOrder } from "@/lib/validation";
 
 const handleSubmit = (formData: unknown) => {
   // 1. Validation
@@ -694,13 +693,13 @@ query = query.range(start, start + itemsPerPage - 1);
 ### Debounced Search
 
 ```tsx
-import { useDebouncedValue } from '@/hooks/useDebouncedValue';
+import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 
-const [searchInput, setSearchInput] = useState('');
+const [searchInput, setSearchInput] = useState("");
 const debouncedSearch = useDebouncedValue(searchInput, 300);
 
 // Query verwendet debounced value
-queryKey: ['orders', debouncedSearch]
+queryKey: ["orders", debouncedSearch];
 ```
 
 ---
@@ -709,9 +708,9 @@ queryKey: ['orders', debouncedSearch]
 
 ```tsx
 const filteredOrders = useMemo(() => {
-  return orders?.filter(order => {
+  return orders?.filter((order) => {
     // Client-side filters for instant feedback
-    if (statusFilter !== 'all' && order.status !== statusFilter) {
+    if (statusFilter !== "all" && order.status !== statusFilter) {
       return false;
     }
     return true;
@@ -734,4 +733,4 @@ const filteredOrders = useMemo(() => {
 
 **END OF DOCUMENT**
 
-*Diese Spezifikation ist verbindlich und muss bei allen Arbeiten an der Aufträge-Seite befolgt werden.*
+_Diese Spezifikation ist verbindlich und muss bei allen Arbeiten an der Aufträge-Seite befolgt werden._

@@ -6,10 +6,10 @@
    - Connection Target: < 500ms
    ================================================================================== */
 
-import { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { useAuth } from './use-auth';
+import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "./use-auth";
 
 export const useRealtimeDocuments = () => {
   const queryClient = useQueryClient();
@@ -18,31 +18,31 @@ export const useRealtimeDocuments = () => {
   useEffect(() => {
     if (!profile?.company_id) return;
 
-    console.log('[Realtime] Subscribing to documents-realtime-updates');
+    console.log("[Realtime] Subscribing to documents-realtime-updates");
 
     const channel = supabase
-      .channel('documents-realtime-updates')
+      .channel("documents-realtime-updates")
       .on(
-        'postgres_changes',
+        "postgres_changes",
         {
-          event: '*',
-          schema: 'public',
-          table: 'documents',
+          event: "*",
+          schema: "public",
+          table: "documents",
           filter: `company_id=eq.${profile.company_id}`,
         },
         (payload) => {
-          console.log('[Realtime] Document change:', payload);
-          queryClient.invalidateQueries({ 
-            queryKey: ['documents', profile.company_id] 
+          console.log("[Realtime] Document change:", payload);
+          queryClient.invalidateQueries({
+            queryKey: ["documents", profile.company_id],
           });
         }
       )
       .subscribe((status) => {
-        console.log('[Realtime] Documents subscription status:', status);
+        console.log("[Realtime] Documents subscription status:", status);
       });
 
     return () => {
-      console.log('[Realtime] Unsubscribing from documents-realtime-updates');
+      console.log("[Realtime] Unsubscribing from documents-realtime-updates");
       supabase.removeChannel(channel);
     };
   }, [queryClient, profile?.company_id]);

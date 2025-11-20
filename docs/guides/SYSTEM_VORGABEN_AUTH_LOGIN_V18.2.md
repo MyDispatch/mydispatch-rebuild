@@ -5,8 +5,9 @@
 ## 🔒 KRITISCHE ARCHITEKTUR-REGEL
 
 Es gibt **NUR EINEN** zentralen Login für ALLE Benutzergruppen:
+
 - Unternehmer
-- Kunden  
+- Kunden
 - Fahrer
 
 Route: `/auth`
@@ -16,11 +17,13 @@ Route: `/auth`
 ### 1. Login-Route: `/auth`
 
 **Parameter:**
+
 - `company` (optional): Company-ID für gebrandete Ansicht
 - `mode` (optional): `customer` für Kunden-Login/-Registrierung
 - `tab` (optional): `login`, `signup`, `reset` für initial aktiven Tab
 
 **Beispiele:**
+
 ```
 /auth                              → Unternehmer-Login (ungebrandet)
 /auth?company=X                    → Unternehmer-Login (gebrandet)
@@ -35,25 +38,27 @@ Nach erfolgreichem Login wird automatisch weitergeleitet:
 ```typescript
 1. Prüfe: Hat User Profile in profiles-Tabelle?
    → JA: navigate('/dashboard') // Unternehmer/Fahrer
-   
+
 2. Prüfe: Hat User Eintrag in customers mit has_portal_access=true?
-   → JA: 
+   → JA:
      - sessionStorage.setItem('portal_mode', 'true')
      - sessionStorage.setItem('portal_customer_id', customerId)
      - sessionStorage.setItem('portal_company_id', companyId)
      - navigate('/portal')
-   
+
 3. Sonst: Fehlermeldung "Kein Zugang gefunden"
 ```
 
 ### 3. Registrierung
 
 **A) Unternehmer-Registrierung** (`mode` nicht gesetzt):
+
 - Tarif-Auswahl: Starter oder Business
 - Stripe Checkout für Abonnement
 - Erstellt: Company + Profile + user_roles (admin)
 
 **B) Kunden-Registrierung** (`mode=customer`):
+
 - Keine Tarif-Auswahl
 - Kostenlos
 - Erstellt: Customer-Eintrag mit `has_portal_access=true`
@@ -73,17 +78,18 @@ window.location.href = `/auth?company=${companyId}&mode=customer&tab=signup`;
 
 ```typescript
 // Prüft sessionStorage für Portal-Zugang
-const portalMode = sessionStorage.getItem('portal_mode');
-const customerId = sessionStorage.getItem('portal_customer_id');
+const portalMode = sessionStorage.getItem("portal_mode");
+const customerId = sessionStorage.getItem("portal_customer_id");
 
 if (!portalMode || !customerId) {
-  navigate('/auth?mode=customer');
+  navigate("/auth?mode=customer");
 }
 ```
 
 ### 6. Unternehmer-Landingpage
 
 **Login-Button-Logik:**
+
 ```typescript
 {hasCustomerPortal ? (
   <a href={`/auth?company=${company.id}&mode=customer`}>Login</a>
@@ -94,11 +100,11 @@ if (!portalMode || !customerId) {
 
 ## Tab-Sichtbarkeit
 
-| Szenario | Login | Signup | Reset |
-|----------|-------|--------|-------|
-| Nicht gebrandet | ✅ | ✅ | ✅ |
-| Gebrandet + mode=customer | ✅ | ✅ | ✅ |
-| Gebrandet (kein mode) | ✅ | ❌ | ✅ |
+| Szenario                  | Login | Signup | Reset |
+| ------------------------- | ----- | ------ | ----- |
+| Nicht gebrandet           | ✅    | ✅     | ✅    |
+| Gebrandet + mode=customer | ✅    | ✅     | ✅    |
+| Gebrandet (kein mode)     | ✅    | ❌     | ✅    |
 
 ## Validation Schemas
 
@@ -117,7 +123,7 @@ const signupSchema = z.object({
   lastName: z.string().min(2),
   companyName: z.string().min(2),
   taxId: z.string().min(5),
-  tariff: z.enum(['starter', 'business']),
+  tariff: z.enum(["starter", "business"]),
 });
 
 // Kunden-Registrierung

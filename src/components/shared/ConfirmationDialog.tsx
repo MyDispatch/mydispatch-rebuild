@@ -6,8 +6,8 @@
    - Wichtige Statusänderungen
    ================================================================================== */
 
-import { useState, ReactNode } from 'react';
-import { handleError } from '@/lib/error-handler';
+import { useState, ReactNode } from "react";
+import { handleError } from "@/lib/error-handler";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,10 +18,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
+} from "@/components/ui/alert-dialog";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 interface ConfirmationDialogProps {
   trigger: ReactNode;
@@ -31,18 +31,18 @@ interface ConfirmationDialogProps {
   cancelText?: string;
   onConfirm: () => Promise<void>;
   requireDoubleConfirm?: boolean;
-  variant?: 'default' | 'destructive';
+  variant?: "default" | "destructive";
 }
 
 export function ConfirmationDialog({
   trigger,
   title,
   description,
-  confirmText = 'Bestätigen',
-  cancelText = 'Abbrechen',
+  confirmText = "Bestätigen",
+  cancelText = "Abbrechen",
   onConfirm,
   requireDoubleConfirm = false,
-  variant = 'default',
+  variant = "default",
 }: ConfirmationDialogProps) {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -59,7 +59,7 @@ export function ConfirmationDialog({
       setOpen(false);
       setDoubleChecked(false);
     } catch (error) {
-      handleError(error, 'Bestätigungsfehler', { showToast: false });
+      handleError(error, "Bestätigungsfehler", { showToast: false });
     } finally {
       setIsLoading(false);
     }
@@ -67,9 +67,7 @@ export function ConfirmationDialog({
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        {trigger}
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
@@ -97,9 +95,13 @@ export function ConfirmationDialog({
           <AlertDialogAction
             onClick={handleConfirm}
             disabled={isLoading || (requireDoubleConfirm && !doubleChecked)}
-            className={variant === 'destructive' ? 'bg-destructive hover:bg-destructive/90' : 'bg-primary hover:bg-primary/90 text-primary-foreground'}
+            className={
+              variant === "destructive"
+                ? "bg-destructive hover:bg-destructive/90"
+                : "bg-primary hover:bg-primary/90 text-primary-foreground"
+            }
           >
-            {isLoading ? 'Wird verarbeitet...' : confirmText}
+            {isLoading ? "Wird verarbeitet..." : confirmText}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

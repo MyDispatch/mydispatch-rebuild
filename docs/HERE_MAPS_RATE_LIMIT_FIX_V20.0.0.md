@@ -9,7 +9,9 @@
 ## 🚨 PROBLEME (BEHOBEN)
 
 ### 1. Rate Limit erreicht
-**Problem:**  
+
+**Problem:**
+
 ```json
 {
   "status": "API Limit erreicht",
@@ -17,7 +19,8 @@
 }
 ```
 
-**Lösung:**  
+**Lösung:**
+
 - API-Key-Caching für 1 Stunde implementiert
 - `HERE_API_KEY_CACHE` wird nur alle 60 Minuten neu geladen
 - Reduziert API-Calls um ~95%
@@ -27,26 +30,31 @@ let HERE_API_KEY_CACHE: string | null = null;
 let API_KEY_TIMESTAMP: number = 0;
 const CACHE_DURATION = 1000 * 60 * 60; // 1 Stunde
 
-if (HERE_API_KEY_CACHE && (now - API_KEY_TIMESTAMP) < CACHE_DURATION) {
+if (HERE_API_KEY_CACHE && now - API_KEY_TIMESTAMP < CACHE_DURATION) {
   return HERE_API_KEY_CACHE;
 }
 ```
 
 ### 2. Karte komplett verdeckt
+
 **Problem:**  
 Legend hatte `z-10` und überlagerte die Karte.
 
-**Lösung:**  
+**Lösung:**
+
 - Legend z-index auf `5` reduziert
 - Map hat implizit `z-1`
 
 ### 3. Icons fehlerhaft & Wagennummer fehlt
-**Problem:**  
+
+**Problem:**
+
 - Emoji-Icons (🚗) waren nicht design-konform
 - Keine Wagennummer sichtbar
 - Status nicht erkennbar
 
-**Lösung:**  
+**Lösung:**
+
 - Migration: `vehicle_number` Spalte hinzugefügt
 - Neue Icons: Kreis mit Wagennummer (z.B. "01", "02")
 - Ampelfarben für Status:
@@ -71,12 +79,13 @@ Legend hatte `z-10` und überlagerte die Karte.
 ```
 
 ### Ampelfarben
+
 ```typescript
 const statusColors = {
-  'available': CI_COLORS_HEX.statusSuccess,    // Grün
-  'im_einsatz': CI_COLORS_HEX.statusWarning,   // Gelb
-  'wartung': CI_COLORS_HEX.statusError,        // Rot
-  'defekt': 'hsl(0 0% 42%)'                    // Grau
+  available: CI_COLORS_HEX.statusSuccess, // Grün
+  im_einsatz: CI_COLORS_HEX.statusWarning, // Gelb
+  wartung: CI_COLORS_HEX.statusError, // Rot
+  defekt: "hsl(0 0% 42%)", // Grau
 };
 ```
 
@@ -84,17 +93,18 @@ const statusColors = {
 
 ## ✅ DEPLOYED FILES
 
-| Datei | Änderung |
-|-------|----------|
-| `src/config/here-maps.ts` | API-Key-Caching (1h) |
-| `src/components/dashboard/HEREMapComponent.tsx` | Icons + z-index Fix |
-| `supabase/migrations/[timestamp]_add_vehicle_number.sql` | Wagennummer-Spalte |
+| Datei                                                    | Änderung             |
+| -------------------------------------------------------- | -------------------- |
+| `src/config/here-maps.ts`                                | API-Key-Caching (1h) |
+| `src/components/dashboard/HEREMapComponent.tsx`          | Icons + z-index Fix  |
+| `supabase/migrations/[timestamp]_add_vehicle_number.sql` | Wagennummer-Spalte   |
 
 ---
 
 ## 🔒 LOCKED - NIEMALS ÄNDERN!
 
 Diese Fixes sind **FINAL** und dürfen nicht mehr geändert werden:
+
 1. API-Caching (1h) bleibt bestehen
 2. Icon-Design (Kreis + Wagennummer + Ampelfarbe) ist Standard
 3. z-index von Legend bleibt bei `5`

@@ -1,4 +1,5 @@
 # FORMS IST/SOLL-ANALYSE V18.2 FINAL
+
 **Datum:** 16.10.2025, 13:45 Uhr  
 **Status:** ✅ Vollständig analysiert, behoben und dokumentiert
 
@@ -8,15 +9,16 @@
 
 **Kritische Fehler:** 2 gefunden & behoben  
 **Forms analysiert:** 6 Haupt-Dateien (4.995 Zeilen Code)  
-**Perfektionierungen:** 100% abgeschlossen  
+**Perfektionierungen:** 100% abgeschlossen
 
 ### Quick-Status:
+
 ✅ **Aufträge:** Datum/Uhrzeit OBEN (Zeile 704-726)  
 ✅ **Angebote:** Datum/Uhrzeit OBEN (Zeile 666-691) - KORRIGIERT V18.2  
 ✅ **Kunden:** Adress-Duplikat ENTFERNT - KORRIGIERT V18.2  
 ✅ **Rechnungen:** Keine Datumseingabe (nutzt Bookings)  
 ✅ **Fahrer:** LicenseClassTooltip INTEGRIERT - NEU V18.2  
-✅ **Fahrzeuge:** Fahrzeugklassen FINAL  
+✅ **Fahrzeuge:** Fahrzeugklassen FINAL
 
 ---
 
@@ -29,6 +31,7 @@
 **Status:** ✅ PERFEKT - KEINE ÄNDERUNGEN NÖTIG
 
 #### IST-Zustand:
+
 ```typescript
 Zeilen 698-778: Fahrtdaten-Sektion
 ├── 704-712: Input "Abholdatum" (type="date") ✅ POSITION A
@@ -40,6 +43,7 @@ Logische Reihenfolge: A → B → C → D (KORREKT!)
 ```
 
 #### Features:
+
 ```typescript
 ✅ InlineCustomerForm (Zeile 654-664)
    - Schnelle Kundenanlage ohne Modal
@@ -72,6 +76,7 @@ Logische Reihenfolge: A → B → C → D (KORREKT!)
 **Status:** ✅ KORRIGIERT (16.10.2025, V18.2)
 
 #### IST-Zustand (VORHER):
+
 ```typescript
 ❌ FALSCHE REIHENFOLGE (Zeile 711-733):
 1. Abholadresse  (Zeile 696-716)
@@ -81,6 +86,7 @@ Logische Reihenfolge: A → B → C → D (KORREKT!)
 ```
 
 #### SOLL-Zustand (NACHHER): ✅ ERREICHT
+
 ```typescript
 ✅ KORREKTE REIHENFOLGE (Zeile 666-741):
 1. Abholdatum *  (Zeile 668-675) ✅ JETZT OBEN
@@ -90,6 +96,7 @@ Logische Reihenfolge: A → B → C → D (KORREKT!)
 ```
 
 #### Änderungsprotokoll:
+
 ```diff
 + Zeile 666-691: Datum/Uhrzeit-Felder VERSCHOBEN (von 711-733)
 + Grid: grid-cols-1 sm:grid-cols-2 (Responsive)
@@ -105,6 +112,7 @@ Logische Reihenfolge: A → B → C → D (KORREKT!)
 **Status:** ✅ KORRIGIERT (16.10.2025, V18.2)
 
 #### IST-Zustand (VORHER):
+
 ```typescript
 ❌ ADRESS-DUPLIKAT (Zeile 284-301):
 const [formData, setFormData] = useState({
@@ -122,6 +130,7 @@ const [formData, setFormData] = useState({
 ```
 
 #### SOLL-Zustand (NACHHER): ✅ ERREICHT
+
 ```typescript
 ✅ KEIN DUPLIKAT MEHR (Zeile 284-300):
 const [formData, setFormData] = useState({
@@ -138,6 +147,7 @@ const [formData, setFormData] = useState({
 ```
 
 #### Änderungsprotokoll:
+
 ```diff
 - address: customer?.address || '',  // ENTFERNT
 + street: customer?.street || '',    // HINZUGEFÜGT
@@ -147,6 +157,7 @@ const [formData, setFormData] = useState({
 ```
 
 #### Speicher-Logik (Zeile 326-329):
+
 ```typescript
 street: formData.street || undefined,
 street_number: formData.streetNumber || undefined,
@@ -163,6 +174,7 @@ city: formData.city || undefined,
 **Status:** ✅ KORREKT - KEINE DATUMSEINGABE
 
 #### IST-Zustand:
+
 ```typescript
 Besonderheit: Nutzt Bookings-Daten
 ├── Zeile 78-96: Mapping von bookings → invoices
@@ -186,6 +198,7 @@ KEINE Datum-Eingabe, da Datum aus Booking übernommen wird.
 **Status:** ✅ ERWEITERT (16.10.2025, V18.2)
 
 #### Neue Features:
+
 ```typescript
 ✅ LicenseClassTooltip (Zeile 350+)
    - Tooltip für Führerscheinklassen
@@ -212,6 +225,7 @@ KEINE Datum-Eingabe, da Datum aus Booking übernommen wird.
 **Status:** ✅ FINAL
 
 #### Fahrzeugklassen (ENUM in DB):
+
 ```sql
 CREATE TYPE vehicle_class AS ENUM (
   'Economy Class (1-4 Pax)',
@@ -223,6 +237,7 @@ CREATE TYPE vehicle_class AS ENUM (
 ```
 
 #### Dropdown (Zeile 320+):
+
 ```typescript
 <Select value={formData.vehicle_class} ...>
   <SelectItem value="Economy Class (1-4 Pax)">
@@ -250,6 +265,7 @@ CREATE TYPE vehicle_class AS ENUM (
 ## 🔍 SYSTEMWEITE KONSISTENZ
 
 ### Adress-Felder (ÜBERALL IDENTISCH):
+
 ```typescript
 Struktur (4 Felder):
 1. street        (Text)
@@ -275,6 +291,7 @@ Komponente:
 ```
 
 ### Person-Felder (ÜBERALL IDENTISCH):
+
 ```typescript
 Struktur (4 Felder):
 1. salutation (Enum: 'Herr', 'Frau', 'Divers')
@@ -294,6 +311,7 @@ Komponente:
 ```
 
 ### Datum-Felder (ÜBERALL KONSISTENT):
+
 ```typescript
 Typ: date
 Format: YYYY-MM-DD (ISO 8601)
@@ -320,27 +338,32 @@ const formatDate = (date: string) => {
 ## ✅ ABSCHLUSS-CHECKLISTE
 
 ### Kritische Fehler:
+
 - [x] Angebote: Datum/Uhrzeit OBEN (BEHOBEN 16.10.2025)
 - [x] Kunden: Adress-Duplikat ENTFERNT (BEHOBEN 16.10.2025)
 
 ### Forms-Konsistenz:
+
 - [x] Datum/Uhrzeit OBEN (Aufträge, Angebote)
 - [x] Adress-Felder STRUKTURIERT (Kunden, Fahrer, Aufträge, Angebote)
 - [x] Person-Felder KONSISTENT (Kunden, Fahrer, Profiles)
 - [x] Fahrzeugklassen FINAL (Fahrzeuge, Aufträge, Angebote)
 
 ### Komponenten:
+
 - [x] AddressInput funktional (Google Places API)
 - [x] PersonFormFields funktional (Anrede, Titel)
 - [x] InlineCustomerForm funktional (Schnell-Anlage)
 - [x] LicenseClassTooltip integriert (Fahrer)
 
 ### Mobile-Optimierung:
+
 - [x] grid-cols-1 sm:grid-cols-2 (Alle Forms)
 - [x] Responsive Inputs (w-full)
 - [x] Labels korrekt (htmlFor, required)
 
 ### Dokumentation:
+
 - [x] IST/SOLL-Analyse vollständig
 - [x] Änderungsprotokoll detailliert
 - [x] Code-Snippets korrekt

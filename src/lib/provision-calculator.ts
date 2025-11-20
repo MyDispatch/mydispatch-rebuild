@@ -5,7 +5,7 @@
    ================================================================================== */
 
 export interface ProvisionCalculation {
-  type: 'manual' | 'automatic' | 'none';
+  type: "manual" | "automatic" | "none";
   amount: number;
   rate?: number;
   basePrice?: number;
@@ -13,12 +13,12 @@ export interface ProvisionCalculation {
 
 /**
  * Berechnet die Provision für einen Partner-Auftrag
- * 
+ *
  * Priorität:
  * 1. Manuell eingegebener Betrag (partner_provision_manual)
  * 2. Automatische Berechnung (price * provision_rate)
  * 3. Keine Provision
- * 
+ *
  * @param price - Auftragspreis
  * @param provisionRate - Provisions-Prozentsatz (0-100)
  * @param manualProvision - Manuell eingegebener Betrag (optional)
@@ -31,7 +31,7 @@ export function calculateProvision(
   // Priorität 1: Manuell eingegebener Betrag
   if (manualProvision !== null && manualProvision !== undefined && manualProvision > 0) {
     return {
-      type: 'manual',
+      type: "manual",
       amount: manualProvision,
     };
   }
@@ -40,7 +40,7 @@ export function calculateProvision(
   if (provisionRate > 0 && price > 0) {
     const amount = (price * provisionRate) / 100;
     return {
-      type: 'automatic',
+      type: "automatic",
       amount: parseFloat(amount.toFixed(2)),
       rate: provisionRate,
       basePrice: price,
@@ -49,7 +49,7 @@ export function calculateProvision(
 
   // Priorität 3: Keine Provision
   return {
-    type: 'none',
+    type: "none",
     amount: 0,
   };
 }
@@ -58,14 +58,14 @@ export function calculateProvision(
  * Formatiert die Provisions-Informationen für die Anzeige
  */
 export function formatProvisionInfo(calculation: ProvisionCalculation): string {
-  const formatted = new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
+  const formatted = new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
   }).format(calculation.amount);
 
-  if (calculation.type === 'manual') {
+  if (calculation.type === "manual") {
     return `${formatted} (manuell)`;
-  } else if (calculation.type === 'automatic' && calculation.rate) {
+  } else if (calculation.type === "automatic" && calculation.rate) {
     return `${formatted} (${calculation.rate}% automatisch)`;
   }
 
@@ -75,9 +75,6 @@ export function formatProvisionInfo(calculation: ProvisionCalculation): string {
 /**
  * Berechnet den Netto-Betrag nach Provisions-Abzug
  */
-export function calculateNetAmount(
-  grossAmount: number,
-  provision: ProvisionCalculation
-): number {
+export function calculateNetAmount(grossAmount: number, provision: ProvisionCalculation): number {
   return parseFloat((grossAmount - provision.amount).toFixed(2));
 }

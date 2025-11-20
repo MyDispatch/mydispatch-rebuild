@@ -1,4 +1,5 @@
 # MIGRATION LOG V26.0 - AUFTRAEGE PAGE
+
 > **Datum:** 2025-01-26  
 > **Sprint:** Design System V26.0 "BALANCED" Migration  
 > **Seite:** `/auftraege`  
@@ -15,8 +16,10 @@ Visuelle Migration der Auftraege-Seite auf das V26.0 "BALANCED" Design System oh
 ## 📋 DURCHGEFÜHRTE ÄNDERUNGEN
 
 ### 1. **MetricCard.tsx** (KPI-Karten)
+
 **Datei:** `src/components/dashboard/MetricCard.tsx`  
 **Änderungen:**
+
 - ✅ Import von `KERNFARBEN` aus `pricing-colors.ts`
 - ✅ Card-Styling: `rounded-2xl`, `KERNFARBEN.weiss` Background
 - ✅ Border: `KERNFARBEN.border_neutral_soft` (Hover: `KERNFARBEN.border_neutral`)
@@ -30,15 +33,18 @@ Visuelle Migration der Auftraege-Seite auf das V26.0 "BALANCED" Design System oh
 - ✅ Icon-Farbe: `KERNFARBEN.dunkelblau`
 - ✅ Border-Top (Footer): `KERNFARBEN.border_neutral` mit 40% Opacity
 
-**Visueller Impact:** 
+**Visueller Impact:**
+
 - Moderne, konsistente KPI-Karten mit subtilem Hover-Feedback
 - Perfekte Typografie-Hierarchie (tertiary → primary → secondary)
 
 ---
 
 ### 2. **PageHeaderWithKPIs.tsx** (Schnellzugriff-Card)
+
 **Datei:** `src/components/shared/PageHeaderWithKPIs.tsx`  
 **Änderungen:**
+
 - ✅ Import von `KERNFARBEN`
 - ✅ Card-Styling:
   - `rounded-2xl` mit 2px Border
@@ -61,14 +67,17 @@ Visuelle Migration der Auftraege-Seite auf das V26.0 "BALANCED" Design System oh
 - ✅ Border-Radius: `rounded-full` für beide Buttons
 
 **Visueller Impact:**
+
 - Hervorgehobene Schnellzugriff-Card mit modernem Gradient
 - Perfekt abgestimmte Primary/Secondary Button-Hierarchie
 
 ---
 
 ### 3. **EmptyState.tsx** (Empty State Button)
+
 **Datei:** `src/components/shared/EmptyState.tsx`  
 **Änderungen:**
+
 - ✅ Import von `KERNFARBEN`
 - ✅ Button-Styling (V26.0 Primary):
   - Background: `KERNFARBEN.dunkelblau`
@@ -79,14 +88,17 @@ Visuelle Migration der Auftraege-Seite auf das V26.0 "BALANCED" Design System oh
 - ✅ Transition: `duration-300` für smooth Hover-Effekte
 
 **Visueller Impact:**
+
 - Konsistenter Primary-Button-Style im gesamten System
 - Perfekte visuelle Hierarchie bei leeren Listen
 
 ---
 
 ### 4. **Auftraege.tsx** (Hero + Notice Boxes)
+
 **Datei:** `src/pages/Auftraege.tsx`  
 **Änderungen:**
+
 - ✅ Import von `KERNFARBEN`
 - ✅ **Hero-Section (Mobile):**
   - Background-Gradient: `KERNFARBEN.dunkelblau` → aufgehellte Variante
@@ -109,6 +121,7 @@ Visuelle Migration der Auftraege-Seite auf das V26.0 "BALANCED" Design System oh
   - Text: `KERNFARBEN.text_secondary` / `KERNFARBEN.text_primary`
 
 **Visueller Impact:**
+
 - Konsistente Canvas-Hintergründe für alle Notice-Bereiche
 - Perfekte Lesbarkeit durch semantische Text-Farben
 
@@ -116,23 +129,24 @@ Visuelle Migration der Auftraege-Seite auf das V26.0 "BALANCED" Design System oh
 
 ## 🎨 VERWENDETE KERNFARBEN
 
-| Token | Hex-Code | Verwendung |
-|-------|----------|------------|
-| `dunkelblau` | `#323D5E` | Primary Buttons, Icons, Borders, Accents |
-| `beige` | `#EADEBD` | Button-Text auf Dunkelblau, Icon-Container |
-| `weiss` | `#FFFFFF` | Card-Hintergründe, Secondary Button Background |
-| `canvas` | `#F9FAFB` | Notice-Boxen, Seiten-Hintergrund |
-| `text_primary` | `#111827` | Überschriften, KPI-Werte, wichtige Texte |
-| `text_secondary` | `#374151` | Standard-Body-Text, Beschreibungen |
-| `text_tertiary` | `#6B7280` | Sub-Texte, Labels, Meta-Informationen |
-| `border_neutral` | `#E5E7EB` | Standard-Borders, Trennlinien |
-| `border_neutral_soft` | `rgba(229, 231, 235, 0.8)` | Weiche Borders, Default-Zustand |
+| Token                 | Hex-Code                   | Verwendung                                     |
+| --------------------- | -------------------------- | ---------------------------------------------- |
+| `dunkelblau`          | `#323D5E`                  | Primary Buttons, Icons, Borders, Accents       |
+| `beige`               | `#EADEBD`                  | Button-Text auf Dunkelblau, Icon-Container     |
+| `weiss`               | `#FFFFFF`                  | Card-Hintergründe, Secondary Button Background |
+| `canvas`              | `#F9FAFB`                  | Notice-Boxen, Seiten-Hintergrund               |
+| `text_primary`        | `#111827`                  | Überschriften, KPI-Werte, wichtige Texte       |
+| `text_secondary`      | `#374151`                  | Standard-Body-Text, Beschreibungen             |
+| `text_tertiary`       | `#6B7280`                  | Sub-Texte, Labels, Meta-Informationen          |
+| `border_neutral`      | `#E5E7EB`                  | Standard-Borders, Trennlinien                  |
+| `border_neutral_soft` | `rgba(229, 231, 235, 0.8)` | Weiche Borders, Default-Zustand                |
 
 ---
 
 ## ✅ DESIGN-SYSTEM COMPLIANCE
 
 ### Button-Varianten (V26.0)
+
 ```typescript
 // PRIMARY BUTTON (Primäre Aktion)
 style={{
@@ -153,6 +167,7 @@ onMouseEnter: backgroundColor: KERNFARBEN.dunkelblau mit 10% Opacity + scale(1.0
 ```
 
 ### Card-Varianten
+
 ```typescript
 // STANDARD CARD (MetricCard, etc.)
 className="rounded-2xl border transition-all duration-300 shadow-lg"
@@ -176,12 +191,14 @@ style={{
 ## 🚀 ERGEBNIS
 
 ### Vorher (Alt-Design)
+
 - ❌ Inkonsistente Farben (Direct Colors, verschiedene Blau-Töne)
 - ❌ Keine einheitliche Button-Hierarchie
 - ❌ Verschiedene Border-Radiuses und Schatten
 - ❌ Unklare Typografie-Hierarchie
 
 ### Nachher (V26.0)
+
 - ✅ 100% KERNFARBEN-Compliance
 - ✅ Perfekte Button-Hierarchie (Primary/Secondary)
 - ✅ Einheitliche Card-Styles (`rounded-2xl`, subtile Hover)
@@ -192,13 +209,13 @@ style={{
 
 ## 📊 METRIKEN
 
-| Metrik | Wert |
-|--------|------|
-| Geänderte Dateien | 4 |
-| Neue CI-Compliance | 100% |
+| Metrik                  | Wert |
+| ----------------------- | ---- |
+| Geänderte Dateien       | 4    |
+| Neue CI-Compliance      | 100% |
 | Design-Token-Verwendung | 100% |
-| Funktionalitäts-Erhalt | 100% |
-| Visuelle Konsistenz | 5/5 |
+| Funktionalitäts-Erhalt  | 100% |
+| Visuelle Konsistenz     | 5/5  |
 
 ---
 
@@ -223,12 +240,14 @@ style={{
 ## 📝 LESSONS LEARNED
 
 ### Was gut funktioniert hat:
+
 - ✅ Schrittweise Migration (Card → Button → Notice-Boxen)
 - ✅ Strikte KERNFARBEN-Verwendung statt Direct Colors
 - ✅ Hover-Effekte mit `scale(1.02)` für moderne Interaktivität
 - ✅ Funktionalitäts-Erhalt durch reine Style-Änderungen
 
 ### Best Practices etabliert:
+
 - ✅ Import von `KERNFARBEN` in jeder migrierten Komponente
 - ✅ `rounded-2xl` als Standard für Cards
 - ✅ `rounded-full` als Standard für Buttons

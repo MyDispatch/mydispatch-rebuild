@@ -12,6 +12,7 @@
 Dieses Dokument definiert das **verbindliche Layout-Pattern-System** für MyDispatch.
 
 **ABSOLUTE REGEL:**
+
 - ❌ **NIEMALS** inline Styles mit hardcoded values
 - ❌ **NIEMALS** inkonsistente Abstände
 - ✅ **IMMER** Layout Components nutzen
@@ -28,19 +29,21 @@ Dieses Dokument definiert das **verbindliche Layout-Pattern-System** für MyDisp
 **Location:** `src/components/ui/layout/Container.tsx`
 
 **Props:**
+
 ```typescript
 interface ContainerProps {
-  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'
-  padding?: 'none' | 'sm' | 'md' | 'lg' | 'xl'
-  center?: boolean
-  noPaddingMobile?: boolean
-  children: ReactNode
-  className?: string
-  as?: 'div' | 'section' | 'article' | 'main' | 'aside'
+  size?: "sm" | "md" | "lg" | "xl" | "2xl" | "full";
+  padding?: "none" | "sm" | "md" | "lg" | "xl";
+  center?: boolean;
+  noPaddingMobile?: boolean;
+  children: ReactNode;
+  className?: string;
+  as?: "div" | "section" | "article" | "main" | "aside";
 }
 ```
 
 **Usage:**
+
 ```tsx
 <Container size="xl" padding="lg">
   {/* Content */}
@@ -48,6 +51,7 @@ interface ContainerProps {
 ```
 
 **Size Mapping:**
+
 - `sm`: 640px (max-w-screen-sm)
 - `md`: 768px (max-w-screen-md)
 - `lg`: 1024px (max-w-screen-lg)
@@ -56,6 +60,7 @@ interface ContainerProps {
 - `full`: 100% (max-w-full)
 
 **Padding Mapping:**
+
 - `none`: Kein Padding
 - `sm`: 16px/24px → 24px/32px (Mobile → Desktop)
 - `md`: 16px/32px → 32px/48px
@@ -71,19 +76,21 @@ interface ContainerProps {
 **Location:** `src/components/ui/layout/Section.tsx`
 
 **Props:**
+
 ```typescript
 interface SectionProps {
-  spacing?: 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
-  background?: 'white' | 'gray' | 'gradient' | 'primary' | 'transparent'
-  containerSize?: ContainerSize
-  fullWidth?: boolean
-  children: ReactNode
-  className?: string
-  id?: string
+  spacing?: "none" | "sm" | "md" | "lg" | "xl" | "2xl";
+  background?: "white" | "gray" | "gradient" | "primary" | "transparent";
+  containerSize?: ContainerSize;
+  fullWidth?: boolean;
+  children: ReactNode;
+  className?: string;
+  id?: string;
 }
 ```
 
 **Usage:**
+
 ```tsx
 <Section spacing="xl" background="white">
   {/* Content */}
@@ -91,6 +98,7 @@ interface SectionProps {
 ```
 
 **Spacing Mapping (Vertical):**
+
 - `none`: 0
 - `sm`: 32px → 48px (py-8 md:py-12)
 - `md`: 48px → 64px (py-12 md:py-16)
@@ -107,22 +115,26 @@ interface SectionProps {
 **Location:** `src/components/ui/layout/Grid.tsx`
 
 **Props:**
+
 ```typescript
 interface GridProps {
-  cols?: {
-    default?: 1 | 2 | 3 | 4 | 5 | 6 | 12
-    sm?: 1 | 2 | 3 | 4 | 5 | 6 | 12
-    md?: 1 | 2 | 3 | 4 | 5 | 6 | 12
-    lg?: 1 | 2 | 3 | 4 | 5 | 6 | 12
-    xl?: 1 | 2 | 3 | 4 | 5 | 6 | 12
-  } | number
-  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
-  children: ReactNode
-  className?: string
+  cols?:
+    | {
+        default?: 1 | 2 | 3 | 4 | 5 | 6 | 12;
+        sm?: 1 | 2 | 3 | 4 | 5 | 6 | 12;
+        md?: 1 | 2 | 3 | 4 | 5 | 6 | 12;
+        lg?: 1 | 2 | 3 | 4 | 5 | 6 | 12;
+        xl?: 1 | 2 | 3 | 4 | 5 | 6 | 12;
+      }
+    | number;
+  gap?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+  children: ReactNode;
+  className?: string;
 }
 ```
 
 **Usage:**
+
 ```tsx
 <Grid cols={{ default: 1, md: 2, lg: 3 }} gap="lg">
   <Card />
@@ -132,6 +144,7 @@ interface GridProps {
 ```
 
 **Gap Mapping:**
+
 - `none`: 0
 - `xs`: 8px (gap-2)
 - `sm`: 16px (gap-4)
@@ -149,19 +162,21 @@ interface GridProps {
 **Location:** `src/components/ui/layout/Flex.tsx`
 
 **Props:**
+
 ```typescript
 interface FlexProps {
-  direction?: 'row' | 'row-reverse' | 'col' | 'col-reverse'
-  justify?: 'start' | 'end' | 'center' | 'between' | 'around' | 'evenly'
-  align?: 'start' | 'end' | 'center' | 'baseline' | 'stretch'
-  wrap?: 'wrap' | 'nowrap' | 'wrap-reverse'
-  gap?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
-  children: ReactNode
-  className?: string
+  direction?: "row" | "row-reverse" | "col" | "col-reverse";
+  justify?: "start" | "end" | "center" | "between" | "around" | "evenly";
+  align?: "start" | "end" | "center" | "baseline" | "stretch";
+  wrap?: "wrap" | "nowrap" | "wrap-reverse";
+  gap?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+  children: ReactNode;
+  className?: string;
 }
 ```
 
 **Usage:**
+
 ```tsx
 <Flex direction="row" justify="between" align="center" gap="md">
   <Logo />
@@ -178,18 +193,20 @@ interface FlexProps {
 **Location:** `src/components/ui/layout/Stack.tsx`
 
 **Props:**
+
 ```typescript
 interface StackProps {
-  direction?: 'vertical' | 'horizontal'
-  spacing?: 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'
-  align?: 'start' | 'center' | 'end' | 'stretch'
-  divider?: boolean
-  children: ReactNode
-  className?: string
+  direction?: "vertical" | "horizontal";
+  spacing?: "none" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+  align?: "start" | "center" | "end" | "stretch";
+  divider?: boolean;
+  children: ReactNode;
+  className?: string;
 }
 ```
 
 **Usage:**
+
 ```tsx
 <Stack spacing="lg" divider>
   <Item />
@@ -210,9 +227,7 @@ interface StackProps {
     {/* Section Header */}
     <Stack spacing="md" align="center" className="text-center mb-12">
       <h2 className="text-3xl font-bold">Section Title</h2>
-      <p className="text-lg text-slate-600 max-w-2xl">
-        Section Description
-      </p>
+      <p className="text-lg text-slate-600 max-w-2xl">Section Description</p>
     </Stack>
 
     {/* Section Content */}
@@ -232,9 +247,7 @@ interface StackProps {
       {/* Header */}
       <Stack spacing="md" className="max-w-3xl">
         <h2 className="text-4xl font-bold">Features</h2>
-        <p className="text-lg text-slate-600">
-          Alles was Sie brauchen
-        </p>
+        <p className="text-lg text-slate-600">Alles was Sie brauchen</p>
       </Stack>
 
       {/* Grid */}
@@ -252,15 +265,15 @@ interface StackProps {
 <Section spacing="xl" background="white">
   <Container size="lg">
     <Stack spacing="lg" align="center" className="text-center">
-      <h2 className="text-4xl font-bold">
-        Starten Sie noch heute
-      </h2>
-      <p className="text-lg text-slate-600 max-w-2xl">
-        Unverbindliche Demo anfragen
-      </p>
+      <h2 className="text-4xl font-bold">Starten Sie noch heute</h2>
+      <p className="text-lg text-slate-600 max-w-2xl">Unverbindliche Demo anfragen</p>
       <Flex gap="md" justify="center">
-        <Button variant="primary" size="lg">Demo anfragen</Button>
-        <Button variant="secondary" size="lg">Mehr erfahren</Button>
+        <Button variant="primary" size="lg">
+          Demo anfragen
+        </Button>
+        <Button variant="secondary" size="lg">
+          Mehr erfahren
+        </Button>
       </Flex>
     </Stack>
   </Container>
@@ -272,17 +285,20 @@ interface StackProps {
 ## 📱 RESPONSIVE GUIDELINES
 
 ### Mobile (< 640px)
+
 - 1 column layouts (`cols={{ default: 1 }}`)
 - Vertical stacks (`direction="vertical"`)
 - Full-width buttons
 - Reduced spacing (`spacing="sm"` oder `"md"`)
 
 ### Tablet (640px - 1024px)
+
 - 2 column layouts (`cols={{ sm: 1, md: 2 }}`)
 - Side-by-side CTAs
 - Medium spacing (`spacing="md"`)
 
 ### Desktop (> 1024px)
+
 - 3-4 column layouts (`cols={{ lg: 3, xl: 4 }}`)
 - Full grid layouts
 - Large spacing (`spacing="lg"`, `spacing="xl"`)
@@ -294,6 +310,7 @@ interface StackProps {
 ### ❌ VERBOTEN
 
 1. **Hardcoded Spacing:**
+
 ```tsx
 // ❌ FALSCH
 <div className="py-20 px-10">
@@ -301,6 +318,7 @@ interface StackProps {
 ```
 
 2. **Inkonsistente Abstände:**
+
 ```tsx
 // ❌ FALSCH
 <div className="mt-10 mb-12">  // Unterschiedliche Top/Bottom
@@ -308,6 +326,7 @@ interface StackProps {
 ```
 
 3. **Non-semantic HTML:**
+
 ```tsx
 // ❌ FALSCH
 <div>
@@ -319,6 +338,7 @@ interface StackProps {
 ### ✅ ERLAUBT
 
 1. **Layout Components:**
+
 ```tsx
 // ✅ RICHTIG
 <Section spacing="xl">
@@ -327,15 +347,19 @@ interface StackProps {
 ```
 
 2. **Konsistente Abstände:**
+
 ```tsx
 // ✅ RICHTIG
-<Stack spacing="lg">  // Konsistent
+<Stack spacing="lg">
+  {" "}
+  // Konsistent
   <Item />
   <Item />
 </Stack>
 ```
 
 3. **Semantic HTML:**
+
 ```tsx
 // ✅ RICHTIG
 <Section>
@@ -351,6 +375,7 @@ interface StackProps {
 **Vor JEDER neuen Seite/Component:**
 
 ### Layout Foundation
+
 - [ ] Nutze `Section` für alle Sections
 - [ ] Nutze `Container` für Content-Bereiche
 - [ ] Nutze `Grid` für responsive Layouts
@@ -358,17 +383,20 @@ interface StackProps {
 - [ ] Nutze `Stack` für vertikale/horizontale Stacks
 
 ### Spacing
+
 - [ ] KEINE hardcoded spacing values
 - [ ] KEINE inkonsistenten Abstände
 - [ ] Verwende nur Design System Spacing
 - [ ] Responsive Spacing überall
 
 ### HTML Structure
+
 - [ ] Semantic HTML Elements
 - [ ] Proper Heading Hierarchy (H1 → H2 → H3)
 - [ ] Accessibility-konform
 
 ### Responsive Design
+
 - [ ] Mobile-first Approach
 - [ ] Breakpoints korrekt
 - [ ] Touch-friendly (min 44x44px)
@@ -381,6 +409,7 @@ interface StackProps {
 ### Bestehende Seiten migrieren
 
 **Schritt 1: Section ersetzen**
+
 ```tsx
 // ❌ VORHER
 <div className="py-20 bg-white">
@@ -392,6 +421,7 @@ interface StackProps {
 ```
 
 **Schritt 2: Grid ersetzen**
+
 ```tsx
 // ❌ VORHER
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -401,6 +431,7 @@ interface StackProps {
 ```
 
 **Schritt 3: Flex ersetzen**
+
 ```tsx
 // ❌ VORHER
 <div className="flex justify-between items-center gap-4">
@@ -416,7 +447,7 @@ interface StackProps {
 ### Complete Page Example
 
 ```tsx
-import { Section, Container, Grid, Stack, Flex } from '@/components/ui/layout';
+import { Section, Container, Grid, Stack, Flex } from "@/components/ui/layout";
 
 export function FeaturePage() {
   return (
@@ -426,9 +457,7 @@ export function FeaturePage() {
         <Container size="lg">
           <Stack spacing="xl" align="center" className="text-center">
             <h1 className="text-5xl font-bold">Features</h1>
-            <p className="text-xl text-slate-600 max-w-2xl">
-              Alle Features im Überblick
-            </p>
+            <p className="text-xl text-slate-600 max-w-2xl">Alle Features im Überblick</p>
           </Stack>
         </Container>
       </Section>
@@ -437,7 +466,7 @@ export function FeaturePage() {
       <Section spacing="xl" background="white">
         <Container>
           <Grid cols={{ default: 1, md: 2, lg: 3 }} gap="lg">
-            {FEATURES.map(feature => (
+            {FEATURES.map((feature) => (
               <FeatureCard key={feature.id} {...feature} />
             ))}
           </Grid>

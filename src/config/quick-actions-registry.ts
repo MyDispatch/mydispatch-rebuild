@@ -6,13 +6,13 @@
    REGEL: Jede Page hat GENAU 2 strategische Quick-Actions!
    ================================================================================== */
 
-import { 
-  Plus, 
-  UserPlus, 
-  Download, 
-  Calendar, 
-  FileText, 
-  Car, 
+import {
+  Plus,
+  UserPlus,
+  Download,
+  Calendar,
+  FileText,
+  Car,
   Power,
   Clock,
   List,
@@ -20,15 +20,15 @@ import {
   Settings,
   BarChart3,
   Mail,
-  type LucideIcon 
-} from 'lucide-react';
-import { logger } from '@/lib/logger';
+  type LucideIcon,
+} from "lucide-react";
+import { logger } from "@/lib/logger";
 
 export interface QuickAction {
   id: string;
   label: string;
   icon: LucideIcon;
-  variant: 'default' | 'outline' | 'ghost';
+  variant: "default" | "outline" | "ghost";
   description?: string;
 }
 
@@ -39,213 +39,213 @@ export interface QuickAction {
 export const ENTREPRENEUR_QUICK_ACTIONS = {
   dashboard: [
     {
-      id: 'create-booking',
-      label: 'Neuer Auftrag',
+      id: "create-booking",
+      label: "Neuer Auftrag",
       icon: Plus,
-      variant: 'default' as const,
-      description: 'Schnell einen neuen Auftrag erstellen',
+      variant: "default" as const,
+      description: "Schnell einen neuen Auftrag erstellen",
     },
     {
-      id: 'create-customer',
-      label: 'Neuer Kunde',
+      id: "create-customer",
+      label: "Neuer Kunde",
       icon: UserPlus,
-      variant: 'outline' as const,
-      description: 'Neuen Kunden anlegen',
+      variant: "outline" as const,
+      description: "Neuen Kunden anlegen",
     },
   ],
-  
+
   auftraege: [
     {
-      id: 'create-booking',
-      label: 'Neuer Auftrag',
+      id: "create-booking",
+      label: "Neuer Auftrag",
       icon: Plus,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'export-bookings',
-      label: 'Export',
+      id: "export-bookings",
+      label: "Export",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   kunden: [
     {
-      id: 'create-customer',
-      label: 'Kunde anlegen',
+      id: "create-customer",
+      label: "Kunde anlegen",
       icon: Plus,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'export-customers',
-      label: 'Export',
+      id: "export-customers",
+      label: "Export",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   fahrer: [
     {
-      id: 'create-driver',
-      label: 'Fahrer anlegen',
+      id: "create-driver",
+      label: "Fahrer anlegen",
       icon: UserPlus,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'schedule-shift',
-      label: 'Schichtplan',
+      id: "schedule-shift",
+      label: "Schichtplan",
       icon: Calendar,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   fahrzeuge: [
     {
-      id: 'create-vehicle',
-      label: 'Fahrzeug anlegen',
+      id: "create-vehicle",
+      label: "Fahrzeug anlegen",
       icon: Plus,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'export-vehicles',
-      label: 'Export',
+      id: "export-vehicles",
+      label: "Export",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   rechnungen: [
     {
-      id: 'create-invoice',
-      label: 'Rechnung erstellen',
+      id: "create-invoice",
+      label: "Rechnung erstellen",
       icon: Plus,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'export-invoices',
-      label: 'Export',
+      id: "export-invoices",
+      label: "Export",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   schichtzettel: [
     {
-      id: 'create-shift',
-      label: 'Schicht erstellen',
+      id: "create-shift",
+      label: "Schicht erstellen",
       icon: Plus,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'export-shifts',
-      label: 'Export',
+      id: "export-shifts",
+      label: "Export",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   dokumente: [
     {
-      id: 'upload-document',
-      label: 'Dokument hochladen',
+      id: "upload-document",
+      label: "Dokument hochladen",
       icon: Upload,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'export-documents',
-      label: 'Export',
+      id: "export-documents",
+      label: "Export",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   kostenstellen: [
     {
-      id: 'create-cost-center',
-      label: 'Kostenstelle anlegen',
+      id: "create-cost-center",
+      label: "Kostenstelle anlegen",
       icon: Plus,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'export-cost-centers',
-      label: 'Export',
+      id: "export-cost-centers",
+      label: "Export",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   partner: [
     {
-      id: 'create-partner',
-      label: 'Partner anlegen',
+      id: "create-partner",
+      label: "Partner anlegen",
       icon: Plus,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'export-partners',
-      label: 'Export',
+      id: "export-partners",
+      label: "Export",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   statistiken: [
     {
-      id: 'generate-report',
-      label: 'Report erstellen',
+      id: "generate-report",
+      label: "Report erstellen",
       icon: BarChart3,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'export-statistics',
-      label: 'Export',
+      id: "export-statistics",
+      label: "Export",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   kommunikation: [
     {
-      id: 'new-message',
-      label: 'Neue Nachricht',
+      id: "new-message",
+      label: "Neue Nachricht",
       icon: Plus,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'settings',
-      label: 'Einstellungen',
+      id: "settings",
+      label: "Einstellungen",
       icon: Settings,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   office: [
     {
-      id: 'compose-email',
-      label: 'E-Mail schreiben',
+      id: "compose-email",
+      label: "E-Mail schreiben",
       icon: Mail,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'templates',
-      label: 'Vorlagen',
+      id: "templates",
+      label: "Vorlagen",
       icon: FileText,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
+
   einstellungen: [
     {
-      id: 'edit-profile',
-      label: 'Profil bearbeiten',
+      id: "edit-profile",
+      label: "Profil bearbeiten",
       icon: Settings,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'backup',
-      label: 'Backup',
+      id: "backup",
+      label: "Backup",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
 } as const;
@@ -255,35 +255,35 @@ export const ENTREPRENEUR_QUICK_ACTIONS = {
 // ============================================================================
 
 export const CUSTOMER_QUICK_ACTIONS = {
-  'portal-dashboard': [
+  "portal-dashboard": [
     {
-      id: 'create-booking',
-      label: 'Neue Buchung',
+      id: "create-booking",
+      label: "Neue Buchung",
       icon: Plus,
-      variant: 'default' as const,
-      description: 'Jetzt buchen',
+      variant: "default" as const,
+      description: "Jetzt buchen",
     },
     {
-      id: 'view-bookings',
-      label: 'Meine Buchungen',
+      id: "view-bookings",
+      label: "Meine Buchungen",
       icon: List,
-      variant: 'outline' as const,
-      description: 'Buchungsverlauf',
+      variant: "outline" as const,
+      description: "Buchungsverlauf",
     },
   ],
-  
-  'portal-bookings': [
+
+  "portal-bookings": [
     {
-      id: 'create-booking',
-      label: 'Neue Buchung',
+      id: "create-booking",
+      label: "Neue Buchung",
       icon: Plus,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'export-bookings',
-      label: 'Export',
+      id: "export-bookings",
+      label: "Export",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
 } as const;
@@ -293,80 +293,80 @@ export const CUSTOMER_QUICK_ACTIONS = {
 // ============================================================================
 
 export const DRIVER_QUICK_ACTIONS = {
-  'driver-dashboard': [
+  "driver-dashboard": [
     {
-      id: 'toggle-online',
-      label: 'Online gehen',
+      id: "toggle-online",
+      label: "Online gehen",
       icon: Power,
-      variant: 'default' as const,
-      description: 'Verfügbarkeit ändern',
+      variant: "default" as const,
+      description: "Verfügbarkeit ändern",
     },
     {
-      id: 'start-shift',
-      label: 'Schicht starten',
+      id: "start-shift",
+      label: "Schicht starten",
       icon: Clock,
-      variant: 'outline' as const,
-      description: 'Schicht beginnen',
+      variant: "outline" as const,
+      description: "Schicht beginnen",
     },
   ],
-  
-  'driver-rides': [
+
+  "driver-rides": [
     {
-      id: 'accept-ride',
-      label: 'Fahrt annehmen',
+      id: "accept-ride",
+      label: "Fahrt annehmen",
       icon: Plus,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'view-history',
-      label: 'Verlauf',
+      id: "view-history",
+      label: "Verlauf",
       icon: List,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
-  'driver-shifts': [
+
+  "driver-shifts": [
     {
-      id: 'start-shift',
-      label: 'Schicht starten',
+      id: "start-shift",
+      label: "Schicht starten",
       icon: Clock,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'export-shifts',
-      label: 'Export',
+      id: "export-shifts",
+      label: "Export",
       icon: Download,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
-  'driver-documents': [
+
+  "driver-documents": [
     {
-      id: 'upload-document',
-      label: 'Dokument hochladen',
+      id: "upload-document",
+      label: "Dokument hochladen",
       icon: Upload,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'view-documents',
-      label: 'Dokumente',
+      id: "view-documents",
+      label: "Dokumente",
       icon: FileText,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
-  
-  'driver-vehicles': [
+
+  "driver-vehicles": [
     {
-      id: 'select-vehicle',
-      label: 'Fahrzeug wählen',
+      id: "select-vehicle",
+      label: "Fahrzeug wählen",
       icon: Car,
-      variant: 'default' as const,
+      variant: "default" as const,
     },
     {
-      id: 'report-issue',
-      label: 'Problem melden',
+      id: "report-issue",
+      label: "Problem melden",
       icon: FileText,
-      variant: 'outline' as const,
+      variant: "outline" as const,
     },
   ],
 } as const;
@@ -387,11 +387,11 @@ export const QUICK_ACTIONS_REGISTRY = {
 
 /**
  * Get Quick-Actions by Portal & Page
- * 
+ *
  * @param portal - Portal type (entrepreneur, customer, driver)
  * @param page - Page identifier
  * @param handlers - Object mapping action IDs to handler functions
- * 
+ *
  * @example
  * const actions = getQuickActionsForPage('entrepreneur', 'auftraege', {
  *   'create-booking': () => openBookingDialog(),
@@ -404,25 +404,28 @@ export const getQuickActionsForPage = (
   handlers: Record<string, () => void>
 ): Array<QuickAction & { onClick: () => void }> => {
   const portalActions = QUICK_ACTIONS_REGISTRY[portal];
-  
+
   // @ts-ignore - Dynamic key access
   const actions = portalActions[page] as QuickAction[] | undefined;
-  
+
   if (!actions) {
-    logger.warn('[QuickActions] No actions defined', { 
-      component: 'quick-actions-registry',
-      portal, 
-      page 
+    logger.warn("[QuickActions] No actions defined", {
+      component: "quick-actions-registry",
+      portal,
+      page,
     });
     return [];
   }
-  
-  return actions.map(action => ({
+
+  return actions.map((action) => ({
     ...action,
-    onClick: handlers[action.id] || (() => logger.warn('[QuickActions] No handler', { 
-      component: 'quick-actions-registry',
-      actionId: action.id 
-    })),
+    onClick:
+      handlers[action.id] ||
+      (() =>
+        logger.warn("[QuickActions] No handler", {
+          component: "quick-actions-registry",
+          actionId: action.id,
+        })),
   }));
 };
 

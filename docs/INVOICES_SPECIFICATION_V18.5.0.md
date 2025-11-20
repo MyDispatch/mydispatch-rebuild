@@ -21,16 +21,16 @@ Die **Invoices-Seite** verwaltet alle Rechnungen mit automatischer Generierung, 
 CREATE TABLE public.invoices (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   invoice_number TEXT NOT NULL UNIQUE,
-  
+
   -- Verknüpfungen
   customer_id UUID NOT NULL REFERENCES public.customers(id) ON DELETE RESTRICT,
   order_id UUID REFERENCES public.orders(id) ON DELETE SET NULL,
-  
+
   -- Rechnungsdaten
   invoice_date DATE NOT NULL DEFAULT CURRENT_DATE,
   due_date DATE NOT NULL,
   payment_terms INTEGER NOT NULL DEFAULT 14, -- Tage
-  
+
   -- Status
   status TEXT NOT NULL DEFAULT 'draft' CHECK (status IN (
     'draft',      -- Entwurf
@@ -39,14 +39,14 @@ CREATE TABLE public.invoices (
     'overdue',    -- Überfällig
     'cancelled'   -- Storniert
   )),
-  
+
   -- Beträge (in Cent für Präzision, später durch 100 teilen)
   subtotal INTEGER NOT NULL, -- Netto
   tax_rate DECIMAL(5, 2) NOT NULL DEFAULT 19.00, -- Steuersatz in %
   tax_amount INTEGER NOT NULL, -- Steuerbetrag
   total_amount INTEGER NOT NULL, -- Brutto
   currency TEXT NOT NULL DEFAULT 'EUR',
-  
+
   -- Zahlungsinformationen
   payment_method TEXT CHECK (payment_method IN (
     'cash',
@@ -57,14 +57,14 @@ CREATE TABLE public.invoices (
   )),
   payment_date TIMESTAMP WITH TIME ZONE,
   payment_reference TEXT, -- Referenz/Transaktions-ID
-  
+
   -- Dokumente
   pdf_url TEXT,
-  
+
   -- Notizen
   notes TEXT,
   internal_notes TEXT, -- Nur für Staff sichtbar
-  
+
   -- System
   created_by UUID REFERENCES auth.users(id),
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
@@ -82,7 +82,7 @@ CREATE INDEX idx_invoices_invoice_date ON public.invoices(invoice_date DESC);
 CREATE OR REPLACE FUNCTION generate_invoice_number()
 RETURNS TRIGGER AS $$
 BEGIN
-  NEW.invoice_number := 'INV-' || TO_CHAR(now(), 'YYYY') || '-' || 
+  NEW.invoice_number := 'INV-' || TO_CHAR(now(), 'YYYY') || '-' ||
     LPAD(NEXTVAL('invoice_number_seq')::TEXT, 5, '0');
   RETURN NEW;
 END;
@@ -137,16 +137,16 @@ EXECUTE FUNCTION public.update_updated_at_column();
 -- RLS Policies
 ALTER TABLE public.invoices ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Users can view invoices" 
-ON public.invoices FOR SELECT 
+CREATE POLICY "Users can view invoices"
+ON public.invoices FOR SELECT
 USING (auth.uid() IS NOT NULL);
 
-CREATE POLICY "Users can create invoices" 
-ON public.invoices FOR INSERT 
+CREATE POLICY "Users can create invoices"
+ON public.invoices FOR INSERT
 WITH CHECK (auth.uid() = created_by);
 
-CREATE POLICY "Users can update invoices" 
-ON public.invoices FOR UPDATE 
+CREATE POLICY "Users can update invoices"
+ON public.invoices FOR UPDATE
 USING (auth.uid() IS NOT NULL);
 ```
 
@@ -156,21 +156,21 @@ USING (auth.uid() IS NOT NULL);
 CREATE TABLE public.invoice_items (
   id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
   invoice_id UUID NOT NULL REFERENCES public.invoices(id) ON DELETE CASCADE,
-  
+
   -- Position
   position INTEGER NOT NULL, -- Reihenfolge
-  
+
   -- Artikel/Service
   description TEXT NOT NULL,
   quantity DECIMAL(10, 2) NOT NULL DEFAULT 1.00 CHECK (quantity > 0),
   unit_price INTEGER NOT NULL, -- in Cent
-  
+
   -- Berechnung
   line_total INTEGER NOT NULL, -- quantity * unit_price
-  
+
   -- Optional: Verknüpfung zu Auftrag
   order_id UUID REFERENCES public.orders(id) ON DELETE SET NULL,
-  
+
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );
 
@@ -194,12 +194,12 @@ EXECUTE FUNCTION calculate_line_total();
 -- RLS Policies
 ALTER TABLE public.invoice_items ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Users can view invoice items" 
-ON public.invoice_items FOR SELECT 
+CREATE POLICY "Users can view invoice items"
+ON public.invoice_items FOR SELECT
 USING (auth.uid() IS NOT NULL);
 
-CREATE POLICY "Users can manage invoice items" 
-ON public.invoice_items FOR ALL 
+CREATE POLICY "Users can manage invoice items"
+ON public.invoice_items FOR ALL
 USING (auth.uid() IS NOT NULL);
 ```
 
@@ -222,7 +222,7 @@ export function Invoices() {
         <h1 className="text-heading">Rechnungen</h1>
         <CreateInvoiceButton />
       </div>
-      
+
       <InvoicesFilters />
       <InvoicesList />
     </div>
@@ -233,6 +233,7 @@ export function Invoices() {
 ### **2. Invoices Table**
 
 **Spalten:**
+
 - Rechnungsnummer
 - Kunde (Name + Kundennummer)
 - Rechnungsdatum
@@ -242,6 +243,7 @@ export function Invoices() {
 - Aktionen (View/Download PDF/Mark Paid/Send Email)
 
 **Features:**
+
 - Status-Filter: Alle, Entwurf, Versendet, Bezahlt, Überfällig
 - Date Range Picker
 - Quick Stats Cards:
@@ -254,8 +256,9 @@ export function Invoices() {
 ### **3. Create Invoice Form**
 
 **Step 1: Kunde auswählen**
+
 ```typescript
-<CustomerSelect 
+<CustomerSelect
   onSelect={(customer) => {
     // Auto-fill customer data
     // Load customer's open orders
@@ -264,12 +267,14 @@ export function Invoices() {
 ```
 
 **Step 2: Rechnungsdaten**
+
 - Rechnungsdatum (Date Picker, default: heute)
 - Zahlungsziel in Tagen (Number Input, default: 14)
 - Fälligkeitsdatum (auto-calculated, read-only)
 - Zahlungsmethode (Select)
 
 **Step 3: Positionen hinzufügen**
+
 ```typescript
 <InvoiceItemsTable>
   {items.map((item, index) => (
@@ -288,21 +293,25 @@ export function Invoices() {
 ```
 
 **Positionen können sein:**
+
 - Manuell eingetragen
 - Aus Auftrag übernommen (Auto-Fill von Order)
 - Aus Vorlage (z.B. "Taxi-Fahrt Flughafen")
 
 **Step 4: Zusammenfassung**
+
 - Zwischensumme (Netto)
 - Steuersatz (Select: 0%, 7%, 19%)
 - Steuerbetrag (auto-calculated)
 - **Gesamtbetrag (Brutto)**
 
 **Optional:**
+
 - Notizen (für Kunde sichtbar)
 - Interne Notizen (nur Staff)
 
 **Validation:**
+
 - Mindestens 1 Position
 - Alle Positionen mit Beschreibung und Preis > 0
 - Fälligkeitsdatum muss nach Rechnungsdatum liegen
@@ -340,6 +349,7 @@ export function Invoices() {
 ```
 
 **Payment Timeline:**
+
 - Erstellt am: 22.10.2025
 - Versendet am: 22.10.2025 (per Email)
 - Fällig am: 05.11.2025
@@ -358,10 +368,12 @@ export function Invoices() {
 ```
 
 **Libraries:**
+
 - `jsPDF` oder `puppeteer` für PDF-Generierung
 - Template: Professional Invoice Layout mit Firmen-Logo
 
 **PDF Sections:**
+
 - Header (Firma, Logo, Kontaktdaten)
 - Rechnungsnummer, Datum, Fälligkeitsdatum
 - Kundenadresse
@@ -378,17 +390,10 @@ export function Invoices() {
 ```
 
 **Email Template:**
+
 ```html
-Sehr geehrter Kunde,
-
-anbei erhalten Sie die Rechnung [INV-2025-00123] über [65,45 €].
-
-Fälligkeitsdatum: 05.11.2025
-Zahlungsmethode: Überweisung
-
-PDF im Anhang.
-
-Mit freundlichen Grüßen,
+Sehr geehrter Kunde, anbei erhalten Sie die Rechnung [INV-2025-00123] über [65,45 €].
+Fälligkeitsdatum: 05.11.2025 Zahlungsmethode: Überweisung PDF im Anhang. Mit freundlichen Grüßen,
 Ihr MyDispatch Team
 ```
 
@@ -401,6 +406,7 @@ Ihr MyDispatch Team
 ```
 
 **Reminder-Stufen:**
+
 - 1. Reminder: 3 Tage nach Fälligkeit (freundlich)
 - 2. Reminder: 10 Tage nach Fälligkeit (dringend)
 - 3. Reminder: 20 Tage nach Fälligkeit (letzte Mahnung)
@@ -423,16 +429,16 @@ Ihr MyDispatch Team
 :root {
   --invoice-draft: 220 13% 91%;
   --invoice-draft-foreground: 220 9% 46%;
-  
+
   --invoice-sent: 221 83% 53%;
   --invoice-sent-foreground: 0 0% 100%;
-  
+
   --invoice-paid: 142 71% 45%;
   --invoice-paid-foreground: 0 0% 100%;
-  
+
   --invoice-overdue: 0 84% 60%;
   --invoice-overdue-foreground: 0 0% 100%;
-  
+
   --invoice-cancelled: 0 0% 64%;
   --invoice-cancelled-foreground: 0 0% 100%;
 }
@@ -444,32 +450,32 @@ Ihr MyDispatch Team
 
 ```typescript
 // tests/invoices.spec.ts
-test('Create invoice from order', async ({ page }) => {
+test("Create invoice from order", async ({ page }) => {
   // Create order first
   const orderId = await createTestOrder();
-  
+
   await page.goto(`/orders/${orderId}`);
-  await page.click('text=Rechnung erstellen');
-  
+  await page.click("text=Rechnung erstellen");
+
   // Should auto-fill from order
-  await expect(page.locator('[name="customer_id"]')).toHaveValue('...');
-  
+  await expect(page.locator('[name="customer_id"]')).toHaveValue("...");
+
   await page.click('button[type="submit"]');
-  
-  await expect(page.locator('text=Rechnung erstellt')).toBeVisible();
+
+  await expect(page.locator("text=Rechnung erstellt")).toBeVisible();
 });
 
-test('Mark invoice as paid', async ({ page }) => {
-  const invoiceId = await createTestInvoice({ status: 'sent' });
-  
+test("Mark invoice as paid", async ({ page }) => {
+  const invoiceId = await createTestInvoice({ status: "sent" });
+
   await page.goto(`/invoices/${invoiceId}`);
-  await page.click('text=Als bezahlt markieren');
-  
-  await page.fill('[name="payment_date"]', '2025-10-22');
-  await page.fill('[name="payment_reference"]', 'TXN-123456');
+  await page.click("text=Als bezahlt markieren");
+
+  await page.fill('[name="payment_date"]', "2025-10-22");
+  await page.fill('[name="payment_reference"]', "TXN-123456");
   await page.click('button[type="submit"]');
-  
-  await expect(page.locator('text=Bezahlt')).toBeVisible();
+
+  await expect(page.locator("text=Bezahlt")).toBeVisible();
 });
 ```
 
@@ -478,6 +484,7 @@ test('Mark invoice as paid', async ({ page }) => {
 ## 📊 Buchhaltungs-Integration
 
 **Export-Formate:**
+
 - **DATEV**: CSV-Export für DATEV-Import
 - **Lexoffice**: API-Integration (optional)
 - **Excel**: Detaillierte Aufstellung

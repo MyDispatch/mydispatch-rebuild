@@ -7,18 +7,18 @@
    ✅ SEO-optimiert
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LucideIcon } from 'lucide-react';
-import { MarketingLayout } from '@/components/layout/MarketingLayout';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
-import { V28MarketingSection } from '@/components/design-system/V28MarketingSection';
-import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
-import { V28IconBox } from '@/components/design-system/V28IconBox';
-import { DataGrid } from '@/components/smart-templates/DataGrid';
-import { ScrollToTopButton } from '@/components/shared/ScrollToTopButton';
-import { V28Button } from '@/components/design-system/V28Button';
+import { ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
+import { LucideIcon } from "lucide-react";
+import { MarketingLayout } from "@/components/layout/MarketingLayout";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { V28HeroPremium } from "@/components/hero/V28HeroPremium";
+import { V28MarketingSection } from "@/components/design-system/V28MarketingSection";
+import { V28MarketingCard } from "@/components/design-system/V28MarketingCard";
+import { V28IconBox } from "@/components/design-system/V28IconBox";
+import { DataGrid } from "@/components/smart-templates/DataGrid";
+import { ScrollToTopButton } from "@/components/shared/ScrollToTopButton";
+import { V28Button } from "@/components/design-system/V28Button";
 
 /* ==================================================================================
    TYPE DEFINITIONS
@@ -28,7 +28,7 @@ interface CTAButton {
   label: string;
   onClick?: () => void;
   href?: string;
-  variant?: 'primary' | 'secondary';
+  variant?: "primary" | "secondary";
 }
 
 interface SectionItem {
@@ -44,7 +44,7 @@ interface Section {
   id?: string;
   title: string;
   description?: string;
-  background?: 'white' | 'canvas';
+  background?: "white" | "canvas";
   items: SectionItem[];
   columns?: {
     mobile?: number;
@@ -54,7 +54,7 @@ interface Section {
 }
 
 interface HeroConfig {
-  variant: 'home' | 'features' | 'demo' | 'pricing';
+  variant: "home" | "features" | "demo" | "pricing";
   title: string;
   subtitle: string; // Required by V28HeroPremium
   description?: string;
@@ -68,20 +68,20 @@ export interface PageTemplateProps {
   // SEO
   title: string;
   description: string;
-  
+
   // Hero
   hero: HeroConfig;
-  
+
   // Sections
   sections: Section[];
-  
+
   // Final CTA (optional)
   finalCTA?: {
     title: string;
     description: string;
     buttons: CTAButton[];
   };
-  
+
   // Layout
   currentPage?: string;
 }
@@ -113,13 +113,13 @@ export function PageTemplate({
       }
     };
 
-    const isPrimary = cta.variant !== 'secondary';
+    const isPrimary = cta.variant !== "secondary";
 
     return (
       <V28Button
         onClick={handleClick}
         size="lg"
-        variant={isPrimary ? 'primary' : 'secondary'}
+        variant={isPrimary ? "primary" : "secondary"}
         className="h-12 px-8 font-semibold rounded-lg transition-all duration-300"
       >
         {cta.label}
@@ -133,10 +133,7 @@ export function PageTemplate({
 
   return (
     <MarketingLayout currentPage={currentPage}>
-      <SEOHead 
-        title={title} 
-        description={description}
-      />
+      <SEOHead title={title} description={description} />
 
       {/* Hero Section */}
       <V28HeroPremium
@@ -144,17 +141,27 @@ export function PageTemplate({
         title={hero.title}
         subtitle={hero.subtitle}
         description={hero.description}
-        primaryCTA={hero.primaryCTA ? {
-          label: hero.primaryCTA.label,
-          onClick: hero.primaryCTA.onClick || (() => navigate(hero.primaryCTA?.href || '/auth')),
-        } : {
-          label: 'Jetzt starten',
-          onClick: () => navigate('/auth')
-        }}
-        secondaryCTA={hero.secondaryCTA ? {
-          label: hero.secondaryCTA.label,
-          onClick: hero.secondaryCTA.onClick || (() => navigate(hero.secondaryCTA?.href || '/demo')),
-        } : undefined}
+        primaryCTA={
+          hero.primaryCTA
+            ? {
+                label: hero.primaryCTA.label,
+                onClick:
+                  hero.primaryCTA.onClick || (() => navigate(hero.primaryCTA?.href || "/auth")),
+              }
+            : {
+                label: "Jetzt starten",
+                onClick: () => navigate("/auth"),
+              }
+        }
+        secondaryCTA={
+          hero.secondaryCTA
+            ? {
+                label: hero.secondaryCTA.label,
+                onClick:
+                  hero.secondaryCTA.onClick || (() => navigate(hero.secondaryCTA?.href || "/demo")),
+              }
+            : undefined
+        }
         visual={hero.visual}
         trustElements={hero.trustElements}
       />
@@ -166,22 +173,14 @@ export function PageTemplate({
           id={section.id}
           title={section.title}
           description={section.description}
-          background={section.background || 'white'}
+          background={section.background || "white"}
         >
-          <DataGrid 
-            columns={section.columns || { mobile: 1, tablet: 2, desktop: 3 }}
-            gap="md"
-          >
+          <DataGrid columns={section.columns || { mobile: 1, tablet: 2, desktop: 3 }} gap="md">
             {section.items.map((item, itemIdx) => (
               <V28MarketingCard key={item.id || `item-${itemIdx}`}>
                 <div className="space-y-4">
                   {/* Icon */}
-                  {item.icon && (
-                    <V28IconBox 
-                      icon={item.icon}
-                      variant="primary"
-                    />
-                  )}
+                  {item.icon && <V28IconBox icon={item.icon} variant="primary" />}
 
                   {/* Badge */}
                   {item.badge && (
@@ -191,20 +190,16 @@ export function PageTemplate({
                   )}
 
                   {/* Title */}
-                  <h3 className="text-xl font-semibold text-slate-900">
-                    {item.title}
-                  </h3>
+                  <h3 className="text-xl font-semibold text-slate-900">{item.title}</h3>
 
                   {/* Description */}
-                  <p className="text-base leading-relaxed text-slate-600">
-                    {item.description}
-                  </p>
+                  <p className="text-base leading-relaxed text-slate-600">{item.description}</p>
 
                   {/* Features List */}
                   {item.features && item.features.length > 0 && (
                     <ul className="space-y-2 mt-4">
                       {item.features.map((feature, featureIdx) => (
-                        <li 
+                        <li
                           key={featureIdx}
                           className="flex items-start gap-2 text-sm text-slate-600"
                         >
@@ -230,9 +225,7 @@ export function PageTemplate({
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
             {finalCTA.buttons.map((button, idx) => (
-              <div key={idx}>
-                {renderCTAButton(button)}
-              </div>
+              <div key={idx}>{renderCTAButton(button)}</div>
             ))}
           </div>
         </V28MarketingSection>

@@ -10,6 +10,7 @@
 ## 📋 OVERVIEW
 
 Dieses Dokument zeigt die **Component-Hierarchie** für MyDispatch mit:
+
 - Component-Trees (Mermaid Diagrams)
 - State Flow (Context, Hooks, Queries)
 - API Dependencies
@@ -28,21 +29,21 @@ graph TD
     Index --> WelcomeWizard
     Index --> V26NewBookingDialog
     Index --> HEREMapComponent
-    
+
     Index --> KPISection[KPI Cards Section]
     KPISection --> KPI1[Heutige Aufträge]
     KPISection --> KPI2[Umsatz]
     KPISection --> KPI3[Verfügbare Fahrer]
     KPISection --> KPI4[Verfügbare Fahrzeuge]
-    
+
     Index --> QuickActionsSection
     QuickActionsSection --> Action1[Neuer Auftrag]
     QuickActionsSection --> Action2[Schichtzettel]
     QuickActionsSection --> Action3[Team-Chat]
-    
+
     HEREMapComponent --> HEREMarkers[Marker: Headquarters, Bookings, Drivers]
     HEREMapComponent --> HEREInfoBubbles[Info Bubbles]
-    
+
     V26NewBookingDialog --> AddressAutosuggest
     V26NewBookingDialog --> CustomerSelect
     V26NewBookingDialog --> DateTimePicker
@@ -53,27 +54,27 @@ graph TD
 ```mermaid
 graph LR
     AuthContext[AuthContext - user, company_id] --> Index
-    
+
     useQuery1[useQuery: dashboard_stats] --> Index
     useQuery2[useQuery: bookings] --> Index
     useQuery3[useQuery: drivers] --> Index
     useQuery4[useQuery: vehicles] --> Index
-    
+
     RealtimeBookings[useRealtimeBookings] --> Index
     RealtimeDrivers[useRealtimeDrivers] --> Index
     RealtimeVehicles[useRealtimeVehicles] --> Index
-    
+
     Index --> QueryInvalidation[Query Invalidation on Realtime Events]
 ```
 
 ### API Dependencies
 
-| Component | Supabase DB | HERE Maps | Realtime | Edge Functions |
-|-----------|-------------|-----------|----------|----------------|
-| **Index.tsx** | ✅ (bookings, drivers, vehicles) | ❌ | ✅ (3 channels) | ❌ |
-| **HEREMapComponent** | ✅ (company HQ) | ✅ | ✅ | ❌ |
-| **V26NewBookingDialog** | ✅ (customers) | ✅ (geocoding) | ❌ | ❌ |
-| **AddressAutosuggest** | ❌ | ✅ (autosuggest) | ❌ | ❌ |
+| Component               | Supabase DB                      | HERE Maps        | Realtime        | Edge Functions |
+| ----------------------- | -------------------------------- | ---------------- | --------------- | -------------- |
+| **Index.tsx**           | ✅ (bookings, drivers, vehicles) | ❌               | ✅ (3 channels) | ❌             |
+| **HEREMapComponent**    | ✅ (company HQ)                  | ✅               | ✅              | ❌             |
+| **V26NewBookingDialog** | ✅ (customers)                   | ✅ (geocoding)   | ❌              | ❌             |
+| **AddressAutosuggest**  | ❌                               | ✅ (autosuggest) | ❌              | ❌             |
 
 ### Props Flow Example
 
@@ -96,7 +97,7 @@ const { data: stats } = useQuery<DashboardStats>({
 });
 
 // KPI Cards erhalten Props
-<KPICard 
+<KPICard
   label="Heutige Aufträge"
   value={stats?.todays_bookings ?? 0}
   icon={FileText}
@@ -119,22 +120,22 @@ graph TD
     Auftraege --> BookingsTable
     Auftraege --> BookingDetailDialog
     Auftraege --> NewBookingDialog
-    
+
     FilterBar --> StatusFilter
     FilterBar --> DateRangeFilter
     FilterBar --> SearchInput
-    
+
     BookingsTable --> TableHeader
     BookingsTable --> TableRows
     TableRows --> TableRow1[Booking Row]
     TableRows --> TableRow2[...]
-    
+
     TableRow1 --> StatusBadge
     TableRow1 --> CustomerName
     TableRow1 --> DriverAssignment
     TableRow1 --> PriceDisplay
     TableRow1 --> ActionsDropdown
-    
+
     BookingDetailDialog --> CustomerInfoSection
     BookingDetailDialog --> BookingDetailsSection
     BookingDetailDialog --> TimelineSection
@@ -146,28 +147,28 @@ graph TD
 ```mermaid
 graph LR
     AuthContext --> Auftraege
-    
+
     useQuery1[useQuery: bookings] --> Auftraege
     useQuery2[useQuery: customers] --> Auftraege
     useQuery3[useQuery: drivers] --> Auftraege
-    
+
     RealtimeBookings --> Auftraege
-    
+
     useState1[selectedBookings: UUID[]] --> Auftraege
     useState2[filters: FilterState] --> Auftraege
     useState3[showDetailDialog: boolean] --> Auftraege
-    
+
     Auftraege --> useMemo[useMemo: filteredBookings]
 ```
 
 ### API Dependencies
 
-| Component | Supabase DB | HERE Maps | Realtime | Edge Functions |
-|-----------|-------------|-----------|----------|----------------|
-| **Auftraege.tsx** | ✅ (bookings, customers, drivers) | ❌ | ✅ (bookings channel) | ❌ |
-| **NewBookingDialog** | ✅ (insert booking) | ✅ (geocoding) | ❌ | ❌ |
-| **BookingDetailDialog** | ✅ (update booking) | ❌ | ❌ | ❌ |
-| **BulkActionBar** | ✅ (bulk update) | ❌ | ❌ | ✅ (PDF export) |
+| Component               | Supabase DB                       | HERE Maps      | Realtime              | Edge Functions  |
+| ----------------------- | --------------------------------- | -------------- | --------------------- | --------------- |
+| **Auftraege.tsx**       | ✅ (bookings, customers, drivers) | ❌             | ✅ (bookings channel) | ❌              |
+| **NewBookingDialog**    | ✅ (insert booking)               | ✅ (geocoding) | ❌                    | ❌              |
+| **BookingDetailDialog** | ✅ (update booking)               | ❌             | ❌                    | ❌              |
+| **BulkActionBar**       | ✅ (bulk update)                  | ❌             | ❌                    | ✅ (PDF export) |
 
 ### Props Flow Example
 
@@ -206,7 +207,7 @@ const { data: bookings } = useQuery({
 });
 
 // Table Row erhält Booking Props
-<TableRow 
+<TableRow
   booking={booking}
   onSelect={(id) => handleSelect(id)}
   onEdit={(id) => handleEdit(id)}
@@ -225,25 +226,25 @@ graph TD
     Fahrer[Fahrer.tsx - Drivers & Vehicles Page] --> Tabs
     Tabs --> DriversTab
     Tabs --> VehiclesTab
-    
+
     DriversTab --> DriversTable
     DriversTab --> AddDriverDialog
     DriversTab --> EditDriverDialog
     DriversTab --> DocumentsSection
-    
+
     DriversTable --> DriverRow1
     DriversTable --> DriverRow2
-    
+
     DriverRow1 --> StatusBadge
     DriverRow1 --> DriverAvatar
     DriverRow1 --> ContactInfo
     DriverRow1 --> DocumentStatus
     DriverRow1 --> ActionsMenu
-    
+
     VehiclesTab --> VehiclesTable
     VehiclesTab --> AddVehicleDialog
     VehiclesTab --> VehicleDetailDialog
-    
+
     DocumentsSection --> LicenseUpload
     DocumentsSection --> InsuranceUpload
     DocumentsSection --> HealthCertificateUpload
@@ -254,14 +255,14 @@ graph TD
 ```mermaid
 graph LR
     AuthContext --> Fahrer
-    
+
     useQuery1[useQuery: drivers] --> Fahrer
     useQuery2[useQuery: vehicles] --> Fahrer
     useQuery3[useQuery: driver_documents] --> Fahrer
-    
+
     RealtimeDrivers --> Fahrer
     RealtimeVehicles --> Fahrer
-    
+
     useState1[activeTab: 'drivers' | 'vehicles'] --> Fahrer
     useState2[selectedDriver: UUID] --> Fahrer
     useState3[showAddDialog: boolean] --> Fahrer
@@ -277,29 +278,29 @@ graph LR
 // Query Keys Factory
 export const queryKeys = {
   // Dashboard
-  dashboardStats: () => ['dashboard_stats'],
-  
+  dashboardStats: () => ["dashboard_stats"],
+
   // Bookings
-  bookings: () => ['bookings'],
-  booking: (id: string) => ['bookings', id],
-  
+  bookings: () => ["bookings"],
+  booking: (id: string) => ["bookings", id],
+
   // Customers
-  customers: () => ['customers'],
-  customer: (id: string) => ['customers', id],
-  
+  customers: () => ["customers"],
+  customer: (id: string) => ["customers", id],
+
   // Drivers
-  drivers: () => ['drivers'],
-  driver: (id: string) => ['drivers', id],
-  
+  drivers: () => ["drivers"],
+  driver: (id: string) => ["drivers", id],
+
   // Vehicles
-  vehicles: () => ['vehicles'],
-  vehicle: (id: string) => ['vehicles', id],
+  vehicles: () => ["vehicles"],
+  vehicle: (id: string) => ["vehicles", id],
 };
 
 // Usage
 const { data: bookings } = useQuery({
   queryKey: queryKeys.bookings(),
-  queryFn: fetchBookings
+  queryFn: fetchBookings,
 });
 ```
 
@@ -312,8 +313,8 @@ export function useRealtimeBookings() {
 
   useEffect(() => {
     const channel = supabase
-      .channel('bookings-realtime-updates')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'bookings' }, () => {
+      .channel("bookings-realtime-updates")
+      .on("postgres_changes", { event: "*", schema: "public", table: "bookings" }, () => {
         // Invalidate bookings queries
         queryClient.invalidateQueries({ queryKey: queryKeys.bookings() });
         // Invalidate dashboard stats
@@ -330,17 +331,17 @@ export function useRealtimeBookings() {
 
 ## 🔄 COMPONENT REUSABILITY MATRIX
 
-| Component | Used In | Purpose |
-|-----------|---------|---------|
-| **V26IconBox** | Dashboard, Auftraege, Fahrer, Kunden | Icon Container |
-| **V26Badge** | Auftraege, Fahrer, Kunden | Status Display |
-| **V26Button** | All Pages | Primary Actions |
-| **V26InfoBox** | Dashboard, Einstellungen | Info Cards |
-| **HEREMapComponent** | Dashboard | Map Visualization |
-| **AddressAutosuggest** | Auftraege, Kunden | Address Input |
-| **DateTimePicker** | Auftraege | Booking Time Selection |
-| **CustomerSelect** | Auftraege | Customer Selection |
-| **Toast** | All Pages (via Context) | Notifications |
+| Component              | Used In                              | Purpose                |
+| ---------------------- | ------------------------------------ | ---------------------- |
+| **V26IconBox**         | Dashboard, Auftraege, Fahrer, Kunden | Icon Container         |
+| **V26Badge**           | Auftraege, Fahrer, Kunden            | Status Display         |
+| **V26Button**          | All Pages                            | Primary Actions        |
+| **V26InfoBox**         | Dashboard, Einstellungen             | Info Cards             |
+| **HEREMapComponent**   | Dashboard                            | Map Visualization      |
+| **AddressAutosuggest** | Auftraege, Kunden                    | Address Input          |
+| **DateTimePicker**     | Auftraege                            | Booking Time Selection |
+| **CustomerSelect**     | Auftraege                            | Customer Selection     |
+| **Toast**              | All Pages (via Context)              | Notifications          |
 
 ---
 
@@ -348,13 +349,13 @@ export function useRealtimeBookings() {
 
 **Berechnung:** (Dependencies_Count × Component_Count) / Total_Components
 
-| Page | Components | API Deps | State Hooks | Score | Complexity |
-|------|------------|----------|-------------|-------|------------|
-| **Dashboard** | 12 | 4 | 8 | 96 | 🔴 HIGH |
-| **Aufträge** | 15 | 5 | 10 | 150 | 🔴 VERY HIGH |
-| **Fahrer** | 18 | 4 | 9 | 144 | 🔴 VERY HIGH |
-| **Kunden** | 10 | 3 | 6 | 60 | 🟡 MEDIUM |
-| **Einstellungen** | 8 | 2 | 4 | 32 | 🟢 LOW |
+| Page              | Components | API Deps | State Hooks | Score | Complexity   |
+| ----------------- | ---------- | -------- | ----------- | ----- | ------------ |
+| **Dashboard**     | 12         | 4        | 8           | 96    | 🔴 HIGH      |
+| **Aufträge**      | 15         | 5        | 10          | 150   | 🔴 VERY HIGH |
+| **Fahrer**        | 18         | 4        | 9           | 144   | 🔴 VERY HIGH |
+| **Kunden**        | 10         | 3        | 6           | 60    | 🟡 MEDIUM    |
+| **Einstellungen** | 8          | 2        | 4           | 32    | 🟢 LOW       |
 
 **Refactoring Priority:** Aufträge (Score 150) → Consider splitting into sub-pages
 
@@ -406,17 +407,17 @@ graph TD
     App[App.tsx] --> Router
     Router --> PublicRoutes[Public Routes]
     Router --> ProtectedRoute
-    
+
     PublicRoutes --> Home
     PublicRoutes --> Pricing
     PublicRoutes --> Auth
-    
+
     ProtectedRoute --> CheckAuth{User Authenticated?}
     CheckAuth -->|No| RedirectToAuth[Redirect to /auth]
     CheckAuth -->|Yes| Dashboard
     CheckAuth -->|Yes| Auftraege
     CheckAuth -->|Yes| Fahrer
-    
+
     AuthContext --> CheckAuth
 ```
 
@@ -427,7 +428,7 @@ graph TD
 export const AuthContext = createContext<{
   user: User | null;
   company_id: string | null;
-  role: 'admin' | 'dispatcher' | 'user' | null;
+  role: "admin" | "dispatcher" | "user" | null;
   isLoading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
@@ -436,7 +437,7 @@ export const AuthContext = createContext<{
 // Usage in components
 const { user, company_id, role } = useAuth();
 
-if (role === 'admin') {
+if (role === "admin") {
   // Show admin-only features
 }
 ```
@@ -446,6 +447,7 @@ if (role === 'admin') {
 ## 📦 COMPONENT LIBRARY STRUCTURE
 
 ### V26 Components (Current)
+
 ```
 /src/components/design-system/
 ├─ V26Button.tsx
@@ -460,6 +462,7 @@ if (role === 'admin') {
 ```
 
 ### V28 Components (To Be Created - Phase 2)
+
 ```
 /src/components/dashboard-v28/
 ├─ V28DashboardCard.tsx
@@ -475,6 +478,7 @@ if (role === 'admin') {
 ## 🚀 PERFORMANCE OPTIMIZATION PATTERNS
 
 ### React.memo Usage
+
 ```typescript
 // Expensive component wrapped in memo
 export const BookingTableRow = React.memo(({ booking, onSelect, onEdit }: Props) => {
@@ -491,9 +495,10 @@ export const BookingTableRow = React.memo(({ booking, onSelect, onEdit }: Props)
 ```
 
 ### useMemo for Filtering
+
 ```typescript
 const filteredBookings = useMemo(() => {
-  return bookings.filter(booking => {
+  return bookings.filter((booking) => {
     if (filters.status && booking.status !== filters.status) return false;
     if (filters.searchQuery && !booking.customer.name.includes(filters.searchQuery)) return false;
     return true;

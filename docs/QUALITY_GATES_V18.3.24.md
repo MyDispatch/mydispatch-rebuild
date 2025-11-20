@@ -1,4 +1,5 @@
 # 🔒 QUALITY GATES V18.3.24
+
 **Automatische Validierung & Enforcement**
 
 Datum: 18.01.2025  
@@ -10,6 +11,7 @@ Status: 🔴 AKTIV - Automatische Prüfung bei jedem Commit
 ## 🎯 ZWECK
 
 Dieses Dokument definiert **automatisierbare Quality Gates**, die:
+
 1. **VOR** jedem Commit laufen
 2. **Kritische Vorgaben** automatisch validieren
 3. **Fehler** sofort erkennen und blockieren
@@ -254,39 +256,39 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          
+          node-version: "18"
+
       - name: Install dependencies
         run: npm ci
-        
+
       - name: 1️⃣ Farb-Validierung
         run: |
           echo "Checking for forbidden 'accent' usage..."
           ! grep -r "text-accent\|bg-accent\|border-accent" src/ --include="*.tsx" --include="*.ts"
-          
+
       - name: 2️⃣ Icon-Farben
         run: |
           echo "Checking icon colors..."
           ! grep -r "className=.*text-status-.*Icon" src/ --include="*.tsx"
-          
+
       - name: 3️⃣ Security
         run: |
           echo "Checking for DELETE operations..."
           ! grep -r "\.delete()" src/ --include="*.tsx" --include="*.ts" --exclude-dir="node_modules"
-          
+
       - name: 4️⃣ TypeScript
         run: npm run type-check
-        
+
       - name: 5️⃣ Build
         run: npm run build
-        
+
       - name: ✅ Quality Gates Passed
         run: echo "All quality gates passed successfully!"
 ```

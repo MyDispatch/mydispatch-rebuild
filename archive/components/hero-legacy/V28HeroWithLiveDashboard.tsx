@@ -9,4 +9,4 @@
 // Diese Komponente wurde archiviert und sollte nicht mehr verwendet werden.
 // Bitte verwende stattdessen V28HeroPremium mit PremiumDashboardContent.
 
-export { V28HeroPremium as V28HeroWithLiveDashboard } from '@/components/hero/V28HeroPremium';
+export { V28HeroPremium as V28HeroWithLiveDashboard } from "@/components/hero/V28HeroPremium";

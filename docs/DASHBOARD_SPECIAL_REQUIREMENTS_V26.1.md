@@ -2,7 +2,7 @@
 
 **Status:** ✅ MANDATORY & BINDING  
 **Gültigkeit:** SYSTEMWEIT für alle Agenten  
-**Datum:** 2025-10-27  
+**Datum:** 2025-10-27
 
 ---
 
@@ -13,6 +13,7 @@
 **Komponente:** `src/components/dashboard/DashboardInfoPanel.tsx`
 
 #### Positionierung:
+
 ```tsx
 // Fixed Position über Standard-Footer
 position: fixed;
@@ -22,14 +23,16 @@ height: 80px;      // Feste Höhe (kompakt)
 ```
 
 #### Dynamische Breite (Sidebar-responsive):
+
 ```tsx
 // Passt sich Sidebar-Zustand an
-sidebarExpanded 
-  ? 'left-[560px] w-[calc(100%-560px)]'    // Expanded: 560px links
-  : 'left-[384px] w-[calc(100%-384px)]'    // Collapsed: 384px links
+sidebarExpanded
+  ? "left-[560px] w-[calc(100%-560px)]" // Expanded: 560px links
+  : "left-[384px] w-[calc(100%-384px)]"; // Collapsed: 384px links
 ```
 
 #### Innenabstände-Anpassung:
+
 - **Standard-Content:** `pb-[128px]` (48px Footer + 80px InfoPanel)
 - **Scrollable-Content:** Muss InfoPanel-Höhe berücksichtigen
 - **Mobile:** InfoPanel verschwindet, Standard-Footer-Abstand (pb-16)
@@ -42,7 +45,7 @@ sidebarExpanded
 
 ```tsx
 // Desktop (mit InfoPanel)
-<div className="pb-[128px]"> 
+<div className="pb-[128px]">
   {/* 48px (Footer) + 80px (InfoPanel) */}
 </div>
 
@@ -56,9 +59,7 @@ sidebarExpanded
 
 ```tsx
 // Scrollable-Area mit InfoPanel-Rücksicht
-<div className="h-[calc(100vh-256px)]">
-  {/* 256px = Header + InfoPanel + Footer */}
-</div>
+<div className="h-[calc(100vh-256px)]">{/* 256px = Header + InfoPanel + Footer */}</div>
 ```
 
 ---
@@ -86,8 +87,8 @@ html, body {
 ```css
 /* Webkit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
-  width: 6px;             /* Schmal */
-  height: 0px;            /* Horizontal verboten */
+  width: 6px; /* Schmal */
+  height: 0px; /* Horizontal verboten */
 }
 
 ::-webkit-scrollbar-track {
@@ -95,7 +96,7 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));  /* Hintergrundfarbe */
+  background: hsl(var(--border)); /* Hintergrundfarbe */
   border-radius: 3px;
   transition: background 0.2s ease;
 }
@@ -115,7 +116,7 @@ html, body {
 
 ```css
 aside::-webkit-scrollbar {
-  width: 4px;              /* Noch schmaler */
+  width: 4px; /* Noch schmaler */
 }
 
 aside::-webkit-scrollbar-thumb {
@@ -148,16 +149,18 @@ aside::-webkit-scrollbar-thumb:hover {
 ## 🔧 SUB-AGENTEN-VORGABEN
 
 ### Für ai-code-analyzer:
+
 ```typescript
 // CRITICAL: Prüfe auf verbotene Scrollbar-Patterns
 const violations = [
-  { pattern: /overflow-x:\s*(auto|scroll)/, severity: 'CRITICAL' },
-  { pattern: /::-webkit-scrollbar\s*{\s*background:/, severity: 'HIGH' },
-  { pattern: /scrollbar-color:\s*[^transparent]/, severity: 'MEDIUM' },
+  { pattern: /overflow-x:\s*(auto|scroll)/, severity: "CRITICAL" },
+  { pattern: /::-webkit-scrollbar\s*{\s*background:/, severity: "HIGH" },
+  { pattern: /scrollbar-color:\s*[^transparent]/, severity: "MEDIUM" },
 ];
 ```
 
 ### Für ai-code-migrator:
+
 ```typescript
 // Auto-Fix: Entferne overflow-x
 style={{ overflowX: 'auto' }}  →  className="overflow-y-auto"
@@ -167,6 +170,7 @@ style={{ scrollbarWidth: 'none' }}  →  className="scrollbar-hide"
 ```
 
 ### Für ai-visual-validator:
+
 ```typescript
 // Screenshot-Analyse: Prüfe auf sichtbare Scrollbars
 const issues = analyzeScrollbars(screenshot);
@@ -191,6 +195,7 @@ Für JEDEN Dashboard-Page/Component:
 ## 📊 METRIKEN
 
 **Dashboard-Violations behoben:**
+
 - InfoPanel inline-style: 1/1 (CRITICAL - bottom/height)
 - Scrollbar-Violations: 0 (bereits compliant)
 

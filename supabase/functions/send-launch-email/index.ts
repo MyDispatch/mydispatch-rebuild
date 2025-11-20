@@ -1,31 +1,32 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.3';
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 import { Resend } from "https://esm.sh/resend@4.0.0";
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    console.log('[Launch Email] Starting launch communication...');
+    console.log("[Launch Email] Starting launch communication...");
 
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const resendApiKey = Deno.env.get('RESEND_API_KEY')!;
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+    const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+    const resendApiKey = Deno.env.get("RESEND_API_KEY")!;
 
     const supabase = createClient(supabaseUrl, supabaseKey);
     const resend = new Resend(resendApiKey);
 
     // Get all active companies with admin users
     const { data: companies, error: companiesError } = await supabase
-      .from('companies')
-      .select(`
+      .from("companies")
+      .select(
+        `
         id,
         name,
         email,
@@ -35,9 +36,10 @@ serve(async (req) => {
           first_name,
           last_name
         )
-      `)
-      .eq('company_status', 'active')
-      .not('email', 'is', null);
+      `
+      )
+      .eq("company_status", "active")
+      .not("email", "is", null);
 
     if (companiesError) {
       throw new Error(`Failed to fetch companies: ${companiesError.message}`);
@@ -51,9 +53,9 @@ serve(async (req) => {
     // Send launch email to each company
     for (const company of companies || []) {
       try {
-        const adminName = company.profiles?.[0]?.first_name 
-          ? `${company.profiles[0].first_name} ${company.profiles[0].last_name || ''}`.trim()
-          : 'Administrator';
+        const adminName = company.profiles?.[0]?.first_name
+          ? `${company.profiles[0].first_name} ${company.profiles[0].last_name || ""}`.trim()
+          : "Administrator";
 
         const emailHtml = `
           <!DOCTYPE html>
@@ -176,9 +178,9 @@ serve(async (req) => {
         `;
 
         const emailResponse = await resend.emails.send({
-          from: 'MyDispatch <info@my-dispatch.de>',
+          from: "MyDispatch <info@my-dispatch.de>",
           to: [company.email],
-          subject: '🚀 MyDispatch ist jetzt live - Alle Features verfügbar!',
+          subject: "🚀 MyDispatch ist jetzt live - Alle Features verfügbar!",
           html: emailHtml,
         });
 
@@ -191,20 +193,20 @@ serve(async (req) => {
     }
 
     // Log to brain_logs
-    await supabase.from('brain_logs').insert({
-      agent_action: 'send_launch_emails',
+    await supabase.from("brain_logs").insert({
+      agent_action: "send_launch_emails",
       input_context: {
         total_companies: companies?.length || 0,
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
       },
       output_result: {
         emails_sent: emailsSent.length,
         emails_failed: emailsFailed.length,
         success_rate: `${((emailsSent.length / (companies?.length || 1)) * 100).toFixed(1)}%`,
-        failed_addresses: emailsFailed
+        failed_addresses: emailsFailed,
       },
       success: emailsFailed.length === 0,
-      confidence: emailsFailed.length === 0 ? 1.0 : 0.7
+      confidence: emailsFailed.length === 0 ? 1.0 : 0.7,
     });
 
     return new Response(
@@ -215,23 +217,23 @@ serve(async (req) => {
         success_rate: `${((emailsSent.length / (companies?.length || 1)) * 100).toFixed(1)}%`,
         details: {
           sent_to: emailsSent,
-          failed: emailsFailed
-        }
+          failed: emailsFailed,
+        },
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       }
     );
   } catch (error: any) {
-    console.error('[Launch Email] Critical error:', error);
+    console.error("[Launch Email] Critical error:", error);
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         error: error.message,
-        success: false
+        success: false,
       }),
       {
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 500,
       }
     );

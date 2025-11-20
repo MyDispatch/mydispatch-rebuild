@@ -17,18 +17,18 @@
    ================================================================================== */
 
 // Design System
-export { designTokens } from './design-tokens';
-export type { DesignTokens } from './design-tokens';
+export { designTokens } from "./design-tokens";
+export type { DesignTokens } from "./design-tokens";
 
 // Pricing
-export { 
+export {
   PRICING_PLANS,
   COMPARISON_FEATURES,
   getPlanById,
   getYearlySavings,
   getDiscountPercentage,
-} from './pricing-plans';
-export type { PricingPlan, PricingFeature } from './pricing-plans';
+} from "./pricing-plans";
+export type { PricingPlan, PricingFeature } from "./pricing-plans";
 
 // Navigation
 export {
@@ -39,8 +39,8 @@ export {
   FOOTER_NAV_GROUPS,
   getNavItemById,
   getActiveNavItem,
-} from './navigation';
-export type { NavItem, NavGroup } from './navigation';
+} from "./navigation";
+export type { NavItem, NavGroup } from "./navigation";
 
 // Content
 export {
@@ -55,7 +55,7 @@ export {
   getButtonText,
   getFormLabel,
   getErrorMessage,
-} from './content';
+} from "./content";
 
 // Features
 export {
@@ -65,43 +65,43 @@ export {
   getFeatureById,
   getFeaturesByCategory,
   getAllFeatures,
-} from './features';
-export type { Feature, FeatureCategory } from './features';
+} from "./features";
+export type { Feature, FeatureCategory } from "./features";
 
 /**
  * CONFIG VERSION
- * 
+ *
  * Update bei Breaking Changes in Configs
  */
-export const CONFIG_VERSION = '1.0.0' as const;
+export const CONFIG_VERSION = "1.0.0" as const;
 
 /**
  * APP CONSTANTS
  */
 export const APP_CONFIG = {
-  name: 'MyDispatch',
-  version: '28.1.0',
-  description: 'Intelligente Flottensteuerung für Taxi & Mietwagen',
-  company: 'MyDispatch GmbH',
-  supportEmail: 'support@mydispatch.de',
-  salesEmail: 'sales@mydispatch.de',
-  phone: '+49 30 123456789',
+  name: "MyDispatch",
+  version: "28.1.0",
+  description: "Intelligente Flottensteuerung für Taxi & Mietwagen",
+  company: "MyDispatch GmbH",
+  supportEmail: "support@mydispatch.de",
+  salesEmail: "sales@mydispatch.de",
+  phone: "+49 30 123456789",
   address: {
-    street: 'Musterstraße 123',
-    postalCode: '10115',
-    city: 'Berlin',
-    country: 'Deutschland',
+    street: "Musterstraße 123",
+    postalCode: "10115",
+    city: "Berlin",
+    country: "Deutschland",
   },
   social: {
-    twitter: 'https://twitter.com/mydispatch',
-    linkedin: 'https://linkedin.com/company/mydispatch',
-    github: 'https://github.com/mydispatch',
+    twitter: "https://twitter.com/mydispatch",
+    linkedin: "https://linkedin.com/company/mydispatch",
+    github: "https://github.com/mydispatch",
   },
 } as const;
 
 /**
  * FEATURE FLAGS
- * 
+ *
  * Zentrale Feature Toggles für Entwicklung/Production
  */
 export const FEATURE_FLAGS = {
@@ -118,15 +118,15 @@ export const FEATURE_FLAGS = {
  * API CONFIG
  */
 export const API_CONFIG = {
-  baseUrl: import.meta.env.VITE_API_BASE_URL || '/api',
+  baseUrl: import.meta.env.VITE_API_BASE_URL || "/api",
   timeout: 30000, // 30 seconds
   retries: 3,
   endpoints: {
-    auth: '/auth',
-    bookings: '/bookings',
-    drivers: '/drivers',
-    vehicles: '/vehicles',
-    customers: '/customers',
-    analytics: '/analytics',
+    auth: "/auth",
+    bookings: "/bookings",
+    drivers: "/drivers",
+    vehicles: "/vehicles",
+    customers: "/customers",
+    analytics: "/analytics",
   },
 } as const;

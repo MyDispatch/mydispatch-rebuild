@@ -6,8 +6,8 @@
    ✅ Development-only warnings
    ================================================================================== */
 
-import { useEffect, type ReactNode } from 'react';
-import { logger } from '@/lib/logger';
+import { useEffect, type ReactNode } from "react";
+import { logger } from "@/lib/logger";
 
 interface Props {
   children: ReactNode;
@@ -24,7 +24,7 @@ export function PerformanceGuard({ children, threshold = 1000 }: Props) {
       const entries = list.getEntries();
 
       entries.forEach((entry) => {
-        if (entry.entryType === 'measure' && entry.duration > threshold) {
+        if (entry.entryType === "measure" && entry.duration > threshold) {
           logger.warn(
             `🐌 Slow operation detected: ${entry.name} took ${entry.duration.toFixed(0)}ms`,
             {
@@ -41,7 +41,7 @@ export function PerformanceGuard({ children, threshold = 1000 }: Props) {
         }
 
         // Monitor navigation timing
-        if (entry.entryType === 'navigation') {
+        if (entry.entryType === "navigation") {
           const navEntry = entry as PerformanceNavigationTiming;
           const loadTime = navEntry.loadEventEnd - navEntry.fetchStart;
 
@@ -56,7 +56,7 @@ export function PerformanceGuard({ children, threshold = 1000 }: Props) {
       });
     });
 
-    observer.observe({ entryTypes: ['measure', 'navigation'] });
+    observer.observe({ entryTypes: ["measure", "navigation"] });
 
     return () => {
       observer.disconnect();
@@ -69,7 +69,7 @@ export function PerformanceGuard({ children, threshold = 1000 }: Props) {
 // Helper: Show performance warning toast
 function showPerformanceWarning(name: string, duration: number): void {
   // Create toast element
-  const toast = document.createElement('div');
+  const toast = document.createElement("div");
   toast.style.cssText = `
     position: fixed;
     bottom: 20px;
@@ -102,14 +102,14 @@ function showPerformanceWarning(name: string, duration: number): void {
 
   // Auto-remove after 5 seconds
   setTimeout(() => {
-    toast.style.animation = 'slideOut 0.3s ease-in';
+    toast.style.animation = "slideOut 0.3s ease-in";
     setTimeout(() => toast.remove(), 300);
   }, 5000);
 }
 
 // Add CSS animation
-if (typeof document !== 'undefined') {
-  const style = document.createElement('style');
+if (typeof document !== "undefined") {
+  const style = document.createElement("style");
   style.textContent = `
     @keyframes slideIn {
       from {

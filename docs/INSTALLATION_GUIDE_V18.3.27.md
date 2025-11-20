@@ -58,10 +58,12 @@ Gehe zu: **GitHub Repository → Settings → Secrets and variables → Actions*
 Füge folgende Secrets hinzu:
 
 ### Erforderlich:
+
 - `TEST_USER_EMAIL` - E-Mail des Test-Benutzers (z.B. `test@mydispatch.de`)
 - `TEST_USER_PASSWORD` - Passwort des Test-Benutzers
 
 ### Bereits vorhanden (Lovable Cloud):
+
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_PUBLISHABLE_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
@@ -72,6 +74,7 @@ Füge folgende Secrets hinzu:
 ## SCHRITT 5: TEST-BENUTZER ERSTELLEN
 
 ### Option A: Via Supabase Dashboard
+
 1. Öffne Lovable Cloud → Database
 2. Gehe zu `auth.users` Tabelle
 3. Erstelle neuen User:
@@ -80,6 +83,7 @@ Füge folgende Secrets hinzu:
    - Confirm Email: ✅
 
 ### Option B: Via SQL (empfohlen)
+
 ```sql
 -- Test-Company erstellen
 INSERT INTO public.companies (name, email, tax_id)
@@ -127,6 +131,7 @@ Die folgenden Scripts sind bereits in `package.json` vorhanden:
 ## SCHRITT 7: ERSTE TESTS AUSFÜHREN
 
 ### Lokale Tests:
+
 ```bash
 # Compliance Tests
 npm run test:compliance
@@ -142,6 +147,7 @@ npm run test:performance
 ```
 
 ### Debug-Modus (UI):
+
 ```bash
 npx playwright test --ui
 ```
@@ -153,6 +159,7 @@ npx playwright test --ui
 Die Workflows sind bereits erstellt. Beim nächsten Push werden sie automatisch ausgeführt.
 
 ### Workflows:
+
 1. **CI** - Bei jedem Push/PR
 2. **E2E Tests** - Täglich um 2 Uhr + bei jedem PR
 3. **Performance** - Wöchentlich Sonntags
@@ -193,6 +200,7 @@ npx lhci autorun
 ```
 
 Sollte Performance-Scores anzeigen für:
+
 - Performance: >85
 - Accessibility: >90
 - Best Practices: >90
@@ -203,6 +211,7 @@ Sollte Performance-Scores anzeigen für:
 ## VERIFIZIERUNG
 
 ### ✅ Checklist:
+
 - [ ] Dependencies installiert (`node_modules/` existiert)
 - [ ] Husky aktiviert (`.husky/pre-commit` ist executable)
 - [ ] Playwright Browser installiert
@@ -217,22 +226,26 @@ Sollte Performance-Scores anzeigen für:
 ## TROUBLESHOOTING
 
 ### Problem: "Playwright not found"
+
 ```bash
 npx playwright install --with-deps
 ```
 
 ### Problem: "Test user login failed"
+
 - Prüfe `TEST_USER_EMAIL` und `TEST_USER_PASSWORD` in GitHub Secrets
 - Stelle sicher, dass User in Supabase existiert
 - Prüfe, dass User `email_confirmed_at` gesetzt hat
 
 ### Problem: "Pre-commit hook not running"
+
 ```bash
 chmod +x .husky/pre-commit
 npx husky install
 ```
 
 ### Problem: "GitHub Actions failing"
+
 - Prüfe GitHub Secrets sind alle gesetzt
 - Prüfe Logs in GitHub Actions Tab
 - Teste lokal mit `npm run test:e2e`
@@ -242,6 +255,7 @@ npx husky install
 ## SUPPORT
 
 Bei Problemen:
+
 1. Prüfe Logs: `playwright-report/index.html`
 2. Debug Mode: `npx playwright test --debug`
 3. GitHub Actions Logs: Repository → Actions → [Failed Run]
@@ -251,6 +265,7 @@ Bei Problemen:
 ## NÄCHSTE SCHRITTE
 
 Nach erfolgreicher Installation:
+
 1. Führe `npm run test:compliance` aus
 2. Reviewed Violations (falls vorhanden)
 3. Pushe zu GitHub → Workflows werden automatisch ausgeführt

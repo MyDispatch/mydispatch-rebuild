@@ -60,18 +60,18 @@
 
 ```typescript
 <MainLayout>
-  <AppSidebar 
-    expanded={sidebarExpanded} 
-    setExpanded={setSidebarExpanded} 
+  <AppSidebar
+    expanded={sidebarExpanded}
+    setExpanded={setSidebarExpanded}
   />
-  
+
   <div className="flex-1 overflow-x-hidden">
     <Header sidebarExpanded={sidebarExpanded} />
-    
+
     <main className="min-h-[calc(100vh-60px-48px)]">
       {children}
     </main>
-    
+
     <Footer sidebarExpanded={sidebarExpanded} />
   </div>
 </MainLayout>
@@ -98,9 +98,9 @@ export function Header({ sidebarExpanded }: HeaderProps) {
   const navigate = useNavigate();
 
   return (
-    <header 
-      className="fixed top-0 right-0 z-30 bg-gradient-to-r from-primary via-primary to-primary/95 shadow-lg transition-[left,width] duration-300 ease-in-out border-b border-border/20" 
-      style={{ 
+    <header
+      className="fixed top-0 right-0 z-30 bg-gradient-to-r from-primary via-primary to-primary/95 shadow-lg transition-[left,width] duration-300 ease-in-out border-b border-border/20"
+      style={{
         left: sidebarExpanded ? '240px' : '64px',
         width: sidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 64px)'
       }}
@@ -119,25 +119,25 @@ export function Header({ sidebarExpanded }: HeaderProps) {
               </span>
             )
           )}
-          
+
           {user && (
             <div className="flex items-center gap-1.5">
               {/* Search Button */}
               <Button variant="ghost" size="sm" onClick={openSearch}>
                 <Search className="h-4 w-4" />
               </Button>
-              
+
               {/* AI Support */}
               <Button variant="ghost" size="sm" onClick={() => navigate('/kommunikation')}>
                 <Bot className="h-4 w-4" />
               </Button>
-              
+
               {/* User Info (Desktop) */}
               <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-background/10 rounded-lg">
                 <User className="h-4 w-4" />
                 <span className="font-medium">{profile?.first_name || user.email}</span>
               </div>
-              
+
               {/* Logout */}
               <Button variant="ghost" size="sm" onClick={signOut}>
                 <LogOut className="h-4 w-4 sm:mr-2" />
@@ -187,19 +187,20 @@ padding-right: 24px;
 ### **Header-Komponenten**
 
 #### **1. Logo-Bereich**
+
 ```typescript
 // Master-Dashboard: MyDispatch-Logo
-<img 
-  src={officialLogo} 
-  alt="MyDispatch - simply arrive" 
+<img
+  src={officialLogo}
+  alt="MyDispatch - simply arrive"
   width="140" height="37"
   className="h-8 max-w-[160px] object-contain drop-shadow-sm"
 />
 
 // Interner Bereich: Company-Logo ODER Unternehmensname
 company?.logo_url ? (
-  <img 
-    src={company.logo_url} 
+  <img
+    src={company.logo_url}
     alt={company.name}
     width="149" height="40"
     className="h-8 max-w-[160px] object-contain drop-shadow-sm"
@@ -212,6 +213,7 @@ company?.logo_url ? (
 ```
 
 #### **2. Aktions-Buttons**
+
 ```typescript
 // Search (Global)
 <Button
@@ -258,15 +260,15 @@ company?.logo_url ? (
 ```typescript
 // Trigger Global Search via Custom Event
 const openSearch = () => {
-  const event = new CustomEvent('open-global-search');
+  const event = new CustomEvent("open-global-search");
   window.dispatchEvent(event);
 };
 
 // In Search Component (z.B. GlobalSearchDialog.tsx)
 useEffect(() => {
   const handleOpenSearch = () => setIsOpen(true);
-  window.addEventListener('open-global-search', handleOpenSearch);
-  return () => window.removeEventListener('open-global-search', handleOpenSearch);
+  window.addEventListener("open-global-search", handleOpenSearch);
+  return () => window.removeEventListener("open-global-search", handleOpenSearch);
 }, []);
 ```
 
@@ -291,7 +293,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
   const { accountType } = useAccountType();
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   // Hover-Handler mit Debounce
   const handleMouseEnter = useCallback(() => {
     if (leaveTimeoutRef.current) {
@@ -383,7 +385,7 @@ height: 100vh;
 z-index: 40;
 
 /* Breite (Dynamisch) */
-width: 64px;  /* Collapsed */
+width: 64px; /* Collapsed */
 width: 240px; /* Expanded */
 transition: width 300ms ease-in-out;
 
@@ -401,38 +403,48 @@ flex-direction: column;
 ```typescript
 const menuStructure: MenuSection[] = [
   {
-    label: 'HAUPTBEREICH',
+    label: "HAUPTBEREICH",
     items: [
-      { title: 'Dashboard', url: '/dashboard', icon: Home },
-      { title: 'Aufträge', url: '/auftraege', icon: FileText }
-    ]
+      { title: "Dashboard", url: "/dashboard", icon: Home },
+      { title: "Aufträge", url: "/auftraege", icon: FileText },
+    ],
   },
   {
-    label: 'VERWALTUNG',
+    label: "VERWALTUNG",
     items: [
-      { title: 'Kunden', url: '/kunden', icon: Users },
-      { title: 'Fahrer & Fahrzeuge', url: '/fahrer', icon: Users },
-      { title: 'Schichten & Zeiten', url: '/schichtzettel', icon: Calendar },
-      { title: 'Finanzen', url: '/rechnungen', icon: Receipt },
-      { title: 'Kostenstellen', url: '/kostenstellen', icon: Euro },
-      { title: 'Dokumente & Ablauf', url: '/dokumente', icon: FolderOpen }
-    ]
+      { title: "Kunden", url: "/kunden", icon: Users },
+      { title: "Fahrer & Fahrzeuge", url: "/fahrer", icon: Users },
+      { title: "Schichten & Zeiten", url: "/schichtzettel", icon: Calendar },
+      { title: "Finanzen", url: "/rechnungen", icon: Receipt },
+      { title: "Kostenstellen", url: "/kostenstellen", icon: Euro },
+      { title: "Dokumente & Ablauf", url: "/dokumente", icon: FolderOpen },
+    ],
   },
   {
-    label: 'GESCHÄFT',
+    label: "GESCHÄFT",
     items: [
-      { title: 'Partner-Netzwerk', url: '/partner', icon: Handshake, requiredTariff: 'Business' },
-      { title: 'Statistiken & Reports', url: '/statistiken', icon: TrendingUp, requiredTariff: 'Business' },
-      { title: 'Landingpage-Editor', url: '/landingpage-konfigurator', icon: Building2, requiredTariff: 'Business' }
-    ]
+      { title: "Partner-Netzwerk", url: "/partner", icon: Handshake, requiredTariff: "Business" },
+      {
+        title: "Statistiken & Reports",
+        url: "/statistiken",
+        icon: TrendingUp,
+        requiredTariff: "Business",
+      },
+      {
+        title: "Landingpage-Editor",
+        url: "/landingpage-konfigurator",
+        icon: Building2,
+        requiredTariff: "Business",
+      },
+    ],
   },
   {
-    label: 'SYSTEM',
+    label: "SYSTEM",
     items: [
-      { title: 'Kommunikation', url: '/kommunikation', icon: MessageSquare },
-      { title: 'Einstellungen', url: '/einstellungen', icon: Settings }
-    ]
-  }
+      { title: "Kommunikation", url: "/kommunikation", icon: MessageSquare },
+      { title: "Einstellungen", url: "/einstellungen", icon: Settings },
+    ],
+  },
 ];
 ```
 
@@ -446,8 +458,8 @@ const isActive = location.pathname === item.url;
 const navLinkClasses = cn(
   "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium",
   "transition-all duration-200 relative",
-  isActive 
-    ? "bg-primary text-foreground shadow-sm font-semibold" 
+  isActive
+    ? "bg-primary text-foreground shadow-sm font-semibold"
     : "text-muted-foreground hover:bg-muted hover:text-foreground",
   !expanded && "justify-center px-0 w-full"
 );
@@ -509,9 +521,9 @@ interface FooterProps {
 
 export function Footer({ sidebarExpanded }: FooterProps) {
   return (
-    <footer 
-      className="fixed bottom-0 right-0 z-20 bg-gradient-to-t from-background to-background/95 border-t border-border/50 transition-all duration-300 hover:py-8 py-3 overflow-hidden group backdrop-blur-sm" 
-      style={{ 
+    <footer
+      className="fixed bottom-0 right-0 z-20 bg-gradient-to-t from-background to-background/95 border-t border-border/50 transition-all duration-300 hover:py-8 py-3 overflow-hidden group backdrop-blur-sm"
+      style={{
         left: sidebarExpanded ? '240px' : '64px',
         width: sidebarExpanded ? 'calc(100% - 240px)' : 'calc(100% - 64px)'
       }}
@@ -522,7 +534,7 @@ export function Footer({ sidebarExpanded }: FooterProps) {
           <div className="text-center sm:text-left font-medium">
             © {new Date().getFullYear()} MyDispatch • Made in Germany
           </div>
-          
+
           {/* Links (Hover-Expand) */}
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6 opacity-0 group-hover:opacity-100 transition-all duration-300 max-h-0 group-hover:max-h-24">
             <Link to="/impressum" className="hover:text-primary hover:scale-105 transition-all">
@@ -537,7 +549,7 @@ export function Footer({ sidebarExpanded }: FooterProps) {
             <Link to="/nexify-support" className="hover:text-primary hover:scale-105 transition-all">
               NeXify Support
             </Link>
-            
+
             {/* Öffnungszeiten (Desktop) */}
             <div className="hidden lg:flex">
               <OpeningHours compact showIcon />
@@ -560,8 +572,8 @@ right: 0;
 z-index: 20;
 
 /* Höhe */
-height: 48px;        /* py-3 (12px * 2 = 24px) + content */
-height: 80px;        /* hover:py-8 (32px * 2 = 64px) + content */
+height: 48px; /* py-3 (12px * 2 = 24px) + content */
+height: 80px; /* hover:py-8 (32px * 2 = 64px) + content */
 transition: padding 300ms ease-in-out;
 
 /* Hintergrund */
@@ -604,7 +616,7 @@ width: calc(100% - 64px) → calc(100% - 240px)
 ### **Main Content Area**
 
 ```typescript
-<main 
+<main
   className={cn(
     "min-h-[calc(100vh-60px-48px)]", // Header + Footer
     "transition-[margin] duration-300 ease-in-out",
@@ -622,7 +634,7 @@ export function DashboardLayout({ children, title, description, canonical }: Das
   return (
     <>
       <SEOHead title={title} description={description} canonical={canonical} />
-      
+
       <div className="space-y-6 px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <Breadcrumbs />
         {children}
@@ -752,8 +764,8 @@ export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="min-h-screen flex bg-background overflow-x-hidden max-w-full">
       <AppSidebar expanded={sidebarExpanded} setExpanded={setSidebarExpanded} />
-      
-      <div 
+
+      <div
         className={cn(
           "flex-1 overflow-x-hidden",
           "transition-[margin] duration-300 ease-in-out",
@@ -761,11 +773,11 @@ export function MainLayout({ children }: MainLayoutProps) {
         )}
       >
         <Header sidebarExpanded={sidebarExpanded} />
-        
+
         <main className="min-h-[calc(100vh-60px-48px)] pt-16 pb-12">
           {children}
         </main>
-        
+
         <Footer sidebarExpanded={sidebarExpanded} />
       </div>
     </div>
@@ -788,7 +800,7 @@ export function MarketingLayout({ children, currentPage }: MarketingLayoutProps)
         <header className="h-16 fixed top-0 left-0 right-0 z-30 bg-primary border-b border-border/20">
           <div className="flex items-center justify-between px-4 h-full">
             <img src={officialLogo} alt="MyDispatch" className="h-8" />
-            
+
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="sm">
@@ -801,11 +813,11 @@ export function MarketingLayout({ children, currentPage }: MarketingLayoutProps)
             </Sheet>
           </div>
         </header>
-        
+
         <main className="flex-1 pt-16">
           {children}
         </main>
-        
+
         <footer className="border-t border-border/20 py-6">
           {/* Footer Content */}
         </footer>
@@ -816,7 +828,7 @@ export function MarketingLayout({ children, currentPage }: MarketingLayoutProps)
   // Desktop: Hover-Sidebar
   return (
     <div className="min-h-screen flex bg-background">
-      <aside 
+      <aside
         className={cn(
           "fixed left-0 top-0 h-full z-40 bg-background border-r border-border/20",
           "transition-[width] duration-300 ease-in-out",
@@ -827,16 +839,16 @@ export function MarketingLayout({ children, currentPage }: MarketingLayoutProps)
       >
         {/* Marketing Navigation */}
       </aside>
-      
+
       <div className="flex-1" style={{ marginLeft: sidebarExpanded ? '240px' : '64px' }}>
         <header className="h-16 fixed top-0 right-0 z-30 bg-primary">
           {/* Header Content */}
         </header>
-        
+
         <main className="pt-16">
           {children}
         </main>
-        
+
         <footer className="fixed bottom-0 right-0 z-20">
           {/* Footer Content */}
         </footer>
@@ -852,12 +864,12 @@ export function MarketingLayout({ children, currentPage }: MarketingLayoutProps)
 
 ### **Layout-Komponenten**
 
-| Komponente | Höhe/Breite | Position | Z-Index | Transition |
-|------------|-------------|----------|---------|------------|
-| **AppSidebar** | 64px / 240px | Fixed Left | 40 | 300ms |
-| **Header** | 60px | Fixed Top | 30 | 300ms |
-| **Footer** | 48px / 80px | Fixed Bottom | 20 | 300ms |
-| **Main Content** | calc(100vh - 108px) | Relative | - | 300ms |
+| Komponente       | Höhe/Breite         | Position     | Z-Index | Transition |
+| ---------------- | ------------------- | ------------ | ------- | ---------- |
+| **AppSidebar**   | 64px / 240px        | Fixed Left   | 40      | 300ms      |
+| **Header**       | 60px                | Fixed Top    | 30      | 300ms      |
+| **Footer**       | 48px / 80px         | Fixed Bottom | 20      | 300ms      |
+| **Main Content** | calc(100vh - 108px) | Relative     | -       | 300ms      |
 
 ### **Responsive Breakpoints**
 
@@ -874,7 +886,7 @@ export function MarketingLayout({ children, currentPage }: MarketingLayoutProps)
 ✅ **Tariff-Gating UI** (Lock-Icon, Upgrade-Tooltip)  
 ✅ **Global Search Integration** (Custom Event)  
 ✅ **Breadcrumbs Support** (DashboardLayout)  
-✅ **SEO-optimiert** (SEOHead Component)  
+✅ **SEO-optimiert** (SEOHead Component)
 
 ---
 

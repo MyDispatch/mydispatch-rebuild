@@ -7,15 +7,15 @@
    - Multi-Agent-Verification (MAV) Ready
    ================================================================================== */
 
-import { z } from 'zod';
-import { logger } from './logger';
+import { z } from "zod";
+import { logger } from "./logger";
 
-type ActionIntent = 
-  | 'database_query'
-  | 'database_mutation'
-  | 'edge_function_call'
-  | 'auth_action'
-  | 'storage_operation';
+type ActionIntent =
+  | "database_query"
+  | "database_mutation"
+  | "edge_function_call"
+  | "auth_action"
+  | "storage_operation";
 
 interface PreActionContext {
   intent: ActionIntent;
@@ -68,7 +68,7 @@ export class PreActionAudit {
 
     // 2. Company ID Validation (Multi-Tenant Enforcement)
     if (this.requiresCompanyId(context.intent) && !context.companyId) {
-      result.errors.push('Company ID fehlt (Multi-Tenant Isolation erforderlich)');
+      result.errors.push("Company ID fehlt (Multi-Tenant Isolation erforderlich)");
       result.isValid = false;
       result.correctionSuggestions?.push(
         'Fügen Sie .eq("company_id", profile.company_id) zur Query hinzu'
@@ -95,25 +95,25 @@ export class PreActionAudit {
     // 5. Rate Limiting Check (Optional)
     const rateLimitCheck = await this.checkRateLimits(context);
     if (!rateLimitCheck.isValid) {
-      result.warnings.push('Rate Limit erreicht - Aktion verzögert');
+      result.warnings.push("Rate Limit erreicht - Aktion verzögert");
     }
 
     // Log Validation Result
     if (!result.isValid) {
-      logger.error('Pre-Action Audit fehlgeschlagen', new Error('Validation failed'), {
-        component: 'PreActionAudit',
-        action: 'validate',
+      logger.error("Pre-Action Audit fehlgeschlagen", new Error("Validation failed"), {
+        component: "PreActionAudit",
+        action: "validate",
         intent: context.intent,
         errors: result.errors,
-        companyId: context.companyId
+        companyId: context.companyId,
       });
     } else if (result.warnings.length > 0) {
-      logger.warn('Pre-Action Audit mit Warnungen', {
-        component: 'PreActionAudit',
-        action: 'validate',
+      logger.warn("Pre-Action Audit mit Warnungen", {
+        component: "PreActionAudit",
+        action: "validate",
         intent: context.intent,
         warnings: result.warnings,
-        companyId: context.companyId
+        companyId: context.companyId,
       });
     }
 
@@ -125,11 +125,11 @@ export class PreActionAudit {
    */
   private isValidIntent(intent: ActionIntent): boolean {
     const validIntents: ActionIntent[] = [
-      'database_query',
-      'database_mutation',
-      'edge_function_call',
-      'auth_action',
-      'storage_operation',
+      "database_query",
+      "database_mutation",
+      "edge_function_call",
+      "auth_action",
+      "storage_operation",
     ];
     return validIntents.includes(intent);
   }
@@ -138,7 +138,7 @@ export class PreActionAudit {
    * Multi-Tenant Validation
    */
   private requiresCompanyId(intent: ActionIntent): boolean {
-    return intent === 'database_query' || intent === 'database_mutation';
+    return intent === "database_query" || intent === "database_mutation";
   }
 
   /**
@@ -153,7 +153,7 @@ export class PreActionAudit {
 
     // Dynamische Schema-Validierung basierend auf targetEntity
     try {
-      if (context.targetEntity === 'bookings') {
+      if (context.targetEntity === "bookings") {
         const bookingSchema = z.object({
           company_id: z.string().uuid(),
           customer_id: z.string().uuid().optional(),
@@ -163,7 +163,7 @@ export class PreActionAudit {
         });
 
         bookingSchema.parse(context.payload);
-      } else if (context.targetEntity === 'drivers') {
+      } else if (context.targetEntity === "drivers") {
         const driverSchema = z.object({
           company_id: z.string().uuid(),
           first_name: z.string().min(1),
@@ -177,9 +177,9 @@ export class PreActionAudit {
     } catch (error: any) {
       result.isValid = false;
       if (error instanceof z.ZodError) {
-        result.errors = error.errors.map(e => `${e.path.join('.')}: ${e.message}`);
+        result.errors = error.errors.map((e) => `${e.path.join(".")}: ${e.message}`);
       } else {
-        result.errors.push('Schema-Validierung fehlgeschlagen');
+        result.errors.push("Schema-Validierung fehlgeschlagen");
       }
     }
 
@@ -209,7 +209,7 @@ export class PreActionAudit {
       const payloadString = JSON.stringify(context.payload);
       for (const pattern of dangerousPatterns) {
         if (pattern.test(payloadString)) {
-          result.errors.push('Potentielle SQL-Injection erkannt');
+          result.errors.push("Potentielle SQL-Injection erkannt");
           result.isValid = false;
           break;
         }
@@ -217,18 +217,18 @@ export class PreActionAudit {
     }
 
     // 2. XSS Prevention
-    if (context.payload && typeof context.payload === 'object') {
+    if (context.payload && typeof context.payload === "object") {
       for (const value of Object.values(context.payload)) {
-        if (typeof value === 'string' && /<script/i.test(value)) {
-          result.warnings.push('Potentieller XSS-Versuch erkannt - Payload wird bereinigt');
+        if (typeof value === "string" && /<script/i.test(value)) {
+          result.warnings.push("Potentieller XSS-Versuch erkannt - Payload wird bereinigt");
         }
       }
     }
 
     // 3. DSGVO-Compliance Check
-    if (context.intent === 'database_mutation' && context.targetEntity === 'customers') {
+    if (context.intent === "database_mutation" && context.targetEntity === "customers") {
       if (!context.companyId) {
-        result.errors.push('DSGVO-Verletzung: Keine Company-Isolation bei Kundendaten');
+        result.errors.push("DSGVO-Verletzung: Keine Company-Isolation bei Kundendaten");
         result.isValid = false;
       }
     }
@@ -268,33 +268,33 @@ export class PreActionAudit {
     const correctedContext = { ...context };
 
     // 1. Company ID Auto-Injection
-    if (validationResult.errors.some(e => e.includes('Company ID'))) {
+    if (validationResult.errors.some((e) => e.includes("Company ID"))) {
       // Versuche Company ID aus aktuellem Auth-Context zu holen
       // (Placeholder - benötigt Zugriff auf Auth-Store)
-      logger.warn('Auto-Correction: Company ID fehlt - manuelle Korrektur erforderlich', {
-        component: 'PreActionAudit',
-        action: 'attemptAutoCorrection',
-        intent: context.intent
+      logger.warn("Auto-Correction: Company ID fehlt - manuelle Korrektur erforderlich", {
+        component: "PreActionAudit",
+        action: "attemptAutoCorrection",
+        intent: context.intent,
       });
       return null;
     }
 
     // 2. Payload Sanitization
-    if (validationResult.warnings.some(w => w.includes('XSS'))) {
+    if (validationResult.warnings.some((w) => w.includes("XSS"))) {
       // Sanitize Payload
-      if (correctedContext.payload && typeof correctedContext.payload === 'object') {
+      if (correctedContext.payload && typeof correctedContext.payload === "object") {
         for (const [key, value] of Object.entries(correctedContext.payload)) {
-          if (typeof value === 'string') {
+          if (typeof value === "string") {
             correctedContext.payload[key] = value
-              .replace(/<script/gi, '')
-              .replace(/<\/script>/gi, '');
+              .replace(/<script/gi, "")
+              .replace(/<\/script>/gi, "");
           }
         }
       }
-      logger.warn('Auto-Correction: XSS-Payload bereinigt', {
-        component: 'PreActionAudit',
-        action: 'attemptAutoCorrection',
-        sanitized: true
+      logger.warn("Auto-Correction: XSS-Payload bereinigt", {
+        component: "PreActionAudit",
+        action: "attemptAutoCorrection",
+        sanitized: true,
       });
     }
 
@@ -320,16 +320,16 @@ export async function preActionAudit(context: PreActionContext): Promise<boolean
     const correctedContext = await audit.attemptCorrection(context, result);
     if (correctedContext) {
       if (import.meta.env.DEV) {
-        logger.debug('[PreActionAudit] Auto-Correction erfolgreich', { correctedContext });
+        logger.debug("[PreActionAudit] Auto-Correction erfolgreich", { correctedContext });
       }
       return true;
     }
-    
-    logger.error('PreActionAudit Validation fehlgeschlagen', new Error('Validation failed'), {
-      component: 'PreActionAudit',
-      action: 'performAudit',
+
+    logger.error("PreActionAudit Validation fehlgeschlagen", new Error("Validation failed"), {
+      component: "PreActionAudit",
+      action: "performAudit",
       errors: result.errors,
-      intent: context.intent
+      intent: context.intent,
     });
     return false;
   }

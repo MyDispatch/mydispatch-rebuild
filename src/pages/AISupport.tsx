@@ -7,33 +7,33 @@
    - Multi-Tenant mit company_id
    ================================================================================== */
 
-import React, { useState, useEffect, useRef } from 'react';
-import { useAuth } from '@/hooks/use-auth';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/components/ui/input';
-import { Bot, User, Send, Sparkles, Calendar, TrendingUp, MapPin, Info } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { useLocation } from 'react-router-dom';
-import { Badge } from '@/components/ui/badge';
-import { handleError } from '@/lib/error-handler';
+import React, { useState, useEffect, useRef } from "react";
+import { useAuth } from "@/hooks/use-auth";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Input } from "@/components/ui/input";
+import { Bot, User, Send, Sparkles, Calendar, TrendingUp, MapPin, Info } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useLocation } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
+import { handleError } from "@/lib/error-handler";
 
 interface Message {
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   content: string;
 }
 
 const AISupport = () => {
   const { profile, company } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
@@ -43,68 +43,70 @@ const AISupport = () => {
   const getPageContext = () => {
     const path = location.pathname;
     const contexts: Record<string, string> = {
-      '/': 'Dashboard - Übersicht über Aufträge, Fahrer und Fahrzeuge',
-      '/auftraege': 'Auftragsverwaltung - Buchungen anlegen und verwalten',
-      '/fahrer': 'Fahrerverwaltung - Fahrer anlegen und organisieren',
-      '/fahrzeuge': 'Fahrzeugverwaltung - Fahrzeugflotte verwalten',
-      '/kunden': 'Kundenverwaltung - Kunden anlegen und pflegen',
-      '/partner': 'Partner-Netzwerk - Kooperationen verwalten',
-      '/schichtzettel': 'Schichtzettel - Schichten dokumentieren',
-      '/rechnungen': 'Rechnungsverwaltung - Rechnungen erstellen',
-      '/statistiken': 'Statistiken - Auswertungen und Analysen',
-      '/unternehmen': 'Unternehmenseinstellungen',
-      '/kommunikation': 'AI-Support & Fahrtenplanung',
+      "/": "Dashboard - Übersicht über Aufträge, Fahrer und Fahrzeuge",
+      "/auftraege": "Auftragsverwaltung - Buchungen anlegen und verwalten",
+      "/fahrer": "Fahrerverwaltung - Fahrer anlegen und organisieren",
+      "/fahrzeuge": "Fahrzeugverwaltung - Fahrzeugflotte verwalten",
+      "/kunden": "Kundenverwaltung - Kunden anlegen und pflegen",
+      "/partner": "Partner-Netzwerk - Kooperationen verwalten",
+      "/schichtzettel": "Schichtzettel - Schichten dokumentieren",
+      "/rechnungen": "Rechnungsverwaltung - Rechnungen erstellen",
+      "/statistiken": "Statistiken - Auswertungen und Analysen",
+      "/unternehmen": "Unternehmenseinstellungen",
+      "/kommunikation": "AI-Support & Fahrtenplanung",
     };
-    return contexts[path] || 'MyDispatch Dashboard';
+    return contexts[path] || "MyDispatch Dashboard";
   };
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
 
-    const userMessage: Message = { role: 'user', content: input };
-    setMessages(prev => [...prev, userMessage]);
-    setInput('');
+    const userMessage: Message = { role: "user", content: input };
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
     setIsLoading(true);
 
     try {
       const response = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-support-chat`,
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY}`,
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY}`,
           },
           body: JSON.stringify({
-            messages: messages.concat(userMessage).map(m => ({
+            messages: messages.concat(userMessage).map((m) => ({
               role: m.role,
               content: m.content,
             })),
-            context: `Aktuelle Seite: ${getPageContext()}\nUnternehmen: ${company?.name || 'Nicht verfügbar'}\nUser: ${profile?.first_name} ${profile?.last_name}`,
+            context: `Aktuelle Seite: ${getPageContext()}\nUnternehmen: ${company?.name || "Nicht verfügbar"}\nUser: ${profile?.first_name} ${profile?.last_name}`,
           }),
         }
       );
 
       if (!response.ok) {
         if (response.status === 429) {
-          throw new Error('Rate Limit erreicht. Bitte versuchen Sie es in wenigen Sekunden erneut.');
+          throw new Error(
+            "Rate Limit erreicht. Bitte versuchen Sie es in wenigen Sekunden erneut."
+          );
         }
         if (response.status === 402) {
-          throw new Error('AI-Guthaben aufgebraucht. Bitte kontaktieren Sie den Support.');
+          throw new Error("AI-Guthaben aufgebraucht. Bitte kontaktieren Sie den Support.");
         }
-        throw new Error('AI-Service vorübergehend nicht verfügbar');
+        throw new Error("AI-Service vorübergehend nicht verfügbar");
       }
 
       if (!response.body) {
-        throw new Error('Fehler beim Abrufen der Antwort');
+        throw new Error("Fehler beim Abrufen der Antwort");
       }
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let assistantContent = '';
-      let textBuffer = '';
+      let assistantContent = "";
+      let textBuffer = "";
 
-      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
+      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
 
       while (true) {
         const { done, value } = await reader.read();
@@ -113,41 +115,44 @@ const AISupport = () => {
         textBuffer += decoder.decode(value, { stream: true });
 
         let newlineIndex: number;
-        while ((newlineIndex = textBuffer.indexOf('\n')) !== -1) {
+        while ((newlineIndex = textBuffer.indexOf("\n")) !== -1) {
           let line = textBuffer.slice(0, newlineIndex);
           textBuffer = textBuffer.slice(newlineIndex + 1);
 
-          if (line.endsWith('\r')) line = line.slice(0, -1);
-          if (line.startsWith(':') || line.trim() === '') continue;
-          if (!line.startsWith('data: ')) continue;
+          if (line.endsWith("\r")) line = line.slice(0, -1);
+          if (line.startsWith(":") || line.trim() === "") continue;
+          if (!line.startsWith("data: ")) continue;
 
           const jsonStr = line.slice(6).trim();
-          if (jsonStr === '[DONE]') break;
+          if (jsonStr === "[DONE]") break;
 
           try {
             const parsed = JSON.parse(jsonStr);
             const content = parsed.choices?.[0]?.delta?.content as string | undefined;
             if (content) {
               assistantContent += content;
-              setMessages(prev => {
+              setMessages((prev) => {
                 const newMessages = [...prev];
                 newMessages[newMessages.length - 1].content = assistantContent;
                 return newMessages;
               });
             }
           } catch {
-            textBuffer = line + '\n' + textBuffer;
+            textBuffer = line + "\n" + textBuffer;
             break;
           }
         }
       }
     } catch (error) {
-      handleError(error, 'AI-Chat Fehler');
-      setMessages(prev => [
+      handleError(error, "AI-Chat Fehler");
+      setMessages((prev) => [
         ...prev,
         {
-          role: 'assistant',
-          content: error instanceof Error ? error.message : 'Entschuldigung, es gab einen Fehler. Bitte versuchen Sie es erneut.',
+          role: "assistant",
+          content:
+            error instanceof Error
+              ? error.message
+              : "Entschuldigung, es gab einen Fehler. Bitte versuchen Sie es erneut.",
         },
       ]);
     } finally {
@@ -156,7 +161,7 @@ const AISupport = () => {
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
@@ -166,34 +171,35 @@ const AISupport = () => {
   const quickPrompts = [
     {
       icon: Calendar,
-      label: 'Fahrt planen',
-      prompt: 'Ich möchte eine Fahrt von München Hauptbahnhof zum Flughafen planen. Was muss ich beachten?'
+      label: "Fahrt planen",
+      prompt:
+        "Ich möchte eine Fahrt von München Hauptbahnhof zum Flughafen planen. Was muss ich beachten?",
     },
     {
       icon: TrendingUp,
-      label: 'Umsatz analysieren',
-      prompt: 'Analysiere meine heutigen Aufträge und gib mir Empfehlungen zur Optimierung.'
+      label: "Umsatz analysieren",
+      prompt: "Analysiere meine heutigen Aufträge und gib mir Empfehlungen zur Optimierung.",
     },
     {
       icon: MapPin,
-      label: 'Route optimieren',
-      prompt: 'Wie kann ich meine Routen effizienter planen? Gibt es Tools in MyDispatch dafür?'
+      label: "Route optimieren",
+      prompt: "Wie kann ich meine Routen effizienter planen? Gibt es Tools in MyDispatch dafür?",
     },
     {
       icon: Info,
-      label: 'Feature-Hilfe',
-      prompt: 'Erkläre mir die wichtigsten Funktionen von MyDispatch und wie ich sie nutze.'
+      label: "Feature-Hilfe",
+      prompt: "Erkläre mir die wichtigsten Funktionen von MyDispatch und wie ich sie nutze.",
     },
   ];
 
   return (
     <>
-      <SEOHead 
+      <SEOHead
         title="AI-Support & Fahrtenplanung"
         description="MyDispatch AI-Assistent: Intelligente Unterstützung für Disposition, Fahrtenplanung und Systemhilfe."
         canonical="/kommunikation"
       />
-      
+
       <div className="space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
@@ -230,10 +236,12 @@ const AISupport = () => {
                 <div className="inline-flex p-4 bg-primary/10 rounded-full mb-4">
                   <Bot className="h-12 w-12 text-foreground" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">Willkommen beim MyDispatch AI-Assistenten!</h3>
+                <h3 className="font-semibold text-lg mb-2">
+                  Willkommen beim MyDispatch AI-Assistenten!
+                </h3>
                 <p className="text-sm text-muted-foreground mb-6 max-w-md mx-auto">
-                  Ich helfe Ihnen bei der Disposition, Fahrtenplanung und beantworte Fragen zur Software.
-                  Ich kann auch Daten analysieren und Optimierungsempfehlungen geben.
+                  Ich helfe Ihnen bei der Disposition, Fahrtenplanung und beantworte Fragen zur
+                  Software. Ich kann auch Daten analysieren und Optimierungsempfehlungen geben.
                 </p>
 
                 {/* Quick-Prompts */}
@@ -267,26 +275,26 @@ const AISupport = () => {
               <div
                 key={index}
                 className={cn(
-                  'flex gap-3 items-start',
-                  message.role === 'user' ? 'justify-end' : 'justify-start'
+                  "flex gap-3 items-start",
+                  message.role === "user" ? "justify-end" : "justify-start"
                 )}
               >
-                 {message.role === 'assistant' && (
+                {message.role === "assistant" && (
                   <div className="bg-primary rounded-full p-2 flex-shrink-0 mt-1">
                     <Bot className="h-4 w-4 text-primary-foreground" />
                   </div>
                 )}
                 <div
                   className={cn(
-                    'rounded-lg p-4 max-w-[85%] text-sm leading-relaxed',
-                    message.role === 'user'
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-muted text-foreground border border-border'
+                    "rounded-lg p-4 max-w-[85%] text-sm leading-relaxed",
+                    message.role === "user"
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-muted text-foreground border border-border"
                   )}
                 >
                   <div className="whitespace-pre-wrap">{message.content}</div>
                 </div>
-                {message.role === 'user' && (
+                {message.role === "user" && (
                   <div className="bg-foreground rounded-full p-2 flex-shrink-0 mt-1">
                     <User className="h-4 w-4 text-background" />
                   </div>

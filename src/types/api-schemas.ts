@@ -44,7 +44,7 @@ export interface DemandPredictionResponse {
     confidence: number; // 0-100
   }>;
   recommendations: Array<{
-    type: 'info' | 'warning' | 'error';
+    type: "info" | "warning" | "error";
     message: string;
     action?: string;
   }>;
@@ -54,19 +54,19 @@ export interface DemandPredictionResponse {
  * Type Guard für Weather Response Validierung
  */
 export function isValidWeatherResponse(data: unknown): data is WeatherApiResponse {
-  if (!data || typeof data !== 'object') return false;
-  
+  if (!data || typeof data !== "object") return false;
+
   const d = data as Partial<WeatherApiResponse>;
-  
+
   return (
-    typeof d.temp === 'number' &&
-    typeof d.description === 'string' &&
-    typeof d.icon === 'string' &&
-    typeof d.location === 'string' &&
-    typeof d.humidity === 'number' &&
-    typeof d.wind_speed === 'number' &&
-    (d.pressure === null || typeof d.pressure === 'number') &&
-    (d.visibility === null || typeof d.visibility === 'number')
+    typeof d.temp === "number" &&
+    typeof d.description === "string" &&
+    typeof d.icon === "string" &&
+    typeof d.location === "string" &&
+    typeof d.humidity === "number" &&
+    typeof d.wind_speed === "number" &&
+    (d.pressure === null || typeof d.pressure === "number") &&
+    (d.visibility === null || typeof d.visibility === "number")
   );
 }
 
@@ -74,14 +74,12 @@ export function isValidWeatherResponse(data: unknown): data is WeatherApiRespons
  * Type Guard für Traffic Response Validierung
  */
 export function isValidTrafficResponse(data: unknown): data is TrafficApiResponse {
-  if (!data || typeof data !== 'object') return false;
-  
+  if (!data || typeof data !== "object") return false;
+
   const d = data as Partial<TrafficApiResponse>;
-  
+
   return (
-    typeof d.jam_factor === 'number' &&
-    typeof d.speed === 'number' &&
-    typeof d.status === 'string'
+    typeof d.jam_factor === "number" && typeof d.speed === "number" && typeof d.status === "string"
   );
 }
 

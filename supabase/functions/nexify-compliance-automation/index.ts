@@ -64,18 +64,18 @@ serve(async (req) => {
     // 3. Führe Checks basierend auf Scope durch
     if (scope === "full_scan" || scope === "incremental") {
       // Full Scan: Alle Dateien prüfen
-      violations.push(...await checkDesignSystemCompliance(sollVorgaben || []));
-      violations.push(...await checkCodeQualityCompliance(sollVorgaben || []));
-      violations.push(...await checkSecurityCompliance(sollVorgaben || []));
-      violations.push(...await checkLocalizationCompliance(sollVorgaben || []));
+      violations.push(...(await checkDesignSystemCompliance(sollVorgaben || [])));
+      violations.push(...(await checkCodeQualityCompliance(sollVorgaben || [])));
+      violations.push(...(await checkSecurityCompliance(sollVorgaben || [])));
+      violations.push(...(await checkLocalizationCompliance(sollVorgaben || [])));
     } else if (scope === "file_specific" && file_path) {
       // File-specific: Nur eine Datei prüfen
-      violations.push(...await checkFileCompliance(file_path, sollVorgaben || []));
+      violations.push(...(await checkFileCompliance(file_path, sollVorgaben || [])));
     }
 
     // 4. Speichere Violations in Datenbank
     if (violations.length > 0) {
-      const violationsToInsert = violations.map(v => ({
+      const violationsToInsert = violations.map((v) => ({
         soll_vorgabe_id: v.violation_type, // TODO: Map to actual soll_vorgabe_id
         file_path: v.file_path,
         line_number: v.line_number,
@@ -106,10 +106,10 @@ serve(async (req) => {
         scope: file_path ? [file_path] : [],
         total_files_scanned: 0, // TODO: Calculate actual count
         violations_found: violations.length,
-        violations_critical: violations.filter(v => v.severity === "critical").length,
-        violations_high: violations.filter(v => v.severity === "high").length,
-        violations_medium: violations.filter(v => v.severity === "medium").length,
-        violations_low: violations.filter(v => v.severity === "low").length,
+        violations_critical: violations.filter((v) => v.severity === "critical").length,
+        violations_high: violations.filter((v) => v.severity === "high").length,
+        violations_medium: violations.filter((v) => v.severity === "medium").length,
+        violations_low: violations.filter((v) => v.severity === "low").length,
         auto_fixes_applied: 0, // TODO: Implement auto-fix
         duration_ms: checkDuration,
         triggered_by: "scheduled",
@@ -162,69 +162,71 @@ serve(async (req) => {
 
 async function checkDesignSystemCompliance(sollVorgaben: any[]): Promise<ComplianceViolation[]> {
   const violations: ComplianceViolation[] = [];
-  
+
   // Check 1: V26/V26.1 Imports (DEPRECATED)
   // TODO: Scan codebase for V26 imports
-  
+
   // Check 2: CI-Farben Hardcoding
   // TODO: Scan for hardcoded hex colors (#EADEBD, #323D5E)
-  
+
   // Check 3: Hero Background Variant
   // TODO: Check all Hero components for backgroundVariant="3d-premium"
-  
+
   return violations;
 }
 
 async function checkCodeQualityCompliance(sollVorgaben: any[]): Promise<ComplianceViolation[]> {
   const violations: ComplianceViolation[] = [];
-  
+
   // Check 1: Single Source of Truth
   // TODO: Check for hardcoded values (prices, colors, etc.)
-  
+
   // Check 2: Console.log statements
   // TODO: Scan for console.log/error/warn in production code
-  
+
   // Check 3: Error Handling
   // TODO: Check for missing try-catch blocks
-  
+
   return violations;
 }
 
 async function checkSecurityCompliance(sollVorgaben: any[]): Promise<ComplianceViolation[]> {
   const violations: ComplianceViolation[] = [];
-  
+
   // Check 1: RLS Policies
   // TODO: Verify all tables have RLS enabled
-  
+
   // Check 2: company_id Filters
   // TODO: Check all queries for company_id filter
-  
+
   // Check 3: Hard Delete
   // TODO: Check for .delete() calls (should use archiving)
-  
+
   return violations;
 }
 
 async function checkLocalizationCompliance(sollVorgaben: any[]): Promise<ComplianceViolation[]> {
   const violations: ComplianceViolation[] = [];
-  
+
   // Check 1: Date Format (DD.MM.YYYY)
   // TODO: Check date formatting functions
-  
+
   // Check 2: Currency Format (1.234,56 €)
   // TODO: Check currency formatting functions
-  
+
   // Check 3: German Spelling (2006 Reform)
   // TODO: Check for old spelling (daß, muß, etc.)
-  
+
   return violations;
 }
 
-async function checkFileCompliance(file_path: string, sollVorgaben: any[]): Promise<ComplianceViolation[]> {
+async function checkFileCompliance(
+  file_path: string,
+  sollVorgaben: any[]
+): Promise<ComplianceViolation[]> {
   const violations: ComplianceViolation[] = [];
-  
+
   // TODO: Read file and check against all relevant SOLL-Vorgaben
-  
+
   return violations;
 }
-

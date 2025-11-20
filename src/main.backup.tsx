@@ -31,42 +31,38 @@ try {
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
-  throw new Error('Root element not found - check index.html');
+  throw new Error("Root element not found - check index.html");
 }
 
 createRoot(rootElement).render(<App />);
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', async () => {
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", async () => {
     try {
       const registrations = await navigator.serviceWorker.getRegistrations();
-      await Promise.all(
-        registrations.map(registration => registration.unregister())
-      );
-      
-      if ('caches' in window) {
+      await Promise.all(registrations.map((registration) => registration.unregister()));
+
+      if ("caches" in window) {
         const cacheNames = await caches.keys();
-        await Promise.all(
-          cacheNames.map(cacheName => caches.delete(cacheName))
-        );
+        await Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName)));
       }
-      
-      const buildVersion = 'v18.5.2-badge-fix-1761644100000';
-      const storedVersion = localStorage.getItem('app-version');
-      
+
+      const buildVersion = "v18.5.2-badge-fix-1761644100000";
+      const storedVersion = localStorage.getItem("app-version");
+
       if (storedVersion !== buildVersion) {
-        const keysToKeep = ['supabase.auth.token'];
+        const keysToKeep = ["supabase.auth.token"];
         const allKeys = Object.keys(localStorage);
-        allKeys.forEach(key => {
+        allKeys.forEach((key) => {
           if (!keysToKeep.includes(key)) {
             localStorage.removeItem(key);
           }
         });
-        localStorage.setItem('app-version', buildVersion);
+        localStorage.setItem("app-version", buildVersion);
         window.location.reload();
       }
     } catch (error) {
-      console.debug('Cache cleanup error:', error);
+      console.debug("Cache cleanup error:", error);
     }
   });
 }

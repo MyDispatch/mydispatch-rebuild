@@ -20,40 +20,45 @@
 ## ✅ Implementierte Module (7/7)
 
 ### API-Layer (`src/lib/api/`)
-| Modul | Status | Lines | Features |
-|-------|--------|-------|----------|
-| `bookings.ts` | ✅ COMPLETE | 185 | CRUD + Relations (customer, driver, vehicle, partner) |
-| `drivers.ts` | ✅ COMPLETE | 104 | CRUD + Filters (shift_status, archived) |
-| `vehicles.ts` | ✅ COMPLETE | 104 | CRUD + Filters (status, archived) |
-| `customers.ts` | ✅ COMPLETE | 106 | CRUD + Search (name, email) |
-| `partners.ts` | ✅ NEW | 94 | CRUD + Search (name) |
-| `shifts.ts` | ✅ NEW | 94 | CRUD + Date-Range Filters |
-| `companies.ts` | ✅ NEW | 71 | Read + Update (kein Delete) |
+
+| Modul          | Status      | Lines | Features                                              |
+| -------------- | ----------- | ----- | ----------------------------------------------------- |
+| `bookings.ts`  | ✅ COMPLETE | 185   | CRUD + Relations (customer, driver, vehicle, partner) |
+| `drivers.ts`   | ✅ COMPLETE | 104   | CRUD + Filters (shift_status, archived)               |
+| `vehicles.ts`  | ✅ COMPLETE | 104   | CRUD + Filters (status, archived)                     |
+| `customers.ts` | ✅ COMPLETE | 106   | CRUD + Search (name, email)                           |
+| `partners.ts`  | ✅ NEW      | 94    | CRUD + Search (name)                                  |
+| `shifts.ts`    | ✅ NEW      | 94    | CRUD + Date-Range Filters                             |
+| `companies.ts` | ✅ NEW      | 71    | Read + Update (kein Delete)                           |
 
 **Total:** ~758 Lines of Production-Ready API Code
 
 ### Globaler State (`src/lib/store/global-state.ts`)
-| Store | Status | Purpose |
-|-------|--------|---------|
-| `useAuthStore` | ✅ COMPLETE | User, CompanyId, isAuthenticated |
-| `useUIStore` | ✅ COMPLETE | Sidebar, Modals |
-| `useNotificationsStore` | ✅ COMPLETE | Toast-Notifications |
-| `useDataCacheStore` | ✅ COMPLETE | Optimistic Updates (optional) |
+
+| Store                   | Status      | Purpose                          |
+| ----------------------- | ----------- | -------------------------------- |
+| `useAuthStore`          | ✅ COMPLETE | User, CompanyId, isAuthenticated |
+| `useUIStore`            | ✅ COMPLETE | Sidebar, Modals                  |
+| `useNotificationsStore` | ✅ COMPLETE | Toast-Notifications              |
+| `useDataCacheStore`     | ✅ COMPLETE | Optimistic Updates (optional)    |
 
 **Features:**
+
 - ✅ Zustand Devtools Integration
 - ✅ LocalStorage Persistence (Auth)
 - ✅ TypeScript Type-Safety
 
 ### TanStack Query Hooks (`src/lib/hooks/useApi.ts`)
-| Entity | Hooks | Status |
-|--------|-------|--------|
-| Bookings | `useBookings`, `useBooking`, `useCreateBooking`, `useUpdateBooking`, `useDeleteBooking` | ✅ |
-| Drivers | `useDrivers`, `useDriver`, `useCreateDriver`, `useUpdateDriver` | ✅ |
-| Vehicles | `useVehicles`, `useVehicle`, `useCreateVehicle`, `useUpdateVehicle` | ✅ |
-| Customers | `useCustomers`, `useCustomer`, `useCreateCustomer`, `useUpdateCustomer` | ✅ |
+
+| Entity    | Hooks                                                                                   | Status |
+| --------- | --------------------------------------------------------------------------------------- | ------ |
+| Bookings  | `useBookings`, `useBooking`, `useCreateBooking`, `useUpdateBooking`, `useDeleteBooking` | ✅     |
+| Drivers   | `useDrivers`, `useDriver`, `useCreateDriver`, `useUpdateDriver`                         | ✅     |
+| Vehicles  | `useVehicles`, `useVehicle`, `useCreateVehicle`, `useUpdateVehicle`                     | ✅     |
+| Customers | `useCustomers`, `useCustomer`, `useCreateCustomer`, `useUpdateCustomer`                 | ✅     |
 
 **Features:**
+
 - ✅ Automatic Caching (30s - 1min)
 - ✅ Automatic Refetching
 - ✅ Optimistic Updates
@@ -65,15 +70,15 @@
 
 ### ✅ AETHELRED-Prinzipien (umgesetzt auf Lovable)
 
-| Prinzip | AETHELRED (Ideal) | HYPERION (Lovable-Realität) | Status |
-|---------|-------------------|------------------------------|--------|
-| **Typ-Sicherheit** | tRPC End-to-End | Supabase Types + API-Layer | ✅ 90% |
-| **Zentrale API** | tRPC Router | API-Layer + TanStack Query | ✅ 100% |
-| **Globaler State** | Zustand/Redux | Zustand mit Devtools | ✅ 100% |
-| **Monorepo** | Turborepo | Lovable Single-Repo | ⚠️ N/A |
-| **Prisma ORM** | schema.prisma | Supabase Types | ⚠️ N/A |
+| Prinzip            | AETHELRED (Ideal) | HYPERION (Lovable-Realität) | Status  |
+| ------------------ | ----------------- | --------------------------- | ------- |
+| **Typ-Sicherheit** | tRPC End-to-End   | Supabase Types + API-Layer  | ✅ 90%  |
+| **Zentrale API**   | tRPC Router       | API-Layer + TanStack Query  | ✅ 100% |
+| **Globaler State** | Zustand/Redux     | Zustand mit Devtools        | ✅ 100% |
+| **Monorepo**       | Turborepo         | Lovable Single-Repo         | ⚠️ N/A  |
+| **Prisma ORM**     | schema.prisma     | Supabase Types              | ⚠️ N/A  |
 
-**Fazit:** Alle *umsetzbaren* AETHELRED-Prinzipien sind implementiert.
+**Fazit:** Alle _umsetzbaren_ AETHELRED-Prinzipien sind implementiert.
 
 ---
 
@@ -82,16 +87,16 @@
 ### Beispiel 1: Buchungen anzeigen (Komponente)
 
 ```tsx
-import { useBookings } from '@/lib/hooks/useApi';
+import { useBookings } from "@/lib/hooks/useApi";
 
 export function BookingsList() {
-  const { data: bookings, isLoading } = useBookings({ status: 'confirmed' });
-  
+  const { data: bookings, isLoading } = useBookings({ status: "confirmed" });
+
   if (isLoading) return <div>Loading...</div>;
-  
+
   return (
     <ul>
-      {bookings?.map(booking => (
+      {bookings?.map((booking) => (
         <li key={booking.id}>
           {booking.pickup_address} → {booking.dropoff_address}
           <span>{booking.customer?.first_name}</span>
@@ -103,6 +108,7 @@ export function BookingsList() {
 ```
 
 **Vorteile:**
+
 - ❌ Kein direkter Supabase-Import
 - ✅ Automatic Caching (30 Sekunden)
 - ✅ Automatic Refetching bei Fokus
@@ -111,17 +117,17 @@ export function BookingsList() {
 ### Beispiel 2: Buchung erstellen (mit Mutation)
 
 ```tsx
-import { useCreateBooking } from '@/lib/hooks/useApi';
+import { useCreateBooking } from "@/lib/hooks/useApi";
 
 export function CreateBookingForm() {
   const createBooking = useCreateBooking();
-  
+
   const handleSubmit = async (data) => {
     await createBooking.mutateAsync(data);
     // ✅ Toast: "Buchung erfolgreich erstellt"
     // ✅ Cache wird automatisch invalidiert
   };
-  
+
   return <form onSubmit={handleSubmit}>...</form>;
 }
 ```
@@ -129,12 +135,16 @@ export function CreateBookingForm() {
 ### Beispiel 3: Globalen Auth-State nutzen
 
 ```tsx
-import { useAuthStore } from '@/lib/store/global-state';
+import { useAuthStore } from "@/lib/store/global-state";
 
 export function UserProfile() {
   const { user, companyId } = useAuthStore();
-  
-  return <div>Eingeloggt als: {user?.email} (Company: {companyId})</div>;
+
+  return (
+    <div>
+      Eingeloggt als: {user?.email} (Company: {companyId})
+    </div>
+  );
 }
 ```
 
@@ -148,7 +158,7 @@ export function UserProfile() {
 
 ```tsx
 // ❌ ALT (direkter Supabase-Call)
-const { data } = await supabase.from('bookings').select('*');
+const { data } = await supabase.from("bookings").select("*");
 
 // ✅ NEU (zentraler Hook)
 const { data } = useBookings();
@@ -157,6 +167,7 @@ const { data } = useBookings();
 **Betroffene Seiten:** ~40 Components (Dashboard, Buchungen, Fahrer, etc.)
 
 **Vorgehen:**
+
 1. Seite für Seite migrieren (keine Big-Bang-Migration)
 2. Alte Supabase-Calls durch Hooks ersetzen
 3. Tests validieren Funktionalität
@@ -178,12 +189,12 @@ const { sidebarOpen, toggleSidebar } = useUIStore();
 
 ## 📈 Performance Impact (Projected)
 
-| Metrik | Before | After | Improvement |
-|--------|--------|-------|-------------|
-| **Bundle Size** | Baseline | +12 KB (Zustand) | Minimal |
-| **API Call Redundancy** | ~40% duplicate calls | 0% (cached) | ✅ 100% |
-| **Type Errors** | ~15/build | 0 (API-Layer) | ✅ 100% |
-| **Development Speed** | Baseline | +50% (Hooks) | ✅ MAJOR |
+| Metrik                  | Before               | After            | Improvement |
+| ----------------------- | -------------------- | ---------------- | ----------- |
+| **Bundle Size**         | Baseline             | +12 KB (Zustand) | Minimal     |
+| **API Call Redundancy** | ~40% duplicate calls | 0% (cached)      | ✅ 100%     |
+| **Type Errors**         | ~15/build            | 0 (API-Layer)    | ✅ 100%     |
+| **Development Speed**   | Baseline             | +50% (Hooks)     | ✅ MAJOR    |
 
 ---
 
@@ -195,6 +206,7 @@ const { sidebarOpen, toggleSidebar } = useUIStore();
 ### Bereits migriert (37 Files)
 
 **Hooks (`src/hooks/`):**
+
 - ✅ `use-bookings.tsx` (useQuery + useMutation)
 - ✅ `use-drivers.tsx` (useQuery + useMutation)
 - ✅ `use-vehicles.tsx` (useQuery + useMutation)
@@ -207,6 +219,7 @@ const { sidebarOpen, toggleSidebar } = useUIStore();
 - ✅ `use-analytics.tsx` (useQuery)
 
 **Pages (`src/pages/`):**
+
 - ✅ `Auftraege.tsx` (useBookings)
 - ✅ `Fahrer.tsx` (useDrivers)
 - ✅ `Fahrzeuge.tsx` (useVehicles)
@@ -216,6 +229,7 @@ const { sidebarOpen, toggleSidebar } = useUIStore();
 - ✅ `Dashboard.tsx` (multiple hooks)
 
 **Components (`src/components/`):**
+
 - ✅ `BookingsList.tsx`
 - ✅ `DriverTable.tsx`
 - ✅ `VehicleCard.tsx`
@@ -225,6 +239,7 @@ const { sidebarOpen, toggleSidebar } = useUIStore();
 ### Noch zu migrieren (~113 Components)
 
 **Priority P0: Revenue-kritische Seiten (5 Components)**
+
 - 🔄 `src/pages/Checkout.tsx` (Direct Supabase calls)
 - 🔄 `src/pages/PaymentSuccess.tsx` (Payment verification)
 - 🔄 `src/pages/InvoiceDetails.tsx` (Invoice data)
@@ -232,16 +247,19 @@ const { sidebarOpen, toggleSidebar } = useUIStore();
 - 🔄 `src/components/BookingConfirmation.tsx` (Booking finalization)
 
 **Priority P1: User-facing pages (15 Components)**
+
 - 🔄 Admin pages (Settings, Profile, Notifications)
 - 🔄 Reporting pages (Export, Charts, Filters)
 - 🔄 Communication pages (Messages, Chat)
 
 **Priority P2: Admin pages (25 Components)**
+
 - 🔄 Configuration pages
 - 🔄 User management
 - 🔄 System settings
 
 **Priority P3: Low-traffic pages (68 Components)**
+
 - 🔄 Documentation pages
 - 🔄 Help pages
 - 🔄 Static content pages
@@ -249,21 +267,25 @@ const { sidebarOpen, toggleSidebar } = useUIStore();
 ### Migration Roadmap
 
 **Week 1: P0 (Revenue-Critical)**
+
 - Target: 5 Components migriert
 - Estimated: 4-6 Stunden
 - Testing: E2E Payment Flow
 
 **Week 2: P1 (User-Facing)**
+
 - Target: 15 Components migriert
 - Estimated: 8-12 Stunden
 - Testing: User Journey Tests
 
 **Week 3: P2 (Admin)**
+
 - Target: 25 Components migriert
 - Estimated: 10-15 Stunden
 - Testing: Admin Workflow Tests
 
 **Week 4: P3 (Low-Traffic)**
+
 - Target: 68 Components migriert
 - Estimated: 15-20 Stunden
 - Testing: Smoke Tests

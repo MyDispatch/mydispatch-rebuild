@@ -21,13 +21,19 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? ""
     );
 
-    const { project_code, include_history = true, include_tasks = true, include_context = true, history_limit = 50 } = await req.json();
+    const {
+      project_code,
+      include_history = true,
+      include_tasks = true,
+      include_context = true,
+      history_limit = 50,
+    } = await req.json();
 
     if (!project_code) {
-      return new Response(
-        JSON.stringify({ error: "project_code is required", success: false }),
-        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "project_code is required", success: false }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     // Lade Projekt
@@ -38,10 +44,10 @@ serve(async (req) => {
       .single();
 
     if (projectError || !project) {
-      return new Response(
-        JSON.stringify({ error: "Project not found", success: false }),
-        { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      return new Response(JSON.stringify({ error: "Project not found", success: false }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
 
     const projectId = project.id;
@@ -56,7 +62,7 @@ serve(async (req) => {
             .order("session_date", { ascending: false })
             .limit(history_limit)
         : Promise.resolve({ data: [], error: null }),
-      
+
       include_tasks
         ? supabase
             .from("nexify_project_tasks")
@@ -64,7 +70,7 @@ serve(async (req) => {
             .eq("project_id", projectId)
             .order("created_at", { ascending: false })
         : Promise.resolve({ data: [], error: null }),
-      
+
       include_context
         ? supabase
             .from("nexify_project_context")
@@ -72,21 +78,21 @@ serve(async (req) => {
             .eq("project_id", projectId)
             .order("importance_score", { ascending: false })
         : Promise.resolve({ data: [], error: null }),
-      
+
       // Summary berechnen
       supabase
         .from("nexify_project_history")
         .select("session_date, session_version")
         .eq("project_id", projectId)
         .order("session_date", { ascending: false })
-        .limit(1)
+        .limit(1),
     ]);
 
     // Erstelle Summary
     const history = historyResult.data || [];
     const tasks = tasksResult.data || [];
     const context = contextResult.data || [];
-    
+
     // Gruppiere Context nach Typ
     const contextByType: Record<string, any[]> = {};
     context.forEach((item: any) => {
@@ -97,7 +103,7 @@ serve(async (req) => {
         key: item.context_key,
         value: item.context_value,
         importance: item.importance_score,
-        last_verified: item.last_verified_at
+        last_verified: item.last_verified_at,
       });
     });
 
@@ -105,10 +111,11 @@ serve(async (req) => {
     const summary = {
       total_sessions: history.length,
       total_tasks: tasks.length,
-      active_tasks: tasks.filter((t: any) => t.status === "in_progress" || t.status === "pending").length,
+      active_tasks: tasks.filter((t: any) => t.status === "in_progress" || t.status === "pending")
+        .length,
       last_activity: project.last_activity_at || latestSession?.session_date,
       current_version: latestSession?.session_version || "unknown",
-      total_components: project.total_components || 0
+      total_components: project.total_components || 0,
     };
 
     return new Response(
@@ -124,20 +131,19 @@ serve(async (req) => {
           status: project.status,
           priority: project.priority,
           tech_stack: project.tech_stack,
-          client_info: project.client_info
+          client_info: project.client_info,
         },
         history: include_history ? history : undefined,
         tasks: include_tasks ? tasks : undefined,
         context: include_context ? contextByType : undefined,
-        summary
+        summary,
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
-    return new Response(
-      JSON.stringify({ error: error.message, success: false }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ error: error.message, success: false }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
-

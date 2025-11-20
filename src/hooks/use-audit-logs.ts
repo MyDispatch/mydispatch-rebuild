@@ -7,16 +7,16 @@
    ✅ Query recent activities for timeline
    ================================================================================== */
 
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { logger } from '@/lib/logger';
-import { FileText, CheckCircle, Users, Car } from 'lucide-react';
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { logger } from "@/lib/logger";
+import { FileText, CheckCircle, Users, Car } from "lucide-react";
 
 export interface AuditLogData {
   id: string;
   company_id: string;
   user_id: string;
-  action: 'create' | 'update' | 'delete' | 'archive';
+  action: "create" | "update" | "delete" | "archive";
   entity_type: string;
   entity_id: string;
   old_data?: Record<string, unknown>;
@@ -27,41 +27,39 @@ export interface AuditLogData {
 interface TimelineItem {
   id: string;
   time: string;
-  type: 'booking' | 'payment' | 'warning' | 'driver' | 'vehicle' | 'invoice';
+  type: "booking" | "payment" | "warning" | "driver" | "vehicle" | "invoice";
   icon: React.ComponentType<{ className?: string }>;
   title: string;
   description: string;
-  status?: 'success' | 'warning' | 'error' | 'info';
+  status?: "success" | "warning" | "error" | "info";
 }
 
 export function useAuditLogs() {
   const { mutate: logAudit } = useMutation({
     mutationFn: async (logData: AuditLogData) => {
-      const { data, error } = await supabase
-        .from('audit_logs')
-        .insert(logData);
-      
+      const { data, error } = await supabase.from("audit_logs").insert(logData);
+
       if (error) throw error;
       return data;
     },
     // Fire-and-forget: No UI blocking
     onError: (error) => {
-      logger.error('[Audit Log] Failed to log action', error as Error, {
-        component: 'useAuditLogs',
-        action: 'logAudit'
+      logger.error("[Audit Log] Failed to log action", error as Error, {
+        component: "useAuditLogs",
+        action: "logAudit",
       });
     },
   });
 
   const { data: rawActivities = [], isLoading } = useQuery({
-    queryKey: ['audit-logs-recent'],
+    queryKey: ["audit-logs-recent"],
     queryFn: async () => {
       const { data, error } = await supabase
-        .from('audit_logs')
-        .select('*')
-        .order('created_at', { ascending: false })
+        .from("audit_logs")
+        .select("*")
+        .order("created_at", { ascending: false })
         .limit(20);
-      
+
       if (error) throw error;
       return data || [];
     },
@@ -72,19 +70,27 @@ export function useAuditLogs() {
   const activities: TimelineItem[] = rawActivities.map((log: AuditLogData) => {
     const getIcon = () => {
       switch (log.entity_type) {
-        case 'booking': return FileText;
-        case 'driver': return Users;
-        case 'vehicle': return Car;
-        default: return CheckCircle;
+        case "booking":
+          return FileText;
+        case "driver":
+          return Users;
+        case "vehicle":
+          return Car;
+        default:
+          return CheckCircle;
       }
     };
 
     const getType = () => {
       switch (log.entity_type) {
-        case 'booking': return 'booking' as const;
-        case 'driver': return 'driver' as const;
-        case 'vehicle': return 'vehicle' as const;
-        default: return 'booking' as const;
+        case "booking":
+          return "booking" as const;
+        case "driver":
+          return "driver" as const;
+        case "vehicle":
+          return "vehicle" as const;
+        default:
+          return "booking" as const;
       }
     };
 
@@ -93,11 +99,11 @@ export function useAuditLogs() {
       const now = new Date();
       const diffMs = now.getTime() - date.getTime();
       const diffMins = Math.floor(diffMs / 60000);
-      
-      if (diffMins < 1) return 'Gerade eben';
+
+      if (diffMins < 1) return "Gerade eben";
       if (diffMins < 60) return `Vor ${diffMins} Min`;
       if (diffMins < 1440) return `Vor ${Math.floor(diffMins / 60)} Std`;
-      return date.toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit' });
+      return date.toLocaleDateString("de-DE", { day: "2-digit", month: "2-digit" });
     };
 
     return {
@@ -107,7 +113,7 @@ export function useAuditLogs() {
       icon: getIcon(),
       title: `${log.action} - ${log.entity_type}`,
       description: `${log.entity_type} ID: ${log.entity_id}`,
-      status: log.action === 'delete' ? 'warning' : 'success'
+      status: log.action === "delete" ? "warning" : "success",
     };
   });
 

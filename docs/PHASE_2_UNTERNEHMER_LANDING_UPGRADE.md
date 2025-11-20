@@ -8,6 +8,7 @@
 ## 🎯 Ziel
 
 Unternehmer-Landing auf Premium-Niveau bringen:
+
 - ✅ Touch-Optimierung (WCAG 2.1 AA konform)
 - ✅ "Powered by MyDispatch" Attribution
 - ✅ Verbessertes Customer-Portal-Styling
@@ -19,11 +20,12 @@ Unternehmer-Landing auf Premium-Niveau bringen:
 ## ✅ Abgeschlossene Änderungen
 
 ### 1. **Touch-Optimierung**
+
 ```tsx
 // Alle Buttons jetzt WCAG-konform (≥56px Touch-Target)
 <Button
   size="lg"
-  onClick={() => handleAuthNavigation('login')}
+  onClick={() => handleAuthNavigation("login")}
   className="text-base px-8 py-6 min-h-[56px] touch-manipulation"
 >
   Anmelden
@@ -31,16 +33,23 @@ Unternehmer-Landing auf Premium-Niveau bringen:
 ```
 
 **Benefit:**
+
 - Mobile-First UX verbessert
 - Touch-Targets ≥56px (WCAG 2.1 AAA!)
 - CSS `touch-manipulation` für schnellere Tap-Response
 
 ### 2. **"Powered by MyDispatch" Attribution**
+
 ```tsx
 <div className="text-center pt-8 mt-8 border-t border-slate-200">
   <p className="text-xs text-slate-500">
-    Powered by{' '}
-    <a href="https://mydispatch.de" className="text-slate-700 hover:text-slate-900 hover:underline font-medium" target="_blank" rel="noopener noreferrer">
+    Powered by{" "}
+    <a
+      href="https://mydispatch.de"
+      className="text-slate-700 hover:text-slate-900 hover:underline font-medium"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       MyDispatch
     </a>
   </p>
@@ -48,17 +57,20 @@ Unternehmer-Landing auf Premium-Niveau bringen:
 ```
 
 **Benefit:**
+
 - White-Label Compliance: MyDispatch nur im Footer
 - Professional Attribution ohne aufdringliche Branding
 - Link zu MyDispatch Homepage
 
 ### 3. **Customer-Portal-Section Styling-Upgrade**
+
 ```tsx
 // Hintergrund von bg-white → bg-slate-50 (dezenter)
 <section className="py-12 sm:py-16 bg-slate-50">
 ```
 
 **Benefit:**
+
 - Visuelle Trennung vom Hero
 - Professional Gray-Tone (V28.1 konform)
 - Bessere Hierarchie
@@ -68,6 +80,7 @@ Unternehmer-Landing auf Premium-Niveau bringen:
 ## 🔄 TODO: Kritische Verbesserungen
 
 ### 1. **Hero-Grafik Premium-Redesign** 🔴 P0
+
 **Problem:**  
 Aktuelle `/hero-customer-booking.svg` ist low-quality Placeholder (800x600px, rudimentäre Formen)
 
@@ -103,6 +116,7 @@ Avoid: 3D effects, gradients, overly colorful, cartoonish
 ```
 
 **Implementierung:**
+
 1. Generiere High-Quality SVG via Claude API
 2. Optimiere mit SVGO (Minification)
 3. Ersetze alte Grafik in `public/` Folder
@@ -110,27 +124,32 @@ Avoid: 3D effects, gradients, overly colorful, cartoonish
 
 ### 2. **Auth-Page Company-Branding vervollständigen** 🔴 P0
 
-**Aktuell:**  
+**Aktuell:**
+
 - ✅ Company-Logo wird angezeigt (Zeile 311-319)
 - ✅ Primary-Color Styling (Zeile 338-346)
 - ❌ **FEHLT:** "Powered by MyDispatch" Footer
 
 **Lösung:**
+
 ```tsx
 // src/pages/Auth.tsx nach Zeile 820 (Ende des DialogContent)
-{tenantCompany && (
-  <div className="text-center mt-8 pt-4 border-t border-slate-200">
-    <p className="text-xs text-slate-500">
-      Powered by{' '}
-      <Link to="/" className="text-slate-700 hover:text-slate-900 hover:underline font-medium">
-        MyDispatch
-      </Link>
-    </p>
-  </div>
-)}
+{
+  tenantCompany && (
+    <div className="text-center mt-8 pt-4 border-t border-slate-200">
+      <p className="text-xs text-slate-500">
+        Powered by{" "}
+        <Link to="/" className="text-slate-700 hover:text-slate-900 hover:underline font-medium">
+          MyDispatch
+        </Link>
+      </p>
+    </div>
+  );
+}
 ```
 
 **Benefit:**
+
 - Konsistente Attribution über alle Auth-Pages
 - White-Label-fähig ohne aufdringliches Branding
 
@@ -139,12 +158,14 @@ Avoid: 3D effects, gradients, overly colorful, cartoonish
 **User-Feedback:**  
 "Nur 1 Login/Registrieren im Header. Nicht auf der Seite, da nur Buchungsbutton mit Pop und dann zur richtigen Seite."
 
-**Diskussion:**  
+**Diskussion:**
+
 - **PRO Entfernen:** Fokus auf Buchungs-CTA, kein Doppel-Login
 - **CONTRA Entfernen:** Kunden erwarten Login-Option im Content
 
 **Empfehlung:**  
 Behalten, aber optimieren:
+
 - Position tiefer im Content (nach Features/Trust-Section)
 - Reduziere visuelle Prominenz (smaller buttons, subtler)
 - Alternative: "Bereits Kunde?" als kleiner Link im Header neben Buchungs-Button
@@ -153,14 +174,14 @@ Behalten, aber optimieren:
 
 ## 📊 Progress-Tracking
 
-| Task | Status | Priority | ETA |
-|------|--------|----------|-----|
-| Touch-Optimierung | ✅ | P0 | DONE |
-| Powered-by Attribution | ✅ | P0 | DONE |
-| Styling-Upgrade | ✅ | P1 | DONE |
-| Hero-Grafik Premium | 🔄 | P0 | 2-3h |
-| Auth-Page Footer | 🔄 | P0 | 30min |
-| Customer-Portal Optimierung | ⏳ | P1 | 1h |
+| Task                        | Status | Priority | ETA   |
+| --------------------------- | ------ | -------- | ----- |
+| Touch-Optimierung           | ✅     | P0       | DONE  |
+| Powered-by Attribution      | ✅     | P0       | DONE  |
+| Styling-Upgrade             | ✅     | P1       | DONE  |
+| Hero-Grafik Premium         | 🔄     | P0       | 2-3h  |
+| Auth-Page Footer            | 🔄     | P0       | 30min |
+| Customer-Portal Optimierung | ⏳     | P1       | 1h    |
 
 **Gesamtfortschritt:** 40% / 100%
 
@@ -169,12 +190,14 @@ Behalten, aber optimieren:
 ## 🎨 Design-Konsistenz
 
 ✅ **V28.1 Compliance:**
+
 - Slate-Palette durchgehend verwendet
 - Touch-Targets WCAG-konform
 - Professional Minimalism
 - Flat Design 2.0
 
 ✅ **White-Label-Fähigkeit:**
+
 - MyDispatch nur in Footer
 - Company-Branding prominent
 - No intrusive co-branding

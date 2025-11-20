@@ -10,11 +10,11 @@
 
 ### Environments
 
-| Environment | URL | Deploy-Trigger | Auto-Deploy |
-|-------------|-----|----------------|-------------|
-| **Development** | `localhost:8080` | `npm run dev` | Nein |
-| **Staging** | `*.lovable.app` (Preview) | Pull Request | Ja |
-| **Production** | `*.lovable.app` | Push to `main` | Ja |
+| Environment     | URL                       | Deploy-Trigger | Auto-Deploy |
+| --------------- | ------------------------- | -------------- | ----------- |
+| **Development** | `localhost:8080`          | `npm run dev`  | Nein        |
+| **Staging**     | `*.lovable.app` (Preview) | Pull Request   | Ja          |
+| **Production**  | `*.lovable.app`           | Push to `main` | Ja          |
 
 ---
 
@@ -37,27 +37,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-      
+          node-version: "18"
+
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Lint
         run: npm run lint
-      
+
       - name: Type check
         run: npm run type-check
-      
+
       - name: Unit tests
         run: npm run test
-      
+
       - name: Build
         run: npm run build
-      
+
       - name: E2E tests
         run: npm run test:e2e
         env:
@@ -90,12 +90,12 @@ npm run build
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
 
 export default defineConfig({
   build: {
-    target: 'es2015',
-    minify: 'terser',
+    target: "es2015",
+    minify: "terser",
     terserOptions: {
       compress: {
         drop_console: true, // Remove console.log in prod
@@ -104,8 +104,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "ui-vendor": ["@radix-ui/react-dialog", "@radix-ui/react-dropdown-menu"],
         },
       },
     },
@@ -164,6 +164,7 @@ npm run build         # Production Build
 ### Quality Gates
 
 **Pipeline stoppt bei:**
+
 - ❌ ESLint Errors
 - ❌ TypeScript Errors
 - ❌ Test Failures
@@ -196,6 +197,7 @@ supabase db push
 3. Supabase wendet Migration automatisch an
 
 **Bei Fehlern:**
+
 ```bash
 # Rollback
 supabase db reset --db-url <production-url>
@@ -213,6 +215,7 @@ supabase migration new fix_migration
 **Dashboard:** Lovable Cloud → Backend
 
 **Metrics:**
+
 - Database CPU/Memory
 - API Response Times
 - Error Rates
@@ -222,7 +225,7 @@ supabase migration new fix_migration
 
 ```typescript
 // src/main.tsx
-import * as Sentry from '@sentry/react';
+import * as Sentry from "@sentry/react";
 
 Sentry.init({
   dsn: import.meta.env.VITE_SENTRY_DSN,
@@ -287,7 +290,7 @@ git push origin feature/new-feature
 
 ```typescript
 // src/main.tsx
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+import { getCLS, getFID, getFCP, getLCP, getTTFB } from "web-vitals";
 
 function sendToAnalytics(metric) {
   console.log(metric);
@@ -303,13 +306,13 @@ getTTFB(sendToAnalytics);
 
 ### Performance Budget
 
-| Metric | Budget | Critical |
-|--------|--------|----------|
-| FCP (First Contentful Paint) | < 1.8s | < 3s |
-| LCP (Largest Contentful Paint) | < 2.5s | < 4s |
-| TTI (Time to Interactive) | < 3.8s | < 7.3s |
-| CLS (Cumulative Layout Shift) | < 0.1 | < 0.25 |
-| Bundle Size | < 500KB | < 1MB |
+| Metric                         | Budget  | Critical |
+| ------------------------------ | ------- | -------- |
+| FCP (First Contentful Paint)   | < 1.8s  | < 3s     |
+| LCP (Largest Contentful Paint) | < 2.5s  | < 4s     |
+| TTI (Time to Interactive)      | < 3.8s  | < 7.3s   |
+| CLS (Cumulative Layout Shift)  | < 0.1   | < 0.25   |
+| Bundle Size                    | < 500KB | < 1MB    |
 
 ---
 
@@ -352,9 +355,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         // Cache-Busting via Hash
-        entryFileNames: 'assets/[name].[hash].js',
-        chunkFileNames: 'assets/[name].[hash].js',
-        assetFileNames: 'assets/[name].[hash].[ext]',
+        entryFileNames: "assets/[name].[hash].js",
+        chunkFileNames: "assets/[name].[hash].js",
+        assetFileNames: "assets/[name].[hash].[ext]",
       },
     },
   },
@@ -414,6 +417,7 @@ npm run test:smoke
 ## 📝 Changelog
 
 ### V18.5.0 (2025-01-26)
+
 - Erstversion Deployment Guide
 - CI/CD Pipeline dokumentiert
 - Rollback-Strategie definiert

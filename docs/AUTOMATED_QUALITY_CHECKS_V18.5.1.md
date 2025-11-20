@@ -9,6 +9,7 @@
 ## 🎯 ÜBERSICHT
 
 Automatisierte Qualitätsprüfungen für:
+
 - **Spacing-Konsistenz**
 - **Overflow-Prevention**
 - **Mobile-Optimierung**
@@ -21,6 +22,7 @@ Automatisierte Qualitätsprüfungen für:
 ### 1. SPACING CHECKS
 
 #### A. Header-Content Spacing
+
 ```typescript
 // CHECK: Content hat korrekten Abstand zum Header
 ✓ Main Content: pt-14 sm:pt-16
@@ -29,6 +31,7 @@ Automatisierte Qualitätsprüfungen für:
 ```
 
 #### B. Modal Spacing
+
 ```typescript
 // CHECK: Modals haben korrekten Abstand und Max-Height
 ✓ Position: top-[50%]
@@ -38,6 +41,7 @@ Automatisierte Qualitätsprüfungen für:
 ```
 
 #### C. Card Spacing
+
 ```typescript
 // CHECK: Cards haben responsive Spacing
 ✓ Padding: p-4 sm:p-6 md:p-8
@@ -50,6 +54,7 @@ Automatisierte Qualitätsprüfungen für:
 ### 2. OVERFLOW CHECKS
 
 #### A. Text Overflow
+
 ```typescript
 // CHECK: Lange Texte haben Overflow-Protection
 ✓ Single Line: .truncate
@@ -58,6 +63,7 @@ Automatisierte Qualitätsprüfungen für:
 ```
 
 #### B. Container Overflow
+
 ```typescript
 // CHECK: Container verhindern Overflow
 ✓ Max-Height: max-h-[...]
@@ -66,6 +72,7 @@ Automatisierte Qualitätsprüfungen für:
 ```
 
 #### C. Badge Positioning
+
 ```typescript
 // CHECK: Absolute Badges überlappen nicht
 ✓ Position: absolute -top-3 (min)
@@ -78,6 +85,7 @@ Automatisierte Qualitätsprüfungen für:
 ### 3. RESPONSIVE CHECKS
 
 #### A. Mobile-First
+
 ```typescript
 // CHECK: Mobile-First Approach
 ✓ Base: gap-3, p-4
@@ -86,6 +94,7 @@ Automatisierte Qualitätsprüfungen für:
 ```
 
 #### B. Touch-Targets
+
 ```typescript
 // CHECK: WCAG-konforme Touch-Targets
 ✓ Buttons: min-h-[44px]
@@ -94,6 +103,7 @@ Automatisierte Qualitätsprüfungen für:
 ```
 
 #### C. Breakpoints
+
 ```typescript
 // CHECK: Korrekte Breakpoint-Nutzung
 ✓ sm:  640px  (Tablet)
@@ -106,6 +116,7 @@ Automatisierte Qualitätsprüfungen für:
 ### 4. DESIGN-SYSTEM CHECKS
 
 #### A. Color Tokens
+
 ```typescript
 // CHECK: Semantic Tokens verwendet
 ✓ Text: text-foreground, text-muted-foreground
@@ -114,6 +125,7 @@ Automatisierte Qualitätsprüfungen für:
 ```
 
 #### B. Spacing Tokens
+
 ```typescript
 // CHECK: Design-System Spacing
 ✓ Gap: gap-4 sm:gap-6
@@ -129,6 +141,7 @@ Automatisierte Qualitätsprüfungen für:
 ### 1. ESLint Rules (V18.6.0 geplant)
 
 #### no-direct-colors
+
 ```javascript
 // .eslintrc.js
 rules: {
@@ -140,6 +153,7 @@ rules: {
 ```
 
 #### no-hardcoded-spacing
+
 ```javascript
 rules: {
   'no-hardcoded-spacing': {
@@ -150,6 +164,7 @@ rules: {
 ```
 
 #### require-overflow-protection
+
 ```javascript
 rules: {
   'require-overflow-protection': {
@@ -164,69 +179,66 @@ rules: {
 ### 2. Playwright Tests
 
 #### spacing-consistency.spec.ts
-```typescript
-import { test, expect } from '@playwright/test';
 
-test.describe('Spacing Consistency', () => {
-  test('modal has correct spacing from header', async ({ page }) => {
-    await page.goto('/kunden');
+```typescript
+import { test, expect } from "@playwright/test";
+
+test.describe("Spacing Consistency", () => {
+  test("modal has correct spacing from header", async ({ page }) => {
+    await page.goto("/kunden");
     await page.click('button:has-text("Neu")');
-    
+
     const dialog = page.locator('[role="dialog"]');
     await expect(dialog).toBeVisible();
-    
+
     // Check top margin
-    const styles = await dialog.evaluate(el => 
-      window.getComputedStyle(el)
-    );
+    const styles = await dialog.evaluate((el) => window.getComputedStyle(el));
     expect(parseInt(styles.marginTop)).toBeGreaterThanOrEqual(56); // 14 * 4px
   });
 
-  test('cards have responsive padding', async ({ page }) => {
-    await page.goto('/dashboard');
-    
-    const card = page.locator('.card').first();
-    const padding = await card.evaluate(el => 
-      window.getComputedStyle(el).padding
-    );
-    
+  test("cards have responsive padding", async ({ page }) => {
+    await page.goto("/dashboard");
+
+    const card = page.locator(".card").first();
+    const padding = await card.evaluate((el) => window.getComputedStyle(el).padding);
+
     expect(padding).toBeTruthy();
   });
 });
 ```
 
 #### overflow-prevention.spec.ts
+
 ```typescript
-test.describe('Overflow Prevention', () => {
-  test('long text is truncated', async ({ page }) => {
-    await page.goto('/kunden');
-    
-    const cells = page.locator('td');
+test.describe("Overflow Prevention", () => {
+  test("long text is truncated", async ({ page }) => {
+    await page.goto("/kunden");
+
+    const cells = page.locator("td");
     for (const cell of await cells.all()) {
-      const overflow = await cell.evaluate(el => 
-        el.scrollWidth > el.clientWidth
-      );
-      
+      const overflow = await cell.evaluate((el) => el.scrollWidth > el.clientWidth);
+
       if (overflow) {
-        const hasOverflowClass = await cell.evaluate(el =>
-          el.classList.contains('truncate') ||
-          el.classList.contains('line-clamp-2') ||
-          el.classList.contains('line-clamp-3')
+        const hasOverflowClass = await cell.evaluate(
+          (el) =>
+            el.classList.contains("truncate") ||
+            el.classList.contains("line-clamp-2") ||
+            el.classList.contains("line-clamp-3")
         );
         expect(hasOverflowClass).toBeTruthy();
       }
     }
   });
 
-  test('badge does not overlap content', async ({ page }) => {
-    await page.goto('/auth?tab=signup');
-    
-    const badge = page.locator('text=Beliebt').first();
+  test("badge does not overlap content", async ({ page }) => {
+    await page.goto("/auth?tab=signup");
+
+    const badge = page.locator("text=Beliebt").first();
     const badgeBox = await badge.boundingBox();
-    
-    const label = badge.locator('..').first();
+
+    const label = badge.locator("..").first();
     const labelBox = await label.boundingBox();
-    
+
     // Badge should be above label
     expect(badgeBox!.y).toBeLessThan(labelBox!.y);
   });
@@ -234,20 +246,21 @@ test.describe('Overflow Prevention', () => {
 ```
 
 #### responsive-design.spec.ts
+
 ```typescript
-test.describe('Responsive Design', () => {
+test.describe("Responsive Design", () => {
   const viewports = [
-    { name: 'mobile', width: 375, height: 667 },
-    { name: 'tablet', width: 768, height: 1024 },
-    { name: 'desktop', width: 1920, height: 1080 },
+    { name: "mobile", width: 375, height: 667 },
+    { name: "tablet", width: 768, height: 1024 },
+    { name: "desktop", width: 1920, height: 1080 },
   ];
 
   for (const viewport of viewports) {
     test(`${viewport.name} - touch targets`, async ({ page }) => {
       await page.setViewportSize(viewport);
-      await page.goto('/auth');
-      
-      const buttons = page.locator('button');
+      await page.goto("/auth");
+
+      const buttons = page.locator("button");
       for (const button of await buttons.all()) {
         const box = await button.boundingBox();
         expect(box!.height).toBeGreaterThanOrEqual(44);
@@ -262,6 +275,7 @@ test.describe('Responsive Design', () => {
 ### 3. Pre-Commit Hooks
 
 #### .husky/pre-commit
+
 ```bash
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
@@ -281,6 +295,7 @@ echo "✅ Quality checks passed!"
 ```
 
 #### package.json scripts
+
 ```json
 {
   "scripts": {
@@ -297,16 +312,11 @@ echo "✅ Quality checks passed!"
 ### 4. Git Hooks Integration
 
 #### lint-staged.config.js
+
 ```javascript
 module.exports = {
-  '*.{ts,tsx}': [
-    'eslint --fix',
-    'prettier --write',
-    () => 'npm run lint:spacing',
-  ],
-  '*.tsx': [
-    () => 'npm run test:overflow',
-  ],
+  "*.{ts,tsx}": ["eslint --fix", "prettier --write", () => "npm run lint:spacing"],
+  "*.tsx": [() => "npm run test:overflow"],
 };
 ```
 
@@ -315,14 +325,15 @@ module.exports = {
 ## 📊 QUALITY DASHBOARD
 
 ### Metrics Tracking
+
 ```typescript
 // quality-metrics.ts
 export interface QualityMetrics {
-  spacingCompliance: number;      // %
-  overflowPrevention: number;     // %
-  responsiveDesign: number;       // %
-  touchTargetCompliance: number;  // %
-  designSystemUsage: number;      // %
+  spacingCompliance: number; // %
+  overflowPrevention: number; // %
+  responsiveDesign: number; // %
+  touchTargetCompliance: number; // %
+  designSystemUsage: number; // %
 }
 
 export async function getQualityMetrics(): Promise<QualityMetrics> {
@@ -342,18 +353,21 @@ export async function getQualityMetrics(): Promise<QualityMetrics> {
 ## 🚀 ROLLOUT-PLAN
 
 ### Phase 1: Core Checks (V18.5.1) ✅
+
 - [x] Spacing dokumentiert
 - [x] Overflow-Fixes implementiert
 - [x] Badge-Positioning korrigiert
 - [x] Modal-Header-Spacing korrigiert
 
 ### Phase 2: Automated Tests (V18.6.0)
+
 - [ ] ESLint Rules implementieren
 - [ ] Playwright Tests erweitern
 - [ ] Pre-Commit Hooks aktivieren
 - [ ] Visual Regression Tests
 
 ### Phase 3: AI-Assisted Quality (V18.7.0)
+
 - [ ] AI-basierte Code-Reviews
 - [ ] Automatische Fix-Vorschläge
 - [ ] Real-Time Quality Monitoring
@@ -363,15 +377,15 @@ export async function getQualityMetrics(): Promise<QualityMetrics> {
 
 ## 🎯 SUCCESS CRITERIA
 
-| Check | Target | Status |
-|-------|--------|--------|
-| Spacing Consistency | 100% | ✅ |
-| Overflow Prevention | 100% | ✅ |
-| Responsive Design | 100% | ✅ |
-| Touch-Target WCAG | 100% | ✅ |
-| Design-System Usage | 100% | ✅ |
-| Automated Tests | 80% | 🔄 V18.6.0 |
-| CI/CD Integration | 100% | 🔄 V18.6.0 |
+| Check               | Target | Status     |
+| ------------------- | ------ | ---------- |
+| Spacing Consistency | 100%   | ✅         |
+| Overflow Prevention | 100%   | ✅         |
+| Responsive Design   | 100%   | ✅         |
+| Touch-Target WCAG   | 100%   | ✅         |
+| Design-System Usage | 100%   | ✅         |
+| Automated Tests     | 80%    | 🔄 V18.6.0 |
+| CI/CD Integration   | 100%   | 🔄 V18.6.0 |
 
 ---
 

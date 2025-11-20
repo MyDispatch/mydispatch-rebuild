@@ -7,29 +7,29 @@
    - Cache-Validierung
    ================================================================================== */
 
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test.describe('Portal Theme System', () => {
+test.describe("Portal Theme System", () => {
   test.beforeEach(async ({ page }) => {
     // Setup: Navigate to a portal page
-    await page.goto('/');
+    await page.goto("/");
   });
 
-  test('should apply default portal theme colors', async ({ page }) => {
+  test("should apply default portal theme colors", async ({ page }) => {
     // Navigate to landingpage konfigurator
-    await page.goto('/landingpage-konfigurator');
-    
+    await page.goto("/landingpage-konfigurator");
+
     // Check if default theme color is applied
     const colorInput = page.locator('input[type="color"]');
-    await expect(colorInput).toHaveValue('#eadebd');
+    await expect(colorInput).toHaveValue("#eadebd");
   });
 
-  test('should convert hex to HSL correctly', async ({ page }) => {
+  test("should convert hex to HSL correctly", async ({ page }) => {
     // Test hex to HSL conversion (using browser context)
     const hslResult = await page.evaluate(() => {
       // Import hexToHsl function logic
       function hexToHsl(hex: string): string {
-        hex = hex.replace('#', '');
+        hex = hex.replace("#", "");
         const r = parseInt(hex.substring(0, 2), 16) / 255;
         const g = parseInt(hex.substring(2, 4), 16) / 255;
         const b = parseInt(hex.substring(4, 6), 16) / 255;
@@ -64,24 +64,24 @@ test.describe('Portal Theme System', () => {
         return `${h} ${s}% ${lPercent}%`;
       }
 
-      return hexToHsl('#EADEBD');
+      return hexToHsl("#EADEBD");
     });
 
     // Expected HSL for #EADEBD (beige)
     expect(hslResult).toMatch(/^\d+ \d+% \d+%$/);
   });
 
-  test('should validate hex color format', async ({ page }) => {
+  test("should validate hex color format", async ({ page }) => {
     const validationResult = await page.evaluate(() => {
       function isValidHexColor(color: string): boolean {
         return /^#[0-9A-F]{6}$/i.test(color);
       }
 
       return {
-        valid: isValidHexColor('#EADEBD'),
-        invalid1: isValidHexColor('#XYZ'),
-        invalid2: isValidHexColor('EADEBD'),
-        invalid3: isValidHexColor('#EAD'),
+        valid: isValidHexColor("#EADEBD"),
+        invalid1: isValidHexColor("#XYZ"),
+        invalid2: isValidHexColor("EADEBD"),
+        invalid3: isValidHexColor("#EAD"),
       };
     });
 
@@ -91,28 +91,28 @@ test.describe('Portal Theme System', () => {
     expect(validationResult.invalid3).toBe(false);
   });
 
-  test('should handle portal theme loading states', async ({ page }) => {
+  test("should handle portal theme loading states", async ({ page }) => {
     // This would require authentication setup
     // Placeholder for future implementation
     test.skip();
   });
 
-  test('should cache portal theme in window global', async ({ page }) => {
+  test("should cache portal theme in window global", async ({ page }) => {
     // This would require portal authentication flow
     // Placeholder for future implementation
     test.skip();
   });
 });
 
-test.describe('Portal Theme Visual Regression', () => {
-  test('should match portal theme snapshot', async ({ page }) => {
-    await page.goto('/landingpage-konfigurator');
-    
+test.describe("Portal Theme Visual Regression", () => {
+  test("should match portal theme snapshot", async ({ page }) => {
+    await page.goto("/landingpage-konfigurator");
+
     // Wait for page to be fully loaded
-    await page.waitForLoadState('networkidle');
-    
+    await page.waitForLoadState("networkidle");
+
     // Take screenshot and compare
-    await expect(page).toHaveScreenshot('portal-theme-konfigurator.png', {
+    await expect(page).toHaveScreenshot("portal-theme-konfigurator.png", {
       maxDiffPixels: 100,
     });
   });

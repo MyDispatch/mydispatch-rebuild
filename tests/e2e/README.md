@@ -23,31 +23,37 @@ npx playwright install
 ## ▶️ Tests ausführen
 
 ### Alle Tests (alle Browser)
+
 ```bash
 npx playwright test
 ```
 
 ### Nur Dashboard-Tests
+
 ```bash
 npx playwright test tests/e2e/dashboard.spec.ts
 ```
 
 ### Nur Aufträge-Tests
+
 ```bash
 npx playwright test tests/e2e/auftraege.spec.ts
 ```
 
 ### Nur Mobile-Tests (iPhone 12)
+
 ```bash
 npx playwright test --project=mobile-safari
 ```
 
 ### UI-Modus (Interaktiv)
+
 ```bash
 npx playwright test --ui
 ```
 
 ### Mit Debug-Modus
+
 ```bash
 npx playwright test --debug
 ```
@@ -90,12 +96,12 @@ Bearbeite `playwright.config.ts`:
 export default defineConfig({
   // Base URL ändern (Production)
   use: {
-    baseURL: 'https://mydispatch.de',
+    baseURL: "https://mydispatch.de",
   },
-  
+
   // Mehr Worker für schnellere Ausführung
   workers: 4,
-  
+
   // Timeout erhöhen
   timeout: 60000,
 });
@@ -144,6 +150,7 @@ Wenn `data-testid` fehlt, verwenden Tests:
 ## 🎯 Wichtige Test-Szenarien
 
 ### 1. Dashboard
+
 - Visual Regression (Desktop, Mobile, Tablet)
 - KPI-Cards (4 Haupt-Metriken)
 - Realtime-Updates via Supabase
@@ -151,6 +158,7 @@ Wenn `data-testid` fehlt, verwenden Tests:
 - DSGVO-Consent-Banner
 
 ### 2. Aufträge
+
 - **Order Creation Flow**: Kunde auswählen → Adressen → Preis → Speichern
 - **ePOD**: Auftrag abschließen mit Signatur-Canvas
 - **Inline-Customer-Creation**: Neuer Kunde während Auftragserstellung
@@ -158,11 +166,13 @@ Wenn `data-testid` fehlt, verwenden Tests:
 - **Filter & Suche**: Status-Filter, Kunden-Suche
 
 ### 3. Mobile-Responsiveness
+
 - Touch-Targets ≥44px (iOS-Guidelines)
 - Hamburger-Menü (Mobile-Navigation)
 - Swipe-Gesten (Carousel)
 
 ### 4. Accessibility
+
 - Keyboard-Navigation (Tab-Order)
 - Screen-Reader Labels (ARIA)
 - Kontrast-Verhältnis (4.5:1)
@@ -170,16 +180,18 @@ Wenn `data-testid` fehlt, verwenden Tests:
 ## ⚠️ Bekannte Einschränkungen
 
 ### 1. Authentifizierung
+
 Tests verwenden fest kodierte Test-Credentials:
 
 ```typescript
-email: 'test@mydispatch.de'
-password: 'TestPassword123!'
+email: "test@mydispatch.de";
+password: "TestPassword123!";
 ```
 
 **TODO**: Testuser in Datenbank anlegen oder Mock-Auth verwenden.
 
 ### 2. Test-Daten
+
 Tests erwarten bestimmte Daten in der DB:
 
 - Mindestens 1 Kunde mit "Mustermann"
@@ -189,11 +201,13 @@ Tests erwarten bestimmte Daten in der DB:
 **Lösung**: Seed-Script für Test-Datenbank erstellen.
 
 ### 3. HERE Maps API
+
 Autosuggest-Tests können fehlschlagen ohne gültigen HERE-API-Key.
 
 **Workaround**: Mock HERE-API-Responses in Tests.
 
 ### 4. Realtime-Tests
+
 Realtime-Updates sind zeitabhängig (Race Conditions möglich).
 
 **Lösung**: `page.waitForTimeout()` verwenden oder explizite Waits.

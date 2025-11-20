@@ -21,6 +21,7 @@ MyDispatch Workflow-Automatisierung ist eine vollständig integrierte, produktio
 - 📋 **25+ Workflows**: Buchungen, Zahlungen, Fahrer, Kunden, Partner, Dokumente, Reports
 
 **NEU in V2.0:**
+
 - ⭐ **Automatisches Credentials Setup** (alle API-Keys in n8n mit einem Klick)
 - ⭐ **9/10 Services unterstützt** (Resend, Anthropic, Google, HERE, Weather, Stripe, Daily, NeXify, Supabase)
 - ⭐ **Fehlertolerantes Setup** (Optionale Keys werden übersprungen, kritische Keys werden gemeldet)
@@ -31,11 +32,13 @@ MyDispatch Workflow-Automatisierung ist eine vollständig integrierte, produktio
 MyDispatch erstellt automatisch **alle** notwendigen Workflows für jeden Geschäftsprozess:
 
 ### 1. Auftrags-Workflows
+
 - **Buchungsbestätigung**: Sofort nach Auftragserstellung (DE/EN, mit Buchungsdetails)
 - **Auftrags-Erinnerung**: 24h vor Abholung an Kunde
 - **Auftrags-Stornierung**: Bei Status-Änderung auf "cancelled"
 
 ### 2. Zahlungs-Workflows
+
 - **Zahlungserinnerung 1**: 3 Tage vor Fälligkeit (freundlich)
 - **Zahlungserinnerung 2**: Am Fälligkeitstag (neutral)
 - **Zahlungserinnerung 3**: 7 Tage nach Fälligkeit (bestimmt)
@@ -43,36 +46,43 @@ MyDispatch erstellt automatisch **alle** notwendigen Workflows für jeden Gesch�
 - **Mahnung 2**: 28 Tage nach Fälligkeit (mit Verzugszinsen)
 
 ### 3. Fahrer-Workflows
+
 - **Fahrer-Auftrags-Benachrichtigung**: Bei Zuweisung (mit Route, Details)
 - **Fahrer-Einladung**: Bei neuem Fahrer (Portal-Zugang)
 - **Schicht-Erinnerung**: 1h vor Schichtbeginn
 - **Führerschein-Ablauf**: 30/14/7 Tage vor Ablauf
 
 ### 4. Kunden-Workflows
+
 - **Willkommens-Mail**: Bei neuer Registrierung
 - **Feedback-Anfrage**: 2h nach Auftragsabschluss
 - **Geburtstags-Mail**: Am Geburtstag (optional)
 
 ### 5. Partner-Workflows
+
 - **Partner-Auftrags-Benachrichtigung**: Bei Partner-Buchung
 - **Provisions-Abrechnung**: Monatlich (am 1. des Monats)
 
 ### 6. Dokument-Workflows
+
 - **Dokument-Ablauf-Erinnerung**: 30/14/7 Tage vor Ablauf
 - **Versicherungs-Ablauf**: Spezifisch für Fahrzeuge
 - **TÜV-Erinnerung**: Spezifisch für Fahrzeuge
 
 ### 7. Angebot & Rechnung
+
 - **Angebot-Versand**: Bei Angebotserstellung
 - **Rechnung-Versand**: Bei Rechnungserstellung
 - **Angebot-Nachfassen**: 3 Tage nach Angebot (falls keine Antwort)
 
 ### 8. Reporting-Workflows
+
 - **Täglicher Report**: Täglich 18:00 (Tagesumsatz, Aufträge)
 - **Wöchentlicher Report**: Montags 08:00 (KPIs, Top-Kunden)
 - **Monatlicher Report**: Am 1. des Monats (Vollständige Statistik)
 
 ### 9. System-Workflows
+
 - **Error-Notification**: Bei kritischen Systemfehlern
 - **Backup-Bestätigung**: Nach erfolgreichem Backup
 
@@ -126,12 +136,14 @@ Externe APIs (Claude AI, Resend, etc.)
 ```
 N8N_API_KEY=n8n_api_xxxxxxxxxxxxxxxxxx
 ```
+
 - Wo: n8n Settings → API → API Key erstellen
 - Berechtigungen: Workflows lesen/schreiben, Executions lesen, **Credentials erstellen/ändern** ⭐
 
 ```
 N8N_INSTANCE_URL=https://mydispatch.app.n8n.cloud
 ```
+
 - Ihre n8n Cloud-Instanz URL (OHNE /api/v1 und OHNE Trailing Slash!)
 - Format: https://[ihr-name].app.n8n.cloud
 - ⚠️ **WICHTIG:** Kein `/` am Ende!
@@ -139,6 +151,7 @@ N8N_INSTANCE_URL=https://mydispatch.app.n8n.cloud
 ```
 N8N_WEBHOOK_ID=1bc5e8fb-7194-4a92-8b30-25ba62ce9c67
 ```
+
 - Webhook ID des aktiven Workflows (UUID)
 - Zu finden: Workflow öffnen → Webhook Node → Webhook ID
 - ⚠️ **NICHT:** Webhook Path (z.B. 'mydispatch-automation')
@@ -150,6 +163,7 @@ N8N_WEBHOOK_ID=1bc5e8fb-7194-4a92-8b30-25ba62ce9c67
 ```
 ANTHROPIC_API_KEY=sk-ant-api03-xxxxxx
 ```
+
 - Claude AI für Text-Generierung
 - Wo: https://console.anthropic.com/
 - Status: 🔴 ERFORDERLICH
@@ -157,6 +171,7 @@ ANTHROPIC_API_KEY=sk-ant-api03-xxxxxx
 ```
 RESEND_API_KEY=re_xxxxxxxxx
 ```
+
 - E-Mail-Versand
 - Wo: https://resend.com/api-keys
 - Status: 🔴 ERFORDERLICH
@@ -164,6 +179,7 @@ RESEND_API_KEY=re_xxxxxxxxx
 ```
 RESEND_DOMAIN=onboarding@resend.dev
 ```
+
 - Verifizierte Domain für E-Mail-Versand
 - Oder: noreply@ihre-domain.de
 - Status: 🔴 ERFORDERLICH
@@ -171,6 +187,7 @@ RESEND_DOMAIN=onboarding@resend.dev
 ```
 SUPABASE_SERVICE_ROLE_KEY=eyJxxx...
 ```
+
 - Supabase Backend-Zugriff
 - Wo: Supabase Dashboard → Settings → API
 - Status: 🔴 ERFORDERLICH
@@ -185,6 +202,7 @@ STRIPE_SECRET_KEY=sk_live_xxxxx
 DAILY_API_KEY=xxxxx
 NEXIFY_API_KEY=xxxxx
 ```
+
 - Jeweils von den Service-Providern
 - Status: 🟡 EMPFOHLEN
 
@@ -193,6 +211,7 @@ NEXIFY_API_KEY=xxxxx
 ```
 OPENAI_API_KEY=sk-xxxxx
 ```
+
 - Nur wenn OpenAI statt Claude verwendet wird
 - Status: 🟢 OPTIONAL
 
@@ -205,6 +224,7 @@ MyDispatch → Einstellungen → n8n Integration → Tab "Credentials" → Butto
 ```
 
 **Was passiert:**
+
 1. Edge Function liest alle API-Keys aus Supabase Secrets
 2. Erstellt für jeden Service ein n8n Credential
 3. Zeigt Erfolgs-/Fehler-Status für jeden Service
@@ -220,12 +240,14 @@ MyDispatch → Einstellungen → n8n Integration → Tab "Credentials" → Butto
 ### 1. n8n Workflow erstellen
 
 **Option A: Automatisches Setup (Empfohlen)**
+
 1. MyDispatch → Einstellungen → n8n Integration → Tab "Setup"
 2. Button "Automatisches Workflow-Setup" klicken
 3. Alle erforderlichen Secrets werden geprüft
 4. Workflow wird automatisch erstellt und aktiviert
 
 **Option B: Manuelles Setup**
+
 1. In n8n: Neuer Workflow erstellen
 2. Webhook Node hinzufügen:
    - HTTP Method: POST
@@ -254,10 +276,12 @@ https://mydispatch.app.n8n.cloud/webhook/WEBHOOK_ID
 ```
 
 **NICHT:**
+
 - ❌ `/workflow/WORKFLOW_ID/webhook/...`
 - ❌ `/api/v1/webhook/...`
 
 **Webhook ID finden:**
+
 1. n8n → Workflow öffnen
 2. Webhook Node anklicken
 3. Webhook ID kopieren (unter "Webhook URLs")
@@ -274,9 +298,11 @@ https://mydispatch.app.n8n.cloud/webhook/WEBHOOK_ID
 ## 🎨 UI-Komponenten
 
 ### N8nIntegrationTab.tsx
+
 Hauptkomponente mit 3 Tabs:
 
 **1. Workflows Tab**
+
 - Liste aller n8n Workflows
 - Status (Aktiv/Inaktiv)
 - Aktionen: Aktivieren, Deaktivieren, Löschen
@@ -284,25 +310,31 @@ Hauptkomponente mit 3 Tabs:
 - Link zu n8n Editor
 
 **2. Setup Tab**
+
 - Automatisches Workflow-Setup
 - Secret-Status-Prüfung
 - One-Click-Installation
 
 **3. Test & Logs Tab**
+
 - Manueller Webhook-Test
 - Vordefinierte Test-Szenarien
 - Execution-Log (letzte 50)
 - Fehleranalyse
 
 ### N8nWorkflowManager.tsx (NEU)
+
 Vollständige Workflow-Verwaltung:
+
 - CRUD-Operationen
 - Status-Management
 - Webhook-URL-Extraktion
 - n8n Editor-Integration
 
 ### N8nWorkflowSetup.tsx
+
 One-Click Workflow-Erstellung:
+
 - Prüft alle Secrets
 - Erstellt vorkonfigurierten Workflow
 - Zeigt Webhook-URL an
@@ -342,10 +374,10 @@ function MyComponent() {
 import { useN8nWorkflowManagement } from '@/hooks/use-n8n-workflow-management';
 
 function WorkflowManager() {
-  const { 
-    workflows, 
-    activateWorkflow, 
-    getWebhookUrl 
+  const {
+    workflows,
+    activateWorkflow,
+    getWebhookUrl
   } = useN8nWorkflowManagement();
 
   const handleActivate = async (workflowId: string) => {
@@ -378,6 +410,7 @@ function WorkflowManager() {
 **Trigger:** `booking_created` Event
 
 **Workflow:**
+
 1. Webhook empfängt Event
 2. Claude AI generiert personalisierte Bestätigungs-E-Mail
 3. Resend versendet E-Mail an Kunden
@@ -388,6 +421,7 @@ function WorkflowManager() {
 **Trigger:** `invoice_overdue` Event
 
 **Workflow:**
+
 1. Webhook empfängt Event
 2. Prüft Überfälligkeitsdauer
 3. Claude AI generiert Erinnerungstext
@@ -399,6 +433,7 @@ function WorkflowManager() {
 **Trigger:** `driver_assigned` Event
 
 **Workflow:**
+
 1. Webhook empfängt Event
 2. Extrahiert Fahrer-Kontakt
 3. Sendet SMS via Twilio
@@ -412,25 +447,30 @@ function WorkflowManager() {
 ### Häufige Fehler
 
 **1. "Cannot POST /workflow/..."**
+
 - ❌ Falsche Webhook-URL-Struktur
 - ✅ Lösung: `N8N_WEBHOOK_ID` Secret mit korrekter Webhook ID setzen
 - Format: `https://instance.app.n8n.cloud/webhook/WEBHOOK_ID`
 
 **2. "N8N_INSTANCE_URL not configured"**
+
 - ❌ Secret fehlt oder falsch
 - ✅ Lösung: `N8N_INSTANCE_URL=https://mydispatch.app.n8n.cloud` setzen
 
 **3. "Unauthorized" / "No authorization header"**
+
 - ❌ User nicht angemeldet
 - ✅ Lösung: Sicherstellen dass User eingeloggt ist
 
 **4. "Webhook failed after 3 attempts"**
+
 - ❌ n8n Workflow nicht aktiv oder falsche Webhook ID
 - ✅ Lösung: Workflow in n8n aktivieren, Webhook ID prüfen
 
 ### Debugging
 
 **Edge Function Logs prüfen:**
+
 ```bash
 # In Lovable UI:
 Tools → Backend → Edge Functions → n8n-webhook-trigger → Logs
@@ -440,6 +480,7 @@ supabase functions logs n8n-webhook-trigger --tail
 ```
 
 **Webhook-Log in MyDispatch:**
+
 ```
 Einstellungen → n8n Integration → Tab "Test & Logs"
 → Execution-Log zeigt alle Webhook-Calls mit Status
@@ -461,9 +502,9 @@ Einstellungen → n8n Integration → Tab "Test & Logs"
 ```typescript
 // Verschiedene Webhook-Pfade für verschiedene Use Cases
 const WEBHOOK_CONFIGS = {
-  booking: 'booking-automation',
-  invoice: 'invoice-automation',
-  driver: 'driver-automation',
+  booking: "booking-automation",
+  invoice: "invoice-automation",
+  driver: "driver-automation",
 };
 
 // In n8n: Separate Workflows mit eigenen Webhook-Paths
@@ -473,16 +514,19 @@ const WEBHOOK_CONFIGS = {
 ### KI-Modelle in Workflows
 
 **Claude (Anthropic):**
+
 - HTTP Request Node
 - URL: `https://api.anthropic.com/v1/messages`
 - Model: `claude-sonnet-4-20250514`
 
 **OpenAI:**
-- HTTP Request Node  
+
+- HTTP Request Node
 - URL: `https://api.openai.com/v1/chat/completions`
 - Model: `gpt-4o-mini`
 
 **Google Gemini:**
+
 - HTTP Request Node
 - URL: `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent`
 
@@ -491,17 +535,20 @@ const WEBHOOK_CONFIGS = {
 ## 📈 Performance & Limits
 
 ### n8n Cloud Limits (Starter Plan)
+
 - Workflows: Unbegrenzt
 - Executions: 5.000/Monat
 - Execution Time: 30 Sekunden/Execution
 - Storage: 1 GB
 
 ### MyDispatch Edge Function Limits
+
 - Timeout: 30 Sekunden
 - Retry: 3 Versuche
 - Payload: Max 6 MB
 
 ### Best Practices
+
 - ✅ Asynchrone Webhooks (keine Wartezeit für User)
 - ✅ Idempotenz (gleicher Request = gleiches Ergebnis)
 - ✅ Fehler-Logging (für spätere Analyse)

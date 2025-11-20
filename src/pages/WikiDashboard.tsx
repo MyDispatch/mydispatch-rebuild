@@ -10,21 +10,28 @@
    - Auto-Sync Status
    ================================================================================== */
 
-import { useEffect, useState } from 'react';
-import { useWiki } from '@/contexts/WikiContext';
-import { SEOHead } from '@/components/shared/SEOHead';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  BookOpen, AlertCircle, Link as LinkIcon, CheckCircle2, 
-  TrendingUp, Package, RefreshCw, Clock, Database 
-} from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
-import { logger } from '@/lib/logger';
-import { useToast } from '@/hooks/use-toast';
+import { useEffect, useState } from "react";
+import { useWiki } from "@/contexts/WikiContext";
+import { SEOHead } from "@/components/shared/SEOHead";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  BookOpen,
+  AlertCircle,
+  Link as LinkIcon,
+  CheckCircle2,
+  TrendingUp,
+  Package,
+  RefreshCw,
+  Clock,
+  Database,
+} from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { logger } from "@/lib/logger";
+import { useToast } from "@/hooks/use-toast";
 
 export default function WikiDashboard() {
   const { wikiData, isLoading, loadWiki } = useWiki();
@@ -37,14 +44,14 @@ export default function WikiDashboard() {
     try {
       await loadWiki();
       toast({
-        title: '✅ Wiki aktualisiert',
-        description: 'Alle Dokumente wurden erfolgreich synchronisiert.',
+        title: "✅ Wiki aktualisiert",
+        description: "Alle Dokumente wurden erfolgreich synchronisiert.",
       });
     } catch (error) {
       toast({
-        title: '❌ Sync fehlgeschlagen',
-        description: 'Wiki konnte nicht aktualisiert werden.',
-        variant: 'destructive',
+        title: "❌ Sync fehlgeschlagen",
+        description: "Wiki konnte nicht aktualisiert werden.",
+        variant: "destructive",
       });
     } finally {
       setSyncing(false);
@@ -54,25 +61,25 @@ export default function WikiDashboard() {
   const handleBuildGraph = async () => {
     setGraphBuilding(true);
     try {
-      const { data, error } = await supabase.functions.invoke('wiki-knowledge-graph');
-      
+      const { data, error } = await supabase.functions.invoke("wiki-knowledge-graph");
+
       if (error) throw error;
-      
+
       toast({
-        title: '✅ Knowledge Graph erstellt',
+        title: "✅ Knowledge Graph erstellt",
         description: `${data?.links_created || 0} Links zwischen ${data?.docs_processed || 0} Dokumenten erstellt.`,
       });
-      
+
       // Reload wiki data
       await loadWiki();
     } catch (error) {
-      logger.error('[Wiki Dashboard] Graph build failed', error as Error, {
-        component: 'WikiDashboard',
+      logger.error("[Wiki Dashboard] Graph build failed", error as Error, {
+        component: "WikiDashboard",
       });
       toast({
-        title: '❌ Graph-Erstellung fehlgeschlagen',
-        description: 'Knowledge Graph konnte nicht erstellt werden.',
-        variant: 'destructive',
+        title: "❌ Graph-Erstellung fehlgeschlagen",
+        description: "Knowledge Graph konnte nicht erstellt werden.",
+        variant: "destructive",
       });
     } finally {
       setGraphBuilding(false);
@@ -107,9 +114,7 @@ export default function WikiDashboard() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold mb-2">🧠 NeXify Wiki Dashboard</h1>
-            <p className="text-slate-600">
-              Knowledge System Metrics & Performance Monitoring
-            </p>
+            <p className="text-slate-600">Knowledge System Metrics & Performance Monitoring</p>
           </div>
           <div className="flex gap-3">
             <V28Button
@@ -144,23 +149,25 @@ export default function WikiDashboard() {
             </CardHeader>
             <CardContent className="p-6">
               <div className="text-2xl font-bold">{totalDocs}</div>
-              <p className="text-xs text-slate-500 mt-1">
-                In knowledge_base
-              </p>
+              <p className="text-xs text-slate-500 mt-1">In knowledge_base</p>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Critical Issues</CardTitle>
-              <AlertCircle className={`h-4 w-4 ${criticalIssuesCount > 0 ? 'text-red-500' : 'text-green-500'}`} />
+              <AlertCircle
+                className={`h-4 w-4 ${criticalIssuesCount > 0 ? "text-red-500" : "text-green-500"}`}
+              />
             </CardHeader>
             <CardContent className="p-6">
-              <div className={`text-2xl font-bold ${criticalIssuesCount > 0 ? 'text-red-600' : 'text-green-600'}`}>
+              <div
+                className={`text-2xl font-bold ${criticalIssuesCount > 0 ? "text-red-600" : "text-green-600"}`}
+              >
                 {criticalIssuesCount}
               </div>
               <p className="text-xs text-slate-500 mt-1">
-                {criticalIssuesCount === 0 ? '✅ Zero-Hallucination' : '⚠️ Needs attention'}
+                {criticalIssuesCount === 0 ? "✅ Zero-Hallucination" : "⚠️ Needs attention"}
               </p>
             </CardContent>
           </Card>
@@ -173,9 +180,7 @@ export default function WikiDashboard() {
             <CardContent className="p-6">
               <div className="text-2xl font-bold">{graphCoverage.toFixed(1)}%</div>
               <Progress value={graphCoverage} className="mt-2" />
-              <p className="text-xs text-slate-500 mt-1">
-                Target: 50%+
-              </p>
+              <p className="text-xs text-slate-500 mt-1">Target: 50%+</p>
             </CardContent>
           </Card>
 
@@ -187,7 +192,7 @@ export default function WikiDashboard() {
             <CardContent className="p-6">
               <div className="text-2xl font-bold">{loadTime}ms</div>
               <p className="text-xs text-slate-500 mt-1">
-                {loadTime < 3000 ? '✅ Fast' : '⚠️ Slow'}
+                {loadTime < 3000 ? "✅ Fast" : "⚠️ Slow"}
               </p>
             </CardContent>
           </Card>
@@ -206,9 +211,7 @@ export default function WikiDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle>Recent Learnings</CardTitle>
-                <CardDescription>
-                  Letzte 10 AI-Learnings aus Aktionen
-                </CardDescription>
+                <CardDescription>Letzte 10 AI-Learnings aus Aktionen</CardDescription>
               </CardHeader>
               <CardContent className="p-6">
                 {wikiData?.recentLearnings && wikiData.recentLearnings.length > 0 ? (
@@ -218,7 +221,7 @@ export default function WikiDashboard() {
                         <div className="flex items-center justify-between mb-1">
                           <Badge variant="outline">{learning.pattern_type}</Badge>
                           <span className="text-xs text-slate-500">
-                            {new Date(learning.learned_at).toLocaleDateString('de-DE')}
+                            {new Date(learning.learned_at).toLocaleDateString("de-DE")}
                           </span>
                         </div>
                         <p className="text-sm">{learning.learnings}</p>
@@ -233,9 +236,7 @@ export default function WikiDashboard() {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-slate-500 text-center py-8">
-                    Keine Learnings vorhanden
-                  </p>
+                  <p className="text-slate-500 text-center py-8">Keine Learnings vorhanden</p>
                 )}
               </CardContent>
             </Card>
@@ -268,9 +269,7 @@ export default function WikiDashboard() {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-slate-500 text-center py-8">
-                    Keine Components registriert
-                  </p>
+                  <p className="text-slate-500 text-center py-8">Keine Components registriert</p>
                 )}
               </CardContent>
             </Card>
@@ -280,15 +279,16 @@ export default function WikiDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle>Best Practices Leaderboard</CardTitle>
-                <CardDescription>
-                  Top patterns nach Usage Count
-                </CardDescription>
+                <CardDescription>Top patterns nach Usage Count</CardDescription>
               </CardHeader>
               <CardContent className="p-6">
                 {wikiData?.bestPractices && wikiData.bestPractices.length > 0 ? (
                   <div className="space-y-3">
                     {wikiData.bestPractices.map((practice: any, idx: number) => (
-                      <div key={idx} className="flex items-center justify-between p-3 border rounded-lg">
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between p-3 border rounded-lg"
+                      >
                         <div className="flex-1">
                           <h4 className="font-medium">{practice.title}</h4>
                           <p className="text-xs text-slate-600 mt-1">{practice.category}</p>
@@ -301,9 +301,7 @@ export default function WikiDashboard() {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-slate-500 text-center py-8">
-                    Keine Best Practices vorhanden
-                  </p>
+                  <p className="text-slate-500 text-center py-8">Keine Best Practices vorhanden</p>
                 )}
               </CardContent>
             </Card>
@@ -313,9 +311,7 @@ export default function WikiDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle>Critical Issues</CardTitle>
-                <CardDescription>
-                  {criticalIssuesCount} ungelöste Critical Issues
-                </CardDescription>
+                <CardDescription>{criticalIssuesCount} ungelöste Critical Issues</CardDescription>
               </CardHeader>
               <CardContent className="p-6">
                 {wikiData?.criticalIssues && wikiData.criticalIssues.length > 0 ? (
@@ -337,12 +333,8 @@ export default function WikiDashboard() {
                 ) : (
                   <div className="text-center py-8">
                     <CheckCircle2 className="h-12 w-12 mx-auto text-green-500 mb-2" />
-                    <p className="text-green-600 font-medium">
-                      ✅ Zero Critical Issues!
-                    </p>
-                    <p className="text-slate-500 text-sm mt-1">
-                      Zero-Hallucination Goal erreicht
-                    </p>
+                    <p className="text-green-600 font-medium">✅ Zero Critical Issues!</p>
+                    <p className="text-slate-500 text-sm mt-1">Zero-Hallucination Goal erreicht</p>
                   </div>
                 )}
               </CardContent>

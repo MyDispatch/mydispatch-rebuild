@@ -54,7 +54,7 @@ serve(async (req) => {
 
     if (!policies || policies.length === 0) {
       console.log("[ALERT-MANAGER] No active policies found, skipping email");
-      
+
       // Log alert ohne Email
       await supabase.from("alert_logs").insert({
         alert_type: payload.alert_type,
@@ -68,11 +68,11 @@ serve(async (req) => {
       });
 
       return new Response(
-        JSON.stringify({ 
-          success: true, 
-          alert_logged: true, 
+        JSON.stringify({
+          success: true,
+          alert_logged: true,
           email_sent: false,
-          reason: "No active policies" 
+          reason: "No active policies",
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
@@ -86,7 +86,7 @@ serve(async (req) => {
 
     if (allRecipients.size === 0) {
       console.log("[ALERT-MANAGER] No recipients configured");
-      
+
       await supabase.from("alert_logs").insert({
         alert_type: payload.alert_type,
         severity: payload.severity,
@@ -99,11 +99,11 @@ serve(async (req) => {
       });
 
       return new Response(
-        JSON.stringify({ 
-          success: true, 
-          alert_logged: true, 
+        JSON.stringify({
+          success: true,
+          alert_logged: true,
           email_sent: false,
-          reason: "No recipients" 
+          reason: "No recipients",
         }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
@@ -144,16 +144,20 @@ serve(async (req) => {
           <div class="content">
             <p class="message">${payload.message}</p>
             
-            ${payload.details ? `
+            ${
+              payload.details
+                ? `
               <div class="details">
                 <div class="details-title">📋 Details:</div>
                 <pre class="details-content">${JSON.stringify(payload.details, null, 2)}</pre>
               </div>
-            ` : ''}
+            `
+                : ""
+            }
             
             <p style="margin-top: 20px;">
               <strong>Quelle:</strong> ${payload.source}<br>
-              <strong>Zeitpunkt:</strong> ${new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' })}
+              <strong>Zeitpunkt:</strong> ${new Date().toLocaleString("de-DE", { timeZone: "Europe/Berlin" })}
             </p>
           </div>
           
@@ -171,7 +175,7 @@ serve(async (req) => {
     let emailError: string | null = null;
     try {
       const emailResponse = await resend.emails.send({
-        from: `MyDispatch Alerts <alerts@${resendDomain.includes('@') ? resendDomain.split('@')[1] : resendDomain}>`,
+        from: `MyDispatch Alerts <alerts@${resendDomain.includes("@") ? resendDomain.split("@")[1] : resendDomain}>`,
         to: Array.from(allRecipients),
         subject: emailSubject,
         html: emailHtml,
@@ -212,9 +216,9 @@ serve(async (req) => {
   } catch (error) {
     console.error("[ALERT-MANAGER] Error:", error);
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    return new Response(
-      JSON.stringify({ success: false, error: errorMessage }),
-      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+    return new Response(JSON.stringify({ success: false, error: errorMessage }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });

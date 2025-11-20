@@ -48,6 +48,7 @@
 ```
 
 **Charakteristik:**
+
 - Öffentlich zugänglich
 - MyDispatch Corporate Branding
 - SEO-optimiert
@@ -65,12 +66,14 @@
 ```
 
 **Auth-Varianten:**
+
 ```typescript
 /auth?company=123    → Auth mit Branding (Unternehmer)
 /auth?mode=customer&company=123 → Kunden-Auth (branded)
 ```
 
 **Charakteristik:**
+
 - Öffentlich zugänglich
 - Company-spezifisches Branding
 - Customizable (Logo, Farben, Content)
@@ -93,6 +96,7 @@
 ```
 
 **Charakteristik:**
+
 - Auth erforderlich (ProtectedRoute)
 - DashboardLayout mit Sidebar
 - Multi-Tenant (company_id filtering)
@@ -106,6 +110,7 @@
 ```
 
 **Charakteristik:**
+
 - Separate Auth (PortalRoute)
 - Für End-Kunden der Unternehmer
 - Buchungen, Rechnungen, Profile
@@ -120,6 +125,7 @@
 ```
 
 **Charakteristik:**
+
 - Mobile-First Design
 - Separate Auth
 - GPS-Tracking
@@ -154,16 +160,16 @@ interface NavigationContext {
 
 ```typescript
 function getHomeRoute(searchParams: URLSearchParams): string {
-  const companyId = searchParams.get('company');
-  const slug = searchParams.get('slug');
-  
+  const companyId = searchParams.get("company");
+  const slug = searchParams.get("slug");
+
   if (companyId && slug) {
     // Branded context → zur Unternehmer-Landing
     return `/${slug}`;
   }
-  
+
   // Marketing context → zur Marketing-Home
-  return '/';
+  return "/";
 }
 ```
 
@@ -175,10 +181,10 @@ function getHomeRoute(searchParams: URLSearchParams): string {
 
 ```typescript
 // FALSCH
-navigate('/home')  // ❌ Route existiert nicht!
+navigate("/home"); // ❌ Route existiert nicht!
 
 // RICHTIG
-navigate('/')      // ✅ Marketing-Home
+navigate("/"); // ✅ Marketing-Home
 ```
 
 ### ❌ Fehler 2: Fehlender Context
@@ -252,19 +258,17 @@ routes: [
 /**
  * Gibt die korrekte Home-Route basierend auf Context zurück
  */
-export function getHomeRoute(
-  searchParams: URLSearchParams
-): string {
-  const slug = searchParams.get('slug');
-  const companyId = searchParams.get('company');
-  
+export function getHomeRoute(searchParams: URLSearchParams): string {
+  const slug = searchParams.get("slug");
+  const companyId = searchParams.get("company");
+
   // Branded context mit slug
   if (companyId && slug) {
     return `/${slug}`;
   }
-  
+
   // Marketing context
-  return '/';
+  return "/";
 }
 ```
 
@@ -277,25 +281,25 @@ export function getHomeRoute(
 export function navigateToAuth(
   navigate: NavigateFunction,
   options: {
-    mode?: 'login' | 'signup' | 'reset';
+    mode?: "login" | "signup" | "reset";
     companyId?: string;
     slug?: string;
   }
 ): void {
   const params = new URLSearchParams();
-  
+
   if (options.mode) {
-    params.set('tab', options.mode);
+    params.set("tab", options.mode);
   }
-  
+
   if (options.companyId) {
-    params.set('company', options.companyId);
+    params.set("company", options.companyId);
   }
-  
+
   if (options.slug) {
-    params.set('slug', options.slug);
+    params.set("slug", options.slug);
   }
-  
+
   navigate(`/auth?${params.toString()}`);
 }
 ```
@@ -326,7 +330,7 @@ export function navigateToProtectedRoute(
  * Gibt die Route für eine Entity (mit ID) zurück
  */
 export function getEntityRoute(
-  entityType: 'kunden' | 'fahrer' | 'fahrzeuge' | 'auftraege',
+  entityType: "kunden" | "fahrer" | "fahrzeuge" | "auftraege",
   id: string
 ): string {
   return `/${entityType}?id=${id}`;
@@ -389,17 +393,17 @@ export function getEntityRoute(
 export function AuthHeader({ companyName, logoUrl }: Props) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  
+
   const handleNavigateHome = () => {
     const homeRoute = getHomeRoute(searchParams);
     navigate(homeRoute);
   };
-  
+
   return (
     <header>
       {/* Logo */}
       <img src={logoUrl || officialLogo} alt={companyName} />
-      
+
       {/* Smart Home Button */}
       <Button onClick={handleNavigateHome}>
         Zur Startseite
@@ -415,7 +419,7 @@ export function AuthHeader({ companyName, logoUrl }: Props) {
 export function Breadcrumbs() {
   const location = useLocation();
   const route = routes.find(r => r.path === location.pathname);
-  
+
   return (
     <nav>
       <Link to="/dashboard">Home</Link>
@@ -434,20 +438,20 @@ export function Breadcrumbs() {
 ### Navigation Tests
 
 ```typescript
-describe('Routing System', () => {
-  test('Marketing Auth → Marketing Home', () => {
+describe("Routing System", () => {
+  test("Marketing Auth → Marketing Home", () => {
     // /auth → Button → /
   });
-  
-  test('Branded Auth → Branded Landing', () => {
+
+  test("Branded Auth → Branded Landing", () => {
     // /auth?company=123&slug=taxi-mueller → Button → /taxi-mueller
   });
-  
-  test('Protected Route → Redirect to Auth', () => {
+
+  test("Protected Route → Redirect to Auth", () => {
     // /dashboard (nicht angemeldet) → /auth
   });
-  
-  test('Dynamic Route Match', () => {
+
+  test("Dynamic Route Match", () => {
     // /pricing → Pricing.tsx (nicht /:slug!)
     // /taxi-mueller → Unternehmer.tsx (/:slug)
   });
@@ -488,20 +492,20 @@ grep -r "<a href=" src/
 
 ```typescript
 // tests/e2e/routing.spec.ts
-test('Navigation zwischen Bereichen')
+test("Navigation zwischen Bereichen");
 ```
 
 ---
 
 ## 📈 SUCCESS METRICS
 
-| Metrik | Ziel | Status |
-|--------|------|--------|
-| Korrekte Home-Navigation | 100% | 🔄 |
-| Context-Aware Routing | 100% | 🔄 |
-| <Link> statt <a> | 100% | 🔄 |
-| Protected Route Auth | 100% | ✅ |
-| Dynamic Route Order | Korrekt | ✅ |
+| Metrik                   | Ziel    | Status |
+| ------------------------ | ------- | ------ |
+| Korrekte Home-Navigation | 100%    | 🔄     |
+| Context-Aware Routing    | 100%    | 🔄     |
+| <Link> statt <a>         | 100%    | 🔄     |
+| Protected Route Auth     | 100%    | ✅     |
+| Dynamic Route Order      | Korrekt | ✅     |
 
 ---
 

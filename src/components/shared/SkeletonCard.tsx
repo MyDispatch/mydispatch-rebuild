@@ -13,19 +13,15 @@
    {isLoading ? <SkeletonCard variant="card" /> : <DataCard data={data} />}
    ================================================================================== */
 
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 interface SkeletonCardProps {
-  variant?: 'card' | 'table' | 'list' | 'kpi';
+  variant?: "card" | "table" | "list" | "kpi";
   count?: number;
   className?: string;
 }
 
-export function SkeletonCard({ 
-  variant = 'card', 
-  count = 1,
-  className 
-}: SkeletonCardProps) {
+export function SkeletonCard({ variant = "card", count = 1, className }: SkeletonCardProps) {
   const skeletons = Array.from({ length: count }, (_, i) => i);
 
   const variants = {
@@ -73,7 +69,10 @@ export function SkeletonCard({
     list: (
       <div className="space-y-2">
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="flex items-center gap-3 p-3 rounded-lg border border-border bg-card">
+          <div
+            key={i}
+            className="flex items-center gap-3 p-3 rounded-lg border border-border bg-card"
+          >
             <div className="h-10 w-10 bg-muted rounded-full animate-pulse shrink-0" />
             <div className="flex-1 space-y-2">
               <div className="h-3 bg-muted rounded animate-pulse w-3/4" />
@@ -86,7 +85,7 @@ export function SkeletonCard({
   };
 
   return (
-    <div className={cn('space-y-4', className)}>
+    <div className={cn("space-y-4", className)}>
       {skeletons.map((i) => (
         <div key={i}>{variants[variant]}</div>
       ))}

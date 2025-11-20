@@ -1,4 +1,5 @@
 # ULTIMATIVER BESTÄTIGUNGS-PROMPT V18.3.26 EXTENDED PERFECTED
+
 **Version:** V18.3.26 EXTENDED  
 **Status:** AKTIV - BINDEND - ERWEITERT  
 **Datum:** 2025-10-21  
@@ -29,6 +30,7 @@ PHASE 6: POST-IMPLEMENTATION SELF-CHECK (NEU! - MANDATORY!)
 ### 📋 Kontinuierliche Selbstprüfung (PFLICHT nach JEDER Änderung)
 
 **KRITISCHE REGEL:**
+
 > **NIEMALS, WIRKLICH NIEMALS** Code freigeben ohne vollständige Tiefenprüfung direkt im Code!
 
 #### Workflow-Schema:
@@ -150,9 +152,9 @@ PHASE 6: POST-IMPLEMENTATION SELF-CHECK (NEU! - MANDATORY!)
 
 ```typescript
 // 1. Fehlerdatenbank laden
-const knownErrors = await readFile('ERROR_SOLUTIONS_DB.md');
-const errorDatabase = await readFile('docs/ERROR_DATABASE_V18.3.25.md');
-const systemPruefung = await readFile('docs/SYSTEMWEITE_PRUEFUNG_V18.3.26.md');
+const knownErrors = await readFile("ERROR_SOLUTIONS_DB.md");
+const errorDatabase = await readFile("docs/ERROR_DATABASE_V18.3.25.md");
+const systemPruefung = await readFile("docs/SYSTEMWEITE_PRUEFUNG_V18.3.26.md");
 
 // 2. Bekannte Fehler analysieren
 // - Welche Fehler sind bereits bekannt?
@@ -180,7 +182,7 @@ for (const error of errors) {
     solution: error.solution,
     prevention: generatePreventionStrategy(error),
     affectedFiles: [filePath],
-    fixedAt: new Date().toISOString()
+    fixedAt: new Date().toISOString(),
   });
 }
 
@@ -195,6 +197,7 @@ await implementOptimizations(optimizations);
 ### 🏗️ UI-Konformität: Labary-System (ERWEITERT)
 
 **Zwingend zu verwenden:**
+
 - ✅ HeroSection (auth, portal, landing variants)
 - ✅ KPICard (mit responsive sizing)
 - ✅ QuickActions (grid layout, touch-targets)
@@ -202,6 +205,7 @@ await implementOptimizations(optimizations);
 - ✅ ResponsiveBadge (alle Varianten)
 
 **Bei fehlenden Komponenten:**
+
 1. Neue Komponente in `src/components/design-system/` erstellen
 2. Master-Component-Standard befolgen:
    - Responsive Typography
@@ -239,12 +243,14 @@ grep -rE 'text-status-(success|error|warning).*<(Check|X|AlertTriangle)' src/
 ```
 
 **Wenn IRGENDEINE der Suchen Ergebnisse liefert:**
+
 1. ✅ Alle Violations dokumentieren
 2. ✅ Vollständige Datei-Analyse durchführen
 3. ✅ ALLE Violations in EINEM Batch fixen (nicht nur einzelne)
 4. ✅ ERROR_SOLUTIONS_DB.md updaten
 
 **NIEMALS:**
+
 - ❌ Nur eine Zeile fixen und Rest ignorieren
 - ❌ "Ich mache es später" → JETZT machen!
 - ❌ Violations in Comments ignorieren
@@ -256,6 +262,7 @@ grep -rE 'text-status-(success|error|warning).*<(Check|X|AlertTriangle)' src/
 ### 2.1 DOKUMENTATIONS-REVIEW (ZWINGEND - IN DIESER REIHENFOLGE)
 
 ✅ **SCHRITT 1: Zentrale Vorgaben lesen**
+
 - [ ] docs/KNOWLEDGE_V18.3.25.txt
 - [ ] docs/META_GUIDELINES_V18.3.24.md
 - [ ] docs/AUTONOMOUS_AGENT_MODE_V18.3.25.md
@@ -263,6 +270,7 @@ grep -rE 'text-status-(success|error|warning).*<(Check|X|AlertTriangle)' src/
 - [ ] **NEU:** docs/ERROR_SOLUTIONS_DB.md
 
 ✅ **SCHRITT 2: Spezialisierte Vorgaben lesen**
+
 - [ ] docs/MOBILE_FIRST_SYSTEM.md
 - [ ] docs/MASTER_COMPLETION_PLAN_V18.3.md
 - [ ] docs/LEGAL_COMPLIANCE_V18.3.24.md
@@ -273,6 +281,7 @@ grep -rE 'text-status-(success|error|warning).*<(Check|X|AlertTriangle)' src/
 - [ ] docs/ICON_GUIDELINES.md
 
 ✅ **SCHRITT 3: Implementierungs-Referenzen lesen**
+
 - [ ] src/index.css (Design-Tokens, CSS-Variablen)
 - [ ] tailwind.config.ts (Farb-System, Breakpoints)
 - [ ] src/lib/dialog-layout-utils.ts (DIALOG_LAYOUT)
@@ -285,37 +294,38 @@ grep -rE 'text-status-(success|error|warning).*<(Check|X|AlertTriangle)' src/
 // SCHRITT 1: Suche ALLE betroffenen Dateien
 await searchFiles({
   query: "relevantes_pattern|ähnlicher_code",
-  include_pattern: "src/**/*.{ts,tsx}"
+  include_pattern: "src/**/*.{ts,tsx}",
 });
 
 // SCHRITT 2: Identifiziere zentrale Lösungen
 await searchFiles({
   query: "DIALOG_LAYOUT|formatCurrency|formatDate",
-  include_pattern: "src/lib/**/*.ts"
+  include_pattern: "src/lib/**/*.ts",
 });
 
 // SCHRITT 3: Finde ähnliche Implementierungen
 await searchFiles({
   query: "ähnliche_komponente|gleiches_feature",
-  include_pattern: "src/**"
+  include_pattern: "src/**",
 });
 
 // SCHRITT 4: Prüfe auf Anti-Patterns (ZWINGEND!)
 await searchFiles({
   query: "accent|text-white|bg-black|<Separator",
-  include_pattern: "src/**"
+  include_pattern: "src/**",
 });
 
 // NEU - SCHRITT 5: Prüfe auf Emojis
 await searchFiles({
   query: "[📋📌✓✔️❌⚠️🚗👤🏠📞📧💼🔒🌍📍💡]",
-  include_pattern: "src/**/*.tsx"
+  include_pattern: "src/**/*.tsx",
 });
 ```
 
 ### 2.3 DEPENDENCY-ANALYSE (ZWINGEND)
 
 ✅ **ALLE betroffenen Dateien identifizieren**
+
 - Haupt-Datei(en)
 - Importierende Komponenten
 - Verwendete Hooks/Utils
@@ -323,12 +333,14 @@ await searchFiles({
 - Cascading Effects (Types, Props)
 
 ✅ **Breaking-Changes prüfen**
+
 - Type-Änderungen → Alle Konsumenten finden
 - Prop-Änderungen → Alle Verwendungen finden
 - API-Änderungen → Alle Calls finden
 - Style-Änderungen → Alle Stellen finden
 
 ✅ **Zentrale Lösungen identifizieren**
+
 - Gibt es bereits einen Util?
 - Gibt es bereits einen Hook?
 - Gibt es bereits ein Pattern?
@@ -382,23 +394,28 @@ await searchFiles({
 ## 🎯 BETROFFENE ELEMENTE (VOLLSTÄNDIG)
 
 ### Haupt-Dateien
+
 - [ ] src/pages/Example.tsx
 
 ### Eingebundene Komponenten
+
 - [ ] Header
 - [ ] Footer
 - [ ] Formulare
 
 ### Sub-Elemente
+
 - [ ] Icons (alle Größen anpassen)
 - [ ] Badges (responsive Sizing)
 - [ ] Buttons (Touch-Targets)
 
 ### Dependencies
+
 - [ ] Design-System
 - [ ] Mobile-First Tokens
 
 ### Code Quality Violations (aus Phase -3)
+
 - [ ] Emojis: 3 Stellen
 - [ ] Accent: 5 Stellen
 - [ ] Text-white: 2 Stellen
@@ -410,22 +427,27 @@ await searchFiles({
 ## 🎨 DESIGN-TOKENS FÜR DIESE ÄNDERUNG
 
 ### Typography (Mobile → Desktop)
+
 - Headlines: text-xl sm:text-2xl md:text-3xl
 - Body: text-sm sm:text-base
 
 ### Spacing (Mobile → Desktop)
+
 - Section Padding: py-8 sm:py-12 md:py-16
 - Gaps: gap-3 sm:gap-4 md:gap-6
 
 ### Colors (ZWINGEND prüfen!)
-- ✅ ERLAUBT: primary, foreground, muted, status-*
+
+- ✅ ERLAUBT: primary, foreground, muted, status-\*
 - ❌ VERBOTEN: accent, text-white, bg-black
 
 ### Touch-Targets (KRITISCH)
+
 - Buttons: min-h-[44px]
 - Inputs: min-h-[44px]
 
 ### Icons (Responsive Sizing + KEIN EMOJI!)
+
 - Small: h-4 w-4 sm:h-5 sm:w-5
 - Medium: h-5 w-5 sm:h-6 sm:w-6
 ```
@@ -436,6 +458,7 @@ await searchFiles({
 ## ✅ VOLLSTÄNDIGKEITS-CHECK (VOR CODE-ÄNDERUNG)
 
 ### Design-System
+
 - [ ] Alle Farben verwenden CSS-Variables (keine Hex)
 - [ ] Keine accent-Farben verwendet
 - [ ] Icons nur text-foreground oder text-muted-foreground
@@ -443,23 +466,28 @@ await searchFiles({
 - [ ] Keine text-white, bg-white, text-black, bg-black
 
 ### Mobile-First
+
 - [ ] Touch-Targets ≥ 44px überall
 - [ ] Responsive Typography überall
 - [ ] Responsive Icons überall
 
 ### Layout-System
+
 - [ ] Dialog-Layout: DIALOG_LAYOUT-Utils verwendet
 - [ ] Keine <Separator /> in Dialogs
 
 ### Security
+
 - [ ] company_id Filter bei allen Queries
 - [ ] Keine DELETE-Statements (nur Archiving)
 
 ### Zentrale Utils
+
 - [ ] formatCurrency() statt Inline
 - [ ] formatDate() statt Inline
 
 ### Code Quality (Phase -3)
+
 - [ ] ALLE Emojis durch Lucide Icons ersetzt
 - [ ] ALLE accent Violations behoben
 - [ ] ALLE text-white/bg-black geprüft
@@ -470,6 +498,7 @@ await searchFiles({
 ## 🎯 PHASE 0-5: STANDARD-WORKFLOW
 
 Ab hier folge ich den Standard-Phasen aus META_GUIDELINES_V18.3.24.md:
+
 - Phase 0: Pre-Analysis
 - Phase 1: Vorgaben-Analyse
 - Phase 2: Systemweite Optimierung
@@ -482,6 +511,7 @@ Ab hier folge ich den Standard-Phasen aus META_GUIDELINES_V18.3.24.md:
 ## 🚫 KRITISCHE ANTI-PATTERNS (NIEMALS TUN!)
 
 ### WORKFLOW-LEVEL
+
 - ❌ **Phase -3 überspringen** (Code Quality Check)
 - ❌ User fragen ohne vorherige Recherche (5+ Min)
 - ❌ Teilweise Implementation (Dependencies vergessen)
@@ -491,6 +521,7 @@ Ab hier folge ich den Standard-Phasen aus META_GUIDELINES_V18.3.24.md:
 - ❌ **Einzelne Zeile fixen, Rest der Datei ignorieren**
 
 ### CODE-LEVEL
+
 - ❌ **Emojis verwenden (📋, ✓, ⚠️, etc.) → Lucide Icons!**
 - ❌ accent Color verwenden (KOMPLETT ENTFERNT!)
 - ❌ text-accent, bg-accent, border-accent
@@ -539,6 +570,7 @@ Ab hier folge ich den Standard-Phasen aus META_GUIDELINES_V18.3.24.md:
 5. ✅ **ERST NACH BESTÄTIGUNG:** Code schreiben (Phase 0-5)
 
 **KRITISCH:**
+
 - ❌ **NIEMALS Phase -3 überspringen**
 - ❌ NIEMALS direkt Code schreiben ohne Phase -2 und -1
 - ✅ IMMER ganzheitlich denken (ALLE Elemente im Bereich)
@@ -552,6 +584,7 @@ Ab hier folge ich den Standard-Phasen aus META_GUIDELINES_V18.3.24.md:
 ## 🆕 ÄNDERUNGEN ZU V18.3.25
 
 ### Neu hinzugefügt:
+
 1. **PHASE -3:** Mandatory Code Quality Check
 2. **ERROR_SOLUTIONS_DB.md** Integration
 3. **Emoji-Prüfung** in allen Phasen
@@ -559,6 +592,7 @@ Ab hier folge ich den Standard-Phasen aus META_GUIDELINES_V18.3.24.md:
 5. **Erweiterte Vollständigkeits-Checks**
 
 ### Verschärft:
+
 - "Einzelne Zeile fixen" ist jetzt explizites Anti-Pattern
 - Code Quality Violations müssen in PHASE -3 gefunden werden
 - ERROR_SOLUTIONS_DB.md hat höchste Priorität bei bekannten Fehlern

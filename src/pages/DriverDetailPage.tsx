@@ -1,24 +1,24 @@
 /**
  * DRIVER DETAIL PAGE V1.0 (KRONOS Wave 5 - Batch 5B)
- * 
+ *
  * Assembliert aus:
  * - StandardDetailPage Template
  * - useDriver API Hook
  */
 
-import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Mail, Phone, MapPin, Calendar, FileText, Award } from 'lucide-react';
-import { useDrivers } from '@/hooks/use-drivers';
-import { V28Button } from '@/components/design-system/V28Button';
-import { V28Card } from '@/components/design-system/V28Card';
-import { V28Badge } from '@/components/design-system/V28Badge';
-import { formatDate } from '@/lib/data-transformers';
+import { useParams, useNavigate } from "react-router-dom";
+import { ArrowLeft, Mail, Phone, MapPin, Calendar, FileText, Award } from "lucide-react";
+import { useDrivers } from "@/hooks/use-drivers";
+import { V28Button } from "@/components/design-system/V28Button";
+import { V28Card } from "@/components/design-system/V28Card";
+import { V28Badge } from "@/components/design-system/V28Badge";
+import { formatDate } from "@/lib/data-transformers";
 
 export function DriverDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { drivers, isLoading } = useDrivers();
-  const driver = drivers?.find(d => d.id === id);
+  const driver = drivers?.find((d) => d.id === id);
 
   if (isLoading) {
     return (
@@ -33,7 +33,7 @@ export function DriverDetailPage() {
       <div className="p-8">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-slate-900">Fahrer nicht gefunden</h2>
-          <V28Button onClick={() => navigate('/drivers')} className="mt-4">
+          <V28Button onClick={() => navigate("/drivers")} className="mt-4">
             Zurück zur Übersicht
           </V28Button>
         </div>
@@ -46,11 +46,7 @@ export function DriverDetailPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <V28Button
-            variant="ghost"
-            icon={ArrowLeft}
-            onClick={() => navigate('/drivers')}
-          >
+          <V28Button variant="ghost" icon={ArrowLeft} onClick={() => navigate("/drivers")}>
             Zurück
           </V28Button>
           <div>
@@ -60,9 +56,7 @@ export function DriverDetailPage() {
             <p className="text-slate-600">Fahrer-ID: {String(driver.id).slice(0, 8)}</p>
           </div>
         </div>
-        <V28Badge variant="primary">
-          {driver.shift_status}
-        </V28Badge>
+        <V28Badge variant="primary">{driver.shift_status}</V28Badge>
       </div>
 
       {/* Content Grid */}
@@ -81,7 +75,7 @@ export function DriverDetailPage() {
               <Phone className="h-5 w-5 text-slate-600 mt-0.5" />
               <div>
                 <p className="text-sm text-slate-600">Telefon</p>
-                <p className="font-medium text-slate-900">{driver.phone || '-'}</p>
+                <p className="font-medium text-slate-900">{driver.phone || "-"}</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
@@ -89,7 +83,7 @@ export function DriverDetailPage() {
               <div>
                 <p className="text-sm text-slate-600">Adresse</p>
                 <p className="font-medium text-slate-900">
-                  {driver.street} {driver.street_number || ''}
+                  {driver.street} {driver.street_number || ""}
                   <br />
                   {driver.postal_code} {driver.city}
                 </p>
@@ -113,7 +107,7 @@ export function DriverDetailPage() {
               <div>
                 <p className="text-sm text-slate-600">Führerschein gültig bis</p>
                 <p className="font-medium text-slate-900">
-                  {driver.license_expiry_date ? formatDate(driver.license_expiry_date) : '-'}
+                  {driver.license_expiry_date ? formatDate(driver.license_expiry_date) : "-"}
                 </p>
               </div>
             </div>

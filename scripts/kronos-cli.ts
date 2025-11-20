@@ -12,13 +12,13 @@
      npm run kronos:status             # Show execution status
    ================================================================================== */
 
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from "@supabase/supabase-js";
 
-const SUPABASE_URL = process.env.VITE_SUPABASE_URL || '';
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+const SUPABASE_URL = process.env.VITE_SUPABASE_URL || "";
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
 
 if (!SUPABASE_URL || !SUPABASE_KEY) {
-  console.error('❌ Missing environment variables: VITE_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY');
+  console.error("❌ Missing environment variables: VITE_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY");
   process.exit(1);
 }
 
@@ -26,21 +26,21 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Colors
 const colors = {
-  reset: '\x1b[0m',
-  green: '\x1b[32m',
-  red: '\x1b[31m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  cyan: '\x1b[36m',
+  reset: "\x1b[0m",
+  green: "\x1b[32m",
+  red: "\x1b[31m",
+  yellow: "\x1b[33m",
+  blue: "\x1b[34m",
+  cyan: "\x1b[36m",
 };
 
 // Commands
 const commands = {
   async parse() {
     console.log(`${colors.cyan}📖 Parsing Wiki...${colors.reset}`);
-    
-    const { data, error } = await supabase.functions.invoke('wiki-to-yaml-parser', {
-      body: { mode: 'full', source: 'knowledge_base' },
+
+    const { data, error } = await supabase.functions.invoke("wiki-to-yaml-parser", {
+      body: { mode: "full", source: "knowledge_base" },
     });
 
     if (error) {
@@ -55,8 +55,8 @@ const commands = {
 
   async graph() {
     console.log(`${colors.cyan}📊 Generating Dependency Graph...${colors.reset}`);
-    
-    const { data, error } = await supabase.functions.invoke('generate-dependency-graph');
+
+    const { data, error } = await supabase.functions.invoke("generate-dependency-graph");
 
     if (error) {
       console.error(`${colors.red}❌ Error:${colors.reset}`, error.message);
@@ -67,25 +67,27 @@ const commands = {
     console.log(`   Levels: ${data.graph.total_levels}`);
     console.log(`   Entities: ${data.graph.total_entities}`);
     console.log(`   Estimated Duration: ${data.graph.estimated_duration}`);
-    
+
     data.graph.levels.forEach((level: any) => {
-      console.log(`   Level ${level.level}: ${level.tasks} tasks (~${level.estimated_time_seconds}s)`);
+      console.log(
+        `   Level ${level.level}: ${level.tasks} tasks (~${level.estimated_time_seconds}s)`
+      );
     });
   },
 
   async execute(args: string[]) {
-    const levelArg = args.find(arg => arg.startsWith('--level='));
-    const level = levelArg ? parseInt(levelArg.split('=')[1]) : undefined;
+    const levelArg = args.find((arg) => arg.startsWith("--level="));
+    const level = levelArg ? parseInt(levelArg.split("=")[1]) : undefined;
 
     if (level !== undefined) {
       console.log(`${colors.cyan}🚀 Executing Level ${level}...${colors.reset}`);
     } else {
       console.log(`${colors.cyan}🚀 Executing Full Generation...${colors.reset}`);
     }
-    
-    const { data, error } = await supabase.functions.invoke('kronos-executor', {
+
+    const { data, error } = await supabase.functions.invoke("kronos-executor", {
       body: {
-        mode: 'execute',
+        mode: "execute",
         levels: level !== undefined ? [level] : undefined,
       },
     });
@@ -107,8 +109,8 @@ const commands = {
 
     // Get entities stats
     const { data: entities, error: entitiesError } = await supabase
-      .from('entities_queue')
-      .select('status, level, entity_type');
+      .from("entities_queue")
+      .select("status, level, entity_type");
 
     if (entitiesError) {
       console.error(`${colors.red}❌ Error:${colors.reset}`, entitiesError.message);
@@ -117,10 +119,10 @@ const commands = {
 
     const stats = {
       total: entities.length,
-      pending: entities.filter(e => e.status === 'pending').length,
-      in_progress: entities.filter(e => e.status === 'in_progress').length,
-      completed: entities.filter(e => e.status === 'completed').length,
-      failed: entities.filter(e => e.status === 'failed').length,
+      pending: entities.filter((e) => e.status === "pending").length,
+      in_progress: entities.filter((e) => e.status === "in_progress").length,
+      completed: entities.filter((e) => e.status === "completed").length,
+      failed: entities.filter((e) => e.status === "failed").length,
     };
 
     console.log(`${colors.blue}Total Entities:${colors.reset} ${stats.total}`);
@@ -134,9 +136,9 @@ const commands = {
 
     // Get latest run
     const { data: run } = await supabase
-      .from('execution_runs')
-      .select('*')
-      .order('started_at', { ascending: false })
+      .from("execution_runs")
+      .select("*")
+      .order("started_at", { ascending: false })
       .limit(1)
       .single();
 
@@ -179,7 +181,7 @@ ${colors.blue}Examples:${colors.reset}
 async function main() {
   const [command, ...args] = process.argv.slice(2);
 
-  if (!command || command === 'help') {
+  if (!command || command === "help") {
     commands.help();
     return;
   }

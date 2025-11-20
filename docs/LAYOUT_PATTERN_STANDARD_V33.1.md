@@ -9,12 +9,16 @@
 ## 🎯 GOLDEN RULES
 
 ### Rule #1: SINGLE SOURCE OF TRUTH
+
 **Ein Layout-System pro Page-Typ:**
+
 - **Public Pages:** `MarketingLayout` (in Page selbst)
 - **Protected Pages:** `MainLayout` (automatisch von App.tsx)
 
 ### Rule #2: NIEMALS VERSCHACHTELN
+
 **Nie zwei Layouts kombinieren:**
+
 ```typescript
 // ❌ FALSCH
 <MainLayout>
@@ -30,7 +34,9 @@
 ```
 
 ### Rule #3: LAYOUT-PROP IN ROUTES.CONFIG
+
 **Immer explizit setzen:**
+
 ```typescript
 // ✅ RICHTIG
 {
@@ -55,6 +61,7 @@
 ### Public Page (Marketing)
 
 **routes.config.tsx:**
+
 ```typescript
 {
   path: '/features',
@@ -70,6 +77,7 @@
 ```
 
 **Features.tsx:**
+
 ```typescript
 import { MarketingLayout } from '@/components/layout/MarketingLayoutNew';
 import { SEOHead } from '@/components/shared/SEOHead';
@@ -77,11 +85,11 @@ import { V28HeroPremium } from '@/components/hero';
 
 export default function Features() {
   return (
-    <MarketingLayout 
-      currentPage="features" 
+    <MarketingLayout
+      currentPage="features"
       background="orbs-light"  // ← Optional: Floating Orbs
     >
-      <SEOHead 
+      <SEOHead
         title="Features - MyDispatch"
         description="Alle MyDispatch Features im Überblick"
         canonical="/features"
@@ -108,6 +116,7 @@ export default function Features() {
 ### Protected Page (App)
 
 **routes.config.tsx:**
+
 ```typescript
 {
   path: '/dashboard',
@@ -124,6 +133,7 @@ export default function Features() {
 ```
 
 **Index.tsx:**
+
 ```typescript
 import { SEOHead } from '@/components/shared/SEOHead';
 import { Breadcrumbs } from '@/components/shared/Breadcrumbs';
@@ -132,7 +142,7 @@ import { Premium3DCard } from '@/components/design-system/Premium3DCard';
 export default function Index() {
   return (
     <>
-      <SEOHead 
+      <SEOHead
         title="Dashboard - MyDispatch"
         description="Live-Übersicht Ihrer Flotte"
         canonical="/dashboard"
@@ -155,6 +165,7 @@ export default function Index() {
 ### Master Dashboard (Spezialfall)
 
 **routes.config.tsx:**
+
 ```typescript
 {
   path: '/master',
@@ -172,6 +183,7 @@ export default function Index() {
 ```
 
 **Master.tsx:**
+
 ```typescript
 import { MainLayout } from '@/components/layout/MainLayout';
 import { useMainLayout } from '@/hooks/use-main-layout';
@@ -187,8 +199,8 @@ export default function Master() {
       </div>
 
       {/* Quick Actions Panel - Fixed Right */}
-      <aside 
-        className="fixed right-0 w-[280px] bg-white/95 backdrop-blur-md 
+      <aside
+        className="fixed right-0 w-[280px] bg-white/95 backdrop-blur-md
           border-l border-slate-200 shadow-2xl z-30 overflow-y-auto"
         style={{
           top: '64px',
@@ -210,9 +222,10 @@ export default function Master() {
 ### MarketingLayout Background-Prop
 
 **Syntax:**
+
 ```typescript
-<MarketingLayout 
-  currentPage="features" 
+<MarketingLayout
+  currentPage="features"
   background="white" | "canvas" | "orbs-light"
 >
   {children}
@@ -222,6 +235,7 @@ export default function Master() {
 **Varianten:**
 
 #### 1. `background="white"` (Default)
+
 ```typescript
 <MarketingLayout background="white">
   {/* Pure weißer Hintergrund */}
@@ -229,6 +243,7 @@ export default function Master() {
 ```
 
 #### 2. `background="canvas"`
+
 ```typescript
 <MarketingLayout background="canvas">
   {/* Slate-50 Canvas-Hintergrund */}
@@ -236,6 +251,7 @@ export default function Master() {
 ```
 
 #### 3. `background="orbs-light"` (Premium)
+
 ```typescript
 <MarketingLayout background="orbs-light">
   {/* Weiß + Floating Orbs */}
@@ -245,6 +261,7 @@ export default function Master() {
 ### MainLayout Background-Prop
 
 **Syntax:**
+
 ```typescript
 <MainLayout background="white" | "canvas" | "orbs-light">
   {children}
@@ -258,6 +275,7 @@ export default function Master() {
 ## 🚨 HÄUFIGE FEHLER
 
 ### Fehler #1: Doppelter Layout-Wrapper
+
 ```typescript
 // ❌ FALSCH
 // routes.config: layout: 'main'
@@ -282,6 +300,7 @@ export default function MyPage() {
 ```
 
 ### Fehler #2: Layout-Prop vergessen
+
 ```typescript
 // ❌ FALSCH
 {
@@ -299,6 +318,7 @@ export default function MyPage() {
 ```
 
 ### Fehler #3: MarketingLayout in Protected Page
+
 ```typescript
 // ❌ FALSCH
 // routes.config: layout: 'main', protected: true
@@ -323,6 +343,7 @@ export default function MyProtectedPage() {
 ```
 
 ### Fehler #4: Background ohne overflow-hidden
+
 ```typescript
 // ❌ FALSCH
 <div className="bg-white relative">
@@ -342,6 +363,7 @@ export default function MyProtectedPage() {
 ## 📋 CHECKLISTE FÜR NEUE PAGES
 
 ### Public Page:
+
 - [ ] `routes.config.tsx`: `layout: 'none'` gesetzt
 - [ ] Page importiert `MarketingLayout`
 - [ ] `<MarketingLayout currentPage="...">`-Wrapper
@@ -350,6 +372,7 @@ export default function MyProtectedPage() {
 - [ ] Hero-Section implementiert (V28HeroPremium)
 
 ### Protected Page:
+
 - [ ] `routes.config.tsx`: `layout: 'main'` gesetzt
 - [ ] `protected: true` gesetzt
 - [ ] Page importiert KEINE Layout-Komponente

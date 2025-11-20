@@ -14,11 +14,11 @@
    - ✅ Zentrale Wartung (1 Stelle statt mehrere)
    ================================================================================== */
 
-import * as z from 'zod';
+import * as z from "zod";
 
 /**
  * Booking Schema - Vollständige Zod-Validierung für Aufträge
- * 
+ *
  * Includes:
  * - Customer & Date/Time Selection
  * - Pickup & Dropoff Addresses (Street, Number, PLZ, City)
@@ -30,55 +30,55 @@ import * as z from 'zod';
  */
 export const bookingSchema = z.object({
   // Customer & Timing
-  customer_id: z.string().min(1, 'Kunde ist erforderlich'),
-  pickup_date: z.string().min(1, 'Datum ist erforderlich'),
-  pickup_time: z.string().min(1, 'Uhrzeit ist erforderlich'),
-  
+  customer_id: z.string().min(1, "Kunde ist erforderlich"),
+  pickup_date: z.string().min(1, "Datum ist erforderlich"),
+  pickup_time: z.string().min(1, "Uhrzeit ist erforderlich"),
+
   // Pickup Address
-  pickup_street: z.string().min(1, 'Straße ist erforderlich'),
+  pickup_street: z.string().min(1, "Straße ist erforderlich"),
   pickup_street_number: z.string().optional(),
-  pickup_postal_code: z.string().min(1, 'PLZ ist erforderlich'),
-  pickup_city: z.string().min(1, 'Stadt ist erforderlich'),
-  
+  pickup_postal_code: z.string().min(1, "PLZ ist erforderlich"),
+  pickup_city: z.string().min(1, "Stadt ist erforderlich"),
+
   // Dropoff Address
-  dropoff_street: z.string().min(1, 'Straße ist erforderlich'),
+  dropoff_street: z.string().min(1, "Straße ist erforderlich"),
   dropoff_street_number: z.string().optional(),
-  dropoff_postal_code: z.string().min(1, 'PLZ ist erforderlich'),
-  dropoff_city: z.string().min(1, 'Stadt ist erforderlich'),
-  
+  dropoff_postal_code: z.string().min(1, "PLZ ist erforderlich"),
+  dropoff_city: z.string().min(1, "Stadt ist erforderlich"),
+
   // Booking Details
-  passengers: z.string().default('1'),
-  luggage: z.string().default('0'),
-  vehicle_type: z.string().default('Economy Class (1-4 Pax)'),
+  passengers: z.string().default("1"),
+  luggage: z.string().default("0"),
+  vehicle_type: z.string().default("Economy Class (1-4 Pax)"),
   special_requests: z.string().optional(),
-  
+
   // Payment
-  payment_method: z.string().default('invoice'),
-  payment_status: z.string().default('pending'),
+  payment_method: z.string().default("invoice"),
+  payment_status: z.string().default("pending"),
   price: z.string().optional(),
-  vat_rate: z.string().default('19'),
-  
+  vat_rate: z.string().default("19"),
+
   // Status & Assignment
-  status: z.string().default('pending'),
-  assignment_type: z.string().default('automatisch'),
+  status: z.string().default("pending"),
+  assignment_type: z.string().default("automatisch"),
   driver_id: z.string().optional(),
   vehicle_id: z.string().optional(),
   cost_center_id: z.string().optional(),
-  
+
   // Partner Booking (Conditional)
   is_partner_booking: z.boolean().default(false),
   partner_id: z.string().optional(),
   partner_provision_manual: z.string().optional(),
-  
+
   // Airport Pickup (Conditional)
   is_airport_pickup: z.boolean().default(false),
   flight_number: z.string().optional(),
   terminal: z.string().optional(),
   arrival_time: z.string().optional(),
-  wait_time: z.string().default('0'),
+  wait_time: z.string().default("0"),
   meet_and_greet: z.boolean().default(false),
   name_sign: z.string().optional(),
-  
+
   // Train Station Pickup (Conditional)
   is_train_station_pickup: z.boolean().default(false),
   train_number: z.string().optional(),

@@ -26,6 +26,7 @@
 Scrollbars sollen **NIEMALS** sichtbar sein, weder bei Nutzung noch im Ruhezustand.
 
 **Begründung:**
+
 - **Ästhetik:** Clean, minimalistisches Design ohne störende UI-Elemente
 - **Professionalität:** Moderne Web-Apps verstecken Scrollbars
 - **Konsistenz:** Einheitliches Look & Feel über alle Browser
@@ -98,9 +99,9 @@ Scrollbars sollen **NIEMALS** sichtbar sein, weder bei Nutzung noch im Ruhezusta
 
 ```tsx
 // Body Section mit unsichtbarer Scrollbar
-<div 
+<div
   className="px-4 sm:px-6 py-4 overflow-y-auto flex-1 scrollbar-invisible"
-  style={{ 
+  style={{
     background: PRIMARY_COLORS_V28.slate50,
   }}
 >
@@ -111,6 +112,7 @@ Scrollbars sollen **NIEMALS** sichtbar sein, weder bei Nutzung noch im Ruhezusta
 **Beispiel:** `TariffFeatureDialog.tsx` (Zeile 131)
 
 **Wichtig:**
+
 - Nur `overflow-y-auto` verwenden
 - NIEMALS `overflow-x-auto` (seitliche Scrollbars verboten!)
 - Immer `scrollbar-invisible` Klasse hinzufügen
@@ -147,9 +149,7 @@ Scrollbars sollen **NIEMALS** sichtbar sein, weder bei Nutzung noch im Ruhezusta
 
 ```tsx
 // Scrollbare Sidebar mit unsichtbarer Scrollbar
-<aside className="h-screen overflow-y-auto scrollbar-invisible">
-  {/* Navigation Items */}
-</aside>
+<aside className="h-screen overflow-y-auto scrollbar-invisible">{/* Navigation Items */}</aside>
 ```
 
 ### 4. Content Areas / Dashboards
@@ -170,18 +170,21 @@ Scrollbars sollen **NIEMALS** sichtbar sein, weder bei Nutzung noch im Ruhezusta
 **Szenario:** Tabelle mit 5+ Spalten auf Mobile-Screen
 
 **❌ SCHLECHTE LÖSUNG:**
+
 ```tsx
 <div className="overflow-x-auto">
-  <table className="min-w-[800px]">
-    {/* 5 Spalten */}
-  </table>
+  <table className="min-w-[800px]">{/* 5 Spalten */}</table>
 </div>
 ```
+
 → Zeigt horizontale Scrollbar (VERBOTEN!)
 
 **✅ GUTE LÖSUNG 1: Responsive Spalten**
+
 ```tsx
-{/* Mobile: Nur wichtigste Spalten */}
+{
+  /* Mobile: Nur wichtigste Spalten */
+}
 <table className="w-full">
   <thead>
     <tr>
@@ -192,12 +195,15 @@ Scrollbars sollen **NIEMALS** sichtbar sein, weder bei Nutzung noch im Ruhezusta
       <th>Action</th>
     </tr>
   </thead>
-</table>
+</table>;
 ```
 
 **✅ GUTE LÖSUNG 2: Card-basierte Mobile-Ansicht**
+
 ```tsx
-{/* Mobile: Cards */}
+{
+  /* Mobile: Cards */
+}
 <div className="block md:hidden space-y-4">
   {data.map((item) => (
     <div key={item.id} className="border rounded-lg p-4">
@@ -206,35 +212,34 @@ Scrollbars sollen **NIEMALS** sichtbar sein, weder bei Nutzung noch im Ruhezusta
       <div className="mt-2">{item.action}</div>
     </div>
   ))}
-</div>
+</div>;
 
-{/* Desktop: Table */}
+{
+  /* Desktop: Table */
+}
 <div className="hidden md:block">
-  <table className="w-full">
-    {/* Full Table */}
-  </table>
-</div>
+  <table className="w-full">{/* Full Table */}</table>
+</div>;
 ```
 
 **✅ GUTE LÖSUNG 3: Akkordeon / Collapsible Rows**
+
 ```tsx
-{/* Mobile: Kompakte Rows mit Expand */}
+{
+  /* Mobile: Kompakte Rows mit Expand */
+}
 <table className="w-full">
   <tbody>
     {data.map((item) => (
       <tr key={item.id} onClick={() => toggleExpand(item.id)}>
         <td className="py-3">
           <div>{item.name}</div>
-          {expanded[item.id] && (
-            <div className="mt-2 text-sm">
-              {/* Zusätzliche Details */}
-            </div>
-          )}
+          {expanded[item.id] && <div className="mt-2 text-sm">{/* Zusätzliche Details */}</div>}
         </td>
       </tr>
     ))}
   </tbody>
-</table>
+</table>;
 ```
 
 ---
@@ -244,11 +249,11 @@ Scrollbars sollen **NIEMALS** sichtbar sein, weder bei Nutzung noch im Ruhezusta
 ### Desktop Browsers
 
 | Browser | scrollbar-width | -ms-overflow-style | ::-webkit-scrollbar |
-|---------|-----------------|---------------------|---------------------|
-| Chrome | ❌ | ❌ | ✅ |
-| Firefox | ✅ | ❌ | ❌ |
-| Safari | ❌ | ❌ | ✅ |
-| Edge | ❌ | ✅ | ✅ |
+| ------- | --------------- | ------------------ | ------------------- |
+| Chrome  | ❌              | ❌                 | ✅                  |
+| Firefox | ✅              | ❌                 | ❌                  |
+| Safari  | ❌              | ❌                 | ✅                  |
+| Edge    | ❌              | ✅                 | ✅                  |
 
 **Lösung:** Kombiniere alle Methoden für 100% Coverage
 
@@ -266,6 +271,7 @@ Scrollbars sollen **NIEMALS** sichtbar sein, weder bei Nutzung noch im Ruhezusta
 ### Mobile Browsers
 
 **iOS Safari, Chrome Mobile, Samsung Internet:**
+
 - Keine Scrollbars standardmäßig ✅
 - Keine zusätzlichen Styles nötig
 
@@ -389,12 +395,10 @@ grep -r "overflow-y-auto\|overflow-x-auto" src/
 // Outer: Vertical Scroll
 <div className="h-screen overflow-y-auto scrollbar-invisible">
   {/* Outer Content */}
-  
+
   {/* Inner: Horizontal Scroll (Tabelle) */}
   <div className="overflow-x-auto scrollbar-invisible">
-    <table className="min-w-[600px]">
-      {/* Table */}
-    </table>
+    <table className="min-w-[600px]">{/* Table */}</table>
   </div>
 </div>
 ```
@@ -406,14 +410,10 @@ grep -r "overflow-y-auto\|overflow-x-auto" src/
 ```tsx
 <div className="h-screen flex flex-col">
   {/* Fixed Header */}
-  <header className="h-16 border-b shrink-0">
-    {/* Header Content */}
-  </header>
-  
+  <header className="h-16 border-b shrink-0">{/* Header Content */}</header>
+
   {/* Scrollable Body */}
-  <main className="flex-1 overflow-y-auto scrollbar-invisible">
-    {/* Main Content */}
-  </main>
+  <main className="flex-1 overflow-y-auto scrollbar-invisible">{/* Main Content */}</main>
 </div>
 ```
 
@@ -422,19 +422,13 @@ grep -r "overflow-y-auto\|overflow-x-auto" src/
 ```tsx
 <DialogContent className="max-h-[90vh] flex flex-col">
   {/* Fixed Header */}
-  <DialogHeader className="shrink-0">
-    {/* Header */}
-  </DialogHeader>
-  
+  <DialogHeader className="shrink-0">{/* Header */}</DialogHeader>
+
   {/* Scrollable Body */}
-  <div className="flex-1 overflow-y-auto scrollbar-invisible">
-    {/* Body Content */}
-  </div>
-  
+  <div className="flex-1 overflow-y-auto scrollbar-invisible">{/* Body Content */}</div>
+
   {/* Fixed Footer */}
-  <div className="shrink-0">
-    {/* Footer */}
-  </div>
+  <div className="shrink-0">{/* Footer */}</div>
 </DialogContent>
 ```
 
@@ -464,6 +458,7 @@ grep -r "overflow-y-auto\|overflow-x-auto" src/
 ## 📝 CHANGELOG
 
 ### V28.1 (2025-10-28) - Initial Release
+
 - ✅ Scrollbar System etabliert
 - ✅ `.scrollbar-invisible` Utility erstellt
 - ✅ `.scrollbar-hidden` Alternative erstellt
@@ -478,8 +473,8 @@ grep -r "overflow-y-auto\|overflow-x-auto" src/
 **Autor:** Lovable AI Agent  
 **Review:** Ibrahim (Design Owner)  
 **Status:** ✅ APPROVED & MANDATORY  
-**Letzte Aktualisierung:** 2025-10-28  
+**Letzte Aktualisierung:** 2025-10-28
 
 ---
 
-*Diese Vorgabe ist NICHT verhandelbar. Alle scrollbaren Elemente MÜSSEN unsichtbare Scrollbars haben oder Mobile-First Alternativen nutzen. Keine Ausnahmen!*
+_Diese Vorgabe ist NICHT verhandelbar. Alle scrollbaren Elemente MÜSSEN unsichtbare Scrollbars haben oder Mobile-First Alternativen nutzen. Keine Ausnahmen!_

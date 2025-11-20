@@ -31,11 +31,11 @@ src/config/quick-actions-registry.ts
 ### **1. Import Registry**
 
 ```typescript
-import { 
+import {
   getQuickActionsForPage,
   type Portal,
-  type QuickAction 
-} from '@/config/quick-actions-registry';
+  type QuickAction,
+} from "@/config/quick-actions-registry";
 ```
 
 ---
@@ -43,20 +43,22 @@ import {
 ### **2. Get Quick-Actions for Page**
 
 ```typescript
-const actions = getQuickActionsForPage('entrepreneur', 'auftraege', {
-  'create-booking': () => openBookingDialog(),
-  'export-bookings': () => exportBookings(),
+const actions = getQuickActionsForPage("entrepreneur", "auftraege", {
+  "create-booking": () => openBookingDialog(),
+  "export-bookings": () => exportBookings(),
 });
 ```
 
 **Parameters:**
+
 - `portal`: `'entrepreneur' | 'customer' | 'driver'`
 - `page`: Page identifier (e.g., `'auftraege'`, `'kunden'`, `'dashboard'`)
 - `handlers`: Object mapping action IDs to handler functions
 
 **Returns:**
+
 ```typescript
-Array<QuickAction & { onClick: () => void }>
+Array<QuickAction & { onClick: () => void }>;
 ```
 
 ---
@@ -82,6 +84,7 @@ Array<QuickAction & { onClick: () => void }>
 ## 📋 AVAILABLE PORTALS & PAGES
 
 ### **Entrepreneur Portal**
+
 - `dashboard` - Dashboard
 - `auftraege` - Aufträge
 - `kunden` - Kunden
@@ -98,10 +101,12 @@ Array<QuickAction & { onClick: () => void }>
 - `einstellungen` - Einstellungen
 
 ### **Customer Portal**
+
 - `portal-dashboard` - Dashboard
 - `portal-bookings` - Buchungen
 
 ### **Driver Portal**
+
 - `driver-dashboard` - Dashboard
 - `driver-rides` - Fahrten
 - `driver-shifts` - Schichten
@@ -120,13 +125,13 @@ import { Button } from '@/components/ui/button';
 
 export function AuftraegePage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  
+
   // Get Quick-Actions
   const quickActions = getQuickActionsForPage('entrepreneur', 'auftraege', {
     'create-booking': () => setIsDialogOpen(true),
     'export-bookings': () => exportBookings(),
   });
-  
+
   return (
     <div>
       <PageHeader
@@ -146,7 +151,7 @@ export function AuftraegePage() {
           </div>
         }
       />
-      
+
       {/* Page Content */}
     </div>
   );
@@ -158,6 +163,7 @@ export function AuftraegePage() {
 ## 🚨 CRITICAL RULES
 
 ### **❌ VERBOTEN:**
+
 ```typescript
 // ❌ Hardcoded Quick-Actions
 <Button onClick={openDialog}>Neuer Auftrag</Button>
@@ -171,11 +177,12 @@ const customAction = { label: 'Custom', onClick: () => {} }; // FALSCH!
 ```
 
 ### **✅ RICHTIG:**
+
 ```typescript
 // ✅ Quick-Actions aus Registry
-const actions = getQuickActionsForPage('entrepreneur', 'auftraege', {
-  'create-booking': openDialog,
-  'export-bookings': exportData,
+const actions = getQuickActionsForPage("entrepreneur", "auftraege", {
+  "create-booking": openDialog,
+  "export-bookings": exportData,
 });
 
 // ✅ Genau 2 Actions
@@ -195,22 +202,22 @@ actions.length === 2; // KORREKT!
 // src/config/quick-actions-registry.ts
 export const ENTREPRENEUR_QUICK_ACTIONS = {
   // ... bestehende Pages
-  
+
   // Neue Page
-  'neue-seite': [
+  "neue-seite": [
     {
-      id: 'primary-action',
-      label: 'Primäre Aktion',
+      id: "primary-action",
+      label: "Primäre Aktion",
       icon: Plus,
-      variant: 'default' as const,
-      description: 'Beschreibung der Aktion',
+      variant: "default" as const,
+      description: "Beschreibung der Aktion",
     },
     {
-      id: 'secondary-action',
-      label: 'Sekundäre Aktion',
+      id: "secondary-action",
+      label: "Sekundäre Aktion",
       icon: Download,
-      variant: 'outline' as const,
-      description: 'Beschreibung der Aktion',
+      variant: "outline" as const,
+      description: "Beschreibung der Aktion",
     },
   ],
 } as const;
@@ -221,11 +228,11 @@ export const ENTREPRENEUR_QUICK_ACTIONS = {
 ```typescript
 // In Component
 const handlers = {
-  'primary-action': () => handlePrimaryAction(),
-  'secondary-action': () => handleSecondaryAction(),
+  "primary-action": () => handlePrimaryAction(),
+  "secondary-action": () => handleSecondaryAction(),
 };
 
-const actions = getQuickActionsForPage('entrepreneur', 'neue-seite', handlers);
+const actions = getQuickActionsForPage("entrepreneur", "neue-seite", handlers);
 ```
 
 ---
@@ -233,20 +240,24 @@ const actions = getQuickActionsForPage('entrepreneur', 'neue-seite', handlers);
 ## 📊 BEST PRACTICES
 
 ### **1. Action Naming**
+
 - **Primäre Action:** Immer `create-*` oder `new-*`
 - **Sekundäre Action:** Meist `export-*`, `settings`, oder `view-*`
 
 ### **2. Icon Selection**
+
 - **Create:** `Plus`, `UserPlus`
 - **Export:** `Download`
 - **Settings:** `Settings`
 - **View:** `List`, `Eye`
 
 ### **3. Variant Selection**
+
 - **Primäre Action:** `variant: 'default'` (gefüllt, auffällig)
 - **Sekundäre Action:** `variant: 'outline'` (transparent, subtil)
 
 ### **4. Handler Functions**
+
 - **Immer async-ready:** Actions können async sein
 - **Error Handling:** Fehler in Handlers abfangen
 - **Toasts:** Erfolg/Fehler mit Toasts kommunizieren
@@ -256,26 +267,26 @@ const actions = getQuickActionsForPage('entrepreneur', 'neue-seite', handlers);
 ## 🧪 TESTING
 
 ```typescript
-import { describe, it, expect } from 'vitest';
-import { getQuickActionsForPage } from '@/config/quick-actions-registry';
+import { describe, it, expect } from "vitest";
+import { getQuickActionsForPage } from "@/config/quick-actions-registry";
 
-describe('Quick-Actions Registry', () => {
-  it('should return exactly 2 actions per page', () => {
-    const actions = getQuickActionsForPage('entrepreneur', 'auftraege', {
-      'create-booking': () => {},
-      'export-bookings': () => {},
+describe("Quick-Actions Registry", () => {
+  it("should return exactly 2 actions per page", () => {
+    const actions = getQuickActionsForPage("entrepreneur", "auftraege", {
+      "create-booking": () => {},
+      "export-bookings": () => {},
     });
-    
+
     expect(actions).toHaveLength(2);
   });
-  
-  it('should call handler on action click', () => {
+
+  it("should call handler on action click", () => {
     const handler = vi.fn();
-    const actions = getQuickActionsForPage('entrepreneur', 'auftraege', {
-      'create-booking': handler,
-      'export-bookings': () => {},
+    const actions = getQuickActionsForPage("entrepreneur", "auftraege", {
+      "create-booking": handler,
+      "export-bookings": () => {},
     });
-    
+
     actions[0].onClick();
     expect(handler).toHaveBeenCalledOnce();
   });

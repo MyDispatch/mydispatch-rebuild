@@ -15,6 +15,7 @@ Alle 34 Supabase Edge Functions, die aktuell Lovable AI (Gemini 2.5 Flash) nutze
 ## 📝 Betroffene Functions (34 Stück)
 
 ### AI Code Analysis & Validation:
+
 1. `ai-code-analyzer` - Code Quality Analysis
 2. `ai-code-validator` - Code Validation
 3. `ai-code-migrator` - Code Migration Helper
@@ -23,6 +24,7 @@ Alle 34 Supabase Edge Functions, die aktuell Lovable AI (Gemini 2.5 Flash) nutze
 6. `tavily-code-validator` - Code Validation via Tavily
 
 ### AI Documentation:
+
 7. `ai-doc-parser` - Document Parser
 8. `ai-doc-gap-analyzer` - Documentation Gap Analysis
 9. `auto-doc-updater` - Automatic Documentation Updates
@@ -30,11 +32,13 @@ Alle 34 Supabase Edge Functions, die aktuell Lovable AI (Gemini 2.5 Flash) nutze
 11. `wiki-to-yaml-parser` - Wiki to YAML Converter
 
 ### AI Error Handling:
+
 12. `ai-error-analysis` - Error Analysis
 13. `ai-error-predictor` - Error Prediction
 14. `ai-self-healer` - Self-Healing System
 
 ### AI Support & Chat:
+
 15. `ai-support-chat` - Support Chat Assistant
 16. `dashboard-ai-assistant` - Dashboard AI Assistant
 17. `master-chat` - Master Chat System
@@ -42,12 +46,14 @@ Alle 34 Supabase Edge Functions, die aktuell Lovable AI (Gemini 2.5 Flash) nutze
 19. `ai-knowledge-query` - Knowledge Base Queries
 
 ### AI Visual Analysis:
+
 20. `ai-visual-analysis` - Visual Analysis
 21. `ai-visual-validator` - Visual Validation
 22. `generate-hero-image` - Hero Image Generation
 23. `ai-document-ocr` - OCR Document Processing
 
 ### AI System Management:
+
 24. `ai-orchestrator` - AI Orchestration
 25. `brain-system` - Brain System Core
 26. `brain-full-system-scan` - Full System Scan
@@ -55,14 +61,17 @@ Alle 34 Supabase Edge Functions, die aktuell Lovable AI (Gemini 2.5 Flash) nutze
 28. `self-reflection` - System Self-Reflection
 
 ### AI Forecasting & Analytics:
+
 29. `ai-forecast` - Forecasting & Predictions
 
 ### Validation & Auditing:
+
 30. `genesis-audit` - Genesis Audit System
 31. `phase-2-validation` - Phase 2 Validation
 32. `pre-go-live-validation` - Pre-Go-Live Validation
 
 ### API & Integration:
+
 33. `api-connection-manager` - API Connection Management
 34. `kronos-code-generator` - Kronos Code Generator
 
@@ -71,6 +80,7 @@ Alle 34 Supabase Edge Functions, die aktuell Lovable AI (Gemini 2.5 Flash) nutze
 ## 🔧 Erforderliche Änderungen
 
 ### 1. Environment Variables
+
 ```typescript
 // ALT:
 const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
@@ -80,6 +90,7 @@ const ANTHROPIC_API_KEY = Deno.env.get("ANTHROPIC_API_KEY");
 ```
 
 ### 2. API Endpoint
+
 ```typescript
 // ALT:
 const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
@@ -111,6 +122,7 @@ const response = await fetch("https://api.anthropic.com/v1/messages", {
 ```
 
 ### 3. Response Format
+
 ```typescript
 // ALT (OpenAI-kompatibel):
 const data = await response.json();
@@ -155,11 +167,13 @@ Diese Functions wurden **temporär entfernt**, weil:
 ## 💡 Alternative Lösungen
 
 ### Option 1: Claude AI Migration (Empfohlen)
+
 - ✅ Nutzt ANTHROPIC_API_KEY (bereits verfügbar)
 - ✅ Claude 3.5 Sonnet (bessere Qualität als Gemini)
 - ✅ Keine externe Abhängigkeit
 
 ### Option 2: Direkt Anthropic SDK nutzen
+
 ```typescript
 import Anthropic from "@anthropic-ai/sdk";
 
@@ -175,6 +189,7 @@ const message = await anthropic.messages.create({
 ```
 
 ### Option 3: OpenAI API nutzen
+
 - Falls bevorzugt, kann auch OpenAI API genutzt werden
 - `OPENAI_API_KEY` ist bereits konfiguriert
 - GPT-4.1-mini, GPT-4.1-nano verfügbar
@@ -184,6 +199,7 @@ const message = await anthropic.messages.create({
 ## 📊 Impact Analysis
 
 ### ✅ Keine Auswirkungen auf:
+
 - Landing Page
 - Authentication
 - Dashboard
@@ -196,6 +212,7 @@ const message = await anthropic.messages.create({
 - Settings
 
 ### ⚠️ Betroffene Features (Optional):
+
 - AI-gestützte Code-Analyse
 - Automatische Dokumentations-Updates
 - AI-basierte Error-Prediction
@@ -212,6 +229,7 @@ const message = await anthropic.messages.create({
 **Priorität: NIEDRIG**
 
 Migriere diese Functions, wenn:
+
 - ✅ Frontend-Rebuild abgeschlossen ist
 - ✅ Alle Core-Features funktionieren
 - ✅ App ist live und stabil

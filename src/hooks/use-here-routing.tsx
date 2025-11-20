@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
-import { logger } from '@/lib/logger';
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { logger } from "@/lib/logger";
 
 interface RouteResult {
   distance: number; // in meters
@@ -15,18 +15,19 @@ export const useHERERouting = () => {
   const calculateRoute = async (
     from: { lat: number; lng: number },
     to: { lat: number; lng: number },
-    transportMode: 'car' | 'truck' | 'taxi' = 'car'
+    transportMode: "car" | "truck" | "taxi" = "car"
   ): Promise<RouteResult | null> => {
     setIsCalculating(true);
-    
+
     try {
       const apiKey = import.meta.env.VITE_HERE_API_KEY;
-      
+
       if (!apiKey) {
-        throw new Error('HERE API Key nicht konfiguriert');
+        throw new Error("HERE API Key nicht konfiguriert");
       }
 
-      const url = `https://router.hereapi.com/v8/routes?` +
+      const url =
+        `https://router.hereapi.com/v8/routes?` +
         `transportMode=${transportMode}` +
         `&origin=${from.lat},${from.lng}` +
         `&destination=${to.lat},${to.lng}` +
@@ -42,7 +43,7 @@ export const useHERERouting = () => {
       const data = await response.json();
 
       if (!data.routes || data.routes.length === 0) {
-        throw new Error('Keine Route gefunden');
+        throw new Error("Keine Route gefunden");
       }
 
       const route = data.routes[0];
@@ -51,15 +52,16 @@ export const useHERERouting = () => {
       return {
         distance: section.summary.length,
         duration: section.summary.duration,
-        polyline: section.polyline
+        polyline: section.polyline,
       };
-
     } catch (error) {
-      logger.error('[useHereRouting] Routing-Fehler', error as Error, { component: 'useHereRouting' });
+      logger.error("[useHereRouting] Routing-Fehler", error as Error, {
+        component: "useHereRouting",
+      });
       toast({
-        title: 'Routing-Fehler',
-        description: error instanceof Error ? error.message : 'Route konnte nicht berechnet werden',
-        variant: 'destructive'
+        title: "Routing-Fehler",
+        description: error instanceof Error ? error.message : "Route konnte nicht berechnet werden",
+        variant: "destructive",
       });
       return null;
     } finally {
@@ -88,6 +90,6 @@ export const useHERERouting = () => {
     calculateRoute,
     isCalculating,
     formatDistance,
-    formatDuration
+    formatDuration,
   };
 };

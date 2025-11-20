@@ -10,18 +10,21 @@
 ## 🚨 PROBLEM-BESCHREIBUNG
 
 **Symptome:**
+
 - Logo überläuft den Container-Rand
 - Horizontaler Overflow sichtbar
 - Unschöne visuelle Darstellung
 - Inkonsistentes Verhalten bei verschiedenen Logo-Größen
 
 **Ursache:**
+
 ```tsx
 // ❌ FALSCH - Logo ohne Größenbeschränkung
 <img src={logo} className="h-10 w-auto" />
 ```
 
 **Resultat:**
+
 - `w-auto` erlaubt unbegrenzte Breite
 - Große Logos überschreiten Container
 - Overflow entsteht
@@ -36,7 +39,7 @@
 
 ```tsx
 // ✅ RICHTIG - Logo mit max-width + object-contain
-<img 
+<img
   src={logo}
   alt="Logo"
   className="h-8 sm:h-9 max-w-[140px] sm:max-w-[180px] object-contain drop-shadow-sm"
@@ -44,6 +47,7 @@
 ```
 
 **Erklärung:**
+
 - `h-8 sm:h-9` - Responsive Höhe (Mobile: 32px, Desktop: 36px)
 - `max-w-[140px] sm:max-w-[180px]` - Maximale Breite (verhindert Overflow)
 - `object-contain` - Logo wird proportional skaliert (KEIN Cropping!)
@@ -63,6 +67,7 @@
 ```
 
 **Erklärung:**
+
 - `max-w-full` - Container darf nicht über Parent hinausgehen
 - `overflow-hidden` - Sicherheitsnetz gegen Overflow
 
@@ -71,23 +76,29 @@
 ## 📐 RESPONSIVE BREAKPOINTS
 
 ### Mobile (< 640px)
+
 ```tsx
-className="h-8 max-w-[140px]"
+className = "h-8 max-w-[140px]";
 ```
+
 - Höhe: 32px
 - Max-Breite: 140px
 
 ### Tablet/Desktop (≥ 640px)
+
 ```tsx
-className="sm:h-9 sm:max-w-[180px]"
+className = "sm:h-9 sm:max-w-[180px]";
 ```
+
 - Höhe: 36px
 - Max-Breite: 180px
 
 ### Large Desktop (≥ 1024px)
+
 ```tsx
-className="lg:h-10 lg:max-w-[220px]"
+className = "lg:h-10 lg:max-w-[220px]";
 ```
+
 - Höhe: 40px
 - Max-Breite: 220px
 
@@ -99,55 +110,55 @@ className="lg:h-10 lg:max-w-[220px]"
 
 ```tsx
 /* Logo - KEIN Overflow durch max-width + object-contain */
-{logoUrl ? (
-  <img 
-    src={logoUrl} 
-    alt={`${companyName} Logo`}
-    className="h-8 sm:h-9 max-w-[140px] sm:max-w-[180px] object-contain drop-shadow-sm"
-  />
-) : (
-  <div className="flex items-center gap-3">
-    <img 
-      src={officialLogo} 
-      alt="MyDispatch - simply arrive"
+{
+  logoUrl ? (
+    <img
+      src={logoUrl}
+      alt={`${companyName} Logo`}
       className="h-8 sm:h-9 max-w-[140px] sm:max-w-[180px] object-contain drop-shadow-sm"
     />
-    <span className="hidden sm:inline text-lg font-bold text-foreground">
-      {companyName}
-    </span>
-  </div>
-)}
+  ) : (
+    <div className="flex items-center gap-3">
+      <img
+        src={officialLogo}
+        alt="MyDispatch - simply arrive"
+        className="h-8 sm:h-9 max-w-[140px] sm:max-w-[180px] object-contain drop-shadow-sm"
+      />
+      <span className="hidden sm:inline text-lg font-bold text-foreground">{companyName}</span>
+    </div>
+  );
+}
 ```
 
 ### Header.tsx (Dashboard)
 
 ```tsx
 /* Master-Dashboard: MyDispatch-Logo */
-<img 
-  src={officialLogo} 
-  alt="MyDispatch - simply arrive" 
+<img
+  src={officialLogo}
+  alt="MyDispatch - simply arrive"
   className="h-8 max-w-[160px] object-contain drop-shadow-sm"
-/>
+/>;
 
 /* Interner Bereich: Company-Logo ODER Unternehmensname */
-{company?.logo_url ? (
-  <img 
-    src={company.logo_url} 
-    alt={company.name || 'Logo'}
-    className="h-8 max-w-[160px] object-contain drop-shadow-sm"
-  />
-) : (
-  <span className="text-xl font-bold text-foreground">
-    {company?.name || 'MyDispatch'}
-  </span>
-)}
+{
+  company?.logo_url ? (
+    <img
+      src={company.logo_url}
+      alt={company.name || "Logo"}
+      className="h-8 max-w-[160px] object-contain drop-shadow-sm"
+    />
+  ) : (
+    <span className="text-xl font-bold text-foreground">{company?.name || "MyDispatch"}</span>
+  );
+}
 ```
 
 ### MarketingLayout.tsx (Marketing-Seiten)
 
 ```tsx
-<img 
-  src={officialLogo} 
+<img
+  src={officialLogo}
   alt="MyDispatch - simply arrive"
   className={cn(
     "object-contain drop-shadow-sm",
@@ -182,21 +193,21 @@ className="lg:h-10 lg:max-w-[220px]"
 
 ```typescript
 // Logo-Overflow-Test
-describe('Logo Rendering', () => {
-  it('should not overflow header', () => {
-    const header = screen.getByRole('banner');
+describe("Logo Rendering", () => {
+  it("should not overflow header", () => {
+    const header = screen.getByRole("banner");
     const logo = screen.getByAlt(/logo/i);
-    
+
     const headerWidth = header.offsetWidth;
     const logoWidth = logo.offsetWidth;
-    
+
     expect(logoWidth).toBeLessThanOrEqual(headerWidth);
   });
-  
-  it('should maintain aspect ratio', () => {
+
+  it("should maintain aspect ratio", () => {
     const logo = screen.getByAlt(/logo/i);
     const aspectRatio = logo.naturalWidth / logo.naturalHeight;
-    
+
     expect(aspectRatio).toBeGreaterThan(0);
   });
 });
@@ -235,12 +246,12 @@ grep -r "w-auto" src/
 
 ## 📈 ERFOLGSMETRIKEN
 
-| Metrik | Vorher | Nachher |
-|--------|--------|---------|
-| Logo-Overflow | ❌ 5 Seiten | ✅ 0 Seiten |
-| Responsive Verhalten | ⚠️ Inkonsistent | ✅ 100% konsistent |
-| Aspect-Ratio Erhaltung | ⚠️ 60% | ✅ 100% |
-| Mobile-Optimierung | ⚠️ 70% | ✅ 100% |
+| Metrik                 | Vorher          | Nachher            |
+| ---------------------- | --------------- | ------------------ |
+| Logo-Overflow          | ❌ 5 Seiten     | ✅ 0 Seiten        |
+| Responsive Verhalten   | ⚠️ Inkonsistent | ✅ 100% konsistent |
+| Aspect-Ratio Erhaltung | ⚠️ 60%          | ✅ 100%            |
+| Mobile-Optimierung     | ⚠️ 70%          | ✅ 100%            |
 
 ---
 
@@ -274,26 +285,22 @@ extend: {
 interface LogoProps {
   src: string;
   alt: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   className?: string;
 }
 
-export function Logo({ src, alt, size = 'md', className }: LogoProps) {
+export function Logo({ src, alt, size = "md", className }: LogoProps) {
   const sizeClasses = {
-    sm: 'h-8 max-w-[140px]',
-    md: 'h-9 max-w-[180px]',
-    lg: 'h-10 max-w-[220px]',
+    sm: "h-8 max-w-[140px]",
+    md: "h-9 max-w-[180px]",
+    lg: "h-10 max-w-[220px]",
   };
 
   return (
-    <img 
+    <img
       src={src}
       alt={alt}
-      className={cn(
-        sizeClasses[size],
-        'object-contain drop-shadow-sm',
-        className
-      )}
+      className={cn(sizeClasses[size], "object-contain drop-shadow-sm", className)}
     />
   );
 }

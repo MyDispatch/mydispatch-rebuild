@@ -6,13 +6,13 @@
    ✅ Smooth 300ms Transitions
    ================================================================================== */
 
-import { useState } from 'react';
-import { Badge } from '@/lib/compat';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { Badge } from "@/lib/compat";
+import { cn } from "@/lib/utils";
 
 interface V28BillingToggleProps {
-  billingPeriod: 'monthly' | 'yearly';
-  onToggle: (period: 'monthly' | 'yearly') => void;
+  billingPeriod: "monthly" | "yearly";
+  onToggle: (period: "monthly" | "yearly") => void;
   discountText?: string;
   className?: string;
 }
@@ -20,28 +20,28 @@ interface V28BillingToggleProps {
 export function V28BillingToggle({
   billingPeriod,
   onToggle,
-  discountText = '-20%',
-  className = '',
+  discountText = "-20%",
+  className = "",
 }: V28BillingToggleProps) {
-  const [hoveredButton, setHoveredButton] = useState<'monthly' | 'yearly' | null>(null);
+  const [hoveredButton, setHoveredButton] = useState<"monthly" | "yearly" | null>(null);
 
   return (
     <div
       className={cn(
-        'inline-flex gap-1 p-1.5 rounded-lg bg-slate-100 border border-slate-200',
+        "inline-flex gap-1 p-1.5 rounded-lg bg-slate-100 border border-slate-200",
         className
       )}
     >
       {/* Monthly Button */}
       <button
-        onClick={() => onToggle('monthly')}
-        onMouseEnter={() => setHoveredButton('monthly')}
+        onClick={() => onToggle("monthly")}
+        onMouseEnter={() => setHoveredButton("monthly")}
         onMouseLeave={() => setHoveredButton(null)}
         className={cn(
-          'px-6 sm:px-8 py-3 rounded-lg font-semibold text-base transition-all duration-300',
-          billingPeriod === 'monthly'
-            ? 'bg-white text-slate-900 shadow-md'
-            : 'bg-transparent text-slate-600 hover:text-slate-900'
+          "px-6 sm:px-8 py-3 rounded-lg font-semibold text-base transition-all duration-300",
+          billingPeriod === "monthly"
+            ? "bg-white text-slate-900 shadow-md"
+            : "bg-transparent text-slate-600 hover:text-slate-900"
         )}
       >
         Monatlich
@@ -49,20 +49,18 @@ export function V28BillingToggle({
 
       {/* Yearly Button with Badge */}
       <button
-        onClick={() => onToggle('yearly')}
-        onMouseEnter={() => setHoveredButton('yearly')}
+        onClick={() => onToggle("yearly")}
+        onMouseEnter={() => setHoveredButton("yearly")}
         onMouseLeave={() => setHoveredButton(null)}
         className={cn(
-          'px-6 sm:px-8 py-3 rounded-lg font-semibold text-base inline-flex items-center gap-2 transition-all duration-300',
-          billingPeriod === 'yearly'
-            ? 'bg-white text-slate-900 shadow-md'
-            : 'bg-transparent text-slate-600 hover:text-slate-900'
+          "px-6 sm:px-8 py-3 rounded-lg font-semibold text-base inline-flex items-center gap-2 transition-all duration-300",
+          billingPeriod === "yearly"
+            ? "bg-white text-slate-900 shadow-md"
+            : "bg-transparent text-slate-600 hover:text-slate-900"
         )}
       >
         Jährlich
-        <Badge
-          className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-green-100 text-green-700 border border-green-200"
-        >
+        <Badge className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-green-100 text-green-700 border border-green-200">
           {discountText}
         </Badge>
       </button>

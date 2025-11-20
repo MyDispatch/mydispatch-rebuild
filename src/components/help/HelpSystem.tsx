@@ -8,7 +8,7 @@
    ✅ Video-freie, detaillierte Text-Erklärungen
    ================================================================================== */
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -16,22 +16,20 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { V28Button } from '@/components/design-system/V28Button';
-import { Input } from '@/lib/compat';
-import { Badge } from '@/components/ui/badge';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { 
-  HelpCircle, 
-  Search, 
-  BookOpen, 
-  Zap, 
-  ExternalLink,
-  ArrowRight
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { sanitizeHelpContent } from '@/lib/sanitize';
+} from "@/components/ui/sheet";
+import { V28Button } from "@/components/design-system/V28Button";
+import { Input } from "@/lib/compat";
+import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { HelpCircle, Search, BookOpen, Zap, ExternalLink, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { sanitizeHelpContent } from "@/lib/sanitize";
 
 export interface HelpArticle {
   id: string;
@@ -61,22 +59,26 @@ interface HelpSystemProps {
 }
 
 export function HelpSystem({ context, trigger }: HelpSystemProps) {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [selectedArticle, setSelectedArticle] = useState<HelpArticle | null>(null);
 
-  const filteredArticles = context.articles.filter(article =>
-    article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    article.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    article.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+  const filteredArticles = context.articles.filter(
+    (article) =>
+      article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      article.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      article.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
-  const groupedArticles = filteredArticles.reduce((acc, article) => {
-    if (!acc[article.category]) {
-      acc[article.category] = [];
-    }
-    acc[article.category].push(article);
-    return acc;
-  }, {} as Record<string, HelpArticle[]>);
+  const groupedArticles = filteredArticles.reduce(
+    (acc, article) => {
+      if (!acc[article.category]) {
+        acc[article.category] = [];
+      }
+      acc[article.category].push(article);
+      return acc;
+    },
+    {} as Record<string, HelpArticle[]>
+  );
 
   return (
     <Sheet>
@@ -123,11 +125,7 @@ export function HelpSystem({ context, trigger }: HelpSystemProps) {
               {selectedArticle ? (
                 // Article Detail View
                 <div className="space-y-4">
-                  <V28Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setSelectedArticle(null)}
-                  >
+                  <V28Button variant="ghost" size="sm" onClick={() => setSelectedArticle(null)}>
                     <ArrowRight className="h-4 w-4 mr-2 rotate-180 text-foreground" />
                     Zurück
                   </V28Button>
@@ -138,7 +136,7 @@ export function HelpSystem({ context, trigger }: HelpSystemProps) {
                         {selectedArticle.title}
                       </h3>
                       <div className="flex flex-wrap gap-2 mb-4">
-                        {selectedArticle.tags.map(tag => (
+                        {selectedArticle.tags.map((tag) => (
                           <Badge key={tag} variant="secondary" className="text-xs">
                             {tag}
                           </Badge>
@@ -147,9 +145,11 @@ export function HelpSystem({ context, trigger }: HelpSystemProps) {
                     </div>
 
                     <div className="prose prose-sm max-w-none">
-                      <div 
+                      <div
                         className="text-sm text-foreground leading-relaxed whitespace-pre-wrap"
-                        dangerouslySetInnerHTML={{ __html: sanitizeHelpContent(selectedArticle.content) }}
+                        dangerouslySetInnerHTML={{
+                          __html: sanitizeHelpContent(selectedArticle.content),
+                        }}
                       />
                     </div>
 
@@ -178,30 +178,31 @@ export function HelpSystem({ context, trigger }: HelpSystemProps) {
                     )}
 
                     {/* Related Articles */}
-                    {selectedArticle.relatedArticles && selectedArticle.relatedArticles.length > 0 && (
-                      <div className="border-t pt-4">
-                        <p className="text-sm font-semibold mb-3 text-foreground">
-                          Verwandte Artikel
-                        </p>
-                        <div className="space-y-2">
-                          {selectedArticle.relatedArticles.map(relatedId => {
-                            const related = context.articles.find(a => a.id === relatedId);
-                            if (!related) return null;
-                            return (
-                              <V28Button
-                                key={relatedId}
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => setSelectedArticle(related)}
-                                className="w-full justify-start text-left"
-                              >
-                                {related.title}
-                              </V28Button>
-                            );
-                          })}
+                    {selectedArticle.relatedArticles &&
+                      selectedArticle.relatedArticles.length > 0 && (
+                        <div className="border-t pt-4">
+                          <p className="text-sm font-semibold mb-3 text-foreground">
+                            Verwandte Artikel
+                          </p>
+                          <div className="space-y-2">
+                            {selectedArticle.relatedArticles.map((relatedId) => {
+                              const related = context.articles.find((a) => a.id === relatedId);
+                              if (!related) return null;
+                              return (
+                                <V28Button
+                                  key={relatedId}
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => setSelectedArticle(related)}
+                                  className="w-full justify-start text-left"
+                                >
+                                  {related.title}
+                                </V28Button>
+                              );
+                            })}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
                   </div>
                 </div>
               ) : (
@@ -209,22 +210,20 @@ export function HelpSystem({ context, trigger }: HelpSystemProps) {
                 <div className="space-y-4">
                   {Object.entries(groupedArticles).map(([category, articles]) => (
                     <div key={category}>
-                      <h4 className="text-sm font-semibold mb-3 text-foreground">
-                        {category}
-                      </h4>
+                      <h4 className="text-sm font-semibold mb-3 text-foreground">{category}</h4>
                       <div className="space-y-2">
-                        {articles.map(article => (
+                        {articles.map((article) => (
                           <button
                             key={article.id}
                             onClick={() => setSelectedArticle(article)}
                             className={cn(
-                              'w-full text-left p-3 rounded-lg border hover:bg-primary/50 transition-colors',
-                              'focus:outline-none focus:ring-2 focus:ring-primary'
+                              "w-full text-left p-3 rounded-lg border hover:bg-primary/50 transition-colors",
+                              "focus:outline-none focus:ring-2 focus:ring-primary"
                             )}
                           >
                             <p className="font-medium text-sm text-foreground">{article.title}</p>
                             <div className="flex flex-wrap gap-1 mt-2">
-                              {article.tags.slice(0, 3).map(tag => (
+                              {article.tags.slice(0, 3).map((tag) => (
                                 <Badge key={tag} variant="outline" className="text-xs">
                                   {tag}
                                 </Badge>
@@ -273,14 +272,12 @@ export function HelpSystem({ context, trigger }: HelpSystemProps) {
             <TabsContent value="quick" className="space-y-4">
               <Accordion type="single" collapsible className="w-full">
                 {context.articles
-                  .filter(a => a.tags.includes('quick-start'))
-                  .map(article => (
+                  .filter((a) => a.tags.includes("quick-start"))
+                  .map((article) => (
                     <AccordionItem key={article.id} value={article.id}>
-                      <AccordionTrigger className="text-sm">
-                        {article.title}
-                      </AccordionTrigger>
+                      <AccordionTrigger className="text-sm">{article.title}</AccordionTrigger>
                       <AccordionContent>
-                        <div 
+                        <div
                           className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap"
                           dangerouslySetInnerHTML={{ __html: sanitizeHelpContent(article.content) }}
                         />
@@ -289,7 +286,7 @@ export function HelpSystem({ context, trigger }: HelpSystemProps) {
                   ))}
               </Accordion>
 
-              {context.articles.filter(a => a.tags.includes('quick-start')).length === 0 && (
+              {context.articles.filter((a) => a.tags.includes("quick-start")).length === 0 && (
                 <div className="text-center py-8 text-muted-foreground">
                   <p>Keine Quick-Start-Guides verfügbar</p>
                 </div>

@@ -2,7 +2,7 @@
 
 **Status:** ✅ FINAL - GESPERRT  
 **Datum:** 2025-10-31  
-**Version:** 32.0  
+**Version:** 32.0
 
 ---
 
@@ -23,14 +23,14 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
   title="Haupttitel"
   subtitle="Untertitel"
   description="Beschreibung..."
-  primaryCTA={{ 
-    label: "CTA-Text", 
-    onClick: () => {...}, 
-    icon: IconComponent 
+  primaryCTA={{
+    label: "CTA-Text",
+    onClick: () => {...},
+    icon: IconComponent
   }}
-  secondaryCTA={{ 
-    label: "Sekundär", 
-    onClick: () => {...} 
+  secondaryCTA={{
+    label: "Sekundär",
+    onClick: () => {...}
   }} // ODER
   showPWAButton={true} // ⚠️ MAX 2 BUTTONS!
   visual={<PremiumDashboardContent pageType="home" />}
@@ -46,6 +46,7 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
 ## 🎨 VARIANTEN
 
 ### 1. Home Variant
+
 ```tsx
 <V28HeroPremium
   variant="home"
@@ -54,23 +55,24 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
   title="MyDispatch - Taxi-Verwaltung neu gedacht"
   subtitle="Die All-in-One Lösung für Ihr Taxi-Unternehmen"
   description="Automatisierte Auftragsabwicklung, Echtzeit-Tracking und intelligente Disposition."
-  primaryCTA={{ 
-    label: "Jetzt starten", 
-    onClick: () => navigate('/demo'),
-    icon: ArrowRight 
+  primaryCTA={{
+    label: "Jetzt starten",
+    onClick: () => navigate("/demo"),
+    icon: ArrowRight,
   }}
   showPWAButton={true}
   visual={<PremiumDashboardContent pageType="home" />}
   businessMetrics={[
-    { label: 'Aufträge', value: '1.2K+', sublabel: 'pro Monat' },
-    { label: 'Verfügbarkeit', value: '99.9%', sublabel: 'garantiert' },
-    { label: 'Support', value: '24/7', sublabel: 'erreichbar' }
+    { label: "Aufträge", value: "1.2K+", sublabel: "pro Monat" },
+    { label: "Verfügbarkeit", value: "99.9%", sublabel: "garantiert" },
+    { label: "Support", value: "24/7", sublabel: "erreichbar" },
   ]}
   trustElements={true}
 />
 ```
 
 ### 2. Features Variant
+
 ```tsx
 <V28HeroPremium
   variant="features"
@@ -79,10 +81,10 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
   title="Leistungsstarke Funktionen"
   subtitle="Alles für Ihre Taxi-Verwaltung"
   description="Von der Auftragsannahme bis zur Abrechnung - alles in einer Plattform."
-  primaryCTA={{ 
-    label: "Features erkunden", 
-    onClick: () => scrollToSection('features'),
-    icon: ArrowDown 
+  primaryCTA={{
+    label: "Features erkunden",
+    onClick: () => scrollToSection("features"),
+    icon: ArrowDown,
   }}
   visual={<PremiumDashboardContent pageType="features" />}
   trustElements={false}
@@ -90,6 +92,7 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
 ```
 
 ### 3. Pricing Variant
+
 ```tsx
 <V28HeroPremium
   variant="pricing"
@@ -98,21 +101,22 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
   title="Transparente Preise"
   subtitle="Flexibel skalierbar für jede Unternehmensgröße"
   description="Keine versteckten Kosten. Kündigung jederzeit möglich."
-  primaryCTA={{ 
-    label: "Plan wählen", 
-    onClick: () => scrollToSection('pricing'),
-    icon: Check 
+  primaryCTA={{
+    label: "Plan wählen",
+    onClick: () => scrollToSection("pricing"),
+    icon: Check,
   }}
   visual={<PremiumDashboardContent pageType="pricing" />}
   businessMetrics={[
-    { label: 'Startpreis', value: '49€', sublabel: 'pro Monat' },
-    { label: 'Setup', value: '0€', sublabel: 'kostenlos' },
-    { label: 'Support', value: 'inkl.', sublabel: 'immer dabei' }
+    { label: "Startpreis", value: "49€", sublabel: "pro Monat" },
+    { label: "Setup", value: "0€", sublabel: "kostenlos" },
+    { label: "Support", value: "inkl.", sublabel: "immer dabei" },
   ]}
 />
 ```
 
 ### 4. Demo Variant
+
 ```tsx
 <V28HeroPremium
   variant="demo"
@@ -121,10 +125,10 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
   title="Testen Sie MyDispatch"
   subtitle="Kostenlose Demo ohne Registrierung"
   description="Erleben Sie alle Features in einer interaktiven Demo-Umgebung."
-  primaryCTA={{ 
-    label: "Demo starten", 
-    onClick: () => navigate('/demo/live'),
-    icon: Play 
+  primaryCTA={{
+    label: "Demo starten",
+    onClick: () => navigate("/demo/live"),
+    icon: Play,
   }}
   visual={<PremiumDashboardContent pageType="demo" />}
 />
@@ -136,27 +140,27 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
 
 ### Verfügbare Page-Types
 
-| pageType | Beschreibung | KPIs |
-|----------|--------------|------|
-| `'home'` | Home-Dashboard | Aufträge, Umsatz, Fahrer, Fahrzeuge |
-| `'features'` | Feature-Dashboard | Features, Integrationen, Module |
-| `'pricing'` | Pricing-Dashboard | Kostenübersicht, Tarife |
-| `'demo'` | Demo-Dashboard | Live-Daten, Echtzeit-Updates |
-| `'nutzungsbedingungen'` | Legal-Dashboard | Rechtssicherheit, SLA |
-| `'terms'` | Terms-Dashboard | Vertragsdaten |
+| pageType                | Beschreibung      | KPIs                                |
+| ----------------------- | ----------------- | ----------------------------------- |
+| `'home'`                | Home-Dashboard    | Aufträge, Umsatz, Fahrer, Fahrzeuge |
+| `'features'`            | Feature-Dashboard | Features, Integrationen, Module     |
+| `'pricing'`             | Pricing-Dashboard | Kostenübersicht, Tarife             |
+| `'demo'`                | Demo-Dashboard    | Live-Daten, Echtzeit-Updates        |
+| `'nutzungsbedingungen'` | Legal-Dashboard   | Rechtssicherheit, SLA               |
+| `'terms'`               | Terms-Dashboard   | Vertragsdaten                       |
 
 ### Verwendung
 
 ```tsx
-import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboardContent';
+import { PremiumDashboardContent } from "@/components/dashboard/PremiumDashboardContent";
 
 <V28HeroPremium
   visual={
-    <PremiumDashboardContent 
-      pageType="home"  // ✅ Wähle passenden Type
+    <PremiumDashboardContent
+      pageType="home" // ✅ Wähle passenden Type
     />
   }
-/>
+/>;
 ```
 
 ---
@@ -168,12 +172,14 @@ import { PremiumDashboardContent } from '@/components/dashboard/PremiumDashboard
 Der Background wird **automatisch** in `V28HeroPremium` verwendet, wenn `backgroundVariant="3d-premium"` gesetzt ist.
 
 **Features:**
+
 - ✅ 3 Parallax-Layer
 - ✅ Responsive Animationen
 - ✅ Performance-optimiert
 - ✅ Prefers-reduced-motion Support
 
 **Du musst NICHT manuell importieren:**
+
 ```tsx
 // ❌ NICHT NÖTIG
 import { V28Hero3DBackgroundPremium } from '...';
@@ -188,15 +194,15 @@ import { V28Hero3DBackgroundPremium } from '...';
 
 ### Was wurde entfernt?
 
-| Alte Komponente | Status | Ersatz |
-|-----------------|--------|--------|
-| V28HeroWithLiveDashboard | ❌ ARCHIVIERT | V28HeroPremium |
-| HeroIpadShowcase | ❌ ARCHIVIERT | V28HeroPremium |
-| V28Hero3DBackground | ❌ ARCHIVIERT | V28Hero3DBackgroundPremium |
-| V28Hero3DBackgroundClean | ❌ ARCHIVIERT | V28Hero3DBackgroundPremium |
+| Alte Komponente               | Status        | Ersatz                     |
+| ----------------------------- | ------------- | -------------------------- |
+| V28HeroWithLiveDashboard      | ❌ ARCHIVIERT | V28HeroPremium             |
+| HeroIpadShowcase              | ❌ ARCHIVIERT | V28HeroPremium             |
+| V28Hero3DBackground           | ❌ ARCHIVIERT | V28Hero3DBackgroundPremium |
+| V28Hero3DBackgroundClean      | ❌ ARCHIVIERT | V28Hero3DBackgroundPremium |
 | V28Hero3DBackgroundWhiteZones | ❌ ARCHIVIERT | V28Hero3DBackgroundPremium |
-| V28HeroBackground | ❌ ARCHIVIERT | V28Hero3DBackgroundPremium |
-| HeroBackgroundOrbs | ❌ ARCHIVIERT | V28Hero3DBackgroundPremium |
+| V28HeroBackground             | ❌ ARCHIVIERT | V28Hero3DBackgroundPremium |
+| HeroBackgroundOrbs            | ❌ ARCHIVIERT | V28Hero3DBackgroundPremium |
 
 ---
 
@@ -205,6 +211,7 @@ import { V28Hero3DBackgroundPremium } from '...';
 ### Migration 1: V28HeroWithLiveDashboard → V28HeroPremium
 
 #### ❌ ALT (V31.6)
+
 ```tsx
 <V28HeroWithLiveDashboard
   pageType="terms"
@@ -216,6 +223,7 @@ import { V28Hero3DBackgroundPremium } from '...';
 ```
 
 #### ✅ NEU (V32.0)
+
 ```tsx
 <V28HeroPremium
   variant="features"
@@ -225,16 +233,16 @@ import { V28Hero3DBackgroundPremium } from '...';
   subtitle="Stand: 14. Oktober 2025"
   description="Transparente und faire Bedingungen für die Nutzung von MyDispatch."
   primaryCTA={{
-    label: 'Kontakt aufnehmen',
-    onClick: () => navigate('/contact'),
-    icon: FileText
+    label: "Kontakt aufnehmen",
+    onClick: () => navigate("/contact"),
+    icon: FileText,
   }}
   showPWAButton={true}
   visual={<PremiumDashboardContent pageType="nutzungsbedingungen" />}
   businessMetrics={[
-    { label: 'Rechtssicherheit', value: '100%', sublabel: 'DSGVO-konform' },
-    { label: 'Verfügbarkeit', value: '99%', sublabel: 'garantiert' },
-    { label: 'Transparenz', value: 'A+', sublabel: 'vollständig' }
+    { label: "Rechtssicherheit", value: "100%", sublabel: "DSGVO-konform" },
+    { label: "Verfügbarkeit", value: "99%", sublabel: "garantiert" },
+    { label: "Transparenz", value: "A+", sublabel: "vollständig" },
   ]}
   trustElements={true}
 />
@@ -243,6 +251,7 @@ import { V28Hero3DBackgroundPremium } from '...';
 ### Migration 2: HeroIpadShowcase → V28HeroPremium
 
 #### ❌ ALT
+
 ```tsx
 <HeroIpadShowcase
   title="Neue Features"
@@ -254,6 +263,7 @@ import { V28Hero3DBackgroundPremium } from '...';
 ```
 
 #### ✅ NEU
+
 ```tsx
 <V28HeroPremium
   variant="features"
@@ -262,10 +272,10 @@ import { V28Hero3DBackgroundPremium } from '...';
   title="Neue Features"
   subtitle="Innovation für Ihr Taxi-Unternehmen"
   description="Entdecken Sie unsere neuesten Funktionen für effizientere Auftragsabwicklung."
-  primaryCTA={{ 
-    label: "Mehr erfahren", 
-    onClick: () => navigate('/features'),
-    icon: ArrowRight 
+  primaryCTA={{
+    label: "Mehr erfahren",
+    onClick: () => navigate("/features"),
+    icon: ArrowRight,
   }}
   visual={<PremiumDashboardContent pageType="features" />}
 />
@@ -279,8 +289,8 @@ import { V28Hero3DBackgroundPremium } from '...';
 
 ```typescript
 interface V28HeroPremiumProps {
-  variant: 'home' | 'features' | 'demo' | 'pricing';
-  backgroundVariant?: 'flat' | '3d' | '3d-clean' | '3d-white-zones' | '3d-premium';
+  variant: "home" | "features" | "demo" | "pricing";
+  backgroundVariant?: "flat" | "3d" | "3d-clean" | "3d-white-zones" | "3d-premium";
   badge?: { text: string; icon?: LucideIcon };
   title: string;
   subtitle: string;
@@ -301,6 +311,7 @@ interface V28HeroPremiumProps {
 ### Best Practices
 
 #### ✅ DO
+
 - Verwende `backgroundVariant="3d-premium"` (bevorzugt)
 - Nutze `PremiumDashboardContent` für Visuals
 - Setze `businessMetrics` für Vertrauensindikatoren
@@ -308,6 +319,7 @@ interface V28HeroPremiumProps {
 - MAX 2 Buttons: `primaryCTA` + (`secondaryCTA` ODER `showPWAButton`)
 
 #### ❌ DON'T
+
 - Keine Custom Backgrounds außer `V28Hero3DBackgroundPremium`
 - Keine alten Hero-Komponenten importieren
 - Keine Inline-Styles
@@ -319,11 +331,13 @@ interface V28HeroPremiumProps {
 ## 🔍 VALIDIERUNG
 
 ### Pre-Build Check
+
 ```bash
 npm run validate:design-lock
 ```
 
 **Prüft auf:**
+
 - ✅ Keine `V28HeroWithLiveDashboard` Importe
 - ✅ Keine `HeroIpadShowcase` Importe
 - ✅ Keine verbotenen Background-Komponenten

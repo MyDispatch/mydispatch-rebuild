@@ -10,16 +10,16 @@ Alle Lücken wurden geschlossen und das System ist bereit für die finale Abnahm
 
 ## 2. Wichtigste Ergebnisse
 
-| Bereich | Ergebnis |
-| :--- | :--- |
-| **Layout-Harmonisierung** | ✅ **100% abgeschlossen** - Alle 12 Dashboard-Seiten nach `/rechnungen`-Vorbild harmonisiert |
-| **Design Token System** | ✅ **100% abgeschlossen** - Alle hardcodierten Farben durch Design Tokens ersetzt |
-| **Layout-Konsistenz** | ✅ **100% abgeschlossen** - Alle Abstands- und Layout-Lücken geschlossen (Header, Footer, Sidebar) |
-| **Mobile-Responsiveness** | ✅ **Systemweit sichergestellt** - Alle Seiten mobil nutzbar |
-| **Performance** | ✅ **45% Reduzierung der Bundle-Größe** (1.07 MB → 594 KB) durch Code-Splitting |
-| **Security** | ✅ **High-Severity Vulnerability behoben** (xlsx → exceljs) |
-| **Code-Qualität** | ✅ **87% weniger ESLint-Errors** (1.086 → 155) durch pragmatische Config-Anpassung |
-| **Dependencies** | ✅ **Sichere Minor-Updates** durchgeführt, Major-Updates dokumentiert |
+| Bereich                   | Ergebnis                                                                                           |
+| :------------------------ | :------------------------------------------------------------------------------------------------- |
+| **Layout-Harmonisierung** | ✅ **100% abgeschlossen** - Alle 12 Dashboard-Seiten nach `/rechnungen`-Vorbild harmonisiert       |
+| **Design Token System**   | ✅ **100% abgeschlossen** - Alle hardcodierten Farben durch Design Tokens ersetzt                  |
+| **Layout-Konsistenz**     | ✅ **100% abgeschlossen** - Alle Abstands- und Layout-Lücken geschlossen (Header, Footer, Sidebar) |
+| **Mobile-Responsiveness** | ✅ **Systemweit sichergestellt** - Alle Seiten mobil nutzbar                                       |
+| **Performance**           | ✅ **45% Reduzierung der Bundle-Größe** (1.07 MB → 594 KB) durch Code-Splitting                    |
+| **Security**              | ✅ **High-Severity Vulnerability behoben** (xlsx → exceljs)                                        |
+| **Code-Qualität**         | ✅ **87% weniger ESLint-Errors** (1.086 → 155) durch pragmatische Config-Anpassung                 |
+| **Dependencies**          | ✅ **Sichere Minor-Updates** durchgeführt, Major-Updates dokumentiert                              |
 
 ## 3. Detaillierte Änderungen (Inkl. Selbstprüfung & Lückenschluss)
 

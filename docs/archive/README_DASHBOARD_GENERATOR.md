@@ -20,6 +20,7 @@ npx tsx scripts/generate-dashboard.ts \
 ```
 
 Dies generiert:
+
 - `src/pages/Auftraege.tsx` mit UniversalMasterDashboardTemplate
 - KPI: Anzahl Einträge
 - Quick Actions: Neu erstellen, CSV Import, Export
@@ -73,28 +74,33 @@ npx tsx scripts/generate-dashboard.ts --config=dashboard-configs/auftraege.json
 ### Auto-Generated Components
 
 ✅ **UniversalMasterDashboardTemplate Integration**
+
 - PageHeader mit KPIs
 - Quick Actions Panel via Context
 - Loading & Error States
 - Responsive Design
 
 ✅ **Automatic KPI Calculations**
+
 - `count`: Anzahl Einträge
 - `sum`: Summe eines Feldes
 - `avg`: Durchschnitt eines Feldes
 - `custom`: Eigene SQL-Query
 
 ✅ **Quick Actions**
+
 - Neu erstellen
 - CSV Import
 - Export (PDF/Excel/CSV)
 
 ✅ **Export Configuration**
+
 - PDF Export
 - Excel Export
 - CSV Export
 
 ✅ **Filter System**
+
 - Status-Filter
 - Custom Filters
 - Search Integration
@@ -102,6 +108,7 @@ npx tsx scripts/generate-dashboard.ts --config=dashboard-configs/auftraege.json
 ### Available Icons
 
 Alle Lucide Icons sind verfügbar:
+
 - `FileText`, `Euro`, `TrendingUp`, `Users`, `Building2`
 - `Calendar`, `Clock`, `MapPin`, `Phone`, `Mail`
 - Siehe: https://lucide.dev/icons
@@ -109,7 +116,9 @@ Alle Lucide Icons sind verfügbar:
 ## KPI Calculation Types
 
 ### Count
+
 Zählt alle Einträge:
+
 ```json
 {
   "label": "Gesamt",
@@ -119,7 +128,9 @@ Zählt alle Einträge:
 ```
 
 ### Sum
+
 Summiert ein Zahlenfeld:
+
 ```json
 {
   "label": "Umsatz",
@@ -130,7 +141,9 @@ Summiert ein Zahlenfeld:
 ```
 
 ### Average
+
 Berechnet Durchschnitt:
+
 ```json
 {
   "label": "Ø Preis",
@@ -141,7 +154,9 @@ Berechnet Durchschnitt:
 ```
 
 ### Custom
+
 Eigene Berechnung:
+
 ```json
 {
   "label": "Custom",
@@ -158,10 +173,10 @@ Nach Generierung eines Dashboards:
 ### 1. Route hinzufügen (src/App.tsx)
 
 ```tsx
-import Auftraege from '@/pages/Auftraege';
+import Auftraege from "@/pages/Auftraege";
 
 // In routes:
-<Route path="/auftraege" element={<Auftraege />} />
+<Route path="/auftraege" element={<Auftraege />} />;
 ```
 
 ### 2. Sidebar Navigation (src/components/layout/AppSidebar.tsx)
@@ -179,24 +194,24 @@ import Auftraege from '@/pages/Auftraege';
 Ersetze den Platzhalter-Content:
 
 ```tsx
-import { StandardTableTemplate } from '@/components/shared/StandardTableTemplate';
+import { StandardTableTemplate } from "@/components/shared/StandardTableTemplate";
 
 // In UniversalMasterDashboardTemplate children:
 <StandardTableTemplate
   data={data}
   columns={[
-    { id: 'id', label: 'ID', width: '100px' },
-    { id: 'customer_name', label: 'Kunde', width: 'auto' },
-    { id: 'price', label: 'Preis', width: '120px' },
+    { id: "id", label: "ID", width: "100px" },
+    { id: "customer_name", label: "Kunde", width: "auto" },
+    { id: "price", label: "Preis", width: "120px" },
   ]}
-  onRowClick={(row) => console.log('Clicked:', row)}
-/>
+  onRowClick={(row) => console.log("Clicked:", row)}
+/>;
 ```
 
 ### 4. EnhancedDetailDialog
 
 ```tsx
-import { EnhancedDetailDialog } from '@/components/shared/EnhancedDetailDialog';
+import { EnhancedDetailDialog } from "@/components/shared/EnhancedDetailDialog";
 
 <EnhancedDetailDialog
   open={detailDialogOpen}
@@ -204,10 +219,10 @@ import { EnhancedDetailDialog } from '@/components/shared/EnhancedDetailDialog';
   title="Auftrag Details"
   data={selectedItem}
   fields={[
-    { label: 'ID', value: selectedItem?.id },
-    { label: 'Kunde', value: selectedItem?.customer_name },
+    { label: "ID", value: selectedItem?.id },
+    { label: "Kunde", value: selectedItem?.customer_name },
   ]}
-/>
+/>;
 ```
 
 ## Example: Fahrer Dashboard
@@ -220,24 +235,21 @@ npx tsx scripts/generate-dashboard.ts \
 ```
 
 Generiert:
+
 ```tsx
-import { UniversalMasterDashboardTemplate } from '@/components/dashboard/UniversalMasterDashboardTemplate';
+import { UniversalMasterDashboardTemplate } from "@/components/dashboard/UniversalMasterDashboardTemplate";
 
 export default function Fahrer() {
   // State & Data Fetching
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   // KPIs
-  const kpis = [
-    { label: 'Gesamt', value: data.length, icon: Users },
-  ];
-  
+  const kpis = [{ label: "Gesamt", value: data.length, icon: Users }];
+
   // Quick Actions
-  const quickActions = [
-    { icon: Plus, label: 'Neu erstellen', action: () => {} },
-  ];
-  
+  const quickActions = [{ icon: Plus, label: "Neu erstellen", action: () => {} }];
+
   return (
     <UniversalMasterDashboardTemplate
       pageTitle="Fahrer - MyDispatch"
@@ -285,7 +297,9 @@ Analysiere bestehenden Dashboard und erstelle Config:
   "title": "Aufträge",
   "route": "/auftraege",
   "supabaseTable": "bookings",
-  "kpis": [/* KPIs aus altem Dashboard */],
+  "kpis": [
+    /* KPIs aus altem Dashboard */
+  ],
   "hasQuickActions": true,
   "hasExport": true,
   "hasFilters": true
@@ -301,6 +315,7 @@ npx tsx scripts/generate-dashboard.ts --config=migration-configs/auftraege.json
 ### Schritt 3: Custom Logic migrieren
 
 Kopiere Custom Functions aus altem Dashboard:
+
 - Event Handler
 - Custom Calculations
 - Business Logic
@@ -315,20 +330,25 @@ npm run build
 ## Troubleshooting
 
 ### "Template not found"
+
 → Stelle sicher, dass `UniversalMasterDashboardTemplate.tsx` existiert
 
 ### "Icon not found"
+
 → Prüfe, ob Icon-Name korrekt ist (siehe Lucide.dev)
 
 ### "TypeScript errors"
+
 → Führe `npm run lint:fix` aus
 
 ### "Build fails"
+
 → Prüfe ob alle Imports korrekt sind
 
 ## Best Practices
 
 ✅ **DO:**
+
 - Nutze semantische Icon-Namen (FileText für Dokumente, Euro für Geld)
 - Implementiere Loading States
 - Implementiere Error Handling
@@ -336,6 +356,7 @@ npm run build
 - Schreibe Tests für kritische Dashboards
 
 ❌ **DON'T:**
+
 - Editiere generierte Files manuell (regeneriere stattdessen)
 - Nutze `ui/button` (Claude Code Guardian wird rejecten!)
 - Vergesse Routes hinzuzufügen
@@ -344,6 +365,7 @@ npm run build
 ## Support
 
 Probleme? Kontaktiere:
+
 - NeXify AI Agent (Master Dashboard)
 - Claude Code Guardian (automatische Reviews)
 - Dokumentation: docs/NEXIFY_WIKI_V1.0.md

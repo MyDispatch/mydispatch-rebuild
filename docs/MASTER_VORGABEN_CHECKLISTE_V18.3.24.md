@@ -1,4 +1,5 @@
 # 🎯 MASTER VORGABEN CHECKLISTE V18.3.24
+
 **KRITISCH: Diese Checkliste MUSS vor JEDER Änderung durchgegangen werden!**
 
 Datum: 18.01.2025  
@@ -52,6 +53,7 @@ Status: 🔴 BINDEND - KEINE AUSNAHMEN
 #### A.1 Farb-System (ABSOLUT BINDEND)
 
 **✅ ERLAUBTE FARBEN:**
+
 ```typescript
 // NUR DIESE FARBEN VERWENDEN:
 --primary: 40 31% 88%        // #EADEBD (Beige/Gold - Hauptfarbe)
@@ -67,6 +69,7 @@ Status: 🔴 BINDEND - KEINE AUSNAHMEN
 ```
 
 **❌ VERBOTENE FARBEN:**
+
 ```typescript
 // NIEMALS VERWENDEN:
 --accent: 45 31% 54%         // ❌ KOMPLETT ENTFERNT!
@@ -83,12 +86,14 @@ text-green-*, text-red-*         // ❌ Nur Semantic Tokens!
 #### A.2 Icon-Farben (ABSOLUT)
 
 **✅ RICHTIG:**
+
 ```tsx
 <Plus className="h-4 w-4 text-foreground" />
 <Save className="h-5 w-5 text-muted-foreground" /> // disabled
 ```
 
 **❌ FALSCH:**
+
 ```tsx
 <Plus className="h-4 w-4 text-accent" />        // ❌ VERBOTEN!
 <Check className="h-4 w-4 text-status-success" /> // ❌ VERBOTEN!
@@ -97,6 +102,7 @@ text-green-*, text-red-*         // ❌ Nur Semantic Tokens!
 #### A.3 Layout-Fixierungen (GESCHÜTZT)
 
 **NIEMALS ÄNDERN:**
+
 ```typescript
 // Header
 height: 60px (h-16)
@@ -120,11 +126,13 @@ background: hsl(var(--primary))
 ```
 
 **✅ ERLAUBT:**
+
 - Funktionale Erweiterungen
 - Daten-Enrichment
 - Neue Features hinzufügen
 
 **❌ VERBOTEN:**
+
 - Layout-Struktur ändern
 - CI-Farben ändern
 - Höhen/Breiten ändern
@@ -132,40 +140,41 @@ background: hsl(var(--primary))
 ### B) MULTI-TENANT SECURITY (KRITISCH)
 
 **ZWINGEND bei JEDER Datenbank-Abfrage:**
+
 ```typescript
 // ✅ RICHTIG:
 const { data } = await supabase
-  .from('bookings')
-  .select('*')
-  .eq('company_id', profile.company_id)  // ✅ PFLICHT!
-  .eq('archived', false);                 // ✅ PFLICHT!
+  .from("bookings")
+  .select("*")
+  .eq("company_id", profile.company_id) // ✅ PFLICHT!
+  .eq("archived", false); // ✅ PFLICHT!
 
 // ❌ FALSCH:
-const { data } = await supabase
-  .from('bookings')
-  .select('*');  // ❌ Kein company_id Filter!
+const { data } = await supabase.from("bookings").select("*"); // ❌ Kein company_id Filter!
 ```
 
 ### C) ARCHIVING-SYSTEM (KRITISCH)
 
 **NIEMALS DELETE verwenden:**
+
 ```typescript
 // ❌ VERBOTEN:
-await supabase.from('bookings').delete().eq('id', id);
+await supabase.from("bookings").delete().eq("id", id);
 
 // ✅ RICHTIG:
 await supabase
-  .from('bookings')
-  .update({ 
-    archived: true, 
-    archived_at: new Date().toISOString() 
+  .from("bookings")
+  .update({
+    archived: true,
+    archived_at: new Date().toISOString(),
   })
-  .eq('id', id);
+  .eq("id", id);
 ```
 
 ### D) BRANDING (ABSOLUT)
 
 **❌ VERBOTENE BEGRIFFE (systemweit):**
+
 - Lovable / Lovable.dev / Lovable Cloud / Lovable AI
 - Supabase / Supabase Dashboard
 - React / Vite / TypeScript (auf öffentlichen Seiten)
@@ -174,6 +183,7 @@ await supabase
 - Geld-zurück-Garantie
 
 **✅ ERLAUBTE BEGRIFFE:**
+
 - MyDispatch / MyDispatch AI / MyDispatch System
 - Google Cloud / Google Cloud Platform
 - Backend / Datenbank / Cloud-Infrastruktur
@@ -183,6 +193,7 @@ await supabase
 ### E) TARIF-SYSTEM (BINDEND)
 
 **Single Source of Truth:**
+
 ```typescript
 // IMMER verwenden:
 import { TARIFFS, hasFeatureAccess } from '@/lib/tariff/tariff-definitions';
@@ -194,13 +205,14 @@ if (!hasFeatureAccess(productId, 'partner_management')) {
 ```
 
 **Tarif-Limits prüfen:**
+
 ```typescript
-import { useTariffLimits } from '@/hooks/use-tariff-limits';
+import { useTariffLimits } from "@/hooks/use-tariff-limits";
 
 const { canAdd, showLimitWarning } = useTariffLimits();
 
-if (!canAdd('drivers')) {
-  showLimitWarning('drivers');
+if (!canAdd("drivers")) {
+  showLimitWarning("drivers");
   return;
 }
 ```
@@ -350,13 +362,13 @@ npm run build                       // ✅ Success
 
 ```typescript
 // ❌ FALSCH:
-await supabase.from('bookings').select('*');            // Kein company_id!
-await supabase.from('bookings').delete().eq('id', id);  // DELETE verboten!
-const formatted = `${value.toFixed(2)} €`;              // Inline-Formatierung!
+await supabase.from("bookings").select("*"); // Kein company_id!
+await supabase.from("bookings").delete().eq("id", id); // DELETE verboten!
+const formatted = `${value.toFixed(2)} €`; // Inline-Formatierung!
 
 // ✅ RICHTIG:
-await supabase.from('bookings').select('*').eq('company_id', profile.company_id);
-await supabase.from('bookings').update({ archived: true }).eq('id', id);
+await supabase.from("bookings").select("*").eq("company_id", profile.company_id);
+await supabase.from("bookings").update({ archived: true }).eq("id", id);
 const formatted = formatCurrency(value);
 ```
 
@@ -364,16 +376,16 @@ const formatted = formatCurrency(value);
 
 ```typescript
 // ❌ FALSCH:
-"Powered by Lovable"
-"Supabase Backend"
-"Kostenlos testen"
-"Built with React"
+"Powered by Lovable";
+"Supabase Backend";
+"Kostenlos testen";
+"Built with React";
 
 // ✅ RICHTIG:
-"MyDispatch © 2025"
-"Sichere Cloud-Infrastruktur"
-"Monatlich kündbar"
-"Made in Germany"
+"MyDispatch © 2025";
+"Sichere Cloud-Infrastruktur";
+"Monatlich kündbar";
+"Made in Germany";
 ```
 
 ---
@@ -446,10 +458,11 @@ echo "✅ All Quality Gates passed!"
    - Anti-Patterns
 
 1a. **KNOWN_ISSUES_REGISTRY_V18.3.24.md** (NEU - PFLICHT!)
-   - Zentrale Fehler-Datenbank
-   - 23+ dokumentierte Anti-Patterns
-   - Automatische Checks
-   - **MUSS bei JEDEM Arbeitsschritt konsultiert werden!**
+
+- Zentrale Fehler-Datenbank
+- 23+ dokumentierte Anti-Patterns
+- Automatische Checks
+- **MUSS bei JEDEM Arbeitsschritt konsultiert werden!**
 
 2. **INSTRUCTIONS_GUIDELINES_V18.3_FINAL.md**
    - Coding Standards
@@ -539,6 +552,7 @@ echo "✅ All Quality Gates passed!"
 ### Eskalations-Regeln
 
 **Wenn Unsicherheit besteht:**
+
 ```
 1. Checkliste erneut durchgehen
 2. Relevante Dokumentation konsultieren
@@ -547,6 +561,7 @@ echo "✅ All Quality Gates passed!"
 ```
 
 **Wenn Vorgaben kollidieren:**
+
 ```
 1. MASTER_VORGABEN_CHECKLISTE hat oberste Priorität
 2. Neuere Vorgaben überschreiben ältere
@@ -559,6 +574,7 @@ echo "✅ All Quality Gates passed!"
 ## 📝 ÄNDERUNGSHISTORIE
 
 ### V18.3.24 (18.01.2025)
+
 - ✅ **accent-Farbe systemweit VERBOTEN**
 - ✅ Master-Checkliste erstellt
 - ✅ Pre-/Post-Work Quality Gates definiert
@@ -566,12 +582,14 @@ echo "✅ All Quality Gates passed!"
 - ✅ Workflow-Enforcement implementiert
 
 ### V18.3 (17.01.2025)
+
 - ✅ Tariff-System mit Feature-Gating
 - ✅ Limit-Enforcement
 - ✅ Stripe-Synchronisation
 - ✅ Branding-Vorgaben (keine Lovable/Supabase)
 
 ### V18.2.31 (16.01.2025)
+
 - ✅ Design-Freeze-Regel etabliert
 - ✅ Icon-Farben-Guidelines
 - ✅ Multi-Tenant Security

@@ -14,36 +14,36 @@ export interface AutonomousTask {
 
   // Task Details
   task_type:
-    | 'layout_fix'
-    | 'type_improvement'
-    | 'performance_optimization'
-    | 'test_creation'
-    | 'documentation'
-    | 'accessibility'
-    | 'security_fix'
-    | 'database_migration'
-    | 'edge_function'
-    | 'feature_implementation'
-    | 'bug_fix'
-    | 'refactoring';
+    | "layout_fix"
+    | "type_improvement"
+    | "performance_optimization"
+    | "test_creation"
+    | "documentation"
+    | "accessibility"
+    | "security_fix"
+    | "database_migration"
+    | "edge_function"
+    | "feature_implementation"
+    | "bug_fix"
+    | "refactoring";
   description: string;
   priority: number;
 
   // Autonomy & Risk
   autonomy_level: 1 | 2 | 3;
-  risk_level: 'low' | 'medium' | 'high';
+  risk_level: "low" | "medium" | "high";
   requires_approval: boolean;
 
   // Execution Status
   status:
-    | 'pending'
-    | 'in_progress'
-    | 'completed'
-    | 'failed'
-    | 'awaiting_review'
-    | 'approved'
-    | 'rejected'
-    | 'rolled_back';
+    | "pending"
+    | "in_progress"
+    | "completed"
+    | "failed"
+    | "awaiting_review"
+    | "approved"
+    | "rejected"
+    | "rolled_back";
   assigned_to: string;
 
   // Files & Changes
@@ -76,7 +76,7 @@ export interface AutonomousExecutionLog {
 
   // Execution Details
   execution_step: string;
-  step_status: 'started' | 'completed' | 'failed' | 'skipped';
+  step_status: "started" | "completed" | "failed" | "skipped";
 
   // Data
   input_data: Record<string, any> | null;
@@ -132,14 +132,14 @@ export interface AutonomousSafetyCheck {
 
   // Check Details
   check_type:
-    | 'build_validation'
-    | 'test_validation'
-    | 'rls_validation'
-    | 'visual_validation'
-    | 'performance_validation'
-    | 'security_scan'
-    | 'breaking_change_detection';
-  check_status: 'pending' | 'passed' | 'failed' | 'skipped';
+    | "build_validation"
+    | "test_validation"
+    | "rls_validation"
+    | "visual_validation"
+    | "performance_validation"
+    | "security_scan"
+    | "breaking_change_detection";
+  check_status: "pending" | "passed" | "failed" | "skipped";
 
   // Results
   check_result: Record<string, any> | null;
@@ -183,11 +183,11 @@ export interface AutonomousSystemStats {
  * Database table names for type-safe queries
  */
 export const AUTONOMOUS_TABLES = {
-  tasks: 'autonomous_tasks',
-  execution_logs: 'autonomous_execution_logs',
-  system_config: 'autonomous_system_config',
-  safety_checks: 'autonomous_safety_checks',
-  system_stats: 'autonomous_system_stats',
+  tasks: "autonomous_tasks",
+  execution_logs: "autonomous_execution_logs",
+  system_config: "autonomous_system_config",
+  safety_checks: "autonomous_safety_checks",
+  system_stats: "autonomous_system_stats",
 } as const;
 
 /**
@@ -196,24 +196,18 @@ export const AUTONOMOUS_TABLES = {
  */
 export type AutonomousTaskInsert = Omit<
   AutonomousTask,
-  'id' | 'created_at' | 'started_at' | 'completed_at' | 'reviewed_at'
+  "id" | "created_at" | "started_at" | "completed_at" | "reviewed_at"
 > & {
   id?: string;
   created_at?: string;
 };
 
-export type AutonomousExecutionLogInsert = Omit<
-  AutonomousExecutionLog,
-  'id' | 'timestamp'
-> & {
+export type AutonomousExecutionLogInsert = Omit<AutonomousExecutionLog, "id" | "timestamp"> & {
   id?: string;
   timestamp?: string;
 };
 
-export type AutonomousSystemConfigInsert = Omit<
-  AutonomousSystemConfig,
-  'id' | 'updated_at'
-> & {
+export type AutonomousSystemConfigInsert = Omit<AutonomousSystemConfig, "id" | "updated_at"> & {
   id?: string;
   updated_at?: string;
 };
@@ -223,9 +217,7 @@ export type AutonomousSystemConfigInsert = Omit<
  * All fields optional
  */
 export type AutonomousTaskUpdate = Partial<
-  Omit<AutonomousTask, 'id' | 'created_at' | 'created_by'>
+  Omit<AutonomousTask, "id" | "created_at" | "created_by">
 >;
 
-export type AutonomousSystemConfigUpdate = Partial<
-  Omit<AutonomousSystemConfig, 'id'>
->;
+export type AutonomousSystemConfigUpdate = Partial<Omit<AutonomousSystemConfig, "id">>;

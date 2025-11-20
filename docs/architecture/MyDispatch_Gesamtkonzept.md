@@ -18,17 +18,20 @@ MyDispatch ist eine cloudbasierte, DSGVO-konforme Dispositions- und Flottenmanag
 Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionellen Disposition, Fuhrpartverwaltung und Geschäftsoptimierung zu unterstützen.
 
 **Zielgruppe:**
+
 - **Primär:** Taxi-Unternehmen (Einzelunternehmer bis mittelständische Flotten)
 - **Sekundär:** Mietwagen-Unternehmen (mit und ohne Chauffeur)
 - **Tertiär:** Fuhrpark-Manager (in größeren Unternehmen)
 
 **Charakteristika der Zielgruppe:**
+
 - B2B-Kontext (geschäftliche Entscheidungen)
 - Kennt die Branche, aber nicht zwingend IT/Software
 - Wertschätzung von Transparenz, Rechtssicherheit, Zuverlässigkeit
 - Pragmatisch: Will Lösungen, keine Tech-Buzzwords
 
 **Unique Selling Propositions (USPs):**
+
 1. Made in Germany - Deutsche Server, DSGVO-konform
 2. 24/7 AI-Support - Deutscher Support per Chat & Telefon
 3. Keine Setup-Gebühren - Sofort einsatzbereit
@@ -44,6 +47,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 **Auftraggeber:** Pascal (Inhaber von NeXify)
 
 **Governance-Prinzipien:**
+
 1. **Logisches & Vorausschauendes Denken**: Systemweite Konsequenzen vor jeder Entscheidung bewerten
 2. **Konsolidierung & IST-Abgleich**: Vollständige Wissenskonsolidierung vor Code-Änderungen
 3. **Ultimative Fehleranalyse**: Root Cause Analysis bei allen Problemen
@@ -51,6 +55,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 5. **Eigenständige Analyse**: Keine Rückfragen bei technischen Entscheidungen (siehe NEXIFY_EIGENSTÄNDIGE_ANALYSE_VORGABE_V18.5.1.md)
 
 **Workflow-Struktur (3-Phasen):**
+
 - **Phase 1:** Selbstreflexion & Code-Audit
 - **Phase 2:** IST-Zustand & Planung
 - **Phase 3:** Implementation mit Qualitätssicherung
@@ -62,50 +67,55 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 ## 1.3 Technischer Stack
 
 ### Frontend
-| Komponente | Technologie | Version |
-|------------|-------------|---------|
-| **Framework** | React | 18.3.1 |
-| **Build Tool** | Vite | Latest |
-| **Sprache** | TypeScript | Latest |
-| **Styling** | Tailwind CSS | Latest |
-| **UI Library** | Shadcn/UI | Latest |
-| **Icons** | Lucide React | 0.546.0 |
-| **Routing** | React Router | 6.30.1 |
-| **State Management** | React Query | 5.83.0 |
-| **Forms** | React Hook Form | 7.61.1 |
-| **Validation** | Zod | 3.25.76 |
+
+| Komponente           | Technologie     | Version |
+| -------------------- | --------------- | ------- |
+| **Framework**        | React           | 18.3.1  |
+| **Build Tool**       | Vite            | Latest  |
+| **Sprache**          | TypeScript      | Latest  |
+| **Styling**          | Tailwind CSS    | Latest  |
+| **UI Library**       | Shadcn/UI       | Latest  |
+| **Icons**            | Lucide React    | 0.546.0 |
+| **Routing**          | React Router    | 6.30.1  |
+| **State Management** | React Query     | 5.83.0  |
+| **Forms**            | React Hook Form | 7.61.1  |
+| **Validation**       | Zod             | 3.25.76 |
 
 ### Backend (Lovable Cloud / Supabase)
-| Komponente | Technologie |
-|------------|-------------|
-| **Database** | PostgreSQL (Supabase) |
-| **Auth** | Supabase Auth |
-| **Storage** | Supabase Storage |
+
+| Komponente         | Technologie             |
+| ------------------ | ----------------------- |
+| **Database**       | PostgreSQL (Supabase)   |
+| **Auth**           | Supabase Auth           |
+| **Storage**        | Supabase Storage        |
 | **Edge Functions** | Supabase Edge Functions |
-| **Realtime** | Supabase Realtime |
+| **Realtime**       | Supabase Realtime       |
 
 ### AI & Machine Learning
-| Komponente | Vorgabe | Secret |
-|------------|---------|--------|
-| **KI-API** | Anthropic API | ANTHROPIC_API_KEY |
-| **KI-Modell** | Claude 3.5 Sonnet | - |
-| **Use Cases** | AI-Support, Chatbot, Dokumenten-Analyse | - |
+
+| Komponente    | Vorgabe                                 | Secret            |
+| ------------- | --------------------------------------- | ----------------- |
+| **KI-API**    | Anthropic API                           | ANTHROPIC_API_KEY |
+| **KI-Modell** | Claude 3.5 Sonnet                       | -                 |
+| **Use Cases** | AI-Support, Chatbot, Dokumenten-Analyse | -                 |
 
 **ZWINGEND:** Ausschließlich Claude 3.5 Sonnet verwenden, keine anderen Modelle!
 
 ### Testing & Quality
-| Komponente | Technologie |
-|------------|-------------|
-| **E2E Testing** | Playwright | 1.56.1 |
-| **Visual Regression** | Playwright Screenshots | - |
-| **Linting** | ESLint | Latest |
-| **Formatting** | Prettier | 3.6.2 |
+
+| Komponente            | Technologie            |
+| --------------------- | ---------------------- | ------ |
+| **E2E Testing**       | Playwright             | 1.56.1 |
+| **Visual Regression** | Playwright Screenshots | -      |
+| **Linting**           | ESLint                 | Latest |
+| **Formatting**        | Prettier               | 3.6.2  |
 
 ---
 
 ## 1.4 Unternehmensdaten
 
 ### MyDispatch
+
 - **Firma:** MyDispatch GmbH (Platzhalter)
 - **Land:** Deutschland
 - **Server-Standort:** Frankfurt am Main
@@ -113,6 +123,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 - **Compliance:** DSGVO, PBefG § 51, ISO 27001
 
 ### NeXify
+
 - **Firma:** NeXify Development Company
 - **Rolle:** Entwicklungspartner & Betreuung
 - **Inhaber:** Pascal
@@ -128,12 +139,14 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 ### Tarif 1: STARTER
 
 **Preis:**
+
 - Monatlich: 39 €
 - Jährlich: 420 € (Ersparnis: 48 €)
 
 **Beschreibung:** Perfekt für kleine Unternehmen
 
 **Limits:**
+
 - Fahrer: Max. 3
 - Fahrzeuge: Max. 3
 - Aufträge: Unbegrenzt
@@ -141,6 +154,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 - Benutzer: Max. 1
 
 **Inkludierte Features:**
+
 - ✅ Basisdisposition
 - ✅ Auftragsverwaltung (unbegrenzt)
 - ✅ Kunden-/Fahrerverwaltung
@@ -155,6 +169,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 - ✅ Fleet & Driver Add-On (Optional, 9€/Monat pauschal)
 
 **NICHT Inkludierte Features:**
+
 - ❌ Partner-Management
 - ❌ Live-Traffic-Infos
 - ❌ Kunden-Portal
@@ -172,6 +187,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 ### Tarif 2: BUSINESS (BELIEBTESTE WAHL)
 
 **Preis:**
+
 - Monatlich: 99 €
 - Jährlich: 1.068 € (Ersparnis: 120 €)
 
@@ -180,6 +196,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 **Beschreibung:** Beliebt bei wachsenden Unternehmen
 
 **Limits:**
+
 - Fahrer: Unbegrenzt
 - Fahrzeuge: Unbegrenzt
 - Aufträge: Unbegrenzt
@@ -187,6 +204,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 - Benutzer: Max. 5
 
 **Inkludierte Features (ALLE STARTER + Folgende):**
+
 - ✅ Unbegrenzt Fahrer/Fahrzeuge
 - ✅ Partner-Management & Provisionsabrechnung
 - ✅ Live-Traffic & Wetter
@@ -207,6 +225,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 - ✅ Prioritäts-Support
 
 **NICHT Inkludierte Features:**
+
 - ❌ White-Label Landingpages
 - ❌ Custom Integrationen
 - ❌ Dedizierter Account Manager
@@ -226,6 +245,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 **Beschreibung:** Maßgeschneiderte Lösungen
 
 **Limits:**
+
 - Fahrer: Unbegrenzt
 - Fahrzeuge: Unbegrenzt
 - Aufträge: Unbegrenzt
@@ -233,6 +253,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 - Benutzer: Unbegrenzt
 
 **Inkludierte Features (ALLE BUSINESS + Folgende):**
+
 - ✅ White-Label Landingpages
 - ✅ Custom Integrationen
 - ✅ Dedizierter Account Manager
@@ -252,6 +273,7 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 ### Add-Ons
 
 **Fleet & Driver Add-On:**
+
 - **Preis:** 9 € / Monat (pauschal)
 - **Anwendbar auf:** Nur Starter-Tarif
 - **Beschreibung:** Unbegrenzte Erweiterung von Fahrzeugen/Fahrern über die ersten 3 hinaus
@@ -265,26 +287,27 @@ Moderne Taxi- und Mietwagenunternehmen durch digitale Tools bei der professionel
 
 ### Zugriffsmatrix
 
-| Feature/Modul | Starter | Business | Enterprise | Route |
-|---------------|---------|----------|------------|-------|
-| Auftragsverwaltung | ✅ | ✅ | ✅ | `/auftraege` |
-| Fahrer/Fahrzeuge | ✅ (Max. 3) | ✅ (∞) | ✅ (∞) | `/fahrer`, `/fahrzeuge` |
-| Kunden | ✅ | ✅ | ✅ | `/kunden` |
-| Rechnungen | ✅ | ✅ | ✅ | `/rechnungen` |
-| Angebote | ✅ | ✅ | ✅ | `/angebote` |
-| Dokumente | ✅ (Basis) | ✅ (Erweitert) | ✅ (Premium) | `/dokumente` |
-| Schichtzettel | ✅ (Basis) | ✅ (Erweitert) | ✅ (Premium) | `/schichtzettel` |
-| Partner-Netzwerk | ❌ | ✅ | ✅ | `/partner` |
-| Statistiken | ❌ | ✅ | ✅ | `/statistiken` |
-| Team-Chat | ❌ | ✅ | ✅ | `/kommunikation` |
-| Kostenstellen | ❌ | ✅ | ✅ | `/kostenstellen` |
-| Kunden-Portal | ❌ | ✅ | ✅ | `/portal` |
-| Landingpage-Konfigurator | ❌ (Info only) | ✅ | ✅ (White-Label) | `/landingpage` |
-| API-Zugang | ❌ | ✅ (Basis) | ✅ (Erweitert) | - |
-| Live-Traffic & Wetter | ❌ | ✅ | ✅ | Dashboard Widget |
-| GPS-Tracking | ❌ | ✅ | ✅ | `/tracking` |
+| Feature/Modul            | Starter        | Business       | Enterprise       | Route                   |
+| ------------------------ | -------------- | -------------- | ---------------- | ----------------------- |
+| Auftragsverwaltung       | ✅             | ✅             | ✅               | `/auftraege`            |
+| Fahrer/Fahrzeuge         | ✅ (Max. 3)    | ✅ (∞)         | ✅ (∞)           | `/fahrer`, `/fahrzeuge` |
+| Kunden                   | ✅             | ✅             | ✅               | `/kunden`               |
+| Rechnungen               | ✅             | ✅             | ✅               | `/rechnungen`           |
+| Angebote                 | ✅             | ✅             | ✅               | `/angebote`             |
+| Dokumente                | ✅ (Basis)     | ✅ (Erweitert) | ✅ (Premium)     | `/dokumente`            |
+| Schichtzettel            | ✅ (Basis)     | ✅ (Erweitert) | ✅ (Premium)     | `/schichtzettel`        |
+| Partner-Netzwerk         | ❌             | ✅             | ✅               | `/partner`              |
+| Statistiken              | ❌             | ✅             | ✅               | `/statistiken`          |
+| Team-Chat                | ❌             | ✅             | ✅               | `/kommunikation`        |
+| Kostenstellen            | ❌             | ✅             | ✅               | `/kostenstellen`        |
+| Kunden-Portal            | ❌             | ✅             | ✅               | `/portal`               |
+| Landingpage-Konfigurator | ❌ (Info only) | ✅             | ✅ (White-Label) | `/landingpage`          |
+| API-Zugang               | ❌             | ✅ (Basis)     | ✅ (Erweitert)   | -                       |
+| Live-Traffic & Wetter    | ❌             | ✅             | ✅               | Dashboard Widget        |
+| GPS-Tracking             | ❌             | ✅             | ✅               | `/tracking`             |
 
 **Implementierungs-Regel:**
+
 ```typescript
 // Jede geschützte Route MUSS Feature-Gating implementieren
 import { hasFeatureAccess } from '@/lib/tariff/tariff-definitions';
@@ -301,6 +324,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### Master-Dashboard (`/` nach Login, `/dashboard`)
 
 **Layout-Struktur:**
+
 1. **Section Header** mit Live-Zeit-Anzeige
 2. **KPI Grid** (4 Spalten: Aufträge, Umsatz, Fahrer, Fahrzeuge)
 3. **Quick Actions Bar** (Neuer Auftrag, Schichtzettel, Team-Chat)
@@ -316,6 +340,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 7. **Upgrade Banner** (wenn nicht Business+)
 
 **Funktionen (MÜSSEN ERHALTEN BLEIBEN):**
+
 - ✅ Live-Zeit-Anzeige (Echtzeit-Uhr)
 - ✅ KPI-Berechnungen (Bookings, Revenue, Drivers, Vehicles)
 - ✅ Realtime-Updates (Supabase Realtime)
@@ -336,6 +361,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 **Layout:** Single Large Card View (V22.0.0)
 
 **Funktionen (MÜSSEN ERHALTEN BLEIBEN):**
+
 - ✅ CRUD (Create, Read, Update, Delete) für Aufträge
 - ✅ Filter (Status, Datum, Preis, Kunde)
 - ✅ Sortierung (nach allen Spalten)
@@ -359,6 +385,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 **Layout:** Zusammengeführt in einem Dashboard
 
 **Funktionen Fahrer (MÜSSEN ERHALTEN BLEIBEN):**
+
 - ✅ CRUD für Fahrer
 - ✅ Führerschein-Verwaltung (Upload, Ablauf-Überwachung)
 - ✅ Schichtstatus (Verfügbar, Beschäftigt, Offline)
@@ -369,6 +396,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 - ✅ Filter & Suche
 
 **Funktionen Fahrzeuge (MÜSSEN ERHALTEN BLEIBEN):**
+
 - ✅ CRUD für Fahrzeuge
 - ✅ TÜV-Überwachung (automatische Erinnerungen)
 - ✅ Wartungsplaner
@@ -387,6 +415,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### Kunden-Dashboard (`/kunden`)
 
 **Funktionen (MÜSSEN ERHALTEN BLEIBEN):**
+
 - ✅ CRUD für Kunden
 - ✅ Firmen- und Privatkunden
 - ✅ Stammdaten-Verwaltung
@@ -404,6 +433,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### Rechnungen-Dashboard (`/rechnungen`)
 
 **Funktionen (MÜSSEN ERHALTEN BLEIBEN):**
+
 - ✅ CRUD für Rechnungen
 - ✅ Angebotserstellung (separate Route `/angebote`)
 - ✅ Automatische Rechnungserstellung aus Auftrag
@@ -422,6 +452,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### Partner-Dashboard (`/partner`) - Business+
 
 **Funktionen (MÜSSEN ERHALTEN BLEIBEN):**
+
 - ✅ CRUD für Partner-Unternehmen
 - ✅ Auftragsvergabe an Partner
 - ✅ Provisionsabrechnung (automatisch)
@@ -439,6 +470,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### Statistiken-Dashboard (`/statistiken`) - Business+
 
 **Funktionen (MÜSSEN ERHALTEN BLEIBEN):**
+
 - ✅ Umsatz-Reports (täglich, wöchentlich, monatlich, jährlich)
 - ✅ Fahrer-Performance
 - ✅ Fahrzeug-Auslastung
@@ -456,17 +488,17 @@ if (!hasFeatureAccess(productId, 'partners')) {
 
 ### Weitere Dashboards/Seiten
 
-| Route | Bezeichnung | Funktionen | Tarif |
-|-------|-------------|------------|-------|
-| `/schichtzettel` | Schichtplanung | Schicht-CRUD, Verfügbarkeitsprüfung, Konfliktmanagement | Alle |
-| `/dokumente` | Dokumenten-Management | Upload, Ablauf-Überwachung, Kategorisierung | Alle |
-| `/kommunikation` | Team-Chat | Echtzeit-Chat, Channels, Datei-Sharing | Business+ |
-| `/kostenstellen` | Kostenstellen | CRUD, Zuordnung zu Aufträgen, Reports | Business+ |
-| `/portal` | Kunden-Portal | Kunden-Login, Buchungs-Historie, Self-Service | Business+ |
-| `/landingpage` | Landingpage-Konfigurator | Info-Page (Starter), Konfigurator (Business+), White-Label (Enterprise) | Alle |
-| `/tracking` | GPS-Tracking | Live-Karte, Routenhistorie, Geofencing | Business+ |
-| `/ai-support` | AI-Support | Chatbot-Interface, Historie | Alle |
-| `/einstellungen` | Einstellungen | Profil, Unternehmen, Abo-Verwaltung | Alle |
+| Route            | Bezeichnung              | Funktionen                                                              | Tarif     |
+| ---------------- | ------------------------ | ----------------------------------------------------------------------- | --------- |
+| `/schichtzettel` | Schichtplanung           | Schicht-CRUD, Verfügbarkeitsprüfung, Konfliktmanagement                 | Alle      |
+| `/dokumente`     | Dokumenten-Management    | Upload, Ablauf-Überwachung, Kategorisierung                             | Alle      |
+| `/kommunikation` | Team-Chat                | Echtzeit-Chat, Channels, Datei-Sharing                                  | Business+ |
+| `/kostenstellen` | Kostenstellen            | CRUD, Zuordnung zu Aufträgen, Reports                                   | Business+ |
+| `/portal`        | Kunden-Portal            | Kunden-Login, Buchungs-Historie, Self-Service                           | Business+ |
+| `/landingpage`   | Landingpage-Konfigurator | Info-Page (Starter), Konfigurator (Business+), White-Label (Enterprise) | Alle      |
+| `/tracking`      | GPS-Tracking             | Live-Karte, Routenhistorie, Geofencing                                  | Business+ |
+| `/ai-support`    | AI-Support               | Chatbot-Interface, Historie                                             | Alle      |
+| `/einstellungen` | Einstellungen            | Profil, Unternehmen, Abo-Verwaltung                                     | Alle      |
 
 ---
 
@@ -475,6 +507,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### Auftrag erstellen/bearbeiten
 
 **Felder (Vollständig):**
+
 1. **Kunde** (Select, Pflicht)
 2. **Abholadresse** (Text, Pflicht)
 3. **Zieladresse** (Text, Pflicht)
@@ -497,6 +530,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### Fahrer anlegen/bearbeiten
 
 **Felder (Vollständig):**
+
 1. **Vorname** (Text, Pflicht)
 2. **Nachname** (Text, Pflicht)
 3. **E-Mail** (Email, Pflicht)
@@ -519,6 +553,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### Fahrzeug anlegen/bearbeiten
 
 **Felder (Vollständig):**
+
 1. **Kennzeichen** (Text, Pflicht, Unique)
 2. **Marke** (Text, Pflicht)
 3. **Modell** (Text, Pflicht)
@@ -540,11 +575,13 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### Login/Registrierung
 
 **Login-Felder:**
+
 1. **E-Mail** (Email, Pflicht)
 2. **Passwort** (Password, Pflicht)
 3. **Remember Me** (Checkbox, Optional)
 
 **Registrierungs-Felder:**
+
 1. **Vorname** (Text, Pflicht)
 2. **Nachname** (Text, Pflicht)
 3. **E-Mail** (Email, Pflicht)
@@ -566,10 +603,12 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ## 3.1 Zusammengeführte vs. Separate Bereiche
 
 ### Zusammengeführt:
+
 - **Fahrer & Fahrzeuge** (`/fahrer`) - Ein Dashboard, zwei Tabs
 - **Angebote & Rechnungen** (Separate Routes, aber gleiche Komponenten)
 
 ### Separat:
+
 - **Aufträge** (`/auftraege`) - Eigener Bereich
 - **Kunden** (`/kunden`) - Eigener Bereich
 - **Partner** (`/partner`) - Eigener Bereich (Business+)
@@ -588,23 +627,26 @@ if (!hasFeatureAccess(productId, 'partners')) {
 **Jedes Dashboard MUSS folgende Elemente in dieser Reihenfolge haben:**
 
 1. **Section Header**
+
    ```tsx
-   <SectionHeader
-     title="Dashboard-Name"
-     description="Kurzbeschreibung"
-     align="left"
-   />
+   <SectionHeader title="Dashboard-Name" description="Kurzbeschreibung" align="left" />
    ```
 
 2. **Action Bar** (oberhalb der Daten-Tabelle/Grid)
+
    ```tsx
    <div className="flex items-center gap-4">
-     <ActionButton variant="primary" icon={Plus}>Neu erstellen</ActionButton>
-     <ActionButton variant="secondary" icon={Upload}>Importieren</ActionButton>
+     <ActionButton variant="primary" icon={Plus}>
+       Neu erstellen
+     </ActionButton>
+     <ActionButton variant="secondary" icon={Upload}>
+       Importieren
+     </ActionButton>
    </div>
    ```
 
 3. **Filter & Search Bar**
+
    ```tsx
    <div className="flex items-center gap-4">
      <SearchInput />
@@ -614,9 +656,12 @@ if (!hasFeatureAccess(productId, 'partners')) {
    ```
 
 4. **Daten-Anzeige** (DataTable oder DataGrid)
+
    ```tsx
    <DataGrid columns={{ mobile: 1, tablet: 2, desktop: 3 }}>
-     {items.map(item => <Card>{item}</Card>)}
+     {items.map((item) => (
+       <Card>{item}</Card>
+     ))}
    </DataGrid>
    ```
 
@@ -626,6 +671,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
    ```
 
 **Referenz-Implementierungen:**
+
 - ✅ `/auftraege` - Perfekte Umsetzung
 - ✅ `/fahrer` - Perfekte Umsetzung
 - ✅ `/partner` - Perfekte Umsetzung
@@ -638,26 +684,27 @@ if (!hasFeatureAccess(productId, 'partners')) {
 
 ### Supabase-Tabellen (MÜSSEN ERHALTEN BLEIBEN)
 
-| Tabelle | Zweck | RLS | Realtime |
-|---------|-------|-----|----------|
-| `bookings` | Aufträge | ✅ | ✅ |
-| `drivers` | Fahrer | ✅ | ✅ |
-| `vehicles` | Fahrzeuge | ✅ | ✅ |
-| `customers` | Kunden | ✅ | ❌ |
-| `invoices` | Rechnungen | ✅ | ❌ |
-| `quotes` | Angebote | ✅ | ❌ |
-| `partners` | Partner-Unternehmen | ✅ | ❌ |
-| `partner_bookings` | Partner-Aufträge | ✅ | ✅ |
-| `documents` | Dokumente | ✅ | ❌ |
-| `shifts` | Schichten | ✅ | ✅ |
-| `cost_centers` | Kostenstellen | ✅ | ❌ |
-| `companies` | Unternehmen | ✅ | ❌ |
-| `profiles` | Benutzer-Profile | ✅ | ❌ |
-| `chat_messages` | Team-Chat | ✅ | ✅ |
-| `chat_channels` | Chat-Kanäle | ✅ | ❌ |
-| `audit_logs` | Aktivitäts-Logs | ✅ | ❌ |
+| Tabelle            | Zweck               | RLS | Realtime |
+| ------------------ | ------------------- | --- | -------- |
+| `bookings`         | Aufträge            | ✅  | ✅       |
+| `drivers`          | Fahrer              | ✅  | ✅       |
+| `vehicles`         | Fahrzeuge           | ✅  | ✅       |
+| `customers`        | Kunden              | ✅  | ❌       |
+| `invoices`         | Rechnungen          | ✅  | ❌       |
+| `quotes`           | Angebote            | ✅  | ❌       |
+| `partners`         | Partner-Unternehmen | ✅  | ❌       |
+| `partner_bookings` | Partner-Aufträge    | ✅  | ✅       |
+| `documents`        | Dokumente           | ✅  | ❌       |
+| `shifts`           | Schichten           | ✅  | ✅       |
+| `cost_centers`     | Kostenstellen       | ✅  | ❌       |
+| `companies`        | Unternehmen         | ✅  | ❌       |
+| `profiles`         | Benutzer-Profile    | ✅  | ❌       |
+| `chat_messages`    | Team-Chat           | ✅  | ✅       |
+| `chat_channels`    | Chat-Kanäle         | ✅  | ❌       |
+| `audit_logs`       | Aktivitäts-Logs     | ✅  | ❌       |
 
 **Sicherheits-Prinzip (ZWINGEND):**
+
 - ALLE Tabellen haben Row Level Security (RLS) aktiviert
 - ALLE Queries filtern nach `company_id` (Multi-Tenancy)
 - Soft-Delete statt Hard-Delete (`archived` Flag)
@@ -669,16 +716,16 @@ if (!hasFeatureAccess(productId, 'partners')) {
 
 **Pattern:** Ein Hook pro Entität
 
-| Hook | Tabelle | Features |
-|------|---------|----------|
-| `useBookings()` | bookings | CRUD, Realtime, Filter |
-| `useDrivers()` | drivers | CRUD, Realtime, Status |
-| `useVehicles()` | vehicles | CRUD, Realtime, TÜV |
-| `useCustomers()` | customers | CRUD, Filter, Search |
-| `useInvoices()` | invoices | CRUD, Status, Export |
-| `usePartners()` | partners | CRUD, Provisionen |
-| `useStatistics()` | - | Aggregierte Daten |
-| `useAuth()` | profiles | User, Company, Subscription |
+| Hook              | Tabelle   | Features                    |
+| ----------------- | --------- | --------------------------- |
+| `useBookings()`   | bookings  | CRUD, Realtime, Filter      |
+| `useDrivers()`    | drivers   | CRUD, Realtime, Status      |
+| `useVehicles()`   | vehicles  | CRUD, Realtime, TÜV         |
+| `useCustomers()`  | customers | CRUD, Filter, Search        |
+| `useInvoices()`   | invoices  | CRUD, Status, Export        |
+| `usePartners()`   | partners  | CRUD, Provisionen           |
+| `useStatistics()` | -         | Aggregierte Daten           |
+| `useAuth()`       | profiles  | User, Company, Subscription |
 
 **Location:** `src/hooks/`
 
@@ -688,12 +735,12 @@ if (!hasFeatureAccess(productId, 'partners')) {
 
 ### Edge Functions
 
-| Function | Zweck | Secret |
-|----------|-------|--------|
-| `ai-chat` | Claude 3.5 Sonnet Chatbot | ANTHROPIC_API_KEY |
-| `send-email` | E-Mail-Versand (Benachrichtigungen) | (TBD) |
-| `generate-invoice-pdf` | PDF-Generierung für Rechnungen | - |
-| `stripe-webhook` | Stripe Payment Webhooks | (TBD) |
+| Function               | Zweck                               | Secret            |
+| ---------------------- | ----------------------------------- | ----------------- |
+| `ai-chat`              | Claude 3.5 Sonnet Chatbot           | ANTHROPIC_API_KEY |
+| `send-email`           | E-Mail-Versand (Benachrichtigungen) | (TBD)             |
+| `generate-invoice-pdf` | PDF-Generierung für Rechnungen      | -                 |
+| `stripe-webhook`       | Stripe Payment Webhooks             | (TBD)             |
 
 **Location:** `supabase/functions/`
 
@@ -704,6 +751,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 **Routing-Datei:** `src/App.tsx`
 
 ### Public Routes (ohne Auth)
+
 - `/` - Home/Landingpage (Marketing)
 - `/pricing` - Pricing-Seite (Marketing)
 - `/contact` - Kontakt-Formular (Marketing)
@@ -714,6 +762,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 - `/auth` - Login/Registrierung
 
 ### Protected Routes (mit Auth)
+
 - `/dashboard` (Alias für `/`) - Master-Dashboard
 - `/auftraege` - Auftrags-Verwaltung
 - `/fahrer` - Fahrer & Fahrzeuge (Zusammengeführt)
@@ -726,6 +775,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 - `/einstellungen` - Einstellungen (Profil, Unternehmen, Abo)
 
 ### Protected Routes (Business+)
+
 - `/partner` - Partner-Netzwerk
 - `/statistiken` - Statistiken & Reports
 - `/kommunikation` - Team-Chat
@@ -734,6 +784,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 - `/landingpage` - Landingpage-Konfigurator (erweitert)
 
 ### Protected Routes (Enterprise)
+
 - `/landingpage` - White-Label Landingpages
 
 **Navigation Guard:** `src/components/ProtectedRoute.tsx`
@@ -747,6 +798,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### 1. Registrierungs-Workflow (FUNKTIONIERT)
 
 **Schritte:**
+
 1. User öffnet `/auth` oder `/auth?tariff=business&billing=monthly`
 2. Klickt auf "Registrieren"
 3. Füllt Registrierungsformular aus (Vorname, Nachname, E-Mail, Passwort, Firmenname)
@@ -766,6 +818,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### 2. Login-Workflow (FUNKTIONIERT)
 
 **Schritte:**
+
 1. User öffnet `/auth`
 2. Gibt E-Mail & Passwort ein
 3. System validiert gegen `auth.users`
@@ -780,6 +833,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### 3. Passwort-Vergessen-Workflow (FUNKTIONIERT)
 
 **Schritte:**
+
 1. User klickt "Passwort vergessen" auf `/auth`
 2. Gibt E-Mail ein
 3. System sendet Reset-Link via Supabase Auth
@@ -796,6 +850,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### 4. Auftragserstellung & Zuweisung (FUNKTIONIERT)
 
 **Schritte:**
+
 1. User klickt "Neuer Auftrag" (Dashboard oder `/auftraege`)
 2. Dialog öffnet sich mit Formular
 3. User füllt Pflichtfelder aus (Kunde, Abholung, Ziel, Datum, Preis)
@@ -814,6 +869,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### 5. Rechnungserstellung aus Auftrag (FUNKTIONIERT)
 
 **Schritte:**
+
 1. User öffnet Auftrag-Details
 2. Klickt "Rechnung erstellen"
 3. System pre-fills Rechnung mit Auftragsdaten:
@@ -835,6 +891,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 ### DSGVO (Datenschutz-Grundverordnung)
 
 **Umsetzung:**
+
 - ✅ Datenschutzerklärung (`/datenschutz`)
 - ✅ Einwilligung bei Registrierung (Checkboxen)
 - ✅ Recht auf Auskunft (Export-Funktion)
@@ -845,6 +902,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 - ✅ 2-Faktor-Authentifizierung (optional aktivierbar)
 
 **Pflicht-Links auf ALLEN Seiten:**
+
 - Footer: Impressum, Datenschutz, AGB
 - Registrierung: Checkboxen mit Links zu Datenschutz & AGB
 
@@ -857,11 +915,13 @@ if (!hasFeatureAccess(productId, 'partners')) {
 **Vorgabe:** Auftragsdaten müssen 10 Jahre aufbewahrt werden.
 
 **Umsetzung:**
+
 - ✅ Soft-Delete bei Aufträgen (nur `archived` Flag, keine physische Löschung)
 - ✅ Automatische Löschung nach 10 Jahren (via Cron-Job)
 - ✅ Hinweis im UI: "Gemäß PBefG § 51 werden Auftragsdaten 10 Jahre aufbewahrt"
 
-**Implementation:** 
+**Implementation:**
+
 - Soft-Delete: `src/hooks/use-bookings.ts`
 - Hinweis: `src/pages/Auftraege.tsx`, `src/pages/Rechnungen.tsx`
 
@@ -872,6 +932,7 @@ if (!hasFeatureAccess(productId, 'partners')) {
 **Vorgabe:** Rechnungen müssen 10 Jahre aufbewahrt werden.
 
 **Umsetzung:**
+
 - ✅ Soft-Delete bei Rechnungen
 - ✅ Automatische Löschung nach 10 Jahren
 - ✅ Export-Funktion für Steuerberater (DATEV-Format)
@@ -899,24 +960,26 @@ if (!hasFeatureAccess(productId, 'partners')) {
 
 ```typescript
 export const KERNFARBEN = {
-  dunkelblau: '#323D5E',    // Primary Brand Color
-  beige: '#EADEBD',         // Accent Color
-  weiss: '#FFFFFF',         // White
-  canvas: '#F9FAFB',        // Background (gray-50)
-  text_primary: '#111827',  // Headlines, Prices (gray-900)
-  text_secondary: '#374151', // Body Text (gray-700)
-  text_tertiary: '#6B7280',  // Sub-Text (gray-500)
-  border_neutral: '#E5E7EB', // Borders (gray-200)
-  border_neutral_soft: 'rgba(229, 231, 235, 0.8)',
+  dunkelblau: "#323D5E", // Primary Brand Color
+  beige: "#EADEBD", // Accent Color
+  weiss: "#FFFFFF", // White
+  canvas: "#F9FAFB", // Background (gray-50)
+  text_primary: "#111827", // Headlines, Prices (gray-900)
+  text_secondary: "#374151", // Body Text (gray-700)
+  text_tertiary: "#6B7280", // Sub-Text (gray-500)
+  border_neutral: "#E5E7EB", // Borders (gray-200)
+  border_neutral_soft: "rgba(229, 231, 235, 0.8)",
 } as const;
 ```
 
 **VERBOTEN:**
+
 - ❌ Direkte Hex-Werte in Components (`#111827`)
 - ❌ Tailwind Color Classes (`text-gray-900`)
 - ❌ Inline-Styles ohne KERNFARBEN-Referenz
 
 **PFLICHT:**
+
 ```tsx
 import { KERNFARBEN } from '@/lib/design-system/pricing-colors';
 style={{ color: KERNFARBEN.text_primary }}
@@ -942,6 +1005,7 @@ style={{ color: KERNFARBEN.text_primary }}
 ```
 
 **Font Sizes (Fluid Typography):**
+
 - H1: `text-5xl md:text-6xl` (48px → 60px)
 - H2: `text-4xl md:text-5xl` (36px → 48px)
 - H3: `text-2xl` (24px)
@@ -949,6 +1013,7 @@ style={{ color: KERNFARBEN.text_primary }}
 - Small: `text-sm` (14px)
 
 **Text-Wrapping:**
+
 - Headlines: `textWrap: 'balance'`
 - Body Text: `textWrap: 'pretty'`
 
@@ -959,21 +1024,22 @@ style={{ color: KERNFARBEN.text_primary }}
 **Datei:** `docs/SPACING_SYSTEM_V18.5.1.md`
 
 **Global Standards:**
+
 ```tsx
 // Header
-className="h-14 sm:h-16"
+className = "h-14 sm:h-16";
 
 // Main Content
-className="pt-14 sm:pt-16 pb-16 sm:pb-20"
+className = "pt-14 sm:pt-16 pb-16 sm:pb-20";
 
 // Footer
-className="py-3 sm:py-4"
+className = "py-3 sm:py-4";
 
 // Section Spacing
-className="py-20 md:py-24"
+className = "py-20 md:py-24";
 
 // Card Padding
-className="p-6 md:p-8"
+className = "p-6 md:p-8";
 ```
 
 ---
@@ -1045,8 +1111,8 @@ className="p-6 md:p-8"
 
 ```tsx
 // ✅ RICHTIG - V26Link verwenden
-import { V26Link } from '@/components/design-system/V26Link';
-<V26Link href="/pricing">Zu den Preisen</V26Link>
+import { V26Link } from "@/components/design-system/V26Link";
+<V26Link href="/pricing">Zu den Preisen</V26Link>;
 
 // Hover-Effekt: opacity-80 statt underline
 ```
@@ -1056,6 +1122,7 @@ import { V26Link } from '@/components/design-system/V26Link';
 ### Visueller Rhythmus (Marketing-Seiten)
 
 **Pattern (von oben nach unten):**
+
 ```
 Hero Section       → bg-dunkelblau (Gradient)
 Features           → bg-canvas
@@ -1072,6 +1139,7 @@ Final CTA          → bg-canvas
 ### Hero-Bereich Vorgaben
 
 **ZWINGEND für alle Marketing-Seiten:**
+
 1. **Professional Gradient** statt Video (Dunkelblau-Töne)
 2. **Geometrisches Pattern** (subtil, 5% Opacity)
 3. **Glow-Effekte** (Beige-Akzente für Tiefe)
@@ -1091,18 +1159,19 @@ Final CTA          → bg-canvas
 
 ### Tone of Voice
 
-| Dimension | Ausprägung |
-|-----------|------------|
-| **Formalität** | Professionell, aber zugänglich (Siezen) |
-| **Humor** | Zurückhaltend (keine Witze) |
+| Dimension        | Ausprägung                                |
+| ---------------- | ----------------------------------------- |
+| **Formalität**   | Professionell, aber zugänglich (Siezen)   |
+| **Humor**        | Zurückhaltend (keine Witze)               |
 | **Enthusiasmus** | Moderat (positiv, aber nicht übertrieben) |
-| **Respekt** | Hoch (Kunde ist Partner) |
+| **Respekt**      | Hoch (Kunde ist Partner)                  |
 
 ### Content Writing Rules
 
 **Datei:** `docs/CONTENT_WRITING_STANDARDS_V26.0.md`
 
 **Kernprinzipien:**
+
 1. **Prägnanz**: Kurze, klare Sätze (max. 20 Wörter)
 2. **Direkte Ansprache**: Sie-Form, aktive Verben
 3. **Nutzen vor Features**: Konkreter Vorteil zuerst
@@ -1110,6 +1179,7 @@ Final CTA          → bg-canvas
 5. **Professionell aber zugänglich**: Fachbegriffe nur wenn nötig
 
 **Headline-Struktur:**
+
 - H1: 3-6 Worte, Punkt-Sätze (z.B. "Klar. Fair. Zukunftssicher.")
 - H2: 2-5 Worte, Nomen-Konstruktion
 - H3: 2-6 Worte, Feature/Produkt-Name
@@ -1117,6 +1187,7 @@ Final CTA          → bg-canvas
 ### Verbotene Phrasen
 
 ❌ **STRIKT VERBOTEN:**
+
 - "Kostenlos" (außer bei echter Gratis-Funktion)
 - "Revolutionär"
 - "Einzigartig"
@@ -1127,6 +1198,7 @@ Final CTA          → bg-canvas
 - "Nur heute: 50% Rabatt!"
 
 ✅ **EMPFOHLEN:**
+
 - "Entwickelt für moderne Unternehmen"
 - "Über 500 Unternehmen vertrauen uns"
 - "Transparent und übersichtlich"
@@ -1140,14 +1212,14 @@ Final CTA          → bg-canvas
 
 ## 6.1 Fertiggestellte Bereiche (DESIGN-FROZEN)
 
-| Bereich | Status | Design-Lock | Letzte Änderung |
-|---------|--------|-------------|-----------------|
-| `/` (Home) | ✅ FERTIG | 🔒 LOCKED | 2025-10-26 |
-| `/pricing` | ✅ FERTIG | 🔒 LOCKED | 2025-01-26 |
-| `/auftraege` | ✅ FERTIG | 🔒 LOCKED | 2025-01-20 |
-| `/fahrer` | ✅ FERTIG | 🔒 LOCKED | 2025-01-20 |
-| `/partner` | ✅ FERTIG | 🔒 LOCKED | 2025-01-20 |
-| Header/Footer | ✅ FERTIG | 🔒 LOCKED | 2025-01-15 |
+| Bereich       | Status    | Design-Lock | Letzte Änderung |
+| ------------- | --------- | ----------- | --------------- |
+| `/` (Home)    | ✅ FERTIG | 🔒 LOCKED   | 2025-10-26      |
+| `/pricing`    | ✅ FERTIG | 🔒 LOCKED   | 2025-01-26      |
+| `/auftraege`  | ✅ FERTIG | 🔒 LOCKED   | 2025-01-20      |
+| `/fahrer`     | ✅ FERTIG | 🔒 LOCKED   | 2025-01-20      |
+| `/partner`    | ✅ FERTIG | 🔒 LOCKED   | 2025-01-20      |
+| Header/Footer | ✅ FERTIG | 🔒 LOCKED   | 2025-01-15      |
 
 **Design-Lock Regel:** Nach Fertigstellung sind AUSNAHMSLOS nur noch technische Optimierungen, Fixes und Stabilisierungen erlaubt. Keine Layout- oder Design-Änderungen ohne explizite Freigabe!
 
@@ -1155,25 +1227,27 @@ Final CTA          → bg-canvas
 
 ## 6.2 In Bearbeitung
 
-| Bereich | Status | Priorität | Nächster Schritt |
-|---------|--------|-----------|------------------|
-| `/contact` | 🔄 IN ARBEIT | Mittel | V26.0 Migration |
-| `/faq` | 🔄 IN ARBEIT | Mittel | V26.0 Migration |
-| `/impressum` | 🔄 IN ARBEIT | Niedrig | V26.0 Migration |
-| `/datenschutz` | 🔄 IN ARBEIT | Niedrig | V26.0 Migration |
-| `/agb` | 🔄 IN ARBEIT | Niedrig | V26.0 Migration |
+| Bereich        | Status       | Priorität | Nächster Schritt |
+| -------------- | ------------ | --------- | ---------------- |
+| `/contact`     | 🔄 IN ARBEIT | Mittel    | V26.0 Migration  |
+| `/faq`         | 🔄 IN ARBEIT | Mittel    | V26.0 Migration  |
+| `/impressum`   | 🔄 IN ARBEIT | Niedrig   | V26.0 Migration  |
+| `/datenschutz` | 🔄 IN ARBEIT | Niedrig   | V26.0 Migration  |
+| `/agb`         | 🔄 IN ARBEIT | Niedrig   | V26.0 Migration  |
 
 ---
 
 ## 6.3 Offene Punkte & Gaps
 
 ### Kritische Gaps (Prio 1 - SOFORT)
+
 - [ ] Stripe Integration (Subscriptions, Invoices, Webhooks)
 - [ ] E-Mail-Versand (Transactional Emails via Edge Function)
 - [ ] PDF-Generierung (Rechnungen, Angebote)
 - [ ] Push-Notifications (für Fahrer-App)
 
 ### Wichtige Gaps (Prio 2 - DIESE WOCHE)
+
 - [ ] GPS-Tracking Implementation (Business+)
 - [ ] HERE Maps Integration (Business+)
 - [ ] Weather API Integration (Business+)
@@ -1181,6 +1255,7 @@ Final CTA          → bg-canvas
 - [ ] n8n Workflow-Automatisierung (Business+)
 
 ### Nice-to-Have Gaps (Prio 3 - NÄCHSTE SPRINT)
+
 - [ ] Mobile App (iOS/Android) für Fahrer
 - [ ] Offline-Modus (PWA)
 - [ ] Dark Mode (vollständig)
@@ -1194,6 +1269,7 @@ Final CTA          → bg-canvas
 **Bug-Tracking:** Alle Bugs werden in separaten Error-Report-Dokumenten festgehalten.
 
 **Beispiele:**
+
 - ✅ GELÖST: Logo-Overflow (siehe `LOGO_OVERFLOW_FIX_V18.5.1_COMPLETE.md`)
 - ✅ GELÖST: Badge-Sizing (siehe `ERROR_REPORT_BADGE_FINAL_V18.5.1.md`)
 - ✅ GELÖST: Routing-Issues (siehe `ROUTING_FIX_REPORT_V18.5.1.md`)
@@ -1206,22 +1282,22 @@ Final CTA          → bg-canvas
 
 ### Feature-Vollständigkeit
 
-| Feature | SOLL | IST | Gap | Deadline |
-|---------|------|-----|-----|----------|
-| Auftragsverwaltung | 100% | 100% | - | ✅ |
-| Fahrer-Management | 100% | 100% | - | ✅ |
-| Rechnungsstellung | 100% | 95% | PDF-Gen | TBD |
-| Partner-Netzwerk | 100% | 90% | Provisionen | TBD |
-| GPS-Tracking | 100% | 0% | Komplett | TBD |
+| Feature            | SOLL | IST  | Gap         | Deadline |
+| ------------------ | ---- | ---- | ----------- | -------- |
+| Auftragsverwaltung | 100% | 100% | -           | ✅       |
+| Fahrer-Management  | 100% | 100% | -           | ✅       |
+| Rechnungsstellung  | 100% | 95%  | PDF-Gen     | TBD      |
+| Partner-Netzwerk   | 100% | 90%  | Provisionen | TBD      |
+| GPS-Tracking       | 100% | 0%   | Komplett    | TBD      |
 
 ### Design-System-Compliance
 
-| Bereich | SOLL | IST | Gap | Deadline |
-|---------|------|-----|-----|----------|
-| KERNFARBEN | 100% | 100% | - | ✅ |
-| font-sans | 100% | 100% | - | ✅ |
-| V26 Components | 100% | 90% | Alte Seiten | TBD |
-| Text Alignment | 100% | 100% | - | ✅ |
+| Bereich        | SOLL | IST  | Gap         | Deadline |
+| -------------- | ---- | ---- | ----------- | -------- |
+| KERNFARBEN     | 100% | 100% | -           | ✅       |
+| font-sans      | 100% | 100% | -           | ✅       |
+| V26 Components | 100% | 90%  | Alte Seiten | TBD      |
+| Text Alignment | 100% | 100% | -           | ✅       |
 
 ---
 
@@ -1230,12 +1306,14 @@ Final CTA          → bg-canvas
 ## 7.1 Kritische Code-Dateien
 
 ### Frontend Core
+
 - `src/App.tsx` - Routing & App-Initialisierung
 - `src/main.tsx` - Entry Point
 - `src/index.css` - Design Tokens & Global Styles
 - `tailwind.config.ts` - Tailwind Configuration
 
 ### Layout System
+
 - `src/components/layout/DashboardLayout.tsx` - App-Layout (Dashboard)
 - `src/components/layout/MarketingLayout.tsx` - Marketing-Layout (Home, Pricing)
 - `src/components/layout/Header.tsx` - Unified Header
@@ -1243,6 +1321,7 @@ Final CTA          → bg-canvas
 - `src/components/layout/Sidebar.tsx` - Navigation Sidebar
 
 ### Design System
+
 - `src/lib/design-system/pricing-colors.ts` - KERNFARBEN
 - `src/components/design-system/V26Button.tsx` - Standard-Buttons
 - `src/components/design-system/V26IconBox.tsx` - Icon-Container
@@ -1250,6 +1329,7 @@ Final CTA          → bg-canvas
 - `src/components/design-system/V26Link.tsx` - Links (ohne Underline)
 
 ### Smart Templates
+
 - `src/components/smart-templates/index.ts` - Exports
 - `src/components/smart-templates/SectionHeader.tsx` - Section Headers
 - `src/components/smart-templates/DataGrid.tsx` - Responsive Grids
@@ -1258,6 +1338,7 @@ Final CTA          → bg-canvas
 - `src/components/smart-templates/ActionButton.tsx` - Action Buttons
 
 ### Data Management
+
 - `src/lib/tariff/tariff-definitions.ts` - Tarif-System (Single Source of Truth)
 - `src/data/pricing-tiers.ts` - Pricing-Daten (Legacy, migriert zu tariff-definitions)
 - `src/data/faq-data.ts` - FAQ-Daten
@@ -1265,6 +1346,7 @@ Final CTA          → bg-canvas
 - `src/config/content.config.ts` - Content-Verwaltung
 
 ### Authentication & Authorization
+
 - `src/hooks/use-auth.ts` - Auth Hook
 - `src/hooks/use-subscription.ts` - Subscription Hook
 - `src/components/ProtectedRoute.tsx` - Route Guard
@@ -1275,9 +1357,11 @@ Final CTA          → bg-canvas
 ## 7.2 Backend-Struktur
 
 ### Supabase Migrations
+
 **Location:** `supabase/migrations/`
 
 **Wichtigste Migrations:**
+
 - `*_create_profiles.sql` - User-Profile
 - `*_create_companies.sql` - Unternehmen (Multi-Tenancy)
 - `*_create_bookings.sql` - Aufträge
@@ -1291,20 +1375,22 @@ Final CTA          → bg-canvas
 ---
 
 ### Edge Functions
+
 **Location:** `supabase/functions/`
 
-| Function | Status | Beschreibung |
-|----------|--------|--------------|
-| `ai-chat` | ✅ AKTIV | Claude 3.5 Sonnet Chatbot |
-| `send-email` | 🔄 TBD | E-Mail-Versand |
-| `generate-invoice-pdf` | 🔄 TBD | PDF-Generierung |
-| `stripe-webhook` | 🔄 TBD | Stripe Payments |
+| Function               | Status   | Beschreibung              |
+| ---------------------- | -------- | ------------------------- |
+| `ai-chat`              | ✅ AKTIV | Claude 3.5 Sonnet Chatbot |
+| `send-email`           | 🔄 TBD   | E-Mail-Versand            |
+| `generate-invoice-pdf` | 🔄 TBD   | PDF-Generierung           |
+| `stripe-webhook`       | 🔄 TBD   | Stripe Payments           |
 
 ---
 
 ## 7.3 Secrets Management
 
 **Konfigurierte Secrets (Lovable Cloud):**
+
 - `ANTHROPIC_API_KEY` - Claude 3.5 Sonnet (AI-Chat)
 - (Weitere TBD)
 
@@ -1319,30 +1405,35 @@ Final CTA          → bg-canvas
 **Datei:** `docs/QUALITAETS_STANDARDS_V18.5.0.md`
 
 ### Code-Qualität
+
 - ✅ 0 TypeScript Errors
 - ✅ 100% Type-Safe
 - ✅ Zentralisierte Utils (keine Inline-Formatierung)
 - ✅ DRY-Prinzip (Don't Repeat Yourself)
 
 ### Design-Qualität
+
 - ✅ 100% Design-System Compliance
 - ✅ Pixelgenaue Umsetzung
 - ✅ WCAG 2.1 AA Kontraste (min 4.5:1)
 - ✅ Mobile-First Responsive
 
 ### Security-Qualität
+
 - ✅ RLS auf ALLEN Tabellen
 - ✅ company_id in ALLEN Queries
 - ✅ Soft-Delete statt Hard-Delete
 - ✅ Input-Validation (Zod)
 
 ### Performance-Qualität
+
 - ✅ React Query Caching
 - ✅ Lazy-Loading
 - ✅ API-Caching (30s-30min)
 - ✅ Bundle-Size <1.5MB
 
 ### UX-Qualität
+
 - ✅ Loading-States überall
 - ✅ Error-Handling mit Toast
 - ✅ Optimistic UI-Updates
@@ -1357,6 +1448,7 @@ Final CTA          → bg-canvas
 **Datei:** `tests/e2e/visual/screenshots.spec.ts`
 
 **Test-Coverage:**
+
 - Desktop Screenshots (alle Haupt-Seiten)
 - Mobile Screenshots (iPhone 12)
 - Tablet Screenshots (iPad Pro)
@@ -1372,6 +1464,7 @@ Final CTA          → bg-canvas
 **Zweck:** Verhindern von Layout-Breaks
 
 **Workflow:**
+
 1. Baseline-Screenshots erstellen
 2. Code-Änderungen durchführen
 3. Neue Screenshots erstellen
@@ -1383,6 +1476,7 @@ Final CTA          → bg-canvas
 ## 8.3 Pre-Deployment Checklist
 
 **PFLICHT vor JEDEM Deployment:**
+
 - [ ] TypeScript: 0 Errors
 - [ ] Design-System: 0 Violations
 - [ ] Security-Scan: 0 CRITICAL
@@ -1402,6 +1496,7 @@ Final CTA          → bg-canvas
 **Datei:** `docs/NEXIFY_WORKFLOW_PROMPT_V19.0.0.md`
 
 ### Phase 1: SELBSTREFLEXION & CODE-AUDIT
+
 - Governance-Check (Corporate Governance, Kommunikation, Design)
 - Code-Prüfung (Screenshots, Fehler-Identifikation)
 - Fehler-Dokumentation (FEHLER_LOG erstellen)
@@ -1409,11 +1504,13 @@ Final CTA          → bg-canvas
 - Design-System-Compliance Check
 
 ### Phase 2: IST-ZUSTAND & PLANUNG
+
 - IST-Analyse (Layout Freeze Check, ToV Check)
 - Planung (Design-System, Kommunikations-Stil)
 - Präsentation (Freigabe-Prozess mit Review)
 
 ### Phase 3: IMPLEMENTATION
+
 - Design-System-Compliance Check
 - Kommunikations-Check (ToV, Markenwerte)
 - Umsetzung (Parallel Tool-Calls)
@@ -1427,6 +1524,7 @@ Final CTA          → bg-canvas
 **Datei:** `docs/LAYOUT_FREEZE_PROTECTION_V18.5.1.md`
 
 **Geschützte Seiten:**
+
 - `/auftraege` (Index.tsx wenn Dashboard)
 - `/fahrer`
 - `/partner`
@@ -1434,9 +1532,10 @@ Final CTA          → bg-canvas
 **Regel:** KEINE Layout- oder Design-Änderungen ohne explizite Freigabe!
 
 **Check vor Änderung:**
+
 ```typescript
-if (file === 'src/pages/Auftraege.tsx') {
-  if (requestType.includes('layout') || requestType.includes('design')) {
+if (file === "src/pages/Auftraege.tsx") {
+  if (requestType.includes("layout") || requestType.includes("design")) {
     STOP_IMMEDIATELY();
     WARN_USER_ABOUT_LAYOUT_FREEZE();
     WAIT_FOR_EXPLICIT_APPROVAL();
@@ -1451,6 +1550,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 **Datei:** `docs/DASHBOARD_LAYOUT_RULE_V18.5.1.md` (referenced)
 
 **ZWINGEND für alle Dashboards:**
+
 - Alle Cards sind harmonisch angeordnet
 - KEINE weißen Lücken zwischen Cards
 - Bündig abschließend (keine halbhohen Cards)
@@ -1469,6 +1569,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ### Route-Struktur
 
 **Marketing-Routes (Public):**
+
 ```
 / → src/pages/Home.tsx (Landingpage)
 /pricing → src/pages/Pricing.tsx
@@ -1480,6 +1581,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ```
 
 **App-Routes (Protected):**
+
 ```
 /dashboard → src/pages/Index.tsx (Master-Dashboard)
 /auftraege → src/pages/Auftraege.tsx
@@ -1494,6 +1596,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ```
 
 **Business+ Routes (Protected + Feature-Gate):**
+
 ```
 /partner → src/pages/Partner.tsx
 /statistiken → src/pages/Statistiken.tsx
@@ -1504,6 +1607,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ```
 
 **Special Routes:**
+
 ```
 /auth → src/pages/Auth.tsx (Login/Register)
 /portal → src/pages/Portal.tsx (Kunden-Portal)
@@ -1517,6 +1621,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ## 10.2 Navigation-Pattern
 
 **Sidebar-Navigation (App):**
+
 - Dashboard
 - Aufträge
 - Fahrer & Fahrzeuge
@@ -1528,6 +1633,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 - Mehr (Dropdown: Dokumente, Schichtzettel, Kostenstellen, Einstellungen)
 
 **Header-Navigation (Marketing):**
+
 - Home
 - Preise
 - Funktionen (TBD)
@@ -1542,6 +1648,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ## 11.1 Core Tables
 
 ### profiles
+
 ```sql
 - id (UUID, PK)
 - user_id (UUID, FK auth.users)
@@ -1555,6 +1662,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ```
 
 ### companies
+
 ```sql
 - id (UUID, PK)
 - name (TEXT)
@@ -1565,6 +1673,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ```
 
 ### bookings
+
 ```sql
 - id (UUID, PK)
 - company_id (UUID, FK)
@@ -1586,6 +1695,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ```
 
 ### drivers
+
 ```sql
 - id (UUID, PK)
 - company_id (UUID, FK)
@@ -1605,6 +1715,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ```
 
 ### vehicles
+
 ```sql
 - id (UUID, PK)
 - company_id (UUID, FK)
@@ -1624,6 +1735,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ```
 
 ### customers
+
 ```sql
 - id (UUID, PK)
 - company_id (UUID, FK)
@@ -1640,6 +1752,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ```
 
 ### invoices
+
 ```sql
 - id (UUID, PK)
 - company_id (UUID, FK)
@@ -1658,6 +1771,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 ```
 
 ### partners
+
 ```sql
 - id (UUID, PK)
 - company_id (UUID, FK)
@@ -1678,6 +1792,7 @@ if (file === 'src/pages/Auftraege.tsx') {
 **Grundregel:** ALLE Policies MÜSSEN `company_id = auth.uid_company_id()` prüfen!
 
 **Standard-Policy-Set pro Tabelle:**
+
 ```sql
 -- SELECT
 CREATE POLICY "Users can view own company data"
@@ -1708,42 +1823,42 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 
 ## 12.1 Core System Docs
 
-| Dokument | Zweck | Priorität |
-|----------|-------|-----------|
-| `NEXIFY_EIGENSTÄNDIGE_ANALYSE_VORGABE_V18.5.1.md` | Eigenständige Entscheidungsfindung | ⭐⭐⭐ |
-| `MYDISPATCH_AI_AGENT_META_PROMPT_V18.5.1.md` | Agent-Identität & Workflow | ⭐⭐⭐ |
-| `NEXIFY_WORKFLOW_PROMPT_V19.0.0.md` | 3-Phasen-Workflow | ⭐⭐⭐ |
-| `QUALITAETS_STANDARDS_V18.5.0.md` | Quality Gates | ⭐⭐⭐ |
+| Dokument                                          | Zweck                              | Priorität |
+| ------------------------------------------------- | ---------------------------------- | --------- |
+| `NEXIFY_EIGENSTÄNDIGE_ANALYSE_VORGABE_V18.5.1.md` | Eigenständige Entscheidungsfindung | ⭐⭐⭐    |
+| `MYDISPATCH_AI_AGENT_META_PROMPT_V18.5.1.md`      | Agent-Identität & Workflow         | ⭐⭐⭐    |
+| `NEXIFY_WORKFLOW_PROMPT_V19.0.0.md`               | 3-Phasen-Workflow                  | ⭐⭐⭐    |
+| `QUALITAETS_STANDARDS_V18.5.0.md`                 | Quality Gates                      | ⭐⭐⭐    |
 
 ## 12.2 Design & CI Docs
 
-| Dokument | Zweck | Priorität |
-|----------|-------|-----------|
-| `PRICING_DESIGN_SYSTEM_V26.0.md` | Design-System (KERNFARBEN, etc.) | ⭐⭐⭐ |
-| `V26_COMPONENT_LIBRARY.md` | Wiederverwendbare Komponenten | ⭐⭐⭐ |
-| `TYPOGRAPHY_SYSTEM_V26.md` | Schriftarten & Größen | ⭐⭐ |
-| `SPACING_SYSTEM_V18.5.1.md` | Abstände & Layout | ⭐⭐ |
-| `TEXT_ALIGNMENT_SYSTEM_V26.0.md` | Text-Ausrichtungs-Regel | ⭐⭐ |
-| `CONTENT_WRITING_STANDARDS_V26.0.md` | Content-Regeln | ⭐⭐ |
-| `KOMMUNIKATION_TONALITY_V19.0.0.md` | Tone of Voice | ⭐⭐⭐ |
-| `SYSTEM_DESIGN_PRINCIPLES_V18.5.0.md` | Link-Styles, etc. | ⭐⭐ |
+| Dokument                              | Zweck                            | Priorität |
+| ------------------------------------- | -------------------------------- | --------- |
+| `PRICING_DESIGN_SYSTEM_V26.0.md`      | Design-System (KERNFARBEN, etc.) | ⭐⭐⭐    |
+| `V26_COMPONENT_LIBRARY.md`            | Wiederverwendbare Komponenten    | ⭐⭐⭐    |
+| `TYPOGRAPHY_SYSTEM_V26.md`            | Schriftarten & Größen            | ⭐⭐      |
+| `SPACING_SYSTEM_V18.5.1.md`           | Abstände & Layout                | ⭐⭐      |
+| `TEXT_ALIGNMENT_SYSTEM_V26.0.md`      | Text-Ausrichtungs-Regel          | ⭐⭐      |
+| `CONTENT_WRITING_STANDARDS_V26.0.md`  | Content-Regeln                   | ⭐⭐      |
+| `KOMMUNIKATION_TONALITY_V19.0.0.md`   | Tone of Voice                    | ⭐⭐⭐    |
+| `SYSTEM_DESIGN_PRINCIPLES_V18.5.0.md` | Link-Styles, etc.                | ⭐⭐      |
 
 ## 12.3 Architecture Docs
 
-| Dokument | Zweck | Priorität |
-|----------|-------|-----------|
-| `FRONTEND_ARCHITECTURE_V18.5.1.md` | Frontend-Struktur | ⭐⭐⭐ |
-| `BACKEND_FRONTEND_INTEGRATION_V18.5.1.md` | Integration | ⭐⭐⭐ |
-| `ROUTING_SYSTEM_V18.5.1.md` | Routing & Navigation | ⭐⭐ |
+| Dokument                                  | Zweck                | Priorität |
+| ----------------------------------------- | -------------------- | --------- |
+| `FRONTEND_ARCHITECTURE_V18.5.1.md`        | Frontend-Struktur    | ⭐⭐⭐    |
+| `BACKEND_FRONTEND_INTEGRATION_V18.5.1.md` | Integration          | ⭐⭐⭐    |
+| `ROUTING_SYSTEM_V18.5.1.md`               | Routing & Navigation | ⭐⭐      |
 
 ## 12.4 Error & Fix Docs
 
-| Dokument | Zweck |
-|----------|-------|
-| `SPRINT_43_HERO_FINAL_FIX.md` | Hero-Section Fixes |
-| `ERROR_REPORT_BADGE_FINAL_V18.5.1.md` | Badge Sizing Fix |
-| `LOGO_OVERFLOW_FIX_V18.5.1_COMPLETE.md` | Logo-Overflow Fix |
-| `ROUTING_FIX_REPORT_V18.5.1.md` | Routing Issues Fix |
+| Dokument                                | Zweck              |
+| --------------------------------------- | ------------------ |
+| `SPRINT_43_HERO_FINAL_FIX.md`           | Hero-Section Fixes |
+| `ERROR_REPORT_BADGE_FINAL_V18.5.1.md`   | Badge Sizing Fix   |
+| `LOGO_OVERFLOW_FIX_V18.5.1_COMPLETE.md` | Logo-Overflow Fix  |
+| `ROUTING_FIX_REPORT_V18.5.1.md`         | Routing Issues Fix |
 
 ---
 
@@ -1758,6 +1873,7 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 **Output:** `dist/`
 
 **Environment:**
+
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_PUBLISHABLE_KEY`
 - `VITE_SUPABASE_PROJECT_ID`
@@ -1767,11 +1883,13 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ## 13.2 Monitoring & Logging
 
 **Supabase Analytics:**
+
 - Auth Logs
 - Database Logs
 - Edge Function Logs
 
 **Frontend Monitoring:**
+
 - Sentry (Error Tracking)
 - Web Vitals (Performance)
 
@@ -1782,16 +1900,19 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ## 14.1 Nächste Schritte (Q1 2025)
 
 **Prio 1:**
+
 - [ ] Stripe Integration (Payments)
 - [ ] E-Mail-System (Transactional)
 - [ ] PDF-Generierung (Rechnungen)
 
 **Prio 2:**
+
 - [ ] GPS-Tracking (Business+)
 - [ ] HERE Maps (Business+)
 - [ ] Weather/Traffic APIs (Business+)
 
 **Prio 3:**
+
 - [ ] Mobile Apps (iOS/Android)
 - [ ] Dark Mode (vollständig)
 - [ ] Multi-Language
@@ -1836,6 +1957,7 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 ## 16.1 Entwicklungs-Team
 
 **NeXify:**
+
 - Inhaber: Pascal
 - Rolle: Lead Development & Product Management
 
@@ -1850,6 +1972,7 @@ USING (company_id = (SELECT company_id FROM profiles WHERE user_id = auth.uid())
 # XVII. CHANGELOG
 
 ## Version 1.0.0 (2025-10-26)
+
 - ✅ Initiale Erstellung der Master-Dokumentation
 - ✅ Konsolidierung aller bestehenden Dokumentationen
 - ✅ Vollständige Feature-Liste aller Tarife

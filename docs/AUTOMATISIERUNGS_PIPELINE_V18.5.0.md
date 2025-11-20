@@ -1,4 +1,5 @@
 # AUTOMATISIERUNGS-PIPELINE V18.5.0
+
 ## MyDispatch Premium+ - CI/CD & Zero-Touch Deployment
 
 > **Version:** 18.5.0  
@@ -53,13 +54,14 @@ TOTAL: ~50min (95% automatisiert)
 ## 🚀 PHASE 1: CODE-GENERIERUNG (AI-GESTÜTZT)
 
 ### 1.1 Feature-Spec Format
+
 ```yaml
 # features/rechnungsverwaltung.yml
 feature:
   name: Rechnungsverwaltung
   category: page
   priority: high
-  
+
 database:
   tables:
     - invoices
@@ -77,14 +79,14 @@ ui:
     - FilterPanel
     - ExportButton
     - StatusIndicator
-  
+
   icons:
     - FileText
     - Download
     - Filter
     - Search
     - Eye
-  
+
   colors:
     - primary
     - status-success
@@ -96,7 +98,7 @@ permissions:
     - invoices.read
     - invoices.write
     - invoices.export
-  
+
 ai_prompts:
   model: google/gemini-2.5-flash
   system: |
@@ -105,7 +107,7 @@ ai_prompts:
     Use semantic tokens (NO hardcoded colors).
     Implement RLS-compliant database queries.
     Generate TypeScript with 0 errors.
-  
+
   context:
     - docs/BESTÄTIGUNGS_PROMPT_V18.5.0.md
     - docs/DESIGN_SYSTEM_V18.3.31.md
@@ -113,32 +115,33 @@ ai_prompts:
 ```
 
 ### 1.2 AI-gestützte Code-Generierung
-```typescript
+
+````typescript
 // supabase/functions/generate-feature/index.ts
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 
 serve(async (req) => {
   const { featureSpec } = await req.json();
-  
+
   // 1. Brain-Query: Hole relevante Best Practices
   const context = await brainQuery({
     query: `${featureSpec.category} implementation patterns`,
-    include: ['code-snippets', 'security-rules', 'design-patterns']
+    include: ["code-snippets", "security-rules", "design-patterns"],
   });
-  
+
   // 2. Lovable AI: Generiere Code
   const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
     headers: {
-      "Authorization": `Bearer ${Deno.env.get("LOVABLE_API_KEY")}`,
-      "Content-Type": "application/json"
+      Authorization: `Bearer ${Deno.env.get("LOVABLE_API_KEY")}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       model: featureSpec.ai_prompts.model,
       messages: [
         {
           role: "system",
-          content: featureSpec.ai_prompts.system
+          content: featureSpec.ai_prompts.system,
         },
         {
           role: "user",
@@ -164,44 +167,50 @@ serve(async (req) => {
             - RLS-compliant queries (CompanyQuery wrapper)
             - Responsive (mobile-first)
             - WCAG 2.1 AA
-          `
-        }
-      ]
-    })
+          `,
+        },
+      ],
+    }),
   });
-  
+
   const aiResponse = await response.json();
   const generatedCode = aiResponse.choices[0].message.content;
-  
+
   // 3. Parse AI Output
   const files = parseCodeBlocks(generatedCode);
-  
+
   // 4. Validate Generated Code
   const validation = await validateCode(files);
-  
+
   if (!validation.valid) {
-    return new Response(JSON.stringify({
-      error: "Code validation failed",
-      issues: validation.issues
-    }), { status: 400 });
+    return new Response(
+      JSON.stringify({
+        error: "Code validation failed",
+        issues: validation.issues,
+      }),
+      { status: 400 }
+    );
   }
-  
+
   // 5. Return Generated Files
-  return new Response(JSON.stringify({
-    files,
-    metadata: {
-      generatedAt: new Date().toISOString(),
-      model: featureSpec.ai_prompts.model,
-      validated: true
-    }
-  }), { status: 200 });
+  return new Response(
+    JSON.stringify({
+      files,
+      metadata: {
+        generatedAt: new Date().toISOString(),
+        model: featureSpec.ai_prompts.model,
+        validated: true,
+      },
+    }),
+    { status: 200 }
+  );
 });
 
 // Helper: Parse Code Blocks aus AI Response
 function parseCodeBlocks(markdown: string) {
   const files: Record<string, string> = {};
   const codeBlockRegex = /```(\w+)\s*(?:\/\/\s*(.+?)\n)?([\s\S]+?)```/g;
-  
+
   let match;
   while ((match = codeBlockRegex.exec(markdown)) !== null) {
     const [, language, filepath, code] = match;
@@ -209,44 +218,45 @@ function parseCodeBlocks(markdown: string) {
       files[filepath.trim()] = code.trim();
     }
   }
-  
+
   return files;
 }
 
 // Helper: Validate Generated Code
 async function validateCode(files: Record<string, string>) {
   const issues: string[] = [];
-  
+
   for (const [filepath, code] of Object.entries(files)) {
     // Design-System Check
     if (hasHardcodedColors(code)) {
       issues.push(`${filepath}: Hardcoded colors found`);
     }
-    
+
     // RLS Check
-    if (filepath.includes('queries') || filepath.includes('api')) {
-      if (!code.includes('CompanyQuery') && code.includes('supabase.from')) {
+    if (filepath.includes("queries") || filepath.includes("api")) {
+      if (!code.includes("CompanyQuery") && code.includes("supabase.from")) {
         issues.push(`${filepath}: Missing CompanyQuery wrapper (RLS violation)`);
       }
     }
-    
+
     // TypeScript Check (simplified)
-    if (filepath.endsWith('.tsx') || filepath.endsWith('.ts')) {
+    if (filepath.endsWith(".tsx") || filepath.endsWith(".ts")) {
       const tsErrors = await checkTypeScript(code);
       if (tsErrors.length > 0) {
-        issues.push(`${filepath}: TypeScript errors - ${tsErrors.join(', ')}`);
+        issues.push(`${filepath}: TypeScript errors - ${tsErrors.join(", ")}`);
       }
     }
   }
-  
+
   return {
     valid: issues.length === 0,
-    issues
+    issues,
   };
 }
-```
+````
 
 ### 1.3 CLI Tool für Feature-Generierung
+
 ```bash
 # scripts/generate-feature.sh
 #!/bin/bash
@@ -301,6 +311,7 @@ echo "$RESPONSE" | jq -r '.files | keys[]'
 ## 🔍 PHASE 2: VALIDATION LAYER
 
 ### 2.1 Pre-Commit Hooks (Husky)
+
 ```bash
 # .husky/pre-commit
 #!/bin/sh
@@ -347,6 +358,7 @@ echo "✅ All pre-commit checks passed!"
 ```
 
 ### 2.2 Package.json Scripts
+
 ```json
 {
   "scripts": {
@@ -357,7 +369,7 @@ echo "✅ All pre-commit checks passed!"
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "lint": "eslint src --ext .ts,.tsx --max-warnings=0",
     "validate-all": "npm run type-check && npm run design-audit && npm run security-scan",
-    
+
     "generate-feature": "bash scripts/generate-feature.sh",
     "generate-tests": "bash scripts/generate-tests.sh",
     "check-assets": "node scripts/check-assets.js"
@@ -366,52 +378,62 @@ echo "✅ All pre-commit checks passed!"
 ```
 
 ### 2.3 Design-System Audit (Automatisiert)
+
 ```typescript
 // scripts/design-system-audit.js
-import fs from 'fs';
-import path from 'path';
-import { glob } from 'glob';
+import fs from "fs";
+import path from "path";
+import { glob } from "glob";
 
 interface AuditResult {
   file: string;
   line: number;
   issue: string;
-  severity: 'error' | 'warning';
+  severity: "error" | "warning";
 }
 
 const results: AuditResult[] = [];
 
 // Hardcoded Colors
 const colorPatterns = [
-  { regex: /text-(white|black|gray-\d+|red-\d+|blue-\d+|green-\d+)/, message: 'Hardcoded text color' },
-  { regex: /bg-(white|black|gray-\d+|red-\d+|blue-\d+|green-\d+)/, message: 'Hardcoded bg color' },
-  { regex: /border-(white|black|gray-\d+|red-\d+|blue-\d+|green-\d+)/, message: 'Hardcoded border color' },
-  { regex: /text-\[#[0-9a-fA-F]+\]/, message: 'Hardcoded hex color' },
-  { regex: /bg-\[#[0-9a-fA-F]+\]/, message: 'Hardcoded hex color' },
-  { regex: /rgb\(|rgba\(/, message: 'Hardcoded RGB color' }
+  {
+    regex: /text-(white|black|gray-\d+|red-\d+|blue-\d+|green-\d+)/,
+    message: "Hardcoded text color",
+  },
+  { regex: /bg-(white|black|gray-\d+|red-\d+|blue-\d+|green-\d+)/, message: "Hardcoded bg color" },
+  {
+    regex: /border-(white|black|gray-\d+|red-\d+|blue-\d+|green-\d+)/,
+    message: "Hardcoded border color",
+  },
+  { regex: /text-\[#[0-9a-fA-F]+\]/, message: "Hardcoded hex color" },
+  { regex: /bg-\[#[0-9a-fA-F]+\]/, message: "Hardcoded hex color" },
+  { regex: /rgb\(|rgba\(/, message: "Hardcoded RGB color" },
 ];
 
 // Hardcoded Sizes
 const sizePatterns = [
-  { regex: /h-\d+ w-\d+(?!\s*\/)/, message: 'Hardcoded icon size (use iconSizes)' },
-  { regex: /gap-\d+(?!\s*\/)/, message: 'Hardcoded gap (use spacing)' },
-  { regex: /p-\d+(?!\s*\/)/, message: 'Hardcoded padding (use padding)' }
+  { regex: /h-\d+ w-\d+(?!\s*\/)/, message: "Hardcoded icon size (use iconSizes)" },
+  { regex: /gap-\d+(?!\s*\/)/, message: "Hardcoded gap (use spacing)" },
+  { regex: /p-\d+(?!\s*\/)/, message: "Hardcoded padding (use padding)" },
 ];
 
 // Direct Imports
 const importPatterns = [
-  { regex: /import \{ .+ \} from ['"]lucide-react['"]/, message: 'Direct icon import (use ICON_REGISTRY)' }
+  {
+    regex: /import \{ .+ \} from ['"]lucide-react['"]/,
+    message: "Direct icon import (use ICON_REGISTRY)",
+  },
 ];
 
 async function auditFiles() {
-  const files = await glob('src/**/*.{ts,tsx}', {
-    ignore: ['**/*.spec.ts', '**/*.spec.tsx', '**/design-system.ts']
+  const files = await glob("src/**/*.{ts,tsx}", {
+    ignore: ["**/*.spec.ts", "**/*.spec.tsx", "**/design-system.ts"],
   });
-  
+
   for (const file of files) {
-    const content = fs.readFileSync(file, 'utf-8');
-    const lines = content.split('\n');
-    
+    const content = fs.readFileSync(file, "utf-8");
+    const lines = content.split("\n");
+
     lines.forEach((line, index) => {
       // Check Colors
       colorPatterns.forEach(({ regex, message }) => {
@@ -420,11 +442,11 @@ async function auditFiles() {
             file,
             line: index + 1,
             issue: message,
-            severity: 'error'
+            severity: "error",
           });
         }
       });
-      
+
       // Check Sizes
       sizePatterns.forEach(({ regex, message }) => {
         if (regex.test(line)) {
@@ -432,11 +454,11 @@ async function auditFiles() {
             file,
             line: index + 1,
             issue: message,
-            severity: 'warning'
+            severity: "warning",
           });
         }
       });
-      
+
       // Check Imports
       importPatterns.forEach(({ regex, message }) => {
         if (regex.test(line)) {
@@ -444,44 +466,44 @@ async function auditFiles() {
             file,
             line: index + 1,
             issue: message,
-            severity: 'warning'
+            severity: "warning",
           });
         }
       });
     });
   }
-  
+
   // Report
-  const errors = results.filter(r => r.severity === 'error');
-  const warnings = results.filter(r => r.severity === 'warning');
-  
-  console.log('\n📊 Design-System Audit Results:\n');
-  
+  const errors = results.filter((r) => r.severity === "error");
+  const warnings = results.filter((r) => r.severity === "warning");
+
+  console.log("\n📊 Design-System Audit Results:\n");
+
   if (errors.length > 0) {
     console.log(`❌ ${errors.length} Errors:`);
     errors.forEach(({ file, line, issue }) => {
       console.log(`   ${file}:${line} - ${issue}`);
     });
   }
-  
+
   if (warnings.length > 0) {
     console.log(`\n⚠️  ${warnings.length} Warnings:`);
     warnings.forEach(({ file, line, issue }) => {
       console.log(`   ${file}:${line} - ${issue}`);
     });
   }
-  
+
   if (errors.length === 0 && warnings.length === 0) {
-    console.log('✅ No design-system violations found!');
+    console.log("✅ No design-system violations found!");
     process.exit(0);
   }
-  
+
   if (errors.length > 0) {
-    console.log('\n❌ Audit failed due to errors!');
+    console.log("\n❌ Audit failed due to errors!");
     process.exit(1);
   }
-  
-  console.log('\n✅ Audit passed (with warnings).');
+
+  console.log("\n✅ Audit passed (with warnings).");
   process.exit(0);
 }
 
@@ -493,6 +515,7 @@ auditFiles();
 ## 🤖 PHASE 3: CI/CD PIPELINE (GITHUB ACTIONS)
 
 ### 3.1 Production Deployment Workflow
+
 ```yaml
 # .github/workflows/production-deployment.yml
 name: Production Deployment (Zero-Touch)
@@ -518,13 +541,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Full history für diff
-      
+
       - name: Get Changed Files
         id: changed-files
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.sha }} > changed_files.txt
           echo "files=$(cat changed_files.txt | tr '\n' ' ')" >> $GITHUB_OUTPUT
-      
+
       - name: AI Code Review (Gemini Pro)
         run: |
           curl -X POST $SUPABASE_URL/functions/v1/ai-code-review \
@@ -541,17 +564,17 @@ jobs:
                 "rls-policy-compliance"
               ]
             }' > ai_review.json
-      
+
       - name: Check Review Result
         run: |
           CRITICAL_ISSUES=$(cat ai_review.json | jq '.issues | map(select(.severity == "critical")) | length')
-          
+
           if [ "$CRITICAL_ISSUES" -gt 0 ]; then
             echo "❌ CRITICAL Issues Found!"
             cat ai_review.json | jq '.issues[] | select(.severity == "critical")'
             exit 1
           fi
-          
+
           echo "✅ AI Code Review Passed!"
 
   # ==================== VALIDATION ====================
@@ -560,41 +583,41 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-      
+          node-version: "20"
+          cache: "npm"
+
       - name: Install Dependencies
         run: npm ci
-      
+
       - name: TypeScript Check
         run: npm run type-check
-      
+
       - name: Design-System Audit
         run: npm run design-audit
-      
+
       - name: Security Scan
         run: npm run security-scan
-      
+
       - name: Lint
         run: npm run lint
-      
+
       - name: Build
         run: npm run build
-      
+
       - name: Check Bundle Size
         run: |
           BUNDLE_SIZE=$(du -sh dist | cut -f1)
           BUNDLE_SIZE_KB=$(du -sk dist | cut -f1)
-          
+
           if [ "$BUNDLE_SIZE_KB" -gt 1536 ]; then
             echo "❌ Bundle too large: $BUNDLE_SIZE (limit: 1.5MB)"
             exit 1
           fi
-          
+
           echo "✅ Bundle size OK: $BUNDLE_SIZE"
 
   # ==================== SUPABASE CHECKS ====================
@@ -603,15 +626,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Supabase CLI
         uses: supabase/setup-cli@v1
         with:
           version: latest
-      
+
       - name: Security Linter
         run: npx supabase db lint --linked
-      
+
       - name: Check RLS Policies
         run: |
           psql $SUPABASE_URL -c "
@@ -619,13 +642,13 @@ jobs:
             FROM pg_policies 
             WHERE qual::text LIKE '%auth.users%'
           " > rls_violations.txt
-          
+
           if [ -s rls_violations.txt ]; then
             echo "❌ RLS Policies mit auth.users gefunden!"
             cat rls_violations.txt
             exit 1
           fi
-          
+
           echo "✅ RLS Policies OK!"
 
   # ==================== PLAYWRIGHT TESTS ====================
@@ -634,21 +657,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      
+          node-version: "20"
+
       - name: Install Dependencies
         run: npm ci
-      
+
       - name: Install Playwright
         run: npx playwright install --with-deps
-      
+
       - name: Run Playwright Tests
         run: npx playwright test
-      
+
       - name: Upload Test Results
         if: always()
         uses: actions/upload-artifact@v4
@@ -663,27 +686,27 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Deploy to Production
         run: |
           echo "🚀 Deploying to Production..."
           git push origin main
           echo "✅ Deployed!"
-      
+
       - name: Wait for Deployment
         run: sleep 30
-      
+
       - name: Health Check
         run: |
           HEALTH_STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://mydispatch.lovable.app/health)
-          
+
           if [ "$HEALTH_STATUS" != "200" ]; then
             echo "❌ Health check failed: $HEALTH_STATUS"
             exit 1
           fi
-          
+
           echo "✅ Health check passed!"
-      
+
       - name: Push Datadoc Metrics
         run: |
           curl -X POST https://api.datadoc.com/v1/metrics \
@@ -712,34 +735,34 @@ jobs:
             https://mydispatch.lovable.app/fahrer
           uploadArtifacts: true
           temporaryPublicStorage: true
-      
+
       - name: Check Lighthouse Scores
         run: |
           SCORE=$(cat .lighthouseci/lighthouse-*.json | jq '.categories.performance.score * 100')
-          
+
           if [ "$SCORE" -lt 90 ]; then
             echo "⚠️  Performance score below 90: $SCORE"
           else
             echo "✅ Performance score: $SCORE"
           fi
-      
+
       - name: Sentry Error Rate Check
         run: |
           # Warte 5min für Sentry-Daten
           sleep 300
-          
+
           curl -X GET "https://sentry.io/api/0/projects/$SENTRY_ORG/$SENTRY_PROJECT/stats/" \
             -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
             > sentry_stats.json
-          
+
           ERROR_RATE=$(cat sentry_stats.json | jq '.errorRate')
-          
+
           if (( $(echo "$ERROR_RATE > 0.05" | bc -l) )); then
             echo "❌ Error rate too high: $ERROR_RATE (>5%)"
             # Trigger Rollback
             exit 1
           fi
-          
+
           echo "✅ Error rate OK: $ERROR_RATE"
 ```
 
@@ -748,6 +771,7 @@ jobs:
 ## 🔄 PHASE 4: SELF-HEALING & AUTO-ROLLBACK
 
 ### 4.1 Post-Deployment Monitor
+
 ```typescript
 // supabase/functions/post-deploy-monitor/index.ts
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
@@ -758,104 +782,113 @@ serve(async (req) => {
     Deno.env.get("SUPABASE_URL")!,
     Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
   );
-  
+
   const checks = [
-    { name: 'health', url: '/health', expected: 200 },
-    { name: 'auth', url: '/api/auth/session', expected: 200 },
-    { name: 'bookings', url: '/api/bookings', expected: 200 },
-    { name: 'drivers', url: '/api/drivers', expected: 200 }
+    { name: "health", url: "/health", expected: 200 },
+    { name: "auth", url: "/api/auth/session", expected: 200 },
+    { name: "bookings", url: "/api/bookings", expected: 200 },
+    { name: "drivers", url: "/api/drivers", expected: 200 },
   ];
-  
+
   const results = [];
   let failedChecks = 0;
-  
+
   for (const check of checks) {
     try {
       const response = await fetch(`${Deno.env.get("APP_URL")}${check.url}`);
       const passed = response.status === check.expected;
-      
+
       results.push({
         name: check.name,
         passed,
         status: response.status,
-        expected: check.expected
+        expected: check.expected,
       });
-      
+
       if (!passed) failedChecks++;
     } catch (error) {
       results.push({
         name: check.name,
         passed: false,
-        error: error.message
+        error: error.message,
       });
       failedChecks++;
     }
   }
-  
+
   // Database Connection Check
   try {
-    const { data, error } = await supabase.from('bookings').select('id').limit(1);
+    const { data, error } = await supabase.from("bookings").select("id").limit(1);
     results.push({
-      name: 'database',
+      name: "database",
       passed: !error,
-      error: error?.message
+      error: error?.message,
     });
     if (error) failedChecks++;
   } catch (error) {
     results.push({
-      name: 'database',
+      name: "database",
       passed: false,
-      error: error.message
+      error: error.message,
     });
     failedChecks++;
   }
-  
+
   // Sentry Error Rate Check
   try {
-    const sentryResponse = await fetch(`https://sentry.io/api/0/projects/${Deno.env.get("SENTRY_ORG")}/${Deno.env.get("SENTRY_PROJECT")}/stats/`, {
-      headers: { "Authorization": `Bearer ${Deno.env.get("SENTRY_AUTH_TOKEN")}` }
-    });
+    const sentryResponse = await fetch(
+      `https://sentry.io/api/0/projects/${Deno.env.get("SENTRY_ORG")}/${Deno.env.get("SENTRY_PROJECT")}/stats/`,
+      {
+        headers: { Authorization: `Bearer ${Deno.env.get("SENTRY_AUTH_TOKEN")}` },
+      }
+    );
     const sentryData = await sentryResponse.json();
     const errorRate = sentryData.errorRate;
-    
+
     results.push({
-      name: 'sentry_error_rate',
+      name: "sentry_error_rate",
       passed: errorRate < 0.05,
       errorRate,
-      threshold: 0.05
+      threshold: 0.05,
     });
-    
+
     if (errorRate >= 0.05) failedChecks++;
   } catch (error) {
     results.push({
-      name: 'sentry_error_rate',
+      name: "sentry_error_rate",
       passed: false,
-      error: error.message
+      error: error.message,
     });
   }
-  
+
   // Auto-Rollback bei kritischen Fehlern
   if (failedChecks >= 3) {
     console.log("❌ CRITICAL: Multiple checks failed - Initiating rollback!");
     await rollbackDeployment();
     await alertTeam({
-      severity: 'critical',
+      severity: "critical",
       message: `Deployment failed validation (${failedChecks} checks failed)`,
-      results
-    });
-    
-    return new Response(JSON.stringify({
-      status: 'ROLLED_BACK',
       results,
-      failedChecks
-    }), { status: 500 });
+    });
+
+    return new Response(
+      JSON.stringify({
+        status: "ROLLED_BACK",
+        results,
+        failedChecks,
+      }),
+      { status: 500 }
+    );
   }
-  
-  return new Response(JSON.stringify({
-    status: 'HEALTHY',
-    results,
-    failedChecks
-  }), { status: 200 });
+
+  return new Response(
+    JSON.stringify({
+      status: "HEALTHY",
+      results,
+      failedChecks,
+    }),
+    { status: 200 }
+  );
 });
 
 async function rollbackDeployment() {
@@ -863,30 +896,26 @@ async function rollbackDeployment() {
   await fetch(`https://api.github.com/repos/${Deno.env.get("GITHUB_REPO")}/git/refs/heads/main`, {
     method: "PATCH",
     headers: {
-      "Authorization": `Bearer ${Deno.env.get("GITHUB_TOKEN")}`,
-      "Content-Type": "application/json"
+      Authorization: `Bearer ${Deno.env.get("GITHUB_TOKEN")}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       sha: Deno.env.get("PREVIOUS_COMMIT_SHA"),
-      force: true
-    })
+      force: true,
+    }),
   });
-  
+
   console.log("✅ Rollback completed!");
 }
 
-async function alertTeam(alert: {
-  severity: string;
-  message: string;
-  results: any;
-}) {
+async function alertTeam(alert: { severity: string; message: string; results: any }) {
   // Discord Webhook (optional)
   await fetch(Deno.env.get("DISCORD_WEBHOOK_URL")!, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      content: `@everyone **CRITICAL DEPLOYMENT ALERT**\n\n${alert.message}\n\nDetails: ${JSON.stringify(alert.results, null, 2)}`
-    })
+      content: `@everyone **CRITICAL DEPLOYMENT ALERT**\n\n${alert.message}\n\nDetails: ${JSON.stringify(alert.results, null, 2)}`,
+    }),
   });
 }
 ```
@@ -896,6 +925,7 @@ async function alertTeam(alert: {
 ## 📊 AUTOMATISIERUNGS-METRIKEN
 
 ### Pipeline Performance
+
 - **Pre-Commit:** <1min
 - **CI/CD Gesamt:** ~15min
 - **Deployment:** ~5min
@@ -903,6 +933,7 @@ async function alertTeam(alert: {
 - **TOTAL:** ~25min (95% automatisiert)
 
 ### Code-Qualität
+
 - TypeScript Errors: 0
 - Design Violations: 0
 - Security Issues: 0 CRITICAL
@@ -910,6 +941,7 @@ async function alertTeam(alert: {
 - Bundle Size: <1.5MB
 
 ### Deployment-Erfolgsrate
+
 - **Automatische Deployments:** 100%
 - **Rollback-Rate:** <1%
 - **MTTR (Mean Time to Recovery):** <15min

@@ -17,6 +17,7 @@ Diese Dokumentation definiert **verbindliche Mobile-Layout-Standards** für das 
 ## 🎯 GLOBALE MOBILE-SPACING-STANDARDS
 
 ### Fixed Heights (Unveränderlich)
+
 ```css
 Mobile Header:      h-14  (56px)  /* MobileHeader.tsx */
 Bottom Navigation:  h-16  (64px)  /* MobileBottomNav.tsx */
@@ -25,11 +26,10 @@ FAB (Floating):     bottom-24  (96px = 64px Nav + 32px Abstand)
 ```
 
 ### Content Spacing (MainLayout)
+
 ```tsx
 // src/components/layout/MainLayout.tsx - Mobile Branch
-<main className="flex-1 pt-14 pb-20 px-4 overflow-y-auto">
-  {children}
-</main>
+<main className="flex-1 pt-14 pb-20 px-4 overflow-y-auto">{children}</main>
 
 // Erklärung:
 // pt-14  = 56px (Header-Höhe)
@@ -38,6 +38,7 @@ FAB (Floating):     bottom-24  (96px = 64px Nav + 32px Abstand)
 ```
 
 ### Touch-Targets (Apple/Google Guidelines)
+
 ```css
 Minimum Touch-Target:  44px × 44px  (min-h-[44px])
 Buttons:               h-11  (44px)  /* Primary Actions */
@@ -51,9 +52,11 @@ FAB:                   h-14 w-14  (56px × 56px)  /* Prominent Action */
 ## 🧩 COMPONENT PATTERNS
 
 ### 1. MobileFilterBar Component
+
 **Datei:** `src/components/mobile/MobileFilterBar.tsx`
 
 **Features:**
+
 - ✅ Horizontal Scroll (overflow-x-auto)
 - ✅ Touch-optimierte Buttons (min-h-[44px])
 - ✅ Badges mit fester Höhe (h-5)
@@ -61,11 +64,12 @@ FAB:                   h-14 w-14  (56px × 56px)  /* Prominent Action */
 - ✅ Gap-1.5 für kompakte Darstellung
 
 **Code-Pattern:**
+
 ```tsx
 <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-hide">
   <Button
     size="sm"
-    variant={activeFilter === filter.id ? 'default' : 'outline'}
+    variant={activeFilter === filter.id ? "default" : "outline"}
     className="shrink-0 touch-manipulation min-h-[44px] whitespace-nowrap"
   >
     {filter.label}
@@ -81,9 +85,11 @@ FAB:                   h-14 w-14  (56px × 56px)  /* Prominent Action */
 ---
 
 ### 2. Mobile List Components (Aufträge, Kunden, etc.)
+
 **Pattern:** MobileAuftraege, MobileKunden, etc.
 
 **Standard-Struktur:**
+
 ```tsx
 export function Mobile[Entity]({
   data,
@@ -135,9 +141,11 @@ export function Mobile[Entity]({
 ---
 
 ### 3. Floating Action Button (FAB)
+
 **Position:** Fixed Bottom-Right
 
 **Standard-Code:**
+
 ```tsx
 <Button
   size="lg"
@@ -150,6 +158,7 @@ export function Mobile[Entity]({
 ```
 
 **Spacing-Berechnung:**
+
 ```
 Bottom Position = 96px
   ├─ 64px (Bottom Nav Höhe)
@@ -167,8 +176,9 @@ Desktop:  > 1024px
 ```
 
 **Device-Type Hook:**
+
 ```tsx
-import { useDeviceType } from '@/hooks/use-device-type';
+import { useDeviceType } from "@/hooks/use-device-type";
 
 const { isMobile, isTablet, isDesktop } = useDeviceType();
 
@@ -183,6 +193,7 @@ return <DesktopView {...props} />;
 ## 🚫 ANTI-PATTERNS (NIEMALS TUN!)
 
 ### ❌ Falsche Spacing-Werte
+
 ```tsx
 // ❌ FALSCH: Inkonsistente Bottom-Position
 <Button className="fixed bottom-20 right-4" />  // 80px ≠ Standard
@@ -192,6 +203,7 @@ return <DesktopView {...props} />;
 ```
 
 ### ❌ Zu kleine Touch-Targets
+
 ```tsx
 // ❌ FALSCH: Button zu klein für Touch
 <Button size="sm" className="h-8" />  // 32px < 44px!
@@ -201,6 +213,7 @@ return <DesktopView {...props} />;
 ```
 
 ### ❌ Fehlende Scrollbar-Hide
+
 ```tsx
 // ❌ FALSCH: Scrollbar sichtbar auf Mobile
 <div className="flex gap-2 overflow-x-auto" />
@@ -210,11 +223,12 @@ return <DesktopView {...props} />;
 ```
 
 ### ❌ Hook-Reihenfolge-Fehler
+
 ```tsx
 // ❌ FALSCH: Hooks nach bedingter Logik
 const { isMobile } = useDeviceType();
 if (isMobile) return <Mobile />;
-const data = useCustomers();  // ❌ Hook nach Return!
+const data = useCustomers(); // ❌ Hook nach Return!
 
 // ✅ RICHTIG: Alle Hooks ZUERST
 const { isMobile } = useDeviceType();
@@ -228,6 +242,7 @@ if (isMobile) return <Mobile />;
 ## ✅ IMPLEMENTIERUNGS-CHECKLISTE
 
 ### Phase 1 & 2 (✅ ERLEDIGT)
+
 - [x] MainLayout Mobile-Spacing (pt-14, pb-20)
 - [x] MobileFilterBar optimiert (gap-1.5, min-h-[44px], Badge h-5)
 - [x] MobileAuftraege FAB-Position (bottom-24)
@@ -235,12 +250,14 @@ if (isMobile) return <Mobile />;
 - [x] Hook-Reihenfolge in Auftraege.tsx korrigiert
 
 ### Phase 3 (⏳ IN ARBEIT)
+
 - [x] MobileKunden Component erstellt
 - [ ] MobileFahrer Component
 - [ ] MobileRechnungen Component
 - [ ] Mobile-Patterns in alle CRUD-Seiten integrieren
 
 ### Phase 4 (🔜 GEPLANT)
+
 - [ ] Testing-Matrix durchführen
 - [ ] Device-Tests (iPhone, Samsung, iPad)
 - [ ] Accessibility-Tests (Touch-Targets)
@@ -250,12 +267,14 @@ if (isMobile) return <Mobile />;
 ## 📊 ERFOLGS-METRIKEN
 
 **Vor V18.3:**
+
 - Inkonsistente Spacing-Werte
 - Touch-Targets < 44px (nicht Apple/Google konform)
 - FAB überschneidet mit Bottom Nav
 - Chat-Fenster falsch positioniert
 
 **Nach V18.3:**
+
 - ✅ 100% Konsistente Spacing-Standards
 - ✅ Alle Touch-Targets ≥ 44px
 - ✅ FAB perfekt positioniert (96px Bottom)
@@ -274,11 +293,13 @@ if (isMobile) return <Mobile />;
 
 ## 📞 SUPPORT & FRAGEN
 
-**NeXify Support:**  
-- Email: support@nexify-automate.com  
+**NeXify Support:**
+
+- Email: support@nexify-automate.com
 - Für technische Fragen zur Mobile-Implementation
 
-**Dokumentations-Updates:**  
+**Dokumentations-Updates:**
+
 - Diese Datei nach jeder Mobile-Component-Änderung aktualisieren
 - Alle neuen Patterns hier dokumentieren
 - Anti-Patterns sammeln und ergänzen

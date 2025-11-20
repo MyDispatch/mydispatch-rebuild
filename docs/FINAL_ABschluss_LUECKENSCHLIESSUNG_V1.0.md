@@ -84,13 +84,20 @@
 4. ✅ Korrekte User-Data-Handling
 
 **Code:**
+
 ```typescript
 // Normalize email (handle comma typo)
-const normalizedEmail = email.replace(/@gmail,com/g, '@gmail.com').toLowerCase().trim();
+const normalizedEmail = email
+  .replace(/@gmail,com/g, "@gmail.com")
+  .toLowerCase()
+  .trim();
 
 // Master check
-const normalizedEmailForCheck = (email || '').replace(/@gmail,com/g, '@gmail.com').toLowerCase().trim();
-const isMaster = normalizedEmailForCheck === 'courbois1981@gmail.com';
+const normalizedEmailForCheck = (email || "")
+  .replace(/@gmail,com/g, "@gmail.com")
+  .toLowerCase()
+  .trim();
+const isMaster = normalizedEmailForCheck === "courbois1981@gmail.com";
 ```
 
 **✅ JETZT FUNKTIONIERT DER LOGIN!**
@@ -106,14 +113,16 @@ const isMaster = normalizedEmailForCheck === 'courbois1981@gmail.com';
 **Library:** `src/lib/booking-pdf.ts`
 
 **Features:**
+
 - ✅ PDF-Generierung
 - ✅ Per E-Mail versenden
 - ✅ Professionelles Design (DIN A4)
 - ✅ Alle Auftragsdetails
 
 **Usage:**
+
 ```typescript
-import { sendBookingPDF } from '@/lib/booking-pdf';
+import { sendBookingPDF } from "@/lib/booking-pdf";
 
 await sendBookingPDF(bookingId, companyId, recipientEmail);
 ```
@@ -129,15 +138,17 @@ await sendBookingPDF(bookingId, companyId, recipientEmail);
 **Integration:** `src/lib/gdpr-export.ts`
 
 **Features:**
+
 - ✅ JSON-Export per E-Mail
 - ✅ PDF-Export per E-Mail (vorbereitet)
 - ✅ GDPR-konform (DSGVO Art. 15)
 
 **Usage:**
-```typescript
-import { sendDataExportEmail } from '@/lib/gdpr-export';
 
-await sendDataExportEmail(customerId, companyId, 'JSON', recipientEmail);
+```typescript
+import { sendDataExportEmail } from "@/lib/gdpr-export";
+
+await sendDataExportEmail(customerId, companyId, "JSON", recipientEmail);
 ```
 
 ---
@@ -151,6 +162,7 @@ await sendDataExportEmail(customerId, companyId, 'JSON', recipientEmail);
 **Status:** ✅ FUNKTIONIERT
 
 **Features:**
+
 - ✅ Webhook für externe GPS-Geräte
 - ✅ Device-ID → Driver-Zuordnung
 - ✅ Position-Updates
@@ -159,6 +171,7 @@ await sendDataExportEmail(customerId, companyId, 'JSON', recipientEmail);
 - ✅ DSGVO: 24h-Delete
 
 **Tables:**
+
 - `gps_devices` - Device-Zuordnung
 - `driver_positions` - Aktuelle Positionen
 
@@ -234,10 +247,10 @@ await sendDataExportEmail(customerId, companyId, 'JSON', recipientEmail);
 **Pascal, alle Lücken sind vollständig geschlossen!** ✅
 
 Das System ist jetzt vollumfänglich fertiggestellt für:
+
 - ✅ E-Mail-System (Registrierung, Zahlung, Passwort, Buchungen, Datenexport)
 - ✅ PDF-Versand (Aufträge)
 - ✅ GPS-Tracking
 - ✅ Login-Problem behoben
 
 **Du kannst dich jetzt mit `courbois1981@gmail.com` (oder `courbois1981@gmail,com`) und deinem Passwort `1def!xO2022!!` einloggen!** 🚀
-

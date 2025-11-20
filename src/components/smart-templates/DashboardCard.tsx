@@ -7,27 +7,27 @@
    ✅ Pixelgenaue Umsetzung mit Hover-Effekten
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { LucideIcon } from 'lucide-react';
+import { ReactNode } from "react";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { LucideIcon } from "lucide-react";
 
 interface DashboardCardProps {
   // Content
   title: string;
   description?: string;
   children: ReactNode;
-  
+
   // Visual
   icon?: LucideIcon;
-  iconVariant?: 'dunkelblau' | 'beige';
+  iconVariant?: "dunkelblau" | "beige";
   highlighted?: boolean;
   badge?: string;
-  
+
   // Behavior
   onClick?: () => void;
   hoverable?: boolean;
-  
+
   // Styling
   className?: string;
   contentClassName?: string;
@@ -38,7 +38,7 @@ export function DashboardCard({
   description,
   children,
   icon: Icon,
-  iconVariant = 'dunkelblau',
+  iconVariant = "dunkelblau",
   highlighted = false,
   badge,
   onClick,
@@ -49,9 +49,9 @@ export function DashboardCard({
   return (
     <Card
       className={cn(
-        'relative flex flex-col text-left bg-white border transition-all duration-300',
-        highlighted ? 'border-slate-700 ring-2 ring-slate-200 shadow-xl' : 'border-slate-200',
-        hoverable && 'cursor-pointer hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-md',
+        "relative flex flex-col text-left bg-white border transition-all duration-300",
+        highlighted ? "border-slate-700 ring-2 ring-slate-200 shadow-xl" : "border-slate-200",
+        hoverable && "cursor-pointer hover:border-slate-300 hover:-translate-y-0.5 hover:shadow-md",
         className
       )}
       onClick={onClick}
@@ -66,14 +66,10 @@ export function DashboardCard({
       )}
 
       {/* Header */}
-      <CardHeader
-        className={cn('pb-6', badge ? 'pt-12 px-6 md:px-8' : 'pt-8 px-6 md:px-8')}
-      >
+      <CardHeader className={cn("pb-6", badge ? "pt-12 px-6 md:px-8" : "pt-8 px-6 md:px-8")}>
         <div className="flex items-start justify-between mb-4">
-          <CardTitle className="text-2xl font-semibold text-slate-900">
-            {title}
-          </CardTitle>
-          
+          <CardTitle className="text-2xl font-semibold text-slate-900">{title}</CardTitle>
+
           {/* Icon */}
           {Icon && (
             <div className="p-2.5 rounded-lg bg-slate-100 shrink-0">
@@ -91,7 +87,7 @@ export function DashboardCard({
       </CardHeader>
 
       {/* Content */}
-      <CardContent className={cn('flex-1 pt-0 pb-8 px-6 md:px-8', contentClassName)}>
+      <CardContent className={cn("flex-1 pt-0 pb-8 px-6 md:px-8", contentClassName)}>
         {children}
       </CardContent>
     </Card>

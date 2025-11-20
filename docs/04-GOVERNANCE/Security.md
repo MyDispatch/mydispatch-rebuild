@@ -45,13 +45,13 @@ AS $$
 BEGIN
   -- Authorization Check
   IF NOT EXISTS (
-    SELECT 1 FROM profiles 
-    WHERE user_id = auth.uid() 
+    SELECT 1 FROM profiles
+    WHERE user_id = auth.uid()
     AND company_id = target_company_id
   ) THEN
     RAISE EXCEPTION 'Unauthorized';
   END IF;
-  
+
   -- Safe query
   RETURN QUERY SELECT ...;
 END;
@@ -62,10 +62,7 @@ $$;
 
 ```tsx
 // ✅ RICHTIG - Prepared Statements (auto)
-const { data } = await supabase
-  .from('bookings')
-  .select('*')
-  .eq('customer_id', customerId); // Safe!
+const { data } = await supabase.from("bookings").select("*").eq("customer_id", customerId); // Safe!
 
 // ❌ FALSCH - String Concatenation
 const query = `SELECT * FROM bookings WHERE customer_id = '${customerId}'`;
@@ -109,16 +106,18 @@ USING (public.has_role(auth.uid(), 'admin'));
 
 ```tsx
 // ✅ RICHTIG - Server-side session validation
-const { data: { session } } = await supabase.auth.getSession();
+const {
+  data: { session },
+} = await supabase.auth.getSession();
 
 if (!session) {
-  navigate('/auth');
+  navigate("/auth");
   return;
 }
 
 // ❌ FALSCH - Client-side role check
-const userRole = localStorage.getItem('role'); // Manipulierbar!
-if (userRole === 'admin') {
+const userRole = localStorage.getItem("role"); // Manipulierbar!
+if (userRole === "admin") {
   showAdminPanel(); // SECURITY BREACH!
 }
 ```
@@ -130,7 +129,7 @@ if (userRole === 'admin') {
 ### Zod Schema Validation
 
 ```tsx
-import { z } from 'zod';
+import { z } from "zod";
 
 // ✅ RICHTIG - Comprehensive validation
 const bookingSchema = z.object({
@@ -139,13 +138,13 @@ const bookingSchema = z.object({
   pickup_time: z.date().min(new Date()),
   passengers: z.number().int().min(1).max(8),
   luggage: z.number().int().min(0).max(8),
-  special_requests: z.string().max(1000).optional()
+  special_requests: z.string().max(1000).optional(),
 });
 
 // Validate before submitting
 const result = bookingSchema.safeParse(formData);
 if (!result.success) {
-  toast.error('Invalid input');
+  toast.error("Invalid input");
   return;
 }
 ```
@@ -160,11 +159,11 @@ BEGIN
   IF NEW.passengers < 1 OR NEW.passengers > 8 THEN
     RAISE EXCEPTION 'Passengers must be 1-8';
   END IF;
-  
+
   IF LENGTH(NEW.pickup_address) > 500 THEN
     RAISE EXCEPTION 'Address too long (DoS prevention)';
   END IF;
-  
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -206,17 +205,17 @@ const sanitized = DOMPurify.sanitize(userInput, {
 const apiKey = import.meta.env.VITE_API_KEY;
 
 // ❌ FALSCH - Hardcoded secrets
-const apiKey = 'sk_live_12345'; // NIEMALS committen!
+const apiKey = "sk_live_12345"; // NIEMALS committen!
 ```
 
 ### Supabase Secrets (Edge Functions)
 
 ```typescript
 // ✅ RICHTIG - Supabase secrets
-const apiKey = Deno.env.get('GOOGLE_API_KEY');
+const apiKey = Deno.env.get("GOOGLE_API_KEY");
 
 if (!apiKey) {
-  throw new Error('Missing API key');
+  throw new Error("Missing API key");
 }
 ```
 
@@ -228,7 +227,7 @@ if (!apiKey) {
 
 ```html
 <!-- public/index.html -->
-<meta 
+<meta
   http-security-policy
   content="
     default-src 'self';
@@ -260,16 +259,16 @@ supabase test db
 
 ```tsx
 // ✅ RICHTIG - Sanitized error logging
-logError('Booking failed', {
+logError("Booking failed", {
   booking_id: bookingId,
   user_id: userId,
   // KEINE sensitive Daten!
 });
 
 // ❌ FALSCH - Sensitive Daten im Log
-logError('Booking failed', {
+logError("Booking failed", {
   credit_card: formData.creditCard, // NIEMALS!
-  password: formData.password        // NIEMALS!
+  password: formData.password, // NIEMALS!
 });
 ```
 
@@ -286,13 +285,13 @@ const rateLimitCache = new Map<string, number>();
 
 export async function checkRateLimit(userId: string) {
   const count = rateLimitCache.get(userId) || 0;
-  
+
   if (count >= RATE_LIMIT) {
-    throw new Error('Rate limit exceeded');
+    throw new Error("Rate limit exceeded");
   }
-  
+
   rateLimitCache.set(userId, count + 1);
-  
+
   // Reset nach 1 Minute
   setTimeout(() => rateLimitCache.delete(userId), 60000);
 }
@@ -314,6 +313,7 @@ export async function checkRateLimit(userId: string) {
 ### Meldepflicht (DSGVO Art. 33)
 
 **Bei Datenpanne:**
+
 - Meldung an Datenschutzbehörde innerhalb 72h
 - Betroffene informieren (wenn hohes Risiko)
 - Dokumentation des Vorfalls
@@ -351,6 +351,7 @@ Vor jedem Deployment:
 ## 📝 Changelog
 
 ### V18.5.0 (2025-01-26)
+
 - Erstversion Security Guidelines
 - RLS, RBAC, Input Validation dokumentiert
 - Security Linter Integration

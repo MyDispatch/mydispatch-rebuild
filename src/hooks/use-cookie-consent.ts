@@ -7,9 +7,9 @@
    ✅ UPSERT Pattern (Update or Insert)
    ================================================================================== */
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
-import { handleError } from '@/lib/error-handler';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { handleError } from "@/lib/error-handler";
 
 interface CookieConsent {
   id: string;
@@ -32,15 +32,19 @@ export function useCookieConsent(userId?: string) {
   const queryClient = useQueryClient();
 
   // Fetch Cookie Consent for specific user
-  const { data: consent, isLoading, error } = useQuery({
-    queryKey: ['cookie_consent', userId],
+  const {
+    data: consent,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["cookie_consent", userId],
     queryFn: async () => {
       if (!userId) return null;
 
       const { data, error } = await supabase
-        .from('cookie_consents')
-        .select('*')
-        .eq('user_id', userId)
+        .from("cookie_consents")
+        .select("*")
+        .eq("user_id", userId)
         .maybeSingle();
 
       if (error) throw error;
@@ -56,9 +60,9 @@ export function useCookieConsent(userId?: string) {
   const upsertConsent = useMutation({
     mutationFn: async (consentData: UpsertCookieConsentData) => {
       const { data, error } = await supabase
-        .from('cookie_consents')
+        .from("cookie_consents")
         .upsert(consentData, {
-          onConflict: 'user_id', // Conflict resolution on user_id
+          onConflict: "user_id", // Conflict resolution on user_id
         })
         .select()
         .single();
@@ -67,11 +71,11 @@ export function useCookieConsent(userId?: string) {
       return data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['cookie_consent', variables.user_id] });
+      queryClient.invalidateQueries({ queryKey: ["cookie_consent", variables.user_id] });
       // NOTE: Kein Toast - Cookie-Consent soll unauffällig sein
     },
     onError: (error) => {
-      handleError(error, 'Cookie-Einstellungen konnten nicht gespeichert werden');
+      handleError(error, "Cookie-Einstellungen konnten nicht gespeichert werden");
     },
   });
 

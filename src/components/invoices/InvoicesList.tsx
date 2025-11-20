@@ -28,7 +28,10 @@ interface InvoicesListProps {
   isLoading: boolean;
 }
 
-const statusConfig: Record<InvoiceStatus, { label: string; variant: "default" | "secondary" | "destructive" | "outline" }> = {
+const statusConfig: Record<
+  InvoiceStatus,
+  { label: string; variant: "default" | "secondary" | "destructive" | "outline" }
+> = {
   draft: { label: "Entwurf", variant: "secondary" },
   sent: { label: "Versendet", variant: "default" },
   paid: { label: "Bezahlt", variant: "outline" },
@@ -65,18 +68,16 @@ export function InvoicesList({ invoices, isLoading }: InvoicesListProps) {
           <div className="flex flex-col sm:flex-row justify-between gap-4">
             <div className="flex-1 space-y-2">
               <div className="flex items-center gap-3">
-                <h3 className="text-xl font-semibold text-foreground">
-                  {invoice.invoice_number}
-                </h3>
+                <h3 className="text-xl font-semibold text-foreground">{invoice.invoice_number}</h3>
                 <Badge variant={statusConfig[invoice.status].variant}>
                   {statusConfig[invoice.status].label}
                 </Badge>
               </div>
-              
+
               <p className="text-muted-foreground text-sm">
                 Kunden-ID: {invoice.customer_id.substring(0, 8)}...
               </p>
-              
+
               <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
                 <span>
                   Erstellt: {formatDate(new Date(invoice.created_at), "dd.MM.yyyy", { locale: de })}
@@ -90,9 +91,9 @@ export function InvoicesList({ invoices, isLoading }: InvoicesListProps) {
             <div className="flex items-start gap-3">
               <div className="text-right">
                 <p className="text-2xl font-bold text-foreground">
-                  {new Intl.NumberFormat('de-DE', { 
-                    style: 'currency', 
-                    currency: 'EUR' 
+                  {new Intl.NumberFormat("de-DE", {
+                    style: "currency",
+                    currency: "EUR",
                   }).format(invoice.total_amount)}
                 </p>
               </div>
@@ -104,7 +105,7 @@ export function InvoicesList({ invoices, isLoading }: InvoicesListProps) {
                 <V28Button variant="secondary" size="sm">
                   <Download className="h-4 w-4" />
                 </V28Button>
-                {invoice.status === 'draft' && (
+                {invoice.status === "draft" && (
                   <V28Button variant="secondary" size="sm">
                     <Send className="h-4 w-4" />
                   </V28Button>
@@ -118,9 +119,7 @@ export function InvoicesList({ invoices, isLoading }: InvoicesListProps) {
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem>Bearbeiten</DropdownMenuItem>
                     <DropdownMenuItem>Duplizieren</DropdownMenuItem>
-                    <DropdownMenuItem className="text-destructive">
-                      Stornieren
-                    </DropdownMenuItem>
+                    <DropdownMenuItem className="text-destructive">Stornieren</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
