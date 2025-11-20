@@ -25,11 +25,11 @@ interface MainLayoutProps {
 export function MainLayout({ children, background = 'canvas' }: MainLayoutProps) {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
   const { isMobile } = useDeviceType();
-  
-  const bgClass = background === 'white' 
-    ? 'bg-white' 
-    : background === 'orbs-light' 
-      ? 'bg-white relative overflow-hidden' 
+
+  const bgClass = background === 'white'
+    ? 'bg-white'
+    : background === 'orbs-light'
+      ? 'bg-white relative overflow-hidden'
       : 'bg-slate-50';
 
   // Mobile-spezifische Render-Logik
@@ -38,12 +38,12 @@ export function MainLayout({ children, background = 'canvas' }: MainLayoutProps)
       <div className="min-h-screen flex flex-col bg-background">
         {/* Mobile Header: Kompakt, 56px (h-14) */}
         <MobileHeader />
-        
-        {/* Content: Korrekter Abstand für Header (56px) ohne Bottom Padding */}
-        <main className="flex-1 pt-14 pb-0 px-4 overflow-y-auto">
+
+        {/* Content: pt-14 für Header (56px), pb-20 für MobileBottomNav (64px + safe-area) */}
+        <main className="flex-1 pt-14 pb-20 px-4 overflow-y-auto">
           {children}
         </main>
-        
+
         {/* Bottom Navigation: Fixed, 64px (h-16) */}
         <MobileBottomNav />
       </div>
@@ -57,7 +57,7 @@ export function MainLayout({ children, background = 'canvas' }: MainLayoutProps)
       <AppSidebar expanded={sidebarExpanded} setExpanded={setSidebarExpanded} />
 
       {/* Main Content Area - V53.0 FULL-WIDTH LAYOUT */}
-      <div 
+      <div
         className="flex-1 overflow-x-hidden transition-[margin]"
         style={{
           marginLeft: sidebarExpanded ? '240px' : '64px',
@@ -70,7 +70,7 @@ export function MainLayout({ children, background = 'canvas' }: MainLayoutProps)
         <Header sidebarExpanded={sidebarExpanded} />
 
         {/* Content - Fixed Height Container mit V28.1 Premium Scrollbar-los Design */}
-        <main 
+        <main
           className={cn("overflow-y-auto overflow-x-hidden relative", bgClass)}
           style={{
             minHeight: 'calc(100vh - 64px)', // 100vh - Header (64px)
@@ -85,19 +85,19 @@ export function MainLayout({ children, background = 'canvas' }: MainLayoutProps)
           {/* Floating Orbs (nur bei orbs-light) */}
           {background === 'orbs-light' && (
             <>
-              <div 
-                className="absolute top-[10%] right-[5%] w-[350px] h-[350px] bg-slate-100 rounded-full blur-2xl opacity-20 pointer-events-none animate-pulse" 
+              <div
+                className="absolute top-[10%] right-[5%] w-[350px] h-[350px] bg-slate-100 rounded-full blur-2xl opacity-20 pointer-events-none animate-pulse"
                 style={{ animationDuration: '10s' }}
                 aria-hidden="true"
               />
-              <div 
-                className="absolute bottom-[15%] left-[5%] w-[300px] h-[300px] bg-slate-200 rounded-full blur-2xl opacity-15 pointer-events-none animate-pulse" 
+              <div
+                className="absolute bottom-[15%] left-[5%] w-[300px] h-[300px] bg-slate-200 rounded-full blur-2xl opacity-15 pointer-events-none animate-pulse"
                 style={{ animationDuration: '15s', animationDelay: '3s' }}
                 aria-hidden="true"
               />
             </>
           )}
-          
+
           <div className="min-h-full relative z-10">
             {children}
           </div>

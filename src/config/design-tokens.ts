@@ -2,17 +2,17 @@
    DESIGN TOKENS - V28.1 PROFESSIONAL MINIMALISM
    ==================================================================================
    ⚠️ KRITISCH: Dies ist die EINZIGE Quelle für alle Design-Werte!
-   
+
    MIGRATION VON: /lib/design-system/unified-design-tokens-v28.ts
    DATUM: 2025-10-28
    GRUND: Single Source of Truth - Config System V28.1
-   
+
    ALLE Farben, Schatten, Spacing zentral hier!
    ================================================================================== */
 
 /**
  * DESIGN TOKENS V28.1 - PROFESSIONAL MINIMALISM
- * 
+ *
  * HSL-basierte Farben für maximale Flexibilität
  */
 export const designTokens = {
@@ -26,7 +26,7 @@ export const designTokens = {
       hover: 'hsl(220, 95%, 40%)',          // Premium Darker Electric Blue
       light: 'hsl(220, 95%, 97%)',          // Premium Light Blue BG
     },
-    
+
     // Slate Scale (Premium Business Grays) - Aufgehellt für besseren Kontrast
     slate: {
       50: 'hsl(210, 45%, 99%)',             // Premium Canvas
@@ -37,13 +37,13 @@ export const designTokens = {
       700: 'hsl(220, 25%, 30%)',            // Premium Darker
       900: 'hsl(222, 45%, 18%)',            // Premium Text Primary
     },
-    
+
     // Accent (Success, Highlights) - Premium leuchtenderes Grün
     accent: {
       DEFAULT: 'hsl(142, 80%, 48%)',        // Premium Success Green - Leuchtend!
       light: 'hsl(142, 85%, 96%)',          // Premium Light Success BG
     },
-    
+
     // Vibrant Color System - Premium leuchtendere UI-Elemente
     vibrant: {
       blue: 'hsl(220, 95%, 60%)',           // Premium Electric Blue
@@ -56,7 +56,7 @@ export const designTokens = {
       gold: 'hsl(45, 95%, 55%)',            // Premium Business Gold
       business: 'hsl(215, 25%, 45%)',      // Premium Business Gray
     },
-    
+
     // Status Colors - Premium leuchtender für bessere Sichtbarkeit
     status: {
       success: 'hsl(142, 80%, 48%)',        // Premium Vibrant Success
@@ -66,11 +66,11 @@ export const designTokens = {
       // NEU: Premium Business Status
       premium: 'hsl(45, 95%, 55%)',         // Premium Gold Status
     },
-    
+
     // Surface
     white: 'hsl(0, 0%, 100%)',              // Premium Card BG
     glass: 'rgba(255, 255, 255, 0.8)',      // Premium Glassmorphism
-    
+
     // Legacy Mappings (Premium optimiert)
     text: {
       primary: 'hsl(222, 45%, 18%)',        // = Premium slate.900
@@ -86,7 +86,7 @@ export const designTokens = {
       light: 'hsl(214, 30%, 96%)',          // = Premium slate.100
     },
   },
-  
+
   /**
    * SHADOWS - Subtle Elevation System
    */
@@ -100,7 +100,7 @@ export const designTokens = {
     '2xl': 'shadow-2xl',       // 0 25px 50px rgba(0,0,0,0.25)
     glow: '0 0 0 3px rgba(147, 51, 234, 0.1)',  // Violet Ring
   },
-  
+
   /**
    * SPACING - Consistent Spacing Scale
    */
@@ -112,7 +112,7 @@ export const designTokens = {
     xl: '32px',   // gap-8, p-8
     '2xl': '48px', // gap-12, p-12
   },
-  
+
   /**
    * BORDER RADIUS - Flat Design (minimal)
    */
@@ -125,18 +125,18 @@ export const designTokens = {
     '2xl': '1rem',     // 16px
     full: '9999px',
   },
-  
+
   /**
-   * Z-INDEX - Hierarchical Layer System
+   * Z-INDEX - Hierarchical Layer System (V33.2 MOBILE OPTIMIERT)
    */
   zIndex: {
     modal: 100,
     cookieConsent: 60,
-    mobileHeader: 50,
+    mobileHeader: 50,          // Mobile Header + MobileBottomNav (gleiche Ebene)
     sidebar: 40,
     header: 30,
-    quickActionsPanel: 25, // Zwischen Footer und Header
-    footer: 20,
+    quickActionsPanel: 25,     // Zwischen Footer und Header
+    footer: 20,                // Desktop Footer (unter Mobile Navigation)
     content: 10,
     base: 0,
   },
@@ -149,11 +149,11 @@ export const designTokens = {
 export const getColor = (path: string): string => {
   const keys = path.split('.');
   let value: any = designTokens.colors;
-  
+
   for (const key of keys) {
     value = value?.[key];
   }
-  
+
   return typeof value === 'string' ? value : '';
 };
 

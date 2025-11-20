@@ -868,7 +868,7 @@ export default function Kommunikation() {
 
       {/* ✅ V37.0: RIGHT SIDEBAR - Fixed 320px (hidden < 768px) */}
       {!isMobile && (
-        <aside className="fixed right-0 top-16 bottom-0 w-80 bg-white border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300">
+        <aside className="fixed right-0 top-16 bottom-0 w-80 bg-background border-l border-border shadow-lg z-20 overflow-y-auto hidden md:block transition-all duration-300">
           {/* Schnellzugriff */}
           <div className="p-4 space-y-3 border-b border-border">
             <h3 className="text-sm font-semibold text-slate-900 uppercase tracking-wider flex items-center gap-2">
@@ -942,4 +942,3 @@ export default function Kommunikation() {
     </>
   );
 }
-

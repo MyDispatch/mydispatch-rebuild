@@ -16,20 +16,22 @@ export function MobileBottomNav() {
   const location = useLocation();
 
   return (
-    <nav 
-      className="fixed bottom-0 left-0 right-0 z-50 safe-area-bottom"
+    <nav
+      className="fixed bottom-0 left-0 right-0 safe-area-bottom"
       style={{
         height: '64px',
+        paddingBottom: 'env(safe-area-inset-bottom)',
+        zIndex: designTokens.zIndex.mobileHeader,
         backgroundColor: DESIGN_TOKENS.colors.background,
         borderTop: `1px solid ${DESIGN_TOKENS.colors.border.DEFAULT}`,
       }}
     >
       <div className="flex items-center justify-around h-full px-2">
         {navItems.map(item => {
-          const isActive = location.pathname === item.url || 
+          const isActive = location.pathname === item.url ||
                           (item.url === '/dashboard' && location.pathname === '/');
           const IconComponent = item.icon;
-          
+
           return (
             <NavLink
               key={item.url}
@@ -44,8 +46,8 @@ export function MobileBottomNav() {
                 borderRadius: DESIGN_TOKENS.radius.md,
                 minWidth: '60px',
                 minHeight: '44px', // WCAG Touch Target
-                backgroundColor: isActive 
-                  ? `${designTokens.colors.slate[100]}` 
+                backgroundColor: isActive
+                  ? `${designTokens.colors.slate[100]}`
                   : 'transparent',
                 transitionDuration: DESIGN_TOKENS.motion.duration.default,
               }}
@@ -60,22 +62,22 @@ export function MobileBottomNav() {
                 }
               }}
             >
-              <IconComponent 
-                className="transition-colors" 
+              <IconComponent
+                className="transition-colors"
                 style={{
                   width: '20px',
                   height: '20px',
-                  color: isActive 
-                    ? designTokens.colors.slate[900] 
+                  color: isActive
+                    ? designTokens.colors.slate[900]
                     : DESIGN_TOKENS.colors.text.tertiary,
-                }} 
+                }}
               />
-              <span 
+              <span
                 className="font-medium transition-colors"
                 style={{
                   fontSize: '10px',
-                  color: isActive 
-                    ? designTokens.colors.slate[900] 
+                  color: isActive
+                    ? designTokens.colors.slate[900]
                     : DESIGN_TOKENS.colors.text.tertiary,
                 }}
               >

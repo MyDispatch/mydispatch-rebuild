@@ -17,9 +17,9 @@ interface FooterProps {
 
 export function Footer({ sidebarExpanded }: FooterProps) {
   return (
-    <footer 
+    <footer
       className={cn(
-        "fixed bottom-0 right-0 h-16 sm:h-12",
+        "hidden md:fixed bottom-0 right-0 h-12",
         "bg-gradient-to-b from-slate-50 to-white border-t border-slate-200 shadow-lg",
         "transition-all ease-in-out backdrop-blur-md"
       )}
@@ -41,7 +41,7 @@ export function Footer({ sidebarExpanded }: FooterProps) {
             {['Impressum', 'Datenschutz', 'Kontakt'].map((label, i) => (
               <div key={label} className="flex items-center gap-2">
                 {i > 0 && <span className="text-[9px] text-slate-300">•</span>}
-                <Link 
+                <Link
               to={label === 'Kontakt' ? '/contact' : `/${label.toLowerCase()}`}
               className="text-[9px] text-slate-700 hover:text-blue-600 transition-colors font-medium"
             >
@@ -63,7 +63,7 @@ export function Footer({ sidebarExpanded }: FooterProps) {
           </div>
           <div className="flex items-center gap-5 h-full">
             {['Impressum', 'Datenschutz', 'AGB', 'Kontakt'].map((label) => (
-              <Link 
+              <Link
                 key={label}
                 to={label === 'Kontakt' ? '/contact' : `/${label.toLowerCase()}`}
                 className="text-[11px] text-slate-700 hover:text-blue-600 transition-colors font-medium"
