@@ -16,7 +16,7 @@ interface V28ITDashboardPreviewProps {
 
 export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboardPreviewProps) {
   return (
-    <div 
+    <div
       className="hidden lg:block animate-fade-in"
       style={{ animationDelay }}
     >
@@ -135,7 +135,7 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
               Recent Activities
             </h4>
             <div className="space-y-2">
-              
+
               {/* Activity 1 - Completed */}
               <div className="p-3 rounded-lg bg-white border border-slate-200 shadow-md hover:shadow-lg transition-all duration-200">
                 <div className="flex items-start justify-between mb-2">

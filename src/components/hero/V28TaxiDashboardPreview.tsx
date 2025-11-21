@@ -17,17 +17,17 @@ interface V28TaxiDashboardPreviewProps {
   animationDelay?: string;
 }
 
-export function V28TaxiDashboardPreview({ 
+export function V28TaxiDashboardPreview({
   variant = 'dashboard',
-  animationDelay = '0.6s' 
+  animationDelay = '0.6s'
 }: V28TaxiDashboardPreviewProps) {
-  
+
   // Varianten-spezifische Daten
   const isSupportVariant = variant === 'support';
   const domain = isSupportVariant ? 'my-dispatch.de/support' : 'my-dispatch.de/dashboard';
   const headerTitle = isSupportVariant ? 'Support Dashboard' : 'Taxi-Dispatch Dashboard';
   const headerIcon = isSupportVariant ? Users : Car;
-  
+
   // Dashboard Content (shared between variants)
   const dashboardContent = (
     <>
@@ -53,9 +53,9 @@ export function V28TaxiDashboardPreview({
           </div>
           {/* Live-Badge mit Pulse */}
           <div className="relative">
-            <div className="absolute inset-0 bg-green-400 rounded-lg blur-sm opacity-50 animate-pulse" />
-            <div className="relative px-2 py-1 rounded-lg bg-green-100 ring-1 ring-green-200">
-              <span className="font-sans text-xs font-bold text-green-700">
+            <div className="absolute inset-0 bg-success rounded-lg blur-sm opacity-50 animate-pulse" />
+            <div className="relative px-2 py-1 rounded-lg bg-success-light ring-1 ring-success-border">
+              <span className="font-sans text-xs font-bold text-success-text">
                 🟢 Live
               </span>
             </div>
@@ -83,8 +83,8 @@ export function V28TaxiDashboardPreview({
                   45
                 </div>
                 <div className="flex items-center gap-1 mt-1">
-                  <TrendingUp className="w-3 h-3 text-green-600" />
-                  <span className="font-sans text-xs font-semibold text-green-600">
+                  <TrendingUp className="w-3 h-3 text-success-text" />
+                  <span className="font-sans text-xs font-semibold text-success-text">
                     +8% heute
                   </span>
                 </div>
@@ -160,8 +160,8 @@ export function V28TaxiDashboardPreview({
                   142
                 </div>
                 <div className="flex items-center gap-1 mt-1">
-                  <TrendingUp className="w-3 h-3 text-green-600" />
-                  <span className="font-sans text-xs font-semibold text-green-600">
+                  <TrendingUp className="w-3 h-3 text-success-text" />
+                  <span className="font-sans text-xs font-semibold text-success-text">
                     +12% heute
                   </span>
                 </div>
@@ -181,8 +181,8 @@ export function V28TaxiDashboardPreview({
                   12.5k
                 </div>
                 <div className="flex items-center gap-1 mt-1">
-                  <TrendingUp className="w-3 h-3 text-green-600" />
-                  <span className="font-sans text-xs font-semibold text-green-600">
+                  <TrendingUp className="w-3 h-3 text-success-text" />
+                  <span className="font-sans text-xs font-semibold text-success-text">
                     +8% heute
                   </span>
                 </div>
@@ -239,8 +239,8 @@ export function V28TaxiDashboardPreview({
                 <div className="p-3 rounded-lg bg-white border border-slate-200 shadow-md hover:shadow-lg hover:scale-[1.01] transition-all duration-200">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-3">
-                      <div className="p-1.5 rounded-lg bg-green-50">
-                        <Users className="w-4 h-4 text-green-600" />
+                      <div className="p-1.5 rounded-lg bg-success-light">
+                        <Users className="w-4 h-4 text-success-text" />
                       </div>
                       <div>
                         <div className="font-sans text-sm font-medium text-slate-900">
@@ -251,8 +251,8 @@ export function V28TaxiDashboardPreview({
                         </div>
                       </div>
                     </div>
-                    <div className="px-2 py-0.5 rounded-md bg-green-100 ring-1 ring-green-200">
-                      <span className="font-sans text-xs font-bold text-green-700">
+                    <div className="px-2 py-0.5 rounded-md bg-success-light ring-1 ring-success-border">
+                      <span className="font-sans text-xs font-bold text-success-text">
                         In Bearbeitung
                       </span>
                     </div>
@@ -262,7 +262,7 @@ export function V28TaxiDashboardPreview({
                       <Clock className="w-3 h-3" />
                       <span className="font-sans text-xs">12:45 Uhr</span>
                     </div>
-                    <span className="font-sans text-xs font-medium text-green-600">
+                    <span className="font-sans text-xs font-medium text-success-text">
                       Prio: Hoch
                     </span>
                   </div>
@@ -340,8 +340,8 @@ export function V28TaxiDashboardPreview({
                 <div className="p-3 rounded-lg bg-white border border-slate-200 shadow-md hover:shadow-lg hover:scale-[1.01] transition-all duration-200">
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-3">
-                      <div className="p-1.5 rounded-lg bg-green-50">
-                        <Car className="w-4 h-4 text-green-600" />
+                      <div className="p-1.5 rounded-lg bg-success-light">
+                        <Car className="w-4 h-4 text-success-text" />
                       </div>
                       <div>
                         <div className="font-sans text-sm font-medium text-slate-900">
@@ -352,8 +352,8 @@ export function V28TaxiDashboardPreview({
                         </div>
                       </div>
                     </div>
-                    <div className="px-2 py-0.5 rounded-md bg-green-100 ring-1 ring-green-200">
-                      <span className="font-sans text-xs font-bold text-green-700">
+                    <div className="px-2 py-0.5 rounded-md bg-success-light ring-1 ring-success-border">
+                      <span className="font-sans text-xs font-bold text-success-text">
                         Live
                       </span>
                     </div>
@@ -363,7 +363,7 @@ export function V28TaxiDashboardPreview({
                       <Clock className="w-3 h-3" />
                       <span className="font-sans text-xs">12:45 Uhr</span>
                     </div>
-                    <span className="font-sans text-xs font-medium text-green-600">
+                    <span className="font-sans text-xs font-medium text-success-text">
                       ETA: 13:20
                     </span>
                   </div>
@@ -445,7 +445,7 @@ export function V28TaxiDashboardPreview({
   // iPad-Variante: NUR Dashboard-Content ohne Browser-Mockup
   if (variant === 'ipad') {
     return (
-      <div 
+      <div
         className="animate-fade-in"
         style={{ animationDelay }}
       >
@@ -456,7 +456,7 @@ export function V28TaxiDashboardPreview({
 
   // Standard-Variante: MIT Browser-Mockup
   return (
-    <div 
+    <div
       className="hidden lg:block animate-fade-in"
       style={{ animationDelay }}
     >
