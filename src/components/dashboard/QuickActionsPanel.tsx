@@ -32,14 +32,14 @@ interface QuickActionsPanelProps {
   className?: string;
 }
 
-export function QuickActionsPanel({ 
-  title = 'Schnellzugriff', 
+export function QuickActionsPanel({
+  title = 'Schnellzugriff',
   actions,
   columns = 2,
   showLabels = true,
-  className = '' 
+  className = ''
 }: QuickActionsPanelProps) {
-  
+
   const getGridClass = () => {
     switch (columns) {
       case 1:
@@ -55,14 +55,14 @@ export function QuickActionsPanel({
 
   const getButtonColorClasses = (color?: string, variant?: string) => {
     if (variant === 'primary') return '';
-    
+
     switch (color) {
       case 'success':
-        return 'hover:bg-green-50 hover:text-green-700 hover:border-green-200';
+        return 'hover:bg-success-light hover:text-success-text hover:border-success-border';
       case 'warning':
-        return 'hover:bg-yellow-50 hover:text-yellow-700 hover:border-yellow-200';
+        return 'hover:bg-warning-light hover:text-warning-text hover:border-warning-border';
       case 'danger':
-        return 'hover:bg-red-50 hover:text-red-700 hover:border-red-200';
+        return 'hover:bg-error-light hover:text-error-text hover:border-error-border';
       default:
         return '';
     }
@@ -72,7 +72,7 @@ export function QuickActionsPanel({
     <Card className={`bg-white ${className}`}>
       <CardHeader className="pb-3">
         <CardTitle className="text-lg font-semibold flex items-center gap-2">
-          <Zap className="h-5 w-5 text-yellow-500" />
+          <Zap className="h-5 w-5 text-warning" />
           {title}
         </CardTitle>
       </CardHeader>
@@ -80,7 +80,7 @@ export function QuickActionsPanel({
         <div className={cn('grid gap-2', getGridClass())}>
           {actions.map((action, index) => {
             const Icon = action.icon;
-            
+
             return (
               <div key={index} className="relative">
                 <V28Button
@@ -102,10 +102,10 @@ export function QuickActionsPanel({
                     </span>
                   )}
                 </V28Button>
-                
+
                 {/* Optional Badge */}
                 {action.badge !== undefined && (
-                  <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+                  <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-error text-[10px] font-bold text-white">
                     {action.badge}
                   </span>
                 )}
@@ -128,10 +128,10 @@ export function QuickActionsPanel({
 }
 
 // Compact version for tight spaces
-export function QuickActionsCompact({ 
+export function QuickActionsCompact({
   actions,
-  className = '' 
-}: { 
+  className = ''
+}: {
   actions: QuickAction[];
   className?: string;
 }) {
@@ -139,7 +139,7 @@ export function QuickActionsCompact({
     <div className={cn("flex flex-wrap gap-2", className)}>
       {actions.map((action, index) => {
         const Icon = action.icon;
-        
+
         return (
           <V28Button
             key={index}

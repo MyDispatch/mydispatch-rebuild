@@ -62,9 +62,9 @@ export function V28Progress({
               className={cn(
                 'transition-all duration-300',
                 variant === 'primary' && 'text-slate-700',
-                variant === 'success' && 'text-green-600',
-                variant === 'warning' && 'text-amber-600',
-                variant === 'error' && 'text-red-600'
+                variant === 'success' && 'text-success-text',
+                variant === 'warning' && 'text-warning-text',
+                variant === 'error' && 'text-error-text'
               )}
             />
           </svg>
@@ -101,9 +101,9 @@ export function V28Progress({
           className={cn(
             'h-full transition-all duration-300 rounded-full',
             variant === 'primary' && 'bg-slate-700',
-            variant === 'success' && 'bg-green-600',
-            variant === 'warning' && 'bg-amber-600',
-            variant === 'error' && 'bg-red-600'
+            variant === 'success' && 'bg-success',
+            variant === 'warning' && 'bg-warning',
+            variant === 'error' && 'bg-error'
           )}
           style={{ width: `${percentage}%` }}
         />

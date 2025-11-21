@@ -107,11 +107,11 @@ export function QuoteForm({ quoteId, onSuccess, onCancel }: QuoteFormProps) {
     if (!quote) {
       return;
     }
-    
+
     if (typeof quote !== 'object' || !('customer_id' in quote)) {
       return;
     }
-    
+
     form.reset({
       customer_id: quote.customer_id,
       pickup_address: quote.pickup_address,
@@ -179,7 +179,7 @@ export function QuoteForm({ quoteId, onSuccess, onCancel }: QuoteFormProps) {
           </SelectContent>
         </Select>
         {form.formState.errors.customer_id && (
-          <p className="text-sm text-red-600">{form.formState.errors.customer_id.message}</p>
+          <p className="text-sm text-error-text">{form.formState.errors.customer_id.message}</p>
         )}
       </div>
 
@@ -191,7 +191,7 @@ export function QuoteForm({ quoteId, onSuccess, onCancel }: QuoteFormProps) {
           placeholder="z.B. Hauptstraße 1, 12345 Berlin"
         />
         {form.formState.errors.pickup_address && (
-          <p className="text-sm text-red-600">{form.formState.errors.pickup_address.message}</p>
+          <p className="text-sm text-error-text">{form.formState.errors.pickup_address.message}</p>
         )}
       </div>
 
@@ -203,7 +203,7 @@ export function QuoteForm({ quoteId, onSuccess, onCancel }: QuoteFormProps) {
           placeholder="z.B. Bahnhofstraße 10, 54321 München"
         />
         {form.formState.errors.dropoff_address && (
-          <p className="text-sm text-red-600">{form.formState.errors.dropoff_address.message}</p>
+          <p className="text-sm text-error-text">{form.formState.errors.dropoff_address.message}</p>
         )}
       </div>
 
@@ -215,7 +215,7 @@ export function QuoteForm({ quoteId, onSuccess, onCancel }: QuoteFormProps) {
           {...form.register('pickup_time')}
         />
         {form.formState.errors.pickup_time && (
-          <p className="text-sm text-red-600">{form.formState.errors.pickup_time.message}</p>
+          <p className="text-sm text-error-text">{form.formState.errors.pickup_time.message}</p>
         )}
       </div>
 
@@ -229,7 +229,7 @@ export function QuoteForm({ quoteId, onSuccess, onCancel }: QuoteFormProps) {
           placeholder="0.00"
         />
         {form.formState.errors.price && (
-          <p className="text-sm text-red-600">{form.formState.errors.price.message}</p>
+          <p className="text-sm text-error-text">{form.formState.errors.price.message}</p>
         )}
       </div>
 

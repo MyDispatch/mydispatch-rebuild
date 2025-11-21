@@ -25,16 +25,16 @@ interface StatCardProps {
     trend: 'up' | 'down' | 'neutral';
   };
   trend?: { value: number; label: string }; // Alias für change (KPIGenerator Kompatibilität)
-  
+
   // Visual
   icon?: LucideIcon;
-  
+
   // Behavior
   onClick?: () => void;
-  
+
   // Styling
   className?: string;
-  
+
   // NEU: Status-Integration (Phase 2.5)
   statusInfo?: StatusConfig | null;
 }
@@ -53,21 +53,21 @@ export function StatCard({
 }: StatCardProps) {
   // Aliases: title → label, trend → change (KPIGenerator Kompatibilität)
   const displayLabel = title || label;
-  
+
   // Konvertiere KPIGenerator trend → change format (nur wenn numerischer Wert vorhanden)
   const displayChange = change || (trend && typeof trend.value === 'number' && trend.value !== undefined ? {
     value: Math.abs(trend.value),
     trend: trend.value > 0 ? 'up' as const : trend.value < 0 ? 'down' as const : 'neutral' as const
   } : undefined);
-  
+
   // Trend label für KPIGenerator (zeige label wenn kein numerischer trend.value vorhanden)
   const displayTrendLabel = trend?.label && !displayChange ? trend.label : undefined;
-  
+
   // Trend Icon: up/down/neutral
-  const TrendIcon = displayChange?.trend === 'up' ? TrendingUp : 
-                     displayChange?.trend === 'down' ? TrendingDown : 
+  const TrendIcon = displayChange?.trend === 'up' ? TrendingUp :
+                     displayChange?.trend === 'down' ? TrendingDown :
                      displayChange?.trend === 'neutral' ? Minus : null;
-  
+
   return (
     <Card
       className={cn(
@@ -84,19 +84,19 @@ export function StatCard({
             <p className="text-sm font-medium mb-2 text-slate-600">
               {displayLabel}
             </p>
-            
+
             {/* Value */}
             <p className="text-3xl font-bold mb-2 text-slate-900">
               {value}
             </p>
-            
+
             {/* Subtitle (KPIGenerator) */}
             {subtitle && (
               <p className="text-xs text-slate-500 mb-1">
                 {subtitle}
               </p>
             )}
-            
+
             {/* Change Indicator (mit neutral-Support) */}
             {displayChange && (
               <div className="flex items-center gap-1">
@@ -104,8 +104,8 @@ export function StatCard({
                   <TrendIcon
                     className={cn(
                       'h-4 w-4',
-                      displayChange.trend === 'up' && 'text-green-600',
-                      displayChange.trend === 'down' && 'text-red-600',
+                      displayChange.trend === 'up' && 'text-success-text',
+                      displayChange.trend === 'down' && 'text-error-text',
                       displayChange.trend === 'neutral' && 'text-slate-400'
                     )}
                   />
@@ -113,8 +113,8 @@ export function StatCard({
                 <span
                   className={cn(
                     'text-sm font-medium',
-                    displayChange.trend === 'up' && 'text-green-600',
-                    displayChange.trend === 'down' && 'text-red-600',
+                    displayChange.trend === 'up' && 'text-success-text',
+                    displayChange.trend === 'down' && 'text-error-text',
                     displayChange.trend === 'neutral' && 'text-slate-400'
                   )}
                 >
@@ -122,17 +122,17 @@ export function StatCard({
                 </span>
               </div>
             )}
-            
+
             {/* Trend Label (KPIGenerator) - nur wenn kein Change-Indicator */}
             {displayTrendLabel && (
               <p className="text-xs text-slate-500 mt-1">
                 {displayTrendLabel}
               </p>
             )}
-            
+
             {/* NEU: Status Badge (Phase 2.5) */}
             {statusInfo && (
-              <Badge 
+              <Badge
                 variant="outline"
                 className={cn(
                   'mt-2',

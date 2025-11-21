@@ -46,11 +46,11 @@ export function V28FormField({
     <div className={cn('space-y-2', className)}>
       <label className="block text-sm font-medium text-slate-700">
         {label}
-        {required && <span className="text-red-600 ml-1">*</span>}
+        {required && <span className="text-error-text ml-1">*</span>}
       </label>
       {children}
       {error && (
-        <p className="text-sm text-red-600">{error}</p>
+        <p className="text-sm text-error-text">{error}</p>
       )}
     </div>
   );

@@ -6,7 +6,7 @@ import { Rocket, CheckCircle2, Clock, Loader2 } from 'lucide-react';
 
 /**
  * Roadmap Progress Widget für Dashboard
- * 
+ *
  * Zeigt Fortschritt der Roadmap-Tasks mit:
  * - Gesamt-Fortschritt (%)
  * - Status-Breakdown (Completed/In Progress/Pending)
@@ -19,22 +19,22 @@ export function RoadmapProgressWidget() {
       const { data, error } = await supabase
         .from('roadmap_tasks')
         .select('status, priority, estimated_hours, actual_hours');
-      
+
       if (error) throw error;
-      
+
       const total = data.length;
       const completed = data.filter(t => t.status === 'completed').length;
       const inProgress = data.filter(t => t.status === 'in_progress').length;
       const pending = data.filter(t => t.status === 'pending').length;
-      
+
       const p0Tasks = data.filter(t => t.priority === 'P0');
       const p0Completed = p0Tasks.filter(t => t.status === 'completed').length;
-      
+
       const totalEstimatedHours = data.reduce((sum, t) => sum + (t.estimated_hours || 0), 0);
       const completedHours = data
         .filter(t => t.status === 'completed')
         .reduce((sum, t) => sum + (t.actual_hours || t.estimated_hours || 0), 0);
-      
+
       return {
         total,
         completed,
@@ -77,7 +77,7 @@ export function RoadmapProgressWidget() {
           <p className="text-sm text-slate-600">Content & Design Strategy V28.1</p>
         </div>
       </div>
-      
+
       {/* Gesamt-Fortschritt */}
       <div className="mb-6">
         <div className="flex justify-between items-center mb-2">
@@ -94,15 +94,15 @@ export function RoadmapProgressWidget() {
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="text-center">
           <div className="flex items-center justify-center gap-1 mb-1">
-            <CheckCircle2 className="w-4 h-4 text-green-600" />
-            <div className="text-2xl font-bold text-green-600">{stats?.completed}</div>
+            <CheckCircle2 className="w-4 h-4 text-success-text" />
+            <div className="text-2xl font-bold text-success-text">{stats?.completed}</div>
           </div>
           <div className="text-xs text-slate-600">Completed</div>
         </div>
         <div className="text-center">
           <div className="flex items-center justify-center gap-1 mb-1">
-            <Loader2 className="w-4 h-4 text-blue-600" />
-            <div className="text-2xl font-bold text-blue-600">{stats?.inProgress}</div>
+            <Loader2 className="w-4 h-4 text-info-text" />
+            <div className="text-2xl font-bold text-info-text">{stats?.inProgress}</div>
           </div>
           <div className="text-xs text-slate-600">In Progress</div>
         </div>
@@ -144,7 +144,7 @@ export function RoadmapProgressWidget() {
           </div>
           <div className="flex justify-between">
             <span className="text-slate-600">Completed</span>
-            <span className="font-mono font-medium text-green-600">{stats?.hours.completed}h</span>
+            <span className="font-mono font-medium text-success-text">{stats?.hours.completed}h</span>
           </div>
           <div className="flex justify-between">
             <span className="text-slate-600">Remaining</span>
