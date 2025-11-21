@@ -3,13 +3,13 @@
    ==================================================================================
    ⚠️ DEPRECATED: Diese Komponente wird in V30.0 entfernt.
    ✅ ALTERNATIVE: Nutze stattdessen ThematicDashboards aus @/components/preview
-   
+
    Migration:
    ```tsx
    // ALT:
    import { V28DashboardPreview } from '@/components/home';
    <V28DashboardPreview />
-   
+
    // NEU:
    import { HomeDashboardPreview } from '@/components/preview';
    <HomeDashboardPreview />
@@ -33,7 +33,7 @@ export function V28DashboardPreview({
   title = 'my-dispatch.de/dashboard'
 }: V28DashboardPreviewProps) {
   return (
-    <div 
+    <div
       className="hidden lg:block animate-fade-in"
       style={{ animationDelay }}
     >
@@ -54,8 +54,8 @@ export function V28DashboardPreview({
                 </p>
               </div>
             </div>
-            <div className="px-2 py-1 rounded-lg bg-green-100 ring-1 ring-green-200">
-              <span className="font-sans text-xs font-bold text-green-700">
+            <div className="px-2 py-1 rounded-lg bg-success-light ring-1 ring-success-border">
+              <span className="font-sans text-xs font-bold text-success-text">
                 Live
               </span>
             </div>
@@ -80,8 +80,8 @@ export function V28DashboardPreview({
                 142
               </div>
               <div className="flex items-center gap-1 mt-1">
-                <TrendingUp className="w-3 h-3 text-green-600" />
-                <span className="font-sans text-xs font-semibold text-green-600">
+                <TrendingUp className="w-3 h-3 text-success-text" />
+                <span className="font-sans text-xs font-semibold text-success-text">
                   +12%
                 </span>
               </div>
@@ -101,8 +101,8 @@ export function V28DashboardPreview({
                 12.5k
               </div>
               <div className="flex items-center gap-1 mt-1">
-                <TrendingUp className="w-3 h-3 text-green-600" />
-                <span className="font-sans text-xs font-semibold text-green-600">
+                <TrendingUp className="w-3 h-3 text-success-text" />
+                <span className="font-sans text-xs font-semibold text-success-text">
                   +8%
                 </span>
               </div>
@@ -155,8 +155,8 @@ export function V28DashboardPreview({
               <div className="p-3 rounded-lg bg-white border border-slate-200 shadow-md hover:shadow-lg hover:scale-[1.01] transition-all duration-200">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-3">
-                    <div className="p-1.5 rounded-lg bg-green-50">
-                      <Car className="w-4 h-4 text-green-600" />
+                    <div className="p-1.5 rounded-lg bg-success-light">
+                      <Car className="w-4 h-4 text-success-text" />
                     </div>
                     <div>
                       <div className="font-sans text-sm font-medium text-slate-900">
@@ -167,8 +167,8 @@ export function V28DashboardPreview({
                       </div>
                     </div>
                   </div>
-                  <div className="px-2 py-0.5 rounded-md bg-green-100 ring-1 ring-green-200">
-                    <span className="font-sans text-xs font-bold text-green-700">
+                  <div className="px-2 py-0.5 rounded-md bg-success-light ring-1 ring-success-border">
+                    <span className="font-sans text-xs font-bold text-success-text">
                       Live
                     </span>
                   </div>
@@ -178,7 +178,7 @@ export function V28DashboardPreview({
                     <Clock className="w-3 h-3" />
                     <span className="font-sans text-xs">12:45 Uhr</span>
                   </div>
-                  <span className="font-sans text-xs font-medium text-green-600">
+                  <span className="font-sans text-xs font-medium text-success-text">
                     ETA: 13:20
                   </span>
                 </div>
