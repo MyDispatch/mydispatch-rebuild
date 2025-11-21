@@ -23,7 +23,7 @@ export interface V28ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButt
   disabled?: boolean;
   variant?: 'primary' | 'secondary' | 'ghost' | 'destructive';
   size?: 'sm' | 'md' | 'lg';
-  
+
   // Universal Features
   icon?: LucideIcon;
   iconPosition?: 'left' | 'right';

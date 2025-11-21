@@ -19,12 +19,12 @@ import { Card, CardContent, CardHeader, CardTitle, Badge } from '@/lib/compat';
 import { V28Button } from '@/components/design-system/V28Button';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
-import { 
-  Maximize2, 
-  Minimize2, 
-  MapPin, 
-  Users, 
-  Navigation, 
+import {
+  Maximize2,
+  Minimize2,
+  MapPin,
+  Users,
+  Navigation,
   Filter,
   Sparkles,
   TrendingUp,
@@ -187,7 +187,7 @@ export function EnhancedLiveMap({
   const markers = useMemo(() => {
     return filteredPositions.map(pos => {
       const statusConfig = DRIVER_STATUS_CONFIG[pos.status];
-      const markerColor = statusConfig.level === 'success' 
+      const markerColor = statusConfig.level === 'success'
         ? 'hsl(142 76% 36%)' // Green
         : statusConfig.level === 'warning'
         ? 'hsl(38 92% 50%)' // Yellow
@@ -224,7 +224,7 @@ export function EnhancedLiveMap({
   }, [driverPositions]);
 
   return (
-    <Card 
+    <Card
       className={cn(
         "col-span-full transition-all duration-300",
         isFullscreen && "fixed inset-0 z-50 rounded-none"
@@ -242,7 +242,7 @@ export function EnhancedLiveMap({
                 Echtzeit-GPS-Tracking Ihrer Flotte
               </p>
             </div>
-            
+
             {/* Status-Filter */}
             <Select value={filterStatus} onValueChange={(val: any) => setFilterStatus(val)}>
               <SelectTrigger className="w-40">
@@ -253,19 +253,19 @@ export function EnhancedLiveMap({
                 <SelectItem value="all">Alle ({stats.total})</SelectItem>
                 <SelectItem value="available">
                   <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-green-500" />
+                    <span className="w-2 h-2 rounded-full bg-success" />
                     Verfügbar ({stats.available})
                   </span>
                 </SelectItem>
                 <SelectItem value="busy">
                   <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500" />
+                    <span className="w-2 h-2 rounded-full bg-warning" />
                     Im Einsatz ({stats.busy})
                   </span>
                 </SelectItem>
                 <SelectItem value="offline">
                   <span className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-red-500" />
+                    <span className="w-2 h-2 rounded-full bg-error" />
                     Offline ({stats.offline})
                   </span>
                 </SelectItem>
@@ -279,10 +279,10 @@ export function EnhancedLiveMap({
               <Users className="h-4 w-4" />
               {filteredPositions.length} / {stats.total} Fahrer
             </Badge>
-            
-            <Badge variant="outline" className="gap-2 bg-green-500/10 border-green-500/20">
-              <MapPin className="h-4 w-4 text-green-600" />
-              <span className="text-green-600">Live-Tracking</span>
+
+            <Badge variant="outline" className="gap-2 bg-success/10 border-success/20">
+              <MapPin className="h-4 w-4 text-success-text" />
+              <span className="text-success-text">Live-Tracking</span>
             </Badge>
 
             {/* Smart Assignment Button */}
@@ -314,15 +314,15 @@ export function EnhancedLiveMap({
         {/* Legend */}
         <div className="flex items-center gap-6 mt-4 text-sm">
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-green-500" />
+            <span className="w-3 h-3 rounded-full bg-success" />
             <span className="text-slate-600">Verfügbar</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-yellow-500" />
+            <span className="w-3 h-3 rounded-full bg-warning" />
             <span className="text-slate-600">Im Einsatz</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-red-500" />
+            <span className="w-3 h-3 rounded-full bg-error" />
             <span className="text-slate-600">Offline</span>
           </div>
           <div className="flex items-center gap-2">
@@ -392,7 +392,7 @@ export function EnhancedLiveMap({
 
             <div className="space-y-3">
               <div className="flex items-center gap-3 p-3 rounded-lg border bg-slate-50">
-                <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white">
+                <div className="w-10 h-10 rounded-full bg-success flex items-center justify-center text-white">
                   1
                 </div>
                 <div className="flex-1">
@@ -400,13 +400,13 @@ export function EnhancedLiveMap({
                   <p className="text-xs text-slate-600">2.3 km entfernt · 5 Min</p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <TrendingUp className="h-4 w-4 text-green-600" />
-                  <span className="text-sm font-semibold text-green-600">95</span>
+                  <TrendingUp className="h-4 w-4 text-success-text" />
+                  <span className="text-sm font-semibold text-success-text">95</span>
                 </div>
               </div>
 
               <div className="flex items-center gap-3 p-3 rounded-lg border">
-                <div className="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center text-white">
+                <div className="w-10 h-10 rounded-full bg-warning flex items-center justify-center text-white">
                   2
                 </div>
                 <div className="flex-1">
@@ -414,8 +414,8 @@ export function EnhancedLiveMap({
                   <p className="text-xs text-slate-600">4.1 km entfernt · 8 Min</p>
                 </div>
                 <div className="flex items-center gap-1">
-                  <TrendingUp className="h-4 w-4 text-yellow-600" />
-                  <span className="text-sm font-semibold text-yellow-600">82</span>
+                  <TrendingUp className="h-4 w-4 text-warning-text" />
+                  <span className="text-sm font-semibold text-warning-text">82</span>
                 </div>
               </div>
 
@@ -434,7 +434,7 @@ export function EnhancedLiveMap({
               </div>
             </div>
 
-            <V28Button className="w-full mt-4 bg-green-600 hover:bg-green-700" variant="primary">
+            <V28Button className="w-full mt-4" variant="primary">
               Fahrer zuweisen
             </V28Button>
           </div>
