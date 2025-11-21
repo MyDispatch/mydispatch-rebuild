@@ -2,30 +2,30 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-// REPLIT CONFIG: Optimized for Replit deployment
+// ✅ CODEPILOT TASK 1.1: Production Config (Vercel Deployment)
+// STRATEGY: Optimized for Vercel, local dev on 5173 (Vite default)
 export default defineConfig({
   base: '/',
 
   plugins: [react()],
 
+  // Development Server (localhost)
   server: {
     host: '0.0.0.0',
-    port: 5000,
-    strictPort: true,
-    // Replit-specific: Allow all hosts for dynamic Replit domains
-    allowedHosts: true,
-    // HMR configuration for Replit
+    port: 5173, // ✅ Vite default port (avoid Replit legacy)
+    strictPort: false, // ✅ Flexible for dev
+    open: false, // ✅ Don't auto-open browser
     hmr: {
-      host: '0.0.0.0',
-      port: 5000,
+      overlay: true, // ✅ Show build errors in browser
     },
   },
 
+  // Preview Server (local production test)
   preview: {
     host: '0.0.0.0',
-    port: 5000,
-    strictPort: true,
-    allowedHosts: true,
+    port: 4173, // ✅ Vite default preview port
+    strictPort: false,
+    open: false,
   },
 
   resolve: {
@@ -34,7 +34,8 @@ export default defineConfig({
     },
   },
 
-  // ✅ Dependency Pre-Bundling Optimization
+  // ✅ CODEPILOT TASK 1.1: Dependency Pre-Bundling Optimization
+  // STRATEGY: Pre-bundle heavy dependencies for faster HMR
   optimizeDeps: {
     include: [
       'react',
@@ -43,16 +44,36 @@ export default defineConfig({
       '@supabase/supabase-js',
       'date-fns',
       'lucide-react',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@tanstack/react-query',
     ],
+    // Exclude problematic dependencies
+    exclude: ['@vite-pwa/assets-generator'],
   },
 
-  // ✅ External dependencies for build
+  // ✅ CODEPILOT TASK 1.1: Production Build Optimization (Vercel)
   build: {
-    target: 'es2020',
-    minify: 'terser', // PRODUCTION MINIFICATION
-    cssCodeSplit: true,
-    sourcemap: false, // PRODUCTION: No sourcemaps
-    chunkSizeWarningLimit: 1000, // Increase limit for large export libraries
+    target: 'es2020', // ✅ Modern browsers (95%+ support)
+    minify: 'terser', // ✅ Best compression
+    cssCodeSplit: true, // ✅ Split CSS per route
+    sourcemap: false, // ✅ PRODUCTION: No sourcemaps (security)
+    chunkSizeWarningLimit: 1000, // ✅ Allow large chunks for export libs
+
+    // ✅ Terser Options (Production)
+    terserOptions: {
+      compress: {
+        drop_console: true, // ✅ Remove console.log in production
+        drop_debugger: true, // ✅ Remove debugger statements
+        pure_funcs: ['console.log', 'console.info'], // ✅ Additional cleanup
+      },
+      mangle: {
+        safari10: true, // ✅ Safari 10 compatibility
+      },
+      format: {
+        comments: false, // ✅ Remove all comments
+      },
+    },
 
     rollupOptions: {
       output: {
@@ -95,13 +116,6 @@ export default defineConfig({
           // Icons
           'icons': ['lucide-react'],
         },
-      },
-    },
-
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.log in production
-        drop_debugger: true,
       },
     },
   },

@@ -248,13 +248,13 @@ export default function IndexLiveblocks() {
                   <div className="w-12 h-12 rounded-xl bg-info-light flex items-center justify-center group-hover:scale-110 transition-transform">
                     <FileText className="w-6 h-6 text-info-text" />
                   </div>
-                  <TrendingUp className="w-5 h-5 text-green-500" />
+                  <TrendingUp className="w-5 h-5 text-success" />
                 </div>
 
                 <div className="space-y-1">
                   <p className="text-sm font-medium text-muted-foreground">Aufträge heute</p>
                   <p className="text-4xl font-bold tracking-tight text-foreground">{totalBookings}</p>
-                  <p className="text-xs font-medium text-green-600">+12.5% vs. gestern</p>
+                  <p className="text-xs font-medium text-success-text">+12.5% vs. gestern</p>
                 </div>
               </div>
             </button>
@@ -262,22 +262,22 @@ export default function IndexLiveblocks() {
             {/* Umsatz Card */}
             <button
               onClick={() => navigate('/finanzen')}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:border-blue-200 hover:shadow-xl transition-all duration-300"
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:border-info-border hover:shadow-xl transition-all duration-300"
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-green-50 to-transparent rounded-bl-[100px] opacity-50 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-success-light to-transparent rounded-bl-[100px] opacity-50 group-hover:opacity-100 transition-opacity" />
 
               <div className="relative">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Euro className="w-6 h-6 text-green-600" />
+                  <div className="w-12 h-12 rounded-xl bg-success-light flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Euro className="w-6 h-6 text-success-text" />
                   </div>
-                  <TrendingUp className="w-5 h-5 text-green-500" />
+                  <TrendingUp className="w-5 h-5 text-success" />
                 </div>
 
                 <div className="space-y-1">
                   <p className="text-sm font-medium text-muted-foreground">Umsatz heute</p>
                   <p className="text-4xl font-bold tracking-tight text-foreground">{formatCurrency(totalRevenue)}</p>
-                  <p className="text-xs font-medium text-green-600">+8.3% vs. gestern</p>
+                  <p className="text-xs font-medium text-success-text">+8.3% vs. gestern</p>
                 </div>
               </div>
             </button>
@@ -317,7 +317,7 @@ export default function IndexLiveblocks() {
                   <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Car className="w-6 h-6 text-amber-600" />
                   </div>
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
                 </div>
 
                 <div className="space-y-1">
@@ -448,10 +448,10 @@ export default function IndexLiveblocks() {
                       <div className="flex items-center gap-3">
                         <span className="font-bold text-foreground">{formatCurrency(booking.price || 0)}</span>
                         <div className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${
-                          booking.status === 'completed' ? 'bg-green-50 text-green-700' :
-                          booking.status === 'in_progress' ? 'bg-amber-50 text-amber-700' :
-                          booking.status === 'confirmed' ? 'bg-blue-50 text-blue-700' :
-                          'bg-gray-50 text-gray-700'
+                          booking.status === 'completed' ? 'bg-success-light text-success-text' :
+                          booking.status === 'in_progress' ? 'bg-warning-light text-warning-text' :
+                          booking.status === 'confirmed' ? 'bg-info-light text-info-text' :
+                          'bg-muted text-muted-foreground'
                         }`}>
                           {booking.status === 'completed' ? 'Erledigt' :
                            booking.status === 'in_progress' ? 'Aktiv' :
