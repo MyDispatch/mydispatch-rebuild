@@ -72,7 +72,7 @@ jobs:
           DRY_RUN_MODE: ${{ github.event.inputs.dry_run || 'true' }}
         run: |
           echo "🔍 Checking autonomous system status..."
-          
+
           # Verify required secrets are configured
           if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
             echo "❌ ERROR: Required GitHub Secrets not configured"
@@ -81,14 +81,14 @@ jobs:
             echo "can_run=false" >> $GITHUB_OUTPUT
             exit 1
           fi
-          
+
           # Check autonomous agent script
           if [ ! -f "scripts/autonomous-agent.ts" ]; then
             echo "❌ ERROR: autonomous-agent.ts script not found"
             echo "can_run=false" >> $GITHUB_OUTPUT
             exit 1
           fi
-          
+
           # Run status check
           npx tsx scripts/autonomous-agent.ts status || {
             echo "⚠️ WARNING: Status check failed, but allowing dry-run"
