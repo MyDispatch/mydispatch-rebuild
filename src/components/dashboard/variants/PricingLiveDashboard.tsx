@@ -15,9 +15,9 @@ interface PricingLiveDashboardProps {
   resolution?: RenderingResolution;
 }
 
-export default function PricingLiveDashboard({ 
+export default function PricingLiveDashboard({
   variant = 'ipad',
-  resolution = 'retina' 
+  resolution = 'retina'
 }: PricingLiveDashboardProps) {
   const { shouldRender, elementRef } = useOptimizedRendering(resolution);
 
@@ -40,7 +40,7 @@ export default function PricingLiveDashboard({
           { name: 'Business', price: '149', users: '4-10', color: 'bg-violet-100', popular: true },
           { name: 'Enterprise', price: '349', users: 'Unlimitiert', color: 'bg-slate-100' },
         ].map((tier) => (
-          <div 
+          <div
             key={tier.name}
             className={cn(
               "relative rounded-xl p-4 border-2",
@@ -70,7 +70,7 @@ export default function PricingLiveDashboard({
             <CreditCard className="w-5 h-5 text-slate-700" />
             <span className="font-semibold text-slate-900">Zahlungsstatus</span>
           </div>
-          <span className="flex items-center gap-1 text-sm font-medium text-green-600">
+          <span className="flex items-center gap-1 text-sm font-medium text-success-text">
             <Check className="w-4 h-4" />
             Aktiv
           </span>
@@ -94,8 +94,8 @@ export default function PricingLiveDashboard({
             <Euro className="w-4 h-4 text-slate-700" />
             <span className="text-xs font-semibold text-slate-600">Umsatz MTD</span>
           </div>
-          <div className="text-2xl font-bold text-slate-900">3.847€</div>
-          <div className="flex items-center gap-1 mt-1 text-xs text-green-600">
+          <p className="text-2xl font-bold text-slate-900">€15.420</p>
+          <div className="flex items-center gap-1 mt-1 text-xs text-success-text">
             <TrendingUp className="w-3 h-3" />
             <span>+12% vs. Vormonat</span> {/* ✅ Status Exception */}
           </div>

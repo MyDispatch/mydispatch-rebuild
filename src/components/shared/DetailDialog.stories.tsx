@@ -85,7 +85,7 @@ export const DriverDetailWithRelated: Story = {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">Status</p>
-            <p className="font-medium text-green-600">Verfügbar</p>
+            <p className="font-medium text-success-text">Verfügbar</p>
           </div>
         </div>
         <div className="pt-4 border-t">
@@ -136,7 +136,7 @@ export const VehicleDetail: Story = {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">Status</p>
-            <p className="font-medium text-green-600">Verfügbar</p>
+            <p className="font-medium text-success-text">Verfügbar</p>
           </div>
         </div>
       </div>
@@ -172,7 +172,7 @@ export const InvoiceDetail: Story = {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">Status</p>
-            <p className="font-medium text-yellow-600">Ausstehend</p>
+            <p className="font-medium text-warning-text">Ausstehend</p>
           </div>
           <div className="col-span-2">
             <p className="text-sm text-muted-foreground">Fälligkeitsdatum</p>

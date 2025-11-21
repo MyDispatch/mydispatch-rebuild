@@ -17,8 +17,8 @@ interface V28DashboardPreviewPremiumProps {
   scale?: number;
 }
 
-export function V28DashboardPreviewPremium({ 
-  scale = 1 
+export function V28DashboardPreviewPremium({
+  scale = 1
 }: V28DashboardPreviewPremiumProps) {
   // Premium Demo-Daten mit realistischen Werten
   const demoStats = {
@@ -44,8 +44,8 @@ export function V28DashboardPreviewPremium({
   ];
 
   return (
-    <div 
-      style={{ 
+    <div
+      style={{
         transform: `scale(${scale})`,
         transformOrigin: 'top left',
         width: `${100 / scale}%`,
@@ -62,15 +62,15 @@ export function V28DashboardPreviewPremium({
                 Dashboard
               </h1>
               <p className="text-base text-slate-600 mt-2">
-                Heute • {new Date().toLocaleDateString('de-DE', { 
-                  weekday: 'long', 
-                  day: '2-digit', 
-                  month: 'long' 
+                Heute • {new Date().toLocaleDateString('de-DE', {
+                  weekday: 'long',
+                  day: '2-digit',
+                  month: 'long'
                 })}
               </p>
             </div>
             <div className="flex items-center gap-2 text-sm text-slate-600">
-              <Activity className="w-4 h-4 text-green-500" />
+              <Activity className="w-4 h-4 text-success" />
               <span>Live</span>
             </div>
           </div>
@@ -104,8 +104,8 @@ export function V28DashboardPreviewPremium({
 
         {/* Live-Karte Section */}
         <V28DashboardSection background="white" className="py-8">
-          <V28DashboardCard 
-            title="Live-Karte" 
+          <V28DashboardCard
+            title="Live-Karte"
             description="Fahrzeugstandorte in Echtzeit"
             icon={MapPin}
           >
@@ -161,8 +161,8 @@ export function V28DashboardPreviewPremium({
 
         {/* Activity List */}
         <V28DashboardSection background="white" className="py-8">
-          <V28DashboardCard 
-            title="Letzte Aktivitäten" 
+          <V28DashboardCard
+            title="Letzte Aktivitäten"
             icon={Activity}
           >
             <div className="space-y-3">
@@ -172,7 +172,7 @@ export function V28DashboardPreviewPremium({
                 { time: 'vor 12 Min', text: 'Fahrer zugewiesen #5246', status: 'info' },
                 { time: 'vor 18 Min', text: 'Auftrag #5245 abgeschlossen', status: 'success' },
               ].map((activity, idx) => (
-                <div 
+                <div
                   key={idx}
                   className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors"
                 >
