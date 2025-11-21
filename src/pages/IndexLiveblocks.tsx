@@ -238,8 +238,8 @@ export default function IndexLiveblocks() {
 
             {/* Aufträge Card */}
             <button
-              onClick={() => navigate('/auftraege')}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:border-blue-200 hover:shadow-xl transition-all duration-300"
+              onClick={() => navigate('/auftraege/neu')}
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:border-info-border hover:shadow-xl transition-all duration-300"00"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-bl-[100px] opacity-50 group-hover:opacity-100 transition-opacity" />
 
@@ -285,7 +285,7 @@ export default function IndexLiveblocks() {
             {/* Fahrer Card */}
             <button
               onClick={() => navigate('/fahrer')}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:border-blue-200 hover:shadow-xl transition-all duration-300"
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:border-info-border hover:shadow-xl transition-all duration-300"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-50 to-transparent rounded-bl-[100px] opacity-50 group-hover:opacity-100 transition-opacity" />
 
@@ -308,14 +308,14 @@ export default function IndexLiveblocks() {
             {/* Fahrzeuge Card */}
             <button
               onClick={() => navigate('/fahrer?tab=fahrzeuge')}
-              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:border-blue-200 hover:shadow-xl transition-all duration-300"
+              className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 hover:border-info-border hover:shadow-xl transition-all duration-300"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-50 to-transparent rounded-bl-[100px] opacity-50 group-hover:opacity-100 transition-opacity" />
 
               <div className="relative">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Car className="w-6 h-6 text-amber-600" />
+                  <div className="w-12 h-12 rounded-xl bg-warning-light flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Car className="w-6 h-6 text-warning-text" />
                   </div>
                   <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
                 </div>
@@ -349,17 +349,17 @@ export default function IndexLiveblocks() {
                     <Plus className="w-6 h-6 text-white" />
                   </div>
                   <div className="flex-1 text-left">
-                    <p className="font-semibold text-foreground group-hover:text-blue-600 transition-colors">
+                    <p className="font-semibold text-foreground group-hover:text-info-text transition-colors">
                       Neuer Auftrag
                     </p>
                     <p className="text-xs text-muted-foreground">Auftrag erstellen</p>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-blue-600 group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-info-text group-hover:translate-x-1 transition-all" />
                 </button>
 
                 <button
                   onClick={() => navigate('/schichtzettel')}
-                  className="group flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:border-blue-300 hover:shadow-lg transition-all duration-200"
+                  className="group flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:border-info-border hover:shadow-lg transition-all duration-200"
                 >
                   <div className="w-12 h-12 rounded-lg bg-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Calendar className="w-6 h-6 text-white" />
@@ -375,23 +375,23 @@ export default function IndexLiveblocks() {
 
                 <button
                   onClick={() => navigate('/finanzen?tab=berichte')}
-                  className="group flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:border-blue-300 hover:shadow-lg transition-all duration-200"
+                  className="group flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:border-info-border hover:shadow-lg transition-all duration-200"
                 >
-                  <div className="w-12 h-12 rounded-lg bg-green-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-lg bg-success flex items-center justify-center group-hover:scale-110 transition-transform">
                     <BarChart3 className="w-6 h-6 text-white" />
                   </div>
                   <div className="flex-1 text-left">
-                    <p className="font-semibold text-foreground group-hover:text-green-600 transition-colors">
+                    <p className="font-semibold text-foreground group-hover:text-success-text transition-colors">
                       Berichte
                     </p>
                     <p className="text-xs text-muted-foreground">Analytics ansehen</p>
                   </div>
-                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-green-600 group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-success-text group-hover:translate-x-1 transition-all" />
                 </button>
 
                 <button
                   onClick={() => navigate('/einstellungen')}
-                  className="group flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:border-blue-300 hover:shadow-lg transition-all duration-200"
+                  className="group flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:border-info-border hover:shadow-lg transition-all duration-200"
                 >
                   <div className="w-12 h-12 rounded-lg bg-gray-600 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Settings className="w-6 h-6 text-white" />
@@ -433,8 +433,8 @@ export default function IndexLiveblocks() {
                       className="w-full group flex items-center justify-between p-4 rounded-xl hover:bg-accent border border-transparent hover:border-border transition-all"
                     >
                       <div className="flex items-center gap-3 flex-1">
-                        <div className="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center">
-                          <FileText className="w-5 h-5 text-blue-600" />
+                        <div className="w-10 h-10 rounded-lg bg-info-light flex items-center justify-center">
+                          <FileText className="w-5 h-5 text-info-text" />
                         </div>
                         <div className="text-left">
                           <p className="font-semibold text-foreground text-sm">
@@ -464,7 +464,7 @@ export default function IndexLiveblocks() {
 
               <button
                 onClick={() => navigate('/auftraege')}
-                className="w-full mt-4 px-4 py-2.5 rounded-xl text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
+                className="w-full mt-4 px-4 py-2.5 rounded-xl text-sm font-medium text-info-text hover:bg-info-light transition-colors flex items-center justify-center gap-2"
               >
                 Alle Aufträge anzeigen
                 <ArrowRight className="w-4 h-4" />
@@ -493,9 +493,9 @@ export default function IndexLiveblocks() {
                     >
                       <div className="flex items-center gap-3 flex-1">
                         <div className={`w-3 h-3 rounded-full ${
-                          vehicle.status === 'available' ? 'bg-green-500' :
-                          vehicle.status === 'im_einsatz' ? 'bg-amber-500' :
-                          'bg-red-500'
+                          vehicle.status === 'available' ? 'bg-success' :
+                          vehicle.status === 'im_einsatz' ? 'bg-warning' :
+                          'bg-error'
                         } animate-pulse`} />
                         <div className="text-left">
                           <p className="font-semibold text-foreground text-sm">
@@ -507,9 +507,9 @@ export default function IndexLiveblocks() {
                         </div>
                       </div>
                       <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${
-                        vehicle.status === 'available' ? 'bg-green-50 text-green-700' :
-                        vehicle.status === 'im_einsatz' ? 'bg-amber-50 text-amber-700' :
-                        'bg-red-50 text-red-700'
+                        vehicle.status === 'available' ? 'bg-success-light text-success-text' :
+                        vehicle.status === 'im_einsatz' ? 'bg-warning-light text-warning-text' :
+                        'bg-error-light text-error-text'
                       }`}>
                         {vehicle.status === 'available' ? 'Verfügbar' :
                          vehicle.status === 'im_einsatz' ? 'Im Einsatz' : 'Wartung'}
@@ -520,7 +520,7 @@ export default function IndexLiveblocks() {
 
               <button
                 onClick={() => navigate('/fahrer?tab=fahrzeuge')}
-                className="w-full mt-4 px-4 py-2.5 rounded-xl text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors flex items-center justify-center gap-2"
+                className="w-full mt-4 px-4 py-2.5 rounded-xl text-sm font-medium text-info-text hover:bg-info-light transition-colors flex items-center justify-center gap-2"
               >
                 Alle Fahrzeuge anzeigen
                 <ArrowRight className="w-4 h-4" />
