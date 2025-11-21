@@ -1,7 +1,8 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "mydispatch-rebuild",
   "private": true,
-  "version": "0.0.0",
+  "version": "33.4.0",
+  "description": "MyDispatch - Production-ready Taxi & Limousine Dispatch Management System",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 5000",
