@@ -30,10 +30,10 @@ interface SwipeableBookingCardProps {
   onDecline: (bookingId: string) => void;
 }
 
-export const SwipeableBookingCard = ({ 
-  booking, 
-  onAccept, 
-  onDecline 
+export const SwipeableBookingCard = ({
+  booking,
+  onAccept,
+  onDecline
 }: SwipeableBookingCardProps) => {
   const [swipeOffset, setSwipeOffset] = useState(0);
 
@@ -53,14 +53,14 @@ export const SwipeableBookingCard = ({
     delta: 50 // Min 50px für Swipe
   });
 
-  const backgroundColor = 
+  const backgroundColor =
     swipeOffset > 50 ? 'rgb(34 197 94)' : // Green
     swipeOffset < -50 ? 'rgb(239 68 68)' : // Red
     'transparent';
 
   return (
-    <div 
-      {...handlers} 
+    <div
+      {...handlers}
       className="relative touch-pan-y"
       style={{
         transform: `translateX(${swipeOffset}px)`,
@@ -75,7 +75,7 @@ export const SwipeableBookingCard = ({
             <div className="flex items-center space-x-2 mb-2">
               <Clock className="h-4 w-4 text-foreground" />
               <span className="font-semibold text-foreground">{booking.time}</span>
-              <Badge 
+              <Badge
                 variant={booking.status === 'confirmed' ? 'default' : 'secondary'}
                 className="text-xs"
               >
@@ -85,7 +85,7 @@ export const SwipeableBookingCard = ({
                 {booking.status === 'confirmed' ? 'Bestätigt' : 'Ausstehend'}
               </Badge>
             </div>
-            
+
             <div className="space-y-1">
               <div className="flex items-start space-x-2">
                 <MapPin className="h-4 w-4 text-foreground mt-0.5 flex-shrink-0" />
@@ -99,7 +99,7 @@ export const SwipeableBookingCard = ({
               </div>
             </div>
           </div>
-          
+
           <div className="text-right ml-4">
             <p className="text-lg font-bold text-foreground">
               {formatCurrency(booking.price)}
@@ -110,16 +110,16 @@ export const SwipeableBookingCard = ({
 
         {/* Touch-optimized Buttons (min 44x44px) */}
         <div className="flex space-x-2">
-          <V28Button 
-            size="lg" 
-            className="flex-1 min-h-[44px] bg-green-600 hover:bg-green-700 touch-manipulation"
+          <V28Button
+            size="lg"
+            className="flex-1 min-h-[44px] bg-success hover:bg-success/90 touch-manipulation"
             onClick={() => onAccept(booking.id)}
           >
             <CheckCircle className="mr-2 h-5 w-5" />
             Annehmen
           </V28Button>
-          <V28Button 
-            size="lg" 
+          <V28Button
+            size="lg"
             variant="secondary"
             className="flex-1 min-h-[44px] touch-manipulation"
             onClick={() => onDecline(booking.id)}

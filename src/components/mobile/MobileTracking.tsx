@@ -120,7 +120,7 @@ export function MobileTracking({
         noResultsDescription: 'Versuchen Sie eine andere Suchanfrage',
       }}
       renderCard={(driver) => (
-        <Card 
+        <Card
           className="cursor-pointer hover:bg-primary/5 transition-colors"
           onClick={() => onDriverClick(driver)}
         >
@@ -136,7 +136,7 @@ export function MobileTracking({
                   size="sm"
                 />
               </div>
-              <div className="flex items-center gap-1 text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full">
+              <div className="flex items-center gap-1 text-xs text-success-text bg-success-light px-2 py-1 rounded-full">
                 <Activity className="h-3 w-3" />
                 <span>Live</span>
               </div>
@@ -179,8 +179,8 @@ export function MobileTracking({
               <div className="flex items-center justify-between text-xs">
                 <span className="text-slate-500">GPS-Signal</span>
                 <div className="flex items-center gap-1">
-                  <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-green-600 font-medium">Aktiv</span>
+                  <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+                  <span className="text-success-text font-medium">Aktiv</span>
                 </div>
               </div>
             </div>

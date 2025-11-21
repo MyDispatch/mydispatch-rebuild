@@ -43,9 +43,9 @@ export function MobileAngebote({
     // Search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      const customerName = quote.customer_name || 
+      const customerName = quote.customer_name ||
         `${quote.customer_first_name || ''} ${quote.customer_last_name || ''}`.trim();
-      
+
       return (
         quote.pickup_address?.toLowerCase().includes(query) ||
         quote.dropoff_address?.toLowerCase().includes(query) ||
@@ -118,14 +118,14 @@ export function MobileAngebote({
               {/* Route Info */}
               <div className="space-y-2">
                 <div className="flex items-start gap-2 text-sm">
-                  <MapPin className="h-4 w-4 shrink-0 text-green-600 mt-0.5" />
+                  <MapPin className="h-4 w-4 shrink-0 text-success-text mt-0.5" />
                   <div className="flex-1">
                     <p className="text-xs text-muted-foreground">Von</p>
                     <p className="text-foreground truncate">{quote.pickup_address}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2 text-sm">
-                  <MapPin className="h-4 w-4 shrink-0 text-red-600 mt-0.5" />
+                  <MapPin className="h-4 w-4 shrink-0 text-error-text mt-0.5" />
                   <div className="flex-1">
                     <p className="text-xs text-muted-foreground">Nach</p>
                     <p className="text-foreground truncate">{quote.dropoff_address}</p>

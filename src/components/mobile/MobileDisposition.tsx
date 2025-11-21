@@ -126,7 +126,7 @@ export function MobileDisposition({
         noResultsDescription: 'Versuchen Sie eine andere Suchanfrage',
       }}
       renderCard={(booking) => (
-        <Card 
+        <Card
           className="cursor-pointer hover:bg-primary/5 transition-colors"
           onClick={() => onBookingClick(booking)}
         >
@@ -153,13 +153,13 @@ export function MobileDisposition({
             <div className="space-y-2 text-sm">
               {booking.pickup_address && (
                 <div className="flex items-start gap-2">
-                  <MapPin className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                  <MapPin className="h-4 w-4 text-success-text mt-0.5 flex-shrink-0" />
                   <span className="text-slate-700 line-clamp-1">{booking.pickup_address}</span>
                 </div>
               )}
               {booking.dropoff_address && (
                 <div className="flex items-start gap-2">
-                  <MapPin className="h-4 w-4 text-red-600 mt-0.5 flex-shrink-0" />
+                  <MapPin className="h-4 w-4 text-error-text mt-0.5 flex-shrink-0" />
                   <span className="text-slate-700 line-clamp-1">{booking.dropoff_address}</span>
                 </div>
               )}

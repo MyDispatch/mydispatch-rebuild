@@ -240,7 +240,7 @@ export function V28ITDashboardPreview({ animationDelay = '0.6s' }: V28ITDashboar
           {/* System Status LEDs */}
           <div className="flex items-center justify-between pt-6">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full" />
+              <div className="w-2 h-2 bg-success rounded-full" />
               <span className="font-sans text-xs text-slate-600">Servers Online</span>
             </div>
             <div className="flex items-center gap-2">
