@@ -27,17 +27,17 @@ interface SystemLogsDialogProps {
 export function SystemLogsDialog({ open, onOpenChange, logs }: SystemLogsDialogProps) {
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
-      case 'error': return <XCircle className="w-4 h-4 text-red-600" />;
-      case 'warning': return <AlertTriangle className="w-4 h-4 text-amber-600" />;
-      default: return <Info className="w-4 h-4 text-blue-600" />;
+      case 'error': return <XCircle className="w-4 h-4 text-error-text" />;
+      case 'warning': return <AlertTriangle className="w-4 h-4 text-warning-text" />;
+      default: return <Info className="w-4 h-4 text-info-text" />;
     }
   };
 
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'error': return 'bg-red-100 text-red-800 border-red-200';
-      case 'warning': return 'bg-amber-100 text-amber-800 border-amber-200';
-      default: return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'error': return 'bg-error-light text-error-text border-error-border';
+      case 'warning': return 'bg-warning-light text-warning-text border-warning-border';
+      default: return 'bg-info-light text-info-text border-info-border';
     }
   };
 
@@ -54,7 +54,7 @@ export function SystemLogsDialog({ open, onOpenChange, logs }: SystemLogsDialogP
         <ScrollArea className="h-[500px] pr-4">
           <div className="space-y-3">
             {logs.map((log) => (
-              <div 
+              <div
                 key={log.id}
                 className="p-4 bg-slate-50 border border-slate-200 rounded-lg space-y-2"
               >

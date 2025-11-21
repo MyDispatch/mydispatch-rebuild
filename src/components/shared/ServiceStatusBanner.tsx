@@ -52,14 +52,14 @@ export function ServiceStatusBanner() {
   if (!serviceStatus.sentry) missingServices.push('Sentry (Error Monitoring deaktiviert)');
 
   return (
-    <Alert className="fixed bottom-4 right-4 max-w-md z-50 border-yellow-500 bg-yellow-50">
-      <AlertCircle className="h-4 w-4 text-yellow-600" />
+    <Alert className="fixed bottom-4 right-4 max-w-md z-50 border-warning-border bg-warning-light">
+      <AlertCircle className="h-4 w-4 text-warning-text" />
       <AlertDescription className="pr-8">
-        <div className="font-semibold text-yellow-800 mb-1">Demo-Modus aktiv</div>
-        <div className="text-sm text-yellow-700">
+        <div className="font-semibold text-warning-text mb-1">Demo-Modus aktiv</div>
+        <div className="text-sm text-warning-text">
           {missingServices.length === 1 ? 'Service' : 'Services'} ohne API Keys:
         </div>
-        <ul className="text-sm text-yellow-700 mt-1 space-y-1">
+        <ul className="text-sm text-warning-text mt-1 space-y-1">
           {missingServices.map((service) => (
             <li key={service} className="ml-2">• {service}</li>
           ))}
@@ -67,7 +67,7 @@ export function ServiceStatusBanner() {
       </AlertDescription>
       <button
         onClick={handleDismiss}
-        className="absolute top-3 right-3 text-yellow-700 hover:text-yellow-900 transition-colors"
+        className="absolute top-3 right-3 text-warning-text hover:text-warning-text/80 transition-colors"
         aria-label="Banner schließen"
       >
         <X className="h-4 w-4" />

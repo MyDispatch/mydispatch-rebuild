@@ -12,11 +12,11 @@ import { useState, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { V28Button } from '@/components/design-system/V28Button';
-import { 
-  Copy, 
-  CheckCircle2, 
-  AlertCircle, 
-  Clock, 
+import {
+  Copy,
+  CheckCircle2,
+  AlertCircle,
+  Clock,
   TrendingUp,
   Filter,
   Search
@@ -42,9 +42,9 @@ export function OptimizationTracker({ issues, onMarkAsFixed }: OptimizationTrack
     () => issues.filter(i => !i.fixedAt).sort((a, b) => b.priority - a.priority),
     [issues]
   );
-  
+
   const completedIssues = useMemo(
-    () => issues.filter(i => i.fixedAt).sort((a, b) => 
+    () => issues.filter(i => i.fixedAt).sort((a, b) =>
       new Date(b.fixedAt!).getTime() - new Date(a.fixedAt!).getTime()
     ),
     [issues]
@@ -53,13 +53,13 @@ export function OptimizationTracker({ issues, onMarkAsFixed }: OptimizationTrack
   // Filter issues
   const filterIssues = (issueList: OptimizationIssue[]) => {
     return issueList.filter(issue => {
-      const matchesSearch = 
+      const matchesSearch =
         issue.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
         issue.description.toLowerCase().includes(searchTerm.toLowerCase());
-      
+
       const matchesSeverity = filterSeverity === 'all' || issue.severity === filterSeverity;
       const matchesCategory = filterCategory === 'all' || issue.category === filterCategory;
-      
+
       return matchesSearch && matchesSeverity && matchesCategory;
     });
   };
@@ -109,12 +109,12 @@ export function OptimizationTracker({ issues, onMarkAsFixed }: OptimizationTrack
                 Priorität: {issue.priority}/10
               </Badge>
               {issue.autoFixable && (
-                <Badge variant="outline" className="text-xs bg-green-50">
+                <Badge variant="outline" className="text-xs bg-success-light">
                   Auto-Fixable
                 </Badge>
               )}
               <Badge variant="outline" className="text-xs">
-                {issue.estimatedEffort === 'quick' ? '⚡ Quick' : 
+                {issue.estimatedEffort === 'quick' ? '⚡ Quick' :
                  issue.estimatedEffort === 'medium' ? '⏱️ Medium' : '🕐 Large'}
               </Badge>
             </div>
@@ -146,7 +146,7 @@ export function OptimizationTracker({ issues, onMarkAsFixed }: OptimizationTrack
                 Erkannt: {new Date(issue.detectedAt).toLocaleDateString('de-DE')}
               </span>
               {issue.fixedAt && (
-                <span className="flex items-center gap-1 text-green-600">
+                <span className="flex items-center gap-1 text-success-text">
                   <CheckCircle2 className="h-4 w-4" />
                   Behoben: {new Date(issue.fixedAt).toLocaleDateString('de-DE')}
                 </span>
@@ -164,7 +164,7 @@ export function OptimizationTracker({ issues, onMarkAsFixed }: OptimizationTrack
               <Copy className="h-4 w-4 mr-2 text-foreground" />
               Kopieren
             </V28Button>
-            
+
             {!isCompleted && (
               <V28Button
                 size="sm"
@@ -216,9 +216,9 @@ export function OptimizationTracker({ issues, onMarkAsFixed }: OptimizationTrack
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Abgeschlossen</p>
-                <p className="text-2xl font-bold text-green-600">{completedIssues.length}</p>
+                <p className="text-2xl font-bold text-success-text">{completedIssues.length}</p>
               </div>
-              <CheckCircle2 className="h-8 w-8 text-green-600" />
+              <CheckCircle2 className="h-8 w-8 text-success-text" />
             </div>
           </CardContent>
         </Card>
@@ -229,12 +229,12 @@ export function OptimizationTracker({ issues, onMarkAsFixed }: OptimizationTrack
               <div>
                 <p className="text-sm text-muted-foreground">Erfolgsquote</p>
                 <p className="text-2xl font-bold text-foreground">
-                  {issues.length > 0 
+                  {issues.length > 0
                     ? Math.round((completedIssues.length / issues.length) * 100)
                     : 0}%
                 </p>
               </div>
-              <TrendingUp className="h-8 w-8 text-green-600" />
+              <TrendingUp className="h-8 w-8 text-success-text" />
             </div>
           </CardContent>
         </Card>
@@ -302,7 +302,7 @@ export function OptimizationTracker({ issues, onMarkAsFixed }: OptimizationTrack
           {filteredOpenIssues.length === 0 ? (
             <Card>
               <CardContent className="pt-6 text-center">
-                <CheckCircle2 className="h-12 w-12 mx-auto text-green-600 mb-3" />
+                <CheckCircle2 className="h-12 w-12 mx-auto text-success-text mb-3" />
                 <p className="text-muted-foreground">
                   Keine offenen Optimierungen gefunden! 🎉
                 </p>

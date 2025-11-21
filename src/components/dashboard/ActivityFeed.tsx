@@ -33,24 +33,24 @@ interface ActivityFeedProps {
   className?: string;
 }
 
-export function ActivityFeed({ 
+export function ActivityFeed({
   title = 'Letzte Aktivitäten',
-  activities, 
-  maxItems = 10, 
+  activities,
+  maxItems = 10,
   showTime = true,
   className = ''
 }: ActivityFeedProps) {
   const getStatusColor = (status?: string) => {
     switch (status) {
       case 'success':
-        return 'bg-green-50 text-green-700 border-green-200';
+        return 'bg-success-light text-success-text border-success-border';
       case 'warning':
-        return 'bg-yellow-50 text-yellow-700 border-yellow-200';
+        return 'bg-warning-light text-warning-text border-warning-border';
       case 'error':
-        return 'bg-red-50 text-red-700 border-red-200';
+        return 'bg-error-light text-error-text border-error-border';
       case 'info':
       default:
-        return 'bg-blue-50 text-blue-700 border-blue-200';
+        return 'bg-info-light text-info-text border-info-border';
     }
   };
 
@@ -73,8 +73,8 @@ export function ActivityFeed({
           <div className="space-y-3">
             {displayActivities.map((activity) => {
               const ActivityIcon = activity.icon || Activity;
-              const activityTime = typeof activity.time === 'string' 
-                ? new Date(activity.time) 
+              const activityTime = typeof activity.time === 'string'
+                ? new Date(activity.time)
                 : activity.time;
 
               return (
@@ -96,15 +96,15 @@ export function ActivityFeed({
                     )}
                     {showTime && (
                       <p className="text-xs text-slate-500 mt-1">
-                        {formatDistanceToNow(activityTime, { 
-                          addSuffix: true, 
-                          locale: de 
+                        {formatDistanceToNow(activityTime, {
+                          addSuffix: true,
+                          locale: de
                         })}
                       </p>
                     )}
                   </div>
                   {activity.status && (
-                    <Badge 
+                    <Badge
                       variant="outline"
                       className={`text-xs ${getStatusColor(activity.status)}`}
                     >
