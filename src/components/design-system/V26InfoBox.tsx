@@ -2,16 +2,16 @@
    V26 INFO BOX → V28 INFO BOX (DEPRECATED)
    ==================================================================================
    @deprecated Use Alert component from shadcn instead!
-   
+
    This V26 component is deprecated and will be removed in v29.
    Use the standard shadcn Alert component for all info boxes.
-   
+
    Migration:
    ```tsx
    // Old
    import { V26InfoBox } from '@/components/design-system/V26InfoBox';
    <V26InfoBox type="info" title="Info">Content</V26InfoBox>
-   
+
    // New
    import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
    <Alert><AlertTitle>Info</AlertTitle><AlertDescription>Content</AlertDescription></Alert>
@@ -36,7 +36,7 @@ const typeConfig = {
   },
   warning: {
     icon: AlertTriangle,
-    iconClass: 'text-amber-600',
+    iconClass: 'text-warning-text',
   },
   legal: {
     icon: Scale,
@@ -62,10 +62,10 @@ export function V26InfoBox({
     >
       {title && (
         <div className="flex items-center gap-2 mb-2">
-          <IconComponent 
+          <IconComponent
             className={cn('h-4 w-4 shrink-0', config.iconClass)}
           />
-          <p 
+          <p
             className="font-semibold text-slate-900"
           >
             {title}

@@ -61,7 +61,7 @@ export function V28BillingToggle({
       >
         Jährlich
         <Badge
-          className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-green-100 text-green-700 border border-green-200"
+          className="px-2.5 py-0.5 text-xs font-bold rounded-full bg-success-light text-success-text border border-success-border"
         >
           {discountText}
         </Badge>

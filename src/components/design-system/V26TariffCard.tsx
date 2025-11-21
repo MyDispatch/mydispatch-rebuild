@@ -41,8 +41,8 @@ export function V28TariffCard({
       className={cn(
         'relative flex flex-col rounded-lg transition-all duration-300 cursor-pointer shadow-lg',
         'border-2',
-        isSelected 
-          ? 'border-slate-700 ring-2 ring-slate-200 shadow-xl' 
+        isSelected
+          ? 'border-slate-700 ring-2 ring-slate-200 shadow-xl'
           : 'border-slate-200 hover:border-slate-300 hover:-translate-y-1',
         className
       )}
@@ -91,7 +91,7 @@ export function V28TariffCard({
         <ul className="space-y-3 mb-6">
           {features.map((feature) => (
             <li key={feature} className="flex items-start gap-4">
-              <Check className="h-5 w-5 shrink-0 mt-0.5 text-green-600" />
+              <Check className="h-5 w-5 shrink-0 mt-0.5 text-success-text" />
               <span className="text-sm font-normal text-slate-700">
                 {feature}
               </span>

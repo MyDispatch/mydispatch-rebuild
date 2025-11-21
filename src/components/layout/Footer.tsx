@@ -43,7 +43,7 @@ export function Footer({ sidebarExpanded }: FooterProps) {
                 {i > 0 && <span className="text-[9px] text-slate-300">•</span>}
                 <Link
               to={label === 'Kontakt' ? '/contact' : `/${label.toLowerCase()}`}
-              className="text-[9px] text-slate-700 hover:text-blue-600 transition-colors font-medium"
+              className="text-[9px] text-slate-700 hover:text-info transition-colors font-medium"
             >
                   {label}
                 </Link>
@@ -66,7 +66,7 @@ export function Footer({ sidebarExpanded }: FooterProps) {
               <Link
                 key={label}
                 to={label === 'Kontakt' ? '/contact' : `/${label.toLowerCase()}`}
-                className="text-[11px] text-slate-700 hover:text-blue-600 transition-colors font-medium"
+                className="text-[11px] text-slate-700 hover:text-info transition-colors font-medium"
               >
                 {label}
               </Link>
