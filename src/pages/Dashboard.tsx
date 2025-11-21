@@ -53,21 +53,30 @@ export default function Dashboard() {
         value: bookings.toString(),
         subtitle: 'Alle Buchungen heute',
         icon: FileText,
-        trend: stats?.bookings_trend
+        change: stats?.bookings_trend ? {
+          value: Math.abs(stats.bookings_trend.value),
+          trend: stats.bookings_trend.direction === 'up' ? 'up' as const : stats.bookings_trend.direction === 'down' ? 'down' as const : 'neutral' as const
+        } : undefined
       },
       {
         title: 'Aktive Fahrer',
         value: drivers.toString(),
         subtitle: 'Im Dienst',
         icon: Users,
-        trend: stats?.drivers_trend
+        change: stats?.drivers_trend ? {
+          value: Math.abs(stats.drivers_trend.value),
+          trend: stats.drivers_trend.direction === 'up' ? 'up' as const : stats.drivers_trend.direction === 'down' ? 'down' as const : 'neutral' as const
+        } : undefined
       },
       {
         title: 'Umsatz (heute)',
         value: formatCurrency(revenue),
         subtitle: 'Tagesumsatz',
         icon: Euro,
-        trend: stats?.revenue_trend
+        change: stats?.revenue_trend ? {
+          value: Math.abs(stats.revenue_trend.value),
+          trend: stats.revenue_trend.direction === 'up' ? 'up' as const : stats.revenue_trend.direction === 'down' ? 'down' as const : 'neutral' as const
+        } : undefined
       }
     ];
 
@@ -79,14 +88,20 @@ export default function Dashboard() {
           value: stats?.conversion_rate ? `${stats.conversion_rate}%` : '0%',
           subtitle: 'Angebote → Aufträge',
           icon: Target,
-          trend: stats?.conversion_trend
+          change: stats?.conversion_trend ? {
+            value: Math.abs(stats.conversion_trend.value),
+            trend: stats.conversion_trend.direction === 'up' ? 'up' as const : stats.conversion_trend.direction === 'down' ? 'down' as const : 'neutral' as const
+          } : undefined
         },
         {
           title: 'Kundenzufriedenheit',
-          value: stats?.customer_rating ? `${stats.customer_rating}/5`` : '4.8/5',
+          value: stats?.customer_rating ? `${stats.customer_rating}/5` : '4.8/5',
           subtitle: 'Durchschnittliche Bewertung',
           icon: Star,
-          trend: stats?.rating_trend
+          change: stats?.rating_trend ? {
+            value: Math.abs(stats.rating_trend.value),
+            trend: stats.rating_trend.direction === 'up' ? 'up' as const : stats.rating_trend.direction === 'down' ? 'down' as const : 'neutral' as const
+          } : undefined
         }
       );
     }
@@ -342,7 +357,11 @@ export default function Dashboard() {
               </Card>
             </FeatureGate>
           </div>
-        </Card>
+        </FeatureGate>
+
+        {/* ENDE BUSINESS FEATURES */}
+      </div>
+    </div>
       </StandardPageLayout>
 
       {/* V33.0: Schnellzugriff Sidebar (rechts) - Desktop only - KONSISTENT MIT RECHNUNGEN */}

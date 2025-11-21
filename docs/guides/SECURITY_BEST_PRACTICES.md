@@ -206,8 +206,9 @@ console.log("User data:", {
 });
 
 // ✅ GOOD: Use error tracking without PII
-Sentry.captureException(error, {
-  tags: { user_id: userId },
+logError({
+  error,
+  context: { user_id: userId },
   // ❌ Don't include: email, phone, address
 });
 ```

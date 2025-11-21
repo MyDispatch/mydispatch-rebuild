@@ -534,11 +534,6 @@ await fetch(webhookUrl, {
 **Pattern:** All emails sent via Edge Functions (never direct from frontend)
 **Templates:** HTML templates in `email_templates` table
 
-### Sentry (Error Monitoring)
-
-**Integration:** Real-time error tracking and performance monitoring
-**Usage:** Automatically captures errors, manual capture with `Sentry.captureException()`
-
 ### Supabase Realtime
 
 **Pattern for realtime subscriptions:**

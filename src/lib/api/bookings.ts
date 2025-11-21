@@ -1,6 +1,6 @@
 /**
  * HYPERION PHASE 2: Bookings API Module
- * 
+ *
  * Alle CRUD-Operationen für Buchungen.
  * Kein direkter Supabase-Zugriff mehr in Hooks!
  */
@@ -19,8 +19,8 @@ export interface Booking {
   dropoff_address: string;
   pickup_time: string;
   dropoff_time: string | null;
-  status: string;
-  payment_status: string;
+  status: BookingStatus;
+  payment_status: PaymentStatus;
   payment_method: string | null;
   price: number;
   passengers: number;
