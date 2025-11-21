@@ -43,10 +43,17 @@ export function DriverForm({
     driver.streetNumber,
     driver.postalCode,
     driver.city,
-    // License fields
+    // License fields (required)
     driver.licenseNumber,
     driver.licenseExpiry,
     driver.licenseClasses,
+    // Optional license fields
+    driver.taxiLicenseNumber,
+    driver.taxiLicenseExpiry,
+    driver.pScheinNumber,
+    driver.pScheinExpiryDate,
+    driver.medicalCertificateExpiry,
+    // Employment & Status
     driver.employmentType,
     driver.shiftStatus,
     driver.notes,

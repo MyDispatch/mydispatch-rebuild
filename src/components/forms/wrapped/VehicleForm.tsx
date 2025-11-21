@@ -31,7 +31,7 @@ export function VehicleForm({
   const fields: FormField[] = [
     vehicle.licensePlate,
     vehicle.concessionNumber,
-    vehicle.vehicleType,
+    vehicle.vehicleClass,
     vehicle.manufacturer,
     vehicle.model,
     vehicle.year,
@@ -39,6 +39,7 @@ export function VehicleForm({
     vehicle.insuranceExpiry,
     vehicle.capacityPassengers,
     vehicle.capacityLuggage,
+    vehicle.vehicleStatus,
   ];
 
   return (
