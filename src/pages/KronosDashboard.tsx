@@ -12,14 +12,14 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Play, 
-  RefreshCw, 
-  FileCode, 
-  GitGraph, 
-  CheckCircle2, 
-  XCircle, 
-  Clock, 
+import {
+  Play,
+  RefreshCw,
+  FileCode,
+  GitGraph,
+  CheckCircle2,
+  XCircle,
+  Clock,
   Loader2,
   AlertCircle,
   TrendingUp
@@ -57,7 +57,7 @@ export default function KronosDashboard() {
     return () => clearInterval(interval);
   }, [autoRefresh, loadEntities, loadCurrentRun]);
 
-  const completionPercentage = stats 
+  const completionPercentage = stats
     ? Math.round((stats.completed / stats.total) * 100)
     : 0;
 
@@ -79,7 +79,7 @@ export default function KronosDashboard() {
             Wiki-Execution-Protocol • Parallele Code-Synthese
           </p>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <V28Button
             variant="secondary"
@@ -89,7 +89,7 @@ export default function KronosDashboard() {
             <RefreshCw className={`h-4 w-4 ${autoRefresh ? 'animate-spin' : ''}`} />
             Auto-Refresh {autoRefresh ? 'On' : 'Off'}
           </V28Button>
-          
+
           <V28Button
             onClick={handleFullExecution}
             disabled={isLoading}
@@ -123,7 +123,7 @@ export default function KronosDashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Completed</CardTitle>
-            <CheckCircle2 className="h-4 w-4 text-green-500" />
+            <CheckCircle2 className="h-4 w-4 text-success" />
           </CardHeader>
           <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats?.completed || 0}</div>
@@ -134,7 +134,7 @@ export default function KronosDashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">In Progress</CardTitle>
-            <Loader2 className="h-4 w-4 text-blue-500" />
+            <Loader2 className="h-4 w-4 text-info" />
           </CardHeader>
           <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats?.in_progress || 0}</div>
@@ -147,7 +147,7 @@ export default function KronosDashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Failed</CardTitle>
-            <XCircle className="h-4 w-4 text-red-500" />
+            <XCircle className="h-4 w-4 text-error" />
           </CardHeader>
           <CardContent className="p-6">
             <div className="text-2xl font-bold">{stats?.failed || 0}</div>
@@ -178,16 +178,16 @@ export default function KronosDashboard() {
                   {currentRun.status}
                 </Badge>
               </div>
-              
+
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium">Progress</span>
                 <span className="text-sm">
                   Level {currentRun.current_level} / {currentRun.total_levels}
                 </span>
               </div>
-              
-              <Progress 
-                value={(currentRun.current_level / currentRun.total_levels) * 100} 
+
+              <Progress
+                value={(currentRun.current_level / currentRun.total_levels) * 100}
               />
 
               <div className="grid grid-cols-3 gap-4 text-sm">
@@ -250,7 +250,7 @@ export default function KronosDashboard() {
                               </div>
                             )}
                             {entity.error_message && (
-                              <div className="text-xs text-red-500 mt-1 flex items-center gap-1">
+                              <div className="text-xs text-error mt-1 flex items-center gap-1">
                                 <AlertCircle className="h-3 w-3" />
                                 {entity.error_message}
                               </div>

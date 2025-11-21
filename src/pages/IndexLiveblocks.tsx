@@ -163,7 +163,7 @@ export default function IndexLiveblocks() {
                 <nav className="hidden md:flex items-center gap-1">
                   <button
                     onClick={() => navigate('/dashboard')}
-                    className="px-4 py-2 rounded-lg text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 transition-colors"
+                    className="px-4 py-2 rounded-lg text-sm font-medium text-info-text bg-info-light hover:bg-info-border transition-colors"
                   >
                     Dashboard
                   </button>
@@ -214,9 +214,9 @@ export default function IndexLiveblocks() {
 
           {/* ✨ HERO SECTION - Liveblocks Style */}
           <div className="mb-16 animate-fade-in">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 mb-6">
-              <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-              <span className="text-xs font-semibold text-blue-700 uppercase tracking-wide">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-info-light border border-info-border mb-6">
+              <div className="w-2 h-2 rounded-full bg-info animate-pulse" />
+              <span className="text-xs font-semibold text-info-text uppercase tracking-wide">
                 Live Dashboard
               </span>
             </div>
@@ -224,7 +224,7 @@ export default function IndexLiveblocks() {
             <h2 className="text-5xl md:text-6xl font-bold tracking-tight text-foreground mb-4">
               Willkommen zurück
               {profile?.first_name && (
-                <span className="text-blue-600">, {profile.first_name}</span>
+                <span className="text-info-text">, {profile.first_name}</span>
               )}
             </h2>
 
@@ -245,8 +245,8 @@ export default function IndexLiveblocks() {
 
               <div className="relative">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <FileText className="w-6 h-6 text-blue-600" />
+                  <div className="w-12 h-12 rounded-xl bg-info-light flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <FileText className="w-6 h-6 text-info-text" />
                   </div>
                   <TrendingUp className="w-5 h-5 text-green-500" />
                 </div>
@@ -291,10 +291,10 @@ export default function IndexLiveblocks() {
 
               <div className="relative">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <Users className="w-6 h-6 text-purple-600" />
+                  <div className="w-12 h-12 rounded-xl bg-accent-purple-light flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Users className="w-6 h-6 text-accent-purple" />
                   </div>
-                  <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
                 </div>
 
                 <div className="space-y-1">
@@ -337,15 +337,15 @@ export default function IndexLiveblocks() {
                   <h3 className="text-2xl font-bold text-foreground mb-1">Schnellaktionen</h3>
                   <p className="text-sm text-muted-foreground">Häufig verwendete Funktionen</p>
                 </div>
-                <Zap className="w-6 h-6 text-blue-600" />
+                <Zap className="w-6 h-6 text-info-text" />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <button
                   onClick={() => setShowNewBookingDialog(true)}
-                  className="group flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:border-blue-300 hover:shadow-lg transition-all duration-200"
+                  className="group flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:border-info hover:shadow-lg transition-all duration-200"
                 >
-                  <div className="w-12 h-12 rounded-lg bg-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-lg bg-info flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Plus className="w-6 h-6 text-white" />
                   </div>
                   <div className="flex-1 text-left">

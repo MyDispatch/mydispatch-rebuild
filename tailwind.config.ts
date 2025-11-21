@@ -114,7 +114,7 @@ export default {
           secondary: "hsl(var(--text-secondary))",
           tertiary: "hsl(var(--text-tertiary))",
         },
-        
+
         // ✅ CODEPILOT TASK 2: Design System V28.1 Semantic Colors
         // Replaces hardcoded Tailwind colors (bg-blue-50 → bg-info-light)
         // Source: src/config/design-tokens.ts

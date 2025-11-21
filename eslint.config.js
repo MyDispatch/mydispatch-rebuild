@@ -20,9 +20,9 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
-      
+
       // ✅ CODEPILOT TASK 1: TypeScript Quality Rules
-      "@typescript-eslint/no-unused-vars": ["warn", { 
+      "@typescript-eslint/no-unused-vars": ["warn", {
         "argsIgnorePattern": "^_",
         "varsIgnorePattern": "^_",
         "caughtErrorsIgnorePattern": "^_"
@@ -34,17 +34,17 @@ export default tseslint.config(
         "prefer": "type-imports",
         "fixStyle": "separate-type-imports"
       }],
-      
+
       // ✅ CODEPILOT TASK 1: React Best Practices
       "react-hooks/exhaustive-deps": "warn",
       "react-hooks/rules-of-hooks": "error",
-      
+
       // ✅ CODEPILOT TASK 1: Code Quality
       "no-console": ["warn", { "allow": ["warn", "error"] }],
       "no-debugger": "warn",
       "prefer-const": "warn",
       "no-var": "error",
-      
+
       // ✅ CODEPILOT TASK 2: Design System Enforcement
       "no-restricted-imports": ["error", {
         "patterns": [

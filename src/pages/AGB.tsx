@@ -18,12 +18,12 @@ import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
 const AGB = () => {
   return (
     <MarketingLayout currentPage="legal">
-      <SEOHead 
+      <SEOHead
         title="Allgemeine Geschäftsbedingungen (AGB)"
         description="AGB von MyDispatch. Tarife, Leistungsumfang, Vertragsbedingungen und Haftung. Stand: 2025."
         canonical="/agb"
       />
-      
+
       {/* Hero Section - V28HeroPremium */}
       <V28HeroPremium
         variant="demo"
@@ -45,14 +45,14 @@ const AGB = () => {
       <V28MarketingSection background="canvas">
         <V28MarketingCard>
           <div className="space-y-8 md:space-y-12">
-            
+
             <section>
               <h2 className="font-sans text-2xl md:text-3xl font-bold text-slate-900 mb-4">
                 § 1 Geltungsbereich
               </h2>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed">
-                Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge, die zwischen MyDispatch.de 
-                by RideHub Solutions (nachfolgend „Anbieter") und ihren Kunden (nachfolgend „Kunde") über die Nutzung der 
+                Diese Allgemeinen Geschäftsbedingungen (AGB) gelten für alle Verträge, die zwischen MyDispatch.de
+                by RideHub Solutions (nachfolgend „Anbieter") und ihren Kunden (nachfolgend „Kunde") über die Nutzung der
                 MyDispatch-Software geschlossen werden.
               </p>
             </section>
@@ -62,8 +62,8 @@ const AGB = () => {
                 § 2 Vertragsgegenstand
               </h2>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed">
-                Der Anbieter stellt dem Kunden eine cloudbasierte Dispositionssoftware für Taxi- und 
-                Mietwagenunternehmen zur Verfügung. Der Leistungsumfang ergibt sich aus der jeweils gewählten 
+                Der Anbieter stellt dem Kunden eine cloudbasierte Dispositionssoftware für Taxi- und
+                Mietwagenunternehmen zur Verfügung. Der Leistungsumfang ergibt sich aus der jeweils gewählten
                 Tarifvariante (Starter, Business oder Enterprise).
               </p>
             </section>
@@ -73,7 +73,7 @@ const AGB = () => {
                 § 3 Vertragsschluss
               </h2>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                Der Vertrag kommt durch die Registrierung des Kunden und die Bestätigung durch den Anbieter zustande. 
+                Der Vertrag kommt durch die Registrierung des Kunden und die Bestätigung durch den Anbieter zustande.
                 Mit der Registrierung gibt der Kunde ein verbindliches Angebot zum Abschluss eines Nutzungsvertrages ab.
               </p>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed">
@@ -85,7 +85,7 @@ const AGB = () => {
               <h2 className="font-sans text-2xl md:text-3xl font-bold text-slate-900 mb-4">
                 § 4 Leistungsumfang
               </h2>
-              
+
               <div className="space-y-6">
                 <div>
                   <h3 className="font-sans text-xl font-semibold text-slate-900 mb-3">Starter-Tarif (39€/Monat)</h3>
@@ -192,15 +192,15 @@ const AGB = () => {
                 § 5 Preise und Zahlungsbedingungen
               </h2>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                Die aktuellen Preise sind auf der Website des Anbieters unter /pricing einsehbar. 
-                Alle Preise verstehen sich zzgl. der gesetzlichen Mehrwertsteuer. 
+                Die aktuellen Preise sind auf der Website des Anbieters unter /pricing einsehbar.
+                Alle Preise verstehen sich zzgl. der gesetzlichen Mehrwertsteuer.
                 Die Abrechnung erfolgt monatlich im Voraus über Stripe.
               </p>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
                 Bei jährlicher Zahlung gewährt der Anbieter einen Rabatt von 20%.
               </p>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed">
-                Zahlungen sind innerhalb von 14 Tagen nach Rechnungsstellung fällig. 
+                Zahlungen sind innerhalb von 14 Tagen nach Rechnungsstellung fällig.
                 Bei Zahlungsverzug kann der Anbieter den Zugang vorübergehend sperren.
               </p>
             </section>
@@ -210,12 +210,12 @@ const AGB = () => {
                 § 6 Vertragslaufzeit und Kündigung
               </h2>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                Der Vertrag wird auf unbestimmte Zeit geschlossen. Er kann von beiden Parteien mit einer Frist 
+                Der Vertrag wird auf unbestimmte Zeit geschlossen. Er kann von beiden Parteien mit einer Frist
                 von 30 Tagen zum Monatsende gekündigt werden.
               </p>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed">
-                Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt. 
-                Ein wichtiger Grund liegt insbesondere bei Zahlungsverzug von mehr als 30 Tagen oder 
+                Das Recht zur außerordentlichen Kündigung aus wichtigem Grund bleibt unberührt.
+                Ein wichtiger Grund liegt insbesondere bei Zahlungsverzug von mehr als 30 Tagen oder
                 bei schwerwiegenden Verstößen gegen diese AGB vor.
               </p>
             </section>
@@ -225,12 +225,12 @@ const AGB = () => {
                 § 7 Verfügbarkeit und Support
               </h2>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                Der Anbieter bemüht sich um eine Verfügbarkeit der Software von 99,5% im Jahresmittel. 
-                Wartungsarbeiten werden nach Möglichkeit außerhalb der Geschäftszeiten durchgeführt und 
+                Der Anbieter bemüht sich um eine Verfügbarkeit der Software von 99,5% im Jahresmittel.
+                Wartungsarbeiten werden nach Möglichkeit außerhalb der Geschäftszeiten durchgeführt und
                 können zu vorübergehenden Einschränkungen führen.
               </p>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed">
-                Der Support ist je nach Tarif per E-Mail (Starter), E-Mail + Chat (Business) oder 
+                Der Support ist je nach Tarif per E-Mail (Starter), E-Mail + Chat (Business) oder
                 24/7-Hotline (Enterprise) erreichbar. Die Reaktionszeiten variieren je nach Tarif und Schweregrad.
               </p>
             </section>
@@ -240,7 +240,7 @@ const AGB = () => {
                 § 8 PBefG § 44: Haftung bei Personenschäden
               </h2>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                Die Haftung für Personenschäden ist gem. § 44 PBefG auf grobe Fahrlässigkeit und Vorsatz beschränkt. 
+                Die Haftung für Personenschäden ist gem. § 44 PBefG auf grobe Fahrlässigkeit und Vorsatz beschränkt.
                 Sachschäden (Gepäck) werden nach HGB § 449 (Frachtrecht) geregelt, Höchstbetrag gem. § 542 HGB.
               </p>
             </section>
@@ -290,15 +290,15 @@ const AGB = () => {
                 § 11 Datenschutz und DSGVO
               </h2>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                Die Verarbeitung personenbezogener Daten erfolgt gemäß der Datenschutzerklärung des Anbieters 
+                Die Verarbeitung personenbezogener Daten erfolgt gemäß der Datenschutzerklärung des Anbieters
                 und den Bestimmungen der EU-Datenschutz-Grundverordnung (DSGVO).
               </p>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                Der Anbieter tritt als Auftragsverarbeiter im Sinne der DSGVO auf. 
+                Der Anbieter tritt als Auftragsverarbeiter im Sinne der DSGVO auf.
                 Ein separater Auftragsverarbeitungsvertrag (AVV) wird mit dem Kunden geschlossen.
               </p>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed">
-                Alle Daten werden ausschließlich auf Servern innerhalb der EU (Deutschland) gespeichert. 
+                Alle Daten werden ausschließlich auf Servern innerhalb der EU (Deutschland) gespeichert.
                 Eine Übermittlung in Drittländer erfolgt nicht.
               </p>
             </section>
@@ -307,23 +307,23 @@ const AGB = () => {
               <h2 className="font-sans text-2xl md:text-3xl font-bold text-slate-900 mb-4">
                 § 12 Haftung
               </h2>
-              
+
               <div className="space-y-4">
                 <div>
                   <h3 className="font-sans text-lg font-semibold text-slate-900 mb-3">Allgemeine Haftungsbestimmungen</h3>
                   <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                    Der Anbieter haftet unbeschränkt für Schäden aus der Verletzung des Lebens, des Körpers oder der 
-                    Gesundheit sowie für Schäden, die auf einer vorsätzlichen oder grob fahrlässigen Pflichtverletzung 
+                    Der Anbieter haftet unbeschränkt für Schäden aus der Verletzung des Lebens, des Körpers oder der
+                    Gesundheit sowie für Schäden, die auf einer vorsätzlichen oder grob fahrlässigen Pflichtverletzung
                     des Anbieters, seiner gesetzlichen Vertreter oder Erfüllungsgehilfen beruhen.
                   </p>
                   <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                    Im Übrigen haftet der Anbieter nur bei Verletzung wesentlicher Vertragspflichten 
-                    (Kardinalpflichten). Die Haftung ist in diesem Fall auf den vorhersehbaren, 
+                    Im Übrigen haftet der Anbieter nur bei Verletzung wesentlicher Vertragspflichten
+                    (Kardinalpflichten). Die Haftung ist in diesem Fall auf den vorhersehbaren,
                     vertragstypischen Schaden begrenzt.
                   </p>
                   <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed">
-                    Die Haftung für Datenverlust ist auf den typischen Wiederherstellungsaufwand beschränkt, 
-                    der bei regelmäßiger und gefahrentsprechender Anfertigung von Sicherungskopien durch den Kunden 
+                    Die Haftung für Datenverlust ist auf den typischen Wiederherstellungsaufwand beschränkt,
+                    der bei regelmäßiger und gefahrentsprechender Anfertigung von Sicherungskopien durch den Kunden
                     eingetreten wäre.
                   </p>
                 </div>
@@ -331,13 +331,13 @@ const AGB = () => {
                 <div className="bg-error-light border border-error-border p-6 rounded-xl">
                   <h3 className="font-sans text-lg font-semibold text-slate-900 mb-3">Haftung bei Personenbeförderung (§ 44 PBefG)</h3>
                   <p className="font-sans text-sm text-slate-600 mb-2">
-                    <strong className="font-sans text-slate-900">WICHTIG für Taxi- und Mietwagenunternehmer:</strong> Die MyDispatch-Software dient ausschließlich 
-                    der Disposition und Verwaltung. Die Haftung für Personenschäden während der Beförderung trägt das 
+                    <strong className="font-sans text-slate-900">WICHTIG für Taxi- und Mietwagenunternehmer:</strong> Die MyDispatch-Software dient ausschließlich
+                    der Disposition und Verwaltung. Die Haftung für Personenschäden während der Beförderung trägt das
                     jeweilige Transportunternehmen (Kunde), nicht der Software-Anbieter.
                   </p>
                   <p className="font-sans text-sm text-slate-600">
-                    <strong className="font-sans text-slate-900">§ 44 PBefG - Haftungsbeschränkung:</strong> Bei Personenschäden während der Beförderung 
-                    gelten die Haftungsgrenzen des PBefG. Der Unternehmer haftet bis zur Höhe von 600.000 Euro für Personenschäden. 
+                    <strong className="font-sans text-slate-900">§ 44 PBefG - Haftungsbeschränkung:</strong> Bei Personenschäden während der Beförderung
+                    gelten die Haftungsgrenzen des PBefG. Der Unternehmer haftet bis zur Höhe von 600.000 Euro für Personenschäden.
                     Eine ausreichende Haftpflichtversicherung ist obligatorisch (PBefG § 21 Abs. 1 Nr. 3).
                   </p>
                 </div>
@@ -345,9 +345,9 @@ const AGB = () => {
                 <div className="bg-slate-50 p-6 rounded-xl border border-slate-200">
                   <h3 className="font-sans text-lg font-semibold text-slate-900 mb-3">Gepäckhaftung (§ 449 HGB)</h3>
                   <p className="font-sans text-sm text-slate-600">
-                    <strong className="font-sans text-slate-900">§ 449 HGB - Haftung für Reisegepäck:</strong> Für Verlust, Beschädigung oder verspätete 
-                    Auslieferung von Reisegepäck haftet der Beförderer nach den Vorschriften des HGB. Die Haftung ist 
-                    auf 1.500 Euro pro Gepäckstück begrenzt, sofern kein höherer Wert vor Beförderungsbeginn angegeben wurde. 
+                    <strong className="font-sans text-slate-900">§ 449 HGB - Haftung für Reisegepäck:</strong> Für Verlust, Beschädigung oder verspätete
+                    Auslieferung von Reisegepäck haftet der Beförderer nach den Vorschriften des HGB. Die Haftung ist
+                    auf 1.500 Euro pro Gepäckstück begrenzt, sofern kein höherer Wert vor Beförderungsbeginn angegeben wurde.
                     Der Kunde (Transportunternehmer) ist verpflichtet, diese Haftungsgrenzen seinen Fahrgästen transparent zu kommunizieren.
                   </p>
                 </div>
@@ -355,13 +355,13 @@ const AGB = () => {
                 <div className="bg-slate-50 p-6 rounded-xl border border-slate-200">
                   <h3 className="font-sans text-lg font-semibold text-slate-900 mb-3">Beförderungspflicht & Tarifbindung (§ 51 PBefG)</h3>
                   <p className="font-sans text-sm text-slate-600">
-                    <strong className="font-sans text-slate-900">§ 51 PBefG - Beförderungspflicht:</strong> Taxiunternehmer unterliegen der Beförderungspflicht. 
-                    Sie sind verpflichtet, Fahrgäste zu befördern, sofern keine wichtigen Gründe entgegenstehen 
+                    <strong className="font-sans text-slate-900">§ 51 PBefG - Beförderungspflicht:</strong> Taxiunternehmer unterliegen der Beförderungspflicht.
+                    Sie sind verpflichtet, Fahrgäste zu befördern, sofern keine wichtigen Gründe entgegenstehen
                     (z.B. Sicherheitsrisiken, Überfüllung, außerhalb des Pflichtfahrgebiets).
                   </p>
                   <p className="font-sans text-sm text-slate-600 mt-2">
-                    <strong className="font-sans text-slate-900">Tarifbindung:</strong> Taxiunternehmer müssen die genehmigten Tarife einhalten. 
-                    Höhere Preise sind nur bei Vorbestellung zulässig (Mietwagen mit Rückkehrpflicht). 
+                    <strong className="font-sans text-slate-900">Tarifbindung:</strong> Taxiunternehmer müssen die genehmigten Tarife einhalten.
+                    Höhere Preise sind nur bei Vorbestellung zulässig (Mietwagen mit Rückkehrpflicht).
                     Die MyDispatch-Software ermöglicht die Verwaltung unterschiedlicher Tarife für Taxi- und Mietwagenfahrten.
                   </p>
                 </div>
@@ -394,7 +394,7 @@ const AGB = () => {
                 </li>
               </ul>
               <p className="font-sans text-sm text-slate-600 mt-3">
-                <strong className="font-sans text-slate-900">Hinweis:</strong> Diese Regelung gilt nur für Vorbestellungen (Mietwagen). 
+                <strong className="font-sans text-slate-900">Hinweis:</strong> Diese Regelung gilt nur für Vorbestellungen (Mietwagen).
                 Sofortbuchungen (Taxi-Bestellungen) können nicht storniert werden, sobald das Fahrzeug abgesendet wurde.
               </p>
             </section>
@@ -404,12 +404,12 @@ const AGB = () => {
                 § 14 Gewährleistung
               </h2>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                Der Anbieter gewährleistet, dass die Software im Wesentlichen die in der Leistungsbeschreibung 
-                genannten Funktionen erfüllt. Geringfügige Abweichungen, die die Nutzbarkeit nicht wesentlich 
+                Der Anbieter gewährleistet, dass die Software im Wesentlichen die in der Leistungsbeschreibung
+                genannten Funktionen erfüllt. Geringfügige Abweichungen, die die Nutzbarkeit nicht wesentlich
                 beeinträchtigen, stellen keinen Mangel dar.
               </p>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed">
-                Mängel sind vom Kunden unverzüglich nach Feststellung zu rügen. 
+                Mängel sind vom Kunden unverzüglich nach Feststellung zu rügen.
                 Der Anbieter wird Mängel in angemessener Frist beseitigen.
               </p>
             </section>
@@ -419,12 +419,12 @@ const AGB = () => {
                 § 15 Änderungen der AGB
               </h2>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                Der Anbieter behält sich vor, diese AGB mit einer Ankündigungsfrist von 30 Tagen zu ändern. 
+                Der Anbieter behält sich vor, diese AGB mit einer Ankündigungsfrist von 30 Tagen zu ändern.
                 Die Änderungen werden dem Kunden per E-Mail mitgeteilt.
               </p>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed">
-                Widerspricht der Kunde den Änderungen nicht innerhalb von 30 Tagen nach Zugang der Mitteilung, 
-                gelten die Änderungen als akzeptiert. Der Anbieter wird den Kunden in der Änderungsmitteilung 
+                Widerspricht der Kunde den Änderungen nicht innerhalb von 30 Tagen nach Zugang der Mitteilung,
+                gelten die Änderungen als akzeptiert. Der Anbieter wird den Kunden in der Änderungsmitteilung
                 auf diese Folge hinweisen.
               </p>
             </section>
@@ -434,12 +434,12 @@ const AGB = () => {
                 § 16 Schlussbestimmungen
               </h2>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed mb-3">
-                Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts. 
+                Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts.
                 Gerichtsstand ist, soweit gesetzlich zulässig, Deggendorf.
               </p>
               <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed">
-                Sollten einzelne Bestimmungen dieser AGB unwirksam sein, bleibt die Wirksamkeit der übrigen 
-                Bestimmungen hiervon unberührt. Die unwirksame Bestimmung wird durch eine wirksame ersetzt, 
+                Sollten einzelne Bestimmungen dieser AGB unwirksam sein, bleibt die Wirksamkeit der übrigen
+                Bestimmungen hiervon unberührt. Die unwirksame Bestimmung wird durch eine wirksame ersetzt,
                 die dem wirtschaftlichen Zweck der unwirksamen Bestimmung am nächsten kommt.
               </p>
             </section>
@@ -456,7 +456,7 @@ const AGB = () => {
                 Telefon: +49 170 8004423
               </p>
             </div>
-            
+
           </div>
         </V28MarketingCard>
       </V28MarketingSection>

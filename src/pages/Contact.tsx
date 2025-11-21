@@ -44,7 +44,7 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>;
 const Contact = () => {
   const { toast } = useToast();
-  
+
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
@@ -65,14 +65,14 @@ const Contact = () => {
       const { error } = await supabase.functions.invoke('send-contact-email', {
         body: data
       });
-      
+
       if (error) throw new Error(error.message || 'E-Mail konnte nicht gesendet werden');
-      
+
       toast({
         title: 'Nachricht gesendet!',
         description: 'Wir melden uns schnellstmöglich bei Ihnen.'
       });
-      
+
       form.reset();
     } catch (error: any) {
       toast({
@@ -84,7 +84,7 @@ const Contact = () => {
   };
   return <MarketingLayout currentPage="contact">
       <SEOHead title="Kontakt" description="Kontaktieren Sie MyDispatch. Telefon: +49 170 8004423, E-Mail: info@my-dispatch.de. Wir helfen Ihnen gerne weiter." canonical="/contact" schema={contactPageSchema} keywords={['MyDispatch Kontakt', 'Taxi Software Support', 'MyDispatch Telefon', 'Dispositionssoftware Ansprechpartner', 'MyDispatch E-Mail']} />
-      
+
       {/* Hero Section - V32.0 PREMIUM DASHBOARD */}
       <V28HeroPremium
         variant="demo"
@@ -233,9 +233,9 @@ const Contact = () => {
                             Name <span className="text-error-text">*</span>
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              placeholder="Max Mustermann" 
+                            <Input
+                              {...field}
+                              placeholder="Max Mustermann"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -253,10 +253,10 @@ const Contact = () => {
                             E-Mail <span className="text-error-text">*</span>
                           </FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              type="email" 
-                              placeholder="max@example.com" 
+                            <Input
+                              {...field}
+                              type="email"
+                              placeholder="max@example.com"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -275,10 +275,10 @@ const Contact = () => {
                         <FormItem>
                           <FormLabel className="font-sans text-sm font-medium text-slate-700">Telefon</FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              type="tel" 
-                              placeholder="+49 123 456789" 
+                            <Input
+                              {...field}
+                              type="tel"
+                              placeholder="+49 123 456789"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -294,9 +294,9 @@ const Contact = () => {
                         <FormItem>
                           <FormLabel className="font-sans text-sm font-medium text-slate-700">Unternehmen</FormLabel>
                           <FormControl>
-                            <Input 
-                              {...field} 
-                              placeholder="Musterfirma GmbH" 
+                            <Input
+                              {...field}
+                              placeholder="Musterfirma GmbH"
                               className="border-slate-300 focus:border-slate-500 focus:ring-slate-500"
                             />
                           </FormControl>
@@ -344,9 +344,9 @@ const Contact = () => {
                           Nachricht <span className="text-error-text">*</span>
                         </FormLabel>
                         <FormControl>
-                          <Textarea 
-                            {...field} 
-                            placeholder="Ihre Nachricht..." 
+                          <Textarea
+                            {...field}
+                            placeholder="Ihre Nachricht..."
                             rows={5}
                             className="border-slate-300 focus:border-slate-500 focus:ring-slate-500 resize-none"
                           />

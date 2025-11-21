@@ -115,11 +115,13 @@ mydispatch-rebuild/
 All hero sections MUST use `backgroundVariant="3d-premium"` for visual consistency.
 
 **Validation:**
+
 ```bash
 npm run validate:hero
 ```
 
 **Documentation:**
+
 - [Hero Background Standard V31.5](./docs/HERO_BACKGROUND_STANDARD_V31.5.md)
 - [Hero Design Rules](./docs/V28_HERO_DESIGN_RULES.md)
 

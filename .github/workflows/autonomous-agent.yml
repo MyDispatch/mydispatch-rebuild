@@ -11,11 +11,12 @@
 name: Autonomous Development Agent
 
 on:
-  # Scheduled run every hour (only if enabled)
-  schedule:
-    - cron: "0 * * * *" # Every hour at minute 0
+  # ⚠️ CODEPILOT: Scheduled run DISABLED (needs GitHub Secrets configuration)
+  # Uncomment after configuring: SUPABASE_SERVICE_ROLE_KEY, GITKRAKEN_API_TOKEN
+  # schedule:
+  #   - cron: "0 * * * *" # Every hour at minute 0
 
-  # Manual trigger
+  # Manual trigger (dry-run default for safety)
   workflow_dispatch:
     inputs:
       dry_run:
@@ -71,7 +72,30 @@ jobs:
           DRY_RUN_MODE: ${{ github.event.inputs.dry_run || 'true' }}
         run: |
           echo "🔍 Checking autonomous system status..."
-          npx tsx scripts/autonomous-agent.ts status
+          
+          # Verify required secrets are configured
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_SERVICE_ROLE_KEY" ]; then
+            echo "❌ ERROR: Required GitHub Secrets not configured"
+            echo "Please configure VITE_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY"
+            echo "See: https://github.com/MyDispatch/mydispatch-rebuild/settings/secrets/actions"
+            echo "can_run=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          
+          # Check autonomous agent script
+          if [ ! -f "scripts/autonomous-agent.ts" ]; then
+            echo "❌ ERROR: autonomous-agent.ts script not found"
+            echo "can_run=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          
+          # Run status check
+          npx tsx scripts/autonomous-agent.ts status || {
+            echo "⚠️ WARNING: Status check failed, but allowing dry-run"
+            echo "can_run=true" >> $GITHUB_OUTPUT
+            echo "dry_run=true" >> $GITHUB_OUTPUT
+            exit 0
+          }
 
           # Check if emergency stop triggered
           if [ "${{ github.event.inputs.emergency_stop }}" == "true" ]; then
@@ -229,7 +253,23 @@ jobs:
 # ==================================================================================
 # REQUIRED SECRETS (Configure in GitHub Repository Settings)
 # ==================================================================================
-# - VITE_SUPABASE_URL: Supabase project URL
-# - SUPABASE_SERVICE_ROLE_KEY: Service role key (server-side only)
-# - GITKRAKEN_API_TOKEN: GitKraken Cloud API token
-# - GH_PAT (optional): GitHub Personal Access Token for advanced Git operations
+# 🔗 GitHub Repository: https://github.com/MyDispatch/mydispatch-rebuild/settings/secrets/actions
+#
+# MANDATORY SECRETS:
+# - VITE_SUPABASE_URL: https://ygpwuiygivxoqtyoigtg.supabase.co
+# - SUPABASE_SERVICE_ROLE_KEY: Get from Supabase Dashboard → Settings → API
+#   ⚠️ CRITICAL: Service Role Key has admin access, never expose in frontend!
+#
+# OPTIONAL SECRETS:
+# - GITKRAKEN_API_TOKEN: GitKraken Cloud API token (for advanced Git operations)
+# - GH_PAT: GitHub Personal Access Token (for creating PRs automatically)
+#
+# HOW TO ADD SECRETS:
+# 1. Go to: https://github.com/MyDispatch/mydispatch-rebuild/settings/secrets/actions
+# 2. Click "New repository secret"
+# 3. Add each secret individually
+# 4. Uncomment schedule in line 13 after configuration
+#
+# VERIFY CONFIGURATION:
+# Run manually via: Actions → Autonomous Development Agent → Run workflow (dry-run)
+# ==================================================================================

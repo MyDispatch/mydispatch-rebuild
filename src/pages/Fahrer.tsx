@@ -953,7 +953,7 @@ const Fahrer = () => {
                 <div className="p-3 bg-status-success/10 rounded-lg border border-status-success/20">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs font-medium text-status-success">Verfügbar</span>
-                    <Activity className="h-4 w-4 text-green-400" />
+                    <Activity className="h-4 w-4 text-success" />
                   </div>
                   <p className="text-2xl font-bold text-status-success">
                     {availableDrivers.length}
@@ -982,7 +982,7 @@ const Fahrer = () => {
                 <div className="p-3 bg-status-success/10 rounded-lg border border-status-success/20">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-xs font-medium text-status-success">Verfügbar</span>
-                    <Car className="h-4 w-4 text-green-400" />
+                    <Car className="h-4 w-4 text-success" />
                   </div>
                   <p className="text-2xl font-bold text-status-success">
                     {availableVehicles.length}

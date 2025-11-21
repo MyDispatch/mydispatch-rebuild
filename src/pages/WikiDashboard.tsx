@@ -18,9 +18,9 @@ import { Badge } from '@/components/ui/badge';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  BookOpen, AlertCircle, Link as LinkIcon, CheckCircle2, 
-  TrendingUp, Package, RefreshCw, Clock, Database 
+import {
+  BookOpen, AlertCircle, Link as LinkIcon, CheckCircle2,
+  TrendingUp, Package, RefreshCw, Clock, Database
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { logger } from '@/lib/logger';
@@ -55,14 +55,14 @@ export default function WikiDashboard() {
     setGraphBuilding(true);
     try {
       const { data, error } = await supabase.functions.invoke('wiki-knowledge-graph');
-      
+
       if (error) throw error;
-      
+
       toast({
         title: '✅ Knowledge Graph erstellt',
         description: `${data?.links_created || 0} Links zwischen ${data?.docs_processed || 0} Dokumenten erstellt.`,
       });
-      
+
       // Reload wiki data
       await loadWiki();
     } catch (error) {
