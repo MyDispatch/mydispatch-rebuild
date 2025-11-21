@@ -64,10 +64,10 @@ export const V28Button = forwardRef<HTMLButtonElement, V28ButtonProps>(
           'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500',
           'inline-flex items-center justify-center gap-2 whitespace-nowrap',
           'shadow-sm hover:shadow-md',
-          // Size variants
-          size === 'sm' && 'h-10 px-6 text-sm',
-          size === 'md' && 'h-12 px-8 text-base',
-          size === 'lg' && 'min-h-[56px] h-auto px-8 sm:px-10 py-3 text-base sm:text-lg',
+          // Size variants (WCAG 2.1 Level AA: min 44x44px touch targets)
+          size === 'sm' && 'h-11 px-6 text-sm', // 44px (was 40px - WCAG fix)
+          size === 'md' && 'h-12 px-8 text-base', // 48px ✅
+          size === 'lg' && 'min-h-[56px] h-auto px-8 sm:px-10 py-3 text-base sm:text-lg', // 56px ✅
           // Full width
           fullWidth && 'w-full',
           // Variant styles
