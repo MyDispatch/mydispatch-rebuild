@@ -27,10 +27,10 @@ interface TrendStatListProps {
   className?: string;
 }
 
-export function TrendStatList({ 
-  title = 'Live-Statistiken', 
+export function TrendStatList({
+  title = 'Live-Statistiken',
   items,
-  className = '' 
+  className = ''
 }: TrendStatListProps) {
   const getTrendIcon = (trendType: string) => {
     switch(trendType) {
@@ -46,9 +46,9 @@ export function TrendStatList({
   const getTrendColor = (trendType: string) => {
     switch(trendType) {
       case 'positive':
-        return 'text-green-600';
+        return 'text-success-text';
       case 'negative':
-        return 'text-red-600';
+        return 'text-error-text';
       default:
         return 'text-slate-400';
     }
@@ -56,8 +56,8 @@ export function TrendStatList({
 
   const formatValue = (value: string | number, format?: string) => {
     if (format === 'currency') {
-      return new Intl.NumberFormat('de-DE', { 
-        style: 'currency', 
+      return new Intl.NumberFormat('de-DE', {
+        style: 'currency',
         currency: 'EUR',
         minimumFractionDigits: 0,
         maximumFractionDigits: 0,
@@ -73,7 +73,7 @@ export function TrendStatList({
     <Card className={`bg-white ${className}`}>
       <CardHeader className="pb-3">
         <CardTitle className="text-lg font-semibold flex items-center gap-2">
-          <Activity className="h-5 w-5 text-blue-600" />
+          <Activity className="h-5 w-5 text-info-text" />
           {title}
         </CardTitle>
       </CardHeader>
@@ -82,9 +82,9 @@ export function TrendStatList({
           {items.map((item, index) => {
             const TrendIcon = getTrendIcon(item.trendType);
             const Icon = item.icon;
-            
+
             return (
-              <div 
+              <div
                 key={index}
                 className="flex items-center justify-between p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors"
               >
@@ -101,12 +101,12 @@ export function TrendStatList({
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-2">
                   <div className={cn(
                     "flex items-center gap-1 px-2 py-1 rounded-lg",
-                    item.trendType === 'positive' && "bg-green-50",
-                    item.trendType === 'negative' && "bg-red-50",
+                    item.trendType === 'positive' && "bg-success-light",
+                    item.trendType === 'negative' && "bg-error-light",
                     item.trendType === 'neutral' && "bg-slate-100"
                   )}>
                     <TrendIcon className={cn("h-3 w-3", getTrendColor(item.trendType))} />
@@ -126,8 +126,8 @@ export function TrendStatList({
             <div className="flex justify-between items-center">
               <p className="text-xs text-slate-500 font-medium">Gesamtperformance</p>
               <div className="flex items-center gap-1">
-                <TrendingUp className="h-3 w-3 text-green-600" />
-                <span className="text-xs font-semibold text-green-600">
+                <TrendingUp className="h-3 w-3 text-success-text" />
+                <span className="text-xs font-semibold text-success-text">
                   +{Math.round(items.reduce((sum, item) => sum + item.trend, 0) / items.length)}% Ø
                 </span>
               </div>

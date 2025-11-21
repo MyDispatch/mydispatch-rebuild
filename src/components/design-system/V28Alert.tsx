@@ -50,10 +50,10 @@ export function V28Alert({
       className={cn(
         'rounded-xl p-4 border',
         // Variant styles
-        variant === 'info' && 'bg-blue-50 border-blue-200 text-blue-900',
-        variant === 'success' && 'bg-green-50 border-green-200 text-green-900',
-        variant === 'warning' && 'bg-amber-50 border-amber-200 text-amber-900',
-        variant === 'error' && 'bg-red-50 border-red-200 text-red-900',
+        variant === 'info' && 'bg-info-light border-info-border text-foreground',
+        variant === 'success' && 'bg-success-light border-success-border text-foreground',
+        variant === 'warning' && 'bg-warning-light border-warning-border text-foreground',
+        variant === 'error' && 'bg-error-light border-error-border text-foreground',
         className
       )}
     >
@@ -62,10 +62,10 @@ export function V28Alert({
         <Icon
           className={cn(
             'h-5 w-5 flex-shrink-0 mt-0.5',
-            variant === 'info' && 'text-blue-600',
-            variant === 'success' && 'text-green-600',
-            variant === 'warning' && 'text-amber-600',
-            variant === 'error' && 'text-red-600'
+            variant === 'info' && 'text-info-text',
+            variant === 'success' && 'text-success-text',
+            variant === 'warning' && 'text-warning-text',
+            variant === 'error' && 'text-error-text'
           )}
         />
 

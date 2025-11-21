@@ -33,28 +33,28 @@ export function Premium3DCard({
 }: Premium3DCardProps) {
   const variantClasses = {
     default: 'border-slate-200 bg-white',
-    success: 'border-green-200 bg-green-50/50',
-    warning: 'border-amber-200 bg-amber-50/50',
-    error: 'border-red-200 bg-red-50/50',
+    success: 'border-success-border bg-success-light/50',
+    warning: 'border-warning-border bg-warning-light/50',
+    error: 'border-error-border bg-error-light/50',
   };
 
   const iconBgClasses = {
     default: 'bg-slate-100',
-    success: 'bg-green-100',
-    warning: 'bg-amber-100',
-    error: 'bg-red-100',
+    success: 'bg-success-light',
+    warning: 'bg-warning-light',
+    error: 'bg-error-light',
   };
 
   const iconColorClasses = {
     default: 'text-slate-700',
-    success: 'text-green-700',
-    warning: 'text-amber-700',
-    error: 'text-red-700',
+    success: 'text-success-text',
+    warning: 'text-warning-text',
+    error: 'text-error-text',
   };
 
   const trendColorClasses = {
-    up: 'text-green-600',
-    down: 'text-red-600',
+    up: 'text-success-text',
+    down: 'text-error-text',
     neutral: 'text-slate-600',
   };
 
@@ -72,7 +72,7 @@ export function Premium3DCard({
       {/* Content */}
       <div className="relative z-10 p-5 space-y-3">
         {/* Icon */}
-        <div 
+        <div
           className={cn(
             'w-10 h-10 rounded-lg flex items-center justify-center shadow-md transition-all duration-300 group-hover:scale-110',
             iconBgClasses[variant]
