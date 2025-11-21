@@ -298,7 +298,7 @@ export default function Dashboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                  <Activity className="h-5 w-5 text-blue-600" />
+                  <Activity className="h-5 w-5 text-info-text" />
                   Live-Statistiken
                 </CardTitle>
               </CardHeader>
@@ -310,7 +310,7 @@ export default function Dashboard() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-foreground">Wiedervorlagequote</span>
-                    <span className="font-semibold text-green-600">{stats?.repeat_customer_rate || '68'}%</span>
+                    <span className="font-semibold text-success-text">{stats?.repeat_customer_rate || '68'}%</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-muted-foreground">Effizienz-Score</span>
@@ -419,26 +419,26 @@ export default function Dashboard() {
               </div>
 
               {/* Aktive Fahrer */}
-              <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <div className="p-3 bg-info-light rounded-lg border border-info-border">
                 <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs font-medium text-blue-600">Aktive Fahrer</span>
-                  <Users className="h-4 w-4 text-blue-400" />
+                  <span className="text-xs font-medium text-info-text">Aktive Fahrer</span>
+                  <Users className="h-4 w-4 text-info" />
                 </div>
-                <p className="text-2xl font-bold text-blue-700">{stats?.active_drivers ?? 0}</p>
-                <p className="text-xs text-blue-500 mt-1">Im Dienst</p>
+                <p className="text-2xl font-bold text-info-text">{stats?.active_drivers ?? 0}</p>
+                <p className="text-xs text-info mt-1">Im Dienst</p>
               </div>
 
               {/* Trend Anzeige */}
               {stats?.bookings_trend && (
-                <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                <div className="p-3 bg-success-light rounded-lg border border-success-border">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-medium text-green-600">Trend</span>
-                    <TrendIcon className="h-4 w-4 text-green-400" />
+                    <span className="text-xs font-medium text-success-text">Trend</span>
+                    <TrendIcon className="h-4 w-4 text-success" />
                   </div>
-                  <p className="text-lg font-bold text-green-700">
+                  <p className="text-lg font-bold text-success-text">
                     {stats.bookings_trend.value > 0 ? '+' : ''}{stats.bookings_trend.value}%
                   </p>
-                  <p className="text-xs text-green-500 mt-1">zum Vortag</p>
+                  <p className="text-xs text-success mt-1">zum Vortag</p>
                 </div>
               )}
 
@@ -469,13 +469,13 @@ export default function Dashboard() {
                 </div>
 
                 {/* Kundenzufriedenheit */}
-                <div className="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                <div className="p-3 bg-warning-light rounded-lg border border-warning-border">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-medium text-yellow-600">Bewertung</span>
-                    <Star className="h-4 w-4 text-yellow-400" />
+                    <span className="text-xs font-medium text-warning-text">Bewertung</span>
+                    <Star className="h-4 w-4 text-warning" />
                   </div>
-                  <p className="text-2xl font-bold text-yellow-700">{stats?.customer_rating || 4.8}/5</p>
-                  <p className="text-xs text-yellow-500 mt-1">Durchschnitt</p>
+                  <p className="text-2xl font-bold text-warning-text">{stats?.customer_rating || 4.8}/5</p>
+                  <p className="text-xs text-warning mt-1">Durchschnitt</p>
                 </div>
               </FeatureGate>
             </div>
