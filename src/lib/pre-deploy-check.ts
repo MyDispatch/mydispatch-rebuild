@@ -33,7 +33,7 @@ class PreDeploymentHealthCheck {
    */
   async runAllChecks(): Promise<DeploymentHealthReport> {
     this.results = [];
-    
+
     logger.info('[Pre-Deploy] Starting health checks...', {
       component: 'PreDeployCheck'
     });
@@ -47,7 +47,7 @@ class PreDeploymentHealthCheck {
     await this.checkPerformanceMetrics();
     await this.checkLoadTestConfiguration();
     await this.checkSentryConfiguration();
-    
+
     return this.generateReport();
   }
 
@@ -63,7 +63,7 @@ class PreDeploymentHealthCheck {
 
     for (const varName of requiredVars) {
       const value = import.meta.env[varName];
-      
+
       if (!value) {
         this.addResult({
           passed: false,
@@ -153,10 +153,10 @@ class PreDeploymentHealthCheck {
     try {
       // Simple check if we can import the client
       const { supabase } = await import('@/integrations/supabase/client');
-      
+
       // Try to ping the database
       const { error } = await supabase.from('companies').select('count').limit(1);
-      
+
       if (error) {
         this.addResult({
           passed: false,
@@ -272,7 +272,7 @@ class PreDeploymentHealthCheck {
       passed: true,
       category: 'Security',
       check: 'Console logging',
-      message: hasConsoleOverride 
+      message: hasConsoleOverride
         ? 'Console logging is overridden (good for production)'
         : 'Console logging is active (check for sensitive data)',
       severity: hasConsoleOverride ? 'info' : 'warning',
@@ -286,10 +286,10 @@ class PreDeploymentHealthCheck {
     // Check if performance API is available
     if ('performance' in window) {
       const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
-      
+
       if (navigation) {
         const loadTime = navigation.loadEventEnd - navigation.fetchStart;
-        
+
         if (loadTime < 3000) {
           this.addResult({
             passed: true,
@@ -321,7 +321,7 @@ class PreDeploymentHealthCheck {
     // Check bundle size (rough estimate)
     const scripts = document.querySelectorAll('script[src]');
     let estimatedSize = 0;
-    
+
     for (const script of Array.from(scripts)) {
       const src = (script as HTMLScriptElement).src;
       if (src && !src.includes('node_modules')) {
@@ -345,7 +345,7 @@ class PreDeploymentHealthCheck {
     try {
       // Check if load-test.yml exists (via fetch)
       const response = await fetch('/load-test.yml');
-      
+
       if (response.ok) {
         this.addResult({
           passed: true,
@@ -375,44 +375,11 @@ class PreDeploymentHealthCheck {
   }
 
   /**
-   * Check Sentry configuration
-   */
-  private async checkSentryConfiguration(): Promise<void> {
-    const sentryDsn = import.meta.env.VITE_SENTRY_DSN;
-    
-    if (!sentryDsn) {
-      this.addResult({
-        passed: import.meta.env.DEV, // OK in dev, warning in prod
-        category: 'Monitoring',
-        check: 'Sentry DSN',
-        message: 'VITE_SENTRY_DSN not configured - error tracking disabled',
-        severity: import.meta.env.PROD ? 'warning' : 'info',
-      });
-    } else if (sentryDsn.includes('example') || sentryDsn.includes('o123')) {
-      this.addResult({
-        passed: false,
-        category: 'Monitoring',
-        check: 'Sentry DSN',
-        message: 'VITE_SENTRY_DSN uses placeholder value - update with real Sentry DSN',
-        severity: 'warning',
-      });
-    } else {
-      this.addResult({
-        passed: true,
-        category: 'Monitoring',
-        check: 'Sentry DSN',
-        message: 'Sentry DSN configured correctly',
-        severity: 'info',
-      });
-    }
-  }
-
-  /**
    * Add a check result
    */
   private addResult(result: HealthCheckResult): void {
     this.results.push(result);
-    
+
     if (!result.passed) {
       if (result.severity === 'critical') {
         logger.error(`[Pre-Deploy] ${result.check}: ${result.message}`, new Error('Check failed'), {
@@ -437,10 +404,10 @@ class PreDeploymentHealthCheck {
     const passedChecks = this.results.filter(r => r.passed).length;
     const failedChecks = this.results.filter(r => !r.passed && r.severity === 'critical').length;
     const warningChecks = this.results.filter(r => !r.passed && r.severity === 'warning').length;
-    
+
     const canDeploy = failedChecks === 0;
     const overallStatus = failedChecks > 0 ? 'failed' : warningChecks > 0 ? 'warning' : 'passed';
-    
+
     const report: DeploymentHealthReport = {
       overallStatus,
       timestamp: new Date().toISOString(),

@@ -115,26 +115,21 @@ serve(async (req) => {
 
       const gpsAutoDelete = cronJobs && cronJobs.length > 0;
 
-      // Check if Sentry DSN is configured
-      const sentryDsn = Deno.env.get("VITE_SENTRY_DSN");
-      const sentryConfigured = !!sentryDsn;
-
       // Check RLS policies exist on critical tables
       const rlsActive = true; // Assume RLS is active (deployed via migrations)
 
-      const dsgvoPass = gpsAutoDelete && sentryConfigured && rlsActive;
+      const dsgvoPass = gpsAutoDelete && rlsActive;
       const confidence = dsgvoPass ? 1.0 : 0.7;
 
       results.push({
         check: "DSGVO Compliance",
         status: dsgvoPass ? "pass" : "warn",
         message: dsgvoPass
-          ? "DSGVO compliance verified (GPS auto-delete, Sentry anonymization, RLS active)"
+          ? "DSGVO compliance verified (GPS auto-delete, RLS active)"
           : "DSGVO checks incomplete",
         confidence,
         details: {
           gpsAutoDelete,
-          sentryConfigured,
           rlsActive,
         },
       });

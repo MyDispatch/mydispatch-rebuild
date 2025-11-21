@@ -12,7 +12,7 @@
 
 import { useMemo } from 'react';
 import { useAuth } from '@/hooks/use-auth';
-import { useStatistics } from '@/hooks/use-statistics';
+import { useStatistics, type DashboardStats } from '@/hooks/use-statistics';
 import { useNavigate } from 'react-router-dom';
 import { useDeviceType } from '@/hooks/use-device-type';
 import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
@@ -227,13 +227,21 @@ export default function Dashboard() {
   }
 
   // ==================================================================================
-  // MAIN RENDER - GOLDEN TEMPLATE STRUKTUR (wie Rechnungen)
-  // ==================================================================================
   return (
     <>
       <StandardPageLayout
         title={`Willkommen zurück, ${profile?.first_name || 'User'}!`}
         subtitle={`Heute ist ${format(new Date(), 'EEEE, d. MMMM yyyy', { locale: de })}`}
+        description="Dashboard mit Live-Statistiken und Schnellzugriffen"
+        canonical="/"
+      >
+    <div className="relative flex flex-1">
+      {/* DESKTOP: Main Content Left - RIGHT SIDEBAR SPACE */}
+      <div
+        className="flex-1 p-4 sm:p-6"
+        style={{
+          marginRight: isMobile ? '0' : '320px' // ✅ Konsistent mit /rechnungen Golden Template
+        }}
       >
         {/* KPI CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -244,7 +252,7 @@ export default function Dashboard() {
               value={kpi.value}
               subtitle={kpi.subtitle}
               icon={kpi.icon}
-              trend={kpi.trend}
+              change={kpi.change}
             />
           ))}
         </div>
@@ -320,7 +328,7 @@ export default function Dashboard() {
             {/* Partner-Performance */}
             <FeatureGate
               feature="partner_management"
-              requiredTier="business"
+              requiredTariff="Business"
               fallback={null}
             >
               <Card>
@@ -428,7 +436,7 @@ export default function Dashboard() {
                     <TrendIcon className="h-4 w-4 text-green-400" />
                   </div>
                   <p className="text-lg font-bold text-green-700">
-                    {stats.bookings_trend > 0 ? '+' : ''}{stats.bookings_trend}%
+                    {stats.bookings_trend.value > 0 ? '+' : ''}{stats.bookings_trend.value}%
                   </p>
                   <p className="text-xs text-green-500 mt-1">zum Vortag</p>
                 </div>
@@ -437,7 +445,7 @@ export default function Dashboard() {
               {/* BUSINESS EXCLUSIVE STATS */}
               <FeatureGate
                 feature="advanced_dashboard"
-                requiredTier="business"
+                requiredTariff="Business"
                 fallback={null}
               >
                 {/* Effizienz-Score */}

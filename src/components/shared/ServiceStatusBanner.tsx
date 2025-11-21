@@ -5,7 +5,6 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 interface ServiceStatus {
   hereMaps: boolean;
   stripe: boolean;
-  sentry: boolean;
 }
 
 export function ServiceStatusBanner() {
@@ -13,7 +12,6 @@ export function ServiceStatusBanner() {
   const [serviceStatus, setServiceStatus] = useState<ServiceStatus>({
     hereMaps: false,
     stripe: false,
-    sentry: false,
   });
 
   useEffect(() => {
@@ -21,7 +19,6 @@ export function ServiceStatusBanner() {
     const status = {
       hereMaps: !!import.meta.env.VITE_HERE_API_KEY,
       stripe: !!import.meta.env.VITE_STRIPE_PUBLIC_KEY,
-      sentry: !!import.meta.env.VITE_SENTRY_DSN,
     };
     setServiceStatus(status);
 
@@ -38,8 +35,8 @@ export function ServiceStatusBanner() {
   };
 
   // Don't show if all services are configured
-  const allServicesConfigured = serviceStatus.hereMaps && serviceStatus.stripe && serviceStatus.sentry;
-  
+  const allServicesConfigured = serviceStatus.hereMaps && serviceStatus.stripe;
+
   // Don't show in production if all critical services are configured
   if (import.meta.env.PROD && (serviceStatus.hereMaps && serviceStatus.stripe)) {
     return null;

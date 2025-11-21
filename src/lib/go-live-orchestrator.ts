@@ -61,9 +61,9 @@ class GoLiveOrchestrator {
         return await fn();
       } catch (error: any) {
         if (import.meta.env.DEV) {
-          logger.debug(`[${stepName}] Attempt ${i + 1}/${attempts} failed`, { 
-            component: 'GoLiveOrchestrator', 
-            error: error.message 
+          logger.debug(`[${stepName}] Attempt ${i + 1}/${attempts} failed`, {
+            component: 'GoLiveOrchestrator',
+            error: error.message
           });
         }
         if (i === attempts - 1) throw error;
@@ -110,16 +110,16 @@ class GoLiveOrchestrator {
 
   async executePreFlightChecks(): Promise<boolean> {
     this.updateStep('Pre-Flight Checks', { status: 'running' });
-    
+
     try {
       // Check 1: Supabase connection
       const { error: dbError } = await supabase.from('companies').select('id').limit(1);
       if (dbError) throw new Error(`Database connection failed: ${dbError.message}`);
 
       // Check 2: Required secrets
-      const requiredSecrets = ['RESEND_API_KEY', 'VITE_SENTRY_DSN', 'N8N_WEBHOOK_URL'];
+      const requiredSecrets = ['RESEND_API_KEY', 'N8N_WEBHOOK_URL'];
       const missingSecrets: string[] = [];
-      
+
       // Note: We can't check secrets directly from frontend, but we assume they exist
       // This would be validated in the edge function
 
@@ -265,10 +265,9 @@ class GoLiveOrchestrator {
     this.updateStep('Monitoring Activation', { status: 'running' });
 
     try {
-      // Monitoring is pre-configured (Sentry, n8n, Self-Reflection)
+      // Monitoring is pre-configured (n8n, Self-Reflection)
       // Just verify configuration exists
       const monitoringSystems = {
-        sentry: !!import.meta.env.VITE_SENTRY_DSN,
         n8n: true, // Assume configured
         selfReflection: true // Deployed via cron
       };
@@ -337,12 +336,12 @@ class GoLiveOrchestrator {
 
     try {
       this.orchestration.endTime = new Date().toISOString();
-      this.orchestration.totalDuration = new Date(this.orchestration.endTime).getTime() - 
+      this.orchestration.totalDuration = new Date(this.orchestration.endTime).getTime() -
                                          new Date(this.orchestration.startTime).getTime();
 
       const hasErrors = this.orchestration.steps.some(s => s.status === 'error');
       const hasWarnings = this.orchestration.steps.some(s => s.status === 'warning');
-      
+
       this.orchestration.overallStatus = hasErrors ? 'error' : hasWarnings ? 'warning' : 'success';
 
       const { error } = await supabase.from('ai_actions_log').insert([{
