@@ -7,10 +7,10 @@
    - Konsistente Abstände
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 interface DashboardSectionProps {
   icon: LucideIcon;

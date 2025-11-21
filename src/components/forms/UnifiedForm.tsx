@@ -11,8 +11,9 @@
    ✅ Type-Safe Field Rendering
    ================================================================================== */
 
-import { ReactNode, useState } from 'react';
-import { UseFormReturn } from 'react-hook-form';
+import type { ReactNode} from 'react';
+import { useState } from 'react';
+import type { UseFormReturn } from 'react-hook-form';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Form, FormControl, FormDescription, FormField as ShadcnFormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/lib/compat';

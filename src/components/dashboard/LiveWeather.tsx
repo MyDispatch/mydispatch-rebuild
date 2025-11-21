@@ -10,7 +10,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
 import { Cloud, CloudRain, Sun, CloudSnow, Wind, Droplets } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Skeleton } from '@/components/ui/skeleton';
-import { WeatherApiResponse, validateApiResponse, isValidWeatherResponse } from '@/types/api-schemas';
+import type { WeatherApiResponse} from '@/types/api-schemas';
+import { validateApiResponse, isValidWeatherResponse } from '@/types/api-schemas';
 
 interface LiveWeatherProps {
   city?: string;

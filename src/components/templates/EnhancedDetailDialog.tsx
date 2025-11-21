@@ -8,7 +8,8 @@
    ✅ Doppelte Bestätigung für kritische Aktionen
    ================================================================================== */
 
-import { useState, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { useState } from 'react';
 import {
   Dialog,
   DialogContent,

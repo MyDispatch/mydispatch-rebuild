@@ -17,7 +17,8 @@
    });
    ================================================================================== */
 
-import { useQuery, useMutation, useQueryClient, QueryKey } from '@tanstack/react-query';
+import type { QueryKey } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { logger } from '@/lib/logger';
 

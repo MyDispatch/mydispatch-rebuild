@@ -9,7 +9,7 @@
    ================================================================================== */
 
 import React from 'react';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { ICON_COLORS, isValidIconColor } from '@/lib/design-system';
 import { cn } from '@/lib/utils';
 import { logger } from '@/lib/logger';

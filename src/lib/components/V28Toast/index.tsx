@@ -6,7 +6,7 @@
 import * as ToastPrimitive from '@radix-ui/react-toast';
 import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export interface V28ToastProps {
   open: boolean;

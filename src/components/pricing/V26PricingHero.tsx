@@ -5,7 +5,7 @@
    ✅ Nutze V28HeroPremium direkt für neue Implementierungen
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
 
 interface V26PricingHeroProps {

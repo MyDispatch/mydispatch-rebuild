@@ -2,8 +2,9 @@
  * HYPERION PHASE 2: Documents API Module
  */
 
-import { TypedSupabaseClient, handleApiError } from './client';
-import { Tables, Enums } from '@/integrations/supabase/types';
+import type { TypedSupabaseClient} from './client';
+import { handleApiError } from './client';
+import type { Tables, Enums } from '@/integrations/supabase/types';
 
 export type Document = Tables<'documents'>;
 export type DocumentType = Enums<'document_type'>;

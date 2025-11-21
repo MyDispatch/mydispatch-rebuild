@@ -3,7 +3,8 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { forwardRef, SelectHTMLAttributes } from 'react';
+import type { SelectHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-react';
 

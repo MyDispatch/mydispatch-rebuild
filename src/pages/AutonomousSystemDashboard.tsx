@@ -120,7 +120,7 @@ export default function AutonomousSystemDashboard() {
             <CardTitle className="text-sm font-medium">Ausstehend</CardTitle>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="text-2xl font-bold text-yellow-600">
+            <div className="text-2xl font-bold text-warning">
               {stats?.pending_tasks || 0}
             </div>
           </CardContent>
@@ -131,7 +131,7 @@ export default function AutonomousSystemDashboard() {
             <CardTitle className="text-sm font-medium">Abgeschlossen</CardTitle>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="text-2xl font-bold text-green-600">
+            <div className="text-2xl font-bold text-success">
               {stats?.completed_tasks || 0}
             </div>
           </CardContent>
@@ -142,7 +142,7 @@ export default function AutonomousSystemDashboard() {
             <CardTitle className="text-sm font-medium">Fehlgeschlagen</CardTitle>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="text-2xl font-bold text-red-600">
+            <div className="text-2xl font-bold text-error">
               {stats?.failed_tasks || 0}
             </div>
           </CardContent>

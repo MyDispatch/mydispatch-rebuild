@@ -6,10 +6,11 @@
    - Automatische Tastatur-Optimierung
    ================================================================================== */
 
-import { forwardRef, InputHTMLAttributes } from 'react';
+import type { InputHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 interface MobileInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   label?: string;

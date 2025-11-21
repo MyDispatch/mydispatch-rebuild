@@ -6,7 +6,7 @@
    Autor: NeXify AI MASTER
    ================================================================================== */
 
-import { EmailTemplate, CompanyBranding } from './email-templates-branded';
+import type { EmailTemplate, CompanyBranding } from './email-templates-branded';
 import { passwordResetTemplateBranded, registrationConfirmTemplateBranded, bookingConfirmationTemplateBranded, invoiceEmailTemplateBranded } from './email-templates-branded';
 
 /**

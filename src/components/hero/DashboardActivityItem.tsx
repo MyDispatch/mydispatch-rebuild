@@ -7,7 +7,7 @@
    ✅ Status Badge System
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 interface DashboardActivityItemProps {
   icon: LucideIcon;

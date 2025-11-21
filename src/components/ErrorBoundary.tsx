@@ -4,7 +4,8 @@
    Fängt React-Fehler ab und zeigt Fallback UI
    ================================================================================== */
 
-import { Component, ErrorInfo, ReactNode } from 'react';
+import type { ErrorInfo, ReactNode } from 'react';
+import { Component } from 'react';
 import { V28Button } from '@/components/design-system/V28Button';
 
 interface Props {

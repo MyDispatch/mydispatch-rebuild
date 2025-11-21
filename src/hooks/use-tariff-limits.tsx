@@ -7,10 +7,12 @@
 import { useAuth } from '@/hooks/use-auth';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import type { 
+  TariffLimit 
+} from '@/lib/tariff/tariff-definitions';
 import { 
   getTariffByProductId, 
-  exceedsLimit, 
-  TariffLimit 
+  exceedsLimit 
 } from '@/lib/tariff/tariff-definitions';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';

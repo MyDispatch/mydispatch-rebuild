@@ -9,7 +9,8 @@
  * 80% schnellere Renders bei 100+ Einträgen
  */
 
-import { memo, useMemo, useCallback, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { memo, useMemo, useCallback } from 'react';
 import {
   Table,
   TableBody,

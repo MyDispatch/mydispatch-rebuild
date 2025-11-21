@@ -10,7 +10,7 @@
    - Einheitliches Eye-Icon für Details
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { MainLayout } from '@/components/layout/MainLayout';
 import { DashboardBreadcrumb } from '@/components/layout/DashboardBreadcrumb';
 import { PageHeaderWithKPIs } from '@/components/shared/PageHeaderWithKPIs';
@@ -20,7 +20,7 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Search } from 'lucide-react';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 interface KPICardData {
   title: string;

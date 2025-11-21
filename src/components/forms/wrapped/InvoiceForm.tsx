@@ -2,9 +2,10 @@
    INVOICE FORM - Wrapped UnifiedForm for Invoices
    ================================================================================== */
 
-import { UseFormReturn } from 'react-hook-form';
+import type { UseFormReturn } from 'react-hook-form';
 import { User } from 'lucide-react';
-import { UnifiedForm, FormField } from '../UnifiedForm';
+import type { FormField } from '../UnifiedForm';
+import { UnifiedForm } from '../UnifiedForm';
 import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 import { SearchableSelect } from '@/components/ui/SearchableSelect';
 

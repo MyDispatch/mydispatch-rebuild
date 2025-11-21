@@ -5,7 +5,7 @@
    ✅ Autocomplete in IDE
    ==================================================================================*/
 
-import { content } from './de-DE';
+import type { content } from './de-DE';
 
 export type Content = typeof content;
 

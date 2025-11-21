@@ -19,7 +19,8 @@ import {
   Workflow,
   Clock
 } from 'lucide-react';
-import { GoLiveOrchestrator, GoLiveOrchestration, ExecutionStep } from '@/lib/go-live-orchestrator';
+import type { GoLiveOrchestration, ExecutionStep } from '@/lib/go-live-orchestrator';
+import { GoLiveOrchestrator } from '@/lib/go-live-orchestrator';
 import { useToast } from '@/hooks/use-toast';
 import { logger } from '@/lib/logger';
 

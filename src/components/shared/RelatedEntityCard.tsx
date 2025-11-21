@@ -12,6 +12,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import type {
+  LucideIcon} from 'lucide-react';
 import { 
   User, 
   Users, 
@@ -21,8 +23,7 @@ import {
   Phone, 
   Mail, 
   MapPin,
-  ExternalLink,
-  LucideIcon,
+  ExternalLink
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 

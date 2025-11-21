@@ -6,7 +6,8 @@
    - Zeichenzähler optional
    ================================================================================== */
 
-import { forwardRef, TextareaHTMLAttributes } from 'react';
+import type { TextareaHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 

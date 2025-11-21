@@ -4,7 +4,8 @@
    Context Provider für Quick Actions Panel Config-Passing von Pages → MainLayout
    ================================================================================== */
 
-import { createContext, useContext, useState, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useContext, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
 
 interface QuickActionsPanelConfig {

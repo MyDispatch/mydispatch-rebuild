@@ -9,8 +9,9 @@
    - Doppelte Bestätigung für kritische Aktionen
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { EnhancedDetailDialog, DetailAction } from '@/components/templates/EnhancedDetailDialog';
+import type { ReactNode } from 'react';
+import type { DetailAction } from '@/components/templates/EnhancedDetailDialog';
+import { EnhancedDetailDialog } from '@/components/templates/EnhancedDetailDialog';
 import { Eye } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 

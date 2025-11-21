@@ -8,7 +8,7 @@
    ================================================================================== */
 
 import { V28Button } from '@/components/design-system/V28Button';
-import { FloatingActionConfig } from '@/types/page-template';
+import type { FloatingActionConfig } from '@/types/page-template';
 import { cn } from '@/lib/utils';
 
 interface FloatingActionsProps {

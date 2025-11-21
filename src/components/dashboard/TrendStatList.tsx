@@ -8,7 +8,8 @@
    ================================================================================== */
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LucideIcon, TrendingUp, TrendingDown, Minus, Activity } from 'lucide-react';
+import type { LucideIcon} from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus, Activity } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export interface TrendStatItem {

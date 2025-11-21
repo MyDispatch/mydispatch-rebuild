@@ -15,7 +15,8 @@
    - V28 Design System Compliance
    ================================================================================== */
 
-import { ReactNode, useMemo } from 'react';
+import type { ReactNode} from 'react';
+import { useMemo } from 'react';
 import { useMainLayout } from '@/hooks/use-main-layout';
 import { SEOHead } from '@/components/shared/SEOHead';
 import { ErrorBoundary } from '@/components/shared/ErrorBoundary';

@@ -4,7 +4,8 @@
    Zentrale Fehlerbehandlung mit automatischem Logging
    ================================================================================== */
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import type { ErrorInfo, ReactNode } from 'react';
+import React, { Component } from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Card } from '@/components/ui/card';

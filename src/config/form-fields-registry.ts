@@ -27,7 +27,7 @@
    - Zentrale Änderungen → sofort überall aktiv
    ================================================================================== */
 
-import { FormField } from '@/components/forms/UnifiedForm';
+import type { FormField } from '@/components/forms/UnifiedForm';
 
 // ============================================================================
 // SHARED PERSON FIELDS (Wiederverwendbar: Kunden, Fahrer, Auth)

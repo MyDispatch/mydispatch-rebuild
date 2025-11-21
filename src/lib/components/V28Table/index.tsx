@@ -3,7 +3,7 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 export interface V28TableColumn<T> {

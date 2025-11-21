@@ -16,7 +16,7 @@
    ✅ V28.1 PROFESSIONAL MINIMALISM
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface V28AuthCardProps {

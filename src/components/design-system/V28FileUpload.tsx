@@ -8,7 +8,8 @@
    ✅ Progress indicator
    ================================================================================== */
 
-import { useState, useRef, DragEvent } from 'react';
+import type { DragEvent } from 'react';
+import { useState, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { Upload, File, X } from 'lucide-react';
 import { V28Button } from './V28Button';

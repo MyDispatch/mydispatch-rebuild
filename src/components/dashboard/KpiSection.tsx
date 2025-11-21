@@ -7,7 +7,7 @@
    ✅ Responsive grid layout
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { StatCard } from '@/components/smart-templates/StatCard';
 
 export interface KpiItem {

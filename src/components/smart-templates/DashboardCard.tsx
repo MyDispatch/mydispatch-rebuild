@@ -7,10 +7,10 @@
    ✅ Pixelgenaue Umsetzung mit Hover-Effekten
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 interface DashboardCardProps {
   // Content

@@ -4,7 +4,7 @@
    Generiert konsistente KPIs für alle Dashboard-Seiten
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { 
   Users, FileText, Car, Receipt, Building2, DollarSign, 
   TrendingUp, Clock, CheckCircle, AlertCircle 

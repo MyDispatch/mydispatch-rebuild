@@ -30,7 +30,8 @@
  * ========================================================================
  */
 
-import { icons, LucideProps } from 'lucide-react';
+import type { LucideProps } from 'lucide-react';
+import { icons } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { logger } from '@/lib/logger';
 

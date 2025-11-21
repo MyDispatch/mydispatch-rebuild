@@ -17,7 +17,8 @@
    ✅ V28.1 PROFESSIONAL MINIMALISM
    ================================================================================== */
 
-import { forwardRef, InputHTMLAttributes } from 'react';
+import type { InputHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 interface V28AuthInputProps extends InputHTMLAttributes<HTMLInputElement> {

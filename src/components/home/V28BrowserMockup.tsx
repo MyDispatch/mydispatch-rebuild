@@ -8,7 +8,7 @@
    ✅ Wiederverwendbar für Dashboard-Previews
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface V28BrowserMockupProps {
   children: ReactNode;

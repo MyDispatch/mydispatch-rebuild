@@ -6,8 +6,8 @@
    ✅ Konsistentes Error-Handling
    ================================================================================== */
 
-import { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from '@/integrations/supabase/types';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from '@/integrations/supabase/types';
 import { logger } from '@/lib/logger';
 
 export type TypedSupabaseClient = SupabaseClient<Database>;

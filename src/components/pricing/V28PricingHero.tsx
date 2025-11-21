@@ -6,7 +6,7 @@
    ✅ Clean & dezent
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { V28HeroBackground } from '@/components/hero/V28HeroBackground';
 import { V28Hero3DBackgroundClean } from '@/components/hero/V28Hero3DBackgroundClean';
 import { V28Hero3DBackgroundPremium } from '@/components/hero/V28Hero3DBackgroundPremium';

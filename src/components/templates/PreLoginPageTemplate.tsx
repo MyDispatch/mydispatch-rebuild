@@ -7,7 +7,7 @@
    ✅ V28 Design System Compliance
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { MarketingLayout } from '@/components/layout/MarketingLayout';
 import { SEOHead } from '@/components/shared/SEOHead';
 import { V28HeroPremium } from '@/components/hero/V28HeroPremium';
@@ -16,7 +16,7 @@ import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
 import { V28IconBox } from '@/components/design-system/V28IconBox';
 import { ScrollToTopButton } from '@/components/shared/ScrollToTopButton';
 import { V28Button } from '@/components/design-system/V28Button';
-import { PreLoginPageConfig } from '@/config/pages';
+import type { PreLoginPageConfig } from '@/config/pages';
 import { useNavigate } from 'react-router-dom';
 
 // ==================================================================================

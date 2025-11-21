@@ -9,7 +9,8 @@
    - B2B-Tonality, Mobile-optimiert
    ================================================================================== */
 
-import { ReactNode, useState } from 'react';
+import type { ReactNode} from 'react';
+import { useState } from 'react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { cn } from '@/lib/utils';
 import { Home, Tag, BookOpen, HelpCircle, Code, Mail, ChevronRight, Menu, ClipboardList, Truck, Users, Receipt, Handshake, TrendingUp, Shield, Globe, Navigation } from 'lucide-react';

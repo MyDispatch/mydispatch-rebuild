@@ -12,7 +12,7 @@
 
 import { Badge } from '@/lib/compat';
 import { cn } from '@/lib/utils';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 export type ResponsiveBadgeVariant = 
   | 'default'       // Neutral

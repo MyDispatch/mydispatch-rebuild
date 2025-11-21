@@ -9,7 +9,8 @@
    ================================================================================== */
 
 import { ReactNode } from 'react';
-import { LucideIcon, TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import type { LucideIcon} from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { V28IconBox } from './V28IconBox';
 

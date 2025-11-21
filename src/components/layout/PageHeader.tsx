@@ -13,7 +13,7 @@ import { Badge } from '@/components/ui/badge';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { StatCard } from '@/components/smart-templates/StatCard';
-import { PageHeaderConfig } from '@/types/page-template';
+import type { PageHeaderConfig } from '@/types/page-template';
 
 interface PageHeaderProps extends PageHeaderConfig {}
 

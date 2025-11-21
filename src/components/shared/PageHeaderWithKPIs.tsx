@@ -10,7 +10,7 @@
 import { ReactNode } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { V28Button } from '@/components/design-system/V28Button';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { StatCard } from '@/components/smart-templates/StatCard';
 import { cn } from '@/lib/utils';
 

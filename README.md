@@ -14,26 +14,87 @@
 
 ## 🚀 Quick Start
 
+### 1. Prerequisites
+
+```sh
+# Node.js v18+ required
+node --version  # Should be v18 or higher
+
+# Package manager: npm (included with Node.js)
+npm --version   # Should be v9 or higher
+```
+
+### 2. Installation
+
 ```sh
 # Clone repository
-git clone <YOUR_GIT_URL>
-cd <YOUR_PROJECT_NAME>
+git clone https://github.com/MyDispatch/mydispatch-rebuild.git
+cd mydispatch-rebuild
 
 # Install dependencies
-npm i
+npm install
 
-# Start development server
+# Setup environment variables
+cp .env.example .env.local
+# ⚠️ Edit .env.local with your actual API keys (see .env.example for details)
+```
+
+### 3. Development
+
+```sh
+# Start development server (http://localhost:5000)
 npm run dev
 
-# Build for production
-npm run build
+# Run in different terminal: Type checking
+npm run type-check
 
 # Run tests
-npm test
-npm run test:e2e
+npm run test           # Unit tests (Vitest)
+npm run test:e2e       # E2E tests (Playwright)
+```
 
-# Validate Hero backgrounds (V31.5)
-npm run validate:hero
+### 4. Production Build
+
+```sh
+# Type check + Build + Test
+npm run quality:full
+
+# Build only
+npm run build
+
+# Preview production build locally
+npm run preview
+```
+
+## 🏗️ Project Structure
+
+```
+mydispatch-rebuild/
+├── src/
+│   ├── components/       # React Components
+│   │   ├── design-system/  # V28.1 Design System Components
+│   │   ├── layout/         # Layout Components (FROZEN)
+│   │   ├── shared/         # Shared/Common Components
+│   │   └── ui/             # shadcn/ui Base Components
+│   ├── config/           # Configuration (design-tokens.ts, etc.)
+│   ├── contexts/         # React Contexts (Auth, Theme, etc.)
+│   ├── hooks/            # Custom React Hooks
+│   ├── integrations/     # Third-party integrations (Supabase, etc.)
+│   ├── lib/              # Utilities & Helpers
+│   ├── pages/            # Page Components (Routes)
+│   ├── styles/           # Global CSS
+│   └── main.tsx          # App Entry Point
+├── supabase/
+│   ├── functions/        # Edge Functions (Deno)
+│   └── migrations/       # Database Migrations (SQL)
+├── docs/                 # Documentation (100+ files)
+├── scripts/              # Automation Scripts
+├── tests/                # Test Files (Vitest + Playwright)
+├── .env.example          # Environment Variables Template
+├── .env.local            # Your Local Environment (gitignored)
+├── tsconfig.json         # TypeScript Configuration
+├── vite.config.ts        # Vite Configuration
+└── package.json          # Dependencies & Scripts
 ```
 
 ## 📋 Available Scripts

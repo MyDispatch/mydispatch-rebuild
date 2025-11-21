@@ -13,7 +13,7 @@
 import { V28Button } from '@/components/design-system/V28Button';
 import { Card, CardContent, CardHeader, CardTitle, Badge } from '@/lib/compat';
 import { cn } from '@/lib/utils';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 export interface QuickAction {
   label: string;

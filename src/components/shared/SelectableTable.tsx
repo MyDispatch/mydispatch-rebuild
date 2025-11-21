@@ -33,11 +33,12 @@
  * ==================================================================================
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useBulkSelection } from '@/hooks/use-bulk-selection';
-import { BulkActionBar, BulkAction } from '@/components/shared/BulkActionBar';
+import type { BulkAction } from '@/components/shared/BulkActionBar';
+import { BulkActionBar } from '@/components/shared/BulkActionBar';
 import { cn } from '@/lib/utils';
 
 interface SelectableTableProps<T extends { id: string }> {

@@ -316,7 +316,7 @@ export default function Dashboard() {
                     <span className="text-sm text-muted-foreground">Effizienz-Score</span>
                     <div className="flex items-center gap-2">
                       <div className="w-20 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-600 rounded-full" style={{width: `${stats?.efficiency_score || 85}%`}}></div>
+                        <div className="h-full bg-info rounded-full" style={{width: `${stats?.efficiency_score || 85}%`}}></div>
                       </div>
                       <span className="font-semibold">{stats?.efficiency_score || 85}%</span>
                     </div>

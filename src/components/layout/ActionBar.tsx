@@ -9,7 +9,7 @@
 
 import { V28Button } from '@/components/design-system/V28Button';
 import { BulkActionBar } from '@/components/shared/BulkActionBar';
-import { ActionConfig, BulkActionConfig } from '@/types/page-template';
+import type { ActionConfig, BulkActionConfig } from '@/types/page-template';
 
 interface ActionBarProps {
   primary?: ActionConfig[];

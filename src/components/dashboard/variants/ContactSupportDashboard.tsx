@@ -4,7 +4,7 @@
    Shows support tickets, messages, and response times
    ================================================================================== */
 
-import { RenderingResolution } from '@/lib/rendering-quality';
+import type { RenderingResolution } from '@/lib/rendering-quality';
 import { useOptimizedRendering } from '@/hooks/useOptimizedRendering';
 import { MessageCircle, CheckCircle, Clock, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';

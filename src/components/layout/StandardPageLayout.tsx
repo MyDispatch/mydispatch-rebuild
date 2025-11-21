@@ -15,8 +15,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/lib/compat';
 import { format } from 'date-fns';
 import { de } from 'date-fns/locale';
-import { Activity, Archive, LucideIcon, Plus } from 'lucide-react';
-import { ReactNode } from 'react';
+import type { LucideIcon} from 'lucide-react';
+import { Activity, Archive, Plus } from 'lucide-react';
+import type { ReactNode } from 'react';
 
 interface StatCard {
   label: string;

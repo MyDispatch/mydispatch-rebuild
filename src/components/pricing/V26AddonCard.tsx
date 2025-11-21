@@ -6,8 +6,9 @@
    ✅ Smooth Hover-Effekte
    ================================================================================== */
 
-import { ReactNode, useState } from 'react';
-import { LucideIcon } from 'lucide-react';
+import type { ReactNode} from 'react';
+import { useState } from 'react';
+import type { LucideIcon } from 'lucide-react';
 import { V26IconBox } from '@/components/design-system/V26IconBox';
 import { cn } from '@/lib/utils';
 

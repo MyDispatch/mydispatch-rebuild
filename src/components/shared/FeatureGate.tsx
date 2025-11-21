@@ -7,7 +7,8 @@
    - Type-Safe mit neuem Interface
    ================================================================================== */
 
-import { ReactNode, useState } from 'react';
+import type { ReactNode} from 'react';
+import { useState } from 'react';
 import { useSubscription } from '@/hooks/use-subscription';
 import { useAuth } from '@/hooks/use-auth';
 import { useAccountType } from '@/hooks/use-account-type';

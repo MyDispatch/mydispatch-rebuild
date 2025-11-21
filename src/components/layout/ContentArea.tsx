@@ -11,7 +11,7 @@
 
 import { EmptyState } from '@/components/shared/EmptyState';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { ContentConfig } from '@/types/page-template';
+import type { ContentConfig } from '@/types/page-template';
 
 interface ContentAreaProps<T = any> extends ContentConfig<T> {}
 

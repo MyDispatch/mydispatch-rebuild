@@ -6,7 +6,8 @@
    ✅ V28.1 Design System Compliance
    ================================================================================== */
 
-import { FileText, Euro, Users, Car, MapPin, Navigation, CreditCard, CheckCircle, Award, MessageSquare, TrendingUp } from 'lucide-react';
+import type { FileText} from 'lucide-react';
+import { Euro, Users, Car, MapPin, Navigation, CreditCard, CheckCircle, Award, MessageSquare, TrendingUp } from 'lucide-react';
 
 // Reusable KPI Card Component
 function MiniKPI({ label, value, trend }: { label: string; value: string; trend?: string }) {

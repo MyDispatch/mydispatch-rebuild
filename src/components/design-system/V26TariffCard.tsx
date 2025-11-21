@@ -8,7 +8,8 @@
 
 import { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
-import { Check, LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { Badge } from '@/lib/compat';
 
 interface V28TariffCardProps {

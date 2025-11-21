@@ -6,8 +6,9 @@
    ✅ Konsistentes Error-Handling
    ================================================================================== */
 
-import { TypedSupabaseClient, handleApiError } from './client';
-import { Tables } from '@/integrations/supabase/types';
+import type { TypedSupabaseClient} from './client';
+import { handleApiError } from './client';
+import type { Tables } from '@/integrations/supabase/types';
 
 export type Customer = Tables<'customers'>;
 export type CustomerInsert = Omit<Customer, 'id' | 'created_at' | 'updated_at'>;

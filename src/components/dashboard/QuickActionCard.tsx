@@ -8,7 +8,7 @@
    - Konsistentes Styling
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface QuickActionCardProps {

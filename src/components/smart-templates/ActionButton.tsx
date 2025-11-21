@@ -7,9 +7,9 @@
    ✅ Systemweite Konsistenz
    ================================================================================== */
 
-import { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { V28Button } from '@/components/design-system/V28Button';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 interface ActionButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   // Content

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { cn } from '@/lib/utils';
 

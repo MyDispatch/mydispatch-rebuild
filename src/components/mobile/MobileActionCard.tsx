@@ -1,4 +1,5 @@
-import { LucideIcon, ChevronRight } from 'lucide-react';
+import type { LucideIcon} from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface MobileActionCardProps {

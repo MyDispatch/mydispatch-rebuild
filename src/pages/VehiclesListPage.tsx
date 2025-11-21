@@ -9,7 +9,8 @@
 
 import { useVehicles } from '@/hooks/use-vehicles';
 import type { Tables } from '@/integrations/supabase/types';
-import { BulkAction, ListColumn, StandardListPage } from '@/templates/StandardListPage';
+import type { BulkAction, ListColumn} from '@/templates/StandardListPage';
+import { StandardListPage } from '@/templates/StandardListPage';
 import { Plus, Trash2, Wrench } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

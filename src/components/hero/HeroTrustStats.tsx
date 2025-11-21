@@ -7,7 +7,7 @@
    ✅ V40.14: Inline-Styles eliminiert → CSS-Klassen + Hover-Events
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 interface TrustStat {
   icon: LucideIcon;

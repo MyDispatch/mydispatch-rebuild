@@ -18,10 +18,11 @@
  * ✅ 100% V45.0 Design System kompatibel
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Eye, Plus } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
-import { DashboardInfoBoard, DashboardArea, ChartData, QuickAction, KPIData } from '@/components/dashboard/DashboardInfoBoard';
+import type { DashboardArea, ChartData, QuickAction, KPIData } from '@/components/dashboard/DashboardInfoBoard';
+import { DashboardInfoBoard } from '@/components/dashboard/DashboardInfoBoard';
 import { useMainLayout } from '@/hooks/useMainLayout';
 
 export interface ListColumn<T> {

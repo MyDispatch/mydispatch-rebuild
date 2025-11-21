@@ -6,7 +6,7 @@
    ✅ Pure Tailwind mit Slate-Palette
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface SectionHeaderProps {

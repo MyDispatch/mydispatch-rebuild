@@ -7,7 +7,8 @@
    - Type-Safety
    ================================================================================== */
 
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './use-auth';
 import { toast } from 'sonner';

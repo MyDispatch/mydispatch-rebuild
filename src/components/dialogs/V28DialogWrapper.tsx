@@ -9,7 +9,7 @@
    ✅ Sizes: sm (384px), md (448px), lg (512px), xl (576px), full (100%)
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import {
   Dialog,
   DialogContent,

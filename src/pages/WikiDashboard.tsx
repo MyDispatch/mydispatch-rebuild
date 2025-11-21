@@ -321,9 +321,9 @@ export default function WikiDashboard() {
                 {wikiData?.criticalIssues && wikiData.criticalIssues.length > 0 ? (
                   <div className="space-y-4">
                     {wikiData.criticalIssues.map((issue: any, idx: number) => (
-                      <div key={idx} className="border-l-4 border-red-500 pl-4 py-3 bg-red-50">
+                      <div key={idx} className="border-l-4 border-error pl-4 py-3 bg-error-light">
                         <div className="flex items-center justify-between mb-2">
-                          <h4 className="font-semibold text-red-900">{issue.issue_type}</h4>
+                          <h4 className="font-semibold text-error-text">{issue.issue_type}</h4>
                           <Badge variant="destructive">Critical</Badge>
                         </div>
                         <p className="text-sm text-red-800 mb-2">{issue.description}</p>

@@ -8,7 +8,8 @@
    - WebP Support mit Fallback
    ================================================================================== */
 
-import { useState, ImgHTMLAttributes } from 'react';
+import type { ImgHTMLAttributes } from 'react';
+import { useState } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
 
 interface OptimizedImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 'onLoad' | 'onError'> {

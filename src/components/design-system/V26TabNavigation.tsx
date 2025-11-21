@@ -7,7 +7,7 @@
    ✅ Responsive Grid Layout
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface V26TabItem {

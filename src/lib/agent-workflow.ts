@@ -4,7 +4,8 @@
    Dieses System integriert das Agent Debug System in meinen Standard-Workflow
    ================================================================================== */
 
-import { agentDebugSystem, PageScanResult } from './agent-debug-system';
+import type { PageScanResult } from './agent-debug-system';
+import { agentDebugSystem } from './agent-debug-system';
 
 // ==================================================================================
 // FILE SCANNER HELPER

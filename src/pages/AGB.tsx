@@ -328,7 +328,7 @@ const AGB = () => {
                   </p>
                 </div>
 
-                <div className="bg-red-50 border border-red-200 p-6 rounded-xl">
+                <div className="bg-error-light border border-error-border p-6 rounded-xl">
                   <h3 className="font-sans text-lg font-semibold text-slate-900 mb-3">Haftung bei Personenbeförderung (§ 44 PBefG)</h3>
                   <p className="font-sans text-sm text-slate-600 mb-2">
                     <strong className="font-sans text-slate-900">WICHTIG für Taxi- und Mietwagenunternehmer:</strong> Die MyDispatch-Software dient ausschließlich 

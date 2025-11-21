@@ -3,7 +3,8 @@
  * Works without API keys in demo mode
  */
 
-import { loadStripe, Stripe } from '@stripe/stripe-js';
+import type { Stripe } from '@stripe/stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 let stripePromise: Promise<Stripe | null> | null = null;
 

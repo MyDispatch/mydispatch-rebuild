@@ -3,7 +3,8 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { forwardRef, InputHTMLAttributes } from 'react';
+import type { InputHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 export interface V28InputProps extends InputHTMLAttributes<HTMLInputElement> {

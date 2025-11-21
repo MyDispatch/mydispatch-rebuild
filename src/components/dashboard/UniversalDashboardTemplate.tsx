@@ -11,7 +11,7 @@
    ✅ 100% V28.1 Design System konform
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { SEOHead } from '@/components/shared/SEOHead';
 import { DashboardBreadcrumb } from '@/components/layout/DashboardBreadcrumb';
 import { PageHeaderWithKPIs, type KPICardData, type QuickAction } from '@/components/shared/PageHeaderWithKPIs';
@@ -20,7 +20,7 @@ import { UniversalExportBar } from './UniversalExportBar';
 import { DashboardSection } from '@/components/shared/DashboardSection';
 import { UniversalPagination } from './UniversalPagination';
 import { BulkActionBar, type BulkAction } from '@/components/shared/BulkActionBar';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 interface UniversalDashboardTemplateProps {
   // SEO & Layout

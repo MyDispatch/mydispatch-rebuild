@@ -5,7 +5,8 @@
  * Kein direkter Supabase-Zugriff mehr in Hooks!
  */
 
-import { TypedSupabaseClient, handleApiError } from './client';
+import type { TypedSupabaseClient} from './client';
+import { handleApiError } from './client';
 
 // Define the actual structure since Supabase types are placeholders
 export interface Booking {

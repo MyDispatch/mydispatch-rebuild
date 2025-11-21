@@ -6,11 +6,31 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    // ✅ CODEPILOT TASK 1.1: TypeScript Progressive Strict Mode
+    // STRATEGY: Gradual enablement via ESLint warnings + manual fixes
+    // Current: Keep existing settings stable, add strict checks incrementally
+
+    // Allow implicit any (to be fixed incrementally)
     "noImplicitAny": false,
+
+    // Unused code detection (enabled via ESLint)
     "noUnusedParameters": false,
+    "noUnusedLocals": false,
+
+    // Null safety (Phase 2 target)
+    "strictNullChecks": false,
+
+    // Performance & compatibility
     "skipLibCheck": true,
     "allowJs": true,
-    "noUnusedLocals": false,
-    "strictNullChecks": false
+
+    // Module resolution (compatible with Vite)
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    // Interop
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true
   }
 }

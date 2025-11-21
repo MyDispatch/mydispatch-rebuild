@@ -3,7 +3,8 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { forwardRef, TextareaHTMLAttributes } from 'react';
+import type { TextareaHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 export interface V28TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {

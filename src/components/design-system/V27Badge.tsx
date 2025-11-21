@@ -8,7 +8,7 @@
    ✅ V27.0 NORDIC SKY KONFORM
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Badge } from '@/lib/compat';
 import { PRIMARY_COLORS_V27 } from '@/lib/design-system/unified-design-tokens';
 import { cn } from '@/lib/utils';

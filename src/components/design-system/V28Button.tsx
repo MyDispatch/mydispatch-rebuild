@@ -13,9 +13,10 @@
    ✅ HTML Attributes Support (role, aria-*, data-*)
    ================================================================================== */
 
-import { ReactNode, forwardRef } from 'react';
+import type { ReactNode} from 'react';
+import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 export interface V28ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'> {
   children?: ReactNode; // Optional for icon-only buttons

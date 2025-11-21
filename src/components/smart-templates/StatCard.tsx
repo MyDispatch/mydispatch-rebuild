@@ -10,7 +10,8 @@ import { ReactNode } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { LucideIcon, TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import type { LucideIcon} from 'lucide-react';
+import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
 import type { StatusConfig } from '@/lib/status-system';
 
 interface StatCardProps {

@@ -8,7 +8,8 @@
 
 import { useState } from 'react';
 import { Plus, Trash2, Mail, Phone } from 'lucide-react';
-import { StandardListPage, ListColumn, BulkAction } from '@/templates/StandardListPage';
+import type { ListColumn, BulkAction } from '@/templates/StandardListPage';
+import { StandardListPage } from '@/templates/StandardListPage';
 import { useCustomers } from '@/hooks/use-customers';
 import { formatDate } from '@/lib/data-transformers';
 import { toast } from 'sonner';

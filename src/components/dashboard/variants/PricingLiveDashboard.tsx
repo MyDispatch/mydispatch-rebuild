@@ -4,7 +4,7 @@
    Shows pricing tiers, payment status, and billing information
    ================================================================================== */
 
-import { RenderingResolution } from '@/lib/rendering-quality';
+import type { RenderingResolution } from '@/lib/rendering-quality';
 import { useOptimizedRendering } from '@/hooks/useOptimizedRendering';
 import { Check, CreditCard, Euro, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';

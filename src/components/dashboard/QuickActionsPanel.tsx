@@ -10,7 +10,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { V28Button } from '@/components/design-system/V28Button';
-import { LucideIcon, Zap } from 'lucide-react';
+import type { LucideIcon} from 'lucide-react';
+import { Zap } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export interface QuickAction {

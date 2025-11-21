@@ -10,7 +10,8 @@
    ================================================================================== */
 
 import { ReactNode } from 'react';
-import { LucideIcon, TrendingUp, TrendingDown, Download, FileSpreadsheet, FileText } from 'lucide-react';
+import type { LucideIcon} from 'lucide-react';
+import { TrendingUp, TrendingDown, Download, FileSpreadsheet, FileText } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/lib/compat';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Badge } from '@/lib/compat';

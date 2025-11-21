@@ -2,8 +2,9 @@
    DOCUMENT FORM - Wrapped UnifiedForm for Documents
    ================================================================================== */
 
-import { UseFormReturn } from 'react-hook-form';
-import { UnifiedForm, FormField } from '../UnifiedForm';
+import type { UseFormReturn } from 'react-hook-form';
+import type { FormField } from '../UnifiedForm';
+import { UnifiedForm } from '../UnifiedForm';
 import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 
 interface DocumentFormProps {

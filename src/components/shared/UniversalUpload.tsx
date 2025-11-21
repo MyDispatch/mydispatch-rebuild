@@ -9,7 +9,8 @@
    ✅ Portal-Specific Theming
    ================================================================================== */
 
-import { useState, useRef, DragEvent } from 'react';
+import type { DragEvent } from 'react';
+import { useState, useRef } from 'react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Upload, X, File, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';

@@ -4,7 +4,7 @@
    Shows partner-specific dashboard with branding and performance metrics
    ================================================================================== */
 
-import { RenderingResolution } from '@/lib/rendering-quality';
+import type { RenderingResolution } from '@/lib/rendering-quality';
 import { useOptimizedRendering } from '@/hooks/useOptimizedRendering';
 import { Briefcase, TrendingUp, Users, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';

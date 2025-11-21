@@ -7,7 +7,7 @@
    - Smart Home-Navigation
    ================================================================================== */
 
-import { NavigateFunction } from 'react-router-dom';
+import type { NavigateFunction } from 'react-router-dom';
 
 /**
  * Gibt die korrekte Home-Route basierend auf Context zurück

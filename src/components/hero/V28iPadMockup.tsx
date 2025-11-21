@@ -8,7 +8,7 @@
    ✅ V28.1 Design System Compliance
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface V28iPadMockupProps {
   children: ReactNode;

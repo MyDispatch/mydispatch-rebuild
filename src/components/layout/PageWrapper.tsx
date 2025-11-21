@@ -8,7 +8,7 @@
    ✅ Mandatorisch auf ALLEN Pre-Login-Seiten
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 interface PageWrapperProps {
   children: ReactNode;

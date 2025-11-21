@@ -18,7 +18,7 @@
  * ✅ 100% V45.0 Design System kompatibel
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { ArrowLeft, Save } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { useMainLayout } from '@/hooks/useMainLayout';

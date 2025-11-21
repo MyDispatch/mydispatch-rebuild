@@ -6,7 +6,7 @@
    ✅ Ultra-HD rendering support
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { V28iPadMockupHD } from './V28iPadMockupHD';
 import { IPhoneMockupHD } from './IPhoneMockupHD';
 import { cn } from '@/lib/utils';

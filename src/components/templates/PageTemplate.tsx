@@ -7,9 +7,9 @@
    ✅ SEO-optimiert
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { MarketingLayout } from '@/components/layout/MarketingLayout';
 import { SEOHead } from '@/components/shared/SEOHead';
 import { V28HeroPremium } from '@/components/hero/V28HeroPremium';

@@ -6,8 +6,10 @@
    Accessible via useWiki() hook anywhere
    ================================================================================== */
 
-import { createContext, useContext, ReactNode } from 'react';
-import { useNeXifyWiki, WikiLoadResult } from '@/hooks/use-nexify-wiki';
+import type { ReactNode } from 'react';
+import { createContext, useContext } from 'react';
+import type { WikiLoadResult } from '@/hooks/use-nexify-wiki';
+import { useNeXifyWiki } from '@/hooks/use-nexify-wiki';
 
 interface WikiContextValue {
   wikiData: WikiLoadResult | null;

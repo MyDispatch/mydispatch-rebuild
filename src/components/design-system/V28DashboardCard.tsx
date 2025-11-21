@@ -9,8 +9,8 @@
    ✅ Tailwind-native Slate colors
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { LucideIcon } from 'lucide-react';
+import type { ReactNode } from 'react';
+import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { V28IconBox } from './V28IconBox';
 

@@ -5,8 +5,8 @@
  * für Backward-Kompatibilität mit bestehendem Code in src/lib/api/*
  */
 
-import { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from '@/integrations/supabase/types';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from '@/integrations/supabase/types';
 export type { TypedSupabaseClient, ApiResponse } from '@/api/client';
 export { handleApiError } from '@/api/client';
 

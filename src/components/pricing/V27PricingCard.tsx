@@ -8,7 +8,8 @@
    ================================================================================== */
 
 import { ReactNode, useState } from 'react';
-import { LucideIcon, ChevronDown } from 'lucide-react';
+import type { LucideIcon} from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { V27IconBox } from '@/components/design-system/V27IconBox';
 import { V27Button } from '@/components/design-system/V27Button';
 // V26FeatureListItem removed - using inline implementation

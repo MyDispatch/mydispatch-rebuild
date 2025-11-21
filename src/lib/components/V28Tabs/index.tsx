@@ -3,7 +3,7 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
 import { cn } from '@/lib/utils';
 

@@ -10,7 +10,7 @@
    ================================================================================== */
 
 import { ReactNode } from 'react';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { V28IconBox } from '@/components/design-system/V28IconBox';
 import { V28Button } from '@/components/design-system/V28Button';
 import { V28Badge } from '@/components/design-system/V28Badge';

@@ -28,7 +28,7 @@ import { FilterBar } from './FilterBar';
 import { ContentArea } from './ContentArea';
 import { FloatingActions } from './FloatingActions';
 import { useDeviceType } from '@/hooks/use-device-type';
-import { UnifiedPageTemplateProps } from '@/types/page-template';
+import type { UnifiedPageTemplateProps } from '@/types/page-template';
 import { Loader2 } from 'lucide-react';
 
 export function UnifiedPageTemplate<T = any>({

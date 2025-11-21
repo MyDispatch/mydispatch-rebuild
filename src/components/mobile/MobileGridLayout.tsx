@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Card } from '@/components/ui/card';
-import { RefreshCw, Search, Plus, LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { RefreshCw, Search, Plus } from 'lucide-react';
 import { MobileInput } from './MobileInput';
 import { MobileFilterBar } from './MobileFilterBar';
 import { EmptyState } from '@/components/shared/EmptyState';

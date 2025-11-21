@@ -7,7 +7,7 @@
    ✅ 300ms Transitions
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { V26IconBox } from '@/components/design-system/V26IconBox';
 import { cn } from '@/lib/utils';
 

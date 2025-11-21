@@ -9,7 +9,8 @@
    - UNVERÄNDERLICH!
    ================================================================================== */
 
-import { ReactNode, useState } from 'react';
+import type { ReactNode} from 'react';
+import { useState } from 'react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { cn } from '@/lib/utils';
 import { Home, FileText, BookOpen, HelpCircle, Code, Mail, ChevronRight, Menu } from 'lucide-react';

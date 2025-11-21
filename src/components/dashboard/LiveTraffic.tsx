@@ -11,7 +11,8 @@ import { Navigation, AlertTriangle, CheckCircle, AlertCircle } from 'lucide-reac
 import { supabase } from '@/integrations/supabase/client';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/lib/compat';
-import { TrafficApiResponse, validateApiResponse, isValidTrafficResponse } from '@/types/api-schemas';
+import type { TrafficApiResponse} from '@/types/api-schemas';
+import { validateApiResponse, isValidTrafficResponse } from '@/types/api-schemas';
 
 interface LiveTrafficProps {
   route?: {

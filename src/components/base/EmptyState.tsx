@@ -9,7 +9,7 @@
    ================================================================================== */
 
 import React from 'react';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { SafeIcon } from './SafeIcon';
 import { Heading, Body } from './Typography';

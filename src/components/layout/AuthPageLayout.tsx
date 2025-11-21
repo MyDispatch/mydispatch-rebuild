@@ -20,7 +20,7 @@
    ✅ V28CookieConsent Integration (Global)
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { AuthHeader } from '@/components/auth/AuthHeader';
 import { AuthFooter } from '@/components/auth/AuthFooter';
 

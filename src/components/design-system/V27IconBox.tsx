@@ -9,7 +9,7 @@
    ✅ V27.0 NORDIC SKY KONFORM
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { PRIMARY_COLORS_V27 } from '@/lib/design-system/unified-design-tokens';
 import { cn } from '@/lib/utils';
 

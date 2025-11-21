@@ -9,7 +9,8 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Activity, LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { Activity } from 'lucide-react';
 import { format, formatDistanceToNow } from 'date-fns';
 import { de } from 'date-fns/locale';
 

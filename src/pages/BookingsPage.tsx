@@ -9,7 +9,8 @@
 
 import { useState } from 'react';
 import { Plus, Trash2, CheckCircle } from 'lucide-react';
-import { StandardListPage, ListColumn, BulkAction } from '@/templates/StandardListPage';
+import type { ListColumn, BulkAction } from '@/templates/StandardListPage';
+import { StandardListPage } from '@/templates/StandardListPage';
 import { useBookings } from '@/lib/api/bookings-hooks';
 import { formatDate, formatCurrency, formatStatus } from '@/lib/data-transformers';
 import type { Tables } from '@/integrations/supabase/types';

@@ -4,7 +4,7 @@
 
 import { lazy } from 'react';
 import { Rocket } from 'lucide-react';
-import { RouteConfig } from '../routes.config';
+import type { RouteConfig } from '../routes.config';
 
 export const publicRoutes: RouteConfig[] = [
   {

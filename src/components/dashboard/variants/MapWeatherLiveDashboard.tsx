@@ -4,7 +4,7 @@
    Shows GPS map with live traffic and weather information
    ================================================================================== */
 
-import { RenderingResolution } from '@/lib/rendering-quality';
+import type { RenderingResolution } from '@/lib/rendering-quality';
 import { useOptimizedRendering } from '@/hooks/useOptimizedRendering';
 import { MapPin, Navigation, Cloud, Wind, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';

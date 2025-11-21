@@ -10,8 +10,8 @@
    ✅ Taxi-Branchen-spezifische Badges
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { LucideIcon } from 'lucide-react';
+import type { ReactNode } from 'react';
+import type { LucideIcon } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { V28Hero3DBackgroundPremium } from '@/components/hero/V28Hero3DBackgroundPremium';
 import { TrustIndicators } from '@/components/business/TrustIndicators';

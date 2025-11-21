@@ -7,7 +7,7 @@
    ✅ Premium shadows & reflections
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import type { RenderingResolution } from '@/lib/rendering-quality';
 import { getScaleClass } from '@/lib/rendering-quality';

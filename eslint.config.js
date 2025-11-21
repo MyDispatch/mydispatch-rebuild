@@ -21,12 +21,31 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       
-      // ✅ PHASE 17: Pragmatische ESLint-Konfiguration
-      "@typescript-eslint/no-unused-vars": "off",
-      "@typescript-eslint/no-explicit-any": "warn", // Warning statt Error
+      // ✅ CODEPILOT TASK 1: TypeScript Quality Rules
+      "@typescript-eslint/no-unused-vars": ["warn", { 
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_"
+      }],
+      "@typescript-eslint/no-explicit-any": "warn", // Warn on 'any' usage
       "@typescript-eslint/no-empty-function": "warn",
       "@typescript-eslint/ban-ts-comment": "warn",
+      "@typescript-eslint/consistent-type-imports": ["warn", {
+        "prefer": "type-imports",
+        "fixStyle": "separate-type-imports"
+      }],
       
+      // ✅ CODEPILOT TASK 1: React Best Practices
+      "react-hooks/exhaustive-deps": "warn",
+      "react-hooks/rules-of-hooks": "error",
+      
+      // ✅ CODEPILOT TASK 1: Code Quality
+      "no-console": ["warn", { "allow": ["warn", "error"] }],
+      "no-debugger": "warn",
+      "prefer-const": "warn",
+      "no-var": "error",
+      
+      // ✅ CODEPILOT TASK 2: Design System Enforcement
       "no-restricted-imports": ["error", {
         "patterns": [
           {

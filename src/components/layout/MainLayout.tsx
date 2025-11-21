@@ -8,7 +8,8 @@
    - UNVERÄNDERLICH!
    ================================================================================== */
 
-import { ReactNode, useState } from 'react';
+import type { ReactNode} from 'react';
+import { useState } from 'react';
 import { AppSidebar } from './AppSidebar';
 import { Header } from './Header';
 import { Footer } from './Footer';

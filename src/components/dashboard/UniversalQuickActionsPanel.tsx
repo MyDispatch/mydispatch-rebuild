@@ -7,8 +7,8 @@
    ✅ Flexibler Context Widget Support
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { LucideIcon } from 'lucide-react';
+import type { ReactNode } from 'react';
+import type { LucideIcon } from 'lucide-react';
 import { Card, CardHeader, CardContent } from '@/lib/compat';
 import { V28Button } from '@/components/design-system/V28Button';
 import { cn } from '@/lib/utils';

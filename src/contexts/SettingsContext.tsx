@@ -5,7 +5,8 @@
    Reduziert Redundanz und verbessert Performance
    ================================================================================== */
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/use-auth';
 import { useCompany } from '@/hooks/use-company';
 import { useSubscription } from '@/hooks/use-subscription';

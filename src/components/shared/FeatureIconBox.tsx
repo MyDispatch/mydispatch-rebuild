@@ -4,7 +4,7 @@
    Konsistentes Design wie Sidebar-Buttons: Blauer Hintergrund, helles Icon
    ================================================================================== */
 
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export interface FeatureIconBoxProps {

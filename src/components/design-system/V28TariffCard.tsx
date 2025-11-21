@@ -11,7 +11,8 @@
 
 import { ReactNode, useCallback } from 'react';
 import { cn } from '@/lib/utils';
-import { Check, LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { V28Badge } from '@/components/design-system/V28Badge';
 import { V28IconBox } from '@/components/design-system/V28IconBox';
 

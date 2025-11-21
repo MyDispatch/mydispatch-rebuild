@@ -10,7 +10,8 @@
    ✅ Responsive
    ================================================================================== */
 
-import { ReactNode, useState, useMemo } from 'react';
+import type { ReactNode} from 'react';
+import { useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 import { ChevronUp, ChevronDown, Search } from 'lucide-react';
 import { V28Input } from './V28Input';

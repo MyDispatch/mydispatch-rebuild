@@ -8,7 +8,8 @@
    NUTZUNG: <ErrorBoundary><YourComponent /></ErrorBoundary>
    ================================================================================== */
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import type { ErrorInfo, ReactNode } from 'react';
+import React, { Component } from 'react';
 import { AlertCircle, RefreshCw } from 'lucide-react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { EnhancedCard } from './EnhancedCard';

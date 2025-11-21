@@ -7,7 +7,7 @@
    - Mobile-optimiert
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Plus } from 'lucide-react';
 

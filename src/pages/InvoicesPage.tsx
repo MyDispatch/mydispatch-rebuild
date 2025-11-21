@@ -8,7 +8,8 @@
 
 import { useState } from 'react';
 import { Plus, Trash2, Mail, Download } from 'lucide-react';
-import { StandardListPage, ListColumn, BulkAction } from '@/templates/StandardListPage';
+import type { ListColumn, BulkAction } from '@/templates/StandardListPage';
+import { StandardListPage } from '@/templates/StandardListPage';
 import { useInvoices, useDeleteInvoice } from '@/lib/api/invoices-hooks';
 import { formatDate, formatCurrency } from '@/lib/data-transformers';
 import { toast } from 'sonner';

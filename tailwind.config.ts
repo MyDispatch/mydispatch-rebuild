@@ -114,6 +114,45 @@ export default {
           secondary: "hsl(var(--text-secondary))",
           tertiary: "hsl(var(--text-tertiary))",
         },
+        
+        // ✅ CODEPILOT TASK 2: Design System V28.1 Semantic Colors
+        // Replaces hardcoded Tailwind colors (bg-blue-50 → bg-info-light)
+        // Source: src/config/design-tokens.ts
+        info: {
+          DEFAULT: "hsl(205, 90%, 58%)",   // vibrant.blue
+          light: "hsl(205, 90%, 95%)",     // bg-blue-50 replacement
+          border: "hsl(205, 90%, 85%)",    // border-blue-100 replacement
+          text: "hsl(205, 90%, 35%)",      // text-blue-700 replacement
+        },
+        success: {
+          DEFAULT: "hsl(142, 80%, 48%)",   // status.success
+          light: "hsl(142, 80%, 95%)",     // bg-green-50 replacement
+          border: "hsl(142, 80%, 85%)",    // border-green-100 replacement
+          text: "hsl(142, 80%, 35%)",      // text-green-700 replacement
+        },
+        error: {
+          DEFAULT: "hsl(0, 90%, 65%)",     // status.error
+          light: "hsl(0, 90%, 95%)",       // bg-red-50 replacement
+          border: "hsl(0, 90%, 85%)",      // border-red-200 replacement
+          text: "hsl(0, 90%, 40%)",        // text-red-600 replacement
+        },
+        warning: {
+          DEFAULT: "hsl(38, 95%, 52%)",    // status.warning
+          light: "hsl(38, 95%, 95%)",      // bg-yellow-50 replacement
+          border: "hsl(38, 95%, 85%)",     // border-yellow-100 replacement
+          text: "hsl(38, 95%, 35%)",       // text-yellow-700 replacement
+        },
+        accent: {
+          purple: {
+            DEFAULT: "hsl(260, 85%, 65%)",
+            light: "hsl(260, 85%, 95%)",   // bg-purple-50 replacement
+          },
+          orange: {
+            DEFAULT: "hsl(22, 95%, 60%)",
+            light: "hsl(22, 95%, 95%)",    // bg-orange-50 replacement
+            text: "hsl(22, 95%, 40%)",     // text-orange-600 replacement
+          },
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

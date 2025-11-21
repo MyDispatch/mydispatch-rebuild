@@ -11,7 +11,7 @@ import { Input } from '@/lib/compat';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Search } from 'lucide-react';
-import { SearchConfig, TabConfig, FilterConfig } from '@/types/page-template';
+import type { SearchConfig, TabConfig, FilterConfig } from '@/types/page-template';
 
 interface FilterBarProps {
   search?: SearchConfig;

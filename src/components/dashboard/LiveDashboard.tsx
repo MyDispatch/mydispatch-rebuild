@@ -8,7 +8,8 @@
    ✅ Responsive variants (iPad/iPhone/Desktop)
    ================================================================================== */
 
-import { ReactNode, lazy, Suspense } from 'react';
+import type { ReactNode} from 'react';
+import { lazy, Suspense } from 'react';
 import type { RenderingResolution } from '@/lib/rendering-quality';
 
 // Lazy-load dashboard variants for performance

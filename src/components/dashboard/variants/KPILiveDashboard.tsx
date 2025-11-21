@@ -4,7 +4,7 @@
    Shows real-time KPIs, statistics, and performance metrics
    ================================================================================== */
 
-import { RenderingResolution } from '@/lib/rendering-quality';
+import type { RenderingResolution } from '@/lib/rendering-quality';
 import { useOptimizedRendering } from '@/hooks/useOptimizedRendering';
 import { TrendingUp, TrendingDown, Users, Euro, Activity, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';

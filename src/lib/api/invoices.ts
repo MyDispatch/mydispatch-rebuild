@@ -2,8 +2,10 @@
  * HYPERION PHASE 2: Invoices API Module
  */
 
-import { TypedSupabaseClient, handleApiError } from './client';
-import { Tables, Enums } from '@/integrations/supabase/types';
+import type { TypedSupabaseClient} from './client';
+import { handleApiError } from './client';
+import type { Tables} from '@/integrations/supabase/types';
+import { Enums } from '@/integrations/supabase/types';
 
 export type Invoice = Tables<'invoices'>;
 

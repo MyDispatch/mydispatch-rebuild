@@ -18,7 +18,8 @@
    ```
    ================================================================================== */
 
-import { forwardRef, AnchorHTMLAttributes } from 'react';
+import type { AnchorHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 

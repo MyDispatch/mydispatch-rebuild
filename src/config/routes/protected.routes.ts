@@ -8,7 +8,7 @@ import {
   Calendar, MessageSquare, Mail, BarChart3, MapPin, Crown,
   Palette, ShieldCheck, AlertCircle, Clipboard, Database
 } from 'lucide-react';
-import { RouteConfig } from '../routes.config';
+import type { RouteConfig } from '../routes.config';
 
 export const protectedRoutes: RouteConfig[] = [
   {

@@ -3,7 +3,7 @@
  * Part of MISSION I (ATLAS) - UI Atoms
  */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import { cn } from '@/lib/utils';
 

@@ -7,7 +7,8 @@
    ✅ Single Source of Truth
    ================================================================================== */
 
-import { LucideIcon, Zap, Shield, TrendingUp, Clock, Users, DollarSign } from 'lucide-react';
+import type { LucideIcon} from 'lucide-react';
+import { Zap, Shield, TrendingUp, Clock, Users, DollarSign } from 'lucide-react';
 
 // ==================================================================================
 // TYPES

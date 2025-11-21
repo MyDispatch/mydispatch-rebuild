@@ -13,9 +13,9 @@
    ✅ 100% V45.0 Design System kompatibel
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import React from 'react';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { SEOHead } from '@/components/shared/SEOHead';
 import { V28DashboardSection, V28StatCard, V28DashboardCard } from '@/components/design-system';
 import { DataGrid } from '@/components/smart-templates';

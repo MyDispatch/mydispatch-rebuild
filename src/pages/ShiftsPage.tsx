@@ -8,7 +8,8 @@
 
 import { useState } from 'react';
 import { Plus, Trash2, Calendar, Clock } from 'lucide-react';
-import { StandardListPage, ListColumn, BulkAction } from '@/templates/StandardListPage';
+import type { ListColumn, BulkAction } from '@/templates/StandardListPage';
+import { StandardListPage } from '@/templates/StandardListPage';
 import { useShifts, useDeleteShift } from '@/lib/api/shifts-hooks';
 import { formatDate } from '@/lib/data-transformers';
 import { toast } from 'sonner';

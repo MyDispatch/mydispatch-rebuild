@@ -13,7 +13,8 @@
    const kpis = useMemoizedKPIs(() => calculateKPIs(data), [data]);
    ================================================================================== */
 
-import { useMemo, DependencyList } from 'react';
+import type { DependencyList } from 'react';
+import { useMemo } from 'react';
 import { logger } from '@/lib/logger';
 
 /**

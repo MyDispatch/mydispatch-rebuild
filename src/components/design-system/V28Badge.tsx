@@ -7,7 +7,7 @@
    ✅ Flat shadow (no 3D)
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Badge } from '@/lib/compat';
 import { cn } from '@/lib/utils';
 

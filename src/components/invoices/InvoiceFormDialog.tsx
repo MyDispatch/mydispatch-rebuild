@@ -6,7 +6,8 @@
    - TypeScript-sicher mit Validierung
    ================================================================================== */
 
-import { useState, FormEvent } from 'react';
+import type { FormEvent } from 'react';
+import { useState } from 'react';
 import { useAuth } from '@/hooks/use-auth';
 import { supabase } from '@/integrations/supabase/client';
 import { handleError, handleSuccess } from '@/lib/error-handler';

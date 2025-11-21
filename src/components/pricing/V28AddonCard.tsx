@@ -7,8 +7,8 @@
    ✅ Hover: scale + shadow-2xl
    ================================================================================== */
 
-import { ReactNode } from 'react';
-import { LucideIcon } from 'lucide-react';
+import type { ReactNode } from 'react';
+import type { LucideIcon } from 'lucide-react';
 import { V28IconBox } from '@/components/design-system/V28IconBox';
 import { cn } from '@/lib/utils';
 

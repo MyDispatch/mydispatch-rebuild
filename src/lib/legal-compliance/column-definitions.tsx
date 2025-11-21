@@ -7,7 +7,7 @@
    KRITISCH: Diese Felder MÜSSEN in allen Tabellen erscheinen!
    ================================================================================== */
 
-import { ColumnDef } from '@/types/page-template';
+import type { ColumnDef } from '@/types/page-template';
 import { formatDateTime, formatCurrency } from '@/lib/format-utils';
 import { StatusIndicator, getBookingStatusType } from '@/components/shared/StatusIndicator';
 

@@ -8,7 +8,8 @@
    ✅ V28.1 PROFESSIONAL MINIMALISM
    ================================================================================== */
 
-import { forwardRef, SelectHTMLAttributes } from 'react';
+import type { SelectHTMLAttributes } from 'react';
+import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 interface V28SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {

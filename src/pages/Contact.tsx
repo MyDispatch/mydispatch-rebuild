@@ -179,7 +179,7 @@ const Contact = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="font-sans text-sm font-medium text-slate-700">
-                            Anrede <span className="text-red-600">*</span>
+                            Anrede <span className="text-error-text">*</span>
                           </FormLabel>
                           <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
@@ -230,7 +230,7 @@ const Contact = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="font-sans text-sm font-medium text-slate-700">
-                            Name <span className="text-red-600">*</span>
+                            Name <span className="text-error-text">*</span>
                           </FormLabel>
                           <FormControl>
                             <Input 
@@ -250,7 +250,7 @@ const Contact = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="font-sans text-sm font-medium text-slate-700">
-                            E-Mail <span className="text-red-600">*</span>
+                            E-Mail <span className="text-error-text">*</span>
                           </FormLabel>
                           <FormControl>
                             <Input 
@@ -313,7 +313,7 @@ const Contact = () => {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="font-sans text-sm font-medium text-slate-700">
-                          Betreff <span className="text-red-600">*</span>
+                          Betreff <span className="text-error-text">*</span>
                         </FormLabel>
                         <Select onValueChange={field.onChange} value={field.value}>
                           <FormControl>
@@ -341,7 +341,7 @@ const Contact = () => {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="font-sans text-sm font-medium text-slate-700">
-                          Nachricht <span className="text-red-600">*</span>
+                          Nachricht <span className="text-error-text">*</span>
                         </FormLabel>
                         <FormControl>
                           <Textarea 
@@ -371,7 +371,7 @@ const Contact = () => {
                         </FormControl>
                         <div className="space-y-1 leading-none">
                           <FormLabel className="font-sans text-sm text-slate-700">
-                            Datenschutz akzeptieren <span className="text-red-600">*</span>
+                            Datenschutz akzeptieren <span className="text-error-text">*</span>
                           </FormLabel>
                           <p className="font-sans text-xs text-slate-600">
                             Ich stimme der{' '}

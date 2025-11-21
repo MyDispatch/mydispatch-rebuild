@@ -8,7 +8,8 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
-import { createApiClient, BookingWithRelations } from '@/lib/api';
+import type { BookingWithRelations } from '@/lib/api';
+import { createApiClient } from '@/lib/api';
 import { useAuth } from './use-auth';
 import { useAuditLogs } from './use-audit-logs';
 import { queryKeys } from '@/lib/query-client';

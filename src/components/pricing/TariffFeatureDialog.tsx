@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { V28Button } from '@/components/design-system/V28Button';
-import { TariffDefinition } from '@/lib/tariff/tariff-definitions';
+import type { TariffDefinition } from '@/lib/tariff/tariff-definitions';
 import { designTokens } from '@/config/design-tokens';
 import { cn } from '@/lib/utils';
 

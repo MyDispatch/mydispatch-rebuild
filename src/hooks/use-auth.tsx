@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { useState, useEffect, useContext, createContext, ReactNode } from 'react';
-import { User, Session } from '@supabase/supabase-js';
+import type { ReactNode } from 'react';
+import { useState, useEffect, useContext, createContext } from 'react';
+import type { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';

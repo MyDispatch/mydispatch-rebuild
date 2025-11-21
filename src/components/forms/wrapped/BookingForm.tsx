@@ -9,9 +9,10 @@
    ✅ Portal Theming Support
    ================================================================================== */
 
-import { UseFormReturn } from 'react-hook-form';
+import type { UseFormReturn } from 'react-hook-form';
 import { UserPlus, Car, User } from 'lucide-react';
-import { UnifiedForm, FormField } from '../UnifiedForm';
+import type { FormField } from '../UnifiedForm';
+import { UnifiedForm } from '../UnifiedForm';
 import { FORM_FIELDS_REGISTRY } from '@/config/form-fields-registry';
 import { AddressInput } from '../AddressInput';
 import { SearchableSelect } from '@/components/ui/SearchableSelect';
