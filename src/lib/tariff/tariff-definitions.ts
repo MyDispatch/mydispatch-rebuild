@@ -95,10 +95,10 @@ export const BUSINESS_TARIFF: TariffDefinition = {
   id: 'business',
   name: 'Business',
   priceMonthly: 99,
-  priceYearly: 950.40,
+  priceYearly: 948.00, // 79,20 EUR/Monat * 12 = 948,00 EUR/Jahr (-20% Rabatt)
   priceMonthlyFormatted: '99 €',
-  priceYearlyFormatted: '950,40 €',
-  yearlyDiscount: 237.60,
+  priceYearlyFormatted: '948,00 €',
+  yearlyDiscount: 240.00, // 99 * 12 - 948 = 240 EUR gespart
   description: 'Beliebt bei wachsenden Unternehmen',
   badge: 'Empfohlen',
   highlighted: true,
