@@ -387,12 +387,11 @@ export const BOOKING_FIELDS = {
     ],
   },
   
-  // --- ZAHLUNG (4 Felder) ---
-  price: {
-    name: 'price',
-    label: 'Preis (€)',
+  // --- ZAHLUNG (6 Felder: net_price, vat_rate, gross_price, payment_status, payment_method, vat_included) ---
+  netPrice: {
+    name: 'net_price',
+    label: 'Netto-Preis (€)',
     type: 'number' as const,
-    required: true,
     placeholder: '0.00',
   },
   vatRate: {
@@ -400,6 +399,29 @@ export const BOOKING_FIELDS = {
     label: 'MwSt.-Satz (%)',
     type: 'number' as const,
     placeholder: '19',
+  },
+  grossPrice: {
+    name: 'gross_price',
+    label: 'Brutto-Preis (€)',
+    type: 'number' as const,
+    placeholder: '0.00',
+    disabled: true, // Berechnet, nicht editierbar
+  },
+  vatIncluded: {
+    name: 'vat_included',
+    label: 'MwSt.',
+    type: 'select' as const,
+    options: [
+      { value: true, label: 'inkl. MwSt.' },
+      { value: false, label: 'exkl. MwSt.' },
+    ],
+  },
+  price: {
+    name: 'price',
+    label: 'Preis (€)',
+    type: 'number' as const,
+    required: true,
+    placeholder: '0.00',
   },
   paymentStatus: {
     name: 'payment_status',
