@@ -1,7 +1,7 @@
 # 📊 VOLLSTÄNDIGE FUNKTIONSÜBERSICHT - MyDispatch V33.4
 
-**Stand:** 22. November 2025  
-**Version:** V33.4 (Production-Ready)  
+**Stand:** 22. November 2025
+**Version:** V33.4 (Production-Ready)
 **Status:** Alle Hauptfunktionen implementiert und funktionsfähig
 
 ---
@@ -24,10 +24,12 @@
 ### **HAUPTBEREICH**
 
 #### 1. **Dashboard** (`/dashboard`)
-**Status:** ✅ Production-Ready V52.0  
+
+**Status:** ✅ Production-Ready V52.0
 **Component:** `src/pages/Dashboard.tsx`
 
 **Features:**
+
 - ✅ Live-Status KPIs (Uhrzeit, Wetter, Verkehr, Fahrer-Status)
 - ✅ Heute-KPIs (Aufträge, Umsatz, Fahrer, Fahrzeuge)
 - ✅ Aktivitäten-Tracking (Neue Kunden, Rechnungen, Geplante Aufträge)
@@ -38,6 +40,7 @@
 - ✅ Responsive Grid (1→2→4 Columns)
 
 **Technologie:**
+
 - HERE Maps API (Live-Tracking)
 - Recharts (Charts)
 - Supabase Realtime (Live-Updates)
@@ -46,10 +49,12 @@
 ---
 
 #### 2. **Aufträge** (`/auftraege`)
-**Status:** ✅ Production-Ready V28.1  
+
+**Status:** ✅ Production-Ready V28.1
 **Component:** `src/pages/Auftraege.tsx`
 
 **Features:**
+
 - ✅ CRUD (Create, Read, Update, Archive)
 - ✅ Tab-Navigation (Aufträge/Angebote)
 - ✅ KPI-Cards (Offene, Heute, Umsatz)
@@ -64,6 +69,7 @@
 - ✅ Export (PDF, Excel)
 
 **Technologie:**
+
 - BookingForm (Wrapped Component)
 - Bulk-Selection Hook
 - UniversalExportBar
@@ -72,10 +78,12 @@
 ---
 
 #### 3. **Angebote** (`/angebote`)
-**Status:** ✅ Production-Ready V1.0  
+
+**Status:** ✅ Production-Ready V1.0
 **Component:** `src/pages/Angebote.tsx`
 
 **Features:**
+
 - ✅ CRUD für Angebote
 - ✅ Status-Tracking (Offen, Akzeptiert, Abgelehnt)
 - ✅ KPI-Cards (Offene, Akzeptiert, Gesamtwert)
@@ -86,6 +94,7 @@
 - ✅ Ablaufdatum-Tracking
 
 **Technologie:**
+
 - QuoteForm Component
 - Status-Indicators
 - Export-System
@@ -95,10 +104,12 @@
 ### **VERWALTUNG**
 
 #### 4. **Kunden** (`/kunden`)
-**Status:** ✅ Production-Ready V28.1  
+
+**Status:** ✅ Production-Ready V28.1
 **Component:** `src/pages/Kunden.tsx`
 
 **Features:**
+
 - ✅ CRUD (Create, Read, Update, Archive)
 - ✅ KPI-Cards (Gesamt, Portal-Zugang, Offene Rechnungen)
 - ✅ Related Entities (Aufträge-History, Rechnungen)
@@ -112,6 +123,7 @@
 - ✅ MwSt-Handling (19% / 7% / befreit)
 
 **Technologie:**
+
 - CustomerForm (Wrapped Component)
 - useCustomers Hook
 - DetailDialog mit Tabs
@@ -119,12 +131,14 @@
 ---
 
 #### 5. **Fahrer & Fahrzeuge** (`/fahrer`)
-**Status:** ✅ Production-Ready V38.0  
+
+**Status:** ✅ Production-Ready V38.0
 **Component:** `src/pages/Fahrer.tsx`
 
 **Features:**
 
 **Fahrer-Tab:**
+
 - ✅ CRUD
 - ✅ KPI-Cards (Gesamt, Aktiv, Im Einsatz)
 - ✅ Status-Tracking (Verfügbar, Busy, Offline)
@@ -135,6 +149,7 @@
 - ✅ Bulk-Actions
 
 **Fahrzeuge-Tab:**
+
 - ✅ CRUD
 - ✅ KPI-Cards (Gesamt, Verfügbar, In Wartung)
 - ✅ Status-Tracking (Verfügbar, Im Einsatz, Wartung)
@@ -145,10 +160,12 @@
 - ✅ Bulk-Actions
 
 **Mobile:**
+
 - ✅ `MobileFahrer` Component
 - ✅ `MobileFahrzeuge` Component
 
 **Technologie:**
+
 - DriverForm (Wrapped)
 - VehicleForm (Wrapped)
 - useDrivers Hook
@@ -157,10 +174,12 @@
 ---
 
 #### 6. **Schichten & Zeiten** (`/schichtzettel`)
-**Status:** ✅ Production-Ready V35.0  
+
+**Status:** ✅ Production-Ready V35.0
 **Component:** `src/pages/Schichtzettel.tsx`
 
 **Features:**
+
 - ✅ CRUD
 - ✅ PBefG-konforme Erfassung (Personenbeförderungsgesetz)
 - ✅ KPI-Cards (Abgeschlossen, Offen, Gesamt)
@@ -173,6 +192,7 @@
 - ✅ Realtime Updates
 
 **Technologie:**
+
 - ShiftForm Component
 - useShifts Hook
 - PDF-Generator (Edge Function)
@@ -180,10 +200,12 @@
 ---
 
 #### 7. **Rechnungen** (`/rechnungen`)
-**Status:** ✅ Production-Ready V28.1  
+
+**Status:** ✅ Production-Ready V28.1
 **Component:** `src/pages/Rechnungen.tsx`
 
 **Features:**
+
 - ✅ CRUD
 - ✅ KPI-Cards (Offen, Bezahlt, Überfällig)
 - ✅ Status-Tracking (Pending, Paid, Overdue)
@@ -197,6 +219,7 @@
 - ✅ SEPA-Export
 
 **Technologie:**
+
 - InvoiceForm (Wrapped)
 - useInvoices Hook
 - PDF-Generator (Edge Function)
@@ -205,10 +228,12 @@
 ---
 
 #### 8. **Kostenstellen** (`/kostenstellen`)
-**Status:** ✅ Production-Ready V38.0  
+
+**Status:** ✅ Production-Ready V38.0
 **Component:** `src/pages/Kostenstellen.tsx`
 
 **Features:**
+
 - ✅ CRUD
 - ✅ KPI-Cards (Aktiv, Inaktiv, Gesamt)
 - ✅ Status-Verwaltung (Aktiv/Inaktiv)
@@ -219,16 +244,19 @@
 - ✅ Mobile-optimiert mit `MobileKostenstellen`
 
 **Technologie:**
+
 - CostCenterForm (Wrapped)
 - useCostCenters Hook
 
 ---
 
 #### 9. **Dokumente** (`/dokumente`)
-**Status:** ✅ Production-Ready V35.0  
+
+**Status:** ✅ Production-Ready V35.0
 **Component:** `src/pages/Dokumente.tsx`
 
 **Features:**
+
 - ✅ CRUD
 - ✅ KPI-Cards (Ablaufend, Aktiv, Gesamt)
 - ✅ Ablauf-Überwachung mit Erinnerungen (30/7 Tage)
@@ -243,6 +271,7 @@
 - ✅ Supabase Storage Integration
 
 **Technologie:**
+
 - DocumentForm Component
 - useDocuments Hook
 - Supabase Storage
@@ -253,10 +282,12 @@
 ### **GESCHÄFT**
 
 #### 10. **Partner-Netzwerk** (`/partner`)
-**Status:** ✅ Production-Ready (Business+ Feature)  
+
+**Status:** ✅ Production-Ready (Business+ Feature)
 **Component:** `src/pages/Partner.tsx`
 
 **Features:**
+
 - ✅ CRUD
 - ✅ KPI-Cards (Gesamt, Aktiv, Offene Anfragen)
 - ✅ Provisions-Verwaltung (Prozentsatz)
@@ -269,6 +300,7 @@
 - ✅ Mobile-optimiert mit `MobilePartner`
 
 **Technologie:**
+
 - PartnerForm Component
 - usePartners Hook
 - Feature-Gate Hook
@@ -276,10 +308,12 @@
 ---
 
 #### 11. **Statistiken** (`/statistiken`)
-**Status:** ✅ Production-Ready (Business+ Feature)  
+
+**Status:** ✅ Production-Ready (Business+ Feature)
 **Component:** `src/pages/Statistiken.tsx`
 
 **Features:**
+
 - ✅ KPI-Cards (Umsatz, Aufträge, Fahrer, Auslastung)
 - ✅ Charts (Umsatzentwicklung 30 Tage, Auslastung-Heatmap)
 - ✅ Top-Fahrer-Ranking (Performance-Metriken)
@@ -291,6 +325,7 @@
 - ✅ Realtime Updates
 
 **Technologie:**
+
 - Recharts (Advanced Charts)
 - useStatistics Hook
 - Export-System
@@ -300,23 +335,27 @@
 ### **SYSTEM**
 
 #### 12. **Einstellungen** (`/einstellungen`)
-**Status:** ✅ Production-Ready V38.0  
+
+**Status:** ✅ Production-Ready V38.0
 **Component:** `src/pages/Einstellungen.tsx`
 
 **Features:**
 
 **Unternehmen:**
+
 - ✅ Firmenprofil (Name, Beschreibung, Logo)
 - ✅ Standort (Adresse, GPS, Radius)
 - ✅ Branding & Logo (Upload, Farbschema)
 - ✅ Mindestvorlauf für Buchungen (JSONB-Config)
 
 **Abrechnung:**
+
 - ✅ Tarif & Abonnement (Starter/Business/Enterprise)
 - ✅ Zahlungsmethoden (Stripe Integration)
 - ✅ Rechnungshistorie
 
 **Profil & Team:**
+
 - ✅ Benutzerprofil (Name, E-Mail, Avatar)
 - ✅ **Team-Verwaltung (NEU in V33.4):**
   - Team-Mitglieder anzeigen
@@ -327,23 +366,28 @@
   - Letzter Login Tracking
 
 **Benachrichtigungen:**
+
 - ✅ E-Mail-Benachrichtigungen konfigurieren
 - ✅ Push-Benachrichtigungen (Browser)
 
 **Datenschutz:**
+
 - ✅ DSGVO-konforme Datenexport
 - ✅ Account-Löschung
 
 **System & API:**
+
 - ✅ API-Schlüssel-Verwaltung (HERE Maps, Resend)
 - ✅ System-Informationen (Version, Limits)
 
 **UI/UX:**
+
 - ✅ Accordion-Navigation (Mobile-optimiert)
 - ✅ Sticky Save-Bar für ungespeicherte Änderungen
 - ✅ URL-Parameter Deep-Links (`?tab=standort`)
 
 **Technologie:**
+
 - SettingsContext (Unified State)
 - CompanyProfileSection
 - TeamManagementSection (NEU)
@@ -352,13 +396,15 @@
 ---
 
 #### 13. **Master-Dashboard** (`/master`)
-**Status:** ✅ Production-Ready V33.4  
-**Component:** `src/pages/Master.tsx`  
+
+**Status:** ✅ Production-Ready V33.4
+**Component:** `src/pages/Master.tsx`
 **Zugriff:** Nur für `info@my-dispatch.de`
 
 **Features:**
 
 **KPIs (6 Metriken):**
+
 - ✅ Benutzer Gesamt
 - ✅ Aktive Benutzer (Letzter Login < 30 Tage)
 - ✅ Unternehmen Gesamt
@@ -367,16 +413,19 @@
 - ✅ Monatsumsatz (Abonnements)
 
 **Registrierte Unternehmen:**
+
 - ✅ Liste aller Unternehmen
 - ✅ Detail-Ansicht mit Impressum
 - ✅ Tarif-Ablauf-Überwachung
 - ✅ Auto-Verlängerung Status
 
 **Security:**
+
 - ✅ Route-Guard (nur Master-Account)
 - ✅ RLS-Policies (company_id Filter deaktiviert für Master)
 
 **Technologie:**
+
 - StandardPageLayout
 - Card Components (Standard UI, nicht V28)
 - Supabase Admin Queries
@@ -384,10 +433,12 @@
 ---
 
 #### 14. **Betreiber** (Kein dedizierter `/betreiber` Route)
-**Status:** ✅ Alternative Zugriffe vorhanden  
+
+**Status:** ✅ Alternative Zugriffe vorhanden
 **Zugriff:** Footer-Links in `MainLayout.tsx`
 
 **Alternative Routen:**
+
 - `/master` - Master-Dashboard (Siehe oben)
 - `/kronos` - KRONOS Executor (Autonomes System)
 - `/agent-dashboard` - AI-Agent Dashboard
@@ -400,8 +451,10 @@
 ## 🚀 ZUSÄTZLICHE FEATURES
 
 ### **Fahrer-Portal** (`/driver/*`)
-**Status:** ✅ Production-Ready  
+
+**Status:** ✅ Production-Ready
 **Routes:**
+
 - `/driver` - Splash Screen
 - `/driver/welcome` - Willkommen
 - `/driver/login` - Anmeldung
@@ -411,6 +464,7 @@
 - `/driver/verify-email` - E-Mail bestätigen
 
 **Features:**
+
 - ✅ Separate Authentication (unabhängig von Company-Login)
 - ✅ Schichten-Übersicht
 - ✅ Auftrags-Zuweisung
@@ -423,6 +477,7 @@
 ### **Autonome Systeme**
 
 #### **NeXify Autonomy System**
+
 - ✅ Level 1-3 Autonomy (Read-Only → Safe Changes → Breaking Changes)
 - ✅ Auto-Fix-Issues Edge Function
 - ✅ Brain-Query (Knowledge Base)
@@ -430,6 +485,7 @@
 - ✅ Daily Health Checks (Cron Jobs)
 
 #### **AI Orchestrator**
+
 - ✅ Batch File Migrations (10 parallel)
 - ✅ Visual Validation Checkpoints
 - ✅ Automatic Rollback on Failures
@@ -438,10 +494,12 @@
 ---
 
 ### **Email-System**
-**Status:** ✅ Production-Ready  
+
+**Status:** ✅ Production-Ready
 **Edge Functions:** 25+ Email-Funktionen
 
 **Templates:**
+
 - ✅ Booking Confirmation
 - ✅ Invoice (Rechnung)
 - ✅ Payment Reminder (Mahnung)
@@ -455,10 +513,12 @@
 ---
 
 ### **n8n Workflow Automation**
-**Status:** ✅ Integriert  
+
+**Status:** ✅ Integriert
 **Workflows:** 25+ Automation-Workflows
 
 **Features:**
+
 - ✅ Email-Automation (Booking lifecycle)
 - ✅ Webhook-Triggers (External systems)
 - ✅ Scheduled Tasks (Daily reports)
@@ -468,7 +528,8 @@
 ---
 
 ### **Realtime-Features**
-**Status:** ✅ Production-Ready  
+
+**Status:** ✅ Production-Ready
 **Supabase Realtime Channels:**
 
 - ✅ `bookings-changes` (Live Booking-Updates)
@@ -479,15 +540,18 @@
 ---
 
 ### **Export-System**
-**Status:** ✅ Production-Ready  
+
+**Status:** ✅ Production-Ready
 **Component:** `UniversalExportBar`
 
 **Formate:**
+
 - ✅ PDF (Multi-Page Reports)
 - ✅ Excel (XLSX mit Formatierung)
 - ✅ CSV (Bulk-Export)
 
 **Features:**
+
 - ✅ Bulk-Selection Support
 - ✅ Filter-Aware (nur gefilterte Daten)
 - ✅ Email-Versand Option
@@ -500,6 +564,7 @@
 **Status:** ✅ Alle Routen mobile-optimiert
 
 **Dedizierte Mobile-Components:**
+
 - `MobileDashboard.tsx`
 - `MobileAuftraege.tsx`
 - `MobileAngebote.tsx`
@@ -514,6 +579,7 @@
 - `MobileStatistiken.tsx`
 
 **Features:**
+
 - ✅ Touch-Optimiert (44x44px Touch Targets)
 - ✅ Bottom Sheet Dialogs
 - ✅ Swipe-Gesten
@@ -524,10 +590,11 @@
 
 ## 🎨 DESIGN SYSTEM
 
-**Version:** V28.1 Professional Design  
+**Version:** V28.1 Professional Design
 **Status:** ✅ Durchgängig implementiert
 
 **Components:**
+
 - ✅ V28Button (Primary, Secondary, Ghost, Destructive)
 - ✅ V28Badge (Premium, Status-Variants)
 - ✅ V28Card (Monolithic, kein V28CardHeader!)
@@ -536,11 +603,13 @@
 - ✅ DetailDialog (Tabbed Detail-Views)
 
 **Spacing System:**
+
 - ✅ Consistent `space-y-6 sm:space-y-8`
 - ✅ Grid-Gaps: `gap-4 sm:gap-6`
 - ✅ Card-Padding: `p-6`
 
 **Colors:**
+
 - ✅ Semantic Tokens (`hsl(var(--foreground))`)
 - ✅ Status Colors (Success, Warning, Error)
 - ✅ Vibrant Professional Palette
@@ -550,18 +619,21 @@
 ## 🔒 SICHERHEIT
 
 ### **Authentication**
+
 - ✅ Supabase Auth (Email + Password)
 - ✅ Session Management (JWT)
 - ✅ Password Reset (Email-Link)
 - ✅ Protected Routes (ProtectedRoute Component)
 
 ### **Authorization**
+
 - ✅ Row Level Security (RLS) auf allen Tabellen
 - ✅ Company Isolation (company_id Filter)
 - ✅ Role-Based Access Control (RBAC)
 - ✅ Master Account System
 
 ### **Data Protection**
+
 - ✅ DSGVO-konform
 - ✅ Data Export Funktion
 - ✅ Account Deletion
@@ -571,10 +643,11 @@
 
 ## 📊 DATENBANK
 
-**Provider:** Supabase (PostgreSQL 15)  
+**Provider:** Supabase (PostgreSQL 15)
 **Status:** ✅ Production-Ready
 
 **Tabellen (50+):**
+
 - `profiles` (User-Profile)
 - `companies` (Unternehmen)
 - `bookings` (Aufträge)
@@ -597,20 +670,23 @@
 
 ## 🚀 DEPLOYMENT
 
-**Platform:** Vercel (Primary)  
+**Platform:** Vercel (Primary)
 **Status:** ✅ Auto-Deploy aktiv
 
 **GitHub Integration:**
+
 - ✅ Auto-Deploy on Push to `master`
 - ✅ Preview Deployments für PRs
 - ✅ Environment Variables synced
 
 **Supabase Integration:**
+
 - ✅ Database Migrations on Push
 - ✅ Edge Functions Deployment
 - ✅ Preview Branches (50 max)
 
 **Domains:**
+
 - 📍 Primary: https://www.my-dispatch.de
 - 📍 Vercel: https://mydispatch-rebuild.vercel.app
 
@@ -619,18 +695,21 @@
 ## 📈 PERFORMANCE
 
 **Build:**
+
 - ✅ TypeScript Strict Mode (0 Errors)
 - ✅ Vite 5.4.21 (Fast Build)
 - ✅ Lazy Loading (Code Splitting)
 - ✅ Tree Shaking
 
 **Runtime:**
+
 - ✅ React Query (Caching)
 - ✅ Supabase Connection Pooling
 - ✅ HERE Maps Caching
 - ✅ Image Optimization (Vercel)
 
 **Monitoring:**
+
 - ✅ Error Tracking (Supabase Logs)
 - ✅ Performance Metrics (Vercel Analytics)
 - ✅ Daily Health Checks (Edge Function)
@@ -641,18 +720,19 @@
 
 **MyDispatch V33.4 ist VOLLSTÄNDIG implementiert!**
 
-✅ **15/15 Sidebar-Routen funktionsfähig**  
-✅ **Alle CRUD-Operationen implementiert**  
-✅ **Mobile-Optimierung durchgängig**  
-✅ **Design System V28.1 konsistent**  
-✅ **Realtime-Features aktiv**  
-✅ **Export-System vollständig**  
-✅ **Security (RLS + RBAC) implementiert**  
+✅ **15/15 Sidebar-Routen funktionsfähig**
+✅ **Alle CRUD-Operationen implementiert**
+✅ **Mobile-Optimierung durchgängig**
+✅ **Design System V28.1 konsistent**
+✅ **Realtime-Features aktiv**
+✅ **Export-System vollständig**
+✅ **Security (RLS + RBAC) implementiert**
 ✅ **Production-Ready auf Vercel deployed**
 
 ---
 
 **Nächste Schritte (Optional):**
+
 - Master-Account-Verwaltung erweitern
 - n8n Workflow-Editor in UI integrieren
 - Weitere Email-Templates
@@ -661,6 +741,6 @@
 
 ---
 
-**Dokumentiert von:** NeXify AI Agent  
-**Datum:** 22. November 2025  
+**Dokumentiert von:** NeXify AI Agent
+**Datum:** 22. November 2025
 **Commit:** bfc9a3e9 (Team Management Feature)
