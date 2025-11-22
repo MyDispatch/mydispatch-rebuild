@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
-import { 
-  FileText, 
-  Euro, 
-  FolderOpen, 
-  Calendar, 
-  Handshake, 
-  TrendingUp, 
+import {
+  FileText,
+  Euro,
+  FolderOpen,
+  Calendar,
+  Handshake,
+  TrendingUp,
   Settings,
   Building2
 } from 'lucide-react';
@@ -45,16 +45,16 @@ export default function MobileMenu() {
     {
       label: 'GESCHÄFT',
       items: [
-        { 
-          title: 'Partner', 
-          url: '/partner', 
+        {
+          title: 'Partner',
+          url: '/partner',
           icon: Handshake,
           badge: !isBusiness ? '🔒 Business+' : undefined,
           requiresBusiness: true
         },
-        { 
-          title: 'Statistiken', 
-          url: '/statistiken', 
+        {
+          title: 'Statistiken',
+          url: '/statistiken',
           icon: TrendingUp,
           badge: !isBusiness ? '🔒 Business+' : undefined,
           requiresBusiness: true
@@ -70,7 +70,7 @@ export default function MobileMenu() {
   ];
 
   return (
-    <div 
+    <div
       className="min-h-screen pb-20 pt-6"
       style={{
         backgroundColor: DESIGN_TOKENS.colors.background,
@@ -79,7 +79,7 @@ export default function MobileMenu() {
       <div className="px-6 flex flex-col gap-8">
         {sections.map(section => (
           <div key={section.label}>
-            <h2 
+            <h2
               className="font-semibold uppercase"
               style={{
                 fontSize: '12px',
@@ -93,7 +93,7 @@ export default function MobileMenu() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {section.items.map(item => {
                 const isLocked = item.requiresBusiness && !isBusiness;
-                
+
                 return (
                   <NavLink
                     key={item.url}
@@ -124,21 +124,21 @@ export default function MobileMenu() {
                       e.currentTarget.style.transform = 'scale(1)';
                     }}
                   >
-                    <div 
+                    <div
                       className="flex items-center justify-center rounded-full bg-slate-900/10"
                       style={{
                         height: '48px',
                         width: '48px',
                       }}
                     >
-                      <item.icon 
+                      <item.icon
                         className="h-6 w-6 text-slate-900"
                       />
                     </div>
                     <div className="text-center flex flex-col gap-1">
                       <span
                         className="font-medium block"
-                        style={{ 
+                        style={{
                           fontSize: '14px',
                           color: DESIGN_TOKENS.colors.text.primary,
                         }}
@@ -146,8 +146,8 @@ export default function MobileMenu() {
                         {item.title}
                       </span>
                       {item.badge && (
-                        <Badge 
-                          variant="outline" 
+                        <Badge
+                          variant="outline"
                           style={{
                             fontSize: '10px',
                             padding: `0 ${DESIGN_TOKENS.spacing.xs}`,

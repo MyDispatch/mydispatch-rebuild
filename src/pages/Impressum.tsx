@@ -17,12 +17,12 @@ import { V28MarketingCard } from '@/components/design-system/V28MarketingCard';
 const Impressum = () => {
   return (
     <MarketingLayout currentPage="legal">
-      <SEOHead 
+      <SEOHead
         title="Impressum"
         description="Impressum von MyDispatch. Anbieter: Ibrahim SIMSEK, Ensbachmühle 4, D-94571 Schaufling. Kontakt: info@my-dispatch.de"
         canonical="/impressum"
       />
-      
+
       {/* Hero Section - V28HeroPremium */}
       <V28HeroPremium
         variant="demo"
@@ -215,9 +215,9 @@ const Impressum = () => {
                 <p className="font-sans text-sm text-slate-600 mb-3">
                   Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit, die Sie unter folgendem Link erreichen:
                 </p>
-                <a 
-                  href="https://ec.europa.eu/consumers/odr" 
-                  target="_blank" 
+                <a
+                  href="https://ec.europa.eu/consumers/odr"
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 font-sans text-sm text-slate-700 hover:text-slate-900 hover:underline transition-colors"
                 >

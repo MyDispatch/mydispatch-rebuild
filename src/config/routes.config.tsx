@@ -11,7 +11,7 @@
 import { lazy } from 'react';
 import {
   Home, FileText, Users, Car, Truck, Settings, Building2, Euro,
-  FolderOpen, Calendar, MessageSquare, Mail, BarChart3, MapPin, Crown,
+  FolderOpen, Calendar, MessageSquare, Mail, BarChart3, MapPin, Crown, Shield,
   Palette, ShieldCheck, AlertCircle, Rocket, Clipboard, Database, BookOpen, Zap
 } from 'lucide-react';
 
@@ -71,6 +71,15 @@ export const routes: RouteConfig[] = [
     meta: {
       title: 'Login',
       description: 'Anmelden bei MyDispatch',
+    },
+  },
+  {
+    path: '/auth/reset-password',
+    component: lazy(() => import('@/pages/ResetPassword')),
+    layout: 'none',
+    meta: {
+      title: 'Passwort zurücksetzen',
+      description: 'Setzen Sie Ihr MyDispatch-Passwort zurück',
     },
   },
   {
@@ -781,6 +790,20 @@ export const routes: RouteConfig[] = [
       icon: BookOpen,
       breadcrumb: 'Wiki Dashboard',
       description: 'Knowledge System Metrics, Graph Coverage & Wiki Health Monitoring',
+    },
+  },
+  {
+    path: '/master',
+    component: lazy(() => import('@/pages/Master')),
+    protected: true,
+    layout: 'main',
+    requiredRole: 'master',  // 🚨 KRITISCH: Nur für Master-Accounts (info@my-dispatch.de)
+    prefetch: true,
+    meta: {
+      title: 'Master-Dashboard',
+      icon: Crown,
+      breadcrumb: 'Master-Dashboard',
+      description: 'Verwaltung aller Unternehmen und Master-Accounts',
     },
   },
   {

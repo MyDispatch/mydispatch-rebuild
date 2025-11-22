@@ -18,9 +18,9 @@ import { cn } from '@/lib/utils';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { V28Button } from '@/components/design-system/V28Button';
 import { designTokens } from '@/config/design-tokens';
-import { 
-  Home, Users, ClipboardList, Calendar, FileText, Euro, 
-  FolderOpen, Handshake, TrendingUp, Building2, 
+import {
+  Home, Users, ClipboardList, Calendar, FileText, Euro,
+  FolderOpen, Handshake, TrendingUp, Building2,
   Settings, Shield, Truck,
   Crown, Lock, Sparkles, ChevronRight, Zap
 } from 'lucide-react';
@@ -42,7 +42,7 @@ interface MenuSection {
 // V18.5.2: Optimierte Sidebar-Struktur mit Content-Hook
 const useMenuStructure = (): MenuSection[] => {
   const { nav } = useContent();
-  
+
   return [
     {
       label: 'HAUPTBEREICH',
@@ -94,7 +94,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
   const navigate = useNavigate();
   const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const sidebarRef = useRef<HTMLElement>(null);
-  
+
   // V18.5.2: Menu Structure from Content Hook
   const menuStructure = useMenuStructure();
 
@@ -136,9 +136,9 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
         const productId = company?.subscription_product_id;
         // V18.2: Zentrale Tariff-Logik + Test/Master-Account Support
         const businessProductIds = ['prod_TEegHmtpPZOZcG', 'prod_TF5cnWFZYEQUsG'];
-        const hasBusinessAccess = 
-          accountType === 'test' || 
-          accountType === 'master' || 
+        const hasBusinessAccess =
+          accountType === 'test' ||
+          accountType === 'master' ||
           (productId && businessProductIds.includes(productId));
         if (!hasBusinessAccess) {
           return false;
@@ -174,7 +174,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
       onMouseLeave={handleMouseLeave}
     >
       {/* Navigation Items - V33.0 Harmonisiert mit Pre-Login Design */}
-      <nav 
+      <nav
         className="flex-1 overflow-y-auto"
         style={{
           paddingTop: '24px',
@@ -189,7 +189,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
           {visibleSections.map((section) => (
             <div key={section.label}>
               {expanded && (
-                <h3 
+                <h3
                   className="text-[10px] font-semibold uppercase tracking-wider"
                   style={{
                     color: designTokens.colors.slate[400], // Premium besserer Kontrast
@@ -204,12 +204,12 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                 {section.items.map((item) => {
                   const IconComponent = item.icon;
                   const isActive = location.pathname === item.url;
-                  
-                  const hasBusinessAccess = 
-                    accountType === 'test' || 
-                    accountType === 'master' || 
+
+                  const hasBusinessAccess =
+                    accountType === 'test' ||
+                    accountType === 'master' ||
                     (company?.subscription_product_id && ['prod_TEegHmtpPZOZcG', 'prod_TF5cnWFZYEQUsG'].includes(company.subscription_product_id));
-                  
+
                   const isBusinessFeature = item.requiredTariff === 'Business';
                   const showUpgradeTooltip = isBusinessFeature && !hasBusinessAccess;
 
@@ -222,7 +222,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                         !expanded && "justify-center px-3", // Geschlossen: zentriert
                         expanded && "justify-start", // Geöffnet: linksbündig!
                         showUpgradeTooltip && "opacity-60",
-                        isActive 
+                        isActive
                           ? "bg-slate-600 text-white font-semibold" // Einheitlich mit MarketingLayout
                           : "text-slate-900 hover:bg-slate-100 font-medium" // Einheitlich mit MarketingLayout
                       )}
@@ -262,8 +262,8 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                                   </p>
                                 </div>
                               </div>
-                              <V28Button 
-                                size="sm" 
+                              <V28Button
+                                size="sm"
                                 className="w-full text-xs min-h-[44px] min-w-[44px]"
                                 onClick={(e) => {
                                   e.preventDefault();
@@ -299,7 +299,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
       </nav>
 
       {/* Legal Section - V26.1 Perfektionierte Abstände */}
-      <div 
+      <div
         className={cn("border-t transition-opacity duration-300", expanded ? "opacity-100" : "opacity-0")}
         style={{
           borderColor: designTokens.colors.slate[200],
@@ -309,7 +309,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
         {expanded && (
           <>
             {accountType === 'master' && (
-              <div 
+              <div
                 className="border-b"
                 style={{
                   marginBottom: '24px',
@@ -317,7 +317,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                   borderColor: designTokens.colors.slate[200],
                 }}
               >
-                <h3 
+                <h3
                   className="text-[10px] font-semibold uppercase tracking-wider"
                   style={{
                     color: designTokens.colors.slate[300],
@@ -373,7 +373,7 @@ export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
                 </nav>
               </div>
             )}
-            <h3 
+            <h3
               className="text-[10px] font-semibold uppercase tracking-wider"
               style={{
                 color: designTokens.colors.slate[300],
