@@ -456,13 +456,6 @@ export const BOOKING_FIELDS = {
       { value: false, label: 'exkl. MwSt.' },
     ],
   },
-  price: {
-    name: 'price',
-    label: 'Preis (€)',
-    type: 'number' as const,
-    required: true,
-    placeholder: '0.00',
-  },
   paymentStatus: {
     name: 'payment_status',
     label: 'Zahlungsstatus',

@@ -16,7 +16,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { V28Card, V28CardHeader, V28CardTitle, V28CardDescription, V28CardContent } from '@/components/design-system/V28Card';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { V28Button } from '@/components/design-system/V28Button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -151,22 +151,22 @@ export default function ResetPassword() {
           canonical="/auth/reset-password"
         />
         <div className="min-h-[calc(100vh-160px)] flex items-center justify-center px-4 sm:px-6 lg:px-8">
-          <V28Card className="w-full max-w-md">
-            <V28CardHeader className="text-center">
+          <Card className="w-full max-w-md">
+            <CardHeader className="text-center">
               <div className="flex justify-center mb-4">
                 <AlertCircle className="h-12 w-12 text-destructive" />
               </div>
-              <V28CardTitle>Ungültiger Link</V28CardTitle>
-              <V28CardDescription>
+              <CardTitle>Ungültiger Link</CardTitle>
+              <CardDescription>
                 Der Password-Reset-Link ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen Link an.
-              </V28CardDescription>
-            </V28CardHeader>
-            <V28CardContent>
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
               <V28Button onClick={() => navigate('/auth')} className="w-full">
                 Zurück zur Anmeldung
               </V28Button>
-            </V28CardContent>
-          </V28Card>
+            </CardContent>
+          </Card>
         </div>
       </AuthPageLayout>
     );
@@ -181,15 +181,15 @@ export default function ResetPassword() {
       />
 
       <div className="min-h-[calc(100vh-160px)] flex items-start sm:items-center justify-center px-4 sm:px-6 lg:px-8 py-6">
-        <V28Card className="w-full max-w-md">
-          <V28CardHeader>
-            <V28CardTitle>Neues Passwort setzen</V28CardTitle>
-            <V28CardDescription>
+        <Card className="w-full max-w-md">
+          <CardHeader>
+            <CardTitle>Neues Passwort setzen</CardTitle>
+            <CardDescription>
               Geben Sie Ihr neues Passwort ein. Es muss mindestens 8 Zeichen lang sein und Groß-/Kleinbuchstaben,
               Ziffern und Sonderzeichen enthalten.
-            </V28CardDescription>
-          </V28CardHeader>
-          <V28CardContent>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               {/* Password Field */}
               <div className="space-y-2">
@@ -266,8 +266,8 @@ export default function ResetPassword() {
                 )}
               </V28Button>
             </form>
-          </V28CardContent>
-        </V28Card>
+          </CardContent>
+        </Card>
       </div>
     </AuthPageLayout>
   );
