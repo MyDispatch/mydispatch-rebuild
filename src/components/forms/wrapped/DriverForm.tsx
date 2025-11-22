@@ -30,6 +30,7 @@ export function DriverForm({
   const { driver } = FORM_FIELDS_REGISTRY;
 
   const fields: FormField[] = [
+    // Person Fields
     driver.salutation,
     driver.title,
     driver.firstName,
@@ -38,21 +39,28 @@ export function DriverForm({
     driver.email,
     driver.phone,
     driver.mobile,
-    // Address fields (will be grouped)
-    driver.street,
-    driver.streetNumber,
-    driver.postalCode,
-    driver.city,
-    // License fields (required)
+
+    // Address Fields (Task 11 - Lastenheft)
+    driver.addressStreet,
+    driver.addressPostalCode,
+    driver.addressCity,
+
+    // License Fields (Required)
     driver.licenseNumber,
     driver.licenseExpiry,
     driver.licenseClasses,
-    // Optional license fields
+
+    // P-Schein Fields (Task 11 - Complete)
+    driver.pScheinNumber,
+    driver.pScheinIssueDate,
+    driver.pScheinExpiryDate,
+    driver.pScheinDocumentUrl,
+
+    // Optional License Fields
     driver.taxiLicenseNumber,
     driver.taxiLicenseExpiry,
-    driver.pScheinNumber,
-    driver.pScheinExpiryDate,
     driver.medicalCertificateExpiry,
+
     // Employment & Status
     driver.employmentType,
     driver.shiftStatus,

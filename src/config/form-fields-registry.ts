@@ -631,19 +631,55 @@ export const DRIVER_FIELDS = {
   // ============================================================================
   pScheinNumber: {
     name: 'p_schein_number',
-    label: 'P-Schein Nummer (neu)',
+    label: 'P-Schein Nummer',
     type: 'text' as const,
     placeholder: 'P-12345678',
   },
+  pScheinIssueDate: {
+    name: 'p_schein_issue_date',
+    label: 'P-Schein Erteilungsdatum',
+    type: 'date' as const,
+    description: 'Datum der Erteilung des Personenbeförderungsscheins',
+  },
   pScheinExpiryDate: {
     name: 'p_schein_expiry_date',
-    label: 'P-Schein Ablaufdatum (neu)',
+    label: 'P-Schein Ablaufdatum',
     type: 'date' as const,
+    description: 'Automatische E-Mail-Erinnerungen 30/60/90 Tage vor Ablauf',
+  },
+  pScheinDocumentUrl: {
+    name: 'p_schein_document_url',
+    label: 'P-Schein Dokument',
+    type: 'text' as const,
+    description: 'URL zum hochgeladenen P-Schein (Upload via Supabase Storage)',
   },
   medicalCertificateExpiry: {
     name: 'medical_certificate_expiry',
-    label: 'Ärztliches Attest Ablauf (neu)',
+    label: 'Ärztliches Attest Ablauf',
     type: 'date' as const,
+  },
+
+  // ============================================================================
+  // NEU V33.4 Task 11: Adressverwaltung (3 Felder)
+  // ============================================================================
+  addressStreet: {
+    name: 'address_street',
+    label: 'Straße',
+    type: 'text' as const,
+    placeholder: 'z.B. Musterstraße 12',
+  },
+  addressPostalCode: {
+    name: 'address_postal_code',
+    label: 'PLZ',
+    type: 'text' as const,
+    placeholder: '5-stellig (z.B. 12345)',
+    description: 'Deutsche Postleitzahl (5 Ziffern)',
+  },
+  addressCity: {
+    name: 'address_city',
+    label: 'Stadt',
+    type: 'text' as const,
+    placeholder: 'z.B. München',
   },
 
   // Document References (3 Felder - für InlineDocumentUpload)

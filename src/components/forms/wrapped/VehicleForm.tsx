@@ -34,7 +34,7 @@ export function VehicleForm({
     vehicle.concessionNumber,
     vehicle.vehicleClass,
     vehicle.vehicleStatus,
-    
+
     // Vehicle Details (Task 10 - Lastenheft)
     vehicle.manufacturer,
     vehicle.model,
@@ -47,13 +47,13 @@ export function VehicleForm({
     vehicle.buildYear,
     vehicle.firstRegistration,
     vehicle.mileage,
-    
+
     // Compliance & Documents
     vehicle.tuvExpiry,
     vehicle.insuranceExpiry,
     vehicle.registrationDocumentUrl,
     vehicle.photos,
-    
+
     // Capacity
     vehicle.capacityPassengers,
     vehicle.capacityLuggage,
