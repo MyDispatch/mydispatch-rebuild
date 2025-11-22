@@ -17,10 +17,17 @@ const corsHeaders = {
 };
 
 interface CreateCheckoutInput {
-  company_id: string;
+  // For existing customers (upgrade)
+  company_id?: string;
+  user_id?: string;
+  
+  // For new signups (payment-first registration)
+  temp_signup_id?: string;
+  customer_email?: string;
+  
+  // Common fields
   tariff_id: "starter" | "business" | "enterprise";
   billing_period: "monthly" | "yearly";
-  user_id: string;
   success_url: string;
   cancel_url: string;
 }
@@ -38,9 +45,17 @@ serve(async (req) => {
     const input: CreateCheckoutInput = await req.json();
 
     // Input Validation
-    if (!input.company_id || !input.tariff_id || !input.user_id) {
+    if (!input.tariff_id) {
       return new Response(
-        JSON.stringify({ error: "company_id, tariff_id, and user_id are required" }),
+        JSON.stringify({ error: "tariff_id is required" }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+    
+    // Either temp_signup_id (new registration) OR company_id (existing customer upgrade)
+    if (!input.temp_signup_id && !input.company_id) {
+      return new Response(
+        JSON.stringify({ error: "Either temp_signup_id or company_id is required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -98,32 +113,85 @@ serve(async (req) => {
       }
 
       // 3. Get or Create Stripe Customer
-      const { data: company } = await supabase
-        .from("companies")
-        .select("stripe_customer_id, email, name")
-        .eq("id", input.company_id)
-        .single();
-
-      let customerId = company?.stripe_customer_id;
-
-      if (!customerId) {
-        // Create Stripe Customer
-        const customer = await stripe.customers.create({
-          email: company?.email,
-          name: company?.name,
-          metadata: {
-            company_id: input.company_id,
-            supabase_user_id: input.user_id,
-          },
-        });
-
-        customerId = customer.id;
-
-        // Save to database
-        await supabase
+      let customerId: string | null = null;
+      let customerEmail: string | null = null;
+      let customerName: string | null = null;
+      
+      if (input.company_id) {
+        // Existing customer (upgrade flow)
+        const { data: company } = await supabase
           .from("companies")
-          .update({ stripe_customer_id: customerId })
-          .eq("id", input.company_id);
+          .select("stripe_customer_id, email, name")
+          .eq("id", input.company_id)
+          .single();
+
+        customerId = company?.stripe_customer_id || null;
+        customerEmail = company?.email || null;
+        customerName = company?.name || null;
+        
+        if (!customerId && company) {
+          // Create Stripe Customer for existing company
+          const customer = await stripe.customers.create({
+            email: customerEmail,
+            name: customerName,
+            metadata: {
+              company_id: input.company_id,
+              supabase_user_id: input.user_id || "",
+            },
+          });
+
+          customerId = customer.id;
+
+          // Save to database
+          await supabase
+            .from("companies")
+            .update({ stripe_customer_id: customerId })
+            .eq("id", input.company_id);
+        }
+      } else if (input.temp_signup_id) {
+        // New signup (payment-first registration)
+        const { data: tempSignup } = await supabase
+          .from("temp_signups")
+          .select("email, company_name, stripe_customer_id")
+          .eq("id", input.temp_signup_id)
+          .single();
+        
+        if (!tempSignup) {
+          return new Response(
+            JSON.stringify({ error: "Temp signup not found" }),
+            { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+          );
+        }
+        
+        customerEmail = tempSignup.email;
+        customerName = tempSignup.company_name;
+        customerId = tempSignup.stripe_customer_id || null;
+        
+        if (!customerId) {
+          // Create Stripe Customer for new signup
+          const customer = await stripe.customers.create({
+            email: customerEmail,
+            name: customerName,
+            metadata: {
+              temp_signup_id: input.temp_signup_id,
+            },
+          });
+
+          customerId = customer.id;
+
+          // Save to temp_signups
+          await supabase
+            .from("temp_signups")
+            .update({ stripe_customer_id: customerId })
+            .eq("id", input.temp_signup_id);
+        }
+      }
+      
+      if (!customerId) {
+        return new Response(
+          JSON.stringify({ error: "Could not create or retrieve customer" }),
+          { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
       }
 
       // 4. Create Checkout Session
@@ -140,14 +208,16 @@ serve(async (req) => {
         success_url: input.success_url || `${Deno.env.get("VITE_APP_URL")}/dashboard?success=true`,
         cancel_url: input.cancel_url || `${Deno.env.get("VITE_APP_URL")}/pricing?canceled=true`,
         metadata: {
-          company_id: input.company_id,
-          user_id: input.user_id,
+          company_id: input.company_id || "",
+          user_id: input.user_id || "",
+          temp_signup_id: input.temp_signup_id || "",
           tariff_id: input.tariff_id,
           billing_period: input.billing_period,
         },
         subscription_data: {
           metadata: {
-            company_id: input.company_id,
+            company_id: input.company_id || "",
+            temp_signup_id: input.temp_signup_id || "",
             tariff_id: input.tariff_id,
           },
         },

@@ -133,6 +133,7 @@ export default function Auth() {
   // - tariff=starter|business: Setzt initialen Tariff für Signup
   // - mode=signup: Aktiviert automatisch Signup-Tab
   // - billing=monthly|yearly: Setzt initiale Billing-Period
+  // - payment=success: Zeigt Erfolgs-Message nach Stripe-Zahlung
   // ==================================================================================
   useEffect(() => {
     // 1. Tariff-Parameter verarbeiten (aus Pricing-Seiten oder direkt)
@@ -156,7 +157,32 @@ export default function Auth() {
     if (modeParam === 'signup' || modeParam === 'login') {
       setActiveTab(modeParam);
     }
-  }, [searchParams, activeTab]);
+
+    // 4. Payment Success Handler
+    const paymentStatus = searchParams.get('payment');
+    if (paymentStatus === 'success') {
+      toast({
+        title: 'Zahlung erfolgreich! 🎉',
+        description: 'Ihr Account wird gerade erstellt. Sie werden automatisch eingeloggt...',
+        duration: 5000,
+      });
+      
+      // Auto-login nach 2 Sekunden (Account sollte mittlerweile erstellt sein)
+      setTimeout(() => {
+        setActiveTab('login');
+        // Clear URL parameters
+        navigate('/auth?mode=login', { replace: true });
+      }, 2000);
+    } else if (paymentStatus === 'canceled') {
+      toast({
+        title: 'Zahlung abgebrochen',
+        description: 'Sie können jederzeit einen neuen Versuch starten.',
+        variant: 'destructive',
+        duration: 4000,
+      });
+      // Stay on signup tab with preselected tariff
+    }
+  }, [searchParams, activeTab, toast, navigate]);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -381,6 +407,8 @@ export default function Auth() {
       email: formData.get('email') as string,
       password: formData.get('password') as string,
       password_confirm: formData.get('password_confirm') as string,
+      salutation: formData.get('salutation') as string,
+      title: formData.get('title') as string,
       firstName: formData.get('firstName') as string,
       lastName: formData.get('lastName') as string,
       companyName: formData.get('companyName') as string,
@@ -401,82 +429,98 @@ export default function Auth() {
           description: validation.error.errors[0].message,
           variant: 'destructive',
         });
+        setLoading(false);
         return;
       }
 
-      // 1. Create Supabase Auth User
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      // ==================================================================================
+      // PAYMENT-FIRST REGISTRATION: Stripe Payment BEFORE Account Creation
+      // ==================================================================================
+      // Workflow: 
+      // 1. Save signup data to temp_signups table
+      // 2. Create Stripe Checkout session
+      // 3. Redirect to Stripe payment
+      // 4. Webhook creates account after successful payment
+      // ==================================================================================
+
+      logger.debug('[Auth] Starting payment-first registration', {
         email: signupData.email,
-        password: signupData.password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/auth`,
-        },
+        tariff: selectedTariff,
+        billingPeriod,
+        component: 'Auth'
       });
 
-      if (authError) throw authError;
-      if (!authData.user) throw new Error('User creation failed');
-
-      // 2. Create Company
-      const { data: company, error: companyError} = await supabase
-        .from('companies')
+      // 1. Save to temp_signups (password will be hashed by Supabase Auth later)
+      const { data: tempSignup, error: tempSignupError } = await supabase
+        .from('temp_signups')
         .insert({
-          name: signupData.companyName,
-          company_slug: signupData.companyName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''),
-          tax_id: signupData.taxId,
+          email: signupData.email,
+          salutation: signupData.salutation || null,
+          title: signupData.title || null,
+          first_name: signupData.firstName,
+          last_name: signupData.lastName,
           phone: signupData.phone || null,
-          address: signupData.street || null,
+          company_name: signupData.companyName,
+          tax_id: signupData.taxId,
+          street: signupData.street || null,
           city: signupData.city || null,
           postal_code: signupData.zipCode || null,
+          password_hash: signupData.password, // Will be used by webhook
+          selected_tariff: selectedTariff,
+          billing_period: billingPeriod,
+          fleet_addon_enabled: fleetAddonEnabled,
+          payment_status: 'pending',
+          ip_address: null, // Optional: Add via Edge Function
+          user_agent: navigator.userAgent,
+          referrer: document.referrer || null,
         })
         .select()
         .single();
 
-      if (companyError) throw companyError;
-
-      // 3. Create Profile
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert({
-          user_id: authData.user.id,
-          company_id: company.id,
-          first_name: signupData.firstName,
-          last_name: signupData.lastName,
-          role: 'entrepreneur',
-        });
-
-      if (profileError) throw profileError;
-
-      // 4. Send Registration Confirmation Email
-      try {
-        const { error: emailError } = await supabase.functions.invoke('send-registration-confirmation', {
-          body: {
-            user_id: authData.user.id,
-            email: signupData.email,
-            company_name: signupData.companyName,
-            tariff: selectedTariff,
-          },
-        });
-        if (emailError) {
-          console.warn('Registration email failed:', emailError);
-          // Don't fail registration if email fails
-        }
-      } catch (emailErr) {
-        console.warn('Registration email error:', emailErr);
+      if (tempSignupError) {
+        logger.error('[Auth] Failed to save temp signup', tempSignupError, { component: 'Auth' });
+        throw new Error('Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.');
       }
 
-      // 5. Create Stripe Checkout (if payment required)
-      const tariff = TARIFFS[selectedTariff];
-      const checkoutUrl = `/api/stripe/checkout?price_id=${tariff.priceId}&email=${encodeURIComponent(signupData.email)}`;
+      logger.debug('[Auth] Temp signup created', { tempSignupId: tempSignup.id, component: 'Auth' });
 
-      toast({
-        title: 'Registrierung erfolgreich',
-        description: 'Eine Bestätigungs-E-Mail wurde gesendet. Bitte prüfen Sie Ihr Postfach.',
+      // 2. Create Stripe Checkout session
+      const { data: checkoutData, error: checkoutError } = await supabase.functions.invoke('create-checkout', {
+        body: {
+          temp_signup_id: tempSignup.id,
+          customer_email: signupData.email,
+          tariff_id: selectedTariff,
+          billing_period: billingPeriod,
+          success_url: `${window.location.origin}/auth?payment=success&session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${window.location.origin}/auth?mode=signup&payment=canceled&tariff=${selectedTariff}`,
+        },
       });
 
-      // Navigate to dashboard after successful registration
-      setTimeout(() => {
-        navigate('/dashboard');
-      }, 2000);
+      if (checkoutError || !checkoutData?.url) {
+        logger.error('[Auth] Failed to create checkout session', checkoutError, { component: 'Auth' });
+        
+        // Cleanup temp signup
+        await supabase
+          .from('temp_signups')
+          .update({ payment_status: 'failed' })
+          .eq('id', tempSignup.id);
+
+        throw new Error('Checkout-Session konnte nicht erstellt werden. Bitte kontaktieren Sie den Support.');
+      }
+
+      // 3. Update temp signup with checkout session ID
+      await supabase
+        .from('temp_signups')
+        .update({ stripe_checkout_session_id: checkoutData.session_id })
+        .eq('id', tempSignup.id);
+
+      logger.debug('[Auth] Redirecting to Stripe Checkout', { 
+        sessionId: checkoutData.session_id, 
+        component: 'Auth' 
+      });
+
+      // 4. Redirect to Stripe Payment
+      window.location.href = checkoutData.url;
 
     } catch (error: any) {
       toast({
