@@ -97,7 +97,7 @@ serve(async (req) => {
 
       if (authError || !authData.user) {
         console.error("[STRIPE-WEBHOOK] User creation failed", authError);
-        
+
         // Update temp_signup status
         await supabase
           .from("temp_signups")

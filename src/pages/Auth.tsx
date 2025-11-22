@@ -166,7 +166,7 @@ export default function Auth() {
         description: 'Ihr Account wird gerade erstellt. Sie werden automatisch eingeloggt...',
         duration: 5000,
       });
-      
+
       // Auto-login nach 2 Sekunden (Account sollte mittlerweile erstellt sein)
       setTimeout(() => {
         setActiveTab('login');
@@ -436,7 +436,7 @@ export default function Auth() {
       // ==================================================================================
       // PAYMENT-FIRST REGISTRATION: Stripe Payment BEFORE Account Creation
       // ==================================================================================
-      // Workflow: 
+      // Workflow:
       // 1. Save signup data to temp_signups table
       // 2. Create Stripe Checkout session
       // 3. Redirect to Stripe payment
@@ -498,7 +498,7 @@ export default function Auth() {
 
       if (checkoutError || !checkoutData?.url) {
         logger.error('[Auth] Failed to create checkout session', checkoutError, { component: 'Auth' });
-        
+
         // Cleanup temp signup
         await supabase
           .from('temp_signups')
@@ -514,9 +514,9 @@ export default function Auth() {
         .update({ stripe_checkout_session_id: checkoutData.session_id })
         .eq('id', tempSignup.id);
 
-      logger.debug('[Auth] Redirecting to Stripe Checkout', { 
-        sessionId: checkoutData.session_id, 
-        component: 'Auth' 
+      logger.debug('[Auth] Redirecting to Stripe Checkout', {
+        sessionId: checkoutData.session_id,
+        component: 'Auth'
       });
 
       // 4. Redirect to Stripe Payment

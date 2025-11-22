@@ -20,11 +20,11 @@ interface CreateCheckoutInput {
   // For existing customers (upgrade)
   company_id?: string;
   user_id?: string;
-  
+
   // For new signups (payment-first registration)
   temp_signup_id?: string;
   customer_email?: string;
-  
+
   // Common fields
   tariff_id: "starter" | "business" | "enterprise";
   billing_period: "monthly" | "yearly";
@@ -51,7 +51,7 @@ serve(async (req) => {
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
-    
+
     // Either temp_signup_id (new registration) OR company_id (existing customer upgrade)
     if (!input.temp_signup_id && !input.company_id) {
       return new Response(
@@ -116,7 +116,7 @@ serve(async (req) => {
       let customerId: string | null = null;
       let customerEmail: string | null = null;
       let customerName: string | null = null;
-      
+
       if (input.company_id) {
         // Existing customer (upgrade flow)
         const { data: company } = await supabase
@@ -128,7 +128,7 @@ serve(async (req) => {
         customerId = company?.stripe_customer_id || null;
         customerEmail = company?.email || null;
         customerName = company?.name || null;
-        
+
         if (!customerId && company) {
           // Create Stripe Customer for existing company
           const customer = await stripe.customers.create({
@@ -155,18 +155,18 @@ serve(async (req) => {
           .select("email, company_name, stripe_customer_id")
           .eq("id", input.temp_signup_id)
           .single();
-        
+
         if (!tempSignup) {
           return new Response(
             JSON.stringify({ error: "Temp signup not found" }),
             { status: 404, headers: { ...corsHeaders, "Content-Type": "application/json" } }
           );
         }
-        
+
         customerEmail = tempSignup.email;
         customerName = tempSignup.company_name;
         customerId = tempSignup.stripe_customer_id || null;
-        
+
         if (!customerId) {
           // Create Stripe Customer for new signup
           const customer = await stripe.customers.create({
@@ -186,7 +186,7 @@ serve(async (req) => {
             .eq("id", input.temp_signup_id);
         }
       }
-      
+
       if (!customerId) {
         return new Response(
           JSON.stringify({ error: "Could not create or retrieve customer" }),

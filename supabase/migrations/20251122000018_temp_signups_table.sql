@@ -10,40 +10,40 @@
 CREATE TABLE IF NOT EXISTS temp_signups (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   email TEXT NOT NULL UNIQUE,
-  
+
   -- Persönliche Daten
   salutation TEXT CHECK (salutation IN ('Herr', 'Frau', 'Divers')),
   title TEXT,
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
   phone TEXT,
-  
+
   -- Unternehmensdaten
   company_name TEXT NOT NULL,
   tax_id TEXT NOT NULL,
   street TEXT,
   city TEXT,
   postal_code TEXT,
-  
+
   -- Passwort (gehashed)
   password_hash TEXT NOT NULL,
-  
+
   -- Tarif-Auswahl
   selected_tariff TEXT NOT NULL CHECK (selected_tariff IN ('starter', 'business')),
   billing_period TEXT NOT NULL CHECK (billing_period IN ('monthly', 'yearly')),
   fleet_addon_enabled BOOLEAN DEFAULT false,
-  
+
   -- Stripe-Daten
   stripe_checkout_session_id TEXT,
   stripe_customer_id TEXT,
   stripe_subscription_id TEXT,
   payment_status TEXT DEFAULT 'pending' CHECK (payment_status IN ('pending', 'completed', 'failed', 'expired')),
-  
+
   -- Tracking
   created_at TIMESTAMPTZ DEFAULT NOW(),
   expires_at TIMESTAMPTZ DEFAULT (NOW() + INTERVAL '24 hours'), -- Signup verfällt nach 24h
   completed_at TIMESTAMPTZ,
-  
+
   -- Metadaten
   ip_address TEXT,
   user_agent TEXT,
