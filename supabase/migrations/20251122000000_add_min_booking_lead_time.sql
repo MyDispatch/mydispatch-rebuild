@@ -2,12 +2,12 @@
    MIGRATION: Add min_booking_lead_time to companies table
    ==================================================================================
    Task 8: Mindestvorlauf-Konfiguration
-   
+
    PURPOSE:
    - Adds configurable minimum booking lead time for each company
    - Default: 60 minutes (as per Lastenheft requirement)
    - Options: 30, 60, 90, 120 minutes
-   
+
    USAGE:
    - Companies can configure this in Einstellungen > Unternehmen > Mindestvorlauf
    - Auftragseingabe validates against this setting

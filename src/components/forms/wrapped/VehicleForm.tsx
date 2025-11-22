@@ -29,17 +29,34 @@ export function VehicleForm({
   const { vehicle } = FORM_FIELDS_REGISTRY;
 
   const fields: FormField[] = [
+    // Basic Vehicle Info
     vehicle.licensePlate,
     vehicle.concessionNumber,
     vehicle.vehicleClass,
+    vehicle.vehicleStatus,
+    
+    // Vehicle Details (Task 10 - Lastenheft)
     vehicle.manufacturer,
     vehicle.model,
-    vehicle.year,
+    vehicle.vin,
+    vehicle.hsn,
+    vehicle.tsn,
+    vehicle.powerKw,
+    vehicle.powerPs,
+    vehicle.color,
+    vehicle.buildYear,
+    vehicle.firstRegistration,
+    vehicle.mileage,
+    
+    // Compliance & Documents
     vehicle.tuvExpiry,
     vehicle.insuranceExpiry,
+    vehicle.registrationDocumentUrl,
+    vehicle.photos,
+    
+    // Capacity
     vehicle.capacityPassengers,
     vehicle.capacityLuggage,
-    vehicle.vehicleStatus,
   ];
 
   return (
@@ -54,7 +71,7 @@ export function VehicleForm({
       onDialogOpenChange={onDialogOpenChange}
       dialogTitle="Fahrzeug bearbeiten"
       dialogDescription="Fahrzeuginformationen verwalten"
-      dialogSize="md"
+      dialogSize="lg"
       resetOnSuccess
       closeOnSuccess
     />

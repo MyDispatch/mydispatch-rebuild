@@ -2,7 +2,7 @@
    FORM FIELDS REGISTRY V5.0 - ULTIMATE SINGLE SOURCE OF TRUTH
    ==================================================================================
    ⚠️ KRITISCH: Alle 210+ Form-Field-Definitionen an EINER Stelle!
-   
+
    COVERAGE:
    - ✅ 48 Booking Fields (Aufträge)
    - ✅ 18 Customer Fields (Kunden)
@@ -17,9 +17,9 @@
    - ✅ 6 Contact Fields (Kontakt)
    - ✅ 8 Portal Booking Fields (Kundenportal)
    - ✅ 6 Portal Auth Fields (Portal Login/Register)
-   
+
    TOTAL: 210+ Fields (0 Duplikate!)
-   
+
    REGELN:
    - Jedes Field wird NUR EINMAL definiert
    - Type-Safe durch "as const"
@@ -173,7 +173,7 @@ export const BOOKING_FIELDS = {
     required: true,
     placeholder: 'HH:MM',
   },
-  
+
   // --- ABHOLADRESSE (4 Felder) ---
   pickupStreet: {
     name: 'pickup_street',
@@ -203,7 +203,7 @@ export const BOOKING_FIELDS = {
     required: true,
     placeholder: 'München',
   },
-  
+
   // --- ZIELADRESSE (4 Felder) ---
   dropoffStreet: {
     name: 'dropoff_street',
@@ -233,7 +233,7 @@ export const BOOKING_FIELDS = {
     required: true,
     placeholder: 'München',
   },
-  
+
   // --- FAHRT-DETAILS (4 Felder) ---
   passengers: {
     name: 'passengers',
@@ -268,7 +268,7 @@ export const BOOKING_FIELDS = {
     gridSpan: 2 as const,
     placeholder: 'z.B. Kindersitz, Barrierefreiheit, Flughafenabholung...',
   },
-  
+
   // --- FLUGHAFEN-SERVICE (7 Felder) ---
   isAirportPickup: {
     name: 'is_airport_pickup',
@@ -310,7 +310,7 @@ export const BOOKING_FIELDS = {
     type: 'text' as const,
     placeholder: 'Name auf Schild',
   },
-  
+
   // --- BAHNHOF-SERVICE (6 Felder - nutzt teilweise Airport-Felder) ---
   isTrainStationPickup: {
     name: 'is_train_station_pickup',
@@ -324,7 +324,7 @@ export const BOOKING_FIELDS = {
     placeholder: 'z.B. ICE 1234',
   },
   // Nutzt: arrival_time, wait_time, meet_and_greet, name_sign (bereits definiert)
-  
+
   // --- PARTNER (3 Felder) ---
   isPartnerBooking: {
     name: 'is_partner_booking',
@@ -343,7 +343,7 @@ export const BOOKING_FIELDS = {
     type: 'number' as const,
     placeholder: '0.00',
   },
-  
+
   // --- DISPOSITION (5 Felder) ---
   assignmentType: {
     name: 'assignment_type',
@@ -386,7 +386,7 @@ export const BOOKING_FIELDS = {
       { value: 'cancelled', label: 'Storniert' },
     ],
   },
-  
+
   // --- ZAHLUNG (6 Felder: net_price, vat_rate, gross_price, payment_status, payment_method, vat_included) ---
   netPrice: {
     name: 'net_price',
@@ -447,7 +447,7 @@ export const BOOKING_FIELDS = {
       { value: 'kreditkarte', label: 'Kreditkarte' },
     ],
   },
-  
+
   // Legacy Fields (für Abwärtskompatibilität)
   pickupAddressLegacy: {
     name: 'pickup_address',
@@ -471,13 +471,13 @@ export const BOOKING_FIELDS = {
 export const CUSTOMER_FIELDS = {
   // Person Fields (8 Felder - Spread from PERSON_FIELDS)
   ...PERSON_FIELDS,
-  
+
   // Address Fields (5 Felder - Spread from ADDRESS_FIELDS)
   street: ADDRESS_FIELDS.street,
   streetNumber: ADDRESS_FIELDS.streetNumber,
   postalCode: ADDRESS_FIELDS.postalCode,
   city: ADDRESS_FIELDS.city,
-  
+
   // Business Fields (5 Felder)
   taxId: {
     name: 'tax_id',
@@ -510,7 +510,7 @@ export const CUSTOMER_FIELDS = {
     gridSpan: 2 as const,
     placeholder: 'Interne Notizen zum Kunden...',
   },
-  
+
   // Portal Access (1 Feld)
   hasPortalAccess: {
     name: 'has_portal_access',
@@ -526,7 +526,7 @@ export const CUSTOMER_FIELDS = {
     placeholder: '0.00',
     description: 'Auto-berechnet aus unbezahlten Rechnungen',
   },
-  
+
   // ============================================================================
   // NEU V33.0: BILLING ADDRESS FIELDS (4 Felder)
   // ============================================================================
@@ -562,13 +562,13 @@ export const CUSTOMER_FIELDS = {
 export const DRIVER_FIELDS = {
   // Person Fields (7 Felder)
   ...PERSON_FIELDS,
-  
+
   // Address Fields (4 Felder)
   street: ADDRESS_FIELDS.street,
   streetNumber: ADDRESS_FIELDS.streetNumber,
   postalCode: ADDRESS_FIELDS.postalCode,
   city: ADDRESS_FIELDS.city,
-  
+
   // License Fields (11 Felder)
   licenseNumber: {
     name: 'license_number',
@@ -645,7 +645,7 @@ export const DRIVER_FIELDS = {
     label: 'Ärztliches Attest Ablauf (neu)',
     type: 'date' as const,
   },
-  
+
   // Document References (3 Felder - für InlineDocumentUpload)
   licenseDocumentId: {
     name: 'license_document_id',
@@ -769,7 +769,85 @@ export const VEHICLE_FIELDS = {
     type: 'number' as const,
     placeholder: '2',
   },
-  
+
+  // ============================================================================
+  // NEU V33.4 Task 10: Erweiterte Fahrzeug-Felder (Lastenheft Check)
+  // ============================================================================
+  vin: {
+    name: 'vin',
+    label: 'FIN (Fahrzeug-Identifikationsnummer)',
+    type: 'text' as const,
+    placeholder: 'z.B. WBADT43452G123456',
+    description: '17-stellige eindeutige Fahrzeugkennung',
+  },
+  hsn: {
+    name: 'hsn',
+    label: 'HSN (Herstellerschlüsselnummer)',
+    type: 'text' as const,
+    placeholder: '4-stellig (z.B. 0005)',
+    description: 'Schlüsselnummer des Herstellers (4 Stellen)',
+  },
+  tsn: {
+    name: 'tsn',
+    label: 'TSN (Typschlüsselnummer)',
+    type: 'text' as const,
+    placeholder: '3-stellig (z.B. ABC)',
+    description: 'Typschlüsselnummer (3 Stellen)',
+  },
+  powerKw: {
+    name: 'power_kw',
+    label: 'Leistung (KW)',
+    type: 'number' as const,
+    placeholder: 'z.B. 150',
+    description: 'Motorleistung in Kilowatt',
+  },
+  powerPs: {
+    name: 'power_ps',
+    label: 'Leistung (PS)',
+    type: 'number' as const,
+    placeholder: 'z.B. 204',
+    description: 'Motorleistung in Pferdestärken (Auto-Berechnung: KW × 1,36)',
+  },
+  color: {
+    name: 'color',
+    label: 'Fahrzeugfarbe',
+    type: 'text' as const,
+    placeholder: 'z.B. Schwarz Metallic',
+  },
+  buildYear: {
+    name: 'build_year',
+    label: 'Baujahr',
+    type: 'number' as const,
+    placeholder: '2023',
+    description: 'Jahr der Herstellung',
+  },
+  firstRegistration: {
+    name: 'first_registration',
+    label: 'Erstzulassung',
+    type: 'date' as const,
+    description: 'Datum der ersten Zulassung in Deutschland',
+  },
+  mileage: {
+    name: 'mileage',
+    label: 'Kilometerstand',
+    type: 'number' as const,
+    placeholder: 'z.B. 45000',
+    description: 'Aktueller Kilometerstand',
+  },
+  registrationDocumentUrl: {
+    name: 'registration_document_url',
+    label: 'Fahrzeugschein',
+    type: 'text' as const,
+    description: 'URL zum hochgeladenen Fahrzeugschein (Upload via Supabase Storage)',
+  },
+  photos: {
+    name: 'photos',
+    label: 'Fahrzeug-Fotos',
+    type: 'custom' as const,
+    gridSpan: 2 as const,
+    description: 'Bis zu 10 Fotos hochladen (Format: JSONB Array mit URLs)',
+  },
+
   // ============================================================================
   // NEU V33.0: SERVICE & RENTAL FIELDS (6 Felder)
   // ============================================================================
@@ -882,7 +960,7 @@ export const DOCUMENT_FIELDS = {
     gridSpan: 2 as const,
     placeholder: 'Interne Notizen...',
   },
-  
+
   // ============================================================================
   // NEU V33.0: REMINDER FIELD (1 Feld)
   // ============================================================================
@@ -986,7 +1064,7 @@ export const INVOICE_FIELDS = {
     gridSpan: 2 as const,
     placeholder: 'Leistungsbeschreibung...',
   },
-  
+
   // Invoice Items (Dynamic Array)
   items: {
     name: 'items',
@@ -1056,7 +1134,7 @@ export const INVOICE_FIELDS = {
     type: 'date' as const,
     description: 'Automatisch gesetzt bei Zahlung',
   },
-  
+
   // ============================================================================
   // NEU V33.0: PDF URL FIELD (1 Feld)
   // ============================================================================
@@ -1258,7 +1336,7 @@ export const SHIFT_FIELDS = {
     type: 'checkbox' as const,
     description: 'Schicht wurde geprüft und freigegeben',
   },
-  
+
   // ============================================================================
   // NEU V33.0: ARCHIVE-TRACKING FIELDS (2 Felder - archived_by und archived_at in Tabelle vorhanden)
   // ============================================================================
@@ -1316,7 +1394,7 @@ export const AUTH_FIELDS = {
     required: true,
     placeholder: '••••••••',
   },
-  
+
   // --- SIGNUP (Entrepreneur - 13 Felder) ---
   signupEmail: {
     name: 'email',
@@ -1411,7 +1489,7 @@ export const AUTH_FIELDS = {
     gridSpan: 2 as const,
     description: 'GPS-Tracking, Schichtzettel, erweiterte Statistiken',
   },
-  
+
   // --- PASSWORD RESET (1 Feld) ---
   resetEmail: {
     name: 'email',
@@ -1606,7 +1684,7 @@ export const PORTAL_AUTH_FIELDS = {
     required: true,
     placeholder: '••••••••',
   },
-  
+
   // --- REGISTER (4 zusätzliche Felder) ---
   firstName: {
     name: 'firstName',
@@ -1650,17 +1728,17 @@ export const FIELD_GROUPS = {
   bookingPartner: ['isPartnerBooking', 'partnerId', 'partnerProvisionManual'],
   bookingDisposition: ['assignmentType', 'driver', 'vehicle', 'costCenter'],
   bookingPayment: ['price', 'vatRate', 'paymentStatus', 'paymentMethod'],
-  
+
   // Person Groups (für PersonFormFields)
   personBasic: ['salutation', 'title', 'firstName', 'lastName'],
   personContact: ['email', 'phone', 'mobile'],
-  
+
   // Address Group (für AddressInput)
   address: ['street', 'streetNumber', 'postalCode', 'city'],
-  
+
   // Driver License Group
   driverLicense: ['licenseNumber', 'licenseExpiry', 'licenseClasses', 'taxiLicenseNumber', 'taxiLicenseExpiry'],
-  
+
   // Shift Times Group
   shiftTimes: ['shiftStartTime', 'shiftEndTime', 'pauseStartTime', 'pauseEndTime'],
   shiftKilometers: ['kmStart', 'kmEnd'],
@@ -1684,7 +1762,7 @@ export const FORM_FIELDS_REGISTRY = {
   contact: CONTACT_FIELDS,
   portalBooking: PORTAL_BOOKING_FIELDS,
   portalAuth: PORTAL_AUTH_FIELDS,
-  
+
   // Shared Fields (für direkten Zugriff)
   person: PERSON_FIELDS,
   address: ADDRESS_FIELDS,

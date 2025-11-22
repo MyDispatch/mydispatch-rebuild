@@ -2,7 +2,7 @@
    MIN-BOOKING-LEAD-TIME-SECTION - V33.4 TASK 8
    ==================================================================================
    Mindestvorlauf-Konfiguration für Auftragseingabe
-   
+
    REQUIREMENTS (from Lastenheft):
    - Standard: 60 Minuten (wird bei Company-Creation gesetzt)
    - Options: 30 Min. / 1 Std. / 1,5 Std. / 2 Std.
