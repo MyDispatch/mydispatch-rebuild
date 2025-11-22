@@ -12,25 +12,25 @@ CREATE TABLE IF NOT EXISTS public.cost_centers (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   company_id UUID NOT NULL REFERENCES public.companies(id) ON DELETE CASCADE,
   customer_id UUID REFERENCES public.customers(id) ON DELETE CASCADE,
-  
+
   -- Kostenstellen-Informationen
   code TEXT NOT NULL,
   name TEXT NOT NULL,
   description TEXT,
-  
+
   -- Budget-Tracking (optional)
   budget_limit NUMERIC(10,2),
   budget_used NUMERIC(10,2) DEFAULT 0.00,
   budget_warning_threshold NUMERIC(4,2) DEFAULT 0.80 CHECK (budget_warning_threshold BETWEEN 0 AND 1),
-  
+
   -- Status
   active BOOLEAN DEFAULT true,
-  
+
   -- Metadata
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
   created_by UUID REFERENCES auth.users(id),
-  
+
   -- Constraints
   UNIQUE(company_id, code),
   UNIQUE(company_id, customer_id, code)
@@ -123,7 +123,7 @@ BEGIN
   FROM public.bookings
   WHERE cost_center_id = p_cost_center_id
     AND status NOT IN ('cancelled', 'rejected');
-  
+
   RETURN v_total;
 END;
 $$ LANGUAGE plpgsql STABLE;
@@ -138,13 +138,13 @@ DECLARE
   v_used NUMERIC(10,2);
 BEGIN
   SELECT * INTO v_cost_center FROM public.cost_centers WHERE id = p_cost_center_id;
-  
+
   IF NOT FOUND OR v_cost_center.budget_limit IS NULL THEN
     RETURN false; -- No limit or cost center not found
   END IF;
-  
+
   v_used := calculate_cost_center_budget_usage(p_cost_center_id);
-  
+
   RETURN v_used >= v_cost_center.budget_limit;
 END;
 $$ LANGUAGE plpgsql STABLE;
@@ -160,14 +160,14 @@ DECLARE
   v_threshold NUMERIC(10,2);
 BEGIN
   SELECT * INTO v_cost_center FROM public.cost_centers WHERE id = p_cost_center_id;
-  
+
   IF NOT FOUND OR v_cost_center.budget_limit IS NULL THEN
     RETURN false; -- No limit or cost center not found
   END IF;
-  
+
   v_used := calculate_cost_center_budget_usage(p_cost_center_id);
   v_threshold := v_cost_center.budget_limit * v_cost_center.budget_warning_threshold;
-  
+
   RETURN v_used >= v_threshold;
 END;
 $$ LANGUAGE plpgsql STABLE;
@@ -189,7 +189,7 @@ BEGIN
   IF TG_OP = 'UPDATE' THEN
     v_old_cost_center_id := OLD.cost_center_id;
     v_new_cost_center_id := NEW.cost_center_id;
-    
+
     -- If cost_center_id changed, update both old and new
     IF v_old_cost_center_id IS DISTINCT FROM v_new_cost_center_id THEN
       IF v_old_cost_center_id IS NOT NULL THEN
@@ -197,7 +197,7 @@ BEGIN
         SET budget_used = calculate_cost_center_budget_usage(v_old_cost_center_id)
         WHERE id = v_old_cost_center_id;
       END IF;
-      
+
       IF v_new_cost_center_id IS NOT NULL THEN
         UPDATE public.cost_centers
         SET budget_used = calculate_cost_center_budget_usage(v_new_cost_center_id)
@@ -211,10 +211,10 @@ BEGIN
         WHERE id = v_new_cost_center_id;
       END IF;
     END IF;
-    
+
     RETURN NEW;
   END IF;
-  
+
   -- Handle INSERT
   IF TG_OP = 'INSERT' THEN
     IF NEW.cost_center_id IS NOT NULL THEN
@@ -224,7 +224,7 @@ BEGIN
     END IF;
     RETURN NEW;
   END IF;
-  
+
   -- Handle DELETE
   IF TG_OP = 'DELETE' THEN
     IF OLD.cost_center_id IS NOT NULL THEN
@@ -234,7 +234,7 @@ BEGIN
     END IF;
     RETURN OLD;
   END IF;
-  
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -264,23 +264,23 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
   RETURN QUERY
-  SELECT 
+  SELECT
     cc.id,
     cc.code,
     cc.name,
     cc.budget_limit,
     cc.budget_used,
-    CASE 
+    CASE
       WHEN cc.budget_limit IS NOT NULL THEN cc.budget_limit - cc.budget_used
       ELSE NULL
     END,
-    CASE 
-      WHEN cc.budget_limit IS NOT NULL AND cc.budget_limit > 0 
+    CASE
+      WHEN cc.budget_limit IS NOT NULL AND cc.budget_limit > 0
       THEN ROUND((cc.budget_used / cc.budget_limit * 100), 2)
       ELSE NULL
     END,
     (SELECT COUNT(*) FROM bookings WHERE cost_center_id = cc.id),
-    CASE 
+    CASE
       WHEN NOT cc.active THEN 'inactive'
       WHEN is_budget_limit_exceeded(cc.id) THEN 'exceeded'
       WHEN is_budget_warning_threshold_reached(cc.id) THEN 'warning'
@@ -302,7 +302,7 @@ COMMENT ON FUNCTION public.get_cost_centers_overview IS 'Gibt Kostenstellen-Übe
 -- SELECT * FROM get_cost_centers_overview('<your-company-id>'::UUID);
 
 -- Check bookings by cost center
--- SELECT 
+-- SELECT
 --   cc.code,
 --   cc.name,
 --   COUNT(b.id) as booking_count,

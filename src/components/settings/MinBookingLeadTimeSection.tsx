@@ -1,13 +1,19 @@
 /* ==================================================================================
-   MIN-BOOKING-LEAD-TIME-SECTION - V33.4 TASK 8
+   MIN-BOOKING-LEAD-TIME-SECTION - V33.4+ TASK 8 (Updated for Migration 20251122000008)
    ==================================================================================
    Mindestvorlauf-Konfiguration für Auftragseingabe
 
    REQUIREMENTS (from Lastenheft):
-   - Standard: 60 Minuten (wird bei Company-Creation gesetzt)
+   - Standard: 30 Minuten (wird bei Company-Creation gesetzt) [UPDATED: Was 60, now 30]
    - Options: 30 Min. / 1 Std. / 1,5 Std. / 2 Std.
    - Individuelle Unternehmer-Einstellungen
    - Validation in Auftragseingabe
+
+   DATABASE:
+   - Storage: companies.settings JSONB column (Migration 20251122000008)
+   - Key: "minimum_lead_time_minutes" (integer)
+   - Validation Function: validate_minimum_lead_time(company_id, pickup_datetime)
+   - Trigger: check_booking_lead_time (warns but doesn't block)
    ================================================================================== */
 
 import { useState, useEffect } from 'react';
@@ -27,7 +33,7 @@ const LEAD_TIME_OPTIONS = [
 
 export function MinBookingLeadTimeSection() {
   const { company } = useAuth();
-  const [leadTime, setLeadTime] = useState<number>(60);
+  const [leadTime, setLeadTime] = useState<number>(30); // Default 30 Min (per Lastenheft Update)
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
@@ -42,12 +48,15 @@ export function MinBookingLeadTimeSection() {
       setLoading(true);
       const { data, error } = await supabase
         .from('companies')
-        .select('min_booking_lead_time')
+        .select('settings')
         .eq('id', company.id)
         .single();
 
       if (error) throw error;
-      setLeadTime(data?.min_booking_lead_time || 60);
+
+      // Extract minimum_lead_time_minutes from JSONB settings column
+      const settings = data?.settings as { minimum_lead_time_minutes?: number } | null;
+      setLeadTime(settings?.minimum_lead_time_minutes || 30); // Default 30 (per Lastenheft)
     } catch (error) {
       console.error('Failed to load lead time:', error);
       toast({
@@ -65,9 +74,26 @@ export function MinBookingLeadTimeSection() {
 
     try {
       setSaving(true);
+
+      // Fetch current settings first
+      const { data: currentData, error: fetchError } = await supabase
+        .from('companies')
+        .select('settings')
+        .eq('id', company.id)
+        .single();
+
+      if (fetchError) throw fetchError;
+
+      // Merge new lead time into existing settings
+      const currentSettings = (currentData?.settings || {}) as Record<string, unknown>;
+      const updatedSettings = {
+        ...currentSettings,
+        minimum_lead_time_minutes: leadTime,
+      };
+
       const { error } = await supabase
         .from('companies')
-        .update({ min_booking_lead_time: leadTime })
+        .update({ settings: updatedSettings })
         .eq('id', company.id);
 
       if (error) throw error;
@@ -86,9 +112,7 @@ export function MinBookingLeadTimeSection() {
     } finally {
       setSaving(false);
     }
-  };
-
-  if (loading) {
+  };  if (loading) {
     return (
       <div className="space-y-4">
         <div className="h-4 bg-muted animate-pulse rounded" />

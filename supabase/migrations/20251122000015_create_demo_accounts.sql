@@ -103,7 +103,7 @@ INSERT INTO public.companies (
 -- ============================================================================
 
 -- HINWEIS: Auth Users müssen ZUERST via Supabase Dashboard erstellt werden:
--- 
+--
 -- User 1: demo.starter@my-dispatch.de, Passwort: De.25-STR_#mO_!
 -- User 2: demo.business@my-dispatch.de, Passwort: De.BsS_25#mO_!
 
@@ -120,7 +120,7 @@ INSERT INTO public.profiles (
   salutation,
   active,
   created_at
-) VALUES 
+) VALUES
   (
     gen_random_uuid(),
     '<AUTH_USER_ID_STARTER>',
@@ -172,7 +172,7 @@ INSERT INTO public.drivers (
   p_license_expires_at,
   active,
   created_at
-) VALUES 
+) VALUES
   (
     gen_random_uuid(),
     'aaaaaaaa-0001-4000-8000-000000000001'::UUID,
@@ -255,7 +255,7 @@ INSERT INTO public.drivers (
   p_license_expires_at,
   active,
   created_at
-) VALUES 
+) VALUES
   (
     gen_random_uuid(),
     'bbbbbbbb-0002-4000-8000-000000000002'::UUID,
@@ -439,7 +439,7 @@ INSERT INTO public.vehicles (
   tuv_expires_at,
   active,
   created_at
-) VALUES 
+) VALUES
   (
     gen_random_uuid(),
     'aaaaaaaa-0001-4000-8000-000000000001'::UUID,
@@ -510,7 +510,7 @@ INSERT INTO public.vehicles (
   tuv_expires_at,
   active,
   created_at
-) VALUES 
+) VALUES
   (
     gen_random_uuid(),
     'bbbbbbbb-0002-4000-8000-000000000002'::UUID,
@@ -698,7 +698,7 @@ INSERT INTO public.customers (
   customer_type,
   active,
   created_at
-) VALUES 
+) VALUES
   ('aaaaaaaa-0001-4000-8000-000000000001'::UUID, 'Peter', 'Müller', 'Herr', 'peter.mueller@demo.de', '+49 172 1111001', 'private', true, NOW()),
   ('aaaaaaaa-0001-4000-8000-000000000001'::UUID, 'Maria', 'Schneider', 'Frau', 'maria.schneider@demo.de', '+49 172 1111002', 'private', true, NOW()),
   ('aaaaaaaa-0001-4000-8000-000000000001'::UUID, 'Hans', 'Fischer', 'Herr', 'hans.fischer@demo.de', '+49 172 1111003', 'private', true, NOW()),
@@ -720,7 +720,7 @@ INSERT INTO public.customers (
   phone,
   active,
   created_at
-) VALUES 
+) VALUES
   ('bbbbbbbb-0002-4000-8000-000000000002'::UUID, 'Siemens AG', 'business', 'kontakt@siemens-demo.de', '+49 89 6360001', true, NOW()),
   ('bbbbbbbb-0002-4000-8000-000000000002'::UUID, 'BMW Group', 'business', 'kontakt@bmw-demo.de', '+49 89 3820002', true, NOW()),
   ('bbbbbbbb-0002-4000-8000-000000000002'::UUID, 'Allianz SE', 'business', 'kontakt@allianz-demo.de', '+49 89 3800003', true, NOW()),

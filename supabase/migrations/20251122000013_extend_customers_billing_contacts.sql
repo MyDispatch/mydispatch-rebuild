@@ -82,13 +82,13 @@ DECLARE
   v_address TEXT;
 BEGIN
   SELECT * INTO v_customer FROM public.customers WHERE id = p_customer_id;
-  
+
   IF NOT FOUND THEN
     RETURN NULL;
   END IF;
-  
+
   -- If separate billing address is used and exists
-  IF v_customer.use_separate_billing_address 
+  IF v_customer.use_separate_billing_address
      AND v_customer.billing_street IS NOT NULL THEN
     RETURN format_billing_address(
       v_customer.billing_street,
@@ -98,7 +98,7 @@ BEGIN
       v_customer.billing_country
     );
   END IF;
-  
+
   -- Fallback to main address (if exists in customers table)
   -- Note: customers table might need street/postal_code columns added
   RETURN NULL; -- TODO: Add main address fields if not present
@@ -122,7 +122,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
   RETURN QUERY
-  SELECT 
+  SELECT
     cp.id,
     format_full_name(cp.salutation, cp.title, cp.first_name, cp.last_name),
     cp.email,
@@ -132,11 +132,11 @@ BEGIN
   WHERE cp.customer_id = p_customer_id
     AND cp.is_primary = true
   LIMIT 1;
-  
+
   -- If no primary contact, return first contact
   IF NOT FOUND THEN
     RETURN QUERY
-    SELECT 
+    SELECT
       cp.id,
       format_full_name(cp.salutation, cp.title, cp.first_name, cp.last_name),
       cp.email,
@@ -167,7 +167,7 @@ BEGIN
     WHERE customer_id = NEW.customer_id
       AND id != NEW.id;
   END IF;
-  
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -183,16 +183,16 @@ CREATE TRIGGER trigger_ensure_single_primary_contact
 -- ============================================================================
 
 -- Check customers with billing addresses
--- SELECT 
+-- SELECT
 --   first_name,
 --   last_name,
 --   email,
 --   use_separate_billing_address,
 --   format_billing_address(
---     billing_street, 
---     billing_house_number, 
---     billing_postal_code, 
---     billing_city, 
+--     billing_street,
+--     billing_house_number,
+--     billing_postal_code,
+--     billing_city,
 --     billing_country
 --   ) as billing_address,
 --   (SELECT COUNT(*) FROM contact_persons WHERE customer_id = customers.id) as contact_count
@@ -201,7 +201,7 @@ CREATE TRIGGER trigger_ensure_single_primary_contact
 -- LIMIT 10;
 
 -- Check contact persons with primary flag
--- SELECT 
+-- SELECT
 --   c.first_name || ' ' || c.last_name as customer_name,
 --   format_full_name(cp.salutation, cp.title, cp.first_name, cp.last_name) as contact_name,
 --   cp.email,

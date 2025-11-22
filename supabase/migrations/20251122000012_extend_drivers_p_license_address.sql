@@ -107,7 +107,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
   RETURN QUERY
-  SELECT 
+  SELECT
     d.id,
     format_full_name(d.salutation, d.title, d.first_name, d.last_name),
     d.p_license_number,
@@ -140,11 +140,11 @@ CREATE POLICY IF NOT EXISTS "Users can upload P-Schein documents"
 ON storage.objects FOR INSERT
 TO authenticated
 WITH CHECK (
-  bucket_id = 'driver_p_licenses' 
+  bucket_id = 'driver_p_licenses'
   AND auth.uid() IN (
-    SELECT user_id FROM profiles 
+    SELECT user_id FROM profiles
     WHERE company_id IN (
-      SELECT company_id FROM drivers 
+      SELECT company_id FROM drivers
       WHERE id::text = (storage.foldername(name))[1]
     )
   )
@@ -157,9 +157,9 @@ TO authenticated
 USING (
   bucket_id = 'driver_p_licenses'
   AND auth.uid() IN (
-    SELECT user_id FROM profiles 
+    SELECT user_id FROM profiles
     WHERE company_id IN (
-      SELECT company_id FROM drivers 
+      SELECT company_id FROM drivers
       WHERE id::text = (storage.foldername(name))[1]
     )
   )
@@ -174,17 +174,17 @@ CREATE OR REPLACE FUNCTION public.check_driver_p_license_status()
 RETURNS TRIGGER AS $$
 BEGIN
   -- If P-Schein expired and driver is active, log warning (don't auto-disable)
-  IF NEW.p_license_expires_at IS NOT NULL 
-     AND NEW.p_license_expires_at < CURRENT_DATE 
+  IF NEW.p_license_expires_at IS NOT NULL
+     AND NEW.p_license_expires_at < CURRENT_DATE
      AND NEW.active = true THEN
-    
+
     -- Log warning to console (Edge Function will send email)
-    RAISE WARNING 'Driver % (%) has expired P-Schein (expired: %)', 
+    RAISE WARNING 'Driver % (%) has expired P-Schein (expired: %)',
       NEW.first_name || ' ' || NEW.last_name,
       NEW.id,
       NEW.p_license_expires_at;
   END IF;
-  
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -200,14 +200,14 @@ CREATE TRIGGER trigger_check_driver_p_license
 -- ============================================================================
 
 -- Check drivers with full address and P-Schein
--- SELECT 
+-- SELECT
 --   first_name,
 --   last_name,
 --   format_driver_address(street, house_number, postal_code, city, country) as address,
 --   p_license_number,
 --   p_license_issued_at,
 --   p_license_expires_at,
---   CASE 
+--   CASE
 --     WHEN is_p_license_expired(p_license_expires_at) THEN 'Abgelaufen'
 --     WHEN is_p_license_expiring_soon(p_license_expires_at, 60) THEN 'Läuft bald ab'
 --     ELSE 'Gültig'
@@ -218,7 +218,7 @@ CREATE TRIGGER trigger_check_driver_p_license
 
 -- Test expiring P-Schein function
 -- SELECT * FROM get_expiring_p_licenses(
---   '<your-company-id>'::UUID, 
+--   '<your-company-id>'::UUID,
 --   60 -- days ahead
 -- );
 

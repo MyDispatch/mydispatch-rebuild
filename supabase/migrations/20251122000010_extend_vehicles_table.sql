@@ -51,11 +51,11 @@ CREATE POLICY IF NOT EXISTS "Users can upload vehicle documents"
 ON storage.objects FOR INSERT
 TO authenticated
 WITH CHECK (
-  bucket_id = 'vehicle_documents' 
+  bucket_id = 'vehicle_documents'
   AND auth.uid() IN (
-    SELECT user_id FROM profiles 
+    SELECT user_id FROM profiles
     WHERE company_id IN (
-      SELECT company_id FROM vehicles 
+      SELECT company_id FROM vehicles
       WHERE id::text = (storage.foldername(name))[1]
     )
   )
@@ -68,9 +68,9 @@ TO authenticated
 USING (
   bucket_id = 'vehicle_documents'
   AND auth.uid() IN (
-    SELECT user_id FROM profiles 
+    SELECT user_id FROM profiles
     WHERE company_id IN (
-      SELECT company_id FROM vehicles 
+      SELECT company_id FROM vehicles
       WHERE id::text = (storage.foldername(name))[1]
     )
   )
@@ -87,22 +87,22 @@ BEGIN
   IF p_vin IS NULL THEN
     RETURN TRUE; -- VIN is optional
   END IF;
-  
+
   -- VIN must be exactly 17 characters
   IF LENGTH(p_vin) != 17 THEN
     RETURN FALSE;
   END IF;
-  
+
   -- VIN must not contain I, O, Q (to avoid confusion with 1, 0)
   IF p_vin ~ '[IOQ]' THEN
     RETURN FALSE;
   END IF;
-  
+
   -- VIN must be alphanumeric
   IF p_vin !~ '^[A-HJ-NPR-Z0-9]{17}$' THEN
     RETURN FALSE;
   END IF;
-  
+
   RETURN TRUE;
 END;
 $$ LANGUAGE plpgsql IMMUTABLE;
@@ -143,12 +143,12 @@ BEGIN
   IF NEW.power_kw IS NOT NULL AND NEW.power_ps IS NULL THEN
     NEW.power_ps := kw_to_ps(NEW.power_kw);
   END IF;
-  
+
   -- If only PS provided, calculate KW
   IF NEW.power_ps IS NOT NULL AND NEW.power_kw IS NULL THEN
     NEW.power_kw := ps_to_kw(NEW.power_ps);
   END IF;
-  
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -165,7 +165,7 @@ CREATE TRIGGER trigger_sync_vehicle_power
 -- ============================================================================
 
 -- Check vehicles with new fields
--- SELECT 
+-- SELECT
 --   license_plate,
 --   manufacturer,
 --   model,

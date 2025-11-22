@@ -12,35 +12,35 @@ CREATE TABLE IF NOT EXISTS public.vehicle_insurance (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   vehicle_id UUID NOT NULL REFERENCES public.vehicles(id) ON DELETE CASCADE,
   company_id UUID NOT NULL REFERENCES public.companies(id) ON DELETE CASCADE,
-  
+
   -- Versicherungsunternehmen
   insurance_company TEXT NOT NULL,
   policy_number TEXT NOT NULL,
-  
+
   -- SF-Klassen (Schadensfreiheitsklassen)
   sf_class_liability INTEGER CHECK (sf_class_liability >= 0 AND sf_class_liability <= 50),
   sf_class_comprehensive INTEGER CHECK (sf_class_comprehensive >= 0 AND sf_class_comprehensive <= 50),
-  
+
   -- Selbstbeteiligung
   deductible_partial_comprehensive NUMERIC(10,2) DEFAULT 0.00,
   deductible_fully_comprehensive NUMERIC(10,2) DEFAULT 0.00,
-  
+
   -- Laufzeit
   start_date DATE NOT NULL,
   end_date DATE NOT NULL CHECK (end_date > start_date),
-  
+
   -- Dokumentenverwaltung
   document_url TEXT,
-  
+
   -- Status & Tracking
   status TEXT DEFAULT 'active' CHECK (status IN ('active', 'expired', 'cancelled')),
   reminder_sent_at TIMESTAMPTZ,
-  
+
   -- Metadata
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
   created_by UUID REFERENCES auth.users(id),
-  
+
   -- Constraints
   UNIQUE(vehicle_id, policy_number)
 );
@@ -120,10 +120,10 @@ BEGIN
   IF NEW.end_date < CURRENT_DATE AND NEW.status = 'active' THEN
     NEW.status := 'expired';
   END IF;
-  
+
   -- Update updated_at timestamp
   NEW.updated_at := NOW();
-  
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -155,7 +155,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
   RETURN QUERY
-  SELECT 
+  SELECT
     vi.id,
     v.license_plate,
     vi.insurance_company,
@@ -189,11 +189,11 @@ CREATE POLICY IF NOT EXISTS "Users can upload insurance documents"
 ON storage.objects FOR INSERT
 TO authenticated
 WITH CHECK (
-  bucket_id = 'insurance_documents' 
+  bucket_id = 'insurance_documents'
   AND auth.uid() IN (
-    SELECT user_id FROM profiles 
+    SELECT user_id FROM profiles
     WHERE company_id IN (
-      SELECT company_id FROM vehicle_insurance 
+      SELECT company_id FROM vehicle_insurance
       WHERE id::text = (storage.foldername(name))[1]
     )
   )
@@ -206,9 +206,9 @@ TO authenticated
 USING (
   bucket_id = 'insurance_documents'
   AND auth.uid() IN (
-    SELECT user_id FROM profiles 
+    SELECT user_id FROM profiles
     WHERE company_id IN (
-      SELECT company_id FROM vehicle_insurance 
+      SELECT company_id FROM vehicle_insurance
       WHERE id::text = (storage.foldername(name))[1]
     )
   )
@@ -219,7 +219,7 @@ USING (
 -- ============================================================================
 
 -- Check vehicle insurances with expiration dates
--- SELECT 
+-- SELECT
 --   v.license_plate,
 --   vi.insurance_company,
 --   vi.policy_number,
@@ -230,7 +230,7 @@ USING (
 --   vi.start_date,
 --   vi.end_date,
 --   vi.status,
---   CASE 
+--   CASE
 --     WHEN vi.end_date < CURRENT_DATE THEN 'Abgelaufen'
 --     WHEN vi.end_date <= CURRENT_DATE + INTERVAL '60 days' THEN 'Läuft bald ab'
 --     ELSE 'Aktiv'
@@ -241,6 +241,6 @@ USING (
 
 -- Test expiring insurances function
 -- SELECT * FROM get_expiring_insurances(
---   '<your-company-id>'::UUID, 
+--   '<your-company-id>'::UUID,
 --   60 -- days ahead
 -- );
