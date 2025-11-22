@@ -1,4 +1,3 @@
-import * as React from 'react';
 import type { ReactNode } from 'react';
 import { useState, useEffect, useContext, createContext } from 'react';
 import type { User, Session } from '@supabase/supabase-js';
@@ -35,7 +34,7 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      (_event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
 

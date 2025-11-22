@@ -65,8 +65,8 @@ export default function ResetPassword() {
   useEffect(() => {
     const validateToken = async () => {
       try {
-        const token = searchParams.get('token');
-        const type = searchParams.get('type');
+        const _token = searchParams.get('token');
+        const _type = searchParams.get('type');
 
         // Supabase automatically handles token validation via URL params
         // If user lands here from email link, session is auto-established
@@ -112,7 +112,7 @@ export default function ResetPassword() {
       setTimeout(() => {
         navigate('/dashboard');
       }, 2000);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Password reset error:', error);
       toast({
         title: 'Fehler',

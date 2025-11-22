@@ -13,7 +13,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { bookingSchema, type BookingFormData } from "@/schemas/booking.schema";
 import { useAuth } from "@/hooks/use-auth";
 import { useSubscription } from "@/hooks/use-subscription";
@@ -26,18 +25,12 @@ import { useRealtimeBookings } from "@/hooks/use-realtime-bookings";
 import { StandardPageLayout } from "@/components/layout/StandardPageLayout";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { useTouchTargetValidation } from "@/hooks/validation/useTouchTargetValidation";
-import { StandardActionButtons } from "@/components/shared/StandardActionButtons";
 import { V28Button } from "@/components/design-system/V28Button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
 import { useSearchParams } from "react-router-dom";
 import { BookOpen } from "lucide-react";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -57,34 +50,20 @@ import {
   getBookingStatusType,
   getPaymentStatusType,
 } from "@/components/shared/StatusIndicator";
-import { AddressInput } from "@/components/forms/AddressInput";
-import { InlineCustomerForm } from "@/components/forms/InlineCustomerForm";
-import { SearchableSelect } from "@/components/shared/SearchableSelect";
 import { useToast } from "@/hooks/use-toast";
 import {
-  Plus,
   FileText,
-  UserPlus,
   Euro,
   Handshake,
-  Plane,
-  Train,
   Edit,
-  Activity,
-  Users,
-  Car,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { validateFutureBooking } from "@/lib/date-validation";
 import { handleError, handleSuccess } from "@/lib/error-handler";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
-import { AirportPickupFields } from "@/components/forms/AirportPickupFields";
-import { TrainStationPickupFields } from "@/components/forms/TrainStationPickupFields";
-import { Checkbox } from "@/components/ui/checkbox";
 import { PartnerFilter } from "@/components/shared/PartnerFilter";
 import { DetailDialog } from "@/components/shared/DetailDialog";
-import { ConfirmationDialog } from "@/components/shared/ConfirmationDialog";
 import { calculateProvision, formatProvisionInfo } from "@/lib/provision-calculator";
 import { BookingsTable } from "@/components/tables/BookingsTable";
 import { useOptimizedHandlers } from "@/hooks/use-optimized-handlers";

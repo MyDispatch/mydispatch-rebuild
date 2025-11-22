@@ -10,7 +10,7 @@
 import { useSwipeable } from 'react-swipeable';
 import { Card, Badge } from '@/lib/compat';
 import { V28Button } from '@/components/design-system/V28Button';
-import { MapPin, Clock, Euro, CheckCircle, X } from 'lucide-react';
+import { MapPin, Clock, CheckCircle, X } from 'lucide-react';
 import { formatCurrency } from '@/lib/format-utils';
 import { useState } from 'react';
 

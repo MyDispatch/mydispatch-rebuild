@@ -20,9 +20,9 @@ import { V28Button } from '@/components/design-system/V28Button';
 import { designTokens } from '@/config/design-tokens';
 import {
   Home, Users, ClipboardList, Calendar, FileText, Euro,
-  FolderOpen, Handshake, TrendingUp, Building2,
+  FolderOpen, Handshake, TrendingUp,
   Settings, Shield, Truck,
-  Crown, Lock, Sparkles, ChevronRight, Zap
+  Crown, Lock, Sparkles, Zap
 } from 'lucide-react';
 
 const MASTER_ACCOUNT_EMAIL = "info@my-dispatch.de"; // Legacy fallback: courbois1981@gmail.com
@@ -89,7 +89,7 @@ interface AppSidebarProps {
 export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
   const { company, user } = useAuth();
   const { accountType } = useAccountType();
-  const isMasterAccount = user?.email === MASTER_ACCOUNT_EMAIL;
+  const _isMasterAccount = user?.email === MASTER_ACCOUNT_EMAIL;
   const location = useLocation();
   const navigate = useNavigate();
   const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
