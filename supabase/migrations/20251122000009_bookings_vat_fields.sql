@@ -86,17 +86,17 @@ RETURNS TRIGGER AS $$
 BEGIN
   -- Calculate net price and VAT amount
   NEW.price_net := public.calculate_net_price(
-    NEW.price, 
-    NEW.price_includes_vat, 
+    NEW.price,
+    NEW.price_includes_vat,
     NEW.vat_rate
   );
-  
+
   NEW.vat_amount := public.calculate_vat_amount(
-    NEW.price, 
-    NEW.price_includes_vat, 
+    NEW.price,
+    NEW.price_includes_vat,
     NEW.vat_rate
   );
-  
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -116,7 +116,7 @@ COMMENT ON TRIGGER trigger_calculate_booking_vat ON public.bookings IS 'Berechne
 
 -- Update existing bookings with default values
 UPDATE public.bookings
-SET 
+SET
   vat_rate = 19.00,
   price_includes_vat = true
 WHERE vat_rate IS NULL OR price_includes_vat IS NULL;
@@ -131,7 +131,7 @@ WHERE price_net IS NULL;
 -- ============================================================================
 
 -- Test price calculations
--- SELECT 
+-- SELECT
 --   price,
 --   vat_rate,
 --   price_includes_vat,
@@ -142,7 +142,7 @@ WHERE price_net IS NULL;
 -- LIMIT 10;
 
 -- Example calculations:
--- SELECT 
+-- SELECT
 --   public.calculate_net_price(119.00, true, 19) as net_from_gross, -- Should be 100.00
 --   public.calculate_vat_amount(119.00, true, 19) as vat_amount, -- Should be 19.00
 --   public.calculate_gross_price(100.00, false, 19) as gross_from_net; -- Should be 119.00

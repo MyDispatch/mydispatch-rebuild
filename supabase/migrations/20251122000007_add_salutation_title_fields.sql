@@ -62,8 +62,8 @@ COMMENT ON COLUMN public.profiles.last_name IS 'Nachname (separate Feld)';
 DO $$
 BEGIN
   IF EXISTS (
-    SELECT FROM information_schema.tables 
-    WHERE table_schema = 'public' 
+    SELECT FROM information_schema.tables
+    WHERE table_schema = 'public'
     AND table_name = 'contact_persons'
   ) THEN
     -- Add columns if table exists
@@ -114,14 +114,14 @@ COMMENT ON FUNCTION public.format_full_name IS 'Formatiert vollständigen Namen 
 
 -- Update customers with 'Herr ' prefix
 -- UPDATE public.customers
--- SET 
+-- SET
 --   salutation = 'Herr',
 --   first_name = TRIM(REGEXP_REPLACE(first_name, '^Herr\s+', '', 'i'))
 -- WHERE first_name ILIKE 'Herr %';
 
 -- Update customers with 'Frau ' prefix
 -- UPDATE public.customers
--- SET 
+-- SET
 --   salutation = 'Frau',
 --   first_name = TRIM(REGEXP_REPLACE(first_name, '^Frau\s+', '', 'i'))
 -- WHERE first_name ILIKE 'Frau %';

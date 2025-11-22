@@ -72,7 +72,7 @@ BEGIN
   IF NOT v_is_valid THEN
     RAISE NOTICE 'Warnung: Buchung unterschreitet Mindestvorlaufzeit für company_id=%', NEW.company_id;
     -- Uncomment to enforce strict validation:
-    -- RAISE EXCEPTION 'Buchung muss mindestens % Minuten im Voraus erstellt werden', 
+    -- RAISE EXCEPTION 'Buchung muss mindestens % Minuten im Voraus erstellt werden',
     --   (SELECT settings->>'minimum_lead_time_minutes' FROM companies WHERE id = NEW.company_id);
   END IF;
 
