@@ -22,17 +22,17 @@ interface BookingFormProps {
   onSubmit: (data: any) => Promise<void>;
   mode?: 'inline' | 'dialog';
   portal?: 'entrepreneur' | 'customer' | 'driver';
-  
+
   // Data for selects
   customers?: Array<{ id: string; first_name: string; last_name: string; email?: string }>;
   drivers?: Array<{ id: string; first_name: string; last_name: string; status?: string }>;
   vehicles?: Array<{ id: string; license_plate: string; vehicle_type?: string }>;
   partners?: Array<{ id: string; name: string }>;
   costCenters?: Array<{ id: string; name: string }>;
-  
+
   // Callbacks
   onCreateCustomer?: () => void;
-  
+
   // Dialog props
   dialogOpen?: boolean;
   onDialogOpenChange?: (open: boolean) => void;
@@ -115,14 +115,14 @@ export function BookingForm({
       mode={mode}
       portal={portal}
       loading={loading}
-      
+
       // Dialog props
       dialogOpen={dialogOpen}
       onDialogOpenChange={onDialogOpenChange}
       dialogTitle="Neuer Auftrag"
       dialogDescription="Erstellen Sie einen neuen Buchungsauftrag"
       dialogSize="xl"
-      
+
       // Field Groups
       fieldGroups={{
         pickupAddress: {
@@ -158,7 +158,7 @@ export function BookingForm({
           },
         },
       }}
-      
+
       // Inline Actions
       inlineActions={onCreateCustomer ? {
         customer: {
@@ -168,7 +168,7 @@ export function BookingForm({
           variant: 'ghost',
         },
       } : undefined}
-      
+
       // Custom Renderers
       customRenderers={{
         customer: (field, formInstance) => (
@@ -214,7 +214,7 @@ export function BookingForm({
           />
         ),
       }}
-      
+
       resetOnSuccess
       closeOnSuccess
     />
