@@ -121,7 +121,7 @@ export const BUSINESS_TARIFF: TariffDefinition = {
     { id: 'quotes_invoices', name: 'Angebote & Rechnungen', included: true, module: 'invoices' },
     { id: 'customer_management', name: 'Kunden-/Fahrerverwaltung', included: true, module: 'customers' },
     { id: 'info_landingpage', name: 'Info-Landingpage', included: true, module: 'landingpage' },
-    
+
     // Premium-Features
     { id: 'partner_management', name: 'Partner-Management', included: true, module: 'partners', route: '/partner' },
     { id: 'live_traffic', name: 'Live-Traffic & Wetter', included: true, module: 'traffic' },
@@ -130,7 +130,7 @@ export const BUSINESS_TARIFF: TariffDefinition = {
     { id: 'booking_widget', name: 'Buchungswidget', included: true, module: 'widget' },
     { id: 'ai_chatbot', name: 'AI-Chatbot', included: true, module: 'ai_chat' },
     { id: 'api_access', name: 'API-Zugang', included: true, module: 'api' },
-    
+
     // Erweiterte Features
     { id: 'gps_tracking', name: 'GPS-Echtzeit-Tracking', included: true, module: 'gps' },
     { id: 'team_chat', name: 'Team-Chat', included: true, module: 'chat', route: '/kommunikation' },
@@ -143,7 +143,7 @@ export const BUSINESS_TARIFF: TariffDefinition = {
     { id: 'workflow_automation', name: 'n8n Workflow-Automatisierung', included: true, module: 'n8n' },
     { id: 'multi_user', name: 'Bis zu 5 Benutzer', included: true, module: 'users' },
     { id: 'priority_support', name: 'Prioritäts-Support', included: true },
-    
+
     // Nicht enthalten
     { id: 'white_label', name: 'White-Label Landingpages', included: false, module: 'white_label' },
     { id: 'custom_integrations', name: 'Custom Integrationen', included: false },
@@ -196,7 +196,7 @@ export const ENTERPRISE_TARIFF: TariffDefinition = {
     { id: 'gps_tracking', name: 'GPS-Echtzeit-Tracking', included: true, module: 'gps' },
     { id: 'team_chat', name: 'Team-Chat', included: true, module: 'chat', route: '/kommunikation' },
     { id: 'workflow_automation', name: 'n8n Workflow-Automatisierung', included: true, module: 'n8n' },
-    
+
     // Enterprise-Exclusive Features
     { id: 'white_label', name: 'White-Label Landingpages', included: true, module: 'white_label' },
     { id: 'custom_integrations', name: 'Custom Integrationen', included: true },
@@ -230,18 +230,18 @@ export function getTariffById(id: 'starter' | 'business' | 'enterprise'): Tariff
 
 export function getTariffByProductId(productId: string | null | undefined): TariffDefinition | undefined {
   if (!productId) return undefined;
-  return ALL_TARIFFS.find(t => 
+  return ALL_TARIFFS.find(t =>
     (t.stripeProductIds as readonly string[]).includes(productId)
   );
 }
 
 export function hasFeatureAccess(
-  productId: string | null | undefined, 
+  productId: string | null | undefined,
   featureModule: string
 ): boolean {
   const tariff = getTariffByProductId(productId);
   if (!tariff) return false;
-  
+
   const feature = tariff.features.find(f => f.module === featureModule);
   return feature?.included ?? false;
 }
@@ -249,7 +249,7 @@ export function hasFeatureAccess(
 export function getUpgradePath(currentProductId: string | null | undefined): TariffDefinition | null {
   const currentTariff = getTariffByProductId(currentProductId);
   if (!currentTariff) return BUSINESS_TARIFF;
-  
+
   if (currentTariff.id === 'starter') return BUSINESS_TARIFF;
   if (currentTariff.id === 'business') return ENTERPRISE_TARIFF;
   return null;
@@ -262,10 +262,10 @@ export function exceedsLimit(
 ): boolean {
   const tariff = getTariffByProductId(productId);
   if (!tariff) return false;
-  
+
   const limit = tariff.limits[resource];
   if (limit === -1) return false; // Unbegrenzt
-  
+
   return currentCount >= limit;
 }
 
