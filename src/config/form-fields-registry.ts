@@ -554,6 +554,61 @@ export const CUSTOMER_FIELDS = {
     type: 'text' as const,
     placeholder: 'München',
   },
+
+  // ============================================================================
+  // NEU V33.4 Task 12: INVOICE ADDRESS FIELDS (JSONB in DB)
+  // ============================================================================
+  invoiceAddressPrivate: {
+    name: 'invoice_address_private',
+    label: 'Privatadresse (Rechnung)',
+    type: 'custom' as const,
+    gridSpan: 2 as const,
+    description: 'JSON: {street, postal_code, city, country}',
+  },
+  invoiceAddressBusiness: {
+    name: 'invoice_address_business',
+    label: 'Geschäftsadresse (Rechnung)',
+    type: 'custom' as const,
+    gridSpan: 2 as const,
+    description: 'JSON: {street, postal_code, city, country, company_name, tax_id}',
+  },
+} as const;
+
+// ============================================================================
+// CONTACT PERSON FIELDS (NEW - Task 12)
+// ============================================================================
+export const CONTACT_PERSON_FIELDS = {
+  name: {
+    name: 'name',
+    label: 'Name',
+    type: 'text' as const,
+    required: true,
+    placeholder: 'Vollständiger Name',
+  },
+  role: {
+    name: 'role',
+    label: 'Rolle/Position',
+    type: 'text' as const,
+    placeholder: 'z.B. Geschäftsführer, Disponent',
+  },
+  email: {
+    name: 'email',
+    label: 'E-Mail',
+    type: 'email' as const,
+    placeholder: 'kontakt@beispiel.de',
+  },
+  phone: {
+    name: 'phone',
+    label: 'Telefon',
+    type: 'tel' as const,
+    placeholder: '+49 170 1234567',
+  },
+  isPrimary: {
+    name: 'is_primary',
+    label: 'Hauptansprechpartner',
+    type: 'checkbox' as const,
+    description: 'Primärer Ansprechpartner für diesen Kunden',
+  },
 } as const;
 
 // ============================================================================
@@ -1798,6 +1853,7 @@ export const FORM_FIELDS_REGISTRY = {
   contact: CONTACT_FIELDS,
   portalBooking: PORTAL_BOOKING_FIELDS,
   portalAuth: PORTAL_AUTH_FIELDS,
+  contactPerson: CONTACT_PERSON_FIELDS, // NEU Task 12
 
   // Shared Fields (für direkten Zugriff)
   person: PERSON_FIELDS,
