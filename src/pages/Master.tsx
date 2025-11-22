@@ -19,13 +19,12 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/use-auth';
 import { supabase } from '@/integrations/supabase/client';
-import { DashboardLayout } from '@/components/layout/DashboardLayout';
+import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
 import { V28Card, V28CardHeader, V28CardTitle, V28CardDescription, V28CardContent } from '@/components/design-system/V28Card';
 import { V28Button } from '@/components/design-system/V28Button';
 import { V28Badge } from '@/components/design-system/V28Badge';
-import { Users, Building2, FileText, Activity, Euro, Shield, Eye, X, Check } from 'lucide-react';
+import { Users, Building2, FileText, Activity, Euro, Shield, Eye, X, Check, Loader2 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
 
 interface MasterKPIs {
   totalUsers: number;
@@ -143,36 +142,28 @@ export default function Master() {
 
   if (loading) {
     return (
-      <DashboardLayout
-        title="Master-Dashboard"
-        description="Verwaltung aller Unternehmen"
-        canonical="/master"
-      >
+      <StandardPageLayout title="Master-Dashboard" showBackButton={false}>
         <div className="flex items-center justify-center min-h-[400px]">
-          <LoadingSpinner />
+          <Loader2 className="h-8 w-8 animate-spin text-primary" />
         </div>
-      </DashboardLayout>
+      </StandardPageLayout>
     );
   }
 
   if (!kpis) {
     return (
-      <DashboardLayout title="Master-Dashboard" description="Verwaltung aller Unternehmen" canonical="/master">
+      <StandardPageLayout title="Master-Dashboard" showBackButton={false}>
         <V28Card>
           <V28CardContent className="py-12 text-center">
             <p className="text-muted-foreground">Fehler beim Laden der Master-Daten.</p>
           </V28CardContent>
         </V28Card>
-      </DashboardLayout>
+      </StandardPageLayout>
     );
   }
 
   return (
-    <DashboardLayout
-      title="Master-Dashboard"
-      description="Verwaltung aller Unternehmen und Master-Accounts"
-      canonical="/master"
-    >
+    <StandardPageLayout title="Master-Dashboard" showBackButton={false}>
       <div className="space-y-6 sm:space-y-8">
         {/* KPIs - 6 Metrics in 2 rows */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
@@ -453,6 +444,6 @@ export default function Master() {
           </div>
         </div>
       )}
-    </DashboardLayout>
+    </StandardPageLayout>
   );
 }
