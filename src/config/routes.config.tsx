@@ -41,7 +41,7 @@ export interface RouteConfig {
 
 /**
  * ZENTRALE ROUTING-KONFIGURATION
- * 
+ *
  * Reihenfolge-Regeln:
  * 1. Public Routes zuerst
  * 2. Portal Routes (separate Auth)

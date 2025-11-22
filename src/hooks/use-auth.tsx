@@ -117,7 +117,8 @@ function AuthProviderInner({ children }: { children: ReactNode }) {
 
       // CRITICAL: Email-basierter Master-Zugang für NeXify Master-User
       const userEmail = session?.user?.email?.toLowerCase().trim();
-      const isMasterEmail = userEmail === 'courbois1981@gmail.com' ||
+      const isMasterEmail = userEmail === 'info@my-dispatch.de' ||
+        userEmail === 'courbois1981@gmail.com' || // Legacy fallback
                            userEmail === 'pascal@nexify.ai' ||
                            userEmail === 'master@nexify.ai';
 

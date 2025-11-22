@@ -2,13 +2,13 @@
    MASTER.TSX - V33.4 SIMPLIFIED MASTER DASHBOARD
    ==================================================================================
    Vereinfachtes Master-Dashboard für info@my-dispatch.de
-   
+
    REMOVED (per User Request):
    - System-Übersicht (4 Tiles mit Details)
    - Benutzer-Verwaltung (all users across companies)
    - Analytics (Charts & Metrics)
    - Einstellungen (Master settings)
-   
+
    KEPT (per User Request):
    - 6 KPIs: Benutzer Gesamt, Aktive Benutzer, Unternehmen, Aufträge Gesamt, System-Status, Monatsumsatz
    - Master-Account-Verwaltung (add/remove master users)

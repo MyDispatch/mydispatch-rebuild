@@ -34,7 +34,7 @@ import { PrivacySection } from '@/components/settings/PrivacySection';
 import { SystemInfoSection } from '@/components/settings/SystemInfoSection';
 import { APIKeyManagement } from '@/components/admin/APIKeyManagement';
 
-const MASTER_ACCOUNT_EMAIL = "courbois1981@gmail.com";
+const MASTER_ACCOUNT_EMAIL = "info@my-dispatch.de"; // Legacy fallback: courbois1981@gmail.com
 
 function SettingsContent() {
   const { user, profile, loading } = useAuth();
@@ -68,7 +68,7 @@ function SettingsContent() {
       'system': 'settings-system',
       'integrationen': 'integrations-n8n',
     };
-    
+
     if (tab && tabMap[tab]) {
       setActiveTab(tabMap[tab]);
     }
@@ -89,7 +89,7 @@ function SettingsContent() {
         {/* Gruppe: Unternehmen */}
         <div className="space-y-2">
           <h3 className="text-sm font-semibold text-muted-foreground px-2">Unternehmen</h3>
-          
+
           <AccordionItem value="company-profile" className="border rounded-lg bg-card">
             <AccordionTrigger className="text-base font-medium hover:no-underline px-8 py-5">
               Firmenprofil
@@ -121,7 +121,7 @@ function SettingsContent() {
         {/* Gruppe: Abrechnung */}
         <div className="space-y-2 pt-4">
           <h3 className="text-sm font-semibold text-muted-foreground px-2">Abrechnung</h3>
-          
+
           <AccordionItem value="billing-subscription" className="border rounded-lg bg-card">
             <AccordionTrigger className="text-base font-medium hover:no-underline px-8 py-5">
               Tarif & Abonnement
@@ -144,7 +144,7 @@ function SettingsContent() {
         {/* Gruppe: Profil & Team */}
         <div className="space-y-2 pt-4">
           <h3 className="text-sm font-semibold text-muted-foreground px-2">Profil & Team</h3>
-          
+
           <AccordionItem value="user-profile" className="border rounded-lg bg-card">
             <AccordionTrigger className="text-base font-medium hover:no-underline px-8 py-5">
               Benutzerprofil
@@ -171,7 +171,7 @@ function SettingsContent() {
         {/* Gruppe: Benachrichtigungen */}
         <div className="space-y-2 pt-4">
           <h3 className="text-sm font-semibold text-muted-foreground px-2">Benachrichtigungen</h3>
-          
+
           <AccordionItem value="notifications" className="border rounded-lg bg-card">
             <AccordionTrigger className="text-base font-medium hover:no-underline px-8 py-5">
               Benachrichtigungen
@@ -185,7 +185,7 @@ function SettingsContent() {
         {/* Gruppe: Datenschutz */}
         <div className="space-y-2 pt-4">
           <h3 className="text-sm font-semibold text-muted-foreground px-2">Datenschutz</h3>
-          
+
           <AccordionItem value="privacy" className="border rounded-lg bg-card">
             <AccordionTrigger className="text-base font-medium hover:no-underline px-8 py-5">
               Datenschutz & Sicherheit
@@ -198,7 +198,7 @@ function SettingsContent() {
         {/* Gruppe: System & API */}
         <div className="space-y-2 pt-4">
           <h3 className="text-sm font-semibold text-muted-foreground px-2">System & API</h3>
-          
+
           <AccordionItem value="system-api-keys" className="border rounded-lg bg-card">
             <AccordionTrigger className="text-base font-medium hover:no-underline px-8 py-5">
               🔑 API-Schlüssel
@@ -212,7 +212,7 @@ function SettingsContent() {
         {/* Gruppe: Automatisierung */}
         <div className="space-y-2 pt-4">
           <h3 className="text-sm font-semibold text-muted-foreground px-2">Automatisierung</h3>
-          
+
           <AccordionItem value="system-info" className="border rounded-lg bg-card">
             <AccordionTrigger className="text-base font-medium hover:no-underline px-8 py-5">
               System-Informationen

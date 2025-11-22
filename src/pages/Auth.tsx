@@ -261,7 +261,7 @@ export default function Auth() {
           component: 'Auth'
         });
           // ==================================================================================
-          // KRITISCH: Master-Zugang für courbois1981@gmail.com
+          // KRITISCH: Master-Zugang für info@my-dispatch.de (Legacy: courbois1981@gmail.com)
           // ==================================================================================
           // Prüfe ob User Master-Role hat (via user_roles oder profile.role)
           const { data: userRoles } = await supabase

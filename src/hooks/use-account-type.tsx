@@ -3,7 +3,7 @@
    ==================================================================================
    Erkennt Account-Typen: Normal, Test, Master
    - Normal: Reguläre Kunden (Starter/Business)
-   - Test: courbois1981@gmail.com, demo@my-dispatch.de (Tariff-Switching)
+   - Test: info@my-dispatch.de (Master), courbois1981@gmail.com (Legacy), demo@my-dispatch.de (Tariff-Switching)
    - Master: master@my-dispatch.de (Master-Dashboard)
    ================================================================================== */
 
@@ -18,7 +18,8 @@ const SPECIAL_ACCOUNTS = {
     'demo@my-dispatch.de',
   ],
   master: [
-    'courbois1981@gmail.com',
+    'info@my-dispatch.de', // Master Account
+    'courbois1981@gmail.com', // Legacy fallback
     'master@my-dispatch.de',
   ],
 } as const;
@@ -41,7 +42,7 @@ export function useAccountType(): UseAccountTypeReturn {
   const accountType: AccountType = useMemo(() => {
     if (!user?.email) return 'normal';
     const emailLower = user.email.toLowerCase().trim();
-    
+
     // Check master first (highest priority)
     if (SPECIAL_ACCOUNTS.master.some(e => e.toLowerCase() === emailLower)) {
       return 'master';
@@ -56,12 +57,12 @@ export function useAccountType(): UseAccountTypeReturn {
   const permissions: AccountPermissions = useMemo(() => {
     const canBypassPayment = accountType === 'test' || accountType === 'master';
     const hasBusinessSubscription = isBusinessTier(profile?.company?.subscription_product_id);
-    
+
     return {
       canSwitchTariff: accountType === 'test' || accountType === 'master',
       canAccessMasterDashboard: accountType === 'master',
       canBypassPayment,
-      canAccessBusinessFeatures: 
+      canAccessBusinessFeatures:
         accountType !== 'normal' || hasBusinessSubscription,
     };
   }, [accountType, profile?.company?.subscription_product_id]);

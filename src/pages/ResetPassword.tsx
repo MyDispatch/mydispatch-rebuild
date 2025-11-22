@@ -2,7 +2,7 @@
    RESET-PASSWORD.TSX - V33.4 PASSWORD RESET COMPLETION PAGE
    ==================================================================================
    Completion page for password reset flow initiated via Auth.tsx
-   
+
    Flow:
    1. User enters email in Auth.tsx (Forgot Password)
    2. Supabase sends email with magic link → /auth/reset-password?token=...

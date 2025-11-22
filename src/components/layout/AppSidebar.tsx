@@ -25,7 +25,7 @@ import {
   Crown, Lock, Sparkles, ChevronRight, Zap
 } from 'lucide-react';
 
-const MASTER_ACCOUNT_EMAIL = "courbois1981@gmail.com";
+const MASTER_ACCOUNT_EMAIL = "info@my-dispatch.de"; // Legacy fallback: courbois1981@gmail.com
 
 interface MenuItem {
   title: string;

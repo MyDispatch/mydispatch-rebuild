@@ -2,7 +2,8 @@
    TARIFF-SWITCHER COMPONENT - V18.2
    ==================================================================================
    NUR FÜR TEST-ACCOUNTS:
-   - courbois1981@gmail.com
+   - info@my-dispatch.de (Master Account)
+   - courbois1981@gmail.com (Legacy Master)
    - demo@my-dispatch.de
    
    Ermöglicht Umstellung zwischen Starter & Business für Testing-Zwecke
