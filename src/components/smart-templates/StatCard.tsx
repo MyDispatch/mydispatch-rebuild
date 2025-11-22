@@ -7,7 +7,7 @@
    ✅ Performance: React.memo() für Dashboard-Optimierung
    ================================================================================== */
 
-import { memo, type ReactNode } from 'react';
+import { memo } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
