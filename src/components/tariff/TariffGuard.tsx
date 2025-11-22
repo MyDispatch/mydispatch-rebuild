@@ -3,14 +3,14 @@
  * TariffGuard Component - Feature Lock UI
  * =========================================
  * Shows upgrade prompt when feature limit is reached
- * 
+ *
  * Usage:
  * ```tsx
  * const { allowed } = useFeatureAccess('drivers');
- * 
+ *
  * if (!allowed) {
- *   return <TariffGuard 
- *     feature="Unbegrenzte Fahrer" 
+ *   return <TariffGuard
+ *     feature="Unbegrenzte Fahrer"
  *     currentLimit={3}
  *     upgradeUrl="/settings/tariff"
  *   />;
@@ -144,7 +144,7 @@ export function TariffGuardInline({
             Limit erreicht
           </h4>
           <p className="text-sm text-muted-foreground">
-            {feature} ist auf <strong>{currentLimit}</strong> begrenzt. 
+            {feature} ist auf <strong>{currentLimit}</strong> begrenzt.
             Upgrade auf Business für unbegrenzten Zugriff.
           </p>
         </div>
