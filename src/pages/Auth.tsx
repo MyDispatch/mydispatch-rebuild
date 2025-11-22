@@ -63,7 +63,7 @@ const TARIFFS = [
     description: STARTER_TARIFF.description,
     icon: Zap,
     features: STARTER_TARIFF.features.filter(f => f.included).slice(0, 5).map(f => f.name),
-    limitations: '3 Fahrer · 3 Fahrzeuge',
+    limitations: `${STARTER_TARIFF.limits.drivers} Fahrer · ${STARTER_TARIFF.limits.vehicles} Fahrzeuge`,
   },
   {
     id: 'business' as const,
