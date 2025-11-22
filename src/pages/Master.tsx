@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/use-auth';
 import { supabase } from '@/integrations/supabase/client';
 import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
-import { V28Card, V28CardHeader, V28CardTitle, V28CardDescription, V28CardContent } from '@/components/design-system/V28Card';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { V28Button } from '@/components/design-system/V28Button';
 import { V28Badge } from '@/components/design-system/V28Badge';
 import { Users, Building2, FileText, Activity, Euro, Shield, Eye, X, Check, Loader2 } from 'lucide-react';
@@ -153,11 +153,11 @@ export default function Master() {
   if (!kpis) {
     return (
       <StandardPageLayout title="Master-Dashboard" showBackButton={false}>
-        <V28Card>
-          <V28CardContent className="py-12 text-center">
+        <Card>
+          <CardContent className="py-12 text-center">
             <p className="text-muted-foreground">Fehler beim Laden der Master-Daten.</p>
-          </V28CardContent>
-        </V28Card>
+          </CardContent>
+        </Card>
       </StandardPageLayout>
     );
   }
@@ -168,8 +168,8 @@ export default function Master() {
         {/* KPIs - 6 Metrics in 2 rows */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Benutzer Gesamt */}
-          <V28Card>
-            <V28CardContent className="p-6">
+          <Card>
+            <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Benutzer Gesamt</p>
@@ -177,12 +177,12 @@ export default function Master() {
                 </div>
                 <Users className="h-8 w-8 text-foreground opacity-20" />
               </div>
-            </V28CardContent>
-          </V28Card>
+            </CardContent>
+          </Card>
 
           {/* Aktive Benutzer */}
-          <V28Card>
-            <V28CardContent className="p-6">
+          <Card>
+            <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Aktive Benutzer</p>
@@ -190,12 +190,12 @@ export default function Master() {
                 </div>
                 <Activity className="h-8 w-8 text-foreground opacity-20" />
               </div>
-            </V28CardContent>
-          </V28Card>
+            </CardContent>
+          </Card>
 
           {/* Unternehmen */}
-          <V28Card>
-            <V28CardContent className="p-6">
+          <Card>
+            <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Unternehmen</p>
@@ -203,12 +203,12 @@ export default function Master() {
                 </div>
                 <Building2 className="h-8 w-8 text-foreground opacity-20" />
               </div>
-            </V28CardContent>
-          </V28Card>
+            </CardContent>
+          </Card>
 
           {/* Aufträge Gesamt */}
-          <V28Card>
-            <V28CardContent className="p-6">
+          <Card>
+            <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Aufträge Gesamt</p>
@@ -216,12 +216,12 @@ export default function Master() {
                 </div>
                 <FileText className="h-8 w-8 text-foreground opacity-20" />
               </div>
-            </V28CardContent>
-          </V28Card>
+            </CardContent>
+          </Card>
 
           {/* System-Status */}
-          <V28Card>
-            <V28CardContent className="p-6">
+          <Card>
+            <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">System-Status</p>
@@ -231,12 +231,12 @@ export default function Master() {
                 </div>
                 <Activity className={`h-8 w-8 opacity-20 ${getStatusColor(kpis.systemStatus)}`} />
               </div>
-            </V28CardContent>
-          </V28Card>
+            </CardContent>
+          </Card>
 
           {/* Monatsumsatz */}
-          <V28Card>
-            <V28CardContent className="p-6">
+          <Card>
+            <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-muted-foreground">Monatsumsatz</p>
@@ -244,22 +244,22 @@ export default function Master() {
                 </div>
                 <Euro className="h-8 w-8 text-foreground opacity-20" />
               </div>
-            </V28CardContent>
-          </V28Card>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Master-Account-Verwaltung */}
-        <V28Card>
-          <V28CardHeader>
+        <Card>
+          <CardHeader>
             <div className="flex items-center justify-between">
               <div>
-                <V28CardTitle>Master-Account-Verwaltung</V28CardTitle>
-                <V28CardDescription>Verwalte Benutzer mit Master-Dashboard-Zugriff</V28CardDescription>
+                <CardTitle>Master-Account-Verwaltung</CardTitle>
+                <CardDescription>Verwalte Benutzer mit Master-Dashboard-Zugriff</CardDescription>
               </div>
               <Shield className="h-5 w-5 text-foreground" />
             </div>
-          </V28CardHeader>
-          <V28CardContent>
+          </CardHeader>
+          <CardContent>
             <div className="space-y-4">
               <div className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted/50">
                 <div className="flex items-center gap-3">
@@ -275,16 +275,16 @@ export default function Master() {
                 Weitere Master-Accounts können über die Benutzerverwaltung hinzugefügt werden.
               </p>
             </div>
-          </V28CardContent>
-        </V28Card>
+          </CardContent>
+        </Card>
 
         {/* Registrierte Unternehmen */}
-        <V28Card>
-          <V28CardHeader>
-            <V28CardTitle>Registrierte Unternehmen</V28CardTitle>
-            <V28CardDescription>Alle registrierten Unternehmen mit Tarif-Details</V28CardDescription>
-          </V28CardHeader>
-          <V28CardContent>
+        <Card>
+          <CardHeader>
+            <CardTitle>Registrierte Unternehmen</CardTitle>
+            <CardDescription>Alle registrierten Unternehmen mit Tarif-Details</CardDescription>
+          </CardHeader>
+          <CardContent>
             {companies.length === 0 ? (
               <p className="text-muted-foreground py-8 text-center">Keine Unternehmen registriert.</p>
             ) : (
@@ -324,8 +324,8 @@ export default function Master() {
                 ))}
               </div>
             )}
-          </V28CardContent>
-        </V28Card>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Company Detail Modal (Impressum + Tariff) */}
