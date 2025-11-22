@@ -4,10 +4,10 @@
 
 MyDispatch verfügt über **2 vollständige Demo-Accounts** für Präsentationen und Tests:
 
-| Account | Email | Passwort | Tarif | Limits |
-|---------|-------|----------|-------|--------|
-| **Starter Demo** | demo.starter@my-dispatch.de | `De.25-STR_#mO_!` | Starter | 3 Fahrer, 3 Fahrzeuge |
-| **Business Demo** | demo.business@my-dispatch.de | `De.BsS_25#mO_!` | Business | Unbegrenzt |
+| Account           | Email                        | Passwort          | Tarif    | Limits                |
+| ----------------- | ---------------------------- | ----------------- | -------- | --------------------- |
+| **Starter Demo**  | demo.starter@my-dispatch.de  | `De.25-STR_#mO_!` | Starter  | 3 Fahrer, 3 Fahrzeuge |
+| **Business Demo** | demo.business@my-dispatch.de | `De.BsS_25#mO_!`  | Business | Unbegrenzt            |
 
 ---
 
@@ -65,6 +65,7 @@ Dashboard sollte entsprechende Demo-Daten anzeigen
 **Firma:** Demo Taxi Starter GmbH (München)
 
 **Feature-Limits:**
+
 - ✅ Max. 3 Fahrer (aktuell: 2)
 - ✅ Max. 3 Fahrzeuge (aktuell: 2)
 - ✅ Max. 100 Buchungen/Monat
@@ -73,12 +74,14 @@ Dashboard sollte entsprechende Demo-Daten anzeigen
 - ❌ Kein Finanzmodul
 
 **Demo-Daten:**
+
 - 2 Fahrer: Max Mustermann, Anna Schmidt
 - 2 Fahrzeuge: Mercedes E-Klasse (M-AB 1234), VW Passat (M-CD 5678)
 - 8 Kunden: Mix aus Privat- und Geschäftskunden
 - 15 Buchungen: Verschiedene Status (pending, assigned, in_progress, completed)
 
 **Test-Szenarien:**
+
 1. ✅ Neuen Fahrer hinzufügen (Limit: 3)
 2. ⚠️ 4. Fahrer hinzufügen → TariffGuard zeigt Upgrade-Hinweis
 3. ✅ Neue Buchung erstellen
@@ -92,6 +95,7 @@ Dashboard sollte entsprechende Demo-Daten anzeigen
 **Firma:** Demo Limousinen Service AG (Berlin)
 
 **Feature-Limits:**
+
 - ✅ Unbegrenzte Fahrer (aktuell: 8)
 - ✅ Unbegrenzte Fahrzeuge (aktuell: 6)
 - ✅ Unbegrenzte Buchungen
@@ -100,12 +104,14 @@ Dashboard sollte entsprechende Demo-Daten anzeigen
 - ✅ Vollständiges Finanzmodul
 
 **Demo-Daten:**
+
 - 8 Fahrer: Thomas Müller, Sarah Weber, Michael Schneider, Lisa Fischer, Daniel Wagner, Julia Becker, Sebastian Hoffmann, Laura Koch
 - 6 Fahrzeuge: Mercedes S-Klasse, BMW 5er, Mercedes V-Klasse, Audi A6 Avant, Skoda Superb, Mercedes E-Klasse
 - 25 Kunden: Mit Kundenportal-Zugang
 - 40 Buchungen: Umfangreiche Buchungshistorie
 
 **Test-Szenarien:**
+
 1. ✅ Beliebig viele Fahrer/Fahrzeuge hinzufügen
 2. ✅ Erweiterte Statistiken nutzen
 3. ✅ Finanzmodul testen
@@ -195,6 +201,7 @@ supabase db reset  # Lokal
 ### Problem: Login schlägt fehl
 
 **Lösung:**
+
 1. Supabase Dashboard → Authentication → Users prüfen
 2. Email-Bestätigung: Muss auf ✅ stehen
 3. User Metadata: `company_id` muss gesetzt sein
@@ -203,6 +210,7 @@ supabase db reset  # Lokal
 ### Problem: Dashboard zeigt keine Daten
 
 **Lösung:**
+
 1. SQL Editor: `SELECT * FROM companies WHERE id = '11111111-1111-1111-1111-111111111111';`
 2. Wenn leer: Migration erneut ausführen
 3. Browser DevTools Console: RLS-Fehler prüfen
@@ -211,6 +219,7 @@ supabase db reset  # Lokal
 ### Problem: TariffGuard zeigt nicht
 
 **Lösung:**
+
 1. Prüfen: `useFeatureAccess` Hook funktioniert
 2. `feature_limits` JSONB in `companies` Tabelle korrekt?
 3. `useAuth().company` gibt Company-Objekt zurück?
@@ -219,6 +228,7 @@ supabase db reset  # Lokal
 ### Problem: Auth-User-Erstellung fehlgeschlagen
 
 **Lösung:**
+
 1. Edge Function Logs: `supabase functions logs create-demo-users`
 2. Supabase Dashboard → Authentication → Configuration → Email Auth aktiviert?
 3. Service Role Key korrekt in Edge Function Secrets?

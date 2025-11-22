@@ -691,6 +691,19 @@ export const routes: RouteConfig[] = [
     },
   },
   {
+    path: '/ki-assistent',
+    component: lazy(() => import('@/pages/KIAssistent')),
+    protected: true,
+    layout: 'main',
+    background: 'orbs-light',
+    meta: {
+      title: 'KI-Assistent',
+      icon: Zap,
+      breadcrumb: 'KI-Assistent',
+      description: 'Intelligenter KI-gestützter Support und Automatisierung',
+    },
+  },
+  {
     path: '/unternehmen',
     component: lazy(() => import('@/pages/Unternehmen')),
     protected: true,
