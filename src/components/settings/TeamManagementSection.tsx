@@ -75,7 +75,7 @@ export function TeamManagementSection() {
   const fetchTeamMembers = async () => {
     try {
       setIsLoading(true);
-      
+
       // Fetch all profiles for this company
       const { data, error } = await supabase
         .from('profiles')
@@ -132,7 +132,7 @@ export function TeamManagementSection() {
       setIsInviteDialogOpen(false);
       setInviteEmail('');
       setInviteRole('member');
-      
+
       // Refresh team members
       await fetchTeamMembers();
     } catch (error) {
