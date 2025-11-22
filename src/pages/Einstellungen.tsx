@@ -30,6 +30,7 @@ import { MinBookingLeadTimeSection } from '@/components/settings/MinBookingLeadT
 import { SubscriptionSection } from '@/components/settings/SubscriptionSection';
 import { PaymentSettingsSection } from '@/components/settings/PaymentSettingsSection';
 import { ProfileSection } from '@/components/settings/ProfileSection';
+import { TeamManagementSection } from '@/components/settings/TeamManagementSection';
 import { NotificationsSection } from '@/components/settings/NotificationsSection';
 import { PrivacySection } from '@/components/settings/PrivacySection';
 import { SystemInfoSection } from '@/components/settings/SystemInfoSection';
@@ -169,11 +170,7 @@ function SettingsContent() {
               Team-Verwaltung
             </AccordionTrigger>
             <AccordionContent className="px-8 pb-8">
-              <div className="bg-muted p-8 rounded-lg text-center">
-                <p className="text-sm text-muted-foreground">
-                  Team-Verwaltung wird in Kürze verfügbar sein
-                </p>
-              </div>
+              <TeamManagementSection />
             </AccordionContent>
           </AccordionItem>
         </div>
