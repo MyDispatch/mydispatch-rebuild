@@ -85,11 +85,20 @@ export function TeamManagementSection() {
 
       if (error) throw error;
 
-      const members: TeamMember[] = (data || []).map((profile: any) => ({
+      interface ProfileData {
+        id: string;
+        email: string | null;
+        full_name: string | null;
+        role: string | null;
+        created_at: string;
+        last_sign_in_at: string | null;
+      }
+
+      const members: TeamMember[] = (data || []).map((profile: ProfileData) => ({
         id: profile.id,
         email: profile.email || 'N/A',
         full_name: profile.full_name,
-        role: profile.role || 'member',
+        role: (profile.role as 'admin' | 'member' | 'viewer') || 'member',
         status: profile.last_sign_in_at ? 'active' : 'invited',
         created_at: profile.created_at,
         last_sign_in_at: profile.last_sign_in_at,
@@ -117,7 +126,7 @@ export function TeamManagementSection() {
       setIsInviting(true);
 
       // Call Edge Function to send invitation
-      const { data, error } = await supabase.functions.invoke('send-team-invitation', {
+      const { error } = await supabase.functions.invoke('send-team-invitation', {
         body: {
           email: inviteEmail,
           role: inviteRole,
@@ -240,7 +249,7 @@ export function TeamManagementSection() {
                 </div>
                 <div>
                   <Label htmlFor="invite-role">Rolle</Label>
-                  <Select value={inviteRole} onValueChange={(value: any) => setInviteRole(value)}>
+                  <Select value={inviteRole} onValueChange={(value) => setInviteRole(value as 'admin' | 'member' | 'viewer')}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>

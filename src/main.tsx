@@ -14,6 +14,7 @@ import { initPerformanceMonitoring } from "./lib/performance-monitoring";
 import { initGlobalErrorHandlers } from "./lib/error-tracking";
 import ProductionErrorMonitor from "./utils/errorMonitoring";
 import { onCLS, onINP, onLCP } from 'web-vitals';
+import { logger } from "./lib/logger";
 
 try {
   initPerformanceMonitoring();
@@ -52,7 +53,7 @@ if (import.meta.env.PROD) {
 
       if (hasReloaded) {
         // Already reloaded once - show error instead of looping
-        console.error('❌ Chunk load failed after reload. Please refresh manually.', event);
+        logger.error('Chunk load failed after reload. Please refresh manually.', { event });
 
         // Show user-friendly error (NO auto-reload)
         const errorDiv = document.createElement('div');
@@ -97,7 +98,7 @@ if (import.meta.env.PROD) {
       }
 
       // First time - mark as reloaded and reload
-      console.warn('⚠️ Chunk load failed - reloading once...', event);
+      logger.warn('Chunk load failed - reloading once...', { event });
       sessionStorage.setItem(RELOAD_KEY, 'true');
 
       // Clear caches and reload
@@ -125,9 +126,9 @@ createRoot(rootElement).render(<App />);
 
 // Phase 5.1: Web Vitals Tracking
 if (import.meta.env.PROD) {
-  onCLS((metric) => console.log('CLS:', metric.value));
-  onINP((metric) => console.log('INP:', metric.value));
-  onLCP((metric) => console.log('LCP:', metric.value));
+  onCLS((metric) => logger.debug('Web Vitals CLS', { value: metric.value }));
+  onINP((metric) => logger.debug('Web Vitals INP', { value: metric.value }));
+  onLCP((metric) => logger.debug('Web Vitals LCP', { value: metric.value }));
 }
 
 // PWA Service Worker Registration - Production Only
@@ -139,7 +140,7 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
         scope: '/',
       });
 
-      console.log('[PWA] Service Worker registered:', registration.scope);
+      logger.info('PWA Service Worker registered', { scope: registration.scope });
 
       // Check for updates on page load
       registration.update();
@@ -160,19 +161,19 @@ if ('serviceWorker' in navigator && import.meta.env.PROD) {
 
       // Handle controller change (when new SW takes over)
       navigator.serviceWorker.addEventListener('controllerchange', () => {
-        console.log('[PWA] New service worker activated - reloading...');
+        logger.info('New service worker activated - reloading...');
         window.location.reload();
       });
 
     } catch (error) {
-      console.error('[PWA] Service Worker registration failed:', error);
+      logger.error('Service Worker registration failed', { error });
     }
   });
 }
 
 // Show update prompt - Non-intrusive notification
 function showUpdatePrompt(registration: ServiceWorkerRegistration) {
-  console.log('[PWA] Update available - showing prompt');
+  logger.debug('PWA update available - showing prompt');
 
   // Create update notification element
   const updateBanner = document.createElement('div');

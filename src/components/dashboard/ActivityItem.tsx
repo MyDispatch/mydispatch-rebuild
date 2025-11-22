@@ -6,8 +6,10 @@
    - Icon-Support
    - Status-Variants (success, info, warning, error)
    - Timestamp-Formatting
+   - Performance: React.memo() für häufige Re-Renders
    ================================================================================== */
 
+import { memo } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { de } from 'date-fns/locale';
@@ -67,3 +69,6 @@ export function ActivityItem({
     </div>
   );
 }
+
+// Export memoized version for performance
+export default memo(ActivityItem);

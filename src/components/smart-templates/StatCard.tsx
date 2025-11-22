@@ -4,9 +4,10 @@
    ✅ Kompakte Karte für KPIs und Statistiken
    ✅ V28.1 Professional Minimalism
    ✅ Pure Tailwind mit Slate-Palette
+   ✅ Performance: React.memo() für Dashboard-Optimierung
    ================================================================================== */
 
-import { ReactNode } from 'react';
+import { memo, type ReactNode } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -158,3 +159,6 @@ export function StatCard({
     </Card>
   );
 }
+
+// Export memoized version for dashboard performance
+export default memo(StatCard);
