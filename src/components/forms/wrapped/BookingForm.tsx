@@ -97,9 +97,12 @@ export function BookingForm({
     booking.vehicle,
     booking.costCenter,
     booking.status,
-    // Payment
+    // Payment (Updated for Migration 20251122000009: MwSt-Felder)
     booking.price,
-    booking.vatRate,
+    booking.vatRate, // Now dropdown: 0%, 7%, 19%
+    booking.priceIncludesVat, // New: Inkl./Exkl. toggle
+    booking.priceNet, // Auto-calculated (readonly)
+    booking.vatAmount, // Auto-calculated (readonly)
     booking.paymentStatus,
     booking.paymentMethod,
   ];

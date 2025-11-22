@@ -387,18 +387,58 @@ export const BOOKING_FIELDS = {
     ],
   },
 
-  // --- ZAHLUNG (6 Felder: net_price, vat_rate, gross_price, payment_status, payment_method, vat_included) ---
+  // --- ZAHLUNG (Updated for Migration 20251122000009: MwSt-Felder) ---
+  price: {
+    name: 'price',
+    label: 'Preis (€)',
+    type: 'number' as const,
+    required: true,
+    placeholder: '0.00',
+    step: 0.01,
+  },
+  vatRate: {
+    name: 'vat_rate',
+    label: 'MwSt.-Satz',
+    type: 'select' as const,
+    required: true,
+    options: [
+      { value: '19', label: '19% (Regelsteuersatz)' },
+      { value: '7', label: '7% (Ermäßigter Satz)' },
+      { value: '0', label: '0% (Steuerfrei)' },
+    ],
+  },
+  priceIncludesVat: {
+    name: 'price_includes_vat',
+    label: 'MwSt.',
+    type: 'select' as const,
+    required: true,
+    options: [
+      { value: 'true', label: 'Inkl. MwSt.' },
+      { value: 'false', label: 'Exkl. MwSt.' },
+    ],
+  },
+  priceNet: {
+    name: 'price_net',
+    label: 'Netto-Preis (€)',
+    type: 'number' as const,
+    placeholder: '0.00',
+    disabled: true, // Auto-calculated by trigger
+    step: 0.01,
+  },
+  vatAmount: {
+    name: 'vat_amount',
+    label: 'MwSt.-Betrag (€)',
+    type: 'number' as const,
+    placeholder: '0.00',
+    disabled: true, // Auto-calculated by trigger
+    step: 0.01,
+  },
+  // Legacy fields (keep for backwards compatibility)
   netPrice: {
     name: 'net_price',
     label: 'Netto-Preis (€)',
     type: 'number' as const,
     placeholder: '0.00',
-  },
-  vatRate: {
-    name: 'vat_rate',
-    label: 'MwSt.-Satz (%)',
-    type: 'number' as const,
-    placeholder: '19',
   },
   grossPrice: {
     name: 'gross_price',
