@@ -67,8 +67,7 @@ const useMenuStructure = (): MenuSection[] => {
       label: 'GESCHÄFT',
       items: [
         { title: nav.partner, url: '/partner', icon: Handshake, requiredTariff: 'Business' },
-        { title: nav.statistiken, url: '/statistiken', icon: TrendingUp, requiredTariff: 'Business' },
-        { title: nav.landingpage, url: '/landingpage-konfigurator', icon: Building2, requiredTariff: 'Business' }
+        { title: nav.statistiken, url: '/statistiken', icon: TrendingUp, requiredTariff: 'Business' }
       ]
     },
     {

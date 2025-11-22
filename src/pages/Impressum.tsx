@@ -93,13 +93,6 @@ const Impressum = () => {
                 <p className="font-sans text-sm text-slate-600"><strong>24/7 Support:</strong> E-Mail-Support rund um die Uhr</p>
                 <p className="font-sans text-sm text-slate-600"><strong>Reaktionszeit:</strong> &lt; 24h</p>
               </div>
-
-              <div className="bg-slate-100 p-4 rounded-lg">
-                <p className="font-sans text-sm font-semibold text-slate-900 mb-2">Hinweis zur Geschäftstätigkeit:</p>
-                <p className="font-sans text-sm text-slate-600">Kleinunternehmer im Sinne von § 19 Abs. 1 UStG (Umsatzsteuergesetz)</p>
-                <p className="font-sans text-sm text-slate-600">Es wird keine Umsatzsteuer berechnet.</p>
-                <p className="font-sans text-sm text-slate-600">USt-IdNr.: Wird nach Erteilung angezeigt</p>
-              </div>
             </div>
           </V28MarketingCard>
 

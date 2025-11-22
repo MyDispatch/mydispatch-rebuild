@@ -56,7 +56,7 @@ export function Footer({ sidebarExpanded }: FooterProps) {
         <div className="hidden sm:flex items-center justify-between w-full h-full">
           <div className="flex items-center gap-4 h-full">
             <p className="text-[11px] text-slate-800 font-medium">
-              © 2025 my-dispatch.de by RideHub Solutions
+              © 2025 MyDispatch by RideHub Solutions
             </p>
             <span className="text-[11px] text-slate-400">•</span>
             <span className="text-[11px] text-slate-700 font-medium">Made in Germany</span>

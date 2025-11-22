@@ -58,13 +58,6 @@ export default function MobileMenu() {
           icon: TrendingUp,
           badge: !isBusiness ? '🔒 Business+' : undefined,
           requiresBusiness: true
-        },
-        { 
-          title: 'Landingpage', 
-          url: '/landingpage-konfigurator', 
-          icon: Building2,
-          badge: !isBusiness ? '🔒 Business+' : undefined,
-          requiresBusiness: true
         }
       ]
     },

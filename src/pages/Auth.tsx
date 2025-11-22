@@ -92,6 +92,10 @@ const entrepreneurSignupSchema = z.object({
       message: getPasswordErrorMessage(val)
     })),
   password_confirm: z.string(),
+  salutation: z.enum(['Herr', 'Frau', 'Divers'], {
+    required_error: 'Anrede erforderlich',
+  }),
+  title: z.string().optional(),
   firstName: z.string().min(2, 'Vorname erforderlich'),
   lastName: z.string().min(2, 'Nachname erforderlich'),
   companyName: z.string().min(2, 'Firmenname erforderlich'),
