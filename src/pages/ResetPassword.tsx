@@ -23,8 +23,7 @@ import { Label } from '@/components/ui/label';
 import { toast } from '@/hooks/use-toast';
 import { AuthPageLayout } from '@/components/layout/AuthPageLayout';
 import { SEOHead } from '@/components/shared/SEOHead';
-import { LoadingSpinner } from '@/components/ui/loading-spinner';
-import { CheckCircle, AlertCircle, Eye, EyeOff } from 'lucide-react';
+import { CheckCircle, AlertCircle, Eye, EyeOff, Loader2 } from 'lucide-react';
 
 // Password validation schema (same as Auth.tsx)
 const resetPasswordSchema = z
@@ -135,7 +134,7 @@ export default function ResetPassword() {
         />
         <div className="min-h-[calc(100vh-160px)] flex items-center justify-center px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center gap-4">
-            <LoadingSpinner />
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
             <p className="text-muted-foreground">Link wird überprüft...</p>
           </div>
         </div>
@@ -256,7 +255,7 @@ export default function ResetPassword() {
               <V28Button type="submit" className="w-full" disabled={loading}>
                 {loading ? (
                   <>
-                    <LoadingSpinner className="mr-2" />
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
                     Passwort wird aktualisiert...
                   </>
                 ) : (
