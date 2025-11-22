@@ -26,6 +26,7 @@ import { SettingsProvider, useSettings } from '@/contexts/SettingsContext';
 import { CompanyProfileSection } from '@/components/settings/CompanyProfileSection';
 import { LocationSettingsTab } from '@/components/settings/LocationSettingsTab';
 import { BrandingSection } from '@/components/settings/BrandingSection';
+import { MinBookingLeadTimeSection } from '@/components/settings/MinBookingLeadTimeSection';
 import { SubscriptionSection } from '@/components/settings/SubscriptionSection';
 import { PaymentSettingsSection } from '@/components/settings/PaymentSettingsSection';
 import { ProfileSection } from '@/components/settings/ProfileSection';
@@ -114,6 +115,15 @@ function SettingsContent() {
             </AccordionTrigger>
             <AccordionContent className="px-8 pb-8">
               <BrandingSection />
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="company-lead-time" className="border rounded-lg bg-card">
+            <AccordionTrigger className="text-base font-medium hover:no-underline px-8 py-5">
+              Mindestvorlauf für Buchungen
+            </AccordionTrigger>
+            <AccordionContent className="px-8 pb-8">
+              <MinBookingLeadTimeSection />
             </AccordionContent>
           </AccordionItem>
         </div>

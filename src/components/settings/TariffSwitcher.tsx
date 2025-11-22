@@ -5,7 +5,7 @@
    - info@my-dispatch.de (Master Account)
    - courbois1981@gmail.com (Legacy Master)
    - demo@my-dispatch.de
-   
+
    Ermöglicht Umstellung zwischen Starter & Business für Testing-Zwecke
    ================================================================================== */
 
@@ -41,13 +41,13 @@ export function TariffSwitcher() {
 
     try {
       setSwitching(true);
-      
+
       // Monthly Product ID für gewählten Tarif
       const targetProductId = PRODUCT_IDS[selectedTariff][0];
-      
+
       const { error } = await supabase
         .from('companies')
-        .update({ 
+        .update({
           subscription_product_id: targetProductId,
           subscription_status: 'active' // Sicherstellen dass aktiv bleibt
         })
@@ -56,12 +56,12 @@ export function TariffSwitcher() {
       if (error) throw error;
 
       handleSuccess(`Tarif erfolgreich auf ${selectedTariff.toUpperCase()} umgestellt`);
-      
+
       // Seite neu laden um neue Berechtigungen zu laden
       setTimeout(() => {
         window.location.reload();
       }, 1000);
-      
+
     } catch (error) {
       handleError(error, 'Tarif-Umstellung fehlgeschlagen');
     } finally {
@@ -88,7 +88,7 @@ export function TariffSwitcher() {
           <p className="text-sm font-medium">
             Aktueller Tarif: <span className="text-foreground font-semibold">{currentTier}</span>
           </p>
-          
+
           <Select value={selectedTariff} onValueChange={(value: 'starter' | 'business') => setSelectedTariff(value)}>
             <SelectTrigger>
               <SelectValue placeholder="Tarif wählen" />
@@ -99,7 +99,7 @@ export function TariffSwitcher() {
             </SelectContent>
           </Select>
 
-          <V28Button 
+          <V28Button
             onClick={handleSwitch}
             disabled={switching}
             className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
