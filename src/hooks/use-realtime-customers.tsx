@@ -19,8 +19,6 @@ export const useRealtimeCustomers = () => {
   useEffect(() => {
     if (!profile?.company_id) return;
 
-    console.log('[Realtime] Subscribing to customers-realtime-updates');
-
     const channel = supabase
       .channel('customers-realtime-updates')
       .on(
@@ -31,19 +29,15 @@ export const useRealtimeCustomers = () => {
           table: 'customers',
           filter: `company_id=eq.${profile.company_id}`,
         },
-        (payload) => {
-          console.log('[Realtime] Customer change:', payload);
-          queryClient.invalidateQueries({ 
-            queryKey: queryKeys.customers(profile.company_id) 
+        () => {
+          queryClient.invalidateQueries({
+            queryKey: queryKeys.customers(profile.company_id)
           });
         }
       )
-      .subscribe((status) => {
-        console.log('[Realtime] Customers subscription status:', status);
-      });
+      .subscribe();
 
     return () => {
-      console.log('[Realtime] Unsubscribing from customers-realtime-updates');
       supabase.removeChannel(channel);
     };
   }, [queryClient, profile?.company_id]);

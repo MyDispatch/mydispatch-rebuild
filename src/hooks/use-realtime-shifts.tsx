@@ -19,8 +19,6 @@ export const useRealtimeShifts = () => {
   useEffect(() => {
     if (!profile?.company_id) return;
 
-    console.log('[Realtime] Subscribing to shifts-realtime-updates');
-
     const channel = supabase
       .channel('shifts-realtime-updates')
       .on(
@@ -31,19 +29,15 @@ export const useRealtimeShifts = () => {
           table: 'shifts',
           filter: `company_id=eq.${profile.company_id}`,
         },
-        (payload) => {
-          console.log('[Realtime] Shift change:', payload);
-          queryClient.invalidateQueries({ 
-            queryKey: queryKeys.shifts(profile.company_id) 
+        () => {
+          queryClient.invalidateQueries({
+            queryKey: queryKeys.shifts(profile.company_id)
           });
         }
       )
-      .subscribe((status) => {
-        console.log('[Realtime] Shifts subscription status:', status);
-      });
+      .subscribe();
 
     return () => {
-      console.log('[Realtime] Unsubscribing from shifts-realtime-updates');
       supabase.removeChannel(channel);
     };
   }, [queryClient, profile?.company_id]);
