@@ -18,14 +18,34 @@ export function isFutureDate(date: Date): boolean {
 }
 
 /**
- * Validiert ein Buchungsdatum
- * @throws Error wenn Datum in Vergangenheit liegt
+ * Validiert ein Buchungsdatum mit Mindestvorlauf
+ * @throws Error wenn Datum in Vergangenheit liegt oder Mindestvorlauf unterschreitet
  */
-export function validateFutureBooking(pickupDate: Date): void {
+export function validateFutureBooking(pickupDate: Date, minimumLeadTimeMinutes?: number): void {
   if (!isFutureDate(pickupDate)) {
     throw new Error(
       'Rückwirkende Buchungen sind nicht erlaubt. Bitte wählen Sie einen Zeitpunkt in der Zukunft.'
     );
+  }
+
+  // Prüfe Mindestvorlauf (falls gesetzt)
+  if (minimumLeadTimeMinutes && minimumLeadTimeMinutes > 0) {
+    const now = new Date();
+    const minPickupTime = addMinutes(now, minimumLeadTimeMinutes);
+
+    if (isBefore(pickupDate, minPickupTime)) {
+      const hours = Math.floor(minimumLeadTimeMinutes / 60);
+      const minutes = minimumLeadTimeMinutes % 60;
+      const leadTimeLabel = hours > 0
+        ? minutes > 0
+          ? `${hours},${minutes} Stunden`
+          : `${hours} ${hours === 1 ? 'Stunde' : 'Stunden'}`
+        : `${minutes} Minuten`;
+
+      throw new Error(
+        `Mindestvorlauf unterschritten. Aufträge müssen mindestens ${leadTimeLabel} im Voraus gebucht werden. Früheste mögliche Abholzeit: ${minPickupTime.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} Uhr`
+      );
+    }
   }
 }
 
@@ -58,10 +78,10 @@ export function canEditShift(shiftDate: Date, isDriver: boolean): boolean {
   const today = startOfDay(new Date());
   const shift = startOfDay(shiftDate);
   const daysAgo = Math.floor((today.getTime() - shift.getTime()) / (1000 * 60 * 60 * 24));
-  
+
   if (isDriver) {
     return daysAgo === 0; // Nur heute
   }
-  
+
   return daysAgo <= 10; // Unternehmer: 10 Tage
 }

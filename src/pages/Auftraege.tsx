@@ -84,15 +84,7 @@ import { BookingForm } from "@/components/forms/wrapped/BookingForm";
 import { useStatistics } from "@/hooks/use-statistics";
 import { useMainLayout } from "@/hooks/use-main-layout";
 import { useDevValidation } from "@/hooks/validation";
-import {
-  AreaChart,
-  Area,
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+// Recharts imports removed - charts currently not in use
 import { UniversalExportBar } from "@/components/dashboard/UniversalExportBar";
 import { useBookingData } from "@/hooks/use-booking-data";
 import { StatCard } from "@/components/smart-templates/StatCard";
@@ -192,7 +184,6 @@ export default function Auftraege() {
     isLoading: bookingsLoading,
     createBooking,
     updateBooking: updateBookingMutation,
-    archiveBooking,
   } = useBookings();
 
   // V18.3: Bulk-Selection Integration (MUSS VOR isMobile-Check sein!)
@@ -200,10 +191,8 @@ export default function Auftraege() {
 
   // ✅ JETZT ERST Device-Type Check
   const { isMobile } = useDeviceType();
-  const { sidebarExpanded } = useMainLayout();
 
-  // V28.2.19: Statistics für Quick-Actions
-  const { stats } = useStatistics();
+  // V28.2.19: Statistics für Quick-Actions (currently not in use)
 
   const currentTab = searchParams.get("tab") || "auftraege";
 
@@ -230,7 +219,6 @@ export default function Auftraege() {
     vehicles,
     costCenters,
     partners,
-    refreshAll: refreshBookingData,
     fetchCustomers,
     fetchDrivers,
     fetchVehicles,
@@ -240,7 +228,6 @@ export default function Auftraege() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingBooking, setEditingBooking] = useState<Booking | null>(null);
   const [filterPartner, setFilterPartner] = useState<string>("all");
-  const [showInlineCustomerForm, setShowInlineCustomerForm] = useState(false);
   const [isPartnerDialogOpen, setIsPartnerDialogOpen] = useState(false);
   const [selectedBookingForPartner, setSelectedBookingForPartner] = useState<Booking | null>(null);
   const [selectedPartnerId, setSelectedPartnerId] = useState<string>("");
@@ -413,10 +400,14 @@ export default function Auftraege() {
   const handleBookingSubmit = async (data: BookingFormData) => {
     if (!profile?.company_id) return;
 
-    // Validiere Future Booking
+    // Validiere Future Booking mit Mindestvorlauf
     try {
       const pickupDateTime = `${data.pickup_date}T${data.pickup_time}`;
-      validateFutureBooking(new Date(pickupDateTime));
+
+      // Hole Mindestvorlauf aus Company Settings
+      const minimumLeadTime = (company?.settings as { minimum_lead_time_minutes?: number })?.minimum_lead_time_minutes || 30;
+
+      validateFutureBooking(new Date(pickupDateTime), minimumLeadTime);
     } catch (error) {
       const message =
         error instanceof Error ? error.message : "Rückwirkende Buchungen sind nicht erlaubt";

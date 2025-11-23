@@ -10,7 +10,7 @@
    ❌ KEIN QuickActionsOverlay
    ================================================================================== */
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { useAuth } from "@/hooks/use-auth";
 import { useDrivers } from "@/hooks/use-drivers";
 import { useVehicles } from "@/hooks/use-vehicles";

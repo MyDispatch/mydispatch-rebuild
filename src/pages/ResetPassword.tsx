@@ -65,8 +65,7 @@ export default function ResetPassword() {
   useEffect(() => {
     const validateToken = async () => {
       try {
-        const _token = searchParams.get('token');
-        const _type = searchParams.get('type');
+        // Token and type are handled by Supabase automatically via URL hash
 
         // Supabase automatically handles token validation via URL params
         // If user lands here from email link, session is auto-established
@@ -114,9 +113,10 @@ export default function ResetPassword() {
       }, 2000);
     } catch (error: unknown) {
       console.error('Password reset error:', error);
+      const errorData = error as unknown as { message?: string };
       toast({
         title: 'Fehler',
-        description: error?.message || 'Passwort konnte nicht aktualisiert werden.',
+        description: errorData?.message || 'Passwort konnte nicht aktualisiert werden.',
         variant: 'destructive',
       });
     } finally {

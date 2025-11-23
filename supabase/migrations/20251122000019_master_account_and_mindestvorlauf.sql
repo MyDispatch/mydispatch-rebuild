@@ -2,7 +2,7 @@
 -- MASTER-ACCOUNT CREATION + MINDESTVORLAUF FEATURE
 -- ==================================================================================
 -- Erstellt: 2025-11-22
--- Zweck: 
+-- Zweck:
 --   1. Master-Account (info@my-dispatch.de) erstellen
 --   2. Mindestvorlauf (booking_advance_time) Feld zu companies hinzufügen
 -- ==================================================================================
@@ -27,7 +27,7 @@ CREATE INDEX IF NOT EXISTS idx_companies_booking_advance_time ON companies(booki
 
 -- Hinweis: Master-Account KANN NICHT via Migration erstellt werden!
 -- Grund: auth.users Tabelle ist Supabase-intern und nicht via RLS zugänglich
--- 
+--
 -- LÖSUNG: Manuelle Erstellung via Supabase Dashboard:
 --   1. Gehe zu Authentication → Users
 --   2. Klicke "Add User"
@@ -43,7 +43,7 @@ DECLARE
 BEGIN
   -- Check if master company already exists
   SELECT id INTO v_company_id FROM companies WHERE company_slug = 'master';
-  
+
   IF v_company_id IS NULL THEN
     INSERT INTO companies (
       name,
@@ -60,7 +60,7 @@ BEGIN
       'prod_MASTER', -- Special master product
       30 -- Default 30 Min Mindestvorlauf
     ) RETURNING id INTO v_company_id;
-    
+
     RAISE NOTICE 'Master company created: %', v_company_id;
   ELSE
     RAISE NOTICE 'Master company already exists: %', v_company_id;
@@ -76,22 +76,22 @@ DECLARE
   v_old_master_user_id UUID;
 BEGIN
   -- Find old master user
-  SELECT id INTO v_old_master_user_id 
-  FROM auth.users 
+  SELECT id INTO v_old_master_user_id
+  FROM auth.users
   WHERE email = 'info@simsek.cc';
-  
+
   IF v_old_master_user_id IS NOT NULL THEN
     -- Remove from user_roles
     DELETE FROM user_roles WHERE user_id = v_old_master_user_id AND role = 'master';
-    
+
     -- Remove from profiles
     DELETE FROM profiles WHERE user_id = v_old_master_user_id;
-    
+
     -- Archive company (don't delete - keep data)
-    UPDATE companies 
+    UPDATE companies
     SET archived = true, archived_at = NOW()
     WHERE id = (SELECT company_id FROM profiles WHERE user_id = v_old_master_user_id LIMIT 1);
-    
+
     RAISE NOTICE 'Old master account removed: %', v_old_master_user_id;
   END IF;
 END $$;
@@ -109,7 +109,7 @@ DECLARE
 BEGIN
   -- Demo Starter Company
   SELECT id INTO v_demo_starter_company_id FROM companies WHERE company_slug = 'demo-starter';
-  
+
   IF v_demo_starter_company_id IS NULL THEN
     INSERT INTO companies (
       name,
@@ -136,13 +136,13 @@ BEGIN
       'prod_TEegHmtpPZOZcG', -- Starter Product ID
       60 -- 1 Std Mindestvorlauf
     ) RETURNING id INTO v_demo_starter_company_id;
-    
+
     RAISE NOTICE 'Demo Starter Company created: %', v_demo_starter_company_id;
   END IF;
-  
+
   -- Demo Business Company
   SELECT id INTO v_demo_business_company_id FROM companies WHERE company_slug = 'demo-business';
-  
+
   IF v_demo_business_company_id IS NULL THEN
     INSERT INTO companies (
       name,
@@ -169,7 +169,7 @@ BEGIN
       'prod_TF5cnWFZYEQUsG', -- Business Product ID
       30 -- 30 Min Mindestvorlauf
     ) RETURNING id INTO v_demo_business_company_id;
-    
+
     RAISE NOTICE 'Demo Business Company created: %', v_demo_business_company_id;
   END IF;
 END $$;
@@ -177,12 +177,12 @@ END $$;
 -- Hinweis: Demo-Account Auth-User müssen auch manuell erstellt werden:
 -- 1. demo.starter@my-dispatch.de (Password: De.25-STR_#mO_!)
 -- 2. demo.business@my-dispatch.de (Password: De.BsS_25#mO_!)
--- 
+--
 -- Dann Profile zuweisen:
 /*
 -- ERST AUSFÜHREN NACHDEM AUTH-USER ERSTELLT WURDEN!
 INSERT INTO profiles (user_id, company_id, first_name, last_name, role)
-VALUES 
+VALUES
   ('<DEMO_STARTER_USER_ID>', '<DEMO_STARTER_COMPANY_ID>', 'Demo', 'Starter', 'entrepreneur'),
   ('<DEMO_BUSINESS_USER_ID>', '<DEMO_BUSINESS_COMPANY_ID>', 'Demo', 'Business', 'entrepreneur');
 */

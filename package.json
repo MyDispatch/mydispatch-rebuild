@@ -51,8 +51,7 @@
     "autonomous:emergency-stop": "tsx scripts/autonomous-agent.ts emergency-stop",
     "autonomous:health": "tsx scripts/autonomous-health-check.ts",
     "autonomous:test": "tsx scripts/test-autonomous-system.ts",
-    "test:self-healing": "tsx scripts/test-self-healing.ts",
-    "prepare": "husky"
+    "test:self-healing": "tsx scripts/test-self-healing.ts"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.11.0",

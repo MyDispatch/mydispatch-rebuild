@@ -25,7 +25,7 @@ import {
   Crown, Lock, Sparkles, Zap
 } from 'lucide-react';
 
-const MASTER_ACCOUNT_EMAIL = "info@my-dispatch.de"; // Legacy fallback: courbois1981@gmail.com
+// Master Account Email: info@my-dispatch.de (Legacy: courbois1981@gmail.com)
 
 interface MenuItem {
   title: string;
@@ -87,9 +87,9 @@ interface AppSidebarProps {
 }
 
 export function AppSidebar({ expanded, setExpanded }: AppSidebarProps) {
-  const { company, user } = useAuth();
+  const { company } = useAuth();
   const { accountType } = useAccountType();
-  const _isMasterAccount = user?.email === MASTER_ACCOUNT_EMAIL;
+  // Master account check: user?.email === MASTER_ACCOUNT_EMAIL
   const location = useLocation();
   const navigate = useNavigate();
   const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);

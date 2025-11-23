@@ -40,7 +40,7 @@ export function useFeatureAccess(feature: FeatureKey): FeatureAccess {
   const { company } = useAuth();
   const [currentCount, setCurrentCount] = useState<number>(0);
 
-  // Query feature limits from company
+  // Query feature limits from companies table
   const { data: featureLimits, isLoading: limitsLoading } = useQuery({
     queryKey: ['featureLimits', company?.id],
     queryFn: async () => {
@@ -53,7 +53,7 @@ export function useFeatureAccess(feature: FeatureKey): FeatureAccess {
         .single();
 
       if (error) throw error;
-      return data?.feature_limits as Record<string, any> | null;
+      return (data as any)?.feature_limits as Record<string, any> | null;
     },
     enabled: !!company?.id,
     staleTime: 5 * 60 * 1000, // 5 minutes

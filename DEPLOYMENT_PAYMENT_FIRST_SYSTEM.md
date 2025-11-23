@@ -1,13 +1,19 @@
 # ==================================================================================
+
 # DEPLOYMENT-ANLEITUNG: Payment-First Registration System
+
 # ==================================================================================
+
 # Erstellt: 2025-11-22
+
 # Status: CRITICAL - MUSS deployed werden damit Registrierungen funktionieren!
+
 # ==================================================================================
 
 ## 1. EDGE FUNCTIONS DEPLOYEN
 
 ### Option A: Supabase CLI (empfohlen)
+
 ```powershell
 # Stripe Webhook (NEU - erstellt Accounts nach Zahlung)
 supabase functions deploy stripe-webhook
@@ -17,12 +23,13 @@ supabase functions deploy create-checkout
 ```
 
 ### Option B: Supabase Dashboard
+
 1. Gehe zu: https://supabase.com/dashboard/project/ygpwuiygivxoqtyoigtg/functions
 2. Erstelle neue Function "stripe-webhook"
    - Code: `supabase/functions/stripe-webhook/index.ts`
    - Environment Variables benötigt:
-     * STRIPE_SECRET_KEY
-     * STRIPE_WEBHOOK_SECRET (von Stripe Dashboard holen!)
+     - STRIPE_SECRET_KEY
+     - STRIPE_WEBHOOK_SECRET (von Stripe Dashboard holen!)
 3. Update existing "create-checkout" Function
    - Code: `supabase/functions/create-checkout/index.ts`
 
@@ -35,7 +42,7 @@ supabase functions deploy create-checkout
    - `checkout.session.completed` ← CRITICAL für Account Creation!
    - `customer.subscription.updated`
    - `customer.subscription.deleted`
-5. Kopiere "Signing secret" (whsec_...)
+5. Kopiere "Signing secret" (whsec\_...)
 6. Speichere in Supabase Dashboard → Edge Functions → Secrets:
    ```
    STRIPE_WEBHOOK_SECRET=whsec_...
@@ -44,16 +51,20 @@ supabase functions deploy create-checkout
 ## 3. DATENBANK MIGRATION ANWENDEN
 
 ### Option A: Auto-Deploy via GitHub Integration
+
 ✅ Migration wurde bereits gepusht → sollte automatisch deployed werden
+
 - Datei: `supabase/migrations/20251122000018_temp_signups_table.sql`
 - Check in Dashboard: Database → Migrations
 
 ### Option B: Manuell
+
 ```powershell
 supabase db push
 ```
 
 ### Option C: Supabase Dashboard SQL Editor
+
 1. Gehe zu: SQL Editor
 2. Kopiere Inhalt von `supabase/migrations/20251122000018_temp_signups_table.sql`
 3. Execute
@@ -72,6 +83,7 @@ supabase gen types typescript --local > src/integrations/supabase/types.ts
 ## 5. MASTER-ACCOUNT ERSTELLEN
 
 ### SQL in Supabase Dashboard ausführen:
+
 ```sql
 -- 1. Create Auth User
 -- WICHTIG: Ersetze <HASHED_PASSWORD> durch bcrypt-Hash von "#25_FS.42-FKS!"
@@ -161,6 +173,7 @@ Siehe: `supabase/seed_demo_accounts.sql` (TODO: noch zu erstellen)
 ## 7. TESTEN
 
 ### Test 1: Neue Registrierung (Payment-First)
+
 1. Gehe zu: https://www.my-dispatch.de/auth?mode=signup
 2. Wähle Tarif (Starter oder Business)
 3. Fülle Formular komplett aus
@@ -172,6 +185,7 @@ Siehe: `supabase/seed_demo_accounts.sql` (TODO: noch zu erstellen)
 9. ✅ ERWARTET: Auto-Login funktioniert
 
 ### Test 2: Master-Account Login
+
 1. Gehe zu: https://www.my-dispatch.de/auth
 2. Email: info@my-dispatch.de
 3. Password: #25_FS.42-FKS!
@@ -179,6 +193,7 @@ Siehe: `supabase/seed_demo_accounts.sql` (TODO: noch zu erstellen)
 5. ✅ ERWARTET: Master-Dashboard sichtbar (vereinfachte Ansicht)
 
 ### Test 3: Abgebrochene Zahlung
+
 1. Registrierung starten wie Test 1
 2. Auf Stripe-Seite: Klicke "Cancel"
 3. ✅ ERWARTET: Redirect zu /auth?payment=canceled
@@ -188,23 +203,31 @@ Siehe: `supabase/seed_demo_accounts.sql` (TODO: noch zu erstellen)
 ## 8. TROUBLESHOOTING
 
 ### Problem: "No signup found" im Webhook Log
-**Lösung:** 
+
+**Lösung:**
+
 - Check temp_signups Tabelle: `SELECT * FROM temp_signups WHERE payment_status='pending';`
 - Prüfe ob stripe_checkout_session_id korrekt gespeichert wurde
 
 ### Problem: Account wird nicht erstellt nach Zahlung
+
 **Lösung:**
+
 - Check Webhook Logs in Stripe Dashboard
 - Check Supabase Logs: Functions → stripe-webhook → Logs
 - Prüfe ob STRIPE_WEBHOOK_SECRET korrekt gesetzt ist
 
 ### Problem: TypeScript Errors in Auth.tsx
+
 **Lösung:**
+
 - Aktualisiere Supabase Types (Schritt 4)
 - Wenn weiterhin Fehler: Ignoriere temporär mit `// @ts-ignore`
 
 ### Problem: Webhook wird nicht getriggert
+
 **Lösung:**
+
 - Check Stripe Dashboard → Webhooks → Test
 - Prüfe ob Endpoint URL korrekt ist
 - Prüfe ob Events ausgewählt sind (`checkout.session.completed`)
@@ -212,22 +235,24 @@ Siehe: `supabase/seed_demo_accounts.sql` (TODO: noch zu erstellen)
 ## 9. MONITORING
 
 ### Wichtige Logs überwachen:
+
 1. **Supabase Functions:**
    - stripe-webhook
    - create-checkout
-   
+
 2. **Stripe Dashboard:**
    - Webhooks → Recent deliveries
    - Payments → Sessions
-   
+
 3. **Supabase Database:**
+
    ```sql
    -- Pending Signups (sollte nach Payment leer sein)
    SELECT * FROM temp_signups WHERE payment_status = 'pending' AND created_at > NOW() - INTERVAL '1 hour';
-   
+
    -- Completed Signups (heute)
    SELECT * FROM temp_signups WHERE payment_status = 'completed' AND completed_at > CURRENT_DATE;
-   
+
    -- Failed Signups
    SELECT * FROM temp_signups WHERE payment_status = 'failed';
    ```
@@ -235,6 +260,7 @@ Siehe: `supabase/seed_demo_accounts.sql` (TODO: noch zu erstellen)
 ## 10. CLEANUP
 
 ### Auto-Cleanup für abgelaufene Signups (Cron Job)
+
 ```sql
 -- Erstelle Cleanup-Funktion
 CREATE OR REPLACE FUNCTION cleanup_expired_temp_signups()
@@ -250,7 +276,9 @@ $$ LANGUAGE plpgsql;
 ```
 
 ## ==================================================================================
+
 ## DEPLOYMENT CHECKLIST
+
 ## ==================================================================================
 
 - [ ] Edge Functions deployed (stripe-webhook, create-checkout)
@@ -266,7 +294,9 @@ $$ LANGUAGE plpgsql;
 - [ ] Cleanup Cron Job aktiv
 
 ## ==================================================================================
+
 ## IMPORTANT NOTES
+
 ## ==================================================================================
 
 1. **STRIPE_WEBHOOK_SECRET ist KRITISCH!**
@@ -286,7 +316,9 @@ $$ LANGUAGE plpgsql;
    - Blockieren NICHT die Funktionalität
 
 ## ==================================================================================
+
 ## NEXT STEPS NACH DEPLOYMENT
+
 ## ==================================================================================
 
 1. Mindestvorlauf-Konfiguration (Todo #7)

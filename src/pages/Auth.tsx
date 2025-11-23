@@ -279,9 +279,10 @@ export default function Auth() {
       });
 
       if (profile) {
+        const profileData = profile as unknown as { user_id: string; company_id: string };
         logger.debug('[Auth] Profile Data', {
-          user_id: profile.user_id,
-          company_id: profile.company_id,
+          user_id: profileData.user_id,
+          company_id: profileData.company_id,
           component: 'Auth'
         });
           // ==================================================================================
@@ -297,7 +298,8 @@ export default function Auth() {
 
           // Master-Zugang-Check
           // V32.7: Nur user_roles-Tabelle als Single Source of Truth
-          const isMaster = userRoles?.role === 'master';
+          const rolesData = userRoles as unknown as { role: string } | null;
+          const isMaster = rolesData?.role === 'master';
 
           logger.debug('[Auth] Role-Check', {
             email,
@@ -344,9 +346,10 @@ export default function Auth() {
 
         if (customer) {
           logger.debug('[Auth] Customer Portal Access gefunden', { component: 'Auth' });
+          const customerData = customer as unknown as { id: string; company_id: string };
           sessionStorage.setItem('portal_mode', 'true');
-          sessionStorage.setItem('portal_customer_id', customer.id);
-          sessionStorage.setItem('portal_company_id', customer.company_id);
+          sessionStorage.setItem('portal_customer_id', customerData.id);
+          sessionStorage.setItem('portal_company_id', customerData.company_id);
           navigate('/portal');
           return;
         }
@@ -366,14 +369,15 @@ export default function Auth() {
 
       // Sign out user if no profile found (to avoid confusion)
       await supabase.auth.signOut();
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorData = error as { message?: string };
       logger.error('[Auth] Login failed', error, {
         email: email,
         component: 'Auth'
       });
 
       // Show detailed error message
-      const errorMessage = error.message || 'Ungültige Anmeldedaten';
+      const errorMessage = errorData.message || 'Ungültige Anmeldedaten';
 
       toast({
         title: 'Login fehlgeschlagen',
@@ -482,12 +486,13 @@ export default function Auth() {
         throw new Error('Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.');
       }
 
-      logger.debug('[Auth] Temp signup created', { tempSignupId: tempSignup.id, component: 'Auth' });
+      const tempSignupData = tempSignup as unknown as { id: string };
+      logger.debug('[Auth] Temp signup created', { tempSignupId: tempSignupData.id, component: 'Auth' });
 
       // 2. Create Stripe Checkout session
       const { data: checkoutData, error: checkoutError } = await supabase.functions.invoke('create-checkout', {
         body: {
-          temp_signup_id: tempSignup.id,
+          temp_signup_id: tempSignupData.id,
           customer_email: signupData.email,
           tariff_id: selectedTariff,
           billing_period: billingPeriod,
@@ -503,7 +508,7 @@ export default function Auth() {
         await supabase
           .from('temp_signups')
           .update({ payment_status: 'failed' })
-          .eq('id', tempSignup.id);
+          .eq('id', tempSignupData.id);
 
         throw new Error('Checkout-Session konnte nicht erstellt werden. Bitte kontaktieren Sie den Support.');
       }
@@ -512,7 +517,7 @@ export default function Auth() {
       await supabase
         .from('temp_signups')
         .update({ stripe_checkout_session_id: checkoutData.session_id })
-        .eq('id', tempSignup.id);
+        .eq('id', tempSignupData.id);
 
       logger.debug('[Auth] Redirecting to Stripe Checkout', {
         sessionId: checkoutData.session_id,
@@ -522,10 +527,11 @@ export default function Auth() {
       // 4. Redirect to Stripe Payment
       window.location.href = checkoutData.url;
 
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorData = error as { message?: string };
       toast({
         title: 'Registrierung fehlgeschlagen',
-        description: error.message || 'Ein Fehler ist aufgetreten',
+        description: errorData.message || 'Ein Fehler ist aufgetreten',
         variant: 'destructive',
       });
     } finally {
@@ -561,10 +567,11 @@ export default function Auth() {
         title: 'E-Mail versendet',
         description: 'Bitte prüfen Sie Ihr Postfach.',
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorData = error as Error;
       toast({
         title: 'Fehler',
-        description: (error as Error)?.message,
+        description: errorData?.message,
         variant: 'destructive',
       });
     } finally {
