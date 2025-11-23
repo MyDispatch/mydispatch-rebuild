@@ -64,25 +64,17 @@ import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import { PartnerFilter } from "@/components/shared/PartnerFilter";
 import { DetailDialog } from "@/components/shared/DetailDialog";
-import { calculateProvision, formatProvisionInfo } from "@/lib/provision-calculator";
 import { BookingsTable } from "@/components/tables/BookingsTable";
-import { useOptimizedHandlers } from "@/hooks/use-optimized-handlers";
 import { useBulkSelection } from "@/hooks/use-bulk-selection";
-import { useMemoizedFilter, useMemoizedKPIs } from "@/hooks/use-memoized-kpis";
-import { SkeletonTable, SkeletonKPIGrid } from "@/components/shared/SkeletonCard";
+import { useMemoizedFilter } from "@/hooks/use-memoized-kpis";
 import { BulkActionBar } from "@/components/shared/BulkActionBar";
 import { Mail, Download, RefreshCw, Archive as ArchiveIcon } from "lucide-react";
 import { RelatedEntityCard, getStandardActions } from "@/components/shared/RelatedEntityCard";
-import { Separator } from "@/components/ui/separator";
 import { SmartAssignmentDialog } from "@/components/booking/SmartAssignmentDialog";
-import { Sparkles } from "lucide-react";
 import { MobileAuftraege } from "@/components/mobile/MobileAuftraege";
-import { KPIGenerator, QuickActionsGenerator } from "@/lib/dashboard-automation";
-import { DashboardStatsCalculator } from "@/lib/dashboard-automation/stats-calculator";
+import { KPIGenerator } from "@/lib/dashboard-automation";
 import { formatCurrency } from "@/lib/format-utils";
 import { BookingForm } from "@/components/forms/wrapped/BookingForm";
-import { useStatistics } from "@/hooks/use-statistics";
-import { useMainLayout } from "@/hooks/use-main-layout";
 import { useDevValidation } from "@/hooks/validation";
 // Recharts imports removed - charts currently not in use
 import { UniversalExportBar } from "@/components/dashboard/UniversalExportBar";
@@ -233,7 +225,6 @@ export default function Auftraege() {
   const [selectedPartnerId, setSelectedPartnerId] = useState<string>("");
   const [detailDialogOpen, setDetailDialogOpen] = useState(false);
   const [selectedBooking, setSelectedBooking] = useState<Booking | null>(null);
-  const [showSmartAssignment, setShowSmartAssignment] = useState(false);
   const [smartAssignmentOpen, setSmartAssignmentOpen] = useState(false);
   const [smartAssignmentData, setSmartAssignmentData] = useState<{
     bookingId: string;
@@ -242,6 +233,7 @@ export default function Auftraege() {
     vehicleClass?: string;
     passengers: number;
   } | null>(null);
+  const [, setShowInlineCustomerForm] = useState(false);
 
   // ⚡ V37.1 FIX: ALLE useMemo Hooks VOR Early Returns! (React Hook Rules!)
   // V18.5.1: SSOT - Einheitliche KPIs und Quick Actions für Mobile + Desktop
@@ -311,24 +303,7 @@ export default function Auftraege() {
   );
 
   // ⚡ V37.2 FIX: Chart-Daten useMemo MUSS vor Early Returns stehen (React Hook Rules!)
-  const chartData = useMemo(() => {
-    const data = [];
-    for (let i = 29; i >= 0; i--) {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
-      const dayBookings = bookings.filter((b) => {
-        if (!b.created_at) return false;
-        const bookingDate = new Date(b.created_at);
-        return bookingDate.toDateString() === date.toDateString();
-      });
-      data.push({
-        date: format(date, "dd.MM", { locale: de }),
-        count: dayBookings.length,
-      });
-    }
-    return data;
-  }, [bookings]);
-
+  // Charts aktuell nicht aktiv
   const offersChartData = useMemo(() => {
     const data = [];
     for (let i = 29; i >= 0; i--) {

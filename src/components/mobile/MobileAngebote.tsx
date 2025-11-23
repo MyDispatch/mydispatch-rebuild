@@ -6,7 +6,7 @@
 
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Plus, FileText, MapPin, Clock, Euro } from 'lucide-react';
+import { Plus, FileText, MapPin, Euro } from 'lucide-react';
 import { MobileGridLayout } from './MobileGridLayout';
 import { Badge } from '@/components/ui/badge';
 import { formatCurrency } from '@/lib/format-utils';

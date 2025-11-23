@@ -20,7 +20,7 @@ import { useMainLayout } from '@/hooks/use-main-layout';
 import { StatCard } from '@/components/smart-templates/StatCard';
 import { StandardPageLayout } from '@/components/layout/StandardPageLayout';
 import { UniversalExportBar } from '@/components/dashboard/UniversalExportBar';
-import { TrendingUp, Users, Car, Euro, Calendar, Download, FileText } from 'lucide-react';
+import { TrendingUp, Users, Car, Euro, Calendar } from 'lucide-react';
 import { useDashboardStats, formatRevenue } from '@/hooks/use-dashboard-stats';
 import { useExtendedStatistics, calculateProvision } from '@/hooks/use-extended-statistics';
 import { useStatistics } from '@/hooks/use-statistics';
