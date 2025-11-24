@@ -83,38 +83,82 @@ export default defineConfig({
         // Module bundling for better tree-shaking
         preserveModules: false,
 
-        // ✅ PHASE 15: Code-Splitting & Manual Chunks
-        manualChunks: {
-          // React Core
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+        // ✅ PHASE 15: Code-Splitting & Manual Chunks (OPTIMIZED)
+        manualChunks: (id) => {
+          // React Core Vendor (always loaded)
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/') || id.includes('node_modules/react-router-dom/')) {
+            return 'react-vendor';
+          }
 
-          // UI Libraries
-          'ui-vendor': [
-            '@radix-ui/react-dialog',
-            '@radix-ui/react-dropdown-menu',
-            '@radix-ui/react-select',
-            '@radix-ui/react-tabs',
-            '@radix-ui/react-toast',
-            '@radix-ui/react-tooltip',
-          ],
+          // Supabase (core functionality)
+          if (id.includes('@supabase/supabase-js')) {
+            return 'supabase';
+          }
 
-          // Charts & Visualization
-          'charts': ['recharts'],
+          // UI Components (Radix UI)
+          if (id.includes('@radix-ui/')) {
+            return 'ui-vendor';
+          }
 
-          // Forms
-          'forms': ['react-hook-form', '@hookform/resolvers', 'zod'],
+          // Charts (heavy, split into separate chunk)
+          if (id.includes('recharts')) {
+            return 'charts';
+          }
 
-          // Supabase
-          'supabase': ['@supabase/supabase-js'],
+          // Forms (zod + react-hook-form)
+          if (id.includes('react-hook-form') || id.includes('@hookform/resolvers') || id.includes('zod')) {
+            return 'forms';
+          }
 
-          // Export Libraries (Heavy)
-          'export-libs': ['exceljs', 'jspdf', 'html2canvas'],
-
-          // Date & Time
-          'date-libs': ['date-fns'],
+          // Date utilities
+          if (id.includes('date-fns')) {
+            return 'date-libs';
+          }
 
           // Icons
-          'icons': ['lucide-react'],
+          if (id.includes('lucide-react')) {
+            return 'icons';
+          }
+
+          // ✅ SPLIT EXPORT LIBS INTO SMALLER CHUNKS (1.5MB → 3x ~500KB)
+          
+          // PDF Export (jsPDF + dependencies)
+          if (id.includes('jspdf') || id.includes('html2canvas') || id.includes('dompurify')) {
+            return 'pdf-export';
+          }
+
+          // Excel Export (exceljs)
+          if (id.includes('exceljs')) {
+            return 'excel-export';
+          }
+
+          // PDF Make (alternative PDF generator)
+          if (id.includes('pdfmake')) {
+            return 'pdfmake-export';
+          }
+
+          // Calendar utilities
+          if (id.includes('react-big-calendar') || id.includes('react-calendar')) {
+            return 'calendar';
+          }
+
+          // TanStack Query (React Query)
+          if (id.includes('@tanstack/react-query')) {
+            return 'react-query';
+          }
+
+          // Stripe
+          if (id.includes('@stripe/stripe-js')) {
+            return 'stripe';
+          }
+
+          // Testing libraries (should not be in production, but just in case)
+          if (id.includes('@testing-library/') || id.includes('vitest')) {
+            return 'testing';
+          }
+
+          // Everything else goes into default chunk
+          return undefined;
         },
       },
     },
