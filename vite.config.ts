@@ -121,7 +121,7 @@ export default defineConfig({
           }
 
           // ✅ SPLIT EXPORT LIBS INTO SMALLER CHUNKS (1.5MB → 3x ~500KB)
-          
+
           // PDF Export (jsPDF + dependencies)
           if (id.includes('jspdf') || id.includes('html2canvas') || id.includes('dompurify')) {
             return 'pdf-export';

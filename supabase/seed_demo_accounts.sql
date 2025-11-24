@@ -115,7 +115,7 @@ INSERT INTO drivers (
     license_expiry,
     status,
     created_at
-) VALUES 
+) VALUES
 (
     '20000000-0001-0000-0000-000000000001',
     demo_company_id,
@@ -193,7 +193,7 @@ INSERT INTO vehicles (
     seats,
     status,
     created_at
-) VALUES 
+) VALUES
 (
     '30000000-0001-0000-0000-000000000001',
     demo_company_id,
@@ -273,7 +273,7 @@ INSERT INTO customers (
     postal_code,
     city,
     created_at
-) VALUES 
+) VALUES
 -- Private Customers
 (
     '40000000-0001-0000-0000-000000000001',
@@ -435,7 +435,7 @@ INSERT INTO bookings (
     booking_status,
     price,
     created_at
-) VALUES 
+) VALUES
 -- Completed Bookings (Past)
 (
     '50000000-0001-0000-0000-000000000001',
@@ -594,7 +594,7 @@ INSERT INTO cost_centers (
     description,
     is_active,
     created_at
-) VALUES 
+) VALUES
 (
     '60000000-0001-0000-0000-000000000001',
     demo_company_id,
