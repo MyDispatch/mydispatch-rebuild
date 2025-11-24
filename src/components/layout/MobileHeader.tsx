@@ -22,7 +22,7 @@ import { designTokens } from '@/config/design-tokens';
 import { Logo } from '@/components/shared/Logo';
 
 export function MobileHeader() {
-  const { profile, company } = useAuth();
+  const { profile } = useAuth();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
 
@@ -38,7 +38,7 @@ export function MobileHeader() {
 
   return (
     <>
-      <header 
+      <header
         className="fixed top-0 left-0 right-0 backdrop-blur-md"
         style={{
           zIndex: designTokens.zIndex.mobileHeader,
@@ -49,17 +49,17 @@ export function MobileHeader() {
       >
         <div className="flex items-center justify-between h-full px-4">
           {/* Logo - Unified Logo Component */}
-          <div 
+          <div
             className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
             onClick={() => navigate('/dashboard')}
           >
             <Logo className="h-7 w-auto" />
           </div>
-          
+
           {/* Actions */}
           <div className="flex items-center gap-1">
             <V28Button
-              variant="ghost" 
+              variant="ghost"
               size="sm"
               onClick={() => {
                 const event = new CustomEvent('open-global-search');
@@ -71,9 +71,9 @@ export function MobileHeader() {
             >
               {/* Empty for icon-only */}
             </V28Button>
-            
-            <V28Button 
-              variant="ghost" 
+
+            <V28Button
+              variant="ghost"
               size="sm"
               onClick={() => {
                 const event = new CustomEvent('open-ai-chat');
@@ -85,9 +85,9 @@ export function MobileHeader() {
             >
               {/* Empty for icon-only */}
             </V28Button>
-            
-            <V28Button 
-              variant="ghost" 
+
+            <V28Button
+              variant="ghost"
               size="sm"
               onClick={() => setShowMenu(true)}
               className="h-10 w-10 p-0 text-white hover:text-white"
@@ -106,13 +106,13 @@ export function MobileHeader() {
           <SheetHeader>
             <SheetTitle>Menü</SheetTitle>
           </SheetHeader>
-          
+
           <div className="mt-6 flex flex-col gap-6">
             {/* User Profile */}
             <div className="flex items-center gap-4">
               <Avatar className="h-12 w-12">
                 <AvatarImage src={profile?.profile_image_url || undefined} />
-                <AvatarFallback 
+                <AvatarFallback
                   style={{
                     backgroundColor: designTokens.colors.slate[900],
                     color: designTokens.colors.white,
@@ -122,7 +122,7 @@ export function MobileHeader() {
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1 min-w-0">
-                <div 
+                <div
                   className="font-semibold truncate"
                   style={{ color: designTokens.colors.slate[900] }}
                 >
@@ -130,7 +130,7 @@ export function MobileHeader() {
                     ? `${profile.first_name} ${profile.last_name}`
                     : profile?.email || 'Benutzer'}
                 </div>
-                <div 
+                <div
                   className="text-sm truncate"
                   style={{ color: designTokens.colors.slate[600] }}
                 >

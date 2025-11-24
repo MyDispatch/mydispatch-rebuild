@@ -9,7 +9,6 @@
 
 import { useAuth } from '@/hooks/use-auth';
 import { useAccountType } from '@/hooks/use-account-type';
-import { V28Button } from '@/components/design-system/V28Button';
 import { LogOut, User, Search, Bot } from 'lucide-react';
 import { Logo } from '@/components/shared/Logo';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +20,7 @@ interface HeaderProps {
 }
 
 export function Header({ sidebarExpanded }: HeaderProps) {
-  const { user, profile, signOut, company } = useAuth();
+  const { user, profile, signOut } = useAuth();
   const { permissions } = useAccountType();
   const navigate = useNavigate();
 
@@ -32,7 +31,7 @@ export function Header({ sidebarExpanded }: HeaderProps) {
   };
 
   return (
-    <header 
+    <header
       className={cn(
         "fixed top-0 right-0 h-16 bg-gradient-to-b from-white to-slate-50 border-b border-slate-200 shadow-lg transition-all backdrop-blur-md"
       )}
@@ -49,14 +48,14 @@ export function Header({ sidebarExpanded }: HeaderProps) {
       <div className="px-6 lg:px-8 h-full flex items-center">
         <div className="flex items-center justify-between w-full">
           {/* V29.1: UNIFIED LOGO - Nur MyDispatch-Logo systemweit */}
-          <div 
-            onClick={() => navigate(permissions.canAccessMasterDashboard ? '/master' : '/dashboard')} 
+          <div
+            onClick={() => navigate(permissions.canAccessMasterDashboard ? '/master' : '/dashboard')}
             className="cursor-pointer hover:opacity-90 transition-all duration-300"
             title="Zur Startseite"
           >
             <Logo className="h-8 md:h-10" />
           </div>
-          
+
           {user && (
             <div className="flex items-center gap-3">
               <button

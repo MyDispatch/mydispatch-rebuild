@@ -9,7 +9,6 @@ import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { V28Button } from '@/components/design-system/V28Button';
 import { trackUIError } from '@/lib/error-tracker';
-import { useNavigate } from 'react-router-dom';
 
 interface Props {
   children: React.ReactNode;

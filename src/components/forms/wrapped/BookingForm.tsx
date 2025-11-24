@@ -47,8 +47,8 @@ export function BookingForm({
   customers = [],
   drivers = [],
   vehicles = [],
-  partners = [],
-  costCenters = [],
+  partners: _partners = [], // Available for future use
+  costCenters: _costCenters = [], // Available for future use
   onCreateCustomer,
   dialogOpen,
   onDialogOpenChange,

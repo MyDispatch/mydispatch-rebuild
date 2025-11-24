@@ -304,23 +304,7 @@ export default function Auftraege() {
 
   // ⚡ V37.2 FIX: Chart-Daten useMemo MUSS vor Early Returns stehen (React Hook Rules!)
   // Charts aktuell nicht aktiv
-  const offersChartData = useMemo(() => {
-    const data = [];
-    for (let i = 29; i >= 0; i--) {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
-      const dayOffers = offers.filter((b) => {
-        if (!b.created_at) return false;
-        const offerDate = new Date(b.created_at);
-        return offerDate.toDateString() === date.toDateString();
-      });
-      data.push({
-        date: format(date, "dd.MM", { locale: de }),
-        count: dayOffers.length,
-      });
-    }
-    return data;
-  }, [offers]);
+  // offersChartData removed - charts not currently active
 
   // V18.3: Auto-open Dialog wenn von Dashboard navigiert
   useEffect(() => {
@@ -599,11 +583,6 @@ export default function Auftraege() {
     }
   };
 
-  const handleViewDetails = (booking: Booking) => {
-    setSelectedBooking(booking);
-    setDetailDialogOpen(true);
-  };
-
   const handleEdit = (booking: Booking) => {
     setEditingBooking(booking);
     // ✅ V28.1: Use react-hook-form reset with values
@@ -682,8 +661,7 @@ export default function Auftraege() {
       return matchesSearch && matchesPartner;
     });
 
-  // Aktueller Tab-Daten
-  const currentTabData = currentTab === "angebote" ? filteredOffers : filteredBookings;
+  // currentTabData removed - not used in rendering
 
   const formatDateTime = (date: string) => {
     return format(new Date(date), "dd.MM.yyyy HH:mm");

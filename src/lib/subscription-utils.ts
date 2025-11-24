@@ -31,7 +31,7 @@ export function isStarterTier(productId: string | null | undefined): boolean {
 
 export function isEnterpriseTier(productId: string | null | undefined): boolean {
   if (!productId) return false;
-  return (PRODUCT_IDS.enterprise as readonly string[]).includes(productId) || 
+  return (PRODUCT_IDS.enterprise as readonly string[]).includes(productId) ||
          productId.toLowerCase().includes('enterprise');
 }
 
@@ -46,12 +46,12 @@ export function getTierName(productId: string | null | undefined): string {
 // Erweiterte Funktionen für Tarif-System V18.3.24
 export function hasFeatureModule(productId: string | null | undefined, module: string): boolean {
   // Import dynamisch um Circular Dependency zu vermeiden
-  const tariff = ALL_TARIFFS.find(t => 
+  const tariff = ALL_TARIFFS.find(t =>
     (t.stripeProductIds as readonly string[]).includes(productId || '')
   );
-  
+
   if (!tariff) return false;
-  
+
   const feature = tariff.features.find(f => f.module === module);
   return feature?.included ?? false;
 }
@@ -59,7 +59,7 @@ export function hasFeatureModule(productId: string | null | undefined, module: s
 // Temporärer Import-Wrapper (wird durch tariff-definitions ersetzt)
 const ALL_TARIFFS: any[] = [];
 
-export function getFeaturesByTier(tierId: 'starter' | 'business' | 'enterprise') {
+export function getFeaturesByTier(_tierId: 'starter' | 'business' | 'enterprise') {
   // Wird durch tariff-definitions.ts verwaltet
   return [];
 }

@@ -12,7 +12,7 @@ interface LogoProps {
   showTagline?: boolean;
 }
 
-export function Logo({ className, showTagline = false }: LogoProps) {
+export function Logo({ className, showTagline: _showTagline = false }: LogoProps) {
   return (
     <img
       src={officialLogo}
