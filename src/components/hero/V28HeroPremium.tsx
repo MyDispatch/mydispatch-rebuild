@@ -51,7 +51,8 @@ export function V28HeroPremium({
 }: V28HeroPremiumProps) {
   const getMinHeight = () => {
     // V32.1: EINHEITLICHE Hero-Höhe für alle Variants (Design-Harmonisierung)
-    return 'min-h-[650px] md:min-h-[750px]';
+    // Mobile: reduziert, Desktop: volle Höhe
+    return 'min-h-[auto] sm:min-h-[600px] md:min-h-[650px] lg:min-h-[750px]';
   };
 
   return (
@@ -64,56 +65,56 @@ export function V28HeroPremium({
         <div className="absolute inset-0 bg-slate-50" />
       )}
 
-      {/* Content Container */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      {/* Content Container - Mobile first responsive */}
+      <div className="relative z-10 w-full container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-12 md:py-20 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-12 lg:gap-16 items-center">
 
           {/* Left Column - Text Content */}
-          <div className="space-y-6 animate-fade-in">
+          <div className="space-y-4 sm:space-y-5 md:space-y-6 animate-fade-in">
 
             {/* Badge */}
             {badge && (
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200">
-                {badge.icon && <badge.icon className="w-4 h-4 text-slate-700" />}
-                <span className="font-sans text-sm font-semibold text-slate-700">
+              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-slate-100 border border-slate-200">
+                {badge.icon && <badge.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-700" />}
+                <span className="font-sans text-xs sm:text-sm font-semibold text-slate-700">
                   {badge.text}
                 </span>
               </div>
             )}
 
-            {/* Title */}
-            <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
+            {/* Title - Mobile-optimiert: 24px → 36px → 48px */}
+            <h1 className="font-sans text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight">
               {title}
             </h1>
 
-            {/* Subtitle */}
-            <p className="font-sans text-xl sm:text-2xl md:text-3xl font-medium text-slate-600 leading-relaxed">
+            {/* Subtitle - Mobile-optimiert: 18px → 20px → 28px */}
+            <p className="font-sans text-base sm:text-lg md:text-xl lg:text-2xl font-medium text-slate-600 leading-relaxed">
               {subtitle}
             </p>
 
-            {/* Description */}
+            {/* Description - Lesbar auf mobile */}
             {description && (
-              <p className="font-sans text-base md:text-lg text-slate-600 leading-relaxed max-w-xl">
+              <p className="font-sans text-sm sm:text-base md:text-base lg:text-lg text-slate-600 leading-relaxed max-w-xl">
                 {description}
               </p>
             )}
 
-            {/* Business Metrics - with staggered animation */}
+            {/* Business Metrics - with staggered animation, mobile-responsive gaps */}
             {businessMetrics && businessMetrics.length > 0 && (
-              <div className="flex flex-wrap justify-start gap-12 py-4">
+              <div className="flex flex-wrap justify-start gap-6 sm:gap-8 md:gap-10 lg:gap-12 py-2 sm:py-3 md:py-4">
                 {businessMetrics.map((metric, idx) => (
                   <div
                     key={idx}
                     className="text-left animate-fade-in"
                     style={{ animationDelay: `${0.6 + (idx * 0.1)}s` }}
                   >
-                    <div className="text-3xl font-bold text-slate-900 mb-1 leading-none">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 mb-0.5 leading-none">
                       {metric.value}
                     </div>
-                    <div className="text-sm text-slate-600 font-medium leading-tight">
+                    <div className="text-xs sm:text-sm text-slate-600 font-medium leading-tight">
                       {metric.label}
                     </div>
-                    <div className="text-xs text-slate-500 leading-tight">
+                    <div className="text-[10px] sm:text-xs text-slate-500 leading-tight">
                       {metric.sublabel}
                     </div>
                   </div>
@@ -121,15 +122,15 @@ export function V28HeroPremium({
               </div>
             )}
 
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-2">
+            {/* CTA Buttons - Mobile stack, Desktop side-by-side */}
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 pt-1 sm:pt-2 md:pt-4">
         <V28Button
           variant="primary"
           size="lg"
           onClick={primaryCTA.onClick}
-          className="shadow-lg hover:shadow-xl"
+          className="shadow-lg hover:shadow-xl w-full sm:w-auto"
         >
-          {primaryCTA.icon && <primaryCTA.icon className="w-5 h-5 mr-2" />}
+          {primaryCTA.icon && <primaryCTA.icon className="w-4 sm:w-5 h-4 sm:h-5 mr-1.5 sm:mr-2" />}
           {primaryCTA.label}
         </V28Button>
 
@@ -138,7 +139,7 @@ export function V28HeroPremium({
 
             {/* Trust Indicators */}
             {trustElements && (
-              <div className="pt-8">
+              <div className="pt-4 sm:pt-6 md:pt-8">
                 <TrustIndicators />
               </div>
             )}

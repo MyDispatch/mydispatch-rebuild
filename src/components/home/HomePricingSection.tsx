@@ -33,20 +33,20 @@ export const HomePricingSection = () => {
   };
 
   return (
-    <section className="py-12 md:py-16 lg:py-20 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-white">
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         {/* Title & Description */}
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-slate-900 mb-4">
+        <div className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 mb-2 sm:mb-3 md:mb-4">
             Transparente Preise, faire Konditionen
           </h2>
-          <p className="font-sans text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="font-sans text-sm sm:text-base md:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed px-2">
             Wählen Sie den Tarif, der zu Ihrer Flottengröße passt. Monatlich kündbar, ohne versteckte Kosten.
           </p>
         </div>
 
         {/* Billing Toggle */}
-        <div className="flex justify-center mb-28 md:mb-36">
+        <div className="flex justify-center mb-10 sm:mb-14 md:mb-20 lg:mb-28">
           <V28BillingToggle
             billingPeriod={billingPeriod}
             onToggle={setBillingPeriod}
@@ -54,8 +54,8 @@ export const HomePricingSection = () => {
           />
         </div>
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 md:items-start">
+        {/* Pricing Cards - Mobile: 1 col, Tablet: 1 col (scroll), Desktop: 3 cols */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8 xl:gap-10 md:items-start overflow-x-auto">
           {ALL_TARIFFS.map((tariff) => {
             const includedFeatures = tariff.features.filter((f) => f.included);
             const displayLimit = tariff.highlighted ? 8 : 5;
@@ -67,8 +67,8 @@ export const HomePricingSection = () => {
               <div
                 key={tariff.id}
                 className={cn(
-                  "transition-all duration-300",
-                  tariff.highlighted && "md:-translate-y-12 lg:-translate-y-16"
+                  "transition-all duration-300 min-w-full md:min-w-0",
+                  tariff.highlighted && "md:-translate-y-6 lg:-translate-y-10 xl:-translate-y-16"
                 )}
               >
                 <V28PricingCard
@@ -90,8 +90,8 @@ export const HomePricingSection = () => {
                   onCTAClick={() => navigate(tariff.id === 'enterprise' ? '/contact' : '/auth?mode=signup')}
                   onShowAllFeatures={hasMoreFeatures ? () => navigate('/pricing') : undefined}
                   className={cn(
-                    "animate-fade-in",
-                    tariff.highlighted 
+                    "animate-fade-in h-full",
+                    tariff.highlighted
                       ? "hover:shadow-[0_20px_60px_-12px_rgba(71,85,105,0.3)] transition-all duration-300"
                       : "hover:shadow-2xl transition-shadow duration-300"
                   )}
@@ -102,10 +102,10 @@ export const HomePricingSection = () => {
         </div>
 
         {/* Footer Link */}
-        <div className="text-center mt-12">
+        <div className="text-center mt-8 sm:mt-10 md:mt-12">
           <a
             href="/pricing"
-            className="font-sans text-base font-medium no-underline transition-all duration-300 hover:opacity-80 text-slate-600 hover:text-slate-900"
+            className="font-sans text-sm sm:text-base font-medium no-underline transition-all duration-300 hover:opacity-80 text-slate-600 hover:text-slate-900"
           >
             Alle Features vergleichen
           </a>

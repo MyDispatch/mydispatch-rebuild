@@ -69,7 +69,7 @@ const features = [
 
 export const HomeFeaturesSection = () => {
   const { ref: featuresRef, isVisible: featuresVisible } = useIntersectionObserver();
-  
+
   return (
     <V28MarketingSection
       background="canvas"
@@ -80,10 +80,10 @@ export const HomeFeaturesSection = () => {
         {/* Decorative Orbs */}
         <div className="absolute -top-10 -right-10 w-32 h-32 bg-slate-100 rounded-full blur-3xl opacity-30 pointer-events-none" />
         <div className="absolute bottom-[30%] -left-10 w-40 h-40 bg-slate-200 rounded-full blur-3xl opacity-20 pointer-events-none" />
-        
-        <div 
+
+        <div
           ref={featuresRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6"
         >
         {features.map((feature, idx) => {
           const FeatureIcon = feature.icon;
@@ -97,22 +97,22 @@ export const HomeFeaturesSection = () => {
               )}
               style={{ animationDelay: `${idx * 100}ms` }}
             >
-              <V28MarketingCard className="relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] cursor-pointer">
+              <V28MarketingCard className="relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] cursor-pointer h-full">
                 {/* Hover-Glow-Effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-slate-100 via-slate-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
-                
+
                 {/* Content */}
-                <div className="relative z-10">
-                  <V28IconBox icon={FeatureIcon} variant="slate" className="group-hover:scale-110 transition-transform duration-300" />
-                  <h3 className="font-sans text-lg font-semibold mb-2 mt-4 text-slate-900">
+                <div className="relative z-10 flex flex-col h-full">
+                  <V28IconBox icon={FeatureIcon} variant="slate" className="group-hover:scale-110 transition-transform duration-300 mb-2 sm:mb-3" />
+                  <h3 className="font-sans text-base sm:text-lg font-semibold mb-1.5 sm:mb-2 mt-2 sm:mt-4 text-slate-900 line-clamp-2">
                     {feature.title}
                   </h3>
-                  <p className="font-sans text-sm leading-relaxed text-slate-600 mb-4">
+                  <p className="font-sans text-xs sm:text-sm leading-relaxed text-slate-600 mb-3 sm:mb-4 flex-1">
                     {feature.description}
                   </p>
-                  <div className="flex items-center gap-2 text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-600 group-hover:text-slate-900 transition-colors">
                     <span>Mehr erfahren</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
                   </div>
                 </div>
               </V28MarketingCard>
