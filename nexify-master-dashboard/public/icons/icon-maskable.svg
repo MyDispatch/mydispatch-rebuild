@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="maskableGradient" x1="80" x2="432" y1="432" y2="80" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1d4ed8" />
+      <stop offset="1" stop-color="#020617" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="url(#maskableGradient)" />
+  <g stroke="#f8fafc" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
+    <path d="M176 368h72l28-56 28 56h72l-72-216h-72l-36 108 36 108" />
+    <path d="M144 160c16-40 56-64 112-64s96 24 112 64" stroke-dasharray="12 18" />
+  </g>
+</svg>
